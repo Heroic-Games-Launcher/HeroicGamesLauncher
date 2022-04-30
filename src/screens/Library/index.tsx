@@ -35,11 +35,11 @@ export default function Library(): JSX.Element {
     show: false,
     runner: 'legendary' as Runner
   })
-  const [sortAscending, setSortAscending] = useState(
-    JSON.parse(storage?.getItem('sortAscending') || 'true')
+  const [sortDescending, setSortDescending] = useState(
+    JSON.parse(storage?.getItem('sortDescending') || 'false')
   )
   const [sortInstalled, setSortInstalled] = useState(
-    JSON.parse(storage?.getItem('sortInstalled') || 'false')
+    JSON.parse(storage?.getItem('sortInstalled') || 'true')
   )
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
@@ -72,9 +72,9 @@ export default function Library(): JSX.Element {
     setShowModal({ game: appName, show: true, runner })
   }
 
-  function handleSortAscending() {
-    setSortAscending(!sortAscending)
-    storage.setItem('sortAscending', JSON.stringify(!sortAscending))
+  function handleSortDescending() {
+    setSortDescending(!sortDescending)
+    storage.setItem('sortDescending', JSON.stringify(!sortDescending))
   }
 
   function handleSortInstalled() {
@@ -87,8 +87,8 @@ export default function Library(): JSX.Element {
       <div className="titleWithIcons">
         {getLibraryTitle(category, filter, t)}
         <ActionIcons
-          sortAscending={sortAscending}
-          toggleSortAscending={() => handleSortAscending()}
+          sortDescending={sortDescending}
+          toggleSortDescending={() => handleSortDescending()}
           sortInstalled={sortInstalled}
           toggleSortinstalled={() => handleSortInstalled()}
         />
@@ -109,29 +109,21 @@ export default function Library(): JSX.Element {
 
   // select library and sort
   let libraryToShow = category === 'epic' ? epicLibrary : gogLibrary
-
-  libraryToShow = libraryToShow
-    .sort((a: { title: string }, b: { title: string }) => {
+  libraryToShow = libraryToShow.sort(
+    (a: { title: string }, b: { title: string }) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
       const gameB = b.title.toUpperCase().replace('THE ', '')
-      return sortAscending ? (gameA > gameB ? -1 : 1) : gameA < gameB ? -1 : 1
-    })
-    .sort((g1, g2) => {
-      if (sortInstalled) {
-        if (g1.is_installed) return -1
-        if (g2.is_installed) return 1
-
-        if (installing.includes(g1.app_name)) return -1
-
-        return 1
-      }
-      if (g1.is_installed) return 1
-      if (g2.is_installed) return -1
-
-      if (installing.includes(g1.app_name)) return -1
-
-      return -1
-    })
+      return sortDescending ? (gameA > gameB ? -1 : 1) : gameA < gameB ? -1 : 1
+    }
+  )
+  const installed = libraryToShow.filter((g) => g.is_installed)
+  const notInstalled = libraryToShow.filter((g) => !g.is_installed)
+  const installingGames = libraryToShow.filter((g) =>
+    installing.includes(g.app_name)
+  )
+  libraryToShow = sortInstalled
+    ? [...installed, ...installingGames, ...notInstalled]
+    : libraryToShow
 
   const showRecentGames = !!recentGames.length && category !== 'unreal'
 

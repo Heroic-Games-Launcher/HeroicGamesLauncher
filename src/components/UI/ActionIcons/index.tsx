@@ -17,15 +17,15 @@ import FormControl from '../FormControl'
 import './index.css'
 
 interface Props {
-  sortAscending: boolean
+  sortDescending: boolean
   sortInstalled: boolean
-  toggleSortAscending: () => void
+  toggleSortDescending: () => void
   toggleSortinstalled: () => void
 }
 
 export default function ActionIcons({
-  sortAscending,
-  toggleSortAscending,
+  sortDescending,
+  toggleSortDescending,
   sortInstalled,
   toggleSortinstalled
 }: Props) {
@@ -56,12 +56,16 @@ export default function ActionIcons({
         </button>
         <button
           className={cx('FormControl__button', 'active')}
-          title={t('library.sortByTitle', 'Sort by Title')}
-          onClick={() => toggleSortAscending()}
+          title={
+            sortDescending
+              ? t('library.sortDescending', 'Sort Descending')
+              : t('library.sortAscending', 'Sort Ascending')
+          }
+          onClick={() => toggleSortDescending()}
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
-            icon={sortAscending ? faArrowDownAZ : faArrowDownZA}
+            icon={sortDescending ? faArrowDownAZ : faArrowDownZA}
           />
         </button>
         <button
