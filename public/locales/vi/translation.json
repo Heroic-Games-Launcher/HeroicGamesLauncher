@@ -157,8 +157,9 @@
         "gridView": "Hiển thị dạng ô",
         "listView": "Hiển thị dạng danh sánh",
         "refresh": "Tải lại",
+        "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
-        "sortByTitle": "Sort by Title"
+        "sortDescending": "Sort Descending"
     },
     "Library": "Thư viện",
     "loading": {

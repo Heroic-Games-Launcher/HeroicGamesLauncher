@@ -157,8 +157,9 @@
         "gridView": "Изглед във вид на решетка",
         "listView": "Изглед във вид на списък",
         "refresh": "Опресняване",
+        "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
-        "sortByTitle": "Sort by Title"
+        "sortDescending": "Sort Descending"
     },
     "Library": "Библиотека",
     "loading": {

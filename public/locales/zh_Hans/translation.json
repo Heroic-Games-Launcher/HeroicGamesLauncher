@@ -157,8 +157,9 @@
         "gridView": "网格视图",
         "listView": "列表视图",
         "refresh": "刷新",
+        "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
-        "sortByTitle": "Sort by Title"
+        "sortDescending": "Sort Descending"
     },
     "Library": "仓库",
     "loading": {

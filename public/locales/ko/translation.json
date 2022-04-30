@@ -157,8 +157,9 @@
         "gridView": "그리드 보기",
         "listView": "목록 보기",
         "refresh": "새로고침",
+        "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
-        "sortByTitle": "Sort by Title"
+        "sortDescending": "Sort Descending"
     },
     "Library": "라이브러리",
     "loading": {
