@@ -550,7 +550,7 @@ export class LegendaryLibrary {
 export async function runLegendaryCommand(
   commandParts: Array<string>,
   logFile?: string,
-  onProgress?: (progress: InstallProgress) => void,
+  onProgress?: (progress: InstallProgress, currentDownloadSize: number) => void,
   env = process.env
 ): Promise<ExecResult> {
   commandParts = commandParts.filter((n) => n)
@@ -582,18 +582,31 @@ export async function runLegendaryCommand(
       child.stdout.on('data', (data: Buffer) => {
         appendFileSync(logFile, data.toString())
       })
+
+      // used when downloading games, store the download size read from Legendary's output
+      let currentDownloadSize = 0
       child.stderr.on('data', (data: Buffer) => {
         const str = data.toString()
         if (onProgress) {
-          const progressMatch = str.match(/Progress: (\d+)\./m)
-          if (progressMatch) {
+          const downloadSizeMatch = str.match(/Download size: ([\d.]+) MiB/)
+
+          // store the download size, needed for correct calculation
+          // when cancel/resume downloads
+          if (downloadSizeMatch) {
+            currentDownloadSize = parseFloat(downloadSizeMatch[1])
+          }
+
+          const bytesMatch = str.match(/Downloaded: (\S+) MiB/m)
+          if (bytesMatch) {
             const etaMatch = str.match(/ETA: (\d\d:\d\d:\d\d)/m)
-            const bytesMatch = str.match(/Downloaded: (\S+) MiB/m)
-            onProgress({
-              eta: etaMatch[1],
-              percent: `${progressMatch[1]}%`,
-              bytes: `${bytesMatch[1]}MiB`
-            })
+            onProgress(
+              {
+                eta: etaMatch[1],
+                percent: '',
+                bytes: bytesMatch[1]
+              },
+              currentDownloadSize
+            )
           }
         }
 

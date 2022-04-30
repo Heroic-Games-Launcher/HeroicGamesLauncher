@@ -224,8 +224,19 @@ class LegendaryGame extends Game {
 
   public onInstallOrUpdateProgress(
     progress: InstallProgress,
-    action: 'installing' | 'updating'
+    action: 'installing' | 'updating',
+    originalDownloadSize: number,
+    currentDownloadSize: number
   ) {
+    // original is in bytes
+    originalDownloadSize =
+      Math.round((originalDownloadSize / 1024 / 1024) * 100) / 100
+
+    const downloaded = parseFloat(progress.bytes)
+    const downloadCache = originalDownloadSize - currentDownloadSize
+    const totalDownloaded = downloaded + downloadCache
+    const percent = Math.round((totalDownloaded / originalDownloadSize) * 100)
+
     logInfo(
       [
         `Progress for ${this.appName}:`,
@@ -238,7 +249,11 @@ class LegendaryGame extends Game {
       appName: this.appName,
       runner: 'legendary',
       status: action,
-      progress: progress
+      progress: {
+        eta: progress.eta,
+        percent: `${percent}%`,
+        bytes: `${progress.bytes}MiB`
+      }
     })
   }
 
@@ -253,6 +268,7 @@ class LegendaryGame extends Game {
       status: 'updating'
     })
     const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const info = await Game.get(this.appName, 'legendary').getInstallInfo()
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
@@ -261,8 +277,16 @@ class LegendaryGame extends Game {
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Legendary)
 
-    const onProgress = (progress: InstallProgress) => {
-      this.onInstallOrUpdateProgress(progress, 'installing')
+    const onProgress = (
+      progress: InstallProgress,
+      currentDownloadSize: number
+    ) => {
+      this.onInstallOrUpdateProgress(
+        progress,
+        'installing',
+        info.manifest.download_size,
+        currentDownloadSize
+      )
     }
 
     const res = await runLegendaryCommand(commandParts, logPath, onProgress)
@@ -324,6 +348,7 @@ class LegendaryGame extends Game {
     platformToInstall
   }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const info = await Game.get(this.appName, 'legendary').getInstallInfo()
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
@@ -345,8 +370,16 @@ class LegendaryGame extends Game {
     const command = getLegendaryCommand(commandParts)
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
 
-    const onProgress = (progress: InstallProgress) => {
-      this.onInstallOrUpdateProgress(progress, 'updating')
+    const onProgress = (
+      progress: InstallProgress,
+      currentDownloadSize: number
+    ) => {
+      this.onInstallOrUpdateProgress(
+        progress,
+        'updating',
+        info.manifest.download_size,
+        currentDownloadSize
+      )
     }
 
     const res = await runLegendaryCommand(commandParts, logPath, onProgress)
