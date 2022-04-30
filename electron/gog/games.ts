@@ -103,6 +103,26 @@ class GOGGame extends Game {
     return res
   }
 
+  public onInstallOrUpdateProgress(
+    progress: InstallProgress,
+    action: 'installing' | 'updating'
+  ) {
+    logInfo(
+      [
+        `Progress for ${this.appName}:`,
+        `${progress.percent}/${progress.bytes}/${progress.eta}`.trim()
+      ],
+      LogPrefix.Backend
+    )
+
+    this.window.webContents.send('setGameStatus', {
+      appName: this.appName,
+      runner: 'gog',
+      status: action,
+      progress: progress
+    })
+  }
+
   public async install({
     path,
     installDlcs,
@@ -141,12 +161,7 @@ class GOGGame extends Game {
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
     const onProgress = (progress: InstallProgress) => {
-      this.window.webContents.send('setGameStatus', {
-        appName: this.appName,
-        runner: 'gog',
-        status: 'installing',
-        progress: progress
-      })
+      this.onInstallOrUpdateProgress(progress, 'installing')
     }
 
     const res = await runGogdlCommand(commandParts, logPath, onProgress)
@@ -370,12 +385,7 @@ class GOGGame extends Game {
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
 
     const onProgress = (progress: InstallProgress) => {
-      this.window.webContents.send('setGameStatus', {
-        appName: this.appName,
-        runner: 'gog',
-        status: 'updating',
-        progress: progress
-      })
+      this.onInstallOrUpdateProgress(progress, 'updating')
     }
 
     const res = await runGogdlCommand(commandParts, logPath, onProgress)

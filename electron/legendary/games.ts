@@ -222,6 +222,26 @@ class LegendaryGame extends Game {
     return newInstallPath
   }
 
+  public onInstallOrUpdateProgress(
+    progress: InstallProgress,
+    action: 'installing' | 'updating'
+  ) {
+    logInfo(
+      [
+        `Progress for ${this.appName}:`,
+        `${progress.percent}/${progress.bytes}/${progress.eta}`.trim()
+      ],
+      LogPrefix.Backend
+    )
+
+    this.window.webContents.send('setGameStatus', {
+      appName: this.appName,
+      runner: 'legendary',
+      status: action,
+      progress: progress
+    })
+  }
+
   /**
    * Update game.
    * Does NOT check for online connectivity.
@@ -242,12 +262,7 @@ class LegendaryGame extends Game {
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Legendary)
 
     const onProgress = (progress: InstallProgress) => {
-      this.window.webContents.send('setGameStatus', {
-        appName: this.appName,
-        runner: 'legendary',
-        status: 'updating',
-        progress: progress
-      })
+      this.onInstallOrUpdateProgress(progress, 'installing')
     }
 
     const res = await runLegendaryCommand(commandParts, logPath, onProgress)
@@ -331,12 +346,7 @@ class LegendaryGame extends Game {
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
 
     const onProgress = (progress: InstallProgress) => {
-      this.window.webContents.send('setGameStatus', {
-        appName: this.appName,
-        runner: 'legendary',
-        status: 'installing',
-        progress: progress
-      })
+      this.onInstallOrUpdateProgress(progress, 'updating')
     }
 
     const res = await runLegendaryCommand(commandParts, logPath, onProgress)
