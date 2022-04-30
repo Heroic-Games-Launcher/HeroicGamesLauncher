@@ -173,11 +173,11 @@ class GOGGame extends Game {
 
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const onProgress = (data: string) => {
+    const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput('installing', data)
     }
 
-    const res = await runGogdlCommand(commandParts, logPath, onProgress)
+    const res = await runGogdlCommand(commandParts, logPath, onOutput)
 
     if (res.error) {
       logError(

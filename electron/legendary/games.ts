@@ -250,7 +250,6 @@ class LegendaryGame extends Game {
       const percent =
         Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
 
-      // log it
       logInfo(
         [
           `Progress for ${this.appName}:`,
@@ -259,7 +258,6 @@ class LegendaryGame extends Game {
         LogPrefix.Backend
       )
 
-      // push to frontend
       this.window.webContents.send('setGameStatus', {
         appName: this.appName,
         runner: 'legendary',
