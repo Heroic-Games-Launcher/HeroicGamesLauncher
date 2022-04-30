@@ -228,7 +228,7 @@ class LegendaryGame extends Game {
     originalDownloadSize: number,
     currentDownloadSize: number
   ) {
-    // original is in bytes
+    // original is in bytes, convert to MiB with 2 decimals
     originalDownloadSize =
       Math.round((originalDownloadSize / 1024 / 1024) * 100) / 100
 
