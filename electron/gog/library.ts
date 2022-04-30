@@ -6,8 +6,7 @@ import {
   InstallInfo,
   InstalledInfo,
   GOGImportData,
-  ExecResult,
-  InstallProgress
+  ExecResult
 } from '../types'
 import { join } from 'node:path'
 import {
@@ -614,7 +613,7 @@ export class GOGLibrary {
 export async function runGogdlCommand(
   commandParts: Array<string>,
   logFile?: string,
-  onProgress?: (progress: InstallProgress) => void,
+  onOutput?: (output: string) => void,
   env = process.env
 ): Promise<ExecResult> {
   commandParts = commandParts.filter((n) => n)
@@ -642,22 +641,11 @@ export async function runGogdlCommand(
 
     if (logFile) {
       child.stdout.on('data', (data: Buffer) => {
+        if (onOutput) onOutput(data.toString())
         appendFileSync(logFile, data.toString())
       })
       child.stderr.on('data', (data: Buffer) => {
-        const str = data.toString()
-        if (onProgress) {
-          const progressMatch = str.match(/Progress: (\d+)\./m)
-          if (progressMatch) {
-            const etaMatch = str.match(/ETA: (\d\d:\d\d:\d\d)/m)
-            const bytesMatch = str.match(/Downloaded: (\S+) MiB/m)
-            onProgress({
-              eta: etaMatch[1],
-              percent: `${progressMatch[1]}%`,
-              bytes: `${bytesMatch[1]}MiB`
-            })
-          }
-        }
+        if (onOutput) onOutput(data.toString())
         appendFileSync(logFile, data.toString())
       })
     }

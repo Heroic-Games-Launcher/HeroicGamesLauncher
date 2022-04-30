@@ -103,24 +103,37 @@ class GOGGame extends Game {
     return res
   }
 
-  public onInstallOrUpdateProgress(
-    progress: InstallProgress,
-    action: 'installing' | 'updating'
+  public onInstallOrUpdateOutput(
+    action: 'installing' | 'updating',
+    data: string
   ) {
-    logInfo(
-      [
-        `Progress for ${this.appName}:`,
-        `${progress.percent}/${progress.bytes}/${progress.eta}`.trim()
-      ],
-      LogPrefix.Backend
-    )
+    const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
+    if (progressMatch) {
+      const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+      const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
+      const percent = parseFloat(progressMatch[1])
+      const eta = etaMatch ? etaMatch[1] : '00:00:00'
+      const bytes = bytesMatch ? bytesMatch[1] : '0'
 
-    this.window.webContents.send('setGameStatus', {
-      appName: this.appName,
-      runner: 'gog',
-      status: action,
-      progress: progress
-    })
+      logInfo(
+        [
+          `Progress for ${this.appName}:`,
+          `${percent}%/${bytes}MiB/${eta}`.trim()
+        ],
+        LogPrefix.Backend
+      )
+
+      this.window.webContents.send('setGameStatus', {
+        appName: this.appName,
+        runner: 'gog',
+        status: action,
+        progress: {
+          eta,
+          percent: `${percent.toFixed(0)}%`,
+          bytes: `${bytes}MiB`
+        }
+      })
+    }
   }
 
   public async install({
@@ -160,8 +173,8 @@ class GOGGame extends Game {
 
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const onProgress = (progress: InstallProgress) => {
-      this.onInstallOrUpdateProgress(progress, 'installing')
+    const onProgress = (data: string) => {
+      this.onInstallOrUpdateOutput('installing', data)
     }
 
     const res = await runGogdlCommand(commandParts, logPath, onProgress)
@@ -384,11 +397,11 @@ class GOGGame extends Game {
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const onProgress = (progress: InstallProgress) => {
-      this.onInstallOrUpdateProgress(progress, 'updating')
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput('updating', data)
     }
 
-    const res = await runGogdlCommand(commandParts, logPath, onProgress)
+    const res = await runGogdlCommand(commandParts, logPath, onOutput)
 
     // This always has to be done, so we do it before checking for res.error
     this.window.webContents.send('setGameStatus', {

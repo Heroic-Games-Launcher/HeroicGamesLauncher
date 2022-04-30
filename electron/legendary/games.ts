@@ -2,13 +2,7 @@ import { existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
 import { BrowserWindow } from 'electron'
-import {
-  ExecResult,
-  ExtraInfo,
-  InstallArgs,
-  InstallProgress,
-  LaunchResult
-} from '../types'
+import { ExecResult, ExtraInfo, InstallArgs, LaunchResult } from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
@@ -222,39 +216,61 @@ class LegendaryGame extends Game {
     return newInstallPath
   }
 
-  public onInstallOrUpdateProgress(
-    progress: InstallProgress,
+  // used when downloading games, store the download size read from Legendary's output
+  currentDownloadSize = 0
+
+  public onInstallOrUpdateOutput(
     action: 'installing' | 'updating',
-    originalDownloadSize: number,
-    currentDownloadSize: number
+    totalDownloadSize: number,
+    data: string
   ) {
-    // original is in bytes, convert to MiB with 2 decimals
-    originalDownloadSize =
-      Math.round((originalDownloadSize / 1024 / 1024) * 100) / 100
+    const downloadSizeMatch = data.match(/Download size: ([\d.]+) MiB/)
 
-    const downloaded = parseFloat(progress.bytes)
-    const downloadCache = originalDownloadSize - currentDownloadSize
-    const totalDownloaded = downloaded + downloadCache
-    const percent = Math.round((totalDownloaded / originalDownloadSize) * 100)
+    // store the download size, needed for correct calculation
+    // when cancel/resume downloads
+    if (downloadSizeMatch) {
+      this.currentDownloadSize = parseFloat(downloadSizeMatch[1])
+    }
 
-    logInfo(
-      [
-        `Progress for ${this.appName}:`,
-        `${progress.percent}/${progress.bytes}/${progress.eta}`.trim()
-      ],
-      LogPrefix.Backend
-    )
+    // parse log for game download progress
+    const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
+    if (bytesMatch) {
+      const bytes = bytesMatch[1]
+      const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+      const eta = etaMatch ? etaMatch[1] : '00:00:00'
 
-    this.window.webContents.send('setGameStatus', {
-      appName: this.appName,
-      runner: 'legendary',
-      status: action,
-      progress: {
-        eta: progress.eta,
-        percent: `${percent}%`,
-        bytes: `${progress.bytes}MiB`
-      }
-    })
+      // original is in bytes, convert to MiB with 2 decimals
+      totalDownloadSize =
+        Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
+
+      // calculate percentage
+      const downloaded = parseFloat(bytes)
+      const downloadCache = totalDownloadSize - this.currentDownloadSize
+      const totalDownloaded = downloaded + downloadCache
+      const percent =
+        Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
+
+      // log it
+      logInfo(
+        [
+          `Progress for ${this.appName}:`,
+          `${percent}%/${bytes}MiB/${eta}`.trim()
+        ],
+        LogPrefix.Backend
+      )
+
+      // push to frontend
+      this.window.webContents.send('setGameStatus', {
+        appName: this.appName,
+        runner: 'legendary',
+        status: action,
+        progress: {
+          eta: eta,
+          percent: `${percent.toFixed(0)}%`,
+          bytes: `${bytes}MiB`
+        }
+      })
+    }
   }
 
   /**
@@ -277,19 +293,15 @@ class LegendaryGame extends Game {
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Legendary)
 
-    const onProgress = (
-      progress: InstallProgress,
-      currentDownloadSize: number
-    ) => {
-      this.onInstallOrUpdateProgress(
-        progress,
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput(
         'installing',
         info.manifest.download_size,
-        currentDownloadSize
+        data
       )
     }
 
-    const res = await runLegendaryCommand(commandParts, logPath, onProgress)
+    const res = await runLegendaryCommand(commandParts, logPath, onOutput)
 
     this.window.webContents.send('setGameStatus', {
       appName: this.appName,
@@ -370,19 +382,15 @@ class LegendaryGame extends Game {
     const command = getLegendaryCommand(commandParts)
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
 
-    const onProgress = (
-      progress: InstallProgress,
-      currentDownloadSize: number
-    ) => {
-      this.onInstallOrUpdateProgress(
-        progress,
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput(
         'updating',
         info.manifest.download_size,
-        currentDownloadSize
+        data
       )
     }
 
-    const res = await runLegendaryCommand(commandParts, logPath, onProgress)
+    const res = await runLegendaryCommand(commandParts, logPath, onOutput)
 
     if (res.error) {
       logError(

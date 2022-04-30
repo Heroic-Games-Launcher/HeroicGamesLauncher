@@ -1,4 +1,4 @@
-import { ExecResult, InstallProgress } from './../types'
+import { ExecResult } from './../types'
 import {
   existsSync,
   readFileSync,
@@ -550,7 +550,7 @@ export class LegendaryLibrary {
 export async function runLegendaryCommand(
   commandParts: Array<string>,
   logFile?: string,
-  onProgress?: (progress: InstallProgress, currentDownloadSize: number) => void,
+  onOutput?: (data: string) => void,
   env = process.env
 ): Promise<ExecResult> {
   commandParts = commandParts.filter((n) => n)
@@ -580,37 +580,13 @@ export async function runLegendaryCommand(
     // If we're logging to a file, convert new data to a string and write it to the file
     if (logFile) {
       child.stdout.on('data', (data: Buffer) => {
+        if (onOutput) onOutput(data.toString())
         appendFileSync(logFile, data.toString())
       })
 
-      // used when downloading games, store the download size read from Legendary's output
-      let currentDownloadSize = 0
       child.stderr.on('data', (data: Buffer) => {
-        const str = data.toString()
-        if (onProgress) {
-          const downloadSizeMatch = str.match(/Download size: ([\d.]+) MiB/)
-
-          // store the download size, needed for correct calculation
-          // when cancel/resume downloads
-          if (downloadSizeMatch) {
-            currentDownloadSize = parseFloat(downloadSizeMatch[1])
-          }
-
-          const bytesMatch = str.match(/Downloaded: (\S+) MiB/m)
-          if (bytesMatch) {
-            const etaMatch = str.match(/ETA: (\d\d:\d\d:\d\d)/m)
-            onProgress(
-              {
-                eta: etaMatch[1],
-                percent: '',
-                bytes: bytesMatch[1]
-              },
-              currentDownloadSize
-            )
-          }
-        }
-
-        appendFileSync(logFile, str)
+        if (onOutput) onOutput(data.toString())
+        appendFileSync(logFile, data.toString())
       })
     }
 
