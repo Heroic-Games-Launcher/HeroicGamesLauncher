@@ -65,7 +65,7 @@ export default function ActionIcons({
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
-            icon={sortDescending ? faArrowDownAZ : faArrowDownZA}
+            icon={sortDescending ? faArrowDownZA : faArrowDownAZ}
           />
         </button>
         <button
