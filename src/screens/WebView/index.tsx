@@ -1,6 +1,6 @@
 import React, { useContext, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHistory, useLocation, useParams } from 'react-router'
+import { useNavigate, useLocation, useParams } from 'react-router'
 
 import { UpdateComponent } from 'src/components/UI'
 import WebviewControls from 'src/components/UI/WebviewControls'
@@ -27,7 +27,7 @@ export default function WebView() {
     refresh: true,
     message: t('loading.website', 'Loading Website')
   }))
-  const history = useHistory()
+  const navigate = useNavigate()
   const webviewRef = useRef<Webview>(null)
 
   let lang = i18n.language
@@ -75,7 +75,7 @@ export default function WebView() {
       runInBackground: false
     })
     setLoading({ ...loading, refresh: false })
-    history.push('/login')
+    navigate('/login')
   }
 
   useLayoutEffect(() => {

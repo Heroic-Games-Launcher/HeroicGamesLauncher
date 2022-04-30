@@ -6,10 +6,11 @@ import {
   faUser
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import classNames from 'classnames'
 import cx from 'classnames'
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink, useHistory, useLocation } from 'react-router-dom'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { getAppSettings } from 'src/helpers'
 import { configStore, gogConfigStore } from 'src/helpers/electronStores'
 import ContextProvider from 'src/state/ContextProvider'
@@ -26,7 +27,7 @@ interface LocationState {
 
 export default function SidebarLinks() {
   const { t } = useTranslation()
-  const history = useHistory()
+  const navigate = useNavigate()
   const [showUnrealMarket, setShowUnrealMarket] = useState(false)
   const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
@@ -78,33 +79,27 @@ export default function SidebarLinks() {
       setShowUnrealMarket(showUnrealMarket)
     )
     if (!isEpicLoggedIn && !isGOGLoggedIn) {
-      return history.push('/login')
+      return navigate('/login')
     }
   }, [])
 
   return (
     <div className="SidebarLinks Sidebar__section">
       <NavLink
-        className="Sidebar__item"
         data-testid="library"
-        isActive={(match, location) => {
-          if (match) {
-            return true
-          }
-          return (
-            location.pathname === '/login' ||
-            location.pathname.includes('gameconfig')
-          )
-        }}
-        exact
+        className={({ isActive }) =>
+          classNames('Sidebar__item', { active: isActive })
+        }
         to={pressAction}
       >
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon icon={displayIcon} />
-        </div>
-        {isEpicLoggedIn || isGOGLoggedIn
-          ? t('Library')
-          : t('button.login', 'Login')}
+        <>
+          <div className="Sidebar__itemIcon">
+            <FontAwesomeIcon icon={displayIcon} />
+          </div>
+          {isEpicLoggedIn || isGOGLoggedIn
+            ? t('Library')
+            : t('button.login', 'Login')}
+        </>
       </NavLink>
       {showLibrarySubmenu && (
         <>
@@ -144,24 +139,26 @@ export default function SidebarLinks() {
         </>
       )}
       <NavLink
-        className="Sidebar__item"
+        className={({ isActive }) =>
+          classNames('Sidebar__item', { active: isActive })
+        }
         to={{ pathname: '/epicstore' }}
-        isActive={(match, location) => location.pathname.includes('store')}
       >
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon icon={faStore} />
-        </div>
-        {t('stores', 'Stores')}
+        <>
+          <div className="Sidebar__itemIcon">
+            <FontAwesomeIcon icon={faStore} />
+          </div>
+          {t('stores', 'Stores')}
+        </>
       </NavLink>
       {isStore && (
         <>
           <NavLink
             data-testid="store"
-            className="Sidebar__item SidebarLinks__subItem"
-            isActive={(match, location) =>
-              location.pathname.includes('epicstore') ||
-              (location.pathname === '/store-page' &&
-                location.search.includes('epicgames.com/store'))
+            className={({ isActive }) =>
+              classNames('Sidebar__item', 'SidebarLinks__subItem', {
+                active: isActive
+              })
             }
             to={{ pathname: '/epicstore' }}
           >
@@ -169,11 +166,10 @@ export default function SidebarLinks() {
           </NavLink>
           <NavLink
             data-testid="store"
-            className="Sidebar__item SidebarLinks__subItem"
-            isActive={(match, location) =>
-              location.pathname.includes('gogstore') ||
-              (location.pathname === '/store-page' &&
-                location.search.includes('gog.com/en/game'))
+            className={({ isActive }) =>
+              classNames('Sidebar__item', 'SidebarLinks__subItem', {
+                active: isActive
+              })
             }
             to={{ pathname: '/gogstore' }}
           >
@@ -182,15 +178,18 @@ export default function SidebarLinks() {
         </>
       )}
       <NavLink
-        className="Sidebar__item"
         data-testid="settings"
-        isActive={(match, location) => location.pathname.includes('settings')}
+        className={({ isActive }) =>
+          classNames('Sidebar__item', { active: isActive })
+        }
         to={{ pathname: '/settings/default/general' }}
       >
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon icon={faSlidersH} />
-        </div>
-        {t('Settings')}
+        <>
+          <div className="Sidebar__itemIcon">
+            <FontAwesomeIcon icon={faSlidersH} />
+          </div>
+          {t('Settings')}
+        </>
       </NavLink>
       {isSettings && (
         <>
@@ -208,10 +207,8 @@ export default function SidebarLinks() {
           {shouldRenderWineSettings && (
             <NavLink
               role="link"
-              to={{
-                pathname: `/settings/${appName}/wine`,
-                state: { ...state, runner: state?.runner }
-              }}
+              to={`/settings/${appName}/wine`}
+              state={{ ...state, runner: state?.runner }}
               className={cx('Sidebar__item SidebarLinks__subItem', {
                 ['active']: category === 'wine'
               })}
@@ -223,10 +220,8 @@ export default function SidebarLinks() {
             <NavLink
               role="link"
               data-testid="linkSync"
-              to={{
-                pathname: `/settings/${appName}/sync`,
-                state: { ...state, runner: state?.runner }
-              }}
+              to={`/settings/${appName}/sync`}
+              state={{ ...state, runner: state?.runner }}
               className={cx('Sidebar__item SidebarLinks__subItem', {
                 ['active']: type === 'sync'
               })}
@@ -236,10 +231,8 @@ export default function SidebarLinks() {
           )}
           <NavLink
             role="link"
-            to={{
-              pathname: `/settings/${appName}/other`,
-              state: { ...state, runner: state?.runner }
-            }}
+            to={`/settings/${appName}/other`}
+            state={{ ...state, runner: state?.runner }}
             className={cx('Sidebar__item SidebarLinks__subItem', {
               ['active']: type === 'other'
             })}
@@ -249,10 +242,8 @@ export default function SidebarLinks() {
           {isDefaultSetting && (
             <NavLink
               role="link"
-              to={{
-                pathname: `/settings/${appName}/advanced`,
-                state: { ...state, runner: state?.runner }
-              }}
+              to={`/settings/${appName}/advanced`}
+              state={{ ...state, runner: state?.runner }}
               className={cx('Sidebar__item SidebarLinks__subItem', {
                 ['active']: type === 'advanced'
               })}
@@ -262,10 +253,8 @@ export default function SidebarLinks() {
           )}
           <NavLink
             role="link"
-            to={{
-              pathname: `/settings/${appName}/log`,
-              state: { ...state, runner: state?.runner }
-            }}
+            to={`/settings/${appName}/log`}
+            state={{ ...state, runner: state?.runner }}
             className={cx('Sidebar__item SidebarLinks__subItem', {
               ['active']: type === 'log'
             })}
@@ -276,14 +265,17 @@ export default function SidebarLinks() {
       )}
       <NavLink
         data-testid="wiki"
-        className="Sidebar__item"
-        isActive={(match, location) => location.pathname.includes('wiki')}
+        className={({ isActive }) =>
+          classNames('Sidebar__item', { active: isActive })
+        }
         to={{ pathname: '/wiki' }}
       >
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon icon={faBookOpen} />
-        </div>
-        {t('wiki', 'Wiki')}
+        <>
+          <div className="Sidebar__itemIcon">
+            <FontAwesomeIcon icon={faBookOpen} />
+          </div>
+          {t('wiki', 'Wiki')}
+        </>
       </NavLink>
     </div>
   )

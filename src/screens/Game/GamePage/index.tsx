@@ -48,12 +48,8 @@ const { ipcRenderer } = window.require('electron') as {
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
-interface RouteParams {
-  appName: string
-}
-
 export default function GamePage(): JSX.Element | null {
-  const { appName } = useParams() as RouteParams
+  const { appName = '' } = useParams()
   const { t } = useTranslation('gamepage')
 
   const [tabToShow, setTabToShow] = useState('infoTab')
@@ -73,7 +69,7 @@ export default function GamePage(): JSX.Element | null {
 
   const { status } = gameStatus || {}
   const previousProgress = JSON.parse(
-    storage.getItem(appName) || '{}'
+    storage.getItem(appName) || ''
   ) as InstallProgress
 
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
@@ -404,10 +400,8 @@ export default function GamePage(): JSX.Element | null {
                       )}
                       {is_installed ? (
                         <Link
-                          to={{
-                            pathname,
-                            state: { fromGameCard: false, runner }
-                          }}
+                          to={pathname}
+                          state={{ fromGameCard: false, runner }}
                           className={`button ${getButtonClass(is_installed)}`}
                         >
                           {`${getButtonLabel(is_installed)}`}
@@ -429,19 +423,17 @@ export default function GamePage(): JSX.Element | null {
                       )}
                     </div>
                     <NavLink
-                      to={{
-                        pathname: `/settings/${appName}/log`,
-                        state: {
-                          runner
-                        }
-                      }}
+                      to={`/settings/${appName}/log`}
+                      state={runner}
                       className="link is-text is-link reportProblem"
                     >
-                      {<FontAwesomeIcon icon={faTriangleExclamation} />}
-                      {t(
-                        'report_problem',
-                        'Report a problem running this game'
-                      )}
+                      <>
+                        {<FontAwesomeIcon icon={faTriangleExclamation} />}
+                        {t(
+                          'report_problem',
+                          'Report a problem running this game'
+                        )}
+                      </>
                     </NavLink>
                   </div>
 

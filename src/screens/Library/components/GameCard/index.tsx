@@ -7,7 +7,7 @@ import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { GameStatus, InstallProgress, Runner } from 'src/types'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'src/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
@@ -77,7 +77,7 @@ const GameCard = ({
 
   const { libraryStatus, layout, handleGameStatus, platform, hiddenGames } =
     useContext(ContextProvider)
-  const history = useHistory()
+  const navigate = useNavigate()
   const isWin = platform === 'win32'
 
   const grid = forceCard || layout === 'grid'
@@ -234,8 +234,7 @@ const GameCard = ({
     {
       label: t('submenu.settings'),
       onclick: () =>
-        history.push({
-          pathname: path,
+        navigate(path, {
           state: {
             fromGameCard: true,
             runner,
@@ -299,9 +298,7 @@ const GameCard = ({
         <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
           <Link
-            to={{
-              pathname: `/gameconfig/${appName}`
-            }}
+            to={`/gameconfig/${appName}`}
             style={
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
@@ -325,8 +322,7 @@ const GameCard = ({
                   <>
                     <SvgButton
                       onClick={() =>
-                        history.push({
-                          pathname: path,
+                        navigate(path, {
                           state: {
                             fromGameCard: true,
                             runner,
