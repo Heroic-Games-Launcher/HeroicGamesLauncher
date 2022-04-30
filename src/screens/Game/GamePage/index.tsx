@@ -49,7 +49,7 @@ const { ipcRenderer } = window.require('electron') as {
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
 export default function GamePage(): JSX.Element | null {
-  const { appName = '' } = useParams()
+  const { appName } = useParams() as { appName: string }
   const { t } = useTranslation('gamepage')
 
   const [tabToShow, setTabToShow] = useState('infoTab')
@@ -69,7 +69,7 @@ export default function GamePage(): JSX.Element | null {
 
   const { status } = gameStatus || {}
   const previousProgress = JSON.parse(
-    storage.getItem(appName) || ''
+    storage.getItem(appName) as string
   ) as InstallProgress
 
   const [gameInfo, setGameInfo] = useState({} as GameInfo)

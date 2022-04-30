@@ -322,8 +322,8 @@ function Settings() {
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
   let returnPath = '/'
   if (state && !state.fromGameCard) {
-    returnPath = `/gameconfig/${appName}`
-    if (returnPath === '/gameconfig/default') {
+    returnPath = `/gamepage/${appName}`
+    if (returnPath === '/gamepage/default') {
       returnPath = '/'
     }
   }

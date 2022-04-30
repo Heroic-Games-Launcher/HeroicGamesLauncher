@@ -298,7 +298,7 @@ const GameCard = ({
         <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
           <Link
-            to={`/gameconfig/${appName}`}
+            to={`gamepage/${appName}`}
             style={
               { '--installing-effect': installingGrayscale } as CSSProperties
             }

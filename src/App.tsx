@@ -4,11 +4,11 @@ import './App.css'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Login from './screens/Login'
 import WebView from './screens/WebView'
-import { Settings } from '@mui/icons-material'
 import { GamePage } from './screens/Game'
 import Library from './screens/Library'
 import WineManager from './screens/WineManager'
 import Sidebar from 'src/components/UI/Sidebar'
+import Settings from './screens/Settings'
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
             <Route path="epicstore" element={<WebView />} />
             <Route path="gogstore" element={<WebView />} />
             <Route path="wiki" element={<WebView />} />
-            <Route path="gameconfig">
+            <Route path="gamepage">
               <Route path=":appName" element={<GamePage />} />
             </Route>
             <Route path="/store-page" element={<WebView />} />
