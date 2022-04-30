@@ -16,6 +16,8 @@ const InstallModal = lazy(
   () => import('src/screens/Library/components/InstallModal')
 )
 
+const storage = window.localStorage
+
 export default function Library(): JSX.Element {
   const {
     layout,
@@ -33,8 +35,12 @@ export default function Library(): JSX.Element {
     show: false,
     runner: 'legendary' as Runner
   })
-  const [sortAscending, setSortAscending] = useState(false)
-  const [sortInstalled, setSortInstalled] = useState(false)
+  const [sortAscending, setSortAscending] = useState(
+    JSON.parse(storage?.getItem('sortAscending') || 'true')
+  )
+  const [sortInstalled, setSortInstalled] = useState(
+    JSON.parse(storage?.getItem('sortInstalled') || 'false')
+  )
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
@@ -66,15 +72,25 @@ export default function Library(): JSX.Element {
     setShowModal({ game: appName, show: true, runner })
   }
 
+  function handleSortAscending() {
+    setSortAscending(!sortAscending)
+    storage.setItem('sortAscending', JSON.stringify(!sortAscending))
+  }
+
+  function handleSortInstalled() {
+    setSortInstalled(!sortInstalled)
+    storage.setItem('sortInstalled', JSON.stringify(!sortInstalled))
+  }
+
   function titleWithIcons() {
     return (
       <div className="titleWithIcons">
         {getLibraryTitle(category, filter, t)}
         <ActionIcons
           sortAscending={sortAscending}
-          toggleSortAscending={() => setSortAscending(!sortAscending)}
+          toggleSortAscending={() => handleSortAscending()}
           sortInstalled={sortInstalled}
-          toggleSortinstalled={() => setSortInstalled(!sortInstalled)}
+          toggleSortinstalled={() => handleSortInstalled()}
         />
       </div>
     )
