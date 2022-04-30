@@ -19,15 +19,15 @@ import './index.css'
 interface Props {
   sortAscending: boolean
   sortInstalled: boolean
-  setSortAscending: () => void
-  setSortinstalled: () => void
+  toggleSortAscending: () => void
+  toggleSortinstalled: () => void
 }
 
 export default function ActionIcons({
   sortAscending,
-  setSortAscending,
+  toggleSortAscending,
   sortInstalled,
-  setSortinstalled
+  toggleSortinstalled
 }: Props) {
   const { t } = useTranslation()
   const { refreshLibrary, handleLayout, layout } = useContext(ContextProvider)
@@ -57,7 +57,7 @@ export default function ActionIcons({
         <button
           className={cx('FormControl__button', 'active')}
           title={t('library.sortByTitle', 'Sort by Title')}
-          onClick={() => setSortAscending()}
+          onClick={() => toggleSortAscending()}
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
@@ -67,7 +67,7 @@ export default function ActionIcons({
         <button
           className={cx('FormControl__button', 'active')}
           title={t('library.sortByStatus', 'Sort by Status')}
-          onClick={() => setSortinstalled()}
+          onClick={() => toggleSortinstalled()}
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"

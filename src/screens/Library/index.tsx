@@ -33,8 +33,8 @@ export default function Library(): JSX.Element {
     show: false,
     runner: 'legendary' as Runner
   })
-  const [sortAscending, setSortAscending] = useState(true)
-  const [sortInstalled, setSortInstalled] = useState(true)
+  const [sortAscending, setSortAscending] = useState(false)
+  const [sortInstalled, setSortInstalled] = useState(false)
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
@@ -72,9 +72,9 @@ export default function Library(): JSX.Element {
         {getLibraryTitle(category, filter, t)}
         <ActionIcons
           sortAscending={sortAscending}
-          setSortAscending={() => setSortAscending(!sortAscending)}
+          toggleSortAscending={() => setSortAscending(!sortAscending)}
           sortInstalled={sortInstalled}
-          setSortinstalled={() => setSortInstalled(!sortInstalled)}
+          toggleSortinstalled={() => setSortInstalled(!sortInstalled)}
         />
       </div>
     )
