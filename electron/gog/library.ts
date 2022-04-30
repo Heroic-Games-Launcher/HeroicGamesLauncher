@@ -647,7 +647,7 @@ export async function runGogdlCommand(
       child.stderr.on('data', (data: Buffer) => {
         const str = data.toString()
         if (onProgress) {
-          const progressMatch = str.match(/Progress: (\S+) /m)
+          const progressMatch = str.match(/Progress: (\d+)\./m)
           if (progressMatch) {
             const etaMatch = str.match(/ETA: (\d\d:\d\d:\d\d)/m)
             const bytesMatch = str.match(/Downloaded: (\S+) MiB/m)
