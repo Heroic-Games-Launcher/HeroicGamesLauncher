@@ -107,13 +107,13 @@ class GOGGame extends Game {
     action: 'installing' | 'updating',
     data: string
   ) {
+    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+    const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
     const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
-    if (progressMatch) {
-      const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
-      const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
+    if (etaMatch && bytesMatch && progressMatch) {
+      const eta = etaMatch[1]
+      const bytes = bytesMatch[1]
       const percent = parseFloat(progressMatch[1])
-      const eta = etaMatch ? etaMatch[1] : '00:00:00'
-      const bytes = bytesMatch ? bytesMatch[1] : '0'
 
       logInfo(
         [

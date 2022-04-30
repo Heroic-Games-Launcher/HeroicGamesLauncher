@@ -233,11 +233,11 @@ class LegendaryGame extends Game {
     }
 
     // parse log for game download progress
+    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
     const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
-    if (bytesMatch) {
+    if (etaMatch && bytesMatch) {
+      const eta = etaMatch[1]
       const bytes = bytesMatch[1]
-      const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
-      const eta = etaMatch ? etaMatch[1] : '00:00:00'
 
       // original is in bytes, convert to MiB with 2 decimals
       totalDownloadSize =
