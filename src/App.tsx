@@ -26,7 +26,9 @@ function App() {
               <Route path=":appName" element={<GamePage />} />
             </Route>
             <Route path="/store-page" element={<WebView />} />
-            <Route path="/login/:runner" element={<WebView />} />
+            <Route path="loginweb">
+              <Route path=":runner" element={<WebView />} />
+            </Route>
             <Route path="settings">
               <Route path=":appName">
                 <Route path=":type" element={<Settings />} />

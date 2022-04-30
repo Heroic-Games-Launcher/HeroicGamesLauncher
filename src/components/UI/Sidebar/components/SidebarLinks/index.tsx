@@ -142,7 +142,7 @@ export default function SidebarLinks() {
         className={({ isActive }) =>
           classNames('Sidebar__item', { active: isActive })
         }
-        to={{ pathname: '/epicstore' }}
+        to="/epicstore"
       >
         <>
           <div className="Sidebar__itemIcon">
@@ -160,7 +160,7 @@ export default function SidebarLinks() {
                 active: isActive
               })
             }
-            to={{ pathname: '/epicstore' }}
+            to="/epicstore"
           >
             {t('store', 'Epic Store')}
           </NavLink>
@@ -171,7 +171,7 @@ export default function SidebarLinks() {
                 active: isActive
               })
             }
-            to={{ pathname: '/gogstore' }}
+            to="/gogstore"
           >
             {t('gog-store', 'GOG Store')}
           </NavLink>

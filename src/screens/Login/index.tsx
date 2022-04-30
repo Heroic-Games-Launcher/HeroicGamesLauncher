@@ -77,7 +77,7 @@ export default function NewLogin() {
         <div className="runnerList">
           <Runner
             class="epic"
-            loginUrl="/login/legendary"
+            loginUrl="/loginweb/legendary"
             icon={() => <img src={EpicLogo} alt="Epic" />}
             isLoggedIn={Boolean(epicLogin)}
             user={epicLogin}
@@ -94,7 +94,7 @@ export default function NewLogin() {
           <Runner
             class="gog"
             icon={() => <img src={GOGLogo} alt="GOG" />}
-            loginUrl="/login/gog"
+            loginUrl="/loginweb/gog"
             isLoggedIn={Boolean(gogLogin)}
             user={gogLogin}
             refresh={refreshUserInfo}
