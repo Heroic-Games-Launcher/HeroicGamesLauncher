@@ -2,7 +2,13 @@ import { existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
 import { BrowserWindow } from 'electron'
-import { ExecResult, ExtraInfo, InstallArgs, LaunchResult } from '../types'
+import {
+  ExecResult,
+  ExtraInfo,
+  InstallArgs,
+  InstallProgress,
+  LaunchResult
+} from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
@@ -235,7 +241,16 @@ class LegendaryGame extends Game {
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Legendary)
 
-    const res = await runLegendaryCommand(commandParts, logPath)
+    const onProgress = (progress: InstallProgress) => {
+      this.window.webContents.send('setGameStatus', {
+        appName: this.appName,
+        runner: 'legendary',
+        status: 'updating',
+        progress: progress
+      })
+    }
+
+    const res = await runLegendaryCommand(commandParts, logPath, onProgress)
 
     this.window.webContents.send('setGameStatus', {
       appName: this.appName,
@@ -315,7 +330,16 @@ class LegendaryGame extends Game {
     const command = getLegendaryCommand(commandParts)
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
 
-    const res = await runLegendaryCommand(commandParts, logPath)
+    const onProgress = (progress: InstallProgress) => {
+      this.window.webContents.send('setGameStatus', {
+        appName: this.appName,
+        runner: 'legendary',
+        status: 'installing',
+        progress: progress
+      })
+    }
+
+    const res = await runLegendaryCommand(commandParts, logPath, onProgress)
 
     if (res.error) {
       logError(

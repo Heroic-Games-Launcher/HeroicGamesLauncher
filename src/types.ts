@@ -182,7 +182,7 @@ export interface InstallInfo {
 
 export interface GameStatus {
   appName: string
-  progress?: string
+  progress?: InstallProgress
   folder?: string
   runner?: Runner
   status:

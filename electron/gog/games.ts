@@ -17,7 +17,8 @@ import {
   InstallArgs,
   LaunchResult,
   GOGLoginData,
-  InstalledInfo
+  InstalledInfo,
+  InstallProgress
 } from 'types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -139,7 +140,16 @@ class GOGGame extends Game {
 
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, logPath)
+    const onProgress = (progress: InstallProgress) => {
+      this.window.webContents.send('setGameStatus', {
+        appName: this.appName,
+        runner: 'gog',
+        status: 'installing',
+        progress: progress
+      })
+    }
+
+    const res = await runGogdlCommand(commandParts, logPath, onProgress)
 
     if (res.error) {
       logError(
@@ -359,7 +369,16 @@ class GOGGame extends Game {
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, logPath)
+    const onProgress = (progress: InstallProgress) => {
+      this.window.webContents.send('setGameStatus', {
+        appName: this.appName,
+        runner: 'gog',
+        status: 'updating',
+        progress: progress
+      })
+    }
+
+    const res = await runGogdlCommand(commandParts, logPath, onProgress)
 
     // This always has to be done, so we do it before checking for res.error
     this.window.webContents.send('setGameStatus', {

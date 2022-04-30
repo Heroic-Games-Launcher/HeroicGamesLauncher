@@ -194,31 +194,20 @@ const GameCard = ({
   }
 
   useEffect(() => {
-    const progressInterval = setInterval(async () => {
-      if (isInstalling) {
-        const progress = await ipcRenderer.invoke(
-          'requestGameProgress',
-          appName,
-          runner
-        )
-
-        if (progress) {
-          if (previousProgress) {
-            const legendaryPercent = getProgress(progress)
-            const heroicPercent = getProgress(previousProgress)
-            const newPercent: number = Math.round(
-              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
-            )
-            progress.percent = `${newPercent}%`
-          }
-          return setProgress(progress)
-        }
-
+    const onGameStatusUpdate = async (
+      _e: Electron.IpcRendererEvent,
+      { appName: appWithProgress, progress }: GameStatus
+    ) => {
+      if (appName === appWithProgress && progress) {
         setProgress(progress)
       }
-    }, 1500)
-    return () => clearInterval(progressInterval)
-  }, [isInstalling, appName])
+    }
+    ipcRenderer.on('setGameStatus', onGameStatusUpdate)
+
+    return () => {
+      ipcRenderer.removeListener('setGameStatus', onGameStatusUpdate)
+    }
+  }, [])
 
   const [isHiddenGame, setIsHiddenGame] = useState(false)
 

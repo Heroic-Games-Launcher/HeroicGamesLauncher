@@ -149,35 +149,20 @@ export default function GamePage(): JSX.Element | null {
   }, [isInstalling, isPlaying, appName, epicLibrary, gogLibrary])
 
   useEffect(() => {
-    const progressInterval = setInterval(async () => {
-      if (isInstalling || isUpdating || isReparing) {
-        const progress: InstallProgress = await ipcRenderer.invoke(
-          'requestGameProgress',
-          appName,
-          gameInfo.runner
-        )
-
-        if (progress) {
-          if (previousProgress) {
-            const legendaryPercent = getProgress(progress)
-            const heroicPercent = getProgress(previousProgress)
-            const newPercent: number = Math.round(
-              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
-            )
-            progress.percent = `${newPercent}%`
-          }
-          return setProgress(progress)
-        }
-
-        return await handleGameStatus({
-          appName,
-          runner: gameInfo.runner,
-          status
-        })
+    const onGameStatusUpdate = async (
+      _e: Electron.IpcRendererEvent,
+      { appName: appWithProgress, progress }: GameStatus
+    ) => {
+      if (appName === appWithProgress && progress) {
+        setProgress(progress)
       }
-    }, 1500)
-    return () => clearInterval(progressInterval)
-  }, [appName, isInstalling, isUpdating, isReparing])
+    }
+    ipcRenderer.on('setGameStatus', onGameStatusUpdate)
+
+    return () => {
+      ipcRenderer.removeListener('setGameStatus', onGameStatusUpdate)
+    }
+  }, [])
 
   async function handleUpdate() {
     await handleGameStatus({

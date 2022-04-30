@@ -92,8 +92,7 @@ async function install({
       folder: installPath,
       appName,
       runner,
-      status: 'installing',
-      progress: previousProgress?.percent || '0%'
+      status: 'installing'
     })
     return await ipcRenderer
       .invoke('install', {
