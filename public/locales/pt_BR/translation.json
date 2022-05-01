@@ -156,7 +156,10 @@
     "library": {
         "gridView": "Visualização em grade",
         "listView": "Visto por último",
-        "refresh": "Atualizar"
+        "refresh": "Atualizar",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Biblioteca",
     "loading": {
