@@ -290,6 +290,7 @@
             "placeholder": "Seleziona l'esatta cartella dei salvataggi dei giochi",
             "title": "Effettua l'aggiornamento forzato della cartella dei giochi sul cloud"
         },
+        "select_theme": "Select Theme",
         "showfps": "Mostra FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Mostra Unreal Marketplace (richiede riavvio)",
         "start-in-tray": "Avvio Minimizzato",

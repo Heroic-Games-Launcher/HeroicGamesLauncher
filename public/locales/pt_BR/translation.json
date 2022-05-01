@@ -290,6 +290,7 @@
             "placeholder": "Selecione a pasta exata com os saves",
             "title": "Sobrescrever pasta de saves sincronizados com a nuvem"
         },
+        "select_theme": "Select Theme",
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Mostrar Unreal Marketplace (requer reinício)",
         "start-in-tray": "Iniciar minimizado",

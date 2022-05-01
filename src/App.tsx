@@ -1,10 +1,12 @@
-import React, { lazy } from 'react'
+import React, { lazy, useContext } from 'react'
 
 import './App.css'
+import './themes.css'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import Sidebar from 'src/components/UI/Sidebar'
 import Login from './screens/Login'
 import WebView from './screens/WebView'
+import ContextProvider from './state/ContextProvider'
 
 const Library = lazy(() => import('./screens/Library'))
 const Settings = lazy(() => import('./screens/Settings'))
@@ -12,8 +14,10 @@ const GamePage = lazy(() => import('./screens/Game/GamePage'))
 const WineManager = lazy(() => import('./screens/WineManager'))
 
 function App() {
+  const { theme } = useContext(ContextProvider)
+
   return (
-    <div className="App">
+    <div className={`App ${theme}`}>
       <HashRouter>
         <Sidebar />
         <main className="content">

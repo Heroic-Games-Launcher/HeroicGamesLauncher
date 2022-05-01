@@ -290,6 +290,7 @@
             "placeholder": "正確なゲーム保存フォルダを選択してください",
             "title": "Cloud Syncの保存フォルダーをオーバーライドする"
         },
+        "select_theme": "Select Theme",
         "showfps": "FPSを表示（DX9、10、11）",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "最小化を開始",

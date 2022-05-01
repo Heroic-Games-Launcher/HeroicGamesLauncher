@@ -290,6 +290,7 @@
             "placeholder": "",
             "title": ""
         },
+        "select_theme": "Select Theme",
         "showfps": "",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",

@@ -30,7 +30,7 @@
   background: none;
   cursor: pointer;
   font-size: 18px;
-  color: var(--accent);
+  color: var(--navbar-accent);
   transition: color 250ms;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .Sidebar__item:hover {
-  background-color: var(--background-lighter);
+  background-color: var(--navbar-active-background);
 }
 
 .Sidebar__item.active {
@@ -49,7 +49,7 @@
 
 .Sidebar__item.active.SidebarLinks__subItem {
   font-weight: 700;
-  background-color: var(--background-lighter);
+  background-color: var(--navbar-active-background);
 }
 
 .Sidebar__itemIcon {
