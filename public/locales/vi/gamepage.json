@@ -23,7 +23,7 @@
             "title": "Dừng quá trình cài đặt"
         },
         "uninstall": {
-            "checkbox": "Bạn có muốn xóa cả prefix không? (Không thể hoàn tác)",
+            "checkbox": "Bạn có muốn xóa cả prefix không? Quá trình hông thể hoàn tác.",
             "checkbox_prefix": "Prefix",
             "message": "Xác nhận gỡ cài đặt game?",
             "title": "Gỡ cài đặt"
@@ -73,7 +73,7 @@
     "install": {
         "path": "Chọn đường dẫn cài",
         "wineprefix": "WinePrefix",
-        "wineversion": "phiên bản wine"
+        "wineversion": "Phiên bản Wine"
     },
     "label": {
         "playing": {
@@ -85,7 +85,7 @@
         }
     },
     "launch": {
-        "options": "Tuỳ chọn khởi động..."
+        "options": "Tuỳ chọn khởi chạy..."
     },
     "report_problem": "Report a problem running this game",
     "sdl": {
