@@ -376,7 +376,7 @@ export default function GeneralSettings({
         </label>
       </span>
 
-      <span className="setting" data-testid="generalSettings">
+      <span className="setting">
         <label
           className={classNames('settingText', { isRTL: isRTL })}
           htmlFor="library_top_section_selector"
