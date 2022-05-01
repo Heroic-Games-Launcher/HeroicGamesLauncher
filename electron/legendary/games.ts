@@ -414,6 +414,8 @@ class LegendaryGame extends Game {
         ['Failed to uninstall', `${this.appName}:`, res.error],
         LogPrefix.Legendary
       )
+    } else {
+      removeShortcuts(this.appName, 'legendary')
     }
     return res
   }

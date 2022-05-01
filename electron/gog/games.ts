@@ -370,6 +370,7 @@ class GOGGame extends Game {
     }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
+    removeShortcuts(this.appName, 'gog')
     return res
   }
 
