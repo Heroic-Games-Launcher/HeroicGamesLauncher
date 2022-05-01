@@ -70,7 +70,7 @@ export default function ActionIcons({
         </button>
         <button
           className={cx('FormControl__button', 'active')}
-          title={t('library.sortByStatus', 'Sort by S          onClick={async () =>tatus')}
+          title={t('library.sortByStatus', 'Sort by Status')}
           onClick={() => toggleSortinstalled()}
         >
           <FontAwesomeIcon
