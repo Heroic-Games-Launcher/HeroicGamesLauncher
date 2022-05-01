@@ -36,11 +36,13 @@
         "yes": "ஆம்"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "ரத்துசெய்",
         "continue": "பதிவிறக்கத்தை தொடரு",
         "hide_game": "Hide Game",
         "import": "இறக்குமதி செய்",
         "install": "நிறுவு",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "நிறுவல் நீக்கு",
         "update": "Update"

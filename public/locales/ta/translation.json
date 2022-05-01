@@ -110,6 +110,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "favourites": "Favourites",
     "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -250,6 +251,12 @@
         "fsync": "Enable Fsync",
         "gamemode": "GameMode ஐ பயன்படுது (Feral விளையாட்டு பயன்முறையை நிறுவப்பட்டிருக்க வேண்டும்)",
         "language": "பயன்பாட்டின் மொழியை தேர்வுசெய்",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",

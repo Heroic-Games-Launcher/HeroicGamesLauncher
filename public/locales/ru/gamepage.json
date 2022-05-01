@@ -36,11 +36,13 @@
         "yes": "ДА"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Пауза/Отмена",
         "continue": "Продолжить загрузку",
         "hide_game": "Hide Game",
         "import": "Импортировать игру",
         "install": "Установить",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Удалить",
         "update": "Обновить"

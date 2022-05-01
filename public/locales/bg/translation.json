@@ -110,6 +110,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "favourites": "Favourites",
     "globalSettings": "Глобални настройки",
     "GOG": "GOG",
     "gog-store": "Магазин на GOG",
@@ -250,6 +251,12 @@
         "fsync": "Включване на Fsync",
         "gamemode": "Използване на „GameMode“ („Feral Game Mode“ трябва да е инсталирано)",
         "language": "Изберете езика на приложението",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Копиране на съдържанието на журнала в буфера за обмен",
             "current-log": "Текущ журнал",

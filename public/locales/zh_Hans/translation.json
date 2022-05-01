@@ -110,6 +110,7 @@
         "offline-notification-title": "离线"
     },
     "Epic Games": "Epic 游戏",
+    "favourites": "Favourites",
     "globalSettings": "全局设置",
     "GOG": "GOG",
     "gog-store": "GOG 商店",
@@ -250,6 +251,12 @@
         "fsync": "启用 Fsync",
         "gamemode": "使用 GameMode（需要已安装 Feral Game Mode）",
         "language": "选择应用语言",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "复制日志内容到剪贴板",
             "current-log": "当前日志",

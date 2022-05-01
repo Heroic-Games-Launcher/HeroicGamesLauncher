@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { getLibraryTitle } from './constants'
 import ActionIcons from 'src/components/UI/ActionIcons'
 import { GamesList } from './components/GamesList'
-import { Runner } from 'src/types'
+import { GameInfo, Runner } from 'src/types'
 
 const InstallModal = lazy(
   () => import('src/screens/Library/components/InstallModal')
@@ -27,7 +27,9 @@ export default function Library(): JSX.Element {
     filter,
     epicLibrary,
     gogLibrary,
-    recentGames
+    recentGames,
+    favouriteGames,
+    libraryTopSection
   } = useContext(ContextProvider)
 
   const [showModal, setShowModal] = useState({
@@ -125,7 +127,29 @@ export default function Library(): JSX.Element {
     ? [...installed, ...installingGames, ...notInstalled]
     : libraryToShow
 
-  const showRecentGames = !!recentGames.length && category !== 'unreal'
+  const showRecentGames =
+    libraryTopSection === 'recently_played' &&
+    !!recentGames.length &&
+    category !== 'unreal'
+
+  const showFavourites =
+    libraryTopSection === 'favourites' &&
+    !!favouriteGames.list.length &&
+    category !== 'unreal'
+
+  const favourites: GameInfo[] = []
+
+  if (showFavourites) {
+    const favouriteAppNames = favouriteGames.list.map(
+      (favourite) => favourite.appName
+    )
+    epicLibrary.forEach((game) => {
+      if (favouriteAppNames.includes(game.app_name)) favourites.push(game)
+    })
+    gogLibrary.forEach((game) => {
+      if (favouriteAppNames.includes(game.app_name)) favourites.push(game)
+    })
+  }
 
   const dlcCount = epicLibrary.filter((lib) => lib.install.is_dlc)
   const numberOfGames =
@@ -146,6 +170,13 @@ export default function Library(): JSX.Element {
               library={recentGames}
               handleGameCardClick={handleModal}
             />
+          </>
+        )}
+
+        {showFavourites && (
+          <>
+            <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
+            <GamesList library={favourites} handleGameCardClick={handleModal} />
           </>
         )}
 
