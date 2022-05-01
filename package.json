@@ -137,6 +137,7 @@
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.6.2",
     "axios": "^0.26.1",
+    "check-disk-space": "^3.3.0",
     "classnames": "^2.3.1",
     "discord-rich-presence-typescript": "^0.0.8",
     "electron-store": "^8.0.1",

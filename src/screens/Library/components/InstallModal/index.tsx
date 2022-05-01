@@ -20,7 +20,7 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { UpdateComponent } from 'src/components/UI'
+import { SmallInfo, UpdateComponent } from 'src/components/UI'
 import {
   getAppSettings,
   getGameInfo,
@@ -114,6 +114,7 @@ export default function InstallModal({
   )
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
+  const [spaceLeft, setSpaceLeft] = useState('')
 
   const installFolder = gameStatus?.folder || installPath
 
@@ -189,12 +190,18 @@ export default function InstallModal({
   useEffect(() => {
     ipcRenderer
       .invoke('requestSettings', 'default')
-      .then((config: AppSettings) => {
+      .then(async (config: AppSettings) => {
         setDefaultPath(config.defaultInstallPath)
         if (installPath === 'default') {
           setInstallPath(config.defaultInstallPath)
         }
+        const spaceLeft = await ipcRenderer.invoke(
+          'checkDiskSpace',
+          installPath
+        )
+        setSpaceLeft(spaceLeft)
       })
+
     return () => {
       ipcRenderer.removeAllListeners('requestSettings')
     }
@@ -416,6 +423,12 @@ export default function InstallModal({
                       onChange={(event) => setInstallPath(event.target.value)}
                     />
                   </FormControl>
+                  <SmallInfo
+                    title={`${t(
+                      'install.disk-space-left',
+                      'Space Left on the Device'
+                    )}: ${spaceLeft}`}
+                  />
                 </div>
               </div>
               {hasWine && (
