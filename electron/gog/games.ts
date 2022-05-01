@@ -72,7 +72,7 @@ class GOGGame extends Game {
     return GOGLibrary.get().getGameInfo(this.appName)
   }
   async getInstallInfo(): Promise<InstallInfo> {
-    return GOGLibrary.get().getInstallInfo(this.appName)
+    return await GOGLibrary.get().getInstallInfo(this.appName)
   }
   async getSettings(): Promise<GameSettings> {
     return (
@@ -80,7 +80,7 @@ class GOGGame extends Game {
       (await GameConfig.get(this.appName).getSettings())
     )
   }
-  async hasUpdate(): Promise<boolean> {
+  hasUpdate(): Promise<boolean> {
     throw new Error('Method not implemented.')
   }
 
@@ -139,51 +139,52 @@ class GOGGame extends Game {
 
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    try {
-      await runGogdlCommand(commandParts, logPath)
-      // Installation succeded
-      // Save new game info to installed games store
-      const installInfo = await this.getInstallInfo()
-      const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
-      const isLinuxNative = installPlatform == 'linux'
-      const additionalInfo = isLinuxNative
-        ? await GOGLibrary.getLinuxInstallerInfo(this.appName)
-        : null
-      const installedData: InstalledInfo = {
-        platform: installPlatform,
-        executable: '',
-        install_path: join(path, gameInfo.folder_name),
-        install_size: prettyBytes(installInfo.manifest.disk_size),
-        is_dlc: false,
-        version: additionalInfo
-          ? additionalInfo.version
-          : installInfo.game.version,
-        appName: this.appName,
-        installedWithDLCs: installDlcs,
-        language: installLanguage,
-        versionEtag: isLinuxNative ? '' : installInfo.manifest.versionEtag,
-        buildId: isLinuxNative ? '' : installInfo.game.buildId
-      }
-      const array: Array<InstalledInfo> =
-        (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
-      array.push(installedData)
-      installedGamesStore.set('installed', array)
-      GOGLibrary.get().refreshInstalled()
-      if (isWindows) {
-        logInfo(
-          'Windows os, running setup instructions on install',
-          LogPrefix.Gog
-        )
-        await setup(this.appName, installedData)
-      }
-      return { status: 'done' }
-    } catch (error) {
+    const res = await runGogdlCommand(commandParts, logPath)
+
+    if (res.error) {
       logError(
-        ['Failed to install', `${this.appName}:`, `${error}`],
+        ['Failed to install', `${this.appName}:`, res.error],
         LogPrefix.Gog
       )
       return { status: 'error' }
     }
+
+    // Installation succeded
+    // Save new game info to installed games store
+    const installInfo = await this.getInstallInfo()
+    const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
+    const isLinuxNative = installPlatform == 'linux'
+    const additionalInfo = isLinuxNative
+      ? await GOGLibrary.getLinuxInstallerInfo(this.appName)
+      : null
+    const installedData: InstalledInfo = {
+      platform: installPlatform,
+      executable: '',
+      install_path: join(path, gameInfo.folder_name),
+      install_size: prettyBytes(installInfo.manifest.disk_size),
+      is_dlc: false,
+      version: additionalInfo
+        ? additionalInfo.version
+        : installInfo.game.version,
+      appName: this.appName,
+      installedWithDLCs: installDlcs,
+      language: installLanguage,
+      versionEtag: isLinuxNative ? '' : installInfo.manifest.versionEtag,
+      buildId: isLinuxNative ? '' : installInfo.game.buildId
+    }
+    const array: Array<InstalledInfo> =
+      (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
+    array.push(installedData)
+    installedGamesStore.set('installed', array)
+    GOGLibrary.get().refreshInstalled()
+    if (isWindows) {
+      logInfo(
+        'Windows os, running setup instructions on install',
+        LogPrefix.Gog
+      )
+      await setup(this.appName, installedData)
+    }
+    return { status: 'done' }
   }
 
   public async addShortcuts(fromMenu?: boolean) {
@@ -194,7 +195,7 @@ class GOGGame extends Game {
     return removeShortcuts(this.appName, 'gog')
   }
 
-  async launch(launchArguments?: string): Promise<ExecResult | LaunchResult> {
+  launch(launchArguments?: string): Promise<ExecResult | LaunchResult> {
     return launch(this.appName, launchArguments, 'gog')
   }
 
@@ -283,7 +284,7 @@ class GOGGame extends Game {
     })
   }
 
-  async syncSaves(arg: string, path: string): Promise<ExecResult> {
+  syncSaves(arg: string, path: string): Promise<ExecResult> {
     throw new Error(
       "GOG integration doesn't support syncSaves yet. How did you managed to call that function?"
     )
@@ -331,7 +332,6 @@ class GOGGame extends Game {
     }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
-    removeShortcuts(this.appName, 'gog')
     return res
   }
 
