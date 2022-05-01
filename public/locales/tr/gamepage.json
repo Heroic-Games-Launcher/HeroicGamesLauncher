@@ -38,10 +38,10 @@
     "button": {
         "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
-        "hide_game": "Hide Game",
+        "hide_game": "Oyunu Gizle",
         "import": "Oyunu İçe Aktar",
         "install": "Kur",
-        "unhide_game": "Unhide Game",
+        "unhide_game": "Oyunu Göster",
         "uninstall": "Kaldır",
         "update": "Güncelle"
     },
@@ -87,7 +87,7 @@
     "launch": {
         "options": "Başlatma Seçenekleri..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {
         "title": "Kurulacak bileşenleri seç"
     },
