@@ -156,7 +156,10 @@
     "library": {
         "gridView": "Hiển thị dạng ô",
         "listView": "Hiển thị dạng danh sánh",
-        "refresh": "Tải lại"
+        "refresh": "Tải lại",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Thư viện",
     "loading": {

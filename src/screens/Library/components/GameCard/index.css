@@ -219,6 +219,11 @@
   z-index: 7;
 }
 
+.gameImg,
+.gameLogo {
+  transition: all 0.2s, opacity 0.5s;
+}
+
 .gameImg:not(.installed),
 .gameLogo:not(.installed) {
   filter: grayscale(var(--installing-effect));
@@ -227,7 +232,11 @@
 .gameCard:hover .gameImg:not(.installed),
 .gameCard:hover .gameLogo:not(.installed) {
   filter: grayscale(0);
-  transition-duration: 0.2s;
+}
+
+.gameCard.hidden .gameImg,
+.gameCard.hidden .gameLogo {
+  opacity: 0.2;
 }
 
 .icons {
