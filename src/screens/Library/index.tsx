@@ -117,7 +117,9 @@ export default function Library(): JSX.Element {
     }
   )
   const installed = libraryToShow.filter((g) => g.is_installed)
-  const notInstalled = libraryToShow.filter((g) => !g.is_installed)
+  const notInstalled = libraryToShow.filter(
+    (g) => !g.is_installed && !installing.includes(g.app_name)
+  )
   const installingGames = libraryToShow.filter((g) =>
     installing.includes(g.app_name)
   )
