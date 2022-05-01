@@ -110,6 +110,7 @@
         "offline-notification-title": "çevrim dışı"
     },
     "Epic Games": "Epic Games",
+    "favourites": "Favourites",
     "globalSettings": "Genel Ayarlar",
     "GOG": "GOG",
     "gog-store": "GOG Mağazası",
@@ -250,6 +251,12 @@
         "fsync": "Fsync'i Etkinleştir",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Günlük içeriğini panoya kopyala",
             "current-log": "Geçerli Günlük",

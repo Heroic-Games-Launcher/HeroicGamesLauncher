@@ -375,24 +375,6 @@ export default function GeneralSettings({
           </span>
         </label>
       </span>
-      <span className="setting">
-        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          <select
-            data-testid="setMaxWorkers"
-            onChange={(event) => setMaxWorkers(Number(event.target.value))}
-            value={maxWorkers}
-            className="settingSelect smaller is-drop-down"
-          >
-            {Array.from(Array(maxCpus).keys()).map((n) => (
-              <option key={n + 1}>{n + 1}</option>
-            ))}
-            <option key={0} value={0}>
-              Max
-            </option>
-          </select>
-          <span>{t('setting.maxworkers')}</span>
-        </label>
-      </span>
 
       <span className="setting" data-testid="generalSettings">
         <label
@@ -411,10 +393,38 @@ export default function GeneralSettings({
           value={libraryTopSection}
           className="settingSelect is-drop-down"
         >
-          <option value="disabled">Disabled</option>
-          <option value="recently_played">Recently Played Games</option>
-          <option value="favourites">Favourite Games</option>
+          <option value="recently_played">
+            {t(
+              'setting.library_top_option.recently_played',
+              'Recently Played Games'
+            )}
+          </option>
+          <option value="favourites">
+            {t('setting.library_top_option.favourites', 'Favourite Games')}
+          </option>
+          <option value="disabled">
+            {t('setting.library_top_option.disabled', 'Disabled')}
+          </option>
         </select>
+      </span>
+
+      <span className="setting">
+        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <select
+            data-testid="setMaxWorkers"
+            onChange={(event) => setMaxWorkers(Number(event.target.value))}
+            value={maxWorkers}
+            className="settingSelect smaller is-drop-down"
+          >
+            {Array.from(Array(maxCpus).keys()).map((n) => (
+              <option key={n + 1}>{n + 1}</option>
+            ))}
+            <option key={0} value={0}>
+              Max
+            </option>
+          </select>
+          <span>{t('setting.maxworkers')}</span>
+        </label>
       </span>
     </>
   )

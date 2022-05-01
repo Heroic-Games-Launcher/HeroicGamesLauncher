@@ -36,11 +36,13 @@
         "yes": "Có"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Tạm dừng/Huỷ",
         "continue": "Tiếp tục tải",
         "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Cài đặt",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật"

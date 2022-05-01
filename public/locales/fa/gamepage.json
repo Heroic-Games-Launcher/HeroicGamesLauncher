@@ -36,11 +36,13 @@
         "yes": "بله"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "توقف/انصراف",
         "continue": "ادامه بارگیری",
         "hide_game": "Hide Game",
         "import": "وارد کردن بازی",
         "install": "نصب",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "حذف",
         "update": "بهروزرسانی"

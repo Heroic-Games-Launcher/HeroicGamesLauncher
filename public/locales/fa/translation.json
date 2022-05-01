@@ -110,6 +110,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "اپیک گیمز",
+    "favourites": "Favourites",
     "globalSettings": "تنظیمات عمومی",
     "GOG": "GOG",
     "gog-store": "فروشگاه GOG",
@@ -250,6 +251,12 @@
         "fsync": "فعالسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
         "language": "انتخاب زبان نرمافزار",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "کپی کردن محتوای لاگ در کليپ بورد",
             "current-log": "لاگ اخیر",

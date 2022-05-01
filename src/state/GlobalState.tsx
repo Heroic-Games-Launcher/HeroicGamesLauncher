@@ -396,7 +396,7 @@ export class GlobalState extends PureComponent<Props> {
     const language = storage.getItem('language') || 'en'
     const showHidden = JSON.parse(storage.getItem('show_hidden') || 'false')
     const libraryTopSection =
-      storage.getItem('library_top_section') || 'disabled'
+      storage.getItem('library_top_section') || 'recently_played'
 
     if (!legendaryUser) {
       await ipcRenderer.invoke('getUserInfo')
