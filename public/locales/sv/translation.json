@@ -156,7 +156,10 @@
     "library": {
         "gridView": "",
         "listView": "Listvy",
-        "refresh": "Uppdatera"
+        "refresh": "Uppdatera",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Bibliotek",
     "loading": {

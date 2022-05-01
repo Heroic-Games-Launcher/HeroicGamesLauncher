@@ -156,7 +156,10 @@
     "library": {
         "gridView": "",
         "listView": "",
-        "refresh": ""
+        "refresh": "",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "விளையாட்டு பட்டியல்",
     "loading": {
