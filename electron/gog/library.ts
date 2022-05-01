@@ -656,7 +656,7 @@ export async function runGogdlCommand(
 
     child.on('close', (code, signal) => {
       if (signal === 'SIGTERM') {
-        rej('error')
+        rej('Installation canceled')
       }
       res({
         stdout: stdout.join('\n'),
