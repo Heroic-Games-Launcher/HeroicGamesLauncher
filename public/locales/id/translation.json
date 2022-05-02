@@ -110,6 +110,7 @@
         "offline-notification-title": "luring"
     },
     "Epic Games": "Epic Games",
+    "favourites": "Favourites",
     "globalSettings": "Pengaturan Global",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -156,7 +157,10 @@
     "library": {
         "gridView": "Tampilan bergaris",
         "listView": "Tampilan daftar",
-        "refresh": "Segarkan"
+        "refresh": "Segarkan",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Perpustakaan",
     "loading": {
@@ -247,6 +251,12 @@
         "fsync": "Aktifkan Fsync",
         "gamemode": "Gunakan GameMode (Feral Game Mode perlu dipasang)",
         "language": "Pilih Bahasa",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Salin konten log ke papan klip",
             "current-log": "Log Saat Ini",

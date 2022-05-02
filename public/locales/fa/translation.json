@@ -1,7 +1,11 @@
 {
     "All": "همه",
-    "Assets": "داراییها",
+    "Assets": "دارایی ها",
     "box": {
+        "appupdate": {
+            "message": "نسخه جدید Heroic موجود است، آیا میخواهید الان به روزرسانی کنید؟",
+            "title": "به روزرسانی موجود است"
+        },
         "cache-cleared": {
             "message": "کش Heroic پاک شد.",
             "title": "کش پاک شد"
@@ -110,6 +114,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "اپیک گیمز",
+    "favourites": "Favourites",
     "globalSettings": "تنظیمات عمومی",
     "GOG": "GOG",
     "gog-store": "فروشگاه GOG",
@@ -156,11 +161,14 @@
     "library": {
         "gridView": "",
         "listView": "",
-        "refresh": ""
+        "refresh": "",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "کتابخانه",
     "loading": {
-        "default": "",
+        "default": "در حال بارگذاری",
         "website": "درحال بارگیری وبسایت"
     },
     "login": {
@@ -215,9 +223,9 @@
         "egs-prefix": "محل نصب شده EGS"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "لینوکس",
+        "mac": "مک",
+        "win": "ویندوز"
     },
     "Plugins": "افزونهها",
     "Projects": "پروژهها",
@@ -226,8 +234,8 @@
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
-        "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده (نیازمند راهاندازی مجدد)",
-        "alt-legendary-bin": "انتخاب باینری Legendary جایگزین (نیازمند راهاندازی مجدد)",
+        "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده",
+        "alt-legendary-bin": "انتخاب باینری Legendary جایگزین",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
         "autosync": "همگامسازی خودکار ذخیرهها",
@@ -247,6 +255,12 @@
         "fsync": "فعالسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
         "language": "انتخاب زبان نرمافزار",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "کپی کردن محتوای لاگ در کليپ بورد",
             "current-log": "لاگ اخیر",
@@ -344,10 +358,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "بازگشت به عقب",
+            "forward": "بازگشت به جلو",
+            "openInBrowser": "باز کردن در مرورگر",
+            "reload": "تازه کردن صفحه"
         }
     },
     "wiki": "ویکی",

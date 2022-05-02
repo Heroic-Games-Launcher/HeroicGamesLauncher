@@ -110,6 +110,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "എപിക് ഗെയിംസ്",
+    "favourites": "Favourites",
     "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -156,7 +157,10 @@
     "library": {
         "gridView": "",
         "listView": "",
-        "refresh": ""
+        "refresh": "",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "കളിശാല",
     "loading": {
@@ -247,6 +251,12 @@
         "fsync": "Fsync വയ്ക്കൂ",
         "gamemode": "ഗെയിംമോഡ് ഉപയോഗിക്കൂ (ഫെറലിന്റെ ഗെയിംമോഡ് ഇന്സ്റ്റാള് ചെയ്തിരിക്കണം)",
         "language": "ആപ്പിന്റെ ഭാഷ",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",

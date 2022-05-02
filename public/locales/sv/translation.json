@@ -110,6 +110,7 @@
         "offline-notification-title": "Offline"
     },
     "Epic Games": "Epic Games",
+    "favourites": "Favourites",
     "globalSettings": "Globala inställningar",
     "GOG": "GOG",
     "gog-store": "GOG Butik",
@@ -156,7 +157,10 @@
     "library": {
         "gridView": "",
         "listView": "Listvy",
-        "refresh": "Uppdatera"
+        "refresh": "Uppdatera",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Bibliotek",
     "loading": {
@@ -247,6 +251,12 @@
         "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj språk",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Kopiera loggen till urklipp/klippbord",
             "current-log": "Aktuell logg",

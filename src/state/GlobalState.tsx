@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react'
 
 import {
+  FavouriteGame,
   GameInfo,
   GameStatus,
   HiddenGame,
   InstalledInfo,
+  LibraryTopSectionOptions,
   RefreshOptions,
   WineVersionInfo
 } from 'src/types'
@@ -50,10 +52,12 @@ interface StateProps {
   language: string
   layout: string
   libraryStatus: GameStatus[]
+  libraryTopSection: string
   platform: string
   refreshing: boolean
   hiddenGames: HiddenGame[]
   showHidden: boolean
+  favouriteGames: FavouriteGame[]
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -91,10 +95,13 @@ export class GlobalState extends PureComponent<Props> {
     language: '',
     layout: 'grid',
     libraryStatus: [],
+    libraryTopSection: 'disabled',
     platform: '',
     refreshing: false,
     hiddenGames: (configStore.get('games.hidden') as Array<HiddenGame>) || [],
-    showHidden: false
+    showHidden: false,
+    favouriteGames:
+      (configStore.get('games.favourites') as Array<FavouriteGame>) || []
   }
 
   setShowHidden = (value: boolean) => {
@@ -122,6 +129,35 @@ export class GlobalState extends PureComponent<Props> {
       hiddenGames: newHiddenGames
     })
     configStore.set('games.hidden', newHiddenGames)
+  }
+
+  addGameToFavourites = (appNameToAdd: string, appTitle: string) => {
+    const newFavouriteGames = [
+      ...this.state.favouriteGames.filter(
+        (fav) => fav.appName !== appNameToAdd
+      ),
+      { appName: appNameToAdd, title: appTitle }
+    ]
+
+    this.setState({
+      favouriteGames: newFavouriteGames
+    })
+    configStore.set('games.favourites', newFavouriteGames)
+  }
+
+  removeGameFromFavourites = (appNameToRemove: string) => {
+    const newFavouriteGames = this.state.favouriteGames.filter(
+      ({ appName }) => appName !== appNameToRemove
+    )
+
+    this.setState({
+      favouriteGames: newFavouriteGames
+    })
+    configStore.set('games.favourites', newFavouriteGames)
+  }
+
+  handleLibraryTopSection = (value: LibraryTopSectionOptions) => {
+    this.setState({ libraryTopSection: value })
   }
 
   refresh = async (checkUpdates?: boolean): Promise<void> => {
@@ -262,118 +298,51 @@ export class GlobalState extends PureComponent<Props> {
     appName,
     status,
     folder,
-    progress,
-    runner
+    progress
   }: GameStatus) => {
     const { libraryStatus, gameUpdates } = this.state
-    const currentApp =
-      libraryStatus.filter((game) => game.appName === appName)[0] || {}
+    const currentApp = libraryStatus.filter(
+      (game) => game.appName === appName
+    )[0]
 
-    if (currentApp && currentApp.status === status) {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
+    // add app to libraryStatus if it was not present
+    if (!currentApp) {
       return this.setState({
-        libraryStatus: [...updatedLibraryStatus, { ...currentApp }]
+        libraryStatus: [...libraryStatus, { appName, status, folder, progress }]
       })
     }
 
-    if (
-      currentApp &&
-      currentApp.status === 'installing' &&
-      status === 'error'
-    ) {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-
-      this.setState({
-        libraryStatus: updatedLibraryStatus
-      })
-      return this.refreshLibrary({})
-    }
-
-    if (currentApp && currentApp.status === 'installing' && status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-
-      this.setState({
-        libraryStatus: updatedLibraryStatus
-      })
-
-      // This waits for backend to synchronize installed games (GOG)
-      setTimeout(() => {
-        this.refreshLibrary({})
-      }, 500)
+    // if the app's status didn't change, do nothing
+    if (currentApp.status === status) {
       return
     }
 
-    if (currentApp && currentApp.status === 'updating' && status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      const updatedGamesUpdates = gameUpdates.filter((game) => game !== appName)
-      this.setState({
-        filter: 'installed',
-        gameUpdates: updatedGamesUpdates,
-        libraryStatus: updatedLibraryStatus
-      })
+    const newLibraryStatus = libraryStatus.filter(
+      (game) => game.appName !== appName
+    )
 
-      // This avoids calling legendary again before the previous process is killed when canceling
-      setTimeout(() => {
-        return this.refreshLibrary({ checkForUpdates: true })
-      }, 2000)
+    // if the app is done installing or errored
+    if (['error', 'done'].includes(status)) {
+      // if the app was updating, remove from the available game updates
+      if (currentApp.status === 'updating') {
+        const updatedGamesUpdates = gameUpdates.filter(
+          (game) => game !== appName
+        )
+        // This avoids calling legendary again before the previous process is killed when canceling
+        this.refreshLibrary({
+          checkForUpdates: true,
+          runInBackground: true
+        })
+
+        return this.setState({
+          gameUpdates: updatedGamesUpdates,
+          libraryStatus: newLibraryStatus
+        })
+      }
+
+      this.refreshLibrary({ runInBackground: true })
+      this.setState({ libraryStatus: newLibraryStatus })
     }
-
-    if (currentApp && currentApp.status === 'repairing' && status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      this.setState({
-        filter: 'installed',
-        libraryStatus: updatedLibraryStatus
-      })
-
-      return this.refresh()
-    }
-
-    if (
-      currentApp &&
-      currentApp.status === 'uninstalling' &&
-      status === 'done'
-    ) {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      this.setState({ libraryStatus: updatedLibraryStatus })
-      ipcRenderer.send('removeShortcut', appName, runner)
-
-      return this.refreshLibrary({})
-    }
-
-    if (currentApp && currentApp.status === 'moving' && status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      this.setState({
-        filter: 'installed',
-        libraryStatus: updatedLibraryStatus
-      })
-
-      return this.refresh()
-    }
-
-    if (status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      return this.setState({ libraryStatus: updatedLibraryStatus })
-    }
-
-    return this.setState({
-      libraryStatus: [...libraryStatus, { appName, status, folder, progress }]
-    })
   }
 
   async componentDidMount() {
@@ -426,6 +395,8 @@ export class GlobalState extends PureComponent<Props> {
     const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
     const showHidden = JSON.parse(storage.getItem('show_hidden') || 'false')
+    const libraryTopSection =
+      storage.getItem('library_top_section') || 'recently_played'
 
     if (!legendaryUser) {
       await ipcRenderer.invoke('getUserInfo')
@@ -437,7 +408,15 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     i18n.changeLanguage(language)
-    this.setState({ category, filter, language, layout, platform, showHidden })
+    this.setState({
+      category,
+      filter,
+      language,
+      layout,
+      platform,
+      showHidden,
+      libraryTopSection
+    })
 
     if (legendaryUser || gogUser) {
       this.refreshLibrary({
@@ -449,14 +428,22 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   componentDidUpdate() {
-    const { filter, gameUpdates, libraryStatus, layout, category, showHidden } =
-      this.state
+    const {
+      filter,
+      gameUpdates,
+      libraryStatus,
+      layout,
+      category,
+      showHidden,
+      libraryTopSection
+    } = this.state
 
     storage.setItem('category', category)
     storage.setItem('filter', filter)
     storage.setItem('layout', layout)
     storage.setItem('updates', JSON.stringify(gameUpdates))
     storage.setItem('show_hidden', JSON.stringify(showHidden))
+    storage.setItem('library_top_section', libraryTopSection)
 
     const pendingOps = libraryStatus.filter(
       (game) => game.status !== 'playing'
@@ -546,7 +533,13 @@ export class GlobalState extends PureComponent<Props> {
             add: this.hideGame,
             remove: this.unhideGame
           },
-          setShowHidden: this.setShowHidden
+          setShowHidden: this.setShowHidden,
+          favouriteGames: {
+            list: this.state.favouriteGames,
+            add: this.addGameToFavourites,
+            remove: this.removeGameFromFavourites
+          },
+          handleLibraryTopSection: this.handleLibraryTopSection
         }}
       >
         {children}

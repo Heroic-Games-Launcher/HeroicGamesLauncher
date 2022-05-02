@@ -36,11 +36,13 @@
         "yes": "IGEN"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Szüneteltetés/mégse",
         "continue": "Letöltés folytatása",
         "hide_game": "Hide Game",
         "import": "Játék importálása",
         "install": "Telepítés",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Eltávolítás",
         "update": "Frissítés"

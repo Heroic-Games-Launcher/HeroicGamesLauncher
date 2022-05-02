@@ -171,7 +171,7 @@ export default function InstallModal({
       writeConfig([appName, { ...appSettings, winePrefix, wineVersion }])
     }
 
-    return await install({
+    return install({
       appName,
       handleGameStatus,
       installPath: path || installFolder,
@@ -391,7 +391,7 @@ export default function InstallModal({
                     sideButton={
                       <button
                         className="FormControl__sideButton"
-                        onClick={() =>
+                        onClick={async () =>
                           ipcRenderer
                             .invoke('openDialog', {
                               buttonLabel: t('box.choose'),
@@ -429,7 +429,7 @@ export default function InstallModal({
                         sideButton={
                           <button
                             className="FormControl__sideButton"
-                            onClick={() =>
+                            onClick={async () =>
                               ipcRenderer
                                 .invoke('openDialog', {
                                   buttonLabel: t('box.choose'),
@@ -536,13 +536,13 @@ export default function InstallModal({
             </DialogContent>
             <DialogFooter>
               <button
-                onClick={() => handleInstall('import')}
+                onClick={async () => handleInstall('import')}
                 className={`button is-secondary outline`}
               >
                 {t('button.import')}
               </button>
               <button
-                onClick={() => handleInstall()}
+                onClick={async () => handleInstall()}
                 className={`button is-secondary`}
               >
                 {previousProgress.folder === installPath

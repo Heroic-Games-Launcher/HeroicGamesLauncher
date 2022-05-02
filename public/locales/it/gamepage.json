@@ -36,11 +36,13 @@
         "yes": "SI"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Pausa/Annulla",
         "continue": "Continua Download",
         "hide_game": "Hide Game",
         "import": "Importa gioco",
         "install": "Installa",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Disinstalla",
         "update": "Update"

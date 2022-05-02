@@ -165,7 +165,7 @@ export default function GamePage(): JSX.Element | null {
           return setProgress(progress)
         }
 
-        return await handleGameStatus({
+        return handleGameStatus({
           appName,
           runner: gameInfo.runner,
           status
@@ -408,7 +408,7 @@ export default function GamePage(): JSX.Element | null {
                         </Link>
                       ) : (
                         <button
-                          onClick={() => handleInstall(is_installed)}
+                          onClick={async () => handleInstall(is_installed)}
                           disabled={
                             isPlaying ||
                             isUpdating ||
@@ -503,7 +503,7 @@ export default function GamePage(): JSX.Element | null {
 
     if (hasUpdate) {
       return (
-        <span onClick={() => handleUpdate()} className="updateText">
+        <span onClick={async () => handleUpdate()} className="updateText">
           {`${t('status.installed')} - ${t(
             'status.hasUpdates',
             'New Version Available!'
@@ -574,7 +574,7 @@ export default function GamePage(): JSX.Element | null {
       return
     }
 
-    return await install({
+    return install({
       appName,
       handleGameStatus,
       installPath: folder,

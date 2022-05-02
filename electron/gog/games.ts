@@ -72,7 +72,7 @@ class GOGGame extends Game {
     return GOGLibrary.get().getGameInfo(this.appName)
   }
   async getInstallInfo(): Promise<InstallInfo> {
-    return await GOGLibrary.get().getInstallInfo(this.appName)
+    return GOGLibrary.get().getInstallInfo(this.appName)
   }
   async getSettings(): Promise<GameSettings> {
     return (
@@ -80,7 +80,7 @@ class GOGGame extends Game {
       (await GameConfig.get(this.appName).getSettings())
     )
   }
-  hasUpdate(): Promise<boolean> {
+  async hasUpdate(): Promise<boolean> {
     throw new Error('Method not implemented.')
   }
 
@@ -195,7 +195,7 @@ class GOGGame extends Game {
     return removeShortcuts(this.appName, 'gog')
   }
 
-  launch(launchArguments?: string): Promise<ExecResult | LaunchResult> {
+  async launch(launchArguments?: string): Promise<ExecResult | LaunchResult> {
     return launch(this.appName, launchArguments, 'gog')
   }
 
@@ -284,7 +284,7 @@ class GOGGame extends Game {
     })
   }
 
-  syncSaves(arg: string, path: string): Promise<ExecResult> {
+  async syncSaves(arg: string, path: string): Promise<ExecResult> {
     throw new Error(
       "GOG integration doesn't support syncSaves yet. How did you managed to call that function?"
     )
@@ -332,6 +332,7 @@ class GOGGame extends Game {
     }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
+    removeShortcuts(this.appName, 'gog')
     return res
   }
 

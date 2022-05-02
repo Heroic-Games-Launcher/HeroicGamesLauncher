@@ -48,7 +48,7 @@ class LegendaryGame extends Game {
     if (!isLoggedIn) {
       return []
     }
-    return await LegendaryLibrary.get().listUpdateableGames()
+    return LegendaryLibrary.get().listUpdateableGames()
   }
 
   /**
@@ -57,7 +57,7 @@ class LegendaryGame extends Game {
    * @returns GameInfo
    */
   public async getGameInfo() {
-    return await LegendaryLibrary.get().getGameInfo(this.appName)
+    return LegendaryLibrary.get().getGameInfo(this.appName)
   }
 
   /**
@@ -66,7 +66,7 @@ class LegendaryGame extends Game {
    * @returns InstallInfo
    */
   public async getInstallInfo() {
-    return await LegendaryLibrary.get().getInstallInfo(this.appName)
+    return LegendaryLibrary.get().getInstallInfo(this.appName)
   }
 
   private async getProductSlug(namespace: string) {
@@ -341,6 +341,8 @@ class LegendaryGame extends Game {
         ['Failed to uninstall', `${this.appName}:`, res.error],
         LogPrefix.Legendary
       )
+    } else {
+      removeShortcuts(this.appName, 'legendary')
     }
     return res
   }

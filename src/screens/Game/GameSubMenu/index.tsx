@@ -145,25 +145,25 @@ export default function GamesSubmenu({
               {t('submenu.log')}
             </NavLink>
             <button
-              onClick={() => handleMoveInstall()}
+              onClick={async () => handleMoveInstall()}
               className="link button is-text is-link"
             >
               {t('submenu.move')}
             </button>{' '}
             <button
-              onClick={() => handleChangeInstall()}
+              onClick={async () => handleChangeInstall()}
               className="link button is-text is-link"
             >
               {t('submenu.change')}
             </button>{' '}
             <button
-              onClick={() => handleRepair(appName)}
+              onClick={async () => handleRepair(appName)}
               className="link button is-text is-link"
             >
               {t('submenu.verify')}
             </button>{' '}
             <button
-              onClick={() =>
+              onClick={async () =>
                 uninstall({ appName, t, handleGameStatus, runner })
               }
               className="link button is-text is-link"

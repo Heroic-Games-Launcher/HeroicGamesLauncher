@@ -110,6 +110,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "favourites": "Favourites",
     "globalSettings": "Ajustes globales",
     "GOG": "GOG",
     "gog-store": "Tienda de GOG",
@@ -156,7 +157,10 @@
     "library": {
         "gridView": "Vista de cuadrícula",
         "listView": "Vista de lista",
-        "refresh": "Actualizar"
+        "refresh": "Actualizar",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Biblioteca",
     "loading": {
@@ -247,6 +251,12 @@
         "fsync": "Habilitar Fsync",
         "gamemode": "Usar GameMode (Feral Game Mode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Copiar el contenido del registro en el portapapeles",
             "current-log": "Registro actual",

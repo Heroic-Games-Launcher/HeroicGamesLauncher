@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { Path } from 'src/types'
+import { LibraryTopSectionOptions, Path } from 'src/types'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { InfoBox, SvgButton } from 'src/components/UI'
@@ -70,7 +70,13 @@ export default function GeneralSettings({
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
-  const { platform, refreshLibrary, isRTL } = useContext(ContextProvider)
+  const {
+    platform,
+    refreshLibrary,
+    isRTL,
+    libraryTopSection,
+    handleLibraryTopSection
+  } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
   const isWindows = platform === 'win32'
@@ -91,7 +97,7 @@ export default function GeneralSettings({
   async function handleSync() {
     setIsSyncing(true)
     if (isLinked) {
-      return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
+      return ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
         await ipcRenderer.invoke('openMessageBox', {
           message: t('message.unsync'),
           title: 'EGS Sync'
@@ -103,28 +109,26 @@ export default function GeneralSettings({
       })
     }
 
-    return await ipcRenderer
-      .invoke('egsSync', egsPath)
-      .then(async (res: string) => {
-        if (res === 'Error') {
-          setIsSyncing(false)
-          ipcRenderer.invoke('showErrorBox', [
-            t('box.error.title', 'Error'),
-            t('box.sync.error')
-          ])
-          setEgsLinkedPath('')
-          setEgsPath('')
-          return
-        }
-        await ipcRenderer.invoke('openMessageBox', {
-          message: t('message.sync'),
-          title: 'EGS Sync'
-        })
-
+    return ipcRenderer.invoke('egsSync', egsPath).then(async (res: string) => {
+      if (res === 'Error') {
         setIsSyncing(false)
-        setEgsLinkedPath(isWindows ? 'windows' : egsPath)
-        refreshLibrary({ fullRefresh: true, runInBackground: false })
+        ipcRenderer.invoke('showErrorBox', [
+          t('box.error.title', 'Error'),
+          t('box.sync.error')
+        ])
+        setEgsLinkedPath('')
+        setEgsPath('')
+        return
+      }
+      await ipcRenderer.invoke('openMessageBox', {
+        message: t('message.sync'),
+        title: 'EGS Sync'
       })
+
+      setIsSyncing(false)
+      setEgsLinkedPath(isWindows ? 'windows' : egsPath)
+      refreshLibrary({ fullRefresh: true, runInBackground: false })
+    })
   }
 
   function handleEgsFolder() {
@@ -181,7 +185,7 @@ export default function GeneralSettings({
             onChange={(event) => setDefaultInstallPath(event.target.value)}
           />
           <SvgButton
-            onClick={() =>
+            onClick={async () =>
               ipcRenderer
                 .invoke('openDialog', {
                   buttonLabel: t('box.choose'),
@@ -240,7 +244,7 @@ export default function GeneralSettings({
             )}
             <button
               data-testid="syncButton"
-              onClick={() => handleSync()}
+              onClick={async () => handleSync()}
               disabled={isSyncing || !egsPath.length}
               className={`button is-small ${
                 isLinked ? 'is-danger' : isSyncing ? 'is-primary' : 'settings'
@@ -369,6 +373,39 @@ export default function GeneralSettings({
           </span>
         </label>
       </span>
+
+      <span className="setting">
+        <label
+          className={classNames('settingText', { isRTL: isRTL })}
+          htmlFor="library_top_section_selector"
+        >
+          {t('setting.library_top_section', 'Library Top Section')}
+        </label>
+        <select
+          id="library_top_section_selector"
+          onChange={(event) =>
+            handleLibraryTopSection(
+              event.target.value as LibraryTopSectionOptions
+            )
+          }
+          value={libraryTopSection}
+          className="settingSelect is-drop-down"
+        >
+          <option value="recently_played">
+            {t(
+              'setting.library_top_option.recently_played',
+              'Recently Played Games'
+            )}
+          </option>
+          <option value="favourites">
+            {t('setting.library_top_option.favourites', 'Favourite Games')}
+          </option>
+          <option value="disabled">
+            {t('setting.library_top_option.disabled', 'Disabled')}
+          </option>
+        </select>
+      </span>
+
       <span className="setting">
         <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <select

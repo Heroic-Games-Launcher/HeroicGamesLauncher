@@ -424,7 +424,7 @@ class GlobalConfigV0 extends GlobalConfig {
     }
 
     if (!existsSync(heroicConfigPath)) {
-      return await this.getFactoryDefaults()
+      return this.getFactoryDefaults()
     }
 
     let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
@@ -495,7 +495,7 @@ class GlobalConfigV0 extends GlobalConfig {
 
   public async resetToDefaults() {
     this.config = await this.getFactoryDefaults()
-    return await this.flush()
+    return this.flush()
   }
 
   public async flush() {

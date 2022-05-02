@@ -110,6 +110,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "favourites": "Favourites",
     "globalSettings": "Globaalit asetukset",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -156,7 +157,10 @@
     "library": {
         "gridView": "",
         "listView": "",
-        "refresh": ""
+        "refresh": "",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Kirjasto",
     "loading": {
@@ -247,6 +251,12 @@
         "fsync": "Ota Fsync käyttöön",
         "gamemode": "Käytä GameModea (Feral Game Mode tulee olla asennettu)",
         "language": "Valitse applikaation kieli",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Kopioi lokin sisältö leikepöydälle",
             "current-log": "Nykyinen loki",

@@ -156,13 +156,8 @@ export class LegendaryLibrary {
     } catch (error) {
       logError(`${error}`, LogPrefix.Legendary)
     }
-    const arr = Array.from(this.library.values()).sort(
-      (a: { title: string }, b: { title: string }) => {
-        const gameA = a.title.toUpperCase().replace('THE ', '')
-        const gameB = b.title.toUpperCase().replace('THE ', '')
-        return gameA < gameB ? -1 : 1
-      }
-    )
+    const arr = Array.from(this.library.values())
+
     if (format === 'info') {
       if (libraryStore.has('library')) {
         libraryStore.delete('library')
@@ -280,7 +275,7 @@ export class LegendaryLibrary {
       await Promise.allSettled(
         (await this.listUpdateableGames())
           .map(LegendaryGame.get)
-          .map((game) => game.update())
+          .map(async (game) => game.update())
       )
     ).map((res) => {
       if (res.status === 'fulfilled') {

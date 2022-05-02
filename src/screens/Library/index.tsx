@@ -10,11 +10,13 @@ import { useTranslation } from 'react-i18next'
 import { getLibraryTitle } from './constants'
 import ActionIcons from 'src/components/UI/ActionIcons'
 import { GamesList } from './components/GamesList'
-import { Runner } from 'src/types'
+import { GameInfo, Runner } from 'src/types'
 
 const InstallModal = lazy(
-  () => import('src/screens/Library/components/InstallModal')
+  async () => import('src/screens/Library/components/InstallModal')
 )
+
+const storage = window.localStorage
 
 export default function Library(): JSX.Element {
   const {
@@ -25,7 +27,9 @@ export default function Library(): JSX.Element {
     filter,
     epicLibrary,
     gogLibrary,
-    recentGames
+    recentGames,
+    favouriteGames,
+    libraryTopSection
   } = useContext(ContextProvider)
 
   const [showModal, setShowModal] = useState({
@@ -33,6 +37,12 @@ export default function Library(): JSX.Element {
     show: false,
     runner: 'legendary' as Runner
   })
+  const [sortDescending, setSortDescending] = useState(
+    JSON.parse(storage?.getItem('sortDescending') || 'false')
+  )
+  const [sortInstalled, setSortInstalled] = useState(
+    JSON.parse(storage?.getItem('sortInstalled') || 'true')
+  )
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
@@ -64,11 +74,26 @@ export default function Library(): JSX.Element {
     setShowModal({ game: appName, show: true, runner })
   }
 
+  function handleSortDescending() {
+    setSortDescending(!sortDescending)
+    storage.setItem('sortDescending', JSON.stringify(!sortDescending))
+  }
+
+  function handleSortInstalled() {
+    setSortInstalled(!sortInstalled)
+    storage.setItem('sortInstalled', JSON.stringify(!sortInstalled))
+  }
+
   function titleWithIcons() {
     return (
       <div className="titleWithIcons">
         {getLibraryTitle(category, filter, t)}
-        <ActionIcons />
+        <ActionIcons
+          sortDescending={sortDescending}
+          toggleSortDescending={() => handleSortDescending()}
+          sortInstalled={sortInstalled}
+          toggleSortinstalled={() => handleSortInstalled()}
+        />
       </div>
     )
   }
@@ -86,18 +111,47 @@ export default function Library(): JSX.Element {
 
   // select library and sort
   let libraryToShow = category === 'epic' ? epicLibrary : gogLibrary
+  libraryToShow = libraryToShow.sort(
+    (a: { title: string }, b: { title: string }) => {
+      const gameA = a.title.toUpperCase().replace('THE ', '')
+      const gameB = b.title.toUpperCase().replace('THE ', '')
+      return sortDescending ? (gameA > gameB ? -1 : 1) : gameA < gameB ? -1 : 1
+    }
+  )
+  const installed = libraryToShow.filter((g) => g.is_installed)
+  const notInstalled = libraryToShow.filter(
+    (g) => !g.is_installed && !installing.includes(g.app_name)
+  )
+  const installingGames = libraryToShow.filter((g) =>
+    installing.includes(g.app_name)
+  )
+  libraryToShow = sortInstalled
+    ? [...installed, ...installingGames, ...notInstalled]
+    : libraryToShow
 
-  libraryToShow = libraryToShow.sort((g1, g2) => {
-    if (g1.is_installed) return -1
+  const showRecentGames =
+    libraryTopSection === 'recently_played' &&
+    !!recentGames.length &&
+    category !== 'unreal'
 
-    if (g2.is_installed) return 1
+  const showFavourites =
+    libraryTopSection === 'favourites' &&
+    !!favouriteGames.list.length &&
+    category !== 'unreal'
 
-    if (installing.includes(g1.app_name)) return -1
+  const favourites: GameInfo[] = []
 
-    return 1
-  })
-
-  const showRecentGames = !!recentGames.length && category !== 'unreal'
+  if (showFavourites) {
+    const favouriteAppNames = favouriteGames.list.map(
+      (favourite) => favourite.appName
+    )
+    epicLibrary.forEach((game) => {
+      if (favouriteAppNames.includes(game.app_name)) favourites.push(game)
+    })
+    gogLibrary.forEach((game) => {
+      if (favouriteAppNames.includes(game.app_name)) favourites.push(game)
+    })
+  }
 
   const dlcCount = epicLibrary.filter((lib) => lib.install.is_dlc)
   const numberOfGames =
@@ -118,6 +172,13 @@ export default function Library(): JSX.Element {
               library={recentGames}
               handleGameCardClick={handleModal}
             />
+          </>
+        )}
+
+        {showFavourites && (
+          <>
+            <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
+            <GamesList library={favourites} handleGameCardClick={handleModal} />
           </>
         )}
 

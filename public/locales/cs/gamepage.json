@@ -36,11 +36,13 @@
         "yes": "ANO"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Zrušit",
         "continue": "Pokračovat ve stahování",
         "hide_game": "Hide Game",
         "import": "Importovat",
         "install": "Instalovat",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Odinstalovat",
         "update": "Update"

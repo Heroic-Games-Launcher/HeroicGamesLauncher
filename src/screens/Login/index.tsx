@@ -22,16 +22,14 @@ export default function NewLogin() {
     i18n.changeLanguage(language)
   }
   const navigate = useNavigate()
-  const [epicLogin, setEpicLogin] = useState({})
-  const [gogLogin, setGOGLogin] = useState({})
+  const [epicLogin, setEpicLogin] = useState('')
+  const [gogLogin, setGOGLogin] = useState('')
   const [loading, setLoading] = useState(true)
   const [showSidLogin, setShowSidLogin] = useState(false)
 
   function refreshUserInfo() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setEpicLogin(configStore.get('userInfo') as any)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setGOGLogin(gogConfigStore.get('userData') as any)
+    setEpicLogin(configStore.get('userInfo'))
+    setGOGLogin(gogConfigStore.get('userData'))
   }
 
   function eventHandler() {
@@ -100,7 +98,7 @@ export default function NewLogin() {
             refresh={refreshUserInfo}
             logoutAction={() => {
               ipcRenderer.invoke('logoutGOG')
-              setGOGLogin({})
+              setGOGLogin('')
             }}
           />
         </div>

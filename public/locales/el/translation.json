@@ -110,6 +110,7 @@
         "offline-notification-title": "Εκτός Σύνδεσης"
     },
     "Epic Games": "Epic Games",
+    "favourites": "Favourites",
     "globalSettings": "Καθολικές Ρυθμίσεις",
     "GOG": "GOG",
     "gog-store": "Κατάστημα GOG",
@@ -156,7 +157,10 @@
     "library": {
         "gridView": "Προβολή Πλέγματος",
         "listView": "Προβολή Λίστας",
-        "refresh": "Ανανέωση"
+        "refresh": "Ανανέωση",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Βιβλιοθήκη",
     "loading": {
@@ -247,6 +251,12 @@
         "fsync": "Ενεργοποίηση Fsync",
         "gamemode": "Χρήση λειτουργίας παιχνιδιού (απαραίτητη η εγκατάσταση του Feral Game Mode)",
         "language": "Διαλέξτε γλώσσα εφαρμογής",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Αντιγραφή αρχείου καταγραφής στο πρόχειρο",
             "current-log": "Τρέχων Αρχείο Καταγραφής",
