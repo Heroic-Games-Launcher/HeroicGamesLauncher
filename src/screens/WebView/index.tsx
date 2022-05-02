@@ -1,11 +1,11 @@
 import React, { useContext, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHistory, useLocation, useParams } from 'react-router'
+import { useNavigate, useLocation, useParams } from 'react-router'
 
 import { UpdateComponent } from 'src/components/UI'
 import WebviewControls from 'src/components/UI/WebviewControls'
 import ContextProvider from 'src/state/ContextProvider'
-import { Runner, Webview } from 'src/types'
+import { Runner, WebviewType } from 'src/types'
 import './index.css'
 
 const { clipboard, ipcRenderer } = window.require('electron')
@@ -27,8 +27,8 @@ export default function WebView() {
     refresh: true,
     message: t('loading.website', 'Loading Website')
   }))
-  const history = useHistory()
-  const webviewRef = useRef<Webview>(null)
+  const navigate = useNavigate()
+  const webviewRef = useRef<WebviewType>(null)
 
   let lang = i18n.language
   if (i18n.language === 'pt') {
@@ -54,8 +54,8 @@ export default function WebView() {
     '/wiki': wikiURL,
     '/loginEpic': epicLoginUrl,
     '/loginGOG': gogLoginUrl,
-    '/login/legendary': epicLoginUrl,
-    '/login/gog': gogLoginUrl
+    '/loginweb/legendary': epicLoginUrl,
+    '/loginweb/gog': gogLoginUrl
   }
   let startUrl = urls[pathname]
 
@@ -75,7 +75,7 @@ export default function WebView() {
       runInBackground: false
     })
     setLoading({ ...loading, refresh: false })
-    history.push('/login')
+    navigate('/login')
   }
 
   useLayoutEffect(() => {
@@ -139,11 +139,13 @@ export default function WebView() {
 
   return (
     <div className="WebView">
-      <WebviewControls
-        webview={webviewRef.current}
-        initURL={startUrl}
-        openInBrowser={!startUrl.startsWith('/login')}
-      />
+      {webviewRef.current && (
+        <WebviewControls
+          webview={webviewRef.current}
+          initURL={startUrl}
+          openInBrowser={!startUrl.startsWith('login')}
+        />
+      )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
       <webview
         ref={webviewRef}

@@ -138,12 +138,8 @@ export default function GamesSubmenu({
         {isInstalled && (
           <>
             <NavLink
-              to={{
-                pathname: `/settings/${appName}/log`,
-                state: {
-                  runner
-                }
-              }}
+              to={`/settings/${appName}/log`}
+              state={runner}
               className="link button is-text is-link"
             >
               {t('submenu.log')}
@@ -186,7 +182,6 @@ export default function GamesSubmenu({
         )}
         <NavLink
           className="link button is-text is-link"
-          exact
           to={`/store-page?store-url=${storeUrl}`}
         >
           {t('submenu.store')}

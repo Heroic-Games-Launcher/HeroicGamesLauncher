@@ -3,7 +3,7 @@ import './index.css'
 import EpicLogo from '../../assets/epic-logo.svg'
 import Runner from './components/Runner'
 import { useTranslation } from 'react-i18next'
-import { useHistory } from 'react-router'
+import { useNavigate } from 'react-router'
 
 import GOGLogo from 'src/assets/gog-logo.svg'
 import { LanguageSelector, UpdateComponent } from 'src/components/UI'
@@ -21,7 +21,7 @@ export default function NewLogin() {
     storage.setItem('language', language)
     i18n.changeLanguage(language)
   }
-  const history = useHistory()
+  const navigate = useNavigate()
   const [epicLogin, setEpicLogin] = useState('')
   const [gogLogin, setGOGLogin] = useState('')
   const [loading, setLoading] = useState(true)
@@ -75,7 +75,7 @@ export default function NewLogin() {
         <div className="runnerList">
           <Runner
             class="epic"
-            loginUrl="/login/legendary"
+            loginUrl="/loginweb/legendary"
             icon={() => <img src={EpicLogo} alt="Epic" />}
             isLoggedIn={Boolean(epicLogin)}
             user={epicLogin}
@@ -92,7 +92,7 @@ export default function NewLogin() {
           <Runner
             class="gog"
             icon={() => <img src={GOGLogo} alt="GOG" />}
-            loginUrl="/login/gog"
+            loginUrl="/loginweb/gog"
             isLoggedIn={Boolean(gogLogin)}
             user={gogLogin}
             refresh={refreshUserInfo}
@@ -103,7 +103,7 @@ export default function NewLogin() {
           />
         </div>
         {(epicLogin || gogLogin) && (
-          <button onClick={() => history.push('/')} className="goToLibrary">
+          <button onClick={() => navigate('/')} className="goToLibrary">
             {t('button.go_to_library', 'Go to Library')}
           </button>
         )}

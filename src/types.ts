@@ -287,7 +287,7 @@ export type ElWebview = {
   findInPage: (text: string | RegExp) => void
 }
 
-export type Webview = HTMLWebViewElement & ElWebview
+export type WebviewType = HTMLWebViewElement & ElWebview
 
 export interface GOGGameInfo {
   tags: string[]
