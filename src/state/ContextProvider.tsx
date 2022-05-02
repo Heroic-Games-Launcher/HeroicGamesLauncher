@@ -14,17 +14,19 @@ const initialContext: ContextType = {
   gameUpdates: [],
   handleCategory: () => null,
   handleFilter: () => null,
-  handleGameStatus: () => Promise.resolve(),
+  handleGameStatus: async () => Promise.resolve(),
   handleLayout: () => null,
   handlePlatformFilter: () => null,
   handleSearch: () => null,
   layout: 'grid',
   libraryStatus: [],
+  libraryTopSection: 'disabled',
+  handleLibraryTopSection: () => null,
   platform: 'unknown',
-  refresh: () => Promise.resolve(),
+  refresh: async () => Promise.resolve(),
   recentGames: [],
-  refreshLibrary: () => Promise.resolve(),
-  refreshWineVersionInfo: () => Promise.resolve(),
+  refreshLibrary: async () => Promise.resolve(),
+  refreshWineVersionInfo: async () => Promise.resolve(),
   refreshing: false,
   isRTL: false,
   hiddenGames: {
@@ -33,7 +35,12 @@ const initialContext: ContextType = {
     remove: () => null
   },
   showHidden: false,
-  setShowHidden: () => null
+  setShowHidden: () => null,
+  favouriteGames: {
+    list: [],
+    add: () => null,
+    remove: () => null
+  }
 }
 
 export default React.createContext(initialContext)

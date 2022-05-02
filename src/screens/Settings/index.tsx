@@ -30,10 +30,6 @@ interface ElectronProps {
 
 const { ipcRenderer } = window.require('electron') as ElectronProps
 const storage: Storage = window.localStorage
-interface RouteParams {
-  appName: string
-  type: 'general' | 'wine' | 'other' | 'sync' | 'log' | 'advanced'
-}
 
 interface LocationState {
   fromGameCard: boolean
@@ -185,7 +181,7 @@ function Settings() {
   const [isMacNative, setIsMacNative] = useState(false)
   const [isLinuxNative, setIsLinuxNative] = useState(false)
 
-  const { appName, type } = useParams() as RouteParams
+  const { appName = '', type = '' } = useParams()
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
   const isWineSettings = type === 'wine'
@@ -326,8 +322,8 @@ function Settings() {
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
   let returnPath = '/'
   if (state && !state.fromGameCard) {
-    returnPath = `/gameconfig/${appName}`
-    if (returnPath === '/gameconfig/default') {
+    returnPath = `/gamepage/${appName}`
+    if (returnPath === '/gamepage/default') {
       returnPath = '/'
     }
   }

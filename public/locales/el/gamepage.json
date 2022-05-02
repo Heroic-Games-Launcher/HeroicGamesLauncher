@@ -36,11 +36,13 @@
         "yes": "ΝΑΙ"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Παύση/Ακύρωση",
         "continue": "Συνέχιση λήψης",
         "hide_game": "Hide Game",
         "import": "Εισαγωγή Παιχνιδιού",
         "install": "Εγκατάσταση",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Απεγκατάσταση",
         "update": "Ενημέρωση"

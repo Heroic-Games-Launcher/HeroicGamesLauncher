@@ -36,11 +36,13 @@
         "yes": "ശരി"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "നിര്ത്തൂ/റദ്ദാക്കൂ",
         "continue": "ഇറക്കൽ തുടരൂ",
         "hide_game": "Hide Game",
         "import": "കളി ഇറക്കുമതി ചെയ്യൂ",
         "install": "നടൂ",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "എടുത്തുനീക്കൂ",
         "update": "പുതുക്കൂ"

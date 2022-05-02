@@ -110,6 +110,7 @@
         "offline-notification-title": "fora de línia"
     },
     "Epic Games": "Epic Games",
+    "favourites": "Favourites",
     "globalSettings": "Configuració global",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -250,6 +251,12 @@
         "fsync": "Activa l'Fsync",
         "gamemode": "Utilitza el GameMode (cal que el Feral Game Mode estigui instal·lat)",
         "language": "Tria la llengua de l'aplicació",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Copia el registre al porta-retalls",
             "current-log": "Registre actual",

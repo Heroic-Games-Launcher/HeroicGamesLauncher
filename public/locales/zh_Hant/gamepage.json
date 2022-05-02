@@ -36,11 +36,13 @@
         "yes": "是"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "取消",
         "continue": "繼續下載",
         "hide_game": "Hide Game",
         "import": "導入",
         "install": "安裝",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "解除安裝",
         "update": "更新"

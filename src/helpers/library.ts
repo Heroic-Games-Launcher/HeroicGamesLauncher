@@ -79,7 +79,7 @@ async function install({
       return
     }
 
-    return await importGame({ appName, path, runner })
+    return importGame({ appName, path, runner })
   }
 
   if (installPath !== 'default' || !is_game) {
@@ -94,7 +94,7 @@ async function install({
       runner,
       status: 'installing'
     })
-    return await ipcRenderer
+    return ipcRenderer
       .invoke('install', {
         appName,
         path: `${installPath}`,
@@ -125,7 +125,7 @@ async function install({
       storage.removeItem(appName)
     }
 
-    return await ipcRenderer
+    return ipcRenderer
       .invoke('install', {
         appName,
         path: `${path}`,
@@ -146,7 +146,7 @@ const importGame = async (args: {
   appName: string
   path: string
   runner: Runner
-}): Promise<void> => await ipcRenderer.invoke('importGame', args)
+}): Promise<void> => ipcRenderer.invoke('importGame', args)
 
 type UninstallArgs = {
   appName: string
@@ -201,7 +201,7 @@ async function uninstall({
     await handleGameStatus({ appName, runner, status: 'uninstalling' })
     await ipcRenderer.invoke('uninstall', [appName, checkboxChecked, runner])
     storage.removeItem(appName)
-    return await handleGameStatus({ appName, runner, status: 'done' })
+    return handleGameStatus({ appName, runner, status: 'done' })
   }
   return
 }
@@ -220,7 +220,8 @@ async function handleStopInstallation(
       t('box.no')
     ],
     message: t('gamepage:box.stopInstall.message'),
-    title: t('gamepage:box.stopInstall.title')
+    title: t('gamepage:box.stopInstall.title'),
+    cancelId: 0
   }
 
   const { response } = await ipcRenderer.invoke('openMessageBox', args)
@@ -236,7 +237,7 @@ async function handleStopInstallation(
 }
 
 const repair = async (appName: string, runner: Runner): Promise<void> =>
-  await ipcRenderer.invoke('repair', appName, runner)
+  ipcRenderer.invoke('repair', appName, runner)
 
 type LaunchOptions = {
   appName: string
@@ -245,7 +246,7 @@ type LaunchOptions = {
   runner: Runner
 }
 
-const launch = ({
+const launch = async ({
   appName,
   t,
   launchArguments,
@@ -281,7 +282,7 @@ const launch = ({
       }
     })
 
-const updateGame = (appName: string, runner: Runner): Promise<void> =>
+const updateGame = async (appName: string, runner: Runner): Promise<void> =>
   ipcRenderer.invoke('updateGame', appName, runner)
 
 // Todo: Get Back to update all games

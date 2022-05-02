@@ -36,11 +36,13 @@
         "yes": "KYLLÄ"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Pysäytä/Peruuta",
         "continue": "Jatka lataamista",
         "hide_game": "Hide Game",
         "import": "Tuo peli",
         "install": "Asenna",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Poista",
         "update": "Päivitä"
