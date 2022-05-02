@@ -131,7 +131,7 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
   if (!existsSync(heroicIconFolder)) {
     mkdirSync(heroicIconFolder)
   }
-  if (gameInfo.runner == 'legendary') {
+  if (gameInfo.runner === 'legendary') {
     const image = gameInfo.art_square.replaceAll(' ', '%20')
     let ext = image.split('.').reverse()[0]
     if (ext !== 'jpg' && ext !== 'png') {
@@ -142,7 +142,7 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
       await execAsync(`curl '${image}' --output ${icon}`)
     }
     return icon
-  } else if (gameInfo.runner == 'gog') {
+  } else if (gameInfo.runner === 'gog') {
     const apiData = await GOGLibrary.get().getGamesData(appName)
     let iconUrl = apiData?._links?.icon.href
     iconUrl = iconUrl.replace('{ext}', 'png')

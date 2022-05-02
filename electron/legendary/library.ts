@@ -375,11 +375,11 @@ export class LegendaryLibrary {
     let is_ue_plugin = false
     if (categories) {
       categories.forEach((c: { path: string }) => {
-        if (c.path == 'projects') {
+        if (c.path === 'projects') {
           is_ue_project = true
-        } else if (c.path == 'assets') {
+        } else if (c.path === 'assets') {
           is_ue_asset = true
-        } else if (c.path == 'plugins') {
+        } else if (c.path === 'plugins') {
           is_ue_plugin = true
         }
       })
@@ -387,7 +387,7 @@ export class LegendaryLibrary {
 
     let compatible_apps: string[] = []
     releaseInfo.forEach((rI: { appId: string; compatibleApps: string[] }) => {
-      if (rI.appId == app_name) {
+      if (rI.appId === app_name) {
         compatible_apps = rI.compatibleApps
       }
     })

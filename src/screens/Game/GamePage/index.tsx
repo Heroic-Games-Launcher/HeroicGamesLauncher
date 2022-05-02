@@ -265,8 +265,8 @@ export default function GamePage(): JSX.Element | null {
             </NavLink>
             <div className="store-icon">
               <img
-                src={runner == 'legendary' ? EpicLogo : GOGLogo}
-                className={runner == 'legendary' ? '' : 'gogIcon'}
+                src={runner === 'legendary' ? EpicLogo : GOGLogo}
+                className={runner === 'legendary' ? '' : 'gogIcon'}
                 alt=""
               />
             </div>

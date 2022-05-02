@@ -153,7 +153,7 @@ export default function Library(): JSX.Element {
 
   const dlcCount = epicLibrary.filter((lib) => lib.install.is_dlc)
   const numberOfGames =
-    category == 'epic'
+    category === 'epic'
       ? epicLibrary.length - dlcCount.length
       : gogLibrary.length
 

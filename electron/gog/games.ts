@@ -116,7 +116,7 @@ class GOGGame extends Game {
     const credentials = configStore.get('credentials') as GOGLoginData
 
     let installPlatform = platformToInstall.toLowerCase()
-    if (installPlatform == 'mac') {
+    if (installPlatform === 'mac') {
       installPlatform = 'osx'
     }
 
@@ -152,7 +152,7 @@ class GOGGame extends Game {
     // Save new game info to installed games store
     const installInfo = await this.getInstallInfo()
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
-    const isLinuxNative = installPlatform == 'linux'
+    const isLinuxNative = installPlatform === 'linux'
     const additionalInfo = isLinuxNative
       ? await GOGLibrary.getLinuxInstallerInfo(this.appName)
       : null
@@ -291,8 +291,8 @@ class GOGGame extends Game {
   public async uninstall(): Promise<ExecResult> {
     const array: Array<InstalledInfo> =
       (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
-    const index = array.findIndex((game) => game.appName == this.appName)
-    if (index == -1) {
+    const index = array.findIndex((game) => game.appName === this.appName)
+    if (index === -1) {
       throw Error("Game isn't installed")
     }
 

@@ -232,7 +232,7 @@ export default function InstallModal({
       }
       setIsLinuxNative(gameData.is_linux_native && isLinux)
       setIsMacNative(gameData.is_mac_native && isMac)
-      if (isLinux && gameData.is_linux_native && runner == 'gog') {
+      if (isLinux && gameData.is_linux_native && runner === 'gog') {
         const installer_languages = (await ipcRenderer.invoke(
           'getGOGLinuxInstallersLangs',
           appName

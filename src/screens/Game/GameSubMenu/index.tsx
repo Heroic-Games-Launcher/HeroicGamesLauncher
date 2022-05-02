@@ -125,7 +125,7 @@ export default function GamesSubmenu({
     }
     const getGameDetails = async () => {
       const gameInfo = await getGameInfo(appName, runner)
-      const isLinuxNative = gameInfo.install?.platform == 'linux' && isLinux
+      const isLinuxNative = gameInfo.install?.platform === 'linux' && isLinux
       setIsNative(isLinuxNative)
     }
     getWineInfo()

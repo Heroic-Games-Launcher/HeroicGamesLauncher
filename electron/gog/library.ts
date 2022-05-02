@@ -97,7 +97,7 @@ export class GOGLibrary {
     const gamesArray = libraryStore.get('games') as GameInfo[]
     for (const game of gameApiArray as GOGGameInfo[]) {
       let unifiedObject = gamesArray
-        ? gamesArray.find((value) => value.app_name == String(game.id))
+        ? gamesArray.find((value) => value.app_name === String(game.id))
         : null
       if (!unifiedObject) {
         let apiData = apiInfoCache.get(String(game.id)) as {
@@ -132,7 +132,7 @@ export class GOGLibrary {
   }
 
   public static get() {
-    if (this.globalInstance == null) {
+    if (this.globalInstance === null) {
       GOGLibrary.globalInstance = new GOGLibrary()
     }
     return this.globalInstance
@@ -181,7 +181,7 @@ export class GOGLibrary {
     const gogInfo = JSON.parse(res.stdout)
     const libraryArray = libraryStore.get('games') as GameInfo[]
     const gameObjectIndex = libraryArray.findIndex(
-      (value) => value.app_name == appName
+      (value) => value.app_name === appName
     )
     libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
     gameData.folder_name = gogInfo.folder_name
@@ -230,7 +230,7 @@ export class GOGLibrary {
       (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
 
     const gameIndex = installedArray.findIndex(
-      (value) => value.appName == appName
+      (value) => value.appName === appName
     )
 
     installedArray[gameIndex].install_path = newInstallPath
@@ -298,8 +298,8 @@ export class GOGLibrary {
 
     const installers = response.data?.downloads?.installers
     for (const installer of installers) {
-      if (installer.os == 'linux') {
-        return installer.version == version
+      if (installer.os === 'linux') {
+        return installer.version === version
       }
     }
   }
@@ -320,10 +320,10 @@ export class GOGLibrary {
       : null
     const metaResponse = await axios.get(metaUrl, {
       headers,
-      validateStatus: (status) => status == 200 || status == 304
+      validateStatus: (status) => status === 200 || status === 304
     })
 
-    return metaResponse.status == 200
+    return metaResponse.status === 200
   }
 
   /**
@@ -454,7 +454,7 @@ export class GOGLibrary {
     } else {
       requirements = requirements.systemRequirements
     }
-    if (requirements.length == 0) {
+    if (requirements.length === 0) {
       return []
     }
     const minimum = requirements[0]
@@ -527,7 +527,7 @@ export class GOGLibrary {
       return { isUpdated: false, data: {} }
     }
     const resEtag = response.headers.etag
-    const isUpdated = etag == resEtag
+    const isUpdated = etag === resEtag
     const data = response.data
 
     data.etag = resEtag
@@ -567,7 +567,7 @@ export class GOGLibrary {
       const installers = response.data?.downloads?.installers
       const linuxInstallers = installers.filter(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (value: any) => value.os == 'linux'
+        (value: any) => value.os === 'linux'
       )
       const possibleLanguages = []
 
@@ -594,7 +594,7 @@ export class GOGLibrary {
       const installers = response.data?.downloads?.installers
 
       for (const installer of installers) {
-        if (installer.os == 'linux')
+        if (installer.os === 'linux')
           return {
             version: installer.version
           }
