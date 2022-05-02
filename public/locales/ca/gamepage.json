@@ -36,11 +36,13 @@
         "yes": "SÍ"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Pausa/Cancel·la",
         "continue": "Continua la baixada",
         "hide_game": "Hide Game",
         "import": "Importa el joc",
         "install": "Instal·la",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Desinstal·la",
         "update": "Actualitza"

@@ -110,6 +110,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Game",
+    "favourites": "Favourites",
     "globalSettings": "Cài đặt chung",
     "GOG": "GOG",
     "gog-store": "Cửa hàng GOG",
@@ -250,6 +251,12 @@
         "fsync": "Bật Fsync",
         "gamemode": "Sử dụng GameMode (Cần cài đặt Feral Game Mode)",
         "language": "Chọn ngôn ngữ của ứng dụng",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Sao chép nội dung log vào bộ nhớ tạm",
             "current-log": "Log hiện tại",

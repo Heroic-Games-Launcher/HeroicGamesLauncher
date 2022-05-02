@@ -20,6 +20,8 @@ const initialContext: ContextType = {
   handleSearch: () => null,
   layout: 'grid',
   libraryStatus: [],
+  libraryTopSection: 'disabled',
+  handleLibraryTopSection: () => null,
   platform: 'unknown',
   refresh: async () => Promise.resolve(),
   recentGames: [],
@@ -33,7 +35,12 @@ const initialContext: ContextType = {
     remove: () => null
   },
   showHidden: false,
-  setShowHidden: () => null
+  setShowHidden: () => null,
+  favouriteGames: {
+    list: [],
+    add: () => null,
+    remove: () => null
+  }
 }
 
 export default React.createContext(initialContext)

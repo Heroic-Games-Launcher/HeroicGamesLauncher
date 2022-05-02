@@ -221,7 +221,8 @@ async function handleStopInstallation(
       t('box.no')
     ],
     message: t('gamepage:box.stopInstall.message'),
-    title: t('gamepage:box.stopInstall.title')
+    title: t('gamepage:box.stopInstall.title'),
+    cancelId: 0
   }
 
   const { response } = await ipcRenderer.invoke('openMessageBox', args)

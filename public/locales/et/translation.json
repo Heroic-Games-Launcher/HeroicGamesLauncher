@@ -110,6 +110,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "favourites": "Favourites",
     "globalSettings": "Globaalsed seaded",
     "GOG": "GOG",
     "gog-store": "GOG Pood",
@@ -250,6 +251,12 @@
         "fsync": "Luba Fsync",
         "gamemode": "Kasuta GameMode'i (Feral Game Mode peab olema paigaldatud)",
         "language": "Valige rakenduse keel",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Kopeeri logi sisu lõikelauale",
             "current-log": "Praegune logi",

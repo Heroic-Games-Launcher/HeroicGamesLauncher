@@ -36,11 +36,13 @@
         "yes": "EVET"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
         "hide_game": "Hide Game",
         "import": "Oyunu İçe Aktar",
         "install": "Kur",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Kaldır",
         "update": "Güncelle"
