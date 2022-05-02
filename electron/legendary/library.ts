@@ -6,7 +6,6 @@ import {
   writeFileSync,
   appendFileSync
 } from 'graceful-fs'
-import prettyBytes from 'pretty-bytes'
 
 import { GameConfig } from '../game_config'
 import {
@@ -22,7 +21,8 @@ import {
   formatEpicStoreUrl,
   getLegendaryBin,
   isEpicServiceOffline,
-  isOnline
+  isOnline,
+  size
 } from '../utils'
 import {
   fallBackImage,
@@ -435,7 +435,7 @@ export class LegendaryLibrary {
       ).length || dlcs.includes(app_name)
     } = (info === undefined ? {} : info) as InstalledInfo
 
-    const convertedSize = install_size && prettyBytes(Number(install_size))
+    const convertedSize = install_size && size(Number(install_size))
 
     this.library.set(app_name, {
       app_name,

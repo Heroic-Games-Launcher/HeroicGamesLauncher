@@ -11,6 +11,7 @@ import {
   getProgress,
   launch,
   sendKill,
+  size,
   syncSaves
 } from 'src/helpers'
 import { Link, NavLink, useParams } from 'react-router-dom'
@@ -30,7 +31,7 @@ import {
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
-import prettyBytes from 'pretty-bytes'
+
 import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'src/screens/Library/components'
@@ -213,10 +214,10 @@ export default function GamePage(): JSX.Element | null {
     }: GameInfo = gameInfo
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
-      prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
+      size(Number(gameInstallInfo?.manifest?.download_size))
     const installSize =
       gameInstallInfo?.manifest?.disk_size &&
-      prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
+      size(Number(gameInstallInfo?.manifest?.disk_size))
     const launchOptions = gameInstallInfo?.game?.launch_options || []
     // This should check for installed platform in the future
     const isMacNative = isMac && is_mac_native

@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
 import classNames from 'classnames'
 import { IpcRenderer } from 'electron'
-import prettyBytes from 'pretty-bytes'
+
 import React, {
   useCallback,
   useContext,
@@ -27,6 +27,7 @@ import {
   getInstallInfo,
   getProgress,
   install,
+  size,
   writeConfig
 } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
@@ -195,11 +196,13 @@ export default function InstallModal({
         if (installPath === 'default') {
           setInstallPath(config.defaultInstallPath)
         }
-        const spaceLeft = await ipcRenderer.invoke(
-          'checkDiskSpace',
-          installPath
-        )
-        setSpaceLeft(spaceLeft)
+        if (installPath !== 'default') {
+          const spaceLeft = await ipcRenderer.invoke(
+            'checkDiskSpace',
+            installPath
+          )
+          setSpaceLeft(spaceLeft)
+        }
       })
 
     return () => {
@@ -252,10 +255,10 @@ export default function InstallModal({
   const DLCList = gameInstallInfo?.game?.owned_dlc
   const downloadSize =
     gameInstallInfo?.manifest?.download_size &&
-    prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
+    size(Number(gameInstallInfo?.manifest?.download_size))
   const installSize =
     gameInstallInfo?.manifest?.disk_size &&
-    prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
+    size(Number(gameInstallInfo?.manifest?.disk_size))
 
   function getIcon() {
     if (isMacNative) {

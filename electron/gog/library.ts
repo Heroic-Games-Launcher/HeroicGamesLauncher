@@ -15,7 +15,7 @@ import {
   readFileSync,
   writeFileSync
 } from 'graceful-fs'
-import prettyBytes from 'pretty-bytes'
+
 import {
   logDebug,
   logError,
@@ -23,7 +23,7 @@ import {
   LogPrefix,
   logWarning
 } from '../logger/logger'
-import { getGOGdlBin } from '../utils'
+import { getGOGdlBin, size } from '../utils'
 import { fallBackImage, isMac } from '../constants'
 import {
   apiInfoCache,
@@ -242,7 +242,7 @@ export class GOGLibrary {
       appName: data.appName,
       install_path: path,
       executable: '',
-      install_size: prettyBytes(
+      install_size: size(
         (await this.getInstallInfo(data.appName)).manifest.disk_size
       ),
       is_dlc: false,

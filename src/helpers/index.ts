@@ -8,6 +8,7 @@ import {
 } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { install, launch, repair, updateGame } from './library'
+import fileSize from 'filesize'
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
@@ -35,6 +36,8 @@ const handleQuit = (): void => ipcRenderer.send('quit')
 const openAboutWindow = (): void => ipcRenderer.send('showAboutWindow')
 
 const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
+
+export const size = fileSize.partial({ base: 2 })
 
 let progress: string
 

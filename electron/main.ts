@@ -32,7 +32,7 @@ import {
   writeFile,
   writeFileSync
 } from 'graceful-fs'
-import prettyBytes from 'pretty-bytes'
+
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import { join } from 'path'
@@ -61,7 +61,8 @@ import {
   showItemInFolder,
   getLegendaryBin,
   getGOGdlBin,
-  showErrorBoxModal
+  showErrorBoxModal,
+  size
 } from './utils'
 import {
   configStore,
@@ -425,8 +426,8 @@ ipcMain.handle('kill', async (event, appName, runner) => {
 })
 
 ipcMain.handle('checkDiskSpace', async (event, folder) => {
-  const { free, size } = await checkDiskSpace(folder)
-  return `${prettyBytes(free)}/${prettyBytes(size)}`
+  const { free, size: diskSize } = await checkDiskSpace(folder)
+  return `${size(free)}/${size(diskSize)}`
 })
 
 ipcMain.on('quit', async () => handleExit(mainWindow))
