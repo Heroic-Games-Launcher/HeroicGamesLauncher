@@ -13,7 +13,7 @@ import { GamesList } from './components/GamesList'
 import { GameInfo, Runner } from 'src/types'
 
 const InstallModal = lazy(
-  () => import('src/screens/Library/components/InstallModal')
+  async () => import('src/screens/Library/components/InstallModal')
 )
 
 const storage = window.localStorage
@@ -119,7 +119,9 @@ export default function Library(): JSX.Element {
     }
   )
   const installed = libraryToShow.filter((g) => g.is_installed)
-  const notInstalled = libraryToShow.filter((g) => !g.is_installed)
+  const notInstalled = libraryToShow.filter(
+    (g) => !g.is_installed && !installing.includes(g.app_name)
+  )
   const installingGames = libraryToShow.filter((g) =>
     installing.includes(g.app_name)
   )

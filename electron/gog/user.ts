@@ -67,7 +67,7 @@ export class GOGUser {
    */
   public static async getCredentials() {
     if (this.isTokenExpired()) {
-      return await this.refreshToken()
+      return this.refreshToken()
     }
 
     return configStore.get('credentials') as GOGLoginData

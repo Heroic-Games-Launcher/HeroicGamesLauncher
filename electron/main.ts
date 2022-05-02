@@ -420,7 +420,7 @@ ipcMain.on('unlock', () => {
 })
 
 ipcMain.handle('kill', async (event, appName, runner) => {
-  return await Game.get(appName, runner).stop()
+  return Game.get(appName, runner).stop()
 })
 
 ipcMain.on('quit', async () => handleExit(mainWindow))
@@ -439,18 +439,18 @@ app.on('open-url', (event, url) => {
   handleProtocol(mainWindow, url)
 })
 
-ipcMain.on('openFolder', (event, folder) => openUrlOrFile(folder))
-ipcMain.on('openSupportPage', () => openUrlOrFile(supportURL))
-ipcMain.on('openReleases', () => openUrlOrFile(heroicGithubURL))
-ipcMain.on('openWeblate', () => openUrlOrFile(weblateUrl))
+ipcMain.on('openFolder', async (event, folder) => openUrlOrFile(folder))
+ipcMain.on('openSupportPage', async () => openUrlOrFile(supportURL))
+ipcMain.on('openReleases', async () => openUrlOrFile(heroicGithubURL))
+ipcMain.on('openWeblate', async () => openUrlOrFile(weblateUrl))
 ipcMain.on('showAboutWindow', () => showAboutWindow())
-ipcMain.on('openLoginPage', () => openUrlOrFile(epicLoginUrl))
-ipcMain.on('openDiscordLink', () => openUrlOrFile(discordLink))
-ipcMain.on('openPatreonPage', () => openUrlOrFile(patreonPage))
-ipcMain.on('openKofiPage', () => openUrlOrFile(kofiPage))
-ipcMain.on('openWebviewPage', (event, url) => openUrlOrFile(url))
-ipcMain.on('openWikiLink', () => openUrlOrFile(wikiLink))
-ipcMain.on('openSidInfoPage', () => openUrlOrFile(sidInfoUrl))
+ipcMain.on('openLoginPage', async () => openUrlOrFile(epicLoginUrl))
+ipcMain.on('openDiscordLink', async () => openUrlOrFile(discordLink))
+ipcMain.on('openPatreonPage', async () => openUrlOrFile(patreonPage))
+ipcMain.on('openKofiPage', async () => openUrlOrFile(kofiPage))
+ipcMain.on('openWebviewPage', async (event, url) => openUrlOrFile(url))
+ipcMain.on('openWikiLink', async () => openUrlOrFile(wikiLink))
+ipcMain.on('openSidInfoPage', async () => openUrlOrFile(sidInfoUrl))
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {
@@ -541,10 +541,10 @@ ipcMain.handle('checkGameUpdates', async () => {
   return [...legendaryUpdates, ...gogUpdates]
 })
 
-ipcMain.handle('getEpicGamesStatus', () => isEpicServiceOffline())
+ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
 
 // Not ready to be used safely yet.
-ipcMain.handle('updateAll', () => LegendaryLibrary.get().updateAllGames())
+ipcMain.handle('updateAll', async () => LegendaryLibrary.get().updateAllGames())
 
 ipcMain.handle('getMaxCpus', () => cpus().length)
 
@@ -581,13 +581,13 @@ ipcMain.on('resetHeroic', async () => {
   }
 })
 
-ipcMain.handle('authGOG', (event, code) =>
+ipcMain.handle('authGOG', async (event, code) =>
   GOGUser.login(code).then(() =>
     mainWindow.webContents.send('updateLoginState')
   )
 )
 
-ipcMain.on('createNewWindow', (e, url) =>
+ipcMain.on('createNewWindow', async (e, url) =>
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 )
 
@@ -614,7 +614,7 @@ ipcMain.handle('getGameSettings', async (event, game, runner) => {
 })
 
 ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
-  return await GOGLibrary.getLinuxInstallersLanguages(appName)
+  return GOGLibrary.getLinuxInstallersLanguages(appName)
 })
 
 ipcMain.handle('getInstallInfo', async (event, game, runner) => {
@@ -631,10 +631,10 @@ ipcMain.handle('getInstallInfo', async (event, game, runner) => {
   }
 })
 
-ipcMain.handle('getUserInfo', async () => await LegendaryUser.getUserInfo())
+ipcMain.handle('getUserInfo', async () => LegendaryUser.getUserInfo())
 
 // Checks if the user have logged in with Legendary already
-ipcMain.handle('isLoggedIn', async () => await LegendaryUser.isLoggedIn())
+ipcMain.handle('isLoggedIn', async () => LegendaryUser.isLoggedIn())
 
 ipcMain.handle('login', async (event, sid) =>
   LegendaryUser.login(sid).then((value) => {
@@ -643,17 +643,17 @@ ipcMain.handle('login', async (event, sid) =>
   })
 )
 
-ipcMain.handle('logoutLegendary', async () => await LegendaryUser.logout())
+ipcMain.handle('logoutLegendary', async () => LegendaryUser.logout())
 ipcMain.handle('logoutGOG', async () => GOGUser.logout())
 
-ipcMain.handle('getAlternativeWine', () =>
+ipcMain.handle('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
 )
 
 ipcMain.handle('readConfig', async (event, config_class) => {
   switch (config_class) {
     case 'library':
-      return await LegendaryLibrary.get().getGames('info')
+      return LegendaryLibrary.get().getGames('info')
     case 'user':
       return (await LegendaryUser.getUserInfo()).displayName
     default:
@@ -670,7 +670,7 @@ ipcMain.handle('requestSettings', async (event, appName) => {
     return GlobalConfig.get().config
   }
   // We can't use .config since apparently its not loaded fast enough.
-  return await GameConfig.get(appName).getSettings()
+  return GameConfig.get(appName).getSettings()
 })
 
 ipcMain.on('toggleDXVK', (event, [{ winePrefix, winePath }, action]) => {

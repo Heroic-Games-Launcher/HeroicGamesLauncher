@@ -97,7 +97,7 @@ export default function GeneralSettings({
   async function handleSync() {
     setIsSyncing(true)
     if (isLinked) {
-      return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
+      return ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
         await ipcRenderer.invoke('openMessageBox', {
           message: t('message.unsync'),
           title: 'EGS Sync'
@@ -109,28 +109,26 @@ export default function GeneralSettings({
       })
     }
 
-    return await ipcRenderer
-      .invoke('egsSync', egsPath)
-      .then(async (res: string) => {
-        if (res === 'Error') {
-          setIsSyncing(false)
-          ipcRenderer.invoke('showErrorBox', [
-            t('box.error.title', 'Error'),
-            t('box.sync.error')
-          ])
-          setEgsLinkedPath('')
-          setEgsPath('')
-          return
-        }
-        await ipcRenderer.invoke('openMessageBox', {
-          message: t('message.sync'),
-          title: 'EGS Sync'
-        })
-
+    return ipcRenderer.invoke('egsSync', egsPath).then(async (res: string) => {
+      if (res === 'Error') {
         setIsSyncing(false)
-        setEgsLinkedPath(isWindows ? 'windows' : egsPath)
-        refreshLibrary({ fullRefresh: true, runInBackground: false })
+        ipcRenderer.invoke('showErrorBox', [
+          t('box.error.title', 'Error'),
+          t('box.sync.error')
+        ])
+        setEgsLinkedPath('')
+        setEgsPath('')
+        return
+      }
+      await ipcRenderer.invoke('openMessageBox', {
+        message: t('message.sync'),
+        title: 'EGS Sync'
       })
+
+      setIsSyncing(false)
+      setEgsLinkedPath(isWindows ? 'windows' : egsPath)
+      refreshLibrary({ fullRefresh: true, runInBackground: false })
+    })
   }
 
   function handleEgsFolder() {
@@ -187,7 +185,7 @@ export default function GeneralSettings({
             onChange={(event) => setDefaultInstallPath(event.target.value)}
           />
           <SvgButton
-            onClick={() =>
+            onClick={async () =>
               ipcRenderer
                 .invoke('openDialog', {
                   buttonLabel: t('box.choose'),
@@ -246,7 +244,7 @@ export default function GeneralSettings({
             )}
             <button
               data-testid="syncButton"
-              onClick={() => handleSync()}
+              onClick={async () => handleSync()}
               disabled={isSyncing || !egsPath.length}
               className={`button is-small ${
                 isLinked ? 'is-danger' : isSyncing ? 'is-primary' : 'settings'

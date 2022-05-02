@@ -216,7 +216,7 @@ async function launch(
       logInfo(['Launch Command:', command], LogPrefix.Gog)
     }
 
-    return await execAsync(command, execOptions).then(({ stderr }) => {
+    return execAsync(command, execOptions).then(({ stderr }) => {
       if (discordRPC) {
         logInfo(
           'Stopping Discord Rich Presence if running...',
