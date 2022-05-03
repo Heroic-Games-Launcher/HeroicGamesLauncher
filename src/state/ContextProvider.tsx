@@ -28,6 +28,7 @@ const initialContext: ContextType = {
   refreshLibrary: async () => Promise.resolve(),
   refreshWineVersionInfo: async () => Promise.resolve(),
   refreshing: false,
+  refreshingInTheBackground: true,
   isRTL: false,
   hiddenGames: {
     list: [],

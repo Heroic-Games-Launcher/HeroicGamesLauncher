@@ -1,7 +1,7 @@
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
-import React, { useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SearchBar } from 'src/components/UI'
 import ContextProvider from 'src/state/ContextProvider'
@@ -10,11 +10,7 @@ import { UE_VERSIONS } from './constants'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import './index.css'
 
-export interface HeaderProps {
-  numberOfGames: number
-}
-
-export default function Header({ numberOfGames }: HeaderProps) {
+export default function Header() {
   const { t } = useTranslation()
   const {
     category,
@@ -24,7 +20,9 @@ export default function Header({ numberOfGames }: HeaderProps) {
     handlePlatformFilter,
     platform,
     showHidden,
-    setShowHidden
+    setShowHidden,
+    epicLibrary,
+    gogLibrary
   } = useContext(ContextProvider)
 
   const isMac = platform === 'darwin'
@@ -37,6 +35,15 @@ export default function Header({ numberOfGames }: HeaderProps) {
   const showHiddenTitle = showHidden
     ? t('header.ignore_hidden', 'Ignore Hidden')
     : t('header.show_hidden', 'Show Hidden')
+
+  const numberOfGames = useMemo(() => {
+    const dlcCount = epicLibrary.filter((lib) => lib.install.is_dlc)
+    if (category == 'epic') {
+      return epicLibrary.length - dlcCount.length
+    } else {
+      return gogLibrary.length
+    }
+  }, [epicLibrary, gogLibrary, category])
 
   return (
     <div className="Header">

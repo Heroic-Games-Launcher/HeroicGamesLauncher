@@ -74,6 +74,7 @@ export interface ContextType {
   refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
+  refreshingInTheBackground: boolean
   hiddenGames: {
     list: HiddenGame[]
     add: (appNameToHide: string, appTitle: string) => void

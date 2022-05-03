@@ -20,6 +20,8 @@ const Backend = new HttpApi(null, {
 initGamepad()
 initShortcuts()
 
+const storage: Storage = window.localStorage
+
 i18next
   // load translation using http -> see /public/locales
   // learn more: https://github.com/i18next/i18next-http-backend
@@ -32,7 +34,7 @@ i18next
     interpolation: {
       escapeValue: false
     },
-    lng: 'en',
+    lng: storage.getItem('language') || 'en',
     react: {
       useSuspense: true
     },
