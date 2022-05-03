@@ -72,8 +72,8 @@ class GOGGame extends Game {
   public async getGameInfo(): Promise<GameInfo> {
     return GOGLibrary.get().getGameInfo(this.appName)
   }
-  async getInstallInfo(): Promise<InstallInfo> {
-    return GOGLibrary.get().getInstallInfo(this.appName)
+  async getInstallInfo(installPlatform?: string): Promise<InstallInfo> {
+    return GOGLibrary.get().getInstallInfo(this.appName, installPlatform)
   }
   async getSettings(): Promise<GameSettings> {
     return (
@@ -190,7 +190,7 @@ class GOGGame extends Game {
 
     // Installation succeded
     // Save new game info to installed games store
-    const installInfo = await this.getInstallInfo()
+    const installInfo = await this.getInstallInfo(installPlatform)
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
     const isLinuxNative = installPlatform == 'linux'
     const additionalInfo = isLinuxNative

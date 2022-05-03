@@ -1,3 +1,4 @@
+import { PlatformToInstall } from './../types'
 import {
   AppSettings,
   GameInfo,
@@ -88,9 +89,10 @@ const getGameSettings = async (
 
 const getInstallInfo = async (
   appName: string,
-  runner: Runner
+  runner: Runner,
+  installPlatform?: PlatformToInstall
 ): Promise<InstallInfo | null> => {
-  return ipcRenderer.invoke('getInstallInfo', appName, runner)
+  return ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
 }
 
 const handleSavePath = async (game: string) => {

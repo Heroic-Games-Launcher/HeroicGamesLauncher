@@ -118,8 +118,7 @@ export default function InstallModal({
 
   const [isLinuxNative, setIsLinuxNative] = useState(false)
   const [isMacNative, setIsMacNative] = useState(false)
-  const [platformToInstall, setPlatformToInstall] =
-    useState<PlatformToInstall>('')
+
   const installFolder = gameStatus?.folder || installPath
 
   const isMac = platform === 'darwin'
@@ -145,6 +144,12 @@ export default function InstallModal({
       icon: faWindows
     }
   ]
+
+  const availablePlatforms = platforms.filter((p) => p.available)
+  const defaultPlatform = availablePlatforms[0].value as PlatformToInstall
+
+  const [platformToInstall, setPlatformToInstall] =
+    useState<PlatformToInstall>(defaultPlatform)
 
   const sdls: Array<SelectiveDownload> = SDL_GAMES[appName]
   const haveSDL = Array.isArray(sdls) && sdls.length !== 0
@@ -226,7 +231,11 @@ export default function InstallModal({
 
   useEffect(() => {
     const getInfo = async () => {
-      const gameInstallInfo = await getInstallInfo(appName, runner)
+      const gameInstallInfo = await getInstallInfo(
+        appName,
+        runner,
+        platformToInstall
+      )
       const gameInfo = await getGameInfo(appName, runner)
       if (!gameInstallInfo) {
         ipcRenderer.invoke('showErrorBox', [

@@ -149,7 +149,7 @@ export class GOGLibrary {
    * @param appName
    * @returns InstallInfo object
    */
-  public async getInstallInfo(appName: string) {
+  public async getInstallInfo(appName: string, installPlatform?: string) {
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
       logError('No credentials, cannot get install info')
@@ -163,7 +163,7 @@ export class GOGLibrary {
       `--token=${credentials.access_token}`,
       '--lang=en-US',
       '--os',
-      isMac && gameData.is_mac_native ? 'osx' : 'windows'
+      installPlatform ? installPlatform.toLowerCase() : 'windows'
     ]
     const command = getGogdlCommand(commandParts)
 

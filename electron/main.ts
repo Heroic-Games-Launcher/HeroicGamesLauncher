@@ -616,19 +616,25 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
   return GOGLibrary.getLinuxInstallersLanguages(appName)
 })
 
-ipcMain.handle('getInstallInfo', async (event, game, runner) => {
-  const online = await isOnline()
-  if (!online) {
-    return { game: {}, metadata: {} }
+ipcMain.handle(
+  'getInstallInfo',
+  async (event, game, runner, installPlatform) => {
+    const online = await isOnline()
+    if (!online) {
+      return { game: {}, metadata: {} }
+    }
+    installPlatform && installPlatform === 'mac'
+      ? (installPlatform = 'osx')
+      : installPlatform
+    try {
+      const info = await Game.get(game, runner).getInstallInfo(installPlatform)
+      return info
+    } catch (error) {
+      logError(`${error}`, LogPrefix.Backend)
+      return null
+    }
   }
-  try {
-    const info = await Game.get(game, runner).getInstallInfo()
-    return info
-  } catch (error) {
-    logError(`${error}`, LogPrefix.Backend)
-    return null
-  }
-})
+)
 
 ipcMain.handle('getUserInfo', async () => LegendaryUser.getUserInfo())
 
