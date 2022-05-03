@@ -48,7 +48,7 @@ class LegendaryGame extends Game {
     if (!isLoggedIn) {
       return []
     }
-    return await LegendaryLibrary.get().listUpdateableGames()
+    return LegendaryLibrary.get().listUpdateableGames()
   }
 
   /**
@@ -57,7 +57,7 @@ class LegendaryGame extends Game {
    * @returns GameInfo
    */
   public async getGameInfo() {
-    return await LegendaryLibrary.get().getGameInfo(this.appName)
+    return LegendaryLibrary.get().getGameInfo(this.appName)
   }
 
   /**
@@ -66,7 +66,7 @@ class LegendaryGame extends Game {
    * @returns InstallInfo
    */
   public async getInstallInfo() {
-    return await LegendaryLibrary.get().getInstallInfo(this.appName)
+    return LegendaryLibrary.get().getInstallInfo(this.appName)
   }
 
   private async getProductSlug(namespace: string) {
@@ -216,6 +216,62 @@ class LegendaryGame extends Game {
     return newInstallPath
   }
 
+  // used when downloading games, store the download size read from Legendary's output
+  currentDownloadSize = 0
+
+  public onInstallOrUpdateOutput(
+    action: 'installing' | 'updating',
+    totalDownloadSize: number,
+    data: string
+  ) {
+    const downloadSizeMatch = data.match(/Download size: ([\d.]+) MiB/)
+
+    // store the download size, needed for correct calculation
+    // when cancel/resume downloads
+    if (downloadSizeMatch) {
+      this.currentDownloadSize = parseFloat(downloadSizeMatch[1])
+    }
+
+    // parse log for game download progress
+    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+    const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
+    if (etaMatch && bytesMatch) {
+      const eta = etaMatch[1]
+      const bytes = bytesMatch[1]
+
+      // original is in bytes, convert to MiB with 2 decimals
+      totalDownloadSize =
+        Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
+
+      // calculate percentage
+      const downloaded = parseFloat(bytes)
+      const downloadCache = totalDownloadSize - this.currentDownloadSize
+      const totalDownloaded = downloaded + downloadCache
+      let percent =
+        Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
+      if (percent < 0) percent = 0
+
+      logInfo(
+        [
+          `Progress for ${this.appName}:`,
+          `${percent}%/${bytes}MiB/${eta}`.trim()
+        ],
+        LogPrefix.Backend
+      )
+
+      this.window.webContents.send('setGameStatus', {
+        appName: this.appName,
+        runner: 'legendary',
+        status: action,
+        progress: {
+          eta: eta,
+          percent: `${percent.toFixed(0)}%`,
+          bytes: `${bytes}MiB`
+        }
+      })
+    }
+  }
+
   /**
    * Update game.
    * Does NOT check for online connectivity.
@@ -227,6 +283,7 @@ class LegendaryGame extends Game {
       status: 'updating'
     })
     const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const info = await Game.get(this.appName, 'legendary').getInstallInfo()
     const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
@@ -235,7 +292,15 @@ class LegendaryGame extends Game {
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Legendary)
 
-    const res = await runLegendaryCommand(commandParts, logPath)
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput(
+        'installing',
+        info.manifest.download_size,
+        data
+      )
+    }
+
+    const res = await runLegendaryCommand(commandParts, logPath, onOutput)
 
     this.window.webContents.send('setGameStatus', {
       appName: this.appName,
@@ -294,6 +359,7 @@ class LegendaryGame extends Game {
     platformToInstall
   }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const info = await Game.get(this.appName, 'legendary').getInstallInfo()
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
@@ -315,7 +381,15 @@ class LegendaryGame extends Game {
     const command = getLegendaryCommand(commandParts)
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
 
-    const res = await runLegendaryCommand(commandParts, logPath)
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput(
+        'updating',
+        info.manifest.download_size,
+        data
+      )
+    }
+
+    const res = await runLegendaryCommand(commandParts, logPath, onOutput)
 
     if (res.error) {
       logError(

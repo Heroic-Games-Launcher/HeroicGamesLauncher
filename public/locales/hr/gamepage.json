@@ -36,11 +36,13 @@
         "yes": "DA"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Otkaži/Prekini",
         "continue": "Nastavi preuzimanje",
         "hide_game": "Hide Game",
         "import": "Uvezi igru",
         "install": "Instaliraj",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Deinstaliraj",
         "update": "Ažuriraj"

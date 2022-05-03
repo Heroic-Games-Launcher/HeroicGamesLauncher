@@ -17,7 +17,8 @@ import {
   InstallArgs,
   LaunchResult,
   GOGLoginData,
-  InstalledInfo
+  InstalledInfo,
+  InstallProgress
 } from 'types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -72,7 +73,7 @@ class GOGGame extends Game {
     return GOGLibrary.get().getGameInfo(this.appName)
   }
   async getInstallInfo(): Promise<InstallInfo> {
-    return await GOGLibrary.get().getInstallInfo(this.appName)
+    return GOGLibrary.get().getInstallInfo(this.appName)
   }
   async getSettings(): Promise<GameSettings> {
     return (
@@ -80,7 +81,7 @@ class GOGGame extends Game {
       (await GameConfig.get(this.appName).getSettings())
     )
   }
-  hasUpdate(): Promise<boolean> {
+  async hasUpdate(): Promise<boolean> {
     throw new Error('Method not implemented.')
   }
 
@@ -100,6 +101,40 @@ class GOGGame extends Game {
     }
     await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
     return res
+  }
+
+  public onInstallOrUpdateOutput(
+    action: 'installing' | 'updating',
+    data: string
+  ) {
+    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+    const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
+    const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
+    if (etaMatch && bytesMatch && progressMatch) {
+      const eta = etaMatch[1]
+      const bytes = bytesMatch[1]
+      let percent = parseFloat(progressMatch[1])
+      if (percent < 0) percent = 0
+
+      logInfo(
+        [
+          `Progress for ${this.appName}:`,
+          `${percent}%/${bytes}MiB/${eta}`.trim()
+        ],
+        LogPrefix.Backend
+      )
+
+      this.window.webContents.send('setGameStatus', {
+        appName: this.appName,
+        runner: 'gog',
+        status: action,
+        progress: {
+          eta,
+          percent: `${percent.toFixed(0)}%`,
+          bytes: `${bytes}MiB`
+        }
+      })
+    }
   }
 
   public async install({
@@ -139,7 +174,11 @@ class GOGGame extends Game {
 
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, logPath)
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput('installing', data)
+    }
+
+    const res = await runGogdlCommand(commandParts, logPath, onOutput)
 
     if (res.error) {
       logError(
@@ -195,7 +234,7 @@ class GOGGame extends Game {
     return removeShortcuts(this.appName, 'gog')
   }
 
-  launch(launchArguments?: string): Promise<ExecResult | LaunchResult> {
+  async launch(launchArguments?: string): Promise<ExecResult | LaunchResult> {
     return launch(this.appName, launchArguments, 'gog')
   }
 
@@ -284,7 +323,7 @@ class GOGGame extends Game {
     })
   }
 
-  syncSaves(arg: string, path: string): Promise<ExecResult> {
+  async syncSaves(arg: string, path: string): Promise<ExecResult> {
     throw new Error(
       "GOG integration doesn't support syncSaves yet. How did you managed to call that function?"
     )
@@ -360,7 +399,11 @@ class GOGGame extends Game {
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, logPath)
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput('updating', data)
+    }
+
+    const res = await runGogdlCommand(commandParts, logPath, onOutput)
 
     // This always has to be done, so we do it before checking for res.error
     this.window.webContents.send('setGameStatus', {

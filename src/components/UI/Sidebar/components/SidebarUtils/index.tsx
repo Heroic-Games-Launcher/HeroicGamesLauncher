@@ -6,9 +6,10 @@ import {
   faWineGlass
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import classNames from 'classnames'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink, useHistory } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { openDiscordLink } from 'src/helpers'
 import { configStore, gogConfigStore } from 'src/helpers/electronStores'
 import ContextProvider from 'src/state/ContextProvider'
@@ -19,7 +20,7 @@ const { ipcRenderer } = window.require('electron')
 
 export default function SidebarUtils() {
   const { t } = useTranslation()
-  const history = useHistory()
+  const navigate = useNavigate()
   const { platform } = React.useContext(ContextProvider)
   const user = configStore.get('userInfo') || gogConfigStore.get('userData')
   const isLinux = platform === 'linux'
@@ -28,16 +29,17 @@ export default function SidebarUtils() {
     <div className="SidebarUtils Sidebar__section">
       {isLinux && (
         <NavLink
-          className="Sidebar__item"
-          isActive={(match, location) =>
-            location.pathname.includes('wine-manager')
+          className={({ isActive }) =>
+            classNames('Sidebar__item', { active: isActive })
           }
           to={{ pathname: '/wine-manager' }}
         >
-          <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon icon={faWineGlass} />
-          </div>
-          {t('wine.manager.link', 'Wine Manager')}
+          <>
+            <div className="Sidebar__itemIcon">
+              <FontAwesomeIcon icon={faWineGlass} />
+            </div>
+            {t('wine.manager.link', 'Wine Manager')}
+          </>
         </NavLink>
       )}
       <button className="Sidebar__item" onClick={() => openDiscordLink()}>
@@ -75,7 +77,7 @@ export default function SidebarUtils() {
           <div className="SidebarUtils__dropdownPopup ">
             <button
               className="Sidebar__item"
-              onClick={() => history.push('/login')}
+              onClick={() => navigate('/login')}
             >
               <div className="Sidebar__itemIcon">
                 <FontAwesomeIcon icon={faUserAlt} />

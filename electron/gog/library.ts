@@ -613,6 +613,7 @@ export class GOGLibrary {
 export async function runGogdlCommand(
   commandParts: Array<string>,
   logFile?: string,
+  onOutput?: (output: string) => void,
   env = process.env
 ): Promise<ExecResult> {
   commandParts = commandParts.filter((n) => n)
@@ -640,9 +641,11 @@ export async function runGogdlCommand(
 
     if (logFile) {
       child.stdout.on('data', (data: Buffer) => {
+        if (onOutput) onOutput(data.toString())
         appendFileSync(logFile, data.toString())
       })
       child.stderr.on('data', (data: Buffer) => {
+        if (onOutput) onOutput(data.toString())
         appendFileSync(logFile, data.toString())
       })
     }
@@ -654,7 +657,10 @@ export async function runGogdlCommand(
       stderr.push(data.toString().trim())
     })
 
-    child.on('close', () => {
+    child.on('close', (code, signal) => {
+      if (signal === 'SIGTERM') {
+        rej('Installation canceled')
+      }
       res({
         stdout: stdout.join('\n'),
         stderr: stderr.join('\n')

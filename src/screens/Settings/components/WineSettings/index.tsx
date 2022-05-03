@@ -133,7 +133,7 @@ export default function WineSettings({
             />
             <SvgButton
               className="material-icons settings folder"
-              onClick={() =>
+              onClick={async () =>
                 ipcRenderer
                   .invoke('openDialog', {
                     buttonLabel: t('box.choose'),
@@ -171,7 +171,7 @@ export default function WineSettings({
             />
             <SvgButton
               className="material-icons settings folder"
-              onClick={() =>
+              onClick={async () =>
                 ipcRenderer
                   .invoke('openDialog', {
                     buttonLabel: t('box.choose'),

@@ -36,11 +36,13 @@
         "yes": "Ja"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Paus/Avbryt",
         "continue": "Fortsätt nedladdning",
         "hide_game": "Hide Game",
         "import": "Importera spel",
         "install": "Installera",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Avinstallera",
         "update": "Update"

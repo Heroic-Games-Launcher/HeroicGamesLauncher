@@ -275,7 +275,7 @@ export class LegendaryLibrary {
       await Promise.allSettled(
         (await this.listUpdateableGames())
           .map(LegendaryGame.get)
-          .map((game) => game.update())
+          .map(async (game) => game.update())
       )
     ).map((res) => {
       if (res.status === 'fulfilled') {
@@ -545,6 +545,7 @@ export class LegendaryLibrary {
 export async function runLegendaryCommand(
   commandParts: Array<string>,
   logFile?: string,
+  onOutput?: (data: string) => void,
   env = process.env
 ): Promise<ExecResult> {
   commandParts = commandParts.filter((n) => n)
@@ -574,9 +575,12 @@ export async function runLegendaryCommand(
     // If we're logging to a file, convert new data to a string and write it to the file
     if (logFile) {
       child.stdout.on('data', (data: Buffer) => {
+        if (onOutput) onOutput(data.toString())
         appendFileSync(logFile, data.toString())
       })
+
       child.stderr.on('data', (data: Buffer) => {
+        if (onOutput) onOutput(data.toString())
         appendFileSync(logFile, data.toString())
       })
     }

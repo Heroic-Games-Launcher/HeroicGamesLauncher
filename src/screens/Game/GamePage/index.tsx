@@ -20,13 +20,7 @@ import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 import { updateGame } from 'src/helpers'
 
-import {
-  AppSettings,
-  GameInfo,
-  GameStatus,
-  InstallInfo,
-  InstallProgress
-} from 'src/types'
+import { AppSettings, GameInfo, GameStatus, InstallInfo } from 'src/types'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -39,8 +33,7 @@ import EpicLogo from 'src/assets/epic-logo.svg'
 import GOGLogo from 'src/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-
-const storage: Storage = window.localStorage
+import { hasProgress } from 'src/hooks/hasProgress'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -48,12 +41,8 @@ const { ipcRenderer } = window.require('electron') as {
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
-interface RouteParams {
-  appName: string
-}
-
 export default function GamePage(): JSX.Element | null {
-  const { appName } = useParams() as RouteParams
+  const { appName } = useParams() as { appName: string }
   const { t } = useTranslation('gamepage')
 
   const [tabToShow, setTabToShow] = useState('infoTab')
@@ -72,19 +61,8 @@ export default function GamePage(): JSX.Element | null {
   )[0]
 
   const { status } = gameStatus || {}
-  const previousProgress = JSON.parse(
-    storage.getItem(appName) || '{}'
-  ) as InstallProgress
-
+  const [progress, previousProgress] = hasProgress(appName)
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
-  const [progress, setProgress] = useState(
-    previousProgress ??
-      ({
-        bytes: '0.00MiB',
-        eta: '00:00:00',
-        percent: '0.00%'
-      } as InstallProgress)
-  )
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
@@ -147,37 +125,6 @@ export default function GamePage(): JSX.Element | null {
     }
     updateConfig()
   }, [isInstalling, isPlaying, appName, epicLibrary, gogLibrary])
-
-  useEffect(() => {
-    const progressInterval = setInterval(async () => {
-      if (isInstalling || isUpdating || isReparing) {
-        const progress: InstallProgress = await ipcRenderer.invoke(
-          'requestGameProgress',
-          appName,
-          gameInfo.runner
-        )
-
-        if (progress) {
-          if (previousProgress) {
-            const legendaryPercent = getProgress(progress)
-            const heroicPercent = getProgress(previousProgress)
-            const newPercent: number = Math.round(
-              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
-            )
-            progress.percent = `${newPercent}%`
-          }
-          return setProgress(progress)
-        }
-
-        return await handleGameStatus({
-          appName,
-          runner: gameInfo.runner,
-          status
-        })
-      }
-    }, 1500)
-    return () => clearInterval(progressInterval)
-  }, [appName, isInstalling, isUpdating, isReparing])
 
   async function handleUpdate() {
     await handleGameStatus({
@@ -404,17 +351,15 @@ export default function GamePage(): JSX.Element | null {
                       )}
                       {is_installed ? (
                         <Link
-                          to={{
-                            pathname,
-                            state: { fromGameCard: false, runner }
-                          }}
+                          to={pathname}
+                          state={{ fromGameCard: false, runner }}
                           className={`button ${getButtonClass(is_installed)}`}
                         >
                           {`${getButtonLabel(is_installed)}`}
                         </Link>
                       ) : (
                         <button
-                          onClick={() => handleInstall(is_installed)}
+                          onClick={async () => handleInstall(is_installed)}
                           disabled={
                             isPlaying ||
                             isUpdating ||
@@ -429,19 +374,17 @@ export default function GamePage(): JSX.Element | null {
                       )}
                     </div>
                     <NavLink
-                      to={{
-                        pathname: `/settings/${appName}/log`,
-                        state: {
-                          runner
-                        }
-                      }}
+                      to={`/settings/${appName}/log`}
+                      state={runner}
                       className="link is-text is-link reportProblem"
                     >
-                      {<FontAwesomeIcon icon={faTriangleExclamation} />}
-                      {t(
-                        'report_problem',
-                        'Report a problem running this game'
-                      )}
+                      <>
+                        {<FontAwesomeIcon icon={faTriangleExclamation} />}
+                        {t(
+                          'report_problem',
+                          'Report a problem running this game'
+                        )}
+                      </>
                     </NavLink>
                   </div>
 
@@ -511,7 +454,7 @@ export default function GamePage(): JSX.Element | null {
 
     if (hasUpdate) {
       return (
-        <span onClick={() => handleUpdate()} className="updateText">
+        <span onClick={async () => handleUpdate()} className="updateText">
           {`${t('status.installed')} - ${t(
             'status.hasUpdates',
             'New Version Available!'
@@ -582,7 +525,7 @@ export default function GamePage(): JSX.Element | null {
       return
     }
 
-    return await install({
+    return install({
       appName,
       handleGameStatus,
       installPath: folder,

@@ -36,11 +36,13 @@
         "yes": "ДА"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Пауза/Отказ",
         "continue": "Продължаване на свалянето",
         "hide_game": "Hide Game",
         "import": "Внасяне на игра",
         "install": "Инсталиране",
+        "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Деинсталиране",
         "update": "Обновяване"

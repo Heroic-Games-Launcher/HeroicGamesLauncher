@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react'
 
 import {
+  FavouriteGame,
   GameInfo,
   GameStatus,
   HiddenGame,
   InstalledInfo,
+  LibraryTopSectionOptions,
   RefreshOptions,
   WineVersionInfo
 } from 'src/types'
@@ -50,10 +52,12 @@ interface StateProps {
   language: string
   layout: string
   libraryStatus: GameStatus[]
+  libraryTopSection: string
   platform: string
   refreshing: boolean
   hiddenGames: HiddenGame[]
   showHidden: boolean
+  favouriteGames: FavouriteGame[]
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -91,10 +95,13 @@ export class GlobalState extends PureComponent<Props> {
     language: '',
     layout: 'grid',
     libraryStatus: [],
+    libraryTopSection: 'disabled',
     platform: '',
     refreshing: false,
     hiddenGames: (configStore.get('games.hidden') as Array<HiddenGame>) || [],
-    showHidden: false
+    showHidden: false,
+    favouriteGames:
+      (configStore.get('games.favourites') as Array<FavouriteGame>) || []
   }
 
   setShowHidden = (value: boolean) => {
@@ -122,6 +129,35 @@ export class GlobalState extends PureComponent<Props> {
       hiddenGames: newHiddenGames
     })
     configStore.set('games.hidden', newHiddenGames)
+  }
+
+  addGameToFavourites = (appNameToAdd: string, appTitle: string) => {
+    const newFavouriteGames = [
+      ...this.state.favouriteGames.filter(
+        (fav) => fav.appName !== appNameToAdd
+      ),
+      { appName: appNameToAdd, title: appTitle }
+    ]
+
+    this.setState({
+      favouriteGames: newFavouriteGames
+    })
+    configStore.set('games.favourites', newFavouriteGames)
+  }
+
+  removeGameFromFavourites = (appNameToRemove: string) => {
+    const newFavouriteGames = this.state.favouriteGames.filter(
+      ({ appName }) => appName !== appNameToRemove
+    )
+
+    this.setState({
+      favouriteGames: newFavouriteGames
+    })
+    configStore.set('games.favourites', newFavouriteGames)
+  }
+
+  handleLibraryTopSection = (value: LibraryTopSectionOptions) => {
+    this.setState({ libraryTopSection: value })
   }
 
   refresh = async (checkUpdates?: boolean): Promise<void> => {
@@ -361,6 +397,8 @@ export class GlobalState extends PureComponent<Props> {
     const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
     const showHidden = JSON.parse(storage.getItem('show_hidden') || 'false')
+    const libraryTopSection =
+      storage.getItem('library_top_section') || 'recently_played'
 
     if (!legendaryUser) {
       await ipcRenderer.invoke('getUserInfo')
@@ -372,7 +410,15 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     i18n.changeLanguage(language)
-    this.setState({ category, filter, language, layout, platform, showHidden })
+    this.setState({
+      category,
+      filter,
+      language,
+      layout,
+      platform,
+      showHidden,
+      libraryTopSection
+    })
 
     if (legendaryUser || gogUser) {
       this.refreshLibrary({
@@ -384,14 +430,22 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   componentDidUpdate() {
-    const { filter, gameUpdates, libraryStatus, layout, category, showHidden } =
-      this.state
+    const {
+      filter,
+      gameUpdates,
+      libraryStatus,
+      layout,
+      category,
+      showHidden,
+      libraryTopSection
+    } = this.state
 
     storage.setItem('category', category)
     storage.setItem('filter', filter)
     storage.setItem('layout', layout)
     storage.setItem('updates', JSON.stringify(gameUpdates))
     storage.setItem('show_hidden', JSON.stringify(showHidden))
+    storage.setItem('library_top_section', libraryTopSection)
 
     const pendingOps = libraryStatus.filter(
       (game) => game.status !== 'playing'
@@ -481,7 +535,13 @@ export class GlobalState extends PureComponent<Props> {
             add: this.hideGame,
             remove: this.unhideGame
           },
-          setShowHidden: this.setShowHidden
+          setShowHidden: this.setShowHidden,
+          favouriteGames: {
+            list: this.state.favouriteGames,
+            add: this.addGameToFavourites,
+            remove: this.removeGameFromFavourites
+          },
+          handleLibraryTopSection: this.handleLibraryTopSection
         }}
       >
         {children}

@@ -5,16 +5,16 @@ import {
   Replay
 } from '@mui/icons-material'
 import cx from 'classnames'
-import React, { SyntheticEvent, useCallback, useEffect } from 'react'
+import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Webview } from 'src/types'
+import { WebviewType } from 'src/types'
 import SvgButton from '../SvgButton'
 import './index.css'
 
 const { ipcRenderer } = window.require('electron')
 
 export interface WebviewControlsProps {
-  webview: Webview | null
+  webview: WebviewType | null
   initURL: string
   openInBrowser: boolean
 }
@@ -37,12 +37,22 @@ export default function WebviewControls({
 }: WebviewControlsProps) {
   const [url, setUrl] = React.useState(initURL)
   const { t } = useTranslation()
+  const [canGoBack, setCanGoBack] = useState(false)
+  const [canGoForward, setCanGoForward] = useState(false)
 
   useEffect(() => {
     if (webview) {
       const eventCallback = () => setUrl(webview.getURL())
       webview.addEventListener('did-navigate-in-page', eventCallback)
       webview.addEventListener('did-navigate', eventCallback)
+      webview.addEventListener('did-navigate-in-page', () => {
+        setCanGoBack(webview.canGoBack())
+        setCanGoForward(webview.canGoForward())
+      })
+      webview.addEventListener('did-navigate', () => {
+        setCanGoBack(webview.canGoBack())
+        setCanGoForward(webview.canGoForward())
+      })
       return () => {
         webview.removeEventListener('did-navigate-in-page', eventCallback)
         webview.removeEventListener('did-navigate', eventCallback)
@@ -50,9 +60,6 @@ export default function WebviewControls({
     }
     return
   }, [webview])
-
-  const canGoBack = webview?.canGoBack() === true
-  const canGoForward = webview?.canGoForward() === true
 
   const handleButtons = useCallback(
     (event: 'reload' | 'back' | 'forward') => {
@@ -79,16 +86,16 @@ export default function WebviewControls({
         <SvgButton
           className="WebviewControls__icon"
           title={t('webview.controls.back')}
-          disabled={!canGoBack}
           onClick={() => handleButtons('back')}
+          disabled={!canGoBack}
         >
           <ArrowBackOutlined />
         </SvgButton>
         <SvgButton
           className="WebviewControls__icon"
           title={t('webview.controls.forward')}
-          disabled={!canGoForward}
           onClick={() => handleButtons('forward')}
+          disabled={!canGoForward}
         >
           <ArrowForwardRounded />
         </SvgButton>
