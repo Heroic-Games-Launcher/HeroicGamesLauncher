@@ -226,7 +226,8 @@ export default function Library(): JSX.Element {
     filterText,
     filterPlatform,
     sortDescending,
-    sortInstalled
+    sortInstalled,
+    showHidden
   ])
 
   // top section

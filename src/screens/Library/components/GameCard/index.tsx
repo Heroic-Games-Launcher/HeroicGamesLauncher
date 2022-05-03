@@ -1,6 +1,12 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState, CSSProperties } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  CSSProperties,
+  useMemo
+} from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
@@ -225,23 +231,16 @@ const GameCard = ({
     return () => clearInterval(progressInterval)
   }, [isInstalling, appName])
 
-  const [isHiddenGame, setIsHiddenGame] = useState(false)
-  const [isFavouriteGame, setIsFavouriteGame] = useState(false)
-
-  useEffect(() => {
-    const found = !!hiddenGames.list.find(
+  const isHiddenGame = useMemo(() => {
+    return !!hiddenGames.list.find(
       (hiddenGame) => hiddenGame.appName === appName
     )
-
-    setIsHiddenGame(found)
   }, [hiddenGames, appName])
 
-  useEffect(() => {
-    const found = !!favouriteGames.list.find(
+  const isFavouriteGame = useMemo(() => {
+    return !!favouriteGames.list.find(
       (favouriteGame) => favouriteGame.appName === appName
     )
-
-    setIsFavouriteGame(found)
   }, [favouriteGames, appName])
 
   const items: Item[] = [
