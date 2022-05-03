@@ -32,10 +32,11 @@ import {
   writeFile,
   writeFileSync
 } from 'graceful-fs'
+
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import { join } from 'path'
-
+import checkDiskSpace from 'check-disk-space'
 import { DXVK, Winetricks } from './tools'
 import { Game } from './games'
 import { GameConfig } from './game_config'
@@ -60,7 +61,8 @@ import {
   showItemInFolder,
   getLegendaryBin,
   getGOGdlBin,
-  showErrorBoxModal
+  showErrorBoxModal,
+  size
 } from './utils'
 import {
   configStore,
@@ -420,6 +422,11 @@ ipcMain.on('unlock', () => {
 
 ipcMain.handle('kill', async (event, appName, runner) => {
   return Game.get(appName, runner).stop()
+})
+
+ipcMain.handle('checkDiskSpace', async (event, folder) => {
+  const { free, size: diskSize } = await checkDiskSpace(folder)
+  return `${size(free)}/${size(diskSize)}`
 })
 
 ipcMain.on('quit', async () => handleExit(mainWindow))

@@ -19,7 +19,7 @@ const tsStore = new Store({
 
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
-const isLinux = platform() == 'linux'
+const isLinux = platform() === 'linux'
 const isFlatpak = Boolean(env.FLATPAK_ID)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'

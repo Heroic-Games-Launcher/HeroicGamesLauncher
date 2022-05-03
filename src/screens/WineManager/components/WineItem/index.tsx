@@ -10,8 +10,8 @@ import FolderOpen from '@mui/icons-material/FolderOpen'
 import ContextProvider from 'src/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
-import prettyBytes from 'pretty-bytes'
-import { notify } from 'src/helpers'
+
+import { notify, size } from 'src/helpers'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -105,14 +105,14 @@ const WineItem = ({
   const renderStatus = () => {
     let status
     if (isInstalled) {
-      status = prettyBytes(disksize)
+      status = size(disksize)
     } else {
       if (isDownloading) {
         status = getProgressElement(progress.progress, downsize)
       } else if (progress.state === 'unzipping') {
         status = t('wine.manager.unzipping', 'Unzipping')
       } else {
-        status = prettyBytes(downsize)
+        status = size(downsize)
       }
     }
     return status
@@ -171,9 +171,9 @@ function getProgressElement(progress: ProgressInfo, downsize: number) {
   const seconds = totalSeconds % 60
 
   const percentageAsString = `${percentage}%`
-  const bytesAsString = `[${prettyBytes((percentage / 100) * downsize)}]`
+  const bytesAsString = `[${size((percentage / 100) * downsize)}]`
   const etaAsString = `| ETA: ${[hours, minutes, seconds].join(':')}`
-  const avgSpeedAsString = `(${prettyBytes(avgSpeed)}ps)`
+  const avgSpeedAsString = `(${size(avgSpeed)}ps)`
 
   return (
     <p

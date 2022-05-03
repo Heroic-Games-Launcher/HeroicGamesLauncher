@@ -69,7 +69,7 @@ export class GlobalState extends PureComponent<Props> {
       (gogInstalledGamesStore.get('installed') as Array<InstalledInfo>) || []
     for (const igame in games) {
       for (const installedGame in installedGames) {
-        if (installedGames[installedGame].appName == games[igame].app_name) {
+        if (installedGames[installedGame].appName === games[igame].app_name) {
           games[igame].install = installedGames[installedGame]
           games[igame].is_installed = true
         }
@@ -281,7 +281,7 @@ export class GlobalState extends PureComponent<Props> {
     switch (filter) {
       case 'win':
         return library.filter((game) =>
-          process.platform == 'darwin'
+          process.platform === 'darwin'
             ? !game.is_mac_native
             : !game.is_linux_native
         )

@@ -30,7 +30,7 @@ async function setup(
   if (installInfo && gameInfo) {
     gameInfo.install = installInfo
   }
-  if (!gameInfo || gameInfo.install.platform == 'linux') {
+  if (!gameInfo || gameInfo.install.platform === 'linux') {
     return
   }
   const instructions = await obtainSetupInstructions(gameInfo)
@@ -197,7 +197,7 @@ async function setup(
             ),
             pathsValues
           )
-          if (type == 'folder') {
+          if (type === 'folder') {
             if (!actionArguments?.source) {
               logInfo(['Setup: Creating directory', targetPath], LogPrefix.Gog)
               mkdirSync(targetPath, { recursive: true })
@@ -211,7 +211,7 @@ async function setup(
                 recursive: true
               })
             }
-          } else if (type == 'file') {
+          } else if (type === 'file') {
             if (sourcePath && existsSync(sourcePath)) {
               logInfo(
                 ['Setup: Copying file', sourcePath, 'to', targetPath],
@@ -319,10 +319,10 @@ async function obtainSetupInstructions(gameInfo: GameInfo) {
   const buildData = buildResponse.data
   const buildItem = buildData.items.find(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (value: any) => value.build_id == buildId
+    (value: any) => value.build_id === buildId
   )
   // Get data only if it's V1 depot game
-  if (buildItem?.generation == 1) {
+  if (buildItem?.generation === 1) {
     const metaResponse = await axios.get(buildItem.link)
     return metaResponse.data?.support_commands
   }
