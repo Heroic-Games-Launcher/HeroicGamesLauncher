@@ -59,6 +59,7 @@
         "language": "Ngôn ngữ",
         "lastPlayed": "Lần chơi cuối",
         "neverPlayed": "Không bao giờ",
+        "platform": "Platform Version",
         "totalPlayed": "Thời gian chơi"
     },
     "gamecard": {

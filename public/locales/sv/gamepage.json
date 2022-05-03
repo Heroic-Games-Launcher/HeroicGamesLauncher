@@ -59,6 +59,7 @@
         "language": "Språk",
         "lastPlayed": "Senast spelat",
         "neverPlayed": "Aldrig",
+        "platform": "Platform Version",
         "totalPlayed": "Speltid"
     },
     "gamecard": {

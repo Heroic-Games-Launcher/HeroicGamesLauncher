@@ -59,6 +59,7 @@
         "language": "ഭാഷ",
         "lastPlayed": "ഒടുക്കം കളിച്ചത്",
         "neverPlayed": "കളിച്ചിട്ടേയില്ല",
+        "platform": "Platform Version",
         "totalPlayed": "കളിച്ച നേരം"
     },
     "gamecard": {

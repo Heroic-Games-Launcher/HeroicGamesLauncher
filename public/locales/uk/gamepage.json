@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Востаннє зіграно",
         "neverPlayed": "Ніколи",
+        "platform": "Platform Version",
         "totalPlayed": "Зіграно часу"
     },
     "gamecard": {

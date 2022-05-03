@@ -59,6 +59,7 @@
         "language": "زبان",
         "lastPlayed": "آخرین اجرا",
         "neverPlayed": "هرگز",
+        "platform": "Platform Version",
         "totalPlayed": "زمان بازی"
     },
     "gamecard": {

@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Last Played",
         "neverPlayed": "Never",
+        "platform": "Platform Version",
         "totalPlayed": "Time Played"
     },
     "gamecard": {

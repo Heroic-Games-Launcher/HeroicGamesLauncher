@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "마지막 플레이",
         "neverPlayed": "플레이 한 적 없음",
+        "platform": "Platform Version",
         "totalPlayed": "플레이 시간"
     },
     "gamecard": {

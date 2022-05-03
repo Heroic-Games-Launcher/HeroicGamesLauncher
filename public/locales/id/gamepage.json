@@ -59,6 +59,7 @@
         "language": "Bahasa",
         "lastPlayed": "Terakhir Dimainkan",
         "neverPlayed": "Tidak pernah",
+        "platform": "Platform Version",
         "totalPlayed": "Lama Dimainkan"
     },
     "gamecard": {

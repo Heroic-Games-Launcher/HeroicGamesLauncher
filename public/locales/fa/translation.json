@@ -2,10 +2,6 @@
     "All": "همه",
     "Assets": "دارایی ها",
     "box": {
-        "appupdate": {
-            "message": "نسخه جدید Heroic موجود است، آیا میخواهید الان به روزرسانی کنید؟",
-            "title": "به روزرسانی موجود است"
-        },
         "cache-cleared": {
             "message": "کش Heroic پاک شد.",
             "title": "کش پاک شد"

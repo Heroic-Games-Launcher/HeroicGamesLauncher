@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Jogado pela última vez",
         "neverPlayed": "Nunca",
+        "platform": "Platform Version",
         "totalPlayed": "Tempo de Jogo"
     },
     "gamecard": {

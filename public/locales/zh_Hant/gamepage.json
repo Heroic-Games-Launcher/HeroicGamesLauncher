@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "上次遊玩",
         "neverPlayed": "從未遊玩",
+        "platform": "Platform Version",
         "totalPlayed": "遊玩時間"
     },
     "gamecard": {

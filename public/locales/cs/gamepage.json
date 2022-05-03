@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
+        "platform": "Platform Version",
         "totalPlayed": "Odehraný čas"
     },
     "gamecard": {

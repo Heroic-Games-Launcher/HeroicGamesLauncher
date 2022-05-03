@@ -59,6 +59,7 @@
         "language": "Dil",
         "lastPlayed": "Son Oynanan",
         "neverPlayed": "Hiç Oynanmadı",
+        "platform": "Platform Version",
         "totalPlayed": "Oynanan Zaman"
     },
     "gamecard": {

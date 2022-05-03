@@ -59,6 +59,7 @@
         "language": "Nyelv",
         "lastPlayed": "Legutóbb játszott",
         "neverPlayed": "Soha",
+        "platform": "Platform Version",
         "totalPlayed": "Játszott idő"
     },
     "gamecard": {

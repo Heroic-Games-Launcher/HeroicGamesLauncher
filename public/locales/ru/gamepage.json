@@ -59,6 +59,7 @@
         "language": "Язык",
         "lastPlayed": "Последний запуск",
         "neverPlayed": "Никогда",
+        "platform": "Platform Version",
         "totalPlayed": "Проведено в игре"
     },
     "gamecard": {

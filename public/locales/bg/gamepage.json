@@ -59,6 +59,7 @@
         "language": "Език",
         "lastPlayed": "Последно пускане",
         "neverPlayed": "Никога",
+        "platform": "Platform Version",
         "totalPlayed": "Изиграно време"
     },
     "gamecard": {

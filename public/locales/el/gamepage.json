@@ -59,6 +59,7 @@
         "language": "Γλώσσα",
         "lastPlayed": "Παίχτηκε Τελευταία φορά",
         "neverPlayed": "Ποτέ",
+        "platform": "Platform Version",
         "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού"
     },
     "gamecard": {
