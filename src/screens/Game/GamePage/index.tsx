@@ -590,7 +590,8 @@ export default function GamePage(): JSX.Element | null {
       previousProgress,
       progress,
       t,
-      runner: gameInfo.runner
+      runner: gameInfo.runner,
+      platformToInstall: ''
     })
   }
 }

@@ -324,6 +324,7 @@ export class GlobalState extends PureComponent<Props> {
       }
     })
 
+    // TODO: show the install modal instead of just installing like this since it has no options to choose
     ipcRenderer.on('installGame', async (e, args) => {
       const currentApp = libraryStatus.filter(
         (game) => game.appName === appName
@@ -342,7 +343,8 @@ export class GlobalState extends PureComponent<Props> {
             percent: '0.00%'
           },
           t,
-          runner
+          runner,
+          platformToInstall: 'Windows'
         })
       }
     })

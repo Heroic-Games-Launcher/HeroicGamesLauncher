@@ -359,7 +359,8 @@ const GameCard = ({
         previousProgress,
         progress,
         t,
-        runner
+        runner,
+        platformToInstall: ''
       })
     }
     if (status === 'playing' || status === 'updating') {

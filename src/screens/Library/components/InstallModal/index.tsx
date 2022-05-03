@@ -36,6 +36,7 @@ import {
   InstallInfo,
   InstallProgress,
   Path,
+  PlatformToInstall,
   Runner,
   WineInstallation
 } from 'src/types'
@@ -115,13 +116,35 @@ export default function InstallModal({
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
 
+  const [isLinuxNative, setIsLinuxNative] = useState(false)
+  const [isMacNative, setIsMacNative] = useState(false)
+  const [platformToInstall, setPlatformToInstall] =
+    useState<PlatformToInstall>('')
   const installFolder = gameStatus?.folder || installPath
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
 
-  const [isLinuxNative, setIsLinuxNative] = useState(false)
-  const [isMacNative, setIsMacNative] = useState(false)
+  const platforms = [
+    {
+      name: 'Linux',
+      available: isLinuxNative && !isMac,
+      value: 'Linux',
+      icon: faLinux
+    },
+    {
+      name: 'macOS',
+      available: isMacNative && !isLinux,
+      value: 'Mac',
+      icon: faApple
+    },
+    {
+      name: 'Windows',
+      available: true,
+      value: 'Windows',
+      icon: faWindows
+    }
+  ]
 
   const sdls: Array<SelectiveDownload> = SDL_GAMES[appName]
   const haveSDL = Array.isArray(sdls) && sdls.length !== 0
@@ -182,7 +205,8 @@ export default function InstallModal({
       sdlList,
       installDlcs,
       installLanguage,
-      runner
+      runner,
+      platformToInstall
     })
   }
 
@@ -250,16 +274,6 @@ export default function InstallModal({
     gameInstallInfo?.manifest?.disk_size &&
     prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
 
-  function getIcon() {
-    if (isMacNative) {
-      return faApple
-    } else if (isLinuxNative) {
-      return faLinux
-    } else {
-      return faWindows
-    }
-  }
-
   const getLanguageName = useMemo(() => {
     return (language: string) => {
       try {
@@ -315,10 +329,15 @@ export default function InstallModal({
           <>
             <DialogHeader onClose={backdropClick}>
               {title}
-              <FontAwesomeIcon
-                className="InstallModal__platformIcon"
-                icon={getIcon()}
-              />
+              {platforms
+                .filter((p) => Boolean(p.available))
+                .map((p) => (
+                  <FontAwesomeIcon
+                    className="InstallModal__platformIcon"
+                    icon={p.icon}
+                    key={p.value}
+                  />
+                ))}
             </DialogHeader>
             <DialogContent>
               <div className="InstallModal__sizes">
@@ -357,6 +376,37 @@ export default function InstallModal({
                   </div>
                 )}
               </div>
+              {isMac ||
+                (isLinux && (
+                  <div className="InstallModal__control">
+                    <div className="InstallModal__controlLabel">
+                      {t('game.platform', 'Platform Version')}:
+                    </div>
+                    <div className="InstallModal__controlInput">
+                      <FormControl select>
+                        <select
+                          className="FormControl__select"
+                          name="platform"
+                          id="platformPick"
+                          value={platformToInstall}
+                          onChange={(e) =>
+                            setPlatformToInstall(
+                              e.target.value as PlatformToInstall
+                            )
+                          }
+                        >
+                          {platforms
+                            .filter((p) => Boolean(p.available))
+                            .map((p) => (
+                              <option value={p.value} key={p.value}>
+                                {p.name}
+                              </option>
+                            ))}
+                        </select>
+                      </FormControl>
+                    </div>
+                  </div>
+                ))}
               {installLanguages && installLanguages?.length > 1 && (
                 <div className="InstallModal__control">
                   <div className="InstallModal__controlLabel">

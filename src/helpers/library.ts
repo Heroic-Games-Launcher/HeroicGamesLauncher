@@ -3,6 +3,7 @@ import {
   GameInfo,
   GameStatus,
   InstallProgress,
+  PlatformToInstall,
   Runner
 } from 'src/types'
 import { IpcRenderer } from 'electron'
@@ -24,6 +25,7 @@ type InstallArgs = {
   previousProgress: InstallProgress | null
   progress: InstallProgress
   setInstallPath?: (path: string) => void
+  platformToInstall: PlatformToInstall
   t: TFunction<'gamepage'>
   installDlcs?: boolean
   sdlList?: Array<string>
@@ -43,7 +45,8 @@ async function install({
   sdlList = [],
   installDlcs = false,
   installLanguage = 'en-US',
-  runner = 'legendary'
+  runner = 'legendary',
+  platformToInstall
 }: InstallArgs) {
   if (!installPath) {
     return
@@ -102,7 +105,8 @@ async function install({
         installDlcs,
         sdlList,
         installLanguage,
-        runner
+        runner,
+        platformToInstall
       })
       .finally(() => {
         if (progress.percent === '100%') {
