@@ -17,7 +17,8 @@ import {
   InstallArgs,
   LaunchResult,
   GOGLoginData,
-  InstalledInfo
+  InstalledInfo,
+  InstallProgress
 } from 'types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -102,6 +103,40 @@ class GOGGame extends Game {
     return res
   }
 
+  public onInstallOrUpdateOutput(
+    action: 'installing' | 'updating',
+    data: string
+  ) {
+    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+    const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
+    const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
+    if (etaMatch && bytesMatch && progressMatch) {
+      const eta = etaMatch[1]
+      const bytes = bytesMatch[1]
+      let percent = parseFloat(progressMatch[1])
+      if (percent < 0) percent = 0
+
+      logInfo(
+        [
+          `Progress for ${this.appName}:`,
+          `${percent}%/${bytes}MiB/${eta}`.trim()
+        ],
+        LogPrefix.Backend
+      )
+
+      this.window.webContents.send('setGameStatus', {
+        appName: this.appName,
+        runner: 'gog',
+        status: action,
+        progress: {
+          eta,
+          percent: `${percent.toFixed(0)}%`,
+          bytes: `${bytes}MiB`
+        }
+      })
+    }
+  }
+
   public async install({
     path,
     installDlcs,
@@ -139,7 +174,11 @@ class GOGGame extends Game {
 
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, logPath)
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput('installing', data)
+    }
+
+    const res = await runGogdlCommand(commandParts, logPath, onOutput)
 
     if (res.error) {
       logError(
@@ -360,7 +399,11 @@ class GOGGame extends Game {
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, logPath)
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput('updating', data)
+    }
+
+    const res = await runGogdlCommand(commandParts, logPath, onOutput)
 
     // This always has to be done, so we do it before checking for res.error
     this.window.webContents.send('setGameStatus', {

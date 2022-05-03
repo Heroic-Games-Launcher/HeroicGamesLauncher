@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
-import { GameStatus, InstallProgress, Runner } from 'src/types'
+import { GameStatus, Runner } from 'src/types'
 import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'src/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
@@ -19,9 +19,7 @@ import fallbackImage from 'src/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'src/helpers/library'
 import { SvgButton } from 'src/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
-
-const { ipcRenderer } = window.require('electron')
-const storage: Storage = window.localStorage
+import { hasProgress } from 'src/hooks/hasProgress'
 
 interface Card {
   appName: string
@@ -59,19 +57,7 @@ const GameCard = ({
   isLinuxNative,
   runner
 }: Card) => {
-  const previousProgress = JSON.parse(
-    storage.getItem(appName) || '{}'
-  ) as InstallProgress
-  const [progress, setProgress] = useState(
-    previousProgress ??
-      ({
-        bytes: '0.00MiB',
-        eta: '00:00:00',
-        path: '',
-        percent: '0.00%',
-        folder: ''
-      } as InstallProgress)
-  )
+  const [progress, previousProgress] = hasProgress(appName)
 
   const { t } = useTranslation('gamepage')
 
@@ -197,33 +183,6 @@ const GameCard = ({
     }
     return null
   }
-
-  useEffect(() => {
-    const progressInterval = setInterval(async () => {
-      if (isInstalling) {
-        const progress = await ipcRenderer.invoke(
-          'requestGameProgress',
-          appName,
-          runner
-        )
-
-        if (progress) {
-          if (previousProgress) {
-            const legendaryPercent = getProgress(progress)
-            const heroicPercent = getProgress(previousProgress)
-            const newPercent: number = Math.round(
-              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
-            )
-            progress.percent = `${newPercent}%`
-          }
-          return setProgress(progress)
-        }
-
-        setProgress(progress)
-      }
-    }, 1500)
-    return () => clearInterval(progressInterval)
-  }, [isInstalling, appName])
 
   const [isHiddenGame, setIsHiddenGame] = useState(false)
   const [isFavouriteGame, setIsFavouriteGame] = useState(false)

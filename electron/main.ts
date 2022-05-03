@@ -67,7 +67,6 @@ import {
   currentLogFile,
   discordLink,
   execOptions,
-  getShell,
   heroicGamesConfigPath,
   heroicGithubURL,
   userHome,
@@ -1101,55 +1100,6 @@ ipcMain.handle('updateGame', async (e, game, runner) => {
       notify({ title, body: i18next.t('notify.update.canceled') })
       return err
     })
-})
-
-ipcMain.handle('requestGameProgress', async (event, appName) => {
-  const logPath = `"${join(heroicGamesConfigPath, appName + '.log')}"`
-
-  // existsync doesnt work when the path has quotes in it
-  if (!existsSync(logPath.replaceAll('"', ''))) {
-    return {}
-  }
-
-  const unix_progress_command = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
-  const win_progress_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Progress:'`
-  const progress_command = isWindows
-    ? win_progress_command
-    : unix_progress_command
-
-  const unix_downloaded_command = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
-  const win_downloaded_command = `cat ${logPath} -Tail 10 | Select-String -Pattern 'Downloaded:'`
-  const downloaded_command = isWindows
-    ? win_downloaded_command
-    : unix_downloaded_command
-
-  const { stdout: progress_result } = await execAsync(progress_command, {
-    shell: getShell()
-  })
-  const { stdout: downloaded_result } = await execAsync(downloaded_command, {
-    shell: getShell()
-  })
-
-  let percent = ''
-  let eta = ''
-  let bytes = ''
-  if (isWindows) {
-    percent = progress_result.split(' ')[4] || ''
-    eta = progress_result.split(' ')[10] || ''
-    bytes = downloaded_result.split(' ')[5] + 'MiB'
-  }
-
-  if (!isWindows) {
-    percent = progress_result.split(' ')[0] || ''
-    eta = progress_result.split(' ')[1] || ''
-    bytes = downloaded_result.trim() + 'MiB'
-  }
-
-  logInfo(
-    [`Progress for ${appName}:`, `${percent}/${bytes}/${eta}`.trim()],
-    LogPrefix.Backend
-  )
-  return { bytes, eta, percent }
 })
 
 ipcMain.handle(

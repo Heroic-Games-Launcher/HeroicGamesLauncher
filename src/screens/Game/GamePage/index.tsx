@@ -20,13 +20,7 @@ import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 import { updateGame } from 'src/helpers'
 
-import {
-  AppSettings,
-  GameInfo,
-  GameStatus,
-  InstallInfo,
-  InstallProgress
-} from 'src/types'
+import { AppSettings, GameInfo, GameStatus, InstallInfo } from 'src/types'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -39,8 +33,7 @@ import EpicLogo from 'src/assets/epic-logo.svg'
 import GOGLogo from 'src/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-
-const storage: Storage = window.localStorage
+import { hasProgress } from 'src/hooks/hasProgress'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -68,19 +61,8 @@ export default function GamePage(): JSX.Element | null {
   )[0]
 
   const { status } = gameStatus || {}
-  const previousProgress = JSON.parse(
-    storage.getItem(appName) as string
-  ) as InstallProgress
-
+  const [progress, previousProgress] = hasProgress(appName)
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
-  const [progress, setProgress] = useState(
-    previousProgress ??
-      ({
-        bytes: '0.00MiB',
-        eta: '00:00:00',
-        percent: '0.00%'
-      } as InstallProgress)
-  )
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
@@ -143,37 +125,6 @@ export default function GamePage(): JSX.Element | null {
     }
     updateConfig()
   }, [isInstalling, isPlaying, appName, epicLibrary, gogLibrary])
-
-  useEffect(() => {
-    const progressInterval = setInterval(async () => {
-      if (isInstalling || isUpdating || isReparing) {
-        const progress: InstallProgress = await ipcRenderer.invoke(
-          'requestGameProgress',
-          appName,
-          gameInfo.runner
-        )
-
-        if (progress) {
-          if (previousProgress) {
-            const legendaryPercent = getProgress(progress)
-            const heroicPercent = getProgress(previousProgress)
-            const newPercent: number = Math.round(
-              (legendaryPercent / 100) * (100 - heroicPercent) + heroicPercent
-            )
-            progress.percent = `${newPercent}%`
-          }
-          return setProgress(progress)
-        }
-
-        return handleGameStatus({
-          appName,
-          runner: gameInfo.runner,
-          status
-        })
-      }
-    }, 1500)
-    return () => clearInterval(progressInterval)
-  }, [appName, isInstalling, isUpdating, isReparing])
 
   async function handleUpdate() {
     await handleGameStatus({
