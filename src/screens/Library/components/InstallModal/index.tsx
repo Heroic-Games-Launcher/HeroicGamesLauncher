@@ -293,6 +293,8 @@ export default function InstallModal({
   }, [i18n.language])
 
   const hasWine = isLinux && !isLinuxNative
+  const showPlatformSelection =
+    platforms.filter((p) => Boolean(p.available)).length > 1
 
   const [wineVersionList, setWineVersionList] = useState<WineInstallation[]>([])
   useEffect(() => {
@@ -376,37 +378,36 @@ export default function InstallModal({
                   </div>
                 )}
               </div>
-              {isMac ||
-                (isLinux && (
-                  <div className="InstallModal__control">
-                    <div className="InstallModal__controlLabel">
-                      {t('game.platform', 'Platform Version')}:
-                    </div>
-                    <div className="InstallModal__controlInput">
-                      <FormControl select>
-                        <select
-                          className="FormControl__select"
-                          name="platform"
-                          id="platformPick"
-                          value={platformToInstall}
-                          onChange={(e) =>
-                            setPlatformToInstall(
-                              e.target.value as PlatformToInstall
-                            )
-                          }
-                        >
-                          {platforms
-                            .filter((p) => Boolean(p.available))
-                            .map((p) => (
-                              <option value={p.value} key={p.value}>
-                                {p.name}
-                              </option>
-                            ))}
-                        </select>
-                      </FormControl>
-                    </div>
+              {showPlatformSelection && (
+                <div className="InstallModal__control">
+                  <div className="InstallModal__controlLabel">
+                    {t('game.platform', 'Platform Version')}:
                   </div>
-                ))}
+                  <div className="InstallModal__controlInput">
+                    <FormControl select>
+                      <select
+                        className="FormControl__select"
+                        name="platform"
+                        id="platformPick"
+                        value={platformToInstall}
+                        onChange={(e) =>
+                          setPlatformToInstall(
+                            e.target.value as PlatformToInstall
+                          )
+                        }
+                      >
+                        {platforms
+                          .filter((p) => Boolean(p.available))
+                          .map((p) => (
+                            <option value={p.value} key={p.value}>
+                              {p.name}
+                            </option>
+                          ))}
+                      </select>
+                    </FormControl>
+                  </div>
+                </div>
+              )}
               {installLanguages && installLanguages?.length > 1 && (
                 <div className="InstallModal__control">
                   <div className="InstallModal__controlLabel">
