@@ -161,7 +161,7 @@ export default function Library(): JSX.Element {
     switch (filter) {
       case 'win':
         return library.filter((game) =>
-          process.platform == 'darwin'
+          process.platform === 'darwin'
             ? !game.is_mac_native
             : !game.is_linux_native
         )

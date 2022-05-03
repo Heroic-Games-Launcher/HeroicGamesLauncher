@@ -4,7 +4,6 @@ import { exec } from 'child_process'
 import { existsSync, rm, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
-import prettyBytes from 'pretty-bytes'
 import si from 'systeminformation'
 
 import {
@@ -28,6 +27,7 @@ import {
   apiInfoCache as GOGapiInfoCache,
   libraryStore as GOGlibraryStore
 } from './gog/electronStores'
+import fileSize from 'filesize'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -86,6 +86,8 @@ function semverGt(target: string, base: string) {
 async function isOnline() {
   return net.isOnline()
 }
+
+export const size = fileSize.partial({ base: 2 })
 
 async function isEpicServiceOffline(
   type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'
@@ -244,7 +246,7 @@ export const getSystemInfo = async () => {
   CPU: ${manufacturer} ${brand} @${speed} ${
     governor ? `GOVERNOR: ${governor}` : ''
   }
-  RAM: Total: ${prettyBytes(total)} Available: ${prettyBytes(available)}
+  RAM: Total: ${size(total)} Available: ${size(available)}
   GRAPHICS: ${graphicsCards}
   ${isLinux ? `PROTOCOL: ${xEnv}` : ''}
   `

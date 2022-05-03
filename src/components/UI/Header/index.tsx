@@ -38,7 +38,7 @@ export default function Header() {
 
   const numberOfGames = useMemo(() => {
     const dlcCount = epicLibrary.filter((lib) => lib.install.is_dlc)
-    if (category == 'epic') {
+    if (category === 'epic') {
       return epicLibrary.length - dlcCount.length
     } else {
       return gogLibrary.length

@@ -4,7 +4,6 @@ import { BrowserWindow } from 'electron'
 import Store from 'electron-store'
 import { spawn } from 'child_process'
 import { join } from 'path'
-import prettyBytes from 'pretty-bytes'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
@@ -17,7 +16,8 @@ import {
   InstallArgs,
   LaunchResult,
   GOGLoginData,
-  InstalledInfo
+  InstalledInfo,
+  InstallProgress
 } from 'types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -29,7 +29,7 @@ import {
 } from '../constants'
 import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { execAsync } from '../utils'
+import { execAsync, size } from '../utils'
 import { GOGUser } from './user'
 import { launch } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
@@ -102,6 +102,40 @@ class GOGGame extends Game {
     return res
   }
 
+  public onInstallOrUpdateOutput(
+    action: 'installing' | 'updating',
+    data: string
+  ) {
+    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+    const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
+    const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
+    if (etaMatch && bytesMatch && progressMatch) {
+      const eta = etaMatch[1]
+      const bytes = bytesMatch[1]
+      let percent = parseFloat(progressMatch[1])
+      if (percent < 0) percent = 0
+
+      logInfo(
+        [
+          `Progress for ${this.appName}:`,
+          `${percent}%/${bytes}MiB/${eta}`.trim()
+        ],
+        LogPrefix.Backend
+      )
+
+      this.window.webContents.send('setGameStatus', {
+        appName: this.appName,
+        runner: 'gog',
+        status: action,
+        progress: {
+          eta,
+          percent: `${percent.toFixed(0)}%`,
+          bytes: `${bytes}MiB`
+        }
+      })
+    }
+  }
+
   public async install({
     path,
     installDlcs,
@@ -117,7 +151,7 @@ class GOGGame extends Game {
     const credentials = configStore.get('credentials') as GOGLoginData
 
     let installPlatform = platformToInstall.toLowerCase()
-    if (installPlatform == 'mac') {
+    if (installPlatform === 'mac') {
       installPlatform = 'osx'
     }
 
@@ -139,7 +173,11 @@ class GOGGame extends Game {
 
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, logPath)
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput('installing', data)
+    }
+
+    const res = await runGogdlCommand(commandParts, logPath, onOutput)
 
     if (res.error) {
       logError(
@@ -153,7 +191,7 @@ class GOGGame extends Game {
     // Save new game info to installed games store
     const installInfo = await this.getInstallInfo()
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
-    const isLinuxNative = installPlatform == 'linux'
+    const isLinuxNative = installPlatform === 'linux'
     const additionalInfo = isLinuxNative
       ? await GOGLibrary.getLinuxInstallerInfo(this.appName)
       : null
@@ -161,7 +199,7 @@ class GOGGame extends Game {
       platform: installPlatform,
       executable: '',
       install_path: join(path, gameInfo.folder_name),
-      install_size: prettyBytes(installInfo.manifest.disk_size),
+      install_size: size(installInfo.manifest.disk_size),
       is_dlc: false,
       version: additionalInfo
         ? additionalInfo.version
@@ -292,8 +330,8 @@ class GOGGame extends Game {
   public async uninstall(): Promise<ExecResult> {
     const array: Array<InstalledInfo> =
       (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
-    const index = array.findIndex((game) => game.appName == this.appName)
-    if (index == -1) {
+    const index = array.findIndex((game) => game.appName === this.appName)
+    if (index === -1) {
       throw Error("Game isn't installed")
     }
 
@@ -360,7 +398,11 @@ class GOGGame extends Game {
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, logPath)
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput('updating', data)
+    }
+
+    const res = await runGogdlCommand(commandParts, logPath, onOutput)
 
     // This always has to be done, so we do it before checking for res.error
     this.window.webContents.send('setGameStatus', {
@@ -381,16 +423,16 @@ class GOGGame extends Game {
       'installed'
     ) as InstalledInfo[]
     const gameIndex = installedArray.findIndex(
-      (value) => this.appName == value.appName
+      (value) => this.appName === value.appName
     )
     const gameObject = installedArray[gameIndex]
 
-    if (gameData.install.platform != 'linux') {
+    if (gameData.install.platform !== 'linux') {
       const installInfo = await GOGLibrary.get().getInstallInfo(this.appName)
       gameObject.buildId = installInfo.game.buildId
       gameObject.version = installInfo.game.version
       gameObject.versionEtag = installInfo.manifest.versionEtag
-      gameObject.install_size = prettyBytes(installInfo.manifest.disk_size)
+      gameObject.install_size = size(installInfo.manifest.disk_size)
     } else {
       const installerInfo = await GOGLibrary.getLinuxInstallerInfo(this.appName)
       gameObject.version = installerInfo.version

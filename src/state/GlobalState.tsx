@@ -71,7 +71,7 @@ export class GlobalState extends PureComponent<Props> {
       (gogInstalledGamesStore.get('installed') as Array<InstalledInfo>) || []
     for (const igame in games) {
       for (const installedGame in installedGames) {
-        if (installedGames[installedGame].appName == games[igame].app_name) {
+        if (installedGames[installedGame].appName === games[igame].app_name) {
           games[igame].install = installedGames[installedGame]
           games[igame].is_installed = true
         }
