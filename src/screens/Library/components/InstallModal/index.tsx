@@ -299,7 +299,7 @@ export default function InstallModal({
         return language
       }
     }
-  }, [i18n.language])
+  }, [i18n.languages])
 
   const hasWine = isLinux && !isLinuxNative
   const showPlatformSelection =
