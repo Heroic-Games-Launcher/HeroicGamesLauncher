@@ -43,6 +43,7 @@
       }
     ],
     "complexity": "off",
+    "eqeqeq": ["error", "always"],
     "quotes": [
       "error",
       "single",

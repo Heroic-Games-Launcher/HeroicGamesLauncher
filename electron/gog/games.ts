@@ -4,7 +4,6 @@ import { BrowserWindow } from 'electron'
 import Store from 'electron-store'
 import { spawn } from 'child_process'
 import { join } from 'path'
-import prettyBytes from 'pretty-bytes'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
@@ -30,7 +29,7 @@ import {
 } from '../constants'
 import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { execAsync } from '../utils'
+import { execAsync, getFileSize } from '../utils'
 import { GOGUser } from './user'
 import { launch } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
@@ -152,7 +151,7 @@ class GOGGame extends Game {
     const credentials = configStore.get('credentials') as GOGLoginData
 
     let installPlatform = platformToInstall.toLowerCase()
-    if (installPlatform == 'mac') {
+    if (installPlatform === 'mac') {
       installPlatform = 'osx'
     }
 
@@ -192,7 +191,7 @@ class GOGGame extends Game {
     // Save new game info to installed games store
     const installInfo = await this.getInstallInfo(installPlatform)
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
-    const isLinuxNative = installPlatform == 'linux'
+    const isLinuxNative = installPlatform === 'linux'
     const additionalInfo = isLinuxNative
       ? await GOGLibrary.getLinuxInstallerInfo(this.appName)
       : null
@@ -200,7 +199,7 @@ class GOGGame extends Game {
       platform: installPlatform,
       executable: '',
       install_path: join(path, gameInfo.folder_name),
-      install_size: prettyBytes(installInfo.manifest.disk_size),
+      install_size: getFileSize(installInfo.manifest.disk_size),
       is_dlc: false,
       version: additionalInfo
         ? additionalInfo.version
@@ -331,8 +330,8 @@ class GOGGame extends Game {
   public async uninstall(): Promise<ExecResult> {
     const array: Array<InstalledInfo> =
       (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
-    const index = array.findIndex((game) => game.appName == this.appName)
-    if (index == -1) {
+    const index = array.findIndex((game) => game.appName === this.appName)
+    if (index === -1) {
       throw Error("Game isn't installed")
     }
 
@@ -424,16 +423,16 @@ class GOGGame extends Game {
       'installed'
     ) as InstalledInfo[]
     const gameIndex = installedArray.findIndex(
-      (value) => this.appName == value.appName
+      (value) => this.appName === value.appName
     )
     const gameObject = installedArray[gameIndex]
 
-    if (gameData.install.platform != 'linux') {
+    if (gameData.install.platform !== 'linux') {
       const installInfo = await GOGLibrary.get().getInstallInfo(this.appName)
       gameObject.buildId = installInfo.game.buildId
       gameObject.version = installInfo.game.version
       gameObject.versionEtag = installInfo.manifest.versionEtag
-      gameObject.install_size = prettyBytes(installInfo.manifest.disk_size)
+      gameObject.install_size = getFileSize(installInfo.manifest.disk_size)
     } else {
       const installerInfo = await GOGLibrary.getLinuxInstallerInfo(this.appName)
       gameObject.version = installerInfo.version
