@@ -34,12 +34,10 @@ export const GamesList = ({
             art_logo,
             app_name,
             is_installed,
-            is_mac_native,
-            is_linux_native,
             runner,
             cloud_save_enabled,
             is_game,
-            install: { version, install_size, is_dlc }
+            install: { version, install_size, is_dlc, platform }
           }: GameInfo) => {
             if (is_dlc) {
               return null
@@ -62,8 +60,7 @@ export const GamesList = ({
                 hasUpdate={hasUpdate}
                 buttonClick={() => handleGameCardClick(app_name, runner)}
                 forceCard={layout === 'grid'}
-                isMacNative={is_mac_native}
-                isLinuxNative={is_linux_native}
+                installedPlatform={platform}
               />
             )
           }
