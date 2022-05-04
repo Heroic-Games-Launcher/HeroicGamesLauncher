@@ -301,7 +301,7 @@ export default function InstallModal({
     }
   }, [i18n.languages])
 
-  const hasWine = isLinux && !isLinuxNative
+  const hasWine = platformToInstall === 'Windows' && isLinux
   const showPlatformSelection =
     platforms.filter((p) => Boolean(p.available)).length > 1
 
