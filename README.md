@@ -42,7 +42,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Login with an existing GOG account
 - Install/Uninstall Games
 - Import an already installed game
-- Play online [EAC not supported on Linux]
+- Play online [EAC needs to have the game developer turn on the "wine/proton" toggle to be work on Linux]
 - Update installed Games
 - Repair installed Games
 - Move installed games to different folders
