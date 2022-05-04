@@ -198,7 +198,7 @@ export interface InstallInfo {
 
 export interface GameStatus {
   appName: string
-  progress?: string
+  progress?: InstallProgress
   folder?: string
   runner?: Runner
   status:
@@ -289,7 +289,7 @@ export type ElWebview = {
   findInPage: (text: string | RegExp) => void
 }
 
-export type Webview = HTMLWebViewElement & ElWebview
+export type WebviewType = HTMLWebViewElement & ElWebview
 
 export interface GOGGameInfo {
   tags: string[]

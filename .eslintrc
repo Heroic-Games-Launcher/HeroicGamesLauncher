@@ -17,7 +17,8 @@
       "jsx": true
     },
     "ecmaVersion": 12,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": ["./tsconfig.json", "./electron/tsconfig.json"]
   },
   "plugins": ["react", "@typescript-eslint"],
   "settings": {
@@ -29,7 +30,20 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": "error",
+    "no-return-await": "off",
+    "@typescript-eslint/return-await": "warn",
+    "@typescript-eslint/promise-function-async": [
+      "error",
+      {
+        "allowedPromiseNames": ["Thenable"],
+        "checkArrowFunctions": true,
+        "checkFunctionDeclarations": true,
+        "checkFunctionExpressions": true,
+        "checkMethodDeclarations": true
+      }
+    ],
     "complexity": "off",
+    "eqeqeq": ["error", "always"],
     "quotes": [
       "error",
       "single",

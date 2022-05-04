@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
 import classNames from 'classnames'
 import { IpcRenderer } from 'electron'
-import prettyBytes from 'pretty-bytes'
+
 import React, {
   useCallback,
   useContext,
@@ -20,13 +20,14 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { UpdateComponent } from 'src/components/UI'
+import { SmallInfo, UpdateComponent } from 'src/components/UI'
 import {
   getAppSettings,
   getGameInfo,
   getInstallInfo,
   getProgress,
   install,
+  size,
   writeConfig
 } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
@@ -114,6 +115,7 @@ export default function InstallModal({
   )
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
+  const [spaceLeft, setSpaceLeft] = useState('')
 
   const installFolder = gameStatus?.folder || installPath
 
@@ -171,7 +173,7 @@ export default function InstallModal({
       writeConfig([appName, { ...appSettings, winePrefix, wineVersion }])
     }
 
-    return await install({
+    return install({
       appName,
       handleGameStatus,
       installPath: path || installFolder,
@@ -189,12 +191,20 @@ export default function InstallModal({
   useEffect(() => {
     ipcRenderer
       .invoke('requestSettings', 'default')
-      .then((config: AppSettings) => {
+      .then(async (config: AppSettings) => {
         setDefaultPath(config.defaultInstallPath)
         if (installPath === 'default') {
           setInstallPath(config.defaultInstallPath)
         }
+        if (installPath !== 'default') {
+          const spaceLeft = await ipcRenderer.invoke(
+            'checkDiskSpace',
+            installPath
+          )
+          setSpaceLeft(spaceLeft)
+        }
       })
+
     return () => {
       ipcRenderer.removeAllListeners('requestSettings')
     }
@@ -222,7 +232,7 @@ export default function InstallModal({
       }
       setIsLinuxNative(gameData.is_linux_native && isLinux)
       setIsMacNative(gameData.is_mac_native && isMac)
-      if (isLinux && gameData.is_linux_native && runner == 'gog') {
+      if (isLinux && gameData.is_linux_native && runner === 'gog') {
         const installer_languages = (await ipcRenderer.invoke(
           'getGOGLinuxInstallersLangs',
           appName
@@ -245,10 +255,10 @@ export default function InstallModal({
   const DLCList = gameInstallInfo?.game?.owned_dlc
   const downloadSize =
     gameInstallInfo?.manifest?.download_size &&
-    prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
+    size(Number(gameInstallInfo?.manifest?.download_size))
   const installSize =
     gameInstallInfo?.manifest?.disk_size &&
-    prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
+    size(Number(gameInstallInfo?.manifest?.disk_size))
 
   function getIcon() {
     if (isMacNative) {
@@ -391,7 +401,7 @@ export default function InstallModal({
                     sideButton={
                       <button
                         className="FormControl__sideButton"
-                        onClick={() =>
+                        onClick={async () =>
                           ipcRenderer
                             .invoke('openDialog', {
                               buttonLabel: t('box.choose'),
@@ -416,6 +426,12 @@ export default function InstallModal({
                       onChange={(event) => setInstallPath(event.target.value)}
                     />
                   </FormControl>
+                  <SmallInfo
+                    title={`${t(
+                      'install.disk-space-left',
+                      'Space Left on the Device'
+                    )}: ${spaceLeft}`}
+                  />
                 </div>
               </div>
               {hasWine && (
@@ -429,7 +445,7 @@ export default function InstallModal({
                         sideButton={
                           <button
                             className="FormControl__sideButton"
-                            onClick={() =>
+                            onClick={async () =>
                               ipcRenderer
                                 .invoke('openDialog', {
                                   buttonLabel: t('box.choose'),
@@ -536,13 +552,13 @@ export default function InstallModal({
             </DialogContent>
             <DialogFooter>
               <button
-                onClick={() => handleInstall('import')}
+                onClick={async () => handleInstall('import')}
                 className={`button is-secondary outline`}
               >
                 {t('button.import')}
               </button>
               <button
-                onClick={() => handleInstall()}
+                onClick={async () => handleInstall()}
                 className={`button is-secondary`}
               >
                 {previousProgress.folder === installPath

@@ -6,7 +6,6 @@ import {
   writeFileSync,
   appendFileSync
 } from 'graceful-fs'
-import prettyBytes from 'pretty-bytes'
 
 import { GameConfig } from '../game_config'
 import {
@@ -22,7 +21,8 @@ import {
   formatEpicStoreUrl,
   getLegendaryBin,
   isEpicServiceOffline,
-  isOnline
+  isOnline,
+  size
 } from '../utils'
 import {
   fallBackImage,
@@ -275,7 +275,7 @@ export class LegendaryLibrary {
       await Promise.allSettled(
         (await this.listUpdateableGames())
           .map(LegendaryGame.get)
-          .map((game) => game.update())
+          .map(async (game) => game.update())
       )
     ).map((res) => {
       if (res.status === 'fulfilled') {
@@ -375,11 +375,11 @@ export class LegendaryLibrary {
     let is_ue_plugin = false
     if (categories) {
       categories.forEach((c: { path: string }) => {
-        if (c.path == 'projects') {
+        if (c.path === 'projects') {
           is_ue_project = true
-        } else if (c.path == 'assets') {
+        } else if (c.path === 'assets') {
           is_ue_asset = true
-        } else if (c.path == 'plugins') {
+        } else if (c.path === 'plugins') {
           is_ue_plugin = true
         }
       })
@@ -387,7 +387,7 @@ export class LegendaryLibrary {
 
     let compatible_apps: string[] = []
     releaseInfo.forEach((rI: { appId: string; compatibleApps: string[] }) => {
-      if (rI.appId == app_name) {
+      if (rI.appId === app_name) {
         compatible_apps = rI.compatibleApps
       }
     })
@@ -435,7 +435,7 @@ export class LegendaryLibrary {
       ).length || dlcs.includes(app_name)
     } = (info === undefined ? {} : info) as InstalledInfo
 
-    const convertedSize = install_size && prettyBytes(Number(install_size))
+    const convertedSize = install_size && size(Number(install_size))
 
     this.library.set(app_name, {
       app_name,
@@ -545,6 +545,7 @@ export class LegendaryLibrary {
 export async function runLegendaryCommand(
   commandParts: Array<string>,
   logFile?: string,
+  onOutput?: (data: string) => void,
   env = process.env
 ): Promise<ExecResult> {
   commandParts = commandParts.filter((n) => n)
@@ -574,9 +575,12 @@ export async function runLegendaryCommand(
     // If we're logging to a file, convert new data to a string and write it to the file
     if (logFile) {
       child.stdout.on('data', (data: Buffer) => {
+        if (onOutput) onOutput(data.toString())
         appendFileSync(logFile, data.toString())
       })
+
       child.stderr.on('data', (data: Buffer) => {
+        if (onOutput) onOutput(data.toString())
         appendFileSync(logFile, data.toString())
       })
     }

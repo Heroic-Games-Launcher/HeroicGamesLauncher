@@ -100,7 +100,7 @@ export const AdvancedSettings = ({
     getGogdlVersion()
   }, [altGogdlBin])
 
-  function handleLegendaryBinary() {
+  async function handleLegendaryBinary() {
     return ipcRenderer
       .invoke('openDialog', {
         buttonLabel: t('box.choose'),
@@ -113,7 +113,7 @@ export const AdvancedSettings = ({
       .then(({ path }: Path) => setAltLegendaryBin(path ? path : ''))
   }
 
-  function handleGogdlBinary() {
+  async function handleGogdlBinary() {
     return ipcRenderer
       .invoke('openDialog', {
         buttonLabel: t('box.choose'),
@@ -149,7 +149,7 @@ export const AdvancedSettings = ({
           />
           {!altLegendaryBin.length ? (
             <SvgButton
-              onClick={() => handleLegendaryBinary()}
+              onClick={async () => handleLegendaryBinary()}
               className="material-icons settings folder"
             >
               <CreateNewFolder
@@ -197,7 +197,7 @@ export const AdvancedSettings = ({
           />
           {!altGogdlBin.length ? (
             <SvgButton
-              onClick={() => handleGogdlBinary()}
+              onClick={async () => handleGogdlBinary()}
               className="material-icons settings folder"
             >
               <CreateNewFolder

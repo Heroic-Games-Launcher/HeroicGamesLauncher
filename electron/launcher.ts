@@ -45,9 +45,9 @@ async function launch(
   launchArguments?: string,
   runner: Runner = 'legendary'
 ) {
-  const isLegendary = runner == 'legendary'
-  const isGOG = runner == 'gog'
-  //   const isExternal = runner == 'heroic'
+  const isLegendary = runner === 'legendary'
+  const isGOG = runner === 'gog'
+  //   const isExternal = runner==='heroic'
   const epicOffline = isLegendary && (await isEpicServiceOffline())
   const isOffline = isLegendary && (!(await isOnline()) || epicOffline)
   let envVars = ''
@@ -146,10 +146,10 @@ async function launch(
   if (
     isWindows ||
     (isMac && isMacNative) ||
-    (isLinux && gameInfo.install.platform == 'linux')
+    (isLinux && gameInfo.install.platform === 'linux')
   ) {
     let command = ''
-    if (runner == 'legendary') {
+    if (runner === 'legendary') {
       // FIXME: Make this work with the new legendary handling
       //        Since I remove this function with my launch rework anyways,
       //        this might not be worth it
@@ -161,7 +161,7 @@ async function launch(
       } launch ${appName} ${exe} ${runOffline} ${
         launchArguments ?? ''
       } ${launcherArgs}`
-    } else if (runner == 'gog') {
+    } else if (runner === 'gog') {
       // MangoHud,Gamemode, nvidia prime, audio fix can be used in Linux native titles
       if (isLinux) {
         let steamRuntime: string
@@ -216,7 +216,7 @@ async function launch(
       logInfo(['Launch Command:', command], LogPrefix.Gog)
     }
 
-    return await execAsync(command, execOptions).then(({ stderr }) => {
+    return execAsync(command, execOptions).then(({ stderr }) => {
       if (discordRPC) {
         logInfo(
           'Stopping Discord Rich Presence if running...',
@@ -252,7 +252,7 @@ async function launch(
   const options = {
     audio: audioFix ? `PULSE_LATENCY_MSEC=60` : '',
     crossoverBottle:
-      isCrossover && wineCrossoverBottle != ''
+      isCrossover && wineCrossoverBottle !== ''
         ? `CX_BOTTLE=${wineCrossoverBottle}`
         : '',
     fps: showFps ? `DXVK_HUD=fps` : '',

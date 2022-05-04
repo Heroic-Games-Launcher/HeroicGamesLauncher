@@ -129,7 +129,7 @@ export default function OtherSettings({
             {!targetExe.length ? (
               <SvgButton
                 className="material-icons settings folder"
-                onClick={() =>
+                onClick={async () =>
                   ipcRenderer
                     .invoke('openDialog', {
                       buttonLabel: t('box.select.button', 'Select'),

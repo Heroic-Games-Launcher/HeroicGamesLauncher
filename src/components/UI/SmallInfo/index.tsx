@@ -5,7 +5,7 @@ import './index.css'
 
 type Props = {
   handleclick?: () => void
-  subtitle: string
+  subtitle?: string
   title: string
 }
 
