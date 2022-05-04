@@ -148,7 +148,11 @@ export default function InstallModal({
   ]
 
   const availablePlatforms = platforms.filter((p) => p.available)
-  const defaultPlatform = availablePlatforms[0].value as PlatformToInstall
+  const defaultPlatform = isLinuxNative
+    ? 'Linux'
+    : isMacNative
+    ? 'Mac'
+    : 'Windows'
 
   const [platformToInstall, setPlatformToInstall] =
     useState<PlatformToInstall>(defaultPlatform)
@@ -249,8 +253,8 @@ export default function InstallModal({
       const gameInfo = await getGameInfo(appName, runner)
       if (!gameInstallInfo) {
         ipcRenderer.invoke('showErrorBox', [
-          tr('box.error.generic.title'),
-          tr('box.error.generic.message')
+          tr('box.error.generic.title', 'Error!'),
+          tr('box.error.generic.message', 'Something Went Wrong!')
         ])
         backdropClick()
         return
@@ -282,7 +286,7 @@ export default function InstallModal({
       setWineVersion(wineVersion || undefined)
     }
     getInfo()
-  }, [appName, i18n.languages])
+  }, [appName, i18n.languages, platformToInstall])
 
   const haveDLCs = gameInstallInfo?.game?.owned_dlc?.length > 0
   const DLCList = gameInstallInfo?.game?.owned_dlc
@@ -309,11 +313,10 @@ export default function InstallModal({
         return language
       }
     }
-  }, [i18n.languages])
+  }, [i18n.languages, platformToInstall])
 
   const hasWine = platformToInstall === 'Windows' && isLinux
-  const showPlatformSelection =
-    platforms.filter((p) => Boolean(p.available)).length > 1
+  const showPlatformSelection = availablePlatforms.length > 1
 
   const [wineVersionList, setWineVersionList] = useState<WineInstallation[]>([])
   useEffect(() => {
@@ -350,15 +353,13 @@ export default function InstallModal({
           <>
             <DialogHeader onClose={backdropClick}>
               {title}
-              {platforms
-                .filter((p) => Boolean(p.available))
-                .map((p) => (
-                  <FontAwesomeIcon
-                    className="InstallModal__platformIcon"
-                    icon={p.icon}
-                    key={p.value}
-                  />
-                ))}
+              {availablePlatforms.map((p) => (
+                <FontAwesomeIcon
+                  className="InstallModal__platformIcon"
+                  icon={p.icon}
+                  key={p.value}
+                />
+              ))}
             </DialogHeader>
             <DialogContent>
               <div className="InstallModal__sizes">
@@ -415,13 +416,11 @@ export default function InstallModal({
                           )
                         }
                       >
-                        {platforms
-                          .filter((p) => Boolean(p.available))
-                          .map((p) => (
-                            <option value={p.value} key={p.value}>
-                              {p.name}
-                            </option>
-                          ))}
+                        {availablePlatforms.map((p) => (
+                          <option value={p.value} key={p.value}>
+                            {p.name}
+                          </option>
+                        ))}
                       </select>
                     </FormControl>
                   </div>

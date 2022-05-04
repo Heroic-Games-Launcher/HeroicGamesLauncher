@@ -156,6 +156,13 @@ export class GOGLibrary {
       return
     }
     const gameData = this.library.get(appName)
+    // Since the linux version uses the windows info for download size, etc. We need this workaround
+    installPlatform === 'Linux'
+      ? (installPlatform = 'windows')
+      : installPlatform
+
+    // changing this since GOG uses osx and not Mac
+    installPlatform === 'Mac' ? (installPlatform = 'osx') : installPlatform
 
     const commandParts = [
       'info',
