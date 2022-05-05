@@ -157,6 +157,7 @@ export default function InstallModal({
       ? 'Mac'
       : 'Windows'
 
+    setPlatformToInstall(selectedPlatform)
     setDefaultPlatform(selectedPlatform)
   }, [isLinuxNative, isMacNative])
 
@@ -323,7 +324,6 @@ export default function InstallModal({
 
   const hasWine = platformToInstall === 'Windows' && isLinux
   const showPlatformSelection = availablePlatforms.length > 1
-
   const [wineVersionList, setWineVersionList] = useState<WineInstallation[]>([])
   useEffect(() => {
     if (hasWine) {
