@@ -1,8 +1,5 @@
-.App.classic {
-  --navbar-accent: white;
-}
-
-.App.dracula {
+.App.dracula,
+.App.dracula-classic {
   --accent: #f566d6;
   --navbar-accent: var(--accent);
   --background: #090b1c;
@@ -22,7 +19,8 @@
   --modal-border: var(--body-background);
 }
 
-.App.marine {
+.App.marine,
+.App.marine-classic {
   --background: #042028;
   --body-background: #042028;
   --background-darker: #042028;
@@ -41,7 +39,8 @@
   --success: #98f2ff;
 }
 
-.App.zombie {
+.App.zombie,
+.App.zombie-classic {
   --accent: #77f33c;
   --navbar-accent: var(--accent);
   --background: #1d1f1f;
@@ -59,5 +58,43 @@
   --input-background: #1d1f1f;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
-  --success: #bd93f9;
+  --success: #1bd01a;
+}
+
+.App.zombie h3,
+.App.zombie-classic h3 {
+  color: #f56200;
+}
+
+.App.zombie .downIcon > circle,
+.App.zombie-classic .downIcon > circle {
+  fill: #f56200;
+}
+
+.App.old-school {
+  --accent: #ffa800;
+  --navbar-accent: #eae8e5;
+  --background: #1d1f1f;
+  --body-background: #1d1f1f;
+  --background-darker: #1d1f1f;
+  --current-background: var(--body-background);
+  --navbar-background: #323232;
+  --navbar-active-background: #1d1f1f;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --input-background: #1d1f1f;
+  --modal-background: var(--body-background);
+  --modal-border: var(--body-background);
+  --success: 0BD48C;
+}
+
+.App.classic,
+.App.dracula-classic,
+.App.marine-classic,
+.App.zombie-classic {
+  --navbar-accent: white;
 }
