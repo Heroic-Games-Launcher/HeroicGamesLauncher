@@ -145,10 +145,8 @@ class GOGGame extends Game {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
-    if (GOGUser.isTokenExpired()) {
-      await GOGUser.refreshToken()
-    }
-    const credentials = configStore.get('credentials') as GOGLoginData
+
+    const credentials = await GOGUser.getCredentials()
 
     let installPlatform = platformToInstall.toLowerCase()
     if (installPlatform === 'mac') {
