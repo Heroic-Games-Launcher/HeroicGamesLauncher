@@ -176,7 +176,6 @@ class GOGGame extends Game {
     }
 
     const res = await runGogdlCommand(commandParts, logPath, onOutput)
-
     if (res.error) {
       logError(
         ['Failed to install', `${this.appName}:`, res.error],
@@ -187,7 +186,9 @@ class GOGGame extends Game {
 
     // Installation succeded
     // Save new game info to installed games store
-    const installInfo = await this.getInstallInfo(installPlatform)
+    const installInfo = await this.getInstallInfo(
+      installPlatform.toLocaleLowerCase()
+    )
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
     const isLinuxNative = installPlatform === 'linux'
     const additionalInfo = isLinuxNative

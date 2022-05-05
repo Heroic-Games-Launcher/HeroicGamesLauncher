@@ -157,12 +157,14 @@ export class GOGLibrary {
     }
     const gameData = this.library.get(appName)
     // Since the linux version uses the windows info for download size, etc. We need this workaround
-    installPlatform === 'Linux'
+    installPlatform.toLowerCase() === 'linux'
       ? (installPlatform = 'windows')
       : installPlatform
 
     // changing this since GOG uses osx and not Mac
-    installPlatform === 'Mac' ? (installPlatform = 'osx') : installPlatform
+    installPlatform === 'mac'
+      ? (installPlatform = 'osx')
+      : installPlatform.toLowerCase()
 
     const commandParts = [
       'info',
@@ -177,7 +179,6 @@ export class GOGLibrary {
     logInfo(['Getting game metadata:', command], LogPrefix.Gog)
 
     const res = await runGogdlCommand(commandParts)
-
     if (res.error) {
       logError(
         ['Failed to get game metadata for', `${appName}:`, res.error],
@@ -665,7 +666,7 @@ export async function runGogdlCommand(
     })
 
     child.on('close', (code, signal) => {
-      if (signal === 'SIGTERM') {
+      if (signal && signal === 'SIGTERM') {
         rej('Installation canceled')
       }
       res({
@@ -674,6 +675,7 @@ export async function runGogdlCommand(
       })
     })
     child.on('error', (error) => {
+      console.log({ error })
       rej(error)
     })
   })
