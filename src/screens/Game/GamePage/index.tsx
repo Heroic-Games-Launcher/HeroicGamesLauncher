@@ -282,7 +282,9 @@ export default function GamePage(): JSX.Element | null {
                           </div>
                           <div style={{ textTransform: 'capitalize' }}>
                             {t('info.installedPlatform', 'Installed Platform')}:{' '}
-                            {installPlatform}
+                            {installPlatform === 'osx'
+                              ? 'MacOS'
+                              : installPlatform}
                           </div>
                           <div>
                             {t('info.version')}: {version}
