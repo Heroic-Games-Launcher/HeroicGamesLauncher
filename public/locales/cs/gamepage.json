@@ -59,7 +59,7 @@
         "language": "Language",
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
-        "platform": "Platform Version",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Odehraný čas"
     },
     "gamecard": {
@@ -68,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Online Required",
+        "installedPlatform": "Installed Platform",
         "path": "Cesta pro instalaci",
         "size": "Velikost",
         "syncsaves": "Synchronizovat uložené soubory",
         "version": "Verze"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Select Install Path",
         "wineprefix": "WinePrefix",
         "wineversion": ""

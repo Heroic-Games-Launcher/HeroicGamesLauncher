@@ -59,7 +59,7 @@
         "language": "زبان",
         "lastPlayed": "آخرین اجرا",
         "neverPlayed": "هرگز",
-        "platform": "Platform Version",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "زمان بازی"
     },
     "gamecard": {
@@ -68,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "نیازمندی به آنلاین بودن",
+        "installedPlatform": "Installed Platform",
         "path": "مسیر نصب",
         "size": "اندازه",
         "syncsaves": "همگام سازی ذخیره ها",
         "version": "نسخه"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "انتخاب محل نصب",
         "wineprefix": "Wine Prefix",
         "wineversion": "نسخه Wine"

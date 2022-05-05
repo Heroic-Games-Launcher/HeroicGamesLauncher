@@ -59,7 +59,7 @@
         "language": "Ngôn ngữ",
         "lastPlayed": "Lần chơi cuối",
         "neverPlayed": "Không bao giờ",
-        "platform": "Platform Version",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Thời gian chơi"
     },
     "gamecard": {
@@ -68,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Cần kết nối mạng",
+        "installedPlatform": "Installed Platform",
         "path": "Đường dẫn cài đặt",
         "size": "Kích thước",
         "syncsaves": "Đồng bộ bản lưu",
         "version": "Phiên bản"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Chọn đường dẫn cài",
         "wineprefix": "WinePrefix",
         "wineversion": "Phiên bản Wine"

@@ -59,7 +59,7 @@
         "language": "Bahasa",
         "lastPlayed": "Terakhir Dimainkan",
         "neverPlayed": "Tidak pernah",
-        "platform": "Platform Version",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Lama Dimainkan"
     },
     "gamecard": {
@@ -68,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Internet Dibutuhkan",
+        "installedPlatform": "Installed Platform",
         "path": "Lokasi Pemasangan",
         "size": "Ukuran",
         "syncsaves": "Sinkronkan Penyimpanan",
         "version": "Versi"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Pilih Lokasi Pemasangan",
         "wineprefix": "PrefiksWine",
         "wineversion": "Versi Wine"

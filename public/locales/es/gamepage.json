@@ -59,7 +59,7 @@
         "language": "Lenguaje",
         "lastPlayed": "Jugado por Última Vez",
         "neverPlayed": "Nunca",
-        "platform": "Platform Version",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Tiempo Jugado"
     },
     "gamecard": {
@@ -68,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Requiere Online",
+        "installedPlatform": "Installed Platform",
         "path": "Ruta de instalación",
         "size": "Tamaño",
         "syncsaves": "Sincronizar guardados",
         "version": "Versión"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Seleccione la ruta de instalación",
         "wineprefix": "Prefijo de Wine",
         "wineversion": "Version de Wine"

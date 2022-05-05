@@ -59,7 +59,7 @@
         "language": "Dil",
         "lastPlayed": "Son Oynanan",
         "neverPlayed": "Hiç Oynanmadı",
-        "platform": "Platform Version",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Oynanan Zaman"
     },
     "gamecard": {
@@ -68,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Çevrim İçi Gerekli",
+        "installedPlatform": "Installed Platform",
         "path": "Kurulum Yeri",
         "size": "Boyut",
         "syncsaves": "Kayıtları Eşzamanla",
         "version": "Sürüm"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Kurulum Yolunu Seçin",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine sürümü"

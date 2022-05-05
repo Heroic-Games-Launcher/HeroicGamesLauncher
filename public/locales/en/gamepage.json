@@ -59,7 +59,7 @@
         "language": "Language",
         "lastPlayed": "Last Played",
         "neverPlayed": "Never",
-        "platform": "Platform Version",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Time Played"
     },
     "gamecard": {
@@ -68,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Online Required",
+        "installedPlatform": "Installed Platform",
         "path": "Install Path",
         "size": "Size",
         "syncsaves": "Sync Saves",
         "version": "Version"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Select Install Path",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine version"

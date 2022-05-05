@@ -401,7 +401,7 @@ export default function InstallModal({
               {showPlatformSelection && (
                 <div className="InstallModal__control">
                   <div className="InstallModal__controlLabel">
-                    {t('game.platform', 'Platform Version')}:
+                    {t('game.platform', 'Select Platform Version to Install')}:
                   </div>
                   <div className="InstallModal__controlInput">
                     <FormControl select>

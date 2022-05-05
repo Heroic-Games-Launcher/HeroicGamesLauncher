@@ -59,7 +59,7 @@
         "language": "Γλώσσα",
         "lastPlayed": "Παίχτηκε Τελευταία φορά",
         "neverPlayed": "Ποτέ",
-        "platform": "Platform Version",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού"
     },
     "gamecard": {
@@ -68,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Απαιτείται Σύνδεση",
+        "installedPlatform": "Installed Platform",
         "path": "Διαδρομή Εγκατάστασης",
         "size": "Μέγεθος",
         "syncsaves": "Συγχρονισμός Αποθηκεύσεων",
         "version": "Έκδοση"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Επιλέξτε διαδρομή εγκατάστασης",
         "wineprefix": "Πρόθεμα Wine",
         "wineversion": ""

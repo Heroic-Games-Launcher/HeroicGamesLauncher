@@ -59,7 +59,7 @@
         "language": "Language",
         "lastPlayed": "Laatst gespeeld",
         "neverPlayed": "Nooit",
-        "platform": "Platform Version",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Tijd gespeeld"
     },
     "gamecard": {
@@ -68,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Internetverbinding Verplicht",
+        "installedPlatform": "Installed Platform",
         "path": "Installatie pad",
         "size": "Grootte",
         "syncsaves": "Synchroniseer saves",
         "version": "Versie"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Select Install Path",
         "wineprefix": "WinePrefix",
         "wineversion": ""

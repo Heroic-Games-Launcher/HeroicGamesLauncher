@@ -59,7 +59,7 @@
         "language": "Язык",
         "lastPlayed": "Последний запуск",
         "neverPlayed": "Никогда",
-        "platform": "Platform Version",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Проведено в игре"
     },
     "gamecard": {
@@ -68,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Требуется онлайн",
+        "installedPlatform": "Installed Platform",
         "path": "Путь установки",
         "size": "Размер",
         "syncsaves": "Синхронизация сохранений",
         "version": "Версия"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Выберите путь установки",
         "wineprefix": "Префикс Wine",
         "wineversion": "Версия Wine"

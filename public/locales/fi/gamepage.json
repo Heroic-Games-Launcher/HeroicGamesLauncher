@@ -59,7 +59,7 @@
         "language": "Kieli",
         "lastPlayed": "Viimeksi pelattu",
         "neverPlayed": "Ei koskaan",
-        "platform": "Platform Version",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Pelattu aika"
     },
     "gamecard": {
@@ -68,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Online-tila vaaditaan",
+        "installedPlatform": "Installed Platform",
         "path": "Asennuksen sijainti",
         "size": "Koko",
         "syncsaves": "Synkronoi tallennukset",
         "version": "Versio"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Valitse asennuspolku",
         "wineprefix": "WinePrefix",
         "wineversion": ""
