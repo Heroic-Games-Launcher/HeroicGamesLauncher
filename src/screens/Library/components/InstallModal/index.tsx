@@ -120,6 +120,7 @@ export default function InstallModal({
 
   const [isLinuxNative, setIsLinuxNative] = useState(false)
   const [isMacNative, setIsMacNative] = useState(false)
+  const [defaultPlatform, setDefaultPlatform] = useState<PlatformToInstall>('')
 
   const installFolder = gameStatus?.folder || installPath
 
@@ -148,11 +149,16 @@ export default function InstallModal({
   ]
 
   const availablePlatforms = platforms.filter((p) => p.available)
-  const defaultPlatform = isLinuxNative
-    ? 'Linux'
-    : isMacNative
-    ? 'Mac'
-    : 'Windows'
+
+  useEffect(() => {
+    const selectedPlatform = isLinuxNative
+      ? 'Linux'
+      : isMacNative
+      ? 'Mac'
+      : 'Windows'
+
+    setDefaultPlatform(selectedPlatform)
+  }, [isLinuxNative, isMacNative])
 
   const [platformToInstall, setPlatformToInstall] =
     useState<PlatformToInstall>(defaultPlatform)
