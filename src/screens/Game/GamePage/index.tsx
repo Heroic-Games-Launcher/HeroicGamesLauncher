@@ -390,7 +390,13 @@ export default function GamePage(): JSX.Element | null {
                     </div>
                     <NavLink
                       to={`/settings/${appName}/log`}
-                      state={runner}
+                      state={{
+                        fromGameCard: false,
+                        runner,
+                        isLinuxNative: isNative,
+                        isMacNative: isNative,
+                        hasCloudSave: cloud_save_enabled
+                      }}
                       className="link is-text is-link reportProblem"
                     >
                       <>
