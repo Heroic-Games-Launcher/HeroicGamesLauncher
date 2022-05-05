@@ -171,14 +171,15 @@ async function uninstall({
     title: t('gamepage:box.uninstall.title'),
     type: 'warning'
   }
+  const platform = await getPlatform()
+  const {
+    install: { platform: installedplatform }
+  } = await getGameInfo(appName, runner)
 
   let linuxArgs
   // This assumes native games are installed should be changed in the future
   // if we add option to install windows games even if native is available
-  if (
-    (await getPlatform()) === 'linux' &&
-    !(await getGameInfo(appName, runner)).is_linux_native
-  ) {
+  if (platform === 'linux' && installedplatform?.toLowerCase() === 'windows') {
     const wineprefix = (await getGameSettings(appName, runner)).winePrefix
 
     linuxArgs = {

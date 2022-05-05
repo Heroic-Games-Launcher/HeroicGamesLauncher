@@ -97,6 +97,7 @@ let mainWindow: BrowserWindow = null
 
 async function createWindow(): Promise<BrowserWindow> {
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
+  configStore.set('userHome', userHome)
 
   let windowProps: Electron.Rectangle = {
     height: 690,
