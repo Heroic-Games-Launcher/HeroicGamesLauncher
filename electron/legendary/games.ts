@@ -484,9 +484,8 @@ class LegendaryGame extends Game {
    * Does NOT check for online connectivity.
    */
   public async syncSaves(arg: string, path: string) {
-    const fixedPath = isWindows
-      ? path.replaceAll("'", '').slice(0, -1)
-      : path.replaceAll("'", '')
+    path = path.replaceAll("'", '').replaceAll('"', '')
+    const fixedPath = isWindows ? path.slice(0, -1) : path
 
     // workaround error when no .saves folder exists
     const legendarySavesPath = join(userHome, 'legendary', '.saves')
@@ -498,7 +497,7 @@ class LegendaryGame extends Game {
       'sync-saves',
       arg,
       '--save-path',
-      `"${fixedPath}"`,
+      fixedPath,
       this.appName,
       '-y'
     ]
