@@ -169,7 +169,8 @@ export default function GamePage(): JSX.Element | null {
       size(Number(gameInstallInfo?.manifest?.disk_size))
     const launchOptions = gameInstallInfo?.game?.launch_options || []
 
-    const isMacNative = installPlatform === 'osx'
+    const isMac = ['osx', 'Mac']
+    const isMacNative = isMac.includes(installPlatform ?? '')
     const isLinuxNative = installPlatform === 'linux'
     const isNative = isWin || isMacNative || isLinuxNative
     const pathname = isNative

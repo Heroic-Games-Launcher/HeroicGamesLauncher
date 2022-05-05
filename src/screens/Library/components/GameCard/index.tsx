@@ -197,7 +197,8 @@ const GameCard = ({
     setIsFavouriteGame(found)
   }, [favouriteGames, appName])
 
-  const isMacNative = installedPlatform === 'osx'
+  const isMac = ['osx', 'Mac']
+  const isMacNative = isMac.includes(installedPlatform ?? '')
   const isLinuxNative = installedPlatform === 'linux'
   const isNative = isWin || isMacNative || isLinuxNative
   const pathname = isNative

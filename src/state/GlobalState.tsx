@@ -278,6 +278,8 @@ export class GlobalState extends PureComponent<Props> {
       return library.filter((game) => game.is_game)
     }
 
+    const isMac = ['osx', 'Mac']
+
     switch (filter) {
       case 'win':
         return library.filter((game) => {
@@ -290,7 +292,7 @@ export class GlobalState extends PureComponent<Props> {
       case 'mac':
         return library.filter((game) => {
           return game.is_installed
-            ? game.install.platform === 'osx'
+            ? isMac.includes(game.install.platform ?? '')
             : game.is_mac_native
         })
       case 'linux':
