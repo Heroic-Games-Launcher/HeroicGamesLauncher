@@ -75,6 +75,8 @@ export default function GamePage(): JSX.Element | null {
   }>({ error: false, message: '' })
 
   const isWin = platform === 'win32'
+  const isLinux = platform === 'linux'
+  const isMac = platform === 'darwin'
 
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
@@ -95,7 +97,16 @@ export default function GamePage(): JSX.Element | null {
           newInfo = await getGameInfo(appName, 'gog')
         }
         setGameInfo(newInfo)
-        getInstallInfo(appName, newInfo.runner)
+        const { install, is_linux_native, is_mac_native, runner } = newInfo
+
+        const installPlatform =
+          install.platform || (is_linux_native && isLinux)
+            ? 'Linux'
+            : is_mac_native && isMac
+            ? 'Mac'
+            : 'Windows'
+
+        getInstallInfo(appName, runner, installPlatform)
           .then((info) => {
             if (!info) {
               throw 'Cannot get game info'

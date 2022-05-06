@@ -252,10 +252,12 @@ export default function InstallModal({
 
   useEffect(() => {
     const getInfo = async () => {
+      const installPlatform =
+        platformToInstall !== '' ? platformToInstall : 'Windows'
       const gameInstallInfo = await getInstallInfo(
         appName,
         runner,
-        platformToInstall
+        installPlatform
       )
       const gameInfo = await getGameInfo(appName, runner)
       if (!gameInstallInfo) {
@@ -276,7 +278,7 @@ export default function InstallModal({
       }
       setIsLinuxNative(gameData.is_linux_native && isLinux)
       setIsMacNative(gameData.is_mac_native && isMac)
-      if (platformToInstall === 'Linux' && runner === 'gog') {
+      if (installPlatform === 'Linux' && runner === 'gog') {
         const installer_languages = (await ipcRenderer.invoke(
           'getGOGLinuxInstallersLangs',
           appName
