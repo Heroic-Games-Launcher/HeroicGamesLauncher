@@ -469,7 +469,10 @@ async function runLegendaryOrGogdlCommand(
       stderr.push(data.toString().trim())
     })
 
-    child.on('close', () => {
+    child.on('close', (code, signal) => {
+      if (signal) {
+        rej('Process terminated with signal ' + signal)
+      }
       res({
         stdout: stdout.join('\n'),
         stderr: stderr.join('\n')
