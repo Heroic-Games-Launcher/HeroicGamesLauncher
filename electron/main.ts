@@ -626,14 +626,23 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
 
 ipcMain.handle(
   'getInstallInfo',
-  async (event, game, runner, installPlatform) => {
+  async (event, game, runner: Runner, installPlatform: string) => {
     const online = await isOnline()
     if (!online) {
       return { game: {}, metadata: {} }
     }
-    installPlatform && installPlatform === 'mac'
-      ? (installPlatform = 'osx')
-      : installPlatform
+
+    if (installPlatform && runner === 'gog') {
+      installPlatform = installPlatform.toLowerCase()
+      if (installPlatform === 'mac') {
+        installPlatform = 'osx'
+      }
+      // getting info from Linux builds is still not possible
+      if (installPlatform === 'linux') {
+        installPlatform = 'windows'
+      }
+    }
+
     try {
       const info = await Game.get(game, runner).getInstallInfo(installPlatform)
       return info

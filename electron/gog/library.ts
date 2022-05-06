@@ -149,22 +149,13 @@ export class GOGLibrary {
    * @param appName
    * @returns InstallInfo object
    */
-  public async getInstallInfo(appName: string, installPlatform?: string) {
+  public async getInstallInfo(appName: string, installPlatform = 'windows') {
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
       logError('No credentials, cannot get install info')
       return
     }
     const gameData = this.library.get(appName)
-    // Since the linux version uses the windows info for download size, etc. We need this workaround
-    installPlatform.toLowerCase() === 'linux'
-      ? (installPlatform = 'windows')
-      : installPlatform
-
-    // changing this since GOG uses osx and not Mac
-    installPlatform === 'mac'
-      ? (installPlatform = 'osx')
-      : installPlatform.toLowerCase()
 
     const commandParts = [
       'info',
@@ -172,7 +163,7 @@ export class GOGLibrary {
       `--token=${credentials.access_token}`,
       '--lang=en-US',
       '--os',
-      installPlatform ? installPlatform.toLowerCase() : 'windows'
+      installPlatform
     ]
     const command = getGogdlCommand(commandParts)
 
