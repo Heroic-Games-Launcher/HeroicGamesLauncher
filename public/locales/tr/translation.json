@@ -290,6 +290,7 @@
             "placeholder": "Tam oyun kaydetme klasörünü seçin",
             "title": "Bulut Eşzamanlama Kayıt Klasörünü Geçersiz Kıl"
         },
+        "select_theme": "Select Theme",
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
         "showUnrealMarket": "Unreal Pazar Yerini Göster (yeniden başlatma gerekir)",
         "start-in-tray": "Simge Durumunda Başlat",

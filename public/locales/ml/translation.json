@@ -290,6 +290,7 @@
             "placeholder": "കളി സൂക്ഷിക്കാനുള്ള കൃത്യമായ സ്ഥലം നല്കൂ",
             "title": "മേഘത്തില് ഒന്നിപ്പിക്കല് സൂക്ഷിക്കുന്ന അറ മാറ്റിയെഴുതുക"
         },
+        "select_theme": "Select Theme",
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "ചെറിയ കളമാക്കി തുറക്കൂ",

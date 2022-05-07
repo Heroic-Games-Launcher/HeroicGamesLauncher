@@ -87,6 +87,8 @@ export interface ContextType {
   }
   showHidden: boolean
   setShowHidden: (value: boolean) => void
+  theme: string
+  setTheme: (themeName: string) => void
 }
 
 export type LibraryTopSectionOptions =

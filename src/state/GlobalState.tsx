@@ -60,6 +60,7 @@ interface StateProps {
   showHidden: boolean
   favouriteGames: FavouriteGame[]
   recentGames: GameInfo[]
+  theme: string
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -106,7 +107,13 @@ export class GlobalState extends PureComponent<Props> {
     showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
     favouriteGames:
       (configStore.get('games.favourites') as Array<FavouriteGame>) || [],
-    recentGames: []
+    recentGames: [],
+    theme: (configStore.get('theme') as string) || ''
+  }
+
+  setTheme = (newThemeName: string) => {
+    configStore.set('theme', newThemeName)
+    this.setState({ theme: newThemeName })
   }
 
   setShowHidden = (value: boolean) => {
@@ -447,7 +454,8 @@ export class GlobalState extends PureComponent<Props> {
             add: this.addGameToFavourites,
             remove: this.removeGameFromFavourites
           },
-          handleLibraryTopSection: this.handleLibraryTopSection
+          handleLibraryTopSection: this.handleLibraryTopSection,
+          setTheme: this.setTheme
         }}
       >
         {children}

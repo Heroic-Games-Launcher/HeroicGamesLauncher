@@ -290,6 +290,7 @@
             "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux",
             "title": "Écraser le dossier de synchronisation Cloud"
         },
+        "select_theme": "Select Theme",
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "showUnrealMarket": "Afficher Unreal Marketplace (nécessite le redémarrage d'Heroic)",
         "start-in-tray": "Réduire au démarrage",

@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import './App.css'
+import './themes.css'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Login from './screens/Login'
 import WebView from './screens/WebView'
@@ -9,10 +10,13 @@ import Library from './screens/Library'
 import WineManager from './screens/WineManager'
 import Sidebar from 'src/components/UI/Sidebar'
 import Settings from './screens/Settings'
+import ContextProvider from './state/ContextProvider'
 
 function App() {
+  const { theme } = useContext(ContextProvider)
+
   return (
-    <div className="App">
+    <div className={`App ${theme}`}>
       <HashRouter>
         <Sidebar />
         <main className="content">

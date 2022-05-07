@@ -290,6 +290,7 @@
             "placeholder": "Selecciona el directori exacte on es desen els jocs",
             "title": "Sobreescriu el directori de dades de sincronització al núvol"
         },
+        "select_theme": "Select Theme",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
         "showUnrealMarket": "Mostra la llibreria d'Unreal (cal reiniciar)",
         "start-in-tray": "Inicia minimitzat",

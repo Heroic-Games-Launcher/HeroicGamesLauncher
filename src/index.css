@@ -1,19 +1,29 @@
 html {
+  /* Generic colors */
+  --background: #151f3d;
+  --background-darker: #0d0f1c;
+  --background-darker-80: #0d0f1ce0;
+  --background-secondary: #323035;
+  --background-lighter: #152f6d;
+  --background-gradient: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 2.4%,
+    #0d0f1cd2 64%
+  );
+
   /* Colours */
   --navbar-background: var(--background);
-  --input-background: #0d0f1c;
+  --input-background: var(--background-darker);
   --body-background: #13172a;
   --current-background: var(--body-background);
-  --tooltip-background-color: #0d0e0e;
-  --dropdown-background: #1a264b;
-  --menu-background-color: #0d0e0e;
   --modal-background: #13172a;
   --modal-border: #1f253f;
   --modal-backdrop: #00000048;
   --text-hover: #59d0ea;
   --link-highlight: #07c5ef;
   --accent: #eaa114;
-  --login-card-background: #0e1527ee;
+  --navbar-accent: var(--accent);
+  --navbar-active-background: var(--background-lighter);
   --play-button: #59d0ea;
   --download-button: #3082d9;
   --download-button-overlay: #5a5e5f;
@@ -26,17 +36,7 @@ html {
   --success-hover: #30eca8;
   --danger-hover: #e43f3f;
   --icon-disabled: #625e69;
-  /* Generic colors */
-  --background: #151f3d;
-  --background-darker: #0d0f1c;
-  --background-darker-80: #0d0f1ce0;
-  --background-secondary: #323035;
-  --background-lighter: #152f6d;
-  --background-gradient: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.418) 2.4%,
-    #0d0f1cd2 64%
-  );
+
   /* Gradients */
   --gradient-welcome: linear-gradient(#13172a 100%, #13172a 89%, #13172a 0%);
   --gradient-big-game-menu: linear-gradient(
@@ -52,7 +52,7 @@ html {
   --gradient-game-hover: linear-gradient(#000000 30.8%, #141515 77%);
   --gradient-body-background: linear-gradient(
     90deg,
-    #0d0f1c -32px,
+    var(--background-darker) -32px,
     var(--body-background) 64px,
     var(--body-background) 100%
   );

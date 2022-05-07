@@ -290,6 +290,7 @@
             "placeholder": "Pilih folder gim tersimpan yang tepat",
             "title": "Timpa folder Sinkronisasi Penyimpanan Awan"
         },
+        "select_theme": "Select Theme",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
         "showUnrealMarket": "Tampilkan Unreal Marketplace (perlu memulai ulang)",
         "start-in-tray": "Mulai Diminimalkan",

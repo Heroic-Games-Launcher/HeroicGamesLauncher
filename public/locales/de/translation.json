@@ -290,6 +290,7 @@
             "placeholder": "Genauen Spielstände Ordner auswählen",
             "title": "Cloud-Synchronisation Spielstände Ordner überschreiben"
         },
+        "select_theme": "Select Theme",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
         "showUnrealMarket": "Unreal Marketplace anzeigen (benötigt Neustart)",
         "start-in-tray": "Minimiert starten",

@@ -290,6 +290,7 @@
             "placeholder": "選擇存檔的保存位置",
             "title": "覆蓋雲端存檔資料夾"
         },
+        "select_theme": "Select Theme",
         "showfps": "顯示幀數（Directx 9，10和11）",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "啟動時最小化",
