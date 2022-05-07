@@ -1,5 +1,5 @@
 .runnerWrapper {
-  background-color: var(--login-card-background);
+  background-color: var(--background-darker);
   padding: 20px;
   border-radius: 15px;
   min-width: min(500px, 30%);

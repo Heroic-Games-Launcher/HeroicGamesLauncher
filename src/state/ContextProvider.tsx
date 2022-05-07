@@ -40,7 +40,9 @@ const initialContext: ContextType = {
     list: [],
     add: () => null,
     remove: () => null
-  }
+  },
+  theme: '',
+  setTheme: () => null
 }
 
 export default React.createContext(initialContext)

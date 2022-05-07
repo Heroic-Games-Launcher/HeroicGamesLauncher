@@ -75,7 +75,9 @@ export default function GeneralSettings({
     refreshLibrary,
     isRTL,
     libraryTopSection,
-    handleLibraryTopSection
+    handleLibraryTopSection,
+    theme,
+    setTheme
   } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
@@ -403,6 +405,31 @@ export default function GeneralSettings({
           <option value="disabled">
             {t('setting.library_top_option.disabled', 'Disabled')}
           </option>
+        </select>
+      </span>
+
+      <span className="setting">
+        <label
+          className={classNames('settingText', { isRTL: isRTL })}
+          htmlFor="theme_selector"
+        >
+          {t('setting.select_theme', 'Select Theme')}
+        </label>
+        <select
+          id="theme_selector"
+          onChange={(event) => setTheme(event.target.value)}
+          value={theme}
+          className="settingSelect is-drop-down"
+        >
+          <option value="">Default</option>
+          <option value="classic">Classic</option>
+          <option value="old-school">Old School Heroic</option>
+          <option value="dracula">Dracula</option>
+          <option value="dracula-classic">Dracula Classic</option>
+          <option value="marine">Marine</option>
+          <option value="marine-classic">Marine Classic</option>
+          <option value="zombie">Zombie</option>
+          <option value="zombie-classic">Zombie Classic</option>
         </select>
       </span>
 

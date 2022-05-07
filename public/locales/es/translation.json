@@ -290,6 +290,7 @@
             "placeholder": "Seleccione la carpeta exacta para guardar juegos",
             "title": "Anular la carpeta de guardado de Cloud Sync"
         },
+        "select_theme": "Select Theme",
         "showfps": "Mostrar FPS (DX9, 10 y 11)",
         "showUnrealMarket": "Mostrar la tienda de Unreal (requiere reiniciar)",
         "start-in-tray": "Iniciar minimizado",

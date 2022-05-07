@@ -290,6 +290,7 @@
             "placeholder": "Wybierz dokładny folder zapisu",
             "title": "Pomiń synchronizację z chmurą"
         },
+        "select_theme": "Select Theme",
         "showfps": "Pokaż FPS (DX9, 10 and 11)",
         "showUnrealMarket": "Pokaż Unreal Marketplace (wymaga restartu)",
         "start-in-tray": "Uruchom zminimalizowany",

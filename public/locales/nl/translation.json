@@ -290,6 +290,7 @@
             "placeholder": "Selecteer de exacte opslagmap",
             "title": "Overschijf cloud synchronisatie save map"
         },
+        "select_theme": "Select Theme",
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Geminimaliseerd",

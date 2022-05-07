@@ -30,6 +30,7 @@ html,
   grid-template-columns: var(--sidebar-width) 1fr;
   grid-template-areas: 'sidebar content';
   font-family: 'Cabin', sans-serif;
+  background: var(--body-background);
 }
 
 .App .content {
