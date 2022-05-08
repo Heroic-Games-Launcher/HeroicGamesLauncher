@@ -290,6 +290,7 @@
             "placeholder": "Seleccionar o cartafol exacto para gardar xogos",
             "title": "Sobrescribir o cartafol de Cloud Sync Save"
         },
+        "select_theme": "Select Theme",
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Mostrar a tenda de Unreal (require reinicio)",
         "start-in-tray": "Iniciar minimizado",

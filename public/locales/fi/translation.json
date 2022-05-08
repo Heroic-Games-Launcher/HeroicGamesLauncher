@@ -290,6 +290,7 @@
             "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
             "title": "Korvaa pilvisynkronoinnin tallennuksen kansio"
         },
+        "select_theme": "Select Theme",
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
         "showUnrealMarket": "Näytä Unreal Marketplace (tarvitsee uudelleenkäynnistyksen)",
         "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",

@@ -290,6 +290,7 @@
             "placeholder": "올바른 게임 저장 폴더 선택",
             "title": "클라우드 세이브 동기화 폴더 덮어쓰기"
         },
+        "select_theme": "Select Theme",
         "showfps": "FPS 표시 (DX9, 10 및 11)",
         "showUnrealMarket": "Unreal Marketplace 표시 (다시 시작해야 함)",
         "start-in-tray": "최소화로 시작",

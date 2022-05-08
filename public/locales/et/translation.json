@@ -290,6 +290,7 @@
             "placeholder": "Valige täpne mängude salvestiste kaust",
             "title": "Asenda salvestuse pilvesünkroonkaust"
         },
+        "select_theme": "Select Theme",
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
         "showUnrealMarket": "Näita Unreal Marketplace'i (vajab taaskäivitamist)",
         "start-in-tray": "Käivita minimeeritult",

@@ -290,6 +290,7 @@
             "placeholder": "Выберите точную папку для сохранений игр",
             "title": "Переопределить папку для облачных сохранений"
         },
+        "select_theme": "Select Theme",
         "showfps": "Показывать FPS (DX9, 10 и 11)",
         "showUnrealMarket": "Показать Unreal Marketplace (требуется перезапуск)",
         "start-in-tray": "Запускать свернутым в трей",

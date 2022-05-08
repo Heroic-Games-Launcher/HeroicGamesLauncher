@@ -120,7 +120,7 @@ abstract class GlobalConfig {
     return execAsync(`which wine`)
       .then(async ({ stdout }) => {
         const wineBin = stdout.split('\n')[0]
-        defaultWine.bin = `'${wineBin}'`
+        defaultWine.bin = wineBin
 
         const { stdout: out } = await execAsync(`wine --version`)
         const version = out.split('\n')[0]
@@ -164,7 +164,7 @@ abstract class GlobalConfig {
               'wine'
             )
             crossover.add({
-              bin: `'${crossoverWineBin}'`,
+              bin: crossoverWineBin,
               name: `CrossOver - ${version}`,
               type: 'crossover',
               ...this.getWineExecs(crossoverWineBin)
@@ -186,7 +186,7 @@ abstract class GlobalConfig {
         .split(':')[1]
         .trim()
       crossover.add({
-        bin: `'${crossoverWineBin}'`,
+        bin: crossoverWineBin,
         name: `CrossOver - ${crossoverVersion}`,
         type: 'crossover',
         ...this.getWineExecs(crossoverWineBin)
@@ -217,7 +217,7 @@ abstract class GlobalConfig {
     readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
       const wineBin = join(heroicToolsPath, 'wine', version, 'bin', 'wine')
       altWine.add({
-        bin: `'${wineBin}'`,
+        bin: wineBin,
         name: `Wine - ${version}`,
         type: 'wine',
         ...this.getWineExecs(wineBin)
@@ -231,7 +231,7 @@ abstract class GlobalConfig {
       readdirSync(lutrisCompatPath).forEach((version) => {
         const wineBin = join(lutrisCompatPath, version, 'bin', 'wine')
         altWine.add({
-          bin: `'${wineBin}'`,
+          bin: wineBin,
           name: `Wine - ${version}`,
           type: 'wine',
           ...this.getWineExecs(wineBin)
@@ -268,7 +268,7 @@ abstract class GlobalConfig {
           if (hasProtonName && !name.includes('runtime')) {
             const protonBin = join(path, version, 'proton')
             proton.add({
-              bin: `'${protonBin}'`,
+              bin: protonBin,
               name: `Proton - ${version}`,
               type: 'proton'
               // No need to run this.getWineExecs here since Proton ships neither Wineboot nor Wineserver
@@ -317,18 +317,11 @@ abstract class GlobalConfig {
     const ret = { wineserver: '', wineboot: '' }
     const potWineserverPath = join(wineDir, 'wineserver')
     if (existsSync(potWineserverPath)) {
-      ret.wineserver = `'${potWineserverPath}'`
+      ret.wineserver = potWineserverPath
     }
     const potWinebootPath = join(wineDir, 'wineboot')
     if (existsSync(potWinebootPath)) {
-      ret.wineboot = `'${potWinebootPath}'`
-    } else {
-      /**
-       * NOTE: This will only work as long as no function removes and then re-adds the quotes
-       *       Although then again no (default) Wine version should ship without wineboot so
-       *       this most likely isn't an issue
-       */
-      ret.wineboot = `'${wineBin}' wineboot`
+      ret.wineboot = potWinebootPath
     }
     return ret
   }
@@ -443,13 +436,13 @@ class GlobalConfigV0 extends GlobalConfig {
       customWinePaths.forEach((path: string) => {
         if (path.endsWith('proton')) {
           return customPaths.add({
-            bin: `'${path}'`,
+            bin: path,
             name: `Custom Proton - ${path}`,
             type: 'proton'
           })
         }
         return customPaths.add({
-          bin: `'${path}'`,
+          bin: path,
           name: `Custom Wine - ${path}`,
           type: 'wine',
           ...this.getWineExecs(path)

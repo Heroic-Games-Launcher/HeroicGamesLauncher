@@ -290,6 +290,7 @@
             "placeholder": "Selecione a pasta exata com os saves",
             "title": "Sobrescrever diretório de saves automáticos"
         },
+        "select_theme": "Select Theme",
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Iniciar Minimizado",

@@ -290,6 +290,7 @@
             "placeholder": "Ange specifik sparfilsmapp",
             "title": "Synkroniseringsmapp för sparfiler"
         },
+        "select_theme": "Select Theme",
         "showfps": "Visa FPS (DX9, 10 och 11)",
         "showUnrealMarket": "Visa Unreal Marketplace (kräver omstart)",
         "start-in-tray": "Starta minimerad",

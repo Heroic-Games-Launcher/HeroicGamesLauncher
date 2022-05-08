@@ -290,6 +290,7 @@
             "placeholder": "Pontos játékmentési mappa kiválasztása",
             "title": "Felhőszinkronizálásra való mappa felülírása"
         },
+        "select_theme": "Select Theme",
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",
         "showUnrealMarket": "Unreal piactér megjelenítése (újraindítás szükséges)",
         "start-in-tray": "Indítás tálcára téve",

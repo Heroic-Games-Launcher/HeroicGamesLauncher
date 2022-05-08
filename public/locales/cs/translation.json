@@ -290,6 +290,7 @@
             "placeholder": "Vyberte přesnou složku s uloženými soubory",
             "title": "Přepsat synchronizaci cloudu"
         },
+        "select_theme": "Select Theme",
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Spustit minimalizované",

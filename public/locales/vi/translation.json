@@ -290,6 +290,7 @@
             "placeholder": "Chọn chính xác thư mục lưu game",
             "title": "Ghi đè thư mục Lưu đồng bộ đám mây"
         },
+        "select_theme": "Select Theme",
         "showfps": "Hiển thị FPS (DX9, 10 và 11)",
         "showUnrealMarket": "Hiển thị Unreal Marketplace (cần khởi động lại)",
         "start-in-tray": "Thu nhỏ khi khởi động",

@@ -136,9 +136,7 @@ export default function OtherSettings({
                       properties: ['openFile'],
                       title: t('box.select.exe', 'Select EXE')
                     })
-                    .then(({ path }: Path) =>
-                      setTargetExe(path ? `'${path}'` : targetExe)
-                    )
+                    .then(({ path }: Path) => setTargetExe(path || targetExe))
                 }
               >
                 <CreateNewFolder data-testid="setinstallpathbutton" />
