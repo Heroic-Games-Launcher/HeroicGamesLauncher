@@ -666,7 +666,7 @@ export async function runGogdlCommand(
       })
     })
     child.on('error', (error) => {
-      console.log({ error })
+      logError(`${error}`, LogPrefix.Gog)
       rej(error)
     })
   })
