@@ -13,11 +13,20 @@ import {
   execOptions,
   heroicGamesConfigPath,
   userHome,
+  isLinux,
+  isMac,
   isWindows
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawn } from 'child_process'
-import { launch } from '../launcher'
+import {
+  prepareLaunch,
+  prepareWineLaunch,
+  setupEnvVars,
+  runWineCommand,
+  setupWrappers,
+  launchCleanup
+} from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import { basename, join } from 'path'
 import { runLegendaryCommand } from './library'
@@ -100,7 +109,7 @@ class LegendaryGame extends Game {
     if (gameInfoStore.has(namespace)) {
       return gameInfoStore.get(namespace) as ExtraInfo
     }
-    if (!(await isOnline())) {
+    if (!isOnline()) {
       return {
         about: {},
         reqs: []
@@ -284,10 +293,10 @@ class LegendaryGame extends Game {
     })
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const info = await Game.get(this.appName, 'legendary').getInstallInfo()
-    const workers = maxWorkers === 0 ? '' : ` --max-workers ${maxWorkers}`
+    const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const commandParts = ['update', this.appName, workers, '-y']
+    const commandParts = ['update', this.appName, ...workers, '-y']
     const command = getLegendaryCommand(commandParts)
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Legendary)
@@ -300,7 +309,10 @@ class LegendaryGame extends Game {
       )
     }
 
-    const res = await runLegendaryCommand(commandParts, logPath, onOutput)
+    const res = await runLegendaryCommand(commandParts, {
+      logFile: logPath,
+      onOutput
+    })
 
     this.window.webContents.send('setGameStatus', {
       appName: this.appName,
@@ -360,7 +372,7 @@ class LegendaryGame extends Game {
   }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const info = await Game.get(this.appName, 'legendary').getInstallInfo()
-    const workers = maxWorkers === 0 ? '' : `--max-workers ${maxWorkers}`
+    const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
 
@@ -375,7 +387,7 @@ class LegendaryGame extends Game {
       path,
       withDlcs,
       installSdl,
-      workers,
+      ...workers,
       '-y'
     ]
     const command = getLegendaryCommand(commandParts)
@@ -389,7 +401,10 @@ class LegendaryGame extends Game {
       )
     }
 
-    const res = await runLegendaryCommand(commandParts, logPath, onOutput)
+    const res = await runLegendaryCommand(commandParts, {
+      logFile: logPath,
+      onOutput
+    })
 
     if (res.error) {
       logError(
@@ -427,16 +442,16 @@ class LegendaryGame extends Game {
   public async repair(): Promise<ExecResult> {
     // this.state.status = 'repairing'
     const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const workers = maxWorkers ? `--max-workers ${maxWorkers}` : ''
+    const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
 
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const commandParts = ['repair', this.appName, workers, '-y']
+    const commandParts = ['repair', this.appName, ...workers, '-y']
     const command = getLegendaryCommand(commandParts)
 
     logInfo([`Repairing ${this.appName}:`, command], LogPrefix.Legendary)
 
-    const res = await runLegendaryCommand(commandParts, logPath)
+    const res = await runLegendaryCommand(commandParts, { logFile: logPath })
 
     if (res.error) {
       logError(
@@ -469,9 +484,8 @@ class LegendaryGame extends Game {
    * Does NOT check for online connectivity.
    */
   public async syncSaves(arg: string, path: string) {
-    const fixedPath = isWindows
-      ? path.replaceAll("'", '').slice(0, -1)
-      : path.replaceAll("'", '')
+    path = path.replaceAll("'", '').replaceAll('"', '')
+    const fixedPath = isWindows ? path.slice(0, -1) : path
 
     // workaround error when no .saves folder exists
     const legendarySavesPath = join(userHome, 'legendary', '.saves')
@@ -483,7 +497,7 @@ class LegendaryGame extends Game {
       'sync-saves',
       arg,
       '--save-path',
-      `"${fixedPath}"`,
+      fixedPath,
       this.appName,
       '-y'
     ]
@@ -505,10 +519,151 @@ class LegendaryGame extends Game {
     return res
   }
 
-  public async launch(
-    launchArguments?: string
-  ): Promise<ExecResult | LaunchResult> {
-    return launch(this.appName, launchArguments, 'legendary')
+  public async launch(launchArguments = ''): Promise<LaunchResult> {
+    const gameSettings =
+      GameConfig.get(this.appName).config ||
+      (await GameConfig.get(this.appName).getSettings())
+    const gameInfo = LegendaryLibrary.get().getGameInfo(this.appName)
+
+    const {
+      success: launchPrepSuccess,
+      failureReason: launchPrepFailReason,
+      rpcClient,
+      mangoHudCommand,
+      gameModeBin,
+      steamRuntime
+    } = await prepareLaunch(this, gameInfo)
+    if (!launchPrepSuccess) {
+      return {
+        success: false,
+        stdout: '',
+        stderr: 'Launch aborted: ' + launchPrepFailReason,
+        gameSettings
+      }
+    }
+
+    const offlineFlag = gameSettings.offlineMode ? '--offline' : ''
+    const exeOverrideFlag = gameSettings.targetExe
+      ? ['--override-exe', gameSettings.targetExe]
+      : []
+
+    const isNative =
+      isWindows ||
+      (isMac && gameInfo.is_mac_native) ||
+      // This right now is impossible, but one can still hope, right?
+      (isLinux && gameInfo.is_linux_native)
+
+    let commandParts = new Array<string>()
+    let commandEnv = process.env
+    let wrappers = new Array<string>()
+    if (isNative) {
+      if (!isWindows) {
+        // These options can only be used on Mac/Linux
+        commandEnv = {
+          ...commandEnv,
+          ...setupEnvVars(gameSettings)
+        }
+        wrappers = setupWrappers(
+          gameSettings,
+          mangoHudCommand,
+          gameModeBin,
+          steamRuntime
+        )
+      }
+      // These options are required on both Windows and Mac
+      commandParts = [
+        'launch',
+        gameInfo.app_name,
+        ...exeOverrideFlag,
+        offlineFlag,
+        launchArguments
+      ]
+    } else {
+      // -> We're using Wine/Proton/CX on either Linux or Mac
+      const {
+        success: wineLaunchPrepSuccess,
+        failureReason: wineLaunchPrepFailReason,
+        envVars: wineEnvVars
+      } = await prepareWineLaunch(this)
+      if (!wineLaunchPrepSuccess) {
+        return {
+          success: false,
+          stdout: '',
+          stderr: 'Launch aborted: ' + wineLaunchPrepFailReason,
+          gameSettings
+        }
+      }
+
+      commandEnv = {
+        ...commandEnv,
+        ...setupEnvVars(gameSettings),
+        ...wineEnvVars
+      }
+      wrappers = setupWrappers(
+        gameSettings,
+        mangoHudCommand,
+        gameModeBin,
+        steamRuntime
+      )
+
+      const { wineVersion, winePrefix, launcherArgs } = gameSettings
+      let wineFlag = ['--wine', wineVersion.bin]
+      let winePrefixFlag = ['--wine-prefix', winePrefix]
+      if (wineVersion.type === 'proton') {
+        wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
+        winePrefixFlag = []
+      }
+
+      commandParts = [
+        'launch',
+        gameInfo.app_name,
+        ...exeOverrideFlag,
+        offlineFlag,
+        ...wineFlag,
+        ...winePrefixFlag,
+        launcherArgs
+      ]
+    }
+    const command = getLegendaryCommand(commandParts, commandEnv, wrappers)
+
+    logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Legendary)
+
+    const { error, stderr, stdout } = await runLegendaryCommand(commandParts, {
+      env: commandEnv,
+      wrappers: wrappers
+    })
+
+    if (error) {
+      logError(['Error launching game:', error], LogPrefix.Legendary)
+    }
+
+    launchCleanup(rpcClient)
+
+    return {
+      success: !error,
+      stdout,
+      stderr,
+      gameSettings,
+      command
+    }
+  }
+
+  public async runWineCommand(
+    command: string,
+    altWineBin = '',
+    wait = false
+  ): Promise<ExecResult> {
+    const gameInfo = await this.getGameInfo()
+    const isNative =
+      isWindows ||
+      (isMac && gameInfo.is_mac_native) ||
+      (isLinux && gameInfo.is_linux_native)
+    if (isNative) {
+      logError('runWineCommand called on native game!', LogPrefix.Legendary)
+      return { stdout: '', stderr: '' }
+    }
+
+    return runWineCommand(await this.getSettings(), command, altWineBin, wait)
   }
 
   public async stop() {

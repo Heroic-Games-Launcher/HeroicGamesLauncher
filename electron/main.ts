@@ -29,7 +29,6 @@ import {
   rmSync,
   unlinkSync,
   watch,
-  writeFile,
   writeFileSync
 } from 'graceful-fs'
 
@@ -47,7 +46,6 @@ import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
 import {
   clearCache,
-  errorHandler,
   execAsync,
   isEpicServiceOffline,
   getLegendaryVersion,
@@ -62,7 +60,8 @@ import {
   getLegendaryBin,
   getGOGdlBin,
   showErrorBoxModal,
-  size
+  size,
+  showErrorBoxModalAuto
 } from './utils'
 import {
   configStore,
@@ -624,8 +623,7 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
 })
 
 ipcMain.handle('getInstallInfo', async (event, game, runner) => {
-  const online = await isOnline()
-  if (!online) {
+  if (!isOnline()) {
     return { game: {}, metadata: {} }
   }
   try {
@@ -749,7 +747,7 @@ ipcMain.handle(
       tsStore.set(`${game}.firstPlayed`, startPlayingDate)
     }
 
-    logInfo([`launching`, title, game], LogPrefix.Backend)
+    logInfo(`Launching ${title} (${game})`, LogPrefix.Backend)
 
     if (recentGames.length) {
       let updatedRecentGames = recentGames.filter(
@@ -775,68 +773,77 @@ ipcMain.handle(
       mainWindow.hide()
     }
 
+    let logResult = ''
     return Game.get(appName, runner)
       .launch(launchArguments)
-      .then(async ({ stderr, command, gameSettings }: LaunchResult) => {
-        mainWindow.show()
+      .then(
+        async ({
+          stdout,
+          stderr,
+          success,
+          command,
+          gameSettings
+        }: LaunchResult) => {
+          if (!success) {
+            showErrorBoxModalAuto(
+              i18next.t('box.error.title', 'Something Went Wrong'),
+              i18next.t(
+                'box.error.launch',
+                'Error when launching the game, check the logs!'
+              )
+            )
+          }
+
+          logResult = `Launch Command: ${command}
+
+System Info:
+${await getSystemInfo()}
+
+Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
+`
+          if (stderr) {
+            logResult += `\nError Log:\n${stderr}\n`
+          }
+          if (stdout) {
+            logResult += `\nGame Log:\n${stdout}\n`
+          }
+        }
+      )
+      .catch((exception) => {
+        logResult = `${exception.name} - ${exception.message}`
+        logError(logResult, LogPrefix.Backend)
+      })
+      .finally(() => {
+        // Write log file
+        const logFileLocation = path.join(
+          heroicGamesConfigPath,
+          `${game}-lastPlay.log`
+        )
+        writeFileSync(logFileLocation, logResult)
+        logInfo(`Log was written to ${logFileLocation}`, LogPrefix.Backend)
+
+        // Update playtime and last played date
         const finishedPlayingDate = new Date()
         tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
-        const sessionPlayingTime =
-          (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60
-        const totalPlayedTime: number = tsStore.has(`${game}.totalPlayed`)
-          ? (tsStore.get(`${game}.totalPlayed`) as number) + sessionPlayingTime
-          : sessionPlayingTime
-        // I'll send the calculated time here because then the user can set it manually on the file if desired
-        tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
-        const systemInfo = await getSystemInfo()
+        // Playtime of this session in minutes
+        const sessionPlaytime =
+          (finishedPlayingDate.getTime() - startPlayingDate.getTime()) /
+          1000 /
+          60
+        let totalPlaytime = sessionPlaytime
+        if (tsStore.has(`${game}.totalPlayed`)) {
+          totalPlaytime += tsStore.get(`${game}.totalPlayed`) as number
+        }
+        tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlaytime))
 
-        const logResult = `Launch Command: ${command}
-        System Info:
-        ${systemInfo}
-        Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
-
-        Game Log:
-        ${stderr}
-        `
-
-        if (stderr.includes('Errno')) {
-          showErrorBoxModal(
-            mainWindow,
-            i18next.t('box.error.title', 'Something Went Wrong'),
-            i18next.t(
-              'box.error.launch',
-              'Error when launching the game, check the logs!'
-            )
-          )
+        if (minimizeOnLaunch) {
+          mainWindow.show()
         }
         window.webContents.send('setGameStatus', {
           appName,
           runner,
           status: 'done'
         })
-
-        const gameLogFile = join(heroicGamesConfigPath, game + '-lastPlay.log')
-        writeFile(gameLogFile, logResult, () =>
-          logInfo(`Log was written to ${gameLogFile}`, LogPrefix.Backend)
-        )
-        return stderr
-      })
-      .catch(async (exception) => {
-        mainWindow.show()
-        const stderr = `${exception.name} - ${exception.message}`
-        errorHandler({ error: { stderr, stdout: '' } }, mainWindow)
-        writeFile(
-          join(heroicGamesConfigPath, game + '-lastPlay.log'),
-          stderr,
-          () => 'done'
-        )
-        logError(stderr, LogPrefix.Backend)
-        window.webContents.send('setGameStatus', {
-          appName,
-          runner,
-          status: 'done'
-        })
-        return stderr
       })
   }
 )
@@ -891,7 +898,7 @@ ipcMain.handle('install', async (event, params) => {
       ? 'Linux'
       : 'Windows'
 
-  if (!(await isOnline())) {
+  if (!isOnline()) {
     logWarning(
       `App offline, skipping install for game '${title}'.`,
       LogPrefix.Backend
@@ -981,7 +988,7 @@ ipcMain.handle('uninstall', async (event, args) => {
 })
 
 ipcMain.handle('repair', async (event, game, runner) => {
-  if (!(await isOnline())) {
+  if (!isOnline()) {
     logWarning(
       `App offline, skipping repair for game '${game}'.`,
       LogPrefix.Backend
@@ -1066,7 +1073,7 @@ ipcMain.handle('importGame', async (event, args) => {
 })
 
 ipcMain.handle('updateGame', async (e, game, runner) => {
-  if (!(await isOnline())) {
+  if (!isOnline()) {
     logWarning(
       `App offline, skipping install for game '${game}'.`,
       LogPrefix.Backend
@@ -1192,7 +1199,7 @@ ipcMain.handle('syncSaves', async (event, args) => {
     logWarning('Epic is Offline right now, cannot sync saves!')
     return 'Epic is Offline right now, cannot sync saves!'
   }
-  if (!(await isOnline())) {
+  if (!isOnline()) {
     logWarning(
       `App offline, skipping syncing saves for game '${appName}'.`,
       LogPrefix.Backend
