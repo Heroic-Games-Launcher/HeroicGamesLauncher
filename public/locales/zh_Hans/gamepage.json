@@ -73,6 +73,7 @@
         "version": "版本"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "选择安装路径",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine 版本"

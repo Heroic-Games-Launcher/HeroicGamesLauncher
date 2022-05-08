@@ -73,6 +73,7 @@
         "version": "Versão"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Selecione o local de instalação",
         "wineprefix": "Prefixo Wine",
         "wineversion": "Versão do Wine"

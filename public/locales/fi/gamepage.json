@@ -73,6 +73,7 @@
         "version": "Versio"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Valitse asennuspolku",
         "wineprefix": "WinePrefix",
         "wineversion": ""

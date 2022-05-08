@@ -73,6 +73,7 @@
         "version": "Versioon"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Valige paigaldustee",
         "wineprefix": "WinePrefiks",
         "wineversion": "Wine'i versioon"

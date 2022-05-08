@@ -73,6 +73,7 @@
         "version": "Versi"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Pilih Lokasi Pemasangan",
         "wineprefix": "PrefiksWine",
         "wineversion": "Versi Wine"

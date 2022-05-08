@@ -73,6 +73,7 @@
         "version": "Verzija"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Odaberite put instalacije",
         "wineprefix": "WinePrefix",
         "wineversion": ""

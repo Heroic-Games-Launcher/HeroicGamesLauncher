@@ -73,6 +73,7 @@
         "version": "버전"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "설치 경로 선택",
         "wineprefix": "WinePrefix",
         "wineversion": ""

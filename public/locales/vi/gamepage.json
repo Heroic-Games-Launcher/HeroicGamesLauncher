@@ -73,6 +73,7 @@
         "version": "Phiên bản"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Chọn đường dẫn cài",
         "wineprefix": "WinePrefix",
         "wineversion": "Phiên bản Wine"

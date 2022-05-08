@@ -73,6 +73,7 @@
         "version": "Версія"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Вкажіть шлях встановлення",
         "wineprefix": "Префікс Wine",
         "wineversion": ""

@@ -73,6 +73,7 @@
         "version": "പതിപ്പ്"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ",
         "wineprefix": "വൈൻ പ്രിഫിക്സ്",
         "wineversion": ""

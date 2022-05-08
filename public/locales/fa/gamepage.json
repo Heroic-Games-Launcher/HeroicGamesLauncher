@@ -73,6 +73,7 @@
         "version": "نسخه"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "انتخاب محل نصب",
         "wineprefix": "Wine Prefix",
         "wineversion": "نسخه Wine"

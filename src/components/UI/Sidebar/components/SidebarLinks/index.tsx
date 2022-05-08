@@ -275,7 +275,7 @@ export default function SidebarLinks() {
           <div className="Sidebar__itemIcon">
             <FontAwesomeIcon icon={faUniversalAccess} />
           </div>
-          {t('accessibility', 'Accessibility')}
+          {t('accessibility.title', 'Accessibility')}
         </>
       </NavLink>
       <NavLink
