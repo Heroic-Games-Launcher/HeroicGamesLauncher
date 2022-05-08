@@ -332,3 +332,4 @@ export interface GamepadActionStatus {
 }
 
 export type Runner = 'legendary' | 'gog' | 'heroic'
+export type PlatformToInstall = 'Windows' | 'Mac' | 'Linux' | ''

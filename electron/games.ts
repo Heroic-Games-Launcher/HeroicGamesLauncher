@@ -24,8 +24,8 @@ abstract class Game {
   abstract appName: string
   abstract window: BrowserWindow
   abstract getExtraInfo(namespace: string): Promise<ExtraInfo>
-  abstract getGameInfo(): Promise<GameInfo>
-  abstract getInstallInfo(): Promise<InstallInfo>
+  abstract getGameInfo(installPlatform?: string): Promise<GameInfo>
+  abstract getInstallInfo(installPlatform?: string): Promise<InstallInfo>
   abstract getSettings(): Promise<GameSettings>
   abstract hasUpdate(): Promise<boolean>
   abstract import(path: string): Promise<ExecResult>

@@ -12,8 +12,8 @@ import { join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getGOGdlBin, size } from '../utils'
-import { fallBackImage, isMac } from '../constants'
+import { getGOGdlBin, getFileSize } from '../utils'
+import { fallBackImage } from '../constants'
 import {
   apiInfoCache,
   libraryStore,
@@ -141,13 +141,24 @@ export class GOGLibrary {
    * @param appName
    * @returns InstallInfo object
    */
-  public async getInstallInfo(appName: string) {
+  public async getInstallInfo(appName: string, installPlatform = 'windows') {
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
       logError('No credentials, cannot get install info')
       return
     }
     const gameData = this.library.get(appName)
+
+    installPlatform = installPlatform.toLowerCase()
+
+    switch (installPlatform) {
+      case 'linux':
+        installPlatform = 'windows'
+        break
+      case 'mac':
+        installPlatform = 'osx'
+        break
+    }
 
     const commandParts = [
       'info',
@@ -156,14 +167,13 @@ export class GOGLibrary {
       `"${credentials.access_token}"`,
       '--lang=en-US',
       '--os',
-      isMac && gameData.is_mac_native ? 'osx' : 'windows'
+      installPlatform
     ]
     const command = getGogdlCommand(commandParts)
 
     logInfo(['Getting game metadata:', command], LogPrefix.Gog)
 
     const res = await runGogdlCommand(commandParts)
-
     if (res.error) {
       logError(
         ['Failed to get game metadata for', `${appName}:`, res.error],
@@ -235,7 +245,7 @@ export class GOGLibrary {
       appName: data.appName,
       install_path: path,
       executable: '',
-      install_size: size(
+      install_size: getFileSize(
         (await this.getInstallInfo(data.appName)).manifest.disk_size
       ),
       is_dlc: false,

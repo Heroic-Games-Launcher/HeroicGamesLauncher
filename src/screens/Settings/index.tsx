@@ -8,8 +8,6 @@ import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindows, faApple, faLinux } from '@fortawesome/free-brands-svg-icons'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 import ContextProvider from 'src/state/ContextProvider'
@@ -34,11 +32,15 @@ const storage: Storage = window.localStorage
 interface LocationState {
   fromGameCard: boolean
   runner: Runner
+  isLinuxNative: boolean
+  isMacNative: boolean
 }
 
 function Settings() {
   const { t, i18n } = useTranslation()
-  const { state } = useLocation() as { state: LocationState }
+  const {
+    state: { fromGameCard, runner, isLinuxNative, isMacNative }
+  } = useLocation() as { state: LocationState }
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
@@ -179,9 +181,6 @@ function Settings() {
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
-  const [isMacNative, setIsMacNative] = useState(false)
-  const [isLinuxNative, setIsLinuxNative] = useState(false)
-
   const { appName = '', type = '' } = useParams()
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
@@ -240,16 +239,10 @@ function Settings() {
       setDisableController(config.disableController || false)
 
       if (!isDefault) {
-        const {
-          title: gameTitle,
-          canRunOffline: can_run_offline,
-          is_mac_native,
-          is_linux_native
-        } = await getGameInfo(appName, state.runner)
+        const { title: gameTitle, canRunOffline: can_run_offline } =
+          await getGameInfo(appName, runner)
         setCanRunOffline(can_run_offline)
         setTitle(gameTitle)
-        setIsMacNative(is_mac_native && platform === 'darwin')
-        return setIsLinuxNative(is_linux_native && platform === 'linux')
       }
       return setTitle(t('globalSettings', 'Global Settings'))
     }
@@ -323,7 +316,8 @@ function Settings() {
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
   let returnPath = '/'
-  if (state && !state.fromGameCard) {
+
+  if (!fromGameCard) {
     returnPath = `/gamepage/${appName}`
     if (returnPath === '/gamepage/default') {
       returnPath = '/'
@@ -355,13 +349,6 @@ function Settings() {
               data-testid="headerTitle"
             >
               {title}
-              {!isDefault && (
-                <FontAwesomeIcon
-                  icon={
-                    isMacNative ? faApple : isLinuxNative ? faLinux : faWindows
-                  }
-                />
-              )}
             </NavLink>
           )}
           {isGeneralSettings && (

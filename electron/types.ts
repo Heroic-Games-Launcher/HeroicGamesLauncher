@@ -260,6 +260,7 @@ export interface InstallParams {
   sdlList?: Array<string>
   installLanguage?: string
   runner: Runner
+  platformToInstall: 'Windows' | 'Mac' | 'Linux'
 }
 
 export interface GOGLoginData {

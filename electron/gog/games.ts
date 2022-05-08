@@ -28,7 +28,7 @@ import {
 } from '../constants'
 import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { execAsync, size } from '../utils'
+import { execAsync, getFileSize } from '../utils'
 import { GOGUser } from './user'
 import {
   launchCleanup,
@@ -82,8 +82,8 @@ class GOGGame extends Game {
   public async getGameInfo(): Promise<GameInfo> {
     return GOGLibrary.get().getGameInfo(this.appName)
   }
-  async getInstallInfo(): Promise<InstallInfo> {
-    return GOGLibrary.get().getInstallInfo(this.appName)
+  async getInstallInfo(installPlatform?: string): Promise<InstallInfo> {
+    return GOGLibrary.get().getInstallInfo(this.appName, installPlatform)
   }
   async getSettings(): Promise<GameSettings> {
     return (
@@ -156,10 +156,8 @@ class GOGGame extends Game {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
-    if (GOGUser.isTokenExpired()) {
-      await GOGUser.refreshToken()
-    }
-    const credentials = configStore.get('credentials') as GOGLoginData
+
+    const credentials = await GOGUser.getCredentials()
 
     let installPlatform = platformToInstall.toLowerCase()
     if (installPlatform === 'mac') {
@@ -203,17 +201,18 @@ class GOGGame extends Game {
 
     // Installation succeded
     // Save new game info to installed games store
-    const installInfo = await this.getInstallInfo()
+    const installInfo = await this.getInstallInfo(installPlatform)
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
     const isLinuxNative = installPlatform === 'linux'
     const additionalInfo = isLinuxNative
       ? await GOGLibrary.getLinuxInstallerInfo(this.appName)
       : null
+
     const installedData: InstalledInfo = {
       platform: installPlatform,
       executable: '',
       install_path: join(path, gameInfo.folder_name),
-      install_size: size(installInfo.manifest.disk_size),
+      install_size: getFileSize(installInfo.manifest.disk_size),
       is_dlc: false,
       version: additionalInfo
         ? additionalInfo.version
@@ -577,7 +576,7 @@ class GOGGame extends Game {
       gameObject.buildId = installInfo.game.buildId
       gameObject.version = installInfo.game.version
       gameObject.versionEtag = installInfo.manifest.versionEtag
-      gameObject.install_size = size(installInfo.manifest.disk_size)
+      gameObject.install_size = getFileSize(installInfo.manifest.disk_size)
     } else {
       const installerInfo = await GOGLibrary.getLinuxInstallerInfo(this.appName)
       gameObject.version = installerInfo.version

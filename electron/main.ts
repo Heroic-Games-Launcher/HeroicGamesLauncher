@@ -60,7 +60,7 @@ import {
   getLegendaryBin,
   getGOGdlBin,
   showErrorBoxModal,
-  size,
+  getFileSize,
   showErrorBoxModalAuto
 } from './utils'
 import {
@@ -96,6 +96,7 @@ let mainWindow: BrowserWindow = null
 
 async function createWindow(): Promise<BrowserWindow> {
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
+  configStore.set('userHome', userHome)
 
   let windowProps: Electron.Rectangle = {
     height: 690,
@@ -425,7 +426,7 @@ ipcMain.handle('kill', async (event, appName, runner) => {
 
 ipcMain.handle('checkDiskSpace', async (event, folder) => {
   const { free, size: diskSize } = await checkDiskSpace(folder)
-  return `${size(free)}/${size(diskSize)}`
+  return `${getFileSize(free)}/${getFileSize(diskSize)}`
 })
 
 ipcMain.on('quit', async () => handleExit(mainWindow))
@@ -622,18 +623,23 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
   return GOGLibrary.getLinuxInstallersLanguages(appName)
 })
 
-ipcMain.handle('getInstallInfo', async (event, game, runner) => {
-  if (!isOnline()) {
-    return { game: {}, metadata: {} }
+ipcMain.handle(
+  'getInstallInfo',
+  async (event, game, runner: Runner, installPlatform: string) => {
+    const online = await isOnline()
+    if (!online) {
+      return { game: {}, metadata: {} }
+    }
+
+    try {
+      const info = await Game.get(game, runner).getInstallInfo(installPlatform)
+      return info
+    } catch (error) {
+      logError(`${error}`, LogPrefix.Backend)
+      return null
+    }
   }
-  try {
-    const info = await Game.get(game, runner).getInstallInfo()
-    return info
-  } catch (error) {
-    logError(`${error}`, LogPrefix.Backend)
-    return null
-  }
-})
+)
 
 ipcMain.handle('getUserInfo', async () => LegendaryUser.getUserInfo())
 
@@ -885,18 +891,16 @@ ipcMain.handle(
 )
 
 ipcMain.handle('install', async (event, params) => {
-  const { appName, path, installDlcs, sdlList, runner, installLanguage } =
-    params as InstallParams
-  const { title, is_mac_native, is_linux_native } = await Game.get(
+  const {
     appName,
-    runner
-  ).getGameInfo()
-  const platformToInstall =
-    platform() === 'darwin' && is_mac_native
-      ? 'Mac'
-      : platform() === 'linux' && is_linux_native
-      ? 'Linux'
-      : 'Windows'
+    path,
+    installDlcs,
+    sdlList,
+    runner,
+    installLanguage,
+    platformToInstall
+  } = params as InstallParams
+  const { title } = await Game.get(appName, runner).getGameInfo()
 
   if (!isOnline()) {
     logWarning(

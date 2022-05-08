@@ -21,7 +21,7 @@ import {
   getLegendaryBin,
   isEpicServiceOffline,
   isOnline,
-  size
+  getFileSize
 } from '../utils'
 import {
   fallBackImage,
@@ -435,7 +435,7 @@ export class LegendaryLibrary {
       ).length || dlcs.includes(app_name)
     } = (info === undefined ? {} : info) as InstalledInfo
 
-    const convertedSize = install_size && size(Number(install_size))
+    const convertedSize = install_size && getFileSize(Number(install_size))
 
     this.library.set(app_name, {
       app_name,

@@ -90,7 +90,7 @@ function isOnline() {
   return net.isOnline()
 }
 
-export const size = fileSize.partial({ base: 2 })
+export const getFileSize = fileSize.partial({ base: 2 })
 
 async function isEpicServiceOffline(
   type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'
@@ -249,7 +249,7 @@ export const getSystemInfo = async () => {
   CPU: ${manufacturer} ${brand} @${speed} ${
     governor ? `GOVERNOR: ${governor}` : ''
   }
-  RAM: Total: ${size(total)} Available: ${size(available)}
+  RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
   GRAPHICS: ${graphicsCards}
   ${isLinux ? `PROTOCOL: ${xEnv}` : ''}
   `

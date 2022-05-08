@@ -59,6 +59,7 @@
         "language": "ഭാഷ",
         "lastPlayed": "ഒടുക്കം കളിച്ചത്",
         "neverPlayed": "കളിച്ചിട്ടേയില്ല",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "കളിച്ച നേരം"
     },
     "gamecard": {
@@ -67,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "ഓൺലൈൻ ആകേണ്ടത് ആവശ്യമാണ്",
+        "installedPlatform": "Installed Platform",
         "path": "നടീലിടം",
         "size": "വലുപ്പം",
         "syncsaves": "സൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്",
         "version": "പതിപ്പ്"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ",
         "wineprefix": "വൈൻ പ്രിഫിക്സ്",
         "wineversion": ""

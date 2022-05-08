@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "마지막 플레이",
         "neverPlayed": "플레이 한 적 없음",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "플레이 시간"
     },
     "gamecard": {
@@ -67,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "네트워크 연결이 필요합니다",
+        "installedPlatform": "Installed Platform",
         "path": "설치 경로",
         "size": "크기",
         "syncsaves": "세이브 동기화",
         "version": "버전"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "설치 경로 선택",
         "wineprefix": "WinePrefix",
         "wineversion": ""
