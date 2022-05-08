@@ -243,8 +243,9 @@ function Settings() {
           await getGameInfo(appName, runner)
         setCanRunOffline(can_run_offline)
         setTitle(gameTitle)
+      } else {
+        setTitle(t('globalSettings', 'Global Settings'))
       }
-      return setTitle(t('globalSettings', 'Global Settings'))
     }
     getSettings()
 
