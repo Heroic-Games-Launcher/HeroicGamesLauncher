@@ -75,7 +75,26 @@ export default function Accessibility() {
             min="80"
             max="200"
             step="10"
+            list="zoom-levels"
           />
+          <span className="zoomHint">
+            <span>80</span>
+            <span>100</span>
+            <span>120</span>
+            <span>140</span>
+            <span>160</span>
+            <span>180</span>
+            <span>200</span>
+          </span>
+          <datalist id="zoom-levels">
+            <option value="80">80</option>
+            <option value="100">100</option>
+            <option value="120">120</option>
+            <option value="140">140</option>
+            <option value="160">160</option>
+            <option value="180">180</option>
+            <option value="200">200</option>
+          </datalist>
         </span>
 
         <span className="setting">
