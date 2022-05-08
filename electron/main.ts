@@ -631,17 +631,6 @@ ipcMain.handle(
       return { game: {}, metadata: {} }
     }
 
-    if (installPlatform && runner === 'gog') {
-      installPlatform = installPlatform.toLowerCase()
-      if (installPlatform === 'mac') {
-        installPlatform = 'osx'
-      }
-      // getting info from Linux builds is still not possible
-      if (installPlatform === 'linux') {
-        installPlatform = 'windows'
-      }
-    }
-
     try {
       const info = await Game.get(game, runner).getInstallInfo(installPlatform)
       return info

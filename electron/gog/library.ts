@@ -149,6 +149,17 @@ export class GOGLibrary {
     }
     const gameData = this.library.get(appName)
 
+    installPlatform = installPlatform.toLowerCase()
+
+    switch (installPlatform) {
+      case 'linux':
+        installPlatform = 'windows'
+        break
+      case 'mac':
+        installPlatform = 'osx'
+        break
+    }
+
     const commandParts = [
       'info',
       appName,

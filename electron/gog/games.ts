@@ -201,14 +201,13 @@ class GOGGame extends Game {
 
     // Installation succeded
     // Save new game info to installed games store
-    const installInfo = await this.getInstallInfo(
-      installPlatform.toLocaleLowerCase()
-    )
+    const installInfo = await this.getInstallInfo(installPlatform)
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
     const isLinuxNative = installPlatform === 'linux'
     const additionalInfo = isLinuxNative
       ? await GOGLibrary.getLinuxInstallerInfo(this.appName)
       : null
+
     const installedData: InstalledInfo = {
       platform: installPlatform,
       executable: '',
