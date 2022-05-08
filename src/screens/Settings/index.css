@@ -7,7 +7,7 @@
   border-radius: 1rem;
   grid-area: content;
   margin-block-start: 20px;
-  padding-left: 48px;
+  padding: 0px 48px;
 }
 
 .settingsWrapper {
@@ -53,6 +53,7 @@
   display: grid;
   place-items: baseline;
   margin: 16px;
+  width: 100%;
 }
 
 .setting.double {
@@ -71,7 +72,7 @@
   display: flex;
   flex-grow: 1;
   flex-wrap: nowrap;
-  min-width: 513px;
+  width: 100%;
 }
 
 .settingInputWithButton > .button.is-small {
@@ -83,7 +84,6 @@
   cursor: pointer;
   gap: 15px;
   align-content: flex-start;
-  place-self: center;
   width: 512px;
   font-size: 16px;
   line-height: 19px;
@@ -151,14 +151,16 @@
 .warning {
   color: yellow;
   font-size: 12px;
-  width: 513px;
+  width: 100%;
+  max-width: 513px;
   white-space: break-spaces;
   padding-top: 4px;
 }
 
 .smallLink {
   font-size: 12px;
-  width: 513px;
+  width: 100%;
+  max-width: 513px;
   white-space: break-spaces;
   padding-top: 4px;
   cursor: pointer;

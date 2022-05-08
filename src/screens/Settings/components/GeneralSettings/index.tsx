@@ -12,6 +12,7 @@ import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
+import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -75,9 +76,7 @@ export default function GeneralSettings({
     refreshLibrary,
     isRTL,
     libraryTopSection,
-    handleLibraryTopSection,
-    theme,
-    setTheme
+    handleLibraryTopSection
   } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
@@ -177,7 +176,7 @@ export default function GeneralSettings({
         <span className={classNames('settingText', { isRTL: isRTL })}>
           {t('setting.default-install-path')}
         </span>
-        <span>
+        <span className="settingInputWithButton">
           <input
             data-testid="setinstallpath"
             type="text"
@@ -408,30 +407,7 @@ export default function GeneralSettings({
         </select>
       </span>
 
-      <span className="setting">
-        <label
-          className={classNames('settingText', { isRTL: isRTL })}
-          htmlFor="theme_selector"
-        >
-          {t('setting.select_theme', 'Select Theme')}
-        </label>
-        <select
-          id="theme_selector"
-          onChange={(event) => setTheme(event.target.value)}
-          value={theme}
-          className="settingSelect is-drop-down"
-        >
-          <option value="">Default</option>
-          <option value="classic">Classic</option>
-          <option value="old-school">Old School Heroic</option>
-          <option value="dracula">Dracula</option>
-          <option value="dracula-classic">Dracula Classic</option>
-          <option value="marine">Marine</option>
-          <option value="marine-classic">Marine Classic</option>
-          <option value="zombie">Zombie</option>
-          <option value="zombie-classic">Zombie Classic</option>
-        </select>
-      </span>
+      <ThemeSelector />
 
       <span className="setting">
         <label className={classNames('toggleWrapper', { isRTL: isRTL })}>

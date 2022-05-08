@@ -59,6 +59,9 @@ interface StateProps {
   showHidden: boolean
   favouriteGames: FavouriteGame[]
   theme: string
+  zoomPercent: number
+  contentFontFamily: string
+  actionsFontFamily: string
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -103,12 +106,33 @@ export class GlobalState extends PureComponent<Props> {
     showHidden: false,
     favouriteGames:
       (configStore.get('games.favourites') as Array<FavouriteGame>) || [],
-    theme: (configStore.get('theme') as string) || ''
+    theme: (configStore.get('theme') as string) || '',
+    zoomPercent: parseInt((configStore.get('zoomPercent') as string) || '100'),
+    contentFontFamily:
+      (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
+    actionsFontFamily:
+      (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif"
   }
 
   setTheme = (newThemeName: string) => {
     configStore.set('theme', newThemeName)
     this.setState({ theme: newThemeName })
+  }
+
+  setZoomPercent = (newZoomPercent: number) => {
+    configStore.set('zoomPercent', newZoomPercent)
+    this.setState({ zoomPercent: newZoomPercent })
+    ipcRenderer.send('setZoomFactor', (newZoomPercent / 100).toString())
+  }
+
+  setContentFontFamily = (newFontFamily: string) => {
+    configStore.set('contentFontFamily', newFontFamily)
+    this.setState({ contentFontFamily: newFontFamily })
+  }
+
+  setActionsFontFamily = (newFontFamily: string) => {
+    configStore.set('actionsFontFamily', newFontFamily)
+    this.setState({ actionsFontFamily: newFontFamily })
   }
 
   setShowHidden = (value: boolean) => {
@@ -547,7 +571,10 @@ export class GlobalState extends PureComponent<Props> {
             remove: this.removeGameFromFavourites
           },
           handleLibraryTopSection: this.handleLibraryTopSection,
-          setTheme: this.setTheme
+          setTheme: this.setTheme,
+          setZoomPercent: this.setZoomPercent,
+          setContentFontFamily: this.setContentFontFamily,
+          setActionsFontFamily: this.setActionsFontFamily
         }}
       >
         {children}

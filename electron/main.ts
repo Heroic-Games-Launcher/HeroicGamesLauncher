@@ -89,6 +89,7 @@ import {
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
+import { getFonts } from 'font-list'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -349,6 +350,10 @@ if (!gotTheLock) {
       const url = process.argv[1]
       handleProtocol(mainWindow, url)
     }
+
+    const zoomFactor =
+      parseFloat((configStore.get('zoomPercent') as string) || '100') / 100
+    mainWindow.webContents.setZoomFactor(zoomFactor)
 
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
@@ -1308,6 +1313,15 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   if (inputEvents.length) {
     inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
   }
+})
+
+ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
+  const window = BrowserWindow.getAllWindows()[0]
+  window.webContents.setZoomFactor(parseFloat(zoomFactor))
+})
+
+ipcMain.handle('getFonts', async () => {
+  return getFonts()
 })
 
 /*

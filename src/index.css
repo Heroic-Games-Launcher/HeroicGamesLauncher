@@ -65,13 +65,13 @@ html {
   --text-quartenary: #5a5e5f; /* this is meant to be a background colour */
   --text-danger: #d22121;
   /* Fonts */
-  --font-primary-regular: Rubik normal 400;
-  --font-primary-bold: Rubik normal 500;
-  --font-primary-bolder: Rubik normal 700;
-  --font-secondary-regular: Cabin normal 400;
-  --font-secondary-bold: Cabin normal 500;
-  --font-secondary-regular-italic: Cabin italic 400;
-  --font-secondary-bold-italic: Cabin italic 500;
+  --font-primary-regular: var(--actions-font-family) normal 400;
+  --font-primary-bold: var(--actions-font-family) normal 500;
+  --font-primary-bolder: var(--actions-font-family) normal 700;
+  --font-secondary-regular: var(--content-font-family) normal 400;
+  --font-secondary-bold: var(--content-font-family) normal 500;
+  --font-secondary-regular-italic: var(--content-font-family) italic 400;
+  --font-secondary-bold-italic: var(--content-font-family) italic 500;
 
   /* Measurements */
   --sidebar-width: 240px;
@@ -90,9 +90,9 @@ html {
 
 body {
   margin: 0;
-  font-family: -apple-system, Cabin, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, var(--content-font-family), BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -106,8 +106,8 @@ a {
 }
 
 code {
-  font-family: Cabin, source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: var(--content-font-family), source-code-pro, Menlo, Monaco,
+    Consolas, 'Courier New', monospace;
 }
 
 /* Overlay Scrollbar*/

@@ -143,6 +143,7 @@
     "electron-store": "^8.0.1",
     "electron-updater": "^5.0.1",
     "filesize": "^8.0.7",
+    "font-list": "^1.4.5",
     "fs-extra": "^10.1.0",
     "graceful-fs": "^4.2.10",
     "heroic-wine-downloader": "^1.2.3",

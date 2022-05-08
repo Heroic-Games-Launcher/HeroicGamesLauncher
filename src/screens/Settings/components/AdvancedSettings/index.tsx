@@ -135,7 +135,7 @@ export const AdvancedSettings = ({
             'Choose an Alternative Legendary Binary  (needs restart)to use'
           )}
         </span>
-        <span>
+        <span className="settingInputWithButton">
           <input
             data-testid="setting-alt-legendary"
             type="text"
@@ -183,7 +183,7 @@ export const AdvancedSettings = ({
             'Choose an Alternative GOGDL Binary to use (needs restart)'
           )}
         </span>
-        <span>
+        <span className="settingInputWithButton">
           <input
             data-testid="setting-alt-gogdl"
             type="text"

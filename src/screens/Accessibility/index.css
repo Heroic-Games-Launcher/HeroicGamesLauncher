@@ -1,0 +1,11 @@
+input[type='range'] {
+  width: 100%;
+  max-width: 513px;
+}
+
+.Accessibility label,
+.Accessibility span,
+.Accessibility select,
+.Accessibility option {
+  font-size: 1.5rem;
+}
