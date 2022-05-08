@@ -336,7 +336,7 @@ export class GOGLibrary {
     gamesdbData: any
   ): Promise<GameInfo> {
     let developer: string
-    let verticalCover: string
+    let verticalCover = fallBackImage
     let horizontalCover: string
     let description: string
     if (gamesdbData?.game) {
@@ -345,9 +345,11 @@ export class GOGLibrary {
         developers.push(developer.name)
       }
       developer = developers.join(', ')
-      verticalCover = gamesdbData.game.vertical_cover.url_format
-        .replace('{formatter}', '')
-        .replace('{ext}', 'jpg')
+      if (gamesdbData.game.vertical_cover?.url_format) {
+        verticalCover = gamesdbData.game.vertical_cover.url_format
+          .replace('{formatter}', '')
+          .replace('{ext}', 'jpg')
+      }
       horizontalCover = `https:${info.image}.jpg`
       description = gamesdbData.game.summary['*']
       // horizontalCover = gamesdbData._links.logo.href
@@ -360,7 +362,7 @@ export class GOGLibrary {
         LogPrefix.Gog
       )
       const apiData = await this.getGamesData(String(info.id))
-      if (apiData?._links) {
+      if (apiData?._links?.boxArtImage) {
         verticalCover = apiData._links.boxArtImage.href
       } else {
         logWarning(
