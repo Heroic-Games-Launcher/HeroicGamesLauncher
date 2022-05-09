@@ -64,7 +64,6 @@ function Settings() {
   const [altLegendaryBin, setAltLegendaryBin] = useState('')
   const [altGogdlBin, setAltGogdlBin] = useState('')
   const [canRunOffline, setCanRunOffline] = useState(true)
-  const [canUpdateSettings, setCanUpdateSettings] = useState(false)
   const [language, setLanguage] = useState(
     () => storage.getItem('language') || 'en'
   )
@@ -250,7 +249,6 @@ function Settings() {
     getSettings()
 
     return () => {
-      setCanUpdateSettings(true)
       ipcRenderer.removeAllListeners('requestSettings')
     }
   }, [appName, type, isDefault, i18n.language])
@@ -326,9 +324,7 @@ function Settings() {
   }
 
   useEffect(() => {
-    if (canUpdateSettings) {
-      writeConfig([appName, settingsToSave])
-    }
+    writeConfig([appName, settingsToSave])
   }, [GlobalSettings, GameSettings, appName])
 
   if (!title) {
