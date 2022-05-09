@@ -89,7 +89,7 @@
   --input-background: #1d1f1f;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
-  --success: 0BD48C;
+  --success: #0bd48c;
 }
 
 .App.classic,
