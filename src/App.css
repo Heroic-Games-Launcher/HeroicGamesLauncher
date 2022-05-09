@@ -178,6 +178,9 @@ html,
   top: 5px;
   cursor: pointer;
   color: var(--text-default);
+}
+
+.settingInputWithButton .material-icons.settings.folder {
   width: 0px;
 }
 

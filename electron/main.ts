@@ -83,7 +83,8 @@ import {
   tsStore,
   weblateUrl,
   wikiLink,
-  heroicToolsPath
+  heroicToolsPath,
+  fontsStore
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -1331,8 +1332,14 @@ ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
   window.webContents.setZoomFactor(parseFloat(zoomFactor))
 })
 
-ipcMain.handle('getFonts', async () => {
-  return getFonts()
+ipcMain.handle('getFonts', async (event, reload = false) => {
+  let cachedFonts = (fontsStore.get('fonts') as string[]) || []
+  if (cachedFonts.length === 0 || reload) {
+    cachedFonts = await getFonts()
+    cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))
+    fontsStore.set('fonts', cachedFonts)
+  }
+  return cachedFonts
 })
 
 /*

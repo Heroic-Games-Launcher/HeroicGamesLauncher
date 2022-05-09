@@ -221,7 +221,7 @@ export default function GamePage(): JSX.Element | null {
         {title ? (
           <>
             <GamePicture art_square={art_square} store={runner} />
-            <NavLink className="backButton" to="/">
+            <NavLink className="backButton" to="/" title="Go back">
               <ArrowCircleLeftIcon />
             </NavLink>
             <div className="store-icon">

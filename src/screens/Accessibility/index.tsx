@@ -9,10 +9,11 @@ import React, {
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import classNames from 'classnames'
-const { ipcRenderer } = window.require('electron')
-
-import './index.css'
 import { ThemeSelector } from 'src/components/UI/ThemeSelector'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
+const { ipcRenderer } = window.require('electron')
+import './index.css'
 
 export default function Accessibility() {
   const { t } = useTranslation()
@@ -28,11 +29,19 @@ export default function Accessibility() {
 
   const [fonts, setFonts] = useState<string[]>(['Cabin', 'Rubik'])
 
+  const getFonts = async (reload = false) => {
+    const systemFonts = (await ipcRenderer.invoke(
+      'getFonts',
+      reload
+    )) as string[]
+    setFonts(["'Cabin', sans-serif", "'Rubik', sans-serif", ...systemFonts])
+  }
+
+  const refreshFonts = () => {
+    getFonts(true)
+  }
+
   useEffect(() => {
-    const getFonts = async () => {
-      const systemFonts = (await ipcRenderer.invoke('getFonts')) as string[]
-      setFonts(["'Cabin', sans-serif", "'Rubik', sans-serif", ...systemFonts])
-    }
     getFonts()
   }, [])
 
@@ -96,7 +105,21 @@ export default function Accessibility() {
             <option value="200">200</option>
           </datalist>
         </span>
-
+        <span className="setting">
+          <label className="fonts-label">
+            {t('accessibility.fonts', 'Fonts')}
+            <button
+              className="FormControl__button"
+              title={t('library.refresh', 'Refresh Library')}
+              onClick={refreshFonts}
+            >
+              <FontAwesomeIcon
+                className="FormControl__segmentedFaIcon"
+                icon={faSyncAlt}
+              />
+            </button>
+          </label>
+        </span>
         <span className="setting">
           <label
             className={classNames('settingText', { isRTL: isRTL })}

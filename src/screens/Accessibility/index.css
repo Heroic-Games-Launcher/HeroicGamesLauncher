@@ -20,3 +20,8 @@ input[type='range'] {
 .Accessibility .zoomHint span {
   font-size: 1rem;
 }
+
+.Accessibility .fonts-label button {
+  width: auto;
+  margin-left: 1rem;
+}
