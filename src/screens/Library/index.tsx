@@ -158,17 +158,29 @@ export default function Library(): JSX.Element {
       return library.filter((game) => game.is_game)
     }
 
+    const isMac = ['osx', 'Mac']
+
     switch (filter) {
       case 'win':
-        return library.filter((game) =>
-          process.platform === 'darwin'
+        return library.filter((game) => {
+          return game.is_installed
+            ? game.install.platform === 'windows'
+            : process.platform === 'darwin'
             ? !game.is_mac_native
             : !game.is_linux_native
-        )
+        })
       case 'mac':
-        return library.filter((game) => game.is_mac_native)
+        return library.filter((game) => {
+          return game.is_installed
+            ? isMac.includes(game.install.platform ?? '')
+            : game.is_mac_native
+        })
       case 'linux':
-        return library.filter((game) => game.is_linux_native)
+        return library.filter((game) => {
+          return game.is_installed
+            ? game.install.platform === 'linux'
+            : game.is_linux_native
+        })
       default:
         return library.filter((game) => game.is_game)
     }

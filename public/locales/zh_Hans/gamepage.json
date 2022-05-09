@@ -59,6 +59,7 @@
         "language": "语言",
         "lastPlayed": "上次游玩",
         "neverPlayed": "从未游玩",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "游玩时间"
     },
     "gamecard": {
@@ -67,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "需要联网",
+        "installedPlatform": "Installed Platform",
         "path": "安装路径",
         "size": "大小",
         "syncsaves": "同步存档",
         "version": "版本"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "选择安装路径",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine 版本"

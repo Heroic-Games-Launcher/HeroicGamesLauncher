@@ -1,7 +1,7 @@
 import { I18nextProvider, initReactI18next } from 'react-i18next'
 import HttpApi from 'i18next-http-backend'
 import React, { Suspense } from 'react'
-import { createRoot } from 'react-dom/client'
+import ReactDOM from 'react-dom'
 import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
 
@@ -73,11 +73,7 @@ i18next
     ]
   })
 
-const container = document.getElementById('root')
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const root = createRoot(container!)
-
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
       <Suspense fallback={<UpdateComponentBase message="Loading" />}>
@@ -86,5 +82,6 @@ root.render(
         </GlobalState>
       </Suspense>
     </I18nextProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById('root')
 )

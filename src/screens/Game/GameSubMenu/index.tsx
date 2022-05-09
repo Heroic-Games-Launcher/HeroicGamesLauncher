@@ -139,7 +139,12 @@ export default function GamesSubmenu({
           <>
             <NavLink
               to={`/settings/${appName}/log`}
-              state={runner}
+              state={{
+                fromGameCard: false,
+                runner,
+                isLinuxNative: isNative,
+                isMacNative: isNative
+              }}
               className="link button is-text is-link"
             >
               {t('submenu.log')}

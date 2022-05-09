@@ -4,13 +4,13 @@
     },
     "message": {
         "part1": "Aby jste se mohli přihlásit a instalovat vaše hry, musíte postupovat podle kroků níže:",
-        "part2": "Otevřte",
+        "part2": "Otevřete",
         "part3": "obchod Epic Games",
-        "part4": ", přihlašte se s vaším účtem a zkopírujte vaše",
+        "part4": ", přihlaste se s vaším účtem a zkopírujte vaše",
         "part5": "číslo SID",
         "part6": "Vložte",
         "part7": "číslo SID",
-        "part8": "do pole níže, klikněte na tlačítko přihlásit a počkejte."
+        "part8": "do pole níže a klikněte na tlačítko přihlásit."
     },
     "status": {
         "error": "Chyba",

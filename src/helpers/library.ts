@@ -3,6 +3,7 @@ import {
   GameInfo,
   GameStatus,
   InstallProgress,
+  PlatformToInstall,
   Runner
 } from 'src/types'
 import { IpcRenderer } from 'electron'
@@ -24,6 +25,7 @@ type InstallArgs = {
   previousProgress: InstallProgress | null
   progress: InstallProgress
   setInstallPath?: (path: string) => void
+  platformToInstall: PlatformToInstall
   t: TFunction<'gamepage'>
   installDlcs?: boolean
   sdlList?: Array<string>
@@ -43,7 +45,8 @@ async function install({
   sdlList = [],
   installDlcs = false,
   installLanguage = 'en-US',
-  runner = 'legendary'
+  runner = 'legendary',
+  platformToInstall
 }: InstallArgs) {
   if (!installPath) {
     return
@@ -101,7 +104,8 @@ async function install({
         installDlcs,
         sdlList,
         installLanguage,
-        runner
+        runner,
+        platformToInstall
       })
       .finally(() => {
         if (progress.percent === '100%') {
@@ -167,14 +171,15 @@ async function uninstall({
     title: t('gamepage:box.uninstall.title'),
     type: 'warning'
   }
+  const platform = await getPlatform()
+  const {
+    install: { platform: installedplatform }
+  } = await getGameInfo(appName, runner)
 
   let linuxArgs
   // This assumes native games are installed should be changed in the future
   // if we add option to install windows games even if native is available
-  if (
-    (await getPlatform()) === 'linux' &&
-    !(await getGameInfo(appName, runner)).is_linux_native
-  ) {
+  if (platform === 'linux' && installedplatform?.toLowerCase() === 'windows') {
     const wineprefix = (await getGameSettings(appName, runner)).winePrefix
 
     linuxArgs = {

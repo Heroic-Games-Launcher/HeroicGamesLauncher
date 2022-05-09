@@ -59,6 +59,7 @@
         "language": "Keel",
         "lastPlayed": "Viimati mängitud",
         "neverPlayed": "Mitte kunagi",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Mängitud aeg"
     },
     "gamecard": {
@@ -67,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Võrguühendus nõutud",
+        "installedPlatform": "Installed Platform",
         "path": "Paigalduskoht",
         "size": "Suurus",
         "syncsaves": "Sünkrooni salvestised",
         "version": "Versioon"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Valige paigaldustee",
         "wineprefix": "WinePrefiks",
         "wineversion": "Wine'i versioon"
