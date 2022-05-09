@@ -155,7 +155,7 @@ export const AdvancedSettings = ({
               <CreateNewFolder
                 data-testid="setLegendaryBinaryButton"
                 style={{
-                  color: altLegendaryBin.length ? 'transparent' : '#B0ABB6'
+                  color: altLegendaryBin.length ? 'transparent' : 'currentColor'
                 }}
               />
             </SvgButton>
@@ -166,7 +166,7 @@ export const AdvancedSettings = ({
             >
               <Backspace
                 data-testid="setLegendaryBinaryBackspace"
-                style={{ color: '#B0ABB6' }}
+                style={{ color: 'currentColor' }}
               />
             </SvgButton>
           )}
@@ -203,7 +203,7 @@ export const AdvancedSettings = ({
               <CreateNewFolder
                 data-testid="setGogdlBinaryButton"
                 style={{
-                  color: altGogdlBin.length ? 'transparent' : '#B0ABB6'
+                  color: altGogdlBin.length ? 'transparent' : 'currentColor'
                 }}
               />
             </SvgButton>
@@ -214,7 +214,7 @@ export const AdvancedSettings = ({
             >
               <Backspace
                 data-testid="setGogdlBinaryBackspace"
-                style={{ color: '#B0ABB6' }}
+                style={{ color: '#currentColor' }}
               />
             </SvgButton>
           )}

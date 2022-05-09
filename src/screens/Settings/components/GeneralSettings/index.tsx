@@ -225,7 +225,7 @@ export default function GeneralSettings({
               >
                 <CreateNewFolder
                   data-testid="setEpicSyncPathButton"
-                  style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
+                  style={{ color: isLinked ? 'transparent' : 'currentColor' }}
                 />
               </SvgButton>
             ) : (
