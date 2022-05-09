@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Zadnje odigrano",
         "neverPlayed": "Nikad",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Vrijeme igranja"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Internet Potreban",
+        "installedPlatform": "Installed Platform",
         "path": "Put instalacije",
         "size": "Veličina",
         "syncsaves": "Sinkroniziraj podatke",

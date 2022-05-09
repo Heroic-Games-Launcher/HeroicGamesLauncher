@@ -9,28 +9,20 @@ import {
   ExecResult
 } from '../types'
 import { join } from 'node:path'
-import {
-  appendFileSync,
-  existsSync,
-  readFileSync,
-  writeFileSync
-} from 'graceful-fs'
+import { existsSync, readFileSync } from 'graceful-fs'
 
-import {
-  logDebug,
-  logError,
-  logInfo,
-  LogPrefix,
-  logWarning
-} from '../logger/logger'
-import { getGOGdlBin, size } from '../utils'
-import { fallBackImage, isMac } from '../constants'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { getGOGdlBin, getFileSize } from '../utils'
+import { fallBackImage } from '../constants'
 import {
   apiInfoCache,
   libraryStore,
   installedGamesStore
 } from './electronStores'
-import { spawn } from 'child_process'
+import {
+  getLegendaryOrGogdlCommand,
+  runLegendaryOrGogdlCommand
+} from '../launcher'
 
 export class GOGLibrary {
   private static globalInstance: GOGLibrary = null
@@ -149,7 +141,7 @@ export class GOGLibrary {
    * @param appName
    * @returns InstallInfo object
    */
-  public async getInstallInfo(appName: string) {
+  public async getInstallInfo(appName: string, installPlatform = 'windows') {
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
       logError('No credentials, cannot get install info')
@@ -157,20 +149,31 @@ export class GOGLibrary {
     }
     const gameData = this.library.get(appName)
 
+    installPlatform = installPlatform.toLowerCase()
+
+    switch (installPlatform) {
+      case 'linux':
+        installPlatform = 'windows'
+        break
+      case 'mac':
+        installPlatform = 'osx'
+        break
+    }
+
     const commandParts = [
       'info',
       appName,
-      `--token=${credentials.access_token}`,
+      '--token',
+      `"${credentials.access_token}"`,
       '--lang=en-US',
       '--os',
-      isMac && gameData.is_mac_native ? 'osx' : 'windows'
+      installPlatform
     ]
     const command = getGogdlCommand(commandParts)
 
     logInfo(['Getting game metadata:', command], LogPrefix.Gog)
 
     const res = await runGogdlCommand(commandParts)
-
     if (res.error) {
       logError(
         ['Failed to get game metadata for', `${appName}:`, res.error],
@@ -242,7 +245,7 @@ export class GOGLibrary {
       appName: data.appName,
       install_path: path,
       executable: '',
-      install_size: size(
+      install_size: getFileSize(
         (await this.getInstallInfo(data.appName)).manifest.disk_size
       ),
       is_dlc: false,
@@ -336,7 +339,7 @@ export class GOGLibrary {
     gamesdbData: any
   ): Promise<GameInfo> {
     let developer: string
-    let verticalCover: string
+    let verticalCover = fallBackImage
     let horizontalCover: string
     let description: string
     if (gamesdbData?.game) {
@@ -345,9 +348,11 @@ export class GOGLibrary {
         developers.push(developer.name)
       }
       developer = developers.join(', ')
-      verticalCover = gamesdbData.game.vertical_cover.url_format
-        .replace('{formatter}', '')
-        .replace('{ext}', 'jpg')
+      if (gamesdbData.game.vertical_cover?.url_format) {
+        verticalCover = gamesdbData.game.vertical_cover.url_format
+          .replace('{formatter}', '')
+          .replace('{ext}', 'jpg')
+      }
       horizontalCover = `https:${info.image}.jpg`
       description = gamesdbData.game.summary['*']
       // horizontalCover = gamesdbData._links.logo.href
@@ -360,7 +365,7 @@ export class GOGLibrary {
         LogPrefix.Gog
       )
       const apiData = await this.getGamesData(String(info.id))
-      if (apiData?._links) {
+      if (apiData?._links?.boxArtImage) {
         verticalCover = apiData._links.boxArtImage.href
       } else {
         logWarning(
@@ -608,78 +613,24 @@ export class GOGLibrary {
 
 /**
  * Runs GOGDL with the given command
+ * Note: For more comments, see runLegendaryCommand
  * @param commandParts The command to run, e. g. 'update', 'install'...
  */
 export async function runGogdlCommand(
-  commandParts: Array<string>,
-  logFile?: string,
-  onOutput?: (output: string) => void,
-  env = process.env
+  commandParts: string[],
+  options?: {
+    logFile?: string
+    env?: Record<string, string>
+    wrappers?: string[]
+    onOutput?: (output: string) => void
+  }
 ): Promise<ExecResult> {
-  commandParts = commandParts.filter((n) => n)
-  const { bin, dir } = getGOGdlBin()
-  const safeCommand = getGogdlCommand(commandParts)
-
-  logDebug(['Running GOGDL command:', safeCommand], LogPrefix.Gog)
-  if (logFile) {
-    logDebug(['Logging to file', `"${logFile}"`], LogPrefix.Gog)
-  }
-
-  if (existsSync(logFile)) {
-    writeFileSync(logFile, '')
-  }
-
-  return new Promise((res, rej) => {
-    const child = spawn(bin, commandParts, {
-      cwd: dir,
-      env: env,
-      shell: isMac
-    })
-
-    const stdout = new Array<string>()
-    const stderr = new Array<string>()
-
-    if (logFile) {
-      child.stdout.on('data', (data: Buffer) => {
-        if (onOutput) onOutput(data.toString())
-        appendFileSync(logFile, data.toString())
-      })
-      child.stderr.on('data', (data: Buffer) => {
-        if (onOutput) onOutput(data.toString())
-        appendFileSync(logFile, data.toString())
-      })
-    }
-
-    child.stdout.on('data', (data: Buffer) => {
-      stdout.push(data.toString().trim())
-    })
-    child.stderr.on('data', (data: Buffer) => {
-      stderr.push(data.toString().trim())
-    })
-
-    child.on('close', (code, signal) => {
-      if (signal === 'SIGTERM') {
-        rej('Installation canceled')
-      }
-      res({
-        stdout: stdout.join('\n'),
-        stderr: stderr.join('\n')
-      })
-    })
-    child.on('error', (error) => {
-      rej(error)
-    })
-  })
-    .then(({ stdout, stderr }) => {
-      return { stdout, stderr, fullCommand: safeCommand }
-    })
-    .catch((error) => {
-      logError(
-        [`Error running GOGDL command "${safeCommand}": ${error}`],
-        LogPrefix.Legendary
-      )
-      return { stdout: '', stderr: '', fullCommand: safeCommand, error: error }
-    })
+  const { dir, bin } = getGOGdlBin()
+  return runLegendaryOrGogdlCommand(
+    commandParts,
+    { name: 'GOGDL', logPrefix: LogPrefix.Gog, bin, dir },
+    options
+  )
 }
 
 /**
@@ -689,15 +640,11 @@ export async function runGogdlCommand(
  * @param commandParts The command to run, e. g. 'update', 'install'...
  * @returns The full command as a string
  */
-export function getGogdlCommand(commandParts: Array<string>): string {
-  commandParts = commandParts
-    // Filter out empty entries and the '--token' field
-    .filter((val) => {
-      return val && !val.startsWith('--token')
-    })
-  let gogdlFullPath = join(...Object.values(getGOGdlBin()))
-  if (gogdlFullPath.includes(' ')) {
-    gogdlFullPath = `"${gogdlFullPath}"`
-  }
-  return [gogdlFullPath, ...commandParts].join(' ')
+export function getGogdlCommand(
+  commandParts: string[],
+  env: Record<string, string> = {},
+  wrappers: string[] = []
+): string {
+  const gogdlPath = join(...Object.values(getGOGdlBin()))
+  return getLegendaryOrGogdlCommand(commandParts, env, wrappers, gogdlPath)
 }

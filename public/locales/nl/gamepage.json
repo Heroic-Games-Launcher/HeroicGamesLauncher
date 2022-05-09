@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Laatst gespeeld",
         "neverPlayed": "Nooit",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Tijd gespeeld"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Internetverbinding Verplicht",
+        "installedPlatform": "Installed Platform",
         "path": "Installatie pad",
         "size": "Grootte",
         "syncsaves": "Synchroniseer saves",

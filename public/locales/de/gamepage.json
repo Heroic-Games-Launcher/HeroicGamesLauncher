@@ -59,6 +59,7 @@
         "language": "Sprache",
         "lastPlayed": "Zuletzt gespielt",
         "neverPlayed": "Nie",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Spielzeit"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Online erforderlich",
+        "installedPlatform": "Installed Platform",
         "path": "Installations-Pfad",
         "size": "Größe",
         "syncsaves": "Spielstände synchronisieren",

@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "2.3.0-beta.1",
+  "version": "2.3.0-beta.3",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -152,8 +152,8 @@
     "i18next-http-backend": "^1.4.0",
     "ini": "^3.0.0",
     "plist": "^3.0.5",
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
+    "react": "17",
+    "react-dom": "17",
     "react-i18next": "^11.16.7",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",

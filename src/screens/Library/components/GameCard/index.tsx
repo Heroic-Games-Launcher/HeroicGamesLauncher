@@ -34,9 +34,8 @@ interface Card {
   size: string
   title: string
   version: string
-  isMacNative: boolean
-  isLinuxNative: boolean
   runner: Runner
+  installedPlatform: string | undefined
   forceCard?: boolean
 }
 
@@ -53,9 +52,8 @@ const GameCard = ({
   hasCloudSave,
   buttonClick,
   forceCard,
-  isMacNative,
-  isLinuxNative,
-  runner
+  runner,
+  installedPlatform
 }: Card) => {
   const [progress, previousProgress] = hasProgress(appName)
 
@@ -91,10 +89,6 @@ const GameCard = ({
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
   const haveStatus = isMoving || isReparing || isInstalling || hasUpdate
-  const path =
-    isWin || isMacNative || isLinuxNative
-      ? `/settings/${appName}/other`
-      : `/settings/${appName}/wine`
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -203,6 +197,14 @@ const GameCard = ({
     setIsFavouriteGame(found)
   }, [favouriteGames, appName])
 
+  const isMac = ['osx', 'Mac']
+  const isMacNative = isMac.includes(installedPlatform ?? '')
+  const isLinuxNative = installedPlatform === 'linux'
+  const isNative = isWin || isMacNative || isLinuxNative
+  const pathname = isNative
+    ? `/settings/${appName}/other`
+    : `/settings/${appName}/wine`
+
   const items: Item[] = [
     {
       label: t('label.playing.start'),
@@ -212,7 +214,7 @@ const GameCard = ({
     {
       label: t('submenu.settings'),
       onclick: () =>
-        navigate(path, {
+        navigate(pathname, {
           state: {
             fromGameCard: true,
             runner,
@@ -310,7 +312,7 @@ const GameCard = ({
                   <>
                     <SvgButton
                       onClick={() =>
-                        navigate(path, {
+                        navigate(pathname, {
                           state: {
                             fromGameCard: true,
                             runner,
@@ -343,7 +345,8 @@ const GameCard = ({
         previousProgress,
         progress,
         t,
-        runner
+        runner,
+        platformToInstall: ''
       })
     }
     if (status === 'playing' || status === 'updating') {

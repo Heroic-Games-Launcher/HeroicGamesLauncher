@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Última partida",
         "neverPlayed": "Mai",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Temps jugat"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Cal connexió a internet",
+        "installedPlatform": "Installed Platform",
         "path": "Ruta d'instal·lació",
         "size": "Mida",
         "syncsaves": "Sincronitza les partides desades",

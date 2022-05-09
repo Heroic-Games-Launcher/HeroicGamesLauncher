@@ -59,6 +59,7 @@
         "language": "زبان",
         "lastPlayed": "آخرین اجرا",
         "neverPlayed": "هرگز",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "زمان بازی"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "نیازمندی به آنلاین بودن",
+        "installedPlatform": "Installed Platform",
         "path": "مسیر نصب",
         "size": "اندازه",
         "syncsaves": "همگام سازی ذخیره ها",

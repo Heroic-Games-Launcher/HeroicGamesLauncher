@@ -60,9 +60,11 @@ export type ExecResult = {
 }
 
 export type LaunchResult = {
+  success: boolean
+  stdout: string
   stderr: string
-  command: string
   gameSettings: GameSettings
+  command?: string
 }
 
 export interface ExtraInfo {
@@ -258,6 +260,7 @@ export interface InstallParams {
   sdlList?: Array<string>
   installLanguage?: string
   runner: Runner
+  platformToInstall: 'Windows' | 'Mac' | 'Linux'
 }
 
 export interface GOGLoginData {
@@ -340,4 +343,24 @@ export interface GamepadInputEventMouse {
   x: number
   y: number
   button: 'left' | 'middle' | 'right'
+}
+
+export interface SteamRuntime {
+  type: 'unpackaged' | 'flatpak'
+  path: string
+}
+
+export interface LaunchPreperationResult {
+  success: boolean
+  failureReason?: string
+  rpcClient?: RpcClient
+  mangoHudCommand?: string
+  gameModeBin?: string
+  steamRuntime?: string
+}
+
+export interface RpcClient {
+  updatePresence(d: unknown): void
+  reply(user: unknown, response: unknown): void
+  disconnect(): void
 }

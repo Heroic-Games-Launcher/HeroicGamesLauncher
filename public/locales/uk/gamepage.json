@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Востаннє зіграно",
         "neverPlayed": "Ніколи",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Зіграно часу"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Чи потрібно бути в мережі",
+        "installedPlatform": "Installed Platform",
         "path": "Шлях встановлення",
         "size": "Розмір",
         "syncsaves": "Синхронізувати збереження",

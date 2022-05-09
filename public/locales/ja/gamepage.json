@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "最後にプレイした",
         "neverPlayed": "一度もない",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "プレイ時間"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Online Required",
+        "installedPlatform": "Installed Platform",
         "path": "インストールパス",
         "size": "サイズ",
         "syncsaves": "保存を同期",

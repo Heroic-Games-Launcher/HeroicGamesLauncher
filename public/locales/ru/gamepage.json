@@ -59,6 +59,7 @@
         "language": "Язык",
         "lastPlayed": "Последний запуск",
         "neverPlayed": "Никогда",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Проведено в игре"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Требуется онлайн",
+        "installedPlatform": "Installed Platform",
         "path": "Путь установки",
         "size": "Размер",
         "syncsaves": "Синхронизация сохранений",

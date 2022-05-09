@@ -82,7 +82,7 @@ export default function SidebarLinks() {
     if (!isEpicLoggedIn && !isGOGLoggedIn) {
       return navigate('/login')
     }
-  }, [])
+  }, [isEpicLoggedIn, isGOGLoggedIn, navigate])
 
   return (
     <div className="SidebarLinks Sidebar__section">
@@ -184,6 +184,7 @@ export default function SidebarLinks() {
           classNames('Sidebar__item', { active: isActive })
         }
         to={{ pathname: '/settings/default/general' }}
+        state={{ fromGameCard: false }}
       >
         <>
           <div className="Sidebar__itemIcon">
@@ -198,6 +199,7 @@ export default function SidebarLinks() {
             <NavLink
               role="link"
               to={{ pathname: '/settings/default/general' }}
+              state={{ fromGameCard: false }}
               className={cx('Sidebar__item SidebarLinks__subItem', {
                 ['active']: type === 'general'
               })}

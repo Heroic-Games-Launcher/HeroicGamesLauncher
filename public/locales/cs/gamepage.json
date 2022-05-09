@@ -23,24 +23,24 @@
             "title": "Zastavit instalaci"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "Chcete odstranit i prefix? Tuto akci nelze vrátit zpět.",
             "checkbox_prefix": "Prefix",
             "message": "Chcete odinstalovat tuto hru?",
             "title": "Odinstalovat"
         },
         "update": {
-            "message": "Tato hra má aktualizaci, přejete si ji aktualizovat teď?",
+            "message": "Tato hra má aktualizaci, přejete si ji aktualizovat nyní?",
             "title": "Hra vyžaduje akualizaci"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Vyberte složku WinePrefix",
         "yes": "ANO"
     },
     "button": {
         "add_to_favourites": "Add To Favourites",
         "cancel": "Zrušit",
         "continue": "Pokračovat ve stahování",
-        "hide_game": "Hide Game",
-        "import": "Importovat",
+        "hide_game": "Skrýt hru",
+        "import": "Importovat Hru",
         "install": "Instalovat",
         "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
@@ -49,16 +49,17 @@
     },
     "disabled": "Zakázáno",
     "dlc": {
-        "installDlcs": "Install all DLCs"
+        "installDlcs": "Instalovat všechna DLC"
     },
     "enabled": "Povoleno",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "Velikost ke stažení",
         "firstPlayed": "Poprvé hráno",
-        "installSize": "Install Size",
-        "language": "Language",
+        "installSize": "Velikost instalace",
+        "language": "Jazyk",
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Odehraný čas"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Online Required",
+        "installedPlatform": "Installed Platform",
         "path": "Cesta pro instalaci",
         "size": "Velikost",
         "syncsaves": "Synchronizovat uložené soubory",
@@ -76,7 +78,7 @@
         "disk-space-left": "Space Left on the Device",
         "path": "Select Install Path",
         "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "wineversion": "Verze Wine"
     },
     "label": {
         "playing": {
@@ -88,11 +90,11 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Možnosti spuštění..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Nahlásit problém se spouštěním této hry",
     "sdl": {
-        "title": "Select components to Install"
+        "title": "Vyberte součásti k instalaci"
     },
     "specs": {
         "minimum": "Minimum",

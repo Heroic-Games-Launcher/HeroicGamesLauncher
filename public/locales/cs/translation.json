@@ -9,13 +9,13 @@
     "Assets": "Assety",
     "box": {
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Mezipaměť Heroic vymazána.",
+            "title": "Mezipaměť vymazána"
         },
         "choose": "Vybrat",
         "choose-egs-prefix": "Vyberte prefix, kde je nainstalován EGS",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Vyberte spustitelný soubor Legendary",
         "customWine": "Vyberte spustitelný soubor Wine nebo Proton",
         "default-install-path": "Vyberte výchozí cestu pro instalaci",
         "error": {
@@ -61,7 +61,7 @@
             }
         },
         "no": "NE",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
                 "not_installed": "Není nainstalován, chcete jej nainstalovat?"
@@ -106,13 +106,13 @@
     },
     "button": {
         "go_to_library": "Go to Library",
-        "login": "Login",
+        "login": "Přihlásit",
         "sync": "Synchronizovat",
         "syncing": "Synchronizuji",
         "unsync": "Desynchroniozovat"
     },
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Online služby nemusí plně fungovat, protože servery Epic Games jsou offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -122,11 +122,11 @@
     "gog-store": "GOG Store",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "",
+        "platform": "Platforma",
         "show_hidden": "Show Hidden"
     },
     "help": {
-        "general": "Synchronizujte s EGS v případě, že máte funkční instalaci Epic Games Store jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
+        "general": "Synchronizujte s EGL v případě, že máte funkční instalaci Epic Games Launcher jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
         "other": {
             "part1": "Použijte ",
             "part2": "Pokročilé možnosti",
@@ -143,7 +143,7 @@
             "part4": "Automatická synchronizace uložených souborů synchronizuje uložené soubory při každém spuštění hry a po dokončení hraní."
         },
         "wine": {
-            "part1": "Heroic hledá verze Wine a Proton v následujících složkách:",
+            "part1": "Heroic hledá verze Wine, Proton a CrossOver v následujících složkách:",
             "part2": "Pro jiná místa použijte symbolický odkaz na jednu z těchto složek"
         }
     },
@@ -158,19 +158,19 @@
         "requirements": "Systémové požadavky"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Vyberte cestu instalace"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": "",
+        "gridView": "Zobrazení mřížky",
+        "listView": "Zobrazení seznamu",
+        "refresh": "Obnovit",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending"
     },
     "Library": "Knihovna",
     "loading": {
-        "default": "",
+        "default": "Načítání",
         "website": "Loading Website"
     },
     "login": {
@@ -191,7 +191,7 @@
         },
         "install": {
             "canceled": "Instalace zrušena",
-            "error": "",
+            "error": "Instalace selhala",
             "finished": "Instalace dokončena",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -225,9 +225,9 @@
         "egs-prefix": "Prefix kde je nainstalován EGS"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Plugins",
     "Projects": "Projekty",
@@ -236,8 +236,8 @@
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-gogdl-bin": "Vyberte alternativní spustitelný soubor GOGDL, který chcete použít",
+        "alt-legendary-bin": "Vyberte alternativní spustitelný soubor Legendary",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",
         "autodxvk": "Automaticky instalovat/aktualizovat DXVK na prefixu",
         "autosync": "Automaticky synchronizovat uložené soubory",
@@ -308,7 +308,7 @@
     "settings": {
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copyToClipboard": "Kopírovat všechna nastavení do schránky",
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
@@ -325,7 +325,7 @@
     "status": {
         "logging": "Logging In..."
     },
-    "store": "Obchod",
+    "store": "Epic Store",
     "stores": "Stores",
     "title": {
         "allGames": "All Games",
@@ -354,17 +354,17 @@
     "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
-        "logout": "Odhlásit",
-        "logout_confirmation": "Logout?",
+        "logout": "Odhlásit se",
+        "logout_confirmation": "Opravdu se chcete odhlásit?",
         "manageaccounts": "Manage Accounts",
         "quit": "Ukončit"
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Vrátit se zpět",
+            "forward": "Jít vpřed",
+            "openInBrowser": "Otevřít v prohlížeči",
+            "reload": "Znovu načíst stránku"
         }
     },
     "wiki": "Wiki",

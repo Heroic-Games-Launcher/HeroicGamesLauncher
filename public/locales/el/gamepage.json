@@ -59,6 +59,7 @@
         "language": "Γλώσσα",
         "lastPlayed": "Παίχτηκε Τελευταία φορά",
         "neverPlayed": "Ποτέ",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Απαιτείται Σύνδεση",
+        "installedPlatform": "Installed Platform",
         "path": "Διαδρομή Εγκατάστασης",
         "size": "Μέγεθος",
         "syncsaves": "Συγχρονισμός Αποθηκεύσεων",

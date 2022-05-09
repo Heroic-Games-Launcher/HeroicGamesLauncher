@@ -59,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "上次遊玩",
         "neverPlayed": "從未遊玩",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "遊玩時間"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Online Required",
+        "installedPlatform": "Installed Platform",
         "path": "安裝路徑",
         "size": "大小",
         "syncsaves": "同步存檔",

@@ -42,7 +42,7 @@
             },
             "title": "Hata",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "Güncellemeyle ilgili bir sorun oluştu, lütfen günlük kayıtlarına göz atın veya daha sonra tekrar deneyin!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -52,12 +52,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Değişiklik günlüğünü aç",
+                "detail": "Güncellemeyi arka planda indirmek istiyor musunuz?",
+                "message": "Yeni bir sürüm var!",
+                "message-finished": "Heroic'i şimdi yeniden başlatmak istiyor musunuz?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Güncelleme Tamamlandı"
             }
         },
         "no": "HAYIR",
@@ -74,7 +74,7 @@
         "reset-heroic": {
             "question": {
                 "message": "Heroic'i sıfırlamak istediğine emin misin? Bu tüm Ayarları ve Önbelleği silecektir ama Epic kimlik bilgilerini ya da Yüklü oyunları silmeyecektir",
-                "title": "Reset Heroic"
+                "title": "Heroic'i Sıfırla"
             }
         },
         "runexe": {
@@ -105,7 +105,7 @@
         "yes": "EVET"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "Kütüphaneye Git",
         "login": "Oturum Aç",
         "sync": "Eşzamanla",
         "syncing": "Eşzamanlanıyor",
@@ -121,9 +121,9 @@
     "GOG": "GOG",
     "gog-store": "GOG Mağazası",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "Gizlileri Yoksay",
         "platform": "Platform",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Gizlileri Göster"
     },
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
@@ -149,7 +149,7 @@
     },
     "info": {
         "heroic": {
-            "version": "Heroic Version"
+            "version": "Heroic Sürümü"
         },
         "settings": "Ayarlar otomatik kaydedilir"
     },
@@ -164,9 +164,9 @@
         "gridView": "Izgara görünümü",
         "listView": "Liste görünümü",
         "refresh": "Yenile",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "Artan Sıralama",
+        "sortByStatus": "Duruma Göre Sırala",
+        "sortDescending": "Azalan Sıralama"
     },
     "Library": "Kütüphane",
     "loading": {
@@ -244,10 +244,10 @@
         "autovkd3d": "Prefix'te VKD3D'yi Otomatik Kur/Güncelle",
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
         "customWineProton": "Özel Wine/Proton Yolları",
-        "darktray": "Karanlık Tepsi Simgesi Kullan",
+        "darktray": "Koyu Tepsi Simgesi Kullan",
         "default-install-path": "Öntanımlı Kurulum Yeri",
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "Denetleyiciyi kullanarak Heroic gezinmesini devre dışı bırak",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
@@ -266,8 +266,8 @@
         "log": {
             "copy-to-clipboard": "Günlük içeriğini panoya kopyala",
             "current-log": "Geçerli Günlük",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "Discord sunucumuza katılın ve işletim sisteminize uygun kanalı arayın. Burada görüntülenen günlüklerin içeriğini paylaşın ve ilgili tüm bilgi ve ayrıntılarla birlikte sorunun net bir açıklamasını ekleyin.",
+            "instructions_title": "Bir sorun nasıl bildirilir?",
             "last-log": "Son Günlük",
             "no-file": "Günlük dosyası bulunamadı",
             "show-in-folder": "Günlük dosyasını klasörde göster"
@@ -313,13 +313,13 @@
             "long-log-hint": "Günlük kısaltıldı, son 1000 satır gösteriliyor!"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "Gelişmiş",
             "general": "Genel",
             "log": "Log",
             "other": "Diğer",
             "sync": "Kaydet-Eşzamanla"
         },
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Heroic'i Sıfırla"
     },
     "Settings": "Ayarlar",
     "status": {

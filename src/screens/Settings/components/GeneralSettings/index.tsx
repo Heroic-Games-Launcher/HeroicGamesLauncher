@@ -85,7 +85,7 @@ export default function GeneralSettings({
   useEffect(() => {
     i18n.changeLanguage(language)
     storage.setItem('language', language)
-  }, [language])
+  }, [i18n, language])
 
   useEffect(() => {
     const getMoreInfo = async () => {

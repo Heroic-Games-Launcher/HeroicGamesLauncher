@@ -59,6 +59,7 @@
         "language": "Език",
         "lastPlayed": "Последно пускане",
         "neverPlayed": "Никога",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Изиграно време"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Изисква се достъп до Интернет",
+        "installedPlatform": "Installed Platform",
         "path": "Инсталационна папка",
         "size": "Размер",
         "syncsaves": "Синхронизиране на запазените файлове",

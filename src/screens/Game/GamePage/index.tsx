@@ -75,8 +75,9 @@ export default function GamePage(): JSX.Element | null {
   }>({ error: false, message: '' })
 
   const isWin = platform === 'win32'
-  const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+  const isMac = platform === 'darwin'
+
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
   const isUpdating = status === 'updating'
@@ -96,7 +97,16 @@ export default function GamePage(): JSX.Element | null {
           newInfo = await getGameInfo(appName, 'gog')
         }
         setGameInfo(newInfo)
-        getInstallInfo(appName, newInfo.runner)
+        const { install, is_linux_native, is_mac_native, runner } = newInfo
+
+        const installPlatform =
+          install.platform || (is_linux_native && isLinux)
+            ? 'Linux'
+            : is_mac_native && isMac
+            ? 'Mac'
+            : 'Windows'
+
+        getInstallInfo(appName, runner, installPlatform)
           .then((info) => {
             if (!info) {
               throw 'Cannot get game info'
@@ -148,16 +158,19 @@ export default function GamePage(): JSX.Element | null {
       runner,
       title,
       art_square,
-      install: { install_path, install_size, version },
+      install: {
+        install_path,
+        install_size,
+        version,
+        platform: installPlatform
+      },
       is_installed,
       is_game,
       compatible_apps,
       extra,
       developer,
       cloud_save_enabled,
-      canRunOffline,
-      is_linux_native,
-      is_mac_native
+      canRunOffline
     }: GameInfo = gameInfo
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
@@ -166,13 +179,14 @@ export default function GamePage(): JSX.Element | null {
       gameInstallInfo?.manifest?.disk_size &&
       size(Number(gameInstallInfo?.manifest?.disk_size))
     const launchOptions = gameInstallInfo?.game?.launch_options || []
-    // This should check for installed platform in the future
-    const isMacNative = isMac && is_mac_native
-    const isLinuxNative = isLinux && is_linux_native
-    const pathname =
-      isWin || isMacNative || isLinuxNative
-        ? `/settings/${appName}/other`
-        : `/settings/${appName}/wine`
+
+    const isMac = ['osx', 'Mac']
+    const isMacNative = isMac.includes(installPlatform ?? '')
+    const isLinuxNative = installPlatform === 'linux'
+    const isNative = isWin || isMacNative || isLinuxNative
+    const pathname = isNative
+      ? `/settings/${appName}/other`
+      : `/settings/${appName}/wine`
 
     /*
     Other Keys:
@@ -278,6 +292,12 @@ export default function GamePage(): JSX.Element | null {
                           <div>
                             {t('info.size')}: {install_size}
                           </div>
+                          <div style={{ textTransform: 'capitalize' }}>
+                            {t('info.installedPlatform', 'Installed Platform')}:{' '}
+                            {installPlatform === 'osx'
+                              ? 'MacOS'
+                              : installPlatform}
+                          </div>
                           <div>
                             {t('info.version')}: {version}
                           </div>
@@ -353,7 +373,13 @@ export default function GamePage(): JSX.Element | null {
                       {is_installed ? (
                         <Link
                           to={pathname}
-                          state={{ fromGameCard: false, runner }}
+                          state={{
+                            fromGameCard: false,
+                            runner,
+                            isLinuxNative: isNative,
+                            isMacNative: isNative,
+                            hasCloudSave: cloud_save_enabled
+                          }}
                           className={`button ${getButtonClass(is_installed)}`}
                         >
                           {`${getButtonLabel(is_installed)}`}
@@ -376,7 +402,13 @@ export default function GamePage(): JSX.Element | null {
                     </div>
                     <NavLink
                       to={`/settings/${appName}/log`}
-                      state={runner}
+                      state={{
+                        fromGameCard: false,
+                        runner,
+                        isLinuxNative: isNative,
+                        isMacNative: isNative,
+                        hasCloudSave: cloud_save_enabled
+                      }}
                       className="link is-text is-link reportProblem"
                     >
                       <>
@@ -534,7 +566,8 @@ export default function GamePage(): JSX.Element | null {
       previousProgress,
       progress,
       t,
-      runner: gameInfo.runner
+      runner: gameInfo.runner,
+      platformToInstall: ''
     })
   }
 }

@@ -39,7 +39,7 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
-        "hide_game": "Hide Game",
+        "hide_game": "Oyunu Gizle",
         "import": "Oyunu İçe Aktar",
         "install": "Kur",
         "remove_from_favourites": "Remove From Favourites",
@@ -59,6 +59,7 @@
         "language": "Dil",
         "lastPlayed": "Son Oynanan",
         "neverPlayed": "Hiç Oynanmadı",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Oynanan Zaman"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Çevrim İçi Gerekli",
+        "installedPlatform": "Installed Platform",
         "path": "Kurulum Yeri",
         "size": "Boyut",
         "syncsaves": "Kayıtları Eşzamanla",
@@ -90,7 +92,7 @@
     "launch": {
         "options": "Başlatma Seçenekleri..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {
         "title": "Kurulacak bileşenleri seç"
     },

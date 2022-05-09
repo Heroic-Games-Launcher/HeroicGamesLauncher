@@ -59,6 +59,7 @@
         "language": "Kieli",
         "lastPlayed": "Viimeksi pelattu",
         "neverPlayed": "Ei koskaan",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Pelattu aika"
     },
     "gamecard": {
@@ -67,6 +68,7 @@
     },
     "info": {
         "canRunOffline": "Online-tila vaaditaan",
+        "installedPlatform": "Installed Platform",
         "path": "Asennuksen sijainti",
         "size": "Koko",
         "syncsaves": "Synkronoi tallennukset",
