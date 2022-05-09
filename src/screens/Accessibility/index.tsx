@@ -28,6 +28,7 @@ export default function Accessibility() {
   } = useContext(ContextProvider)
 
   const [fonts, setFonts] = useState<string[]>(['Cabin', 'Rubik'])
+  const [refreshing, setRefreshing] = useState(false)
 
   const getFonts = async (reload = false) => {
     const systemFonts = (await ipcRenderer.invoke(
@@ -38,7 +39,12 @@ export default function Accessibility() {
   }
 
   const refreshFonts = () => {
+    setRefreshing(true)
     getFonts(true)
+  }
+
+  const onRefreshingAnimationEnd = () => {
+    setRefreshing(false)
   }
 
   useEffect(() => {
@@ -106,19 +112,20 @@ export default function Accessibility() {
           </datalist>
         </span>
         <span className="setting">
-          <label className="fonts-label">
+          <span className="fonts-label">
             {t('accessibility.fonts', 'Fonts')}
             <button
-              className="FormControl__button"
+              className={classNames('FormControl__button', { refreshing })}
               title={t('library.refresh', 'Refresh Library')}
               onClick={refreshFonts}
+              onAnimationEnd={onRefreshingAnimationEnd}
             >
               <FontAwesomeIcon
                 className="FormControl__segmentedFaIcon"
                 icon={faSyncAlt}
               />
             </button>
-          </label>
+          </span>
         </span>
         <span className="setting">
           <label

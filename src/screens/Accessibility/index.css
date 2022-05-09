@@ -25,3 +25,12 @@ input[type='range'] {
   width: auto;
   margin-left: 1rem;
 }
+
+.Accessibility .fonts-label button:hover {
+  color: var(--accent);
+}
+
+.Accessibility .fonts-label button.refreshing svg {
+  color: var(--accent);
+  animation: refreshing 2s 1;
+}
