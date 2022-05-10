@@ -26,6 +26,8 @@ import { cpus, platform } from 'os'
 import {
   existsSync,
   mkdirSync,
+  readdirSync,
+  readFileSync,
   rmSync,
   unlinkSync,
   watch,
@@ -83,7 +85,8 @@ import {
   tsStore,
   weblateUrl,
   wikiLink,
-  heroicToolsPath
+  heroicToolsPath,
+  heroicThemesFolder
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -621,6 +624,13 @@ ipcMain.handle('getGameSettings', async (event, game, runner) => {
 
 ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
   return GOGLibrary.getLinuxInstallersLanguages(appName)
+})
+
+ipcMain.handle('getThemes', async () => {
+  const themes = readdirSync(heroicThemesFolder)
+  const css = String(readFileSync(`${join(heroicThemesFolder, themes[0])}`))
+  const strings = css.replace('.Theme {', '').replace('}', '')
+  return { themes, css: strings }
 })
 
 ipcMain.handle(
