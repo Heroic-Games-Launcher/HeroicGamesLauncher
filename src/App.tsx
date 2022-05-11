@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext } from 'react'
 
 import './App.css'
 import './themes.css'
@@ -10,35 +10,13 @@ import Library from './screens/Library'
 import WineManager from './screens/WineManager'
 import Sidebar from 'src/components/UI/Sidebar'
 import Settings from './screens/Settings'
-import { IpcRenderer } from 'electron/renderer'
-import { css, cx } from '@emotion/css'
-interface ElectronProps {
-  ipcRenderer: IpcRenderer
-}
-
-const { ipcRenderer } = window.require('electron') as ElectronProps
+import ContextProvider from './state/ContextProvider'
 
 function App() {
-  const [userTheme, setUserTheme] = React.useState('')
-
-  useEffect(() => {
-    ipcRenderer
-      .invoke('getThemes')
-      .then(({ themes, css }: { themes: string[]; css: string }) => {
-        console.log({ themes, css })
-        setUserTheme(css)
-      })
-  }, [])
+  const { theme } = useContext(ContextProvider)
 
   return (
-    <div
-      className={cx(
-        'App',
-        css`
-          ${userTheme}
-        `
-      )}
-    >
+    <div className={`App ${theme}`}>
       <HashRouter>
         <Sidebar />
         <main className="content">
