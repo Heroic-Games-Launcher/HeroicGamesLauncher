@@ -141,7 +141,7 @@ const GameCard = ({
       return (
         <SvgButton
           onClick={async () => handlePlay(runner)}
-          title={`Stop ${title}`}
+          title={`${t('label.playing.stop')} (${title})`}
         >
           <StopIconAlt className="cancelIcon" />
         </SvgButton>
@@ -151,7 +151,7 @@ const GameCard = ({
       return (
         <SvgButton
           onClick={async () => handlePlay(runner)}
-          title={`Cancel installation of ${title}`}
+          title={`${t('button.cancel')} (${title})`}
         >
           <StopIcon />
         </SvgButton>
@@ -162,7 +162,7 @@ const GameCard = ({
         <SvgButton
           className="playButton"
           onClick={async () => handlePlay(runner)}
-          title={`Play ${title}`}
+          title={`${t('label.playing.start')} (${title})`}
         >
           <PlayIcon className="playIcon" />
         </SvgButton>
@@ -173,14 +173,17 @@ const GameCard = ({
         return (
           <SvgButton
             onClick={(e) => e.preventDefault()}
-            title={`Update ${title}`}
+            title={`${t('button.cancel')} (${title})`}
           >
             <DownIcon className="iconDisabled" />
           </SvgButton>
         )
       }
       return (
-        <SvgButton onClick={() => buttonClick()} title={`Install ${title}`}>
+        <SvgButton
+          onClick={() => buttonClick()}
+          title={`${t('button.install')} (${title})`}
+        >
           <DownIcon className="downIcon" />
         </SvgButton>
       )
@@ -321,6 +324,7 @@ const GameCard = ({
                 {isInstalled && isGame && (
                   <>
                     <SvgButton
+                      title={`${t('submenu.settings')} (${title})`}
                       onClick={() =>
                         navigate(pathname, {
                           state: {
