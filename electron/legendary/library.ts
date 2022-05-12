@@ -194,7 +194,10 @@ export class LegendaryLibrary {
   /**
    * Get game info for a particular game.
    */
-  public async getInstallInfo(appName: string): Promise<InstallInfo> {
+  public async getInstallInfo(
+    appName: string,
+    installPlatform = 'Windows'
+  ): Promise<InstallInfo> {
     const cache = installStore.get(appName) as InstallInfo
     if (cache) {
       logDebug('Using cached install info', LogPrefix.Legendary)
@@ -202,11 +205,12 @@ export class LegendaryLibrary {
     }
 
     logInfo(`Getting more details with 'legendary info'`, LogPrefix.Legendary)
-
     const res = await runLegendaryCommand([
       '--pretty-json',
       'info',
       appName,
+      '--platform',
+      installPlatform,
       '--json',
       (await isEpicServiceOffline()) ? '--offline' : ''
     ])

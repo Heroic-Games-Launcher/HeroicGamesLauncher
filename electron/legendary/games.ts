@@ -74,8 +74,8 @@ class LegendaryGame extends Game {
    *
    * @returns InstallInfo
    */
-  public async getInstallInfo() {
-    return LegendaryLibrary.get().getInstallInfo(this.appName)
+  public async getInstallInfo(installPlatform?: string) {
+    return LegendaryLibrary.get().getInstallInfo(this.appName, installPlatform)
   }
 
   private async getProductSlug(namespace: string) {
@@ -371,7 +371,9 @@ class LegendaryGame extends Game {
     platformToInstall
   }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const info = await Game.get(this.appName, 'legendary').getInstallInfo()
+    const info = await Game.get(this.appName, 'legendary').getInstallInfo(
+      platformToInstall
+    )
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'

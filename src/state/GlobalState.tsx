@@ -415,7 +415,7 @@ export class GlobalState extends PureComponent<Props> {
     storage.setItem('library_top_section', libraryTopSection)
 
     const pendingOps = libraryStatus.filter(
-      (game) => game.status !== 'playing'
+      (game) => game.status !== 'playing' && game.status !== 'done'
     ).length
     if (pendingOps) {
       ipcRenderer.send('lock')

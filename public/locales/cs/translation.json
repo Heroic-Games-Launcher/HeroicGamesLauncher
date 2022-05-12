@@ -8,7 +8,7 @@
         },
         "choose": "Vybrat",
         "choose-egs-prefix": "Vyberte prefix, kde je nainstalován EGS",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Vyberte spustitelný soubor GOGDL (vyžaduje restart)",
         "choose-legendary-binary": "Vyberte spustitelný soubor Legendary",
         "customWine": "Vyberte spustitelný soubor Wine nebo Proton",
         "default-install-path": "Vyberte výchozí cestu pro instalaci",
@@ -22,8 +22,8 @@
                 "title": "Nedostatek místa"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "Chyba při instalaci DXVK/VKD3D! Zkontrolujte připojení nebo zda máte nainstalovaný zstd/libzstd1",
+                "title": "Chyba DXVK/VKD3D"
             },
             "generic": {
                 "message": "",
@@ -31,8 +31,8 @@
             },
             "launch": "Chyba při spouštění hry, zkontrolujte záznamy!",
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "Spouštění přerušeno! Ke spuštění hry je potřeba připojení k internetu.",
+                "title": "Režim offline není podporován."
             },
             "title": "Error",
             "update": {
