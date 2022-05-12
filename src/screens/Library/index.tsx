@@ -271,7 +271,7 @@ export default function Library(): JSX.Element {
 
   return (
     <>
-      <Header />
+      <Header list={libraryToShow} />
 
       <div className="listing">
         <span id="top" />
