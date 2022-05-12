@@ -123,8 +123,8 @@ async function createWindow(): Promise<BrowserWindow> {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     ...windowProps,
-    minHeight: 650,
-    minWidth: 1100,
+    minHeight: 345,
+    minWidth: 600,
     show: !(exitToTray && startInTray),
     webPreferences: {
       webviewTag: true,
