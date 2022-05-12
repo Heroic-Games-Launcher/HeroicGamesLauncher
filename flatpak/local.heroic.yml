@@ -24,6 +24,8 @@ finish-args:
   - --persist=.wine
   - --filesystem=host
   - --env=PATH=/app/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin/
+  - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/app/lib32/gstreamer-1.0:/usr/lib/extensions/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0
+
 
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
@@ -46,7 +48,30 @@ add-extensions:
     merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
     download-if: active-gl-driver
     enable-if: active-gl-driver
+  
+  org.freedesktop.Platform.ffmpeg-full:
+    directory: lib/ffmpeg
+    add-ld-path: .
+    version: '21.08'
+    no-autodownload: true
+    autodelete: false
 
+  org.freedesktop.Platform.ffmpeg_full.i386:
+    directory: lib32/ffmpeg
+    add-ld-path: .
+    version: '21.08'
+    no-autodownload: true
+    autodelete: false
+  
+    org.freedesktop.Platform.VAAPI.Intel.i386:
+    directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
+    version: '21.08'
+    versions: '21.08'
+    autodelete: false
+    no-autodownload: true
+    add-ld-path: lib
+    download-if: have-intel-gpu
+    autoprune-unless: have-intel-gpu
 
 modules:
   - name: unappimage
@@ -99,8 +124,8 @@ modules:
   - name: heroic
     buildsystem: simple
     build-commands:
-      - unappimage Heroic-2.2.6.AppImage
-      - rm Heroic-2.2.6.AppImage
+      - unappimage Heroic-2.3.0-beta.3.AppImage
+      - rm Heroic-2.3.0-beta.3.AppImage
       - mv squashfs-root /app/bin/heroic
       - install -D heroic-run -t /app/bin
     sources:
@@ -110,9 +135,9 @@ modules:
           - zypak-wrapper /app/bin/heroic/heroic "$@"
 
       - type: file
-        filename: Heroic-2.2.6.AppImage
+        filename: Heroic-2.3.0-beta.3.AppImage
         # put right path here
-        path: ../dist/Heroic-2.2.6.AppImage
+        path: ../dist/Heroic-2.3.0-beta.3.AppImage
 
   - name: platform-bootstrap
     buildsystem: simple
@@ -120,6 +145,8 @@ modules:
       - |
         set -e
         mkdir -p /app/bin
+        mkdir -p /app/lib/ffmpeg
+        mkdir -p /app/lib32/ffmpeg
         mkdir -p /app/lib/i386-linux-gnu
         mkdir -p /app/lib/debug/lib/i386-linux-gnu
         mkdir -p /app/lib/i386-linux-gnu/GL
