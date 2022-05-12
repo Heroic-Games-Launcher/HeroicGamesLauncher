@@ -18,7 +18,8 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol
+  protocol,
+  screen
 } from 'electron'
 import './updater'
 import { autoUpdater } from 'electron-updater'
@@ -117,6 +118,17 @@ async function createWindow(): Promise<BrowserWindow> {
       tmpWindowProps.x !== undefined
     ) {
       windowProps = tmpWindowProps
+    }
+  } else {
+    // make sure initial screen size is not bigger than the available screen space
+    const screenInfo = screen.getPrimaryDisplay()
+
+    if (screenInfo.workAreaSize.height > windowProps.height) {
+      windowProps.height = screenInfo.workAreaSize.height * 0.8
+    }
+
+    if (screenInfo.workAreaSize.width > windowProps.width) {
+      windowProps.width = screenInfo.workAreaSize.width * 0.8
     }
   }
 
@@ -241,6 +253,21 @@ const contextMenu = () => {
   ])
 }
 
+const processZoomForScreen = (zoomFactor: number) => {
+  const screenSize = screen.getPrimaryDisplay().workAreaSize.width
+  if (screenSize < 1200) {
+    const extraDPIZoomIn = screenSize / 1200
+    return zoomFactor * extraDPIZoomIn
+  } else {
+    return zoomFactor
+  }
+}
+
+ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
+  const window = BrowserWindow.getAllWindows()[0]
+  window.webContents.setZoomFactor(processZoomForScreen(parseFloat(zoomFactor)))
+})
+
 if (!gotTheLock) {
   logInfo('Heroic is already running, quitting this instance')
   app.quit()
@@ -352,9 +379,13 @@ if (!gotTheLock) {
       handleProtocol(mainWindow, url)
     }
 
-    const zoomFactor =
-      parseFloat((configStore.get('zoomPercent') as string) || '100') / 100
-    mainWindow.webContents.setZoomFactor(zoomFactor)
+    // set initial zoom level after a moment, if set in sync the value stays as 1
+    setTimeout(() => {
+      const zoomFactor =
+        parseFloat((configStore.get('zoomPercent') as string) || '100') / 100
+
+      mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
+    }, 200)
 
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
@@ -1325,11 +1356,6 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   if (inputEvents.length) {
     inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
   }
-})
-
-ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
-  const window = BrowserWindow.getAllWindows()[0]
-  window.webContents.setZoomFactor(parseFloat(zoomFactor))
 })
 
 ipcMain.handle('getFonts', async (event, reload = false) => {
