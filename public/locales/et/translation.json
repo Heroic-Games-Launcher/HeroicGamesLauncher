@@ -42,7 +42,7 @@
             },
             "title": "Viga",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "Midagi läks uuendusega valesti, palun kontrollige logisid või proovige hiljem uuesti!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -52,12 +52,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Ava muudatuste logi",
+                "detail": "Kas soovite uuenduse taustal alla laadida?",
+                "message": "Saadaval on uus versioon!",
+                "message-finished": "Kas soovite Heroicu nüüd taaskäivitada?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Uuendus lõpetatud"
             }
         },
         "no": "EI",
@@ -105,7 +105,7 @@
         "yes": "JAH"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "Mine teeki",
         "login": "Logi sisse",
         "sync": "Sünkrooni",
         "syncing": "Sünkroonimine",
@@ -116,14 +116,14 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "Lemmikud",
     "globalSettings": "Globaalsed seaded",
     "GOG": "GOG",
     "gog-store": "GOG Pood",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "Ignoreeri peidetud",
         "platform": "Platvorm",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Näita peidetud"
     },
     "help": {
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
@@ -164,9 +164,9 @@
         "gridView": "Ruudustikvaade",
         "listView": "Loendivaade",
         "refresh": "Värskenda",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "Järjesta kasvavalt",
+        "sortByStatus": "Järjesta staatuse järgi",
+        "sortDescending": "Järjesta kahanevalt"
     },
     "Library": "Varamu",
     "loading": {
@@ -200,7 +200,7 @@
         "uninstalled": "Eemaldatud",
         "update": {
             "canceled": "Uuendatud tühistatud",
-            "finished": "Uuendatud lõpetatud",
+            "finished": "Uuendus lõpetatud",
             "started": "Uuendamine algas"
         }
     },
@@ -247,7 +247,7 @@
         "darktray": "Kasuta tumedat süsteemiriiuli ikooni",
         "default-install-path": "Vaikimisi paigaldustee",
         "defaultWinePrefix": "Määrake uute Wine'i prefikside jaoks kaust",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "Keela Heroic'u mängupuldiga navigeerimine",
         "discordRPC": "Luba Discord Rich Presence",
         "egs-sync": "Sünkroonimine paigaldatud Epic Games'iga",
         "enableFSRHack": "Luba FSR häkk (Wine'i versioon peab seda toetama)",
@@ -258,16 +258,16 @@
         "gamemode": "Kasuta GameMode'i (Feral Game Mode peab olema paigaldatud)",
         "language": "Valige rakenduse keel",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "Keelatud",
+            "favourites": "Lemmikmängud",
+            "recently_played": "Hiljuti mängitud mängud"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "Teegi ülemine osa",
         "log": {
             "copy-to-clipboard": "Kopeeri logi sisu lõikelauale",
             "current-log": "Praegune logi",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "Liitu meie Discordiga ja otsi oma operatsioonisüsteemile vastav kanal. Jagage siin kuvatavate logide sisu ja lisage probleemi selge kirjeldus koos kõigi asjakohaste andmete ja üksikasjadega.",
+            "instructions_title": "Kuidas teatada probleemist?",
             "last-log": "Viimane logi",
             "no-file": "Logifaili ei leitud",
             "show-in-folder": "Kuva logifail kaustas"
@@ -296,7 +296,7 @@
             "placeholder": "Valige täpne mängude salvestiste kaust",
             "title": "Asenda salvestuse pilvesünkroonkaust"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "Valige teema",
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
         "showUnrealMarket": "Näita Unreal Marketplace'i (vajab taaskäivitamist)",
         "start-in-tray": "Käivita minimeeritult",
@@ -313,7 +313,7 @@
             "long-log-hint": "Logi on kärbitud, näidatakse viimased 1000 rida!"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "Täpsem",
             "general": "Üldine",
             "log": "Logi",
             "other": "Muu",

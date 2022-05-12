@@ -42,7 +42,7 @@
             },
             "title": "错误",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "更新有问题，请检查日志或稍后再试！",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -52,12 +52,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "打开更新日志",
+                "detail": "你想在后台下载更新吗？",
+                "message": "有新版本可用！",
+                "message-finished": "你想立即重启 Heroic 吗？",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "更新已完成"
             }
         },
         "no": "否",
@@ -105,7 +105,7 @@
         "yes": "是"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "前往库",
         "login": "登录",
         "sync": "同步",
         "syncing": "正在同步",
@@ -116,14 +116,14 @@
         "offline-notification-title": "离线"
     },
     "Epic Games": "Epic 游戏",
-    "favourites": "Favourites",
+    "favourites": "收藏",
     "globalSettings": "全局设置",
     "GOG": "GOG",
     "gog-store": "GOG 商店",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "忽略隐藏项",
         "platform": "平台",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "显示隐藏项"
     },
     "help": {
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
@@ -164,9 +164,9 @@
         "gridView": "网格视图",
         "listView": "列表视图",
         "refresh": "刷新",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "升序排列",
+        "sortByStatus": "按状态排列",
+        "sortDescending": "降序排列"
     },
     "Library": "仓库",
     "loading": {
@@ -200,7 +200,7 @@
         "uninstalled": "已卸载",
         "update": {
             "canceled": "已取消更新",
-            "finished": "已更新",
+            "finished": "更新已完成的",
             "started": "升级已开始"
         }
     },
@@ -247,7 +247,7 @@
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
         "defaultWinePrefix": "为新的 WinePrefix设置文件夹",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "使用控制器禁止 Heroic 导航",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "egs-sync": "与已安装的 Epic 游戏同步",
         "enableFSRHack": "启用 FSR（需要支持的WINE版本）",
@@ -258,16 +258,16 @@
         "gamemode": "使用 GameMode（需要已安装 Feral Game Mode）",
         "language": "选择应用语言",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "已禁用",
+            "favourites": "喜欢的游戏",
+            "recently_played": "最近玩过的游戏"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "库的顶部",
         "log": {
             "copy-to-clipboard": "复制日志内容到剪贴板",
             "current-log": "当前日志",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "加入我们的 Discord，寻找与您的操作系统匹配的频道。共享此处显示的日志内容，并包含对问题的清晰描述以及任何相关信息和细节。",
+            "instructions_title": "如何报告问题？",
             "last-log": "上一日志",
             "no-file": "未找到日志文件",
             "show-in-folder": "显示文件夹中的日志文件"
@@ -296,7 +296,7 @@
             "placeholder": "选择存档的保存位置",
             "title": "覆盖云端存档文件夹"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",
         "showUnrealMarket": "显示虚幻市场（需重启）",
         "start-in-tray": "启动时最小化",
@@ -313,7 +313,7 @@
             "long-log-hint": "日志被截断，显示最后 1000 行！"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "高级",
             "general": "常规",
             "log": "Log",
             "other": "其它",

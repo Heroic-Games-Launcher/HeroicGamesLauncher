@@ -36,14 +36,14 @@
         "yes": "JAH"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Lisa lemmikute hulka",
         "cancel": "Peata/Tühista",
         "continue": "Jätka allalaadimist",
-        "hide_game": "Hide Game",
+        "hide_game": "Peida mäng",
         "import": "Impordi mäng",
         "install": "Paigalda",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Eemalda lemmikutest",
+        "unhide_game": "Näita mäng",
         "uninstall": "Eemalda",
         "update": "Uuenda"
     },
@@ -59,7 +59,7 @@
         "language": "Keel",
         "lastPlayed": "Viimati mängitud",
         "neverPlayed": "Mitte kunagi",
-        "platform": "Select Platform Version to Install",
+        "platform": "Valige paigaldatava platvormi versioon",
         "totalPlayed": "Mängitud aeg"
     },
     "gamecard": {
@@ -68,14 +68,14 @@
     },
     "info": {
         "canRunOffline": "Võrguühendus nõutud",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "Paigaldatud platvorm",
         "path": "Paigalduskoht",
         "size": "Suurus",
         "syncsaves": "Sünkrooni salvestised",
         "version": "Versioon"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Seadmesse jäänud ruum",
         "path": "Valige paigaldustee",
         "wineprefix": "WinePrefiks",
         "wineversion": "Wine'i versioon"
@@ -92,7 +92,7 @@
     "launch": {
         "options": "Käivitusvalikud..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Teatage selle mängu käivitamise probleemist",
     "sdl": {
         "title": "Valige komponendid, mida installida"
     },
