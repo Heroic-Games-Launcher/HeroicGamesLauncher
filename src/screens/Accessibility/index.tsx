@@ -65,7 +65,7 @@ export default function Accessibility() {
 
   const options = useMemo(() => {
     return fonts.map((font) => {
-      const style = { 'font-family': font } as CSSProperties
+      const style = { fontFamily: font } as CSSProperties
       return (
         <option key={font} value={font} style={style}>
           {font}
@@ -87,28 +87,22 @@ export default function Accessibility() {
             type="range"
             value={zoomPercent}
             onChange={handleZoomLevel}
-            min="80"
+            min="60"
             max="200"
             step="10"
             list="zoom-levels"
           />
           <span className="zoomHint">
-            <span>80</span>
-            <span>100</span>
-            <span>120</span>
-            <span>140</span>
-            <span>160</span>
-            <span>180</span>
-            <span>200</span>
+            {[60, 80, 100, 120, 140, 160, 180, 200].map((zoom) => (
+              <span key={zoom}>{zoom}</span>
+            ))}
           </span>
           <datalist id="zoom-levels">
-            <option value="80">80</option>
-            <option value="100">100</option>
-            <option value="120">120</option>
-            <option value="140">140</option>
-            <option value="160">160</option>
-            <option value="180">180</option>
-            <option value="200">200</option>
+            {[60, 80, 100, 120, 140, 160, 180, 200].map((zoom) => (
+              <option key={zoom} value={zoom}>
+                {zoom}
+              </option>
+            ))}
           </datalist>
         </span>
         <span className="setting">
