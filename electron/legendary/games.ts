@@ -8,7 +8,7 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { getLegendaryCommand, LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, isOnline } from '../utils'
+import { execAsync, getSteamRuntime, isOnline } from '../utils'
 import {
   execOptions,
   heroicGamesConfigPath,
@@ -610,7 +610,11 @@ class LegendaryGame extends Game {
       let wineFlag = ['--wine', wineVersion.bin]
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
+        const runtime = getSteamRuntime()
+        const runWithRuntime = runtime.path
+          ? `${runtime.path} -- '${wineVersion.bin}' waitforexitandrun`
+          : `'${wineVersion.bin}' run`
+        wineFlag = ['--no-wine', '--wrapper', runWithRuntime]
         winePrefixFlag = []
       }
 
@@ -627,7 +631,6 @@ class LegendaryGame extends Game {
     const command = getLegendaryCommand(commandParts, commandEnv, wrappers)
 
     logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Legendary)
-
     const { error, stderr, stdout } = await runLegendaryCommand(commandParts, {
       env: commandEnv,
       wrappers: wrappers

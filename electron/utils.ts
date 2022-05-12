@@ -419,8 +419,16 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
 function getSteamRuntime(): SteamRuntime {
   const possibleRuntimes: Array<SteamRuntime> = [
     {
+      path: `${userHome}/.local/share/Steam/steamapps/common/SteamLinuxRuntime_soldier/run`,
+      type: 'unpackaged'
+    },
+    {
       path: `${userHome}/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh`,
       type: 'unpackaged'
+    },
+    {
+      path: `${userHome}/.var/app/com.valvesoftware.Steam/steamapps/common/SteamLinuxRuntime_soldier/run`,
+      type: 'flatpak'
     },
     {
       path: `${userHome}/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh`,
