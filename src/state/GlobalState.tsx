@@ -119,10 +119,16 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ theme: newThemeName })
   }
 
+  zoomTimer: NodeJS.Timeout | undefined = undefined
   setZoomPercent = (newZoomPercent: number) => {
+    if (this.zoomTimer) clearTimeout(this.zoomTimer)
+
     configStore.set('zoomPercent', newZoomPercent)
     this.setState({ zoomPercent: newZoomPercent })
-    ipcRenderer.send('setZoomFactor', (newZoomPercent / 100).toString())
+
+    this.zoomTimer = setTimeout(() => {
+      ipcRenderer.send('setZoomFactor', (newZoomPercent / 100).toString())
+    }, 500)
   }
 
   setContentFontFamily = (newFontFamily: string) => {
