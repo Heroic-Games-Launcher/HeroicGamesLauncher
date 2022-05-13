@@ -66,7 +66,7 @@
 }
 
 .backButton > .MuiSvgIcon-root:hover {
-  color: var(--text-hover);
+  color: var(--accent-overlay);
 }
 
 .gameInfo {
@@ -252,10 +252,6 @@
   align-self: flex-start;
   margin-top: 1.2em;
   color: var(--accent);
-}
-
-.reportProblem:hover {
-  color: var(--text-hover);
 }
 
 .reportProblem svg {

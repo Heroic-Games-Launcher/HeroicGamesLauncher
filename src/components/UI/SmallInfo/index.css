@@ -15,9 +15,9 @@
 .clickable {
   color: var(--accent);
   cursor: pointer;
+  transition: 400ms;
 }
 
 .clickable:hover {
-  color: var(--text-default);
-  transition: 300ms;
+  color: var(--accent-overlay);
 }

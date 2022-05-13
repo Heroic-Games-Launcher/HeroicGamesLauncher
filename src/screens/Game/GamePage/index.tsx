@@ -410,7 +410,7 @@ export default function GamePage(): JSX.Element | null {
                           isMacNative: isNative,
                           hasCloudSave: cloud_save_enabled
                         }}
-                        className="link is-text is-link reportProblem"
+                        className="clickable reportProblem"
                       >
                         <>
                           {<FontAwesomeIcon icon={faTriangleExclamation} />}

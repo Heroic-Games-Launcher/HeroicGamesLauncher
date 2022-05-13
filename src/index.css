@@ -21,10 +21,10 @@ html {
   --modal-backdrop: #00000048;
   --text-hover: #59d0ea;
   --primary: #07c5ef;
-  --primary-hover: #09afd4;
+  --primary-hover: #4cdafa;
   --link-highlight: #07c5ef;
   --accent: #eaa114;
-  --accent-overlay: #ba800d;
+  --accent-overlay: #ffbb33;
   --navbar-accent: var(--accent);
   --navbar-active-background: var(--background-lighter);
   --play-button: #59d0ea;

@@ -149,6 +149,18 @@ html,
   color: var(--text-default);
 }
 
+.button.outline {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid;
+}
+
+.button.outline:hover {
+  background: transparent;
+  color: var(--accent-overlay);
+  border: 2px solid;
+}
+
 .material-icons.is-primary {
   /* I can't find any elements that use this, so idk what colour this should be */
   color: var(--danger);
