@@ -58,4 +58,5 @@
   margin-right: 10px;
   display: inline-flex;
   justify-content: center;
+  color: var(--accent);
 }

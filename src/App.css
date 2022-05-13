@@ -52,7 +52,7 @@ html,
   cursor: pointer;
   padding: 0.75rem;
   border-radius: 10px;
-  background: var(--background);
+  background: var(--primary);
   color: #1a1b1c;
   text-transform: uppercase;
   font-family: Rubik;
@@ -82,11 +82,11 @@ html,
 }
 
 .button.is-primary {
-  background: var(--link-highlight);
+  background: var(--primary);
 }
 
 .button.is-primary:hover {
-  background: var(--text-hover);
+  background: var(--primary-hover);
 }
 
 .button.is-primary:disabled {
@@ -97,11 +97,12 @@ html,
 
 .button.is-secondary {
   background: var(--accent);
+  color: var(--text-tertiary);
 }
 
 .button.is-tertiary {
   background: var(--body-background);
-  color: white;
+  color: var(--text-default);
 }
 
 .button.is-tools:hover,
@@ -115,8 +116,7 @@ html,
 }
 
 .button.is-secondary:hover {
-  background: var(--download-button-overlay);
-  color: var(--text-secondary);
+  background: var(--accent-overlay);
 }
 
 .button.is-empty {

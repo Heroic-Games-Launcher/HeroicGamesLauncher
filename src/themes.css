@@ -1,22 +1,29 @@
 .App.dracula,
 .App.dracula-classic {
-  --accent: #f566d6;
-  --navbar-accent: var(--accent);
+  --accent: #bd93f9;
+  --navbar-accent: #eae8e5;
   --background: #090b1c;
-  --body-background: #090b1c;
-  --background-darker: #090b1c;
+  --body-background: #282a35;
+  --background-darker: var(--body-background);
   --current-background: var(--body-background);
-  --navbar-background: #303251;
-  --navbar-active-background: #090b1c;
+  --navbar-background: #44475a;
+  --navbar-active-background: #282a36;
   --gradient-body-background: linear-gradient(
     90deg,
     var(--background-darker) -32px,
     var(--body-background) 64px,
     var(--body-background) 100%
   );
-  --input-background: #0d1029;
+  --input-background: #44475a;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
+  --download-button: #44475a;
+  --download-button-overlay: #1372d7;
+  --success: #50fa7b;
+  --success-hover: #42ff71;
+  --primary: #ff79c6;
+  --primary-hover: #f560b4;
+  --danger: #ff5555;
 }
 
 .App.marine,
@@ -96,5 +103,5 @@
 .App.dracula-classic,
 .App.marine-classic,
 .App.zombie-classic {
-  --navbar-accent: white;
+  --navbar-accent: var(--text-default);
 }

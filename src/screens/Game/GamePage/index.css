@@ -106,7 +106,7 @@
   margin-bottom: 16px;
   font-size: 16px;
   max-width: 560px;
-  line-height: 19px;
+  line-height: 22px;
   text-overflow: ellipsis;
   display: -webkit-box;
   color: var(--text-default);
@@ -151,7 +151,7 @@
   transition: 350ms;
   border: none;
   background: none;
-  color: var(--accent);
+  color: var(--text-default);
   cursor: pointer;
   font-size: 1em;
 }
@@ -163,7 +163,8 @@
 .gameTabs.infoTab button[data-tab='info'],
 .gameTabs.toolsTab button[data-tab='tools'],
 .gameTabs.requirementsTab button[data-tab='requirements'] {
-  color: var(--text-default);
+  color: var(--accent);
+  font-weight: 700;
 }
 
 .installProgress[value] {
