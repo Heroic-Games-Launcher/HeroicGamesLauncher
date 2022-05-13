@@ -36,7 +36,7 @@
             },
             "title": "Erro",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "Algo deu errado ao atualizar, check os logs ou tente novamente mais tarde!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -46,12 +46,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Abrir lista da mudanças",
+                "detail": "Você deseja atualizar o Heroic em background?",
+                "message": "Um nova versão está disponível!",
+                "message-finished": "Deseja reiniciar o Heroic agora?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Atualização finalizada"
             }
         },
         "no": "NÃO",
@@ -99,7 +99,7 @@
         "yes": "SIM"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "Ir para Biblioteca",
         "login": "Conecte-se",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -110,14 +110,14 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "Favoritos",
     "globalSettings": "Configurações globais",
     "GOG": "GOG",
     "gog-store": "Loja GOG",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "Ignorar Escondidos",
         "platform": "Plataforma",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Mostrar Escondidos"
     },
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
@@ -158,9 +158,9 @@
         "gridView": "Visualização em grade",
         "listView": "Visto por último",
         "refresh": "Atualizar",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "Ordenar Crescente",
+        "sortByStatus": "Ordenar Decrescente",
+        "sortDescending": "Ordenar Decrescente"
     },
     "Library": "Biblioteca",
     "loading": {
@@ -241,7 +241,7 @@
         "darktray": "Usar o ícone escuro na barra de tarefas",
         "default-install-path": "Local de instalação padrão",
         "defaultWinePrefix": "Pasta padrão para novos prefixos Wine",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "Desabilitar Navegação por Controle no Heroic",
         "discordRPC": "Habilitar o Discord Rich Presence",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (a versão do Wine precisa suportar o recurso)",
@@ -252,16 +252,16 @@
         "gamemode": "Usar o GameMode (precisa do gamemode instalado)",
         "language": "Selecione o idioma do app",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "Desabilitada",
+            "favourites": "Jogos Favoritos",
+            "recently_played": "Jogados recentemente"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "Coluna de destaque da biblioteca",
         "log": {
             "copy-to-clipboard": "Copiar log para a área de transferência",
             "current-log": "Log atual",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "Acesse o nosso Discord e procure pelo canal relacionado ao seu sistema operacional. Compartilhe o conteúdo do Log mostrado aqui e inclua uma descrição do problema, detalhes e outras informações relevantes.",
+            "instructions_title": "Como reportar um problema?",
             "last-log": "Último log",
             "no-file": "Arquivo de log não encontrado",
             "show-in-folder": "Mostrar arquivo de log na pasta"
@@ -290,7 +290,7 @@
             "placeholder": "Selecione a pasta exata com os saves",
             "title": "Sobrescrever pasta de saves sincronizados com a nuvem"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "Selecione um Tema",
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Mostrar Unreal Marketplace (requer reinício)",
         "start-in-tray": "Iniciar minimizado",
@@ -307,7 +307,7 @@
             "long-log-hint": "Log truncado, últimas 1000 linhas serão mostradas!"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "Avançado",
             "general": "Config. Gerais",
             "log": "Log",
             "other": "Outros",

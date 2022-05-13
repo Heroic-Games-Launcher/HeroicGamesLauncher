@@ -6,7 +6,7 @@
             "message": "Heroic cache rensades.",
             "title": "Cache rensades"
         },
-        "choose": "OK",
+        "choose": "Välj",
         "choose-egs-prefix": "Ange prefix med befintlig EGS installation",
         "choose-gogdl-binary": "Ange GOGDL binärfil (omstart krävs)",
         "choose-legendary-binary": "Ange Legendary binärfil",
@@ -36,8 +36,8 @@
             },
             "title": "Problem",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
-                "title": "Update Error"
+                "message": "Uppdateringen misslyckades, kontrollera loggfilen eller försök igen senare.",
+                "title": "Problem vid uppdatering"
             },
             "wine-not-found": {
                 "message": "Ingen Wine version vald. Kontrollera spelinställningar!",
@@ -46,12 +46,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Visa ändringsloggen",
+                "detail": "Vill du ladda ner uppdateringen i bakgrunden?",
+                "message": "Ny version tillgänglig!",
+                "message-finished": "Vill du starta om Heroic nu?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Uppdatering slutförd"
             }
         },
         "no": "Nej",
@@ -99,7 +99,7 @@
         "yes": "Ja"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "Gå till Biblioteket",
         "login": "Logga in",
         "sync": "Synkronisering",
         "syncing": "Synkroniserar",
@@ -110,14 +110,14 @@
         "offline-notification-title": "Offline"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "Favoriter",
     "globalSettings": "Globala inställningar",
     "GOG": "GOG",
     "gog-store": "GOG Butik",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "Ignorera dolda",
         "platform": "Plattform",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Visa dolda"
     },
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande Epic Games Launcher installation och vill importera spel istället för att ladda ner dem igen.",
@@ -155,12 +155,12 @@
         "path": "Ange installationssökväg"
     },
     "library": {
-        "gridView": "",
+        "gridView": "Rutnätsvy",
         "listView": "Listvy",
         "refresh": "Uppdatera",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "Sortera stigande",
+        "sortByStatus": "Sortera efter status",
+        "sortDescending": "Sortera fallande"
     },
     "Library": "Bibliotek",
     "loading": {
@@ -241,7 +241,7 @@
         "darktray": "Använd mörk ikon i systemfältet",
         "default-install-path": "Standard installationssökväg",
         "defaultWinePrefix": "Ange sökväg för nya Wine-prefix",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "Deaktivera navigering via handkontroll",
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine-versionen måste stödja det)",
@@ -252,16 +252,16 @@
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj språk",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "Deaktiverad",
+            "favourites": "Favoritspel",
+            "recently_played": "Nyligen spelade"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "Bibliotek topplista",
         "log": {
             "copy-to-clipboard": "Kopiera loggen till urklipp/klippbord",
             "current-log": "Aktuell logg",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "Gå med i vår Discord, välj kanalen för ditt operativsystem. Dela loggfilerna som finns här, inkludera tydlig beskrivning av problemet och relevanta detaljer.",
+            "instructions_title": "Hur rapporterar jag problem?",
             "last-log": "Senaste logg",
             "no-file": "Ingen loggfil hittades",
             "show-in-folder": "Visa loggfiler i mapp"
@@ -290,7 +290,7 @@
             "placeholder": "Ange specifik sparfilsmapp",
             "title": "Synkroniseringsmapp för sparfiler"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "Välj tema",
         "showfps": "Visa FPS (DX9, 10 och 11)",
         "showUnrealMarket": "Visa Unreal Marketplace (kräver omstart)",
         "start-in-tray": "Starta minimerad",
@@ -307,7 +307,7 @@
             "long-log-hint": "Loggen avkortad , enbart senaste 1000 rader visas!"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "Avancerat",
             "general": "Allmänt",
             "log": "Logg",
             "other": "Övrigt",
@@ -345,7 +345,7 @@
         "reload": "Ladda om",
         "show": "Visa"
     },
-    "Unreal Marketplace": "Unreal marknadsplats",
+    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Logga ut",
