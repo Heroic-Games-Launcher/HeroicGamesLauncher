@@ -18,7 +18,8 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol
+  protocol,
+  screen
 } from 'electron'
 import './updater'
 import { autoUpdater } from 'electron-updater'
@@ -83,11 +84,13 @@ import {
   tsStore,
   weblateUrl,
   wikiLink,
-  heroicToolsPath
+  heroicToolsPath,
+  fontsStore
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
+import { getFonts } from 'font-list'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -116,13 +119,24 @@ async function createWindow(): Promise<BrowserWindow> {
     ) {
       windowProps = tmpWindowProps
     }
+  } else {
+    // make sure initial screen size is not bigger than the available screen space
+    const screenInfo = screen.getPrimaryDisplay()
+
+    if (screenInfo.workAreaSize.height > windowProps.height) {
+      windowProps.height = screenInfo.workAreaSize.height * 0.8
+    }
+
+    if (screenInfo.workAreaSize.width > windowProps.width) {
+      windowProps.width = screenInfo.workAreaSize.width * 0.8
+    }
   }
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
     ...windowProps,
-    minHeight: 650,
-    minWidth: 1100,
+    minHeight: 345,
+    minWidth: 600,
     show: !(exitToTray && startInTray),
     webPreferences: {
       webviewTag: true,
@@ -239,6 +253,21 @@ const contextMenu = () => {
   ])
 }
 
+const processZoomForScreen = (zoomFactor: number) => {
+  const screenSize = screen.getPrimaryDisplay().workAreaSize.width
+  if (screenSize < 1200) {
+    const extraDPIZoomIn = screenSize / 1200
+    return zoomFactor * extraDPIZoomIn
+  } else {
+    return zoomFactor
+  }
+}
+
+ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
+  const window = BrowserWindow.getAllWindows()[0]
+  window.webContents.setZoomFactor(processZoomForScreen(parseFloat(zoomFactor)))
+})
+
 if (!gotTheLock) {
   logInfo('Heroic is already running, quitting this instance')
   app.quit()
@@ -349,6 +378,14 @@ if (!gotTheLock) {
       const url = process.argv[1]
       handleProtocol(mainWindow, url)
     }
+
+    // set initial zoom level after a moment, if set in sync the value stays as 1
+    setTimeout(() => {
+      const zoomFactor =
+        parseFloat((configStore.get('zoomPercent') as string) || '100') / 100
+
+      mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
+    }, 200)
 
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
@@ -1321,6 +1358,16 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   if (inputEvents.length) {
     inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
   }
+})
+
+ipcMain.handle('getFonts', async (event, reload = false) => {
+  let cachedFonts = (fontsStore.get('fonts') as string[]) || []
+  if (cachedFonts.length === 0 || reload) {
+    cachedFonts = await getFonts()
+    cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))
+    fontsStore.set('fonts', cachedFonts)
+  }
+  return cachedFonts
 })
 
 /*

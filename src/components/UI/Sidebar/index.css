@@ -9,7 +9,7 @@
   grid-area: sidebar;
   height: 100%;
   padding: 0;
-  font-family: 'Rubik', sans-serif;
+  font-family: var(--actions-font-family);
   text-align: left;
   background: var(--navbar-background);
 }
@@ -18,7 +18,7 @@
   display: flex;
   width: 100%;
   height: fit-content;
-  font-family: 'Rubik', sans-serif;
+  font-family: var(--actions-font-family);
   flex-direction: column;
 }
 

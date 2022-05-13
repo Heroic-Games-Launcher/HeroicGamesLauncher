@@ -100,7 +100,7 @@
 }
 
 .gameInfo .summary {
-  font-family: Cabin;
+  font-family: var(--content-font-family);
   font-style: normal;
   font-weight: normal;
   margin-bottom: 16px;

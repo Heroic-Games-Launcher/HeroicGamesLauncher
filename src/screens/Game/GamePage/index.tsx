@@ -45,6 +45,7 @@ const { ipcRenderer } = window.require('electron') as {
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as { appName: string }
   const { t } = useTranslation('gamepage')
+  const { t: t2 } = useTranslation('translation')
 
   const [tabToShow, setTabToShow] = useState('infoTab')
   const [showModal, setShowModal] = useState({ game: '', show: false })
@@ -221,7 +222,11 @@ export default function GamePage(): JSX.Element | null {
         {title ? (
           <>
             <GamePicture art_square={art_square} store={runner} />
-            <NavLink className="backButton" to="/">
+            <NavLink
+              className="backButton"
+              to="/"
+              title={t2('webview.controls.back', 'Go Back')}
+            >
               <ArrowCircleLeftIcon />
             </NavLink>
             <div className="store-icon">

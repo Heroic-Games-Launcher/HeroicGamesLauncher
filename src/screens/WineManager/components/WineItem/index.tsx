@@ -138,6 +138,16 @@ const WineItem = ({
     }
   }
 
+  const mainIconTitle = () => {
+    if (isInstalled) {
+      return `Uninstall ${version}`
+    } else if (isDownloading || unZipping) {
+      return `Cancel ${version} installation`
+    } else {
+      return `Install ${version}`
+    }
+  }
+
   return (
     <div className="wineManagerListItem">
       <span className="wineManagerTitleList">{version}</span>
@@ -148,12 +158,13 @@ const WineItem = ({
           <SvgButton
             className="material-icons settings folder"
             onClick={() => openInstallDir()}
+            title={`Open containing folder for ${version}`}
           >
             <FolderOpen data-testid="setinstallpathbutton" />
           </SvgButton>
         )}
 
-        <SvgButton onClick={handleMainActionClick}>
+        <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
           {mainActionIcon()}
         </SvgButton>
       </span>
