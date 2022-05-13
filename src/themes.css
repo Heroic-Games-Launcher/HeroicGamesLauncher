@@ -1,5 +1,5 @@
-.App.dracula,
-.App.dracula-classic {
+body.dracula,
+body.dracula-classic {
   --accent: #bd93f9;
   --accent-overlay: #d5b8ff;
   --navbar-accent: #eae8e5;
@@ -27,8 +27,8 @@
   --danger: #ff5555;
 }
 
-.App.marine,
-.App.marine-classic {
+body.marine,
+body.marine-classic {
   --background: #042028;
   --body-background: #042028;
   --background-darker: #042028;
@@ -47,8 +47,8 @@
   --success: #98f2ff;
 }
 
-.App.zombie,
-.App.zombie-classic {
+body.zombie,
+body.zombie-classic {
   --accent: #77f33c;
   --accent-overlay: #99fd6a;
   --navbar-accent: var(--accent);
@@ -70,17 +70,17 @@
   --success: #1bd01a;
 }
 
-.App.zombie h3,
-.App.zombie-classic h3 {
+body.zombie h3,
+body.zombie-classic h3 {
   color: #f56200;
 }
 
-.App.zombie .downIcon > circle,
-.App.zombie-classic .downIcon > circle {
+body.zombie .downIcon > circle,
+body.zombie-classic .downIcon > circle {
   fill: #f56200;
 }
 
-.App.old-school {
+body.old-school {
   --accent: #ffa800;
   --accent-overlay: #ffc44f;
   --navbar-accent: #eae8e5;
@@ -102,9 +102,9 @@
   --success: #0bd48c;
 }
 
-.App.classic,
-.App.dracula-classic,
-.App.marine-classic,
-.App.zombie-classic {
+body.classic,
+body.dracula-classic,
+body.marine-classic,
+body.zombie-classic {
   --navbar-accent: var(--text-default);
 }
