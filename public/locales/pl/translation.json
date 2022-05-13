@@ -14,7 +14,7 @@
         },
         "choose": "Wybierz",
         "choose-egs-prefix": "Wybierz prefiks gdzie EGS jest zainstalowany",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Wybierz plik binarny GOGDL",
         "choose-legendary-binary": "Wybierz plik binarny Legendary",
         "customWine": "Wybierz plik binarny Wine lub Proton",
         "default-install-path": "Wybierz domyślną ścieżkę instalacyjną",
@@ -42,7 +42,7 @@
             },
             "title": "Error",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "Aktualizacja nie powiodła się, sprawdź logi lub spróbuj ponownie!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -52,12 +52,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Otwórz dziennik zmian",
+                "detail": "Czy chcesz pobrać aktualizację w tle?",
+                "message": "Nowa Wersja jest dostępna!",
+                "message-finished": "Czy chcesz zrestartować Heroic teraz?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Aktualizacja Zakończona"
             }
         },
         "no": "NIE",
@@ -105,7 +105,7 @@
         "yes": "TAK"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "Idź do Biblioteki",
         "login": "Zaloguj",
         "sync": "Synchronizuj",
         "syncing": "Synchronizacja",
@@ -116,14 +116,14 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "Ulubione",
     "globalSettings": "Ustawienia Globalne",
     "GOG": "GOG",
     "gog-store": "Sklep GOG",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
-        "platform": "",
-        "show_hidden": "Show Hidden"
+        "ignore_hidden": "Ignoruj Ukryte",
+        "platform": "Platforma",
+        "show_hidden": "Pokaż Ukryte"
     },
     "help": {
         "general": "Synchronizuj z EGS, gdy Epic Games Launcher jest zainstalowane w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
@@ -161,16 +161,16 @@
         "path": "Wybierz Ścieżkę Instalacji"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": "",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "gridView": "Widok Siatki",
+        "listView": "Widok Listy",
+        "refresh": "Odśwież",
+        "sortAscending": "Sortuj Rosnąco",
+        "sortByStatus": "Sortuj według Statusu",
+        "sortDescending": "Sortuj Malejąco"
     },
     "Library": "Biblioteka",
     "loading": {
-        "default": "",
+        "default": "Ładowanie",
         "website": "Ładowanie Strony"
     },
     "login": {
@@ -200,7 +200,7 @@
         "uninstalled": "Odinstalowane",
         "update": {
             "canceled": "Aktualizacja przerwana",
-            "finished": "Aktualizacja zakończona",
+            "finished": "Aktualizacja Zakończona",
             "started": "Aktualizacja Rozpoczęta"
         }
     },
@@ -215,19 +215,19 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
+        "gogdl-version": "Wersja GOGDL: ",
         "legendary-version": "Wersja Legendary: ",
         "weblate": "Pomóż przetłumaczyć Heroic."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-gogdl-bin": "Używanie wbudowanego pliku binarnego GOGDL...",
         "alt-legendary-bin": "Używanie wbudowanego pliku binarnego Legendary...",
         "egs-prefix": "Prefiks instalacji EGS"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Rozszerzenia",
     "Projects": "Projekty",
@@ -236,8 +236,8 @@
     "setting": {
         "adddesktopshortcuts": "Dodawaj automatycznie skróty na pulpicie",
         "addgamestostartmenu": "Dodawaj automatycznie gry do menu startowego",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Wybierz alternatywny plik binarny Legendary (wymaga restartu)",
+        "alt-gogdl-bin": "Wybierz Alternatywny plik binarny GOGDL",
+        "alt-legendary-bin": "Wybierz alternatywny plik binarny Legendary",
         "audiofix": "Poprawa audio (Opóźnienie Pulse Audio)",
         "autodxvk": "Automatycznie instaluj / aktualizuj DXVK w Prefiksie Wine",
         "autosync": "Autosynchronizacja zapisów",
@@ -247,9 +247,9 @@
         "darktray": "Użyj ciemnego motywu ikony",
         "default-install-path": "Domyślna ścieżka instalacyjna",
         "defaultWinePrefix": "Ustaw Folder dla nowych Prefiksów Wine",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "Wyłącz nawigację Heroic przy użyciu kontrolera",
         "discordRPC": "Włącz Discord Rich Presence",
-        "egs-sync": "Synchronizuj zapisy gier z Epic Games Store",
+        "egs-sync": "Synchronizuj z zainstalowanym Epic Games",
         "enableFSRHack": "Włącz FSR Hack (Wersja Wine musi to wspierać)",
         "esync": "Włącz Esync",
         "exit-to-tray": "Wyjście do tacki systemowej",
@@ -258,16 +258,16 @@
         "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
         "language": "Wybierz język",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "Wyłączone",
+            "favourites": "Ulubione Gry",
+            "recently_played": "Ostatnio Uruchamiane Gry"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "Górna Sekcja Biblioteki",
         "log": {
             "copy-to-clipboard": "Skopiuj zawartość logu do schowka",
             "current-log": "Obecny Log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "Dołącz do nasz serwer Discord i poszukaj kanału, który pasuje do Twojego systemu operacyjnego. Udostępnij treść wyświetlanych logów i dołącz jasny opis problemu wraz z wszelkimi istotnymi informacjami i szczegółami.",
+            "instructions_title": "Jak zgłosić problem?",
             "last-log": "Ostatni Log",
             "no-file": "Plik logu nie znaleziony",
             "show-in-folder": "Pokaż plik logu w folderze"
@@ -284,7 +284,7 @@
         },
         "maxRecentGames": "Ostatnio Grane do Pokazania",
         "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "Minimalizuj Heroic Po Uruchomieniu Gry",
         "offlinemode": "Uruchom grę w trybie offline",
         "primerun": "Włącz renderowanie Nvidia Prime",
         "resizableBar": "Włącz Resizable BAR (Tylko dla kart NVIDIA RTX)",
@@ -296,7 +296,7 @@
             "placeholder": "Wybierz dokładny folder zapisu",
             "title": "Pomiń synchronizację z chmurą"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "Wybierz Motyw",
         "showfps": "Pokaż FPS (DX9, 10 and 11)",
         "showUnrealMarket": "Pokaż Unreal Marketplace (wymaga restartu)",
         "start-in-tray": "Uruchom zminimalizowany",
@@ -313,7 +313,7 @@
             "long-log-hint": "Log skrócony, wyświetlam ostatnie 1000 linijek!"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "Zaawansowane",
             "general": "Główne",
             "log": "Log",
             "other": "Inne",
@@ -361,10 +361,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Wstecz",
+            "forward": "Naprzód",
+            "openInBrowser": "Otwórz w przeglądarce",
+            "reload": "Odśwież stronę"
         }
     },
     "wiki": "Wiki",

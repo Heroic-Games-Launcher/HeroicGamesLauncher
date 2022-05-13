@@ -36,14 +36,14 @@
         "yes": "TAK"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Dodaj Do Ulubionych",
         "cancel": "Wstrzymaj/Anuluj",
         "continue": "Kontynuuj pobieranie",
-        "hide_game": "Hide Game",
+        "hide_game": "Ukryj Grę",
         "import": "Importuj Grę",
         "install": "Instaluj",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Usuń Z Ulubionych",
+        "unhide_game": "Odkryj Grę",
         "uninstall": "Odinstaluj",
         "update": "Update"
     },
@@ -59,7 +59,7 @@
         "language": "Język",
         "lastPlayed": "Ostatnia Gra",
         "neverPlayed": "Nigdy",
-        "platform": "Select Platform Version to Install",
+        "platform": "Wybierz Wersję Platformy do Instalacji",
         "totalPlayed": "Czas Gry"
     },
     "gamecard": {
@@ -68,17 +68,17 @@
     },
     "info": {
         "canRunOffline": "Wymagane Online",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "Zainstalowana Platforma",
         "path": "Ścieżka instalacyjna",
         "size": "Rozmiar",
         "syncsaves": "Synchronizuj zapisy gry",
         "version": "Wersja"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Pozostałe Miejsce na Urządzeniu",
         "path": "Wybierz Ścieżkę Instalacji",
         "wineprefix": "Prefiks Wine",
-        "wineversion": ""
+        "wineversion": "Wersja Wine"
     },
     "label": {
         "playing": {
@@ -92,7 +92,7 @@
     "launch": {
         "options": "Opcje Uruchamiania..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Zgłoś problem z uruchamianiem tej gry",
     "sdl": {
         "title": "Wybierz komponenty do Instalacji"
     },
