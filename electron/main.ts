@@ -485,8 +485,8 @@ interface Tools {
 ipcMain.handle(
   'callTool',
   async (event, { tool, wine, prefix, exe }: Tools) => {
-    const newProtonWinePath = wine.replace("proton'", "files/bin/wine64'")
-    const oldProtonWinePath = wine.replace("proton'", "dist/bin/wine64'")
+    const newProtonWinePath = wine.replace('proton', 'files/bin/wine64')
+    const oldProtonWinePath = wine.replace('proton', 'dist/bin/wine64')
     const isProton = wine.includes('proton')
     const winetricks = `${heroicToolsPath}/winetricks`
     const options: ExecOptions = {
@@ -497,7 +497,7 @@ ipcMain.handle(
     const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
       ? newProtonWinePath
       : oldProtonWinePath
-    let wineBin = isProton ? protonWinePath : wine
+    let wineBin = isProton ? `'${protonWinePath}'` : wine
     let winePrefix = prefix.replace('~', userHome)
 
     if (wine.includes('proton')) {
@@ -519,7 +519,7 @@ ipcMain.handle(
     }
 
     let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${
-      tool === 'winecfg' ? `${wineBin} ${tool}` : winetricks
+      tool === 'winecfg' ? `${wineBin} ${tool}` : `${winetricks} -q`
     }`
 
     if (tool === 'runExe') {
@@ -529,8 +529,10 @@ ipcMain.handle(
 
     logInfo(['trying to run', command], LogPrefix.Backend)
     try {
-      await execAsync(command, options)
+      const { stderr, stdout } = await execAsync(command, options)
+      logInfo(`Output: ${stderr} \n ${stdout}`)
     } catch (error) {
+      logError(`${error}`)
       logError(
         `Something went wrong! Check if ${tool} is available and ${wineBin} exists`,
         LogPrefix.Backend
