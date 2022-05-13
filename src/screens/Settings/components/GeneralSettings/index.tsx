@@ -425,7 +425,6 @@ export default function GeneralSettings({
           <option value="classic">Classic</option>
           <option value="old-school">Old School Heroic</option>
           <option value="dracula">Dracula</option>
-          <option value="dracula-classic">Dracula Classic</option>
           <option value="marine">Marine</option>
           <option value="marine-classic">Marine Classic</option>
           <option value="zombie">Zombie</option>

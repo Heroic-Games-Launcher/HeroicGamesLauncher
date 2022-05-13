@@ -3,12 +3,12 @@
 }
 
 .smallTitle {
-  font-size: 11px;
-  color: var(--text-secondary);
+  font-size: 14px;
+  color: var(--text-default);
 }
 
 .smallSubtitle {
-  font-size: 12px;
+  font-size: 15px;
   color: var(--text-default);
 }
 
