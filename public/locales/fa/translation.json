@@ -1,4 +1,10 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "همه",
     "Assets": "دارایی ها",
     "box": {
@@ -155,9 +161,9 @@
         "path": "انتخاب محل نصب"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": "",
+        "gridView": "نمای شبکه‌ای",
+        "listView": "نمای لیستی",
+        "refresh": "تازه کردن",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending"
@@ -194,7 +200,7 @@
         "uninstalled": "حذف شد",
         "update": {
             "canceled": "بهروزرسانی لغو شد",
-            "finished": "آپدیتها به پایان رسیدند",
+            "finished": "آپدیت به پایان رسید",
             "started": "بهروزرسانی آغاز شد"
         }
     },

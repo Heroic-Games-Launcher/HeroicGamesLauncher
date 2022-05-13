@@ -10,13 +10,20 @@ import Library from './screens/Library'
 import WineManager from './screens/WineManager'
 import Sidebar from 'src/components/UI/Sidebar'
 import Settings from './screens/Settings'
+import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
 
 function App() {
-  const { theme } = useContext(ContextProvider)
+  const { theme, contentFontFamily, actionsFontFamily } =
+    useContext(ContextProvider)
+
+  const style = {
+    '--content-font-family': contentFontFamily,
+    '--actions-font-family': actionsFontFamily
+  } as React.CSSProperties
 
   return (
-    <div className={`App ${theme}`}>
+    <div className={`App ${theme}`} style={style}>
       <HashRouter>
         <Sidebar />
         <main className="content">
@@ -39,6 +46,7 @@ function App() {
               </Route>
             </Route>
             <Route path="/wine-manager" element={<WineManager />} />
+            <Route path="/accessibility" element={<Accessibility />} />
           </Routes>
         </main>
       </HashRouter>
