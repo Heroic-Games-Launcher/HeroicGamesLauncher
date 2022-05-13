@@ -1,6 +1,7 @@
 .App.dracula,
 .App.dracula-classic {
   --accent: #bd93f9;
+  --accent-overlay: #d5b8ff;
   --navbar-accent: #eae8e5;
   --background: #090b1c;
   --body-background: #282a35;
@@ -49,6 +50,7 @@
 .App.zombie,
 .App.zombie-classic {
   --accent: #77f33c;
+  --accent-overlay: #99fd6a;
   --navbar-accent: var(--accent);
   --background: #1d1f1f;
   --body-background: #1d1f1f;
@@ -80,6 +82,7 @@
 
 .App.old-school {
   --accent: #ffa800;
+  --accent-overlay: #ffc44f;
   --navbar-accent: #eae8e5;
   --background: #1d1f1f;
   --body-background: #1d1f1f;
