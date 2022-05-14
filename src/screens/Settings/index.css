@@ -119,6 +119,10 @@
   transform: scale(1.5);
 }
 
+.settingSelect {
+  max-width: 501px;
+}
+
 .settingSelect.small {
   width: clamp(150px, 10rem, 372px);
 }

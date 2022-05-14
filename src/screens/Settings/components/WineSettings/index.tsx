@@ -6,7 +6,8 @@ import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
 
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import ContextProvider from 'src/state/ContextProvider'
-import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
+import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
+
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import classNames from 'classnames'
 import { Tooltip } from '@mui/material'
@@ -146,7 +147,7 @@ export default function WineSettings({
                   )
               }
             >
-              <CreateNewFolder
+              <FolderOpenOutlinedIcon
                 data-testid="addWinePrefix"
                 titleAccess={t(
                   'toolbox.settings.wineprefix',
@@ -184,7 +185,7 @@ export default function WineSettings({
                   )
               }
             >
-              <CreateNewFolder
+              <FolderOpenOutlinedIcon
                 data-testid="addWinePrefix"
                 titleAccess={t(
                   'toolbox.settings.default-wineprefix',

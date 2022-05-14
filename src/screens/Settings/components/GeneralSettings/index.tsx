@@ -10,7 +10,7 @@ import classNames from 'classnames'
 
 import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
-import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
+import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
 import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 
@@ -200,7 +200,7 @@ export default function GeneralSettings({
             }
             className="material-icons settings folder"
           >
-            <CreateNewFolder data-testid="setinstallpathbutton" />
+            <FolderOpenOutlinedIcon data-testid="setinstallpathbutton" />
           </SvgButton>
         </span>
       </span>
@@ -224,7 +224,7 @@ export default function GeneralSettings({
                 onClick={() => handleEgsFolder()}
                 className="material-icons settings folder"
               >
-                <CreateNewFolder
+                <FolderOpenOutlinedIcon
                   data-testid="setEpicSyncPathButton"
                   style={{ color: isLinked ? 'transparent' : 'currentColor' }}
                 />
