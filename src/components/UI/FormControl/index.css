@@ -93,6 +93,10 @@
   border-bottom-right-radius: 0;
 }
 
+.FormControl--segmented > button > svg {
+  display: block;
+}
+
 .FormControl__segmentedFaIcon {
   font-size: 20px;
   outline: none;

@@ -1,28 +1,12 @@
-import Store from 'electron-store'
+import { ExecResult } from './../types'
 import {
   existsSync,
-  readdirSync,
   readFileSync,
+  readdirSync,
   writeFileSync
 } from 'graceful-fs'
-import prettyBytes from 'pretty-bytes'
-import { GlobalConfig } from '../config'
-import {
-  fallBackImage,
-  installed,
-  legendaryConfigPath,
-  libraryPath
-} from '../constants'
+
 import { GameConfig } from '../game_config'
-import {
-  logDebug,
-  logError,
-  logInfo,
-  LogPrefix,
-  logWarning
-} from '../logger/logger'
-import { progressService, ProgressStatus } from '../progress'
-import { AppendToFileCollector } from '../shared/command'
 import {
   GameInfo,
   InstalledInfo,
@@ -30,21 +14,35 @@ import {
   KeyImage,
   RawGameJSON
 } from '../types'
-import { isEpicServiceOffline, isOnline, formatEpicStoreUrl } from '../utils'
-import { ExecResult } from './../types'
-import { LegendaryProgressCollector, LegendaryRunCommand } from './command'
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
-
-const libraryStore = new Store({
-  cwd: 'lib-cache',
-  name: 'library'
-})
-
-const installStore = new Store({
-  cwd: 'lib-cache',
-  name: 'installInfo'
-})
+import {
+  formatEpicStoreUrl,
+  getLegendaryBin,
+  isEpicServiceOffline,
+  isOnline,
+  getFileSize
+} from '../utils'
+import {
+  fallBackImage,
+  installed,
+  legendaryConfigPath,
+  libraryPath
+} from '../constants'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from '../logger/logger'
+import { GlobalConfig } from '../config'
+import { join } from 'path'
+import { installStore, libraryStore } from './electronStores'
+import {
+  getLegendaryOrGogdlCommand,
+  runLegendaryOrGogdlCommand
+} from '../launcher'
 
 /**
  * Legendary LegendaryLibrary.
@@ -159,13 +157,8 @@ export class LegendaryLibrary {
     } catch (error) {
       logError(`${error}`, LogPrefix.Legendary)
     }
-    const arr = Array.from(this.library.values()).sort(
-      (a: { title: string }, b: { title: string }) => {
-        const gameA = a.title.toUpperCase().replace('THE ', '')
-        const gameB = b.title.toUpperCase().replace('THE ', '')
-        return gameA < gameB ? -1 : 1
-      }
-    )
+    const arr = Array.from(this.library.values())
+
     if (format === 'info') {
       if (libraryStore.has('library')) {
         libraryStore.delete('library')
@@ -186,7 +179,7 @@ export class LegendaryLibrary {
    * @param appName
    * @returns GameInfo
    */
-  public async getGameInfo(appName: string) {
+  public getGameInfo(appName: string) {
     const info = this.library.get(appName)
     if (info === undefined) {
       return null
@@ -202,7 +195,10 @@ export class LegendaryLibrary {
   /**
    * Get game info for a particular game.
    */
-  public async getInstallInfo(appName: string): Promise<InstallInfo> {
+  public async getInstallInfo(
+    appName: string,
+    installPlatform = 'Windows'
+  ): Promise<InstallInfo> {
     const cache = installStore.get(appName) as InstallInfo
     if (cache) {
       logDebug('Using cached install info', LogPrefix.Legendary)
@@ -210,11 +206,12 @@ export class LegendaryLibrary {
     }
 
     logInfo(`Getting more details with 'legendary info'`, LogPrefix.Legendary)
-
     const res = await runLegendaryCommand([
       '--pretty-json',
       'info',
       appName,
+      '--platform',
+      installPlatform,
       '--json',
       (await isEpicServiceOffline()) ? '--offline' : ''
     ])
@@ -236,8 +233,7 @@ export class LegendaryLibrary {
   public async listUpdateableGames() {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
 
-    const online = await isOnline()
-    if (!isLoggedIn || !online) {
+    if (!isLoggedIn || !isOnline()) {
       return []
     }
     const epicOffline = await isEpicServiceOffline()
@@ -283,7 +279,7 @@ export class LegendaryLibrary {
       await Promise.allSettled(
         (await this.listUpdateableGames())
           .map(LegendaryGame.get)
-          .map((game) => game.update())
+          .map(async (game) => game.update())
       )
     ).map((res) => {
       if (res.status === 'fulfilled') {
@@ -383,11 +379,11 @@ export class LegendaryLibrary {
     let is_ue_plugin = false
     if (categories) {
       categories.forEach((c: { path: string }) => {
-        if (c.path == 'projects') {
+        if (c.path === 'projects') {
           is_ue_project = true
-        } else if (c.path == 'assets') {
+        } else if (c.path === 'assets') {
           is_ue_asset = true
-        } else if (c.path == 'plugins') {
+        } else if (c.path === 'plugins') {
           is_ue_plugin = true
         }
       })
@@ -395,7 +391,7 @@ export class LegendaryLibrary {
 
     let compatible_apps: string[] = []
     releaseInfo.forEach((rI: { appId: string; compatibleApps: string[] }) => {
-      if (rI.appId == app_name) {
+      if (rI.appId === app_name) {
         compatible_apps = rI.compatibleApps
       }
     })
@@ -443,7 +439,7 @@ export class LegendaryLibrary {
       ).length || dlcs.includes(app_name)
     } = (info === undefined ? {} : info) as InstalledInfo
 
-    const convertedSize = install_size && prettyBytes(Number(install_size))
+    const convertedSize = install_size && getFileSize(Number(install_size))
 
     this.library.set(app_name, {
       app_name,
@@ -545,37 +541,34 @@ export class LegendaryLibrary {
   }
 }
 
-export function getLegendaryCommand(commandParts: string[]) {
-  return LegendaryRunCommand.getExecutor().getCommand(commandParts)
+export async function runLegendaryCommand(
+  commandParts: string[],
+  options?: {
+    logFile?: string
+    env?: Record<string, string>
+    wrappers?: string[]
+    onOutput?: (output: string) => void
+  }
+): Promise<ExecResult> {
+  const { dir, bin } = getLegendaryBin()
+  return runLegendaryOrGogdlCommand(
+    commandParts,
+    { name: 'Legendary', logPrefix: LogPrefix.Legendary, bin, dir },
+    options
+  )
 }
 
-export function runLegendaryCommand(
-  commandParts: Array<string>,
-  logFile?: string,
-  env?: Record<string, string>,
-  appName?: string,
-  action?: ProgressStatus['action'],
-  previousProgress?: number
-): Promise<ExecResult> {
-  const collectors = []
-  if (logFile) {
-    collectors.push(new AppendToFileCollector(logFile, LogPrefix.Legendary))
-  }
-  if (appName && action) {
-    collectors.push(
-      new LegendaryProgressCollector(
-        (progress) =>
-          progressService.reportProgressStatus(appName, {
-            ...progress,
-            action
-          }),
-        previousProgress
-      )
-    )
-  }
-  progressService.clearProgressStatus(appName, action)
-  return LegendaryRunCommand.getExecutor().run(commandParts, {
-    collectors,
-    env
-  })
+/**
+ * Generates a legendary command **for formatting**.
+ * Commands generated by this function are not ment to be ran directly, use runLegendaryCommand for that.
+ * @param commandParts The command to run, e. g. 'list', 'egl-sync'...
+ * @returns The full command as a string
+ */
+export function getLegendaryCommand(
+  commandParts: string[],
+  env: Record<string, string> = {},
+  wrappers: string[] = []
+): string {
+  const legendaryPath = join(...Object.values(getLegendaryBin()))
+  return getLegendaryOrGogdlCommand(commandParts, env, wrappers, legendaryPath)
 }

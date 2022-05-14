@@ -36,10 +36,14 @@
         "yes": "ТАК"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Призупинити/Скасувати",
         "continue": "Продовжити завантаження",
+        "hide_game": "Hide Game",
         "import": "Імпортувати гру",
         "install": "Встановити",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "Видалити",
         "update": "Оновити"
     },
@@ -55,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Востаннє зіграно",
         "neverPlayed": "Ніколи",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Зіграно часу"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Чи потрібно бути в мережі",
+        "installedPlatform": "Installed Platform",
         "path": "Шлях встановлення",
         "size": "Розмір",
         "syncsaves": "Синхронізувати збереження",
         "version": "Версія"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Вкажіть шлях встановлення",
         "wineprefix": "Префікс Wine",
         "wineversion": ""
@@ -85,6 +92,7 @@
     "launch": {
         "options": "Параметри запуску..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Оберіть компоненти для встановлення"
     },

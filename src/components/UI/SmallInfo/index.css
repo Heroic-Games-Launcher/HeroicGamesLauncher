@@ -3,21 +3,21 @@
 }
 
 .smallTitle {
-  font-size: 11px;
-  color: var(--text-secondary);
+  font-size: 14px;
+  color: var(--text-default);
 }
 
 .smallSubtitle {
-  font-size: 12px;
+  font-size: 15px;
   color: var(--text-default);
 }
 
 .clickable {
-  color: var(--text-default);
+  color: var(--accent);
   cursor: pointer;
+  transition: 400ms;
 }
 
 .clickable:hover {
-  color: var(--link-highlight);
-  transition: 300ms;
+  color: var(--accent-overlay);
 }

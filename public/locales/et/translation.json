@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Kõik",
     "Assets": "Varamu",
     "box": {
-        "appupdate": {
-            "message": "Heroic'u uus versioon on saadaval. Kas soovite uuendada kohe?",
-            "title": "Uuendus saadaval"
-        },
         "cache-cleared": {
             "message": "Heroic-u vahemälu puhastati.",
             "title": "Vahemälu puhastati"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D viga"
             },
             "generic": {
-                "message": "Tekkinud on tundmatu viga",
-                "title": "Tundmatu viga"
+                "message": "",
+                "title": ""
             },
             "launch": "Viga mängu käivitamisel, kontrollige logisid!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Võrguühenduseta režiim ei ole toetatud."
             },
             "title": "Viga",
+            "update": {
+                "message": "Midagi läks uuendusega valesti, palun kontrollige logisid või proovige hiljem uuesti!",
+                "title": "Viga uuendamisel"
+            },
             "wine-not-found": {
-                "message": "Wine-i versiooni pole valitud. Kontrolli mängu seadeid!",
-                "title": "Wine-i ei leitud"
+                "message": "Wine'i versiooni pole valitud. Kontrolli mängu seadeid!",
+                "title": "Wine'i ei leitud"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Ava muudatuste logi",
+                "detail": "Kas soovite uuenduse taustal alla laadida?",
+                "message": "Saadaval on uus versioon!",
+                "message-finished": "Kas soovite Heroicu nüüd taaskäivitada?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Uuendus lõpetatud"
             }
         },
         "no": "EI",
@@ -89,26 +105,25 @@
         "yes": "JAH"
     },
     "button": {
-        "continue": "Jätka",
+        "go_to_library": "Mine teeki",
         "login": "Logi sisse",
         "sync": "Sünkrooni",
         "syncing": "Sünkroonimine",
         "unsync": "Mittesünkroniseerimine"
     },
-    "Downloading": "Allalaadimine",
     "epic": {
         "offline-notification-body": "Võrguteenused ei pruugi täielikult töötada, kuna Epic Gamesi serverid on võrguühenduseta!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Filtreerimata"
-    },
+    "favourites": "Lemmikud",
     "globalSettings": "Globaalsed seaded",
     "GOG": "GOG",
     "gog-store": "GOG Pood",
     "header": {
-        "platform": "Platvorm"
+        "ignore_hidden": "Ignoreeri peidetud",
+        "platform": "Platvorm",
+        "show_hidden": "Näita peidetud"
     },
     "help": {
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Seaded salvestatakse automaatselt"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "Ruudustikvaade",
         "listView": "Loendivaade",
-        "refresh": "Värskenda"
+        "refresh": "Värskenda",
+        "sortAscending": "Järjesta kasvavalt",
+        "sortByStatus": "Järjesta staatuse järgi",
+        "sortDescending": "Järjesta kahanevalt"
     },
     "Library": "Varamu",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Mittesünkroniseerimine lõpetatud"
     },
     "nogames": "Mänge ei leitud",
-    "Not Ready": "Pole valmis",
     "notify": {
         "error": {
             "move": "Viga mängu liigutamisel",
@@ -180,7 +200,7 @@
         "uninstalled": "Eemaldatud",
         "update": {
             "canceled": "Uuendatud tühistatud",
-            "finished": "Uuendatud lõpetatud",
+            "finished": "Uuendus lõpetatud",
             "started": "Uuendamine algas"
         }
     },
@@ -211,7 +231,6 @@
     },
     "Plugins": "Pluginad",
     "Projects": "Projektid",
-    "Ready": "Valmis",
     "Recent": "Hiljuti mängitud",
     "search": "Sisestage mängu nimi siia...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Automaatne salvestiste sünkroonimine",
         "autovkd3d": "VKD3D automaatne paigaldamine/uuendamine prefiksile",
         "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
-        "checkForUpdatesOnStartup": "Uuenduste kontrollimine käivitamisel",
         "customWineProton": "Kohandatud Wine/Proton teed",
         "darktray": "Kasuta tumedat süsteemiriiuli ikooni",
         "default-install-path": "Vaikimisi paigaldustee",
         "defaultWinePrefix": "Määrake uute Wine'i prefikside jaoks kaust",
+        "disable_controller": "Keela Heroic'u mängupuldiga navigeerimine",
         "discordRPC": "Luba Discord Rich Presence",
         "egs-sync": "Sünkroonimine paigaldatud Epic Games'iga",
         "enableFSRHack": "Luba FSR häkk (Wine'i versioon peab seda toetama)",
@@ -238,9 +257,17 @@
         "fsync": "Luba Fsync",
         "gamemode": "Kasuta GameMode'i (Feral Game Mode peab olema paigaldatud)",
         "language": "Valige rakenduse keel",
+        "library_top_option": {
+            "disabled": "Keelatud",
+            "favourites": "Lemmikmängud",
+            "recently_played": "Hiljuti mängitud mängud"
+        },
+        "library_top_section": "Teegi ülemine osa",
         "log": {
             "copy-to-clipboard": "Kopeeri logi sisu lõikelauale",
             "current-log": "Praegune logi",
+            "instructions": "Liitu meie Discordiga ja otsi oma operatsioonisüsteemile vastav kanal. Jagage siin kuvatavate logide sisu ja lisage probleemi selge kirjeldus koos kõigi asjakohaste andmete ja üksikasjadega.",
+            "instructions_title": "Kuidas teatada probleemist?",
             "last-log": "Viimane logi",
             "no-file": "Logifaili ei leitud",
             "show-in-folder": "Kuva logifail kaustas"
@@ -269,6 +296,7 @@
             "placeholder": "Valige täpne mängude salvestiste kaust",
             "title": "Asenda salvestuse pilvesünkroonkaust"
         },
+        "select_theme": "Valige teema",
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
         "showUnrealMarket": "Näita Unreal Marketplace'i (vajab taaskäivitamist)",
         "start-in-tray": "Käivita minimeeritult",
@@ -285,6 +313,7 @@
             "long-log-hint": "Logi on kärbitud, näidatakse viimased 1000 rida!"
         },
         "navbar": {
+            "advanced": "Täpsem",
             "general": "Üldine",
             "log": "Logi",
             "other": "Muu",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "Kõik mängud",
         "allUnreal": "Unreal - Kõik",
-        "downloading": "Allalaadimine",
-        "installedGames": "Paigaldatud mängud",
-        "notInstalledGames": "Pole installitud",
         "unrealAssets": "Unreal - varamu",
         "unrealPlugins": "Unreal - pluginad",
-        "unrealProjects": "Unreal - Projektid",
-        "updates": "Ootel olevad uuendused"
+        "unrealProjects": "Unreal - Projektid"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Näita"
     },
     "Unreal Marketplace": "Unreal'i Marketplace",
-    "Updates": "Uuendused",
     "userselector": {
         "discord": "Discord",
         "logout": "Logi välja",

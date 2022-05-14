@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Tất cả",
     "Assets": "Asset",
     "box": {
-        "appupdate": {
-            "message": "Heroic có phiên bản mới, bạn có muốn cập nhật không?",
-            "title": "Có thể cập nhật"
-        },
         "cache-cleared": {
             "message": "Đã xoá bộ nhớ đệm của Heroic.",
             "title": "Đã xoá bộ nhớ đệm"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D lỗi"
             },
             "generic": {
-                "message": "Lỗi chưa xác định",
-                "title": "Lỗi chưa xác định"
+                "message": "",
+                "title": ""
             },
             "launch": "Lỗi khi khởi chạy game, vui lòng kiểm tra log!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Không hỗ trợ chế độ offline."
             },
             "title": "Lỗi",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Chưa chọn phiên bản Wine. Kiểm tra phần cài đặt!",
                 "title": "Không tìm thấy Wine"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "Không",
@@ -89,26 +105,25 @@
         "yes": "Có"
     },
     "button": {
-        "continue": "Tiếp tục",
+        "go_to_library": "Go to Library",
         "login": "Đăng nhập",
         "sync": "Đồng bộ",
         "syncing": "Đang đồng bộ",
         "unsync": "Hủy đồng bộ"
     },
-    "Downloading": "Đang tải",
     "epic": {
         "offline-notification-body": "Các dịch vụ trực tuyến có thể không hoạt động đầy đủ vì máy chủ của Epic Games đang ngoại tuyến!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Game",
-    "filter": {
-        "noFilter": "Không lọc"
-    },
+    "favourites": "Favourites",
     "globalSettings": "Cài đặt chung",
     "GOG": "GOG",
     "gog-store": "Cửa hàng GOG",
     "header": {
-        "platform": "Nền tảng"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Nền tảng",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Đồng bộ với EGL nếu bạn đang cài Epic Games Launcher trên máy và muốn import game của mình để không phải tải lại.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Cài đặt được tự đông lưu"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "Hiển thị dạng ô",
         "listView": "Hiển thị dạng danh sánh",
-        "refresh": "Tải lại"
+        "refresh": "Tải lại",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Thư viện",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Hoàn tất quá trình hủy đồng bộ"
     },
     "nogames": "Không tìm thấy game nào",
-    "Not Ready": "Chưa sẵn sàng",
     "notify": {
         "error": {
             "move": "Gặp lỗi khi di chuyển game",
@@ -211,7 +231,6 @@
     },
     "Plugins": "Plugin",
     "Projects": "Project",
-    "Ready": "Sẵn sàng",
     "Recent": "Chơi gần đây",
     "search": "Nhập tên game ở đây...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Tự động đồng bộ bản sao lưu",
         "autovkd3d": "Tự động cài đặt/cập nhật DXVK trên prefix",
         "change-target-exe": "Chọn một EXE thay thế để chạy",
-        "checkForUpdatesOnStartup": "Kiểm tra cập nhật khi khởi động",
         "customWineProton": "Đường dẫn Wine/Proton tùy chọn",
         "darktray": "Sử dụng icon tối",
         "default-install-path": "Thư mục cài mặc định",
         "defaultWinePrefix": "Đặt thư mục cho prefix mới của Wine",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Bật tính năng Discord Rich Presence",
         "egs-sync": "Đồng bộ với Game Epic đã cài",
         "enableFSRHack": "Bật tính năng FSR hack (Phiên bản Wine cần hỗ trợ tính năng này)",
@@ -238,9 +257,17 @@
         "fsync": "Bật Fsync",
         "gamemode": "Sử dụng GameMode (Cần cài đặt Feral Game Mode)",
         "language": "Chọn ngôn ngữ của ứng dụng",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Sao chép nội dung log vào bộ nhớ tạm",
             "current-log": "Log hiện tại",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Log lần trước",
             "no-file": "Không tìm thấy file log",
             "show-in-folder": "Hiển thị file log trong thư mục"
@@ -269,6 +296,7 @@
             "placeholder": "Chọn chính xác thư mục lưu game",
             "title": "Ghi đè thư mục Lưu đồng bộ đám mây"
         },
+        "select_theme": "Select Theme",
         "showfps": "Hiển thị FPS (DX9, 10 và 11)",
         "showUnrealMarket": "Hiển thị Unreal Marketplace (cần khởi động lại)",
         "start-in-tray": "Thu nhỏ khi khởi động",
@@ -285,6 +313,7 @@
             "long-log-hint": "Log bị cắt ngắn, hiển thị 1000 dòng cuối!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Tổng quan",
             "log": "Log",
             "other": "Khác",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "Tất cả game",
         "allUnreal": "Unreal - Tất cả",
-        "downloading": "Đang tải",
-        "installedGames": "Game đã cài",
-        "notInstalledGames": "Chưa cài",
         "unrealAssets": "Unreal - Asset",
         "unrealPlugins": "Unreal - Plugin",
-        "unrealProjects": "Unreal - Project",
-        "updates": "Đang chờ cập nhật"
+        "unrealProjects": "Unreal - Project"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Hiển thị"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Cập nhật",
     "userselector": {
         "discord": "Discord",
         "logout": "Đăng xuất",

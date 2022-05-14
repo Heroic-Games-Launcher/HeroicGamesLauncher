@@ -16,6 +16,7 @@ export interface AppSettings {
   customWinePaths: Array<string>
   darkTrayIcon: boolean
   defaultInstallPath: string
+  disableController: boolean
   discordRPC: boolean
   egsLinkedPath: string
   exitToTray: boolean
@@ -66,12 +67,39 @@ export interface ContextType {
   handleSearch: (input: string) => void
   layout: string
   libraryStatus: GameStatus[]
+  libraryTopSection: string
+  handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
   platform: NodeJS.Platform | string
   refresh: (checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
+  hiddenGames: {
+    list: HiddenGame[]
+    add: (appNameToHide: string, appTitle: string) => void
+    remove: (appNameToUnhide: string) => void
+  }
+  favouriteGames: {
+    list: HiddenGame[]
+    add: (appNameToAdd: string, appTitle: string) => void
+    remove: (appNameToRemove: string) => void
+  }
+  showHidden: boolean
+  setShowHidden: (value: boolean) => void
+  theme: string
+  setTheme: (themeName: string) => void
+  zoomPercent: number
+  setZoomPercent: (newZoomPercent: number) => void
+  contentFontFamily: string
+  setContentFontFamily: (newFontFamily: string) => void
+  actionsFontFamily: string
+  setActionsFontFamily: (newFontFamily: string) => void
 }
+
+export type LibraryTopSectionOptions =
+  | 'disabled'
+  | 'recently_played'
+  | 'favourites'
 
 interface ExtraInfo {
   about: About
@@ -103,6 +131,13 @@ export interface GameInfo {
   title: string
   canRunOffline: boolean
 }
+
+export interface HiddenGame {
+  appName: string
+  title: string
+}
+
+export type FavouriteGame = HiddenGame
 
 export interface GameSettings {
   audioFix: boolean
@@ -169,7 +204,7 @@ export interface InstallInfo {
 
 export interface GameStatus {
   appName: string
-  progress?: string
+  progress?: InstallProgress
   folder?: string
   runner?: Runner
   status:
@@ -186,18 +221,12 @@ export interface GameStatus {
     | 'error'
 }
 
-export interface SavedInstallProgress {
-  folder?: string
-  percent?: number
-}
-
 export interface InstallProgress {
-  timestamp: number
   bytes: string
-  eta: number
-  percent: number
+  eta: string
+  folder?: string
+  percent: string
 }
-
 export interface InstalledInfo {
   executable: string | null
   install_path: string | null
@@ -266,7 +295,7 @@ export type ElWebview = {
   findInPage: (text: string | RegExp) => void
 }
 
-export type Webview = HTMLWebViewElement & ElWebview
+export type WebviewType = HTMLWebViewElement & ElWebview
 
 export interface GOGGameInfo {
   tags: string[]
@@ -309,3 +338,4 @@ export interface GamepadActionStatus {
 }
 
 export type Runner = 'legendary' | 'gog' | 'heroic'
+export type PlatformToInstall = 'Windows' | 'Mac' | 'Linux' | ''

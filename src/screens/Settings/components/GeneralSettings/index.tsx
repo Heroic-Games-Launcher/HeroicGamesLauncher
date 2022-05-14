@@ -1,34 +1,29 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { Path } from 'src/types'
+import { LibraryTopSectionOptions, Path } from 'src/types'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { InfoBox, SvgButton } from 'src/components/UI'
 import LanguageSelector from 'src/components/UI/LanguageSelector'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
-import ElectronStore from 'electron-store'
 import classNames from 'classnames'
 
 import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
+import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
+import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
-const Store = window.require('electron-store')
-const configStore: ElectronStore = new Store({
-  cwd: 'store'
-})
 
 const storage: Storage = window.localStorage
 
 interface Props {
-  altLegendaryBin: string
-  altGogdlBin: string
-  checkForUpdatesOnStartup: boolean
   darkTrayIcon: boolean
   defaultInstallPath: string
+  disableController: boolean
   egsLinkedPath: string
   egsPath: string
   exitToTray: boolean
@@ -40,13 +35,11 @@ interface Props {
   setEgsLinkedPath: (value: string) => void
   setEgsPath: (value: string) => void
   setLanguage: (value: string) => void
-  setAltLegendaryBin: (value: string) => void
-  setAltGogdlBin: (value: string) => void
   setMaxWorkers: (value: number) => void
   startInTray: boolean
   toggleDarkTrayIcon: () => void
+  toggleDisableController: () => void
   toggleStartInTray: () => void
-  toggleCheckUpdatesOnStartup: () => void
   toggleTray: () => void
   toggleMinimizeOnLaunch: () => void
   toggleUnrealMarket: () => void
@@ -56,12 +49,7 @@ export default function GeneralSettings({
   defaultInstallPath,
   setDefaultInstallPath,
   egsPath,
-  checkForUpdatesOnStartup,
   setEgsPath,
-  altLegendaryBin,
-  setAltLegendaryBin,
-  altGogdlBin,
-  setAltGogdlBin,
   egsLinkedPath,
   setEgsLinkedPath,
   showUnrealMarket,
@@ -76,76 +64,41 @@ export default function GeneralSettings({
   setMaxWorkers,
   darkTrayIcon,
   toggleDarkTrayIcon,
-  toggleCheckUpdatesOnStartup,
+  minimizeOnLaunch,
   toggleMinimizeOnLaunch,
-  minimizeOnLaunch
+  disableController,
+  toggleDisableController
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
-  const [legendaryVersion, setLegendaryVersion] = useState('')
-  const [gogdlVersion, setGogdlVersion] = useState('')
-  const { platform, refreshLibrary, isRTL } = useContext(ContextProvider)
+  const {
+    platform,
+    refreshLibrary,
+    isRTL,
+    libraryTopSection,
+    handleLibraryTopSection
+  } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
   const isWindows = platform === 'win32'
 
-  const settings = configStore.get('settings') as {
-    altLeg: string
-    altGogdl: string
-  }
-
   useEffect(() => {
     i18n.changeLanguage(language)
     storage.setItem('language', language)
-  }, [language])
+  }, [i18n, language])
 
   useEffect(() => {
     const getMoreInfo = async () => {
       const cores = await ipcRenderer.invoke('getMaxCpus')
-      configStore.set('settings', {
-        ...settings,
-        altLeg: altLegendaryBin
-      })
-
       setMaxCpus(cores)
-
-      const legendaryVer = await ipcRenderer.invoke('getLegendaryVersion')
-      if (legendaryVer === 'invalid') {
-        setLegendaryVersion('Invalid')
-        setTimeout(() => {
-          setAltLegendaryBin('')
-          return setLegendaryVersion('')
-        }, 3000)
-      }
-      return setLegendaryVersion(legendaryVer)
     }
     getMoreInfo()
-  }, [maxWorkers, altLegendaryBin])
-
-  useEffect(() => {
-    const getGogdlVersion = async () => {
-      configStore.set('settings', {
-        ...settings,
-        altGogdl: altGogdlBin
-      })
-      const gogdlVersion = await ipcRenderer.invoke('getGogdlVersion')
-      if (gogdlVersion === 'invalid') {
-        setGogdlVersion('Invalid')
-        setTimeout(() => {
-          setAltGogdlBin('')
-          return setGogdlVersion('')
-        }, 3000)
-      }
-      return setGogdlVersion(gogdlVersion)
-    }
-
-    getGogdlVersion()
-  }, [altGogdlBin])
+  }, [maxWorkers])
 
   async function handleSync() {
     setIsSyncing(true)
     if (isLinked) {
-      return await ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
+      return ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
         await ipcRenderer.invoke('openMessageBox', {
           message: t('message.unsync'),
           title: 'EGS Sync'
@@ -157,28 +110,26 @@ export default function GeneralSettings({
       })
     }
 
-    return await ipcRenderer
-      .invoke('egsSync', egsPath)
-      .then(async (res: string) => {
-        if (res === 'Error') {
-          setIsSyncing(false)
-          ipcRenderer.invoke('showErrorBox', [
-            t('box.error.title', 'Error'),
-            t('box.sync.error')
-          ])
-          setEgsLinkedPath('')
-          setEgsPath('')
-          return
-        }
-        await ipcRenderer.invoke('openMessageBox', {
-          message: t('message.sync'),
-          title: 'EGS Sync'
-        })
-
+    return ipcRenderer.invoke('egsSync', egsPath).then(async (res: string) => {
+      if (res === 'Error') {
         setIsSyncing(false)
-        setEgsLinkedPath(isWindows ? 'windows' : egsPath)
-        refreshLibrary({ fullRefresh: true, runInBackground: false })
+        ipcRenderer.invoke('showErrorBox', [
+          t('box.error.title', 'Error'),
+          t('box.sync.error')
+        ])
+        setEgsLinkedPath('')
+        setEgsPath('')
+        return
+      }
+      await ipcRenderer.invoke('openMessageBox', {
+        message: t('message.sync'),
+        title: 'EGS Sync'
       })
+
+      setIsSyncing(false)
+      setEgsLinkedPath(isWindows ? 'windows' : egsPath)
+      refreshLibrary({ fullRefresh: true, runInBackground: false })
+    })
   }
 
   function handleEgsFolder() {
@@ -192,32 +143,6 @@ export default function GeneralSettings({
         title: t('box.choose-egs-prefix')
       })
       .then(({ path }: Path) => setEgsPath(path ? path : ''))
-  }
-
-  function handleLegendaryBinary() {
-    return ipcRenderer
-      .invoke('openDialog', {
-        buttonLabel: t('box.choose'),
-        properties: ['openFile'],
-        title: t(
-          'box.choose-legendary-binary',
-          'Select Legendary Binary (needs restart)'
-        )
-      })
-      .then(({ path }: Path) => setAltLegendaryBin(path ? path : ''))
-  }
-
-  function handleGogdlBinary() {
-    return ipcRenderer
-      .invoke('openDialog', {
-        buttonLabel: t('box.choose'),
-        properties: ['openFile'],
-        title: t(
-          'box.choose-gogdl-binary',
-          'Select GOGDL Binary (needs restart)'
-        )
-      })
-      .then(({ path }: Path) => setAltGogdlBin(path ? path : ''))
   }
 
   async function handleChangeLanguage(language: string) {
@@ -251,7 +176,7 @@ export default function GeneralSettings({
         <span className={classNames('settingText', { isRTL: isRTL })}>
           {t('setting.default-install-path')}
         </span>
-        <span>
+        <span className="settingInputWithButton">
           <input
             data-testid="setinstallpath"
             type="text"
@@ -261,7 +186,7 @@ export default function GeneralSettings({
             onChange={(event) => setDefaultInstallPath(event.target.value)}
           />
           <SvgButton
-            onClick={() =>
+            onClick={async () =>
               ipcRenderer
                 .invoke('openDialog', {
                   buttonLabel: t('box.choose'),
@@ -276,102 +201,6 @@ export default function GeneralSettings({
           >
             <CreateNewFolder data-testid="setinstallpathbutton" />
           </SvgButton>
-        </span>
-      </span>
-      <span className="setting">
-        <span className={classNames('settingText', { isRTL: isRTL })}>
-          {t(
-            'setting.alt-legendary-bin',
-            'Choose an Alternative Legendary Binary  (needs restart)to use'
-          )}
-        </span>
-        <span>
-          <input
-            data-testid="setting-alt-legendary"
-            type="text"
-            placeholder={t(
-              'placeholder.alt-legendary-bin',
-              'Using built-in Legendary binary...'
-            )}
-            className="settingSelect"
-            value={altLegendaryBin.replaceAll("'", '')}
-            onChange={(event) => setAltLegendaryBin(event.target.value)}
-          />
-          {!altLegendaryBin.length ? (
-            <SvgButton
-              onClick={() => handleLegendaryBinary()}
-              className="material-icons settings folder"
-            >
-              <CreateNewFolder
-                data-testid="setLegendaryBinaryButton"
-                style={{
-                  color: altLegendaryBin.length ? 'transparent' : '#B0ABB6'
-                }}
-              />
-            </SvgButton>
-          ) : (
-            <SvgButton
-              className="material-icons settings folder"
-              onClick={() => setAltLegendaryBin('')}
-            >
-              <Backspace
-                data-testid="setLegendaryBinaryBackspace"
-                style={{ color: '#B0ABB6' }}
-              />
-            </SvgButton>
-          )}
-        </span>
-        <span className="smallMessage">
-          {t('other.legendary-version', 'Legendary Version: ')}
-          {legendaryVersion}
-        </span>
-      </span>
-      <span className="setting">
-        <span className={classNames('settingText', { isRTL: isRTL })}>
-          {t(
-            'setting.alt-gogdl-bin',
-            'Choose an Alternative GOGDL Binary to use (needs restart)'
-          )}
-        </span>
-        <span>
-          <input
-            data-testid="setting-alt-gogdl"
-            type="text"
-            placeholder={t(
-              'placeholder.alt-gogdl-bin',
-              'Using built-in GOGDL binary...'
-            )}
-            className="settingSelect"
-            value={altGogdlBin.replaceAll("'", '')}
-            onChange={(event) => setAltGogdlBin(event.target.value)}
-          />
-          {!altGogdlBin.length ? (
-            <SvgButton
-              onClick={() => handleGogdlBinary()}
-              className="material-icons settings folder"
-            >
-              <CreateNewFolder
-                data-testid="setGogdlBinaryButton"
-                style={{
-                  color: altGogdlBin.length ? 'transparent' : '#B0ABB6'
-                }}
-              />
-            </SvgButton>
-          ) : (
-            <SvgButton
-              className="material-icons settings folder"
-              onClick={() => setAltGogdlBin('')}
-            >
-              <Backspace
-                data-testid="setGogdlBinaryBackspace"
-                style={{ color: '#B0ABB6' }}
-              />
-            </SvgButton>
-          )}
-        </span>
-        <span className="smallMessage">
-          {t('other.gogdl-version', 'GOGDL Version: ')}
-          {gogdlVersion}
         </span>
       </span>
       {!isWindows && (
@@ -396,7 +225,7 @@ export default function GeneralSettings({
               >
                 <CreateNewFolder
                   data-testid="setEpicSyncPathButton"
-                  style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
+                  style={{ color: isLinked ? 'transparent' : 'currentColor' }}
                 />
               </SvgButton>
             ) : (
@@ -416,7 +245,7 @@ export default function GeneralSettings({
             )}
             <button
               data-testid="syncButton"
-              onClick={() => handleSync()}
+              onClick={async () => handleSync()}
               disabled={isSyncing || !egsPath.length}
               className={`button is-small ${
                 isLinked ? 'is-danger' : isSyncing ? 'is-primary' : 'settings'
@@ -527,21 +356,57 @@ export default function GeneralSettings({
       <span className="setting">
         <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
-            value={checkForUpdatesOnStartup}
-            handleChange={toggleCheckUpdatesOnStartup}
+            value={disableController}
+            handleChange={() => {
+              toggleDisableController()
+              toggleControllerIsDisabled(!disableController)
+            }}
             title={t(
-              'setting.checkForUpdatesOnStartup',
-              'Check For Updates On Startup'
+              'setting.disable_controller',
+              'Disable Heroic navigation using controller'
             )}
           />
           <span>
             {t(
-              'setting.checkForUpdatesOnStartup',
-              'Check For Updates On Startup'
+              'setting.disable_controller',
+              'Disable Heroic navigation using controller'
             )}
           </span>
         </label>
       </span>
+
+      <span className="setting">
+        <label
+          className={classNames('settingText', { isRTL: isRTL })}
+          htmlFor="library_top_section_selector"
+        >
+          {t('setting.library_top_section', 'Library Top Section')}
+        </label>
+        <select
+          id="library_top_section_selector"
+          onChange={(event) =>
+            handleLibraryTopSection(
+              event.target.value as LibraryTopSectionOptions
+            )
+          }
+          value={libraryTopSection}
+          className="settingSelect is-drop-down"
+        >
+          <option value="recently_played">
+            {t(
+              'setting.library_top_option.recently_played',
+              'Recently Played Games'
+            )}
+          </option>
+          <option value="favourites">
+            {t('setting.library_top_option.favourites', 'Favourite Games')}
+          </option>
+          <option value="disabled">
+            {t('setting.library_top_option.disabled', 'Disabled')}
+          </option>
+        </select>
+      </span>
+      <ThemeSelector />
       <span className="setting">
         <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <select

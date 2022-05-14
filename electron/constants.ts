@@ -12,9 +12,19 @@ const configStore = new Store({
   cwd: 'store'
 })
 
+const tsStore = new Store({
+  cwd: 'store',
+  name: 'timestamp'
+})
+
+const fontsStore = new Store({
+  cwd: 'store',
+  name: 'fonts'
+})
+
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
-const isLinux = platform() == 'linux'
+const isLinux = platform() === 'linux'
 const isFlatpak = Boolean(env.FLATPAK_ID)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
@@ -146,5 +156,7 @@ export {
   userInfo,
   weblateUrl,
   wikiLink,
-  steamCompatFolder
+  steamCompatFolder,
+  tsStore,
+  fontsStore
 }

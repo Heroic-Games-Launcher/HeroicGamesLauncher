@@ -14,7 +14,7 @@ import ElectronStore from 'electron-store'
 const Store = window.require('electron-store')
 
 const WineItem = lazy(
-  () => import('src/screens/WineManager/components/WineItem')
+  async () => import('src/screens/WineManager/components/WineItem')
 )
 
 const configStore: ElectronStore = new Store({
@@ -137,7 +137,6 @@ export default function WineManager(): JSX.Element | null {
             style={
               !wineVersions.length ? { backgroundColor: 'transparent' } : {}
             }
-            className="gameListLayout"
           >
             {!!wineVersions.length &&
               wineVersions.map((release: WineVersionInfo, key) => {

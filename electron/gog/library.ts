@@ -1,29 +1,28 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import Store from 'electron-store'
-import { existsSync, readFileSync } from 'graceful-fs'
-import { join } from 'path'
-import prettyBytes from 'pretty-bytes'
-import { fallBackImage, isMac } from '../constants'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { progressService, ProgressStatus } from '../progress'
-import { AppendToFileCollector } from '../shared/command'
-import {
-  ExecResult,
-  GameInfo,
-  GOGGameInfo,
-  GOGImportData,
-  InstalledInfo,
-  InstallInfo
-} from '../types'
-import { GogProgressCollector, GogRunCommand } from './command'
 import { GOGUser } from './user'
+import {
+  GOGGameInfo,
+  GameInfo,
+  InstallInfo,
+  InstalledInfo,
+  GOGImportData,
+  ExecResult
+} from '../types'
+import { join } from 'node:path'
+import { existsSync, readFileSync } from 'graceful-fs'
 
-const apiInfoCache = new Store({ cwd: 'gog_store', name: 'api_info_cache' })
-const libraryStore = new Store({ cwd: 'gog_store', name: 'library' })
-const installedGamesStore = new Store({
-  cwd: 'gog_store',
-  name: 'installed'
-})
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { getGOGdlBin, getFileSize } from '../utils'
+import { fallBackImage } from '../constants'
+import {
+  apiInfoCache,
+  libraryStore,
+  installedGamesStore
+} from './electronStores'
+import {
+  getLegendaryOrGogdlCommand,
+  runLegendaryOrGogdlCommand
+} from '../launcher'
 
 export class GOGLibrary {
   private static globalInstance: GOGLibrary = null
@@ -90,7 +89,7 @@ export class GOGLibrary {
     const gamesArray = libraryStore.get('games') as GameInfo[]
     for (const game of gameApiArray as GOGGameInfo[]) {
       let unifiedObject = gamesArray
-        ? gamesArray.find((value) => value.app_name == String(game.id))
+        ? gamesArray.find((value) => value.app_name === String(game.id))
         : null
       if (!unifiedObject) {
         let apiData = apiInfoCache.get(String(game.id)) as {
@@ -125,7 +124,7 @@ export class GOGLibrary {
   }
 
   public static get() {
-    if (this.globalInstance == null) {
+    if (this.globalInstance === null) {
       GOGLibrary.globalInstance = new GOGLibrary()
     }
     return this.globalInstance
@@ -142,7 +141,7 @@ export class GOGLibrary {
    * @param appName
    * @returns InstallInfo object
    */
-  public async getInstallInfo(appName: string) {
+  public async getInstallInfo(appName: string, installPlatform = 'windows') {
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
       logError('No credentials, cannot get install info')
@@ -150,20 +149,31 @@ export class GOGLibrary {
     }
     const gameData = this.library.get(appName)
 
+    installPlatform = installPlatform.toLowerCase()
+
+    switch (installPlatform) {
+      case 'linux':
+        installPlatform = 'windows'
+        break
+      case 'mac':
+        installPlatform = 'osx'
+        break
+    }
+
     const commandParts = [
       'info',
       appName,
-      `--token=${credentials.access_token}`,
+      '--token',
+      `"${credentials.access_token}"`,
       '--lang=en-US',
       '--os',
-      isMac && gameData.is_mac_native ? 'osx' : 'windows'
+      installPlatform
     ]
     const command = getGogdlCommand(commandParts)
 
     logInfo(['Getting game metadata:', command], LogPrefix.Gog)
 
     const res = await runGogdlCommand(commandParts)
-
     if (res.error) {
       logError(
         ['Failed to get game metadata for', `${appName}:`, res.error],
@@ -174,7 +184,7 @@ export class GOGLibrary {
     const gogInfo = JSON.parse(res.stdout)
     const libraryArray = libraryStore.get('games') as GameInfo[]
     const gameObjectIndex = libraryArray.findIndex(
-      (value) => value.app_name == appName
+      (value) => value.app_name === appName
     )
     libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
     gameData.folder_name = gogInfo.folder_name
@@ -223,7 +233,7 @@ export class GOGLibrary {
       (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
 
     const gameIndex = installedArray.findIndex(
-      (value) => value.appName == appName
+      (value) => value.appName === appName
     )
 
     installedArray[gameIndex].install_path = newInstallPath
@@ -235,7 +245,7 @@ export class GOGLibrary {
       appName: data.appName,
       install_path: path,
       executable: '',
-      install_size: prettyBytes(
+      install_size: getFileSize(
         (await this.getInstallInfo(data.appName)).manifest.disk_size
       ),
       is_dlc: false,
@@ -291,8 +301,8 @@ export class GOGLibrary {
 
     const installers = response.data?.downloads?.installers
     for (const installer of installers) {
-      if (installer.os == 'linux') {
-        return installer.version == version
+      if (installer.os === 'linux') {
+        return installer.version === version
       }
     }
   }
@@ -313,10 +323,10 @@ export class GOGLibrary {
       : null
     const metaResponse = await axios.get(metaUrl, {
       headers,
-      validateStatus: (status) => status == 200 || status == 304
+      validateStatus: (status) => status === 200 || status === 304
     })
 
-    return metaResponse.status == 200
+    return metaResponse.status === 200
   }
 
   /**
@@ -329,7 +339,7 @@ export class GOGLibrary {
     gamesdbData: any
   ): Promise<GameInfo> {
     let developer: string
-    let verticalCover: string
+    let verticalCover = fallBackImage
     let horizontalCover: string
     let description: string
     if (gamesdbData?.game) {
@@ -338,9 +348,11 @@ export class GOGLibrary {
         developers.push(developer.name)
       }
       developer = developers.join(', ')
-      verticalCover = gamesdbData.game.vertical_cover.url_format
-        .replace('{formatter}', '')
-        .replace('{ext}', 'jpg')
+      if (gamesdbData.game.vertical_cover?.url_format) {
+        verticalCover = gamesdbData.game.vertical_cover.url_format
+          .replace('{formatter}', '')
+          .replace('{ext}', 'jpg')
+      }
       horizontalCover = `https:${info.image}.jpg`
       description = gamesdbData.game.summary['*']
       // horizontalCover = gamesdbData._links.logo.href
@@ -353,7 +365,7 @@ export class GOGLibrary {
         LogPrefix.Gog
       )
       const apiData = await this.getGamesData(String(info.id))
-      if (apiData?._links) {
+      if (apiData?._links?.boxArtImage) {
         verticalCover = apiData._links.boxArtImage.href
       } else {
         logWarning(
@@ -447,7 +459,7 @@ export class GOGLibrary {
     } else {
       requirements = requirements.systemRequirements
     }
-    if (requirements.length == 0) {
+    if (requirements.length === 0) {
       return []
     }
     const minimum = requirements[0]
@@ -520,7 +532,7 @@ export class GOGLibrary {
       return { isUpdated: false, data: {} }
     }
     const resEtag = response.headers.etag
-    const isUpdated = etag == resEtag
+    const isUpdated = etag === resEtag
     const data = response.data
 
     data.etag = resEtag
@@ -560,7 +572,7 @@ export class GOGLibrary {
       const installers = response.data?.downloads?.installers
       const linuxInstallers = installers.filter(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (value: any) => value.os == 'linux'
+        (value: any) => value.os === 'linux'
       )
       const possibleLanguages = []
 
@@ -587,7 +599,7 @@ export class GOGLibrary {
       const installers = response.data?.downloads?.installers
 
       for (const installer of installers) {
-        if (installer.os == 'linux')
+        if (installer.os === 'linux')
           return {
             version: installer.version
           }
@@ -601,34 +613,24 @@ export class GOGLibrary {
 
 /**
  * Runs GOGDL with the given command
+ * Note: For more comments, see runLegendaryCommand
  * @param commandParts The command to run, e. g. 'update', 'install'...
  */
-export function runGogdlCommand(
-  commandParts: Array<string>,
-  logFile?: string,
-  env?: Record<string, string>,
-  appName?: string,
-  action?: ProgressStatus['action']
+export async function runGogdlCommand(
+  commandParts: string[],
+  options?: {
+    logFile?: string
+    env?: Record<string, string>
+    wrappers?: string[]
+    onOutput?: (output: string) => void
+  }
 ): Promise<ExecResult> {
-  const collectors = []
-  if (logFile) {
-    collectors.push(new AppendToFileCollector(logFile, LogPrefix.Gog))
-  }
-  if (appName && action) {
-    collectors.push(
-      new GogProgressCollector((progress) =>
-        progressService.reportProgressStatus(appName, {
-          ...progress,
-          action
-        })
-      )
-    )
-  }
-  progressService.clearProgressStatus(appName, action)
-  return GogRunCommand.getExecutor().run(commandParts, {
-    collectors,
-    env
-  })
+  const { dir, bin } = getGOGdlBin()
+  return runLegendaryOrGogdlCommand(
+    commandParts,
+    { name: 'GOGDL', logPrefix: LogPrefix.Gog, bin, dir },
+    options
+  )
 }
 
 /**
@@ -638,6 +640,11 @@ export function runGogdlCommand(
  * @param commandParts The command to run, e. g. 'update', 'install'...
  * @returns The full command as a string
  */
-export function getGogdlCommand(commandParts: Array<string>): string {
-  return GogRunCommand.getExecutor().getCommand(commandParts)
+export function getGogdlCommand(
+  commandParts: string[],
+  env: Record<string, string> = {},
+  wrappers: string[] = []
+): string {
+  const gogdlPath = join(...Object.values(getGOGdlBin()))
+  return getLegendaryOrGogdlCommand(commandParts, env, wrappers, gogdlPath)
 }

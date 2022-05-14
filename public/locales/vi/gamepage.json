@@ -23,7 +23,7 @@
             "title": "Dừng quá trình cài đặt"
         },
         "uninstall": {
-            "checkbox": "Bạn có muốn xóa cả prefix không? (Không thể hoàn tác)",
+            "checkbox": "Bạn có muốn xóa cả prefix không? Quá trình hông thể hoàn tác.",
             "checkbox_prefix": "Prefix",
             "message": "Xác nhận gỡ cài đặt game?",
             "title": "Gỡ cài đặt"
@@ -36,10 +36,14 @@
         "yes": "Có"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Tạm dừng/Huỷ",
         "continue": "Tiếp tục tải",
+        "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Cài đặt",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật"
     },
@@ -55,6 +59,7 @@
         "language": "Ngôn ngữ",
         "lastPlayed": "Lần chơi cuối",
         "neverPlayed": "Không bao giờ",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Thời gian chơi"
     },
     "gamecard": {
@@ -63,15 +68,17 @@
     },
     "info": {
         "canRunOffline": "Cần kết nối mạng",
+        "installedPlatform": "Installed Platform",
         "path": "Đường dẫn cài đặt",
         "size": "Kích thước",
         "syncsaves": "Đồng bộ bản lưu",
         "version": "Phiên bản"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Chọn đường dẫn cài",
         "wineprefix": "WinePrefix",
-        "wineversion": "phiên bản wine"
+        "wineversion": "Phiên bản Wine"
     },
     "label": {
         "playing": {
@@ -83,8 +90,9 @@
         }
     },
     "launch": {
-        "options": "Tuỳ chọn khởi động..."
+        "options": "Tuỳ chọn khởi chạy..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Chọn các thành phần cần cài"
     },

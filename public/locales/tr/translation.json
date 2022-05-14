@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Tümü",
     "Assets": "Varlıklar",
     "box": {
-        "appupdate": {
-            "message": "Heroic'in yeni bir sürümü var, şimdi güncellemek ister misiniz?",
-            "title": "Güncelleme Var"
-        },
         "cache-cleared": {
             "message": "Heroic önbelleği temizlendi.",
             "title": "Önbellek temizlendi"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D hatası"
             },
             "generic": {
-                "message": "Bilinmeyen bir hata oluştu",
-                "title": "Bilinmeyen hata"
+                "message": "",
+                "title": ""
             },
             "launch": "Oyun başlatılırken hata oluştu, günlük kayıtlarına bakın!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Çevrim dışı mod desteklenmiyor."
             },
             "title": "Hata",
+            "update": {
+                "message": "Güncellemeyle ilgili bir sorun oluştu, lütfen günlük kayıtlarına göz atın veya daha sonra tekrar deneyin!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
                 "title": "Wine Bulunamadı"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Değişiklik günlüğünü aç",
+                "detail": "Güncellemeyi arka planda indirmek istiyor musunuz?",
+                "message": "Yeni bir sürüm var!",
+                "message-finished": "Heroic'i şimdi yeniden başlatmak istiyor musunuz?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Güncelleme Tamamlandı"
             }
         },
         "no": "HAYIR",
@@ -58,7 +74,7 @@
         "reset-heroic": {
             "question": {
                 "message": "Heroic'i sıfırlamak istediğine emin misin? Bu tüm Ayarları ve Önbelleği silecektir ama Epic kimlik bilgilerini ya da Yüklü oyunları silmeyecektir",
-                "title": "Reset Heroic"
+                "title": "Heroic'i Sıfırla"
             }
         },
         "runexe": {
@@ -89,26 +105,25 @@
         "yes": "EVET"
     },
     "button": {
-        "continue": "Devam et",
+        "go_to_library": "Kütüphaneye Git",
         "login": "Oturum Aç",
         "sync": "Eşzamanla",
         "syncing": "Eşzamanlanıyor",
         "unsync": "Eşzamanlamayı kaldır"
     },
-    "Downloading": "İndiriliyor",
     "epic": {
         "offline-notification-body": "Epic Games sunucuları çevrim dışı olduğundan çevrim içi hizmetler tam olarak çalışmayabilir!",
         "offline-notification-title": "çevrim dışı"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Filtre Yok"
-    },
+    "favourites": "Favourites",
     "globalSettings": "Genel Ayarlar",
     "GOG": "GOG",
     "gog-store": "GOG Mağazası",
     "header": {
-        "platform": "Platform"
+        "ignore_hidden": "Gizlileri Yoksay",
+        "platform": "Platform",
+        "show_hidden": "Gizlileri Göster"
     },
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Sürümü"
+        },
         "settings": "Ayarlar otomatik kaydedilir"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "Izgara görünümü",
         "listView": "Liste görünümü",
-        "refresh": "Yenile"
+        "refresh": "Yenile",
+        "sortAscending": "Artan Sıralama",
+        "sortByStatus": "Duruma Göre Sırala",
+        "sortDescending": "Azalan Sıralama"
     },
     "Library": "Kütüphane",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Eşzamanlamayı Kaldırma Tamamlandı"
     },
     "nogames": "Oyun Bulunamadı",
-    "Not Ready": "Hazır Değil",
     "notify": {
         "error": {
             "move": "Oyunu Taşıma Hatası",
@@ -211,7 +231,6 @@
     },
     "Plugins": "Eklentiler",
     "Projects": "Projeler",
-    "Ready": "Hazır",
     "Recent": "Son Oynanan",
     "search": "Buraya oyun adı girin...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Kayıtları Otomatik Eşzamanla",
         "autovkd3d": "Prefix'te VKD3D'yi Otomatik Kur/Güncelle",
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
-        "checkForUpdatesOnStartup": "Açılışta Güncellemeleri Denetle",
         "customWineProton": "Özel Wine/Proton Yolları",
-        "darktray": "Karanlık Tepsi Simgesi Kullan",
+        "darktray": "Koyu Tepsi Simgesi Kullan",
         "default-install-path": "Öntanımlı Kurulum Yeri",
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
+        "disable_controller": "Denetleyiciyi kullanarak Heroic gezinmesini devre dışı bırak",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
@@ -238,9 +257,17 @@
         "fsync": "Fsync'i Etkinleştir",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Günlük içeriğini panoya kopyala",
             "current-log": "Geçerli Günlük",
+            "instructions": "Discord sunucumuza katılın ve işletim sisteminize uygun kanalı arayın. Burada görüntülenen günlüklerin içeriğini paylaşın ve ilgili tüm bilgi ve ayrıntılarla birlikte sorunun net bir açıklamasını ekleyin.",
+            "instructions_title": "Bir sorun nasıl bildirilir?",
             "last-log": "Son Günlük",
             "no-file": "Günlük dosyası bulunamadı",
             "show-in-folder": "Günlük dosyasını klasörde göster"
@@ -269,6 +296,7 @@
             "placeholder": "Tam oyun kaydetme klasörünü seçin",
             "title": "Bulut Eşzamanlama Kayıt Klasörünü Geçersiz Kıl"
         },
+        "select_theme": "Select Theme",
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
         "showUnrealMarket": "Unreal Pazar Yerini Göster (yeniden başlatma gerekir)",
         "start-in-tray": "Simge Durumunda Başlat",
@@ -285,12 +313,13 @@
             "long-log-hint": "Günlük kısaltıldı, son 1000 satır gösteriliyor!"
         },
         "navbar": {
+            "advanced": "Gelişmiş",
             "general": "Genel",
             "log": "Log",
             "other": "Diğer",
             "sync": "Kaydet-Eşzamanla"
         },
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Heroic'i Sıfırla"
     },
     "Settings": "Ayarlar",
     "status": {
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "Tüm Oyunlar",
         "allUnreal": "Unreal - Her şey",
-        "downloading": "İndiriliyor",
-        "installedGames": "Yüklü Oyunlar",
-        "notInstalledGames": "Yüklü değil",
         "unrealAssets": "Unreal - Varlıklar",
         "unrealPlugins": "Unreal - Eklentiler",
-        "unrealProjects": "Unreal - Projeler",
-        "updates": "Bekleyen Güncellemeler"
+        "unrealProjects": "Unreal - Projeler"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Göster"
     },
     "Unreal Marketplace": "Unreal Mağazası",
-    "Updates": "Güncellemeler",
     "userselector": {
         "discord": "Discord",
         "logout": "Oturumu kapat",

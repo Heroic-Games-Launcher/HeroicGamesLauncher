@@ -36,10 +36,14 @@
         "yes": "YA"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Jeda/Batal",
         "continue": "Lanjutkan Unduhan",
+        "hide_game": "Hide Game",
         "import": "Impor Gim",
         "install": "Pasang",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "Copot",
         "update": "Perbarui"
     },
@@ -55,6 +59,7 @@
         "language": "Bahasa",
         "lastPlayed": "Terakhir Dimainkan",
         "neverPlayed": "Tidak pernah",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Lama Dimainkan"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Internet Dibutuhkan",
+        "installedPlatform": "Installed Platform",
         "path": "Lokasi Pemasangan",
         "size": "Ukuran",
         "syncsaves": "Sinkronkan Penyimpanan",
         "version": "Versi"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Pilih Lokasi Pemasangan",
         "wineprefix": "PrefiksWine",
         "wineversion": "Versi Wine"
@@ -85,6 +92,7 @@
     "launch": {
         "options": "Opsi Peluncuran…"
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Pilih komponen untuk dipasang"
     },

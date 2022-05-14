@@ -36,10 +36,14 @@
         "yes": "ΝΑΙ"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Παύση/Ακύρωση",
         "continue": "Συνέχιση λήψης",
+        "hide_game": "Hide Game",
         "import": "Εισαγωγή Παιχνιδιού",
         "install": "Εγκατάσταση",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "Απεγκατάσταση",
         "update": "Ενημέρωση"
     },
@@ -55,6 +59,7 @@
         "language": "Γλώσσα",
         "lastPlayed": "Παίχτηκε Τελευταία φορά",
         "neverPlayed": "Ποτέ",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Απαιτείται Σύνδεση",
+        "installedPlatform": "Installed Platform",
         "path": "Διαδρομή Εγκατάστασης",
         "size": "Μέγεθος",
         "syncsaves": "Συγχρονισμός Αποθηκεύσεων",
         "version": "Έκδοση"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Επιλέξτε διαδρομή εγκατάστασης",
         "wineprefix": "Πρόθεμα Wine",
         "wineversion": ""
@@ -85,6 +92,7 @@
     "launch": {
         "options": "Ρυθμίσεις εκκίνησης..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Διαλέξτε στοιχεία για εγκατάσταση"
     },

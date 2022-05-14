@@ -36,10 +36,14 @@
         "yes": "ശരി"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "നിര്ത്തൂ/റദ്ദാക്കൂ",
         "continue": "ഇറക്കൽ തുടരൂ",
+        "hide_game": "Hide Game",
         "import": "കളി ഇറക്കുമതി ചെയ്യൂ",
         "install": "നടൂ",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "എടുത്തുനീക്കൂ",
         "update": "പുതുക്കൂ"
     },
@@ -55,6 +59,7 @@
         "language": "ഭാഷ",
         "lastPlayed": "ഒടുക്കം കളിച്ചത്",
         "neverPlayed": "കളിച്ചിട്ടേയില്ല",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "കളിച്ച നേരം"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "ഓൺലൈൻ ആകേണ്ടത് ആവശ്യമാണ്",
+        "installedPlatform": "Installed Platform",
         "path": "നടീലിടം",
         "size": "വലുപ്പം",
         "syncsaves": "സൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്",
         "version": "പതിപ്പ്"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ",
         "wineprefix": "വൈൻ പ്രിഫിക്സ്",
         "wineversion": ""
@@ -85,6 +92,7 @@
     "launch": {
         "options": "വിക്ഷേപണ ബദലുകൾ..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "നടുവാനുള്ള ഘടകങ്ങള് തിരഞ്ഞെടുക്കൂ"
     },

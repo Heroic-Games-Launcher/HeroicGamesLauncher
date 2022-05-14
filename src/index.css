@@ -1,22 +1,35 @@
 html {
+  /* Generic colors */
+  --background: #151f3d;
+  --background-darker: #0d0f1c;
+  --background-darker-80: #0d0f1ce0;
+  --background-secondary: #323035;
+  --background-lighter: #152f6d;
+  --background-gradient: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 2.4%,
+    #0d0f1cd2 64%
+  );
+
   /* Colours */
-  --navbar-background: #151f3d;
-  --input-background: #0d0f1c;
+  --navbar-background: var(--background);
+  --input-background: var(--background-darker);
   --body-background: #13172a;
   --current-background: var(--body-background);
-  --tooltip-background-color: #0d0e0e;
-  --dropdown-background: #1a264b;
-  --menu-background-color: #0d0e0e;
   --modal-background: #13172a;
   --modal-border: #1f253f;
   --modal-backdrop: #00000048;
   --text-hover: #59d0ea;
+  --primary: #07c5ef;
+  --primary-hover: #4cdafa;
   --link-highlight: #07c5ef;
   --accent: #eaa114;
-  --login-card-background: #0e1527ee;
+  --accent-overlay: #ffbb33;
+  --navbar-accent: var(--accent);
+  --navbar-active-background: var(--background-lighter);
   --play-button: #59d0ea;
   --download-button: #3082d9;
-  --download-button-overlay: #5a5e5f;
+  --download-button-overlay: #1372d7;
   --stop-button: #252121;
   --scrollbar-thumb: #ffffff33;
   --favourite-active: #97f4e9;
@@ -26,16 +39,7 @@ html {
   --success-hover: #30eca8;
   --danger-hover: #e43f3f;
   --icon-disabled: #625e69;
-  /* Legacy: Don't use it */
-  --background: #151f3d;
-  --background-darker: #0d0f1c;
-  --background-darker-80: #0d0f1ce0;
-  --background-secondary: #323035;
-  --background-gradient: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.418) 2.4%,
-    #0d0f1cd2 64%
-  );
+
   /* Gradients */
   --gradient-welcome: linear-gradient(#13172a 100%, #13172a 89%, #13172a 0%);
   --gradient-big-game-menu: linear-gradient(
@@ -51,7 +55,7 @@ html {
   --gradient-game-hover: linear-gradient(#000000 30.8%, #141515 77%);
   --gradient-body-background: linear-gradient(
     90deg,
-    #0d0f1c -32px,
+    var(--background-darker) -32px,
     var(--body-background) 64px,
     var(--body-background) 100%
   );
@@ -64,15 +68,16 @@ html {
   --text-quartenary: #5a5e5f; /* this is meant to be a background colour */
   --text-danger: #d22121;
   /* Fonts */
-  --font-primary-regular: Rubik normal 400;
-  --font-primary-bold: Rubik normal 500;
-  --font-primary-bolder: Rubik normal 700;
-  --font-secondary-regular: Cabin normal 400;
-  --font-secondary-bold: Cabin normal 500;
-  --font-secondary-regular-italic: Cabin italic 400;
-  --font-secondary-bold-italic: Cabin italic 500;
+  --font-primary-regular: var(--actions-font-family) normal 400;
+  --font-primary-bold: var(--actions-font-family) normal 500;
+  --font-primary-bolder: var(--actions-font-family) normal 700;
+  --font-secondary-regular: var(--content-font-family) normal 400;
+  --font-secondary-bold: var(--content-font-family) normal 500;
+  --font-secondary-regular-italic: var(--content-font-family) italic 400;
+  --font-secondary-bold-italic: var(--content-font-family) italic 500;
+
   /* Measurements */
-  --sidebar-width: 218px;
+  --sidebar-width: 240px;
   --content-width: calc(100vw - var(--sidebar-width));
   overflow-y: overlay;
   /* Effects */
@@ -80,11 +85,17 @@ html {
   --blur-strong: 16px;
 }
 
+@media screen and (max-width: 730px) {
+  * {
+    --sidebar-width: calc(var(--sidebar-width) - 1em);
+  }
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, Cabin, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, var(--content-font-family), BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -98,8 +109,8 @@ a {
 }
 
 code {
-  font-family: Cabin, source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: var(--content-font-family), source-code-pro, Menlo, Monaco,
+    Consolas, 'Courier New', monospace;
 }
 
 /* Overlay Scrollbar*/

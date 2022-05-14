@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Kaikki",
     "Assets": "Omaisuuserät",
     "box": {
-        "appupdate": {
-            "message": "Uusi versio Heroicista on saatavilla, haluatko asentaa sen nyt?",
-            "title": "Päivitys Saatavilla"
-        },
         "cache-cleared": {
             "message": "Heroic:in välimuisti tyhjennettiin.",
             "title": "Välimuisti tyhjennetty"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D-virhe"
             },
             "generic": {
-                "message": "Tuntematon Virhe on tapahtunut",
-                "title": "Tuntematon Virhe"
+                "message": "",
+                "title": ""
             },
             "launch": "Virhe pelin käynnistyksessä, tarkista pelin lokitiedostot!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Offline-tilaa ei tueta."
             },
             "title": "Virhe",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Winen versiota ei ole valittu. Tarkista peliasetukset!",
                 "title": "Wineä ei löytynyt"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "EI",
@@ -89,26 +105,25 @@
         "yes": "KYLLÄ"
     },
     "button": {
-        "continue": "Jatka",
+        "go_to_library": "Go to Library",
         "login": "Kirjaudu sisään",
         "sync": "Synkronoi",
         "syncing": "Synkronoidaan",
         "unsync": "Älä synkronoi"
     },
-    "Downloading": "Ladataan",
     "epic": {
         "offline-notification-body": "Verkkopalvelut eivät välttämättä toimi kokonaisuudessaan Epic Games:in palvelinten ollessa vailla verkkoyhteyttä!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
+    "favourites": "Favourites",
     "globalSettings": "Globaalit asetukset",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Synkronisoi EGL:n kanssa mikäli sinulla on toimiva Epic Games Launcher:in asennus toisaalla ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Asetukset tallennetaan automaattisesti"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "",
         "listView": "",
-        "refresh": ""
+        "refresh": "",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Kirjasto",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Synkronoinnin poisto valmis"
     },
     "nogames": "Pelejä ei löydetty",
-    "Not Ready": "Ei valmis",
     "notify": {
         "error": {
             "move": "Virhe pelin siirtämisessä",
@@ -211,7 +231,6 @@
     },
     "Plugins": "Laajennukset",
     "Projects": "Projektit",
-    "Ready": "Valmis",
     "Recent": "Viimeksi pelatut",
     "search": "Kirjoita tähän pelin nimi...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Automaattisesti synkronoi tallennukset",
         "autovkd3d": "VKD3D:n automaattinen asennus/päivitys prefixille",
         "change-target-exe": "Valitse vaihtoehtoinen EXE suoritettavaksi",
-        "checkForUpdatesOnStartup": "Tarkista päivitysten varalta käynnistyessä",
         "customWineProton": "Mukautetut Wine/Proton sijainnit",
         "darktray": "Käytä tummaa ilmaisinalueen kuvaketta",
         "default-install-path": "Oletus asennussijainti",
         "defaultWinePrefix": "Aseta kansio uusille Winen Prefixeille",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Ota käyttöön Discord Rich Presence",
         "egs-sync": "Synkronoi asennetun Epic Gamesin kanssa",
         "enableFSRHack": "Ota käyttöön FSR Hack (Wine version tulee tukea sitä)",
@@ -238,9 +257,17 @@
         "fsync": "Ota Fsync käyttöön",
         "gamemode": "Käytä GameModea (Feral Game Mode tulee olla asennettu)",
         "language": "Valitse applikaation kieli",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Kopioi lokin sisältö leikepöydälle",
             "current-log": "Nykyinen loki",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Viimeisin loki",
             "no-file": "Lokitiedostoja ei löytynyt",
             "show-in-folder": "Näytä lokitiedosto kansiossa"
@@ -269,6 +296,7 @@
             "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
             "title": "Korvaa pilvisynkronoinnin tallennuksen kansio"
         },
+        "select_theme": "Select Theme",
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
         "showUnrealMarket": "Näytä Unreal Marketplace (tarvitsee uudelleenkäynnistyksen)",
         "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
@@ -285,6 +313,7 @@
             "long-log-hint": "Loki typistetty, viimeiset 1000 riviä näytetään!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Yleiset",
             "log": "Log",
             "other": "Muut",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "Kaikki pelit",
         "allUnreal": "Unreal - Kaikki",
-        "downloading": "Ladataan",
-        "installedGames": "Asennetut pelit",
-        "notInstalledGames": "Ei asennettu",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Liitännäiset",
-        "unrealProjects": "Unreal - Projektit",
-        "updates": "Odottavat päivitykset"
+        "unrealProjects": "Unreal - Projektit"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Näytä"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Päivitykset",
     "userselector": {
         "discord": "Discord",
         "logout": "Kirjaudu ulos",

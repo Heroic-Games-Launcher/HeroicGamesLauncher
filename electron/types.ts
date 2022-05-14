@@ -20,6 +20,7 @@ export interface AppSettings {
   customWinePaths: string[]
   darkTrayIcon: boolean
   defaultInstallPath: string
+  disableController: boolean
   discordRPC: boolean
   egsLinkedPath: string
   exitToTray: boolean
@@ -59,9 +60,11 @@ export type ExecResult = {
 }
 
 export type LaunchResult = {
+  success: boolean
+  stdout: string
   stderr: string
-  command: string
   gameSettings: GameSettings
+  command?: string
 }
 
 export interface ExtraInfo {
@@ -174,10 +177,10 @@ export interface GameStatus {
 
 export type GlobalConfigVersion = 'auto' | 'v0'
 export interface InstallProgress {
-  timestamp: number
   bytes: string
-  eta: number
-  percent: number
+  eta: string
+  folder?: string
+  percent: string
 }
 export interface InstalledInfo {
   executable: string | null
@@ -248,7 +251,6 @@ export interface InstallArgs {
   sdlList?: Array<string>
   platformToInstall: 'Windows' | 'Mac' | 'Linux'
   installLanguage?: string
-  previousProgress?: number
 }
 
 export interface InstallParams {
@@ -258,7 +260,7 @@ export interface InstallParams {
   sdlList?: Array<string>
   installLanguage?: string
   runner: Runner
-  previousProgress?: number
+  platformToInstall: 'Windows' | 'Mac' | 'Linux'
 }
 
 export interface GOGLoginData {
@@ -341,4 +343,24 @@ export interface GamepadInputEventMouse {
   x: number
   y: number
   button: 'left' | 'middle' | 'right'
+}
+
+export interface SteamRuntime {
+  type: 'unpackaged' | 'flatpak'
+  path: string
+}
+
+export interface LaunchPreperationResult {
+  success: boolean
+  failureReason?: string
+  rpcClient?: RpcClient
+  mangoHudCommand?: string
+  gameModeBin?: string
+  steamRuntime?: string
+}
+
+export interface RpcClient {
+  updatePresence(d: unknown): void
+  reply(user: unknown, response: unknown): void
+  disconnect(): void
 }

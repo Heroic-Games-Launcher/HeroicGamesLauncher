@@ -1,30 +1,31 @@
+import { PlatformToInstall } from './../types'
 import {
   AppSettings,
   GameInfo,
   InstallInfo,
-  SavedInstallProgress,
+  InstallProgress,
   Runner,
   GameSettings
 } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { install, launch, repair, updateGame } from './library'
+import fileSize from 'filesize'
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
 
-const readFile = async (file: string) =>
-  await ipcRenderer.invoke('readConfig', file)
+const readFile = async (file: string) => ipcRenderer.invoke('readConfig', file)
 
 const writeConfig = async (
   data: [appName: string, x: unknown]
-): Promise<void> => await ipcRenderer.invoke('writeConfig', data)
+): Promise<void> => ipcRenderer.invoke('writeConfig', data)
 
 const notify = ([title, message]: [title: string, message: string]): void =>
   ipcRenderer.send('Notify', [title, message])
 
 const loginPage = (): void => ipcRenderer.send('openLoginPage')
 
-const getPlatform = async () => await ipcRenderer.invoke('getPlatform')
+const getPlatform = async () => ipcRenderer.invoke('getPlatform')
 
 const sidInfoPage = (): void => ipcRenderer.send('openSidInfoPage')
 
@@ -36,13 +37,14 @@ const openAboutWindow = (): void => ipcRenderer.send('showAboutWindow')
 
 const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
 
+export const size = fileSize.partial({ base: 2 })
+
 let progress: string
 
-const sendKill = (appName: string, runner: Runner): Promise<void> =>
+const sendKill = async (appName: string, runner: Runner): Promise<void> =>
   ipcRenderer.invoke('kill', appName, runner)
 
-const isLoggedIn = async (): Promise<void> =>
-  await ipcRenderer.invoke('isLoggedIn')
+const isLoggedIn = async (): Promise<void> => ipcRenderer.invoke('isLoggedIn')
 
 const syncSaves = async (
   savesPath: string,
@@ -78,21 +80,22 @@ const getGameInfo = async (
   appName: string,
   runner: Runner = 'legendary'
 ): Promise<GameInfo> => {
-  return await ipcRenderer.invoke('getGameInfo', appName, runner)
+  return ipcRenderer.invoke('getGameInfo', appName, runner)
 }
 
 const getGameSettings = async (
   appName: string,
   runner: Runner
 ): Promise<GameSettings> => {
-  return await ipcRenderer.invoke('getGameSettings', appName, runner)
+  return ipcRenderer.invoke('getGameSettings', appName, runner)
 }
 
 const getInstallInfo = async (
   appName: string,
-  runner: Runner
+  runner: Runner,
+  installPlatform?: PlatformToInstall | string
 ): Promise<InstallInfo | null> => {
-  return await ipcRenderer.invoke('getInstallInfo', appName, runner)
+  return ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
 }
 
 const handleSavePath = async (game: string) => {
@@ -104,9 +107,9 @@ const handleSavePath = async (game: string) => {
 const createNewWindow = (url: string) =>
   ipcRenderer.send('createNewWindow', url)
 
-function getProgress(progress: SavedInstallProgress): number {
+function getProgress(progress: InstallProgress): number {
   if (progress && progress.percent) {
-    return progress.percent
+    return Number(progress.percent.replace('%', ''))
   }
   return 0
 }
@@ -204,7 +207,7 @@ async function fixSaveFolder(
   return folder
 }
 
-function getAppSettings(): Promise<AppSettings> {
+async function getAppSettings(): Promise<AppSettings> {
   return ipcRenderer.invoke('requestSettings', 'default')
 }
 

@@ -1,16 +1,18 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Alla",
     "Assets": "Tillgångar",
     "box": {
-        "appupdate": {
-            "message": "En nyare version av Heroic är tillgänglig, vill du uppdatera nu?",
-            "title": "Updatering tillgänglig"
-        },
         "cache-cleared": {
             "message": "Heroic cache rensades.",
             "title": "Cache rensades"
         },
-        "choose": "OK",
+        "choose": "Välj",
         "choose-egs-prefix": "Ange prefix med befintlig EGS installation",
         "choose-gogdl-binary": "Ange GOGDL binärfil (omstart krävs)",
         "choose-legendary-binary": "Ange Legendary binärfil",
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D problem"
             },
             "generic": {
-                "message": "Ett okänt fel har inträffat",
-                "title": "Okänt fel"
+                "message": "",
+                "title": ""
             },
             "launch": "Problem vid speluppstart, kontrollera loggen!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Offline-läge stöds ej."
             },
             "title": "Problem",
+            "update": {
+                "message": "Uppdateringen misslyckades, kontrollera loggfilen eller försök igen senare.",
+                "title": "Problem vid uppdatering"
+            },
             "wine-not-found": {
                 "message": "Ingen Wine version vald. Kontrollera spelinställningar!",
                 "title": "Wine hittades ej"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Visa ändringsloggen",
+                "detail": "Vill du ladda ner uppdateringen i bakgrunden?",
+                "message": "Ny version tillgänglig!",
+                "message-finished": "Vill du starta om Heroic nu?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Uppdatering slutförd"
             }
         },
         "no": "Nej",
@@ -89,26 +105,25 @@
         "yes": "Ja"
     },
     "button": {
-        "continue": "Fortsätt",
+        "go_to_library": "Gå till Biblioteket",
         "login": "Logga in",
         "sync": "Synkronisering",
         "syncing": "Synkroniserar",
         "unsync": "Avbryt synkronisering"
     },
-    "Downloading": "Laddar ner",
     "epic": {
         "offline-notification-body": "Onlinetjänster kanske inte fungerar korrekt då Epics servrar är nere för tillfället!",
         "offline-notification-title": "Offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Inga filter"
-    },
+    "favourites": "Favoriter",
     "globalSettings": "Globala inställningar",
     "GOG": "GOG",
     "gog-store": "GOG Butik",
     "header": {
-        "platform": "Plattform"
+        "ignore_hidden": "Ignorera dolda",
+        "platform": "Plattform",
+        "show_hidden": "Visa dolda"
     },
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande Epic Games Launcher installation och vill importera spel istället för att ladda ner dem igen.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Inställningar sparas automatiskt"
     },
     "infobox": {
@@ -143,9 +161,12 @@
         "path": "Ange installationssökväg"
     },
     "library": {
-        "gridView": "",
+        "gridView": "Rutnätsvy",
         "listView": "Listvy",
-        "refresh": "Uppdatera"
+        "refresh": "Uppdatera",
+        "sortAscending": "Sortera stigande",
+        "sortByStatus": "Sortera efter status",
+        "sortDescending": "Sortera fallande"
     },
     "Library": "Bibliotek",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Avbryt synkronisering slutfört"
     },
     "nogames": "Inga spel hittades",
-    "Not Ready": "Ej redo att spelas",
     "notify": {
         "error": {
             "move": "Problem vid flytt av spel",
@@ -211,7 +231,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Projekt",
-    "Ready": "Redo",
     "Recent": "Nyligen spelat",
     "search": "Ange spelets titel här...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Synkronisera sparfiler automatiskt",
         "autovkd3d": "Installera/uppdatera VKD3D i prefix automatiskt",
         "change-target-exe": "Ange alternativ EXE-fil att köra",
-        "checkForUpdatesOnStartup": "Kontrollera uppdateringar vid uppstart",
         "customWineProton": "Anpassad Wine/Proton sökväg",
         "darktray": "Använd mörk ikon i systemfältet",
         "default-install-path": "Standard installationssökväg",
         "defaultWinePrefix": "Ange sökväg för nya Wine-prefix",
+        "disable_controller": "Deaktivera navigering via handkontroll",
         "discordRPC": "Aktivera Discord Rich Presence",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine-versionen måste stödja det)",
@@ -238,9 +257,17 @@
         "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj språk",
+        "library_top_option": {
+            "disabled": "Deaktiverad",
+            "favourites": "Favoritspel",
+            "recently_played": "Nyligen spelade"
+        },
+        "library_top_section": "Bibliotek topplista",
         "log": {
             "copy-to-clipboard": "Kopiera loggen till urklipp/klippbord",
             "current-log": "Aktuell logg",
+            "instructions": "Gå med i vår Discord, välj kanalen för ditt operativsystem. Dela loggfilerna som finns här, inkludera tydlig beskrivning av problemet och relevanta detaljer.",
+            "instructions_title": "Hur rapporterar jag problem?",
             "last-log": "Senaste logg",
             "no-file": "Ingen loggfil hittades",
             "show-in-folder": "Visa loggfiler i mapp"
@@ -269,6 +296,7 @@
             "placeholder": "Ange specifik sparfilsmapp",
             "title": "Synkroniseringsmapp för sparfiler"
         },
+        "select_theme": "Välj tema",
         "showfps": "Visa FPS (DX9, 10 och 11)",
         "showUnrealMarket": "Visa Unreal Marketplace (kräver omstart)",
         "start-in-tray": "Starta minimerad",
@@ -285,6 +313,7 @@
             "long-log-hint": "Loggen avkortad , enbart senaste 1000 rader visas!"
         },
         "navbar": {
+            "advanced": "Avancerat",
             "general": "Allmänt",
             "log": "Logg",
             "other": "Övrigt",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "Alla spel",
         "allUnreal": "Unreal - allt",
-        "downloading": "Laddar ner",
-        "installedGames": "Installerade spel",
-        "notInstalledGames": "Ej installerade",
         "unrealAssets": "Unreal - Tillgångar",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projekt",
-        "updates": "Tillgängliga uppdateringar"
+        "unrealProjects": "Unreal - Projekt"
     },
     "toolbox": {
         "settings": {
@@ -326,8 +351,7 @@
         "reload": "Ladda om",
         "show": "Visa"
     },
-    "Unreal Marketplace": "Unreal marknadsplats",
-    "Updates": "Uppdateringar",
+    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Logga ut",

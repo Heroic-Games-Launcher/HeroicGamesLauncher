@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "All",
     "Assets": "Assets",
     "box": {
-        "appupdate": {
-            "message": "There is a new version of Heroic available, do you want to update now?",
-            "title": "Update Available"
-        },
         "cache-cleared": {
             "message": "Heroic cache cleared.",
             "title": "Cache cleared"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D error"
             },
             "generic": {
-                "message": "An Unknown Error has occurred",
-                "title": "Unknown Error"
+                "message": "",
+                "title": ""
             },
             "launch": "Error when launching the game, check the logs!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Offline mode not supported."
             },
             "title": "Error",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NO",
@@ -89,26 +105,25 @@
         "yes": "YES"
     },
     "button": {
-        "continue": "Continue",
+        "go_to_library": "Go to Library",
         "login": "Log in",
         "sync": "Sync",
         "syncing": "Syncing",
         "unsync": "Unsync"
     },
-    "Downloading": "Downloading",
     "epic": {
         "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
+    "favourites": "Favourites",
     "globalSettings": "Global Settings",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": "Platform"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Platform",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Settings are saved automatically"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "Grid view",
         "listView": "List view",
-        "refresh": "Refresh"
+        "refresh": "Refresh",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Library",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Unsync Complete"
     },
     "nogames": "No Games Found",
-    "Not Ready": "Not Ready",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -180,7 +200,7 @@
         "uninstalled": "Uninstalled",
         "update": {
             "canceled": "Updated Canceled",
-            "finished": "Updated Finished",
+            "finished": "Update Finished",
             "started": "Update Started"
         }
     },
@@ -211,7 +231,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Projects",
-    "Ready": "Ready",
     "Recent": "Played Recently",
     "search": "Enter the game name here...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Autosync Saves",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
-        "checkForUpdatesOnStartup": "Check For Updates On Startup",
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon",
         "default-install-path": "Default Installation Path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Enable Discord Rich Presence",
         "egs-sync": "Sync with Installed Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
@@ -238,9 +257,17 @@
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "language": "Choose App Language",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
@@ -269,6 +296,7 @@
             "placeholder": "Select the exact save games folder",
             "title": "Override Cloud Sync Save folder"
         },
+        "select_theme": "Select Theme",
         "showfps": "Show FPS (DX9, 10 and 11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
@@ -285,6 +313,7 @@
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "General",
             "log": "Log",
             "other": "Other",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projects"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Show"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Updates",
     "userselector": {
         "discord": "Discord",
         "logout": "Log out",

@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Todos",
     "Assets": "Recursos",
     "box": {
-        "appupdate": {
-            "message": "Hay una nueva versión de Heroic disponible, ¿quieres actualizar ahora?",
-            "title": "Actualización disponible"
-        },
         "cache-cleared": {
             "message": "El caché de Heroic ha sido limpiado.",
             "title": "Caché borrado"
@@ -30,8 +32,8 @@
                 "title": "Error de DXVK/VKD3D"
             },
             "generic": {
-                "message": "Ha ocurrido un error desconocido",
-                "title": "Error desconocido"
+                "message": "",
+                "title": ""
             },
             "launch": "Error al iniciar el juego, ¡revisa los registros!",
             "no-offline-mode": {
@@ -39,13 +41,27 @@
                 "title": "El modo sin conexión no está soportado."
             },
             "title": "Error",
+            "update": {
+                "message": "Ocurrió un problema con la actualización. Por favor, revise los registros e intente nuevamente!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No se ha seleccionado la versión de Wine. ¡Comprueba la configuración del juego!",
                 "title": "No se ha encontrado Wine"
             }
         },
+        "info": {
+            "update": {
+                "changelog": "Abrir registro de cambios",
+                "detail": "¿Quiere descargar la actualización en segundo plano?",
+                "message": "¡Hay una nueva versión disponible!",
+                "message-finished": "¿Quiere reiniciar Heroic ahora?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Actualización finalizada"
+            }
+        },
         "no": "NO",
-        "ok": "Vale",
+        "ok": "De acuerdo",
         "protocol": {
             "install": {
                 "not_installed": "No está instalado actualmente. ¿Quieres instalarlo?"
@@ -85,30 +101,29 @@
             },
             "title": "Advertencia"
         },
-        "wineprefix": "Elige la carpeta del prefijo de Wine",
+        "wineprefix": "Elige la carpeta del Prefijo de Wine",
         "yes": "SÍ"
     },
     "button": {
-        "continue": "Continuar",
+        "go_to_library": "Ir a la biblioteca",
         "login": "Iniciar sesión",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Desincronizar"
     },
-    "Downloading": "Descargando",
     "epic": {
         "offline-notification-body": "¡Puede que algunos servicios no funcionen correctamente si no estás conectado a los servidores de Epic Games!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Sin filtrar"
-    },
+    "favourites": "Favoritos",
     "globalSettings": "Ajustes globales",
     "GOG": "GOG",
     "gog-store": "Tienda de GOG",
     "header": {
-        "platform": "Plataforma"
+        "ignore_hidden": "Ignorar Ocultos",
+        "platform": "Plataforma",
+        "show_hidden": "Mostrar Ocultos"
     },
     "help": {
         "general": "Sincronice con EGL si tiene una instalación funcional de Epic Games Launcher en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Los ajustes se guardan automáticamente"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "Vista de cuadrícula",
         "listView": "Vista de lista",
-        "refresh": "Actualizar"
+        "refresh": "Actualizar",
+        "sortAscending": "Orden Ascendente",
+        "sortByStatus": "Ordenar por Estado",
+        "sortDescending": "Orden Descendente"
     },
     "Library": "Biblioteca",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Desincronizacion completa"
     },
     "nogames": "No se han encontrado juegos",
-    "Not Ready": "No está listo",
     "notify": {
         "error": {
             "move": "Error al mover el juego",
@@ -211,24 +231,23 @@
     },
     "Plugins": "Plugins",
     "Projects": "Proyectos",
-    "Ready": "Listo",
     "Recent": "Jugado recientemente",
     "search": "Ingrese el nombre del juego aquí…",
     "setting": {
         "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
         "addgamestostartmenu": "Añadir juegos al menú de inicio automáticamente",
-        "alt-gogdl-bin": "Elige un binario de GOGDL alternativo para usar (requiere un reinicio)",
-        "alt-legendary-bin": "Elige un binario de Legendary alternativo (es necesario reiniciar)",
+        "alt-gogdl-bin": "Elige un binario de GOGDL alternativo para usar",
+        "alt-legendary-bin": "Elige un binario de Legendary alternativo",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar/actualizar DXVK en el Prefix",
         "autosync": "Autosincronizar guardados",
         "autovkd3d": "Instalación/actualización automática de VKD3D en el prefijo",
         "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
-        "checkForUpdatesOnStartup": "Buscar actualizaciones al iniciar",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
-        "darktray": "Utilice el icono de bandeja oscura",
+        "darktray": "Utilizar el icono oscuro en la bandeja",
         "default-install-path": "Ruta de instalación predeterminada",
         "defaultWinePrefix": "Establecer carpeta para nuevos prefijos de Wine",
+        "disable_controller": "Desactivar la navegación de Heroic usando el controlador",
         "discordRPC": "Activar Discord Rich Presence",
         "egs-sync": "Sincronizar con juegos EGS",
         "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
@@ -238,9 +257,17 @@
         "fsync": "Habilitar Fsync",
         "gamemode": "Usar GameMode (Feral Game Mode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
+        "library_top_option": {
+            "disabled": "Desactivada",
+            "favourites": "Juegos Favoritos",
+            "recently_played": "Juegos Jugados Recientemente"
+        },
+        "library_top_section": "Sección superior de la Biblioteca",
         "log": {
             "copy-to-clipboard": "Copiar el contenido del registro en el portapapeles",
             "current-log": "Registro actual",
+            "instructions": "Unete a nuestro Discord y busca el canal que correponde a tu sistema operateivo. Comparte el contenido del registro mostrado aquí, e incluye una descripción clara del problema con cualquier información relevante y detalles.",
+            "instructions_title": "¿Cómo reportar un problema?",
             "last-log": "Último registro",
             "no-file": "No se ha encontrado ningún archivo de registro",
             "show-in-folder": "Mostrar el archivo de registro en la carpeta"
@@ -257,7 +284,7 @@
         },
         "maxRecentGames": "Jugado recientemente para mostrar",
         "maxworkers": "Número máximo de descargas",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "Minimizar Heroic al ejecutar un juego",
         "offlinemode": "Ejecutar juego sin conexión",
         "primerun": "Habilitar Nvidia Prime Render",
         "resizableBar": "Habilitar Resizable Bar (NVIDIA RTX 30xx únicamente)",
@@ -269,6 +296,7 @@
             "placeholder": "Seleccione la carpeta exacta para guardar juegos",
             "title": "Anular la carpeta de guardado de Cloud Sync"
         },
+        "select_theme": "Seleccionar Tema",
         "showfps": "Mostrar FPS (DX9, 10 y 11)",
         "showUnrealMarket": "Mostrar la tienda de Unreal (requiere reiniciar)",
         "start-in-tray": "Iniciar minimizado",
@@ -285,6 +313,7 @@
             "long-log-hint": "Registro truncado. ¡Se mostrarán las últimas 1000 líneas!"
         },
         "navbar": {
+            "advanced": "Avanzado",
             "general": "General",
             "log": "Registro",
             "other": "Otro",
@@ -296,18 +325,14 @@
     "status": {
         "logging": "Iniciando sesión…"
     },
-    "store": "Epic Store",
+    "store": "Tienda de Epic",
     "stores": "Tiendas",
     "title": {
         "allGames": "Todos los juegos",
         "allUnreal": "Unreal - Todo",
-        "downloading": "Descargando",
-        "installedGames": "Juegos instalados",
-        "notInstalledGames": "No instalado",
         "unrealAssets": "Unreal - Recursos",
         "unrealPlugins": "Unreal - Plug-ins",
-        "unrealProjects": "Unreal - Proyectos",
-        "updates": "Actualizaciones pendientes"
+        "unrealProjects": "Unreal - Proyectos"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Mostrar"
     },
     "Unreal Marketplace": "Tienda de Unreal",
-    "Updates": "Actualizaciones",
     "userselector": {
         "discord": "Discord",
         "logout": "Cerrar sesión",

@@ -200,7 +200,7 @@ class GameConfigV0 extends GameConfig {
 
   public async resetToDefaults() {
     this.config = {} as GameSettings
-    return await this.flush()
+    return this.flush()
   }
 
   public async flush() {

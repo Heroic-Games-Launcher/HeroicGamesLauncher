@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { GOGLibrary } from './library'
 import { BrowserWindow } from 'electron'
-import Store from 'electron-store'
 import { spawn } from 'child_process'
 import { join } from 'path'
-import prettyBytes from 'pretty-bytes'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
@@ -17,9 +15,10 @@ import {
   InstallArgs,
   LaunchResult,
   GOGLoginData,
-  InstalledInfo
+  InstalledInfo,
+  InstallProgress
 } from 'types'
-import { existsSync, rmSync, rename } from 'graceful-fs'
+import { existsSync, rmSync } from 'graceful-fs'
 import {
   heroicGamesConfigPath,
   isWindows,
@@ -27,22 +26,26 @@ import {
   isMac,
   isLinux
 } from '../constants'
+import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { execAsync } from '../utils'
+import { execAsync, getFileSize } from '../utils'
 import { GOGUser } from './user'
-import { launch } from '../launcher'
+import {
+  launchCleanup,
+  prepareLaunch,
+  prepareWineLaunch,
+  runWineCommand,
+  setupEnvVars,
+  setupWrappers
+} from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import setup from './setup'
 import { getGogdlCommand, runGogdlCommand } from './library'
 
-const configStore = new Store({
-  cwd: 'gog_store'
-})
-
-const installedGamesStore = new Store({
-  cwd: 'gog_store',
-  name: 'installed'
-})
+function verifyProgress(stderr: string): boolean {
+  const text = stderr.split('\n').at(-1)
+  return text.includes('INFO: Done')
+}
 
 class GOGGame extends Game {
   public appName: string
@@ -79,8 +82,8 @@ class GOGGame extends Game {
   public async getGameInfo(): Promise<GameInfo> {
     return GOGLibrary.get().getGameInfo(this.appName)
   }
-  async getInstallInfo(): Promise<InstallInfo> {
-    return await GOGLibrary.get().getInstallInfo(this.appName)
+  async getInstallInfo(installPlatform?: string): Promise<InstallInfo> {
+    return GOGLibrary.get().getInstallInfo(this.appName, installPlatform)
   }
   async getSettings(): Promise<GameSettings> {
     return (
@@ -88,7 +91,7 @@ class GOGGame extends Game {
       (await GameConfig.get(this.appName).getSettings())
     )
   }
-  hasUpdate(): Promise<boolean> {
+  async hasUpdate(): Promise<boolean> {
     throw new Error('Method not implemented.')
   }
 
@@ -110,6 +113,40 @@ class GOGGame extends Game {
     return res
   }
 
+  public onInstallOrUpdateOutput(
+    action: 'installing' | 'updating',
+    data: string
+  ) {
+    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+    const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
+    const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
+    if (etaMatch && bytesMatch && progressMatch) {
+      const eta = etaMatch[1]
+      const bytes = bytesMatch[1]
+      let percent = parseFloat(progressMatch[1])
+      if (percent < 0) percent = 0
+
+      logInfo(
+        [
+          `Progress for ${this.appName}:`,
+          `${percent}%/${bytes}MiB/${eta}`.trim()
+        ],
+        LogPrefix.Backend
+      )
+
+      this.window.webContents.send('setGameStatus', {
+        appName: this.appName,
+        runner: 'gog',
+        status: action,
+        progress: {
+          eta,
+          percent: `${percent.toFixed(0)}%`,
+          bytes: `${bytes}MiB`
+        }
+      })
+    }
+  }
+
   public async install({
     path,
     installDlcs,
@@ -117,27 +154,26 @@ class GOGGame extends Game {
     installLanguage
   }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const workers = maxWorkers === 0 ? [] : ['--max-workers', `${maxWorkers}`]
+    const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
-    if (GOGUser.isTokenExpired()) {
-      await GOGUser.refreshToken()
-    }
-    const credentials = configStore.get('credentials') as GOGLoginData
+
+    const credentials = await GOGUser.getCredentials()
 
     let installPlatform = platformToInstall.toLowerCase()
-    if (installPlatform == 'mac') {
+    if (installPlatform === 'mac') {
       installPlatform = 'osx'
     }
 
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const commandParts = [
+    const commandParts: string[] = [
       'download',
       this.appName,
       '--platform',
       installPlatform,
       `--path=${path}`,
-      `--token=${credentials.access_token}`,
+      '--token',
+      `"${credentials.access_token}"`,
       withDlcs,
       `--lang=${installLanguage}`,
       ...workers
@@ -146,13 +182,14 @@ class GOGGame extends Game {
 
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(
-      commandParts,
-      logPath,
-      undefined,
-      this.appName,
-      'install'
-    )
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput('installing', data)
+    }
+
+    const res = await runGogdlCommand(commandParts, {
+      logFile: logPath,
+      onOutput
+    })
 
     if (res.error) {
       logError(
@@ -164,17 +201,18 @@ class GOGGame extends Game {
 
     // Installation succeded
     // Save new game info to installed games store
-    const installInfo = await this.getInstallInfo()
+    const installInfo = await this.getInstallInfo(installPlatform)
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
-    const isLinuxNative = installPlatform == 'linux'
+    const isLinuxNative = installPlatform === 'linux'
     const additionalInfo = isLinuxNative
       ? await GOGLibrary.getLinuxInstallerInfo(this.appName)
       : null
+
     const installedData: InstalledInfo = {
       platform: installPlatform,
       executable: '',
       install_path: join(path, gameInfo.folder_name),
-      install_size: prettyBytes(installInfo.manifest.disk_size),
+      install_size: getFileSize(installInfo.manifest.disk_size),
       is_dlc: false,
       version: additionalInfo
         ? additionalInfo.version
@@ -191,7 +229,11 @@ class GOGGame extends Game {
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
     if (isWindows) {
-      await setup(this.appName)
+      logInfo(
+        'Windows os, running setup instructions on install',
+        LogPrefix.Gog
+      )
+      await setup(this.appName, installedData)
     }
     return { status: 'done' }
   }
@@ -203,9 +245,135 @@ class GOGGame extends Game {
   public async removeShortcuts() {
     return removeShortcuts(this.appName, 'gog')
   }
+  async launch(launchArguments?: string): Promise<LaunchResult> {
+    const gameSettings =
+      GameConfig.get(this.appName).config ||
+      (await GameConfig.get(this.appName).getSettings())
+    const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
 
-  launch(launchArguments?: string): Promise<ExecResult | LaunchResult> {
-    return launch(this.appName, launchArguments, 'gog')
+    const {
+      success: launchPrepSuccess,
+      failureReason: launchPrepFailReason,
+      rpcClient,
+      mangoHudCommand,
+      gameModeBin,
+      steamRuntime
+    } = await prepareLaunch(this, gameInfo)
+    if (!launchPrepSuccess) {
+      return {
+        success: false,
+        stdout: '',
+        stderr: 'Launch aborted: ' + launchPrepFailReason,
+        gameSettings
+      }
+    }
+
+    const exeOverrideFlag = gameSettings.targetExe
+      ? ['--override-exe', gameSettings.targetExe]
+      : []
+
+    const isNative =
+      isWindows ||
+      (isMac && gameInfo.is_mac_native) ||
+      (isLinux && gameInfo.is_linux_native)
+
+    let commandParts = new Array<string>()
+    let commandEnv = {}
+    let wrappers = new Array<string>()
+    if (isNative) {
+      if (!isWindows) {
+        // These options can only be used on Mac/Linux
+        commandEnv = {
+          ...commandEnv,
+          ...setupEnvVars(gameSettings)
+        }
+        wrappers = setupWrappers(
+          gameSettings,
+          mangoHudCommand,
+          gameModeBin,
+          steamRuntime
+        )
+      }
+      commandParts = [
+        'launch',
+        gameInfo.install.install_path,
+        ...exeOverrideFlag,
+        gameInfo.app_name,
+        '--platform',
+        `${gameInfo.install.platform}`,
+        launchArguments,
+        gameSettings.launcherArgs
+      ]
+    } else {
+      const {
+        success: wineLaunchPrepSuccess,
+        failureReason: wineLaunchPrepFailReason,
+        envVars: wineEnvVars
+      } = await prepareWineLaunch(this)
+      if (!wineLaunchPrepSuccess) {
+        return {
+          success: false,
+          stdout: '',
+          stderr: 'Launch aborted: ' + wineLaunchPrepFailReason,
+          gameSettings
+        }
+      }
+
+      commandEnv = {
+        ...commandEnv,
+        ...setupEnvVars(gameSettings),
+        ...wineEnvVars
+      }
+      wrappers = setupWrappers(
+        gameSettings,
+        mangoHudCommand,
+        gameModeBin,
+        steamRuntime
+      )
+
+      const { wineVersion, winePrefix, launcherArgs } = gameSettings
+      let wineFlag = ['--wine', wineVersion.bin]
+      let winePrefixFlag = ['--wine-prefix', winePrefix]
+      if (wineVersion.type === 'proton') {
+        wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
+        winePrefixFlag = []
+      }
+
+      commandParts = [
+        'launch',
+        gameInfo.install.install_path,
+        ...exeOverrideFlag,
+        gameInfo.app_name,
+        ...wineFlag,
+        ...winePrefixFlag,
+        '--os',
+        gameInfo.install.platform.toLowerCase(),
+        launchArguments,
+        launcherArgs
+      ]
+    }
+    const command = getGogdlCommand(commandParts, commandEnv, wrappers)
+
+    logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Gog)
+
+    const { error, stderr, stdout } = await runGogdlCommand(commandParts, {
+      env: commandEnv,
+      wrappers
+    })
+
+    if (error) {
+      logError(['Error launching game:', error], LogPrefix.Gog)
+    }
+
+    launchCleanup(rpcClient)
+
+    return {
+      success: !error,
+      stdout,
+      stderr,
+      gameSettings,
+      command
+    }
   }
 
   public async moveInstall(newInstallPath: string): Promise<string> {
@@ -221,18 +389,13 @@ class GOGGame extends Game {
     }
 
     logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Gog)
-
-    return new Promise<string>((resolve, reject) => {
-      rename(install_path, newInstallPath, (error) => {
-        if (error) {
-          reject(error)
-        } else {
-          GOGLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
-          logInfo(`Finished Moving ${title}`, LogPrefix.Gog)
-          resolve('')
-        }
+    await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
+      .then(() => {
+        GOGLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
+        logInfo(`Finished Moving ${title}`, LogPrefix.Gog)
       })
-    })
+      .catch((error) => logError(`${error}`, LogPrefix.Gog))
+    return newInstallPath
   }
 
   /**
@@ -254,7 +417,8 @@ class GOGGame extends Game {
       '--platform',
       installPlatform,
       `--path=${gameData.install.install_path}`,
-      `--token=${credentials.access_token}`,
+      '--token',
+      `"${credentials.access_token}"`,
       withDlcs,
       `--lang=${gameData.install.language || 'en-US'}`,
       '-b=' + gameData.install.buildId,
@@ -264,13 +428,7 @@ class GOGGame extends Game {
 
     logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(
-      commandParts,
-      logPath,
-      undefined,
-      this.appName,
-      'repair'
-    )
+    const res = await runGogdlCommand(commandParts, { logFile: logPath })
 
     if (res.error) {
       logError(
@@ -304,7 +462,7 @@ class GOGGame extends Game {
     })
   }
 
-  syncSaves(arg: string, path: string): Promise<ExecResult> {
+  async syncSaves(arg: string, path: string): Promise<ExecResult> {
     throw new Error(
       "GOG integration doesn't support syncSaves yet. How did you managed to call that function?"
     )
@@ -312,8 +470,8 @@ class GOGGame extends Game {
   public async uninstall(): Promise<ExecResult> {
     const array: Array<InstalledInfo> =
       (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
-    const index = array.findIndex((game) => game.appName == this.appName)
-    if (index == -1) {
+    const index = array.findIndex((game) => game.appName === this.appName)
+    if (index === -1) {
       throw Error("Game isn't installed")
     }
 
@@ -352,6 +510,7 @@ class GOGGame extends Game {
     }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
+    removeShortcuts(this.appName, 'gog')
     return res
   }
 
@@ -370,7 +529,8 @@ class GOGGame extends Game {
       '--platform',
       installPlatform,
       `--path=${gameData.install.install_path}`,
-      `--token=${credentials.access_token}`,
+      '--token',
+      `"${credentials.access_token}"`,
       withDlcs,
       `--lang=${gameData.install.language || 'en-US'}`,
       ...workers
@@ -379,13 +539,14 @@ class GOGGame extends Game {
 
     logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(
-      commandParts,
-      logPath,
-      undefined,
-      this.appName,
-      'update'
-    )
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput('updating', data)
+    }
+
+    const res = await runGogdlCommand(commandParts, {
+      logFile: logPath,
+      onOutput
+    })
 
     // This always has to be done, so we do it before checking for res.error
     this.window.webContents.send('setGameStatus', {
@@ -402,22 +563,20 @@ class GOGGame extends Game {
       return { status: 'error' }
     }
 
-    // Update was successful
-
     const installedArray = installedGamesStore.get(
       'installed'
     ) as InstalledInfo[]
     const gameIndex = installedArray.findIndex(
-      (value) => this.appName == value.appName
+      (value) => this.appName === value.appName
     )
     const gameObject = installedArray[gameIndex]
 
-    if (gameData.install.platform != 'linux') {
+    if (gameData.install.platform !== 'linux') {
       const installInfo = await GOGLibrary.get().getInstallInfo(this.appName)
       gameObject.buildId = installInfo.game.buildId
       gameObject.version = installInfo.game.version
       gameObject.versionEtag = installInfo.manifest.versionEtag
-      gameObject.install_size = prettyBytes(installInfo.manifest.disk_size)
+      gameObject.install_size = getFileSize(installInfo.manifest.disk_size)
     } else {
       const installerInfo = await GOGLibrary.getLinuxInstallerInfo(this.appName)
       gameObject.version = installerInfo.version
@@ -433,7 +592,7 @@ class GOGGame extends Game {
    */
   public async getCommandParameters() {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
-    const workers = maxWorkers === 0 ? [] : ['--max-workers', `${maxWorkers}`]
+    const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const gameData = GOGLibrary.get().getGameInfo(this.appName)
 
     const withDlcs = gameData.install.installedWithDLCs
@@ -455,6 +614,24 @@ class GOGGame extends Game {
       credentials,
       gameData
     }
+  }
+
+  public async runWineCommand(
+    command: string,
+    altWineBin = '',
+    wait = false
+  ): Promise<ExecResult> {
+    const gameInfo = await this.getGameInfo()
+    const isNative =
+      isWindows ||
+      (isMac && gameInfo.is_mac_native) ||
+      (isLinux && gameInfo.is_linux_native)
+    if (isNative) {
+      logError('runWineCommand called on native game!', LogPrefix.Gog)
+      return { stdout: '', stderr: '' }
+    }
+
+    return runWineCommand(await this.getSettings(), command, altWineBin, wait)
   }
 }
 

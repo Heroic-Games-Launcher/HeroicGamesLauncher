@@ -3,8 +3,8 @@
   top: 0;
   z-index: 7;
   display: grid;
-  grid-template-columns: 3fr 4fr 3fr;
-  grid-template-areas: 'filters search summary';
+  grid-template-columns: 1fr 4fr 1fr min-content;
+  grid-template-areas: 'filters search summary hidden';
   grid-gap: 8px;
   align-items: center;
   margin: 0 32px;
@@ -12,19 +12,13 @@
   background: var(--gradient-body-background);
   color: var(--text-secondary);
 }
-@media (max-width: 1400px) {
-  .Header {
-    grid-template-columns: 3fr 4fr 2fr;
-  }
-}
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
   .Header {
-    grid-template-columns: 1fr auto;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr min-content min-content;
     grid-template-areas:
-      'search search'
-      'filters summary';
+      'search search search'
+      'filters summary hidden';
   }
 }
 
@@ -32,6 +26,7 @@
   grid-area: filters;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .Header__filters .FormControl {
@@ -49,6 +44,8 @@
 .Header__summary {
   grid-area: summary;
   text-align: right;
+  white-space: nowrap;
+  margin-left: 8px;
 }
 
 /* TODO move following styles to the components which use them */

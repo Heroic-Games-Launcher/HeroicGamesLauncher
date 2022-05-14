@@ -36,10 +36,14 @@
         "yes": "是"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "取消",
         "continue": "繼續下載",
+        "hide_game": "Hide Game",
         "import": "導入",
         "install": "安裝",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "解除安裝",
         "update": "更新"
     },
@@ -55,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "上次遊玩",
         "neverPlayed": "從未遊玩",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "遊玩時間"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Online Required",
+        "installedPlatform": "Installed Platform",
         "path": "安裝路徑",
         "size": "大小",
         "syncsaves": "同步存檔",
         "version": "版本"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Select Install Path",
         "wineprefix": "WinePrefix",
         "wineversion": ""
@@ -85,6 +92,7 @@
     "launch": {
         "options": "Launch Options..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Select components to Install"
     },

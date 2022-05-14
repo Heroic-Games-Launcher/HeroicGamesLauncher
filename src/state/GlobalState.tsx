@@ -1,9 +1,12 @@
 import React, { PureComponent } from 'react'
 
 import {
+  FavouriteGame,
   GameInfo,
   GameStatus,
+  HiddenGame,
   InstalledInfo,
+  LibraryTopSectionOptions,
   RefreshOptions,
   WineVersionInfo
 } from 'src/types'
@@ -18,32 +21,20 @@ import {
 import { i18n, t } from 'i18next'
 
 import ContextProvider from './ContextProvider'
-import ElectronStore from 'electron-store'
 import { getRecentGames } from 'src/helpers/library'
+
+import {
+  configStore,
+  gogConfigStore,
+  gogInstalledGamesStore,
+  gogLibraryStore,
+  libraryStore,
+  wineDownloaderInfoStore
+} from '../helpers/electronStores'
 
 const storage: Storage = window.localStorage
 const { ipcRenderer } = window.require('electron')
-const Store = window.require('electron-store')
-const configStore: ElectronStore = new Store({
-  cwd: 'store'
-})
-const libraryStore: ElectronStore = new Store({
-  cwd: 'lib-cache',
-  name: 'library'
-})
-const wineDownloaderInfoStore: ElectronStore = new Store({
-  cwd: 'store',
-  name: 'wine-downloader-info'
-})
 
-const gogLibraryStore = new Store({ cwd: 'gog_store', name: 'library' })
-const gogInstalledGamesStore = new Store({
-  cwd: 'gog_store',
-  name: 'installed'
-})
-const gogConfigStore = new Store({
-  cwd: 'gog_store'
-})
 const RTL_LANGUAGES = ['fa']
 
 type T = TFunction<'gamepage'> & TFunction<'translations'>
@@ -67,8 +58,16 @@ interface StateProps {
   language: string
   layout: string
   libraryStatus: GameStatus[]
+  libraryTopSection: string
   platform: string
   refreshing: boolean
+  hiddenGames: HiddenGame[]
+  showHidden: boolean
+  favouriteGames: FavouriteGame[]
+  theme: string
+  zoomPercent: number
+  contentFontFamily: string
+  actionsFontFamily: string
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -80,7 +79,7 @@ export class GlobalState extends PureComponent<Props> {
       (gogInstalledGamesStore.get('installed') as Array<InstalledInfo>) || []
     for (const igame in games) {
       for (const installedGame in installedGames) {
-        if (installedGames[installedGame].appName == games[igame].app_name) {
+        if (installedGames[installedGame].appName === games[igame].app_name) {
           games[igame].install = installedGames[installedGame]
           games[igame].is_installed = true
         }
@@ -106,8 +105,103 @@ export class GlobalState extends PureComponent<Props> {
     language: '',
     layout: 'grid',
     libraryStatus: [],
+    libraryTopSection: 'disabled',
     platform: '',
-    refreshing: false
+    refreshing: false,
+    hiddenGames: (configStore.get('games.hidden') as Array<HiddenGame>) || [],
+    showHidden: false,
+    favouriteGames:
+      (configStore.get('games.favourites') as Array<FavouriteGame>) || [],
+    theme: (configStore.get('theme') as string) || '',
+    zoomPercent: parseInt((configStore.get('zoomPercent') as string) || '100'),
+    contentFontFamily:
+      (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
+    actionsFontFamily:
+      (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif"
+  }
+
+  setTheme = (newThemeName: string) => {
+    configStore.set('theme', newThemeName)
+    this.setState({ theme: newThemeName })
+    document.body.className = newThemeName
+  }
+
+  zoomTimer: NodeJS.Timeout | undefined = undefined
+  setZoomPercent = (newZoomPercent: number) => {
+    if (this.zoomTimer) clearTimeout(this.zoomTimer)
+
+    configStore.set('zoomPercent', newZoomPercent)
+    this.setState({ zoomPercent: newZoomPercent })
+
+    this.zoomTimer = setTimeout(() => {
+      ipcRenderer.send('setZoomFactor', (newZoomPercent / 100).toString())
+    }, 500)
+  }
+
+  setContentFontFamily = (newFontFamily: string) => {
+    configStore.set('contentFontFamily', newFontFamily)
+    this.setState({ contentFontFamily: newFontFamily })
+  }
+
+  setActionsFontFamily = (newFontFamily: string) => {
+    configStore.set('actionsFontFamily', newFontFamily)
+    this.setState({ actionsFontFamily: newFontFamily })
+  }
+
+  setShowHidden = (value: boolean) => {
+    this.setState({ showHidden: value })
+  }
+
+  hideGame = (appNameToHide: string, appTitle: string) => {
+    const newHiddenGames = [
+      ...this.state.hiddenGames,
+      { appName: appNameToHide, title: appTitle }
+    ]
+
+    this.setState({
+      hiddenGames: newHiddenGames
+    })
+    configStore.set('games.hidden', newHiddenGames)
+  }
+
+  unhideGame = (appNameToUnhide: string) => {
+    const newHiddenGames = this.state.hiddenGames.filter(
+      ({ appName }) => appName !== appNameToUnhide
+    )
+
+    this.setState({
+      hiddenGames: newHiddenGames
+    })
+    configStore.set('games.hidden', newHiddenGames)
+  }
+
+  addGameToFavourites = (appNameToAdd: string, appTitle: string) => {
+    const newFavouriteGames = [
+      ...this.state.favouriteGames.filter(
+        (fav) => fav.appName !== appNameToAdd
+      ),
+      { appName: appNameToAdd, title: appTitle }
+    ]
+
+    this.setState({
+      favouriteGames: newFavouriteGames
+    })
+    configStore.set('games.favourites', newFavouriteGames)
+  }
+
+  removeGameFromFavourites = (appNameToRemove: string) => {
+    const newFavouriteGames = this.state.favouriteGames.filter(
+      ({ appName }) => appName !== appNameToRemove
+    )
+
+    this.setState({
+      favouriteGames: newFavouriteGames
+    })
+    configStore.set('games.favourites', newFavouriteGames)
+  }
+
+  handleLibraryTopSection = (value: LibraryTopSectionOptions) => {
+    this.setState({ libraryTopSection: value })
   }
 
   refresh = async (checkUpdates?: boolean): Promise<void> => {
@@ -136,7 +230,6 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     this.setState({
-      filterText: '',
       epicLibrary,
       gogLibrary,
       gameUpdates: updates,
@@ -226,29 +319,6 @@ export class GlobalState extends PureComponent<Props> {
       })
     } else {
       switch (filter) {
-        case 'installed':
-          return library.filter((game) => game.is_installed && game.is_game)
-        case 'uninstalled':
-          return library.filter((game) => !game.is_installed && game.is_game)
-        case 'downloading':
-          return library.filter((game) => {
-            const currentApp = this.state.libraryStatus.filter(
-              (app) => app.appName === game.app_name
-            )[0]
-            if (!currentApp || !game.is_game) {
-              return false
-            }
-            return (
-              currentApp.status === 'installing' ||
-              currentApp.status === 'repairing' ||
-              currentApp.status === 'updating' ||
-              currentApp.status === 'moving'
-            )
-          })
-        case 'updates':
-          return library.filter((game) =>
-            this.state.gameUpdates.includes(game.app_name)
-          )
         case 'unreal':
           return library.filter(
             (game) =>
@@ -267,17 +337,35 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   filterPlatform = (library: GameInfo[], filter: string) => {
+    const { category, platform } = this.state
+
+    if (category === 'epic' && platform === 'linux') {
+      return library.filter((game) => game.is_game)
+    }
+
+    const isMac = ['osx', 'Mac']
+
     switch (filter) {
       case 'win':
-        return library.filter((game) =>
-          process.platform == 'darwin'
+        return library.filter((game) => {
+          return game.is_installed
+            ? game.install.platform === 'windows'
+            : process.platform === 'darwin'
             ? !game.is_mac_native
             : !game.is_linux_native
-        )
+        })
       case 'mac':
-        return library.filter((game) => game.is_mac_native)
+        return library.filter((game) => {
+          return game.is_installed
+            ? isMac.includes(game.install.platform ?? '')
+            : game.is_mac_native
+        })
       case 'linux':
-        return library.filter((game) => game.is_linux_native)
+        return library.filter((game) => {
+          return game.is_installed
+            ? game.install.platform === 'linux'
+            : game.is_linux_native
+        })
       default:
         return library.filter((game) => game.is_game)
     }
@@ -287,136 +375,50 @@ export class GlobalState extends PureComponent<Props> {
     appName,
     status,
     folder,
-    progress,
-    runner
+    progress
   }: GameStatus) => {
     const { libraryStatus, gameUpdates } = this.state
-    const currentApp =
-      libraryStatus.filter((game) => game.appName === appName)[0] || {}
+    const currentApp = libraryStatus.filter(
+      (game) => game.appName === appName
+    )[0]
 
-    if (currentApp && currentApp.status === status) {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
+    // add app to libraryStatus if it was not present
+    if (!currentApp) {
       return this.setState({
-        libraryStatus: [...updatedLibraryStatus, { ...currentApp }]
+        libraryStatus: [...libraryStatus, { appName, status, folder, progress }]
       })
     }
 
-    if (
-      currentApp &&
-      currentApp.status === 'installing' &&
-      status === 'error'
-    ) {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-
-      this.setState({
-        libraryStatus: updatedLibraryStatus
-      })
-      return this.refreshLibrary({})
-    }
-
-    if (currentApp && currentApp.status === 'installing' && status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-
-      this.setState({
-        libraryStatus: updatedLibraryStatus
-      })
-
-      // This waits for backend to synchronize installed games (GOG)
-      setTimeout(() => {
-        this.refreshLibrary({})
-      }, 500)
+    // if the app's status didn't change, do nothing
+    if (currentApp.status === status) {
       return
     }
 
-    if (currentApp && currentApp.status === 'updating' && status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      const updatedGamesUpdates = gameUpdates.filter((game) => game !== appName)
-      this.setState({
-        filter: 'installed',
-        gameUpdates: updatedGamesUpdates,
-        libraryStatus: updatedLibraryStatus
-      })
+    const newLibraryStatus = libraryStatus.filter(
+      (game) => game.appName !== appName
+    )
 
-      // This avoids calling legendary again before the previous process is killed when canceling
-      setTimeout(() => {
-        return this.refreshLibrary({ checkForUpdates: true })
-      }, 2000)
-    }
+    // if the app is done installing or errored
+    if (['error', 'done'].includes(status)) {
+      // if the app was updating, remove from the available game updates
+      if (currentApp.status === 'updating') {
+        const updatedGamesUpdates = gameUpdates.filter(
+          (game) => game !== appName
+        )
+        // This avoids calling legendary again before the previous process is killed when canceling
+        this.refreshLibrary({
+          checkForUpdates: true,
+          runInBackground: true
+        })
 
-    if (currentApp && currentApp.status === 'repairing' && status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      this.setState({
-        filter: 'installed',
-        libraryStatus: updatedLibraryStatus
-      })
-
-      return this.refresh()
-    }
-
-    if (
-      currentApp &&
-      currentApp.status === 'uninstalling' &&
-      status === 'done'
-    ) {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      this.setState({ libraryStatus: updatedLibraryStatus })
-      ipcRenderer.send('removeShortcut', appName, runner)
-
-      return this.refreshLibrary({})
-    }
-
-    if (currentApp && currentApp.status === 'moving' && status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      this.setState({
-        filter: 'installed',
-        libraryStatus: updatedLibraryStatus
-      })
-
-      return this.refresh()
-    }
-
-    if (status === 'done') {
-      const updatedLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      return this.setState({ libraryStatus: updatedLibraryStatus })
-    }
-
-    return this.setState({
-      libraryStatus: [...libraryStatus, { appName, status, folder, progress }]
-    })
-  }
-
-  checkVersion = async () => {
-    const { t } = this.props
-    const newVersion = await ipcRenderer.invoke('checkVersion')
-    if (newVersion) {
-      const { response } = await ipcRenderer.invoke('openMessageBox', {
-        buttons: [t('box.yes'), t('box.no')],
-        message: t(
-          'box.appupdate.message',
-          'There is a new version of Heroic Available, do you want to update now?'
-        ),
-        title: t('box.appupdate.title', 'Update Available')
-      })
-
-      if (response === 0) {
-        ipcRenderer.send('openReleases')
+        return this.setState({
+          gameUpdates: updatedGamesUpdates,
+          libraryStatus: newLibraryStatus
+        })
       }
+
+      this.refreshLibrary({ runInBackground: true })
+      this.setState({ libraryStatus: newLibraryStatus })
     }
   }
 
@@ -435,6 +437,7 @@ export class GlobalState extends PureComponent<Props> {
       }
     })
 
+    // TODO: show the install modal instead of just installing like this since it has no options to choose
     ipcRenderer.on('installGame', async (e, args) => {
       const currentApp = libraryStatus.filter(
         (game) => game.appName === appName
@@ -448,10 +451,13 @@ export class GlobalState extends PureComponent<Props> {
           isInstalling: false,
           previousProgress: null,
           progress: {
-            percent: 0
+            bytes: '0.00MiB',
+            eta: '00:00:00',
+            percent: '0.00%'
           },
           t,
-          runner
+          runner,
+          platformToInstall: 'Windows'
         })
       }
     })
@@ -467,6 +473,9 @@ export class GlobalState extends PureComponent<Props> {
     const filter = storage.getItem('filter') || 'all'
     const layout = storage.getItem('layout') || 'grid'
     const language = storage.getItem('language') || 'en'
+    const showHidden = JSON.parse(storage.getItem('show_hidden') || 'false')
+    const libraryTopSection =
+      storage.getItem('library_top_section') || 'recently_played'
 
     if (!legendaryUser) {
       await ipcRenderer.invoke('getUserInfo')
@@ -478,7 +487,15 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     i18n.changeLanguage(language)
-    this.setState({ category, filter, language, layout, platform })
+    this.setState({
+      category,
+      filter,
+      language,
+      layout,
+      platform,
+      showHidden,
+      libraryTopSection
+    })
 
     if (legendaryUser || gogUser) {
       this.refreshLibrary({
@@ -487,22 +504,28 @@ export class GlobalState extends PureComponent<Props> {
         runInBackground: Boolean(epicLibrary.length)
       })
     }
-
-    setTimeout(() => {
-      this.checkVersion()
-    }, 4500)
   }
 
   componentDidUpdate() {
-    const { filter, gameUpdates, libraryStatus, layout, category } = this.state
+    const {
+      filter,
+      gameUpdates,
+      libraryStatus,
+      layout,
+      category,
+      showHidden,
+      libraryTopSection
+    } = this.state
 
     storage.setItem('category', category)
     storage.setItem('filter', filter)
     storage.setItem('layout', layout)
     storage.setItem('updates', JSON.stringify(gameUpdates))
+    storage.setItem('show_hidden', JSON.stringify(showHidden))
+    storage.setItem('library_top_section', libraryTopSection)
 
     const pendingOps = libraryStatus.filter(
-      (game) => game.status !== 'playing'
+      (game) => game.status !== 'playing' && game.status !== 'done'
     ).length
     if (pendingOps) {
       ipcRenderer.send('lock')
@@ -552,6 +575,19 @@ export class GlobalState extends PureComponent<Props> {
       recentGames = [...recentGames, ...getRecentGames(gogLibrary)]
     }
 
+    const hiddenGamesAppNames = this.state.hiddenGames.map(
+      (hidden) => hidden.appName
+    )
+
+    if (!this.state.showHidden) {
+      filteredEpicLibrary = filteredEpicLibrary.filter(
+        (game) => !hiddenGamesAppNames.includes(game.app_name)
+      )
+      filteredGOGLibrary = filteredGOGLibrary.filter(
+        (game) => !hiddenGamesAppNames.includes(game.app_name)
+      )
+    }
+
     return (
       <ContextProvider.Provider
         value={{
@@ -570,7 +606,23 @@ export class GlobalState extends PureComponent<Props> {
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
           refreshWineVersionInfo: this.refreshWineVersionInfo,
-          recentGames
+          recentGames,
+          hiddenGames: {
+            list: this.state.hiddenGames,
+            add: this.hideGame,
+            remove: this.unhideGame
+          },
+          setShowHidden: this.setShowHidden,
+          favouriteGames: {
+            list: this.state.favouriteGames,
+            add: this.addGameToFavourites,
+            remove: this.removeGameFromFavourites
+          },
+          handleLibraryTopSection: this.handleLibraryTopSection,
+          setTheme: this.setTheme,
+          setZoomPercent: this.setZoomPercent,
+          setContentFontFamily: this.setContentFontFamily,
+          setActionsFontFamily: this.setActionsFontFamily
         }}
       >
         {children}

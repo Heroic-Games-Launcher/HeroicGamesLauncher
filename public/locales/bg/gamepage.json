@@ -36,10 +36,14 @@
         "yes": "ДА"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Пауза/Отказ",
         "continue": "Продължаване на свалянето",
+        "hide_game": "Hide Game",
         "import": "Внасяне на игра",
         "install": "Инсталиране",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "Деинсталиране",
         "update": "Обновяване"
     },
@@ -55,6 +59,7 @@
         "language": "Език",
         "lastPlayed": "Последно пускане",
         "neverPlayed": "Никога",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Изиграно време"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Изисква се достъп до Интернет",
+        "installedPlatform": "Installed Platform",
         "path": "Инсталационна папка",
         "size": "Размер",
         "syncsaves": "Синхронизиране на запазените файлове",
         "version": "Версия"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Изберете местоположение за инсталиране",
         "wineprefix": "Префикс на Wine",
         "wineversion": "Версия на Wine"
@@ -85,6 +92,7 @@
     "launch": {
         "options": "Параметри за стартиране…"
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Изберете компоненти за инсталиране"
     },

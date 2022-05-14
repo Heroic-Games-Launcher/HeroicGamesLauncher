@@ -1,26 +1,36 @@
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec } from 'child_process'
-import { existsSync, rm, stat } from 'graceful-fs'
+import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
-import prettyBytes from 'pretty-bytes'
 import si from 'systeminformation'
-import Store from 'electron-store'
 
-import { GlobalConfig } from './config'
 import {
   configStore,
   fixAsarPath,
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
-  isWindows
+  isWindows,
+  userHome
 } from './constants'
-import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import { logError, logInfo, LogPrefix } from './logger/logger'
 import { basename, dirname, join } from 'path'
 import { runLegendaryCommand } from './legendary/library'
 import { runGogdlCommand } from './gog/library'
+import {
+  gameInfoStore,
+  installStore,
+  libraryStore
+} from './legendary/electronStores'
+import {
+  apiInfoCache as GOGapiInfoCache,
+  libraryStore as GOGlibraryStore
+} from './gog/electronStores'
+import fileSize from 'filesize'
+import makeClient from 'discord-rich-presence-typescript'
+import { RpcClient, SteamRuntime } from 'types'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -76,9 +86,11 @@ function semverGt(target: string, base: string) {
   return isGE
 }
 
-async function isOnline() {
+function isOnline() {
   return net.isOnline()
 }
+
+export const getFileSize = fileSize.partial({ base: 2 })
 
 async function isEpicServiceOffline(
   type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'
@@ -149,37 +161,12 @@ export const getGogdlVersion = async () => {
 export const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Oden'
+  const STABLE_VERSION_NAME = 'Brook'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
 
   return `${VERSION_NUMBER} ${VERSION_NAME}`
-}
-
-async function checkForUpdates() {
-  const { checkForUpdatesOnStartup } = await GlobalConfig.get().getSettings()
-  logInfo('checking for heroic updates', LogPrefix.Backend)
-  if (!checkForUpdatesOnStartup) {
-    logInfo('skipping heroic updates', LogPrefix.Backend)
-    return
-  }
-  if (!(await isOnline())) {
-    logWarning('Version check failed, app is offline.', LogPrefix.Backend)
-    return false
-  }
-  try {
-    const {
-      data: { tag_name }
-    } = await axios.default.get(
-      'https://api.github.com/repos/flavioislima/HeroicGamesLauncher/releases/latest'
-    )
-    const newVersion = tag_name.replace('v', '')
-    const currentVersion = app.getVersion()
-    return semverGt(newVersion, currentVersion)
-  } catch (error) {
-    logError('Could not check for new version of heroic', LogPrefix.Backend)
-  }
 }
 
 const showAboutWindow = () => {
@@ -262,7 +249,7 @@ export const getSystemInfo = async () => {
   CPU: ${manufacturer} ${brand} @${speed} ${
     governor ? `GOVERNOR: ${governor}` : ''
   }
-  RAM: Total: ${prettyBytes(total)} Available: ${prettyBytes(available)}
+  RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
   GRAPHICS: ${graphicsCards}
   ${isLinux ? `PROTOCOL: ${xEnv}` : ''}
   `
@@ -280,7 +267,7 @@ async function errorHandler(
   const noSpaceMsg = 'Not enough available disk space'
   const noCredentialsError = 'No saved credentials'
   if (logPath) {
-    execAsync(`tail ${logPath} | grep 'disk space'`)
+    execAsync(`tail "${logPath}" | grep 'disk space'`)
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
           logError(noSpaceMsg, LogPrefix.Backend)
@@ -323,34 +310,17 @@ async function openUrlOrFile(url: string): Promise<string | void> {
 }
 
 function clearCache() {
-  const installCache = new Store({
-    cwd: 'lib-cache',
-    name: 'installInfo'
-  })
-  const libraryCache = new Store({
-    cwd: 'lib-cache',
-    name: 'library'
-  })
-  const gameInfoCache = new Store({
-    cwd: 'lib-cache',
-    name: 'gameinfo'
-  })
-  const GOGapiInfoCache = new Store({
-    cwd: 'gog_store',
-    name: 'api_info_cache'
-  })
-  const GOGlibraryStore = new Store({ cwd: 'gog_store', name: 'library' })
   GOGapiInfoCache.clear()
   GOGlibraryStore.clear()
-  installCache.clear()
-  libraryCache.clear()
-  gameInfoCache.clear()
+  installStore.clear()
+  libraryStore.clear()
+  gameInfoStore.clear()
 }
 
 function resetHeroic() {
   const heroicFolders = [heroicGamesConfigPath, heroicConfigPath]
   heroicFolders.forEach((folder) => {
-    rm(folder, { recursive: true, force: true }, () => null)
+    rmSync(folder, { recursive: true, force: true })
   })
   // wait a sec to avoid racing conditions
   setTimeout(() => {
@@ -404,6 +374,79 @@ function getGOGdlBin(): { dir: string; bin: string } {
     fixAsarPath(join(__dirname, 'bin', process.platform, 'gogdl'))
   )
 }
+function getFormattedOsName(): string {
+  switch (process.platform) {
+    case 'linux':
+      return 'Linux'
+    case 'win32':
+      return 'Windows'
+    case 'darwin':
+      return 'macOS'
+    default:
+      return 'Unknown OS'
+  }
+}
+
+/**
+ * Finds an executable on %PATH%/$PATH
+ * @param executable The executable to find
+ * @returns The full path to the executable, or nothing if it was not found
+ */
+// This name could use some work
+async function searchForExecutableOnPath(executable: string): Promise<string> {
+  if (isWindows) {
+    // Todo: Respect %PATHEXT% here
+    const paths = process.env.PATH.split(';')
+    paths.forEach((path) => {
+      const fullPath = join(path, executable)
+      if (existsSync(fullPath)) {
+        return fullPath
+      }
+    })
+    return ''
+  } else {
+    return execAsync(`which ${executable}`)
+      .then(({ stdout }) => {
+        return stdout.split('\n')[0]
+      })
+      .catch((error) => {
+        logError(error, LogPrefix.Backend)
+        return ''
+      })
+  }
+}
+
+function getSteamRuntime(): SteamRuntime {
+  const possibleRuntimes: Array<SteamRuntime> = [
+    {
+      path: `${userHome}/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh`,
+      type: 'unpackaged'
+    },
+    {
+      path: `${userHome}/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh`,
+      type: 'flatpak'
+    }
+  ]
+  for (const runtime of possibleRuntimes) {
+    if (existsSync(runtime.path)) {
+      return runtime
+    }
+  }
+  return { path: '', type: 'unpackaged' }
+}
+
+function constructAndUpdateRPC(gameName: string): RpcClient {
+  const client = makeClient('852942976564723722')
+  client.updatePresence({
+    details: gameName,
+    instance: true,
+    largeImageKey: 'icon',
+    large_text: gameName,
+    startTimestamp: Date.now(),
+    state: 'via Heroic on ' + getFormattedOsName()
+  })
+  return client
+}
 
 const specialCharactersRegex =
   /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
@@ -420,8 +463,14 @@ const formatEpicStoreUrl = (title: string) => {
   return `${storeUrl}${cleanTitle(title)}`
 }
 
+function quoteIfNecessary(stringToQuote: string) {
+  if (stringToQuote.includes(' ')) {
+    return `"${stringToQuote}"`
+  }
+  return stringToQuote
+}
+
 export {
-  checkForUpdates,
   errorHandler,
   execAsync,
   handleExit,
@@ -437,5 +486,10 @@ export {
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
-  formatEpicStoreUrl
+  formatEpicStoreUrl,
+  getFormattedOsName,
+  searchForExecutableOnPath,
+  getSteamRuntime,
+  constructAndUpdateRPC,
+  quoteIfNecessary
 }

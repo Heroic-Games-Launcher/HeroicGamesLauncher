@@ -2,13 +2,14 @@ import {
   AppSettings,
   GameInfo,
   GameStatus,
-  SavedInstallProgress,
+  InstallProgress,
+  PlatformToInstall,
   Runner
 } from 'src/types'
 import { IpcRenderer } from 'electron'
 import { TFunction } from 'react-i18next'
 import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
-import ElectronStore from 'electron-store'
+import { configStore } from './electronStores'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -21,9 +22,10 @@ type InstallArgs = {
   handleGameStatus: (game: GameStatus) => Promise<void>
   installPath: string
   isInstalling: boolean
-  previousProgress: SavedInstallProgress | null
-  progress: SavedInstallProgress
+  previousProgress: InstallProgress | null
+  progress: InstallProgress
   setInstallPath?: (path: string) => void
+  platformToInstall: PlatformToInstall
   t: TFunction<'gamepage'>
   installDlcs?: boolean
   sdlList?: Array<string>
@@ -43,7 +45,8 @@ async function install({
   sdlList = [],
   installDlcs = false,
   installLanguage = 'en-US',
-  runner = 'legendary'
+  runner = 'legendary',
+  platformToInstall
 }: InstallArgs) {
   if (!installPath) {
     return
@@ -79,13 +82,8 @@ async function install({
       return
     }
 
-    return await importGame({ appName, path, runner })
+    return importGame({ appName, path, runner })
   }
-
-  const previousProgressPercent =
-    previousProgress && previousProgress.folder === installPath
-      ? Math.min(100, Math.max(0, previousProgress.percent || 0))
-      : 0
 
   if (installPath !== 'default' || !is_game) {
     setInstallPath && setInstallPath(installPath)
@@ -97,10 +95,9 @@ async function install({
       folder: installPath,
       appName,
       runner,
-      status: 'installing',
-      progress: `${previousProgress?.percent || 0}%`
+      status: 'installing'
     })
-    return await ipcRenderer
+    return ipcRenderer
       .invoke('install', {
         appName,
         path: `${installPath}`,
@@ -108,10 +105,10 @@ async function install({
         sdlList,
         installLanguage,
         runner,
-        previousProgress: previousProgressPercent
+        platformToInstall
       })
       .finally(() => {
-        if (progress.percent === 100) {
+        if (progress.percent === '100%') {
           storage.removeItem(appName)
         }
         return
@@ -132,17 +129,16 @@ async function install({
       storage.removeItem(appName)
     }
 
-    return await ipcRenderer
+    return ipcRenderer
       .invoke('install', {
         appName,
         path: `${path}`,
         installDlcs,
         sdlList,
-        runner,
-        previousProgress: previousProgressPercent
+        runner
       })
       .finally(() => {
-        if (progress.percent === 100) {
+        if (progress.percent === '100%') {
           storage.removeItem(appName)
         }
         return
@@ -154,7 +150,7 @@ const importGame = async (args: {
   appName: string
   path: string
   runner: Runner
-}): Promise<void> => await ipcRenderer.invoke('importGame', args)
+}): Promise<void> => ipcRenderer.invoke('importGame', args)
 
 type UninstallArgs = {
   appName: string
@@ -175,14 +171,15 @@ async function uninstall({
     title: t('gamepage:box.uninstall.title'),
     type: 'warning'
   }
+  const platform = await getPlatform()
+  const {
+    install: { platform: installedplatform }
+  } = await getGameInfo(appName, runner)
 
   let linuxArgs
   // This assumes native games are installed should be changed in the future
   // if we add option to install windows games even if native is available
-  if (
-    (await getPlatform()) === 'linux' &&
-    !(await getGameInfo(appName, runner)).is_linux_native
-  ) {
+  if (platform === 'linux' && installedplatform?.toLowerCase() === 'windows') {
     const wineprefix = (await getGameSettings(appName, runner)).winePrefix
 
     linuxArgs = {
@@ -209,7 +206,7 @@ async function uninstall({
     await handleGameStatus({ appName, runner, status: 'uninstalling' })
     await ipcRenderer.invoke('uninstall', [appName, checkboxChecked, runner])
     storage.removeItem(appName)
-    return await handleGameStatus({ appName, runner, status: 'done' })
+    return handleGameStatus({ appName, runner, status: 'done' })
   }
   return
 }
@@ -218,7 +215,7 @@ async function handleStopInstallation(
   appName: string,
   [path, folderName]: string[],
   t: TFunction<'gamepage'>,
-  progress: SavedInstallProgress,
+  progress: InstallProgress,
   runner: Runner
 ) {
   const args = {
@@ -228,7 +225,8 @@ async function handleStopInstallation(
       t('box.no')
     ],
     message: t('gamepage:box.stopInstall.message'),
-    title: t('gamepage:box.stopInstall.title')
+    title: t('gamepage:box.stopInstall.title'),
+    cancelId: 0
   }
 
   const { response } = await ipcRenderer.invoke('openMessageBox', args)
@@ -244,7 +242,7 @@ async function handleStopInstallation(
 }
 
 const repair = async (appName: string, runner: Runner): Promise<void> =>
-  await ipcRenderer.invoke('repair', appName, runner)
+  ipcRenderer.invoke('repair', appName, runner)
 
 type LaunchOptions = {
   appName: string
@@ -253,7 +251,7 @@ type LaunchOptions = {
   runner: Runner
 }
 
-const launch = ({
+const launch = async ({
   appName,
   t,
   launchArguments,
@@ -289,7 +287,7 @@ const launch = ({
       }
     })
 
-const updateGame = (appName: string, runner: Runner): Promise<void> =>
+const updateGame = async (appName: string, runner: Runner): Promise<void> =>
   ipcRenderer.invoke('updateGame', appName, runner)
 
 // Todo: Get Back to update all games
@@ -305,16 +303,11 @@ type RecentGame = {
 }
 
 function getRecentGames(library: GameInfo[]) {
-  return library.filter((game) => {
-    const Store = window.require('electron-store')
-    const configStore: ElectronStore = new Store({
-      cwd: 'store'
-    })
-    const recentGames: Array<RecentGame> =
-      (configStore.get('games.recent') as Array<RecentGame>) || []
-    const recentGamesList = recentGames.map((a) => a.appName) as string[]
-    return recentGamesList.includes(game.app_name)
-  })
+  const recentGames =
+    (configStore.get('games.recent') as Array<RecentGame>) || []
+  const recentGamesList = recentGames.map((a) => a.appName) as string[]
+
+  return library.filter((game) => recentGamesList.includes(game.app_name))
 }
 
 export {

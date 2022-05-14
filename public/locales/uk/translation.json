@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Всі",
     "Assets": "Ассети",
     "box": {
-        "appupdate": {
-            "message": "Доступна нова версія Heroic. Бажаєте оновити зараз?",
-            "title": "Доступне оновлення"
-        },
         "cache-cleared": {
             "message": "Кеш Heroic очищено.",
             "title": "Кеш очищено"
@@ -30,8 +32,8 @@
                 "title": "Помилка DXVK/VKD3D"
             },
             "generic": {
-                "message": "Сталася невідома помилка",
-                "title": "Невідома помилка"
+                "message": "",
+                "title": ""
             },
             "launch": "Помилка під час запуску гри, перевірте лоґи!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Offline mode not supported."
             },
             "title": "Помилка",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Не обрана версія Wine. Перевірте налаштування гри!",
                 "title": "Wine не знайдено"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "НІ",
@@ -89,26 +105,25 @@
         "yes": "ТАК"
     },
     "button": {
-        "continue": "Continue",
+        "go_to_library": "Go to Library",
         "login": "Увійти",
         "sync": "Синхронізувати",
         "syncing": "Синхронізую",
         "unsync": "Десинхронізувати"
     },
-    "Downloading": "Завантажую",
     "epic": {
         "offline-notification-body": "Heroic ймовірно не працюватиме!",
         "offline-notification-title": "офлайн"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Без фільтра"
-    },
+    "favourites": "Favourites",
     "globalSettings": "Глобальні налаштування",
     "GOG": "GOG",
     "gog-store": "Магазин GOG",
     "header": {
-        "platform": ""
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Синхронізувати з EGL якщо ви маєте встановлений Epic Games Launcher і хочете імпортувати ігри уникнувши їх повторного завантаження.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Налаштування збережені автоматично"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "",
         "listView": "",
-        "refresh": ""
+        "refresh": "",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Бібліотека",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Десинхронізація завершена"
     },
     "nogames": "Не знайдено ігор",
-    "Not Ready": "Неготові",
     "notify": {
         "error": {
             "move": "Помилка під час переміщення гри",
@@ -211,7 +231,6 @@
     },
     "Plugins": "Плаґіни",
     "Projects": "Проєкти",
-    "Ready": "Готові",
     "Recent": "Нещодавно зіграні",
     "search": "Вкажіть тут назву гри...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Автосинхронізувати збереження",
         "autovkd3d": "Автоматично встановлювати/оновлювати VKD3D на префіксі",
         "change-target-exe": "Обрати для запуску альтернативний EXE файл",
-        "checkForUpdatesOnStartup": "Перевіряти наявність оновлень при запуску",
         "customWineProton": "Інші шляхи до Wine/Proton",
         "darktray": "Використовувати темну піктограму на панелі",
         "default-install-path": "Стандартний шлях встановлення",
         "defaultWinePrefix": "Обрати теку для нових префіксів Wine",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Ввімкнути Discord Rich Presence",
         "egs-sync": "Синхронізуватися із встановленим Epic Games Launcher",
         "enableFSRHack": "Ввімкнути FSR Hack (версія Wine має це підтримувати)",
@@ -238,9 +257,17 @@
         "fsync": "Ввімкнути Fsync",
         "gamemode": "Використовувати GameMode (Feral Game Mode має бути встановлений)",
         "language": "Оберіть мову застосунка",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Копіювати вміст логу в сховище обміну",
             "current-log": "Поточний лог",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Останній лог",
             "no-file": "Лог файл не знайдено",
             "show-in-folder": "Показати файл логу в теці"
@@ -269,6 +296,7 @@
             "placeholder": "Вкажіть точну теку збережень",
             "title": "Перевизначити теку збережень хмарної синхронізації"
         },
+        "select_theme": "Select Theme",
         "showfps": "Показувати FPS (DX9, 10 та 11)",
         "showUnrealMarket": "Показувати торговий майданчик Unreal (необхідний перезапуск)",
         "start-in-tray": "Запускати згорнутим",
@@ -285,6 +313,7 @@
             "long-log-hint": "Лог усічений, показані останні 1000 рядків!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Загальні",
             "log": "Лог",
             "other": "Інше",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "Всі ігри",
         "allUnreal": "Unreal - Все",
-        "downloading": "Завантажую",
-        "installedGames": "Встановлені ігри",
-        "notInstalledGames": "Невстановлені",
         "unrealAssets": "Unreal - Ассети",
         "unrealPlugins": "Unreal - плаґіни",
-        "unrealProjects": "Unreal - проєкти",
-        "updates": "Очікувані оновлення"
+        "unrealProjects": "Unreal - проєкти"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Показати"
     },
     "Unreal Marketplace": "Торговий майданчик Unreal",
-    "Updates": "Оновлення",
     "userselector": {
         "discord": "Діскорд",
         "logout": "Вийти",

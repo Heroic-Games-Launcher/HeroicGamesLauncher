@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "全て",
     "Assets": "資産",
     "box": {
-        "appupdate": {
-            "message": "Heroic の新しいバージョンが利用可能になりました、今すぐ更新しますか？",
-            "title": "アップデートが利用可能です"
-        },
         "cache-cleared": {
             "message": "Heroic Cache Was Cleared!",
             "title": "Cache Cleared"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D error"
             },
             "generic": {
-                "message": "不明なエラーが発生しました",
-                "title": "不明なエラー"
+                "message": "",
+                "title": ""
             },
             "launch": "ゲームの起動時にエラーが発生しました、ログを確認してください！",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Offline mode not supported."
             },
             "title": "エラー",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "いいえ",
@@ -89,26 +105,25 @@
         "yes": "はい"
     },
     "button": {
-        "continue": "Continue",
+        "go_to_library": "Go to Library",
         "login": "Login",
         "sync": "同期",
         "syncing": "同期しています",
         "unsync": "非同期"
     },
-    "Downloading": "ダウンロードしています",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
+    "favourites": "Favourites",
     "globalSettings": "全体設定",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "設定は自動的に保存されます"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "",
         "listView": "",
-        "refresh": ""
+        "refresh": "",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "ライブラリ",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "非同期が完了しました"
     },
     "nogames": "ゲームが見つかりません",
-    "Not Ready": "準備ができていません",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -211,7 +231,6 @@
     },
     "Plugins": "プラグイン",
     "Projects": "プロジェクト",
-    "Ready": "準備",
     "Recent": "最近のゲーム",
     "search": "ここにゲーム名を入力してください...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "保存を自動的に同期する",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "実行する代替EXEを選択します",
-        "checkForUpdatesOnStartup": "起動時に更新を確認する",
         "customWineProton": "カスタムWine/Protonパス",
         "darktray": "ダークトレイアイコンを使用する",
         "default-install-path": "デフォルトのインストールパス",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Discord Rich Presenceを有効にする",
         "egs-sync": "インストールされているEpic Gamesと同期する",
         "enableFSRHack": "FSRハックを有効にする（Wineバージョンはそれをサポートする必要があります）",
@@ -238,9 +257,17 @@
         "fsync": "Fsyncを有効にする",
         "gamemode": "GameModeを使用する（Feral Game Modeをインストールする必要があります）",
         "language": "アプリの言語を選択",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
@@ -269,6 +296,7 @@
             "placeholder": "正確なゲーム保存フォルダを選択してください",
             "title": "Cloud Syncの保存フォルダーをオーバーライドする"
         },
+        "select_theme": "Select Theme",
         "showfps": "FPSを表示（DX9、10、11）",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "最小化を開始",
@@ -285,6 +313,7 @@
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "一般",
             "log": "Log",
             "other": "他",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projects"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "表示する"
     },
     "Unreal Marketplace": "Unreal マーケットプレイス",
-    "Updates": "更新",
     "userselector": {
         "discord": "Discord",
         "logout": "ログアウト",

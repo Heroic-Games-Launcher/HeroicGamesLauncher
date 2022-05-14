@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Semua",
     "Assets": "Aset",
     "box": {
-        "appupdate": {
-            "message": "Versi baru Heroic telah tersedia, apakah Anda ingin memperbarui sekarang?",
-            "title": "Pembaruan Tersedia"
-        },
         "cache-cleared": {
             "message": "Tembolok Heroic telah dibersihkan.",
             "title": "Tembolok telah dibersihkan"
@@ -30,8 +32,8 @@
                 "title": "Galat DXVK/VKD3D"
             },
             "generic": {
-                "message": "Terjadi kesalahan yang tidak diketahui",
-                "title": "Galat Tak Diketahui"
+                "message": "",
+                "title": ""
             },
             "launch": "Terjadi kesalahan ketika meluncurkan gim, periksa log!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Mode luring tidak didukung."
             },
             "title": "Galat",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Tidak Ada Versi Wine yang Dipilih. Periksa Pengaturan Gim!",
                 "title": "Wine Tidak Ditemukan"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "TIDAK",
@@ -89,26 +105,25 @@
         "yes": "YA"
     },
     "button": {
-        "continue": "Lanjutkan",
+        "go_to_library": "Go to Library",
         "login": "Log Masuk",
         "sync": "Sinkronkan",
         "syncing": "Menyinkronkan",
         "unsync": "Batalkan sinkronisasi"
     },
-    "Downloading": "Mengunduh",
     "epic": {
         "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena server Epic Games sedang luring!",
         "offline-notification-title": "luring"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Tidak Ada Filter"
-    },
+    "favourites": "Favourites",
     "globalSettings": "Pengaturan Global",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": "Platform"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Platform",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Sinkronkan dengan EGL jika Anda memiliki instalasi Epic Games Launcher yang berjalan di tempat lain dan ingin mengimpor gim Anda untuk menghindari pengunduhan ulang.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Pengaturan disimpan secara otomatis"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "Tampilan bergaris",
         "listView": "Tampilan daftar",
-        "refresh": "Segarkan"
+        "refresh": "Segarkan",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Perpustakaan",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Pembatalan Sinkronisasi Selesai"
     },
     "nogames": "Tidak Ada Gim yang Ditemukan",
-    "Not Ready": "Belum Siap",
     "notify": {
         "error": {
             "move": "Galat dalam Memindahkan Gim",
@@ -211,7 +231,6 @@
     },
     "Plugins": "Plugin",
     "Projects": "Proyek",
-    "Ready": "Siap",
     "Recent": "Dimainkan Baru-Baru Ini",
     "search": "Masukkan nama gim di sini...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Sinkronisasi Penyimpanan Otomatis",
         "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
-        "checkForUpdatesOnStartup": "Periksa Pembaruan Saat Startup",
         "customWineProton": "Lokasi Wine/Proton Khusus",
         "darktray": "Gunakan Ikon Baki Gelap",
         "default-install-path": "Lokasi Pemasangan Asali",
         "defaultWinePrefix": "Atur Folder untuk Prefiks Wine baru",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Aktifkan Discord Rich Presence",
         "egs-sync": "Sinkronkan dengan Epic Games yang Terpasang",
         "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
@@ -238,9 +257,17 @@
         "fsync": "Aktifkan Fsync",
         "gamemode": "Gunakan GameMode (Feral Game Mode perlu dipasang)",
         "language": "Pilih Bahasa",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Salin konten log ke papan klip",
             "current-log": "Log Saat Ini",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Log Terakhir",
             "no-file": "Tidak ditemukan berkas log",
             "show-in-folder": "Tampilkan berkas log di dalam folder"
@@ -269,6 +296,7 @@
             "placeholder": "Pilih folder gim tersimpan yang tepat",
             "title": "Timpa folder Sinkronisasi Penyimpanan Awan"
         },
+        "select_theme": "Select Theme",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
         "showUnrealMarket": "Tampilkan Unreal Marketplace (perlu memulai ulang)",
         "start-in-tray": "Mulai Diminimalkan",
@@ -285,6 +313,7 @@
             "long-log-hint": "Log terpotong, 1000 baris terakhir akan ditampilkan!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Umum",
             "log": "Log",
             "other": "Lainnya",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "Semua Gim",
         "allUnreal": "Unreal - Semuanya",
-        "downloading": "Mengunduh",
-        "installedGames": "Gim Terpasang",
-        "notInstalledGames": "Tidak Terpasang",
         "unrealAssets": "Unreal - Aset",
         "unrealPlugins": "Unreal - Plugin",
-        "unrealProjects": "Unreal - Proyek",
-        "updates": "Pembaruan Tertunda"
+        "unrealProjects": "Unreal - Proyek"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Tampilkan"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Pembaruan",
     "userselector": {
         "discord": "Discord",
         "logout": "Log keluar",

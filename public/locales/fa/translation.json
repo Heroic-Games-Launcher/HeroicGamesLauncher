@@ -1,18 +1,20 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "همه",
-    "Assets": "داراییها",
+    "Assets": "دارایی ها",
     "box": {
-        "appupdate": {
-            "message": "نسخه جدید Heroic موجود است، آیا میخواهید الان بهروزرسانی کنید؟",
-            "title": "بروزرسانی موجود است"
-        },
         "cache-cleared": {
             "message": "کش Heroic پاک شد.",
             "title": "کش پاک شد"
         },
         "choose": "انتخاب",
         "choose-egs-prefix": "انتخاب محل نصب شده EGS",
-        "choose-gogdl-binary": "انتخاب باینری GOGDL (نیازمند راه‌اندازی مجدد)",
+        "choose-gogdl-binary": "انتخاب باینری GOGDL (نیازمند راهاندازی مجدد)",
         "choose-legendary-binary": "انتخاب باینری Legendary",
         "customWine": "انتخاب فایل باینری Wine یا Proton",
         "default-install-path": "انتخاب محل پیشفرض نصب",
@@ -30,18 +32,32 @@
                 "title": "خطای DXVK/VKD3D"
             },
             "generic": {
-                "message": "خطایی ناشناخته رخ داده است",
-                "title": "خطای ناشناخته"
+                "message": "",
+                "title": ""
             },
             "launch": "خطا در هنگام اجرای بازی، لاگها را چک کنید!",
             "no-offline-mode": {
                 "message": "اجرا متوقف شد! بازی برای اجرا به اتصال اینترنت نیاز دارد.",
-                "title": "حالت آفلاین پشتیبانی نمی‌شود."
+                "title": "حالت آفلاین پشتیبانی نمیشود."
             },
             "title": "خطا",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "نسخه ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
                 "title": "Wine یافت نشد"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "خیر",
@@ -89,26 +105,25 @@
         "yes": "بله"
     },
     "button": {
-        "continue": "ادامه",
+        "go_to_library": "Go to Library",
         "login": "ورود",
         "sync": "همگام سازی",
         "syncing": "در حال همگام سازی",
         "unsync": "عدم همگام سازی"
     },
-    "Downloading": "در حال دانلود",
     "epic": {
-        "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویس‌های آنلاین ممکن است کار نکنند!",
+        "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویسهای آنلاین ممکن است کار نکنند!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "اپیک گیمز",
-    "filter": {
-        "noFilter": "No Filter"
-    },
+    "favourites": "Favourites",
     "globalSettings": "تنظیمات عمومی",
     "GOG": "GOG",
     "gog-store": "فروشگاه GOG",
     "header": {
-        "platform": "پلتفرم"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "پلتفرم",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGL همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "تنظیمات به صورت خودکار ذخیره شدند"
     },
     "infobox": {
@@ -143,13 +161,16 @@
         "path": "انتخاب محل نصب"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": ""
+        "gridView": "نمای شبکه‌ای",
+        "listView": "نمای لیستی",
+        "refresh": "تازه کردن",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "کتابخانه",
     "loading": {
-        "default": "",
+        "default": "در حال بارگذاری",
         "website": "درحال بارگیری وبسایت"
     },
     "login": {
@@ -160,7 +181,6 @@
         "unsync": "عدم همگامسازی کامل شد"
     },
     "nogames": "بازی یافت نشد",
-    "Not Ready": "آماده نمیباشد",
     "notify": {
         "error": {
             "move": "خطا در جابهجا کردن بازی",
@@ -180,7 +200,7 @@
         "uninstalled": "حذف شد",
         "update": {
             "canceled": "بهروزرسانی لغو شد",
-            "finished": "آپدیتها به پایان رسیدند",
+            "finished": "آپدیت به پایان رسید",
             "started": "بهروزرسانی آغاز شد"
         }
     },
@@ -205,30 +225,29 @@
         "egs-prefix": "محل نصب شده EGS"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "لینوکس",
+        "mac": "مک",
+        "win": "ویندوز"
     },
     "Plugins": "افزونهها",
     "Projects": "پروژهها",
-    "Ready": "آماده",
     "Recent": "اخیرا بازی شده",
     "search": "نام بازی را اینجا وارد کنید...",
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
-        "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده (نیازمند راه‌اندازی مجدد)",
-        "alt-legendary-bin": "انتخاب باینری Legendary جایگزین (نیازمند راهاندازی مجدد)",
+        "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده",
+        "alt-legendary-bin": "انتخاب باینری Legendary جایگزین",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
         "autosync": "همگامسازی خودکار ذخیرهها",
         "autovkd3d": "نصب/بهروزرسانی خودکار VKD3D در مسیر",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
-        "checkForUpdatesOnStartup": "چک کردن برای به روزرسانی در هنگام راه اندازی",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیشفرض نصب",
         "defaultWinePrefix": "تنظیم پوشه برای Wine Prefix جدید",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "فعالسازی Discord Rich Presence",
         "egs-sync": "همگامسازی با بازیهای اپیک نصب شده",
         "enableFSRHack": "فعالسازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
@@ -238,9 +257,17 @@
         "fsync": "فعالسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
         "language": "انتخاب زبان نرمافزار",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "کپی کردن محتوای لاگ در کليپ بورد",
             "current-log": "لاگ اخیر",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "آخرین لاگ",
             "no-file": "فایل لاگی پیدا نشد",
             "show-in-folder": "نمایش فایل لاگ در پوشه"
@@ -269,6 +296,7 @@
             "placeholder": "انتخاب پوشه دقیق ذخیرههای بازیها",
             "title": "رونویسی پوشه ابری همگامسازی ذخیرهها"
         },
+        "select_theme": "Select Theme",
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
         "showUnrealMarket": "نمایش فروشگاه Unreal (نیازمند راهاندازی مجدد)",
         "start-in-tray": "شروع در حالت پسزمینه",
@@ -285,6 +313,7 @@
             "long-log-hint": "لاگ کوتاه شد، ١٠٠٠ خط آخر نمایش داده شدهاند!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "عمومی",
             "log": "Log",
             "other": "بقیه",
@@ -297,17 +326,13 @@
         "logging": "در حال وارد شدن..."
     },
     "store": "فروشگاه اپیک",
-    "stores": "فروشگاه‌ها",
+    "stores": "فروشگاهها",
     "title": {
         "allGames": "همه بازیها",
         "allUnreal": "Unreal - همهچیز",
-        "downloading": "در حال دانلود",
-        "installedGames": "بازیهای نصب شده",
-        "notInstalledGames": "نصب نشده",
         "unrealAssets": "Unreal - مهرهها",
         "unrealPlugins": "Unreal - افزونهها",
-        "unrealProjects": "Unreal - پروژهها",
-        "updates": "آپدیتهای در حال انتظار"
+        "unrealProjects": "Unreal - پروژهها"
     },
     "toolbox": {
         "settings": {
@@ -327,20 +352,19 @@
         "show": "نمایش"
     },
     "Unreal Marketplace": "بازار Unreal",
-    "Updates": "بهروزرسانیها",
     "userselector": {
         "discord": "Discord",
         "logout": "خروج از حساب",
         "logout_confirmation": "آیا میخواهید از حساب خود خارج شوید؟",
-        "manageaccounts": "مدیریت حساب‌ها",
+        "manageaccounts": "مدیریت حسابها",
         "quit": "خروج"
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "بازگشت به عقب",
+            "forward": "بازگشت به جلو",
+            "openInBrowser": "باز کردن در مرورگر",
+            "reload": "تازه کردن صفحه"
         }
     },
     "wiki": "ویکی",

@@ -36,10 +36,14 @@
         "yes": "JA"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Pauzeren/Annuleren",
         "continue": "Doorgaan met Download",
+        "hide_game": "Hide Game",
         "import": "Importeren",
         "install": "Installeren",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "Verwijderen",
         "update": "Update"
     },
@@ -55,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Laatst gespeeld",
         "neverPlayed": "Nooit",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Tijd gespeeld"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Internetverbinding Verplicht",
+        "installedPlatform": "Installed Platform",
         "path": "Installatie pad",
         "size": "Grootte",
         "syncsaves": "Synchroniseer saves",
         "version": "Versie"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Select Install Path",
         "wineprefix": "WinePrefix",
         "wineversion": ""
@@ -85,6 +92,7 @@
     "launch": {
         "options": "Opstartopties..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Selecteer componenten om te installeren"
     },

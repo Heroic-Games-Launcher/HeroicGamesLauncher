@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Összes",
     "Assets": "Eszközök",
     "box": {
-        "appupdate": {
-            "message": "A Heroic újabb verziója érhető el, szeretnéd most frissíteni?",
-            "title": "Frissítés elérhető"
-        },
         "cache-cleared": {
             "message": "Heroic gyorsítótár törölve.",
             "title": "Gyorsítótár törölve"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D hiba"
             },
             "generic": {
-                "message": "Ismeretlen hiba lépett fel",
-                "title": "Ismeretlen hiba"
+                "message": "",
+                "title": ""
             },
             "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Offline mode not supported."
             },
             "title": "Hiba",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Nincs kiválasztott Wine verzió. Ellenőrizd a játék beállításait!",
                 "title": "Wine nem található"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NEM",
@@ -89,26 +105,25 @@
         "yes": "IGEN"
     },
     "button": {
-        "continue": "Letöltés folytatása",
+        "go_to_library": "Go to Library",
         "login": "Bejelentkezés",
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
         "unsync": "Deszinkronizálás"
     },
-    "Downloading": "Letöltés",
     "epic": {
         "offline-notification-body": "Az online szolgáltatások lehet, hogy nem működnek teljesen, mert az Epic Games szerverek offline vannak!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Nincs szűrő"
-    },
+    "favourites": "Favourites",
     "globalSettings": "Globális beállítások",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": "Platform"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Platform",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Abban az esetben szinkronizálj EGL-lel , ha van egy működő, Epic Games Launcher telepítésed máshol, és importálni szeretnéd a játékaid, hogy elkerüld az újbóli letöltésüket.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "A beállítások automatikusan mentődnek"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "Rács nézet",
         "listView": "Lista nézet",
-        "refresh": "Frissítés"
+        "refresh": "Frissítés",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Könyvtár",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Deszinkronizálás befejezve"
     },
     "nogames": "Nem található játék",
-    "Not Ready": "Nincs kész",
     "notify": {
         "error": {
             "move": "Hiba a játék áthelyezésekor",
@@ -211,24 +231,23 @@
     },
     "Plugins": "Beépülők",
     "Projects": "Projektek",
-    "Ready": "Kész",
     "Recent": "Nemrég játszott",
     "search": "Add meg itt a játék nevét...",
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalhoz",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Válassz egy alternatív Legendary binárist (újraindítás szükséges)",
+        "alt-gogdl-bin": "Alternatív GOGDL bináris kiválasztása",
+        "alt-legendary-bin": "Alternatív Legendary bináris kiválasztása",
         "audiofix": "Hangzásjavítás (Pulse Audio késleltetés)",
         "autodxvk": "A DXVK automatikus telepítése/frissítése a prefixen",
         "autosync": "Mentések automatikus szinkronizálása",
         "autovkd3d": "A VKD3D automatikus telepítése/frissítése a prefixen",
         "change-target-exe": "Válassz egy alternatív EXE fájlt a futtatáshoz",
-        "checkForUpdatesOnStartup": "Frissítések keresése indításkor",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét tálcaikon használata",
         "default-install-path": "Alapértelmezett telepítési útvonal",
         "defaultWinePrefix": "Mappa beállítása új Wine prefixeknek",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Discord Rich Presence engedélyezése",
         "egs-sync": "Szinkronizálás a telepített Epic Gamesszel",
         "enableFSRHack": "FSR hack engedélyezése (a Wine verziónak támogatnia kell)",
@@ -238,9 +257,17 @@
         "fsync": "Fsync engedélyezése",
         "gamemode": "GameMode használata (a Feral Game Mode-nak telepítve kell lennie)",
         "language": "Alkalmazás nyelvének kiválasztása",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Napló tartalmának vágólapra másolása",
             "current-log": "Jelenlegi napló",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Utolsó napló",
             "no-file": "Nem található naplófájl",
             "show-in-folder": "Naplófájl megjelenítése mappában"
@@ -269,6 +296,7 @@
             "placeholder": "Pontos játékmentési mappa kiválasztása",
             "title": "Felhőszinkronizálásra való mappa felülírása"
         },
+        "select_theme": "Select Theme",
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",
         "showUnrealMarket": "Unreal piactér megjelenítése (újraindítás szükséges)",
         "start-in-tray": "Indítás tálcára téve",
@@ -285,6 +313,7 @@
             "long-log-hint": "A napló rövidítve van, az utolsó 1000 sor van megjelenítve!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Általános",
             "log": "Napló",
             "other": "Egyéb",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "Összes játék",
         "allUnreal": "Unreal - Minden",
-        "downloading": "Letöltés",
-        "installedGames": "Telepített játékok",
-        "notInstalledGames": "Nincs telepítve",
         "unrealAssets": "Unreal - Eszközök",
         "unrealPlugins": "Unreal - Bővítmények",
-        "unrealProjects": "Unreal - Projektek",
-        "updates": "Függőben lévő frissítések"
+        "unrealProjects": "Unreal - Projektek"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Megjelenítés"
     },
     "Unreal Marketplace": "Unreal piactér",
-    "Updates": "Frissítések",
     "userselector": {
         "discord": "Discord",
         "logout": "Kijelentkezés",

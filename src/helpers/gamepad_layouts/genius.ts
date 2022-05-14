@@ -10,7 +10,7 @@ export function checkGenius1(
 ) {
   const one = buttons[0],
     two = buttons[1],
-    // three = buttons[2],
+    three = buttons[2],
     four = buttons[3],
     // L1 = buttons[4],
     // R1 = buttons[5],
@@ -42,4 +42,5 @@ export function checkGenius1(
   checkAction('mainAction', one.pressed, controllerIndex)
   checkAction('back', two.pressed, controllerIndex)
   checkAction('altAction', four.pressed, controllerIndex)
+  checkAction('rightClick', three.pressed, controllerIndex)
 }

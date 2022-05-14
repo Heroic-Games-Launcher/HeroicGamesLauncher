@@ -2,22 +2,17 @@ import { existsSync, readFile } from 'graceful-fs'
 
 import { UserInfo } from '../types'
 import { clearCache } from '../utils'
-import { userInfo } from '../constants'
+import { userInfo, configStore } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { userInfo as user } from 'os'
-import Store from 'electron-store'
 import { session } from 'electron'
 import { getLegendaryCommand, runLegendaryCommand } from './library'
-
-const configStore = new Store({
-  cwd: 'store'
-})
 
 export class LegendaryUser {
   public static async login(sid: string) {
     const commandParts = ['auth', '--sid', sid]
     const command = getLegendaryCommand(commandParts)
-    logInfo(['Logging with Legendary:', command], LogPrefix.Legendary)
+    logInfo(['Logging in with Legendary:', command], LogPrefix.Legendary)
 
     const res = await runLegendaryCommand(commandParts)
 

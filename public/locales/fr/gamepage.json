@@ -36,10 +36,14 @@
         "yes": "OUI"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Suspendre/Annuler",
         "continue": "Continuer le téléchargement",
+        "hide_game": "Hide Game",
         "import": "Importer le jeu",
         "install": "Installer",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "Désinstaller",
         "update": "Mise à jour"
     },
@@ -55,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Joué la dernière fois",
         "neverPlayed": "Jamais",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Temps passé à jouer"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Connexion requise",
+        "installedPlatform": "Installed Platform",
         "path": "Chemin d'installation",
         "size": "Poids",
         "syncsaves": "Synchronizer les Sauvegardes",
         "version": "Version"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Sélectionner le chemin d'installation",
         "wineprefix": "Préfixe Wine",
         "wineversion": ""
@@ -85,6 +92,7 @@
     "launch": {
         "options": "Paramètres de démarrage..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Sélectionnez les composants à installer"
     },

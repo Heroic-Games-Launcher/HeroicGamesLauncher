@@ -123,7 +123,7 @@ export default function WineSettings({
           <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.defaultWinePrefix', 'Set Folder for new Wine Prefixes')}
           </span>
-          <span>
+          <span className="settingInputWithButton">
             <input
               data-testid="selectDefaultWinePrefix"
               type="text"
@@ -133,7 +133,7 @@ export default function WineSettings({
             />
             <SvgButton
               className="material-icons settings folder"
-              onClick={() =>
+              onClick={async () =>
                 ipcRenderer
                   .invoke('openDialog', {
                     buttonLabel: t('box.choose'),
@@ -161,7 +161,7 @@ export default function WineSettings({
           <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.wineprefix')}
           </span>
-          <span>
+          <span className="settingInputWithButton">
             <input
               data-testid="selectWinePrefix"
               type="text"
@@ -171,7 +171,7 @@ export default function WineSettings({
             />
             <SvgButton
               className="material-icons settings folder"
-              onClick={() =>
+              onClick={async () =>
                 ipcRenderer
                   .invoke('openDialog', {
                     buttonLabel: t('box.choose'),
@@ -206,7 +206,6 @@ export default function WineSettings({
               className="settingSelect"
               defaultValue={selectedPath}
               onChange={(e) => setSelectedPath(e.target.value)}
-              style={{ width: '440px' }}
             >
               {customWinePaths.map((path: string) => (
                 <option key={path}>{path}</option>
@@ -222,9 +221,7 @@ export default function WineSettings({
                   <RemoveCircleIcon
                     data-testid="removeWinePath"
                     style={{
-                      color: selectedPath
-                        ? 'var(--danger)'
-                        : 'var(--background-darker)',
+                      color: selectedPath ? 'var(--danger)' : 'black',
                       cursor: selectedPath ? 'pointer' : ''
                     }}
                     fontSize="large"

@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Όλα",
     "Assets": "Αντικείμενα",
     "box": {
-        "appupdate": {
-            "message": "Υπάρχει μια νέα έκδοση του Heroic, θέλετε να το ενημερώσετε τώρα;",
-            "title": "Ενημέρωση Διαθέσιμη"
-        },
         "cache-cleared": {
             "message": "Η προσωρινή μνήμη Heroic καθαρίστηκε.",
             "title": "Προσωρινή Μνήμη Καθαρίστηκε"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D σφάλμα"
             },
             "generic": {
-                "message": "Προέκυψε άγνωστο σφάλμα",
-                "title": "Άγνωστο σφάλμα"
+                "message": "",
+                "title": ""
             },
             "launch": "Σφάλμα στην εκκίνηση του παιχνιδιού, ελέγξτε τα αρχεία καταγραφής!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Η λειτουργία εκτός σύνδεσης δεν υποστηρίζεται."
             },
             "title": "Σφάλμα",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Δεν επιλέχθηκε έκδοση Wine. Ελέγξτε τις ρυθμίσεις παιχνιδιού!",
                 "title": "Το Wine δεν βρέθηκε"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "ΟΧΙ",
@@ -89,26 +105,25 @@
         "yes": "ΝΑΙ"
     },
     "button": {
-        "continue": "Συνέχεια",
+        "go_to_library": "Go to Library",
         "login": "Σύνδεση",
         "sync": "Συγχρονισμός",
         "syncing": "Συγχρονισμός",
         "unsync": "Αποσυγχρονισμός"
     },
-    "Downloading": "Λήψη",
     "epic": {
         "offline-notification-body": "Οι διαδικτυακές υπηρεσίες πιθανό να μη λειτουργούν πλήρως καθώς οι διακομιστές Epic Games ειναι εκτός σύνδεσης!",
         "offline-notification-title": "Εκτός Σύνδεσης"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Χωρίς Φίλτρο"
-    },
+    "favourites": "Favourites",
     "globalSettings": "Καθολικές Ρυθμίσεις",
     "GOG": "GOG",
     "gog-store": "Κατάστημα GOG",
     "header": {
-        "platform": "Πλατφόρμα"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "Πλατφόρμα",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Συγχρονίστε με EGL εάν έχετε μια λειτουργική εγκατάσταση Epic Games Launcher κάπου αλλού και θέλετε να εισαγάγετε τα παιχνίδια σας για αποφυγή λήψης ξανά.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Οι ρυθμίσεις αποθηκεύονται αυτομάτως"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "Προβολή Πλέγματος",
         "listView": "Προβολή Λίστας",
-        "refresh": "Ανανέωση"
+        "refresh": "Ανανέωση",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Βιβλιοθήκη",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Ο αποσυγχρονισμός ολοκληρώθηκε"
     },
     "nogames": "Δεν βρέθηκαν παιχνίδια",
-    "Not Ready": "Δεν είναι έτοιμο",
     "notify": {
         "error": {
             "move": "Σφάλμα μετακίνησης του Παιχνιδιού",
@@ -211,7 +231,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Πρότζεκτ",
-    "Ready": "Έτοιμο",
     "Recent": "Παίχτηκε Πρόσφατα",
     "search": "Εισαγάγετε το όνομα παιχνιδιού εδώ...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
         "autovkd3d": "Αυτόματη Εγκατάσταση/Ενημέρωση VKD3D με Πρόθημα",
         "change-target-exe": "Επιλέξτε ένα εναλλακτικό αρχείο EXE προς εκτέλεση",
-        "checkForUpdatesOnStartup": "Έλεγχος για ενημερώσεις κατά την εκκίνηση",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
         "defaultWinePrefix": "Καθορισμός Φακέλου για νέα Προθήματα Wine",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Ενεργοποίηση Discord Rich Presence",
         "egs-sync": "Συγχρονισμός με εγκατεστημένο Epic Games",
         "enableFSRHack": "Ενεργοποίηση FSR Hack (Η έκδοση Wine πρέπει να το υποστηρίζει)",
@@ -238,9 +257,17 @@
         "fsync": "Ενεργοποίηση Fsync",
         "gamemode": "Χρήση λειτουργίας παιχνιδιού (απαραίτητη η εγκατάσταση του Feral Game Mode)",
         "language": "Διαλέξτε γλώσσα εφαρμογής",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Αντιγραφή αρχείου καταγραφής στο πρόχειρο",
             "current-log": "Τρέχων Αρχείο Καταγραφής",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Τελευταίο Αρχείο Καταγραφής",
             "no-file": "Δεν βρέθηκε αρχείο σύνδεσης",
             "show-in-folder": "Εμφάνιση αρχείου καταγραφής στον φάκελο"
@@ -269,6 +296,7 @@
             "placeholder": "Διαλέξτε τον ακριβή φάκελο αποθήκευσης παιχνιδιών",
             "title": "Κατίσχυση φακέλου δεδομένων συγχρονισμού Νέφους"
         },
+        "select_theme": "Select Theme",
         "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",
         "showUnrealMarket": "Εμφάνιση Καταστήματος Unreal (απαιτεί επανεκίννηση)",
         "start-in-tray": "Ελαχιστοποιημένη Έναρξη",
@@ -285,6 +313,7 @@
             "long-log-hint": "Το αρχείο καταγραφής ελαττώθηκε, εμφάνιση τελευταίων 1000 γραμμών!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Γενικά",
             "log": "Log",
             "other": "Άλλα",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "Όλα τα παιχνίδια",
         "allUnreal": "Unreal - Όλα",
-        "downloading": "Γίνεται λήψη",
-        "installedGames": "Εγκατεστημένα Παιχνίδια",
-        "notInstalledGames": "Μη Εγκατεστημένο",
         "unrealAssets": "Unreal - Στοιχεία",
         "unrealPlugins": "Unreal - Πρόσθετα",
-        "unrealProjects": "Unreal - Πρότζεκτ",
-        "updates": "Εκκρεμής Ενημερώσεις"
+        "unrealProjects": "Unreal - Πρότζεκτ"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Εμφάνιση"
     },
     "Unreal Marketplace": "Κατάστημα Unreal",
-    "Updates": "Ενημερώσεις",
     "userselector": {
         "discord": "Discord",
         "logout": "Αποσύνδεση",

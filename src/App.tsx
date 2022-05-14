@@ -1,71 +1,51 @@
-import React, { lazy, useContext } from 'react'
+import React, { useContext } from 'react'
 
 import './App.css'
-import { HashRouter, Route, Switch } from 'react-router-dom'
-import { Library } from 'src/screens/Library'
-import ContextProvider from 'src/state/ContextProvider'
-import ElectronStore from 'electron-store'
-import Sidebar from 'src/components/UI/Sidebar'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import Login from './screens/Login'
 import WebView from './screens/WebView'
-
-const Store = window.require('electron-store')
-
-const Settings = lazy(() => import('./screens/Settings'))
-const GamePage = lazy(() => import('./screens/Game/GamePage'))
-const Header = lazy(() => import('./components/UI/Header'))
-const WineManager = lazy(() => import('./screens/WineManager'))
+import { GamePage } from './screens/Game'
+import Library from './screens/Library'
+import WineManager from './screens/WineManager'
+import Sidebar from 'src/components/UI/Sidebar'
+import Settings from './screens/Settings'
+import Accessibility from './screens/Accessibility'
+import ContextProvider from './state/ContextProvider'
 
 function App() {
-  const context = useContext(ContextProvider)
-  const configStore: ElectronStore = new Store({
-    cwd: 'store'
-  })
-  const gogStore: ElectronStore = new Store({
-    cwd: 'gog_store'
-  })
+  const { contentFontFamily, actionsFontFamily } = useContext(ContextProvider)
 
-  const user = configStore.has('userInfo') || gogStore.has('credentials')
-  const { epicLibrary, gogLibrary, recentGames, category } = context
+  const style = {
+    '--content-font-family': contentFontFamily,
+    '--actions-font-family': actionsFontFamily
+  } as React.CSSProperties
 
-  const dlcCount = epicLibrary.filter((lib) => lib.install.is_dlc)
-  const numberOfGames =
-    category == 'epic'
-      ? epicLibrary.length - dlcCount.length
-      : gogLibrary.length
-  const showRecentGames = !!recentGames.length && category !== 'unreal'
   return (
-    <div className="App">
+    <div className="App" style={style}>
       <HashRouter>
         <Sidebar />
         <main className="content">
-          <Switch>
-            <Route exact path="/">
-              {user && (
-                <>
-                  <Header numberOfGames={numberOfGames} />
-                  <div className="listing">
-                    <span id="top" />
-                    {showRecentGames && (
-                      <Library showRecentsOnly library={recentGames} />
-                    )}
-                    <Library
-                      library={category === 'epic' ? epicLibrary : gogLibrary}
-                    />
-                  </div>
-                </>
-              )}
+          <Routes>
+            <Route path="/" element={<Library />} />
+            <Route path="login" element={<Login />} />
+            <Route path="epicstore" element={<WebView />} />
+            <Route path="gogstore" element={<WebView />} />
+            <Route path="wiki" element={<WebView />} />
+            <Route path="gamepage">
+              <Route path=":appName" element={<GamePage />} />
             </Route>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/epicstore" component={WebView} />
-            <Route exact path="/gogstore" component={WebView} />
-            <Route exact path="/wiki" component={WebView} />
-            <Route exact path="/gameconfig/:appName" component={GamePage} />
-            <Route path="/store-page" component={WebView} />
-            <Route path="/login/:runner" component={WebView} />
-            <Route path="/settings/:appName/:type" component={Settings} />
-            <Route path="/wine-manager" component={WineManager} />
-          </Switch>
+            <Route path="/store-page" element={<WebView />} />
+            <Route path="loginweb">
+              <Route path=":runner" element={<WebView />} />
+            </Route>
+            <Route path="settings">
+              <Route path=":appName">
+                <Route path=":type" element={<Settings />} />
+              </Route>
+            </Route>
+            <Route path="/wine-manager" element={<WineManager />} />
+            <Route path="/accessibility" element={<Accessibility />} />
+          </Routes>
         </main>
       </HashRouter>
     </div>

@@ -4,38 +4,10 @@
   justify-content: flex-start;
   grid-template-columns: 1fr 5fr;
   width: 100%;
-  left: 0;
   border-radius: 1rem;
   grid-area: content;
-  margin-block-start: 63px;
-}
-
-.settingsNavbar {
-  display: flex;
-  flex-direction: column;
-  margin-block-start: 16px;
-  margin-inline-start: 61.5px;
-  margin-inline-end: clamp(65px, 8vw, 103px);
-  font: var(--font-primary-bold);
-  font-size: 18.5px;
-  line-height: 19px;
-  color: var(--text-default);
-}
-
-.settingsNavbar > a {
-  margin-block-end: 11px;
-  padding-block: 6px;
-}
-
-.settingsNavbar > a:hover {
-  color: var(--text-hover);
-}
-
-.settingsNavbar > a.active {
-  transition: all 350ms ease-out 0s;
-  transform: scale(1.2);
-  color: var(--accent);
-  font-weight: 500;
+  margin-block-start: 20px;
+  padding: 0px 48px;
 }
 
 .settingsWrapper {
@@ -53,15 +25,22 @@
   font-size: 2rem;
   margin-inline-end: auto;
   padding: 8px;
+  color: var(--accent);
+  transition: 350ms;
 }
 
 .headerTitle:hover {
-  transition: 350ms;
-  color: var(--text-hover);
+  color: var(--accent-overlay);
 }
 
 .headerTitle > svg {
   margin-left: 12px;
+}
+
+.settingsWrapper > .backButton {
+  position: relative;
+  top: -10px;
+  left: -38px;
 }
 
 .settingsTools {
@@ -74,6 +53,7 @@
   display: grid;
   place-items: baseline;
   margin: 16px;
+  width: 100%;
 }
 
 .setting.double {
@@ -92,7 +72,7 @@
   display: flex;
   flex-grow: 1;
   flex-wrap: nowrap;
-  min-width: 513px;
+  width: 100%;
 }
 
 .settingInputWithButton > .button.is-small {
@@ -104,7 +84,6 @@
   cursor: pointer;
   gap: 15px;
   align-content: flex-start;
-  place-self: center;
   width: 512px;
   font-size: 16px;
   line-height: 19px;
@@ -172,14 +151,16 @@
 .warning {
   color: yellow;
   font-size: 12px;
-  width: 513px;
+  width: 100%;
+  max-width: 513px;
   white-space: break-spaces;
   padding-top: 4px;
 }
 
 .smallLink {
   font-size: 12px;
-  width: 513px;
+  width: 100%;
+  max-width: 513px;
   white-space: break-spaces;
   padding-top: 4px;
   cursor: pointer;

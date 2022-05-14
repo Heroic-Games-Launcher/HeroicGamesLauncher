@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "全部",
     "Assets": "素材",
     "box": {
-        "appupdate": {
-            "message": "有新版本的Heroic啟動器可用，您要立即更新嗎？",
-            "title": "有可用更新"
-        },
         "cache-cleared": {
             "message": "Heroic緩存已清理",
             "title": "緩存清理"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D error"
             },
             "generic": {
-                "message": "發生了未知錯誤",
-                "title": "未知錯誤"
+                "message": "",
+                "title": ""
             },
             "launch": "啟動遊戲時出現錯誤，請檢查日誌！",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Offline mode not supported."
             },
             "title": "錯誤",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "否",
@@ -89,26 +105,25 @@
         "yes": "是"
     },
     "button": {
-        "continue": "Continue",
+        "go_to_library": "Go to Library",
         "login": "Login",
         "sync": "同步",
         "syncing": "正在同步",
         "unsync": "不同步"
     },
-    "Downloading": "正在下載",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
+    "favourites": "Favourites",
     "globalSettings": "全域設定",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "設定會自動保存"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "",
         "listView": "",
-        "refresh": ""
+        "refresh": "",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "收藏庫",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "取消同步完成"
     },
     "nogames": "未找到遊戲",
-    "Not Ready": "尚未就緒",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -211,7 +231,6 @@
     },
     "Plugins": "外掛插件",
     "Projects": "專案",
-    "Ready": "準備就緒",
     "Recent": "最近的遊戲",
     "search": "在此處輸入遊戲名稱...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "自動同步存檔",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
-        "checkForUpdatesOnStartup": "啟動時檢查更新",
         "customWineProton": "自定義Wine/Proton路徑",
         "darktray": "使用暗色系統列圖示",
         "default-install-path": "預設安裝路徑",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "啟用Discord的Rich Presence（活動狀態）",
         "egs-sync": "與已安裝的Epic Games同步",
         "enableFSRHack": "啟用FSR（需要支持的WINE版本）",
@@ -238,9 +257,17 @@
         "fsync": "Enable Fsync",
         "gamemode": "使用GameMode（需要已安裝Feral Game Mode）",
         "language": "選擇應用語言",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
@@ -269,6 +296,7 @@
             "placeholder": "選擇存檔的保存位置",
             "title": "覆蓋雲端存檔資料夾"
         },
+        "select_theme": "Select Theme",
         "showfps": "顯示幀數（Directx 9，10和11）",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "啟動時最小化",
@@ -285,6 +313,7 @@
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "一般",
             "log": "Log",
             "other": "其它",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projects"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "顯示"
     },
     "Unreal Marketplace": "虛幻商城",
-    "Updates": "更新",
     "userselector": {
         "discord": "Discord",
         "logout": "登出",

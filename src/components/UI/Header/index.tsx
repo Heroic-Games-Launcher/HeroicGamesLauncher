@@ -1,12 +1,13 @@
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
-import React, { useContext, useMemo } from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SearchBar } from 'src/components/UI'
 import ContextProvider from 'src/state/ContextProvider'
 import FormControl from '../FormControl'
 import { UE_VERSIONS } from './constants'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import './index.css'
 
 export interface HeaderProps {
@@ -18,24 +19,24 @@ export default function Header({ numberOfGames }: HeaderProps) {
   const {
     category,
     filter,
-    gameUpdates = [],
-    libraryStatus,
     handleFilter,
     filterPlatform,
     handlePlatformFilter,
-    platform
+    platform,
+    showHidden,
+    setShowHidden
   } = useContext(ContextProvider)
 
-  const hasDownloads = useMemo(
-    () =>
-      libraryStatus.filter(
-        (game) => game.status === 'installing' || game.status === 'updating'
-      ).length !== 0,
-    [libraryStatus]
-  )
-  const hasUpdates = gameUpdates.length !== 0
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+
+  const toggleShowHidden = () => {
+    setShowHidden(!showHidden)
+  }
+
+  const showHiddenTitle = showHidden
+    ? t('header.ignore_hidden', 'Ignore Hidden')
+    : t('header.show_hidden', 'Show Hidden')
 
   return (
     <div className="Header">
@@ -97,35 +98,6 @@ export default function Header({ numberOfGames }: HeaderProps) {
               )}
             </FormControl>
           )}
-          <FormControl select>
-            <select
-              id="games-filter"
-              className="FormControl__select"
-              onChange={(e) => handleFilter(e.target.value)}
-              value={filter}
-              data-testid="games-filter"
-            >
-              <option data-testid="all" value="all">
-                {t('filter.noFilter', 'No Filter')}
-              </option>
-              <option data-testid="installed" value="installed">
-                {t('Ready')}
-              </option>
-              <option data-testid="uninstalled" value="uninstalled">
-                {t('Not Ready')}
-              </option>
-              {hasDownloads && (
-                <option data-testid="downloading" value="downloading">
-                  {`${t('Downloading')} (${hasDownloads})`}
-                </option>
-              )}
-              {hasUpdates && (
-                <option data-testid="updates" value="updates">
-                  {`${t('Updates', 'Updates')} (${hasUpdates})`}
-                </option>
-              )}
-            </select>
-          </FormControl>
         </div>
       )}
       {category === 'unreal' && (
@@ -176,6 +148,15 @@ export default function Header({ numberOfGames }: HeaderProps) {
           ? `${t('Total Games')}: ${numberOfGames}`
           : `${t('nogames')}`}
       </div>
+      <FormControl segmented>
+        <button
+          className="FormControl__button"
+          title={showHiddenTitle}
+          onClick={toggleShowHidden}
+        >
+          {showHidden ? <Visibility /> : <VisibilityOff />}
+        </button>
+      </FormControl>
     </div>
   )
 }

@@ -9,7 +9,7 @@
   grid-area: sidebar;
   height: 100%;
   padding: 0;
-  font-family: 'Rubik', sans-serif;
+  font-family: var(--actions-font-family);
   text-align: left;
   background: var(--navbar-background);
 }
@@ -18,7 +18,7 @@
   display: flex;
   width: 100%;
   height: fit-content;
-  font-family: 'Rubik', sans-serif;
+  font-family: var(--actions-font-family);
   flex-direction: column;
 }
 
@@ -29,22 +29,27 @@
   border: none;
   background: none;
   cursor: pointer;
-  font-size: inherit;
-  color: inherit;
+  font-size: 18px;
+  color: var(--navbar-accent);
   transition: color 250ms;
 }
 
 .Sidebar__item:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--text-hover);
   outline-offset: -2px;
 }
 
 .Sidebar__item:hover {
-  color: var(--text-hover);
+  background-color: var(--navbar-active-background);
 }
 
 .Sidebar__item.active {
   color: var(--accent);
+}
+
+.Sidebar__item.active.SidebarLinks__subItem {
+  font-weight: 700;
+  background-color: var(--navbar-active-background);
 }
 
 .Sidebar__itemIcon {
@@ -53,4 +58,5 @@
   margin-right: 10px;
   display: inline-flex;
   justify-content: center;
+  color: var(--accent);
 }

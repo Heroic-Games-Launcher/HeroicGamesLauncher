@@ -2,37 +2,51 @@ import './index.css'
 
 import React, { lazy, useContext, useEffect, useRef, useState } from 'react'
 
-import { GameInfo, Runner } from 'src/types'
 import ContextProvider from 'src/state/ContextProvider'
-import cx from 'classnames'
 
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
-import { UpdateComponent } from 'src/components/UI'
+import { Header, UpdateComponent } from 'src/components/UI'
 import { useTranslation } from 'react-i18next'
 import { getLibraryTitle } from './constants'
 import ActionIcons from 'src/components/UI/ActionIcons'
+import { GamesList } from './components/GamesList'
+import { GameInfo, Runner } from 'src/types'
 
-const GameCard = lazy(() => import('src/screens/Library/components/GameCard'))
 const InstallModal = lazy(
-  () => import('src/screens/Library/components/InstallModal')
+  async () => import('src/screens/Library/components/InstallModal')
 )
 
-interface Props {
-  library: Array<GameInfo>
-  showRecentsOnly?: boolean
-}
+const storage = window.localStorage
 
-export const Library = ({ library, showRecentsOnly }: Props) => {
-  const { layout, gameUpdates, refreshing, category, filter } =
-    useContext(ContextProvider)
+export default function Library(): JSX.Element {
+  const {
+    layout,
+    libraryStatus,
+    refreshing,
+    category,
+    filter,
+    epicLibrary,
+    gogLibrary,
+    recentGames,
+    favouriteGames,
+    libraryTopSection
+  } = useContext(ContextProvider)
+
   const [showModal, setShowModal] = useState({
     game: '',
     show: false,
     runner: 'legendary' as Runner
   })
+  const [sortDescending, setSortDescending] = useState(
+    JSON.parse(storage?.getItem('sortDescending') || 'false')
+  )
+  const [sortInstalled, setSortInstalled] = useState(
+    JSON.parse(storage?.getItem('sortInstalled') || 'true')
+  )
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
+  // bind back to top button
   useEffect(() => {
     if (backToTopElement.current) {
       const listing = document.querySelector('.listing')
@@ -60,21 +74,131 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
     setShowModal({ game: appName, show: true, runner })
   }
 
-  if (refreshing && !showRecentsOnly) {
-    return <UpdateComponent inline />
+  function handleSortDescending() {
+    setSortDescending(!sortDescending)
+    storage.setItem('sortDescending', JSON.stringify(!sortDescending))
+  }
+
+  function handleSortInstalled() {
+    setSortInstalled(!sortInstalled)
+    storage.setItem('sortInstalled', JSON.stringify(!sortInstalled))
   }
 
   function titleWithIcons() {
     return (
       <div className="titleWithIcons">
         {getLibraryTitle(category, filter, t)}
-        <ActionIcons />
+        <ActionIcons
+          sortDescending={sortDescending}
+          toggleSortDescending={() => handleSortDescending()}
+          sortInstalled={sortInstalled}
+          toggleSortinstalled={() => handleSortInstalled()}
+        />
       </div>
     )
   }
 
+  // cache list of games being installed
+  const [installing, setInstalling] = useState<string[]>([])
+
+  useEffect(() => {
+    const newInstalling = libraryStatus
+      .filter((st) => st.status === 'installing')
+      .map((st) => st.appName)
+
+    setInstalling(newInstalling)
+  }, [libraryStatus])
+
+  // select library and sort
+  let libraryToShow = category === 'epic' ? epicLibrary : gogLibrary
+  libraryToShow = libraryToShow.sort(
+    (a: { title: string }, b: { title: string }) => {
+      const gameA = a.title.toUpperCase().replace('THE ', '')
+      const gameB = b.title.toUpperCase().replace('THE ', '')
+      return sortDescending ? (gameA > gameB ? -1 : 1) : gameA < gameB ? -1 : 1
+    }
+  )
+  const installed = libraryToShow.filter((g) => g.is_installed)
+  const notInstalled = libraryToShow.filter(
+    (g) => !g.is_installed && !installing.includes(g.app_name)
+  )
+  const installingGames = libraryToShow.filter((g) =>
+    installing.includes(g.app_name)
+  )
+  libraryToShow = sortInstalled
+    ? [...installed, ...installingGames, ...notInstalled]
+    : libraryToShow
+
+  const showRecentGames =
+    libraryTopSection === 'recently_played' &&
+    !!recentGames.length &&
+    category !== 'unreal'
+
+  const showFavourites =
+    libraryTopSection === 'favourites' &&
+    !!favouriteGames.list.length &&
+    category !== 'unreal'
+
+  const favourites: GameInfo[] = []
+
+  if (showFavourites) {
+    const favouriteAppNames = favouriteGames.list.map(
+      (favourite) => favourite.appName
+    )
+    epicLibrary.forEach((game) => {
+      if (favouriteAppNames.includes(game.app_name)) favourites.push(game)
+    })
+    gogLibrary.forEach((game) => {
+      if (favouriteAppNames.includes(game.app_name)) favourites.push(game)
+    })
+  }
+
+  const dlcCount = epicLibrary.filter((lib) => lib.install.is_dlc)
+  const numberOfGames =
+    category === 'epic'
+      ? epicLibrary.length - dlcCount.length
+      : gogLibrary.length
+
   return (
     <>
+      <Header numberOfGames={numberOfGames} />
+
+      <div className="listing">
+        <span id="top" />
+        {showRecentGames && (
+          <>
+            <h3 className="libraryHeader">{t('Recent', 'Played Recently')}</h3>
+            <GamesList
+              library={recentGames}
+              handleGameCardClick={handleModal}
+            />
+          </>
+        )}
+
+        {showFavourites && (
+          <>
+            <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
+            <GamesList library={favourites} handleGameCardClick={handleModal} />
+          </>
+        )}
+
+        <h3 className="libraryHeader">{titleWithIcons()}</h3>
+
+        {refreshing && <UpdateComponent inline />}
+
+        {!refreshing && (
+          <GamesList
+            library={libraryToShow}
+            layout={layout}
+            handleGameCardClick={handleModal}
+          />
+        )}
+      </div>
+
+      <button id="backToTopBtn" onClick={backToTop} ref={backToTopElement}>
+        <ArrowDropUp className="material-icons" />
+      </button>
+
       {showModal.show && (
         <InstallModal
           appName={showModal.game}
@@ -83,63 +207,6 @@ export const Library = ({ library, showRecentsOnly }: Props) => {
             setShowModal({ game: '', show: false, runner: 'legendary' })
           }
         />
-      )}
-      <h3 className="libraryHeader">
-        {showRecentsOnly ? t('Recent', 'Played Recently') : titleWithIcons()}
-      </h3>
-      <div
-        style={!library.length ? { backgroundColor: 'transparent' } : {}}
-        className={cx({
-          gameList: showRecentsOnly || layout === 'grid',
-          gameListLayout: layout !== 'grid' && !showRecentsOnly
-        })}
-      >
-        {!!library.length &&
-          library.map(
-            ({
-              title,
-              art_square,
-              art_cover,
-              art_logo,
-              app_name,
-              is_installed,
-              is_mac_native,
-              is_linux_native,
-              runner,
-              is_game,
-              install: { version, install_size, is_dlc }
-            }: GameInfo) => {
-              if (is_dlc) {
-                return null
-              }
-              const hasUpdate = gameUpdates?.includes(app_name)
-              return (
-                <GameCard
-                  key={app_name}
-                  runner={runner}
-                  cover={art_square}
-                  coverList={art_cover}
-                  logo={art_logo}
-                  title={title}
-                  appName={app_name}
-                  isInstalled={is_installed}
-                  isGame={is_game}
-                  version={`${version}`}
-                  size={`${install_size}`}
-                  hasUpdate={hasUpdate}
-                  buttonClick={() => handleModal(app_name, runner)}
-                  forceCard={showRecentsOnly}
-                  isMacNative={is_mac_native}
-                  isLinuxNative={is_linux_native}
-                />
-              )
-            }
-          )}
-      </div>
-      {!showRecentsOnly && (
-        <button id="backToTopBtn" onClick={backToTop} ref={backToTopElement}>
-          <ArrowDropUp className="material-icons" />
-        </button>
       )}
     </>
   )

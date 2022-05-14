@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Alle",
     "Assets": "Assets",
     "box": {
-        "appupdate": {
-            "message": "Es ist eine neue Version von Heroic verfügbar, möchtest du diese jetzt installieren?",
-            "title": "Update verfügbar"
-        },
         "cache-cleared": {
             "message": "Heroic Cache wurde geleert.",
             "title": "Cache geleert"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D Fehler"
             },
             "generic": {
-                "message": "Ein unbekannter Fehler ist aufgetreten",
-                "title": "Unbekannter Fehler"
+                "message": "",
+                "title": ""
             },
             "launch": "Fehler beim Starten des Spiels, prüfe die Logs!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Offline-Modus wird nicht unterstützt."
             },
             "title": "Error",
+            "update": {
+                "message": "Bei der Aktualisierung ist etwas schiefgelaufen, bitte überprüfe die Logs oder versuche es später noch einmal!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Keine Wine Version ausgewählt. Überprüfe die Spieleinstellungen!",
                 "title": "Wine nicht gefunden"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Changelog öffnen",
+                "detail": "Möchtest du das Update im Hintergrund herunterladen?",
+                "message": "Es ist eine neue Version verfügbar!",
+                "message-finished": "Möchtest du Heroic jetzt neu starten?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update abgeschlossen"
             }
         },
         "no": "NEIN",
@@ -89,26 +105,25 @@
         "yes": "JA"
     },
     "button": {
-        "continue": "Fortsetzen",
+        "go_to_library": "Zur Bibliothek",
         "login": "Anmelden",
         "sync": "Synchronisieren",
         "syncing": "Synchronisiere",
         "unsync": "Nicht mehr synchronisieren"
     },
-    "Downloading": "Am Herunterladen",
     "epic": {
         "offline-notification-body": "Online-Dienste funktionieren möglicherweise nicht vollständig, da die Server von Epic Games offline sind!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Kein Filter"
-    },
+    "favourites": "Favoriten",
     "globalSettings": "Globale Einstellungen",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "GOG-Store",
     "header": {
-        "platform": "Plattform"
+        "ignore_hidden": "Ausgeblendete ignorieren",
+        "platform": "Plattform",
+        "show_hidden": "Ausgeblendete anzeigen"
     },
     "help": {
         "general": "Synchronisiere mit EGL, falls du woanders eine funktionierende Installation des Epic Games Launcher hast und deine Spiele importieren möchtest, um ein erneutes Herunterladen zu vermeiden.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Einstellungen werden automatisch gespeichert"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "Rasteransicht",
         "listView": "Listenansicht",
-        "refresh": "Aktualisieren"
+        "refresh": "Aktualisieren",
+        "sortAscending": "Aufsteigend sortieren",
+        "sortByStatus": "Nach Status sortieren",
+        "sortDescending": "Absteigend sortieren"
     },
     "Library": "Bibliothek",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Synchronisation erfolgreich aufgehoben"
     },
     "nogames": "Keine Spiele gefunden",
-    "Not Ready": "Nicht installiert",
     "notify": {
         "error": {
             "move": "Fehler beim Verschieben des Spiels",
@@ -195,8 +215,8 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
-        "legendary-version": "Legendary Version: ",
+        "gogdl-version": "GOGDL-Version: ",
+        "legendary-version": "Legendary-Version: ",
         "weblate": "Hilf bei der Übersetzung von Heroic."
     },
     "placeholder": {
@@ -211,7 +231,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Projekte",
-    "Ready": "Installiert",
     "Recent": "Zuletzt gespielte Spiele",
     "search": "Gebe hier den Namen des Spiels ein...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Spielstände automatisch synchronisieren",
         "autovkd3d": "VKD3D automatisch im Präfix installieren/aktualisieren",
         "change-target-exe": "Wähle eine alternative EXE zum Ausführen",
-        "checkForUpdatesOnStartup": "Beim Start nach Updates suchen",
         "customWineProton": "Wähle die Wine oder Proton Binärdatei",
         "darktray": "Dunkles Taskleisten-Icon benutzen",
         "default-install-path": "Standard-Installationspfad",
         "defaultWinePrefix": "Ordner für neue Wine Präfixe festlegen",
+        "disable_controller": "Heroic Navigation mit Controller deaktivieren",
         "discordRPC": "Discord Rich Presence aktivieren",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
@@ -238,9 +257,17 @@
         "fsync": "Fsync aktivieren",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
         "language": "App Sprache auswählen",
+        "library_top_option": {
+            "disabled": "Deaktiviert",
+            "favourites": "Lieblingsspiele",
+            "recently_played": "Zuletzt gespielte Spiele"
+        },
+        "library_top_section": "Oberer Abschnitt der Bibliothek",
         "log": {
             "copy-to-clipboard": "Log-Inhalt in Zwischenablage kopieren",
             "current-log": "Aktueller Log",
+            "instructions": "Trete unserem Discord bei und suche den Kanal, der zu deinem Betriebssystem passt. Teilen den Inhalt der hier angezeigten Logs und füge eine klare Beschreibung des Problems mit allen relevanten Informationen und Details hinzu.",
+            "instructions_title": "Wie melde ich ein Problem?",
             "last-log": "Letzter Log",
             "no-file": "Keine Log-Datei gefunden",
             "show-in-folder": "Log-Datei in Ordner anzeigen"
@@ -269,6 +296,7 @@
             "placeholder": "Genauen Spielstände Ordner auswählen",
             "title": "Cloud-Synchronisation Spielstände Ordner überschreiben"
         },
+        "select_theme": "Design auswählen",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
         "showUnrealMarket": "Unreal Marketplace anzeigen (benötigt Neustart)",
         "start-in-tray": "Minimiert starten",
@@ -285,6 +313,7 @@
             "long-log-hint": "Log abgeschnitten, die letzten 1000 Zeilen werden angezeigt!"
         },
         "navbar": {
+            "advanced": "Erweitert",
             "general": "Allgemein",
             "log": "Log",
             "other": "Andere",
@@ -297,17 +326,13 @@
         "logging": "Anmelden…"
     },
     "store": "Epic Store",
-    "stores": "Stores",
+    "stores": "Shops",
     "title": {
         "allGames": "Alle Spiele",
         "allUnreal": "Unreal - Alles",
-        "downloading": "wird heruntergeladen",
-        "installedGames": "Installierte Spiele",
-        "notInstalledGames": "Nicht installiert",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projekte",
-        "updates": "Ausstehende Aktualisierungen"
+        "unrealProjects": "Unreal - Projekte"
     },
     "toolbox": {
         "settings": {
@@ -326,8 +351,7 @@
         "reload": "Neu laden",
         "show": "Anzeigen"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Aktualisierungen",
+    "Unreal Marketplace": "Unreal-Marktplatz",
     "userselector": {
         "discord": "Discord",
         "logout": "Abmelden",

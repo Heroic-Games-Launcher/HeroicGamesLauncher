@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "操作字族 (默认: \"Rubik\")",
+        "content_font_family": "内容字族 (默认: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "全部",
     "Assets": "素材",
     "box": {
-        "appupdate": {
-            "message": "有新版本的 Heroic 启动器可用，您要立即更新吗？",
-            "title": "有可用更新"
-        },
         "cache-cleared": {
             "message": "Heroic 缓存已清理。",
             "title": "缓存已清理"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D 错误"
             },
             "generic": {
-                "message": "发生了未知错误",
-                "title": "未知错误"
+                "message": "",
+                "title": ""
             },
             "launch": "启动游戏时出现错误，请检查日志！",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "不支持离线模式。"
             },
             "title": "错误",
+            "update": {
+                "message": "更新有问题，请检查日志或稍后再试！",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "没有选中 Wine 版本。检查游戏设置！",
                 "title": "未找到 Wine"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "打开更新日志",
+                "detail": "你想在后台下载更新吗？",
+                "message": "有新版本可用！",
+                "message-finished": "你想立即重启 Heroic 吗？",
+                "title": "Heroic Games Launcher",
+                "title-finished": "更新已完成"
             }
         },
         "no": "否",
@@ -89,26 +105,25 @@
         "yes": "是"
     },
     "button": {
-        "continue": "继续",
+        "go_to_library": "前往库",
         "login": "登录",
         "sync": "同步",
         "syncing": "正在同步",
         "unsync": "不同步"
     },
-    "Downloading": "正在下载",
     "epic": {
         "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
         "offline-notification-title": "离线"
     },
     "Epic Games": "Epic 游戏",
-    "filter": {
-        "noFilter": "全部"
-    },
+    "favourites": "收藏",
     "globalSettings": "全局设置",
     "GOG": "GOG",
     "gog-store": "GOG 商店",
     "header": {
-        "platform": "平台"
+        "ignore_hidden": "忽略隐藏项",
+        "platform": "平台",
+        "show_hidden": "显示隐藏项"
     },
     "help": {
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "设置会自动保存"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "网格视图",
         "listView": "列表视图",
-        "refresh": "刷新"
+        "refresh": "刷新",
+        "sortAscending": "升序排列",
+        "sortByStatus": "按状态排列",
+        "sortDescending": "降序排列"
     },
     "Library": "仓库",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "取消同步完成"
     },
     "nogames": "未找到游戏",
-    "Not Ready": "尚未就绪",
     "notify": {
         "error": {
             "move": "移动游戏时出错",
@@ -180,7 +200,7 @@
         "uninstalled": "已卸载",
         "update": {
             "canceled": "已取消更新",
-            "finished": "已更新",
+            "finished": "更新已完成的",
             "started": "升级已开始"
         }
     },
@@ -211,7 +231,6 @@
     },
     "Plugins": "插件",
     "Projects": "项目",
-    "Ready": "准备就绪",
     "Recent": "最近玩过",
     "search": "在此处输入游戏名称…",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "自动同步存档",
         "autovkd3d": "遇到前缀时自动安装/更新 VKD3D",
         "change-target-exe": "选择要运行的替代 EXE",
-        "checkForUpdatesOnStartup": "启动时检查更新",
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
         "defaultWinePrefix": "为新的 WinePrefix设置文件夹",
+        "disable_controller": "使用控制器禁止 Heroic 导航",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "egs-sync": "与已安装的 Epic 游戏同步",
         "enableFSRHack": "启用 FSR（需要支持的WINE版本）",
@@ -238,9 +257,17 @@
         "fsync": "启用 Fsync",
         "gamemode": "使用 GameMode（需要已安装 Feral Game Mode）",
         "language": "选择应用语言",
+        "library_top_option": {
+            "disabled": "已禁用",
+            "favourites": "喜欢的游戏",
+            "recently_played": "最近玩过的游戏"
+        },
+        "library_top_section": "库的顶部",
         "log": {
             "copy-to-clipboard": "复制日志内容到剪贴板",
             "current-log": "当前日志",
+            "instructions": "加入我们的 Discord，寻找与您的操作系统匹配的频道。共享此处显示的日志内容，并包含对问题的清晰描述以及任何相关信息和细节。",
+            "instructions_title": "如何报告问题？",
             "last-log": "上一日志",
             "no-file": "未找到日志文件",
             "show-in-folder": "显示文件夹中的日志文件"
@@ -269,6 +296,7 @@
             "placeholder": "选择存档的保存位置",
             "title": "覆盖云端存档文件夹"
         },
+        "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",
         "showUnrealMarket": "显示虚幻市场（需重启）",
         "start-in-tray": "启动时最小化",
@@ -285,6 +313,7 @@
             "long-log-hint": "日志被截断，显示最后 1000 行！"
         },
         "navbar": {
+            "advanced": "高级",
             "general": "常规",
             "log": "Log",
             "other": "其它",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "所有游戏",
         "allUnreal": "虚幻 - 所有",
-        "downloading": "下载中",
-        "installedGames": "已安装的游戏",
-        "notInstalledGames": "未安装",
         "unrealAssets": "虚幻 - 素材",
         "unrealPlugins": "虚幻 - 插件",
-        "unrealProjects": "虚幻 - 项目",
-        "updates": "待更新"
+        "unrealProjects": "虚幻 - 项目"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "显示"
     },
     "Unreal Marketplace": "虚幻商城",
-    "Updates": "更新",
     "userselector": {
         "discord": "Discord",
         "logout": "退出登录",

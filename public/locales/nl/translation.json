@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Allemaal",
     "Assets": "Assets",
     "box": {
-        "appupdate": {
-            "message": "Er is een nieuwe versie van Heroic beschikbaar, wilt u nu updaten?",
-            "title": "Update beschikbaar"
-        },
         "cache-cleared": {
             "message": "Heroic Cache Was Cleared!",
             "title": "Cache Cleared"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D error"
             },
             "generic": {
-                "message": "Er is een onbekende fout opgetreden",
-                "title": "Onbekende fout"
+                "message": "",
+                "title": ""
             },
             "launch": "Een probleem tijdens het lanceren van het spel, check de logs!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Offline mode not supported."
             },
             "title": "Error",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "NEE",
@@ -89,26 +105,25 @@
         "yes": "JA"
     },
     "button": {
-        "continue": "Continue",
+        "go_to_library": "Go to Library",
         "login": "Login",
         "sync": "Synchroniseer",
         "syncing": "Synchroniseren",
         "unsync": "De-synchroniseren"
     },
-    "Downloading": "Aan het downloaden",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "No Filter"
-    },
+    "favourites": "Favourites",
     "globalSettings": "Algemene instellingen",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
         "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Instellingen worden automatisch opgeslagen"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "",
         "listView": "",
-        "refresh": ""
+        "refresh": "",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "Bibliotheek",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "De-synchronisatie compleet"
     },
     "nogames": "Geen spellen gevonden",
-    "Not Ready": "Niet klaar",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -211,7 +231,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Projecten",
-    "Ready": "Gereed",
     "Recent": "Recente Spellen",
     "search": "Voor je spel naam hier in...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Automatisch Synchroniseren van saves",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Selecteer een alternatieve EXE om uit te voeren",
-        "checkForUpdatesOnStartup": "Check voor Updates bij het opstarten",
         "customWineProton": "Aangepaste wijn- of protonpaden",
         "darktray": "Gebruik donker tray icoon",
         "default-install-path": "Standaard installatie pad",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "\"Discord Rich Presence\" inschakelen",
         "egs-sync": "Synchronisatie met geïnstalleerde Epic Games",
         "enableFSRHack": "FSR Hack inschakelen (Wine versie moet dit ondersteunen)",
@@ -238,9 +257,17 @@
         "fsync": "Fsync inschakelen",
         "gamemode": "Gebruik GameMode (Feral Game Mode moet geïnstalleerd zijn)",
         "language": "Selecteer een App taal",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
@@ -269,6 +296,7 @@
             "placeholder": "Selecteer de exacte opslagmap",
             "title": "Overschijf cloud synchronisatie save map"
         },
+        "select_theme": "Select Theme",
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Geminimaliseerd",
@@ -285,6 +313,7 @@
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "Algemeen",
             "log": "Log",
             "other": "Overig",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "All Games",
         "allUnreal": "Unreal - Everything",
-        "downloading": "Downloading",
-        "installedGames": "Installed Games",
-        "notInstalledGames": "Not Installed",
         "unrealAssets": "Unreal - Assets",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects",
-        "updates": "Pending Updates"
+        "unrealProjects": "Unreal - Projects"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Tonen"
     },
     "Unreal Marketplace": "Unreal Marktplaats",
-    "Updates": "Updates",
     "userselector": {
         "discord": "Discord",
         "logout": "Log uit",

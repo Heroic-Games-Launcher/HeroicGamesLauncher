@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Все",
     "Assets": "Ресурсы",
     "box": {
-        "appupdate": {
-            "message": "Доступна новая версия Heroic. Обновить сейчас?",
-            "title": "Доступно обновление"
-        },
         "cache-cleared": {
             "message": "Кэш Heroic очищен.",
             "title": "Кэш очищен"
@@ -30,8 +32,8 @@
                 "title": "Ошибка DXVK/VKD3D"
             },
             "generic": {
-                "message": "Произошла неизвестная ошибка",
-                "title": "Неизвестная ошибка"
+                "message": "",
+                "title": ""
             },
             "launch": "Ошибка при запуске игры, проверьте журнал!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Автономный режим не поддерживается."
             },
             "title": "Ошибка",
+            "update": {
+                "message": "Что-то пошло не так с обновлением, проверьте журналы или повторите попытку позже!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
                 "title": "Wine не найден"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Открыть список изменений",
+                "detail": "Хотите загрузить обновление в фоновом режиме?",
+                "message": "Доступна новая версия!",
+                "message-finished": "Хотите перезапустить Heroic сейчас?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Обновление завершено"
             }
         },
         "no": "НЕТ",
@@ -89,26 +105,25 @@
         "yes": "ДА"
     },
     "button": {
-        "continue": "Продолжить",
+        "go_to_library": "Перейти в библиотеку",
         "login": "Вход",
         "sync": "Синхронизировать",
         "syncing": "Синхронизация",
         "unsync": "Рассинхронизировать"
     },
-    "Downloading": "Скачивается",
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
-        "offline-notification-title": "offline"
+        "offline-notification-title": "офлайн"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Без фильтра"
-    },
+    "favourites": "Избранное",
     "globalSettings": "Глобальные настройки",
     "GOG": "GOG",
     "gog-store": "Магазин GOG",
     "header": {
-        "platform": "Платформа"
+        "ignore_hidden": "Игнорировать скрытые",
+        "platform": "Платформа",
+        "show_hidden": "Показать скрытые"
     },
     "help": {
         "general": "Синхронизируйте с EGL, если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "Настройки сохраняются автоматически"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "В виде сетки",
         "listView": "В виде списка",
-        "refresh": "Обновить"
+        "refresh": "Обновить",
+        "sortAscending": "Сортировать по возрастанию",
+        "sortByStatus": "Сортировать по статусу",
+        "sortDescending": "Сортировать по убыванию"
     },
     "Library": "Библиотека",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Рассинхронизация завершена"
     },
     "nogames": "Игры не найдены",
-    "Not Ready": "Не готово",
     "notify": {
         "error": {
             "move": "Ошибка при перемещении игры",
@@ -211,7 +231,6 @@
     },
     "Plugins": "Плагины",
     "Projects": "Проекты",
-    "Ready": "Готово",
     "Recent": "Запускались недавно",
     "search": "Введите здесь название игры...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Автосинхронизация сохранений",
         "autovkd3d": "Автоматически устанавливать/обновлять VKD3D в префиксе",
         "change-target-exe": "Выбрать другой EXE для запуска",
-        "checkForUpdatesOnStartup": "Проверять наличие обновлений при запуске",
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
         "defaultWinePrefix": "Указать папку для новых префиксов Wine",
+        "disable_controller": "Отключить навигацию в Heroic с помощью контроллера",
         "discordRPC": "Включить Discord Rich Presence",
         "egs-sync": "Синхронизировать с установленнными играми EGS",
         "enableFSRHack": "Включить FSR Hack (версия Wine должна поддерживать)",
@@ -238,9 +257,17 @@
         "fsync": "Включить Fsync",
         "gamemode": "Использовать GameMode (Нужен Feral GameMode)",
         "language": "Выберите язык приложения",
+        "library_top_option": {
+            "disabled": "Отключить",
+            "favourites": "Избранные игры",
+            "recently_played": "Недавние игры"
+        },
+        "library_top_section": "Верхний раздел библиотеки",
         "log": {
             "copy-to-clipboard": "Копировать содержимое журнала в буфер обмена",
             "current-log": "Текущий журнал",
+            "instructions": "Присоединитесь к нашему Discord и найдите канал, соответствующий вашей операционной системе. Поделитесь содержанием журналов, отображаемых здесь, и добавьте четкое описание проблемы с любой соответствующей информацией и деталями.",
+            "instructions_title": "Как сообщить о проблеме?",
             "last-log": "Последний журнал",
             "no-file": "Файл журнала не найден",
             "show-in-folder": "Показать файл журнала в папке"
@@ -269,6 +296,7 @@
             "placeholder": "Выберите точную папку для сохранений игр",
             "title": "Переопределить папку для облачных сохранений"
         },
+        "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",
         "showUnrealMarket": "Показать Unreal Marketplace (требуется перезапуск)",
         "start-in-tray": "Запускать свернутым в трей",
@@ -285,6 +313,7 @@
             "long-log-hint": "Журнал урезан, показаны последние 1000 строк!"
         },
         "navbar": {
+            "advanced": "Продвинутые",
             "general": "Основные",
             "log": "Журнал",
             "other": "Другие",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "Все игры",
         "allUnreal": "Unreal - Все",
-        "downloading": "Скачивание",
-        "installedGames": "Установленные игры",
-        "notInstalledGames": "Не установлено",
         "unrealAssets": "Unreal - Ресурсы",
         "unrealPlugins": "Unreal - Плагины",
-        "unrealProjects": "Unreal - Проекты",
-        "updates": "Ожидаемые обновления"
+        "unrealProjects": "Unreal - Проекты"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Показать"
     },
     "Unreal Marketplace": "Unreal Marketplace",
-    "Updates": "Обновления",
     "userselector": {
         "discord": "Дискорд",
         "logout": "Выйти из аккаунта",

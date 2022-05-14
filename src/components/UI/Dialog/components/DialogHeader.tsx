@@ -1,9 +1,10 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 export interface DialogHeaderProps {
   onClose: () => void
+  children: ReactNode
 }
 
 export const DialogHeader: React.FC<DialogHeaderProps> = ({

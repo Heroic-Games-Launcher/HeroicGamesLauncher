@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "എല്ലാം",
     "Assets": "വഹകള്",
     "box": {
-        "appupdate": {
-            "message": "ഹീറോക്കടയുടെ പുതിയ പതിപ്പിറങ്ങിയിട്ടുണ്ട്, പുതുക്കട്ടെ?",
-            "title": "പുതുക്കല് വന്നിട്ടുണ്ട്"
-        },
         "cache-cleared": {
             "message": "ഹീറോയിക് പിടിച്ചുവച്ചവ വിട്ടു.",
             "title": "പിടിച്ചുവച്ചവ നീക്കി"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D error"
             },
             "generic": {
-                "message": "എന്തോ കുഴപ്പം പറ്റിയിട്ടുണ്ട്",
-                "title": "കുഴപ്പമുണ്ടല്ലോ"
+                "message": "",
+                "title": ""
             },
             "launch": "കളി ഓടിക്കുന്നതിനിടക്ക് എന്തോ കുഴപ്പം പറ്റിയട്ടുണ്ട്, കുറികള് നോക്കൂ!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Offline mode not supported."
             },
             "title": "കുഴപ്പം",
+            "update": {
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Update Finished"
             }
         },
         "no": "വേണ്ട",
@@ -89,29 +105,28 @@
         "yes": "ശരി"
     },
     "button": {
-        "continue": "തുടരുക",
+        "go_to_library": "Go to Library",
         "login": "അകത്ത് കയറുക",
         "sync": "ഒന്നിപ്പിക്കൂ",
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
         "unsync": "പിരിക്കൂ"
     },
-    "Downloading": "ഇറക്കുന്നവ",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "എപിക് ഗെയിംസ്",
-    "filter": {
-        "noFilter": "No Filter"
-    },
+    "favourites": "Favourites",
     "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "platform": ""
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_hidden": "Show Hidden"
     },
     "help": {
-        "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടീല്\u200d മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില്\u200d നിങ്ങളുടെ കളികള്\u200d വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
+        "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടീല് മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില് നിങ്ങളുടെ കളികള് വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
         "other": {
             "part1": "കളി ഓടിക്കുന്നതിനുമുന്പുള്ള വിളികള്ക്കായി ",
             "part2": "ഉയര്ന്ന ക്രമീകരണങ്ങള്",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "ക്രമീകരണങ്ങള് താനെ സൂക്ഷിക്കപ്പെട്ടിരിക്കുന്നു"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "",
         "listView": "",
-        "refresh": ""
+        "refresh": "",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending"
     },
     "Library": "കളിശാല",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "പിരിച്ചു"
     },
     "nogames": "കളികളൊന്നും കണ്ടെത്തിയില്ല",
-    "Not Ready": "സജ്ജമല്ലാത്തവ",
     "notify": {
         "error": {
             "move": "കളി നീക്കുന്നതില് പിഴവു പറ്റി",
@@ -211,7 +231,6 @@
     },
     "Plugins": "കൂടുതലുകള്",
     "Projects": "ഏര്പാടുകള്",
-    "Ready": "തയ്യാറായവ",
     "Recent": "പതിവ് കളികള്",
     "search": "കളിയുടെ പേര് ഇവിടെ എഴുതൂ...",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "ഓടിക്കുവാനായി പകരംവയ്ക്കാവുന്ന ഒരു EXE തിരഞ്ഞെടുക്കൂ",
-        "checkForUpdatesOnStartup": "തുടങ്ങുമ്പോള് പുതുക്കലുകള്ക്കായി പരതൂ",
         "customWineProton": "ഇഷ്ടാനുസൃതം ചേര്ത്ത വൈന്/പ്രോട്ടോണ് അറകള്",
         "darktray": "താലത്തില്(ട്രേയില്) ഇരുണ്ട ചിത്രം ഉപയോഗിക്കുക",
         "default-install-path": "തനത് സ്ഥാപനയിടം",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "ഡിസ്കോര്ഡ് റിച്ച് പ്രെസന്സ് വക്കൂ",
         "egs-sync": "സ്ഥാപിച്ച എപിക് ഗെയിംസുമായി ഒന്നിപ്പിക്കുക",
         "enableFSRHack": "എഫ്എസ്ആര് ഹാക്ക് വയ്ക്കൂ (Wine version needs to support it)",
@@ -238,9 +257,17 @@
         "fsync": "Fsync വയ്ക്കൂ",
         "gamemode": "ഗെയിംമോഡ് ഉപയോഗിക്കൂ (ഫെറലിന്റെ ഗെയിംമോഡ് ഇന്സ്റ്റാള് ചെയ്തിരിക്കണം)",
         "language": "ആപ്പിന്റെ ഭാഷ",
+        "library_top_option": {
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games"
+        },
+        "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
@@ -269,6 +296,7 @@
             "placeholder": "കളി സൂക്ഷിക്കാനുള്ള കൃത്യമായ സ്ഥലം നല്കൂ",
             "title": "മേഘത്തില് ഒന്നിപ്പിക്കല് സൂക്ഷിക്കുന്ന അറ മാറ്റിയെഴുതുക"
         },
+        "select_theme": "Select Theme",
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
         "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "ചെറിയ കളമാക്കി തുറക്കൂ",
@@ -285,6 +313,7 @@
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
+            "advanced": "Advanced",
             "general": "പൊതുവായവ",
             "log": "Log",
             "other": "മറ്റുള്ളവ",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "മൊത്തം കളികള്",
         "allUnreal": "അണ്റിയല് - എല്ലാം",
-        "downloading": "ഇറക്കുന്നു",
-        "installedGames": "നട്ട കളികള്",
-        "notInstalledGames": "നടാത്തവ",
         "unrealAssets": "അണ്റിയല് - വകകള്",
         "unrealPlugins": "അണ്റിയല് - Plugins",
-        "unrealProjects": "അണ്റിയല് - പണികള്",
-        "updates": "നടക്കേണ്ട പുതുക്കലുകള്"
+        "unrealProjects": "അണ്റിയല് - പണികള്"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "കാണിക്കൂ"
     },
     "Unreal Marketplace": "അണ്റിയല് ചന്ത",
-    "Updates": "പുതുക്കലുകള്",
     "userselector": {
         "discord": "ഡിസ്കോഡ഻്",
         "logout": "ഇറങ്ങൂ(ലോഗൌട്ട്)",

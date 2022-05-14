@@ -36,10 +36,14 @@
         "yes": "DA"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Otkaži/Prekini",
         "continue": "Nastavi preuzimanje",
+        "hide_game": "Hide Game",
         "import": "Uvezi igru",
         "install": "Instaliraj",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "Deinstaliraj",
         "update": "Ažuriraj"
     },
@@ -55,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Zadnje odigrano",
         "neverPlayed": "Nikad",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Vrijeme igranja"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Internet Potreban",
+        "installedPlatform": "Installed Platform",
         "path": "Put instalacije",
         "size": "Veličina",
         "syncsaves": "Sinkroniziraj podatke",
         "version": "Verzija"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Odaberite put instalacije",
         "wineprefix": "WinePrefix",
         "wineversion": ""
@@ -85,6 +92,7 @@
     "launch": {
         "options": "Opcije za pokretanje..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Odaberite kompomente za instalaciju"
     },

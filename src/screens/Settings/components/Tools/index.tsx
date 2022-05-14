@@ -81,25 +81,25 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
         <div className="toolsWrapper">
           <button
             data-testid="wineCFG"
-            className="button is-tools"
+            className="button outline"
             style={{
               color: winecfgRunning
                 ? 'var(--download-button)'
                 : 'var(--text-default)'
             }}
-            onClick={() => callTools('winecfg')}
+            onClick={async () => callTools('winecfg')}
           >
             <span className="toolTitle">Winecfg</span>
           </button>
           <button
             data-testid="wineTricks"
-            className="button is-tools"
+            className="button outline"
             style={{
               color: winetricksRunning
                 ? 'var(--download-button)'
                 : 'var(--text-default)'
             }}
-            onClick={() => callTools('winetricks')}
+            onClick={async () => callTools('winetricks')}
           >
             <span className="toolTitle">Winetricks</span>
           </button>
@@ -109,7 +109,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
             onDrop={(ev) => dropHandler(ev)}
             onDragOver={(ev) => dragOverHandler(ev)}
             className="tools drag"
-            onClick={() => handleRunExe()}
+            onClick={async () => handleRunExe()}
           >
             {t('setting.runexe.title')}
             <br />

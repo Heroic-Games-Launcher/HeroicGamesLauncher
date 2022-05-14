@@ -29,17 +29,21 @@
             "title": "حذف"
         },
         "update": {
-            "message": "این بازی بهروزرسانی دارد، آیا مایل به بهروزرسانی هستید؟",
-            "title": "بازی نیاز به بهروزرسانی دارد"
+            "message": "این بازی به روزرسانی دارد، آیا مایل به روزرسانی هستید؟",
+            "title": "بازی نیاز به روزرسانی دارد"
         },
         "wineprefix": "انتخاب پوشه Wine Prefix",
         "yes": "بله"
     },
     "button": {
+        "add_to_favourites": "افزودن به مورد علاقه ها",
         "cancel": "توقف/انصراف",
         "continue": "ادامه بارگیری",
+        "hide_game": "مخفی کردن بازی",
         "import": "وارد کردن بازی",
         "install": "نصب",
+        "remove_from_favourites": "حذف کردن از مورد علاقه ها",
+        "unhide_game": "نشان دادن بازی",
         "uninstall": "حذف",
         "update": "بهروزرسانی"
     },
@@ -55,6 +59,7 @@
         "language": "زبان",
         "lastPlayed": "آخرین اجرا",
         "neverPlayed": "هرگز",
+        "platform": "انتخاب نسخه پلتفرم برای نصب",
         "totalPlayed": "زمان بازی"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "نیازمندی به آنلاین بودن",
+        "installedPlatform": "پلتفرم های نصب شده",
         "path": "مسیر نصب",
         "size": "اندازه",
-        "syncsaves": "همگامسازی ذخیرهها",
+        "syncsaves": "همگام سازی ذخیره ها",
         "version": "نسخه"
     },
     "install": {
+        "disk-space-left": "فضای باقی مانده در دستگاه",
         "path": "انتخاب محل نصب",
         "wineprefix": "Wine Prefix",
         "wineversion": "نسخه Wine"
@@ -79,12 +86,13 @@
             "stop": "در حال اجرا (توقف)"
         },
         "saves": {
-            "syncing": "در حال همگامسازی ذخیرهها"
+            "syncing": "در حال همگام سازی ذخیره ها"
         }
     },
     "launch": {
-        "options": "گزینههای اجرا..."
+        "options": "گزینه های اجرا..."
     },
+    "report_problem": "گزارش مشکل اجرای این بازی",
     "sdl": {
         "title": "انتخاب محتواها برای نصب"
     },
@@ -93,7 +101,7 @@
         "recommended": "پیشنهادی"
     },
     "status": {
-        "clickToUpdate": "برای بهروزرسانی کلیک کنید",
+        "clickToUpdate": "برای به روزرسانی کلیک کنید",
         "hasUpdates": "نسخه جدید موجود است!",
         "installed": "نصب شده",
         "installing": "در حال نصب",
@@ -101,7 +109,7 @@
         "notinstalled": "این بازی نصب نشده است",
         "reparing": "در حال تعمیر بازی، لطفا صبر کنید",
         "totalDownloaded": "حجم کل دانلود شده",
-        "updating": "در حال بهروزرسانی بازی"
+        "updating": "در حال به روزرسانی بازی"
     },
     "submenu": {
         "addShortcut": "افزودن میانبر",

@@ -1,8 +1,12 @@
 import {
   faBorderAll,
   faList,
-  faSyncAlt
+  faSyncAlt,
+  faArrowDownAZ,
+  faArrowDownZA,
+  faHardDrive as hardDriveSolid
 } from '@fortawesome/free-solid-svg-icons'
+import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
@@ -12,7 +16,19 @@ import ContextProvider from 'src/state/ContextProvider'
 import FormControl from '../FormControl'
 import './index.css'
 
-export default function ActionIcons() {
+interface Props {
+  sortDescending: boolean
+  sortInstalled: boolean
+  toggleSortDescending: () => void
+  toggleSortinstalled: () => void
+}
+
+export default function ActionIcons({
+  sortDescending,
+  toggleSortDescending,
+  sortInstalled,
+  toggleSortinstalled
+}: Props) {
   const { t } = useTranslation()
   const { refreshLibrary, handleLayout, layout } = useContext(ContextProvider)
   return (
@@ -39,9 +55,33 @@ export default function ActionIcons() {
           />
         </button>
         <button
+          className={cx('FormControl__button', 'active')}
+          title={
+            sortDescending
+              ? t('library.sortDescending', 'Sort Descending')
+              : t('library.sortAscending', 'Sort Ascending')
+          }
+          onClick={() => toggleSortDescending()}
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={sortDescending ? faArrowDownZA : faArrowDownAZ}
+          />
+        </button>
+        <button
+          className={cx('FormControl__button', 'active')}
+          title={t('library.sortByStatus', 'Sort by Status')}
+          onClick={() => toggleSortinstalled()}
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={sortInstalled ? hardDriveSolid : hardDriveLight}
+          />
+        </button>
+        <button
           className="FormControl__button"
-          title={t('library.refresh')}
-          onClick={() =>
+          title={t('library.refresh', 'Refresh Library')}
+          onClick={async () =>
             refreshLibrary({
               checkForUpdates: true,
               fullRefresh: true,

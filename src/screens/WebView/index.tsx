@@ -1,11 +1,11 @@
 import React, { useContext, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHistory, useLocation, useParams } from 'react-router'
+import { useNavigate, useLocation, useParams } from 'react-router'
 
 import { UpdateComponent } from 'src/components/UI'
 import WebviewControls from 'src/components/UI/WebviewControls'
 import ContextProvider from 'src/state/ContextProvider'
-import { Runner, Webview } from 'src/types'
+import { Runner, WebviewType } from 'src/types'
 import './index.css'
 
 const { clipboard, ipcRenderer } = window.require('electron')
@@ -18,7 +18,8 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { handleFilter, handleCategory } = useContext(ContextProvider)
+  const { handleFilter, handleCategory, refreshLibrary } =
+    useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -26,8 +27,8 @@ export default function WebView() {
     refresh: true,
     message: t('loading.website', 'Loading Website')
   }))
-  const history = useHistory()
-  const webviewRef = useRef<Webview>(null)
+  const navigate = useNavigate()
+  const webviewRef = useRef<WebviewType>(null)
 
   let lang = i18n.language
   if (i18n.language === 'pt') {
@@ -53,8 +54,8 @@ export default function WebView() {
     '/wiki': wikiURL,
     '/loginEpic': epicLoginUrl,
     '/loginGOG': gogLoginUrl,
-    '/login/legendary': epicLoginUrl,
-    '/login/gog': gogLoginUrl
+    '/loginweb/legendary': epicLoginUrl,
+    '/loginweb/gog': gogLoginUrl
   }
   let startUrl = urls[pathname]
 
@@ -64,6 +65,17 @@ export default function WebView() {
     if (queryParam) {
       startUrl = queryParam
     }
+  }
+
+  const handleSuccessfulLogin = (runner: 'epic' | 'gog') => {
+    handleFilter('all')
+    handleCategory(runner)
+    refreshLibrary({
+      fullRefresh: true,
+      runInBackground: false
+    })
+    setLoading({ ...loading, refresh: false })
+    navigate('/login')
   }
 
   useLayoutEffect(() => {
@@ -84,12 +96,7 @@ export default function WebView() {
               message: t('status.logging', 'Logging In...')
             })
             ipcRenderer.invoke('authGOG', code).then(() => {
-              setLoading({
-                refresh: false,
-                message: t('status.logging', 'Logging In...')
-              })
-              handleCategory('gog')
-              history.push('/login')
+              handleSuccessfulLogin('gog')
             })
           }
         }
@@ -109,12 +116,8 @@ export default function WebView() {
                     refresh: true,
                     message: t('status.logging', 'Logging In...')
                   })
-                  await ipcRenderer.invoke('login', sid).then(() => {
-                    handleFilter('all')
-                    handleCategory('epic')
-                    setLoading({ ...loading, refresh: false })
-                    history.push('/login')
-                  })
+                  await ipcRenderer.invoke('login', sid)
+                  handleSuccessfulLogin('epic')
                 } catch (error) {
                   console.error(error)
                   ipcRenderer.send('logError', error)
@@ -136,11 +139,13 @@ export default function WebView() {
 
   return (
     <div className="WebView">
-      <WebviewControls
-        webview={webviewRef.current}
-        initURL={startUrl}
-        openInBrowser={!startUrl.startsWith('/login')}
-      />
+      {webviewRef.current && (
+        <WebviewControls
+          webview={webviewRef.current}
+          initURL={startUrl}
+          openInBrowser={!startUrl.startsWith('login')}
+        />
+      )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
       <webview
         ref={webviewRef}

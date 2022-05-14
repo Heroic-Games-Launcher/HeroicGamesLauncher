@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
 import classNames from 'classnames'
 import { IpcRenderer } from 'electron'
-import prettyBytes from 'pretty-bytes'
+
 import React, {
   useCallback,
   useContext,
@@ -20,13 +20,14 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { UpdateComponent } from 'src/components/UI'
+import { SmallInfo, UpdateComponent } from 'src/components/UI'
 import {
   getAppSettings,
   getGameInfo,
   getInstallInfo,
   getProgress,
   install,
+  size,
   writeConfig
 } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
@@ -34,8 +35,9 @@ import {
   AppSettings,
   GameStatus,
   InstallInfo,
-  SavedInstallProgress,
+  InstallProgress,
   Path,
+  PlatformToInstall,
   Runner,
   WineInstallation
 } from 'src/types'
@@ -93,7 +95,7 @@ export default function InstallModal({
 }: Props) {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
-  ) as SavedInstallProgress
+  ) as InstallProgress
 
   const { i18n, t } = useTranslation('gamepage')
   const { t: tr } = useTranslation()
@@ -114,14 +116,53 @@ export default function InstallModal({
   )
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
+  const [spaceLeft, setSpaceLeft] = useState('')
+
+  const [isLinuxNative, setIsLinuxNative] = useState(false)
+  const [isMacNative, setIsMacNative] = useState(false)
+  const [defaultPlatform, setDefaultPlatform] = useState<PlatformToInstall>('')
 
   const installFolder = gameStatus?.folder || installPath
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
 
-  const [isLinuxNative, setIsLinuxNative] = useState(false)
-  const [isMacNative, setIsMacNative] = useState(false)
+  const platforms = [
+    {
+      name: 'Linux',
+      available: isLinuxNative && !isMac,
+      value: 'Linux',
+      icon: faLinux
+    },
+    {
+      name: 'macOS',
+      available: isMacNative && !isLinux,
+      value: 'Mac',
+      icon: faApple
+    },
+    {
+      name: 'Windows',
+      available: true,
+      value: 'Windows',
+      icon: faWindows
+    }
+  ]
+
+  const availablePlatforms = platforms.filter((p) => p.available)
+
+  useEffect(() => {
+    const selectedPlatform = isLinuxNative
+      ? 'Linux'
+      : isMacNative
+      ? 'Mac'
+      : 'Windows'
+
+    setPlatformToInstall(selectedPlatform)
+    setDefaultPlatform(selectedPlatform)
+  }, [isLinuxNative, isMacNative])
+
+  const [platformToInstall, setPlatformToInstall] =
+    useState<PlatformToInstall>(defaultPlatform)
 
   const sdls: Array<SelectiveDownload> = SDL_GAMES[appName]
   const haveSDL = Array.isArray(sdls) && sdls.length !== 0
@@ -171,7 +212,7 @@ export default function InstallModal({
       writeConfig([appName, { ...appSettings, winePrefix, wineVersion }])
     }
 
-    return await install({
+    return install({
       appName,
       handleGameStatus,
       installPath: path || installFolder,
@@ -182,19 +223,28 @@ export default function InstallModal({
       sdlList,
       installDlcs,
       installLanguage,
-      runner
+      runner,
+      platformToInstall
     })
   }
 
   useEffect(() => {
     ipcRenderer
       .invoke('requestSettings', 'default')
-      .then((config: AppSettings) => {
+      .then(async (config: AppSettings) => {
         setDefaultPath(config.defaultInstallPath)
         if (installPath === 'default') {
           setInstallPath(config.defaultInstallPath)
         }
+        if (installPath !== 'default') {
+          const spaceLeft = await ipcRenderer.invoke(
+            'checkDiskSpace',
+            installPath
+          )
+          setSpaceLeft(spaceLeft)
+        }
       })
+
     return () => {
       ipcRenderer.removeAllListeners('requestSettings')
     }
@@ -202,12 +252,18 @@ export default function InstallModal({
 
   useEffect(() => {
     const getInfo = async () => {
-      const gameInstallInfo = await getInstallInfo(appName, runner)
+      const installPlatform =
+        platformToInstall !== '' ? platformToInstall : 'Windows'
+      const gameInstallInfo = await getInstallInfo(
+        appName,
+        runner,
+        installPlatform
+      )
       const gameInfo = await getGameInfo(appName, runner)
       if (!gameInstallInfo) {
         ipcRenderer.invoke('showErrorBox', [
-          tr('box.error.generic.title'),
-          tr('box.error.generic.message')
+          tr('box.error.generic.title', 'Error!'),
+          tr('box.error.generic.message', 'Something Went Wrong!')
         ])
         backdropClick()
         return
@@ -222,7 +278,7 @@ export default function InstallModal({
       }
       setIsLinuxNative(gameData.is_linux_native && isLinux)
       setIsMacNative(gameData.is_mac_native && isMac)
-      if (isLinux && gameData.is_linux_native && runner == 'gog') {
+      if (installPlatform === 'Linux' && runner === 'gog') {
         const installer_languages = (await ipcRenderer.invoke(
           'getGOGLinuxInstallersLangs',
           appName
@@ -239,26 +295,16 @@ export default function InstallModal({
       setWineVersion(wineVersion || undefined)
     }
     getInfo()
-  }, [appName, i18n.languages])
+  }, [appName, i18n.languages, platformToInstall])
 
   const haveDLCs = gameInstallInfo?.game?.owned_dlc?.length > 0
   const DLCList = gameInstallInfo?.game?.owned_dlc
   const downloadSize =
     gameInstallInfo?.manifest?.download_size &&
-    prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
+    size(Number(gameInstallInfo?.manifest?.download_size))
   const installSize =
     gameInstallInfo?.manifest?.disk_size &&
-    prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
-
-  function getIcon() {
-    if (isMacNative) {
-      return faApple
-    } else if (isLinuxNative) {
-      return faLinux
-    } else {
-      return faWindows
-    }
-  }
+    size(Number(gameInstallInfo?.manifest?.disk_size))
 
   const getLanguageName = useMemo(() => {
     return (language: string) => {
@@ -276,10 +322,10 @@ export default function InstallModal({
         return language
       }
     }
-  }, [i18n.language])
+  }, [i18n.languages, platformToInstall])
 
-  const hasWine = isLinux && !isLinuxNative
-
+  const hasWine = platformToInstall === 'Windows' && isLinux
+  const showPlatformSelection = availablePlatforms.length > 1
   const [wineVersionList, setWineVersionList] = useState<WineInstallation[]>([])
   useEffect(() => {
     if (hasWine) {
@@ -315,10 +361,13 @@ export default function InstallModal({
           <>
             <DialogHeader onClose={backdropClick}>
               {title}
-              <FontAwesomeIcon
-                className="InstallModal__platformIcon"
-                icon={getIcon()}
-              />
+              {availablePlatforms.map((p) => (
+                <FontAwesomeIcon
+                  className="InstallModal__platformIcon"
+                  icon={p.icon}
+                  key={p.value}
+                />
+              ))}
             </DialogHeader>
             <DialogContent>
               <div className="InstallModal__sizes">
@@ -357,6 +406,34 @@ export default function InstallModal({
                   </div>
                 )}
               </div>
+              {showPlatformSelection && (
+                <div className="InstallModal__control">
+                  <div className="InstallModal__controlLabel">
+                    {t('game.platform', 'Select Platform Version to Install')}:
+                  </div>
+                  <div className="InstallModal__controlInput">
+                    <FormControl select>
+                      <select
+                        className="FormControl__select"
+                        name="platform"
+                        id="platformPick"
+                        value={platformToInstall}
+                        onChange={(e) =>
+                          setPlatformToInstall(
+                            e.target.value as PlatformToInstall
+                          )
+                        }
+                      >
+                        {availablePlatforms.map((p) => (
+                          <option value={p.value} key={p.value}>
+                            {p.name}
+                          </option>
+                        ))}
+                      </select>
+                    </FormControl>
+                  </div>
+                </div>
+              )}
               {installLanguages && installLanguages?.length > 1 && (
                 <div className="InstallModal__control">
                   <div className="InstallModal__controlLabel">
@@ -391,7 +468,7 @@ export default function InstallModal({
                     sideButton={
                       <button
                         className="FormControl__sideButton"
-                        onClick={() =>
+                        onClick={async () =>
                           ipcRenderer
                             .invoke('openDialog', {
                               buttonLabel: t('box.choose'),
@@ -416,6 +493,12 @@ export default function InstallModal({
                       onChange={(event) => setInstallPath(event.target.value)}
                     />
                   </FormControl>
+                  <SmallInfo
+                    title={`${t(
+                      'install.disk-space-left',
+                      'Space Left on the Device'
+                    )}: ${spaceLeft}`}
+                  />
                 </div>
               </div>
               {hasWine && (
@@ -429,7 +512,7 @@ export default function InstallModal({
                         sideButton={
                           <button
                             className="FormControl__sideButton"
-                            onClick={() =>
+                            onClick={async () =>
                               ipcRenderer
                                 .invoke('openDialog', {
                                   buttonLabel: t('box.choose'),
@@ -536,13 +619,13 @@ export default function InstallModal({
             </DialogContent>
             <DialogFooter>
               <button
-                onClick={() => handleInstall('import')}
+                onClick={async () => handleInstall('import')}
                 className={`button is-secondary outline`}
               >
                 {t('button.import')}
               </button>
               <button
-                onClick={() => handleInstall()}
+                onClick={async () => handleInstall()}
                 className={`button is-secondary`}
               >
                 {previousProgress.folder === installPath

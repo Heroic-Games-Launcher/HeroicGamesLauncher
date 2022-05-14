@@ -6,18 +6,7 @@ export function getLibraryTitle(
   t: TFunction<'translation'>
 ) {
   if (category === 'epic' || category === 'gog') {
-    switch (filter) {
-      case 'installed':
-        return t('title.installedGames', 'Installed Games')
-      case 'updates':
-        return t('title.updates', 'Pending Updates')
-      case 'downloading':
-        return t('title.downloading', 'Downloading')
-      case 'uninstalled':
-        return t('title.notInstalledGames', 'Not Installed')
-      default:
-        return t('title.allGames', 'All Games')
-    }
+    return t('title.allGames', 'All Games')
   }
 
   switch (filter) {

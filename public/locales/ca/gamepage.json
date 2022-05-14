@@ -36,10 +36,14 @@
         "yes": "SÍ"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "Pausa/Cancel·la",
         "continue": "Continua la baixada",
+        "hide_game": "Hide Game",
         "import": "Importa el joc",
         "install": "Instal·la",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "Desinstal·la",
         "update": "Actualitza"
     },
@@ -55,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Última partida",
         "neverPlayed": "Mai",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Temps jugat"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Cal connexió a internet",
+        "installedPlatform": "Installed Platform",
         "path": "Ruta d'instal·lació",
         "size": "Mida",
         "syncsaves": "Sincronitza les partides desades",
         "version": "Versió"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Selecciona la ruta d'instal·lació",
         "wineprefix": "WinePrefix",
         "wineversion": ""
@@ -85,6 +92,7 @@
     "launch": {
         "options": "Opcions d'execució..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Selecciona els components a instal·lar"
     },

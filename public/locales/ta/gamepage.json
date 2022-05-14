@@ -36,10 +36,14 @@
         "yes": "ஆம்"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "ரத்துசெய்",
         "continue": "பதிவிறக்கத்தை தொடரு",
+        "hide_game": "Hide Game",
         "import": "இறக்குமதி செய்",
         "install": "நிறுவு",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "நிறுவல் நீக்கு",
         "update": "Update"
     },
@@ -55,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "Last Played",
         "neverPlayed": "Never",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Time Played"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Online Required",
+        "installedPlatform": "Installed Platform",
         "path": "நிறுவல் பாதை",
         "size": "அளவு",
         "syncsaves": "சேமிப்புகளை ஒத்திசைவு செய்",
         "version": "பதிப்பு"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Select Install Path",
         "wineprefix": "WinePrefix",
         "wineversion": ""
@@ -85,6 +92,7 @@
     "launch": {
         "options": "Launch Options..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Select components to Install"
     },

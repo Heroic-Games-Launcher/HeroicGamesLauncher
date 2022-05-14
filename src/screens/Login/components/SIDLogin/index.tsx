@@ -93,7 +93,7 @@ export default function SIDLogin({ backdropClick, refresh }: Props) {
           </p>
         )}
         <button
-          onClick={() => handleLogin(input)}
+          onClick={async () => handleLogin(input)}
           className="button is-primary"
           disabled={loading || input.length < 30}
         >

@@ -125,7 +125,7 @@ export default function GamesSubmenu({
     }
     const getGameDetails = async () => {
       const gameInfo = await getGameInfo(appName, runner)
-      const isLinuxNative = gameInfo.install?.platform == 'linux' && isLinux
+      const isLinuxNative = gameInfo.install?.platform === 'linux' && isLinux
       setIsNative(isLinuxNative)
     }
     getWineInfo()
@@ -138,36 +138,37 @@ export default function GamesSubmenu({
         {isInstalled && (
           <>
             <NavLink
-              to={{
-                pathname: `/settings/${appName}/log`,
-                state: {
-                  runner
-                }
+              to={`/settings/${appName}/log`}
+              state={{
+                fromGameCard: false,
+                runner,
+                isLinuxNative: isNative,
+                isMacNative: isNative
               }}
               className="link button is-text is-link"
             >
               {t('submenu.log')}
             </NavLink>
             <button
-              onClick={() => handleMoveInstall()}
+              onClick={async () => handleMoveInstall()}
               className="link button is-text is-link"
             >
               {t('submenu.move')}
             </button>{' '}
             <button
-              onClick={() => handleChangeInstall()}
+              onClick={async () => handleChangeInstall()}
               className="link button is-text is-link"
             >
               {t('submenu.change')}
             </button>{' '}
             <button
-              onClick={() => handleRepair(appName)}
+              onClick={async () => handleRepair(appName)}
               className="link button is-text is-link"
             >
               {t('submenu.verify')}
             </button>{' '}
             <button
-              onClick={() =>
+              onClick={async () =>
                 uninstall({ appName, t, handleGameStatus, runner })
               }
               className="link button is-text is-link"
@@ -186,7 +187,6 @@ export default function GamesSubmenu({
         )}
         <NavLink
           className="link button is-text is-link"
-          exact
           to={`/store-page?store-url=${storeUrl}`}
         >
           {t('submenu.store')}

@@ -1,21 +1,15 @@
 import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
-import classNames from 'classnames'
 
 import { AppSettings, Runner, WineInstallation } from 'src/types'
-import { Clipboard, IpcRenderer } from 'electron'
+import { IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
-import { getGameInfo, getPlatform, writeConfig } from 'src/helpers'
+import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
 import { useTranslation } from 'react-i18next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindows, faApple, faLinux } from '@fortawesome/free-brands-svg-icons'
-import {
-  ContentCopyOutlined,
-  CleaningServicesOutlined,
-  DeleteOutline
-} from '@mui/icons-material'
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
+
 import ContextProvider from 'src/state/ContextProvider'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
@@ -25,27 +19,28 @@ import SyncSaves from './components/SyncSaves'
 import Tools from './components/Tools'
 import WineSettings from './components/WineSettings'
 import LogSettings from './components/LogSettings'
+import { AdvancedSettings } from './components/AdvancedSettings'
+import FooterInfo from './components/FooterInfo'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
-  clipboard: Clipboard
 }
 
-const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
+const { ipcRenderer } = window.require('electron') as ElectronProps
 const storage: Storage = window.localStorage
-interface RouteParams {
-  appName: string
-  type: string
-}
 
 interface LocationState {
   fromGameCard: boolean
   runner: Runner
+  isLinuxNative: boolean
+  isMacNative: boolean
 }
 
 function Settings() {
   const { t, i18n } = useTranslation()
-  const { state } = useLocation() as { state: LocationState }
+  const {
+    state: { fromGameCard, runner, isLinuxNative, isMacNative }
+  } = useLocation() as { state: LocationState }
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
@@ -95,11 +90,6 @@ function Settings() {
     toggle: toggleUseSteamRuntime,
     setOn: setUseSteamRuntime
   } = useToggle(false)
-  const {
-    on: checkForUpdatesOnStartup,
-    toggle: toggleCheckForUpdatesOnStartup,
-    setOn: setCheckForUpdatesOnStartup
-  } = useToggle(true)
   const {
     on: nvidiaPrime,
     toggle: toggleNvidiaPrime,
@@ -181,26 +171,23 @@ function Settings() {
     toggle: toggleUnrealMarket,
     setOn: setShowUnrealMarket
   } = useToggle(false)
+  const {
+    on: disableController,
+    toggle: toggleDisableController,
+    setOn: setDisableController
+  } = useToggle(false)
 
-  const [haveCloudSaving, setHaveCloudSaving] = useState({
-    cloudSaveEnabled: false,
-    saveFolder: ''
-  })
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
-  const [isMacNative, setIsMacNative] = useState(false)
-  const [isLinuxNative, setIsLinuxNative] = useState(false)
-
-  const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
-
-  const { appName, type } = useParams() as RouteParams
+  const { appName = '', type = '' } = useParams()
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
   const isWineSettings = type === 'wine'
   const isSyncSettings = type === 'sync'
   const isOtherSettings = type === 'other'
   const isLogSettings = type === 'log'
+  const isAdvancedSetting = type === 'advanced' && isDefault
 
   useEffect(() => {
     const getSettings = async () => {
@@ -242,33 +229,22 @@ function Settings() {
       setAddDesktopShortcuts(config.addDesktopShortcuts)
       setAddGamesToStartMenu(config.addStartMenuShortcuts)
       setCustomWinePaths(config.customWinePaths || [])
-      setCheckForUpdatesOnStartup(
-        config.checkForUpdatesOnStartup !== undefined
-          ? config.checkForUpdatesOnStartup
-          : true
-      )
       setTargetExe(config.targetExe || '')
       setAltLegendaryBin(config.altLegendaryBin || '')
       setAltGogdlBin(config.altGogdlBin || '')
       setShowUnrealMarket(config.showUnrealMarket)
       setDefaultWinePrefix(config.defaultWinePrefix)
       setUseSteamRuntime(config.useSteamRuntime || false)
+      setDisableController(config.disableController || false)
+
       if (!isDefault) {
-        const {
-          cloud_save_enabled: cloudSaveEnabled,
-          save_folder: saveFolder,
-          title: gameTitle,
-          canRunOffline: can_run_offline,
-          is_mac_native,
-          is_linux_native
-        } = await getGameInfo(appName, state.runner)
+        const { title: gameTitle, canRunOffline: can_run_offline } =
+          await getGameInfo(appName, runner)
         setCanRunOffline(can_run_offline)
         setTitle(gameTitle)
-        setIsMacNative(is_mac_native && (await getPlatform()) == 'darwin')
-        setIsLinuxNative(is_linux_native && (await getPlatform()) == 'linux')
-        return setHaveCloudSaving({ cloudSaveEnabled, saveFolder })
+      } else {
+        setTitle(t('globalSettings', 'Global Settings'))
       }
-      return setTitle(t('globalSettings', 'Global Settings'))
     }
     getSettings()
 
@@ -285,11 +261,11 @@ function Settings() {
     audioFix,
     autoInstallDxvk,
     autoInstallVkd3d,
-    checkForUpdatesOnStartup,
     customWinePaths,
     darkTrayIcon,
     defaultInstallPath,
     defaultWinePrefix,
+    disableController,
     discordRPC,
     egsLinkedPath,
     enableEsync,
@@ -338,27 +314,18 @@ function Settings() {
   } as AppSettings
 
   const settingsToSave = isDefault ? GlobalSettings : GameSettings
-  const shouldRenderWineSettings = !isWin && !isMacNative && !isLinuxNative
-  let returnPath: string | null = '/'
-  if (state && !state.fromGameCard) {
-    returnPath = `/gameconfig/${appName}`
+  let returnPath = '/'
+
+  if (!fromGameCard) {
+    returnPath = `/gamepage/${appName}`
+    if (returnPath === '/gamepage/default') {
+      returnPath = '/'
+    }
   }
 
   useEffect(() => {
     writeConfig([appName, settingsToSave])
   }, [GlobalSettings, GameSettings, appName])
-
-  useEffect(() => {
-    // set copied to clipboard status to true if it's not already set to true
-    // used for changing text and color
-    if (!isCopiedToClipboard) return
-
-    const timer = setTimeout(() => {
-      setCopiedToClipboard(false)
-    }, 3000)
-
-    return () => clearTimeout(timer)
-  }, [isCopiedToClipboard])
 
   if (!title) {
     return <UpdateComponent />
@@ -367,59 +334,10 @@ function Settings() {
   return (
     <>
       <div className="Settings">
-        <nav role="list" className="settingsNavbar">
-          {isDefault && (
-            <NavLink role="link" to={{ pathname: '/settings/default/general' }}>
-              {t('settings.navbar.general')}
-            </NavLink>
-          )}
-          {shouldRenderWineSettings && (
-            <NavLink
-              role="link"
-              to={{
-                pathname: `/settings/${appName}/wine`,
-                state: { runner: state?.runner }
-              }}
-            >
-              Wine
-            </NavLink>
-          )}
-          {!isDefault && haveCloudSaving.cloudSaveEnabled && (
-            <NavLink
-              role="link"
-              data-testid="linkSync"
-              to={{
-                pathname: `/settings/${appName}/sync`,
-                state: { runner: state?.runner }
-              }}
-            >
-              {t('settings.navbar.sync')}
-            </NavLink>
-          )}
-          {
-            <NavLink
-              role="link"
-              to={{
-                pathname: `/settings/${appName}/other`,
-                state: { runner: state?.runner }
-              }}
-            >
-              {t('settings.navbar.other')}
-            </NavLink>
-          }
-          {
-            <NavLink
-              role="link"
-              to={{
-                pathname: `/settings/${appName}/log`,
-                state: { runner: state?.runner }
-              }}
-            >
-              {t('settings.navbar.log', 'Log')}
-            </NavLink>
-          }
-        </nav>
         <div role="list" className="settingsWrapper">
+          <NavLink to={returnPath} role="link" className="backButton">
+            <ArrowCircleLeftIcon />
+          </NavLink>
           {title && (
             <NavLink
               role="link"
@@ -428,13 +346,6 @@ function Settings() {
               data-testid="headerTitle"
             >
               {title}
-              {!isDefault && (
-                <FontAwesomeIcon
-                  icon={
-                    isMacNative ? faApple : isLinuxNative ? faLinux : faWindows
-                  }
-                />
-              )}
             </NavLink>
           )}
           {isGeneralSettings && (
@@ -455,77 +366,13 @@ function Settings() {
               setMaxWorkers={setMaxWorkers}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
               darkTrayIcon={darkTrayIcon}
-              toggleCheckUpdatesOnStartup={toggleCheckForUpdatesOnStartup}
-              checkForUpdatesOnStartup={checkForUpdatesOnStartup}
-              altLegendaryBin={altLegendaryBin}
-              setAltLegendaryBin={setAltLegendaryBin}
-              altGogdlBin={altGogdlBin}
-              setAltGogdlBin={setAltGogdlBin}
               toggleUnrealMarket={toggleUnrealMarket}
               showUnrealMarket={showUnrealMarket}
               minimizeOnLaunch={minimizeOnLaunch}
               toggleMinimizeOnLaunch={toggleMinimizeOnLaunch}
+              disableController={disableController}
+              toggleDisableController={toggleDisableController}
             />
-          )}
-          {isGeneralSettings && (
-            <div className="footerFlex">
-              <button
-                className={classNames('button', 'is-footer', {
-                  isSuccess: isCopiedToClipboard
-                })}
-                onClick={() => {
-                  clipboard.writeText(
-                    JSON.stringify({ appName, title, ...settingsToSave })
-                  )
-                  setCopiedToClipboard(true)
-                }}
-              >
-                <div className="button-icontext-flex">
-                  <div className="button-icon-flex">
-                    <ContentCopyOutlined />
-                  </div>
-                  <span className="button-icon-text">
-                    {isCopiedToClipboard
-                      ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
-                      : t(
-                          'settings.copyToClipboard',
-                          'Copy All Settings to Clipboard'
-                        )}
-                  </span>
-                </div>
-              </button>
-              {isDefault && (
-                <>
-                  <button
-                    className="button is-footer is-danger"
-                    onClick={() => ipcRenderer.send('clearCache')}
-                  >
-                    <div className="button-icontext-flex">
-                      <div className="button-icon-flex">
-                        <CleaningServicesOutlined />
-                      </div>
-                      <span className="button-icon-text">
-                        {t('settings.clear-cache', 'Clear Heroic Cache')}
-                      </span>
-                    </div>
-                  </button>
-
-                  <button
-                    className="button is-footer is-danger"
-                    onClick={() => ipcRenderer.send('resetHeroic')}
-                  >
-                    <div className="button-icontext-flex">
-                      <div className="button-icon-flex">
-                        <DeleteOutline />
-                      </div>
-                      <span className="button-icon-text">
-                        {t('settings.reset-heroic', 'Reset Heroic')}
-                      </span>
-                    </div>
-                  </button>
-                </>
-              )}
-            </div>
           )}
           {isWineSettings && (
             <WineSettings
@@ -608,11 +455,19 @@ function Settings() {
               winePrefix={winePrefix}
             />
           )}
+          {isAdvancedSetting && (
+            <AdvancedSettings
+              altLegendaryBin={altLegendaryBin}
+              setAltLegendaryBin={setAltLegendaryBin}
+              altGogdlBin={altGogdlBin}
+              setAltGogdlBin={setAltGogdlBin}
+              settingsToSave={settingsToSave}
+            />
+          )}
           {isLogSettings && (
             <LogSettings isDefault={isDefault} appName={appName} />
           )}
-          <span className="save">{t('info.settings')}</span>
-          {!isDefault && <span className="appName">AppName: {appName}</span>}
+          <FooterInfo appName={appName} />
         </div>
       </div>
     </>

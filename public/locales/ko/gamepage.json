@@ -36,10 +36,14 @@
         "yes": "예"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "일시정지/취소",
         "continue": "계속 다운로드",
+        "hide_game": "Hide Game",
         "import": "게임 들여오기",
         "install": "설치",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "설치 제거",
         "update": "업데이트"
     },
@@ -55,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "마지막 플레이",
         "neverPlayed": "플레이 한 적 없음",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "플레이 시간"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "네트워크 연결이 필요합니다",
+        "installedPlatform": "Installed Platform",
         "path": "설치 경로",
         "size": "크기",
         "syncsaves": "세이브 동기화",
         "version": "버전"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "설치 경로 선택",
         "wineprefix": "WinePrefix",
         "wineversion": ""
@@ -85,6 +92,7 @@
     "launch": {
         "options": "시작 옵션..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "설치할 구성 요소를 선택합니다"
     },

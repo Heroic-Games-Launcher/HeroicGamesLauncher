@@ -46,5 +46,5 @@ ipcMain.handle('refreshWineVersionInfo', async (e, fetch) => {
 })
 
 ipcMain.handle('removeWineVersion', async (e, release: WineVersionInfo) => {
-  return await removeWineVersion(release)
+  return removeWineVersion(release)
 })

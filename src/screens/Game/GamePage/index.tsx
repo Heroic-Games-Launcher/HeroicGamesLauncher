@@ -1,12 +1,8 @@
 import './index.css'
 
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  MouseEvent,
-  useMemo
-} from 'react'
+import React, { useContext, useEffect, useState, MouseEvent } from 'react'
+
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 import { IpcRenderer } from 'electron'
 import {
@@ -15,33 +11,30 @@ import {
   getProgress,
   launch,
   sendKill,
+  size,
   syncSaves
 } from 'src/helpers'
-import { Link, useParams } from 'react-router-dom'
+import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import UpdateComponent from 'src/components/UI/UpdateComponent'
 
 import { updateGame } from 'src/helpers'
 
-import {
-  AppSettings,
-  GameInfo,
-  GameStatus,
-  InstallInfo,
-  SavedInstallProgress
-} from 'src/types'
-import { useInstallProgress } from 'src/hooks'
+import { AppSettings, GameInfo, GameStatus, InstallInfo } from 'src/types'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
-import prettyBytes from 'pretty-bytes'
+
 import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'src/screens/Library/components'
 import { install } from 'src/helpers/library'
-
-const storage: Storage = window.localStorage
+import EpicLogo from 'src/assets/epic-logo.svg'
+import GOGLogo from 'src/assets/gog-logo.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { hasProgress } from 'src/hooks/hasProgress'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -49,13 +42,10 @@ const { ipcRenderer } = window.require('electron') as {
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
-interface RouteParams {
-  appName: string
-}
-
 export default function GamePage(): JSX.Element | null {
-  const { appName } = useParams() as RouteParams
+  const { appName } = useParams() as { appName: string }
   const { t } = useTranslation('gamepage')
+  const { t: t2 } = useTranslation('translation')
 
   const [tabToShow, setTabToShow] = useState('infoTab')
   const [showModal, setShowModal] = useState({ game: '', show: false })
@@ -73,10 +63,7 @@ export default function GamePage(): JSX.Element | null {
   )[0]
 
   const { status } = gameStatus || {}
-  const previousProgress = JSON.parse(
-    storage.getItem(appName) || '{}'
-  ) as SavedInstallProgress
-
+  const [progress, previousProgress] = hasProgress(appName)
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
@@ -89,8 +76,9 @@ export default function GamePage(): JSX.Element | null {
   }>({ error: false, message: '' })
 
   const isWin = platform === 'win32'
-  const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+  const isMac = platform === 'darwin'
+
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
   const isUpdating = status === 'updating'
@@ -110,7 +98,16 @@ export default function GamePage(): JSX.Element | null {
           newInfo = await getGameInfo(appName, 'gog')
         }
         setGameInfo(newInfo)
-        getInstallInfo(appName, newInfo.runner)
+        const { install, is_linux_native, is_mac_native, runner } = newInfo
+
+        const installPlatform =
+          install.platform || (is_linux_native && isLinux)
+            ? 'Linux'
+            : is_mac_native && isMac
+            ? 'Mac'
+            : 'Windows'
+
+        getInstallInfo(appName, runner, installPlatform)
           .then((info) => {
             if (!info) {
               throw 'Cannot get game info'
@@ -141,9 +138,6 @@ export default function GamePage(): JSX.Element | null {
     updateConfig()
   }, [isInstalling, isPlaying, appName, epicLibrary, gogLibrary])
 
-  const progressSince = useMemo(() => Date.now(), [gameStatus])
-  const progress = useInstallProgress(appName, gameInfo.runner, progressSince)
-
   async function handleUpdate() {
     await handleGameStatus({
       appName,
@@ -165,31 +159,35 @@ export default function GamePage(): JSX.Element | null {
       runner,
       title,
       art_square,
-      install: { install_path, install_size, version },
+      install: {
+        install_path,
+        install_size,
+        version,
+        platform: installPlatform
+      },
       is_installed,
       is_game,
       compatible_apps,
       extra,
       developer,
       cloud_save_enabled,
-      canRunOffline,
-      is_linux_native,
-      is_mac_native
+      canRunOffline
     }: GameInfo = gameInfo
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
-      prettyBytes(Number(gameInstallInfo?.manifest?.download_size))
+      size(Number(gameInstallInfo?.manifest?.download_size))
     const installSize =
       gameInstallInfo?.manifest?.disk_size &&
-      prettyBytes(Number(gameInstallInfo?.manifest?.disk_size))
+      size(Number(gameInstallInfo?.manifest?.disk_size))
     const launchOptions = gameInstallInfo?.game?.launch_options || []
-    // This should check for installed platform in the future
-    const isMacNative = isMac && is_mac_native
-    const isLinuxNative = isLinux && is_linux_native
-    const pathname =
-      isWin || isMacNative || isLinuxNative
-        ? `/settings/${appName}/other`
-        : `/settings/${appName}/wine`
+
+    const isMac = ['osx', 'Mac']
+    const isMacNative = isMac.includes(installPlatform ?? '')
+    const isLinuxNative = installPlatform === 'linux'
+    const isNative = isWin || isMacNative || isLinuxNative
+    const pathname = isNative
+      ? `/settings/${appName}/other`
+      : `/settings/${appName}/wine`
 
     /*
     Other Keys:
@@ -224,6 +222,20 @@ export default function GamePage(): JSX.Element | null {
         {title ? (
           <>
             <GamePicture art_square={art_square} store={runner} />
+            <NavLink
+              className="backButton"
+              to="/"
+              title={t2('webview.controls.back', 'Go Back')}
+            >
+              <ArrowCircleLeftIcon />
+            </NavLink>
+            <div className="store-icon">
+              <img
+                src={runner === 'legendary' ? EpicLogo : GOGLogo}
+                className={runner === 'legendary' ? '' : 'gogIcon'}
+                alt=""
+              />
+            </div>
             <div className={`gameTabs ${tabToShow}`}>
               {is_game && (
                 <>
@@ -285,6 +297,12 @@ export default function GamePage(): JSX.Element | null {
                           <div>
                             {t('info.size')}: {install_size}
                           </div>
+                          <div style={{ textTransform: 'capitalize' }}>
+                            {t('info.installedPlatform', 'Installed Platform')}:{' '}
+                            {installPlatform === 'osx'
+                              ? 'MacOS'
+                              : installPlatform}
+                          </div>
                           <div>
                             {t('info.version')}: {version}
                           </div>
@@ -317,8 +335,8 @@ export default function GamePage(): JSX.Element | null {
                         style={{
                           color:
                             is_installed || isInstalling
-                              ? '#0BD58C'
-                              : '#BD0A0A',
+                              ? 'var(--success)'
+                              : 'var(--danger)',
                           fontStyle: 'italic'
                         }}
                       >
@@ -359,9 +377,13 @@ export default function GamePage(): JSX.Element | null {
                       )}
                       {is_installed ? (
                         <Link
-                          to={{
-                            pathname,
-                            state: { fromGameCard: false, runner }
+                          to={pathname}
+                          state={{
+                            fromGameCard: false,
+                            runner,
+                            isLinuxNative: isNative,
+                            isMacNative: isNative,
+                            hasCloudSave: cloud_save_enabled
                           }}
                           className={`button ${getButtonClass(is_installed)}`}
                         >
@@ -369,7 +391,7 @@ export default function GamePage(): JSX.Element | null {
                         </Link>
                       ) : (
                         <button
-                          onClick={() => handleInstall(is_installed)}
+                          onClick={async () => handleInstall(is_installed)}
                           disabled={
                             isPlaying ||
                             isUpdating ||
@@ -383,6 +405,27 @@ export default function GamePage(): JSX.Element | null {
                         </button>
                       )}
                     </div>
+                    {is_installed && (
+                      <NavLink
+                        to={`/settings/${appName}/log`}
+                        state={{
+                          fromGameCard: false,
+                          runner,
+                          isLinuxNative: isNative,
+                          isMacNative: isNative,
+                          hasCloudSave: cloud_save_enabled
+                        }}
+                        className="clickable reportProblem"
+                      >
+                        <>
+                          {<FontAwesomeIcon icon={faTriangleExclamation} />}
+                          {t(
+                            'report_problem',
+                            'Report a problem running this game'
+                          )}
+                        </>
+                      </NavLink>
+                    )}
                   </div>
 
                   <GameSubMenu
@@ -426,24 +469,8 @@ export default function GamePage(): JSX.Element | null {
   function getInstallLabel(is_installed: boolean): React.ReactNode {
     const { eta, bytes, percent } = progress
 
-    let displayEta: string
-    const secondsLeft = eta
-    if (secondsLeft === Infinity) {
-      displayEta = ''
-    } else {
-      const seconds = `${secondsLeft % 60}`
-      const minutesLeft = Math.floor(secondsLeft / 60)
-      const minutes = `${minutesLeft % 60}`
-      const hours = `${Math.floor(minutesLeft / 60)}`
-      displayEta = [
-        hours.padStart(2, '0'),
-        minutes.padStart(2, '0'),
-        seconds.padStart(2, '0')
-      ].join(':')
-    }
-
     if (isReparing) {
-      return `${t('status.reparing')} ${percent ? `${percent}%` : '...'}`
+      return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`
     }
 
     if (isMoving) {
@@ -451,12 +478,13 @@ export default function GamePage(): JSX.Element | null {
     }
 
     const currentProgress = `${
-      percent && bytes
-        ? `${percent}% [${bytes}]${displayEta && ` | ETA: ${displayEta}`}`
-        : '...'
+      percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
     }`
 
     if (isUpdating && is_installed) {
+      if (eta && eta.includes('verifying')) {
+        return `${t('status.reparing')}: ${percent} [${bytes}]`
+      }
       return `${t('status.updating')} ${currentProgress}`
     }
 
@@ -466,7 +494,7 @@ export default function GamePage(): JSX.Element | null {
 
     if (hasUpdate) {
       return (
-        <span onClick={() => handleUpdate()} className="updateText">
+        <span onClick={async () => handleUpdate()} className="updateText">
           {`${t('status.installed')} - ${t(
             'status.hasUpdates',
             'New Version Available!'
@@ -537,7 +565,7 @@ export default function GamePage(): JSX.Element | null {
       return
     }
 
-    return await install({
+    return install({
       appName,
       handleGameStatus,
       installPath: folder,
@@ -545,7 +573,8 @@ export default function GamePage(): JSX.Element | null {
       previousProgress,
       progress,
       t,
-      runner: gameInfo.runner
+      runner: gameInfo.runner,
+      platformToInstall: ''
     })
   }
 }

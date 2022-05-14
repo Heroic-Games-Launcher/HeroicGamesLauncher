@@ -36,10 +36,14 @@
         "yes": "はい"
     },
     "button": {
+        "add_to_favourites": "Add To Favourites",
         "cancel": "一時停止/キャンセル",
         "continue": "ダウンロードを続ける",
+        "hide_game": "Hide Game",
         "import": "インポート",
         "install": "インストール",
+        "remove_from_favourites": "Remove From Favourites",
+        "unhide_game": "Unhide Game",
         "uninstall": "アンインストール",
         "update": "アップデート"
     },
@@ -55,6 +59,7 @@
         "language": "Language",
         "lastPlayed": "最後にプレイした",
         "neverPlayed": "一度もない",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "プレイ時間"
     },
     "gamecard": {
@@ -63,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Online Required",
+        "installedPlatform": "Installed Platform",
         "path": "インストールパス",
         "size": "サイズ",
         "syncsaves": "保存を同期",
         "version": "バージョン"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Select Install Path",
         "wineprefix": "WinePrefix",
         "wineversion": ""
@@ -85,6 +92,7 @@
     "launch": {
         "options": "Launch Options..."
     },
+    "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "インストールするコンポーネントを選択します"
     },

@@ -1,11 +1,13 @@
 {
+    "accessibility": {
+        "actions_font_family": "Fonte para ações (Padrão: \"Rubik\")",
+        "content_font_family": "Fonte para conteúdo (Padrão: \"Cabin\")",
+        "title": "Accessibilidade",
+        "zoom": "Zoom"
+    },
     "All": "Todos",
     "Assets": "Recursos",
     "box": {
-        "appupdate": {
-            "message": "Existe uma nova versão do Heroic disponível, deseja atualizar agora?",
-            "title": "Atualização Disponível"
-        },
         "cache-cleared": {
             "message": "O cache do Heroic foi limpo.",
             "title": "Cache limpo"
@@ -30,8 +32,8 @@
                 "title": "DXVK/VKD3D Erro"
             },
             "generic": {
-                "message": "Um erro desconhecido ocorreu",
-                "title": "Erro Desconhecido"
+                "message": "",
+                "title": ""
             },
             "launch": "Erro ao iniciar o jogo, confira os logs!",
             "no-offline-mode": {
@@ -39,9 +41,23 @@
                 "title": "Modo offline não suportado."
             },
             "title": "Erro",
+            "update": {
+                "message": "Algo deu errado ao atualizar, check os logs ou tente novamente mais tarde!",
+                "title": "Update Error"
+            },
             "wine-not-found": {
                 "message": "Nenhuma Versão do wine selecionada. Cheque as configurações do jogo!",
                 "title": "Wine Não Encontrado"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Abrir lista da mudanças",
+                "detail": "Você deseja atualizar o Heroic em background?",
+                "message": "Um nova versão está disponível!",
+                "message-finished": "Deseja reiniciar o Heroic agora?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Atualização finalizada"
             }
         },
         "no": "NÃO",
@@ -89,26 +105,25 @@
         "yes": "SIM"
     },
     "button": {
-        "continue": "Continuar",
+        "go_to_library": "Ir para Biblioteca",
         "login": "Conecte-se",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar"
     },
-    "Downloading": "Baixando",
     "epic": {
         "offline-notification-body": "Serviços online podem não funcionar totalmente, os servidores da Epic Games estão offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "filter": {
-        "noFilter": "Sem Filtro"
-    },
+    "favourites": "Favoritos",
     "globalSettings": "Configurações globais",
     "GOG": "GOG",
     "gog-store": "Loja GOG",
     "header": {
-        "platform": "Plataforma"
+        "ignore_hidden": "Ignorar Escondidos",
+        "platform": "Plataforma",
+        "show_hidden": "Mostrar Escondidos"
     },
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
@@ -133,6 +148,9 @@
         }
     },
     "info": {
+        "heroic": {
+            "version": "Heroic Version"
+        },
         "settings": "As configurações são salvas automaticamente"
     },
     "infobox": {
@@ -145,7 +163,10 @@
     "library": {
         "gridView": "Visualização em grade",
         "listView": "Visto por último",
-        "refresh": "Atualizar"
+        "refresh": "Atualizar",
+        "sortAscending": "Ordenar Crescente",
+        "sortByStatus": "Ordenar Decrescente",
+        "sortDescending": "Ordenar Decrescente"
     },
     "Library": "Biblioteca",
     "loading": {
@@ -160,7 +181,6 @@
         "unsync": "Dessincronização Completa"
     },
     "nogames": "Nenhum Jogo Encontrado",
-    "Not Ready": "Não Instalados",
     "notify": {
         "error": {
             "move": "Error ao mover o jogo",
@@ -211,7 +231,6 @@
     },
     "Plugins": "Plugins",
     "Projects": "Projetos",
-    "Ready": "Instalados",
     "Recent": "Jogados Recentemente",
     "search": "Insira o nome do jogo aqui…",
     "setting": {
@@ -224,11 +243,11 @@
         "autosync": "Sincronizar saves automaticamente",
         "autovkd3d": "Instalar/Atualizar VKD3D automaticamente no prefixo",
         "change-target-exe": "Selecione um EXE alternativo para executar",
-        "checkForUpdatesOnStartup": "Buscar atualizações ao iniciar",
         "customWineProton": "Locais com Wine/Proton customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",
         "default-install-path": "Local de instalação padrão",
         "defaultWinePrefix": "Pasta padrão para novos prefixos Wine",
+        "disable_controller": "Desabilitar Navegação por Controle no Heroic",
         "discordRPC": "Habilitar o Discord Rich Presence",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (a versão do Wine precisa suportar o recurso)",
@@ -238,9 +257,17 @@
         "fsync": "Habilitar Fsync",
         "gamemode": "Usar o GameMode (precisa do gamemode instalado)",
         "language": "Selecione o idioma do app",
+        "library_top_option": {
+            "disabled": "Desabilitada",
+            "favourites": "Jogos Favoritos",
+            "recently_played": "Jogados recentemente"
+        },
+        "library_top_section": "Coluna de destaque da biblioteca",
         "log": {
             "copy-to-clipboard": "Copiar log para a área de transferência",
             "current-log": "Log atual",
+            "instructions": "Acesse o nosso Discord e procure pelo canal relacionado ao seu sistema operacional. Compartilhe o conteúdo do Log mostrado aqui e inclua uma descrição do problema, detalhes e outras informações relevantes.",
+            "instructions_title": "Como reportar um problema?",
             "last-log": "Último log",
             "no-file": "Arquivo de log não encontrado",
             "show-in-folder": "Mostrar arquivo de log na pasta"
@@ -269,6 +296,7 @@
             "placeholder": "Selecione a pasta exata com os saves",
             "title": "Sobrescrever pasta de saves sincronizados com a nuvem"
         },
+        "select_theme": "Selecione um Tema",
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Mostrar Unreal Marketplace (requer reinício)",
         "start-in-tray": "Iniciar minimizado",
@@ -285,6 +313,7 @@
             "long-log-hint": "Log truncado, últimas 1000 linhas serão mostradas!"
         },
         "navbar": {
+            "advanced": "Avançado",
             "general": "Config. Gerais",
             "log": "Log",
             "other": "Outros",
@@ -301,13 +330,9 @@
     "title": {
         "allGames": "Todos os Jogos",
         "allUnreal": "Unreal - Tudo",
-        "downloading": "Baixando",
-        "installedGames": "Jogos Instalados",
-        "notInstalledGames": "Não instalados",
         "unrealAssets": "Unreal - Recursos",
         "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projetos",
-        "updates": "Atualizações pendentes"
+        "unrealProjects": "Unreal - Projetos"
     },
     "toolbox": {
         "settings": {
@@ -327,7 +352,6 @@
         "show": "Mostrar"
     },
     "Unreal Marketplace": "Loja Unreal",
-    "Updates": "Atualizações",
     "userselector": {
         "discord": "Discord",
         "logout": "Sair",
