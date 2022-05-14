@@ -366,7 +366,7 @@ export default function WineSettings({
               data-testid="setMaxRecentGames"
               onChange={(event) => setFsrSharpness(Number(event.target.value))}
               value={maxSharpness}
-              className="settingSelect smaller"
+              className="settingSelect smaller is-drop-down"
             >
               {Array.from(Array(5).keys()).map((n) => (
                 <option key={n + 1}>{n + 1}</option>

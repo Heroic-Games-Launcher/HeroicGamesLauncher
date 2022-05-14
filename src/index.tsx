@@ -73,8 +73,8 @@ i18next
     ]
   })
 
-const themeClass = (configStore.get('theme') as string) || 'Default'
-document.body.classList.add(themeClass)
+const themeClass = configStore.get('theme') as string
+document.body.className = themeClass
 
 ReactDOM.render(
   <React.StrictMode>

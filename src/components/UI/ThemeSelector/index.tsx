@@ -21,7 +21,7 @@ export const ThemeSelector = () => {
         value={theme}
         className="settingSelect is-drop-down"
       >
-        <option value="">Default</option>
+        <option value="Default">Default</option>
         <option value="classic">Classic</option>
         <option value="old-school">Old School Heroic</option>
         <option value="dracula">Dracula</option>
