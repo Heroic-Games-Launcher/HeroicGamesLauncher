@@ -24,7 +24,6 @@
 }
 
 .headerTitle {
-  color: var(--text-title);
   transition: 350ms;
   margin-top: 5px;
   margin-left: 20px;
@@ -38,7 +37,6 @@
 .settingSubheader {
   text-align: left;
   margin-top: 0;
-  color: var(--text-title);
   padding-left: 20px;
 }
 

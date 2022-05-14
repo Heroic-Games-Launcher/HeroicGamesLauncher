@@ -149,3 +149,9 @@ code {
   left: 0px;
   right: 0px;
 }
+
+h1,
+h2,
+h3 {
+  color: var(--text-title);
+}
