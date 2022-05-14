@@ -372,7 +372,7 @@
         "manager": {
             "error": "Tidak dapat mengambil versi Wine/Proton saat ini.",
             "link": "Manajer Wine",
-            "title": "Manajer Wine (Beta)",
+            "title": "Manajer Wine",
             "unzipping": "Mengekstrak"
         }
     }

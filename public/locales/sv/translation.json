@@ -372,7 +372,7 @@
         "manager": {
             "error": "Kunde inte hämta Wine/Proton versioner.",
             "link": "Wine hanterare",
-            "title": "Wine hanterare (Beta)",
+            "title": "Wine hanterare",
             "unzipping": "Packar upp"
         }
     }

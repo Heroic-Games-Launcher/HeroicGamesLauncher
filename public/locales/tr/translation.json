@@ -372,7 +372,7 @@
         "manager": {
             "error": "Wine/Proton sürümleri bu defa alınamadı.",
             "link": "Wine Yöneticisi",
-            "title": "Wine Yöneticisi (Beta)",
+            "title": "Wine Yöneticisi",
             "unzipping": "Çıkartılıyor"
         }
     }

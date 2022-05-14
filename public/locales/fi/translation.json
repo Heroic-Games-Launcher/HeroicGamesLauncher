@@ -372,7 +372,7 @@
         "manager": {
             "error": "Viini-/Proton-versioita ei voitu noutaa tällä kertaa.",
             "link": "Wine Manageri",
-            "title": "Wine Manageri (Beta)",
+            "title": "Wine Manageri",
             "unzipping": "Purkaminen"
         }
     }
