@@ -1,0 +1,21 @@
+.wineManager
+  > .css-1ujnqem-MuiTabs-root
+  > .css-jpln7h-MuiTabs-scroller
+  > .css-1wf8b0h-MuiTabs-flexContainer
+  > .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+  color: var(--text-default);
+}
+
+.wineManager
+  > .css-1ujnqem-MuiTabs-root
+  > .css-jpln7h-MuiTabs-scroller
+  > .css-1wf8b0h-MuiTabs-flexContainer
+  > .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: var(--accent);
+}
+.wineManager
+  > .css-1ujnqem-MuiTabs-root
+  > .css-jpln7h-MuiTabs-scroller
+  > .css-1aquho2-MuiTabs-indicator {
+  background-color: var(--accent);
+}

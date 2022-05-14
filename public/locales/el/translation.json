@@ -372,7 +372,7 @@
         "manager": {
             "error": "Μη δυνατή πάρση Wine/Proton εκδόσεων αυτή τη φορά.",
             "link": "Διαχειριστής Wine",
-            "title": "Διαχειριστής Wine (Beta)",
+            "title": "Διαχειριστής Wine",
             "unzipping": "Άνοιγμα"
         }
     }
