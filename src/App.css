@@ -186,8 +186,8 @@ html,
 
 .material-icons.settings.folder {
   position: relative;
-  right: 42px;
-  top: 5px;
+  right: 50px;
+  top: 2px;
   cursor: pointer;
   color: var(--text-default);
 }

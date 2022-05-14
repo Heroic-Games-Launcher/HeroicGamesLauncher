@@ -252,7 +252,7 @@ export default function GamePage(): JSX.Element | null {
                   </nav>
 
                   <div className="gameInfo">
-                    <div className="title">{title}</div>
+                    <h1 className="title">{title}</h1>
                     <div className="infoWrapper">
                       <div className="developer">{developer}</div>
                       {!is_game && (

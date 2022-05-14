@@ -88,6 +88,7 @@ export default function SyncSaves({
 
   return (
     <>
+      <h3 className="settingSubheader">{t('settings.navbar.sync')}</h3>
       <span data-testid="syncSettings" className="setting">
         <span className={classNames('settingText', { isRTL: isRTL })}>
           {t('setting.savefolder.title')}
@@ -180,7 +181,6 @@ export default function SyncSaves({
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
             title={t('setting.autosync')}
           />
-          <span>{t('setting.autosync')}</span>
         </label>
       </span>
       <InfoBox text="infobox.help">

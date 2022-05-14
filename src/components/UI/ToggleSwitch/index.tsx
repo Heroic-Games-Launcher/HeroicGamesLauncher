@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React, { ChangeEventHandler } from 'react'
 import './index.css'
 
@@ -24,17 +25,20 @@ export default function ToggleSwitch(props: Props) {
     datatestid: dataTestId
   }
   return (
-    <div className="switch" aria-label={title}>
-      <input
-        data-testid={dataTestId}
-        disabled={disabled}
-        checked={value}
-        type="checkbox"
-        onChange={handleChange}
-        aria-label={title}
-      />
+    <>
+      <div className="switch" aria-label={title}>
+        <input
+          data-testid={dataTestId}
+          disabled={disabled}
+          checked={value}
+          type="checkbox"
+          onChange={handleChange}
+          aria-label={title}
+        />
 
-      <span {...checkmarkProps} className="checkmark" />
-    </div>
+        <span {...checkmarkProps} className="checkmark" />
+      </div>
+      <span className={classNames('title', { checked: value })}>{title}</span>
+    </>
   )
 }

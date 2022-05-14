@@ -20,7 +20,7 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { SmallInfo, UpdateComponent } from 'src/components/UI'
+import { UpdateComponent } from 'src/components/UI'
 import {
   getAppSettings,
   getGameInfo,
@@ -493,12 +493,15 @@ export default function InstallModal({
                       onChange={(event) => setInstallPath(event.target.value)}
                     />
                   </FormControl>
-                  <SmallInfo
-                    title={`${t(
-                      'install.disk-space-left',
-                      'Space Left on the Device'
-                    )}: ${spaceLeft}`}
-                  />
+                  <span className="diskSpaceInfo">
+                    <span>
+                      {t('install.disk-space-left', 'Space Left on the Device')}
+                      :
+                    </span>
+                    <span>
+                      <strong>{` ${spaceLeft}`}</strong>
+                    </span>
+                  </span>
                 </div>
               </div>
               {hasWine && (

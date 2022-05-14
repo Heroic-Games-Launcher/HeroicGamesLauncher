@@ -41,7 +41,7 @@ const initialContext: ContextType = {
     add: () => null,
     remove: () => null
   },
-  theme: '',
+  theme: 'default',
   setTheme: () => null,
   zoomPercent: 100,
   setZoomPercent: () => null,

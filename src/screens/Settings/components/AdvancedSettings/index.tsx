@@ -1,5 +1,4 @@
 import {
-  CreateNewFolder,
   Backspace,
   CleaningServicesOutlined,
   ContentCopyOutlined,
@@ -13,6 +12,7 @@ import { SvgButton } from 'src/components/UI'
 import ContextProvider from 'src/state/ContextProvider'
 import { AppSettings, Path } from 'src/types'
 import { configStore } from 'src/helpers/electronStores'
+import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -128,6 +128,7 @@ export const AdvancedSettings = ({
 
   return (
     <div>
+      <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
       <span className="setting">
         <span className={classNames('settingText', { isRTL: isRTL })}>
           {t(
@@ -152,7 +153,7 @@ export const AdvancedSettings = ({
               onClick={async () => handleLegendaryBinary()}
               className="material-icons settings folder"
             >
-              <CreateNewFolder
+              <FolderOpenOutlinedIcon
                 data-testid="setLegendaryBinaryButton"
                 style={{
                   color: altLegendaryBin.length ? 'transparent' : 'currentColor'
@@ -200,7 +201,7 @@ export const AdvancedSettings = ({
               onClick={async () => handleGogdlBinary()}
               className="material-icons settings folder"
             >
-              <CreateNewFolder
+              <FolderOpenOutlinedIcon
                 data-testid="setGogdlBinaryButton"
                 style={{
                   color: altGogdlBin.length ? 'transparent' : 'currentColor'

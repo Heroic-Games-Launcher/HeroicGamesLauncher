@@ -22,7 +22,7 @@
 
 .toggleWrapper:hover span {
   transition: 350ms;
-  color: var(--accent-overlay);
+  color: var(--accent);
 }
 
 .switch:hover .checkmark,
@@ -74,4 +74,9 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.title.checked {
+  font-weight: 700;
+  color: var(--accent);
 }

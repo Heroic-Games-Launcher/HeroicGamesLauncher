@@ -286,7 +286,7 @@
         "maxworkers": "",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "",
-        "primerun": "Enable Nvidia Prime Render",
+        "primerun": "Use Dedicated Graphics Card",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
             "message": "",

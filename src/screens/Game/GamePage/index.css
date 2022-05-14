@@ -60,8 +60,8 @@
 }
 
 .backButton > .MuiSvgIcon-root {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   transition: 300ms;
 }
 
@@ -80,8 +80,8 @@
 }
 
 .gameInfo .title {
-  color: var(--text-default);
   font-weight: 700;
+  margin-bottom: 0;
 }
 
 .gameInfo > .settingSelect {
