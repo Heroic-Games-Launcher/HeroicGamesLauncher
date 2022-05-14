@@ -55,8 +55,9 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-end;
-  height: 100%;
+  height: 75%;
   padding: 0 1rem;
+  align-self: center;
 }
 
 .wineManagerListItem > .progress {
