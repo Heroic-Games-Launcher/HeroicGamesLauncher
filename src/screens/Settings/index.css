@@ -8,8 +8,9 @@
   grid-area: content;
   margin-block-start: 20px;
   padding: 0px 48px;
-  position: absolute;
+  position: relative;
   top: -35px;
+  margin-bottom: 35px;
 }
 
 .settingsWrapper {

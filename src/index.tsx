@@ -73,7 +73,7 @@ i18next
     ]
   })
 
-const themeClass = (configStore.get('theme') as string) || ''
+const themeClass = (configStore.get('theme') as string) || 'Default'
 document.body.classList.add(themeClass)
 
 ReactDOM.render(
