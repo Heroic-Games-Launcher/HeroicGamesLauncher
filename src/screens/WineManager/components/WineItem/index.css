@@ -1,4 +1,4 @@
-.icons {
+.wineManagerListItem > .icons {
   align-self: flex-end;
   width: 100%;
   display: flex;
@@ -9,12 +9,12 @@
   transition: 300ms;
 }
 
-.icons > .material-icons.settings.folder {
+.wineManagerListItem > .icons > .material-icons.settings.folder {
   position: initial;
 }
 
-.icons > a > svg,
-.icons > svg {
+.wineManagerListItem > .icons > a > svg,
+.wineManagerListItem > .icons > svg {
   width: min(calc(1vw + 9px), 36px);
   height: min(calc(1vw + 9px), 36px);
   min-width: 22px;
@@ -34,6 +34,7 @@
   cursor: default;
   place-self: center;
   border-bottom: 1px solid gray;
+  min-height: 50px;
 }
 
 .wineManagerTitleList {
@@ -58,6 +59,12 @@
   height: 75%;
   padding: 0 1rem;
   align-self: center;
+  flex-wrap: wrap;
+}
+
+.wineManagerListItem > .icons > button {
+  margin-left: 0;
+  padding-left: 4px;
 }
 
 .wineManagerListItem > .progress {

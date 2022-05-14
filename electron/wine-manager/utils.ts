@@ -25,7 +25,7 @@ const wineDownloaderInfoStore = new Store({
 
 async function updateWineVersionInfos(
   fetch = false,
-  count = 35
+  count = 50
 ): Promise<WineVersionInfo[]> {
   let releases: WineVersionInfo[] = []
 
