@@ -455,15 +455,12 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   render() {
-    const { children } = this.props
-    const { wineVersions, platform } = this.state
     const isRTL = RTL_LANGUAGES.includes(this.state.language)
 
     return (
       <ContextProvider.Provider
         value={{
           ...this.state,
-          wineVersions: wineVersions,
           handleCategory: this.handleCategory,
           handleFilter: this.handleFilter,
           handleGameStatus: this.handleGameStatus,
@@ -471,7 +468,6 @@ export class GlobalState extends PureComponent<Props> {
           handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,
           isRTL,
-          platform: platform,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
           refreshWineVersionInfo: this.refreshWineVersionInfo,
@@ -493,7 +489,7 @@ export class GlobalState extends PureComponent<Props> {
           setActionsFontFamily: this.setActionsFontFamily
         }}
       >
-        {children}
+        {this.props.children}
       </ContextProvider.Provider>
     )
   }
