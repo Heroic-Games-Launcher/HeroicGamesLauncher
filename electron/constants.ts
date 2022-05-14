@@ -17,6 +17,11 @@ const tsStore = new Store({
   name: 'timestamp'
 })
 
+const fontsStore = new Store({
+  cwd: 'store',
+  name: 'fonts'
+})
+
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const isLinux = platform() === 'linux'
@@ -152,5 +157,6 @@ export {
   weblateUrl,
   wikiLink,
   steamCompatFolder,
-  tsStore
+  tsStore,
+  fontsStore
 }

@@ -46,6 +46,10 @@
             "no-offline-mode": {
                 "message": "إحباط إلاطلاق! تتطلب اللعبة اتصالاً بالإنترنت لتشغيلها.",
                 "title": "وضع عدم الاتصال غير مدعوم."
+            },
+            "update": {
+                "message": "ثمة خطأ حدث في التحديث، من فضلك راجع السجل أو حاول في وقت لاحق!",
+                "title": "خطأ في التحديث"
             }
         },
         "no": "لا",
@@ -77,7 +81,7 @@
             "exe": "اختر ملفًا تنفيذيًا"
         },
         "shortcuts": {
-            "title": "الاختصارات",
+            "title": "أختصارات",
             "message": "تم إنشاء الاختصارات على سطح المكتب وقائمة ابدأ"
         },
         "warning": {
@@ -96,7 +100,17 @@
             }
         },
         "choose-egs-prefix": "اختر Prefix حيث تم تنزيل متجر العاب Epic",
-        "choose-gogdl-binary": "حدد ملف تشغيل GOGDL (يحتاج إلى إعادة التشغيل)"
+        "choose-gogdl-binary": "حدد ملف تشغيل GOGDL (يحتاج إلى إعادة التشغيل)",
+        "info": {
+            "update": {
+                "changelog": "أفتح سجل التغييرات",
+                "detail": "هل تريد تحميل التحديث في الخلفية؟",
+                "message": "هنالك إصدار جديد متوفر!",
+                "message-finished": "هل تريد إعادة تشغيل Heroic الأن؟",
+                "title": "Heroic مشغل الألعاب",
+                "title-finished": "أنتهى التحديث"
+            }
+        }
     },
     "install": {
         "path": "اختر مسار التثبيت"
@@ -106,7 +120,8 @@
         "sync": "زامن",
         "unsync": "ألغ المزامنة",
         "syncing": "يزامن",
-        "continue": "تابع"
+        "continue": "تابع",
+        "go_to_library": "إذهب إلي المكتبة"
     },
     "status": {
         "loading": "يتم تحميل قائمة الألعاب ، يرجى الانتظار",
@@ -166,7 +181,10 @@
     },
     "Filter": "فلتر",
     "info": {
-        "settings": "يتم حفظ الإعدادات تلقائيًا"
+        "settings": "يتم حفظ الإعدادات تلقائيًا",
+        "heroic": {
+            "version": "إصدار Heroic"
+        }
     },
     "infobox": {
         "requirements": "متطلبات النظام",
@@ -178,7 +196,8 @@
     },
     "Library": "مكتبة",
     "loading": {
-        "website": "جار تحميل الموقع"
+        "website": "جار تحميل الموقع",
+        "default": "تحميل"
     },
     "Not Ready": "غير جاهز",
     "nogames": "لم يتم العثور على ألعاب",
@@ -212,7 +231,7 @@
     "setting": {
         "defaultWinePrefix": "تعيين مجلد ل Wine Prefix الجديد",
         "adddesktopshortcuts": "أضف اختصارات سطح المكتب تلقائيًا",
-        "alt-legendary-bin": "اختر بديل Legendary Binary (يلزم إعادة التشغيل)",
+        "alt-legendary-bin": "اختر بديل Legendary Binary",
         "audiofix": "إصلاح الصوت (وقت إستجابة Pulse Audio)",
         "autosync": "حفظ المزامنة التلقائية",
         "change-target-exe": "حدد EXE بديل لتشغيله",
@@ -236,7 +255,7 @@
         "exit-to-tray": "الخروج إلى لوحة النظام",
         "language": "اختر لغة التطبيق",
         "mangohud": "تمكين Mangohud (يجب تثبيت Mangohud)",
-        "winecrossoverbottle": "",
+        "winecrossoverbottle": "زجاجة CrossOver",
         "discordRPC": "تمكين Discord Rich Presence",
         "egs-sync": "تزامن مع Epic Games المثبتة",
         "enableFSRHack": "تمكين FSR Hack (يحتاج إصدار Wine إلى دعمه)",
@@ -266,11 +285,21 @@
             "current-log": "السجل الحالي",
             "last-log": "آخر سجل",
             "no-file": "لم يتم العثور على ملف سجل",
-            "show-in-folder": "إظهار ملف السجل في المجلد"
+            "show-in-folder": "إظهار ملف السجل في المجلد",
+            "instructions_title": "كيفية التبليغ عن مشكلة؟",
+            "instructions": "انضم إلى Discord الخاص بنا وابحث عن القناة التي تتوافق مع نظام التشغيل الخاص بك. شارك محتوى السجلات المعروضة هنا ، وقم بتضمين وصف واضح للمشكلة مع أي معلومات وتفاصيل ذات صلة."
         },
         "steamruntime": "استخدم Steam Runtime",
         "minimize-on-launch": "تصغير هيرويك بعد بدء اللعبة",
-        "alt-gogdl-bin": "اختر بديل لملف تشغيل GOGDL لاستخدامه (يحتاج إلى إعادة التشغيل)"
+        "alt-gogdl-bin": "اختر بديل لملف تشغيل GOGDL لاستخدامه",
+        "library_top_option": {
+            "disabled": "متوقف",
+            "favourites": "الألعاب المفضلة",
+            "recently_played": "الألعاب الملعوبة مؤخراً"
+        },
+        "disable_controller": "تعطيل تنقل Heroic باستخدام وحدة التحكم",
+        "select_theme": "اختر نمطا",
+        "library_top_section": "القسم العلوي للمكتبة"
     },
     "Recent": "لعبت مؤخرا",
     "Return": "عودة",
@@ -284,7 +313,8 @@
             "general": "عام",
             "other": "آخر",
             "sync": "مزامنة المحفوظات",
-            "log": "سجل"
+            "log": "سجل",
+            "advanced": "أعدادات متقدمة"
         },
         "copyToClipboard": "نسخ جميع الإعدادات إلى الحافظة",
         "log": {
@@ -345,5 +375,32 @@
     },
     "gog-store": "متجر GOG",
     "GOG": "GOG",
-    "stores": "المتاجر"
+    "stores": "المتاجر",
+    "library": {
+        "refresh": "تحديث",
+        "gridView": "اللائحه الشبكية",
+        "sortByStatus": "فرز حسب الحالة",
+        "sortDescending": "ترتيب تنازلي",
+        "sortAscending": "ترتيب تصاعدي",
+        "listView": "اللائحة الافقية"
+    },
+    "platforms": {
+        "win": "ويندوز",
+        "linux": "لينكس",
+        "mac": "ماك"
+    },
+    "webview": {
+        "controls": {
+            "forward": "تقدم للامام",
+            "reload": "تحديث الصفحة",
+            "back": "رجوع",
+            "openInBrowser": "فتح في المتصفح"
+        }
+    },
+    "header": {
+        "ignore_hidden": "تجاهل المخفي",
+        "platform": "منصة",
+        "show_hidden": "إظهار المخفي"
+    },
+    "favourites": "المفضلة"
 }

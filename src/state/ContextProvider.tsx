@@ -43,7 +43,13 @@ const initialContext: ContextType = {
     remove: () => null
   },
   theme: '',
-  setTheme: () => null
+  setTheme: () => null,
+  zoomPercent: 100,
+  setZoomPercent: () => null,
+  contentFontFamily: "'Cabin', sans-serif",
+  setContentFontFamily: () => null,
+  actionsFontFamily: "'Rubik', sans-serif",
+  setActionsFontFamily: () => null
 }
 
 export default React.createContext(initialContext)

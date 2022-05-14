@@ -24,12 +24,14 @@ html,
 }
 
 .App {
+  --content-font-family: 'Cabin', sans-serif;
+  --actions-font-family: 'Rubik', sans-serif;
   text-align: center;
   color: var(--text-default);
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
   grid-template-areas: 'sidebar content';
-  font-family: 'Cabin', sans-serif;
+  font-family: var(--content-font-family);
   background: var(--body-background);
 }
 
@@ -55,7 +57,7 @@ html,
   background: var(--background);
   color: #1a1b1c;
   text-transform: uppercase;
-  font-family: Rubik;
+  font-family: var(--actions-font-family);
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -178,8 +180,11 @@ html,
   color: var(--text-default);
 }
 
+.settingInputWithButton .material-icons.settings.folder {
+  width: 0px;
+}
+
 .button.settings {
-  margin-left: -12px;
   background: var(--text-secondary);
 }
 
@@ -200,7 +205,7 @@ html,
   box-shadow: none;
   text-transform: none;
   min-width: fit-content;
-  font-family: Cabin;
+  font-family: var(--content-font-family);
   font-size: 14px;
 }
 
@@ -209,7 +214,7 @@ html,
 }
 
 .button.is-link {
-  font-family: Rubik;
+  font-family: var(--actions-font-family);
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -229,11 +234,12 @@ html,
 }
 
 .settingSelect {
-  width: 513px;
+  width: 100%;
+  max-width: 513px;
   height: 40px;
   background: var(--input-background);
   border-radius: 10px;
-  font-family: Cabin, sans-serif, 'Noto Color Emoji';
+  font-family: var(--content-font-family), 'Noto Color Emoji';
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
@@ -266,7 +272,8 @@ html,
 
 .smallMessage {
   font-size: 12px;
-  width: 513px;
+  width: 100%;
+  max-width: 513px;
   white-space: break-spaces;
   padding-top: 4px;
 }
@@ -286,7 +293,7 @@ svg.disabled {
   color: var(--text-default);
   font-size: 14px;
   line-height: 26px;
-  font-family: Rubik;
+  font-family: var(--actions-font-family);
   cursor: pointer;
   text-align: left;
 }

@@ -141,7 +141,8 @@ export default function SyncSaves({
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            width: '513px'
+            width: '100%',
+            maxWidth: '513px'
           }}
         >
           <select

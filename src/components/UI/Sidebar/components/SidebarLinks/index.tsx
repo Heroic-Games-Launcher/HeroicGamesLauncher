@@ -3,7 +3,8 @@ import {
   faGamepad,
   faSlidersH,
   faStore,
-  faUser
+  faUser,
+  faUniversalAccess
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
@@ -265,6 +266,20 @@ export default function SidebarLinks() {
           </NavLink>
         </>
       )}
+      <NavLink
+        data-testid="accessibility"
+        className={({ isActive }) =>
+          classNames('Sidebar__item', { active: isActive })
+        }
+        to={{ pathname: '/accessibility' }}
+      >
+        <>
+          <div className="Sidebar__itemIcon">
+            <FontAwesomeIcon icon={faUniversalAccess} />
+          </div>
+          {t('accessibility.title', 'Accessibility')}
+        </>
+      </NavLink>
       <NavLink
         data-testid="wiki"
         className={({ isActive }) =>
