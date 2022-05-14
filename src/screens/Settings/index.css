@@ -8,6 +8,8 @@
   grid-area: content;
   margin-block-start: 20px;
   padding: 0px 48px;
+  position: absolute;
+  top: -35px;
 }
 
 .settingsWrapper {
@@ -22,24 +24,31 @@
 }
 
 .headerTitle {
-  font-size: 2rem;
-  margin-inline-end: auto;
-  padding: 8px;
-  color: var(--accent);
+  color: var(--text-secondary);
   transition: 350ms;
-}
-
-.headerTitle:hover {
-  color: var(--accent-overlay);
+  margin-top: 5px;
+  margin-left: 20px;
+  margin-bottom: 6px;
 }
 
 .headerTitle > svg {
   margin-left: 12px;
 }
 
+.settingSubheader {
+  text-align: left;
+  margin-top: 0;
+  color: var(--text-secondary);
+  padding-left: 20px;
+}
+
+.settingSubheader::before {
+  content: '• ';
+}
+
 .settingsWrapper > .backButton {
   position: relative;
-  top: -10px;
+  top: 45px;
   left: -38px;
 }
 
@@ -73,6 +82,11 @@
   flex-grow: 1;
   flex-wrap: nowrap;
   width: 100%;
+  max-width: 513px;
+}
+
+.settingInputWithButton > .settingSelect {
+  margin-right: 12px;
 }
 
 .settingInputWithButton > .button.is-small {
@@ -92,6 +106,15 @@
 .toggleWrapper label {
   text-align: center;
   margin-block: auto;
+}
+
+.toggleWrapper:hover > .description {
+  color: var(--accent);
+}
+
+.toggleWrapper > .description.checked {
+  font-weight: 700;
+  color: var(--accent);
 }
 
 .toggleWrapper > .switch {

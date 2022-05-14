@@ -25,6 +25,7 @@ body.dracula-classic {
   --primary: #ff79c6;
   --primary-hover: #f560b4;
   --danger: #ff5555;
+  --text-secondary: #8be9fd;
 }
 
 body.marine,
@@ -49,8 +50,8 @@ body.marine-classic {
 
 body.zombie,
 body.zombie-classic {
-  --accent: #77f33c;
-  --accent-overlay: #99fd6a;
+  --accent: #59c627;
+  --accent-overlay: #83da5b;
   --navbar-accent: var(--accent);
   --background: #1d1f1f;
   --body-background: #1d1f1f;
@@ -68,16 +69,12 @@ body.zombie-classic {
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
   --success: #1bd01a;
-}
-
-body.zombie h3,
-body.zombie-classic h3 {
-  color: #f56200;
+  --text-secondary: #ff8b3d;
 }
 
 body.zombie .downIcon > circle,
 body.zombie-classic .downIcon > circle {
-  fill: #f56200;
+  fill: #ef843c;
 }
 
 body.old-school {

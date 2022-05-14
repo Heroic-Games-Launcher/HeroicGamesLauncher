@@ -128,6 +128,7 @@ export const AdvancedSettings = ({
 
   return (
     <div>
+      <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
       <span className="setting">
         <span className={classNames('settingText', { isRTL: isRTL })}>
           {t(

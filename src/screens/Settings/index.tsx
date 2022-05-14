@@ -339,14 +339,9 @@ function Settings() {
             <ArrowCircleLeftIcon />
           </NavLink>
           {title && (
-            <NavLink
-              role="link"
-              to={returnPath}
-              className="headerTitle"
-              data-testid="headerTitle"
-            >
+            <h1 className="headerTitle" data-testid="headerTitle">
               {title}
-            </NavLink>
+            </h1>
           )}
           {isGeneralSettings && (
             <GeneralSettings
