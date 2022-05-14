@@ -335,8 +335,8 @@ export default function GamePage(): JSX.Element | null {
                         style={{
                           color:
                             is_installed || isInstalling
-                              ? '#0BD58C'
-                              : '#BD0A0A',
+                              ? 'var(--success)'
+                              : 'var(--danger)',
                           fontStyle: 'italic'
                         }}
                       >
@@ -405,25 +405,27 @@ export default function GamePage(): JSX.Element | null {
                         </button>
                       )}
                     </div>
-                    <NavLink
-                      to={`/settings/${appName}/log`}
-                      state={{
-                        fromGameCard: false,
-                        runner,
-                        isLinuxNative: isNative,
-                        isMacNative: isNative,
-                        hasCloudSave: cloud_save_enabled
-                      }}
-                      className="link is-text is-link reportProblem"
-                    >
-                      <>
-                        {<FontAwesomeIcon icon={faTriangleExclamation} />}
-                        {t(
-                          'report_problem',
-                          'Report a problem running this game'
-                        )}
-                      </>
-                    </NavLink>
+                    {is_installed && (
+                      <NavLink
+                        to={`/settings/${appName}/log`}
+                        state={{
+                          fromGameCard: false,
+                          runner,
+                          isLinuxNative: isNative,
+                          isMacNative: isNative,
+                          hasCloudSave: cloud_save_enabled
+                        }}
+                        className="clickable reportProblem"
+                      >
+                        <>
+                          {<FontAwesomeIcon icon={faTriangleExclamation} />}
+                          {t(
+                            'report_problem',
+                            'Report a problem running this game'
+                          )}
+                        </>
+                      </NavLink>
+                    )}
                   </div>
 
                   <GameSubMenu

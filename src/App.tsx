@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 
 import './App.css'
-import './themes.css'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Login from './screens/Login'
 import WebView from './screens/WebView'
@@ -14,8 +13,7 @@ import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
 
 function App() {
-  const { theme, contentFontFamily, actionsFontFamily } =
-    useContext(ContextProvider)
+  const { contentFontFamily, actionsFontFamily } = useContext(ContextProvider)
 
   const style = {
     '--content-font-family': contentFontFamily,
@@ -23,7 +21,7 @@ function App() {
   } as React.CSSProperties
 
   return (
-    <div className={`App ${theme}`} style={style}>
+    <div className="App" style={style}>
       <HashRouter>
         <Sidebar />
         <main className="content">

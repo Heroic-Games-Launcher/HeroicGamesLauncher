@@ -30,7 +30,7 @@
 }
 
 .headerTitle:hover {
-  color: var(--text-hover);
+  color: var(--accent-overlay);
 }
 
 .headerTitle > svg {

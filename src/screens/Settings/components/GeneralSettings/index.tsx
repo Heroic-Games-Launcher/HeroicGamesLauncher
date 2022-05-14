@@ -406,9 +406,7 @@ export default function GeneralSettings({
           </option>
         </select>
       </span>
-
       <ThemeSelector />
-
       <span className="setting">
         <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <select

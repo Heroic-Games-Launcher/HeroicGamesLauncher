@@ -6,10 +6,12 @@ import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
 
 import './index.css'
+import './themes.css'
 import App from 'src/App'
 import GlobalState from 'src/state/GlobalState'
 import { UpdateComponentBase } from 'src/components/UI/UpdateComponent'
 import { initShortcuts } from './helpers/shortcuts'
+import { configStore } from './helpers/electronStores'
 
 const Backend = new HttpApi(null, {
   addPath: 'build/locales/{{lng}}/{{ns}}',
@@ -70,6 +72,9 @@ i18next
       'zh_Hant'
     ]
   })
+
+const themeClass = (configStore.get('theme') as string) || ''
+document.body.classList.add(themeClass)
 
 ReactDOM.render(
   <React.StrictMode>

@@ -20,13 +20,16 @@ html {
   --modal-border: #1f253f;
   --modal-backdrop: #00000048;
   --text-hover: #59d0ea;
+  --primary: #07c5ef;
+  --primary-hover: #4cdafa;
   --link-highlight: #07c5ef;
   --accent: #eaa114;
+  --accent-overlay: #ffbb33;
   --navbar-accent: var(--accent);
   --navbar-active-background: var(--background-lighter);
   --play-button: #59d0ea;
   --download-button: #3082d9;
-  --download-button-overlay: #5a5e5f;
+  --download-button-overlay: #1372d7;
   --stop-button: #252121;
   --scrollbar-thumb: #ffffff33;
   --favourite-active: #97f4e9;
