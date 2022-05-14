@@ -109,12 +109,12 @@
   font-size: 16px;
   max-width: 560px;
   text-overflow: ellipsis;
-  display: -webkit-box;
   color: var(--text-default);
   overflow: hidden;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   border-bottom: 2px solid;
+  overflow: auto;
 }
 
 .gameInfo,

@@ -118,7 +118,7 @@ export default function OtherSettings({
           <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.change-target-exe', 'Select an alternative EXE to run')}
           </span>
-          <span>
+          <span className="settingInputWithButton">
             <input
               data-testid="setinstallpath"
               type="text"
@@ -295,7 +295,7 @@ export default function OtherSettings({
               id="otherOptions"
               type="text"
               placeholder={t('options.advanced.placeholder')}
-              className="settingSelect"
+              className="settingInput"
               value={otherOptions}
               onChange={handleOtherOptions}
             />
@@ -314,7 +314,7 @@ export default function OtherSettings({
               id="launcherArgs"
               type="text"
               placeholder={t('options.gameargs.placeholder')}
-              className="settingSelect"
+              className="settingInput"
               value={launcherArgs}
               onChange={handleLauncherArgs}
             />
