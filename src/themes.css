@@ -25,7 +25,7 @@ body.dracula-classic {
   --primary: #ff79c6;
   --primary-hover: #f560b4;
   --danger: #ff5555;
-  --text-secondary: #8be9fd;
+  --text-title: #8be9fd;
 }
 
 body.marine,
@@ -69,12 +69,11 @@ body.zombie-classic {
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
   --success: #1bd01a;
-  --text-secondary: #ff8b3d;
 }
 
 body.zombie .downIcon > circle,
 body.zombie-classic .downIcon > circle {
-  fill: #ef843c;
+  fill: var(--text-secondary);
 }
 
 body.old-school {

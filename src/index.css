@@ -63,7 +63,7 @@ html {
   --text-default: #eae8e5;
   --text-secondary: #b1b1b1;
   --text-pause-cancel: #97f4e9;
-  --text-stop: #97f4e9;
+  --text-title: #97f4e9;
   --text-tertiary: #101111; /* This is not defined in figma */
   --text-quartenary: #5a5e5f; /* this is meant to be a background colour */
   --text-danger: #d22121;
