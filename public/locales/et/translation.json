@@ -43,11 +43,11 @@
             "title": "Viga",
             "update": {
                 "message": "Midagi läks uuendusega valesti, palun kontrollige logisid või proovige hiljem uuesti!",
-                "title": "Update Error"
+                "title": "Viga uuendamisel"
             },
             "wine-not-found": {
-                "message": "Wine-i versiooni pole valitud. Kontrolli mängu seadeid!",
-                "title": "Wine-i ei leitud"
+                "message": "Wine'i versiooni pole valitud. Kontrolli mängu seadeid!",
+                "title": "Wine'i ei leitud"
             }
         },
         "info": {
