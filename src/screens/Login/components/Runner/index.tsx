@@ -15,22 +15,21 @@ interface RunnerProps {
   logoutAction: () => any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   alternativeLoginAction?: () => any
-  refresh: () => void
 }
 
 export default function Runner(props: RunnerProps) {
   const { t } = useTranslation()
   async function handleLogout() {
     await props.logoutAction()
-    window.localStorage.clear()
-    props.refresh()
+    // FIXME: only delete local storage relate to one store, or only delete if logged out from both
+    //window.localStorage.clear()
   }
   return (
     <div className={`runnerWrapper ${props.class}`}>
       <div>{props.icon()}</div>
       {props.isLoggedIn && (
         <div className="userData">
-          <span>{props.user?.displayName || props.user?.username}</span>
+          <span>{props.user}</span>
         </div>
       )}
       <div>

@@ -4,8 +4,18 @@ import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
   category: 'epic',
-  epicLibrary: [],
-  gogLibrary: [],
+  epic: {
+    library: [],
+    username: null,
+    login: async () => Promise.resolve(''),
+    logout: () => null
+  },
+  gog: {
+    library: [],
+    username: null,
+    login: async () => Promise.resolve(''),
+    logout: () => null
+  },
   wineVersions: [],
   error: false,
   filter: 'all',

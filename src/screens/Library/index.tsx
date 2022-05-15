@@ -25,8 +25,8 @@ export default function Library(): JSX.Element {
     refreshing,
     category,
     filter,
-    epicLibrary,
-    gogLibrary,
+    epic,
+    gog,
     recentGames,
     favouriteGames,
     libraryTopSection
@@ -110,7 +110,7 @@ export default function Library(): JSX.Element {
   }, [libraryStatus])
 
   // select library and sort
-  let libraryToShow = category === 'epic' ? epicLibrary : gogLibrary
+  let libraryToShow = category === 'epic' ? epic.library : gog.library
   libraryToShow = libraryToShow.sort(
     (a: { title: string }, b: { title: string }) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
@@ -145,19 +145,19 @@ export default function Library(): JSX.Element {
     const favouriteAppNames = favouriteGames.list.map(
       (favourite) => favourite.appName
     )
-    epicLibrary.forEach((game) => {
+    epic.library.forEach((game) => {
       if (favouriteAppNames.includes(game.app_name)) favourites.push(game)
     })
-    gogLibrary.forEach((game) => {
+    gog.library.forEach((game) => {
       if (favouriteAppNames.includes(game.app_name)) favourites.push(game)
     })
   }
 
-  const dlcCount = epicLibrary.filter((lib) => lib.install.is_dlc)
+  const dlcCount = epic.library.filter((lib) => lib.install.is_dlc)
   const numberOfGames =
     category === 'epic'
-      ? epicLibrary.length - dlcCount.length
-      : gogLibrary.length
+      ? epic.library.length - dlcCount.length
+      : gog.library.length
 
   return (
     <>

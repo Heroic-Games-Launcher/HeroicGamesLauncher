@@ -11,9 +11,8 @@ import classNames from 'classnames'
 import cx from 'classnames'
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { getAppSettings } from 'src/helpers'
-import { configStore, gogConfigStore } from 'src/helpers/electronStores'
 import ContextProvider from 'src/state/ContextProvider'
 import { Runner } from 'src/types'
 import './index.css'
@@ -28,7 +27,6 @@ interface LocationState {
 
 export default function SidebarLinks() {
   const { t } = useTranslation()
-  const navigate = useNavigate()
   const [showUnrealMarket, setShowUnrealMarket] = useState(false)
   const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
@@ -36,7 +34,7 @@ export default function SidebarLinks() {
     .replaceAll('/settings/', '')
     .split('/')
 
-  const { category, handleCategory, handleFilter, platform } =
+  const { epic, gog, category, handleCategory, handleFilter, platform } =
     useContext(ContextProvider)
 
   const isLibrary = location.pathname === '/'
@@ -55,15 +53,11 @@ export default function SidebarLinks() {
 
   const shouldRenderWineSettings = !isWin && !isMacGame && !isLinuxGame
 
-  const isEpicLoggedIn = Boolean(configStore.get('userInfo'))
-  const isGOGLoggedIn = Boolean(gogConfigStore.get('credentials'))
   const showLibrarySubmenu =
-    ((isEpicLoggedIn && isGOGLoggedIn) ||
-      (isEpicLoggedIn && showUnrealMarket)) &&
+    ((epic.username && gog.username) || (epic.username && showUnrealMarket)) &&
     isLibrary
 
-  const pressAction = !isEpicLoggedIn && !isGOGLoggedIn ? '/login' : '/'
-  const displayIcon = isEpicLoggedIn || isGOGLoggedIn ? faGamepad : faUser
+  const loggedIn = epic.username || gog.username
 
   const toggleCategory = useCallback(
     (newCategory: string) => {
@@ -79,32 +73,43 @@ export default function SidebarLinks() {
     getAppSettings().then(({ showUnrealMarket }) =>
       setShowUnrealMarket(showUnrealMarket)
     )
-    if (!isEpicLoggedIn && !isGOGLoggedIn) {
-      return navigate('/login')
-    }
-  }, [isEpicLoggedIn, isGOGLoggedIn, navigate])
+  }, [])
 
   return (
     <div className="SidebarLinks Sidebar__section">
-      <NavLink
-        data-testid="library"
-        className={({ isActive }) =>
-          classNames('Sidebar__item', { active: isActive })
-        }
-        to={pressAction}
-      >
-        <>
-          <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon icon={displayIcon} />
-          </div>
-          {isEpicLoggedIn || isGOGLoggedIn
-            ? t('Library')
-            : t('button.login', 'Login')}
-        </>
-      </NavLink>
+      {loggedIn && (
+        <NavLink
+          className={({ isActive }) =>
+            classNames('Sidebar__item', { active: isActive })
+          }
+          to={'/'}
+        >
+          <>
+            <div className="Sidebar__itemIcon">
+              <FontAwesomeIcon icon={faGamepad} />
+            </div>
+            {t('Library')}
+          </>
+        </NavLink>
+      )}
+      {!loggedIn && (
+        <NavLink
+          className={({ isActive }) =>
+            classNames('Sidebar__item', { active: isActive })
+          }
+          to={'/login'}
+        >
+          <>
+            <div className="Sidebar__itemIcon">
+              <FontAwesomeIcon icon={faUser} />
+            </div>
+            {t('button.login', 'Login')}
+          </>
+        </NavLink>
+      )}
       {showLibrarySubmenu && (
         <>
-          {isEpicLoggedIn && (
+          {epic.username && (
             <a
               href="#"
               onClick={() => toggleCategory('epic')}
@@ -115,7 +120,7 @@ export default function SidebarLinks() {
               {t('Epic Games', 'Epic Games')}
             </a>
           )}
-          {isGOGLoggedIn && (
+          {gog.username && (
             <a
               href="#"
               onClick={() => toggleCategory('gog')}
@@ -126,7 +131,7 @@ export default function SidebarLinks() {
               {t('GOG', 'GOG')}
             </a>
           )}
-          {showUnrealMarket && isEpicLoggedIn && (
+          {showUnrealMarket && epic.username && (
             <a
               href="#"
               onClick={() => toggleCategory('unreal')}
