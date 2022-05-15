@@ -146,7 +146,7 @@ export default function GeneralSettings({
         value={defaultInstallPath.replaceAll("'", '')}
         placeholder={defaultInstallPath}
         onChange={(event) => setDefaultInstallPath(event.target.value)}
-        afterInput={
+        inputIcon={
           <SvgButton
             onClick={async () =>
               ipcRenderer
@@ -175,7 +175,7 @@ export default function GeneralSettings({
           value={egsPath || egsLinkedPath}
           disabled={isLinked}
           onChange={(event) => setEgsPath(event.target.value)}
-          afterInput={
+          inputIcon={
             <>
               {!egsPath.length ? (
                 <SvgButton
@@ -204,6 +204,10 @@ export default function GeneralSettings({
                   />
                 </SvgButton>
               )}
+            </>
+          }
+          afterInput={
+            <>
               <span className="rightButton">
                 <button
                   data-testid="syncButton"

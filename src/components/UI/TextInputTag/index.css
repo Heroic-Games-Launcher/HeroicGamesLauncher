@@ -36,6 +36,11 @@
   margin-right: 1rem;
   display: flex;
   align-items: center;
+  z-index: 1;
+}
+
+.textInputWrapper .inputIcon ~ input {
+  padding-right: 50px;
 }
 
 .textInputWrapper.withRightButton {

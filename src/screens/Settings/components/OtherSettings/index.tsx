@@ -7,7 +7,6 @@ import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
 import Backspace from '@mui/icons-material/Backspace'
-import classNames from 'classnames'
 import { SelectTag } from 'src/components/UI/SelectTag'
 import { TextInputTag } from 'src/components/UI/TextInputTag'
 
@@ -88,7 +87,7 @@ export default function OtherSettings({
   const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
     setLauncherArgs(event.currentTarget.value)
   const { t } = useTranslation()
-  const { platform, isRTL } = useContext(ContextProvider)
+  const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
   const supportsShortcuts = isWin || isLinux
@@ -116,44 +115,43 @@ export default function OtherSettings({
     <>
       <h3 className="settingSubheader">{t('settings.navbar.other')}</h3>
       {!isDefault && (
-        <span className="setting">
-          <span className={classNames('settingText', { isRTL: isRTL })}>
-            {t('setting.change-target-exe', 'Select an alternative EXE to run')}
-          </span>
-          <span className="settingInputWithButton">
-            <input
-              data-testid="setinstallpath"
-              type="text"
-              value={targetExe.replaceAll("'", '')}
-              className="settingSelect"
-              placeholder={targetExe || t('box.select.exe', 'Select EXE...')}
-              onChange={(event) => setTargetExe(event.target.value)}
-            />
-            {!targetExe.length ? (
-              <SvgButton
-                className="material-icons settings folder"
-                onClick={async () =>
-                  ipcRenderer
-                    .invoke('openDialog', {
-                      buttonLabel: t('box.select.button', 'Select'),
-                      properties: ['openFile'],
-                      title: t('box.select.exe', 'Select EXE')
-                    })
-                    .then(({ path }: Path) => setTargetExe(path || targetExe))
-                }
-              >
-                <CreateNewFolder data-testid="setinstallpathbutton" />
-              </SvgButton>
-            ) : (
-              <SvgButton
-                className="material-icons settings folder"
-                onClick={() => setTargetExe('')}
-              >
-                <Backspace data-testid="setEpicSyncPathBackspace" />
-              </SvgButton>
-            )}
-          </span>
-        </span>
+        <TextInputTag
+          label={t(
+            'setting.change-target-exe',
+            'Select an alternative EXE to run'
+          )}
+          htmlId="setinstallpath"
+          value={targetExe.replaceAll("'", '')}
+          placeholder={targetExe || t('box.select.exe', 'Select EXE...')}
+          onChange={(event) => setTargetExe(event.target.value)}
+          inputIcon={
+            <>
+              {!targetExe.length ? (
+                <SvgButton
+                  className="material-icons settings folder inputIcon"
+                  onClick={async () =>
+                    ipcRenderer
+                      .invoke('openDialog', {
+                        buttonLabel: t('box.select.button', 'Select'),
+                        properties: ['openFile'],
+                        title: t('box.select.exe', 'Select EXE')
+                      })
+                      .then(({ path }: Path) => setTargetExe(path || targetExe))
+                  }
+                >
+                  <CreateNewFolder data-testid="setinstallpathbutton" />
+                </SvgButton>
+              ) : (
+                <SvgButton
+                  className="material-icons settings folder inputIcon"
+                  onClick={() => setTargetExe('')}
+                >
+                  <Backspace data-testid="setEpicSyncPathBackspace" />
+                </SvgButton>
+              )}
+            </>
+          }
+        />
       )}
 
       {shouldRenderFpsOption && (

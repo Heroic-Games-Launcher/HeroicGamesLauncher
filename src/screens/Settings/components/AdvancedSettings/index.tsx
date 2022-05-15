@@ -140,7 +140,7 @@ export const AdvancedSettings = ({
         )}
         value={altLegendaryBin.replaceAll("'", '')}
         onChange={(event) => setAltLegendaryBin(event.target.value)}
-        afterInput={
+        inputIcon={
           <>
             {!altLegendaryBin.length ? (
               <SvgButton
@@ -167,11 +167,13 @@ export const AdvancedSettings = ({
                 />
               </SvgButton>
             )}
-            <span className="smallMessage">
-              {t('other.legendary-version', 'Legendary Version: ')}
-              {legendaryVersion}
-            </span>
           </>
+        }
+        afterInput={
+          <span className="smallMessage">
+            {t('other.legendary-version', 'Legendary Version: ')}
+            {legendaryVersion}
+          </span>
         }
       />
 
@@ -187,7 +189,7 @@ export const AdvancedSettings = ({
         )}
         value={altGogdlBin.replaceAll("'", '')}
         onChange={(event) => setAltGogdlBin(event.target.value)}
-        afterInput={
+        inputIcon={
           <>
             {!altGogdlBin.length ? (
               <SvgButton
@@ -212,11 +214,13 @@ export const AdvancedSettings = ({
                 />
               </SvgButton>
             )}
-            <span className="smallMessage">
-              {t('other.gogdl-version', 'GOGDL Version: ')}
-              {gogdlVersion}
-            </span>
           </>
+        }
+        afterInput={
+          <span className="smallMessage">
+            {t('other.gogdl-version', 'GOGDL Version: ')}
+            {gogdlVersion}
+          </span>
         }
       />
 

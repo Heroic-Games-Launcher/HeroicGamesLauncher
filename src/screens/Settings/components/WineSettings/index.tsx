@@ -131,7 +131,7 @@ export default function WineSettings({
           )}
           value={defaultWinePrefix}
           onChange={(event) => setDefaultWinePrefix(event.target.value)}
-          afterInput={
+          inputIcon={
             <SvgButton
               className="material-icons settings folder inputIcon"
               onClick={async () =>
@@ -164,7 +164,7 @@ export default function WineSettings({
           label={t('setting.wineprefix')}
           value={winePrefix}
           onChange={(event) => setWinePrefix(event.target.value)}
-          afterInput={
+          inputIcon={
             <SvgButton
               className="material-icons settings folder inputIcon"
               onClick={async () =>

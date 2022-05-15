@@ -7,6 +7,7 @@ interface SelectTagProps {
   htmlId: string
   value: string
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
+  inputIcon?: ReactNode
   afterInput?: ReactNode
   label?: string
   placeholder?: string
@@ -22,6 +23,7 @@ export const TextInputTag = ({
   placeholder,
   disabled = false,
   extraClass = '',
+  inputIcon,
   afterInput
 }: SelectTagProps) => {
   const { isRTL } = useContext(ContextProvider)
@@ -36,6 +38,7 @@ export const TextInputTag = ({
           {label}
         </label>
       )}
+      {inputIcon}
       <input
         type="text"
         id={htmlId}
