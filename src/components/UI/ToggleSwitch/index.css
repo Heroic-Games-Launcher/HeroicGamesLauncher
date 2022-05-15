@@ -1,65 +1,56 @@
 .toggleSwitchWrapper {
   display: grid;
+  grid-template-areas: 'check text';
   grid-template-columns: min-content 1fr;
   align-items: center;
+  cursor: pointer;
 }
 
-/* The switch - the box around the slider */
-.switch {
+.toggleSwitchWrapper input {
+  grid-area: check;
   margin-inline-start: 13px;
-  margin-block-start: 1.25px;
-  margin-inline-end: 0.5rem;
-  position: relative;
+}
+
+/* add fake checkbox */
+.toggleSwitchWrapper:after {
+  content: '';
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  margin-inline-start: 13px;
+  margin-inline-end: 0.5rem;
+  width: 20px;
+  height: 20px;
+  transition: 350ms;
+  border: 3px solid var(--accent);
+  border-radius: 2px;
+  grid-area: check;
+  color: var(--background);
+  background: var(--background);
+  font-size: 1.5rem;
+  line-height: 1.2rem;
+  font-weight: 900;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Hide default HTML checkbox */
-.switch input {
-  display: none;
-  width: 0;
-  height: 0;
+.toggleSwitchWrapper.checked:after {
+  content: '\2713';
+  background: var(--accent);
 }
 
-.toggleWrapper span {
+.toggleSwitchWrapper span {
+  align-self: center;
+  justify-self: flex-start;
   transition: 350ms;
   color: var(--text-default);
 }
 
-.toggleWrapper:hover span {
+.toggleSwitchWrapper:hover span {
   transition: 350ms;
   color: var(--accent);
 }
 
-.switch:hover .checkmark,
-.toggleWrapper:hover .switch .checkmark {
-  border-color: var(--accent-overlay);
-}
-
-.switch:hover input:checked ~ .checkmark,
-.toggleWrapper:hover .switch input:checked ~ .checkmark {
-  border-color: var(--accent-overlay);
-}
-
-.switch input:checked ~ .checkmark {
-  background-color: var(--accent);
-}
-
-.switch input:checked ~ .checkmark:after {
-  display: block;
-}
-
-.checkmark {
-  transition: 350ms;
-  cursor: pointer;
-  margin-inline-start: -12px;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  border: 2px solid var(--accent);
-  border-radius: 2px;
+.toggleSwitchWrapper.checked + span {
+  font-weight: 700;
+  color: var(--accent);
 }
 
 .checkmark:focus-visible {
@@ -81,9 +72,4 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-}
-
-.title.checked {
-  font-weight: 700;
-  color: var(--accent);
 }

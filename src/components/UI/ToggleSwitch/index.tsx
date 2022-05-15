@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import React, { ChangeEventHandler } from 'react'
 import './index.css'
 
@@ -18,27 +17,18 @@ export default function ToggleSwitch(props: Props) {
     title,
     dataTestId = 'toggleSwitch'
   } = props
-  // TODO fixes errors in the console, but the props may not be necessary at all
-  const checkmarkProps = {
-    value,
-    title,
-    datatestid: dataTestId
-  }
-  return (
-    <label className="setting toggleSwitchWrapper">
-      <div className="switch" aria-label={title}>
-        <input
-          data-testid={dataTestId}
-          disabled={disabled}
-          checked={value}
-          type="checkbox"
-          onChange={handleChange}
-          aria-label={title}
-        />
 
-        <span {...checkmarkProps} className="checkmark" />
-      </div>
-      <span className={classNames('title', { checked: value })}>{title}</span>
+  return (
+    <label className={`setting toggleSwitchWrapper ${value ? 'checked' : ''}`}>
+      <input
+        id={dataTestId}
+        disabled={disabled}
+        checked={value}
+        type="checkbox"
+        onChange={handleChange}
+        aria-label={title}
+      />
+      <span>{title}</span>
     </label>
   )
 }
