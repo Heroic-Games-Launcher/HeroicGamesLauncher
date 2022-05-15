@@ -12,8 +12,8 @@ import Backspace from '@mui/icons-material/Backspace'
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
 import { ThemeSelector } from 'src/components/UI/ThemeSelector'
-import { SelectTag } from 'src/components/UI/SelectTag'
-import { TextInputTag } from 'src/components/UI/TextInputTag'
+import { SelectField } from 'src/components/UI/SelectField'
+import { TextInpuField } from 'src/components/UI/TextInputField'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -140,7 +140,7 @@ export default function GeneralSettings({
 
       <LanguageSelector />
 
-      <TextInputTag
+      <TextInpuField
         label={t('setting.default-install-path')}
         htmlId="default_install_path"
         value={defaultInstallPath.replaceAll("'", '')}
@@ -167,7 +167,7 @@ export default function GeneralSettings({
       />
 
       {!isWindows && (
-        <TextInputTag
+        <TextInpuField
           label={t('setting.egs-sync')}
           extraClass="withRightButton"
           htmlId="set_epic_sync_path"
@@ -240,7 +240,7 @@ export default function GeneralSettings({
 
       {isWindows && (
         <ToggleSwitch
-          dataTestId="syncToggle"
+          htmlId="syncToggle"
           value={isLinked}
           handleChange={handleSync}
           title={t('setting.egs-sync')}
@@ -248,7 +248,7 @@ export default function GeneralSettings({
       )}
 
       <ToggleSwitch
-        dataTestId="exitToTray"
+        htmlId="exitToTray"
         value={exitToTray}
         handleChange={toggleTray}
         title={t('setting.exit-to-tray')}
@@ -256,7 +256,7 @@ export default function GeneralSettings({
 
       {exitToTray && (
         <ToggleSwitch
-          dataTestId="startInTray"
+          htmlId="startInTray"
           value={startInTray}
           handleChange={toggleStartInTray}
           title={t('setting.start-in-tray', 'Start Minimized')}
@@ -264,7 +264,7 @@ export default function GeneralSettings({
       )}
 
       <ToggleSwitch
-        dataTestId="minimizeOnLaunch"
+        htmlId="minimizeOnLaunch"
         value={minimizeOnLaunch}
         handleChange={toggleMinimizeOnLaunch}
         title={t(
@@ -274,6 +274,7 @@ export default function GeneralSettings({
       />
 
       <ToggleSwitch
+        htmlId="showUnrealMarket"
         value={showUnrealMarket}
         handleChange={() => toggleUnrealMarket()}
         title={t(
@@ -283,6 +284,7 @@ export default function GeneralSettings({
       />
 
       <ToggleSwitch
+        htmlId="changeTrayColor"
         value={darkTrayIcon}
         handleChange={() => {
           toggleDarkTrayIcon()
@@ -292,6 +294,7 @@ export default function GeneralSettings({
       />
 
       <ToggleSwitch
+        htmlId="disableController"
         value={disableController}
         handleChange={() => {
           toggleDisableController()
@@ -303,7 +306,7 @@ export default function GeneralSettings({
         )}
       />
 
-      <SelectTag
+      <SelectField
         label={t('setting.library_top_section', 'Library Top Section')}
         htmlId="library_top_section_selector"
         onChange={(event) =>
@@ -325,15 +328,16 @@ export default function GeneralSettings({
         <option value="disabled">
           {t('setting.library_top_option.disabled', 'Disabled')}
         </option>
-      </SelectTag>
+      </SelectField>
 
       <ThemeSelector />
 
-      <SelectTag
+      <SelectField
         htmlId="max_workers"
         label={t('setting.maxworkers')}
         onChange={(event) => setMaxWorkers(Number(event.target.value))}
         value={maxWorkers.toString()}
+        extraClass="smaller"
       >
         {Array.from(Array(maxCpus).keys()).map((n) => (
           <option key={n + 1}>{n + 1}</option>
@@ -341,7 +345,7 @@ export default function GeneralSettings({
         <option key={0} value={0}>
           Max
         </option>
-      </SelectTag>
+      </SelectField>
     </>
   )
 }

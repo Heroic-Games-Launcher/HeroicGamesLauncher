@@ -176,6 +176,7 @@ export default function SyncSaves({
       <span className="setting">
         <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <ToggleSwitch
+            htmlId="autosync"
             value={autoSyncSaves}
             disabled={!savesPath.length}
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}

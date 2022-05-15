@@ -10,27 +10,12 @@
   height: 200px;
 }
 
+.InstallModal__dialog .setting {
+  margin: 16px 0px;
+}
+
 .InstallModal__platformIcon {
   margin-left: 16px;
-}
-
-.InstallModal__control {
-  margin: 16px 0;
-}
-
-.InstallModal__controlLabel {
-  margin: 12px 0;
-  color: var(--text-secondary);
-}
-
-.InstallModal__control .FormControl {
-  width: 100%;
-}
-
-.InstallModal__controlInput {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .InstallModal__sizes {

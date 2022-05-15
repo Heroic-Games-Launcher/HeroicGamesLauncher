@@ -10,8 +10,8 @@ import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { Tooltip } from '@mui/material'
-import { SelectTag } from 'src/components/UI/SelectTag'
-import { TextInputTag } from 'src/components/UI/TextInputTag'
+import { SelectField } from 'src/components/UI/SelectField'
+import { TextInpuField } from 'src/components/UI/TextInputField'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -123,7 +123,7 @@ export default function WineSettings({
       <h3 className="settingSubheader">Wine</h3>
 
       {isLinux && isDefault && (
-        <TextInputTag
+        <TextInpuField
           htmlId="selectDefaultWinePrefix"
           label={t(
             'setting.defaultWinePrefix',
@@ -159,7 +159,7 @@ export default function WineSettings({
       )}
 
       {isLinux && (
-        <TextInputTag
+        <TextInpuField
           htmlId="selectWinePrefix"
           label={t('setting.wineprefix')}
           value={winePrefix}
@@ -192,7 +192,7 @@ export default function WineSettings({
       )}
 
       {isDefault && (
-        <SelectTag
+        <SelectField
           label={t('setting.customWineProton', 'Custom Wine/Proton Paths')}
           htmlId="selectWinePath"
           disabled={!customWinePaths.length}
@@ -241,10 +241,10 @@ export default function WineSettings({
           {customWinePaths.map((path: string) => (
             <option key={path}>{path}</option>
           ))}
-        </SelectTag>
+        </SelectField>
       )}
 
-      <SelectTag
+      <SelectField
         label={t('setting.wineversion')}
         htmlId="setWineVersion"
         onChange={(event) =>
@@ -276,10 +276,10 @@ export default function WineSettings({
         {altWine.map(({ name }) => (
           <option key={name}>{name}</option>
         ))}
-      </SelectTag>
+      </SelectField>
 
       {wineVersion.type === 'crossover' && (
-        <TextInputTag
+        <TextInpuField
           label={t('setting.winecrossoverbottle', 'CrossOver Bottle')}
           htmlId="crossoverBottle"
           value={wineCrossoverBottle}
@@ -289,6 +289,7 @@ export default function WineSettings({
 
       {isLinux && !isProton && (
         <ToggleSwitch
+          htmlId="autodxvk"
           value={autoInstallDxvk}
           handleChange={() => {
             const action = autoInstallDxvk ? 'restore' : 'backup'
@@ -304,6 +305,7 @@ export default function WineSettings({
 
       {isLinux && !isProton && (
         <ToggleSwitch
+          htmlId="autovkd3d"
           value={autoInstallVkd3d}
           handleChange={() => {
             const action = autoInstallVkd3d ? 'restore' : 'backup'
@@ -318,6 +320,7 @@ export default function WineSettings({
       )}
 
       <ToggleSwitch
+        htmlId="enableFSR"
         value={enableFSR || false}
         handleChange={toggleFSR}
         title={t(
@@ -327,7 +330,7 @@ export default function WineSettings({
       />
 
       {enableFSR && (
-        <SelectTag
+        <SelectField
           htmlId="setMaxRecentGames"
           onChange={(event) => setFsrSharpness(Number(event.target.value))}
           value={maxSharpness.toString()}
@@ -336,12 +339,13 @@ export default function WineSettings({
           {Array.from(Array(5).keys()).map((n) => (
             <option key={n + 1}>{n + 1}</option>
           ))}
-        </SelectTag>
+        </SelectField>
       )}
 
       {isLinux && (
         <>
           <ToggleSwitch
+            htmlId="resizableBar"
             value={enableResizableBar || false}
             handleChange={toggleResizableBar}
             title={t(
@@ -351,16 +355,16 @@ export default function WineSettings({
           />
 
           <ToggleSwitch
+            htmlId="esyncToggle"
             value={enableEsync || false}
             handleChange={toggleEsync}
-            dataTestId="esyncToggle"
             title={t('setting.esync', 'Enable Esync')}
           />
 
           <ToggleSwitch
+            htmlId="fsyncToggle"
             value={enableFsync || false}
             handleChange={toggleFsync}
-            dataTestId="fsyncToggle"
             title={t('setting.fsync', 'Enable Fsync')}
           />
         </>

@@ -35,7 +35,7 @@ import GOGLogo from 'src/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'src/hooks/hasProgress'
-import { SelectTag } from 'src/components/UI/SelectTag'
+import { SelectField } from 'src/components/UI/SelectField'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -345,7 +345,7 @@ export default function GamePage(): JSX.Element | null {
                       </p>
                     </div>
                     {is_installed && Boolean(launchOptions?.length) && (
-                      <SelectTag
+                      <SelectField
                         htmlId="launch_options"
                         onChange={(event) =>
                           setLaunchArguments(event.target.value)
@@ -358,7 +358,7 @@ export default function GamePage(): JSX.Element | null {
                             {name}
                           </option>
                         ))}
-                      </SelectTag>
+                      </SelectField>
                     )}
                     <div className="buttonsWrapper">
                       {is_installed && is_game && (

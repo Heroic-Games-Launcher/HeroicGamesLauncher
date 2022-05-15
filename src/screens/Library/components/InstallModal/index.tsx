@@ -53,7 +53,8 @@ import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 import './index.css'
 
 import { SDL_GAMES, SelectiveDownload } from './selective_dl'
-import { SelectTag } from 'src/components/UI/SelectTag'
+import { SelectField } from 'src/components/UI/SelectField'
+import { TextInpuField } from 'src/components/UI/TextInputField'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -408,7 +409,7 @@ export default function InstallModal({
                 )}
               </div>
               {showPlatformSelection && (
-                <SelectTag
+                <SelectField
                   label={`${t(
                     'game.platform',
                     'Select Platform Version to Install'
@@ -424,10 +425,10 @@ export default function InstallModal({
                       {p.name}
                     </option>
                   ))}
-                </SelectTag>
+                </SelectField>
               )}
               {installLanguages && installLanguages?.length > 1 && (
-                <SelectTag
+                <SelectField
                   label={`${t('game.language', 'Language')}:`}
                   htmlId="languagePick"
                   value={installLanguage}
@@ -439,42 +440,34 @@ export default function InstallModal({
                         {getLanguageName(value)}
                       </option>
                     ))}
-                </SelectTag>
+                </SelectField>
               )}
-              <div className="InstallModal__control">
-                <div className="InstallModal__controlLabel">
-                  {t('install.path', 'Select Install Path')}:
-                </div>
-                <div className="InstallModal__controlInput">
-                  <FormControl
-                    sideButton={
-                      <button
-                        className="FormControl__sideButton"
-                        onClick={async () =>
-                          ipcRenderer
-                            .invoke('openDialog', {
-                              buttonLabel: t('box.choose'),
-                              properties: ['openDirectory'],
-                              title: t('install.path')
-                            })
-                            .then(({ path }: Path) =>
-                              setInstallPath(path ? path : defaultPath)
-                            )
-                        }
-                      >
-                        <FontAwesomeIcon icon={faFolderOpen} />
-                      </button>
+
+              <TextInpuField
+                htmlId="setinstallpath"
+                label={t('install.path', 'Select Install Path')}
+                placeholder={defaultPath}
+                value={installPath.replaceAll("'", '')}
+                onChange={(event) => setInstallPath(event.target.value)}
+                inputIcon={
+                  <button
+                    className="inputIcon"
+                    onClick={async () =>
+                      ipcRenderer
+                        .invoke('openDialog', {
+                          buttonLabel: t('box.choose'),
+                          properties: ['openDirectory'],
+                          title: t('install.path')
+                        })
+                        .then(({ path }: Path) =>
+                          setInstallPath(path ? path : defaultPath)
+                        )
                     }
                   >
-                    <input
-                      type="text"
-                      data-testid="setinstallpath"
-                      className="FormControl__input"
-                      placeholder={defaultPath}
-                      value={installPath.replaceAll("'", '')}
-                      onChange={(event) => setInstallPath(event.target.value)}
-                    />
-                  </FormControl>
+                    <FontAwesomeIcon icon={faFolderOpen} />
+                  </button>
+                }
+                afterInput={
                   <span className="diskSpaceInfo">
                     <span>
                       {t('install.disk-space-left', 'Space Left on the Device')}
@@ -484,8 +477,9 @@ export default function InstallModal({
                       <strong>{` ${spaceLeft}`}</strong>
                     </span>
                   </span>
-                </div>
-              </div>
+                }
+              />
+
               {hasWine && (
                 <>
                   <div className="InstallModal__control">
@@ -529,7 +523,7 @@ export default function InstallModal({
                       </FormControl>
                     </div>
                   </div>
-                  <SelectTag
+                  <SelectField
                     label={`${t('install.wineversion')}:`}
                     htmlId="wineVersion"
                     value={wineVersion?.bin || ''}
@@ -547,7 +541,7 @@ export default function InstallModal({
                           {version.name}
                         </option>
                       ))}
-                  </SelectTag>
+                  </SelectField>
                 </>
               )}
               {(haveDLCs || haveSDL) && (
@@ -563,6 +557,7 @@ export default function InstallModal({
                       className="InstallModal__toggle toggleWrapper"
                     >
                       <ToggleSwitch
+                        htmlId="sdls"
                         title={sdl.name}
                         value={
                           !!sdl.mandatory || !!selectedSdls[getUniqueKey(sdl)]
@@ -581,6 +576,7 @@ export default function InstallModal({
                     className={classNames('InstallModal__toggle toggleWrapper')}
                   >
                     <ToggleSwitch
+                      htmlId="dlcs"
                       value={installDlcs}
                       handleChange={() => handleDlcs()}
                       title={t('dlc.installDlcs', 'Install all DLCs')}

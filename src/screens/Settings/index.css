@@ -6,27 +6,30 @@
   width: 100%;
   border-radius: 1rem;
   grid-area: content;
-  margin-block-start: 20px;
-  padding: 0px 48px;
+  padding: 2rem 48px;
   position: relative;
-  top: -35px;
   margin-bottom: 35px;
+}
+
+.Settings .setting {
+  margin: 16px 0px;
+  width: 100%;
 }
 
 .settingsWrapper {
   margin-inline-end: auto;
-  max-width: 669px;
+  max-width: 513px;
   display: flex;
   flex-direction: column;
   place-self: center;
   place-items: flex-start;
-  width: 513px;
+  width: 100%;
   padding-bottom: 8px;
 }
 
 .headerTitle {
   transition: 350ms;
-  margin-top: 5px;
+  margin-top: 0px;
   margin-left: 20px;
   margin-bottom: 6px;
 }
@@ -46,22 +49,15 @@
 }
 
 .settingsWrapper > .backButton {
-  position: relative;
-  top: 45px;
-  left: -38px;
+  position: absolute;
+  top: 2rem;
+  right: 100%;
 }
 
 .settingsTools {
   margin-block: 16px;
   justify-content: left;
   max-width: 512px;
-}
-
-.setting {
-  display: grid;
-  place-items: baseline;
-  margin: 16px;
-  width: 100%;
 }
 
 .setting.double {

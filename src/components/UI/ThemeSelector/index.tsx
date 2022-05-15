@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import { SelectTag } from '../SelectTag'
+import { SelectField } from '../SelectField'
 
 export const ThemeSelector = () => {
   const { theme, setTheme } = useContext(ContextProvider)
   const { t } = useTranslation()
 
   return (
-    <SelectTag
+    <SelectField
       htmlId="theme_selector"
       label={t('setting.select_theme', 'Select Theme')}
       onChange={(event) => setTheme(event.target.value)}
@@ -22,6 +22,6 @@ export const ThemeSelector = () => {
       <option value="marine-classic">Marine Classic</option>
       <option value="zombie">Zombie</option>
       <option value="zombie-classic">Zombie Classic</option>
-    </SelectTag>
+    </SelectField>
   )
 }

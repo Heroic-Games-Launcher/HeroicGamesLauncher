@@ -7,8 +7,8 @@ import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
 import Backspace from '@mui/icons-material/Backspace'
-import { SelectTag } from 'src/components/UI/SelectTag'
-import { TextInputTag } from 'src/components/UI/TextInputTag'
+import { SelectField } from 'src/components/UI/SelectField'
+import { TextInpuField } from 'src/components/UI/TextInputField'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -115,7 +115,7 @@ export default function OtherSettings({
     <>
       <h3 className="settingSubheader">{t('settings.navbar.other')}</h3>
       {!isDefault && (
-        <TextInputTag
+        <TextInpuField
           label={t(
             'setting.change-target-exe',
             'Select an alternative EXE to run'
@@ -156,6 +156,7 @@ export default function OtherSettings({
 
       {shouldRenderFpsOption && (
         <ToggleSwitch
+          htmlId="showFPS"
           value={showFps}
           handleChange={toggleFps}
           title={t('setting.showfps')}
@@ -164,27 +165,32 @@ export default function OtherSettings({
       {isLinux && (
         <>
           <ToggleSwitch
+            htmlId="gamemode"
             value={useGameMode}
             handleChange={toggleUseGameMode}
             title={t('setting.gamemode')}
           />
           <ToggleSwitch
+            htmlId="primerun"
             value={primeRun}
             handleChange={togglePrimeRun}
             title={t('setting.primerun', 'Use Dedicated Graphics Card')}
           />
           <ToggleSwitch
+            htmlId="audiofix"
             value={audioFix}
             handleChange={toggleAudioFix}
             title={t('setting.audiofix')}
           />
           <ToggleSwitch
+            htmlId="mongohud"
             value={showMangohud}
             handleChange={toggleMangoHud}
             title={t('setting.mangohud')}
           />
           {isLinuxNative && (
             <ToggleSwitch
+              htmlId="steamruntime"
               value={useSteamRuntime}
               handleChange={toggleUseSteamRuntime}
               title={t('setting.steamruntime', 'Use Steam Runtime')}
@@ -194,6 +200,7 @@ export default function OtherSettings({
       )}
       {!isDefault && canRunOffline && (
         <ToggleSwitch
+          htmlId="offlinemode"
           value={offlineMode}
           handleChange={toggleOffline}
           title={t('setting.offlinemode')}
@@ -202,6 +209,7 @@ export default function OtherSettings({
       {supportsShortcuts && isDefault && (
         <>
           <ToggleSwitch
+            htmlId="shortcutsToDesktop"
             value={addDesktopShortcuts}
             handleChange={toggleAddDesktopShortcuts}
             title={t(
@@ -210,6 +218,7 @@ export default function OtherSettings({
             )}
           />
           <ToggleSwitch
+            htmlId="shortcutsToMenu"
             value={addGamesToStartMenu}
             handleChange={toggleAddGamesToStartMenu}
             title={t(
@@ -221,13 +230,14 @@ export default function OtherSettings({
       )}
       {isDefault && (
         <ToggleSwitch
+          htmlId="discordRPC"
           value={discordRPC}
           handleChange={toggleDiscordRPC}
           title={t('setting.discordRPC', 'Enable Discord Rich Presence')}
         />
       )}
       {isDefault && (
-        <SelectTag
+        <SelectField
           label={t('setting.maxRecentGames', 'Recent Games to Show')}
           htmlId="setMaxRecentGames"
           onChange={(event) => setMaxRecentGames(Number(event.target.value))}
@@ -236,10 +246,10 @@ export default function OtherSettings({
           {Array.from(Array(10).keys()).map((n) => (
             <option key={n + 1}>{n + 1}</option>
           ))}
-        </SelectTag>
+        </SelectField>
       )}
       {!isWin && (
-        <TextInputTag
+        <TextInpuField
           label={t('options.advanced.title')}
           htmlId="otherOptions"
           placeholder={t('options.advanced.placeholder')}
@@ -249,7 +259,7 @@ export default function OtherSettings({
         />
       )}
       {!isDefault && (
-        <TextInputTag
+        <TextInpuField
           label={t('options.gameargs.title')}
           htmlId="launcherArgs"
           placeholder={t('options.gameargs.placeholder')}

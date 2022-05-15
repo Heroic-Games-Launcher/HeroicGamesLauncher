@@ -27,6 +27,7 @@
 
 .textInputWrapper label {
   grid-area: label;
+  justify-self: flex-start;
 }
 
 .textInputWrapper .inputIcon {
@@ -37,6 +38,13 @@
   display: flex;
   align-items: center;
   z-index: 1;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  background: none;
+  color: var(--text-default);
+  border-radius: 10px;
+  padding: 1px 3px;
 }
 
 .textInputWrapper .inputIcon ~ input {

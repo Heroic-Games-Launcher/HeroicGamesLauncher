@@ -2,7 +2,7 @@ import React, { ChangeEventHandler } from 'react'
 import './index.css'
 
 interface Props {
-  dataTestId?: string
+  htmlId: string
   disabled?: boolean
   handleChange: ChangeEventHandler<HTMLInputElement>
   value: boolean
@@ -10,25 +10,25 @@ interface Props {
 }
 
 export default function ToggleSwitch(props: Props) {
-  const {
-    handleChange,
-    value,
-    disabled,
-    title,
-    dataTestId = 'toggleSwitch'
-  } = props
+  const { handleChange, value, disabled, title, htmlId } = props
 
   return (
-    <label className={`setting toggleSwitchWrapper ${value ? 'checked' : ''}`}>
+    <>
       <input
-        id={dataTestId}
+        id={htmlId}
         disabled={disabled}
         checked={value}
         type="checkbox"
         onChange={handleChange}
         aria-label={title}
+        className="hiddenCheckbox"
       />
-      <span>{title}</span>
-    </label>
+      <label
+        className={`setting toggleSwitchWrapper ${value ? 'checked' : ''}`}
+        htmlFor={htmlId}
+      >
+        {title}
+      </label>
+    </>
   )
 }

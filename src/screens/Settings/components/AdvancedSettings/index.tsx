@@ -12,7 +12,7 @@ import { SvgButton } from 'src/components/UI'
 import { AppSettings, Path } from 'src/types'
 import { configStore } from 'src/helpers/electronStores'
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
-import { TextInputTag } from 'src/components/UI/TextInputTag'
+import { TextInpuField } from 'src/components/UI/TextInputField'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -128,7 +128,7 @@ export const AdvancedSettings = ({
     <div>
       <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
 
-      <TextInputTag
+      <TextInpuField
         htmlId="setting-alt-legendary"
         label={t(
           'setting.alt-legendary-bin',
@@ -177,7 +177,7 @@ export const AdvancedSettings = ({
         }
       />
 
-      <TextInputTag
+      <TextInpuField
         label={t(
           'setting.alt-gogdl-bin',
           'Choose an Alternative GOGDL Binary to use (needs restart)'

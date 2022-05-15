@@ -1,7 +1,7 @@
 import { IpcRenderer } from 'electron'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { SelectTag } from '../SelectTag'
+import { SelectField } from '../SelectField'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -134,15 +134,16 @@ export default function LanguageSelector({
 
   return (
     <>
-      <SelectTag
+      <SelectField
         htmlId="languageSelector"
         onChange={(event) => handleChangeLanguage(event.target.value)}
         value={currentLanguage}
         label={t('setting.language', 'Choose App Language')}
+        extraClass="languageSelector"
         afterSelect={afterSelect}
       >
         {Object.keys(languageLabels).map((lang) => renderOption(lang))}
-      </SelectTag>
+      </SelectField>
     </>
   )
 }

@@ -1,6 +1,11 @@
+.selectWrapper {
+  display: grid;
+  grid-template-areas: 'label' 'select';
+}
+
 .selectWrapper select {
+  grid-area: select;
   width: 100%;
-  max-width: 513px;
   height: 40px;
   background: var(--input-background);
   border-radius: 10px;
@@ -20,9 +25,9 @@
     ),
     linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%),
     linear-gradient(to right, #ccc, #ccc);
-  background-position: calc(100% - 20px) calc(1em + 2px),
-    calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
-  background-size: 5px 5px, 5px 5px, 1px 1.5em;
+  background-position: calc(100% - 20px) calc(50% + 1px),
+    calc(100% - 15px) calc(50% + 1px), calc(100% - 40px) 50%;
+  background-size: 5px 5px, 5px 5px, 1px 70%;
   background-repeat: no-repeat;
   margin: 0;
   -webkit-box-sizing: border-box;
@@ -33,17 +38,34 @@
   min-width: 100px;
 }
 
+.selectWrapper label {
+  justify-self: flex-start;
+  grid-area: label;
+  align-self: center;
+}
+
 .selectWrapper select:disabled {
   cursor: not-allowed;
 }
 
-.selectWrapper select.small {
+.selectWrapper.small select {
   width: clamp(150px, 10rem, 372px);
 }
 
-.selectWrapper select.smaller {
+.selectWrapper.smaller select {
   width: 66px;
   text-indent: 11px;
+}
+
+.selectWrapper.small,
+.selectWrapper.smaller {
+  grid-template-areas: 'select label';
+  grid-template-columns: min-content 1fr;
+}
+
+.selectWrapper.small label,
+.selectWrapper.smaller label {
+  margin: 0px 1rem;
 }
 
 .selectWrapper select > option {
@@ -53,10 +75,6 @@
   text-indent: 22px;
   font-size: 16px;
   border-radius: 10px;
-}
-
-.selectWrapper select ~ span {
-  margin-block: auto;
 }
 
 .selectWrapper.rightButtons {

@@ -3,16 +3,16 @@
   grid-template-areas: 'check text';
   grid-template-columns: min-content 1fr;
   align-items: center;
+  justify-items: flex-start;
   cursor: pointer;
 }
 
-.toggleSwitchWrapper input {
-  grid-area: check;
-  margin-inline-start: 13px;
+.hiddenCheckbox {
+  display: none;
 }
 
 /* add fake checkbox */
-.toggleSwitchWrapper:after {
+.toggleSwitchWrapper:before {
   content: '';
   display: inline-block;
   margin-inline-start: 13px;
@@ -31,7 +31,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.toggleSwitchWrapper.checked:after {
+.toggleSwitchWrapper.checked:before {
   content: '\2713';
   background: var(--accent);
 }
@@ -48,28 +48,7 @@
   color: var(--accent);
 }
 
-.toggleSwitchWrapper.checked + span {
+.toggleSwitchWrapper.checked span {
   font-weight: 700;
   color: var(--accent);
-}
-
-.checkmark:focus-visible {
-  outline: 1px solid var(--download-button);
-}
-
-.checkmark:after {
-  content: '';
-  position: absolute;
-  display: none;
-  width: 3px;
-  height: 8px;
-  margin-inline-start: 3px;
-  padding-inline-start: 0.5px;
-  padding-block-end: 0.5px;
-  bottom: 2.5px;
-  border: solid var(--body-background);
-  border-width: 0 2px 2px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
 }

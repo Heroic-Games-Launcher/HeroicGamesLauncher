@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
 
-interface SelectTagProps {
+interface SelectFieldProps {
   htmlId: string
   value: string
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void
@@ -15,7 +15,7 @@ interface SelectTagProps {
   extraClass?: string
 }
 
-export const SelectTag = ({
+export const SelectField = ({
   htmlId,
   value,
   onChange,
@@ -25,7 +25,7 @@ export const SelectTag = ({
   extraClass = '',
   afterSelect,
   children
-}: SelectTagProps) => {
+}: SelectFieldProps) => {
   const { isRTL } = useContext(ContextProvider)
 
   return (

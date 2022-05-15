@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 const { ipcRenderer } = window.require('electron')
 import './index.css'
-import { SelectTag } from 'src/components/UI/SelectTag'
+import { SelectField } from 'src/components/UI/SelectField'
 
 export default function Accessibility() {
   const { t } = useTranslation()
@@ -78,7 +78,9 @@ export default function Accessibility() {
   return (
     <div className="Accessibility Settings">
       <div className="settingsWrapper">
-        <h1>{t('accessibility.title', 'Accessibility')}</h1>
+        <h1 className="headerTitle">
+          {t('accessibility.title', 'Accessibility')}
+        </h1>
 
         <span className="setting">
           <label className={classNames('settingText', { isRTL: isRTL })}>
@@ -124,7 +126,7 @@ export default function Accessibility() {
           </span>
         </span>
 
-        <SelectTag
+        <SelectField
           htmlId="content-font-family"
           value={contentFontFamily}
           onChange={handleContentFontFamily}
@@ -134,9 +136,9 @@ export default function Accessibility() {
           )}
         >
           {options}
-        </SelectTag>
+        </SelectField>
 
-        <SelectTag
+        <SelectField
           htmlId="actions-font-family"
           value={actionsFontFamily}
           onChange={handleActionsFontFamily}
@@ -146,7 +148,7 @@ export default function Accessibility() {
           )}
         >
           {options}
-        </SelectTag>
+        </SelectField>
 
         <ThemeSelector />
       </div>
