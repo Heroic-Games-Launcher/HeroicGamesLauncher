@@ -36,14 +36,14 @@
         "yes": "ANO"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Přidat do oblíbených",
         "cancel": "Zrušit",
         "continue": "Pokračovat ve stahování",
         "hide_game": "Skrýt hru",
         "import": "Importovat Hru",
         "install": "Instalovat",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Odebrat z oblíbených",
+        "unhide_game": "Odkrýt hru",
         "uninstall": "Odinstalovat",
         "update": "Update"
     },
@@ -59,7 +59,7 @@
         "language": "Jazyk",
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
-        "platform": "Select Platform Version to Install",
+        "platform": "Vyberte verzi platformy, kterou chcete nainstalovat",
         "totalPlayed": "Odehraný čas"
     },
     "gamecard": {
@@ -67,16 +67,16 @@
         "repairing": "Opravuji"
     },
     "info": {
-        "canRunOffline": "Online Required",
-        "installedPlatform": "Installed Platform",
+        "canRunOffline": "Vyžaduje se být online",
+        "installedPlatform": "Nainstalovaná platforma",
         "path": "Cesta pro instalaci",
         "size": "Velikost",
         "syncsaves": "Synchronizovat uložené soubory",
         "version": "Verze"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
-        "path": "Select Install Path",
+        "disk-space-left": "Volné místo na zařízení",
+        "path": "Vyberte cestu instalace",
         "wineprefix": "WinePrefix",
         "wineversion": "Verze Wine"
     },
