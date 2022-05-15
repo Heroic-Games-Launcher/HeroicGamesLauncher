@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
-        "title": "Accessibility",
+        "actions_font_family": "Eylemler Yazı Tipi Ailesi (Öntanımlı: \"Rubik\")",
+        "content_font_family": "İçerik Yazı Tipi Ailesi (Öntanımlı: \"Cabin\")",
+        "title": "Erişilebilirlik",
         "zoom": "Zoom"
     },
     "All": "Tümü",
@@ -116,7 +116,7 @@
         "offline-notification-title": "çevrim dışı"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "Favoriler",
     "globalSettings": "Genel Ayarlar",
     "GOG": "GOG",
     "gog-store": "GOG Mağazası",
@@ -258,11 +258,11 @@
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "Devre dışı",
+            "favourites": "Favori Oyunlar",
+            "recently_played": "Son Oynanan Oyunlar"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "Kütüphane Üst Bölümü",
         "log": {
             "copy-to-clipboard": "Günlük içeriğini panoya kopyala",
             "current-log": "Geçerli Günlük",
@@ -286,7 +286,7 @@
         "maxworkers": "İndirirken azami işçi sayısı",
         "minimize-on-launch": "Oyun Başlatıldıktan Sonra Heroic'i Simge Durumuna Küçült",
         "offlinemode": "Oyunu Çevrim Dışı Çalıştır",
-        "primerun": "Nvidia Prime Render'ı Etkinleştir",
+        "primerun": "Özel Grafik Kartını Kullan",
         "resizableBar": "Resizable BAR'ı etkinleştir (yalnızca NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Dosyaları buraya Sürükle ve Bırak",
@@ -296,7 +296,7 @@
             "placeholder": "Tam oyun kaydetme klasörünü seçin",
             "title": "Bulut Eşzamanlama Kayıt Klasörünü Geçersiz Kıl"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "Tema Seç",
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
         "showUnrealMarket": "Unreal Pazar Yerini Göster (yeniden başlatma gerekir)",
         "start-in-tray": "Simge Durumunda Başlat",

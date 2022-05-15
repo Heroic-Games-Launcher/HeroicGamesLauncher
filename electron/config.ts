@@ -172,7 +172,7 @@ abstract class GlobalConfig {
           }
         })
       })
-    } else if (!isWindows) {
+    } else if (!isWindows && !isFlatpak) {
       // Linux
       const crossoverWineBin = '/opt/cxoffice/bin/wine'
       if (!existsSync(crossoverWineBin)) {

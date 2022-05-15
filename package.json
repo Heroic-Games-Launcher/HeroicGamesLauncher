@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -183,7 +183,7 @@
     "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src && eslint --fix -c .eslintrc --ext .ts ./electron",
     "build-electron": "tsc --project electron/tsconfig.json",
     "watch-electron": "tsc --watch --project electron/tsconfig.json",
-    "dist-flatpak": "cd flatpak && flatpak-builder build com.heroicgameslauncher.yml --install --force-clean --user",
+    "dist-flatpak": "cd flatpak && flatpak-builder build local.heroic.yml --install --force-clean --user",
     "flatpak-test": "yarn dist appimage && cd flatpak && flatpak-builder build local.heroic.yml --install --force-clean --user",
     "i18n": "i18next",
     "prepare": "husky install",

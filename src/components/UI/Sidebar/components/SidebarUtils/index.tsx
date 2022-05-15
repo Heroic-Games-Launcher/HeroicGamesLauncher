@@ -11,7 +11,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { openDiscordLink } from 'src/helpers'
-import { configStore, gogConfigStore } from 'src/helpers/electronStores'
 import ContextProvider from 'src/state/ContextProvider'
 import QuitButton from '../QuitButton'
 import './index.css'
@@ -21,8 +20,8 @@ const { ipcRenderer } = window.require('electron')
 export default function SidebarUtils() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { platform } = React.useContext(ContextProvider)
-  const user = configStore.get('userInfo') || gogConfigStore.get('userData')
+  const { epic, gog, platform } = React.useContext(ContextProvider)
+  const user = epic.username || gog.username
   const isLinux = platform === 'linux'
 
   return (
@@ -72,7 +71,7 @@ export default function SidebarUtils() {
             <div className="Sidebar__itemIcon">
               <FontAwesomeIcon icon={faUser} />
             </div>
-            {user.displayName || user.username}
+            {user}
           </button>
           <div className="SidebarUtils__dropdownPopup ">
             <button

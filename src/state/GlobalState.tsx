@@ -47,8 +47,14 @@ interface Props {
 
 interface StateProps {
   category: string
-  epicLibrary: GameInfo[]
-  gogLibrary: GameInfo[]
+  epic: {
+    library: GameInfo[]
+    username: string | null
+  }
+  gog: {
+    library: GameInfo[]
+    username: string | null
+  }
   wineVersions: WineVersionInfo[]
   error: boolean
   filter: string
@@ -90,10 +96,16 @@ export class GlobalState extends PureComponent<Props> {
   }
   state: StateProps = {
     category: 'epic',
-    epicLibrary: libraryStore.has('library')
-      ? (libraryStore.get('library') as GameInfo[])
-      : [],
-    gogLibrary: this.loadGOGLibrary(),
+    epic: {
+      library: libraryStore.has('library')
+        ? (libraryStore.get('library') as GameInfo[])
+        : [],
+      username: configStore.get('userInfo')?.displayName || null
+    },
+    gog: {
+      library: this.loadGOGLibrary(),
+      username: gogConfigStore.get('userData')?.username || null
+    },
     wineVersions: wineDownloaderInfoStore.has('wine-releases')
       ? (wineDownloaderInfoStore.get('wine-releases') as WineVersionInfo[])
       : [],
@@ -204,15 +216,72 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ libraryTopSection: value })
   }
 
+  handleSuccessfulLogin = (runner: 'epic' | 'gog') => {
+    this.handleFilter('all')
+    this.handleCategory(runner)
+    this.refreshLibrary({
+      fullRefresh: true,
+      runInBackground: false
+    })
+  }
+
+  epicLogin = async (sid: string) => {
+    console.log('logging epic')
+    const response = await ipcRenderer.invoke('login', sid)
+
+    if (response.status === 'done') {
+      this.setState({
+        epic: {
+          library: [],
+          username: response.data.displayName
+        }
+      })
+
+      this.handleSuccessfulLogin('epic')
+    }
+
+    return response.status
+  }
+
+  epicLogout = () => {
+    ipcRenderer.invoke('logoutLegendary')
+    console.log('Logging out from epic')
+    window.location.reload()
+  }
+
+  gogLogin = async (token: string) => {
+    console.log('logging gog')
+    const response = await ipcRenderer.invoke('authGOG', token)
+
+    if (response.status === 'done') {
+      this.setState({
+        gog: {
+          library: [],
+          username: response.data.username
+        }
+      })
+
+      this.handleSuccessfulLogin('gog')
+    }
+
+    return response.status
+  }
+
+  gogLogout = () => {
+    ipcRenderer.invoke('logoutGOG')
+    console.log('Logging out from gog')
+    window.location.reload()
+  }
+
   refresh = async (checkUpdates?: boolean): Promise<void> => {
     let updates = this.state.gameUpdates
     console.log('refreshing')
-    const currentLibraryLength = this.state.epicLibrary?.length
+    const currentLibraryLength = this.state.epic.library?.length
     let epicLibrary: Array<GameInfo> =
       (libraryStore.get('library') as Array<GameInfo>) || []
 
     const gogLibrary: Array<GameInfo> = this.loadGOGLibrary()
-    if (!epicLibrary.length || !this.state.epicLibrary.length) {
+    if (!epicLibrary.length || !this.state.epic.library.length) {
       ipcRenderer.send(
         'logInfo',
         'No cache found, getting data from legendary...'
@@ -230,8 +299,14 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     this.setState({
-      epicLibrary,
-      gogLibrary,
+      epic: {
+        library: epicLibrary,
+        username: this.state.epic.username
+      },
+      gog: {
+        library: gogLibrary,
+        username: this.state.gog.username
+      },
       gameUpdates: updates,
       refreshing: false
     })
@@ -424,7 +499,7 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { i18n, t } = this.props
-    const { epicLibrary, gameUpdates = [], libraryStatus } = this.state
+    const { epic, gameUpdates = [], libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.on('launchGame', async (e, appName, runner) => {
@@ -501,7 +576,7 @@ export class GlobalState extends PureComponent<Props> {
       this.refreshLibrary({
         checkForUpdates: true,
         fullRefresh: true,
-        runInBackground: Boolean(epicLibrary.length)
+        runInBackground: Boolean(epic.library.length)
       })
     }
   }
@@ -537,16 +612,16 @@ export class GlobalState extends PureComponent<Props> {
   render() {
     const { children } = this.props
     const {
-      epicLibrary,
+      epic,
       wineVersions,
-      gogLibrary,
+      gog,
       filterText,
       filter,
       platform,
       filterPlatform
     } = this.state
-    let filteredEpicLibrary = epicLibrary
-    let filteredGOGLibrary = gogLibrary
+    let filteredEpicLibrary = epic.library
+    let filteredGOGLibrary = gog.library
     const language = storage.getItem('language') || 'en'
     const isRTL = RTL_LANGUAGES.includes(language)
 
@@ -555,11 +630,11 @@ export class GlobalState extends PureComponent<Props> {
       const textFilter = ({ title, app_name }: GameInfo) =>
         filterRegex.test(title) || filterRegex.test(app_name)
       filteredEpicLibrary = this.filterPlatform(
-        this.filterLibrary(epicLibrary, filter).filter(textFilter),
+        this.filterLibrary(epic.library, filter).filter(textFilter),
         filterPlatform
       )
       filteredGOGLibrary = this.filterPlatform(
-        this.filterLibrary(gogLibrary, filter).filter(textFilter),
+        this.filterLibrary(gog.library, filter).filter(textFilter),
         filterPlatform
       )
     } catch (error) {
@@ -568,11 +643,11 @@ export class GlobalState extends PureComponent<Props> {
 
     let recentGames: GameInfo[] = []
 
-    if (epicLibrary.length > 0) {
-      recentGames = [...getRecentGames(epicLibrary)]
+    if (epic.library.length > 0) {
+      recentGames = [...getRecentGames(epic.library)]
     }
-    if (gogLibrary.length > 0) {
-      recentGames = [...recentGames, ...getRecentGames(gogLibrary)]
+    if (gog.library.length > 0) {
+      recentGames = [...recentGames, ...getRecentGames(gog.library)]
     }
 
     const hiddenGamesAppNames = this.state.hiddenGames.map(
@@ -592,8 +667,18 @@ export class GlobalState extends PureComponent<Props> {
       <ContextProvider.Provider
         value={{
           ...this.state,
-          epicLibrary: filteredEpicLibrary,
-          gogLibrary: filteredGOGLibrary,
+          epic: {
+            library: filteredEpicLibrary,
+            username: this.state.epic.username,
+            login: this.epicLogin,
+            logout: this.epicLogout
+          },
+          gog: {
+            library: filteredGOGLibrary,
+            username: this.state.gog.username,
+            login: this.gogLogin,
+            logout: this.gogLogout
+          },
           wineVersions: wineVersions,
           handleCategory: this.handleCategory,
           handleFilter: this.handleFilter,
