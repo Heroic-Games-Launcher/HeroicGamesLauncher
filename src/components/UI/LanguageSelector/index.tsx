@@ -1,4 +1,13 @@
+import { IpcRenderer } from 'electron'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { SelectTag } from '../SelectTag'
+
+const { ipcRenderer } = window.require('electron') as {
+  ipcRenderer: IpcRenderer
+}
+
+const storage: Storage = window.localStorage
 
 export enum FlagPosition {
   NONE = 'none',
@@ -7,85 +16,94 @@ export enum FlagPosition {
 }
 
 interface Props {
-  className?: string
-  currentLanguage?: string
   flagPossition?: FlagPosition
-  handleLanguageChange: (language: string) => void
+  showWeblateLink?: boolean
+}
+
+const languageLabels: { [key: string]: string } = {
+  bg: 'български',
+  ca: 'Català',
+  cs: 'Čeština',
+  de: 'Deutsch',
+  el: 'Greek',
+  en: 'English',
+  es: 'Español',
+  et: 'Eesti keel',
+  fa: 'فارسی',
+  fi: 'Suomen kieli',
+  fr: 'Français',
+  gl: 'Galego',
+  hu: 'Magyar',
+  hr: 'Hrvatski',
+  ja: '日本語',
+  ko: '한국어',
+  id: 'Bahasa Indonesia',
+  it: 'Italiano',
+  ml: 'മലയാളം',
+  nl: 'Nederlands',
+  pl: 'Polski',
+  pt: 'Português',
+  pt_BR: 'Português (Brasil)',
+  ru: 'Русский',
+  sv: 'Svenska',
+  ta: 'தமிழ்',
+  tr: 'Türkçe',
+  uk: 'украї́нська мо́ва',
+  vi: 'tiếng Việt',
+  zh_Hans: '简化字',
+  zh_Hant: '漢語'
+}
+
+const languageFlags: { [key: string]: string } = {
+  // Catalan isn't a sovereign state (yet). So it hasn't a flag in the unicode standard.
+  bg: '🇧🇬',
+  ca: '🇪🇸',
+  cs: '🇨🇿',
+  de: '🇩🇪',
+  el: '🇬🇷',
+  en: '🇬🇧',
+  es: '🇪🇸',
+  et: '🇪🇪',
+  fa: '🇮🇷',
+  fi: '🇫🇮',
+  fr: '🇫🇷',
+  gl: '🇪🇸',
+  hu: '🇭🇺',
+  hr: '🇭🇷',
+  ja: '🇯🇵',
+  ko: '🇰🇷',
+  id: '🇮🇩',
+  it: '🇮🇹',
+  ml: '🇮🇳',
+  nl: '🇳🇱',
+  pl: '🇵🇱',
+  pt: '🇵🇹',
+  pt_BR: '🇧🇷',
+  ru: '🇷🇺',
+  sv: '🇸🇪',
+  ta: '🇮🇳',
+  tr: '🇹🇷',
+  uk: '🇺🇦',
+  vi: '🇻🇳',
+  zh_Hans: '🇨🇳',
+  zh_Hant: '🇨🇳'
 }
 
 export default function LanguageSelector({
-  handleLanguageChange,
-  currentLanguage = 'en',
-  className = 'settingSelect',
-  flagPossition = FlagPosition.NONE
+  flagPossition = FlagPosition.NONE,
+  showWeblateLink = false
 }: Props) {
-  const languageLabels: { [key: string]: string } = {
-    bg: 'български',
-    ca: 'Català',
-    cs: 'Čeština',
-    de: 'Deutsch',
-    el: 'Greek',
-    en: 'English',
-    es: 'Español',
-    et: 'Eesti keel',
-    fa: 'فارسی',
-    fi: 'Suomen kieli',
-    fr: 'Français',
-    gl: 'Galego',
-    hu: 'Magyar',
-    hr: 'Hrvatski',
-    ja: '日本語',
-    ko: '한국어',
-    id: 'Bahasa Indonesia',
-    it: 'Italiano',
-    ml: 'മലയാളം',
-    nl: 'Nederlands',
-    pl: 'Polski',
-    pt: 'Português',
-    pt_BR: 'Português (Brasil)',
-    ru: 'Русский',
-    sv: 'Svenska',
-    ta: 'தமிழ்',
-    tr: 'Türkçe',
-    uk: 'украї́нська мо́ва',
-    vi: 'tiếng Việt',
-    zh_Hans: '简化字',
-    zh_Hant: '漢語'
+  const { t, i18n } = useTranslation()
+  const currentLanguage = i18n.language || 'en'
+
+  const handleChangeLanguage = (language: string) => {
+    ipcRenderer.send('changeLanguage', language)
+    storage.setItem('language', language)
+    i18n.changeLanguage(language)
   }
 
-  const languageFlags: { [key: string]: string } = {
-    // Catalan isn't a sovereign state (yet). So it hasn't a flag in the unicode standard.
-    bg: '🇧🇬',
-    ca: '🇪🇸',
-    cs: '🇨🇿',
-    de: '🇩🇪',
-    el: '🇬🇷',
-    en: '🇬🇧',
-    es: '🇪🇸',
-    et: '🇪🇪',
-    fa: '🇮🇷',
-    fi: '🇫🇮',
-    fr: '🇫🇷',
-    gl: '🇪🇸',
-    hu: '🇭🇺',
-    hr: '🇭🇷',
-    ja: '🇯🇵',
-    ko: '🇰🇷',
-    id: '🇮🇩',
-    it: '🇮🇹',
-    ml: '🇮🇳',
-    nl: '🇳🇱',
-    pl: '🇵🇱',
-    pt: '🇵🇹',
-    pt_BR: '🇧🇷',
-    ru: '🇷🇺',
-    sv: '🇸🇪',
-    ta: '🇮🇳',
-    tr: '🇹🇷',
-    uk: '🇺🇦',
-    vi: '🇻🇳',
-    zh_Hans: '🇨🇳',
-    zh_Hant: '🇨🇳'
+  function handleWeblate() {
+    return ipcRenderer.send('openWeblate')
   }
 
   const renderOption = (lang: string) => {
@@ -100,14 +118,31 @@ export default function LanguageSelector({
       </option>
     )
   }
+
+  let afterSelect = null
+  if (showWeblateLink) {
+    afterSelect = (
+      <a
+        data-testid="buttonWeblate"
+        onClick={handleWeblate}
+        className="smallLink"
+      >
+        {t('other.weblate', 'Help Improve this translation.')}
+      </a>
+    )
+  }
+
   return (
-    <select
-      data-testid="languageSelector"
-      onChange={(event) => handleLanguageChange(event.target.value)}
-      className={`${className} is-drop-down`}
-      value={currentLanguage}
-    >
-      {Object.keys(languageLabels).map((lang) => renderOption(lang))}
-    </select>
+    <>
+      <SelectTag
+        htmlId="languageSelector"
+        onChange={(event) => handleChangeLanguage(event.target.value)}
+        value={currentLanguage}
+        label={t('setting.language', 'Choose App Language')}
+        afterSelect={afterSelect}
+      >
+        {Object.keys(languageLabels).map((lang) => renderOption(lang))}
+      </SelectTag>
+    </>
   )
 }

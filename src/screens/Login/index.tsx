@@ -13,14 +13,9 @@ import { configStore, gogConfigStore } from 'src/helpers/electronStores'
 
 const { ipcRenderer } = window.require('electron')
 
-const storage: Storage = window.localStorage
 export default function NewLogin() {
-  const { t, i18n } = useTranslation()
-  const currentLanguage = i18n.language
-  const handleChangeLanguage = (language: string) => {
-    storage.setItem('language', language)
-    i18n.changeLanguage(language)
-  }
+  const { t } = useTranslation()
+
   const navigate = useNavigate()
   const [epicLogin, setEpicLogin] = useState('')
   const [gogLogin, setGOGLogin] = useState('')
@@ -64,14 +59,7 @@ export default function NewLogin() {
       <div className="loginBackground"></div>
 
       <div className="loginContentWrapper">
-        {!loading && (
-          <LanguageSelector
-            className="settingSelect language-login"
-            handleLanguageChange={handleChangeLanguage}
-            currentLanguage={currentLanguage}
-            flagPossition={FlagPosition.PREPEND}
-          />
-        )}
+        {!loading && <LanguageSelector flagPossition={FlagPosition.PREPEND} />}
         <div className="runnerList">
           <Runner
             class="epic"

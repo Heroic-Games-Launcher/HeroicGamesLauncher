@@ -1,7 +1,14 @@
+.toggleSwitchWrapper {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  align-items: center;
+}
+
 /* The switch - the box around the slider */
 .switch {
   margin-inline-start: 13px;
   margin-block-start: 1.25px;
+  margin-inline-end: 0.5rem;
   position: relative;
   display: inline-block;
   width: 16px;

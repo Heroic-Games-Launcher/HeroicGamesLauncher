@@ -8,6 +8,8 @@ import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
 import Backspace from '@mui/icons-material/Backspace'
 import classNames from 'classnames'
+import { SelectTag } from 'src/components/UI/SelectTag'
+import { TextInputTag } from 'src/components/UI/TextInputTag'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -155,172 +157,108 @@ export default function OtherSettings({
       )}
 
       {shouldRenderFpsOption && (
-        <span data-testid="otherSettings" className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              value={showFps}
-              handleChange={toggleFps}
-              title={t('setting.showfps')}
-            />
-          </label>
-        </span>
+        <ToggleSwitch
+          value={showFps}
+          handleChange={toggleFps}
+          title={t('setting.showfps')}
+        />
       )}
       {isLinux && (
         <>
-          <span className="setting">
-            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              <ToggleSwitch
-                value={useGameMode}
-                handleChange={toggleUseGameMode}
-                title={t('setting.gamemode')}
-              />
-            </label>
-          </span>
-          <span className="setting">
-            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              <ToggleSwitch
-                value={primeRun}
-                handleChange={togglePrimeRun}
-                title={t('setting.primerun', 'Use Dedicated Graphics Card')}
-              />
-            </label>
-          </span>
-          <span className="setting">
-            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              <ToggleSwitch
-                value={audioFix}
-                handleChange={toggleAudioFix}
-                title={t('setting.audiofix')}
-              />
-            </label>
-          </span>
-          <span className="setting">
-            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              <ToggleSwitch
-                value={showMangohud}
-                handleChange={toggleMangoHud}
-                title={t('setting.mangohud')}
-              />
-            </label>
-          </span>
+          <ToggleSwitch
+            value={useGameMode}
+            handleChange={toggleUseGameMode}
+            title={t('setting.gamemode')}
+          />
+          <ToggleSwitch
+            value={primeRun}
+            handleChange={togglePrimeRun}
+            title={t('setting.primerun', 'Use Dedicated Graphics Card')}
+          />
+          <ToggleSwitch
+            value={audioFix}
+            handleChange={toggleAudioFix}
+            title={t('setting.audiofix')}
+          />
+          <ToggleSwitch
+            value={showMangohud}
+            handleChange={toggleMangoHud}
+            title={t('setting.mangohud')}
+          />
           {isLinuxNative && (
-            <span className="setting">
-              <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-                <ToggleSwitch
-                  value={useSteamRuntime}
-                  handleChange={toggleUseSteamRuntime}
-                  title={t('setting.steamruntime', 'Use Steam Runtime')}
-                />
-              </label>
-            </span>
+            <ToggleSwitch
+              value={useSteamRuntime}
+              handleChange={toggleUseSteamRuntime}
+              title={t('setting.steamruntime', 'Use Steam Runtime')}
+            />
           )}
         </>
       )}
       {!isDefault && canRunOffline && (
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              value={offlineMode}
-              handleChange={toggleOffline}
-              title={t('setting.offlinemode')}
-            />
-          </label>
-        </span>
+        <ToggleSwitch
+          value={offlineMode}
+          handleChange={toggleOffline}
+          title={t('setting.offlinemode')}
+        />
       )}
       {supportsShortcuts && isDefault && (
         <>
-          <span className="setting">
-            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              <ToggleSwitch
-                value={addDesktopShortcuts}
-                handleChange={toggleAddDesktopShortcuts}
-                title={t(
-                  'setting.adddesktopshortcuts',
-                  'Add desktop shortcuts automatically'
-                )}
-              />
-            </label>
-          </span>
-          <span className="setting">
-            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-              <ToggleSwitch
-                value={addGamesToStartMenu}
-                handleChange={toggleAddGamesToStartMenu}
-                title={t(
-                  'setting.addgamestostartmenu',
-                  'Add games to start menu automatically'
-                )}
-              />
-            </label>
-          </span>
+          <ToggleSwitch
+            value={addDesktopShortcuts}
+            handleChange={toggleAddDesktopShortcuts}
+            title={t(
+              'setting.adddesktopshortcuts',
+              'Add desktop shortcuts automatically'
+            )}
+          />
+          <ToggleSwitch
+            value={addGamesToStartMenu}
+            handleChange={toggleAddGamesToStartMenu}
+            title={t(
+              'setting.addgamestostartmenu',
+              'Add games to start menu automatically'
+            )}
+          />
         </>
       )}
       {isDefault && (
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              value={discordRPC}
-              handleChange={toggleDiscordRPC}
-              title={t('setting.discordRPC', 'Enable Discord Rich Presence')}
-            />
-          </label>
-        </span>
+        <ToggleSwitch
+          value={discordRPC}
+          handleChange={toggleDiscordRPC}
+          title={t('setting.discordRPC', 'Enable Discord Rich Presence')}
+        />
       )}
       {isDefault && (
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <select
-              data-testid="setMaxRecentGames"
-              onChange={(event) =>
-                setMaxRecentGames(Number(event.target.value))
-              }
-              value={maxRecentGames}
-              className="settingSelect smaller is-drop-down "
-            >
-              {Array.from(Array(10).keys()).map((n) => (
-                <option key={n + 1}>{n + 1}</option>
-              ))}
-            </select>
-          </label>
-        </span>
+        <SelectTag
+          label={t('setting.maxRecentGames', 'Recent Games to Show')}
+          htmlId="setMaxRecentGames"
+          onChange={(event) => setMaxRecentGames(Number(event.target.value))}
+          value={maxRecentGames.toString()}
+        >
+          {Array.from(Array(10).keys()).map((n) => (
+            <option key={n + 1}>{n + 1}</option>
+          ))}
+        </SelectTag>
       )}
       {!isWin && (
-        <span className="setting">
-          <span className={classNames('settingText', { isRTL: isRTL })}>
-            {t('options.advanced.title')}
-          </span>
-          <span>
-            <input
-              data-testid="otheroptions"
-              id="otherOptions"
-              type="text"
-              placeholder={t('options.advanced.placeholder')}
-              className="settingInput"
-              value={otherOptions}
-              onChange={handleOtherOptions}
-            />
-          </span>
-          {info}
-        </span>
+        <TextInputTag
+          label={t('options.advanced.title')}
+          htmlId="otherOptions"
+          placeholder={t('options.advanced.placeholder')}
+          value={otherOptions}
+          onChange={handleOtherOptions}
+          afterInput={info}
+        />
       )}
       {!isDefault && (
-        <span className="setting">
-          <span className={classNames('settingText', { isRTL: isRTL })}>
-            {t('options.gameargs.title')}
-          </span>
-          <span>
-            <input
-              data-testid="launcherargs"
-              id="launcherArgs"
-              type="text"
-              placeholder={t('options.gameargs.placeholder')}
-              className="settingInput"
-              value={launcherArgs}
-              onChange={handleLauncherArgs}
-            />
-          </span>
-          {info}
-        </span>
+        <TextInputTag
+          label={t('options.gameargs.title')}
+          htmlId="launcherArgs"
+          placeholder={t('options.gameargs.placeholder')}
+          value={launcherArgs}
+          onChange={handleLauncherArgs}
+          afterInput={info}
+        />
       )}
     </>
   )

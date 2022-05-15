@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 const { ipcRenderer } = window.require('electron')
 import './index.css'
+import { SelectTag } from 'src/components/UI/SelectTag'
 
 export default function Accessibility() {
   const { t } = useTranslation()
@@ -105,6 +106,7 @@ export default function Accessibility() {
             ))}
           </datalist>
         </span>
+
         <span className="setting">
           <span className="fonts-label">
             {t('accessibility.fonts', 'Fonts')}
@@ -121,45 +123,30 @@ export default function Accessibility() {
             </button>
           </span>
         </span>
-        <span className="setting">
-          <label
-            className={classNames('settingText', { isRTL: isRTL })}
-            htmlFor="content-font-family"
-          >
-            {t(
-              'accessibility.content_font_family',
-              'Content Font Family (Default: "Cabin")'
-            )}
-          </label>
-          <select
-            id="content-font-family"
-            value={contentFontFamily}
-            onChange={handleContentFontFamily}
-            className="settingSelect is-drop-down"
-          >
-            {options}
-          </select>
-        </span>
 
-        <span className="setting">
-          <label
-            className={classNames('settingText', { isRTL: isRTL })}
-            htmlFor="actions-font-family"
-          >
-            {t(
-              'accessibility.actions_font_family',
-              'Actions Font Family (Default: "Rubik")'
-            )}
-          </label>
-          <select
-            id="actions-font-family"
-            value={actionsFontFamily}
-            onChange={handleActionsFontFamily}
-            className="settingSelect is-drop-down"
-          >
-            {options}
-          </select>
-        </span>
+        <SelectTag
+          htmlId="content-font-family"
+          value={contentFontFamily}
+          onChange={handleContentFontFamily}
+          label={t(
+            'accessibility.content_font_family',
+            'Content Font Family (Default: "Cabin")'
+          )}
+        >
+          {options}
+        </SelectTag>
+
+        <SelectTag
+          htmlId="actions-font-family"
+          value={actionsFontFamily}
+          onChange={handleActionsFontFamily}
+          label={t(
+            'accessibility.actions_font_family',
+            'Actions Font Family (Default: "Rubik")'
+          )}
+        >
+          {options}
+        </SelectTag>
 
         <ThemeSelector />
       </div>

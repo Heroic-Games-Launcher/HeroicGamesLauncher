@@ -35,6 +35,7 @@ import GOGLogo from 'src/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'src/hooks/hasProgress'
+import { SelectTag } from 'src/components/UI/SelectTag'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -344,24 +345,20 @@ export default function GamePage(): JSX.Element | null {
                       </p>
                     </div>
                     {is_installed && Boolean(launchOptions?.length) && (
-                      <>
-                        <select
-                          onChange={(event) =>
-                            setLaunchArguments(event.target.value)
-                          }
-                          value={launchArguments}
-                          className="settingSelect"
-                        >
-                          <option value="">
-                            {t('launch.options', 'Launch Options...')}
+                      <SelectTag
+                        htmlId="launch_options"
+                        onChange={(event) =>
+                          setLaunchArguments(event.target.value)
+                        }
+                        value={launchArguments}
+                        prompt={t('launch.options', 'Launch Options...')}
+                      >
+                        {launchOptions.map(({ name, parameters }) => (
+                          <option key={parameters} value={parameters}>
+                            {name}
                           </option>
-                          {launchOptions.map(({ name, parameters }) => (
-                            <option key={parameters} value={parameters}>
-                              {name}
-                            </option>
-                          ))}
-                        </select>
-                      </>
+                        ))}
+                      </SelectTag>
                     )}
                     <div className="buttonsWrapper">
                       {is_installed && is_game && (

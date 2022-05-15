@@ -53,6 +53,7 @@ import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 import './index.css'
 
 import { SDL_GAMES, SelectiveDownload } from './selective_dl'
+import { SelectTag } from 'src/components/UI/SelectTag'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -407,57 +408,38 @@ export default function InstallModal({
                 )}
               </div>
               {showPlatformSelection && (
-                <div className="InstallModal__control">
-                  <div className="InstallModal__controlLabel">
-                    {t('game.platform', 'Select Platform Version to Install')}:
-                  </div>
-                  <div className="InstallModal__controlInput">
-                    <FormControl select>
-                      <select
-                        className="FormControl__select"
-                        name="platform"
-                        id="platformPick"
-                        value={platformToInstall}
-                        onChange={(e) =>
-                          setPlatformToInstall(
-                            e.target.value as PlatformToInstall
-                          )
-                        }
-                      >
-                        {availablePlatforms.map((p) => (
-                          <option value={p.value} key={p.value}>
-                            {p.name}
-                          </option>
-                        ))}
-                      </select>
-                    </FormControl>
-                  </div>
-                </div>
+                <SelectTag
+                  label={`${t(
+                    'game.platform',
+                    'Select Platform Version to Install'
+                  )}:`}
+                  htmlId="platformPick"
+                  value={platformToInstall}
+                  onChange={(e) =>
+                    setPlatformToInstall(e.target.value as PlatformToInstall)
+                  }
+                >
+                  {availablePlatforms.map((p) => (
+                    <option value={p.value} key={p.value}>
+                      {p.name}
+                    </option>
+                  ))}
+                </SelectTag>
               )}
               {installLanguages && installLanguages?.length > 1 && (
-                <div className="InstallModal__control">
-                  <div className="InstallModal__controlLabel">
-                    {t('game.language', 'Language')}:
-                  </div>
-                  <div className="InstallModal__controlInput">
-                    <FormControl select>
-                      <select
-                        className="FormControl__select"
-                        name="language"
-                        id="languagePick"
-                        value={installLanguage}
-                        onChange={(e) => setInstallLanguage(e.target.value)}
-                      >
-                        {installLanguages &&
-                          installLanguages.map((value) => (
-                            <option value={value} key={value}>
-                              {getLanguageName(value)}
-                            </option>
-                          ))}
-                      </select>
-                    </FormControl>
-                  </div>
-                </div>
+                <SelectTag
+                  label={`${t('game.language', 'Language')}:`}
+                  htmlId="languagePick"
+                  value={installLanguage}
+                  onChange={(e) => setInstallLanguage(e.target.value)}
+                >
+                  {installLanguages &&
+                    installLanguages.map((value) => (
+                      <option value={value} key={value}>
+                        {getLanguageName(value)}
+                      </option>
+                    ))}
+                </SelectTag>
               )}
               <div className="InstallModal__control">
                 <div className="InstallModal__controlLabel">
@@ -547,34 +529,25 @@ export default function InstallModal({
                       </FormControl>
                     </div>
                   </div>
-                  <div className="InstallModal__control">
-                    <div className="InstallModal__controlLabel">
-                      {t('install.wineversion')}:
-                    </div>
-                    <div className="InstallModal__controlInput">
-                      <FormControl select>
-                        <select
-                          className="FormControl__select"
-                          name="wineVersion"
-                          value={wineVersion && wineVersion.bin}
-                          onChange={(e) =>
-                            setWineVersion(
-                              wineVersionList.find(
-                                (version) => version.bin === e.target.value
-                              )
-                            )
-                          }
-                        >
-                          {wineVersionList &&
-                            wineVersionList.map((version) => (
-                              <option value={version.bin} key={version.bin}>
-                                {version.name}
-                              </option>
-                            ))}
-                        </select>
-                      </FormControl>
-                    </div>
-                  </div>
+                  <SelectTag
+                    label={`${t('install.wineversion')}:`}
+                    htmlId="wineVersion"
+                    value={wineVersion?.bin || ''}
+                    onChange={(e) =>
+                      setWineVersion(
+                        wineVersionList.find(
+                          (version) => version.bin === e.target.value
+                        )
+                      )
+                    }
+                  >
+                    {wineVersionList &&
+                      wineVersionList.map((version) => (
+                        <option value={version.bin} key={version.bin}>
+                          {version.name}
+                        </option>
+                      ))}
+                  </SelectTag>
                 </>
               )}
               {(haveDLCs || haveSDL) && (

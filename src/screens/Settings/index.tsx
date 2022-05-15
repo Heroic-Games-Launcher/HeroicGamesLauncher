@@ -27,7 +27,6 @@ interface ElectronProps {
 }
 
 const { ipcRenderer } = window.require('electron') as ElectronProps
-const storage: Storage = window.localStorage
 
 interface LocationState {
   fromGameCard: boolean
@@ -64,9 +63,6 @@ function Settings() {
   const [altLegendaryBin, setAltLegendaryBin] = useState('')
   const [altGogdlBin, setAltGogdlBin] = useState('')
   const [canRunOffline, setCanRunOffline] = useState(true)
-  const [language, setLanguage] = useState(
-    () => storage.getItem('language') || 'en'
-  )
   const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
 
@@ -271,7 +267,6 @@ function Settings() {
     enableEsync,
     enableFsync,
     exitToTray,
-    language,
     maxRecentGames,
     maxWorkers,
     minimizeOnLaunch,
@@ -355,8 +350,6 @@ function Settings() {
               startInTray={startInTray}
               toggleTray={toggleTray}
               toggleStartInTray={toggleStartInTray}
-              language={language}
-              setLanguage={setLanguage}
               maxWorkers={maxWorkers}
               setMaxWorkers={setMaxWorkers}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
