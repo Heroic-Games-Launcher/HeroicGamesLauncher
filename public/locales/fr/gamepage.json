@@ -78,7 +78,7 @@
         "disk-space-left": "Space Left on the Device",
         "path": "Sélectionner le chemin d'installation",
         "wineprefix": "Préfixe Wine",
-        "wineversion": ""
+        "wineversion": "Version Wine"
     },
     "label": {
         "playing": {

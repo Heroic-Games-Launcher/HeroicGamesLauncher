@@ -33,8 +33,8 @@ export default function Library(): JSX.Element {
     refreshingInTheBackground,
     category,
     filter,
-    epicLibrary,
-    gogLibrary,
+    epic,
+    gog,
     recentGames,
     favouriteGames,
     libraryTopSection,
@@ -188,7 +188,7 @@ export default function Library(): JSX.Element {
 
   // select library
   const libraryToShow = useMemo(() => {
-    let library = category === 'epic' ? epicLibrary : gogLibrary
+    let library = category === 'epic' ? epic.library : gog.library
 
     // filter
     try {
@@ -232,8 +232,8 @@ export default function Library(): JSX.Element {
     return library
   }, [
     category,
-    epicLibrary,
-    gogLibrary,
+    epic,
+    gog,
     filter,
     filterText,
     filterPlatform,
@@ -259,15 +259,15 @@ export default function Library(): JSX.Element {
       const favouriteAppNames = favouriteGames.list.map(
         (favourite) => favourite.appName
       )
-      epicLibrary.forEach((game) => {
+      epic.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
-      gogLibrary.forEach((game) => {
+      gog.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
     }
     return tempArray
-  }, [showFavourites, favouriteGames, epicLibrary, gogLibrary])
+  }, [showFavourites, favouriteGames, epic, gog])
 
   return (
     <>

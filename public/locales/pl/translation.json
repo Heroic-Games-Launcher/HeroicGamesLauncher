@@ -372,7 +372,7 @@
         "manager": {
             "error": "W tym momencie nie można pobrać wersji Wine/Proton.",
             "link": "Menadżer Wine",
-            "title": "Menadżer Wine (Beta)",
+            "title": "Menadżer Wine",
             "unzipping": "Dekompresowanie"
         }
     }

@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
-        "title": "Accessibility",
+        "actions_font_family": "Семейство шрифтов для действий (По умолчанию: \"Rubik\")",
+        "content_font_family": "Семейство шрифтов для содержания (По умолчанию: \"Cabin\")",
+        "title": "Доступность",
         "zoom": "Zoom"
     },
     "All": "Все",
@@ -286,7 +286,7 @@
         "maxworkers": "Максимальное количество потоков при скачивании",
         "minimize-on-launch": "Сворачивать Heroic в трей при запуске игры",
         "offlinemode": "Запускать игру офлайн",
-        "primerun": "Включить Nvidia Prime Render",
+        "primerun": "Использовать выделенную видеокарту",
         "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",
         "runexe": {
             "message": "Перетащите файлы сюда",
@@ -372,7 +372,7 @@
         "manager": {
             "error": "Не удалось получить версии Wine/Proton.",
             "link": "Менеджер Wine",
-            "title": "Менеджер Wine (Beta)",
+            "title": "Менеджер Wine",
             "unzipping": "Распаковка"
         }
     }

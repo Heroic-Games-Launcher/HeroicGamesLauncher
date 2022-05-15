@@ -11,8 +11,14 @@ import {
   WineVersionInfo
 } from 'src/types'
 import { TFunction, withTranslation } from 'react-i18next'
-import { getLegendaryConfig, getPlatform, install, launch } from 'src/helpers'
-import { i18n } from 'i18next'
+import {
+  getLegendaryConfig,
+  getPlatform,
+  install,
+  launch,
+  notify
+} from 'src/helpers'
+import { i18n, t } from 'i18next'
 
 import ContextProvider from './ContextProvider'
 import { getRecentGames } from 'src/helpers/library'
@@ -41,8 +47,14 @@ interface Props {
 
 interface StateProps {
   category: string
-  epicLibrary: GameInfo[]
-  gogLibrary: GameInfo[]
+  epic: {
+    library: GameInfo[]
+    username: string | null
+  }
+  gog: {
+    library: GameInfo[]
+    username: string | null
+  }
   wineVersions: WineVersionInfo[]
   error: boolean
   filter: string
@@ -86,10 +98,16 @@ export class GlobalState extends PureComponent<Props> {
   }
   state: StateProps = {
     category: storage.getItem('category') || 'epic',
-    epicLibrary: libraryStore.has('library')
-      ? (libraryStore.get('library') as GameInfo[])
-      : [],
-    gogLibrary: this.loadGOGLibrary(),
+    epic: {
+      library: libraryStore.has('library')
+        ? (libraryStore.get('library') as GameInfo[])
+        : [],
+      username: configStore.get('userInfo')?.displayName || null
+    },
+    gog: {
+      library: this.loadGOGLibrary(),
+      username: gogConfigStore.get('userData')?.username || null
+    },
     wineVersions: wineDownloaderInfoStore.has('wine-releases')
       ? (wineDownloaderInfoStore.get('wine-releases') as WineVersionInfo[])
       : [],
@@ -122,6 +140,7 @@ export class GlobalState extends PureComponent<Props> {
   setTheme = (newThemeName: string) => {
     configStore.set('theme', newThemeName)
     this.setState({ theme: newThemeName })
+    document.body.className = newThemeName
   }
 
   zoomTimer: NodeJS.Timeout | undefined = undefined
@@ -202,16 +221,73 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ libraryTopSection: value })
   }
 
+  handleSuccessfulLogin = (runner: 'epic' | 'gog') => {
+    this.handleFilter('all')
+    this.handleCategory(runner)
+    this.refreshLibrary({
+      fullRefresh: true,
+      runInBackground: false
+    })
+  }
+
+  epicLogin = async (sid: string) => {
+    console.log('logging epic')
+    const response = await ipcRenderer.invoke('login', sid)
+
+    if (response.status === 'done') {
+      this.setState({
+        epic: {
+          library: [],
+          username: response.data.displayName
+        }
+      })
+
+      this.handleSuccessfulLogin('epic')
+    }
+
+    return response.status
+  }
+
+  epicLogout = () => {
+    ipcRenderer.invoke('logoutLegendary')
+    console.log('Logging out from epic')
+    window.location.reload()
+  }
+
+  gogLogin = async (token: string) => {
+    console.log('logging gog')
+    const response = await ipcRenderer.invoke('authGOG', token)
+
+    if (response.status === 'done') {
+      this.setState({
+        gog: {
+          library: [],
+          username: response.data.username
+        }
+      })
+
+      this.handleSuccessfulLogin('gog')
+    }
+
+    return response.status
+  }
+
+  gogLogout = () => {
+    ipcRenderer.invoke('logoutGOG')
+    console.log('Logging out from gog')
+    window.location.reload()
+  }
+
   refresh = async (checkUpdates?: boolean): Promise<void> => {
     console.log('refreshing')
 
     let updates = this.state.gameUpdates
-    const currentLibraryLength = this.state.epicLibrary.length
+    const currentLibraryLength = this.state.epic.library?.length
     let epicLibrary: Array<GameInfo> =
       (libraryStore.get('library') as Array<GameInfo>) || []
 
     const gogLibrary: Array<GameInfo> = this.loadGOGLibrary()
-    if (!epicLibrary.length || !this.state.epicLibrary.length) {
+    if (!epicLibrary.length || !this.state.epic.library.length) {
       ipcRenderer.send(
         'logInfo',
         'No cache found, getting data from legendary...'
@@ -229,8 +305,14 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     this.setState({
-      epicLibrary,
-      gogLibrary,
+      epic: {
+        library: epicLibrary,
+        username: this.state.epic.username
+      },
+      gog: {
+        library: gogLibrary,
+        username: this.state.gog.username
+      },
       gameUpdates: updates,
       refreshing: false,
       refreshingInTheBackground: true
@@ -267,19 +349,40 @@ export class GlobalState extends PureComponent<Props> {
       return
     }
     ipcRenderer.send('logInfo', 'Refreshing wine downloader releases')
-    try {
-      this.setState({ refreshing: true })
-      const releases = await ipcRenderer.invoke('refreshWineVersionInfo', fetch)
-      this.setState({
-        wineVersions: releases,
-        refreshing: false
+    this.setState({ refreshing: true })
+    await ipcRenderer
+      .invoke('refreshWineVersionInfo', fetch)
+      .then((releases) => {
+        this.setState({
+          wineVersions: releases,
+          refreshing: false
+        })
+        return
       })
-    } catch (error) {
-      this.setState({ refreshing: false })
-      console.error(error)
-      ipcRenderer.send('logError', error)
-      ipcRenderer.send('logError', 'Refreshing wine downloader releases failed')
-    }
+      .catch(async () => {
+        if (fetch) {
+          // try to restore the saved information
+          await ipcRenderer
+            .invoke('refreshWineVersionInfo', false)
+            .then((releases) => {
+              this.setState({
+                wineVersions: releases
+              })
+            })
+        }
+
+        this.setState({ refreshing: false })
+        ipcRenderer.send('logError', 'Sync with upstream releases failed')
+
+        notify([
+          'Wine-Manager',
+          t(
+            'notify.refresh.error',
+            "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+          )
+        ])
+        return
+      })
   }
 
   handleSearch = (input: string) => this.setState({ filterText: input })
@@ -342,13 +445,7 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { t } = this.props
-
-    const {
-      epicLibrary,
-      gogLibrary,
-      gameUpdates = [],
-      libraryStatus
-    } = this.state
+    const { epic, gog, gameUpdates = [], libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.on('launchGame', async (e, appName, runner) => {
@@ -405,11 +502,11 @@ export class GlobalState extends PureComponent<Props> {
 
     let recentGames: GameInfo[] = []
 
-    if (epicLibrary.length > 0) {
-      recentGames = [...getRecentGames(epicLibrary)]
+    if (epic.library.length > 0) {
+      recentGames = [...getRecentGames(epic.library)]
     }
-    if (gogLibrary.length > 0) {
-      recentGames = [...recentGames, ...getRecentGames(gogLibrary)]
+    if (gog.library.length > 0) {
+      recentGames = [...recentGames, ...getRecentGames(gog.library)]
     }
 
     this.setState({
@@ -421,7 +518,7 @@ export class GlobalState extends PureComponent<Props> {
       this.refreshLibrary({
         checkForUpdates: true,
         fullRefresh: true,
-        runInBackground: Boolean(epicLibrary.length)
+        runInBackground: Boolean(epic.library.length)
       })
     }
   }
@@ -461,6 +558,18 @@ export class GlobalState extends PureComponent<Props> {
       <ContextProvider.Provider
         value={{
           ...this.state,
+          epic: {
+            library: this.state.epic.library,
+            username: this.state.epic.username,
+            login: this.epicLogin,
+            logout: this.epicLogout
+          },
+          gog: {
+            library: this.state.gog.library,
+            username: this.state.gog.username,
+            login: this.gogLogin,
+            logout: this.gogLogout
+          },
           handleCategory: this.handleCategory,
           handleFilter: this.handleFilter,
           handleGameStatus: this.handleGameStatus,

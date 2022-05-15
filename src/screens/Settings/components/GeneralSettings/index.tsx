@@ -10,7 +10,7 @@ import classNames from 'classnames'
 
 import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
-import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
+import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
 import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 
@@ -156,6 +156,7 @@ export default function GeneralSettings({
 
   return (
     <>
+      <h3 className="settingSubheader">{t('settings.navbar.general')}</h3>
       <span className="setting" data-testid="generalSettings">
         <span className={classNames('settingText', { isRTL: isRTL })}>
           {t('setting.language')}
@@ -199,7 +200,7 @@ export default function GeneralSettings({
             }
             className="material-icons settings folder"
           >
-            <CreateNewFolder data-testid="setinstallpathbutton" />
+            <FolderOpenOutlinedIcon data-testid="setinstallpathbutton" />
           </SvgButton>
         </span>
       </span>
@@ -223,7 +224,7 @@ export default function GeneralSettings({
                 onClick={() => handleEgsFolder()}
                 className="material-icons settings folder"
               >
-                <CreateNewFolder
+                <FolderOpenOutlinedIcon
                   data-testid="setEpicSyncPathButton"
                   style={{ color: isLinked ? 'transparent' : 'currentColor' }}
                 />
@@ -275,7 +276,6 @@ export default function GeneralSettings({
               handleChange={handleSync}
               title={t('setting.egs-sync')}
             />
-            <span>{t('setting.egs-sync')}</span>
           </label>
         </span>
       )}
@@ -287,7 +287,6 @@ export default function GeneralSettings({
             handleChange={toggleTray}
             title={t('setting.exit-to-tray')}
           />
-          <span>{t('setting.exit-to-tray')}</span>
         </label>
       </span>
       {exitToTray && (
@@ -299,7 +298,6 @@ export default function GeneralSettings({
               handleChange={toggleStartInTray}
               title={t('setting.start-in-tray', 'Start Minimized')}
             />
-            <span>{t('setting.start-in-tray', 'Start Minimized')}</span>
           </label>
         </span>
       )}
@@ -314,12 +312,6 @@ export default function GeneralSettings({
               'Minimize Heroic After Game Launch'
             )}
           />
-          <span>
-            {t(
-              'setting.minimize-on-launch',
-              'Minimize Heroic After Game Launch'
-            )}
-          </span>
         </label>
       </span>
       <span className="setting">
@@ -332,12 +324,6 @@ export default function GeneralSettings({
               'Show Unreal Marketplace (needs restart)'
             )}
           />
-          <span>
-            {t(
-              'setting.showUnrealMarket',
-              'Show Unreal Marketplace (needs restart)'
-            )}
-          </span>
         </label>
       </span>
       <span className="setting">
@@ -350,7 +336,6 @@ export default function GeneralSettings({
             }}
             title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
           />
-          <span>{t('setting.darktray', 'Use Dark Tray Icon')}</span>
         </label>
       </span>
       <span className="setting">
@@ -366,12 +351,6 @@ export default function GeneralSettings({
               'Disable Heroic navigation using controller'
             )}
           />
-          <span>
-            {t(
-              'setting.disable_controller',
-              'Disable Heroic navigation using controller'
-            )}
-          </span>
         </label>
       </span>
 
@@ -406,9 +385,7 @@ export default function GeneralSettings({
           </option>
         </select>
       </span>
-
       <ThemeSelector />
-
       <span className="setting">
         <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <select

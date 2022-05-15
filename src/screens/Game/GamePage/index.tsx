@@ -50,14 +50,8 @@ export default function GamePage(): JSX.Element | null {
   const [tabToShow, setTabToShow] = useState('infoTab')
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const {
-    libraryStatus,
-    handleGameStatus,
-    epicLibrary,
-    gogLibrary,
-    gameUpdates,
-    platform
-  } = useContext(ContextProvider)
+  const { libraryStatus, handleGameStatus, epic, gog, gameUpdates, platform } =
+    useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
@@ -136,7 +130,7 @@ export default function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName, epicLibrary, gogLibrary])
+  }, [isInstalling, isPlaying, appName, epic, gog])
 
   async function handleUpdate() {
     await handleGameStatus({
@@ -252,7 +246,7 @@ export default function GamePage(): JSX.Element | null {
                   </nav>
 
                   <div className="gameInfo">
-                    <div className="title">{title}</div>
+                    <h1 className="title">{title}</h1>
                     <div className="infoWrapper">
                       <div className="developer">{developer}</div>
                       {!is_game && (
@@ -335,8 +329,8 @@ export default function GamePage(): JSX.Element | null {
                         style={{
                           color:
                             is_installed || isInstalling
-                              ? '#0BD58C'
-                              : '#BD0A0A',
+                              ? 'var(--success)'
+                              : 'var(--danger)',
                           fontStyle: 'italic'
                         }}
                       >
@@ -405,25 +399,27 @@ export default function GamePage(): JSX.Element | null {
                         </button>
                       )}
                     </div>
-                    <NavLink
-                      to={`/settings/${appName}/log`}
-                      state={{
-                        fromGameCard: false,
-                        runner,
-                        isLinuxNative: isNative,
-                        isMacNative: isNative,
-                        hasCloudSave: cloud_save_enabled
-                      }}
-                      className="link is-text is-link reportProblem"
-                    >
-                      <>
-                        {<FontAwesomeIcon icon={faTriangleExclamation} />}
-                        {t(
-                          'report_problem',
-                          'Report a problem running this game'
-                        )}
-                      </>
-                    </NavLink>
+                    {is_installed && (
+                      <NavLink
+                        to={`/settings/${appName}/log`}
+                        state={{
+                          fromGameCard: false,
+                          runner,
+                          isLinuxNative: isNative,
+                          isMacNative: isNative,
+                          hasCloudSave: cloud_save_enabled
+                        }}
+                        className="clickable reportProblem"
+                      >
+                        <>
+                          {<FontAwesomeIcon icon={faTriangleExclamation} />}
+                          {t(
+                            'report_problem',
+                            'Report a problem running this game'
+                          )}
+                        </>
+                      </NavLink>
+                    )}
                   </div>
 
                   <GameSubMenu

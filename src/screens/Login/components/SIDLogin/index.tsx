@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Info from '@mui/icons-material/Info'
 import { useTranslation } from 'react-i18next'
 import { loginPage, sidInfoPage } from 'src/helpers'
 import './index.css'
 import { Autorenew } from '@mui/icons-material'
+import ContextProvider from 'src/state/ContextProvider'
 
 const { ipcRenderer, clipboard } = window.require('electron')
 
 interface Props {
   backdropClick: () => void
-  refresh: () => void
 }
 
-export default function SIDLogin({ backdropClick, refresh }: Props) {
+export default function SIDLogin({ backdropClick }: Props) {
+  const { epic } = useContext(ContextProvider)
   const { t } = useTranslation('login')
   const [input, setInput] = useState('')
   const [status, setStatus] = useState({
@@ -23,18 +24,17 @@ export default function SIDLogin({ backdropClick, refresh }: Props) {
   const { loading, message } = status
 
   const handleLogin = async (sid: string) => {
-    await ipcRenderer.invoke('login', sid).then(async (res) => {
+    await epic.login(sid).then(async (res) => {
       setStatus({
         loading: true,
         message: t('status.loading', 'Loading Game list, please wait')
       })
       ipcRenderer.send('logInfo', 'Called Login')
       console.log(res)
-      if (res !== 'error') {
+      if (res === 'done') {
         await ipcRenderer.invoke('getUserInfo')
         setStatus({ loading: false, message: '' })
         backdropClick()
-        refresh()
       } else {
         setStatus({ loading: true, message: t('status.error', 'Error') })
         setTimeout(() => {

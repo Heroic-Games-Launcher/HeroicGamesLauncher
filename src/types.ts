@@ -49,8 +49,6 @@ export interface AppSettings {
 
 export interface ContextType {
   category: string
-  epicLibrary: GameInfo[]
-  gogLibrary: GameInfo[]
   wineVersions: WineVersionInfo[]
   recentGames: GameInfo[]
   error: boolean
@@ -95,6 +93,18 @@ export interface ContextType {
   setContentFontFamily: (newFontFamily: string) => void
   actionsFontFamily: string
   setActionsFontFamily: (newFontFamily: string) => void
+  epic: {
+    library: GameInfo[]
+    username: string | null
+    login: (sid: string) => Promise<string>
+    logout: () => void
+  }
+  gog: {
+    library: GameInfo[]
+    username: string | null
+    login: (token: string) => Promise<string>
+    logout: () => void
+  }
 }
 
 export type LibraryTopSectionOptions =

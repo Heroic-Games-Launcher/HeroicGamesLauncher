@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Ini akan mengubah lokasi pemasangan gim ini, apakah Anda yakin?",
+            "message": "Apakah anda yakin ingin mengubah lokasi pemasangan gim ini?",
             "path": "Pilih lokasi pemasangan baru",
             "title": "Ubah Lokasi Pemasangan Gim"
         },
@@ -36,14 +36,14 @@
         "yes": "YA"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Tambahkan Ke Favorit",
         "cancel": "Jeda/Batal",
         "continue": "Lanjutkan Unduhan",
-        "hide_game": "Hide Game",
+        "hide_game": "Sembunyikan Gim",
         "import": "Impor Gim",
         "install": "Pasang",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Hapus Dari Favorit",
+        "unhide_game": "Tampilkan Gim yang Disembunyikan",
         "uninstall": "Copot",
         "update": "Perbarui"
     },
@@ -59,7 +59,7 @@
         "language": "Bahasa",
         "lastPlayed": "Terakhir Dimainkan",
         "neverPlayed": "Tidak pernah",
-        "platform": "Select Platform Version to Install",
+        "platform": "Pilih Versi Platform Yang Akan di Install",
         "totalPlayed": "Lama Dimainkan"
     },
     "gamecard": {
@@ -68,14 +68,14 @@
     },
     "info": {
         "canRunOffline": "Internet Dibutuhkan",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "Platform yang Telah di Install",
         "path": "Lokasi Pemasangan",
         "size": "Ukuran",
         "syncsaves": "Sinkronkan Penyimpanan",
         "version": "Versi"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Ruang Penyimpanan Tersisa",
         "path": "Pilih Lokasi Pemasangan",
         "wineprefix": "PrefiksWine",
         "wineversion": "Versi Wine"
@@ -92,7 +92,7 @@
     "launch": {
         "options": "Opsi Peluncuran…"
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Laporkan masalah yang terjadi saat memainkan gim ini",
     "sdl": {
         "title": "Pilih komponen untuk dipasang"
     },

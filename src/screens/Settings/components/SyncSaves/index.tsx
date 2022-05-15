@@ -88,11 +88,12 @@ export default function SyncSaves({
 
   return (
     <>
+      <h3 className="settingSubheader">{t('settings.navbar.sync')}</h3>
       <span data-testid="syncSettings" className="setting">
         <span className={classNames('settingText', { isRTL: isRTL })}>
           {t('setting.savefolder.title')}
         </span>
-        <span>
+        <span className="settingInputWithButton">
           <input
             data-testid="inputSavePath"
             type="text"
@@ -137,20 +138,14 @@ export default function SyncSaves({
         <span className={classNames('settingText', { isRTL: isRTL })}>
           {t('setting.manualsync.title')}
         </span>
-        <span
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '100%',
-            maxWidth: '513px'
-          }}
-        >
+        <span className="settingInputWithButton">
           <select
             data-testid="selectSyncType"
             onChange={(event) => setSyncType(event.target.value as SyncType)}
             value={syncType}
             disabled={!savesPath.length}
-            className="settingSelect small"
+            className="settingSelect is-drop-down"
+            style={{ marginRight: '12px' }}
           >
             {syncTypes.map((name: SyncType) => (
               <option key={name}>{name}</option>
@@ -180,7 +175,6 @@ export default function SyncSaves({
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
             title={t('setting.autosync')}
           />
-          <span>{t('setting.autosync')}</span>
         </label>
       </span>
       <InfoBox text="infobox.help">

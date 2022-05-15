@@ -1,26 +1,35 @@
-.App.dracula,
-.App.dracula-classic {
-  --accent: #f566d6;
-  --navbar-accent: var(--accent);
+body.dracula,
+body.dracula-classic {
+  --accent: #bd93f9;
+  --accent-overlay: #d5b8ff;
+  --navbar-accent: #eae8e5;
   --background: #090b1c;
-  --body-background: #090b1c;
-  --background-darker: #090b1c;
+  --body-background: #282a35;
+  --background-darker: var(--body-background);
   --current-background: var(--body-background);
-  --navbar-background: #303251;
-  --navbar-active-background: #090b1c;
+  --navbar-background: #44475a;
+  --navbar-active-background: #282a36;
   --gradient-body-background: linear-gradient(
     90deg,
     var(--background-darker) -32px,
     var(--body-background) 64px,
     var(--body-background) 100%
   );
-  --input-background: #0d1029;
+  --input-background: #44475a;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
+  --download-button: #44475a;
+  --download-button-overlay: #1372d7;
+  --success: #50fa7b;
+  --success-hover: #42ff71;
+  --primary: #ff79c6;
+  --primary-hover: #f560b4;
+  --danger: #ff5555;
+  --text-title: #8be9fd;
 }
 
-.App.marine,
-.App.marine-classic {
+body.marine,
+body.marine-classic {
   --background: #042028;
   --body-background: #042028;
   --background-darker: #042028;
@@ -39,9 +48,10 @@
   --success: #98f2ff;
 }
 
-.App.zombie,
-.App.zombie-classic {
-  --accent: #77f33c;
+body.zombie,
+body.zombie-classic {
+  --accent: #59c627;
+  --accent-overlay: #83da5b;
   --navbar-accent: var(--accent);
   --background: #1d1f1f;
   --body-background: #1d1f1f;
@@ -61,18 +71,14 @@
   --success: #1bd01a;
 }
 
-.App.zombie h3,
-.App.zombie-classic h3 {
-  color: #f56200;
+body.zombie .downIcon > circle,
+body.zombie-classic .downIcon > circle {
+  fill: var(--text-secondary);
 }
 
-.App.zombie .downIcon > circle,
-.App.zombie-classic .downIcon > circle {
-  fill: #f56200;
-}
-
-.App.old-school {
+body.old-school {
   --accent: #ffa800;
+  --accent-overlay: #ffc44f;
   --navbar-accent: #eae8e5;
   --background: #1d1f1f;
   --body-background: #1d1f1f;
@@ -92,9 +98,9 @@
   --success: #0bd48c;
 }
 
-.App.classic,
-.App.dracula-classic,
-.App.marine-classic,
-.App.zombie-classic {
-  --navbar-accent: white;
+body.classic,
+body.dracula-classic,
+body.marine-classic,
+body.zombie-classic {
+  --navbar-accent: var(--text-default);
 }

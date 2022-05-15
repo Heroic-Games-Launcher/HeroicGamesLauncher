@@ -372,7 +372,7 @@
         "manager": {
             "error": "No s'ha pogut obtenir les versions de Wine/Proton.",
             "link": "Gestor del Wine",
-            "title": "Gestor del Wine (beta)",
+            "title": "Gestor del Wine",
             "unzipping": "S'està descomprimint"
         }
     }

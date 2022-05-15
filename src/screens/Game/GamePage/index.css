@@ -60,13 +60,13 @@
 }
 
 .backButton > .MuiSvgIcon-root {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   transition: 300ms;
 }
 
 .backButton > .MuiSvgIcon-root:hover {
-  color: var(--text-hover);
+  color: var(--accent-overlay);
 }
 
 .gameInfo {
@@ -80,8 +80,8 @@
 }
 
 .gameInfo .title {
-  color: var(--text-default);
   font-weight: 700;
+  margin-bottom: 0;
 }
 
 .gameInfo > .settingSelect {
@@ -92,27 +92,29 @@
 .gameInfo .infoWrapper {
   color: var(--text-default);
   flex-grow: 1;
+  line-height: 22px;
 }
 
 .gameInfo .developer {
   padding: 1rem 0 1rem 0;
-  color: var(--text-secondary);
+  color: var(--text-default);
 }
 
 .gameInfo .summary {
   font-family: var(--content-font-family);
   font-style: normal;
   font-weight: normal;
-  margin-bottom: 16px;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
   font-size: 16px;
   max-width: 560px;
-  line-height: 19px;
   text-overflow: ellipsis;
-  display: -webkit-box;
   color: var(--text-default);
   overflow: hidden;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
+  border-bottom: 2px solid;
+  overflow: auto;
 }
 
 .gameInfo,
@@ -151,7 +153,7 @@
   transition: 350ms;
   border: none;
   background: none;
-  color: var(--accent);
+  color: var(--text-default);
   cursor: pointer;
   font-size: 1em;
 }
@@ -163,7 +165,8 @@
 .gameTabs.infoTab button[data-tab='info'],
 .gameTabs.toolsTab button[data-tab='tools'],
 .gameTabs.requirementsTab button[data-tab='requirements'] {
-  color: var(--text-default);
+  color: var(--accent);
+  font-weight: 700;
 }
 
 .installProgress[value] {
@@ -249,10 +252,6 @@
   align-self: flex-start;
   margin-top: 1.2em;
   color: var(--accent);
-}
-
-.reportProblem:hover {
-  color: var(--text-hover);
 }
 
 .reportProblem svg {

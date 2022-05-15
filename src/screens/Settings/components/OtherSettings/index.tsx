@@ -112,12 +112,13 @@ export default function OtherSettings({
 
   return (
     <>
+      <h3 className="settingSubheader">{t('settings.navbar.other')}</h3>
       {!isDefault && (
         <span className="setting">
           <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.change-target-exe', 'Select an alternative EXE to run')}
           </span>
-          <span>
+          <span className="settingInputWithButton">
             <input
               data-testid="setinstallpath"
               type="text"
@@ -161,7 +162,6 @@ export default function OtherSettings({
               handleChange={toggleFps}
               title={t('setting.showfps')}
             />
-            <span>{t('setting.showfps')}</span>
           </label>
         </span>
       )}
@@ -174,7 +174,6 @@ export default function OtherSettings({
                 handleChange={toggleUseGameMode}
                 title={t('setting.gamemode')}
               />
-              <span>{t('setting.gamemode')}</span>
             </label>
           </span>
           <span className="setting">
@@ -182,9 +181,8 @@ export default function OtherSettings({
               <ToggleSwitch
                 value={primeRun}
                 handleChange={togglePrimeRun}
-                title={t('setting.primerun', 'Enable Nvidia Prime Render')}
+                title={t('setting.primerun', 'Use Dedicated Graphics Card')}
               />
-              <span>{t('setting.primerun', 'Enable Nvidia Prime Render')}</span>
             </label>
           </span>
           <span className="setting">
@@ -194,7 +192,6 @@ export default function OtherSettings({
                 handleChange={toggleAudioFix}
                 title={t('setting.audiofix')}
               />
-              <span>{t('setting.audiofix')}</span>
             </label>
           </span>
           <span className="setting">
@@ -204,7 +201,6 @@ export default function OtherSettings({
                 handleChange={toggleMangoHud}
                 title={t('setting.mangohud')}
               />
-              <span>{t('setting.mangohud')}</span>
             </label>
           </span>
           {isLinuxNative && (
@@ -215,7 +211,6 @@ export default function OtherSettings({
                   handleChange={toggleUseSteamRuntime}
                   title={t('setting.steamruntime', 'Use Steam Runtime')}
                 />
-                <span>{t('setting.steamruntime', 'Use Steam Runtime')}</span>
               </label>
             </span>
           )}
@@ -229,7 +224,6 @@ export default function OtherSettings({
               handleChange={toggleOffline}
               title={t('setting.offlinemode')}
             />
-            <span>{t('setting.offlinemode')}</span>
           </label>
         </span>
       )}
@@ -245,12 +239,6 @@ export default function OtherSettings({
                   'Add desktop shortcuts automatically'
                 )}
               />
-              <span>
-                {t(
-                  'setting.adddesktopshortcuts',
-                  'Add desktop shortcuts automatically'
-                )}
-              </span>
             </label>
           </span>
           <span className="setting">
@@ -263,12 +251,6 @@ export default function OtherSettings({
                   'Add games to start menu automatically'
                 )}
               />
-              <span>
-                {t(
-                  'setting.addgamestostartmenu',
-                  'Add games to start menu automatically'
-                )}
-              </span>
             </label>
           </span>
         </>
@@ -281,9 +263,6 @@ export default function OtherSettings({
               handleChange={toggleDiscordRPC}
               title={t('setting.discordRPC', 'Enable Discord Rich Presence')}
             />
-            <span>
-              {t('setting.discordRPC', 'Enable Discord Rich Presence')}
-            </span>
           </label>
         </span>
       )}
@@ -302,7 +281,6 @@ export default function OtherSettings({
                 <option key={n + 1}>{n + 1}</option>
               ))}
             </select>
-            <span>{t('setting.maxRecentGames', 'Recent Games to Show')}</span>
           </label>
         </span>
       )}
@@ -317,7 +295,7 @@ export default function OtherSettings({
               id="otherOptions"
               type="text"
               placeholder={t('options.advanced.placeholder')}
-              className="settingSelect"
+              className="settingInput"
               value={otherOptions}
               onChange={handleOtherOptions}
             />
@@ -336,7 +314,7 @@ export default function OtherSettings({
               id="launcherArgs"
               type="text"
               placeholder={t('options.gameargs.placeholder')}
-              className="settingSelect"
+              className="settingInput"
               value={launcherArgs}
               onChange={handleLauncherArgs}
             />

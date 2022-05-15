@@ -15,24 +15,24 @@
   height: 0;
 }
 
+.toggleWrapper span {
+  transition: 350ms;
+  color: var(--text-default);
+}
+
 .toggleWrapper:hover span {
   transition: 350ms;
-  color: var(--text-hover);
+  color: var(--accent);
 }
 
 .switch:hover .checkmark,
 .toggleWrapper:hover .switch .checkmark {
-  border-color: var(--text-hover);
+  border-color: var(--accent-overlay);
 }
 
 .switch:hover input:checked ~ .checkmark,
 .toggleWrapper:hover .switch input:checked ~ .checkmark {
-  border-color: var(--text-hover);
-  background-color: var(--text-hover);
-}
-.switch:hover input:checked ~ .checkmark:after,
-.toggleWrapper:hover .switch input:checked ~ .checkmark:after {
-  border-color: var(--input-background);
+  border-color: var(--accent-overlay);
 }
 
 .switch input:checked ~ .checkmark {
@@ -74,4 +74,9 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.title.checked {
+  font-weight: 700;
+  color: var(--accent);
 }

@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
-        "title": "Accessibility",
+        "actions_font_family": "Fonte para ações (Padrão: \"Rubik\")",
+        "content_font_family": "Fonte para conteúdo (Padrão: \"Cabin\")",
+        "title": "Accessibilidade",
         "zoom": "Zoom"
     },
     "All": "Todos",
@@ -372,7 +372,7 @@
         "manager": {
             "error": "Não foi possível encontrar as versões do Wine/Proton.",
             "link": "Versões do Wine",
-            "title": "Versões do Wine (Beta)",
+            "title": "Versões do Wine",
             "unzipping": "Descompactando"
         }
     }

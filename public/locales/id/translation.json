@@ -2,7 +2,7 @@
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
-        "title": "Accessibility",
+        "title": "Aksesibilitas",
         "zoom": "Zoom"
     },
     "All": "Semua",
@@ -17,19 +17,19 @@
         "choose-gogdl-binary": "Pilih GOGDL Binary (perlu memulai ulang)",
         "choose-legendary-binary": "Pilih Legendary binary",
         "customWine": "Pilih Wine atau Proton Binary",
-        "default-install-path": "Pilih Lokasi Pemasangan Asali",
+        "default-install-path": "Pilih Lokasi Pemasangan Bawaan",
         "error": {
             "credentials": {
                 "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi.",
                 "title": "Kredensial Kedaluwarsa"
             },
             "diskspace": {
-                "message": "Tidak cukup ruang penyimpanan yang tersedia",
+                "message": "Ruang penyimpanan tidak cukup",
                 "title": "Tidak Ada Ruang"
             },
             "dxvk": {
-                "message": "Galat saat memasang DXVK/VKD3D! Periksa koneksi Anda atau apakah Anda telah memasang zstd/libzstd1",
-                "title": "Galat DXVK/VKD3D"
+                "message": "Terjadi kesalahan saat memasang DXVK/VKD3D! Periksa koneksi Anda atau cek apakah Anda telah memasang zstd/libzstd1",
+                "title": "Terjadi Kesalahan DXVK/VKD3D"
             },
             "generic": {
                 "message": "",
@@ -42,7 +42,7 @@
             },
             "title": "Galat",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "Terjadi kesalahan saat melakukan update, silahkan cek log atau coba lagi nanti!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -52,12 +52,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Buka log perubahan",
+                "detail": "Apakah Anda ingin mengunduh pembaruan di latar belakang?",
+                "message": "Ada Versi baru yang tersedia!",
+                "message-finished": "Apakah Anda ingin memulai ulang Heroic sekarang?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Pembaruan Selesai"
             }
         },
         "no": "TIDAK",
@@ -105,7 +105,7 @@
         "yes": "YA"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "Pergi ke Pustaka",
         "login": "Log Masuk",
         "sync": "Sinkronkan",
         "syncing": "Menyinkronkan",
@@ -116,14 +116,14 @@
         "offline-notification-title": "luring"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "Favorit",
     "globalSettings": "Pengaturan Global",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "Abaikan yang Disembunyikan",
         "platform": "Platform",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Tampilkan yang Disembunyikan"
     },
     "help": {
         "general": "Sinkronkan dengan EGL jika Anda memiliki instalasi Epic Games Launcher yang berjalan di tempat lain dan ingin mengimpor gim Anda untuk menghindari pengunduhan ulang.",
@@ -164,11 +164,11 @@
         "gridView": "Tampilan bergaris",
         "listView": "Tampilan daftar",
         "refresh": "Segarkan",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "Urutkan Naik",
+        "sortByStatus": "Urutkan berdasarkan Status",
+        "sortDescending": "Urutkan Turun"
     },
-    "Library": "Perpustakaan",
+    "Library": "Pustaka",
     "loading": {
         "default": "Memuat",
         "website": "Memuat Situs Web"
@@ -245,9 +245,9 @@
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
         "customWineProton": "Lokasi Wine/Proton Khusus",
         "darktray": "Gunakan Ikon Baki Gelap",
-        "default-install-path": "Lokasi Pemasangan Asali",
+        "default-install-path": "Lokasi Pemasangan Bawaan",
         "defaultWinePrefix": "Atur Folder untuk Prefiks Wine baru",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "Nonaktifkan navigasi Heroic menggunakan controller",
         "discordRPC": "Aktifkan Discord Rich Presence",
         "egs-sync": "Sinkronkan dengan Epic Games yang Terpasang",
         "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
@@ -258,16 +258,16 @@
         "gamemode": "Gunakan GameMode (Feral Game Mode perlu dipasang)",
         "language": "Pilih Bahasa",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "Matikan",
+            "favourites": "Gim Favorit",
+            "recently_played": "Gim yang Baru Dimainkan"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "Bagian Atas Pustaka",
         "log": {
             "copy-to-clipboard": "Salin konten log ke papan klip",
             "current-log": "Log Saat Ini",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "Bergabunglah dengan Discord kami dan cari saluran yang cocok dengan sistem operasi Anda. Bagikan konten log yang ditampilkan di sini, dan sertakan deskripsi yang jelas tentang masalah yang dialami dengan informasi dan detail yang relevan.",
+            "instructions_title": "Bagaimana cara melaporkan masalah?",
             "last-log": "Log Terakhir",
             "no-file": "Tidak ditemukan berkas log",
             "show-in-folder": "Tampilkan berkas log di dalam folder"
@@ -286,7 +286,7 @@
         "maxworkers": "Jumlah Maksimum Worker saat mengunduh",
         "minimize-on-launch": "Minimalkan Jendela Heroic Setelah Gim Diluncurkan",
         "offlinemode": "Jalankan Game Secara Luring",
-        "primerun": "Aktifkan Nvidia Prime Render",
+        "primerun": "Gunakan Kartu Grafis untuk Rendering",
         "resizableBar": "Aktifkan Resizable BAR (hanya untuk NVIDIA RTX 30xx saja)",
         "runexe": {
             "message": "Seret dan Jatuhkan Berkas di sini",
@@ -296,7 +296,7 @@
             "placeholder": "Pilih folder gim tersimpan yang tepat",
             "title": "Timpa folder Sinkronisasi Penyimpanan Awan"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "Pilih Tema",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
         "showUnrealMarket": "Tampilkan Unreal Marketplace (perlu memulai ulang)",
         "start-in-tray": "Mulai Diminimalkan",
@@ -313,7 +313,7 @@
             "long-log-hint": "Log terpotong, 1000 baris terakhir akan ditampilkan!"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "Tambahan",
             "general": "Umum",
             "log": "Log",
             "other": "Lainnya",
@@ -354,8 +354,8 @@
     "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
-        "logout": "Log keluar",
-        "logout_confirmation": "Apakah Anda yakin ingin log keluar?",
+        "logout": "Keluar",
+        "logout_confirmation": "Apakah Anda yakin ingin keluar?",
         "manageaccounts": "Kelola Akun",
         "quit": "Keluar"
     },
@@ -372,7 +372,7 @@
         "manager": {
             "error": "Tidak dapat mengambil versi Wine/Proton saat ini.",
             "link": "Manajer Wine",
-            "title": "Manajer Wine (Beta)",
+            "title": "Manajer Wine",
             "unzipping": "Mengekstrak"
         }
     }

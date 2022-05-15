@@ -1,9 +1,9 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
-        "title": "Accessibility",
-        "zoom": "Zoom"
+        "actions_font_family": "Семейство на шрифта за действията (по подразбиране: „Rubik“)",
+        "content_font_family": "Семейство на шрифта за съдържанието (по подразбиране: „Cabin“)",
+        "title": "Достъпност",
+        "zoom": "Увеличаване"
     },
     "All": "Всички",
     "Assets": "Ресурси",
@@ -286,7 +286,7 @@
         "maxworkers": "Максимален брой работни процеси при сваляне",
         "minimize-on-launch": "Минимизиране на Heroic при пускане на игра",
         "offlinemode": "Пускане на играта в режим „извън линия“",
-        "primerun": "Включване на „Nvidia Prime Render“",
+        "primerun": "Използване на отделната видео-карта",
         "resizableBar": "Включване на „Resizable BAR“ (Само за NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Хванете и пуснете файловете тук",
@@ -372,7 +372,7 @@
         "manager": {
             "error": "В момента не могат да бъдат получени версиите на Wine/Proton.",
             "link": "Управление на Wine",
-            "title": "Управление на Wine (бета)",
+            "title": "Управление на Wine",
             "unzipping": "Разархивиране"
         }
     }

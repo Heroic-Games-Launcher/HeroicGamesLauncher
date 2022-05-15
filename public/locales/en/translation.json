@@ -286,7 +286,7 @@
         "maxworkers": "Maximum Number of Workers when downloading",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Run Game Offline",
-        "primerun": "Enable Nvidia Prime Render",
+        "primerun": "Use Dedicated Graphics Card",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX 30xx only)",
         "runexe": {
             "message": "Drag and Drop Files here",
@@ -372,7 +372,7 @@
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
+            "title": "Wine Manager",
             "unzipping": "Unzipping"
         }
     }
