@@ -6,7 +6,7 @@ import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
 
 import './index.css'
-import './themes.css'
+import './themes/main.css'
 import App from 'src/App'
 import GlobalState from 'src/state/GlobalState'
 import { UpdateComponentBase } from 'src/components/UI/UpdateComponent'

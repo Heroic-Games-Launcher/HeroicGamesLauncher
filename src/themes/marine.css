@@ -1,0 +1,18 @@
+body.marine-classic {
+  --background: #042028;
+  --body-background: #042028;
+  --background-darker: #042028;
+  --current-background: var(--body-background);
+  --navbar-background: #036986;
+  --navbar-active-background: #042028;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --input-background: #063442;
+  --modal-background: var(--body-background);
+  --modal-border: var(--body-background);
+  --success: #98f2ff;
+}

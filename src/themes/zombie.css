@@ -1,0 +1,27 @@
+body.zombie,
+body.zombie-classic {
+  --accent: #59c627;
+  --accent-overlay: #83da5b;
+  --navbar-accent: var(--accent);
+  --background: #1d1f1f;
+  --body-background: #1d1f1f;
+  --background-darker: #1d1f1f;
+  --current-background: var(--body-background);
+  --navbar-background: #323232;
+  --navbar-active-background: #1d1f1f;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --input-background: #1d1f1f;
+  --modal-background: var(--body-background);
+  --modal-border: var(--body-background);
+  --success: #1bd01a;
+}
+
+body.zombie .downIcon > circle,
+body.zombie-classic .downIcon > circle {
+  fill: var(--text-secondary);
+}

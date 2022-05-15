@@ -1,0 +1,11 @@
+@import "dracula.css";
+@import "marine.css";
+@import "zombie.css";
+@import "old-school.css";
+
+body.classic,
+body.dracula-classic,
+body.marine-classic,
+body.zombie-classic {
+  --navbar-accent: var(--text-default);
+}
