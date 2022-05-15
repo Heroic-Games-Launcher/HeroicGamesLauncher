@@ -122,7 +122,7 @@
     "gog-store": "GOG Store",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "",
+        "platform": "Plateforme",
         "show_hidden": "Show Hidden"
     },
     "help": {
@@ -161,16 +161,16 @@
         "path": "Sélectionner le chemin d'installation"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": "",
+        "gridView": "Vue en grille",
+        "listView": "Vue en liste",
+        "refresh": "Actualiser",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending"
     },
     "Library": "Bibliothèque",
     "loading": {
-        "default": "",
+        "default": "Chargement",
         "website": "Chargement du site internet"
     },
     "login": {
@@ -191,7 +191,7 @@
         },
         "install": {
             "canceled": "Installation Annulée",
-            "error": "",
+            "error": "Installation échouée",
             "finished": "Installation Terminée",
             "imported": "Jeu Importé",
             "startInstall": "Installation commencée"
@@ -225,9 +225,9 @@
         "egs-prefix": "Prefix où EGS est installé"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Plugins",
     "Projects": "Projets",
@@ -361,9 +361,9 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
+            "back": "Retour",
+            "forward": "Avancer",
+            "openInBrowser": "Ouvrir dans le navigateur",
             "reload": ""
         }
     },
