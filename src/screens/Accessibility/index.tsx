@@ -9,12 +9,12 @@ import React, {
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import classNames from 'classnames'
+import { SelectField } from 'src/components/UI'
 import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 const { ipcRenderer } = window.require('electron')
 import './index.css'
-import { SelectField } from 'src/components/UI/SelectField'
 
 export default function Accessibility() {
   const { t } = useTranslation()
@@ -82,8 +82,8 @@ export default function Accessibility() {
           {t('accessibility.title', 'Accessibility')}
         </h1>
 
-        <span className="setting">
-          <label className={classNames('settingText', { isRTL: isRTL })}>
+        <span className="rangeWrapper">
+          <label className={classNames({ isRTL: isRTL })}>
             {t('accessibility.zoom', 'Zoom')} ({zoomPercent}%)
           </label>
           <input

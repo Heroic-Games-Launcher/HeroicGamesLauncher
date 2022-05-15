@@ -15,7 +15,7 @@ interface SelectFieldProps {
   extraClass?: string
 }
 
-export const SelectField = ({
+const SelectField = ({
   htmlId,
   value,
   onChange,
@@ -29,22 +29,13 @@ export const SelectField = ({
   const { isRTL } = useContext(ContextProvider)
 
   return (
-    <div className={`setting selectWrapper ${extraClass}`}>
+    <div className={`selectFieldWrapper ${extraClass}`}>
       {label && (
-        <label
-          className={classNames('settingText', { isRTL: isRTL })}
-          htmlFor={htmlId}
-        >
+        <label className={classNames({ isRTL: isRTL })} htmlFor={htmlId}>
           {label}
         </label>
       )}
-      <select
-        id={htmlId}
-        value={value}
-        onChange={onChange}
-        className="settingSelect is-drop-down"
-        disabled={disabled}
-      >
+      <select id={htmlId} value={value} onChange={onChange} disabled={disabled}>
         {prompt && <option value="">{prompt}</option>}
         {children}
       </select>
@@ -52,3 +43,5 @@ export const SelectField = ({
     </div>
   )
 }
+
+export default SelectField

@@ -1,9 +1,9 @@
-.textInputWrapper {
+.textInputFieldWrapper {
   display: grid;
   grid-template-areas: 'label' 'input';
 }
 
-.textInputWrapper input[type='text'] {
+.textInputFieldWrapper input[type='text'] {
   grid-area: input;
   width: 100%;
   height: 40px;
@@ -25,12 +25,12 @@
   min-width: 100px;
 }
 
-.textInputWrapper label {
+.textInputFieldWrapper label {
   grid-area: label;
   justify-self: flex-start;
 }
 
-.textInputWrapper .inputIcon {
+.textInputFieldWrapper .inputIcon {
   grid-area: input;
   align-self: center;
   justify-self: flex-end;
@@ -47,16 +47,16 @@
   padding: 1px 3px;
 }
 
-.textInputWrapper .inputIcon ~ input {
+.textInputFieldWrapper .inputIcon ~ input {
   padding-right: 50px;
 }
 
-.textInputWrapper.withRightButton {
+.textInputFieldWrapper.withRightButton {
   grid-template-areas: 'label label' 'input button';
   grid-template-columns: auto min-content;
   grid-column-gap: 0.5rem;
 }
 
-.textInputWrapper.withRightButton .rightButton {
+.textInputFieldWrapper.withRightButton .rightButton {
   grid-area: button;
 }

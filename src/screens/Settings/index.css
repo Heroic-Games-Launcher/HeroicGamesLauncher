@@ -11,9 +11,40 @@
   margin-bottom: 35px;
 }
 
-.Settings .setting {
+.Settings .selectFieldWrapper,
+.Settings .toggleSwitchWrapper,
+.Settings .textInputFieldWrapper,
+.Settings .rangeWrapper,
+.InstallModal__dialog .selectFieldWrapper,
+.InstallModal__dialog .toggleSwitchWrapper,
+.InstallModal__dialog .textInputFieldWrapper,
+.InstallModal__dialog .rangeWrapper,
+.Accessibility .selectFieldWrapper,
+.Accessibility .toggleSwitchWrapper,
+.Accessibility .textInputFieldWrapper,
+.Accessibility .rangeWrapper {
   margin: 16px 0px;
   width: 100%;
+}
+
+.Settings .selectFieldWrapper label,
+.Settings .toggleSwitchWrapper label,
+.Settings .textInputFieldWrapper label,
+.Settings .rangeWrapper label,
+.InstallModal__dialog .selectFieldWrapper label,
+.InstallModal__dialog .toggleSwitchWrapper label,
+.InstallModal__dialog .textInputFieldWrapper label,
+.InstallModal__dialog .rangeWrapper label,
+.Accessibility .selectFieldWrapper label,
+.Accessibility .toggleSwitchWrapper label,
+.Accessibility .textInputFieldWrapper label,
+.Accessibility .rangeWrapper label {
+  cursor: default;
+  margin-bottom: 14px;
+  font: var(--font-secondary-regular);
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-secondary);
 }
 
 .settingsWrapper {
@@ -86,34 +117,6 @@
 
 .settingInputWithButton > .button.is-small {
   min-width: fit-content;
-}
-
-.setting > .toggleWrapper {
-  display: flex;
-  cursor: pointer;
-  gap: 15px;
-  align-content: flex-start;
-  width: 512px;
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--text-default);
-}
-.toggleWrapper label {
-  text-align: center;
-  margin-block: auto;
-}
-
-.toggleWrapper:hover > .description {
-  color: var(--accent);
-}
-
-.toggleWrapper > .description.checked {
-  font-weight: 700;
-  color: var(--accent);
-}
-
-.toggleWrapper > .switch {
-  transform: scale(1.5);
 }
 
 .settingInput {

@@ -3,17 +3,20 @@ import React, { useContext, useEffect, useState } from 'react'
 import { LibraryTopSectionOptions, Path } from 'src/types'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import { InfoBox, SvgButton } from 'src/components/UI'
+import {
+  InfoBox,
+  SvgButton,
+  SelectField,
+  TextInputField,
+  ToggleSwitch
+} from 'src/components/UI'
 import LanguageSelector from 'src/components/UI/LanguageSelector'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
+import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 
 import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
-import { ThemeSelector } from 'src/components/UI/ThemeSelector'
-import { SelectField } from 'src/components/UI/SelectField'
-import { TextInpuField } from 'src/components/UI/TextInputField'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -140,7 +143,7 @@ export default function GeneralSettings({
 
       <LanguageSelector />
 
-      <TextInpuField
+      <TextInputField
         label={t('setting.default-install-path')}
         htmlId="default_install_path"
         value={defaultInstallPath.replaceAll("'", '')}
@@ -167,7 +170,7 @@ export default function GeneralSettings({
       />
 
       {!isWindows && (
-        <TextInpuField
+        <TextInputField
           label={t('setting.egs-sync')}
           extraClass="withRightButton"
           htmlId="set_epic_sync_path"

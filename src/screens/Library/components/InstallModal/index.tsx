@@ -20,7 +20,7 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { UpdateComponent } from 'src/components/UI'
+import { UpdateComponent, SelectField, TextInputField } from 'src/components/UI'
 import {
   getAppSettings,
   getGameInfo,
@@ -52,8 +52,6 @@ import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 import './index.css'
 
 import { SDL_GAMES, SelectiveDownload } from './selective_dl'
-import { SelectField } from 'src/components/UI/SelectField'
-import { TextInpuField } from 'src/components/UI/TextInputField'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -442,7 +440,7 @@ export default function InstallModal({
                 </SelectField>
               )}
 
-              <TextInpuField
+              <TextInputField
                 htmlId="setinstallpath"
                 label={t('install.path', 'Select Install Path')}
                 placeholder={defaultPath}
@@ -481,7 +479,7 @@ export default function InstallModal({
 
               {hasWine && (
                 <>
-                  <TextInpuField
+                  <TextInputField
                     label={t('install.wineprefix', 'WinePrefix')}
                     htmlId="setinstallpath"
                     placeholder={winePrefix}

@@ -17,7 +17,7 @@ import {
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import UpdateComponent from 'src/components/UI/UpdateComponent'
+import { UpdateComponent, SelectField } from 'src/components/UI'
 
 import { updateGame } from 'src/helpers'
 
@@ -35,7 +35,6 @@ import GOGLogo from 'src/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'src/hooks/hasProgress'
-import { SelectField } from 'src/components/UI/SelectField'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer

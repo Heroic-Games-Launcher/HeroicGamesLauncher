@@ -2,7 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { Path, WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
-import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
+import {
+  InfoBox,
+  ToggleSwitch,
+  SvgButton,
+  SelectField,
+  TextInputField
+} from 'src/components/UI'
 
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import ContextProvider from 'src/state/ContextProvider'
@@ -10,8 +16,6 @@ import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { Tooltip } from '@mui/material'
-import { SelectField } from 'src/components/UI/SelectField'
-import { TextInpuField } from 'src/components/UI/TextInputField'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -123,7 +127,7 @@ export default function WineSettings({
       <h3 className="settingSubheader">Wine</h3>
 
       {isLinux && isDefault && (
-        <TextInpuField
+        <TextInputField
           htmlId="selectDefaultWinePrefix"
           label={t(
             'setting.defaultWinePrefix',
@@ -159,7 +163,7 @@ export default function WineSettings({
       )}
 
       {isLinux && (
-        <TextInpuField
+        <TextInputField
           htmlId="selectWinePrefix"
           label={t('setting.wineprefix')}
           value={winePrefix}
@@ -279,7 +283,7 @@ export default function WineSettings({
       </SelectField>
 
       {wineVersion.type === 'crossover' && (
-        <TextInpuField
+        <TextInputField
           label={t('setting.winecrossoverbottle', 'CrossOver Bottle')}
           htmlId="crossoverBottle"
           value={wineCrossoverBottle}

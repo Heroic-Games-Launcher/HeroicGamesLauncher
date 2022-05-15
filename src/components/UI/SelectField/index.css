@@ -1,9 +1,9 @@
-.selectWrapper {
+.selectFieldWrapper {
   display: grid;
   grid-template-areas: 'label' 'select';
 }
 
-.selectWrapper select {
+.selectFieldWrapper select {
   grid-area: select;
   width: 100%;
   height: 40px;
@@ -38,37 +38,37 @@
   min-width: 100px;
 }
 
-.selectWrapper label {
+.selectFieldWrapper label {
   justify-self: flex-start;
   grid-area: label;
   align-self: center;
 }
 
-.selectWrapper select:disabled {
+.selectFieldWrapper select:disabled {
   cursor: not-allowed;
 }
 
-.selectWrapper.small select {
+.selectFieldWrapper.small select {
   width: clamp(150px, 10rem, 372px);
 }
 
-.selectWrapper.smaller select {
+.selectFieldWrapper.smaller select {
   width: 66px;
   text-indent: 11px;
 }
 
-.selectWrapper.small,
-.selectWrapper.smaller {
+.selectFieldWrapper.small,
+.selectFieldWrapper.smaller {
   grid-template-areas: 'select label';
   grid-template-columns: min-content 1fr;
 }
 
-.selectWrapper.small label,
-.selectWrapper.smaller label {
+.selectFieldWrapper.small label,
+.selectFieldWrapper.smaller label {
   margin: 0px 1rem;
 }
 
-.selectWrapper select > option {
+.selectFieldWrapper select > option {
   background: var(--navbar-background);
   height: 40px;
   color: var(--text-secondary);
@@ -77,17 +77,17 @@
   border-radius: 10px;
 }
 
-.selectWrapper.rightButtons {
+.selectFieldWrapper.rightButtons {
   grid-template: 'label label' 'select buttons';
   grid-template-columns: auto min-content;
   grid-column-gap: 0.5rem;
 }
 
-.selectWrapper.rightButtons label {
+.selectFieldWrapper.rightButtons label {
   grid-area: label;
 }
 
-.selectWrapper.rightButtons .rightButtons {
+.selectFieldWrapper.rightButtons .rightButtons {
   grid-area: buttons;
   align-self: center;
 }

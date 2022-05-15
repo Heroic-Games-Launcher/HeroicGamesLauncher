@@ -7,10 +7,11 @@ interface Props {
   handleChange: ChangeEventHandler<HTMLInputElement>
   value: boolean
   title: string
+  extraClass?: string
 }
 
 export default function ToggleSwitch(props: Props) {
-  const { handleChange, value, disabled, title, htmlId } = props
+  const { handleChange, value, disabled, title, htmlId, extraClass } = props
 
   return (
     <>
@@ -24,7 +25,9 @@ export default function ToggleSwitch(props: Props) {
         className="hiddenCheckbox"
       />
       <label
-        className={`setting toggleSwitchWrapper ${value ? 'checked' : ''}`}
+        className={`toggleSwitchWrapper ${extraClass} ${
+          value ? 'checked' : ''
+        }`}
         htmlFor={htmlId}
       >
         {title}

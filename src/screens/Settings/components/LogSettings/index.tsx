@@ -112,7 +112,7 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
         )}
       </p>
       {isDefault && (
-        <span className="setting log-buttongroup toggleWrapper">
+        <span className="log-buttongroup">
           <a
             className={`log-buttons ${!defaultLast ? 'log-choosen' : ''}`}
             onClick={() => {
@@ -136,7 +136,7 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
         </span>
       )}
       {refreshing ? (
-        <span className="setting log-box">
+        <span className="log-box">
           <UpdateComponent inline />
         </span>
       ) : (

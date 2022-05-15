@@ -2,13 +2,17 @@ import React, { ChangeEvent, useContext } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
+import {
+  InfoBox,
+  ToggleSwitch,
+  SvgButton,
+  SelectField,
+  TextInputField
+} from 'src/components/UI'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
 import Backspace from '@mui/icons-material/Backspace'
-import { SelectField } from 'src/components/UI/SelectField'
-import { TextInpuField } from 'src/components/UI/TextInputField'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -115,7 +119,7 @@ export default function OtherSettings({
     <>
       <h3 className="settingSubheader">{t('settings.navbar.other')}</h3>
       {!isDefault && (
-        <TextInpuField
+        <TextInputField
           label={t(
             'setting.change-target-exe',
             'Select an alternative EXE to run'
@@ -250,7 +254,7 @@ export default function OtherSettings({
         </SelectField>
       )}
       {!isWin && (
-        <TextInpuField
+        <TextInputField
           label={t('options.advanced.title')}
           htmlId="otherOptions"
           placeholder={t('options.advanced.placeholder')}
@@ -260,7 +264,7 @@ export default function OtherSettings({
         />
       )}
       {!isDefault && (
-        <TextInpuField
+        <TextInputField
           label={t('options.gameargs.title')}
           htmlId="launcherArgs"
           placeholder={t('options.gameargs.placeholder')}

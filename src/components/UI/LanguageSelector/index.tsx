@@ -1,7 +1,7 @@
 import { IpcRenderer } from 'electron'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { SelectField } from '../SelectField'
+import { SelectField } from '..'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer

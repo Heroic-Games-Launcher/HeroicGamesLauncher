@@ -242,15 +242,6 @@ html,
   cursor: pointer;
 }
 
-.settingText {
-  cursor: default;
-  margin-bottom: 14px;
-  font: var(--font-secondary-regular);
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--text-secondary);
-}
-
 .smallMessage {
   font-size: 12px;
   width: 100%;

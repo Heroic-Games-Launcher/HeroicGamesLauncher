@@ -8,11 +8,10 @@ import classNames from 'classnames'
 import { IpcRenderer, Clipboard } from 'electron'
 import { useTranslation } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
-import { SvgButton } from 'src/components/UI'
+import { SvgButton, TextInputField } from 'src/components/UI'
 import { AppSettings, Path } from 'src/types'
 import { configStore } from 'src/helpers/electronStores'
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
-import { TextInpuField } from 'src/components/UI/TextInputField'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -128,7 +127,7 @@ export const AdvancedSettings = ({
     <div>
       <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
 
-      <TextInpuField
+      <TextInputField
         htmlId="setting-alt-legendary"
         label={t(
           'setting.alt-legendary-bin',
@@ -177,7 +176,7 @@ export const AdvancedSettings = ({
         }
       />
 
-      <TextInpuField
+      <TextInputField
         label={t(
           'setting.alt-gogdl-bin',
           'Choose an Alternative GOGDL Binary to use (needs restart)'

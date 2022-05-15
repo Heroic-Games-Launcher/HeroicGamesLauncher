@@ -15,7 +15,7 @@ interface SelectFieldProps {
   extraClass?: string
 }
 
-export const TextInpuField = ({
+const TextInputField = ({
   htmlId,
   value,
   onChange,
@@ -29,12 +29,9 @@ export const TextInpuField = ({
   const { isRTL } = useContext(ContextProvider)
 
   return (
-    <div className={`setting textInputWrapper ${extraClass}`}>
+    <div className={`textInputFieldWrapper ${extraClass}`}>
       {label && (
-        <label
-          className={classNames('settingText', { isRTL: isRTL })}
-          htmlFor={htmlId}
-        >
+        <label className={classNames({ isRTL: isRTL })} htmlFor={htmlId}>
           {label}
         </label>
       )}
@@ -51,3 +48,5 @@ export const TextInpuField = ({
     </div>
   )
 }
+
+export default TextInputField
