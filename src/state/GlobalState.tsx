@@ -74,6 +74,7 @@ interface StateProps {
   zoomPercent: number
   contentFontFamily: string
   actionsFontFamily: string
+  allTilesInColor: boolean
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -129,7 +130,8 @@ export class GlobalState extends PureComponent<Props> {
     contentFontFamily:
       (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
     actionsFontFamily:
-      (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif"
+      (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
+    allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false
   }
 
   setTheme = (newThemeName: string) => {
@@ -158,6 +160,11 @@ export class GlobalState extends PureComponent<Props> {
   setActionsFontFamily = (newFontFamily: string) => {
     configStore.set('actionsFontFamily', newFontFamily)
     this.setState({ actionsFontFamily: newFontFamily })
+  }
+
+  setAllTilesInColor = (value: boolean) => {
+    configStore.set('allTilesInColor', value)
+    this.setState({ allTilesInColor: value })
   }
 
   setShowHidden = (value: boolean) => {
@@ -707,7 +714,8 @@ export class GlobalState extends PureComponent<Props> {
           setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
           setContentFontFamily: this.setContentFontFamily,
-          setActionsFontFamily: this.setActionsFontFamily
+          setActionsFontFamily: this.setActionsFontFamily,
+          setAllTilesInColor: this.setAllTilesInColor
         }}
       >
         {children}

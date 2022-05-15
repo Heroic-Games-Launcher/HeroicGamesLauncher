@@ -104,6 +104,8 @@ export interface ContextType {
     login: (token: string) => Promise<string>
     logout: () => void
   }
+  allTilesInColor: boolean
+  setAllTilesInColor: (value: boolean) => void
 }
 
 export type LibraryTopSectionOptions =
