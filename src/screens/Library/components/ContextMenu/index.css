@@ -1,21 +1,15 @@
-.contextMenu
-  > .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
+.contextMenu > .MuiPaper-root {
   background: var(--navbar-background);
 }
 
-.contextMenu
-  > .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper
-  > .css-6hp17o-MuiList-root-MuiMenu-list {
+.contextMenu > .MuiPaper-root > .MuiMenu-list {
   background: var(--navbar-background);
   color: var(--accent);
   border-radius: 10px;
   font-family: 'Rubik';
 }
 
-.contextMenu
-  > .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper
-  > .css-6hp17o-MuiList-root-MuiMenu-list
-  > .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover {
+.contextMenu > .MuiPaper-root > .MuiMenu-list > .MuiMenuItem-root:hover {
   text-decoration: none;
   background-color: var(--navbar-active-background);
 }
