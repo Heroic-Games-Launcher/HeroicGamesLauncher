@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './index.css'
 import EpicLogo from '../../assets/epic-logo.svg'
 import Runner from './components/Runner'
@@ -9,42 +9,24 @@ import GOGLogo from 'src/assets/gog-logo.svg'
 import { LanguageSelector, UpdateComponent } from 'src/components/UI'
 import { FlagPosition } from 'src/components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
-import { configStore, gogConfigStore } from 'src/helpers/electronStores'
-
-const { ipcRenderer } = window.require('electron')
+import ContextProvider from 'src/state/ContextProvider'
 
 const storage: Storage = window.localStorage
 export default function NewLogin() {
   const { t, i18n } = useTranslation()
+  const { epic, gog } = useContext(ContextProvider)
   const currentLanguage = i18n.language
   const handleChangeLanguage = (language: string) => {
     storage.setItem('language', language)
     i18n.changeLanguage(language)
   }
   const navigate = useNavigate()
-  const [epicLogin, setEpicLogin] = useState('')
-  const [gogLogin, setGOGLogin] = useState('')
   const [loading, setLoading] = useState(true)
   const [showSidLogin, setShowSidLogin] = useState(false)
 
-  function refreshUserInfo() {
-    setEpicLogin(configStore.get('userInfo'))
-    setGOGLogin(gogConfigStore.get('userData'))
-  }
-
-  function eventHandler() {
-    setTimeout(refreshUserInfo, 1000)
-    console.log('Caught signal')
-  }
-
   useEffect(() => {
-    refreshUserInfo()
     setLoading(false)
-    ipcRenderer.on('updateLoginState', () => eventHandler)
-    return () => {
-      ipcRenderer.removeListener('updateLoginState', () => eventHandler)
-    }
-  }, [])
+  }, [epic, gog])
 
   return (
     <div className="loginPage">
@@ -55,7 +37,6 @@ export default function NewLogin() {
       )}
       {showSidLogin && (
         <SIDLogin
-          refresh={refreshUserInfo}
           backdropClick={() => {
             setShowSidLogin(false)
           }}
@@ -77,14 +58,9 @@ export default function NewLogin() {
             class="epic"
             loginUrl="/loginweb/legendary"
             icon={() => <img src={EpicLogo} alt="Epic" />}
-            isLoggedIn={Boolean(epicLogin)}
-            user={epicLogin}
-            refresh={refreshUserInfo}
-            logoutAction={() => {
-              ipcRenderer.invoke('logoutLegendary')
-              console.log('Logging out')
-              window.location.reload()
-            }}
+            isLoggedIn={Boolean(epic.username)}
+            user={epic.username}
+            logoutAction={epic.logout}
             alternativeLoginAction={() => {
               setShowSidLogin(true)
             }}
@@ -93,16 +69,12 @@ export default function NewLogin() {
             class="gog"
             icon={() => <img src={GOGLogo} alt="GOG" />}
             loginUrl="/loginweb/gog"
-            isLoggedIn={Boolean(gogLogin)}
-            user={gogLogin}
-            refresh={refreshUserInfo}
-            logoutAction={() => {
-              ipcRenderer.invoke('logoutGOG')
-              setGOGLogin('')
-            }}
+            isLoggedIn={Boolean(gog.username)}
+            user={gog.username}
+            logoutAction={gog.logout}
           />
         </div>
-        {(epicLogin || gogLogin) && (
+        {(epic.username || gog.username) && (
           <button onClick={() => navigate('/')} className="goToLibrary">
             {t('button.go_to_library', 'Go to Library')}
           </button>

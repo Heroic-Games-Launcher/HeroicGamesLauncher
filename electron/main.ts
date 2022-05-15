@@ -626,12 +626,6 @@ ipcMain.on('resetHeroic', async () => {
   }
 })
 
-ipcMain.handle('authGOG', async (event, code) =>
-  GOGUser.login(code).then(() =>
-    mainWindow.webContents.send('updateLoginState')
-  )
-)
-
 ipcMain.on('createNewWindow', async (e, url) =>
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 )
@@ -685,13 +679,8 @@ ipcMain.handle('getUserInfo', async () => LegendaryUser.getUserInfo())
 // Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', async () => LegendaryUser.isLoggedIn())
 
-ipcMain.handle('login', async (event, sid) =>
-  LegendaryUser.login(sid).then((value) => {
-    mainWindow.webContents.send('updateLoginState')
-    return value
-  })
-)
-
+ipcMain.handle('login', async (event, sid) => LegendaryUser.login(sid))
+ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))
 ipcMain.handle('logoutLegendary', async () => LegendaryUser.logout())
 ipcMain.handle('logoutGOG', async () => GOGUser.logout())
 

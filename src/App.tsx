@@ -13,12 +13,15 @@ import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
 
 function App() {
-  const { contentFontFamily, actionsFontFamily } = useContext(ContextProvider)
+  const { epic, gog, contentFontFamily, actionsFontFamily } =
+    useContext(ContextProvider)
 
   const style = {
     '--content-font-family': contentFontFamily,
     '--actions-font-family': actionsFontFamily
   } as React.CSSProperties
+
+  const loggedIn = epic.username || gog.username
 
   return (
     <div className="App" style={style}>
@@ -26,7 +29,7 @@ function App() {
         <Sidebar />
         <main className="content">
           <Routes>
-            <Route path="/" element={<Library />} />
+            <Route path="/" element={loggedIn ? <Library /> : <Login />} />
             <Route path="login" element={<Login />} />
             <Route path="epicstore" element={<WebView />} />
             <Route path="gogstore" element={<WebView />} />

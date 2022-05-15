@@ -50,14 +50,8 @@ export default function GamePage(): JSX.Element | null {
   const [tabToShow, setTabToShow] = useState('infoTab')
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const {
-    libraryStatus,
-    handleGameStatus,
-    epicLibrary,
-    gogLibrary,
-    gameUpdates,
-    platform
-  } = useContext(ContextProvider)
+  const { libraryStatus, handleGameStatus, epic, gog, gameUpdates, platform } =
+    useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
@@ -136,7 +130,7 @@ export default function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName, epicLibrary, gogLibrary])
+  }, [isInstalling, isPlaying, appName, epic, gog])
 
   async function handleUpdate() {
     await handleGameStatus({
