@@ -47,7 +47,6 @@ import {
   DialogFooter,
   DialogHeader
 } from 'src/components/UI/Dialog'
-import FormControl from 'src/components/UI/FormControl'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 
 import './index.css'
@@ -482,47 +481,35 @@ export default function InstallModal({
 
               {hasWine && (
                 <>
-                  <div className="InstallModal__control">
-                    <div className="InstallModal__controlLabel">
-                      {t('install.wineprefix', 'WinePrefix')}:
-                    </div>
-                    <div className="InstallModal__controlInput">
-                      <FormControl
-                        sideButton={
-                          <button
-                            className="FormControl__sideButton"
-                            onClick={async () =>
-                              ipcRenderer
-                                .invoke('openDialog', {
-                                  buttonLabel: t('box.choose'),
-                                  properties: ['openDirectory'],
-                                  title: t(
-                                    'box.wineprefix',
-                                    'Select WinePrefix Folder'
-                                  )
-                                })
-                                .then(({ path }: Path) =>
-                                  setWinePrefix(path ? path : winePrefix)
-                                )
-                            }
-                          >
-                            <FontAwesomeIcon icon={faFolderOpen} />
-                          </button>
+                  <TextInpuField
+                    label={t('install.wineprefix', 'WinePrefix')}
+                    htmlId="setinstallpath"
+                    placeholder={winePrefix}
+                    value={winePrefix.replaceAll("'", '')}
+                    onChange={(event) => setWinePrefix(event.target.value)}
+                    inputIcon={
+                      <button
+                        className="inputIcon"
+                        onClick={async () =>
+                          ipcRenderer
+                            .invoke('openDialog', {
+                              buttonLabel: t('box.choose'),
+                              properties: ['openDirectory'],
+                              title: t(
+                                'box.wineprefix',
+                                'Select WinePrefix Folder'
+                              )
+                            })
+                            .then(({ path }: Path) =>
+                              setWinePrefix(path ? path : winePrefix)
+                            )
                         }
                       >
-                        <input
-                          type="text"
-                          data-testid="setinstallpath"
-                          className="FormControl__input"
-                          placeholder={winePrefix}
-                          value={winePrefix.replaceAll("'", '')}
-                          onChange={(event) =>
-                            setWinePrefix(event.target.value)
-                          }
-                        />
-                      </FormControl>
-                    </div>
-                  </div>
+                        <FontAwesomeIcon icon={faFolderOpen} />
+                      </button>
+                    }
+                  />
+
                   <SelectField
                     label={`${t('install.wineversion')}:`}
                     htmlId="wineVersion"
