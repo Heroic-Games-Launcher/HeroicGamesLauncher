@@ -240,6 +240,7 @@ export default function OtherSettings({
         <SelectField
           label={t('setting.maxRecentGames', 'Recent Games to Show')}
           htmlId="setMaxRecentGames"
+          extraClass="smaller"
           onChange={(event) => setMaxRecentGames(Number(event.target.value))}
           value={maxRecentGames.toString()}
         >
