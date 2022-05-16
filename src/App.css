@@ -189,10 +189,6 @@ html,
   color: var(--text-default);
 }
 
-.settingInputWithButton .material-icons.settings.folder {
-  width: 0px;
-}
-
 .button.settings {
   background: var(--text-secondary);
 }
