@@ -173,7 +173,7 @@ export default function Accessibility() {
                 setAllTilesInColor(!allTilesInColor)
               }}
               title={t(
-                'accessibility.allTilesInColor',
+                'accessibility.all_tiles_in_color',
                 'Show all game tiles in color'
               )}
             />
