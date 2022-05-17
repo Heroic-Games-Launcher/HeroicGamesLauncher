@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ReactNode, useContext } from 'react'
-import classNames from 'classnames'
+import classnames from 'classnames'
 import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
 
@@ -29,12 +29,12 @@ const SelectField = ({
   const { isRTL } = useContext(ContextProvider)
 
   return (
-    <div className={`selectFieldWrapper ${extraClass}`}>
-      {label && (
-        <label className={classNames({ isRTL: isRTL })} htmlFor={htmlId}>
-          {label}
-        </label>
-      )}
+    <div
+      className={classnames(`selectFieldWrapper Field ${extraClass}`, {
+        isRTL
+      })}
+    >
+      {label && <label htmlFor={htmlId}>{label}</label>}
       <select id={htmlId} value={value} onChange={onChange} disabled={disabled}>
         {prompt && <option value="">{prompt}</option>}
         {children}

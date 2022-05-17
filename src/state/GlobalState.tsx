@@ -137,6 +137,10 @@ export class GlobalState extends PureComponent<Props> {
       (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif"
   }
 
+  setLanguage = (newLanguage: string) => {
+    this.setState({ language: newLanguage })
+  }
+
   setTheme = (newThemeName: string) => {
     configStore.set('theme', newThemeName)
     this.setState({ theme: newThemeName })
@@ -553,6 +557,7 @@ export class GlobalState extends PureComponent<Props> {
 
   render() {
     const isRTL = RTL_LANGUAGES.includes(this.state.language)
+    console.log(this.state.language, isRTL)
 
     return (
       <ContextProvider.Provider
@@ -576,6 +581,7 @@ export class GlobalState extends PureComponent<Props> {
           handleLayout: this.handleLayout,
           handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,
+          setLanguage: this.setLanguage,
           isRTL,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,

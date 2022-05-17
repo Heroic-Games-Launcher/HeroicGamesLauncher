@@ -1,6 +1,7 @@
 import { IpcRenderer } from 'electron'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import ContextProvider from 'src/state/ContextProvider'
 import { SelectField } from '..'
 
 const { ipcRenderer } = window.require('electron') as {
@@ -94,12 +95,14 @@ export default function LanguageSelector({
   showWeblateLink = false
 }: Props) {
   const { t, i18n } = useTranslation()
-  const currentLanguage = i18n.language || 'en'
+  const { language, setLanguage } = useContext(ContextProvider)
+  const currentLanguage = language || i18n.language || 'en'
 
-  const handleChangeLanguage = (language: string) => {
-    ipcRenderer.send('changeLanguage', language)
-    storage.setItem('language', language)
-    i18n.changeLanguage(language)
+  const handleChangeLanguage = (newLanguage: string) => {
+    ipcRenderer.send('changeLanguage', newLanguage)
+    storage.setItem('language', newLanguage)
+    i18n.changeLanguage(newLanguage)
+    setLanguage(newLanguage)
   }
 
   function handleWeblate() {

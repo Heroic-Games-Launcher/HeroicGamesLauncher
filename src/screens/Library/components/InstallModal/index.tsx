@@ -20,7 +20,12 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { UpdateComponent, SelectField, TextInputField } from 'src/components/UI'
+import {
+  UpdateComponent,
+  SelectField,
+  TextInputWithIconField,
+  ToggleSwitch
+} from 'src/components/UI'
 import {
   getAppSettings,
   getGameInfo,
@@ -47,7 +52,6 @@ import {
   DialogFooter,
   DialogHeader
 } from 'src/components/UI/Dialog'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 
 import './index.css'
 
@@ -440,29 +444,23 @@ export default function InstallModal({
                 </SelectField>
               )}
 
-              <TextInputField
+              <TextInputWithIconField
                 htmlId="setinstallpath"
                 label={t('install.path', 'Select Install Path')}
                 placeholder={defaultPath}
                 value={installPath.replaceAll("'", '')}
                 onChange={(event) => setInstallPath(event.target.value)}
-                inputIcon={
-                  <button
-                    className="inputIcon"
-                    onClick={async () =>
-                      ipcRenderer
-                        .invoke('openDialog', {
-                          buttonLabel: t('box.choose'),
-                          properties: ['openDirectory'],
-                          title: t('install.path')
-                        })
-                        .then(({ path }: Path) =>
-                          setInstallPath(path ? path : defaultPath)
-                        )
-                    }
-                  >
-                    <FontAwesomeIcon icon={faFolderOpen} />
-                  </button>
+                icon={<FontAwesomeIcon icon={faFolderOpen} />}
+                onIconClick={async () =>
+                  ipcRenderer
+                    .invoke('openDialog', {
+                      buttonLabel: t('box.choose'),
+                      properties: ['openDirectory'],
+                      title: t('install.path')
+                    })
+                    .then(({ path }: Path) =>
+                      setInstallPath(path ? path : defaultPath)
+                    )
                 }
                 afterInput={
                   <span className="diskSpaceInfo">
@@ -479,32 +477,23 @@ export default function InstallModal({
 
               {hasWine && (
                 <>
-                  <TextInputField
+                  <TextInputWithIconField
                     label={t('install.wineprefix', 'WinePrefix')}
                     htmlId="setinstallpath"
                     placeholder={winePrefix}
                     value={winePrefix.replaceAll("'", '')}
                     onChange={(event) => setWinePrefix(event.target.value)}
-                    inputIcon={
-                      <button
-                        className="inputIcon"
-                        onClick={async () =>
-                          ipcRenderer
-                            .invoke('openDialog', {
-                              buttonLabel: t('box.choose'),
-                              properties: ['openDirectory'],
-                              title: t(
-                                'box.wineprefix',
-                                'Select WinePrefix Folder'
-                              )
-                            })
-                            .then(({ path }: Path) =>
-                              setWinePrefix(path ? path : winePrefix)
-                            )
-                        }
-                      >
-                        <FontAwesomeIcon icon={faFolderOpen} />
-                      </button>
+                    icon={<FontAwesomeIcon icon={faFolderOpen} />}
+                    onIconClick={async () =>
+                      ipcRenderer
+                        .invoke('openDialog', {
+                          buttonLabel: t('box.choose'),
+                          properties: ['openDirectory'],
+                          title: t('box.wineprefix', 'Select WinePrefix Folder')
+                        })
+                        .then(({ path }: Path) =>
+                          setWinePrefix(path ? path : winePrefix)
+                        )
                     }
                   />
 

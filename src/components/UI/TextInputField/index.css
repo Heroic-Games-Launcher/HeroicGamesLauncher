@@ -27,14 +27,14 @@
 
 .textInputFieldWrapper label {
   grid-area: label;
-  justify-self: flex-start;
+  text-align: start;
 }
 
 .textInputFieldWrapper .inputIcon {
   grid-area: input;
   align-self: center;
   justify-self: flex-end;
-  margin-right: 1rem;
+  margin-inline-end: 1rem;
   display: flex;
   align-items: center;
   z-index: 1;
@@ -48,7 +48,7 @@
 }
 
 .textInputFieldWrapper .inputIcon ~ input {
-  padding-right: 50px;
+  padding-inline-end: 50px;
 }
 
 .textInputFieldWrapper.withRightButton {

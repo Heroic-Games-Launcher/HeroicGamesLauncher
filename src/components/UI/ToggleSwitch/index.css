@@ -24,7 +24,6 @@
   border-radius: 2px;
   grid-area: check;
   color: var(--background);
-  background: var(--background);
   font-size: 1.5rem;
   line-height: 1.2rem;
   font-weight: 900;

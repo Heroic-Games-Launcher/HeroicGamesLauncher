@@ -40,6 +40,8 @@ const initialContext: ContextType = {
   refreshing: false,
   refreshingInTheBackground: true,
   isRTL: false,
+  language: 'en',
+  setLanguage: () => null,
   hiddenGames: {
     list: [],
     add: () => null,

@@ -3,13 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { LibraryTopSectionOptions, Path } from 'src/types'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import {
-  InfoBox,
-  SvgButton,
-  SelectField,
-  TextInputField,
-  ToggleSwitch
-} from 'src/components/UI'
+import { InfoBox, SelectField, ToggleSwitch } from 'src/components/UI'
 import LanguageSelector from 'src/components/UI/LanguageSelector'
 import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 
@@ -17,6 +11,7 @@ import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
+import TextInputWithIconField from 'src/components/UI/TextInputWithIconField'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -143,34 +138,28 @@ export default function GeneralSettings({
 
       <LanguageSelector />
 
-      <TextInputField
+      <TextInputWithIconField
         label={t('setting.default-install-path')}
         htmlId="default_install_path"
         value={defaultInstallPath.replaceAll("'", '')}
         placeholder={defaultInstallPath}
         onChange={(event) => setDefaultInstallPath(event.target.value)}
-        inputIcon={
-          <SvgButton
-            onClick={async () =>
-              ipcRenderer
-                .invoke('openDialog', {
-                  buttonLabel: t('box.choose'),
-                  properties: ['openDirectory'],
-                  title: t('box.default-install-path')
-                })
-                .then(({ path }: Path) =>
-                  setDefaultInstallPath(path ? `${path}` : defaultInstallPath)
-                )
-            }
-            className="material-icons settings folder inputIcon"
-          >
-            <FolderOpenOutlinedIcon data-testid="setinstallpathbutton" />
-          </SvgButton>
+        icon={<FolderOpenOutlinedIcon data-testid="setinstallpathbutton" />}
+        onIconClick={async () =>
+          ipcRenderer
+            .invoke('openDialog', {
+              buttonLabel: t('box.choose'),
+              properties: ['openDirectory'],
+              title: t('box.default-install-path')
+            })
+            .then(({ path }: Path) =>
+              setDefaultInstallPath(path ? `${path}` : defaultInstallPath)
+            )
         }
       />
 
       {!isWindows && (
-        <TextInputField
+        <TextInputWithIconField
           label={t('setting.egs-sync')}
           extraClass="withRightButton"
           htmlId="set_epic_sync_path"
@@ -178,36 +167,29 @@ export default function GeneralSettings({
           value={egsPath || egsLinkedPath}
           disabled={isLinked}
           onChange={(event) => setEgsPath(event.target.value)}
-          inputIcon={
-            <>
-              {!egsPath.length ? (
-                <SvgButton
-                  onClick={() => handleEgsFolder()}
-                  className="material-icons settings folder inputIcon"
-                >
-                  <FolderOpenOutlinedIcon
-                    data-testid="setEpicSyncPathButton"
-                    style={{
-                      color: isLinked ? 'transparent' : 'currentColor'
-                    }}
-                  />
-                </SvgButton>
-              ) : (
-                <SvgButton
-                  className="material-icons settings folder"
-                  onClick={() => (isLinked ? '' : setEgsPath(''))}
-                >
-                  <Backspace
-                    data-testid="setEpicSyncPathBackspace"
-                    style={
-                      isLinked
-                        ? { color: 'transparent', pointerEvents: 'none' }
-                        : { color: '#B0ABB6' }
-                    }
-                  />
-                </SvgButton>
-              )}
-            </>
+          icon={
+            !egsPath.length ? (
+              <FolderOpenOutlinedIcon
+                data-testid="setEpicSyncPathButton"
+                style={{
+                  color: isLinked ? 'transparent' : 'currentColor'
+                }}
+              />
+            ) : (
+              <Backspace
+                data-testid="setEpicSyncPathBackspace"
+                style={
+                  isLinked
+                    ? { color: 'transparent', pointerEvents: 'none' }
+                    : { color: '#B0ABB6' }
+                }
+              />
+            )
+          }
+          onIconClick={
+            !egsPath.length
+              ? () => handleEgsFolder()
+              : () => (isLinked ? '' : setEgsPath(''))
           }
           afterInput={
             <>

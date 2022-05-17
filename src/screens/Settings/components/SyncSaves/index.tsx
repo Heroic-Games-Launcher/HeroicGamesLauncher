@@ -11,9 +11,8 @@ const { ipcRenderer } = window.require('electron') as {
 import {
   InfoBox,
   ToggleSwitch,
-  SvgButton,
-  TextInputField,
-  SelectField
+  SelectField,
+  TextInputWithIconField
 } from 'src/components/UI'
 
 import Backspace from '@mui/icons-material/Backspace'
@@ -95,46 +94,36 @@ export default function SyncSaves({
     <>
       <h3 className="settingSubheader">{t('settings.navbar.sync')}</h3>
 
-      <TextInputField
+      <TextInputWithIconField
         htmlId="inputSavePath"
         placeholder={t('setting.savefolder.placeholder')}
         value={savesPath}
         disabled={isSyncing}
         onChange={(event) => setSavesPath(event.target.value)}
-        inputIcon={
-          <>
-            {!isLinked ? (
-              <SvgButton
-                className="material-icons settings folder"
-                onClick={async () =>
-                  ipcRenderer
-                    .invoke('openDialog', {
-                      buttonLabel: t('box.sync.button'),
-                      properties: ['openDirectory'],
-                      title: t('box.sync.title')
-                    })
-                    .then(({ path }: Path) =>
-                      setSavesPath(path ? `${path}` : '')
-                    )
-                }
-              >
-                <CreateNewFolder
-                  data-testid="selectSavePath"
-                  style={{ color: '#B0ABB6' }}
-                />
-              </SvgButton>
-            ) : (
-              <SvgButton
-                className="material-icons settings folder"
-                onClick={() => setSavesPath('')}
-              >
-                <Backspace
-                  data-testid="removeSavePath"
-                  style={{ color: '#B0ABB6' }}
-                />
-              </SvgButton>
-            )}
-          </>
+        icon={
+          !isLinked ? (
+            <CreateNewFolder
+              data-testid="selectSavePath"
+              style={{ color: '#B0ABB6' }}
+            />
+          ) : (
+            <Backspace
+              data-testid="removeSavePath"
+              style={{ color: '#B0ABB6' }}
+            />
+          )
+        }
+        onIconClick={
+          !isLinked
+            ? async () =>
+                ipcRenderer
+                  .invoke('openDialog', {
+                    buttonLabel: t('box.sync.button'),
+                    properties: ['openDirectory'],
+                    title: t('box.sync.title')
+                  })
+                  .then(({ path }: Path) => setSavesPath(path ? `${path}` : ''))
+            : () => setSavesPath('')
         }
       />
 

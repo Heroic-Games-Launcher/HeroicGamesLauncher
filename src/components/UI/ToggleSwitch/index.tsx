@@ -1,4 +1,6 @@
-import React, { ChangeEventHandler } from 'react'
+import classNames from 'classnames'
+import React, { ChangeEventHandler, useContext } from 'react'
+import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
 
 interface Props {
@@ -12,6 +14,7 @@ interface Props {
 
 export default function ToggleSwitch(props: Props) {
   const { handleChange, value, disabled, title, htmlId, extraClass } = props
+  const { isRTL } = useContext(ContextProvider)
 
   return (
     <>
@@ -25,9 +28,10 @@ export default function ToggleSwitch(props: Props) {
         className="hiddenCheckbox"
       />
       <label
-        className={`toggleSwitchWrapper ${extraClass} ${
-          value ? 'checked' : ''
-        }`}
+        className={classNames('toggleSwitchWrapper Field', {
+          checked: extraClass,
+          isRTL
+        })}
         htmlFor={htmlId}
       >
         {title}

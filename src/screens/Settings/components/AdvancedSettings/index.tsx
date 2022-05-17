@@ -8,10 +8,10 @@ import classNames from 'classnames'
 import { IpcRenderer, Clipboard } from 'electron'
 import { useTranslation } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
-import { SvgButton, TextInputField } from 'src/components/UI'
 import { AppSettings, Path } from 'src/types'
 import { configStore } from 'src/helpers/electronStores'
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
+import TextInputWithIconField from 'src/components/UI/TextInputWithIconField'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -127,7 +127,7 @@ export const AdvancedSettings = ({
     <div>
       <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
 
-      <TextInputField
+      <TextInputWithIconField
         htmlId="setting-alt-legendary"
         label={t(
           'setting.alt-legendary-bin',
@@ -139,34 +139,25 @@ export const AdvancedSettings = ({
         )}
         value={altLegendaryBin.replaceAll("'", '')}
         onChange={(event) => setAltLegendaryBin(event.target.value)}
-        inputIcon={
-          <>
-            {!altLegendaryBin.length ? (
-              <SvgButton
-                onClick={async () => handleLegendaryBinary()}
-                className="material-icons settings folder inputIcon"
-              >
-                <FolderOpenOutlinedIcon
-                  data-testid="setLegendaryBinaryButton"
-                  style={{
-                    color: altLegendaryBin.length
-                      ? 'transparent'
-                      : 'currentColor'
-                  }}
-                />
-              </SvgButton>
-            ) : (
-              <SvgButton
-                className="material-icons settings folder inputIcon"
-                onClick={() => setAltLegendaryBin('')}
-              >
-                <Backspace
-                  data-testid="setLegendaryBinaryBackspace"
-                  style={{ color: 'currentColor' }}
-                />
-              </SvgButton>
-            )}
-          </>
+        icon={
+          !altLegendaryBin.length ? (
+            <FolderOpenOutlinedIcon
+              data-testid="setLegendaryBinaryButton"
+              style={{
+                color: altLegendaryBin.length ? 'transparent' : 'currentColor'
+              }}
+            />
+          ) : (
+            <Backspace
+              data-testid="setLegendaryBinaryBackspace"
+              style={{ color: 'currentColor' }}
+            />
+          )
+        }
+        onIconClick={
+          !altLegendaryBin.length
+            ? async () => handleLegendaryBinary()
+            : () => setAltLegendaryBin('')
         }
         afterInput={
           <span className="smallMessage">
@@ -176,7 +167,7 @@ export const AdvancedSettings = ({
         }
       />
 
-      <TextInputField
+      <TextInputWithIconField
         label={t(
           'setting.alt-gogdl-bin',
           'Choose an Alternative GOGDL Binary to use (needs restart)'
@@ -188,32 +179,25 @@ export const AdvancedSettings = ({
         )}
         value={altGogdlBin.replaceAll("'", '')}
         onChange={(event) => setAltGogdlBin(event.target.value)}
-        inputIcon={
-          <>
-            {!altGogdlBin.length ? (
-              <SvgButton
-                onClick={async () => handleGogdlBinary()}
-                className="material-icons settings folder inputIcon"
-              >
-                <FolderOpenOutlinedIcon
-                  data-testid="setGogdlBinaryButton"
-                  style={{
-                    color: altGogdlBin.length ? 'transparent' : 'currentColor'
-                  }}
-                />
-              </SvgButton>
-            ) : (
-              <SvgButton
-                className="material-icons settings folder inputIcon"
-                onClick={() => setAltGogdlBin('')}
-              >
-                <Backspace
-                  data-testid="setGogdlBinaryBackspace"
-                  style={{ color: '#currentColor' }}
-                />
-              </SvgButton>
-            )}
-          </>
+        icon={
+          !altGogdlBin.length ? (
+            <FolderOpenOutlinedIcon
+              data-testid="setGogdlBinaryButton"
+              style={{
+                color: altGogdlBin.length ? 'transparent' : 'currentColor'
+              }}
+            />
+          ) : (
+            <Backspace
+              data-testid="setGogdlBinaryBackspace"
+              style={{ color: '#currentColor' }}
+            />
+          )
+        }
+        onIconClick={
+          !altGogdlBin.length
+            ? async () => handleGogdlBinary()
+            : () => setAltGogdlBin('')
         }
         afterInput={
           <span className="smallMessage">

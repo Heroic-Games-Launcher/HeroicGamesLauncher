@@ -11,34 +11,12 @@
   margin-bottom: 35px;
 }
 
-.Settings .selectFieldWrapper,
-.Settings .toggleSwitchWrapper,
-.Settings .textInputFieldWrapper,
-.Settings .rangeWrapper,
-.InstallModal__dialog .selectFieldWrapper,
-.InstallModal__dialog .toggleSwitchWrapper,
-.InstallModal__dialog .textInputFieldWrapper,
-.InstallModal__dialog .rangeWrapper,
-.Accessibility .selectFieldWrapper,
-.Accessibility .toggleSwitchWrapper,
-.Accessibility .textInputFieldWrapper,
-.Accessibility .rangeWrapper {
+.Settings .Field {
   margin: 16px 0px;
   width: 100%;
 }
 
-.Settings .selectFieldWrapper label,
-.Settings .toggleSwitchWrapper label,
-.Settings .textInputFieldWrapper label,
-.Settings .rangeWrapper label,
-.InstallModal__dialog .selectFieldWrapper label,
-.InstallModal__dialog .toggleSwitchWrapper label,
-.InstallModal__dialog .textInputFieldWrapper label,
-.InstallModal__dialog .rangeWrapper label,
-.Accessibility .selectFieldWrapper label,
-.Accessibility .toggleSwitchWrapper label,
-.Accessibility .textInputFieldWrapper label,
-.Accessibility .rangeWrapper label {
+.Settings .Field label {
   cursor: default;
   margin-bottom: 14px;
   font: var(--font-secondary-regular);

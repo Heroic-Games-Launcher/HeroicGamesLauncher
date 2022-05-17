@@ -7,7 +7,8 @@ import {
   ToggleSwitch,
   SvgButton,
   SelectField,
-  TextInputField
+  TextInputField,
+  TextInputWithIconField
 } from 'src/components/UI'
 
 import AddBoxIcon from '@mui/icons-material/AddBox'
@@ -127,7 +128,7 @@ export default function WineSettings({
       <h3 className="settingSubheader">Wine</h3>
 
       {isLinux && isDefault && (
-        <TextInputField
+        <TextInputWithIconField
           htmlId="selectDefaultWinePrefix"
           label={t(
             'setting.defaultWinePrefix',
@@ -135,62 +136,54 @@ export default function WineSettings({
           )}
           value={defaultWinePrefix}
           onChange={(event) => setDefaultWinePrefix(event.target.value)}
-          inputIcon={
-            <SvgButton
-              className="material-icons settings folder inputIcon"
-              onClick={async () =>
-                ipcRenderer
-                  .invoke('openDialog', {
-                    buttonLabel: t('box.choose'),
-                    properties: ['openDirectory'],
-                    title: t('box.wineprefix')
-                  })
-                  .then(({ path }: Path) =>
-                    setDefaultWinePrefix(path ? `${path}` : defaultWinePrefix)
-                  )
-              }
-            >
-              <FolderOpenOutlinedIcon
-                data-testid="addWinePrefix"
-                titleAccess={t(
-                  'toolbox.settings.wineprefix',
-                  'Select a Folder for new Wine Prefixes'
-                )}
-              />
-            </SvgButton>
+          icon={
+            <FolderOpenOutlinedIcon
+              data-testid="addWinePrefix"
+              titleAccess={t(
+                'toolbox.settings.wineprefix',
+                'Select a Folder for new Wine Prefixes'
+              )}
+            />
+          }
+          onIconClick={async () =>
+            ipcRenderer
+              .invoke('openDialog', {
+                buttonLabel: t('box.choose'),
+                properties: ['openDirectory'],
+                title: t('box.wineprefix')
+              })
+              .then(({ path }: Path) =>
+                setDefaultWinePrefix(path ? `${path}` : defaultWinePrefix)
+              )
           }
         />
       )}
 
       {isLinux && (
-        <TextInputField
+        <TextInputWithIconField
           htmlId="selectWinePrefix"
           label={t('setting.wineprefix')}
           value={winePrefix}
           onChange={(event) => setWinePrefix(event.target.value)}
-          inputIcon={
-            <SvgButton
-              className="material-icons settings folder inputIcon"
-              onClick={async () =>
-                ipcRenderer
-                  .invoke('openDialog', {
-                    buttonLabel: t('box.choose'),
-                    properties: ['openDirectory'],
-                    title: t('box.wineprefix')
-                  })
-                  .then(({ path }: Path) =>
-                    setWinePrefix(path ? `${path}` : winePrefix)
-                  )
-              }
-            >
-              <FolderOpenOutlinedIcon
-                data-testid="addWinePrefix"
-                titleAccess={t(
-                  'toolbox.settings.default-wineprefix',
-                  'Select the default prefix folder for new configs'
-                )}
-              />
-            </SvgButton>
+          icon={
+            <FolderOpenOutlinedIcon
+              data-testid="addWinePrefix"
+              titleAccess={t(
+                'toolbox.settings.default-wineprefix',
+                'Select the default prefix folder for new configs'
+              )}
+            />
+          }
+          onIconClick={async () =>
+            ipcRenderer
+              .invoke('openDialog', {
+                buttonLabel: t('box.choose'),
+                properties: ['openDirectory'],
+                title: t('box.wineprefix')
+              })
+              .then(({ path }: Path) =>
+                setWinePrefix(path ? `${path}` : winePrefix)
+              )
           }
         />
       )}

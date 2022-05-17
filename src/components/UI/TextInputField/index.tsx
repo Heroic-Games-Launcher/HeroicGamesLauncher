@@ -1,9 +1,9 @@
 import React, { ChangeEvent, ReactNode, useContext } from 'react'
-import classNames from 'classnames'
+import classnames from 'classnames'
 import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
 
-interface SelectFieldProps {
+interface TextInputFieldProps {
   htmlId: string
   value: string
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
@@ -25,16 +25,16 @@ const TextInputField = ({
   extraClass = '',
   inputIcon,
   afterInput
-}: SelectFieldProps) => {
+}: TextInputFieldProps) => {
   const { isRTL } = useContext(ContextProvider)
 
   return (
-    <div className={`textInputFieldWrapper ${extraClass}`}>
-      {label && (
-        <label className={classNames({ isRTL: isRTL })} htmlFor={htmlId}>
-          {label}
-        </label>
-      )}
+    <div
+      className={classnames(`textInputFieldWrapper Field ${extraClass}`, {
+        isRTL
+      })}
+    >
+      {label && <label htmlFor={htmlId}>{label}</label>}
       {inputIcon}
       <input
         type="text"

@@ -38,8 +38,13 @@
   min-width: 100px;
 }
 
+.selectFieldWrapper.isRTL select {
+  background-position: calc(15px) calc(50% + 1px), calc(20px) calc(50% + 1px),
+    calc(40px) 50%;
+}
+
 .selectFieldWrapper label {
-  justify-self: flex-start;
+  text-align: start;
   grid-area: label;
   align-self: center;
 }
@@ -90,4 +95,8 @@
 .selectFieldWrapper.rightButtons .rightButtons {
   grid-area: buttons;
   align-self: center;
+}
+
+.selectFieldWrapper.isRTL option {
+  direction: rtl;
 }
