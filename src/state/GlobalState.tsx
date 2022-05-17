@@ -557,7 +557,6 @@ export class GlobalState extends PureComponent<Props> {
 
   render() {
     const isRTL = RTL_LANGUAGES.includes(this.state.language)
-    console.log(this.state.language, isRTL)
 
     return (
       <ContextProvider.Provider
