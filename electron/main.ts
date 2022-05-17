@@ -1203,27 +1203,6 @@ ipcMain.handle('egsSync', async (event, args) => {
   }
 })
 
-ipcMain.on(
-  'addShortcut',
-  async (event, appName: string, runner: Runner, fromMenu: boolean) => {
-    const game = Game.get(appName, runner)
-    game.addShortcuts(fromMenu)
-    openMessageBox({
-      buttons: [i18next.t('box.ok', 'Ok')],
-      message: i18next.t(
-        'box.shortcuts.message',
-        'Shortcuts were created on Desktop and Start Menu'
-      ),
-      title: i18next.t('box.shortcuts.title', 'Shortcuts')
-    })
-  }
-)
-
-ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
-  const game = Game.get(appName, runner)
-  game.removeShortcuts()
-})
-
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName] = args
   const epicOffline = await isEpicServiceOffline()
@@ -1370,3 +1349,4 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
  */
 import './logger/ipc_handler'
 import './wine-manager/ipc_handler'
+import './shortcuts/ipc_handler'
