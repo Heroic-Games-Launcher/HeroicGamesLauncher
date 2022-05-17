@@ -1,6 +1,13 @@
 import './index.css'
 
-import React, { lazy, useContext, useEffect, useRef, useState } from 'react'
+import React, {
+  lazy,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
 
 import ContextProvider from 'src/state/ContextProvider'
 
@@ -23,13 +30,19 @@ export default function Library(): JSX.Element {
     layout,
     libraryStatus,
     refreshing,
+    refreshingInTheBackground,
     category,
     filter,
     epic,
     gog,
     recentGames,
     favouriteGames,
-    libraryTopSection
+    libraryTopSection,
+    filterText,
+    platform,
+    filterPlatform,
+    hiddenGames,
+    showHidden
   } = useContext(ContextProvider)
 
   const [showModal, setShowModal] = useState({
@@ -109,26 +122,127 @@ export default function Library(): JSX.Element {
     setInstalling(newInstalling)
   }, [libraryStatus])
 
-  // select library and sort
-  let libraryToShow = category === 'epic' ? epic.library : gog.library
-  libraryToShow = libraryToShow.sort(
-    (a: { title: string }, b: { title: string }) => {
+  const filterLibrary = (library: GameInfo[], filter: string) => {
+    if (!library) {
+      return []
+    }
+
+    if (filter.includes('UE_')) {
+      return library.filter((game) => {
+        if (!game.compatible_apps) {
+          return false
+        }
+        return game.compatible_apps.includes(filter)
+      })
+    } else {
+      switch (filter) {
+        case 'unreal':
+          return library.filter(
+            (game) =>
+              game.is_ue_project || game.is_ue_asset || game.is_ue_plugin
+          )
+        case 'asset':
+          return library.filter((game) => game.is_ue_asset)
+        case 'plugin':
+          return library.filter((game) => game.is_ue_plugin)
+        case 'project':
+          return library.filter((game) => game.is_ue_project)
+        default:
+          return library.filter((game) => game.is_game)
+      }
+    }
+  }
+
+  const filterByPlatform = (library: GameInfo[], filter: string) => {
+    if (category === 'epic' && platform === 'linux') {
+      return library.filter((game) => game.is_game)
+    }
+
+    const isMac = ['osx', 'Mac']
+
+    switch (filter) {
+      case 'win':
+        return library.filter((game) => {
+          return game.is_installed
+            ? game.install.platform === 'windows'
+            : process.platform === 'darwin'
+            ? !game.is_mac_native
+            : !game.is_linux_native
+        })
+      case 'mac':
+        return library.filter((game) => {
+          return game.is_installed
+            ? isMac.includes(game.install.platform ?? '')
+            : game.is_mac_native
+        })
+      case 'linux':
+        return library.filter((game) => {
+          return game.is_installed
+            ? game.install.platform === 'linux'
+            : game.is_linux_native
+        })
+      default:
+        return library.filter((game) => game.is_game)
+    }
+  }
+
+  // select library
+  const libraryToShow = useMemo(() => {
+    let library = category === 'epic' ? epic.library : gog.library
+
+    // filter
+    try {
+      const filterRegex = new RegExp(filterText, 'i')
+      const textFilter = ({ title, app_name }: GameInfo) =>
+        filterRegex.test(title) || filterRegex.test(app_name)
+      library = filterByPlatform(
+        filterLibrary(library, filter).filter(textFilter),
+        filterPlatform
+      )
+    } catch (error) {
+      console.log(error)
+    }
+
+    // hide hidden
+    const hiddenGamesAppNames = hiddenGames.list.map((hidden) => hidden.appName)
+
+    if (!showHidden) {
+      library = library.filter(
+        (game) => !hiddenGamesAppNames.includes(game.app_name)
+      )
+    }
+
+    // sort
+    library = library.sort((a: { title: string }, b: { title: string }) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
       const gameB = b.title.toUpperCase().replace('THE ', '')
       return sortDescending ? (gameA > gameB ? -1 : 1) : gameA < gameB ? -1 : 1
-    }
-  )
-  const installed = libraryToShow.filter((g) => g.is_installed)
-  const notInstalled = libraryToShow.filter(
-    (g) => !g.is_installed && !installing.includes(g.app_name)
-  )
-  const installingGames = libraryToShow.filter((g) =>
-    installing.includes(g.app_name)
-  )
-  libraryToShow = sortInstalled
-    ? [...installed, ...installingGames, ...notInstalled]
-    : libraryToShow
+    })
+    const installed = library.filter((g) => g.is_installed)
+    const notInstalled = library.filter(
+      (g) => !g.is_installed && !installing.includes(g.app_name)
+    )
+    const installingGames = library.filter((g) =>
+      installing.includes(g.app_name)
+    )
+    library = sortInstalled
+      ? [...installed, ...installingGames, ...notInstalled]
+      : library
 
+    return library
+  }, [
+    category,
+    epic,
+    gog,
+    filter,
+    filterText,
+    filterPlatform,
+    sortDescending,
+    sortInstalled,
+    showHidden
+  ])
+
+  // top section
   const showRecentGames =
     libraryTopSection === 'recently_played' &&
     !!recentGames.length &&
@@ -139,29 +253,25 @@ export default function Library(): JSX.Element {
     !!favouriteGames.list.length &&
     category !== 'unreal'
 
-  const favourites: GameInfo[] = []
-
-  if (showFavourites) {
-    const favouriteAppNames = favouriteGames.list.map(
-      (favourite) => favourite.appName
-    )
-    epic.library.forEach((game) => {
-      if (favouriteAppNames.includes(game.app_name)) favourites.push(game)
-    })
-    gog.library.forEach((game) => {
-      if (favouriteAppNames.includes(game.app_name)) favourites.push(game)
-    })
-  }
-
-  const dlcCount = epic.library.filter((lib) => lib.install.is_dlc)
-  const numberOfGames =
-    category === 'epic'
-      ? epic.library.length - dlcCount.length
-      : gog.library.length
+  const favourites: GameInfo[] = useMemo(() => {
+    const tempArray: GameInfo[] = []
+    if (showFavourites) {
+      const favouriteAppNames = favouriteGames.list.map(
+        (favourite) => favourite.appName
+      )
+      epic.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
+      gog.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
+    }
+    return tempArray
+  }, [showFavourites, favouriteGames, epic, gog])
 
   return (
     <>
-      <Header numberOfGames={numberOfGames} />
+      <Header list={libraryToShow} />
 
       <div className="listing">
         <span id="top" />
@@ -184,9 +294,9 @@ export default function Library(): JSX.Element {
 
         <h3 className="libraryHeader">{titleWithIcons()}</h3>
 
-        {refreshing && <UpdateComponent inline />}
+        {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
 
-        {!refreshing && (
+        {(!refreshing || refreshingInTheBackground) && (
           <GamesList
             library={libraryToShow}
             layout={layout}
