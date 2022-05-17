@@ -38,7 +38,7 @@ import {
   setupEnvVars,
   setupWrappers
 } from '../launcher'
-import { addShortcuts, removeShortcuts } from '../shortcuts'
+import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts'
 import setup from './setup'
 import { getGogdlCommand, runGogdlCommand } from './library'
 

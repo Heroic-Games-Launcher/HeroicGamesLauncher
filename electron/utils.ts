@@ -410,7 +410,7 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
         return stdout.split('\n')[0]
       })
       .catch((error) => {
-        logError(error, LogPrefix.Backend)
+        logError(`${error}`, LogPrefix.Backend)
         return ''
       })
   }

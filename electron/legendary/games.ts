@@ -27,7 +27,7 @@ import {
   setupWrappers,
   launchCleanup
 } from '../launcher'
-import { addShortcuts, removeShortcuts } from '../shortcuts'
+import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts'
 import { basename, join } from 'path'
 import { runLegendaryCommand } from './library'
 import { gameInfoStore } from './electronStores'

@@ -1007,7 +1007,7 @@ ipcMain.handle('uninstall', async (event, args) => {
     .uninstall()
     .then(() => {
       if (shouldRemovePrefix) {
-        logInfo(`Removing prefix ${winePrefix}`)
+        logInfo(`Removing prefix ${winePrefix}`, LogPrefix.Backend)
         if (existsSync(winePrefix)) {
           // remove prefix if exists
           rmSync(winePrefix, { recursive: true })
@@ -1142,7 +1142,7 @@ ipcMain.handle('updateGame', async (e, game, runner) => {
       logInfo('finished updating', LogPrefix.Backend)
     })
     .catch((err) => {
-      logError(err, LogPrefix.Backend)
+      logError(`${err}`, LogPrefix.Backend)
       notify({ title, body: i18next.t('notify.update.canceled') })
       return err
     })
