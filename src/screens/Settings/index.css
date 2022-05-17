@@ -11,12 +11,16 @@
   margin-bottom: 35px;
 }
 
-.Settings .Field {
+.Settings .Field,
+.Accessibility .Field,
+.InstallModal__dialog .Field {
   margin: 16px 0px;
   width: 100%;
 }
 
-.Settings .Field label {
+.Settings .Field label,
+.Accessibility .Field label,
+.InstallModal__dialog .Field label {
   cursor: default;
   margin-bottom: 14px;
   font: var(--font-secondary-regular);
