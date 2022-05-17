@@ -52,7 +52,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Open game page on Epic Store
 - Open game page on GOG.com
 - Search for the game on ProtonDB [Linux]
-- Sync installed games with an existing Epic Games instalation
+- Sync installed games with an existing Epic Games installation
 - Sync saves with the cloud [Epic]
 
 ## Planned features
@@ -92,8 +92,8 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Swedish
 - Tamil
 - Turkish
-- Ukranian
-- Vietnamize
+- Ukrainian
+- Vietnamese
 
 ### Help with Translations [Here](https://hosted.weblate.org/projects/heroic-games-launcher)
 
@@ -134,19 +134,19 @@ If you don't use VS Code or don't want it integrated with the container, you can
 
 1. From the root of your local Heroic directory, run:
 
-```
+```bash
 docker build -t heroicdevcontainer -f Dockerfile .
 ```
 
 2. Assuming all went well, you can now enter the container:
 
-```
+```bash
 docker run -it -v ./:/tmp/heroic localhost/heroicdevcontainer:latest
 ```
 
 3. The above command will mount your local Heroic dir to `/tmp/heroic` in the container (unless you used a different path).
 
-```
+```bash
 cd /tmp/heoric
 ```
 
@@ -171,7 +171,7 @@ sudo dpkg -i heroic_x.x.x_amd64.deb
 
 You can add the [**MAD Linux**](https://madlinux.sourceforge.io) [`apt` repository](https://gitlab.com/myawesomedistro/madrepo):
 
-```
+```bash
 bash <(wget -O- https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/main/madrepo.sh)
 ```
 
@@ -179,7 +179,7 @@ If you need support on it, get access to **MAD Linux** [**Guilded**](https://gui
 
 Maybe you want to boost the download speed on updates with [`apt-fast`](https://github.com/ilikenwf/apt-fast):
 
-```
+```bash
 sudo add-apt-repository -y ppa:apt-fast/stable
 sudo apt install -y apt-fast
 apt-fast install -y heroic

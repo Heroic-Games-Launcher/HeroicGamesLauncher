@@ -144,7 +144,6 @@ export class LegendaryLibrary {
 
     if (fullRefresh) {
       try {
-        logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
         await this.refresh()
       } catch (error) {
         logError(`${error}`, LogPrefix.Legendary)

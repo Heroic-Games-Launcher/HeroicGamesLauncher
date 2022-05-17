@@ -1,20 +1,21 @@
+import React, { useContext, useMemo } from 'react'
+import cx from 'classnames'
+import { useTranslation } from 'react-i18next'
+import { UE_VERSIONS } from './constants'
+import { GameInfo } from 'src/types'
+import ContextProvider from 'src/state/ContextProvider'
+import { SearchBar } from 'src/components/UI'
+import FormControl from '../FormControl'
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import cx from 'classnames'
-import React, { useContext } from 'react'
-import { useTranslation } from 'react-i18next'
-import { SearchBar } from 'src/components/UI'
-import ContextProvider from 'src/state/ContextProvider'
-import FormControl from '../FormControl'
-import { UE_VERSIONS } from './constants'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import './index.css'
 
-export interface HeaderProps {
-  numberOfGames: number
+interface ComponentProps {
+  list: GameInfo[]
 }
 
-export default function Header({ numberOfGames }: HeaderProps) {
+export default function Header({ list }: ComponentProps) {
   const { t } = useTranslation()
   const {
     category,
@@ -37,6 +38,13 @@ export default function Header({ numberOfGames }: HeaderProps) {
   const showHiddenTitle = showHidden
     ? t('header.ignore_hidden', 'Ignore Hidden')
     : t('header.show_hidden', 'Show Hidden')
+
+  const numberOfGames = useMemo(() => {
+    const dlcCount =
+      category === 'epic' ? list.filter((lib) => lib.install.is_dlc).length : 0
+
+    return list.length - dlcCount
+  }, [list, category])
 
   return (
     <div className="Header">
