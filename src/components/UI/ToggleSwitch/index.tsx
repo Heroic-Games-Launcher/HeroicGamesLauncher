@@ -29,7 +29,6 @@ export default function ToggleSwitch(props: Props) {
       />
       <label
         className={classNames(`toggleSwitchWrapper Field ${extraClass}`, {
-          checked: value,
           isRTL
         })}
         htmlFor={htmlId}

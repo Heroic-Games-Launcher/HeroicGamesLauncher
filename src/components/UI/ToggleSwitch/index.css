@@ -30,11 +30,6 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.toggleSwitchWrapper.checked:before {
-  content: '\2713';
-  background: var(--accent);
-}
-
 .toggleSwitchWrapper span {
   align-self: center;
   justify-self: flex-start;
@@ -47,7 +42,12 @@
   color: var(--accent);
 }
 
-.toggleSwitchWrapper.checked span {
+.hiddenCheckbox:checked + .toggleSwitchWrapper:before {
+  content: '\2713';
+  background: var(--accent);
+}
+
+.hiddenCheckbox:checked + .toggleSwitchWrapper span {
   font-weight: 700;
   color: var(--accent);
 }
