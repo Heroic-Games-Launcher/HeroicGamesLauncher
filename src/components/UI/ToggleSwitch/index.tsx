@@ -28,8 +28,8 @@ export default function ToggleSwitch(props: Props) {
         className="hiddenCheckbox"
       />
       <label
-        className={classNames('toggleSwitchWrapper Field', {
-          checked: extraClass,
+        className={classNames(`toggleSwitchWrapper Field ${extraClass}`, {
+          checked: value,
           isRTL
         })}
         htmlFor={htmlId}
