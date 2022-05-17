@@ -13,10 +13,11 @@ import {
 
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import ContextProvider from 'src/state/ContextProvider'
-import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { Tooltip } from '@mui/material'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -137,9 +138,10 @@ export default function WineSettings({
           value={defaultWinePrefix}
           onChange={(event) => setDefaultWinePrefix(event.target.value)}
           icon={
-            <FolderOpenOutlinedIcon
+            <FontAwesomeIcon
+              icon={faFolderOpen}
               data-testid="addWinePrefix"
-              titleAccess={t(
+              title={t(
                 'toolbox.settings.wineprefix',
                 'Select a Folder for new Wine Prefixes'
               )}
@@ -166,9 +168,10 @@ export default function WineSettings({
           value={winePrefix}
           onChange={(event) => setWinePrefix(event.target.value)}
           icon={
-            <FolderOpenOutlinedIcon
+            <FontAwesomeIcon
+              icon={faFolderOpen}
               data-testid="addWinePrefix"
-              titleAccess={t(
+              title={t(
                 'toolbox.settings.default-wineprefix',
                 'Select the default prefix folder for new configs'
               )}

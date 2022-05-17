@@ -9,9 +9,10 @@ import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 
 import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
-import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
 import TextInputWithIconField from 'src/components/UI/TextInputWithIconField'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -144,7 +145,12 @@ export default function GeneralSettings({
         value={defaultInstallPath.replaceAll("'", '')}
         placeholder={defaultInstallPath}
         onChange={(event) => setDefaultInstallPath(event.target.value)}
-        icon={<FolderOpenOutlinedIcon data-testid="setinstallpathbutton" />}
+        icon={
+          <FontAwesomeIcon
+            icon={faFolderOpen}
+            data-testid="setinstallpathbutton"
+          />
+        }
         onIconClick={async () =>
           ipcRenderer
             .invoke('openDialog', {
@@ -169,7 +175,8 @@ export default function GeneralSettings({
           onChange={(event) => setEgsPath(event.target.value)}
           icon={
             !egsPath.length ? (
-              <FolderOpenOutlinedIcon
+              <FontAwesomeIcon
+                icon={faFolderOpen}
                 data-testid="setEpicSyncPathButton"
                 style={{
                   color: isLinked ? 'transparent' : 'currentColor'

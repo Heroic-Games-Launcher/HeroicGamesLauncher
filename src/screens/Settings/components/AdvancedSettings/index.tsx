@@ -10,8 +10,9 @@ import { useTranslation } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
 import { AppSettings, Path } from 'src/types'
 import { configStore } from 'src/helpers/electronStores'
-import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 import TextInputWithIconField from 'src/components/UI/TextInputWithIconField'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -141,7 +142,8 @@ export const AdvancedSettings = ({
         onChange={(event) => setAltLegendaryBin(event.target.value)}
         icon={
           !altLegendaryBin.length ? (
-            <FolderOpenOutlinedIcon
+            <FontAwesomeIcon
+              icon={faFolderOpen}
               data-testid="setLegendaryBinaryButton"
               style={{
                 color: altLegendaryBin.length ? 'transparent' : 'currentColor'
@@ -181,7 +183,8 @@ export const AdvancedSettings = ({
         onChange={(event) => setAltGogdlBin(event.target.value)}
         icon={
           !altGogdlBin.length ? (
-            <FolderOpenOutlinedIcon
+            <FontAwesomeIcon
+              icon={faFolderOpen}
               data-testid="setGogdlBinaryButton"
               style={{
                 color: altGogdlBin.length ? 'transparent' : 'currentColor'
