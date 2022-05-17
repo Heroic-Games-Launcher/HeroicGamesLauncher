@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -197,6 +199,9 @@
             "startInstall": "Installation Started"
         },
         "moved": "Finished Moving",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Uninstalled",
         "update": {
             "canceled": "Updated Canceled",
@@ -253,7 +258,6 @@
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "language": "Choose App Language",
@@ -282,7 +286,6 @@
             "title": "Manual Sync Saves",
             "upload": "Upload"
         },
-        "maxRecentGames": "Played Recently to Show",
         "maxworkers": "Maximum Number of Workers when downloading",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Run Game Offline",

@@ -197,6 +197,9 @@
             "startInstall": "Kurulum Başladı"
         },
         "moved": "Taşıma Tamamlandı",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Kaldırıldı",
         "update": {
             "canceled": "Güncelleme İptal Edildi",
@@ -253,7 +256,6 @@
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
         "esync": "Esync'i Etkinleştir",
         "exit-to-tray": "Sistem Tepsisine Küçült",
-        "FsrSharpnessStrenght": "FSR Keskinlik Gücü",
         "fsync": "Fsync'i Etkinleştir",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
         "language": "Uygulama Dilini Seç",
@@ -282,7 +284,6 @@
             "title": "Kayıtları Elle Eşzamanla",
             "upload": "Karşıya Yükle"
         },
-        "maxRecentGames": "Gösterilecek Son Oynananlar",
         "maxworkers": "İndirirken azami işçi sayısı",
         "minimize-on-launch": "Oyun Başlatıldıktan Sonra Heroic'i Simge Durumuna Küçült",
         "offlinemode": "Oyunu Çevrim Dışı Çalıştır",

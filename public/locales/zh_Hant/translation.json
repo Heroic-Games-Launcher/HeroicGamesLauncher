@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -197,6 +199,9 @@
             "startInstall": "Installation Started"
         },
         "moved": "移動完成",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "已解除安裝",
         "update": {
             "canceled": "已取消更新",
@@ -253,7 +258,6 @@
         "enableFSRHack": "啟用FSR（需要支持的WINE版本）",
         "esync": "Enable Esync",
         "exit-to-tray": "退出到系統列",
-        "FsrSharpnessStrenght": "FSR 銳化度",
         "fsync": "Enable Fsync",
         "gamemode": "使用GameMode（需要已安裝Feral Game Mode）",
         "language": "選擇應用語言",
@@ -282,7 +286,6 @@
             "title": "手動同步存檔",
             "upload": "上傳"
         },
-        "maxRecentGames": "最近要展示的遊戲",
         "maxworkers": "下載時的最大Worker數量",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "離線運行遊戲",

@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "زوم"
     },
@@ -161,7 +163,7 @@
         "path": "انتخاب محل نصب"
     },
     "library": {
-        "gridView": "نمای شبکه‌ای",
+        "gridView": "نمای شبکه\u200cای",
         "listView": "نمای لیستی",
         "refresh": "تازه کردن",
         "sortAscending": "Sort Ascending",
@@ -197,6 +199,9 @@
             "startInstall": "نصب آغاز شد"
         },
         "moved": "انتقال کامل شد",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "حذف شد",
         "update": {
             "canceled": "بهروزرسانی لغو شد",
@@ -253,7 +258,6 @@
         "enableFSRHack": "فعالسازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
         "esync": "فعالسازی Esync",
         "exit-to-tray": "خروج به میزکار سیستم",
-        "FsrSharpnessStrenght": "قدرت تیزی FSR",
         "fsync": "فعالسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
         "language": "انتخاب زبان نرمافزار",
@@ -282,7 +286,6 @@
             "title": "همگامسازی دستی ذخیرهها",
             "upload": "آپلود"
         },
-        "maxRecentGames": "اخیرا بازی شده برای نمایش",
         "maxworkers": "بیسترین تعداد ورکر هنگام دانلود",
         "minimize-on-launch": "کوچک کردن Heroic بعد از اجرای بازی",
         "offlinemode": "اجرای آفلاین بازی",

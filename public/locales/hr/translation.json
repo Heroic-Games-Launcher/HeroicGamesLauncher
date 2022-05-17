@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -197,6 +199,9 @@
             "startInstall": "Installation Started"
         },
         "moved": "",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "",
         "update": {
             "canceled": "",
@@ -253,7 +258,6 @@
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "esync": "Enable Esync",
         "exit-to-tray": "",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "",
         "language": "",
@@ -282,7 +286,6 @@
             "title": "",
             "upload": ""
         },
-        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "",

@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -197,6 +199,9 @@
             "startInstall": "Installation commencée"
         },
         "moved": "Déplacement Terminé",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Désinstallé",
         "update": {
             "canceled": "Mise à jour Annulée",
@@ -253,7 +258,6 @@
         "enableFSRHack": "Activer FSR Hack (la version de wine doit le prendre en charge)",
         "esync": "Activer Esync",
         "exit-to-tray": "Quitter vers System Tray",
-        "FsrSharpnessStrenght": "Niveau de netteté pour FSR (FSR Sharpness Strength)",
         "fsync": "Activer Fsync",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
         "language": "Choix de la langue",
@@ -282,7 +286,6 @@
             "title": "Synchronisation manuelle des auvegardes",
             "upload": "Upload"
         },
-        "maxRecentGames": "Jeux récents à afficher",
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Lancer le jeu hors ligne",

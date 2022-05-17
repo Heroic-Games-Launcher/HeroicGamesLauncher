@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -197,6 +199,9 @@
             "startInstall": "Installation påbörjad"
         },
         "moved": "Spelflytt slutförd",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Avinstallerat",
         "update": {
             "canceled": "Uppdatering avbröts",
@@ -253,7 +258,6 @@
         "enableFSRHack": "Aktivera FSR Hack (Wine-versionen måste stödja det)",
         "esync": "Aktivera Esync",
         "exit-to-tray": "Minimera till systemfältet",
-        "FsrSharpnessStrenght": "FSR skärpningsnivå",
         "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj språk",
@@ -282,7 +286,6 @@
             "title": "Synkronisera sparfiler manuellt",
             "upload": "Ladda upp"
         },
-        "maxRecentGames": "Visa nyligen spelat",
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "minimize-on-launch": "Minimera Heroic efter spelstart",
         "offlinemode": "Kör spelet offline",

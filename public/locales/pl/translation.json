@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -197,6 +199,9 @@
             "startInstall": "Instalacja Rozpoczęta"
         },
         "moved": "Przenoszenie zakończone",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Odinstalowane",
         "update": {
             "canceled": "Aktualizacja przerwana",
@@ -253,7 +258,6 @@
         "enableFSRHack": "Włącz FSR Hack (Wersja Wine musi to wspierać)",
         "esync": "Włącz Esync",
         "exit-to-tray": "Wyjście do tacki systemowej",
-        "FsrSharpnessStrenght": "Ostrość FSR",
         "fsync": "Włącz Fsync",
         "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
         "language": "Wybierz język",
@@ -282,7 +286,6 @@
             "title": "Manualnie synchronizuj zapisy",
             "upload": "Upload"
         },
-        "maxRecentGames": "Ostatnio Grane do Pokazania",
         "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
         "minimize-on-launch": "Minimalizuj Heroic Po Uruchomieniu Gry",
         "offlinemode": "Uruchom grę w trybie offline",

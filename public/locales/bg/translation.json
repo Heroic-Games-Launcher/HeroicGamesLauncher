@@ -197,6 +197,9 @@
             "startInstall": "Инсталацията е започната"
         },
         "moved": "Преместването е завършено",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Деинсталирано",
         "update": {
             "canceled": "Обновяването е преустановено",
@@ -253,7 +256,6 @@
         "enableFSRHack": "Включване на хака FSR (версията на Wine трябва да го поддържа)",
         "esync": "Включване на Esync",
         "exit-to-tray": "Затваряне в системната област за уведомления",
-        "FsrSharpnessStrenght": "Сила на остротата на FSR",
         "fsync": "Включване на Fsync",
         "gamemode": "Използване на „GameMode“ („Feral Game Mode“ трябва да е инсталирано)",
         "language": "Изберете езика на приложението",
@@ -282,7 +284,6 @@
             "title": "Ръчно синхронизиране на запазените файлове",
             "upload": "Качване"
         },
-        "maxRecentGames": "Играно наскоро за показване",
         "maxworkers": "Максимален брой работни процеси при сваляне",
         "minimize-on-launch": "Минимизиране на Heroic при пускане на игра",
         "offlinemode": "Пускане на играта в режим „извън линия“",
