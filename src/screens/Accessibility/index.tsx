@@ -82,7 +82,7 @@ export default function Accessibility() {
           {t('accessibility.title', 'Accessibility')}
         </h1>
 
-        <span className="rangeWrapper">
+        <span className="rangeWrapper Field">
           <label className={classNames({ isRTL: isRTL })}>
             {t('accessibility.zoom', 'Zoom')} ({zoomPercent}%)
           </label>
