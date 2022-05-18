@@ -2,6 +2,7 @@
     "accessibility": {
         "actions_font_family": "Písmo pro Akce (Výchozí: \"Rubik\")",
         "content_font_family": "Písmo pro Obsah (Výchozí: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Přístupnost",
         "zoom": "Zoom"
     },

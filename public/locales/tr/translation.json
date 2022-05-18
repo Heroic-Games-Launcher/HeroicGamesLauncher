@@ -2,6 +2,7 @@
     "accessibility": {
         "actions_font_family": "Eylemler Yazı Tipi Ailesi (Öntanımlı: \"Rubik\")",
         "content_font_family": "İçerik Yazı Tipi Ailesi (Öntanımlı: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Erişilebilirlik",
         "zoom": "Zoom"
     },

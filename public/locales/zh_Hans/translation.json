@@ -3,6 +3,7 @@
         "actions_font_family": "操作字族 (默认: \"Rubik\")",
         "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "内容字族 (默认: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "辅助",
         "zoom": "缩放"
     },

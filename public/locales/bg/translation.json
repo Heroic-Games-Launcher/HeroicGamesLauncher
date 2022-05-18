@@ -2,6 +2,7 @@
     "accessibility": {
         "actions_font_family": "Семейство на шрифта за действията (по подразбиране: „Rubik“)",
         "content_font_family": "Семейство на шрифта за съдържанието (по подразбиране: „Cabin“)",
+        "fonts": "Fonts",
         "title": "Достъпност",
         "zoom": "Увеличаване"
     },
