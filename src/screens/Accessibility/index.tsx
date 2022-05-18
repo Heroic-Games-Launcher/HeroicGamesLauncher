@@ -157,6 +157,7 @@ export default function Accessibility() {
         <span className="setting">
           <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
+              htmlId="setAllTitlesInColor"
               value={allTilesInColor}
               handleChange={() => {
                 setAllTilesInColor(!allTilesInColor)
