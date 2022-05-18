@@ -14,7 +14,8 @@ import {
   isOnline,
   showErrorBoxModalAuto,
   searchForExecutableOnPath,
-  quoteIfNecessary
+  quoteIfNecessary,
+  errorHandler
 } from './utils'
 import {
   logDebug,
@@ -470,6 +471,10 @@ async function runLegendaryOrGogdlCommand(
     })
 
     child.on('close', (code, signal) => {
+      errorHandler({
+        error: { stderr: stderr.join(), stdout: stdout.join() },
+        logPath: options?.logFile
+      })
       if (signal) {
         rej('Process terminated with signal ' + signal)
       }
@@ -486,6 +491,7 @@ async function runLegendaryOrGogdlCommand(
       return { stdout, stderr, fullCommand: safeCommand }
     })
     .catch((error) => {
+      errorHandler({ error, logPath: options?.logFile })
       logError(
         ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
         runner.logPrefix
