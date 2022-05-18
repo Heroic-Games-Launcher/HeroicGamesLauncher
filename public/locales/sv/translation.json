@@ -258,6 +258,7 @@
         "enableFSRHack": "Aktivera FSR Hack (Wine-versionen måste stödja det)",
         "esync": "Aktivera Esync",
         "exit-to-tray": "Minimera till systemfältet",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
         "language": "Välj språk",
@@ -286,6 +287,7 @@
             "title": "Synkronisera sparfiler manuellt",
             "upload": "Ladda upp"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "minimize-on-launch": "Minimera Heroic efter spelstart",
         "offlinemode": "Kör spelet offline",

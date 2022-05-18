@@ -258,6 +258,7 @@
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "language": "Choose App Language",
@@ -286,6 +287,7 @@
             "title": "Manual Sync Saves",
             "upload": "Upload"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Maximum Number of Workers when downloading",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Run Game Offline",

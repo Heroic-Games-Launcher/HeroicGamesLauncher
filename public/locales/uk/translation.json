@@ -258,6 +258,7 @@
         "enableFSRHack": "Ввімкнути FSR Hack (версія Wine має це підтримувати)",
         "esync": "Ввімкнути Esync",
         "exit-to-tray": "Вийти до системної панелі",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Ввімкнути Fsync",
         "gamemode": "Використовувати GameMode (Feral Game Mode має бути встановлений)",
         "language": "Оберіть мову застосунка",
@@ -286,6 +287,7 @@
             "title": "Синхронізувати збереження власноруч",
             "upload": "Вивантажити"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Максимальна кількість працівників при завантаженні",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Запустити гру оффлайн",

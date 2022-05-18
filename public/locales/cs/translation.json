@@ -1,6 +1,7 @@
 {
     "accessibility": {
         "actions_font_family": "Písmo pro Akce (Výchozí: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Písmo pro Obsah (Výchozí: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Přístupnost",
@@ -286,6 +287,7 @@
             "title": "Ručně synchronizovat uložené soubory",
             "upload": "Nahrát"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Maximální počet vláken při stahování",
         "minimize-on-launch": "Minimalizujte Heroic po spuštění hry",
         "offlinemode": "Spustit hru offline",

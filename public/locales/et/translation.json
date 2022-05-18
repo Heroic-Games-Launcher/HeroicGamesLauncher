@@ -258,6 +258,7 @@
         "enableFSRHack": "Luba FSR häkk (Wine'i versioon peab seda toetama)",
         "esync": "Luba Esync",
         "exit-to-tray": "Välju süsteemiriiulisse",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Luba Fsync",
         "gamemode": "Kasuta GameMode'i (Feral Game Mode peab olema paigaldatud)",
         "language": "Valige rakenduse keel",
@@ -286,6 +287,7 @@
             "title": "Käsitsi salvestuste sünkroonimine",
             "upload": "Laadi üles"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Töötajate maksimaalne arv allalaadimisel",
         "minimize-on-launch": "Minimeeri Heroic pärast mängu käivitamist",
         "offlinemode": "Käivita mäng võrguühenduseta",

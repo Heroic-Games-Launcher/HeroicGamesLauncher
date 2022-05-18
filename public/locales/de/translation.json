@@ -258,6 +258,7 @@
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
         "esync": "Esync aktivieren",
         "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Fsync aktivieren",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
         "language": "App Sprache auswählen",
@@ -286,6 +287,7 @@
             "title": "Spielstände manuell synchronisieren",
             "upload": "Upload"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Maximale Anzahl von Prozessen zum gleichzeitigem Herunterladen",
         "minimize-on-launch": "Heroic nach Spielstart minimieren",
         "offlinemode": "Spiel offline ausführen",

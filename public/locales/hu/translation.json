@@ -258,6 +258,7 @@
         "enableFSRHack": "FSR hack engedélyezése (a Wine verziónak támogatnia kell)",
         "esync": "Esync engedélyezése",
         "exit-to-tray": "Kilépés a rendszertálcára",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Fsync engedélyezése",
         "gamemode": "GameMode használata (a Feral Game Mode-nak telepítve kell lennie)",
         "language": "Alkalmazás nyelvének kiválasztása",
@@ -286,6 +287,7 @@
             "title": "Mentések manuális szinkronizálása",
             "upload": "Feltöltés"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Maximum dolgozók száma letöltéskor",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Játék futtatása offline",

@@ -258,6 +258,7 @@
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "esync": "Enable Esync",
         "exit-to-tray": "கணினி தட்டிற்கு வெளியேறு",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "GameMode ஐ பயன்படுது (Feral விளையாட்டு பயன்முறையை நிறுவப்பட்டிருக்க வேண்டும்)",
         "language": "பயன்பாட்டின் மொழியை தேர்வுசெய்",
@@ -286,6 +287,7 @@
             "title": "கைமுறை ஒத்திசைவு சேமிப்புகள்",
             "upload": "பதிவேற்றம்"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "பதிவிறக்கும் போது வேலையாளிகளின் அதிகபட்ச எண்ணிக்கை",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "இணையத்துடன் இணையாமல் விளையாட்டை துவக்கு",

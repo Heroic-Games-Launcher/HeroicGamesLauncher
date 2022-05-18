@@ -258,6 +258,7 @@
         "enableFSRHack": "Ενεργοποίηση FSR Hack (Η έκδοση Wine πρέπει να το υποστηρίζει)",
         "esync": "Ενεργοποίηση Esync",
         "exit-to-tray": "Έξοδος σε Μπάρα Εργαλειών",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Ενεργοποίηση Fsync",
         "gamemode": "Χρήση λειτουργίας παιχνιδιού (απαραίτητη η εγκατάσταση του Feral Game Mode)",
         "language": "Διαλέξτε γλώσσα εφαρμογής",
@@ -286,6 +287,7 @@
             "title": "Δεδομένα Χειροκίνητου Συγχρονισμού",
             "upload": "Μεταφόρτωση"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Μέγιστος αριθμός εργατών κατά την λήψη",
         "minimize-on-launch": "Ελαχιστοποίηση Heroic Μετά Την 'Εναρξη",
         "offlinemode": "Εκτέλεση Παιχνιδιού Εκτός Δικτύου",

@@ -258,6 +258,7 @@
         "enableFSRHack": "FSRハックを有効にする（Wineバージョンはそれをサポートする必要があります）",
         "esync": "Esyncを有効にする",
         "exit-to-tray": "システムトレイに戻る",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Fsyncを有効にする",
         "gamemode": "GameModeを使用する（Feral Game Modeをインストールする必要があります）",
         "language": "アプリの言語を選択",
@@ -286,6 +287,7 @@
             "title": "手動同期保存",
             "upload": "アップロード"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "ダウンロード時のワーカーの最大数",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "ゲームをオフラインで実行する",

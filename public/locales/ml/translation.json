@@ -258,6 +258,7 @@
         "enableFSRHack": "എഫ്എസ്ആര് ഹാക്ക് വയ്ക്കൂ (Wine version needs to support it)",
         "esync": "Esync വയ്ക്കൂ",
         "exit-to-tray": "സംവിധാന താലത്തിലേക്ക്(സിസ്റ്റം ട്രേ) ചുരുക്കുക",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Fsync വയ്ക്കൂ",
         "gamemode": "ഗെയിംമോഡ് ഉപയോഗിക്കൂ (ഫെറലിന്റെ ഗെയിംമോഡ് ഇന്സ്റ്റാള് ചെയ്തിരിക്കണം)",
         "language": "ആപ്പിന്റെ ഭാഷ",
@@ -286,6 +287,7 @@
             "title": "നിങ്ങള് സൂക്ഷിച്ച ഒന്നിപ്പിക്കലുകള്",
             "upload": "കയറ്റിവയ്ക്കുൂ"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "ഇറക്കിയെടുക്കുമ്പോള് പണിയുന്നവരുടെ പരമാവധി എണ്ണം",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "ഓഫ്ലൈനില് കളിക്കുക",

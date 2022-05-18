@@ -258,6 +258,7 @@
         "enableFSRHack": "Ota käyttöön FSR Hack (Wine version tulee tukea sitä)",
         "esync": "Ota Esync käyttöön",
         "exit-to-tray": "Sulje ilmaisinalueelle",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Ota Fsync käyttöön",
         "gamemode": "Käytä GameModea (Feral Game Mode tulee olla asennettu)",
         "language": "Valitse applikaation kieli",
@@ -286,6 +287,7 @@
             "title": "Manuaalinen tallennusten synkronointi",
             "upload": "Lähetä"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Työntekijöiden enimmäismäärä ladattaessa",
         "minimize-on-launch": "Minimoi Heroic pelin käynnistämisen jälkeen",
         "offlinemode": "Käynnistä peli offline-tilassa",

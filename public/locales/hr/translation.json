@@ -258,6 +258,7 @@
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "esync": "Enable Esync",
         "exit-to-tray": "",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "",
         "language": "",
@@ -286,6 +287,7 @@
             "title": "",
             "upload": ""
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "",

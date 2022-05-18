@@ -1,6 +1,7 @@
 {
     "accessibility": {
         "actions_font_family": "Семейство на шрифта за действията (по подразбиране: „Rubik“)",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Семейство на шрифта за съдържанието (по подразбиране: „Cabin“)",
         "fonts": "Fonts",
         "title": "Достъпност",
@@ -257,6 +258,7 @@
         "enableFSRHack": "Включване на хака FSR (версията на Wine трябва да го поддържа)",
         "esync": "Включване на Esync",
         "exit-to-tray": "Затваряне в системната област за уведомления",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Включване на Fsync",
         "gamemode": "Използване на „GameMode“ („Feral Game Mode“ трябва да е инсталирано)",
         "language": "Изберете езика на приложението",
@@ -285,6 +287,7 @@
             "title": "Ръчно синхронизиране на запазените файлове",
             "upload": "Качване"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Максимален брой работни процеси при сваляне",
         "minimize-on-launch": "Минимизиране на Heroic при пускане на игра",
         "offlinemode": "Пускане на играта в режим „извън линия“",

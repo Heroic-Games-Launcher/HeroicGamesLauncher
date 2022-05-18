@@ -258,6 +258,7 @@
         "enableFSRHack": "فعالسازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
         "esync": "فعالسازی Esync",
         "exit-to-tray": "خروج به میزکار سیستم",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "فعالسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
         "language": "انتخاب زبان نرمافزار",
@@ -286,6 +287,7 @@
             "title": "همگامسازی دستی ذخیرهها",
             "upload": "آپلود"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "بیسترین تعداد ورکر هنگام دانلود",
         "minimize-on-launch": "کوچک کردن Heroic بعد از اجرای بازی",
         "offlinemode": "اجرای آفلاین بازی",

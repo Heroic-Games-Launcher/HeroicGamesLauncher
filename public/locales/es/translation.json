@@ -258,6 +258,7 @@
         "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
         "esync": "Activar Esync",
         "exit-to-tray": "Salir a la bandeja del sistema",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Habilitar Fsync",
         "gamemode": "Usar GameMode (Feral Game Mode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
@@ -286,6 +287,7 @@
             "title": "Guardado de sincronización manual",
             "upload": "Subida"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Número máximo de descargas",
         "minimize-on-launch": "Minimizar Heroic al ejecutar un juego",
         "offlinemode": "Ejecutar juego sin conexión",

@@ -258,6 +258,7 @@
         "enableFSRHack": "Włącz FSR Hack (Wersja Wine musi to wspierać)",
         "esync": "Włącz Esync",
         "exit-to-tray": "Wyjście do tacki systemowej",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Włącz Fsync",
         "gamemode": "Użyj GameMode (Feral Game Mode musi być zainstalowane)",
         "language": "Wybierz język",
@@ -286,6 +287,7 @@
             "title": "Manualnie synchronizuj zapisy",
             "upload": "Upload"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
         "minimize-on-launch": "Minimalizuj Heroic Po Uruchomieniu Gry",
         "offlinemode": "Uruchom grę w trybie offline",

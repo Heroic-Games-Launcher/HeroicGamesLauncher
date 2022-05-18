@@ -258,6 +258,7 @@
         "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
         "esync": "Aktifkan Esync",
         "exit-to-tray": "Keluar ke Baki Sistem",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Aktifkan Fsync",
         "gamemode": "Gunakan GameMode (Feral Game Mode perlu dipasang)",
         "language": "Pilih Bahasa",
@@ -286,6 +287,7 @@
             "title": "Sinkronisasi Penyimpanan Secara Manual",
             "upload": "Unggah"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Jumlah Maksimum Worker saat mengunduh",
         "minimize-on-launch": "Minimalkan Jendela Heroic Setelah Gim Diluncurkan",
         "offlinemode": "Jalankan Game Secara Luring",

@@ -258,6 +258,7 @@
         "enableFSRHack": "FSR 활성화 (지원하는 Wine 버전을 사용해야 합니다)",
         "esync": "Esync 활성화",
         "exit-to-tray": "시스템 트레이로 나가기",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Fsync 활성화",
         "gamemode": "GameMode 사용 (Feral Game Mode가 설치되어 있어야 합니다)",
         "language": "앱 언어 선택",
@@ -286,6 +287,7 @@
             "title": "세이브 수동 동기화",
             "upload": "업로드"
         },
+        "maxRecentGames": "Recent Games to Show",
         "maxworkers": "다운로드할 때 최대 워커 개수",
         "minimize-on-launch": "게임 실행 후 Heroic 최소화",
         "offlinemode": "게임 오프라인으로 실행",
