@@ -85,10 +85,12 @@ const GameCard = ({
 
   const { status, folder } = gameStatus || {}
   const isInstalling = status === 'installing' || status === 'updating'
+  const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
-  const haveStatus = isMoving || isReparing || isInstalling || hasUpdate
+  const haveStatus =
+    isMoving || isReparing || isInstalling || hasUpdate || isUpdating
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -116,6 +118,9 @@ const GameCard = ({
   }
 
   function getStatus() {
+    if (isUpdating) {
+      return t('status.updating') + ` ${percent}`
+    }
     if (isInstalling) {
       return t('status.installing') + ` ${percent}`
     }

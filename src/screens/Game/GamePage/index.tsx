@@ -318,13 +318,14 @@ export default function GamePage(): JSX.Element | null {
                     </div>
                     <TimeContainer game={appName} />
                     <div className="gameStatus">
-                      {isInstalling && (
-                        <progress
-                          className="installProgress"
-                          max={100}
-                          value={getProgress(progress)}
-                        />
-                      )}
+                      {isInstalling ||
+                        (isUpdating && (
+                          <progress
+                            className="installProgress"
+                            max={100}
+                            value={getProgress(progress)}
+                          />
+                        ))}
                       <p
                         style={{
                           color:
@@ -471,11 +472,19 @@ export default function GamePage(): JSX.Element | null {
       return `${t('status.moving')}`
     }
 
-    const currentProgress = `${
-      percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
-    }`
+    const currentProgress =
+      getProgress(progress) >= 99
+        ? ''
+        : `${
+            percent && bytes && eta
+              ? `${percent} [${bytes}] | ETA: ${eta}`
+              : '...'
+          }`
 
     if (isUpdating && is_installed) {
+      if (!currentProgress) {
+        return `${t('status.processing', 'Processing files, please wait')}...`
+      }
       if (eta && eta.includes('verifying')) {
         return `${t('status.reparing')}: ${percent} [${bytes}]`
       }
@@ -483,6 +492,9 @@ export default function GamePage(): JSX.Element | null {
     }
 
     if (!isUpdating && isInstalling) {
+      if (!currentProgress) {
+        return `${t('status.processing', 'Processing files, please wait')}...`
+      }
       return `${t('status.installing')} ${currentProgress}`
     }
 
