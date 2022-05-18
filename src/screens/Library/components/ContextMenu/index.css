@@ -1,0 +1,15 @@
+.contextMenu > .MuiPaper-root {
+  background: var(--navbar-background);
+}
+
+.contextMenu > .MuiPaper-root > .MuiMenu-list {
+  background: var(--navbar-background);
+  color: var(--accent);
+  border-radius: 10px;
+  font-family: 'Rubik';
+}
+
+.contextMenu > .MuiPaper-root > .MuiMenu-list > .MuiMenuItem-root:hover {
+  text-decoration: none;
+  background-color: var(--navbar-active-background);
+}

@@ -18,7 +18,8 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol
+  protocol,
+  screen
 } from 'electron'
 import './updater'
 import { autoUpdater } from 'electron-updater'
@@ -29,7 +30,6 @@ import {
   rmSync,
   unlinkSync,
   watch,
-  writeFile,
   writeFileSync
 } from 'graceful-fs'
 
@@ -47,7 +47,6 @@ import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
 import {
   clearCache,
-  errorHandler,
   execAsync,
   isEpicServiceOffline,
   getLegendaryVersion,
@@ -62,7 +61,8 @@ import {
   getLegendaryBin,
   getGOGdlBin,
   showErrorBoxModal,
-  size
+  getFileSize,
+  showErrorBoxModalAuto
 } from './utils'
 import {
   configStore,
@@ -84,11 +84,13 @@ import {
   tsStore,
   weblateUrl,
   wikiLink,
-  heroicToolsPath
+  heroicToolsPath,
+  fontsStore
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
+import { getFonts } from 'font-list'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -97,6 +99,7 @@ let mainWindow: BrowserWindow = null
 
 async function createWindow(): Promise<BrowserWindow> {
   const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
+  configStore.set('userHome', userHome)
 
   let windowProps: Electron.Rectangle = {
     height: 690,
@@ -116,13 +119,24 @@ async function createWindow(): Promise<BrowserWindow> {
     ) {
       windowProps = tmpWindowProps
     }
+  } else {
+    // make sure initial screen size is not bigger than the available screen space
+    const screenInfo = screen.getPrimaryDisplay()
+
+    if (screenInfo.workAreaSize.height > windowProps.height) {
+      windowProps.height = screenInfo.workAreaSize.height * 0.8
+    }
+
+    if (screenInfo.workAreaSize.width > windowProps.width) {
+      windowProps.width = screenInfo.workAreaSize.width * 0.8
+    }
   }
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
     ...windowProps,
-    minHeight: 650,
-    minWidth: 1100,
+    minHeight: 345,
+    minWidth: 600,
     show: !(exitToTray && startInTray),
     webPreferences: {
       webviewTag: true,
@@ -239,6 +253,21 @@ const contextMenu = () => {
   ])
 }
 
+const processZoomForScreen = (zoomFactor: number) => {
+  const screenSize = screen.getPrimaryDisplay().workAreaSize.width
+  if (screenSize < 1200) {
+    const extraDPIZoomIn = screenSize / 1200
+    return zoomFactor * extraDPIZoomIn
+  } else {
+    return zoomFactor
+  }
+}
+
+ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
+  const window = BrowserWindow.getAllWindows()[0]
+  window.webContents.setZoomFactor(processZoomForScreen(parseFloat(zoomFactor)))
+})
+
 if (!gotTheLock) {
   logInfo('Heroic is already running, quitting this instance')
   app.quit()
@@ -350,6 +379,14 @@ if (!gotTheLock) {
       handleProtocol(mainWindow, url)
     }
 
+    // set initial zoom level after a moment, if set in sync the value stays as 1
+    setTimeout(() => {
+      const zoomFactor =
+        parseFloat((configStore.get('zoomPercent') as string) || '100') / 100
+
+      mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
+    }, 200)
+
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
 
@@ -426,7 +463,7 @@ ipcMain.handle('kill', async (event, appName, runner) => {
 
 ipcMain.handle('checkDiskSpace', async (event, folder) => {
   const { free, size: diskSize } = await checkDiskSpace(folder)
-  return `${size(free)}/${size(diskSize)}`
+  return `${getFileSize(free)}/${getFileSize(diskSize)}`
 })
 
 ipcMain.on('quit', async () => handleExit(mainWindow))
@@ -485,8 +522,8 @@ interface Tools {
 ipcMain.handle(
   'callTool',
   async (event, { tool, wine, prefix, exe }: Tools) => {
-    const newProtonWinePath = wine.replace("proton'", "files/bin/wine64'")
-    const oldProtonWinePath = wine.replace("proton'", "dist/bin/wine64'")
+    const newProtonWinePath = wine.replace('proton', 'files/bin/wine64')
+    const oldProtonWinePath = wine.replace('proton', 'dist/bin/wine64')
     const isProton = wine.includes('proton')
     const winetricks = `${heroicToolsPath}/winetricks`
     const options: ExecOptions = {
@@ -497,7 +534,7 @@ ipcMain.handle(
     const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
       ? newProtonWinePath
       : oldProtonWinePath
-    let wineBin = isProton ? protonWinePath : wine
+    let wineBin = isProton ? `'${protonWinePath}'` : wine
     let winePrefix = prefix.replace('~', userHome)
 
     if (wine.includes('proton')) {
@@ -519,7 +556,7 @@ ipcMain.handle(
     }
 
     let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${
-      tool === 'winecfg' ? `${wineBin} ${tool}` : winetricks
+      tool === 'winecfg' ? `${wineBin} ${tool}` : `${winetricks} -q`
     }`
 
     if (tool === 'runExe') {
@@ -529,8 +566,10 @@ ipcMain.handle(
 
     logInfo(['trying to run', command], LogPrefix.Backend)
     try {
-      await execAsync(command, options)
+      const { stderr, stdout } = await execAsync(command, options)
+      logInfo(`Output: ${stderr} \n ${stdout}`)
     } catch (error) {
+      logError(`${error}`)
       logError(
         `Something went wrong! Check if ${tool} is available and ${wineBin} exists`,
         LogPrefix.Backend
@@ -587,12 +626,6 @@ ipcMain.on('resetHeroic', async () => {
   }
 })
 
-ipcMain.handle('authGOG', async (event, code) =>
-  GOGUser.login(code).then(() =>
-    mainWindow.webContents.send('updateLoginState')
-  )
-)
-
 ipcMain.on('createNewWindow', async (e, url) =>
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 )
@@ -623,32 +656,31 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
   return GOGLibrary.getLinuxInstallersLanguages(appName)
 })
 
-ipcMain.handle('getInstallInfo', async (event, game, runner) => {
-  const online = await isOnline()
-  if (!online) {
-    return { game: {}, metadata: {} }
+ipcMain.handle(
+  'getInstallInfo',
+  async (event, game, runner: Runner, installPlatform: string) => {
+    const online = await isOnline()
+    if (!online) {
+      return { game: {}, metadata: {} }
+    }
+
+    try {
+      const info = await Game.get(game, runner).getInstallInfo(installPlatform)
+      return info
+    } catch (error) {
+      logError(`${error}`, LogPrefix.Backend)
+      return null
+    }
   }
-  try {
-    const info = await Game.get(game, runner).getInstallInfo()
-    return info
-  } catch (error) {
-    logError(`${error}`, LogPrefix.Backend)
-    return null
-  }
-})
+)
 
 ipcMain.handle('getUserInfo', async () => LegendaryUser.getUserInfo())
 
 // Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', async () => LegendaryUser.isLoggedIn())
 
-ipcMain.handle('login', async (event, sid) =>
-  LegendaryUser.login(sid).then((value) => {
-    mainWindow.webContents.send('updateLoginState')
-    return value
-  })
-)
-
+ipcMain.handle('login', async (event, sid) => LegendaryUser.login(sid))
+ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))
 ipcMain.handle('logoutLegendary', async () => LegendaryUser.logout())
 ipcMain.handle('logoutGOG', async () => GOGUser.logout())
 
@@ -749,7 +781,7 @@ ipcMain.handle(
       tsStore.set(`${game}.firstPlayed`, startPlayingDate)
     }
 
-    logInfo([`launching`, title, game], LogPrefix.Backend)
+    logInfo(`Launching ${title} (${game})`, LogPrefix.Backend)
 
     if (recentGames.length) {
       let updatedRecentGames = recentGames.filter(
@@ -775,68 +807,77 @@ ipcMain.handle(
       mainWindow.hide()
     }
 
+    let logResult = ''
     return Game.get(appName, runner)
       .launch(launchArguments)
-      .then(async ({ stderr, command, gameSettings }: LaunchResult) => {
-        mainWindow.show()
+      .then(
+        async ({
+          stdout,
+          stderr,
+          success,
+          command,
+          gameSettings
+        }: LaunchResult) => {
+          if (!success) {
+            showErrorBoxModalAuto(
+              i18next.t('box.error.title', 'Something Went Wrong'),
+              i18next.t(
+                'box.error.launch',
+                'Error when launching the game, check the logs!'
+              )
+            )
+          }
+
+          logResult = `Launch Command: ${command}
+
+System Info:
+${await getSystemInfo()}
+
+Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
+`
+          if (stderr) {
+            logResult += `\nError Log:\n${stderr}\n`
+          }
+          if (stdout) {
+            logResult += `\nGame Log:\n${stdout}\n`
+          }
+        }
+      )
+      .catch((exception) => {
+        logResult = `${exception.name} - ${exception.message}`
+        logError(logResult, LogPrefix.Backend)
+      })
+      .finally(() => {
+        // Write log file
+        const logFileLocation = path.join(
+          heroicGamesConfigPath,
+          `${game}-lastPlay.log`
+        )
+        writeFileSync(logFileLocation, logResult)
+        logInfo(`Log was written to ${logFileLocation}`, LogPrefix.Backend)
+
+        // Update playtime and last played date
         const finishedPlayingDate = new Date()
         tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
-        const sessionPlayingTime =
-          (Number(finishedPlayingDate) - Number(startPlayingDate)) / 1000 / 60
-        const totalPlayedTime: number = tsStore.has(`${game}.totalPlayed`)
-          ? (tsStore.get(`${game}.totalPlayed`) as number) + sessionPlayingTime
-          : sessionPlayingTime
-        // I'll send the calculated time here because then the user can set it manually on the file if desired
-        tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlayedTime))
-        const systemInfo = await getSystemInfo()
+        // Playtime of this session in minutes
+        const sessionPlaytime =
+          (finishedPlayingDate.getTime() - startPlayingDate.getTime()) /
+          1000 /
+          60
+        let totalPlaytime = sessionPlaytime
+        if (tsStore.has(`${game}.totalPlayed`)) {
+          totalPlaytime += tsStore.get(`${game}.totalPlayed`) as number
+        }
+        tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlaytime))
 
-        const logResult = `Launch Command: ${command}
-        System Info:
-        ${systemInfo}
-        Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
-
-        Game Log:
-        ${stderr}
-        `
-
-        if (stderr.includes('Errno')) {
-          showErrorBoxModal(
-            mainWindow,
-            i18next.t('box.error.title', 'Something Went Wrong'),
-            i18next.t(
-              'box.error.launch',
-              'Error when launching the game, check the logs!'
-            )
-          )
+        if (minimizeOnLaunch) {
+          mainWindow.show()
         }
         window.webContents.send('setGameStatus', {
           appName,
           runner,
           status: 'done'
         })
-
-        const gameLogFile = join(heroicGamesConfigPath, game + '-lastPlay.log')
-        writeFile(gameLogFile, logResult, () =>
-          logInfo(`Log was written to ${gameLogFile}`, LogPrefix.Backend)
-        )
-        return stderr
-      })
-      .catch(async (exception) => {
-        mainWindow.show()
-        const stderr = `${exception.name} - ${exception.message}`
-        errorHandler({ error: { stderr, stdout: '' } }, mainWindow)
-        writeFile(
-          join(heroicGamesConfigPath, game + '-lastPlay.log'),
-          stderr,
-          () => 'done'
-        )
-        logError(stderr, LogPrefix.Backend)
-        window.webContents.send('setGameStatus', {
-          appName,
-          runner,
-          status: 'done'
-        })
-        return stderr
       })
   }
 )
@@ -878,20 +919,18 @@ ipcMain.handle(
 )
 
 ipcMain.handle('install', async (event, params) => {
-  const { appName, path, installDlcs, sdlList, runner, installLanguage } =
-    params as InstallParams
-  const { title, is_mac_native, is_linux_native } = await Game.get(
+  const {
     appName,
-    runner
-  ).getGameInfo()
-  const platformToInstall =
-    platform() === 'darwin' && is_mac_native
-      ? 'Mac'
-      : platform() === 'linux' && is_linux_native
-      ? 'Linux'
-      : 'Windows'
+    path,
+    installDlcs,
+    sdlList,
+    runner,
+    installLanguage,
+    platformToInstall
+  } = params as InstallParams
+  const { title } = await Game.get(appName, runner).getGameInfo()
 
-  if (!(await isOnline())) {
+  if (!isOnline()) {
     logWarning(
       `App offline, skipping install for game '${title}'.`,
       LogPrefix.Backend
@@ -981,7 +1020,7 @@ ipcMain.handle('uninstall', async (event, args) => {
 })
 
 ipcMain.handle('repair', async (event, game, runner) => {
-  if (!(await isOnline())) {
+  if (!isOnline()) {
     logWarning(
       `App offline, skipping repair for game '${game}'.`,
       LogPrefix.Backend
@@ -1066,7 +1105,7 @@ ipcMain.handle('importGame', async (event, args) => {
 })
 
 ipcMain.handle('updateGame', async (e, game, runner) => {
-  if (!(await isOnline())) {
+  if (!isOnline()) {
     logWarning(
       `App offline, skipping install for game '${game}'.`,
       LogPrefix.Backend
@@ -1192,7 +1231,7 @@ ipcMain.handle('syncSaves', async (event, args) => {
     logWarning('Epic is Offline right now, cannot sync saves!')
     return 'Epic is Offline right now, cannot sync saves!'
   }
-  if (!(await isOnline())) {
+  if (!isOnline()) {
     logWarning(
       `App offline, skipping syncing saves for game '${appName}'.`,
       LogPrefix.Backend
@@ -1308,6 +1347,16 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   if (inputEvents.length) {
     inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
   }
+})
+
+ipcMain.handle('getFonts', async (event, reload = false) => {
+  let cachedFonts = (fontsStore.get('fonts') as string[]) || []
+  if (cachedFonts.length === 0 || reload) {
+    cachedFonts = await getFonts()
+    cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))
+    fontsStore.set('fonts', cachedFonts)
+  }
+  return cachedFonts
 })
 
 /*

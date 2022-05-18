@@ -6,7 +6,7 @@
             "title": "Изменить путь установки игры"
         },
         "choose": "Выбрать",
-        "importpath": "Выбрать папку с игрой для импорта",
+        "importpath": "Выберите папку с игрой для импорта",
         "move": {
             "message": "Это может занять много времени. Вы уверены?",
             "path": "Выбрать куда переместить",
@@ -36,14 +36,14 @@
         "yes": "ДА"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Добавить в избранное",
         "cancel": "Пауза/Отмена",
         "continue": "Продолжить загрузку",
-        "hide_game": "Hide Game",
+        "hide_game": "Скрыть игру",
         "import": "Импортировать игру",
         "install": "Установить",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Удалить из избранного",
+        "unhide_game": "Показать игру",
         "uninstall": "Удалить",
         "update": "Обновить"
     },
@@ -59,6 +59,7 @@
         "language": "Язык",
         "lastPlayed": "Последний запуск",
         "neverPlayed": "Никогда",
+        "platform": "Выберите версию платформы для установки",
         "totalPlayed": "Проведено в игре"
     },
     "gamecard": {
@@ -67,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Требуется онлайн",
+        "installedPlatform": "Установленная платформа",
         "path": "Путь установки",
         "size": "Размер",
         "syncsaves": "Синхронизация сохранений",
         "version": "Версия"
     },
     "install": {
+        "disk-space-left": "Свободное место на устройстве",
         "path": "Выберите путь установки",
         "wineprefix": "Префикс Wine",
         "wineversion": "Версия Wine"
@@ -89,7 +92,7 @@
     "launch": {
         "options": "Параметры запуска..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Сообщить о проблеме с запуском этой игры",
     "sdl": {
         "title": "Выбрать компоненты для установки"
     },

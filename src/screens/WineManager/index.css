@@ -1,0 +1,18 @@
+.wineManager
+  > .MuiTabs-root
+  > .MuiTabs-scroller
+  > .MuiTabs-flexContainer
+  > .MuiTab-root {
+  color: var(--text-default);
+}
+
+.wineManager
+  > .MuiTabs-root
+  > .MuiTabs-scroller
+  > .MuiTabs-flexContainer
+  > .Mui-selected {
+  color: var(--accent);
+}
+.wineManager > .MuiTabs-root > .MuiTabs-scroller > .MuiTabs-indicator {
+  background-color: var(--accent);
+}

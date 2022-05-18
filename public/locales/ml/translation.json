@@ -1,4 +1,10 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "എല്ലാം",
     "Assets": "വഹകള്",
     "box": {
@@ -366,7 +372,7 @@
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
+            "title": "Wine Manager",
             "unzipping": "Unzipping"
         }
     }

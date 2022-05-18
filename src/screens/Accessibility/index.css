@@ -1,0 +1,41 @@
+input[type='range'] {
+  width: 100%;
+  max-width: 513px;
+}
+
+.Accessibility > .settingsWrapper > .setting > .is-drop-down {
+  background-position: calc(100% - 20px) calc(1em + -4px),
+    calc(100% - 15px) calc(1em + -4px), calc(101% - 2.5em) calc(0.5em + -8px);
+}
+
+.zoomHint {
+  display: flex;
+  justify-content: space-between;
+  width: 103%;
+  max-width: 522px;
+}
+
+.Accessibility label,
+.Accessibility span,
+.Accessibility select,
+.Accessibility option {
+  font-size: 1.5rem;
+}
+
+.Accessibility .zoomHint span {
+  font-size: 1rem;
+}
+
+.Accessibility .fonts-label button {
+  width: auto;
+  margin-left: 1rem;
+}
+
+.Accessibility .fonts-label button:hover {
+  color: var(--accent);
+}
+
+.Accessibility .fonts-label button.refreshing svg {
+  color: var(--accent);
+  animation: refreshing 2s 1;
+}

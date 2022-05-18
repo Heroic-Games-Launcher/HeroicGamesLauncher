@@ -91,3 +91,14 @@
   margin: 16px calc(16px + 8px + 13px);
   color: var(--text-default);
 }
+
+.diskSpaceInfo {
+  font-size: 14px;
+  align-self: flex-start;
+  padding: 4px 0 4px 8px;
+  color: var(--text-secondary);
+}
+
+.diskSpaceInfo::before {
+  content: '- ';
+}

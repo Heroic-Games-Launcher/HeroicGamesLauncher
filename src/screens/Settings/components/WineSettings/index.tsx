@@ -6,7 +6,8 @@ import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
 
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import ContextProvider from 'src/state/ContextProvider'
-import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
+import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
+
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import classNames from 'classnames'
 import { Tooltip } from '@mui/material'
@@ -118,12 +119,13 @@ export default function WineSettings({
 
   return (
     <>
+      <h3 className="settingSubheader">Wine</h3>
       {isLinux && isDefault && (
         <span data-testid="wineSettings" className="setting">
           <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.defaultWinePrefix', 'Set Folder for new Wine Prefixes')}
           </span>
-          <span>
+          <span className="settingInputWithButton">
             <input
               data-testid="selectDefaultWinePrefix"
               type="text"
@@ -145,7 +147,7 @@ export default function WineSettings({
                   )
               }
             >
-              <CreateNewFolder
+              <FolderOpenOutlinedIcon
                 data-testid="addWinePrefix"
                 titleAccess={t(
                   'toolbox.settings.wineprefix',
@@ -161,7 +163,7 @@ export default function WineSettings({
           <span className={classNames('settingText', { isRTL: isRTL })}>
             {t('setting.wineprefix')}
           </span>
-          <span>
+          <span className="settingInputWithButton">
             <input
               data-testid="selectWinePrefix"
               type="text"
@@ -183,7 +185,7 @@ export default function WineSettings({
                   )
               }
             >
-              <CreateNewFolder
+              <FolderOpenOutlinedIcon
                 data-testid="addWinePrefix"
                 titleAccess={t(
                   'toolbox.settings.default-wineprefix',
@@ -206,7 +208,6 @@ export default function WineSettings({
               className="settingSelect"
               defaultValue={selectedPath}
               onChange={(e) => setSelectedPath(e.target.value)}
-              style={{ width: '440px' }}
             >
               {customWinePaths.map((path: string) => (
                 <option key={path}>{path}</option>
@@ -224,7 +225,7 @@ export default function WineSettings({
                     style={{
                       color: selectedPath
                         ? 'var(--danger)'
-                        : 'var(--background-darker)',
+                        : 'var(--text-tertiary)',
                       cursor: selectedPath ? 'pointer' : ''
                     }}
                     fontSize="large"
@@ -322,9 +323,6 @@ export default function WineSettings({
                 'Auto Install/Update DXVK on Prefix'
               )}
             />
-            <span>
-              {t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
-            </span>
           </label>
         </span>
       )}
@@ -346,9 +344,6 @@ export default function WineSettings({
                 'Auto Install/Update VKD3D on Prefix'
               )}
             />
-            <span>
-              {t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')}
-            </span>
           </label>
         </span>
       )}
@@ -362,12 +357,6 @@ export default function WineSettings({
               'Enable FSR Hack (Wine version needs to support it)'
             )}
           />
-          <span>
-            {t(
-              'setting.enableFSRHack',
-              'Enable FSR Hack (Wine version needs to support it)'
-            )}
-          </span>
         </label>
       </span>
       {enableFSR && (
@@ -377,15 +366,12 @@ export default function WineSettings({
               data-testid="setMaxRecentGames"
               onChange={(event) => setFsrSharpness(Number(event.target.value))}
               value={maxSharpness}
-              className="settingSelect smaller"
+              className="settingSelect smaller is-drop-down"
             >
               {Array.from(Array(5).keys()).map((n) => (
                 <option key={n + 1}>{n + 1}</option>
               ))}
             </select>
-            <span>
-              {t('setting.FsrSharpnessStrenght', 'FSR Sharpness Strength')}
-            </span>
           </label>
         </span>
       )}
@@ -401,12 +387,6 @@ export default function WineSettings({
                   'Enable Resizable BAR (NVIDIA RTX only)'
                 )}
               />
-              <span>
-                {t(
-                  'setting.resizableBar',
-                  'Enable Resizable BAR (NVIDIA RTX only)'
-                )}
-              </span>
             </label>
           </span>
           <span className="setting">
@@ -417,7 +397,6 @@ export default function WineSettings({
                 dataTestId="esyncToggle"
                 title={t('setting.esync', 'Enable Esync')}
               />
-              <span>{t('setting.esync', 'Enable Esync')}</span>
             </label>
           </span>
           <span className="setting">
@@ -428,7 +407,6 @@ export default function WineSettings({
                 dataTestId="fsyncToggle"
                 title={t('setting.fsync', 'Enable Fsync')}
               />
-              <span>{t('setting.fsync', 'Enable Fsync')}</span>
             </label>
           </span>
         </>

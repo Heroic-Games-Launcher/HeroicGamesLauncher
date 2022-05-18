@@ -1,4 +1,10 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Όλα",
     "Assets": "Αντικείμενα",
     "box": {
@@ -366,7 +372,7 @@
         "manager": {
             "error": "Μη δυνατή πάρση Wine/Proton εκδόσεων αυτή τη φορά.",
             "link": "Διαχειριστής Wine",
-            "title": "Διαχειριστής Wine (Beta)",
+            "title": "Διαχειριστής Wine",
             "unzipping": "Άνοιγμα"
         }
     }

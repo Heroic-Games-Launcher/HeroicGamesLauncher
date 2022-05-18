@@ -25,12 +25,13 @@ const wineDownloaderInfoStore = new Store({
 
 async function updateWineVersionInfos(
   fetch = false,
-  count = 35
+  count = 50
 ): Promise<WineVersionInfo[]> {
   let releases: WineVersionInfo[] = []
 
   logInfo('Updating wine versions info', LogPrefix.WineDownloader)
   if (fetch) {
+    logInfo('Fetching upstream information...', LogPrefix.WineDownloader)
     await getAvailableVersions({
       repositorys: [
         Repositorys.WINEGE,
@@ -73,6 +74,7 @@ async function updateWineVersionInfos(
 
     wineDownloaderInfoStore.set('wine-releases', releases)
   } else {
+    logInfo('Read local information ...', LogPrefix.WineDownloader)
     if (wineDownloaderInfoStore.has('wine-releases')) {
       releases.push(
         ...(wineDownloaderInfoStore.get('wine-releases') as WineVersionInfo[])

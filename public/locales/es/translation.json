@@ -1,4 +1,10 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Todos",
     "Assets": "Recursos",
     "box": {
@@ -36,7 +42,7 @@
             },
             "title": "Error",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "Ocurrió un problema con la actualización. Por favor, revise los registros e intente nuevamente!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -46,16 +52,16 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Abrir registro de cambios",
+                "detail": "¿Quiere descargar la actualización en segundo plano?",
+                "message": "¡Hay una nueva versión disponible!",
+                "message-finished": "¿Quiere reiniciar Heroic ahora?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Actualización finalizada"
             }
         },
         "no": "NO",
-        "ok": "Vale",
+        "ok": "De acuerdo",
         "protocol": {
             "install": {
                 "not_installed": "No está instalado actualmente. ¿Quieres instalarlo?"
@@ -95,11 +101,11 @@
             },
             "title": "Advertencia"
         },
-        "wineprefix": "Elige la carpeta del prefijo de Wine",
+        "wineprefix": "Elige la carpeta del Prefijo de Wine",
         "yes": "SÍ"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "Ir a la biblioteca",
         "login": "Iniciar sesión",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -110,14 +116,14 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "Favoritos",
     "globalSettings": "Ajustes globales",
     "GOG": "GOG",
     "gog-store": "Tienda de GOG",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "Ignorar Ocultos",
         "platform": "Plataforma",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Mostrar Ocultos"
     },
     "help": {
         "general": "Sincronice con EGL si tiene una instalación funcional de Epic Games Launcher en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
@@ -158,9 +164,9 @@
         "gridView": "Vista de cuadrícula",
         "listView": "Vista de lista",
         "refresh": "Actualizar",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "Orden Ascendente",
+        "sortByStatus": "Ordenar por Estado",
+        "sortDescending": "Orden Descendente"
     },
     "Library": "Biblioteca",
     "loading": {
@@ -230,18 +236,18 @@
     "setting": {
         "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
         "addgamestostartmenu": "Añadir juegos al menú de inicio automáticamente",
-        "alt-gogdl-bin": "Elige un binario de GOGDL alternativo para usar (requiere un reinicio)",
-        "alt-legendary-bin": "Elige un binario de Legendary alternativo (es necesario reiniciar)",
+        "alt-gogdl-bin": "Elige un binario de GOGDL alternativo para usar",
+        "alt-legendary-bin": "Elige un binario de Legendary alternativo",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar/actualizar DXVK en el Prefix",
         "autosync": "Autosincronizar guardados",
         "autovkd3d": "Instalación/actualización automática de VKD3D en el prefijo",
         "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
-        "darktray": "Utilice el icono de bandeja oscura",
+        "darktray": "Utilizar el icono oscuro en la bandeja",
         "default-install-path": "Ruta de instalación predeterminada",
         "defaultWinePrefix": "Establecer carpeta para nuevos prefijos de Wine",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "Desactivar la navegación de Heroic usando el controlador",
         "discordRPC": "Activar Discord Rich Presence",
         "egs-sync": "Sincronizar con juegos EGS",
         "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
@@ -252,16 +258,16 @@
         "gamemode": "Usar GameMode (Feral Game Mode debe estar instalado)",
         "language": "Elija el idioma de la aplicación",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "Desactivada",
+            "favourites": "Juegos Favoritos",
+            "recently_played": "Juegos Jugados Recientemente"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "Sección superior de la Biblioteca",
         "log": {
             "copy-to-clipboard": "Copiar el contenido del registro en el portapapeles",
             "current-log": "Registro actual",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "Unete a nuestro Discord y busca el canal que correponde a tu sistema operateivo. Comparte el contenido del registro mostrado aquí, e incluye una descripción clara del problema con cualquier información relevante y detalles.",
+            "instructions_title": "¿Cómo reportar un problema?",
             "last-log": "Último registro",
             "no-file": "No se ha encontrado ningún archivo de registro",
             "show-in-folder": "Mostrar el archivo de registro en la carpeta"
@@ -278,7 +284,7 @@
         },
         "maxRecentGames": "Jugado recientemente para mostrar",
         "maxworkers": "Número máximo de descargas",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "Minimizar Heroic al ejecutar un juego",
         "offlinemode": "Ejecutar juego sin conexión",
         "primerun": "Habilitar Nvidia Prime Render",
         "resizableBar": "Habilitar Resizable Bar (NVIDIA RTX 30xx únicamente)",
@@ -290,7 +296,7 @@
             "placeholder": "Seleccione la carpeta exacta para guardar juegos",
             "title": "Anular la carpeta de guardado de Cloud Sync"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "Seleccionar Tema",
         "showfps": "Mostrar FPS (DX9, 10 y 11)",
         "showUnrealMarket": "Mostrar la tienda de Unreal (requiere reiniciar)",
         "start-in-tray": "Iniciar minimizado",
@@ -307,7 +313,7 @@
             "long-log-hint": "Registro truncado. ¡Se mostrarán las últimas 1000 líneas!"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "Avanzado",
             "general": "General",
             "log": "Registro",
             "other": "Otro",
@@ -319,7 +325,7 @@
     "status": {
         "logging": "Iniciando sesión…"
     },
-    "store": "Epic Store",
+    "store": "Tienda de Epic",
     "stores": "Tiendas",
     "title": {
         "allGames": "Todos los juegos",
@@ -366,7 +372,7 @@
         "manager": {
             "error": "Esta vez no se han podido recuperar las versiones de Wine/Proton.",
             "link": "Gestor de Wine",
-            "title": "Gestor de Wine (Beta)",
+            "title": "Gestor de Wine",
             "unzipping": "Descomprimiendo"
         }
     }

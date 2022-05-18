@@ -36,14 +36,14 @@
         "yes": "JA"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Zu Favoriten hinzufügen",
         "cancel": "Pausieren/Abbrechen",
         "continue": "Download fortsetzen",
-        "hide_game": "Hide Game",
+        "hide_game": "Spiel ausblenden",
         "import": "Spiel importieren",
         "install": "Installieren",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Aus Favoriten entfernen",
+        "unhide_game": "Spiel einblenden",
         "uninstall": "Deinstallieren",
         "update": "Update"
     },
@@ -59,6 +59,7 @@
         "language": "Sprache",
         "lastPlayed": "Zuletzt gespielt",
         "neverPlayed": "Nie",
+        "platform": "Zu installierende Plattformversion auswählen",
         "totalPlayed": "Spielzeit"
     },
     "gamecard": {
@@ -67,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Online erforderlich",
+        "installedPlatform": "Installierte Plattform",
         "path": "Installations-Pfad",
         "size": "Größe",
         "syncsaves": "Spielstände synchronisieren",
         "version": "Version"
     },
     "install": {
+        "disk-space-left": "Verbleibender Speicherplatz auf dem Gerät",
         "path": "Installationspfad auswählen",
         "wineprefix": "Wine-Prefix",
         "wineversion": "Wine-Version"
@@ -89,7 +92,7 @@
     "launch": {
         "options": "Startoptionen..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Ein Problem bei der Ausführung dieses Spiels melden",
     "sdl": {
         "title": "Zu installierende Komponenten auswählen"
     },

@@ -1,4 +1,10 @@
 {
+    "accessibility": {
+        "actions_font_family": "Семейство на шрифта за действията (по подразбиране: „Rubik“)",
+        "content_font_family": "Семейство на шрифта за съдържанието (по подразбиране: „Cabin“)",
+        "title": "Достъпност",
+        "zoom": "Увеличаване"
+    },
     "All": "Всички",
     "Assets": "Ресурси",
     "box": {
@@ -36,7 +42,7 @@
             },
             "title": "Грешка",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "Нещо се обърка при обновяването. Проверете журналите или опитайте отново по-късно!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -46,12 +52,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Отваряне на списъка с промени",
+                "detail": "Искате ли да свалите обновлението на заден план?",
+                "message": "Има налична нова версия!",
+                "message-finished": "Искате ли да рестартирате Heroic сега?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Обновяването е завършено"
             }
         },
         "no": "НЕ",
@@ -99,7 +105,7 @@
         "yes": "ДА"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "Към библиотеката",
         "login": "Влизане",
         "sync": "Синхронизиране",
         "syncing": "Синхронизиране",
@@ -110,14 +116,14 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "Любими",
     "globalSettings": "Глобални настройки",
     "GOG": "GOG",
     "gog-store": "Магазин на GOG",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "Пренебрегване на скритите",
         "platform": "Платформа",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Показване на скритите"
     },
     "help": {
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Launcher и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
@@ -158,9 +164,9 @@
         "gridView": "Изглед във вид на решетка",
         "listView": "Изглед във вид на списък",
         "refresh": "Опресняване",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "Подреждане във възходящ ред",
+        "sortByStatus": "Подреждане по състояние",
+        "sortDescending": "Подреждане в низходящ ред"
     },
     "Library": "Библиотека",
     "loading": {
@@ -241,7 +247,7 @@
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
         "default-install-path": "Папка по подразбиране за инсталации",
         "defaultWinePrefix": "Задаване на папка за нови префикси на Wine",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "Изключване на навигирането в Heroic посредством контролер",
         "discordRPC": "Включване на актуализирането на присъствието в Дискорд",
         "egs-sync": "Синхронизиране с вече инсталиран Epic Games",
         "enableFSRHack": "Включване на хака FSR (версията на Wine трябва да го поддържа)",
@@ -252,16 +258,16 @@
         "gamemode": "Използване на „GameMode“ („Feral Game Mode“ трябва да е инсталирано)",
         "language": "Изберете езика на приложението",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "Изключено",
+            "favourites": "Любими игри",
+            "recently_played": "Наскоро пускани игри"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "Горна секция на библиотеката",
         "log": {
             "copy-to-clipboard": "Копиране на съдържанието на журнала в буфера за обмен",
             "current-log": "Текущ журнал",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "Присъединете се в нашия Discord и прегледайте канала за своята операционна система. Споделете съдържанието на журналите, показани тук, и опишете възможно най-подробно проблема.",
+            "instructions_title": "Как се докладва проблем?",
             "last-log": "Последен журнал",
             "no-file": "Не е намерен файл с журнал",
             "show-in-folder": "Показване на файла с журнала в папката му"
@@ -280,7 +286,7 @@
         "maxworkers": "Максимален брой работни процеси при сваляне",
         "minimize-on-launch": "Минимизиране на Heroic при пускане на игра",
         "offlinemode": "Пускане на играта в режим „извън линия“",
-        "primerun": "Включване на „Nvidia Prime Render“",
+        "primerun": "Използване на отделната видео-карта",
         "resizableBar": "Включване на „Resizable BAR“ (Само за NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Хванете и пуснете файловете тук",
@@ -290,7 +296,7 @@
             "placeholder": "Изберете точната папка за запазени файлове",
             "title": "Замяна на папката за синхронизиране на запазени файлове в облака"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "Изберете тема",
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",
         "showUnrealMarket": "Показване на Пазара на Unreal (изисква рестартиране)",
         "start-in-tray": "Стартиране в минимизирано състояние",
@@ -307,7 +313,7 @@
             "long-log-hint": "Журналът е отрязан. Показани са последните 1000 реда!"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "Разширени",
             "general": "Общи",
             "log": "Log",
             "other": "Други",
@@ -366,7 +372,7 @@
         "manager": {
             "error": "В момента не могат да бъдат получени версиите на Wine/Proton.",
             "link": "Управление на Wine",
-            "title": "Управление на Wine (бета)",
+            "title": "Управление на Wine",
             "unzipping": "Разархивиране"
         }
     }

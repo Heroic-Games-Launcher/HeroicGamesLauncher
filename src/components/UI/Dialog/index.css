@@ -39,6 +39,7 @@
   flex: 100% 1 1;
   padding: var(--dialog-margin-vertical) 16px 0 var(--dialog-margin-horizontal);
   font-size: 24px;
+  margin: 0;
 }
 
 .Dialog__headerClose {

@@ -13,7 +13,7 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
 }) => {
   return (
     <div className="Dialog__header">
-      <div className="Dialog__headerTitle">{children}</div>
+      <h1 className="Dialog__headerTitle">{children}</h1>
       <div className="Dialog__headerClose">
         <button className="Dialog__headerCloseButton" onClick={onClose}>
           <FontAwesomeIcon className="Dialog__headerCloseIcon" icon={faXmark} />

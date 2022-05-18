@@ -59,6 +59,7 @@
         "language": "Nyelv",
         "lastPlayed": "Legutóbb játszott",
         "neverPlayed": "Soha",
+        "platform": "Select Platform Version to Install",
         "totalPlayed": "Játszott idő"
     },
     "gamecard": {
@@ -67,12 +68,14 @@
     },
     "info": {
         "canRunOffline": "Online szükséges",
+        "installedPlatform": "Installed Platform",
         "path": "Telepítési útvonal",
         "size": "Méret",
         "syncsaves": "Mentések szinkronizálása",
         "version": "Verzió"
     },
     "install": {
+        "disk-space-left": "Space Left on the Device",
         "path": "Telepítési útvonal kiválasztása",
         "wineprefix": "Wine prefix",
         "wineversion": ""

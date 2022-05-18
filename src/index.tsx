@@ -1,15 +1,17 @@
 import { I18nextProvider, initReactI18next } from 'react-i18next'
 import HttpApi from 'i18next-http-backend'
 import React, { Suspense } from 'react'
-import { createRoot } from 'react-dom/client'
+import ReactDOM from 'react-dom'
 import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
 
 import './index.css'
+import './themes.css'
 import App from 'src/App'
 import GlobalState from 'src/state/GlobalState'
 import { UpdateComponentBase } from 'src/components/UI/UpdateComponent'
 import { initShortcuts } from './helpers/shortcuts'
+import { configStore } from './helpers/electronStores'
 
 const Backend = new HttpApi(null, {
   addPath: 'build/locales/{{lng}}/{{ns}}',
@@ -19,6 +21,8 @@ const Backend = new HttpApi(null, {
 
 initGamepad()
 initShortcuts()
+
+const storage: Storage = window.localStorage
 
 i18next
   // load translation using http -> see /public/locales
@@ -32,7 +36,7 @@ i18next
     interpolation: {
       escapeValue: false
     },
-    lng: 'en',
+    lng: storage.getItem('language') || 'en',
     react: {
       useSuspense: true
     },
@@ -71,11 +75,10 @@ i18next
     ]
   })
 
-const container = document.getElementById('root')
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const root = createRoot(container!)
+const themeClass = (configStore.get('theme') as string) || 'default'
+document.body.className = themeClass
 
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
       <Suspense fallback={<UpdateComponentBase message="Loading" />}>
@@ -84,5 +87,6 @@ root.render(
         </GlobalState>
       </Suspense>
     </I18nextProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById('root')
 )

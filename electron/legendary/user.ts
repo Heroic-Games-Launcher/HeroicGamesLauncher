@@ -12,7 +12,7 @@ export class LegendaryUser {
   public static async login(sid: string) {
     const commandParts = ['auth', '--sid', sid]
     const command = getLegendaryCommand(commandParts)
-    logInfo(['Logging with Legendary:', command], LogPrefix.Legendary)
+    logInfo(['Logging in with Legendary:', command], LogPrefix.Legendary)
 
     const res = await runLegendaryCommand(commandParts)
 
@@ -21,9 +21,10 @@ export class LegendaryUser {
         ['Failed to login with Legendary:', res.error],
         LogPrefix.Legendary
       )
-      return
+      return { status: 'failed' }
     }
-    this.getUserInfo()
+    const userInfo = await this.getUserInfo()
+    return { status: 'done', data: userInfo }
   }
 
   public static async logout() {

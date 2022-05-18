@@ -18,8 +18,7 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { handleFilter, handleCategory, refreshLibrary } =
-    useContext(ContextProvider)
+  const { epic, gog } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -67,14 +66,7 @@ export default function WebView() {
     }
   }
 
-  const handleSuccessfulLogin = (runner: 'epic' | 'gog') => {
-    handleFilter('all')
-    handleCategory(runner)
-    refreshLibrary({
-      fullRefresh: true,
-      runInBackground: false
-    })
-    setLoading({ ...loading, refresh: false })
+  const handleSuccessfulLogin = () => {
     navigate('/login')
   }
 
@@ -95,36 +87,48 @@ export default function WebView() {
               refresh: true,
               message: t('status.logging', 'Logging In...')
             })
-            ipcRenderer.invoke('authGOG', code).then(() => {
-              handleSuccessfulLogin('gog')
-            })
+            if (code) {
+              gog.login(code).then(() => {
+                handleSuccessfulLogin()
+              })
+            }
           }
-        }
-        // Deals with Login
-        else {
-          setTimeout(() => {
-            webview.findInPage('sid')
-            webview.addEventListener('found-in-page', async (res) => {
-              const data = res as Event & { result: { matches: number } }
-              if (data.result.matches) {
-                webview.focus()
-                webview.selectAll()
-                webview.copy()
-                const { sid }: SID = JSON.parse(clipboard.readText())
-                try {
-                  setLoading({
-                    refresh: true,
-                    message: t('status.logging', 'Logging In...')
-                  })
-                  await ipcRenderer.invoke('login', sid)
-                  handleSuccessfulLogin('epic')
-                } catch (error) {
-                  console.error(error)
-                  ipcRenderer.send('logError', error)
-                }
-              }
-            })
-          }, 500)
+        } else {
+          if (
+            webview.getURL() === 'https://www.epicgames.com/id/api/redirect'
+          ) {
+            setTimeout(() => {
+              webview.addEventListener(
+                'found-in-page',
+                async (res) => {
+                  const data = res as Event & { result: { matches: number } }
+                  if (!data.result.matches) {
+                    return
+                  }
+                  webview.focus()
+                  webview.selectAll()
+                  webview.copy()
+                  if (!clipboard.readText().match('sid')) {
+                    return
+                  }
+                  const { sid }: SID = JSON.parse(clipboard.readText())
+                  try {
+                    setLoading({
+                      refresh: true,
+                      message: t('status.logging', 'Logging In...')
+                    })
+                    await epic.login(sid)
+                    handleSuccessfulLogin()
+                  } catch (error) {
+                    console.error(error)
+                    ipcRenderer.send('logError', error)
+                  }
+                },
+                { once: true }
+              )
+              webview.findInPage('sid')
+            }, 500)
+          }
         }
       }
 

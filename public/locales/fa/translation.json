@@ -1,4 +1,10 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "زوم"
+    },
     "All": "همه",
     "Assets": "دارایی ها",
     "box": {
@@ -155,9 +161,9 @@
         "path": "انتخاب محل نصب"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": "",
+        "gridView": "نمای شبکه‌ای",
+        "listView": "نمای لیستی",
+        "refresh": "تازه کردن",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending"
@@ -194,7 +200,7 @@
         "uninstalled": "حذف شد",
         "update": {
             "canceled": "بهروزرسانی لغو شد",
-            "finished": "آپدیتها به پایان رسیدند",
+            "finished": "آپدیت به پایان رسید",
             "started": "بهروزرسانی آغاز شد"
         }
     },
@@ -280,7 +286,7 @@
         "maxworkers": "بیسترین تعداد ورکر هنگام دانلود",
         "minimize-on-launch": "کوچک کردن Heroic بعد از اجرای بازی",
         "offlinemode": "اجرای آفلاین بازی",
-        "primerun": "فعالسازی Nvidia Prime Render",
+        "primerun": "استفاده از کارت گرافیک اختصاص یافته",
         "resizableBar": "فعالسازی Resizable BAR (فقط محصولات NVIDIA RTX 30xx)",
         "runexe": {
             "message": "فایلها را اینجا درج کنید",
@@ -295,7 +301,7 @@
         "showUnrealMarket": "نمایش فروشگاه Unreal (نیازمند راهاندازی مجدد)",
         "start-in-tray": "شروع در حالت پسزمینه",
         "steamruntime": "استفاده از Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "",
         "wineprefix": "پوشه محل Wine",
         "wineversion": "نسخه Wine"
     },
@@ -366,7 +372,7 @@
         "manager": {
             "error": "نمیتوان در این زمان نسخههای Wine/Proton را به دست آورد.",
             "link": "مدیریت Wine",
-            "title": "مدیریت Wine (آزمایشی)",
+            "title": "مدیریت کننده Wine",
             "unzipping": "در حال خارج کردن از حالت فشرده"
         }
     }

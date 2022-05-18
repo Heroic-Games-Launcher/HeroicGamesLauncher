@@ -11,8 +11,14 @@ import {
   WineVersionInfo
 } from 'src/types'
 import { TFunction, withTranslation } from 'react-i18next'
-import { getLegendaryConfig, getPlatform, install, launch } from 'src/helpers'
-import { i18n } from 'i18next'
+import {
+  getLegendaryConfig,
+  getPlatform,
+  install,
+  launch,
+  notify
+} from 'src/helpers'
+import { i18n, t } from 'i18next'
 
 import ContextProvider from './ContextProvider'
 import { getRecentGames } from 'src/helpers/library'
@@ -41,8 +47,14 @@ interface Props {
 
 interface StateProps {
   category: string
-  epicLibrary: GameInfo[]
-  gogLibrary: GameInfo[]
+  epic: {
+    library: GameInfo[]
+    username: string | null
+  }
+  gog: {
+    library: GameInfo[]
+    username: string | null
+  }
   wineVersions: WineVersionInfo[]
   error: boolean
   filter: string
@@ -55,10 +67,15 @@ interface StateProps {
   libraryTopSection: string
   platform: string
   refreshing: boolean
+  refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
   showHidden: boolean
   favouriteGames: FavouriteGame[]
+  recentGames: GameInfo[]
   theme: string
+  zoomPercent: number
+  contentFontFamily: string
+  actionsFontFamily: string
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -80,35 +97,72 @@ export class GlobalState extends PureComponent<Props> {
     return games
   }
   state: StateProps = {
-    category: 'epic',
-    epicLibrary: libraryStore.has('library')
-      ? (libraryStore.get('library') as GameInfo[])
-      : [],
-    gogLibrary: this.loadGOGLibrary(),
+    category: storage.getItem('category') || 'epic',
+    epic: {
+      library: libraryStore.has('library')
+        ? (libraryStore.get('library') as GameInfo[])
+        : [],
+      username: configStore.get('userInfo')?.displayName || null
+    },
+    gog: {
+      library: this.loadGOGLibrary(),
+      username: gogConfigStore.get('userData')?.username || null
+    },
     wineVersions: wineDownloaderInfoStore.has('wine-releases')
       ? (wineDownloaderInfoStore.get('wine-releases') as WineVersionInfo[])
       : [],
     error: false,
-    filter: 'all',
+    filter: storage.getItem('filter') || 'all',
     filterText: '',
     filterPlatform: 'all',
     gameUpdates: [],
-    language: '',
-    layout: 'grid',
+    language: this.props.i18n.language,
+    layout: storage.getItem('layout') || 'grid',
     libraryStatus: [],
-    libraryTopSection: 'disabled',
+    libraryTopSection:
+      storage.getItem('library_top_section') || 'recently_played',
     platform: '',
     refreshing: false,
+    refreshingInTheBackground: true,
     hiddenGames: (configStore.get('games.hidden') as Array<HiddenGame>) || [],
-    showHidden: false,
+    showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
     favouriteGames:
       (configStore.get('games.favourites') as Array<FavouriteGame>) || [],
-    theme: (configStore.get('theme') as string) || ''
+    recentGames: [],
+    theme: (configStore.get('theme') as string) || '',
+    zoomPercent: parseInt((configStore.get('zoomPercent') as string) || '100'),
+    contentFontFamily:
+      (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
+    actionsFontFamily:
+      (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif"
   }
 
   setTheme = (newThemeName: string) => {
     configStore.set('theme', newThemeName)
     this.setState({ theme: newThemeName })
+    document.body.className = newThemeName
+  }
+
+  zoomTimer: NodeJS.Timeout | undefined = undefined
+  setZoomPercent = (newZoomPercent: number) => {
+    if (this.zoomTimer) clearTimeout(this.zoomTimer)
+
+    configStore.set('zoomPercent', newZoomPercent)
+    this.setState({ zoomPercent: newZoomPercent })
+
+    this.zoomTimer = setTimeout(() => {
+      ipcRenderer.send('setZoomFactor', (newZoomPercent / 100).toString())
+    }, 500)
+  }
+
+  setContentFontFamily = (newFontFamily: string) => {
+    configStore.set('contentFontFamily', newFontFamily)
+    this.setState({ contentFontFamily: newFontFamily })
+  }
+
+  setActionsFontFamily = (newFontFamily: string) => {
+    configStore.set('actionsFontFamily', newFontFamily)
+    this.setState({ actionsFontFamily: newFontFamily })
   }
 
   setShowHidden = (value: boolean) => {
@@ -167,15 +221,73 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ libraryTopSection: value })
   }
 
+  handleSuccessfulLogin = (runner: 'epic' | 'gog') => {
+    this.handleFilter('all')
+    this.handleCategory(runner)
+    this.refreshLibrary({
+      fullRefresh: true,
+      runInBackground: false
+    })
+  }
+
+  epicLogin = async (sid: string) => {
+    console.log('logging epic')
+    const response = await ipcRenderer.invoke('login', sid)
+
+    if (response.status === 'done') {
+      this.setState({
+        epic: {
+          library: [],
+          username: response.data.displayName
+        }
+      })
+
+      this.handleSuccessfulLogin('epic')
+    }
+
+    return response.status
+  }
+
+  epicLogout = () => {
+    ipcRenderer.invoke('logoutLegendary')
+    console.log('Logging out from epic')
+    window.location.reload()
+  }
+
+  gogLogin = async (token: string) => {
+    console.log('logging gog')
+    const response = await ipcRenderer.invoke('authGOG', token)
+
+    if (response.status === 'done') {
+      this.setState({
+        gog: {
+          library: [],
+          username: response.data.username
+        }
+      })
+
+      this.handleSuccessfulLogin('gog')
+    }
+
+    return response.status
+  }
+
+  gogLogout = () => {
+    ipcRenderer.invoke('logoutGOG')
+    console.log('Logging out from gog')
+    window.location.reload()
+  }
+
   refresh = async (checkUpdates?: boolean): Promise<void> => {
-    let updates = this.state.gameUpdates
     console.log('refreshing')
-    const currentLibraryLength = this.state.epicLibrary?.length
+
+    let updates = this.state.gameUpdates
+    const currentLibraryLength = this.state.epic.library?.length
     let epicLibrary: Array<GameInfo> =
       (libraryStore.get('library') as Array<GameInfo>) || []
 
     const gogLibrary: Array<GameInfo> = this.loadGOGLibrary()
-    if (!epicLibrary.length || !this.state.epicLibrary.length) {
+    if (!epicLibrary.length || !this.state.epic.library.length) {
       ipcRenderer.send(
         'logInfo',
         'No cache found, getting data from legendary...'
@@ -193,10 +305,17 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     this.setState({
-      epicLibrary,
-      gogLibrary,
+      epic: {
+        library: epicLibrary,
+        username: this.state.epic.username
+      },
+      gog: {
+        library: gogLibrary,
+        username: this.state.gog.username
+      },
       gameUpdates: updates,
-      refreshing: false
+      refreshing: false,
+      refreshingInTheBackground: true
     })
 
     if (currentLibraryLength !== epicLibrary.length) {
@@ -210,7 +329,12 @@ export class GlobalState extends PureComponent<Props> {
     fullRefresh,
     runInBackground = true
   }: RefreshOptions): Promise<void> => {
-    this.setState({ refreshing: !runInBackground })
+    if (this.state.refreshing) return
+
+    this.setState({
+      refreshing: true,
+      refreshingInTheBackground: runInBackground
+    })
     ipcRenderer.send('logInfo', 'Refreshing Library')
     try {
       await ipcRenderer.invoke('refreshLibrary', fullRefresh)
@@ -225,19 +349,40 @@ export class GlobalState extends PureComponent<Props> {
       return
     }
     ipcRenderer.send('logInfo', 'Refreshing wine downloader releases')
-    try {
-      this.setState({ refreshing: true })
-      const releases = await ipcRenderer.invoke('refreshWineVersionInfo', fetch)
-      this.setState({
-        wineVersions: releases,
-        refreshing: false
+    this.setState({ refreshing: true })
+    await ipcRenderer
+      .invoke('refreshWineVersionInfo', fetch)
+      .then((releases) => {
+        this.setState({
+          wineVersions: releases,
+          refreshing: false
+        })
+        return
       })
-    } catch (error) {
-      this.setState({ refreshing: false })
-      console.error(error)
-      ipcRenderer.send('logError', error)
-      ipcRenderer.send('logError', 'Refreshing wine downloader releases failed')
-    }
+      .catch(async () => {
+        if (fetch) {
+          // try to restore the saved information
+          await ipcRenderer
+            .invoke('refreshWineVersionInfo', false)
+            .then((releases) => {
+              this.setState({
+                wineVersions: releases
+              })
+            })
+        }
+
+        this.setState({ refreshing: false })
+        ipcRenderer.send('logError', 'Sync with upstream releases failed')
+
+        notify([
+          'Wine-Manager',
+          t(
+            'notify.refresh.error',
+            "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+          )
+        ])
+        return
+      })
   }
 
   handleSearch = (input: string) => this.setState({ filterText: input })
@@ -246,60 +391,6 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ filterPlatform })
   handleLayout = (layout: string) => this.setState({ layout })
   handleCategory = (category: string) => this.setState({ category })
-
-  filterLibrary = (library: GameInfo[], filter: string) => {
-    if (!library) {
-      return []
-    }
-
-    if (filter.includes('UE_')) {
-      return library.filter((game) => {
-        if (!game.compatible_apps) {
-          return false
-        }
-        return game.compatible_apps.includes(filter)
-      })
-    } else {
-      switch (filter) {
-        case 'unreal':
-          return library.filter(
-            (game) =>
-              game.is_ue_project || game.is_ue_asset || game.is_ue_plugin
-          )
-        case 'asset':
-          return library.filter((game) => game.is_ue_asset)
-        case 'plugin':
-          return library.filter((game) => game.is_ue_plugin)
-        case 'project':
-          return library.filter((game) => game.is_ue_project)
-        default:
-          return library.filter((game) => game.is_game)
-      }
-    }
-  }
-
-  filterPlatform = (library: GameInfo[], filter: string) => {
-    const { category, platform } = this.state
-
-    if (category === 'epic' && platform === 'linux') {
-      return library.filter((game) => game.is_game)
-    }
-
-    switch (filter) {
-      case 'win':
-        return library.filter((game) =>
-          process.platform === 'darwin'
-            ? !game.is_mac_native
-            : !game.is_linux_native
-        )
-      case 'mac':
-        return library.filter((game) => game.is_mac_native)
-      case 'linux':
-        return library.filter((game) => game.is_linux_native)
-      default:
-        return library.filter((game) => game.is_game)
-    }
-  }
 
   handleGameStatus = async ({
     appName,
@@ -353,8 +444,8 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   async componentDidMount() {
-    const { i18n, t } = this.props
-    const { epicLibrary, gameUpdates = [], libraryStatus } = this.state
+    const { t } = this.props
+    const { epic, gog, gameUpdates = [], libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.on('launchGame', async (e, appName, runner) => {
@@ -367,6 +458,7 @@ export class GlobalState extends PureComponent<Props> {
       }
     })
 
+    // TODO: show the install modal instead of just installing like this since it has no options to choose
     ipcRenderer.on('installGame', async (e, args) => {
       const currentApp = libraryStatus.filter(
         (game) => game.appName === appName
@@ -385,7 +477,8 @@ export class GlobalState extends PureComponent<Props> {
             percent: '0.00%'
           },
           t,
-          runner
+          runner,
+          platformToInstall: 'Windows'
         })
       }
     })
@@ -397,15 +490,8 @@ export class GlobalState extends PureComponent<Props> {
     const legendaryUser = Boolean(configStore.get('userInfo'))
     const gogUser = Boolean(gogConfigStore.get('userData'))
     const platform = await getPlatform()
-    const category = storage.getItem('category') || 'epic'
-    const filter = storage.getItem('filter') || 'all'
-    const layout = storage.getItem('layout') || 'grid'
-    const language = storage.getItem('language') || 'en'
-    const showHidden = JSON.parse(storage.getItem('show_hidden') || 'false')
-    const libraryTopSection =
-      storage.getItem('library_top_section') || 'recently_played'
 
-    if (!legendaryUser) {
+    if (legendaryUser) {
       await ipcRenderer.invoke('getUserInfo')
     }
 
@@ -414,22 +500,25 @@ export class GlobalState extends PureComponent<Props> {
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
-    i18n.changeLanguage(language)
+    let recentGames: GameInfo[] = []
+
+    if (epic.library.length > 0) {
+      recentGames = [...getRecentGames(epic.library)]
+    }
+    if (gog.library.length > 0) {
+      recentGames = [...recentGames, ...getRecentGames(gog.library)]
+    }
+
     this.setState({
-      category,
-      filter,
-      language,
-      layout,
       platform,
-      showHidden,
-      libraryTopSection
+      recentGames
     })
 
     if (legendaryUser || gogUser) {
       this.refreshLibrary({
         checkForUpdates: true,
         fullRefresh: true,
-        runInBackground: Boolean(epicLibrary.length)
+        runInBackground: Boolean(epic.library.length)
       })
     }
   }
@@ -453,7 +542,7 @@ export class GlobalState extends PureComponent<Props> {
     storage.setItem('library_top_section', libraryTopSection)
 
     const pendingOps = libraryStatus.filter(
-      (game) => game.status !== 'playing'
+      (game) => game.status !== 'playing' && game.status !== 'done'
     ).length
     if (pendingOps) {
       ipcRenderer.send('lock')
@@ -463,66 +552,24 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   render() {
-    const { children } = this.props
-    const {
-      epicLibrary,
-      wineVersions,
-      gogLibrary,
-      filterText,
-      filter,
-      platform,
-      filterPlatform
-    } = this.state
-    let filteredEpicLibrary = epicLibrary
-    let filteredGOGLibrary = gogLibrary
-    const language = storage.getItem('language') || 'en'
-    const isRTL = RTL_LANGUAGES.includes(language)
-
-    try {
-      const filterRegex = new RegExp(filterText, 'i')
-      const textFilter = ({ title, app_name }: GameInfo) =>
-        filterRegex.test(title) || filterRegex.test(app_name)
-      filteredEpicLibrary = this.filterPlatform(
-        this.filterLibrary(epicLibrary, filter).filter(textFilter),
-        filterPlatform
-      )
-      filteredGOGLibrary = this.filterPlatform(
-        this.filterLibrary(gogLibrary, filter).filter(textFilter),
-        filterPlatform
-      )
-    } catch (error) {
-      console.log(error)
-    }
-
-    let recentGames: GameInfo[] = []
-
-    if (epicLibrary.length > 0) {
-      recentGames = [...getRecentGames(epicLibrary)]
-    }
-    if (gogLibrary.length > 0) {
-      recentGames = [...recentGames, ...getRecentGames(gogLibrary)]
-    }
-
-    const hiddenGamesAppNames = this.state.hiddenGames.map(
-      (hidden) => hidden.appName
-    )
-
-    if (!this.state.showHidden) {
-      filteredEpicLibrary = filteredEpicLibrary.filter(
-        (game) => !hiddenGamesAppNames.includes(game.app_name)
-      )
-      filteredGOGLibrary = filteredGOGLibrary.filter(
-        (game) => !hiddenGamesAppNames.includes(game.app_name)
-      )
-    }
+    const isRTL = RTL_LANGUAGES.includes(this.state.language)
 
     return (
       <ContextProvider.Provider
         value={{
           ...this.state,
-          epicLibrary: filteredEpicLibrary,
-          gogLibrary: filteredGOGLibrary,
-          wineVersions: wineVersions,
+          epic: {
+            library: this.state.epic.library,
+            username: this.state.epic.username,
+            login: this.epicLogin,
+            logout: this.epicLogout
+          },
+          gog: {
+            library: this.state.gog.library,
+            username: this.state.gog.username,
+            login: this.gogLogin,
+            logout: this.gogLogout
+          },
           handleCategory: this.handleCategory,
           handleFilter: this.handleFilter,
           handleGameStatus: this.handleGameStatus,
@@ -530,11 +577,9 @@ export class GlobalState extends PureComponent<Props> {
           handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,
           isRTL,
-          platform: platform,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
           refreshWineVersionInfo: this.refreshWineVersionInfo,
-          recentGames,
           hiddenGames: {
             list: this.state.hiddenGames,
             add: this.hideGame,
@@ -547,10 +592,13 @@ export class GlobalState extends PureComponent<Props> {
             remove: this.removeGameFromFavourites
           },
           handleLibraryTopSection: this.handleLibraryTopSection,
-          setTheme: this.setTheme
+          setTheme: this.setTheme,
+          setZoomPercent: this.setZoomPercent,
+          setContentFontFamily: this.setContentFontFamily,
+          setActionsFontFamily: this.setActionsFontFamily
         }}
       >
-        {children}
+        {this.props.children}
       </ContextProvider.Provider>
     )
   }

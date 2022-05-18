@@ -3,8 +3,7 @@ import {
   existsSync,
   readFileSync,
   readdirSync,
-  writeFileSync,
-  appendFileSync
+  writeFileSync
 } from 'graceful-fs'
 
 import { GameConfig } from '../game_config'
@@ -22,12 +21,11 @@ import {
   getLegendaryBin,
   isEpicServiceOffline,
   isOnline,
-  size
+  getFileSize
 } from '../utils'
 import {
   fallBackImage,
   installed,
-  isMac,
   legendaryConfigPath,
   libraryPath
 } from '../constants'
@@ -40,8 +38,11 @@ import {
 } from '../logger/logger'
 import { GlobalConfig } from '../config'
 import { join } from 'path'
-import { spawn } from 'child_process'
 import { installStore, libraryStore } from './electronStores'
+import {
+  getLegendaryOrGogdlCommand,
+  runLegendaryOrGogdlCommand
+} from '../launcher'
 
 /**
  * Legendary LegendaryLibrary.
@@ -143,7 +144,6 @@ export class LegendaryLibrary {
 
     if (fullRefresh) {
       try {
-        logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
         await this.refresh()
       } catch (error) {
         logError(`${error}`, LogPrefix.Legendary)
@@ -178,7 +178,7 @@ export class LegendaryLibrary {
    * @param appName
    * @returns GameInfo
    */
-  public async getGameInfo(appName: string) {
+  public getGameInfo(appName: string) {
     const info = this.library.get(appName)
     if (info === undefined) {
       return null
@@ -194,7 +194,10 @@ export class LegendaryLibrary {
   /**
    * Get game info for a particular game.
    */
-  public async getInstallInfo(appName: string): Promise<InstallInfo> {
+  public async getInstallInfo(
+    appName: string,
+    installPlatform = 'Windows'
+  ): Promise<InstallInfo> {
     const cache = installStore.get(appName) as InstallInfo
     if (cache) {
       logDebug('Using cached install info', LogPrefix.Legendary)
@@ -202,11 +205,12 @@ export class LegendaryLibrary {
     }
 
     logInfo(`Getting more details with 'legendary info'`, LogPrefix.Legendary)
-
     const res = await runLegendaryCommand([
       '--pretty-json',
       'info',
       appName,
+      '--platform',
+      installPlatform,
       '--json',
       (await isEpicServiceOffline()) ? '--offline' : ''
     ])
@@ -228,8 +232,7 @@ export class LegendaryLibrary {
   public async listUpdateableGames() {
     const isLoggedIn = await LegendaryUser.isLoggedIn()
 
-    const online = await isOnline()
-    if (!isLoggedIn || !online) {
+    if (!isLoggedIn || !isOnline()) {
       return []
     }
     const epicOffline = await isEpicServiceOffline()
@@ -435,7 +438,7 @@ export class LegendaryLibrary {
       ).length || dlcs.includes(app_name)
     } = (info === undefined ? {} : info) as InstalledInfo
 
-    const convertedSize = install_size && size(Number(install_size))
+    const convertedSize = install_size && getFileSize(Number(install_size))
 
     this.library.set(app_name, {
       app_name,
@@ -537,82 +540,21 @@ export class LegendaryLibrary {
   }
 }
 
-/**
- * Runs legendary with the given command
- * @param commandParts The command to run, e. g. 'list', 'egl-sync'...
- */
-// TODO: This isn't the right place for this, but I don't know where else to put it. 'launcher.ts' maybe?
 export async function runLegendaryCommand(
-  commandParts: Array<string>,
-  logFile?: string,
-  onOutput?: (data: string) => void,
-  env = process.env
+  commandParts: string[],
+  options?: {
+    logFile?: string
+    env?: Record<string, string>
+    wrappers?: string[]
+    onOutput?: (output: string) => void
+  }
 ): Promise<ExecResult> {
-  commandParts = commandParts.filter((n) => n)
-  const { bin, dir } = getLegendaryBin()
-  const fullCommand = getLegendaryCommand(commandParts)
-
-  logDebug(['Running Legendary command:', fullCommand], LogPrefix.Legendary)
-  if (logFile) {
-    logDebug(['Logging to file', `"${logFile}"`], LogPrefix.Legendary)
-  }
-
-  // Clear out the log file (existsSync returns false for an empty string, so there's no `if (logFile)` needed)
-  if (existsSync(logFile)) {
-    writeFileSync(logFile, '')
-  }
-
-  return new Promise((res, rej) => {
-    const child = spawn(bin, commandParts, {
-      cwd: dir,
-      env: env,
-      shell: isMac
-    })
-
-    const stdout = new Array<string>()
-    const stderr = new Array<string>()
-
-    // If we're logging to a file, convert new data to a string and write it to the file
-    if (logFile) {
-      child.stdout.on('data', (data: Buffer) => {
-        if (onOutput) onOutput(data.toString())
-        appendFileSync(logFile, data.toString())
-      })
-
-      child.stderr.on('data', (data: Buffer) => {
-        if (onOutput) onOutput(data.toString())
-        appendFileSync(logFile, data.toString())
-      })
-    }
-
-    // Store stdout and stderr to return them at the end
-    child.stdout.on('data', (data: Buffer) => {
-      stdout.push(data.toString().trim())
-    })
-    child.stderr.on('data', (data: Buffer) => {
-      stderr.push(data.toString().trim())
-    })
-
-    child.on('close', () => {
-      res({
-        stdout: stdout.join('\n'),
-        stderr: stderr.join('\n')
-      })
-    })
-    child.on('error', (error) => {
-      rej(error)
-    })
-  })
-    .then(({ stdout, stderr }) => {
-      return { stdout, stderr, fullCommand }
-    })
-    .catch((error) => {
-      logError(
-        [`Error running Legendary command "${fullCommand}": ${error}`],
-        LogPrefix.Legendary
-      )
-      return { stdout: '', stderr: '', fullCommand, error: error }
-    })
+  const { dir, bin } = getLegendaryBin()
+  return runLegendaryOrGogdlCommand(
+    commandParts,
+    { name: 'Legendary', logPrefix: LogPrefix.Legendary, bin, dir },
+    options
+  )
 }
 
 /**
@@ -621,11 +563,11 @@ export async function runLegendaryCommand(
  * @param commandParts The command to run, e. g. 'list', 'egl-sync'...
  * @returns The full command as a string
  */
-export function getLegendaryCommand(commandParts: Array<string>) {
-  commandParts = commandParts.filter((n) => n)
-  let legendaryFullPath = join(...Object.values(getLegendaryBin()))
-  if (legendaryFullPath.includes(' ')) {
-    legendaryFullPath = `"${legendaryFullPath}"`
-  }
-  return [legendaryFullPath, ...commandParts].join(' ')
+export function getLegendaryCommand(
+  commandParts: string[],
+  env: Record<string, string> = {},
+  wrappers: string[] = []
+): string {
+  const legendaryPath = join(...Object.values(getLegendaryBin()))
+  return getLegendaryOrGogdlCommand(commandParts, env, wrappers, legendaryPath)
 }

@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState, CSSProperties } from 'react'
+import React, { useContext, CSSProperties, useMemo } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
@@ -34,9 +34,8 @@ interface Card {
   size: string
   title: string
   version: string
-  isMacNative: boolean
-  isLinuxNative: boolean
   runner: Runner
+  installedPlatform: string | undefined
   forceCard?: boolean
 }
 
@@ -53,9 +52,8 @@ const GameCard = ({
   hasCloudSave,
   buttonClick,
   forceCard,
-  isMacNative,
-  isLinuxNative,
-  runner
+  runner,
+  installedPlatform
 }: Card) => {
   const [progress, previousProgress] = hasProgress(appName)
 
@@ -91,10 +89,6 @@ const GameCard = ({
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
   const haveStatus = isMoving || isReparing || isInstalling || hasUpdate
-  const path =
-    isWin || isMacNative || isLinuxNative
-      ? `/settings/${appName}/other`
-      : `/settings/${appName}/wine`
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -145,14 +139,20 @@ const GameCard = ({
   const renderIcon = () => {
     if (isPlaying) {
       return (
-        <SvgButton onClick={async () => handlePlay(runner)}>
+        <SvgButton
+          onClick={async () => handlePlay(runner)}
+          title={`${t('label.playing.stop')} (${title})`}
+        >
           <StopIconAlt className="cancelIcon" />
         </SvgButton>
       )
     }
     if (isInstalling) {
       return (
-        <SvgButton onClick={async () => handlePlay(runner)}>
+        <SvgButton
+          onClick={async () => handlePlay(runner)}
+          title={`${t('button.cancel')} (${title})`}
+        >
           <StopIcon />
         </SvgButton>
       )
@@ -162,6 +162,7 @@ const GameCard = ({
         <SvgButton
           className="playButton"
           onClick={async () => handlePlay(runner)}
+          title={`${t('label.playing.start')} (${title})`}
         >
           <PlayIcon className="playIcon" />
         </SvgButton>
@@ -170,13 +171,19 @@ const GameCard = ({
     if (!isInstalled) {
       if (hasDownloads) {
         return (
-          <SvgButton onClick={(e) => e.preventDefault()}>
+          <SvgButton
+            onClick={(e) => e.preventDefault()}
+            title={`${t('button.cancel')} (${title})`}
+          >
             <DownIcon className="iconDisabled" />
           </SvgButton>
         )
       }
       return (
-        <SvgButton onClick={() => buttonClick()}>
+        <SvgButton
+          onClick={() => buttonClick()}
+          title={`${t('button.install')} (${title})`}
+        >
           <DownIcon className="downIcon" />
         </SvgButton>
       )
@@ -184,24 +191,25 @@ const GameCard = ({
     return null
   }
 
-  const [isHiddenGame, setIsHiddenGame] = useState(false)
-  const [isFavouriteGame, setIsFavouriteGame] = useState(false)
-
-  useEffect(() => {
-    const found = !!hiddenGames.list.find(
+  const isHiddenGame = useMemo(() => {
+    return !!hiddenGames.list.find(
       (hiddenGame) => hiddenGame.appName === appName
     )
-
-    setIsHiddenGame(found)
   }, [hiddenGames, appName])
 
-  useEffect(() => {
-    const found = !!favouriteGames.list.find(
+  const isFavouriteGame = useMemo(() => {
+    return !!favouriteGames.list.find(
       (favouriteGame) => favouriteGame.appName === appName
     )
-
-    setIsFavouriteGame(found)
   }, [favouriteGames, appName])
+
+  const isMac = ['osx', 'Mac']
+  const isMacNative = isMac.includes(installedPlatform ?? '')
+  const isLinuxNative = installedPlatform === 'linux'
+  const isNative = isWin || isMacNative || isLinuxNative
+  const pathname = isNative
+    ? `/settings/${appName}/other`
+    : `/settings/${appName}/wine`
 
   const items: Item[] = [
     {
@@ -212,7 +220,7 @@ const GameCard = ({
     {
       label: t('submenu.settings'),
       onclick: () =>
-        navigate(path, {
+        navigate(pathname, {
           state: {
             fromGameCard: true,
             runner,
@@ -309,8 +317,9 @@ const GameCard = ({
                 {isInstalled && isGame && (
                   <>
                     <SvgButton
+                      title={`${t('submenu.settings')} (${title})`}
                       onClick={() =>
-                        navigate(path, {
+                        navigate(pathname, {
                           state: {
                             fromGameCard: true,
                             runner,
@@ -343,7 +352,8 @@ const GameCard = ({
         previousProgress,
         progress,
         t,
-        runner
+        runner,
+        platformToInstall: ''
       })
     }
     if (status === 'playing' || status === 'updating') {

@@ -10,8 +10,9 @@ import classNames from 'classnames'
 
 import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
-import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
+import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
+import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -75,9 +76,7 @@ export default function GeneralSettings({
     refreshLibrary,
     isRTL,
     libraryTopSection,
-    handleLibraryTopSection,
-    theme,
-    setTheme
+    handleLibraryTopSection
   } = useContext(ContextProvider)
   const { t, i18n } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
@@ -86,7 +85,7 @@ export default function GeneralSettings({
   useEffect(() => {
     i18n.changeLanguage(language)
     storage.setItem('language', language)
-  }, [language])
+  }, [i18n, language])
 
   useEffect(() => {
     const getMoreInfo = async () => {
@@ -157,6 +156,7 @@ export default function GeneralSettings({
 
   return (
     <>
+      <h3 className="settingSubheader">{t('settings.navbar.general')}</h3>
       <span className="setting" data-testid="generalSettings">
         <span className={classNames('settingText', { isRTL: isRTL })}>
           {t('setting.language')}
@@ -177,7 +177,7 @@ export default function GeneralSettings({
         <span className={classNames('settingText', { isRTL: isRTL })}>
           {t('setting.default-install-path')}
         </span>
-        <span>
+        <span className="settingInputWithButton">
           <input
             data-testid="setinstallpath"
             type="text"
@@ -200,7 +200,7 @@ export default function GeneralSettings({
             }
             className="material-icons settings folder"
           >
-            <CreateNewFolder data-testid="setinstallpathbutton" />
+            <FolderOpenOutlinedIcon data-testid="setinstallpathbutton" />
           </SvgButton>
         </span>
       </span>
@@ -224,9 +224,9 @@ export default function GeneralSettings({
                 onClick={() => handleEgsFolder()}
                 className="material-icons settings folder"
               >
-                <CreateNewFolder
+                <FolderOpenOutlinedIcon
                   data-testid="setEpicSyncPathButton"
-                  style={{ color: isLinked ? 'transparent' : '#B0ABB6' }}
+                  style={{ color: isLinked ? 'transparent' : 'currentColor' }}
                 />
               </SvgButton>
             ) : (
@@ -276,7 +276,6 @@ export default function GeneralSettings({
               handleChange={handleSync}
               title={t('setting.egs-sync')}
             />
-            <span>{t('setting.egs-sync')}</span>
           </label>
         </span>
       )}
@@ -288,7 +287,6 @@ export default function GeneralSettings({
             handleChange={toggleTray}
             title={t('setting.exit-to-tray')}
           />
-          <span>{t('setting.exit-to-tray')}</span>
         </label>
       </span>
       {exitToTray && (
@@ -300,7 +298,6 @@ export default function GeneralSettings({
               handleChange={toggleStartInTray}
               title={t('setting.start-in-tray', 'Start Minimized')}
             />
-            <span>{t('setting.start-in-tray', 'Start Minimized')}</span>
           </label>
         </span>
       )}
@@ -315,12 +312,6 @@ export default function GeneralSettings({
               'Minimize Heroic After Game Launch'
             )}
           />
-          <span>
-            {t(
-              'setting.minimize-on-launch',
-              'Minimize Heroic After Game Launch'
-            )}
-          </span>
         </label>
       </span>
       <span className="setting">
@@ -333,12 +324,6 @@ export default function GeneralSettings({
               'Show Unreal Marketplace (needs restart)'
             )}
           />
-          <span>
-            {t(
-              'setting.showUnrealMarket',
-              'Show Unreal Marketplace (needs restart)'
-            )}
-          </span>
         </label>
       </span>
       <span className="setting">
@@ -351,7 +336,6 @@ export default function GeneralSettings({
             }}
             title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
           />
-          <span>{t('setting.darktray', 'Use Dark Tray Icon')}</span>
         </label>
       </span>
       <span className="setting">
@@ -367,12 +351,6 @@ export default function GeneralSettings({
               'Disable Heroic navigation using controller'
             )}
           />
-          <span>
-            {t(
-              'setting.disable_controller',
-              'Disable Heroic navigation using controller'
-            )}
-          </span>
         </label>
       </span>
 
@@ -407,32 +385,7 @@ export default function GeneralSettings({
           </option>
         </select>
       </span>
-
-      <span className="setting">
-        <label
-          className={classNames('settingText', { isRTL: isRTL })}
-          htmlFor="theme_selector"
-        >
-          {t('setting.select_theme', 'Select Theme')}
-        </label>
-        <select
-          id="theme_selector"
-          onChange={(event) => setTheme(event.target.value)}
-          value={theme}
-          className="settingSelect is-drop-down"
-        >
-          <option value="">Default</option>
-          <option value="classic">Classic</option>
-          <option value="old-school">Old School Heroic</option>
-          <option value="dracula">Dracula</option>
-          <option value="dracula-classic">Dracula Classic</option>
-          <option value="marine">Marine</option>
-          <option value="marine-classic">Marine Classic</option>
-          <option value="zombie">Zombie</option>
-          <option value="zombie-classic">Zombie Classic</option>
-        </select>
-      </span>
-
+      <ThemeSelector />
       <span className="setting">
         <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
           <select

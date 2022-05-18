@@ -7,7 +7,10 @@
   border-radius: 1rem;
   grid-area: content;
   margin-block-start: 20px;
-  padding-left: 48px;
+  padding: 0px 48px;
+  position: relative;
+  top: -35px;
+  margin-bottom: 35px;
 }
 
 .settingsWrapper {
@@ -17,29 +20,34 @@
   flex-direction: column;
   place-self: center;
   place-items: flex-start;
-  width: 100%;
+  width: 513px;
   padding-bottom: 8px;
 }
 
 .headerTitle {
-  font-size: 2rem;
-  margin-inline-end: auto;
-  padding: 8px;
-  color: var(--accent);
   transition: 350ms;
-}
-
-.headerTitle:hover {
-  color: var(--text-hover);
+  margin-top: 5px;
+  margin-left: 20px;
+  margin-bottom: 6px;
 }
 
 .headerTitle > svg {
   margin-left: 12px;
 }
 
+.settingSubheader {
+  text-align: left;
+  margin-top: 0;
+  padding-left: 20px;
+}
+
+.settingSubheader::before {
+  content: '• ';
+}
+
 .settingsWrapper > .backButton {
   position: relative;
-  top: -10px;
+  top: 45px;
   left: -38px;
 }
 
@@ -53,6 +61,7 @@
   display: grid;
   place-items: baseline;
   margin: 16px;
+  width: 100%;
 }
 
 .setting.double {
@@ -71,7 +80,12 @@
   display: flex;
   flex-grow: 1;
   flex-wrap: nowrap;
-  min-width: 513px;
+  width: 100%;
+  max-width: 513px;
+}
+
+.settingInputWithButton > .settingSelect {
+  margin-right: 12px;
 }
 
 .settingInputWithButton > .button.is-small {
@@ -83,7 +97,6 @@
   cursor: pointer;
   gap: 15px;
   align-content: flex-start;
-  place-self: center;
   width: 512px;
   font-size: 16px;
   line-height: 19px;
@@ -94,8 +107,39 @@
   margin-block: auto;
 }
 
+.toggleWrapper:hover > .description {
+  color: var(--accent);
+}
+
+.toggleWrapper > .description.checked {
+  font-weight: 700;
+  color: var(--accent);
+}
+
 .toggleWrapper > .switch {
   transform: scale(1.5);
+}
+
+.settingSelect.is-drop-down {
+  max-width: 501px;
+  background-image: linear-gradient(
+      45deg,
+      transparent 50%,
+      var(--text-secondary) 50%
+    ),
+    linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position: calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
+  background-size: 5px 5px, 5px 5px, 1px 1.5em;
+  background-repeat: no-repeat;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  min-width: 100px;
 }
 
 .settingSelect.small {
@@ -108,12 +152,27 @@
 }
 
 .settingSelect > option {
-  background: var(--background);
+  background: var(--navbar-background);
   height: 40px;
   color: var(--text-secondary);
   text-indent: 22px;
   font-size: 16px;
   border-radius: 10px;
+}
+
+.settingInput {
+  width: 513px;
+  height: 40px;
+  background: var(--input-background);
+  border-radius: 10px;
+  font-family: var(--content-font-family), 'Noto Color Emoji';
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-secondary);
+  text-indent: 22px;
+  border: none;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
 }
 
 .save {
@@ -150,18 +209,25 @@
 
 .warning {
   color: yellow;
-  font-size: 12px;
-  width: 513px;
+  font-size: 13px;
+  width: 100%;
+  max-width: 513px;
   white-space: break-spaces;
   padding-top: 4px;
 }
 
 .smallLink {
-  font-size: 12px;
-  width: 513px;
+  font-size: 13px;
+  width: 100%;
+  max-width: 513px;
   white-space: break-spaces;
   padding-top: 4px;
   cursor: pointer;
+  transition: 300ms;
+}
+
+.smallLink:hover {
+  color: var(--text-secondary);
 }
 
 a {

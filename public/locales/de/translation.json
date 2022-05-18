@@ -1,4 +1,10 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Alle",
     "Assets": "Assets",
     "box": {
@@ -36,7 +42,7 @@
             },
             "title": "Error",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "Bei der Aktualisierung ist etwas schiefgelaufen, bitte überprüfe die Logs oder versuche es später noch einmal!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -46,12 +52,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Changelog öffnen",
+                "detail": "Möchtest du das Update im Hintergrund herunterladen?",
+                "message": "Es ist eine neue Version verfügbar!",
+                "message-finished": "Möchtest du Heroic jetzt neu starten?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Update abgeschlossen"
             }
         },
         "no": "NEIN",
@@ -99,7 +105,7 @@
         "yes": "JA"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "Zur Bibliothek",
         "login": "Anmelden",
         "sync": "Synchronisieren",
         "syncing": "Synchronisiere",
@@ -110,14 +116,14 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "Favoriten",
     "globalSettings": "Globale Einstellungen",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "GOG-Store",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "Ausgeblendete ignorieren",
         "platform": "Plattform",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Ausgeblendete anzeigen"
     },
     "help": {
         "general": "Synchronisiere mit EGL, falls du woanders eine funktionierende Installation des Epic Games Launcher hast und deine Spiele importieren möchtest, um ein erneutes Herunterladen zu vermeiden.",
@@ -158,9 +164,9 @@
         "gridView": "Rasteransicht",
         "listView": "Listenansicht",
         "refresh": "Aktualisieren",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "Aufsteigend sortieren",
+        "sortByStatus": "Nach Status sortieren",
+        "sortDescending": "Absteigend sortieren"
     },
     "Library": "Bibliothek",
     "loading": {
@@ -209,8 +215,8 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
-        "legendary-version": "Legendary Version: ",
+        "gogdl-version": "GOGDL-Version: ",
+        "legendary-version": "Legendary-Version: ",
         "weblate": "Hilf bei der Übersetzung von Heroic."
     },
     "placeholder": {
@@ -241,7 +247,7 @@
         "darktray": "Dunkles Taskleisten-Icon benutzen",
         "default-install-path": "Standard-Installationspfad",
         "defaultWinePrefix": "Ordner für neue Wine Präfixe festlegen",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "Heroic Navigation mit Controller deaktivieren",
         "discordRPC": "Discord Rich Presence aktivieren",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
@@ -252,16 +258,16 @@
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
         "language": "App Sprache auswählen",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "Deaktiviert",
+            "favourites": "Lieblingsspiele",
+            "recently_played": "Zuletzt gespielte Spiele"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "Oberer Abschnitt der Bibliothek",
         "log": {
             "copy-to-clipboard": "Log-Inhalt in Zwischenablage kopieren",
             "current-log": "Aktueller Log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "Trete unserem Discord bei und suche den Kanal, der zu deinem Betriebssystem passt. Teilen den Inhalt der hier angezeigten Logs und füge eine klare Beschreibung des Problems mit allen relevanten Informationen und Details hinzu.",
+            "instructions_title": "Wie melde ich ein Problem?",
             "last-log": "Letzter Log",
             "no-file": "Keine Log-Datei gefunden",
             "show-in-folder": "Log-Datei in Ordner anzeigen"
@@ -290,7 +296,7 @@
             "placeholder": "Genauen Spielstände Ordner auswählen",
             "title": "Cloud-Synchronisation Spielstände Ordner überschreiben"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "Design auswählen",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
         "showUnrealMarket": "Unreal Marketplace anzeigen (benötigt Neustart)",
         "start-in-tray": "Minimiert starten",
@@ -307,7 +313,7 @@
             "long-log-hint": "Log abgeschnitten, die letzten 1000 Zeilen werden angezeigt!"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "Erweitert",
             "general": "Allgemein",
             "log": "Log",
             "other": "Andere",
@@ -320,7 +326,7 @@
         "logging": "Anmelden…"
     },
     "store": "Epic Store",
-    "stores": "Stores",
+    "stores": "Shops",
     "title": {
         "allGames": "Alle Spiele",
         "allUnreal": "Unreal - Alles",
@@ -345,7 +351,7 @@
         "reload": "Neu laden",
         "show": "Anzeigen"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
+    "Unreal Marketplace": "Unreal-Marktplatz",
     "userselector": {
         "discord": "Discord",
         "logout": "Abmelden",
@@ -366,7 +372,7 @@
         "manager": {
             "error": "Wine/Proton-Versionen konnten diesmal nicht abgerufen werden.",
             "link": "Wine-Manager",
-            "title": "Wine-Manager (Beta)",
+            "title": "Wine-Manager",
             "unzipping": "Entpacke"
         }
     }

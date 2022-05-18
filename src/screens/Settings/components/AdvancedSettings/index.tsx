@@ -1,5 +1,4 @@
 import {
-  CreateNewFolder,
   Backspace,
   CleaningServicesOutlined,
   ContentCopyOutlined,
@@ -13,6 +12,7 @@ import { SvgButton } from 'src/components/UI'
 import ContextProvider from 'src/state/ContextProvider'
 import { AppSettings, Path } from 'src/types'
 import { configStore } from 'src/helpers/electronStores'
+import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -128,6 +128,7 @@ export const AdvancedSettings = ({
 
   return (
     <div>
+      <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
       <span className="setting">
         <span className={classNames('settingText', { isRTL: isRTL })}>
           {t(
@@ -135,7 +136,7 @@ export const AdvancedSettings = ({
             'Choose an Alternative Legendary Binary  (needs restart)to use'
           )}
         </span>
-        <span>
+        <span className="settingInputWithButton">
           <input
             data-testid="setting-alt-legendary"
             type="text"
@@ -152,10 +153,10 @@ export const AdvancedSettings = ({
               onClick={async () => handleLegendaryBinary()}
               className="material-icons settings folder"
             >
-              <CreateNewFolder
+              <FolderOpenOutlinedIcon
                 data-testid="setLegendaryBinaryButton"
                 style={{
-                  color: altLegendaryBin.length ? 'transparent' : '#B0ABB6'
+                  color: altLegendaryBin.length ? 'transparent' : 'currentColor'
                 }}
               />
             </SvgButton>
@@ -166,7 +167,7 @@ export const AdvancedSettings = ({
             >
               <Backspace
                 data-testid="setLegendaryBinaryBackspace"
-                style={{ color: '#B0ABB6' }}
+                style={{ color: 'currentColor' }}
               />
             </SvgButton>
           )}
@@ -183,7 +184,7 @@ export const AdvancedSettings = ({
             'Choose an Alternative GOGDL Binary to use (needs restart)'
           )}
         </span>
-        <span>
+        <span className="settingInputWithButton">
           <input
             data-testid="setting-alt-gogdl"
             type="text"
@@ -200,10 +201,10 @@ export const AdvancedSettings = ({
               onClick={async () => handleGogdlBinary()}
               className="material-icons settings folder"
             >
-              <CreateNewFolder
+              <FolderOpenOutlinedIcon
                 data-testid="setGogdlBinaryButton"
                 style={{
-                  color: altGogdlBin.length ? 'transparent' : '#B0ABB6'
+                  color: altGogdlBin.length ? 'transparent' : 'currentColor'
                 }}
               />
             </SvgButton>
@@ -214,7 +215,7 @@ export const AdvancedSettings = ({
             >
               <Backspace
                 data-testid="setGogdlBinaryBackspace"
-                style={{ color: '#B0ABB6' }}
+                style={{ color: '#currentColor' }}
               />
             </SvgButton>
           )}

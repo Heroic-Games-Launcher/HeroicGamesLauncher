@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import './index.css'
 
 export interface Item {
   label: string
@@ -47,6 +48,7 @@ export default function ContextMenu({ children, items }: Props) {
         open={contextMenu !== null}
         onClose={handleClose}
         anchorReference="anchorPosition"
+        className="contextMenu"
         anchorPosition={
           contextMenu !== null
             ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
