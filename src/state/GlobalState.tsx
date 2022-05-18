@@ -432,6 +432,11 @@ export class GlobalState extends PureComponent<Props> {
           runInBackground: true
         })
 
+        storage.setItem(
+          'updates',
+          JSON.stringify(gameUpdates.filter((g) => g !== currentApp.appName))
+        )
+
         return this.setState({
           gameUpdates: updatedGamesUpdates,
           libraryStatus: newLibraryStatus
