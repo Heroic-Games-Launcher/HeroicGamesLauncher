@@ -102,11 +102,7 @@ html,
   color: var(--text-tertiary);
 }
 
-.button:disabled.is-secondary {
-  background-color: var(--background-secondary);
-  color: var(--text-secondary);
-}
-
+.button:disabled.is-secondary,
 .button:disabled:hover.is-secondary {
   background-color: var(--background-secondary);
   color: var(--text-secondary);
