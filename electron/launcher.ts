@@ -373,7 +373,7 @@ async function runWineCommand(
     }
   }
 
-  let finalCommand = `${wineBin} ${command}`
+  let finalCommand = `"${wineBin}" ${command}`
   if (additional_command) {
     finalCommand += ` && ${additional_command}`
   }
@@ -385,7 +385,7 @@ async function runWineCommand(
       return response
     })
     .catch((error) => {
-      logError(['Error running Wine command:', error], LogPrefix.Legendary)
+      logError(['Error running Wine command:', error], LogPrefix.Backend)
       return { stderr: error, stdout: '' }
     })
 }

@@ -522,8 +522,6 @@ class LegendaryGame extends Game {
   }
 
   public async launch(launchArguments: string): Promise<LaunchResult> {
-    console.log('launch', { launchArguments })
-
     const gameSettings =
       GameConfig.get(this.appName).config ||
       (await GameConfig.get(this.appName).getSettings())

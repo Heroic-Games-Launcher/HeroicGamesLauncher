@@ -275,7 +275,7 @@ const launch = async ({
     return ipcRenderer.invoke('launch', {
       appName,
       runner,
-      launchArguments: runner === 'legendary' ? '--skip-version-check' : ''
+      launchArguments: '--skip-version-check'
     })
   }
 
