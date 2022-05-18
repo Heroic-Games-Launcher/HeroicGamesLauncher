@@ -461,12 +461,19 @@ ipcMain.handle('kill', async (event, appName, runner) => {
   return Game.get(appName, runner).stop()
 })
 
-ipcMain.handle('checkDiskSpace', async (event, folder) => {
-  const { free, size: diskSize } = await checkDiskSpace(folder)
+ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
+  if (folder.startsWith('/')) {
+    const { free, size: diskSize } = await checkDiskSpace(folder)
+    return {
+      free,
+      diskSize,
+      string: `${getFileSize(free)} / ${getFileSize(diskSize)}`
+    }
+  }
   return {
-    free,
-    diskSize,
-    string: `${getFileSize(free)} / ${getFileSize(diskSize)}`
+    free: 0,
+    diskSize: 0,
+    string: `ERROR`
   }
 })
 
