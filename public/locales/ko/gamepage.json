@@ -107,6 +107,7 @@
         "installing": "설치 중",
         "moving": "설치를 이동 중 입니다, 잠시만 기다려 주세요",
         "notinstalled": "이 게임은 설치 되지 않았습니다",
+        "processing": "Processing files, please wait",
         "reparing": "게임을 복구 중입니다, 잠시만 기다려 주세요",
         "totalDownloaded": "총 다운로드",
         "updating": "게임 업데이트 중"

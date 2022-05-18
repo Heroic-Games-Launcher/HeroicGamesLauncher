@@ -107,6 +107,7 @@
         "installing": "Installerar",
         "moving": "Flyttar installationen, vänligen vänta",
         "notinstalled": "Detta spelet är inte installerat",
+        "processing": "Processing files, please wait",
         "reparing": "Reparerar spelet, vänligen vänta",
         "totalDownloaded": "Nedladdning",
         "updating": "Updaterar spelet"

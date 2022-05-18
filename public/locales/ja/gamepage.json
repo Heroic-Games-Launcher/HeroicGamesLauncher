@@ -107,6 +107,7 @@
         "installing": "インストールしています",
         "moving": "インストールを移動しています、お待ちください",
         "notinstalled": "このゲームはインストールされていません",
+        "processing": "Processing files, please wait",
         "reparing": "ゲームを修復しています、お待ちください",
         "totalDownloaded": "ダウンロードの総数",
         "updating": "ゲームを更新しています"

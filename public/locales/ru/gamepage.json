@@ -107,6 +107,7 @@
         "installing": "Устанавливается",
         "moving": "Перемещение установленных файлов. Пожалуйста, подождите",
         "notinstalled": "Игра не установлена",
+        "processing": "Processing files, please wait",
         "reparing": "Восстановление игры. Пожалуйста, подождите",
         "totalDownloaded": "Всего загружено",
         "updating": "Обновление игры"

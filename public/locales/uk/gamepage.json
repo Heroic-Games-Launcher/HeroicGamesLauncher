@@ -107,6 +107,7 @@
         "installing": "Встановлюю",
         "moving": "Переміщую встановлення, будь ласка зачекайте",
         "notinstalled": "Гра не встановлена",
+        "processing": "Processing files, please wait",
         "reparing": "Відновлюю гру, будь ласка зачекайте",
         "totalDownloaded": "Всього завантажено",
         "updating": "Оновлюю гру"

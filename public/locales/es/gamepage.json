@@ -107,6 +107,7 @@
         "installing": "Instalando",
         "moving": "Moviendo la instalación, por favor espere",
         "notinstalled": "Este juego no está instalado",
+        "processing": "Processing files, please wait",
         "reparing": "Reparando el juego, por favor espere",
         "totalDownloaded": "Total descargado",
         "updating": "Actualización de juego"

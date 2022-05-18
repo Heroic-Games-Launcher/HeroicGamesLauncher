@@ -107,6 +107,7 @@
         "installing": "正在安裝",
         "moving": "正在移動，請稍等",
         "notinstalled": "未安裝此遊戲",
+        "processing": "Processing files, please wait",
         "reparing": "遊戲修復中，請稍等",
         "totalDownloaded": "總共已下載",
         "updating": "遊戲更新中"

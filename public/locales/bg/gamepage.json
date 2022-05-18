@@ -107,6 +107,7 @@
         "installing": "В процес на инсталиране",
         "moving": "Преместване на играта; моля, изчакайте",
         "notinstalled": "Играта не е инсталирана",
+        "processing": "Processing files, please wait",
         "reparing": "Поправяне на играта; моля, изчакайте",
         "totalDownloaded": "Общо свалено",
         "updating": "Обновяване на играта"

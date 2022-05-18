@@ -107,6 +107,7 @@
         "installing": "Telepítés",
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
+        "processing": "Processing files, please wait",
         "reparing": "Játék javítása, kérlek várj",
         "totalDownloaded": "Teljesen letöltve",
         "updating": "Játék frissítése"

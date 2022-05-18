@@ -107,6 +107,7 @@
         "installing": "Wird installiert",
         "moving": "Installation wird verschoben, bitte warten",
         "notinstalled": "Dieses Spiel ist nicht installiert",
+        "processing": "Processing files, please wait",
         "reparing": "Spiel wird repariert, bitte warten",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "updating": "Spiel wird aktualisiert"

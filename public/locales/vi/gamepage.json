@@ -107,6 +107,7 @@
         "installing": "Đang cài",
         "moving": "Đang chuyển, vui lòng đợi",
         "notinstalled": "Game chưa được cài",
+        "processing": "Processing files, please wait",
         "reparing": "Đang sửa game, vui lòng đợi",
         "totalDownloaded": "Tổng số đã tải",
         "updating": "Đang cập nhật Game"
