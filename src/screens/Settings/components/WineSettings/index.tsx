@@ -331,9 +331,10 @@ export default function WineSettings({
 
       {enableFSR && (
         <SelectField
-          htmlId="setMaxRecentGames"
+          htmlId="setFsrSharpness"
           onChange={(event) => setFsrSharpness(Number(event.target.value))}
           value={maxSharpness.toString()}
+          label={t('setting.FsrSharpnessStrenght', 'FSR Sharpness Strength')}
           extraClass="smaller"
         >
           {Array.from(Array(5).keys()).map((n) => (

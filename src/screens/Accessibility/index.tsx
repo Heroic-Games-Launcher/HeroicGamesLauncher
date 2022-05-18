@@ -11,6 +11,7 @@ import ContextProvider from 'src/state/ContextProvider'
 import classNames from 'classnames'
 import { SelectField } from 'src/components/UI'
 import { ThemeSelector } from 'src/components/UI/ThemeSelector'
+import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 const { ipcRenderer } = window.require('electron')
@@ -25,7 +26,9 @@ export default function Accessibility() {
     contentFontFamily,
     setContentFontFamily,
     actionsFontFamily,
-    setActionsFontFamily
+    setActionsFontFamily,
+    allTilesInColor,
+    setAllTilesInColor
   } = useContext(ContextProvider)
 
   const [fonts, setFonts] = useState<string[]>(['Cabin', 'Rubik'])
@@ -151,6 +154,20 @@ export default function Accessibility() {
         </SelectField>
 
         <ThemeSelector />
+        <span className="setting">
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <ToggleSwitch
+              value={allTilesInColor}
+              handleChange={() => {
+                setAllTilesInColor(!allTilesInColor)
+              }}
+              title={t(
+                'accessibility.all_tiles_in_color',
+                'Show all game tiles in color'
+              )}
+            />
+          </label>
+        </span>
       </div>
     </div>
   )

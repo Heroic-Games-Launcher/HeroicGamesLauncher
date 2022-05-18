@@ -45,7 +45,7 @@ const { ipcRenderer } = window.require('electron') as {
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as { appName: string }
   const { t } = useTranslation('gamepage')
-  const { t: t2 } = useTranslation('translation')
+  const { t: t2 } = useTranslation()
 
   const [tabToShow, setTabToShow] = useState('infoTab')
   const [showModal, setShowModal] = useState({ game: '', show: false })
@@ -532,7 +532,13 @@ export default function GamePage(): JSX.Element | null {
         await syncSaves(savesPath, appName)
         setIsSyncing(false)
       }
-      await launch({ appName, t, launchArguments, runner: gameInfo.runner })
+      await launch({
+        appName,
+        t,
+        launchArguments,
+        runner: gameInfo.runner,
+        hasUpdate
+      })
 
       if (autoSyncSaves) {
         setIsSyncing(true)

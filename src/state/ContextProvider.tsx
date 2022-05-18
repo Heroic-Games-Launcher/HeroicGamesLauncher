@@ -61,7 +61,9 @@ const initialContext: ContextType = {
   contentFontFamily: "'Cabin', sans-serif",
   setContentFontFamily: () => null,
   actionsFontFamily: "'Rubik', sans-serif",
-  setActionsFontFamily: () => null
+  setActionsFontFamily: () => null,
+  allTilesInColor: false,
+  setAllTilesInColor: () => null
 }
 
 export default React.createContext(initialContext)
