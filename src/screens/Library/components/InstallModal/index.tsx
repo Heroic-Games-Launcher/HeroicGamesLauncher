@@ -116,7 +116,10 @@ export default function InstallModal({
   )
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
-  const [spaceLeft, setSpaceLeft] = useState('')
+  const [spaceLeft, setSpaceLeft] = useState({
+    spaceLeft: '',
+    notEnoughDiskSpace: false
+  })
 
   const [isLinuxNative, setIsLinuxNative] = useState(false)
   const [isMacNative, setIsMacNative] = useState(false)
@@ -237,18 +240,21 @@ export default function InstallModal({
           setInstallPath(config.defaultInstallPath)
         }
         if (installPath !== 'default') {
-          const spaceLeft = await ipcRenderer.invoke(
+          const { string: spaceLeft, free } = await ipcRenderer.invoke(
             'checkDiskSpace',
             installPath
           )
-          setSpaceLeft(spaceLeft)
+          if (gameInstallInfo?.manifest?.disk_size) {
+            const notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
+            setSpaceLeft({ spaceLeft, notEnoughDiskSpace })
+          }
         }
       })
 
     return () => {
       ipcRenderer.removeAllListeners('requestSettings')
     }
-  }, [appName, installPath])
+  }, [appName, installPath, gameInstallInfo?.manifest?.disk_size])
 
   useEffect(() => {
     const getInfo = async () => {
@@ -495,12 +501,27 @@ export default function InstallModal({
                   </FormControl>
                   <span className="diskSpaceInfo">
                     <span>
-                      {t('install.disk-space-left', 'Space Left on the Device')}
-                      :
+                      {`${t(
+                        'install.disk-space-left',
+                        'Space Left on the Device'
+                      )}: `}
                     </span>
                     <span>
-                      <strong>{` ${spaceLeft}`}</strong>
+                      <strong>{`${spaceLeft.spaceLeft}`}</strong>
                     </span>
+                    {spaceLeft.notEnoughDiskSpace && (
+                      <span
+                        style={{
+                          fontWeight: 700,
+                          color: 'var(--danger)'
+                        }}
+                      >
+                        {` (${t(
+                          'install.not-enough-disk-space',
+                          'Not enough disk space'
+                        )})`}
+                      </span>
+                    )}
                   </span>
                 </div>
               </div>
@@ -630,6 +651,7 @@ export default function InstallModal({
               <button
                 onClick={async () => handleInstall()}
                 className={`button is-secondary`}
+                disabled={spaceLeft.notEnoughDiskSpace || !installPath}
               >
                 {previousProgress.folder === installPath
                   ? t('button.continue', 'Continue Download')

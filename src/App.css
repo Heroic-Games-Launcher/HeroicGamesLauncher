@@ -102,6 +102,16 @@ html,
   color: var(--text-tertiary);
 }
 
+.button:disabled.is-secondary {
+  background-color: var(--background-secondary);
+  color: var(--text-secondary);
+}
+
+.button:disabled:hover.is-secondary {
+  background-color: var(--background-secondary);
+  color: var(--text-secondary);
+}
+
 .button.is-tertiary {
   background: var(--body-background);
   color: var(--text-default);
