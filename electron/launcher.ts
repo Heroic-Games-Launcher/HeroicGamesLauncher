@@ -280,7 +280,7 @@ async function verifyWinePrefix(
 ): Promise<{ res: ExecResult; updated: boolean }> {
   const { winePrefix, wineVersion } = await game.getSettings()
 
-  if (wineVersion.type === 'crossover') {
+  if (!(wineVersion.type === 'wine')) {
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
@@ -363,7 +363,7 @@ async function runWineCommand(
     // Can't wait if we don't have a Wineserver
     if (wait) {
       if (wineVersion.wineserver) {
-        additional_command = `${wineVersion.wineserver} --wait`
+        additional_command = `"${wineVersion.wineserver}" --wait`
       } else {
         logWarning(
           'Unable to wait on Wine command, no Wineserver!',
@@ -373,7 +373,7 @@ async function runWineCommand(
     }
   }
 
-  let finalCommand = `${wineBin} ${command}`
+  let finalCommand = `"${wineBin}" ${command}`
   if (additional_command) {
     finalCommand += ` && ${additional_command}`
   }
@@ -385,7 +385,7 @@ async function runWineCommand(
       return response
     })
     .catch((error) => {
-      logError(['Error running Wine command:', error], LogPrefix.Legendary)
+      logError(['Error running Wine command:', error], LogPrefix.Backend)
       return { stderr: error, stdout: '' }
     })
 }

@@ -366,7 +366,7 @@ const GameCard = ({
       return sendKill(appName, runner)
     }
     if (isInstalled) {
-      return launch({ appName, t, runner })
+      return launch({ appName, t, runner, hasUpdate })
     }
     return
   }
