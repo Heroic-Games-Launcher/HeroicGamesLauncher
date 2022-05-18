@@ -276,7 +276,6 @@ function Settings() {
     maxWorkers,
     minimizeOnLaunch,
     nvidiaPrime,
-    offlineMode,
     otherOptions,
     showFps,
     showMangohud,
@@ -285,7 +284,9 @@ function Settings() {
     useGameMode,
     wineCrossoverBottle,
     winePrefix,
-    wineVersion
+    wineVersion,
+    enableFSR,
+    enableResizableBar
   } as AppSettings
 
   const GameSettings = {

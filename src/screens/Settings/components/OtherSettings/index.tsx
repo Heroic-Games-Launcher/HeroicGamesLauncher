@@ -281,6 +281,7 @@ export default function OtherSettings({
                 <option key={n + 1}>{n + 1}</option>
               ))}
             </select>
+            <span>{t('setting.maxRecentGames', 'Recent Games to Show')}</span>
           </label>
         </span>
       )}

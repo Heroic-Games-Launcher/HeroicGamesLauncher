@@ -372,6 +372,9 @@ export default function WineSettings({
                 <option key={n + 1}>{n + 1}</option>
               ))}
             </select>
+            <span>
+              {t('setting.FsrSharpnessStrenght', 'FSR Sharpness Strength')}
+            </span>
           </label>
         </span>
       )}

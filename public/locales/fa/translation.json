@@ -2,6 +2,7 @@
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "زوم"
     },
@@ -161,7 +162,7 @@
         "path": "انتخاب محل نصب"
     },
     "library": {
-        "gridView": "نمای شبکه‌ای",
+        "gridView": "نمای شبکه\u200cای",
         "listView": "نمای لیستی",
         "refresh": "تازه کردن",
         "sortAscending": "Sort Ascending",
@@ -197,6 +198,9 @@
             "startInstall": "نصب آغاز شد"
         },
         "moved": "انتقال کامل شد",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "حذف شد",
         "update": {
             "canceled": "بهروزرسانی لغو شد",
