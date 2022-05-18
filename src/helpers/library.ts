@@ -249,43 +249,45 @@ type LaunchOptions = {
   t: TFunction<'gamepage'>
   launchArguments?: string
   runner: Runner
+  hasUpdate: boolean
 }
 
 const launch = async ({
   appName,
   t,
   launchArguments,
-  runner
-}: LaunchOptions): Promise<void> =>
-  ipcRenderer
+  runner,
+  hasUpdate
+}: LaunchOptions): Promise<void> => {
+  if (hasUpdate) {
+    const args = {
+      buttons: [t('gamepage:box.yes'), t('box.no')],
+      message: t('gamepage:box.update.message'),
+      title: t('gamepage:box.update.title')
+    }
+
+    const { response } = await ipcRenderer.invoke('openMessageBox', args)
+
+    if (response === 0) {
+      return updateGame(appName, runner)
+    }
+
+    return ipcRenderer.invoke('launch', {
+      appName,
+      runner,
+      launchArguments: runner === 'legendary' ? '--skip-version-check' : ''
+    })
+  }
+
+  return ipcRenderer
     .invoke('launch', { appName, launchArguments, runner })
     .then(async (err: string | string[]) => {
       if (!err) {
         return
       }
-
-      if (
-        typeof err === 'string' &&
-        err.includes('ERROR: Game is out of date')
-      ) {
-        const args = {
-          buttons: [t('gamepage:box.yes'), t('box.no')],
-          message: t('gamepage:box.update.message'),
-          title: t('gamepage:box.update.title')
-        }
-
-        const { response } = await ipcRenderer.invoke('openMessageBox', args)
-
-        if (response === 0) {
-          return updateGame(appName, runner)
-        }
-        await ipcRenderer.invoke('launch', {
-          appName,
-          runner,
-          launchArguments: '--skip-version-check'
-        })
-      }
+      return ipcRenderer.invoke('showErrorBox', ['Error', `${err}`])
     })
+}
 
 const updateGame = async (appName: string, runner: Runner): Promise<void> =>
   ipcRenderer.invoke('updateGame', appName, runner)

@@ -454,7 +454,8 @@ export class GlobalState extends PureComponent<Props> {
       )[0]
       if (!currentApp) {
         // Add finding a runner for games
-        return launch({ appName, t, runner })
+        const hasUpdate = this.state.gameUpdates?.includes(appName)
+        return launch({ appName, t, runner, hasUpdate })
       }
     })
 

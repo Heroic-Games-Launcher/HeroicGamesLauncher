@@ -536,7 +536,13 @@ export default function GamePage(): JSX.Element | null {
         await syncSaves(savesPath, appName)
         setIsSyncing(false)
       }
-      await launch({ appName, t, launchArguments, runner: gameInfo.runner })
+      await launch({
+        appName,
+        t,
+        launchArguments,
+        runner: gameInfo.runner,
+        hasUpdate
+      })
 
       if (autoSyncSaves) {
         setIsSyncing(true)
