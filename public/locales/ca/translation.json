@@ -1,7 +1,6 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -258,7 +257,7 @@
         "enableFSRHack": "Activa el FSR Hack (cal que la versió del Wine en sigui compatible)",
         "esync": "Activa l'Esync",
         "exit-to-tray": "Surt a la safata del sistema",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "Força de la nitidesa de l'FSR",
         "fsync": "Activa l'Fsync",
         "gamemode": "Utilitza el GameMode (cal que el Feral Game Mode estigui instal·lat)",
         "language": "Tria la llengua de l'aplicació",
@@ -287,7 +286,7 @@
             "title": "Sincronització manual de partides desades",
             "upload": "Puja"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Jugats recentment a mostrar",
         "maxworkers": "Nombre màxim de Workers en baixar",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Executa el joc sense connexió",

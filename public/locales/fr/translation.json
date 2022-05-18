@@ -1,7 +1,6 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -258,7 +257,7 @@
         "enableFSRHack": "Activer FSR Hack (la version de wine doit le prendre en charge)",
         "esync": "Activer Esync",
         "exit-to-tray": "Quitter vers System Tray",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "Niveau de netteté pour FSR (FSR Sharpness Strength)",
         "fsync": "Activer Fsync",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
         "language": "Choix de la langue",
@@ -287,7 +286,7 @@
             "title": "Synchronisation manuelle des auvegardes",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Jeux récents à afficher",
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Lancer le jeu hors ligne",

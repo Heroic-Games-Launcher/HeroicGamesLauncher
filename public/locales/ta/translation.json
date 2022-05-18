@@ -1,7 +1,6 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -287,7 +286,7 @@
             "title": "கைமுறை ஒத்திசைவு சேமிப்புகள்",
             "upload": "பதிவேற்றம்"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Played Recently to Show",
         "maxworkers": "பதிவிறக்கும் போது வேலையாளிகளின் அதிகபட்ச எண்ணிக்கை",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "இணையத்துடன் இணையாமல் விளையாட்டை துவக்கு",

@@ -1,7 +1,6 @@
 {
     "accessibility": {
         "actions_font_family": "操作字族 (默认: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "内容字族 (默认: \"Cabin\")",
         "fonts": "Fonts",
         "title": "辅助",
@@ -258,7 +257,7 @@
         "enableFSRHack": "启用 FSR（需要支持的WINE版本）",
         "esync": "启用 Esync",
         "exit-to-tray": "退出到系统托盘",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "FSR 锐化度",
         "fsync": "启用 Fsync",
         "gamemode": "使用 GameMode（需要已安装 Feral Game Mode）",
         "language": "选择应用语言",
@@ -287,7 +286,7 @@
             "title": "手动同步存档",
             "upload": "上传"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "要显示的最近玩过的游戏",
         "maxworkers": "下载时的最大线程数量",
         "minimize-on-launch": "游戏启动后最小化 Heroic",
         "offlinemode": "离线运行游戏",

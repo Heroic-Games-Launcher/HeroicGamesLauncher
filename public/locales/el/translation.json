@@ -1,7 +1,6 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -258,7 +257,7 @@
         "enableFSRHack": "Ενεργοποίηση FSR Hack (Η έκδοση Wine πρέπει να το υποστηρίζει)",
         "esync": "Ενεργοποίηση Esync",
         "exit-to-tray": "Έξοδος σε Μπάρα Εργαλειών",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "Βαθμός οξύτητας FSR",
         "fsync": "Ενεργοποίηση Fsync",
         "gamemode": "Χρήση λειτουργίας παιχνιδιού (απαραίτητη η εγκατάσταση του Feral Game Mode)",
         "language": "Διαλέξτε γλώσσα εφαρμογής",
@@ -287,7 +286,7 @@
             "title": "Δεδομένα Χειροκίνητου Συγχρονισμού",
             "upload": "Μεταφόρτωση"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Παίχτηκε Πρόσφατα για Προβολή",
         "maxworkers": "Μέγιστος αριθμός εργατών κατά την λήψη",
         "minimize-on-launch": "Ελαχιστοποίηση Heroic Μετά Την 'Εναρξη",
         "offlinemode": "Εκτέλεση Παιχνιδιού Εκτός Δικτύου",

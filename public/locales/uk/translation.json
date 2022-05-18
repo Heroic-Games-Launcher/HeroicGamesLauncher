@@ -1,7 +1,6 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -258,7 +257,7 @@
         "enableFSRHack": "Ввімкнути FSR Hack (версія Wine має це підтримувати)",
         "esync": "Ввімкнути Esync",
         "exit-to-tray": "Вийти до системної панелі",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "Посилення різкості FSR",
         "fsync": "Ввімкнути Fsync",
         "gamemode": "Використовувати GameMode (Feral Game Mode має бути встановлений)",
         "language": "Оберіть мову застосунка",
@@ -287,7 +286,7 @@
             "title": "Синхронізувати збереження власноруч",
             "upload": "Вивантажити"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Скільки показувати нещодавно зіграних ігор",
         "maxworkers": "Максимальна кількість працівників при завантаженні",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Запустити гру оффлайн",

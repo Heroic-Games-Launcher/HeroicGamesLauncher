@@ -1,7 +1,6 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -258,7 +257,7 @@
         "enableFSRHack": "FSR Hack inschakelen (Wine versie moet dit ondersteunen)",
         "esync": "Esync inschakelen",
         "exit-to-tray": "Afsluiten naar systeemvak",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "FSR Sharpness Sterkte",
         "fsync": "Fsync inschakelen",
         "gamemode": "Gebruik GameMode (Feral Game Mode moet geïnstalleerd zijn)",
         "language": "Selecteer een App taal",
@@ -287,7 +286,7 @@
             "title": "Handmatige synchronisatie van saves",
             "upload": "Upload"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Recente spellen om te tonen",
         "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Spel offline draaien",

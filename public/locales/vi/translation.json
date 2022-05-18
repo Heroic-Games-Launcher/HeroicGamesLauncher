@@ -1,7 +1,6 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -258,7 +257,7 @@
         "enableFSRHack": "Bật tính năng FSR hack (Phiên bản Wine cần hỗ trợ tính năng này)",
         "esync": "Bật Esync",
         "exit-to-tray": "Thoát ra khay hệ thống",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "FsrSharpnessStrenght": "Độ sắc nét FSR",
         "fsync": "Bật Fsync",
         "gamemode": "Sử dụng GameMode (Cần cài đặt Feral Game Mode)",
         "language": "Chọn ngôn ngữ của ứng dụng",
@@ -287,7 +286,7 @@
             "title": "Đồng bộ thủ công bản sao lưu",
             "upload": "Tải lên"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Hiển thị số game đã chơi gần đây",
         "maxworkers": "Số lượng tối đa khi tải xuống",
         "minimize-on-launch": "Thu nhỏ Heroic sau khi khởi chạy trò chơi",
         "offlinemode": "Chạy game oflline",
