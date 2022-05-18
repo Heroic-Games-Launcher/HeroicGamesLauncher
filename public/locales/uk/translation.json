@@ -15,8 +15,8 @@
         "choose": "Оберіть",
         "choose-egs-prefix": "Оберіть префікс під яким встановлено EGS",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
-        "choose-legendary-binary": "Оберіть бінарний файл Legendary",
-        "customWine": "Оберіть бінарний файл Wine або Proton",
+        "choose-legendary-binary": "Оберіть двійковий файл Legendary",
+        "customWine": "Оберіть двійковий файл Wine або Proton",
         "default-install-path": "Вкажіть стандартний шлях встановлення",
         "error": {
             "credentials": {
@@ -101,7 +101,7 @@
             },
             "title": "Увага"
         },
-        "wineprefix": "Оберіть теку префіксу Wine",
+        "wineprefix": "Оберіть теку префікса Wine",
         "yes": "ТАК"
     },
     "button": {
@@ -122,7 +122,7 @@
     "gog-store": "Магазин GOG",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "",
+        "platform": "Платформа",
         "show_hidden": "Show Hidden"
     },
     "help": {
@@ -161,16 +161,16 @@
         "path": "Вкажіть шлях встановлення"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": "",
+        "gridView": "Подання сітки",
+        "listView": "Подання списку",
+        "refresh": "Оновити",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending"
     },
     "Library": "Бібліотека",
     "loading": {
-        "default": "",
+        "default": "Завантаження",
         "website": "Завантажую вебсайт"
     },
     "login": {
@@ -200,7 +200,7 @@
         "uninstalled": "Видалено",
         "update": {
             "canceled": "Оновлення скасовано",
-            "finished": "Оновлення завершене",
+            "finished": "Оновлення завершено",
             "started": "Розпочалось оновлення"
         }
     },
@@ -221,13 +221,13 @@
     },
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
-        "alt-legendary-bin": "Використовую вбудований бінарник Legendary...",
+        "alt-legendary-bin": "Використовую вбудований двійковий Legendary...",
         "egs-prefix": "Префікс де встановлено EGS"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Плаґіни",
     "Projects": "Проєкти",
@@ -236,8 +236,8 @@
     "setting": {
         "adddesktopshortcuts": "Створювати ярлики на робочому столі автоматично",
         "addgamestostartmenu": "Додавати ігри до головного меню автоматично",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Призначити альтернативний бінарний файл Legendary (необхідний перезапуск)",
+        "alt-gogdl-bin": "Обрати інший двійковий файл GOGDL для використання",
+        "alt-legendary-bin": "Обрати інший двійковий файл Legendary",
         "audiofix": "Лагодження звуку (затримка Pulse Audio)",
         "autodxvk": "Автоматично встановлювати/оновлювати DXVK на префіксі",
         "autosync": "Автосинхронізувати збереження",
@@ -286,7 +286,7 @@
         "maxworkers": "Максимальна кількість працівників при завантаженні",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Запустити гру оффлайн",
-        "primerun": "Ввімкнути Nvidia Prime Render",
+        "primerun": "Використовувати виділену відеокарту",
         "resizableBar": "Ввімкнути Resizable BAR (тільки NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Перетягніть сюди файли",
@@ -361,10 +361,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Назад",
+            "forward": "Вперед",
+            "openInBrowser": "Відкрити в браузері",
+            "reload": "Перезавантажити сторінку"
         }
     },
     "wiki": "Вікі",
@@ -372,7 +372,7 @@
         "manager": {
             "error": "Цього разу не вдалось отримати версії Wine/Proton.",
             "link": "Керування Wine",
-            "title": "Керування Wine (бета)",
+            "title": "Керування Wine",
             "unzipping": "Розпаковую"
         }
     }

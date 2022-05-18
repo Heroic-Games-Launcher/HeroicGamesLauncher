@@ -241,7 +241,7 @@
         "autodxvk": "التثبيت التلقائي / التحديث لـ DXVK على Prefix",
         "customWineProton": "مسارات Wine / Proton المخصصة",
         "default-install-path": "مسار التثبيت الافتراضي",
-        "primerun": "تفعيل Nvidia Prime Render",
+        "primerun": "استخدام كرت شاشة مخصص",
         "manualsync": {
             "download": "تحميل",
             "forceupload": "الإجبار علي الرفع",
@@ -345,7 +345,7 @@
             "link": "مدير Wine",
             "error": "تعذر جلب إصدارات Wine / Proton هذه المرة.",
             "unzipping": "جاري فك الضغط",
-            "title": "مدير Wine (تجريبي)"
+            "title": "مدير Wine"
         }
     },
     "tooltip": {
@@ -402,5 +402,11 @@
         "platform": "منصة",
         "show_hidden": "إظهار المخفي"
     },
-    "favourites": "المفضلة"
+    "favourites": "المفضلة",
+    "accessibility": {
+        "content_font_family": "مجموعة خطوط المحتوى (الافتراضي: \"Cabin\")",
+        "zoom": "تكبير",
+        "actions_font_family": "مجموعة خطوط الإجراءات (الأفتراضي: \"Rubik\")",
+        "title": "إمكانية الوصول"
+    }
 }

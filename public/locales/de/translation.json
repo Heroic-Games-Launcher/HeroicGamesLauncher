@@ -286,7 +286,7 @@
         "maxworkers": "Maximale Anzahl von Prozessen zum gleichzeitigem Herunterladen",
         "minimize-on-launch": "Heroic nach Spielstart minimieren",
         "offlinemode": "Spiel offline ausführen",
-        "primerun": "Nvidia Prime Render aktivieren",
+        "primerun": "Dedizierte Grafikkarte verwenden",
         "resizableBar": "Resizable BAR aktivieren (nur NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
