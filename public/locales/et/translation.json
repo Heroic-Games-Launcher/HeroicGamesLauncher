@@ -298,8 +298,7 @@
             "title": "Käivita EXE prefiksil"
         },
         "savefolder": {
-            "placeholder": "Valige täpne mängude salvestiste kaust",
-            "title": "Asenda salvestuse pilvesünkroonkaust"
+            "placeholder": "Valige täpne mängude salvestiste kaust"
         },
         "select_theme": "Valige teema",
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",

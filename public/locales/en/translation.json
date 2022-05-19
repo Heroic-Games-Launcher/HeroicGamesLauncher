@@ -298,8 +298,7 @@
             "title": "Run EXE on Prefix"
         },
         "savefolder": {
-            "placeholder": "Select the exact save games folder",
-            "title": "Override Cloud Sync Save folder"
+            "placeholder": "Select the exact save games folder"
         },
         "select_theme": "Select Theme",
         "showfps": "Show FPS (DX9, 10 and 11)",

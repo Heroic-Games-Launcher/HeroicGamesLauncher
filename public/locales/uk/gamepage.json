@@ -75,8 +75,11 @@
         "version": "Версія"
     },
     "install": {
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "disk-space-left": "Місце, що залишилося на пристрої",
         "path": "Вкажіть шлях встановлення",
+        "space-after-install": "After Install",
         "wineprefix": "Префікс Wine",
         "wineversion": "Версія Wine"
     },

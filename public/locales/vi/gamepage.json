@@ -75,8 +75,11 @@
         "version": "Phiên bản"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Chọn đường dẫn cài",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": "Phiên bản Wine"
     },

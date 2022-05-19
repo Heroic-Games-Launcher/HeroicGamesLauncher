@@ -298,8 +298,7 @@
             "title": "Executar EXE no Prefixo"
         },
         "savefolder": {
-            "placeholder": "Selecione a pasta exata com os saves",
-            "title": "Sobrescrever diretório de saves automáticos"
+            "placeholder": "Selecione a pasta exata com os saves"
         },
         "select_theme": "Select Theme",
         "showfps": "Mostrar FPS (DX9, 10 e 11)",

@@ -14,7 +14,8 @@ import {
   isOnline,
   showErrorBoxModalAuto,
   searchForExecutableOnPath,
-  quoteIfNecessary
+  quoteIfNecessary,
+  errorHandler
 } from './utils'
 import {
   logDebug,
@@ -351,14 +352,14 @@ async function runWineCommand(
   }
 
   let additional_command = ''
-  let wineBin = wineVersion.bin
+  let wineBin = wineVersion.bin.replaceAll("'", '')
   if (wineVersion.type === 'proton') {
     command = 'run ' + command
     // TODO: Respect 'wait' here. Not sure if Proton can even do that
   } else {
     // This is only allowed for Wine since Proton only has one binary (the 'proton' script)
     if (altWineBin) {
-      wineBin = altWineBin
+      wineBin = altWineBin.replaceAll("'", '')
     }
     // Can't wait if we don't have a Wineserver
     if (wait) {
@@ -470,6 +471,10 @@ async function runLegendaryOrGogdlCommand(
     })
 
     child.on('close', (code, signal) => {
+      errorHandler({
+        error: { stderr: stderr.join(), stdout: stdout.join() },
+        logPath: options?.logFile
+      })
       if (signal) {
         rej('Process terminated with signal ' + signal)
       }
@@ -486,6 +491,7 @@ async function runLegendaryOrGogdlCommand(
       return { stdout, stderr, fullCommand: safeCommand }
     })
     .catch((error) => {
+      errorHandler({ error, logPath: options?.logFile })
       logError(
         ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
         runner.logPrefix

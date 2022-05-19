@@ -298,8 +298,7 @@
             "title": "Spustit EXE na prefixu"
         },
         "savefolder": {
-            "placeholder": "Vyberte přesnou složku s uloženými soubory",
-            "title": "Přepsat synchronizaci cloudu"
+            "placeholder": "Vyberte přesnou složku s uloženými soubory"
         },
         "select_theme": "Vybrat motiv",
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",

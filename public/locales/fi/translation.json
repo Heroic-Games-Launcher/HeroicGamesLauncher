@@ -298,8 +298,7 @@
             "title": "Käynnistä EXE prefixissä"
         },
         "savefolder": {
-            "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
-            "title": "Korvaa pilvisynkronoinnin tallennuksen kansio"
+            "placeholder": "Valitse täsmällinen pelitallennuksien kansio"
         },
         "select_theme": "Select Theme",
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",

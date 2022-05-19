@@ -298,8 +298,7 @@
             "title": "Kör EXE-fil i prefix"
         },
         "savefolder": {
-            "placeholder": "Ange specifik sparfilsmapp",
-            "title": "Synkroniseringsmapp för sparfiler"
+            "placeholder": "Ange specifik sparfilsmapp"
         },
         "select_theme": "Välj tema",
         "showfps": "Visa FPS (DX9, 10 och 11)",
