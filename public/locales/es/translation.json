@@ -1,10 +1,10 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
         "all_tiles_in_color": "Show all game tiles in color",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
-        "title": "Accessibility",
+        "actions_font_family": "Tipografía para acciones (Por Defecto: \"Rubik\")",
+        "content_font_family": "Tipografía para contenido (Por Defecto: \"Cabin\")",
+        "title": "Accesibilidad",
         "zoom": "Zoom"
     },
     "All": "Todos",
@@ -16,13 +16,13 @@
         },
         "choose": "Elegir",
         "choose-egs-prefix": "Elija el Wine-Prefix donde está instalado EGS",
-        "choose-gogdl-binary": "Seleccionar binario de GOGDL (requiere un reinicio)",
+        "choose-gogdl-binary": "Seleccionar binario de GOGDL (requiere reiniciar)",
         "choose-legendary-binary": "Seleccione el binario de Legendary",
         "customWine": "Seleccione binario de Wine o Proton",
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "error": {
             "credentials": {
-                "message": "Tus credenciales han expirado, por favor, reinicia la sesión.",
+                "message": "Tus credenciales han expirado, por favor, inicia sesión nuevamente.",
                 "title": "Credenciales expiradas"
             },
             "diskspace": {
@@ -45,7 +45,7 @@
             "title": "Error",
             "update": {
                 "message": "Ocurrió un problema con la actualización. Por favor, revise los registros e intente nuevamente!",
-                "title": "Update Error"
+                "title": "Error al actualizar"
             },
             "wine-not-found": {
                 "message": "No se ha seleccionado la versión de Wine. ¡Comprueba la configuración del juego!",
@@ -115,7 +115,7 @@
     },
     "epic": {
         "offline-notification-body": "¡Puede que algunos servicios no funcionen correctamente si no estás conectado a los servidores de Epic Games!",
-        "offline-notification-title": "offline"
+        "offline-notification-title": "Sin conexión"
     },
     "Epic Games": "Epic Games",
     "favourites": "Favoritos",
@@ -136,7 +136,7 @@
             "part4": "Usa los ",
             "part5": "argumentos del juego",
             "part6": " para ser llamado después del comando de lanzamiento, por ejemplo: ",
-            "part7": " omitir el lanzador en algunos juegos, etc."
+            "part7": " para omitir el lanzador en algunos juegos, etc."
         },
         "sync": {
             "part1": "Heroic intenta adivinar la carpeta de guardado correcta y esto funcionará en la mayoría de los casos. En caso de que la carpeta sea incorrecta, use el cuadro de anulación para cambiarla.",
@@ -151,7 +151,7 @@
     },
     "info": {
         "heroic": {
-            "version": "Heroic Version"
+            "version": "Versión de Heroic"
         },
         "settings": "Los ajustes se guardan automáticamente"
     },
@@ -163,7 +163,7 @@
         "path": "Seleccione la ruta de instalación"
     },
     "library": {
-        "gridView": "Vista de cuadrícula",
+        "gridView": "Vista de grilla",
         "listView": "Vista de lista",
         "refresh": "Actualizar",
         "sortAscending": "Orden Ascendente",
@@ -284,24 +284,25 @@
             "forceupload": "Forzar subida",
             "sync": "Sincronizar",
             "syncing": "Sincronizando",
-            "title": "Guardado de sincronización manual",
+            "title": "Sincronización manual de guardados",
             "upload": "Subida"
         },
-        "maxRecentGames": "Jugado recientemente para mostrar",
-        "maxworkers": "Número máximo de descargas",
+        "maxRecentGames": "Cantidad de jugados recientemente a mostrar",
+        "maxworkers": "Número máximo de procesos al descargar",
         "minimize-on-launch": "Minimizar Heroic al ejecutar un juego",
         "offlinemode": "Ejecutar juego sin conexión",
-        "primerun": "Habilitar Nvidia Prime Render",
+        "primerun": "Utilizar tarjeta de video dedicada",
         "resizableBar": "Habilitar Resizable Bar (NVIDIA RTX 30xx únicamente)",
         "runexe": {
             "message": "Arrastra y suelta archivos aquí",
-            "title": "Ejecutar EXE en Prefix"
+            "title": "Ejecutar EXE en Prefijo"
         },
         "savefolder": {
-            "placeholder": "Seleccione la carpeta exacta para guardar juegos"
+            "placeholder": "Seleccione la carpeta exacta para guardar juegos",
+            "title": "Reemplazar la carpeta de sincronización de guardados en la nube"
         },
         "select_theme": "Seleccionar Tema",
-        "showfps": "Mostrar FPS (DX9, 10 y 11)",
+        "showfps": "Mostrar FPS (Cuadros Por Segundo) (DX9, 10 y 11)",
         "showUnrealMarket": "Mostrar la tienda de Unreal (requiere reiniciar)",
         "start-in-tray": "Iniciar minimizado",
         "steamruntime": "Usar Steam Runtime",

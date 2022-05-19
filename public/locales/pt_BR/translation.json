@@ -22,7 +22,7 @@
         "default-install-path": "Selecione o local de instalação padrão",
         "error": {
             "credentials": {
-                "message": "Suas credenciais expiraram, por favor faça o logout e entre novamente.",
+                "message": "Suas credenciais expiraram, por favor desconecte sua conta e entre novamente.",
                 "title": "Credenciais Expiradas"
             },
             "diskspace": {
@@ -44,7 +44,7 @@
             },
             "title": "Erro",
             "update": {
-                "message": "Algo deu errado ao atualizar, check os logs ou tente novamente mais tarde!",
+                "message": "Algo deu errado ao atualizar, cheque os logs ou tente novamente mais tarde!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -55,8 +55,8 @@
         "info": {
             "update": {
                 "changelog": "Abrir lista da mudanças",
-                "detail": "Você deseja atualizar o Heroic em background?",
-                "message": "Um nova versão está disponível!",
+                "detail": "Você deseja atualizar o Heroic em segundo plano?",
+                "message": "Uma nova versão está disponível!",
                 "message-finished": "Deseja reiniciar o Heroic agora?",
                 "title": "Heroic Games Launcher",
                 "title-finished": "Atualização finalizada"
@@ -107,7 +107,7 @@
         "yes": "SIM"
     },
     "button": {
-        "go_to_library": "Ir para Biblioteca",
+        "go_to_library": "Ir para a biblioteca",
         "login": "Conecte-se",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -123,9 +123,9 @@
     "GOG": "GOG",
     "gog-store": "Loja GOG",
     "header": {
-        "ignore_hidden": "Ignorar Escondidos",
+        "ignore_hidden": "Ignorar escondidos",
         "platform": "Plataforma",
-        "show_hidden": "Mostrar Escondidos"
+        "show_hidden": "Mostrar escondidos"
     },
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
@@ -164,11 +164,11 @@
     },
     "library": {
         "gridView": "Visualização em grade",
-        "listView": "Visto por último",
+        "listView": "Visualização em lista",
         "refresh": "Atualizar",
-        "sortAscending": "Ordenar Crescente",
-        "sortByStatus": "Ordenar Decrescente",
-        "sortDescending": "Ordenar Decrescente"
+        "sortAscending": "Ordem crescente",
+        "sortByStatus": "Ordenar por estado",
+        "sortDescending": "Ordem decrescente"
     },
     "Library": "Biblioteca",
     "loading": {
@@ -252,7 +252,7 @@
         "darktray": "Usar o ícone escuro na barra de tarefas",
         "default-install-path": "Local de instalação padrão",
         "defaultWinePrefix": "Pasta padrão para novos prefixos Wine",
-        "disable_controller": "Desabilitar Navegação por Controle no Heroic",
+        "disable_controller": "Desabilitar navegação por controle no Heroic",
         "discordRPC": "Habilitar o Discord Rich Presence",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (a versão do Wine precisa suportar o recurso)",
@@ -264,7 +264,7 @@
         "language": "Selecione o idioma do app",
         "library_top_option": {
             "disabled": "Desabilitada",
-            "favourites": "Jogos Favoritos",
+            "favourites": "Jogos favoritos",
             "recently_played": "Jogados recentemente"
         },
         "library_top_section": "Coluna de destaque da biblioteca",
@@ -291,7 +291,7 @@
         "maxworkers": "Máximo de núcleos da CPU para utilizar ao fazer baixar jogos",
         "minimize-on-launch": "Minimizar Heroic ao iniciar um jogo",
         "offlinemode": "Iniciar o jogo offline",
-        "primerun": "Habilitar o PRIME Render da NVIDIA",
+        "primerun": "Usar placa gráfica dedicada",
         "resizableBar": "Habilitar Resizable BAR (somente NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Arraste e solte arquivos aqui",
@@ -300,7 +300,7 @@
         "savefolder": {
             "placeholder": "Selecione a pasta exata com os saves"
         },
-        "select_theme": "Selecione um Tema",
+        "select_theme": "Selecione um tema",
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Mostrar Unreal Marketplace (requer reinício)",
         "start-in-tray": "Iniciar minimizado",
@@ -358,8 +358,8 @@
     "Unreal Marketplace": "Loja Unreal",
     "userselector": {
         "discord": "Discord",
-        "logout": "Sair",
-        "logout_confirmation": "Tem certeza que deseja sair da sua conta?",
+        "logout": "Desconectar",
+        "logout_confirmation": "Tem certeza que deseja desconectar da sua conta?",
         "manageaccounts": "Gerenciar Contas",
         "quit": "Sair"
     },
