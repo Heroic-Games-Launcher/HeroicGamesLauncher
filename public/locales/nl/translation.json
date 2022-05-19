@@ -298,8 +298,7 @@
             "title": "Voer EXE uit op Prefix"
         },
         "savefolder": {
-            "placeholder": "Selecteer de exacte opslagmap",
-            "title": "Overschijf cloud synchronisatie save map"
+            "placeholder": "Selecteer de exacte opslagmap"
         },
         "select_theme": "Select Theme",
         "showfps": "Toon FPS (DX9, DX10 en DX11)",

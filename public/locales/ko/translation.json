@@ -1,9 +1,9 @@
 {
     "accessibility": {
-        "all_tiles_in_color": "Show all game tiles in color",
-        "fonts": "Fonts",
         "actions_font_family": "작업 글꼴 패밀리 (기본값: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "콘텐츠 글꼴 패밀리 (기본값: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "접근성",
         "zoom": "Zoom"
     },
@@ -298,8 +298,7 @@
             "title": "접두사에서 EXE 실행"
         },
         "savefolder": {
-            "placeholder": "올바른 게임 저장 폴더 선택",
-            "title": "클라우드 세이브 동기화 폴더 덮어쓰기"
+            "placeholder": "올바른 게임 저장 폴더 선택"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS 표시 (DX9, 10 및 11)",

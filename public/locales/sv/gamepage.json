@@ -76,7 +76,10 @@
     },
     "install": {
         "disk-space-left": "Ledigt utrymme på enheten",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Ange installationssökväg",
+        "space-after-install": "After Install",
         "wineprefix": "Wine-prefix",
         "wineversion": "Wine-version"
     },
@@ -107,6 +110,7 @@
         "installing": "Installerar",
         "moving": "Flyttar installationen, vänligen vänta",
         "notinstalled": "Detta spelet är inte installerat",
+        "processing": "Processing files, please wait",
         "reparing": "Reparerar spelet, vänligen vänta",
         "totalDownloaded": "Nedladdning",
         "updating": "Updaterar spelet"

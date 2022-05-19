@@ -76,7 +76,10 @@
     },
     "install": {
         "disk-space-left": "Місце, що залишилося на пристрої",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Вкажіть шлях встановлення",
+        "space-after-install": "After Install",
         "wineprefix": "Префікс Wine",
         "wineversion": "Версія Wine"
     },
@@ -107,6 +110,7 @@
         "installing": "Встановлюю",
         "moving": "Переміщую встановлення, будь ласка зачекайте",
         "notinstalled": "Гра не встановлена",
+        "processing": "Processing files, please wait",
         "reparing": "Відновлюю гру, будь ласка зачекайте",
         "totalDownloaded": "Всього завантажено",
         "updating": "Оновлюю гру"

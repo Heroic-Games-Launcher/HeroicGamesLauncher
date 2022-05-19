@@ -75,8 +75,11 @@
         "version": "பதிப்பு"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Select Install Path",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": ""
     },
@@ -107,6 +110,7 @@
         "installing": "நிறுவப்படுகிறது",
         "moving": "நிறுவல் நகர்த்தப்படுகிறது, தயவுசெய்து காத்திருக்கவும்",
         "notinstalled": "இந்த விளையாட்டு நிறுவப்படவில்லை",
+        "processing": "Processing files, please wait",
         "reparing": "விளையாட்டு பழுதுபார்க்கப்படுகிறது, தயவுசெய்து காத்திருக்கவும்",
         "totalDownloaded": "மொத்த பதிவிறக்கம்",
         "updating": "விளையாட்டு புதுப்பிக்கப்படுகிறது"

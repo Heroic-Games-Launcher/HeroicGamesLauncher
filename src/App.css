@@ -50,6 +50,11 @@ html,
   width: var(--content-width);
 }
 
+.danger {
+  font-weight: 700;
+  color: var(--danger);
+}
+
 .button {
   cursor: pointer;
   padding: 0.75rem;
@@ -100,6 +105,12 @@ html,
 .button.is-secondary {
   background: var(--accent);
   color: var(--text-tertiary);
+}
+
+.button:disabled.is-secondary,
+.button:disabled:hover.is-secondary {
+  background-color: var(--background-secondary);
+  color: var(--text-secondary);
 }
 
 .button.is-tertiary {

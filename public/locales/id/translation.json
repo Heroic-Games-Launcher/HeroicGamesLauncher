@@ -298,8 +298,7 @@
             "title": "Jalankan EXE di Prefiks"
         },
         "savefolder": {
-            "placeholder": "Pilih folder gim tersimpan yang tepat",
-            "title": "Timpa folder Sinkronisasi Penyimpanan Awan"
+            "placeholder": "Pilih folder gim tersimpan yang tepat"
         },
         "select_theme": "Pilih Tema",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",

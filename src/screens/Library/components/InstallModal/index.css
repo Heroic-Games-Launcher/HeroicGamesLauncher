@@ -79,7 +79,3 @@
   padding: 4px 0 4px 8px;
   color: var(--text-secondary);
 }
-
-.diskSpaceInfo::before {
-  content: '- ';
-}

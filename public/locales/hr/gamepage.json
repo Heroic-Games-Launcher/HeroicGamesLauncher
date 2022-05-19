@@ -75,8 +75,11 @@
         "version": "Verzija"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Odaberite put instalacije",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": ""
     },
@@ -107,6 +110,7 @@
         "installing": "Instalira se",
         "moving": "Premještanje instalacije, molim pričekajte",
         "notinstalled": "Ova igrica nije instalirana",
+        "processing": "Processing files, please wait",
         "reparing": "Popravljanje igrice, molimo pričekajte",
         "totalDownloaded": "Sveukupno preuzeto",
         "updating": "Ažuriranje igrice"

@@ -298,8 +298,7 @@
             "title": "Chạy EXE trên prefix"
         },
         "savefolder": {
-            "placeholder": "Chọn chính xác thư mục lưu game",
-            "title": "Ghi đè thư mục Lưu đồng bộ đám mây"
+            "placeholder": "Chọn chính xác thư mục lưu game"
         },
         "select_theme": "Select Theme",
         "showfps": "Hiển thị FPS (DX9, 10 và 11)",

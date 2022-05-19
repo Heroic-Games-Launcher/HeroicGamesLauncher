@@ -76,7 +76,10 @@
     },
     "install": {
         "disk-space-left": "فضای باقی مانده در دستگاه",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "انتخاب محل نصب",
+        "space-after-install": "After Install",
         "wineprefix": "Wine Prefix",
         "wineversion": "نسخه Wine"
     },
@@ -107,6 +110,7 @@
         "installing": "در حال نصب",
         "moving": "در حال انتقال نصب، لطفا صبر کنید",
         "notinstalled": "این بازی نصب نشده است",
+        "processing": "Processing files, please wait",
         "reparing": "در حال تعمیر بازی، لطفا صبر کنید",
         "totalDownloaded": "حجم کل دانلود شده",
         "updating": "در حال به روزرسانی بازی"

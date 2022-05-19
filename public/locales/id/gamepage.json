@@ -76,7 +76,10 @@
     },
     "install": {
         "disk-space-left": "Ruang Penyimpanan Tersisa",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Pilih Lokasi Pemasangan",
+        "space-after-install": "After Install",
         "wineprefix": "PrefiksWine",
         "wineversion": "Versi Wine"
     },
@@ -107,6 +110,7 @@
         "installing": "Memasang",
         "moving": "Memindahkan Pemasangan, harap tunggu",
         "notinstalled": "Gim ini tidak dipasang",
+        "processing": "Processing files, please wait",
         "reparing": "Memperbaiki Gim, harap tunggu",
         "totalDownloaded": "Jumlah yang Diunduh",
         "updating": "Memperbarui Gim"
