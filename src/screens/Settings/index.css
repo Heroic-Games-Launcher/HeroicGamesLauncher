@@ -6,27 +6,43 @@
   width: 100%;
   border-radius: 1rem;
   grid-area: content;
-  margin-block-start: 20px;
-  padding: 0px 48px;
+  padding: 2rem 48px;
   position: relative;
-  top: -35px;
   margin-bottom: 35px;
+}
+
+.Settings .Field,
+.Accessibility .Field,
+.InstallModal__dialog .Field {
+  margin: 16px 0px;
+  width: 100%;
+}
+
+.Settings .Field label,
+.Accessibility .Field label,
+.InstallModal__dialog .Field label {
+  cursor: default;
+  margin-bottom: 14px;
+  font: var(--font-secondary-regular);
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-secondary);
 }
 
 .settingsWrapper {
   margin-inline-end: auto;
-  max-width: 669px;
+  max-width: 513px;
   display: flex;
   flex-direction: column;
   place-self: center;
   place-items: flex-start;
-  width: 513px;
+  width: 100%;
   padding-bottom: 8px;
 }
 
 .headerTitle {
   transition: 350ms;
-  margin-top: 5px;
+  margin-top: 0px;
   margin-left: 20px;
   margin-bottom: 6px;
 }
@@ -46,133 +62,15 @@
 }
 
 .settingsWrapper > .backButton {
-  position: relative;
-  top: 45px;
-  left: -38px;
+  position: absolute;
+  top: 2rem;
+  right: 100%;
 }
 
 .settingsTools {
   margin-block: 16px;
   justify-content: left;
   max-width: 512px;
-}
-
-.setting {
-  display: grid;
-  place-items: baseline;
-  margin: 16px;
-  width: 100%;
-}
-
-.setting.double {
-  margin: 0 16px;
-  align-content: space-between;
-  text-align: left;
-}
-
-.setting.double > span > button,
-.setting.double > span > .small,
-.setting.double > span > input {
-  margin: 16px 0;
-}
-
-.settingInputWithButton {
-  display: flex;
-  flex-grow: 1;
-  flex-wrap: nowrap;
-  width: 100%;
-  max-width: 513px;
-}
-
-.settingInputWithButton > .settingSelect {
-  margin-right: 12px;
-}
-
-.settingInputWithButton > .button.is-small {
-  min-width: fit-content;
-}
-
-.setting > .toggleWrapper {
-  display: flex;
-  cursor: pointer;
-  gap: 15px;
-  align-content: flex-start;
-  width: 512px;
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--text-default);
-}
-.toggleWrapper label {
-  text-align: center;
-  margin-block: auto;
-}
-
-.toggleWrapper:hover > .description {
-  color: var(--accent);
-}
-
-.toggleWrapper > .description.checked {
-  font-weight: 700;
-  color: var(--accent);
-}
-
-.toggleWrapper > .switch {
-  transform: scale(1.5);
-}
-
-.settingSelect.is-drop-down {
-  max-width: 501px;
-  background-image: linear-gradient(
-      45deg,
-      transparent 50%,
-      var(--text-secondary) 50%
-    ),
-    linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%),
-    linear-gradient(to right, #ccc, #ccc);
-  background-position: calc(100% - 20px) calc(1em + 2px),
-    calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
-  background-size: 5px 5px, 5px 5px, 1px 1.5em;
-  background-repeat: no-repeat;
-  margin: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  min-width: 100px;
-}
-
-.settingSelect.small {
-  width: clamp(150px, 10rem, 372px);
-}
-
-.settingSelect.smaller {
-  width: 66px;
-  text-indent: 11px;
-}
-
-.settingSelect > option {
-  background: var(--navbar-background);
-  height: 40px;
-  color: var(--text-secondary);
-  text-indent: 22px;
-  font-size: 16px;
-  border-radius: 10px;
-}
-
-.settingInput {
-  width: 513px;
-  height: 40px;
-  background: var(--input-background);
-  border-radius: 10px;
-  font-family: var(--content-font-family), 'Noto Color Emoji';
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--text-secondary);
-  text-indent: 22px;
-  border: none;
-  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
 }
 
 .save {

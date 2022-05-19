@@ -57,6 +57,8 @@ export interface ContextType {
   filterPlatform: string
   gameUpdates: string[]
   isRTL: boolean
+  language: string
+  setLanguage: (newLanguage: string) => void
   handleCategory: (value: string) => void
   handleFilter: (value: string) => void
   handlePlatformFilter: (value: string) => void

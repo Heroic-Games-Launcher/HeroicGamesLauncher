@@ -139,6 +139,10 @@ export class GlobalState extends PureComponent<Props> {
     allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false
   }
 
+  setLanguage = (newLanguage: string) => {
+    this.setState({ language: newLanguage })
+  }
+
   setTheme = (newThemeName: string) => {
     configStore.set('theme', newThemeName)
     this.setState({ theme: newThemeName })
@@ -584,6 +588,7 @@ export class GlobalState extends PureComponent<Props> {
           handleLayout: this.handleLayout,
           handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,
+          setLanguage: this.setLanguage,
           isRTL,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
