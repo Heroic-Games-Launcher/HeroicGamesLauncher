@@ -298,8 +298,7 @@
             "title": "Ejecutar EXE en Prefix"
         },
         "savefolder": {
-            "placeholder": "Seleccione la carpeta exacta para guardar juegos",
-            "title": "Anular la carpeta de guardado de Cloud Sync"
+            "placeholder": "Seleccione la carpeta exacta para guardar juegos"
         },
         "select_theme": "Seleccionar Tema",
         "showfps": "Mostrar FPS (DX9, 10 y 11)",

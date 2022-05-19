@@ -298,8 +298,7 @@
             "title": "EXE fájl futtatása a prefixen"
         },
         "savefolder": {
-            "placeholder": "Pontos játékmentési mappa kiválasztása",
-            "title": "Felhőszinkronizálásra való mappa felülírása"
+            "placeholder": "Pontos játékmentési mappa kiválasztása"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",

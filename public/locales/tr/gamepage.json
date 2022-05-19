@@ -76,7 +76,10 @@
     },
     "install": {
         "disk-space-left": "Space Available",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Kurulum Yolunu Seçin",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine sürümü"
     },

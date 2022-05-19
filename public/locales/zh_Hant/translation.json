@@ -298,8 +298,7 @@
             "title": "在PREFIX上執行exe檔案"
         },
         "savefolder": {
-            "placeholder": "選擇存檔的保存位置",
-            "title": "覆蓋雲端存檔資料夾"
+            "placeholder": "選擇存檔的保存位置"
         },
         "select_theme": "Select Theme",
         "showfps": "顯示幀數（Directx 9，10和11）",

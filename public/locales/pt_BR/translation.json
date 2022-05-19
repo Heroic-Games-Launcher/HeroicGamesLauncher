@@ -298,8 +298,7 @@
             "title": "Executar EXE no prefixo"
         },
         "savefolder": {
-            "placeholder": "Selecione a pasta exata com os saves",
-            "title": "Sobrescrever pasta de saves sincronizados com a nuvem"
+            "placeholder": "Selecione a pasta exata com os saves"
         },
         "select_theme": "Selecione um Tema",
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",

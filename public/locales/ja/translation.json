@@ -298,8 +298,7 @@
             "title": "プレフィックスでEXEを実行する"
         },
         "savefolder": {
-            "placeholder": "正確なゲーム保存フォルダを選択してください",
-            "title": "Cloud Syncの保存フォルダーをオーバーライドする"
+            "placeholder": "正確なゲーム保存フォルダを選択してください"
         },
         "select_theme": "Select Theme",
         "showfps": "FPSを表示（DX9、10、11）",

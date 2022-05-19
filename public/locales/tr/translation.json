@@ -298,8 +298,7 @@
             "title": "Exe Çalıştır"
         },
         "savefolder": {
-            "placeholder": "Tam oyun kaydetme klasörünü seçin",
-            "title": "Bulut Eşzamanlama Kayıt Klasörünü Geçersiz Kıl"
+            "placeholder": "Tam oyun kaydetme klasörünü seçin"
         },
         "select_theme": "Tema Seç",
         "showfps": "FPS'i Göster (DX9, 10 and 11)",

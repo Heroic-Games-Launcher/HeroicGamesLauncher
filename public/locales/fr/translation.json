@@ -298,8 +298,7 @@
             "title": "Utiliser un EXE pour le Prefix"
         },
         "savefolder": {
-            "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux",
-            "title": "Écraser le dossier de synchronisation Cloud"
+            "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux"
         },
         "select_theme": "Select Theme",
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
