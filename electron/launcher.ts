@@ -352,14 +352,14 @@ async function runWineCommand(
   }
 
   let additional_command = ''
-  let wineBin = wineVersion.bin
+  let wineBin = wineVersion.bin.replaceAll("'", '')
   if (wineVersion.type === 'proton') {
     command = 'run ' + command
     // TODO: Respect 'wait' here. Not sure if Proton can even do that
   } else {
     // This is only allowed for Wine since Proton only has one binary (the 'proton' script)
     if (altWineBin) {
-      wineBin = altWineBin
+      wineBin = altWineBin.replaceAll("'", '')
     }
     // Can't wait if we don't have a Wineserver
     if (wait) {

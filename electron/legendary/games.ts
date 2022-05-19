@@ -610,10 +610,17 @@ class LegendaryGame extends Game {
       )
 
       const { wineVersion, winePrefix, launcherArgs } = gameSettings
-      let wineFlag = ['--wine', wineVersion.bin]
+
+      // Fix for people with old config
+      const wineBin =
+        wineVersion.bin.startsWith("'") && wineVersion.bin.endsWith("'")
+          ? wineVersion.bin.replaceAll("'", '')
+          : wineVersion.bin
+
+      let wineFlag = ['--wine', wineBin]
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
+        wineFlag = ['--no-wine', '--wrapper', `'${wineBin}' run`]
         winePrefixFlag = []
       }
 
