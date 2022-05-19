@@ -88,6 +88,12 @@ function getUniqueKey(sdl: SelectiveDownload) {
   return sdl.tags.join(',')
 }
 
+type DiskSpaceInfo = {
+  notEnoughDiskSpace: boolean
+  message: string | `ERROR`
+  validPath: boolean
+}
+
 export default function InstallModal({
   appName,
   backdropClick,
@@ -116,9 +122,10 @@ export default function InstallModal({
   )
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
-  const [spaceLeft, setSpaceLeft] = useState({
-    spaceLeft: '',
-    notEnoughDiskSpace: false
+  const [spaceLeft, setSpaceLeft] = useState<DiskSpaceInfo>({
+    message: '',
+    notEnoughDiskSpace: false,
+    validPath: false
   })
 
   const [isLinuxNative, setIsLinuxNative] = useState(false)
@@ -239,15 +246,13 @@ export default function InstallModal({
         if (installPath === 'default') {
           setInstallPath(config.defaultInstallPath)
         }
-        if (installPath !== 'default') {
-          const { string: spaceLeft, free } = await ipcRenderer.invoke(
-            'checkDiskSpace',
-            installPath
-          )
-          if (gameInstallInfo?.manifest?.disk_size) {
-            const notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
-            setSpaceLeft({ spaceLeft, notEnoughDiskSpace })
-          }
+        const { message, free, validPath } = await ipcRenderer.invoke(
+          'checkDiskSpace',
+          installPath
+        )
+        if (gameInstallInfo?.manifest?.disk_size) {
+          const notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
+          setSpaceLeft({ message, notEnoughDiskSpace, validPath })
         }
       })
 
@@ -354,6 +359,7 @@ export default function InstallModal({
   }, [hasWine, wineVersion])
 
   const title = gameInstallInfo?.game?.title
+  const { validPath, notEnoughDiskSpace, message } = spaceLeft
 
   return (
     <div className="InstallModal">
@@ -500,22 +506,29 @@ export default function InstallModal({
                     />
                   </FormControl>
                   <span className="diskSpaceInfo">
-                    <span>
-                      {`${t(
-                        'install.disk-space-left',
-                        'Space Left on the Device'
-                      )}: `}
-                    </span>
-                    <span>
-                      <strong>{`${spaceLeft.spaceLeft}`}</strong>
-                    </span>
-                    {spaceLeft.notEnoughDiskSpace && (
-                      <span
-                        style={{
-                          fontWeight: 700,
-                          color: 'var(--danger)'
-                        }}
-                      >
+                    {validPath && (
+                      <>
+                        <span>
+                          {`${t(
+                            'install.disk-space-left',
+                            'Space Left on the Device'
+                          )}: `}
+                        </span>
+                        <span>
+                          <strong>{`${message}`}</strong>
+                        </span>
+                      </>
+                    )}
+                    {!validPath && (
+                      <span className="danger">
+                        {`${t(
+                          'install.invalid-folder',
+                          'Error: Invalid Path'
+                        )}`}
+                      </span>
+                    )}
+                    {validPath && notEnoughDiskSpace && (
+                      <span className="danger">
                         {` (${t(
                           'install.not-enough-disk-space',
                           'Not enough disk space'

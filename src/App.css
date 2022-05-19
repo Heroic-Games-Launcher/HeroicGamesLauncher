@@ -50,6 +50,11 @@ html,
   width: var(--content-width);
 }
 
+.danger {
+  font-weight: 700;
+  color: var(--danger);
+}
+
 .button {
   cursor: pointer;
   padding: 0.75rem;
