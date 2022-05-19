@@ -177,7 +177,7 @@
     "release:mac": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js -p always --mac",
     "release:win": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js -p always --win nsis portable",
     "dist": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
-    "dist-mac": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --mac",
+    "dist-mac": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' CSC_LINK='./macos.p12' CSC_KEY_PASSWORD='${{ secrets.MAC_SIGN_PASS }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --mac zip",
     "dist-win": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --win",
     "lint": "eslint -c .eslintrc --ext .tsx,ts ./src && eslint -c .eslintrc --ext .ts ./electron",
     "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src && eslint --fix -c .eslintrc --ext .ts ./electron",
