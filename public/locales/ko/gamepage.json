@@ -75,9 +75,9 @@
         "version": "버전"
     },
     "install": {
+        "disk-space-left": "장치 여유 공간",
         "invalid-folder": "Error: Invalid Path",
         "not-enough-disk-space": "Not enough disk space",
-        "disk-space-left": "장치 여유 공간",
         "path": "설치 경로 선택",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",

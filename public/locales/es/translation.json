@@ -1,9 +1,9 @@
 {
     "accessibility": {
-        "all_tiles_in_color": "Show all game tiles in color",
-        "fonts": "Fonts",
         "actions_font_family": "Tipografía para acciones (Por Defecto: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Tipografía para contenido (Por Defecto: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accesibilidad",
         "zoom": "Zoom"
     },
@@ -298,8 +298,7 @@
             "title": "Ejecutar EXE en Prefijo"
         },
         "savefolder": {
-            "placeholder": "Seleccione la carpeta exacta para guardar juegos",
-            "title": "Reemplazar la carpeta de sincronización de guardados en la nube"
+            "placeholder": "Seleccione la carpeta exacta para guardar juegos"
         },
         "select_theme": "Seleccionar Tema",
         "showfps": "Mostrar FPS (Cuadros Por Segundo) (DX9, 10 y 11)",
