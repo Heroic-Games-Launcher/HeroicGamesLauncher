@@ -462,18 +462,21 @@ ipcMain.handle('kill', async (event, appName, runner) => {
 })
 
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
-  if (folder.startsWith('/')) {
+  try {
     const { free, size: diskSize } = await checkDiskSpace(folder)
     return {
       free,
       diskSize,
-      string: `${getFileSize(free)} / ${getFileSize(diskSize)}`
+      message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
+      validPath: true
     }
-  }
-  return {
-    free: 0,
-    diskSize: 0,
-    string: `ERROR`
+  } catch (error) {
+    return {
+      free: 0,
+      diskSize: 0,
+      message: `ERROR`,
+      validPath: false
+    }
   }
 })
 
