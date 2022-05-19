@@ -17,7 +17,7 @@ import {
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import UpdateComponent from 'src/components/UI/UpdateComponent'
+import { UpdateComponent, SelectField } from 'src/components/UI'
 
 import { updateGame } from 'src/helpers'
 
@@ -339,24 +339,20 @@ export default function GamePage(): JSX.Element | null {
                       </p>
                     </div>
                     {is_installed && Boolean(launchOptions?.length) && (
-                      <>
-                        <select
-                          onChange={(event) =>
-                            setLaunchArguments(event.target.value)
-                          }
-                          value={launchArguments}
-                          className="settingSelect"
-                        >
-                          <option value="">
-                            {t('launch.options', 'Launch Options...')}
+                      <SelectField
+                        htmlId="launch_options"
+                        onChange={(event) =>
+                          setLaunchArguments(event.target.value)
+                        }
+                        value={launchArguments}
+                        prompt={t('launch.options', 'Launch Options...')}
+                      >
+                        {launchOptions.map(({ name, parameters }) => (
+                          <option key={parameters} value={parameters}>
+                            {name}
                           </option>
-                          {launchOptions.map(({ name, parameters }) => (
-                            <option key={parameters} value={parameters}>
-                              {name}
-                            </option>
-                          ))}
-                        </select>
-                      </>
+                        ))}
+                      </SelectField>
                     )}
                     <div className="buttonsWrapper">
                       {is_installed && is_game && (
@@ -548,7 +544,13 @@ export default function GamePage(): JSX.Element | null {
         await syncSaves(savesPath, appName)
         setIsSyncing(false)
       }
-      await launch({ appName, t, launchArguments, runner: gameInfo.runner })
+      await launch({
+        appName,
+        t,
+        launchArguments,
+        runner: gameInfo.runner,
+        hasUpdate
+      })
 
       if (autoSyncSaves) {
         setIsSyncing(true)

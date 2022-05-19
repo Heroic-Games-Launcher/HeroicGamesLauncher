@@ -1,6 +1,7 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -297,8 +298,7 @@
             "title": "プレフィックスでEXEを実行する"
         },
         "savefolder": {
-            "placeholder": "正確なゲーム保存フォルダを選択してください",
-            "title": "Cloud Syncの保存フォルダーをオーバーライドする"
+            "placeholder": "正確なゲーム保存フォルダを選択してください"
         },
         "select_theme": "Select Theme",
         "showfps": "FPSを表示（DX9、10、11）",

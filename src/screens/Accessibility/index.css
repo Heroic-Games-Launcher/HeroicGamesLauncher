@@ -3,11 +3,6 @@ input[type='range'] {
   max-width: 513px;
 }
 
-.Accessibility > .settingsWrapper > .setting > .is-drop-down {
-  background-position: calc(100% - 20px) calc(1em + -4px),
-    calc(100% - 15px) calc(1em + -4px), calc(101% - 2.5em) calc(0.5em + -8px);
-}
-
 .zoomHint {
   display: flex;
   justify-content: space-between;
@@ -15,15 +10,27 @@ input[type='range'] {
   max-width: 522px;
 }
 
+.Accessibility .setting {
+  display: grid;
+}
+
+.Accessibility label {
+  justify-self: flex-start;
+}
+
 .Accessibility label,
 .Accessibility span,
 .Accessibility select,
 .Accessibility option {
-  font-size: 1.5rem;
+  font-size: 1.5rem !important;
 }
 
 .Accessibility .zoomHint span {
   font-size: 1rem;
+}
+
+.Accessibility .fonts-label {
+  justify-self: flex-start;
 }
 
 .Accessibility .fonts-label button {
@@ -38,4 +45,8 @@ input[type='range'] {
 .Accessibility .fonts-label button.refreshing svg {
   color: var(--accent);
   animation: refreshing 2s 1;
+}
+
+.Accessibility h1.headerTitle {
+  margin-left: 0px;
 }

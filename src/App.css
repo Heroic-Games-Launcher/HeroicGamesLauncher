@@ -50,6 +50,11 @@ html,
   width: var(--content-width);
 }
 
+.danger {
+  font-weight: 700;
+  color: var(--danger);
+}
+
 .button {
   cursor: pointer;
   padding: 0.75rem;
@@ -100,6 +105,12 @@ html,
 .button.is-secondary {
   background: var(--accent);
   color: var(--text-tertiary);
+}
+
+.button:disabled.is-secondary,
+.button:disabled:hover.is-secondary {
+  background-color: var(--background-secondary);
+  color: var(--text-secondary);
 }
 
 .button.is-tertiary {
@@ -185,15 +196,8 @@ html,
 }
 
 .material-icons.settings.folder {
-  position: relative;
-  right: 50px;
-  top: 2px;
   cursor: pointer;
   color: var(--text-default);
-}
-
-.settingInputWithButton .material-icons.settings.folder {
-  width: 0px;
 }
 
 .button.settings {
@@ -243,43 +247,6 @@ html,
 
 .icons > * {
   cursor: pointer;
-}
-
-.settingSelect {
-  width: 100%;
-  max-width: 513px;
-  height: 40px;
-  background: var(--input-background);
-  border-radius: 10px;
-  font-family: var(--content-font-family), 'Noto Color Emoji';
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--text-secondary);
-  text-indent: 22px;
-  border: none;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.settingSelect:disabled {
-  cursor: not-allowed;
-}
-
-.settingSelect ~ span {
-  margin-block: auto;
-}
-
-.settingSelect.is-drop-down {
-  cursor: pointer;
-}
-
-.settingText {
-  cursor: default;
-  margin-bottom: 14px;
-  font: var(--font-secondary-regular);
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--text-secondary);
 }
 
 .smallMessage {

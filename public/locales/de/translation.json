@@ -1,6 +1,7 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -290,15 +291,14 @@
         "maxworkers": "Maximale Anzahl von Prozessen zum gleichzeitigem Herunterladen",
         "minimize-on-launch": "Heroic nach Spielstart minimieren",
         "offlinemode": "Spiel offline ausführen",
-        "primerun": "Nvidia Prime Render aktivieren",
+        "primerun": "Dedizierte Grafikkarte verwenden",
         "resizableBar": "Resizable BAR aktivieren (nur NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
             "title": "EXE in Prefix starten"
         },
         "savefolder": {
-            "placeholder": "Genauen Spielstände Ordner auswählen",
-            "title": "Cloud-Synchronisation Spielstände Ordner überschreiben"
+            "placeholder": "Genauen Spielstände Ordner auswählen"
         },
         "select_theme": "Design auswählen",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",

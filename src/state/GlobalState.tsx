@@ -76,6 +76,7 @@ interface StateProps {
   zoomPercent: number
   contentFontFamily: string
   actionsFontFamily: string
+  allTilesInColor: boolean
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -134,7 +135,12 @@ export class GlobalState extends PureComponent<Props> {
     contentFontFamily:
       (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
     actionsFontFamily:
-      (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif"
+      (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
+    allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false
+  }
+
+  setLanguage = (newLanguage: string) => {
+    this.setState({ language: newLanguage })
   }
 
   setTheme = (newThemeName: string) => {
@@ -163,6 +169,11 @@ export class GlobalState extends PureComponent<Props> {
   setActionsFontFamily = (newFontFamily: string) => {
     configStore.set('actionsFontFamily', newFontFamily)
     this.setState({ actionsFontFamily: newFontFamily })
+  }
+
+  setAllTilesInColor = (value: boolean) => {
+    configStore.set('allTilesInColor', value)
+    this.setState({ allTilesInColor: value })
   }
 
   setShowHidden = (value: boolean) => {
@@ -459,7 +470,8 @@ export class GlobalState extends PureComponent<Props> {
       )[0]
       if (!currentApp) {
         // Add finding a runner for games
-        return launch({ appName, t, runner })
+        const hasUpdate = this.state.gameUpdates?.includes(appName)
+        return launch({ appName, t, runner, hasUpdate })
       }
     })
 
@@ -581,6 +593,7 @@ export class GlobalState extends PureComponent<Props> {
           handleLayout: this.handleLayout,
           handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,
+          setLanguage: this.setLanguage,
           isRTL,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
@@ -600,7 +613,8 @@ export class GlobalState extends PureComponent<Props> {
           setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
           setContentFontFamily: this.setContentFontFamily,
-          setActionsFontFamily: this.setActionsFontFamily
+          setActionsFontFamily: this.setActionsFontFamily,
+          setAllTilesInColor: this.setAllTilesInColor
         }}
       >
         {this.props.children}

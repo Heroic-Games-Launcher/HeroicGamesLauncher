@@ -76,7 +76,10 @@
     },
     "install": {
         "disk-space-left": "设备剩余空间",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "选择安装路径",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine 版本"
     },

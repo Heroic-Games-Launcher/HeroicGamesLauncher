@@ -36,14 +36,14 @@
         "yes": "예"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "즐겨찾기에 추가",
         "cancel": "일시정지/취소",
         "continue": "계속 다운로드",
-        "hide_game": "Hide Game",
+        "hide_game": "게임 숨김",
         "import": "게임 들여오기",
         "install": "설치",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "즐겨찾기에서 제거",
+        "unhide_game": "게임 숨기기 해제",
         "uninstall": "설치 제거",
         "update": "업데이트"
     },
@@ -59,7 +59,7 @@
         "language": "Language",
         "lastPlayed": "마지막 플레이",
         "neverPlayed": "플레이 한 적 없음",
-        "platform": "Select Platform Version to Install",
+        "platform": "설치할 플랫폼 버전 선택",
         "totalPlayed": "플레이 시간"
     },
     "gamecard": {
@@ -68,17 +68,20 @@
     },
     "info": {
         "canRunOffline": "네트워크 연결이 필요합니다",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "설치된 플랫폼",
         "path": "설치 경로",
         "size": "크기",
         "syncsaves": "세이브 동기화",
         "version": "버전"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "장치 여유 공간",
         "path": "설치 경로 선택",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "wineversion": "Wine 버전"
     },
     "label": {
         "playing": {
@@ -92,7 +95,7 @@
     "launch": {
         "options": "시작 옵션..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "게임 실행 중에 생긴 문제를 제보하기",
     "sdl": {
         "title": "설치할 구성 요소를 선택합니다"
     },

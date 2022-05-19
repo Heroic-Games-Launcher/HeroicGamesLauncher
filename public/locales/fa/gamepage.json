@@ -76,7 +76,10 @@
     },
     "install": {
         "disk-space-left": "فضای باقی مانده در دستگاه",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "انتخاب محل نصب",
+        "space-after-install": "After Install",
         "wineprefix": "Wine Prefix",
         "wineversion": "نسخه Wine"
     },

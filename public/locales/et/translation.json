@@ -1,6 +1,7 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -297,8 +298,7 @@
             "title": "Käivita EXE prefiksil"
         },
         "savefolder": {
-            "placeholder": "Valige täpne mängude salvestiste kaust",
-            "title": "Asenda salvestuse pilvesünkroonkaust"
+            "placeholder": "Valige täpne mängude salvestiste kaust"
         },
         "select_theme": "Valige teema",
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",

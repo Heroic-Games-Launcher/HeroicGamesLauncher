@@ -1,6 +1,7 @@
 {
     "accessibility": {
         "actions_font_family": "Eylemler Yazı Tipi Ailesi (Öntanımlı: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "İçerik Yazı Tipi Ailesi (Öntanımlı: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Erişilebilirlik",
@@ -297,8 +298,7 @@
             "title": "Exe Çalıştır"
         },
         "savefolder": {
-            "placeholder": "Tam oyun kaydetme klasörünü seçin",
-            "title": "Bulut Eşzamanlama Kayıt Klasörünü Geçersiz Kıl"
+            "placeholder": "Tam oyun kaydetme klasörünü seçin"
         },
         "select_theme": "Tema Seç",
         "showfps": "FPS'i Göster (DX9, 10 and 11)",

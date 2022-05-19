@@ -7,12 +7,12 @@ import {
 import classNames from 'classnames'
 import { IpcRenderer, Clipboard } from 'electron'
 import { useTranslation } from 'react-i18next'
-import React, { useContext, useEffect, useState } from 'react'
-import { SvgButton } from 'src/components/UI'
-import ContextProvider from 'src/state/ContextProvider'
+import React, { useEffect, useState } from 'react'
 import { AppSettings, Path } from 'src/types'
 import { configStore } from 'src/helpers/electronStores'
-import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
+import TextInputWithIconField from 'src/components/UI/TextInputWithIconField'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -40,8 +40,6 @@ export const AdvancedSettings = ({
   const [gogdlVersion, setGogdlVersion] = useState('')
   const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
   const { t } = useTranslation()
-
-  const { isRTL } = useContext(ContextProvider)
 
   const settings = configStore.get('settings') as {
     altLeg: string
@@ -129,102 +127,89 @@ export const AdvancedSettings = ({
   return (
     <div>
       <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
-      <span className="setting">
-        <span className={classNames('settingText', { isRTL: isRTL })}>
-          {t(
-            'setting.alt-legendary-bin',
-            'Choose an Alternative Legendary Binary  (needs restart)to use'
-          )}
-        </span>
-        <span className="settingInputWithButton">
-          <input
-            data-testid="setting-alt-legendary"
-            type="text"
-            placeholder={t(
-              'placeholder.alt-legendary-bin',
-              'Using built-in Legendary binary...'
-            )}
-            className="settingSelect"
-            value={altLegendaryBin.replaceAll("'", '')}
-            onChange={(event) => setAltLegendaryBin(event.target.value)}
-          />
-          {!altLegendaryBin.length ? (
-            <SvgButton
-              onClick={async () => handleLegendaryBinary()}
-              className="material-icons settings folder"
-            >
-              <FolderOpenOutlinedIcon
-                data-testid="setLegendaryBinaryButton"
-                style={{
-                  color: altLegendaryBin.length ? 'transparent' : 'currentColor'
-                }}
-              />
-            </SvgButton>
+
+      <TextInputWithIconField
+        htmlId="setting-alt-legendary"
+        label={t(
+          'setting.alt-legendary-bin',
+          'Choose an Alternative Legendary Binary  (needs restart)to use'
+        )}
+        placeholder={t(
+          'placeholder.alt-legendary-bin',
+          'Using built-in Legendary binary...'
+        )}
+        value={altLegendaryBin.replaceAll("'", '')}
+        onChange={(event) => setAltLegendaryBin(event.target.value)}
+        icon={
+          !altLegendaryBin.length ? (
+            <FontAwesomeIcon
+              icon={faFolderOpen}
+              data-testid="setLegendaryBinaryButton"
+              style={{
+                color: altLegendaryBin.length ? 'transparent' : 'currentColor'
+              }}
+            />
           ) : (
-            <SvgButton
-              className="material-icons settings folder"
-              onClick={() => setAltLegendaryBin('')}
-            >
-              <Backspace
-                data-testid="setLegendaryBinaryBackspace"
-                style={{ color: 'currentColor' }}
-              />
-            </SvgButton>
-          )}
-        </span>
-        <span className="smallMessage">
-          {t('other.legendary-version', 'Legendary Version: ')}
-          {legendaryVersion}
-        </span>
-      </span>
-      <span className="setting">
-        <span className={classNames('settingText', { isRTL: isRTL })}>
-          {t(
-            'setting.alt-gogdl-bin',
-            'Choose an Alternative GOGDL Binary to use (needs restart)'
-          )}
-        </span>
-        <span className="settingInputWithButton">
-          <input
-            data-testid="setting-alt-gogdl"
-            type="text"
-            placeholder={t(
-              'placeholder.alt-gogdl-bin',
-              'Using built-in GOGDL binary...'
-            )}
-            className="settingSelect"
-            value={altGogdlBin.replaceAll("'", '')}
-            onChange={(event) => setAltGogdlBin(event.target.value)}
-          />
-          {!altGogdlBin.length ? (
-            <SvgButton
-              onClick={async () => handleGogdlBinary()}
-              className="material-icons settings folder"
-            >
-              <FolderOpenOutlinedIcon
-                data-testid="setGogdlBinaryButton"
-                style={{
-                  color: altGogdlBin.length ? 'transparent' : 'currentColor'
-                }}
-              />
-            </SvgButton>
+            <Backspace
+              data-testid="setLegendaryBinaryBackspace"
+              style={{ color: 'currentColor' }}
+            />
+          )
+        }
+        onIconClick={
+          !altLegendaryBin.length
+            ? async () => handleLegendaryBinary()
+            : () => setAltLegendaryBin('')
+        }
+        afterInput={
+          <span className="smallMessage">
+            {t('other.legendary-version', 'Legendary Version: ')}
+            {legendaryVersion}
+          </span>
+        }
+      />
+
+      <TextInputWithIconField
+        label={t(
+          'setting.alt-gogdl-bin',
+          'Choose an Alternative GOGDL Binary to use (needs restart)'
+        )}
+        htmlId="setting-alt-gogdl"
+        placeholder={t(
+          'placeholder.alt-gogdl-bin',
+          'Using built-in GOGDL binary...'
+        )}
+        value={altGogdlBin.replaceAll("'", '')}
+        onChange={(event) => setAltGogdlBin(event.target.value)}
+        icon={
+          !altGogdlBin.length ? (
+            <FontAwesomeIcon
+              icon={faFolderOpen}
+              data-testid="setGogdlBinaryButton"
+              style={{
+                color: altGogdlBin.length ? 'transparent' : 'currentColor'
+              }}
+            />
           ) : (
-            <SvgButton
-              className="material-icons settings folder"
-              onClick={() => setAltGogdlBin('')}
-            >
-              <Backspace
-                data-testid="setGogdlBinaryBackspace"
-                style={{ color: '#currentColor' }}
-              />
-            </SvgButton>
-          )}
-        </span>
-        <span className="smallMessage">
-          {t('other.gogdl-version', 'GOGDL Version: ')}
-          {gogdlVersion}
-        </span>
-      </span>
+            <Backspace
+              data-testid="setGogdlBinaryBackspace"
+              style={{ color: '#currentColor' }}
+            />
+          )
+        }
+        onIconClick={
+          !altGogdlBin.length
+            ? async () => handleGogdlBinary()
+            : () => setAltGogdlBin('')
+        }
+        afterInput={
+          <span className="smallMessage">
+            {t('other.gogdl-version', 'GOGDL Version: ')}
+            {gogdlVersion}
+          </span>
+        }
+      />
+
       <div className="footerFlex">
         <button
           className={classNames('button', 'is-footer', {

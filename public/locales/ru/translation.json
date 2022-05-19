@@ -1,6 +1,7 @@
 {
     "accessibility": {
         "actions_font_family": "Семейство шрифтов для действий (По умолчанию: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Семейство шрифтов для содержания (По умолчанию: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Доступность",
@@ -297,8 +298,7 @@
             "title": "Запустить EXE в префиксе"
         },
         "savefolder": {
-            "placeholder": "Выберите точную папку для сохранений игр",
-            "title": "Переопределить папку для облачных сохранений"
+            "placeholder": "Выберите точную папку для сохранений игр"
         },
         "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",

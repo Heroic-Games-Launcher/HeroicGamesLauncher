@@ -1,6 +1,7 @@
 {
     "accessibility": {
         "actions_font_family": "操作字族 (默认: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "内容字族 (默认: \"Cabin\")",
         "fonts": "Fonts",
         "title": "辅助",
@@ -290,15 +291,14 @@
         "maxworkers": "下载时的最大线程数量",
         "minimize-on-launch": "游戏启动后最小化 Heroic",
         "offlinemode": "离线运行游戏",
-        "primerun": "使用专用显卡",
+        "primerun": "使用独立显卡",
         "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
         "runexe": {
             "message": "将文件拖放到此处",
             "title": "在前置上运行 EXE"
         },
         "savefolder": {
-            "placeholder": "选择存档的保存位置",
-            "title": "覆盖云端存档文件夹"
+            "placeholder": "选择存档的保存位置"
         },
         "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",

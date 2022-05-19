@@ -25,6 +25,8 @@ import './updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {
+  access,
+  constants,
   existsSync,
   mkdirSync,
   rmSync,
@@ -390,6 +392,10 @@ if (!gotTheLock) {
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
 
+    appIcon.on('double-click', () => {
+      mainWindow.show()
+    })
+
     appIcon.setContextMenu(contextMenu())
     appIcon.setToolTip('Heroic')
     ipcMain.on('changeLanguage', async (event, language: string) => {
@@ -461,9 +467,36 @@ ipcMain.handle('kill', async (event, appName, runner) => {
   return Game.get(appName, runner).stop()
 })
 
-ipcMain.handle('checkDiskSpace', async (event, folder) => {
-  const { free, size: diskSize } = await checkDiskSpace(folder)
-  return `${getFileSize(free)}/${getFileSize(diskSize)}`
+ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
+  let isWrittable = true
+  // Check If path is writtable
+  access(folder, constants.W_OK, (err) => {
+    if (err) {
+      isWrittable = false
+      logWarning(
+        `${folder} ${err ? 'is not writable' : 'is writable'}`,
+        LogPrefix.Backend
+      )
+    }
+  })
+
+  // Check if path has enough space
+  try {
+    const { free, size: diskSize } = await checkDiskSpace(folder)
+    return {
+      free,
+      diskSize,
+      message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
+      validPath: isWrittable
+    }
+  } catch (error) {
+    return {
+      free: 0,
+      diskSize: 0,
+      message: `ERROR`,
+      validPath: false
+    }
+  }
 })
 
 ipcMain.on('quit', async () => handleExit(mainWindow))

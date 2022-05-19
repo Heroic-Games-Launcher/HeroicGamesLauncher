@@ -3,22 +3,20 @@ import React, { useContext, useEffect, useState } from 'react'
 import { LibraryTopSectionOptions, Path } from 'src/types'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import { InfoBox, SvgButton } from 'src/components/UI'
+import { InfoBox, SelectField, ToggleSwitch } from 'src/components/UI'
 import LanguageSelector from 'src/components/UI/LanguageSelector'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
-import classNames from 'classnames'
+import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 
 import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
-import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined'
 import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
-import { ThemeSelector } from 'src/components/UI/ThemeSelector'
+import TextInputWithIconField from 'src/components/UI/TextInputWithIconField'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
-
-const storage: Storage = window.localStorage
 
 interface Props {
   darkTrayIcon: boolean
@@ -27,14 +25,12 @@ interface Props {
   egsLinkedPath: string
   egsPath: string
   exitToTray: boolean
-  language: string
   maxWorkers: number
   showUnrealMarket: boolean
   minimizeOnLaunch: boolean
   setDefaultInstallPath: (value: string) => void
   setEgsLinkedPath: (value: string) => void
   setEgsPath: (value: string) => void
-  setLanguage: (value: string) => void
   setMaxWorkers: (value: number) => void
   startInTray: boolean
   toggleDarkTrayIcon: () => void
@@ -58,8 +54,6 @@ export default function GeneralSettings({
   toggleTray,
   toggleStartInTray,
   toggleUnrealMarket,
-  language,
-  setLanguage,
   maxWorkers,
   setMaxWorkers,
   darkTrayIcon,
@@ -74,18 +68,12 @@ export default function GeneralSettings({
   const {
     platform,
     refreshLibrary,
-    isRTL,
     libraryTopSection,
     handleLibraryTopSection
   } = useContext(ContextProvider)
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const isLinked = Boolean(egsLinkedPath.length)
   const isWindows = platform === 'win32'
-
-  useEffect(() => {
-    i18n.changeLanguage(language)
-    storage.setItem('language', language)
-  }, [i18n, language])
 
   useEffect(() => {
     const getMoreInfo = async () => {
@@ -145,265 +133,211 @@ export default function GeneralSettings({
       .then(({ path }: Path) => setEgsPath(path ? path : ''))
   }
 
-  async function handleChangeLanguage(language: string) {
-    ipcRenderer.send('changeLanguage', language)
-    setLanguage(language)
-  }
-
-  function handleWeblate() {
-    return ipcRenderer.send('openWeblate')
-  }
-
   return (
     <>
       <h3 className="settingSubheader">{t('settings.navbar.general')}</h3>
-      <span className="setting" data-testid="generalSettings">
-        <span className={classNames('settingText', { isRTL: isRTL })}>
-          {t('setting.language')}
-        </span>
-        <LanguageSelector
-          handleLanguageChange={handleChangeLanguage}
-          currentLanguage={language}
-        />
-        <a
-          data-testid="buttonWeblate"
-          onClick={handleWeblate}
-          className="smallLink"
-        >
-          {t('other.weblate', 'Help Improve this translation.')}
-        </a>
-      </span>
-      <span className="setting">
-        <span className={classNames('settingText', { isRTL: isRTL })}>
-          {t('setting.default-install-path')}
-        </span>
-        <span className="settingInputWithButton">
-          <input
-            data-testid="setinstallpath"
-            type="text"
-            value={defaultInstallPath.replaceAll("'", '')}
-            className="settingSelect"
-            placeholder={defaultInstallPath}
-            onChange={(event) => setDefaultInstallPath(event.target.value)}
+
+      <LanguageSelector />
+
+      <TextInputWithIconField
+        label={t('setting.default-install-path')}
+        htmlId="default_install_path"
+        value={defaultInstallPath.replaceAll("'", '')}
+        placeholder={defaultInstallPath}
+        onChange={(event) => setDefaultInstallPath(event.target.value)}
+        icon={
+          <FontAwesomeIcon
+            icon={faFolderOpen}
+            data-testid="setinstallpathbutton"
           />
-          <SvgButton
-            onClick={async () =>
-              ipcRenderer
-                .invoke('openDialog', {
-                  buttonLabel: t('box.choose'),
-                  properties: ['openDirectory'],
-                  title: t('box.default-install-path')
-                })
-                .then(({ path }: Path) =>
-                  setDefaultInstallPath(path ? `${path}` : defaultInstallPath)
-                )
-            }
-            className="material-icons settings folder"
-          >
-            <FolderOpenOutlinedIcon data-testid="setinstallpathbutton" />
-          </SvgButton>
-        </span>
-      </span>
+        }
+        onIconClick={async () =>
+          ipcRenderer
+            .invoke('openDialog', {
+              buttonLabel: t('box.choose'),
+              properties: ['openDirectory'],
+              title: t('box.default-install-path')
+            })
+            .then(({ path }: Path) =>
+              setDefaultInstallPath(path ? `${path}` : defaultInstallPath)
+            )
+        }
+      />
+
       {!isWindows && (
-        <span className="setting">
-          <span className={classNames('settingText', { isRTL: isRTL })}>
-            {t('setting.egs-sync')}
-          </span>
-          <span className="settingInputWithButton">
-            <input
-              data-testid="setEpicSyncPath"
-              type="text"
-              placeholder={t('placeholder.egs-prefix')}
-              className="settingSelect"
-              value={egsPath || egsLinkedPath}
-              disabled={isLinked}
-              onChange={(event) => setEgsPath(event.target.value)}
-            />
-            {!egsPath.length ? (
-              <SvgButton
-                onClick={() => handleEgsFolder()}
-                className="material-icons settings folder"
-              >
-                <FolderOpenOutlinedIcon
-                  data-testid="setEpicSyncPathButton"
-                  style={{ color: isLinked ? 'transparent' : 'currentColor' }}
-                />
-              </SvgButton>
+        <TextInputWithIconField
+          label={t('setting.egs-sync')}
+          extraClass="withRightButton"
+          htmlId="set_epic_sync_path"
+          placeholder={t('placeholder.egs-prefix')}
+          value={egsPath || egsLinkedPath}
+          disabled={isLinked}
+          onChange={(event) => setEgsPath(event.target.value)}
+          icon={
+            !egsPath.length ? (
+              <FontAwesomeIcon
+                icon={faFolderOpen}
+                data-testid="setEpicSyncPathButton"
+                style={{
+                  color: isLinked ? 'transparent' : 'currentColor'
+                }}
+              />
             ) : (
-              <SvgButton
-                className="material-icons settings folder"
-                onClick={() => (isLinked ? '' : setEgsPath(''))}
-              >
-                <Backspace
-                  data-testid="setEpicSyncPathBackspace"
-                  style={
+              <Backspace
+                data-testid="setEpicSyncPathBackspace"
+                style={
+                  isLinked
+                    ? { color: 'transparent', pointerEvents: 'none' }
+                    : { color: '#B0ABB6' }
+                }
+              />
+            )
+          }
+          onIconClick={
+            !egsPath.length
+              ? () => handleEgsFolder()
+              : () => (isLinked ? '' : setEgsPath(''))
+          }
+          afterInput={
+            <>
+              <span className="rightButton">
+                <button
+                  data-testid="syncButton"
+                  onClick={async () => handleSync()}
+                  disabled={isSyncing || !egsPath.length}
+                  className={`button is-small ${
                     isLinked
-                      ? { color: 'transparent', pointerEvents: 'none' }
-                      : { color: '#B0ABB6' }
-                  }
-                />
-              </SvgButton>
-            )}
-            <button
-              data-testid="syncButton"
-              onClick={async () => handleSync()}
-              disabled={isSyncing || !egsPath.length}
-              className={`button is-small ${
-                isLinked ? 'is-danger' : isSyncing ? 'is-primary' : 'settings'
-              }`}
-            >
-              {`${
-                isLinked
-                  ? t('button.unsync')
-                  : isSyncing
-                  ? t('button.syncing')
-                  : t('button.sync')
-              }`}
-            </button>
-          </span>
-          {!isWindows && (
-            <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
-          )}
-        </span>
+                      ? 'is-danger'
+                      : isSyncing
+                      ? 'is-primary'
+                      : 'settings'
+                  }`}
+                >
+                  {`${
+                    isLinked
+                      ? t('button.unsync')
+                      : isSyncing
+                      ? t('button.syncing')
+                      : t('button.sync')
+                  }`}
+                </button>
+              </span>
+              {!isWindows && (
+                <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
+              )}
+            </>
+          }
+        />
       )}
 
       {isWindows && (
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              dataTestId="syncToggle"
-              value={isLinked}
-              handleChange={handleSync}
-              title={t('setting.egs-sync')}
-            />
-          </label>
-        </span>
+        <ToggleSwitch
+          htmlId="syncToggle"
+          value={isLinked}
+          handleChange={handleSync}
+          title={t('setting.egs-sync')}
+        />
       )}
-      <span className="setting">
-        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          <ToggleSwitch
-            dataTestId="exitToTray"
-            value={exitToTray}
-            handleChange={toggleTray}
-            title={t('setting.exit-to-tray')}
-          />
-        </label>
-      </span>
-      {exitToTray && (
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              dataTestId="startInTray"
-              value={startInTray}
-              handleChange={toggleStartInTray}
-              title={t('setting.start-in-tray', 'Start Minimized')}
-            />
-          </label>
-        </span>
-      )}
-      <span className="setting">
-        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          <ToggleSwitch
-            dataTestId="minimizeOnLaunch"
-            value={minimizeOnLaunch}
-            handleChange={toggleMinimizeOnLaunch}
-            title={t(
-              'setting.minimize-on-launch',
-              'Minimize Heroic After Game Launch'
-            )}
-          />
-        </label>
-      </span>
-      <span className="setting">
-        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          <ToggleSwitch
-            value={showUnrealMarket}
-            handleChange={() => toggleUnrealMarket()}
-            title={t(
-              'setting.showUnrealMarket',
-              'Show Unreal Marketplace (needs restart)'
-            )}
-          />
-        </label>
-      </span>
-      <span className="setting">
-        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          <ToggleSwitch
-            value={darkTrayIcon}
-            handleChange={() => {
-              toggleDarkTrayIcon()
-              return ipcRenderer.send('changeTrayColor')
-            }}
-            title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
-          />
-        </label>
-      </span>
-      <span className="setting">
-        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          <ToggleSwitch
-            value={disableController}
-            handleChange={() => {
-              toggleDisableController()
-              toggleControllerIsDisabled(!disableController)
-            }}
-            title={t(
-              'setting.disable_controller',
-              'Disable Heroic navigation using controller'
-            )}
-          />
-        </label>
-      </span>
 
-      <span className="setting">
-        <label
-          className={classNames('settingText', { isRTL: isRTL })}
-          htmlFor="library_top_section_selector"
-        >
-          {t('setting.library_top_section', 'Library Top Section')}
-        </label>
-        <select
-          id="library_top_section_selector"
-          onChange={(event) =>
-            handleLibraryTopSection(
-              event.target.value as LibraryTopSectionOptions
-            )
-          }
-          value={libraryTopSection}
-          className="settingSelect is-drop-down"
-        >
-          <option value="recently_played">
-            {t(
-              'setting.library_top_option.recently_played',
-              'Recently Played Games'
-            )}
-          </option>
-          <option value="favourites">
-            {t('setting.library_top_option.favourites', 'Favourite Games')}
-          </option>
-          <option value="disabled">
-            {t('setting.library_top_option.disabled', 'Disabled')}
-          </option>
-        </select>
-      </span>
+      <ToggleSwitch
+        htmlId="exitToTray"
+        value={exitToTray}
+        handleChange={toggleTray}
+        title={t('setting.exit-to-tray')}
+      />
+
+      {exitToTray && (
+        <ToggleSwitch
+          htmlId="startInTray"
+          value={startInTray}
+          handleChange={toggleStartInTray}
+          title={t('setting.start-in-tray', 'Start Minimized')}
+        />
+      )}
+
+      <ToggleSwitch
+        htmlId="minimizeOnLaunch"
+        value={minimizeOnLaunch}
+        handleChange={toggleMinimizeOnLaunch}
+        title={t(
+          'setting.minimize-on-launch',
+          'Minimize Heroic After Game Launch'
+        )}
+      />
+
+      <ToggleSwitch
+        htmlId="showUnrealMarket"
+        value={showUnrealMarket}
+        handleChange={() => toggleUnrealMarket()}
+        title={t(
+          'setting.showUnrealMarket',
+          'Show Unreal Marketplace (needs restart)'
+        )}
+      />
+
+      <ToggleSwitch
+        htmlId="changeTrayColor"
+        value={darkTrayIcon}
+        handleChange={() => {
+          toggleDarkTrayIcon()
+          return ipcRenderer.send('changeTrayColor')
+        }}
+        title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
+      />
+
+      <ToggleSwitch
+        htmlId="disableController"
+        value={disableController}
+        handleChange={() => {
+          toggleDisableController()
+          toggleControllerIsDisabled(!disableController)
+        }}
+        title={t(
+          'setting.disable_controller',
+          'Disable Heroic navigation using controller'
+        )}
+      />
+
+      <SelectField
+        label={t('setting.library_top_section', 'Library Top Section')}
+        htmlId="library_top_section_selector"
+        onChange={(event) =>
+          handleLibraryTopSection(
+            event.target.value as LibraryTopSectionOptions
+          )
+        }
+        value={libraryTopSection}
+      >
+        <option value="recently_played">
+          {t(
+            'setting.library_top_option.recently_played',
+            'Recently Played Games'
+          )}
+        </option>
+        <option value="favourites">
+          {t('setting.library_top_option.favourites', 'Favourite Games')}
+        </option>
+        <option value="disabled">
+          {t('setting.library_top_option.disabled', 'Disabled')}
+        </option>
+      </SelectField>
+
       <ThemeSelector />
-      <span className="setting">
-        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          <select
-            data-testid="setMaxWorkers"
-            onChange={(event) => setMaxWorkers(Number(event.target.value))}
-            value={maxWorkers}
-            className="settingSelect smaller is-drop-down"
-          >
-            {Array.from(Array(maxCpus).keys()).map((n) => (
-              <option key={n + 1}>{n + 1}</option>
-            ))}
-            <option key={0} value={0}>
-              Max
-            </option>
-          </select>
-          <span>{t('setting.maxworkers')}</span>
-        </label>
-      </span>
+
+      <SelectField
+        htmlId="max_workers"
+        label={t('setting.maxworkers')}
+        onChange={(event) => setMaxWorkers(Number(event.target.value))}
+        value={maxWorkers.toString()}
+        extraClass="smaller"
+      >
+        {Array.from(Array(maxCpus).keys()).map((n) => (
+          <option key={n + 1}>{n + 1}</option>
+        ))}
+        <option key={0} value={0}>
+          Max
+        </option>
+      </SelectField>
     </>
   )
 }

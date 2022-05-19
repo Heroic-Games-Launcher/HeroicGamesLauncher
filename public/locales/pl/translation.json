@@ -1,6 +1,7 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -297,8 +298,7 @@
             "title": "Uruchom EXE w prefiksie"
         },
         "savefolder": {
-            "placeholder": "Wybierz dokładny folder zapisu",
-            "title": "Pomiń synchronizację z chmurą"
+            "placeholder": "Wybierz dokładny folder zapisu"
         },
         "select_theme": "Wybierz Motyw",
         "showfps": "Pokaż FPS (DX9, 10 and 11)",

@@ -1,9 +1,10 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "fonts": "Fonts",
-        "title": "Accessibility",
+        "actions_font_family": "작업 글꼴 패밀리 (기본값: \"Rubik\")",
+        "content_font_family": "콘텐츠 글꼴 패밀리 (기본값: \"Cabin\")",
+        "title": "접근성",
         "zoom": "Zoom"
     },
     "All": "모두",
@@ -43,7 +44,7 @@
             },
             "title": "오류",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "업데이트에 문제가 발생했습니다. 로그를 확인하거나 나중에 다시 시도하세요!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -53,12 +54,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "변경 로그 열기",
+                "detail": "백그라운드에서 업데이트를 다운로드하시겠습니까?",
+                "message": "사용 가능한 새 버전이 있습니다!",
+                "message-finished": "지금 Heroic을 다시 시작하시겠습니까?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "업데이트 완료"
             }
         },
         "no": "아니오",
@@ -106,7 +107,7 @@
         "yes": "예"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "라이브러리로 이동",
         "login": "로그인",
         "sync": "싱크",
         "syncing": "싱크중",
@@ -117,14 +118,14 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "즐겨찾기",
     "globalSettings": "글로벌 설정",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "숨김 무시",
         "platform": "플랫폼",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "숨김 표시"
     },
     "help": {
         "general": "Epic Games Launcher가 다른 곳에 설치되어 있고 게임을 가져와서 다시 다운로드하지 않으려면 Epic Games Launcher와 동기화 하십시오.",
@@ -165,9 +166,9 @@
         "gridView": "그리드 보기",
         "listView": "목록 보기",
         "refresh": "새로고침",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "오름차순 정렬",
+        "sortByStatus": "상태별 정렬",
+        "sortDescending": "내림차순 정렬"
     },
     "Library": "라이브러리",
     "loading": {
@@ -204,7 +205,7 @@
         "uninstalled": "설치 제거됨",
         "update": {
             "canceled": "업데이트 취소됨",
-            "finished": "업데이트 완료됨",
+            "finished": "업데이트 완료",
             "started": "업데이트 시작됨"
         }
     },
@@ -251,7 +252,7 @@
         "darktray": "다크 트레이 아이콘 사용",
         "default-install-path": "기본 설치 경로",
         "defaultWinePrefix": "새로운 Wine 접두사를 위한 폴더 설정",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "컨트롤러를 이용한 Heroic 탐색 비활성화",
         "discordRPC": "Discord Rich Presence 활성화",
         "egs-sync": "설치된 Epic Games와 동기화",
         "enableFSRHack": "FSR 활성화 (지원하는 Wine 버전을 사용해야 합니다)",
@@ -262,11 +263,11 @@
         "gamemode": "GameMode 사용 (Feral Game Mode가 설치되어 있어야 합니다)",
         "language": "앱 언어 선택",
         "library_top_option": {
-            "disabled": "Disabled",
+            "disabled": "비활성화",
             "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "recently_played": "최근 플레이 한 게임"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "라이브러리 상단 섹션",
         "log": {
             "copy-to-clipboard": "로그 내용을 클립보드에 복사",
             "current-log": "현재 로그",
@@ -290,15 +291,14 @@
         "maxworkers": "다운로드할 때 최대 워커 개수",
         "minimize-on-launch": "게임 실행 후 Heroic 최소화",
         "offlinemode": "게임 오프라인으로 실행",
-        "primerun": "Nvidia Prime 렌더 활성화",
+        "primerun": "외장 그래픽 카드 사용",
         "resizableBar": "Resizable BAR 활성화 (NVIDIA RTX 30xx 전용)",
         "runexe": {
             "message": "여기에 파일을 끌어다 놓기",
             "title": "접두사에서 EXE 실행"
         },
         "savefolder": {
-            "placeholder": "올바른 게임 저장 폴더 선택",
-            "title": "클라우드 세이브 동기화 폴더 덮어쓰기"
+            "placeholder": "올바른 게임 저장 폴더 선택"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS 표시 (DX9, 10 및 11)",
@@ -376,7 +376,7 @@
         "manager": {
             "error": "현재 Wine/Proton 버전을 가져올 수 없습니다.",
             "link": "Wine 관리자",
-            "title": "Wine 관리자 (베타)",
+            "title": "Wine 관리자",
             "unzipping": "압축 풀기"
         }
     }

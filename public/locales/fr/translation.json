@@ -1,9 +1,10 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
-        "title": "Accessibility",
+        "title": "Accessibilité",
         "zoom": "Zoom"
     },
     "All": "Tout",
@@ -13,7 +14,7 @@
             "message": "Le cache Heroic a été effacé !",
             "title": "Cache effacé"
         },
-        "choose": "Séléctionner",
+        "choose": "Sélectionner",
         "choose-egs-prefix": "Choisir où le préfixe EGS est installé",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Sélectionnez le binaire Legendary",
@@ -30,7 +31,7 @@
             },
             "dxvk": {
                 "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "title": "Erreur DXVK/VKD3D"
             },
             "generic": {
                 "message": "",
@@ -48,17 +49,17 @@
             },
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "title": "Wine non trouvé"
             }
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Ouvrir le changelog",
+                "detail": "Voulez-vous télécharger la mise à jour en arrière-plan ?",
+                "message": "Il y a une nouvelle version disponible !",
+                "message-finished": "Voulez-vous redémarrer Heroic maintenant ?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Mise à jour finie"
             }
         },
         "no": "NON",
@@ -113,7 +114,7 @@
         "unsync": "Désynchroniser"
     },
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Les services en ligne peuvent ne pas entièrement fonctionner car les serveurs d'Epic Games sont hors ligne !",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -127,7 +128,7 @@
         "show_hidden": "Show Hidden"
     },
     "help": {
-        "general": "Synchronisation avec EGS si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux, afin d'éviter de les retélécharger.",
+        "general": "Synchroniser avec le lanceur EG si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux afin d'éviter de les télécharger à nouveau.",
         "other": {
             "part1": "Utilise l' ",
             "part2": "Options avancées",
@@ -204,7 +205,7 @@
         "uninstalled": "Désinstallé",
         "update": {
             "canceled": "Mise à jour Annulée",
-            "finished": "Mise à jour Terminée",
+            "finished": "Mise à jour terminée",
             "started": "Mise à jour commencée"
         }
     },
@@ -240,8 +241,8 @@
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Choisir un autre exécutable Legendary  (nécessite de relancer Heroic)",
+        "alt-gogdl-bin": "Choisir un binaire GOGDL alternatif à utiliser",
+        "alt-legendary-bin": "Choisir un autre exécutable Legendary (redémarrage Heroic nécessaire)",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Sauvegardes Autosync",
@@ -268,43 +269,42 @@
         },
         "library_top_section": "Library Top Section",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
-            "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "copy-to-clipboard": "Copier le contenu du log au presse-papier",
+            "current-log": "Log actuel",
+            "instructions": "Rejoignez notre Discord et regardez le canal qui correspond à votre système d'exploitation. Partagez le contenu des logs affichés ici, et incluez une description claire du problème avec toute information et détails pertinents.",
+            "instructions_title": "Comment signaler un problème ?",
+            "last-log": "Dernier log",
+            "no-file": "Aucun fichier log trouvé",
+            "show-in-folder": "Montrer le fichier log dans le dossier"
         },
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",
         "manualsync": {
-            "download": "Download",
-            "forcedownload": "Forcer le Téléchargement",
-            "forceupload": "Forcer le Téléversement",
-            "sync": "Synchronisation",
+            "download": "Télécharger",
+            "forcedownload": "Forcer le téléchargement",
+            "forceupload": "Forcer le téléversement",
+            "sync": "Synchroniser",
             "syncing": "Synchronisation en cours",
-            "title": "Synchronisation manuelle des auvegardes",
-            "upload": "Upload"
+            "title": "Synchronisation manuelle des sauvegardes",
+            "upload": "Téléverser"
         },
         "maxRecentGames": "Jeux récents à afficher",
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "Minimiser Heroic après le lancement du jeu",
         "offlinemode": "Lancer le jeu hors ligne",
-        "primerun": "Activer Nvidia Prime Render",
+        "primerun": "Utiliser une carte graphique dédiée",
         "resizableBar": "Activer Resizable BAR (NVIDIA RTX 30xx seulement)",
         "runexe": {
             "message": "Glissez et déposez les fichiers ici",
             "title": "Utiliser un EXE pour le Prefix"
         },
         "savefolder": {
-            "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux",
-            "title": "Écraser le dossier de synchronisation Cloud"
+            "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "Sélectionner le thème",
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "showUnrealMarket": "Afficher Unreal Marketplace (nécessite le redémarrage d'Heroic)",
         "start-in-tray": "Réduire au démarrage",
-        "steamruntime": "Use Steam Runtime",
+        "steamruntime": "Utiliser le runtime Steam",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine"
@@ -317,7 +317,7 @@
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "Avancé",
             "general": "Général",
             "log": "Log",
             "other": "Autre",
@@ -329,7 +329,7 @@
     "status": {
         "logging": "Connexion en cours..."
     },
-    "store": "Boutique",
+    "store": "Boutique Epic",
     "stores": "Stores",
     "title": {
         "allGames": "Tous les jeux",
@@ -368,7 +368,7 @@
             "back": "Retour",
             "forward": "Avancer",
             "openInBrowser": "Ouvrir dans le navigateur",
-            "reload": ""
+            "reload": "Recharger la page"
         }
     },
     "wiki": "Wiki",
