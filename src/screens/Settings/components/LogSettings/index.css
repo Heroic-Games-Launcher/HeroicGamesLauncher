@@ -19,7 +19,7 @@
   color: var(--text-hover);
 }
 
-.log-box {
+.setting.log-box {
   background-color: #1e1e1e;
   border-radius: 10px;
   padding-block: 4px;

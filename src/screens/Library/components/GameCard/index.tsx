@@ -66,7 +66,8 @@ const GameCard = ({
     handleGameStatus,
     platform,
     hiddenGames,
-    favouriteGames
+    favouriteGames,
+    allTilesInColor
   } = useContext(ContextProvider)
 
   const isWin = platform === 'win32'
@@ -281,8 +282,12 @@ const GameCard = ({
 
   const instClass = isInstalled ? 'installed' : ''
   const hiddenClass = isHiddenGame ? 'hidden' : ''
-  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
-  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
+  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''} ${
+    allTilesInColor && 'allTilesInColor'
+  }`
+  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''} ${
+    allTilesInColor && 'allTilesInColor'
+  }`
 
   const wrapperClasses = `${
     grid ? 'gameCard' : 'gameListItem'
@@ -361,7 +366,7 @@ const GameCard = ({
       return sendKill(appName, runner)
     }
     if (isInstalled) {
-      return launch({ appName, t, runner })
+      return launch({ appName, t, runner, hasUpdate })
     }
     return
   }

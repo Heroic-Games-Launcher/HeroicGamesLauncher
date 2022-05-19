@@ -521,7 +521,7 @@ class LegendaryGame extends Game {
     return res
   }
 
-  public async launch(launchArguments = ''): Promise<LaunchResult> {
+  public async launch(launchArguments: string): Promise<LaunchResult> {
     const gameSettings =
       GameConfig.get(this.appName).config ||
       (await GameConfig.get(this.appName).getSettings())
@@ -572,6 +572,7 @@ class LegendaryGame extends Game {
           steamRuntime
         )
       }
+
       // These options are required on both Windows and Mac
       commandParts = [
         'launch',
@@ -623,7 +624,8 @@ class LegendaryGame extends Game {
         offlineFlag,
         ...wineFlag,
         ...winePrefixFlag,
-        launcherArgs
+        launcherArgs,
+        launchArguments
       ]
     }
     const command = getLegendaryCommand(commandParts, commandEnv, wrappers)

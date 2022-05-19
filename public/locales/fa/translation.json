@@ -1,6 +1,7 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -162,7 +163,7 @@
         "path": "انتخاب محل نصب"
     },
     "library": {
-        "gridView": "نمای شبکه\u200cای",
+        "gridView": "نمای شبکه ای",
         "listView": "نمای لیستی",
         "refresh": "تازه کردن",
         "sortAscending": "Sort Ascending",

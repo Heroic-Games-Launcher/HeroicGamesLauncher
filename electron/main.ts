@@ -392,6 +392,10 @@ if (!gotTheLock) {
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
 
+    appIcon.on('double-click', () => {
+      mainWindow.show()
+    })
+
     appIcon.setContextMenu(contextMenu())
     appIcon.setToolTip('Heroic')
     ipcMain.on('changeLanguage', async (event, language: string) => {
