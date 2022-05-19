@@ -75,7 +75,7 @@
         "version": "Versió"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
         "path": "Selecciona la ruta d'instal·lació",
         "wineprefix": "WinePrefix",
         "wineversion": ""

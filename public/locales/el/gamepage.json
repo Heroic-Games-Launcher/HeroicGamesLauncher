@@ -75,7 +75,7 @@
         "version": "Έκδοση"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
         "path": "Επιλέξτε διαδρομή εγκατάστασης",
         "wineprefix": "Πρόθεμα Wine",
         "wineversion": ""

@@ -75,7 +75,7 @@
         "version": "Verzió"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
         "path": "Telepítési útvonal kiválasztása",
         "wineprefix": "Wine prefix",
         "wineversion": ""

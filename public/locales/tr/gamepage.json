@@ -75,7 +75,7 @@
         "version": "Sürüm"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
         "path": "Kurulum Yolunu Seçin",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine sürümü"

@@ -95,6 +95,7 @@ type DiskSpaceInfo = {
   notEnoughDiskSpace: boolean
   message: string | `ERROR`
   validPath: boolean
+  spaceLeftAfter: string
 }
 
 export default function InstallModal({
@@ -128,7 +129,8 @@ export default function InstallModal({
   const [spaceLeft, setSpaceLeft] = useState<DiskSpaceInfo>({
     message: '',
     notEnoughDiskSpace: false,
-    validPath: false
+    validPath: false,
+    spaceLeftAfter: ''
   })
 
   const [isLinuxNative, setIsLinuxNative] = useState(false)
@@ -255,7 +257,15 @@ export default function InstallModal({
         )
         if (gameInstallInfo?.manifest?.disk_size) {
           const notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
-          setSpaceLeft({ message, notEnoughDiskSpace, validPath })
+          const spaceLeftAfter = size(
+            free - Number(gameInstallInfo.manifest.disk_size)
+          )
+          setSpaceLeft({
+            message,
+            notEnoughDiskSpace,
+            validPath,
+            spaceLeftAfter
+          })
         }
       })
 
@@ -362,7 +372,7 @@ export default function InstallModal({
   }, [hasWine, wineVersion])
 
   const title = gameInstallInfo?.game?.title
-  const { validPath, notEnoughDiskSpace, message } = spaceLeft
+  const { validPath, notEnoughDiskSpace, message, spaceLeftAfter } = spaceLeft
 
   return (
     <div className="InstallModal">
@@ -481,12 +491,25 @@ export default function InstallModal({
                         <span>
                           {`${t(
                             'install.disk-space-left',
-                            'Space Left on the Device'
+                            'Space Available'
                           )}: `}
                         </span>
                         <span>
                           <strong>{`${message}`}</strong>
                         </span>
+                        {!notEnoughDiskSpace && (
+                          <>
+                            <span>
+                              {` - ${t(
+                                'install.space-after-install',
+                                'After Install'
+                              )}: `}
+                            </span>
+                            <span>
+                              <strong>{`${spaceLeftAfter}`}</strong>
+                            </span>
+                          </>
+                        )}
                       </>
                     )}
                     {!validPath && (
