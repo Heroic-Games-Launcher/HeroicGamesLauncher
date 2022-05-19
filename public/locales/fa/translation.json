@@ -1,9 +1,9 @@
 {
     "accessibility": {
-        "all_tiles_in_color": "Show all game tiles in color",
-        "fonts": "Fonts",
         "actions_font_family": "خانواده فونت اعمال (پیش فرض: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "خانواده فونت محتوا (پیش فرض: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "دسترسی ها",
         "zoom": "زوم"
     },

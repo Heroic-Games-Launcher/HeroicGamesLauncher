@@ -110,6 +110,7 @@
         "installing": "Asennetaan",
         "moving": "Siirretään asennusta, odota",
         "notinstalled": "Tätä peliä ei ole asennettu",
+        "processing": "Processing files, please wait",
         "reparing": "Korjataan peliä, odota",
         "totalDownloaded": "Ladattu yhteensä",
         "updating": "Päivitetään peliä"

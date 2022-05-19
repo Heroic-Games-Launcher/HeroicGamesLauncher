@@ -25,7 +25,7 @@
         "uninstall": {
             "checkbox": "Voulez-vous également retirer le préfixe ? Ceci ne peut pas être annulé.",
             "checkbox_prefix": "Préfixe",
-            "message": "Voulez-vous désinstaller ce jeu ?",
+            "message": "Voulez-vous désinstaller ce jeu\u202f?",
             "title": "Désinstaller"
         },
         "update": {
@@ -75,9 +75,9 @@
         "version": "Version"
     },
     "install": {
+        "disk-space-left": "Espace restant sur l'appareil",
         "invalid-folder": "Error: Invalid Path",
         "not-enough-disk-space": "Not enough disk space",
-        "disk-space-left": "Espace restant sur l'appareil",
         "path": "Sélectionner le chemin d'installation",
         "space-after-install": "After Install",
         "wineprefix": "Préfixe Wine",
@@ -110,6 +110,7 @@
         "installing": "Installation en cours",
         "moving": "Déplacement de l'installation, veuillez patienter",
         "notinstalled": "Ce jeu n'est pas installé",
+        "processing": "Processing files, please wait",
         "reparing": "Réparation du jeu en cours, veuillez patienter",
         "totalDownloaded": "Total Téléchargé",
         "updating": "Mise à jour du jeu en cours"

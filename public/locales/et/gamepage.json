@@ -110,6 +110,7 @@
         "installing": "Paigaldamine",
         "moving": "Paigalduse liiguatamine, palun oodake",
         "notinstalled": "See mäng ei ole paigaldatud",
+        "processing": "Processing files, please wait",
         "reparing": "Mängu parandamine, palun oodake",
         "totalDownloaded": "Allalaaditud kokku",
         "updating": "Mängu uuendamine"

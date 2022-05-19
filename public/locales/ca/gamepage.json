@@ -110,6 +110,7 @@
         "installing": "S'està instal·lant",
         "moving": "S'està movent la instal·lació, espereu",
         "notinstalled": "Aquest joc no està instal·lat",
+        "processing": "Processing files, please wait",
         "reparing": "S'està reparant el joc, espereu",
         "totalDownloaded": "Total baixat",
         "updating": "S'està actualitzant el joc"

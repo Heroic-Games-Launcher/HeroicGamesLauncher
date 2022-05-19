@@ -315,6 +315,7 @@ function clearCache() {
   installStore.clear()
   libraryStore.clear()
   gameInfoStore.clear()
+  runLegendaryCommand(['cleanup'])
 }
 
 function resetHeroic() {

@@ -115,6 +115,7 @@
   -webkit-box-orient: vertical;
   border-bottom: 2px solid;
   overflow: auto;
+  max-height: 150px;
 }
 
 .gameInfo,

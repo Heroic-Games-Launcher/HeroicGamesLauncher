@@ -110,6 +110,7 @@
         "installing": "Installing",
         "moving": "Moving Installation, please wait",
         "notinstalled": "This game is not installed",
+        "processing": "Processing files, please wait",
         "reparing": "Repairing Game, please wait",
         "totalDownloaded": "Total Downloaded",
         "updating": "Updating Game"
