@@ -34,7 +34,6 @@ import {
   writeFileSync
 } from 'graceful-fs'
 
-import { runWineCommand } from './launcher'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import { join } from 'path'
@@ -563,8 +562,7 @@ ipcMain.handle(
     }
 
     if (tool === 'runExe') {
-      const settings = await Game.get(appName).getSettings()
-      return runWineCommand(settings, exe, null, false)
+      return Game.get(appName).runWineCommand(exe)
     }
 
     const options: ExecOptions = {
