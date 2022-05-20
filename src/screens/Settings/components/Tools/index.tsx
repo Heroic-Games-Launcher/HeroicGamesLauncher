@@ -75,6 +75,8 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
     ev.preventDefault()
   }
 
+  const isProton = wineVersion.type === 'proton'
+
   return (
     <>
       <div data-testid="toolsSettings" className="settingsTools">
@@ -91,18 +93,21 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
           >
             <span className="toolTitle">Winecfg</span>
           </button>
-          <button
-            data-testid="wineTricks"
-            className="button outline"
-            style={{
-              color: winetricksRunning
-                ? 'var(--download-button)'
-                : 'var(--text-default)'
-            }}
-            onClick={async () => callTools('winetricks')}
-          >
-            <span className="toolTitle">Winetricks</span>
-          </button>
+          {
+            <button
+              data-testid="wineTricks"
+              className="button outline"
+              disabled={isProton}
+              style={{
+                color: winetricksRunning
+                  ? 'var(--download-button)'
+                  : 'var(--text-default)'
+              }}
+              onClick={async () => callTools('winetricks')}
+            >
+              <span className="toolTitle">Winetricks</span>
+            </button>
+          }
           <a
             data-testid="toolsDrag"
             draggable
