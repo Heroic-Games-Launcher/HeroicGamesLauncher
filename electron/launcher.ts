@@ -279,11 +279,6 @@ function setupWrappers(
 export async function verifyWinePrefix(
   game: LegendaryGame | GOGGame
 ): Promise<{ res: ExecResult; updated: boolean }> {
-  // needs this check here in case game comes undefined
-  if (!game) {
-    return { res: { stdout: '', stderr: '' }, updated: false }
-  }
-
   const { winePrefix, wineVersion } = await game.getSettings()
 
   if (wineVersion.type === 'crossover') {
