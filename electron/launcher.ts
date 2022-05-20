@@ -288,7 +288,7 @@ async function verifyWinePrefix(
   if (!existsSync(winePrefix)) {
     mkdirSync(winePrefix, { recursive: true })
     if (wineVersion.type === 'proton') {
-      return { res: { stdout: '', stderr: '' }, updated: true }
+      return { res: { stdout: '', stderr: '' }, updated: false }
     }
   }
 
