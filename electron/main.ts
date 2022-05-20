@@ -1,5 +1,4 @@
 import { ExecOptions } from 'child_process'
-import { dirname } from 'path'
 import {
   InstallParams,
   LaunchResult,
@@ -35,6 +34,7 @@ import {
   writeFileSync
 } from 'graceful-fs'
 
+import { runWineCommand } from './launcher'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import { join } from 'path'
@@ -64,7 +64,8 @@ import {
   getGOGdlBin,
   showErrorBoxModal,
   getFileSize,
-  showErrorBoxModalAuto
+  showErrorBoxModalAuto,
+  getWineFromProton
 } from './utils'
 import {
   configStore,
@@ -86,8 +87,7 @@ import {
   tsStore,
   weblateUrl,
   wikiLink,
-  fontsStore,
-  flatPakHome
+  fontsStore
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -550,35 +550,30 @@ interface Tools {
   prefix: string
   tool: string
   wine: string
+  appName: string
 }
 
 ipcMain.handle(
   'callTool',
-  async (event, { tool, wine, prefix, exe }: Tools) => {
+  async (event, { tool, wine, prefix, exe, appName }: Tools) => {
     const isProton = wine.includes('/proton')
 
     if (tool === 'winetricks') {
       return Winetricks.run(prefix, wine, isProton)
     }
 
+    if (tool === 'runExe') {
+      const settings = await Game.get(appName).getSettings()
+      return runWineCommand(settings, exe, null, false)
+    }
+
     const options: ExecOptions = {
       ...execOptions
     }
 
-    const wineBin = isProton ? `'${wine}' run` : wine
-    const fixedPrefix = prefix.replace('~', userHome)
-    const steamInstallPath = join(flatPakHome, '.steam', 'steam')
+    const { winePrefix, wineBin } = getWineFromProton(wine, isProton, prefix)
 
-    const winePrefix = isProton
-      ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${steamInstallPath}  STEAM_COMPAT_DATA_PATH='${fixedPrefix}'`
-      : `WINEPREFIX='${fixedPrefix}'`
-
-    let command = `WINE=${wineBin} ${winePrefix} ${`${wineBin} ${tool}`}`
-
-    if (tool === 'runExe') {
-      command = `${winePrefix} ${wineBin} '${exe}'`
-      options.cwd = dirname(exe)
-    }
+    const command = `WINE='${wineBin}' WINEPREFIX='${winePrefix}' ${`'${wineBin}' ${tool}`}`
 
     logInfo(['trying to run', command], LogPrefix.Backend)
     try {

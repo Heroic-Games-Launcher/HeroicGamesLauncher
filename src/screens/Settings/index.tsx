@@ -397,7 +397,11 @@ function Settings() {
             />
           )}
           {isWineSettings && (
-            <Tools winePrefix={winePrefix} wineVersion={wineVersion} />
+            <Tools
+              winePrefix={winePrefix}
+              wineVersion={wineVersion}
+              appName={appName}
+            />
           )}
           {isOtherSettings && (
             <OtherSettings
