@@ -87,7 +87,8 @@ import {
   weblateUrl,
   wikiLink,
   heroicToolsPath,
-  fontsStore
+  fontsStore,
+  flatPakHome
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -555,45 +556,25 @@ interface Tools {
 ipcMain.handle(
   'callTool',
   async (event, { tool, wine, prefix, exe }: Tools) => {
-    const newProtonWinePath = wine.replace('proton', 'files/bin/wine64')
-    const oldProtonWinePath = wine.replace('proton', 'dist/bin/wine64')
-    const isProton = wine.includes('proton')
+    const isProton = wine.includes('/proton')
     const winetricks = `${heroicToolsPath}/winetricks`
     const options: ExecOptions = {
       ...execOptions
     }
 
-    // existsSync is weird because it returns false always if the path has single-quotes in it
-    const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
-      ? newProtonWinePath
-      : oldProtonWinePath
-    let wineBin = isProton ? `'${protonWinePath}'` : wine
-    let winePrefix = prefix.replace('~', userHome)
+    const wineBin = isProton ? `'${wine}' run` : wine
+    const fixedPrefix = prefix.replace('~', userHome)
+    const steamInstallPath = join(flatPakHome, '.steam', 'steam')
+    const winePrefix = isProton
+      ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${steamInstallPath}  STEAM_COMPAT_DATA_PATH='${fixedPrefix}'`
+      : `WINEPREFIX='${fixedPrefix}'`
 
-    if (wine.includes('proton')) {
-      const protonPrefix = winePrefix.replaceAll("'", '')
-      winePrefix = `${protonPrefix}/pfx`
-
-      logWarning(
-        'Using Winecfg and Winetricks with Proton might not work as expected.',
-        LogPrefix.Backend
-      )
-      // workaround for proton since newer versions doesnt come with a wine binary anymore.
-      if (!existsSync(wineBin.replaceAll("'", ''))) {
-        logInfo(
-          `${wineBin} not found for this Proton version, will try using default wine`,
-          LogPrefix.Backend
-        )
-        wineBin = '/usr/bin/wine'
-      }
-    }
-
-    let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${
+    let command = `WINE=${wineBin} ${winePrefix} ${
       tool === 'winecfg' ? `${wineBin} ${tool}` : `${winetricks} -q`
     }`
 
     if (tool === 'runExe') {
-      command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
+      command = `${winePrefix} ${wineBin} '${exe}'`
       options.cwd = dirname(exe)
     }
 
