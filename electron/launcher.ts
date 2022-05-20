@@ -281,12 +281,15 @@ async function verifyWinePrefix(
 ): Promise<{ res: ExecResult; updated: boolean }> {
   const { winePrefix, wineVersion } = await game.getSettings()
 
-  if (!(wineVersion.type === 'wine')) {
+  if (wineVersion.type === 'crossover') {
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
   if (!existsSync(winePrefix)) {
     mkdirSync(winePrefix, { recursive: true })
+    if (wineVersion.type === 'proton') {
+      return { res: { stdout: '', stderr: '' }, updated: true }
+    }
   }
 
   // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
