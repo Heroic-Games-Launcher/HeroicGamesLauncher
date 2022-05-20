@@ -357,7 +357,7 @@ async function runWineCommand(
   wait: boolean
 ) {
   const { wineVersion, winePrefix } = gameSettings
-  verifyWinePrefix(this)
+
   const env_vars = {
     ...process.env,
     ...getWineEnvSetup(wineVersion, winePrefix)
