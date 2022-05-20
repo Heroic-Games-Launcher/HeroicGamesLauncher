@@ -92,6 +92,34 @@ function isOnline() {
 
 export const getFileSize = fileSize.partial({ base: 2 })
 
+export function getWineFromProton(
+  wine: string,
+  isProton: boolean,
+  prefix: string
+) {
+  const newProtonWinePath = wine.replace(
+    new RegExp('proton' + '$'),
+    'files/bin/wine64'
+  )
+  const oldProtonWinePath = wine.replace(
+    new RegExp('proton' + '$'),
+    'dist/bin/wine64'
+  )
+
+  const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
+    ? newProtonWinePath
+    : oldProtonWinePath
+
+  const wineBin = isProton ? protonWinePath : wine
+
+  let winePrefix = prefix.replace('~', userHome)
+  if (isProton) {
+    const protonPrefix = winePrefix.replaceAll("'", '')
+    winePrefix = `${protonPrefix}/pfx`
+  }
+  return { winePrefix, wineBin }
+}
+
 async function isEpicServiceOffline(
   type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'
 ) {
