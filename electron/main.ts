@@ -553,11 +553,57 @@ interface Tools {
   wine: string
 }
 
+const runWineTricks = async (
+  prefix: string,
+  wine: string,
+  isProton: boolean
+) => {
+  const winetricks = `${heroicToolsPath}/winetricks`
+  const newProtonWinePath = wine.replace(
+    new RegExp('proton' + '$'),
+    'files/bin/wine64'
+  )
+  const oldProtonWinePath = wine.replace(
+    new RegExp('proton' + '$'),
+    'dist/bin/wine64'
+  )
+
+  const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
+    ? newProtonWinePath
+    : oldProtonWinePath
+
+  const wineBin = isProton ? protonWinePath : wine
+
+  let winePrefix = prefix.replace('~', userHome)
+  if (isProton) {
+    const protonPrefix = winePrefix.replaceAll("'", '')
+    winePrefix = `${protonPrefix}/pfx`
+  }
+
+  const command = `WINEPREFIX='${winePrefix}' WINE='${wineBin}' ${winetricks} -q`
+
+  logInfo(['trying to run', command], LogPrefix.Backend)
+  try {
+    const { stderr, stdout } = await execAsync(command, execOptions)
+    logInfo(`Output: ${stderr} \n ${stdout}`)
+  } catch (error) {
+    logError(`${error}`)
+    logError(
+      `Something went wrong! Check if WineTricks is available and ${wineBin} exists`,
+      LogPrefix.Backend
+    )
+  }
+}
+
 ipcMain.handle(
   'callTool',
   async (event, { tool, wine, prefix, exe }: Tools) => {
     const isProton = wine.includes('/proton')
-    const winetricks = `${heroicToolsPath}/winetricks`
+
+    if (tool === 'winetricks') {
+      return runWineTricks(prefix, wine, isProton)
+    }
+
     const options: ExecOptions = {
       ...execOptions
     }
@@ -565,13 +611,12 @@ ipcMain.handle(
     const wineBin = isProton ? `'${wine}' run` : wine
     const fixedPrefix = prefix.replace('~', userHome)
     const steamInstallPath = join(flatPakHome, '.steam', 'steam')
+
     const winePrefix = isProton
       ? `STEAM_COMPAT_CLIENT_INSTALL_PATH=${steamInstallPath}  STEAM_COMPAT_DATA_PATH='${fixedPrefix}'`
       : `WINEPREFIX='${fixedPrefix}'`
 
-    let command = `WINE=${wineBin} ${winePrefix} ${
-      tool === 'winecfg' ? `${wineBin} ${tool}` : `${winetricks} -q`
-    }`
+    let command = `WINE=${wineBin} ${winePrefix} ${`${wineBin} ${tool}`}`
 
     if (tool === 'runExe') {
       command = `${winePrefix} ${wineBin} '${exe}'`
