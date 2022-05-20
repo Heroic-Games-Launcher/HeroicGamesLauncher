@@ -276,9 +276,14 @@ function setupWrappers(
  * @param game The game to verify the Wineprefix of
  * @returns stderr & stdout of 'wineboot --init'
  */
-async function verifyWinePrefix(
+export async function verifyWinePrefix(
   game: LegendaryGame | GOGGame
 ): Promise<{ res: ExecResult; updated: boolean }> {
+  // needs this check here in case game comes undefined
+  if (!game) {
+    return { res: { stdout: '', stderr: '' }, updated: false }
+  }
+
   const { winePrefix, wineVersion } = await game.getSettings()
 
   if (wineVersion.type === 'crossover') {
@@ -352,7 +357,7 @@ async function runWineCommand(
   wait: boolean
 ) {
   const { wineVersion, winePrefix } = gameSettings
-
+  verifyWinePrefix(this)
   const env_vars = {
     ...process.env,
     ...getWineEnvSetup(wineVersion, winePrefix)

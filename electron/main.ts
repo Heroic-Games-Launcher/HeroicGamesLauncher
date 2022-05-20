@@ -92,6 +92,7 @@ import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
+import { verifyWinePrefix } from './launcher'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -561,8 +562,15 @@ ipcMain.handle(
       return Winetricks.run(prefix, wine, isProton)
     }
 
+    const game = Game.get(appName)
+    await verifyWinePrefix(game)
+
     if (tool === 'runExe') {
       return Game.get(appName).runWineCommand(exe)
+    }
+
+    if (tool === 'winecfg') {
+      return Game.get(appName).runWineCommand('winecfg')
     }
 
     const options: ExecOptions = {

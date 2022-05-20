@@ -97,6 +97,12 @@ export function getWineFromProton(
   isProton: boolean,
   prefix: string
 ) {
+  let winePrefix = prefix.replace('~', userHome)
+
+  if (!isProton) {
+    return { winePrefix, wineBin: wine }
+  }
+
   const newProtonWinePath = wine.replace(
     new RegExp('proton' + '$'),
     'files/bin/wine64'
@@ -111,12 +117,9 @@ export function getWineFromProton(
     : oldProtonWinePath
 
   const wineBin = isProton ? protonWinePath : wine
+  const protonPrefix = winePrefix.replaceAll("'", '')
+  winePrefix = `${protonPrefix}/pfx`
 
-  let winePrefix = prefix.replace('~', userHome)
-  if (isProton) {
-    const protonPrefix = winePrefix.replaceAll("'", '')
-    winePrefix = `${protonPrefix}/pfx`
-  }
   return { winePrefix, wineBin }
 }
 
