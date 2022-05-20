@@ -256,10 +256,22 @@ export default function InstallModal({
           installPath
         )
         if (gameInstallInfo?.manifest?.disk_size) {
-          const notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
-          const spaceLeftAfter = size(
+          let notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
+          let spaceLeftAfter = size(
             free - Number(gameInstallInfo.manifest.disk_size)
           )
+          if (previousProgress.folder === installPath) {
+            const progress = 100 - getProgress(previousProgress)
+            notEnoughDiskSpace =
+              free <
+              (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
+
+            spaceLeftAfter = size(
+              free -
+                (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
+            )
+          }
+
           setSpaceLeft({
             message,
             notEnoughDiskSpace,
@@ -323,9 +335,20 @@ export default function InstallModal({
 
   const haveDLCs = gameInstallInfo?.game?.owned_dlc?.length > 0
   const DLCList = gameInstallInfo?.game?.owned_dlc
-  const downloadSize =
-    gameInstallInfo?.manifest?.download_size &&
-    size(Number(gameInstallInfo?.manifest?.download_size))
+  const downloadSize = () => {
+    if (gameInstallInfo?.manifest?.download_size) {
+      if (previousProgress.folder === installPath) {
+        const progress = 100 - getProgress(previousProgress)
+        return size(
+          (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
+        )
+      }
+
+      return size(Number(gameInstallInfo?.manifest?.download_size))
+    }
+    return ''
+  }
+
   const installSize =
     gameInstallInfo?.manifest?.disk_size &&
     size(Number(gameInstallInfo?.manifest?.disk_size))
@@ -404,7 +427,9 @@ export default function InstallModal({
                   <div className="InstallModal__sizeLabel">
                     {t('game.downloadSize', 'Download Size')}:
                   </div>
-                  <div className="InstallModal__sizeValue">{downloadSize}</div>
+                  <div className="InstallModal__sizeValue">
+                    {downloadSize()}
+                  </div>
                 </div>
                 <div className="InstallModal__size">
                   <FontAwesomeIcon

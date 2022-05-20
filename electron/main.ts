@@ -1,5 +1,4 @@
 import { ExecOptions } from 'child_process'
-import { dirname } from 'path'
 import {
   InstallParams,
   LaunchResult,
@@ -64,7 +63,8 @@ import {
   getGOGdlBin,
   showErrorBoxModal,
   getFileSize,
-  showErrorBoxModalAuto
+  showErrorBoxModalAuto,
+  getWineFromProton
 } from './utils'
 import {
   configStore,
@@ -86,13 +86,13 @@ import {
   tsStore,
   weblateUrl,
   wikiLink,
-  heroicToolsPath,
   fontsStore
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
+import { verifyWinePrefix } from './launcher'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -550,52 +550,36 @@ interface Tools {
   prefix: string
   tool: string
   wine: string
+  appName: string
 }
 
 ipcMain.handle(
   'callTool',
-  async (event, { tool, wine, prefix, exe }: Tools) => {
-    const newProtonWinePath = wine.replace('proton', 'files/bin/wine64')
-    const oldProtonWinePath = wine.replace('proton', 'dist/bin/wine64')
-    const isProton = wine.includes('proton')
-    const winetricks = `${heroicToolsPath}/winetricks`
+  async (event, { tool, wine, prefix, exe, appName }: Tools) => {
+    const isProton = wine.includes('/proton')
+
+    if (tool === 'winetricks') {
+      return Winetricks.run(prefix, wine, isProton)
+    }
+
+    const game = Game.get(appName)
+    await verifyWinePrefix(game)
+
+    if (tool === 'runExe') {
+      return Game.get(appName).runWineCommand(exe)
+    }
+
+    if (tool === 'winecfg') {
+      return Game.get(appName).runWineCommand('winecfg')
+    }
+
     const options: ExecOptions = {
       ...execOptions
     }
 
-    // existsSync is weird because it returns false always if the path has single-quotes in it
-    const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
-      ? newProtonWinePath
-      : oldProtonWinePath
-    let wineBin = isProton ? `'${protonWinePath}'` : wine
-    let winePrefix = prefix.replace('~', userHome)
+    const { winePrefix, wineBin } = getWineFromProton(wine, isProton, prefix)
 
-    if (wine.includes('proton')) {
-      const protonPrefix = winePrefix.replaceAll("'", '')
-      winePrefix = `${protonPrefix}/pfx`
-
-      logWarning(
-        'Using Winecfg and Winetricks with Proton might not work as expected.',
-        LogPrefix.Backend
-      )
-      // workaround for proton since newer versions doesnt come with a wine binary anymore.
-      if (!existsSync(wineBin.replaceAll("'", ''))) {
-        logInfo(
-          `${wineBin} not found for this Proton version, will try using default wine`,
-          LogPrefix.Backend
-        )
-        wineBin = '/usr/bin/wine'
-      }
-    }
-
-    let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${
-      tool === 'winecfg' ? `${wineBin} ${tool}` : `${winetricks} -q`
-    }`
-
-    if (tool === 'runExe') {
-      command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
-      options.cwd = dirname(exe)
-    }
+    const command = `WINE='${wineBin}' WINEPREFIX='${winePrefix}' ${`'${wineBin}' ${tool}`}`
 
     logInfo(['trying to run', command], LogPrefix.Backend)
     try {

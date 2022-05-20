@@ -3,7 +3,12 @@ import * as axios from 'axios'
 import { exec } from 'child_process'
 import { existsSync, readFileSync } from 'graceful-fs'
 
-import { execAsync, isOnline, showErrorBoxModalAuto } from './utils'
+import {
+  execAsync,
+  getWineFromProton,
+  isOnline,
+  showErrorBoxModalAuto
+} from './utils'
 import { execOptions, heroicToolsPath, userHome } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
@@ -198,5 +203,24 @@ export const Winetricks = {
       .catch(() => {
         logError('Error Downloading Winetricks', LogPrefix.Backend)
       })
+  },
+  run: async (prefix: string, wine: string, isProton: boolean) => {
+    const winetricks = `${heroicToolsPath}/winetricks`
+
+    const { winePrefix, wineBin } = getWineFromProton(wine, isProton, prefix)
+
+    const command = `WINEPREFIX='${winePrefix}' WINE='${wineBin}' ${winetricks} -q`
+
+    logInfo(['trying to run', command], LogPrefix.Backend)
+    try {
+      const { stderr, stdout } = await execAsync(command, execOptions)
+      logInfo(`Output: ${stderr} \n ${stdout}`)
+    } catch (error) {
+      logError(`${error}`)
+      logError(
+        `Something went wrong! Check if WineTricks is available and ${wineBin} exists`,
+        LogPrefix.Backend
+      )
+    }
   }
 }
