@@ -18,6 +18,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { Tooltip } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { configStore } from 'src/helpers/electronStores'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -84,6 +85,11 @@ export default function WineSettings({
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const isProton = wineVersion.type === 'proton'
+  const home = configStore.get('userHome')
+
+  if (winePrefix === '') {
+    winePrefix = `${home}/.wine`
+  }
 
   useEffect(() => {
     const getAltWine = async () => {
