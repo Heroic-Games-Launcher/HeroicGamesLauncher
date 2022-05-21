@@ -166,7 +166,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
       ['Created/Updated Wineprefix at', gameSettings.winePrefix],
       LogPrefix.Backend
     )
-    setup(game.appName)
+    await setup(game.appName)
   }
 
   // If DXVK/VKD3D installation is enabled, install it
@@ -291,19 +291,16 @@ export async function verifyWinePrefix(
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
-  let didCreateFolder = false
-
   if (!existsSync(winePrefix)) {
     mkdirSync(winePrefix, { recursive: true })
-    didCreateFolder = true
-  }
-
-  if (wineVersion.type === 'proton') {
-    return { res: { stdout: '', stderr: '' }, updated: didCreateFolder }
   }
 
   // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
-  const haveToWait = !existsSync(join(winePrefix, 'system.reg'))
+  const systemRegPath =
+    wineVersion.type === 'proton'
+      ? join(winePrefix, 'pfx', 'system.reg')
+      : join(winePrefix, 'system.reg')
+  const haveToWait = !existsSync(systemRegPath)
 
   return game
     .runWineCommand('wineboot --init', '', haveToWait)
