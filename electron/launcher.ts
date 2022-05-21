@@ -365,6 +365,7 @@ async function runWineCommand(
   if (wineVersion.type === 'proton') {
     command = 'run ' + command
     // TODO: Respect 'wait' here. Not sure if Proton can even do that
+    // TODO: Use Steamruntime here in the future
   } else {
     // This is only allowed for Wine since Proton only has one binary (the 'proton' script)
     if (altWineBin) {
