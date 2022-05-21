@@ -291,15 +291,8 @@ export async function verifyWinePrefix(
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
-  let didCreateFolder = false
-
   if (!existsSync(winePrefix)) {
     mkdirSync(winePrefix, { recursive: true })
-    didCreateFolder = true
-  }
-
-  if (wineVersion.type === 'proton') {
-    return { res: { stdout: '', stderr: '' }, updated: didCreateFolder }
   }
 
   // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
