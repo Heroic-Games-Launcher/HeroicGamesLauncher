@@ -106,21 +106,23 @@ async function prepareLaunch(
   // If the Steam Runtime is enabled, find a valid one
   let steamRuntime = ''
   if (gameSettings.useSteamRuntime) {
-    const runtime = getSteamRuntime()
+    // for native games lets use scout for now
+    const runtime = getSteamRuntime('scout')
     if (!runtime.path) {
       logWarning(`Couldn't find a valid Steam runtime path`, LogPrefix.Backend)
     } else {
       logInfo(`Using ${runtime.type} Steam runtime`, LogPrefix.Backend)
-      steamRuntime = runtime.path
+      steamRuntime =
+        runtime.version === 'soldier' ? `${runtime.path} -- ` : runtime.path
     }
   }
 
   return {
     success: true,
-    rpcClient: rpcClient,
-    mangoHudCommand: mangoHudCommand,
-    gameModeBin: gameModeBin,
-    steamRuntime: steamRuntime
+    rpcClient,
+    mangoHudCommand,
+    gameModeBin,
+    steamRuntime
   }
 }
 

@@ -335,7 +335,7 @@ class GOGGame extends Game {
       let wineFlag = ['--wine', wineVersion.bin]
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        const runtime = getSteamRuntime()
+        const runtime = getSteamRuntime('soldier')
         const runWithRuntime = runtime.path
           ? `${runtime.path} -- '${wineVersion.bin}' waitforexitandrun`
           : `'${wineVersion.bin}' run`
