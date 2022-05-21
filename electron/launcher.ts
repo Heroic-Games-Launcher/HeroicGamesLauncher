@@ -166,7 +166,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
       ['Created/Updated Wineprefix at', gameSettings.winePrefix],
       LogPrefix.Backend
     )
-    setup(game.appName)
+    await setup(game.appName)
   }
 
   // If DXVK/VKD3D installation is enabled, install it
