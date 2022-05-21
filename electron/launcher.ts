@@ -105,7 +105,11 @@ async function prepareLaunch(
 
   // If the Steam Runtime is enabled, find a valid one
   let steamRuntime = ''
-  if (gameSettings.useSteamRuntime) {
+  const isLinuxNative =
+    gameInfo?.install?.platform &&
+    gameInfo?.install?.platform.toLowerCase() === 'linux'
+
+  if (gameSettings.useSteamRuntime && isLinuxNative) {
     // for native games lets use scout for now
     const runtime = getSteamRuntime('scout')
     if (!runtime.path) {
