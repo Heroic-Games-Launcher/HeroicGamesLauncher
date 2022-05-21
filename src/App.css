@@ -168,6 +168,13 @@ html,
   border: 2px solid;
 }
 
+.button.outline:hover:disabled,
+.button.outline:disabled {
+  background-color: var(--background-secondary);
+  color: var(--text-secondary);
+  border: none;
+}
+
 .button.outline:hover {
   background: transparent;
   color: var(--accent-overlay);

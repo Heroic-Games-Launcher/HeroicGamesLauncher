@@ -21,6 +21,7 @@ import WineSettings from './components/WineSettings'
 import LogSettings from './components/LogSettings'
 import { AdvancedSettings } from './components/AdvancedSettings'
 import FooterInfo from './components/FooterInfo'
+import { configStore } from 'src/helpers/electronStores'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -42,12 +43,13 @@ function Settings() {
   } = useLocation() as { state: LocationState }
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
+  const home = configStore.get('userHome')
 
   const [wineVersion, setWineVersion] = useState({
     bin: '/usr/bin/wine',
     name: 'Wine Default'
   } as WineInstallation)
-  const [winePrefix, setWinePrefix] = useState('~/.wine')
+  const [winePrefix, setWinePrefix] = useState(`${home}/.wine`)
   const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [defaultWinePrefix, setDefaultWinePrefix] = useState('')
@@ -395,7 +397,11 @@ function Settings() {
             />
           )}
           {isWineSettings && (
-            <Tools winePrefix={winePrefix} wineVersion={wineVersion} />
+            <Tools
+              winePrefix={winePrefix}
+              wineVersion={wineVersion}
+              appName={appName}
+            />
           )}
           {isOtherSettings && (
             <OtherSettings
