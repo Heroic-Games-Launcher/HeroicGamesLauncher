@@ -630,7 +630,7 @@ export default function InstallModal({
               <button
                 onClick={async () => handleInstall()}
                 className={`button is-secondary`}
-                disabled={notEnoughDiskSpace || !validPath || !installPath}
+                disabled={notEnoughDiskSpace || !installPath}
               >
                 {previousProgress.folder === installPath
                   ? t('button.continue', 'Continue Download')
