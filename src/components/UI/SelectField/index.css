@@ -100,3 +100,11 @@
 .selectFieldWrapper.isRTL option {
   direction: rtl;
 }
+
+.selectFieldWrapper button {
+  min-width: 130px;
+  max-width: 50%;
+  align-self: center;
+  justify-self: center;
+  margin: 12px;
+}

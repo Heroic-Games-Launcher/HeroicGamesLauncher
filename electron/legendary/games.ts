@@ -8,7 +8,7 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { getLegendaryCommand, LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, isOnline } from '../utils'
+import { execAsync, getSteamRuntime, isOnline } from '../utils'
 import {
   execOptions,
   heroicGamesConfigPath,
@@ -17,7 +17,7 @@ import {
   isMac,
   isWindows
 } from '../constants'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
 import {
   prepareLaunch,
@@ -609,7 +609,8 @@ class LegendaryGame extends Game {
         steamRuntime
       )
 
-      const { wineVersion, winePrefix, launcherArgs } = gameSettings
+      const { wineVersion, winePrefix, launcherArgs, useSteamRuntime } =
+        gameSettings
 
       // Fix for people with old config
       const wineBin =
@@ -620,8 +621,17 @@ class LegendaryGame extends Game {
       let wineFlag = ['--wine', wineBin]
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        wineFlag = ['--no-wine', '--wrapper', `'${wineBin}' run`]
-        winePrefixFlag = []
+        const runtime = useSteamRuntime ? getSteamRuntime('soldier') : null
+
+        if (runtime?.path) {
+          const runWithRuntime = `${runtime.path} -- '${wineVersion.bin}' waitforexitandrun`
+          wineFlag = ['--no-wine', '--wrapper', runWithRuntime]
+          winePrefixFlag = []
+        } else {
+          logWarning('No Steam runtime found')
+          wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
+          winePrefixFlag = []
+        }
       }
 
       commandParts = [
@@ -638,7 +648,6 @@ class LegendaryGame extends Game {
     const command = getLegendaryCommand(commandParts, commandEnv, wrappers)
 
     logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Legendary)
-
     const { error, stderr, stdout } = await runLegendaryCommand(commandParts, {
       env: commandEnv,
       wrappers: wrappers

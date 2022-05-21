@@ -105,22 +105,28 @@ async function prepareLaunch(
 
   // If the Steam Runtime is enabled, find a valid one
   let steamRuntime = ''
-  if (gameSettings.useSteamRuntime) {
-    const runtime = getSteamRuntime()
+  const isLinuxNative =
+    gameInfo?.install?.platform &&
+    gameInfo?.install?.platform.toLowerCase() === 'linux'
+
+  if (gameSettings.useSteamRuntime && isLinuxNative) {
+    // for native games lets use scout for now
+    const runtime = getSteamRuntime('scout')
     if (!runtime.path) {
       logWarning(`Couldn't find a valid Steam runtime path`, LogPrefix.Backend)
     } else {
       logInfo(`Using ${runtime.type} Steam runtime`, LogPrefix.Backend)
-      steamRuntime = runtime.path
+      steamRuntime =
+        runtime.version === 'soldier' ? `${runtime.path} -- ` : runtime.path
     }
   }
 
   return {
     success: true,
-    rpcClient: rpcClient,
-    mangoHudCommand: mangoHudCommand,
-    gameModeBin: gameModeBin,
-    steamRuntime: steamRuntime
+    rpcClient,
+    mangoHudCommand,
+    gameModeBin,
+    steamRuntime
   }
 }
 
@@ -363,6 +369,7 @@ async function runWineCommand(
   if (wineVersion.type === 'proton') {
     command = 'run ' + command
     // TODO: Respect 'wait' here. Not sure if Proton can even do that
+    // TODO: Use Steamruntime here in the future
   } else {
     // This is only allowed for Wine since Proton only has one binary (the 'proton' script)
     if (altWineBin) {

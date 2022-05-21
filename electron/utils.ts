@@ -448,23 +448,43 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
   }
 }
 
-function getSteamRuntime(): SteamRuntime {
+function getSteamRuntime(version: 'scout' | 'soldier'): SteamRuntime {
   const possibleRuntimes: Array<SteamRuntime> = [
     {
+      path: `${userHome}/.local/share/Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point`,
+      type: 'unpackaged',
+      version: 'soldier'
+    },
+    {
       path: `${userHome}/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh`,
-      type: 'unpackaged'
+      type: 'unpackaged',
+      version: 'scout'
+    },
+    {
+      path: `${userHome}/.var/app/com.valvesoftware.Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point`,
+      type: 'flatpak',
+      version: 'soldier'
     },
     {
       path: `${userHome}/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh`,
-      type: 'flatpak'
+      type: 'flatpak',
+      version: 'scout'
     }
   ]
-  for (const runtime of possibleRuntimes) {
-    if (existsSync(runtime.path)) {
-      return runtime
-    }
+
+  // try to get requested runtime first
+  let runtimes = possibleRuntimes.filter(
+    (r) => r.version === version && existsSync(r.path)
+  )
+  if (runtimes.length) {
+    return runtimes[0]
   }
-  return { path: '', type: 'unpackaged' }
+  runtimes = possibleRuntimes.filter((r) => existsSync(r.path))
+  if (runtimes.length) {
+    return runtimes[0]
+  }
+
+  return { path: '', type: 'unpackaged', version: 'scout' }
 }
 
 function constructAndUpdateRPC(gameName: string): RpcClient {

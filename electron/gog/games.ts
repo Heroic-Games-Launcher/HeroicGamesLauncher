@@ -27,8 +27,8 @@ import {
   isLinux
 } from '../constants'
 import { configStore, installedGamesStore } from '../gog/electronStores'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { execAsync, getFileSize } from '../utils'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { execAsync, getFileSize, getSteamRuntime } from '../utils'
 import { GOGUser } from './user'
 import {
   launchCleanup,
@@ -331,12 +331,22 @@ class GOGGame extends Game {
         steamRuntime
       )
 
-      const { wineVersion, winePrefix, launcherArgs } = gameSettings
+      const { wineVersion, winePrefix, launcherArgs, useSteamRuntime } =
+        gameSettings
       let wineFlag = ['--wine', wineVersion.bin]
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
-        winePrefixFlag = []
+        const runtime = useSteamRuntime ? getSteamRuntime('soldier') : null
+
+        if (runtime?.path) {
+          const runWithRuntime = `${runtime.path} -- '${wineVersion.bin}' waitforexitandrun`
+          wineFlag = ['--no-wine', '--wrapper', runWithRuntime]
+          winePrefixFlag = []
+        } else {
+          logWarning('No Steam runtime found')
+          wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
+          winePrefixFlag = []
+        }
       }
 
       commandParts = [

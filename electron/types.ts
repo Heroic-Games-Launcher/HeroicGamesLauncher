@@ -348,6 +348,7 @@ export interface GamepadInputEventMouse {
 export interface SteamRuntime {
   type: 'unpackaged' | 'flatpak'
   path: string
+  version: 'soldier' | 'scout'
 }
 
 export interface LaunchPreperationResult {
