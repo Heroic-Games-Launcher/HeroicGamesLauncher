@@ -1,0 +1,52 @@
+input[type='range'] {
+  width: 100%;
+  max-width: 513px;
+}
+
+.zoomHint {
+  display: flex;
+  justify-content: space-between;
+  width: 103%;
+  max-width: 522px;
+}
+
+.Accessibility .setting {
+  display: grid;
+}
+
+.Accessibility label {
+  justify-self: flex-start;
+}
+
+.Accessibility label,
+.Accessibility span,
+.Accessibility select,
+.Accessibility option {
+  font-size: 1.5rem !important;
+}
+
+.Accessibility .zoomHint span {
+  font-size: 1rem;
+}
+
+.Accessibility .fonts-label {
+  justify-self: flex-start;
+}
+
+.Accessibility .fonts-label button {
+  width: auto;
+  margin-left: 1rem;
+}
+
+.Accessibility .fonts-label button:hover {
+  color: var(--accent);
+}
+
+.Accessibility .fonts-label button.refreshing svg {
+  color: var(--accent);
+  animation: refreshing 2s 1;
+}
+
+.Accessibility h1.headerTitle {
+  margin-left: 0px;
+}

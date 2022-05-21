@@ -20,7 +20,12 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { SmallInfo, UpdateComponent } from 'src/components/UI'
+import {
+  UpdateComponent,
+  SelectField,
+  TextInputWithIconField,
+  ToggleSwitch
+} from 'src/components/UI'
 import {
   getAppSettings,
   getGameInfo,
@@ -47,8 +52,6 @@ import {
   DialogFooter,
   DialogHeader
 } from 'src/components/UI/Dialog'
-import FormControl from 'src/components/UI/FormControl'
-import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 
 import './index.css'
 
@@ -88,6 +91,13 @@ function getUniqueKey(sdl: SelectiveDownload) {
   return sdl.tags.join(',')
 }
 
+type DiskSpaceInfo = {
+  notEnoughDiskSpace: boolean
+  message: string | `ERROR`
+  validPath: boolean
+  spaceLeftAfter: string
+}
+
 export default function InstallModal({
   appName,
   backdropClick,
@@ -116,7 +126,12 @@ export default function InstallModal({
   )
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
-  const [spaceLeft, setSpaceLeft] = useState('')
+  const [spaceLeft, setSpaceLeft] = useState<DiskSpaceInfo>({
+    message: '',
+    notEnoughDiskSpace: false,
+    validPath: false,
+    spaceLeftAfter: ''
+  })
 
   const [isLinuxNative, setIsLinuxNative] = useState(false)
   const [isMacNative, setIsMacNative] = useState(false)
@@ -236,19 +251,40 @@ export default function InstallModal({
         if (installPath === 'default') {
           setInstallPath(config.defaultInstallPath)
         }
-        if (installPath !== 'default') {
-          const spaceLeft = await ipcRenderer.invoke(
-            'checkDiskSpace',
-            installPath
+        const { message, free, validPath } = await ipcRenderer.invoke(
+          'checkDiskSpace',
+          installPath
+        )
+        if (gameInstallInfo?.manifest?.disk_size) {
+          let notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
+          let spaceLeftAfter = size(
+            free - Number(gameInstallInfo.manifest.disk_size)
           )
-          setSpaceLeft(spaceLeft)
+          if (previousProgress.folder === installPath) {
+            const progress = 100 - getProgress(previousProgress)
+            notEnoughDiskSpace =
+              free <
+              (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
+
+            spaceLeftAfter = size(
+              free -
+                (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
+            )
+          }
+
+          setSpaceLeft({
+            message,
+            notEnoughDiskSpace,
+            validPath,
+            spaceLeftAfter
+          })
         }
       })
 
     return () => {
       ipcRenderer.removeAllListeners('requestSettings')
     }
-  }, [appName, installPath])
+  }, [appName, installPath, gameInstallInfo?.manifest?.disk_size])
 
   useEffect(() => {
     const getInfo = async () => {
@@ -299,9 +335,20 @@ export default function InstallModal({
 
   const haveDLCs = gameInstallInfo?.game?.owned_dlc?.length > 0
   const DLCList = gameInstallInfo?.game?.owned_dlc
-  const downloadSize =
-    gameInstallInfo?.manifest?.download_size &&
-    size(Number(gameInstallInfo?.manifest?.download_size))
+  const downloadSize = () => {
+    if (gameInstallInfo?.manifest?.download_size) {
+      if (previousProgress.folder === installPath) {
+        const progress = 100 - getProgress(previousProgress)
+        return size(
+          (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
+        )
+      }
+
+      return size(Number(gameInstallInfo?.manifest?.download_size))
+    }
+    return ''
+  }
+
   const installSize =
     gameInstallInfo?.manifest?.disk_size &&
     size(Number(gameInstallInfo?.manifest?.disk_size))
@@ -348,6 +395,7 @@ export default function InstallModal({
   }, [hasWine, wineVersion])
 
   const title = gameInstallInfo?.game?.title
+  const { validPath, notEnoughDiskSpace, message, spaceLeftAfter } = spaceLeft
 
   return (
     <div className="InstallModal">
@@ -379,7 +427,9 @@ export default function InstallModal({
                   <div className="InstallModal__sizeLabel">
                     {t('game.downloadSize', 'Download Size')}:
                   </div>
-                  <div className="InstallModal__sizeValue">{downloadSize}</div>
+                  <div className="InstallModal__sizeValue">
+                    {downloadSize()}
+                  </div>
                 </div>
                 <div className="InstallModal__size">
                   <FontAwesomeIcon
@@ -407,171 +457,147 @@ export default function InstallModal({
                 )}
               </div>
               {showPlatformSelection && (
-                <div className="InstallModal__control">
-                  <div className="InstallModal__controlLabel">
-                    {t('game.platform', 'Select Platform Version to Install')}:
-                  </div>
-                  <div className="InstallModal__controlInput">
-                    <FormControl select>
-                      <select
-                        className="FormControl__select"
-                        name="platform"
-                        id="platformPick"
-                        value={platformToInstall}
-                        onChange={(e) =>
-                          setPlatformToInstall(
-                            e.target.value as PlatformToInstall
-                          )
-                        }
-                      >
-                        {availablePlatforms.map((p) => (
-                          <option value={p.value} key={p.value}>
-                            {p.name}
-                          </option>
-                        ))}
-                      </select>
-                    </FormControl>
-                  </div>
-                </div>
+                <SelectField
+                  label={`${t(
+                    'game.platform',
+                    'Select Platform Version to Install'
+                  )}:`}
+                  htmlId="platformPick"
+                  value={platformToInstall}
+                  onChange={(e) =>
+                    setPlatformToInstall(e.target.value as PlatformToInstall)
+                  }
+                >
+                  {availablePlatforms.map((p) => (
+                    <option value={p.value} key={p.value}>
+                      {p.name}
+                    </option>
+                  ))}
+                </SelectField>
               )}
               {installLanguages && installLanguages?.length > 1 && (
-                <div className="InstallModal__control">
-                  <div className="InstallModal__controlLabel">
-                    {t('game.language', 'Language')}:
-                  </div>
-                  <div className="InstallModal__controlInput">
-                    <FormControl select>
-                      <select
-                        className="FormControl__select"
-                        name="language"
-                        id="languagePick"
-                        value={installLanguage}
-                        onChange={(e) => setInstallLanguage(e.target.value)}
-                      >
-                        {installLanguages &&
-                          installLanguages.map((value) => (
-                            <option value={value} key={value}>
-                              {getLanguageName(value)}
-                            </option>
-                          ))}
-                      </select>
-                    </FormControl>
-                  </div>
-                </div>
+                <SelectField
+                  label={`${t('game.language', 'Language')}:`}
+                  htmlId="languagePick"
+                  value={installLanguage}
+                  onChange={(e) => setInstallLanguage(e.target.value)}
+                >
+                  {installLanguages &&
+                    installLanguages.map((value) => (
+                      <option value={value} key={value}>
+                        {getLanguageName(value)}
+                      </option>
+                    ))}
+                </SelectField>
               )}
-              <div className="InstallModal__control">
-                <div className="InstallModal__controlLabel">
-                  {t('install.path', 'Select Install Path')}:
-                </div>
-                <div className="InstallModal__controlInput">
-                  <FormControl
-                    sideButton={
-                      <button
-                        className="FormControl__sideButton"
-                        onClick={async () =>
-                          ipcRenderer
-                            .invoke('openDialog', {
-                              buttonLabel: t('box.choose'),
-                              properties: ['openDirectory'],
-                              title: t('install.path')
-                            })
-                            .then(({ path }: Path) =>
-                              setInstallPath(path ? path : defaultPath)
-                            )
-                        }
-                      >
-                        <FontAwesomeIcon icon={faFolderOpen} />
-                      </button>
-                    }
-                  >
-                    <input
-                      type="text"
-                      data-testid="setinstallpath"
-                      className="FormControl__input"
-                      placeholder={defaultPath}
-                      value={installPath.replaceAll("'", '')}
-                      onChange={(event) => setInstallPath(event.target.value)}
-                    />
-                  </FormControl>
-                  <SmallInfo
-                    title={`${t(
-                      'install.disk-space-left',
-                      'Space Left on the Device'
-                    )}: ${spaceLeft}`}
-                  />
-                </div>
-              </div>
+
+              <TextInputWithIconField
+                htmlId="setinstallpath"
+                label={t('install.path', 'Select Install Path')}
+                placeholder={defaultPath}
+                value={installPath.replaceAll("'", '')}
+                onChange={(event) => setInstallPath(event.target.value)}
+                icon={<FontAwesomeIcon icon={faFolderOpen} />}
+                onIconClick={async () =>
+                  ipcRenderer
+                    .invoke('openDialog', {
+                      buttonLabel: t('box.choose'),
+                      properties: ['openDirectory'],
+                      title: t('install.path')
+                    })
+                    .then(({ path }: Path) =>
+                      setInstallPath(path ? path : defaultPath)
+                    )
+                }
+                afterInput={
+                  <span className="diskSpaceInfo">
+                    {validPath && (
+                      <>
+                        <span>
+                          {`${t(
+                            'install.disk-space-left',
+                            'Space Available'
+                          )}: `}
+                        </span>
+                        <span>
+                          <strong>{`${message}`}</strong>
+                        </span>
+                        {!notEnoughDiskSpace && (
+                          <>
+                            <span>
+                              {` - ${t(
+                                'install.space-after-install',
+                                'After Install'
+                              )}: `}
+                            </span>
+                            <span>
+                              <strong>{`${spaceLeftAfter}`}</strong>
+                            </span>
+                          </>
+                        )}
+                      </>
+                    )}
+                    {!validPath && (
+                      <span className="danger">
+                        {`${t(
+                          'install.invalid-folder',
+                          'Error: Invalid Path'
+                        )}`}
+                      </span>
+                    )}
+                    {validPath && notEnoughDiskSpace && (
+                      <span className="danger">
+                        {` (${t(
+                          'install.not-enough-disk-space',
+                          'Not enough disk space'
+                        )})`}
+                      </span>
+                    )}
+                  </span>
+                }
+              />
+
               {hasWine && (
                 <>
-                  <div className="InstallModal__control">
-                    <div className="InstallModal__controlLabel">
-                      {t('install.wineprefix', 'WinePrefix')}:
-                    </div>
-                    <div className="InstallModal__controlInput">
-                      <FormControl
-                        sideButton={
-                          <button
-                            className="FormControl__sideButton"
-                            onClick={async () =>
-                              ipcRenderer
-                                .invoke('openDialog', {
-                                  buttonLabel: t('box.choose'),
-                                  properties: ['openDirectory'],
-                                  title: t(
-                                    'box.wineprefix',
-                                    'Select WinePrefix Folder'
-                                  )
-                                })
-                                .then(({ path }: Path) =>
-                                  setWinePrefix(path ? path : winePrefix)
-                                )
-                            }
-                          >
-                            <FontAwesomeIcon icon={faFolderOpen} />
-                          </button>
-                        }
-                      >
-                        <input
-                          type="text"
-                          data-testid="setinstallpath"
-                          className="FormControl__input"
-                          placeholder={winePrefix}
-                          value={winePrefix.replaceAll("'", '')}
-                          onChange={(event) =>
-                            setWinePrefix(event.target.value)
-                          }
-                        />
-                      </FormControl>
-                    </div>
-                  </div>
-                  <div className="InstallModal__control">
-                    <div className="InstallModal__controlLabel">
-                      {t('install.wineversion')}:
-                    </div>
-                    <div className="InstallModal__controlInput">
-                      <FormControl select>
-                        <select
-                          className="FormControl__select"
-                          name="wineVersion"
-                          value={wineVersion && wineVersion.bin}
-                          onChange={(e) =>
-                            setWineVersion(
-                              wineVersionList.find(
-                                (version) => version.bin === e.target.value
-                              )
-                            )
-                          }
-                        >
-                          {wineVersionList &&
-                            wineVersionList.map((version) => (
-                              <option value={version.bin} key={version.bin}>
-                                {version.name}
-                              </option>
-                            ))}
-                        </select>
-                      </FormControl>
-                    </div>
-                  </div>
+                  <TextInputWithIconField
+                    label={t('install.wineprefix', 'WinePrefix')}
+                    htmlId="setinstallpath"
+                    placeholder={winePrefix}
+                    value={winePrefix.replaceAll("'", '')}
+                    onChange={(event) => setWinePrefix(event.target.value)}
+                    icon={<FontAwesomeIcon icon={faFolderOpen} />}
+                    onIconClick={async () =>
+                      ipcRenderer
+                        .invoke('openDialog', {
+                          buttonLabel: t('box.choose'),
+                          properties: ['openDirectory'],
+                          title: t('box.wineprefix', 'Select WinePrefix Folder')
+                        })
+                        .then(({ path }: Path) =>
+                          setWinePrefix(path ? path : winePrefix)
+                        )
+                    }
+                  />
+
+                  <SelectField
+                    label={`${t('install.wineversion')}:`}
+                    htmlId="wineVersion"
+                    value={wineVersion?.bin || ''}
+                    onChange={(e) =>
+                      setWineVersion(
+                        wineVersionList.find(
+                          (version) => version.bin === e.target.value
+                        )
+                      )
+                    }
+                  >
+                    {wineVersionList &&
+                      wineVersionList.map((version) => (
+                        <option value={version.bin} key={version.bin}>
+                          {version.name}
+                        </option>
+                      ))}
+                  </SelectField>
                 </>
               )}
               {(haveDLCs || haveSDL) && (
@@ -587,6 +613,7 @@ export default function InstallModal({
                       className="InstallModal__toggle toggleWrapper"
                     >
                       <ToggleSwitch
+                        htmlId="sdls"
                         title={sdl.name}
                         value={
                           !!sdl.mandatory || !!selectedSdls[getUniqueKey(sdl)]
@@ -605,6 +632,7 @@ export default function InstallModal({
                     className={classNames('InstallModal__toggle toggleWrapper')}
                   >
                     <ToggleSwitch
+                      htmlId="dlcs"
                       value={installDlcs}
                       handleChange={() => handleDlcs()}
                       title={t('dlc.installDlcs', 'Install all DLCs')}
@@ -627,6 +655,7 @@ export default function InstallModal({
               <button
                 onClick={async () => handleInstall()}
                 className={`button is-secondary`}
+                disabled={notEnoughDiskSpace || !installPath}
               >
                 {previousProgress.folder === installPath
                   ? t('button.continue', 'Continue Download')

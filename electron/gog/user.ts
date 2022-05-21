@@ -29,8 +29,8 @@ export class GOGUser {
     data.loginTime = Date.now()
     configStore.set('credentials', data)
     logInfo('Login Successful', LogPrefix.Gog)
-    await this.getUserDetails()
-    return { status: 'done' }
+    const userDetails = await this.getUserDetails()
+    return { status: 'done', data: userDetails }
   }
 
   public static async getUserDetails() {
@@ -59,6 +59,8 @@ export class GOGUser {
 
     configStore.set('userData', data)
     logInfo('Saved user data to config', LogPrefix.Gog)
+
+    return data
   }
   /**
    * Loads user credentials from config

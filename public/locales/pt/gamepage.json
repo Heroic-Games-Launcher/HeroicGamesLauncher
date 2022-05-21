@@ -75,8 +75,11 @@
         "version": "Versão"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Select Install Path",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": ""
     },
@@ -107,6 +110,7 @@
         "installing": "Instalando",
         "moving": "Movendo Jogo, por favor espere",
         "notinstalled": "Jogo não instalado",
+        "processing": "Processing files, please wait",
         "reparing": "Reparando jogo, por favor espere",
         "totalDownloaded": "Total Baixado",
         "updating": "Atualizando jogo"

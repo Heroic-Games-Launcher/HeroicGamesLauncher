@@ -1,4 +1,12 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Alle",
     "Assets": "Assets",
     "box": {
@@ -191,6 +199,9 @@
             "startInstall": "Installation gestartet"
         },
         "moved": "Verschieben abgeschlossen",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Deinstalliert",
         "update": {
             "canceled": "Update abgebrochen",
@@ -280,15 +291,14 @@
         "maxworkers": "Maximale Anzahl von Prozessen zum gleichzeitigem Herunterladen",
         "minimize-on-launch": "Heroic nach Spielstart minimieren",
         "offlinemode": "Spiel offline ausführen",
-        "primerun": "Nvidia Prime Render aktivieren",
+        "primerun": "Dedizierte Grafikkarte verwenden",
         "resizableBar": "Resizable BAR aktivieren (nur NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
             "title": "EXE in Prefix starten"
         },
         "savefolder": {
-            "placeholder": "Genauen Spielstände Ordner auswählen",
-            "title": "Cloud-Synchronisation Spielstände Ordner überschreiben"
+            "placeholder": "Genauen Spielstände Ordner auswählen"
         },
         "select_theme": "Design auswählen",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
@@ -366,7 +376,7 @@
         "manager": {
             "error": "Wine/Proton-Versionen konnten diesmal nicht abgerufen werden.",
             "link": "Wine-Manager",
-            "title": "Wine-Manager (Beta)",
+            "title": "Wine-Manager",
             "unzipping": "Entpacke"
         }
     }

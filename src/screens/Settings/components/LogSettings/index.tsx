@@ -1,5 +1,6 @@
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import FolderOpenIcon from '@mui/icons-material/FolderOpen'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { UpdateComponent } from 'src/components/UI'
@@ -112,7 +113,7 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
         )}
       </p>
       {isDefault && (
-        <span className="setting log-buttongroup toggleWrapper">
+        <span className="log-buttongroup">
           <a
             className={`log-buttons ${!defaultLast ? 'log-choosen' : ''}`}
             onClick={() => {
@@ -136,7 +137,7 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
         </span>
       )}
       {refreshing ? (
-        <span className="setting log-box">
+        <span className="log-box">
           <UpdateComponent inline />
         </span>
       ) : (
@@ -151,7 +152,7 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
           >
             <div className="button-icontext-flex">
               <div className="button-icon-flex">
-                <FolderOpenIcon />
+                <FontAwesomeIcon icon={faFolderOpen} />
               </div>
               <span className="button-icon-text">
                 {t('setting.log.show-in-folder', 'Show log file in folder')}

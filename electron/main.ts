@@ -1,5 +1,4 @@
 import { ExecOptions } from 'child_process'
-import { dirname } from 'path'
 import {
   InstallParams,
   LaunchResult,
@@ -18,12 +17,15 @@ import {
   dialog,
   ipcMain,
   powerSaveBlocker,
-  protocol
+  protocol,
+  screen
 } from 'electron'
 import './updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {
+  access,
+  constants,
   existsSync,
   mkdirSync,
   rmSync,
@@ -61,7 +63,8 @@ import {
   getGOGdlBin,
   showErrorBoxModal,
   getFileSize,
-  showErrorBoxModalAuto
+  showErrorBoxModalAuto,
+  getWineFromProton
 } from './utils'
 import {
   configStore,
@@ -83,11 +86,13 @@ import {
   tsStore,
   weblateUrl,
   wikiLink,
-  heroicToolsPath
+  fontsStore
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
+import { getFonts } from 'font-list'
+import { verifyWinePrefix } from './launcher'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -116,13 +121,24 @@ async function createWindow(): Promise<BrowserWindow> {
     ) {
       windowProps = tmpWindowProps
     }
+  } else {
+    // make sure initial screen size is not bigger than the available screen space
+    const screenInfo = screen.getPrimaryDisplay()
+
+    if (screenInfo.workAreaSize.height > windowProps.height) {
+      windowProps.height = screenInfo.workAreaSize.height * 0.8
+    }
+
+    if (screenInfo.workAreaSize.width > windowProps.width) {
+      windowProps.width = screenInfo.workAreaSize.width * 0.8
+    }
   }
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
     ...windowProps,
-    minHeight: 650,
-    minWidth: 1100,
+    minHeight: 345,
+    minWidth: 600,
     show: !(exitToTray && startInTray),
     webPreferences: {
       webviewTag: true,
@@ -239,6 +255,21 @@ const contextMenu = () => {
   ])
 }
 
+const processZoomForScreen = (zoomFactor: number) => {
+  const screenSize = screen.getPrimaryDisplay().workAreaSize.width
+  if (screenSize < 1200) {
+    const extraDPIZoomIn = screenSize / 1200
+    return zoomFactor * extraDPIZoomIn
+  } else {
+    return zoomFactor
+  }
+}
+
+ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
+  const window = BrowserWindow.getAllWindows()[0]
+  window.webContents.setZoomFactor(processZoomForScreen(parseFloat(zoomFactor)))
+})
+
 if (!gotTheLock) {
   logInfo('Heroic is already running, quitting this instance')
   app.quit()
@@ -350,8 +381,20 @@ if (!gotTheLock) {
       handleProtocol(mainWindow, url)
     }
 
+    // set initial zoom level after a moment, if set in sync the value stays as 1
+    setTimeout(() => {
+      const zoomFactor =
+        parseFloat((configStore.get('zoomPercent') as string) || '100') / 100
+
+      mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
+    }, 200)
+
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
+
+    appIcon.on('double-click', () => {
+      mainWindow.show()
+    })
 
     appIcon.setContextMenu(contextMenu())
     appIcon.setToolTip('Heroic')
@@ -424,9 +467,36 @@ ipcMain.handle('kill', async (event, appName, runner) => {
   return Game.get(appName, runner).stop()
 })
 
-ipcMain.handle('checkDiskSpace', async (event, folder) => {
-  const { free, size: diskSize } = await checkDiskSpace(folder)
-  return `${getFileSize(free)}/${getFileSize(diskSize)}`
+ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
+  let isWrittable = true
+  // Check If path is writtable
+  access(folder, constants.W_OK, (err) => {
+    if (err) {
+      isWrittable = false
+      logWarning(
+        `${folder} ${err ? 'is not writable' : 'is writable'}`,
+        LogPrefix.Backend
+      )
+    }
+  })
+
+  // Check if path has enough space
+  try {
+    const { free, size: diskSize } = await checkDiskSpace(folder)
+    return {
+      free,
+      diskSize,
+      message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
+      validPath: isWrittable
+    }
+  } catch (error) {
+    return {
+      free: 0,
+      diskSize: 0,
+      message: `ERROR`,
+      validPath: false
+    }
+  }
 })
 
 ipcMain.on('quit', async () => handleExit(mainWindow))
@@ -480,52 +550,36 @@ interface Tools {
   prefix: string
   tool: string
   wine: string
+  appName: string
 }
 
 ipcMain.handle(
   'callTool',
-  async (event, { tool, wine, prefix, exe }: Tools) => {
-    const newProtonWinePath = wine.replace('proton', 'files/bin/wine64')
-    const oldProtonWinePath = wine.replace('proton', 'dist/bin/wine64')
-    const isProton = wine.includes('proton')
-    const winetricks = `${heroicToolsPath}/winetricks`
+  async (event, { tool, wine, prefix, exe, appName }: Tools) => {
+    const isProton = wine.includes('/proton')
+
+    if (tool === 'winetricks') {
+      return Winetricks.run(prefix, wine, isProton)
+    }
+
+    const game = Game.get(appName)
+    await verifyWinePrefix(game)
+
+    if (tool === 'runExe') {
+      return Game.get(appName).runWineCommand(exe)
+    }
+
+    if (tool === 'winecfg') {
+      return Game.get(appName).runWineCommand('winecfg')
+    }
+
     const options: ExecOptions = {
       ...execOptions
     }
 
-    // existsSync is weird because it returns false always if the path has single-quotes in it
-    const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
-      ? newProtonWinePath
-      : oldProtonWinePath
-    let wineBin = isProton ? `'${protonWinePath}'` : wine
-    let winePrefix = prefix.replace('~', userHome)
+    const { winePrefix, wineBin } = getWineFromProton(wine, isProton, prefix)
 
-    if (wine.includes('proton')) {
-      const protonPrefix = winePrefix.replaceAll("'", '')
-      winePrefix = `${protonPrefix}/pfx`
-
-      logWarning(
-        'Using Winecfg and Winetricks with Proton might not work as expected.',
-        LogPrefix.Backend
-      )
-      // workaround for proton since newer versions doesnt come with a wine binary anymore.
-      if (!existsSync(wineBin.replaceAll("'", ''))) {
-        logInfo(
-          `${wineBin} not found for this Proton version, will try using default wine`,
-          LogPrefix.Backend
-        )
-        wineBin = '/usr/bin/wine'
-      }
-    }
-
-    let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${
-      tool === 'winecfg' ? `${wineBin} ${tool}` : `${winetricks} -q`
-    }`
-
-    if (tool === 'runExe') {
-      command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
-      options.cwd = dirname(exe)
-    }
+    const command = `WINE='${wineBin}' WINEPREFIX='${winePrefix}' ${`'${wineBin}' ${tool}`}`
 
     logInfo(['trying to run', command], LogPrefix.Backend)
     try {
@@ -589,12 +643,6 @@ ipcMain.on('resetHeroic', async () => {
   }
 })
 
-ipcMain.handle('authGOG', async (event, code) =>
-  GOGUser.login(code).then(() =>
-    mainWindow.webContents.send('updateLoginState')
-  )
-)
-
 ipcMain.on('createNewWindow', async (e, url) =>
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 )
@@ -648,13 +696,8 @@ ipcMain.handle('getUserInfo', async () => LegendaryUser.getUserInfo())
 // Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', async () => LegendaryUser.isLoggedIn())
 
-ipcMain.handle('login', async (event, sid) =>
-  LegendaryUser.login(sid).then((value) => {
-    mainWindow.webContents.send('updateLoginState')
-    return value
-  })
-)
-
+ipcMain.handle('login', async (event, sid) => LegendaryUser.login(sid))
+ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))
 ipcMain.handle('logoutLegendary', async () => LegendaryUser.logout())
 ipcMain.handle('logoutGOG', async () => GOGUser.logout())
 
@@ -1321,6 +1364,16 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   if (inputEvents.length) {
     inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
   }
+})
+
+ipcMain.handle('getFonts', async (event, reload = false) => {
+  let cachedFonts = (fontsStore.get('fonts') as string[]) || []
+  if (cachedFonts.length === 0 || reload) {
+    cachedFonts = await getFonts()
+    cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))
+    fontsStore.set('fonts', cachedFonts)
+  }
+  return cachedFonts
 })
 
 /*

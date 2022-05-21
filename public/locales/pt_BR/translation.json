@@ -1,4 +1,12 @@
 {
+    "accessibility": {
+        "actions_font_family": "Fonte para ações (Padrão: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
+        "content_font_family": "Fonte para conteúdo (Padrão: \"Cabin\")",
+        "fonts": "Fonts",
+        "title": "Accessibilidade",
+        "zoom": "Zoom"
+    },
     "All": "Todos",
     "Assets": "Recursos",
     "box": {
@@ -14,7 +22,7 @@
         "default-install-path": "Selecione o local de instalação padrão",
         "error": {
             "credentials": {
-                "message": "Suas credenciais expiraram, por favor faça o logout e entre novamente.",
+                "message": "Suas credenciais expiraram, por favor desconecte sua conta e entre novamente.",
                 "title": "Credenciais Expiradas"
             },
             "diskspace": {
@@ -36,7 +44,7 @@
             },
             "title": "Erro",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "Algo deu errado ao atualizar, cheque os logs ou tente novamente mais tarde!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -46,12 +54,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Abrir lista da mudanças",
+                "detail": "Você deseja atualizar o Heroic em segundo plano?",
+                "message": "Uma nova versão está disponível!",
+                "message-finished": "Deseja reiniciar o Heroic agora?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Atualização finalizada"
             }
         },
         "no": "NÃO",
@@ -99,7 +107,7 @@
         "yes": "SIM"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "Ir para a biblioteca",
         "login": "Conecte-se",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
@@ -110,14 +118,14 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "Favoritos",
     "globalSettings": "Configurações globais",
     "GOG": "GOG",
     "gog-store": "Loja GOG",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "Ignorar escondidos",
         "platform": "Plataforma",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Mostrar escondidos"
     },
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
@@ -156,11 +164,11 @@
     },
     "library": {
         "gridView": "Visualização em grade",
-        "listView": "Visto por último",
+        "listView": "Visualização em lista",
         "refresh": "Atualizar",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "Ordem crescente",
+        "sortByStatus": "Ordenar por estado",
+        "sortDescending": "Ordem decrescente"
     },
     "Library": "Biblioteca",
     "loading": {
@@ -191,6 +199,9 @@
             "startInstall": "Instalação iniciada"
         },
         "moved": "Movido com sucesso",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Desinstalado",
         "update": {
             "canceled": "Atualização cancelada",
@@ -241,7 +252,7 @@
         "darktray": "Usar o ícone escuro na barra de tarefas",
         "default-install-path": "Local de instalação padrão",
         "defaultWinePrefix": "Pasta padrão para novos prefixos Wine",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "Desabilitar navegação por controle no Heroic",
         "discordRPC": "Habilitar o Discord Rich Presence",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (a versão do Wine precisa suportar o recurso)",
@@ -252,16 +263,16 @@
         "gamemode": "Usar o GameMode (precisa do gamemode instalado)",
         "language": "Selecione o idioma do app",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "Desabilitada",
+            "favourites": "Jogos favoritos",
+            "recently_played": "Jogados recentemente"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "Coluna de destaque da biblioteca",
         "log": {
             "copy-to-clipboard": "Copiar log para a área de transferência",
             "current-log": "Log atual",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "Acesse o nosso Discord e procure pelo canal relacionado ao seu sistema operacional. Compartilhe o conteúdo do Log mostrado aqui e inclua uma descrição do problema, detalhes e outras informações relevantes.",
+            "instructions_title": "Como reportar um problema?",
             "last-log": "Último log",
             "no-file": "Arquivo de log não encontrado",
             "show-in-folder": "Mostrar arquivo de log na pasta"
@@ -280,17 +291,16 @@
         "maxworkers": "Máximo de núcleos da CPU para utilizar ao fazer baixar jogos",
         "minimize-on-launch": "Minimizar Heroic ao iniciar um jogo",
         "offlinemode": "Iniciar o jogo offline",
-        "primerun": "Habilitar o PRIME Render da NVIDIA",
+        "primerun": "Usar placa gráfica dedicada",
         "resizableBar": "Habilitar Resizable BAR (somente NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Arraste e solte arquivos aqui",
             "title": "Executar EXE no prefixo"
         },
         "savefolder": {
-            "placeholder": "Selecione a pasta exata com os saves",
-            "title": "Sobrescrever pasta de saves sincronizados com a nuvem"
+            "placeholder": "Selecione a pasta exata com os saves"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "Selecione um tema",
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
         "showUnrealMarket": "Mostrar Unreal Marketplace (requer reinício)",
         "start-in-tray": "Iniciar minimizado",
@@ -307,7 +317,7 @@
             "long-log-hint": "Log truncado, últimas 1000 linhas serão mostradas!"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "Avançado",
             "general": "Config. Gerais",
             "log": "Log",
             "other": "Outros",
@@ -348,8 +358,8 @@
     "Unreal Marketplace": "Loja Unreal",
     "userselector": {
         "discord": "Discord",
-        "logout": "Sair",
-        "logout_confirmation": "Tem certeza que deseja sair da sua conta?",
+        "logout": "Desconectar",
+        "logout_confirmation": "Tem certeza que deseja desconectar da sua conta?",
         "manageaccounts": "Gerenciar Contas",
         "quit": "Sair"
     },
@@ -366,7 +376,7 @@
         "manager": {
             "error": "Não foi possível encontrar as versões do Wine/Proton.",
             "link": "Versões do Wine",
-            "title": "Versões do Wine (Beta)",
+            "title": "Versões do Wine",
             "unzipping": "Descompactando"
         }
     }

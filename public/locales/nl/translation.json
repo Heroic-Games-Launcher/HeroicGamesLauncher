@@ -1,4 +1,12 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "Allemaal",
     "Assets": "Assets",
     "box": {
@@ -191,6 +199,9 @@
             "startInstall": "Installation Started"
         },
         "moved": "Klaar met verplaatsing",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Verwijderd",
         "update": {
             "canceled": "Update geannuleerd",
@@ -287,8 +298,7 @@
             "title": "Voer EXE uit op Prefix"
         },
         "savefolder": {
-            "placeholder": "Selecteer de exacte opslagmap",
-            "title": "Overschijf cloud synchronisatie save map"
+            "placeholder": "Selecteer de exacte opslagmap"
         },
         "select_theme": "Select Theme",
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
@@ -366,7 +376,7 @@
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
+            "title": "Wine Manager",
             "unzipping": "Unzipping"
         }
     }

@@ -54,7 +54,6 @@
   display: flex;
   align-content: center;
   justify-content: center;
-  padding-left: 6px;
 }
 
 .refreshIcon:hover,

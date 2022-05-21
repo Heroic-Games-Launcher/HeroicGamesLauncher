@@ -124,8 +124,8 @@ modules:
   - name: heroic
     buildsystem: simple
     build-commands:
-      - unappimage Heroic-2.3.0-beta.3.AppImage
-      - rm Heroic-2.3.0-beta.3.AppImage
+      - unappimage Heroic-2.3.1.AppImage
+      - rm Heroic-2.3.1.AppImage
       - mv squashfs-root /app/bin/heroic
       - install -D heroic-run -t /app/bin
     sources:
@@ -135,9 +135,9 @@ modules:
           - zypak-wrapper /app/bin/heroic/heroic "$@"
 
       - type: file
-        filename: Heroic-2.3.0-beta.3.AppImage
+        filename: Heroic-2.3.1.AppImage
         # put right path here
-        path: ../dist/Heroic-2.3.0-beta.3.AppImage
+        path: ../dist/Heroic-2.3.1.AppImage
 
   - name: platform-bootstrap
     buildsystem: simple

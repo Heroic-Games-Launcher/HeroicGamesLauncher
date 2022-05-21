@@ -5,7 +5,7 @@
             "path": "选择新的安装路径",
             "title": "更改游戏安装路径"
         },
-        "choose": "请选择",
+        "choose": "选择",
         "importpath": "选择要导入的游戏文件夹",
         "move": {
             "message": "这可能需要很长的时间，您确定吗？",
@@ -76,7 +76,10 @@
     },
     "install": {
         "disk-space-left": "设备剩余空间",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "选择安装路径",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine 版本"
     },
@@ -107,6 +110,7 @@
         "installing": "正在安装",
         "moving": "正在移动安装，请稍等",
         "notinstalled": "未安装此游戏",
+        "processing": "Processing files, please wait",
         "reparing": "正在修复游戏，请稍等",
         "totalDownloaded": "下载总计",
         "updating": "游戏更新中"

@@ -21,13 +21,13 @@ import WineSettings from './components/WineSettings'
 import LogSettings from './components/LogSettings'
 import { AdvancedSettings } from './components/AdvancedSettings'
 import FooterInfo from './components/FooterInfo'
+import { configStore } from 'src/helpers/electronStores'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
 }
 
 const { ipcRenderer } = window.require('electron') as ElectronProps
-const storage: Storage = window.localStorage
 
 interface LocationState {
   fromGameCard: boolean
@@ -43,12 +43,13 @@ function Settings() {
   } = useLocation() as { state: LocationState }
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
+  const home = configStore.get('userHome')
 
   const [wineVersion, setWineVersion] = useState({
     bin: '/usr/bin/wine',
     name: 'Wine Default'
   } as WineInstallation)
-  const [winePrefix, setWinePrefix] = useState('~/.wine')
+  const [winePrefix, setWinePrefix] = useState(`${home}/.wine`)
   const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [defaultWinePrefix, setDefaultWinePrefix] = useState('')
@@ -64,9 +65,6 @@ function Settings() {
   const [altLegendaryBin, setAltLegendaryBin] = useState('')
   const [altGogdlBin, setAltGogdlBin] = useState('')
   const [canRunOffline, setCanRunOffline] = useState(true)
-  const [language, setLanguage] = useState(
-    () => storage.getItem('language') || 'en'
-  )
   const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
 
@@ -271,12 +269,10 @@ function Settings() {
     enableEsync,
     enableFsync,
     exitToTray,
-    language,
     maxRecentGames,
     maxWorkers,
     minimizeOnLaunch,
     nvidiaPrime,
-    offlineMode,
     otherOptions,
     showFps,
     showMangohud,
@@ -285,7 +281,9 @@ function Settings() {
     useGameMode,
     wineCrossoverBottle,
     winePrefix,
-    wineVersion
+    wineVersion,
+    enableFSR,
+    enableResizableBar
   } as AppSettings
 
   const GameSettings = {
@@ -339,14 +337,9 @@ function Settings() {
             <ArrowCircleLeftIcon />
           </NavLink>
           {title && (
-            <NavLink
-              role="link"
-              to={returnPath}
-              className="headerTitle"
-              data-testid="headerTitle"
-            >
+            <h1 className="headerTitle" data-testid="headerTitle">
               {title}
-            </NavLink>
+            </h1>
           )}
           {isGeneralSettings && (
             <GeneralSettings
@@ -360,8 +353,6 @@ function Settings() {
               startInTray={startInTray}
               toggleTray={toggleTray}
               toggleStartInTray={toggleStartInTray}
-              language={language}
-              setLanguage={setLanguage}
               maxWorkers={maxWorkers}
               setMaxWorkers={setMaxWorkers}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
@@ -406,7 +397,11 @@ function Settings() {
             />
           )}
           {isWineSettings && (
-            <Tools winePrefix={winePrefix} wineVersion={wineVersion} />
+            <Tools
+              winePrefix={winePrefix}
+              wineVersion={wineVersion}
+              appName={appName}
+            />
           )}
           {isOtherSettings && (
             <OtherSettings

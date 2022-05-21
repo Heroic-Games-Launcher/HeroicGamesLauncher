@@ -75,8 +75,11 @@
         "version": "Phiên bản"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Chọn đường dẫn cài",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": "Phiên bản Wine"
     },
@@ -107,6 +110,7 @@
         "installing": "Đang cài",
         "moving": "Đang chuyển, vui lòng đợi",
         "notinstalled": "Game chưa được cài",
+        "processing": "Processing files, please wait",
         "reparing": "Đang sửa game, vui lòng đợi",
         "totalDownloaded": "Tổng số đã tải",
         "updating": "Đang cập nhật Game"

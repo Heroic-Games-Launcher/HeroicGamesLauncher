@@ -52,7 +52,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Open game page on Epic Store
 - Open game page on GOG.com
 - Search for the game on ProtonDB [Linux]
-- Sync installed games with an existing Epic Games instalation
+- Sync installed games with an existing Epic Games installation
 - Sync saves with the cloud [Epic]
 
 ## Planned features
@@ -92,8 +92,8 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Swedish
 - Tamil
 - Turkish
-- Ukranian
-- Vietnamize
+- Ukrainian
+- Vietnamese
 
 ### Help with Translations [Here](https://hosted.weblate.org/projects/heroic-games-launcher)
 
@@ -134,20 +134,20 @@ If you don't use VS Code or don't want it integrated with the container, you can
 
 1. From the root of your local Heroic directory, run:
 
-```
+```bash
 docker build -t heroicdevcontainer -f Dockerfile .
 ```
 
 2. Assuming all went well, you can now enter the container:
 
-```
+```bash
 docker run -it -v ./:/tmp/heroic localhost/heroicdevcontainer:latest
 ```
 
 3. The above command will mount your local Heroic dir to `/tmp/heroic` in the container (unless you used a different path).
 
 ```
-cd /tmp/heoric
+cd /tmp/heroic
 ```
 
 And you should be good to go, code and build away!
@@ -171,7 +171,7 @@ sudo dpkg -i heroic_x.x.x_amd64.deb
 
 You can add the [**MAD Linux**](https://madlinux.sourceforge.io) [`apt` repository](https://gitlab.com/myawesomedistro/madrepo):
 
-```
+```bash
 bash <(wget -O- https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/main/madrepo.sh)
 ```
 
@@ -179,7 +179,7 @@ If you need support on it, get access to **MAD Linux** [**Guilded**](https://gui
 
 Maybe you want to boost the download speed on updates with [`apt-fast`](https://github.com/ilikenwf/apt-fast):
 
-```
+```bash
 sudo add-apt-repository -y ppa:apt-fast/stable
 sudo apt install -y apt-fast
 apt-fast install -y heroic
@@ -283,11 +283,9 @@ yarn (or npm run) dist-mac
 
 ## Screenshots
 
-![epic](https://user-images.githubusercontent.com/26871415/157914736-469d3f69-ddfc-4b63-af0b-4d8600f5744d.png)
-![gog](https://user-images.githubusercontent.com/26871415/157914739-06adfe07-f20e-4902-8dac-9b655b872a86.png)
-![login](https://user-images.githubusercontent.com/26871415/157914743-7281713a-069f-4035-885e-412e3d4e49ec.png)
-![stores](https://user-images.githubusercontent.com/26871415/157914747-a37c9d35-7aae-413e-9aaa-0f8823046c5a.png)
-![wine-manager](https://user-images.githubusercontent.com/26871415/157914748-5f6648b8-0bb3-4f2a-ba6d-44d035e5c1fb.png)
-![gamepage](https://user-images.githubusercontent.com/26871415/157915094-2d07dca1-bbca-4cd8-8be5-62bd91c87d16.png)
+![epic](https://user-images.githubusercontent.com/26871415/168448807-768a2ffc-7c6b-4010-bc48-b2f6acec9a32.png)
+![gog](https://user-images.githubusercontent.com/26871415/168448826-3fab90d7-7fba-4774-96d9-064f53fe718a.png)
+![image](https://user-images.githubusercontent.com/26871415/168449037-62ccfa8b-6e91-4cbf-bd37-48087f2ce998.png)
+![gamepage](https://user-images.githubusercontent.com/26871415/168449021-222673fd-675a-4a17-9e5b-907d99919e11.png)
 
 [![jump](https://img.shields.io/badge/Back%20to%20top-%20?style=flat&color=grey&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgwVjB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTQgMTJsMS40MSAxLjQxTDExIDcuODNWMjBoMlY3LjgzbDUuNTggNS41OUwyMCAxMmwtOC04LTggOHoiLz48L3N2Zz4=)](#heroic-games-launcher)

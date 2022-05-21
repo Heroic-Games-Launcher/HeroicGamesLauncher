@@ -1,4 +1,12 @@
 {
+    "accessibility": {
+        "actions_font_family": "Семейство на шрифта за действията (по подразбиране: „Rubik“)",
+        "all_tiles_in_color": "Show all game tiles in color",
+        "content_font_family": "Семейство на шрифта за съдържанието (по подразбиране: „Cabin“)",
+        "fonts": "Fonts",
+        "title": "Достъпност",
+        "zoom": "Увеличаване"
+    },
     "All": "Всички",
     "Assets": "Ресурси",
     "box": {
@@ -191,6 +199,9 @@
             "startInstall": "Инсталацията е започната"
         },
         "moved": "Преместването е завършено",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Деинсталирано",
         "update": {
             "canceled": "Обновяването е преустановено",
@@ -280,15 +291,14 @@
         "maxworkers": "Максимален брой работни процеси при сваляне",
         "minimize-on-launch": "Минимизиране на Heroic при пускане на игра",
         "offlinemode": "Пускане на играта в режим „извън линия“",
-        "primerun": "Включване на „Nvidia Prime Render“",
+        "primerun": "Използване на отделната видео-карта",
         "resizableBar": "Включване на „Resizable BAR“ (Само за NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Хванете и пуснете файловете тук",
             "title": "Изпълняване на EXE в префикс"
         },
         "savefolder": {
-            "placeholder": "Изберете точната папка за запазени файлове",
-            "title": "Замяна на папката за синхронизиране на запазени файлове в облака"
+            "placeholder": "Изберете точната папка за запазени файлове"
         },
         "select_theme": "Изберете тема",
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",
@@ -366,7 +376,7 @@
         "manager": {
             "error": "В момента не могат да бъдат получени версиите на Wine/Proton.",
             "link": "Управление на Wine",
-            "title": "Управление на Wine (бета)",
+            "title": "Управление на Wine",
             "unzipping": "Разархивиране"
         }
     }

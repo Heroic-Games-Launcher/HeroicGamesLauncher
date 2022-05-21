@@ -14,7 +14,8 @@ import {
   isOnline,
   showErrorBoxModalAuto,
   searchForExecutableOnPath,
-  quoteIfNecessary
+  quoteIfNecessary,
+  errorHandler
 } from './utils'
 import {
   logDebug,
@@ -275,7 +276,7 @@ function setupWrappers(
  * @param game The game to verify the Wineprefix of
  * @returns stderr & stdout of 'wineboot --init'
  */
-async function verifyWinePrefix(
+export async function verifyWinePrefix(
   game: LegendaryGame | GOGGame
 ): Promise<{ res: ExecResult; updated: boolean }> {
   const { winePrefix, wineVersion } = await game.getSettings()
@@ -284,8 +285,15 @@ async function verifyWinePrefix(
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
+  let didCreateFolder = false
+
   if (!existsSync(winePrefix)) {
     mkdirSync(winePrefix, { recursive: true })
+    didCreateFolder = true
+  }
+
+  if (wineVersion.type === 'proton') {
+    return { res: { stdout: '', stderr: '' }, updated: didCreateFolder }
   }
 
   // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
@@ -351,19 +359,19 @@ async function runWineCommand(
   }
 
   let additional_command = ''
-  let wineBin = wineVersion.bin
+  let wineBin = wineVersion.bin.replaceAll("'", '')
   if (wineVersion.type === 'proton') {
     command = 'run ' + command
     // TODO: Respect 'wait' here. Not sure if Proton can even do that
   } else {
     // This is only allowed for Wine since Proton only has one binary (the 'proton' script)
     if (altWineBin) {
-      wineBin = altWineBin
+      wineBin = altWineBin.replaceAll("'", '')
     }
     // Can't wait if we don't have a Wineserver
     if (wait) {
       if (wineVersion.wineserver) {
-        additional_command = `${wineVersion.wineserver} --wait`
+        additional_command = `"${wineVersion.wineserver}" --wait`
       } else {
         logWarning(
           'Unable to wait on Wine command, no Wineserver!',
@@ -373,7 +381,7 @@ async function runWineCommand(
     }
   }
 
-  let finalCommand = `${wineBin} ${command}`
+  let finalCommand = `"${wineBin}" ${command}`
   if (additional_command) {
     finalCommand += ` && ${additional_command}`
   }
@@ -385,7 +393,7 @@ async function runWineCommand(
       return response
     })
     .catch((error) => {
-      logError(['Error running Wine command:', error], LogPrefix.Legendary)
+      logError(['Error running Wine command:', error], LogPrefix.Backend)
       return { stderr: error, stdout: '' }
     })
 }
@@ -470,6 +478,10 @@ async function runLegendaryOrGogdlCommand(
     })
 
     child.on('close', (code, signal) => {
+      errorHandler({
+        error: { stderr: stderr.join(), stdout: stdout.join() },
+        logPath: options?.logFile
+      })
       if (signal) {
         rej('Process terminated with signal ' + signal)
       }
@@ -486,6 +498,7 @@ async function runLegendaryOrGogdlCommand(
       return { stdout, stderr, fullCommand: safeCommand }
     })
     .catch((error) => {
+      errorHandler({ error, logPath: options?.logFile })
       logError(
         ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
         runner.logPrefix

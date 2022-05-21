@@ -6,13 +6,32 @@
   width: 100%;
   border-radius: 1rem;
   grid-area: content;
-  margin-block-start: 20px;
-  padding-left: 48px;
+  padding: 2rem 48px;
+  position: relative;
+  margin-bottom: 35px;
+}
+
+.Settings .Field,
+.Accessibility .Field,
+.InstallModal__dialog .Field {
+  margin: 16px 0px;
+  width: 100%;
+}
+
+.Settings .Field label,
+.Accessibility .Field label,
+.InstallModal__dialog .Field label {
+  cursor: default;
+  margin-bottom: 14px;
+  font: var(--font-secondary-regular);
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--text-secondary);
 }
 
 .settingsWrapper {
   margin-inline-end: auto;
-  max-width: 669px;
+  max-width: 513px;
   display: flex;
   flex-direction: column;
   place-self: center;
@@ -22,98 +41,36 @@
 }
 
 .headerTitle {
-  font-size: 2rem;
-  margin-inline-end: auto;
-  padding: 8px;
-  color: var(--accent);
   transition: 350ms;
-}
-
-.headerTitle:hover {
-  color: var(--text-hover);
+  margin-top: 0px;
+  margin-left: 20px;
+  margin-bottom: 6px;
 }
 
 .headerTitle > svg {
   margin-left: 12px;
 }
 
+.settingSubheader {
+  text-align: left;
+  margin-top: 0;
+  padding-left: 20px;
+}
+
+.settingSubheader::before {
+  content: '• ';
+}
+
 .settingsWrapper > .backButton {
-  position: relative;
-  top: -10px;
-  left: -38px;
+  position: absolute;
+  top: 2rem;
+  right: 100%;
 }
 
 .settingsTools {
   margin-block: 16px;
   justify-content: left;
   max-width: 512px;
-}
-
-.setting {
-  display: grid;
-  place-items: baseline;
-  margin: 16px;
-}
-
-.setting.double {
-  margin: 0 16px;
-  align-content: space-between;
-  text-align: left;
-}
-
-.setting.double > span > button,
-.setting.double > span > .small,
-.setting.double > span > input {
-  margin: 16px 0;
-}
-
-.settingInputWithButton {
-  display: flex;
-  flex-grow: 1;
-  flex-wrap: nowrap;
-  min-width: 513px;
-}
-
-.settingInputWithButton > .button.is-small {
-  min-width: fit-content;
-}
-
-.setting > .toggleWrapper {
-  display: flex;
-  cursor: pointer;
-  gap: 15px;
-  align-content: flex-start;
-  place-self: center;
-  width: 512px;
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--text-default);
-}
-.toggleWrapper label {
-  text-align: center;
-  margin-block: auto;
-}
-
-.toggleWrapper > .switch {
-  transform: scale(1.5);
-}
-
-.settingSelect.small {
-  width: clamp(150px, 10rem, 372px);
-}
-
-.settingSelect.smaller {
-  width: 66px;
-  text-indent: 11px;
-}
-
-.settingSelect > option {
-  background: var(--background);
-  height: 40px;
-  color: var(--text-secondary);
-  text-indent: 22px;
-  font-size: 16px;
-  border-radius: 10px;
 }
 
 .save {
@@ -150,18 +107,25 @@
 
 .warning {
   color: yellow;
-  font-size: 12px;
-  width: 513px;
+  font-size: 13px;
+  width: 100%;
+  max-width: 513px;
   white-space: break-spaces;
   padding-top: 4px;
 }
 
 .smallLink {
-  font-size: 12px;
-  width: 513px;
+  font-size: 13px;
+  width: 100%;
+  max-width: 513px;
   white-space: break-spaces;
   padding-top: 4px;
   cursor: pointer;
+  transition: 300ms;
+}
+
+.smallLink:hover {
+  color: var(--text-secondary);
 }
 
 a {

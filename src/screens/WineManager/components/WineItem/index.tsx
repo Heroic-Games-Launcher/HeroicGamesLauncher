@@ -6,12 +6,13 @@ import { WineVersionInfo } from 'src/types'
 import { ReactComponent as DownIcon } from 'src/assets/down-icon.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { SvgButton } from 'src/components/UI'
-import FolderOpen from '@mui/icons-material/FolderOpen'
 import ContextProvider from 'src/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
 
 import { notify, size } from 'src/helpers'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
 const { ipcRenderer } = window.require('electron')
 
@@ -34,9 +35,11 @@ const WineItem = ({
     progress: ProgressInfo
   }>({ state: 'idle', progress: { percentage: 0, avgSpeed: 0, eta: Infinity } })
 
-  ipcRenderer.on('progressOf' + version, (e, progress) => {
-    setProgress(progress)
-  })
+  if (version) {
+    ipcRenderer.on('progressOf' + version, (e, progress) => {
+      setProgress(progress)
+    })
+  }
 
   if (!version || !downsize) {
     return null
@@ -138,6 +141,16 @@ const WineItem = ({
     }
   }
 
+  const mainIconTitle = () => {
+    if (isInstalled) {
+      return `Uninstall ${version}`
+    } else if (isDownloading || unZipping) {
+      return `Cancel ${version} installation`
+    } else {
+      return `Install ${version}`
+    }
+  }
+
   return (
     <div className="wineManagerListItem">
       <span className="wineManagerTitleList">{version}</span>
@@ -148,12 +161,16 @@ const WineItem = ({
           <SvgButton
             className="material-icons settings folder"
             onClick={() => openInstallDir()}
+            title={`Open containing folder for ${version}`}
           >
-            <FolderOpen data-testid="setinstallpathbutton" />
+            <FontAwesomeIcon
+              icon={faFolderOpen}
+              data-testid="setinstallpathbutton"
+            />
           </SvgButton>
         )}
 
-        <SvgButton onClick={handleMainActionClick}>
+        <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
           {mainActionIcon()}
         </SvgButton>
       </span>

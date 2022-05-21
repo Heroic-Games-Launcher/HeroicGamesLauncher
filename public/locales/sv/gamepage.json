@@ -5,7 +5,7 @@
             "path": "Ange ny installationssökväg",
             "title": "Ändra spelets installationssökväg"
         },
-        "choose": "OK",
+        "choose": "Välj",
         "importpath": "Ange spelmapp att importera",
         "move": {
             "message": "Detta kan ta lång tid, är du säker?",
@@ -36,16 +36,16 @@
         "yes": "Ja"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Lägg till i Favoriter",
         "cancel": "Paus/Avbryt",
         "continue": "Fortsätt nedladdning",
-        "hide_game": "Hide Game",
+        "hide_game": "Dölj spel",
         "import": "Importera spel",
         "install": "Installera",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Ta bort från Favoriter",
+        "unhide_game": "Visa dolt spel igen",
         "uninstall": "Avinstallera",
-        "update": "Update"
+        "update": "Uppdatera"
     },
     "disabled": "Inaktiverad",
     "dlc": {
@@ -59,7 +59,7 @@
         "language": "Språk",
         "lastPlayed": "Senast spelat",
         "neverPlayed": "Aldrig",
-        "platform": "Select Platform Version to Install",
+        "platform": "Välj plattform för installation",
         "totalPlayed": "Speltid"
     },
     "gamecard": {
@@ -68,17 +68,20 @@
     },
     "info": {
         "canRunOffline": "Kräver uppkoppling",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "Installerad plattform",
         "path": "Installationssökväg",
         "size": "Storlek",
         "syncsaves": "Synkronisera sparfiler",
         "version": "Version"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Ledigt utrymme på enheten",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Ange installationssökväg",
+        "space-after-install": "After Install",
         "wineprefix": "Wine-prefix",
-        "wineversion": "Wine version"
+        "wineversion": "Wine-version"
     },
     "label": {
         "playing": {
@@ -92,7 +95,7 @@
     "launch": {
         "options": "Startalternativ..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Rapportera problem med spelet",
     "sdl": {
         "title": "Ange komponenter att installera"
     },
@@ -102,11 +105,12 @@
     },
     "status": {
         "clickToUpdate": "Klicka för att uppdatera",
-        "hasUpdates": "Det finns en ny version tillgänglig!",
+        "hasUpdates": "Ny version tillgänglig!",
         "installed": "Installerad",
         "installing": "Installerar",
         "moving": "Flyttar installationen, vänligen vänta",
         "notinstalled": "Detta spelet är inte installerat",
+        "processing": "Processing files, please wait",
         "reparing": "Reparerar spelet, vänligen vänta",
         "totalDownloaded": "Nedladdning",
         "updating": "Updaterar spelet"

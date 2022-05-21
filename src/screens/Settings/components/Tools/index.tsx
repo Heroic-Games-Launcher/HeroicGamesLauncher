@@ -13,9 +13,10 @@ const { ipcRenderer } = window.require('electron') as {
 interface Props {
   winePrefix: string
   wineVersion: WineInstallation
+  appName: string
 }
 
-export default function Tools({ wineVersion, winePrefix }: Props) {
+export default function Tools({ wineVersion, winePrefix, appName }: Props) {
   const { t } = useTranslation()
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
@@ -33,7 +34,8 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
       exe,
       prefix: winePrefix,
       tool,
-      wine: wineVersion.bin
+      wine: wineVersion.bin,
+      appName
     })
     setWinetricksRunning(false)
     setWinecfgRunning(false)
@@ -81,7 +83,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
         <div className="toolsWrapper">
           <button
             data-testid="wineCFG"
-            className="button is-tools"
+            className="button outline"
             style={{
               color: winecfgRunning
                 ? 'var(--download-button)'
@@ -93,7 +95,7 @@ export default function Tools({ wineVersion, winePrefix }: Props) {
           </button>
           <button
             data-testid="wineTricks"
-            className="button is-tools"
+            className="button outline"
             style={{
               color: winetricksRunning
                 ? 'var(--download-button)'

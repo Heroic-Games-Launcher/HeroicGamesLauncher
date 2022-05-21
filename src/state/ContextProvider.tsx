@@ -4,8 +4,18 @@ import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
   category: 'epic',
-  epicLibrary: [],
-  gogLibrary: [],
+  epic: {
+    library: [],
+    username: null,
+    login: async () => Promise.resolve(''),
+    logout: () => null
+  },
+  gog: {
+    library: [],
+    username: null,
+    login: async () => Promise.resolve(''),
+    logout: () => null
+  },
   wineVersions: [],
   error: false,
   filter: 'all',
@@ -28,7 +38,10 @@ const initialContext: ContextType = {
   refreshLibrary: async () => Promise.resolve(),
   refreshWineVersionInfo: async () => Promise.resolve(),
   refreshing: false,
+  refreshingInTheBackground: true,
   isRTL: false,
+  language: 'en',
+  setLanguage: () => null,
   hiddenGames: {
     list: [],
     add: () => null,
@@ -41,8 +54,16 @@ const initialContext: ContextType = {
     add: () => null,
     remove: () => null
   },
-  theme: '',
-  setTheme: () => null
+  theme: 'default',
+  setTheme: () => null,
+  zoomPercent: 100,
+  setZoomPercent: () => null,
+  contentFontFamily: "'Cabin', sans-serif",
+  setContentFontFamily: () => null,
+  actionsFontFamily: "'Rubik', sans-serif",
+  setActionsFontFamily: () => null,
+  allTilesInColor: false,
+  setAllTilesInColor: () => null
 }
 
 export default React.createContext(initialContext)

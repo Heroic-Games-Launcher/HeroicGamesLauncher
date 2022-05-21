@@ -21,9 +21,10 @@ export class LegendaryUser {
         ['Failed to login with Legendary:', res.error],
         LogPrefix.Legendary
       )
-      return
+      return { status: 'failed' }
     }
-    this.getUserInfo()
+    const userInfo = await this.getUserInfo()
+    return { status: 'done', data: userInfo }
   }
 
   public static async logout() {

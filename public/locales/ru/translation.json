@@ -1,4 +1,12 @@
 {
+    "accessibility": {
+        "actions_font_family": "Семейство шрифтов для действий (По умолчанию: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
+        "content_font_family": "Семейство шрифтов для содержания (По умолчанию: \"Cabin\")",
+        "fonts": "Fonts",
+        "title": "Доступность",
+        "zoom": "Zoom"
+    },
     "All": "Все",
     "Assets": "Ресурсы",
     "box": {
@@ -191,6 +199,9 @@
             "startInstall": "Установка началась"
         },
         "moved": "Перемещение завершено",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Удалено",
         "update": {
             "canceled": "Обновление прервано",
@@ -280,15 +291,14 @@
         "maxworkers": "Максимальное количество потоков при скачивании",
         "minimize-on-launch": "Сворачивать Heroic в трей при запуске игры",
         "offlinemode": "Запускать игру офлайн",
-        "primerun": "Включить Nvidia Prime Render",
+        "primerun": "Использовать выделенную видеокарту",
         "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",
         "runexe": {
             "message": "Перетащите файлы сюда",
             "title": "Запустить EXE в префиксе"
         },
         "savefolder": {
-            "placeholder": "Выберите точную папку для сохранений игр",
-            "title": "Переопределить папку для облачных сохранений"
+            "placeholder": "Выберите точную папку для сохранений игр"
         },
         "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",
@@ -366,7 +376,7 @@
         "manager": {
             "error": "Не удалось получить версии Wine/Proton.",
             "link": "Менеджер Wine",
-            "title": "Менеджер Wine (Beta)",
+            "title": "Менеджер Wine",
             "unzipping": "Распаковка"
         }
     }

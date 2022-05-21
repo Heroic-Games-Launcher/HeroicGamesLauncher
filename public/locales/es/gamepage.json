@@ -2,7 +2,7 @@
     "box": {
         "change": {
             "message": "Esto cambiará la ubicación de la instalación del juego, ¿estás seguro?",
-            "path": "Seleccione la ubicación de instalación",
+            "path": "Seleccione una nueva ruta de instalación",
             "title": "Modificar la ubicación de instalación para los juegos"
         },
         "choose": "Elegir",
@@ -32,18 +32,18 @@
             "message": "Este juego tiene una actualización. ¿Quieres aplicarlo ahora?",
             "title": "El juego necesita una actualización"
         },
-        "wineprefix": "Elija la carpeta con el WinePrefix",
+        "wineprefix": "Elija la carpeta con el Prefijo de Wine",
         "yes": "SÍ"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Agregar a Favoritos",
         "cancel": "Pausar/Cancelar",
         "continue": "Seguir descargando",
-        "hide_game": "Hide Game",
+        "hide_game": "Ocultar Juego",
         "import": "Importar juego",
         "install": "Instalar",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Remover de Favoritos",
+        "unhide_game": "Desocultar Juego",
         "uninstall": "Desinstalar",
         "update": "Actualizar"
     },
@@ -59,7 +59,7 @@
         "language": "Lenguaje",
         "lastPlayed": "Jugado por Última Vez",
         "neverPlayed": "Nunca",
-        "platform": "Select Platform Version to Install",
+        "platform": "Seleccionar la Version de la Plataforma para Instalar",
         "totalPlayed": "Tiempo Jugado"
     },
     "gamecard": {
@@ -68,15 +68,18 @@
     },
     "info": {
         "canRunOffline": "Requiere Online",
-        "installedPlatform": "Installed Platform",
-        "path": "Ruta de instalación",
+        "installedPlatform": "Plataforma de Instalación",
+        "path": "Instalado en",
         "size": "Tamaño",
         "syncsaves": "Sincronizar guardados",
         "version": "Versión"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Espacio Libre en el Dispositivo",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Seleccione la ruta de instalación",
+        "space-after-install": "After Install",
         "wineprefix": "Prefijo de Wine",
         "wineversion": "Version de Wine"
     },
@@ -92,7 +95,7 @@
     "launch": {
         "options": "Opciones de Arranque..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Reportar un problema ejecutando este juego",
     "sdl": {
         "title": "Elija Componentes a Instalar"
     },
@@ -107,6 +110,7 @@
         "installing": "Instalando",
         "moving": "Moviendo la instalación, por favor espere",
         "notinstalled": "Este juego no está instalado",
+        "processing": "Processing files, please wait",
         "reparing": "Reparando el juego, por favor espere",
         "totalDownloaded": "Total descargado",
         "updating": "Actualización de juego"

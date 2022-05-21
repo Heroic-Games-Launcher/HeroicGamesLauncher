@@ -1,4 +1,12 @@
 {
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
+        "title": "Accessibility",
+        "zoom": "Zoom"
+    },
     "All": "அனைத்தும்",
     "Assets": "Assets",
     "box": {
@@ -191,6 +199,9 @@
             "startInstall": "Installation Started"
         },
         "moved": "நகர்தல் முடிவடைந்தது",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "நிறுவல் நீக்கப்பட்டது",
         "update": {
             "canceled": "புதுப்பிப்பு ரத்து செய்யப்பட்டது",
@@ -287,8 +298,7 @@
             "title": "முன்னொட்டில் EXE ஐ இயக்கு"
         },
         "savefolder": {
-            "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு",
-            "title": "மேகக்கணி ஒத்திசைவு கோப்புறையை புறக்கணித்து மாற்று"
+            "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
@@ -366,7 +376,7 @@
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
+            "title": "Wine Manager",
             "unzipping": "Unzipping"
         }
     }

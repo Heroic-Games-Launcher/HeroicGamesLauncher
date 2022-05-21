@@ -23,7 +23,7 @@
 }
 
 .helpLink:hover {
-  color: var(--text-hover);
+  color: var(--accent-overlay);
 }
 
 .helpLink > svg {

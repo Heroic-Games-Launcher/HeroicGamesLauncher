@@ -1,40 +1,40 @@
-import React, { ChangeEventHandler } from 'react'
+import classNames from 'classnames'
+import React, { ChangeEventHandler, useContext } from 'react'
+import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
 
 interface Props {
-  dataTestId?: string
+  htmlId: string
   disabled?: boolean
   handleChange: ChangeEventHandler<HTMLInputElement>
   value: boolean
   title: string
+  extraClass?: string
 }
 
 export default function ToggleSwitch(props: Props) {
-  const {
-    handleChange,
-    value,
-    disabled,
-    title,
-    dataTestId = 'toggleSwitch'
-  } = props
-  // TODO fixes errors in the console, but the props may not be necessary at all
-  const checkmarkProps = {
-    value,
-    title,
-    datatestid: dataTestId
-  }
+  const { handleChange, value, disabled, title, htmlId, extraClass } = props
+  const { isRTL } = useContext(ContextProvider)
+
   return (
-    <div className="switch" aria-label={title}>
+    <>
       <input
-        data-testid={dataTestId}
+        id={htmlId}
         disabled={disabled}
         checked={value}
         type="checkbox"
         onChange={handleChange}
         aria-label={title}
+        className="hiddenCheckbox"
       />
-
-      <span {...checkmarkProps} className="checkmark" />
-    </div>
+      <label
+        className={classNames(`toggleSwitchWrapper Field ${extraClass}`, {
+          isRTL
+        })}
+        htmlFor={htmlId}
+      >
+        {title}
+      </label>
+    </>
   )
 }

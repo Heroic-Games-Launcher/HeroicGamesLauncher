@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState, CSSProperties } from 'react'
+import React, { useContext, CSSProperties, useMemo } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
@@ -66,7 +66,8 @@ const GameCard = ({
     handleGameStatus,
     platform,
     hiddenGames,
-    favouriteGames
+    favouriteGames,
+    allTilesInColor
   } = useContext(ContextProvider)
 
   const isWin = platform === 'win32'
@@ -85,10 +86,12 @@ const GameCard = ({
 
   const { status, folder } = gameStatus || {}
   const isInstalling = status === 'installing' || status === 'updating'
+  const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
-  const haveStatus = isMoving || isReparing || isInstalling || hasUpdate
+  const haveStatus =
+    isMoving || isReparing || isInstalling || hasUpdate || isUpdating
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -116,6 +119,9 @@ const GameCard = ({
   }
 
   function getStatus() {
+    if (isUpdating) {
+      return t('status.updating') + ` ${percent}`
+    }
     if (isInstalling) {
       return t('status.installing') + ` ${percent}`
     }
@@ -139,14 +145,20 @@ const GameCard = ({
   const renderIcon = () => {
     if (isPlaying) {
       return (
-        <SvgButton onClick={async () => handlePlay(runner)}>
+        <SvgButton
+          onClick={async () => handlePlay(runner)}
+          title={`${t('label.playing.stop')} (${title})`}
+        >
           <StopIconAlt className="cancelIcon" />
         </SvgButton>
       )
     }
     if (isInstalling) {
       return (
-        <SvgButton onClick={async () => handlePlay(runner)}>
+        <SvgButton
+          onClick={async () => handlePlay(runner)}
+          title={`${t('button.cancel')} (${title})`}
+        >
           <StopIcon />
         </SvgButton>
       )
@@ -156,6 +168,7 @@ const GameCard = ({
         <SvgButton
           className="playButton"
           onClick={async () => handlePlay(runner)}
+          title={`${t('label.playing.start')} (${title})`}
         >
           <PlayIcon className="playIcon" />
         </SvgButton>
@@ -164,13 +177,19 @@ const GameCard = ({
     if (!isInstalled) {
       if (hasDownloads) {
         return (
-          <SvgButton onClick={(e) => e.preventDefault()}>
+          <SvgButton
+            onClick={(e) => e.preventDefault()}
+            title={`${t('button.cancel')} (${title})`}
+          >
             <DownIcon className="iconDisabled" />
           </SvgButton>
         )
       }
       return (
-        <SvgButton onClick={() => buttonClick()}>
+        <SvgButton
+          onClick={() => buttonClick()}
+          title={`${t('button.install')} (${title})`}
+        >
           <DownIcon className="downIcon" />
         </SvgButton>
       )
@@ -178,23 +197,16 @@ const GameCard = ({
     return null
   }
 
-  const [isHiddenGame, setIsHiddenGame] = useState(false)
-  const [isFavouriteGame, setIsFavouriteGame] = useState(false)
-
-  useEffect(() => {
-    const found = !!hiddenGames.list.find(
+  const isHiddenGame = useMemo(() => {
+    return !!hiddenGames.list.find(
       (hiddenGame) => hiddenGame.appName === appName
     )
-
-    setIsHiddenGame(found)
   }, [hiddenGames, appName])
 
-  useEffect(() => {
-    const found = !!favouriteGames.list.find(
+  const isFavouriteGame = useMemo(() => {
+    return !!favouriteGames.list.find(
       (favouriteGame) => favouriteGame.appName === appName
     )
-
-    setIsFavouriteGame(found)
   }, [favouriteGames, appName])
 
   const isMac = ['osx', 'Mac']
@@ -275,8 +287,12 @@ const GameCard = ({
 
   const instClass = isInstalled ? 'installed' : ''
   const hiddenClass = isHiddenGame ? 'hidden' : ''
-  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
-  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
+  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''} ${
+    allTilesInColor && 'allTilesInColor'
+  }`
+  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''} ${
+    allTilesInColor && 'allTilesInColor'
+  }`
 
   const wrapperClasses = `${
     grid ? 'gameCard' : 'gameListItem'
@@ -311,6 +327,7 @@ const GameCard = ({
                 {isInstalled && isGame && (
                   <>
                     <SvgButton
+                      title={`${t('submenu.settings')} (${title})`}
                       onClick={() =>
                         navigate(pathname, {
                           state: {
@@ -354,7 +371,7 @@ const GameCard = ({
       return sendKill(appName, runner)
     }
     if (isInstalled) {
-      return launch({ appName, t, runner })
+      return launch({ appName, t, runner, hasUpdate })
     }
     return
   }

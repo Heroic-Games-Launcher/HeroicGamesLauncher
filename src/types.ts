@@ -49,8 +49,6 @@ export interface AppSettings {
 
 export interface ContextType {
   category: string
-  epicLibrary: GameInfo[]
-  gogLibrary: GameInfo[]
   wineVersions: WineVersionInfo[]
   recentGames: GameInfo[]
   error: boolean
@@ -59,6 +57,8 @@ export interface ContextType {
   filterPlatform: string
   gameUpdates: string[]
   isRTL: boolean
+  language: string
+  setLanguage: (newLanguage: string) => void
   handleCategory: (value: string) => void
   handleFilter: (value: string) => void
   handlePlatformFilter: (value: string) => void
@@ -74,6 +74,7 @@ export interface ContextType {
   refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
+  refreshingInTheBackground: boolean
   hiddenGames: {
     list: HiddenGame[]
     add: (appNameToHide: string, appTitle: string) => void
@@ -88,6 +89,26 @@ export interface ContextType {
   setShowHidden: (value: boolean) => void
   theme: string
   setTheme: (themeName: string) => void
+  zoomPercent: number
+  setZoomPercent: (newZoomPercent: number) => void
+  contentFontFamily: string
+  setContentFontFamily: (newFontFamily: string) => void
+  actionsFontFamily: string
+  setActionsFontFamily: (newFontFamily: string) => void
+  epic: {
+    library: GameInfo[]
+    username: string | null
+    login: (sid: string) => Promise<string>
+    logout: () => void
+  }
+  gog: {
+    library: GameInfo[]
+    username: string | null
+    login: (token: string) => Promise<string>
+    logout: () => void
+  }
+  allTilesInColor: boolean
+  setAllTilesInColor: (value: boolean) => void
 }
 
 export type LibraryTopSectionOptions =

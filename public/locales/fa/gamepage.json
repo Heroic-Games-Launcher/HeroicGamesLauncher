@@ -36,14 +36,14 @@
         "yes": "بله"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "افزودن به مورد علاقه ها",
         "cancel": "توقف/انصراف",
         "continue": "ادامه بارگیری",
-        "hide_game": "Hide Game",
+        "hide_game": "مخفی کردن بازی",
         "import": "وارد کردن بازی",
         "install": "نصب",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "حذف کردن از مورد علاقه ها",
+        "unhide_game": "نشان دادن بازی",
         "uninstall": "حذف",
         "update": "بهروزرسانی"
     },
@@ -59,7 +59,7 @@
         "language": "زبان",
         "lastPlayed": "آخرین اجرا",
         "neverPlayed": "هرگز",
-        "platform": "Select Platform Version to Install",
+        "platform": "انتخاب نسخه پلتفرم برای نصب",
         "totalPlayed": "زمان بازی"
     },
     "gamecard": {
@@ -68,15 +68,18 @@
     },
     "info": {
         "canRunOffline": "نیازمندی به آنلاین بودن",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "پلتفرم های نصب شده",
         "path": "مسیر نصب",
         "size": "اندازه",
         "syncsaves": "همگام سازی ذخیره ها",
         "version": "نسخه"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "فضای باقی مانده در دستگاه",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "انتخاب محل نصب",
+        "space-after-install": "After Install",
         "wineprefix": "Wine Prefix",
         "wineversion": "نسخه Wine"
     },
@@ -92,7 +95,7 @@
     "launch": {
         "options": "گزینه های اجرا..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "گزارش مشکل اجرای این بازی",
     "sdl": {
         "title": "انتخاب محتواها برای نصب"
     },
@@ -107,6 +110,7 @@
         "installing": "در حال نصب",
         "moving": "در حال انتقال نصب، لطفا صبر کنید",
         "notinstalled": "این بازی نصب نشده است",
+        "processing": "Processing files, please wait",
         "reparing": "در حال تعمیر بازی، لطفا صبر کنید",
         "totalDownloaded": "حجم کل دانلود شده",
         "updating": "در حال به روزرسانی بازی"

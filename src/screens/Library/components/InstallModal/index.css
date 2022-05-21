@@ -14,25 +14,6 @@
   margin-left: 16px;
 }
 
-.InstallModal__control {
-  margin: 16px 0;
-}
-
-.InstallModal__controlLabel {
-  margin: 12px 0;
-  color: var(--text-secondary);
-}
-
-.InstallModal__control .FormControl {
-  width: 100%;
-}
-
-.InstallModal__controlInput {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .InstallModal__sizes {
   display: inline-grid;
   grid-gap: 24px;
@@ -90,4 +71,11 @@
   max-width: 300px;
   margin: 16px calc(16px + 8px + 13px);
   color: var(--text-default);
+}
+
+.diskSpaceInfo {
+  font-size: 14px;
+  align-self: flex-start;
+  padding: 4px 0 4px 8px;
+  color: var(--text-secondary);
 }

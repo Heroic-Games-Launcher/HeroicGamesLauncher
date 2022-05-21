@@ -75,8 +75,11 @@
         "version": "Versió"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Selecciona la ruta d'instal·lació",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": ""
     },
@@ -107,6 +110,7 @@
         "installing": "S'està instal·lant",
         "moving": "S'està movent la instal·lació, espereu",
         "notinstalled": "Aquest joc no està instal·lat",
+        "processing": "Processing files, please wait",
         "reparing": "S'està reparant el joc, espereu",
         "totalDownloaded": "Total baixat",
         "updating": "S'està actualitzant el joc"

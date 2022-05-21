@@ -4,12 +4,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Path, SyncType } from 'src/types'
 import { fixSaveFolder, getGameInfo, syncSaves } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
-import classNames from 'classnames'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
-import { InfoBox, ToggleSwitch, SvgButton } from 'src/components/UI'
+import {
+  InfoBox,
+  ToggleSwitch,
+  SelectField,
+  TextInputWithIconField
+} from 'src/components/UI'
 
 import Backspace from '@mui/icons-material/Backspace'
 import ContextProvider from 'src/state/ContextProvider'
@@ -37,7 +41,7 @@ export default function SyncSaves({
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('Download' as SyncType)
   const { t } = useTranslation()
-  const { platform, isRTL } = useContext(ContextProvider)
+  const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
   useEffect(() => {
@@ -88,24 +92,30 @@ export default function SyncSaves({
 
   return (
     <>
-      <span data-testid="syncSettings" className="setting">
-        <span className={classNames('settingText', { isRTL: isRTL })}>
-          {t('setting.savefolder.title')}
-        </span>
-        <span>
-          <input
-            data-testid="inputSavePath"
-            type="text"
-            placeholder={t('setting.savefolder.placeholder')}
-            className="settingSelect"
-            value={savesPath}
-            disabled={isSyncing}
-            onChange={(event) => setSavesPath(event.target.value)}
-          />
-          {!isLinked ? (
-            <SvgButton
-              className="material-icons settings folder"
-              onClick={async () =>
+      <h3 className="settingSubheader">{t('settings.navbar.sync')}</h3>
+
+      <TextInputWithIconField
+        htmlId="inputSavePath"
+        placeholder={t('setting.savefolder.placeholder')}
+        value={savesPath}
+        disabled={isSyncing}
+        onChange={(event) => setSavesPath(event.target.value)}
+        icon={
+          !isLinked ? (
+            <CreateNewFolder
+              data-testid="selectSavePath"
+              style={{ color: '#B0ABB6' }}
+            />
+          ) : (
+            <Backspace
+              data-testid="removeSavePath"
+              style={{ color: '#B0ABB6' }}
+            />
+          )
+        }
+        onIconClick={
+          !isLinked
+            ? async () =>
                 ipcRenderer
                   .invoke('openDialog', {
                     buttonLabel: t('box.sync.button'),
@@ -113,48 +123,18 @@ export default function SyncSaves({
                     title: t('box.sync.title')
                   })
                   .then(({ path }: Path) => setSavesPath(path ? `${path}` : ''))
-              }
-            >
-              <CreateNewFolder
-                data-testid="selectSavePath"
-                style={{ color: '#B0ABB6' }}
-              />
-            </SvgButton>
-          ) : (
-            <SvgButton
-              className="material-icons settings folder"
-              onClick={() => setSavesPath('')}
-            >
-              <Backspace
-                data-testid="removeSavePath"
-                style={{ color: '#B0ABB6' }}
-              />
-            </SvgButton>
-          )}
-        </span>
-      </span>
-      <span className="setting">
-        <span className={classNames('settingText', { isRTL: isRTL })}>
-          {t('setting.manualsync.title')}
-        </span>
-        <span
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '513px'
-          }}
-        >
-          <select
-            data-testid="selectSyncType"
-            onChange={(event) => setSyncType(event.target.value as SyncType)}
-            value={syncType}
-            disabled={!savesPath.length}
-            className="settingSelect small"
-          >
-            {syncTypes.map((name: SyncType) => (
-              <option key={name}>{name}</option>
-            ))}
-          </select>
+            : () => setSavesPath('')
+        }
+      />
+
+      <SelectField
+        label={t('setting.manualsync.title')}
+        htmlId="selectSyncType"
+        onChange={(event) => setSyncType(event.target.value as SyncType)}
+        value={syncType}
+        disabled={!savesPath.length}
+        // style={{ marginRight: '12px' }}
+        afterSelect={
           <button
             data-testid="setSync"
             onClick={async () => handleSync()}
@@ -169,19 +149,21 @@ export default function SyncSaves({
                 : t('setting.manualsync.sync')
             }`}
           </button>
-        </span>
-      </span>
-      <span className="setting">
-        <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-          <ToggleSwitch
-            value={autoSyncSaves}
-            disabled={!savesPath.length}
-            handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
-            title={t('setting.autosync')}
-          />
-          <span>{t('setting.autosync')}</span>
-        </label>
-      </span>
+        }
+      >
+        {syncTypes.map((name: SyncType) => (
+          <option key={name}>{name}</option>
+        ))}
+      </SelectField>
+
+      <ToggleSwitch
+        htmlId="autosync"
+        value={autoSyncSaves}
+        disabled={!savesPath.length}
+        handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
+        title={t('setting.autosync')}
+      />
+
       <InfoBox text="infobox.help">
         <ul>
           <li>{t('help.sync.part1')}</li>

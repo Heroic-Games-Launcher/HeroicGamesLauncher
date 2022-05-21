@@ -92,6 +92,37 @@ function isOnline() {
 
 export const getFileSize = fileSize.partial({ base: 2 })
 
+export function getWineFromProton(
+  wine: string,
+  isProton: boolean,
+  prefix: string
+) {
+  let winePrefix = prefix.replace('~', userHome)
+
+  if (!isProton) {
+    return { winePrefix, wineBin: wine }
+  }
+
+  const newProtonWinePath = wine.replace(
+    new RegExp('proton' + '$'),
+    'files/bin/wine64'
+  )
+  const oldProtonWinePath = wine.replace(
+    new RegExp('proton' + '$'),
+    'dist/bin/wine64'
+  )
+
+  const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
+    ? newProtonWinePath
+    : oldProtonWinePath
+
+  const wineBin = isProton ? protonWinePath : wine
+  const protonPrefix = winePrefix.replaceAll("'", '')
+  winePrefix = `${protonPrefix}/pfx`
+
+  return { winePrefix, wineBin }
+}
+
 async function isEpicServiceOffline(
   type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'
 ) {
@@ -161,7 +192,7 @@ export const getGogdlVersion = async () => {
 export const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Oden'
+  const STABLE_VERSION_NAME = 'Brook'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -315,6 +346,7 @@ function clearCache() {
   installStore.clear()
   libraryStore.clear()
   gameInfoStore.clear()
+  runLegendaryCommand(['cleanup'])
 }
 
 function resetHeroic() {

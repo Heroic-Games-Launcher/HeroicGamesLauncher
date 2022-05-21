@@ -1,4 +1,12 @@
 {
+    "accessibility": {
+        "actions_font_family": "操作字族 (默认: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
+        "content_font_family": "内容字族 (默认: \"Cabin\")",
+        "fonts": "Fonts",
+        "title": "辅助",
+        "zoom": "缩放"
+    },
     "All": "全部",
     "Assets": "素材",
     "box": {
@@ -6,7 +14,7 @@
             "message": "Heroic 缓存已清理。",
             "title": "缓存已清理"
         },
-        "choose": "请选择",
+        "choose": "选择",
         "choose-egs-prefix": "选择已安装 Epic 的前置",
         "choose-gogdl-binary": "选择 GOGDL 二进制文件 （需要重启）",
         "choose-legendary-binary": "选择 Legendary 二进制文件",
@@ -37,7 +45,7 @@
             "title": "错误",
             "update": {
                 "message": "更新有问题，请检查日志或稍后再试！",
-                "title": "Update Error"
+                "title": "更新错误"
             },
             "wine-not-found": {
                 "message": "没有选中 Wine 版本。检查游戏设置！",
@@ -50,7 +58,7 @@
                 "detail": "你想在后台下载更新吗？",
                 "message": "有新版本可用！",
                 "message-finished": "你想立即重启 Heroic 吗？",
-                "title": "Heroic Games Launcher",
+                "title": "Heroic 游戏启动器",
                 "title-finished": "更新已完成"
             }
         },
@@ -99,7 +107,7 @@
         "yes": "是"
     },
     "button": {
-        "go_to_library": "前往库",
+        "go_to_library": "前往仓库",
         "login": "登录",
         "sync": "同步",
         "syncing": "正在同步",
@@ -110,7 +118,7 @@
         "offline-notification-title": "离线"
     },
     "Epic Games": "Epic 游戏",
-    "favourites": "收藏",
+    "favourites": "最爱",
     "globalSettings": "全局设置",
     "GOG": "GOG",
     "gog-store": "GOG 商店",
@@ -143,7 +151,7 @@
     },
     "info": {
         "heroic": {
-            "version": "Heroic Version"
+            "version": "Heroic 版本"
         },
         "settings": "设置会自动保存"
     },
@@ -191,6 +199,9 @@
             "startInstall": "安装已开始"
         },
         "moved": "移动完成",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "已卸载",
         "update": {
             "canceled": "已取消更新",
@@ -235,7 +246,7 @@
         "audiofix": "音频修复（Pulse Audio延迟）",
         "autodxvk": "在前置自动安装并更新 DXVK",
         "autosync": "自动同步存档",
-        "autovkd3d": "遇到前缀时自动安装/更新 VKD3D",
+        "autovkd3d": "自动在前置中安装/更新 VKD3D",
         "change-target-exe": "选择要运行的替代 EXE",
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
@@ -253,7 +264,7 @@
         "language": "选择应用语言",
         "library_top_option": {
             "disabled": "已禁用",
-            "favourites": "喜欢的游戏",
+            "favourites": "最爱的游戏",
             "recently_played": "最近玩过的游戏"
         },
         "library_top_section": "库的顶部",
@@ -280,15 +291,14 @@
         "maxworkers": "下载时的最大线程数量",
         "minimize-on-launch": "游戏启动后最小化 Heroic",
         "offlinemode": "离线运行游戏",
-        "primerun": "启用英伟达 Prime 渲染",
+        "primerun": "使用独立显卡",
         "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
         "runexe": {
             "message": "将文件拖放到此处",
             "title": "在前置上运行 EXE"
         },
         "savefolder": {
-            "placeholder": "选择存档的保存位置",
-            "title": "覆盖云端存档文件夹"
+            "placeholder": "选择存档的保存位置"
         },
         "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",
@@ -309,7 +319,7 @@
         "navbar": {
             "advanced": "高级",
             "general": "常规",
-            "log": "Log",
+            "log": "日志",
             "other": "其它",
             "sync": "存档-同步"
         },
@@ -331,7 +341,7 @@
     "toolbox": {
         "settings": {
             "default-wineprefix": "选择新配置的默认前置文件夹",
-            "wineprefix": "为新的 WinePrefix选择一个文件夹"
+            "wineprefix": "为新的 Wine 前置选择一个文件夹"
         }
     },
     "tooltip": {
@@ -366,7 +376,7 @@
         "manager": {
             "error": "此次无法获取 Wine/Proton 版本。",
             "link": "Wine 管理器",
-            "title": "Wine 管理器 (测试版)",
+            "title": "Wine 管理器",
             "unzipping": "解压缩"
         }
     }

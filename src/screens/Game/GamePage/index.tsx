@@ -17,7 +17,7 @@ import {
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import UpdateComponent from 'src/components/UI/UpdateComponent'
+import { UpdateComponent, SelectField } from 'src/components/UI'
 
 import { updateGame } from 'src/helpers'
 
@@ -45,18 +45,13 @@ const { ipcRenderer } = window.require('electron') as {
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as { appName: string }
   const { t } = useTranslation('gamepage')
+  const { t: t2 } = useTranslation()
 
   const [tabToShow, setTabToShow] = useState('infoTab')
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const {
-    libraryStatus,
-    handleGameStatus,
-    epicLibrary,
-    gogLibrary,
-    gameUpdates,
-    platform
-  } = useContext(ContextProvider)
+  const { libraryStatus, handleGameStatus, epic, gog, gameUpdates, platform } =
+    useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
@@ -135,7 +130,7 @@ export default function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName, epicLibrary, gogLibrary])
+  }, [isInstalling, isPlaying, appName, epic, gog])
 
   async function handleUpdate() {
     await handleGameStatus({
@@ -221,7 +216,11 @@ export default function GamePage(): JSX.Element | null {
         {title ? (
           <>
             <GamePicture art_square={art_square} store={runner} />
-            <NavLink className="backButton" to="/">
+            <NavLink
+              className="backButton"
+              to="/"
+              title={t2('webview.controls.back', 'Go Back')}
+            >
               <ArrowCircleLeftIcon />
             </NavLink>
             <div className="store-icon">
@@ -247,7 +246,7 @@ export default function GamePage(): JSX.Element | null {
                   </nav>
 
                   <div className="gameInfo">
-                    <div className="title">{title}</div>
+                    <h1 className="title">{title}</h1>
                     <div className="infoWrapper">
                       <div className="developer">{developer}</div>
                       {!is_game && (
@@ -319,19 +318,20 @@ export default function GamePage(): JSX.Element | null {
                     </div>
                     <TimeContainer game={appName} />
                     <div className="gameStatus">
-                      {isInstalling && (
-                        <progress
-                          className="installProgress"
-                          max={100}
-                          value={getProgress(progress)}
-                        />
-                      )}
+                      {isInstalling ||
+                        (isUpdating && (
+                          <progress
+                            className="installProgress"
+                            max={100}
+                            value={getProgress(progress)}
+                          />
+                        ))}
                       <p
                         style={{
                           color:
                             is_installed || isInstalling
-                              ? '#0BD58C'
-                              : '#BD0A0A',
+                              ? 'var(--success)'
+                              : 'var(--danger)',
                           fontStyle: 'italic'
                         }}
                       >
@@ -339,24 +339,20 @@ export default function GamePage(): JSX.Element | null {
                       </p>
                     </div>
                     {is_installed && Boolean(launchOptions?.length) && (
-                      <>
-                        <select
-                          onChange={(event) =>
-                            setLaunchArguments(event.target.value)
-                          }
-                          value={launchArguments}
-                          className="settingSelect"
-                        >
-                          <option value="">
-                            {t('launch.options', 'Launch Options...')}
+                      <SelectField
+                        htmlId="launch_options"
+                        onChange={(event) =>
+                          setLaunchArguments(event.target.value)
+                        }
+                        value={launchArguments}
+                        prompt={t('launch.options', 'Launch Options...')}
+                      >
+                        {launchOptions.map(({ name, parameters }) => (
+                          <option key={parameters} value={parameters}>
+                            {name}
                           </option>
-                          {launchOptions.map(({ name, parameters }) => (
-                            <option key={parameters} value={parameters}>
-                              {name}
-                            </option>
-                          ))}
-                        </select>
-                      </>
+                        ))}
+                      </SelectField>
                     )}
                     <div className="buttonsWrapper">
                       {is_installed && is_game && (
@@ -400,25 +396,27 @@ export default function GamePage(): JSX.Element | null {
                         </button>
                       )}
                     </div>
-                    <NavLink
-                      to={`/settings/${appName}/log`}
-                      state={{
-                        fromGameCard: false,
-                        runner,
-                        isLinuxNative: isNative,
-                        isMacNative: isNative,
-                        hasCloudSave: cloud_save_enabled
-                      }}
-                      className="link is-text is-link reportProblem"
-                    >
-                      <>
-                        {<FontAwesomeIcon icon={faTriangleExclamation} />}
-                        {t(
-                          'report_problem',
-                          'Report a problem running this game'
-                        )}
-                      </>
-                    </NavLink>
+                    {is_installed && (
+                      <NavLink
+                        to={`/settings/${appName}/log`}
+                        state={{
+                          fromGameCard: false,
+                          runner,
+                          isLinuxNative: isNative,
+                          isMacNative: isNative,
+                          hasCloudSave: cloud_save_enabled
+                        }}
+                        className="clickable reportProblem"
+                      >
+                        <>
+                          {<FontAwesomeIcon icon={faTriangleExclamation} />}
+                          {t(
+                            'report_problem',
+                            'Report a problem running this game'
+                          )}
+                        </>
+                      </NavLink>
+                    )}
                   </div>
 
                   <GameSubMenu
@@ -470,11 +468,19 @@ export default function GamePage(): JSX.Element | null {
       return `${t('status.moving')}`
     }
 
-    const currentProgress = `${
-      percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
-    }`
+    const currentProgress =
+      getProgress(progress) >= 99
+        ? ''
+        : `${
+            percent && bytes && eta
+              ? `${percent} [${bytes}] | ETA: ${eta}`
+              : '...'
+          }`
 
     if (isUpdating && is_installed) {
+      if (!currentProgress) {
+        return `${t('status.processing', 'Processing files, please wait')}...`
+      }
       if (eta && eta.includes('verifying')) {
         return `${t('status.reparing')}: ${percent} [${bytes}]`
       }
@@ -482,6 +488,9 @@ export default function GamePage(): JSX.Element | null {
     }
 
     if (!isUpdating && isInstalling) {
+      if (!currentProgress) {
+        return `${t('status.processing', 'Processing files, please wait')}...`
+      }
       return `${t('status.installing')} ${currentProgress}`
     }
 
@@ -535,7 +544,13 @@ export default function GamePage(): JSX.Element | null {
         await syncSaves(savesPath, appName)
         setIsSyncing(false)
       }
-      await launch({ appName, t, launchArguments, runner: gameInfo.runner })
+      await launch({
+        appName,
+        t,
+        launchArguments,
+        runner: gameInfo.runner,
+        hasUpdate
+      })
 
       if (autoSyncSaves) {
         setIsSyncing(true)

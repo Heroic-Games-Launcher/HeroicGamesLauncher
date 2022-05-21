@@ -75,8 +75,11 @@
         "version": "Versio"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
+        "invalid-folder": "Error: Invalid Path",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Valitse asennuspolku",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": ""
     },
@@ -107,6 +110,7 @@
         "installing": "Asennetaan",
         "moving": "Siirretään asennusta, odota",
         "notinstalled": "Tätä peliä ei ole asennettu",
+        "processing": "Processing files, please wait",
         "reparing": "Korjataan peliä, odota",
         "totalDownloaded": "Ladattu yhteensä",
         "updating": "Päivitetään peliä"
