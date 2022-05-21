@@ -296,7 +296,11 @@ export async function verifyWinePrefix(
   }
 
   // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
-  const haveToWait = !existsSync(join(winePrefix, 'system.reg'))
+  const systemRegPath =
+    wineVersion.type === 'proton'
+      ? join(winePrefix, 'pfx', 'system.reg')
+      : join(winePrefix, 'system.reg')
+  const haveToWait = !existsSync(systemRegPath)
 
   return game
     .runWineCommand('wineboot --init', '', haveToWait)
