@@ -50,6 +50,7 @@ interface Props {
   useGameMode: boolean
   useSteamRuntime: boolean
   toggleUseSteamRuntime: () => void
+  isProton: boolean
 }
 
 export default function OtherSettings({
@@ -84,7 +85,8 @@ export default function OtherSettings({
   isMacNative,
   isLinuxNative,
   toggleUseSteamRuntime,
-  useSteamRuntime
+  useSteamRuntime,
+  isProton
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -96,6 +98,7 @@ export default function OtherSettings({
   const isLinux = platform === 'linux'
   const supportsShortcuts = isWin || isLinux
   const shouldRenderFpsOption = !isMacNative && !isWin && !isLinuxNative
+  const showSteamRuntime = isLinuxNative || isProton
 
   const info = (
     <InfoBox text="infobox.help">
@@ -184,7 +187,7 @@ export default function OtherSettings({
             handleChange={toggleMangoHud}
             title={t('setting.mangohud')}
           />
-          {isLinuxNative && (
+          {showSteamRuntime && (
             <ToggleSwitch
               htmlId="steamruntime"
               value={useSteamRuntime}

@@ -437,6 +437,7 @@ function Settings() {
               toggleUseSteamRuntime={toggleUseSteamRuntime}
               isMacNative={isMacNative}
               isLinuxNative={isLinuxNative}
+              isProton={wineVersion.type === 'proton'}
             />
           )}
           {isSyncSettings && (

@@ -609,7 +609,8 @@ class LegendaryGame extends Game {
         steamRuntime
       )
 
-      const { wineVersion, winePrefix, launcherArgs } = gameSettings
+      const { wineVersion, winePrefix, launcherArgs, useSteamRuntime } =
+        gameSettings
 
       // Fix for people with old config
       const wineBin =
@@ -620,8 +621,9 @@ class LegendaryGame extends Game {
       let wineFlag = ['--wine', wineBin]
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        const runtime = getSteamRuntime('soldier')
-        if (runtime.path) {
+        const runtime = useSteamRuntime ? getSteamRuntime('soldier') : null
+
+        if (runtime?.path) {
           const runWithRuntime = `${runtime.path} -- '${wineVersion.bin}' waitforexitandrun`
           wineFlag = ['--no-wine', '--wrapper', runWithRuntime]
           winePrefixFlag = []
