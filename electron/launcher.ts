@@ -263,7 +263,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
     ret.STEAM_COMPAT_APP_ID = '0'
     ret.SteamAppId = ret.STEAM_COMPAT_APP_ID
-    // This sets the name of the log file given when settings PROTON_LOG=1
+    // This sets the name of the log file given when setting PROTON_LOG=1
     ret.SteamGameId = `heroic-${gameId}`
     ret.PROTON_LOG_DIR = flatPakHome
   }
