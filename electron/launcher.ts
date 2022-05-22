@@ -189,7 +189,8 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     }
   }
 
-  const envVars = setupWineEnvVars(gameSettings)
+  const installFolderName = (await game.getGameInfo()).folder_name
+  const envVars = setupWineEnvVars(gameSettings, installFolderName)
 
   return { success: true, envVars: envVars }
 }
@@ -227,9 +228,10 @@ function setupEnvVars(gameSettings: GameSettings) {
 /**
  * Maps Wine-related settings to environment variables
  * @param gameSettings The GameSettings to get the environment variables for
+ * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId`
  * @returns A Record that can be passed to execAsync/spawn
  */
-function setupWineEnvVars(gameSettings: GameSettings) {
+function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   const { wineVersion } = gameSettings
 
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
@@ -261,7 +263,9 @@ function setupWineEnvVars(gameSettings: GameSettings) {
     // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
     ret.STEAM_COMPAT_APP_ID = '0'
     ret.SteamAppId = ret.STEAM_COMPAT_APP_ID
-    ret.SteamGameId = ret.STEAM_COMPAT_APP_ID
+    // This sets the name of the log file given when settings PROTON_LOG=1
+    ret.SteamGameId = `heroic-${gameId}`
+    // ret.PROTON_LOG_DIR = flatPakHome
   }
   return ret
 }
