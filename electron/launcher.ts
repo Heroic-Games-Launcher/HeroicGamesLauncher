@@ -209,6 +209,17 @@ function setupEnvVars(gameSettings: GameSettings) {
   if (gameSettings.audioFix) {
     ret.PULSE_LATENCY_MSEC = '60'
   }
+  if (gameSettings.otherOptions) {
+    gameSettings.otherOptions
+      .split(' ')
+      .filter((val) => val.indexOf('=') !== -1)
+      .forEach((envKeyAndVar) => {
+        const keyAndValueSplit = envKeyAndVar.split('=')
+        const key = keyAndValueSplit.shift()
+        const value = keyAndValueSplit.join('=')
+        ret[key] = value
+      })
+  }
 
   return ret
 }
@@ -250,17 +261,6 @@ function setupWineEnvVars(gameSettings: GameSettings) {
     // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
     ret.STEAM_COMPAT_APP_ID = '0'
     ret.SteamAppId = ret.STEAM_COMPAT_APP_ID
-  }
-  if (gameSettings.otherOptions) {
-    gameSettings.otherOptions
-      .split(' ')
-      .filter((val) => val.indexOf('=') !== -1)
-      .forEach((envKeyAndVar) => {
-        const keyAndValueSplit = envKeyAndVar.split('=')
-        const key = keyAndValueSplit.shift()
-        const value = keyAndValueSplit.join('=')
-        ret[key] = value
-      })
   }
   return ret
 }
