@@ -247,12 +247,15 @@ function setupWineEnvVars(gameSettings: GameSettings) {
     ret.VKD3D_CONFIG = 'upload_hvv'
   }
   if (gameSettings.otherOptions) {
-    gameSettings.otherOptions.split(' ').forEach((envKeyAndVar) => {
-      const keyAndValueSplit = envKeyAndVar.split('=')
-      const key = keyAndValueSplit.shift()
-      const value = keyAndValueSplit.join('=')
-      ret[key] = value
-    })
+    gameSettings.otherOptions
+      .split(' ')
+      .filter((val) => val.indexOf('=') !== -1)
+      .forEach((envKeyAndVar) => {
+        const keyAndValueSplit = envKeyAndVar.split('=')
+        const key = keyAndValueSplit.shift()
+        const value = keyAndValueSplit.join('=')
+        ret[key] = value
+      })
   }
   return ret
 }
@@ -264,6 +267,15 @@ function setupWrappers(
   steamRuntime: string
 ): Array<string> {
   const wrappers = Array<string>()
+  // Wrappers could be specified in the environment variable section as well
+  if (gameSettings.otherOptions) {
+    gameSettings.otherOptions
+      .split(' ')
+      .filter((val) => val.indexOf('=') === -1)
+      .forEach((val) => {
+        wrappers.push(val)
+      })
+  }
   if (gameSettings.showMangohud) {
     // Mangohud needs some arguments in addition to the command, so we have to split here
     wrappers.push(...mangoHudBin.split(' '))
