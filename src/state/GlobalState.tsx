@@ -237,7 +237,8 @@ export class GlobalState extends PureComponent<Props> {
     this.handleCategory(runner)
     this.refreshLibrary({
       fullRefresh: true,
-      runInBackground: false
+      runInBackground: false,
+      libraries: [runner]
     })
   }
 
@@ -289,7 +290,10 @@ export class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
-  refresh = async (checkUpdates?: boolean): Promise<void> => {
+  refresh = async (
+    libraries: string[],
+    checkUpdates?: boolean
+  ): Promise<void> => {
     console.log('refreshing')
 
     let updates = this.state.gameUpdates
@@ -309,7 +313,7 @@ export class GlobalState extends PureComponent<Props> {
 
     try {
       updates = checkUpdates
-        ? await ipcRenderer.invoke('checkGameUpdates')
+        ? await ipcRenderer.invoke('checkGameUpdates', libraries)
         : this.state.gameUpdates
     } catch (error) {
       ipcRenderer.send('logError', error)
@@ -338,7 +342,8 @@ export class GlobalState extends PureComponent<Props> {
   refreshLibrary = async ({
     checkForUpdates,
     fullRefresh,
-    runInBackground = true
+    runInBackground = true,
+    libraries = ['gog', 'epic']
   }: RefreshOptions): Promise<void> => {
     if (this.state.refreshing) return
 
@@ -348,11 +353,11 @@ export class GlobalState extends PureComponent<Props> {
     })
     ipcRenderer.send('logInfo', 'Refreshing Library')
     try {
-      await ipcRenderer.invoke('refreshLibrary', fullRefresh)
+      await ipcRenderer.invoke('refreshLibrary', fullRefresh, libraries)
     } catch (error) {
       ipcRenderer.send('logError', error)
     }
-    this.refresh(checkForUpdates)
+    this.refresh(libraries, checkForUpdates)
   }
 
   refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
@@ -531,10 +536,16 @@ export class GlobalState extends PureComponent<Props> {
       recentGames
     })
 
+    const libraries: string[] = [
+      gogUser && 'gog',
+      legendaryUser && 'epic'
+    ].filter(Boolean) as string[]
+
     if (legendaryUser || gogUser) {
       this.refreshLibrary({
         checkForUpdates: true,
         fullRefresh: true,
+        libraries,
         runInBackground: Boolean(epic.library.length)
       })
     }

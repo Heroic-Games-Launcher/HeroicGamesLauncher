@@ -105,6 +105,7 @@ export default function Library(): JSX.Element {
           sortDescending={sortDescending}
           toggleSortDescending={() => handleSortDescending()}
           sortInstalled={sortInstalled}
+          category={category}
           toggleSortinstalled={() => handleSortInstalled()}
         />
       </div>

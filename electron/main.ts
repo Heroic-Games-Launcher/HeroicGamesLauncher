@@ -597,9 +597,13 @@ ipcMain.handle(
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', async () => {
-  const legendaryUpdates = await LegendaryLibrary.get().listUpdateableGames()
-  const gogUpdates = await GOGLibrary.get().listUpdateableGames()
+ipcMain.handle('checkGameUpdates', async (event, libraries) => {
+  const legendaryUpdates = libraries.includes('epic')
+    ? await LegendaryLibrary.get().listUpdateableGames()
+    : []
+  const gogUpdates = libraries.includes('gog')
+    ? await GOGLibrary.get().listUpdateableGames()
+    : []
   return [...legendaryUpdates, ...gogUpdates]
 })
 
@@ -754,10 +758,11 @@ if (existsSync(installed)) {
   })
 }
 
-ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
+ipcMain.handle('refreshLibrary', async (e, fullRefresh, libraries) => {
   await Promise.allSettled([
-    GOGLibrary.get().sync(),
-    LegendaryLibrary.get().getGames('info', fullRefresh)
+    libraries.includes('epic') &&
+      LegendaryLibrary.get().getGames('info', fullRefresh),
+    libraries.includes('gog') && GOGLibrary.get().sync()
   ])
 })
 

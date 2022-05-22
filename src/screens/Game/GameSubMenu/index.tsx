@@ -79,7 +79,7 @@ export default function GamesSubmenu({
       })
       if (path) {
         await renderer.invoke('changeInstallPath', [appName, path, runner])
-        await refresh()
+        await refresh([runner])
       }
       return
     }

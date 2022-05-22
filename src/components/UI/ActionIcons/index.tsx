@@ -21,13 +21,15 @@ interface Props {
   sortInstalled: boolean
   toggleSortDescending: () => void
   toggleSortinstalled: () => void
+  category: string
 }
 
 export default function ActionIcons({
   sortDescending,
   toggleSortDescending,
   sortInstalled,
-  toggleSortinstalled
+  toggleSortinstalled,
+  category
 }: Props) {
   const { t } = useTranslation()
   const { refreshLibrary, handleLayout, layout } = useContext(ContextProvider)
@@ -85,7 +87,8 @@ export default function ActionIcons({
             refreshLibrary({
               checkForUpdates: true,
               fullRefresh: true,
-              runInBackground: false
+              runInBackground: false,
+              libraries: [category]
             })
           }
         >
