@@ -265,7 +265,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.SteamAppId = ret.STEAM_COMPAT_APP_ID
     // This sets the name of the log file given when settings PROTON_LOG=1
     ret.SteamGameId = `heroic-${gameId}`
-    // ret.PROTON_LOG_DIR = flatPakHome
+    ret.PROTON_LOG_DIR = flatPakHome
   }
   return ret
 }
