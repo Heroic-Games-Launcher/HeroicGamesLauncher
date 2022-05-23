@@ -122,6 +122,10 @@ export default function Library(): JSX.Element {
     setInstalling(newInstalling)
   }, [libraryStatus])
 
+  if (!epic && !gog) {
+    return <span>Error - No Games found - Try to logout and Login Again</span>
+  }
+
   const filterLibrary = (library: GameInfo[], filter: string) => {
     if (!library) {
       return []
