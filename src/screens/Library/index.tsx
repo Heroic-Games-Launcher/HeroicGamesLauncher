@@ -270,7 +270,7 @@ export default function Library(): JSX.Element {
     return tempArray
   }, [showFavourites, favouriteGames, epic, gog])
 
-  if (epic && gog) {
+  if (!epic && !gog) {
     return (
       <ErrorComponent
         message={t(
