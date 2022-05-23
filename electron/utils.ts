@@ -451,12 +451,12 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
 function getSteamRuntime(version: 'scout' | 'soldier'): SteamRuntime {
   const possibleRuntimes: Array<SteamRuntime> = [
     {
-      path: `${userHome}/.local/share/Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point`,
+      path: `${userHome}/.steam/root/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point`,
       type: 'unpackaged',
       version: 'soldier'
     },
     {
-      path: `${userHome}/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh`,
+      path: `${userHome}/.steam/root/ubuntu12_32/steam-runtime/run.sh`,
       type: 'unpackaged',
       version: 'scout'
     },
