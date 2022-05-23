@@ -280,17 +280,7 @@ if (!gotTheLock) {
       mainWindow.show()
     }
 
-    // Figure out which argv element is our protocol
-    let heroicProtocolString = ''
-    argv.forEach((value) => {
-      if (value.startsWith('heroic://')) {
-        heroicProtocolString = value
-      }
-    })
-
-    if (heroicProtocolString) {
-      handleProtocol(mainWindow, heroicProtocolString)
-    }
+    handleProtocol(mainWindow, argv)
   })
   app.whenReady().then(async () => {
     const systemInfo = await getSystemInfo()
@@ -364,7 +354,7 @@ if (!gotTheLock) {
     await createWindow()
 
     protocol.registerStringProtocol('heroic', (request, callback) => {
-      handleProtocol(mainWindow, request.url)
+      handleProtocol(mainWindow, [request.url])
       callback('Operation initiated.')
     })
     if (!app.isDefaultProtocolClient('heroic')) {
@@ -376,10 +366,8 @@ if (!gotTheLock) {
     } else {
       logWarning('Protocol already registered.', LogPrefix.Backend)
     }
-    if (process.argv[1]) {
-      const url = process.argv[1]
-      handleProtocol(mainWindow, url)
-    }
+
+    handleProtocol(mainWindow, process.argv)
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
@@ -512,7 +500,7 @@ app.on('window-all-closed', () => {
 
 app.on('open-url', (event, url) => {
   event.preventDefault()
-  handleProtocol(mainWindow, url)
+  handleProtocol(mainWindow, [url])
 })
 
 ipcMain.on('openFolder', async (event, folder) => openUrlOrFile(folder))
