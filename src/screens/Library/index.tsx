@@ -18,6 +18,7 @@ import { getLibraryTitle } from './constants'
 import ActionIcons from 'src/components/UI/ActionIcons'
 import { GamesList } from './components/GamesList'
 import { GameInfo, Runner } from 'src/types'
+import ErrorComponent from 'src/components/UI/ErrorComponent'
 
 const InstallModal = lazy(
   async () => import('src/screens/Library/components/InstallModal')
@@ -121,10 +122,6 @@ export default function Library(): JSX.Element {
 
     setInstalling(newInstalling)
   }, [libraryStatus])
-
-  if (!epic && !gog) {
-    return <span>Error - No Games found - Try to logout and Login Again</span>
-  }
 
   const filterLibrary = (library: GameInfo[], filter: string) => {
     if (!library) {
@@ -272,6 +269,17 @@ export default function Library(): JSX.Element {
     }
     return tempArray
   }, [showFavourites, favouriteGames, epic, gog])
+
+  if (!epic && !gog) {
+    return (
+      <ErrorComponent
+        message={t(
+          'generic.error.component',
+          'No Games found - Try to logout and login Again or one of the options bellow'
+        )}
+      />
+    )
+  }
 
   return (
     <>
