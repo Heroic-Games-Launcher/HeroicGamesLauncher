@@ -270,12 +270,12 @@ export default function Library(): JSX.Element {
     return tempArray
   }, [showFavourites, favouriteGames, epic, gog])
 
-  if (!epic && !gog) {
+  if (epic && gog) {
     return (
       <ErrorComponent
         message={t(
           'generic.error.component',
-          'No Games found - Try to logout and login Again or one of the options bellow'
+          'No Games found - Try to logout and login again or one of the options bellow'
         )}
       />
     )

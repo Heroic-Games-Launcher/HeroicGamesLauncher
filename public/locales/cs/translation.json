@@ -121,7 +121,7 @@
     "favourites": "Oblíbené",
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login Again or one of the options bellow"
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
         },
         "library": {
             "refresh": "Refresh Library"
