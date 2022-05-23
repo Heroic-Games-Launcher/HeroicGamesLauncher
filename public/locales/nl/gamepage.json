@@ -66,6 +66,9 @@
         "moving": "Aan het verplaatsen",
         "repairing": "Aan het repareren"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Internetverbinding Verplicht",
         "installedPlatform": "Installed Platform",

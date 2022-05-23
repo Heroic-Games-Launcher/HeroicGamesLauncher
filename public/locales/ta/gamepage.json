@@ -66,6 +66,9 @@
         "moving": "நகர்த்தப்படுகிறது",
         "repairing": "பழுதுபார்க்கப்படுகிறது"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Online Required",
         "installedPlatform": "Installed Platform",

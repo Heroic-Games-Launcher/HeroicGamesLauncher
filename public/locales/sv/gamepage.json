@@ -66,6 +66,9 @@
         "moving": "Flyttar",
         "repairing": "Reparerar"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Kräver uppkoppling",
         "installedPlatform": "Installerad plattform",

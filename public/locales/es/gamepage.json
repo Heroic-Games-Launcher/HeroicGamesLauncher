@@ -66,6 +66,9 @@
         "moving": "Moviendo",
         "repairing": "Reparando"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Requiere Online",
         "installedPlatform": "Plataforma de Instalación",

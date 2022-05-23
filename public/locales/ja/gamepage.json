@@ -66,6 +66,9 @@
         "moving": "移動しています",
         "repairing": "修復しています"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Online Required",
         "installedPlatform": "Installed Platform",

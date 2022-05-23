@@ -66,6 +66,9 @@
         "moving": "Přesouvám",
         "repairing": "Opravuji"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Vyžaduje se být online",
         "installedPlatform": "Nainstalovaná platforma",

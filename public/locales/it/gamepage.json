@@ -66,6 +66,9 @@
         "moving": "Spostamento in corso",
         "repairing": "Riparazione in corso"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Online richiesto",
         "installedPlatform": "Installed Platform",

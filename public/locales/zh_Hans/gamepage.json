@@ -66,6 +66,9 @@
         "moving": "移动中",
         "repairing": "修复中"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "需要联网",
         "installedPlatform": "已安装平台",

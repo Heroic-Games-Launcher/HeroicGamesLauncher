@@ -66,6 +66,9 @@
         "moving": "Premještanje",
         "repairing": "Popravljanje"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Internet Potreban",
         "installedPlatform": "Installed Platform",

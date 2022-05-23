@@ -66,6 +66,9 @@
         "moving": "മാറ്റുന്നു",
         "repairing": "നന്നാക്കുന്നു"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "ഓൺലൈൻ ആകേണ്ടത് ആവശ്യമാണ്",
         "installedPlatform": "Installed Platform",

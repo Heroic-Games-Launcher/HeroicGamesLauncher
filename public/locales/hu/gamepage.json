@@ -66,6 +66,9 @@
         "moving": "Áthelyezés",
         "repairing": "Javítás"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Online szükséges",
         "installedPlatform": "Installed Platform",

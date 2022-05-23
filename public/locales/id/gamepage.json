@@ -66,6 +66,9 @@
         "moving": "Memindahkan",
         "repairing": "Memperbaiki"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Internet Dibutuhkan",
         "installedPlatform": "Platform yang Telah di Install",

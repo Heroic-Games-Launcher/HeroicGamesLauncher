@@ -66,6 +66,9 @@
         "moving": "S'està movent",
         "repairing": "S'està reparant"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Cal connexió a internet",
         "installedPlatform": "Installed Platform",

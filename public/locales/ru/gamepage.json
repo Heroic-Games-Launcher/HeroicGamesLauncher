@@ -66,6 +66,9 @@
         "moving": "Перемещение",
         "repairing": "Восстановление"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Требуется онлайн",
         "installedPlatform": "Установленная платформа",

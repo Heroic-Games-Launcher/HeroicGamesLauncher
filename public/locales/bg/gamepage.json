@@ -66,6 +66,9 @@
         "moving": "Преместване",
         "repairing": "Поправяне"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Изисква се достъп до Интернет",
         "installedPlatform": "Installed Platform",

@@ -66,6 +66,9 @@
         "moving": "옮기는 중",
         "repairing": "복구 중"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "네트워크 연결이 필요합니다",
         "installedPlatform": "설치된 플랫폼",

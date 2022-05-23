@@ -66,6 +66,9 @@
         "moving": "Переміщую",
         "repairing": "Відновлюю"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Чи потрібно бути в мережі",
         "installedPlatform": "Встановлена платформа",

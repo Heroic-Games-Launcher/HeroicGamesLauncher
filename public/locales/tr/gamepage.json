@@ -66,6 +66,9 @@
         "moving": "Taşınıyor",
         "repairing": "Onarılıyor"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Çevrim İçi Gerekli",
         "installedPlatform": "Installed Platform",

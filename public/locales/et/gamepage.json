@@ -66,6 +66,9 @@
         "moving": "Liigutamine",
         "repairing": "Parandamine"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Võrguühendus nõutud",
         "installedPlatform": "Paigaldatud platvorm",

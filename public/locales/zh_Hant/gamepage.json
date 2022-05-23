@@ -66,6 +66,9 @@
         "moving": "移動中",
         "repairing": "修復中"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Online Required",
         "installedPlatform": "Installed Platform",
