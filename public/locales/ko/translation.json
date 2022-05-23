@@ -119,6 +119,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "즐겨찾기",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login Again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "글로벌 설정",
     "GOG": "GOG",
     "gog-store": "GOG Store",

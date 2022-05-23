@@ -119,6 +119,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favorit",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login Again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Pengaturan Global",
     "GOG": "GOG",
     "gog-store": "GOG Store",

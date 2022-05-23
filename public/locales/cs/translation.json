@@ -119,6 +119,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Oblíbené",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login Again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Globální nastavení",
     "GOG": "GOG",
     "gog-store": "GOG Store",

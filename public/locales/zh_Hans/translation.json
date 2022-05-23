@@ -119,6 +119,14 @@
     },
     "Epic Games": "Epic 游戏",
     "favourites": "最爱",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login Again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "全局设置",
     "GOG": "GOG",
     "gog-store": "GOG 商店",
