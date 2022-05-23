@@ -888,6 +888,11 @@ Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
           runner,
           status: 'done'
         })
+
+        // Exit if we've been launched without UI
+        if (process.argv.includes('--no-ui')) {
+          app.exit()
+        }
       })
   }
 )
