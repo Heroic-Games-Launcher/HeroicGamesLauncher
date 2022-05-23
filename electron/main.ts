@@ -100,7 +100,6 @@ const isWindows = platform() === 'win32'
 let mainWindow: BrowserWindow = null
 
 async function createWindow(): Promise<BrowserWindow> {
-  const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
   configStore.set('userHome', userHome)
 
   let windowProps: Electron.Rectangle = {
@@ -139,7 +138,7 @@ async function createWindow(): Promise<BrowserWindow> {
     ...windowProps,
     minHeight: 345,
     minWidth: 600,
-    show: !(exitToTray && startInTray),
+    show: false,
     webPreferences: {
       webviewTag: true,
       contextIsolation: false,
@@ -365,6 +364,12 @@ if (!gotTheLock) {
       }
     } else {
       logWarning('Protocol already registered.', LogPrefix.Backend)
+    }
+
+    const { startInTray } = await GlobalConfig.get().getSettings()
+    const headless = process.argv.includes('--no-ui') || startInTray
+    if (!headless) {
+      mainWindow.show()
     }
 
     handleProtocol(mainWindow, process.argv)
