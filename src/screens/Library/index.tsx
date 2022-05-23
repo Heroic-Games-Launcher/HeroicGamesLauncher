@@ -130,33 +130,37 @@ export default function Library(): JSX.Element {
 
     if (filter.includes('UE_')) {
       return library.filter((game) => {
-        if (!game.compatible_apps) {
+        if (!game?.compatible_apps) {
           return false
         }
-        return game.compatible_apps.includes(filter)
+        return game?.compatible_apps?.includes(filter)
       })
     } else {
       switch (filter) {
         case 'unreal':
           return library.filter(
             (game) =>
-              game.is_ue_project || game.is_ue_asset || game.is_ue_plugin
+              game.is_ue_project || game?.is_ue_asset || game?.is_ue_plugin
           )
         case 'asset':
-          return library.filter((game) => game.is_ue_asset)
+          return library.filter((game) => game?.is_ue_asset)
         case 'plugin':
-          return library.filter((game) => game.is_ue_plugin)
+          return library.filter((game) => game?.is_ue_plugin)
         case 'project':
-          return library.filter((game) => game.is_ue_project)
+          return library.filter((game) => game?.is_ue_project)
         default:
-          return library.filter((game) => game.is_game)
+          return library.filter((game) => game?.is_game)
       }
     }
   }
 
   const filterByPlatform = (library: GameInfo[], filter: string) => {
+    if (!library) {
+      return []
+    }
+
     if (category === 'epic' && platform === 'linux') {
-      return library.filter((game) => game.is_game)
+      return library.filter((game) => game?.is_game)
     }
 
     const isMac = ['osx', 'Mac']
@@ -183,13 +187,16 @@ export default function Library(): JSX.Element {
             : game.is_linux_native
         })
       default:
-        return library.filter((game) => game.is_game)
+        return library.filter((game) => game?.is_game)
     }
   }
 
   // select library
   const libraryToShow = useMemo(() => {
     let library = category === 'epic' ? epic.library : gog.library
+    if (!library) {
+      return []
+    }
 
     // filter
     try {
@@ -205,11 +212,13 @@ export default function Library(): JSX.Element {
     }
 
     // hide hidden
-    const hiddenGamesAppNames = hiddenGames.list.map((hidden) => hidden.appName)
+    const hiddenGamesAppNames = hiddenGames.list.map(
+      (hidden) => hidden?.appName
+    )
 
     if (!showHidden) {
       library = library.filter(
-        (game) => !hiddenGamesAppNames.includes(game.app_name)
+        (game) => !hiddenGamesAppNames.includes(game?.app_name)
       )
     }
 
