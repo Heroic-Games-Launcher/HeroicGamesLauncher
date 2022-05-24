@@ -22,8 +22,7 @@
         "default-install-path": "Selecione o local de instalação padrão",
         "error": {
             "credentials": {
-                "message": "Suas credenciais expiraram, por favor desconecte sua conta e entre novamente.",
-                "title": "Credenciais Expiradas"
+                "message": "Suas credenciais expiraram, por favor desconecte sua conta e entre novamente."
             },
             "diskspace": {
                 "message": "Sem espaço suficiente disponível no disco",

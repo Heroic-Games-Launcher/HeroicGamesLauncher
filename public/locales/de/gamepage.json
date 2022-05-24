@@ -79,9 +79,9 @@
     },
     "install": {
         "disk-space-left": "Verbleibender Speicherplatz auf dem Gerät",
-        "invalid-folder": "Error: Invalid Path",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Installationspfad auswählen",
+        "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "Wine-Prefix",
         "wineversion": "Wine-Version"

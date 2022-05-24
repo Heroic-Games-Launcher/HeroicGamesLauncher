@@ -22,8 +22,7 @@
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
         "error": {
             "credentials": {
-                "message": "Lejártak a hitelesítő adataid, jelentkezz ki, majd jelentkezz be újra.",
-                "title": "Lejárt hitelesítőadatok"
+                "message": "Lejártak a hitelesítő adataid, jelentkezz ki, majd jelentkezz be újra."
             },
             "diskspace": {
                 "message": "Nincs elég elérhető lemezterület",

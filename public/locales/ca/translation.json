@@ -22,8 +22,7 @@
         "default-install-path": "Tria la ruta d'instal·lació predefinida",
         "error": {
             "credentials": {
-                "message": "Les teves credencials han caducat, tanca la sessió i inicia-la de nou.",
-                "title": "Credencials caducades"
+                "message": "Les teves credencials han caducat, tanca la sessió i inicia-la de nou."
             },
             "diskspace": {
                 "message": "No hi ha prou espai al disc",

@@ -22,8 +22,7 @@
         "default-install-path": "Choisir le chemin par défaut",
         "error": {
             "credentials": {
-                "message": "Vos informations d'identification ont expiré, veuillez vous reconnecter.",
-                "title": "Informations d'identification expirées"
+                "message": "Vos informations d'identification ont expiré, veuillez vous reconnecter."
             },
             "diskspace": {
                 "message": "Espace disque nécessaire insuffisant",

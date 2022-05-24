@@ -22,8 +22,7 @@
         "default-install-path": "Wähle den Standard Installations-Pfad",
         "error": {
             "credentials": {
-                "message": "Deine Anmeldedaten sind abgelaufen, bitte logge dich aus und melde dich erneut an.",
-                "title": "Abgelaufene Anmeldedaten"
+                "message": "Deine Anmeldedaten sind abgelaufen, bitte logge dich aus und melde dich erneut an."
             },
             "diskspace": {
                 "message": "Nicht genügend freier Speicherplatz",

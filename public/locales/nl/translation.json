@@ -22,8 +22,7 @@
         "default-install-path": "Selecteer een standaard map",
         "error": {
             "credentials": {
-                "message": "Uw inloggegevens zijn verlopen, gelieven uit te loggen en weer inloggen.",
-                "title": "Verlopen Inloggegevens"
+                "message": "Uw inloggegevens zijn verlopen, gelieven uit te loggen en weer inloggen."
             },
             "diskspace": {
                 "message": "Niet genoeg ruimte beschikbaar op de harde schijf",

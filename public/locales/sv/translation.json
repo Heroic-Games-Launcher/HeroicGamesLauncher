@@ -22,8 +22,7 @@
         "default-install-path": "Ange standard installationssökväg",
         "error": {
             "credentials": {
-                "message": "Autentisering har utgått, logga ut och logga sedan in igen.",
-                "title": "Autentisering utgått"
+                "message": "Autentisering har utgått, logga ut och logga sedan in igen."
             },
             "diskspace": {
                 "message": "Otillräckligt ledigt hårdiskutrymme",

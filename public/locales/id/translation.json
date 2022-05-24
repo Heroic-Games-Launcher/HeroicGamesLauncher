@@ -22,8 +22,7 @@
         "default-install-path": "Pilih Lokasi Pemasangan Bawaan",
         "error": {
             "credentials": {
-                "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi.",
-                "title": "Kredensial Kedaluwarsa"
+                "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi."
             },
             "diskspace": {
                 "message": "Ruang penyimpanan tidak cukup",

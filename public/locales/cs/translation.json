@@ -22,8 +22,7 @@
         "default-install-path": "Vyberte výchozí cestu pro instalaci",
         "error": {
             "credentials": {
-                "message": "Vaše přihlašovací údaje vypršeli, odhlaste se a přihlašte se znovu prosím.",
-                "title": "Prošlé přihlašovací údaje"
+                "message": "Vaše přihlašovací údaje vypršeli, odhlaste se a přihlašte se znovu prosím."
             },
             "diskspace": {
                 "message": "Nedostatek místa na disku",

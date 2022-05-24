@@ -538,10 +538,10 @@ export default function InstallModal({
                       </>
                     )}
                     {!validPath && (
-                      <span className="danger">
+                      <span className="warning">
                         {`${t(
-                          'install.invalid-folder',
-                          'Error: Invalid Path'
+                          'install.path-not-writtable',
+                          'Warning: path might not be writable.'
                         )}`}
                       </span>
                     )}

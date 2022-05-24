@@ -22,8 +22,7 @@
         "default-install-path": "Wybierz domyślną ścieżkę instalacyjną",
         "error": {
             "credentials": {
-                "message": "Twoje dane uwierzytelniające wygasły, wyloguj się i zaloguj ponownie.",
-                "title": "Wygasły poświadczenia"
+                "message": "Twoje dane uwierzytelniające wygasły, wyloguj się i zaloguj ponownie."
             },
             "diskspace": {
                 "message": "Za mało miejsca na dysku",

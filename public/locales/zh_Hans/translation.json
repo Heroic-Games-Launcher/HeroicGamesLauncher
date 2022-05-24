@@ -22,8 +22,7 @@
         "default-install-path": "选择默认安装路径",
         "error": {
             "credentials": {
-                "message": "你的凭据已过期，请注销并重新登录。",
-                "title": "过期的登录凭据"
+                "message": "你的凭据已过期，请注销并重新登录。"
             },
             "diskspace": {
                 "message": "没有足够的可用磁盘空间",

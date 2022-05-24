@@ -22,8 +22,7 @@
         "default-install-path": "選擇預設安裝路徑",
         "error": {
             "credentials": {
-                "message": "您的憑據已過期，請登出並重新登入。",
-                "title": "過期的登入憑據"
+                "message": "您的憑據已過期，請登出並重新登入。"
             },
             "diskspace": {
                 "message": "磁碟空間不足",

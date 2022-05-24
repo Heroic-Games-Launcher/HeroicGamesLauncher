@@ -22,8 +22,7 @@
         "default-install-path": "Valitse Oletus Asennussijainti",
         "error": {
             "credentials": {
-                "message": "Kirjautumistietosi ovat vanhentuneet, ole hyvä ja kirjaudu uudelleen sisään.",
-                "title": "Vanhentuneet kirjautumistiedot"
+                "message": "Kirjautumistietosi ovat vanhentuneet, ole hyvä ja kirjaudu uudelleen sisään."
             },
             "diskspace": {
                 "message": "Ei tarpeeksi tilaa levyllä",

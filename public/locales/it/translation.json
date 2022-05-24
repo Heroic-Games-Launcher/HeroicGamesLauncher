@@ -22,8 +22,7 @@
         "default-install-path": "Seleziona il percorso d'installazione predefinito",
         "error": {
             "credentials": {
-                "message": "Le tue credenziali non sono più valide, per favore rifai il login.",
-                "title": "Credenziali scaduti"
+                "message": "Le tue credenziali non sono più valide, per favore rifai il login."
             },
             "diskspace": {
                 "message": "Spazio su disco insufficiente",

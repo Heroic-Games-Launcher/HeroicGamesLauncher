@@ -79,9 +79,9 @@
     },
     "install": {
         "disk-space-left": "Seadmesse jäänud ruum",
-        "invalid-folder": "Error: Invalid Path",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Valige paigaldustee",
+        "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefiks",
         "wineversion": "Wine'i versioon"

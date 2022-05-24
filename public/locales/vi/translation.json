@@ -22,8 +22,7 @@
         "default-install-path": "Chọn đường dẫn cài mặc định",
         "error": {
             "credentials": {
-                "message": "Thông tin đăng nhập hết hạn, vui lòng đăng xuất rồi đăng nhập lại.",
-                "title": "Thông tin đăng nhập đã hết hạn"
+                "message": "Thông tin đăng nhập hết hạn, vui lòng đăng xuất rồi đăng nhập lại."
             },
             "diskspace": {
                 "message": "Không đủ bộ nhớ trống",

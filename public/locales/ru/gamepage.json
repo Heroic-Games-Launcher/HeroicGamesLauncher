@@ -79,9 +79,9 @@
     },
     "install": {
         "disk-space-left": "Свободное место на устройстве",
-        "invalid-folder": "Error: Invalid Path",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Выберите путь установки",
+        "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "Префикс Wine",
         "wineversion": "Версия Wine"

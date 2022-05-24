@@ -22,8 +22,7 @@
         "default-install-path": "기본 설치 경로 선택",
         "error": {
             "credentials": {
-                "message": "사용자의 인증서가 만료되었습니다, 로그아웃 한 뒤 다시 로그인 해주세요.",
-                "title": "만료된 인증서"
+                "message": "사용자의 인증서가 만료되었습니다, 로그아웃 한 뒤 다시 로그인 해주세요."
             },
             "diskspace": {
                 "message": "사용 가능한 디스크 공간이 충분하지 않습니다",

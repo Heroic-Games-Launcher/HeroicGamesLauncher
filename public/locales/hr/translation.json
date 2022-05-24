@@ -22,8 +22,7 @@
         "default-install-path": "",
         "error": {
             "credentials": {
-                "message": "Your Crendentials have expired, Logout and Login Again!",
-                "title": "Expired Credentials"
+                "message": "Your Crendentials have expired, Logout and Login Again!"
             },
             "diskspace": {
                 "message": "Not enough available disk space",

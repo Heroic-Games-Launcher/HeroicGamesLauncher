@@ -22,8 +22,7 @@
         "default-install-path": "Valige Vaikimisi paigalduskoht",
         "error": {
             "credentials": {
-                "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse.",
-                "title": "Aegunud kasutaja andmed"
+                "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse."
             },
             "diskspace": {
                 "message": "Ei ole piisavalt vaba kettaruumi",

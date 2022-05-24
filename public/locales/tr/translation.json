@@ -22,8 +22,7 @@
         "default-install-path": "Öntanımlı Kurulum Yerini Seçin",
         "error": {
             "credentials": {
-                "message": "Kimlik bilgilerinizin süresi doldu, lütfen oturumunuzu kapatın ve tekrar oturum açın.",
-                "title": "Süresi Dolmuş Kimlik Bilgileri"
+                "message": "Kimlik bilgilerinizin süresi doldu, lütfen oturumunuzu kapatın ve tekrar oturum açın."
             },
             "diskspace": {
                 "message": "Yeterli kullanılabilir disk alanı yok",

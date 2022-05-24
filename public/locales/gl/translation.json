@@ -22,8 +22,7 @@
         "default-install-path": "Seleccionar a ruta de instalación predeterminada",
         "error": {
             "credentials": {
-                "message": "As túas credenciais expiraron, pecha sesión e iníciaa de novo.",
-                "title": "Credenciais expiradas"
+                "message": "As túas credenciais expiraron, pecha sesión e iníciaa de novo."
             },
             "diskspace": {
                 "message": "Non hai suficiente espacio dispoñíbel no disco",
