@@ -367,7 +367,7 @@ if (!gotTheLock) {
     }
 
     const { startInTray } = await GlobalConfig.get().getSettings()
-    const headless = process.argv.includes('--no-ui') || startInTray
+    const headless = process.argv.includes('--no-gui') || startInTray
     if (!headless) {
       mainWindow.show()
     }
@@ -890,7 +890,7 @@ Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
         })
 
         // Exit if we've been launched without UI
-        if (process.argv.includes('--no-ui')) {
+        if (process.argv.includes('--no-gui')) {
           app.exit()
         }
       })
