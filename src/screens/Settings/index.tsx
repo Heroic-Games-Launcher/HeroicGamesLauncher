@@ -3,7 +3,7 @@ import './index.css'
 import React, { useContext, useEffect, useState } from 'react'
 
 import { AppSettings, Runner, WineInstallation } from 'src/types'
-import { IpcRenderer } from 'electron'
+import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
@@ -22,12 +22,14 @@ import LogSettings from './components/LogSettings'
 import { AdvancedSettings } from './components/AdvancedSettings'
 import FooterInfo from './components/FooterInfo'
 import { configStore } from 'src/helpers/electronStores'
+import ContextMenu from '../Library/components/ContextMenu'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
+  clipboard: Clipboard
 }
 
-const { ipcRenderer } = window.require('electron') as ElectronProps
+const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
 
 interface LocationState {
   fromGameCard: boolean
@@ -332,7 +334,26 @@ function Settings() {
   }
 
   return (
-    <>
+    <ContextMenu
+      items={[
+        {
+          label: t(
+            'settings.copyToClipboard',
+            'Copy All Settings to Clipboard'
+          ),
+          onclick: () =>
+            clipboard.writeText(
+              JSON.stringify({ appName, title, ...settingsToSave })
+            ),
+          show: !isLogSettings
+        },
+        {
+          label: t('settings.open-config-file', 'Open Config File'),
+          onclick: () => ipcRenderer.send('showConfigFileInFolder', appName),
+          show: !isLogSettings
+        }
+      ]}
+    >
       <div className="Settings">
         <div role="list" className="settingsWrapper">
           <NavLink to={returnPath} role="link" className="backButton">
@@ -468,7 +489,7 @@ function Settings() {
           <FooterInfo appName={appName} />
         </div>
       </div>
-    </>
+    </ContextMenu>
   )
 }
 

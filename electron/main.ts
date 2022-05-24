@@ -86,7 +86,8 @@ import {
   tsStore,
   weblateUrl,
   wikiLink,
-  fontsStore
+  fontsStore,
+  heroicConfigPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -531,6 +532,12 @@ ipcMain.on('openKofiPage', async () => openUrlOrFile(kofiPage))
 ipcMain.on('openWebviewPage', async (event, url) => openUrlOrFile(url))
 ipcMain.on('openWikiLink', async () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', async () => openUrlOrFile(sidInfoUrl))
+ipcMain.on('showConfigFileInFolder', async (event, appName) => {
+  if (appName === 'default') {
+    return openUrlOrFile(heroicConfigPath)
+  }
+  return openUrlOrFile(path.join(heroicGamesConfigPath, `${appName}.json`))
+})
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {
