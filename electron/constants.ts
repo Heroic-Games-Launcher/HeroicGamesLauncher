@@ -1,12 +1,17 @@
 import { homedir, platform } from 'os'
 import { join } from 'path'
 import Store from 'electron-store'
+import { parse } from '@node-steam/vdf'
 
 import { GameConfigVersion, GlobalConfigVersion } from './types'
-import { createNewLogFileAndClearOldOnces } from './logger/logger'
+import {
+  createNewLogFileAndClearOldOnces,
+  logDebug,
+  LogPrefix
+} from './logger/logger'
 import { env } from 'process'
 import { app } from 'electron'
-import { existsSync } from 'graceful-fs'
+import { existsSync, readFileSync } from 'graceful-fs'
 
 const configStore = new Store({
   cwd: 'store'
@@ -107,6 +112,18 @@ function getSteamCompatFolder() {
     return `${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`
   }
   return `${userHome}/.steam/steam`
+}
+
+export function getSteamLibraries() {
+  const vdfFile = join(steamCompatFolder, 'steamapps', 'libraryfolders.vdf')
+  if (existsSync(vdfFile)) {
+    const json = parse(readFileSync(vdfFile, 'utf-8'))
+    const folders = Object.values(json.libraryfolders) as Array<{
+      path: string
+    }>
+    return folders.map((folder) => folder.path)
+  }
+  logDebug('No other steam libraries found', LogPrefix.Backend)
 }
 
 const MAX_BUFFER = 25 * 1024 * 1024 // 25MB should be safe enough for big installations even on really slow internet

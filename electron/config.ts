@@ -20,7 +20,8 @@ import {
   userHome,
   isFlatpak,
   isMac,
-  isWindows
+  isWindows,
+  getSteamLibraries
 } from './constants'
 import { execAsync } from './utils'
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -239,15 +240,14 @@ abstract class GlobalConfig {
       })
     }
 
+    const steamLibraries = getSteamLibraries()
     const protonPaths = [`${heroicToolsPath}/proton/`]
 
     // Known places where Steam might be found.
     // Just add a new string here in case another path is found on another distro.
-    const steamPaths = [
-      join(userHome, '.steam'),
-      join(userHome, '.var/app/com.valvesoftware.Steam/.local/share/Steam'),
-      '/usr/share/steam'
-    ].filter((path) => existsSync(path))
+    const steamPaths = [...steamLibraries, '/usr/share/steam'].filter((path) =>
+      existsSync(path)
+    )
 
     steamPaths.forEach((path) => {
       protonPaths.push(`${path}/steam/steamapps/common`)
@@ -267,12 +267,15 @@ abstract class GlobalConfig {
             name.startsWith('proton') || name.startsWith('ge-proton')
           if (hasProtonName && !name.includes('runtime')) {
             const protonBin = join(path, version, 'proton')
-            proton.add({
-              bin: protonBin,
-              name: `Proton - ${version}`,
-              type: 'proton'
-              // No need to run this.getWineExecs here since Proton ships neither Wineboot nor Wineserver
-            })
+            // check if bin exists to avoid false positives
+            if (existsSync(protonBin)) {
+              proton.add({
+                bin: protonBin,
+                name: `Proton - ${version}`,
+                type: 'proton'
+                // No need to run this.getWineExecs here since Proton ships neither Wineboot nor Wineserver
+              })
+            }
           }
         })
       }
