@@ -62,14 +62,27 @@ export class LegendaryUser {
           }
         })
       })
-      const userInfoObject = JSON.parse(userInfoContent)
-      const info: UserInfo = {
-        account_id: userInfoObject.account_id,
-        displayName: userInfoObject.displayName,
-        user: user().username
+      try {
+        const userInfoObject = JSON.parse(userInfoContent)
+        const info: UserInfo = {
+          account_id: userInfoObject.account_id,
+          displayName: userInfoObject.displayName,
+          user: user().username
+        }
+        configStore.set('userInfo', info)
+        return info
+      } catch (error) {
+        logError(
+          `User info file corrupted, check ${userInfo}`,
+          LogPrefix.Legendary
+        )
+        const info: UserInfo = {
+          account_id: '',
+          displayName: '',
+          user: ''
+        }
+        return info
       }
-      configStore.set('userInfo', info)
-      return info
     }
     configStore.delete('userInfo')
     return { account_id: '', displayName: null }

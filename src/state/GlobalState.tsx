@@ -82,10 +82,11 @@ interface StateProps {
 export class GlobalState extends PureComponent<Props> {
   loadGOGLibrary = (): Array<GameInfo> => {
     const games = gogLibraryStore.has('games')
-      ? (gogLibraryStore.get('games') as GameInfo[])
+      ? (gogLibraryStore.get('games', []) as GameInfo[])
       : []
     const installedGames =
-      (gogInstalledGamesStore.get('installed') as Array<InstalledInfo>) || []
+      (gogInstalledGamesStore.get('installed', []) as Array<InstalledInfo>) ||
+      []
     for (const igame in games) {
       for (const installedGame in installedGames) {
         if (installedGames[installedGame].appName === games[igame].app_name) {
@@ -101,16 +102,16 @@ export class GlobalState extends PureComponent<Props> {
     category: storage.getItem('category') || 'epic',
     epic: {
       library: libraryStore.has('library')
-        ? (libraryStore.get('library') as GameInfo[])
+        ? (libraryStore.get('library', []) as GameInfo[])
         : [],
-      username: configStore.get('userInfo')?.displayName || null
+      username: configStore.get('userInfo', null)?.displayName || null
     },
     gog: {
       library: this.loadGOGLibrary(),
-      username: gogConfigStore.get('userData')?.username || null
+      username: gogConfigStore.get('userData', null)?.username || null
     },
     wineVersions: wineDownloaderInfoStore.has('wine-releases')
-      ? (wineDownloaderInfoStore.get('wine-releases') as WineVersionInfo[])
+      ? (wineDownloaderInfoStore.get('wine-releases', []) as WineVersionInfo[])
       : [],
     error: false,
     filter: storage.getItem('filter') || 'all',
@@ -125,18 +126,22 @@ export class GlobalState extends PureComponent<Props> {
     platform: '',
     refreshing: false,
     refreshingInTheBackground: true,
-    hiddenGames: (configStore.get('games.hidden') as Array<HiddenGame>) || [],
+    hiddenGames:
+      (configStore.get('games.hidden', []) as Array<HiddenGame>) || [],
     showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
     favouriteGames:
-      (configStore.get('games.favourites') as Array<FavouriteGame>) || [],
+      (configStore.get('games.favourites', []) as Array<FavouriteGame>) || [],
     recentGames: [],
-    theme: (configStore.get('theme') as string) || '',
-    zoomPercent: parseInt((configStore.get('zoomPercent') as string) || '100'),
+    theme: (configStore.get('theme', '') as string) || '',
+    zoomPercent: parseInt(
+      (configStore.get('zoomPercent', '100') as string) || '100'
+    ),
     contentFontFamily:
       (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
     actionsFontFamily:
       (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
-    allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false
+    allTilesInColor:
+      (configStore.get('allTilesInColor', false) as boolean) || false
   }
 
   setLanguage = (newLanguage: string) => {
@@ -295,7 +300,7 @@ export class GlobalState extends PureComponent<Props> {
     let updates = this.state.gameUpdates
     const currentLibraryLength = this.state.epic.library?.length
     let epicLibrary: Array<GameInfo> =
-      (libraryStore.get('library') as Array<GameInfo>) || []
+      (libraryStore.get('library', []) as Array<GameInfo>) || []
 
     const gogLibrary: Array<GameInfo> = this.loadGOGLibrary()
     if (!epicLibrary.length || !this.state.epic.library.length) {
@@ -491,7 +496,7 @@ export class GlobalState extends PureComponent<Props> {
           progress: {
             bytes: '0.00MiB',
             eta: '00:00:00',
-            percent: '0.00%'
+            percent: 0
           },
           t,
           runner,
@@ -504,8 +509,8 @@ export class GlobalState extends PureComponent<Props> {
       const { libraryStatus } = this.state
       this.handleGameStatus({ ...libraryStatus, ...args })
     })
-    const legendaryUser = Boolean(configStore.get('userInfo'))
-    const gogUser = Boolean(gogConfigStore.get('userData'))
+    const legendaryUser = Boolean(configStore.get('userInfo', null))
+    const gogUser = Boolean(gogConfigStore.get('userData', null))
     const platform = await getPlatform()
 
     if (legendaryUser) {

@@ -15,8 +15,7 @@ import {
   InstallArgs,
   LaunchResult,
   GOGLoginData,
-  InstalledInfo,
-  InstallProgress
+  InstalledInfo
 } from 'types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -109,8 +108,15 @@ class GOGGame extends Game {
         LogPrefix.Gog
       )
     }
-    await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
-    return res
+    try {
+      await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
+      return res
+    } catch (error) {
+      logError(
+        ['Failed to import', `${this.appName}:`, res.error],
+        LogPrefix.Gog
+      )
+    }
   }
 
   public onInstallOrUpdateOutput(
@@ -224,7 +230,7 @@ class GOGGame extends Game {
       buildId: isLinuxNative ? '' : installInfo.game.buildId
     }
     const array: Array<InstalledInfo> =
-      (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
+      (installedGamesStore.get('installed', []) as Array<InstalledInfo>) || []
     array.push(installedData)
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
@@ -611,7 +617,7 @@ class GOGGame extends Game {
     if (GOGUser.isTokenExpired()) {
       await GOGUser.refreshToken()
     }
-    const credentials = configStore.get('credentials') as GOGLoginData
+    const credentials = configStore.get('credentials', {}) as GOGLoginData
 
     const installPlatform = gameData.install.platform
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')

@@ -85,7 +85,7 @@ export default function WineSettings({
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const isProton = wineVersion.type === 'proton'
-  const home = configStore.get('userHome')
+  const home = configStore.get('userHome', '')
 
   if (winePrefix === '') {
     winePrefix = `${home}/.wine`

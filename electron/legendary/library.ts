@@ -116,9 +116,17 @@ export class LegendaryLibrary {
   public refreshInstalled() {
     const installedJSON = `${legendaryConfigPath}/installed.json`
     if (existsSync(installedJSON)) {
-      this.installedGames = new Map(
-        Object.entries(JSON.parse(readFileSync(installedJSON, 'utf-8')))
-      )
+      try {
+        this.installedGames = new Map(
+          Object.entries(JSON.parse(readFileSync(installedJSON, 'utf-8')))
+        )
+      } catch (error) {
+        logError(
+          'Corrupted intalled.json file, cannot load installed games',
+          LogPrefix.Legendary
+        )
+        this.installedGames = new Map()
+      }
     } else {
       this.installedGames = new Map()
     }
@@ -302,10 +310,17 @@ export class LegendaryLibrary {
     this.installedGames.get(appName).install_path = newPath
 
     // Modify Legendary installed.json file:
-    const file = JSON.parse(readFileSync(installed, 'utf8'))
-    const game = { ...file[appName], install_path: newPath }
-    const modifiedInstall = { ...file, [appName]: game }
-    writeFileSync(installed, JSON.stringify(modifiedInstall, null, 2))
+    try {
+      const file = JSON.parse(readFileSync(installed, 'utf8'))
+      const game = { ...file[appName], install_path: newPath }
+      const modifiedInstall = { ...file, [appName]: game }
+      writeFileSync(installed, JSON.stringify(modifiedInstall, null, 2))
+    } catch (error) {
+      logError(
+        `Error reading ${installed}, could not complete operation`,
+        LogPrefix.Legendary
+      )
+    }
   }
 
   /**
@@ -343,145 +358,154 @@ export class LegendaryLibrary {
    */
   private loadFile(fileName: string): string {
     fileName = `${libraryPath}/${fileName}`
-    const { app_name, metadata } = JSON.parse(readFileSync(fileName, 'utf-8'))
-    const { namespace } = metadata
-    const is_game = namespace !== 'ue' ? true : false
-    const {
-      description,
-      shortDescription = '',
-      keyImages = [],
-      title,
-      developer,
-      dlcItemList,
-      releaseInfo,
-      categories,
-      customAttributes
-    } = metadata
 
-    const dlcs: string[] = []
-    const CloudSaveFolder = customAttributes?.CloudSaveFolder
-    const FolderName = customAttributes?.FolderName
-    const canRunOffline = customAttributes?.CanRunOffline?.value === 'true'
+    try {
+      const { app_name, metadata } = JSON.parse(readFileSync(fileName, 'utf-8'))
+      const { namespace } = metadata
+      const is_game = namespace !== 'ue' ? true : false
+      const {
+        description,
+        shortDescription = '',
+        keyImages = [],
+        title,
+        developer,
+        dlcItemList,
+        releaseInfo,
+        categories,
+        customAttributes
+      } = metadata
 
-    if (dlcItemList) {
-      dlcItemList.forEach(
-        (v: { releaseInfo: { [x: number]: { appId: string } } }) => {
-          if (v.releaseInfo && v.releaseInfo[0]) {
-            dlcs.push(v.releaseInfo[0].appId)
+      const dlcs: string[] = []
+      const CloudSaveFolder = customAttributes?.CloudSaveFolder
+      const FolderName = customAttributes?.FolderName
+      const canRunOffline = customAttributes?.CanRunOffline?.value === 'true'
+
+      if (dlcItemList) {
+        dlcItemList.forEach(
+          (v: { releaseInfo: { [x: number]: { appId: string } } }) => {
+            if (v.releaseInfo && v.releaseInfo[0]) {
+              dlcs.push(v.releaseInfo[0].appId)
+            }
           }
-        }
-      )
-    }
+        )
+      }
 
-    let is_ue_asset = false
-    let is_ue_project = false
-    let is_ue_plugin = false
-    if (categories) {
-      categories.forEach((c: { path: string }) => {
-        if (c.path === 'projects') {
-          is_ue_project = true
-        } else if (c.path === 'assets') {
-          is_ue_asset = true
-        } else if (c.path === 'plugins') {
-          is_ue_plugin = true
+      let is_ue_asset = false
+      let is_ue_project = false
+      let is_ue_plugin = false
+      if (categories) {
+        categories.forEach((c: { path: string }) => {
+          if (c.path === 'projects') {
+            is_ue_project = true
+          } else if (c.path === 'assets') {
+            is_ue_asset = true
+          } else if (c.path === 'plugins') {
+            is_ue_plugin = true
+          }
+        })
+      }
+
+      let compatible_apps: string[] = []
+      releaseInfo.forEach((rI: { appId: string; compatibleApps: string[] }) => {
+        if (rI.appId === app_name) {
+          compatible_apps = rI.compatibleApps
         }
       })
-    }
 
-    let compatible_apps: string[] = []
-    releaseInfo.forEach((rI: { appId: string; compatibleApps: string[] }) => {
-      if (rI.appId === app_name) {
-        compatible_apps = rI.compatibleApps
-      }
-    })
+      const cloud_save_enabled = is_game && Boolean(CloudSaveFolder?.value)
+      const saveFolder = cloud_save_enabled ? CloudSaveFolder.value : ''
+      const installFolder = FolderName ? FolderName.value : app_name
 
-    const cloud_save_enabled = is_game && Boolean(CloudSaveFolder?.value)
-    const saveFolder = cloud_save_enabled ? CloudSaveFolder.value : ''
-    const installFolder = FolderName ? FolderName.value : app_name
+      const gameBox = is_game
+        ? keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBox')[0]
+        : keyImages.filter(({ type }: KeyImage) => type === 'Screenshot')[0]
 
-    const gameBox = is_game
-      ? keyImages.filter(({ type }: KeyImage) => type === 'DieselGameBox')[0]
-      : keyImages.filter(({ type }: KeyImage) => type === 'Screenshot')[0]
+      const gameBoxTall = is_game
+        ? keyImages.filter(
+            ({ type }: KeyImage) => type === 'DieselGameBoxTall'
+          )[0]
+        : gameBox
 
-    const gameBoxTall = is_game
-      ? keyImages.filter(
-          ({ type }: KeyImage) => type === 'DieselGameBoxTall'
-        )[0]
-      : gameBox
+      const gameBoxStore = is_game
+        ? keyImages.filter(
+            ({ type }: KeyImage) => type === 'DieselStoreFrontTall'
+          )[0]
+        : gameBox
 
-    const gameBoxStore = is_game
-      ? keyImages.filter(
-          ({ type }: KeyImage) => type === 'DieselStoreFrontTall'
-        )[0]
-      : gameBox
+      const logo = is_game
+        ? keyImages.filter(
+            ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
+          )[0]
+        : keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail')[0]
 
-    const logo = is_game
-      ? keyImages.filter(
-          ({ type }: KeyImage) => type === 'DieselGameBoxLogo'
-        )[0]
-      : keyImages.filter(({ type }: KeyImage) => type === 'Thumbnail')[0]
+      const art_cover = gameBox ? gameBox.url : null
+      const art_logo = logo ? logo.url : null
+      const art_square = gameBoxTall ? gameBoxTall.url : null
+      const art_square_front = gameBoxStore ? gameBoxStore.url : null
 
-    const art_cover = gameBox ? gameBox.url : null
-    const art_logo = logo ? logo.url : null
-    const art_square = gameBoxTall ? gameBoxTall.url : null
-    const art_square_front = gameBoxStore ? gameBoxStore.url : null
+      const info = this.installedGames.get(app_name)
+      const {
+        executable = null,
+        version = null,
+        install_size = null,
+        install_path = null,
+        platform,
+        is_dlc = metadata.categories.filter(
+          ({ path }: { path: string }) => path === 'dlc'
+        ).length || dlcs.includes(app_name)
+      } = (info === undefined ? {} : info) as InstalledInfo
 
-    const info = this.installedGames.get(app_name)
-    const {
-      executable = null,
-      version = null,
-      install_size = null,
-      install_path = null,
-      platform,
-      is_dlc = metadata.categories.filter(
-        ({ path }: { path: string }) => path === 'dlc'
-      ).length || dlcs.includes(app_name)
-    } = (info === undefined ? {} : info) as InstalledInfo
+      const convertedSize = install_size && getFileSize(Number(install_size))
 
-    const convertedSize = install_size && getFileSize(Number(install_size))
-
-    this.library.set(app_name, {
-      app_name,
-      art_cover: art_cover || art_square || fallBackImage,
-      art_logo,
-      art_square: art_square || art_square_front || art_cover || fallBackImage,
-      cloud_save_enabled,
-      compatible_apps,
-      developer,
-      extra: {
-        about: {
-          description,
-          shortDescription
+      this.library.set(app_name, {
+        app_name,
+        art_cover: art_cover || art_square || fallBackImage,
+        art_logo,
+        art_square:
+          art_square || art_square_front || art_cover || fallBackImage,
+        cloud_save_enabled,
+        compatible_apps,
+        developer,
+        extra: {
+          about: {
+            description,
+            shortDescription
+          },
+          reqs: {}
         },
-        reqs: {}
-      },
-      folder_name: installFolder,
-      install: {
-        executable,
-        install_path,
-        install_size: convertedSize,
-        is_dlc,
-        version,
-        platform
-      },
-      is_game,
-      is_installed: info !== undefined,
-      is_ue_asset,
-      is_ue_plugin,
-      is_ue_project,
-      namespace,
-      is_mac_native: info
-        ? platform === 'Mac'
-        : releaseInfo[0]?.platform.includes('Mac'),
-      save_folder: saveFolder,
-      title,
-      canRunOffline,
-      is_linux_native: false,
-      runner: 'legendary',
-      store_url: formatEpicStoreUrl(title)
-    } as GameInfo)
+        folder_name: installFolder,
+        install: {
+          executable,
+          install_path,
+          install_size: convertedSize,
+          is_dlc,
+          version,
+          platform
+        },
+        is_game,
+        is_installed: info !== undefined,
+        is_ue_asset,
+        is_ue_plugin,
+        is_ue_project,
+        namespace,
+        is_mac_native: info
+          ? platform === 'Mac'
+          : releaseInfo[0]?.platform.includes('Mac'),
+        save_folder: saveFolder,
+        title,
+        canRunOffline,
+        is_linux_native: false,
+        runner: 'legendary',
+        store_url: formatEpicStoreUrl(title)
+      } as GameInfo)
 
-    return app_name
+      return app_name
+    } catch (error) {
+      logError(
+        `Library file corrupted, please check ${fileName}`,
+        LogPrefix.Legendary
+      )
+    }
   }
 
   /**
@@ -492,10 +516,14 @@ export class LegendaryLibrary {
    */
   private loadFileStub(fileName: string): string {
     fileName = `${libraryPath}/${fileName}`
-    const { app_name } = JSON.parse(readFileSync(fileName, 'utf-8'))
-    this.library.set(app_name, null)
-
-    return app_name
+    try {
+      const { app_name } = JSON.parse(readFileSync(fileName, 'utf-8'))
+      this.library.set(app_name, null)
+      return app_name
+    } catch (error) {
+      logError(`Metadata for ${fileName} corrupted`, LogPrefix.Legendary)
+      return 'error'
+    }
   }
 
   /**

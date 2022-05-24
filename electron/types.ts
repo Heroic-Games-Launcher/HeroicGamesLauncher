@@ -180,7 +180,7 @@ export interface InstallProgress {
   bytes: string
   eta: string
   folder?: string
-  percent: string
+  percent: number
 }
 export interface InstalledInfo {
   executable: string | null

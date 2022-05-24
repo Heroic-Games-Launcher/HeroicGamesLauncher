@@ -168,23 +168,23 @@ export default function Library(): JSX.Element {
     switch (filter) {
       case 'win':
         return library.filter((game) => {
-          return game.is_installed
-            ? game.install.platform === 'windows'
-            : process.platform === 'darwin'
-            ? !game.is_mac_native
-            : !game.is_linux_native
+          return game?.is_installed
+            ? game?.install?.platform === 'windows'
+            : process?.platform === 'darwin'
+            ? !game?.is_mac_native
+            : !game?.is_linux_native
         })
       case 'mac':
         return library.filter((game) => {
-          return game.is_installed
-            ? isMac.includes(game.install.platform ?? '')
-            : game.is_mac_native
+          return game?.is_installed
+            ? isMac.includes(game?.install?.platform ?? '')
+            : game?.is_mac_native
         })
       case 'linux':
         return library.filter((game) => {
-          return game.is_installed
-            ? game.install.platform === 'linux'
-            : game.is_linux_native
+          return game?.is_installed
+            ? game?.install?.platform === 'linux'
+            : game?.is_linux_native
         })
       default:
         return library.filter((game) => game?.is_game)
@@ -193,9 +193,15 @@ export default function Library(): JSX.Element {
 
   // select library
   const libraryToShow = useMemo(() => {
-    let library = category === 'epic' ? epic.library : gog.library
-    if (!library) {
-      return []
+    let library: GameInfo[] = []
+    if (epic.username && category === 'epic') {
+      library = epic.library
+    } else if (gog.username && category === 'gog') {
+      library = gog.library
+    } else if (!epic.username && category === 'epic') {
+      if (gog.username) {
+        library = gog.library
+      }
     }
 
     // filter

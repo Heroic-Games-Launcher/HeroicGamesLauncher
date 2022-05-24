@@ -111,7 +111,10 @@ async function createWindow(): Promise<BrowserWindow> {
   }
 
   if (configStore.has('window-props')) {
-    const tmpWindowProps = configStore.get('window-props') as Electron.Rectangle
+    const tmpWindowProps = configStore.get(
+      'window-props',
+      {}
+    ) as Electron.Rectangle
     if (
       tmpWindowProps &&
       tmpWindowProps.width &&
@@ -206,7 +209,7 @@ const gotTheLock = app.requestSingleInstanceLock()
 
 const contextMenu = () => {
   const recentGames: Array<RecentGame> =
-    (configStore.get('games.recent') as Array<RecentGame>) || []
+    (configStore.get('games.recent', []) as Array<RecentGame>) || []
   const recentsMenu = recentGames.map((game) => {
     return {
       click: function () {
@@ -384,7 +387,8 @@ if (!gotTheLock) {
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
       const zoomFactor =
-        parseFloat((configStore.get('zoomPercent') as string) || '100') / 100
+        parseFloat((configStore.get('zoomPercent', '100') as string) || '100') /
+        100
 
       mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
     }, 200)
@@ -1367,7 +1371,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
 })
 
 ipcMain.handle('getFonts', async (event, reload = false) => {
-  let cachedFonts = (fontsStore.get('fonts') as string[]) || []
+  let cachedFonts = (fontsStore.get('fonts', []) as string[]) || []
   if (cachedFonts.length === 0 || reload) {
     cachedFonts = await getFonts()
     cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))

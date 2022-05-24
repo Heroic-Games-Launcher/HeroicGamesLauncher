@@ -484,7 +484,8 @@ async function runLegendaryOrGogdlCommand(
     child.on('close', (code, signal) => {
       errorHandler({
         error: { stderr: stderr.join(), stdout: stdout.join() },
-        logPath: options?.logFile
+        logPath: options?.logFile,
+        runner: runner.name
       })
       if (signal) {
         rej('Process terminated with signal ' + signal)
@@ -502,7 +503,7 @@ async function runLegendaryOrGogdlCommand(
       return { stdout, stderr, fullCommand: safeCommand }
     })
     .catch((error) => {
-      errorHandler({ error, logPath: options?.logFile })
+      errorHandler({ error, logPath: options?.logFile, runner: runner.name })
       logError(
         ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
         runner.logPrefix

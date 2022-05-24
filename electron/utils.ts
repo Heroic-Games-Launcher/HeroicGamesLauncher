@@ -289,14 +289,21 @@ export const getSystemInfo = async () => {
 type ErrorHandlerMessage = {
   error?: { stderr: string; stdout: string }
   logPath?: string
+  runner: string
 }
 
 async function errorHandler(
-  { error, logPath }: ErrorHandlerMessage,
+  { error, logPath, runner: r }: ErrorHandlerMessage,
   window?: BrowserWindow
 ): Promise<void> {
   const noSpaceMsg = 'Not enough available disk space'
-  const noCredentialsError = 'No saved credentials'
+  const runner = r === 'Legendary' ? 'Legendary (Epic Games)' : r
+  const otherErrorMessages = [
+    'No saved credentials',
+    'in get_user_entitlements',
+    'No credentials'
+  ]
+
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
       .then(({ stdout }) => {
@@ -315,16 +322,18 @@ async function errorHandler(
       .catch(() => logInfo('operation interrupted', LogPrefix.Backend))
   }
   if (error) {
-    if (error.stderr.includes(noCredentialsError)) {
-      return showErrorBoxModal(
-        window,
-        i18next.t('box.error.credentials.title', 'Expired Credentials'),
-        i18next.t(
-          'box.error.credentials.message',
-          'Your Crendentials have expired, Logout and Login Again!'
+    otherErrorMessages.forEach((message) => {
+      if (error.stderr.includes(message)) {
+        return showErrorBoxModal(
+          window,
+          runner,
+          i18next.t(
+            'box.error.credentials.message',
+            'Your Crendentials have expired, Logout and Login Again!'
+          )
         )
-      )
-    }
+      }
+    })
   }
 }
 
@@ -388,7 +397,7 @@ function splitPathAndName(fullPath: string): { dir: string; bin: string } {
 }
 
 function getLegendaryBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings') as { altLeg: string }
+  const settings = configStore.get('settings', {}) as { altLeg: string }
   if (settings?.altLeg) {
     return splitPathAndName(settings.altLeg)
   }
@@ -398,7 +407,7 @@ function getLegendaryBin(): { dir: string; bin: string } {
 }
 
 function getGOGdlBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings') as { altGogdl: string }
+  const settings = configStore.get('settings', {}) as { altGogdl: string }
   if (settings?.altGogdl) {
     return splitPathAndName(settings.altGogdl)
   }

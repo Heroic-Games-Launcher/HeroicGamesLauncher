@@ -77,7 +77,10 @@ async function updateWineVersionInfos(
     logInfo('Read local information ...', LogPrefix.WineDownloader)
     if (wineDownloaderInfoStore.has('wine-releases')) {
       releases.push(
-        ...(wineDownloaderInfoStore.get('wine-releases') as WineVersionInfo[])
+        ...(wineDownloaderInfoStore.get(
+          'wine-releases',
+          []
+        ) as WineVersionInfo[])
       )
     }
   }
