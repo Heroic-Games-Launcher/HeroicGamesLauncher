@@ -3,8 +3,17 @@ import { Game, Runner } from './games'
 import { logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
 
-export async function handleProtocol(window: BrowserWindow, url: string) {
+export async function handleProtocol(window: BrowserWindow, args: string[]) {
   const mainWindow = BrowserWindow.getAllWindows()[0]
+
+  // Figure out which argv element is our protocol
+  let url = ''
+  args.forEach((val) => {
+    if (val.startsWith('heroic://')) {
+      url = val
+    }
+  })
+
   const [scheme, path] = url.split('://')
   if (!url || scheme !== 'heroic' || !path) {
     return
