@@ -234,9 +234,7 @@ function Settings() {
       setAltGogdlBin(config.altGogdlBin || '')
       setShowUnrealMarket(config.showUnrealMarket)
       setDefaultWinePrefix(config.defaultWinePrefix)
-      setUseSteamRuntime(
-        config.useSteamRuntime || wineVersion.type === 'proton' ? true : false
-      )
+      setUseSteamRuntime(config.useSteamRuntime)
       setDisableController(config.disableController || false)
 
       if (!isDefault) {
