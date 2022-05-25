@@ -94,41 +94,37 @@ export default function WebView() {
             }
           }
         } else {
-          if (
-            webview.getURL() === 'https://www.epicgames.com/id/api/redirect'
-          ) {
-            setTimeout(() => {
-              webview.addEventListener(
-                'found-in-page',
-                async (res) => {
-                  const data = res as Event & { result: { matches: number } }
-                  if (!data.result.matches) {
-                    return
-                  }
-                  webview.focus()
-                  webview.selectAll()
-                  webview.copy()
-                  if (!clipboard.readText().match('sid')) {
-                    return
-                  }
-                  const { sid }: SID = JSON.parse(clipboard.readText())
-                  try {
-                    setLoading({
-                      refresh: true,
-                      message: t('status.logging', 'Logging In...')
-                    })
-                    await epic.login(sid)
-                    handleSuccessfulLogin()
-                  } catch (error) {
-                    console.error(error)
-                    ipcRenderer.send('logError', error)
-                  }
-                },
-                { once: true }
-              )
-              webview.findInPage('sid')
-            }, 500)
-          }
+          setTimeout(() => {
+            webview.addEventListener(
+              'found-in-page',
+              async (res) => {
+                const data = res as Event & { result: { matches: number } }
+                if (!data.result.matches) {
+                  return
+                }
+                webview.focus()
+                webview.selectAll()
+                webview.copy()
+                if (!clipboard.readText().match('sid')) {
+                  return
+                }
+                const { sid }: SID = JSON.parse(clipboard.readText())
+                try {
+                  setLoading({
+                    refresh: true,
+                    message: t('status.logging', 'Logging In...')
+                  })
+                  await epic.login(sid)
+                  handleSuccessfulLogin()
+                } catch (error) {
+                  console.error(error)
+                  ipcRenderer.send('logError', error)
+                }
+              },
+              { once: true }
+            )
+            webview.findInPage('sid')
+          }, 500)
         }
       }
 
