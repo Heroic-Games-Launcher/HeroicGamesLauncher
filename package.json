@@ -136,6 +136,7 @@
     "@fortawesome/react-fontawesome": "^0.1.18",
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.6.2",
+    "@node-steam/vdf": "^2.2.0",
     "axios": "^0.26.1",
     "check-disk-space": "^3.3.0",
     "classnames": "^2.3.1",
