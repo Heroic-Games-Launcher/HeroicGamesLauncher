@@ -14,6 +14,7 @@ import {
 } from '../constants'
 import { app } from 'electron'
 import { join } from 'path'
+import { showErrorBoxModalAuto } from '../utils'
 
 export enum LogPrefix {
   General = '',
@@ -75,12 +76,17 @@ const getPrefixString = (prefix: LogPrefix) => {
 export function logDebug(
   text: string[] | string,
   prefix: LogPrefix = LogPrefix.General,
+  showDialog = false,
   skipLogToFile = false
 ) {
   const extendText = `${getTimeStamp()} DEBUG:   ${getPrefixString(
     prefix
   )}${convertToStringArray(text)}`
   console.log(extendText)
+
+  if (showDialog) {
+    showErrorBoxModalAuto(getPrefixString(prefix), convertToStringArray(text))
+  }
 
   if (!skipLogToFile) {
     appendMessageToLogFile(extendText)
@@ -97,12 +103,17 @@ export function logDebug(
 export function logError(
   text: string[] | string,
   prefix: LogPrefix = LogPrefix.General,
+  showDialog = true,
   skipLogToFile = false
 ) {
   const extendText = `${getTimeStamp()} ERROR:   ${getPrefixString(
     prefix
   )}${convertToStringArray(text)}`
   console.error(extendText)
+
+  if (showDialog) {
+    showErrorBoxModalAuto(getPrefixString(prefix), convertToStringArray(text))
+  }
 
   if (!skipLogToFile) {
     appendMessageToLogFile(extendText)
@@ -119,12 +130,17 @@ export function logError(
 export function logInfo(
   text: string[] | string,
   prefix: LogPrefix = LogPrefix.General,
+  showDialog = false,
   skipLogToFile = false
 ) {
   const extendText = `${getTimeStamp()} INFO:    ${getPrefixString(
     prefix
   )}${convertToStringArray(text)}`
   console.log(extendText)
+
+  if (showDialog) {
+    showErrorBoxModalAuto(getPrefixString(prefix), convertToStringArray(text))
+  }
 
   if (!skipLogToFile) {
     appendMessageToLogFile(extendText)
@@ -141,12 +157,17 @@ export function logInfo(
 export function logWarning(
   text: string[] | string,
   prefix: LogPrefix = LogPrefix.General,
+  showDialog = false,
   skipLogToFile = false
 ) {
   const extendText = `${getTimeStamp()} WARNING: ${getPrefixString(
     prefix
   )}${convertToStringArray(text)}`
   console.warn(extendText)
+
+  if (showDialog) {
+    showErrorBoxModalAuto(getPrefixString(prefix), convertToStringArray(text))
+  }
 
   if (!skipLogToFile) {
     appendMessageToLogFile(extendText)
