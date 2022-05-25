@@ -14,17 +14,18 @@ export class LegendaryUser {
     const command = getLegendaryCommand(commandParts)
     logInfo(['Logging in with Legendary:', command], LogPrefix.Legendary)
 
-    const res = await runLegendaryCommand(commandParts)
-
-    if (res.error) {
+    try {
+      await runLegendaryCommand(commandParts)
+      const userInfo = await this.getUserInfo()
+      return { status: 'done', data: userInfo }
+    } catch (error) {
       logError(
-        ['Failed to login with Legendary:', res.error],
+        ['Failed to login with Legendary:', `${error}`],
         LogPrefix.Legendary
       )
+
       return { status: 'failed' }
     }
-    const userInfo = await this.getUserInfo()
-    return { status: 'done', data: userInfo }
   }
 
   public static async logout() {
