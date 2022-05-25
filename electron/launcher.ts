@@ -514,23 +514,16 @@ async function runLegendaryOrGogdlCommand(
       return { stdout, stderr, fullCommand: safeCommand }
     })
     .catch((error) => {
-      if (error === 'MemoryError:') {
-        logWarning(
-          'Install failed, trying again with higher limit',
-          LogPrefix.Legendary
-        )
-        return { stdout: '', stderr: '', fullCommand: safeCommand, error }
-      }
       errorHandler({
         error: { stderr: `${error}`, stdout: `${error}` },
         logPath: options?.logFile,
         runner: runner.name
       })
-      const showDialog = !`${error}`.includes('signal')
+
       logError(
         ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
         runner.logPrefix,
-        showDialog
+        false
       )
       return { stdout: '', stderr: '', fullCommand: safeCommand, error }
     })
