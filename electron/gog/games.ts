@@ -519,7 +519,7 @@ class GOGGame extends Game {
           res.stderr = stderr
         })
         .catch((error) => {
-          res.error = error
+          res.error = `${error}`
         })
     } else {
       rmSync(object.install_path, { recursive: true })

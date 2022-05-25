@@ -111,8 +111,8 @@ export default function GamePage(): JSX.Element | null {
           })
           .catch((error) => {
             console.error(error)
-            ipcRenderer.send('logError', error)
-            setHasError({ error: true, message: error })
+            ipcRenderer.send('logError', `${error}`)
+            setHasError({ error: true, message: `${error}` })
           })
         if (newInfo?.cloud_save_enabled) {
           try {

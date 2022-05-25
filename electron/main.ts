@@ -375,7 +375,7 @@ if (!gotTheLock) {
       if (app.setAsDefaultProtocolClient('heroic')) {
         logInfo('Registered protocol with OS.', LogPrefix.Backend)
       } else {
-        logError('Failed to register protocol with OS.', LogPrefix.Backend)
+        logWarning('Failed to register protocol with OS.', LogPrefix.Backend)
       }
     } else {
       logWarning('Protocol already registered.', LogPrefix.Backend)

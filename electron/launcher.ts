@@ -310,8 +310,8 @@ export async function verifyWinePrefix(
       return { res: result, updated: wasUpdated }
     })
     .catch((error) => {
-      logError(['Unable to create Wineprefix: ', error], LogPrefix.Backend)
-      return { res: { stderr: error, stdout: '' }, updated: false }
+      logError(['Unable to create Wineprefix: ', `${error}`], LogPrefix.Backend)
+      return { res: { stderr: `${error}`, stdout: '' }, updated: false }
     })
 }
 
@@ -397,8 +397,9 @@ async function runWineCommand(
       return response
     })
     .catch((error) => {
-      logError(['Error running Wine command:', error], LogPrefix.Backend)
-      return { stderr: error, stdout: '' }
+      // error might not always be a string
+      logError(['Error running Wine command:', `${error}`], LogPrefix.Backend)
+      return { stderr: `${error}`, stdout: '' }
     })
 }
 
