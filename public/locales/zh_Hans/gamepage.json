@@ -75,11 +75,11 @@
         "version": "版本"
     },
     "install": {
-        "disk-space-left": "设备剩余空间",
-        "invalid-folder": "Error: Invalid Path",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "可用空间",
+        "invalid-folder": "错误：无效路径",
+        "not-enough-disk-space": "磁盘空间不足",
         "path": "选择安装路径",
-        "space-after-install": "After Install",
+        "space-after-install": "安装后",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine 版本"
     },
@@ -110,7 +110,7 @@
         "installing": "正在安装",
         "moving": "正在移动安装，请稍等",
         "notinstalled": "未安装此游戏",
-        "processing": "Processing files, please wait",
+        "processing": "处理文件中，请等待",
         "reparing": "正在修复游戏，请稍等",
         "totalDownloaded": "下载总计",
         "updating": "游戏更新中"

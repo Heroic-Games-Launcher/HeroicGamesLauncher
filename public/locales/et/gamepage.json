@@ -75,11 +75,11 @@
         "version": "Versioon"
     },
     "install": {
-        "disk-space-left": "Seadmesse jäänud ruum",
-        "invalid-folder": "Error: Invalid Path",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Vaba ruumi",
+        "invalid-folder": "Viga: kehtetu failitee",
+        "not-enough-disk-space": "Ei ole piisavalt kettaruumi",
         "path": "Valige paigaldustee",
-        "space-after-install": "After Install",
+        "space-after-install": "Pärast paigaldamist",
         "wineprefix": "WinePrefiks",
         "wineversion": "Wine'i versioon"
     },
@@ -110,7 +110,7 @@
         "installing": "Paigaldamine",
         "moving": "Paigalduse liiguatamine, palun oodake",
         "notinstalled": "See mäng ei ole paigaldatud",
-        "processing": "Processing files, please wait",
+        "processing": "Failide töötlemine, palun oodake",
         "reparing": "Mängu parandamine, palun oodake",
         "totalDownloaded": "Allalaaditud kokku",
         "updating": "Mängu uuendamine"

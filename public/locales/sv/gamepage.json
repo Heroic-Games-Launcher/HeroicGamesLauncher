@@ -75,7 +75,7 @@
         "version": "Version"
     },
     "install": {
-        "disk-space-left": "Ledigt utrymme på enheten",
+        "disk-space-left": "Utrymme tillgängligt",
         "invalid-folder": "Error: Invalid Path",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Ange installationssökväg",
