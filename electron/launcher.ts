@@ -521,7 +521,11 @@ async function runLegendaryOrGogdlCommand(
         )
         return { stdout: '', stderr: '', fullCommand: safeCommand, error }
       }
-      errorHandler({ error, logPath: options?.logFile, runner: runner.name })
+      errorHandler({
+        error: { stderr: `${error}`, stdout: `${error}` },
+        logPath: options?.logFile,
+        runner: runner.name
+      })
       const showDialog = !`${error}`.includes('signal')
       logError(
         ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],

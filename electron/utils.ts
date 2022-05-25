@@ -323,7 +323,7 @@ async function errorHandler(
   }
   if (error) {
     otherErrorMessages.forEach((message) => {
-      if (error.stderr.includes(message)) {
+      if (error?.stderr?.includes(message)) {
         return showErrorBoxModal(
           window,
           runner,
