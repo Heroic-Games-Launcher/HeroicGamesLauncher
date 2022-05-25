@@ -32,7 +32,7 @@ export enum LogPrefix {
 let longestPrefix = 0
 
 // helper to convert arrays to string
-function convertToStringArray(param: string | string[]): string {
+function convertArrayToString(param: string | string[]): string {
   if (typeof param === 'string') {
     return param
   } else if (Array.isArray(param)) {
@@ -81,11 +81,11 @@ export function logDebug(
 ) {
   const extendText = `${getTimeStamp()} DEBUG:   ${getPrefixString(
     prefix
-  )}${convertToStringArray(text)}`
+  )}${convertArrayToString(text)}`
   console.log(extendText)
 
   if (showDialog) {
-    showErrorBoxModalAuto(getPrefixString(prefix), convertToStringArray(text))
+    showErrorBoxModalAuto(getPrefixString(prefix), convertArrayToString(text))
   }
 
   if (!skipLogToFile) {
@@ -108,11 +108,11 @@ export function logError(
 ) {
   const extendText = `${getTimeStamp()} ERROR:   ${getPrefixString(
     prefix
-  )}${convertToStringArray(text)}`
+  )}${convertArrayToString(text)}`
   console.error(extendText)
 
   if (showDialog) {
-    showErrorBoxModalAuto(getPrefixString(prefix), convertToStringArray(text))
+    showErrorBoxModalAuto(getPrefixString(prefix), convertArrayToString(text))
   }
 
   if (!skipLogToFile) {
@@ -135,11 +135,11 @@ export function logInfo(
 ) {
   const extendText = `${getTimeStamp()} INFO:    ${getPrefixString(
     prefix
-  )}${convertToStringArray(text)}`
+  )}${convertArrayToString(text)}`
   console.log(extendText)
 
   if (showDialog) {
-    showErrorBoxModalAuto(getPrefixString(prefix), convertToStringArray(text))
+    showErrorBoxModalAuto(getPrefixString(prefix), convertArrayToString(text))
   }
 
   if (!skipLogToFile) {
@@ -162,11 +162,11 @@ export function logWarning(
 ) {
   const extendText = `${getTimeStamp()} WARNING: ${getPrefixString(
     prefix
-  )}${convertToStringArray(text)}`
+  )}${convertArrayToString(text)}`
   console.warn(extendText)
 
   if (showDialog) {
-    showErrorBoxModalAuto(getPrefixString(prefix), convertToStringArray(text))
+    showErrorBoxModalAuto(getPrefixString(prefix), convertArrayToString(text))
   }
 
   if (!skipLogToFile) {
