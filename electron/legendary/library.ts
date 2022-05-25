@@ -224,7 +224,11 @@ export class LegendaryLibrary {
     ])
 
     if (res.error) {
-      logError(['Failed to get more details:', res.error], LogPrefix.Legendary)
+      logError(
+        ['Failed to get more details:', res.error],
+        LogPrefix.Legendary,
+        false
+      )
     }
 
     const info: InstallInfo = JSON.parse(res.stdout)
@@ -261,7 +265,8 @@ export class LegendaryLibrary {
     if (res.error) {
       logError(
         ['Failed to check for game updates:', res.error],
-        LogPrefix.Legendary
+        LogPrefix.Legendary,
+        false
       )
       return []
     }
@@ -503,7 +508,8 @@ export class LegendaryLibrary {
     } catch (error) {
       logError(
         `Library file corrupted, please check ${fileName}`,
-        LogPrefix.Legendary
+        LogPrefix.Legendary,
+        false
       )
     }
   }
@@ -521,7 +527,7 @@ export class LegendaryLibrary {
       this.library.set(app_name, null)
       return app_name
     } catch (error) {
-      logError(`Metadata for ${fileName} corrupted`, LogPrefix.Legendary)
+      logError(`Metadata for ${fileName} corrupted`, LogPrefix.Legendary, false)
       return 'error'
     }
   }

@@ -308,7 +308,7 @@ async function errorHandler(
     execAsync(`tail "${logPath}" | grep 'disk space'`)
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
-          logError(noSpaceMsg, LogPrefix.Backend)
+          logError(noSpaceMsg, LogPrefix.Backend, false)
           return showErrorBoxModal(
             window,
             i18next.t('box.error.diskspace.title', 'No Space'),

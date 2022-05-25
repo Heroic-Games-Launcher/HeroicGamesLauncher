@@ -188,7 +188,7 @@ async function createWindow(): Promise<BrowserWindow> {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
       installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        logError(['An error occurred: ', err], LogPrefix.Backend)
+        logWarning(['An error occurred: ', err], LogPrefix.Backend)
       })
     })
     mainWindow.loadURL('http://localhost:3000')

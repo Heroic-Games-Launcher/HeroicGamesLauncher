@@ -88,7 +88,7 @@ export const DXVK = {
           exec(cleanCommand)
         })
         .catch((error) => {
-          logError(
+          logWarning(
             [`Error when downloading ${tool.name}`, error],
             LogPrefix.DXVKInstaller
           )
@@ -124,7 +124,7 @@ export const DXVK = {
     const wineBin = dirname(winePath.replace("'", ''))
 
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
-      logError('dxvk not found!', LogPrefix.DXVKInstaller)
+      logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
       await DXVK.getLatest()
     }
 
@@ -156,9 +156,8 @@ export const DXVK = {
           return exec(updatedVersionfile)
         })
         .catch((error) => {
-          logError(`${error}`, LogPrefix.DXVKInstaller)
           logError(
-            'error when removing DXVK, please try again',
+            ['error when removing DXVK, please try again', `${error}`],
             LogPrefix.DXVKInstaller
           )
         })
@@ -175,9 +174,11 @@ export const DXVK = {
         return exec(updatedVersionfile)
       })
       .catch((error) => {
-        logError(`${error}`, LogPrefix.DXVKInstaller)
         logError(
-          'error when installing DXVK, please try launching the game again',
+          [
+            'error when installing DXVK, please try launching the game again',
+            `${error}`
+          ],
           LogPrefix.DXVKInstaller
         )
       })
@@ -201,7 +202,7 @@ export const Winetricks = {
         logInfo('Downloaded Winetricks', LogPrefix.Backend)
       })
       .catch(() => {
-        logError('Error Downloading Winetricks', LogPrefix.Backend)
+        logWarning('Error Downloading Winetricks', LogPrefix.Backend)
       })
   },
   run: async (prefix: string, wine: string, isProton: boolean) => {
@@ -216,9 +217,11 @@ export const Winetricks = {
       const { stderr, stdout } = await execAsync(command, execOptions)
       logInfo(`Output: ${stderr} \n ${stdout}`)
     } catch (error) {
-      logError(`${error}`)
       logError(
-        `Something went wrong! Check if WineTricks is available and ${wineBin} exists`,
+        [
+          `Something went wrong! Check if WineTricks is available and ${wineBin} exists`,
+          `${error}`
+        ],
         LogPrefix.Backend
       )
     }
