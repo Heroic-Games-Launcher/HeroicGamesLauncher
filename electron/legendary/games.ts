@@ -403,16 +403,29 @@ class LegendaryGame extends Game {
       )
     }
 
-    const res = await runLegendaryCommand(commandParts, {
+    let res = await runLegendaryCommand(commandParts, {
       logFile: logPath,
       onOutput
     })
 
-    if (res.error) {
-      logError(
-        ['Failed to install', `${this.appName}:`, res.error],
-        LogPrefix.Legendary
+    // try to run the install again with higher memory limit
+    if (res.error === 'MemoryError:') {
+      res = await runLegendaryCommand(
+        [...commandParts, '--max-shared-memory', '5000'],
+        {
+          logFile: logPath,
+          onOutput
+        }
       )
+    }
+
+    if (res.error) {
+      if (!res.error.includes('signal')) {
+        logError(
+          ['Failed to install', `${this.appName}:`, res.error],
+          LogPrefix.Legendary
+        )
+      }
       return { status: 'error' }
     }
     return { status: 'done' }

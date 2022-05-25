@@ -488,12 +488,19 @@ async function runLegendaryOrGogdlCommand(
         logPath: options?.logFile,
         runner: runner.name
       })
+
       if (stderr.join().includes('ERROR')) {
         rej(stderr.join())
       }
+
+      if (stderr.join().includes('MemoryError:')) {
+        rej('MemoryError:')
+      }
+
       if (signal) {
         rej('Process terminated with signal ' + signal)
       }
+
       res({
         stdout: stdout.join('\n'),
         stderr: stderr.join('\n')
@@ -507,10 +514,19 @@ async function runLegendaryOrGogdlCommand(
       return { stdout, stderr, fullCommand: safeCommand }
     })
     .catch((error) => {
+      if (error === 'MemoryError:') {
+        logWarning(
+          'Install failed, trying again with higher limit',
+          LogPrefix.Legendary
+        )
+        return { stdout: '', stderr: '', fullCommand: safeCommand, error }
+      }
       errorHandler({ error, logPath: options?.logFile, runner: runner.name })
+      const showDialog = !`${error}`.includes('signal')
       logError(
         ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
-        runner.logPrefix
+        runner.logPrefix,
+        showDialog
       )
       return { stdout: '', stderr: '', fullCommand: safeCommand, error }
     })
