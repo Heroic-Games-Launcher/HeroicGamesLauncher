@@ -106,6 +106,7 @@ export default function Library(): JSX.Element {
           sortDescending={sortDescending}
           toggleSortDescending={() => handleSortDescending()}
           sortInstalled={sortInstalled}
+          library={category === 'epic' ? 'legendary' : 'gog'}
           toggleSortinstalled={() => handleSortInstalled()}
         />
       </div>

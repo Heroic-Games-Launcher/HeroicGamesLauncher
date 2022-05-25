@@ -8,6 +8,7 @@ import {
   InstalledInfo,
   LibraryTopSectionOptions,
   RefreshOptions,
+  Runner,
   WineVersionInfo
 } from 'src/types'
 import { TFunction, withTranslation } from 'react-i18next'
@@ -237,12 +238,13 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ libraryTopSection: value })
   }
 
-  handleSuccessfulLogin = (runner: 'epic' | 'gog') => {
+  handleSuccessfulLogin = (runner: Runner) => {
     this.handleFilter('all')
     this.handleCategory(runner)
     this.refreshLibrary({
       fullRefresh: true,
-      runInBackground: false
+      runInBackground: false,
+      library: runner
     })
   }
 
@@ -258,7 +260,7 @@ export class GlobalState extends PureComponent<Props> {
         }
       })
 
-      this.handleSuccessfulLogin('epic')
+      this.handleSuccessfulLogin('legendery' as Runner)
     }
 
     return response.status
@@ -308,7 +310,7 @@ export class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
-  refresh = async (checkUpdates?: boolean): Promise<void> => {
+  refresh = async (library?: Runner, checkUpdates?: boolean): Promise<void> => {
     console.log('refreshing')
 
     let updates = this.state.gameUpdates
@@ -328,7 +330,7 @@ export class GlobalState extends PureComponent<Props> {
 
     try {
       updates = checkUpdates
-        ? await ipcRenderer.invoke('checkGameUpdates')
+        ? await ipcRenderer.invoke('checkGameUpdates', library)
         : this.state.gameUpdates
     } catch (error) {
       ipcRenderer.send('logError', error)
@@ -357,7 +359,8 @@ export class GlobalState extends PureComponent<Props> {
   refreshLibrary = async ({
     checkForUpdates,
     fullRefresh,
-    runInBackground = true
+    runInBackground = true,
+    library = undefined
   }: RefreshOptions): Promise<void> => {
     if (this.state.refreshing) return
 
@@ -367,11 +370,11 @@ export class GlobalState extends PureComponent<Props> {
     })
     ipcRenderer.send('logInfo', 'Refreshing Library')
     try {
-      await ipcRenderer.invoke('refreshLibrary', fullRefresh)
+      await ipcRenderer.invoke('refreshLibrary', fullRefresh, library)
     } catch (error) {
       ipcRenderer.send('logError', error)
     }
-    this.refresh(checkForUpdates)
+    this.refresh(library, checkForUpdates)
   }
 
   refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
@@ -426,7 +429,8 @@ export class GlobalState extends PureComponent<Props> {
     appName,
     status,
     folder,
-    progress
+    progress,
+    runner
   }: GameStatus) => {
     const { libraryStatus, gameUpdates } = this.state
     const currentApp = libraryStatus.filter(
@@ -459,7 +463,8 @@ export class GlobalState extends PureComponent<Props> {
         // This avoids calling legendary again before the previous process is killed when canceling
         this.refreshLibrary({
           checkForUpdates: true,
-          runInBackground: true
+          runInBackground: true,
+          library: runner
         })
 
         storage.setItem(
@@ -473,7 +478,7 @@ export class GlobalState extends PureComponent<Props> {
         })
       }
 
-      this.refreshLibrary({ runInBackground: true })
+      this.refreshLibrary({ runInBackground: true, library: runner })
       this.setState({ libraryStatus: newLibraryStatus })
     }
   }

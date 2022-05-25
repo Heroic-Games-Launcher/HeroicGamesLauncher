@@ -189,7 +189,8 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     }
   }
 
-  const envVars = setupWineEnvVars(gameSettings)
+  const installFolderName = (await game.getGameInfo()).folder_name
+  const envVars = setupWineEnvVars(gameSettings, installFolderName)
 
   return { success: true, envVars: envVars }
 }
@@ -209,6 +210,17 @@ function setupEnvVars(gameSettings: GameSettings) {
   if (gameSettings.audioFix) {
     ret.PULSE_LATENCY_MSEC = '60'
   }
+  if (gameSettings.otherOptions) {
+    gameSettings.otherOptions
+      .split(' ')
+      .filter((val) => val.indexOf('=') !== -1)
+      .forEach((envKeyAndVar) => {
+        const keyAndValueSplit = envKeyAndVar.split('=')
+        const key = keyAndValueSplit.shift()
+        const value = keyAndValueSplit.join('=')
+        ret[key] = value
+      })
+  }
 
   return ret
 }
@@ -216,9 +228,10 @@ function setupEnvVars(gameSettings: GameSettings) {
 /**
  * Maps Wine-related settings to environment variables
  * @param gameSettings The GameSettings to get the environment variables for
+ * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId`
  * @returns A Record that can be passed to execAsync/spawn
  */
-function setupWineEnvVars(gameSettings: GameSettings) {
+function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   const { wineVersion } = gameSettings
 
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
@@ -246,13 +259,19 @@ function setupWineEnvVars(gameSettings: GameSettings) {
   if (gameSettings.enableResizableBar) {
     ret.VKD3D_CONFIG = 'upload_hvv'
   }
-  if (gameSettings.otherOptions) {
-    gameSettings.otherOptions.split(' ').forEach((envKeyAndVar) => {
-      const keyAndValueSplit = envKeyAndVar.split('=')
-      const key = keyAndValueSplit.shift()
-      const value = keyAndValueSplit.join('=')
-      ret[key] = value
-    })
+  if (gameSettings.useSteamRuntime) {
+    // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
+    ret.STEAM_COMPAT_APP_ID = '0'
+    ret.SteamAppId = ret.STEAM_COMPAT_APP_ID
+    // This sets the name of the log file given when setting PROTON_LOG=1
+    ret.SteamGameId = `heroic-${gameId}`
+    ret.PROTON_LOG_DIR = flatPakHome
+
+    // Only set WINEDEBUG if PROTON_LOG is set since Proton will also log if just WINEDEBUG is set
+    if (gameSettings.otherOptions.includes('PROTON_LOG=')) {
+      // Stop Proton from overriding WINEDEBUG; this prevents logs growing to a few GB for some games
+      ret.WINEDEBUG = 'timestamp'
+    }
   }
   return ret
 }
@@ -264,6 +283,15 @@ function setupWrappers(
   steamRuntime: string
 ): Array<string> {
   const wrappers = Array<string>()
+  // Wrappers could be specified in the environment variable section as well
+  if (gameSettings.otherOptions) {
+    gameSettings.otherOptions
+      .split(' ')
+      .filter((val) => val.indexOf('=') === -1)
+      .forEach((val) => {
+        wrappers.push(val)
+      })
+  }
   if (gameSettings.showMangohud) {
     // Mangohud needs some arguments in addition to the command, so we have to split here
     wrappers.push(...mangoHudBin.split(' '))

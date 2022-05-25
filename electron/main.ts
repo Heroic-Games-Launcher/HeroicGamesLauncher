@@ -101,7 +101,6 @@ const isWindows = platform() === 'win32'
 let mainWindow: BrowserWindow = null
 
 async function createWindow(): Promise<BrowserWindow> {
-  const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
   configStore.set('userHome', userHome)
 
   let windowProps: Electron.Rectangle = {
@@ -143,7 +142,7 @@ async function createWindow(): Promise<BrowserWindow> {
     ...windowProps,
     minHeight: 345,
     minWidth: 600,
-    show: !(exitToTray && startInTray),
+    show: false,
     webPreferences: {
       webviewTag: true,
       contextIsolation: false,
@@ -284,17 +283,7 @@ if (!gotTheLock) {
       mainWindow.show()
     }
 
-    // Figure out which argv element is our protocol
-    let heroicProtocolString = ''
-    argv.forEach((value) => {
-      if (value.startsWith('heroic://')) {
-        heroicProtocolString = value
-      }
-    })
-
-    if (heroicProtocolString) {
-      handleProtocol(mainWindow, heroicProtocolString)
-    }
+    handleProtocol(mainWindow, argv)
   })
   app.whenReady().then(async () => {
     const systemInfo = await getSystemInfo()
@@ -368,7 +357,7 @@ if (!gotTheLock) {
     await createWindow()
 
     protocol.registerStringProtocol('heroic', (request, callback) => {
-      handleProtocol(mainWindow, request.url)
+      handleProtocol(mainWindow, [request.url])
       callback('Operation initiated.')
     })
     if (!app.isDefaultProtocolClient('heroic')) {
@@ -380,10 +369,14 @@ if (!gotTheLock) {
     } else {
       logWarning('Protocol already registered.', LogPrefix.Backend)
     }
-    if (process.argv[1]) {
-      const url = process.argv[1]
-      handleProtocol(mainWindow, url)
+
+    const { startInTray } = await GlobalConfig.get().getSettings()
+    const headless = process.argv.includes('--no-gui') || startInTray
+    if (!headless) {
+      mainWindow.show()
     }
+
+    handleProtocol(mainWindow, process.argv)
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
@@ -516,7 +509,7 @@ app.on('window-all-closed', () => {
 
 app.on('open-url', (event, url) => {
   event.preventDefault()
-  handleProtocol(mainWindow, url)
+  handleProtocol(mainWindow, [url])
 })
 
 ipcMain.on('openFolder', async (event, folder) => openUrlOrFile(folder))
@@ -607,10 +600,18 @@ ipcMain.handle(
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', async () => {
-  const legendaryUpdates = await LegendaryLibrary.get().listUpdateableGames()
-  const gogUpdates = await GOGLibrary.get().listUpdateableGames()
-  return [...legendaryUpdates, ...gogUpdates]
+ipcMain.handle('checkGameUpdates', async (event, library?: Runner) => {
+  switch (library) {
+    case 'legendary':
+      return LegendaryLibrary.get().listUpdateableGames()
+    case 'gog':
+      return GOGLibrary.get().listUpdateableGames()
+    default:
+      return [
+        ...(await LegendaryLibrary.get().listUpdateableGames()),
+        ...(await GOGLibrary.get().listUpdateableGames())
+      ]
+  }
 })
 
 ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
@@ -764,11 +765,21 @@ if (existsSync(installed)) {
   })
 }
 
-ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
-  await Promise.allSettled([
-    GOGLibrary.get().sync(),
-    LegendaryLibrary.get().getGames('info', fullRefresh)
-  ])
+ipcMain.handle('refreshLibrary', async (e, fullRefresh, library?: Runner) => {
+  switch (library) {
+    case 'legendary':
+      await LegendaryLibrary.get().getGames('info', fullRefresh)
+      break
+    case 'gog':
+      await GOGLibrary.get().sync()
+      break
+    default:
+      await Promise.allSettled([
+        LegendaryLibrary.get().getGames('info', fullRefresh),
+        GOGLibrary.get().sync()
+      ])
+      break
+  }
 })
 
 ipcMain.on('logError', (e, err) => logError(`${err}`, LogPrefix.Frontend))
@@ -905,6 +916,11 @@ Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
           runner,
           status: 'done'
         })
+
+        // Exit if we've been launched without UI
+        if (process.argv.includes('--no-gui')) {
+          app.exit()
+        }
       })
   }
 )
