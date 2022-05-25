@@ -31,7 +31,7 @@ export enum LogPrefix {
 
 let longestPrefix = 0
 
-// helper to convert string to string[]
+// helper to convert arrays to string
 function convertToStringArray(param: string | string[]): string {
   if (typeof param === 'string') {
     return param

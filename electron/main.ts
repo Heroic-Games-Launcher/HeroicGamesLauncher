@@ -388,8 +388,7 @@ if (!gotTheLock) {
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
       const zoomFactor =
-        parseFloat((configStore.get('zoomPercent', '100') as string) || '100') /
-        100
+        parseFloat(configStore.get('zoomPercent', '100') as string) / 100
 
       mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
     }, 200)
