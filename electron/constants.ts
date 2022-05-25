@@ -114,16 +114,24 @@ function getSteamCompatFolder() {
   return `${userHome}/.steam/steam`
 }
 
-export function getSteamLibraries() {
+export function getSteamLibraries(): string[] {
   const vdfFile = join(steamCompatFolder, 'steamapps', 'libraryfolders.vdf')
+  const libraries = ['/usr/share/steam']
+
   if (existsSync(vdfFile)) {
     const json = parse(readFileSync(vdfFile, 'utf-8'))
     const folders = Object.values(json.libraryfolders) as Array<{
       path: string
     }>
-    return folders.map((folder) => folder.path)
+    return [...libraries, ...folders.map((folder) => folder.path)].filter(
+      (path) => existsSync(path)
+    )
   }
-  logDebug('No other steam libraries found', LogPrefix.Backend)
+  logDebug(
+    'Unable to load Steam Libraries, libraryfolders.vdf not found',
+    LogPrefix.Backend
+  )
+  return libraries
 }
 
 const MAX_BUFFER = 25 * 1024 * 1024 // 25MB should be safe enough for big installations even on really slow internet

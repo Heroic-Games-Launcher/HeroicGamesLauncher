@@ -240,16 +240,9 @@ abstract class GlobalConfig {
       })
     }
 
-    const steamLibraries = getSteamLibraries()
     const protonPaths = [`${heroicToolsPath}/proton/`]
 
-    // Known places where Steam might be found.
-    // Just add a new string here in case another path is found on another distro.
-    const steamPaths = [...steamLibraries, '/usr/share/steam'].filter((path) =>
-      existsSync(path)
-    )
-
-    steamPaths.forEach((path) => {
+    getSteamLibraries().forEach((path) => {
       protonPaths.push(`${path}/steam/steamapps/common`)
       protonPaths.push(`${path}/steamapps/common`)
       protonPaths.push(`${path}/root/compatibilitytools.d`)
@@ -262,20 +255,15 @@ abstract class GlobalConfig {
     protonPaths.forEach((path) => {
       if (existsSync(path)) {
         readdirSync(path).forEach((version) => {
-          const name = version.toLowerCase()
-          const hasProtonName =
-            name.startsWith('proton') || name.startsWith('ge-proton')
-          if (hasProtonName && !name.includes('runtime')) {
-            const protonBin = join(path, version, 'proton')
-            // check if bin exists to avoid false positives
-            if (existsSync(protonBin)) {
-              proton.add({
-                bin: protonBin,
-                name: `Proton - ${version}`,
-                type: 'proton'
-                // No need to run this.getWineExecs here since Proton ships neither Wineboot nor Wineserver
-              })
-            }
+          const protonBin = join(path, version, 'proton')
+          // check if bin exists to avoid false positives
+          if (existsSync(protonBin)) {
+            proton.add({
+              bin: protonBin,
+              name: `Proton - ${version}`,
+              type: 'proton'
+              // No need to run this.getWineExecs here since Proton ships neither Wineboot nor Wineserver
+            })
           }
         })
       }
