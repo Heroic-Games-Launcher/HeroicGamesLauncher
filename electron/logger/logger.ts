@@ -31,8 +31,14 @@ export enum LogPrefix {
 let longestPrefix = 0
 
 // helper to convert string to string[]
-function convertToStringArray(param: string | string[]): string[] {
-  return typeof param === 'string' ? [param] : param
+function convertToStringArray(param: string | string[]): string {
+  if (typeof param === 'string') {
+    return param
+  } else if (Array.isArray(param)) {
+    return param.join(' ')
+  }
+  // if somehow the param is an object and not array or string
+  return JSON.stringify(param)
 }
 
 const padNumberToTwo = (n: number) => {
@@ -73,7 +79,7 @@ export function logDebug(
 ) {
   const extendText = `${getTimeStamp()} DEBUG:   ${getPrefixString(
     prefix
-  )}${convertToStringArray(text).join(' ')}`
+  )}${convertToStringArray(text)}`
   console.log(extendText)
 
   if (!skipLogToFile) {
@@ -95,7 +101,7 @@ export function logError(
 ) {
   const extendText = `${getTimeStamp()} ERROR:   ${getPrefixString(
     prefix
-  )}${convertToStringArray(text).join(' ')}`
+  )}${convertToStringArray(text)}`
   console.error(extendText)
 
   if (!skipLogToFile) {
@@ -117,7 +123,7 @@ export function logInfo(
 ) {
   const extendText = `${getTimeStamp()} INFO:    ${getPrefixString(
     prefix
-  )}${convertToStringArray(text).join(' ')}`
+  )}${convertToStringArray(text)}`
   console.log(extendText)
 
   if (!skipLogToFile) {
@@ -139,7 +145,7 @@ export function logWarning(
 ) {
   const extendText = `${getTimeStamp()} WARNING: ${getPrefixString(
     prefix
-  )}${convertToStringArray(text).join(' ')}`
+  )}${convertToStringArray(text)}`
   console.warn(extendText)
 
   if (!skipLogToFile) {
