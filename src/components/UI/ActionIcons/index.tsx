@@ -15,15 +15,18 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import FormControl from '../FormControl'
 import './index.css'
+import { Runner } from 'src/types'
 
 interface Props {
   sortDescending: boolean
   sortInstalled: boolean
   toggleSortDescending: () => void
   toggleSortinstalled: () => void
+  library: Runner
 }
 
 export default function ActionIcons({
+  library,
   sortDescending,
   toggleSortDescending,
   sortInstalled,
@@ -85,7 +88,8 @@ export default function ActionIcons({
             refreshLibrary({
               checkForUpdates: true,
               fullRefresh: true,
-              runInBackground: false
+              runInBackground: false,
+              library
             })
           }
         >
