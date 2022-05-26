@@ -32,11 +32,13 @@
                 "message": "¡Error al instalar DXVK/VKD3D! Comprueba tu conexión o si tienes instalado zstd/libzstd1",
                 "title": "Error de DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Error al iniciar el juego, ¡revisa los registros!",
             "no-offline-mode": {
                 "message": "¡Lanzamiento abortado! El juego requiere una conexión a Internet para ejecutarlo.",
                 "title": "El modo sin conexión no está soportado."
@@ -330,6 +332,7 @@
             "other": "Otro",
             "sync": "Guardar-Sincronización"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Restablecer Heroic"
     },
     "Settings": "Ajustes",

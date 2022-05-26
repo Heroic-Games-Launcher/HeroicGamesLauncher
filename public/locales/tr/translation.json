@@ -32,11 +32,13 @@
                 "message": "DXVK/VKD3D kurulurken hata oluştu! Bağlantınıza veya zstd/libzstd1 kurulu olup olmadığına bakın",
                 "title": "DXVK/VKD3D hatası"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Oyun başlatılırken hata oluştu, günlük kayıtlarına bakın!",
             "no-offline-mode": {
                 "message": "Başlatma iptal edildi! Oyunu çalıştırmak için internet bağlantısı gereklidir.",
                 "title": "Çevrim dışı mod desteklenmiyor."
@@ -330,6 +332,7 @@
             "other": "Diğer",
             "sync": "Kaydet-Eşzamanla"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Heroic'i Sıfırla"
     },
     "Settings": "Ayarlar",

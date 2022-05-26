@@ -32,11 +32,13 @@
                 "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
                 "title": "DXVK/VKD3D error"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "啟動遊戲時出現錯誤，請檢查日誌！",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
@@ -330,6 +332,7 @@
             "other": "其它",
             "sync": "存檔-同步"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "設定",

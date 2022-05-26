@@ -32,11 +32,13 @@
                 "message": "Terjadi kesalahan saat memasang DXVK/VKD3D! Periksa koneksi Anda atau cek apakah Anda telah memasang zstd/libzstd1",
                 "title": "Terjadi Kesalahan DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Terjadi kesalahan ketika meluncurkan gim, periksa log!",
             "no-offline-mode": {
                 "message": "Peluncuran dibatalkan! Gim membutuhkan koneksi internet untuk menjalankannya.",
                 "title": "Mode luring tidak didukung."
@@ -330,6 +332,7 @@
             "other": "Lainnya",
             "sync": "Sinkronisasi Penyimpanan"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Pengaturan",

@@ -32,11 +32,13 @@
                 "message": "Hiba a DXVK/VKD3D telepítésekor! Ellenőrizd le az internetkapcsolatod, illetve hogy a zstd/libzstd1 telepítve van",
                 "title": "DXVK/VKD3D hiba"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Hiba a játék indításakor, ellenőrizd a naplófájlokat!",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
@@ -330,6 +332,7 @@
             "other": "Egyéb",
             "sync": "Mentés szinkronizálás"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Heroic visszaállítása"
     },
     "Settings": "Beállítások",

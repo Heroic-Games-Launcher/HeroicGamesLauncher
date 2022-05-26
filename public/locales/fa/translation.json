@@ -32,11 +32,13 @@
                 "message": "خطا در نصب DXVK/VKD3D! اتصال به اینترنت خود یا نصب داشتن zstd/libzstd1 را چک کنید",
                 "title": "خطای DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "خطا در هنگام اجرای بازی، لاگها را چک کنید!",
             "no-offline-mode": {
                 "message": "اجرا متوقف شد! بازی برای اجرا به اتصال اینترنت نیاز دارد.",
                 "title": "حالت آفلاین پشتیبانی نمیشود."
@@ -330,6 +332,7 @@
             "other": "بقیه",
             "sync": "همگامسازی ذخیرهها"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "تنظیمات",

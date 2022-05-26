@@ -32,11 +32,13 @@
                 "message": "Problem vid installation av DXVK/VKD3D! Kontrollera internetanslutningen och att du har zstd/libzstd1 installerade",
                 "title": "DXVK/VKD3D problem"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Problem vid speluppstart, kontrollera loggen!",
             "no-offline-mode": {
                 "message": "Speluppstart avbröts! Internetanslutning krävs.",
                 "title": "Offline-läge stöds ej."
@@ -330,6 +332,7 @@
             "other": "Övrigt",
             "sync": "Synkronisera sparfiler"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Grundinställ Heroic"
     },
     "Settings": "Inställningar",

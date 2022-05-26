@@ -32,11 +32,13 @@
                 "message": "Помилка встановлення DXVK/VKD3D! Перевірте з'єднання та чи встановлено zstd/libzstd1",
                 "title": "Помилка DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Помилка під час запуску гри, перевірте лоґи!",
             "no-offline-mode": {
                 "message": "Запуск перервано! Гра потребує з'єднання з інтернетом.",
                 "title": "Автономний режим не підтримується."
@@ -330,6 +332,7 @@
             "other": "Інше",
             "sync": "Синхронізація збережень"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Скинути Heroic"
     },
     "Settings": "Налаштування",

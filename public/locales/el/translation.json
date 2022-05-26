@@ -32,11 +32,13 @@
                 "message": "Σφάλμα εγκατάστασης DXVK/VKD3D! Ελέγξτε την σύνδεση σας ή εαν έχετε τα zstd/libzstd1 εγκατεστημένα",
                 "title": "DXVK/VKD3D σφάλμα"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Σφάλμα στην εκκίνηση του παιχνιδιού, ελέγξτε τα αρχεία καταγραφής!",
             "no-offline-mode": {
                 "message": "Η έναρξη διακόπηκε! Το παιχνίδι απαιτεί σύνδεση στο διαδύκτιο για να τρέξει.",
                 "title": "Η λειτουργία εκτός σύνδεσης δεν υποστηρίζεται."
@@ -330,6 +332,7 @@
             "other": "Άλλα",
             "sync": "Αποθήκευση-Συγχρονισμός"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Ρυθμίσεις",

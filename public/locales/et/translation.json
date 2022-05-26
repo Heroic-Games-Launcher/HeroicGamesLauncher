@@ -32,11 +32,13 @@
                 "message": "Viga DXVK/VKD3D installimisel! Kontrollige ühendust või seda, kas teil on installitud zstd/libzstd1",
                 "title": "DXVK/VKD3D viga"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Viga mängu käivitamisel, kontrollige logisid!",
             "no-offline-mode": {
                 "message": "Käivitamine katkestatud! Mängu käivitamiseks on vaja internetiühendust.",
                 "title": "Võrguühenduseta režiim ei ole toetatud."
@@ -330,6 +332,7 @@
             "other": "Muu",
             "sync": "Salvesta-sünkrooni"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Lähtesta Heroic"
     },
     "Settings": "Seaded",

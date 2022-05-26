@@ -32,11 +32,13 @@
                 "message": "Lỗi cài đặt DXVK/VKD3D! Kiểm tra kết nối hoặc zstd/libzstd1",
                 "title": "DXVK/VKD3D lỗi"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Lỗi khi khởi chạy game, vui lòng kiểm tra log!",
             "no-offline-mode": {
                 "message": "Quá trình khởi chạy đã hủy! Cần có kết nối mạng để chạy game.",
                 "title": "Không hỗ trợ chế độ offline."
@@ -330,6 +332,7 @@
             "other": "Khác",
             "sync": "Lưu - Đồng bộ"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Đặt lại Heroic"
     },
     "Settings": "Cài đặt",

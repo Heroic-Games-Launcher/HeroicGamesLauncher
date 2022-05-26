@@ -32,11 +32,13 @@
                 "message": "Błąd podczas instalacji DXVK/VKD3D! Sprawdź połączenie lub czy zstd/libzstd1 jest zainstalowany",
                 "title": "Błąd DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Błąd przy uruchamianiu gry, sprawdź logi!",
             "no-offline-mode": {
                 "message": "Uruchomienie przerwane! Gra wymaga połączenia z internetem aby ją uruchomić.",
                 "title": "Tryb Offline nie jest wspierany."
@@ -330,6 +332,7 @@
             "other": "Inne",
             "sync": "Synchronizasja zapisów"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Ustawienia",

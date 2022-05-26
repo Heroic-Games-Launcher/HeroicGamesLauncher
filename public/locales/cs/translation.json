@@ -32,11 +32,13 @@
                 "message": "Chyba při instalaci DXVK/VKD3D! Zkontrolujte připojení nebo zda máte nainstalovaný zstd/libzstd1",
                 "title": "Chyba DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Chyba při spouštění hry, zkontrolujte záznamy!",
             "no-offline-mode": {
                 "message": "Spouštění přerušeno! Ke spuštění hry je potřeba připojení k internetu.",
                 "title": "Režim offline není podporován."
@@ -330,6 +332,7 @@
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Nastavení",

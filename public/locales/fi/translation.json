@@ -32,11 +32,13 @@
                 "message": "Virhe DXVK/VKD3D:n asennuksessa! Tarkista yhteys tai onko zstd/libzstd1 asennettu",
                 "title": "DXVK/VKD3D-virhe"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Virhe pelin käynnistyksessä, tarkista pelin lokitiedostot!",
             "no-offline-mode": {
                 "message": "Käynnistys keskeytetty! Peli vaatii Internet-yhteyden toimiakseen.",
                 "title": "Offline-tilaa ei tueta."
@@ -330,6 +332,7 @@
             "other": "Muut",
             "sync": "Tallenna ja synkronoi"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Asetukset",

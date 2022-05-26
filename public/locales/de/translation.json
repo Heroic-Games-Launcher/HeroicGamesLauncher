@@ -32,11 +32,13 @@
                 "message": "Fehler beim Installieren von DXVK/VKD3D! Überprüfe deine Verbindung oder ob du zstd/libzstd1 installiert hast",
                 "title": "DXVK/VKD3D Fehler"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Fehler beim Starten des Spiels, prüfe die Logs!",
             "no-offline-mode": {
                 "message": "Start abgebrochen! Das Spiel benötigt eine Internetverbindung, damit es läuft.",
                 "title": "Offline-Modus wird nicht unterstützt."
@@ -330,6 +332,7 @@
             "other": "Andere",
             "sync": "Spielstände-Synchronisation"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Heroic zurücksetzen"
     },
     "Settings": "Einstellungen",
