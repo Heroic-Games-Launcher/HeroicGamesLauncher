@@ -487,16 +487,9 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
 
 function getSteamRuntime(version: 'scout' | 'soldier'): SteamRuntime {
   const soldier: Array<SteamRuntime> = getSteamLibraries().map((p) => {
-    if (
-      existsSync(
-        join(p, 'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point')
-      )
-    ) {
+    if (existsSync(join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'))) {
       return {
-        path: join(
-          p,
-          'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point'
-        ),
+        path: join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'),
         type: 'unpackaged',
         version: 'soldier'
       }
