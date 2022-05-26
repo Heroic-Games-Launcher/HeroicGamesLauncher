@@ -33,7 +33,6 @@ import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { RpcClient, SteamRuntime } from 'types'
 import { Game } from './games'
-import { mainWindow } from './main'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -309,6 +308,10 @@ async function errorHandler(
     'No credentials'
   ]
 
+  if (!window) {
+    window = BrowserWindow.getFocusedWindow()
+  }
+
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
       .then(({ stdout }) => {
@@ -331,7 +334,7 @@ async function errorHandler(
       const runner = r.toLocaleLowerCase() as Runner
       const game = Game.get(appName, runner)
       const { title } = await game.getGameInfo()
-      const { response } = await showMessageBox(mainWindow, {
+      const { response } = await showMessageBox({
         type: 'question',
         title,
         message: i18next.t(
@@ -349,7 +352,7 @@ async function errorHandler(
     otherErrorMessages.forEach((message) => {
       if (error.includes(message)) {
         return showErrorBoxModal(
-          mainWindow,
+          window,
           plat,
           i18next.t(
             'box.error.credentials.message',

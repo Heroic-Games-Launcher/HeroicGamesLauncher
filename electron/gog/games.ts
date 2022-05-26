@@ -40,7 +40,6 @@ import {
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import setup from './setup'
 import { getGogdlCommand, runGogdlCommand } from './library'
-import { mainWindow } from '../main'
 
 function verifyProgress(stderr: string): boolean {
   const text = stderr.split('\n').at(-1)
@@ -651,13 +650,14 @@ class GOGGame extends Game {
     return runWineCommand(await this.getSettings(), command, altWineBin, wait)
   }
 
-  forceUninstall(): void {
+  async forceUninstall(): Promise<void> {
     const installed = installedGamesStore.get(
       'installed',
       []
     ) as Array<GameInfo>
     const newInstalled = installed.filter((g) => g.app_name !== this.appName)
     installedGamesStore.set('installed', newInstalled)
+    const mainWindow = BrowserWindow.getFocusedWindow()
     mainWindow.webContents.send('refreshLibrary', 'gog')
   }
 }

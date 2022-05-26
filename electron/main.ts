@@ -97,7 +97,7 @@ import { verifyWinePrefix } from './launcher'
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
-export let mainWindow: BrowserWindow = null
+let mainWindow: BrowserWindow = null
 
 async function createWindow(): Promise<BrowserWindow> {
   configStore.set('userHome', userHome)

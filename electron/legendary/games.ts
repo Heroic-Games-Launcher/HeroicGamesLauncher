@@ -32,7 +32,6 @@ import { addShortcuts, removeShortcuts } from '../shortcuts'
 import { basename, join } from 'path'
 import { runLegendaryCommand } from './library'
 import { gameInfoStore } from './electronStores'
-import { mainWindow } from '../main'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -741,6 +740,7 @@ class LegendaryGame extends Game {
         '-y',
         '--keep-files'
       ])
+      const mainWindow = BrowserWindow.getFocusedWindow()
       mainWindow.webContents.send('refreshLibrary', 'legendary')
     } catch (error) {
       logError(
