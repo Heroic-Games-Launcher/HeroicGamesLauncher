@@ -675,7 +675,12 @@ class LegendaryGame extends Game {
     })
 
     if (error) {
-      logError(['Error launching game:', error], LogPrefix.Legendary)
+      const showDialog = !`${error}`.includes('appears to be deleted')
+      logError(
+        ['Error launching game:', error],
+        LogPrefix.Legendary,
+        showDialog
+      )
     }
 
     launchCleanup(rpcClient)
@@ -733,7 +738,7 @@ class LegendaryGame extends Game {
     })
   }
 
-  public forceUninstall(appName: string, runner: string) {
+  public forceUninstall(appName: string) {
     // Modify Legendary installed.json file:
     try {
       const file: Record<string, GameInfo> = JSON.parse(
@@ -741,7 +746,7 @@ class LegendaryGame extends Game {
       )
       delete file[appName]
       writeFileSync(installed, JSON.stringify(file, null, 2))
-      mainWindow.webContents.send('refreshLibrary', runner)
+      mainWindow.webContents.send('refreshLibrary', 'legendary')
     } catch (error) {
       logError(
         `Error reading ${installed}, could not complete operation`,

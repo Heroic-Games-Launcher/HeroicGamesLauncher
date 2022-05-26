@@ -563,7 +563,7 @@ async function runLegendaryOrGogdlCommand(
         runner.logPrefix,
         dontShowDialog
       )
-      return { stdout: '', stderr: '', fullCommand: safeCommand, error }
+      return { stdout: '', stderr: `${error}`, fullCommand: safeCommand, error }
     })
 }
 
