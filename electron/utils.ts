@@ -1,3 +1,4 @@
+import { Runner } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec } from 'child_process'
@@ -31,6 +32,8 @@ import {
 import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { RpcClient, SteamRuntime } from 'types'
+import { Game } from './games'
+import { mainWindow } from './main'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -287,17 +290,19 @@ export const getSystemInfo = async () => {
 }
 
 type ErrorHandlerMessage = {
-  error?: { stderr: string; stdout: string }
+  error?: string
   logPath?: string
+  appName?: string
   runner: string
 }
 
 async function errorHandler(
-  { error, logPath, runner: r }: ErrorHandlerMessage,
+  { error, logPath, runner: r, appName }: ErrorHandlerMessage,
   window?: BrowserWindow
 ): Promise<void> {
   const noSpaceMsg = 'Not enough available disk space'
-  const runner = r === 'Legendary' ? 'Legendary (Epic Games)' : r
+  const plat = r === 'legendary' ? 'Legendary (Epic Games)' : r
+  const deletedFolderMsg = 'appears to be deleted'
   const otherErrorMessages = [
     'No saved credentials',
     'in get_user_entitlements',
@@ -322,11 +327,30 @@ async function errorHandler(
       .catch(() => logInfo('operation interrupted', LogPrefix.Backend))
   }
   if (error) {
+    if (error.includes(deletedFolderMsg) && appName) {
+      const runner = r.toLocaleLowerCase() as Runner
+      const game = Game.get(appName, runner)
+      const { title } = await game.getGameInfo()
+      const { response } = await showMessageBox(mainWindow, {
+        type: 'question',
+        title,
+        message: i18next.t(
+          'box.error.folder-not-found.title',
+          'Game folder appears to be deleted, do you want to remove the game from the installed list?'
+        ),
+        buttons: [i18next.t('box.no'), i18next.t('box.yes')]
+      })
+
+      if (response === 1) {
+        return game.forceUninstall(appName, runner)
+      }
+    }
+
     otherErrorMessages.forEach((message) => {
-      if (error?.stderr?.includes(message)) {
+      if (error.includes(message)) {
         return showErrorBoxModal(
-          window,
-          runner,
+          mainWindow,
+          plat,
           i18next.t(
             'box.error.credentials.message',
             'Your Crendentials have expired, Logout and Login Again!'

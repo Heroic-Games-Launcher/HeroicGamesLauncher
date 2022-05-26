@@ -121,9 +121,14 @@ export class LegendaryLibrary {
           Object.entries(JSON.parse(readFileSync(installedJSON, 'utf-8')))
         )
       } catch (error) {
+        // disabling log here because its giving false positives on import command
         logError(
-          'Corrupted intalled.json file, cannot load installed games',
-          LogPrefix.Legendary
+          [
+            'Corrupted intalled.json file, cannot load installed games',
+            `${error}`
+          ],
+          LogPrefix.Legendary,
+          false
         )
         this.installedGames = new Map()
       }

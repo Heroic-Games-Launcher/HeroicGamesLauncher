@@ -528,6 +528,16 @@ export class GlobalState extends PureComponent<Props> {
       const { libraryStatus } = this.state
       this.handleGameStatus({ ...libraryStatus, ...args })
     })
+
+    ipcRenderer.on('refreshLibrary', async (e, runner) => {
+      this.refreshLibrary({
+        checkForUpdates: false,
+        fullRefresh: true,
+        runInBackground: true,
+        library: runner
+      })
+    })
+
     const legendaryUser = Boolean(configStore.get('userInfo', null))
     const gogUser = Boolean(gogConfigStore.get('userData', null))
     const platform = await getPlatform()

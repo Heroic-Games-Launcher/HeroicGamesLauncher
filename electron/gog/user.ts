@@ -108,7 +108,7 @@ export class GOGUser {
     } else {
       logError('No credentials, auth required', LogPrefix.Gog)
       errorHandler({
-        error: { stderr: 'No credentials', stdout: '' },
+        error: 'No credentials',
         runner: 'GOG'
       })
       return null

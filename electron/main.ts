@@ -63,7 +63,6 @@ import {
   getGOGdlBin,
   showErrorBoxModal,
   getFileSize,
-  showErrorBoxModalAuto,
   getWineFromProton
 } from './utils'
 import {
@@ -98,7 +97,7 @@ import { verifyWinePrefix } from './launcher'
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
-let mainWindow: BrowserWindow = null
+export let mainWindow: BrowserWindow = null
 
 async function createWindow(): Promise<BrowserWindow> {
   configStore.set('userHome', userHome)
@@ -848,39 +847,21 @@ ipcMain.handle(
     let logResult = ''
     return Game.get(appName, runner)
       .launch(launchArguments)
-      .then(
-        async ({
-          stdout,
-          stderr,
-          success,
-          command,
-          gameSettings
-        }: LaunchResult) => {
-          if (!success) {
-            showErrorBoxModalAuto(
-              i18next.t('box.error.title', 'Something Went Wrong'),
-              i18next.t(
-                'box.error.launch',
-                'Error when launching the game, check the logs!'
-              )
-            )
-          }
-
-          logResult = `Launch Command: ${command}
+      .then(async ({ stdout, stderr, command, gameSettings }: LaunchResult) => {
+        logResult = `Launch Command: ${command}
 
 System Info:
 ${await getSystemInfo()}
 
 Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
 `
-          if (stderr) {
-            logResult += `\nError Log:\n${stderr}\n`
-          }
-          if (stdout) {
-            logResult += `\nGame Log:\n${stdout}\n`
-          }
+        if (stderr) {
+          logResult += `\nError Log:\n${stderr}\n`
         }
-      )
+        if (stdout) {
+          logResult += `\nGame Log:\n${stdout}\n`
+        }
+      })
       .catch((exception) => {
         logResult = `${exception.name} - ${exception.message}`
         logError(logResult, LogPrefix.Backend)

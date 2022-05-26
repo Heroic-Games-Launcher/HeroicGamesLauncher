@@ -1,8 +1,14 @@
-import { existsSync, mkdirSync } from 'graceful-fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'graceful-fs'
 import axios from 'axios'
 
 import { BrowserWindow } from 'electron'
-import { ExecResult, ExtraInfo, InstallArgs, LaunchResult } from '../types'
+import {
+  ExecResult,
+  ExtraInfo,
+  GameInfo,
+  InstallArgs,
+  LaunchResult
+} from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
@@ -15,7 +21,8 @@ import {
   userHome,
   isLinux,
   isMac,
-  isWindows
+  isWindows,
+  installed
 } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
@@ -31,6 +38,7 @@ import { addShortcuts, removeShortcuts } from '../shortcuts'
 import { basename, join } from 'path'
 import { runLegendaryCommand } from './library'
 import { gameInfoStore } from './electronStores'
+import { mainWindow } from '../main'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -723,6 +731,23 @@ class LegendaryGame extends Game {
     child.on('exit', () => {
       return logInfo(`${pattern} killed`, LogPrefix.Legendary)
     })
+  }
+
+  public forceUninstall(appName: string, runner: string) {
+    // Modify Legendary installed.json file:
+    try {
+      const file: Record<string, GameInfo> = JSON.parse(
+        readFileSync(installed, 'utf8')
+      )
+      delete file[appName]
+      writeFileSync(installed, JSON.stringify(file, null, 2))
+      mainWindow.webContents.send('refreshLibrary', runner)
+    } catch (error) {
+      logError(
+        `Error reading ${installed}, could not complete operation`,
+        LogPrefix.Legendary
+      )
+    }
   }
 }
 

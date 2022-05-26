@@ -447,6 +447,7 @@ async function runLegendaryOrGogdlCommand(
   }
 ): Promise<ExecResult> {
   const fullRunnerPath = join(runner.dir, runner.bin)
+  const appName = commandParts[commandParts.findIndex(() => 'launch') + 1]
   const safeCommand = getLegendaryOrGogdlCommand(
     commandParts,
     options?.env,
@@ -512,12 +513,15 @@ async function runLegendaryOrGogdlCommand(
 
     child.on('close', (code, signal) => {
       errorHandler({
-        error: { stderr: stderr.join(), stdout: stdout.join() },
+        error: `${stdout.join().concat(stderr.join())}`,
         logPath: options?.logFile,
         runner: runner.name
       })
 
-      if (stderr.join().includes('ERROR')) {
+      if (
+        stderr.join().includes('ERROR') ||
+        stderr.join().includes('CRITICAL')
+      ) {
         rej(stderr.join())
       }
 
@@ -543,15 +547,21 @@ async function runLegendaryOrGogdlCommand(
     })
     .catch((error) => {
       errorHandler({
-        error: { stderr: `${error}`, stdout: `${error}` },
+        error: `${error}`,
         logPath: options?.logFile,
-        runner: runner.name
+        runner: runner.name,
+        appName
       })
+
+      const dontShowDialog =
+        `${error}`.includes('signal') &&
+        `${error}`.includes('MemoryError:') &&
+        `${error}`.includes('appears to be deleted')
 
       logError(
         ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
         runner.logPrefix,
-        false
+        dontShowDialog
       )
       return { stdout: '', stderr: '', fullCommand: safeCommand, error }
     })
