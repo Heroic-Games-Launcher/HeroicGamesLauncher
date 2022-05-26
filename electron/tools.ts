@@ -1,3 +1,4 @@
+import { WineInstallation } from './types'
 import * as axios from 'axios'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { exec } from 'child_process'
@@ -205,10 +206,13 @@ export const Winetricks = {
         logWarning('Error Downloading Winetricks', LogPrefix.Backend)
       })
   },
-  run: async (prefix: string, wine: string, isProton: boolean) => {
+  run: async (wineVersion: WineInstallation, baseWinePrefix: string) => {
     const winetricks = `${heroicToolsPath}/winetricks`
 
-    const { winePrefix, wineBin } = getWineFromProton(wine, isProton, prefix)
+    const { winePrefix, wineBin } = getWineFromProton(
+      wineVersion,
+      baseWinePrefix
+    )
 
     const command = `WINEPREFIX='${winePrefix}' WINE='${wineBin}' ${winetricks} -q`
 

@@ -3,7 +3,6 @@ import './index.css'
 import React, { useState } from 'react'
 
 import { IpcRenderer } from 'electron'
-import { WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
 
 const { ipcRenderer } = window.require('electron') as {
@@ -11,12 +10,10 @@ const { ipcRenderer } = window.require('electron') as {
 }
 
 interface Props {
-  winePrefix: string
-  wineVersion: WineInstallation
   appName: string
 }
 
-export default function Tools({ wineVersion, winePrefix, appName }: Props) {
+export default function Tools({ appName }: Props) {
   const { t } = useTranslation()
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
@@ -31,10 +28,8 @@ export default function Tools({ wineVersion, winePrefix, appName }: Props) {
     }
 
     await ipcRenderer.invoke('callTool', {
-      exe,
-      prefix: winePrefix,
       tool,
-      wine: wineVersion.bin,
+      exe,
       appName
     })
     setWinetricksRunning(false)

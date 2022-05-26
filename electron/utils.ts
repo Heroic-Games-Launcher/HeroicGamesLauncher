@@ -1,4 +1,5 @@
 import { Runner } from './types'
+import { WineInstallation } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec } from 'child_process'
@@ -14,8 +15,7 @@ import {
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
-  isWindows,
-  userHome
+  isWindows
 } from './constants'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import { basename, dirname, join } from 'path'
@@ -92,34 +92,34 @@ function isOnline() {
 export const getFileSize = fileSize.partial({ base: 2 })
 
 export function getWineFromProton(
-  wine: string,
-  isProton: boolean,
-  prefix: string
-) {
-  let winePrefix = prefix.replace('~', userHome)
-
-  if (!isProton) {
-    return { winePrefix, wineBin: wine }
+  wineVersion: WineInstallation,
+  winePrefix: string
+): { winePrefix: string; wineBin: string } {
+  if (wineVersion.type !== 'proton') {
+    return { winePrefix, wineBin: wineVersion.bin }
   }
 
-  const newProtonWinePath = wine.replace(
-    new RegExp('proton' + '$'),
-    'files/bin/wine64'
+  winePrefix = join(winePrefix, 'pfx')
+
+  // GE-Proton & Proton Experimental use 'files', Proton 7 and below use 'dist'
+  for (const distPath of ['dist', 'files']) {
+    const protonBaseDir = dirname(wineVersion.bin)
+    const wineBin = join(protonBaseDir, distPath, 'bin', 'wine')
+    if (existsSync(wineBin)) {
+      return { wineBin, winePrefix }
+    }
+  }
+
+  logError(
+    [
+      'Proton',
+      wineVersion.name,
+      'has an abnormal structure, unable to supply Wine binary!'
+    ],
+    LogPrefix.Backend
   )
-  const oldProtonWinePath = wine.replace(
-    new RegExp('proton' + '$'),
-    'dist/bin/wine64'
-  )
 
-  const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
-    ? newProtonWinePath
-    : oldProtonWinePath
-
-  const wineBin = isProton ? protonWinePath : wine
-  const protonPrefix = winePrefix.replaceAll("'", '')
-  winePrefix = `${protonPrefix}/pfx`
-
-  return { winePrefix, wineBin }
+  return { wineBin: '', winePrefix }
 }
 
 async function isEpicServiceOffline(

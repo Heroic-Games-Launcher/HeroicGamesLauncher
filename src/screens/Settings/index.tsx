@@ -417,13 +417,7 @@ function Settings() {
               toggleResizableBar={toggleResizableBar}
             />
           )}
-          {isWineSettings && (
-            <Tools
-              winePrefix={winePrefix}
-              wineVersion={wineVersion}
-              appName={appName}
-            />
-          )}
+          {isWineSettings && <Tools appName={appName} />}
           {isOtherSettings && (
             <OtherSettings
               otherOptions={otherOptions}
