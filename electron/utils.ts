@@ -10,6 +10,7 @@ import si from 'systeminformation'
 import {
   configStore,
   fixAsarPath,
+  getSteamLibraries,
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
@@ -485,39 +486,45 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
 }
 
 function getSteamRuntime(version: 'scout' | 'soldier'): SteamRuntime {
-  const possibleRuntimes: Array<SteamRuntime> = [
-    {
-      path: `${userHome}/.steam/root/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point`,
-      type: 'unpackaged',
-      version: 'soldier'
-    },
-    {
-      path: `${userHome}/.steam/root/ubuntu12_32/steam-runtime/run.sh`,
-      type: 'unpackaged',
-      version: 'scout'
-    },
-    {
-      path: `${userHome}/.var/app/com.valvesoftware.Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point`,
-      type: 'flatpak',
-      version: 'soldier'
-    },
-    {
-      path: `${userHome}/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh`,
-      type: 'flatpak',
-      version: 'scout'
+  const soldier: Array<SteamRuntime> = getSteamLibraries().map((p) => {
+    if (
+      existsSync(
+        join(p, 'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point')
+      )
+    ) {
+      return {
+        path: join(
+          p,
+          'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point'
+        ),
+        type: 'unpackaged',
+        version: 'soldier'
+      }
     }
-  ]
+  })
 
-  // try to get requested runtime first
-  let runtimes = possibleRuntimes.filter(
-    (r) => r.version === version && existsSync(r.path)
-  )
-  if (runtimes.length) {
-    return runtimes[0]
+  const scout: Array<SteamRuntime> = getSteamLibraries().map((p) => {
+    if (existsSync(join(p, 'ubuntu12_32/steam-runtime/run.sh'))) {
+      return {
+        path: join(p, 'ubuntu12_32/steam-runtime/run.sh'),
+        type: 'unpackaged',
+        version: 'scout'
+      }
+    }
+  })
+
+  if (version === 'soldier') {
+    if (soldier.length) {
+      return soldier[0]
+    } else {
+      if (scout.length) {
+        return scout[0]
+      }
+    }
   }
-  runtimes = possibleRuntimes.filter((r) => existsSync(r.path))
-  if (runtimes.length) {
-    return runtimes[0]
+
+  if (version === 'scout' && scout.length) {
+    return scout[0]
   }
 
   return { path: '', type: 'unpackaged', version: 'scout' }
