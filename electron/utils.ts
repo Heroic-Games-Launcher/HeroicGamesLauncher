@@ -342,7 +342,7 @@ async function errorHandler(
       })
 
       if (response === 1) {
-        return game.forceUninstall(appName)
+        return game.forceUninstall()
       }
     }
 

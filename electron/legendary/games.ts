@@ -1,14 +1,8 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'graceful-fs'
+import { existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
 import { BrowserWindow } from 'electron'
-import {
-  ExecResult,
-  ExtraInfo,
-  GameInfo,
-  InstallArgs,
-  LaunchResult
-} from '../types'
+import { ExecResult, ExtraInfo, InstallArgs, LaunchResult } from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
@@ -738,14 +732,15 @@ class LegendaryGame extends Game {
     })
   }
 
-  public forceUninstall(appName: string) {
+  public async forceUninstall() {
     // Modify Legendary installed.json file:
     try {
-      const file: Record<string, GameInfo> = JSON.parse(
-        readFileSync(installed, 'utf8')
-      )
-      delete file[appName]
-      writeFileSync(installed, JSON.stringify(file, null, 2))
+      await runLegendaryCommand([
+        'uninstall',
+        this.appName,
+        '-y',
+        '--keep-files'
+      ])
       mainWindow.webContents.send('refreshLibrary', 'legendary')
     } catch (error) {
       logError(

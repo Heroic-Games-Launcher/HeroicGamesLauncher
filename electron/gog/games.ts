@@ -651,12 +651,12 @@ class GOGGame extends Game {
     return runWineCommand(await this.getSettings(), command, altWineBin, wait)
   }
 
-  forceUninstall(appName: string): void {
+  forceUninstall(): void {
     const installed = installedGamesStore.get(
       'installed',
       []
     ) as Array<GameInfo>
-    const newInstalled = installed.filter((g) => !g.app_name)
+    const newInstalled = installed.filter((g) => g.app_name !== this.appName)
     installedGamesStore.set('installed', newInstalled)
     mainWindow.webContents.send('refreshLibrary', 'gog')
   }
