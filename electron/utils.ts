@@ -63,12 +63,8 @@ export function showErrorBoxModalAuto(title: string, message: string) {
     if (!window) {
       window = BrowserWindow.getAllWindows()[0]
     }
-  } catch (e) {
-    // empty
-  }
-  if (window) {
     showErrorBoxModal(window, title, message)
-  } else {
+  } catch (e) {
     showErrorBox(title, message)
   }
 }
@@ -276,17 +272,15 @@ export const getSystemInfo = async () => {
     ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
     : ''
 
-  return `
-  Heroic Version: ${heroicVersion}
-  Legendary Version: ${legendaryVersion}
-  OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
-  CPU: ${manufacturer} ${brand} @${speed} ${
+  return `Heroic Version: ${heroicVersion}
+Legendary Version: ${legendaryVersion}
+OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
+CPU: ${manufacturer} ${brand} @${speed} ${
     governor ? `GOVERNOR: ${governor}` : ''
   }
-  RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
-  GRAPHICS: ${graphicsCards}
-  ${isLinux ? `PROTOCOL: ${xEnv}` : ''}
-  `
+RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
+GRAPHICS: ${graphicsCards}
+${isLinux ? `PROTOCOL: ${xEnv}` : ''}`
 }
 
 type ErrorHandlerMessage = {

@@ -644,7 +644,7 @@ class LegendaryGame extends Game {
           wineFlag = ['--no-wine', '--wrapper', runWithRuntime]
           winePrefixFlag = []
         } else {
-          logWarning('No Steam runtime found')
+          logWarning('No Steam runtime found', LogPrefix.Legendary)
           wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
           winePrefixFlag = []
         }

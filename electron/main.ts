@@ -294,7 +294,7 @@ if (!gotTheLock) {
       ['GOGDL location:', join(...Object.values(getGOGdlBin()))],
       LogPrefix.Gog
     )
-    logInfo(`${systemInfo}`, LogPrefix.Backend)
+    logInfo(`\n\n${systemInfo}\n`, LogPrefix.Backend)
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
     const isLoggedIn = LegendaryUser.isLoggedIn()
