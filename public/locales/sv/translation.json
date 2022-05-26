@@ -291,7 +291,7 @@
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "minimize-on-launch": "Minimera Heroic efter spelstart",
         "offlinemode": "Kör spelet offline",
-        "primerun": "Aktivera Nvidia Prime Render",
+        "primerun": "Använd dedikerat grafikkort",
         "resizableBar": "Aktivera Resizable BAR (NVIDIA RTX endast)",
         "runexe": {
             "message": "Drag och släpp filer här",

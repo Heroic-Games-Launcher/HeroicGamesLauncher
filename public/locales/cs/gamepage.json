@@ -75,11 +75,11 @@
         "version": "Verze"
     },
     "install": {
-        "disk-space-left": "Volné místo na zařízení",
-        "invalid-folder": "Error: Invalid Path",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Volné místo",
+        "invalid-folder": "Chyba: neplatná cesta",
+        "not-enough-disk-space": "Nedostatek místa na disku",
         "path": "Vyberte cestu instalace",
-        "space-after-install": "After Install",
+        "space-after-install": "Po instalaci",
         "wineprefix": "WinePrefix",
         "wineversion": "Verze Wine"
     },
@@ -110,7 +110,7 @@
         "installing": "Instaluji",
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
-        "processing": "Processing files, please wait",
+        "processing": "Zpracovávám soubory, prosím počkejte",
         "reparing": "Opravuji hru, čekejte prosím",
         "totalDownloaded": "Celkově staženo",
         "updating": "Aktualizuji hru"

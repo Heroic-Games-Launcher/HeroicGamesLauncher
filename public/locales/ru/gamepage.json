@@ -75,11 +75,11 @@
         "version": "Версия"
     },
     "install": {
-        "disk-space-left": "Свободное место на устройстве",
-        "invalid-folder": "Error: Invalid Path",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Свободное место",
+        "invalid-folder": "Ошибка: Неверный путь",
+        "not-enough-disk-space": "Недостаточно места на диске",
         "path": "Выберите путь установки",
-        "space-after-install": "After Install",
+        "space-after-install": "После установки",
         "wineprefix": "Префикс Wine",
         "wineversion": "Версия Wine"
     },
@@ -110,7 +110,7 @@
         "installing": "Устанавливается",
         "moving": "Перемещение установленных файлов. Пожалуйста, подождите",
         "notinstalled": "Игра не установлена",
-        "processing": "Processing files, please wait",
+        "processing": "Обработка файлов, пожалуйста, подождите",
         "reparing": "Восстановление игры. Пожалуйста, подождите",
         "totalDownloaded": "Всего загружено",
         "updating": "Обновление игры"
