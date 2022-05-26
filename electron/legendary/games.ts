@@ -411,7 +411,7 @@ class LegendaryGame extends Game {
     })
 
     // try to run the install again with higher memory limit
-    if (res.error === 'MemoryError:') {
+    if (res.stderr.includes('MemoryError:')) {
       res = await runLegendaryCommand(
         [...commandParts, '--max-shared-memory', '5000'],
         {

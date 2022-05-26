@@ -525,10 +525,6 @@ async function runLegendaryOrGogdlCommand(
         rej(stderr.join())
       }
 
-      if (stderr.join().includes('MemoryError:')) {
-        rej('MemoryError:')
-      }
-
       if (signal) {
         rej('Process terminated with signal ' + signal)
       }
@@ -555,7 +551,6 @@ async function runLegendaryOrGogdlCommand(
 
       const dontShowDialog =
         `${error}`.includes('signal') &&
-        `${error}`.includes('MemoryError:') &&
         `${error}`.includes('appears to be deleted')
 
       logError(
