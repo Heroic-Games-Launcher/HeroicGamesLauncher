@@ -36,14 +36,14 @@
         "yes": "DA"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Dodaj u omiljene",
         "cancel": "Otkaži/Prekini",
         "continue": "Nastavi preuzimanje",
-        "hide_game": "Hide Game",
+        "hide_game": "Sakrij igru",
         "import": "Uvezi igru",
         "install": "Instaliraj",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Makni iz omiljenih",
+        "unhide_game": "Prikaži igru",
         "uninstall": "Deinstaliraj",
         "update": "Ažuriraj"
     },
@@ -56,10 +56,10 @@
         "downloadSize": "Veličina Preuzimanja",
         "firstPlayed": "Prvo odigrano",
         "installSize": "Veličina Instalacije",
-        "language": "Language",
+        "language": "Jezik",
         "lastPlayed": "Zadnje odigrano",
         "neverPlayed": "Nikad",
-        "platform": "Select Platform Version to Install",
+        "platform": "Odaberi verziju platforme za instalirati",
         "totalPlayed": "Vrijeme igranja"
     },
     "gamecard": {
@@ -71,20 +71,20 @@
     },
     "info": {
         "canRunOffline": "Internet Potreban",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "Instalirane Platforme",
         "path": "Put instalacije",
         "size": "Veličina",
         "syncsaves": "Sinkroniziraj podatke",
         "version": "Verzija"
     },
     "install": {
-        "disk-space-left": "Space Available",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Prostora dostupno",
+        "invalid-folder": "Greška: Pogrešan Put",
+        "not-enough-disk-space": "Nema dovoljno prostora na disku",
         "path": "Odaberite put instalacije",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
+        "space-after-install": "Nakon Instalacije",
         "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "wineversion": "Wine verzija"
     },
     "label": {
         "playing": {
@@ -98,7 +98,7 @@
     "launch": {
         "options": "Opcije za pokretanje..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Prijavi problem za ovu igricu",
     "sdl": {
         "title": "Odaberite kompomente za instalaciju"
     },
@@ -113,7 +113,7 @@
         "installing": "Instalira se",
         "moving": "Premještanje instalacije, molim pričekajte",
         "notinstalled": "Ova igrica nije instalirana",
-        "processing": "Processing files, please wait",
+        "processing": "Procesiranje datoteka, molimo čekajte",
         "reparing": "Popravljanje igrice, molimo pričekajte",
         "totalDownloaded": "Sveukupno preuzeto",
         "updating": "Ažuriranje igrice"

@@ -78,11 +78,11 @@
         "version": "Версія"
     },
     "install": {
-        "disk-space-left": "Місце, що залишилося на пристрої",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Доступний простір",
+        "invalid-folder": "Помилка: Неприйнятний шлях",
+        "not-enough-disk-space": "Недостатньо місця на диску",
         "path": "Вкажіть шлях встановлення",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
+        "space-after-install": "Після встановлення",
         "wineprefix": "Префікс Wine",
         "wineversion": "Версія Wine"
     },
@@ -113,7 +113,7 @@
         "installing": "Встановлюю",
         "moving": "Переміщую встановлення, будь ласка зачекайте",
         "notinstalled": "Гра не встановлена",
-        "processing": "Processing files, please wait",
+        "processing": "Обробка файлів, будь ласка, зачекайте",
         "reparing": "Відновлюю гру, будь ласка зачекайте",
         "totalDownloaded": "Всього завантажено",
         "updating": "Оновлюю гру"

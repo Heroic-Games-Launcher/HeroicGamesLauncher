@@ -1,9 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "操作字族 (默认: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
+        "all_tiles_in_color": "对所有游戏磁贴着色",
         "content_font_family": "内容字族 (默认: \"Cabin\")",
-        "fonts": "Fonts",
+        "fonts": "字体",
         "title": "辅助",
         "zoom": "缩放"
     },
@@ -209,7 +209,7 @@
         },
         "moved": "移动完成",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "不能从上游获取发布，可能是因为 Github API 的限制！请稍后再试。"
         },
         "uninstalled": "已卸载",
         "update": {

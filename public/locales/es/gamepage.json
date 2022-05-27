@@ -8,7 +8,7 @@
         "choose": "Elegir",
         "importpath": "Elija la carpeta del juego a ser importada",
         "move": {
-            "message": "Esto puede tardar mucho tiempo, esta seguro?",
+            "message": "Esto puede tardar mucho tiempo. ¿Estás seguro?",
             "path": "Elige la ubicación del destino",
             "title": "Mover carpeta del juego"
         },
@@ -78,7 +78,8 @@
         "version": "Versión"
     },
     "install": {
-        "disk-space-left": "Espacio Libre en el Dispositivo",
+        "disk-space-left": "Espacio disponible",
+        "invalid-folder": "Error: Invalid Path",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Seleccione la ruta de instalación",
         "path-not-writtable": "Warning: path might not be writable.",
@@ -107,7 +108,7 @@
         "recommended": "Recomendado"
     },
     "status": {
-        "clickToUpdate": "Click para Actualizar",
+        "clickToUpdate": "Clic para actualizar",
         "hasUpdates": "¡Nueva versión disponible!",
         "installed": "Instalado",
         "installing": "Instalando",

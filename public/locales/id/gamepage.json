@@ -59,7 +59,7 @@
         "language": "Bahasa",
         "lastPlayed": "Terakhir Dimainkan",
         "neverPlayed": "Tidak pernah",
-        "platform": "Pilih Versi Platform Yang Akan di Install",
+        "platform": "Pilih Versi Platform yang Akan Dipasang",
         "totalPlayed": "Lama Dimainkan"
     },
     "gamecard": {
@@ -71,18 +71,18 @@
     },
     "info": {
         "canRunOffline": "Internet Dibutuhkan",
-        "installedPlatform": "Platform yang Telah di Install",
+        "installedPlatform": "Platform yang Terpasang",
         "path": "Lokasi Pemasangan",
         "size": "Ukuran",
         "syncsaves": "Sinkronkan Penyimpanan",
         "version": "Versi"
     },
     "install": {
-        "disk-space-left": "Ruang Penyimpanan Tersisa",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Ruang Penyimpanan yang Tersedia",
+        "invalid-folder": "Terjadi Kesalahan: Lokasi Tidak Valid",
+        "not-enough-disk-space": "Ruang penyimpanan tidak cukup",
         "path": "Pilih Lokasi Pemasangan",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
+        "space-after-install": "Setelah Instalasi",
         "wineprefix": "PrefiksWine",
         "wineversion": "Versi Wine"
     },
@@ -113,7 +113,7 @@
         "installing": "Memasang",
         "moving": "Memindahkan Pemasangan, harap tunggu",
         "notinstalled": "Gim ini tidak dipasang",
-        "processing": "Processing files, please wait",
+        "processing": "Memproses berkas, harap tunggu",
         "reparing": "Memperbaiki Gim, harap tunggu",
         "totalDownloaded": "Jumlah yang Diunduh",
         "updating": "Memperbarui Gim"
