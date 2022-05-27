@@ -79,7 +79,6 @@
     },
     "install": {
         "disk-space-left": "Espacio disponible",
-        "invalid-folder": "Error: Invalid Path",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Seleccione la ruta de instalación",
         "path-not-writtable": "Warning: path might not be writable.",

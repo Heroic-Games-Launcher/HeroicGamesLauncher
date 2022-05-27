@@ -79,7 +79,6 @@
     },
     "install": {
         "disk-space-left": "Utrymme tillgängligt",
-        "invalid-folder": "Error: Invalid Path",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Ange installationssökväg",
         "path-not-writtable": "Warning: path might not be writable.",

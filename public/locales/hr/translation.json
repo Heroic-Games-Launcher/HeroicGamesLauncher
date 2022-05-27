@@ -22,8 +22,7 @@
         "default-install-path": "Odaberite Zadanu Lokaciju Instalacije",
         "error": {
             "credentials": {
-                "message": "Vaša prijava je istekla, ponovno se prijavite.",
-                "title": "Istekla Prijava"
+                "message": "Vaša prijava je istekla, ponovno se prijavite."
             },
             "diskspace": {
                 "message": "Nema dovoljno slobodnog prostora na disku",
@@ -370,9 +369,9 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Logout",
+        "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit",
-        "logout_confirmation": "Jeste li sigurni da se želite odjaviti?"
+        "quit": "Quit"
     },
     "webview": {
         "controls": {
