@@ -392,6 +392,14 @@ class LegendaryGame extends Game {
       ...workers,
       '-y'
     ]
+
+    //Wrap the path in singles quotes for macOS and Linux to avoid errors due to spaces
+    if(platformToInstall == "Linux" || platformToInstall == "Mac"){
+
+      path = "'" + path + "' "
+
+    }
+
     const command = getLegendaryCommand(commandParts)
     logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
 
