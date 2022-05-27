@@ -180,7 +180,7 @@ export interface InstallProgress {
   bytes: string
   eta: string
   folder?: string
-  percent: string
+  percent: number
 }
 export interface InstalledInfo {
   executable: string | null
@@ -348,6 +348,7 @@ export interface GamepadInputEventMouse {
 export interface SteamRuntime {
   type: 'unpackaged' | 'flatpak'
   path: string
+  version: 'soldier' | 'scout'
 }
 
 export interface LaunchPreperationResult {

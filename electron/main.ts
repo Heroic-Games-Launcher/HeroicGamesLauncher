@@ -1,5 +1,4 @@
 import { ExecOptions } from 'child_process'
-import { dirname } from 'path'
 import {
   InstallParams,
   LaunchResult,
@@ -25,6 +24,8 @@ import './updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {
+  access,
+  constants,
   existsSync,
   mkdirSync,
   rmSync,
@@ -62,7 +63,7 @@ import {
   getGOGdlBin,
   showErrorBoxModal,
   getFileSize,
-  showErrorBoxModalAuto
+  getWineFromProton
 } from './utils'
 import {
   configStore,
@@ -84,13 +85,14 @@ import {
   tsStore,
   weblateUrl,
   wikiLink,
-  heroicToolsPath,
-  fontsStore
+  fontsStore,
+  heroicConfigPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
+import { verifyWinePrefix } from './launcher'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -98,7 +100,6 @@ const isWindows = platform() === 'win32'
 let mainWindow: BrowserWindow = null
 
 async function createWindow(): Promise<BrowserWindow> {
-  const { exitToTray, startInTray } = await GlobalConfig.get().getSettings()
   configStore.set('userHome', userHome)
 
   let windowProps: Electron.Rectangle = {
@@ -109,7 +110,10 @@ async function createWindow(): Promise<BrowserWindow> {
   }
 
   if (configStore.has('window-props')) {
-    const tmpWindowProps = configStore.get('window-props') as Electron.Rectangle
+    const tmpWindowProps = configStore.get(
+      'window-props',
+      {}
+    ) as Electron.Rectangle
     if (
       tmpWindowProps &&
       tmpWindowProps.width &&
@@ -137,7 +141,7 @@ async function createWindow(): Promise<BrowserWindow> {
     ...windowProps,
     minHeight: 345,
     minWidth: 600,
-    show: !(exitToTray && startInTray),
+    show: false,
     webPreferences: {
       webviewTag: true,
       contextIsolation: false,
@@ -182,7 +186,7 @@ async function createWindow(): Promise<BrowserWindow> {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
       installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        logError(['An error occurred: ', err], LogPrefix.Backend)
+        logWarning(['An error occurred: ', err], LogPrefix.Backend)
       })
     })
     mainWindow.loadURL('http://localhost:3000')
@@ -204,7 +208,7 @@ const gotTheLock = app.requestSingleInstanceLock()
 
 const contextMenu = () => {
   const recentGames: Array<RecentGame> =
-    (configStore.get('games.recent') as Array<RecentGame>) || []
+    (configStore.get('games.recent', []) as Array<RecentGame>) || []
   const recentsMenu = recentGames.map((game) => {
     return {
       click: function () {
@@ -278,17 +282,7 @@ if (!gotTheLock) {
       mainWindow.show()
     }
 
-    // Figure out which argv element is our protocol
-    let heroicProtocolString = ''
-    argv.forEach((value) => {
-      if (value.startsWith('heroic://')) {
-        heroicProtocolString = value
-      }
-    })
-
-    if (heroicProtocolString) {
-      handleProtocol(mainWindow, heroicProtocolString)
-    }
+    handleProtocol(mainWindow, argv)
   })
   app.whenReady().then(async () => {
     const systemInfo = await getSystemInfo()
@@ -362,33 +356,41 @@ if (!gotTheLock) {
     await createWindow()
 
     protocol.registerStringProtocol('heroic', (request, callback) => {
-      handleProtocol(mainWindow, request.url)
+      handleProtocol(mainWindow, [request.url])
       callback('Operation initiated.')
     })
     if (!app.isDefaultProtocolClient('heroic')) {
       if (app.setAsDefaultProtocolClient('heroic')) {
         logInfo('Registered protocol with OS.', LogPrefix.Backend)
       } else {
-        logError('Failed to register protocol with OS.', LogPrefix.Backend)
+        logWarning('Failed to register protocol with OS.', LogPrefix.Backend)
       }
     } else {
       logWarning('Protocol already registered.', LogPrefix.Backend)
     }
-    if (process.argv[1]) {
-      const url = process.argv[1]
-      handleProtocol(mainWindow, url)
+
+    const { startInTray } = await GlobalConfig.get().getSettings()
+    const headless = process.argv.includes('--no-gui') || startInTray
+    if (!headless) {
+      mainWindow.show()
     }
+
+    handleProtocol(mainWindow, process.argv)
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
       const zoomFactor =
-        parseFloat((configStore.get('zoomPercent') as string) || '100') / 100
+        parseFloat(configStore.get('zoomPercent', '100') as string) / 100
 
       mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
     }, 200)
 
     const trayIcon = darkTrayIcon ? iconDark : iconLight
     appIcon = new Tray(trayIcon)
+
+    appIcon.on('double-click', () => {
+      mainWindow.show()
+    })
 
     appIcon.setContextMenu(contextMenu())
     appIcon.setToolTip('Heroic')
@@ -461,9 +463,36 @@ ipcMain.handle('kill', async (event, appName, runner) => {
   return Game.get(appName, runner).stop()
 })
 
-ipcMain.handle('checkDiskSpace', async (event, folder) => {
-  const { free, size: diskSize } = await checkDiskSpace(folder)
-  return `${getFileSize(free)}/${getFileSize(diskSize)}`
+ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
+  let isWrittable = true
+  // Check If path is writtable
+  access(folder, constants.W_OK, (err) => {
+    if (err) {
+      isWrittable = false
+      logWarning(
+        `${folder} ${err ? 'is not writable' : 'is writable'}`,
+        LogPrefix.Backend
+      )
+    }
+  })
+
+  // Check if path has enough space
+  try {
+    const { free, size: diskSize } = await checkDiskSpace(folder)
+    return {
+      free,
+      diskSize,
+      message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
+      validPath: isWrittable
+    }
+  } catch (error) {
+    return {
+      free: 0,
+      diskSize: 0,
+      message: `ERROR`,
+      validPath: false
+    }
+  }
 })
 
 ipcMain.on('quit', async () => handleExit(mainWindow))
@@ -479,7 +508,7 @@ app.on('window-all-closed', () => {
 
 app.on('open-url', (event, url) => {
   event.preventDefault()
-  handleProtocol(mainWindow, url)
+  handleProtocol(mainWindow, [url])
 })
 
 ipcMain.on('openFolder', async (event, folder) => openUrlOrFile(folder))
@@ -494,6 +523,12 @@ ipcMain.on('openKofiPage', async () => openUrlOrFile(kofiPage))
 ipcMain.on('openWebviewPage', async (event, url) => openUrlOrFile(url))
 ipcMain.on('openWikiLink', async () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', async () => openUrlOrFile(sidInfoUrl))
+ipcMain.on('showConfigFileInFolder', async (event, appName) => {
+  if (appName === 'default') {
+    return openUrlOrFile(heroicConfigPath)
+  }
+  return openUrlOrFile(path.join(heroicGamesConfigPath, `${appName}.json`))
+})
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {
@@ -517,52 +552,36 @@ interface Tools {
   prefix: string
   tool: string
   wine: string
+  appName: string
 }
 
 ipcMain.handle(
   'callTool',
-  async (event, { tool, wine, prefix, exe }: Tools) => {
-    const newProtonWinePath = wine.replace('proton', 'files/bin/wine64')
-    const oldProtonWinePath = wine.replace('proton', 'dist/bin/wine64')
-    const isProton = wine.includes('proton')
-    const winetricks = `${heroicToolsPath}/winetricks`
+  async (event, { tool, wine, prefix, exe, appName }: Tools) => {
+    const isProton = wine.includes('/proton')
+
+    if (tool === 'winetricks') {
+      return Winetricks.run(prefix, wine, isProton)
+    }
+
+    const game = Game.get(appName)
+    await verifyWinePrefix(game)
+
+    if (tool === 'runExe') {
+      return Game.get(appName).runWineCommand(exe)
+    }
+
+    if (tool === 'winecfg') {
+      return Game.get(appName).runWineCommand('winecfg')
+    }
+
     const options: ExecOptions = {
       ...execOptions
     }
 
-    // existsSync is weird because it returns false always if the path has single-quotes in it
-    const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
-      ? newProtonWinePath
-      : oldProtonWinePath
-    let wineBin = isProton ? `'${protonWinePath}'` : wine
-    let winePrefix = prefix.replace('~', userHome)
+    const { winePrefix, wineBin } = getWineFromProton(wine, isProton, prefix)
 
-    if (wine.includes('proton')) {
-      const protonPrefix = winePrefix.replaceAll("'", '')
-      winePrefix = `${protonPrefix}/pfx`
-
-      logWarning(
-        'Using Winecfg and Winetricks with Proton might not work as expected.',
-        LogPrefix.Backend
-      )
-      // workaround for proton since newer versions doesnt come with a wine binary anymore.
-      if (!existsSync(wineBin.replaceAll("'", ''))) {
-        logInfo(
-          `${wineBin} not found for this Proton version, will try using default wine`,
-          LogPrefix.Backend
-        )
-        wineBin = '/usr/bin/wine'
-      }
-    }
-
-    let command = `WINE=${wineBin} WINEPREFIX='${winePrefix}' ${
-      tool === 'winecfg' ? `${wineBin} ${tool}` : `${winetricks} -q`
-    }`
-
-    if (tool === 'runExe') {
-      command = `WINEPREFIX='${winePrefix}' ${wineBin} '${exe}'`
-      options.cwd = dirname(exe)
-    }
+    const command = `WINE='${wineBin}' WINEPREFIX='${winePrefix}' ${`'${wineBin}' ${tool}`}`
 
     logInfo(['trying to run', command], LogPrefix.Backend)
     try {
@@ -580,10 +599,18 @@ ipcMain.handle(
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', async () => {
-  const legendaryUpdates = await LegendaryLibrary.get().listUpdateableGames()
-  const gogUpdates = await GOGLibrary.get().listUpdateableGames()
-  return [...legendaryUpdates, ...gogUpdates]
+ipcMain.handle('checkGameUpdates', async (event, library?: Runner) => {
+  switch (library) {
+    case 'legendary':
+      return LegendaryLibrary.get().listUpdateableGames()
+    case 'gog':
+      return GOGLibrary.get().listUpdateableGames()
+    default:
+      return [
+        ...(await LegendaryLibrary.get().listUpdateableGames()),
+        ...(await GOGLibrary.get().listUpdateableGames())
+      ]
+  }
 })
 
 ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
@@ -737,11 +764,21 @@ if (existsSync(installed)) {
   })
 }
 
-ipcMain.handle('refreshLibrary', async (e, fullRefresh) => {
-  await Promise.allSettled([
-    GOGLibrary.get().sync(),
-    LegendaryLibrary.get().getGames('info', fullRefresh)
-  ])
+ipcMain.handle('refreshLibrary', async (e, fullRefresh, library?: Runner) => {
+  switch (library) {
+    case 'legendary':
+      await LegendaryLibrary.get().getGames('info', fullRefresh)
+      break
+    case 'gog':
+      await GOGLibrary.get().sync()
+      break
+    default:
+      await Promise.allSettled([
+        LegendaryLibrary.get().getGames('info', fullRefresh),
+        GOGLibrary.get().sync()
+      ])
+      break
+  }
 })
 
 ipcMain.on('logError', (e, err) => logError(`${err}`, LogPrefix.Frontend))
@@ -810,39 +847,21 @@ ipcMain.handle(
     let logResult = ''
     return Game.get(appName, runner)
       .launch(launchArguments)
-      .then(
-        async ({
-          stdout,
-          stderr,
-          success,
-          command,
-          gameSettings
-        }: LaunchResult) => {
-          if (!success) {
-            showErrorBoxModalAuto(
-              i18next.t('box.error.title', 'Something Went Wrong'),
-              i18next.t(
-                'box.error.launch',
-                'Error when launching the game, check the logs!'
-              )
-            )
-          }
-
-          logResult = `Launch Command: ${command}
+      .then(async ({ stdout, stderr, command, gameSettings }: LaunchResult) => {
+        logResult = `Launch Command: ${command}
 
 System Info:
 ${await getSystemInfo()}
 
 Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
 `
-          if (stderr) {
-            logResult += `\nError Log:\n${stderr}\n`
-          }
-          if (stdout) {
-            logResult += `\nGame Log:\n${stdout}\n`
-          }
+        if (stderr) {
+          logResult += `\nError Log:\n${stderr}\n`
         }
-      )
+        if (stdout) {
+          logResult += `\nGame Log:\n${stdout}\n`
+        }
+      })
       .catch((exception) => {
         logResult = `${exception.name} - ${exception.message}`
         logError(logResult, LogPrefix.Backend)
@@ -878,6 +897,11 @@ Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
           runner,
           status: 'done'
         })
+
+        // Exit if we've been launched without UI
+        if (process.argv.includes('--no-gui')) {
+          app.exit()
+        }
       })
   }
 )
@@ -1329,7 +1353,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
 })
 
 ipcMain.handle('getFonts', async (event, reload = false) => {
-  let cachedFonts = (fontsStore.get('fonts') as string[]) || []
+  let cachedFonts = (fontsStore.get('fonts', []) as string[]) || []
   if (cachedFonts.length === 0 || reload) {
     cachedFonts = await getFonts()
     cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))

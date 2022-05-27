@@ -3,7 +3,7 @@ import './index.css'
 import React, { useContext, useEffect, useState } from 'react'
 
 import { AppSettings, Runner, WineInstallation } from 'src/types'
-import { IpcRenderer } from 'electron'
+import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'src/helpers'
 import { useToggle } from 'src/hooks'
@@ -21,13 +21,15 @@ import WineSettings from './components/WineSettings'
 import LogSettings from './components/LogSettings'
 import { AdvancedSettings } from './components/AdvancedSettings'
 import FooterInfo from './components/FooterInfo'
+import { configStore } from 'src/helpers/electronStores'
+import ContextMenu from '../Library/components/ContextMenu'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
+  clipboard: Clipboard
 }
 
-const { ipcRenderer } = window.require('electron') as ElectronProps
-const storage: Storage = window.localStorage
+const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
 
 interface LocationState {
   fromGameCard: boolean
@@ -43,12 +45,13 @@ function Settings() {
   } = useLocation() as { state: LocationState }
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
+  const home = configStore.get('userHome')
 
   const [wineVersion, setWineVersion] = useState({
     bin: '/usr/bin/wine',
     name: 'Wine Default'
   } as WineInstallation)
-  const [winePrefix, setWinePrefix] = useState('~/.wine')
+  const [winePrefix, setWinePrefix] = useState(`${home}/.wine`)
   const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [defaultWinePrefix, setDefaultWinePrefix] = useState('')
@@ -64,9 +67,6 @@ function Settings() {
   const [altLegendaryBin, setAltLegendaryBin] = useState('')
   const [altGogdlBin, setAltGogdlBin] = useState('')
   const [canRunOffline, setCanRunOffline] = useState(true)
-  const [language, setLanguage] = useState(
-    () => storage.getItem('language') || 'en'
-  )
   const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
   const [savesPath, setSavesPath] = useState('')
 
@@ -234,7 +234,7 @@ function Settings() {
       setAltGogdlBin(config.altGogdlBin || '')
       setShowUnrealMarket(config.showUnrealMarket)
       setDefaultWinePrefix(config.defaultWinePrefix)
-      setUseSteamRuntime(config.useSteamRuntime || false)
+      setUseSteamRuntime(config.useSteamRuntime)
       setDisableController(config.disableController || false)
 
       if (!isDefault) {
@@ -271,12 +271,10 @@ function Settings() {
     enableEsync,
     enableFsync,
     exitToTray,
-    language,
     maxRecentGames,
     maxWorkers,
     minimizeOnLaunch,
     nvidiaPrime,
-    offlineMode,
     otherOptions,
     showFps,
     showMangohud,
@@ -285,7 +283,9 @@ function Settings() {
     useGameMode,
     wineCrossoverBottle,
     winePrefix,
-    wineVersion
+    wineVersion,
+    enableFSR,
+    enableResizableBar
   } as AppSettings
 
   const GameSettings = {
@@ -332,7 +332,26 @@ function Settings() {
   }
 
   return (
-    <>
+    <ContextMenu
+      items={[
+        {
+          label: t(
+            'settings.copyToClipboard',
+            'Copy All Settings to Clipboard'
+          ),
+          onclick: () =>
+            clipboard.writeText(
+              JSON.stringify({ appName, title, ...settingsToSave })
+            ),
+          show: !isLogSettings
+        },
+        {
+          label: t('settings.open-config-file', 'Open Config File'),
+          onclick: () => ipcRenderer.send('showConfigFileInFolder', appName),
+          show: !isLogSettings
+        }
+      ]}
+    >
       <div className="Settings">
         <div role="list" className="settingsWrapper">
           <NavLink to={returnPath} role="link" className="backButton">
@@ -355,8 +374,6 @@ function Settings() {
               startInTray={startInTray}
               toggleTray={toggleTray}
               toggleStartInTray={toggleStartInTray}
-              language={language}
-              setLanguage={setLanguage}
               maxWorkers={maxWorkers}
               setMaxWorkers={setMaxWorkers}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
@@ -401,7 +418,11 @@ function Settings() {
             />
           )}
           {isWineSettings && (
-            <Tools winePrefix={winePrefix} wineVersion={wineVersion} />
+            <Tools
+              winePrefix={winePrefix}
+              wineVersion={wineVersion}
+              appName={appName}
+            />
           )}
           {isOtherSettings && (
             <OtherSettings
@@ -437,6 +458,7 @@ function Settings() {
               toggleUseSteamRuntime={toggleUseSteamRuntime}
               isMacNative={isMacNative}
               isLinuxNative={isLinuxNative}
+              isProton={wineVersion.type === 'proton'}
             />
           )}
           {isSyncSettings && (
@@ -465,7 +487,7 @@ function Settings() {
           <FooterInfo appName={appName} />
         </div>
       </div>
-    </>
+    </ContextMenu>
   )
 }
 

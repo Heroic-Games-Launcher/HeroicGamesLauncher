@@ -66,6 +66,9 @@
         "moving": "Đang chuyển",
         "repairing": "Đang sửa"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Cần kết nối mạng",
         "installedPlatform": "Installed Platform",
@@ -75,8 +78,11 @@
         "version": "Phiên bản"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Chọn đường dẫn cài",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": "Phiên bản Wine"
     },
@@ -107,6 +113,7 @@
         "installing": "Đang cài",
         "moving": "Đang chuyển, vui lòng đợi",
         "notinstalled": "Game chưa được cài",
+        "processing": "Processing files, please wait",
         "reparing": "Đang sửa game, vui lòng đợi",
         "totalDownloaded": "Tổng số đã tải",
         "updating": "Đang cập nhật Game"

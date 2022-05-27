@@ -66,6 +66,9 @@
         "moving": "Verschiebe",
         "repairing": "Repariere"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Online erforderlich",
         "installedPlatform": "Installierte Plattform",
@@ -76,7 +79,10 @@
     },
     "install": {
         "disk-space-left": "Verbleibender Speicherplatz auf dem Gerät",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Installationspfad auswählen",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "After Install",
         "wineprefix": "Wine-Prefix",
         "wineversion": "Wine-Version"
     },
@@ -107,6 +113,7 @@
         "installing": "Wird installiert",
         "moving": "Installation wird verschoben, bitte warten",
         "notinstalled": "Dieses Spiel ist nicht installiert",
+        "processing": "Processing files, please wait",
         "reparing": "Spiel wird repariert, bitte warten",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "updating": "Spiel wird aktualisiert"

@@ -66,7 +66,8 @@ const GameCard = ({
     handleGameStatus,
     platform,
     hiddenGames,
-    favouriteGames
+    favouriteGames,
+    allTilesInColor
   } = useContext(ContextProvider)
 
   const isWin = platform === 'win32'
@@ -85,10 +86,12 @@ const GameCard = ({
 
   const { status, folder } = gameStatus || {}
   const isInstalling = status === 'installing' || status === 'updating'
+  const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
-  const haveStatus = isMoving || isReparing || isInstalling || hasUpdate
+  const haveStatus =
+    isMoving || isReparing || isInstalling || hasUpdate || isUpdating
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -116,6 +119,9 @@ const GameCard = ({
   }
 
   function getStatus() {
+    if (isUpdating) {
+      return t('status.updating') + ` ${percent}`
+    }
     if (isInstalling) {
       return t('status.installing') + ` ${percent}`
     }
@@ -281,8 +287,12 @@ const GameCard = ({
 
   const instClass = isInstalled ? 'installed' : ''
   const hiddenClass = isHiddenGame ? 'hidden' : ''
-  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
-  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
+  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''} ${
+    allTilesInColor && 'allTilesInColor'
+  }`
+  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''} ${
+    allTilesInColor && 'allTilesInColor'
+  }`
 
   const wrapperClasses = `${
     grid ? 'gameCard' : 'gameListItem'
@@ -361,7 +371,7 @@ const GameCard = ({
       return sendKill(appName, runner)
     }
     if (isInstalled) {
-      return launch({ appName, t, runner })
+      return launch({ appName, t, runner, hasUpdate })
     }
     return
   }

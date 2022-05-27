@@ -1,8 +1,10 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
-        "title": "Accessibility",
+        "actions_font_family": "Toimingute fondiperekond (vaikimisi: \"Rubik\")",
+        "all_tiles_in_color": "Näita kõiki mänguplaate värviliselt",
+        "content_font_family": "Sisu fondiperekond (vaikimisi: \"Kajut\")",
+        "fonts": "Fondid",
+        "title": "Kättesaadavus",
         "zoom": "Zoom"
     },
     "All": "Kõik",
@@ -20,8 +22,7 @@
         "default-install-path": "Valige Vaikimisi paigalduskoht",
         "error": {
             "credentials": {
-                "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse.",
-                "title": "Aegunud kasutaja andmed"
+                "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse."
             },
             "diskspace": {
                 "message": "Ei ole piisavalt vaba kettaruumi",
@@ -31,11 +32,13 @@
                 "message": "Viga DXVK/VKD3D installimisel! Kontrollige ühendust või seda, kas teil on installitud zstd/libzstd1",
                 "title": "DXVK/VKD3D viga"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Viga mängu käivitamisel, kontrollige logisid!",
             "no-offline-mode": {
                 "message": "Käivitamine katkestatud! Mängu käivitamiseks on vaja internetiühendust.",
                 "title": "Võrguühenduseta režiim ei ole toetatud."
@@ -117,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Lemmikud",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Globaalsed seaded",
     "GOG": "GOG",
     "gog-store": "GOG Pood",
@@ -197,6 +208,9 @@
             "startInstall": "Paigaldamine algas"
         },
         "moved": "Teisaldamine on lõpule viidud",
+        "refresh": {
+            "error": "Ei saanud hankida väljalaskeid upstream'ist, võib-olla Githubi API piirangute tõttu! Proovige hiljem uuesti."
+        },
         "uninstalled": "Eemaldatud",
         "update": {
             "canceled": "Uuendatud tühistatud",
@@ -234,7 +248,7 @@
     "Recent": "Hiljuti mängitud",
     "search": "Sisestage mängu nimi siia...",
     "setting": {
-        "adddesktopshortcuts": "Lisage töölaua otseteed automaatselt",
+        "adddesktopshortcuts": "Lisa töölaua otseteed automaatselt",
         "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
         "alt-gogdl-bin": "Valige alternatiivne GOGDL binaarfail",
         "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail",
@@ -286,21 +300,20 @@
         "maxworkers": "Töötajate maksimaalne arv allalaadimisel",
         "minimize-on-launch": "Minimeeri Heroic pärast mängu käivitamist",
         "offlinemode": "Käivita mäng võrguühenduseta",
-        "primerun": "Luba Nvidia Prime Render",
+        "primerun": "Kasuta spetsiaalset graafikakaarti",
         "resizableBar": "Luba muudetav BAR (ainult NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Lohistage failid siia",
             "title": "Käivita EXE prefiksil"
         },
         "savefolder": {
-            "placeholder": "Valige täpne mängude salvestiste kaust",
-            "title": "Asenda salvestuse pilvesünkroonkaust"
+            "placeholder": "Valige täpne mängude salvestiste kaust"
         },
         "select_theme": "Valige teema",
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
         "showUnrealMarket": "Näita Unreal Marketplace'i (vajab taaskäivitamist)",
         "start-in-tray": "Käivita minimeeritult",
-        "steamruntime": "Kasutage Steam Runtime'i",
+        "steamruntime": "Kasuta Steam Runtime'i",
         "winecrossoverbottle": "CrossOveri pudel",
         "wineprefix": "WinePrefiksi kaust",
         "wineversion": "Wine'i versioon"
@@ -319,6 +332,7 @@
             "other": "Muu",
             "sync": "Salvesta-sünkrooni"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Lähtesta Heroic"
     },
     "Settings": "Seaded",
@@ -372,7 +386,7 @@
         "manager": {
             "error": "Ei saanud Wine/Proton versioone kätte.",
             "link": "Wine'i haldur",
-            "title": "Wine'i haldur (beeta)",
+            "title": "Wine'i haldur",
             "unzipping": "Lahtipakkimine"
         }
     }

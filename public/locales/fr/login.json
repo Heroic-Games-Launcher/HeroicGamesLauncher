@@ -3,14 +3,14 @@
         "login": "Connexion"
     },
     "message": {
-        "part1": "Afin de se connecter et d'installer vos jeux, vous devez d’abord suivre les étapes ci-dessous:",
-        "part2": "Ouvrez",
-        "part3": "Epic Store ici",
-        "part4": ", connectez-vous à votre compte et copiez le",
+        "part1": "Afin de se connecter et d'installer vos jeux, vous devez d’abord suivre les étapes ci-dessous :",
+        "part2": "Ouvrez le",
+        "part3": "magasin Epic ici",
+        "part4": ", connectez-vous à votre compte et copiez votre",
         "part5": "Numéro SID",
         "part6": "Collez votre",
         "part7": "code SID",
-        "part8": "dans la boîte de dialogue ci-contre, cliquez sur le bouton « Connexion » et patientez."
+        "part8": "dans la boîte de dialogue ci-contre et cliquez sur le bouton « Connexion »."
     },
     "status": {
         "error": "Erreur",

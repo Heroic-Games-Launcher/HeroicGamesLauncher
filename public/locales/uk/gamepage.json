@@ -36,14 +36,14 @@
         "yes": "ТАК"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Додати до вподобань",
         "cancel": "Призупинити/Скасувати",
         "continue": "Продовжити завантаження",
-        "hide_game": "Hide Game",
+        "hide_game": "Приховати гру",
         "import": "Імпортувати гру",
         "install": "Встановити",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Видалити зі вподобань",
+        "unhide_game": "Показати гру",
         "uninstall": "Видалити",
         "update": "Оновити"
     },
@@ -56,29 +56,35 @@
         "downloadSize": "Розмір завантаження",
         "firstPlayed": "Вперше зіграно",
         "installSize": "Розмір встановлення",
-        "language": "Language",
+        "language": "Мова",
         "lastPlayed": "Востаннє зіграно",
         "neverPlayed": "Ніколи",
-        "platform": "Select Platform Version to Install",
+        "platform": "Оберіть версію платформи для встановлення",
         "totalPlayed": "Зіграно часу"
     },
     "gamecard": {
         "moving": "Переміщую",
         "repairing": "Відновлюю"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Чи потрібно бути в мережі",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "Встановлена платформа",
         "path": "Шлях встановлення",
         "size": "Розмір",
         "syncsaves": "Синхронізувати збереження",
         "version": "Версія"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Доступний простір",
+        "not-enough-disk-space": "Недостатньо місця на диску",
         "path": "Вкажіть шлях встановлення",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "Після встановлення",
         "wineprefix": "Префікс Wine",
-        "wineversion": ""
+        "wineversion": "Версія Wine"
     },
     "label": {
         "playing": {
@@ -92,7 +98,7 @@
     "launch": {
         "options": "Параметри запуску..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Повідомити про проблему запуску цієї гри",
     "sdl": {
         "title": "Оберіть компоненти для встановлення"
     },
@@ -107,6 +113,7 @@
         "installing": "Встановлюю",
         "moving": "Переміщую встановлення, будь ласка зачекайте",
         "notinstalled": "Гра не встановлена",
+        "processing": "Обробка файлів, будь ласка, зачекайте",
         "reparing": "Відновлюю гру, будь ласка зачекайте",
         "totalDownloaded": "Всього завантажено",
         "updating": "Оновлюю гру"

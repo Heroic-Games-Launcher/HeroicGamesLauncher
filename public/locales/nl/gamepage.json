@@ -66,6 +66,9 @@
         "moving": "Aan het verplaatsen",
         "repairing": "Aan het repareren"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Internetverbinding Verplicht",
         "installedPlatform": "Installed Platform",
@@ -75,8 +78,11 @@
         "version": "Versie"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Select Install Path",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": ""
     },
@@ -107,6 +113,7 @@
         "installing": "Installeren",
         "moving": "Spel verplaatsen, geduld alstublieft",
         "notinstalled": "Dit spel is niet geïnstalleerd",
+        "processing": "Processing files, please wait",
         "reparing": "Spel aan het repareren, even geduld",
         "totalDownloaded": "Totaal gedownload",
         "updating": "Spel aan het updaten"

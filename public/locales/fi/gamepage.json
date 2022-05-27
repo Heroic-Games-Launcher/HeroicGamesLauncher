@@ -66,6 +66,9 @@
         "moving": "Siirretään",
         "repairing": "Korjataan"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Online-tila vaaditaan",
         "installedPlatform": "Installed Platform",
@@ -75,8 +78,11 @@
         "version": "Versio"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Valitse asennuspolku",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": ""
     },
@@ -107,6 +113,7 @@
         "installing": "Asennetaan",
         "moving": "Siirretään asennusta, odota",
         "notinstalled": "Tätä peliä ei ole asennettu",
+        "processing": "Processing files, please wait",
         "reparing": "Korjataan peliä, odota",
         "totalDownloaded": "Ladattu yhteensä",
         "updating": "Päivitetään peliä"

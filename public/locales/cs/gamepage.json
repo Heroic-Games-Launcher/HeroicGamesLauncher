@@ -66,6 +66,9 @@
         "moving": "Přesouvám",
         "repairing": "Opravuji"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Vyžaduje se být online",
         "installedPlatform": "Nainstalovaná platforma",
@@ -75,8 +78,11 @@
         "version": "Verze"
     },
     "install": {
-        "disk-space-left": "Volné místo na zařízení",
+        "disk-space-left": "Volné místo",
+        "not-enough-disk-space": "Nedostatek místa na disku",
         "path": "Vyberte cestu instalace",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "Po instalaci",
         "wineprefix": "WinePrefix",
         "wineversion": "Verze Wine"
     },
@@ -107,6 +113,7 @@
         "installing": "Instaluji",
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
+        "processing": "Zpracovávám soubory, prosím počkejte",
         "reparing": "Opravuji hru, čekejte prosím",
         "totalDownloaded": "Celkově staženo",
         "updating": "Aktualizuji hru"

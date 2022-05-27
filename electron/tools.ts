@@ -3,7 +3,12 @@ import * as axios from 'axios'
 import { exec } from 'child_process'
 import { existsSync, readFileSync } from 'graceful-fs'
 
-import { execAsync, isOnline, showErrorBoxModalAuto } from './utils'
+import {
+  execAsync,
+  getWineFromProton,
+  isOnline,
+  showErrorBoxModalAuto
+} from './utils'
 import { execOptions, heroicToolsPath, userHome } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
@@ -83,7 +88,7 @@ export const DXVK = {
           exec(cleanCommand)
         })
         .catch((error) => {
-          logError(
+          logWarning(
             [`Error when downloading ${tool.name}`, error],
             LogPrefix.DXVKInstaller
           )
@@ -119,7 +124,7 @@ export const DXVK = {
     const wineBin = dirname(winePath.replace("'", ''))
 
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
-      logError('dxvk not found!', LogPrefix.DXVKInstaller)
+      logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
       await DXVK.getLatest()
     }
 
@@ -151,9 +156,8 @@ export const DXVK = {
           return exec(updatedVersionfile)
         })
         .catch((error) => {
-          logError(`${error}`, LogPrefix.DXVKInstaller)
           logError(
-            'error when removing DXVK, please try again',
+            ['error when removing DXVK, please try again', `${error}`],
             LogPrefix.DXVKInstaller
           )
         })
@@ -170,9 +174,11 @@ export const DXVK = {
         return exec(updatedVersionfile)
       })
       .catch((error) => {
-        logError(`${error}`, LogPrefix.DXVKInstaller)
         logError(
-          'error when installing DXVK, please try launching the game again',
+          [
+            'error when installing DXVK, please try launching the game again',
+            `${error}`
+          ],
           LogPrefix.DXVKInstaller
         )
       })
@@ -196,7 +202,31 @@ export const Winetricks = {
         logInfo('Downloaded Winetricks', LogPrefix.Backend)
       })
       .catch(() => {
-        logError('Error Downloading Winetricks', LogPrefix.Backend)
+        logWarning('Error Downloading Winetricks', LogPrefix.Backend)
       })
+  },
+  run: async (prefix: string, wine: string, isProton: boolean) => {
+    const winetricks = `${heroicToolsPath}/winetricks`
+
+    const { winePrefix, wineBin } = getWineFromProton(wine, isProton, prefix)
+
+    const winepath = dirname(wineBin)
+
+    // use wine instead of wine64 since it breaks on flatpak
+    const command = `WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`
+
+    logInfo(['trying to run', command], LogPrefix.Backend)
+    try {
+      const { stderr, stdout } = await execAsync(command, execOptions)
+      logInfo(`Output: ${stderr} \n ${stdout}`)
+    } catch (error) {
+      logError(
+        [
+          `Something went wrong! Check if WineTricks is available and ${wineBin} exists`,
+          `${error}`
+        ],
+        LogPrefix.Backend
+      )
+    }
   }
 }

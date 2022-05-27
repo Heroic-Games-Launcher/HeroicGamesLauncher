@@ -86,7 +86,7 @@ export class GOGLibrary {
     }
 
     const gamesObjects: GameInfo[] = []
-    const gamesArray = libraryStore.get('games') as GameInfo[]
+    const gamesArray = libraryStore.get('games', []) as GameInfo[]
     for (const game of gameApiArray as GOGGameInfo[]) {
       let unifiedObject = gamesArray
         ? gamesArray.find((value) => value.app_name === String(game.id))
@@ -182,7 +182,7 @@ export class GOGLibrary {
     }
 
     const gogInfo = JSON.parse(res.stdout)
-    const libraryArray = libraryStore.get('games') as GameInfo[]
+    const libraryArray = libraryStore.get('games', []) as GameInfo[]
     const gameObjectIndex = libraryArray.findIndex(
       (value) => value.app_name === appName
     )
@@ -219,7 +219,7 @@ export class GOGLibrary {
    */
   public refreshInstalled() {
     const installedArray =
-      (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
+      (installedGamesStore.get('installed', []) as Array<InstalledInfo>) || []
     this.installedGames.clear()
     installedArray.forEach((value) => {
       this.installedGames.set(value.appName, value)
@@ -230,7 +230,7 @@ export class GOGLibrary {
     const cachedGameData = this.library.get(appName)
 
     const installedArray =
-      (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
+      (installedGamesStore.get('installed', []) as Array<InstalledInfo>) || []
 
     const gameIndex = installedArray.findIndex(
       (value) => value.appName === appName
@@ -488,18 +488,25 @@ export class GOGLibrary {
       logInfo(`Loading playTask data from ${infoFilePath}`, LogPrefix.Backend)
       const fileData = readFileSync(infoFilePath, { encoding: 'utf-8' })
 
-      const jsonData = JSON.parse(fileData)
-      const playTasks = jsonData.playTasks
+      try {
+        const jsonData = JSON.parse(fileData)
+        const playTasks = jsonData.playTasks
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const primary = playTasks.find((value: any) => value?.isPrimary)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const primary = playTasks.find((value: any) => value?.isPrimary)
 
-      const workingDir = primary?.workingDir
+        const workingDir = primary?.workingDir
 
-      if (workingDir) {
-        return join(workingDir, primary.path)
+        if (workingDir) {
+          return join(workingDir, primary.path)
+        }
+        return primary.path
+      } catch (error) {
+        logError(
+          `Error reading ${fileData}, could not complete operation`,
+          LogPrefix.Gog
+        )
       }
-      return primary.path
     }
 
     return ''

@@ -1,7 +1,6 @@
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import {
   faCoffee,
-  faUser,
   faUserAlt,
   faWineGlass
 } from '@fortawesome/free-solid-svg-icons'
@@ -20,8 +19,7 @@ const { ipcRenderer } = window.require('electron')
 export default function SidebarUtils() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { epic, gog, platform } = React.useContext(ContextProvider)
-  const user = epic.username || gog.username
+  const { platform } = React.useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
   return (
@@ -65,30 +63,13 @@ export default function SidebarUtils() {
         </div>
         Ko-fi
       </button>
-      {user ? (
-        <div className="SidebarUtils__dropdown">
-          <button className="Sidebar__item">
-            <div className="Sidebar__itemIcon">
-              <FontAwesomeIcon icon={faUser} />
-            </div>
-            {user}
-          </button>
-          <div className="SidebarUtils__dropdownPopup ">
-            <button
-              className="Sidebar__item"
-              onClick={() => navigate('/login')}
-            >
-              <div className="Sidebar__itemIcon">
-                <FontAwesomeIcon icon={faUserAlt} />
-              </div>
-              {t('userselector.manageaccounts', 'Manage Accounts')}
-            </button>
-            <QuitButton />
-          </div>
+      <button className="Sidebar__item" onClick={() => navigate('/login')}>
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faUserAlt} />
         </div>
-      ) : (
-        <QuitButton />
-      )}
+        {t('userselector.manageaccounts', 'Manage Accounts')}
+      </button>
+      <QuitButton />
     </div>
   )
 }

@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -20,8 +22,7 @@
         "default-install-path": "Chọn đường dẫn cài mặc định",
         "error": {
             "credentials": {
-                "message": "Thông tin đăng nhập hết hạn, vui lòng đăng xuất rồi đăng nhập lại.",
-                "title": "Thông tin đăng nhập đã hết hạn"
+                "message": "Thông tin đăng nhập hết hạn, vui lòng đăng xuất rồi đăng nhập lại."
             },
             "diskspace": {
                 "message": "Không đủ bộ nhớ trống",
@@ -31,11 +32,13 @@
                 "message": "Lỗi cài đặt DXVK/VKD3D! Kiểm tra kết nối hoặc zstd/libzstd1",
                 "title": "DXVK/VKD3D lỗi"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Lỗi khi khởi chạy game, vui lòng kiểm tra log!",
             "no-offline-mode": {
                 "message": "Quá trình khởi chạy đã hủy! Cần có kết nối mạng để chạy game.",
                 "title": "Không hỗ trợ chế độ offline."
@@ -117,6 +120,14 @@
     },
     "Epic Games": "Epic Game",
     "favourites": "Favourites",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Cài đặt chung",
     "GOG": "GOG",
     "gog-store": "Cửa hàng GOG",
@@ -197,6 +208,9 @@
             "startInstall": "Quá trình cài đặt đã bắt đầu"
         },
         "moved": "Di chuyển hoàn tất",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Gỡ cài đặt",
         "update": {
             "canceled": "Quá trình cập nhật đã hủy",
@@ -293,8 +307,7 @@
             "title": "Chạy EXE trên prefix"
         },
         "savefolder": {
-            "placeholder": "Chọn chính xác thư mục lưu game",
-            "title": "Ghi đè thư mục Lưu đồng bộ đám mây"
+            "placeholder": "Chọn chính xác thư mục lưu game"
         },
         "select_theme": "Select Theme",
         "showfps": "Hiển thị FPS (DX9, 10 và 11)",
@@ -319,6 +332,7 @@
             "other": "Khác",
             "sync": "Lưu - Đồng bộ"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Đặt lại Heroic"
     },
     "Settings": "Cài đặt",

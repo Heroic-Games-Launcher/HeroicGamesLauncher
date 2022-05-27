@@ -66,6 +66,9 @@
         "moving": "മാറ്റുന്നു",
         "repairing": "നന്നാക്കുന്നു"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "ഓൺലൈൻ ആകേണ്ടത് ആവശ്യമാണ്",
         "installedPlatform": "Installed Platform",
@@ -75,8 +78,11 @@
         "version": "പതിപ്പ്"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "After Install",
         "wineprefix": "വൈൻ പ്രിഫിക്സ്",
         "wineversion": ""
     },
@@ -107,6 +113,7 @@
         "installing": "നടുന്നു",
         "moving": "നടീലിടം മാറ്റുന്നു, ഇത്തിരി കാക്കൂ",
         "notinstalled": "ഈ കളി നട്ടിട്ടില്ല",
+        "processing": "Processing files, please wait",
         "reparing": "കളി നന്നാക്കുന്നു, ഒന്നു കാക്കൂ",
         "totalDownloaded": "ആകെ ഇറക്കിയെടുത്തത്",
         "updating": "കളി പുതുക്കുന്നു"

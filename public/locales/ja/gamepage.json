@@ -66,6 +66,9 @@
         "moving": "移動しています",
         "repairing": "修復しています"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Online Required",
         "installedPlatform": "Installed Platform",
@@ -75,8 +78,11 @@
         "version": "バージョン"
     },
     "install": {
-        "disk-space-left": "Space Left on the Device",
+        "disk-space-left": "Space Available",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Select Install Path",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": ""
     },
@@ -107,6 +113,7 @@
         "installing": "インストールしています",
         "moving": "インストールを移動しています、お待ちください",
         "notinstalled": "このゲームはインストールされていません",
+        "processing": "Processing files, please wait",
         "reparing": "ゲームを修復しています、お待ちください",
         "totalDownloaded": "ダウンロードの総数",
         "updating": "ゲームを更新しています"

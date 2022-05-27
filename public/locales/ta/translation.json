@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -20,8 +22,7 @@
         "default-install-path": "இயல்புநிலை நிறுவல் பாதையை தேர்வு செய்",
         "error": {
             "credentials": {
-                "message": "உங்கள் சான்றிதழ்கள் காலாவதியாகிவிட்டன, தயவுசெய்து வெளியேறி மீண்டும் உள்நுழைக.",
-                "title": "காலாவதியான சான்றிதழ்கள்"
+                "message": "உங்கள் சான்றிதழ்கள் காலாவதியாகிவிட்டன, தயவுசெய்து வெளியேறி மீண்டும் உள்நுழைக."
             },
             "diskspace": {
                 "message": "போதுமான இடம் இல்லை",
@@ -31,11 +32,13 @@
                 "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
                 "title": "DXVK/VKD3D error"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "விளையாட்டை துவக்கும்போது பிழை, பதிவுகளை பார்க்கவும்!",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
@@ -117,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -197,6 +208,9 @@
             "startInstall": "Installation Started"
         },
         "moved": "நகர்தல் முடிவடைந்தது",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "நிறுவல் நீக்கப்பட்டது",
         "update": {
             "canceled": "புதுப்பிப்பு ரத்து செய்யப்பட்டது",
@@ -293,8 +307,7 @@
             "title": "முன்னொட்டில் EXE ஐ இயக்கு"
         },
         "savefolder": {
-            "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு",
-            "title": "மேகக்கணி ஒத்திசைவு கோப்புறையை புறக்கணித்து மாற்று"
+            "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
@@ -319,6 +332,7 @@
             "other": "மற்றவை",
             "sync": "சேமிப்பு-ஒத்திசைவு"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "அமைப்புகள்",

@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -20,8 +22,7 @@
         "default-install-path": "Ange standard installationssökväg",
         "error": {
             "credentials": {
-                "message": "Autentisering har utgått, logga ut och logga sedan in igen.",
-                "title": "Autentisering utgått"
+                "message": "Autentisering har utgått, logga ut och logga sedan in igen."
             },
             "diskspace": {
                 "message": "Otillräckligt ledigt hårdiskutrymme",
@@ -31,11 +32,13 @@
                 "message": "Problem vid installation av DXVK/VKD3D! Kontrollera internetanslutningen och att du har zstd/libzstd1 installerade",
                 "title": "DXVK/VKD3D problem"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Problem vid speluppstart, kontrollera loggen!",
             "no-offline-mode": {
                 "message": "Speluppstart avbröts! Internetanslutning krävs.",
                 "title": "Offline-läge stöds ej."
@@ -117,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favoriter",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Globala inställningar",
     "GOG": "GOG",
     "gog-store": "GOG Butik",
@@ -197,6 +208,9 @@
             "startInstall": "Installation påbörjad"
         },
         "moved": "Spelflytt slutförd",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Avinstallerat",
         "update": {
             "canceled": "Uppdatering avbröts",
@@ -286,15 +300,14 @@
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "minimize-on-launch": "Minimera Heroic efter spelstart",
         "offlinemode": "Kör spelet offline",
-        "primerun": "Aktivera Nvidia Prime Render",
+        "primerun": "Använd dedikerat grafikkort",
         "resizableBar": "Aktivera Resizable BAR (NVIDIA RTX endast)",
         "runexe": {
             "message": "Drag och släpp filer här",
             "title": "Kör EXE-fil i prefix"
         },
         "savefolder": {
-            "placeholder": "Ange specifik sparfilsmapp",
-            "title": "Synkroniseringsmapp för sparfiler"
+            "placeholder": "Ange specifik sparfilsmapp"
         },
         "select_theme": "Välj tema",
         "showfps": "Visa FPS (DX9, 10 och 11)",
@@ -319,6 +332,7 @@
             "other": "Övrigt",
             "sync": "Synkronisera sparfiler"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Grundinställ Heroic"
     },
     "Settings": "Inställningar",

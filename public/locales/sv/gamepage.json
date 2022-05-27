@@ -66,6 +66,9 @@
         "moving": "Flyttar",
         "repairing": "Reparerar"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Kräver uppkoppling",
         "installedPlatform": "Installerad plattform",
@@ -75,8 +78,11 @@
         "version": "Version"
     },
     "install": {
-        "disk-space-left": "Ledigt utrymme på enheten",
+        "disk-space-left": "Utrymme tillgängligt",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "Ange installationssökväg",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "After Install",
         "wineprefix": "Wine-prefix",
         "wineversion": "Wine-version"
     },
@@ -107,6 +113,7 @@
         "installing": "Installerar",
         "moving": "Flyttar installationen, vänligen vänta",
         "notinstalled": "Detta spelet är inte installerat",
+        "processing": "Processing files, please wait",
         "reparing": "Reparerar spelet, vänligen vänta",
         "totalDownloaded": "Nedladdning",
         "updating": "Updaterar spelet"

@@ -146,8 +146,8 @@ docker run -it -v ./:/tmp/heroic localhost/heroicdevcontainer:latest
 
 3. The above command will mount your local Heroic dir to `/tmp/heroic` in the container (unless you used a different path).
 
-```bash
-cd /tmp/heoric
+```
+cd /tmp/heroic
 ```
 
 And you should be good to go, code and build away!

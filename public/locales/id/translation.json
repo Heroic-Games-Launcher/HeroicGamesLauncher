@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Tampilkan semua kolom gim dalam warna",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fon",
         "title": "Aksesibilitas",
         "zoom": "Zoom"
     },
@@ -20,8 +22,7 @@
         "default-install-path": "Pilih Lokasi Pemasangan Bawaan",
         "error": {
             "credentials": {
-                "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi.",
-                "title": "Kredensial Kedaluwarsa"
+                "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi."
             },
             "diskspace": {
                 "message": "Ruang penyimpanan tidak cukup",
@@ -31,18 +32,20 @@
                 "message": "Terjadi kesalahan saat memasang DXVK/VKD3D! Periksa koneksi Anda atau cek apakah Anda telah memasang zstd/libzstd1",
                 "title": "Terjadi Kesalahan DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Terjadi kesalahan ketika meluncurkan gim, periksa log!",
             "no-offline-mode": {
                 "message": "Peluncuran dibatalkan! Gim membutuhkan koneksi internet untuk menjalankannya.",
                 "title": "Mode luring tidak didukung."
             },
             "title": "Galat",
             "update": {
-                "message": "Terjadi kesalahan saat melakukan update, silahkan cek log atau coba lagi nanti!",
+                "message": "Terjadi kesalahan saat melakukan pembaruan, silakan cek log atau coba lagi nanti!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -117,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favorit",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Pengaturan Global",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -149,7 +160,7 @@
     },
     "info": {
         "heroic": {
-            "version": "Heroic Version"
+            "version": "Versi Heroic"
         },
         "settings": "Pengaturan disimpan secara otomatis"
     },
@@ -165,7 +176,7 @@
         "listView": "Tampilan daftar",
         "refresh": "Segarkan",
         "sortAscending": "Urutkan Naik",
-        "sortByStatus": "Urutkan berdasarkan Status",
+        "sortByStatus": "Urutkan Berdasarkan Status",
         "sortDescending": "Urutkan Turun"
     },
     "Library": "Pustaka",
@@ -197,6 +208,9 @@
             "startInstall": "Pemasangan Dimulai"
         },
         "moved": "Selesai Memindahkan",
+        "refresh": {
+            "error": "Tidak dapat mengambil rilis dari sumber, ini mungkin karena pembatasan API Github! Coba lagi nanti."
+        },
         "uninstalled": "Dihapus",
         "update": {
             "canceled": "Pembaruan Dibatalkan",
@@ -247,7 +261,7 @@
         "darktray": "Gunakan Ikon Baki Gelap",
         "default-install-path": "Lokasi Pemasangan Bawaan",
         "defaultWinePrefix": "Atur Folder untuk Prefiks Wine baru",
-        "disable_controller": "Nonaktifkan navigasi Heroic menggunakan controller",
+        "disable_controller": "Nonaktifkan navigasi Heroic menggunakan pengontrol",
         "discordRPC": "Aktifkan Discord Rich Presence",
         "egs-sync": "Sinkronkan dengan Epic Games yang Terpasang",
         "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
@@ -293,8 +307,7 @@
             "title": "Jalankan EXE di Prefiks"
         },
         "savefolder": {
-            "placeholder": "Pilih folder gim tersimpan yang tepat",
-            "title": "Timpa folder Sinkronisasi Penyimpanan Awan"
+            "placeholder": "Pilih folder gim tersimpan yang tepat"
         },
         "select_theme": "Pilih Tema",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
@@ -319,6 +332,7 @@
             "other": "Lainnya",
             "sync": "Sinkronisasi Penyimpanan"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Pengaturan",

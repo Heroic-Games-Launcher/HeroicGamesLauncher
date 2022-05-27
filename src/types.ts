@@ -57,6 +57,8 @@ export interface ContextType {
   filterPlatform: string
   gameUpdates: string[]
   isRTL: boolean
+  language: string
+  setLanguage: (newLanguage: string) => void
   handleCategory: (value: string) => void
   handleFilter: (value: string) => void
   handlePlatformFilter: (value: string) => void
@@ -68,7 +70,7 @@ export interface ContextType {
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
   platform: NodeJS.Platform | string
-  refresh: (checkUpdates?: boolean) => Promise<void>
+  refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
@@ -105,6 +107,8 @@ export interface ContextType {
     login: (token: string) => Promise<string>
     logout: () => void
   }
+  allTilesInColor: boolean
+  setAllTilesInColor: (value: boolean) => void
 }
 
 export type LibraryTopSectionOptions =
@@ -236,7 +240,7 @@ export interface InstallProgress {
   bytes: string
   eta: string
   folder?: string
-  percent: string
+  percent: number
 }
 export interface InstalledInfo {
   executable: string | null
@@ -263,6 +267,7 @@ export interface Path {
 export type RefreshOptions = {
   checkForUpdates?: boolean
   fullRefresh?: boolean
+  library?: Runner
   runInBackground?: boolean
 }
 

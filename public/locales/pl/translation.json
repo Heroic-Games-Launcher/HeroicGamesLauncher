@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -20,8 +22,7 @@
         "default-install-path": "Wybierz domyślną ścieżkę instalacyjną",
         "error": {
             "credentials": {
-                "message": "Twoje dane uwierzytelniające wygasły, wyloguj się i zaloguj ponownie.",
-                "title": "Wygasły poświadczenia"
+                "message": "Twoje dane uwierzytelniające wygasły, wyloguj się i zaloguj ponownie."
             },
             "diskspace": {
                 "message": "Za mało miejsca na dysku",
@@ -31,11 +32,13 @@
                 "message": "Błąd podczas instalacji DXVK/VKD3D! Sprawdź połączenie lub czy zstd/libzstd1 jest zainstalowany",
                 "title": "Błąd DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Błąd przy uruchamianiu gry, sprawdź logi!",
             "no-offline-mode": {
                 "message": "Uruchomienie przerwane! Gra wymaga połączenia z internetem aby ją uruchomić.",
                 "title": "Tryb Offline nie jest wspierany."
@@ -117,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Ulubione",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Ustawienia Globalne",
     "GOG": "GOG",
     "gog-store": "Sklep GOG",
@@ -197,6 +208,9 @@
             "startInstall": "Instalacja Rozpoczęta"
         },
         "moved": "Przenoszenie zakończone",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Odinstalowane",
         "update": {
             "canceled": "Aktualizacja przerwana",
@@ -293,8 +307,7 @@
             "title": "Uruchom EXE w prefiksie"
         },
         "savefolder": {
-            "placeholder": "Wybierz dokładny folder zapisu",
-            "title": "Pomiń synchronizację z chmurą"
+            "placeholder": "Wybierz dokładny folder zapisu"
         },
         "select_theme": "Wybierz Motyw",
         "showfps": "Pokaż FPS (DX9, 10 and 11)",
@@ -319,6 +332,7 @@
             "other": "Inne",
             "sync": "Synchronizasja zapisów"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Ustawienia",

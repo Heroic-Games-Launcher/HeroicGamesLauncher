@@ -8,6 +8,7 @@ import {
   InstalledInfo,
   LibraryTopSectionOptions,
   RefreshOptions,
+  Runner,
   WineVersionInfo
 } from 'src/types'
 import { TFunction, withTranslation } from 'react-i18next'
@@ -76,15 +77,17 @@ interface StateProps {
   zoomPercent: number
   contentFontFamily: string
   actionsFontFamily: string
+  allTilesInColor: boolean
 }
 
 export class GlobalState extends PureComponent<Props> {
   loadGOGLibrary = (): Array<GameInfo> => {
     const games = gogLibraryStore.has('games')
-      ? (gogLibraryStore.get('games') as GameInfo[])
+      ? (gogLibraryStore.get('games', []) as GameInfo[])
       : []
     const installedGames =
-      (gogInstalledGamesStore.get('installed') as Array<InstalledInfo>) || []
+      (gogInstalledGamesStore.get('installed', []) as Array<InstalledInfo>) ||
+      []
     for (const igame in games) {
       for (const installedGame in installedGames) {
         if (installedGames[installedGame].appName === games[igame].app_name) {
@@ -100,16 +103,16 @@ export class GlobalState extends PureComponent<Props> {
     category: storage.getItem('category') || 'epic',
     epic: {
       library: libraryStore.has('library')
-        ? (libraryStore.get('library') as GameInfo[])
+        ? (libraryStore.get('library', []) as GameInfo[])
         : [],
-      username: configStore.get('userInfo')?.displayName || null
+      username: configStore.get('userInfo', null)?.displayName || null
     },
     gog: {
       library: this.loadGOGLibrary(),
-      username: gogConfigStore.get('userData')?.username || null
+      username: gogConfigStore.get('userData', null)?.username || null
     },
     wineVersions: wineDownloaderInfoStore.has('wine-releases')
-      ? (wineDownloaderInfoStore.get('wine-releases') as WineVersionInfo[])
+      ? (wineDownloaderInfoStore.get('wine-releases', []) as WineVersionInfo[])
       : [],
     error: false,
     filter: storage.getItem('filter') || 'all',
@@ -124,17 +127,26 @@ export class GlobalState extends PureComponent<Props> {
     platform: '',
     refreshing: false,
     refreshingInTheBackground: true,
-    hiddenGames: (configStore.get('games.hidden') as Array<HiddenGame>) || [],
+    hiddenGames:
+      (configStore.get('games.hidden', []) as Array<HiddenGame>) || [],
     showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
     favouriteGames:
-      (configStore.get('games.favourites') as Array<FavouriteGame>) || [],
+      (configStore.get('games.favourites', []) as Array<FavouriteGame>) || [],
     recentGames: [],
-    theme: (configStore.get('theme') as string) || '',
-    zoomPercent: parseInt((configStore.get('zoomPercent') as string) || '100'),
+    theme: (configStore.get('theme', '') as string) || '',
+    zoomPercent: parseInt(
+      (configStore.get('zoomPercent', '100') as string) || '100'
+    ),
     contentFontFamily:
       (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
     actionsFontFamily:
-      (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif"
+      (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
+    allTilesInColor:
+      (configStore.get('allTilesInColor', false) as boolean) || false
+  }
+
+  setLanguage = (newLanguage: string) => {
+    this.setState({ language: newLanguage })
   }
 
   setTheme = (newThemeName: string) => {
@@ -163,6 +175,11 @@ export class GlobalState extends PureComponent<Props> {
   setActionsFontFamily = (newFontFamily: string) => {
     configStore.set('actionsFontFamily', newFontFamily)
     this.setState({ actionsFontFamily: newFontFamily })
+  }
+
+  setAllTilesInColor = (value: boolean) => {
+    configStore.set('allTilesInColor', value)
+    this.setState({ allTilesInColor: value })
   }
 
   setShowHidden = (value: boolean) => {
@@ -221,12 +238,13 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ libraryTopSection: value })
   }
 
-  handleSuccessfulLogin = (runner: 'epic' | 'gog') => {
+  handleSuccessfulLogin = (runner: Runner) => {
     this.handleFilter('all')
     this.handleCategory(runner)
     this.refreshLibrary({
       fullRefresh: true,
-      runInBackground: false
+      runInBackground: false,
+      library: runner
     })
   }
 
@@ -242,14 +260,21 @@ export class GlobalState extends PureComponent<Props> {
         }
       })
 
-      this.handleSuccessfulLogin('epic')
+      this.handleSuccessfulLogin('legendery' as Runner)
     }
 
     return response.status
   }
 
   epicLogout = () => {
-    ipcRenderer.invoke('logoutLegendary')
+    ipcRenderer.invoke('logoutLegendary').finally(() => {
+      this.setState({
+        epic: {
+          library: [],
+          username: null
+        }
+      })
+    })
     console.log('Logging out from epic')
     window.location.reload()
   }
@@ -273,18 +298,25 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   gogLogout = () => {
-    ipcRenderer.invoke('logoutGOG')
+    ipcRenderer.invoke('logoutGOG').finally(() => {
+      this.setState({
+        gog: {
+          library: [],
+          username: null
+        }
+      })
+    })
     console.log('Logging out from gog')
     window.location.reload()
   }
 
-  refresh = async (checkUpdates?: boolean): Promise<void> => {
+  refresh = async (library?: Runner, checkUpdates?: boolean): Promise<void> => {
     console.log('refreshing')
 
     let updates = this.state.gameUpdates
     const currentLibraryLength = this.state.epic.library?.length
     let epicLibrary: Array<GameInfo> =
-      (libraryStore.get('library') as Array<GameInfo>) || []
+      (libraryStore.get('library', []) as Array<GameInfo>) || []
 
     const gogLibrary: Array<GameInfo> = this.loadGOGLibrary()
     if (!epicLibrary.length || !this.state.epic.library.length) {
@@ -298,7 +330,7 @@ export class GlobalState extends PureComponent<Props> {
 
     try {
       updates = checkUpdates
-        ? await ipcRenderer.invoke('checkGameUpdates')
+        ? await ipcRenderer.invoke('checkGameUpdates', library)
         : this.state.gameUpdates
     } catch (error) {
       ipcRenderer.send('logError', error)
@@ -327,7 +359,8 @@ export class GlobalState extends PureComponent<Props> {
   refreshLibrary = async ({
     checkForUpdates,
     fullRefresh,
-    runInBackground = true
+    runInBackground = true,
+    library = undefined
   }: RefreshOptions): Promise<void> => {
     if (this.state.refreshing) return
 
@@ -337,11 +370,11 @@ export class GlobalState extends PureComponent<Props> {
     })
     ipcRenderer.send('logInfo', 'Refreshing Library')
     try {
-      await ipcRenderer.invoke('refreshLibrary', fullRefresh)
+      await ipcRenderer.invoke('refreshLibrary', fullRefresh, library)
     } catch (error) {
       ipcRenderer.send('logError', error)
     }
-    this.refresh(checkForUpdates)
+    this.refresh(library, checkForUpdates)
   }
 
   refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
@@ -396,7 +429,8 @@ export class GlobalState extends PureComponent<Props> {
     appName,
     status,
     folder,
-    progress
+    progress,
+    runner
   }: GameStatus) => {
     const { libraryStatus, gameUpdates } = this.state
     const currentApp = libraryStatus.filter(
@@ -429,8 +463,14 @@ export class GlobalState extends PureComponent<Props> {
         // This avoids calling legendary again before the previous process is killed when canceling
         this.refreshLibrary({
           checkForUpdates: true,
-          runInBackground: true
+          runInBackground: true,
+          library: runner
         })
+
+        storage.setItem(
+          'updates',
+          JSON.stringify(gameUpdates.filter((g) => g !== currentApp.appName))
+        )
 
         return this.setState({
           gameUpdates: updatedGamesUpdates,
@@ -438,7 +478,7 @@ export class GlobalState extends PureComponent<Props> {
         })
       }
 
-      this.refreshLibrary({ runInBackground: true })
+      this.refreshLibrary({ runInBackground: true, library: runner })
       this.setState({ libraryStatus: newLibraryStatus })
     }
   }
@@ -454,7 +494,8 @@ export class GlobalState extends PureComponent<Props> {
       )[0]
       if (!currentApp) {
         // Add finding a runner for games
-        return launch({ appName, t, runner })
+        const hasUpdate = this.state.gameUpdates?.includes(appName)
+        return launch({ appName, t, runner, hasUpdate })
       }
     })
 
@@ -474,7 +515,7 @@ export class GlobalState extends PureComponent<Props> {
           progress: {
             bytes: '0.00MiB',
             eta: '00:00:00',
-            percent: '0.00%'
+            percent: 0
           },
           t,
           runner,
@@ -487,8 +528,18 @@ export class GlobalState extends PureComponent<Props> {
       const { libraryStatus } = this.state
       this.handleGameStatus({ ...libraryStatus, ...args })
     })
-    const legendaryUser = Boolean(configStore.get('userInfo'))
-    const gogUser = Boolean(gogConfigStore.get('userData'))
+
+    ipcRenderer.on('refreshLibrary', async (e, runner) => {
+      this.refreshLibrary({
+        checkForUpdates: false,
+        fullRefresh: true,
+        runInBackground: true,
+        library: runner
+      })
+    })
+
+    const legendaryUser = Boolean(configStore.get('userInfo', null))
+    const gogUser = Boolean(gogConfigStore.get('userData', null))
     const platform = await getPlatform()
 
     if (legendaryUser) {
@@ -576,6 +627,7 @@ export class GlobalState extends PureComponent<Props> {
           handleLayout: this.handleLayout,
           handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,
+          setLanguage: this.setLanguage,
           isRTL,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
@@ -595,7 +647,8 @@ export class GlobalState extends PureComponent<Props> {
           setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
           setContentFontFamily: this.setContentFontFamily,
-          setActionsFontFamily: this.setActionsFontFamily
+          setActionsFontFamily: this.setActionsFontFamily,
+          setAllTilesInColor: this.setAllTilesInColor
         }}
       >
         {this.props.children}

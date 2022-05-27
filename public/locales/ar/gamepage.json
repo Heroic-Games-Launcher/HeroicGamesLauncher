@@ -83,7 +83,10 @@
         "path": "اختر مسار التثبيت",
         "wineprefix": "WinePrefix",
         "wineversion": "إصدار Wine",
-        "disk-space-left": "المساحة الفارغة في الجهاز"
+        "disk-space-left": "المساحة المتوفرة",
+        "invalid-folder": "خطأ: المسار غير صالح",
+        "not-enough-disk-space": "مساحة غير كافيه",
+        "space-after-install": "بعد التثبيت"
     },
     "label": {
         "playing": {
@@ -110,7 +113,8 @@
         "reparing": "جاري اصلاح اللعبة، الرجاء الانتظار",
         "updating": "يتم تحديث اللعبة",
         "installing": "يثبت",
-        "totalDownloaded": "إجمالي التنزيلات"
+        "totalDownloaded": "إجمالي التنزيلات",
+        "processing": "معالجة الملفات , الرجاء الانتظار"
     },
     "gamecard": {
         "moving": "قيد النقل",

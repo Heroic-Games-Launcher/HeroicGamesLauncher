@@ -66,6 +66,9 @@
         "moving": "در حال انتقال",
         "repairing": "در حال تعمیر"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "نیازمندی به آنلاین بودن",
         "installedPlatform": "پلتفرم های نصب شده",
@@ -76,7 +79,10 @@
     },
     "install": {
         "disk-space-left": "فضای باقی مانده در دستگاه",
+        "not-enough-disk-space": "Not enough disk space",
         "path": "انتخاب محل نصب",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "After Install",
         "wineprefix": "Wine Prefix",
         "wineversion": "نسخه Wine"
     },
@@ -107,6 +113,7 @@
         "installing": "در حال نصب",
         "moving": "در حال انتقال نصب، لطفا صبر کنید",
         "notinstalled": "این بازی نصب نشده است",
+        "processing": "Processing files, please wait",
         "reparing": "در حال تعمیر بازی، لطفا صبر کنید",
         "totalDownloaded": "حجم کل دانلود شده",
         "updating": "در حال به روزرسانی بازی"

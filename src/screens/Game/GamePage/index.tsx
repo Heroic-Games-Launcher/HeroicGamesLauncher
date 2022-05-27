@@ -17,7 +17,7 @@ import {
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
-import UpdateComponent from 'src/components/UI/UpdateComponent'
+import { UpdateComponent, SelectField } from 'src/components/UI'
 
 import { updateGame } from 'src/helpers'
 
@@ -35,6 +35,7 @@ import GOGLogo from 'src/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'src/hooks/hasProgress'
+import ErrorComponent from 'src/components/UI/ErrorComponent'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -45,7 +46,7 @@ const { ipcRenderer } = window.require('electron') as {
 export default function GamePage(): JSX.Element | null {
   const { appName } = useParams() as { appName: string }
   const { t } = useTranslation('gamepage')
-  const { t: t2 } = useTranslation('translation')
+  const { t: t2 } = useTranslation()
 
   const [tabToShow, setTabToShow] = useState('infoTab')
   const [showModal, setShowModal] = useState({ game: '', show: false })
@@ -110,8 +111,8 @@ export default function GamePage(): JSX.Element | null {
           })
           .catch((error) => {
             console.error(error)
-            ipcRenderer.send('logError', error)
-            setHasError({ error: true, message: error })
+            ipcRenderer.send('logError', `${error}`)
+            setHasError({ error: true, message: `${error}` })
           })
         if (newInfo?.cloud_save_enabled) {
           try {
@@ -200,8 +201,8 @@ export default function GamePage(): JSX.Element | null {
       const message =
         typeof hasError.message === 'string'
           ? hasError.message
-          : 'Unknown error'
-      return <div>{message}</div>
+          : t('generic.error', 'Unknown error')
+      return <ErrorComponent message={message} />
     }
 
     return (
@@ -318,13 +319,14 @@ export default function GamePage(): JSX.Element | null {
                     </div>
                     <TimeContainer game={appName} />
                     <div className="gameStatus">
-                      {isInstalling && (
-                        <progress
-                          className="installProgress"
-                          max={100}
-                          value={getProgress(progress)}
-                        />
-                      )}
+                      {isInstalling ||
+                        (isUpdating && (
+                          <progress
+                            className="installProgress"
+                            max={100}
+                            value={getProgress(progress)}
+                          />
+                        ))}
                       <p
                         style={{
                           color:
@@ -338,24 +340,20 @@ export default function GamePage(): JSX.Element | null {
                       </p>
                     </div>
                     {is_installed && Boolean(launchOptions?.length) && (
-                      <>
-                        <select
-                          onChange={(event) =>
-                            setLaunchArguments(event.target.value)
-                          }
-                          value={launchArguments}
-                          className="settingSelect"
-                        >
-                          <option value="">
-                            {t('launch.options', 'Launch Options...')}
+                      <SelectField
+                        htmlId="launch_options"
+                        onChange={(event) =>
+                          setLaunchArguments(event.target.value)
+                        }
+                        value={launchArguments}
+                        prompt={t('launch.options', 'Launch Options...')}
+                      >
+                        {launchOptions.map(({ name, parameters }) => (
+                          <option key={parameters} value={parameters}>
+                            {name}
                           </option>
-                          {launchOptions.map(({ name, parameters }) => (
-                            <option key={parameters} value={parameters}>
-                              {name}
-                            </option>
-                          ))}
-                        </select>
-                      </>
+                        ))}
+                      </SelectField>
                     )}
                     <div className="buttonsWrapper">
                       {is_installed && is_game && (
@@ -471,11 +469,19 @@ export default function GamePage(): JSX.Element | null {
       return `${t('status.moving')}`
     }
 
-    const currentProgress = `${
-      percent && bytes && eta ? `${percent} [${bytes}] | ETA: ${eta}` : '...'
-    }`
+    const currentProgress =
+      getProgress(progress) >= 99
+        ? ''
+        : `${
+            percent && bytes && eta
+              ? `${percent} [${bytes}] | ETA: ${eta}`
+              : '...'
+          }`
 
     if (isUpdating && is_installed) {
+      if (!currentProgress) {
+        return `${t('status.processing', 'Processing files, please wait')}...`
+      }
       if (eta && eta.includes('verifying')) {
         return `${t('status.reparing')}: ${percent} [${bytes}]`
       }
@@ -483,6 +489,9 @@ export default function GamePage(): JSX.Element | null {
     }
 
     if (!isUpdating && isInstalling) {
+      if (!currentProgress) {
+        return `${t('status.processing', 'Processing files, please wait')}...`
+      }
       return `${t('status.installing')} ${currentProgress}`
     }
 
@@ -536,7 +545,13 @@ export default function GamePage(): JSX.Element | null {
         await syncSaves(savesPath, appName)
         setIsSyncing(false)
       }
-      await launch({ appName, t, launchArguments, runner: gameInfo.runner })
+      await launch({
+        appName,
+        t,
+        launchArguments,
+        runner: gameInfo.runner,
+        hasUpdate
+      })
 
       if (autoSyncSaves) {
         setIsSyncing(true)

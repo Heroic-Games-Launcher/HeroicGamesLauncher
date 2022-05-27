@@ -1,8 +1,10 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
-        "title": "Accessibility",
+        "actions_font_family": "خانواده فونت اعمال (پیش فرض: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
+        "content_font_family": "خانواده فونت محتوا (پیش فرض: \"Cabin\")",
+        "fonts": "Fonts",
+        "title": "دسترسی ها",
         "zoom": "زوم"
     },
     "All": "همه",
@@ -20,8 +22,7 @@
         "default-install-path": "انتخاب محل پیشفرض نصب",
         "error": {
             "credentials": {
-                "message": "اعتبار ورود شما منقضی شده است، لطفا دوباره خارج شده و داخل شوید.",
-                "title": "اعتبار ورود منقضی شده"
+                "message": "اعتبار ورود شما منقضی شده است، لطفا دوباره خارج شده و داخل شوید."
             },
             "diskspace": {
                 "message": "فضای ذخیره سازی کافی موجود نیست",
@@ -31,18 +32,20 @@
                 "message": "خطا در نصب DXVK/VKD3D! اتصال به اینترنت خود یا نصب داشتن zstd/libzstd1 را چک کنید",
                 "title": "خطای DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "خطا در هنگام اجرای بازی، لاگها را چک کنید!",
             "no-offline-mode": {
                 "message": "اجرا متوقف شد! بازی برای اجرا به اتصال اینترنت نیاز دارد.",
                 "title": "حالت آفلاین پشتیبانی نمیشود."
             },
             "title": "خطا",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "مشکلی در به روز رسانی پیش آمد، لطفا لاگ ها را بررسی کرده و مجددا امتحان کنید!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -52,12 +55,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "باز کردن تغییرات جدید",
+                "detail": "آیا می خواهید در پس زمینه به روز رسانی را دانلود کنید؟",
+                "message": "نسخه جدید موجود است!",
+                "message-finished": "آیا می خواهید اکنون Heroic را مجددا اجرا کنید؟",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "به روز رسانی به پایان رسید"
             }
         },
         "no": "خیر",
@@ -105,7 +108,7 @@
         "yes": "بله"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "رفتن به کتابخانه",
         "login": "ورود",
         "sync": "همگام سازی",
         "syncing": "در حال همگام سازی",
@@ -116,14 +119,22 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "اپیک گیمز",
-    "favourites": "Favourites",
+    "favourites": "علاقه مندی ها",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "تنظیمات عمومی",
     "GOG": "GOG",
     "gog-store": "فروشگاه GOG",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "نادیده گرفتن موارد پنهان",
         "platform": "پلتفرم",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "نمایش موارد پنهان"
     },
     "help": {
         "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGL همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
@@ -161,12 +172,12 @@
         "path": "انتخاب محل نصب"
     },
     "library": {
-        "gridView": "نمای شبکه‌ای",
+        "gridView": "نمای شبکه ای",
         "listView": "نمای لیستی",
         "refresh": "تازه کردن",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "چینش صعودی",
+        "sortByStatus": "چینش بر اساس وضعیت",
+        "sortDescending": "چینش نزولی"
     },
     "Library": "کتابخانه",
     "loading": {
@@ -197,6 +208,9 @@
             "startInstall": "نصب آغاز شد"
         },
         "moved": "انتقال کامل شد",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "حذف شد",
         "update": {
             "canceled": "بهروزرسانی لغو شد",
@@ -247,7 +261,7 @@
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیشفرض نصب",
         "defaultWinePrefix": "تنظیم پوشه برای Wine Prefix جدید",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "غیر فعال کردن کنترل Heroic با استفاده از دسته",
         "discordRPC": "فعالسازی Discord Rich Presence",
         "egs-sync": "همگامسازی با بازیهای اپیک نصب شده",
         "enableFSRHack": "فعالسازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
@@ -258,16 +272,16 @@
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
         "language": "انتخاب زبان نرمافزار",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "غیر فعال",
+            "favourites": "بازی های مورد علاقه",
+            "recently_played": "بازی های اخیرا اجرا شده"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "قسمت بالایی کتابخانه",
         "log": {
             "copy-to-clipboard": "کپی کردن محتوای لاگ در کليپ بورد",
             "current-log": "لاگ اخیر",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "به دیسکورد ما بپیوندید و به کانال منطبق با سیستم عامل خود نگاه کنید. محتوای لاگ نمایش داده شده در اینجا را با توضیح واضح از مشکل همراه هر اطلاعات مربوط به اشتراک بگذارید.",
+            "instructions_title": "چگونه یک مشکل را گزارش کنید؟",
             "last-log": "آخرین لاگ",
             "no-file": "فایل لاگی پیدا نشد",
             "show-in-folder": "نمایش فایل لاگ در پوشه"
@@ -293,15 +307,14 @@
             "title": "اجرای EXE در محل"
         },
         "savefolder": {
-            "placeholder": "انتخاب پوشه دقیق ذخیرههای بازیها",
-            "title": "رونویسی پوشه ابری همگامسازی ذخیرهها"
+            "placeholder": "انتخاب پوشه دقیق ذخیرههای بازیها"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "انتخاب تم",
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
         "showUnrealMarket": "نمایش فروشگاه Unreal (نیازمند راهاندازی مجدد)",
         "start-in-tray": "شروع در حالت پسزمینه",
         "steamruntime": "استفاده از Steam Runtime",
-        "winecrossoverbottle": "",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "پوشه محل Wine",
         "wineversion": "نسخه Wine"
     },
@@ -313,12 +326,13 @@
             "long-log-hint": "لاگ کوتاه شد، ١٠٠٠ خط آخر نمایش داده شدهاند!"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "پیشرفته",
             "general": "عمومی",
             "log": "Log",
             "other": "بقیه",
             "sync": "همگامسازی ذخیرهها"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "تنظیمات",

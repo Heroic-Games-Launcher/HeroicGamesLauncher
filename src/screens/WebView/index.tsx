@@ -94,20 +94,22 @@ export default function WebView() {
             }
           }
         } else {
-          if (
-            webview.getURL() === 'https://www.epicgames.com/id/api/redirect'
-          ) {
-            setTimeout(() => {
+          webview.addEventListener('did-navigate', () => {
+            if (
+              webview.getURL() === 'https://www.epicgames.com/id/api/redirect'
+            ) {
               webview.addEventListener(
                 'found-in-page',
                 async (res) => {
                   const data = res as Event & { result: { matches: number } }
+
                   if (!data.result.matches) {
                     return
                   }
                   webview.focus()
                   webview.selectAll()
                   webview.copy()
+
                   if (!clipboard.readText().match('sid')) {
                     return
                   }
@@ -127,8 +129,8 @@ export default function WebView() {
                 { once: true }
               )
               webview.findInPage('sid')
-            }, 500)
-          }
+            }
+          })
         }
       }
 

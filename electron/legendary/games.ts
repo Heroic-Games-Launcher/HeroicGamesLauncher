@@ -8,16 +8,17 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { getLegendaryCommand, LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, isOnline } from '../utils'
+import { execAsync, getSteamRuntime, isOnline } from '../utils'
 import {
   execOptions,
   heroicGamesConfigPath,
   userHome,
   isLinux,
   isMac,
-  isWindows
+  isWindows,
+  installed
 } from '../constants'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
 import {
   prepareLaunch,
@@ -403,16 +404,29 @@ class LegendaryGame extends Game {
       )
     }
 
-    const res = await runLegendaryCommand(commandParts, {
+    let res = await runLegendaryCommand(commandParts, {
       logFile: logPath,
       onOutput
     })
 
-    if (res.error) {
-      logError(
-        ['Failed to install', `${this.appName}:`, res.error],
-        LogPrefix.Legendary
+    // try to run the install again with higher memory limit
+    if (res.stderr.includes('MemoryError:')) {
+      res = await runLegendaryCommand(
+        [...commandParts, '--max-shared-memory', '5000'],
+        {
+          logFile: logPath,
+          onOutput
+        }
       )
+    }
+
+    if (res.error) {
+      if (!res.error.includes('signal')) {
+        logError(
+          ['Failed to install', `${this.appName}:`, res.error],
+          LogPrefix.Legendary
+        )
+      }
       return { status: 'error' }
     }
     return { status: 'done' }
@@ -521,7 +535,7 @@ class LegendaryGame extends Game {
     return res
   }
 
-  public async launch(launchArguments = ''): Promise<LaunchResult> {
+  public async launch(launchArguments: string): Promise<LaunchResult> {
     const gameSettings =
       GameConfig.get(this.appName).config ||
       (await GameConfig.get(this.appName).getSettings())
@@ -572,6 +586,7 @@ class LegendaryGame extends Game {
           steamRuntime
         )
       }
+
       // These options are required on both Windows and Mac
       commandParts = [
         'launch',
@@ -608,12 +623,29 @@ class LegendaryGame extends Game {
         steamRuntime
       )
 
-      const { wineVersion, winePrefix, launcherArgs } = gameSettings
-      let wineFlag = ['--wine', wineVersion.bin]
+      const { wineVersion, winePrefix, launcherArgs, useSteamRuntime } =
+        gameSettings
+
+      // Fix for people with old config
+      const wineBin =
+        wineVersion.bin.startsWith("'") && wineVersion.bin.endsWith("'")
+          ? wineVersion.bin.replaceAll("'", '')
+          : wineVersion.bin
+
+      let wineFlag = ['--wine', wineBin]
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
-        winePrefixFlag = []
+        const runtime = useSteamRuntime ? getSteamRuntime('soldier') : null
+
+        if (runtime?.path) {
+          const runWithRuntime = `${runtime.path} -- '${wineVersion.bin}' waitforexitandrun`
+          wineFlag = ['--no-wine', '--wrapper', runWithRuntime]
+          winePrefixFlag = []
+        } else {
+          logWarning('No Steam runtime found')
+          wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
+          winePrefixFlag = []
+        }
       }
 
       commandParts = [
@@ -623,20 +655,25 @@ class LegendaryGame extends Game {
         offlineFlag,
         ...wineFlag,
         ...winePrefixFlag,
-        launcherArgs
+        launcherArgs,
+        launchArguments
       ]
     }
     const command = getLegendaryCommand(commandParts, commandEnv, wrappers)
 
     logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Legendary)
-
     const { error, stderr, stdout } = await runLegendaryCommand(commandParts, {
       env: commandEnv,
       wrappers: wrappers
     })
 
     if (error) {
-      logError(['Error launching game:', error], LogPrefix.Legendary)
+      const showDialog = !`${error}`.includes('appears to be deleted')
+      logError(
+        ['Error launching game:', error],
+        LogPrefix.Legendary,
+        showDialog
+      )
     }
 
     launchCleanup(rpcClient)
@@ -692,6 +729,25 @@ class LegendaryGame extends Game {
     child.on('exit', () => {
       return logInfo(`${pattern} killed`, LogPrefix.Legendary)
     })
+  }
+
+  public async forceUninstall() {
+    // Modify Legendary installed.json file:
+    try {
+      await runLegendaryCommand([
+        'uninstall',
+        this.appName,
+        '-y',
+        '--keep-files'
+      ])
+      const mainWindow = BrowserWindow.getFocusedWindow()
+      mainWindow.webContents.send('refreshLibrary', 'legendary')
+    } catch (error) {
+      logError(
+        `Error reading ${installed}, could not complete operation`,
+        LogPrefix.Legendary
+      )
+    }
   }
 }
 

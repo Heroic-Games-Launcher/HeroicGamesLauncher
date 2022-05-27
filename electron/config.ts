@@ -20,7 +20,8 @@ import {
   userHome,
   isFlatpak,
   isMac,
-  isWindows
+  isWindows,
+  getSteamLibraries
 } from './constants'
 import { execAsync } from './utils'
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -56,7 +57,15 @@ abstract class GlobalConfig {
     // Config file exists, detect its version.
     else {
       // Check version field in the config.
-      version = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))['version']
+      try {
+        version = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))['version']
+      } catch (error) {
+        logError(
+          `Config file is corrupted, please check ${heroicConfigPath}`,
+          LogPrefix.Backend
+        )
+        version = 'v0'
+      }
       // Legacy config file without a version field, it's a v0 config.
       if (!version) {
         version = 'v0'
@@ -241,15 +250,7 @@ abstract class GlobalConfig {
 
     const protonPaths = [`${heroicToolsPath}/proton/`]
 
-    // Known places where Steam might be found.
-    // Just add a new string here in case another path is found on another distro.
-    const steamPaths = [
-      join(userHome, '.steam'),
-      join(userHome, '.var/app/com.valvesoftware.Steam/.local/share/Steam'),
-      '/usr/share/steam'
-    ].filter((path) => existsSync(path))
-
-    steamPaths.forEach((path) => {
+    getSteamLibraries().forEach((path) => {
       protonPaths.push(`${path}/steam/steamapps/common`)
       protonPaths.push(`${path}/steamapps/common`)
       protonPaths.push(`${path}/root/compatibilitytools.d`)
@@ -262,11 +263,9 @@ abstract class GlobalConfig {
     protonPaths.forEach((path) => {
       if (existsSync(path)) {
         readdirSync(path).forEach((version) => {
-          const name = version.toLowerCase()
-          const hasProtonName =
-            name.startsWith('proton') || name.startsWith('ge-proton')
-          if (hasProtonName && !name.includes('runtime')) {
-            const protonBin = join(path, version, 'proton')
+          const protonBin = join(path, version, 'proton')
+          // check if bin exists to avoid false positives
+          if (existsSync(protonBin)) {
             proton.add({
               bin: protonBin,
               name: `Proton - ${version}`,
@@ -420,12 +419,23 @@ class GlobalConfigV0 extends GlobalConfig {
       return this.getFactoryDefaults()
     }
 
-    let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
-    settings = {
-      ...(await this.getFactoryDefaults()),
-      ...settings.defaultSettings
-    } as AppSettings
-    return settings
+    try {
+      let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
+      settings = {
+        ...(await this.getFactoryDefaults()),
+        ...settings.defaultSettings
+      } as AppSettings
+      return settings
+    } catch (error) {
+      logError(
+        `Config file is corrupted, please check ${heroicConfigPath}`,
+        LogPrefix.Backend
+      )
+      const settings = {
+        ...(await this.getFactoryDefaults())
+      }
+      return settings
+    }
   }
 
   public async getCustomWinePaths(): Promise<Set<WineInstallation>> {

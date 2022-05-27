@@ -9,7 +9,9 @@ import React, {
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import classNames from 'classnames'
+import { SelectField } from 'src/components/UI'
 import { ThemeSelector } from 'src/components/UI/ThemeSelector'
+import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 const { ipcRenderer } = window.require('electron')
@@ -24,7 +26,9 @@ export default function Accessibility() {
     contentFontFamily,
     setContentFontFamily,
     actionsFontFamily,
-    setActionsFontFamily
+    setActionsFontFamily,
+    allTilesInColor,
+    setAllTilesInColor
   } = useContext(ContextProvider)
 
   const [fonts, setFonts] = useState<string[]>(['Cabin', 'Rubik'])
@@ -77,10 +81,12 @@ export default function Accessibility() {
   return (
     <div className="Accessibility Settings">
       <div className="settingsWrapper">
-        <h1>{t('accessibility.title', 'Accessibility')}</h1>
+        <h1 className="headerTitle">
+          {t('accessibility.title', 'Accessibility')}
+        </h1>
 
-        <span className="setting">
-          <label className={classNames('settingText', { isRTL: isRTL })}>
+        <span className="rangeWrapper Field">
+          <label className={classNames({ isRTL: isRTL })}>
             {t('accessibility.zoom', 'Zoom')} ({zoomPercent}%)
           </label>
           <input
@@ -105,6 +111,7 @@ export default function Accessibility() {
             ))}
           </datalist>
         </span>
+
         <span className="setting">
           <span className="fonts-label">
             {t('accessibility.fonts', 'Fonts')}
@@ -121,47 +128,47 @@ export default function Accessibility() {
             </button>
           </span>
         </span>
-        <span className="setting">
-          <label
-            className={classNames('settingText', { isRTL: isRTL })}
-            htmlFor="content-font-family"
-          >
-            {t(
-              'accessibility.content_font_family',
-              'Content Font Family (Default: "Cabin")'
-            )}
-          </label>
-          <select
-            id="content-font-family"
-            value={contentFontFamily}
-            onChange={handleContentFontFamily}
-            className="settingSelect is-drop-down"
-          >
-            {options}
-          </select>
-        </span>
 
-        <span className="setting">
-          <label
-            className={classNames('settingText', { isRTL: isRTL })}
-            htmlFor="actions-font-family"
-          >
-            {t(
-              'accessibility.actions_font_family',
-              'Actions Font Family (Default: "Rubik")'
-            )}
-          </label>
-          <select
-            id="actions-font-family"
-            value={actionsFontFamily}
-            onChange={handleActionsFontFamily}
-            className="settingSelect is-drop-down"
-          >
-            {options}
-          </select>
-        </span>
+        <SelectField
+          htmlId="content-font-family"
+          value={contentFontFamily}
+          onChange={handleContentFontFamily}
+          label={t(
+            'accessibility.content_font_family',
+            'Content Font Family (Default: "Cabin")'
+          )}
+        >
+          {options}
+        </SelectField>
+
+        <SelectField
+          htmlId="actions-font-family"
+          value={actionsFontFamily}
+          onChange={handleActionsFontFamily}
+          label={t(
+            'accessibility.actions_font_family',
+            'Actions Font Family (Default: "Rubik")'
+          )}
+        >
+          {options}
+        </SelectField>
 
         <ThemeSelector />
+        <span className="setting">
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <ToggleSwitch
+              htmlId="setAllTitlesInColor"
+              value={allTilesInColor}
+              handleChange={() => {
+                setAllTilesInColor(!allTilesInColor)
+              }}
+              title={t(
+                'accessibility.all_tiles_in_color',
+                'Show all game tiles in color'
+              )}
+            />
+          </label>
+        </span>
       </div>
     </div>
   )

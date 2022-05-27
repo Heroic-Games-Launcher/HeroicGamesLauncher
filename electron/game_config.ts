@@ -49,7 +49,15 @@ abstract class GameConfig {
     // Config file exists, detect its version.
     else {
       // Check version field in the config.
-      version = JSON.parse(readFileSync(path, 'utf-8'))['version']
+      try {
+        version = JSON.parse(readFileSync(path, 'utf-8'))['version']
+      } catch (error) {
+        logError(
+          `Config file is corrupted, please check ${path}`,
+          LogPrefix.Backend
+        )
+        version = 'v0'
+      }
       // Legacy config file without a version field, it's a v0 config.
       if (!version) {
         version = 'v0'
@@ -189,13 +197,23 @@ class GameConfigV0 extends GameConfig {
     if (!existsSync(this.path)) {
       return { ...GlobalConfig.get().config } as GameSettings
     }
-    const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
-    // Take defaults, then overwrite if explicitly set values exist.
-    // The settings defined work as overrides.
-    return {
-      ...GlobalConfig.get().config,
-      ...settings[this.appName]
-    } as GameSettings
+    try {
+      const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
+      // Take defaults, then overwrite if explicitly set values exist.
+      // The settings defined work as overrides.
+      return {
+        ...GlobalConfig.get().config,
+        ...settings[this.appName]
+      } as GameSettings
+    } catch (error) {
+      logError(
+        `Config file is corrupted, please check ${this.path}`,
+        LogPrefix.Backend
+      )
+      return {
+        ...GlobalConfig.get().config
+      }
+    }
   }
 
   public async resetToDefaults() {

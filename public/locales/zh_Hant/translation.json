@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -20,8 +22,7 @@
         "default-install-path": "選擇預設安裝路徑",
         "error": {
             "credentials": {
-                "message": "您的憑據已過期，請登出並重新登入。",
-                "title": "過期的登入憑據"
+                "message": "您的憑據已過期，請登出並重新登入。"
             },
             "diskspace": {
                 "message": "磁碟空間不足",
@@ -31,11 +32,13 @@
                 "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
                 "title": "DXVK/VKD3D error"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "啟動遊戲時出現錯誤，請檢查日誌！",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
@@ -117,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "全域設定",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -197,6 +208,9 @@
             "startInstall": "Installation Started"
         },
         "moved": "移動完成",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "已解除安裝",
         "update": {
             "canceled": "已取消更新",
@@ -293,8 +307,7 @@
             "title": "在PREFIX上執行exe檔案"
         },
         "savefolder": {
-            "placeholder": "選擇存檔的保存位置",
-            "title": "覆蓋雲端存檔資料夾"
+            "placeholder": "選擇存檔的保存位置"
         },
         "select_theme": "Select Theme",
         "showfps": "顯示幀數（Directx 9，10和11）",
@@ -319,6 +332,7 @@
             "other": "其它",
             "sync": "存檔-同步"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "設定",

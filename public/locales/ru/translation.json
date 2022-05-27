@@ -1,9 +1,11 @@
 {
     "accessibility": {
         "actions_font_family": "Семейство шрифтов для действий (По умолчанию: \"Rubik\")",
+        "all_tiles_in_color": "Показать все плитки игр в цвете",
         "content_font_family": "Семейство шрифтов для содержания (По умолчанию: \"Cabin\")",
+        "fonts": "Шрифты",
         "title": "Доступность",
-        "zoom": "Zoom"
+        "zoom": "Масштаб"
     },
     "All": "Все",
     "Assets": "Ресурсы",
@@ -20,8 +22,7 @@
         "default-install-path": "Выбрать стандартный путь установки",
         "error": {
             "credentials": {
-                "message": "Срок действия ваших учетных данных истек. Пожалуйста, выйдите из системы и войдите снова.",
-                "title": "Срок действия учетных данных истек"
+                "message": "Срок действия ваших учетных данных истек. Пожалуйста, выйдите из системы и войдите снова."
             },
             "diskspace": {
                 "message": "Недостаточно свободного места на диске",
@@ -31,11 +32,13 @@
                 "message": "Ошибка при установке DXVK/VKD3D! Проверьте подключение или наличие установленного zstd/libzstd1",
                 "title": "Ошибка DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Ошибка при запуске игры, проверьте журнал!",
             "no-offline-mode": {
                 "message": "Запуск прерван! Для запуска игры требуется подключение к интернету.",
                 "title": "Автономный режим не поддерживается."
@@ -117,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Избранное",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Глобальные настройки",
     "GOG": "GOG",
     "gog-store": "Магазин GOG",
@@ -197,6 +208,9 @@
             "startInstall": "Установка началась"
         },
         "moved": "Перемещение завершено",
+        "refresh": {
+            "error": "Не удалось получить выпуски из основной ветки разработки, возможно, из-за ограничений Github API! Попробуйте позже."
+        },
         "uninstalled": "Удалено",
         "update": {
             "canceled": "Обновление прервано",
@@ -293,8 +307,7 @@
             "title": "Запустить EXE в префиксе"
         },
         "savefolder": {
-            "placeholder": "Выберите точную папку для сохранений игр",
-            "title": "Переопределить папку для облачных сохранений"
+            "placeholder": "Выберите точную папку для сохранений игр"
         },
         "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",
@@ -319,6 +332,7 @@
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Сброс Heroic"
     },
     "Settings": "Настройки",

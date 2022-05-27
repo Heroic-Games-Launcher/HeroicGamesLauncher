@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -20,8 +22,7 @@
         "default-install-path": "Wähle den Standard Installations-Pfad",
         "error": {
             "credentials": {
-                "message": "Deine Anmeldedaten sind abgelaufen, bitte logge dich aus und melde dich erneut an.",
-                "title": "Abgelaufene Anmeldedaten"
+                "message": "Deine Anmeldedaten sind abgelaufen, bitte logge dich aus und melde dich erneut an."
             },
             "diskspace": {
                 "message": "Nicht genügend freier Speicherplatz",
@@ -31,11 +32,13 @@
                 "message": "Fehler beim Installieren von DXVK/VKD3D! Überprüfe deine Verbindung oder ob du zstd/libzstd1 installiert hast",
                 "title": "DXVK/VKD3D Fehler"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Fehler beim Starten des Spiels, prüfe die Logs!",
             "no-offline-mode": {
                 "message": "Start abgebrochen! Das Spiel benötigt eine Internetverbindung, damit es läuft.",
                 "title": "Offline-Modus wird nicht unterstützt."
@@ -117,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favoriten",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Globale Einstellungen",
     "GOG": "GOG",
     "gog-store": "GOG-Store",
@@ -197,6 +208,9 @@
             "startInstall": "Installation gestartet"
         },
         "moved": "Verschieben abgeschlossen",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Deinstalliert",
         "update": {
             "canceled": "Update abgebrochen",
@@ -286,15 +300,14 @@
         "maxworkers": "Maximale Anzahl von Prozessen zum gleichzeitigem Herunterladen",
         "minimize-on-launch": "Heroic nach Spielstart minimieren",
         "offlinemode": "Spiel offline ausführen",
-        "primerun": "Nvidia Prime Render aktivieren",
+        "primerun": "Dedizierte Grafikkarte verwenden",
         "resizableBar": "Resizable BAR aktivieren (nur NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
             "title": "EXE in Prefix starten"
         },
         "savefolder": {
-            "placeholder": "Genauen Spielstände Ordner auswählen",
-            "title": "Cloud-Synchronisation Spielstände Ordner überschreiben"
+            "placeholder": "Genauen Spielstände Ordner auswählen"
         },
         "select_theme": "Design auswählen",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
@@ -319,6 +332,7 @@
             "other": "Andere",
             "sync": "Spielstände-Synchronisation"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Heroic zurücksetzen"
     },
     "Settings": "Einstellungen",

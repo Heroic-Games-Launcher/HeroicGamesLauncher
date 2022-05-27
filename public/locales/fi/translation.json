@@ -1,7 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
@@ -20,8 +22,7 @@
         "default-install-path": "Valitse Oletus Asennussijainti",
         "error": {
             "credentials": {
-                "message": "Kirjautumistietosi ovat vanhentuneet, ole hyvä ja kirjaudu uudelleen sisään.",
-                "title": "Vanhentuneet kirjautumistiedot"
+                "message": "Kirjautumistietosi ovat vanhentuneet, ole hyvä ja kirjaudu uudelleen sisään."
             },
             "diskspace": {
                 "message": "Ei tarpeeksi tilaa levyllä",
@@ -31,11 +32,13 @@
                 "message": "Virhe DXVK/VKD3D:n asennuksessa! Tarkista yhteys tai onko zstd/libzstd1 asennettu",
                 "title": "DXVK/VKD3D-virhe"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Virhe pelin käynnistyksessä, tarkista pelin lokitiedostot!",
             "no-offline-mode": {
                 "message": "Käynnistys keskeytetty! Peli vaatii Internet-yhteyden toimiakseen.",
                 "title": "Offline-tilaa ei tueta."
@@ -117,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Globaalit asetukset",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -197,6 +208,9 @@
             "startInstall": "Asennus aloitettu"
         },
         "moved": "Siirto valmis",
+        "refresh": {
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+        },
         "uninstalled": "Poistettu",
         "update": {
             "canceled": "Päivitys peruutettu",
@@ -293,8 +307,7 @@
             "title": "Käynnistä EXE prefixissä"
         },
         "savefolder": {
-            "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
-            "title": "Korvaa pilvisynkronoinnin tallennuksen kansio"
+            "placeholder": "Valitse täsmällinen pelitallennuksien kansio"
         },
         "select_theme": "Select Theme",
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
@@ -319,6 +332,7 @@
             "other": "Muut",
             "sync": "Tallenna ja synkronoi"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Asetukset",

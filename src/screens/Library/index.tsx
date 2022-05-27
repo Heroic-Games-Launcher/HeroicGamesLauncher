@@ -18,6 +18,7 @@ import { getLibraryTitle } from './constants'
 import ActionIcons from 'src/components/UI/ActionIcons'
 import { GamesList } from './components/GamesList'
 import { GameInfo, Runner } from 'src/types'
+import ErrorComponent from 'src/components/UI/ErrorComponent'
 
 const InstallModal = lazy(
   async () => import('src/screens/Library/components/InstallModal')
@@ -105,6 +106,7 @@ export default function Library(): JSX.Element {
           sortDescending={sortDescending}
           toggleSortDescending={() => handleSortDescending()}
           sortInstalled={sortInstalled}
+          library={category === 'epic' ? 'legendary' : 'gog'}
           toggleSortinstalled={() => handleSortInstalled()}
         />
       </div>
@@ -129,33 +131,37 @@ export default function Library(): JSX.Element {
 
     if (filter.includes('UE_')) {
       return library.filter((game) => {
-        if (!game.compatible_apps) {
+        if (!game?.compatible_apps) {
           return false
         }
-        return game.compatible_apps.includes(filter)
+        return game?.compatible_apps?.includes(filter)
       })
     } else {
       switch (filter) {
         case 'unreal':
           return library.filter(
             (game) =>
-              game.is_ue_project || game.is_ue_asset || game.is_ue_plugin
+              game.is_ue_project || game?.is_ue_asset || game?.is_ue_plugin
           )
         case 'asset':
-          return library.filter((game) => game.is_ue_asset)
+          return library.filter((game) => game?.is_ue_asset)
         case 'plugin':
-          return library.filter((game) => game.is_ue_plugin)
+          return library.filter((game) => game?.is_ue_plugin)
         case 'project':
-          return library.filter((game) => game.is_ue_project)
+          return library.filter((game) => game?.is_ue_project)
         default:
-          return library.filter((game) => game.is_game)
+          return library.filter((game) => game?.is_game)
       }
     }
   }
 
   const filterByPlatform = (library: GameInfo[], filter: string) => {
+    if (!library) {
+      return []
+    }
+
     if (category === 'epic' && platform === 'linux') {
-      return library.filter((game) => game.is_game)
+      return library.filter((game) => game?.is_game)
     }
 
     const isMac = ['osx', 'Mac']
@@ -163,32 +169,41 @@ export default function Library(): JSX.Element {
     switch (filter) {
       case 'win':
         return library.filter((game) => {
-          return game.is_installed
-            ? game.install.platform === 'windows'
-            : process.platform === 'darwin'
-            ? !game.is_mac_native
-            : !game.is_linux_native
+          return game?.is_installed
+            ? game?.install?.platform === 'windows'
+            : process?.platform === 'darwin'
+            ? !game?.is_mac_native
+            : !game?.is_linux_native
         })
       case 'mac':
         return library.filter((game) => {
-          return game.is_installed
-            ? isMac.includes(game.install.platform ?? '')
-            : game.is_mac_native
+          return game?.is_installed
+            ? isMac.includes(game?.install?.platform ?? '')
+            : game?.is_mac_native
         })
       case 'linux':
         return library.filter((game) => {
-          return game.is_installed
-            ? game.install.platform === 'linux'
-            : game.is_linux_native
+          return game?.is_installed
+            ? game?.install?.platform === 'linux'
+            : game?.is_linux_native
         })
       default:
-        return library.filter((game) => game.is_game)
+        return library.filter((game) => game?.is_game)
     }
   }
 
   // select library
   const libraryToShow = useMemo(() => {
-    let library = category === 'epic' ? epic.library : gog.library
+    let library: GameInfo[] = []
+    if (epic.username && category === 'epic') {
+      library = epic.library
+    } else if (gog.username && category === 'gog') {
+      library = gog.library
+    } else if (!epic.username && category === 'epic') {
+      if (gog.username) {
+        library = gog.library
+      }
+    }
 
     // filter
     try {
@@ -204,11 +219,13 @@ export default function Library(): JSX.Element {
     }
 
     // hide hidden
-    const hiddenGamesAppNames = hiddenGames.list.map((hidden) => hidden.appName)
+    const hiddenGamesAppNames = hiddenGames.list.map(
+      (hidden) => hidden?.appName
+    )
 
     if (!showHidden) {
       library = library.filter(
-        (game) => !hiddenGamesAppNames.includes(game.app_name)
+        (game) => !hiddenGamesAppNames.includes(game?.app_name)
       )
     }
 
@@ -268,6 +285,17 @@ export default function Library(): JSX.Element {
     }
     return tempArray
   }, [showFavourites, favouriteGames, epic, gog])
+
+  if (!epic && !gog) {
+    return (
+      <ErrorComponent
+        message={t(
+          'generic.error.component',
+          'No Games found - Try to logout and login again or one of the options bellow'
+        )}
+      />
+    )
+  }
 
   return (
     <>
