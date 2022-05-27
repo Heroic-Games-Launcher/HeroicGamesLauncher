@@ -417,7 +417,7 @@ function Settings() {
               toggleResizableBar={toggleResizableBar}
             />
           )}
-          {isWineSettings && (
+          {isWineSettings && !isDefault && (
             <Tools
               winePrefix={winePrefix}
               wineVersion={wineVersion}
@@ -459,7 +459,7 @@ function Settings() {
               isMacNative={isMacNative}
               isLinuxNative={isLinuxNative}
               isProton={wineVersion.type === 'proton'}
-              defaultInstallPath={defaultInstallPath}
+              appName={appName}
             />
           )}
           {isSyncSettings && (

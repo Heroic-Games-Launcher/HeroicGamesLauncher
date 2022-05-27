@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext } from 'react'
+import React, { ChangeEvent, useCallback, useContext } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
@@ -13,6 +13,7 @@ import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
 import Backspace from '@mui/icons-material/Backspace'
+import { getGameInfo } from 'src/helpers'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -51,7 +52,7 @@ interface Props {
   useSteamRuntime: boolean
   toggleUseSteamRuntime: () => void
   isProton: boolean
-  defaultInstallPath: string
+  appName: string
 }
 
 export default function OtherSettings({
@@ -88,7 +89,7 @@ export default function OtherSettings({
   toggleUseSteamRuntime,
   useSteamRuntime,
   isProton,
-  defaultInstallPath
+  appName
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -120,6 +121,22 @@ export default function OtherSettings({
     </InfoBox>
   )
 
+  const handleTargetExe = useCallback(async () => {
+    if (!targetExe.length) {
+      const gameinfo = await getGameInfo(appName)
+
+      ipcRenderer
+        .invoke('openDialog', {
+          buttonLabel: t('box.select.button', 'Select'),
+          properties: ['openFile'],
+          title: t('box.select.exe', 'Select EXE'),
+          defaultPath: gameinfo.install.install_path
+        })
+        .then(({ path }: Path) => setTargetExe(path || targetExe))
+    }
+    setTargetExe('')
+  }, [targetExe])
+
   return (
     <>
       <h3 className="settingSubheader">{t('settings.navbar.other')}</h3>
@@ -140,19 +157,7 @@ export default function OtherSettings({
               <Backspace data-testid="setEpicSyncPathBackspace" />
             )
           }
-          onIconClick={
-            !targetExe.length
-              ? async () =>
-                  ipcRenderer
-                    .invoke('openDialog', {
-                      buttonLabel: t('box.select.button', 'Select'),
-                      properties: ['openFile'],
-                      title: t('box.select.exe', 'Select EXE'),
-                      defaultPath: defaultInstallPath
-                    })
-                    .then(({ path }: Path) => setTargetExe(path || targetExe))
-              : () => setTargetExe('')
-          }
+          onIconClick={handleTargetExe}
         />
       )}
 
