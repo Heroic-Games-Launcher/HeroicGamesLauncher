@@ -210,7 +210,11 @@ export const Winetricks = {
 
     const { winePrefix, wineBin } = getWineFromProton(wine, isProton, prefix)
 
-    const command = `WINEPREFIX='${winePrefix}' WINE='${wineBin}' ${winetricks} -q`
+    // use wine instead of wine64 since it breaks on flatpak
+    const command = `WINEPREFIX='${winePrefix}' WINE='${wineBin.replace(
+      '64',
+      ''
+    )}' ${winetricks} -q`
 
     logInfo(['trying to run', command], LogPrefix.Backend)
     try {
