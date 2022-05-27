@@ -17,7 +17,7 @@ import {
   icon,
   isWindows
 } from './constants'
-import { logError, logInfo, LogPrefix } from './logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { basename, dirname, join } from 'path'
 import { runLegendaryCommand } from './legendary/library'
 import { runGogdlCommand } from './gog/library'
@@ -64,7 +64,8 @@ export function showErrorBoxModalAuto(title: string, message: string) {
       window = BrowserWindow.getAllWindows()[0]
     }
     showErrorBoxModal(window, title, message)
-  } catch (e) {
+  } catch (error) {
+    logWarning(['showErrorBoxModalAuto:', `${error}`], LogPrefix.Backend)
     showErrorBox(title, message)
   }
 }
