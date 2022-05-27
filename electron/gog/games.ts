@@ -288,12 +288,13 @@ class GOGGame extends Game {
 
     const isNative =
       isWindows ||
-      (isMac && gameInfo.is_mac_native) ||
-      (isLinux && gameInfo.is_linux_native)
+      (isMac && gameInfo.install.platform === 'osx') ||
+      (isLinux && gameInfo.install.platform === 'linux')
 
     let commandParts = new Array<string>()
     let commandEnv = {}
     let wrappers = new Array<string>()
+
     if (isNative) {
       if (!isWindows) {
         // These options can only be used on Mac/Linux
