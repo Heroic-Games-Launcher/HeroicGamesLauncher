@@ -1,9 +1,11 @@
 import { ipcMain, ipcRenderer } from 'electron'
 import i18next from 'i18next'
-//import { logError, logInfo } from '../logger/logger'
+// import { logError, logInfo } from '../logger/logger'
 import { Game } from '../games'
 import { Runner } from '../types'
-//import { addNoneSteamGame } from './nonesteamgame'
+// import { addNonSteamGame } from './nonesteamgame'
+// import { homedir } from 'os'
+// import { join } from 'path'
 
 ipcMain.on(
   'addShortcut',
@@ -12,7 +14,10 @@ ipcMain.on(
     const game = Game.get(appName, runner)
     game.addShortcuts(fromMenu)
 
-    // await addNoneSteamGame(await game.getGameInfo())
+    // const gameInfo = await game.getGameInfo()
+    // const userdataDir = join(homedir(), '.steam', 'steam', 'userdata')
+
+    // await addNonSteamGame(userdataDir, gameInfo)
     //   .then((message) => logInfo(message))
     //   .catch((error) => logError(`${error}`))
 
