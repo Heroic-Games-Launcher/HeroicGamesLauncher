@@ -179,7 +179,8 @@ async function createWindow(): Promise<BrowserWindow> {
     handleExit(mainWindow)
   })
 
-  if (!app.isPackaged) {
+  const isDevEnvSet = (process.env?.ELECTRON_IS_DEV ?? '0') === '1'
+  if (isDevEnvSet && !app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
     import('electron-devtools-installer').then((devtools) => {
