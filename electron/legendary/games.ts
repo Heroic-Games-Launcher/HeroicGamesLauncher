@@ -394,7 +394,7 @@ class LegendaryGame extends Game {
     ]
 
     //Wrap the path in singles quotes for macOS and Linux to avoid errors due to spaces
-    if(platformToInstall == "Linux" || platformToInstall == "Mac"){
+    if(platformToInstall === 'Linux' || platformToInstall === 'Mac'){
 
       path = "'" + path + "' "
 
