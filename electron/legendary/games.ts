@@ -565,9 +565,9 @@ class LegendaryGame extends Game {
 
     const isNative =
       isWindows ||
-      (isMac && gameInfo.install.platform === 'Mac') ||
+      (isMac && gameInfo?.install?.platform === 'Mac') ||
       // This right now is impossible, but one can still hope, right?
-      (isLinux && gameInfo.install.platform === 'Linux')
+      (isLinux && gameInfo?.install?.platform === 'Linux')
 
     let commandParts = new Array<string>()
     let commandEnv = process.env
