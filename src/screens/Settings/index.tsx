@@ -459,6 +459,7 @@ function Settings() {
               isMacNative={isMacNative}
               isLinuxNative={isLinuxNative}
               isProton={wineVersion.type === 'proton'}
+              defaultInstallPath={defaultInstallPath}
             />
           )}
           {isSyncSettings && (

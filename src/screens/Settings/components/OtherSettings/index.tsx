@@ -51,6 +51,7 @@ interface Props {
   useSteamRuntime: boolean
   toggleUseSteamRuntime: () => void
   isProton: boolean
+  defaultInstallPath: string
 }
 
 export default function OtherSettings({
@@ -86,7 +87,8 @@ export default function OtherSettings({
   isLinuxNative,
   toggleUseSteamRuntime,
   useSteamRuntime,
-  isProton
+  isProton,
+  defaultInstallPath
 }: Props) {
   const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
     setOtherOptions(event.currentTarget.value)
@@ -145,7 +147,8 @@ export default function OtherSettings({
                     .invoke('openDialog', {
                       buttonLabel: t('box.select.button', 'Select'),
                       properties: ['openFile'],
-                      title: t('box.select.exe', 'Select EXE')
+                      title: t('box.select.exe', 'Select EXE'),
+                      defaultPath: defaultInstallPath
                     })
                     .then(({ path }: Path) => setTargetExe(path || targetExe))
               : () => setTargetExe('')
