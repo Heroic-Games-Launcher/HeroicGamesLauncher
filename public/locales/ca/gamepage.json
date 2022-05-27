@@ -66,6 +66,9 @@
         "moving": "S'està movent",
         "repairing": "S'està reparant"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Cal connexió a internet",
         "installedPlatform": "Installed Platform",
@@ -76,9 +79,9 @@
     },
     "install": {
         "disk-space-left": "Space Available",
-        "invalid-folder": "Error: Invalid Path",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Selecciona la ruta d'instal·lació",
+        "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": ""

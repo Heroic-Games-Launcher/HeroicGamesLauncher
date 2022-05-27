@@ -108,7 +108,7 @@ async function install({
         platformToInstall
       })
       .finally(() => {
-        if (progress.percent === '100%') {
+        if (progress.percent === 100) {
           storage.removeItem(appName)
         }
         return
@@ -138,7 +138,7 @@ async function install({
         runner
       })
       .finally(() => {
-        if (progress.percent === '100%') {
+        if (progress.percent === 100) {
           storage.removeItem(appName)
         }
         return
@@ -306,7 +306,7 @@ type RecentGame = {
 
 function getRecentGames(library: GameInfo[]) {
   const recentGames =
-    (configStore.get('games.recent') as Array<RecentGame>) || []
+    (configStore.get('games.recent', []) as Array<RecentGame>) || []
   const recentGamesList = recentGames.map((a) => a.appName) as string[]
 
   return library.filter((game) => recentGamesList.includes(game.app_name))

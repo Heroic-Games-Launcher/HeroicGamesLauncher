@@ -22,8 +22,7 @@
         "default-install-path": "انتخاب محل پیشفرض نصب",
         "error": {
             "credentials": {
-                "message": "اعتبار ورود شما منقضی شده است، لطفا دوباره خارج شده و داخل شوید.",
-                "title": "اعتبار ورود منقضی شده"
+                "message": "اعتبار ورود شما منقضی شده است، لطفا دوباره خارج شده و داخل شوید."
             },
             "diskspace": {
                 "message": "فضای ذخیره سازی کافی موجود نیست",
@@ -33,11 +32,13 @@
                 "message": "خطا در نصب DXVK/VKD3D! اتصال به اینترنت خود یا نصب داشتن zstd/libzstd1 را چک کنید",
                 "title": "خطای DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "خطا در هنگام اجرای بازی، لاگها را چک کنید!",
             "no-offline-mode": {
                 "message": "اجرا متوقف شد! بازی برای اجرا به اتصال اینترنت نیاز دارد.",
                 "title": "حالت آفلاین پشتیبانی نمیشود."
@@ -119,6 +120,14 @@
     },
     "Epic Games": "اپیک گیمز",
     "favourites": "علاقه مندی ها",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "تنظیمات عمومی",
     "GOG": "GOG",
     "gog-store": "فروشگاه GOG",
@@ -323,6 +332,7 @@
             "other": "بقیه",
             "sync": "همگامسازی ذخیرهها"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "تنظیمات",

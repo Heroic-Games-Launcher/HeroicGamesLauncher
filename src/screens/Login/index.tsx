@@ -17,10 +17,17 @@ export default function NewLogin() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [showSidLogin, setShowSidLogin] = useState(false)
+  const [isEpicLoggedIn, setIsEpicLoggedIn] = useState(Boolean(epic.username))
+  const [isGogLoggedIn, setIsGogLoggedIn] = useState(Boolean(gog.username))
 
   useEffect(() => {
     setLoading(false)
   }, [epic, gog])
+
+  useEffect(() => {
+    setIsEpicLoggedIn(Boolean(epic.username))
+    setIsGogLoggedIn(Boolean(gog.username))
+  }, [epic.username, gog.username, t])
 
   return (
     <div className="loginPage">
@@ -45,7 +52,7 @@ export default function NewLogin() {
             class="epic"
             loginUrl="/loginweb/legendary"
             icon={() => <img src={EpicLogo} alt="Epic" />}
-            isLoggedIn={Boolean(epic.username)}
+            isLoggedIn={isEpicLoggedIn}
             user={epic.username}
             logoutAction={epic.logout}
             alternativeLoginAction={() => {
@@ -56,7 +63,7 @@ export default function NewLogin() {
             class="gog"
             icon={() => <img src={GOGLogo} alt="GOG" />}
             loginUrl="/loginweb/gog"
-            isLoggedIn={Boolean(gog.username)}
+            isLoggedIn={isGogLoggedIn}
             user={gog.username}
             logoutAction={gog.logout}
           />

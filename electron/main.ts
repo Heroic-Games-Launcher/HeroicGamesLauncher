@@ -63,7 +63,6 @@ import {
   getGOGdlBin,
   showErrorBoxModal,
   getFileSize,
-  showErrorBoxModalAuto,
   getWineFromProton
 } from './utils'
 import {
@@ -86,7 +85,8 @@ import {
   tsStore,
   weblateUrl,
   wikiLink,
-  fontsStore
+  fontsStore,
+  heroicConfigPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -110,7 +110,10 @@ async function createWindow(): Promise<BrowserWindow> {
   }
 
   if (configStore.has('window-props')) {
-    const tmpWindowProps = configStore.get('window-props') as Electron.Rectangle
+    const tmpWindowProps = configStore.get(
+      'window-props',
+      {}
+    ) as Electron.Rectangle
     if (
       tmpWindowProps &&
       tmpWindowProps.width &&
@@ -183,7 +186,7 @@ async function createWindow(): Promise<BrowserWindow> {
       const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
       installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        logError(['An error occurred: ', err], LogPrefix.Backend)
+        logWarning(['An error occurred: ', err], LogPrefix.Backend)
       })
     })
     mainWindow.loadURL('http://localhost:3000')
@@ -205,7 +208,7 @@ const gotTheLock = app.requestSingleInstanceLock()
 
 const contextMenu = () => {
   const recentGames: Array<RecentGame> =
-    (configStore.get('games.recent') as Array<RecentGame>) || []
+    (configStore.get('games.recent', []) as Array<RecentGame>) || []
   const recentsMenu = recentGames.map((game) => {
     return {
       click: function () {
@@ -360,7 +363,7 @@ if (!gotTheLock) {
       if (app.setAsDefaultProtocolClient('heroic')) {
         logInfo('Registered protocol with OS.', LogPrefix.Backend)
       } else {
-        logError('Failed to register protocol with OS.', LogPrefix.Backend)
+        logWarning('Failed to register protocol with OS.', LogPrefix.Backend)
       }
     } else {
       logWarning('Protocol already registered.', LogPrefix.Backend)
@@ -377,7 +380,7 @@ if (!gotTheLock) {
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
       const zoomFactor =
-        parseFloat((configStore.get('zoomPercent') as string) || '100') / 100
+        parseFloat(configStore.get('zoomPercent', '100') as string) / 100
 
       mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
     }, 200)
@@ -520,6 +523,12 @@ ipcMain.on('openKofiPage', async () => openUrlOrFile(kofiPage))
 ipcMain.on('openWebviewPage', async (event, url) => openUrlOrFile(url))
 ipcMain.on('openWikiLink', async () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', async () => openUrlOrFile(sidInfoUrl))
+ipcMain.on('showConfigFileInFolder', async (event, appName) => {
+  if (appName === 'default') {
+    return openUrlOrFile(heroicConfigPath)
+  }
+  return openUrlOrFile(path.join(heroicGamesConfigPath, `${appName}.json`))
+})
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {
@@ -838,39 +847,21 @@ ipcMain.handle(
     let logResult = ''
     return Game.get(appName, runner)
       .launch(launchArguments)
-      .then(
-        async ({
-          stdout,
-          stderr,
-          success,
-          command,
-          gameSettings
-        }: LaunchResult) => {
-          if (!success) {
-            showErrorBoxModalAuto(
-              i18next.t('box.error.title', 'Something Went Wrong'),
-              i18next.t(
-                'box.error.launch',
-                'Error when launching the game, check the logs!'
-              )
-            )
-          }
-
-          logResult = `Launch Command: ${command}
+      .then(async ({ stdout, stderr, command, gameSettings }: LaunchResult) => {
+        logResult = `Launch Command: ${command}
 
 System Info:
 ${await getSystemInfo()}
 
 Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
 `
-          if (stderr) {
-            logResult += `\nError Log:\n${stderr}\n`
-          }
-          if (stdout) {
-            logResult += `\nGame Log:\n${stdout}\n`
-          }
+        if (stderr) {
+          logResult += `\nError Log:\n${stderr}\n`
         }
-      )
+        if (stdout) {
+          logResult += `\nGame Log:\n${stdout}\n`
+        }
+      })
       .catch((exception) => {
         logResult = `${exception.name} - ${exception.message}`
         logError(logResult, LogPrefix.Backend)
@@ -1383,7 +1374,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
 })
 
 ipcMain.handle('getFonts', async (event, reload = false) => {
-  let cachedFonts = (fontsStore.get('fonts') as string[]) || []
+  let cachedFonts = (fontsStore.get('fonts', []) as string[]) || []
   if (cachedFonts.length === 0 || reload) {
     cachedFonts = await getFonts()
     cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))

@@ -66,6 +66,9 @@
         "moving": "Liigutamine",
         "repairing": "Parandamine"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Võrguühendus nõutud",
         "installedPlatform": "Paigaldatud platvorm",
@@ -76,9 +79,9 @@
     },
     "install": {
         "disk-space-left": "Vaba ruumi",
-        "invalid-folder": "Viga: kehtetu failitee",
         "not-enough-disk-space": "Ei ole piisavalt kettaruumi",
         "path": "Valige paigaldustee",
+        "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "Pärast paigaldamist",
         "wineprefix": "WinePrefiks",
         "wineversion": "Wine'i versioon"

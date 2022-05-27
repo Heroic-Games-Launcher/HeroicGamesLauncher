@@ -1,0 +1,24 @@
+.errorComponent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.errorComponent > svg {
+  font-size: 80px;
+}
+
+.errorComponent > .errorText {
+  font-size: 2rem;
+}
+
+.errorComponent > .buttonsWrapper {
+  display: initial;
+}
+
+.button-icon-flex > .refreshIcon {
+  font-size: 25px;
+  padding-right: 2px;
+}

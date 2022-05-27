@@ -338,8 +338,8 @@ export async function verifyWinePrefix(
       return { res: result, updated: wasUpdated }
     })
     .catch((error) => {
-      logError(['Unable to create Wineprefix: ', error], LogPrefix.Backend)
-      return { res: { stderr: error, stdout: '' }, updated: false }
+      logError(['Unable to create Wineprefix: ', `${error}`], LogPrefix.Backend)
+      return { res: { stderr: `${error}`, stdout: '' }, updated: false }
     })
 }
 
@@ -425,8 +425,9 @@ async function runWineCommand(
       return response
     })
     .catch((error) => {
-      logError(['Error running Wine command:', error], LogPrefix.Backend)
-      return { stderr: error, stdout: '' }
+      // error might not always be a string
+      logError(['Error running Wine command:', `${error}`], LogPrefix.Backend)
+      return { stderr: `${error}`, stdout: '' }
     })
 }
 
@@ -446,6 +447,7 @@ async function runLegendaryOrGogdlCommand(
   }
 ): Promise<ExecResult> {
   const fullRunnerPath = join(runner.dir, runner.bin)
+  const appName = commandParts[commandParts.findIndex(() => 'launch') + 1]
   const safeCommand = getLegendaryOrGogdlCommand(
     commandParts,
     options?.env,
@@ -511,12 +513,22 @@ async function runLegendaryOrGogdlCommand(
 
     child.on('close', (code, signal) => {
       errorHandler({
-        error: { stderr: stderr.join(), stdout: stdout.join() },
-        logPath: options?.logFile
+        error: `${stdout.join().concat(stderr.join())}`,
+        logPath: options?.logFile,
+        runner: runner.name
       })
+
+      if (
+        stderr.join().includes('ERROR') ||
+        stderr.join().includes('CRITICAL')
+      ) {
+        rej(stderr.join())
+      }
+
       if (signal) {
         rej('Process terminated with signal ' + signal)
       }
+
       res({
         stdout: stdout.join('\n'),
         stderr: stderr.join('\n')
@@ -530,12 +542,23 @@ async function runLegendaryOrGogdlCommand(
       return { stdout, stderr, fullCommand: safeCommand }
     })
     .catch((error) => {
-      errorHandler({ error, logPath: options?.logFile })
+      errorHandler({
+        error: `${error}`,
+        logPath: options?.logFile,
+        runner: runner.name,
+        appName
+      })
+
+      const dontShowDialog =
+        `${error}`.includes('signal') &&
+        `${error}`.includes('appears to be deleted')
+
       logError(
         ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
-        runner.logPrefix
+        runner.logPrefix,
+        dontShowDialog
       )
-      return { stdout: '', stderr: '', fullCommand: safeCommand, error }
+      return { stdout: '', stderr: `${error}`, fullCommand: safeCommand, error }
     })
 }
 

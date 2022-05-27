@@ -14,6 +14,7 @@ import {
 } from '../constants'
 import { app } from 'electron'
 import { join } from 'path'
+import { showErrorBoxModalAuto } from '../utils'
 
 export enum LogPrefix {
   General = '',
@@ -30,9 +31,15 @@ export enum LogPrefix {
 
 let longestPrefix = 0
 
-// helper to convert string to string[]
-function convertToStringArray(param: string | string[]): string[] {
-  return typeof param === 'string' ? [param] : param
+// helper to convert arrays to string
+function convertArrayToString(param: string | string[]): string {
+  if (typeof param === 'string') {
+    return param
+  } else if (Array.isArray(param)) {
+    return param.join(' ')
+  }
+  // if somehow the param is an object and not array or string
+  return JSON.stringify(param)
 }
 
 const padNumberToTwo = (n: number) => {
@@ -69,12 +76,17 @@ const getPrefixString = (prefix: LogPrefix) => {
 export function logDebug(
   text: string[] | string,
   prefix: LogPrefix = LogPrefix.General,
+  showDialog = false,
   skipLogToFile = false
 ) {
   const extendText = `${getTimeStamp()} DEBUG:   ${getPrefixString(
     prefix
-  )}${convertToStringArray(text).join(' ')}`
+  )}${convertArrayToString(text)}`
   console.log(extendText)
+
+  if (showDialog) {
+    showErrorBoxModalAuto(getPrefixString(prefix), convertArrayToString(text))
+  }
 
   if (!skipLogToFile) {
     appendMessageToLogFile(extendText)
@@ -91,12 +103,17 @@ export function logDebug(
 export function logError(
   text: string[] | string,
   prefix: LogPrefix = LogPrefix.General,
+  showDialog = true,
   skipLogToFile = false
 ) {
   const extendText = `${getTimeStamp()} ERROR:   ${getPrefixString(
     prefix
-  )}${convertToStringArray(text).join(' ')}`
+  )}${convertArrayToString(text)}`
   console.error(extendText)
+
+  if (showDialog) {
+    showErrorBoxModalAuto(getPrefixString(prefix), convertArrayToString(text))
+  }
 
   if (!skipLogToFile) {
     appendMessageToLogFile(extendText)
@@ -113,12 +130,17 @@ export function logError(
 export function logInfo(
   text: string[] | string,
   prefix: LogPrefix = LogPrefix.General,
+  showDialog = false,
   skipLogToFile = false
 ) {
   const extendText = `${getTimeStamp()} INFO:    ${getPrefixString(
     prefix
-  )}${convertToStringArray(text).join(' ')}`
+  )}${convertArrayToString(text)}`
   console.log(extendText)
+
+  if (showDialog) {
+    showErrorBoxModalAuto(getPrefixString(prefix), convertArrayToString(text))
+  }
 
   if (!skipLogToFile) {
     appendMessageToLogFile(extendText)
@@ -135,12 +157,17 @@ export function logInfo(
 export function logWarning(
   text: string[] | string,
   prefix: LogPrefix = LogPrefix.General,
+  showDialog = false,
   skipLogToFile = false
 ) {
   const extendText = `${getTimeStamp()} WARNING: ${getPrefixString(
     prefix
-  )}${convertToStringArray(text).join(' ')}`
+  )}${convertArrayToString(text)}`
   console.warn(extendText)
+
+  if (showDialog) {
+    showErrorBoxModalAuto(getPrefixString(prefix), convertArrayToString(text))
+  }
 
   if (!skipLogToFile) {
     appendMessageToLogFile(extendText)

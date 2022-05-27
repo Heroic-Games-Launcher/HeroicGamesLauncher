@@ -15,7 +15,8 @@ import {
   userHome,
   isLinux,
   isMac,
-  isWindows
+  isWindows,
+  installed
 } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
@@ -403,16 +404,29 @@ class LegendaryGame extends Game {
       )
     }
 
-    const res = await runLegendaryCommand(commandParts, {
+    let res = await runLegendaryCommand(commandParts, {
       logFile: logPath,
       onOutput
     })
 
-    if (res.error) {
-      logError(
-        ['Failed to install', `${this.appName}:`, res.error],
-        LogPrefix.Legendary
+    // try to run the install again with higher memory limit
+    if (res.stderr.includes('MemoryError:')) {
+      res = await runLegendaryCommand(
+        [...commandParts, '--max-shared-memory', '5000'],
+        {
+          logFile: logPath,
+          onOutput
+        }
       )
+    }
+
+    if (res.error) {
+      if (!res.error.includes('signal')) {
+        logError(
+          ['Failed to install', `${this.appName}:`, res.error],
+          LogPrefix.Legendary
+        )
+      }
       return { status: 'error' }
     }
     return { status: 'done' }
@@ -654,7 +668,12 @@ class LegendaryGame extends Game {
     })
 
     if (error) {
-      logError(['Error launching game:', error], LogPrefix.Legendary)
+      const showDialog = !`${error}`.includes('appears to be deleted')
+      logError(
+        ['Error launching game:', error],
+        LogPrefix.Legendary,
+        showDialog
+      )
     }
 
     launchCleanup(rpcClient)
@@ -710,6 +729,25 @@ class LegendaryGame extends Game {
     child.on('exit', () => {
       return logInfo(`${pattern} killed`, LogPrefix.Legendary)
     })
+  }
+
+  public async forceUninstall() {
+    // Modify Legendary installed.json file:
+    try {
+      await runLegendaryCommand([
+        'uninstall',
+        this.appName,
+        '-y',
+        '--keep-files'
+      ])
+      const mainWindow = BrowserWindow.getFocusedWindow()
+      mainWindow.webContents.send('refreshLibrary', 'legendary')
+    } catch (error) {
+      logError(
+        `Error reading ${installed}, could not complete operation`,
+        LogPrefix.Legendary
+      )
+    }
   }
 }
 

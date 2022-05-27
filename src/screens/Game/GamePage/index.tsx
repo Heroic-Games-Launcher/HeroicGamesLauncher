@@ -35,6 +35,7 @@ import GOGLogo from 'src/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'src/hooks/hasProgress'
+import ErrorComponent from 'src/components/UI/ErrorComponent'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -110,8 +111,8 @@ export default function GamePage(): JSX.Element | null {
           })
           .catch((error) => {
             console.error(error)
-            ipcRenderer.send('logError', error)
-            setHasError({ error: true, message: error })
+            ipcRenderer.send('logError', `${error}`)
+            setHasError({ error: true, message: `${error}` })
           })
         if (newInfo?.cloud_save_enabled) {
           try {
@@ -200,8 +201,8 @@ export default function GamePage(): JSX.Element | null {
       const message =
         typeof hasError.message === 'string'
           ? hasError.message
-          : 'Unknown error'
-      return <div>{message}</div>
+          : t('generic.error', 'Unknown error')
+      return <ErrorComponent message={message} />
     }
 
     return (

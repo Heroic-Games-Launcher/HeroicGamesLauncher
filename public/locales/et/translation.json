@@ -22,8 +22,7 @@
         "default-install-path": "Valige Vaikimisi paigalduskoht",
         "error": {
             "credentials": {
-                "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse.",
-                "title": "Aegunud kasutaja andmed"
+                "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse."
             },
             "diskspace": {
                 "message": "Ei ole piisavalt vaba kettaruumi",
@@ -33,11 +32,13 @@
                 "message": "Viga DXVK/VKD3D installimisel! Kontrollige ühendust või seda, kas teil on installitud zstd/libzstd1",
                 "title": "DXVK/VKD3D viga"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Viga mängu käivitamisel, kontrollige logisid!",
             "no-offline-mode": {
                 "message": "Käivitamine katkestatud! Mängu käivitamiseks on vaja internetiühendust.",
                 "title": "Võrguühenduseta režiim ei ole toetatud."
@@ -119,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Lemmikud",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Globaalsed seaded",
     "GOG": "GOG",
     "gog-store": "GOG Pood",
@@ -323,6 +332,7 @@
             "other": "Muu",
             "sync": "Salvesta-sünkrooni"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Lähtesta Heroic"
     },
     "Settings": "Seaded",

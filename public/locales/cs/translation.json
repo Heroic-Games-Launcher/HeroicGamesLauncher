@@ -22,8 +22,7 @@
         "default-install-path": "Vyberte výchozí cestu pro instalaci",
         "error": {
             "credentials": {
-                "message": "Vaše přihlašovací údaje vypršeli, odhlaste se a přihlašte se znovu prosím.",
-                "title": "Prošlé přihlašovací údaje"
+                "message": "Vaše přihlašovací údaje vypršeli, odhlaste se a přihlašte se znovu prosím."
             },
             "diskspace": {
                 "message": "Nedostatek místa na disku",
@@ -33,11 +32,13 @@
                 "message": "Chyba při instalaci DXVK/VKD3D! Zkontrolujte připojení nebo zda máte nainstalovaný zstd/libzstd1",
                 "title": "Chyba DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Chyba při spouštění hry, zkontrolujte záznamy!",
             "no-offline-mode": {
                 "message": "Spouštění přerušeno! Ke spuštění hry je potřeba připojení k internetu.",
                 "title": "Režim offline není podporován."
@@ -119,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Oblíbené",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Globální nastavení",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -323,6 +332,7 @@
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Nastavení",

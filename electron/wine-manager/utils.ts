@@ -77,7 +77,10 @@ async function updateWineVersionInfos(
     logInfo('Read local information ...', LogPrefix.WineDownloader)
     if (wineDownloaderInfoStore.has('wine-releases')) {
       releases.push(
-        ...(wineDownloaderInfoStore.get('wine-releases') as WineVersionInfo[])
+        ...(wineDownloaderInfoStore.get(
+          'wine-releases',
+          []
+        ) as WineVersionInfo[])
       )
     }
   }
@@ -201,7 +204,8 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
     if (index === -1) {
       logError(
         `Can't find ${release.version} in electron-store -> wine-downloader-info.json!`,
-        LogPrefix.WineDownloader
+        LogPrefix.WineDownloader,
+        false
       )
       return false
     }
@@ -215,7 +219,8 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
   } else {
     logError(
       `Couldn't find a wine-releases entry in electron-store -> wine-downloader-info.json. Release ${release.version} couldn't be removed!`,
-      LogPrefix.WineDownloader
+      LogPrefix.WineDownloader,
+      false
     )
     return false
   }

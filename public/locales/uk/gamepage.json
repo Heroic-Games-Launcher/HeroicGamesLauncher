@@ -66,6 +66,9 @@
         "moving": "Переміщую",
         "repairing": "Відновлюю"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Чи потрібно бути в мережі",
         "installedPlatform": "Встановлена платформа",
@@ -76,9 +79,9 @@
     },
     "install": {
         "disk-space-left": "Доступний простір",
-        "invalid-folder": "Помилка: Неприйнятний шлях",
         "not-enough-disk-space": "Недостатньо місця на диску",
         "path": "Вкажіть шлях встановлення",
+        "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "Після встановлення",
         "wineprefix": "Префікс Wine",
         "wineversion": "Версія Wine"

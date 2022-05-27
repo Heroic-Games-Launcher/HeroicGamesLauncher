@@ -22,8 +22,7 @@
         "default-install-path": "Wähle den Standard Installations-Pfad",
         "error": {
             "credentials": {
-                "message": "Deine Anmeldedaten sind abgelaufen, bitte logge dich aus und melde dich erneut an.",
-                "title": "Abgelaufene Anmeldedaten"
+                "message": "Deine Anmeldedaten sind abgelaufen, bitte logge dich aus und melde dich erneut an."
             },
             "diskspace": {
                 "message": "Nicht genügend freier Speicherplatz",
@@ -33,11 +32,13 @@
                 "message": "Fehler beim Installieren von DXVK/VKD3D! Überprüfe deine Verbindung oder ob du zstd/libzstd1 installiert hast",
                 "title": "DXVK/VKD3D Fehler"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Fehler beim Starten des Spiels, prüfe die Logs!",
             "no-offline-mode": {
                 "message": "Start abgebrochen! Das Spiel benötigt eine Internetverbindung, damit es läuft.",
                 "title": "Offline-Modus wird nicht unterstützt."
@@ -119,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favoriten",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Globale Einstellungen",
     "GOG": "GOG",
     "gog-store": "GOG-Store",
@@ -323,6 +332,7 @@
             "other": "Andere",
             "sync": "Spielstände-Synchronisation"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Heroic zurücksetzen"
     },
     "Settings": "Einstellungen",

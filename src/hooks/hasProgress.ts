@@ -18,7 +18,7 @@ export const hasProgress = (appName: string) => {
       ({
         bytes: '0.00MiB',
         eta: '00:00:00',
-        percent: '0.00%'
+        percent: 0
       } as InstallProgress)
   )
 

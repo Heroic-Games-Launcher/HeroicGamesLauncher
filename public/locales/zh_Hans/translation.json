@@ -22,8 +22,7 @@
         "default-install-path": "选择默认安装路径",
         "error": {
             "credentials": {
-                "message": "你的凭据已过期，请注销并重新登录。",
-                "title": "过期的登录凭据"
+                "message": "你的凭据已过期，请注销并重新登录。"
             },
             "diskspace": {
                 "message": "没有足够的可用磁盘空间",
@@ -33,11 +32,13 @@
                 "message": "安装 DXVK/VKD3D 出错！检查你的互联网连接或者是否已安装 zstd/libzstd1",
                 "title": "DXVK/VKD3D 错误"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "启动游戏时出现错误，请检查日志！",
             "no-offline-mode": {
                 "message": "启动失败！游戏需要网络连接才能运行。",
                 "title": "不支持离线模式。"
@@ -119,6 +120,14 @@
     },
     "Epic Games": "Epic 游戏",
     "favourites": "最爱",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "全局设置",
     "GOG": "GOG",
     "gog-store": "GOG 商店",
@@ -323,6 +332,7 @@
             "other": "其它",
             "sync": "存档-同步"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "重置 Heroic"
     },
     "Settings": "设置",

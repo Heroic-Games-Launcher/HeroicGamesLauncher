@@ -22,8 +22,7 @@
         "default-install-path": "Вкажіть стандартний шлях встановлення",
         "error": {
             "credentials": {
-                "message": "Термін дії ваших облікових даних скінчився, будь ласка вийдіть і увійдіть знову.",
-                "title": "Термін дії облікових даних скінчився"
+                "message": "Термін дії ваших облікових даних скінчився, будь ласка вийдіть і увійдіть знову."
             },
             "diskspace": {
                 "message": "Недостатньо місця на диску",
@@ -33,11 +32,13 @@
                 "message": "Помилка встановлення DXVK/VKD3D! Перевірте з'єднання та чи встановлено zstd/libzstd1",
                 "title": "Помилка DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Помилка під час запуску гри, перевірте лоґи!",
             "no-offline-mode": {
                 "message": "Запуск перервано! Гра потребує з'єднання з інтернетом.",
                 "title": "Автономний режим не підтримується."
@@ -119,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Уподобання",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Глобальні налаштування",
     "GOG": "GOG",
     "gog-store": "Магазин GOG",
@@ -323,6 +332,7 @@
             "other": "Інше",
             "sync": "Синхронізація збережень"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Скинути Heroic"
     },
     "Settings": "Налаштування",

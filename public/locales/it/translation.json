@@ -22,8 +22,7 @@
         "default-install-path": "Seleziona il percorso d'installazione predefinito",
         "error": {
             "credentials": {
-                "message": "Le tue credenziali non sono più valide, per favore rifai il login.",
-                "title": "Credenziali scaduti"
+                "message": "Le tue credenziali non sono più valide, per favore rifai il login."
             },
             "diskspace": {
                 "message": "Spazio su disco insufficiente",
@@ -33,11 +32,13 @@
                 "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
                 "title": "DXVK/VKD3D error"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Errore durante l'avvio del gioco, controlla i logs!",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
@@ -119,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Impostazioni globali",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -323,6 +332,7 @@
             "other": "Altro",
             "sync": "Sincronizzazione salvataggi"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Impostazioni",

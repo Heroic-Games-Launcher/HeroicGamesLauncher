@@ -66,6 +66,9 @@
         "moving": "Premještanje",
         "repairing": "Popravljanje"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Internet Potreban",
         "installedPlatform": "Instalirane Platforme",
@@ -76,9 +79,9 @@
     },
     "install": {
         "disk-space-left": "Prostora dostupno",
-        "invalid-folder": "Greška: Pogrešan Put",
         "not-enough-disk-space": "Nema dovoljno prostora na disku",
         "path": "Odaberite put instalacije",
+        "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "Nakon Instalacije",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine verzija"

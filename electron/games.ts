@@ -35,6 +35,7 @@ abstract class Game {
   abstract moveInstall(newInstallPath: string): Promise<string>
   abstract repair(): Promise<ExecResult>
   abstract stop(): Promise<void>
+  abstract forceUninstall(): Promise<void>
   abstract syncSaves(arg: string, path: string): Promise<ExecResult>
   abstract uninstall(): Promise<ExecResult>
   abstract update(): Promise<{ status: 'done' | 'error' }>

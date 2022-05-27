@@ -22,8 +22,7 @@
         "default-install-path": "Tria la ruta d'instal·lació predefinida",
         "error": {
             "credentials": {
-                "message": "Les teves credencials han caducat, tanca la sessió i inicia-la de nou.",
-                "title": "Credencials caducades"
+                "message": "Les teves credencials han caducat, tanca la sessió i inicia-la de nou."
             },
             "diskspace": {
                 "message": "No hi ha prou espai al disc",
@@ -33,11 +32,13 @@
                 "message": "Hi ha hagut un error en instal·lar el DXVK/VKD3D. Comprova la connexió o si teniu instal·lat el zstd/libzstd1",
                 "title": "Error del DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Error en iniciar el joc, comprova el registre.",
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
@@ -119,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Configuració global",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -323,6 +332,7 @@
             "other": "Altres",
             "sync": "Desa-sincronitza"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Restableix l'Heroic"
     },
     "Settings": "Configuració",

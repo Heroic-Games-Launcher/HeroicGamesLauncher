@@ -66,6 +66,9 @@
         "moving": "Déplacement en cours",
         "repairing": "Réparation en cours"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Connexion requise",
         "installedPlatform": "Plateforme installée",
@@ -76,9 +79,9 @@
     },
     "install": {
         "disk-space-left": "Espace restant sur l'appareil",
-        "invalid-folder": "Error: Invalid Path",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Sélectionner le chemin d'installation",
+        "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "Préfixe Wine",
         "wineversion": "Version de Wine"

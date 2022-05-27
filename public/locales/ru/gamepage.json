@@ -66,6 +66,9 @@
         "moving": "Перемещение",
         "repairing": "Восстановление"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "Требуется онлайн",
         "installedPlatform": "Установленная платформа",
@@ -76,9 +79,9 @@
     },
     "install": {
         "disk-space-left": "Свободное место",
-        "invalid-folder": "Ошибка: Неверный путь",
         "not-enough-disk-space": "Недостаточно места на диске",
         "path": "Выберите путь установки",
+        "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "После установки",
         "wineprefix": "Префикс Wine",
         "wineversion": "Версия Wine"

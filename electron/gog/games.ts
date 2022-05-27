@@ -15,8 +15,7 @@ import {
   InstallArgs,
   LaunchResult,
   GOGLoginData,
-  InstalledInfo,
-  InstallProgress
+  InstalledInfo
 } from 'types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -28,7 +27,7 @@ import {
 } from '../constants'
 import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { execAsync, getFileSize, getSteamRuntime } from '../utils'
+import { errorHandler, execAsync, getFileSize, getSteamRuntime } from '../utils'
 import { GOGUser } from './user'
 import {
   launchCleanup,
@@ -109,8 +108,15 @@ class GOGGame extends Game {
         LogPrefix.Gog
       )
     }
-    await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
-    return res
+    try {
+      await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
+      return res
+    } catch (error) {
+      logError(
+        ['Failed to import', `${this.appName}:`, res.error],
+        LogPrefix.Gog
+      )
+    }
   }
 
   public onInstallOrUpdateOutput(
@@ -224,7 +230,7 @@ class GOGGame extends Game {
       buildId: isLinuxNative ? '' : installInfo.game.buildId
     }
     const array: Array<InstalledInfo> =
-      (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
+      (installedGamesStore.get('installed', []) as Array<InstalledInfo>) || []
     array.push(installedData)
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
@@ -250,6 +256,14 @@ class GOGGame extends Game {
       GameConfig.get(this.appName).config ||
       (await GameConfig.get(this.appName).getSettings())
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
+
+    if (!existsSync(gameInfo.install.install_path)) {
+      errorHandler({
+        error: 'appears to be deleted',
+        runner: 'gog',
+        appName: gameInfo.app_name
+      })
+    }
 
     const {
       success: launchPrepSuccess,
@@ -513,7 +527,7 @@ class GOGGame extends Game {
           res.stderr = stderr
         })
         .catch((error) => {
-          res.error = error
+          res.error = `${error}`
         })
     } else {
       rmSync(object.install_path, { recursive: true })
@@ -611,7 +625,7 @@ class GOGGame extends Game {
     if (GOGUser.isTokenExpired()) {
       await GOGUser.refreshToken()
     }
-    const credentials = configStore.get('credentials') as GOGLoginData
+    const credentials = configStore.get('credentials', {}) as GOGLoginData
 
     const installPlatform = gameData.install.platform
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
@@ -642,6 +656,17 @@ class GOGGame extends Game {
     }
 
     return runWineCommand(await this.getSettings(), command, altWineBin, wait)
+  }
+
+  async forceUninstall(): Promise<void> {
+    const installed = installedGamesStore.get(
+      'installed',
+      []
+    ) as Array<InstalledInfo>
+    const newInstalled = installed.filter((g) => g.appName !== this.appName)
+    installedGamesStore.set('installed', newInstalled)
+    const mainWindow = BrowserWindow.getFocusedWindow()
+    mainWindow.webContents.send('refreshLibrary', 'gog')
   }
 }
 

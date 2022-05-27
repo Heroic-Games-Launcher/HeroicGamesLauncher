@@ -66,6 +66,9 @@
         "moving": "옮기는 중",
         "repairing": "복구 중"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "네트워크 연결이 필요합니다",
         "installedPlatform": "설치된 플랫폼",
@@ -76,9 +79,9 @@
     },
     "install": {
         "disk-space-left": "장치 여유 공간",
-        "invalid-folder": "Error: Invalid Path",
         "not-enough-disk-space": "Not enough disk space",
         "path": "설치 경로 선택",
+        "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine 버전"

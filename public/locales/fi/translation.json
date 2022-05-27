@@ -22,8 +22,7 @@
         "default-install-path": "Valitse Oletus Asennussijainti",
         "error": {
             "credentials": {
-                "message": "Kirjautumistietosi ovat vanhentuneet, ole hyvä ja kirjaudu uudelleen sisään.",
-                "title": "Vanhentuneet kirjautumistiedot"
+                "message": "Kirjautumistietosi ovat vanhentuneet, ole hyvä ja kirjaudu uudelleen sisään."
             },
             "diskspace": {
                 "message": "Ei tarpeeksi tilaa levyllä",
@@ -33,11 +32,13 @@
                 "message": "Virhe DXVK/VKD3D:n asennuksessa! Tarkista yhteys tai onko zstd/libzstd1 asennettu",
                 "title": "DXVK/VKD3D-virhe"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Virhe pelin käynnistyksessä, tarkista pelin lokitiedostot!",
             "no-offline-mode": {
                 "message": "Käynnistys keskeytetty! Peli vaatii Internet-yhteyden toimiakseen.",
                 "title": "Offline-tilaa ei tueta."
@@ -119,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Globaalit asetukset",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -323,6 +332,7 @@
             "other": "Muut",
             "sync": "Tallenna ja synkronoi"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Asetukset",

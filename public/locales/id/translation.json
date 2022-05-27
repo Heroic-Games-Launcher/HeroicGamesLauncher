@@ -22,8 +22,7 @@
         "default-install-path": "Pilih Lokasi Pemasangan Bawaan",
         "error": {
             "credentials": {
-                "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi.",
-                "title": "Kredensial Kedaluwarsa"
+                "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi."
             },
             "diskspace": {
                 "message": "Ruang penyimpanan tidak cukup",
@@ -33,11 +32,13 @@
                 "message": "Terjadi kesalahan saat memasang DXVK/VKD3D! Periksa koneksi Anda atau cek apakah Anda telah memasang zstd/libzstd1",
                 "title": "Terjadi Kesalahan DXVK/VKD3D"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Terjadi kesalahan ketika meluncurkan gim, periksa log!",
             "no-offline-mode": {
                 "message": "Peluncuran dibatalkan! Gim membutuhkan koneksi internet untuk menjalankannya.",
                 "title": "Mode luring tidak didukung."
@@ -119,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favorit",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Pengaturan Global",
     "GOG": "GOG",
     "gog-store": "GOG Store",
@@ -323,6 +332,7 @@
             "other": "Lainnya",
             "sync": "Sinkronisasi Penyimpanan"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Pengaturan",

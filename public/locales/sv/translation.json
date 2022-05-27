@@ -22,8 +22,7 @@
         "default-install-path": "Ange standard installationssökväg",
         "error": {
             "credentials": {
-                "message": "Autentisering har utgått, logga ut och logga sedan in igen.",
-                "title": "Autentisering utgått"
+                "message": "Autentisering har utgått, logga ut och logga sedan in igen."
             },
             "diskspace": {
                 "message": "Otillräckligt ledigt hårdiskutrymme",
@@ -33,11 +32,13 @@
                 "message": "Problem vid installation av DXVK/VKD3D! Kontrollera internetanslutningen och att du har zstd/libzstd1 installerade",
                 "title": "DXVK/VKD3D problem"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Problem vid speluppstart, kontrollera loggen!",
             "no-offline-mode": {
                 "message": "Speluppstart avbröts! Internetanslutning krävs.",
                 "title": "Offline-läge stöds ej."
@@ -119,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favoriter",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Globala inställningar",
     "GOG": "GOG",
     "gog-store": "GOG Butik",
@@ -323,6 +332,7 @@
             "other": "Övrigt",
             "sync": "Synkronisera sparfiler"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Grundinställ Heroic"
     },
     "Settings": "Inställningar",

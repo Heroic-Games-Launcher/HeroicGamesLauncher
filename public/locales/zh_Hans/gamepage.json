@@ -66,6 +66,9 @@
         "moving": "移动中",
         "repairing": "修复中"
     },
+    "generic": {
+        "error": "Unknown error"
+    },
     "info": {
         "canRunOffline": "需要联网",
         "installedPlatform": "已安装平台",
@@ -76,9 +79,9 @@
     },
     "install": {
         "disk-space-left": "可用空间",
-        "invalid-folder": "错误：无效路径",
         "not-enough-disk-space": "磁盘空间不足",
         "path": "选择安装路径",
+        "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "安装后",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine 版本"

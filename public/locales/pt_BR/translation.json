@@ -22,8 +22,7 @@
         "default-install-path": "Selecione o local de instalação padrão",
         "error": {
             "credentials": {
-                "message": "Suas credenciais expiraram, por favor desconecte sua conta e entre novamente.",
-                "title": "Credenciais Expiradas"
+                "message": "Suas credenciais expiraram, por favor desconecte sua conta e entre novamente."
             },
             "diskspace": {
                 "message": "Sem espaço suficiente disponível no disco",
@@ -33,11 +32,13 @@
                 "message": "Erro ao Instalar DXVK/VKD3D! Cheque sua conexão Ou se você tem o zstd/libzstd1 instalado",
                 "title": "DXVK/VKD3D Erro"
             },
+            "folder-not-found": {
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+            },
             "generic": {
                 "message": "",
                 "title": ""
             },
-            "launch": "Erro ao iniciar o jogo, confira os logs!",
             "no-offline-mode": {
                 "message": "Lançamento cancelado! O jogo requer uma conexão com a internet para executá-lo.",
                 "title": "Modo offline não suportado."
@@ -119,6 +120,14 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favoritos",
+    "generic": {
+        "error": {
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
+        },
+        "library": {
+            "refresh": "Refresh Library"
+        }
+    },
     "globalSettings": "Configurações globais",
     "GOG": "GOG",
     "gog-store": "Loja GOG",
@@ -323,6 +332,7 @@
             "other": "Outros",
             "sync": "Sincronização"
         },
+        "open-config-file": "Open Config File",
         "reset-heroic": "Redefinir Heroic"
     },
     "Settings": "Configurações",

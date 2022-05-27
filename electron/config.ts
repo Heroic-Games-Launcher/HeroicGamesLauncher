@@ -57,7 +57,15 @@ abstract class GlobalConfig {
     // Config file exists, detect its version.
     else {
       // Check version field in the config.
-      version = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))['version']
+      try {
+        version = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))['version']
+      } catch (error) {
+        logError(
+          `Config file is corrupted, please check ${heroicConfigPath}`,
+          LogPrefix.Backend
+        )
+        version = 'v0'
+      }
       // Legacy config file without a version field, it's a v0 config.
       if (!version) {
         version = 'v0'
@@ -411,12 +419,23 @@ class GlobalConfigV0 extends GlobalConfig {
       return this.getFactoryDefaults()
     }
 
-    let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
-    settings = {
-      ...(await this.getFactoryDefaults()),
-      ...settings.defaultSettings
-    } as AppSettings
-    return settings
+    try {
+      let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
+      settings = {
+        ...(await this.getFactoryDefaults()),
+        ...settings.defaultSettings
+      } as AppSettings
+      return settings
+    } catch (error) {
+      logError(
+        `Config file is corrupted, please check ${heroicConfigPath}`,
+        LogPrefix.Backend
+      )
+      const settings = {
+        ...(await this.getFactoryDefaults())
+      }
+      return settings
+    }
   }
 
   public async getCustomWinePaths(): Promise<Set<WineInstallation>> {

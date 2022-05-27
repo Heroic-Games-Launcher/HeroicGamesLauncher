@@ -1,3 +1,4 @@
+import { Runner } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec } from 'child_process'
@@ -9,6 +10,7 @@ import si from 'systeminformation'
 import {
   configStore,
   fixAsarPath,
+  getSteamLibraries,
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
@@ -31,6 +33,7 @@ import {
 import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { RpcClient, SteamRuntime } from 'types'
+import { Game } from './games'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -287,21 +290,34 @@ export const getSystemInfo = async () => {
 }
 
 type ErrorHandlerMessage = {
-  error?: { stderr: string; stdout: string }
+  error?: string
   logPath?: string
+  appName?: string
+  runner: string
 }
 
 async function errorHandler(
-  { error, logPath }: ErrorHandlerMessage,
+  { error, logPath, runner: r, appName }: ErrorHandlerMessage,
   window?: BrowserWindow
 ): Promise<void> {
   const noSpaceMsg = 'Not enough available disk space'
-  const noCredentialsError = 'No saved credentials'
+  const plat = r === 'legendary' ? 'Legendary (Epic Games)' : r
+  const deletedFolderMsg = 'appears to be deleted'
+  const otherErrorMessages = [
+    'No saved credentials',
+    'in get_user_entitlements',
+    'No credentials'
+  ]
+
+  if (!window) {
+    window = BrowserWindow.getFocusedWindow()
+  }
+
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
-          logError(noSpaceMsg, LogPrefix.Backend)
+          logError(noSpaceMsg, LogPrefix.Backend, false)
           return showErrorBoxModal(
             window,
             i18next.t('box.error.diskspace.title', 'No Space'),
@@ -315,16 +331,37 @@ async function errorHandler(
       .catch(() => logInfo('operation interrupted', LogPrefix.Backend))
   }
   if (error) {
-    if (error.stderr.includes(noCredentialsError)) {
-      return showErrorBoxModal(
-        window,
-        i18next.t('box.error.credentials.title', 'Expired Credentials'),
-        i18next.t(
-          'box.error.credentials.message',
-          'Your Crendentials have expired, Logout and Login Again!'
-        )
-      )
+    if (error.includes(deletedFolderMsg) && appName) {
+      const runner = r.toLocaleLowerCase() as Runner
+      const game = Game.get(appName, runner)
+      const { title } = await game.getGameInfo()
+      const { response } = await showMessageBox({
+        type: 'question',
+        title,
+        message: i18next.t(
+          'box.error.folder-not-found.title',
+          'Game folder appears to be deleted, do you want to remove the game from the installed list?'
+        ),
+        buttons: [i18next.t('box.no'), i18next.t('box.yes')]
+      })
+
+      if (response === 1) {
+        return game.forceUninstall()
+      }
     }
+
+    otherErrorMessages.forEach((message) => {
+      if (error.includes(message)) {
+        return showErrorBoxModal(
+          window,
+          plat,
+          i18next.t(
+            'box.error.credentials.message',
+            'Your Crendentials have expired, Logout and Login Again!'
+          )
+        )
+      }
+    })
   }
 }
 
@@ -388,7 +425,7 @@ function splitPathAndName(fullPath: string): { dir: string; bin: string } {
 }
 
 function getLegendaryBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings') as { altLeg: string }
+  const settings = configStore.get('settings', {}) as { altLeg: string }
   if (settings?.altLeg) {
     return splitPathAndName(settings.altLeg)
   }
@@ -398,7 +435,7 @@ function getLegendaryBin(): { dir: string; bin: string } {
 }
 
 function getGOGdlBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings') as { altGogdl: string }
+  const settings = configStore.get('settings', {}) as { altGogdl: string }
   if (settings?.altGogdl) {
     return splitPathAndName(settings.altGogdl)
   }
@@ -442,46 +479,52 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
         return stdout.split('\n')[0]
       })
       .catch((error) => {
-        logError(error, LogPrefix.Backend)
+        logError(`${error}`, LogPrefix.Backend)
         return ''
       })
   }
 }
 
 function getSteamRuntime(version: 'scout' | 'soldier'): SteamRuntime {
-  const possibleRuntimes: Array<SteamRuntime> = [
-    {
-      path: `${userHome}/.steam/root/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point`,
-      type: 'unpackaged',
-      version: 'soldier'
-    },
-    {
-      path: `${userHome}/.steam/root/ubuntu12_32/steam-runtime/run.sh`,
-      type: 'unpackaged',
-      version: 'scout'
-    },
-    {
-      path: `${userHome}/.var/app/com.valvesoftware.Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point`,
-      type: 'flatpak',
-      version: 'soldier'
-    },
-    {
-      path: `${userHome}/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh`,
-      type: 'flatpak',
-      version: 'scout'
+  const soldier: Array<SteamRuntime> = getSteamLibraries().map((p) => {
+    if (
+      existsSync(
+        join(p, 'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point')
+      )
+    ) {
+      return {
+        path: join(
+          p,
+          'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point'
+        ),
+        type: 'unpackaged',
+        version: 'soldier'
+      }
     }
-  ]
+  })
 
-  // try to get requested runtime first
-  let runtimes = possibleRuntimes.filter(
-    (r) => r.version === version && existsSync(r.path)
-  )
-  if (runtimes.length) {
-    return runtimes[0]
+  const scout: Array<SteamRuntime> = getSteamLibraries().map((p) => {
+    if (existsSync(join(p, 'ubuntu12_32/steam-runtime/run.sh'))) {
+      return {
+        path: join(p, 'ubuntu12_32/steam-runtime/run.sh'),
+        type: 'unpackaged',
+        version: 'scout'
+      }
+    }
+  })
+
+  if (version === 'soldier') {
+    if (soldier.length) {
+      return soldier[0]
+    } else {
+      if (scout.length) {
+        return scout[0]
+      }
+    }
   }
-  runtimes = possibleRuntimes.filter((r) => existsSync(r.path))
-  if (runtimes.length) {
-    return runtimes[0]
+
+  if (version === 'scout' && scout.length) {
+    return scout[0]
   }
 
   return { path: '', type: 'unpackaged', version: 'scout' }
