@@ -695,8 +695,9 @@ class LegendaryGame extends Game {
     const gameInfo = await this.getGameInfo()
     const isNative =
       isWindows ||
-      (isMac && gameInfo.is_mac_native) ||
-      (isLinux && gameInfo.is_linux_native)
+      (isMac && gameInfo?.install?.platform === 'Mac') ||
+      // This right now is impossible, but one can still hope, right?
+      (isLinux && gameInfo?.install?.platform === 'Linux')
     if (isNative) {
       logError('runWineCommand called on native game!', LogPrefix.Legendary)
       return { stdout: '', stderr: '' }

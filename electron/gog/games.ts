@@ -649,8 +649,8 @@ class GOGGame extends Game {
     const gameInfo = await this.getGameInfo()
     const isNative =
       isWindows ||
-      (isMac && gameInfo.is_mac_native) ||
-      (isLinux && gameInfo.is_linux_native)
+      (isMac && gameInfo.install.platform === 'osx') ||
+      (isLinux && gameInfo.install.platform === 'linux')
     if (isNative) {
       logError('runWineCommand called on native game!', LogPrefix.Gog)
       return { stdout: '', stderr: '' }
