@@ -244,6 +244,24 @@ class GOGGame extends Game {
     return { status: 'done' }
   }
 
+  public async isNative(): Promise<boolean> {
+    const gameInfo = await this.getGameInfo()
+
+    if (isWindows) {
+      return true
+    }
+
+    if (isMac && gameInfo.install.platform === 'osx') {
+      return true
+    }
+
+    if (isLinux && gameInfo.install.platform === 'linux') {
+      return true
+    }
+
+    return false
+  }
+
   public async addShortcuts(fromMenu?: boolean) {
     return addShortcuts(await this.getGameInfo(), fromMenu)
   }
@@ -286,10 +304,7 @@ class GOGGame extends Game {
       ? ['--override-exe', gameSettings.targetExe]
       : []
 
-    const isNative =
-      isWindows ||
-      (isMac && gameInfo.install.platform === 'osx') ||
-      (isLinux && gameInfo.install.platform === 'linux')
+    const isNative = await this.isNative()
 
     let commandParts = new Array<string>()
     let commandEnv = {}
@@ -646,11 +661,8 @@ class GOGGame extends Game {
     altWineBin = '',
     wait = false
   ): Promise<ExecResult> {
-    const gameInfo = await this.getGameInfo()
-    const isNative =
-      isWindows ||
-      (isMac && gameInfo.install.platform === 'osx') ||
-      (isLinux && gameInfo.install.platform === 'linux')
+    const isNative = await this.isNative()
+
     if (isNative) {
       logError('runWineCommand called on native game!', LogPrefix.Gog)
       return { stdout: '', stderr: '' }
