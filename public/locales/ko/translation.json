@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "사용자의 인증서가 만료되었습니다, 로그아웃 한 뒤 다시 로그인 해주세요."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "사용 가능한 디스크 공간이 충분하지 않습니다",
                 "title": "공간 없음"

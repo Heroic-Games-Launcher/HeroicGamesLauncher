@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Срок действия ваших учетных данных истек. Пожалуйста, выйдите из системы и войдите снова."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Недостаточно свободного места на диске",
                 "title": "Нет места"

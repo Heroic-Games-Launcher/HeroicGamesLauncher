@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "你的凭据已过期，请注销并重新登录。"
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "没有足够的可用磁盘空间",
                 "title": "没有空间"

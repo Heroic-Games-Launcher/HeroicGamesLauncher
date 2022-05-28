@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Vaša prijava je istekla, ponovno se prijavite."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Nema dovoljno slobodnog prostora na disku",
                 "title": "Nema Prostora"
@@ -369,9 +373,9 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Logout",
+        "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit",
-        "logout_confirmation": "Jeste li sigurni da se želite odjaviti?"
+        "quit": "Quit"
     },
     "webview": {
         "controls": {

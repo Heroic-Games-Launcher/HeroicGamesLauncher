@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Τα διαπιστευτήριά σας έληξαν, παρακαλώ αποσυνδεθείτε και επανασυνδεθείτε εκ νέου."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Δεν υπάρχει αρκετός διαθέσιμος χώρος στο δίσκο",
                 "title": "Ανεπαρκής χώρος"
