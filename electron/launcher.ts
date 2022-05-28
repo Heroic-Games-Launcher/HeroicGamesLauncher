@@ -5,7 +5,7 @@ import i18next from 'i18next'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { join } from 'path'
 
-import { flatPakHome, isLinux, isMac } from './constants'
+import { flatPakHome, isLinux } from './constants'
 import {
   constructAndUpdateRPC,
   execAsync,
@@ -478,9 +478,7 @@ async function runLegendaryOrGogdlCommand(
   return new Promise((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
-      env: { ...options?.env, ...process.env },
-      // On Mac, launching some executables doesn't work without shell for some reason
-      shell: isMac
+      env: { ...options?.env, ...process.env }
     })
 
     const stdout: string[] = []
