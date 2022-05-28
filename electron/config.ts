@@ -153,55 +153,33 @@ abstract class GlobalConfig {
   public async getCrossover(): Promise<Set<WineInstallation>> {
     const crossover = new Set<WineInstallation>()
 
-    if (isMac) {
-      await execAsync(
-        'mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"'
-      ).then(async ({ stdout }) => {
-        stdout.split('\n').forEach((crossoverMacPath) => {
-          const infoFilePath = join(crossoverMacPath, 'Contents', 'Info.plist')
-          if (crossoverMacPath && existsSync(infoFilePath)) {
-            const info = plistParse(
-              readFileSync(infoFilePath, 'utf-8')
-            ) as PlistObject
-            const version = info['CFBundleShortVersionString'] || ''
-            const crossoverWineBin = join(
-              crossoverMacPath,
-              'Contents',
-              'SharedSupport',
-              'CrossOver',
-              'bin',
-              'wine'
-            )
-            crossover.add({
-              bin: crossoverWineBin,
-              name: `CrossOver - ${version}`,
-              type: 'crossover',
-              ...this.getWineExecs(crossoverWineBin)
-            })
-          }
-        })
-      })
-    } else if (!isWindows && !isFlatpak) {
-      // Linux
-      const crossoverWineBin = '/opt/cxoffice/bin/wine'
-      if (!existsSync(crossoverWineBin)) {
-        return crossover
-      }
-      const crossoverVersion = (
-        await execAsync(crossoverWineBin + ' --version')
-      ).stdout
-        .toString()
-        .split('\n')[2]
-        .split(':')[1]
-        .trim()
-      crossover.add({
-        bin: crossoverWineBin,
-        name: `CrossOver - ${crossoverVersion}`,
-        type: 'crossover',
-        ...this.getWineExecs(crossoverWineBin)
-      })
+    if (!isMac) {
+      return crossover
     }
 
+    await execAsync(
+      'mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"'
+    ).then(async ({ stdout }) => {
+      stdout.split('\n').forEach((crossoverMacPath) => {
+        const infoFilePath = join(crossoverMacPath, 'Contents/Info.plist')
+        if (crossoverMacPath && existsSync(infoFilePath)) {
+          const info = plistParse(
+            readFileSync(infoFilePath, 'utf-8')
+          ) as PlistObject
+          const version = info['CFBundleShortVersionString'] || ''
+          const crossoverWineBin = join(
+            crossoverMacPath,
+            'Contents/SharedSupport/CrossOver/bin/wine'
+          )
+          crossover.add({
+            bin: crossoverWineBin,
+            name: `CrossOver - ${version}`,
+            type: 'crossover',
+            ...this.getWineExecs(crossoverWineBin)
+          })
+        }
+      })
+    })
     return crossover
   }
 
