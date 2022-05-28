@@ -44,8 +44,11 @@ import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
+import { LegendaryGame } from './legendary/games'
 import { GOGUser } from './gog/user'
+import { GOGGame } from './gog/games'
 import { GOGLibrary } from './gog/library'
+import setup from './gog/setup'
 import {
   clearCache,
   execAsync,
@@ -1378,6 +1381,32 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
     fontsStore.set('fonts', cachedFonts)
   }
   return cachedFonts
+})
+
+ipcMain.handle(
+  'runWineCommandForGame',
+  async (event, { appName, command, runner }) => {
+    let game = null
+    switch (runner) {
+      case 'gog':
+        game = GOGGame.get(appName)
+        break
+      case 'legendary':
+        game = LegendaryGame.get(appName)
+    }
+
+    const { updated } = await verifyWinePrefix(game)
+
+    if (runner === 'gog' && updated) {
+      await setup(game.appName)
+    }
+
+    return game.runWineCommand(command, '', false, true)
+  }
+)
+
+ipcMain.handle('getShellPath', async (event, path) => {
+  return (await execAsync(`echo "${path}"`)).stdout.trim()
 })
 
 /*

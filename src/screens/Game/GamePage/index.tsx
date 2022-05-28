@@ -260,16 +260,19 @@ export default function GamePage(): JSX.Element | null {
                             : ''
                           : ''}
                       </div>
-                      {is_installed && cloud_save_enabled && is_game && (
-                        <div
-                          style={{
-                            color: autoSyncSaves ? '#07C5EF' : ''
-                          }}
-                        >
-                          {t('info.syncsaves')}:{' '}
-                          {autoSyncSaves ? t('enabled') : t('disabled')}
-                        </div>
-                      )}
+                      {is_installed &&
+                        cloud_save_enabled &&
+                        is_game &&
+                        !isLinuxNative && (
+                          <div
+                            style={{
+                              color: autoSyncSaves ? '#07C5EF' : ''
+                            }}
+                          >
+                            {t('info.syncsaves')}:{' '}
+                            {autoSyncSaves ? t('enabled') : t('disabled')}
+                          </div>
+                        )}
                       {!is_installed && (
                         <>
                           <div>

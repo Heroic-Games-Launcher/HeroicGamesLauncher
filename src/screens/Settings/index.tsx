@@ -544,6 +544,7 @@ function Settings() {
               setAutoSyncSaves={setAutoSyncSaves}
               isProton={!isWin && wineVersion.type === 'proton'}
               winePrefix={winePrefix}
+              runner={runner}
             />
           )}
           {isAdvancedSetting && (

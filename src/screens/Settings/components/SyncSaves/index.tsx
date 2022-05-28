@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { Path, SyncType } from 'src/types'
+import { Path, Runner, SyncType } from 'src/types'
 import { fixSaveFolder, getGameInfo, syncSaves } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 
@@ -23,6 +23,7 @@ interface Props {
   savesPath: string
   setAutoSyncSaves: (value: boolean) => void
   setSavesPath: (value: string) => void
+  runner: Runner
   winePrefix?: string
 }
 
@@ -33,7 +34,8 @@ export default function SyncSaves({
   autoSyncSaves,
   setAutoSyncSaves,
   isProton,
-  winePrefix
+  winePrefix,
+  runner
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('--skip-upload')
@@ -45,13 +47,34 @@ export default function SyncSaves({
     const getSyncFolder = async () => {
       const {
         save_folder,
-        install: { install_path }
-      } = await getGameInfo(appName)
+        install: { install_path, platform }
+      } = await getGameInfo(appName, runner)
       setAutoSyncSaves(autoSyncSaves)
       const prefix = winePrefix ? winePrefix : ''
-      let folder = await fixSaveFolder(save_folder, prefix, isProton || false)
-      folder = folder.replace('{InstallDir}', `${install_path}`)
-      const path = savesPath ? savesPath : folder
+      let folder = await fixSaveFolder(
+        save_folder,
+        prefix,
+        isProton || false,
+        runner,
+        platform || ''
+      )
+      folder = folder
+        .replace('{InstallDir}', `${install_path}`)
+        .replace('<?INSTALL?>', `${install_path}`)
+
+      let actualPath
+      if (!isWin) {
+        const { stdout } = await ipcRenderer.invoke('runWineCommandForGame', {
+          appName,
+          runner,
+          command: `cmd /c winepath "${folder}"`
+        })
+        actualPath = stdout.trim()
+      } else {
+        actualPath = await ipcRenderer.invoke('getShellPath', folder)
+      }
+
+      const path = savesPath ? savesPath : actualPath
       const fixedPath = isWin
         ? path.replaceAll('/', '\\')
         : path.replaceAll(/\\/g, '/') // invert slashes and remove latest on windows

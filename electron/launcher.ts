@@ -417,7 +417,8 @@ async function runWineCommand(
   gameSettings: GameSettings,
   command: string,
   altWineBin: string,
-  wait: boolean
+  wait: boolean,
+  forceRunInPrefixVerb?: boolean
 ) {
   const { wineVersion, winePrefix } = gameSettings
 
@@ -429,8 +430,13 @@ async function runWineCommand(
   let additional_command = ''
   let wineBin = wineVersion.bin.replaceAll("'", '')
   if (wineVersion.type === 'proton') {
-    command = 'run ' + command
-    // TODO: Respect 'wait' here. Not sure if Proton can even do that
+    if (forceRunInPrefixVerb) {
+      command = 'runinprefix ' + command
+    } else if (wait) {
+      command = 'waitforexitandrun ' + command
+    } else {
+      command = 'run ' + command
+    }
     // TODO: Use Steamruntime here in the future
   } else {
     // This is only allowed for Wine since Proton only has one binary (the 'proton' script)
