@@ -629,7 +629,9 @@ class LegendaryGame extends Game {
           : wineVersion.bin
 
       let wineFlag = ['--wine', wineBin]
-      let winePrefixFlag = ['--wine-prefix', winePrefix]
+
+      // avoid breaking on old configs when path is not absolute
+      let winePrefixFlag = ['--wine-prefix', winePrefix.replace('~/', userHome)]
       if (wineVersion.type === 'proton') {
         const runtime = useSteamRuntime ? getSteamRuntime('soldier') : null
 

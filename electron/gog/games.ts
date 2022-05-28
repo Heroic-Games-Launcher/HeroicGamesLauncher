@@ -23,7 +23,8 @@ import {
   isWindows,
   execOptions,
   isMac,
-  isLinux
+  isLinux,
+  userHome
 } from '../constants'
 import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
@@ -364,7 +365,9 @@ class GOGGame extends Game {
       const { wineVersion, winePrefix, launcherArgs, useSteamRuntime } =
         gameSettings
       let wineFlag = ['--wine', wineVersion.bin]
-      let winePrefixFlag = ['--wine-prefix', winePrefix]
+
+      // avoid breaking on old configs when path is not absolute
+      let winePrefixFlag = ['--wine-prefix', winePrefix.replace('~/', userHome)]
       if (wineVersion.type === 'proton') {
         const runtime = useSteamRuntime ? getSteamRuntime('soldier') : null
 
