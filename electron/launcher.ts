@@ -478,7 +478,7 @@ async function runLegendaryOrGogdlCommand(
   return new Promise((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
-      env: { ...options?.env, ...process.env }
+      env: { ...process.env, ...options?.env }
     })
 
     const stdout: string[] = []
