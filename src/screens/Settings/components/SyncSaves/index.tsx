@@ -133,6 +133,7 @@ export default function SyncSaves({
         onChange={(event) => setSyncType(event.target.value as SyncType)}
         value={syncType}
         disabled={!savesPath.length}
+        extraClass="rightButtons"
         // style={{ marginRight: '12px' }}
         afterSelect={
           <button
