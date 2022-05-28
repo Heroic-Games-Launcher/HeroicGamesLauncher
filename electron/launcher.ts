@@ -323,6 +323,10 @@ export async function verifyWinePrefix(
     mkdirSync(winePrefix, { recursive: true })
   }
 
+  if (wineVersion.type === 'proton' && existsSync(join(winePrefix, 'pfx'))) {
+    return { res: { stdout: '', stderr: '' }, updated: false }
+  }
+
   // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
   const systemRegPath =
     wineVersion.type === 'proton'
@@ -333,6 +337,9 @@ export async function verifyWinePrefix(
   return game
     .runWineCommand('wineboot --init', '', haveToWait)
     .then((result) => {
+      if (wineVersion.type === 'proton') {
+        return { res: result, updated: true }
+      }
       // This is kinda hacky
       const wasUpdated = result.stderr.includes('has been updated')
       return { res: result, updated: wasUpdated }
