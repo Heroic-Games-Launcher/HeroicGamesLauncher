@@ -503,7 +503,8 @@ export default function InstallModal({
                     .invoke('openDialog', {
                       buttonLabel: t('box.choose'),
                       properties: ['openDirectory'],
-                      title: t('install.path')
+                      title: t('install.path'),
+                      defaultPath: defaultPath
                     })
                     .then(({ path }: Path) =>
                       setInstallPath(path ? path : defaultPath)
