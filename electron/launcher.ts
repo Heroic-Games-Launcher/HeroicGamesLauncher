@@ -475,11 +475,6 @@ async function runLegendaryOrGogdlCommand(
     bin = runner.bin
   }
 
-  // Quote command parts on Mac since we still have to use the shell there
-  if (isMac) {
-    commandParts = commandParts.map(quoteIfNecessary)
-  }
-
   return new Promise((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
