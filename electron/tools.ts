@@ -193,7 +193,7 @@ export const Winetricks = {
     const path = `${heroicToolsPath}/winetricks`
     const downloadCommand = `curl -L ${url} -o ${path} --create-dirs`
 
-    if (existsSync(path)) {
+    if (!isOnline()) {
       return
     }
 

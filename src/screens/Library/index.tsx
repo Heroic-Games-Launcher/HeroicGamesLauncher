@@ -170,7 +170,7 @@ export default function Library(): JSX.Element {
       case 'win':
         return library.filter((game) => {
           return game?.is_installed
-            ? game?.install?.platform === 'windows'
+            ? game?.install?.platform?.toLowerCase() === 'windows'
             : process?.platform === 'darwin'
             ? !game?.is_mac_native
             : !game?.is_linux_native

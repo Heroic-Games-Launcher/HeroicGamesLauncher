@@ -5,7 +5,7 @@ import i18next from 'i18next'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { join } from 'path'
 
-import { flatPakHome, isLinux, isMac } from './constants'
+import { flatPakHome, isLinux } from './constants'
 import {
   constructAndUpdateRPC,
   execAsync,
@@ -323,6 +323,10 @@ export async function verifyWinePrefix(
     mkdirSync(winePrefix, { recursive: true })
   }
 
+  if (wineVersion.type === 'proton' && existsSync(join(winePrefix, 'pfx'))) {
+    return { res: { stdout: '', stderr: '' }, updated: false }
+  }
+
   // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
   const systemRegPath =
     wineVersion.type === 'proton'
@@ -333,6 +337,9 @@ export async function verifyWinePrefix(
   return game
     .runWineCommand('wineboot --init', '', haveToWait)
     .then((result) => {
+      if (wineVersion.type === 'proton') {
+        return { res: result, updated: true }
+      }
       // This is kinda hacky
       const wasUpdated = result.stderr.includes('has been updated')
       return { res: result, updated: wasUpdated }
@@ -478,9 +485,7 @@ async function runLegendaryOrGogdlCommand(
   return new Promise((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
-      env: { ...options?.env, ...process.env },
-      // On Mac, launching some executables doesn't work without shell for some reason
-      shell: isMac
+      env: { ...process.env, ...options?.env }
     })
 
     const stdout: string[] = []

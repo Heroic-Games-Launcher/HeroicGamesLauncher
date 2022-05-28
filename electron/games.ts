@@ -39,6 +39,7 @@ abstract class Game {
   abstract syncSaves(arg: string, path: string): Promise<ExecResult>
   abstract uninstall(): Promise<ExecResult>
   abstract update(): Promise<{ status: 'done' | 'error' }>
+  abstract isNative(): Promise<boolean>
   abstract runWineCommand(
     command: string,
     altWineBin?: string,
