@@ -525,13 +525,6 @@ async function runLegendaryOrGogdlCommand(
         runner: runner.name
       })
 
-      if (
-        stderr.join().includes('ERROR') ||
-        stderr.join().includes('CRITICAL')
-      ) {
-        rej(stderr.join())
-      }
-
       if (signal) {
         rej('Process terminated with signal ' + signal)
       }

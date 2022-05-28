@@ -74,7 +74,8 @@ Categories=Game;
     default:
       logError(
         "Shortcuts haven't been implemented in the current platform.",
-        LogPrefix.Backend
+        LogPrefix.Backend,
+        false
       )
   }
 }
@@ -120,7 +121,8 @@ function shortcutFiles(gameTitle: string) {
     default:
       logError(
         "Shortcuts haven't been implemented in the current platform.",
-        LogPrefix.Backend
+        LogPrefix.Backend,
+        false
       )
   }
 
