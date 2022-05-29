@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { IpcRenderer } from 'electron'
 import { WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
+import classNames from 'classnames'
 import { getGameInfo } from 'src/helpers'
 
 const { ipcRenderer } = window.require('electron') as {
@@ -86,24 +87,16 @@ export default function Tools({ wineVersion, winePrefix, appName }: Props) {
         <div className="toolsWrapper">
           <button
             data-testid="wineCFG"
-            className="button outline"
-            style={{
-              color: winecfgRunning
-                ? 'var(--download-button)'
-                : 'var(--text-default)'
-            }}
+            className={classNames('button outline', { active: winecfgRunning })}
             onClick={async () => callTools('winecfg')}
           >
             <span className="toolTitle">Winecfg</span>
           </button>
           <button
             data-testid="wineTricks"
-            className="button outline"
-            style={{
-              color: winetricksRunning
-                ? 'var(--download-button)'
-                : 'var(--text-default)'
-            }}
+            className={classNames('button outline', {
+              active: winetricksRunning
+            })}
             onClick={async () => callTools('winetricks')}
           >
             <span className="toolTitle">Winetricks</span>
