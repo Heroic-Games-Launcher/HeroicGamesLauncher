@@ -175,9 +175,9 @@ html,
   border: none;
 }
 
-.button.outline:hover {
+.button:hover.outline {
   background: transparent;
-  color: var(--accent-overlay);
+  color: var(--accent-overlay) !important;
   border: 2px solid;
 }
 
