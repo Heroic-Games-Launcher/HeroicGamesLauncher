@@ -636,11 +636,13 @@ class LegendaryGame extends Game {
         const runtime = useSteamRuntime ? getSteamRuntime('soldier') : null
 
         if (runtime?.path) {
-          const runWithRuntime = `${runtime.path} -- '${wineVersion.bin}' waitforexitandrun`
+          // The Steam runtime masks /run, so if our game is on another hard drive, we'll get problems. Just including the game's install path
+          // should be fine for now, if we ever get more issues we can change this to just /run/ entirely or something
+          const runWithRuntime = `${runtime.path} --filesystem=${gameInfo.install.install_path} -- '${wineVersion.bin}' waitforexitandrun`
           wineFlag = ['--no-wine', '--wrapper', runWithRuntime]
           winePrefixFlag = []
         } else {
-          logWarning('No Steam runtime found')
+          logWarning('No Steam runtime found', LogPrefix.Legendary)
           wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
           winePrefixFlag = []
         }

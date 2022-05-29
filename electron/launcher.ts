@@ -289,7 +289,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (gameSettings.enableResizableBar) {
     ret.VKD3D_CONFIG = 'upload_hvv'
   }
-  if (gameSettings.useSteamRuntime) {
+  if (wineVersion.type === 'proton') {
     // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
     ret.STEAM_COMPAT_APP_ID = '0'
     ret.SteamAppId = ret.STEAM_COMPAT_APP_ID
