@@ -67,7 +67,7 @@
         "repairing": "Відновлюю"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Невідома помилка"
     },
     "info": {
         "canRunOffline": "Чи потрібно бути в мережі",
@@ -81,7 +81,7 @@
         "disk-space-left": "Доступний простір",
         "not-enough-disk-space": "Недостатньо місця на диску",
         "path": "Вкажіть шлях встановлення",
-        "path-not-writtable": "Warning: path might not be writable.",
+        "path-not-writtable": "Увага: шлях може бути недоступним для запису.",
         "space-after-install": "Після встановлення",
         "wineprefix": "Префікс Wine",
         "wineversion": "Версія Wine"

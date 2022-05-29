@@ -37,7 +37,7 @@
                 "title": "DXVK/VKD3D 错误"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "游戏文件夹似乎已被删除，你是否要从安装列表中删除游戏？"
             },
             "generic": {
                 "message": "",
@@ -126,10 +126,10 @@
     "favourites": "最爱",
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "没有发现游戏 - 尝试注销并再次登录或以下选项之一"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "刷新游戏库"
         }
     },
     "globalSettings": "全局设置",
@@ -336,7 +336,7 @@
             "other": "其它",
             "sync": "存档-同步"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic"
     },
     "Settings": "设置",
