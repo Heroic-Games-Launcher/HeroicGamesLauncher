@@ -3,19 +3,19 @@ import { existsSync, readFile } from 'graceful-fs'
 import { UserInfo } from '../types'
 import { clearCache } from '../utils'
 import { userInfo, configStore } from '../constants'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
+import { logError, LogPrefix } from '../logger/logger'
 import { userInfo as user } from 'os'
 import { session } from 'electron'
-import { getLegendaryCommand, runLegendaryCommand } from './library'
+import { runLegendaryCommand } from './library'
 
 export class LegendaryUser {
   public static async login(sid: string) {
     const commandParts = ['auth', '--sid', sid]
-    const command = getLegendaryCommand(commandParts)
-    logInfo(['Logging in with Legendary:', command], LogPrefix.Legendary)
 
     try {
-      await runLegendaryCommand(commandParts)
+      await runLegendaryCommand(commandParts, {
+        purpose: 'Logging in with Legendary'
+      })
       const userInfo = await this.getUserInfo()
       return { status: 'done', data: userInfo }
     } catch (error) {
@@ -30,10 +30,9 @@ export class LegendaryUser {
 
   public static async logout() {
     const commandParts = ['auth', '--delete']
-    const command = getLegendaryCommand(commandParts)
-    logInfo(['Logging out:', command], LogPrefix.Legendary)
-
-    const res = await runLegendaryCommand(commandParts)
+    const res = await runLegendaryCommand(commandParts, {
+      purpose: 'Logging out'
+    })
 
     if (res.error) {
       logError(['Failed to logout:', res.error], LogPrefix.Legendary)
