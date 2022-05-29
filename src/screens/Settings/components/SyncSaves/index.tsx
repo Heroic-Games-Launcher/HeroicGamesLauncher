@@ -39,7 +39,7 @@ export default function SyncSaves({
   winePrefix
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
-  const [syncType, setSyncType] = useState('Download' as SyncType)
+  const [syncType, setSyncType] = useState('--skip-upload')
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
@@ -64,28 +64,22 @@ export default function SyncSaves({
   }, [winePrefix, isProton])
 
   const isLinked = Boolean(savesPath.length)
-  const syncTypes: SyncType[] = [
-    t('setting.manualsync.download'),
-    t('setting.manualsync.upload'),
-    t('setting.manualsync.forcedownload'),
-    t('setting.manualsync.forceupload')
+
+  const syncCommands = [
+    { name: t('setting.manualsync.download'), value: '--skip-upload' },
+    { name: t('setting.manualsync.upload'), value: '--skip-download' },
+    { name: t('setting.manualsync.forcedownload'), value: '--force-download' },
+    { name: t('setting.manualsync.forceupload'), value: '--force-upload' }
   ]
 
   async function handleSync() {
     setIsSyncing(true)
-    const command = {
-      Download: '--skip-upload',
-      'Force download': '--force-download',
-      'Force upload': '--force-upload',
-      Upload: '--skip-download'
-    }
 
-    await syncSaves(savesPath, appName, command[syncType]).then(
-      async (res: string) =>
-        ipcRenderer.invoke('openMessageBox', {
-          message: res,
-          title: 'Saves Sync'
-        })
+    await syncSaves(savesPath, appName, syncType).then(async (res: string) =>
+      ipcRenderer.invoke('openMessageBox', {
+        message: res,
+        title: 'Saves Sync'
+      })
     )
     setIsSyncing(false)
   }
@@ -133,6 +127,7 @@ export default function SyncSaves({
         onChange={(event) => setSyncType(event.target.value as SyncType)}
         value={syncType}
         disabled={!savesPath.length}
+        extraClass="rightButtons"
         // style={{ marginRight: '12px' }}
         afterSelect={
           <button
@@ -151,8 +146,10 @@ export default function SyncSaves({
           </button>
         }
       >
-        {syncTypes.map((name: SyncType) => (
-          <option key={name}>{name}</option>
+        {syncCommands.map((el, i) => (
+          <option value={el.value} key={i}>
+            {el.name}
+          </option>
         ))}
       </SelectField>
 

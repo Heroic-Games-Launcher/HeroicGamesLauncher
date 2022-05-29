@@ -399,9 +399,15 @@ class GlobalConfigV0 extends GlobalConfig {
 
     try {
       let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
+      const defaultSettings = settings.defaultSettings as AppSettings
+
+      // fix relative paths
+      const winePrefix = defaultSettings.winePrefix.replace('~', userHome)
+
       settings = {
         ...(await this.getFactoryDefaults()),
-        ...settings.defaultSettings
+        ...settings.defaultSettings,
+        winePrefix
       } as AppSettings
       return settings
     } catch (error) {

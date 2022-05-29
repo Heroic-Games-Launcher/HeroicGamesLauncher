@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Your credentials have expired, please log out and log in again."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Not enough available disk space",
                 "title": "No Space"

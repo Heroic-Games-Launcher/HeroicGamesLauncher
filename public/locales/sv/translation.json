@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Autentisering har utgått, logga ut och logga sedan in igen."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Otillräckligt ledigt hårdiskutrymme",
                 "title": "Otillräckligt utrymme"

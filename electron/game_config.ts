@@ -5,7 +5,8 @@ import { GlobalConfig } from './config'
 import {
   currentGameConfigVersion,
   heroicConfigPath,
-  heroicGamesConfigPath
+  heroicGamesConfigPath,
+  userHome
 } from './constants'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import { join } from 'path'
@@ -201,9 +202,14 @@ class GameConfigV0 extends GameConfig {
       const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
       // Take defaults, then overwrite if explicitly set values exist.
       // The settings defined work as overrides.
+
+      // fix relative paths
+      const { winePrefix } = settings[this.appName] as GameSettings
+
       return {
         ...GlobalConfig.get().config,
-        ...settings[this.appName]
+        ...settings[this.appName],
+        winePrefix: winePrefix.replace('~', userHome)
       } as GameSettings
     } catch (error) {
       logError(

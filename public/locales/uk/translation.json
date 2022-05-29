@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Термін дії ваших облікових даних скінчився, будь ласка вийдіть і увійдіть знову."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Недостатньо місця на диску",
                 "title": "Немає місця"
@@ -33,7 +37,7 @@
                 "title": "Помилка DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Здається, тека з грою видалена. Ви бажаєте видалити гру зі списку встановлених?"
             },
             "generic": {
                 "message": "",
@@ -122,10 +126,10 @@
     "favourites": "Уподобання",
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Ігри не знайдено - Спробуйте вийти та увійти наново або один із варіантів нижче"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Оновити бібліотеку"
         }
     },
     "globalSettings": "Глобальні налаштування",
@@ -332,7 +336,7 @@
             "other": "Інше",
             "sync": "Синхронізація збережень"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Відкрити файл конфігурації",
         "reset-heroic": "Скинути Heroic"
     },
     "Settings": "Налаштування",

@@ -1,4 +1,5 @@
 import { Runner } from './types'
+import { WineInstallation } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec } from 'child_process'
@@ -14,10 +15,9 @@ import {
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
-  isWindows,
-  userHome
+  isWindows
 } from './constants'
-import { logError, logInfo, LogPrefix } from './logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { basename, dirname, join } from 'path'
 import { runLegendaryCommand } from './legendary/library'
 import { runGogdlCommand } from './gog/library'
@@ -63,12 +63,9 @@ export function showErrorBoxModalAuto(title: string, message: string) {
     if (!window) {
       window = BrowserWindow.getAllWindows()[0]
     }
-  } catch (e) {
-    // empty
-  }
-  if (window) {
     showErrorBoxModal(window, title, message)
-  } else {
+  } catch (error) {
+    logWarning(['showErrorBoxModalAuto:', `${error}`], LogPrefix.Backend)
     showErrorBox(title, message)
   }
 }
@@ -96,34 +93,34 @@ function isOnline() {
 export const getFileSize = fileSize.partial({ base: 2 })
 
 export function getWineFromProton(
-  wine: string,
-  isProton: boolean,
-  prefix: string
-) {
-  let winePrefix = prefix.replace('~', userHome)
-
-  if (!isProton) {
-    return { winePrefix, wineBin: wine }
+  wineVersion: WineInstallation,
+  winePrefix: string
+): { winePrefix: string; wineBin: string } {
+  if (wineVersion.type !== 'proton') {
+    return { winePrefix, wineBin: wineVersion.bin }
   }
 
-  const newProtonWinePath = wine.replace(
-    new RegExp('proton' + '$'),
-    'files/bin/wine64'
+  winePrefix = join(winePrefix, 'pfx')
+
+  // GE-Proton & Proton Experimental use 'files', Proton 7 and below use 'dist'
+  for (const distPath of ['dist', 'files']) {
+    const protonBaseDir = dirname(wineVersion.bin)
+    const wineBin = join(protonBaseDir, distPath, 'bin', 'wine')
+    if (existsSync(wineBin)) {
+      return { wineBin, winePrefix }
+    }
+  }
+
+  logError(
+    [
+      'Proton',
+      wineVersion.name,
+      'has an abnormal structure, unable to supply Wine binary!'
+    ],
+    LogPrefix.Backend
   )
-  const oldProtonWinePath = wine.replace(
-    new RegExp('proton' + '$'),
-    'dist/bin/wine64'
-  )
 
-  const protonWinePath = existsSync(newProtonWinePath.replaceAll("'", ''))
-    ? newProtonWinePath
-    : oldProtonWinePath
-
-  const wineBin = isProton ? protonWinePath : wine
-  const protonPrefix = winePrefix.replaceAll("'", '')
-  winePrefix = `${protonPrefix}/pfx`
-
-  return { winePrefix, wineBin }
+  return { wineBin: '', winePrefix }
 }
 
 async function isEpicServiceOffline(
@@ -276,17 +273,15 @@ export const getSystemInfo = async () => {
     ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
     : ''
 
-  return `
-  Heroic Version: ${heroicVersion}
-  Legendary Version: ${legendaryVersion}
-  OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
-  CPU: ${manufacturer} ${brand} @${speed} ${
+  return `Heroic Version: ${heroicVersion}
+Legendary Version: ${legendaryVersion}
+OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
+CPU: ${manufacturer} ${brand} @${speed} ${
     governor ? `GOVERNOR: ${governor}` : ''
   }
-  RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
-  GRAPHICS: ${graphicsCards}
-  ${isLinux ? `PROTOCOL: ${xEnv}` : ''}
-  `
+RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
+GRAPHICS: ${graphicsCards}
+${isLinux ? `PROTOCOL: ${xEnv}` : ''}`
 }
 
 type ErrorHandlerMessage = {
@@ -487,16 +482,9 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
 
 function getSteamRuntime(version: 'scout' | 'soldier'): SteamRuntime {
   const soldier: Array<SteamRuntime> = getSteamLibraries().map((p) => {
-    if (
-      existsSync(
-        join(p, 'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point')
-      )
-    ) {
+    if (existsSync(join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'))) {
       return {
-        path: join(
-          p,
-          'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point'
-        ),
+        path: join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'),
         type: 'unpackaged',
         version: 'soldier'
       }

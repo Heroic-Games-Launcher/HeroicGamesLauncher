@@ -3,20 +3,19 @@ import './index.css'
 import React, { useState } from 'react'
 
 import { IpcRenderer } from 'electron'
-import { WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
+import classNames from 'classnames'
+import { getGameInfo } from 'src/helpers'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
 }
 
 interface Props {
-  winePrefix: string
-  wineVersion: WineInstallation
   appName: string
 }
 
-export default function Tools({ wineVersion, winePrefix, appName }: Props) {
+export default function Tools({ appName }: Props) {
   const { t } = useTranslation()
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
@@ -31,10 +30,8 @@ export default function Tools({ wineVersion, winePrefix, appName }: Props) {
     }
 
     await ipcRenderer.invoke('callTool', {
-      exe,
-      prefix: winePrefix,
       tool,
-      wine: wineVersion.bin,
+      exe,
       appName
     })
     setWinetricksRunning(false)
@@ -43,10 +40,12 @@ export default function Tools({ wineVersion, winePrefix, appName }: Props) {
 
   const handleRunExe = async () => {
     let exe = ''
+    const gameinfo = await getGameInfo(appName)
     const { path } = await ipcRenderer.invoke('openDialog', {
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
-      title: t('box.runexe.title')
+      title: t('box.runexe.title'),
+      defaultPath: gameinfo.install.install_path
     })
     if (path) {
       exe = path
@@ -83,24 +82,16 @@ export default function Tools({ wineVersion, winePrefix, appName }: Props) {
         <div className="toolsWrapper">
           <button
             data-testid="wineCFG"
-            className="button outline"
-            style={{
-              color: winecfgRunning
-                ? 'var(--download-button)'
-                : 'var(--text-default)'
-            }}
+            className={classNames('button outline', { active: winecfgRunning })}
             onClick={async () => callTools('winecfg')}
           >
             <span className="toolTitle">Winecfg</span>
           </button>
           <button
             data-testid="wineTricks"
-            className="button outline"
-            style={{
-              color: winetricksRunning
-                ? 'var(--download-button)'
-                : 'var(--text-default)'
-            }}
+            className={classNames('button outline', {
+              active: winetricksRunning
+            })}
             onClick={async () => callTools('winetricks')}
           >
             <span className="toolTitle">Winetricks</span>

@@ -67,7 +67,7 @@
         "repairing": "Восстановление"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Неизвестная ошибка"
     },
     "info": {
         "canRunOffline": "Требуется онлайн",
@@ -81,7 +81,7 @@
         "disk-space-left": "Свободное место",
         "not-enough-disk-space": "Недостаточно места на диске",
         "path": "Выберите путь установки",
-        "path-not-writtable": "Warning: path might not be writable.",
+        "path-not-writtable": "Предупреждение: путь может быть недоступен для записи.",
         "space-after-install": "После установки",
         "wineprefix": "Префикс Wine",
         "wineversion": "Версия Wine"

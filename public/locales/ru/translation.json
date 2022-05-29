@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Срок действия ваших учетных данных истек. Пожалуйста, выйдите из системы и войдите снова."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Недостаточно свободного места на диске",
                 "title": "Нет места"
@@ -33,7 +37,7 @@
                 "title": "Ошибка DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Папка игры, похоже, удалена. Хотите удалить игру из списка установленных?"
             },
             "generic": {
                 "message": "",
@@ -122,10 +126,10 @@
     "favourites": "Избранное",
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Игры не найдены. Попробуйте выйти из системы и войти снова или один из вариантов ниже"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Обновить библиотеку"
         }
     },
     "globalSettings": "Глобальные настройки",
@@ -332,7 +336,7 @@
             "other": "Другие",
             "sync": "Сохранение-Синхронизация"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Открыть файл конфигурации",
         "reset-heroic": "Сброс Heroic"
     },
     "Settings": "Настройки",
