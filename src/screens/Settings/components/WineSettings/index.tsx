@@ -158,7 +158,8 @@ export default function WineSettings({
               .invoke('openDialog', {
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
-                title: t('box.wineprefix')
+                title: t('box.wineprefix'),
+                defaultPath: defaultWinePrefix
               })
               .then(({ path }: Path) =>
                 setDefaultWinePrefix(path ? `${path}` : defaultWinePrefix)
@@ -188,7 +189,8 @@ export default function WineSettings({
               .invoke('openDialog', {
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
-                title: t('box.wineprefix')
+                title: t('box.wineprefix'),
+                defaultPath: defaultWinePrefix
               })
               .then(({ path }: Path) =>
                 setWinePrefix(path ? `${path}` : winePrefix)

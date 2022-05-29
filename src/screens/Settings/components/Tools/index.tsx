@@ -6,6 +6,7 @@ import { IpcRenderer } from 'electron'
 import { WineInstallation } from 'src/types'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
+import { getGameInfo } from 'src/helpers'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -44,10 +45,12 @@ export default function Tools({ wineVersion, winePrefix, appName }: Props) {
 
   const handleRunExe = async () => {
     let exe = ''
+    const gameinfo = await getGameInfo(appName)
     const { path } = await ipcRenderer.invoke('openDialog', {
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
-      title: t('box.runexe.title')
+      title: t('box.runexe.title'),
+      defaultPath: gameinfo.install.install_path
     })
     if (path) {
       exe = path

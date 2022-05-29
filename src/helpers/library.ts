@@ -71,10 +71,15 @@ async function install({
   }
 
   if (installPath === 'import' && is_game) {
+    const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke(
+      'requestSettings',
+      'default'
+    )
     const args = {
       buttonLabel: t('gamepage:box.choose'),
       properties: ['openDirectory'],
-      title: t('gamepage:box.importpath')
+      title: t('gamepage:box.importpath'),
+      defaultPath: defaultInstallPath
     }
     const { path, canceled } = await ipcRenderer.invoke('openDialog', args)
 
