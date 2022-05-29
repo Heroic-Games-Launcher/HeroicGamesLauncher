@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Les teves credencials han caducat, tanca la sessió i inicia-la de nou."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "No hi ha prou espai al disc",
                 "title": "No hi ha espai"

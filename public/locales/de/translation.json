@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Deine Anmeldedaten sind abgelaufen, bitte logge dich aus und melde dich erneut an."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Nicht genügend freier Speicherplatz",
                 "title": "Kein Speicherplatz"

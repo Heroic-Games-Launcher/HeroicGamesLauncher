@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Twoje dane uwierzytelniające wygasły, wyloguj się i zaloguj ponownie."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Za mało miejsca na dysku",
                 "title": "Brak miejsca"
