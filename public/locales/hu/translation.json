@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Lejártak a hitelesítő adataid, jelentkezz ki, majd jelentkezz be újra."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Nincs elég elérhető lemezterület",
                 "title": "Nincs hely"

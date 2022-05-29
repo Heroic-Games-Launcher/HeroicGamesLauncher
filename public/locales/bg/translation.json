@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Данните Ви за удостоверяване са изтекли. Излезте и влезте отново."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Няма достатъчно свободно място на диска",
                 "title": "Недостатъчно място"

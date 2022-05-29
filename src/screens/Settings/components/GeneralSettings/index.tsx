@@ -156,7 +156,8 @@ export default function GeneralSettings({
             .invoke('openDialog', {
               buttonLabel: t('box.choose'),
               properties: ['openDirectory'],
-              title: t('box.default-install-path')
+              title: t('box.default-install-path'),
+              defaultPath: defaultInstallPath
             })
             .then(({ path }: Path) =>
               setDefaultInstallPath(path ? `${path}` : defaultInstallPath)

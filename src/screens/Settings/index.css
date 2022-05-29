@@ -201,3 +201,9 @@ a {
   flex-direction: column;
   justify-content: center;
 }
+
+.addRemoveSvgButtons button {
+  min-width: none;
+  max-width: none;
+  margin: 0;
+}

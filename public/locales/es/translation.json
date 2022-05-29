@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Tus credenciales han expirado, por favor, inicia sesión nuevamente."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "No hay suficiente espacio disponible en disco",
                 "title": "Sin espacio"

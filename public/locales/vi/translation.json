@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Thông tin đăng nhập hết hạn, vui lòng đăng xuất rồi đăng nhập lại."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Không đủ bộ nhớ trống",
                 "title": "Không đủ bộ nhớ"

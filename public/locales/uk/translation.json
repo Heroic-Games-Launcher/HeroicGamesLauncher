@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Термін дії ваших облікових даних скінчився, будь ласка вийдіть і увійдіть знову."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Недостатньо місця на диску",
                 "title": "Немає місця"

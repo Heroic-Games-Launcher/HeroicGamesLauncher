@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 
 import { IpcRenderer } from 'electron'
 import { useTranslation } from 'react-i18next'
+import classNames from 'classnames'
+import { getGameInfo } from 'src/helpers'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -38,10 +40,12 @@ export default function Tools({ appName }: Props) {
 
   const handleRunExe = async () => {
     let exe = ''
+    const gameinfo = await getGameInfo(appName)
     const { path } = await ipcRenderer.invoke('openDialog', {
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
-      title: t('box.runexe.title')
+      title: t('box.runexe.title'),
+      defaultPath: gameinfo.install.install_path
     })
     if (path) {
       exe = path
@@ -78,24 +82,16 @@ export default function Tools({ appName }: Props) {
         <div className="toolsWrapper">
           <button
             data-testid="wineCFG"
-            className="button outline"
-            style={{
-              color: winecfgRunning
-                ? 'var(--download-button)'
-                : 'var(--text-default)'
-            }}
+            className={classNames('button outline', { active: winecfgRunning })}
             onClick={async () => callTools('winecfg')}
           >
             <span className="toolTitle">Winecfg</span>
           </button>
           <button
             data-testid="wineTricks"
-            className="button outline"
-            style={{
-              color: winetricksRunning
-                ? 'var(--download-button)'
-                : 'var(--text-default)'
-            }}
+            className={classNames('button outline', {
+              active: winetricksRunning
+            })}
             onClick={async () => callTools('winetricks')}
           >
             <span className="toolTitle">Winetricks</span>

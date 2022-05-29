@@ -1,11 +1,15 @@
-import { appendFileSync, writeFileSync } from 'graceful-fs'
 // This handles launching games, prefix creation etc..
 
 import i18next from 'i18next'
-import { existsSync, mkdirSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  appendFileSync,
+  writeFileSync
+} from 'graceful-fs'
 import { join } from 'path'
 
-import { flatPakHome, isLinux } from './constants'
+import { flatPakHome, isLinux, isMac, userHome } from './constants'
 import {
   constructAndUpdateRPC,
   execAsync,
@@ -158,6 +162,32 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
       'You are using Proton, this can lead to some bugs. Please do not open issues with bugs related to games',
       LogPrefix.Backend
     )
+  }
+
+  // Verify that the CrossOver bottle exists
+  if (isMac && gameSettings.wineVersion.type === 'crossover') {
+    const bottleExists = existsSync(
+      join(
+        userHome,
+        'Library/Application Support/CrossOver/Bottles',
+        gameSettings.wineCrossoverBottle,
+        'cxbottle.conf'
+      )
+    )
+    if (!bottleExists) {
+      showErrorBoxModalAuto(
+        i18next.t(
+          'box.error.cx-bottle-not-found.title',
+          'CrossOver bottle not found'
+        ),
+        i18next.t(
+          'box.error.cx-bottle-not-found.message',
+          `The CrossOver bottle "{{bottle_name}}" does not exist, can't launch!`,
+          { bottle_name: gameSettings.wineCrossoverBottle }
+        )
+      )
+      return { success: false }
+    }
   }
 
   const { updated: winePrefixUpdated } = await verifyWinePrefix(game)
@@ -522,13 +552,6 @@ async function runLegendaryOrGogdlCommand(
         logPath: options?.logFile,
         runner: runner.name
       })
-
-      if (
-        stderr.join().includes('ERROR') ||
-        stderr.join().includes('CRITICAL')
-      ) {
-        rej(stderr.join())
-      }
 
       if (signal) {
         rej('Process terminated with signal ' + signal)

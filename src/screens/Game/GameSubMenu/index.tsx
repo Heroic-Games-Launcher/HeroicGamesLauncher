@@ -52,10 +52,15 @@ export default function GamesSubmenu({
       title: t('box.move.title')
     })
     if (response === 0) {
+      const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke(
+        'requestSettings',
+        'default'
+      )
       const { path } = await ipcRenderer.invoke('openDialog', {
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
-        title: t('box.move.path')
+        title: t('box.move.path'),
+        defaultPath: defaultInstallPath
       })
       if (path) {
         await handleGameStatus({ appName, runner, status: 'moving' })
@@ -72,10 +77,15 @@ export default function GamesSubmenu({
       title: t('box.change.title')
     })
     if (response === 0) {
+      const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke(
+        'requestSettings',
+        'default'
+      )
       const { path } = await ipcRenderer.invoke('openDialog', {
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
-        title: t('box.change.path')
+        title: t('box.change.path'),
+        defaultPath: defaultInstallPath
       })
       if (path) {
         await renderer.invoke('changeInstallPath', [appName, path, runner])

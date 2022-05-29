@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "اعتبار ورود شما منقضی شده است، لطفا دوباره خارج شده و داخل شوید."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "فضای ذخیره سازی کافی موجود نیست",
                 "title": "فضایی موجود نیست"
