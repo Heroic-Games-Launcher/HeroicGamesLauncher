@@ -426,7 +426,9 @@ class GlobalConfigV0 extends GlobalConfig {
     const defaultSettings = settings.defaultSettings as AppSettings
 
     // fix relative paths
-    const winePrefix = defaultSettings.winePrefix.replace('~', userHome)
+    const winePrefix = !isWindows
+      ? defaultSettings?.winePrefix?.replace('~', userHome)
+      : ''
 
     settings = {
       ...(await this.getFactoryDefaults()),
