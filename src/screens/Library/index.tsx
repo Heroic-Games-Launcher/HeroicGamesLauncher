@@ -195,11 +195,15 @@ export default function Library(): JSX.Element {
   // select library
   const libraryToShow = useMemo(() => {
     let library: GameInfo[] = []
-    if (epic.username && category === 'legendary') {
+    const isEpic =
+      epic.username && (category === 'legendary' || category === 'unreal')
+    const isGog = gog.username && category === 'gog'
+
+    if (isEpic) {
       library = epic.library
-    } else if (gog.username && category === 'gog') {
+    } else if (isGog) {
       library = gog.library
-    } else if (!epic.username && category === 'legendary') {
+    } else if (!isEpic) {
       if (gog.username) {
         library = gog.library
       }

@@ -95,9 +95,8 @@ export default function WebView() {
           }
         } else {
           webview.addEventListener('did-navigate', () => {
-            if (
-              webview.getURL() === 'https://www.epicgames.com/id/api/redirect'
-            ) {
+            webview.findInPage('sid')
+            if (webview.getURL().includes('redirect')) {
               webview.addEventListener(
                 'found-in-page',
                 async (res) => {
@@ -128,7 +127,6 @@ export default function WebView() {
                 },
                 { once: true }
               )
-              webview.findInPage('sid')
             }
           })
         }
