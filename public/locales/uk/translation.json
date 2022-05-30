@@ -170,7 +170,8 @@
     },
     "infobox": {
         "help": "Допомога",
-        "requirements": "Системні вимоги"
+        "requirements": "Системні вимоги",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Вкажіть шлях встановлення"

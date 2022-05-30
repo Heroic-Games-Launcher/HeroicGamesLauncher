@@ -170,7 +170,8 @@
     },
     "infobox": {
         "help": "Axuda",
-        "requirements": "Requisitos do sistema"
+        "requirements": "Requisitos do sistema",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Seleccionar a ruta de instalación"

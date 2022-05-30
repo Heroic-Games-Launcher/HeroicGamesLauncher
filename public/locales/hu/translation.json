@@ -170,7 +170,8 @@
     },
     "infobox": {
         "help": "Segítség",
-        "requirements": "Rendszerkövetelmények"
+        "requirements": "Rendszerkövetelmények",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Telepítési útvonal kiválasztása"

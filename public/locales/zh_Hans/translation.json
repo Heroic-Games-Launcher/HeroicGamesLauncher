@@ -170,7 +170,8 @@
     },
     "infobox": {
         "help": "帮助",
-        "requirements": "系统要求"
+        "requirements": "系统要求",
+        "wine-path": "Path"
     },
     "install": {
         "path": "选择安装路径"
