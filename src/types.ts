@@ -47,8 +47,10 @@ export interface AppSettings {
   useSteamRuntime: boolean
 }
 
+export type Category = 'all' | 'legendary' | 'gog' | 'unreal'
+
 export interface ContextType {
-  category: string
+  category: Category
   wineVersions: WineVersionInfo[]
   recentGames: GameInfo[]
   error: boolean

@@ -114,7 +114,7 @@ export default function SidebarLinks() {
               href="#"
               onClick={() => toggleCategory('epic')}
               className={cx('Sidebar__item SidebarLinks__subItem', {
-                ['active']: category === 'epic'
+                ['active']: category === 'legendary'
               })}
             >
               {t('Epic Games', 'Epic Games')}
@@ -218,7 +218,7 @@ export default function SidebarLinks() {
               to={`/settings/${appName}/wine`}
               state={{ ...state, runner: state?.runner }}
               className={cx('Sidebar__item SidebarLinks__subItem', {
-                ['active']: category === 'wine'
+                ['active']: type === 'wine'
               })}
             >
               Wine

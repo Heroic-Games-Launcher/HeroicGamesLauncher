@@ -41,7 +41,9 @@ export default function Header({ list }: ComponentProps) {
 
   const numberOfGames = useMemo(() => {
     const dlcCount =
-      category === 'epic' ? list.filter((lib) => lib.install.is_dlc).length : 0
+      category === 'legendary'
+        ? list.filter((lib) => lib.install.is_dlc).length
+        : 0
 
     return list.length - dlcCount
   }, [list, category])

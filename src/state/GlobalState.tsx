@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import {
+  Category,
   FavouriteGame,
   GameInfo,
   GameStatus,
@@ -47,7 +48,7 @@ interface Props {
 }
 
 interface StateProps {
-  category: string
+  category: Category
   epic: {
     library: GameInfo[]
     username: string | null
@@ -100,7 +101,7 @@ export class GlobalState extends PureComponent<Props> {
     return games
   }
   state: StateProps = {
-    category: storage.getItem('category') || 'epic',
+    category: (storage.getItem('category') as Category) || 'epic',
     epic: {
       library: libraryStore.has('library')
         ? (libraryStore.get('library', []) as GameInfo[])
@@ -260,7 +261,7 @@ export class GlobalState extends PureComponent<Props> {
         }
       })
 
-      this.handleSuccessfulLogin('legendery' as Runner)
+      this.handleSuccessfulLogin('legendary')
     }
 
     return response.status
