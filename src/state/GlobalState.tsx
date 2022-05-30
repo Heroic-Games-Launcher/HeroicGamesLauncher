@@ -101,7 +101,7 @@ export class GlobalState extends PureComponent<Props> {
     return games
   }
   state: StateProps = {
-    category: (storage.getItem('category') as Category) || 'epic',
+    category: (storage.getItem('category') as Category) || 'legendary',
     epic: {
       library: libraryStore.has('library')
         ? (libraryStore.get('library', []) as GameInfo[])
@@ -423,7 +423,7 @@ export class GlobalState extends PureComponent<Props> {
   handlePlatformFilter = (filterPlatform: string) =>
     this.setState({ filterPlatform })
   handleLayout = (layout: string) => this.setState({ layout })
-  handleCategory = (category: string) => this.setState({ category })
+  handleCategory = (category: Category) => this.setState({ category })
 
   handleGameStatus = async ({
     appName,
@@ -485,8 +485,11 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { t } = this.props
-    const { epic, gog, gameUpdates = [], libraryStatus } = this.state
-
+    const { epic, gog, gameUpdates = [], libraryStatus, category } = this.state
+    const oldCategory: string = category
+    if (oldCategory === 'epic') {
+      this.handleCategory('legendary')
+    }
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.on('launchGame', async (e, appName, runner) => {
       const currentApp = libraryStatus.filter(

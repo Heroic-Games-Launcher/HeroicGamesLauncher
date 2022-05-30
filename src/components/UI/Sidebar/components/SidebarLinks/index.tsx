@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next'
 import { NavLink, useLocation } from 'react-router-dom'
 import { getAppSettings } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
-import { Runner } from 'src/types'
+import { Category, Runner } from 'src/types'
 import './index.css'
 
 interface LocationState {
@@ -60,7 +60,7 @@ export default function SidebarLinks() {
   const loggedIn = epic.username || gog.username
 
   const toggleCategory = useCallback(
-    (newCategory: string) => {
+    (newCategory: Category) => {
       if (category !== newCategory) {
         handleCategory(newCategory)
         handleFilter(newCategory === 'unreal' ? 'unreal' : 'all')
@@ -112,7 +112,7 @@ export default function SidebarLinks() {
           {epic.username && (
             <a
               href="#"
-              onClick={() => toggleCategory('epic')}
+              onClick={() => toggleCategory('legendary')}
               className={cx('Sidebar__item SidebarLinks__subItem', {
                 ['active']: category === 'legendary'
               })}

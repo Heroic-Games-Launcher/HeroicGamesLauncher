@@ -203,6 +203,8 @@ export default function Library(): JSX.Element {
       if (gog.username) {
         library = gog.library
       }
+    } else {
+      library = epic.library
     }
 
     // filter
