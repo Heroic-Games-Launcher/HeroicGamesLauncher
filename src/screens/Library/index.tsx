@@ -106,7 +106,7 @@ export default function Library(): JSX.Element {
           sortDescending={sortDescending}
           toggleSortDescending={() => handleSortDescending()}
           sortInstalled={sortInstalled}
-          library={category === 'epic' ? 'legendary' : 'gog'}
+          library={category === 'legendary' ? 'legendary' : 'gog'}
           toggleSortinstalled={() => handleSortInstalled()}
         />
       </div>
@@ -160,7 +160,7 @@ export default function Library(): JSX.Element {
       return []
     }
 
-    if (category === 'epic' && platform === 'linux') {
+    if (category === 'legendary' && platform === 'linux') {
       return library.filter((game) => game?.is_game)
     }
 
@@ -195,14 +195,20 @@ export default function Library(): JSX.Element {
   // select library
   const libraryToShow = useMemo(() => {
     let library: GameInfo[] = []
-    if (epic.username && category === 'epic') {
+    const isEpic =
+      epic.username && (category === 'legendary' || category === 'unreal')
+    const isGog = gog.username && category === 'gog'
+
+    if (isEpic) {
       library = epic.library
-    } else if (gog.username && category === 'gog') {
+    } else if (isGog) {
       library = gog.library
-    } else if (!epic.username && category === 'epic') {
+    } else if (!isEpic) {
       if (gog.username) {
         library = gog.library
       }
+    } else {
+      library = epic.library
     }
 
     // filter

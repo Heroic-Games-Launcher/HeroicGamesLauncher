@@ -103,7 +103,7 @@ export function logDebug(
 export function logError(
   text: string[] | string,
   prefix: LogPrefix = LogPrefix.General,
-  showDialog = true,
+  showDialog = false,
   skipLogToFile = false
 ) {
   const extendText = `${getTimeStamp()} ERROR:   ${getPrefixString(

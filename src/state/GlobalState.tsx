@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import {
+  Category,
   FavouriteGame,
   GameInfo,
   GameStatus,
@@ -47,7 +48,7 @@ interface Props {
 }
 
 interface StateProps {
-  category: string
+  category: Category
   epic: {
     library: GameInfo[]
     username: string | null
@@ -100,7 +101,7 @@ export class GlobalState extends PureComponent<Props> {
     return games
   }
   state: StateProps = {
-    category: storage.getItem('category') || 'epic',
+    category: (storage.getItem('category') as Category) || 'legendary',
     epic: {
       library: libraryStore.has('library')
         ? (libraryStore.get('library', []) as GameInfo[])
@@ -141,8 +142,7 @@ export class GlobalState extends PureComponent<Props> {
       (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
     actionsFontFamily:
       (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
-    allTilesInColor:
-      (configStore.get('allTilesInColor', false) as boolean) || false
+    allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false
   }
 
   setLanguage = (newLanguage: string) => {
@@ -260,7 +260,7 @@ export class GlobalState extends PureComponent<Props> {
         }
       })
 
-      this.handleSuccessfulLogin('legendery' as Runner)
+      this.handleSuccessfulLogin('legendary')
     }
 
     return response.status
@@ -396,7 +396,7 @@ export class GlobalState extends PureComponent<Props> {
         if (fetch) {
           // try to restore the saved information
           await ipcRenderer
-            .invoke('refreshWineVersionInfo', false)
+            .invoke('refreshWineVersionInfo')
             .then((releases) => {
               this.setState({
                 wineVersions: releases
@@ -423,7 +423,7 @@ export class GlobalState extends PureComponent<Props> {
   handlePlatformFilter = (filterPlatform: string) =>
     this.setState({ filterPlatform })
   handleLayout = (layout: string) => this.setState({ layout })
-  handleCategory = (category: string) => this.setState({ category })
+  handleCategory = (category: Category) => this.setState({ category })
 
   handleGameStatus = async ({
     appName,
@@ -485,8 +485,11 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { t } = this.props
-    const { epic, gog, gameUpdates = [], libraryStatus } = this.state
-
+    const { epic, gog, gameUpdates = [], libraryStatus, category } = this.state
+    const oldCategory: string = category
+    if (oldCategory === 'epic') {
+      this.handleCategory('legendary')
+    }
     // Deals launching from protocol. Also checks if the game is already running
     ipcRenderer.on('launchGame', async (e, appName, runner) => {
       const currentApp = libraryStatus.filter(

@@ -127,7 +127,7 @@ abstract class GameConfig {
    * Writes to file after that.
    * DO NOT call `flush()` afterward.
    *
-   * @returns true if upgrade successful, false if upgrade fails or no upgrade needed.
+   * @returns true if upgrade successful if upgrade fails or no upgrade needed.
    */
   public abstract upgrade(): boolean
 
@@ -198,28 +198,20 @@ class GameConfigV0 extends GameConfig {
     if (!existsSync(this.path)) {
       return { ...GlobalConfig.get().config } as GameSettings
     }
-    try {
-      const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
-      // Take defaults, then overwrite if explicitly set values exist.
-      // The settings defined work as overrides.
+    const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
+    // Take defaults, then overwrite if explicitly set values exist.
+    // The settings defined work as overrides.
 
-      // fix relative paths
-      const { winePrefix } = settings[this.appName] as GameSettings
+    // fix relative paths
+    const { winePrefix } = (settings[this.appName] as GameSettings) || {}
 
-      return {
-        ...GlobalConfig.get().config,
-        ...settings[this.appName],
-        winePrefix: winePrefix.replace('~', userHome)
-      } as GameSettings
-    } catch (error) {
-      logError(
-        `Config file is corrupted, please check ${this.path}`,
-        LogPrefix.Backend
-      )
-      return {
-        ...GlobalConfig.get().config
-      }
-    }
+    return {
+      ...GlobalConfig.get().config,
+      ...settings[this.appName],
+      winePrefix: winePrefix
+        ? winePrefix.replace('~', userHome)
+        : `${userHome}/.wine`
+    } as GameSettings
   }
 
   public async resetToDefaults() {
