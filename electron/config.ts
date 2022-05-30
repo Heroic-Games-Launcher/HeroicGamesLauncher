@@ -62,7 +62,8 @@ abstract class GlobalConfig {
       } catch (error) {
         logError(
           `Config file is corrupted, please check ${heroicConfigPath}`,
-          LogPrefix.Backend
+          LogPrefix.Backend,
+          false
         )
         version = 'v0'
       }
@@ -94,7 +95,8 @@ abstract class GlobalConfig {
       default:
         logError(
           `Invalid config version '${version}' requested.`,
-          LogPrefix.GlobalConfig
+          LogPrefix.GlobalConfig,
+          false
         )
         break
     }
@@ -110,7 +112,8 @@ abstract class GlobalConfig {
       // Upgrade failed.
       logError(
         `Failed to upgrade outdated ${version} config.`,
-        LogPrefix.GlobalConfig
+        LogPrefix.GlobalConfig,
+        false
       )
     }
   }
@@ -340,7 +343,7 @@ abstract class GlobalConfig {
    * Writes to file after that.
    * DO NOT call `flush()` afterward.
    *
-   * @returns true if upgrade successful, false if upgrade fails or no upgrade needed.
+   * @returns true if upgrade successful if upgrade fails or no upgrade needed.
    */
   public abstract upgrade(): boolean
 
@@ -419,29 +422,19 @@ class GlobalConfigV0 extends GlobalConfig {
       return this.getFactoryDefaults()
     }
 
-    try {
-      let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
-      const defaultSettings = settings.defaultSettings as AppSettings
+    let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
+    const defaultSettings = settings.defaultSettings as AppSettings
 
-      // fix relative paths
-      const winePrefix = defaultSettings.winePrefix.replace('~', userHome)
+    // fix relative paths
+    const winePrefix = defaultSettings.winePrefix.replace('~', userHome)
 
-      settings = {
-        ...(await this.getFactoryDefaults()),
-        ...settings.defaultSettings,
-        winePrefix
-      } as AppSettings
-      return settings
-    } catch (error) {
-      logError(
-        `Config file is corrupted, please check ${heroicConfigPath}`,
-        LogPrefix.Backend
-      )
-      const settings = {
-        ...(await this.getFactoryDefaults())
-      }
-      return settings
-    }
+    settings = {
+      ...(await this.getFactoryDefaults()),
+      ...settings.defaultSettings,
+      winePrefix
+    } as AppSettings
+
+    return settings
   }
 
   public async getCustomWinePaths(): Promise<Set<WineInstallation>> {

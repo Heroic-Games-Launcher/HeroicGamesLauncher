@@ -298,11 +298,7 @@ async function errorHandler(
   const noSpaceMsg = 'Not enough available disk space'
   const plat = r === 'legendary' ? 'Legendary (Epic Games)' : r
   const deletedFolderMsg = 'appears to be deleted'
-  const otherErrorMessages = [
-    'No saved credentials',
-    'in get_user_entitlements',
-    'No credentials'
-  ]
+  const otherErrorMessages = ['No saved credentials', 'No credentials']
 
   if (!window) {
     window = BrowserWindow.getFocusedWindow()
@@ -312,7 +308,7 @@ async function errorHandler(
     execAsync(`tail "${logPath}" | grep 'disk space'`)
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
-          logError(noSpaceMsg, LogPrefix.Backend, false)
+          logError(noSpaceMsg, LogPrefix.Backend)
           return showErrorBoxModal(
             window,
             i18next.t('box.error.diskspace.title', 'No Space'),

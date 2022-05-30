@@ -337,7 +337,7 @@ export class LegendaryLibrary {
    * Change the install state of a game without a complete library reload.
    *
    * @param appName
-   * @param state true if its installed, false otherwise.
+   * @param state true if its installed otherwise.
    */
   public installState(appName: string, state: boolean) {
     if (state) {
@@ -532,7 +532,7 @@ export class LegendaryLibrary {
       this.library.set(app_name, null)
       return app_name
     } catch (error) {
-      logError(`Metadata for ${fileName} corrupted`, LogPrefix.Legendary, false)
+      logError(`Metadata for ${fileName} corrupted`, LogPrefix.Legendary)
       return 'error'
     }
   }

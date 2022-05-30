@@ -142,8 +142,7 @@ export class GlobalState extends PureComponent<Props> {
       (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
     actionsFontFamily:
       (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
-    allTilesInColor:
-      (configStore.get('allTilesInColor', false) as boolean) || false
+    allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false
   }
 
   setLanguage = (newLanguage: string) => {
@@ -397,7 +396,7 @@ export class GlobalState extends PureComponent<Props> {
         if (fetch) {
           // try to restore the saved information
           await ipcRenderer
-            .invoke('refreshWineVersionInfo', false)
+            .invoke('refreshWineVersionInfo')
             .then((releases) => {
               this.setState({
                 wineVersions: releases

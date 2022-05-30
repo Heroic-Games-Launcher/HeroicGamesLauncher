@@ -550,7 +550,8 @@ async function runLegendaryOrGogdlCommand(
       errorHandler({
         error: `${stdout.join().concat(stderr.join())}`,
         logPath: options?.logFile,
-        runner: runner.name
+        runner: runner.name,
+        appName
       })
 
       if (signal) {
@@ -577,14 +578,14 @@ async function runLegendaryOrGogdlCommand(
         appName
       })
 
-      const dontShowDialog =
-        `${error}`.includes('signal') &&
-        `${error}`.includes('appears to be deleted')
+      const showDialog =
+        !`${error}`.includes('signal') &&
+        !`${error}`.includes('appears to be deleted')
 
       logError(
         ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
         runner.logPrefix,
-        dontShowDialog
+        showDialog
       )
       return { stdout: '', stderr: `${error}`, fullCommand: safeCommand, error }
     })
