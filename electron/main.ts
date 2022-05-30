@@ -83,7 +83,8 @@ import {
   weblateUrl,
   wikiLink,
   fontsStore,
-  heroicConfigPath
+  heroicConfigPath,
+  isMac
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -192,7 +193,9 @@ async function createWindow(): Promise<BrowserWindow> {
   } else {
     Menu.setApplicationMenu(null)
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-    autoUpdater.checkForUpdates()
+    if (!isMac) {
+      autoUpdater.checkForUpdates()
+    }
     return mainWindow
   }
 }
