@@ -40,7 +40,7 @@ import {
 } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import setup from './setup'
-import { getGogdlCommand, runGogdlCommand } from './library'
+import { runGogdlCommand } from './library'
 
 function verifyProgress(stderr: string): boolean {
   const text = stderr.split('\n').at(-1)
@@ -97,9 +97,8 @@ class GOGGame extends Game {
 
   public async import(path: string): Promise<ExecResult> {
     const commandParts = ['import', path]
-    const command = getGogdlCommand(commandParts)
 
-    logInfo([`Importing ${this.appName} with:`, command], LogPrefix.Gog)
+    logInfo(`Importing ${this.appName}.`, LogPrefix.Gog)
 
     const res = await runGogdlCommand(commandParts)
 
@@ -138,7 +137,7 @@ class GOGGame extends Game {
           `Progress for ${this.appName}:`,
           `${percent}%/${bytes}MiB/${eta}`.trim()
         ],
-        LogPrefix.Backend
+        LogPrefix.Gog
       )
 
       this.window.webContents.send('setGameStatus', {
@@ -185,9 +184,8 @@ class GOGGame extends Game {
       `--lang=${installLanguage}`,
       ...workers
     ]
-    const command = getGogdlCommand(commandParts)
 
-    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
+    logInfo(`Installing ${this.appName}.`, LogPrefix.Gog)
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput('installing', data)
@@ -270,6 +268,7 @@ class GOGGame extends Game {
   public async removeShortcuts() {
     return removeShortcuts(this.appName, 'gog')
   }
+
   async launch(launchArguments?: string): Promise<LaunchResult> {
     const gameSettings =
       GameConfig.get(this.appName).config ||
@@ -395,14 +394,16 @@ class GOGGame extends Game {
         launcherArgs
       ]
     }
-    const command = getGogdlCommand(commandParts, commandEnv, wrappers)
 
-    logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Gog)
+    logInfo(`Launching ${gameInfo.title}.`, LogPrefix.Gog)
 
-    const { error, stderr, stdout } = await runGogdlCommand(commandParts, {
-      env: commandEnv,
-      wrappers
-    })
+    const { error, stderr, stdout, fullCommand } = await runGogdlCommand(
+      commandParts,
+      {
+        env: commandEnv,
+        wrappers
+      }
+    )
 
     if (error) {
       logError(['Error launching game:', error], LogPrefix.Gog)
@@ -415,7 +416,7 @@ class GOGGame extends Game {
       stdout,
       stderr,
       gameSettings,
-      command
+      command: fullCommand
     }
   }
 
@@ -467,9 +468,8 @@ class GOGGame extends Game {
       '-b=' + gameData.install.buildId,
       ...workers
     ]
-    const command = getGogdlCommand(commandParts)
 
-    logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Gog)
+    logInfo(`Repairing ${this.appName}.`, LogPrefix.Gog)
 
     const res = await runGogdlCommand(commandParts, { logFile: logPath })
 
@@ -578,9 +578,8 @@ class GOGGame extends Game {
       `--lang=${gameData.install.language || 'en-US'}`,
       ...workers
     ]
-    const command = getGogdlCommand(commandParts)
 
-    logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
+    logInfo(`Updating ${this.appName}.`, LogPrefix.Gog)
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput('updating', data)

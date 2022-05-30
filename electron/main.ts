@@ -1005,7 +1005,7 @@ ipcMain.handle('uninstall', async (event, args) => {
     .uninstall()
     .then(() => {
       if (shouldRemovePrefix) {
-        logInfo(`Removing prefix ${winePrefix}`)
+        logInfo(`Removing prefix ${winePrefix}`, LogPrefix.Backend)
         if (existsSync(winePrefix)) {
           // remove prefix if exists
           rmSync(winePrefix, { recursive: true })

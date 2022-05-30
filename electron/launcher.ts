@@ -34,7 +34,7 @@ import { DXVK } from './tools'
 import setup from './gog/setup'
 import { GOGGame } from 'gog/games'
 import { LegendaryGame } from 'legendary/games'
-import { GameInfo } from './types'
+import { GameInfo, Runner } from './types'
 import {
   ExecResult,
   GameSettings,
@@ -471,7 +471,7 @@ async function runWineCommand(
 async function runLegendaryOrGogdlCommand(
   commandParts: string[],
   runner: {
-    name: 'GOGDL' | 'Legendary'
+    name: Runner
     logPrefix: LogPrefix
     bin: string
     dir: string
@@ -485,20 +485,22 @@ async function runLegendaryOrGogdlCommand(
 ): Promise<ExecResult> {
   const fullRunnerPath = join(runner.dir, runner.bin)
   const appName = commandParts[commandParts.findIndex(() => 'launch') + 1]
+
+  // Necessary to get rid of undefined or null entries, else
+  // TypeError is triggered
+  commandParts = commandParts.filter(Boolean)
   const safeCommand = getLegendaryOrGogdlCommand(
     commandParts,
     options?.env,
     options?.wrappers,
     fullRunnerPath
   )
-  logDebug(['Running', runner.name, 'command:', safeCommand], runner.logPrefix)
-  if (options?.logFile) {
-    logDebug([`Logging to file "${options.logFile}"`], runner.logPrefix)
-  }
 
-  commandParts = commandParts.filter((n) => n)
+  logDebug(['Running', 'command:', safeCommand], runner.logPrefix)
+  logDebug(`Logging to file "${options?.logFile}"`, runner.logPrefix)
+
   if (existsSync(options?.logFile)) {
-    writeFileSync(options.logFile, '')
+    writeFileSync(options?.logFile, '')
   }
 
   // If we have wrappers (things we want to run before the command), set bin to the first wrapper
@@ -521,28 +523,27 @@ async function runLegendaryOrGogdlCommand(
     const stdout: string[] = []
     const stderr: string[] = []
 
-    if (options?.logFile) {
-      child.stdout.on('data', (data: Buffer) => {
-        appendFileSync(options.logFile, data.toString())
-      })
-      child.stderr.on('data', (data: Buffer) => {
-        appendFileSync(options.logFile, data.toString())
-      })
-    }
-
-    if (options?.onOutput) {
-      child.stdout.on('data', (data: Buffer) => {
-        options.onOutput(data.toString())
-      })
-      child.stderr.on('data', (data: Buffer) => {
-        options.onOutput(data.toString())
-      })
-    }
-
     child.stdout.on('data', (data: Buffer) => {
+      if (options?.logFile) {
+        appendFileSync(options.logFile, data.toString())
+      }
+
+      if (options?.onOutput) {
+        options.onOutput(data.toString())
+      }
+
       stdout.push(data.toString().trim())
     })
+
     child.stderr.on('data', (data: Buffer) => {
+      if (options?.logFile) {
+        appendFileSync(options.logFile, data.toString())
+      }
+
+      if (options?.onOutput) {
+        options.onOutput(data.toString())
+      }
+
       stderr.push(data.toString().trim())
     })
 
@@ -563,6 +564,7 @@ async function runLegendaryOrGogdlCommand(
         stderr: stderr.join('\n')
       })
     })
+
     child.on('error', (error) => {
       rej(error)
     })
@@ -583,10 +585,11 @@ async function runLegendaryOrGogdlCommand(
         !`${error}`.includes('appears to be deleted')
 
       logError(
-        ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
+        ['Error running', 'command', `"${safeCommand}": ${error}`],
         runner.logPrefix,
         showDialog
       )
+
       return { stdout: '', stderr: `${error}`, fullCommand: safeCommand, error }
     })
 }
@@ -597,8 +600,6 @@ function getLegendaryOrGogdlCommand(
   wrappers: string[] = [],
   runnerPath: string
 ): string {
-  commandParts = commandParts.filter((n) => n)
-
   // Redact sensitive arguments (SID for Legendary, token for GOGDL)
   for (const sensitiveArg of ['--sid', '--token']) {
     const sensitiveArgIndex = commandParts.indexOf(sensitiveArg)
@@ -636,6 +637,5 @@ export {
   setupWineEnvVars,
   setupWrappers,
   runWineCommand,
-  runLegendaryOrGogdlCommand,
-  getLegendaryOrGogdlCommand
+  runLegendaryOrGogdlCommand
 }
