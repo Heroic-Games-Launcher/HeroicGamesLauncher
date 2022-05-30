@@ -337,7 +337,7 @@ export class LegendaryLibrary {
    * Change the install state of a game without a complete library reload.
    *
    * @param appName
-   * @param state true if its installed otherwise.
+   * @param state true if its installed, false otherwise.
    */
   public installState(appName: string, state: boolean) {
     if (state) {
