@@ -275,7 +275,7 @@ class LegendaryGame extends Game {
         status: action,
         progress: {
           eta: eta,
-          percent: `${percent.toFixed(0)}%`,
+          percent,
           bytes: `${bytes}MiB`
         }
       })
