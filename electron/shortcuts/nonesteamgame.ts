@@ -10,6 +10,7 @@ import { GameInfo } from '../types'
 import { getIcon } from './utils'
 import { logWarning } from '../logger/logger'
 import { app } from 'electron'
+import { isFlatpak } from '../constants'
 
 // special character used by steam
 // see https://www.utf8-chartable.de/unicode-utf8-table.pl?number=128&names=2&utf8=string-literal
@@ -74,9 +75,14 @@ async function addNonSteamGame(
     const appid = `${nullChar}${nullChar}`
     const appName = `${startOfHeading}AppName${nullChar}${gameInfo.title}${nullChar}`
 
-    const exe = `${startOfHeading}Exe${nullChar}"${app.getPath(
+    let exe = `${startOfHeading}Exe${nullChar}"${app.getPath(
       'exe'
     )}"${nullChar}`
+
+    if (isFlatpak) {
+      exe = `${startOfHeading}Exe${nullChar}"flatpak run com.heroicgameslauncher.hgl"${nullChar}`
+    }
+
     const startDir = `${startOfHeading}StartDir${nullChar}"${process.cwd()}"${nullChar}`
 
     let iconPath = ''
@@ -88,7 +94,7 @@ async function addNonSteamGame(
 
     const icon = `${startOfHeading}icon${nullChar}${iconPath}${nullChar}`
     const shortcutPath = `${startOfHeading}ShortcutPath${nullChar}${nullChar}`
-    const launchOptions = `${startOfHeading}LaunchOptions${nullChar}--no-gui heroic://launch/${gameInfo.app_name}${nullChar}`
+    const launchOptions = `${startOfHeading}LaunchOptions${nullChar}--no-gui "heroic://launch/${gameInfo.app_name}"${nullChar}`
     const isHidden = `${startOfText}IsHidden${nullChar}${nullChar}${nullChar}${nullChar}${nullChar}`
     const allowDesktopConfig = `${startOfText}AllowDesktopConfig${nullChar}${startOfHeading}${nullChar}${nullChar}${nullChar}`
     const allowOverlay = `${startOfText}AllowOverlay${nullChar}${startOfHeading}${nullChar}${nullChar}${nullChar}`

@@ -107,7 +107,7 @@ function fixAsarPath(origin: string): string {
   return origin
 }
 
-function getSteamCompatFolder() {
+export function getSteamCompatFolder() {
   if (existsSync(`${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`)) {
     return `${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`
   }

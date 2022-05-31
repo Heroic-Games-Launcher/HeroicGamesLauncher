@@ -114,6 +114,10 @@ export default function GamesSubmenu({
     ipcRenderer.send('addShortcut', appName, runner, true)
   }
 
+  function handleAddToSteam() {
+    ipcRenderer.send('addToSteam', appName, runner, true)
+  }
+
   useEffect(() => {
     if (isWin) {
       return
@@ -193,6 +197,12 @@ export default function GamesSubmenu({
                 {t('submenu.addShortcut', 'Add shortcut')}
               </button>
             )}
+              <button
+                onClick={() => handleAddToSteam()}
+                className="link button is-text is-link"
+              >
+                {t('submenu.addToSteam', 'Add to steam')}
+              </button>
           </>
         )}
         <NavLink
