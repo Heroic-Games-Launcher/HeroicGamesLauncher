@@ -1,4 +1,4 @@
-name: Draft Release MacOSX
+name: Draft Beta Releases
 
 on:
   push:

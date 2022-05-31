@@ -17,7 +17,6 @@
   "build": {
     "appId": "com.electron.heroic",
     "productName": "Heroic",
-    "allowDowngrade": "true",
     "files": [
       "build/**/*",
       "node_modules/**/*",
