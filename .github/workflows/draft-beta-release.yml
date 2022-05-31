@@ -9,6 +9,7 @@ jobs:
   draft-releases:
     runs-on: macos-11
     steps:
+      - run: brew install rpm
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
