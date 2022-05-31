@@ -3,7 +3,7 @@ import React from 'react'
 import { ContextType } from 'src/types'
 
 const initialContext: ContextType = {
-  category: 'epic',
+  category: 'legendary',
   epic: {
     library: [],
     username: null,

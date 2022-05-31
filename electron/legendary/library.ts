@@ -532,7 +532,7 @@ export class LegendaryLibrary {
       this.library.set(app_name, null)
       return app_name
     } catch (error) {
-      logError(`Metadata for ${fileName} corrupted`, LogPrefix.Legendary, false)
+      logError(`Metadata for ${fileName} corrupted`, LogPrefix.Legendary)
       return 'error'
     }
   }

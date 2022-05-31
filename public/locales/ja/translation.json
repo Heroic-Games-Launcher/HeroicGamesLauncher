@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "クレデンシャルの有効期限が切れています。ログアウトしてから再度ログインしてください。"
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "使用可能なディスク容量が不足しています",
                 "title": "ディスク容量がありません"

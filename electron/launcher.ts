@@ -1,11 +1,15 @@
-import { appendFileSync, writeFileSync } from 'graceful-fs'
 // This handles launching games, prefix creation etc..
 
 import i18next from 'i18next'
-import { existsSync, mkdirSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  appendFileSync,
+  writeFileSync
+} from 'graceful-fs'
 import { join } from 'path'
 
-import { flatPakHome, isLinux, isMac } from './constants'
+import { flatPakHome, isLinux, isMac, userHome } from './constants'
 import {
   constructAndUpdateRPC,
   execAsync,
@@ -160,6 +164,32 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     )
   }
 
+  // Verify that the CrossOver bottle exists
+  if (isMac && gameSettings.wineVersion.type === 'crossover') {
+    const bottleExists = existsSync(
+      join(
+        userHome,
+        'Library/Application Support/CrossOver/Bottles',
+        gameSettings.wineCrossoverBottle,
+        'cxbottle.conf'
+      )
+    )
+    if (!bottleExists) {
+      showErrorBoxModalAuto(
+        i18next.t(
+          'box.error.cx-bottle-not-found.title',
+          'CrossOver bottle not found'
+        ),
+        i18next.t(
+          'box.error.cx-bottle-not-found.message',
+          `The CrossOver bottle "{{bottle_name}}" does not exist, can't launch!`,
+          { bottle_name: gameSettings.wineCrossoverBottle }
+        )
+      )
+      return { success: false }
+    }
+  }
+
   const { updated: winePrefixUpdated } = await verifyWinePrefix(game)
   if (winePrefixUpdated) {
     logInfo(
@@ -259,7 +289,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (gameSettings.enableResizableBar) {
     ret.VKD3D_CONFIG = 'upload_hvv'
   }
-  if (gameSettings.useSteamRuntime) {
+  if (wineVersion.type === 'proton') {
     // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
     ret.STEAM_COMPAT_APP_ID = '0'
     ret.SteamAppId = ret.STEAM_COMPAT_APP_ID
@@ -323,6 +353,10 @@ export async function verifyWinePrefix(
     mkdirSync(winePrefix, { recursive: true })
   }
 
+  if (wineVersion.type === 'proton' && existsSync(join(winePrefix, 'pfx'))) {
+    return { res: { stdout: '', stderr: '' }, updated: false }
+  }
+
   // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
   const systemRegPath =
     wineVersion.type === 'proton'
@@ -333,6 +367,9 @@ export async function verifyWinePrefix(
   return game
     .runWineCommand('wineboot --init', '', haveToWait)
     .then((result) => {
+      if (wineVersion.type === 'proton') {
+        return { res: result, updated: true }
+      }
       // This is kinda hacky
       const wasUpdated = result.stderr.includes('has been updated')
       return { res: result, updated: wasUpdated }
@@ -478,9 +515,7 @@ async function runLegendaryOrGogdlCommand(
   return new Promise((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
-      env: { ...options?.env, ...process.env },
-      // On Mac, launching some executables doesn't work without shell for some reason
-      shell: isMac
+      env: { ...process.env, ...options?.env }
     })
 
     const stdout: string[] = []
@@ -515,15 +550,9 @@ async function runLegendaryOrGogdlCommand(
       errorHandler({
         error: `${stdout.join().concat(stderr.join())}`,
         logPath: options?.logFile,
-        runner: runner.name
+        runner: runner.name,
+        appName
       })
-
-      if (
-        stderr.join().includes('ERROR') ||
-        stderr.join().includes('CRITICAL')
-      ) {
-        rej(stderr.join())
-      }
 
       if (signal) {
         rej('Process terminated with signal ' + signal)
@@ -549,14 +578,14 @@ async function runLegendaryOrGogdlCommand(
         appName
       })
 
-      const dontShowDialog =
-        `${error}`.includes('signal') &&
-        `${error}`.includes('appears to be deleted')
+      const showDialog =
+        !`${error}`.includes('signal') &&
+        !`${error}`.includes('appears to be deleted')
 
       logError(
         ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
         runner.logPrefix,
-        dontShowDialog
+        showDialog
       )
       return { stdout: '', stderr: `${error}`, fullCommand: safeCommand, error }
     })

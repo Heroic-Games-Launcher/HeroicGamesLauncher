@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Uw inloggegevens zijn verlopen, gelieven uit te loggen en weer inloggen."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Niet genoeg ruimte beschikbaar op de harde schijf",
                 "title": "Niet genoeg opslag"

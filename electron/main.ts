@@ -1,4 +1,3 @@
-import { ExecOptions } from 'child_process'
 import {
   InstallParams,
   LaunchResult,
@@ -62,14 +61,12 @@ import {
   getLegendaryBin,
   getGOGdlBin,
   showErrorBoxModal,
-  getFileSize,
-  getWineFromProton
+  getFileSize
 } from './utils'
 import {
   configStore,
   currentLogFile,
   discordLink,
-  execOptions,
   heroicGamesConfigPath,
   heroicGithubURL,
   userHome,
@@ -86,7 +83,8 @@ import {
   weblateUrl,
   wikiLink,
   fontsStore,
-  heroicConfigPath
+  heroicConfigPath,
+  isMac
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -195,7 +193,9 @@ async function createWindow(): Promise<BrowserWindow> {
   } else {
     Menu.setApplicationMenu(null)
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-    autoUpdater.checkForUpdates()
+    if (!isMac) {
+      autoUpdater.checkForUpdates()
+    }
     return mainWindow
   }
 }
@@ -294,7 +294,7 @@ if (!gotTheLock) {
       ['GOGDL location:', join(...Object.values(getGOGdlBin()))],
       LogPrefix.Gog
     )
-    logInfo(`${systemInfo}`, LogPrefix.Backend)
+    logInfo(`\n\n${systemInfo}\n`, LogPrefix.Backend)
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
     const isLoggedIn = LegendaryUser.isLoggedIn()
@@ -549,53 +549,27 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 interface Tools {
   exe: string
-  prefix: string
   tool: string
-  wine: string
   appName: string
 }
 
-ipcMain.handle(
-  'callTool',
-  async (event, { tool, wine, prefix, exe, appName }: Tools) => {
-    const isProton = wine.includes('/proton')
+ipcMain.handle('callTool', async (event, { tool, exe, appName }: Tools) => {
+  const game = Game.get(appName)
+  const { wineVersion, winePrefix } = await game.getSettings()
+  await verifyWinePrefix(game)
 
-    if (tool === 'winetricks') {
-      return Winetricks.run(prefix, wine, isProton)
-    }
-
-    const game = Game.get(appName)
-    await verifyWinePrefix(game)
-
-    if (tool === 'runExe') {
-      return Game.get(appName).runWineCommand(exe)
-    }
-
-    if (tool === 'winecfg') {
-      return Game.get(appName).runWineCommand('winecfg')
-    }
-
-    const options: ExecOptions = {
-      ...execOptions
-    }
-
-    const { winePrefix, wineBin } = getWineFromProton(wine, isProton, prefix)
-
-    const command = `WINE='${wineBin}' WINEPREFIX='${winePrefix}' ${`'${wineBin}' ${tool}`}`
-
-    logInfo(['trying to run', command], LogPrefix.Backend)
-    try {
-      const { stderr, stdout } = await execAsync(command, options)
-      logInfo(`Output: ${stderr} \n ${stdout}`)
-    } catch (error) {
-      logError(`${error}`)
-      logError(
-        `Something went wrong! Check if ${tool} is available and ${wineBin} exists`,
-        LogPrefix.Backend
-      )
-    }
+  switch (tool) {
+    case 'winetricks':
+      Winetricks.run(wineVersion, winePrefix)
+      break
+    case 'winecfg':
+      game.runWineCommand('winecfg')
+      break
+    case 'runExe':
+      game.runWineCommand(exe)
+      break
   }
-)
+})
 
 /// IPC handlers begin here.
 

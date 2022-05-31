@@ -563,11 +563,7 @@ class LegendaryGame extends Game {
       ? ['--override-exe', gameSettings.targetExe]
       : []
 
-    const isNative =
-      isWindows ||
-      (isMac && gameInfo.is_mac_native) ||
-      // This right now is impossible, but one can still hope, right?
-      (isLinux && gameInfo.is_linux_native)
+    const isNative = await this.isNative()
 
     let commandParts = new Array<string>()
     let commandEnv = process.env
@@ -633,16 +629,20 @@ class LegendaryGame extends Game {
           : wineVersion.bin
 
       let wineFlag = ['--wine', wineBin]
+
+      // avoid breaking on old configs when path is not absolute
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
         const runtime = useSteamRuntime ? getSteamRuntime('soldier') : null
 
         if (runtime?.path) {
-          const runWithRuntime = `${runtime.path} -- '${wineVersion.bin}' waitforexitandrun`
+          // The Steam runtime masks /run, so if our game is on another hard drive, we'll get problems. Just including the game's install path
+          // should be fine for now, if we ever get more issues we can change this to just /run/ entirely or something
+          const runWithRuntime = `${runtime.path} --filesystem=${gameInfo.install.install_path} -- '${wineVersion.bin}' waitforexitandrun`
           wineFlag = ['--no-wine', '--wrapper', runWithRuntime]
           winePrefixFlag = []
         } else {
-          logWarning('No Steam runtime found')
+          logWarning('No Steam runtime found', LogPrefix.Legendary)
           wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
           winePrefixFlag = []
         }
@@ -692,11 +692,8 @@ class LegendaryGame extends Game {
     altWineBin = '',
     wait = false
   ): Promise<ExecResult> {
-    const gameInfo = await this.getGameInfo()
-    const isNative =
-      isWindows ||
-      (isMac && gameInfo.is_mac_native) ||
-      (isLinux && gameInfo.is_linux_native)
+    const isNative = await this.isNative()
+
     if (isNative) {
       logError('runWineCommand called on native game!', LogPrefix.Legendary)
       return { stdout: '', stderr: '' }
@@ -729,6 +726,24 @@ class LegendaryGame extends Game {
     child.on('exit', () => {
       return logInfo(`${pattern} killed`, LogPrefix.Legendary)
     })
+  }
+
+  public async isNative(): Promise<boolean> {
+    const gameInfo = await this.getGameInfo()
+
+    if (isWindows) {
+      return true
+    }
+
+    if (isMac && gameInfo?.install?.platform === 'Mac') {
+      return true
+    }
+
+    if (isLinux && gameInfo?.install?.platform === 'Linux') {
+      return true
+    }
+
+    return false
   }
 
   public async forceUninstall() {

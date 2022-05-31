@@ -24,6 +24,10 @@
             "credentials": {
                 "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse."
             },
+            "cx-bottle-not-found": {
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
+            },
             "diskspace": {
                 "message": "Ei ole piisavalt vaba kettaruumi",
                 "title": "Ei ole ruumi"

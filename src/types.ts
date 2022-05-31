@@ -47,8 +47,10 @@ export interface AppSettings {
   useSteamRuntime: boolean
 }
 
+export type Category = 'all' | 'legendary' | 'gog' | 'unreal' | 'heroic'
+
 export interface ContextType {
-  category: string
+  category: Category
   wineVersions: WineVersionInfo[]
   recentGames: GameInfo[]
   error: boolean
@@ -59,7 +61,7 @@ export interface ContextType {
   isRTL: boolean
   language: string
   setLanguage: (newLanguage: string) => void
-  handleCategory: (value: string) => void
+  handleCategory: (value: Category) => void
   handleFilter: (value: string) => void
   handlePlatformFilter: (value: string) => void
   handleGameStatus: (game: GameStatus) => Promise<void>
