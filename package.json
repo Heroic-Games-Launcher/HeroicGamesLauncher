@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "2.3.5",
+  "version": "2.4.0-beta",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -17,6 +17,7 @@
   "build": {
     "appId": "com.electron.heroic",
     "productName": "Heroic",
+    "allowDowngrade": "true",
     "files": [
       "build/**/*",
       "node_modules/**/*",
@@ -177,6 +178,7 @@
     "release:linux": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js -p always --linux deb AppImage rpm pacman tar.xz",
     "release:mac": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js -p always --mac",
     "release:win": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js -p always --win nsis portable",
+    "release:all": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js -p always --linux deb AppImage rpm pacman tar.xz --win --mac",
     "dist": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
     "dist-mac": "GH_TOKEN='${{ secrets.WORKFLOW_TOKEN }}' yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --mac",
     "dist-win": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --win",
