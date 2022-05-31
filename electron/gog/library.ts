@@ -6,7 +6,8 @@ import {
   InstallInfo,
   InstalledInfo,
   GOGImportData,
-  ExecResult
+  ExecResult,
+  CallRunnerOptions
 } from '../types'
 import { join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -19,7 +20,7 @@ import {
   libraryStore,
   installedGamesStore
 } from './electronStores'
-import { runLegendaryOrGogdlCommand } from '../launcher'
+import { callRunner } from '../launcher'
 
 export class GOGLibrary {
   private static globalInstance: GOGLibrary = null
@@ -621,15 +622,10 @@ export class GOGLibrary {
  */
 export async function runGogdlCommand(
   commandParts: string[],
-  options?: {
-    logFile?: string
-    env?: Record<string, string>
-    wrappers?: string[]
-    onOutput?: (output: string) => void
-  }
+  options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getGOGdlBin()
-  return runLegendaryOrGogdlCommand(
+  return callRunner(
     commandParts,
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
     options

@@ -1,4 +1,4 @@
-import { ExecResult } from './../types'
+import { CallRunnerOptions, ExecResult } from './../types'
 import {
   existsSync,
   readFileSync,
@@ -38,7 +38,7 @@ import {
 } from '../logger/logger'
 import { GlobalConfig } from '../config'
 import { installStore, libraryStore } from './electronStores'
-import { runLegendaryOrGogdlCommand } from '../launcher'
+import { callRunner } from '../launcher'
 
 /**
  * Legendary LegendaryLibrary.
@@ -576,15 +576,10 @@ export class LegendaryLibrary {
 
 export async function runLegendaryCommand(
   commandParts: string[],
-  options?: {
-    logFile?: string
-    env?: Record<string, string>
-    wrappers?: string[]
-    onOutput?: (output: string) => void
-  }
+  options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getLegendaryBin()
-  return runLegendaryOrGogdlCommand(
+  return callRunner(
     commandParts,
     { name: 'legendary', logPrefix: LogPrefix.Legendary, bin, dir },
     options

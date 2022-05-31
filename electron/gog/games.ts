@@ -96,11 +96,9 @@ class GOGGame extends Game {
   }
 
   public async import(path: string): Promise<ExecResult> {
-    const commandParts = ['import', path]
-
-    logInfo(`Importing ${this.appName}.`, LogPrefix.Gog)
-
-    const res = await runGogdlCommand(commandParts)
+    const res = await runGogdlCommand(['import', path], {
+      logMessagePrefix: `Importing ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -185,15 +183,14 @@ class GOGGame extends Game {
       ...workers
     ]
 
-    logInfo(`Installing ${this.appName}.`, LogPrefix.Gog)
-
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput('installing', data)
     }
 
     const res = await runGogdlCommand(commandParts, {
       logFile: logPath,
-      onOutput
+      onOutput,
+      logMessagePrefix: `Installing ${this.appName}`
     })
 
     if (res.error) {
@@ -395,13 +392,12 @@ class GOGGame extends Game {
       ]
     }
 
-    logInfo(`Launching ${gameInfo.title}.`, LogPrefix.Gog)
-
     const { error, stderr, stdout, fullCommand } = await runGogdlCommand(
       commandParts,
       {
         env: commandEnv,
-        wrappers
+        wrappers,
+        logMessagePrefix: `Launching ${gameInfo.title}`
       }
     )
 
@@ -469,9 +465,10 @@ class GOGGame extends Game {
       ...workers
     ]
 
-    logInfo(`Repairing ${this.appName}.`, LogPrefix.Gog)
-
-    const res = await runGogdlCommand(commandParts, { logFile: logPath })
+    const res = await runGogdlCommand(commandParts, {
+      logFile: logPath,
+      logMessagePrefix: `Repairing ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -579,15 +576,14 @@ class GOGGame extends Game {
       ...workers
     ]
 
-    logInfo(`Updating ${this.appName}.`, LogPrefix.Gog)
-
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput('updating', data)
     }
 
     const res = await runGogdlCommand(commandParts, {
       logFile: logPath,
-      onOutput
+      onOutput,
+      logMessagePrefix: `Updating ${this.appName}`
     })
 
     // This always has to be done, so we do it before checking for res.error

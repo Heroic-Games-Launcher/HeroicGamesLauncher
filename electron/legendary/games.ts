@@ -299,8 +299,6 @@ class LegendaryGame extends Game {
 
     const commandParts = ['update', this.appName, ...workers, '-y']
 
-    logInfo(`Updating ${this.appName}.`, LogPrefix.Legendary)
-
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
         'installing',
@@ -311,7 +309,8 @@ class LegendaryGame extends Game {
 
     const res = await runLegendaryCommand(commandParts, {
       logFile: logPath,
-      onOutput
+      onOutput,
+      logMessagePrefix: `Updating ${this.appName}`
     })
 
     this.window.webContents.send('setGameStatus', {
@@ -393,8 +392,6 @@ class LegendaryGame extends Game {
       '-y'
     ]
 
-    logInfo(`Installing ${this.appName}.`, LogPrefix.Legendary)
-
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
         'updating',
@@ -405,7 +402,8 @@ class LegendaryGame extends Game {
 
     let res = await runLegendaryCommand(commandParts, {
       logFile: logPath,
-      onOutput
+      onOutput,
+      logMessagePrefix: `Installing ${this.appName}`
     })
 
     // try to run the install again with higher memory limit
@@ -434,10 +432,10 @@ class LegendaryGame extends Game {
   public async uninstall(): Promise<ExecResult> {
     const commandParts = ['uninstall', this.appName, '-y']
 
-    logInfo(`Uninstalling ${this.appName}.`, LogPrefix.Legendary)
-
     LegendaryLibrary.get().installState(this.appName, false)
-    const res = await runLegendaryCommand(commandParts)
+    const res = await runLegendaryCommand(commandParts, {
+      logMessagePrefix: `Uninstalling ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -462,9 +460,10 @@ class LegendaryGame extends Game {
 
     const commandParts = ['repair', this.appName, ...workers, '-y']
 
-    logInfo(`Repairing ${this.appName}.`, LogPrefix.Legendary)
-
-    const res = await runLegendaryCommand(commandParts, { logFile: logPath })
+    const res = await runLegendaryCommand(commandParts, {
+      logFile: logPath,
+      logMessagePrefix: `Repairing ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -514,9 +513,9 @@ class LegendaryGame extends Game {
       '-y'
     ]
 
-    logInfo(`Syncing saves for ${this.appName}.`, LogPrefix.Legendary)
-
-    const res = await runLegendaryCommand(commandParts)
+    const res = await runLegendaryCommand(commandParts, {
+      logMessagePrefix: `Syncing saves for ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -652,12 +651,12 @@ class LegendaryGame extends Game {
       ]
     }
 
-    logInfo(`Launching ${gameInfo.title}.`, LogPrefix.Legendary)
     const { error, stderr, stdout, fullCommand } = await runLegendaryCommand(
       commandParts,
       {
         env: commandEnv,
-        wrappers: wrappers
+        wrappers: wrappers,
+        logMessagePrefix: `Launching ${gameInfo.title}`
       }
     )
 

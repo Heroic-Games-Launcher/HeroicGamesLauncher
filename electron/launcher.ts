@@ -34,7 +34,7 @@ import { DXVK } from './tools'
 import setup from './gog/setup'
 import { GOGGame } from 'gog/games'
 import { LegendaryGame } from 'legendary/games'
-import { GameInfo, Runner } from './types'
+import { CallRunnerOptions, GameInfo, Runner } from './types'
 import {
   ExecResult,
   GameSettings,
@@ -468,39 +468,42 @@ async function runWineCommand(
     })
 }
 
-async function runLegendaryOrGogdlCommand(
+interface RunnerProps {
+  name: Runner
+  logPrefix: LogPrefix
+  bin: string
+  dir: string
+}
+
+async function callRunner(
   commandParts: string[],
-  runner: {
-    name: Runner
-    logPrefix: LogPrefix
-    bin: string
-    dir: string
-  },
-  options?: {
-    logFile?: string
-    env?: Record<string, string>
-    wrappers?: string[]
-    onOutput?: (output: string) => void
-  }
+  runner: RunnerProps,
+  options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const fullRunnerPath = join(runner.dir, runner.bin)
   const appName = commandParts[commandParts.findIndex(() => 'launch') + 1]
 
-  // Necessary to get rid of undefined or null entries, else
+  // Necessary to get rid of possible undefined or null entries, else
   // TypeError is triggered
   commandParts = commandParts.filter(Boolean)
-  const safeCommand = getLegendaryOrGogdlCommand(
+  const safeCommand = getRunnerCallWithoutCredentials(
     commandParts,
     options?.env,
     options?.wrappers,
     fullRunnerPath
   )
 
-  logDebug(['Running', 'command:', safeCommand], runner.logPrefix)
-  logDebug(`Logging to file "${options?.logFile}"`, runner.logPrefix)
+  logInfo(
+    [options?.logMessagePrefix ?? `Running command`, ':', safeCommand],
+    runner.logPrefix
+  )
+
+  if (options?.logFile) {
+    logDebug(`Logging to file "${options?.logFile}"`, runner.logPrefix)
+  }
 
   if (existsSync(options?.logFile)) {
-    writeFileSync(options?.logFile, '')
+    writeFileSync(options.logFile, '')
   }
 
   // If we have wrappers (things we want to run before the command), set bin to the first wrapper
@@ -594,7 +597,7 @@ async function runLegendaryOrGogdlCommand(
     })
 }
 
-function getLegendaryOrGogdlCommand(
+function getRunnerCallWithoutCredentials(
   commandParts: string[],
   env: Record<string, string> = {},
   wrappers: string[] = [],
@@ -637,5 +640,5 @@ export {
   setupWineEnvVars,
   setupWrappers,
   runWineCommand,
-  runLegendaryOrGogdlCommand
+  callRunner
 }
