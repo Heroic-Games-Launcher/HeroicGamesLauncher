@@ -428,8 +428,6 @@ async function runWineCommand(
 
   let additional_command = ''
   let wineBin = wineVersion.bin.replaceAll("'", '')
-  command = quoteIfNecessary(command)
-
   if (wineVersion.type === 'proton') {
     command = 'run ' + command
     // TODO: Respect 'wait' here. Not sure if Proton can even do that

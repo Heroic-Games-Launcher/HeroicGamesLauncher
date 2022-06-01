@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { IpcRenderer } from 'electron'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import { getGameInfo } from 'src/helpers'
+import { getGameInfo, quoteIfNecessary } from 'src/helpers'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -28,7 +28,7 @@ export default function Tools({ appName }: Props) {
     if (tool === 'winecfg') {
       setWinecfgRunning(true)
     }
-
+    exe = exe ? quoteIfNecessary(exe) : undefined
     await ipcRenderer.invoke('callTool', {
       tool,
       exe,
