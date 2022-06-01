@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { logError, logInfo } from '../logger/logger'
 import { Game } from '../games'
 import { Runner } from '../types'
-import { addNonSteamGame } from './nonesteamgame'
+import { addNonSteamGame, removeNonSteamGame } from './nonesteamgame'
 import { join } from 'path'
 import { getSteamCompatFolder } from '../constants'
 
@@ -13,7 +13,7 @@ ipcMain.on(
     const game = Game.get(appName, runner)
     game.addShortcuts(fromMenu)
 
-    ipcRenderer.invoke('openMessageBox', {
+    await ipcRenderer.invoke('openMessageBox', {
       buttons: [i18next.t('box.ok', 'Ok')],
       message: i18next.t(
         'box.shortcuts.message',
@@ -43,3 +43,21 @@ ipcMain.on('addToSteam', async (event, appName: string, runner: Runner) => {
       logError(`${error}`)
     })
 })
+
+ipcMain.on(
+  'removeFromSteam',
+  async (event, appName: string, runner: Runner) => {
+    const game = Game.get(appName, runner)
+    const gameInfo = await game.getGameInfo()
+
+    const userdataDir = join(getSteamCompatFolder(), 'userdata')
+
+    await removeNonSteamGame(userdataDir, gameInfo)
+      .then((message) => {
+        logInfo(message)
+      })
+      .catch((error) => {
+        logError(`${error}`)
+      })
+  }
+)

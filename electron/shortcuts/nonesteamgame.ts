@@ -81,6 +81,8 @@ async function addNonSteamGame(
 
     if (isFlatpak) {
       exe = `${startOfHeading}Exe${nullChar}"flatpak run com.heroicgameslauncher.hgl"${nullChar}`
+    } else if (process.env.APPIMAGE) {
+      exe = `${startOfHeading}Exe${nullChar}"${process.env.APPIMAGE}"${nullChar}`
     }
 
     const startDir = `${startOfHeading}StartDir${nullChar}"${process.cwd()}"${nullChar}`

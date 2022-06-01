@@ -286,6 +286,7 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     const systemInfo = await getSystemInfo()
+    console.log(process.env)
     logInfo(
       ['Legendary location:', join(...Object.values(getLegendaryBin()))],
       LogPrefix.Legendary
