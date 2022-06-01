@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "actions_font_family": "Keluarga Fon Aksi (Bawaan: \"Rubik\")",
         "all_tiles_in_color": "Tampilkan semua kolom gim dalam warna",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "content_font_family": "Keluarga Fon Konten (Bawaan: \"Cabin\")",
         "fonts": "Fon",
         "title": "Aksesibilitas",
         "zoom": "Zoom"
@@ -25,8 +25,8 @@
                 "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "CrossOver bottle \"{{bottle_name}}\" tidak ada, tidak bisa dijalankan!",
+                "title": "CrossOver bottle tidak ditemukan"
             },
             "diskspace": {
                 "message": "Ruang penyimpanan tidak cukup",
@@ -37,7 +37,7 @@
                 "title": "Terjadi Kesalahan DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Folder gim tampaknya sudah dihapus, apakah Anda ingin menghapus gim dari daftar?"
             },
             "generic": {
                 "message": "",
@@ -126,10 +126,10 @@
     "favourites": "Favorit",
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Tidak ada Gim yang ditemukan - Silakan coba log keluar lalu log masuk lagi atau salah satu opsi di bawah ini"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Segarkan Pustaka"
         }
     },
     "globalSettings": "Pengaturan Global",
@@ -247,7 +247,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Plugin",
+    "Plugins": "Pengaya",
     "Projects": "Proyek",
     "Recent": "Dimainkan Baru-Baru Ini",
     "search": "Masukkan nama gim di sini...",
@@ -336,7 +336,7 @@
             "other": "Lainnya",
             "sync": "Sinkronisasi Penyimpanan"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Buka Berkas Pengaturan",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Pengaturan",
@@ -349,7 +349,7 @@
         "allGames": "Semua Gim",
         "allUnreal": "Unreal - Semuanya",
         "unrealAssets": "Unreal - Aset",
-        "unrealPlugins": "Unreal - Plugin",
+        "unrealPlugins": "Unreal - Pengaya",
         "unrealProjects": "Unreal - Proyek"
     },
     "toolbox": {

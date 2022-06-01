@@ -25,8 +25,8 @@
                 "message": "你的凭据已过期，请注销并重新登录。"
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "CrossOver bottle \"{{bottle_name}}\" 不存在，无法启动！",
+                "title": "没找到 CrossOver bottle"
             },
             "diskspace": {
                 "message": "没有足够的可用磁盘空间",

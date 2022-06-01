@@ -25,8 +25,8 @@
                 "message": "Срок действия ваших учетных данных истек. Пожалуйста, выйдите из системы и войдите снова."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "Бутылка CrossOver \"{{bottle_name}}\" не существует, не может запуститься!",
+                "title": "Бутылка CrossOver не найдена"
             },
             "diskspace": {
                 "message": "Недостаточно свободного места на диске",
@@ -50,7 +50,7 @@
             "title": "Ошибка",
             "update": {
                 "message": "Что-то пошло не так с обновлением, проверьте журналы или повторите попытку позже!",
-                "title": "Update Error"
+                "title": "Ошибка обновления"
             },
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
@@ -164,7 +164,7 @@
     },
     "info": {
         "heroic": {
-            "version": "Heroic Version"
+            "version": "Версия Heroic"
         },
         "settings": "Настройки сохраняются автоматически"
     },
@@ -374,7 +374,7 @@
         "discord": "Дискорд",
         "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
-        "manageaccounts": "Управление аккаунтами",
+        "manageaccounts": "Аккаунты",
         "quit": "Закрыть Heroic"
     },
     "webview": {
