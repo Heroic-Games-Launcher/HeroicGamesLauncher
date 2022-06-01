@@ -109,7 +109,12 @@ const createNewWindow = (url: string) =>
 
 function getProgress(progress: InstallProgress): number {
   if (progress && progress.percent) {
-    return progress.percent
+    const percent = progress.percent
+    // this should deal with a few edge cases
+    if (typeof percent === 'string') {
+      return Number(String(percent).replace('%', ''))
+    }
+    return percent
   }
   return 0
 }

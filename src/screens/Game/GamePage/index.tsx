@@ -462,7 +462,7 @@ export default function GamePage(): JSX.Element | null {
     const { eta, bytes, percent } = progress
 
     if (isReparing) {
-      return `${t('status.reparing')} ${percent ? `${percent}` : '...'}`
+      return `${t('status.reparing')} ${percent ? `${percent}%` : '...'}`
     }
 
     if (isMoving) {
@@ -474,7 +474,7 @@ export default function GamePage(): JSX.Element | null {
         ? ''
         : `${
             percent && bytes && eta
-              ? `${percent} [${bytes}] | ETA: ${eta}`
+              ? `${percent}% [${bytes}] | ETA: ${eta}`
               : '...'
           }`
 

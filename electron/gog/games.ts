@@ -147,7 +147,7 @@ class GOGGame extends Game {
         status: action,
         progress: {
           eta,
-          percent: `${percent.toFixed(0)}%`,
+          percent,
           bytes: `${bytes}MiB`
         }
       })

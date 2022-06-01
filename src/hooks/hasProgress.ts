@@ -22,13 +22,29 @@ export const hasProgress = (appName: string) => {
       } as InstallProgress)
   )
 
+  const calculatePercent = (currentProgress: InstallProgress) => {
+    // current/100 * (100-heroic_stored) + heroic_stored
+    if (previousProgress.percent) {
+      const currentPercent = currentProgress.percent
+      const storedPercent = previousProgress.percent
+      const newPercent: number = Math.round(
+        (currentPercent / 100) * (100 - storedPercent) + storedPercent
+      )
+      return newPercent
+    }
+    return progress.percent
+  }
+
   useEffect(() => {
     const onGameStatusUpdate = async (
       _e: Electron.IpcRendererEvent,
-      { appName: appWithProgress, progress }: GameStatus
+      { appName: appWithProgress, progress: currentProgress }: GameStatus
     ) => {
-      if (appName === appWithProgress && progress) {
-        setProgress(progress)
+      if (appName === appWithProgress && currentProgress) {
+        setProgress({
+          ...currentProgress,
+          percent: calculatePercent(currentProgress)
+        })
       }
     }
     ipcRenderer.on('setGameStatus', onGameStatusUpdate)
