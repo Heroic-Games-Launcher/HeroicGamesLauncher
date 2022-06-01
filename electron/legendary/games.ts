@@ -6,7 +6,7 @@ import { ExecResult, ExtraInfo, InstallArgs, LaunchResult } from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
-import { getLegendaryCommand, LegendaryLibrary } from './library'
+import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
 import { execAsync, getSteamRuntime, isOnline } from '../utils'
 import {
@@ -266,7 +266,7 @@ class LegendaryGame extends Game {
           `Progress for ${this.appName}:`,
           `${percent}%/${bytes}MiB/${eta}`.trim()
         ],
-        LogPrefix.Backend
+        LogPrefix.Legendary
       )
 
       this.window.webContents.send('setGameStatus', {
@@ -298,9 +298,6 @@ class LegendaryGame extends Game {
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
     const commandParts = ['update', this.appName, ...workers, '-y']
-    const command = getLegendaryCommand(commandParts)
-
-    logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Legendary)
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
@@ -312,7 +309,8 @@ class LegendaryGame extends Game {
 
     const res = await runLegendaryCommand(commandParts, {
       logFile: logPath,
-      onOutput
+      onOutput,
+      logMessagePrefix: `Updating ${this.appName}`
     })
 
     this.window.webContents.send('setGameStatus', {
@@ -393,8 +391,6 @@ class LegendaryGame extends Game {
       ...workers,
       '-y'
     ]
-    const command = getLegendaryCommand(commandParts)
-    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
@@ -406,7 +402,8 @@ class LegendaryGame extends Game {
 
     let res = await runLegendaryCommand(commandParts, {
       logFile: logPath,
-      onOutput
+      onOutput,
+      logMessagePrefix: `Installing ${this.appName}`
     })
 
     // try to run the install again with higher memory limit
@@ -434,12 +431,11 @@ class LegendaryGame extends Game {
 
   public async uninstall(): Promise<ExecResult> {
     const commandParts = ['uninstall', this.appName, '-y']
-    const command = getLegendaryCommand(commandParts)
-
-    logInfo([`Uninstalling ${this.appName}:`, command], LogPrefix.Legendary)
 
     LegendaryLibrary.get().installState(this.appName, false)
-    const res = await runLegendaryCommand(commandParts)
+    const res = await runLegendaryCommand(commandParts, {
+      logMessagePrefix: `Uninstalling ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -463,11 +459,11 @@ class LegendaryGame extends Game {
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
     const commandParts = ['repair', this.appName, ...workers, '-y']
-    const command = getLegendaryCommand(commandParts)
 
-    logInfo([`Repairing ${this.appName}:`, command], LogPrefix.Legendary)
-
-    const res = await runLegendaryCommand(commandParts, { logFile: logPath })
+    const res = await runLegendaryCommand(commandParts, {
+      logFile: logPath,
+      logMessagePrefix: `Repairing ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -480,9 +476,8 @@ class LegendaryGame extends Game {
 
   public async import(path: string): Promise<ExecResult> {
     const commandParts = ['import', this.appName, path]
-    const command = getLegendaryCommand(commandParts)
 
-    logInfo([`Importing ${this.appName}:`, command], LogPrefix.Legendary)
+    logInfo(`Importing ${this.appName}.`, LogPrefix.Legendary)
 
     const res = await runLegendaryCommand(commandParts)
 
@@ -517,14 +512,10 @@ class LegendaryGame extends Game {
       this.appName,
       '-y'
     ]
-    const command = getLegendaryCommand(commandParts)
 
-    logInfo(
-      [`Syncing saves for ${this.appName}:`, command],
-      LogPrefix.Legendary
-    )
-
-    const res = await runLegendaryCommand(commandParts)
+    const res = await runLegendaryCommand(commandParts, {
+      logMessagePrefix: `Syncing saves for ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -659,13 +650,15 @@ class LegendaryGame extends Game {
         launchArguments
       ]
     }
-    const command = getLegendaryCommand(commandParts, commandEnv, wrappers)
 
-    logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Legendary)
-    const { error, stderr, stdout } = await runLegendaryCommand(commandParts, {
-      env: commandEnv,
-      wrappers: wrappers
-    })
+    const { error, stderr, stdout, fullCommand } = await runLegendaryCommand(
+      commandParts,
+      {
+        env: commandEnv,
+        wrappers: wrappers,
+        logMessagePrefix: `Launching ${gameInfo.title}`
+      }
+    )
 
     if (error) {
       const showDialog = !`${error}`.includes('appears to be deleted')
@@ -683,7 +676,7 @@ class LegendaryGame extends Game {
       stdout,
       stderr,
       gameSettings,
-      command
+      command: fullCommand
     }
   }
 
