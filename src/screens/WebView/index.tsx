@@ -106,9 +106,6 @@ export default function WebView() {
               webview.selectAll()
               webview.copy()
 
-              if (!clipboard.readText().match('sid')) {
-                return
-              }
               const { sid }: SID = JSON.parse(clipboard.readText())
               try {
                 setLoading({
