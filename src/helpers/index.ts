@@ -216,6 +216,13 @@ async function getAppSettings(): Promise<AppSettings> {
   return ipcRenderer.invoke('requestSettings', 'default')
 }
 
+function quoteIfNecessary(stringToQuote: string) {
+  if (stringToQuote.includes(' ')) {
+    return `"${stringToQuote}"`
+  }
+  return stringToQuote
+}
+
 export {
   createNewWindow,
   fixSaveFolder,
@@ -242,5 +249,6 @@ export {
   sidInfoPage,
   syncSaves,
   updateGame,
-  writeConfig
+  writeConfig,
+  quoteIfNecessary
 }

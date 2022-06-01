@@ -17,6 +17,28 @@ const CYBERPUNK_SDL: Array<SelectiveDownload> = [
   { tags: ['voice_zh_cn'], name: '中文（中国）' }
 ]
 
+const SUPHALAK_SDL: Array<SelectiveDownload> = [
+  { tags: ['language_czech'], name: '(Language Pack) čeština' },
+  { name: '(Language Pack) Deutsch', tags: ['language_german'] },
+  { name: '(Language Pack) English', tags: ['language_english'] },
+  { name: '(Language Pack) español (España)', tags: ['language_spanish'] },
+  { name: '(Language Pack) français', tags: ['language_french'] },
+  { name: '(Language Pack) italiano', tags: ['language_italian'] },
+  { name: '(Language Pack) 한국어', tags: ['language_korean'] },
+  { name: '(Language Pack) polski', tags: ['language_polish'] },
+  { name: '(Language Pack) português', tags: ['language_brazilian'] },
+  { name: '(Language Pack) русский', tags: ['language_russian'] },
+  { name: '(Language Pack) Türkçe', tags: ['language_turkish'] },
+  {
+    name: '(Language Pack) 中文 (简体中文）',
+    tags: ['language_chinese_simplified']
+  },
+  {
+    name: '(Language Pack) 中文（繁體字）',
+    tags: ['language_chinese_traditional']
+  }
+]
+
 const LAVENDER_SDL: Array<SelectiveDownload> = [
   { tags: ['de'], name: '(Language Pack) Deutsch' },
   { tags: ['es_es'], name: '(Language Pack) español (España)' },
@@ -42,5 +64,6 @@ const FORTNITE_SDL: Array<SelectiveDownload> = [
 export const SDL_GAMES = {
   Fortnite: FORTNITE_SDL,
   Ginger: CYBERPUNK_SDL,
-  Lavender: LAVENDER_SDL
+  Lavender: LAVENDER_SDL,
+  Suphalak: SUPHALAK_SDL
 }
