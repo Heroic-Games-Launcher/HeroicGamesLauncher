@@ -55,11 +55,14 @@
     "game": {
         "downloadSize": "سایز دانلود",
         "firstPlayed": "اولین اجرا",
+        "info": "Info",
         "installSize": "سایز نصب",
         "language": "زبان",
         "lastPlayed": "آخرین اجرا",
         "neverPlayed": "هرگز",
         "platform": "انتخاب نسخه پلتفرم برای نصب",
+        "reuirements": "System Requirements",
+        "tools": "Tools",
         "totalPlayed": "زمان بازی"
     },
     "gamecard": {
