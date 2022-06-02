@@ -32,7 +32,7 @@ export const hasProgress = (appName: string) => {
       )
       return newPercent
     }
-    return progress.percent
+    return currentProgress.percent
   }
 
   useEffect(() => {
