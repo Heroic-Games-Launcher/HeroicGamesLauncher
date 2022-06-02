@@ -195,6 +195,7 @@
         "sync": "Szinkronizálás befejezve",
         "unsync": "Deszinkronizálás befejezve"
     },
+    "Missing Dependency": "",
     "nogames": "Nem található játék",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Wine kezelő (béta)",
             "unzipping": "Kicsomagolás"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

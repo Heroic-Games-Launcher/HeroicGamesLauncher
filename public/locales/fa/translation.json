@@ -195,6 +195,7 @@
         "sync": "همگامسازی کامل شد",
         "unsync": "عدم همگامسازی کامل شد"
     },
+    "Missing Dependency": "",
     "nogames": "بازی یافت نشد",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "مدیریت کننده Wine",
             "unzipping": "در حال خارج کردن از حالت فشرده"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

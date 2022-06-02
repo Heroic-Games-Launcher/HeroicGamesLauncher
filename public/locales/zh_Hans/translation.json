@@ -195,6 +195,7 @@
         "sync": "同步完成",
         "unsync": "取消同步完成"
     },
+    "Missing Dependency": "",
     "nogames": "未找到游戏",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Wine 管理器",
             "unzipping": "解压缩"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

@@ -195,6 +195,7 @@
         "sync": "Hoàn tất quá trình đồng bộ",
         "unsync": "Hoàn tất quá trình hủy đồng bộ"
     },
+    "Missing Dependency": "",
     "nogames": "Không tìm thấy game nào",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Quản lý Wine (thử nghiệm)",
             "unzipping": "Đang giải nén"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

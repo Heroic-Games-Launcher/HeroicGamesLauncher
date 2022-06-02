@@ -195,6 +195,7 @@
         "sync": "동기화 완료",
         "unsync": "동기화 해제 완료"
     },
+    "Missing Dependency": "",
     "nogames": "게임이 발견되지 않았습니다",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Wine 관리자",
             "unzipping": "압축 풀기"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

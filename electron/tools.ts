@@ -79,12 +79,20 @@ export const DXVK = {
                 LogPrefix.DXVKInstaller
               )
             )
-            .catch((error) =>
+            .catch((error) => {
+              if (tool.name === 'vkd3d') {
+                showErrorBoxModalAuto(
+                  i18next.t('Missing Dependency'),
+                  i18next.t(
+                    'ZSTD was not found, please install it and restart Heroic'
+                  )
+                )
+              }
               logError(
                 `Extraction of ${tool.name} failed with: ${error}`,
                 LogPrefix.DXVKInstaller
               )
-            )
+            })
 
           exec(cleanCommand)
         })

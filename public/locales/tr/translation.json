@@ -195,6 +195,7 @@
         "sync": "Eşzamanlama Tamamlandı",
         "unsync": "Eşzamanlamayı Kaldırma Tamamlandı"
     },
+    "Missing Dependency": "",
     "nogames": "Oyun Bulunamadı",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Wine Yöneticisi",
             "unzipping": "Çıkartılıyor"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

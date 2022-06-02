@@ -195,6 +195,7 @@
         "sync": "Synchronizace dokončena",
         "unsync": "Desynchronizace dokončena"
     },
+    "Missing Dependency": "",
     "nogames": "Žádné hry nebyly nalezeny",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Správce Wine",
             "unzipping": "Rozbalování"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

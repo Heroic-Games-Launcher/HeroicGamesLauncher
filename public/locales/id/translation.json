@@ -195,6 +195,7 @@
         "sync": "Sinkronisasi Selesai",
         "unsync": "Pembatalan Sinkronisasi Selesai"
     },
+    "Missing Dependency": "",
     "nogames": "Tidak Ada Gim yang Ditemukan",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Manajer Wine",
             "unzipping": "Mengekstrak"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }
