@@ -195,6 +195,7 @@
         "sync": "Synkronointi valmis",
         "unsync": "Synkronoinnin poisto valmis"
     },
+    "Missing Dependency": "",
     "nogames": "Pelejä ei löydetty",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Wine Manageri",
             "unzipping": "Purkaminen"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

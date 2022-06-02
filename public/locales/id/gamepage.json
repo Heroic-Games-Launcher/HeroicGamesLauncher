@@ -55,11 +55,14 @@
     "game": {
         "downloadSize": "Ukuran Unduhan",
         "firstPlayed": "Pertama Kali Dimainkan",
+        "info": "Info",
         "installSize": "Ukuran Pemasangan",
         "language": "Bahasa",
         "lastPlayed": "Terakhir Dimainkan",
         "neverPlayed": "Tidak pernah",
         "platform": "Pilih Versi Platform yang Akan Dipasang",
+        "reuirements": "System Requirements",
+        "tools": "Tools",
         "totalPlayed": "Lama Dimainkan"
     },
     "gamecard": {

@@ -9,11 +9,13 @@ import React, {
   useState
 } from 'react'
 
-import ContextProvider from 'src/state/ContextProvider'
-
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import { Header, UpdateComponent } from 'src/components/UI'
 import { useTranslation } from 'react-i18next'
+import Fuse from 'fuse.js'
+
+import ContextProvider from 'src/state/ContextProvider'
+
 import { getLibraryTitle } from './constants'
 import ActionIcons from 'src/components/UI/ActionIcons'
 import { GamesList } from './components/GamesList'
@@ -213,13 +215,21 @@ export default function Library(): JSX.Element {
 
     // filter
     try {
-      const filterRegex = new RegExp(filterText, 'i')
-      const textFilter = ({ title, app_name }: GameInfo) =>
-        filterRegex.test(title) || filterRegex.test(app_name)
-      library = filterByPlatform(
-        filterLibrary(library, filter).filter(textFilter),
+      const filteredLibrary = filterByPlatform(
+        filterLibrary(library, filter),
         filterPlatform
       )
+      const fuse = new Fuse(filteredLibrary, {
+        minMatchCharLength: 2,
+        keys: ['title']
+      })
+
+      if (filterText) {
+        const fuzzySearch = fuse.search(filterText).map((g) => g.item)
+        library = fuzzySearch
+      } else {
+        library = filteredLibrary
+      }
     } catch (error) {
       console.log(error)
     }

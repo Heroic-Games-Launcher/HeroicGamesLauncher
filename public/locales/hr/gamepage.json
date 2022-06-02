@@ -55,11 +55,14 @@
     "game": {
         "downloadSize": "Veličina Preuzimanja",
         "firstPlayed": "Prvo odigrano",
+        "info": "Info",
         "installSize": "Veličina Instalacije",
         "language": "Jezik",
         "lastPlayed": "Zadnje odigrano",
         "neverPlayed": "Nikad",
         "platform": "Odaberi verziju platforme za instalirati",
+        "reuirements": "System Requirements",
+        "tools": "Tools",
         "totalPlayed": "Vrijeme igranja"
     },
     "gamecard": {

@@ -236,13 +236,13 @@ export default function GamePage(): JSX.Element | null {
                 <>
                   <nav>
                     <button data-tab="info" onClick={onTabClick}>
-                      Info
+                      {t('game.info', 'Info')}
                     </button>
                     <button data-tab="tools" onClick={onTabClick}>
-                      Tools
+                      {t('game.tools', 'Tools')}
                     </button>
                     <button data-tab="requirements" onClick={onTabClick}>
-                      System Requirements
+                      {t('game.reuirements', 'System Requirements')}
                     </button>
                   </nav>
 

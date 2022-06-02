@@ -195,6 +195,7 @@
         "sync": "Synchronisation abgeschlossen",
         "unsync": "Synchronisation erfolgreich aufgehoben"
     },
+    "Missing Dependency": "",
     "nogames": "Keine Spiele gefunden",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Wine-Manager",
             "unzipping": "Entpacke"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }
