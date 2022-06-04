@@ -24,7 +24,11 @@ import {
   isMac,
   isLinux
 } from '../constants'
-import { configStore, installedGamesStore } from '../gog/electronStores'
+import {
+  configStore,
+  installedGamesStore,
+  syncStore
+} from '../gog/electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import {
   errorHandler,
@@ -488,9 +492,35 @@ class GOGGame extends Game {
   }
 
   async syncSaves(arg: string, path: string): Promise<ExecResult> {
-    throw new Error(
-      "GOG integration doesn't support syncSaves yet. How did you managed to call that function?"
-    )
+    const credentials = await GOGUser.getCredentials()
+    const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
+    const commandParts = [
+      'save-sync',
+      path,
+      this.appName,
+      '--token',
+      `"${credentials.refresh_token}"`,
+      '--os',
+      gameInfo.install.platform,
+      '--ts',
+      syncStore.get(this.appName, '0') as string,
+      arg
+    ]
+
+    logInfo([`Syncing saves for ${this.appName}`], LogPrefix.Gog)
+
+    const res = await runGogdlCommand(commandParts)
+
+    if (res.error) {
+      logError(
+        ['Failed to sync saves for', `${this.appName}`, `${res.error}`],
+        LogPrefix.Gog
+      )
+    }
+    if (res.stdout) {
+      syncStore.set(this.appName, res.stdout.trim())
+    }
+    return res
   }
   public async uninstall(): Promise<ExecResult> {
     const array: Array<InstalledInfo> =
@@ -536,6 +566,7 @@ class GOGGame extends Game {
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
     removeShortcuts(this.appName, 'gog')
+    syncStore.delete(this.appName)
     return res
   }
 

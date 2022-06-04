@@ -95,11 +95,12 @@ export default function SyncSaves({
   async function handleSync() {
     setIsSyncing(true)
 
-    await syncSaves(savesPath, appName, syncType).then(async (res: string) =>
-      ipcRenderer.invoke('openMessageBox', {
-        message: res,
-        title: 'Saves Sync'
-      })
+    await syncSaves(savesPath, appName, runner, syncType).then(
+      async (res: string) =>
+        ipcRenderer.invoke('openMessageBox', {
+          message: res,
+          title: 'Saves Sync'
+        })
     )
     setIsSyncing(false)
   }

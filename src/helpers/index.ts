@@ -46,6 +46,7 @@ const isLoggedIn = async (): Promise<void> => ipcRenderer.invoke('isLoggedIn')
 const syncSaves = async (
   savesPath: string,
   appName: string,
+  runner: Runner,
   arg?: string
 ): Promise<string> => {
   const { user } = await ipcRenderer.invoke('getUserInfo')
@@ -54,7 +55,8 @@ const syncSaves = async (
   const response: string = await ipcRenderer.invoke('syncSaves', [
     arg,
     path,
-    appName
+    appName,
+    runner
   ])
   return response
 }
@@ -146,6 +148,8 @@ async function fixGogSaveFolder(
         folder = folder.replace(matches[0], '$HOME/Documents')
       }
       break
+    case 'APPLICATION_SUPPORT':
+      folder = folder.replace(matches[0], '/Library/Application Support')
   }
   console.log(folder, prefix, isProton)
   return folder

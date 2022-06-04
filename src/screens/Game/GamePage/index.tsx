@@ -544,7 +544,7 @@ export default function GamePage(): JSX.Element | null {
 
       if (autoSyncSaves) {
         setIsSyncing(true)
-        await syncSaves(savesPath, appName)
+        await syncSaves(savesPath, appName, gameInfo.runner)
         setIsSyncing(false)
       }
       await launch({
@@ -557,7 +557,7 @@ export default function GamePage(): JSX.Element | null {
 
       if (autoSyncSaves) {
         setIsSyncing(true)
-        await syncSaves(savesPath, appName)
+        await syncSaves(savesPath, appName, gameInfo.runner)
         setIsSyncing(false)
       }
     }

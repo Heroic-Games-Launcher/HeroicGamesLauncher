@@ -44,9 +44,7 @@ import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
-import { LegendaryGame } from './legendary/games'
 import { GOGUser } from './gog/user'
-import { GOGGame } from './gog/games'
 import { GOGLibrary } from './gog/library'
 import setup from './gog/setup'
 import {
@@ -1249,7 +1247,7 @@ ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
 })
 
 ipcMain.handle('syncSaves', async (event, args) => {
-  const [arg = '', path, appName] = args
+  const [arg = '', path, appName, runner] = args
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline) {
     logWarning('Epic is Offline right now, cannot sync saves!')
@@ -1263,7 +1261,10 @@ ipcMain.handle('syncSaves', async (event, args) => {
     return
   }
 
-  const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
+  const { stderr, stdout } = await Game.get(appName, runner).syncSaves(
+    arg,
+    path
+  )
   logInfo(`${stdout}`, LogPrefix.Backend)
   if (stderr.includes('ERROR')) {
     logError(`${stderr}`, LogPrefix.Backend)
@@ -1386,14 +1387,7 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
 ipcMain.handle(
   'runWineCommandForGame',
   async (event, { appName, command, runner }) => {
-    let game = null
-    switch (runner) {
-      case 'gog':
-        game = GOGGame.get(appName)
-        break
-      case 'legendary':
-        game = LegendaryGame.get(appName)
-    }
+    const game = Game.get(appName, runner)
 
     const { updated } = await verifyWinePrefix(game)
 
