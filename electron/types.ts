@@ -365,3 +365,11 @@ export interface RpcClient {
   reply(user: unknown, response: unknown): void
   disconnect(): void
 }
+
+export interface CallRunnerOptions {
+  logMessagePrefix?: string
+  logFile?: string
+  env?: Record<string, string>
+  wrappers?: string[]
+  onOutput?: (output: string) => void
+}
