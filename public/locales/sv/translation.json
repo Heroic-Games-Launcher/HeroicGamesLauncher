@@ -195,6 +195,7 @@
         "sync": "Synkronisering slutförd",
         "unsync": "Avbryt synkronisering slutfört"
     },
+    "Missing Dependency": "",
     "nogames": "Inga spel hittades",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Wine hanterare",
             "unzipping": "Packar upp"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

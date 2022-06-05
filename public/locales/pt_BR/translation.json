@@ -195,6 +195,7 @@
         "sync": "Sincronização Completa",
         "unsync": "Dessincronização Completa"
     },
+    "Missing Dependency": "",
     "nogames": "Nenhum Jogo Encontrado",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Versões do Wine",
             "unzipping": "Descompactando"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

@@ -2,7 +2,7 @@
     "accessibility": {
         "actions_font_family": "Toimingute fondiperekond (vaikimisi: \"Rubik\")",
         "all_tiles_in_color": "Näita kõiki mänguplaate värviliselt",
-        "content_font_family": "Sisu fondiperekond (vaikimisi: \"Kajut\")",
+        "content_font_family": "Sisu fondiperekond (vaikimisi: \"Cabin\")",
         "fonts": "Fondid",
         "title": "Kättesaadavus",
         "zoom": "Zoom"
@@ -195,6 +195,7 @@
         "sync": "Sünkroonimine lõpetatud",
         "unsync": "Mittesünkroniseerimine lõpetatud"
     },
+    "Missing Dependency": "",
     "nogames": "Mänge ei leitud",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Wine'i haldur",
             "unzipping": "Lahtipakkimine"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

@@ -55,11 +55,14 @@
     "game": {
         "downloadSize": "Μέγεθος λήψης",
         "firstPlayed": "Παίχτηκε πρώτη φορά",
+        "info": "Info",
         "installSize": "Μέγεθος Εγκατάστασης",
         "language": "Γλώσσα",
         "lastPlayed": "Παίχτηκε Τελευταία φορά",
         "neverPlayed": "Ποτέ",
         "platform": "Select Platform Version to Install",
+        "reuirements": "System Requirements",
+        "tools": "Tools",
         "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού"
     },
     "gamecard": {

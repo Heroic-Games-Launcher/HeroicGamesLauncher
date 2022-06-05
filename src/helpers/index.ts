@@ -109,7 +109,12 @@ const createNewWindow = (url: string) =>
 
 function getProgress(progress: InstallProgress): number {
   if (progress && progress.percent) {
-    return progress.percent
+    const percent = progress.percent
+    // this should deal with a few edge cases
+    if (typeof percent === 'string') {
+      return Number(String(percent).replace('%', ''))
+    }
+    return percent
   }
   return 0
 }
@@ -211,6 +216,13 @@ async function getAppSettings(): Promise<AppSettings> {
   return ipcRenderer.invoke('requestSettings', 'default')
 }
 
+function quoteIfNecessary(stringToQuote: string) {
+  if (stringToQuote.includes(' ')) {
+    return `"${stringToQuote}"`
+  }
+  return stringToQuote
+}
+
 export {
   createNewWindow,
   fixSaveFolder,
@@ -237,5 +249,6 @@ export {
   sidInfoPage,
   syncSaves,
   updateGame,
-  writeConfig
+  writeConfig,
+  quoteIfNecessary
 }

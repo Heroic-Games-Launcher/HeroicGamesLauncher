@@ -25,8 +25,8 @@
                 "message": "Термін дії ваших облікових даних скінчився, будь ласка вийдіть і увійдіть знову."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "Пляшка CrossOver \"{{bottle_name}}\" не існує, не може запуститися!",
+                "title": "Пляшку CrossOver не знайдено"
             },
             "diskspace": {
                 "message": "Недостатньо місця на диску",
@@ -195,6 +195,7 @@
         "sync": "Синхронізація завершена",
         "unsync": "Десинхронізація завершена"
     },
+    "Missing Dependency": "",
     "nogames": "Не знайдено ігор",
     "notify": {
         "error": {
@@ -393,5 +394,6 @@
             "title": "Керування Wine",
             "unzipping": "Розпаковую"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

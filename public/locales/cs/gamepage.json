@@ -55,11 +55,14 @@
     "game": {
         "downloadSize": "Velikost ke stažení",
         "firstPlayed": "Poprvé hráno",
+        "info": "Info",
         "installSize": "Velikost instalace",
         "language": "Jazyk",
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
         "platform": "Vyberte verzi platformy, kterou chcete nainstalovat",
+        "reuirements": "System Requirements",
+        "tools": "Tools",
         "totalPlayed": "Odehraný čas"
     },
     "gamecard": {
@@ -67,7 +70,7 @@
         "repairing": "Opravuji"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Neznámá chyba"
     },
     "info": {
         "canRunOffline": "Vyžaduje se být online",
@@ -81,7 +84,7 @@
         "disk-space-left": "Volné místo",
         "not-enough-disk-space": "Nedostatek místa na disku",
         "path": "Vyberte cestu instalace",
-        "path-not-writtable": "Warning: path might not be writable.",
+        "path-not-writtable": "Varování: na cestu možná nelze zapisovat.",
         "space-after-install": "Po instalaci",
         "wineprefix": "WinePrefix",
         "wineversion": "Verze Wine"
