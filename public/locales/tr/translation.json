@@ -141,6 +141,11 @@
         "show_hidden": "Gizlileri Göster"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
         "other": {
             "part1": "Oyun başlatılmadan önce çağırılması için ",
@@ -241,7 +246,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Yerleşik GOGDL çalıştırılabilir dosyasını kullanılıyor...",
         "alt-legendary-bin": "Yerleşik Legendary çalıştırılabilir dosyası kullanılıyor...",
-        "egs-prefix": "EGS'nin kurulu olduğu yer"
+        "egs-prefix": "EGS'nin kurulu olduğu yer",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -305,6 +311,7 @@
         "maxworkers": "İndirirken azami işçi sayısı",
         "minimize-on-launch": "Oyun Başlatıldıktan Sonra Heroic'i Simge Durumuna Küçült",
         "offlinemode": "Oyunu Çevrim Dışı Çalıştır",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Özel Grafik Kartını Kullan",
         "resizableBar": "Resizable BAR'ı etkinleştir (yalnızca NVIDIA RTX 30xx)",
         "runexe": {

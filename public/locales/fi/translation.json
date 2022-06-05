@@ -141,6 +141,11 @@
         "show_hidden": "Show Hidden"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Synkronisoi EGL:n kanssa mikäli sinulla on toimiva Epic Games Launcher:in asennus toisaalla ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
         "other": {
             "part1": "Käytä ",
@@ -241,7 +246,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Käytetään sisäänrakennettua GOGDL-binääriä...",
         "alt-legendary-bin": "Käytetään sisäänrakennettua legendaarista binääriä...",
-        "egs-prefix": "Prefiksi johon EGS on asennettu"
+        "egs-prefix": "Prefiksi johon EGS on asennettu",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "",
@@ -305,6 +311,7 @@
         "maxworkers": "Työntekijöiden enimmäismäärä ladattaessa",
         "minimize-on-launch": "Minimoi Heroic pelin käynnistämisen jälkeen",
         "offlinemode": "Käynnistä peli offline-tilassa",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Ota käyttöön Nvidia Prime Render",
         "resizableBar": "Ota käyttöön Resizable BAR (Vain NVIDIA RTX 30xx)",
         "runexe": {

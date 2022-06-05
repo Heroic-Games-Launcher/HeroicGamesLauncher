@@ -141,6 +141,11 @@
         "show_hidden": "Show Hidden"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
         "other": {
             "part1": "Use the ",
@@ -241,7 +246,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
-        "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு"
+        "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "",
@@ -305,6 +311,7 @@
         "maxworkers": "பதிவிறக்கும் போது வேலையாளிகளின் அதிகபட்ச எண்ணிக்கை",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "இணையத்துடன் இணையாமல் விளையாட்டை துவக்கு",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Nvidia Prime Render ஐ துவக்கு",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {

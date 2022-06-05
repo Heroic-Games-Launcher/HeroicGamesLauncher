@@ -16,7 +16,8 @@ import {
   isLinux,
   isMac,
   isWindows,
-  installed
+  installed,
+  configStore
 } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
@@ -556,6 +557,11 @@ class LegendaryGame extends Game {
 
     const isNative = await this.isNative()
 
+    const languageCode =
+      gameSettings.language || (configStore.get('language', '') as string)
+
+    const languageFlag = languageCode ? ['--language', languageCode] : []
+
     let commandParts = new Array<string>()
     let commandEnv = process.env
     let wrappers = new Array<string>()
@@ -578,6 +584,7 @@ class LegendaryGame extends Game {
       commandParts = [
         'launch',
         gameInfo.app_name,
+        ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
         launchArguments
@@ -642,6 +649,7 @@ class LegendaryGame extends Game {
       commandParts = [
         'launch',
         gameInfo.app_name,
+        ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
         ...wineFlag,
