@@ -173,3 +173,16 @@
 .FormControl option:checked {
   color: var(--accent);
 }
+
+.FormControl__button.small {
+  max-width: fit-content;
+}
+
+.FormControl--small .FormControl__segmentedFaIcon.brands {
+  height: 24px;
+  fill: var(--text-default);
+}
+
+.FormControl--small .FormControl__segmentedFaIcon.brands.active {
+  fill: var(--accent);
+}

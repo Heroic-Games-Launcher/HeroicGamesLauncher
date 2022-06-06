@@ -1,21 +1,15 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useContext } from 'react'
 import cx from 'classnames'
 import { useTranslation } from 'react-i18next'
 import { UE_VERSIONS } from './constants'
-import { GameInfo } from 'src/types'
 import ContextProvider from 'src/state/ContextProvider'
 import { SearchBar } from 'src/components/UI'
 import FormControl from '../FormControl'
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
 import './index.css'
 
-interface ComponentProps {
-  list: GameInfo[]
-}
-
-export default function Header({ list }: ComponentProps) {
+export default function Header() {
   const { t } = useTranslation()
   const {
     category,
@@ -23,36 +17,17 @@ export default function Header({ list }: ComponentProps) {
     handleFilter,
     filterPlatform,
     handlePlatformFilter,
-    platform,
-    showHidden,
-    setShowHidden
+    platform
   } = useContext(ContextProvider)
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
 
-  const toggleShowHidden = () => {
-    setShowHidden(!showHidden)
-  }
-
-  const showHiddenTitle = showHidden
-    ? t('header.ignore_hidden', 'Ignore Hidden')
-    : t('header.show_hidden', 'Show Hidden')
-
-  const numberOfGames = useMemo(() => {
-    const dlcCount =
-      category === 'legendary'
-        ? list.filter((lib) => lib.install.is_dlc).length
-        : 0
-
-    return list.length - dlcCount
-  }, [list, category])
-
   return (
     <div className="Header">
       {category !== 'unreal' && (
         <div className="Header__filters">
-          {(isMac || (isLinux && category === 'gog')) && (
+          {(isMac || (isLinux && category !== 'legendary')) && (
             <FormControl segmented>
               <button
                 onClick={() => handlePlatformFilter('all')}
@@ -152,21 +127,6 @@ export default function Header({ list }: ComponentProps) {
       <div className="Header__search">
         <SearchBar />
       </div>
-      <div className="Header__summary" data-testid="totalGamesText">
-        {/* TODO change labels for Unreal Marketplace, maybe change "Total" to "Found" */}
-        {numberOfGames !== undefined && numberOfGames > 0
-          ? `${t('Total Games')}: ${numberOfGames}`
-          : `${t('nogames')}`}
-      </div>
-      <FormControl segmented>
-        <button
-          className="FormControl__button"
-          title={showHiddenTitle}
-          onClick={toggleShowHidden}
-        >
-          {showHidden ? <Visibility /> : <VisibilityOff />}
-        </button>
-      </FormControl>
     </div>
   )
 }

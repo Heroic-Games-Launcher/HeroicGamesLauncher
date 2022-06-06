@@ -16,6 +16,7 @@ import ContextProvider from 'src/state/ContextProvider'
 import FormControl from '../FormControl'
 import './index.css'
 import { Runner } from 'src/types'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 interface Props {
   sortDescending: boolean
@@ -33,7 +34,17 @@ export default function ActionIcons({
   toggleSortinstalled
 }: Props) {
   const { t } = useTranslation()
-  const { refreshLibrary, handleLayout, layout } = useContext(ContextProvider)
+  const { refreshLibrary, handleLayout, layout, showHidden, setShowHidden } =
+    useContext(ContextProvider)
+
+  const toggleShowHidden = () => {
+    setShowHidden(!showHidden)
+  }
+
+  const showHiddenTitle = showHidden
+    ? t('header.ignore_hidden', 'Ignore Hidden')
+    : t('header.show_hidden', 'Show Hidden')
+
   return (
     <div className="ActionIcons">
       <FormControl segmented small>
@@ -80,6 +91,13 @@ export default function ActionIcons({
             className="FormControl__segmentedFaIcon"
             icon={sortInstalled ? hardDriveSolid : hardDriveLight}
           />
+        </button>
+        <button
+          className="FormControl__button"
+          title={showHiddenTitle}
+          onClick={toggleShowHidden}
+        >
+          {showHidden ? <Visibility /> : <VisibilityOff />}
         </button>
         <button
           className="FormControl__button"
