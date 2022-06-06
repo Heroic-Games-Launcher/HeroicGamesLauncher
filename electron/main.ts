@@ -1045,6 +1045,7 @@ ipcMain.handle('repair', async (event, game, runner) => {
 ipcMain.handle('moveInstall', async (event, [appName, path, runner]) => {
   const title = (await Game.get(appName, runner).getGameInfo()).title
   try {
+    notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
     const newPath = await Game.get(appName, runner).moveInstall(path)
     notify({ title, body: i18next.t('notify.moved') })
     logInfo(`Finished moving ${appName} to ${newPath}.`, LogPrefix.Backend)

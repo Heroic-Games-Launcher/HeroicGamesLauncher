@@ -155,3 +155,7 @@ h2,
 h3 {
   color: var(--text-title);
 }
+
+.gogIcon {
+  fill: var(--text-default);
+}
