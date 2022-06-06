@@ -21,6 +21,9 @@ import { SvgButton } from 'src/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'src/hooks/hasProgress'
 
+import { ReactComponent as EpicLogo } from 'src/assets/epic-logo.svg'
+import { ReactComponent as GOGLogo } from 'src/assets/gog-logo.svg'
+
 interface Card {
   appName: string
   buttonClick: () => void
@@ -123,7 +126,7 @@ const GameCard = ({
       return t('status.updating') + ` ${percent}`
     }
     if (isInstalling) {
-      return t('status.installing') + ` ${percent}%`
+      return t('status.installing') + ` ${percent || 0}%`
     }
     if (isMoving) {
       return t('gamecard.moving', 'Moving')
@@ -303,6 +306,11 @@ const GameCard = ({
       <ContextMenu items={items}>
         <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
+          <div className="store-icon">
+            <div className="store-icon">
+              {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
+            </div>
+          </div>
           <Link
             to={`gamepage/${appName}`}
             style={

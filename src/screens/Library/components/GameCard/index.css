@@ -241,6 +241,18 @@
   opacity: 0.2;
 }
 
+.gameCard > .store-icon svg {
+  background-color: var(--background);
+  width: 32px;
+  padding: 3px;
+  border-radius: 10px;
+  position: relative;
+  top: -12px;
+  right: -54px;
+  height: 32px;
+  fill: var(--text-default);
+}
+
 .icons {
   align-self: flex-end;
   width: 100%;
