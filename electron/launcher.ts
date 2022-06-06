@@ -487,7 +487,7 @@ async function callRunner(
   // TypeError is triggered
   commandParts = commandParts.filter(Boolean)
   const safeCommand = getRunnerCallWithoutCredentials(
-    commandParts,
+    [...commandParts],
     options?.env,
     options?.wrappers,
     fullRunnerPath
