@@ -4,14 +4,15 @@
   position: relative;
   z-index: 10;
   display: grid;
-  grid-template-rows: 1fr auto 1fr;
-  grid-template-areas: 'links' 'layout' 'utils';
+  grid-template-rows: 2fr 1fr;
+  grid-template-areas: 'links' 'utils';
   grid-area: sidebar;
   height: 100%;
   padding: 0;
   font-family: var(--actions-font-family);
   text-align: left;
   background: var(--navbar-background);
+  overflow: auto;
 }
 
 .Sidebar__section {
@@ -59,4 +60,18 @@
   display: inline-flex;
   justify-content: center;
   color: var(--accent);
+}
+
+.currentDownloads {
+  grid-area: utils;
+  grid-area: utils;
+  align-self: end;
+  margin: 0 4px calc(var(--sidebar-vertical-padding) + 26px)
+    var(--sidebar-horizontal-padding);
+}
+
+.divider {
+  border: solid 1px var(--accent-overlay);
+  opacity: 0.2;
+  margin: 4px 8px;
 }

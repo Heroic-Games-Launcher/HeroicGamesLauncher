@@ -7,15 +7,23 @@ import {
   faUniversalAccess
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { openDiscordLink } from 'src/helpers'
 import classNames from 'classnames'
-import cx from 'classnames'
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink, useLocation } from 'react-router-dom'
-import { getAppSettings } from 'src/helpers'
+import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
+import {
+  faCoffee,
+  faUserAlt,
+  faWineGlass
+} from '@fortawesome/free-solid-svg-icons'
+const { ipcRenderer } = window.require('electron')
+
 import ContextProvider from 'src/state/ContextProvider'
-import { Category, Runner } from 'src/types'
+import { Runner } from 'src/types'
 import './index.css'
+import QuitButton from '../QuitButton'
 
 interface LocationState {
   fromGameCard: boolean
@@ -27,17 +35,15 @@ interface LocationState {
 
 export default function SidebarLinks() {
   const { t } = useTranslation()
-  const [showUnrealMarket, setShowUnrealMarket] = useState(false)
+  const navigate = useNavigate()
   const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
   const [appName, type] = location.pathname
     .replaceAll('/settings/', '')
     .split('/')
 
-  const { epic, gog, category, handleCategory, handleFilter, platform } =
-    useContext(ContextProvider)
+  const { epic, gog, platform } = useContext(ContextProvider)
 
-  const isLibrary = location.pathname === '/'
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
   const isDefaultSetting = location.pathname.startsWith('/settings/default')
@@ -50,30 +56,11 @@ export default function SidebarLinks() {
   const isWin = platform === 'win32'
   const isLinuxGame = isLinuxNative && platform === 'linux'
   const isMacGame = isMacNative && platform === 'darwin'
+  const isLinux = platform === 'linux'
 
   const shouldRenderWineSettings = !isWin && !isMacGame && !isLinuxGame
 
-  const showLibrarySubmenu =
-    ((epic.username && gog.username) || (epic.username && showUnrealMarket)) &&
-    isLibrary
-
   const loggedIn = epic.username || gog.username
-
-  const toggleCategory = useCallback(
-    (newCategory: Category) => {
-      if (category !== newCategory) {
-        handleCategory(newCategory)
-        handleFilter(newCategory === 'unreal' ? 'unreal' : 'all')
-      }
-    },
-    [category, handleCategory, handleFilter]
-  )
-
-  useEffect(() => {
-    getAppSettings().then(({ showUnrealMarket }) =>
-      setShowUnrealMarket(showUnrealMarket)
-    )
-  }, [])
 
   return (
     <div className="SidebarLinks Sidebar__section">
@@ -106,43 +93,6 @@ export default function SidebarLinks() {
             {t('button.login', 'Login')}
           </>
         </NavLink>
-      )}
-      {showLibrarySubmenu && (
-        <>
-          {epic.username && (
-            <a
-              href="#"
-              onClick={() => toggleCategory('legendary')}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
-                ['active']: category === 'legendary'
-              })}
-            >
-              {t('Epic Games', 'Epic Games')}
-            </a>
-          )}
-          {gog.username && (
-            <a
-              href="#"
-              onClick={() => toggleCategory('gog')}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
-                ['active']: category === 'gog'
-              })}
-            >
-              {t('GOG', 'GOG')}
-            </a>
-          )}
-          {showUnrealMarket && epic.username && (
-            <a
-              href="#"
-              onClick={() => toggleCategory('unreal')}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
-                ['active']: category === 'unreal'
-              })}
-            >
-              {t('Unreal Marketplace', 'Unreal Marketplace')}
-            </a>
-          )}
-        </>
       )}
       <NavLink
         className={({ isActive }) =>
@@ -205,7 +155,7 @@ export default function SidebarLinks() {
               role="link"
               to={{ pathname: '/settings/default/general' }}
               state={{ fromGameCard: false }}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
+              className={classNames('Sidebar__item SidebarLinks__subItem', {
                 ['active']: type === 'general'
               })}
             >
@@ -217,7 +167,7 @@ export default function SidebarLinks() {
               role="link"
               to={`/settings/${appName}/wine`}
               state={{ ...state, runner: state?.runner }}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
+              className={classNames('Sidebar__item SidebarLinks__subItem', {
                 ['active']: type === 'wine'
               })}
             >
@@ -230,7 +180,7 @@ export default function SidebarLinks() {
               data-testid="linkSync"
               to={`/settings/${appName}/sync`}
               state={{ ...state, runner: state?.runner }}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
+              className={classNames('Sidebar__item SidebarLinks__subItem', {
                 ['active']: type === 'sync'
               })}
             >
@@ -241,7 +191,7 @@ export default function SidebarLinks() {
             role="link"
             to={`/settings/${appName}/other`}
             state={{ ...state, runner: state?.runner }}
-            className={cx('Sidebar__item SidebarLinks__subItem', {
+            className={classNames('Sidebar__item SidebarLinks__subItem', {
               ['active']: type === 'other'
             })}
           >
@@ -252,7 +202,7 @@ export default function SidebarLinks() {
               role="link"
               to={`/settings/${appName}/advanced`}
               state={{ ...state, runner: state?.runner }}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
+              className={classNames('Sidebar__item SidebarLinks__subItem', {
                 ['active']: type === 'advanced'
               })}
             >
@@ -263,7 +213,7 @@ export default function SidebarLinks() {
             role="link"
             to={`/settings/${appName}/log`}
             state={{ ...state, runner: state?.runner }}
-            className={cx('Sidebar__item SidebarLinks__subItem', {
+            className={classNames('Sidebar__item SidebarLinks__subItem', {
               ['active']: type === 'log'
             })}
           >
@@ -271,20 +221,6 @@ export default function SidebarLinks() {
           </NavLink>
         </>
       )}
-      <NavLink
-        data-testid="accessibility"
-        className={({ isActive }) =>
-          classNames('Sidebar__item', { active: isActive })
-        }
-        to={{ pathname: '/accessibility' }}
-      >
-        <>
-          <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon icon={faUniversalAccess} />
-          </div>
-          {t('accessibility.title', 'Accessibility')}
-        </>
-      </NavLink>
       <NavLink
         data-testid="wiki"
         className={({ isActive }) =>
@@ -299,6 +235,68 @@ export default function SidebarLinks() {
           {t('wiki', 'Wiki')}
         </>
       </NavLink>
+      <div className="divider" />
+      <button className="Sidebar__item" onClick={() => openDiscordLink()}>
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faDiscord} />
+        </div>
+        {t('userselector.discord', 'Discord')}
+      </button>
+      <button
+        className="Sidebar__item"
+        onClick={() => ipcRenderer.send('openPatreonPage')}
+      >
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faPatreon} />
+        </div>
+        <span>Patreon</span>
+      </button>
+      <button
+        className="Sidebar__item"
+        onClick={() => ipcRenderer.send('openKofiPage')}
+      >
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faCoffee} />
+        </div>
+        Ko-fi
+      </button>
+      <div className="divider" />
+      <NavLink
+        data-testid="accessibility"
+        className={({ isActive }) =>
+          classNames('Sidebar__item', { active: isActive })
+        }
+        to={{ pathname: '/accessibility' }}
+      >
+        <>
+          <div className="Sidebar__itemIcon">
+            <FontAwesomeIcon icon={faUniversalAccess} />
+          </div>
+          {t('accessibility.title', 'Accessibility')}
+        </>
+      </NavLink>
+      {isLinux && (
+        <NavLink
+          className={({ isActive }) =>
+            classNames('Sidebar__item', { active: isActive })
+          }
+          to={{ pathname: '/wine-manager' }}
+        >
+          <>
+            <div className="Sidebar__itemIcon">
+              <FontAwesomeIcon icon={faWineGlass} />
+            </div>
+            {t('wine.manager.link', 'Wine Manager')}
+          </>
+        </NavLink>
+      )}
+      <button className="Sidebar__item" onClick={() => navigate('/login')}>
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faUserAlt} />
+        </div>
+        {t('userselector.manageaccounts', 'Manage Accounts')}
+      </button>
+      <QuitButton />
     </div>
   )
 }
