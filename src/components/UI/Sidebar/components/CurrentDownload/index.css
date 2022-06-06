@@ -1,0 +1,22 @@
+.currentDownload {
+  font-size: 14px;
+  padding: 10px 0;
+  transition: 300ms;
+}
+
+.currentDownload:hover > .gameTitle {
+  color: var(--accent-overlay);
+  transition: 600ms;
+}
+
+.currentDownload > .installProgress[value] {
+  appearance: none;
+  width: 58%;
+  margin-right: 8px;
+  height: 8px;
+}
+
+.currentDownload > .installProgress[value]::-webkit-progress-value {
+  color: var(--success);
+  animation: animate-stripes 5s linear infinite;
+}
