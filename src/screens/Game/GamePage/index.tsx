@@ -30,8 +30,8 @@ import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'src/screens/Library/components'
 import { install } from 'src/helpers/library'
-import EpicLogo from 'src/assets/epic-logo.svg'
-import GOGLogo from 'src/assets/gog-logo.svg'
+import { ReactComponent as EpicLogo } from 'src/assets/epic-logo.svg'
+import { ReactComponent as GOGLogo } from 'src/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'src/hooks/hasProgress'
@@ -225,11 +225,7 @@ export default function GamePage(): JSX.Element | null {
               <ArrowCircleLeftIcon />
             </NavLink>
             <div className="store-icon">
-              <img
-                src={runner === 'legendary' ? EpicLogo : GOGLogo}
-                className={runner === 'legendary' ? '' : 'gogIcon'}
-                alt=""
-              />
+              {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
             </div>
             <div className={`gameTabs ${tabToShow}`}>
               {is_game && (
