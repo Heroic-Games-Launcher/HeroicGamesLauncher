@@ -16,11 +16,10 @@ import Fuse from 'fuse.js'
 
 import ContextProvider from 'src/state/ContextProvider'
 
-import { getLibraryTitle } from './constants'
-import ActionIcons from 'src/components/UI/ActionIcons'
 import { GamesList } from './components/GamesList'
 import { GameInfo, Runner } from 'src/types'
 import ErrorComponent from 'src/components/UI/ErrorComponent'
+import LibraryHeader from './components/LibraryHeader'
 
 const InstallModal = lazy(
   async () => import('src/screens/Library/components/InstallModal')
@@ -88,31 +87,6 @@ export default function Library(): JSX.Element {
 
   function handleModal(appName: string, runner: Runner) {
     setShowModal({ game: appName, show: true, runner })
-  }
-
-  function handleSortDescending() {
-    setSortDescending(!sortDescending)
-    storage.setItem('sortDescending', JSON.stringify(!sortDescending))
-  }
-
-  function handleSortInstalled() {
-    setSortInstalled(!sortInstalled)
-    storage.setItem('sortInstalled', JSON.stringify(!sortInstalled))
-  }
-
-  function titleWithIcons() {
-    return (
-      <div className="titleWithIcons">
-        {getLibraryTitle(category, filter, t)}
-        <ActionIcons
-          sortDescending={sortDescending}
-          toggleSortDescending={() => handleSortDescending()}
-          sortInstalled={sortInstalled}
-          library={category === 'legendary' ? 'legendary' : 'gog'}
-          toggleSortinstalled={() => handleSortInstalled()}
-        />
-      </div>
-    )
   }
 
   // cache list of games being installed
@@ -197,21 +171,13 @@ export default function Library(): JSX.Element {
   // select library
   const libraryToShow = useMemo(() => {
     let library: GameInfo[] = []
-    const isEpic =
-      epic.username && (category === 'legendary' || category === 'unreal')
-    const isGog = gog.username && category === 'gog'
-
-    if (isEpic) {
-      library = epic.library
-    } else if (isGog) {
-      library = gog.library
-    } else if (!isEpic) {
-      if (gog.username) {
-        library = gog.library
-      }
-    } else {
-      library = epic.library
-    }
+    const epicCategories = ['all', 'legendary', 'epic', 'unreal']
+    const gogCategories = ['all', 'gog']
+    const isEpic = epic.username && epicCategories.includes(category)
+    const isGog = gog.username && gogCategories.includes(category)
+    const epicLibrary = isEpic ? epic.library : []
+    const gogLibrary = isGog ? gog.library : []
+    library = [...library, ...epicLibrary, ...gogLibrary]
 
     // filter
     try {
@@ -315,7 +281,7 @@ export default function Library(): JSX.Element {
 
   return (
     <>
-      <Header list={libraryToShow} />
+      <Header />
 
       <div className="listing">
         <span id="top" />
@@ -336,7 +302,13 @@ export default function Library(): JSX.Element {
           </>
         )}
 
-        <h3 className="libraryHeader">{titleWithIcons()}</h3>
+        <LibraryHeader
+          list={libraryToShow}
+          setSortDescending={setSortDescending}
+          setSortInstalled={setSortInstalled}
+          sortDescending={sortDescending}
+          sortInstalled={sortInstalled}
+        />
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
 

@@ -21,9 +21,12 @@
 }
 
 .titleWithIcons {
-  display: flex;
-  align-items: baseline;
+  display: grid;
+  align-items: flex-end;
   margin: -4px 0;
+  grid-template-columns: 2fr 2fr 1fr;
+  justify-content: start;
+  width: 30vw;
 }
 
 #backToTopBtn {
@@ -55,4 +58,10 @@
 .listing {
   overflow-y: auto;
   flex: 100% 1 1;
+}
+
+.numberOfgames {
+  margin-left: 4px;
+  font-size: 1rem;
+  font-weight: 400;
 }
