@@ -49,8 +49,8 @@ html {
   );
   --gradient-gamecard: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.418) 2.4%,
-    #0d0f1cd2 64%
+    rgba(0, 0, 0, 0.418) 1.8%,
+    #17131cd2 45%
   );
   --gradient-game-hover: linear-gradient(#000000 30.8%, #141515 77%);
   --gradient-body-background: linear-gradient(

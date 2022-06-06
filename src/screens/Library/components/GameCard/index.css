@@ -2,12 +2,11 @@
   background-color: var(--gradient-gamecard);
   text-align: left;
   width: clamp(130px, 8vw, 200px);
-  height: 10vw;
-  max-height: 266px;
-  min-height: 173px;
+  height: 12vw;
+  max-height: 308px;
+  min-height: 182px;
   overflow: hidden;
   position: relative;
-  border-radius: 0.8rem;
   transition-duration: 0.5s;
   box-shadow: 0px 0px 12px 4px #00000055;
 }
@@ -64,7 +63,6 @@
   width: clamp(130px, 8vw, 200px);
   height: clamp(173px, 10vw, 266px);
   object-fit: cover;
-  border-radius: 0.5rem;
 }
 
 .gameCard .gameLogo {
@@ -82,48 +80,37 @@
 .gameCard .gameTitle {
   position: absolute;
   width: 100%;
-  bottom: -92px;
+  bottom: min(2vh, 46px);
   padding: 0.3vw;
   color: var(--text-secondary);
   display: flex;
   background: var(--gradient-gamecard);
   transition: 200ms;
   font-family: var(--content-font-family);
-  font-size: 14px;
+  font-size: 1.5vh;
   font-weight: 700;
   line-height: 17px;
   color: var(--text-default);
-  height: clamp(80px, 4vw, 85px);
+  height: clamp(80px, 4vw, 110px);
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
-  backdrop-filter: blur(var(--blur-light));
 }
 
 .gameCard > .icons {
-  opacity: 0;
+  opacity: 1;
   position: absolute;
   bottom: 0px;
+  background: var(--icons-background);
+  min-height: 42px;
+  max-height: 52px;
+  height: 4vh;
+  justify-content: space-around;
 }
 
-.gameCard:hover > .icons,
-.gameCard:focus-within > .icons {
-  opacity: 1;
-}
-
-.gameCard:hover > .gameTitle,
-.gameCard:focus-within > .gameTitle {
-  bottom: 0;
-}
-
-.gameCard:hover > .gameTitle > span,
-.gameCard:focus-within > .gameTitle > span {
-  display: block;
-}
-
-.gameCard:hover > .progress,
-.gameCard:focus-within > .progress {
-  background: none;
+.gameCard:hover,
+.gameCard:focus-within {
+  transform: scale(1.1);
 }
 
 .gameListItem {
@@ -153,7 +140,6 @@
   width: 100%;
   height: auto;
   grid-area: cover;
-  border-radius: 0.5rem;
   contain: content;
   cursor: pointer;
 }
@@ -197,7 +183,6 @@
   font-weight: 500;
   background: var(--background-gradient);
   padding: 2px 5px;
-  border-radius: 4px;
   color: var(--success);
   font-family: var(--actions-font-family);
   font-style: italic;
@@ -271,20 +256,30 @@
   height: clamp(22px, calc(1vw + 9px), 36px);
   display: block;
 }
-.icons > .svg-button {
-  margin-left: 12px;
-}
 
 .playIcon > circle {
   fill: var(--success);
+  transition: 300ms;
+}
+
+.playIcon:hover > circle {
+  fill: var(--success-hover);
+  transition: 300ms;
 }
 
 .downIcon > circle {
   fill: var(--accent);
+  transition: 300ms;
+}
+
+.downIcon:hover > circle {
+  fill: var(--accent-overlay);
+  transition: 300ms;
 }
 
 .cancelIcon > circle {
   fill: var(--danger);
+  transition: 300ms;
 }
 
 .iconDisabled circle {
@@ -293,4 +288,25 @@
 
 .iconDisabled > * {
   cursor: initial;
+}
+
+.updateIcon svg {
+  color: var(--accent);
+  transition: 300ms;
+}
+
+.updateIcon:hover svg {
+  color: var(--accent-overlay);
+  transition: 300ms;
+}
+
+.settingsIcon {
+  fill: var(--accent-overlay);
+  transition: 300ms;
+}
+
+.settingsIcon:focus-within,
+.settingsIcon:hover {
+  fill: var(--accent);
+  transition: 300ms;
 }

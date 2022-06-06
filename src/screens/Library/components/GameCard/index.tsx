@@ -93,8 +93,7 @@ const GameCard = ({
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
-  const haveStatus =
-    isMoving || isReparing || isInstalling || hasUpdate || isUpdating
+  const haveStatus = isMoving || isReparing || isInstalling || isUpdating
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -133,13 +132,6 @@ const GameCard = ({
     }
     if (isReparing) {
       return t('gamecard.repairing', 'Repairing')
-    }
-    if (hasUpdate) {
-      return (
-        <SvgButton onClick={async () => handleUpdate()}>
-          <FontAwesomeIcon size={'2x'} icon={faRepeat} />
-        </SvgButton>
-      )
     }
 
     return null
@@ -331,7 +323,14 @@ const GameCard = ({
           {
             <>
               <span className="icons">
-                {renderIcon()}
+                {hasUpdate && (
+                  <SvgButton
+                    className="updateIcon"
+                    onClick={async () => handleUpdate()}
+                  >
+                    <FontAwesomeIcon size={'2x'} icon={faRepeat} />
+                  </SvgButton>
+                )}
                 {isInstalled && isGame && (
                   <>
                     <SvgButton
@@ -348,10 +347,11 @@ const GameCard = ({
                         })
                       }
                     >
-                      <SettingsIcon fill={'var(--text-default)'} />
+                      <SettingsIcon className="settingsIcon" />
                     </SvgButton>
                   </>
                 )}
+                {renderIcon()}
               </span>
             </>
           }
