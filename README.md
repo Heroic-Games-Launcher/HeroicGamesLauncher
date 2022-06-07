@@ -281,6 +281,24 @@ yarn (or npm install)
 yarn (or npm run) dist-mac
 ```
 
+## Tests
+
+There are 3 commands that can be used to run tests:
+
+### yarn test
+
+Will run all tests for backend and frontend, once.
+
+### yarn test-watch
+
+Will run only tests that have changed since last time. Keeps watching for file changes and re-runs the tests.
+
+### yarn test:ci
+
+Will run all tests for backend and frontend, once. With some CI specific configuration.
+
+> Node 16 is recommended if you find issues running the tests with Node 14.
+
 ## Screenshots
 
 ![epic](https://user-images.githubusercontent.com/26871415/168448807-768a2ffc-7c6b-4010-bc48-b2f6acec9a32.png)
