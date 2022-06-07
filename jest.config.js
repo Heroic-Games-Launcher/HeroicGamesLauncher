@@ -10,7 +10,8 @@ module.exports = {
     '<rootDir>/coverage'
   ],
   coverageReporters: ['text', 'html'],
-  projects: ['<rootDir>/electron'],
+  projects: ['<rootDir>/electron', '<rootDir>/src'],
+  testPathIgnorePatterns: ['node_modules', 'src/__tests__/helpers'],
 
   rootDir: '.'
 }

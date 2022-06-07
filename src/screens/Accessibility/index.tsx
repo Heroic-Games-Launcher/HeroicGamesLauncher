@@ -86,7 +86,7 @@ export default function Accessibility() {
         </h1>
 
         <span className="rangeWrapper Field">
-          <label className={classNames({ isRTL: isRTL })}>
+          <label className={classNames({ isRTL: isRTL })} htmlFor="zoom-range">
             {t('accessibility.zoom', 'Zoom')} ({zoomPercent}%)
           </label>
           <input
@@ -97,6 +97,7 @@ export default function Accessibility() {
             max="200"
             step="10"
             list="zoom-levels"
+            id="zoom-range"
           />
           <span className="zoomHint">
             {[60, 80, 100, 120, 140, 160, 180, 200].map((zoom) => (

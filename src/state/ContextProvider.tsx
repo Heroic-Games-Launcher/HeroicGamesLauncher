@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ContextType } from 'src/types'
 
-const initialContext: ContextType = {
+export const initialContext: ContextType = {
   category: 'legendary',
   epic: {
     library: [],

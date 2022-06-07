@@ -37,7 +37,9 @@
     "public/start-react.js",
     "public/*.js",
     "dist",
-    "*.test.tsx"
+    "*.test.tsx",
+    "src/__helpers__/*",
+    "src/__tests__"
   ],
   "include": ["src", "src/types.ts", "src/typings-custom/**/*.ts"]
 }

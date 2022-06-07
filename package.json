@@ -171,7 +171,7 @@
     "react-start": "HOST=localhost BROWSER=none react-scripts start",
     "react-start:win": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "test": "react-scripts test",
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
     "eject": "react-scripts eject",
@@ -201,7 +201,7 @@
   "devDependencies": {
     "@testing-library/dom": "^7.31.0",
     "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.1.1",
+    "@testing-library/react": "12.1.5",
     "@testing-library/user-event": "^14.1.1",
     "@types/classnames": "^2.3.1",
     "@types/i18next-fs-backend": "^1.1.2",
