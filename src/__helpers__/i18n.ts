@@ -7,15 +7,8 @@ import translations from '../../public/locales/en/translation.json'
 i18n.use(initReactI18next).init({
   lng: 'en',
   fallbackLng: 'en',
-
-  // have a common namespace used around the full app
-  ns: ['translations'],
+  ns: ['translations', 'gamepage', 'login'],
   defaultNS: 'translations',
-
-  interpolation: {
-    escapeValue: false // not needed for react!!
-  },
-
   resources: { en: { translations, gamepage: tGamepage, login: tLogin } }
 })
 
