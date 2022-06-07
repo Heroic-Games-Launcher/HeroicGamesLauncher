@@ -608,13 +608,13 @@ export default function InstallModal({
               )}
               {haveSDL && (
                 <div className="InstallModal__sdls">
-                  {sdls.map((sdl: SelectiveDownload) => (
+                  {sdls.map((sdl: SelectiveDownload, idx: number) => (
                     <label
                       key={sdl.name}
                       className="InstallModal__toggle toggleWrapper"
                     >
                       <ToggleSwitch
-                        htmlId="sdls"
+                        htmlId={`sdls-${idx}`}
                         title={sdl.name}
                         value={
                           !!sdl.mandatory || !!selectedSdls[getUniqueKey(sdl)]
