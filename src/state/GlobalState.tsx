@@ -72,6 +72,7 @@ interface StateProps {
   refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
   showHidden: boolean
+  showFavourites: boolean
   favouriteGames: FavouriteGame[]
   recentGames: GameInfo[]
   theme: string
@@ -131,6 +132,7 @@ export class GlobalState extends PureComponent<Props> {
     hiddenGames:
       (configStore.get('games.hidden', []) as Array<HiddenGame>) || [],
     showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
+    showFavourites: JSON.parse(storage.getItem('show_favorites') || 'false'),
     favouriteGames:
       (configStore.get('games.favourites', []) as Array<FavouriteGame>) || [],
     recentGames: [],
@@ -184,6 +186,10 @@ export class GlobalState extends PureComponent<Props> {
 
   setShowHidden = (value: boolean) => {
     this.setState({ showHidden: value })
+  }
+
+  setShowFavourites = (value: boolean) => {
+    this.setState({ showFavourites: value })
   }
 
   hideGame = (appNameToHide: string, appTitle: string) => {
@@ -585,7 +591,8 @@ export class GlobalState extends PureComponent<Props> {
       layout,
       category,
       showHidden,
-      libraryTopSection
+      libraryTopSection,
+      showFavourites
     } = this.state
 
     storage.setItem('category', category)
@@ -593,6 +600,7 @@ export class GlobalState extends PureComponent<Props> {
     storage.setItem('layout', layout)
     storage.setItem('updates', JSON.stringify(gameUpdates))
     storage.setItem('show_hidden', JSON.stringify(showHidden))
+    storage.setItem('show_favorites', JSON.stringify(showFavourites))
     storage.setItem('library_top_section', libraryTopSection)
 
     const pendingOps = libraryStatus.filter(
@@ -641,6 +649,7 @@ export class GlobalState extends PureComponent<Props> {
             remove: this.unhideGame
           },
           setShowHidden: this.setShowHidden,
+          setShowFavourites: this.setShowFavourites,
           favouriteGames: {
             list: this.state.favouriteGames,
             add: this.addGameToFavourites,

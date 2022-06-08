@@ -44,7 +44,8 @@ export default function Library(): JSX.Element {
     platform,
     filterPlatform,
     hiddenGames,
-    showHidden
+    showHidden,
+    showFavourites: showFavouritesLibrary
   } = useContext(ContextProvider)
 
   const [showModal, setShowModal] = useState({
@@ -168,16 +169,49 @@ export default function Library(): JSX.Element {
     }
   }
 
+  // top section
+  const showRecentGames =
+    libraryTopSection === 'recently_played' &&
+    !!recentGames.length &&
+    category !== 'unreal'
+
+  const showFavourites =
+    libraryTopSection === 'favourites' &&
+    !!favouriteGames.list.length &&
+    category !== 'unreal'
+
+  const favourites: GameInfo[] = useMemo(() => {
+    const tempArray: GameInfo[] = []
+    if (showFavourites || showFavouritesLibrary) {
+      const favouriteAppNames = favouriteGames.list.map(
+        (favourite) => favourite.appName
+      )
+      epic.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
+      gog.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
+    }
+    return tempArray
+  }, [showFavourites, favouriteGames, epic, gog])
+
   // select library
   const libraryToShow = useMemo(() => {
     let library: GameInfo[] = []
-    const epicCategories = ['all', 'legendary', 'epic', 'unreal']
-    const gogCategories = ['all', 'gog']
-    const isEpic = epic.username && epicCategories.includes(category)
-    const isGog = gog.username && gogCategories.includes(category)
-    const epicLibrary = isEpic ? epic.library : []
-    const gogLibrary = isGog ? gog.library : []
-    library = [...library, ...epicLibrary, ...gogLibrary]
+    if (showFavouritesLibrary) {
+      library = [...favourites].filter((g) =>
+        category === 'all' ? g : g.runner === category
+      )
+    } else {
+      const epicCategories = ['all', 'legendary', 'epic', 'unreal']
+      const gogCategories = ['all', 'gog']
+      const isEpic = epic.username && epicCategories.includes(category)
+      const isGog = gog.username && gogCategories.includes(category)
+      const epicLibrary = isEpic ? epic.library : []
+      const gogLibrary = isGog ? gog.library : []
+      library = [...epicLibrary, ...gogLibrary]
+    }
 
     // filter
     try {
@@ -241,33 +275,6 @@ export default function Library(): JSX.Element {
     showHidden
   ])
 
-  // top section
-  const showRecentGames =
-    libraryTopSection === 'recently_played' &&
-    !!recentGames.length &&
-    category !== 'unreal'
-
-  const showFavourites =
-    libraryTopSection === 'favourites' &&
-    !!favouriteGames.list.length &&
-    category !== 'unreal'
-
-  const favourites: GameInfo[] = useMemo(() => {
-    const tempArray: GameInfo[] = []
-    if (showFavourites) {
-      const favouriteAppNames = favouriteGames.list.map(
-        (favourite) => favourite.appName
-      )
-      epic.library.forEach((game) => {
-        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
-      })
-      gog.library.forEach((game) => {
-        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
-      })
-    }
-    return tempArray
-  }, [showFavourites, favouriteGames, epic, gog])
-
   if (!epic && !gog) {
     return (
       <ErrorComponent
@@ -295,7 +302,7 @@ export default function Library(): JSX.Element {
           </>
         )}
 
-        {showFavourites && (
+        {showFavourites && !showFavouritesLibrary && (
           <>
             <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
             <GamesList library={favourites} handleGameCardClick={handleModal} />

@@ -89,6 +89,8 @@ export interface ContextType {
   }
   showHidden: boolean
   setShowHidden: (value: boolean) => void
+  showFavourites: boolean
+  setShowFavourites: (value: boolean) => void
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number

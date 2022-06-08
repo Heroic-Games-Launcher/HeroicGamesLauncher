@@ -49,6 +49,8 @@ const initialContext: ContextType = {
   },
   showHidden: false,
   setShowHidden: () => null,
+  showFavourites: false,
+  setShowFavourites: () => null,
   favouriteGames: {
     list: [],
     add: () => null,

@@ -87,11 +87,11 @@
   background: var(--gradient-gamecard);
   transition: 200ms;
   font-family: var(--content-font-family);
-  font-size: clamp(15px, 1vw, 18px);
+  font-size: clamp(14px, 1vw, 16px);
   font-weight: 700;
   line-height: 17px;
   color: var(--text-default);
-  height: clamp(80px, 4vw, 110px);
+  height: 50%;
   cursor: pointer;
   z-index: 3;
   pointer-events: none;

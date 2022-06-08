@@ -24,7 +24,7 @@ export default function LibraryHeader({
   setSortInstalled
 }: Props) {
   const { t } = useTranslation()
-  const { category, filter } = useContext(ContextProvider)
+  const { category, filter, showFavourites } = useContext(ContextProvider)
 
   const numberOfGames = useMemo(() => {
     if (!list) {
@@ -53,7 +53,9 @@ export default function LibraryHeader({
     <h3 className="libraryHeader">
       <div className="libraryHeaderWrapper">
         <span className="libraryTitle">
-          {`${getLibraryTitle(category, filter, t)}`}
+          {showFavourites
+            ? t('favourites', 'Favourites')
+            : `${getLibraryTitle(category, filter, t)}`}
           <span className="numberOfgames">{numberOfGames}</span>
         </span>
         <ActionIcons

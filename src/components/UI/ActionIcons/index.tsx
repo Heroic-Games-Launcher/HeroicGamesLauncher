@@ -4,19 +4,22 @@ import {
   faSyncAlt,
   faArrowDownAZ,
   faArrowDownZA,
+  faHeart,
+  faHeartBroken,
   faHardDrive as hardDriveSolid
 } from '@fortawesome/free-solid-svg-icons'
 import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
-import React, { useContext } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import FormControl from '../FormControl'
 import './index.css'
 import { Runner } from 'src/types'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import classNames from 'classnames'
 
 interface Props {
   sortDescending: boolean
@@ -34,16 +37,32 @@ export default function ActionIcons({
   toggleSortinstalled
 }: Props) {
   const { t } = useTranslation()
-  const { refreshLibrary, handleLayout, layout, showHidden, setShowHidden } =
-    useContext(ContextProvider)
+  const {
+    refreshLibrary,
+    handleLayout,
+    layout,
+    showHidden,
+    setShowHidden,
+    showFavourites,
+    refreshing,
+    setShowFavourites
+  } = useContext(ContextProvider)
 
-  const toggleShowHidden = () => {
+  const toggleShowHidden = useCallback(() => {
     setShowHidden(!showHidden)
-  }
+  }, [showHidden])
+
+  const toggleShowFavourites = useCallback(() => {
+    setShowFavourites(!showFavourites)
+  }, [showFavourites])
 
   const showHiddenTitle = showHidden
     ? t('header.ignore_hidden', 'Ignore Hidden')
     : t('header.show_hidden', 'Show Hidden')
+
+  const showFavouritesTitle = showFavourites
+    ? t('header.show_all_games', 'Show all games')
+    : t('header.show_favourites_only', 'Show Favourites only')
 
   return (
     <div className="ActionIcons">
@@ -69,7 +88,7 @@ export default function ActionIcons({
           />
         </button>
         <button
-          className={cx('FormControl__button', 'active')}
+          className={cx('FormControl__button', { active: !sortDescending })}
           title={
             sortDescending
               ? t('library.sortDescending', 'Sort Descending')
@@ -83,7 +102,7 @@ export default function ActionIcons({
           />
         </button>
         <button
-          className={cx('FormControl__button', 'active')}
+          className={cx('FormControl__button', { active: sortInstalled })}
           title={t('library.sortByStatus', 'Sort by Status')}
           onClick={() => toggleSortinstalled()}
         >
@@ -93,14 +112,26 @@ export default function ActionIcons({
           />
         </button>
         <button
-          className="FormControl__button"
+          className={cx('FormControl__button', { active: showFavourites })}
+          title={showFavouritesTitle}
+          onClick={toggleShowFavourites}
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={showFavourites ? faHeart : faHeartBroken}
+          />
+        </button>
+        <button
+          className={cx('FormControl__button', { active: showHidden })}
           title={showHiddenTitle}
           onClick={toggleShowHidden}
         >
           {showHidden ? <Visibility /> : <VisibilityOff />}
         </button>
         <button
-          className="FormControl__button"
+          className={cx('FormControl__button', {
+            active: refreshing
+          })}
           title={t('generic.library.refresh', 'Refresh Library')}
           onClick={async () =>
             refreshLibrary({
@@ -112,7 +143,9 @@ export default function ActionIcons({
           }
         >
           <FontAwesomeIcon
-            className="FormControl__segmentedFaIcon"
+            className={classNames('FormControl__segmentedFaIcon', {
+              ['fa-spin']: refreshing
+            })}
             icon={faSyncAlt}
           />
         </button>
