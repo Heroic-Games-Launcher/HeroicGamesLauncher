@@ -124,6 +124,11 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Любими",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,6 +143,8 @@
     "header": {
         "ignore_hidden": "Пренебрегване на скритите",
         "platform": "Платформа",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
         "show_hidden": "Показване на скритите"
     },
     "help": {
@@ -166,7 +173,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Настройките се запазват автоматично"
+        "settings": "Настройките се запазват автоматично",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Помощ",
@@ -196,7 +204,6 @@
         "unsync": "Десинхронизацията е завършена"
     },
     "Missing Dependency": "",
-    "nogames": "Няма намерени игри",
     "notify": {
         "error": {
             "move": "Грешка при преместването на играта",
@@ -213,6 +220,7 @@
             "startInstall": "Инсталацията е започната"
         },
         "moved": "Преместването е завършено",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -342,7 +350,9 @@
     },
     "Settings": "Настройки",
     "status": {
-        "logging": "Влизане…"
+        "installing": "Installing",
+        "logging": "Влизане…",
+        "processing": "Processing files, please wait"
     },
     "store": "Мазагин на Epic",
     "stores": "Магазини",
@@ -363,14 +373,12 @@
         "addpath": "Добавяне на нов път",
         "removepath": "Премахване на пътя"
     },
-    "Total Games": "Общ брой игри",
     "tray": {
         "about": "Относно",
         "quit": "Изход",
         "reload": "Презареждане",
         "show": "Показване"
     },
-    "Unreal Marketplace": "Пазар на Unreal",
     "userselector": {
         "discord": "Дискорд",
         "logout": "Излизане",
@@ -388,12 +396,15 @@
     },
     "wiki": "Уики",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "В момента не могат да бъдат получени версиите на Wine/Proton.",
             "link": "Управление на Wine",
             "title": "Управление на Wine",
             "unzipping": "Разархивиране"
-        }
+        },
+        "release": "Release Date",
+        "size": "Size"
     },
     "ZSTD was not found, please install it and restart Heroic": ""
 }

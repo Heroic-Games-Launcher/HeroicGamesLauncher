@@ -89,7 +89,7 @@ export default function WineManager(): JSX.Element | null {
             className="wineList"
           >
             <div className="gameListHeader">
-              <span>{t('wine.version', 'Wine Version')}</span>
+              <span>{t('info.version', 'Wine Version')}</span>
               <span>{t('wine.release', 'Release Date')}</span>
               <span>{t('wine.size', 'Size')}</span>
               <span>{t('wine.actions', 'Action')}</span>

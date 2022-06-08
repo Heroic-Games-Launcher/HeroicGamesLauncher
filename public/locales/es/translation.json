@@ -124,6 +124,11 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favoritos",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,6 +143,8 @@
     "header": {
         "ignore_hidden": "Ignorar Ocultos",
         "platform": "Plataforma",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
         "show_hidden": "Mostrar Ocultos"
     },
     "help": {
@@ -166,7 +173,8 @@
         "heroic": {
             "version": "Versión de Heroic"
         },
-        "settings": "Los ajustes se guardan automáticamente"
+        "settings": "Los ajustes se guardan automáticamente",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Ayuda",
@@ -196,7 +204,6 @@
         "unsync": "Desincronizacion completa"
     },
     "Missing Dependency": "",
-    "nogames": "No se han encontrado juegos",
     "notify": {
         "error": {
             "move": "Error al mover el juego",
@@ -213,6 +220,7 @@
             "startInstall": "Instalación iniciada"
         },
         "moved": "Movimiento terminado",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -342,7 +350,9 @@
     },
     "Settings": "Ajustes",
     "status": {
-        "logging": "Iniciando sesión…"
+        "installing": "Installing",
+        "logging": "Iniciando sesión…",
+        "processing": "Processing files, please wait"
     },
     "store": "Tienda de Epic",
     "stores": "Tiendas",
@@ -363,14 +373,12 @@
         "addpath": "Agregar una nueva ruta",
         "removepath": "Eliminar ruta"
     },
-    "Total Games": "Total de juegos",
     "tray": {
         "about": "Acerca",
         "quit": "Salir",
         "reload": "Refrescar",
         "show": "Mostrar"
     },
-    "Unreal Marketplace": "Tienda de Unreal",
     "userselector": {
         "discord": "Discord",
         "logout": "Cerrar sesión",
@@ -388,12 +396,15 @@
     },
     "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Esta vez no se han podido recuperar las versiones de Wine/Proton.",
             "link": "Gestor de Wine",
             "title": "Gestor de Wine",
             "unzipping": "Descomprimiendo"
-        }
+        },
+        "release": "Release Date",
+        "size": "Size"
     },
     "ZSTD was not found, please install it and restart Heroic": ""
 }

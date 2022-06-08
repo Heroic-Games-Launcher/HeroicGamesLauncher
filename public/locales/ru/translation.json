@@ -124,6 +124,11 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Избранное",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "Игры не найдены. Попробуйте выйти из системы и войти снова или один из вариантов ниже"
@@ -138,6 +143,8 @@
     "header": {
         "ignore_hidden": "Игнорировать скрытые",
         "platform": "Платформа",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
         "show_hidden": "Показать скрытые"
     },
     "help": {
@@ -166,7 +173,8 @@
         "heroic": {
             "version": "Версия Heroic"
         },
-        "settings": "Настройки сохраняются автоматически"
+        "settings": "Настройки сохраняются автоматически",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Помощь",
@@ -196,7 +204,6 @@
         "unsync": "Рассинхронизация завершена"
     },
     "Missing Dependency": "",
-    "nogames": "Игры не найдены",
     "notify": {
         "error": {
             "move": "Ошибка при перемещении игры",
@@ -213,6 +220,7 @@
             "startInstall": "Установка началась"
         },
         "moved": "Перемещение завершено",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Не удалось получить выпуски из основной ветки разработки, возможно, из-за ограничений Github API! Попробуйте позже."
         },
@@ -342,7 +350,9 @@
     },
     "Settings": "Настройки",
     "status": {
-        "logging": "Вход…"
+        "installing": "Installing",
+        "logging": "Вход…",
+        "processing": "Processing files, please wait"
     },
     "store": "Магазин Epic",
     "stores": "Магазины",
@@ -363,14 +373,12 @@
         "addpath": "Добавить новый путь",
         "removepath": "Удалить путь"
     },
-    "Total Games": "Всего игр",
     "tray": {
         "about": "О программе",
         "quit": "Выйти",
         "reload": "Перезагрузить",
         "show": "Показать"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Дискорд",
         "logout": "Выйти из аккаунта",
@@ -388,12 +396,15 @@
     },
     "wiki": "Вики",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Не удалось получить версии Wine/Proton.",
             "link": "Менеджер Wine",
             "title": "Менеджер Wine",
             "unzipping": "Распаковка"
-        }
+        },
+        "release": "Release Date",
+        "size": "Size"
     },
     "ZSTD was not found, please install it and restart Heroic": ""
 }

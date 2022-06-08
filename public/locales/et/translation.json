@@ -124,6 +124,11 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Lemmikud",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,6 +143,8 @@
     "header": {
         "ignore_hidden": "Ignoreeri peidetud",
         "platform": "Platvorm",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
         "show_hidden": "Näita peidetud"
     },
     "help": {
@@ -166,7 +173,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Seaded salvestatakse automaatselt"
+        "settings": "Seaded salvestatakse automaatselt",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Abi",
@@ -196,7 +204,6 @@
         "unsync": "Mittesünkroniseerimine lõpetatud"
     },
     "Missing Dependency": "",
-    "nogames": "Mänge ei leitud",
     "notify": {
         "error": {
             "move": "Viga mängu liigutamisel",
@@ -213,6 +220,7 @@
             "startInstall": "Paigaldamine algas"
         },
         "moved": "Teisaldamine on lõpule viidud",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Ei saanud hankida väljalaskeid upstream'ist, võib-olla Githubi API piirangute tõttu! Proovige hiljem uuesti."
         },
@@ -342,7 +350,9 @@
     },
     "Settings": "Seaded",
     "status": {
-        "logging": "Sisselogimine..."
+        "installing": "Installing",
+        "logging": "Sisselogimine...",
+        "processing": "Processing files, please wait"
     },
     "store": "Epic Pood",
     "stores": "Poed",
@@ -363,14 +373,12 @@
         "addpath": "Lisa uus tee",
         "removepath": "Eemalda tee"
     },
-    "Total Games": "Mänge kokku",
     "tray": {
         "about": "Info",
         "quit": "Sulge",
         "reload": "Laadi uuesti",
         "show": "Näita"
     },
-    "Unreal Marketplace": "Unreal'i Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Logi välja",
@@ -388,12 +396,15 @@
     },
     "wiki": "Viki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Ei saanud Wine/Proton versioone kätte.",
             "link": "Wine'i haldur",
             "title": "Wine'i haldur",
             "unzipping": "Lahtipakkimine"
-        }
+        },
+        "release": "Release Date",
+        "size": "Size"
     },
     "ZSTD was not found, please install it and restart Heroic": ""
 }

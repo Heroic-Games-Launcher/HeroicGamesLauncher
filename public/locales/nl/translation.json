@@ -124,6 +124,11 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,6 +143,8 @@
     "header": {
         "ignore_hidden": "Ignore Hidden",
         "platform": "",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden"
     },
     "help": {
@@ -166,7 +173,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Instellingen worden automatisch opgeslagen"
+        "settings": "Instellingen worden automatisch opgeslagen",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Help",
@@ -196,7 +204,6 @@
         "unsync": "De-synchronisatie compleet"
     },
     "Missing Dependency": "",
-    "nogames": "Geen spellen gevonden",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -213,6 +220,7 @@
             "startInstall": "Installation Started"
         },
         "moved": "Klaar met verplaatsing",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -342,7 +350,9 @@
     },
     "Settings": "Instellingen",
     "status": {
-        "logging": "Logging In..."
+        "installing": "Installing",
+        "logging": "Logging In...",
+        "processing": "Processing files, please wait"
     },
     "store": "Winkel",
     "stores": "Stores",
@@ -363,14 +373,12 @@
         "addpath": "Voeg een nieuw pad toe",
         "removepath": "Pad verwijderen"
     },
-    "Total Games": "Hoeveelheid spellen",
     "tray": {
         "about": "Over",
         "quit": "Stoppen",
         "reload": "Herladen",
         "show": "Tonen"
     },
-    "Unreal Marketplace": "Unreal Marktplaats",
     "userselector": {
         "discord": "Discord",
         "logout": "Log uit",
@@ -388,12 +396,15 @@
     },
     "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
-        }
+        },
+        "release": "Release Date",
+        "size": "Size"
     },
     "ZSTD was not found, please install it and restart Heroic": ""
 }

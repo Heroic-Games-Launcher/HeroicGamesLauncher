@@ -124,6 +124,11 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Oblíbené",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "Nebyly nalezeny žádné hry - Zkuste se znovu odhlásit a přihlásit nebo jednu z níže uvedených možností"
@@ -138,6 +143,8 @@
     "header": {
         "ignore_hidden": "Ignorovat skryté",
         "platform": "Platforma",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
         "show_hidden": "Zobrazit skryté"
     },
     "help": {
@@ -166,7 +173,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Nastavení se ukládají automaticky"
+        "settings": "Nastavení se ukládají automaticky",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Pomoc",
@@ -196,7 +204,6 @@
         "unsync": "Desynchronizace dokončena"
     },
     "Missing Dependency": "",
-    "nogames": "Žádné hry nebyly nalezeny",
     "notify": {
         "error": {
             "move": "Chyba při přesouvání hry",
@@ -213,6 +220,7 @@
             "startInstall": "Instalace zahájena"
         },
         "moved": "Přesun dokončen",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Nepodařilo se načíst vydání z upstreamu, možná kvůli omezením Github API! Zkuste to později."
         },
@@ -342,7 +350,9 @@
     },
     "Settings": "Nastavení",
     "status": {
-        "logging": "Přihlašování..."
+        "installing": "Installing",
+        "logging": "Přihlašování...",
+        "processing": "Processing files, please wait"
     },
     "store": "Epic Store",
     "stores": "Obchody",
@@ -363,14 +373,12 @@
         "addpath": "přidat novou cestu",
         "removepath": "Odstranit cestu"
     },
-    "Total Games": "Celkem her",
     "tray": {
         "about": "O aplikaci",
         "quit": "Ukončit",
         "reload": "Obnovit",
         "show": "Zobrazit"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Odhlásit se",
@@ -388,12 +396,15 @@
     },
     "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Nepodařilo se načíst verze Wine/Proton.",
             "link": "Správce Wine",
             "title": "Správce Wine",
             "unzipping": "Rozbalování"
-        }
+        },
+        "release": "Release Date",
+        "size": "Size"
     },
     "ZSTD was not found, please install it and restart Heroic": ""
 }

@@ -124,6 +124,11 @@
     },
     "Epic Games": "Epic Game",
     "favourites": "Favourites",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,6 +143,8 @@
     "header": {
         "ignore_hidden": "Ignore Hidden",
         "platform": "Nền tảng",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden"
     },
     "help": {
@@ -166,7 +173,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Cài đặt được tự đông lưu"
+        "settings": "Cài đặt được tự đông lưu",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Hỗ trợ",
@@ -196,7 +204,6 @@
         "unsync": "Hoàn tất quá trình hủy đồng bộ"
     },
     "Missing Dependency": "",
-    "nogames": "Không tìm thấy game nào",
     "notify": {
         "error": {
             "move": "Gặp lỗi khi di chuyển game",
@@ -213,6 +220,7 @@
             "startInstall": "Quá trình cài đặt đã bắt đầu"
         },
         "moved": "Di chuyển hoàn tất",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -342,7 +350,9 @@
     },
     "Settings": "Cài đặt",
     "status": {
-        "logging": "Đang đăng nhập..."
+        "installing": "Installing",
+        "logging": "Đang đăng nhập...",
+        "processing": "Processing files, please wait"
     },
     "store": "Cửa hàng Epic",
     "stores": "Cửa hàng",
@@ -363,14 +373,12 @@
         "addpath": "Thêm đường dẫn mới",
         "removepath": "Xóa đường dẫn"
     },
-    "Total Games": "Tổng số game",
     "tray": {
         "about": "Giới thiệu",
         "quit": "Thoát",
         "reload": "Tải lại",
         "show": "Hiển thị"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Đăng xuất",
@@ -388,12 +396,15 @@
     },
     "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Không thể tìm nạp phiên bản Wine/Proton lần này.",
             "link": "Quản lý Wine",
             "title": "Quản lý Wine (thử nghiệm)",
             "unzipping": "Đang giải nén"
-        }
+        },
+        "release": "Release Date",
+        "size": "Size"
     },
     "ZSTD was not found, please install it and restart Heroic": ""
 }

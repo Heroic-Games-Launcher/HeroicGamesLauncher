@@ -124,6 +124,11 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,6 +143,8 @@
     "header": {
         "ignore_hidden": "Ignore Hidden",
         "platform": "Πλατφόρμα",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden"
     },
     "help": {
@@ -166,7 +173,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Οι ρυθμίσεις αποθηκεύονται αυτομάτως"
+        "settings": "Οι ρυθμίσεις αποθηκεύονται αυτομάτως",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Βοήθεια",
@@ -196,7 +204,6 @@
         "unsync": "Ο αποσυγχρονισμός ολοκληρώθηκε"
     },
     "Missing Dependency": "",
-    "nogames": "Δεν βρέθηκαν παιχνίδια",
     "notify": {
         "error": {
             "move": "Σφάλμα μετακίνησης του Παιχνιδιού",
@@ -213,6 +220,7 @@
             "startInstall": "Η Εγκατάσταση έχει ξεκινήσει"
         },
         "moved": "Η μετακίνηση ολοκληρώθηκε",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -342,7 +350,9 @@
     },
     "Settings": "Ρυθμίσεις",
     "status": {
-        "logging": "Σύνδεση..."
+        "installing": "Installing",
+        "logging": "Σύνδεση...",
+        "processing": "Processing files, please wait"
     },
     "store": "Κατάστημα Epic",
     "stores": "Καταστήματα",
@@ -363,14 +373,12 @@
         "addpath": "Προσθήκη Νέας Διαδρομής",
         "removepath": "Αφαίρεση Διαδρομής"
     },
-    "Total Games": "Συνολικά Παιχνίδια",
     "tray": {
         "about": "Περί",
         "quit": "Έξοδος",
         "reload": "Επαναφόρτωση",
         "show": "Εμφάνιση"
     },
-    "Unreal Marketplace": "Κατάστημα Unreal",
     "userselector": {
         "discord": "Discord",
         "logout": "Αποσύνδεση",
@@ -388,12 +396,15 @@
     },
     "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Μη δυνατή πάρση Wine/Proton εκδόσεων αυτή τη φορά.",
             "link": "Διαχειριστής Wine",
             "title": "Διαχειριστής Wine",
             "unzipping": "Άνοιγμα"
-        }
+        },
+        "release": "Release Date",
+        "size": "Size"
     },
     "ZSTD was not found, please install it and restart Heroic": ""
 }

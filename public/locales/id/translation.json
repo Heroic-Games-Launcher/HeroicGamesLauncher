@@ -124,6 +124,11 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favorit",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "Tidak ada Gim yang ditemukan - Silakan coba log keluar lalu log masuk lagi atau salah satu opsi di bawah ini"
@@ -138,6 +143,8 @@
     "header": {
         "ignore_hidden": "Abaikan yang Disembunyikan",
         "platform": "Platform",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
         "show_hidden": "Tampilkan yang Disembunyikan"
     },
     "help": {
@@ -166,7 +173,8 @@
         "heroic": {
             "version": "Versi Heroic"
         },
-        "settings": "Pengaturan disimpan secara otomatis"
+        "settings": "Pengaturan disimpan secara otomatis",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Bantuan",
@@ -196,7 +204,6 @@
         "unsync": "Pembatalan Sinkronisasi Selesai"
     },
     "Missing Dependency": "",
-    "nogames": "Tidak Ada Gim yang Ditemukan",
     "notify": {
         "error": {
             "move": "Galat dalam Memindahkan Gim",
@@ -213,6 +220,7 @@
             "startInstall": "Pemasangan Dimulai"
         },
         "moved": "Selesai Memindahkan",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Tidak dapat mengambil rilis dari sumber, ini mungkin karena pembatasan API Github! Coba lagi nanti."
         },
@@ -342,7 +350,9 @@
     },
     "Settings": "Pengaturan",
     "status": {
-        "logging": "Log Masuk..."
+        "installing": "Installing",
+        "logging": "Log Masuk...",
+        "processing": "Processing files, please wait"
     },
     "store": "Epic Store",
     "stores": "Toko",
@@ -363,14 +373,12 @@
         "addpath": "Tambahkan Lokasi Baru",
         "removepath": "Hapus Lokasi"
     },
-    "Total Games": "Total Gim",
     "tray": {
         "about": "Tentang",
         "quit": "Keluar",
         "reload": "Muat Ulang",
         "show": "Tampilkan"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Keluar",
@@ -388,12 +396,15 @@
     },
     "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Tidak dapat mengambil versi Wine/Proton saat ini.",
             "link": "Manajer Wine",
             "title": "Manajer Wine",
             "unzipping": "Mengekstrak"
-        }
+        },
+        "release": "Release Date",
+        "size": "Size"
     },
     "ZSTD was not found, please install it and restart Heroic": ""
 }

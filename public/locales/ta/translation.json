@@ -124,6 +124,11 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,6 +143,8 @@
     "header": {
         "ignore_hidden": "Ignore Hidden",
         "platform": "",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden"
     },
     "help": {
@@ -166,7 +173,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "அமைப்புகள் தானாகவே சேமிக்கப்படும்"
+        "settings": "அமைப்புகள் தானாகவே சேமிக்கப்படும்",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "உதவி",
@@ -196,7 +204,6 @@
         "unsync": "ஒத்திசைவு செயல்தவிர் நிறைப்படைந்தது"
     },
     "Missing Dependency": "",
-    "nogames": "விளையாட்டுகள் எதுவும் காணப்படவில்லை",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -213,6 +220,7 @@
             "startInstall": "Installation Started"
         },
         "moved": "நகர்தல் முடிவடைந்தது",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -342,7 +350,9 @@
     },
     "Settings": "அமைப்புகள்",
     "status": {
-        "logging": "Logging In..."
+        "installing": "Installing",
+        "logging": "Logging In...",
+        "processing": "Processing files, please wait"
     },
     "store": "விற்பனைக்கூடம்",
     "stores": "Stores",
@@ -363,14 +373,12 @@
         "addpath": "புதிய பாதையை சேர்",
         "removepath": "பாதையை அகற்று"
     },
-    "Total Games": "மொத்த விளையாட்டுகள்",
     "tray": {
         "about": "இதனை பற்றி",
         "quit": "வெளியேறு",
         "reload": "மீண்டும் ஏற்று",
         "show": "காட்டு"
     },
-    "Unreal Marketplace": "Unreal விற்பனைக்கூடம்",
     "userselector": {
         "discord": "டிஸ்கார்ட் (Discord)",
         "logout": "வெளியேறு",
@@ -388,12 +396,15 @@
     },
     "wiki": "விக்கி",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
-        }
+        },
+        "release": "Release Date",
+        "size": "Size"
     },
     "ZSTD was not found, please install it and restart Heroic": ""
 }

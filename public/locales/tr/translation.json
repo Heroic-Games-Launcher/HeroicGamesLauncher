@@ -124,6 +124,11 @@
     },
     "Epic Games": "Epic Games",
     "favourites": "Favoriler",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,6 +143,8 @@
     "header": {
         "ignore_hidden": "Gizlileri Yoksay",
         "platform": "Platform",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
         "show_hidden": "Gizlileri Göster"
     },
     "help": {
@@ -166,7 +173,8 @@
         "heroic": {
             "version": "Heroic Sürümü"
         },
-        "settings": "Ayarlar otomatik kaydedilir"
+        "settings": "Ayarlar otomatik kaydedilir",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Yardım",
@@ -196,7 +204,6 @@
         "unsync": "Eşzamanlamayı Kaldırma Tamamlandı"
     },
     "Missing Dependency": "",
-    "nogames": "Oyun Bulunamadı",
     "notify": {
         "error": {
             "move": "Oyunu Taşıma Hatası",
@@ -213,6 +220,7 @@
             "startInstall": "Kurulum Başladı"
         },
         "moved": "Taşıma Tamamlandı",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -342,7 +350,9 @@
     },
     "Settings": "Ayarlar",
     "status": {
-        "logging": "Oturum Açılıyor…"
+        "installing": "Installing",
+        "logging": "Oturum Açılıyor…",
+        "processing": "Processing files, please wait"
     },
     "store": "Epic Mağazası",
     "stores": "Mağazalar",
@@ -363,14 +373,12 @@
         "addpath": "Yeni Yol Ekle",
         "removepath": "Yolu Kaldır"
     },
-    "Total Games": "Toplam Oyun",
     "tray": {
         "about": "Hakkında",
         "quit": "Çık",
         "reload": "Yenile",
         "show": "Göster"
     },
-    "Unreal Marketplace": "Unreal Mağazası",
     "userselector": {
         "discord": "Discord",
         "logout": "Oturumu kapat",
@@ -388,12 +396,15 @@
     },
     "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Wine/Proton sürümleri bu defa alınamadı.",
             "link": "Wine Yöneticisi",
             "title": "Wine Yöneticisi",
             "unzipping": "Çıkartılıyor"
-        }
+        },
+        "release": "Release Date",
+        "size": "Size"
     },
     "ZSTD was not found, please install it and restart Heroic": ""
 }
