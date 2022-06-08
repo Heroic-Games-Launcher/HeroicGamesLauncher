@@ -58,6 +58,10 @@
   padding-right: 64px;
 }
 
+.FormControl--hasLeftButton > input {
+  text-indent: 16px;
+}
+
 .FormControl--select > select {
   cursor: pointer;
   padding-right: 40px;
@@ -120,6 +124,12 @@
   background: none;
   color: var(--text-default);
   border-radius: 10px;
+}
+
+.FormControl__leftButton {
+  position: absolute;
+  top: 8px;
+  left: 8px;
 }
 
 .FormControl__sideButton:focus-visible {
