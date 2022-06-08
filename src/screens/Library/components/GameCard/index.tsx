@@ -134,6 +134,9 @@ const GameCard = ({
     if (isReparing) {
       return t('gamecard.repairing', 'Repairing')
     }
+    if (isInstalled) {
+      return `${t('status.installed')} (${size})`
+    }
 
     return t('status.notinstalled')
   }
@@ -339,7 +342,7 @@ const GameCard = ({
                 installed: isInstalled
               })}
             >
-              {isInstalled ? size : getStatus()}
+              {getStatus()}
             </span>
             <span
               className={classNames('gameTitle', {

@@ -3,6 +3,7 @@ import { GameInfo, Runner } from 'src/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
 import ContextProvider from 'src/state/ContextProvider'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   library: GameInfo[]
@@ -16,6 +17,7 @@ export const GamesList = ({
   handleGameCardClick
 }: Props): JSX.Element => {
   const { gameUpdates } = useContext(ContextProvider)
+  const { t } = useTranslation()
 
   return (
     <div
@@ -27,10 +29,10 @@ export const GamesList = ({
     >
       {layout === 'list' && (
         <div className="gameListHeader">
-          <span>Title</span>
-          <span>Info</span>
-          <span>Store</span>
-          <span>Action</span>
+          <span>{t('game.title', 'Game Title')}</span>
+          <span>{t('game.status', 'Status')}</span>
+          <span>{t('game.store', 'Store')}</span>
+          <span>{t('wine.actions', 'Action')}</span>
         </div>
       )}
       {!!library.length &&
