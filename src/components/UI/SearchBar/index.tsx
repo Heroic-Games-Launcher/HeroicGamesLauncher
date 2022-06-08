@@ -1,13 +1,26 @@
-import React, { useCallback, useContext, useEffect, useRef } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import FormControl from '../FormControl'
 import './index.css'
 
 export default function SearchBar() {
-  const { handleSearch, filterText } = useContext(ContextProvider)
+  const { handleSearch, filterText, epic, gog } = useContext(ContextProvider)
   const { t } = useTranslation()
   const input = useRef<HTMLInputElement>(null)
+
+  const library = useMemo(
+    () => new Set([...epic.library, ...gog.library].map((g) => g.title).sort()),
+    [epic, gog]
+  )
+
+  const list = [...library].filter((i) => new RegExp(filterText, 'i').test(i))
 
   // we have to use an event listener instead of the react
   // onChange callback so it works with the virtual keyboard
@@ -34,6 +47,13 @@ export default function SearchBar() {
     }
   }, [input])
 
+  const handleClick = (title: string) => {
+    if (input.current) {
+      input.current.value = title
+      handleSearch(title)
+    }
+  }
+
   return (
     <div className="SearchBar" data-testid="searchBar">
       {/* TODO change placeholder for Unreal Marketplace */}
@@ -45,6 +65,17 @@ export default function SearchBar() {
           id="search"
           className="FormControl__input"
         />
+        <ul className="autoComplete">
+          {list.length > 0 &&
+            list.map((title, i) => (
+              <li
+                onClick={(e) => handleClick(e.currentTarget.innerText)}
+                key={i}
+              >
+                {title}
+              </li>
+            ))}
+        </ul>
       </FormControl>
     </div>
   )
