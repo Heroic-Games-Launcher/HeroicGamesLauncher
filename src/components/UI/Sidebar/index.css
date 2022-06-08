@@ -4,8 +4,8 @@
   position: relative;
   z-index: 10;
   display: grid;
-  grid-template-rows: 2fr min-content;
-  grid-template-areas: 'links' 'utils';
+  grid-template-rows: 2fr min-content min-content;
+  grid-template-areas: 'links' 'utils' 'version';
   grid-area: sidebar;
   height: 100%;
   padding: 0;
@@ -73,4 +73,10 @@
   border: solid 1px var(--accent-overlay);
   opacity: 0.2;
   margin: 4px 8px;
+}
+
+.heroicVersion {
+  grid-area: version;
+  margin: 0 4px var(--sidebar-vertical-padding)
+    var(--sidebar-horizontal-padding);
 }
