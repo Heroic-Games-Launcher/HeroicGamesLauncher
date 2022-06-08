@@ -20,13 +20,13 @@
   padding: 0 2rem;
 }
 
-.titleWithIcons {
+.libraryHeaderWrapper {
   display: grid;
-  align-items: flex-end;
+  align-items: center;
   margin: -4px 0;
-  grid-template-columns: 2fr 2fr 1fr;
+  grid-template-columns: clamp(150px, 8vw, 200px) min-content;
   justify-content: start;
-  width: 30vw;
+  grid-template-areas: 'title action';
 }
 
 #backToTopBtn {

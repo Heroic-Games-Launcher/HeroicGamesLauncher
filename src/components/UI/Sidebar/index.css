@@ -4,7 +4,7 @@
   position: relative;
   z-index: 10;
   display: grid;
-  grid-template-rows: 2fr 1fr;
+  grid-template-rows: 2fr min-content;
   grid-template-areas: 'links' 'utils';
   grid-area: sidebar;
   height: 100%;
@@ -64,9 +64,8 @@
 
 .currentDownloads {
   grid-area: utils;
-  grid-area: utils;
   align-self: end;
-  margin: 0 4px calc(var(--sidebar-vertical-padding) + 26px)
+  margin: 0 4px var(--sidebar-vertical-padding)
     var(--sidebar-horizontal-padding);
 }
 

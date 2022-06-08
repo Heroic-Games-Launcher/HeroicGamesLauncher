@@ -34,19 +34,19 @@
   top: 6px;
   z-index: 2;
   padding: 5px;
-  width: 60px;
-  height: 60px;
   place-content: center;
+  fill: var(--text-default);
 }
 
-.store-icon > img {
+.store-icon > svg {
   background-color: var(--body-background);
   width: 60px;
+  height: 60px;
   padding: 4px;
   border-radius: 10px;
 }
 
-.store-icon > img.gogIcon {
+.store-icon > svg.gogIcon {
   padding: 0px 4px 4px 4px;
 }
 
