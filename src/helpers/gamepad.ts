@@ -1,4 +1,3 @@
-import { IpcRenderer } from 'electron'
 import { GamepadActionStatus } from 'src/types'
 import {
   checkGameCube,
@@ -9,9 +8,7 @@ import {
   checkN64Clone1,
   checkGenius1
 } from './gamepad_layouts'
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
+import { ipcRenderer } from 'src/helpers'
 import { VirtualKeyboardController } from './virtualKeyboard'
 
 const KEY_REPEAT_DELAY = 500

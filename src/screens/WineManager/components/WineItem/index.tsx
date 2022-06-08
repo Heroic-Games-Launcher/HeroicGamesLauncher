@@ -14,7 +14,7 @@ import { notify, size } from 'src/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
-const { ipcRenderer } = window.require('electron')
+import { ipcRenderer } from 'src/helpers'
 
 const WineItem = ({
   version,

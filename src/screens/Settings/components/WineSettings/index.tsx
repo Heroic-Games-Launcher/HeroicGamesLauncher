@@ -20,7 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { configStore } from 'src/helpers/electronStores'
 
-const { ipcRenderer } = window.require('electron')
+import { ipcRenderer } from 'src/helpers'
 
 interface Props {
   altWine: WineInstallation[]

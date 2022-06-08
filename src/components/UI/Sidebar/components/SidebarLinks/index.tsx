@@ -18,7 +18,7 @@ import {
   faUserAlt,
   faWineGlass
 } from '@fortawesome/free-solid-svg-icons'
-const { ipcRenderer } = window.require('electron')
+import { ipcRenderer } from 'src/helpers'
 
 import ContextProvider from 'src/state/ContextProvider'
 import { Runner } from 'src/types'

@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState, MouseEvent } from 'react'
 
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
-import { IpcRenderer } from 'electron'
 import {
   getGameInfo,
   getInstallInfo,
@@ -37,10 +36,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'src/hooks/hasProgress'
 import ErrorComponent from 'src/components/UI/ErrorComponent'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+import { ipcRenderer } from 'src/helpers'
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
 export default function GamePage(): JSX.Element | null {
