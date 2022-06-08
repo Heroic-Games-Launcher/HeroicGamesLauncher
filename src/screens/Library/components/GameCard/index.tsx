@@ -141,16 +141,18 @@ const GameCard = ({
     if (isPlaying) {
       return (
         <SvgButton
+          className="cancelIcon"
           onClick={async () => handlePlay(runner)}
           title={`${t('label.playing.stop')} (${title})`}
         >
-          <StopIconAlt className="cancelIcon" />
+          <StopIconAlt />
         </SvgButton>
       )
     }
     if (isInstalling) {
       return (
         <SvgButton
+          className="cancelIcon"
           onClick={async () => handlePlay(runner)}
           title={`${t('button.cancel')} (${title})`}
         >
@@ -161,11 +163,11 @@ const GameCard = ({
     if (isInstalled && isGame) {
       return (
         <SvgButton
-          className="playButton"
+          className="playIcon"
           onClick={async () => handlePlay(runner)}
           title={`${t('label.playing.start')} (${title})`}
         >
-          <PlayIcon className="playIcon" />
+          <PlayIcon />
         </SvgButton>
       )
     }
@@ -173,19 +175,21 @@ const GameCard = ({
       if (hasDownloads) {
         return (
           <SvgButton
+            className="iconDisabled"
             onClick={(e) => e.preventDefault()}
             title={`${t('button.cancel')} (${title})`}
           >
-            <DownIcon className="iconDisabled" />
+            <DownIcon />
           </SvgButton>
         )
       }
       return (
         <SvgButton
+          className="downIcon"
           onClick={() => buttonClick()}
           title={`${t('button.install')} (${title})`}
         >
-          <DownIcon className="downIcon" />
+          <DownIcon />
         </SvgButton>
       )
     }
@@ -298,11 +302,11 @@ const GameCard = ({
       <ContextMenu items={items}>
         <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
-          <div className="store-icon">
-            <div className="store-icon">
-              {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
-            </div>
-          </div>
+          {runner === 'legendary' ? (
+            <EpicLogo className="store-icon" />
+          ) : (
+            <GOGLogo className="store-icon" />
+          )}
           <Link
             to={`gamepage/${appName}`}
             style={
@@ -317,15 +321,16 @@ const GameCard = ({
                 className={logoClasses}
               />
             )}
+            <span className="gameListInfo">{isInstalled ? size : '---'}</span>
+            <span className="gameTitle">{title}</span>
           </Link>
-          <span className="gameListInfo">{isInstalled ? size : '---'}</span>
-          <span className="gameTitle">{title}</span>
           {
             <>
               <span className="icons">
                 {hasUpdate && (
                   <SvgButton
                     className="updateIcon"
+                    title={`${t('button.update')} (${title})`}
                     onClick={async () => handleUpdate()}
                   >
                     <FontAwesomeIcon size={'2x'} icon={faRepeat} />
@@ -335,6 +340,7 @@ const GameCard = ({
                   <>
                     <SvgButton
                       title={`${t('submenu.settings')} (${title})`}
+                      className="settingsIcon"
                       onClick={() =>
                         navigate(pathname, {
                           state: {
@@ -347,7 +353,7 @@ const GameCard = ({
                         })
                       }
                     >
-                      <SettingsIcon className="settingsIcon" />
+                      <SettingsIcon />
                     </SvgButton>
                   </>
                 )}

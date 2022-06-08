@@ -34,7 +34,7 @@
 .gameCard > .progress {
   position: absolute;
   z-index: 5;
-  bottom: 5px;
+  bottom: 45px;
   left: 5px;
   color: var(--success);
   font-family: var(--actions-font-family);
@@ -80,14 +80,14 @@
 .gameCard .gameTitle {
   position: absolute;
   width: 100%;
-  bottom: min(2vh, 46px);
+  bottom: min(1vh, 46px);
   padding: 0.3vw;
   color: var(--text-secondary);
   display: flex;
   background: var(--gradient-gamecard);
   transition: 200ms;
   font-family: var(--content-font-family);
-  font-size: 1.5vh;
+  font-size: clamp(15px, 1vw, 18px);
   font-weight: 700;
   line-height: 17px;
   color: var(--text-default);
@@ -106,6 +106,27 @@
   max-height: 52px;
   height: 4vh;
   justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: 'update settings play';
+}
+
+.gameCard > .icons > .svg-button {
+  justify-self: center;
+}
+
+.gameCard > .store-icon {
+  border-radius: 10px;
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  z-index: 2;
+  padding: 4px;
+  width: 35px;
+  height: 35px;
+  place-content: center;
+  background: var(--background-darker);
+  fill: var(--text-default);
 }
 
 .gameCard:hover,
@@ -257,27 +278,34 @@
   display: block;
 }
 
-.playIcon > circle {
+.playIcon,
+.downIcon,
+.iconDisabled,
+.cancelIcon {
+  grid-area: play;
+}
+
+.playIcon circle {
   fill: var(--success);
   transition: 300ms;
 }
 
-.playIcon:hover > circle {
+.playIcon:hover circle {
   fill: var(--success-hover);
   transition: 300ms;
 }
 
-.downIcon > circle {
+.downIcon circle {
   fill: var(--accent);
   transition: 300ms;
 }
 
-.downIcon:hover > circle {
+.downIcon:hover circle {
   fill: var(--accent-overlay);
   transition: 300ms;
 }
 
-.cancelIcon > circle {
+.cancelIcon svg {
   fill: var(--danger);
   transition: 300ms;
 }
@@ -288,6 +316,10 @@
 
 .iconDisabled > * {
   cursor: initial;
+}
+
+.updateIcon {
+  grid-area: update;
 }
 
 .updateIcon svg {
@@ -303,6 +335,7 @@
 .settingsIcon {
   fill: var(--accent-overlay);
   transition: 300ms;
+  grid-area: settings;
 }
 
 .settingsIcon:focus-within,
