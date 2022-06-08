@@ -70,7 +70,7 @@
 }
 
 .divider {
-  border: solid 1px var(--accent-overlay);
+  border: solid 1px var(--divider);
   opacity: 0.2;
   margin: 4px 8px;
 }
