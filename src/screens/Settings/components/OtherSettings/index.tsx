@@ -281,22 +281,6 @@ export default function OtherSettings({
           ))}
         </SelectField>
       )}
-      {!isDefault && (
-        <TextInputField
-          label={t(
-            'setting.prefered_language',
-            'Prefered Language (Language Code)'
-          )}
-          htmlId="prefered-language"
-          placeholder={t(
-            'placeholder.prefered_language',
-            '2-char code (i.e.: "en" or "fr")'
-          )}
-          value={languageCode}
-          onChange={handleLanguageCode}
-          afterInput={languageInfo}
-        />
-      )}
       {!isWin && (
         <TextInputField
           label={t('options.advanced.title')}
@@ -315,6 +299,22 @@ export default function OtherSettings({
           value={launcherArgs}
           onChange={handleLauncherArgs}
           afterInput={info}
+        />
+      )}
+      {!isDefault && (
+        <TextInputField
+          label={t(
+            'setting.prefered_language',
+            'Prefered Language (Language Code)'
+          )}
+          htmlId="prefered-language"
+          placeholder={t(
+            'placeholder.prefered_language',
+            '2-char code (i.e.: "en" or "fr")'
+          )}
+          value={languageCode}
+          onChange={handleLanguageCode}
+          afterInput={languageInfo}
         />
       )}
     </>
