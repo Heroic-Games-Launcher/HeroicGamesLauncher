@@ -219,10 +219,13 @@ export default function Library(): JSX.Element {
         filterLibrary(library, filter),
         filterPlatform
       )
-      const fuse = new Fuse(filteredLibrary, {
-        minMatchCharLength: 2,
+      const options = {
+        minMatchCharLength: 1,
+        threshold: 0.4,
+        useExtendedSearch: true,
         keys: ['title']
-      })
+      }
+      const fuse = new Fuse(filteredLibrary, options)
 
       if (filterText) {
         const fuzzySearch = fuse.search(filterText).map((g) => g.item)
