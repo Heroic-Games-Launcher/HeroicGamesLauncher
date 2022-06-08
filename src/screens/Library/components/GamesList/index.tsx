@@ -22,9 +22,17 @@ export const GamesList = ({
       style={!library.length ? { backgroundColor: 'transparent' } : {}}
       className={cx({
         gameList: layout === 'grid',
-        gameListLayout: layout !== 'grid'
+        gameListLayout: layout === 'list'
       })}
     >
+      {layout === 'list' && (
+        <div className="gameListHeader">
+          <span>Title</span>
+          <span>Info</span>
+          <span>Store</span>
+          <span>Action</span>
+        </div>
+      )}
       {!!library.length &&
         library.map(
           ({
