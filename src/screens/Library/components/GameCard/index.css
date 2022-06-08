@@ -91,7 +91,7 @@
   font-weight: 700;
   line-height: 17px;
   color: var(--text-default);
-  height: 50%;
+  height: 55%;
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
@@ -103,8 +103,8 @@
   bottom: 0px;
   background: var(--icons-background);
   min-height: 42px;
-  max-height: 52px;
-  height: 4vh;
+  max-height: 56px;
+  height: 3vw;
   justify-content: space-around;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -137,6 +137,10 @@
 .gameCard.hidden .gameImg,
 .gameCard.hidden .gameLogo {
   opacity: 0.2;
+}
+
+.gameCard .runner {
+  display: none;
 }
 
 .gameListItem {
@@ -200,8 +204,8 @@
   color: var(--success);
 }
 
-.gameListItem > a:hover .gameTitle,
-.gameListItem > a:focus-within .gameTitle {
+.gameListItem > a:hover,
+.gameListItem > a:focus-within {
   color: var(--accent-overlay);
 }
 

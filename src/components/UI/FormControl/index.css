@@ -10,7 +10,6 @@
   appearance: none;
   height: 40px;
   background: var(--input-background);
-  border-radius: 10px;
   font: var(--font-secondary-bold);
   color: var(--text-secondary);
   padding: 0 22px;

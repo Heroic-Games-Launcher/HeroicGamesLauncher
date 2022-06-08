@@ -6,9 +6,8 @@
 
 .autoComplete {
   position: absolute;
-  top: 42px;
-  left: 13px;
-  width: 95%;
+  top: 41px;
+  width: 100%;
   height: 200px;
   background-color: var(--input-background);
   overflow: scroll;

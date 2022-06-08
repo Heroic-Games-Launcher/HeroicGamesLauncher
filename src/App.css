@@ -58,7 +58,6 @@ html,
 .button {
   cursor: pointer;
   padding: 0.75rem;
-  border-radius: 10px;
   background: var(--primary);
   color: #1a1b1c;
   text-transform: uppercase;
