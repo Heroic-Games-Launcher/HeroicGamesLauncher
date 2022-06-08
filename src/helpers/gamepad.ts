@@ -175,7 +175,7 @@ export const initGamepad = () => {
     const el = currentElement()
     if (!el) return false
 
-    return el.classList.contains('searchInput')
+    return el.id === 'search'
   }
 
   function playable() {
