@@ -3,7 +3,7 @@
   top: 0;
   z-index: 7;
   display: grid;
-  grid-template-columns: min-content 5fr;
+  grid-template-columns: 330px 50%;
   grid-template-areas: 'filters search';
   grid-gap: 8px;
   align-items: start;
@@ -33,7 +33,6 @@
 
 .Header__search {
   grid-area: search;
-  margin: 0 24px;
   max-width: 700px;
 }
 

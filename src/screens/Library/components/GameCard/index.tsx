@@ -23,6 +23,7 @@ import { hasProgress } from 'src/hooks/hasProgress'
 
 import { ReactComponent as EpicLogo } from 'src/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'src/assets/gog-logo.svg'
+import classNames from 'classnames'
 
 interface Card {
   appName: string
@@ -134,7 +135,7 @@ const GameCard = ({
       return t('gamecard.repairing', 'Repairing')
     }
 
-    return null
+    return t('status.notinstalled')
   }
 
   const renderIcon = () => {
@@ -297,22 +298,33 @@ const GameCard = ({
     grid ? 'gameCard' : 'gameListItem'
   }  ${instClass} ${hiddenClass}`
 
+  const getRunner = () => {
+    switch (runner) {
+      case 'legendary':
+        return 'Epic Games'
+      case 'gog':
+        return 'GOG'
+      default:
+        return 'Heroic'
+    }
+  }
+
   return (
     <>
       <ContextMenu items={items}>
         <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
-          {runner === 'legendary' ? (
-            <EpicLogo className="store-icon" />
-          ) : (
-            <GOGLogo className="store-icon" />
-          )}
           <Link
             to={`gamepage/${appName}`}
             style={
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
           >
+            {runner === 'legendary' ? (
+              <EpicLogo className="store-icon" />
+            ) : (
+              <GOGLogo className="store-icon" />
+            )}
             <img src={imageSrc} className={imgClasses} alt="cover" />
             {logo && (
               <img
@@ -321,8 +333,30 @@ const GameCard = ({
                 className={logoClasses}
               />
             )}
-            <span className="gameListInfo">{isInstalled ? size : '---'}</span>
-            <span className="gameTitle">{title}</span>
+            <span
+              className={classNames('gameListInfo', {
+                active: haveStatus,
+                installed: isInstalled
+              })}
+            >
+              {isInstalled ? size : getStatus()}
+            </span>
+            <span
+              className={classNames('gameTitle', {
+                active: haveStatus,
+                installed: isInstalled
+              })}
+            >
+              {title}
+            </span>
+            <span
+              className={classNames('runner', {
+                active: haveStatus,
+                installed: isInstalled
+              })}
+            >
+              {getRunner()}
+            </span>
           </Link>
           {
             <>
