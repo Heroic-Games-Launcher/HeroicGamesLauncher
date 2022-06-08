@@ -1,7 +1,14 @@
 .currentDownload {
-  font-size: 14px;
-  padding: 10px 0;
+  font-size: 13px;
+  padding: 16px 0;
   transition: 300ms;
+  margin-top: 12px;
+}
+
+.currentDownload > .gameTitle {
+  font-size: 16px;
+  transition: 600ms;
+  font-weight: 700;
 }
 
 .currentDownload:hover > .gameTitle {
@@ -9,14 +16,15 @@
   transition: 600ms;
 }
 
-.currentDownload > .installProgress[value] {
-  appearance: none;
-  width: 58%;
-  margin-right: 8px;
-  height: 8px;
+.downloadStatus {
+  color: var(--success);
+  font-family: var(--actions-font-family);
+  font-style: italic;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 12px;
 }
 
-.currentDownload > .installProgress[value]::-webkit-progress-value {
-  color: var(--success);
-  animation: animate-stripes 5s linear infinite;
+.currentDownload .MuiLinearProgress-bar1Determinate {
+  background-color: var(--success);
 }
