@@ -4,10 +4,7 @@ import ActionIcons from 'src/components/UI/ActionIcons'
 import ContextProvider from 'src/state/ContextProvider'
 import { GameInfo } from 'src/types'
 import { getLibraryTitle } from '../../constants'
-import FormControl from 'src/components/UI/FormControl'
 import './index.css'
-
-import classNames from 'classnames'
 
 const storage = window.localStorage
 
@@ -27,7 +24,7 @@ export default function LibraryHeader({
   setSortInstalled
 }: Props) {
   const { t } = useTranslation()
-  const { category, filter, handleCategory } = useContext(ContextProvider)
+  const { category, filter } = useContext(ContextProvider)
 
   const numberOfGames = useMemo(() => {
     if (!list) {
@@ -54,7 +51,7 @@ export default function LibraryHeader({
 
   return (
     <h3 className="libraryHeader">
-      <div className="titleWithIcons">
+      <div className="libraryHeaderWrapper">
         <span className="libraryTitle">
           {`${getLibraryTitle(category, filter, t)}`}
           <span className="numberOfgames">{numberOfGames}</span>
@@ -66,35 +63,6 @@ export default function LibraryHeader({
           library={category === 'legendary' ? 'legendary' : 'gog'}
           toggleSortinstalled={() => handleSortInstalled()}
         />
-        <div className="storeFilter">
-          <FormControl segmented small>
-            <button
-              onClick={() => handleCategory('all')}
-              className={classNames('FormControl__button', {
-                active: category === 'all'
-              })}
-              title={`${t('header.platform')}: ${t('All')}`}
-            >
-              {t('All').toUpperCase()}
-            </button>
-            <button
-              className={classNames('FormControl__button', {
-                active: category === 'legendary'
-              })}
-              onClick={() => handleCategory('legendary')}
-            >
-              EPIC
-            </button>
-            <button
-              className={classNames('FormControl__button', {
-                active: category === 'gog'
-              })}
-              onClick={() => handleCategory('gog')}
-            >
-              GOG
-            </button>
-          </FormControl>
-        </div>
       </div>
     </h3>
   )
