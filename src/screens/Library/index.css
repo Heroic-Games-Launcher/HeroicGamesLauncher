@@ -4,12 +4,6 @@
   grid-template-columns: repeat(auto-fill, clamp(130px, 8vw, 200px));
   grid-gap: 1.2rem;
   padding: 1rem 1rem 2rem;
-  position: fixed;
-  top: 150px;
-  left: var(--sidebar-width);
-  right: 0;
-  bottom: 0;
-  overflow: scroll;
 }
 
 .gameListLayout {
@@ -18,8 +12,12 @@
   padding-top: 1em;
   min-height: 2vh;
   min-width: 80vw;
+}
+
+.gameList,
+.gameListLayout {
   position: fixed;
-  top: 150px;
+  top: 170px;
   left: var(--sidebar-width);
   right: 0;
   bottom: 0;
