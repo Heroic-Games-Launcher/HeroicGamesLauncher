@@ -350,7 +350,7 @@ const GameCard = ({
                 installed: isInstalled
               })}
             >
-              {title}
+              <span>{title}</span>
             </span>
             <span
               className={classNames('runner', {

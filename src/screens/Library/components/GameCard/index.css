@@ -91,10 +91,35 @@
   font-weight: 700;
   line-height: 17px;
   color: var(--text-default);
-  height: 55%;
+  height: 35%;
+  max-height: 68px;
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
+}
+
+.gameCard .gameTitle span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  max-height: 18px;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.gameCard:hover .gameTitle {
+  height: 50%;
+  max-height: 90px;
+}
+
+.gameCard:hover .gameTitle span {
+  overflow: visible;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  max-height: fit-content;
+  height: min-content;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .gameCard > .icons {
