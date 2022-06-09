@@ -92,9 +92,10 @@
   position: fixed;
   left: calc(var(--sidebar-width) - 8px);
   bottom: 55vh;
-  display: none;
   align-items: center;
   cursor: pointer;
+  opacity: 0;
+  transition: 500ms;
 }
 
 .collapseIcon svg {
@@ -104,7 +105,17 @@
 }
 
 .Sidebar:hover .collapseIcon {
-  display: flex;
+  transition: 500ms;
+  opacity: 1;
+}
+
+.Sidebar.collapsed:hover .collapseIcon {
+  transition: 3s;
+  opacity: 1s;
+}
+
+.Sidebar.collapsed .collapseIcon {
+  transition: 1s;
 }
 
 .Sidebar.collapsed .heroicVersion {
