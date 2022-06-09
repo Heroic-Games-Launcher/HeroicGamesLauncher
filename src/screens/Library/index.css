@@ -4,15 +4,26 @@
   grid-template-columns: repeat(auto-fill, clamp(130px, 8vw, 200px));
   grid-gap: 1.2rem;
   padding: 1rem 1rem 2rem;
+  position: fixed;
+  top: 150px;
+  left: var(--sidebar-width);
+  right: 0;
+  bottom: 0;
+  overflow: scroll;
 }
 
 .gameListLayout {
   display: flex;
   flex-direction: column;
-  position: relative;
   padding-top: 1em;
   min-height: 2vh;
   min-width: 80vw;
+  position: fixed;
+  top: 150px;
+  left: var(--sidebar-width);
+  right: 0;
+  bottom: 0;
+  overflow: scroll;
 }
 
 .gameListHeader {
@@ -34,6 +45,8 @@
 .libraryHeader {
   text-align: left;
   padding: 0 2rem;
+  position: fixed;
+  margin: 12px;
 }
 
 .libraryHeaderWrapper {
