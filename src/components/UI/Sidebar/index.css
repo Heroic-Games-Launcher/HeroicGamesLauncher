@@ -15,6 +15,13 @@
   overflow: auto;
 }
 
+.Sidebar.collapsed {
+  --sidebar-vertical-padding: 8px;
+  --sidebar-horizontal-padding: 22px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .Sidebar__section {
   display: flex;
   width: 100%;
@@ -79,4 +86,75 @@
   grid-area: version;
   margin: 0 4px var(--sidebar-vertical-padding)
     var(--sidebar-horizontal-padding);
+}
+
+.collapseIcon {
+  position: fixed;
+  left: calc(var(--sidebar-width) - 8px);
+  bottom: 55vh;
+  display: none;
+  align-items: center;
+  cursor: pointer;
+}
+
+.collapseIcon svg {
+  color: var(--text-secondary);
+  transform: scaleY(2.5);
+  width: 14px;
+}
+
+.Sidebar:hover .collapseIcon {
+  display: flex;
+}
+
+.Sidebar.collapsed .heroicVersion {
+  margin: 10px;
+}
+
+.Sidebar.collapsed .divider {
+  margin: 4px 0;
+}
+
+.Sidebar.collapsed .Sidebar__item.active span,
+.Sidebar.collapsed .Sidebar__item > span {
+  display: none;
+}
+
+.Sidebar.collapsed .SidebarItemWithSubmenu .SidebarSubmenu {
+  display: none;
+}
+
+.Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu span,
+.Sidebar.collapsed .SidebarItemWithSubmenu:focus-within .SidebarSubmenu span {
+  display: block;
+}
+
+.Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu,
+.Sidebar.collapsed .SidebarItemWithSubmenu:focus-within .SidebarSubmenu {
+  display: block;
+  position: fixed;
+  left: 62px;
+  top: 66px;
+  background-color: var(--navbar-background);
+  padding: 6px 0;
+}
+
+.Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu.settings,
+.Sidebar.collapsed
+  .SidebarItemWithSubmenu:focus-within
+  .SidebarSubmenu.settings {
+  top: 114px;
+}
+
+.Sidebar.collapsed .Sidebar__item.SidebarLinks__subItem::before {
+  display: none;
+}
+
+.Sidebar.collapsed .Sidebar__item.SidebarLinks__subItem {
+  padding: 7px var(--sidebar-horizontal-padding);
+}
+.Sidebar.collapsed .Sidebar__item.active svg,
+.Sidebar.collapsed .Sidebar__item svg {
+  transform: scale(1.5);
+  padding: 6px 0;
 }

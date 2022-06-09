@@ -9,9 +9,12 @@ const QuitButton: React.FC = () => {
   return (
     <button className="Sidebar__item" onClick={handleQuit}>
       <div className="Sidebar__itemIcon">
-        <FontAwesomeIcon icon={faPowerOff} />
+        <FontAwesomeIcon
+          icon={faPowerOff}
+          title={t('userselector.quit', 'Quit')}
+        />
       </div>
-      {t('userselector.quit', 'Quit')}
+      <span>{t('userselector.quit', 'Quit')}</span>
     </button>
   )
 }

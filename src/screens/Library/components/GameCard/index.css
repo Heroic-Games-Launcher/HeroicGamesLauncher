@@ -214,12 +214,13 @@
 }
 
 .gameListItem > .icons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
   padding: 0px 6px;
   grid-area: action;
   height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: 'update settings play';
 }
 
 .gameListItem > .progress {

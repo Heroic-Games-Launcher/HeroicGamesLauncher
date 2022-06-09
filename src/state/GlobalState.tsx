@@ -80,6 +80,7 @@ interface StateProps {
   contentFontFamily: string
   actionsFontFamily: string
   allTilesInColor: boolean
+  sidebarCollapsed: boolean
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -133,6 +134,9 @@ export class GlobalState extends PureComponent<Props> {
       (configStore.get('games.hidden', []) as Array<HiddenGame>) || [],
     showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
     showFavourites: JSON.parse(storage.getItem('show_favorites') || 'false'),
+    sidebarCollapsed: JSON.parse(
+      storage.getItem('sidebar_collapsed') || 'false'
+    ),
     favouriteGames:
       (configStore.get('games.favourites', []) as Array<FavouriteGame>) || [],
     recentGames: [],
@@ -190,6 +194,10 @@ export class GlobalState extends PureComponent<Props> {
 
   setShowFavourites = (value: boolean) => {
     this.setState({ showFavourites: value })
+  }
+
+  setSideBarCollapsed = (value: boolean) => {
+    this.setState({ sidebarCollapsed: value })
   }
 
   hideGame = (appNameToHide: string, appTitle: string) => {
@@ -601,7 +609,8 @@ export class GlobalState extends PureComponent<Props> {
       category,
       showHidden,
       libraryTopSection,
-      showFavourites
+      showFavourites,
+      sidebarCollapsed
     } = this.state
 
     storage.setItem('category', category)
@@ -610,6 +619,7 @@ export class GlobalState extends PureComponent<Props> {
     storage.setItem('updates', JSON.stringify(gameUpdates))
     storage.setItem('show_hidden', JSON.stringify(showHidden))
     storage.setItem('show_favorites', JSON.stringify(showFavourites))
+    storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
     storage.setItem('library_top_section', libraryTopSection)
 
     const pendingOps = libraryStatus.filter(
@@ -669,7 +679,8 @@ export class GlobalState extends PureComponent<Props> {
           setZoomPercent: this.setZoomPercent,
           setContentFontFamily: this.setContentFontFamily,
           setActionsFontFamily: this.setActionsFontFamily,
-          setAllTilesInColor: this.setAllTilesInColor
+          setAllTilesInColor: this.setAllTilesInColor,
+          setSideBarCollapsed: this.setSideBarCollapsed
         }}
       >
         {this.props.children}

@@ -5,7 +5,6 @@ import {
   faArrowDownAZ,
   faArrowDownZA,
   faHeart,
-  faHeartBroken,
   faHardDrive as hardDriveSolid
 } from '@fortawesome/free-solid-svg-icons'
 import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-icons'
@@ -118,7 +117,7 @@ export default function ActionIcons({
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
-            icon={showFavourites ? faHeart : faHeartBroken}
+            icon={faHeart}
           />
         </button>
         <button

@@ -78,19 +78,10 @@ html {
   --font-secondary-regular-italic: var(--content-font-family) italic 400;
   --font-secondary-bold-italic: var(--content-font-family) italic 500;
 
-  /* Measurements */
-  --sidebar-width: 240px;
-  --content-width: calc(100vw - var(--sidebar-width));
   overflow-y: overlay;
   /* Effects */
   --blur-light: 4px;
   --blur-strong: 16px;
-}
-
-@media screen and (max-width: 730px) {
-  * {
-    --sidebar-width: calc(var(--sidebar-width) - 1em);
-  }
 }
 
 body {

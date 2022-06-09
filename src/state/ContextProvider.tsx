@@ -65,7 +65,9 @@ const initialContext: ContextType = {
   actionsFontFamily: "'Rubik', sans-serif",
   setActionsFontFamily: () => null,
   allTilesInColor: false,
-  setAllTilesInColor: () => null
+  setAllTilesInColor: () => null,
+  sidebarCollapsed: false,
+  setSideBarCollapsed: () => null
 }
 
 export default React.createContext(initialContext)

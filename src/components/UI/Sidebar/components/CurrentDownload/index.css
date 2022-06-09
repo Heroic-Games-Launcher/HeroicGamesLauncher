@@ -28,3 +28,9 @@
 .currentDownload .MuiLinearProgress-bar1Determinate {
   background-color: var(--success);
 }
+
+.statusIcon svg {
+  width: 27px;
+  height: auto;
+  color: var(--success);
+}
