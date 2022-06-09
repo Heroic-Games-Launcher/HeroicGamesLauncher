@@ -80,7 +80,7 @@
 .gameCard .gameTitle {
   position: absolute;
   width: 100%;
-  bottom: min(1vh, 46px);
+  bottom: min(0.5vh, 46px);
   padding: 0.3vw;
   color: var(--text-secondary);
   display: flex;

@@ -16,12 +16,12 @@ export default function SearchBar() {
   const { t } = useTranslation()
   const input = useRef<HTMLInputElement>(null)
 
-  const library = useMemo(
-    () => new Set([...epic.library, ...gog.library].map((g) => g.title).sort()),
-    [epic, gog]
-  )
-
-  const list = [...library].filter((i) => new RegExp(filterText, 'i').test(i))
+  const list = useMemo(() => {
+    const library = new Set(
+      [...epic.library, ...gog.library].map((g) => g.title).sort()
+    )
+    return [...library].filter((i) => new RegExp(filterText, 'i').test(i))
+  }, [epic.library, gog.library, filterText])
 
   // we have to use an event listener instead of the react
   // onChange callback so it works with the virtual keyboard
