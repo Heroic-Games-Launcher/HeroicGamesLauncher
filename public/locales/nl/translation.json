@@ -145,7 +145,8 @@
         "platform": "",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Show Hidden",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
@@ -349,6 +350,10 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Instellingen",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",

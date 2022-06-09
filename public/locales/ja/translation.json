@@ -145,7 +145,8 @@
         "platform": "",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Show Hidden",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
@@ -349,6 +350,10 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "設定",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",

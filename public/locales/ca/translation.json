@@ -145,7 +145,8 @@
         "platform": "",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Show Hidden",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Sincronitza amb l'EGL si ja tens instal·lat l'Epic Games Laucher en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
@@ -349,6 +350,10 @@
         "reset-heroic": "Restableix l'Heroic"
     },
     "Settings": "Configuració",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "S'està iniciant la sessió...",

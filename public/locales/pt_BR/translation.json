@@ -145,7 +145,8 @@
         "platform": "Plataforma",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Mostrar escondidos"
+        "show_hidden": "Mostrar escondidos",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
@@ -349,6 +350,10 @@
         "reset-heroic": "Redefinir Heroic"
     },
     "Settings": "Configurações",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Logando...",

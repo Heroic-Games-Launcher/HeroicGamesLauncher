@@ -145,7 +145,8 @@
         "platform": "Platform",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Tampilkan yang Disembunyikan"
+        "show_hidden": "Tampilkan yang Disembunyikan",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Sinkronkan dengan EGL jika Anda memiliki instalasi Epic Games Launcher yang berjalan di tempat lain dan ingin mengimpor gim Anda untuk menghindari pengunduhan ulang.",
@@ -349,6 +350,10 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Pengaturan",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Log Masuk...",

@@ -145,7 +145,8 @@
         "platform": "Platform",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Gizlileri Göster"
+        "show_hidden": "Gizlileri Göster",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
@@ -349,6 +350,10 @@
         "reset-heroic": "Heroic'i Sıfırla"
     },
     "Settings": "Ayarlar",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Oturum Açılıyor…",

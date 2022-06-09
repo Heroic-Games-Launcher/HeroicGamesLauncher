@@ -145,7 +145,8 @@
         "platform": "Platforma",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Zobrazit skryté"
+        "show_hidden": "Zobrazit skryté",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Synchronizujte s EGL v případě, že máte funkční instalaci Epic Games Launcher jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
@@ -349,6 +350,10 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Nastavení",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Přihlašování...",

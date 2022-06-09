@@ -145,7 +145,8 @@
         "platform": "Plattform",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Ausgeblendete anzeigen"
+        "show_hidden": "Ausgeblendete anzeigen",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Synchronisiere mit EGL, falls du woanders eine funktionierende Installation des Epic Games Launcher hast und deine Spiele importieren möchtest, um ein erneutes Herunterladen zu vermeiden.",
@@ -349,6 +350,10 @@
         "reset-heroic": "Heroic zurücksetzen"
     },
     "Settings": "Einstellungen",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Anmelden…",

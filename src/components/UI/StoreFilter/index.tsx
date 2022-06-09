@@ -1,11 +1,12 @@
 import classNames from 'classnames'
-import { t } from 'i18next'
 import React, { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import FormControl from 'src/components/UI/FormControl'
 import ContextProvider from 'src/state/ContextProvider'
 
 export default function StoreFilter() {
   const { category, handleCategory } = useContext(ContextProvider)
+  const { t } = useTranslation()
 
   return (
     <div className="storeFilter">
@@ -15,7 +16,7 @@ export default function StoreFilter() {
           className={classNames('FormControl__button', {
             active: category === 'all'
           })}
-          title={`${t('header.platform')}: ${t('All')}`}
+          title={`${t('header.store', 'Filter Store')}: ${t('All')}`}
         >
           {t('All').toUpperCase()}
         </button>
@@ -23,6 +24,7 @@ export default function StoreFilter() {
           className={classNames('FormControl__button', {
             active: category === 'legendary'
           })}
+          title={`${t('header.store')}: ${t('store')}`}
           onClick={() => handleCategory('legendary')}
         >
           EPIC
@@ -31,6 +33,7 @@ export default function StoreFilter() {
           className={classNames('FormControl__button', {
             active: category === 'gog'
           })}
+          title={`${t('header.store')}: ${t('GOG')}`}
           onClick={() => handleCategory('gog')}
         >
           GOG

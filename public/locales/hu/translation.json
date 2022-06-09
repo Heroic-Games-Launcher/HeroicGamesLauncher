@@ -145,7 +145,8 @@
         "platform": "Platform",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Show Hidden"
+        "show_hidden": "Show Hidden",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Abban az esetben szinkronizálj EGL-lel , ha van egy működő, Epic Games Launcher telepítésed máshol, és importálni szeretnéd a játékaid, hogy elkerüld az újbóli letöltésüket.",
@@ -349,6 +350,10 @@
         "reset-heroic": "Heroic visszaállítása"
     },
     "Settings": "Beállítások",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Bejelentkezés...",

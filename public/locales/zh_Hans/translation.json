@@ -145,7 +145,8 @@
         "platform": "平台",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "显示隐藏项"
+        "show_hidden": "显示隐藏项",
+        "store": "Filter Store"
     },
     "help": {
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
@@ -349,6 +350,10 @@
         "reset-heroic": "重置 Heroic"
     },
     "Settings": "设置",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "正在登录...",

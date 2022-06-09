@@ -145,7 +145,8 @@
         "platform": "Platvorm",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Näita peidetud"
+        "show_hidden": "Näita peidetud",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
@@ -349,6 +350,10 @@
         "reset-heroic": "Lähtesta Heroic"
     },
     "Settings": "Seaded",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Sisselogimine...",

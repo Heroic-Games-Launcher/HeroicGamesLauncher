@@ -145,7 +145,8 @@
         "platform": "Plattform",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Visa dolda"
+        "show_hidden": "Visa dolda",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Synkronisera med EGS om du har en fungerande Epic Games Launcher installation och vill importera spel istället för att ladda ner dem igen.",
@@ -349,6 +350,10 @@
         "reset-heroic": "Grundinställ Heroic"
     },
     "Settings": "Inställningar",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Loggar in...",

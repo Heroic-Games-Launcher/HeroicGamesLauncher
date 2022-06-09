@@ -145,7 +145,8 @@
         "platform": "Платформа",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Показване на скритите"
+        "show_hidden": "Показване на скритите",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Launcher и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
@@ -349,6 +350,10 @@
         "reset-heroic": "Зачистване на Heroic"
     },
     "Settings": "Настройки",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Влизане…",

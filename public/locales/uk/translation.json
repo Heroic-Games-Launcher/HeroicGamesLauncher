@@ -145,7 +145,8 @@
         "platform": "Платформа",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Показати приховане"
+        "show_hidden": "Показати приховане",
+        "store": "Filter Store"
     },
     "help": {
         "general": "Синхронізувати з EGL якщо ви маєте встановлений Epic Games Launcher і хочете імпортувати ігри уникнувши їх повторного завантаження.",
@@ -349,6 +350,10 @@
         "reset-heroic": "Скинути Heroic"
     },
     "Settings": "Налаштування",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Заходжу...",
