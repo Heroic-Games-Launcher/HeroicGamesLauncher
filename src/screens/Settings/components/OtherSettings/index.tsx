@@ -23,6 +23,7 @@ interface Props {
   isDefault: boolean
   isMacNative: boolean
   isLinuxNative: boolean
+  languageCode: string
   launcherArgs: string
   canRunOffline: boolean
   offlineMode: boolean
@@ -31,6 +32,7 @@ interface Props {
   addDesktopShortcuts: boolean
   addGamesToStartMenu: boolean
   discordRPC: boolean
+  setLanguageCode: (value: string) => void
   setLauncherArgs: (value: string) => void
   setOtherOptions: (value: string) => void
   setMaxRecentGames: (value: number) => void
@@ -65,6 +67,8 @@ export default function OtherSettings({
   canRunOffline,
   offlineMode,
   toggleOffline,
+  languageCode,
+  setLanguageCode,
   launcherArgs,
   setLauncherArgs,
   audioFix,
@@ -95,6 +99,8 @@ export default function OtherSettings({
     setOtherOptions(event.currentTarget.value)
   const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
     setLauncherArgs(event.currentTarget.value)
+  const handleLanguageCode = (event: ChangeEvent<HTMLInputElement>) =>
+    setLanguageCode(event.currentTarget.value)
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
@@ -117,6 +123,25 @@ export default function OtherSettings({
           <strong>{` -nolauncher `}</strong>
           {t('help.other.part7')}
         </span>
+      )}
+    </InfoBox>
+  )
+
+  const languageInfo = (
+    <InfoBox text="infobox.help">
+      {t(
+        'help.game_language.fallback',
+        "Leave blank to use Heroic's language."
+      )}
+      <br />
+      {t(
+        'help.game_language.in_game_config',
+        'Not all games support this configuration, some have in-game language setting.'
+      )}
+      <br />
+      {t(
+        'help.game_language.valid_codes',
+        'Valid language codes are game-dependant.'
       )}
     </InfoBox>
   )
@@ -274,6 +299,22 @@ export default function OtherSettings({
           value={launcherArgs}
           onChange={handleLauncherArgs}
           afterInput={info}
+        />
+      )}
+      {!isDefault && (
+        <TextInputField
+          label={t(
+            'setting.prefered_language',
+            'Prefered Language (Language Code)'
+          )}
+          htmlId="prefered-language"
+          placeholder={t(
+            'placeholder.prefered_language',
+            '2-char code (i.e.: "en" or "fr")'
+          )}
+          value={languageCode}
+          onChange={handleLanguageCode}
+          afterInput={languageInfo}
         />
       )}
     </>

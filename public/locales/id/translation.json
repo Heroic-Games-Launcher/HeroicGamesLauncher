@@ -141,6 +141,11 @@
         "show_hidden": "Tampilkan yang Disembunyikan"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Sinkronkan dengan EGL jika Anda memiliki instalasi Epic Games Launcher yang berjalan di tempat lain dan ingin mengimpor gim Anda untuk menghindari pengunduhan ulang.",
         "other": {
             "part1": "Gunakan ",
@@ -241,7 +246,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Menggunakan GOGDL binary bawaan…",
         "alt-legendary-bin": "Menggunakan Legendary binary bawaan...",
-        "egs-prefix": "Prefiks di mana EGS dipasang"
+        "egs-prefix": "Prefiks di mana EGS dipasang",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -305,6 +311,7 @@
         "maxworkers": "Jumlah Maksimum Worker saat mengunduh",
         "minimize-on-launch": "Minimalkan Jendela Heroic Setelah Gim Diluncurkan",
         "offlinemode": "Jalankan Game Secara Luring",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Gunakan Kartu Grafis untuk Rendering",
         "resizableBar": "Aktifkan Resizable BAR (hanya untuk NVIDIA RTX 30xx saja)",
         "runexe": {

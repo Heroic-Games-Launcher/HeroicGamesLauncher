@@ -165,6 +165,7 @@ export interface GameSettings {
   enableFsync: boolean
   enableResizableBar: boolean
   maxSharpness: number
+  language: string
   launcherArgs: string
   nvidiaPrime: boolean
   offlineMode: boolean
