@@ -61,8 +61,8 @@
         "lastPlayed": "Zadnje odigrano",
         "neverPlayed": "Nikad",
         "platform": "Odaberi verziju platforme za instalirati",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "Zahtjevi sustava",
+        "tools": "Alati",
         "totalPlayed": "Vrijeme igranja"
     },
     "gamecard": {
@@ -70,7 +70,7 @@
         "repairing": "Popravljanje"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Nepoznata greška"
     },
     "info": {
         "canRunOffline": "Internet Potreban",
@@ -84,7 +84,7 @@
         "disk-space-left": "Prostora dostupno",
         "not-enough-disk-space": "Nema dovoljno prostora na disku",
         "path": "Odaberite put instalacije",
-        "path-not-writtable": "Warning: path might not be writable.",
+        "path-not-writtable": "Upozorenje: staza se možda ne može prepisati.",
         "space-after-install": "Nakon Instalacije",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine verzija"

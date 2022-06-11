@@ -55,14 +55,14 @@
     "game": {
         "downloadSize": "Размер загрузки",
         "firstPlayed": "Первый запуск",
-        "info": "Info",
+        "info": "Информация",
         "installSize": "Размер установки",
         "language": "Язык",
         "lastPlayed": "Последний запуск",
         "neverPlayed": "Никогда",
         "platform": "Выберите версию платформы для установки",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "Системные требования",
+        "tools": "Инструменты",
         "totalPlayed": "Проведено в игре"
     },
     "gamecard": {

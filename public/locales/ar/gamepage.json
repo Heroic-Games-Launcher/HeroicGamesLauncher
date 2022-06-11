@@ -86,7 +86,8 @@
         "disk-space-left": "المساحة المتوفرة",
         "invalid-folder": "خطأ: المسار غير صالح",
         "not-enough-disk-space": "مساحة غير كافيه",
-        "space-after-install": "بعد التثبيت"
+        "space-after-install": "بعد التثبيت",
+        "path-not-writtable": "تحذير: المسار قد لا يكون قابلاً للحرير."
     },
     "label": {
         "playing": {
@@ -134,5 +135,8 @@
         "installDlcs": "تحميل جميع المحتويات القابلة للتحميل (DLC)",
         "title": "DLCs"
     },
-    "report_problem": "أبلغ عن مشكلة في تشغيل هذه اللعبة"
+    "report_problem": "أبلغ عن مشكلة في تشغيل هذه اللعبة",
+    "generic": {
+        "error": "خطأ غير معروف"
+    }
 }

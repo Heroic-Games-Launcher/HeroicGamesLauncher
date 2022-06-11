@@ -60,9 +60,9 @@
         "language": "Мова",
         "lastPlayed": "Востаннє зіграно",
         "neverPlayed": "Ніколи",
-        "platform": "Оберіть версію платформи для встановлення",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "platform": "Оберіть версію якої ОС встановити",
+        "reuirements": "Вимоги до системи",
+        "tools": "Інструменти",
         "totalPlayed": "Зіграно часу"
     },
     "gamecard": {
@@ -74,7 +74,7 @@
     },
     "info": {
         "canRunOffline": "Чи потрібно бути в мережі",
-        "installedPlatform": "Встановлена платформа",
+        "installedPlatform": "Встановлена версія для ОС",
         "path": "Шлях встановлення",
         "size": "Розмір",
         "syncsaves": "Синхронізувати збереження",
@@ -82,7 +82,7 @@
     },
     "install": {
         "disk-space-left": "Доступний простір",
-        "not-enough-disk-space": "Недостатньо місця на диску",
+        "not-enough-disk-space": "На диску недостатньо місця",
         "path": "Вкажіть шлях встановлення",
         "path-not-writtable": "Увага: шлях може бути недоступним для запису.",
         "space-after-install": "Після встановлення",
