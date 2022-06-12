@@ -351,13 +351,11 @@ class LegendaryGame extends Game {
   }
 
   private getSdlList(sdlList: Array<string>) {
-    // Legendary needs an empty tag for it to download the other needed files
-    const defaultTag = ' --install-tag=""'
-    return sdlList
-      .map((tag) => `--install-tag ${tag}`)
-      .join(' ')
-      .replaceAll("'", '')
-      .concat(defaultTag)
+    return [
+      // Legendary needs an empty tag for it to download the other needed files
+      '--install-tag=""',
+      ...sdlList.map((tag) => `--install-tag=${tag}`)
+    ]
   }
 
   /**
@@ -376,7 +374,9 @@ class LegendaryGame extends Game {
     )
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
-    const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
+    const installSdl = sdlList.length
+      ? this.getSdlList(sdlList)
+      : ['--skip-sdl']
 
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
@@ -388,7 +388,7 @@ class LegendaryGame extends Game {
       '--base-path',
       path,
       withDlcs,
-      installSdl,
+      ...installSdl,
       ...workers,
       '-y'
     ]
