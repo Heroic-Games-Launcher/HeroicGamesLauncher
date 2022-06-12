@@ -23,7 +23,6 @@ import { ipcRenderer } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
 import { Runner } from 'src/types'
 import './index.css'
-import QuitButton from '../QuitButton'
 
 interface LocationState {
   fromGameCard: boolean
@@ -138,6 +137,7 @@ export default function SidebarLinks() {
           </div>
         )}
       </div>
+      <div className="divider" />
       <div className="SidebarItemWithSubmenu">
         <NavLink
           data-testid="settings"
@@ -228,66 +228,6 @@ export default function SidebarLinks() {
           </div>
         )}
       </div>
-      <NavLink
-        data-testid="wiki"
-        className={({ isActive }) =>
-          classNames('Sidebar__item', { active: isActive })
-        }
-        to={{ pathname: '/wiki' }}
-      >
-        <>
-          <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon icon={faBookOpen} title={t('wiki', 'Wiki')} />
-          </div>
-          <span>{t('wiki', 'Wiki')}</span>
-        </>
-      </NavLink>
-      <div className="divider" />
-      <button className="Sidebar__item" onClick={() => openDiscordLink()}>
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon
-            icon={faDiscord}
-            title={t('userselector.discord', 'Discord')}
-          />
-        </div>
-        <span>{t('userselector.discord', 'Discord')}</span>
-      </button>
-      <button
-        className="Sidebar__item"
-        onClick={() => ipcRenderer.send('openPatreonPage')}
-      >
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon icon={faPatreon} title="Patreon" />
-        </div>
-        <span>Patreon</span>
-      </button>
-      <button
-        className="Sidebar__item"
-        onClick={() => ipcRenderer.send('openKofiPage')}
-      >
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon icon={faCoffee} title="Ko-fi" />
-        </div>
-        <span>Ko-fi</span>
-      </button>
-      <div className="divider" />
-      <NavLink
-        data-testid="accessibility"
-        className={({ isActive }) =>
-          classNames('Sidebar__item', { active: isActive })
-        }
-        to={{ pathname: '/accessibility' }}
-      >
-        <>
-          <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon
-              icon={faUniversalAccess}
-              title={t('accessibility.title', 'Accessibility')}
-            />
-          </div>
-          <span>{t('accessibility.title', 'Accessibility')}</span>
-        </>
-      </NavLink>
       {isLinux && (
         <NavLink
           className={({ isActive }) =>
@@ -315,7 +255,68 @@ export default function SidebarLinks() {
         </div>
         <span>{t('userselector.manageaccounts', 'Manage Accounts')}</span>
       </button>
-      <QuitButton />
+      <NavLink
+        data-testid="accessibility"
+        className={({ isActive }) =>
+          classNames('Sidebar__item', { active: isActive })
+        }
+        to={{ pathname: '/accessibility' }}
+      >
+        <>
+          <div className="Sidebar__itemIcon">
+            <FontAwesomeIcon
+              icon={faUniversalAccess}
+              title={t('accessibility.title', 'Accessibility')}
+            />
+          </div>
+          <span>{t('accessibility.title', 'Accessibility')}</span>
+        </>
+      </NavLink>
+      <div className="divider" />
+      <NavLink
+        data-testid="wiki"
+        className={({ isActive }) =>
+          classNames('Sidebar__item', { active: isActive })
+        }
+        to={{ pathname: '/wiki' }}
+      >
+        <>
+          <div className="Sidebar__itemIcon">
+            <FontAwesomeIcon
+              icon={faBookOpen}
+              title={t('docs', 'Documentation')}
+            />
+          </div>
+          <span>{t('docs', 'Documentation')}</span>
+        </>
+      </NavLink>
+      <button className="Sidebar__item" onClick={() => openDiscordLink()}>
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon
+            icon={faDiscord}
+            title={t('userselector.discord', 'Discord')}
+          />
+        </div>
+        <span>{t('userselector.discord', 'Discord')}</span>
+      </button>
+      <button
+        className="Sidebar__item"
+        onClick={() => ipcRenderer.send('openPatreonPage')}
+      >
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faPatreon} title="Patreon" />
+        </div>
+        <span>Patreon</span>
+      </button>
+      <button
+        className="Sidebar__item"
+        onClick={() => ipcRenderer.send('openKofiPage')}
+      >
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faCoffee} title="Ko-fi" />
+        </div>
+        <span>Ko-fi</span>
+      </button>
     </div>
   )
 }
