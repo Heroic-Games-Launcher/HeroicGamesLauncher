@@ -24,6 +24,13 @@ initShortcuts()
 
 const storage: Storage = window.localStorage
 
+let languageCode = configStore.get('language')
+
+if (!languageCode) {
+  languageCode = storage.getItem('language') || 'en'
+  configStore.set('language', languageCode)
+}
+
 i18next
   // load translation using http -> see /public/locales
   // learn more: https://github.com/i18next/i18next-http-backend
@@ -36,7 +43,7 @@ i18next
     interpolation: {
       escapeValue: false
     },
-    lng: storage.getItem('language') || 'en',
+    lng: languageCode,
     react: {
       useSuspense: true
     },

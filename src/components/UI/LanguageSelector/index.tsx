@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import { configStore } from 'src/helpers/electronStores'
 import ContextProvider from 'src/state/ContextProvider'
 import { SelectField } from '..'
 
@@ -98,6 +99,7 @@ export default function LanguageSelector({
   const handleChangeLanguage = (newLanguage: string) => {
     ipcRenderer.send('changeLanguage', newLanguage)
     storage.setItem('language', newLanguage)
+    configStore.set('language', newLanguage)
     i18n.changeLanguage(newLanguage)
     setLanguage(newLanguage)
   }

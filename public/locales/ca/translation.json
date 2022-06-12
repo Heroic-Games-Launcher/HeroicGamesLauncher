@@ -154,6 +154,11 @@
         "store": "Filter Store"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Sincronitza amb l'EGL si ja tens instal·lat l'Epic Games Laucher en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
         "other": {
             "part1": "Utilitza les ",
@@ -184,7 +189,8 @@
     },
     "infobox": {
         "help": "Ajuda",
-        "requirements": "Requisits del sistema"
+        "requirements": "Requisits del sistema",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Selecciona la ruta d'instal·lació"
@@ -254,7 +260,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
-        "egs-prefix": "Prefix on l'EGS està instal·lat"
+        "egs-prefix": "Prefix on l'EGS està instal·lat",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "",
@@ -318,6 +325,7 @@
         "maxworkers": "Nombre màxim de Workers en baixar",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Executa el joc sense connexió",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Activa l'Nvidia Prime Render",
         "resizableBar": "Activa el BAR redimensionable (només amb NVIDIA RTX 30xx)",
         "runexe": {

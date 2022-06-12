@@ -597,6 +597,15 @@ async function callRunner(
     })
 }
 
+/**
+ * Generates a formatted, safe command that can be logged
+ * @param commandParts The runner command that's executed, e. g. install, list, etc.
+ * Note that this will be modified, so pass a copy of your actual command parts
+ * @param env Enviroment variables to use
+ * @param wrappers Wrappers to use (gamemode, steam runtime, etc.)
+ * @param runnerPath The full path to the runner executable
+ * @returns 
+ */
 function getRunnerCallWithoutCredentials(
   commandParts: string[],
   env: Record<string, string> = {},

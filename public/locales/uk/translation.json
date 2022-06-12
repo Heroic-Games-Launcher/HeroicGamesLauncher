@@ -154,6 +154,11 @@
         "store": "Filter Store"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Синхронізувати з EGL якщо ви маєте встановлений Epic Games Launcher і хочете імпортувати ігри уникнувши їх повторного завантаження.",
         "other": {
             "part1": "Використовуйте ",
@@ -184,7 +189,8 @@
     },
     "infobox": {
         "help": "Допомога",
-        "requirements": "Системні вимоги"
+        "requirements": "Системні вимоги",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Вкажіть шлях встановлення"
@@ -254,7 +260,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Використання вбудованого GOGDL-файлу...",
         "alt-legendary-bin": "Використовую вбудований двійковий Legendary...",
-        "egs-prefix": "Префікс де встановлено EGS"
+        "egs-prefix": "Префікс де встановлено EGS",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -318,6 +325,7 @@
         "maxworkers": "Максимальна кількість працівників при завантаженні",
         "minimize-on-launch": "Згортати Heroic після запуску гри",
         "offlinemode": "Запустити гру оффлайн",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Використовувати виділену відеокарту",
         "resizableBar": "Ввімкнути Resizable BAR (тільки NVIDIA RTX 30xx)",
         "runexe": {

@@ -1,4 +1,4 @@
-import { GamepadActionStatus } from 'src/types'
+import { AppSettings, GamepadActionStatus } from 'src/types'
 import {
   checkGameCube,
   checkPS3,
@@ -22,6 +22,12 @@ const SCROLL_REPEAT_DELAY = 50
 let controllerIsDisabled = false
 
 export const initGamepad = () => {
+  ipcRenderer
+    .invoke('requestSettings', 'default')
+    .then(({ disableController }: AppSettings) => {
+      controllerIsDisabled = disableController || false
+    })
+
   // store the current controllers
   let controllers: number[] = []
 
@@ -172,7 +178,7 @@ export const initGamepad = () => {
     const el = currentElement()
     if (!el) return false
 
-    return el.classList.contains('searchInput')
+    return el.id === 'search'
   }
 
   function playable() {
@@ -269,9 +275,9 @@ export const initGamepad = () => {
         console.log(`button ${button} pressed ${buttons[button].value}`)
     }
     for (const axis in axes) {
-      if (axes[axis] < -0.1 && axes[axis] >= -1)
+      if (axes[axis] < -0.2 && axes[axis] >= -1)
         console.log(`axis ${axis} activated negative`)
-      if (axes[axis] > 0.1 && axes[axis] <= 1)
+      if (axes[axis] > 0.2 && axes[axis] <= 1)
         console.log(`axis ${axis} activated positive`)
     }
   }

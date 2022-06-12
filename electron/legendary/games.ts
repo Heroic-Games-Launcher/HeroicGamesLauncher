@@ -16,7 +16,8 @@ import {
   isLinux,
   isMac,
   isWindows,
-  installed
+  installed,
+  configStore
 } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
@@ -350,13 +351,11 @@ class LegendaryGame extends Game {
   }
 
   private getSdlList(sdlList: Array<string>) {
-    // Legendary needs an empty tag for it to download the other needed files
-    const defaultTag = ' --install-tag=""'
-    return sdlList
-      .map((tag) => `--install-tag ${tag}`)
-      .join(' ')
-      .replaceAll("'", '')
-      .concat(defaultTag)
+    return [
+      // Legendary needs an empty tag for it to download the other needed files
+      '--install-tag=""',
+      ...sdlList.map((tag) => `--install-tag=${tag}`)
+    ]
   }
 
   /**
@@ -375,7 +374,9 @@ class LegendaryGame extends Game {
     )
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
-    const installSdl = sdlList.length ? this.getSdlList(sdlList) : '--skip-sdl'
+    const installSdl = sdlList.length
+      ? this.getSdlList(sdlList)
+      : ['--skip-sdl']
 
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
@@ -387,7 +388,7 @@ class LegendaryGame extends Game {
       '--base-path',
       path,
       withDlcs,
-      installSdl,
+      ...installSdl,
       ...workers,
       '-y'
     ]
@@ -556,6 +557,11 @@ class LegendaryGame extends Game {
 
     const isNative = await this.isNative()
 
+    const languageCode =
+      gameSettings.language || (configStore.get('language', '') as string)
+
+    const languageFlag = languageCode ? ['--language', languageCode] : []
+
     let commandParts = new Array<string>()
     let commandEnv = process.env
     let wrappers = new Array<string>()
@@ -578,6 +584,7 @@ class LegendaryGame extends Game {
       commandParts = [
         'launch',
         gameInfo.app_name,
+        ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
         launchArguments
@@ -642,6 +649,7 @@ class LegendaryGame extends Game {
       commandParts = [
         'launch',
         gameInfo.app_name,
+        ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
         ...wineFlag,

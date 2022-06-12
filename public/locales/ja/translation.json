@@ -154,6 +154,11 @@
         "store": "Filter Store"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
         "other": {
             "part1": "",
@@ -184,7 +189,8 @@
     },
     "infobox": {
         "help": "ヘルプ",
-        "requirements": "システム要求"
+        "requirements": "システム要求",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Select Install Path"
@@ -254,7 +260,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
-        "egs-prefix": "EGSがインストールされているプレフィックス"
+        "egs-prefix": "EGSがインストールされているプレフィックス",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "",
@@ -318,6 +325,7 @@
         "maxworkers": "ダウンロード時のワーカーの最大数",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "ゲームをオフラインで実行する",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Nvidia Prime Renderを有効にする",
         "resizableBar": "サイズ変更可能なBARを有効にする（NVIDIA RTX 30xxのみ）",
         "runexe": {

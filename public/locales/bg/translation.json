@@ -154,6 +154,11 @@
         "store": "Filter Store"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Launcher и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
         "other": {
             "part1": "Използвайте ",
@@ -184,7 +189,8 @@
     },
     "infobox": {
         "help": "Помощ",
-        "requirements": "Системни изисквания"
+        "requirements": "Системни изисквания",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Изберете местоположение за инсталиране"
@@ -254,7 +260,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Използване на вградения изпълним файл на GOGDL…",
         "alt-legendary-bin": "Използване на вградения изпълним файл на Legendary…",
-        "egs-prefix": "Префикс, където е инсталиран EGS"
+        "egs-prefix": "Префикс, където е инсталиран EGS",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Линукс",
@@ -318,6 +325,7 @@
         "maxworkers": "Максимален брой работни процеси при сваляне",
         "minimize-on-launch": "Минимизиране на Heroic при пускане на игра",
         "offlinemode": "Пускане на играта в режим „извън линия“",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Използване на отделната видео-карта",
         "resizableBar": "Включване на „Resizable BAR“ (Само за NVIDIA RTX 30xx)",
         "runexe": {

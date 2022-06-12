@@ -154,6 +154,11 @@
         "store": "Filter Store"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Synkronisera med EGS om du har en fungerande Epic Games Launcher installation och vill importera spel istället för att ladda ner dem igen.",
         "other": {
             "part1": "Använd ",
@@ -184,7 +189,8 @@
     },
     "infobox": {
         "help": "Hjälp",
-        "requirements": "Systemkrav"
+        "requirements": "Systemkrav",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Ange installationssökväg"
@@ -254,7 +260,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Använder inbyggd GOGDL version...",
         "alt-legendary-bin": "Använder inbyggd Legendary version...",
-        "egs-prefix": "Prefix för befintlig EGS installation"
+        "egs-prefix": "Prefix för befintlig EGS installation",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -318,6 +325,7 @@
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "minimize-on-launch": "Minimera Heroic efter spelstart",
         "offlinemode": "Kör spelet offline",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Använd dedikerat grafikkort",
         "resizableBar": "Aktivera Resizable BAR (NVIDIA RTX endast)",
         "runexe": {

@@ -154,6 +154,11 @@
         "store": "Filter Store"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
         "other": {
             "part1": "Use o ",
@@ -184,7 +189,8 @@
     },
     "infobox": {
         "help": "Ajuda",
-        "requirements": "Requisitos do Sistema"
+        "requirements": "Requisitos do Sistema",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Selecione o local de instalação"
@@ -254,7 +260,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Usando binário do GOGDL embutido...",
         "alt-legendary-bin": "Usando o binário embutido do Legendary...",
-        "egs-prefix": "Prefixo onde a EGS está instalada"
+        "egs-prefix": "Prefixo onde a EGS está instalada",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -318,6 +325,7 @@
         "maxworkers": "Máximo de núcleos da CPU para utilizar ao fazer baixar jogos",
         "minimize-on-launch": "Minimizar Heroic ao iniciar um jogo",
         "offlinemode": "Iniciar o jogo offline",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Usar placa gráfica dedicada",
         "resizableBar": "Habilitar Resizable BAR (somente NVIDIA RTX 30xx)",
         "runexe": {
