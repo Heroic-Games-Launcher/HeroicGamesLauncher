@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Nessuna versione di Wine selezionata. Controlla le impostazioni del gioco!",
                 "title": "Wine non trovato"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,6 +122,7 @@
         "syncing": "Sincronizzazione in corso",
         "unsync": "Annulla sincronizzazione"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
@@ -204,7 +209,6 @@
         "sync": "Sincronizzazione completata",
         "unsync": "Annullamento sincronizzazione completato"
     },
-    "Missing Dependency": "",
     "notify": {
         "error": {
             "move": "Errore nello spostamento del gioco",
@@ -399,7 +403,6 @@
             "reload": ""
         }
     },
-    "wiki": "Wiki",
     "wine": {
         "actions": "Action",
         "manager": {
@@ -410,6 +413,5 @@
         },
         "release": "Release Date",
         "size": "Size"
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+    }
 }

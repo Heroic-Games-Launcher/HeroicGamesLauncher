@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "نسخه ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
                 "title": "Wine یافت نشد"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,6 +122,7 @@
         "syncing": "در حال همگام سازی",
         "unsync": "عدم همگام سازی"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویسهای آنلاین ممکن است کار نکنند!",
         "offline-notification-title": "offline"
@@ -204,7 +209,6 @@
         "sync": "همگامسازی کامل شد",
         "unsync": "عدم همگامسازی کامل شد"
     },
-    "Missing Dependency": "",
     "notify": {
         "error": {
             "move": "خطا در جابهجا کردن بازی",
@@ -399,7 +403,6 @@
             "reload": "تازه کردن صفحه"
         }
     },
-    "wiki": "ویکی",
     "wine": {
         "actions": "Action",
         "manager": {
@@ -410,6 +413,5 @@
         },
         "release": "Release Date",
         "size": "Size"
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+    }
 }

@@ -82,8 +82,9 @@ export const DXVK = {
             .catch((error) => {
               if (tool.name === 'vkd3d') {
                 showErrorBoxModalAuto(
-                  i18next.t('Missing Dependency'),
+                  i18next.t('box.error.zstd.title', 'Missing Dependency'),
                   i18next.t(
+                    'box.error.zstd.message',
                     'ZSTD was not found, please install it and restart Heroic'
                   )
                 )

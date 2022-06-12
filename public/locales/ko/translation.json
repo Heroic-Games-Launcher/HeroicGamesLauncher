@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Wine 버전이 선택되지 않았습니다. 게임 설정을 확인하세요!",
                 "title": "Wine을 찾을 수 없음"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,6 +122,7 @@
         "syncing": "싱크중",
         "unsync": "싱크 해제"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Epic Games 서버가 오프라인 상태이므로 온라인 서비스가 완전히 작동하지 않을 수 있습니다!",
         "offline-notification-title": "offline"
@@ -204,7 +209,6 @@
         "sync": "동기화 완료",
         "unsync": "동기화 해제 완료"
     },
-    "Missing Dependency": "",
     "notify": {
         "error": {
             "move": "게임 이동 중 오류 발생",
@@ -399,7 +403,6 @@
             "reload": "페이지 새로고침"
         }
     },
-    "wiki": "위키",
     "wine": {
         "actions": "Action",
         "manager": {
@@ -410,6 +413,5 @@
         },
         "release": "Release Date",
         "size": "Size"
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+    }
 }

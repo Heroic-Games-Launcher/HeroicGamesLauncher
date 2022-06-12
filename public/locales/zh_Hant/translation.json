@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,6 +122,7 @@
         "syncing": "正在同步",
         "unsync": "不同步"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
@@ -204,7 +209,6 @@
         "sync": "同步完成",
         "unsync": "取消同步完成"
     },
-    "Missing Dependency": "",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -399,7 +403,6 @@
             "reload": ""
         }
     },
-    "wiki": "Wiki百科",
     "wine": {
         "actions": "Action",
         "manager": {
@@ -410,6 +413,5 @@
         },
         "release": "Release Date",
         "size": "Size"
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+    }
 }

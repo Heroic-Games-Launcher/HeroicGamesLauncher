@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Winen versiota ei ole valittu. Tarkista peliasetukset!",
                 "title": "Wineä ei löytynyt"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,6 +122,7 @@
         "syncing": "Synkronoidaan",
         "unsync": "Älä synkronoi"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Verkkopalvelut eivät välttämättä toimi kokonaisuudessaan Epic Games:in palvelinten ollessa vailla verkkoyhteyttä!",
         "offline-notification-title": "offline"
@@ -204,7 +209,6 @@
         "sync": "Synkronointi valmis",
         "unsync": "Synkronoinnin poisto valmis"
     },
-    "Missing Dependency": "",
     "notify": {
         "error": {
             "move": "Virhe pelin siirtämisessä",
@@ -399,7 +403,6 @@
             "reload": ""
         }
     },
-    "wiki": "Wiki",
     "wine": {
         "actions": "Action",
         "manager": {
@@ -410,6 +413,5 @@
         },
         "release": "Release Date",
         "size": "Size"
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+    }
 }
