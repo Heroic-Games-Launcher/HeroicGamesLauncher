@@ -175,7 +175,8 @@
     },
     "infobox": {
         "help": "도움말",
-        "requirements": "시스템 요구 사양"
+        "requirements": "시스템 요구 사양",
+        "wine-path": "Path"
     },
     "install": {
         "path": "설치 경로 선택"

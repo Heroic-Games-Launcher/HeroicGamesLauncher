@@ -175,7 +175,8 @@
     },
     "infobox": {
         "help": "راهنما",
-        "requirements": "نیازمندیهای سیستم"
+        "requirements": "نیازمندیهای سیستم",
+        "wine-path": "Path"
     },
     "install": {
         "path": "انتخاب محل نصب"

@@ -175,7 +175,8 @@
     },
     "infobox": {
         "help": "Ajuda",
-        "requirements": "Requisitos"
+        "requirements": "Requisitos",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Select Install Path"
