@@ -71,7 +71,9 @@ const GameCard = ({
     platform,
     hiddenGames,
     favouriteGames,
-    allTilesInColor
+    allTilesInColor,
+    epic,
+    gog
   } = useContext(ContextProvider)
 
   const isWin = platform === 'win32'
@@ -312,6 +314,17 @@ const GameCard = ({
     }
   }
 
+  const showStoreLogos = () => {
+    if (epic.username && gog.username) {
+      return runner === 'legendary' ? (
+        <EpicLogo className="store-icon" />
+      ) : (
+        <GOGLogo className="store-icon" />
+      )
+    }
+    return null
+  }
+
   return (
     <>
       <ContextMenu items={items}>
@@ -323,11 +336,7 @@ const GameCard = ({
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
           >
-            {runner === 'legendary' ? (
-              <EpicLogo className="store-icon" />
-            ) : (
-              <GOGLogo className="store-icon" />
-            )}
+            {showStoreLogos()}
             <img src={imageSrc} className={imgClasses} alt="cover" />
             {logo && (
               <img

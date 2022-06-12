@@ -166,6 +166,6 @@
 }
 .Sidebar.collapsed .Sidebar__item.active svg,
 .Sidebar.collapsed .Sidebar__item svg {
-  transform: scale(1.5);
+  transform: scale(1.2);
   padding: 6px 0;
 }
