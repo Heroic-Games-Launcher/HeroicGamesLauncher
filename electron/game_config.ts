@@ -203,15 +203,68 @@ class GameConfigV0 extends GameConfig {
     // The settings defined work as overrides.
 
     // fix relative paths
-    const { winePrefix } = (settings[this.appName] as GameSettings) || {}
+    const { winePrefix: gameWinePrefix } =
+      (settings[this.appName] as GameSettings) || {}
 
-    return {
-      ...GlobalConfig.get().config,
+    const defaults = GlobalConfig.get().config
+
+    const {
+      audioFix,
+      autoInstallDxvk,
+      autoInstallVkd3d,
+      autoSyncSaves,
+      enableEsync,
+      enableFSR,
+      enableFsync,
+      maxSharpness,
+      enableResizableBar,
+      launcherArgs,
+      nvidiaPrime,
+      offlineMode,
+      otherOptions,
+      savesPath,
+      showFps,
+      showMangohud,
+      targetExe,
+      useGameMode,
+      winePrefix,
+      wineCrossoverBottle,
+      wineVersion,
+      useSteamRuntime
+    } = defaults
+
+    const settingsToReturn = {
+      audioFix,
+      autoInstallDxvk,
+      autoInstallVkd3d,
+      autoSyncSaves,
+      enableEsync,
+      enableFSR,
+      enableFsync,
+      maxSharpness,
+      enableResizableBar,
+      launcherArgs,
+      nvidiaPrime,
+      offlineMode,
+      otherOptions,
+      savesPath,
+      showFps,
+      showMangohud,
+      targetExe,
+      useGameMode,
+      winePrefix: winePrefix || `${userHome}/.wine`,
+      wineCrossoverBottle,
+      wineVersion,
+      useSteamRuntime,
       ...settings[this.appName],
-      winePrefix: winePrefix
-        ? winePrefix.replace('~', userHome)
-        : `${userHome}/.wine`
+      language: ''
     } as GameSettings
+
+    if (gameWinePrefix) {
+      settingsToReturn.winePrefix = gameWinePrefix.replace('~', userHome)
+    }
+
+    return settingsToReturn
   }
 
   public async resetToDefaults() {
