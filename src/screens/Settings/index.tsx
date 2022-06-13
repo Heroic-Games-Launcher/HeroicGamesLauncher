@@ -58,6 +58,7 @@ function Settings() {
   const [targetExe, setTargetExe] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
+  const [languageCode, setLanguageCode] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
   const [title, setTitle] = useState('')
   const [maxWorkers, setMaxWorkers] = useState(0)
@@ -238,6 +239,7 @@ function Settings() {
       setDisableController(config.disableController || false)
 
       if (!isDefault) {
+        setLanguageCode(config.language)
         const { title: gameTitle, canRunOffline: can_run_offline } =
           await getGameInfo(appName, runner)
         setCanRunOffline(can_run_offline)
@@ -298,6 +300,7 @@ function Settings() {
     enableFsync,
     maxSharpness,
     enableResizableBar,
+    language: languageCode,
     launcherArgs,
     nvidiaPrime,
     offlineMode,
@@ -424,6 +427,8 @@ function Settings() {
               setOtherOptions={setOtherOptions}
               launcherArgs={launcherArgs}
               setLauncherArgs={setLauncherArgs}
+              languageCode={languageCode}
+              setLanguageCode={setLanguageCode}
               useGameMode={useGameMode}
               toggleUseGameMode={toggleUseGameMode}
               primeRun={nvidiaPrime}

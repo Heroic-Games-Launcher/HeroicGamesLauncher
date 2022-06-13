@@ -141,6 +141,11 @@
         "show_hidden": "숨김 표시"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Epic Games Launcher가 다른 곳에 설치되어 있고 게임을 가져와서 다시 다운로드하지 않으려면 Epic Games Launcher와 동기화 하십시오.",
         "other": {
             "part1": "다음 사용 ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "도움말",
-        "requirements": "시스템 요구 사양"
+        "requirements": "시스템 요구 사양",
+        "wine-path": "Path"
     },
     "install": {
         "path": "설치 경로 선택"
@@ -241,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "내장된 GOGDL 바이너리 파일 사용...",
         "alt-legendary-bin": "내장된 Legendary 바이너리 파일 사용...",
-        "egs-prefix": "Epic Games Store가 설치된 위치의 접두사"
+        "egs-prefix": "Epic Games Store가 설치된 위치의 접두사",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -305,6 +312,7 @@
         "maxworkers": "다운로드할 때 최대 워커 개수",
         "minimize-on-launch": "게임 실행 후 Heroic 최소화",
         "offlinemode": "게임 오프라인으로 실행",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "외장 그래픽 카드 사용",
         "resizableBar": "Resizable BAR 활성화 (NVIDIA RTX 30xx 전용)",
         "runexe": {

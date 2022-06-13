@@ -145,6 +145,7 @@ export interface GameSettings {
   enableFsync: boolean
   enableResizableBar: boolean
   maxSharpness: number
+  language: string
   launcherArgs: string
   nvidiaPrime: boolean
   offlineMode: boolean
@@ -364,4 +365,12 @@ export interface RpcClient {
   updatePresence(d: unknown): void
   reply(user: unknown, response: unknown): void
   disconnect(): void
+}
+
+export interface CallRunnerOptions {
+  logMessagePrefix?: string
+  logFile?: string
+  env?: Record<string, string>
+  wrappers?: string[]
+  onOutput?: (output: string) => void
 }

@@ -141,6 +141,11 @@
         "show_hidden": "Show Hidden"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Sincronizar con EGS no caso que teña unha instalación funcional de Epic Games Launcher noutro lugar e desexa importar os seus xogos para evitar descargalos novamente.",
         "other": {
             "part1": "Utilizar as ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "Axuda",
-        "requirements": "Requisitos do sistema"
+        "requirements": "Requisitos do sistema",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Seleccionar a ruta de instalación"
@@ -241,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Usando o binario de Legendary embebeido...",
-        "egs-prefix": "Prefixo onde está instalado EGS"
+        "egs-prefix": "Prefixo onde está instalado EGS",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -305,6 +312,7 @@
         "maxworkers": "Número máximo de descargas",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Executar xogo sen conexión",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Activar renderizado de Nvidia Prime",
         "resizableBar": "Activar Resizable Bar (só NVIDIA RTX 30xx)",
         "runexe": {

@@ -141,6 +141,11 @@
         "show_hidden": "Show Hidden"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
         "other": {
             "part1": "Gebruik de ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "Help",
-        "requirements": "Systeemvereisingen"
+        "requirements": "Systeemvereisingen",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Select Install Path"
@@ -241,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Gebruik built-in Legendary binary...",
-        "egs-prefix": "Prefix waar EGS is geïnstalleerd"
+        "egs-prefix": "Prefix waar EGS is geïnstalleerd",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "",
@@ -305,6 +312,7 @@
         "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Spel offline draaien",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Aciveer Nvidia Prime Render",
         "resizableBar": "Resizable BAR inschakelen (Alleen voor NVIDIA RTX 30xx)",
         "runexe": {

@@ -141,6 +141,11 @@
         "show_hidden": "Показать скрытые"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Синхронизируйте с EGL, если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
         "other": {
             "part1": "Используйте ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "Помощь",
-        "requirements": "Системные требования"
+        "requirements": "Системные требования",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Выберите путь установки"
@@ -241,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Используется встроенный GOGDL...",
         "alt-legendary-bin": "Используется встроенный Legendary...",
-        "egs-prefix": "Префикс куда установлен EGS"
+        "egs-prefix": "Префикс куда установлен EGS",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -305,6 +312,7 @@
         "maxworkers": "Максимальное количество потоков при скачивании",
         "minimize-on-launch": "Сворачивать Heroic в трей при запуске игры",
         "offlinemode": "Запускать игру офлайн",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Использовать выделенную видеокарту",
         "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",
         "runexe": {

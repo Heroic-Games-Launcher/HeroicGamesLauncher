@@ -141,6 +141,11 @@
         "show_hidden": "Näita peidetud"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
         "other": {
             "part1": "Kasuta ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "Abi",
-        "requirements": "Süsteeminõuded"
+        "requirements": "Süsteeminõuded",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Valige paigaldustee"
@@ -241,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Kasutusel on sisse-ehitatud GOGDL binaarfaili...",
         "alt-legendary-bin": "Kasutusel on sisse-ehitatud Legendary binaarfail...",
-        "egs-prefix": "Prefiks, kuhu EGS on paigaldatud"
+        "egs-prefix": "Prefiks, kuhu EGS on paigaldatud",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -305,6 +312,7 @@
         "maxworkers": "Töötajate maksimaalne arv allalaadimisel",
         "minimize-on-launch": "Minimeeri Heroic pärast mängu käivitamist",
         "offlinemode": "Käivita mäng võrguühenduseta",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Kasuta spetsiaalset graafikakaarti",
         "resizableBar": "Luba muudetav BAR (ainult NVIDIA RTX 30xx)",
         "runexe": {

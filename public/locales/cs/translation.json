@@ -141,6 +141,11 @@
         "show_hidden": "Zobrazit skryté"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Synchronizujte s EGL v případě, že máte funkční instalaci Epic Games Launcher jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
         "other": {
             "part1": "Použijte ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "Pomoc",
-        "requirements": "Systémové požadavky"
+        "requirements": "Systémové požadavky",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Vyberte cestu instalace"
@@ -241,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Pomocí vestavěného GOGDL...",
         "alt-legendary-bin": "Pomocí vestavěného Legendary...",
-        "egs-prefix": "Prefix kde je nainstalován EGS"
+        "egs-prefix": "Prefix kde je nainstalován EGS",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -305,6 +312,7 @@
         "maxworkers": "Maximální počet vláken při stahování",
         "minimize-on-launch": "Minimalizujte Heroic po spuštění hry",
         "offlinemode": "Spustit hru offline",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Použít dedikovanou grafickou kartu",
         "resizableBar": "Používat Resizable BAR (pouze s NVIDIA RTX 30xx)",
         "runexe": {
