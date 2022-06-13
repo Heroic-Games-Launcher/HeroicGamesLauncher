@@ -234,9 +234,12 @@ async function setup(
         }
         case 'setIni': {
           const filePath = handlePathVars(
-            actionArguments?.filename,
+            actionArguments?.filename?.replace(
+              '{app}',
+              gameInfo.install.install_path
+            ),
             pathsValues
-          )
+          ).replaceAll('\\', '/')
           if (!filePath || !existsSync(filePath)) {
             logError("Setup: setIni file doesn't exists", LogPrefix.Gog)
             break
