@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "ショートカットを追加する",
+        "addToSteam": "Add to steam",
         "change": "インストールパスを変更する",
         "log": "最新のログ",
         "move": "ゲームを移動する",

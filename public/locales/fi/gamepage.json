@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Lisää pikakuvake",
+        "addToSteam": "Add to steam",
         "change": "Vaihda asennussijaintia",
         "log": "Uusin lokitiedosto",
         "move": "Siirrä peli",

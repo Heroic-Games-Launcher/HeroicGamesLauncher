@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",
+        "addToSteam": "Add to steam",
         "change": "Wijzig installatiepad",
         "log": "Laatste log",
         "move": "Spel verplaatsen",

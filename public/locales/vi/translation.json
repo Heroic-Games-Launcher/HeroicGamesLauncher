@@ -175,8 +175,7 @@
     },
     "infobox": {
         "help": "Hỗ trợ",
-        "requirements": "Yêu cầu về hệ thống",
-        "wine-path": "Path"
+        "requirements": "Yêu cầu về hệ thống"
     },
     "install": {
         "path": "Chọn đường dẫn cài"

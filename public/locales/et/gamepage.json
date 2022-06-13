@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Lisa otsetee",
+        "addToSteam": "Add to steam",
         "change": "Muuda paigalduskohta",
         "log": "Viimane logi",
         "move": "Liiguta mängu",

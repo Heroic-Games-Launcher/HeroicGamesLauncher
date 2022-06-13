@@ -175,8 +175,7 @@
     },
     "infobox": {
         "help": "Pomoc",
-        "requirements": "Systémové požadavky",
-        "wine-path": "Path"
+        "requirements": "Systémové požadavky"
     },
     "install": {
         "path": "Vyberte cestu instalace"

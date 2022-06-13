@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Додати ярлик",
+        "addToSteam": "Add to steam",
         "change": "Змінити шлях встановлення",
         "log": "Останній лоґ",
         "move": "Перенести гру",

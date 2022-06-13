@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",
+        "addToSteam": "Add to steam",
         "change": "Installationspfad ändern",
         "log": "Neuester Log",
         "move": "Spiel verschieben",

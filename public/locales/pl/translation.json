@@ -175,8 +175,7 @@
     },
     "infobox": {
         "help": "Pomoc",
-        "requirements": "Wymagania Systemowe",
-        "wine-path": "Path"
+        "requirements": "Wymagania Systemowe"
     },
     "install": {
         "path": "Wybierz Ścieżkę Instalacji"

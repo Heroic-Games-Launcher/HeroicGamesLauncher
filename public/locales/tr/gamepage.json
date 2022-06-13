@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Kısayol ekle",
+        "addToSteam": "Add to steam",
         "change": "Kurulum yerini değiştir",
         "log": "Güncel Log",
         "move": "Oyunu Taşı",

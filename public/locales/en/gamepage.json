@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Add shortcut",
+        "addToSteam": "Add to steam",
         "change": "Change install path",
         "log": "Latest Log",
         "move": "Move Game",

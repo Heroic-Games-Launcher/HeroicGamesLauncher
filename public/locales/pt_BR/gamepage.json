@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Adicionar Atalho",
+        "addToSteam": "Add to steam",
         "change": "Modificar Local de Instalação",
         "log": "Último Log",
         "move": "Mover o Jogo",

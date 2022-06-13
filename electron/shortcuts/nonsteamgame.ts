@@ -152,14 +152,14 @@ async function addNonSteamGame(
       newEntry.Exe = `"${process.env.APPIMAGE}"`
     }
 
-    newEntry.StartDir = process.cwd()
+    newEntry.StartDir = `"${process.cwd()}"`
     await getIcon(gameInfo.app_name, gameInfo)
       .then((path) => (newEntry.icon = path))
       .catch((error) =>
         logWarning(`Couldn't find a icon for ${gameInfo.title} with: ${error}`)
       )
 
-    newEntry.LaunchOptions = `"--no-gui heroic://launch/${gameInfo.app_name}"`
+    newEntry.LaunchOptions = `--no-gui "heroic://launch/${gameInfo.app_name}"`
     newEntry.IsHidden = false
     newEntry.AllowDesktopConfig = true
     newEntry.AllowOverlay = true

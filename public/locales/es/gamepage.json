@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",
+        "addToSteam": "Add to steam",
         "change": "Modificar la ubicación",
         "log": "Último registro",
         "move": "Mover juego",

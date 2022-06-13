@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",
+        "addToSteam": "Add to steam",
         "change": "Telepítési útvonal megváltoztatása",
         "log": "Legutóbbi napló",
         "move": "Játék áthelyezése",

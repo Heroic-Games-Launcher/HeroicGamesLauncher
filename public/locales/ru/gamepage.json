@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Создать ярлык",
+        "addToSteam": "Add to steam",
         "change": "Изменить путь установки",
         "log": "Последний журнал",
         "move": "Переместить игру",

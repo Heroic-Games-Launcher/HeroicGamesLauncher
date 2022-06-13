@@ -175,8 +175,7 @@
     },
     "infobox": {
         "help": "幫助",
-        "requirements": "系統要求",
-        "wine-path": "Path"
+        "requirements": "系統要求"
     },
     "install": {
         "path": "Select Install Path"

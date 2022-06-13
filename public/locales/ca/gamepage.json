@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",
+        "addToSteam": "Add to steam",
         "change": "Canvia la ruta d'instal·lació",
         "log": "Últim registre",
         "move": "Mou el joc",

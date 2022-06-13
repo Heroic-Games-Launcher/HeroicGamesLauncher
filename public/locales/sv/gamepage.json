@@ -123,6 +123,7 @@
     },
     "submenu": {
         "addShortcut": "Skapa genväg",
+        "addToSteam": "Add to steam",
         "change": "Ändra installationssökväg",
         "log": "Senaste loggen",
         "move": "Flytta spelet",
