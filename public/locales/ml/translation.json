@@ -141,6 +141,11 @@
         "show_hidden": "Show Hidden"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടീല് മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില് നിങ്ങളുടെ കളികള് വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
         "other": {
             "part1": "കളി ഓടിക്കുന്നതിനുമുന്പുള്ള വിളികള്ക്കായി ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "സഹായിക്കൂ",
-        "requirements": "ശുപാര്ശിക്കുന്ന സംവിധാനങ്ങള്"
+        "requirements": "ശുപാര്ശിക്കുന്ന സംവിധാനങ്ങള്",
+        "wine-path": "Path"
     },
     "install": {
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ"
@@ -195,6 +201,7 @@
         "sync": "ഒന്നിപ്പിച്ചു",
         "unsync": "പിരിച്ചു"
     },
+    "Missing Dependency": "",
     "nogames": "കളികളൊന്നും കണ്ടെത്തിയില്ല",
     "notify": {
         "error": {
@@ -240,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "തനത് ലെജന്ററി ഈരക്കരേഖ ഉപയോഗിക്കുന്നു...",
-        "egs-prefix": "EGS സ്ഥാപിച്ചയിടം"
+        "egs-prefix": "EGS സ്ഥാപിച്ചയിടം",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "",
@@ -304,6 +312,7 @@
         "maxworkers": "ഇറക്കിയെടുക്കുമ്പോള് പണിയുന്നവരുടെ പരമാവധി എണ്ണം",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "ഓഫ്ലൈനില് കളിക്കുക",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "എന്വിഡിയ പ്രൈം റെന്റര് വയ്ക്കൂ",
         "resizableBar": "വലുപ്പം മാറ്റാവുന്ന BAR വയ്ക്കൂ (എന്വിഡിയ RTX 30xxനു മാത്രം)",
         "runexe": {
@@ -393,5 +402,6 @@
             "title": "Wine Manager",
             "unzipping": "Unzipping"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

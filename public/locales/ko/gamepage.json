@@ -55,11 +55,14 @@
     "game": {
         "downloadSize": "다운로드 크기",
         "firstPlayed": "처음 플레이",
+        "info": "Info",
         "installSize": "설치 크기",
         "language": "Language",
         "lastPlayed": "마지막 플레이",
         "neverPlayed": "플레이 한 적 없음",
         "platform": "설치할 플랫폼 버전 선택",
+        "reuirements": "System Requirements",
+        "tools": "Tools",
         "totalPlayed": "플레이 시간"
     },
     "gamecard": {

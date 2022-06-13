@@ -55,11 +55,14 @@
     "game": {
         "downloadSize": "Kích thước tải",
         "firstPlayed": "Lần chơi đầu",
+        "info": "Info",
         "installSize": "Kích thước cài",
         "language": "Ngôn ngữ",
         "lastPlayed": "Lần chơi cuối",
         "neverPlayed": "Không bao giờ",
         "platform": "Select Platform Version to Install",
+        "reuirements": "System Requirements",
+        "tools": "Tools",
         "totalPlayed": "Thời gian chơi"
     },
     "gamecard": {

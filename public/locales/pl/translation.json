@@ -141,6 +141,11 @@
         "show_hidden": "Pokaż Ukryte"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Synchronizuj z EGS, gdy Epic Games Launcher jest zainstalowane w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
         "other": {
             "part1": "Użyj ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "Pomoc",
-        "requirements": "Wymagania Systemowe"
+        "requirements": "Wymagania Systemowe",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Wybierz Ścieżkę Instalacji"
@@ -195,6 +201,7 @@
         "sync": "Synchronizacja zakończona",
         "unsync": "Desynchronizacja zakończona"
     },
+    "Missing Dependency": "",
     "nogames": "Nie znaleziono żadnej gry",
     "notify": {
         "error": {
@@ -240,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Używanie wbudowanego pliku binarnego GOGDL...",
         "alt-legendary-bin": "Używanie wbudowanego pliku binarnego Legendary...",
-        "egs-prefix": "Prefiks instalacji EGS"
+        "egs-prefix": "Prefiks instalacji EGS",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -304,6 +312,7 @@
         "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
         "minimize-on-launch": "Minimalizuj Heroic Po Uruchomieniu Gry",
         "offlinemode": "Uruchom grę w trybie offline",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Włącz renderowanie Nvidia Prime",
         "resizableBar": "Włącz Resizable BAR (Tylko dla kart NVIDIA RTX)",
         "runexe": {
@@ -393,5 +402,6 @@
             "title": "Menadżer Wine",
             "unzipping": "Dekompresowanie"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

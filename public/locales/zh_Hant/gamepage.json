@@ -55,11 +55,14 @@
     "game": {
         "downloadSize": "Download Size",
         "firstPlayed": "首次遊玩",
+        "info": "Info",
         "installSize": "Install Size",
         "language": "Language",
         "lastPlayed": "上次遊玩",
         "neverPlayed": "從未遊玩",
         "platform": "Select Platform Version to Install",
+        "reuirements": "System Requirements",
+        "tools": "Tools",
         "totalPlayed": "遊玩時間"
     },
     "gamecard": {

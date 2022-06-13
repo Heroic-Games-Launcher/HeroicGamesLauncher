@@ -141,6 +141,11 @@
         "show_hidden": "نمایش موارد پنهان"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGL همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
         "other": {
             "part1": "استفاده از ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "راهنما",
-        "requirements": "نیازمندیهای سیستم"
+        "requirements": "نیازمندیهای سیستم",
+        "wine-path": "Path"
     },
     "install": {
         "path": "انتخاب محل نصب"
@@ -195,6 +201,7 @@
         "sync": "همگامسازی کامل شد",
         "unsync": "عدم همگامسازی کامل شد"
     },
+    "Missing Dependency": "",
     "nogames": "بازی یافت نشد",
     "notify": {
         "error": {
@@ -240,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "استفاده از باینری GOGDL داخلی...",
         "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
-        "egs-prefix": "محل نصب شده EGS"
+        "egs-prefix": "محل نصب شده EGS",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "لینوکس",
@@ -304,6 +312,7 @@
         "maxworkers": "بیسترین تعداد ورکر هنگام دانلود",
         "minimize-on-launch": "کوچک کردن Heroic بعد از اجرای بازی",
         "offlinemode": "اجرای آفلاین بازی",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "استفاده از کارت گرافیک اختصاص یافته",
         "resizableBar": "فعالسازی Resizable BAR (فقط محصولات NVIDIA RTX 30xx)",
         "runexe": {
@@ -393,5 +402,6 @@
             "title": "مدیریت کننده Wine",
             "unzipping": "در حال خارج کردن از حالت فشرده"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

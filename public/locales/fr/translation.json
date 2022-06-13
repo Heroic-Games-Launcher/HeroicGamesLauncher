@@ -141,6 +141,11 @@
         "show_hidden": "Show Hidden"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Synchroniser avec le lanceur EG si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux afin d'éviter de les télécharger à nouveau.",
         "other": {
             "part1": "Utilise l' ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "Aide",
-        "requirements": "Configuration Requise"
+        "requirements": "Configuration Requise",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Sélectionner le chemin d'installation"
@@ -195,6 +201,7 @@
         "sync": "Synchronisation Complète",
         "unsync": "Désynchronisation Complète"
     },
+    "Missing Dependency": "",
     "nogames": "Aucun jeu trouvé",
     "notify": {
         "error": {
@@ -240,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Utilisation du binaire Legendary intégré...",
-        "egs-prefix": "Prefix où EGS est installé"
+        "egs-prefix": "Prefix où EGS est installé",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -304,6 +312,7 @@
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
         "minimize-on-launch": "Minimiser Heroic après le lancement du jeu",
         "offlinemode": "Lancer le jeu hors ligne",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Utiliser une carte graphique dédiée",
         "resizableBar": "Activer Resizable BAR (NVIDIA RTX 30xx seulement)",
         "runexe": {
@@ -393,5 +402,6 @@
             "title": "Wine Manager",
             "unzipping": "Unzipping"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

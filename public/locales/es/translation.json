@@ -141,6 +141,11 @@
         "show_hidden": "Mostrar Ocultos"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Sincronice con EGL si tiene una instalación funcional de Epic Games Launcher en otro lugar y desee importar sus juegos para evitar descargarlos nuevamente.",
         "other": {
             "part1": "Utilizar las ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "Ayuda",
-        "requirements": "Requisitos del sistema"
+        "requirements": "Requisitos del sistema",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Seleccione la ruta de instalación"
@@ -195,6 +201,7 @@
         "sync": "Sincronización completa",
         "unsync": "Desincronizacion completa"
     },
+    "Missing Dependency": "",
     "nogames": "No se han encontrado juegos",
     "notify": {
         "error": {
@@ -240,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Utilizando el binario incorporado de GOGDL...",
         "alt-legendary-bin": "Usando el binario incorporado de Legendary…",
-        "egs-prefix": "Prefix donde está instalado EGS"
+        "egs-prefix": "Prefix donde está instalado EGS",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -304,6 +312,7 @@
         "maxworkers": "Número máximo de procesos al descargar",
         "minimize-on-launch": "Minimizar Heroic al ejecutar un juego",
         "offlinemode": "Ejecutar juego sin conexión",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Utilizar tarjeta de video dedicada",
         "resizableBar": "Habilitar Resizable Bar (NVIDIA RTX 30xx únicamente)",
         "runexe": {
@@ -393,5 +402,6 @@
             "title": "Gestor de Wine",
             "unzipping": "Descomprimiendo"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

@@ -40,7 +40,7 @@ import {
 } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts'
 import setup from './setup'
-import { getGogdlCommand, runGogdlCommand } from './library'
+import { runGogdlCommand } from './library'
 
 function verifyProgress(stderr: string): boolean {
   const text = stderr.split('\n').at(-1)
@@ -96,12 +96,9 @@ class GOGGame extends Game {
   }
 
   public async import(path: string): Promise<ExecResult> {
-    const commandParts = ['import', path]
-    const command = getGogdlCommand(commandParts)
-
-    logInfo([`Importing ${this.appName} with:`, command], LogPrefix.Gog)
-
-    const res = await runGogdlCommand(commandParts)
+    const res = await runGogdlCommand(['import', path], {
+      logMessagePrefix: `Importing ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -138,7 +135,7 @@ class GOGGame extends Game {
           `Progress for ${this.appName}:`,
           `${percent}%/${bytes}MiB/${eta}`.trim()
         ],
-        LogPrefix.Backend
+        LogPrefix.Gog
       )
 
       this.window.webContents.send('setGameStatus', {
@@ -147,7 +144,7 @@ class GOGGame extends Game {
         status: action,
         progress: {
           eta,
-          percent: `${percent.toFixed(0)}%`,
+          percent,
           bytes: `${bytes}MiB`
         }
       })
@@ -185,9 +182,6 @@ class GOGGame extends Game {
       `--lang=${installLanguage}`,
       ...workers
     ]
-    const command = getGogdlCommand(commandParts)
-
-    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Gog)
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput('installing', data)
@@ -195,7 +189,8 @@ class GOGGame extends Game {
 
     const res = await runGogdlCommand(commandParts, {
       logFile: logPath,
-      onOutput
+      onOutput,
+      logMessagePrefix: `Installing ${this.appName}`
     })
 
     if (res.error) {
@@ -270,6 +265,7 @@ class GOGGame extends Game {
   public async removeShortcuts() {
     return removeShortcuts(this.appName, 'gog')
   }
+
   async launch(launchArguments?: string): Promise<LaunchResult> {
     const gameSettings =
       GameConfig.get(this.appName).config ||
@@ -395,14 +391,15 @@ class GOGGame extends Game {
         launcherArgs
       ]
     }
-    const command = getGogdlCommand(commandParts, commandEnv, wrappers)
 
-    logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Gog)
-
-    const { error, stderr, stdout } = await runGogdlCommand(commandParts, {
-      env: commandEnv,
-      wrappers
-    })
+    const { error, stderr, stdout, fullCommand } = await runGogdlCommand(
+      commandParts,
+      {
+        env: commandEnv,
+        wrappers,
+        logMessagePrefix: `Launching ${gameInfo.title}`
+      }
+    )
 
     if (error) {
       logError(['Error launching game:', error], LogPrefix.Gog)
@@ -415,7 +412,7 @@ class GOGGame extends Game {
       stdout,
       stderr,
       gameSettings,
-      command
+      command: fullCommand
     }
   }
 
@@ -467,11 +464,11 @@ class GOGGame extends Game {
       '-b=' + gameData.install.buildId,
       ...workers
     ]
-    const command = getGogdlCommand(commandParts)
 
-    logInfo([`Repairing ${this.appName} with:`, command], LogPrefix.Gog)
-
-    const res = await runGogdlCommand(commandParts, { logFile: logPath })
+    const res = await runGogdlCommand(commandParts, {
+      logFile: logPath,
+      logMessagePrefix: `Repairing ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -578,9 +575,6 @@ class GOGGame extends Game {
       `--lang=${gameData.install.language || 'en-US'}`,
       ...workers
     ]
-    const command = getGogdlCommand(commandParts)
-
-    logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Gog)
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput('updating', data)
@@ -588,7 +582,8 @@ class GOGGame extends Game {
 
     const res = await runGogdlCommand(commandParts, {
       logFile: logPath,
-      onOutput
+      onOutput,
+      logMessagePrefix: `Updating ${this.appName}`
     })
 
     // This always has to be done, so we do it before checking for res.error

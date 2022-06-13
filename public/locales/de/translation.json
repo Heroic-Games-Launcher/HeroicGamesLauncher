@@ -1,10 +1,10 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
-        "fonts": "Fonts",
-        "title": "Accessibility",
+        "actions_font_family": "Aktionen Schriftart (Standard: \"Rubik\")",
+        "all_tiles_in_color": "Alle Spielkacheln in Farbe anzeigen",
+        "content_font_family": "Inhalt Schriftart (Standard: \"Cabin\")",
+        "fonts": "Schriftarten",
+        "title": "Barrierefreiheit",
         "zoom": "Zoom"
     },
     "All": "Alle",
@@ -25,8 +25,8 @@
                 "message": "Deine Anmeldedaten sind abgelaufen, bitte logge dich aus und melde dich erneut an."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "Die CrossOver-Bottle \"{{bottle_name}}\" existiert nicht, kann nicht gestartet werden!",
+                "title": "CrossOver-Bottle nicht gefunden"
             },
             "diskspace": {
                 "message": "Nicht genügend freier Speicherplatz",
@@ -37,7 +37,7 @@
                 "title": "DXVK/VKD3D Fehler"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Der Spieleordner scheint gelöscht zu sein, möchtest du das Spiel aus der Liste der installierten Spiele entfernen?"
             },
             "generic": {
                 "message": "",
@@ -126,10 +126,10 @@
     "favourites": "Favoriten",
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Keine Spiele gefunden - Versuchen Sie, sich abzumelden und erneut anzumelden, oder wählen Sie eine der folgenden Optionen"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Bibliothek aktualisieren"
         }
     },
     "globalSettings": "Globale Einstellungen",
@@ -141,6 +141,11 @@
         "show_hidden": "Ausgeblendete anzeigen"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Synchronisiere mit EGL, falls du woanders eine funktionierende Installation des Epic Games Launcher hast und deine Spiele importieren möchtest, um ein erneutes Herunterladen zu vermeiden.",
         "other": {
             "part1": "Benutze die ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "Hilfe",
-        "requirements": "Systemanforderungen"
+        "requirements": "Systemanforderungen",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Installationspfad auswählen"
@@ -195,6 +201,7 @@
         "sync": "Synchronisation abgeschlossen",
         "unsync": "Synchronisation erfolgreich aufgehoben"
     },
+    "Missing Dependency": "",
     "nogames": "Keine Spiele gefunden",
     "notify": {
         "error": {
@@ -213,7 +220,7 @@
         },
         "moved": "Verschieben abgeschlossen",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "Konnte keine Veröffentlichungen von der Quelle laden, vielleicht wegen GitHub API Einschränkungen! Versuche es später noch einmal."
         },
         "uninstalled": "Deinstalliert",
         "update": {
@@ -240,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Nutze eingebaute GOGDL Binary...",
         "alt-legendary-bin": "Benutze eingebaute Legendary Binärdatei...",
-        "egs-prefix": "Prefix, in dem EGS installiert ist"
+        "egs-prefix": "Prefix, in dem EGS installiert ist",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -304,6 +312,7 @@
         "maxworkers": "Maximale Anzahl von Prozessen zum gleichzeitigem Herunterladen",
         "minimize-on-launch": "Heroic nach Spielstart minimieren",
         "offlinemode": "Spiel offline ausführen",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Dedizierte Grafikkarte verwenden",
         "resizableBar": "Resizable BAR aktivieren (nur NVIDIA RTX 30xx)",
         "runexe": {
@@ -336,7 +345,7 @@
             "other": "Andere",
             "sync": "Spielstände-Synchronisation"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Konfigurationsdatei öffnen",
         "reset-heroic": "Heroic zurücksetzen"
     },
     "Settings": "Einstellungen",
@@ -393,5 +402,6 @@
             "title": "Wine-Manager",
             "unzipping": "Entpacke"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

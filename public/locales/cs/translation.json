@@ -1,9 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Písmo pro Akce (Výchozí: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
+        "all_tiles_in_color": "Zobrazit všechny dlaždice her barevně",
         "content_font_family": "Písmo pro Obsah (Výchozí: \"Cabin\")",
-        "fonts": "Fonts",
+        "fonts": "Písma",
         "title": "Přístupnost",
         "zoom": "Zoom"
     },
@@ -25,8 +25,8 @@
                 "message": "Vaše přihlašovací údaje vypršeli, odhlaste se a přihlašte se znovu prosím."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "CrossOver bottle \"{{bottle_name}}\" neexistuje, nelze spustit!",
+                "title": "CrossOver bottle nenalezen"
             },
             "diskspace": {
                 "message": "Nedostatek místa na disku",
@@ -37,7 +37,7 @@
                 "title": "Chyba DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Zdá se, že složka hry byla odstraněna, chcete odstranit hru i ze seznamu nainstalovaných her?"
             },
             "generic": {
                 "message": "",
@@ -108,7 +108,7 @@
             },
             "title": "Varování"
         },
-        "wineprefix": "Vyberte složku Wine Prefixu",
+        "wineprefix": "Vyberte složku WinePrefix",
         "yes": "ANO"
     },
     "button": {
@@ -126,10 +126,10 @@
     "favourites": "Oblíbené",
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Nebyly nalezeny žádné hry - Zkuste se znovu odhlásit a přihlásit nebo jednu z níže uvedených možností"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Obnovit knihovnu"
         }
     },
     "globalSettings": "Globální nastavení",
@@ -141,6 +141,11 @@
         "show_hidden": "Zobrazit skryté"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Synchronizujte s EGL v případě, že máte funkční instalaci Epic Games Launcher jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
         "other": {
             "part1": "Použijte ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "Pomoc",
-        "requirements": "Systémové požadavky"
+        "requirements": "Systémové požadavky",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Vyberte cestu instalace"
@@ -195,6 +201,7 @@
         "sync": "Synchronizace dokončena",
         "unsync": "Desynchronizace dokončena"
     },
+    "Missing Dependency": "",
     "nogames": "Žádné hry nebyly nalezeny",
     "notify": {
         "error": {
@@ -213,7 +220,7 @@
         },
         "moved": "Přesun dokončen",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "Nepodařilo se načíst vydání z upstreamu, možná kvůli omezením Github API! Zkuste to později."
         },
         "uninstalled": "Odinstalováno",
         "update": {
@@ -240,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Pomocí vestavěného GOGDL...",
         "alt-legendary-bin": "Pomocí vestavěného Legendary...",
-        "egs-prefix": "Prefix kde je nainstalován EGS"
+        "egs-prefix": "Prefix kde je nainstalován EGS",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -304,6 +312,7 @@
         "maxworkers": "Maximální počet vláken při stahování",
         "minimize-on-launch": "Minimalizujte Heroic po spuštění hry",
         "offlinemode": "Spustit hru offline",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Použít dedikovanou grafickou kartu",
         "resizableBar": "Používat Resizable BAR (pouze s NVIDIA RTX 30xx)",
         "runexe": {
@@ -336,7 +345,7 @@
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Otevřít soubor konfigurace",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Nastavení",
@@ -393,5 +402,6 @@
             "title": "Správce Wine",
             "unzipping": "Rozbalování"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

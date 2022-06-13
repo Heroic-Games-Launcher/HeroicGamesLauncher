@@ -25,8 +25,8 @@
                 "message": "你的凭据已过期，请注销并重新登录。"
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "CrossOver bottle \"{{bottle_name}}\" 不存在，无法启动！",
+                "title": "没找到 CrossOver bottle"
             },
             "diskspace": {
                 "message": "没有足够的可用磁盘空间",
@@ -141,6 +141,11 @@
         "show_hidden": "显示隐藏项"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
         "other": {
             "part1": "使用 ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "帮助",
-        "requirements": "系统要求"
+        "requirements": "系统要求",
+        "wine-path": "Path"
     },
     "install": {
         "path": "选择安装路径"
@@ -195,6 +201,7 @@
         "sync": "同步完成",
         "unsync": "取消同步完成"
     },
+    "Missing Dependency": "",
     "nogames": "未找到游戏",
     "notify": {
         "error": {
@@ -240,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",
-        "egs-prefix": "Epic 游戏商城安装位置"
+        "egs-prefix": "Epic 游戏商城安装位置",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -304,6 +312,7 @@
         "maxworkers": "下载时的最大线程数量",
         "minimize-on-launch": "游戏启动后最小化 Heroic",
         "offlinemode": "离线运行游戏",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "使用独立显卡",
         "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
         "runexe": {
@@ -393,5 +402,6 @@
             "title": "Wine 管理器",
             "unzipping": "解压缩"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }

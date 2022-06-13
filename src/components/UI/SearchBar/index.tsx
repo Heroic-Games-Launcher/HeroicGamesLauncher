@@ -42,7 +42,7 @@ export default function SearchBar() {
           ref={input}
           data-testid="searchInput"
           placeholder={t('search')}
-          id="search"
+          id="search" // this id is used for the virtualkeyboard, don't change it
           className="FormControl__input"
         />
       </FormControl>

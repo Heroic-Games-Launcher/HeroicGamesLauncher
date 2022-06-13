@@ -55,11 +55,14 @@
     "game": {
         "downloadSize": "Ukuran Unduhan",
         "firstPlayed": "Pertama Kali Dimainkan",
+        "info": "Info",
         "installSize": "Ukuran Pemasangan",
         "language": "Bahasa",
         "lastPlayed": "Terakhir Dimainkan",
         "neverPlayed": "Tidak pernah",
         "platform": "Pilih Versi Platform yang Akan Dipasang",
+        "reuirements": "System Requirements",
+        "tools": "Tools",
         "totalPlayed": "Lama Dimainkan"
     },
     "gamecard": {
@@ -67,7 +70,7 @@
         "repairing": "Memperbaiki"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Kesalahan tidak diketahui"
     },
     "info": {
         "canRunOffline": "Internet Dibutuhkan",
@@ -81,7 +84,7 @@
         "disk-space-left": "Ruang Penyimpanan yang Tersedia",
         "not-enough-disk-space": "Ruang penyimpanan tidak cukup",
         "path": "Pilih Lokasi Pemasangan",
-        "path-not-writtable": "Warning: path might not be writable.",
+        "path-not-writtable": "Peringatan: lokasi mungkin tidak dapat ditulis.",
         "space-after-install": "Setelah Instalasi",
         "wineprefix": "PrefiksWine",
         "wineversion": "Versi Wine"

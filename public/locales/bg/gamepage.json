@@ -55,11 +55,14 @@
     "game": {
         "downloadSize": "Размер за сваляне",
         "firstPlayed": "Пусната за пръв път",
+        "info": "Info",
         "installSize": "Размер на инсталацията",
         "language": "Език",
         "lastPlayed": "Последно пускане",
         "neverPlayed": "Никога",
         "platform": "Select Platform Version to Install",
+        "reuirements": "System Requirements",
+        "tools": "Tools",
         "totalPlayed": "Изиграно време"
     },
     "gamecard": {

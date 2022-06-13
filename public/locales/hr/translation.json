@@ -141,6 +141,11 @@
         "show_hidden": "Show Hidden"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Sinkronizira sa EGL ako imaš instalaciju EpicGames Launcher-a negdje drugdje i želiš uvesti igrice bez ponovnog preuzimanja.",
         "other": {
             "part1": "Koristi ",
@@ -170,7 +175,8 @@
     },
     "infobox": {
         "help": "Pomoč",
-        "requirements": "Zahtjevi sustava"
+        "requirements": "Zahtjevi sustava",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Odaberite put instalacije"
@@ -195,6 +201,7 @@
         "sync": "Sinkroniziranje završeno",
         "unsync": "Desinkronizacija završena"
     },
+    "Missing Dependency": "",
     "nogames": "Igrice nisu pronađene",
     "notify": {
         "error": {
@@ -240,7 +247,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
-        "egs-prefix": "Put gdje je EGS instaliran"
+        "egs-prefix": "Put gdje je EGS instaliran",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -304,6 +312,7 @@
         "maxworkers": "Maksimalan broj radnika za preuzimanje",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Pokreni igrice bez pristupa internetu",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Use Dedicated Graphics Card",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
@@ -393,5 +402,6 @@
             "title": "Wine Manager",
             "unzipping": "Unzipping"
         }
-    }
+    },
+    "ZSTD was not found, please install it and restart Heroic": ""
 }
