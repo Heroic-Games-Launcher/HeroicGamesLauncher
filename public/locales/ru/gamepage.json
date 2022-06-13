@@ -61,8 +61,8 @@
         "lastPlayed": "Последний запуск",
         "neverPlayed": "Никогда",
         "platform": "Выберите версию платформы для установки",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "Системные требования",
+        "tools": "Инструменты",
         "totalPlayed": "Проведено в игре"
     },
     "gamecard": {
