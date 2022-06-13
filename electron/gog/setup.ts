@@ -10,7 +10,7 @@ import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GOGLibrary } from './library'
 import { GameInfo, InstalledInfo } from '../types'
-import { execAsync, isOnline } from '../utils'
+import { execAsync, isOnline, quoteIfNecessary } from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { userHome, isWindows, steamCompatFolder } from '../constants'
@@ -60,13 +60,13 @@ async function setup(
 
   const commandPrefix = isWindows
     ? ''
-    : `${isCrossover ? crossoverEnv : prefix} ${gameSettings.wineVersion.bin} ${
-        isProton ? 'runinprefix' : ''
-      }`
+    : `${isCrossover ? crossoverEnv : prefix} ${quoteIfNecessary(
+        gameSettings.wineVersion.bin
+      )} ${isProton ? 'runinprefix' : ''}`
   // Make sure Proton initialized prefix correctly
   if (isProton) {
     await execAsync(
-      `${prefix} ${gameSettings.wineVersion.bin} run reg /?` // This is a help command for reg, it's enough to initialize a prefix
+      `${prefix} ${quoteIfNecessary(gameSettings.wineVersion.bin)} run reg /?` // This is a help command for reg, it's enough to initialize a prefix
     ).catch()
   }
   // Funny part begins here
