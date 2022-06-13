@@ -1,9 +1,9 @@
 import { ipcMain, ipcRenderer } from 'electron'
 import i18next from 'i18next'
-import { logError, logInfo } from '../logger/logger'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { Game } from '../games'
 import { Runner } from '../types'
-import { addNonSteamGame, removeNonSteamGame } from './nonesteamgame'
+import { addNonSteamGame, removeNonSteamGame } from './nonsteamgame'
 import { join } from 'path'
 import { getSteamCompatFolder } from '../constants'
 
@@ -37,10 +37,10 @@ ipcMain.on('addToSteam', async (event, appName: string, runner: Runner) => {
 
   await addNonSteamGame(userdataDir, gameInfo)
     .then((message) => {
-      logInfo(message)
+      logInfo(message, LogPrefix.Shortcuts)
     })
     .catch((error) => {
-      logError(`${error}`)
+      logError(`${error}`, LogPrefix.Shortcuts)
     })
 })
 
