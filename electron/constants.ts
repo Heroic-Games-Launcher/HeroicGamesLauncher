@@ -110,22 +110,18 @@ function fixAsarPath(origin: string): string {
 export function getSteamCompatFolder() {
   // Paths are from https://savelocation.net/steam-game-folder
   if (isWindows) {
-    return join('C:', 'Program Files (x86)', 'Steam')
+    return join('C:/Program Files (x86)/Steam')
   } else if (isMac) {
-    return join(userHome, 'Library', 'Application Support', 'Steam')
+    return join(userHome, 'Library/Application Support/Steam')
   } else {
     const flatpakSteamPath = join(
       userHome,
-      '.var',
-      'app',
-      'com.valvesoftware.Steam',
-      '.steam',
-      'steam'
+      '.var/app/com.valvesoftware.Steam/.steam/steam'
     )
     if (existsSync(flatpakSteamPath)) {
       return flatpakSteamPath
     }
-    return join(userHome, '.steam', 'steam')
+    return join(userHome, '.steam/steam')
   }
 }
 
