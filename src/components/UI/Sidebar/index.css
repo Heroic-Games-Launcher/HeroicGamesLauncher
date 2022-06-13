@@ -95,7 +95,7 @@
   align-items: center;
   cursor: pointer;
   opacity: 0;
-  transition: 500ms;
+  transition: opacity 500ms 500ms;
 }
 
 .collapseIcon svg {
@@ -105,17 +105,7 @@
 }
 
 .Sidebar:hover .collapseIcon {
-  transition: 500ms;
   opacity: 1;
-}
-
-.Sidebar.collapsed:hover .collapseIcon {
-  transition: 3s;
-  opacity: 1s;
-}
-
-.Sidebar.collapsed .collapseIcon {
-  transition: 1s;
 }
 
 .Sidebar.collapsed .heroicVersion {
