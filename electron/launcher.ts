@@ -604,7 +604,7 @@ async function callRunner(
  * @param env Enviroment variables to use
  * @param wrappers Wrappers to use (gamemode, steam runtime, etc.)
  * @param runnerPath The full path to the runner executable
- * @returns 
+ * @returns
  */
 function getRunnerCallWithoutCredentials(
   commandParts: string[],
