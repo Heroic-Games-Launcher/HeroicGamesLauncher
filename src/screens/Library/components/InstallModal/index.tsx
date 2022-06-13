@@ -382,12 +382,14 @@ export default function InstallModal({
         )
         if (Array.isArray(newWineList)) {
           setWineVersionList(newWineList)
-          if (
-            !newWineList.some(
-              (newWine) => wineVersion && newWine.bin === wineVersion.bin
-            )
-          ) {
-            setWineVersion(undefined)
+          if (wineVersion?.bin) {
+            if (
+              !newWineList.some(
+                (newWine) => wineVersion && newWine.bin === wineVersion.bin
+              )
+            ) {
+              setWineVersion(undefined)
+            }
           }
         }
       })()
