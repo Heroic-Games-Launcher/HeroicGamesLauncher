@@ -142,9 +142,9 @@
     },
     "help": {
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "留空使用 Heroic 的语言。",
+            "in_game_config": "不是所有游戏都支持此配置，一些有游戏内语言设置。",
+            "valid_codes": "有效语言代码取决于游戏。"
         },
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
         "other": {
@@ -248,7 +248,7 @@
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",
         "egs-prefix": "Epic 游戏商城安装位置",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -312,7 +312,7 @@
         "maxworkers": "下载时的最大线程数量",
         "minimize-on-launch": "游戏启动后最小化 Heroic",
         "offlinemode": "离线运行游戏",
-        "prefered_language": "Prefered Language (Language Code)",
+        "prefered_language": "首选语言 (语言代码)",
         "primerun": "使用独立显卡",
         "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
         "runexe": {
