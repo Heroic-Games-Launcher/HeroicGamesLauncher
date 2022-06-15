@@ -182,7 +182,9 @@ function Settings() {
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
   const [configLoaded, setConfigLoaded] = useState(false)
-  const [settingsToSave, setSettingsToSave] = useState({})
+  const [settingsToSave, setSettingsToSave] = useState<AppSettings>(
+    {} as AppSettings
+  )
 
   const { appName = '', type = '' } = useParams()
   const isDefault = appName === 'default'
@@ -543,7 +545,7 @@ function Settings() {
               setAltLegendaryBin={setAltLegendaryBin}
               altGogdlBin={altGogdlBin}
               setAltGogdlBin={setAltGogdlBin}
-              settingsToSave={settingsToSave as AppSettings}
+              settingsToSave={settingsToSave}
             />
           )}
           {isLogSettings && (
