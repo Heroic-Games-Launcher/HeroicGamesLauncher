@@ -1,21 +1,22 @@
-name: Draft Release MacOSX
+name: Draft Release Windows
 
 on:
   push:
-    branches: [main]
+    branches: [beta]
     tags:
       - 'v*'
   workflow_dispatch:
 
 jobs:
   draft-releases:
-    runs-on: macos-11
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
+          token: ${{ secrets.WORKFLOW_TOKEN }}
       - run: npm install --legacy-peer-deps
-      - run: npm run release:mac
+      - run: npm run release:win
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}

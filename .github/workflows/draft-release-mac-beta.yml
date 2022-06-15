@@ -1,8 +1,8 @@
-name: Draft Release MacOSX
+name: Draft Beta Release MacOSX
 
 on:
   push:
-    branches: [main]
+    branches: [beta]
     tags:
       - 'v*'
   workflow_dispatch:
