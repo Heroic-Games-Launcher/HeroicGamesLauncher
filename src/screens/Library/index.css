@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   grid-gap: 1.2rem;
-  padding: 1rem 1rem 2rem;
+  padding: 1rem 1rem 7rem;
 }
 
 .gameListLayout {
