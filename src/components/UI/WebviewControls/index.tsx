@@ -11,7 +11,7 @@ import { WebviewType } from 'src/types'
 import SvgButton from '../SvgButton'
 import './index.css'
 
-const { ipcRenderer } = window.require('electron')
+import { ipcRenderer } from 'src/helpers'
 
 export interface WebviewControlsProps {
   webview: WebviewType | null

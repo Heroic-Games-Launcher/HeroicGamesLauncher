@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Nie Wybrano Wersji Wine . Sprawdź Ustawienia Gry!",
                 "title": "Nie Znaleziono Wine"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "Synchronizacja",
         "unsync": "Desynchronizacja"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Serwisy Online mogą nie działać w pełni, ponieważ serwery Epic Games są offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "favourites": "Ulubione",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,7 +148,10 @@
     "header": {
         "ignore_hidden": "Ignoruj Ukryte",
         "platform": "Platforma",
-        "show_hidden": "Pokaż Ukryte"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Pokaż Ukryte",
+        "store": "Filter Store"
     },
     "help": {
         "game_language": {
@@ -171,7 +184,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Ustawienia są zapisywane automatycznie"
+        "settings": "Ustawienia są zapisywane automatycznie",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Pomoc",
@@ -200,8 +214,6 @@
         "sync": "Synchronizacja zakończona",
         "unsync": "Desynchronizacja zakończona"
     },
-    "Missing Dependency": "",
-    "nogames": "Nie znaleziono żadnej gry",
     "notify": {
         "error": {
             "move": "Błąd podczas Przenoszenia Gry",
@@ -218,6 +230,7 @@
             "startInstall": "Instalacja Rozpoczęta"
         },
         "moved": "Przenoszenie zakończone",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -348,8 +361,14 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Ustawienia",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "Logowanie..."
+        "installing": "Installing",
+        "logging": "Logowanie...",
+        "processing": "Processing files, please wait"
     },
     "store": "Sklep Epic",
     "stores": "Sklepy",
@@ -370,14 +389,12 @@
         "addpath": "Dodaj nową ścieżkę",
         "removepath": "Usuń ścieżkę"
     },
-    "Total Games": "Ilość gier",
     "tray": {
         "about": "O programie",
         "quit": "Wyjdź",
         "reload": "Przeładuj",
         "show": "Pokaż"
     },
-    "Unreal Marketplace": "Sklep Assetów dla Unreal",
     "userselector": {
         "discord": "Discord",
         "logout": "Wyloguj",
@@ -393,14 +410,15 @@
             "reload": "Odśwież stronę"
         }
     },
-    "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "W tym momencie nie można pobrać wersji Wine/Proton.",
             "link": "Menadżer Wine",
             "title": "Menadżer Wine",
             "unzipping": "Dekompresowanie"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

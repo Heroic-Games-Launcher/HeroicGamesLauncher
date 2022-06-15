@@ -14,7 +14,7 @@ import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 import ToggleSwitch from 'src/components/UI/ToggleSwitch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-const { ipcRenderer } = window.require('electron')
+import { ipcRenderer } from 'src/helpers'
 import './index.css'
 
 export default function Accessibility() {

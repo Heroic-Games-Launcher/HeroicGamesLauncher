@@ -1,4 +1,4 @@
-import { faDoorOpen } from '@fortawesome/free-solid-svg-icons'
+import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -9,9 +9,12 @@ const QuitButton: React.FC = () => {
   return (
     <button className="Sidebar__item" onClick={handleQuit}>
       <div className="Sidebar__itemIcon">
-        <FontAwesomeIcon icon={faDoorOpen} />
+        <FontAwesomeIcon
+          icon={faPowerOff}
+          title={t('userselector.quit', 'Quit')}
+        />
       </div>
-      {t('userselector.quit', 'Quit')}
+      <span>{t('userselector.quit', 'Quit')}</span>
     </button>
   )
 }

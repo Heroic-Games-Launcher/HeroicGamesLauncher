@@ -21,11 +21,12 @@ body.dracula-classic {
   --download-button: #44475a;
   --download-button-overlay: #1372d7;
   --success: #50fa7b;
-  --success-hover: #42ff71;
+  --success-hover: #3be666;
   --primary: #ff79c6;
   --primary-hover: #f560b4;
   --danger: #ff5555;
   --text-title: #8be9fd;
+  --icons-background: #17131c;
 }
 
 body.marine,

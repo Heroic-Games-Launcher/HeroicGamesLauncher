@@ -7,13 +7,10 @@ import {
   Runner,
   GameSettings
 } from 'src/types'
-import { IpcRenderer } from 'electron'
+
 import { install, launch, repair, updateGame } from './library'
 import fileSize from 'filesize'
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+const { ipcRenderer } = window.require('electron')
 const readFile = async (file: string) => ipcRenderer.invoke('readConfig', file)
 
 const writeConfig = async (
@@ -250,5 +247,6 @@ export {
   syncSaves,
   updateGame,
   writeConfig,
+  ipcRenderer,
   quoteIfNecessary
 }

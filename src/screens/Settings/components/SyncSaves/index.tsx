@@ -1,13 +1,10 @@
-import { IpcRenderer } from 'electron'
 import React, { useContext, useEffect, useState } from 'react'
 
 import { Path, SyncType } from 'src/types'
 import { fixSaveFolder, getGameInfo, syncSaves } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
+import { ipcRenderer } from 'src/helpers'
 import {
   InfoBox,
   ToggleSwitch,

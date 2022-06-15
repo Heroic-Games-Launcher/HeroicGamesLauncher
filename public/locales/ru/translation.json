@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
                 "title": "Wine не найден"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "Синхронизация",
         "unsync": "Рассинхронизировать"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
         "offline-notification-title": "офлайн"
     },
     "Epic Games": "Epic Games",
     "favourites": "Избранное",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "Игры не найдены. Попробуйте выйти из системы и войти снова или один из вариантов ниже"
@@ -138,13 +148,16 @@
     "header": {
         "ignore_hidden": "Игнорировать скрытые",
         "platform": "Платформа",
-        "show_hidden": "Показать скрытые"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Показать скрытые",
+        "store": "Filter Store"
     },
     "help": {
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "Оставьте пустым, чтобы использовать язык Heroic.",
+            "in_game_config": "Не все игры поддерживают эту конфигурацию, некоторые имеют внутриигровую настройку языка.",
+            "valid_codes": "Допустимые коды языков зависят от игры."
         },
         "general": "Синхронизируйте с EGL, если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
         "other": {
@@ -171,11 +184,13 @@
         "heroic": {
             "version": "Версия Heroic"
         },
-        "settings": "Настройки сохраняются автоматически"
+        "settings": "Настройки сохраняются автоматически",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Помощь",
-        "requirements": "Системные требования"
+        "requirements": "Системные требования",
+        "wine-path": "Путь"
     },
     "install": {
         "path": "Выберите путь установки"
@@ -200,8 +215,6 @@
         "sync": "Синхронизация завершена",
         "unsync": "Рассинхронизация завершена"
     },
-    "Missing Dependency": "",
-    "nogames": "Игры не найдены",
     "notify": {
         "error": {
             "move": "Ошибка при перемещении игры",
@@ -218,6 +231,7 @@
             "startInstall": "Установка началась"
         },
         "moved": "Перемещение завершено",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Не удалось получить выпуски из основной ветки разработки, возможно, из-за ограничений Github API! Попробуйте позже."
         },
@@ -247,7 +261,7 @@
         "alt-gogdl-bin": "Используется встроенный GOGDL...",
         "alt-legendary-bin": "Используется встроенный Legendary...",
         "egs-prefix": "Префикс куда установлен EGS",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-значный код (например: \"en\" или \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -311,7 +325,7 @@
         "maxworkers": "Максимальное количество потоков при скачивании",
         "minimize-on-launch": "Сворачивать Heroic в трей при запуске игры",
         "offlinemode": "Запускать игру офлайн",
-        "prefered_language": "Prefered Language (Language Code)",
+        "prefered_language": "Предпочтительный язык (код языка)",
         "primerun": "Использовать выделенную видеокарту",
         "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",
         "runexe": {
@@ -348,8 +362,14 @@
         "reset-heroic": "Сброс Heroic"
     },
     "Settings": "Настройки",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "Вход…"
+        "installing": "Installing",
+        "logging": "Вход…",
+        "processing": "Processing files, please wait"
     },
     "store": "Магазин Epic",
     "stores": "Магазины",
@@ -370,14 +390,12 @@
         "addpath": "Добавить новый путь",
         "removepath": "Удалить путь"
     },
-    "Total Games": "Всего игр",
     "tray": {
         "about": "О программе",
         "quit": "Выйти",
         "reload": "Перезагрузить",
         "show": "Показать"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Дискорд",
         "logout": "Выйти из аккаунта",
@@ -393,14 +411,15 @@
             "reload": "Перезагрузить страницу"
         }
     },
-    "wiki": "Вики",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Не удалось получить версии Wine/Proton.",
             "link": "Менеджер Wine",
             "title": "Менеджер Wine",
             "unzipping": "Распаковка"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

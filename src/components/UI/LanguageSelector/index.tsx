@@ -1,13 +1,10 @@
-import { IpcRenderer } from 'electron'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { configStore } from 'src/helpers/electronStores'
 import ContextProvider from 'src/state/ContextProvider'
 import { SelectField } from '..'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
+import { ipcRenderer } from 'src/helpers'
 
 const storage: Storage = window.localStorage
 

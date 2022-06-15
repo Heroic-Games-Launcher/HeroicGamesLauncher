@@ -4,14 +4,22 @@
   position: relative;
   z-index: 10;
   display: grid;
-  grid-template-rows: 1fr auto 1fr;
-  grid-template-areas: 'links' 'layout' 'utils';
+  grid-template-rows: 2fr min-content min-content;
+  grid-template-areas: 'links' 'utils' 'version';
   grid-area: sidebar;
   height: 100%;
   padding: 0;
   font-family: var(--actions-font-family);
   text-align: left;
   background: var(--navbar-background);
+  overflow: auto;
+}
+
+.Sidebar.collapsed {
+  --sidebar-vertical-padding: 8px;
+  --sidebar-horizontal-padding: 22px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .Sidebar__section {
@@ -59,4 +67,95 @@
   display: inline-flex;
   justify-content: center;
   color: var(--accent);
+}
+
+.currentDownloads {
+  grid-area: utils;
+  align-self: end;
+  margin: 0 4px var(--sidebar-vertical-padding)
+    var(--sidebar-horizontal-padding);
+}
+
+.divider {
+  border: solid 1px var(--divider);
+  opacity: 0.2;
+  margin: 4px 8px;
+}
+
+.heroicVersion {
+  grid-area: version;
+  margin: 0 4px var(--sidebar-vertical-padding)
+    var(--sidebar-horizontal-padding);
+}
+
+.collapseIcon {
+  position: fixed;
+  left: calc(var(--sidebar-width) - 8px);
+  bottom: 55vh;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 500ms 500ms;
+}
+
+.collapseIcon svg {
+  color: var(--text-secondary);
+  transform: scaleY(2.5);
+  width: 14px;
+}
+
+.Sidebar:hover .collapseIcon {
+  opacity: 1;
+}
+
+.Sidebar.collapsed .heroicVersion {
+  margin: 10px;
+}
+
+.Sidebar.collapsed .divider {
+  margin: 4px 0;
+}
+
+.Sidebar.collapsed .Sidebar__item.active span,
+.Sidebar.collapsed .Sidebar__item > span {
+  display: none;
+}
+
+.Sidebar.collapsed .SidebarItemWithSubmenu .SidebarSubmenu {
+  display: none;
+}
+
+.Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu span,
+.Sidebar.collapsed .SidebarItemWithSubmenu:focus-within .SidebarSubmenu span {
+  display: block;
+}
+
+.Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu,
+.Sidebar.collapsed .SidebarItemWithSubmenu:focus-within .SidebarSubmenu {
+  display: block;
+  position: fixed;
+  left: 62px;
+  top: 66px;
+  background-color: var(--navbar-background);
+  padding: 6px 0;
+}
+
+.Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu.settings,
+.Sidebar.collapsed
+  .SidebarItemWithSubmenu:focus-within
+  .SidebarSubmenu.settings {
+  top: 114px;
+}
+
+.Sidebar.collapsed .Sidebar__item.SidebarLinks__subItem::before {
+  display: none;
+}
+
+.Sidebar.collapsed .Sidebar__item.SidebarLinks__subItem {
+  padding: 7px var(--sidebar-horizontal-padding);
+}
+.Sidebar.collapsed .Sidebar__item.active svg,
+.Sidebar.collapsed .Sidebar__item svg {
+  transform: scale(1.2);
+  padding: 6px 0;
 }

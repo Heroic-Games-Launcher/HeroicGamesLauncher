@@ -39,6 +39,8 @@ html {
   --success-hover: #30eca8;
   --danger-hover: #e43f3f;
   --icon-disabled: #625e69;
+  --icons-background: #17131c;
+  --divider: #ffbb3384;
 
   /* Gradients */
   --gradient-welcome: linear-gradient(#13172a 100%, #13172a 89%, #13172a 0%);
@@ -49,8 +51,8 @@ html {
   );
   --gradient-gamecard: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.418) 2.4%,
-    #0d0f1cd2 64%
+    rgba(0, 0, 0, 0.418) 1.8%,
+    #17131cd2 45%
   );
   --gradient-game-hover: linear-gradient(#000000 30.8%, #141515 77%);
   --gradient-body-background: linear-gradient(
@@ -76,19 +78,10 @@ html {
   --font-secondary-regular-italic: var(--content-font-family) italic 400;
   --font-secondary-bold-italic: var(--content-font-family) italic 500;
 
-  /* Measurements */
-  --sidebar-width: 240px;
-  --content-width: calc(100vw - var(--sidebar-width));
   overflow-y: overlay;
   /* Effects */
   --blur-light: 4px;
   --blur-strong: 16px;
-}
-
-@media screen and (max-width: 730px) {
-  * {
-    --sidebar-width: calc(var(--sidebar-width) - 1em);
-  }
 }
 
 body {
@@ -154,4 +147,8 @@ h1,
 h2,
 h3 {
   color: var(--text-title);
+}
+
+.gogIcon {
+  fill: var(--text-default);
 }

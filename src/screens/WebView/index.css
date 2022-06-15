@@ -3,7 +3,15 @@
   width: var(--content-width);
 }
 
+.WebView.collapsed {
+  width: var(--content-width);
+}
+
 .WebView__webview {
   height: calc(100vh - 40px);
+  width: var(--content-width);
+}
+
+.WebView__webview.collapsed {
   width: var(--content-width);
 }

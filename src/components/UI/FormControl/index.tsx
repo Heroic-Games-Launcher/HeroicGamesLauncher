@@ -12,16 +12,18 @@ export interface FormControlProps {
   small?: boolean
   onClear?: () => void
   sideButton?: ReactNode
+  leftButton?: ReactNode
 }
 
 const FormControl: React.FC<FormControlProps> = ({
   children,
-  className = undefined,
+  className,
   select = false,
   segmented = false,
   small = false,
-  onClear = undefined,
-  sideButton = undefined
+  onClear,
+  sideButton,
+  leftButton
 }) => {
   return (
     <div
@@ -30,7 +32,8 @@ const FormControl: React.FC<FormControlProps> = ({
         'FormControl--segmented': segmented,
         'FormControl--small': small,
         'FormControl--clearable': !!onClear,
-        'FormControl--hasSideButton': !!sideButton
+        'FormControl--hasSideButton': !!sideButton,
+        'FormControl--hasLeftButton': leftButton
       })}
     >
       {children}
@@ -51,6 +54,11 @@ const FormControl: React.FC<FormControlProps> = ({
           tabIndex={-1}
         >
           {sideButton}
+        </span>
+      )}
+      {leftButton && (
+        <span className="FormControl__leftButton" tabIndex={-1}>
+          {leftButton}
         </span>
       )}
     </div>
