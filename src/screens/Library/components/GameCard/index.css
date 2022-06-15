@@ -2,12 +2,11 @@
   background-color: var(--gradient-gamecard);
   text-align: left;
   width: clamp(130px, 8vw, 200px);
-  height: 10vw;
-  max-height: 266px;
-  min-height: 173px;
+  height: 12vw;
+  max-height: 308px;
+  min-height: 182px;
   overflow: hidden;
   position: relative;
-  border-radius: 0.8rem;
   transition-duration: 0.5s;
   box-shadow: 0px 0px 12px 4px #00000055;
 }
@@ -35,7 +34,7 @@
 .gameCard > .progress {
   position: absolute;
   z-index: 5;
-  bottom: 5px;
+  bottom: 45px;
   left: 5px;
   color: var(--success);
   font-family: var(--actions-font-family);
@@ -64,7 +63,6 @@
   width: clamp(130px, 8vw, 200px);
   height: clamp(173px, 10vw, 266px);
   object-fit: cover;
-  border-radius: 0.5rem;
 }
 
 .gameCard .gameLogo {
@@ -82,89 +80,132 @@
 .gameCard .gameTitle {
   position: absolute;
   width: 100%;
-  bottom: -92px;
+  bottom: min(0.5vh, 46px);
   padding: 0.3vw;
   color: var(--text-secondary);
   display: flex;
   background: var(--gradient-gamecard);
   transition: 200ms;
   font-family: var(--content-font-family);
-  font-size: 14px;
+  font-size: clamp(14px, 1vw, 16px);
   font-weight: 700;
   line-height: 17px;
   color: var(--text-default);
-  height: clamp(80px, 4vw, 85px);
+  height: 35%;
+  max-height: 68px;
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
-  backdrop-filter: blur(var(--blur-light));
+}
+
+.gameCard .gameTitle span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  max-height: 18px;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.gameCard:hover .gameTitle {
+  height: 50%;
+  max-height: 90px;
+}
+
+.gameCard:hover .gameTitle span {
+  overflow: visible;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  max-height: fit-content;
+  height: min-content;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .gameCard > .icons {
-  opacity: 0;
+  opacity: 1;
   position: absolute;
   bottom: 0px;
+  background: var(--icons-background);
+  min-height: 42px;
+  max-height: 56px;
+  height: 3vw;
+  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: 'update settings play';
 }
 
-.gameCard:hover > .icons,
-.gameCard:focus-within > .icons {
-  opacity: 1;
+.gameCard > .icons > .svg-button {
+  justify-self: center;
 }
 
-.gameCard:hover > .gameTitle,
-.gameCard:focus-within > .gameTitle {
-  bottom: 0;
+.gameCard .store-icon {
+  border-radius: 10px;
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  z-index: 2;
+  padding: 4px;
+  width: 35px;
+  height: 35px;
+  place-content: center;
+  background: var(--background-darker);
+  fill: var(--text-default);
 }
 
-.gameCard:hover > .gameTitle > span,
-.gameCard:focus-within > .gameTitle > span {
-  display: block;
+.gameCard:hover,
+.gameCard:focus-within {
+  transform: scale(1.1);
 }
 
-.gameCard:hover > .progress,
-.gameCard:focus-within > .progress {
-  background: none;
+.gameCard.hidden .gameImg,
+.gameCard.hidden .gameLogo {
+  opacity: 0.2;
+}
+
+.gameCard .runner {
+  display: none;
 }
 
 .gameListItem {
   display: grid;
-  grid-template-columns: 2fr 1fr 6fr 1fr;
-  grid-template-areas: 'cover infos name action';
+  grid-template-columns: 90% 10%;
+  grid-template-areas: 'link action';
   align-items: center;
   position: relative;
   cursor: default;
   place-self: center;
   margin: 0 2rem 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.5rem 0;
   border-bottom: 1px solid gray;
 }
 
+.gameListItem > a > * {
+  transition: 300ms;
+}
+
 .gameListItem > a {
-  grid-area: cover;
+  grid-area: link;
+  display: grid;
+  grid-template-columns: 3fr 2fr 1fr;
   position: relative;
-  max-width: 15vh;
-  max-height: 8vh;
   width: 100%;
   height: 100%;
+  grid-template-areas: 'name infos runner';
   overflow: hidden;
+  align-items: center;
+  justify-items: baseline;
 }
 
-.gameListItem .gameImg {
-  width: 100%;
-  height: auto;
-  grid-area: cover;
-  border-radius: 0.5rem;
-  contain: content;
-  cursor: pointer;
+.gameListItem .runner {
+  grid-area: runner;
 }
 
+.gameListItem .gameImg,
+.gameListItem .store-icon,
 .gameListItem .gameLogo {
-  width: min(45px, 3vw);
-  position: absolute;
-  grid-area: cover;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  display: none;
 }
 
 .gameListItem .gameListInfo {
@@ -175,6 +216,22 @@
 .gameListItem .gameTitle {
   grid-area: name;
   font-size: 1em;
+  padding-right: 1rem;
+  text-align: left;
+}
+
+.gameListItem .installed {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.gameListItem .active {
+  color: var(--success);
+}
+
+.gameListItem > a:hover,
+.gameListItem > a:focus-within {
+  color: var(--accent-overlay);
 }
 
 .gameListItem .gameTitle span {
@@ -182,30 +239,17 @@
 }
 
 .gameListItem > .icons {
-  display: flex;
-  flex-direction: column;
+  padding: 0px 6px;
+  grid-area: action;
   height: 100%;
-  justify-content: space-around;
-  width: 47px;
-  height: 100%;
-  padding: 0 6px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: 'update settings play';
 }
 
 .gameListItem > .progress {
-  z-index: 6;
-  grid-area: cover;
-  font-weight: 500;
-  background: var(--background-gradient);
-  padding: 2px 5px;
-  border-radius: 4px;
-  color: var(--success);
-  font-family: var(--actions-font-family);
-  font-style: italic;
-  font-weight: normal;
-  line-height: 12px;
-  align-self: end;
-  font-size: 1.3vh;
-  justify-self: baseline;
+  display: none;
 }
 
 .gameListItem > .progress > svg {
@@ -236,11 +280,6 @@
   filter: grayscale(0);
 }
 
-.gameCard.hidden .gameImg,
-.gameCard.hidden .gameLogo {
-  opacity: 0.2;
-}
-
 .icons {
   align-self: flex-end;
   width: 100%;
@@ -259,20 +298,37 @@
   height: clamp(22px, calc(1vw + 9px), 36px);
   display: block;
 }
-.icons > .svg-button {
-  margin-left: 12px;
+
+.playIcon,
+.downIcon,
+.iconDisabled,
+.cancelIcon {
+  grid-area: play;
 }
 
-.playIcon > circle {
+.playIcon circle {
   fill: var(--success);
+  transition: 300ms;
 }
 
-.downIcon > circle {
+.playIcon:hover circle {
+  fill: var(--success-hover);
+  transition: 300ms;
+}
+
+.downIcon circle {
   fill: var(--accent);
+  transition: 300ms;
 }
 
-.cancelIcon > circle {
+.downIcon:hover circle {
+  fill: var(--accent-overlay);
+  transition: 300ms;
+}
+
+.cancelIcon svg {
   fill: var(--danger);
+  transition: 300ms;
 }
 
 .iconDisabled circle {
@@ -281,4 +337,30 @@
 
 .iconDisabled > * {
   cursor: initial;
+}
+
+.updateIcon {
+  grid-area: update;
+}
+
+.updateIcon svg {
+  color: var(--accent);
+  transition: 300ms;
+}
+
+.updateIcon:hover svg {
+  color: var(--accent-overlay);
+  transition: 300ms;
+}
+
+.settingsIcon {
+  fill: var(--accent-overlay);
+  transition: 300ms;
+  grid-area: settings;
+}
+
+.settingsIcon:focus-within,
+.settingsIcon:hover {
+  fill: var(--accent);
+  transition: 300ms;
 }

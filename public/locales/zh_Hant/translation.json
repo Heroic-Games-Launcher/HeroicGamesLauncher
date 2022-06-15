@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "正在同步",
         "unsync": "不同步"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,7 +148,10 @@
     "header": {
         "ignore_hidden": "Ignore Hidden",
         "platform": "",
-        "show_hidden": "Show Hidden"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Show Hidden",
+        "store": "Filter Store"
     },
     "help": {
         "game_language": {
@@ -171,7 +184,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "設定會自動保存"
+        "settings": "設定會自動保存",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "幫助",
@@ -201,8 +215,6 @@
         "sync": "同步完成",
         "unsync": "取消同步完成"
     },
-    "Missing Dependency": "",
-    "nogames": "未找到遊戲",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -219,6 +231,7 @@
             "startInstall": "Installation Started"
         },
         "moved": "移動完成",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -349,8 +362,14 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "設定",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "Logging In..."
+        "installing": "Installing",
+        "logging": "Logging In...",
+        "processing": "Processing files, please wait"
     },
     "store": "商店",
     "stores": "Stores",
@@ -371,14 +390,12 @@
         "addpath": "添加新路徑",
         "removepath": "刪除路徑"
     },
-    "Total Games": "總遊戲數",
     "tray": {
         "about": "關於",
         "quit": "退出",
         "reload": "重新載入",
         "show": "顯示"
     },
-    "Unreal Marketplace": "虛幻商城",
     "userselector": {
         "discord": "Discord",
         "logout": "登出",
@@ -394,14 +411,15 @@
             "reload": ""
         }
     },
-    "wiki": "Wiki百科",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Ingen Wine version vald. Kontrollera spelinställningar!",
                 "title": "Wine hittades ej"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "Synkroniserar",
         "unsync": "Avbryt synkronisering"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Onlinetjänster kanske inte fungerar korrekt då Epics servrar är nere för tillfället!",
         "offline-notification-title": "Offline"
     },
     "Epic Games": "Epic Games",
     "favourites": "Favoriter",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,7 +148,10 @@
     "header": {
         "ignore_hidden": "Ignorera dolda",
         "platform": "Plattform",
-        "show_hidden": "Visa dolda"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Visa dolda",
+        "store": "Filter Store"
     },
     "help": {
         "game_language": {
@@ -171,7 +184,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Inställningar sparas automatiskt"
+        "settings": "Inställningar sparas automatiskt",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Hjälp",
@@ -201,8 +215,6 @@
         "sync": "Synkronisering slutförd",
         "unsync": "Avbryt synkronisering slutfört"
     },
-    "Missing Dependency": "",
-    "nogames": "Inga spel hittades",
     "notify": {
         "error": {
             "move": "Problem vid flytt av spel",
@@ -219,6 +231,7 @@
             "startInstall": "Installation påbörjad"
         },
         "moved": "Spelflytt slutförd",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -349,8 +362,14 @@
         "reset-heroic": "Grundinställ Heroic"
     },
     "Settings": "Inställningar",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "Loggar in..."
+        "installing": "Installing",
+        "logging": "Loggar in...",
+        "processing": "Processing files, please wait"
     },
     "store": "Epic Butik",
     "stores": "Butiker",
@@ -371,14 +390,12 @@
         "addpath": "Lägg till ny sökväg",
         "removepath": "Ta bort sökväg"
     },
-    "Total Games": "Totalt antal spel",
     "tray": {
         "about": "Om",
         "quit": "Avsluta",
         "reload": "Ladda om",
         "show": "Visa"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Logga ut",
@@ -394,14 +411,15 @@
             "reload": "Ladda om sida"
         }
     },
-    "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Kunde inte hämta Wine/Proton versioner.",
             "link": "Wine hanterare",
             "title": "Wine hanterare",
             "unzipping": "Packar upp"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

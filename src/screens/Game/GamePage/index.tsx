@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState, MouseEvent } from 'react'
 
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
-import { IpcRenderer } from 'electron'
 import {
   getGameInfo,
   getInstallInfo,
@@ -30,17 +29,14 @@ import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'src/screens/Library/components'
 import { install } from 'src/helpers/library'
-import EpicLogo from 'src/assets/epic-logo.svg'
-import GOGLogo from 'src/assets/gog-logo.svg'
+import { ReactComponent as EpicLogo } from 'src/assets/epic-logo.svg'
+import { ReactComponent as GOGLogo } from 'src/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'src/hooks/hasProgress'
 import ErrorComponent from 'src/components/UI/ErrorComponent'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+import { ipcRenderer } from 'src/helpers'
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
 export default function GamePage(): JSX.Element | null {
@@ -225,11 +221,7 @@ export default function GamePage(): JSX.Element | null {
               <ArrowCircleLeftIcon />
             </NavLink>
             <div className="store-icon">
-              <img
-                src={runner === 'legendary' ? EpicLogo : GOGLogo}
-                className={runner === 'legendary' ? '' : 'gogIcon'}
-                alt=""
-              />
+              {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
             </div>
             <div className={`gameTabs ${tabToShow}`}>
               {is_game && (

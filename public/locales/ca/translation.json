@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "No s'ha seleccionat cap versió del Wine. Comprova la configuració del joc.",
                 "title": "No s'ha trobat el Wine"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "S'està sincronitzant",
         "unsync": "Dessincronitza"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "L'Heroic probablement no funcionarà.",
         "offline-notification-title": "fora de línia"
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,7 +148,10 @@
     "header": {
         "ignore_hidden": "Ignore Hidden",
         "platform": "",
-        "show_hidden": "Show Hidden"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Show Hidden",
+        "store": "Filter Store"
     },
     "help": {
         "game_language": {
@@ -171,7 +184,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "La configuració es desa automàticament"
+        "settings": "La configuració es desa automàticament",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Ajuda",
@@ -201,8 +215,6 @@
         "sync": "S'ha completat la sincronització",
         "unsync": "S'ha completat la dessincronització"
     },
-    "Missing Dependency": "",
-    "nogames": "No s'ha trobat cap joc",
     "notify": {
         "error": {
             "move": "Error en desplaçar el joc",
@@ -219,6 +231,7 @@
             "startInstall": "S'ha iniciat la instal·lació"
         },
         "moved": "Ha finalitzat el desplaçament",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -349,8 +362,14 @@
         "reset-heroic": "Restableix l'Heroic"
     },
     "Settings": "Configuració",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "S'està iniciant la sessió..."
+        "installing": "Installing",
+        "logging": "S'està iniciant la sessió...",
+        "processing": "Processing files, please wait"
     },
     "store": "Botiga",
     "stores": "Stores",
@@ -371,14 +390,12 @@
         "addpath": "Afegeix una ruta",
         "removepath": "Suprimeix la ruta"
     },
-    "Total Games": "Jocs en total",
     "tray": {
         "about": "Quant a",
         "quit": "Surt",
         "reload": "Carrega de nou",
         "show": "Mostra"
     },
-    "Unreal Marketplace": "Llibreria d'Unreal",
     "userselector": {
         "discord": "Discord",
         "logout": "Tanca la sessió",
@@ -394,14 +411,15 @@
             "reload": ""
         }
     },
-    "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "No s'ha pogut obtenir les versions de Wine/Proton.",
             "link": "Gestor del Wine",
             "title": "Gestor del Wine",
             "unzipping": "S'està descomprimint"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

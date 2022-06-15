@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "نسخه ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
                 "title": "Wine یافت نشد"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "در حال همگام سازی",
         "unsync": "عدم همگام سازی"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویسهای آنلاین ممکن است کار نکنند!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "اپیک گیمز",
     "favourites": "علاقه مندی ها",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,7 +148,10 @@
     "header": {
         "ignore_hidden": "نادیده گرفتن موارد پنهان",
         "platform": "پلتفرم",
-        "show_hidden": "نمایش موارد پنهان"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "نمایش موارد پنهان",
+        "store": "Filter Store"
     },
     "help": {
         "game_language": {
@@ -171,7 +184,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "تنظیمات به صورت خودکار ذخیره شدند"
+        "settings": "تنظیمات به صورت خودکار ذخیره شدند",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "راهنما",
@@ -201,8 +215,6 @@
         "sync": "همگامسازی کامل شد",
         "unsync": "عدم همگامسازی کامل شد"
     },
-    "Missing Dependency": "",
-    "nogames": "بازی یافت نشد",
     "notify": {
         "error": {
             "move": "خطا در جابهجا کردن بازی",
@@ -219,6 +231,7 @@
             "startInstall": "نصب آغاز شد"
         },
         "moved": "انتقال کامل شد",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -349,8 +362,14 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "تنظیمات",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "در حال وارد شدن..."
+        "installing": "Installing",
+        "logging": "در حال وارد شدن...",
+        "processing": "Processing files, please wait"
     },
     "store": "فروشگاه اپیک",
     "stores": "فروشگاهها",
@@ -371,14 +390,12 @@
         "addpath": "افزودن مسیر جدید",
         "removepath": "حذف مسیر"
     },
-    "Total Games": "همه بازیها",
     "tray": {
         "about": "درباره",
         "quit": "خروج",
         "reload": "بارگیری مجدد",
         "show": "نمایش"
     },
-    "Unreal Marketplace": "بازار Unreal",
     "userselector": {
         "discord": "Discord",
         "logout": "خروج از حساب",
@@ -394,14 +411,15 @@
             "reload": "تازه کردن صفحه"
         }
     },
-    "wiki": "ویکی",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "نمیتوان در این زمان نسخههای Wine/Proton را به دست آورد.",
             "link": "مدیریت Wine",
             "title": "مدیریت کننده Wine",
             "unzipping": "در حال خارج کردن از حالت فشرده"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Wine 버전이 선택되지 않았습니다. 게임 설정을 확인하세요!",
                 "title": "Wine을 찾을 수 없음"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "싱크중",
         "unsync": "싱크 해제"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Epic Games 서버가 오프라인 상태이므로 온라인 서비스가 완전히 작동하지 않을 수 있습니다!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "favourites": "즐겨찾기",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,7 +148,10 @@
     "header": {
         "ignore_hidden": "숨김 무시",
         "platform": "플랫폼",
-        "show_hidden": "숨김 표시"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "숨김 표시",
+        "store": "Filter Store"
     },
     "help": {
         "game_language": {
@@ -171,7 +184,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "설정은 자동으로 저장됩니다"
+        "settings": "설정은 자동으로 저장됩니다",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "도움말",
@@ -201,8 +215,6 @@
         "sync": "동기화 완료",
         "unsync": "동기화 해제 완료"
     },
-    "Missing Dependency": "",
-    "nogames": "게임이 발견되지 않았습니다",
     "notify": {
         "error": {
             "move": "게임 이동 중 오류 발생",
@@ -219,6 +231,7 @@
             "startInstall": "설치 시작됨"
         },
         "moved": "이동 완료됨",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -349,8 +362,14 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "설정",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "로그인 중…"
+        "installing": "Installing",
+        "logging": "로그인 중…",
+        "processing": "Processing files, please wait"
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -371,14 +390,12 @@
         "addpath": "새 경로 추가",
         "removepath": "경로 삭제"
     },
-    "Total Games": "총 게임 수",
     "tray": {
         "about": "정보",
         "quit": "종료",
         "reload": "새로고침",
         "show": "표시"
     },
-    "Unreal Marketplace": "Unreal 마켓플레이스",
     "userselector": {
         "discord": "Discord",
         "logout": "로그아웃",
@@ -394,14 +411,15 @@
             "reload": "페이지 새로고침"
         }
     },
-    "wiki": "위키",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "현재 Wine/Proton 버전을 가져올 수 없습니다.",
             "link": "Wine 관리자",
             "title": "Wine 관리자",
             "unzipping": "압축 풀기"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

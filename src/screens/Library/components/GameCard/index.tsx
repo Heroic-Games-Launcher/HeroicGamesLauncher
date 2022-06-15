@@ -21,6 +21,10 @@ import { SvgButton } from 'src/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'src/hooks/hasProgress'
 
+import { ReactComponent as EpicLogo } from 'src/assets/epic-logo.svg'
+import { ReactComponent as GOGLogo } from 'src/assets/gog-logo.svg'
+import classNames from 'classnames'
+
 interface Card {
   appName: string
   buttonClick: () => void
@@ -67,7 +71,9 @@ const GameCard = ({
     platform,
     hiddenGames,
     favouriteGames,
-    allTilesInColor
+    allTilesInColor,
+    epic,
+    gog
   } = useContext(ContextProvider)
 
   const isWin = platform === 'win32'
@@ -90,8 +96,7 @@ const GameCard = ({
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
-  const haveStatus =
-    isMoving || isReparing || isInstalling || hasUpdate || isUpdating
+  const haveStatus = isMoving || isReparing || isInstalling || isUpdating
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -123,7 +128,7 @@ const GameCard = ({
       return t('status.updating') + ` ${percent}`
     }
     if (isInstalling) {
-      return t('status.installing') + ` ${percent}%`
+      return t('status.installing') + ` ${percent || 0}%`
     }
     if (isMoving) {
       return t('gamecard.moving', 'Moving')
@@ -131,31 +136,29 @@ const GameCard = ({
     if (isReparing) {
       return t('gamecard.repairing', 'Repairing')
     }
-    if (hasUpdate) {
-      return (
-        <SvgButton onClick={async () => handleUpdate()}>
-          <FontAwesomeIcon size={'2x'} icon={faRepeat} />
-        </SvgButton>
-      )
+    if (isInstalled) {
+      return `${t('status.installed')} (${size})`
     }
 
-    return null
+    return t('status.notinstalled')
   }
 
   const renderIcon = () => {
     if (isPlaying) {
       return (
         <SvgButton
+          className="cancelIcon"
           onClick={async () => handlePlay(runner)}
           title={`${t('label.playing.stop')} (${title})`}
         >
-          <StopIconAlt className="cancelIcon" />
+          <StopIconAlt />
         </SvgButton>
       )
     }
     if (isInstalling) {
       return (
         <SvgButton
+          className="cancelIcon"
           onClick={async () => handlePlay(runner)}
           title={`${t('button.cancel')} (${title})`}
         >
@@ -166,11 +169,11 @@ const GameCard = ({
     if (isInstalled && isGame) {
       return (
         <SvgButton
-          className="playButton"
+          className="playIcon"
           onClick={async () => handlePlay(runner)}
           title={`${t('label.playing.start')} (${title})`}
         >
-          <PlayIcon className="playIcon" />
+          <PlayIcon />
         </SvgButton>
       )
     }
@@ -178,19 +181,21 @@ const GameCard = ({
       if (hasDownloads) {
         return (
           <SvgButton
+            className="iconDisabled"
             onClick={(e) => e.preventDefault()}
             title={`${t('button.cancel')} (${title})`}
           >
-            <DownIcon className="iconDisabled" />
+            <DownIcon />
           </SvgButton>
         )
       }
       return (
         <SvgButton
+          className="downIcon"
           onClick={() => buttonClick()}
           title={`${t('button.install')} (${title})`}
         >
-          <DownIcon className="downIcon" />
+          <DownIcon />
         </SvgButton>
       )
     }
@@ -298,6 +303,28 @@ const GameCard = ({
     grid ? 'gameCard' : 'gameListItem'
   }  ${instClass} ${hiddenClass}`
 
+  const getRunner = () => {
+    switch (runner) {
+      case 'legendary':
+        return 'Epic Games'
+      case 'gog':
+        return 'GOG'
+      default:
+        return 'Heroic'
+    }
+  }
+
+  const showStoreLogos = () => {
+    if (epic.username && gog.username) {
+      return runner === 'legendary' ? (
+        <EpicLogo className="store-icon" />
+      ) : (
+        <GOGLogo className="store-icon" />
+      )
+    }
+    return null
+  }
+
   return (
     <>
       <ContextMenu items={items}>
@@ -309,6 +336,7 @@ const GameCard = ({
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
           >
+            {showStoreLogos()}
             <img src={imageSrc} className={imgClasses} alt="cover" />
             {logo && (
               <img
@@ -317,17 +345,48 @@ const GameCard = ({
                 className={logoClasses}
               />
             )}
+            <span
+              className={classNames('gameListInfo', {
+                active: haveStatus,
+                installed: isInstalled
+              })}
+            >
+              {getStatus()}
+            </span>
+            <span
+              className={classNames('gameTitle', {
+                active: haveStatus,
+                installed: isInstalled
+              })}
+            >
+              <span>{title}</span>
+            </span>
+            <span
+              className={classNames('runner', {
+                active: haveStatus,
+                installed: isInstalled
+              })}
+            >
+              {getRunner()}
+            </span>
           </Link>
-          <span className="gameListInfo">{isInstalled ? size : '---'}</span>
-          <span className="gameTitle">{title}</span>
           {
             <>
               <span className="icons">
-                {renderIcon()}
+                {hasUpdate && (
+                  <SvgButton
+                    className="updateIcon"
+                    title={`${t('button.update')} (${title})`}
+                    onClick={async () => handleUpdate()}
+                  >
+                    <FontAwesomeIcon size={'2x'} icon={faRepeat} />
+                  </SvgButton>
+                )}
                 {isInstalled && isGame && (
                   <>
                     <SvgButton
                       title={`${t('submenu.settings')} (${title})`}
+                      className="settingsIcon"
                       onClick={() =>
                         navigate(pathname, {
                           state: {
@@ -340,10 +399,11 @@ const GameCard = ({
                         })
                       }
                     >
-                      <SettingsIcon fill={'var(--text-default)'} />
+                      <SettingsIcon />
                     </SvgButton>
                   </>
                 )}
+                {renderIcon()}
               </span>
             </>
           }

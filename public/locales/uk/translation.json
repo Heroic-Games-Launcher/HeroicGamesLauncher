@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Не обрана версія Wine. Перевірте налаштування гри!",
                 "title": "Wine не знайдено"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "Синхронізую",
         "unsync": "Десинхронізувати"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Heroic ймовірно не працюватиме!",
         "offline-notification-title": "офлайн"
     },
     "Epic Games": "Epic Games",
     "favourites": "Уподобання",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "Ігри не знайдено - Спробуйте вийти та увійти наново або один із варіантів нижче"
@@ -138,7 +148,10 @@
     "header": {
         "ignore_hidden": "Ігнорувати приховане",
         "platform": "Платформа",
-        "show_hidden": "Показати приховане"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Показати приховане",
+        "store": "Filter Store"
     },
     "help": {
         "game_language": {
@@ -171,7 +184,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Налаштування збережені автоматично"
+        "settings": "Налаштування збережені автоматично",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Допомога",
@@ -201,8 +215,6 @@
         "sync": "Синхронізація завершена",
         "unsync": "Десинхронізація завершена"
     },
-    "Missing Dependency": "",
-    "nogames": "Не знайдено ігор",
     "notify": {
         "error": {
             "move": "Помилка під час переміщення гри",
@@ -219,6 +231,7 @@
             "startInstall": "Розпочалось встановлення"
         },
         "moved": "Переміщення завершене",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Не вдалося отримати версію з джерела, можливо, через обмеження API Github! Спробуйте пізніше."
         },
@@ -349,8 +362,14 @@
         "reset-heroic": "Скинути Heroic"
     },
     "Settings": "Налаштування",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "Заходжу..."
+        "installing": "Installing",
+        "logging": "Заходжу...",
+        "processing": "Processing files, please wait"
     },
     "store": "Магазин Епік",
     "stores": "Крамниці",
@@ -371,14 +390,12 @@
         "addpath": "Додати новий шлях",
         "removepath": "Вилучити шлях"
     },
-    "Total Games": "Ігор загалом",
     "tray": {
         "about": "Про застосунок",
         "quit": "Закрити",
         "reload": "Перезавантажити",
         "show": "Показати"
     },
-    "Unreal Marketplace": "Торговий майданчик Unreal",
     "userselector": {
         "discord": "Діскорд",
         "logout": "Вийти",
@@ -394,14 +411,15 @@
             "reload": "Перезавантажити сторінку"
         }
     },
-    "wiki": "Вікі",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Цього разу не вдалось отримати версії Wine/Proton.",
             "link": "Керування Wine",
             "title": "Керування Wine",
             "unzipping": "Розпаковую"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }
