@@ -206,10 +206,10 @@ describe('NonSteamGame', () => {
     expect(failed).toBeTruthy()
   })
 
-  test('Test for shortcuts.vdf provided by users/dev', async () => {
+  test.only('Test for shortcuts.vdf provided by users/dev', async () => {
     const userFiles = ['shortcuts_commandmc.vdf']
 
-    userFiles.forEach(async (file) => {
+    for (const file of userFiles) {
       copyTestFile(file)
 
       const shortcutFilePath = join(
@@ -231,6 +231,6 @@ describe('NonSteamGame', () => {
 
       const contentAfter = readFileSync(shortcutFilePath).toString()
       expect(contentAfter).toContain('MyGame')
-    })
+    }
   })
 })
