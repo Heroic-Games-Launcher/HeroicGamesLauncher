@@ -721,6 +721,12 @@ ipcMain.on('toggleVKD3D', (event, [{ winePrefix, winePath }, action]) => {
 })
 
 ipcMain.handle('writeConfig', (event, [appName, config]) => {
+  logInfo(
+    `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
+    LogPrefix.Backend
+  )
+  // use 2 spaces for pretty print
+  logInfo(JSON.stringify(config, null, 2), LogPrefix.Backend)
   if (appName === 'default') {
     GlobalConfig.get().config = config
     GlobalConfig.get().flush()
