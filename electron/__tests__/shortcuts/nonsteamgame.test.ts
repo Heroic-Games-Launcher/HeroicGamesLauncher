@@ -88,6 +88,43 @@ describe('NonSteamGame', () => {
     expect(contentBetween).toContain(game.title)
   })
 
+  test('Create shortcuts.vdf if not exist', async () => {
+    const shortcutFilePath = join(
+      tmpDir.name,
+      'steam_user',
+      'config',
+      'shortcuts.vdf'
+    )
+
+    const game = { title: 'MyGame', app_name: 'game' } as GameInfo
+
+    // add and remove to see if empty shortcuts.vdf is correctly created
+    await addNonSteamGame(tmpDir.name, game)
+      .then((response) =>
+        expect(response).toBe('MyGame was succesfully added to steam.')
+      )
+      .catch((error) => {
+        throw error
+      })
+
+    await removeNonSteamGame(tmpDir.name, game)
+      .then((response) =>
+        expect(response).toBe('MyGame was succesfully removed from steam.')
+      )
+      .catch((error) => {
+        throw error
+      })
+
+    const contentAfter = readFileSync(shortcutFilePath)
+
+    // checks if shortcuts.vdf is "\x00shortcuts\x00\x08\x08"
+    // \x00 = NULL
+    // \x08 = Backspace
+    expect(contentAfter).toStrictEqual(
+      Buffer.from([0, 115, 104, 111, 114, 116, 99, 117, 116, 115, 0, 8, 8])
+    )
+  })
+
   test('Catch corrupt shortcuts.vdf because of missing AppName', async () => {
     copyTestFile('shortcuts_missing_appname.vdf')
 
@@ -167,5 +204,33 @@ describe('NonSteamGame', () => {
       })
 
     expect(failed).toBeTruthy()
+  })
+
+  test('Test for shortcuts.vdf provided by users/dev', async () => {
+    const userFiles = ['shortcuts_commandmc.vdf']
+
+    userFiles.forEach(async (file) => {
+      copyTestFile(file)
+
+      const shortcutFilePath = join(
+        tmpDir.name,
+        'steam_user',
+        'config',
+        'shortcuts.vdf'
+      )
+
+      const game = { title: 'MyGame', app_name: 'Game' } as GameInfo
+
+      await addNonSteamGame(tmpDir.name, game)
+        .then((response) =>
+          expect(response).toBe('MyGame was succesfully added to steam.')
+        )
+        .catch((error) => {
+          throw new Error(`${file} failed with: ${error.message}`)
+        })
+
+      const contentAfter = readFileSync(shortcutFilePath).toString()
+      expect(contentAfter).toContain('MyGame')
+    })
   })
 })

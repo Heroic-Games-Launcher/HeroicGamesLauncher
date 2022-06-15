@@ -73,7 +73,9 @@ function writeShortcutFile(file: string, object: Partial<ShortcutObject>) {
  * @returns boolean
  */
 const checkIfShortcutObjectIsValid = (object: Partial<ShortcutObject>) => {
-  if (object.shortcuts === undefined) {
+  if (!('shortcuts' in object)) {
+    return false
+  } else if (!Array.isArray(object.shortcuts)) {
     return false
   }
 
