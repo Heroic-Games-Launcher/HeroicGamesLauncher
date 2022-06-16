@@ -13,6 +13,11 @@ import { app } from 'electron'
 import { isFlatpak, tsStore } from '../constants'
 import { logWarning } from '../logger/logger'
 
+interface ShortcutsResult {
+  success: boolean
+  errors: string[]
+}
+
 /**
  * Check if steam userdata folder exist and return them as a string list.
  * @param steamUserdataDir Path to userdata folder in steam compat folder.
@@ -72,25 +77,41 @@ function writeShortcutFile(file: string, object: Partial<ShortcutObject>) {
  * @param object @see Partial<ShortcutObject>
  * @returns boolean
  */
-const checkIfShortcutObjectIsValid = (object: Partial<ShortcutObject>) => {
+function checkIfShortcutObjectIsValid(
+  object: Partial<ShortcutObject>
+): ShortcutsResult {
+  const checkResult = { success: false, errors: [] } as ShortcutsResult
   if (!('shortcuts' in object)) {
-    return false
+    checkResult.errors.push('Could not find entry "shortcuts"!')
   } else if (!Array.isArray(object.shortcuts)) {
-    return false
+    checkResult.errors.push('Entry "shortcuts" is not an array!')
+  } else {
+    checkResult.success = true
+    object.shortcuts.forEach((entry) => {
+      if (entry.AppName === undefined) {
+        checkResult.errors.push(
+          'One of the game entries is missing the AppName parameter!'
+        )
+        checkResult.success = false
+      }
+
+      if (entry.Exe === undefined) {
+        checkResult.errors.push(
+          'One of the game entries is missing the Exe parameter!'
+        )
+        checkResult.success = false
+      }
+
+      if (entry.LaunchOptions === undefined) {
+        checkResult.errors.push(
+          'One of the game entries is missing the LaunchOptions parameter!'
+        )
+        checkResult.success = false
+      }
+    })
   }
 
-  let valid = true
-  object.shortcuts.forEach((entry) => {
-    if (
-      entry.AppName === undefined ||
-      entry.Exe === undefined ||
-      entry.LaunchOptions === undefined
-    ) {
-      valid = false
-    }
-  })
-
-  return valid
+  return checkResult
 }
 
 /**
@@ -112,12 +133,16 @@ const checkIfAlreadyAdded = (object: Partial<ShortcutObject>, title: string) =>
 async function addNonSteamGame(
   steamUserdataDir: string,
   gameInfo: GameInfo
-): Promise<string> {
+): Promise<ShortcutsResult> {
+  const addResult = { success: false, errors: [] } as ShortcutsResult
   const folders = checkSteamUserDataDir(steamUserdataDir)
 
-  let added = false
-
   for (const folder of folders) {
+    // skip this folders, because there are no steam user
+    if (folder === '0' || folder === 'ac') {
+      continue
+    }
+
     const configDir = join(steamUserdataDir, folder, 'config')
     const shortcutsFile = join(configDir, 'shortcuts.vdf')
 
@@ -132,14 +157,17 @@ async function addNonSteamGame(
     // read file
     const content = readShortcutFile(shortcutsFile)
 
-    if (!checkIfShortcutObjectIsValid(content)) {
-      throw new Error(
-        `${shortcutsFile} is corrupted! Can't add ${gameInfo.title} to steam.`
+    const checkResult = checkIfShortcutObjectIsValid(content)
+    if (!checkResult.success) {
+      addResult.errors.push(
+        `Can't add "${gameInfo.title}" to steam user "${folder}". "${shortcutsFile}" is corrupted!`,
+        ...checkResult.errors
       )
+      continue
     }
 
     if (checkIfAlreadyAdded(content, gameInfo.title) > -1) {
-      added = true
+      addResult.success = true
       continue
     }
 
@@ -182,16 +210,14 @@ async function addNonSteamGame(
     // rewrite shortcuts.vdf
     writeShortcutFile(shortcutsFile, content)
 
-    added = true
+    addResult.success = true
   }
 
-  if (!added) {
-    throw new Error(
-      "Game was not added, because couldn't find a shortcuts.vdf in one of the userdata/:uid/config folders!"
-    )
+  if (!addResult.success) {
+    throw new Error(addResult.errors.join('\n - '))
   }
 
-  return `${gameInfo.title} was succesfully added to steam.`
+  return addResult
 }
 
 /**
@@ -204,7 +230,8 @@ async function addNonSteamGame(
 async function removeNonSteamGame(
   steamUserdataDir: string,
   gameInfo: GameInfo
-): Promise<string> {
+): Promise<ShortcutsResult> {
+  const removeResult = { success: false, errors: [] } as ShortcutsResult
   const folders = checkSteamUserDataDir(steamUserdataDir)
 
   for (const folder of folders) {
@@ -217,11 +244,13 @@ async function removeNonSteamGame(
 
     // read file
     const content = readShortcutFile(shortcutsFile)
-
-    if (!checkIfShortcutObjectIsValid(content)) {
-      throw new Error(
-        `${shortcutsFile} is corrupted! Can't remove ${gameInfo.title} from steam.`
+    const checkResult = checkIfShortcutObjectIsValid(content)
+    if (!checkResult.success) {
+      removeResult.errors.push(
+        `Can't remove "${gameInfo.title}" from steam user "${folder}". "${shortcutsFile}" is corrupted!`,
+        ...checkResult.errors
       )
+      continue
     }
 
     const index = checkIfAlreadyAdded(content, gameInfo.title)
@@ -235,9 +264,11 @@ async function removeNonSteamGame(
 
     // rewrite shortcuts.vdf
     writeShortcutFile(shortcutsFile, content)
+
+    removeResult.success = true
   }
 
-  return `${gameInfo.title} was succesfully removed from steam.`
+  return removeResult
 }
 
-export { addNonSteamGame, removeNonSteamGame }
+export { addNonSteamGame, removeNonSteamGame, ShortcutsResult }
