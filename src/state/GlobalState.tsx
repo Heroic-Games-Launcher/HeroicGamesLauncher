@@ -575,6 +575,8 @@ export class GlobalState extends PureComponent<Props> {
         runInBackground: Boolean(epic.library.length)
       })
     }
+
+    ipcRenderer.send('frontendReady')
   }
 
   componentDidUpdate() {
