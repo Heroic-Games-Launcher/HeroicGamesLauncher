@@ -307,7 +307,10 @@ export default function WineSettings({
             ])
             return toggleAutoInstallDxvk()
           }}
-          title={t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix (Improves performance for DirectX 9/10/11 games)')}
+          title={t(
+            'setting.autodxvk',
+            'Auto Install/Update DXVK on Prefix (Improves performance for DirectX 9/10/11 games)'
+          )}
         />
       )}
 
@@ -323,7 +326,10 @@ export default function WineSettings({
             ])
             return toggleAutoInstallVkd3d()
           }}
-          title={t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix (Improves performance for DirectX 12 games)')}
+          title={t(
+            'setting.autovkd3d',
+            'Auto Install/Update VKD3D on Prefix (Improves performance for DirectX 12 games)'
+          )}
         />
       )}
 
