@@ -8,6 +8,7 @@ import {
   heroicGamesConfigPath,
   isLinux,
   isMac,
+  isWindows,
   userHome
 } from './constants'
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -258,16 +259,22 @@ class GameConfigV0 extends GameConfig {
       gameSettings = settings[this.appName] || ({} as GameSettings)
     }
 
-    // set specific keys depending on the platform
-    if (isMac) {
-      defaultSettings.wineCrossoverBottle = wineCrossoverBottle
-    } else if (isLinux) {
+    if (!isWindows) {
       defaultSettings.wineVersion = wineVersion
-      defaultSettings.winePrefix = winePrefix || `${userHome}/.wine`
 
-      // fix winePrefix if needed
-      if (gameSettings.winePrefix?.includes('~')) {
-        gameSettings.winePrefix = gameSettings.winePrefix.replace('~', userHome)
+      // set specific keys depending on the platform
+      if (isMac) {
+        defaultSettings.wineCrossoverBottle = wineCrossoverBottle
+      } else if (isLinux) {
+        defaultSettings.winePrefix = winePrefix || `${userHome}/.wine`
+
+        // fix winePrefix if needed
+        if (gameSettings.winePrefix?.includes('~')) {
+          gameSettings.winePrefix = gameSettings.winePrefix.replace(
+            '~',
+            userHome
+          )
+        }
       }
     }
 
