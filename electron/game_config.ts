@@ -266,7 +266,7 @@ class GameConfigV0 extends GameConfig {
       defaultSettings.winePrefix = winePrefix || `${userHome}/.wine`
 
       // fix winePrefix if needed
-      if (gameSettings.winePrefix) {
+      if (gameSettings.winePrefix?.includes('~')) {
         gameSettings.winePrefix = gameSettings.winePrefix.replace('~', userHome)
       }
     }
