@@ -1,0 +1,32 @@
+.anticheatInfo {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  padding: 1rem;
+  gap: 0.4rem;
+  margin: 1rem 0;
+}
+
+.anticheatInfo h4 {
+  margin: 0 0 1rem;
+}
+
+.anticheatInfo p {
+  margin: 0 0 1rem;
+}
+
+.anticheatInfo.Denied {
+  background: var(--anticheat-denied);
+}
+.anticheatInfo.Broken {
+  background: var(--anticheat-broken);
+}
+.anticheatInfo.Running {
+  background: var(----anticheat-running);
+}
+.anticheatInfo.Supported {
+  background: var(--anticheat-supported);
+}
+.anticheatInfo.Planned {
+  background: var(--anticheat-planned);
+}

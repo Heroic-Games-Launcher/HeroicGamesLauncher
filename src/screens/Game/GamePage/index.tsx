@@ -35,6 +35,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'src/hooks/hasProgress'
 import ErrorComponent from 'src/components/UI/ErrorComponent'
+import Anticheat from 'src/components/UI/Anticheat'
 
 import { ipcRenderer } from 'src/helpers'
 // This component is becoming really complex and it needs to be refactored in smaller ones
@@ -347,6 +348,7 @@ export default function GamePage(): JSX.Element | null {
                         ))}
                       </SelectField>
                     )}
+                    <Anticheat gameInfo={gameInfo} />
                     <div className="buttonsWrapper">
                       {is_installed && is_game && (
                         <>
