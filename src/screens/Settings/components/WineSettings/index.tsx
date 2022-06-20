@@ -328,7 +328,7 @@ export default function WineSettings({
           }}
           title={t(
             'setting.autovkd3d',
-            'Auto Install/Update VKD3D on Prefix (Improves performance for DirectX 12 games)'
+            'Auto Install/Update VKD3D on Prefix (Enables support for DirectX 12 games)'
           )}
         />
       )}
