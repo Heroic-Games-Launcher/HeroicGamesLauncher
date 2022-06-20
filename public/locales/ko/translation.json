@@ -8,6 +8,13 @@
         "zoom": "Zoom"
     },
     "All": "모두",
+    "anticheat": {
+        "anticheats": "Anticheats",
+        "details": "For more details, go to",
+        "may_not_work": "It may not work due to denied or broken anticheat support.",
+        "status": "Status",
+        "title": "This game includes anticheat software"
+    },
     "Assets": "에셋",
     "box": {
         "cache-cleared": {
@@ -189,8 +196,7 @@
     },
     "infobox": {
         "help": "도움말",
-        "requirements": "시스템 요구 사양",
-        "wine-path": "Path"
+        "requirements": "시스템 요구 사양"
     },
     "install": {
         "path": "설치 경로 선택"

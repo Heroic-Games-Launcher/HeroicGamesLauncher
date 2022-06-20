@@ -8,6 +8,13 @@
         "zoom": "Zoom"
     },
     "All": "Kaikki",
+    "anticheat": {
+        "anticheats": "Anticheats",
+        "details": "For more details, go to",
+        "may_not_work": "It may not work due to denied or broken anticheat support.",
+        "status": "Status",
+        "title": "This game includes anticheat software"
+    },
     "Assets": "Omaisuuserät",
     "box": {
         "cache-cleared": {
@@ -189,8 +196,7 @@
     },
     "infobox": {
         "help": "Apua",
-        "requirements": "Laitteistovaatimukset",
-        "wine-path": "Path"
+        "requirements": "Laitteistovaatimukset"
     },
     "install": {
         "path": "Valitse asennuspolku"

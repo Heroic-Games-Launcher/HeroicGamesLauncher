@@ -8,6 +8,13 @@
         "zoom": "Zoom"
     },
     "All": "Vše",
+    "anticheat": {
+        "anticheats": "Anticheats",
+        "details": "For more details, go to",
+        "may_not_work": "It may not work due to denied or broken anticheat support.",
+        "status": "Status",
+        "title": "This game includes anticheat software"
+    },
     "Assets": "Assety",
     "box": {
         "cache-cleared": {
@@ -189,8 +196,7 @@
     },
     "infobox": {
         "help": "Pomoc",
-        "requirements": "Systémové požadavky",
-        "wine-path": "Path"
+        "requirements": "Systémové požadavky"
     },
     "install": {
         "path": "Vyberte cestu instalace"

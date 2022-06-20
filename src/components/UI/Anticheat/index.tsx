@@ -3,6 +3,7 @@ import { AntiCheatInfo, GameInfo } from 'src/types'
 import { createNewWindow, ipcRenderer } from 'src/helpers'
 
 import './index.css'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   gameInfo: GameInfo
@@ -11,6 +12,8 @@ type Props = {
 const awacyUrl = 'https://areweanticheatyet.com/'
 
 export default function Anticheat({ gameInfo }: Props) {
+  const { t } = useTranslation()
+
   const [anticheatInfo, setAnticheatInfo] = useState<AntiCheatInfo | null>(null)
 
   useEffect(() => {
@@ -31,22 +34,27 @@ export default function Anticheat({ gameInfo }: Props) {
 
   return (
     <div className={`anticheatInfo ${anticheatInfo.status}`}>
-      <h4>This game includes anticheat software</h4>
+      <h4>{t('anticheat.title', 'This game includes anticheat software')}</h4>
       {mayNotWork && (
-        <p>It may not work due to denied or broken anticheat support.</p>
+        <p>
+          {t(
+            'anticheat.may_not_work',
+            'It may not work due to denied or broken anticheat support.'
+          )}
+        </p>
       )}
       <span>
-        <b>Anticheats:</b>{' '}
+        <b>{t('anticheat.anticheats', 'Anticheats')}:</b>&nbsp;
         {anticheatInfo.anticheats.length
           ? anticheatInfo.anticheats.join(', ')
           : 'Anticheat removed'}
       </span>
       <span title={anticheatInfo.notes.join(' - ')}>
-        <b>Status:</b> {anticheatInfo.status}
+        <b>{t('anticheat.status', 'Status')}:</b> {anticheatInfo.status}
       </span>
 
       <span>
-        For more details, go to &nbsp;
+        {t('anticheat.details', 'For more details, go to')}&nbsp;
         <a href="#" onClick={() => createNewWindow(awacyUrl)}>
           {awacyUrl}
         </a>
