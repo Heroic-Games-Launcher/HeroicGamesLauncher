@@ -1,12 +1,12 @@
 import { readFileSync, copyFileSync, mkdirSync } from 'graceful-fs'
-import { GameInfo } from './../../types'
+import { GameInfo } from '../../types'
 import { join } from 'path'
 import { DirResult, dirSync } from 'tmp'
 import {
   addNonSteamGame,
-  removeNonSteamGame,
-  ShortcutsResult
+  removeNonSteamGame
 } from '../../shortcuts/nonsteamgame'
+import { dialog } from 'electron'
 
 let tmpDir = undefined as DirResult
 let tmpSteamUserConfigDir = undefined as string
@@ -24,6 +24,9 @@ describe('NonSteamGame', () => {
     tmpDir = dirSync({ unsafeCleanup: true })
     tmpSteamUserConfigDir = join(tmpDir.name, 'steam_user', 'config')
     mkdirSync(tmpSteamUserConfigDir, { recursive: true })
+    console.log = jest.fn()
+    console.error = jest.fn()
+    console.warn = jest.fn()
   })
 
   afterEach(() => {
@@ -42,16 +45,18 @@ describe('NonSteamGame', () => {
     const contentBefore = readFileSync(shortcutFilePath).toString()
     const game = { title: 'Discord', app_name: 'Discord' } as GameInfo
 
-    await addNonSteamGame(tmpDir.name, game)
-      .then((result: ShortcutsResult) =>
-        expect(result).toStrictEqual({ success: true, errors: [] })
-      )
-      .catch((error) => {
-        throw error
-      })
+    await addNonSteamGame({
+      steamUserdataDir: tmpDir.name,
+      gameInfo: game
+    })
 
     const contentAfter = readFileSync(shortcutFilePath).toString()
     expect(contentBefore).toStrictEqual(contentAfter)
+    expect(console.log).toBeCalledWith(
+      expect.stringContaining(
+        `INFO:    [Shortcuts]:       ${game.title} was successfully added to steam.`
+      )
+    )
   })
 
   test('Add and remove game to shortcuts.vdf', async () => {
@@ -65,28 +70,32 @@ describe('NonSteamGame', () => {
     const game = { title: 'MyGame', app_name: 'game' } as GameInfo
     const contentBefore = readFileSync(shortcutFilePath).toString()
 
-    await addNonSteamGame(tmpDir.name, game)
-      .then((result: ShortcutsResult) =>
-        expect(result).toStrictEqual({ success: true, errors: [] })
-      )
-      .catch((error) => {
-        throw error
-      })
+    await addNonSteamGame({
+      steamUserdataDir: tmpDir.name,
+      gameInfo: game
+    })
 
     const contentBetween = readFileSync(shortcutFilePath).toString()
 
-    await removeNonSteamGame(tmpDir.name, game)
-      .then((result: ShortcutsResult) =>
-        expect(result).toStrictEqual({ success: true, errors: [] })
-      )
-      .catch((error) => {
-        throw error
-      })
+    await removeNonSteamGame({
+      steamUserdataDir: tmpDir.name,
+      gameInfo: game
+    })
 
     const contentAfter = readFileSync(shortcutFilePath).toString()
     expect(contentBefore).toStrictEqual(contentAfter)
     expect(contentBefore).not.toBe(contentBetween)
     expect(contentBetween).toContain(game.title)
+    expect(console.log).toBeCalledWith(
+      expect.stringContaining(
+        `INFO:    [Shortcuts]:       ${game.title} was successfully added to steam.`
+      )
+    )
+    expect(console.log).toBeCalledWith(
+      expect.stringContaining(
+        `INFO:    [Shortcuts]:       ${game.title} was successfully removed from steam.`
+      )
+    )
   })
 
   test('Create shortcuts.vdf if not exist', async () => {
@@ -100,21 +109,15 @@ describe('NonSteamGame', () => {
     const game = { title: 'MyGame', app_name: 'game' } as GameInfo
 
     // add and remove to see if empty shortcuts.vdf is correctly created
-    await addNonSteamGame(tmpDir.name, game)
-      .then((result: ShortcutsResult) =>
-        expect(result).toStrictEqual({ success: true, errors: [] })
-      )
-      .catch((error) => {
-        throw error
-      })
+    await addNonSteamGame({
+      steamUserdataDir: tmpDir.name,
+      gameInfo: game
+    })
 
-    await removeNonSteamGame(tmpDir.name, game)
-      .then((result: ShortcutsResult) =>
-        expect(result).toStrictEqual({ success: true, errors: [] })
-      )
-      .catch((error) => {
-        throw error
-      })
+    await removeNonSteamGame({
+      steamUserdataDir: tmpDir.name,
+      gameInfo: game
+    })
 
     const contentAfter = readFileSync(shortcutFilePath)
 
@@ -123,6 +126,16 @@ describe('NonSteamGame', () => {
     // \x08 = Backspace
     expect(contentAfter).toStrictEqual(
       Buffer.from([0, 115, 104, 111, 114, 116, 99, 117, 116, 115, 0, 8, 8])
+    )
+    expect(console.log).toBeCalledWith(
+      expect.stringContaining(
+        `INFO:    [Shortcuts]:       ${game.title} was successfully added to steam.`
+      )
+    )
+    expect(console.log).toBeCalledWith(
+      expect.stringContaining(
+        `INFO:    [Shortcuts]:       ${game.title} was successfully removed from steam.`
+      )
     )
   })
 
@@ -138,20 +151,22 @@ describe('NonSteamGame', () => {
 
     const game = {} as GameInfo
 
-    let failed = true
-    await addNonSteamGame(tmpDir.name, game)
-      .then(() => {
-        console.error('Test should fail instead of succeed!')
-        failed = false
-      })
-      .catch((error) => {
-        expect(error.message).toBe(
-          `Can't add "${game.title}" to steam user "steam_user". "${shortcutFilePath}" is corrupted!` +
-            '\n - One of the game entries is missing the AppName parameter!'
-        )
-      })
-
-    expect(failed).toBeTruthy()
+    await addNonSteamGame({
+      steamUserdataDir: tmpDir.name,
+      gameInfo: game
+    })
+    expect(console.log).not.toBeCalled()
+    expect(console.error).toBeCalledWith(
+      expect.stringContaining(
+        `ERROR:   [Shortcuts]:       Can't add \"${game.title}\" to steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!`
+      )
+    )
+    expect(console.error).toBeCalledWith(
+      expect.stringContaining(
+        'One of the game entries is missing the AppName parameter!'
+      )
+    )
+    expect(dialog.showErrorBox).toBeCalled()
   })
 
   test('Catch corrupt shortcuts.vdf because of missing Exe', async () => {
@@ -166,20 +181,23 @@ describe('NonSteamGame', () => {
 
     const game = {} as GameInfo
 
-    let failed = true
-    await addNonSteamGame(tmpDir.name, game)
-      .then(() => {
-        console.error('Test should fail instead of succeed!')
-        failed = false
-      })
-      .catch((error) => {
-        expect(error.message).toBe(
-          `Can't add "${game.title}" to steam user "steam_user". "${shortcutFilePath}" is corrupted!` +
-            '\n - One of the game entries is missing the Exe parameter!'
-        )
-      })
+    await addNonSteamGame({
+      steamUserdataDir: tmpDir.name,
+      gameInfo: game
+    })
 
-    expect(failed).toBeTruthy()
+    expect(console.log).not.toBeCalled()
+    expect(console.error).toBeCalledWith(
+      expect.stringContaining(
+        `ERROR:   [Shortcuts]:       Can't add \"${game.title}\" to steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!`
+      )
+    )
+    expect(console.error).toBeCalledWith(
+      expect.stringContaining(
+        'One of the game entries is missing the Exe parameter!'
+      )
+    )
+    expect(dialog.showErrorBox).toBeCalled()
   })
 
   test('Catch corrupt shortcuts.vdf because of missing LaunchOptions', async () => {
@@ -194,48 +212,23 @@ describe('NonSteamGame', () => {
 
     const game = {} as GameInfo
 
-    let failed = true
-    await addNonSteamGame(tmpDir.name, game)
-      .then(() => {
-        console.error('Test should fail instead of succeed!')
-        failed = false
-      })
-      .catch((error) => {
-        expect(error.message).toBe(
-          `Can't add "${game.title}" to steam user "steam_user". "${shortcutFilePath}" is corrupted!` +
-            '\n - One of the game entries is missing the LaunchOptions parameter!'
-        )
-      })
+    await addNonSteamGame({
+      steamUserdataDir: tmpDir.name,
+      gameInfo: game
+    })
 
-    expect(failed).toBeTruthy()
-  })
-
-  test('Test for shortcuts.vdf provided by users/dev', async () => {
-    const userFiles = ['shortcuts_commandmc.vdf']
-
-    for (const file of userFiles) {
-      copyTestFile(file)
-
-      const shortcutFilePath = join(
-        tmpDir.name,
-        'steam_user',
-        'config',
-        'shortcuts.vdf'
+    expect(console.log).not.toBeCalled()
+    expect(console.error).toBeCalledWith(
+      expect.stringContaining(
+        `ERROR:   [Shortcuts]:       Can't add \"${game.title}\" to steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!`
       )
-
-      const game = { title: 'MyGame', app_name: 'Game' } as GameInfo
-
-      await addNonSteamGame(tmpDir.name, game)
-        .then((result: ShortcutsResult) =>
-          expect(result).toStrictEqual({ success: true, errors: [] })
-        )
-        .catch((error) => {
-          throw new Error(`${file} failed with: ${error.message}`)
-        })
-
-      const contentAfter = readFileSync(shortcutFilePath).toString()
-      expect(contentAfter).toContain('MyGame')
-    }
+    )
+    expect(console.error).toBeCalledWith(
+      expect.stringContaining(
+        'One of the game entries is missing the LaunchOptions parameter!'
+      )
+    )
+    expect(dialog.showErrorBox).toBeCalled()
   })
 
   test(
@@ -266,36 +259,18 @@ describe('NonSteamGame', () => {
       const contentBefore = readFileSync(shortcutFilePath).toString()
       const contentBefore2 = readFileSync(shortcutFilePath2).toString()
 
-      await addNonSteamGame(tmpDir.name, game)
-        .then((result: ShortcutsResult) =>
-          expect(result).toStrictEqual({
-            success: true,
-            errors: [
-              `Can't add "${game.title}" to steam user "steam_user2". "${shortcutFilePath2}" is corrupted!`,
-              'One of the game entries is missing the AppName parameter!'
-            ]
-          })
-        )
-        .catch((error) => {
-          throw error
-        })
+      await addNonSteamGame({
+        steamUserdataDir: tmpDir.name,
+        gameInfo: game
+      })
 
       const contentBetween = readFileSync(shortcutFilePath).toString()
       const contentBetween2 = readFileSync(shortcutFilePath2).toString()
 
-      await removeNonSteamGame(tmpDir.name, game)
-        .then((result: ShortcutsResult) =>
-          expect(result).toStrictEqual({
-            success: true,
-            errors: [
-              `Can't remove "${game.title}" from steam user "steam_user2". "${shortcutFilePath2}" is corrupted!`,
-              'One of the game entries is missing the AppName parameter!'
-            ]
-          })
-        )
-        .catch((error) => {
-          throw error
-        })
+      await removeNonSteamGame({
+        steamUserdataDir: tmpDir.name,
+        gameInfo: game
+      })
 
       const contentAfter = readFileSync(shortcutFilePath).toString()
       const contentAfter2 = readFileSync(shortcutFilePath2).toString()
@@ -306,6 +281,61 @@ describe('NonSteamGame', () => {
 
       expect(contentBefore2).toStrictEqual(contentAfter2)
       expect(contentBefore2).toStrictEqual(contentBetween2)
+
+      expect(console.log).not.toBeCalled()
+      expect(console.warn).toBeCalledWith(
+        expect.stringContaining(
+          `WARNING: [Shortcuts]:       ${game.title} could not be added to all found steam users. See logs for more info.`
+        )
+      )
+      expect(console.warn).toBeCalledWith(
+        expect.stringContaining(
+          `WARNING: [Shortcuts]:       ${game.title} could not be removed from all found steam users. See logs for more info.`
+        )
+      )
+      expect(console.error).toBeCalledWith(
+        expect.stringContaining(
+          `ERROR:   [Shortcuts]:       Can't add \"${game.title}\" to steam user \"steam_user2\". \"${shortcutFilePath2}\" is corrupted!`
+        )
+      )
+      expect(console.error).toBeCalledWith(
+        expect.stringContaining(
+          'One of the game entries is missing the AppName parameter!'
+        )
+      )
+      expect(dialog.showErrorBox).not.toBeCalled()
     }
   )
+
+  test('Test for shortcuts.vdf provided by users/dev', async () => {
+    const userFiles = ['shortcuts_commandmc.vdf']
+
+    for (const file of userFiles) {
+      copyTestFile(file)
+
+      const shortcutFilePath = join(
+        tmpDir.name,
+        'steam_user',
+        'config',
+        'shortcuts.vdf'
+      )
+
+      const game = { title: 'MyGame', app_name: 'Game' } as GameInfo
+
+      await addNonSteamGame({
+        steamUserdataDir: tmpDir.name,
+        gameInfo: game
+      })
+
+      const contentAfter = readFileSync(shortcutFilePath).toString()
+      expect(contentAfter).toContain('MyGame')
+      expect(console.log).toBeCalledWith(
+        expect.stringContaining(
+          `INFO:    [Shortcuts]:       ${game.title} was successfully added to steam.`
+        )
+      )
+      expect(console.error).not.toBeCalled()
+      expect(dialog.showErrorBox).not.toBeCalled()
+    }
+  })
 })

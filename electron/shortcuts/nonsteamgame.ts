@@ -9,9 +9,10 @@ import { readFileSync } from 'fs-extra'
 import { join } from 'path'
 import { GameInfo } from '../types'
 import { getIcon } from './utils'
-import { app } from 'electron'
+import { app, dialog, Notification } from 'electron'
 import { isFlatpak, tsStore } from '../constants'
-import { logWarning } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import i18next from 'i18next'
 
 interface ShortcutsResult {
   success: boolean
@@ -19,16 +20,67 @@ interface ShortcutsResult {
 }
 
 /**
+ * Opens a error dialog in frontend with the error message
+ * @param props
+ */
+function showErrorInFrontend(props: {
+  gameTitle: string
+  error: string
+  adding: boolean
+}) {
+  const body = props.adding
+    ? [
+        i18next.t('box.error.add.steam.message1', 'Adding of '),
+        props.gameTitle,
+        i18next.t('box.error.add.steam.message2', ' failed with:\n'),
+        props.error
+      ].join('')
+    : [
+        i18next.t('box.error.remove.steam.message1', 'Could not remove '),
+        props.gameTitle,
+        i18next.t(
+          'box.error.add.remove.message2',
+          ' from one of the steam users!\n'
+        ),
+        props.error
+      ].join('')
+
+  const title = props.adding
+    ? i18next.t('box.error.add.steam.title', 'Adding Error')
+    : i18next.t('box.error.remove.steam.title', 'Removing Error')
+
+  dialog.showErrorBox(title, body)
+}
+
+/**
+ * Opens a notify window in the frontend with given message
+ * @param props
+ */
+function notifyFrontend(props: { message: string; adding: boolean }) {
+  const title = props.adding
+    ? i18next.t('notify.finished.add.steam', 'Added to steam')
+    : i18next.t('notify.finished.remove.steam', 'Removed from steam')
+
+  new Notification({
+    body: props.message,
+    title
+  }).show()
+}
+
+/**
  * Check if steam userdata folder exist and return them as a string list.
  * @param steamUserdataDir Path to userdata folder in steam compat folder.
- * @returns All userdata folders as string array
- * @throws @see Error if folders are not existing.
+ * @returns All userdata folders as string array and possible error
  */
-function checkSteamUserDataDir(steamUserdataDir: string): string[] {
+function checkSteamUserDataDir(steamUserdataDir: string): {
+  folders: string[]
+  error: string
+} {
   if (!existsSync(steamUserdataDir)) {
-    throw new Error(
-      `${steamUserdataDir} does not exist. Can't add/remove game to/from steam!`
-    )
+    return {
+      folders: undefined,
+      error: `${steamUserdataDir} does not exist. Can't add/remove game to/from steam!`
+    }
   }
 
   const folders = readdirSync(steamUserdataDir, {
@@ -38,10 +90,13 @@ function checkSteamUserDataDir(steamUserdataDir: string): string[] {
     .map((dirent) => dirent.name)
 
   if (folders.length <= 0) {
-    throw new Error(`${steamUserdataDir} does not contain a single directory!`)
+    return {
+      folders: undefined,
+      error: `${steamUserdataDir} does not contain a single directory!`
+    }
   }
 
-  return folders
+  return { folders, error: undefined }
 }
 
 /**
@@ -75,7 +130,7 @@ function writeShortcutFile(file: string, object: Partial<ShortcutObject>) {
 /**
  * Check if the parsed object of a shortcuts.vdf is valid.
  * @param object @see Partial<ShortcutObject>
- * @returns boolean
+ * @returns @see ShortcutsResult
  */
 function checkIfShortcutObjectIsValid(
   object: Partial<ShortcutObject>
@@ -127,148 +182,188 @@ const checkIfAlreadyAdded = (object: Partial<ShortcutObject>, title: string) =>
  * Adds a non-steam game to steam via editing shortcuts.vdf
  * @param steamUserdataDir Path to steam userdata directory
  * @param gameInfo @see GameInfo of the game to add
- * @returns Success message
- * @throws @see Error on failure
+ * @returns none
  */
-async function addNonSteamGame(
-  steamUserdataDir: string,
+async function addNonSteamGame(props: {
+  steamUserdataDir: string
   gameInfo: GameInfo
-): Promise<ShortcutsResult> {
-  const addResult = { success: false, errors: [] } as ShortcutsResult
-  const folders = checkSteamUserDataDir(steamUserdataDir)
+}): Promise<void> {
+  const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
 
-  for (const folder of folders) {
-    // skip this folders, because there are no steam user
-    if (folder === '0' || folder === 'ac') {
-      continue
+  if (error) {
+    showErrorInFrontend({
+      gameTitle: props.gameInfo.title,
+      error,
+      adding: true
+    })
+  } else {
+    const errors = []
+    let added = false
+    for (const folder of folders) {
+      // skip this folders, because there are no steam user
+      if (folder === '0' || folder === 'ac') {
+        continue
+      }
+
+      const configDir = join(props.steamUserdataDir, folder, 'config')
+      const shortcutsFile = join(configDir, 'shortcuts.vdf')
+
+      if (!existsSync(configDir)) {
+        mkdirSync(configDir)
+      }
+
+      if (!existsSync(shortcutsFile)) {
+        writeShortcutFile(shortcutsFile, { shortcuts: [] })
+      }
+
+      // read file
+      const content = readShortcutFile(shortcutsFile)
+
+      const checkResult = checkIfShortcutObjectIsValid(content)
+      if (!checkResult.success) {
+        errors.push(
+          `Can't add "${props.gameInfo.title}" to steam user "${folder}". "${shortcutsFile}" is corrupted!`,
+          ...checkResult.errors
+        )
+        continue
+      }
+
+      if (checkIfAlreadyAdded(content, props.gameInfo.title) > -1) {
+        added = true
+        continue
+      }
+
+      // add new Entry
+      const newEntry = {} as ShortcutEntry
+      newEntry.AppName = props.gameInfo.title
+      newEntry.Exe = `"${app.getPath('exe')}"`
+
+      if (isFlatpak) {
+        newEntry.Exe = `"flatpak"`
+      } else if (process.env.APPIMAGE) {
+        newEntry.Exe = `"${process.env.APPIMAGE}"`
+      }
+
+      newEntry.StartDir = `"${process.cwd()}"`
+      await getIcon(props.gameInfo.app_name, props.gameInfo)
+        .then((path) => (newEntry.icon = path))
+        .catch((error) =>
+          logWarning(
+            `Couldn't find a icon for ${props.gameInfo.title} with: ${error}`
+          )
+        )
+
+      newEntry.LaunchOptions = `--no-gui --no-sandbox "heroic://launch/${props.gameInfo.app_name}"`
+      if (isFlatpak) {
+        newEntry.Exe = `run com.heroicgameslauncher.hgl ${newEntry.LaunchOptions}`
+      }
+      newEntry.IsHidden = false
+      newEntry.AllowDesktopConfig = true
+      newEntry.AllowOverlay = true
+      newEntry.OpenVR = false
+      newEntry.Devkit = false
+      newEntry.DevkitOverrideAppID = false
+
+      if (tsStore.has(`${props.gameInfo.app_name}.lastPlayed`)) {
+        newEntry.LastPlayTime = tsStore.get(
+          `${props.gameInfo.app_name}.lastPlayed`
+        ) as Date
+      } else {
+        newEntry.LastPlayTime = new Date()
+      }
+
+      content.shortcuts.push(newEntry)
+
+      // rewrite shortcuts.vdf
+      writeShortcutFile(shortcutsFile, content)
+
+      added = true
     }
 
-    const configDir = join(steamUserdataDir, folder, 'config')
-    const shortcutsFile = join(configDir, 'shortcuts.vdf')
-
-    if (!existsSync(configDir)) {
-      mkdirSync(configDir)
+    if (!added) {
+      showErrorInFrontend({
+        gameTitle: props.gameInfo.title,
+        error: errors.join('\n'),
+        adding: true
+      })
     }
 
-    if (!existsSync(shortcutsFile)) {
-      writeShortcutFile(shortcutsFile, { shortcuts: [] })
-    }
-
-    // read file
-    const content = readShortcutFile(shortcutsFile)
-
-    const checkResult = checkIfShortcutObjectIsValid(content)
-    if (!checkResult.success) {
-      addResult.errors.push(
-        `Can't add "${gameInfo.title}" to steam user "${folder}". "${shortcutsFile}" is corrupted!`,
-        ...checkResult.errors
-      )
-      continue
-    }
-
-    if (checkIfAlreadyAdded(content, gameInfo.title) > -1) {
-      addResult.success = true
-      continue
-    }
-
-    // add new Entry
-    const newEntry = {} as ShortcutEntry
-    newEntry.AppName = gameInfo.title
-    newEntry.Exe = `"${app.getPath('exe')}"`
-
-    if (isFlatpak) {
-      newEntry.Exe = '"flatpak run com.heroicgameslauncher.hgl"'
-    } else if (process.env.APPIMAGE) {
-      newEntry.Exe = `"${process.env.APPIMAGE}"`
-    }
-
-    newEntry.StartDir = `"${process.cwd()}"`
-    await getIcon(gameInfo.app_name, gameInfo)
-      .then((path) => (newEntry.icon = path))
-      .catch((error) =>
-        logWarning(`Couldn't find a icon for ${gameInfo.title} with: ${error}`)
-      )
-
-    newEntry.LaunchOptions = `--no-gui --no-sandbox "heroic://launch/${gameInfo.app_name}"`
-    newEntry.IsHidden = false
-    newEntry.AllowDesktopConfig = true
-    newEntry.AllowOverlay = true
-    newEntry.OpenVR = false
-    newEntry.Devkit = false
-    newEntry.DevkitOverrideAppID = false
-
-    if (tsStore.has(`${gameInfo.app_name}.lastPlayed`)) {
-      newEntry.LastPlayTime = tsStore.get(
-        `${gameInfo.app_name}.lastPlayed`
-      ) as Date
+    if (errors.length === 0) {
+      const message = `${props.gameInfo.title} was successfully added to steam.`
+      logInfo(message, LogPrefix.Shortcuts)
+      notifyFrontend({ message, adding: true })
     } else {
-      newEntry.LastPlayTime = new Date()
+      const message = `${props.gameInfo.title} could not be added to all found steam users. See logs for more info.`
+      logWarning(message, LogPrefix.Shortcuts)
+      logError(errors.join('\n'), LogPrefix.Shortcuts)
+      notifyFrontend({ message, adding: true })
     }
-
-    content.shortcuts.push(newEntry)
-
-    // rewrite shortcuts.vdf
-    writeShortcutFile(shortcutsFile, content)
-
-    addResult.success = true
   }
-
-  if (!addResult.success) {
-    throw new Error(addResult.errors.join('\n - '))
-  }
-
-  return addResult
 }
 
 /**
  * Removes a non-steam game from steam via editing shortcuts.vdf
  * @param steamUserdataDir Path to steam userdata directory
  * @param gameInfo @see GameInfo of the game to remove
- * @returns Success message
- * @throws @see Error on failure
+ * @returns none
  */
-async function removeNonSteamGame(
-  steamUserdataDir: string,
+async function removeNonSteamGame(props: {
+  steamUserdataDir: string
   gameInfo: GameInfo
-): Promise<ShortcutsResult> {
-  const removeResult = { success: false, errors: [] } as ShortcutsResult
-  const folders = checkSteamUserDataDir(steamUserdataDir)
+}): Promise<void> {
+  const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
 
-  for (const folder of folders) {
-    const configDir = join(steamUserdataDir, folder, 'config')
-    const shortcutsFile = join(configDir, 'shortcuts.vdf')
+  if (error) {
+    showErrorInFrontend({
+      gameTitle: props.gameInfo.title,
+      error,
+      adding: false
+    })
+  } else {
+    const errors = []
+    for (const folder of folders) {
+      const configDir = join(props.steamUserdataDir, folder, 'config')
+      const shortcutsFile = join(configDir, 'shortcuts.vdf')
 
-    if (!existsSync(configDir) || !existsSync(shortcutsFile)) {
-      continue
+      if (!existsSync(configDir) || !existsSync(shortcutsFile)) {
+        continue
+      }
+
+      // read file
+      const content = readShortcutFile(shortcutsFile)
+      const checkResult = checkIfShortcutObjectIsValid(content)
+      if (!checkResult.success) {
+        errors.push(
+          `Can't remove "${props.gameInfo.title}" from steam user "${folder}". "${shortcutsFile}" is corrupted!`,
+          ...checkResult.errors
+        )
+        continue
+      }
+
+      const index = checkIfAlreadyAdded(content, props.gameInfo.title)
+
+      if (index < 0) {
+        continue
+      }
+
+      // remove
+      content.shortcuts.splice(index, 1)
+
+      // rewrite shortcuts.vdf
+      writeShortcutFile(shortcutsFile, content)
     }
 
-    // read file
-    const content = readShortcutFile(shortcutsFile)
-    const checkResult = checkIfShortcutObjectIsValid(content)
-    if (!checkResult.success) {
-      removeResult.errors.push(
-        `Can't remove "${gameInfo.title}" from steam user "${folder}". "${shortcutsFile}" is corrupted!`,
-        ...checkResult.errors
-      )
-      continue
+    if (errors.length === 0) {
+      const message = `${props.gameInfo.title} was successfully removed from steam.`
+      logInfo(message, LogPrefix.Shortcuts)
+      notifyFrontend({ message, adding: false })
+    } else {
+      const message = `${props.gameInfo.title} could not be removed from all found steam users. See logs for more info.`
+      logWarning(message, LogPrefix.Shortcuts)
+      logError(errors.join('\n'), LogPrefix.Shortcuts)
+      notifyFrontend({ message, adding: false })
     }
-
-    const index = checkIfAlreadyAdded(content, gameInfo.title)
-
-    if (index < 0) {
-      continue
-    }
-
-    // remove
-    content.shortcuts.splice(index, 1)
-
-    // rewrite shortcuts.vdf
-    writeShortcutFile(shortcutsFile, content)
-
-    removeResult.success = true
   }
-
-  return removeResult
 }
 
-export { addNonSteamGame, removeNonSteamGame, ShortcutsResult }
+export { addNonSteamGame, removeNonSteamGame }

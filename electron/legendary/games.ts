@@ -17,7 +17,8 @@ import {
   isMac,
   isWindows,
   installed,
-  configStore
+  configStore,
+  steamUserdataDir
 } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
@@ -33,6 +34,7 @@ import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts'
 import { basename, join } from 'path'
 import { runLegendaryCommand } from './library'
 import { gameInfoStore } from './electronStores'
+import { removeNonSteamGame } from '../shortcuts/nonsteamgame'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -444,7 +446,9 @@ class LegendaryGame extends Game {
         LogPrefix.Legendary
       )
     } else {
-      removeShortcuts(this.appName, 'legendary')
+      await removeShortcuts(this.appName, 'legendary')
+      const gameInfo = await this.getGameInfo()
+      await removeNonSteamGame({ steamUserdataDir, gameInfo })
     }
     return res
   }

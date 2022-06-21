@@ -1,6 +1,6 @@
 import { BrowserWindow, dialog } from 'electron'
 import { Game, Runner } from './games'
-import { logInfo, LogPrefix } from './logger/logger'
+import { logError, logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
 
 export async function handleProtocol(window: BrowserWindow, args: string[]) {
@@ -34,6 +34,13 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
       runner = 'gog'
       game = await Game.get(arg, runner).getGameInfo()
     }
+    if (!game) {
+      return logError(
+        `Could not receive game data for ${runner} - ${arg}!`,
+        LogPrefix.ProtocolHandler
+      )
+    }
+
     const { is_installed, title, app_name } = game
     setTimeout(async () => {
       // wait for the frontend to be ready
@@ -70,7 +77,7 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
         }
       }
       mainWindow.hide()
-      window.webContents.send('launchGame', arg, runner)
+      window.webContents.send('launchGame', app_name, runner)
     }, 3000)
   }
 }

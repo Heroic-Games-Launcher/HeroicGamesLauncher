@@ -24,7 +24,8 @@ import {
   execOptions,
   isMac,
   isLinux,
-  userHome
+  userHome,
+  steamUserdataDir
 } from '../constants'
 import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
@@ -41,6 +42,7 @@ import {
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts'
 import setup from './setup'
 import { runGogdlCommand } from './library'
+import { removeNonSteamGame } from '../shortcuts/nonsteamgame'
 
 function verifyProgress(stderr: string): boolean {
   const text = stderr.split('\n').at(-1)
@@ -543,14 +545,16 @@ class GOGGame extends Game {
           res.stderr = stderr
         })
         .catch((error) => {
-          res.error = `${error}`
+          res.error = `${error}\n`
         })
     } else {
       rmSync(object.install_path, { recursive: true })
     }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
-    removeShortcuts(this.appName, 'gog')
+    await removeShortcuts(this.appName, 'gog')
+    const gameInfo = await this.getGameInfo()
+    await removeNonSteamGame({ steamUserdataDir, gameInfo })
     return res
   }
 

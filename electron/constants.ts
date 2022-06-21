@@ -58,6 +58,7 @@ const iconLight = fixAsarPath(join(__dirname, 'icon-light.png'))
 const installed = join(legendaryConfigPath, 'installed.json')
 const libraryPath = join(legendaryConfigPath, 'metadata')
 const steamCompatFolder: string = getSteamCompatFolder()
+const steamUserdataDir: string = join(steamCompatFolder, 'userdata')
 const fallBackImage = 'fallback'
 const epicLoginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
@@ -193,6 +194,7 @@ export {
   weblateUrl,
   wikiLink,
   steamCompatFolder,
+  steamUserdataDir,
   tsStore,
   fontsStore
 }
