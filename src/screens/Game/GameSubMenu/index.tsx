@@ -113,7 +113,7 @@ export default function GamesSubmenu({
   }
 
   function handleAddToSteam() {
-    ipcRenderer.send('addToSteam', appName, runner, true)
+    ipcRenderer.send('addToSteam', appName, runner)
   }
 
   useEffect(() => {

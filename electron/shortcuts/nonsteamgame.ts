@@ -32,16 +32,18 @@ function showErrorInFrontend(props: {
     ? [
         i18next.t('box.error.add.steam.message1', 'Adding of '),
         props.gameTitle,
-        i18next.t('box.error.add.steam.message2', ' failed with:\n'),
+        i18next.t('box.error.add.steam.message2', ' failed with:'),
+        '\n',
         props.error
       ].join('')
     : [
         i18next.t('box.error.remove.steam.message1', 'Could not remove '),
         props.gameTitle,
         i18next.t(
-          'box.error.add.remove.message2',
-          ' from one of the steam users!\n'
+          'box.error.remove.steam.message2',
+          ' from one of the steam users!'
         ),
+        '\n',
         props.error
       ].join('')
 

@@ -22,12 +22,9 @@
         "default-install-path": "Selecione o Local de instalação padrão",
         "error": {
             "add": {
-                "remove": {
-                    "message2": " from one of the steam users!\n"
-                },
                 "steam": {
                     "message1": "Adding of ",
-                    "message2": " failed with:\n",
+                    "message2": " failed with:",
                     "title": "Adding Error"
                 }
             },
@@ -60,6 +57,7 @@
             "remove": {
                 "steam": {
                     "message1": "Could not remove ",
+                    "message2": " from one of the steam users!",
                     "title": "Removing Error"
                 }
             },
