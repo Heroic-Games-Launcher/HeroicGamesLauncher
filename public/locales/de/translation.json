@@ -21,6 +21,16 @@
         "customWine": "Benutzerdefinierte Wine/Proton Pfade",
         "default-install-path": "Wähle den Standard Installations-Pfad",
         "error": {
+            "add": {
+                "remove": {
+                    "message2": " from one of the steam users!\n"
+                },
+                "steam": {
+                    "message1": "Adding of ",
+                    "message2": " failed with:\n",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Deine Anmeldedaten sind abgelaufen, bitte logge dich aus und melde dich erneut an."
             },
@@ -46,6 +56,12 @@
             "no-offline-mode": {
                 "message": "Start abgebrochen! Das Spiel benötigt eine Internetverbindung, damit es läuft.",
                 "title": "Offline-Modus wird nicht unterstützt."
+            },
+            "remove": {
+                "steam": {
+                    "message1": "Could not remove ",
+                    "title": "Removing Error"
+                }
             },
             "title": "Error",
             "update": {
@@ -220,6 +236,12 @@
             "reparing": "Fehler beim Reparieren"
         },
         "finished": {
+            "add": {
+                "steam": "Added to steam"
+            },
+            "remove": {
+                "steam": "Removed from steam"
+            },
             "reparing": "Reparatur abgeschlossen"
         },
         "install": {

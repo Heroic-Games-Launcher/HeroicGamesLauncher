@@ -21,6 +21,16 @@
         "customWine": "Ange Wine/Proton version",
         "default-install-path": "Ange standard installationssökväg",
         "error": {
+            "add": {
+                "remove": {
+                    "message2": " from one of the steam users!\n"
+                },
+                "steam": {
+                    "message1": "Adding of ",
+                    "message2": " failed with:\n",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Autentisering har utgått, logga ut och logga sedan in igen."
             },
@@ -46,6 +56,12 @@
             "no-offline-mode": {
                 "message": "Speluppstart avbröts! Internetanslutning krävs.",
                 "title": "Offline-läge stöds ej."
+            },
+            "remove": {
+                "steam": {
+                    "message1": "Could not remove ",
+                    "title": "Removing Error"
+                }
             },
             "title": "Problem",
             "update": {
@@ -220,6 +236,12 @@
             "reparing": "Problem vid reparation"
         },
         "finished": {
+            "add": {
+                "steam": "Added to steam"
+            },
+            "remove": {
+                "steam": "Removed from steam"
+            },
             "reparing": "Reparation slutförd"
         },
         "install": {

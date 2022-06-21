@@ -21,6 +21,16 @@
         "customWine": "Изберете изпълнимия файл на Wine или Proton",
         "default-install-path": "Изберете пътя по подразбиране за инсталиране",
         "error": {
+            "add": {
+                "remove": {
+                    "message2": " from one of the steam users!\n"
+                },
+                "steam": {
+                    "message1": "Adding of ",
+                    "message2": " failed with:\n",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Данните Ви за удостоверяване са изтекли. Излезте и влезте отново."
             },
@@ -46,6 +56,12 @@
             "no-offline-mode": {
                 "message": "Пускането е прекратено! Играта изисква връзка с Интернет, за да бъде пусната.",
                 "title": "Не се поддържа режим извън линия."
+            },
+            "remove": {
+                "steam": {
+                    "message1": "Could not remove ",
+                    "title": "Removing Error"
+                }
             },
             "title": "Грешка",
             "update": {
@@ -220,6 +236,12 @@
             "reparing": "Грешка при поправянето"
         },
         "finished": {
+            "add": {
+                "steam": "Added to steam"
+            },
+            "remove": {
+                "steam": "Removed from steam"
+            },
             "reparing": "Поправката е завършена"
         },
         "install": {

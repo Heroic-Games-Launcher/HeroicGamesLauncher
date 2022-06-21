@@ -21,6 +21,16 @@
         "customWine": "Wine 혹은 Proton 바이너리 파일 선택",
         "default-install-path": "기본 설치 경로 선택",
         "error": {
+            "add": {
+                "remove": {
+                    "message2": " from one of the steam users!\n"
+                },
+                "steam": {
+                    "message1": "Adding of ",
+                    "message2": " failed with:\n",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "사용자의 인증서가 만료되었습니다, 로그아웃 한 뒤 다시 로그인 해주세요."
             },
@@ -46,6 +56,12 @@
             "no-offline-mode": {
                 "message": "시작 실패! 게임을 실행하려면 인터넷 연결이 필요합니다.",
                 "title": "오프라인 모드는 지원되지 않습니다."
+            },
+            "remove": {
+                "steam": {
+                    "message1": "Could not remove ",
+                    "title": "Removing Error"
+                }
             },
             "title": "오류",
             "update": {
@@ -220,6 +236,12 @@
             "reparing": "복구 중 오류 발생"
         },
         "finished": {
+            "add": {
+                "steam": "Added to steam"
+            },
+            "remove": {
+                "steam": "Removed from steam"
+            },
             "reparing": "복구 완료"
         },
         "install": {

@@ -21,6 +21,16 @@
         "customWine": "Seleccione binario de Wine o Proton",
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "error": {
+            "add": {
+                "remove": {
+                    "message2": " from one of the steam users!\n"
+                },
+                "steam": {
+                    "message1": "Adding of ",
+                    "message2": " failed with:\n",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Tus credenciales han expirado, por favor, inicia sesión nuevamente."
             },
@@ -46,6 +56,12 @@
             "no-offline-mode": {
                 "message": "¡Lanzamiento abortado! El juego requiere una conexión a Internet para ejecutarlo.",
                 "title": "El modo sin conexión no está soportado."
+            },
+            "remove": {
+                "steam": {
+                    "message1": "Could not remove ",
+                    "title": "Removing Error"
+                }
             },
             "title": "Error",
             "update": {
@@ -220,6 +236,12 @@
             "reparing": "Error durante la reparación"
         },
         "finished": {
+            "add": {
+                "steam": "Added to steam"
+            },
+            "remove": {
+                "steam": "Removed from steam"
+            },
             "reparing": "Reparación terminada"
         },
         "install": {

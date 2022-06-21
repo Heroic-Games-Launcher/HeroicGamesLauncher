@@ -21,6 +21,16 @@
         "customWine": "选择 Wine 或 Proton 二进制文件",
         "default-install-path": "选择默认安装路径",
         "error": {
+            "add": {
+                "remove": {
+                    "message2": " from one of the steam users!\n"
+                },
+                "steam": {
+                    "message1": "Adding of ",
+                    "message2": " failed with:\n",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "你的凭据已过期，请注销并重新登录。"
             },
@@ -46,6 +56,12 @@
             "no-offline-mode": {
                 "message": "启动失败！游戏需要网络连接才能运行。",
                 "title": "不支持离线模式。"
+            },
+            "remove": {
+                "steam": {
+                    "message1": "Could not remove ",
+                    "title": "Removing Error"
+                }
             },
             "title": "错误",
             "update": {
@@ -220,6 +236,12 @@
             "reparing": "修复时出错"
         },
         "finished": {
+            "add": {
+                "steam": "Added to steam"
+            },
+            "remove": {
+                "steam": "Removed from steam"
+            },
             "reparing": "已完成修复"
         },
         "install": {

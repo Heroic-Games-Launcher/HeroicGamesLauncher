@@ -21,6 +21,16 @@
         "customWine": "Выбрать исполняемый файл Wine или Proton",
         "default-install-path": "Выбрать стандартный путь установки",
         "error": {
+            "add": {
+                "remove": {
+                    "message2": " from one of the steam users!\n"
+                },
+                "steam": {
+                    "message1": "Adding of ",
+                    "message2": " failed with:\n",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Срок действия ваших учетных данных истек. Пожалуйста, выйдите из системы и войдите снова."
             },
@@ -46,6 +56,12 @@
             "no-offline-mode": {
                 "message": "Запуск прерван! Для запуска игры требуется подключение к интернету.",
                 "title": "Автономный режим не поддерживается."
+            },
+            "remove": {
+                "steam": {
+                    "message1": "Could not remove ",
+                    "title": "Removing Error"
+                }
             },
             "title": "Ошибка",
             "update": {
@@ -189,8 +205,7 @@
     },
     "infobox": {
         "help": "Помощь",
-        "requirements": "Системные требования",
-        "wine-path": "Путь"
+        "requirements": "Системные требования"
     },
     "install": {
         "path": "Выберите путь установки"
@@ -221,6 +236,12 @@
             "reparing": "Ошибка при восстановлении"
         },
         "finished": {
+            "add": {
+                "steam": "Added to steam"
+            },
+            "remove": {
+                "steam": "Removed from steam"
+            },
             "reparing": "Восстановление завершено"
         },
         "install": {

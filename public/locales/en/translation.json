@@ -21,6 +21,16 @@
         "customWine": "Select the Wine or Proton binary",
         "default-install-path": "Choose Default Install Path",
         "error": {
+            "add": {
+                "remove": {
+                    "message2": " from one of the steam users!\n"
+                },
+                "steam": {
+                    "message1": "Adding of ",
+                    "message2": " failed with:\n",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Your credentials have expired, please log out and log in again."
             },
@@ -46,6 +56,12 @@
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
+            },
+            "remove": {
+                "steam": {
+                    "message1": "Could not remove ",
+                    "title": "Removing Error"
+                }
             },
             "title": "Error",
             "update": {
@@ -220,6 +236,12 @@
             "reparing": "Error Repairing"
         },
         "finished": {
+            "add": {
+                "steam": "Added to steam"
+            },
+            "remove": {
+                "steam": "Removed from steam"
+            },
             "reparing": "Finished Repairing"
         },
         "install": {

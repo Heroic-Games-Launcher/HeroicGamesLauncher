@@ -21,6 +21,16 @@
         "customWine": "Оберіть двійковий файл Wine або Proton",
         "default-install-path": "Вкажіть стандартний шлях встановлення",
         "error": {
+            "add": {
+                "remove": {
+                    "message2": " from one of the steam users!\n"
+                },
+                "steam": {
+                    "message1": "Adding of ",
+                    "message2": " failed with:\n",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Термін дії ваших облікових даних скінчився, будь ласка вийдіть і увійдіть знову."
             },
@@ -46,6 +56,12 @@
             "no-offline-mode": {
                 "message": "Запуск перервано! Гра потребує з'єднання з інтернетом.",
                 "title": "Автономний режим не підтримується."
+            },
+            "remove": {
+                "steam": {
+                    "message1": "Could not remove ",
+                    "title": "Removing Error"
+                }
             },
             "title": "Помилка",
             "update": {
@@ -220,6 +236,12 @@
             "reparing": "Помилка під час відновлення"
         },
         "finished": {
+            "add": {
+                "steam": "Added to steam"
+            },
+            "remove": {
+                "steam": "Removed from steam"
+            },
             "reparing": "Відновлення закінчено"
         },
         "install": {

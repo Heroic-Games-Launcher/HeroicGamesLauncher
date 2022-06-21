@@ -21,6 +21,16 @@
         "customWine": "വൈനിന്റെയോ പ്രോട്ടോണിന്റെയോ ഈരക്കരേഖ(Binary file) നല്കൂ",
         "default-install-path": "പൊതു ഇന്സ്റ്റാളിടം തിരഞ്ഞെടുക്കൂ",
         "error": {
+            "add": {
+                "remove": {
+                    "message2": " from one of the steam users!\n"
+                },
+                "steam": {
+                    "message1": "Adding of ",
+                    "message2": " failed with:\n",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "നിങ്ങളെക്കുറിച്ചുള്ള വിവരങ്ങള് പഴകിയിരിക്കുന്നു, പുറത്തുകടന്ന് വീണ്ടും കയറിനോക്കൂ."
             },
@@ -46,6 +56,12 @@
             "no-offline-mode": {
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
+            },
+            "remove": {
+                "steam": {
+                    "message1": "Could not remove ",
+                    "title": "Removing Error"
+                }
             },
             "title": "കുഴപ്പം",
             "update": {
@@ -220,6 +236,12 @@
             "reparing": "നന്നാക്കുന്നതല് പിഴവു പറ്റി"
         },
         "finished": {
+            "add": {
+                "steam": "Added to steam"
+            },
+            "remove": {
+                "steam": "Removed from steam"
+            },
             "reparing": "നന്നാക്കിക്കഴിഞ്ഞു"
         },
         "install": {
