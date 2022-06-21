@@ -1,0 +1,10 @@
+.helpInfo {
+  cursor: default;
+  width: 100%;
+  padding: 12px 22px 12px 22px;
+  font-size: 15px;
+  line-height: 19px;
+  background-color: var(--input-background);
+  border-radius: 10px;
+  text-align: left;
+}
