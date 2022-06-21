@@ -9,6 +9,8 @@ export const app = {
   getPath: jest.fn().mockReturnValue(tmpdir())
 }
 
-export class Notification { 
-  public show() {return}
+export class Notification {
+  public show() {
+    return
+  }
 }
