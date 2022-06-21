@@ -342,8 +342,9 @@ export default function WineSettings({
             {checkdxvkHover && (
               <div className="helpInfo">
                 DXVK is a Vulkan-based translational layer for DirectX 9, 10 and
-                11 games. Enabling may improve compatibility. Might cause issues
-                especially for older DirectX 1-8 games.
+                11 games.<br></br>
+                Enabling may improve compatibility for such games.<br></br>
+                Might cause issues especially for older DirectX games.
               </div>
             )}
           </div>
@@ -378,8 +379,10 @@ export default function WineSettings({
             {checkvkd3dHover && (
               <div className="helpInfo">
                 VKD3D is a Vulkan-based translational layer for DirectX 12
-                games. Enabling may improve compatibility significantly. Has no
-                effect on DiretX 1-11 games.
+                games.<br></br>
+                Enabling may improve compatibility significantly for such games.
+                <br></br>
+                Has no effect on older DirectX games.
               </div>
             )}
           </div>
