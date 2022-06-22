@@ -29,27 +29,27 @@ function showErrorInFrontend(props: {
   adding: boolean
 }) {
   const body = props.adding
-    ? [
-        i18next.t('box.error.add.steam.message1', 'Adding of '),
-        props.gameTitle,
-        i18next.t('box.error.add.steam.message2', ' failed with:'),
-        '\n',
-        props.error
-      ].join('')
-    : [
-        i18next.t('box.error.remove.steam.message1', 'Could not remove '),
-        props.gameTitle,
-        i18next.t(
-          'box.error.remove.steam.message2',
-          ' from one of the steam users!'
-        ),
-        '\n',
-        props.error
-      ].join('')
+    ? i18next.t('box.error.add.steam.body', {
+        defaultValue:
+          'Adding {{game}} to Steam failed with:{{newLine}} {{error}}',
+        game: props.gameTitle,
+        newLine: '\n',
+        error: props.error
+      })
+    : i18next.t('box.error.remove.steam.body', {
+        defaultValue:
+          'Removing {{game}} from Steam failed with:{{newLine}} {{error}}',
+        game: props.gameTitle,
+        newLine: '\n',
+        error: props.error
+      })
 
   const title = props.adding
-    ? i18next.t('box.error.add.steam.title', 'Adding Error')
-    : i18next.t('box.error.remove.steam.title', 'Removing Error')
+    ? i18next.t('box.error.add.steam.title', 'Error Adding Game to Steam')
+    : i18next.t(
+        'box.error.remove.steam.title',
+        'Error Removing Game from Steam'
+      )
 
   dialog.showErrorBox(title, body)
 }
@@ -60,8 +60,8 @@ function showErrorInFrontend(props: {
  */
 function notifyFrontend(props: { message: string; adding: boolean }) {
   const title = props.adding
-    ? i18next.t('notify.finished.add.steam', 'Added to steam')
-    : i18next.t('notify.finished.remove.steam', 'Removed from steam')
+    ? i18next.t('notify.finished.add.steam.title', 'Added to Steam')
+    : i18next.t('notify.finished.remove.steam.title', 'Removed from Steam')
 
   new Notification({
     body: props.message,
@@ -81,7 +81,7 @@ function checkSteamUserDataDir(steamUserdataDir: string): {
   if (!existsSync(steamUserdataDir)) {
     return {
       folders: undefined,
-      error: `${steamUserdataDir} does not exist. Can't add/remove game to/from steam!`
+      error: `${steamUserdataDir} does not exist. Can't add/remove game to/from Steam!`
     }
   }
 
@@ -124,9 +124,17 @@ function readShortcutFile(file: string): Partial<ShortcutObject> {
  * @param object @see Partial<ShortcutObject>
  * @returns none
  */
-function writeShortcutFile(file: string, object: Partial<ShortcutObject>) {
+function writeShortcutFile(
+  file: string,
+  object: Partial<ShortcutObject>
+): string {
   const buffer = writeBuffer(object)
-  writeFileSync(file, buffer)
+  try {
+    writeFileSync(file, buffer)
+    return undefined
+  } catch (error) {
+    return `${error}`
+  }
 }
 
 /**
@@ -193,6 +201,7 @@ async function addNonSteamGame(props: {
   const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
 
   if (error) {
+    logError(error, LogPrefix.Shortcuts)
     showErrorInFrontend({
       gameTitle: props.gameInfo.title,
       error,
@@ -224,7 +233,7 @@ async function addNonSteamGame(props: {
       const checkResult = checkIfShortcutObjectIsValid(content)
       if (!checkResult.success) {
         errors.push(
-          `Can't add "${props.gameInfo.title}" to steam user "${folder}". "${shortcutsFile}" is corrupted!`,
+          `Can't add "${props.gameInfo.title}" to Steam user "${folder}". "${shortcutsFile}" is corrupted!`,
           ...checkResult.errors
         )
         continue
@@ -277,7 +286,12 @@ async function addNonSteamGame(props: {
       content.shortcuts.push(newEntry)
 
       // rewrite shortcuts.vdf
-      writeShortcutFile(shortcutsFile, content)
+      const writeError = writeShortcutFile(shortcutsFile, content)
+
+      if (writeError) {
+        errors.push(writeError)
+        continue
+      }
 
       added = true
     }
@@ -291,13 +305,28 @@ async function addNonSteamGame(props: {
     }
 
     if (errors.length === 0) {
-      const message = `${props.gameInfo.title} was successfully added to steam.`
-      logInfo(message, LogPrefix.Shortcuts)
+      logInfo(
+        `${props.gameInfo.title} was successfully added to Steam.`,
+        LogPrefix.Shortcuts
+      )
+
+      const message = i18next.t('notify.finished.add.steam.body1', {
+        defaultValue: '{{game}} was successfully added to Steam.',
+        game: props.gameInfo.title
+      })
       notifyFrontend({ message, adding: true })
     } else {
-      const message = `${props.gameInfo.title} could not be added to all found steam users. See logs for more info.`
-      logWarning(message, LogPrefix.Shortcuts)
+      logWarning(
+        `${props.gameInfo.title} could not be added to all found Steam users.`,
+        LogPrefix.Shortcuts
+      )
       logError(errors.join('\n'), LogPrefix.Shortcuts)
+
+      const message = i18next.t('notify.finished.add.steam.body2', {
+        defaultValue:
+          '{{game}} could not be added to all found Steam users. See logs for more info.',
+        game: props.gameInfo.title
+      })
       notifyFrontend({ message, adding: true })
     }
   }
@@ -316,6 +345,7 @@ async function removeNonSteamGame(props: {
   const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
 
   if (error) {
+    logError(error, LogPrefix.Shortcuts)
     showErrorInFrontend({
       gameTitle: props.gameInfo.title,
       error,
@@ -336,7 +366,7 @@ async function removeNonSteamGame(props: {
       const checkResult = checkIfShortcutObjectIsValid(content)
       if (!checkResult.success) {
         errors.push(
-          `Can't remove "${props.gameInfo.title}" from steam user "${folder}". "${shortcutsFile}" is corrupted!`,
+          `Can't remove "${props.gameInfo.title}" from Steam user "${folder}". "${shortcutsFile}" is corrupted!`,
           ...checkResult.errors
         )
         continue
@@ -352,17 +382,36 @@ async function removeNonSteamGame(props: {
       content.shortcuts.splice(index, 1)
 
       // rewrite shortcuts.vdf
-      writeShortcutFile(shortcutsFile, content)
+      const writeError = writeShortcutFile(shortcutsFile, content)
+
+      if (writeError) {
+        errors.push(writeError)
+      }
     }
 
     if (errors.length === 0) {
-      const message = `${props.gameInfo.title} was successfully removed from steam.`
-      logInfo(message, LogPrefix.Shortcuts)
+      logInfo(
+        `${props.gameInfo.title} was successfully removed from Steam.`,
+        LogPrefix.Shortcuts
+      )
+
+      const message = i18next.t('notify.finished.remove.steam.body1', {
+        defaultValue: '{{game}} was successfully removed to Steam.',
+        game: props.gameInfo.title
+      })
       notifyFrontend({ message, adding: false })
     } else {
-      const message = `${props.gameInfo.title} could not be removed from all found steam users. See logs for more info.`
-      logWarning(message, LogPrefix.Shortcuts)
+      logWarning(
+        `${props.gameInfo.title} could not be removed from all found Steam users.`,
+        LogPrefix.Shortcuts
+      )
       logError(errors.join('\n'), LogPrefix.Shortcuts)
+
+      const message = i18next.t('notify.finished.remove.steam.body2', {
+        defaultValue:
+          '{{game}}  could not be removed from all found Steam users. See logs for more info.',
+        game: props.gameInfo.title
+      })
       notifyFrontend({ message, adding: false })
     }
   }

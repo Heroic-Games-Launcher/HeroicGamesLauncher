@@ -199,7 +199,7 @@ export default function GamesSubmenu({
               onClick={() => handleAddToSteam()}
               className="link button is-text is-link"
             >
-              {t('submenu.addToSteam', 'Add to steam')}
+              {t('submenu.addToSteam', 'Add to Steam')}
             </button>
           </>
         )}
