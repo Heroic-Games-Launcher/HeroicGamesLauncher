@@ -20,6 +20,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { Tooltip } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { configStore } from 'src/helpers/electronStores'
 
 const { ipcRenderer } = window.require('electron')
@@ -88,23 +89,6 @@ export default function WineSettings({
   const isLinux = platform === 'linux'
   const isProton = wineVersion.type === 'proton'
   const home = configStore.get('userHome', '')
-
-  //Hovering (DXVK & VKD3D)
-  const [checkdxvkHover, setdxvkHovering] = useState(false)
-  const setdxvkMouseHover = () => {
-    setdxvkHovering(true)
-  }
-  const setdxvkMouseAbsent = () => {
-    setdxvkHovering(false)
-  }
-
-  const [checkvkd3dHover, setvkd3dHovering] = useState(false)
-  const setvkd3dMouseHover = () => {
-    setvkd3dHovering(true)
-  }
-  const setvkd3dMouseAbsent = () => {
-    setvkd3dHovering(false)
-  }
 
   if (winePrefix === '') {
     winePrefix = `${home}/.wine`
@@ -316,75 +300,64 @@ export default function WineSettings({
 
       {isLinux && !isProton && (
         <div>
-          <div>
-            <div
-              onMouseOver={setdxvkMouseHover}
-              onMouseOut={setdxvkMouseAbsent}
-            >
-              <ToggleSwitch
-                htmlId="autodxvk"
-                value={autoInstallDxvk}
-                handleChange={() => {
-                  const action = autoInstallDxvk ? 'restore' : 'backup'
-                  ipcRenderer.send('toggleDXVK', [
-                    { winePrefix, winePath: wineVersion.bin },
-                    action
-                  ])
-                  return toggleAutoInstallDxvk()
-                }}
-                title={t(
-                  'setting.autodxvk',
-                  'Auto Install/Update DXVK on Prefix'
-                )}
-              />
-            </div>
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="autodxvk"
+              value={autoInstallDxvk}
+              handleChange={() => {
+                const action = autoInstallDxvk ? 'restore' : 'backup'
+                ipcRenderer.send('toggleDXVK', [
+                  { winePrefix, winePath: wineVersion.bin },
+                  action
+                ])
+                return toggleAutoInstallDxvk()
+              }}
+              title={t(
+                'setting.autodxvk',
+                'Auto Install/Update DXVK on Prefix'
+              )}
+            />
 
-            {checkdxvkHover && (
-              <div className="helpInfo">
-                DXVK is a Vulkan-based translational layer for DirectX 9, 10 and
-                11 games.<br></br>
-                Enabling may improve compatibility for such games.<br></br>
-                Might cause issues especially for older DirectX games.
-              </div>
-            )}
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.dxvk',
+                'DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.'
+              )}
+            />
           </div>
         </div>
       )}
 
       {isLinux && !isProton && (
         <div>
-          <div>
-            <div
-              onMouseOver={setvkd3dMouseHover}
-              onMouseOut={setvkd3dMouseAbsent}
-            >
-              <ToggleSwitch
-                htmlId="autovkd3d"
-                value={autoInstallVkd3d}
-                handleChange={() => {
-                  const action = autoInstallVkd3d ? 'restore' : 'backup'
-                  ipcRenderer.send('toggleVKD3D', [
-                    { winePrefix, winePath: wineVersion.bin },
-                    action
-                  ])
-                  return toggleAutoInstallVkd3d()
-                }}
-                title={t(
-                  'setting.autovkd3d',
-                  'Auto Install/Update VKD3D on Prefix'
-                )}
-              />
-            </div>
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="autovkd3d"
+              value={autoInstallVkd3d}
+              handleChange={() => {
+                const action = autoInstallVkd3d ? 'restore' : 'backup'
+                ipcRenderer.send('toggleVKD3D', [
+                  { winePrefix, winePath: wineVersion.bin },
+                  action
+                ])
+                return toggleAutoInstallVkd3d()
+              }}
+              title={t(
+                'setting.autovkd3d',
+                'Auto Install/Update VKD3D on Prefix'
+              )}
+            />
 
-            {checkvkd3dHover && (
-              <div className="helpInfo">
-                VKD3D is a Vulkan-based translational layer for DirectX 12
-                games.<br></br>
-                Enabling may improve compatibility significantly for such games.
-                <br></br>
-                Has no effect on older DirectX games.
-              </div>
-            )}
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.vkd3d',
+                'VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.'
+              )}
+            />
           </div>
         </div>
       )}
