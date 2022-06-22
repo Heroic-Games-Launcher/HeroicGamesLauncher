@@ -23,8 +23,7 @@
         "error": {
             "add": {
                 "steam": {
-                    "message1": "Adding of ",
-                    "message2": " failed with:",
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
                     "title": "Adding Error"
                 }
             },
@@ -56,8 +55,7 @@
             },
             "remove": {
                 "steam": {
-                    "message1": "Could not remove ",
-                    "message2": " from one of the steam users!",
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
                     "title": "Removing Error"
                 }
             },
@@ -235,10 +233,18 @@
         },
         "finished": {
             "add": {
-                "steam": "Added to steam"
+                "steam": {
+                    "body1": "{{game}} was successfully added to Steam.",
+                    "body2": "{{game}} could not be added to all found Steam users. See logs for more info.",
+                    "title": "Added to Steam"
+                }
             },
             "remove": {
-                "steam": "Removed from steam"
+                "steam": {
+                    "body1": "{{game}} was successfully removed to Steam.",
+                    "body2": "{{game}}  could not be removed from all found Steam users. See logs for more info.",
+                    "title": "Removed from Steam"
+                }
             },
             "reparing": "Naprawa zakończona"
         },
