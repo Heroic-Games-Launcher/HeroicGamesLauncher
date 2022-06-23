@@ -26,14 +26,14 @@ interface Props {
   launcherArgs: string
   canRunOffline: boolean
   offlineMode: boolean
-  otherOptions: {values: string[]}[]
+  otherOptions: { values: string[] }[]
   primeRun: boolean
   addDesktopShortcuts: boolean
   addGamesToStartMenu: boolean
   discordRPC: boolean
   setLanguageCode: (value: string) => void
   setLauncherArgs: (value: string) => void
-  setOtherOptions: (value: {values: string[]}[]) => void
+  setOtherOptions: (value: { values: string[] }[]) => void
   setMaxRecentGames: (value: number) => void
   setTargetExe: (value: string) => void
   showFps: boolean
@@ -279,19 +279,15 @@ export default function OtherSettings({
         </SelectField>
       )}
       {!isWin && (
-        // <TextInputField
-        //   label={t('options.advanced.title')}
-        //   htmlId="otherOptions"
-        //   placeholder={t('options.advanced.placeholder')}
-        //   value={otherOptions}
-        //   onChange={handleOtherOptions}
-        //   afterInput={info}
-        // />
-        <TableInput {...{
-          header: ['Key', 'Value'], 
-          rows: otherOptions, 
-          onChange: (options: {values: string[]}[]) => setOtherOptions(options), 
-          inputPlaceHolder: ['ENV', '1234']}}/>
+        <TableInput
+          {...{
+            header: ['Key', 'Value'],
+            rows: otherOptions,
+            onChange: (options: { values: string[] }[]) =>
+              setOtherOptions(options),
+            inputPlaceHolder: ['ENV', '1234']
+          }}
+        />
       )}
       {!isDefault && (
         <TextInputField

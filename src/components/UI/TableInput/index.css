@@ -1,0 +1,24 @@
+.TableInputDiv {
+  width: 100%;
+}
+
+table,
+th,
+td {
+  border: 1px solid var(--accent);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  color: var(--accent);
+  display: table-cell;
+  size: 100px;
+}
+
+tr:nth-child(even) {
+  background-color: var(--input-background);
+}
