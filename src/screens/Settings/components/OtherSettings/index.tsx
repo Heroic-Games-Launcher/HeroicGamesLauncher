@@ -105,9 +105,11 @@ export default function OtherSettings({
 
   const otherOptions_info = (
     <InfoBox text="infobox.help">
-      {t('help.other.part1')}
-      <strong>{`${t('help.other.part2')} `}</strong>
-      {t('help.other.part3')}
+      <span>
+        {t('help.other.part1')}
+        <strong>{t('help.other.part2')}</strong>
+        {t('help.other.part3')}
+      </span>
     </InfoBox>
   )
 
