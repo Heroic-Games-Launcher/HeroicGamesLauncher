@@ -354,7 +354,7 @@ class LegendaryGame extends Game {
   private getSdlList(sdlList: Array<string>) {
     return [
       // Legendary needs an empty tag for it to download the other needed files
-      '--install-tag=""',
+      '--install-tag=',
       ...sdlList.map((tag) => `--install-tag=${tag}`)
     ]
   }
