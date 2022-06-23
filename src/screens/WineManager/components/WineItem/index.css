@@ -26,7 +26,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr 1fr min-content;
   grid-template-areas: 'name date size action';
-  height: 8vh;
+  height: fit-content;
   margin: 1em 3em;
   align-items: center;
   justify-items: baseline;
