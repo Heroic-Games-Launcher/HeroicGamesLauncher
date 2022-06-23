@@ -461,7 +461,7 @@ class GlobalConfigV0 extends GlobalConfig {
       maxWorkers: 0,
       minimizeOnLaunch: false,
       nvidiaPrime: false,
-      otherOptions: '',
+      otherOptions: [{ values: [] }],
       showUnrealMarket: false,
       showFps: false,
       useGameMode: false,

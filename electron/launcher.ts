@@ -241,15 +241,9 @@ function setupEnvVars(gameSettings: GameSettings) {
     ret.PULSE_LATENCY_MSEC = '60'
   }
   if (gameSettings.otherOptions) {
-    gameSettings.otherOptions
-      .split(' ')
-      .filter((val) => val.indexOf('=') !== -1)
-      .forEach((envKeyAndVar) => {
-        const keyAndValueSplit = envKeyAndVar.split('=')
-        const key = keyAndValueSplit.shift()
-        const value = keyAndValueSplit.join('=')
-        ret[key] = value
-      })
+    gameSettings.otherOptions.forEach((env) => {
+      ret[env.values.at(0)] = env.values.at(1)
+    })
   }
 
   return ret
@@ -298,7 +292,11 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.PROTON_LOG_DIR = flatPakHome
 
     // Only set WINEDEBUG if PROTON_LOG is set since Proton will also log if just WINEDEBUG is set
-    if (gameSettings.otherOptions.includes('PROTON_LOG=')) {
+    if (
+      gameSettings.otherOptions.find((env) =>
+        env.values.find((value) => value === 'PROTON_LOG')
+      )
+    ) {
       // Stop Proton from overriding WINEDEBUG; this prevents logs growing to a few GB for some games
       ret.WINEDEBUG = 'timestamp'
     }
@@ -315,12 +313,9 @@ function setupWrappers(
   const wrappers = Array<string>()
   // Wrappers could be specified in the environment variable section as well
   if (gameSettings.otherOptions) {
-    gameSettings.otherOptions
-      .split(' ')
-      .filter((val) => val.indexOf('=') === -1)
-      .forEach((val) => {
-        wrappers.push(val)
-      })
+    gameSettings.otherOptions.forEach((env) => {
+      wrappers.push(...env.values)
+    })
   }
   if (gameSettings.showMangohud) {
     // Mangohud needs some arguments in addition to the command, so we have to split here

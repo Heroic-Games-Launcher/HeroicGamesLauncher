@@ -15,6 +15,7 @@ import Backspace from '@mui/icons-material/Backspace'
 import { getGameInfo } from 'src/helpers'
 
 import { ipcRenderer } from 'src/helpers'
+import { TableInput } from 'src/components/UI/TableInput'
 
 interface Props {
   audioFix: boolean
@@ -25,14 +26,14 @@ interface Props {
   launcherArgs: string
   canRunOffline: boolean
   offlineMode: boolean
-  otherOptions: string
+  otherOptions: {values: string[]}[]
   primeRun: boolean
   addDesktopShortcuts: boolean
   addGamesToStartMenu: boolean
   discordRPC: boolean
   setLanguageCode: (value: string) => void
   setLauncherArgs: (value: string) => void
-  setOtherOptions: (value: string) => void
+  setOtherOptions: (value: {values: string[]}[]) => void
   setMaxRecentGames: (value: number) => void
   setTargetExe: (value: string) => void
   showFps: boolean
@@ -93,8 +94,6 @@ export default function OtherSettings({
   isProton,
   appName
 }: Props) {
-  const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
-    setOtherOptions(event.currentTarget.value)
   const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
     setLauncherArgs(event.currentTarget.value)
   const handleLanguageCode = (event: ChangeEvent<HTMLInputElement>) =>
@@ -280,14 +279,19 @@ export default function OtherSettings({
         </SelectField>
       )}
       {!isWin && (
-        <TextInputField
-          label={t('options.advanced.title')}
-          htmlId="otherOptions"
-          placeholder={t('options.advanced.placeholder')}
-          value={otherOptions}
-          onChange={handleOtherOptions}
-          afterInput={info}
-        />
+        // <TextInputField
+        //   label={t('options.advanced.title')}
+        //   htmlId="otherOptions"
+        //   placeholder={t('options.advanced.placeholder')}
+        //   value={otherOptions}
+        //   onChange={handleOtherOptions}
+        //   afterInput={info}
+        // />
+        <TableInput {...{
+          header: ['Key', 'Value'], 
+          rows: otherOptions, 
+          onChange: (options: {values: string[]}[]) => setOtherOptions(options), 
+          inputPlaceHolder: ['ENV', '1234']}}/>
       )}
       {!isDefault && (
         <TextInputField

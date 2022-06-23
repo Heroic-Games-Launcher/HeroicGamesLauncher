@@ -32,7 +32,7 @@ export interface AppSettings {
   minimizeOnLaunch: boolean
   nvidiaPrime: boolean
   offlineMode: boolean
-  otherOptions: string
+  otherOptions: { values: string[] }[]
   savesPath: string
   showFps: boolean
   showMangohud: boolean
@@ -173,7 +173,7 @@ export interface GameSettings {
   launcherArgs: string
   nvidiaPrime: boolean
   offlineMode: boolean
-  otherOptions: string
+  otherOptions: { values: string[] }[]
   savesPath: string
   showFps: boolean
   showMangohud: boolean

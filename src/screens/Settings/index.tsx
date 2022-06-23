@@ -56,7 +56,7 @@ function Settings() {
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [defaultWinePrefix, setDefaultWinePrefix] = useState('')
   const [targetExe, setTargetExe] = useState('')
-  const [otherOptions, setOtherOptions] = useState('')
+  const [otherOptions, setOtherOptions] = useState<{values: string[]}[]>()
   const [launcherArgs, setLauncherArgs] = useState('')
   const [languageCode, setLanguageCode] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
@@ -490,7 +490,7 @@ function Settings() {
           {isWineSettings && !isDefault && <Tools appName={appName} />}
           {isOtherSettings && (
             <OtherSettings
-              otherOptions={otherOptions}
+              otherOptions={otherOptions ?? [{values: []}]}
               setOtherOptions={setOtherOptions}
               launcherArgs={launcherArgs}
               setLauncherArgs={setLauncherArgs}
