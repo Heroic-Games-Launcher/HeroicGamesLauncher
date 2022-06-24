@@ -153,26 +153,15 @@ function checkIfShortcutObjectIsValid(
   } else {
     checkResult.success = true
     object.shortcuts.forEach((entry) => {
-      if (entry.AppName === undefined) {
-        checkResult.errors.push(
-          'One of the game entries is missing the AppName parameter!'
-        )
-        checkResult.success = false
-      }
-
-      if (entry.Exe === undefined) {
-        checkResult.errors.push(
-          'One of the game entries is missing the Exe parameter!'
-        )
-        checkResult.success = false
-      }
-
-      if (entry.LaunchOptions === undefined) {
-        checkResult.errors.push(
-          'One of the game entries is missing the LaunchOptions parameter!'
-        )
-        checkResult.success = false
-      }
+      const keysToCheck = ['AppName', 'Exe', 'LaunchOptions']
+      keysToCheck.forEach((key: string) => {
+        if (!(key in entry)) {
+          checkResult.errors.push(
+            `One of the game entries is missing the ${key} parameter!`
+          )
+          checkResult.success = false
+        }
+      })
     })
   }
 
@@ -207,6 +196,7 @@ async function addNonSteamGame(props: {
       error,
       adding: true
     })
+    return
   } else {
     const errors = []
     let added = false
@@ -351,6 +341,7 @@ async function removeNonSteamGame(props: {
       error,
       adding: false
     })
+    return
   } else {
     const errors = []
     for (const folder of folders) {

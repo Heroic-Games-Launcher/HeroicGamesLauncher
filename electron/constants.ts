@@ -1,5 +1,5 @@
 import { homedir, platform } from 'os'
-import { join } from 'path'
+import { join, normalize } from 'path'
 import Store from 'electron-store'
 import { parse } from '@node-steam/vdf'
 
@@ -111,18 +111,17 @@ function fixAsarPath(origin: string): string {
 export function getSteamCompatFolder() {
   // Paths are from https://savelocation.net/steam-game-folder
   if (isWindows) {
-    return join('C:/Program Files (x86)/Steam')
+    return normalize(join('C:/Program Files (x86)/Steam'))
   } else if (isMac) {
-    return join(userHome, 'Library/Application Support/Steam')
+    return normalize(join(userHome, 'Library/Application Support/Steam'))
   } else {
-    const flatpakSteamPath = join(
-      userHome,
-      '.var/app/com.valvesoftware.Steam/.steam/steam'
+    const flatpakSteamPath = normalize(
+      join(userHome, '.var/app/com.valvesoftware.Steam/.steam/steam')
     )
     if (existsSync(flatpakSteamPath)) {
       return flatpakSteamPath
     }
-    return join(userHome, '.steam/steam')
+    return normalize(join(userHome, '.steam/steam'))
   }
 }
 

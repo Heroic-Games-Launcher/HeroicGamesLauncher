@@ -138,7 +138,7 @@ export class GOGLibrary {
     )
 
     if (!game) return null
-    const installedInfo = this.installedGames.get(String(game.app_name))
+    const installedInfo = this.installedGames.get(game.app_name)
     if (installedInfo) {
       game.is_installed = true
       game.install = installedInfo
