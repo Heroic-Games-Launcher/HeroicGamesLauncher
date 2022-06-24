@@ -568,12 +568,7 @@ function isSteamDeckInGamingMode(): boolean {
   // Credits for this implementation go to https://gitlab.com/parallel-launcher/parallel-launcher
 
   // Check if we're on a Deck by reading out /etc/os-release
-  let osReleasePath = '/etc/os-release'
-  // Just in case someone is *not* running the Flatpak
-  if (isFlatpak) {
-    osReleasePath = '/run/host' + osReleasePath
-  }
-
+  const osReleasePath = isFlatpak ? '/run/host/os-release' : '/etc/os-release'
   const fileContent = readFileSync(osReleasePath).toString()
   const foundDeckVariant = fileContent.split('\n').find((line: string) => {
     const [key, value] = line.split('=')
