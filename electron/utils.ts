@@ -574,12 +574,11 @@ function isSteamDeckInGamingMode(): boolean {
     osReleasePath = '/run/host' + osReleasePath
   }
 
-  let foundDeckVariant = false
-  const fileContent = readFileSync(osReleasePath).toString() // 'utf-8' is default
+  const fileContent = readFileSync(osReleasePath).toString()
   const foundDeckVariant = fileContent.split('\n').find((line: string) => {
     const [key, value] = line.split('=')
-    return key === 'VARIANT_ID' && value ==='steamdeck'
-  }
+    return key === 'VARIANT_ID' && value === 'steamdeck'
+  })
   if (!foundDeckVariant) {
     // We're not on Deck
     logDebug('Not on a Deck', LogPrefix.Backend)
