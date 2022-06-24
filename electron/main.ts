@@ -108,7 +108,10 @@ async function createWindow(): Promise<BrowserWindow> {
     y: 0
   }
 
-  if (configStore.has('window-props')) {
+  if (isSteamDeckInGamingMode()) {
+    windowProps.width = 1280
+    windowProps.height = 800
+  } else if (configStore.has('window-props')) {
     const tmpWindowProps = configStore.get(
       'window-props',
       {}
@@ -133,11 +136,6 @@ async function createWindow(): Promise<BrowserWindow> {
     if (screenInfo.workAreaSize.width > windowProps.width) {
       windowProps.width = screenInfo.workAreaSize.width * 0.8
     }
-  }
-
-  if (isSteamDeckInGamingMode()) {
-    windowProps.width = 1280
-    windowProps.height = 800
   }
 
   // Create the browser window.
@@ -171,8 +169,10 @@ async function createWindow(): Promise<BrowserWindow> {
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
-    // store windows properties
-    configStore.set('window-props', mainWindow.getBounds())
+    if (!isSteamDeckInGamingMode()) {
+      // store windows properties
+      configStore.set('window-props', mainWindow.getBounds())
+    }
 
     const { exitToTray } = GlobalConfig.get().config
 
