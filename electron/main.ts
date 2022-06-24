@@ -61,7 +61,8 @@ import {
   getLegendaryBin,
   getGOGdlBin,
   showErrorBoxModal,
-  getFileSize
+  getFileSize,
+  isSteamDeckInGamingMode
 } from './utils'
 import {
   configStore,
@@ -132,6 +133,11 @@ async function createWindow(): Promise<BrowserWindow> {
     if (screenInfo.workAreaSize.width > windowProps.width) {
       windowProps.width = screenInfo.workAreaSize.width * 0.8
     }
+  }
+
+  if (isSteamDeckInGamingMode()) {
+    windowProps.width = 1280
+    windowProps.height = 800
   }
 
   // Create the browser window.

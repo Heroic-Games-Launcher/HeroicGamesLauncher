@@ -3,7 +3,7 @@ import { WineInstallation } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec } from 'child_process'
-import { existsSync, rmSync, stat } from 'graceful-fs'
+import { existsSync, readFileSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import si from 'systeminformation'
@@ -15,9 +15,17 @@ import {
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
+  isFlatpak,
+  isLinux,
   isWindows
 } from './constants'
-import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from './logger/logger'
 import { basename, dirname, join } from 'path'
 import { runLegendaryCommand } from './legendary/library'
 import { runGogdlCommand } from './gog/library'
@@ -549,6 +557,47 @@ function quoteIfNecessary(stringToQuote: string) {
   return stringToQuote
 }
 
+/**
+ * Checks if we're (1) on a Steam Deck and (2) running in Gaming Mode
+ */
+function isSteamDeckInGamingMode(): boolean {
+  if (!isLinux) {
+    return false
+  }
+
+  // Credits for this implementation go to https://gitlab.com/parallel-launcher/parallel-launcher
+
+  // Check if we're on a Deck by reading out /etc/os-release
+  let osReleasePath = '/etc/os-release'
+  // Just in case someone is *not* running the Flatpak
+  if (isFlatpak) {
+    osReleasePath = '/run/host' + osReleasePath
+  }
+
+  let foundDeckVariant = false
+  for (const line of readFileSync(osReleasePath, 'utf-8').split('\n')) {
+    const [key, value] = `${line}`.split('=')
+    if (key === 'VARIANT_ID') {
+      foundDeckVariant = value === 'steamdeck'
+      break
+    }
+  }
+  if (!foundDeckVariant) {
+    // We're not on Deck
+    logDebug('Not on a Deck', LogPrefix.Backend)
+    return false
+  }
+
+  const inGamingMode = 'SteamEnv' in process.env
+  logDebug(
+    inGamingMode
+      ? 'On a Deck & in Gaming Mode'
+      : 'On a Deck, but not in Gaming Mode',
+    LogPrefix.Backend
+  )
+  return inGamingMode
+}
+
 export {
   errorHandler,
   execAsync,
@@ -570,5 +619,6 @@ export {
   searchForExecutableOnPath,
   getSteamRuntime,
   constructAndUpdateRPC,
-  quoteIfNecessary
+  quoteIfNecessary,
+  isSteamDeckInGamingMode
 }
