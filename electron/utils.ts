@@ -569,10 +569,9 @@ function isSteamDeckInGamingMode(): boolean {
 
   // Check if we're on a Deck by reading out /etc/os-release
   const osReleasePath = isFlatpak ? '/run/host/os-release' : '/etc/os-release'
-  const fileContent = readFileSync(osReleasePath).toString()
+  const fileContent = readFileSync(osReleasePath, 'utf-8')
   const foundDeckVariant = fileContent.split('\n').find((line: string) => {
-    const [key, value] = line.split('=')
-    return key === 'VARIANT_ID' && value === 'steamdeck'
+    return line.replaceAll(' ', '').includes('VARIANT_ID=steamdeck')
   })
   if (!foundDeckVariant) {
     // We're not on Deck
