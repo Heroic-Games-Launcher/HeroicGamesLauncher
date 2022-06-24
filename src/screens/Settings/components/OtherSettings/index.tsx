@@ -297,8 +297,7 @@ export default function OtherSettings({
           rows={enviromentOptions}
           onChange={(envs: EnviromentVariable[]) => {
             setEnviromentOptions([...envs])
-          }
-          }
+          }}
           inputPlaceHolder={
             {
               key: t('options.advanced.placeHolderKey', 'ENVIORMENT'),

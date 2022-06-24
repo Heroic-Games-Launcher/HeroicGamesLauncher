@@ -31,8 +31,7 @@ export function TableInput<ArgType>({
   const [valueInputs, setValueInputs] = useState<ArgType>()
 
   function addRow(row: ArgType) {
-    if(row && Object.values(row).every((value) => value ?? false))
-    {
+    if (row && Object.values(row).every((value) => value ?? false)) {
       rowData.push(row)
       setRowData([...rowData])
       onChange(rowData)
@@ -69,7 +68,7 @@ export function TableInput<ArgType>({
                 <tr key={key}>
                   {!!Object.values(row).length &&
                     Object.values(row).map((value: string, key) => {
-                        return <td key={key}>{value}</td>
+                      return <td key={key}>{value}</td>
                     })}
                   <td>
                     <SvgButton onClick={() => removeRow(row)}>
@@ -88,7 +87,7 @@ export function TableInput<ArgType>({
             })}
         </tbody>
       </table>
-      <div className='TableInputDiv'>
+      <div className="TableInputDiv">
         {!!Object.values(header).length &&
           Object.values(header).map((entry: string, key) => {
             return (
@@ -98,18 +97,20 @@ export function TableInput<ArgType>({
                   label: `${entry}:`,
                   value: valueInputs ? Object.values(valueInputs).at(key) : '',
                   htmlId: 'otherOptionsInput',
-                  placeholder: inputPlaceHolder ? Object.values(inputPlaceHolder).at(key) : '',
+                  placeholder: inputPlaceHolder
+                    ? Object.values(inputPlaceHolder).at(key)
+                    : '',
                   onChange: (event) => {
-                    const tmp = valueInputs ?? {} as ArgType
+                    const tmp = valueInputs ?? ({} as ArgType)
                     tmp[entry] = event.target.value
-                    setValueInputs({...tmp})
+                    setValueInputs({ ...tmp })
                   }
                 }}
               />
             )
           })}
         <SvgButton
-          onClick={() => addRow(valueInputs ?? {} as ArgType)}
+          onClick={() => addRow(valueInputs ?? ({} as ArgType))}
           className={`is-primary`}
         >
           <AddBoxIcon

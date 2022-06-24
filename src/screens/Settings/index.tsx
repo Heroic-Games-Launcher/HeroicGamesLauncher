@@ -2,7 +2,12 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings, EnviromentVariable, Runner, WineInstallation } from 'src/types'
+import {
+  AppSettings,
+  EnviromentVariable,
+  Runner,
+  WineInstallation
+} from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'src/helpers'
@@ -56,7 +61,9 @@ function Settings() {
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [defaultWinePrefix, setDefaultWinePrefix] = useState('')
   const [targetExe, setTargetExe] = useState('')
-  const [enviromentOptions, setEnviromentOptions] = useState<EnviromentVariable[]>([])
+  const [enviromentOptions, setEnviromentOptions] = useState<
+    EnviromentVariable[]
+  >([])
   const [wrapperOptions, setWrapperOptions] = useState<string>('')
   const [launcherArgs, setLauncherArgs] = useState('')
   const [languageCode, setLanguageCode] = useState('')
