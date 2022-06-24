@@ -88,13 +88,13 @@ export function TableInput<ArgType>({
         </tbody>
       </table>
       <div className="TableInputDiv">
-        {!!Object.values(header).length &&
-          Object.values(header).map((entry: string, key) => {
+        {!!Object.keys(header).length &&
+          Object.keys(header).map((entry: string, key) => {
             return (
               <TextInputField
                 key={key}
                 {...{
-                  label: `${entry}:`,
+                  label: `${header[entry]}:`,
                   value: valueInputs ? Object.values(valueInputs).at(key) : '',
                   htmlId: 'otherOptionsInput',
                   placeholder: inputPlaceHolder

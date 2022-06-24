@@ -38,9 +38,7 @@ import {
   CallRunnerOptions,
   GameInfo,
   Runner,
-  EnviromentVariable
-} from './types'
-import {
+  EnviromentVariable,
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
@@ -247,10 +245,9 @@ function setupEnvVars(gameSettings: GameSettings) {
   }
   if (gameSettings.enviromentOptions) {
     gameSettings.enviromentOptions.forEach((envEntry: EnviromentVariable) => {
-      ret[envEntry.key] = envEntry.value
+      ret[envEntry.key] = quoteIfNecessary(envEntry.value)
     })
   }
-
   return ret
 }
 
