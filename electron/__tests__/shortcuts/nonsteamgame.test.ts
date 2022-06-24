@@ -308,7 +308,7 @@ describe('NonSteamGame', () => {
   )
 
   test('Test for shortcuts.vdf provided by users/dev', async () => {
-    const userFiles = ['shortcuts_commandmc.vdf']
+    const userFiles = ['shortcuts_commandmc.vdf', 'shortcuts_redromnon.vdf']
 
     for (const file of userFiles) {
       copyTestFile(file)
