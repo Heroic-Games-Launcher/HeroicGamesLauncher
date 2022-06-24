@@ -10,7 +10,7 @@ import {
   TextInputWithIconField
 } from 'src/components/UI'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
-import { Path } from 'src/types'
+import { EnviromentVariable, Path } from 'src/types'
 import Backspace from '@mui/icons-material/Backspace'
 import { getGameInfo } from 'src/helpers'
 
@@ -26,14 +26,16 @@ interface Props {
   launcherArgs: string
   canRunOffline: boolean
   offlineMode: boolean
-  otherOptions: { values: string[] }[]
+  enviromentOptions: EnviromentVariable[]
+  wrapperOptions: string
   primeRun: boolean
   addDesktopShortcuts: boolean
   addGamesToStartMenu: boolean
   discordRPC: boolean
   setLanguageCode: (value: string) => void
   setLauncherArgs: (value: string) => void
-  setOtherOptions: (value: { values: string[] }[]) => void
+  setEnviromentOptions: (value: EnviromentVariable[]) => void
+  setWrapperOptions: (value: string) => void
   setMaxRecentGames: (value: number) => void
   setTargetExe: (value: string) => void
   showFps: boolean
@@ -57,8 +59,10 @@ interface Props {
 }
 
 export default function OtherSettings({
-  otherOptions,
-  setOtherOptions,
+  enviromentOptions,
+  setEnviromentOptions,
+  wrapperOptions,
+  setWrapperOptions,
   useGameMode,
   toggleUseGameMode,
   showFps,
@@ -94,6 +98,8 @@ export default function OtherSettings({
   isProton,
   appName
 }: Props) {
+  const handleWrapperOptions = (event: ChangeEvent<HTMLInputElement>) =>
+    setWrapperOptions(event.currentTarget.value)
   const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
     setLauncherArgs(event.currentTarget.value)
   const handleLanguageCode = (event: ChangeEvent<HTMLInputElement>) =>
@@ -280,13 +286,39 @@ export default function OtherSettings({
       )}
       {!isWin && (
         <TableInput
-          {...{
-            header: ['Key', 'Value'],
-            rows: otherOptions,
-            onChange: (options: { values: string[] }[]) =>
-              setOtherOptions(options),
-            inputPlaceHolder: ['ENV', '1234']
-          }}
+          label={t('options.advanced.title')}
+          htmlId={'enviromentOptions'}
+          header={
+            {
+              key: t('options.advanced.key', 'Key'),
+              value: t('options.advanced.vale', 'Value')
+            } as EnviromentVariable
+          }
+          rows={enviromentOptions}
+          onChange={(envs: EnviromentVariable[]) => {
+            setEnviromentOptions([...envs])
+          }
+          }
+          inputPlaceHolder={
+            {
+              key: t('options.advanced.placeHolderKey', 'ENVIORMENT'),
+              value: t(
+                'options.advanced.placeHolderKey',
+                'E.g.: Path/To/ExtraFiles'
+              )
+            } as EnviromentVariable
+          }
+          afterInput={info}
+        />
+      )}
+      {!isWin && (
+        <TextInputField
+          label={t('options.wrapper.title', 'Wrapper additional arguments')}
+          htmlId="wrapperOptions"
+          placeholder={t('options.wrapper.placeholder')}
+          value={wrapperOptions}
+          onChange={handleWrapperOptions}
+          //afterInput={info} // Todo
         />
       )}
       {!isDefault && (

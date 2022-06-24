@@ -572,6 +572,7 @@ class LegendaryGame extends Game {
           ...commandEnv,
           ...setupEnvVars(gameSettings)
         }
+
         wrappers = setupWrappers(
           gameSettings,
           mangoHudCommand,
@@ -610,6 +611,7 @@ class LegendaryGame extends Game {
         ...setupEnvVars(gameSettings),
         ...wineEnvVars
       }
+
       wrappers = setupWrappers(
         gameSettings,
         mangoHudCommand,

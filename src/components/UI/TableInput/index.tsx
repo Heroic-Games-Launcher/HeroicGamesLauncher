@@ -1,38 +1,46 @@
-import React, { useState } from 'react'
+import React, { ReactNode, useContext, useState } from 'react'
 import SvgButton from '../SvgButton'
 import TextInputField from '../TextInputField'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import classnames from 'classnames'
+import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
 
-interface TableInputRow {
-  values: string[]
+interface Props<ArgType> {
+  label: string
+  htmlId: string
+  header: ArgType
+  rows: ArgType[]
+  onChange: (values: ArgType[]) => void
+  inputPlaceHolder?: ArgType
+  afterInput?: ReactNode
 }
 
-interface Props {
-  header: string[]
-  rows: TableInputRow[]
-  onChange: (values: TableInputRow[]) => void
-  inputPlaceHolder?: string[]
-}
-
-export function TableInput({
+export function TableInput<ArgType>({
+  label,
+  htmlId,
   header,
   rows,
   onChange,
-  inputPlaceHolder
-}: Props) {
-  const [rowData, setRowData] = useState<TableInputRow[]>(rows)
-  const [valueInputs, setValueInputs] = useState<string[]>([])
+  inputPlaceHolder,
+  afterInput
+}: Props<ArgType>) {
+  const { isRTL } = useContext(ContextProvider)
+  const [rowData, setRowData] = useState<ArgType[]>(rows)
+  const [valueInputs, setValueInputs] = useState<ArgType>()
 
-  function addRow(row: TableInputRow) {
-    if (row.values.every((value) => value ?? false)) {
-      setRowData([...rowData, row])
+  function addRow(row: ArgType) {
+    if(row && Object.values(row).every((value) => value ?? false))
+    {
+      rowData.push(row)
+      setRowData([...rowData])
       onChange(rowData)
+      setValueInputs(undefined)
     }
   }
 
-  function removeRow(row: TableInputRow) {
+  function removeRow(row: ArgType) {
     const index = rowData.findIndex((entry) => entry === row)
     rowData.splice(index, 1)
     setRowData([...rowData])
@@ -40,26 +48,28 @@ export function TableInput({
   }
 
   return (
-    <div className='TableInputDiv'>
+    <div
+      className={classnames(`textInputFieldWrapper Field`, {
+        isRTL
+      })}
+    >
+      {label && <label htmlFor={htmlId}>{label}</label>}
       <table>
         <tbody>
           <tr>
-            {!!header.length &&
-              header.map((entry: string, key) => {
+            {!!Object.values(header).length &&
+              Object.values(header).map((entry: string, key) => {
                 return <th key={key}>{entry}</th>
               })}
             <th></th>
           </tr>
           {!!rowData.length &&
-            rowData.map((row: TableInputRow, key) => {
+            rowData.map((row: ArgType, key) => {
               return (
                 <tr key={key}>
-                  {!!row.values.length &&
-                    row.values.map((value: string, key) => {
-                      if (key < header.length) {
+                  {!!Object.values(row).length &&
+                    Object.values(row).map((value: string, key) => {
                         return <td key={key}>{value}</td>
-                      }
-                      return
                     })}
                   <td>
                     <SvgButton onClick={() => removeRow(row)}>
@@ -79,26 +89,27 @@ export function TableInput({
         </tbody>
       </table>
       <div className='TableInputDiv'>
-        {!!header.length &&
-          header.map((entry: string, key) => {
+        {!!Object.values(header).length &&
+          Object.values(header).map((entry: string, key) => {
             return (
               <TextInputField
                 key={key}
                 {...{
                   label: `${entry}:`,
-                  value: valueInputs.at(key) ?? '',
+                  value: valueInputs ? Object.values(valueInputs).at(key) : '',
                   htmlId: 'otherOptionsInput',
-                  placeholder: inputPlaceHolder?.at(key) ?? '',
+                  placeholder: inputPlaceHolder ? Object.values(inputPlaceHolder).at(key) : '',
                   onChange: (event) => {
-                    valueInputs[key] = event.target.value
-                    setValueInputs([...valueInputs])
+                    const tmp = valueInputs ?? {} as ArgType
+                    tmp[entry] = event.target.value
+                    setValueInputs({...tmp})
                   }
                 }}
               />
             )
           })}
         <SvgButton
-          onClick={() => addRow({ values: [...valueInputs] })}
+          onClick={() => addRow(valueInputs ?? {} as ArgType)}
           className={`is-primary`}
         >
           <AddBoxIcon
@@ -108,6 +119,7 @@ export function TableInput({
           />
         </SvgButton>
       </div>
+      {afterInput}
     </div>
   )
 }

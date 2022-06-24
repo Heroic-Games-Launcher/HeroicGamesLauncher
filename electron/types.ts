@@ -36,7 +36,8 @@ export interface AppSettings {
   minimizeOnLaunch: boolean
   nvidiaPrime: boolean
   offlineMode: boolean
-  otherOptions: { values: string[] }[]
+  enviromentOptions: EnviromentVariable[]
+  wrapperOptions: string
   savesPath: string
   showFps: boolean
   showMangohud: boolean
@@ -149,7 +150,8 @@ export interface GameSettings {
   launcherArgs: string
   nvidiaPrime: boolean
   offlineMode: boolean
-  otherOptions: { values: string[] }[]
+  enviromentOptions: EnviromentVariable[]
+  wrapperOptions: string
   savesPath: string
   showFps: boolean
   showMangohud: boolean
@@ -373,4 +375,9 @@ export interface CallRunnerOptions {
   env?: Record<string, string>
   wrappers?: string[]
   onOutput?: (output: string) => void
+}
+
+export interface EnviromentVariable {
+  key: string
+  value: string
 }

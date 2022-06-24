@@ -34,7 +34,12 @@ import { DXVK } from './tools'
 import setup from './gog/setup'
 import { GOGGame } from 'gog/games'
 import { LegendaryGame } from 'legendary/games'
-import { CallRunnerOptions, GameInfo, Runner } from './types'
+import {
+  CallRunnerOptions,
+  GameInfo,
+  Runner,
+  EnviromentVariable
+} from './types'
 import {
   ExecResult,
   GameSettings,
@@ -240,9 +245,9 @@ function setupEnvVars(gameSettings: GameSettings) {
   if (gameSettings.audioFix) {
     ret.PULSE_LATENCY_MSEC = '60'
   }
-  if (gameSettings.otherOptions) {
-    gameSettings.otherOptions.forEach((env) => {
-      ret[env.values.at(0)] = env.values.at(1)
+  if (gameSettings.enviromentOptions) {
+    gameSettings.enviromentOptions.forEach((envEntry: EnviromentVariable) => {
+      ret[envEntry.key] = envEntry.value
     })
   }
 
@@ -293,9 +298,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
 
     // Only set WINEDEBUG if PROTON_LOG is set since Proton will also log if just WINEDEBUG is set
     if (
-      gameSettings.otherOptions.find((env) =>
-        env.values.find((value) => value === 'PROTON_LOG')
-      )
+      gameSettings.enviromentOptions.find((env) => env.key === 'PROTON_LOG')
     ) {
       // Stop Proton from overriding WINEDEBUG; this prevents logs growing to a few GB for some games
       ret.WINEDEBUG = 'timestamp'
@@ -311,11 +314,13 @@ function setupWrappers(
   steamRuntime: string
 ): Array<string> {
   const wrappers = Array<string>()
-  // Wrappers could be specified in the environment variable section as well
-  if (gameSettings.otherOptions) {
-    gameSettings.otherOptions.forEach((env) => {
-      wrappers.push(...env.values)
-    })
+  if (gameSettings.wrapperOptions) {
+    gameSettings.wrapperOptions
+      .split(' ')
+      .filter((val) => val.indexOf('=') === -1)
+      .forEach((val) => {
+        wrappers.push(val)
+      })
   }
   if (gameSettings.showMangohud) {
     // Mangohud needs some arguments in addition to the command, so we have to split here
