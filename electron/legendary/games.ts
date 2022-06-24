@@ -589,7 +589,8 @@ class LegendaryGame extends Game {
         gameInfo.app_name,
         ...exeOverrideFlag,
         offlineFlag,
-        launchArguments
+        launchArguments,
+        gameSettings.launcherArgs
       ]
     } else {
       // -> We're using Wine/Proton/CX on either Linux or Mac
@@ -655,8 +656,8 @@ class LegendaryGame extends Game {
         offlineFlag,
         ...wineFlag,
         ...winePrefixFlag,
-        launcherArgs,
-        launchArguments
+        launchArguments,
+        launcherArgs
       ]
     }
     const command = getLegendaryCommand(commandParts, commandEnv, wrappers)
