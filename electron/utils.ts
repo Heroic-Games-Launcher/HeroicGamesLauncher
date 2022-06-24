@@ -575,12 +575,10 @@ function isSteamDeckInGamingMode(): boolean {
   }
 
   let foundDeckVariant = false
-  for (const line of readFileSync(osReleasePath, 'utf-8').split('\n')) {
-    const [key, value] = `${line}`.split('=')
-    if (key === 'VARIANT_ID') {
-      foundDeckVariant = value === 'steamdeck'
-      break
-    }
+  const fileContent = readFileSync(osReleasePath).toString() // 'utf-8' is default
+  const foundDeckVariant = fileContent.split('\n').find((line: string) => {
+    const [key, value] = line.split('=')
+    return key === 'VARIANT_ID' && value ==='steamdeck'
   }
   if (!foundDeckVariant) {
     // We're not on Deck
