@@ -1173,7 +1173,7 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('egsSync', async (event, args) => {
+ipcMain.handle('egsSync', async (event, args: string) => {
   if (isWindows) {
     const egl_manifestPath =
       'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
