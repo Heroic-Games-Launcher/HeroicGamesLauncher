@@ -362,15 +362,26 @@ export default function WineSettings({
         </div>
       )}
 
-      <ToggleSwitch
-        htmlId="enableFSR"
-        value={enableFSR || false}
-        handleChange={toggleFSR}
-        title={t(
-          'setting.enableFSRHack',
-          'Enable FSR Hack (Wine version needs to support it)'
-        )}
-      />
+      <div className="toggleRow">
+        <ToggleSwitch
+          htmlId="enableFSR"
+          value={enableFSR || false}
+          handleChange={toggleFSR}
+          title={t(
+            'setting.enableFSRHack',
+            'Enable FSR Hack (Wine version needs to support it)'
+          )}
+        />
+
+        <FontAwesomeIcon
+          className="helpIcon"
+          icon={faCircleInfo}
+          title={t(
+            'help.amdfsr',
+            "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance."
+          )}
+        />
+      </div>
 
       {enableFSR && (
         <SelectField
@@ -388,29 +399,62 @@ export default function WineSettings({
 
       {isLinux && (
         <>
-          <ToggleSwitch
-            htmlId="resizableBar"
-            value={enableResizableBar || false}
-            handleChange={toggleResizableBar}
-            title={t(
-              'setting.resizableBar',
-              'Enable Resizable BAR (NVIDIA RTX only)'
-            )}
-          />
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="resizableBar"
+              value={enableResizableBar || false}
+              handleChange={toggleResizableBar}
+              title={t(
+                'setting.resizableBar',
+                'Enable Resizable BAR (NVIDIA RTX only)'
+              )}
+            />
 
-          <ToggleSwitch
-            htmlId="esyncToggle"
-            value={enableEsync || false}
-            handleChange={toggleEsync}
-            title={t('setting.esync', 'Enable Esync')}
-          />
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.resizablebar',
+                "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games."
+              )}
+            />
+          </div>
 
-          <ToggleSwitch
-            htmlId="fsyncToggle"
-            value={enableFsync || false}
-            handleChange={toggleFsync}
-            title={t('setting.fsync', 'Enable Fsync')}
-          />
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="esyncToggle"
+              value={enableEsync || false}
+              handleChange={toggleEsync}
+              title={t('setting.esync', 'Enable Esync')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.esync',
+                'Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.'
+              )}
+            />
+          </div>
+
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="fsyncToggle"
+              value={enableFsync || false}
+              handleChange={toggleFsync}
+              title={t('setting.fsync', 'Enable Fsync')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.fsync',
+                'Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.'
+              )}
+            />
+          </div>
         </>
       )}
     </>

@@ -1,3 +1,5 @@
+import './index.css'
+
 import React, { ChangeEvent, useCallback, useContext } from 'react'
 
 import { useTranslation } from 'react-i18next'
@@ -14,6 +16,8 @@ import { IpcRenderer } from 'electron'
 import { Path } from 'src/types'
 import Backspace from '@mui/icons-material/Backspace'
 import { getGameInfo } from 'src/helpers'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 const { ipcRenderer } = window.require('electron') as {
   ipcRenderer: IpcRenderer
@@ -171,37 +175,74 @@ export default function OtherSettings({
       )}
       {isLinux && (
         <>
-          <ToggleSwitch
-            htmlId="gamemode"
-            value={useGameMode}
-            handleChange={toggleUseGameMode}
-            title={t('setting.gamemode')}
-          />
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="gamemode"
+              value={useGameMode}
+              handleChange={toggleUseGameMode}
+              title={t('setting.gamemode')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.gamemode',
+                'Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.'
+              )}
+            />
+          </div>
+
           <ToggleSwitch
             htmlId="primerun"
             value={primeRun}
             handleChange={togglePrimeRun}
             title={t('setting.primerun', 'Use Dedicated Graphics Card')}
           />
+
           <ToggleSwitch
             htmlId="audiofix"
             value={audioFix}
             handleChange={toggleAudioFix}
             title={t('setting.audiofix')}
           />
-          <ToggleSwitch
-            htmlId="mongohud"
-            value={showMangohud}
-            handleChange={toggleMangoHud}
-            title={t('setting.mangohud')}
-          />
-          {showSteamRuntime && (
+
+          <div className="toggleRow">
             <ToggleSwitch
-              htmlId="steamruntime"
-              value={useSteamRuntime}
-              handleChange={toggleUseSteamRuntime}
-              title={t('setting.steamruntime', 'Use Steam Runtime')}
+              htmlId="mongohud"
+              value={showMangohud}
+              handleChange={toggleMangoHud}
+              title={t('setting.mangohud')}
             />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.mangohud',
+                'MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.'
+              )}
+            />
+          </div>
+
+          {showSteamRuntime && (
+            <div className="toggleRow">
+              <ToggleSwitch
+                htmlId="steamruntime"
+                value={useSteamRuntime}
+                handleChange={toggleUseSteamRuntime}
+                title={t('setting.steamruntime', 'Use Steam Runtime')}
+              />
+
+              <FontAwesomeIcon
+                className="helpIcon"
+                icon={faCircleInfo}
+                title={t(
+                  'help.',
+                  'Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.'
+                )}
+              />
+            </div>
           )}
         </>
       )}
