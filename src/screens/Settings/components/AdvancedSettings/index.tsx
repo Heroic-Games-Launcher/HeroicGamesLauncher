@@ -261,14 +261,16 @@ export const AdvancedSettings = ({
               )}
             </div>
             <br />
-            <button className="button is-primary">
-              <CachedOutlined />
-              <span>Check for updates</span>
-            </button>
-            <button className="button is-danger">
-              <DeleteOutline />
-              <span>Uninstall EOS overlay</span>
-            </button>
+            <div className="footerFlex">
+              <button className="button is-primary">
+                <CachedOutlined />
+                <span>Check for updates</span>
+              </button>
+              <button className="button is-danger">
+                <DeleteOutline />
+                <span>Uninstall EOS overlay</span>
+              </button>
+            </div>
           </>
         )}
         <br />

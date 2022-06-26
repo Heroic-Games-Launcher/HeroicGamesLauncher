@@ -211,3 +211,9 @@ a {
 .eosSettings {
   text-align: left;
 }
+
+.settingsWrapper .button {
+  max-height: auto;
+  display: inline-flex;
+  align-items: center;
+}
