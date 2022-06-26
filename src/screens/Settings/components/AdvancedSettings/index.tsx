@@ -2,7 +2,8 @@ import {
   Backspace,
   CleaningServicesOutlined,
   ContentCopyOutlined,
-  DeleteOutline
+  DeleteOutline,
+  CachedOutlined
 } from '@mui/icons-material'
 import classNames from 'classnames'
 import { IpcRenderer, Clipboard } from 'electron'
@@ -39,6 +40,9 @@ export const AdvancedSettings = ({
   const [legendaryVersion, setLegendaryVersion] = useState('')
   const [gogdlVersion, setGogdlVersion] = useState('')
   const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
+  const [isEosOverlayInstalled, setEosOverlayInstalled] = useState(false)
+  const [eosOverlayVersion, setEosOverlayVersion] = useState('')
+  const [eosOverlayLatestVersion, setEosOverlayLatestVersion] = useState('')
   const { t } = useTranslation()
 
   const settings = configStore.get('settings') as {
@@ -97,6 +101,25 @@ export const AdvancedSettings = ({
 
     getGogdlVersion()
   }, [altGogdlBin])
+
+  useEffect(() => {
+    const getEosStatus = async () => {
+      const { isInstalled, version } = await ipcRenderer.invoke(
+        'getEosOverlayStatus'
+      )
+      setEosOverlayInstalled(isInstalled)
+      setEosOverlayVersion(version)
+    }
+    getEosStatus()
+  }, [isEosOverlayInstalled, eosOverlayVersion])
+
+  useEffect(() => {
+    const getLatestEosOverlayVersion = async () => {
+      const version = await ipcRenderer.invoke('getLatestEosOverlayVersion')
+      setEosOverlayLatestVersion(version)
+    }
+    getLatestEosOverlayVersion()
+  }, [eosOverlayLatestVersion])
 
   async function handleLegendaryBinary() {
     return ipcRenderer
@@ -209,6 +232,48 @@ export const AdvancedSettings = ({
           </span>
         }
       />
+
+      <div className="eosSettings">
+        <h3>EOS Overlay</h3>
+        <div>
+          {isEosOverlayInstalled
+            ? t('setting.eosOverlay.installed', 'The EOS Overlay is installed')
+            : t(
+                'setting.eosOverlay.notInstalled',
+                'The EOS Overlay is not installed'
+              )}
+        </div>
+        <br />
+        {isEosOverlayInstalled && (
+          <>
+            <div>
+              {t(
+                'setting.eosOverlay.currentVersion',
+                'Current Version: {{version}}',
+                { version: eosOverlayVersion }
+              )}
+            </div>
+            <div>
+              {t(
+                'setting.eosOverlay.latestVersion',
+                'Latest Version: {{version}}',
+                { version: eosOverlayLatestVersion }
+              )}
+            </div>
+            <br />
+            <button className="button is-primary">
+              <CachedOutlined />
+              <span>Check for updates</span>
+            </button>
+            <button className="button is-danger">
+              <DeleteOutline />
+              <span>Uninstall EOS overlay</span>
+            </button>
+          </>
+        )}
+        <br />
+        <hr />
+      </div>
 
       <div className="footerFlex">
         <button

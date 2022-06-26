@@ -207,3 +207,7 @@ a {
   max-width: none;
   margin: 0;
 }
+
+.eosSettings {
+  text-align: left;
+}

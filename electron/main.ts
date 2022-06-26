@@ -1375,3 +1375,4 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
  */
 import './logger/ipc_handler'
 import './wine-manager/ipc_handler'
+import './legendary/eos_overlay/ipc_handler'
