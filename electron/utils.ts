@@ -3,7 +3,7 @@ import { WineInstallation } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec } from 'child_process'
-import { existsSync, readFileSync, rmSync, stat } from 'graceful-fs'
+import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import si from 'systeminformation'
@@ -15,17 +15,9 @@ import {
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
-  isFlatpak,
-  isLinux,
   isWindows
 } from './constants'
-import {
-  logDebug,
-  logError,
-  logInfo,
-  LogPrefix,
-  logWarning
-} from './logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { basename, dirname, join } from 'path'
 import { runLegendaryCommand } from './legendary/library'
 import { runGogdlCommand } from './gog/library'
@@ -558,35 +550,21 @@ function quoteIfNecessary(stringToQuote: string) {
 }
 
 /**
- * Checks if we're (1) on a Steam Deck and (2) running in Gaming Mode
+ * Checks if heroic was started via steam.
+ * @returns boolean
  */
-function isSteamDeckInGamingMode(): boolean {
-  if (!isLinux) {
-    return false
+function isRunningViaSteam(): boolean {
+  let result = false
+
+  if ('SteamEnv' in process.env) {
+    logInfo(
+      'Heroic started via steam. Switch to fullscreen.',
+      LogPrefix.Backend
+    )
+    result = true
   }
 
-  // Credits for this implementation go to https://gitlab.com/parallel-launcher/parallel-launcher
-
-  // Check if we're on a Deck by reading out /etc/os-release
-  const osReleasePath = isFlatpak ? '/run/host/os-release' : '/etc/os-release'
-  const fileContent = readFileSync(osReleasePath, 'utf-8')
-  const foundDeckVariant = fileContent.split('\n').find((line: string) => {
-    return line.replaceAll(' ', '').includes('VARIANT_ID=steamdeck')
-  })
-  if (!foundDeckVariant) {
-    // We're not on Deck
-    logDebug('Not on a Deck', LogPrefix.Backend)
-    return false
-  }
-
-  const inGamingMode = 'SteamEnv' in process.env
-  logDebug(
-    inGamingMode
-      ? 'On a Deck & in Gaming Mode'
-      : 'On a Deck, but not in Gaming Mode',
-    LogPrefix.Backend
-  )
-  return inGamingMode
+  return result
 }
 
 export {
@@ -611,5 +589,5 @@ export {
   getSteamRuntime,
   constructAndUpdateRPC,
   quoteIfNecessary,
-  isSteamDeckInGamingMode
+  isRunningViaSteam
 }

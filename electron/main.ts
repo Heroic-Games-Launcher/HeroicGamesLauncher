@@ -62,7 +62,7 @@ import {
   getGOGdlBin,
   showErrorBoxModal,
   getFileSize,
-  isSteamDeckInGamingMode
+  isRunningViaSteam
 } from './utils'
 import {
   configStore,
@@ -108,10 +108,7 @@ async function createWindow(): Promise<BrowserWindow> {
     y: 0
   }
 
-  if (isSteamDeckInGamingMode()) {
-    windowProps.width = 1280
-    windowProps.height = 800
-  } else if (configStore.has('window-props')) {
+  if (configStore.has('window-props')) {
     const tmpWindowProps = configStore.get(
       'window-props',
       {}
@@ -151,6 +148,10 @@ async function createWindow(): Promise<BrowserWindow> {
     }
   })
 
+  if (isRunningViaSteam()) {
+    mainWindow.maximize()
+  }
+
   setTimeout(() => {
     if (process.platform === 'linux') {
       DXVK.getLatest()
@@ -169,7 +170,7 @@ async function createWindow(): Promise<BrowserWindow> {
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
-    if (!isSteamDeckInGamingMode()) {
+    if (!isRunningViaSteam()) {
       // store windows properties
       configStore.set('window-props', mainWindow.getBounds())
     }
