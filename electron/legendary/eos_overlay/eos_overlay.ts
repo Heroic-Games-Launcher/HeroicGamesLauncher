@@ -9,26 +9,31 @@ import { t } from 'i18next'
 
 const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
 const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
+const defaultInstallPath = join(heroicToolsPath, 'eos_overlay')
 
-function getEosOverlayStatus(): { isInstalled: boolean; version?: string } {
-  const isInstalled = existsSync(currentVersionPath)
-  const installedAtCorrectLocation = existsSync(
-    join(heroicToolsPath, 'eos_overlay')
-  )
+function getEosOverlayStatus(): {
+  isInstalled: boolean
+  version?: string
+  install_path?: string
+} {
+  const isInstalled = existsSync(installedVersionPath)
 
   if (!isInstalled) {
     return { isInstalled }
   }
 
-  if (!installedAtCorrectLocation) {
+  const { version, install_path } = JSON.parse(
+    readFileSync(installedVersionPath, 'utf-8')
+  )
+
+  if (install_path !== defaultInstallPath) {
     logWarning(
       'EOS Overlay is not installed in default location, permission issues might arise',
       LogPrefix.Legendary
     )
   }
 
-  const { version } = JSON.parse(readFileSync(installedVersionPath, 'utf-8'))
-  return { isInstalled, version }
+  return { isInstalled, version, install_path }
 }
 
 async function getLatestEosOverlayVersion() {
