@@ -43,6 +43,8 @@ export const AdvancedSettings = ({
   const [isEosOverlayInstalled, setEosOverlayInstalled] = useState(false)
   const [eosOverlayVersion, setEosOverlayVersion] = useState('')
   const [eosOverlayLatestVersion, setEosOverlayLatestVersion] = useState('')
+  const [eosOverlayCheckingForUpdates, setEosOverlayCheckingForUpdates] =
+    useState(false)
   const { t } = useTranslation()
 
   const settings = configStore.get('settings') as {
@@ -261,18 +263,53 @@ export const AdvancedSettings = ({
               )}
             </div>
             <br />
-            <div className="footerFlex">
-              <button className="button is-primary">
-                <CachedOutlined />
-                <span>Check for updates</span>
-              </button>
-              <button className="button is-danger">
-                <DeleteOutline />
-                <span>Uninstall EOS overlay</span>
-              </button>
-            </div>
           </>
         )}
+        <div className="footerFlex">
+          {isEosOverlayInstalled && (
+            <>
+              <button
+                className="button is-primary"
+                onClick={async () => {
+                  setEosOverlayCheckingForUpdates(true)
+                  await ipcRenderer.invoke('updateEosOverlayInfo')
+                  const newVersion = await ipcRenderer.invoke(
+                    'getLatestEosOverlayVersion'
+                  )
+                  setEosOverlayLatestVersion(newVersion)
+                  setEosOverlayCheckingForUpdates(false)
+                }}
+              >
+                <CachedOutlined />
+                <span>
+                  {eosOverlayCheckingForUpdates
+                    ? t(
+                        'setting.eosOverlay.checkingForUpdates',
+                        'Checking for updates...'
+                      )
+                    : t(
+                        'setting.eosOverlay.checkForUpdates',
+                        'Check for updates'
+                      )}
+                </span>
+              </button>
+              <button
+                className="button is-danger"
+                onClick={async () => {
+                  const wasRemoved = await ipcRenderer.invoke(
+                    'removeEosOverlay'
+                  )
+                  setEosOverlayInstalled(!wasRemoved)
+                }}
+              >
+                <DeleteOutline />
+                <span>
+                  {t('setting.eosOverlay.remove', 'Uninstall EOS Overlay')}
+                </span>
+              </button>
+            </>
+          )}
+        </div>
         <br />
         <hr />
       </div>
