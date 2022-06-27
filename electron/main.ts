@@ -61,8 +61,7 @@ import {
   getLegendaryBin,
   getGOGdlBin,
   showErrorBoxModal,
-  getFileSize,
-  isRunningViaSteam
+  getFileSize
 } from './utils'
 import {
   configStore,
@@ -85,7 +84,8 @@ import {
   wikiLink,
   fontsStore,
   heroicConfigPath,
-  isMac
+  isMac,
+  isRunningInSteam
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -148,7 +148,11 @@ async function createWindow(): Promise<BrowserWindow> {
     }
   })
 
-  if (isRunningViaSteam()) {
+  if (isRunningInSteam) {
+    logInfo(
+      'Heroic started via Steam. Switching to fullscreen',
+      LogPrefix.Backend
+    )
     mainWindow.maximize()
   }
 
@@ -170,7 +174,7 @@ async function createWindow(): Promise<BrowserWindow> {
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
-    if (!isRunningViaSteam()) {
+    if (!isRunningInSteam) {
       // store windows properties
       configStore.set('window-props', mainWindow.getBounds())
     }

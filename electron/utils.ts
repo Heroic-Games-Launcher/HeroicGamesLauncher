@@ -549,24 +549,6 @@ function quoteIfNecessary(stringToQuote: string) {
   return stringToQuote
 }
 
-/**
- * Checks if heroic was started via steam.
- * @returns boolean
- */
-function isRunningViaSteam(): boolean {
-  let result = false
-
-  if ('SteamEnv' in process.env) {
-    logInfo(
-      'Heroic started via steam. Switch to fullscreen.',
-      LogPrefix.Backend
-    )
-    result = true
-  }
-
-  return result
-}
-
 export {
   errorHandler,
   execAsync,
@@ -588,6 +570,5 @@ export {
   searchForExecutableOnPath,
   getSteamRuntime,
   constructAndUpdateRPC,
-  quoteIfNecessary,
-  isRunningViaSteam
+  quoteIfNecessary
 }
