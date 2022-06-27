@@ -234,8 +234,8 @@
         "finished": {
             "add": {
                 "steam": {
-                    "body1": "{{game}} was successfully added to Steam.",
-                    "body2": "{{game}} could not be added to all found Steam users. See logs for more info.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.",
+                    "success": "{{game}} was successfully added to Steam.",
                     "title": "Added to Steam"
                 }
             },
