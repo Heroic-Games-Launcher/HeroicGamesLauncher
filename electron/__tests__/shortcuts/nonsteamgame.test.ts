@@ -8,10 +8,20 @@ import {
 } from '../../shortcuts/nonsteamgame'
 import { dialog } from 'electron'
 
-let tmpDir = undefined as DirResult
-let tmpSteamUserConfigDir = undefined as string
+import { createNewLogFileAndClearOldOnces } from '../../logger/logger'
 
-function copyTestFile(file: string, alternativeUserPath: string = undefined) {
+jest.mock('../../logger/logger', () => {
+  const original = jest.requireActual('../../logger/logger')
+  return {
+    ...original,
+    createNewLogFileAndClearOldOnces: jest.fn().mockReturnValue('')
+  }
+})
+
+let tmpDir = {} as DirResult
+let tmpSteamUserConfigDir = '' as string
+
+function copyTestFile(file: string, alternativeUserPath: string = '') {
   const testFileDir = join(__dirname, 'test_data')
   const userDir = alternativeUserPath
     ? join(alternativeUserPath, 'shortcuts.vdf')
@@ -54,7 +64,7 @@ describe('NonSteamGame', () => {
     expect(contentBefore).toStrictEqual(contentAfter)
     expect(console.log).toBeCalledWith(
       expect.stringContaining(
-        `INFO:    [Shortcuts]:       ${game.title} was successfully added to Steam.`
+        `INFO:    [Shortcuts]: ${game.title} was successfully added to Steam.`
       )
     )
   })
@@ -88,12 +98,17 @@ describe('NonSteamGame', () => {
     expect(contentBetween).toContain(game.title)
     expect(console.log).toBeCalledWith(
       expect.stringContaining(
-        `INFO:    [Shortcuts]:       ${game.title} was successfully added to Steam.`
+        `INFO:    [Shortcuts]: ${game.title} was successfully added to Steam.`
       )
     )
     expect(console.log).toBeCalledWith(
       expect.stringContaining(
-        `INFO:    [Shortcuts]:       ${game.title} was successfully removed from Steam.`
+        `INFO:    [Shortcuts]: ${game.title} was successfully removed from Steam.`
+      )
+    )
+    expect(console.log).toBeCalledWith(
+      expect.stringContaining(
+        `INFO:    [Shortcuts]: Prepare images for steam for ${game.title}`
       )
     )
   })
@@ -129,12 +144,17 @@ describe('NonSteamGame', () => {
     )
     expect(console.log).toBeCalledWith(
       expect.stringContaining(
-        `INFO:    [Shortcuts]:       ${game.title} was successfully added to Steam.`
+        `INFO:    [Shortcuts]: ${game.title} was successfully added to Steam.`
       )
     )
     expect(console.log).toBeCalledWith(
       expect.stringContaining(
-        `INFO:    [Shortcuts]:       ${game.title} was successfully removed from Steam.`
+        `INFO:    [Shortcuts]: ${game.title} was successfully removed from Steam.`
+      )
+    )
+    expect(console.log).toBeCalledWith(
+      expect.stringContaining(
+        `INFO:    [Shortcuts]: Prepare images for steam for ${game.title}`
       )
     )
   })
@@ -158,7 +178,7 @@ describe('NonSteamGame', () => {
     expect(console.log).not.toBeCalled()
     expect(console.error).toBeCalledWith(
       expect.stringContaining(
-        `ERROR:   [Shortcuts]:       Can't add \"${game.title}\" to Steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!`
+        `ERROR:   [Shortcuts]: Can't add \"${game.title}\" to Steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!`
       )
     )
     expect(console.error).toBeCalledWith(
@@ -189,7 +209,7 @@ describe('NonSteamGame', () => {
     expect(console.log).not.toBeCalled()
     expect(console.error).toBeCalledWith(
       expect.stringContaining(
-        `ERROR:   [Shortcuts]:       Can't add \"${game.title}\" to Steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!`
+        `ERROR:   [Shortcuts]: Can't add \"${game.title}\" to Steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!`
       )
     )
     expect(console.error).toBeCalledWith(
@@ -220,7 +240,7 @@ describe('NonSteamGame', () => {
     expect(console.log).not.toBeCalled()
     expect(console.error).toBeCalledWith(
       expect.stringContaining(
-        `ERROR:   [Shortcuts]:       Can't add \"${game.title}\" to Steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!`
+        `ERROR:   [Shortcuts]: Can't add \"${game.title}\" to Steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!`
       )
     )
     expect(console.error).toBeCalledWith(
@@ -282,20 +302,25 @@ describe('NonSteamGame', () => {
       expect(contentBefore2).toStrictEqual(contentAfter2)
       expect(contentBefore2).toStrictEqual(contentBetween2)
 
-      expect(console.log).not.toBeCalled()
+      expect(console.log).toBeCalledWith(
+        expect.stringContaining(
+          `INFO:    [Shortcuts]: Prepare images for steam for ${game.title}`
+        )
+      )
+      expect(console.log).toBeCalledTimes(1)
       expect(console.warn).toBeCalledWith(
         expect.stringContaining(
-          `WARNING: [Shortcuts]:       ${game.title} could not be added to all found Steam users.`
+          `WARNING: [Shortcuts]: ${game.title} could not be added to all found Steam users.`
         )
       )
       expect(console.warn).toBeCalledWith(
         expect.stringContaining(
-          `WARNING: [Shortcuts]:       ${game.title} could not be removed from all found Steam users.`
+          `WARNING: [Shortcuts]: ${game.title} could not be removed from all found Steam users.`
         )
       )
       expect(console.error).toBeCalledWith(
         expect.stringContaining(
-          `ERROR:   [Shortcuts]:       Can't add \"${game.title}\" to Steam user \"steam_user2\". \"${shortcutFilePath2}\" is corrupted!`
+          `ERROR:   [Shortcuts]: Can't add \"${game.title}\" to Steam user \"steam_user2\". \"${shortcutFilePath2}\" is corrupted!`
         )
       )
       expect(console.error).toBeCalledWith(
@@ -331,7 +356,7 @@ describe('NonSteamGame', () => {
       expect(contentAfter).toContain('MyGame')
       expect(console.log).toBeCalledWith(
         expect.stringContaining(
-          `INFO:    [Shortcuts]:       ${game.title} was successfully added to Steam.`
+          `INFO:    [Shortcuts]: ${game.title} was successfully added to Steam.`
         )
       )
       expect(console.error).not.toBeCalled()

@@ -1,13 +1,28 @@
 import { existsSync, mkdirSync } from 'graceful-fs'
-import { execAsync } from '../utils'
 import { GOGLibrary } from '../gog/library'
 import { heroicIconFolder } from '../constants'
 import { GameInfo } from '../types'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
+import { spawnSync } from 'child_process'
+
+function downloadImage(imageURL: string, outputFilePath: string) {
+  logInfo(`Donwload ${imageURL} to ${outputFilePath}`, LogPrefix.Shortcuts)
+  try {
+    spawnSync('curl', ['-L', imageURL, '-o', outputFilePath])
+    logInfo(`Finished Donwloading of ${imageURL}.`, LogPrefix.Shortcuts)
+  } catch (error) {
+    logError(
+      [`Donwloading of ${imageURL} failed with:\n`, `${error}`],
+      LogPrefix.Shortcuts
+    )
+  }
+}
 
 async function getIcon(appName: string, gameInfo: GameInfo) {
   if (!existsSync(heroicIconFolder)) {
     mkdirSync(heroicIconFolder)
   }
+
   if (gameInfo.runner === 'legendary') {
     const image = gameInfo.art_square.replaceAll(' ', '%20')
     let ext = image.split('.').reverse()[0]
@@ -16,7 +31,7 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
     }
     const icon = `${heroicIconFolder}/${appName}.${ext}`
     if (!existsSync(icon)) {
-      await execAsync(`curl '${image}' --output ${icon}`)
+      downloadImage(image, icon)
     }
     return icon
   } else if (gameInfo.runner === 'gog') {
@@ -25,10 +40,10 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
     iconUrl = iconUrl.replace('{ext}', 'png')
     const icon = `${heroicIconFolder}/${appName}.png`
     if (!existsSync(icon)) {
-      await execAsync(`curl '${iconUrl}' --output ${icon}`)
+      downloadImage(iconUrl, icon)
     }
     return icon
   }
 }
 
-export { getIcon }
+export { downloadImage, getIcon }

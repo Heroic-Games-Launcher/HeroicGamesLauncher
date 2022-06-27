@@ -9,6 +9,12 @@ import { readFileSync } from 'fs-extra'
 import { join } from 'path'
 import { GameInfo } from '../types'
 import { getIcon } from './utils'
+import {
+  prepareImagesForSteam,
+  generateShortcutId,
+  generateAppId,
+  generateShortAppId
+} from './steamhelper'
 import { app, dialog, Notification } from 'electron'
 import { isFlatpak, tsStore } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
@@ -246,7 +252,8 @@ async function addNonSteamGame(props: {
       newEntry.Exe = `"${process.env.APPIMAGE}"`
     }
 
-    newEntry.StartDir = `"${process.cwd()}"`
+    newEntry.appid = generateShortcutId(newEntry.Exe, newEntry.AppName)
+
     await getIcon(props.gameInfo.app_name, props.gameInfo)
       .then((path) => (newEntry.icon = path))
       .catch((error) =>
@@ -255,6 +262,16 @@ async function addNonSteamGame(props: {
         )
       )
 
+    prepareImagesForSteam({
+      steamUserConfigDir: configDir,
+      appID: {
+        bigPictureAppID: generateAppId(newEntry.Exe, newEntry.AppName),
+        otherGridAppID: generateShortAppId(newEntry.Exe, newEntry.AppName)
+      },
+      gameInfo: props.gameInfo
+    })
+
+    newEntry.StartDir = `"${process.cwd()}"`
     newEntry.LaunchOptions = `--no-gui --no-sandbox "heroic://launch/${props.gameInfo.app_name}"`
     if (isFlatpak) {
       newEntry.Exe = `run com.heroicgameslauncher.hgl ${newEntry.LaunchOptions}`
