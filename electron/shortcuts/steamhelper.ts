@@ -2,19 +2,12 @@ import { crc32 } from 'crc'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { join } from 'path'
 import { GameInfo } from '../types'
-import { logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { downloadImage } from './utils'
+import { logInfo, LogPrefix } from '../logger/logger'
+import { checkImageExistsAlready, downloadImage, removeImage } from './utils'
 
-function checkImageExistsAlready(folder: string, image: string): boolean {
-  const extentions = ['.png', '.jpg']
-
-  const found = extentions.find((extention) => {
-    const imageName = image.split('.').slice(-1).join('.')
-    return existsSync(join(folder, imageName + extention))
-  })
-
-  return found !== undefined ? true : false
-}
+const pictureExt = '.jpg'
+const backGroundArtSufix = '_hero' + pictureExt
+const logArtSufix = '_logo' + pictureExt
 
 function prepareImagesForSteam(props: {
   steamUserConfigDir: string
@@ -25,58 +18,72 @@ function prepareImagesForSteam(props: {
   gameInfo: GameInfo
 }) {
   const gridFolder = join(props.steamUserConfigDir, 'grid')
-  const backgroundart = props.appID.otherGridAppID + '_hero.jpg'
-  const bigpictureart = props.appID.bigPictureAppID + '.jpg'
-  const logoart = props.appID.otherGridAppID + '_logo.jpg'
+  const backGroundArt = join(
+    gridFolder,
+    props.appID.otherGridAppID + backGroundArtSufix
+  )
+  const bigPictureArt = join(
+    gridFolder,
+    props.appID.bigPictureAppID + pictureExt
+  )
+  const logoArt = join(gridFolder, props.appID.otherGridAppID + logArtSufix)
 
   if (!existsSync(gridFolder)) {
     mkdirSync(gridFolder)
   }
 
   logInfo(
-    `Prepare images for steam for ${props.gameInfo.title}`,
+    `Prepare Steam images for ${props.gameInfo.title}`,
     LogPrefix.Shortcuts
   )
 
-  switch (props.gameInfo.runner) {
-    case 'legendary':
-      if (
-        !checkImageExistsAlready(gridFolder, backgroundart) &&
-        props.gameInfo.art_cover
-      ) {
-        downloadImage(props.gameInfo.art_cover, join(gridFolder, backgroundart))
-      }
-      if (
-        !checkImageExistsAlready(gridFolder, bigpictureart) &&
-        props.gameInfo.art_cover
-      ) {
-        downloadImage(props.gameInfo.art_cover, join(gridFolder, bigpictureart))
-      }
-      if (
-        !checkImageExistsAlready(gridFolder, logoart) &&
-        props.gameInfo.art_logo
-      ) {
-        downloadImage(props.gameInfo.art_cover, join(gridFolder, logoart))
-      }
-      break
-    case 'gog':
-      if (
-        !checkImageExistsAlready(gridFolder, backgroundart) &&
-        props.gameInfo.art_cover
-      ) {
-        downloadImage(props.gameInfo.art_cover, join(gridFolder, backgroundart))
-      }
-      if (
-        !checkImageExistsAlready(gridFolder, bigpictureart) &&
-        props.gameInfo.art_cover
-      ) {
-        downloadImage(props.gameInfo.art_cover, join(gridFolder, bigpictureart))
-      }
-      break
-    case 'heroic':
-    default:
-      logWarning('Runner does not provide image urls.', LogPrefix.Shortcuts)
-      break
+  if (!checkImageExistsAlready(backGroundArt) && props.gameInfo.art_cover) {
+    downloadImage(props.gameInfo.art_cover, backGroundArt)
+  }
+  if (!checkImageExistsAlready(bigPictureArt) && props.gameInfo.art_cover) {
+    downloadImage(props.gameInfo.art_cover, bigPictureArt)
+  }
+  if (!checkImageExistsAlready(logoArt) && props.gameInfo.art_logo) {
+    downloadImage(props.gameInfo.art_cover, logoArt)
+  }
+}
+
+function removeImagesFromSteam(props: {
+  steamUserConfigDir: string
+  appID: {
+    bigPictureAppID: string
+    otherGridAppID: string
+  }
+  gameInfo: GameInfo
+}) {
+  const gridFolder = join(props.steamUserConfigDir, 'grid')
+  const backGroundArt = join(
+    gridFolder,
+    props.appID.otherGridAppID + backGroundArtSufix
+  )
+  const bigPictureArt = join(
+    gridFolder,
+    props.appID.bigPictureAppID + pictureExt
+  )
+  const logoArt = join(gridFolder, props.appID.otherGridAppID + logArtSufix)
+
+  if (!existsSync(gridFolder)) {
+    return
+  }
+
+  logInfo(
+    `Remove Steam images for ${props.gameInfo.title}`,
+    LogPrefix.Shortcuts
+  )
+
+  if (checkImageExistsAlready(backGroundArt) && props.gameInfo.art_cover) {
+    removeImage(backGroundArt)
+  }
+  if (checkImageExistsAlready(bigPictureArt) && props.gameInfo.art_cover) {
+    removeImage(bigPictureArt)
+  }
+  if (checkImageExistsAlready(logoArt) && props.gameInfo.art_logo) {
+    removeImage(logoArt)
   }
 }
 
@@ -111,5 +118,6 @@ export {
   prepareImagesForSteam,
   generateAppId,
   generateShortAppId,
-  generateShortcutId
+  generateShortcutId,
+  removeImagesFromSteam
 }

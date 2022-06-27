@@ -108,7 +108,12 @@ describe('NonSteamGame', () => {
     )
     expect(console.log).toBeCalledWith(
       expect.stringContaining(
-        `INFO:    [Shortcuts]: Prepare images for steam for ${game.title}`
+        `INFO:    [Shortcuts]: Prepare Steam images for ${game.title}`
+      )
+    )
+    expect(console.log).toBeCalledWith(
+      expect.stringContaining(
+        `INFO:    [Shortcuts]: Remove Steam images for ${game.title}`
       )
     )
   })
@@ -154,7 +159,12 @@ describe('NonSteamGame', () => {
     )
     expect(console.log).toBeCalledWith(
       expect.stringContaining(
-        `INFO:    [Shortcuts]: Prepare images for steam for ${game.title}`
+        `INFO:    [Shortcuts]: Prepare Steam images for ${game.title}`
+      )
+    )
+    expect(console.log).toBeCalledWith(
+      expect.stringContaining(
+        `INFO:    [Shortcuts]: Remove Steam images for ${game.title}`
       )
     )
   })
@@ -304,10 +314,15 @@ describe('NonSteamGame', () => {
 
       expect(console.log).toBeCalledWith(
         expect.stringContaining(
-          `INFO:    [Shortcuts]: Prepare images for steam for ${game.title}`
+          `INFO:    [Shortcuts]: Prepare Steam images for ${game.title}`
         )
       )
-      expect(console.log).toBeCalledTimes(1)
+      expect(console.log).toBeCalledWith(
+        expect.stringContaining(
+          `INFO:    [Shortcuts]: Remove Steam images for ${game.title}`
+        )
+      )
+      expect(console.log).toBeCalledTimes(2)
       expect(console.warn).toBeCalledWith(
         expect.stringContaining(
           `WARNING: [Shortcuts]: ${game.title} could not be added to all found Steam users.`

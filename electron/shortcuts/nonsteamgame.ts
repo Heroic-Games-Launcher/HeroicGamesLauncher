@@ -13,7 +13,8 @@ import {
   prepareImagesForSteam,
   generateShortcutId,
   generateAppId,
-  generateShortAppId
+  generateShortAppId,
+  removeImagesFromSteam
 } from './steamhelper'
 import { app, dialog, Notification } from 'electron'
 import { isFlatpak, tsStore } from '../constants'
@@ -387,6 +388,9 @@ async function removeNonSteamGame(props: {
       continue
     }
 
+    const exe = content.shortcuts.at(index).Exe
+    const appName = content.shortcuts.at(index).AppName
+
     // remove
     content.shortcuts.splice(index, 1)
 
@@ -395,7 +399,17 @@ async function removeNonSteamGame(props: {
 
     if (writeError) {
       errors.push(writeError)
+      continue
     }
+
+    removeImagesFromSteam({
+      steamUserConfigDir: configDir,
+      appID: {
+        bigPictureAppID: generateAppId(exe, appName),
+        otherGridAppID: generateShortAppId(exe, appName)
+      },
+      gameInfo: props.gameInfo
+    })
   }
 
   if (errors.length === 0) {
