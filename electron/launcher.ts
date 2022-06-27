@@ -494,7 +494,7 @@ async function callRunner(
   )
 
   logInfo(
-    [options?.logMessagePrefix ?? `Running command`, ':', safeCommand],
+    [(options?.logMessagePrefix ?? `Running command`) + ':', safeCommand],
     runner.logPrefix
   )
 
