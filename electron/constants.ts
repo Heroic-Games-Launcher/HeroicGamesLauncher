@@ -55,6 +55,9 @@ const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
 const icon = fixAsarPath(join(__dirname, 'icon.png'))
 const iconDark = fixAsarPath(join(__dirname, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(__dirname, 'icon-light.png'))
+const transparentSteamLogo = fixAsarPath(
+  join(__dirname, 'transparent-steam-logo.png')
+)
 const installed = join(legendaryConfigPath, 'installed.json')
 const libraryPath = join(legendaryConfigPath, 'metadata')
 const steamCompatFolder: string = getSteamCompatFolder()
@@ -195,5 +198,6 @@ export {
   steamCompatFolder,
   steamUserdataDir,
   tsStore,
-  fontsStore
+  fontsStore,
+  transparentSteamLogo
 }

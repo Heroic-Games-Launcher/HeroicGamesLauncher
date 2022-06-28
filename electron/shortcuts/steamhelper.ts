@@ -4,11 +4,12 @@ import { join } from 'path'
 import { GameInfo } from '../types'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { checkImageExistsAlready, downloadImage, removeImage } from './utils'
+import { transparentSteamLogo } from '../constants'
 
 const pictureExt = '.jpg'
 const coverArtSufix = 'p' + pictureExt
 const backGroundArtSufix = '_hero' + pictureExt
-const logArtSufix = '_logo' + pictureExt
+const logoArtSufix = '_logo' + pictureExt
 
 function prepareImagesForSteam(props: {
   steamUserConfigDir: string
@@ -29,7 +30,7 @@ function prepareImagesForSteam(props: {
     gridFolder,
     props.appID.bigPictureAppID + pictureExt
   )
-  const logoArt = join(gridFolder, props.appID.otherGridAppID + logArtSufix)
+  const logoArt = join(gridFolder, props.appID.otherGridAppID + logoArtSufix)
 
   if (!existsSync(gridFolder)) {
     mkdirSync(gridFolder)
@@ -44,9 +45,9 @@ function prepareImagesForSteam(props: {
   const images = new Map<string, string>([
     [coverArt, props.gameInfo.art_square],
     [headerArt, props.gameInfo.art_cover],
-    [backGroundArt, props.gameInfo.art_banner ?? props.gameInfo.art_cover],
+    [backGroundArt, props.gameInfo.art_cover],
     [bigPictureArt, props.gameInfo.art_cover],
-    [logoArt, props.gameInfo.art_logo]
+    [logoArt, props.gameInfo.art_logo ?? `file:///${transparentSteamLogo}`]
   ])
 
   for (const [key, value] of images) {
@@ -88,7 +89,7 @@ function removeImagesFromSteam(props: {
     gridFolder,
     props.appID.bigPictureAppID + pictureExt
   )
-  const logoArt = join(gridFolder, props.appID.otherGridAppID + logArtSufix)
+  const logoArt = join(gridFolder, props.appID.otherGridAppID + logoArtSufix)
 
   if (!existsSync(gridFolder)) {
     return

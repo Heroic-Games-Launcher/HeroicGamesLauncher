@@ -353,7 +353,6 @@ export class GOGLibrary {
     let developer: string
     let verticalCover = fallBackImage
     let horizontalCover: string
-    let bannerCover: string
     let description: string
     if (gamesdbData?.game) {
       const developers: Array<string> = []
@@ -368,11 +367,6 @@ export class GOGLibrary {
       }
       horizontalCover = `https:${info.image}.jpg`
       description = gamesdbData.game.summary['*']
-      if (gamesdbData.game.background?.url_format) {
-        bannerCover = gamesdbData.game.background.url_format
-          .replace('{formatter}', '')
-          .replace('{ext}', 'jpg')
-      }
     } else {
       logWarning(
         `Unable to get covers from gamesdb for ${info.title}. Trying to get it from api.gog.com`,
@@ -399,7 +393,6 @@ export class GOGLibrary {
       art_logo: null,
       art_cover: horizontalCover,
       art_square: verticalCover,
-      art_banner: bannerCover,
       cloud_save_enabled: false,
       compatible_apps: [],
       extra: {

@@ -468,7 +468,6 @@ export class LegendaryLibrary {
         art_logo,
         art_square:
           art_square || art_square_front || art_cover || fallBackImage,
-        art_banner: null,
         cloud_save_enabled,
         compatible_apps,
         developer,
