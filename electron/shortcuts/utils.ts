@@ -2,33 +2,25 @@ import { existsSync, mkdirSync, unlinkSync } from 'graceful-fs'
 import { GOGLibrary } from '../gog/library'
 import { heroicIconFolder } from '../constants'
 import { GameInfo } from '../types'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { spawnSync } from 'child_process'
 import { basename, dirname, extname, join } from 'path'
 
-function downloadImage(imageURL: string, outputFilePath: string) {
-  logInfo(`Donwload ${imageURL} to ${outputFilePath}`, LogPrefix.Shortcuts)
+function downloadImage(imageURL: string, outputFilePath: string): string {
   try {
     spawnSync('curl', ['-L', imageURL, '-o', outputFilePath])
-    logInfo(`Finished Donwloading of ${imageURL}.`, LogPrefix.Shortcuts)
   } catch (error) {
-    logError(
-      [`Donwloading of ${imageURL} failed with:\n`, `${error}`],
-      LogPrefix.Shortcuts
-    )
+    return `Donwloading of ${imageURL} failed with:\n${error}`
   }
+  return undefined
 }
 
-function removeImage(imagePath: string) {
-  logInfo(`Remove ${imagePath}.`, LogPrefix.Shortcuts)
+function removeImage(imagePath: string): string {
   try {
     unlinkSync(imagePath)
   } catch (error) {
-    logError(
-      [`Removing of ${imagePath} failed with:\n`, `${error}`],
-      LogPrefix.Shortcuts
-    )
+    return `Removing of ${imagePath} failed with:\n${error}`
   }
+  return undefined
 }
 
 function checkImageExistsAlready(image: string): boolean {

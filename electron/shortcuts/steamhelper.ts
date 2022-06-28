@@ -2,10 +2,11 @@ import { crc32 } from 'crc'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { join } from 'path'
 import { GameInfo } from '../types'
-import { logInfo, LogPrefix } from '../logger/logger'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { checkImageExistsAlready, downloadImage, removeImage } from './utils'
 
 const pictureExt = '.jpg'
+const coverArtSufix = 'p' + pictureExt
 const backGroundArtSufix = '_hero' + pictureExt
 const logArtSufix = '_logo' + pictureExt
 
@@ -18,6 +19,8 @@ function prepareImagesForSteam(props: {
   gameInfo: GameInfo
 }) {
   const gridFolder = join(props.steamUserConfigDir, 'grid')
+  const coverArt = join(gridFolder, props.appID.otherGridAppID + coverArtSufix)
+  const headerArt = join(gridFolder, props.appID.otherGridAppID + pictureExt)
   const backGroundArt = join(
     gridFolder,
     props.appID.otherGridAppID + backGroundArtSufix
@@ -37,14 +40,32 @@ function prepareImagesForSteam(props: {
     LogPrefix.Shortcuts
   )
 
-  if (!checkImageExistsAlready(backGroundArt) && props.gameInfo.art_cover) {
-    downloadImage(props.gameInfo.art_cover, backGroundArt)
+  const errors: string[] = []
+  const images = new Map<string, string>([
+    [coverArt, props.gameInfo.art_square],
+    [headerArt, props.gameInfo.art_cover],
+    [backGroundArt, props.gameInfo.art_cover],
+    [bigPictureArt, props.gameInfo.art_cover],
+    [logoArt, props.gameInfo.art_logo]
+  ])
+
+  for (const [key, value] of images) {
+    if (!checkImageExistsAlready(key) && value) {
+      const error = downloadImage(value, key)
+      if (error) {
+        errors.push(error)
+      }
+    }
   }
-  if (!checkImageExistsAlready(bigPictureArt) && props.gameInfo.art_cover) {
-    downloadImage(props.gameInfo.art_cover, bigPictureArt)
-  }
-  if (!checkImageExistsAlready(logoArt) && props.gameInfo.art_logo) {
-    downloadImage(props.gameInfo.art_cover, logoArt)
+
+  if (errors.length > 0) {
+    logError(
+      [
+        `Preparing Steam images for ${props.gameInfo.title} failed with:\n`,
+        errors.join('\n')
+      ],
+      LogPrefix.Shortcuts
+    )
   }
 }
 
@@ -57,6 +78,8 @@ function removeImagesFromSteam(props: {
   gameInfo: GameInfo
 }) {
   const gridFolder = join(props.steamUserConfigDir, 'grid')
+  const coverArt = join(gridFolder, props.appID.otherGridAppID + coverArtSufix)
+  const headerArt = join(gridFolder, props.appID.otherGridAppID + pictureExt)
   const backGroundArt = join(
     gridFolder,
     props.appID.otherGridAppID + backGroundArtSufix
@@ -76,14 +99,26 @@ function removeImagesFromSteam(props: {
     LogPrefix.Shortcuts
   )
 
-  if (checkImageExistsAlready(backGroundArt) && props.gameInfo.art_cover) {
-    removeImage(backGroundArt)
-  }
-  if (checkImageExistsAlready(bigPictureArt) && props.gameInfo.art_cover) {
-    removeImage(bigPictureArt)
-  }
-  if (checkImageExistsAlready(logoArt) && props.gameInfo.art_logo) {
-    removeImage(logoArt)
+  const errors: string[] = []
+  const images = [coverArt, headerArt, backGroundArt, bigPictureArt, logoArt]
+
+  images.forEach((image) => {
+    if (!checkImageExistsAlready(image)) {
+      const error = removeImage(image)
+      if (error) {
+        errors.push(error)
+      }
+    }
+  })
+
+  if (errors.length > 0) {
+    logError(
+      [
+        `Removing Steam images for ${props.gameInfo.title} failed with:\n`,
+        errors.join('\n')
+      ],
+      LogPrefix.Shortcuts
+    )
   }
 }
 
