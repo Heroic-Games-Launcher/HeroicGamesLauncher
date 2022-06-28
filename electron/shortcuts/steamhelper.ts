@@ -44,7 +44,7 @@ function prepareImagesForSteam(props: {
   const images = new Map<string, string>([
     [coverArt, props.gameInfo.art_square],
     [headerArt, props.gameInfo.art_cover],
-    [backGroundArt, props.gameInfo.art_cover],
+    [backGroundArt, props.gameInfo.art_banner ?? props.gameInfo.art_cover],
     [bigPictureArt, props.gameInfo.art_cover],
     [logoArt, props.gameInfo.art_logo]
   ])

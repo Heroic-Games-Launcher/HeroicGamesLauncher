@@ -80,6 +80,7 @@ export interface GameInfo {
   art_cover: string
   art_logo: string
   art_square: string
+  art_banner: string
   cloud_save_enabled: boolean
   compatible_apps: string[]
   developer: string
