@@ -12,6 +12,7 @@ import { uninstall } from 'src/helpers/library'
 import { NavLink } from 'react-router-dom'
 
 import { ipcRenderer } from 'src/helpers'
+import { CircularProgress } from '@mui/material'
 
 interface Props {
   appName: string
@@ -39,6 +40,7 @@ export default function GamesSubmenu({
   const isLinux = platform === 'linux'
   const [info, setInfo] = useState({ prefix: '', wine: '' } as otherInfo)
   const [isNative, setIsNative] = useState(false)
+  const [addToSteamRefresh, setAdToSteamRefresh] = useState<boolean>(false)
   const { t } = useTranslation('gamepage')
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
@@ -112,8 +114,10 @@ export default function GamesSubmenu({
     ipcRenderer.send('addShortcut', appName, runner, true)
   }
 
-  function handleAddToSteam() {
-    ipcRenderer.send('addToSteam', appName, runner)
+  async function handleAddToSteam() {
+    setAdToSteamRefresh(true)
+    await ipcRenderer.invoke('addToSteam', appName, runner)
+    setAdToSteamRefresh(false)
   }
 
   useEffect(() => {
@@ -195,12 +199,19 @@ export default function GamesSubmenu({
                 {t('submenu.addShortcut', 'Add shortcut')}
               </button>
             )}
-            <button
-              onClick={() => handleAddToSteam()}
-              className="link button is-text is-link"
-            >
-              {t('submenu.addToSteam', 'Add to Steam')}
-            </button>
+            {addToSteamRefresh ? (
+              <CircularProgress
+                className="link button is-text is-link"
+                size={25}
+              />
+            ) : (
+              <button
+                onClick={async () => handleAddToSteam()}
+                className="link button is-text is-link"
+              >
+                {t('submenu.addToSteam', 'Add to Steam')}
+              </button>
+            )}
           </>
         )}
         <NavLink

@@ -27,7 +27,7 @@ ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
   game.removeShortcuts()
 })
 
-ipcMain.on('addToSteam', async (event, appName: string, runner: Runner) => {
+ipcMain.handle('addToSteam', async (event, appName: string, runner: Runner) => {
   const game = Game.get(appName, runner)
   const gameInfo = await game.getGameInfo()
 
