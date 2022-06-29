@@ -3,13 +3,17 @@ import {
   CleaningServicesOutlined,
   ContentCopyOutlined,
   DeleteOutline,
-  CachedOutlined
+  CachedOutlined,
+  UploadOutlined,
+  DownloadOutlined,
+  CancelOutlined
 } from '@mui/icons-material'
 import classNames from 'classnames'
 import { IpcRenderer, Clipboard } from 'electron'
 import { useTranslation } from 'react-i18next'
-import React, { useEffect, useState } from 'react'
-import { AppSettings, Path } from 'src/types'
+import React, { useContext, useEffect, useState } from 'react'
+import ContextProvider from 'src/state/ContextProvider'
+import { AppSettings, GameStatus, Path } from 'src/types'
 import { configStore } from 'src/helpers/electronStores'
 import TextInputWithIconField from 'src/components/UI/TextInputWithIconField'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -40,11 +44,17 @@ export const AdvancedSettings = ({
   const [legendaryVersion, setLegendaryVersion] = useState('')
   const [gogdlVersion, setGogdlVersion] = useState('')
   const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
-  const [isEosOverlayInstalled, setEosOverlayInstalled] = useState(false)
+
+  const [eosOverlayInstalled, setEosOverlayInstalled] = useState(false)
   const [eosOverlayVersion, setEosOverlayVersion] = useState('')
   const [eosOverlayLatestVersion, setEosOverlayLatestVersion] = useState('')
   const [eosOverlayCheckingForUpdates, setEosOverlayCheckingForUpdates] =
     useState(false)
+  const [eosOverlayInstallingOrUpdating, setEosOverlayInstallingOrUpdating] =
+    useState(false)
+  const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
+
+  const { libraryStatus, handleGameStatus } = useContext(ContextProvider)
   const { t } = useTranslation()
 
   const settings = configStore.get('settings') as {
@@ -113,7 +123,7 @@ export const AdvancedSettings = ({
       setEosOverlayVersion(version)
     }
     getEosStatus()
-  }, [isEosOverlayInstalled, eosOverlayVersion])
+  }, [eosOverlayInstalled, eosOverlayVersion])
 
   useEffect(() => {
     const getLatestEosOverlayVersion = async () => {
@@ -122,6 +132,16 @@ export const AdvancedSettings = ({
     }
     getLatestEosOverlayVersion()
   }, [eosOverlayLatestVersion])
+
+  useEffect(() => {
+    const { status } =
+      libraryStatus.filter(
+        (game: GameStatus) => game.appName === eosOverlayAppName
+      )[0] || {}
+    setEosOverlayInstallingOrUpdating(
+      status === 'installing' || status === 'updating'
+    )
+  }, [eosOverlayInstallingOrUpdating])
 
   async function handleLegendaryBinary() {
     return ipcRenderer
@@ -147,6 +167,27 @@ export const AdvancedSettings = ({
         )
       })
       .then(({ path }: Path) => setAltGogdlBin(path ? path : ''))
+  }
+
+  function getMainEosText() {
+    if (eosOverlayInstalled && eosOverlayInstallingOrUpdating)
+      return t(
+        'setting.eosOverlay.updating',
+        'The EOS Overlay is being updated...'
+      )
+    if (eosOverlayInstalled && !eosOverlayInstallingOrUpdating)
+      return t('setting.eosOverlay.installed', 'The EOS Overlay is installed')
+    if (!eosOverlayInstalled && eosOverlayInstallingOrUpdating)
+      return t(
+        'setting.eosOverlay.installing',
+        'The EOS Overlay is being installed...'
+      )
+    if (!eosOverlayInstalled && !eosOverlayInstallingOrUpdating)
+      return t(
+        'setting.eosOverlay.notInstalled',
+        'The EOS Overlay is not installed'
+      )
+    return ''
   }
 
   return (
@@ -237,16 +278,9 @@ export const AdvancedSettings = ({
 
       <div className="eosSettings">
         <h3>EOS Overlay</h3>
-        <div>
-          {isEosOverlayInstalled
-            ? t('setting.eosOverlay.installed', 'The EOS Overlay is installed')
-            : t(
-                'setting.eosOverlay.notInstalled',
-                'The EOS Overlay is not installed'
-              )}
-        </div>
+        <div>{getMainEosText()}</div>
         <br />
-        {isEosOverlayInstalled && (
+        {eosOverlayInstalled && !eosOverlayInstallingOrUpdating && (
           <>
             <div>
               {t(
@@ -266,48 +300,125 @@ export const AdvancedSettings = ({
           </>
         )}
         <div className="footerFlex">
-          {isEosOverlayInstalled && (
+          {eosOverlayInstalled && (
             <>
-              <button
-                className="button is-primary"
-                onClick={async () => {
-                  setEosOverlayCheckingForUpdates(true)
-                  await ipcRenderer.invoke('updateEosOverlayInfo')
-                  const newVersion = await ipcRenderer.invoke(
-                    'getLatestEosOverlayVersion'
-                  )
-                  setEosOverlayLatestVersion(newVersion)
-                  setEosOverlayCheckingForUpdates(false)
-                }}
-              >
-                <CachedOutlined />
-                <span>
-                  {eosOverlayCheckingForUpdates
-                    ? t(
-                        'setting.eosOverlay.checkingForUpdates',
-                        'Checking for updates...'
-                      )
-                    : t(
-                        'setting.eosOverlay.checkForUpdates',
-                        'Check for updates'
-                      )}
-                </span>
-              </button>
-              <button
-                className="button is-danger"
-                onClick={async () => {
-                  const wasRemoved = await ipcRenderer.invoke(
-                    'removeEosOverlay'
-                  )
-                  setEosOverlayInstalled(!wasRemoved)
-                }}
-              >
-                <DeleteOutline />
-                <span>
-                  {t('setting.eosOverlay.remove', 'Uninstall EOS Overlay')}
-                </span>
-              </button>
+              {eosOverlayVersion === eosOverlayLatestVersion && (
+                <button
+                  className="button is-primary"
+                  onClick={async () => {
+                    setEosOverlayCheckingForUpdates(true)
+                    await ipcRenderer.invoke('updateEosOverlayInfo')
+                    const newVersion = await ipcRenderer.invoke(
+                      'getLatestEosOverlayVersion'
+                    )
+                    setEosOverlayLatestVersion(newVersion)
+                    setEosOverlayCheckingForUpdates(false)
+                  }}
+                >
+                  <CachedOutlined />
+                  <span>
+                    {eosOverlayCheckingForUpdates
+                      ? t(
+                          'setting.eosOverlay.checkingForUpdates',
+                          'Checking for updates...'
+                        )
+                      : t(
+                          'setting.eosOverlay.checkForUpdates',
+                          'Check for updates'
+                        )}
+                  </span>
+                </button>
+              )}
+              {eosOverlayVersion !== eosOverlayLatestVersion && (
+                <button
+                  className="button is-primary"
+                  onClick={async () => {
+                    await handleGameStatus({
+                      appName: eosOverlayAppName,
+                      runner: 'legendary',
+                      status: 'updating'
+                    })
+                    setEosOverlayInstallingOrUpdating(true)
+                    await ipcRenderer.invoke('installEosOverlay')
+                    await handleGameStatus({
+                      appName: eosOverlayAppName,
+                      runner: 'legendary',
+                      status: 'done'
+                    })
+                    setEosOverlayInstallingOrUpdating(false)
+                    const { version: newVersion } = await ipcRenderer.invoke(
+                      'getEosOverlayStatus'
+                    )
+                    setEosOverlayVersion(newVersion)
+                  }}
+                >
+                  <UploadOutlined />
+                  <span>
+                    {eosOverlayInstallingOrUpdating
+                      ? t('setting.eosOverlay.updating', 'Updating...')
+                      : t('setting.eosOverlay.updateNow', 'Update')}
+                  </span>
+                </button>
+              )}
+              {!eosOverlayInstallingOrUpdating && (
+                <button
+                  className="button is-danger"
+                  onClick={async () => {
+                    const wasRemoved = await ipcRenderer.invoke(
+                      'removeEosOverlay'
+                    )
+                    setEosOverlayInstalled(!wasRemoved)
+                  }}
+                >
+                  <DeleteOutline />
+                  <span>{t('setting.eosOverlay.remove', 'Uninstall')}</span>
+                </button>
+              )}
             </>
+          )}
+          {!eosOverlayInstalled && !eosOverlayInstallingOrUpdating && (
+            <button
+              className="button is-primary"
+              onClick={async () => {
+                await handleGameStatus({
+                  appName: eosOverlayAppName,
+                  runner: 'legendary',
+                  status: 'installing'
+                })
+                setEosOverlayInstallingOrUpdating(true)
+                const installError = await ipcRenderer.invoke(
+                  'installEosOverlay'
+                )
+                await handleGameStatus({
+                  appName: eosOverlayAppName,
+                  runner: 'legendary',
+                  status: 'done'
+                })
+                setEosOverlayInstallingOrUpdating(false)
+                setEosOverlayInstalled(!installError)
+              }}
+            >
+              <DownloadOutlined />
+              <span>{t('setting.eosOverlay.install', 'Install')}</span>
+            </button>
+          )}
+          {((!eosOverlayInstalled && eosOverlayInstallingOrUpdating) ||
+            (eosOverlayInstalled && eosOverlayInstallingOrUpdating)) && (
+            <button
+              className="button is-danger"
+              onClick={async () => {
+                await ipcRenderer.invoke('cancelEosOverlayInstallOrUpdate')
+                await handleGameStatus({
+                  appName: eosOverlayAppName,
+                  runner: 'legendary',
+                  status: 'canceled'
+                })
+                setEosOverlayInstallingOrUpdating(false)
+              }}
+            >
+              <CancelOutlined />
+              <span>{t('setting.eosOverlay.cancelInstall', 'Cancel')}</span>
+            </button>
           )}
         </div>
         <br />

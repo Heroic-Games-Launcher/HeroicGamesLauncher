@@ -1,12 +1,16 @@
 import { ipcMain } from 'electron'
 import {
-  getEosOverlayStatus,
-  getLatestEosOverlayVersion,
-  updateEosOverlayInfo,
-  removeEosOverlay
+  getStatus,
+  getLatestVersion,
+  updateInfo,
+  install,
+  remove,
+  cancelInstallOrUpdate
 } from './eos_overlay'
 
-ipcMain.handle('getEosOverlayStatus', getEosOverlayStatus)
-ipcMain.handle('getLatestEosOverlayVersion', getLatestEosOverlayVersion)
-ipcMain.handle('updateEosOverlayInfo', updateEosOverlayInfo)
-ipcMain.handle('removeEosOverlay', removeEosOverlay)
+ipcMain.handle('getEosOverlayStatus', getStatus)
+ipcMain.handle('getLatestEosOverlayVersion', getLatestVersion)
+ipcMain.handle('updateEosOverlayInfo', updateInfo)
+ipcMain.handle('installEosOverlay', install)
+ipcMain.handle('removeEosOverlay', remove)
+ipcMain.handle('cancelEosOverlayInstallOrUpdate', cancelInstallOrUpdate)
