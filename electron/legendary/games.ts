@@ -246,41 +246,43 @@ class LegendaryGame extends Game {
     // parse log for game download progress
     const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
     const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
-    if (etaMatch && bytesMatch) {
-      const eta = etaMatch[1]
-      const bytes = bytesMatch[1]
-
-      // original is in bytes, convert to MiB with 2 decimals
-      totalDownloadSize =
-        Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
-
-      // calculate percentage
-      const downloaded = parseFloat(bytes)
-      const downloadCache = totalDownloadSize - this.currentDownloadSize
-      const totalDownloaded = downloaded + downloadCache
-      let percent =
-        Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
-      if (percent < 0) percent = 0
-
-      logInfo(
-        [
-          `Progress for ${this.appName}:`,
-          `${percent}%/${bytes}MiB/${eta}`.trim()
-        ],
-        LogPrefix.Legendary
-      )
-
-      this.window.webContents.send('setGameStatus', {
-        appName: this.appName,
-        runner: 'legendary',
-        status: action,
-        progress: {
-          eta: eta,
-          percent,
-          bytes: `${bytes}MiB`
-        }
-      })
+    if (!etaMatch || !bytesMatch) {
+      return
     }
+
+    const eta = etaMatch[1]
+    const bytes = bytesMatch[1]
+
+    // original is in bytes, convert to MiB with 2 decimals
+    totalDownloadSize =
+      Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
+
+    // calculate percentage
+    const downloaded = parseFloat(bytes)
+    const downloadCache = totalDownloadSize - this.currentDownloadSize
+    const totalDownloaded = downloaded + downloadCache
+    let percent =
+      Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
+    if (percent < 0) percent = 0
+
+    logInfo(
+      [
+        `Progress for ${this.appName}:`,
+        `${percent}%/${bytes}MiB/${eta}`.trim()
+      ],
+      LogPrefix.Legendary
+    )
+
+    this.window.webContents.send('setGameStatus', {
+      appName: this.appName,
+      runner: 'legendary',
+      status: action,
+      progress: {
+        eta: eta,
+        percent,
+        bytes: `${bytes}MiB`
+      }
+    })
   }
 
   /**
