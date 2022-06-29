@@ -558,7 +558,7 @@ async function callRunner(
         appName
       })
 
-      if (signal) {
+      if (signal && !child.killed) {
         rej('Process terminated with signal ' + signal)
       }
 
