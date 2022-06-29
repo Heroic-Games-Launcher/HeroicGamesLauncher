@@ -181,7 +181,7 @@ export default function SidebarLinks() {
                 <span>Wine</span>
               </NavLink>
             )}
-            {hasCloudSave && (
+            {hasCloudSave && !isLinuxGame && (
               <NavLink
                 role="link"
                 data-testid="linkSync"
