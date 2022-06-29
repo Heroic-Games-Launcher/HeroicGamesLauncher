@@ -3,8 +3,13 @@ import { existsSync, mkdirSync } from 'graceful-fs'
 import { join } from 'path'
 import { GameInfo } from '../types'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { checkImageExistsAlready, downloadImage, removeImage } from './utils'
-import { transparentSteamLogo } from '../constants'
+import {
+  checkImageExistsAlready,
+  createImage,
+  downloadImage,
+  removeImage
+} from './utils'
+import { transparentSteamLogoHex } from '../constants'
 
 const pictureExt = '.jpg'
 const coverArtSufix = 'p' + pictureExt
@@ -46,9 +51,22 @@ function prepareImagesForSteam(props: {
     [coverArt, props.gameInfo.art_square],
     [headerArt, props.gameInfo.art_cover],
     [backGroundArt, props.gameInfo.art_cover],
-    [bigPictureArt, props.gameInfo.art_cover],
-    [logoArt, props.gameInfo.art_logo ?? `file:///${transparentSteamLogo}`]
+    [bigPictureArt, props.gameInfo.art_cover]
   ])
+
+  // if no logo art is provided we add a 1x1 transparent png
+  // to get rid of game title in steam
+  if (props.gameInfo.art_logo) {
+    images.set(logoArt, props.gameInfo.art_logo)
+  } else {
+    const error = createImage(
+      Buffer.from(transparentSteamLogoHex, 'hex'),
+      logoArt.replace(pictureExt, '.png')
+    )
+    if (error) {
+      errors.push(error)
+    }
+  }
 
   for (const [key, value] of images) {
     if (!checkImageExistsAlready(key) && value) {

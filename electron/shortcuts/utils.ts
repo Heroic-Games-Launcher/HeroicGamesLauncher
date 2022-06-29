@@ -1,9 +1,20 @@
-import { existsSync, mkdirSync, unlinkSync } from 'graceful-fs'
+import { existsSync, mkdirSync, unlinkSync, writeFileSync } from 'graceful-fs'
 import { GOGLibrary } from '../gog/library'
 import { heroicIconFolder } from '../constants'
 import { GameInfo } from '../types'
 import { spawnSync } from 'child_process'
 import { basename, dirname, extname, join } from 'path'
+
+function createImage(buffer: Buffer, outputFilePath: string): string {
+  try {
+    writeFileSync(outputFilePath, buffer, {
+      encoding: 'ascii'
+    })
+  } catch (error) {
+    return `${error}`
+  }
+  return undefined
+}
 
 function downloadImage(imageURL: string, outputFilePath: string): string {
   try {
@@ -64,4 +75,10 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
   }
 }
 
-export { downloadImage, removeImage, checkImageExistsAlready, getIcon }
+export {
+  createImage,
+  downloadImage,
+  removeImage,
+  checkImageExistsAlready,
+  getIcon
+}

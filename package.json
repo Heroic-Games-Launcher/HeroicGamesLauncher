@@ -28,8 +28,7 @@
       "build/icon.icns",
       "build/win_icon.ico",
       "build/icon-dark.png",
-      "build/icon-light.png",
-      "build/transparent-steam-logo.png"
+      "build/icon-light.png"
     ],
     "directories": {
       "buildResources": "public"
