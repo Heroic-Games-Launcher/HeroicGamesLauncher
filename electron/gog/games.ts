@@ -23,8 +23,7 @@ import {
   isWindows,
   execOptions,
   isMac,
-  isLinux,
-  userHome
+  isLinux
 } from '../constants'
 import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
@@ -41,11 +40,6 @@ import {
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import setup from './setup'
 import { runGogdlCommand } from './library'
-
-function verifyProgress(stderr: string): boolean {
-  const text = stderr.split('\n').at(-1)
-  return text.includes('INFO: Done')
-}
 
 class GOGGame extends Game {
   public appName: string
