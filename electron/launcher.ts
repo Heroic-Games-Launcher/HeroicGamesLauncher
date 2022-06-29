@@ -532,7 +532,7 @@ async function callRunner(
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString())
+        options.onOutput(data.toString(), child)
       }
 
       stdout.push(data.toString().trim())
@@ -544,7 +544,7 @@ async function callRunner(
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString())
+        options.onOutput(data.toString(), child)
       }
 
       stderr.push(data.toString().trim())
