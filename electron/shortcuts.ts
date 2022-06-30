@@ -41,6 +41,7 @@ Categories=Game;
         writeFile(desktopFile, shortcut, () => {
           logInfo(`Shortcut saved on ${desktopFile}`, LogPrefix.Backend)
         })
+        execAsync(`chmod +x "${desktopFile}"`)
       }
       if (addStartMenuShortcuts || fromMenu) {
         writeFile(menuFile, shortcut, () => {
