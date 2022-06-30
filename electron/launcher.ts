@@ -39,6 +39,7 @@ import {
   GameInfo,
   Runner,
   EnviromentVariable,
+  WrapperVariable,
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
@@ -312,12 +313,10 @@ function setupWrappers(
 ): Array<string> {
   const wrappers = Array<string>()
   if (gameSettings.wrapperOptions) {
-    gameSettings.wrapperOptions
-      .split(' ')
-      .filter((val) => val.indexOf('=') === -1)
-      .forEach((val) => {
-        wrappers.push(val)
-      })
+    gameSettings.wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
+      wrappers.push(wrapperEntry.exe)
+      wrappers.push(...wrapperEntry.args)
+    })
   }
   if (gameSettings.showMangohud) {
     // Mangohud needs some arguments in addition to the command, so we have to split here

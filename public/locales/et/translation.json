@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Abi",
-        "requirements": "Süsteeminõuded",
-        "wine-path": "Path"
+        "requirements": "Süsteeminõuded"
     },
     "install": {
         "path": "Valige paigaldustee"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Pange siia muud käivitusvalikud",
-            "title": "Täpsemad valikud (environment variables):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Täpsemad valikud (environment variables):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Pange siia käiviti argumendid",
             "title": "Mängu argumendid (käivitatakse pärast käsku):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

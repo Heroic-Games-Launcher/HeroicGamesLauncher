@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Help",
-        "requirements": "Systeemvereisingen",
-        "wine-path": "Path"
+        "requirements": "Systeemvereisingen"
     },
     "install": {
         "path": "Select Install Path"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Hier je andere lanceer opties plaatsen",
-            "title": "Geavanceerde opties (Environment variables):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Geavanceerde opties (Environment variables):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Hier je lanceer opties plaatsen",
             "title": "Spel argumenten (Om na het commando te draaien):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Bantuan",
-        "requirements": "Persyaratan Sistem",
-        "wine-path": "Path"
+        "requirements": "Persyaratan Sistem"
     },
     "install": {
         "path": "Pilih Lokasi Pemasangan"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Letakkan opsi peluncuran lainnya di sini",
-            "title": "Opsi Lanjutan (Variabel Lingkungan):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Opsi Lanjutan (Variabel Lingkungan):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Letakkan Argumen Peluncur di sini",
             "title": "Argumen Gim (Untuk dijalankan setelah perintah):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "راهنما",
-        "requirements": "نیازمندیهای سیستم",
-        "wine-path": "Path"
+        "requirements": "نیازمندیهای سیستم"
     },
     "install": {
         "path": "انتخاب محل نصب"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "در اینجا گزینههای دیگر اجرا را بگذارید",
-            "title": "گزینههای پیشرفته (متغیرهای محیطی):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "گزینههای پیشرفته (متغیرهای محیطی):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "آرگومانهای لانچر را اینجا بگذارید",
             "title": "آرگومانهای بازی (برای اجرا پس از دستور):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

@@ -10,12 +10,12 @@ import {
   TextInputWithIconField
 } from 'src/components/UI'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
-import { EnviromentVariable, Path } from 'src/types'
+import { EnviromentVariable, Path, WrapperVariable } from 'src/types'
 import Backspace from '@mui/icons-material/Backspace'
 import { getGameInfo } from 'src/helpers'
 
 import { ipcRenderer } from 'src/helpers'
-import { TableInput } from 'src/components/UI/TableInput'
+import { ColumnProps, TableInput } from 'src/components/UI/TwoColTableInput'
 
 interface Props {
   audioFix: boolean
@@ -27,7 +27,7 @@ interface Props {
   canRunOffline: boolean
   offlineMode: boolean
   enviromentOptions: EnviromentVariable[]
-  wrapperOptions: string
+  wrapperOptions: WrapperVariable[]
   primeRun: boolean
   addDesktopShortcuts: boolean
   addGamesToStartMenu: boolean
@@ -35,7 +35,7 @@ interface Props {
   setLanguageCode: (value: string) => void
   setLauncherArgs: (value: string) => void
   setEnviromentOptions: (value: EnviromentVariable[]) => void
-  setWrapperOptions: (value: string) => void
+  setWrapperOptions: (value: WrapperVariable[]) => void
   setMaxRecentGames: (value: number) => void
   setTargetExe: (value: string) => void
   showFps: boolean
@@ -98,8 +98,35 @@ export default function OtherSettings({
   isProton,
   appName
 }: Props) {
-  const handleWrapperOptions = (event: ChangeEvent<HTMLInputElement>) =>
-    setWrapperOptions(event.currentTarget.value)
+  const handleEnviromentVariables = (values: ColumnProps[]) => {
+    const envs: EnviromentVariable[] = []
+    values.forEach((value) => envs.push({ key: value.key, value: value.value }))
+    setEnviromentOptions([...envs])
+  }
+  const getEnvironmentVariables = () => {
+    const columns: ColumnProps[] = []
+    enviromentOptions.forEach((env) =>
+      columns.push({ key: env.key, value: env.value })
+    )
+    return columns
+  }
+  const handleWrapperVariables = (values: ColumnProps[]) => {
+    const wrappers = [] as WrapperVariable[]
+    values.forEach((value) =>
+      wrappers.push({
+        exe: value.key,
+        args: value.value.split(';').map((arg) => arg.trim())
+      })
+    )
+    setWrapperOptions([...wrappers])
+  }
+  const getWrapperVariables = () => {
+    const columns: ColumnProps[] = []
+    wrapperOptions.forEach((wrapper) =>
+      columns.push({ key: wrapper.exe, value: wrapper.args.join('; ') })
+    )
+    return columns
+  }
   const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
     setLauncherArgs(event.currentTarget.value)
   const handleLanguageCode = (event: ChangeEvent<HTMLInputElement>) =>
@@ -288,36 +315,41 @@ export default function OtherSettings({
         <TableInput
           label={t('options.advanced.title')}
           htmlId={'enviromentOptions'}
-          header={
-            {
-              key: t('options.advanced.key', 'Key'),
-              value: t('options.advanced.vale', 'Value')
-            } as EnviromentVariable
-          }
-          rows={enviromentOptions}
-          onChange={(envs: EnviromentVariable[]) => {
-            setEnviromentOptions([...envs])
+          header={{
+            key: t('options.advanced.key', 'Key'),
+            value: t('options.advanced.value', 'Value')
           }}
-          inputPlaceHolder={
-            {
-              key: t('options.advanced.placeHolderKey', 'ENVIORMENT'),
-              value: t(
-                'options.advanced.placeHolderKey',
-                'E.g.: Path/To/ExtraFiles'
-              )
-            } as EnviromentVariable
-          }
+          rows={getEnvironmentVariables()}
+          onChange={handleEnviromentVariables}
+          inputPlaceHolder={{
+            key: t('options.advanced.placeHolderKey', 'ENVIORMENT'),
+            value: t(
+              'options.advanced.placeHolderKey',
+              'E.g.: Path/To/ExtraFiles'
+            )
+          }}
           afterInput={info}
         />
       )}
       {!isWin && (
-        <TextInputField
+        <TableInput
           label={t('options.wrapper.title', 'Wrapper additional arguments')}
-          htmlId="wrapperOptions"
-          placeholder={t('options.wrapper.placeholder')}
-          value={wrapperOptions}
-          onChange={handleWrapperOptions}
-          //afterInput={info} // Todo
+          htmlId={'wrapperOptions'}
+          header={{
+            key: t('options.wrapper.exe', 'Exe'),
+            value: t('options.wrapper.args', 'Arguments')
+          }}
+          rows={getWrapperVariables()}
+          fullFills={{ key: true, value: false }}
+          onChange={handleWrapperVariables}
+          inputPlaceHolder={{
+            key: t('options.wrapper.placeHolderKey', 'Executable Path'),
+            value: t(
+              'options.wrapper.placeHolderKey',
+              'Arguments seperated by semicolon (;) e.g.: --arg; --extra-file="file-path/ with/spaces"'
+            )
+          }}
+          afterInput={info}
         />
       )}
       {!isDefault && (

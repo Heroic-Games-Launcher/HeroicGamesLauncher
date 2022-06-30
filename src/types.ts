@@ -33,7 +33,7 @@ export interface AppSettings {
   nvidiaPrime: boolean
   offlineMode: boolean
   enviromentOptions: EnviromentVariable[]
-  wrapperOptions: string
+  wrapperOptions: WrapperVariable[]
   savesPath: string
   showFps: boolean
   showMangohud: boolean
@@ -175,7 +175,7 @@ export interface GameSettings {
   nvidiaPrime: boolean
   offlineMode: boolean
   enviromentOptions: EnviromentVariable[]
-  wrapperOptions: string
+  wrapperOptions: WrapperVariable[]
   savesPath: string
   showFps: boolean
   showMangohud: boolean
@@ -368,4 +368,9 @@ export type PlatformToInstall = 'Windows' | 'Mac' | 'Linux' | ''
 export interface EnviromentVariable {
   key: string
   value: string
+}
+
+export interface WrapperVariable {
+  exe: string
+  args: string[]
 }

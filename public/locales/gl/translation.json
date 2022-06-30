@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Axuda",
-        "requirements": "Requisitos do sistema",
-        "wine-path": "Path"
+        "requirements": "Requisitos do sistema"
     },
     "install": {
         "path": "Seleccionar a ruta de instalación"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Escribe aquí outras opcións de lanzamento",
-            "title": "Opcións avanzadas (variables de ambiente):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Opcións avanzadas (variables de ambiente):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Escribe aquí os argumentos de lanzamento",
             "title": "Argumentos do xgo (para executar despois da orde):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

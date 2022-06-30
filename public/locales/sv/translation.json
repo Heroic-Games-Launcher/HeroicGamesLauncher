@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Hjälp",
-        "requirements": "Systemkrav",
-        "wine-path": "Path"
+        "requirements": "Systemkrav"
     },
     "install": {
         "path": "Ange installationssökväg"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Ange övriga startalternativ här",
-            "title": "Avancerade alternativ (Miljövariabler):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Avancerade alternativ (Miljövariabler):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Ange Launcher-specifika argument",
             "title": "Spelspecifika argument (körs efter startkommandot):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

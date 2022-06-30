@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "幫助",
-        "requirements": "系統要求",
-        "wine-path": "Path"
+        "requirements": "系統要求"
     },
     "install": {
         "path": "Select Install Path"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "將其他啟動選項放在這裏",
-            "title": "進階選項（環境變量）："
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "進階選項（環境變量）：",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "將啟動器參數放在這裏",
             "title": "遊戲參數（在命令後運行）："
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

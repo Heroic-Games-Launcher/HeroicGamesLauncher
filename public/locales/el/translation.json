@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Βοήθεια",
-        "requirements": "Απαιτήσεις Συστήματος",
-        "wine-path": "Path"
+        "requirements": "Απαιτήσεις Συστήματος"
     },
     "install": {
         "path": "Επιλέξτε διαδρομή εγκατάστασης"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Εισαγάγετε άλλες επιλογές εκκίνησης εδώ",
-            "title": "Προχωρημένες ρυθμίσεις (Μεταβλητές περιβάλλοντος):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Προχωρημένες ρυθμίσεις (Μεταβλητές περιβάλλοντος):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Εισαγάγετε τα επιχειρήματα εκκινητή",
             "title": "Επιχειρήματα παιχνιδιού (Εκτέλεση μετά την εντολή):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

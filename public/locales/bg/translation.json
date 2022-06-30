@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Помощ",
-        "requirements": "Системни изисквания",
-        "wine-path": "Path"
+        "requirements": "Системни изисквания"
     },
     "install": {
         "path": "Изберете местоположение за инсталиране"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Тук можете да въведете други аргументи за пускане",
-            "title": "Разширени настройки (променливи на средата):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Разширени настройки (променливи на средата):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Въведете аргументите за пускане тук",
             "title": "Аргументи за играта (които да се изпълнят след командата):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

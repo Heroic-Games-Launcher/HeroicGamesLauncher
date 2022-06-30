@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Помощь",
-        "requirements": "Системные требования",
-        "wine-path": "Путь"
+        "requirements": "Системные требования"
     },
     "install": {
         "path": "Выберите путь установки"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Укажите здесь другие параметры запуска",
-            "title": "Расширенные настройки (Переменные среды):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Расширенные настройки (Переменные среды):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Вставьте сюда аргументы запуска",
             "title": "Аргументы игры (Для запуска после команды):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

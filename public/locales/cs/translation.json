@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Pomoc",
-        "requirements": "Systémové požadavky",
-        "wine-path": "Path"
+        "requirements": "Systémové požadavky"
     },
     "install": {
         "path": "Vyberte cestu instalace"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Sem vložte ostatní možnosti spuštění",
-            "title": "Pokročilé možnosti (Proměnné prostředí):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Pokročilé možnosti (Proměnné prostředí):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Sem vložte argumenty spouštěče",
             "title": "Herní argumenty (Pro spuštění po příkazu):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

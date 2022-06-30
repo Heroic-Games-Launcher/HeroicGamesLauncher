@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "ヘルプ",
-        "requirements": "システム要求",
-        "wine-path": "Path"
+        "requirements": "システム要求"
     },
     "install": {
         "path": "Select Install Path"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "ここに他の起動オプションを入れてください",
-            "title": "高度なオプション（環境変数）："
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "高度なオプション（環境変数）：",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "ここにランチャーの引数を入れてください",
             "title": "ゲームの引数（コマンドの後に実行するため）："
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

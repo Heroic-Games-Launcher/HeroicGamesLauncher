@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Pomoč",
-        "requirements": "Zahtjevi sustava",
-        "wine-path": "Path"
+        "requirements": "Zahtjevi sustava"
     },
     "install": {
         "path": "Odaberite put instalacije"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Ovjde stavi druge postavke",
-            "title": "Napradne postavke (Environmment Variables):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Napradne postavke (Environmment Variables):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Ovjde upiši argumente launchera",
             "title": "Argumenti igrice (Za pokrenuti poslije komande):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

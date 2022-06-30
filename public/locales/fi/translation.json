@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Apua",
-        "requirements": "Laitteistovaatimukset",
-        "wine-path": "Path"
+        "requirements": "Laitteistovaatimukset"
     },
     "install": {
         "path": "Valitse asennuspolku"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Aseta muut käynnistysasetukset tähän",
-            "title": "Lisäasetukset (Ympäristömuuttujat):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Lisäasetukset (Ympäristömuuttujat):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Laita tähän käynnistysargumentit",
             "title": "Pelin argumentit (suoritetaan komennon jälkeen):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

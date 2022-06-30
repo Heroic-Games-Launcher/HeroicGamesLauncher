@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Yardım",
-        "requirements": "Sistem Gereksinimleri",
-        "wine-path": "Path"
+        "requirements": "Sistem Gereksinimleri"
     },
     "install": {
         "path": "Kurulum Yolunu Seçin"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Diğer başlatma seçeneklerini buraya girin",
-            "title": "Gelişmiş Seçenekler (Ortam Değişkenleri):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Gelişmiş Seçenekler (Ortam Değişkenleri):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Başlatma Parametrelerini buraya girin",
             "title": "Oyun Parametreleri (Komutun sonunda çalıştırmak için):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

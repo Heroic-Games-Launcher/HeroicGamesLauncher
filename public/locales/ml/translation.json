@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "സഹായിക്കൂ",
-        "requirements": "ശുപാര്ശിക്കുന്ന സംവിധാനങ്ങള്",
-        "wine-path": "Path"
+        "requirements": "ശുപാര്ശിക്കുന്ന സംവിധാനങ്ങള്"
     },
     "install": {
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "ഓടിക്കാനുള്ള മറ്റു വാദങ്ങള് ഇടൂ",
-            "title": "ഉയര്ന്ന ക്രമീകരണങ്ങള് (Environment Variables):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "ഉയര്ന്ന ക്രമീകരണങ്ങള് (Environment Variables):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "ഇവിടെ ലോഞ്ചര് വാദങ്ങള് ഇടൂ",
             "title": "കളി വാദങ്ങള് ആജ്ഞക്കു(command) ശേഷം ഒടിക്കാന്:"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

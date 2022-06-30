@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Hỗ trợ",
-        "requirements": "Yêu cầu về hệ thống",
-        "wine-path": "Path"
+        "requirements": "Yêu cầu về hệ thống"
     },
     "install": {
         "path": "Chọn đường dẫn cài"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Đặt các tùy chọn khởi chạy khác tại đây",
-            "title": "Tùy chọn nâng cao (Tùy biến môi trường):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Tùy chọn nâng cao (Tùy biến môi trường):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Thêm Launcher Argument ở đây",
             "title": "Game Argument (Để chạy sau lệnh):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

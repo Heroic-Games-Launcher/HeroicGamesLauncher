@@ -6,7 +6,8 @@ import {
   AppSettings,
   EnviromentVariable,
   Runner,
-  WineInstallation
+  WineInstallation,
+  WrapperVariable
 } from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
@@ -64,7 +65,7 @@ function Settings() {
   const [enviromentOptions, setEnviromentOptions] = useState<
     EnviromentVariable[]
   >([])
-  const [wrapperOptions, setWrapperOptions] = useState<string>('')
+  const [wrapperOptions, setWrapperOptions] = useState<WrapperVariable[]>([])
   const [launcherArgs, setLauncherArgs] = useState('')
   const [languageCode, setLanguageCode] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')

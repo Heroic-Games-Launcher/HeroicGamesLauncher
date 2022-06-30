@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Допомога",
-        "requirements": "Системні вимоги",
-        "wine-path": "Path"
+        "requirements": "Системні вимоги"
     },
     "install": {
         "path": "Вкажіть шлях встановлення"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Додайте сюди инші параметри запуску",
-            "title": "Додаткові параметри (змінні середовища):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Додаткові параметри (змінні середовища):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Вкажіть тут аргументи запуску",
             "title": "Аргументи гри (для виконання після команди):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

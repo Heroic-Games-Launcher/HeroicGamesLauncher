@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Aiuto",
-        "requirements": "Requisiti di sistema",
-        "wine-path": "Path"
+        "requirements": "Requisiti di sistema"
     },
     "install": {
         "path": "Seleziona percorso di installazione"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Inserisci qui le altre opzioni d'avvio",
-            "title": "Opzioni avanzate (Variabili d'ambiente):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Opzioni avanzate (Variabili d'ambiente):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Inserisci qui le opzioni del Launcher",
             "title": "Opzioni di gioco (da eseguire dopo il comando):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

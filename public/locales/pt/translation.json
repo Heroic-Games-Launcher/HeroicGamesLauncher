@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Ajuda",
-        "requirements": "Requisitos",
-        "wine-path": "Path"
+        "requirements": "Requisitos"
     },
     "install": {
         "path": "Select Install Path"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Adicione aqui variáveis de ambiente",
-            "title": "Opções Avançadas (Variáveis de ambiente):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Opções Avançadas (Variáveis de ambiente):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Coloque aqui os argumentos do jogo",
             "title": "Argumentos do Jogo:"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

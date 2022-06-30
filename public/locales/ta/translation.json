@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "உதவி",
-        "requirements": "கணினி தேவைப்பாடுகள்",
-        "wine-path": "Path"
+        "requirements": "கணினி தேவைப்பாடுகள்"
     },
     "install": {
         "path": "Select Install Path"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "பிற துவக்கி-விருப்பங்களை இங்கே உள்ளிடவும்",
-            "title": "மேம்பட்ட விருப்பங்கள் (Environment Variables):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "மேம்பட்ட விருப்பங்கள் (Environment Variables):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "துவக்கி வாதங்களை இங்கே உள்ளிடவும்",
             "title": "விளையாட்டு வாதங்கள் (கட்டளைக்குப் பின் இயக்க):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

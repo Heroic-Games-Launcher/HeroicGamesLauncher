@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Segítség",
-        "requirements": "Rendszerkövetelmények",
-        "wine-path": "Path"
+        "requirements": "Rendszerkövetelmények"
     },
     "install": {
         "path": "Telepítési útvonal kiválasztása"
@@ -244,12 +243,20 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Ide írd az egyéb indítási opciókat",
-            "title": "Haladó beállítások (környezeti változók):"
+            "key": "Key",
+            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "title": "Haladó beállítások (környezeti változók):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Ide írd az indító argumentumait",
             "title": "Játékargumentumok (futtatás a parancs után):"
+        },
+        "wrapper": {
+            "args": "Arguments",
+            "exe": "Exe",
+            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "title": "Wrapper additional arguments"
         }
     },
     "other": {

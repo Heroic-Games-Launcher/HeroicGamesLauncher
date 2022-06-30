@@ -462,7 +462,7 @@ class GlobalConfigV0 extends GlobalConfig {
       minimizeOnLaunch: false,
       nvidiaPrime: false,
       enviromentOptions: [],
-      wrapperOptions: '',
+      wrapperOptions: [],
       showUnrealMarket: false,
       showFps: false,
       useGameMode: false,
