@@ -324,7 +324,7 @@ export default function OtherSettings({
           inputPlaceHolder={{
             key: t('options.advanced.placeHolderKey', 'ENVIORMENT'),
             value: t(
-              'options.advanced.placeHolderKey',
+              'options.advanced.placeHolderValue',
               'E.g.: Path/To/ExtraFiles'
             )
           }}
@@ -345,7 +345,7 @@ export default function OtherSettings({
           inputPlaceHolder={{
             key: t('options.wrapper.placeHolderKey', 'Executable Path'),
             value: t(
-              'options.wrapper.placeHolderKey',
+              'options.wrapper.placeHolderValue',
               'Arguments seperated by semicolon (;) e.g.: --arg; --extra-file="file-path/ with/spaces"'
             )
           }}

@@ -244,7 +244,8 @@
     "options": {
         "advanced": {
             "key": "Key",
-            "placeHolderKey": "E.g.: Path/To/ExtraFiles",
+            "placeHolderKey": "ENVIORMENT",
+            "placeHolderValue": "E.g.: Path/To/ExtraFiles",
             "title": "高度なオプション（環境変数）：",
             "value": "Value"
         },
@@ -255,7 +256,8 @@
         "wrapper": {
             "args": "Arguments",
             "exe": "Exe",
-            "placeHolderKey": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "placeHolderKey": "Executable Path",
+            "placeHolderValue": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
             "title": "Wrapper additional arguments"
         }
     },
