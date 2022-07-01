@@ -162,7 +162,7 @@ function checkIfShortcutObjectIsValid(
     object.shortcuts.forEach((entry) => {
       const keysToCheck = ['AppName', 'Exe', 'LaunchOptions']
       keysToCheck.forEach((key: string) => {
-        if (!(key in entry)) {
+        if (!(key in entry) && !(key.toLowerCase() in entry)) {
           checkResult.errors.push(
             `One of the game entries is missing the ${key} parameter!`
           )

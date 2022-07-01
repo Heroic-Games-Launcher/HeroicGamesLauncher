@@ -10,6 +10,7 @@ import {
   removeImage
 } from './utils'
 import { transparentSteamLogoHex } from '../constants'
+import { nativeImage } from 'electron'
 
 const pictureExt = '.jpg'
 const coverArtSufix = 'p' + pictureExt
@@ -46,18 +47,24 @@ function prepareImagesForSteam(props: {
     LogPrefix.Shortcuts
   )
 
+  interface ImageProps {
+    url: string
+    width?: number
+    height?: number
+  }
+
   const errors: string[] = []
-  const images = new Map<string, string>([
-    [coverArt, props.gameInfo.art_square],
-    [headerArt, props.gameInfo.art_cover],
-    [backGroundArt, props.gameInfo.art_cover],
-    [bigPictureArt, props.gameInfo.art_cover]
+  const images = new Map<string, ImageProps>([
+    [coverArt, { url: props.gameInfo.art_square }],
+    [headerArt, { url: props.gameInfo.art_cover }],
+    [backGroundArt, { url: props.gameInfo.art_cover }],
+    [bigPictureArt, { url: props.gameInfo.art_cover, width: 460, height: 215 }]
   ])
 
   // if no logo art is provided we add a 1x1 transparent png
   // to get rid of game title in steam
   if (props.gameInfo.art_logo) {
-    images.set(logoArt, props.gameInfo.art_logo)
+    images.set(logoArt, { url: props.gameInfo.art_logo })
   } else {
     const error = createImage(
       Buffer.from(transparentSteamLogoHex, 'hex'),
@@ -69,10 +76,23 @@ function prepareImagesForSteam(props: {
   }
 
   for (const [key, value] of images) {
-    if (!checkImageExistsAlready(key) && value) {
-      const error = downloadImage(value, key)
+    if (!checkImageExistsAlready(key) && value.url) {
+      let error = downloadImage(value.url, key)
       if (error) {
         errors.push(error)
+      }
+
+      if (value.height && value.width) {
+        const image = nativeImage
+          .createFromPath(key)
+          .resize({ width: value.width, height: value.height })
+          .toJPEG(90)
+
+        error = createImage(image, key)
+
+        if (error) {
+          errors.push(error)
+        }
       }
     }
   }
