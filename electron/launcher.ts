@@ -616,7 +616,7 @@ function getLegendaryOrGogdlCommand(
         continue
       }
     }
-    formattedEnvVars.push(`${key}=${value}`)
+    formattedEnvVars.push(`${key}=${quoteIfNecessary(value)}`)
   }
 
   return [
