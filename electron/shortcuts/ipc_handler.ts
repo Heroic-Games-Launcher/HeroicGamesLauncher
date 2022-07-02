@@ -34,7 +34,7 @@ ipcMain.handle('addToSteam', async (event, appName: string, runner: Runner) => {
   await addNonSteamGame({ steamUserdataDir, gameInfo })
 })
 
-ipcMain.on(
+ipcMain.handle(
   'removeFromSteam',
   async (event, appName: string, runner: Runner) => {
     const game = Game.get(appName, runner)

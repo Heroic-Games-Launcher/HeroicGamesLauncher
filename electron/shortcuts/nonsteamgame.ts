@@ -17,7 +17,7 @@ import {
   removeImagesFromSteam
 } from './steamhelper'
 import { app, dialog, Notification } from 'electron'
-import { isFlatpak, tsStore } from '../constants'
+import { isFlatpak, isWindows, tsStore } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import i18next from 'i18next'
 
@@ -249,8 +249,10 @@ async function addNonSteamGame(props: {
 
     if (isFlatpak) {
       newEntry.Exe = `"flatpak"`
-    } else if (process.env.APPIMAGE) {
+    } else if (!isWindows && process.env.APPIMAGE) {
       newEntry.Exe = `"${process.env.APPIMAGE}"`
+    } else if (isWindows && process.env.PORTABLE_EXECUTABLE_APP_FILENAME) {
+      newEntry.Exe = `"${process.env.PORTABLE_EXECUTABLE_APP_FILENAME}`
     }
 
     newEntry.appid = generateShortcutId(newEntry.Exe, newEntry.AppName)
@@ -273,7 +275,13 @@ async function addNonSteamGame(props: {
     })
 
     newEntry.StartDir = `"${process.cwd()}"`
-    newEntry.LaunchOptions = `--no-gui --no-sandbox "heroic://launch/${props.gameInfo.app_name}"`
+    const args = []
+    args.push('--no-gui')
+    if (!isWindows) {
+      args.push('--no-sandbox')
+    }
+    args.push(`"heroic://launch/${props.gameInfo.app_name}"`)
+    newEntry.LaunchOptions = args.join(' ')
     if (isFlatpak) {
       newEntry.Exe = `run com.heroicgameslauncher.hgl ${newEntry.LaunchOptions}`
     }

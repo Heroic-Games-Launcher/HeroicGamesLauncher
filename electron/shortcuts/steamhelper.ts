@@ -57,7 +57,10 @@ function prepareImagesForSteam(props: {
   const images = new Map<string, ImageProps>([
     [coverArt, { url: props.gameInfo.art_square }],
     [headerArt, { url: props.gameInfo.art_cover }],
-    [backGroundArt, { url: props.gameInfo.art_cover }],
+    [
+      backGroundArt,
+      { url: props.gameInfo.art_cover, width: 1920, height: 620 }
+    ],
     [bigPictureArt, { url: props.gameInfo.art_cover, width: 460, height: 215 }]
   ])
 
@@ -82,7 +85,7 @@ function prepareImagesForSteam(props: {
         errors.push(error)
       }
 
-      if (value.height && value.width) {
+      if (value.width && value.height) {
         const image = nativeImage
           .createFromPath(key)
           .resize({ width: value.width, height: value.height })
@@ -142,7 +145,7 @@ function removeImagesFromSteam(props: {
   const images = [coverArt, headerArt, backGroundArt, bigPictureArt, logoArt]
 
   images.forEach((image) => {
-    if (!checkImageExistsAlready(image)) {
+    if (checkImageExistsAlready(image)) {
       const error = removeImage(image)
       if (error) {
         errors.push(error)

@@ -128,6 +128,7 @@
         "log": "最新のログ",
         "move": "ゲームを移動する",
         "protondb": "互換性を確認する",
+        "removeFromSteam": "Remove from Steam",
         "settings": "設定",
         "store": "ストアページ",
         "verify": "確認と修復"
