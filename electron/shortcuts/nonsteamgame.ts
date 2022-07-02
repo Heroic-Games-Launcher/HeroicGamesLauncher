@@ -246,13 +246,15 @@ async function addNonSteamGame(props: {
     const newEntry = {} as ShortcutEntry
     newEntry.AppName = props.gameInfo.title
     newEntry.Exe = `"${app.getPath('exe')}"`
+    newEntry.StartDir = `"${process.cwd()}"`
 
     if (isFlatpak) {
       newEntry.Exe = `"flatpak"`
     } else if (!isWindows && process.env.APPIMAGE) {
       newEntry.Exe = `"${process.env.APPIMAGE}"`
-    } else if (isWindows && process.env.PORTABLE_EXECUTABLE_APP_FILENAME) {
-      newEntry.Exe = `"${process.env.PORTABLE_EXECUTABLE_APP_FILENAME}`
+    } else if (isWindows && process.env.PORTABLE_EXECUTABLE_FILE) {
+      newEntry.Exe = `"${process.env.PORTABLE_EXECUTABLE_FILE}`
+      newEntry.StartDir = `"${process.env.PORTABLE_EXECUTABLE_DIR}"`
     }
 
     newEntry.appid = generateShortcutId(newEntry.Exe, newEntry.AppName)
@@ -274,7 +276,6 @@ async function addNonSteamGame(props: {
       gameInfo: props.gameInfo
     })
 
-    newEntry.StartDir = `"${process.cwd()}"`
     const args = []
     args.push('--no-gui')
     if (!isWindows) {
