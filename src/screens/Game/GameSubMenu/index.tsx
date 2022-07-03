@@ -206,10 +206,7 @@ export default function GamesSubmenu({
               </button>
             )}
             {steamRefresh ? (
-              <CircularProgress
-                className="link button is-text is-link"
-                size={25}
-              />
+              <CircularProgress className="link button is-text is-link" />
             ) : (
               <button
                 onClick={async () => handleAddToSteam()}
@@ -219,10 +216,7 @@ export default function GamesSubmenu({
               </button>
             )}
             {steamRefresh ? (
-              <CircularProgress
-                className="link button is-text is-link"
-                size={25}
-              />
+              <CircularProgress className="link button is-text is-link" />
             ) : (
               <button
                 onClick={async () => handleRemoveFromSteam()}
