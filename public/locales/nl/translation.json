@@ -161,9 +161,6 @@
         },
         "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
         "other": {
-            "part1": "Gebruik de ",
-            "part2": "Geavanceerde Opties",
-            "part3": "om opgeroept te worden voordat het spel gelanceerd wordt; ",
             "part4": "Gebruik de ",
             "part5": "Spel Argumenten",
             "part6": " om opgeroept te worden na het lanceer commando, bijvoorbeeld: ",
@@ -243,8 +240,8 @@
     },
     "options": {
         "advanced": {
-            "key": "Key",
-            "placeHolderKey": "ENVIORMENT",
+            "key": "Variable Name",
+            "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
             "title": "Geavanceerde opties (Environment variables):",
             "value": "Value"
@@ -255,10 +252,11 @@
         },
         "wrapper": {
             "args": "Arguments",
-            "exe": "Exe",
-            "placeHolderKey": "Executable Path",
-            "placeHolderValue": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
-            "title": "Wrapper additional arguments"
+            "arguments_example": "Arguments example: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "exe": "Wrapper",
+            "placeHolderKey": "New Wrapper",
+            "placeHolderValue": "Seperated by semicolon (;)",
+            "title": "Wrapper command:"
         }
     },
     "other": {

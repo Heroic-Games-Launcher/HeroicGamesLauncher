@@ -161,9 +161,6 @@
         },
         "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
         "other": {
-            "part1": "Use the ",
-            "part2": "மேம்பட்ட விருப்பங்கள்",
-            "part3": "to be called before launching the game; ",
             "part4": "Use the ",
             "part5": "விளையாட்டு வாதங்கள்",
             "part6": " to be called after the launch command, for instance: ",
@@ -243,8 +240,8 @@
     },
     "options": {
         "advanced": {
-            "key": "Key",
-            "placeHolderKey": "ENVIORMENT",
+            "key": "Variable Name",
+            "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
             "title": "மேம்பட்ட விருப்பங்கள் (Environment Variables):",
             "value": "Value"
@@ -255,10 +252,11 @@
         },
         "wrapper": {
             "args": "Arguments",
-            "exe": "Exe",
-            "placeHolderKey": "Executable Path",
-            "placeHolderValue": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
-            "title": "Wrapper additional arguments"
+            "arguments_example": "Arguments example: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "exe": "Wrapper",
+            "placeHolderKey": "New Wrapper",
+            "placeHolderValue": "Seperated by semicolon (;)",
+            "title": "Wrapper command:"
         }
     },
     "other": {

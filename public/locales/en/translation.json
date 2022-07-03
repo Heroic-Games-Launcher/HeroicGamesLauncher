@@ -161,9 +161,6 @@
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "other": {
-            "part1": "Use the ",
-            "part2": "Advanced Options",
-            "part3": "to be called before launching the game; ",
             "part4": "Use the ",
             "part5": "Game Arguments",
             "part6": " to be called after the launch command, for instance: ",
@@ -243,8 +240,8 @@
     },
     "options": {
         "advanced": {
-            "key": "Key",
-            "placeHolderKey": "ENVIORMENT",
+            "key": "Variable Name",
+            "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
             "title": "Advanced Options (Environment Variables):",
             "value": "Value"
@@ -255,10 +252,11 @@
         },
         "wrapper": {
             "args": "Arguments",
-            "exe": "Exe",
-            "placeHolderKey": "Executable Path",
-            "placeHolderValue": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
-            "title": "Wrapper additional arguments"
+            "arguments_example": "Arguments example: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "exe": "Wrapper",
+            "placeHolderKey": "New Wrapper",
+            "placeHolderValue": "Seperated by semicolon (;)",
+            "title": "Wrapper command:"
         }
     },
     "other": {

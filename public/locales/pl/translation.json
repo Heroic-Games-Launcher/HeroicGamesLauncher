@@ -161,9 +161,6 @@
         },
         "general": "Synchronizuj z EGS, gdy Epic Games Launcher jest zainstalowane w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
         "other": {
-            "part1": "Użyj ",
-            "part2": "Opcje zaawansowane",
-            "part3": "które będą użyte przed uruchomieniem gry; ",
             "part4": "Użyj ",
             "part5": "Argumenty gry",
             "part6": " które będą dodane do wywołania gry, na przykład: ",
@@ -243,8 +240,8 @@
     },
     "options": {
         "advanced": {
-            "key": "Key",
-            "placeHolderKey": "ENVIORMENT",
+            "key": "Variable Name",
+            "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
             "title": "Opcje zaawansowane (zmienne środowiskowe):",
             "value": "Value"
@@ -255,10 +252,11 @@
         },
         "wrapper": {
             "args": "Arguments",
-            "exe": "Exe",
-            "placeHolderKey": "Executable Path",
-            "placeHolderValue": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
-            "title": "Wrapper additional arguments"
+            "arguments_example": "Arguments example: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "exe": "Wrapper",
+            "placeHolderKey": "New Wrapper",
+            "placeHolderValue": "Seperated by semicolon (;)",
+            "title": "Wrapper command:"
         }
     },
     "other": {

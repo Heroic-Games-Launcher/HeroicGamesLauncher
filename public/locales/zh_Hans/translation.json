@@ -161,9 +161,6 @@
         },
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
         "other": {
-            "part1": "使用 ",
-            "part2": "高级选项",
-            "part3": "在启动游戏前调用； ",
             "part4": "使用 ",
             "part5": "游戏参数",
             "part6": " 在执行启动命令后调用，例如： ",
@@ -243,8 +240,8 @@
     },
     "options": {
         "advanced": {
-            "key": "Key",
-            "placeHolderKey": "ENVIORMENT",
+            "key": "Variable Name",
+            "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
             "title": "高级选项（环境变量）：",
             "value": "Value"
@@ -255,10 +252,11 @@
         },
         "wrapper": {
             "args": "Arguments",
-            "exe": "Exe",
-            "placeHolderKey": "Executable Path",
-            "placeHolderValue": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
-            "title": "Wrapper additional arguments"
+            "arguments_example": "Arguments example: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "exe": "Wrapper",
+            "placeHolderKey": "New Wrapper",
+            "placeHolderValue": "Seperated by semicolon (;)",
+            "title": "Wrapper command:"
         }
     },
     "other": {

@@ -70,7 +70,7 @@ export function TableInput({
 
   return (
     <div
-      className={classnames(`textInputFieldWrapper Field`, {
+      className={classnames(`tableFieldWrapper Field`, {
         isRTL
       })}
     >
@@ -86,16 +86,16 @@ export function TableInput({
             rowData.map((row: ColumnProps, key) => {
               return (
                 <tr key={key}>
-                  <td>{row.key}</td>
-                  <td>{row.value}</td>
+                  <td>
+                    <span>{row.key}</span>
+                  </td>
+                  <td>
+                    <span>{row.value}</span>
+                  </td>
                   <td>
                     <SvgButton onClick={() => removeRow(row)}>
                       <RemoveCircleIcon
-                        data-testid="removeWinePath"
-                        style={{
-                          color: 'var(--danger)',
-                          cursor: 'pointer'
-                        }}
+                        style={{ color: 'var(--danger)' }}
                         fontSize="large"
                       />
                     </SvgButton>
@@ -104,34 +104,44 @@ export function TableInput({
               )
             })}
         </tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <TextInputField
+                label={header.key}
+                value={valueInputs.key}
+                htmlId={`${header.key}-key`}
+                placeholder={inputPlaceHolder.key}
+                onChange={(event) => {
+                  setValueInputs({ ...valueInputs, key: event.target.value })
+                }}
+              />
+            </td>
+            <td>
+              <TextInputField
+                label={header.value}
+                value={valueInputs.value}
+                htmlId={`${header.value}-key`}
+                placeholder={inputPlaceHolder.value}
+                onChange={(event) => {
+                  setValueInputs({ ...valueInputs, value: event.target.value })
+                }}
+              />
+            </td>
+            <td>
+              <SvgButton
+                onClick={() => addRow(valueInputs)}
+                className={`is-primary`}
+              >
+                <AddBoxIcon
+                  style={{ color: 'var(--success)' }}
+                  fontSize="large"
+                />
+              </SvgButton>
+            </td>
+          </tr>
+        </tfoot>
       </table>
-      <div className="TableInputDiv">
-        <TextInputField
-          label={`${header.key}:`}
-          value={valueInputs.key}
-          htmlId={''}
-          placeholder={inputPlaceHolder.key}
-          onChange={(event) => {
-            setValueInputs({ ...valueInputs, key: event.target.value })
-          }}
-        />
-        <TextInputField
-          label={`${header.value}:`}
-          value={valueInputs.value}
-          htmlId={''}
-          placeholder={inputPlaceHolder.value}
-          onChange={(event) => {
-            setValueInputs({ ...valueInputs, value: event.target.value })
-          }}
-        />
-        <SvgButton onClick={() => addRow(valueInputs)} className={`is-primary`}>
-          <AddBoxIcon
-            data-testid="addWinePath"
-            style={{ color: 'var(--success)', cursor: 'pointer' }}
-            fontSize="large"
-          />
-        </SvgButton>
-      </div>
       {afterInput}
     </div>
   )

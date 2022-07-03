@@ -141,19 +141,13 @@ export default function OtherSettings({
 
   const info = (
     <InfoBox text="infobox.help">
-      {t('help.other.part1')}
-      <strong>{`${t('help.other.part2')} `}</strong>
-      {t('help.other.part3')}
-      <br />
-      {!isDefault && (
-        <span>
-          {t('help.other.part4')}
-          <strong>{t('help.other.part5')}</strong>
-          {t('help.other.part6')}
-          <strong>{` -nolauncher `}</strong>
-          {t('help.other.part7')}
-        </span>
-      )}
+      <span>
+        {t('help.other.part4')}
+        <strong>{t('help.other.part5')}</strong>
+        {t('help.other.part6')}
+        <strong>{` -nolauncher `}</strong>
+        {t('help.other.part7')}
+      </span>
     </InfoBox>
   )
 
@@ -172,6 +166,15 @@ export default function OtherSettings({
       {t(
         'help.game_language.valid_codes',
         'Valid language codes are game-dependant.'
+      )}
+    </InfoBox>
+  )
+
+  const wrapperInfo = (
+    <InfoBox text="infobox.help">
+      {t(
+        'options.wrapper.arguments_example',
+        'Arguments example: --arg; --extra-file="file-path/ with/spaces"'
       )}
     </InfoBox>
   )
@@ -316,40 +319,39 @@ export default function OtherSettings({
           label={t('options.advanced.title')}
           htmlId={'enviromentOptions'}
           header={{
-            key: t('options.advanced.key', 'Key'),
+            key: t('options.advanced.key', 'Variable Name'),
             value: t('options.advanced.value', 'Value')
           }}
           rows={getEnvironmentVariables()}
           onChange={handleEnviromentVariables}
           inputPlaceHolder={{
-            key: t('options.advanced.placeHolderKey', 'ENVIORMENT'),
+            key: t('options.advanced.placeHolderKey', 'NAME'),
             value: t(
               'options.advanced.placeHolderValue',
               'E.g.: Path/To/ExtraFiles'
             )
           }}
-          afterInput={info}
         />
       )}
       {!isWin && (
         <TableInput
-          label={t('options.wrapper.title', 'Wrapper additional arguments')}
+          label={t('options.wrapper.title', 'Wrapper command:')}
           htmlId={'wrapperOptions'}
           header={{
-            key: t('options.wrapper.exe', 'Exe'),
+            key: t('options.wrapper.exe', 'Wrapper'),
             value: t('options.wrapper.args', 'Arguments')
           }}
           rows={getWrapperVariables()}
           fullFills={{ key: true, value: false }}
           onChange={handleWrapperVariables}
           inputPlaceHolder={{
-            key: t('options.wrapper.placeHolderKey', 'Executable Path'),
+            key: t('options.wrapper.placeHolderKey', 'New Wrapper'),
             value: t(
               'options.wrapper.placeHolderValue',
-              'Arguments seperated by semicolon (;) e.g.: --arg; --extra-file="file-path/ with/spaces"'
+              'Seperated by semicolon (;)'
             )
           }}
-          afterInput={info}
+          afterInput={wrapperInfo}
         />
       )}
       {!isDefault && (
