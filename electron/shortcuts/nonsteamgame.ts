@@ -427,7 +427,7 @@ async function removeNonSteamGame(props: {
       LogPrefix.Shortcuts
     )
 
-    const message = i18next.t('notify.finished.remove.steam.body1', {
+    const message = i18next.t('notify.finished.remove.steam.success', {
       defaultValue: '{{game}} was successfully removed to Steam.',
       game: props.gameInfo.title
     })
@@ -439,9 +439,9 @@ async function removeNonSteamGame(props: {
     )
     logError(errors.join('\n'), LogPrefix.Shortcuts)
 
-    const message = i18next.t('notify.finished.remove.steam.body2', {
+    const message = i18next.t('notify.finished.remove.steam.corrupt', {
       defaultValue:
-        '{{game}}  could not be removed from all found Steam users. See logs for more info.',
+        '{{game}} could not be removed from all found Steam users. See logs for more info.',
       game: props.gameInfo.title
     })
     notifyFrontend({ message, adding: false })
