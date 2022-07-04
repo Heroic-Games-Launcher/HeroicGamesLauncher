@@ -5,7 +5,6 @@ import {
   GameSettings,
   InstallArgs,
   InstallInfo,
-  LaunchResult,
   Runner
 } from './types'
 
@@ -20,6 +19,12 @@ abstract class Game {
       return GOGGame.get(appName)
     }
   }
+  public get logFileLocation() {
+    return join(
+      heroicGamesConfigPath,
+      `${this.appName.split(' ')[0]}-lastPlay.log`
+    )
+  }
 
   abstract appName: string
   abstract window: BrowserWindow
@@ -31,7 +36,7 @@ abstract class Game {
   abstract import(path: string): Promise<ExecResult>
   abstract install(args: InstallArgs): Promise<{ status: string }>
   abstract addShortcuts(): Promise<void>
-  abstract launch(launchArguments?: string): Promise<ExecResult | LaunchResult>
+  abstract launch(launchArguments?: string): Promise<boolean>
   abstract moveInstall(newInstallPath: string): Promise<string>
   abstract repair(): Promise<ExecResult>
   abstract stop(): Promise<void>
@@ -50,5 +55,7 @@ abstract class Game {
 import { LegendaryGame } from './legendary/games'
 import { BrowserWindow } from 'electron'
 import { GOGGame } from './gog/games'
+import { join } from 'path'
+import { heroicGamesConfigPath } from './constants'
 
 export { Game, Runner }

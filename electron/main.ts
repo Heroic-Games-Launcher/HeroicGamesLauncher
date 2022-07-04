@@ -1,6 +1,5 @@
 import {
   InstallParams,
-  LaunchResult,
   GamepadInputEventKey,
   GamepadInputEventWheel,
   GamepadInputEventMouse,
@@ -24,6 +23,7 @@ import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {
   access,
+  appendFileSync,
   constants,
   existsSync,
   mkdirSync,
@@ -823,37 +823,27 @@ ipcMain.handle(
       mainWindow.hide()
     }
 
-    let logResult = ''
-    return Game.get(appName, runner)
-      .launch(launchArguments)
-      .then(async ({ stdout, stderr, command, gameSettings }: LaunchResult) => {
-        logResult = `Launch Command: ${command}
-
-System Info:
+    writeFileSync(
+      game.logFileLocation,
+      `System Info:
 ${await getSystemInfo()}
 
-Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
+Game Settings: ${JSON.stringify(await game.getSettings(), null, '\t')}
+
+Game launched at: ${startPlayingDate}
+
 `
-        if (stderr) {
-          logResult += `\nError Log:\n${stderr}\n`
-        }
-        if (stdout) {
-          logResult += `\nGame Log:\n${stdout}\n`
-        }
-      })
-      .catch((exception) => {
-        logResult = `${exception.name} - ${exception.message}`
-        logError(logResult, LogPrefix.Backend)
+    )
+    return game
+      .launch(launchArguments)
+      .catch((exception: Error) => {
+        logError(exception.stack, LogPrefix.Backend)
+        appendFileSync(
+          game.logFileLocation,
+          `An exception occurred when launching the game:\n${exception.stack}`
+        )
       })
       .finally(() => {
-        // Write log file
-        const logFileLocation = path.join(
-          heroicGamesConfigPath,
-          `${game}-lastPlay.log`
-        )
-        writeFileSync(logFileLocation, logResult)
-        logInfo(`Log was written to ${logFileLocation}`, LogPrefix.Backend)
-
         // Update playtime and last played date
         const finishedPlayingDate = new Date()
         tsStore.set(`${game.appName}.lastPlayed`, finishedPlayingDate)
