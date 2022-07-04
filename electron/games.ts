@@ -23,8 +23,8 @@ abstract class Game {
 
   abstract appName: string
   abstract window: BrowserWindow
-  abstract getExtraInfo(namespace: string): Promise<ExtraInfo>
-  abstract getGameInfo(installPlatform?: string): Promise<GameInfo>
+  abstract getExtraInfo(): Promise<ExtraInfo>
+  abstract getGameInfo(installPlatform?: string): GameInfo
   abstract getInstallInfo(installPlatform?: string): Promise<InstallInfo>
   abstract getSettings(): Promise<GameSettings>
   abstract hasUpdate(): Promise<boolean>
@@ -39,7 +39,7 @@ abstract class Game {
   abstract syncSaves(arg: string, path: string): Promise<ExecResult>
   abstract uninstall(): Promise<ExecResult>
   abstract update(): Promise<{ status: 'done' | 'error' }>
-  abstract isNative(): Promise<boolean>
+  abstract isNative(): boolean
   abstract runWineCommand(
     command: string,
     altWineBin?: string,

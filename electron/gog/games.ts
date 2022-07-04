@@ -61,7 +61,7 @@ class GOGGame extends Game {
     }
     return this.instances.get(appName)
   }
-  public async getExtraInfo(namespace: string): Promise<ExtraInfo> {
+  public async getExtraInfo(): Promise<ExtraInfo> {
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
     let targetPlatform: 'windows' | 'osx' | 'linux' = 'windows'
 
@@ -79,7 +79,7 @@ class GOGGame extends Game {
     }
     return extra
   }
-  public async getGameInfo(): Promise<GameInfo> {
+  public getGameInfo(): GameInfo {
     return GOGLibrary.get().getGameInfo(this.appName)
   }
   async getInstallInfo(installPlatform?: string): Promise<InstallInfo> {
@@ -240,9 +240,8 @@ class GOGGame extends Game {
     return { status: 'done' }
   }
 
-  public async isNative(): Promise<boolean> {
-    const gameInfo = await this.getGameInfo()
-
+  public isNative(): boolean {
+    const gameInfo = this.getGameInfo()
     if (isWindows) {
       return true
     }
@@ -259,7 +258,7 @@ class GOGGame extends Game {
   }
 
   public async addShortcuts(fromMenu?: boolean) {
-    return addShortcuts(await this.getGameInfo(), fromMenu)
+    return addShortcuts(this.getGameInfo(), fromMenu)
   }
 
   public async removeShortcuts() {
@@ -420,7 +419,7 @@ class GOGGame extends Game {
     const {
       install: { install_path },
       title
-    } = await this.getGameInfo()
+    } = this.getGameInfo()
 
     if (isWindows) {
       newInstallPath += '\\' + install_path.split('\\').slice(-1)[0]

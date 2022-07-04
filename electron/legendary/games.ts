@@ -67,7 +67,7 @@ class LegendaryGame extends Game {
    *
    * @returns GameInfo
    */
-  public async getGameInfo() {
+  public getGameInfo() {
     return LegendaryLibrary.get().getGameInfo(this.appName)
   }
 
@@ -107,7 +107,8 @@ class LegendaryGame extends Game {
    * @param namespace
    * @returns
    */
-  public async getExtraInfo(namespace: string | null): Promise<ExtraInfo> {
+  public async getExtraInfo(): Promise<ExtraInfo> {
+    const { namespace } = this.getGameInfo()
     if (gameInfoStore.has(namespace)) {
       return gameInfoStore.get(namespace) as ExtraInfo
     }
@@ -200,7 +201,7 @@ class LegendaryGame extends Game {
    * @returns The amended install path.
    */
   public async moveInstall(newInstallPath: string) {
-    const oldInstallPath = (await this.getGameInfo()).install.install_path
+    const oldInstallPath = this.getGameInfo().install.install_path
 
     newInstallPath = join(newInstallPath, basename(oldInstallPath))
 
@@ -338,7 +339,7 @@ class LegendaryGame extends Game {
    * @public
    */
   public async addShortcuts(fromMenu?: boolean) {
-    return addShortcuts(await this.getGameInfo(), fromMenu)
+    return addShortcuts(this.getGameInfo(), fromMenu)
   }
 
   /**
@@ -555,7 +556,7 @@ class LegendaryGame extends Game {
       ? ['--override-exe', gameSettings.targetExe]
       : []
 
-    const isNative = await this.isNative()
+    const isNative = this.isNative()
 
     const languageCode =
       gameSettings.language || (configStore.get('language', '') as string)
@@ -583,7 +584,7 @@ class LegendaryGame extends Game {
       // These options are required on both Windows and Mac
       commandParts = [
         'launch',
-        gameInfo.app_name,
+        this.appName,
         ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
@@ -648,7 +649,7 @@ class LegendaryGame extends Game {
 
       commandParts = [
         'launch',
-        gameInfo.app_name,
+        this.appName,
         ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
@@ -693,7 +694,7 @@ class LegendaryGame extends Game {
     altWineBin = '',
     wait = false
   ): Promise<ExecResult> {
-    const isNative = await this.isNative()
+    const isNative = this.isNative()
 
     if (isNative) {
       logError('runWineCommand called on native game!', LogPrefix.Legendary)
@@ -729,8 +730,8 @@ class LegendaryGame extends Game {
     })
   }
 
-  public async isNative(): Promise<boolean> {
-    const gameInfo = await this.getGameInfo()
+  public isNative(): boolean {
+    const gameInfo = this.getGameInfo()
 
     if (isWindows) {
       return true

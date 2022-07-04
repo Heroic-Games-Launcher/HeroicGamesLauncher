@@ -631,13 +631,14 @@ ipcMain.on('createNewWindow', async (e, url) =>
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 )
 
-ipcMain.handle('getGameInfo', async (event, game, runner) => {
+ipcMain.handle('getGameInfo', async (event, appName, runner) => {
   try {
-    const info = await Game.get(game, runner).getGameInfo()
+    const game = Game.get(appName, runner)
+    const info = game.getGameInfo()
     if (!info) {
       return null
     }
-    info.extra = await Game.get(game, runner).getExtraInfo(info.namespace)
+    info.extra = await game.getExtraInfo()
     return info
   } catch (error) {
     logError(`${error}`, LogPrefix.Backend)
@@ -660,8 +661,7 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
 ipcMain.handle(
   'getInstallInfo',
   async (event, game, runner: Runner, installPlatform: string) => {
-    const online = await isOnline()
-    if (!online) {
+    if (!isOnline()) {
       return { game: {}, metadata: {} }
     }
 
@@ -786,23 +786,22 @@ ipcMain.handle(
     })
     const recentGames =
       (configStore.get('games.recent') as Array<RecentGame>) || []
-    const game = appName.split(' ')[0]
-    const gameData = await Game.get(game, runner).getGameInfo()
-    const { title } = gameData
+    const game = Game.get(appName, runner)
+    const { title } = game.getGameInfo()
     const { minimizeOnLaunch, maxRecentGames: MAX_RECENT_GAMES = 5 } =
       await GlobalConfig.get().getSettings()
 
     const startPlayingDate = new Date()
 
-    if (!tsStore.has(game)) {
-      tsStore.set(`${game}.firstPlayed`, startPlayingDate)
+    if (!tsStore.has(game.appName)) {
+      tsStore.set(`${game.appName}.firstPlayed`, startPlayingDate)
     }
 
-    logInfo(`Launching ${title} (${game})`, LogPrefix.Backend)
+    logInfo(`Launching ${title} (${game.appName})`, LogPrefix.Backend)
 
     if (recentGames.length) {
       let updatedRecentGames = recentGames.filter(
-        (a) => a.appName && a.appName !== game
+        (a) => a.appName && a.appName !== game.appName
       )
       if (updatedRecentGames.length > MAX_RECENT_GAMES) {
         const newArr = []
@@ -814,10 +813,10 @@ ipcMain.handle(
       if (updatedRecentGames.length === MAX_RECENT_GAMES) {
         updatedRecentGames.pop()
       }
-      updatedRecentGames.unshift({ appName: game, title })
+      updatedRecentGames.unshift({ appName: game.appName, title })
       configStore.set('games.recent', updatedRecentGames)
     } else {
-      configStore.set('games.recent', [{ appName: game, title }])
+      configStore.set('games.recent', [{ appName: game.appName, title }])
     }
 
     if (minimizeOnLaunch) {
@@ -857,17 +856,17 @@ Game Settings: ${JSON.stringify(gameSettings, null, '\t')}
 
         // Update playtime and last played date
         const finishedPlayingDate = new Date()
-        tsStore.set(`${game}.lastPlayed`, finishedPlayingDate)
+        tsStore.set(`${game.appName}.lastPlayed`, finishedPlayingDate)
         // Playtime of this session in minutes
         const sessionPlaytime =
           (finishedPlayingDate.getTime() - startPlayingDate.getTime()) /
           1000 /
           60
         let totalPlaytime = sessionPlaytime
-        if (tsStore.has(`${game}.totalPlayed`)) {
-          totalPlaytime += tsStore.get(`${game}.totalPlayed`) as number
+        if (tsStore.has(`${game.appName}.totalPlayed`)) {
+          totalPlaytime += tsStore.get(`${game.appName}.totalPlayed`) as number
         }
-        tsStore.set(`${game}.totalPlayed`, Math.floor(totalPlaytime))
+        tsStore.set(`${game.appName}.totalPlayed`, Math.floor(totalPlaytime))
 
         if (minimizeOnLaunch) {
           mainWindow.show()
@@ -932,7 +931,8 @@ ipcMain.handle('install', async (event, params) => {
     installLanguage,
     platformToInstall
   } = params as InstallParams
-  const { title } = await Game.get(appName, runner).getGameInfo()
+  const game = Game.get(appName, runner)
+  const { title } = game.getGameInfo()
 
   if (!isOnline()) {
     logWarning(
@@ -966,7 +966,7 @@ ipcMain.handle('install', async (event, params) => {
     title,
     body: i18next.t('notify.install.startInstall', 'Installation Started')
   })
-  return Game.get(appName, runner)
+  return game
     .install({
       path: path.replaceAll("'", ''),
       installDlcs,
@@ -1003,11 +1003,12 @@ ipcMain.handle('install', async (event, params) => {
 
 ipcMain.handle('uninstall', async (event, args) => {
   const [appName, shouldRemovePrefix, runner] = args
+  const game = Game.get(appName, runner)
 
-  const title = (await Game.get(appName, runner).getGameInfo()).title
-  const winePrefix = (await Game.get(appName, runner).getSettings()).winePrefix
+  const { title } = game.getGameInfo()
+  const { winePrefix } = await game.getSettings()
 
-  return Game.get(appName, runner)
+  return game
     .uninstall()
     .then(() => {
       if (shouldRemovePrefix) {
@@ -1023,17 +1024,18 @@ ipcMain.handle('uninstall', async (event, args) => {
     .catch((error) => logError(`${error}`, LogPrefix.Backend))
 })
 
-ipcMain.handle('repair', async (event, game, runner) => {
+ipcMain.handle('repair', async (event, appName, runner) => {
   if (!isOnline()) {
     logWarning(
-      `App offline, skipping repair for game '${game}'.`,
+      `App offline, skipping repair for game '${appName}'.`,
       LogPrefix.Backend
     )
     return
   }
-  const title = (await Game.get(game, runner).getGameInfo()).title
+  const game = Game.get(appName, runner)
+  const { title } = game.getGameInfo()
 
-  return Game.get(game, runner)
+  return game
     .repair()
     .then(() => {
       notify({ title, body: i18next.t('notify.finished.reparing') })
@@ -1049,10 +1051,11 @@ ipcMain.handle('repair', async (event, game, runner) => {
 })
 
 ipcMain.handle('moveInstall', async (event, [appName, path, runner]) => {
-  const title = (await Game.get(appName, runner).getGameInfo()).title
+  const game = Game.get(appName, runner)
+  const { title } = game.getGameInfo()
   try {
     notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
-    const newPath = await Game.get(appName, runner).moveInstall(path)
+    const newPath = await game.moveInstall(path)
     notify({ title, body: i18next.t('notify.moved') })
     logInfo(`Finished moving ${appName} to ${newPath}.`, LogPrefix.Backend)
   } catch (error) {
@@ -1078,13 +1081,14 @@ ipcMain.handle('importGame', async (event, args) => {
     )
     return { status: 'error' }
   }
-  const title = (await Game.get(appName, runner).getGameInfo()).title
+  const game = Game.get(appName, runner)
+  const { title } = game.getGameInfo()
   mainWindow.webContents.send('setGameStatus', {
     appName,
     runner,
     status: 'installing'
   })
-  Game.get(appName, runner)
+  game
     .import(path)
     .then(() => {
       notify({
@@ -1109,10 +1113,10 @@ ipcMain.handle('importGame', async (event, args) => {
     })
 })
 
-ipcMain.handle('updateGame', async (e, game, runner) => {
+ipcMain.handle('updateGame', async (e, appName, runner) => {
   if (!isOnline()) {
     logWarning(
-      `App offline, skipping install for game '${game}'.`,
+      `App offline, skipping install for game '${appName}'.`,
       LogPrefix.Backend
     )
     return
@@ -1131,10 +1135,11 @@ ipcMain.handle('updateGame', async (e, game, runner) => {
     return { status: 'error' }
   }
 
-  const title = (await Game.get(game, runner).getGameInfo()).title
+  const game = Game.get(appName, runner)
+  const { title } = game.getGameInfo()
   notify({ title, body: i18next.t('notify.update.started', 'Update Started') })
 
-  return Game.get(game, runner)
+  return game
     .update()
     .then(({ status }) => {
       notify({

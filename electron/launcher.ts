@@ -219,7 +219,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     }
   }
 
-  const installFolderName = (await game.getGameInfo()).folder_name
+  const { folder_name: installFolderName } = game.getGameInfo()
   const envVars = setupWineEnvVars(gameSettings, installFolderName)
 
   return { success: true, envVars: envVars }

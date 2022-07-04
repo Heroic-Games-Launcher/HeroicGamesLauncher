@@ -1,5 +1,5 @@
 import { BrowserWindow, dialog } from 'electron'
-import { Game, Runner } from './games'
+import { Game } from './games'
 import { logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
 
@@ -28,13 +28,8 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
     return logInfo(['Received ping! Arg:', arg], LogPrefix.ProtocolHandler)
   }
   if (command === 'launch') {
-    let runner: Runner = 'legendary'
-    let game = await Game.get(arg, runner).getGameInfo()
-    if (!game) {
-      runner = 'gog'
-      game = await Game.get(arg, runner).getGameInfo()
-    }
-    const { is_installed, title, app_name } = game
+    const game = Game.get(arg, 'legendary') || Game.get(arg, 'gog')
+    const { is_installed, title, app_name, runner } = game.getGameInfo()
     setTimeout(async () => {
       // wait for the frontend to be ready
       if (!is_installed) {
