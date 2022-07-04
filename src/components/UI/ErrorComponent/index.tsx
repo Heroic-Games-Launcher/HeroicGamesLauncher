@@ -7,7 +7,7 @@ import { CleaningServicesOutlined, DeleteOutline } from '@mui/icons-material'
 import './index.css'
 import ContextProvider from 'src/state/ContextProvider'
 
-const { ipcRenderer } = window.require('electron')
+import { ipcRenderer } from 'src/helpers'
 
 export default function ErrorComponent({ message }: { message: string }) {
   const { t } = useTranslation()

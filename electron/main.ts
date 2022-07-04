@@ -721,6 +721,12 @@ ipcMain.on('toggleVKD3D', (event, [{ winePrefix, winePath }, action]) => {
 })
 
 ipcMain.handle('writeConfig', (event, [appName, config]) => {
+  logInfo(
+    `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
+    LogPrefix.Backend
+  )
+  // use 2 spaces for pretty print
+  logInfo(JSON.stringify(config, null, 2), LogPrefix.Backend)
   if (appName === 'default') {
     GlobalConfig.get().config = config
     GlobalConfig.get().flush()
@@ -1005,7 +1011,7 @@ ipcMain.handle('uninstall', async (event, args) => {
     .uninstall()
     .then(() => {
       if (shouldRemovePrefix) {
-        logInfo(`Removing prefix ${winePrefix}`)
+        logInfo(`Removing prefix ${winePrefix}`, LogPrefix.Backend)
         if (existsSync(winePrefix)) {
           // remove prefix if exists
           rmSync(winePrefix, { recursive: true })
@@ -1045,6 +1051,7 @@ ipcMain.handle('repair', async (event, game, runner) => {
 ipcMain.handle('moveInstall', async (event, [appName, path, runner]) => {
   const title = (await Game.get(appName, runner).getGameInfo()).title
   try {
+    notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
     const newPath = await Game.get(appName, runner).moveInstall(path)
     notify({ title, body: i18next.t('notify.moved') })
     logInfo(`Finished moving ${appName} to ${newPath}.`, LogPrefix.Backend)

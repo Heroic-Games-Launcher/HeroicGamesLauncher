@@ -216,7 +216,7 @@ export const AdvancedSettings = ({
             isSuccess: isCopiedToClipboard
           })}
           onClick={() => {
-            clipboard.writeText(JSON.stringify({ ...settingsToSave }))
+            clipboard.writeText(JSON.stringify({ ...settingsToSave }, null, 2))
             setCopiedToClipboard(true)
           }}
         >

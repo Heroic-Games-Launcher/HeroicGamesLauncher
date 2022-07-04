@@ -2,14 +2,11 @@ import './index.css'
 
 import React, { useState } from 'react'
 
-import { IpcRenderer } from 'electron'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { getGameInfo, quoteIfNecessary } from 'src/helpers'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
+import { ipcRenderer } from 'src/helpers'
 
 interface Props {
   appName: string

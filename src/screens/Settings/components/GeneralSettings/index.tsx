@@ -7,17 +7,13 @@ import { InfoBox, SelectField, ToggleSwitch } from 'src/components/UI'
 import LanguageSelector from 'src/components/UI/LanguageSelector'
 import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 
-import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
 import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
 import TextInputWithIconField from 'src/components/UI/TextInputWithIconField'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+import { ipcRenderer } from 'src/helpers'
 interface Props {
   darkTrayIcon: boolean
   defaultInstallPath: string

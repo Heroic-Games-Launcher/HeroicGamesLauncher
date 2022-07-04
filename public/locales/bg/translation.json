@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Няма избрана версия на Wine. Проверете настройките на играта!",
                 "title": "Wine не е намерен"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "Синхронизиране",
         "unsync": "Десинхронизиране"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Услугите, зависещи от Интернет, може да не работят изцяло, тъй като сървърите на Epic Games не са достъпни!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "favourites": "Любими",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,9 +148,17 @@
     "header": {
         "ignore_hidden": "Пренебрегване на скритите",
         "platform": "Платформа",
-        "show_hidden": "Показване на скритите"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Показване на скритите",
+        "store": "Filter Store"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Launcher и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
         "other": {
             "part1": "Използвайте ",
@@ -166,11 +184,13 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Настройките се запазват автоматично"
+        "settings": "Настройките се запазват автоматично",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Помощ",
-        "requirements": "Системни изисквания"
+        "requirements": "Системни изисквания",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Изберете местоположение за инсталиране"
@@ -195,8 +215,6 @@
         "sync": "Синхронизацията е завършена",
         "unsync": "Десинхронизацията е завършена"
     },
-    "Missing Dependency": "",
-    "nogames": "Няма намерени игри",
     "notify": {
         "error": {
             "move": "Грешка при преместването на играта",
@@ -213,6 +231,7 @@
             "startInstall": "Инсталацията е започната"
         },
         "moved": "Преместването е завършено",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -241,7 +260,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Използване на вградения изпълним файл на GOGDL…",
         "alt-legendary-bin": "Използване на вградения изпълним файл на Legendary…",
-        "egs-prefix": "Префикс, където е инсталиран EGS"
+        "egs-prefix": "Префикс, където е инсталиран EGS",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Линукс",
@@ -305,6 +325,7 @@
         "maxworkers": "Максимален брой работни процеси при сваляне",
         "minimize-on-launch": "Минимизиране на Heroic при пускане на игра",
         "offlinemode": "Пускане на играта в режим „извън линия“",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Използване на отделната видео-карта",
         "resizableBar": "Включване на „Resizable BAR“ (Само за NVIDIA RTX 30xx)",
         "runexe": {
@@ -341,8 +362,14 @@
         "reset-heroic": "Зачистване на Heroic"
     },
     "Settings": "Настройки",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "Влизане…"
+        "installing": "Installing",
+        "logging": "Влизане…",
+        "processing": "Processing files, please wait"
     },
     "store": "Мазагин на Epic",
     "stores": "Магазини",
@@ -363,14 +390,12 @@
         "addpath": "Добавяне на нов път",
         "removepath": "Премахване на пътя"
     },
-    "Total Games": "Общ брой игри",
     "tray": {
         "about": "Относно",
         "quit": "Изход",
         "reload": "Презареждане",
         "show": "Показване"
     },
-    "Unreal Marketplace": "Пазар на Unreal",
     "userselector": {
         "discord": "Дискорд",
         "logout": "Излизане",
@@ -386,14 +411,15 @@
             "reload": "Презареждане на страницата"
         }
     },
-    "wiki": "Уики",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "В момента не могат да бъдат получени версиите на Wine/Proton.",
             "link": "Управление на Wine",
             "title": "Управление на Wine",
             "unzipping": "Разархивиране"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

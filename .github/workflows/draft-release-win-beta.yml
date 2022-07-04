@@ -2,9 +2,8 @@ name: Draft Release Windows
 
 on:
   push:
-    branches: [beta]
     tags:
-      - 'v*'
+      - '*beta'
   workflow_dispatch:
 
 jobs:

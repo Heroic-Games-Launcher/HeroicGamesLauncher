@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "Synchroniseren",
         "unsync": "De-synchroniseren"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,9 +148,17 @@
     "header": {
         "ignore_hidden": "Ignore Hidden",
         "platform": "",
-        "show_hidden": "Show Hidden"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Show Hidden",
+        "store": "Filter Store"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
         "other": {
             "part1": "Gebruik de ",
@@ -166,11 +184,13 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Instellingen worden automatisch opgeslagen"
+        "settings": "Instellingen worden automatisch opgeslagen",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Help",
-        "requirements": "Systeemvereisingen"
+        "requirements": "Systeemvereisingen",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Select Install Path"
@@ -195,8 +215,6 @@
         "sync": "Synchronisatie compleet",
         "unsync": "De-synchronisatie compleet"
     },
-    "Missing Dependency": "",
-    "nogames": "Geen spellen gevonden",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -213,6 +231,7 @@
             "startInstall": "Installation Started"
         },
         "moved": "Klaar met verplaatsing",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -241,7 +260,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Gebruik built-in Legendary binary...",
-        "egs-prefix": "Prefix waar EGS is geïnstalleerd"
+        "egs-prefix": "Prefix waar EGS is geïnstalleerd",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "",
@@ -305,6 +325,7 @@
         "maxworkers": "Maximale hoeveelheid van werkers tijdens het downloaden",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Spel offline draaien",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Aciveer Nvidia Prime Render",
         "resizableBar": "Resizable BAR inschakelen (Alleen voor NVIDIA RTX 30xx)",
         "runexe": {
@@ -341,8 +362,14 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Instellingen",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "Logging In..."
+        "installing": "Installing",
+        "logging": "Logging In...",
+        "processing": "Processing files, please wait"
     },
     "store": "Winkel",
     "stores": "Stores",
@@ -363,14 +390,12 @@
         "addpath": "Voeg een nieuw pad toe",
         "removepath": "Pad verwijderen"
     },
-    "Total Games": "Hoeveelheid spellen",
     "tray": {
         "about": "Over",
         "quit": "Stoppen",
         "reload": "Herladen",
         "show": "Tonen"
     },
-    "Unreal Marketplace": "Unreal Marktplaats",
     "userselector": {
         "discord": "Discord",
         "logout": "Log uit",
@@ -386,14 +411,15 @@
             "reload": ""
         }
     },
-    "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

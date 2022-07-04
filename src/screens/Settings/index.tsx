@@ -58,6 +58,7 @@ function Settings() {
   const [targetExe, setTargetExe] = useState('')
   const [otherOptions, setOtherOptions] = useState('')
   const [launcherArgs, setLauncherArgs] = useState('')
+  const [languageCode, setLanguageCode] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
   const [title, setTitle] = useState('')
   const [maxWorkers, setMaxWorkers] = useState(0)
@@ -180,6 +181,11 @@ function Settings() {
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
 
+  const [configLoaded, setConfigLoaded] = useState(false)
+  const [settingsToSave, setSettingsToSave] = useState<AppSettings>(
+    {} as AppSettings
+  )
+
   const { appName = '', type = '' } = useParams()
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
@@ -189,71 +195,154 @@ function Settings() {
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced' && isDefault
 
+  // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
     const getSettings = async () => {
-      const config: AppSettings = await ipcRenderer.invoke(
-        'requestSettings',
-        appName
-      )
-      setAutoSyncSaves(config.autoSyncSaves)
-      setUseGameMode(config.useGameMode)
-      setShowFps(config.showFps)
-      setShowOffline(config.offlineMode)
-      setAudioFix(config.audioFix)
-      setShowMangoHud(config.showMangohud)
-      setDefaultInstallPath(config.defaultInstallPath)
-      setWineVersion(config.wineVersion)
-      setWinePrefix(config.winePrefix)
-      setWineCrossoverBottle(config.wineCrossoverBottle)
-      setOtherOptions(config.otherOptions)
-      setLauncherArgs(config.launcherArgs)
-      setUseNvidiaPrime(config.nvidiaPrime)
-      setEgsLinkedPath(config.egsLinkedPath || '')
-      setEgsPath(config.egsLinkedPath || '')
-      setExitToTray(config.exitToTray)
-      setStartInTray(config.startInTray)
-      setMinimizeOnLaunch(config.minimizeOnLaunch)
-      setDarkTrayIcon(config.darkTrayIcon)
-      setDiscordRPC(config.discordRPC)
-      setAutoInstallDxvk(config.autoInstallDxvk)
-      setAutoInstallVkd3d(config.autoInstallVkd3d)
-      setEnableEsync(config.enableEsync)
-      setEnableFsync(config.enableFsync)
-      setEnableFSR(config.enableFSR)
-      setFsrSharpness(config.maxSharpness || 2)
-      setResizableBar(config.enableResizableBar)
-      setSavesPath(config.savesPath || '')
-      setMaxWorkers(config.maxWorkers ?? 0)
-      setMaxRecentGames(config.maxRecentGames ?? 5)
-      setCustomWinePaths(config.customWinePaths || [])
-      setAddDesktopShortcuts(config.addDesktopShortcuts)
-      setAddGamesToStartMenu(config.addStartMenuShortcuts)
-      setCustomWinePaths(config.customWinePaths || [])
-      setTargetExe(config.targetExe || '')
-      setAltLegendaryBin(config.altLegendaryBin || '')
-      setAltGogdlBin(config.altGogdlBin || '')
-      setShowUnrealMarket(config.showUnrealMarket)
-      setDefaultWinePrefix(config.defaultWinePrefix)
-      setUseSteamRuntime(config.useSteamRuntime)
-      setDisableController(config.disableController || false)
+      if (!configLoaded) {
+        const config: AppSettings = await ipcRenderer.invoke(
+          'requestSettings',
+          appName
+        )
+        setAutoSyncSaves(config.autoSyncSaves)
+        setUseGameMode(config.useGameMode)
+        setShowFps(config.showFps)
+        setShowOffline(config.offlineMode)
+        setAudioFix(config.audioFix)
+        setShowMangoHud(config.showMangohud)
+        setDefaultInstallPath(config.defaultInstallPath)
+        setWineVersion(config.wineVersion)
+        setWinePrefix(config.winePrefix)
+        setWineCrossoverBottle(config.wineCrossoverBottle)
+        setOtherOptions(config.otherOptions)
+        setLauncherArgs(config.launcherArgs)
+        setUseNvidiaPrime(config.nvidiaPrime)
+        setEgsLinkedPath(config.egsLinkedPath || '')
+        setEgsPath(config.egsLinkedPath || '')
+        setExitToTray(config.exitToTray)
+        setStartInTray(config.startInTray)
+        setMinimizeOnLaunch(config.minimizeOnLaunch)
+        setDarkTrayIcon(config.darkTrayIcon)
+        setDiscordRPC(config.discordRPC)
+        setAutoInstallDxvk(config.autoInstallDxvk)
+        setAutoInstallVkd3d(config.autoInstallVkd3d)
+        setEnableEsync(config.enableEsync)
+        setEnableFsync(config.enableFsync)
+        setEnableFSR(config.enableFSR)
+        setFsrSharpness(config.maxSharpness || 2)
+        setResizableBar(config.enableResizableBar)
+        setSavesPath(config.savesPath || '')
+        setMaxWorkers(config.maxWorkers ?? 0)
+        setMaxRecentGames(config.maxRecentGames ?? 5)
+        setCustomWinePaths(config.customWinePaths || [])
+        setAddDesktopShortcuts(config.addDesktopShortcuts)
+        setAddGamesToStartMenu(config.addStartMenuShortcuts)
+        setCustomWinePaths(config.customWinePaths || [])
+        setTargetExe(config.targetExe || '')
+        setAltLegendaryBin(config.altLegendaryBin || '')
+        setAltGogdlBin(config.altGogdlBin || '')
+        setShowUnrealMarket(config.showUnrealMarket)
+        setDefaultWinePrefix(config.defaultWinePrefix)
+        setUseSteamRuntime(config.useSteamRuntime)
+        setDisableController(config.disableController || false)
 
-      if (!isDefault) {
-        const { title: gameTitle, canRunOffline: can_run_offline } =
-          await getGameInfo(appName, runner)
-        setCanRunOffline(can_run_offline)
-        setTitle(gameTitle)
-      } else {
-        setTitle(t('globalSettings', 'Global Settings'))
+        if (!isDefault) {
+          setLanguageCode(config.language)
+          const { title: gameTitle, canRunOffline: can_run_offline } =
+            await getGameInfo(appName, runner)
+          setCanRunOffline(can_run_offline)
+          setTitle(gameTitle)
+        } else {
+          setTitle(t('globalSettings', 'Global Settings'))
+        }
+
+        setSettingsToSaveState()
       }
     }
     getSettings()
-
-    return () => {
-      ipcRenderer.removeAllListeners('requestSettings')
-    }
   }, [appName, type, isDefault, i18n.language])
 
-  const GlobalSettings = {
+  let returnPath = '/'
+
+  if (!fromGameCard) {
+    returnPath = `/gamepage/${appName}`
+    if (returnPath === '/gamepage/default') {
+      returnPath = '/'
+    }
+  }
+
+  // Helper function to update the `settingsToSave` state
+  const setSettingsToSaveState = () => {
+    const GlobalSettings = {
+      altLegendaryBin,
+      altGogdlBin,
+      addDesktopShortcuts,
+      addStartMenuShortcuts,
+      audioFix,
+      autoInstallDxvk,
+      autoInstallVkd3d,
+      customWinePaths,
+      darkTrayIcon,
+      defaultInstallPath,
+      defaultWinePrefix,
+      disableController,
+      discordRPC,
+      egsLinkedPath,
+      enableEsync,
+      enableFsync,
+      exitToTray,
+      maxRecentGames,
+      maxWorkers,
+      minimizeOnLaunch,
+      nvidiaPrime,
+      otherOptions,
+      showFps,
+      showMangohud,
+      showUnrealMarket,
+      startInTray,
+      useGameMode,
+      wineCrossoverBottle,
+      winePrefix,
+      wineVersion,
+      enableFSR,
+      enableResizableBar
+    } as AppSettings
+
+    const GameSettings = {
+      audioFix,
+      autoInstallDxvk,
+      autoInstallVkd3d,
+      autoSyncSaves,
+      enableEsync,
+      enableFSR,
+      enableFsync,
+      maxSharpness,
+      enableResizableBar,
+      language: languageCode,
+      launcherArgs,
+      nvidiaPrime,
+      offlineMode,
+      otherOptions,
+      savesPath,
+      showFps,
+      showMangohud,
+      targetExe,
+      useGameMode,
+      wineCrossoverBottle,
+      winePrefix,
+      wineVersion,
+      useSteamRuntime
+    } as AppSettings
+
+    setSettingsToSave(isDefault ? GlobalSettings : GameSettings)
+  }
+
+  // update the settingsToSave state when any of the configurations changes
+  // but only after the configuration was loaded
+  useEffect(() => {
+    if (configLoaded) {
+      setSettingsToSaveState()
+    }
+  }, [
     altLegendaryBin,
     altGogdlBin,
     addDesktopShortcuts,
@@ -261,6 +350,7 @@ function Settings() {
     audioFix,
     autoInstallDxvk,
     autoInstallVkd3d,
+    autoSyncSaves,
     customWinePaths,
     darkTrayIcon,
     defaultInstallPath,
@@ -273,6 +363,7 @@ function Settings() {
     exitToTray,
     maxRecentGames,
     maxWorkers,
+    maxSharpness,
     minimizeOnLaunch,
     nvidiaPrime,
     otherOptions,
@@ -285,47 +376,26 @@ function Settings() {
     winePrefix,
     wineVersion,
     enableFSR,
-    enableResizableBar
-  } as AppSettings
-
-  const GameSettings = {
-    audioFix,
-    autoInstallDxvk,
-    autoInstallVkd3d,
-    autoSyncSaves,
-    enableEsync,
-    enableFSR,
-    enableFsync,
-    maxSharpness,
     enableResizableBar,
+    languageCode,
     launcherArgs,
-    nvidiaPrime,
     offlineMode,
-    otherOptions,
     savesPath,
-    showFps,
-    showMangohud,
     targetExe,
-    useGameMode,
-    wineCrossoverBottle,
-    winePrefix,
-    wineVersion,
     useSteamRuntime
-  } as AppSettings
+  ])
 
-  const settingsToSave = isDefault ? GlobalSettings : GameSettings
-  let returnPath = '/'
-
-  if (!fromGameCard) {
-    returnPath = `/gamepage/${appName}`
-    if (returnPath === '/gamepage/default') {
-      returnPath = '/'
-    }
-  }
-
+  // when the settingsToSave state changes:
+  // - write the config if it completed loading before
+  // - set the `configLoaded` state to ensure it can only be written after loaded
   useEffect(() => {
-    writeConfig([appName, settingsToSave])
-  }, [GlobalSettings, GameSettings, appName])
+    if (configLoaded) {
+      writeConfig([appName, settingsToSave])
+    } else {
+      // initial state is {}, consider loaded when the object has keys in it
+      setConfigLoaded(Object.keys(settingsToSave).length > 0)
+    }
+  }, [settingsToSave])
 
   if (!title) {
     return <UpdateComponent />
@@ -424,6 +494,8 @@ function Settings() {
               setOtherOptions={setOtherOptions}
               launcherArgs={launcherArgs}
               setLauncherArgs={setLauncherArgs}
+              languageCode={languageCode}
+              setLanguageCode={setLanguageCode}
               useGameMode={useGameMode}
               toggleUseGameMode={toggleUseGameMode}
               primeRun={nvidiaPrime}

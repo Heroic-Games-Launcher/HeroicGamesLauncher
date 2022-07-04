@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "Syncing",
         "unsync": "Unsync"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,7 +148,10 @@
     "header": {
         "ignore_hidden": "Ignore Hidden",
         "platform": "Platform",
-        "show_hidden": "Show Hidden"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Show Hidden",
+        "store": "Filter Store"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -146,6 +159,21 @@
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
+        "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
+        "other": {
+            "part1": "Use the ",
+            "part2": "Advanced Options",
+            "part3": "to be called before launching the game; ",
+            "part4": "Use the ",
+            "part5": "Game Arguments",
+            "part6": " to be called after the launch command, for instance: ",
+            "part7": " to skip the launcher in some games, etc."
+        },
         "sync": {
             "part1": "Heroic tries to guess the right save folder and this will work on the majority of cases. In case the folder is wrong, use the override box to change it.",
             "part2": "In case you change the prefix folder for Wine or Proton, you will need to check the path again since Proton uses a different prefix (/pfx) and username (steamuser). So you can simple erase the current path get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.",
@@ -162,11 +190,13 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Settings are saved automatically"
+        "settings": "Settings are saved automatically",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Help",
-        "requirements": "System Requirements"
+        "requirements": "System Requirements",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Select Install Path"
@@ -191,8 +221,6 @@
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
     },
-    "Missing Dependency": "",
-    "nogames": "No Games Found",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -209,6 +237,7 @@
             "startInstall": "Installation Started"
         },
         "moved": "Finished Moving",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -237,7 +266,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
-        "egs-prefix": "Prefix where EGS is installed"
+        "egs-prefix": "Prefix where EGS is installed",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -247,7 +277,7 @@
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Recent": "Played Recently",
-    "search": "Enter the game name here...",
+    "search": "Search for Games",
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
@@ -301,6 +331,7 @@
         "maxworkers": "Maximum Number of Workers when downloading",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Run Game Offline",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Use Dedicated Graphics Card",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX 30xx only)",
         "runexe": {
@@ -337,8 +368,14 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Settings",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "Logging In..."
+        "installing": "Installing",
+        "logging": "Logging In...",
+        "processing": "Processing files, please wait"
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -359,14 +396,12 @@
         "addpath": "Add New Path",
         "removepath": "Remove Path"
     },
-    "Total Games": "Total Games",
     "tray": {
         "about": "About",
         "quit": "Quit",
         "reload": "Reload",
         "show": "Show"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Log out",
@@ -382,14 +417,15 @@
             "reload": "Reload page"
         }
     },
-    "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

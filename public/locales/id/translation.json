@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Tidak Ada Versi Wine yang Dipilih. Periksa Pengaturan Gim!",
                 "title": "Wine Tidak Ditemukan"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "Menyinkronkan",
         "unsync": "Batalkan sinkronisasi"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena server Epic Games sedang luring!",
         "offline-notification-title": "luring"
     },
     "Epic Games": "Epic Games",
     "favourites": "Favorit",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "Tidak ada Gim yang ditemukan - Silakan coba log keluar lalu log masuk lagi atau salah satu opsi di bawah ini"
@@ -138,9 +148,17 @@
     "header": {
         "ignore_hidden": "Abaikan yang Disembunyikan",
         "platform": "Platform",
-        "show_hidden": "Tampilkan yang Disembunyikan"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Tampilkan yang Disembunyikan",
+        "store": "Filter Store"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Sinkronkan dengan EGL jika Anda memiliki instalasi Epic Games Launcher yang berjalan di tempat lain dan ingin mengimpor gim Anda untuk menghindari pengunduhan ulang.",
         "other": {
             "part1": "Gunakan ",
@@ -166,11 +184,13 @@
         "heroic": {
             "version": "Versi Heroic"
         },
-        "settings": "Pengaturan disimpan secara otomatis"
+        "settings": "Pengaturan disimpan secara otomatis",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Bantuan",
-        "requirements": "Persyaratan Sistem"
+        "requirements": "Persyaratan Sistem",
+        "wine-path": "Path"
     },
     "install": {
         "path": "Pilih Lokasi Pemasangan"
@@ -195,8 +215,6 @@
         "sync": "Sinkronisasi Selesai",
         "unsync": "Pembatalan Sinkronisasi Selesai"
     },
-    "Missing Dependency": "",
-    "nogames": "Tidak Ada Gim yang Ditemukan",
     "notify": {
         "error": {
             "move": "Galat dalam Memindahkan Gim",
@@ -213,6 +231,7 @@
             "startInstall": "Pemasangan Dimulai"
         },
         "moved": "Selesai Memindahkan",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Tidak dapat mengambil rilis dari sumber, ini mungkin karena pembatasan API Github! Coba lagi nanti."
         },
@@ -241,7 +260,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Menggunakan GOGDL binary bawaan…",
         "alt-legendary-bin": "Menggunakan Legendary binary bawaan...",
-        "egs-prefix": "Prefiks di mana EGS dipasang"
+        "egs-prefix": "Prefiks di mana EGS dipasang",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -305,6 +325,7 @@
         "maxworkers": "Jumlah Maksimum Worker saat mengunduh",
         "minimize-on-launch": "Minimalkan Jendela Heroic Setelah Gim Diluncurkan",
         "offlinemode": "Jalankan Game Secara Luring",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Gunakan Kartu Grafis untuk Rendering",
         "resizableBar": "Aktifkan Resizable BAR (hanya untuk NVIDIA RTX 30xx saja)",
         "runexe": {
@@ -341,8 +362,14 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Pengaturan",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "Log Masuk..."
+        "installing": "Installing",
+        "logging": "Log Masuk...",
+        "processing": "Processing files, please wait"
     },
     "store": "Epic Store",
     "stores": "Toko",
@@ -363,14 +390,12 @@
         "addpath": "Tambahkan Lokasi Baru",
         "removepath": "Hapus Lokasi"
     },
-    "Total Games": "Total Gim",
     "tray": {
         "about": "Tentang",
         "quit": "Keluar",
         "reload": "Muat Ulang",
         "show": "Tampilkan"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Keluar",
@@ -386,14 +411,15 @@
             "reload": "Muat ulang halaman"
         }
     },
-    "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Tidak dapat mengambil versi Wine/Proton saat ini.",
             "link": "Manajer Wine",
             "title": "Manajer Wine",
             "unzipping": "Mengekstrak"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }
