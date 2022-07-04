@@ -632,6 +632,8 @@ function getRunnerCallWithoutCredentials(
     formattedEnvVars.push(`${key}=${value}`)
   }
 
+  commandParts = commandParts.filter(Boolean)
+
   return [
     ...formattedEnvVars,
     ...wrappers.map(quoteIfNecessary),
@@ -649,5 +651,6 @@ export {
   setupWineEnvVars,
   setupWrappers,
   runWineCommand,
-  callRunner
+  callRunner,
+  getRunnerCallWithoutCredentials
 }
