@@ -160,7 +160,6 @@
     "react-i18next": "^11.16.7",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
-    "registry-js": "^1.15.1",
     "simple-keyboard": "^3.4.24",
     "source-map-support": "^0.5.21",
     "steam-shortcut-editor": "^3.1.1",

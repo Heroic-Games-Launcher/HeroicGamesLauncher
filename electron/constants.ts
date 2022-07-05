@@ -13,7 +13,6 @@ import { env } from 'process'
 import { app } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { GlobalConfig } from './config'
-import { enumerateValues, HKEY } from 'registry-js'
 
 const configStore = new Store({
   cwd: 'store'
@@ -111,16 +110,21 @@ function fixAsarPath(origin: string): string {
 export function getSteamCompatFolder() {
   // Paths are from https://savelocation.net/steam-game-folder
   if (isWindows) {
-    const defaultWinPath = normalize('C:/Program Files (x86)/Steam')
-    try {
-      const entry = enumerateValues(
-        HKEY.HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\WOW6432Node\\Valve\\Steam'
-      ).filter((value) => value.name === 'InstallPath')[0]
-      return (entry && String(entry.data)) || defaultWinPath
-    } catch {
-      return defaultWinPath
-    }
+    const defaultWinPath = join('C:', process.env['PROGRAMFILES(X86)'], 'Steam')
+    return defaultWinPath
+    // Reading of steam registry key should work with registry-js
+    // in electron enviroment but there is a npm node-gyp problem so far:
+    // https://github.com/desktop/registry-js/issues/224
+    //
+    // try {
+    //   const entry = enumerateValues(
+    //     HKEY.HKEY_LOCAL_MACHINE,
+    //     'SOFTWARE\\WOW6432Node\\Valve\\Steam'
+    //   ).filter((value) => value.name === 'InstallPath')[0]
+    //   return (entry && String(entry.data)) || defaultWinPath
+    // } catch {
+    //   return defaultWinPath
+    // }
   } else if (isMac) {
     return normalize(join(userHome, 'Library/Application Support/Steam'))
   } else {
