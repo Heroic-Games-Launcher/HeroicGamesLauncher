@@ -6,7 +6,9 @@ import {
   CachedOutlined,
   UploadOutlined,
   DownloadOutlined,
-  CancelOutlined
+  CancelOutlined,
+  SelectAllOutlined,
+  DeselectOutlined
 } from '@mui/icons-material'
 import classNames from 'classnames'
 import { IpcRenderer, Clipboard } from 'electron'
@@ -52,10 +54,14 @@ export const AdvancedSettings = ({
     useState(false)
   const [eosOverlayInstallingOrUpdating, setEosOverlayInstallingOrUpdating] =
     useState(false)
+  const [eosOverlayEnabledGlobally, setEosOverlayEnabledGlobally] =
+    useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
-  const { libraryStatus, handleGameStatus } = useContext(ContextProvider)
+  const { libraryStatus, handleGameStatus, platform } =
+    useContext(ContextProvider)
   const { t } = useTranslation()
+  const isWindows = platform === 'win32'
 
   const settings = configStore.get('settings') as {
     altLeg: string
@@ -142,6 +148,15 @@ export const AdvancedSettings = ({
       status === 'installing' || status === 'updating'
     )
   }, [eosOverlayInstallingOrUpdating])
+
+  useEffect(() => {
+    const enabledGlobally = async () => {
+      setEosOverlayEnabledGlobally(
+        await ipcRenderer.invoke('isEosOverlayEnabled', '')
+      )
+    }
+    enabledGlobally()
+  }, [eosOverlayEnabledGlobally])
 
   async function handleLegendaryBinary() {
     return ipcRenderer
@@ -302,6 +317,7 @@ export const AdvancedSettings = ({
         <div className="footerFlex">
           {eosOverlayInstalled && (
             <>
+              {/* Check for updates */}
               {eosOverlayVersion === eosOverlayLatestVersion && (
                 <button
                   className="button is-primary"
@@ -329,6 +345,7 @@ export const AdvancedSettings = ({
                   </span>
                 </button>
               )}
+              {/* Update */}
               {eosOverlayVersion !== eosOverlayLatestVersion && (
                 <button
                   className="button is-primary"
@@ -360,6 +377,40 @@ export const AdvancedSettings = ({
                   </span>
                 </button>
               )}
+              {/* Enable/Disable */}
+              {isWindows && (
+                <button
+                  className={
+                    eosOverlayEnabledGlobally
+                      ? 'button is-danger'
+                      : 'button is-primary'
+                  }
+                  onClick={async () => {
+                    if (eosOverlayEnabledGlobally) {
+                      await ipcRenderer.invoke('disableEosOverlay', '')
+                      setEosOverlayEnabledGlobally(false)
+                    } else {
+                      const { wasEnabled } = await ipcRenderer.invoke(
+                        'enableEosOverlay',
+                        ''
+                      )
+                      setEosOverlayEnabledGlobally(wasEnabled)
+                    }
+                  }}
+                >
+                  {eosOverlayEnabledGlobally ? (
+                    <DeselectOutlined />
+                  ) : (
+                    <SelectAllOutlined />
+                  )}
+                  <span>
+                    {eosOverlayEnabledGlobally
+                      ? t('setting.eosOverlay.disable', 'Disable')
+                      : t('setting.eosOverlay.enable', 'Enable')}
+                  </span>
+                </button>
+              )}
+              {/* Remove */}
               {!eosOverlayInstallingOrUpdating && (
                 <button
                   className="button is-danger"
@@ -376,6 +427,7 @@ export const AdvancedSettings = ({
               )}
             </>
           )}
+          {/* Install */}
           {!eosOverlayInstalled && !eosOverlayInstallingOrUpdating && (
             <button
               className="button is-primary"
@@ -402,8 +454,8 @@ export const AdvancedSettings = ({
               <span>{t('setting.eosOverlay.install', 'Install')}</span>
             </button>
           )}
-          {((!eosOverlayInstalled && eosOverlayInstallingOrUpdating) ||
-            (eosOverlayInstalled && eosOverlayInstallingOrUpdating)) && (
+          {/* Cancel install/update */}
+          {eosOverlayInstallingOrUpdating && (
             <button
               className="button is-danger"
               onClick={async () => {

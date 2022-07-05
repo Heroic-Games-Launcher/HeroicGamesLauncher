@@ -19,10 +19,8 @@ function getStatus(): {
   version?: string
   install_path?: string
 } {
-  const isInstalled = existsSync(installedVersionPath)
-
-  if (!isInstalled) {
-    return { isInstalled }
+  if (!isInstalled()) {
+    return { isInstalled: false }
   }
 
   const { version, install_path } = JSON.parse(
@@ -36,7 +34,7 @@ function getStatus(): {
     )
   }
 
-  return { isInstalled, version, install_path }
+  return { isInstalled: true, version, install_path }
 }
 
 async function getLatestVersion() {
@@ -128,11 +126,65 @@ function cancelInstallOrUpdate() {
   killPattern('eos-overlay install')
 }
 
+async function enable(
+  prefix: string
+): Promise<{ wasEnabled: boolean; installNow?: boolean }> {
+  if (!isInstalled()) {
+    const { response } = await dialog.showMessageBox({
+      title: t('setting.eosOverlay.notInstalledTitle', 'Overlay not installed'),
+      message: t(
+        'setting.eosOverlay.notInstalledMsg',
+        'The EOS Overlay is not installed. Do you want to install it now?'
+      ),
+      buttons: [t('box.yes'), t('box.no')]
+    })
+    // Installing the overlay requires some frontend work, so we can't just do it in the backend alone
+    return { wasEnabled: false, installNow: response === 0 }
+  }
+  await runLegendaryCommand([
+    'eos-overlay',
+    'enable',
+    ...(prefix ? ['--prefix', prefix] : [])
+  ])
+  return { wasEnabled: true }
+}
+
+async function disable(prefix: string) {
+  await runLegendaryCommand([
+    'eos-overlay',
+    'disable',
+    ...(prefix ? ['--prefix', prefix] : [])
+  ])
+}
+
+function isInstalled() {
+  return existsSync(installedVersionPath)
+}
+
+async function isEnabled(prefix: string) {
+  let enabled = false
+  await runLegendaryCommand(
+    ['eos-overlay', 'info', ...(prefix ? ['--prefix', prefix] : [])],
+    {
+      onOutput: (data: string, child: ChildProcess) => {
+        if (data.includes('Overlay enabled')) {
+          enabled = data.includes('Yes')
+          child.kill()
+        }
+      }
+    }
+  )
+  return enabled
+}
+
 export {
   getStatus,
   getLatestVersion,
   updateInfo,
   install,
   remove,
-  cancelInstallOrUpdate
+  cancelInstallOrUpdate,
+  enable,
+  disable,
+  isEnabled
 }
