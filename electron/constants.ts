@@ -60,8 +60,6 @@ const transparentSteamLogoHex =
   '89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4890000000b494441541895636000020000050001d69f16cd0000000049454e44ae426082'
 const installed = join(legendaryConfigPath, 'installed.json')
 const libraryPath = join(legendaryConfigPath, 'metadata')
-//const steamCompatFolder: string = getSteamCompatFolder()
-//const steamUserdataDir: string = join(steamCompatFolder, 'userdata')
 const fallBackImage = 'fallback'
 const epicLoginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
@@ -197,8 +195,6 @@ export {
   userInfo,
   weblateUrl,
   wikiLink,
-  //steamCompatFolder,
-  //steamUserdataDir,
   tsStore,
   fontsStore,
   transparentSteamLogoHex

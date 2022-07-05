@@ -1,4 +1,3 @@
-import { SteamRuntime } from './../types'
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { GOGLibrary } from './library'
 import { BrowserWindow } from 'electron'
@@ -16,7 +15,8 @@ import {
   InstallArgs,
   LaunchResult,
   GOGLoginData,
-  InstalledInfo
+  InstalledInfo,
+  SteamRuntime
 } from 'types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
