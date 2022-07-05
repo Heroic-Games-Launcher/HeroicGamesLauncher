@@ -41,6 +41,7 @@ export default function GamesSubmenu({
   const [info, setInfo] = useState({ prefix: '', wine: '' } as otherInfo)
   const [isNative, setIsNative] = useState(false)
   const [steamRefresh, setSteamRefresh] = useState<boolean>(false)
+  const [addedToSteam, setAddedToSteam] = useState<boolean>(false)
   const { t } = useTranslation('gamepage')
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
@@ -117,12 +118,14 @@ export default function GamesSubmenu({
   async function handleAddToSteam() {
     setSteamRefresh(true)
     await ipcRenderer.invoke('addToSteam', appName, runner)
+    updateAddToSteam()
     setSteamRefresh(false)
   }
 
   async function handleRemoveFromSteam() {
     setSteamRefresh(true)
     await ipcRenderer.invoke('removeFromSteam', appName, runner)
+    updateAddToSteam()
     setSteamRefresh(false)
   }
 
@@ -152,7 +155,14 @@ export default function GamesSubmenu({
     }
     getWineInfo()
     getGameDetails()
+    updateAddToSteam()
   }, [])
+
+  const updateAddToSteam = () => {
+    ipcRenderer.invoke('getShortcutInfo', appName).then((info) => {
+      setAddedToSteam(info.is_added_steam ?? false)
+    })
+  }
 
   return (
     <div className="gameTools subMenuContainer">
@@ -207,16 +217,13 @@ export default function GamesSubmenu({
             )}
             {steamRefresh ? (
               <CircularProgress className="link button is-text is-link" />
-            ) : (
+            ) : !addedToSteam ? (
               <button
                 onClick={async () => handleAddToSteam()}
                 className="link button is-text is-link"
               >
                 {t('submenu.addToSteam', 'Add to Steam')}
               </button>
-            )}
-            {steamRefresh ? (
-              <CircularProgress className="link button is-text is-link" />
             ) : (
               <button
                 onClick={async () => handleRemoveFromSteam()}

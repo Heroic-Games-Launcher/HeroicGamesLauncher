@@ -8,7 +8,8 @@ import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'graceful-fs'
 import { readFileSync } from 'fs-extra'
 import { join } from 'path'
 import { GameInfo } from '../types'
-import { getIcon } from './utils'
+import { ShortcutsResult } from './types'
+import { getIcon, getShortcutInfo, setShortcutInfo } from './utils'
 import {
   prepareImagesForSteam,
   generateShortcutId,
@@ -20,11 +21,6 @@ import { app, dialog, Notification } from 'electron'
 import { isFlatpak, isWindows, tsStore } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import i18next from 'i18next'
-
-interface ShortcutsResult {
-  success: boolean
-  errors: string[]
-}
 
 /**
  * Opens a error dialog in frontend with the error message
@@ -350,6 +346,11 @@ async function addNonSteamGame(props: {
     })
     notifyFrontend({ message, adding: true })
   }
+
+  setShortcutInfo(props.gameInfo.app_name, {
+    ...getShortcutInfo(props.gameInfo.app_name),
+    is_added_steam: true
+  })
 }
 
 /**
@@ -449,6 +450,11 @@ async function removeNonSteamGame(props: {
     })
     notifyFrontend({ message, adding: false })
   }
+
+  setShortcutInfo(props.gameInfo.app_name, {
+    ...getShortcutInfo(props.gameInfo.app_name),
+    is_added_steam: false
+  })
 }
 
 export { addNonSteamGame, removeNonSteamGame }

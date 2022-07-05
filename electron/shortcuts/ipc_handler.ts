@@ -5,6 +5,7 @@ import { join } from 'path'
 import { Game } from '../games'
 import { Runner } from '../types'
 import { addNonSteamGame, removeNonSteamGame } from './nonsteamgame'
+import { getShortcutInfo } from './utils'
 
 const getSteamUserdataDir = async () => {
   const { defaultSteamPath } = await GlobalConfig.get().getSettings()
@@ -51,3 +52,7 @@ ipcMain.handle(
     await removeNonSteamGame({ steamUserdataDir, gameInfo })
   }
 )
+
+ipcMain.handle('getShortcutInfo', (event, appName: string) => {
+  return getShortcutInfo(appName)
+})

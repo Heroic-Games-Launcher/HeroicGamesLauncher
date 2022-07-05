@@ -9,13 +9,14 @@ import {
   downloadImage,
   removeImage
 } from './utils'
-import { transparentSteamLogoHex } from '../constants'
+import {
+  transparentSteamLogoHex,
+  logoArtSufix,
+  backGroundArtSufix,
+  coverArtSufix,
+  pictureExt
+} from './constants'
 import { nativeImage } from 'electron'
-
-const pictureExt = '.jpg'
-const coverArtSufix = 'p' + pictureExt
-const backGroundArtSufix = '_hero' + pictureExt
-const logoArtSufix = '_logo' + pictureExt
 
 function prepareImagesForSteam(props: {
   steamUserConfigDir: string
@@ -71,7 +72,7 @@ function prepareImagesForSteam(props: {
   } else {
     const error = createImage(
       Buffer.from(transparentSteamLogoHex, 'hex'),
-      logoArt.replace(pictureExt, '.png')
+      logoArt
     )
     if (error) {
       errors.push(error)
