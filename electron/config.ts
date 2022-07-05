@@ -21,7 +21,8 @@ import {
   isFlatpak,
   isMac,
   isWindows,
-  getSteamLibraries
+  getSteamLibraries,
+  getSteamCompatFolder
 } from './constants'
 import { execAsync } from './utils'
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -231,12 +232,14 @@ abstract class GlobalConfig {
 
     const protonPaths = [`${heroicToolsPath}/proton/`]
 
-    getSteamLibraries().forEach((path) => {
-      protonPaths.push(`${path}/steam/steamapps/common`)
-      protonPaths.push(`${path}/steamapps/common`)
-      protonPaths.push(`${path}/root/compatibilitytools.d`)
-      protonPaths.push(`${path}/compatibilitytools.d`)
-      return
+    await getSteamLibraries().then((libs) => {
+      libs.forEach((path) => {
+        protonPaths.push(`${path}/steam/steamapps/common`)
+        protonPaths.push(`${path}/steamapps/common`)
+        protonPaths.push(`${path}/root/compatibilitytools.d`)
+        protonPaths.push(`${path}/compatibilitytools.d`)
+        return
+      })
     })
 
     const proton = new Set<WineInstallation>()
@@ -456,6 +459,7 @@ class GlobalConfigV0 extends GlobalConfig {
       checkForUpdatesOnStartup: !isFlatpak,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
+      defaultSteamPath: getSteamCompatFolder(),
       defaultWinePrefix: heroicDefaultWinePrefix,
       language: 'en',
       maxWorkers: 0,

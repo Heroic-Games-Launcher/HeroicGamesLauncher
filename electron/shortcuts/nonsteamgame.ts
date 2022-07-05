@@ -315,11 +315,14 @@ async function addNonSteamGame(props: {
   }
 
   if (!added) {
+    const errorMessage = errors.join('\n')
+    logError(errorMessage, LogPrefix.Shortcuts)
     showErrorInFrontend({
       gameTitle: props.gameInfo.title,
-      error: errors.join('\n'),
+      error: errorMessage,
       adding: true
     })
+    return
   }
 
   if (errors.length === 0) {

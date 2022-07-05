@@ -2,7 +2,13 @@ import { existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
 import { BrowserWindow } from 'electron'
-import { ExecResult, ExtraInfo, InstallArgs, LaunchResult } from '../types'
+import {
+  ExecResult,
+  ExtraInfo,
+  InstallArgs,
+  LaunchResult,
+  SteamRuntime
+} from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
@@ -17,8 +23,7 @@ import {
   isMac,
   isWindows,
   installed,
-  configStore,
-  steamUserdataDir
+  configStore
 } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
@@ -448,6 +453,11 @@ class LegendaryGame extends Game {
     } else {
       await removeShortcuts(this.appName, 'legendary')
       const gameInfo = await this.getGameInfo()
+      const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+      const steamUserdataDir = join(
+        defaultSteamPath.replaceAll("'", ''),
+        'userdata'
+      )
       await removeNonSteamGame({ steamUserdataDir, gameInfo })
     }
     return res
@@ -635,7 +645,10 @@ class LegendaryGame extends Game {
       // avoid breaking on old configs when path is not absolute
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        const runtime = useSteamRuntime ? getSteamRuntime('soldier') : null
+        let runtime = null as SteamRuntime
+        if (useSteamRuntime) {
+          await getSteamRuntime('soldier').then((path) => (runtime = path))
+        }
 
         if (runtime?.path) {
           // The Steam runtime masks /run, so if our game is on another hard drive, we'll get problems. Just including the game's install path

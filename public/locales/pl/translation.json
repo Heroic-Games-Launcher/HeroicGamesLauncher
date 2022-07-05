@@ -20,6 +20,7 @@
         "choose-legendary-binary": "Wybierz plik binarny Legendary",
         "customWine": "Wybierz plik binarny Wine lub Proton",
         "default-install-path": "Wybierz domyślną ścieżkę instalacyjną",
+        "default-steam-path": "Steam path.",
         "error": {
             "add": {
                 "steam": {
@@ -310,6 +311,7 @@
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikony",
         "default-install-path": "Domyślna ścieżka instalacyjna",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Ustaw Folder dla nowych Prefiksów Wine",
         "disable_controller": "Wyłącz nawigację Heroic przy użyciu kontrolera",
         "discordRPC": "Włącz Discord Rich Presence",

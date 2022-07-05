@@ -20,6 +20,7 @@
         "choose-legendary-binary": "Legendary çalıştırılabilir dosyasını seç",
         "customWine": "Wine veya Proton çalıştırılabilir dosyasını seç",
         "default-install-path": "Öntanımlı Kurulum Yerini Seçin",
+        "default-steam-path": "Steam path.",
         "error": {
             "add": {
                 "steam": {
@@ -310,6 +311,7 @@
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Koyu Tepsi Simgesi Kullan",
         "default-install-path": "Öntanımlı Kurulum Yeri",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
         "disable_controller": "Denetleyiciyi kullanarak Heroic gezinmesini devre dışı bırak",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",

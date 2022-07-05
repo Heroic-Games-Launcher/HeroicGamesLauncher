@@ -1,9 +1,15 @@
+import { GlobalConfig } from '../config'
 import { ipcMain, ipcRenderer } from 'electron'
 import i18next from 'i18next'
+import { join } from 'path'
 import { Game } from '../games'
 import { Runner } from '../types'
 import { addNonSteamGame, removeNonSteamGame } from './nonsteamgame'
-import { steamUserdataDir } from '../constants'
+
+const getSteamUserdataDir = async () => {
+  const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+  return join(defaultSteamPath.replaceAll("'", ''), 'userdata')
+}
 
 ipcMain.on(
   'addShortcut',
@@ -30,6 +36,7 @@ ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
 ipcMain.handle('addToSteam', async (event, appName: string, runner: Runner) => {
   const game = Game.get(appName, runner)
   const gameInfo = await game.getGameInfo()
+  const steamUserdataDir = await getSteamUserdataDir()
 
   await addNonSteamGame({ steamUserdataDir, gameInfo })
 })
@@ -39,6 +46,7 @@ ipcMain.handle(
   async (event, appName: string, runner: Runner) => {
     const game = Game.get(appName, runner)
     const gameInfo = await game.getGameInfo()
+    const steamUserdataDir = await getSteamUserdataDir()
 
     await removeNonSteamGame({ steamUserdataDir, gameInfo })
   }

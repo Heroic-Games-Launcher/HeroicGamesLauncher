@@ -20,6 +20,7 @@
         "choose-legendary-binary": "Chọn Legendary binary",
         "customWine": "Chọn Wine/Proton binary",
         "default-install-path": "Chọn đường dẫn cài mặc định",
+        "default-steam-path": "Steam path.",
         "error": {
             "add": {
                 "steam": {
@@ -310,6 +311,7 @@
         "customWineProton": "Đường dẫn Wine/Proton tùy chọn",
         "darktray": "Sử dụng icon tối",
         "default-install-path": "Thư mục cài mặc định",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Đặt thư mục cho prefix mới của Wine",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Bật tính năng Discord Rich Presence",

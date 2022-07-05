@@ -20,6 +20,7 @@
         "choose-legendary-binary": "Оберіть двійковий файл Legendary",
         "customWine": "Оберіть двійковий файл Wine або Proton",
         "default-install-path": "Вкажіть стандартний шлях встановлення",
+        "default-steam-path": "Steam path.",
         "error": {
             "add": {
                 "steam": {
@@ -310,6 +311,7 @@
         "customWineProton": "Інші шляхи до Wine/Proton",
         "darktray": "Використовувати темну піктограму на панелі",
         "default-install-path": "Стандартний шлях встановлення",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Обрати теку для нових префіксів Wine",
         "disable_controller": "Вимкнути навігацію Heroic за допомогою контролера",
         "discordRPC": "Ввімкнути Discord Rich Presence",

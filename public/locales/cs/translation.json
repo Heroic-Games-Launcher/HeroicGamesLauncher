@@ -20,6 +20,7 @@
         "choose-legendary-binary": "Vyberte spustitelný soubor Legendary",
         "customWine": "Vyberte spustitelný soubor Wine nebo Proton",
         "default-install-path": "Vyberte výchozí cestu pro instalaci",
+        "default-steam-path": "Steam path.",
         "error": {
             "add": {
                 "steam": {
@@ -310,6 +311,7 @@
         "customWineProton": "Vlastní cesty pro Wine/Proton",
         "darktray": "Použít tmavou ikonu v systémové oblasti",
         "default-install-path": "Výchozí cesta pro instalaci",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Nastavit složku pro nové Prefixy Wine",
         "disable_controller": "Zakázat navigaci v Heroic pomocí ovladače",
         "discordRPC": "Povolit Discord Rich Presence",

@@ -20,6 +20,7 @@
         "choose-legendary-binary": "انتخاب باینری Legendary",
         "customWine": "انتخاب فایل باینری Wine یا Proton",
         "default-install-path": "انتخاب محل پیشفرض نصب",
+        "default-steam-path": "Steam path.",
         "error": {
             "add": {
                 "steam": {
@@ -310,6 +311,7 @@
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیشفرض نصب",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "تنظیم پوشه برای Wine Prefix جدید",
         "disable_controller": "غیر فعال کردن کنترل Heroic با استفاده از دسته",
         "discordRPC": "فعالسازی Discord Rich Presence",

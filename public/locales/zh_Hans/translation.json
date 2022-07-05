@@ -20,6 +20,7 @@
         "choose-legendary-binary": "选择 Legendary 二进制文件",
         "customWine": "选择 Wine 或 Proton 二进制文件",
         "default-install-path": "选择默认安装路径",
+        "default-steam-path": "Steam path.",
         "error": {
             "add": {
                 "steam": {
@@ -310,6 +311,7 @@
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "为新的 WinePrefix设置文件夹",
         "disable_controller": "使用控制器禁止 Heroic 导航",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",

@@ -20,6 +20,7 @@
         "choose-legendary-binary": "Legendary 바이너리 파일 선택",
         "customWine": "Wine 혹은 Proton 바이너리 파일 선택",
         "default-install-path": "기본 설치 경로 선택",
+        "default-steam-path": "Steam path.",
         "error": {
             "add": {
                 "steam": {
@@ -310,6 +311,7 @@
         "customWineProton": "커스텀 Wine/Proton 경로",
         "darktray": "다크 트레이 아이콘 사용",
         "default-install-path": "기본 설치 경로",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "새로운 Wine 접두사를 위한 폴더 설정",
         "disable_controller": "컨트롤러를 이용한 Heroic 탐색 비활성화",
         "discordRPC": "Discord Rich Presence 활성화",

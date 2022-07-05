@@ -20,6 +20,7 @@
         "choose-legendary-binary": "Pilih Legendary binary",
         "customWine": "Pilih Wine atau Proton Binary",
         "default-install-path": "Pilih Lokasi Pemasangan Bawaan",
+        "default-steam-path": "Steam path.",
         "error": {
             "add": {
                 "steam": {
@@ -310,6 +311,7 @@
         "customWineProton": "Lokasi Wine/Proton Khusus",
         "darktray": "Gunakan Ikon Baki Gelap",
         "default-install-path": "Lokasi Pemasangan Bawaan",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Atur Folder untuk Prefiks Wine baru",
         "disable_controller": "Nonaktifkan navigasi Heroic menggunakan pengontrol",
         "discordRPC": "Aktifkan Discord Rich Presence",

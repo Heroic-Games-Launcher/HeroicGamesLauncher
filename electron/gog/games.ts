@@ -1,3 +1,4 @@
+import { SteamRuntime } from './../types'
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { GOGLibrary } from './library'
 import { BrowserWindow } from 'electron'
@@ -24,8 +25,7 @@ import {
   execOptions,
   isMac,
   isLinux,
-  userHome,
-  steamUserdataDir
+  userHome
 } from '../constants'
 import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
@@ -367,7 +367,10 @@ class GOGGame extends Game {
       // avoid breaking on old configs when path is not absolute
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        const runtime = useSteamRuntime ? getSteamRuntime('soldier') : null
+        let runtime = null as SteamRuntime
+        if (useSteamRuntime) {
+          await getSteamRuntime('soldier').then((path) => (runtime = path))
+        }
 
         if (runtime?.path) {
           const runWithRuntime = `${runtime.path} -- '${wineVersion.bin}' waitforexitandrun`
@@ -554,6 +557,11 @@ class GOGGame extends Game {
     GOGLibrary.get().refreshInstalled()
     await removeShortcuts(this.appName, 'gog')
     const gameInfo = await this.getGameInfo()
+    const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+    const steamUserdataDir = join(
+      defaultSteamPath.replaceAll("'", ''),
+      'userdata'
+    )
     await removeNonSteamGame({ steamUserdataDir, gameInfo })
     return res
   }

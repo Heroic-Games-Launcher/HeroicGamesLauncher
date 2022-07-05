@@ -20,6 +20,7 @@
         "choose-legendary-binary": "選擇Legendary二進制文件",
         "customWine": "選擇已編譯的Wine或Proton",
         "default-install-path": "選擇預設安裝路徑",
+        "default-steam-path": "Steam path.",
         "error": {
             "add": {
                 "steam": {
@@ -310,6 +311,7 @@
         "customWineProton": "自定義Wine/Proton路徑",
         "darktray": "使用暗色系統列圖示",
         "default-install-path": "預設安裝路徑",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "啟用Discord的Rich Presence（活動狀態）",

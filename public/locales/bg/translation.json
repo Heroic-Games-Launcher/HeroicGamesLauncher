@@ -20,6 +20,7 @@
         "choose-legendary-binary": "Изберете изпълнимия файл на Legendary",
         "customWine": "Изберете изпълнимия файл на Wine или Proton",
         "default-install-path": "Изберете пътя по подразбиране за инсталиране",
+        "default-steam-path": "Steam path.",
         "error": {
             "add": {
                 "steam": {
@@ -310,6 +311,7 @@
         "customWineProton": "Персонализирани пътища за Wine/Proton",
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
         "default-install-path": "Папка по подразбиране за инсталации",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Задаване на папка за нови префикси на Wine",
         "disable_controller": "Изключване на навигирането в Heroic посредством контролер",
         "discordRPC": "Включване на актуализирането на присъствието в Дискорд",

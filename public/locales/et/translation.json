@@ -20,6 +20,7 @@
         "choose-legendary-binary": "Valige Legendary binaarfail",
         "customWine": "Valige Wine või Proton-i binaar",
         "default-install-path": "Valige Vaikimisi paigalduskoht",
+        "default-steam-path": "Steam path.",
         "error": {
             "add": {
                 "steam": {
@@ -310,6 +311,7 @@
         "customWineProton": "Kohandatud Wine/Proton teed",
         "darktray": "Kasuta tumedat süsteemiriiuli ikooni",
         "default-install-path": "Vaikimisi paigaldustee",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Määrake uute Wine'i prefikside jaoks kaust",
         "disable_controller": "Keela Heroic'u mängupuldiga navigeerimine",
         "discordRPC": "Luba Discord Rich Presence",

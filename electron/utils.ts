@@ -476,26 +476,34 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
   }
 }
 
-function getSteamRuntime(version: 'scout' | 'soldier'): SteamRuntime {
-  const soldier: Array<SteamRuntime> = getSteamLibraries().map((p) => {
-    if (existsSync(join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'))) {
-      return {
-        path: join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'),
-        type: 'unpackaged',
-        version: 'soldier'
+async function getSteamRuntime(
+  version: 'scout' | 'soldier'
+): Promise<SteamRuntime> {
+  const soldier: Array<SteamRuntime> = await getSteamLibraries().then((libs) =>
+    libs.map((p) => {
+      if (
+        existsSync(join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'))
+      ) {
+        return {
+          path: join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'),
+          type: 'unpackaged',
+          version: 'soldier'
+        }
       }
-    }
-  })
+    })
+  )
 
-  const scout: Array<SteamRuntime> = getSteamLibraries().map((p) => {
-    if (existsSync(join(p, 'ubuntu12_32/steam-runtime/run.sh'))) {
-      return {
-        path: join(p, 'ubuntu12_32/steam-runtime/run.sh'),
-        type: 'unpackaged',
-        version: 'scout'
+  const scout: Array<SteamRuntime> = await getSteamLibraries().then((libs) =>
+    libs.map((p) => {
+      if (existsSync(join(p, 'ubuntu12_32/steam-runtime/run.sh'))) {
+        return {
+          path: join(p, 'ubuntu12_32/steam-runtime/run.sh'),
+          type: 'unpackaged',
+          version: 'scout'
+        }
       }
-    }
-  })
+    })
+  )
 
   if (version === 'soldier') {
     if (soldier.length) {
