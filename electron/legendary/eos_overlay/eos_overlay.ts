@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 import { t } from 'i18next'
 import { join } from 'path'
 
-import { heroicToolsPath, legendaryConfigPath } from '../../constants'
+import { heroicToolsPath, isLinux, legendaryConfigPath } from '../../constants'
 import { logError, LogPrefix, logWarning } from '../../logger/logger'
 import { runLegendaryCommand } from '../library'
 import { LegendaryGame } from '../games'
@@ -163,6 +163,12 @@ function isInstalled() {
 
 async function isEnabled(prefix: string) {
   let enabled = false
+
+  // The overlay can't be enabled globally on Linux
+  if (isLinux && !prefix) {
+    return false
+  }
+
   await runLegendaryCommand(
     ['eos-overlay', 'info', ...(prefix ? ['--prefix', prefix] : [])],
     {

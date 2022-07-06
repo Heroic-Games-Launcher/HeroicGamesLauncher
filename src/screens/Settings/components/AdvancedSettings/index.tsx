@@ -151,9 +151,11 @@ export const AdvancedSettings = ({
 
   useEffect(() => {
     const enabledGlobally = async () => {
-      setEosOverlayEnabledGlobally(
-        await ipcRenderer.invoke('isEosOverlayEnabled', '')
-      )
+      if (isWindows) {
+        setEosOverlayEnabledGlobally(
+          await ipcRenderer.invoke('isEosOverlayEnabled', '')
+        )
+      }
     }
     enabledGlobally()
   }, [eosOverlayEnabledGlobally])
