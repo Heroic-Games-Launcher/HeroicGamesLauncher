@@ -161,9 +161,6 @@
         },
         "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടീല് മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില് നിങ്ങളുടെ കളികള് വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
         "other": {
-            "part1": "കളി ഓടിക്കുന്നതിനുമുന്പുള്ള വിളികള്ക്കായി ",
-            "part2": "ഉയര്ന്ന ക്രമീകരണങ്ങള്",
-            "part3": "ഉപയോഗിക്കൂ; ",
             "part4": "കളി ഓടിത്തുടങ്ങിയതിനു ശേഷം വിളിക്കാന് ",
             "part5": "കളിവാദങ്ങള്",
             "part6": " ഉപയോഗിക്കുക, ഉദ്ദാഹരണത്തിന്:ചില കളികളില് ലോഞ്ചര് ഒഴിച്ചുവിടാനായി ",
@@ -243,8 +240,8 @@
     },
     "options": {
         "advanced": {
-            "key": "Key",
-            "placeHolderKey": "ENVIORMENT",
+            "key": "Variable Name",
+            "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
             "title": "ഉയര്ന്ന ക്രമീകരണങ്ങള് (Environment Variables):",
             "value": "Value"
@@ -255,10 +252,11 @@
         },
         "wrapper": {
             "args": "Arguments",
-            "exe": "Exe",
-            "placeHolderKey": "Executable Path",
-            "placeHolderValue": "Arguments seperated by semicolon (;) e.g.: --arg; --extra-file=\"file-path/ with/spaces\"",
-            "title": "Wrapper additional arguments"
+            "arguments_example": "Arguments example: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "exe": "Wrapper",
+            "placeHolderKey": "New Wrapper",
+            "placeHolderValue": "Seperated by semicolon (;)",
+            "title": "Wrapper command:"
         }
     },
     "other": {
