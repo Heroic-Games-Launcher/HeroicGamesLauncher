@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings, Runner } from 'src/types'
+import { AppSettings, GameStatus, Runner } from 'src/types'
 
 import { SmallInfo } from 'src/components/UI'
 import { createNewWindow, getGameInfo, repair } from 'src/helpers'
@@ -33,12 +33,16 @@ export default function GamesSubmenu({
   storeUrl,
   runner
 }: Props) {
-  const { handleGameStatus, refresh, platform } = useContext(ContextProvider)
+  const { handleGameStatus, refresh, platform, libraryStatus } =
+    useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
   const [info, setInfo] = useState({ prefix: '', wine: '' } as otherInfo)
   const [isNative, setIsNative] = useState(false)
+  const [eosOverlayEnabled, setEosOverlayEnabled] = useState(false)
+  const [eosOverlayInstalling, setEosOverlayInstalling] = useState(false)
+  const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const { t } = useTranslation('gamepage')
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
@@ -140,6 +144,33 @@ export default function GamesSubmenu({
     getGameDetails()
   }, [])
 
+  useEffect(() => {
+    const isEosOverlayEnabled = async () => {
+      const { winePrefix } = await ipcRenderer.invoke(
+        'requestSettings',
+        appName
+      )
+      const enabled = await ipcRenderer.invoke(
+        'isEosOverlayEnabled',
+        winePrefix
+      )
+      setEosOverlayEnabled(enabled)
+    }
+    isEosOverlayEnabled()
+  }, [eosOverlayEnabled])
+
+  useEffect(() => {
+    const { status } =
+      libraryStatus.filter(
+        (game: GameStatus) => game.appName === eosOverlayAppName
+      )[0] || {}
+    console.log(
+      'eosOverlayInstalling changed, new value:',
+      status === 'installing'
+    )
+    setEosOverlayInstalling(status === 'installing')
+  }, [eosOverlayInstalling])
+
   return (
     <div className="gameTools subMenuContainer">
       <div className={`submenu`}>
@@ -189,6 +220,53 @@ export default function GamesSubmenu({
                 className="link button is-text is-link"
               >
                 {t('submenu.addShortcut', 'Add shortcut')}
+              </button>
+            )}
+            {isLinux && !eosOverlayInstalling && (
+              <button
+                className="link button is-text is-link"
+                onClick={async () => {
+                  const { winePrefix } = await ipcRenderer.invoke(
+                    'requestSettings',
+                    appName
+                  )
+                  if (eosOverlayEnabled) {
+                    await ipcRenderer.invoke('disableEosOverlay', winePrefix)
+                    setEosOverlayEnabled(false)
+                  } else {
+                    const initialEnableResult = await ipcRenderer.invoke(
+                      'enableEosOverlay',
+                      winePrefix
+                    )
+                    const { installNow } = initialEnableResult
+                    let { wasEnabled } = initialEnableResult
+
+                    if (installNow) {
+                      await handleGameStatus({
+                        appName: eosOverlayAppName,
+                        runner: 'legendary',
+                        status: 'installing'
+                      })
+                      setEosOverlayInstalling(true)
+                      await ipcRenderer.invoke('installEosOverlay')
+                      await handleGameStatus({
+                        appName: eosOverlayAppName,
+                        runner: 'legendary',
+                        status: 'done'
+                      })
+                      setEosOverlayInstalling(false)
+                      wasEnabled = (
+                        await ipcRenderer.invoke('enableEosOverlay', winePrefix)
+                      ).wasEnabled
+                    }
+
+                    setEosOverlayEnabled(wasEnabled)
+                  }
+                }}
+              >
+                {eosOverlayEnabled
+                  ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
+                  : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
               </button>
             )}
           </>
