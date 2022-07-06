@@ -110,7 +110,7 @@ function fixAsarPath(origin: string): string {
 export function getSteamCompatFolder() {
   // Paths are from https://savelocation.net/steam-game-folder
   if (isWindows) {
-    const defaultWinPath = join('C:', process.env['PROGRAMFILES(X86)'], 'Steam')
+    const defaultWinPath = join(process.env['PROGRAMFILES(X86)'], 'Steam')
     return defaultWinPath
     // Reading of steam registry key should work with registry-js
     // in electron enviroment but there is a npm node-gyp problem so far:
