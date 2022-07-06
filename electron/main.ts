@@ -1374,4 +1374,4 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
  * INSERT OTHER IPC HANLDER HERE
  */
 import './logger/ipc_handler'
-import './wine-manager/ipc_handler'
+import './wine/manager/ipc_handler'
