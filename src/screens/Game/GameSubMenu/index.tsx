@@ -118,15 +118,22 @@ export default function GamesSubmenu({
   async function handleAddToSteam() {
     setSteamRefresh(true)
     await ipcRenderer.invoke('addToSteam', appName, runner)
-    updateAddToSteam()
+    isAddedToSteam()
     setSteamRefresh(false)
   }
 
   async function handleRemoveFromSteam() {
     setSteamRefresh(true)
     await ipcRenderer.invoke('removeFromSteam', appName, runner)
-    updateAddToSteam()
+    isAddedToSteam()
     setSteamRefresh(false)
+  }
+
+  const isAddedToSteam = () => {
+    ipcRenderer.invoke('isAddedToSteam', appName, runner).then((added) => {
+      console.log(added)
+      setAddedToSteam(added)
+    })
   }
 
   useEffect(() => {
@@ -155,14 +162,8 @@ export default function GamesSubmenu({
     }
     getWineInfo()
     getGameDetails()
-    updateAddToSteam()
+    isAddedToSteam()
   }, [])
-
-  const updateAddToSteam = () => {
-    ipcRenderer.invoke('getShortcutInfo', appName).then((info) => {
-      setAddedToSteam(info.is_added_steam ?? false)
-    })
-  }
 
   return (
     <div className="gameTools subMenuContainer">

@@ -4,8 +4,6 @@ import { heroicIconFolder } from '../constants'
 import { GameInfo } from '../types'
 import { spawnSync } from 'child_process'
 import { basename, dirname, extname, join } from 'path'
-import { shortcutsStore } from './electronStore'
-import { ShortcutInfo } from './types'
 
 function createImage(buffer: Buffer, outputFilePath: string): string {
   try {
@@ -77,20 +75,10 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
   }
 }
 
-function getShortcutInfo(app: string): ShortcutInfo {
-  return shortcutsStore.get(app) as ShortcutInfo
-}
-
-function setShortcutInfo(app: string, info: ShortcutInfo): void {
-  shortcutsStore.set(app, info)
-}
-
 export {
   createImage,
   downloadImage,
   removeImage,
   checkImageExistsAlready,
-  getIcon,
-  getShortcutInfo,
-  setShortcutInfo
+  getIcon
 }

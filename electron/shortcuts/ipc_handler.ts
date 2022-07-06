@@ -4,8 +4,11 @@ import i18next from 'i18next'
 import { join } from 'path'
 import { Game } from '../games'
 import { Runner } from '../types'
-import { addNonSteamGame, removeNonSteamGame } from './nonsteamgame'
-import { getShortcutInfo } from './utils'
+import {
+  addNonSteamGame,
+  isAddedToSteam,
+  removeNonSteamGame
+} from './nonsteamgame'
 
 const getSteamUserdataDir = async () => {
   const { defaultSteamPath } = await GlobalConfig.get().getSettings()
@@ -53,6 +56,13 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('getShortcutInfo', (event, appName: string) => {
-  return getShortcutInfo(appName)
-})
+ipcMain.handle(
+  'isAddedToSteam',
+  async (event, appName: string, runner: Runner) => {
+    const game = Game.get(appName, runner)
+    const gameInfo = await game.getGameInfo()
+    const steamUserdataDir = await getSteamUserdataDir()
+
+    return isAddedToSteam({ steamUserdataDir, gameInfo })
+  }
+)

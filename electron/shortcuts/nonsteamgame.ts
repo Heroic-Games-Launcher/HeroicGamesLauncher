@@ -9,7 +9,7 @@ import { readFileSync } from 'fs-extra'
 import { join } from 'path'
 import { GameInfo } from '../types'
 import { ShortcutsResult } from './types'
-import { getIcon, getShortcutInfo, setShortcutInfo } from './utils'
+import { getIcon } from './utils'
 import {
   prepareImagesForSteam,
   generateShortcutId,
@@ -87,17 +87,18 @@ function checkSteamUserDataDir(steamUserdataDir: string): {
       error: `${steamUserdataDir} does not exist. Can't add/remove game to/from Steam!`
     }
   }
-
+  const ignoreFolders = ['0', 'ac']
   const folders = readdirSync(steamUserdataDir, {
     withFileTypes: true
   })
     .filter((dirent) => dirent.isDirectory())
+    .filter((dirent) => ignoreFolders.every((folder) => folder !== dirent.name))
     .map((dirent) => dirent.name)
 
   if (folders.length <= 0) {
     return {
       folders: undefined,
-      error: `${steamUserdataDir} does not contain a single directory!`
+      error: `${steamUserdataDir} does not contain a valid user directory!`
     }
   }
 
@@ -205,11 +206,6 @@ async function addNonSteamGame(props: {
   const errors = []
   let added = false
   for (const folder of folders) {
-    // skip this folders, because there are no steam user
-    if (folder === '0' || folder === 'ac') {
-      continue
-    }
-
     const configDir = join(props.steamUserdataDir, folder, 'config')
     const shortcutsFile = join(configDir, 'shortcuts.vdf')
 
@@ -346,11 +342,6 @@ async function addNonSteamGame(props: {
     })
     notifyFrontend({ message, adding: true })
   }
-
-  setShortcutInfo(props.gameInfo.app_name, {
-    ...getShortcutInfo(props.gameInfo.app_name),
-    is_added_steam: true
-  })
 }
 
 /**
@@ -450,11 +441,50 @@ async function removeNonSteamGame(props: {
     })
     notifyFrontend({ message, adding: false })
   }
-
-  setShortcutInfo(props.gameInfo.app_name, {
-    ...getShortcutInfo(props.gameInfo.app_name),
-    is_added_steam: false
-  })
 }
 
-export { addNonSteamGame, removeNonSteamGame }
+/**
+ * Checks if a game was added to shortcuts.vdf
+ * @param steamUserdataDir Path to steam userdata directory
+ * @param gameInfo @see GameInfo of the game to check
+ * @returns boolean
+ */
+async function isAddedToSteam(props: {
+  steamUserdataDir: string
+  gameInfo: GameInfo
+}): Promise<boolean> {
+  const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
+
+  if (error) {
+    return false
+  }
+
+  let added = false
+  for (const folder of folders) {
+    const configDir = join(props.steamUserdataDir, folder, 'config')
+    const shortcutsFile = join(configDir, 'shortcuts.vdf')
+
+    if (!existsSync(configDir) || !existsSync(shortcutsFile)) {
+      continue
+    }
+
+    // read file
+    const content = readShortcutFile(shortcutsFile)
+    const checkResult = checkIfShortcutObjectIsValid(content)
+    if (!checkResult.success) {
+      continue
+    }
+
+    const index = checkIfAlreadyAdded(content, props.gameInfo.title)
+
+    if (index < 0) {
+      continue
+    }
+
+    added = true
+  }
+
+  return added
+}
+
+export { addNonSteamGame, removeNonSteamGame, isAddedToSteam }
