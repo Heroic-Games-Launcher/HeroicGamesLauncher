@@ -25,8 +25,8 @@
                 "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "CrossOveri pudelit \"{{bottle_name}}\" pole olemas, ei saa käivitada!",
+                "title": "CrossOveri pudelit ei leitud"
             },
             "diskspace": {
                 "message": "Ei ole piisavalt vaba kettaruumi",
@@ -37,7 +37,7 @@
                 "title": "DXVK/VKD3D viga"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Mängukaust tundub olevat kustutatud, kas soovite mängu paigaldatute nimekirjast eemaldada?"
             },
             "generic": {
                 "message": "",
@@ -57,8 +57,8 @@
                 "title": "Wine'i ei leitud"
             },
             "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
+                "message": "ZSTD'd ei leitud, palun paigaldage see ja käivitage Heroic uuesti",
+                "title": "Puuduv dependency"
             }
         },
         "info": {
@@ -131,15 +131,15 @@
     "favourites": "Lemmikud",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Pood",
+        "title": "Mängu pealkiri"
     },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Mänge ei leitud - proovige uuesti sisse logida või ühte allolevatest võimalustest"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Värskenda varamut"
         }
     },
     "globalSettings": "Globaalsed seaded",
@@ -148,16 +148,16 @@
     "header": {
         "ignore_hidden": "Ignoreeri peidetud",
         "platform": "Platvorm",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
+        "show_all_games": "Näita kõiki mänge",
+        "show_favourites_only": "Näita ainult lemmikuid",
         "show_hidden": "Näita peidetud",
-        "store": "Filter Store"
+        "store": "Filtreeri poodi"
     },
     "help": {
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "Heroicu keele kasutamiseks jätke väli tühjaks.",
+            "in_game_config": "Kõik mängud ei toeta seda seadistust, mõnel on mängusisene keeleseadistus.",
+            "valid_codes": "Kehtivad keelekoodid sõltuvad mängust."
         },
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
         "other": {
@@ -185,12 +185,12 @@
             "version": "Heroic Version"
         },
         "settings": "Seaded salvestatakse automaatselt",
-        "version": "Wine Version"
+        "version": "Wine'i versioon"
     },
     "infobox": {
         "help": "Abi",
         "requirements": "Süsteeminõuded",
-        "wine-path": "Path"
+        "wine-path": "Tee"
     },
     "install": {
         "path": "Valige paigaldustee"
@@ -231,7 +231,7 @@
             "startInstall": "Paigaldamine algas"
         },
         "moved": "Teisaldamine on lõpule viidud",
-        "moving": "Moving Game",
+        "moving": "Mängu liigutamine",
         "refresh": {
             "error": "Ei saanud hankida väljalaskeid upstream'ist, võib-olla Githubi API piirangute tõttu! Proovige hiljem uuesti."
         },
@@ -261,7 +261,7 @@
         "alt-gogdl-bin": "Kasutusel on sisse-ehitatud GOGDL binaarfaili...",
         "alt-legendary-bin": "Kasutusel on sisse-ehitatud Legendary binaarfail...",
         "egs-prefix": "Prefiks, kuhu EGS on paigaldatud",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-täheline kood (st: \"en\" või \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -271,7 +271,7 @@
     "Plugins": "Pluginad",
     "Projects": "Projektid",
     "Recent": "Hiljuti mängitud",
-    "search": "Sisestage mängu nimi siia...",
+    "search": "Otsi mänge",
     "setting": {
         "adddesktopshortcuts": "Lisa töölaua otseteed automaatselt",
         "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
@@ -325,7 +325,7 @@
         "maxworkers": "Töötajate maksimaalne arv allalaadimisel",
         "minimize-on-launch": "Minimeeri Heroic pärast mängu käivitamist",
         "offlinemode": "Käivita mäng võrguühenduseta",
-        "prefered_language": "Prefered Language (Language Code)",
+        "prefered_language": "Eelistatud keel (keelekood)",
         "primerun": "Kasuta spetsiaalset graafikakaarti",
         "resizableBar": "Luba muudetav BAR (ainult NVIDIA RTX 30xx)",
         "runexe": {
@@ -358,18 +358,18 @@
             "other": "Muu",
             "sync": "Salvesta-sünkrooni"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Ava konfiguratsioonifail",
         "reset-heroic": "Lähtesta Heroic"
     },
     "Settings": "Seaded",
     "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "collapse": "Ahenda külgriba",
+        "uncollapse": "Lahtista külgriba"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Paigaldamine",
         "logging": "Sisselogimine...",
-        "processing": "Processing files, please wait"
+        "processing": "Failide töötlemine, palun oodake"
     },
     "store": "Epic Pood",
     "stores": "Poed",
@@ -420,6 +420,6 @@
             "unzipping": "Lahtipakkimine"
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Suurus"
     }
 }

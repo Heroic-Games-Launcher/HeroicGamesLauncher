@@ -1,10 +1,10 @@
 {
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
+        "all_tiles_in_color": "Pokaż wszystkie tytuły gier w kolorze",
         "content_font_family": "Content Font Family (Default: \"Cabin\")",
-        "fonts": "Fonts",
-        "title": "Accessibility",
+        "fonts": "Czcionki",
+        "title": "Ułatwienia dostępu",
         "zoom": "Zoom"
     },
     "All": "Wszystkie",
@@ -25,8 +25,8 @@
                 "message": "Twoje dane uwierzytelniające wygasły, wyloguj się i zaloguj ponownie."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "Butelka CrossOver \"{{bottle_name}}\" nie istnieje, nie można uruchomić!",
+                "title": "Butelka CrossOver nie została odnaleziona"
             },
             "diskspace": {
                 "message": "Za mało miejsca na dysku",
@@ -37,7 +37,7 @@
                 "title": "Błąd DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Wygląda na to że, folder z grą został usunięty, czy chcesz usunąć grę z listy zainstalowanych?"
             },
             "generic": {
                 "message": "",
@@ -57,7 +57,7 @@
                 "title": "Nie Znaleziono Wine"
             },
             "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
+                "message": "ZSTD został nieodnaleziony, zainstaluj to i uruchom ponownie Heroic",
                 "title": "Missing Dependency"
             }
         },
@@ -131,15 +131,15 @@
     "favourites": "Ulubione",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Sklep",
+        "title": "Tytuł Gry"
     },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Nie znaleziono żadnych gier - Spróbuj wylogować i zalogować się ponownie lub postępuj zgodnie z jedną z opcji poniżej"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Odśwież Bibliotekę"
         }
     },
     "globalSettings": "Ustawienia Globalne",
@@ -148,16 +148,16 @@
     "header": {
         "ignore_hidden": "Ignoruj Ukryte",
         "platform": "Platforma",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
+        "show_all_games": "Pokaż wszystkie gry",
+        "show_favourites_only": "Pokaż tylko ulubione",
         "show_hidden": "Pokaż Ukryte",
-        "store": "Filter Store"
+        "store": "Filtruj Sklep"
     },
     "help": {
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "Zostaw puste, aby użyć języka Heroic.",
+            "in_game_config": "Nie wszystkie gry wspierają tą konfiguracje, niektóre mają wbudowane ustawienia językowe.",
+            "valid_codes": "Prawidłowe kody językowe są zależne od gry."
         },
         "general": "Synchronizuj z EGS, gdy Epic Games Launcher jest zainstalowane w innym miejscu i chcesz zaimportować swoje gry, aby uniknąć ich ponownego pobierania.",
         "other": {
@@ -185,12 +185,12 @@
             "version": "Heroic Version"
         },
         "settings": "Ustawienia są zapisywane automatycznie",
-        "version": "Wine Version"
+        "version": "Wersja Wine"
     },
     "infobox": {
         "help": "Pomoc",
         "requirements": "Wymagania Systemowe",
-        "wine-path": "Path"
+        "wine-path": "Ścieżka"
     },
     "install": {
         "path": "Wybierz Ścieżkę Instalacji"
@@ -231,7 +231,7 @@
             "startInstall": "Instalacja Rozpoczęta"
         },
         "moved": "Przenoszenie zakończone",
-        "moving": "Moving Game",
+        "moving": "Przenoszę grę",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -271,7 +271,7 @@
     "Plugins": "Rozszerzenia",
     "Projects": "Projekty",
     "Recent": "Ostatnio Grane",
-    "search": "Wpisz nazwę gry...",
+    "search": "Wyszukaj Gry",
     "setting": {
         "adddesktopshortcuts": "Dodawaj automatycznie skróty na pulpicie",
         "addgamestostartmenu": "Dodawaj automatycznie gry do menu startowego",
@@ -325,8 +325,8 @@
         "maxworkers": "Maksymalna liczba wątków przy pobieraniu",
         "minimize-on-launch": "Minimalizuj Heroic Po Uruchomieniu Gry",
         "offlinemode": "Uruchom grę w trybie offline",
-        "prefered_language": "Prefered Language (Language Code)",
-        "primerun": "Włącz renderowanie Nvidia Prime",
+        "prefered_language": "Preferowany język (Kod języka)",
+        "primerun": "Używaj Dedykowanej Karty Graficznej",
         "resizableBar": "Włącz Resizable BAR (Tylko dla kart NVIDIA RTX)",
         "runexe": {
             "message": "Upuść pliki tutaj",
@@ -358,7 +358,7 @@
             "other": "Inne",
             "sync": "Synchronizasja zapisów"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Otwórz plik konfiguracyjny",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Ustawienia",
@@ -367,9 +367,9 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Instaluję",
         "logging": "Logowanie...",
-        "processing": "Processing files, please wait"
+        "processing": "Przetwarzanie plików, proszę czekać"
     },
     "store": "Sklep Epic",
     "stores": "Sklepy",
@@ -420,6 +420,6 @@
             "unzipping": "Dekompresowanie"
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Rozmiar"
     }
 }

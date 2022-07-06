@@ -1,0 +1,115 @@
+{
+    "box": {
+        "yes": "JA",
+        "choose": "Vælg",
+        "wineprefix": "Vælg Wine Prefix mappe",
+        "no": "NEJ",
+        "cache-cleared": {
+            "message": "Heroic cache ryddet.",
+            "title": "Cache ryddet"
+        },
+        "choose-egs-prefix": "Vælg Prefix hvor EGS er installeret",
+        "choose-gogdl-binary": "Vælg GOGDL Binary (kræver genstart)",
+        "choose-legendary-binary": "Vælg Legendary binary",
+        "customWine": "Vælg Wine eller Proton binary",
+        "default-install-path": "Vælg Standard Installationssti",
+        "error": {
+            "credentials": {
+                "message": "Din legitimation er udløbet, log venligst ud og ind igen."
+            },
+            "cx-bottle-not-found": {
+                "message": "CrossOver bottle \"{{bottle_name}}\" eksisterer ikke, kan ikke starte!",
+                "title": "CrossOver bottle ikke fundet"
+            },
+            "diskspace": {
+                "message": "Ikke nok ledig diskplads",
+                "title": "Ingen plads"
+            },
+            "dxvk": {
+                "message": "Fejl ved installation af DXVK/VKD3D! Kontroller din forbindelse, eller om du har zstd/libzstd1 installeret",
+                "title": "DXVK/VKD3D fejl"
+            },
+            "folder-not-found": {
+                "title": "Spilmappen ser ud til at være slettet, vil du fjerne spillet fra den installerede liste?"
+            },
+            "no-offline-mode": {
+                "message": "Opstart afbrudt! Spillet kræver en internetforbindelse for at køre.",
+                "title": "Offlinetilstand undstøttes ikke."
+            },
+            "title": "Fejl",
+            "update": {
+                "message": "Noget gik galt med opdateringen, tjek logfilerne eller prøv igen senere!",
+                "title": "Opdateringsfejl"
+            },
+            "wine-not-found": {
+                "message": "Ingen Wine Version valgt. Tjek spilindstillingerne!",
+                "title": "Wine Ikke Fundet"
+            },
+            "zstd": {
+                "message": "ZSTD ikke fundet, venligst installer det og genstart Heroic"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Åben changelog",
+                "detail": "Vil du hente opdateringen i baggrunden?",
+                "message": "Der er en ny version tilgængelig!",
+                "message-finished": "Vil du genstarte Heroic nu?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Opdatering Færdig"
+            }
+        },
+        "ok": "OK",
+        "protocol": {
+            "install": {
+                "not_installed": "I øjeblikket ikke installeret. Installer det?"
+            }
+        },
+        "quit": {
+            "title": "Afslut",
+            "message": "Der er uafgjorte handlinger, er du sikker?"
+        },
+        "reset-heroic": {
+            "question": {
+                "title": "Nulstil Heroic",
+                "message": "Er du sikker på, at du vil nulstille Heroic? Dette fjerner alle indstillinger og cache, men vil ikke fjerne dine installerede spil eller dine Epic legitimation"
+            }
+        },
+        "runexe": {
+            "title": "Vælg EXE til at køre"
+        },
+        "select": {
+            "button": "Vælg",
+            "exe": "Vælg EXE"
+        },
+        "shortcuts": {
+            "message": "Genveje var oprettet på Skrivebordet og i Start Menuen",
+            "title": "Genveje"
+        },
+        "sync": {
+            "button": "Vælg",
+            "error": "Ugyldig sti"
+        }
+    },
+    "All": "Alle",
+    "accessibility": {
+        "zoom": "Zoom",
+        "fonts": "Fonte",
+        "all_tiles_in_color": "Vis alle spil fliser i farver",
+        "title": "Tilgængelighed"
+    },
+    "info": {
+        "version": "Wine Version"
+    },
+    "install": {
+        "path": "Vælg Installations Sti"
+    },
+    "status": {
+        "installing": "Installerer",
+        "processing": "Behandler filerne, vent venligst"
+    },
+    "Assets": "Aktiver",
+    "infobox": {
+        "help": "Hjælp"
+    }
+}
