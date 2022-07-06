@@ -32,6 +32,7 @@ export interface AppSettings {
   minimizeOnLaunch: boolean
   nvidiaPrime: boolean
   offlineMode: boolean
+  otherOptions: string //depricated
   enviromentOptions: EnviromentVariable[]
   wrapperOptions: WrapperVariable[]
   savesPath: string
@@ -174,6 +175,7 @@ export interface GameSettings {
   launcherArgs: string
   nvidiaPrime: boolean
   offlineMode: boolean
+  otherOptions: string //deprecated
   enviromentOptions: EnviromentVariable[]
   wrapperOptions: WrapperVariable[]
   savesPath: string
