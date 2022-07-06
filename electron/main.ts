@@ -825,14 +825,16 @@ ipcMain.handle(
 
     writeFileSync(
       game.logFileLocation,
-      `System Info:
-${await getSystemInfo()}
-
-Game Settings: ${JSON.stringify(await game.getSettings(), null, '\t')}
-
-Game launched at: ${startPlayingDate}
-
-`
+      [
+        `System Info:\n${await getSystemInfo()}`,
+        `Game Settings: ${JSON.stringify(
+          await game.getSettings(),
+          null,
+          '\t'
+        )}`,
+        `Game launched at: ${startPlayingDate}`,
+        ''
+      ].join('\n\n')
     )
     return game
       .launch(launchArguments)
