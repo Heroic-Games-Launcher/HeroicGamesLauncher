@@ -131,7 +131,6 @@ export default function GamesSubmenu({
 
   const isAddedToSteam = () => {
     ipcRenderer.invoke('isAddedToSteam', appName, runner).then((added) => {
-      console.log(added)
       setAddedToSteam(added)
     })
   }
