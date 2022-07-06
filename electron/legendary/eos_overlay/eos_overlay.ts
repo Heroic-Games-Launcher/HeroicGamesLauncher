@@ -141,20 +141,18 @@ async function enable(
     // Installing the overlay requires some frontend work, so we can't just do it in the backend alone
     return { wasEnabled: false, installNow: response === 0 }
   }
-  await runLegendaryCommand([
-    'eos-overlay',
-    'enable',
-    ...(prefix ? ['--prefix', prefix] : [])
-  ])
+  await runLegendaryCommand(
+    ['eos-overlay', 'enable', ...(prefix ? ['--prefix', prefix] : [])],
+    { logMessagePrefix: 'Enabling EOS Overlay' }
+  )
   return { wasEnabled: true }
 }
 
 async function disable(prefix: string) {
-  await runLegendaryCommand([
-    'eos-overlay',
-    'disable',
-    ...(prefix ? ['--prefix', prefix] : [])
-  ])
+  await runLegendaryCommand(
+    ['eos-overlay', 'disable', ...(prefix ? ['--prefix', prefix] : [])],
+    { logMessagePrefix: 'Disabling EOS Overlay' }
+  )
 }
 
 function isInstalled() {
@@ -177,7 +175,8 @@ async function isEnabled(prefix: string) {
           enabled = data.includes('Yes')
           child.kill()
         }
-      }
+      },
+      logMessagePrefix: 'Checking if EOS Overlay is enabled'
     }
   )
   return enabled
