@@ -20,10 +20,7 @@ abstract class Game {
     }
   }
   public get logFileLocation() {
-    return join(
-      heroicGamesConfigPath,
-      `${this.appName}-lastPlay.log`
-    )
+    return join(heroicGamesConfigPath, `${this.appName}-lastPlay.log`)
   }
 
   abstract appName: string
