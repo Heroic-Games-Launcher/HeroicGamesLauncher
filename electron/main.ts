@@ -823,17 +823,16 @@ ipcMain.handle(
       mainWindow.hide()
     }
 
+    const systemInfo = await getSystemInfo()
+    const gameSettingsString = JSON.stringify(
+      await game.getSettings(),
+      null,
+      '\t'
+    )
     writeFileSync(
       game.logFileLocation,
       [
-        `System Info:\n${await getSystemInfo()}`,
-        `Game Settings: ${JSON.stringify(
-          await game.getSettings(),
-          null,
-          '\t'
-        )}`,
-        `Game launched at: ${startPlayingDate}`,
-        ''
+        `System Info:\n${systemInfo}\n\nGame Settings: ${gameSettingsString}\n\nGame launched at: ${startPlayingDate}\n\n`
       ].join('\n\n')
     )
     return game

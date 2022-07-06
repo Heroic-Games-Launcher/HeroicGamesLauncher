@@ -403,7 +403,7 @@ class GOGGame extends Game {
     )
     appendFileSync(
       this.logFileLocation,
-      [`Launch Command: ${fullCommand}`, 'Game Log:\n'].join('\n\n')
+      `Launch Command: ${fullCommand}\n\nGame Log:\n`
     )
 
     const { error } = await runGogdlCommand(commandParts, {
