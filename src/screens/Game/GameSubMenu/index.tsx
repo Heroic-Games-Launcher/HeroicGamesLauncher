@@ -164,10 +164,6 @@ export default function GamesSubmenu({
       libraryStatus.filter(
         (game: GameStatus) => game.appName === eosOverlayAppName
       )[0] || {}
-    console.log(
-      'eosOverlayInstalling changed, new value:',
-      status === 'installing'
-    )
     setEosOverlayInstalling(status === 'installing')
   }, [eosOverlayInstalling])
 
