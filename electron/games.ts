@@ -22,7 +22,7 @@ abstract class Game {
   public get logFileLocation() {
     return join(
       heroicGamesConfigPath,
-      `${this.appName.split(' ')[0]}-lastPlay.log`
+      `${this.appName}-lastPlay.log`
     )
   }
 
