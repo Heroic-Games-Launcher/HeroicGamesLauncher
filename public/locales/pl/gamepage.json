@@ -61,8 +61,8 @@
         "lastPlayed": "Ostatnia Gra",
         "neverPlayed": "Nigdy",
         "platform": "Wybierz Wersję Platformy do Instalacji",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "Wymagania Systemowe",
+        "tools": "Narzędzia",
         "totalPlayed": "Czas Gry"
     },
     "gamecard": {
@@ -70,7 +70,7 @@
         "repairing": "Naprawianie"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Nieznany błąd"
     },
     "info": {
         "canRunOffline": "Wymagane Online",
@@ -81,11 +81,11 @@
         "version": "Wersja"
     },
     "install": {
-        "disk-space-left": "Pozostałe Miejsce na Urządzeniu",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Dostępne Miejsce",
+        "not-enough-disk-space": "Zbyt mało miejsca na dysku",
         "path": "Wybierz Ścieżkę Instalacji",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
+        "path-not-writtable": "Ostrzeżenie: ścieżka może nie być nadpisywalna.",
+        "space-after-install": "Po Instalacji",
         "wineprefix": "Prefiks Wine",
         "wineversion": "Wersja Wine"
     },
@@ -113,10 +113,10 @@
         "clickToUpdate": "Kliknij by zaktualizować",
         "hasUpdates": "Nowa wersja dostępna!",
         "installed": "Zainstalowane",
-        "installing": "W trakcie instalacji",
+        "installing": "Instaluję",
         "moving": "Przenoszenie gry, proszę czekać",
         "notinstalled": "Ta gra nie jest zainstalowana",
-        "processing": "Processing files, please wait",
+        "processing": "Przetwarzanie plików, proszę czekać",
         "reparing": "Naprawianie gry, proszę czekać",
         "totalDownloaded": "Wszystkie pobrane",
         "updating": "Aktualizowanie gry"
