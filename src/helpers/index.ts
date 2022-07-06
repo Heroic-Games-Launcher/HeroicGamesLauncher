@@ -141,6 +141,9 @@ async function fixGogSaveFolder(
     case 'APPLICATION_DATA_LOCAL_LOW':
       folder = folder.replace(matches[0], '%USERPROFILE%/AppData/LocalLow')
       break
+    case 'APPLICATION_DATA_ROAMING':
+      folder = folder.replace(matches[0], '%APPDATA%')
+      break
     case 'DOCUMENTS':
       if (isWindows)
         folder = folder.replace(matches[0], '%USERPROFILE%/Documents')

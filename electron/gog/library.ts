@@ -44,7 +44,14 @@ export class GOGLibrary {
         syncPlatform = 'MacOS'
         break
     }
-    const { clientId } = this.readInfoFile(appName)
+    const clientId = this.readInfoFile(appName)?.clientId
+
+    if (!clientId) {
+      logWarning(
+        `No clientId in goggame-${appName}.info file. Cannot resolve save path`
+      )
+      return ''
+    }
     const response = await axios
       .get(
         `https://remote-config.gog.com/components/galaxy_client/clients/${clientId}?component_version=2.0.45`
@@ -201,6 +208,22 @@ export class GOGLibrary {
       }
       gamesObjects.push(unifiedObject)
       const installedInfo = this.installedGames.get(String(game.id))
+      // If game is installed, verify if installed game supports cloud saves
+      if (
+        !isConfigCloudSavesReady &&
+        !cloudSavesEnabledGames.includes(String(game.id)) &&
+        installedInfo &&
+        installedInfo?.platform !== 'linux'
+      ) {
+        const saveLocation = this.getSaveSyncLocation(
+          unifiedObject.app_name,
+          installedInfo.platform
+        )
+
+        if (saveLocation) {
+          unifiedObject.cloud_save_enabled = true
+        }
+      }
       // Create new object to not write install data into library store
       const copyObject = Object.assign({}, unifiedObject)
       if (installedInfo) {
