@@ -318,7 +318,7 @@ export default function SidebarLinks() {
         </div>
         <span>Ko-fi</span>
       </button>
-      <QuitButton/>
+      <QuitButton />
     </div>
   )
 }
