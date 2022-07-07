@@ -212,7 +212,7 @@ const contextMenu = () => {
   const recentsMenu = recentGames.map((game) => {
     return {
       click: function () {
-        handleProtocol(mainWindow, [`heroic://launch/${game.appName}`])
+        openUrlOrFile(`heroic://launch/${game.appName}`)
       },
       label: game.title
     }
@@ -375,6 +375,8 @@ if (!gotTheLock) {
       mainWindow.show()
     }
 
+    handleProtocol(mainWindow, process.argv)
+
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
       const zoomFactor =
@@ -430,10 +432,6 @@ function notify({ body, title }: NotifyType) {
 
 ipcMain.on('Notify', (event, args) => {
   notify({ body: args[1], title: args[0] })
-})
-
-ipcMain.on('frontendReady', () => {
-  handleProtocol(mainWindow, process.argv)
 })
 
 // Maybe this can help with white screens

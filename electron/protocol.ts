@@ -4,6 +4,8 @@ import { logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
 
 export async function handleProtocol(window: BrowserWindow, args: string[]) {
+  const mainWindow = BrowserWindow.getAllWindows()[0]
+
   // Figure out which argv element is our protocol
   let url = ''
   args.forEach((val) => {
@@ -21,13 +23,10 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
     command = path
     arg = null
   }
-
   logInfo(`received '${url}'`, LogPrefix.ProtocolHandler)
-
   if (command === 'ping') {
     return logInfo(['Received ping! Arg:', arg], LogPrefix.ProtocolHandler)
   }
-
   if (command === 'launch') {
     let runner: Runner = 'legendary'
     let game = await Game.get(arg, runner).getGameInfo()
@@ -36,39 +35,42 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
       game = await Game.get(arg, runner).getGameInfo()
     }
     const { is_installed, title, app_name } = game
-    if (!is_installed) {
-      logInfo(`"${arg}" not installed.`, LogPrefix.ProtocolHandler)
-      const { response } = await dialog.showMessageBox(window, {
-        buttons: [i18next.t('box.yes'), i18next.t('box.no')],
-        cancelId: 1,
-        message: `${title} ${i18next.t(
-          'box.protocol.install.not_installed',
-          'Is Not Installed, do you wish to Install it?'
-        )}`,
-        title: title
-      })
-      if (response === 0) {
-        const { filePaths, canceled } = await dialog.showOpenDialog({
-          buttonLabel: i18next.t('box.choose'),
-          properties: ['openDirectory'],
-          title: i18next.t('install.path', 'Select Install Path')
+    setTimeout(async () => {
+      // wait for the frontend to be ready
+      if (!is_installed) {
+        logInfo(`"${arg}" not installed.`, LogPrefix.ProtocolHandler)
+        const { response } = await dialog.showMessageBox(window, {
+          buttons: [i18next.t('box.yes'), i18next.t('box.no')],
+          cancelId: 1,
+          message: `${title} ${i18next.t(
+            'box.protocol.install.not_installed',
+            'Is Not Installed, do you wish to Install it?'
+          )}`,
+          title: title
         })
-        if (canceled) {
-          return
-        }
-        if (filePaths[0]) {
-          return window.webContents.send('installGame', {
-            appName: app_name,
-            runner,
-            installPath: filePaths[0]
+        if (response === 0) {
+          const { filePaths, canceled } = await dialog.showOpenDialog({
+            buttonLabel: i18next.t('box.choose'),
+            properties: ['openDirectory'],
+            title: i18next.t('install.path', 'Select Install Path')
           })
+          if (canceled) {
+            return
+          }
+          if (filePaths[0]) {
+            return window.webContents.send('installGame', {
+              appName: app_name,
+              runner,
+              installPath: filePaths[0]
+            })
+          }
+        }
+        if (response === 1) {
+          return logInfo('Not installing game', LogPrefix.ProtocolHandler)
         }
       }
-      if (response === 1) {
-        return logInfo('Not installing game', LogPrefix.ProtocolHandler)
-      }
-    }
-    window.hide()
-    window.webContents.send('launchGame', arg, runner)
+      mainWindow.hide()
+      window.webContents.send('launchGame', arg, runner)
+    }, 3000)
   }
 }

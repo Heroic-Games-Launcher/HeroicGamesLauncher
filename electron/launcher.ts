@@ -629,7 +629,7 @@ function getRunnerCallWithoutCredentials(
         continue
       }
     }
-    formattedEnvVars.push(`${key}=${quoteIfNecessary(value)}`)
+    formattedEnvVars.push(`${key}=${value}`)
   }
 
   return [

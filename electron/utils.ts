@@ -543,11 +543,7 @@ const formatEpicStoreUrl = (title: string) => {
 }
 
 function quoteIfNecessary(stringToQuote: string) {
-  if (
-    (stringToQuote.charAt(0) !== '"' ||
-      stringToQuote.charAt(stringToQuote.length - 1) !== '"') &&
-    stringToQuote.includes(' ')
-  ) {
+  if (stringToQuote.includes(' ')) {
     return `"${stringToQuote}"`
   }
   return stringToQuote

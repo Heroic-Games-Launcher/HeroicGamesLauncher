@@ -249,7 +249,7 @@ export default function InstallModal({
         }
         const { message, free, validPath } = await ipcRenderer.invoke(
           'checkDiskSpace',
-          installPath === 'default' ? config.defaultInstallPath : installPath
+          installPath
         )
         if (gameInstallInfo?.manifest?.disk_size) {
           let notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
