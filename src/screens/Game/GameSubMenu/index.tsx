@@ -222,17 +222,22 @@ export default function GamesSubmenu({
               <button
                 className="link button is-text is-link"
                 onClick={async () => {
-                  const { winePrefix } = await ipcRenderer.invoke(
+                  const { winePrefix, wineVersion } = await ipcRenderer.invoke(
                     'requestSettings',
                     appName
                   )
+                  const actualPrefix =
+                    wineVersion.type === 'proton'
+                      ? `${winePrefix}/pfx`
+                      : winePrefix
+
                   if (eosOverlayEnabled) {
-                    await ipcRenderer.invoke('disableEosOverlay', winePrefix)
+                    await ipcRenderer.invoke('disableEosOverlay', actualPrefix)
                     setEosOverlayEnabled(false)
                   } else {
                     const initialEnableResult = await ipcRenderer.invoke(
                       'enableEosOverlay',
-                      winePrefix
+                      actualPrefix
                     )
                     const { installNow } = initialEnableResult
                     let { wasEnabled } = initialEnableResult
@@ -252,7 +257,10 @@ export default function GamesSubmenu({
                       })
                       setEosOverlayInstalling(false)
                       wasEnabled = (
-                        await ipcRenderer.invoke('enableEosOverlay', winePrefix)
+                        await ipcRenderer.invoke(
+                          'enableEosOverlay',
+                          actualPrefix
+                        )
                       ).wasEnabled
                     }
 
