@@ -295,6 +295,7 @@
         "defaultWinePrefix": "تنظیم پوشه برای Wine Prefix جدید",
         "disable_controller": "غیر فعال کردن کنترل Heroic با استفاده از دسته",
         "discordRPC": "فعالسازی Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "همگامسازی با بازیهای اپیک نصب شده",
         "enableFSRHack": "فعالسازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
         "esync": "فعالسازی Esync",

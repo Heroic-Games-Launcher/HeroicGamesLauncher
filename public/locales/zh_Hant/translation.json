@@ -295,6 +295,7 @@
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "啟用Discord的Rich Presence（活動狀態）",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "與已安裝的Epic Games同步",
         "enableFSRHack": "啟用FSR（需要支持的WINE版本）",
         "esync": "Enable Esync",

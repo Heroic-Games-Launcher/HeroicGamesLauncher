@@ -295,6 +295,7 @@
         "defaultWinePrefix": "Mappa beállítása új Wine prefixeknek",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Discord Rich Presence engedélyezése",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Szinkronizálás a telepített Epic Gamesszel",
         "enableFSRHack": "FSR hack engedélyezése (a Wine verziónak támogatnia kell)",
         "esync": "Esync engedélyezése",

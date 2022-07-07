@@ -295,6 +295,7 @@
         "defaultWinePrefix": "Đặt thư mục cho prefix mới của Wine",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Bật tính năng Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Đồng bộ với Game Epic đã cài",
         "enableFSRHack": "Bật tính năng FSR hack (Phiên bản Wine cần hỗ trợ tính năng này)",
         "esync": "Bật Esync",

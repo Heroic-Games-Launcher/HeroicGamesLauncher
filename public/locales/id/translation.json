@@ -295,6 +295,7 @@
         "defaultWinePrefix": "Atur Folder untuk Prefiks Wine baru",
         "disable_controller": "Nonaktifkan navigasi Heroic menggunakan pengontrol",
         "discordRPC": "Aktifkan Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Sinkronkan dengan Epic Games yang Terpasang",
         "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
         "esync": "Aktifkan Esync",

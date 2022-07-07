@@ -295,6 +295,7 @@
         "defaultWinePrefix": "새로운 Wine 접두사를 위한 폴더 설정",
         "disable_controller": "컨트롤러를 이용한 Heroic 탐색 비활성화",
         "discordRPC": "Discord Rich Presence 활성화",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "설치된 Epic Games와 동기화",
         "enableFSRHack": "FSR 활성화 (지원하는 Wine 버전을 사용해야 합니다)",
         "esync": "Esync 활성화",

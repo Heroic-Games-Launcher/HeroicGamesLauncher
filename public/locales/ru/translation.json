@@ -295,6 +295,7 @@
         "defaultWinePrefix": "Указать папку для новых префиксов Wine",
         "disable_controller": "Отключить навигацию в Heroic с помощью контроллера",
         "discordRPC": "Включить Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Синхронизировать с установленнными играми EGS",
         "enableFSRHack": "Включить FSR Hack (версия Wine должна поддерживать)",
         "esync": "Включить Esync",

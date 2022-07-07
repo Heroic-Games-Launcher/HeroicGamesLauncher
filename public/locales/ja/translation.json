@@ -295,6 +295,7 @@
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Discord Rich Presenceを有効にする",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "インストールされているEpic Gamesと同期する",
         "enableFSRHack": "FSRハックを有効にする（Wineバージョンはそれをサポートする必要があります）",
         "esync": "Esyncを有効にする",
