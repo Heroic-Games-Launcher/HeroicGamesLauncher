@@ -245,43 +245,48 @@ async function handleExit(window: BrowserWindow) {
 }
 
 export const getSystemInfo = async () => {
-  const heroicVersion = getHeroicVersion()
-  const legendaryVersion = await getLegendaryVersion()
+  try {
+    const heroicVersion = getHeroicVersion()
+    const legendaryVersion = await getLegendaryVersion()
 
-  // get CPU and RAM info
-  const { manufacturer, brand, speed, governor } = await si.cpu()
-  const { total, available } = await si.mem()
+    // get CPU and RAM info
+    const { manufacturer, brand, speed, governor } = await si.cpu()
+    const { total, available } = await si.mem()
 
-  // get OS information
-  const { distro, kernel, arch, platform } = await si.osInfo()
+    // get OS information
+    const { distro, kernel, arch, platform } = await si.osInfo()
 
-  // get GPU information
-  const { controllers } = await si.graphics()
-  const graphicsCards = String(
-    controllers.map(
-      ({ name, model, vram, driverVersion }, i) =>
-        `GPU${i}: ${name ? name : model} VRAM: ${vram}MB DRIVER: ${
-          driverVersion ?? ''
-        } \n`
+    // get GPU information
+    const { controllers } = await si.graphics()
+    const graphicsCards = String(
+      controllers.map(
+        ({ name, model, vram, driverVersion }, i) =>
+          `GPU${i}: ${name ? name : model} VRAM: ${vram}MB DRIVER: ${
+            driverVersion ?? ''
+          } \n`
+      )
     )
-  )
-    .replaceAll(',', '')
-    .replaceAll('\n', '')
+      .replaceAll(',', '')
+      .replaceAll('\n', '')
 
-  const isLinux = platform === 'linux'
-  const xEnv = isLinux
-    ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
-    : ''
+    const isLinux = platform === 'linux'
+    const xEnv = isLinux
+      ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
+      : ''
 
-  return `Heroic Version: ${heroicVersion}
+    return `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
 OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
 CPU: ${manufacturer} ${brand} @${speed} ${
-    governor ? `GOVERNOR: ${governor}` : ''
-  }
+      governor ? `GOVERNOR: ${governor}` : ''
+    }
 RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
 GRAPHICS: ${graphicsCards}
 ${isLinux ? `PROTOCOL: ${xEnv}` : ''}`
+  } catch (error) {
+    logError(['Failed to get system info:', `${error}`], LogPrefix.Backend)
+    return ''
+  }
 }
 
 type ErrorHandlerMessage = {
