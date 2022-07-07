@@ -297,7 +297,7 @@ export const AdvancedSettings = ({
           </span>
         }
       />
-      
+
       <ToggleSwitch
         htmlId="downloadNoHttps"
         value={downloadNoHttps}
