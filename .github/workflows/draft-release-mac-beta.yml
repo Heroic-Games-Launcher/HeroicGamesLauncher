@@ -2,7 +2,8 @@ name: Draft Beta Release MacOSX
 
 on:
   push:
-    branches: [beta]
+    tags:
+      - '*beta'
   workflow_dispatch:
 
 jobs:

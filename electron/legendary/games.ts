@@ -300,12 +300,14 @@ class LegendaryGame extends Game {
       runner: 'legendary',
       status: 'updating'
     })
-    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } =
+      await GlobalConfig.get().getSettings()
     const info = await Game.get(this.appName, 'legendary').getInstallInfo()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+    const noHttps = downloadNoHttps ? ['--no-https'] : []
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const commandParts = ['update', this.appName, ...workers, '-y']
+    const commandParts = ['update', this.appName, ...workers, ...noHttps, '-y']
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
@@ -375,11 +377,13 @@ class LegendaryGame extends Game {
     sdlList,
     platformToInstall
   }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
-    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } =
+      await GlobalConfig.get().getSettings()
     const info = await Game.get(this.appName, 'legendary').getInstallInfo(
       platformToInstall
     )
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+    const noHttps = downloadNoHttps ? ['--no-https'] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length
       ? this.getSdlList(sdlList)
@@ -397,6 +401,7 @@ class LegendaryGame extends Game {
       withDlcs,
       ...installSdl,
       ...workers,
+      ...noHttps,
       '-y'
     ]
 
@@ -468,12 +473,14 @@ class LegendaryGame extends Game {
    */
   public async repair(): Promise<ExecResult> {
     // this.state.status = 'repairing'
-    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } =
+      await GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+    const noHttps = downloadNoHttps ? ['--no-https'] : []
 
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const commandParts = ['repair', this.appName, ...workers, '-y']
+    const commandParts = ['repair', this.appName, ...workers, ...noHttps, '-y']
 
     const res = await runLegendaryCommand(commandParts, {
       logFile: logPath,
