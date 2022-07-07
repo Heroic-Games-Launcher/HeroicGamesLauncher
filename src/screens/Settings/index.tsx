@@ -177,6 +177,11 @@ function Settings() {
     toggle: toggleDisableController,
     setOn: setDisableController
   } = useToggle(false)
+  const {
+    on: downloadNoHttps,
+    toggle: toggleDownloadNoHttps,
+    setOn: setDownloadNoHttps
+  } = useToggle(false)
 
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
@@ -244,6 +249,7 @@ function Settings() {
         setDefaultWinePrefix(config.defaultWinePrefix)
         setUseSteamRuntime(config.useSteamRuntime)
         setDisableController(config.disableController || false)
+        setDownloadNoHttps(config.downloadNoHttps)
 
         if (!isDefault) {
           setLanguageCode(config.language)
@@ -357,6 +363,7 @@ function Settings() {
     defaultWinePrefix,
     disableController,
     discordRPC,
+    downloadNoHttps,
     egsLinkedPath,
     enableEsync,
     enableFsync,
@@ -545,6 +552,8 @@ function Settings() {
               setAltLegendaryBin={setAltLegendaryBin}
               altGogdlBin={altGogdlBin}
               setAltGogdlBin={setAltGogdlBin}
+              downloadNoHttps={downloadNoHttps}
+              toggleDownloadNoHttps={toggleDownloadNoHttps}
               settingsToSave={settingsToSave}
             />
           )}

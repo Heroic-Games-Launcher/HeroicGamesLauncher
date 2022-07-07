@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next'
 import React, { useContext, useEffect, useState } from 'react'
 import ContextProvider from 'src/state/ContextProvider'
 import { AppSettings, GameStatus, Path } from 'src/types'
+import { ToggleSwitch } from 'src/components/UI'
 import { configStore } from 'src/helpers/electronStores'
 import TextInputWithIconField from 'src/components/UI/TextInputWithIconField'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -31,16 +32,20 @@ const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
 interface Props {
   altLegendaryBin: string
   altGogdlBin: string
+  downloadNoHttps: boolean
   setAltLegendaryBin: (value: string) => void
   setAltGogdlBin: (value: string) => void
+  toggleDownloadNoHttps: () => void
   settingsToSave: AppSettings
 }
 
 export const AdvancedSettings = ({
   altLegendaryBin,
   altGogdlBin,
+  downloadNoHttps,
   setAltLegendaryBin,
   setAltGogdlBin,
+  toggleDownloadNoHttps,
   settingsToSave
 }: Props) => {
   const [legendaryVersion, setLegendaryVersion] = useState('')
@@ -292,7 +297,17 @@ export const AdvancedSettings = ({
           </span>
         }
       />
-
+      
+      <ToggleSwitch
+        htmlId="downloadNoHttps"
+        value={downloadNoHttps}
+        handleChange={toggleDownloadNoHttps}
+        title={t(
+          'setting.download-no-https',
+          'Download games without HTTPS (useful for CDNs e.g. LanCache)'
+        )}
+      />
+      <hr />
       <div className="eosSettings">
         <h3>EOS Overlay</h3>
         <div>{getMainEosText()}</div>
@@ -478,7 +493,6 @@ export const AdvancedSettings = ({
         <br />
         <hr />
       </div>
-
       <div className="footerFlex">
         <button
           className={classNames('button', 'is-footer', {
