@@ -45,6 +45,7 @@ export default function SyncSaves({
 
   useEffect(() => {
     const getSyncFolder = async () => {
+      if (savesPath) return // Don't work on getting the save path if we won't change it
       const {
         save_folder,
         install: { install_path, platform }

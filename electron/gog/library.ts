@@ -32,10 +32,10 @@ export class GOGLibrary {
   }
   public async getSaveSyncLocation(
     appName: string,
-    platform: string
+    install: InstalledInfo
   ): Promise<string> {
     let syncPlatform = 'Windows'
-
+    const platform = install.platform
     switch (platform) {
       case 'windows':
         syncPlatform = 'Windows'
@@ -44,7 +44,7 @@ export class GOGLibrary {
         syncPlatform = 'MacOS'
         break
     }
-    const clientId = this.readInfoFile(appName)?.clientId
+    const clientId = this.readInfoFile(appName, install.install_path)?.clientId
 
     if (!clientId) {
       logWarning(
@@ -215,13 +215,14 @@ export class GOGLibrary {
         installedInfo &&
         installedInfo?.platform !== 'linux'
       ) {
-        const saveLocation = this.getSaveSyncLocation(
+        const saveLocation = await this.getSaveSyncLocation(
           unifiedObject.app_name,
-          installedInfo.platform
+          installedInfo
         )
 
         if (saveLocation) {
           unifiedObject.cloud_save_enabled = true
+          unifiedObject.save_folder = saveLocation
         }
       }
       // Create new object to not write install data into library store
@@ -308,7 +309,7 @@ export class GOGLibrary {
     ) {
       gameData.save_folder = await this.getSaveSyncLocation(
         appName,
-        installPlatform
+        this.installedGames.get(appName)
       )
     }
     libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
@@ -611,10 +612,13 @@ export class GOGLibrary {
    * @param appName
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public readInfoFile(appName: string): any {
+  public readInfoFile(appName: string, installPath?: string): any {
     const gameInfo = this.getGameInfo(appName)
     const infoFileName = `goggame-${appName}.info`
-    const infoFilePath = join(gameInfo.install.install_path, infoFileName)
+    const infoFilePath = join(
+      installPath ? installPath : gameInfo.install.install_path,
+      infoFileName
+    )
 
     if (existsSync(infoFilePath)) {
       const fileData = readFileSync(infoFilePath, { encoding: 'utf-8' })
