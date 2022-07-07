@@ -355,7 +355,7 @@ class LegendaryGame extends Game {
   private getSdlList(sdlList: Array<string>) {
     return [
       // Legendary needs an empty tag for it to download the other needed files
-      '--install-tag=""',
+      '--install-tag=',
       ...sdlList.map((tag) => `--install-tag=${tag}`)
     ]
   }
@@ -594,7 +594,8 @@ class LegendaryGame extends Game {
         ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
-        launchArguments
+        launchArguments,
+        gameSettings.launcherArgs
       ]
     } else {
       // -> We're using Wine/Proton/CX on either Linux or Mac
@@ -661,8 +662,8 @@ class LegendaryGame extends Game {
         offlineFlag,
         ...wineFlag,
         ...winePrefixFlag,
-        launcherArgs,
-        launchArguments
+        launchArguments,
+        launcherArgs
       ]
     }
 
