@@ -23,6 +23,7 @@ import { ipcRenderer } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
 import { Runner } from 'src/types'
 import './index.css'
+import QuitButton from '../QuitButton'
 
 interface LocationState {
   fromGameCard: boolean
@@ -317,6 +318,7 @@ export default function SidebarLinks() {
         </div>
         <span>Ko-fi</span>
       </button>
+      <QuitButton/>
     </div>
   )
 }
