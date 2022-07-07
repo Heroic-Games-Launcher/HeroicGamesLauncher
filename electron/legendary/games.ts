@@ -665,7 +665,7 @@ class LegendaryGame extends Game {
     )
     appendFileSync(
       this.logFileLocation,
-      `Launch Command: ${fullCommand}\n\nGame Log:\n`
+      `Launch Command: ${fullCommand}\n` + '\n' + 'Game Log:\n'
     )
 
     const { error } = await runLegendaryCommand(commandParts, {

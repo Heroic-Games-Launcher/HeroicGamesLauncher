@@ -831,9 +831,13 @@ ipcMain.handle(
     )
     writeFileSync(
       game.logFileLocation,
-      [
-        `System Info:\n${systemInfo}\n\nGame Settings: ${gameSettingsString}\n\nGame launched at: ${startPlayingDate}\n\n`
-      ].join('\n\n')
+      'System Info:\n' +
+        `${systemInfo}\n` +
+        '\n' +
+        `Game Settings: ${gameSettingsString}\n` +
+        '\n' +
+        `Game launched at: ${startPlayingDate}\n` +
+        '\n'
     )
     return game
       .launch(launchArguments)
