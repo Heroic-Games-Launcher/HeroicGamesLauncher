@@ -153,7 +153,7 @@ async function createWindow(): Promise<BrowserWindow> {
       'Heroic started via Steam. Switching to fullscreen',
       LogPrefix.Backend
     )
-    mainWindow.maximize()
+    mainWindow.setFullScreen(true)
   }
 
   setTimeout(() => {
