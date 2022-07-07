@@ -288,7 +288,6 @@
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "ഡിസ്കോര്ഡ് റിച്ച് പ്രെസന്സ് വക്കൂ",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "സ്ഥാപിച്ച എപിക് ഗെയിംസുമായി ഒന്നിപ്പിക്കുക",
         "enableFSRHack": "എഫ്എസ്ആര് ഹാക്ക് വയ്ക്കൂ (Wine version needs to support it)",
         "esync": "Esync വയ്ക്കൂ",

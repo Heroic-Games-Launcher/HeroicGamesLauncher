@@ -288,7 +288,6 @@
         "defaultWinePrefix": "Обрати теку для нових префіксів Wine",
         "disable_controller": "Вимкнути навігацію Heroic за допомогою контролера",
         "discordRPC": "Ввімкнути Discord Rich Presence",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Синхронізуватися із встановленим Epic Games Launcher",
         "enableFSRHack": "Ввімкнути FSR Hack (версія Wine має це підтримувати)",
         "esync": "Ввімкнути Esync",

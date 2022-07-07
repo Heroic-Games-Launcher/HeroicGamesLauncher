@@ -288,7 +288,6 @@
         "defaultWinePrefix": "Aseta kansio uusille Winen Prefixeille",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Ota käyttöön Discord Rich Presence",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Synkronoi asennetun Epic Gamesin kanssa",
         "enableFSRHack": "Ota käyttöön FSR Hack (Wine version tulee tukea sitä)",
         "esync": "Ota Esync käyttöön",

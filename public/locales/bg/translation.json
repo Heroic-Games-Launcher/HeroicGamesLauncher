@@ -288,7 +288,6 @@
         "defaultWinePrefix": "Задаване на папка за нови префикси на Wine",
         "disable_controller": "Изключване на навигирането в Heroic посредством контролер",
         "discordRPC": "Включване на актуализирането на присъствието в Дискорд",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Синхронизиране с вече инсталиран Epic Games",
         "enableFSRHack": "Включване на хака FSR (версията на Wine трябва да го поддържа)",
         "esync": "Включване на Esync",

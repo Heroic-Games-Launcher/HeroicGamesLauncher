@@ -18,7 +18,6 @@ export interface AppSettings {
   defaultInstallPath: string
   disableController: boolean
   discordRPC: boolean
-  downloadNoHttps: boolean
   egsLinkedPath: string
   exitToTray: boolean
   enableEsync: boolean
