@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Yardım",
-        "requirements": "Sistem Gereksinimleri",
-        "wine-path": "Path"
+        "requirements": "Sistem Gereksinimleri"
     },
     "install": {
         "path": "Kurulum Yolunu Seçin"

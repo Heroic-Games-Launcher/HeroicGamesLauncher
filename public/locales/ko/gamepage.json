@@ -39,6 +39,7 @@
         "add_to_favourites": "즐겨찾기에 추가",
         "cancel": "일시정지/취소",
         "continue": "계속 다운로드",
+        "force_update": "Force Update if Available",
         "hide_game": "게임 숨김",
         "import": "게임 들여오기",
         "install": "설치",

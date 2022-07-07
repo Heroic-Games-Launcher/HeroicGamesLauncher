@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Help",
-        "requirements": "Systeemvereisingen",
-        "wine-path": "Path"
+        "requirements": "Systeemvereisingen"
     },
     "install": {
         "path": "Select Install Path"
