@@ -117,22 +117,13 @@ export default function GamesSubmenu({
 
   async function handleAddToSteam() {
     setSteamRefresh(true)
-    await ipcRenderer.invoke('addToSteam', appName, runner)
-    isAddedToSteam()
+    if (addedToSteam) {
+      await ipcRenderer.invoke('removeFromSteam', appName, runner)
+    } else {
+      await ipcRenderer.invoke('addToSteam', appName, runner)
+    }
+    setAddedToSteam(!addedToSteam)
     setSteamRefresh(false)
-  }
-
-  async function handleRemoveFromSteam() {
-    setSteamRefresh(true)
-    await ipcRenderer.invoke('removeFromSteam', appName, runner)
-    isAddedToSteam()
-    setSteamRefresh(false)
-  }
-
-  const isAddedToSteam = () => {
-    ipcRenderer.invoke('isAddedToSteam', appName, runner).then((added) => {
-      setAddedToSteam(added)
-    })
   }
 
   useEffect(() => {
@@ -161,7 +152,10 @@ export default function GamesSubmenu({
     }
     getWineInfo()
     getGameDetails()
-    isAddedToSteam()
+
+    ipcRenderer.invoke('isAddedToSteam', appName, runner).then((added) => {
+      setAddedToSteam(added)
+    })
   }, [])
 
   return (
@@ -217,19 +211,14 @@ export default function GamesSubmenu({
             )}
             {steamRefresh ? (
               <CircularProgress className="link button is-text is-link" />
-            ) : !addedToSteam ? (
+            ) : (
               <button
                 onClick={async () => handleAddToSteam()}
                 className="link button is-text is-link"
               >
-                {t('submenu.addToSteam', 'Add to Steam')}
-              </button>
-            ) : (
-              <button
-                onClick={async () => handleRemoveFromSteam()}
-                className="link button is-text is-link"
-              >
-                {t('submenu.removeFromSteam', 'Remove from Steam')}
+                {addedToSteam
+                  ? t('submenu.removeFromSteam', 'Remove from Steam')
+                  : t('submenu.addToSteam', 'Add to Steam')}
               </button>
             )}
           </>
