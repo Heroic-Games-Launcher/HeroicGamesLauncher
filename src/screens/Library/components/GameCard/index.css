@@ -1,8 +1,8 @@
 .gameCard {
   background-color: var(--gradient-gamecard);
   text-align: left;
-  width: clamp(130px, 8vw, 200px);
-  height: 12vw;
+  width: 100%;
+  aspect-ratio: 8 / 12;
   max-height: 308px;
   min-height: 182px;
   overflow: hidden;
@@ -57,20 +57,22 @@
 .gameCard > a {
   display: block;
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .gameCard .gameImg {
-  width: clamp(130px, 8vw, 200px);
-  height: clamp(173px, 10vw, 266px);
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
 .gameCard .gameLogo {
   position: absolute;
-  top: 35%;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: min(70px, 7vw, 60%);
+  transform: translate(-50%, -100%);
+  width: 50%;
 }
 
 .gameCard .gameListInfo {
