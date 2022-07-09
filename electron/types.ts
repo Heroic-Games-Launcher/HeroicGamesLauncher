@@ -60,14 +60,6 @@ export type ExecResult = {
   error?: string
 }
 
-export type LaunchResult = {
-  success: boolean
-  stdout: string
-  stderr: string
-  gameSettings: GameSettings
-  command?: string
-}
-
 export interface ExtraInfo {
   about: About
   reqs: Reqs[]
