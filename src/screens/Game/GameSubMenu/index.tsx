@@ -19,6 +19,8 @@ interface Props {
   title: string
   storeUrl: string
   runner: Runner
+  handleUpdate: () => void
+  disableUpdate: boolean
 }
 
 type otherInfo = {
@@ -31,7 +33,9 @@ export default function GamesSubmenu({
   isInstalled,
   title,
   storeUrl,
-  runner
+  runner,
+  handleUpdate,
+  disableUpdate
 }: Props) {
   const { handleGameStatus, refresh, platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
@@ -162,6 +166,13 @@ export default function GamesSubmenu({
               className="link button is-text is-link"
             >
               {t('submenu.move')}
+            </button>{' '}
+            <button
+              onClick={async () => handleUpdate()}
+              className="link button is-text is-link"
+              disabled={disableUpdate}
+            >
+              {t('button.force_update', 'Force Update if Available')}
             </button>{' '}
             <button
               onClick={async () => handleChangeInstall()}
