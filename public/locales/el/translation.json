@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Βοήθεια",
-        "requirements": "Απαιτήσεις Συστήματος",
-        "wine-path": "Path"
+        "requirements": "Απαιτήσεις Συστήματος"
     },
     "install": {
         "path": "Επιλέξτε διαδρομή εγκατάστασης"

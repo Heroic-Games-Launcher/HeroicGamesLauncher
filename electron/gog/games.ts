@@ -13,11 +13,10 @@ import {
   GameSettings,
   ExecResult,
   InstallArgs,
-  LaunchResult,
   GOGLoginData,
   InstalledInfo
 } from 'types'
-import { existsSync, rmSync } from 'graceful-fs'
+import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {
   heroicGamesConfigPath,
   isWindows,
@@ -27,9 +26,16 @@ import {
 } from '../constants'
 import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { errorHandler, execAsync, getFileSize, getSteamRuntime } from '../utils'
+import {
+  errorHandler,
+  execAsync,
+  getFileSize,
+  getGOGdlBin,
+  getSteamRuntime
+} from '../utils'
 import { GOGUser } from './user'
 import {
+  getRunnerCallWithoutCredentials,
   launchCleanup,
   prepareLaunch,
   prepareWineLaunch,
@@ -55,7 +61,7 @@ class GOGGame extends Game {
     }
     return this.instances.get(appName)
   }
-  public async getExtraInfo(namespace: string): Promise<ExtraInfo> {
+  public async getExtraInfo(): Promise<ExtraInfo> {
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
     let targetPlatform: 'windows' | 'osx' | 'linux' = 'windows'
 
@@ -73,7 +79,7 @@ class GOGGame extends Game {
     }
     return extra
   }
-  public async getGameInfo(): Promise<GameInfo> {
+  public getGameInfo(): GameInfo {
     return GOGLibrary.get().getGameInfo(this.appName)
   }
   async getInstallInfo(installPlatform?: string): Promise<InstallInfo> {
@@ -234,9 +240,8 @@ class GOGGame extends Game {
     return { status: 'done' }
   }
 
-  public async isNative(): Promise<boolean> {
-    const gameInfo = await this.getGameInfo()
-
+  public isNative(): boolean {
+    const gameInfo = this.getGameInfo()
     if (isWindows) {
       return true
     }
@@ -253,14 +258,14 @@ class GOGGame extends Game {
   }
 
   public async addShortcuts(fromMenu?: boolean) {
-    return addShortcuts(await this.getGameInfo(), fromMenu)
+    return addShortcuts(this.getGameInfo(), fromMenu)
   }
 
   public async removeShortcuts() {
     return removeShortcuts(this.appName, 'gog')
   }
 
-  async launch(launchArguments?: string): Promise<LaunchResult> {
+  async launch(launchArguments?: string): Promise<boolean> {
     const gameSettings =
       GameConfig.get(this.appName).config ||
       (await GameConfig.get(this.appName).getSettings())
@@ -283,12 +288,11 @@ class GOGGame extends Game {
       steamRuntime
     } = await prepareLaunch(this, gameInfo)
     if (!launchPrepSuccess) {
-      return {
-        success: false,
-        stdout: '',
-        stderr: 'Launch aborted: ' + launchPrepFailReason,
-        gameSettings
-      }
+      appendFileSync(
+        this.logFileLocation,
+        `Launch aborted: ${launchPrepFailReason}`
+      )
+      return false
     }
 
     const exeOverrideFlag = gameSettings.targetExe
@@ -332,12 +336,11 @@ class GOGGame extends Game {
         envVars: wineEnvVars
       } = await prepareWineLaunch(this)
       if (!wineLaunchPrepSuccess) {
-        return {
-          success: false,
-          stdout: '',
-          stderr: 'Launch aborted: ' + wineLaunchPrepFailReason,
-          gameSettings
-        }
+        appendFileSync(
+          this.logFileLocation,
+          `Launch aborted: ${wineLaunchPrepFailReason}`
+        )
+        return false
       }
 
       commandEnv = {
@@ -386,14 +389,25 @@ class GOGGame extends Game {
       ]
     }
 
-    const { error, stderr, stdout, fullCommand } = await runGogdlCommand(
+    const fullCommand = getRunnerCallWithoutCredentials(
       commandParts,
-      {
-        env: commandEnv,
-        wrappers,
-        logMessagePrefix: `Launching ${gameInfo.title}`
-      }
+      commandEnv,
+      wrappers,
+      join(...Object.values(getGOGdlBin()))
     )
+    appendFileSync(
+      this.logFileLocation,
+      `Launch Command: ${fullCommand}\n\nGame Log:\n`
+    )
+
+    const { error } = await runGogdlCommand(commandParts, {
+      env: commandEnv,
+      wrappers,
+      logMessagePrefix: `Launching ${gameInfo.title}`,
+      onOutput: (output) => {
+        appendFileSync(this.logFileLocation, output)
+      }
+    })
 
     if (error) {
       logError(['Error launching game:', error], LogPrefix.Gog)
@@ -401,20 +415,14 @@ class GOGGame extends Game {
 
     launchCleanup(rpcClient)
 
-    return {
-      success: !error,
-      stdout,
-      stderr,
-      gameSettings,
-      command: fullCommand
-    }
+    return !error
   }
 
   public async moveInstall(newInstallPath: string): Promise<string> {
     const {
       install: { install_path },
       title
-    } = await this.getGameInfo()
+    } = this.getGameInfo()
 
     if (isWindows) {
       newInstallPath += '\\' + install_path.split('\\').slice(-1)[0]
