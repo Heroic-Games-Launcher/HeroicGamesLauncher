@@ -100,7 +100,7 @@ export default function OtherSettings({
 }: Props) {
   const handleEnviromentVariables = (values: ColumnProps[]) => {
     const envs: EnviromentVariable[] = []
-    values.forEach((value) => envs.push({ key: value.key, value: value.value }))
+    values.forEach((value) => envs.push({ key: value.key.trim(), value: value.value.trim() }))
     setEnviromentOptions([...envs])
   }
   const getEnvironmentVariables = () => {
