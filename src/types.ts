@@ -12,12 +12,14 @@ export interface AppSettings {
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
   autoSyncSaves: boolean
+  battlEyeRuntime: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: Array<string>
   darkTrayIcon: boolean
   defaultInstallPath: string
   disableController: boolean
   discordRPC: boolean
+  eacRuntime: boolean
   egsLinkedPath: string
   exitToTray: boolean
   enableEsync: boolean

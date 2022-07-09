@@ -169,16 +169,28 @@ export default function SidebarLinks() {
               </NavLink>
             )}
             {shouldRenderWineSettings && (
-              <NavLink
-                role="link"
-                to={`/settings/${appName}/wine`}
-                state={{ ...state, runner: state?.runner }}
-                className={classNames('Sidebar__item SidebarLinks__subItem', {
-                  ['active']: type === 'wine'
-                })}
-              >
-                <span>Wine</span>
-              </NavLink>
+              <>
+                <NavLink
+                  role="link"
+                  to={`/settings/${appName}/wine`}
+                  state={{ ...state, runner: state?.runner }}
+                  className={classNames('Sidebar__item SidebarLinks__subItem', {
+                    ['active']: type === 'wine'
+                  })}
+                >
+                  <span>Wine</span>
+                </NavLink>
+                <NavLink
+                  role="link"
+                  to={`/settings/${appName}/wineExt`}
+                  state={{ ...state, runner: state?.runner }}
+                  className={classNames('Sidebar__item SidebarLinks__subItem', {
+                    ['active']: type === 'wineExt'
+                  })}
+                >
+                  <span>{t('settings.navbar.wineExt', 'Wine Extensions')}</span>
+                </NavLink>
+              </>
             )}
             {hasCloudSave && (
               <NavLink
