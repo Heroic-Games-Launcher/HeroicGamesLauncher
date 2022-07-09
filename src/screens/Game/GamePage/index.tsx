@@ -57,6 +57,7 @@ export default function GamePage(): JSX.Element | null {
   const { status } = gameStatus || {}
   const [progress, previousProgress] = hasProgress(appName)
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
+  const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
@@ -131,6 +132,7 @@ export default function GamePage(): JSX.Element | null {
   }, [isInstalling, isPlaying, appName, epic, gog])
 
   async function handleUpdate() {
+    setUpdateRequested(true)
     await handleGameStatus({
       appName,
       runner: gameInfo.runner,
@@ -138,6 +140,7 @@ export default function GamePage(): JSX.Element | null {
     })
     await updateGame(appName, gameInfo.runner)
     await handleGameStatus({ appName, runner: gameInfo.runner, status: 'done' })
+    setUpdateRequested(false)
   }
 
   function handleModal() {
@@ -420,6 +423,8 @@ export default function GamePage(): JSX.Element | null {
                     title={title}
                     storeUrl={gameInfo.store_url}
                     runner={gameInfo.runner}
+                    handleUpdate={handleUpdate}
+                    disableUpdate={updateRequested || isUpdating}
                   />
                   <GameRequirements gameInfo={gameInfo} />
                 </>

@@ -294,6 +294,7 @@
         "defaultWinePrefix": "Ange sökväg för nya Wine-prefix",
         "disable_controller": "Deaktivera navigering via handkontroll",
         "discordRPC": "Aktivera Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine-versionen måste stödja det)",
         "esync": "Aktivera Esync",

@@ -294,6 +294,7 @@
         "defaultWinePrefix": "Ordner für neue Wine Präfixe festlegen",
         "disable_controller": "Heroic Navigation mit Controller deaktivieren",
         "discordRPC": "Discord Rich Presence aktivieren",
+        "download-no-https": "Spiele ohne HTTPS herunterladen (nützlich für CDNs z.B. LanCache)",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
         "esync": "Esync aktivieren",
