@@ -73,9 +73,9 @@ export default function Anticheat({ gameInfo }: Props) {
       </span>
 
       <span>
-        {t('anticheat.details', 'For more details, go to')}&nbsp;
+        <b>{t('anticheat.source', 'Source')}:</b>&nbsp;
         <a href="#" onClick={onAWACYClick}>
-          {awacyUrl}
+          AreWeAntiCheatYet
         </a>
       </span>
     </div>
