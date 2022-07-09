@@ -190,9 +190,11 @@ function getProgressElement(progress: ProgressInfo, downsize: number) {
   // https://stackoverflow.com/a/40350003
   const formattedTime = [
     hours,
-    minutes > 9 ? minutes : (hours ? '0' + minutes : minutes || '0'),
+    minutes > 9 ? minutes : hours ? '0' + minutes : minutes || '0',
     seconds > 9 ? seconds : '0' + seconds
-  ].filter(Boolean).join(':');
+  ]
+    .filter(Boolean)
+    .join(':')
 
   const percentageAsString = `${percentage}%`
   const bytesAsString = `[${size((percentage / 100) * downsize)}]`
