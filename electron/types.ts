@@ -16,12 +16,14 @@ export interface AppSettings {
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
   autoSyncSaves: boolean
+  battlEyeRuntime: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: string[]
   darkTrayIcon: boolean
   defaultInstallPath: string
   disableController: boolean
   discordRPC: boolean
+  eacRuntime: boolean
   egsLinkedPath: string
   exitToTray: boolean
   enableEsync: boolean
@@ -140,6 +142,8 @@ export interface GameSettings {
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
   autoSyncSaves: boolean
+  battlEyeRuntime: boolean
+  eacRuntime: boolean
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
@@ -374,3 +378,13 @@ export interface CallRunnerOptions {
   wrappers?: string[]
   onOutput?: (output: string) => void
 }
+
+export interface Runtime {
+  id: number
+  name: string
+  created_at: string
+  architecture: string
+  url: string
+}
+
+export type RuntimeName = 'eac_runtime' | 'battleye_runtime'

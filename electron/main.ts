@@ -1375,3 +1375,4 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
  */
 import './logger/ipc_handler'
 import './wine/manager/ipc_handler'
+import './wine/runtimes/ipc_handler'
