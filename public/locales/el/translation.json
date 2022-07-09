@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Βοήθεια",
-        "requirements": "Απαιτήσεις Συστήματος",
-        "wine-path": "Path"
+        "requirements": "Απαιτήσεις Συστήματος"
     },
     "install": {
         "path": "Επιλέξτε διαδρομή εγκατάστασης"
@@ -288,6 +287,7 @@
         "defaultWinePrefix": "Καθορισμός Φακέλου για νέα Προθήματα Wine",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Ενεργοποίηση Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Συγχρονισμός με εγκατεστημένο Epic Games",
         "enableFSRHack": "Ενεργοποίηση FSR Hack (Η έκδοση Wine πρέπει να το υποστηρίζει)",
         "esync": "Ενεργοποίηση Esync",

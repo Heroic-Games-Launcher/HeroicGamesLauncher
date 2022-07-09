@@ -20,6 +20,7 @@ export interface AppSettings {
   disableController: boolean
   discordRPC: boolean
   eacRuntime: boolean
+  downloadNoHttps: boolean
   egsLinkedPath: string
   exitToTray: boolean
   enableEsync: boolean

@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Pomoc",
-        "requirements": "Wymagania Systemowe",
-        "wine-path": "Path"
+        "requirements": "Wymagania Systemowe"
     },
     "install": {
         "path": "Wybierz Ścieżkę Instalacji"
@@ -288,6 +287,7 @@
         "defaultWinePrefix": "Ustaw Folder dla nowych Prefiksów Wine",
         "disable_controller": "Wyłącz nawigację Heroic przy użyciu kontrolera",
         "discordRPC": "Włącz Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Synchronizuj z zainstalowanym Epic Games",
         "enableFSRHack": "Włącz FSR Hack (Wersja Wine musi to wspierać)",
         "esync": "Włącz Esync",

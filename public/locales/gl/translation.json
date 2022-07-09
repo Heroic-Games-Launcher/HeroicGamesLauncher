@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Axuda",
-        "requirements": "Requisitos do sistema",
-        "wine-path": "Path"
+        "requirements": "Requisitos do sistema"
     },
     "install": {
         "path": "Seleccionar a ruta de instalación"
@@ -288,6 +287,7 @@
         "defaultWinePrefix": "Estabelecer cartafol para os prefixos de Wine",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Activar a presencia enriquecida de Discord",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Sincronizar cos xogos instalados de Epic",
         "enableFSRHack": "Activar o hack de FSR (A versión de Wine debe soportalo)",
         "esync": "Activar Esync",

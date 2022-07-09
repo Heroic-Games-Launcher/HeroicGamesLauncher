@@ -219,7 +219,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     }
   }
 
-  const installFolderName = (await game.getGameInfo()).folder_name
+  const { folder_name: installFolderName } = game.getGameInfo()
   const envVars = setupWineEnvVars(gameSettings, installFolderName)
 
   return { success: true, envVars: envVars }
@@ -382,7 +382,7 @@ export async function verifyWinePrefix(
     })
     .catch((error) => {
       logError(['Unable to create Wineprefix: ', `${error}`], LogPrefix.Backend)
-      return { res: { stderr: `${error}`, stdout: '' }, updated: false }
+      throw error
     })
 }
 
@@ -470,7 +470,7 @@ async function runWineCommand(
     .catch((error) => {
       // error might not always be a string
       logError(['Error running Wine command:', `${error}`], LogPrefix.Backend)
-      return { stderr: `${error}`, stdout: '' }
+      throw error
     })
 }
 
@@ -638,6 +638,8 @@ function getRunnerCallWithoutCredentials(
     formattedEnvVars.push(`${key}=${value}`)
   }
 
+  commandParts = commandParts.filter(Boolean)
+
   return [
     ...formattedEnvVars,
     ...wrappers.map(quoteIfNecessary),
@@ -655,5 +657,6 @@ export {
   setupWineEnvVars,
   setupWrappers,
   runWineCommand,
-  callRunner
+  callRunner,
+  getRunnerCallWithoutCredentials
 }

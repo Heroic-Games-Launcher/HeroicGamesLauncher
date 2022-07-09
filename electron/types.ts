@@ -24,6 +24,7 @@ export interface AppSettings {
   disableController: boolean
   discordRPC: boolean
   eacRuntime: boolean
+  downloadNoHttps: boolean
   egsLinkedPath: string
   exitToTray: boolean
   enableEsync: boolean
@@ -59,14 +60,6 @@ export type ExecResult = {
   stdout: string
   fullCommand?: string
   error?: string
-}
-
-export type LaunchResult = {
-  success: boolean
-  stdout: string
-  stderr: string
-  gameSettings: GameSettings
-  command?: string
 }
 
 export interface ExtraInfo {

@@ -188,6 +188,11 @@ function Settings() {
     toggle: toggleBattlEyeRuntime,
     setOn: setBattlEyeRuntime
   } = useToggle(false)
+  const {
+    on: downloadNoHttps,
+    toggle: toggleDownloadNoHttps,
+    setOn: setDownloadNoHttps
+  } = useToggle(false)
 
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
@@ -258,6 +263,7 @@ function Settings() {
         setDisableController(config.disableController || false)
         setEacRuntime(config.eacRuntime || false)
         setBattlEyeRuntime(config.battlEyeRuntime || false)
+        setDownloadNoHttps(config.downloadNoHttps)
 
         if (!isDefault) {
           setLanguageCode(config.language)
@@ -375,6 +381,7 @@ function Settings() {
     defaultWinePrefix,
     disableController,
     discordRPC,
+    downloadNoHttps,
     egsLinkedPath,
     enableEsync,
     enableFsync,
@@ -575,6 +582,8 @@ function Settings() {
               setAltLegendaryBin={setAltLegendaryBin}
               altGogdlBin={altGogdlBin}
               setAltGogdlBin={setAltGogdlBin}
+              downloadNoHttps={downloadNoHttps}
+              toggleDownloadNoHttps={toggleDownloadNoHttps}
               settingsToSave={settingsToSave}
             />
           )}

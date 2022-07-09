@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Yardım",
-        "requirements": "Sistem Gereksinimleri",
-        "wine-path": "Path"
+        "requirements": "Sistem Gereksinimleri"
     },
     "install": {
         "path": "Kurulum Yolunu Seçin"
@@ -288,6 +287,7 @@
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
         "disable_controller": "Denetleyiciyi kullanarak Heroic gezinmesini devre dışı bırak",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
         "esync": "Esync'i Etkinleştir",
