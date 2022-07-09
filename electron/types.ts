@@ -421,4 +421,12 @@ export interface AntiCheatInfo {
     }
     steam?: string
   }
+  reference: string
+  updates: AntiCheatReference[]
+}
+
+interface AntiCheatReference {
+  name: string
+  date: string
+  reference: string
 }

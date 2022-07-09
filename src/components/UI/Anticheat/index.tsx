@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { MouseEvent, useEffect, useState } from 'react'
 import { AntiCheatInfo, GameInfo } from 'src/types'
 import { createNewWindow, ipcRenderer } from 'src/helpers'
 
@@ -32,6 +32,20 @@ export default function Anticheat({ gameInfo }: Props) {
 
   const mayNotWork = ['Denied', 'Broken'].includes(anticheatInfo.status)
 
+  const latestUpdate =
+    anticheatInfo.reference ||
+    anticheatInfo.updates[anticheatInfo.updates.length - 1]?.reference
+
+  const onLastReferenceClick = (event: MouseEvent) => {
+    event.preventDefault()
+    createNewWindow(latestUpdate)
+  }
+
+  const onAWACYClick = (event: MouseEvent) => {
+    event.preventDefault()
+    createNewWindow(awacyUrl)
+  }
+
   return (
     <div className={`anticheatInfo ${anticheatInfo.status}`}>
       <h4>{t('anticheat.title', 'This game includes anticheat software')}</h4>
@@ -49,13 +63,18 @@ export default function Anticheat({ gameInfo }: Props) {
           ? anticheatInfo.anticheats.join(', ')
           : 'Anticheat removed'}
       </span>
-      <span title={anticheatInfo.notes.join(' - ')}>
-        <b>{t('anticheat.status', 'Status')}:</b> {anticheatInfo.status}
+      <span>
+        <b>{t('anticheat.status', 'Status')}:</b> {anticheatInfo.status}&nbsp;
+        {latestUpdate && (
+          <a href="#" onClick={onLastReferenceClick}>
+            (Reference)
+          </a>
+        )}
       </span>
 
       <span>
         {t('anticheat.details', 'For more details, go to')}&nbsp;
-        <a href="#" onClick={() => createNewWindow(awacyUrl)}>
+        <a href="#" onClick={onAWACYClick}>
           {awacyUrl}
         </a>
       </span>
