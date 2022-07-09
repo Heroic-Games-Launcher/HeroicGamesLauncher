@@ -67,7 +67,7 @@ export default function Anticheat({ gameInfo }: Props) {
         <b>{t('anticheat.status', 'Status')}:</b> {anticheatInfo.status}&nbsp;
         {latestUpdate && (
           <a href="#" onClick={onLastReferenceClick}>
-            (Reference)
+            ({t('anticheat.reference', 'Reference')})
           </a>
         )}
       </span>
