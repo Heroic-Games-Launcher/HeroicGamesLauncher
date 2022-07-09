@@ -10,7 +10,7 @@ async function downloadAntiCheatData() {
 
   try {
     const { data } = await axios.default.get(
-      'https://raw.githubusercontent.com/Starz0r/AreWeAntiCheatYet/master/games.json'
+      'https://raw.githubusercontent.com/Starz0r/AreWeAntiCheatYet/HEAD/games.json'
     )
     writeFileSync(heroicAnticheatDataPath, JSON.stringify(data, null, 2))
     logInfo(`AreWeAntiCheatYet data downloaded`, LogPrefix.Backend)
