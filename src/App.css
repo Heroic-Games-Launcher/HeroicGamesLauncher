@@ -271,6 +271,11 @@ html,
   color: var(--text-hover);
 }
 
+.button.is-link[disabled] {
+  color: var(--icon-disabled);
+  cursor: wait;
+}
+
 .icons > * {
   cursor: pointer;
 }

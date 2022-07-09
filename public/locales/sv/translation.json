@@ -189,8 +189,7 @@
     },
     "infobox": {
         "help": "Hjälp",
-        "requirements": "Systemkrav",
-        "wine-path": "Path"
+        "requirements": "Systemkrav"
     },
     "install": {
         "path": "Ange installationssökväg"
