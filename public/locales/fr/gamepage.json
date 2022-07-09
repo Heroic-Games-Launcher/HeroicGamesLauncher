@@ -39,6 +39,7 @@
         "add_to_favourites": "Ajouter aux favoris",
         "cancel": "Suspendre/Annuler",
         "continue": "Continuer le téléchargement",
+        "force_update": "Force Update if Available",
         "hide_game": "Cacher le jeu",
         "import": "Importer le jeu",
         "install": "Installer",

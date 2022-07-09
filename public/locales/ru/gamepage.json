@@ -39,6 +39,7 @@
         "add_to_favourites": "Добавить в избранное",
         "cancel": "Пауза/Отмена",
         "continue": "Продолжить загрузку",
+        "force_update": "Force Update if Available",
         "hide_game": "Скрыть игру",
         "import": "Импортировать игру",
         "install": "Установить",
