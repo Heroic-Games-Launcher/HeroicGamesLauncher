@@ -403,4 +403,11 @@ export interface AntiCheatInfo {
   anticheats: AntiCheat[]
   notes: string[]
   native: boolean
+  storeIds: {
+    epic?: {
+      namespace: string
+      slug: string
+    }
+    steam?: string
+  }
 }

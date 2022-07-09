@@ -3,7 +3,6 @@ import * as axios from 'axios'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { readFileSync, writeFileSync } from 'graceful-fs'
 import { AntiCheatInfo } from '../types'
-import { epicTitleToAnticheat } from './titles_map'
 
 async function downloadAntiCheatData() {
   if (!isLinux) return
@@ -22,16 +21,19 @@ async function downloadAntiCheatData() {
   }
 }
 
-function gameAnticheatInfo(appTitle: string): AntiCheatInfo | null {
+function gameAnticheatInfo(appNamespace: string): AntiCheatInfo | null {
   if (!isLinux) return null
 
   const data = readFileSync(heroicAnticheatDataPath)
   const jsonData = JSON.parse(data.toString())
-  const anticheatTitle = epicTitleToAnticheat(appTitle)
-  const anticheatInfo = jsonData.find((info: AntiCheatInfo) =>
-    info.name.toLowerCase().includes(anticheatTitle)
-  )
-  return anticheatInfo
+  return jsonData.find((info: AntiCheatInfo) => {
+    const namespace = info.storeIds.epic?.namespace
+    if (namespace) {
+      return namespace.toLowerCase().includes(appNamespace)
+    } else {
+      return false
+    }
+  })
 }
 
 export { downloadAntiCheatData, gameAnticheatInfo }

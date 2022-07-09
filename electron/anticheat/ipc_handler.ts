@@ -1,6 +1,7 @@
 import { ipcMain } from 'electron'
 import { gameAnticheatInfo } from './utils'
 
-ipcMain.handle('getAnticheatInfo', async (_, appTitle) => {
-  return gameAnticheatInfo(appTitle)
+// we use the game's `namespace` value here, it's the value that can be easily fetch by AreWeAnticheatYet
+ipcMain.handle('getAnticheatInfo', async (_, appNamespace) => {
+  return gameAnticheatInfo(appNamespace)
 })

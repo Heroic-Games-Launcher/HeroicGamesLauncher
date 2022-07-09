@@ -19,7 +19,7 @@ export default function Anticheat({ gameInfo }: Props) {
   useEffect(() => {
     if (gameInfo?.title) {
       ipcRenderer
-        .invoke('getAnticheatInfo', gameInfo.title)
+        .invoke('getAnticheatInfo', gameInfo.namespace)
         .then((anticheatInfo: AntiCheatInfo | null) => {
           setAnticheatInfo(anticheatInfo)
         })

@@ -410,9 +410,15 @@ export type AntiCheat =
   | 'Zakynthos'
 
 export interface AntiCheatInfo {
-  name: string
   status: ''
   anticheats: AntiCheat[]
   notes: string[]
   native: boolean
+  storeIds: {
+    epic?: {
+      namespace: string
+      slug: string
+    }
+    steam?: string
+  }
 }
