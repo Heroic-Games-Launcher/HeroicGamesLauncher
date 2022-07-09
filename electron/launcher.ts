@@ -9,7 +9,7 @@ import {
 } from 'graceful-fs'
 import { join } from 'path'
 
-import { flatPakHome, isLinux, isMac, userHome } from './constants'
+import { flatPakHome, isLinux, isMac, runtimePath, userHome } from './constants'
 import {
   constructAndUpdateRPC,
   execAsync,
@@ -288,6 +288,12 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
   if (gameSettings.enableResizableBar) {
     ret.VKD3D_CONFIG = 'upload_hvv'
+  }
+  if (gameSettings.eacRuntime) {
+    ret.PROTON_EAC_RUNTIME = join(runtimePath, 'eac_runtime')
+  }
+  if (gameSettings.battlEyeRuntime) {
+    ret.PROTON_BATTLEYE_RUNTIME = join(runtimePath, 'battleye_runtime')
   }
   if (wineVersion.type === 'proton') {
     // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
