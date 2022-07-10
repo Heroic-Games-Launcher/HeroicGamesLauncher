@@ -8,7 +8,13 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, getLegendaryBin, getSteamRuntime, isOnline, killPattern } from '../utils'
+import {
+  execAsync,
+  getLegendaryBin,
+  getSteamRuntime,
+  isOnline,
+  killPattern
+} from '../utils'
 import {
   heroicGamesConfigPath,
   userHome,
