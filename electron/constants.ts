@@ -31,6 +31,7 @@ const fontsStore = new Store({
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const isLinux = platform() === 'linux'
+const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
 const isFlatpak = Boolean(env.FLATPAK_ID)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
@@ -208,5 +209,6 @@ export {
   weblateUrl,
   wikiLink,
   tsStore,
-  fontsStore
+  fontsStore,
+  isSteamDeckGameMode
 }
