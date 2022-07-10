@@ -246,7 +246,7 @@ function setupEnvVars(gameSettings: GameSettings) {
   }
   if (gameSettings.enviromentOptions) {
     gameSettings.enviromentOptions.forEach((envEntry: EnviromentVariable) => {
-      ret[envEntry.key] = quoteIfNecessary(envEntry.value)
+      ret[envEntry.key] = envEntry.value
     })
   }
   return ret
@@ -513,6 +513,8 @@ async function callRunner(
     bin = runner.bin
   }
 
+  console.log(options?.env)
+
   return new Promise((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
@@ -625,7 +627,7 @@ function getRunnerCallWithoutCredentials(
         continue
       }
     }
-    formattedEnvVars.push(`${key}=${value}`)
+    formattedEnvVars.push(`${key}=${quoteIfNecessary(value)}`)
   }
 
   return [
