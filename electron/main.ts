@@ -86,7 +86,8 @@ import {
   wikiLink,
   fontsStore,
   heroicConfigPath,
-  isMac
+  isMac,
+  isSteamDeckGameMode
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -149,6 +150,14 @@ async function createWindow(): Promise<BrowserWindow> {
     }
   })
 
+  if (isSteamDeckGameMode) {
+    logInfo(
+      'Heroic started via Steam-Deck gamemode. Switching to fullscreen',
+      LogPrefix.Backend
+    )
+    mainWindow.setFullScreen(true)
+  }
+
   setTimeout(() => {
     if (process.platform === 'linux') {
       DXVK.getLatest()
@@ -167,8 +176,10 @@ async function createWindow(): Promise<BrowserWindow> {
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
-    // store windows properties
-    configStore.set('window-props', mainWindow.getBounds())
+    if (!isSteamDeckGameMode) {
+      // store windows properties
+      configStore.set('window-props', mainWindow.getBounds())
+    }
 
     const { exitToTray } = GlobalConfig.get().config
 
