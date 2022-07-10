@@ -87,7 +87,7 @@ Categories=Game;
  * @public
  */
 async function removeShortcuts(appName: string, runner: Runner) {
-  const gameInfo = await Game.get(appName, runner).getGameInfo()
+  const gameInfo = Game.get(appName, runner).getGameInfo()
   const [desktopFile, menuFile] = shortcutFiles(gameInfo.title)
 
   if (desktopFile) {

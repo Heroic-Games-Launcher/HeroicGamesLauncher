@@ -325,7 +325,7 @@ async function errorHandler(
     if (error.includes(deletedFolderMsg) && appName) {
       const runner = r.toLocaleLowerCase() as Runner
       const game = Game.get(appName, runner)
-      const { title } = await game.getGameInfo()
+      const { title } = game.getGameInfo()
       const { response } = await showMessageBox({
         type: 'question',
         title,
@@ -551,7 +551,11 @@ const formatEpicStoreUrl = (title: string) => {
 }
 
 function quoteIfNecessary(stringToQuote: string) {
-  if (stringToQuote.includes(' ')) {
+  if (
+    (stringToQuote.charAt(0) !== '"' ||
+      stringToQuote.charAt(stringToQuote.length - 1) !== '"') &&
+    stringToQuote.includes(' ')
+  ) {
     return `"${stringToQuote}"`
   }
   return stringToQuote

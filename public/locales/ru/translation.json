@@ -70,8 +70,8 @@
                 "title": "Wine не найден"
             },
             "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
+                "message": "ZSTD не найден, установите его и перезапустите Heroic",
+                "title": "Отсутствует зависимость"
             }
         },
         "info": {
@@ -135,7 +135,7 @@
         "syncing": "Синхронизация",
         "unsync": "Рассинхронизировать"
     },
-    "docs": "Documentation",
+    "docs": "Документация",
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
         "offline-notification-title": "офлайн"
@@ -143,9 +143,9 @@
     "Epic Games": "Epic Games",
     "favourites": "Избранное",
     "game": {
-        "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "status": "Состояние",
+        "store": "Магазин",
+        "title": "Название игры"
     },
     "generic": {
         "error": {
@@ -161,10 +161,10 @@
     "header": {
         "ignore_hidden": "Игнорировать скрытые",
         "platform": "Платформа",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
+        "show_all_games": "Показать все игры",
+        "show_favourites_only": "Показать только избранное",
         "show_hidden": "Показать скрытые",
-        "store": "Filter Store"
+        "store": "Магазин"
     },
     "help": {
         "game_language": {
@@ -198,7 +198,7 @@
             "version": "Версия Heroic"
         },
         "settings": "Настройки сохраняются автоматически",
-        "version": "Wine Version"
+        "version": "Версия Wine"
     },
     "infobox": {
         "help": "Помощь",
@@ -257,7 +257,7 @@
             "startInstall": "Установка началась"
         },
         "moved": "Перемещение завершено",
-        "moving": "Moving Game",
+        "moving": "Перемещение игры",
         "refresh": {
             "error": "Не удалось получить выпуски из основной ветки разработки, возможно, из-за ограничений Github API! Попробуйте позже."
         },
@@ -297,7 +297,7 @@
     "Plugins": "Плагины",
     "Projects": "Проекты",
     "Recent": "Запускались недавно",
-    "search": "Введите здесь название игры...",
+    "search": "Поиск игр",
     "setting": {
         "adddesktopshortcuts": "Создать ярлыки на рабочем столе автоматически",
         "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
@@ -391,13 +391,13 @@
     },
     "Settings": "Настройки",
     "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "collapse": "Свернуть боковую панель",
+        "uncollapse": "Развернуть боковую панель"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Установка",
         "logging": "Вход…",
-        "processing": "Processing files, please wait"
+        "processing": "Обработка файлов, подождите"
     },
     "store": "Магазин Epic",
     "stores": "Магазины",
@@ -440,14 +440,14 @@
         }
     },
     "wine": {
-        "actions": "Action",
+        "actions": "Действие",
         "manager": {
             "error": "Не удалось получить версии Wine/Proton.",
             "link": "Менеджер Wine",
             "title": "Менеджер Wine",
             "unzipping": "Распаковка"
         },
-        "release": "Release Date",
-        "size": "Size"
+        "release": "Дата выхода",
+        "size": "Размер"
     }
 }

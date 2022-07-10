@@ -70,8 +70,8 @@
                 "title": "Wine не знайдено"
             },
             "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
+                "message": "ZSTD не знайдено, будь ласка, встановіть його і перезапустіть Heroic",
+                "title": "Залежність відсутня"
             }
         },
         "info": {
@@ -144,8 +144,8 @@
     "favourites": "Уподобання",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Магазин",
+        "title": "Назва гри"
     },
     "generic": {
         "error": {
@@ -161,16 +161,16 @@
     "header": {
         "ignore_hidden": "Ігнорувати приховане",
         "platform": "Платформа",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
+        "show_all_games": "Показати всі ігри",
+        "show_favourites_only": "Показати лише вподобання",
         "show_hidden": "Показати приховане",
-        "store": "Filter Store"
+        "store": "Фільтр магазина"
     },
     "help": {
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "Залиште порожнім для використання мови Heroic.",
+            "in_game_config": "Не всі ігри підтримують цю конфігурацію, деякі мають налаштування мови всередині гри.",
+            "valid_codes": "Прийнятні коди мов залежать від гри."
         },
         "general": "Синхронізувати з EGL якщо ви маєте встановлений Epic Games Launcher і хочете імпортувати ігри уникнувши їх повторного завантаження.",
         "other": {
@@ -198,7 +198,7 @@
             "version": "Heroic Version"
         },
         "settings": "Налаштування збережені автоматично",
-        "version": "Wine Version"
+        "version": "Версія Wine"
     },
     "infobox": {
         "help": "Допомога",
@@ -257,7 +257,7 @@
             "startInstall": "Розпочалось встановлення"
         },
         "moved": "Переміщення завершене",
-        "moving": "Moving Game",
+        "moving": "Переміщення гри",
         "refresh": {
             "error": "Не вдалося отримати версію з джерела, можливо, через обмеження API Github! Спробуйте пізніше."
         },
@@ -287,7 +287,7 @@
         "alt-gogdl-bin": "Використання вбудованого GOGDL-файлу...",
         "alt-legendary-bin": "Використовую вбудований двійковий Legendary...",
         "egs-prefix": "Префікс де встановлено EGS",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-значний код (приклад: \"en\" або \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -297,7 +297,7 @@
     "Plugins": "Плаґіни",
     "Projects": "Проєкти",
     "Recent": "Нещодавно зіграні",
-    "search": "Вкажіть тут назву гри...",
+    "search": "Пошук ігор",
     "setting": {
         "adddesktopshortcuts": "Створювати ярлики на робочому столі автоматично",
         "addgamestostartmenu": "Додавати ігри до головного меню автоматично",
@@ -353,7 +353,7 @@
         "maxworkers": "Максимальна кількість працівників при завантаженні",
         "minimize-on-launch": "Згортати Heroic після запуску гри",
         "offlinemode": "Запустити гру оффлайн",
-        "prefered_language": "Prefered Language (Language Code)",
+        "prefered_language": "Бажана мова (код мови)",
         "primerun": "Використовувати виділену відеокарту",
         "resizableBar": "Ввімкнути Resizable BAR (тільки NVIDIA RTX 30xx)",
         "runexe": {
@@ -391,13 +391,13 @@
     },
     "Settings": "Налаштування",
     "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "collapse": "Згорнути бічну панель",
+        "uncollapse": "Розгорнути бічну панель"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Встановлюю",
         "logging": "Заходжу...",
-        "processing": "Processing files, please wait"
+        "processing": "Обробка файлів, будь ласка, зачекайте"
     },
     "store": "Магазин Епік",
     "stores": "Крамниці",
@@ -448,6 +448,6 @@
             "unzipping": "Розпаковую"
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Розмір"
     }
 }

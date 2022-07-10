@@ -4,7 +4,7 @@
         "all_tiles_in_color": "对所有游戏磁贴着色",
         "content_font_family": "内容字族 (默认: \"Cabin\")",
         "fonts": "字体",
-        "title": "辅助",
+        "title": "可存取性",
         "zoom": "缩放"
     },
     "All": "全部",
@@ -70,8 +70,8 @@
                 "title": "未找到 Wine"
             },
             "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
+                "message": "未找到 ZSTD，请安装并重启 Heroic",
+                "title": "缺少依赖"
             }
         },
         "info": {
@@ -144,8 +144,8 @@
     "favourites": "最爱",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "商店",
+        "title": "游戏名"
     },
     "generic": {
         "error": {
@@ -161,10 +161,10 @@
     "header": {
         "ignore_hidden": "忽略隐藏项",
         "platform": "平台",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
+        "show_all_games": "显示所有游戏",
+        "show_favourites_only": "仅显示收藏",
         "show_hidden": "显示隐藏项",
-        "store": "Filter Store"
+        "store": "过滤商店"
     },
     "help": {
         "game_language": {
@@ -198,7 +198,7 @@
             "version": "Heroic 版本"
         },
         "settings": "设置会自动保存",
-        "version": "Wine Version"
+        "version": "Wine 版本"
     },
     "infobox": {
         "help": "帮助",
@@ -257,7 +257,7 @@
             "startInstall": "安装已开始"
         },
         "moved": "移动完成",
-        "moving": "Moving Game",
+        "moving": "移动游戏中",
         "refresh": {
             "error": "不能从上游获取发布，可能是因为 Github API 的限制！请稍后再试。"
         },
@@ -297,7 +297,7 @@
     "Plugins": "插件",
     "Projects": "项目",
     "Recent": "最近玩过",
-    "search": "在此处输入游戏名称…",
+    "search": "搜索游戏",
     "setting": {
         "adddesktopshortcuts": "自动添加桌面快捷方式",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
@@ -391,13 +391,13 @@
     },
     "Settings": "设置",
     "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "collapse": "收起侧栏",
+        "uncollapse": "展开侧栏"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "安装中",
         "logging": "正在登录...",
-        "processing": "Processing files, please wait"
+        "processing": "处理文件中，请等待"
     },
     "store": "Epic 商店",
     "stores": "商店",
@@ -448,6 +448,6 @@
             "unzipping": "解压缩"
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "大小"
     }
 }

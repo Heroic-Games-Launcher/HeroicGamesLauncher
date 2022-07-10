@@ -1,20 +1,14 @@
-import { existsSync, mkdirSync } from 'graceful-fs'
+import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
 import { BrowserWindow } from 'electron'
-import {
-  ExecResult,
-  ExtraInfo,
-  InstallArgs,
-  LaunchResult,
-  SteamRuntime
-} from '../types'
+import { ExecResult, ExtraInfo, InstallArgs, SteamRuntime } from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, getSteamRuntime, isOnline } from '../utils'
+import { execAsync, getLegendaryBin, getSteamRuntime, isOnline } from '../utils'
 import {
   execOptions,
   heroicGamesConfigPath,
@@ -33,7 +27,8 @@ import {
   setupEnvVars,
   runWineCommand,
   setupWrappers,
-  launchCleanup
+  launchCleanup,
+  getRunnerCallWithoutCredentials
 } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts'
 import { basename, join } from 'path'
@@ -74,7 +69,7 @@ class LegendaryGame extends Game {
    *
    * @returns GameInfo
    */
-  public async getGameInfo() {
+  public getGameInfo() {
     return LegendaryLibrary.get().getGameInfo(this.appName)
   }
 
@@ -114,7 +109,8 @@ class LegendaryGame extends Game {
    * @param namespace
    * @returns
    */
-  public async getExtraInfo(namespace: string | null): Promise<ExtraInfo> {
+  public async getExtraInfo(): Promise<ExtraInfo> {
+    const { namespace } = this.getGameInfo()
     if (gameInfoStore.has(namespace)) {
       return gameInfoStore.get(namespace) as ExtraInfo
     }
@@ -207,7 +203,7 @@ class LegendaryGame extends Game {
    * @returns The amended install path.
    */
   public async moveInstall(newInstallPath: string) {
-    const oldInstallPath = (await this.getGameInfo()).install.install_path
+    const oldInstallPath = this.getGameInfo().install.install_path
 
     newInstallPath = join(newInstallPath, basename(oldInstallPath))
 
@@ -347,7 +343,7 @@ class LegendaryGame extends Game {
    * @public
    */
   public async addShortcuts(fromMenu?: boolean) {
-    return addShortcuts(await this.getGameInfo(), fromMenu)
+    return addShortcuts(this.getGameInfo(), fromMenu)
   }
 
   /**
@@ -362,7 +358,7 @@ class LegendaryGame extends Game {
   private getSdlList(sdlList: Array<string>) {
     return [
       // Legendary needs an empty tag for it to download the other needed files
-      '--install-tag=""',
+      '--install-tag=',
       ...sdlList.map((tag) => `--install-tag=${tag}`)
     ]
   }
@@ -548,11 +544,9 @@ class LegendaryGame extends Game {
     return res
   }
 
-  public async launch(launchArguments: string): Promise<LaunchResult> {
-    const gameSettings =
-      GameConfig.get(this.appName).config ||
-      (await GameConfig.get(this.appName).getSettings())
-    const gameInfo = LegendaryLibrary.get().getGameInfo(this.appName)
+  public async launch(launchArguments: string): Promise<boolean> {
+    const gameSettings = await this.getSettings()
+    const gameInfo = this.getGameInfo()
 
     const {
       success: launchPrepSuccess,
@@ -563,12 +557,11 @@ class LegendaryGame extends Game {
       steamRuntime
     } = await prepareLaunch(this, gameInfo)
     if (!launchPrepSuccess) {
-      return {
-        success: false,
-        stdout: '',
-        stderr: 'Launch aborted: ' + launchPrepFailReason,
-        gameSettings
-      }
+      appendFileSync(
+        this.logFileLocation,
+        `Launch aborted: ${launchPrepFailReason}`
+      )
+      return false
     }
 
     const offlineFlag = gameSettings.offlineMode ? '--offline' : ''
@@ -576,7 +569,7 @@ class LegendaryGame extends Game {
       ? ['--override-exe', gameSettings.targetExe]
       : []
 
-    const isNative = await this.isNative()
+    const isNative = this.isNative()
 
     const languageCode =
       gameSettings.language || (configStore.get('language', '') as string)
@@ -604,11 +597,12 @@ class LegendaryGame extends Game {
       // These options are required on both Windows and Mac
       commandParts = [
         'launch',
-        gameInfo.app_name,
+        this.appName,
         ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
-        launchArguments
+        launchArguments,
+        gameSettings.launcherArgs
       ]
     } else {
       // -> We're using Wine/Proton/CX on either Linux or Mac
@@ -618,12 +612,11 @@ class LegendaryGame extends Game {
         envVars: wineEnvVars
       } = await prepareWineLaunch(this)
       if (!wineLaunchPrepSuccess) {
-        return {
-          success: false,
-          stdout: '',
-          stderr: 'Launch aborted: ' + wineLaunchPrepFailReason,
-          gameSettings
-        }
+        appendFileSync(
+          this.logFileLocation,
+          `Launch aborted: ${wineLaunchPrepFailReason}`
+        )
+        return false
       }
 
       commandEnv = {
@@ -672,25 +665,36 @@ class LegendaryGame extends Game {
 
       commandParts = [
         'launch',
-        gameInfo.app_name,
+        this.appName,
         ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
         ...wineFlag,
         ...winePrefixFlag,
-        launcherArgs,
-        launchArguments
+        launchArguments,
+        launcherArgs
       ]
     }
 
-    const { error, stderr, stdout, fullCommand } = await runLegendaryCommand(
+    const fullCommand = getRunnerCallWithoutCredentials(
       commandParts,
-      {
-        env: commandEnv,
-        wrappers: wrappers,
-        logMessagePrefix: `Launching ${gameInfo.title}`
-      }
+      commandEnv,
+      wrappers,
+      join(...Object.values(getLegendaryBin()))
     )
+    appendFileSync(
+      this.logFileLocation,
+      `Launch Command: ${fullCommand}\n\nGame Log:\n`
+    )
+
+    const { error } = await runLegendaryCommand(commandParts, {
+      env: commandEnv,
+      wrappers: wrappers,
+      logMessagePrefix: `Launching ${gameInfo.title}`,
+      onOutput: (output) => {
+        appendFileSync(this.logFileLocation, output)
+      }
+    })
 
     if (error) {
       const showDialog = !`${error}`.includes('appears to be deleted')
@@ -703,13 +707,7 @@ class LegendaryGame extends Game {
 
     launchCleanup(rpcClient)
 
-    return {
-      success: !error,
-      stdout,
-      stderr,
-      gameSettings,
-      command: fullCommand
-    }
+    return !error
   }
 
   public async runWineCommand(
@@ -717,7 +715,7 @@ class LegendaryGame extends Game {
     altWineBin = '',
     wait = false
   ): Promise<ExecResult> {
-    const isNative = await this.isNative()
+    const isNative = this.isNative()
 
     if (isNative) {
       logError('runWineCommand called on native game!', LogPrefix.Legendary)
@@ -753,8 +751,8 @@ class LegendaryGame extends Game {
     })
   }
 
-  public async isNative(): Promise<boolean> {
-    const gameInfo = await this.getGameInfo()
+  public isNative(): boolean {
+    const gameInfo = this.getGameInfo()
 
     if (isWindows) {
       return true

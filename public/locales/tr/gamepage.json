@@ -36,15 +36,15 @@
         "yes": "EVET"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Favorilere Ekle",
         "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
         "force_update": "Force Update if Available",
         "hide_game": "Oyunu Gizle",
         "import": "Oyunu İçe Aktar",
         "install": "Kur",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Favorilerden Kaldır",
+        "unhide_game": "Oyunu Göster",
         "uninstall": "Kaldır",
         "update": "Güncelle"
     },
@@ -61,9 +61,9 @@
         "language": "Dil",
         "lastPlayed": "Son Oynanan",
         "neverPlayed": "Hiç Oynanmadı",
-        "platform": "Select Platform Version to Install",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "platform": "Kurulacak Platform Sürümünü Seç",
+        "reuirements": "Sistem Gereksinimleri",
+        "tools": "Araçlar",
         "totalPlayed": "Oynanan Zaman"
     },
     "gamecard": {
@@ -71,22 +71,22 @@
         "repairing": "Onarılıyor"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Bilinmeyen hata"
     },
     "info": {
         "canRunOffline": "Çevrim İçi Gerekli",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "Kurulu Platform",
         "path": "Kurulum Yeri",
         "size": "Boyut",
         "syncsaves": "Kayıtları Eşzamanla",
         "version": "Sürüm"
     },
     "install": {
-        "disk-space-left": "Space Available",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Kullanılabilir Alan",
+        "not-enough-disk-space": "Yeterli disk alanı yok",
         "path": "Kurulum Yolunu Seçin",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
+        "path-not-writtable": "Uyarı: yol yazılabilir olmayabilir.",
+        "space-after-install": "Kurulumdan Sonra",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine sürümü"
     },
@@ -117,7 +117,7 @@
         "installing": "Kuruluyor",
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun kurulu değil",
-        "processing": "Processing files, please wait",
+        "processing": "Dosyalar işleniyor, lütfen bekleyin",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
         "totalDownloaded": "Toplam İndirilen",
         "updating": "Oyun Güncelleniyor"
