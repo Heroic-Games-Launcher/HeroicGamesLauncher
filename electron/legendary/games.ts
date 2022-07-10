@@ -8,9 +8,14 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, getLegendaryBin, getSteamRuntime, isOnline } from '../utils'
 import {
-  execOptions,
+  execAsync,
+  getLegendaryBin,
+  getSteamRuntime,
+  isOnline,
+  killPattern
+} from '../utils'
+import {
   heroicGamesConfigPath,
   userHome,
   isLinux,
@@ -20,7 +25,6 @@ import {
   configStore
 } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { spawn } from 'child_process'
 import {
   prepareLaunch,
   prepareWineLaunch,
@@ -249,41 +253,43 @@ class LegendaryGame extends Game {
     // parse log for game download progress
     const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
     const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
-    if (etaMatch && bytesMatch) {
-      const eta = etaMatch[1]
-      const bytes = bytesMatch[1]
-
-      // original is in bytes, convert to MiB with 2 decimals
-      totalDownloadSize =
-        Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
-
-      // calculate percentage
-      const downloaded = parseFloat(bytes)
-      const downloadCache = totalDownloadSize - this.currentDownloadSize
-      const totalDownloaded = downloaded + downloadCache
-      let percent =
-        Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
-      if (percent < 0) percent = 0
-
-      logInfo(
-        [
-          `Progress for ${this.appName}:`,
-          `${percent}%/${bytes}MiB/${eta}`.trim()
-        ],
-        LogPrefix.Legendary
-      )
-
-      this.window.webContents.send('setGameStatus', {
-        appName: this.appName,
-        runner: 'legendary',
-        status: action,
-        progress: {
-          eta: eta,
-          percent,
-          bytes: `${bytes}MiB`
-        }
-      })
+    if (!etaMatch || !bytesMatch) {
+      return
     }
+
+    const eta = etaMatch[1]
+    const bytes = bytesMatch[1]
+
+    // original is in bytes, convert to MiB with 2 decimals
+    totalDownloadSize =
+      Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
+
+    // calculate percentage
+    const downloaded = parseFloat(bytes)
+    const downloadCache = totalDownloadSize - this.currentDownloadSize
+    const totalDownloaded = downloaded + downloadCache
+    let percent =
+      Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
+    if (percent < 0) percent = 0
+
+    logInfo(
+      [
+        `Progress for ${this.appName}:`,
+        `${percent}%/${bytes}MiB/${eta}`.trim()
+      ],
+      LogPrefix.Legendary
+    )
+
+    this.window.webContents.send('setGameStatus', {
+      appName: this.appName,
+      runner: 'legendary',
+      status: action,
+      progress: {
+        eta: eta,
+        percent,
+        bytes: `${bytes}MiB`
+      }
+    })
   }
 
   /**
@@ -727,24 +733,7 @@ class LegendaryGame extends Game {
 
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
     const pattern = process.platform === 'linux' ? this.appName : 'legendary'
-    logInfo(['killing', pattern], LogPrefix.Legendary)
-
-    if (process.platform === 'win32') {
-      try {
-        await execAsync(`Stop-Process -name  ${pattern}`, execOptions)
-        return logInfo(`${pattern} killed`, LogPrefix.Legendary)
-      } catch (error) {
-        return logError(
-          [`not possible to kill ${pattern}`, `${error}`],
-          LogPrefix.Legendary
-        )
-      }
-    }
-
-    const child = spawn('pkill', ['-f', pattern])
-    child.on('exit', () => {
-      return logInfo(`${pattern} killed`, LogPrefix.Legendary)
-    })
+    killPattern(pattern)
   }
 
   public isNative(): boolean {

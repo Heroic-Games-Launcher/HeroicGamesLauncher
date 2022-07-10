@@ -1,3 +1,4 @@
+import { ChildProcess } from 'child_process'
 export type Runner = 'legendary' | 'gog' | 'heroic'
 
 interface About {
@@ -369,7 +370,7 @@ export interface CallRunnerOptions {
   logFile?: string
   env?: Record<string, string>
   wrappers?: string[]
-  onOutput?: (output: string) => void
+  onOutput?: (output: string, child: ChildProcess) => void
 }
 
 export interface EnviromentVariable {
