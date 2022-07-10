@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState, MouseEvent } from 'react'
 
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
-import { IpcRenderer } from 'electron'
 import {
   getGameInfo,
   getInstallInfo,
@@ -30,17 +29,14 @@ import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'src/screens/Library/components'
 import { install } from 'src/helpers/library'
-import EpicLogo from 'src/assets/epic-logo.svg'
-import GOGLogo from 'src/assets/gog-logo.svg'
+import { ReactComponent as EpicLogo } from 'src/assets/epic-logo.svg'
+import { ReactComponent as GOGLogo } from 'src/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'src/hooks/hasProgress'
 import ErrorComponent from 'src/components/UI/ErrorComponent'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+import { ipcRenderer } from 'src/helpers'
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
 export default function GamePage(): JSX.Element | null {
@@ -60,6 +56,7 @@ export default function GamePage(): JSX.Element | null {
   const { status } = gameStatus || {}
   const [progress, previousProgress] = hasProgress(appName)
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
+  const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
@@ -134,6 +131,7 @@ export default function GamePage(): JSX.Element | null {
   }, [isInstalling, isPlaying, appName, epic, gog])
 
   async function handleUpdate() {
+    setUpdateRequested(true)
     await handleGameStatus({
       appName,
       runner: gameInfo.runner,
@@ -141,6 +139,7 @@ export default function GamePage(): JSX.Element | null {
     })
     await updateGame(appName, gameInfo.runner)
     await handleGameStatus({ appName, runner: gameInfo.runner, status: 'done' })
+    setUpdateRequested(false)
   }
 
   function handleModal() {
@@ -225,11 +224,7 @@ export default function GamePage(): JSX.Element | null {
               <ArrowCircleLeftIcon />
             </NavLink>
             <div className="store-icon">
-              <img
-                src={runner === 'legendary' ? EpicLogo : GOGLogo}
-                className={runner === 'legendary' ? '' : 'gogIcon'}
-                alt=""
-              />
+              {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
             </div>
             <div className={`gameTabs ${tabToShow}`}>
               {is_game && (
@@ -426,6 +421,8 @@ export default function GamePage(): JSX.Element | null {
                     title={title}
                     storeUrl={gameInfo.store_url}
                     runner={gameInfo.runner}
+                    handleUpdate={handleUpdate}
+                    disableUpdate={updateRequested || isUpdating}
                   />
                   <GameRequirements gameInfo={gameInfo} />
                 </>

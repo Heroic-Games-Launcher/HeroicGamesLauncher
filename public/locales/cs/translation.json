@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Není vybrána žádná verze Wine. Zkontrolujte nastavení hry!",
                 "title": "Wine nenalezen"
+            },
+            "zstd": {
+                "message": "ZSTD nebyl nalezen, nainstalujte ho a restartujte Heroic",
+                "title": "Chybějící závislost"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "Synchronizuji",
         "unsync": "Desynchroniozovat"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Online služby nemusí plně fungovat, protože servery Epic Games jsou offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "favourites": "Oblíbené",
+    "game": {
+        "status": "Status",
+        "store": "Obchod",
+        "title": "Název hry"
+    },
     "generic": {
         "error": {
             "component": "Nebyly nalezeny žádné hry - Zkuste se znovu odhlásit a přihlásit nebo jednu z níže uvedených možností"
@@ -138,9 +148,17 @@
     "header": {
         "ignore_hidden": "Ignorovat skryté",
         "platform": "Platforma",
-        "show_hidden": "Zobrazit skryté"
+        "show_all_games": "Zobrazit všechny hry",
+        "show_favourites_only": "Zobrazit pouze oblíbené",
+        "show_hidden": "Zobrazit skryté",
+        "store": "Filtrovat obchod"
     },
     "help": {
+        "game_language": {
+            "fallback": "Ponechte prázdné pro použití jazyk Heroic.",
+            "in_game_config": "Ne všechny hry tuto konfiguraci podporují, některé mají nastavení jazyka ve hře.",
+            "valid_codes": "Platné kódy jazyků jsou závislé na hře."
+        },
         "general": "Synchronizujte s EGL v případě, že máte funkční instalaci Epic Games Launcher jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
         "other": {
             "part1": "Použijte ",
@@ -166,7 +184,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Nastavení se ukládají automaticky"
+        "settings": "Nastavení se ukládají automaticky",
+        "version": "Verze Wine"
     },
     "infobox": {
         "help": "Pomoc",
@@ -195,8 +214,6 @@
         "sync": "Synchronizace dokončena",
         "unsync": "Desynchronizace dokončena"
     },
-    "Missing Dependency": "",
-    "nogames": "Žádné hry nebyly nalezeny",
     "notify": {
         "error": {
             "move": "Chyba při přesouvání hry",
@@ -213,6 +230,7 @@
             "startInstall": "Instalace zahájena"
         },
         "moved": "Přesun dokončen",
+        "moving": "Přesouvám hru",
         "refresh": {
             "error": "Nepodařilo se načíst vydání z upstreamu, možná kvůli omezením Github API! Zkuste to později."
         },
@@ -241,7 +259,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Pomocí vestavěného GOGDL...",
         "alt-legendary-bin": "Pomocí vestavěného Legendary...",
-        "egs-prefix": "Prefix kde je nainstalován EGS"
+        "egs-prefix": "Prefix kde je nainstalován EGS",
+        "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -251,7 +270,7 @@
     "Plugins": "Plugins",
     "Projects": "Projekty",
     "Recent": "Recently Played",
-    "search": "Zde zadejte název hry...",
+    "search": "Vyhledat hry",
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
@@ -268,12 +287,13 @@
         "defaultWinePrefix": "Nastavit složku pro nové Prefixy Wine",
         "disable_controller": "Zakázat navigaci v Heroic pomocí ovladače",
         "discordRPC": "Povolit Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
         "enableFSRHack": "Povolte FSR Hack (verze Wine jej musí podporovat)",
         "esync": "Povolit Esync",
         "exit-to-tray": "Ukončit do systémové oblasti",
         "FsrSharpnessStrenght": "Síla ostrosti FSR",
-        "fsync": "Povolit Esync",
+        "fsync": "Povolit Fsync",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
         "language": "Vybrat jazyk aplikace",
         "library_top_option": {
@@ -305,6 +325,7 @@
         "maxworkers": "Maximální počet vláken při stahování",
         "minimize-on-launch": "Minimalizujte Heroic po spuštění hry",
         "offlinemode": "Spustit hru offline",
+        "prefered_language": "Preferovaný jazyk (kód jazyka)",
         "primerun": "Použít dedikovanou grafickou kartu",
         "resizableBar": "Používat Resizable BAR (pouze s NVIDIA RTX 30xx)",
         "runexe": {
@@ -341,8 +362,14 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Nastavení",
+    "sidebar": {
+        "collapse": "Sbalit postranní panel",
+        "uncollapse": "Rozbalit postranní panel"
+    },
     "status": {
-        "logging": "Přihlašování..."
+        "installing": "Instaluji",
+        "logging": "Přihlašování...",
+        "processing": "Zpracovávám soubory, čekejte prosím"
     },
     "store": "Epic Store",
     "stores": "Obchody",
@@ -363,14 +390,12 @@
         "addpath": "přidat novou cestu",
         "removepath": "Odstranit cestu"
     },
-    "Total Games": "Celkem her",
     "tray": {
         "about": "O aplikaci",
         "quit": "Ukončit",
         "reload": "Obnovit",
         "show": "Zobrazit"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Odhlásit se",
@@ -386,14 +411,15 @@
             "reload": "Znovu načíst stránku"
         }
     },
-    "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Nepodařilo se načíst verze Wine/Proton.",
             "link": "Správce Wine",
             "title": "Správce Wine",
             "unzipping": "Rozbalování"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Velikost"
+    }
 }

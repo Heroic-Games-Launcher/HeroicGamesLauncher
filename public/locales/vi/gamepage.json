@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Xác nhận thay đổi vị trí cài của game này?",
+            "message": "Thao tác sẽ thay đổi vị trí cài của game này, bạn chắc chứ?",
             "path": "Chọn đường dẫn mới",
             "title": "Đổi đường dẫn"
         },
@@ -23,46 +23,47 @@
             "title": "Dừng quá trình cài đặt"
         },
         "uninstall": {
-            "checkbox": "Bạn có muốn xóa cả prefix không? Quá trình hông thể hoàn tác.",
+            "checkbox": "Bạn có muốn xóa cả prefix không? Không thể hoàn tác.",
             "checkbox_prefix": "Prefix",
             "message": "Xác nhận gỡ cài đặt game?",
             "title": "Gỡ cài đặt"
         },
         "update": {
-            "message": "Game có bản cập nhật, bạn có muốn cập nhật không?",
+            "message": "Game có bản cập nhật, xác nhận cập nhật?",
             "title": "Game cần cập nhật"
         },
         "wineprefix": "Chọn thư mục WinePrefix",
         "yes": "Có"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Thêm vào mục ưa thích",
         "cancel": "Tạm dừng/Huỷ",
         "continue": "Tiếp tục tải",
+        "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Cài đặt",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Xóa khỏi mục ưa thích",
+        "unhide_game": "Bỏ ẩn Game",
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật"
     },
     "disabled": "Tắt",
     "dlc": {
-        "installDlcs": "Cài đặt tất cả bản mở rộng"
+        "installDlcs": "Cài đặt tất cả bản mở rộng (DLC)"
     },
     "enabled": "Bật",
     "game": {
         "downloadSize": "Kích thước tải",
-        "firstPlayed": "Lần chơi đầu",
+        "firstPlayed": "Lần chơi đầu tiên",
         "info": "Info",
         "installSize": "Kích thước cài",
         "language": "Ngôn ngữ",
-        "lastPlayed": "Lần chơi cuối",
+        "lastPlayed": "Lần chơi trước",
         "neverPlayed": "Không bao giờ",
-        "platform": "Select Platform Version to Install",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "platform": "Chọn phiên bản nền tảng để cài đặt",
+        "reuirements": "Yêu cầu hệ thống",
+        "tools": "Công cụ",
         "totalPlayed": "Thời gian chơi"
     },
     "gamecard": {
@@ -70,22 +71,22 @@
         "repairing": "Đang sửa"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Lỗi chưa xác định"
     },
     "info": {
         "canRunOffline": "Cần kết nối mạng",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "Nền tảng đã cài đặt",
         "path": "Đường dẫn cài đặt",
         "size": "Kích thước",
         "syncsaves": "Đồng bộ bản lưu",
         "version": "Phiên bản"
     },
     "install": {
-        "disk-space-left": "Space Available",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Dung lượng trống",
+        "not-enough-disk-space": "Không đủ dung lượng trống",
         "path": "Chọn đường dẫn cài",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
+        "path-not-writtable": "Cảnh báo: Có thể không ghi được vào vị trí này.",
+        "space-after-install": "Sau khi cài",
         "wineprefix": "WinePrefix",
         "wineversion": "Phiên bản Wine"
     },
@@ -101,22 +102,22 @@
     "launch": {
         "options": "Tuỳ chọn khởi chạy..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Báo cáo sự cố khi chạy game này",
     "sdl": {
         "title": "Chọn các thành phần cần cài"
     },
     "specs": {
-        "minimum": "Tối thiểu",
+        "minimum": "Thu nhỏ",
         "recommended": "Đề xuất"
     },
     "status": {
         "clickToUpdate": "Nhấn để cập nhật",
         "hasUpdates": "Có phiên bản mới!",
         "installed": "Đã cài",
-        "installing": "Đang cài",
+        "installing": "Đang cài đặt",
         "moving": "Đang chuyển, vui lòng đợi",
         "notinstalled": "Game chưa được cài",
-        "processing": "Processing files, please wait",
+        "processing": "Đang xử lý tệp, vui lòng đợi",
         "reparing": "Đang sửa game, vui lòng đợi",
         "totalDownloaded": "Tổng số đã tải",
         "updating": "Đang cập nhật Game"

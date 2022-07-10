@@ -1,14 +1,14 @@
-import { existsSync, mkdirSync } from 'graceful-fs'
+import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
 import { BrowserWindow } from 'electron'
-import { ExecResult, ExtraInfo, InstallArgs, LaunchResult } from '../types'
+import { ExecResult, ExtraInfo, InstallArgs } from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
-import { getLegendaryCommand, LegendaryLibrary } from './library'
+import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, getSteamRuntime, isOnline } from '../utils'
+import { execAsync, getLegendaryBin, getSteamRuntime, isOnline } from '../utils'
 import {
   execOptions,
   heroicGamesConfigPath,
@@ -16,7 +16,8 @@ import {
   isLinux,
   isMac,
   isWindows,
-  installed
+  installed,
+  configStore
 } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { spawn } from 'child_process'
@@ -26,7 +27,8 @@ import {
   setupEnvVars,
   runWineCommand,
   setupWrappers,
-  launchCleanup
+  launchCleanup,
+  getRunnerCallWithoutCredentials
 } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import { basename, join } from 'path'
@@ -66,7 +68,7 @@ class LegendaryGame extends Game {
    *
    * @returns GameInfo
    */
-  public async getGameInfo() {
+  public getGameInfo() {
     return LegendaryLibrary.get().getGameInfo(this.appName)
   }
 
@@ -106,7 +108,8 @@ class LegendaryGame extends Game {
    * @param namespace
    * @returns
    */
-  public async getExtraInfo(namespace: string | null): Promise<ExtraInfo> {
+  public async getExtraInfo(): Promise<ExtraInfo> {
+    const { namespace } = this.getGameInfo()
     if (gameInfoStore.has(namespace)) {
       return gameInfoStore.get(namespace) as ExtraInfo
     }
@@ -199,7 +202,7 @@ class LegendaryGame extends Game {
    * @returns The amended install path.
    */
   public async moveInstall(newInstallPath: string) {
-    const oldInstallPath = (await this.getGameInfo()).install.install_path
+    const oldInstallPath = this.getGameInfo().install.install_path
 
     newInstallPath = join(newInstallPath, basename(oldInstallPath))
 
@@ -266,7 +269,7 @@ class LegendaryGame extends Game {
           `Progress for ${this.appName}:`,
           `${percent}%/${bytes}MiB/${eta}`.trim()
         ],
-        LogPrefix.Backend
+        LogPrefix.Legendary
       )
 
       this.window.webContents.send('setGameStatus', {
@@ -292,15 +295,14 @@ class LegendaryGame extends Game {
       runner: 'legendary',
       status: 'updating'
     })
-    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } =
+      await GlobalConfig.get().getSettings()
     const info = await Game.get(this.appName, 'legendary').getInstallInfo()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+    const noHttps = downloadNoHttps ? ['--no-https'] : []
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const commandParts = ['update', this.appName, ...workers, '-y']
-    const command = getLegendaryCommand(commandParts)
-
-    logInfo([`Updating ${this.appName} with:`, command], LogPrefix.Legendary)
+    const commandParts = ['update', this.appName, ...workers, ...noHttps, '-y']
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
@@ -312,7 +314,8 @@ class LegendaryGame extends Game {
 
     const res = await runLegendaryCommand(commandParts, {
       logFile: logPath,
-      onOutput
+      onOutput,
+      logMessagePrefix: `Updating ${this.appName}`
     })
 
     this.window.webContents.send('setGameStatus', {
@@ -339,7 +342,7 @@ class LegendaryGame extends Game {
    * @public
    */
   public async addShortcuts(fromMenu?: boolean) {
-    return addShortcuts(await this.getGameInfo(), fromMenu)
+    return addShortcuts(this.getGameInfo(), fromMenu)
   }
 
   /**
@@ -354,7 +357,7 @@ class LegendaryGame extends Game {
   private getSdlList(sdlList: Array<string>) {
     return [
       // Legendary needs an empty tag for it to download the other needed files
-      '--install-tag=""',
+      '--install-tag=',
       ...sdlList.map((tag) => `--install-tag=${tag}`)
     ]
   }
@@ -369,11 +372,13 @@ class LegendaryGame extends Game {
     sdlList,
     platformToInstall
   }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
-    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } =
+      await GlobalConfig.get().getSettings()
     const info = await Game.get(this.appName, 'legendary').getInstallInfo(
       platformToInstall
     )
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+    const noHttps = downloadNoHttps ? ['--no-https'] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
     const installSdl = sdlList.length
       ? this.getSdlList(sdlList)
@@ -391,10 +396,9 @@ class LegendaryGame extends Game {
       withDlcs,
       ...installSdl,
       ...workers,
+      ...noHttps,
       '-y'
     ]
-    const command = getLegendaryCommand(commandParts)
-    logInfo([`Installing ${this.appName} with:`, command], LogPrefix.Legendary)
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
@@ -406,7 +410,8 @@ class LegendaryGame extends Game {
 
     let res = await runLegendaryCommand(commandParts, {
       logFile: logPath,
-      onOutput
+      onOutput,
+      logMessagePrefix: `Installing ${this.appName}`
     })
 
     // try to run the install again with higher memory limit
@@ -434,12 +439,11 @@ class LegendaryGame extends Game {
 
   public async uninstall(): Promise<ExecResult> {
     const commandParts = ['uninstall', this.appName, '-y']
-    const command = getLegendaryCommand(commandParts)
-
-    logInfo([`Uninstalling ${this.appName}:`, command], LogPrefix.Legendary)
 
     LegendaryLibrary.get().installState(this.appName, false)
-    const res = await runLegendaryCommand(commandParts)
+    const res = await runLegendaryCommand(commandParts, {
+      logMessagePrefix: `Uninstalling ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -457,17 +461,19 @@ class LegendaryGame extends Game {
    */
   public async repair(): Promise<ExecResult> {
     // this.state.status = 'repairing'
-    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } =
+      await GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+    const noHttps = downloadNoHttps ? ['--no-https'] : []
 
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
-    const commandParts = ['repair', this.appName, ...workers, '-y']
-    const command = getLegendaryCommand(commandParts)
+    const commandParts = ['repair', this.appName, ...workers, ...noHttps, '-y']
 
-    logInfo([`Repairing ${this.appName}:`, command], LogPrefix.Legendary)
-
-    const res = await runLegendaryCommand(commandParts, { logFile: logPath })
+    const res = await runLegendaryCommand(commandParts, {
+      logFile: logPath,
+      logMessagePrefix: `Repairing ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -480,9 +486,8 @@ class LegendaryGame extends Game {
 
   public async import(path: string): Promise<ExecResult> {
     const commandParts = ['import', this.appName, path]
-    const command = getLegendaryCommand(commandParts)
 
-    logInfo([`Importing ${this.appName}:`, command], LogPrefix.Legendary)
+    logInfo(`Importing ${this.appName}.`, LogPrefix.Legendary)
 
     const res = await runLegendaryCommand(commandParts)
 
@@ -517,14 +522,10 @@ class LegendaryGame extends Game {
       this.appName,
       '-y'
     ]
-    const command = getLegendaryCommand(commandParts)
 
-    logInfo(
-      [`Syncing saves for ${this.appName}:`, command],
-      LogPrefix.Legendary
-    )
-
-    const res = await runLegendaryCommand(commandParts)
+    const res = await runLegendaryCommand(commandParts, {
+      logMessagePrefix: `Syncing saves for ${this.appName}`
+    })
 
     if (res.error) {
       logError(
@@ -535,11 +536,9 @@ class LegendaryGame extends Game {
     return res
   }
 
-  public async launch(launchArguments: string): Promise<LaunchResult> {
-    const gameSettings =
-      GameConfig.get(this.appName).config ||
-      (await GameConfig.get(this.appName).getSettings())
-    const gameInfo = LegendaryLibrary.get().getGameInfo(this.appName)
+  public async launch(launchArguments: string): Promise<boolean> {
+    const gameSettings = await this.getSettings()
+    const gameInfo = this.getGameInfo()
 
     const {
       success: launchPrepSuccess,
@@ -550,12 +549,11 @@ class LegendaryGame extends Game {
       steamRuntime
     } = await prepareLaunch(this, gameInfo)
     if (!launchPrepSuccess) {
-      return {
-        success: false,
-        stdout: '',
-        stderr: 'Launch aborted: ' + launchPrepFailReason,
-        gameSettings
-      }
+      appendFileSync(
+        this.logFileLocation,
+        `Launch aborted: ${launchPrepFailReason}`
+      )
+      return false
     }
 
     const offlineFlag = gameSettings.offlineMode ? '--offline' : ''
@@ -563,7 +561,12 @@ class LegendaryGame extends Game {
       ? ['--override-exe', gameSettings.targetExe]
       : []
 
-    const isNative = await this.isNative()
+    const isNative = this.isNative()
+
+    const languageCode =
+      gameSettings.language || (configStore.get('language', '') as string)
+
+    const languageFlag = languageCode ? ['--language', languageCode] : []
 
     let commandParts = new Array<string>()
     let commandEnv = process.env
@@ -586,10 +589,12 @@ class LegendaryGame extends Game {
       // These options are required on both Windows and Mac
       commandParts = [
         'launch',
-        gameInfo.app_name,
+        this.appName,
+        ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
-        launchArguments
+        launchArguments,
+        gameSettings.launcherArgs
       ]
     } else {
       // -> We're using Wine/Proton/CX on either Linux or Mac
@@ -599,12 +604,11 @@ class LegendaryGame extends Game {
         envVars: wineEnvVars
       } = await prepareWineLaunch(this)
       if (!wineLaunchPrepSuccess) {
-        return {
-          success: false,
-          stdout: '',
-          stderr: 'Launch aborted: ' + wineLaunchPrepFailReason,
-          gameSettings
-        }
+        appendFileSync(
+          this.logFileLocation,
+          `Launch aborted: ${wineLaunchPrepFailReason}`
+        )
+        return false
       }
 
       commandEnv = {
@@ -650,21 +654,35 @@ class LegendaryGame extends Game {
 
       commandParts = [
         'launch',
-        gameInfo.app_name,
+        this.appName,
+        ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
         ...wineFlag,
         ...winePrefixFlag,
-        launcherArgs,
-        launchArguments
+        launchArguments,
+        launcherArgs
       ]
     }
-    const command = getLegendaryCommand(commandParts, commandEnv, wrappers)
 
-    logInfo([`Launching ${gameInfo.title}:`, command], LogPrefix.Legendary)
-    const { error, stderr, stdout } = await runLegendaryCommand(commandParts, {
+    const fullCommand = getRunnerCallWithoutCredentials(
+      commandParts,
+      commandEnv,
+      wrappers,
+      join(...Object.values(getLegendaryBin()))
+    )
+    appendFileSync(
+      this.logFileLocation,
+      `Launch Command: ${fullCommand}\n\nGame Log:\n`
+    )
+
+    const { error } = await runLegendaryCommand(commandParts, {
       env: commandEnv,
-      wrappers: wrappers
+      wrappers: wrappers,
+      logMessagePrefix: `Launching ${gameInfo.title}`,
+      onOutput: (output) => {
+        appendFileSync(this.logFileLocation, output)
+      }
     })
 
     if (error) {
@@ -678,13 +696,7 @@ class LegendaryGame extends Game {
 
     launchCleanup(rpcClient)
 
-    return {
-      success: !error,
-      stdout,
-      stderr,
-      gameSettings,
-      command
-    }
+    return !error
   }
 
   public async runWineCommand(
@@ -692,7 +704,7 @@ class LegendaryGame extends Game {
     altWineBin = '',
     wait = false
   ): Promise<ExecResult> {
-    const isNative = await this.isNative()
+    const isNative = this.isNative()
 
     if (isNative) {
       logError('runWineCommand called on native game!', LogPrefix.Legendary)
@@ -728,8 +740,8 @@ class LegendaryGame extends Game {
     })
   }
 
-  public async isNative(): Promise<boolean> {
-    const gameInfo = await this.getGameInfo()
+  public isNative(): boolean {
+    const gameInfo = this.getGameInfo()
 
     if (isWindows) {
       return true

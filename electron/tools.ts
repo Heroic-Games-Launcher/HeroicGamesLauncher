@@ -17,7 +17,7 @@ import { dirname } from 'path'
 
 export const DXVK = {
   getLatest: async () => {
-    if (!(await isOnline())) {
+    if (!isOnline()) {
       logWarning(
         'App offline, skipping possible DXVK update.',
         LogPrefix.DXVKInstaller

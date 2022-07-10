@@ -4,7 +4,7 @@
         "all_tiles_in_color": "对所有游戏磁贴着色",
         "content_font_family": "内容字族 (默认: \"Cabin\")",
         "fonts": "字体",
-        "title": "辅助",
+        "title": "可存取性",
         "zoom": "缩放"
     },
     "All": "全部",
@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "没有选中 Wine 版本。检查游戏设置！",
                 "title": "未找到 Wine"
+            },
+            "zstd": {
+                "message": "未找到 ZSTD，请安装并重启 Heroic",
+                "title": "缺少依赖"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "正在同步",
         "unsync": "不同步"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
         "offline-notification-title": "离线"
     },
     "Epic Games": "Epic 游戏",
     "favourites": "最爱",
+    "game": {
+        "status": "Status",
+        "store": "商店",
+        "title": "游戏名"
+    },
     "generic": {
         "error": {
             "component": "没有发现游戏 - 尝试注销并再次登录或以下选项之一"
@@ -138,9 +148,17 @@
     "header": {
         "ignore_hidden": "忽略隐藏项",
         "platform": "平台",
-        "show_hidden": "显示隐藏项"
+        "show_all_games": "显示所有游戏",
+        "show_favourites_only": "仅显示收藏",
+        "show_hidden": "显示隐藏项",
+        "store": "过滤商店"
     },
     "help": {
+        "game_language": {
+            "fallback": "留空使用 Heroic 的语言。",
+            "in_game_config": "不是所有游戏都支持此配置，一些有游戏内语言设置。",
+            "valid_codes": "有效语言代码取决于游戏。"
+        },
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
         "other": {
             "part1": "使用 ",
@@ -166,7 +184,8 @@
         "heroic": {
             "version": "Heroic 版本"
         },
-        "settings": "设置会自动保存"
+        "settings": "设置会自动保存",
+        "version": "Wine 版本"
     },
     "infobox": {
         "help": "帮助",
@@ -195,8 +214,6 @@
         "sync": "同步完成",
         "unsync": "取消同步完成"
     },
-    "Missing Dependency": "",
-    "nogames": "未找到游戏",
     "notify": {
         "error": {
             "move": "移动游戏时出错",
@@ -213,6 +230,7 @@
             "startInstall": "安装已开始"
         },
         "moved": "移动完成",
+        "moving": "移动游戏中",
         "refresh": {
             "error": "不能从上游获取发布，可能是因为 Github API 的限制！请稍后再试。"
         },
@@ -241,7 +259,8 @@
     "placeholder": {
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",
-        "egs-prefix": "Epic 游戏商城安装位置"
+        "egs-prefix": "Epic 游戏商城安装位置",
+        "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -251,7 +270,7 @@
     "Plugins": "插件",
     "Projects": "项目",
     "Recent": "最近玩过",
-    "search": "在此处输入游戏名称…",
+    "search": "搜索游戏",
     "setting": {
         "adddesktopshortcuts": "自动添加桌面快捷方式",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
@@ -268,6 +287,7 @@
         "defaultWinePrefix": "为新的 WinePrefix设置文件夹",
         "disable_controller": "使用控制器禁止 Heroic 导航",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "与已安装的 Epic 游戏同步",
         "enableFSRHack": "启用 FSR（需要支持的WINE版本）",
         "esync": "启用 Esync",
@@ -305,6 +325,7 @@
         "maxworkers": "下载时的最大线程数量",
         "minimize-on-launch": "游戏启动后最小化 Heroic",
         "offlinemode": "离线运行游戏",
+        "prefered_language": "首选语言 (语言代码)",
         "primerun": "使用独立显卡",
         "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
         "runexe": {
@@ -341,8 +362,14 @@
         "reset-heroic": "重置 Heroic"
     },
     "Settings": "设置",
+    "sidebar": {
+        "collapse": "收起侧栏",
+        "uncollapse": "展开侧栏"
+    },
     "status": {
-        "logging": "正在登录..."
+        "installing": "安装中",
+        "logging": "正在登录...",
+        "processing": "处理文件中，请等待"
     },
     "store": "Epic 商店",
     "stores": "商店",
@@ -363,14 +390,12 @@
         "addpath": "添加新路径",
         "removepath": "删除路径"
     },
-    "Total Games": "总游戏数",
     "tray": {
         "about": "关于",
         "quit": "退出",
         "reload": "重新加载",
         "show": "显示"
     },
-    "Unreal Marketplace": "虚幻商城",
     "userselector": {
         "discord": "Discord",
         "logout": "退出登录",
@@ -386,14 +411,15 @@
             "reload": "重新加载页面"
         }
     },
-    "wiki": "维基",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "此次无法获取 Wine/Proton 版本。",
             "link": "Wine 管理器",
             "title": "Wine 管理器",
             "unzipping": "解压缩"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "大小"
+    }
 }

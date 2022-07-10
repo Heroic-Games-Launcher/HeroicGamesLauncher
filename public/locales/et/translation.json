@@ -25,8 +25,8 @@
                 "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "CrossOveri pudelit \"{{bottle_name}}\" pole olemas, ei saa käivitada!",
+                "title": "CrossOveri pudelit ei leitud"
             },
             "diskspace": {
                 "message": "Ei ole piisavalt vaba kettaruumi",
@@ -37,7 +37,7 @@
                 "title": "DXVK/VKD3D viga"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Mängukaust tundub olevat kustutatud, kas soovite mängu paigaldatute nimekirjast eemaldada?"
             },
             "generic": {
                 "message": "",
@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Wine'i versiooni pole valitud. Kontrolli mängu seadeid!",
                 "title": "Wine'i ei leitud"
+            },
+            "zstd": {
+                "message": "ZSTD'd ei leitud, palun paigaldage see ja käivitage Heroic uuesti",
+                "title": "Puuduv dependency"
             }
         },
         "info": {
@@ -118,18 +122,24 @@
         "syncing": "Sünkroonimine",
         "unsync": "Mittesünkroniseerimine"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Võrguteenused ei pruugi täielikult töötada, kuna Epic Gamesi serverid on võrguühenduseta!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "favourites": "Lemmikud",
+    "game": {
+        "status": "Status",
+        "store": "Pood",
+        "title": "Mängu pealkiri"
+    },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Mänge ei leitud - proovige uuesti sisse logida või ühte allolevatest võimalustest"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Värskenda varamut"
         }
     },
     "globalSettings": "Globaalsed seaded",
@@ -138,9 +148,17 @@
     "header": {
         "ignore_hidden": "Ignoreeri peidetud",
         "platform": "Platvorm",
-        "show_hidden": "Näita peidetud"
+        "show_all_games": "Näita kõiki mänge",
+        "show_favourites_only": "Näita ainult lemmikuid",
+        "show_hidden": "Näita peidetud",
+        "store": "Filtreeri poodi"
     },
     "help": {
+        "game_language": {
+            "fallback": "Heroicu keele kasutamiseks jätke väli tühjaks.",
+            "in_game_config": "Kõik mängud ei toeta seda seadistust, mõnel on mängusisene keeleseadistus.",
+            "valid_codes": "Kehtivad keelekoodid sõltuvad mängust."
+        },
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
         "other": {
             "part1": "Kasuta ",
@@ -166,7 +184,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Seaded salvestatakse automaatselt"
+        "settings": "Seaded salvestatakse automaatselt",
+        "version": "Wine'i versioon"
     },
     "infobox": {
         "help": "Abi",
@@ -195,8 +214,6 @@
         "sync": "Sünkroonimine lõpetatud",
         "unsync": "Mittesünkroniseerimine lõpetatud"
     },
-    "Missing Dependency": "",
-    "nogames": "Mänge ei leitud",
     "notify": {
         "error": {
             "move": "Viga mängu liigutamisel",
@@ -213,6 +230,7 @@
             "startInstall": "Paigaldamine algas"
         },
         "moved": "Teisaldamine on lõpule viidud",
+        "moving": "Mängu liigutamine",
         "refresh": {
             "error": "Ei saanud hankida väljalaskeid upstream'ist, võib-olla Githubi API piirangute tõttu! Proovige hiljem uuesti."
         },
@@ -241,7 +259,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Kasutusel on sisse-ehitatud GOGDL binaarfaili...",
         "alt-legendary-bin": "Kasutusel on sisse-ehitatud Legendary binaarfail...",
-        "egs-prefix": "Prefiks, kuhu EGS on paigaldatud"
+        "egs-prefix": "Prefiks, kuhu EGS on paigaldatud",
+        "prefered_language": "2-täheline kood (st: \"en\" või \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -251,7 +270,7 @@
     "Plugins": "Pluginad",
     "Projects": "Projektid",
     "Recent": "Hiljuti mängitud",
-    "search": "Sisestage mängu nimi siia...",
+    "search": "Otsi mänge",
     "setting": {
         "adddesktopshortcuts": "Lisa töölaua otseteed automaatselt",
         "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
@@ -268,6 +287,7 @@
         "defaultWinePrefix": "Määrake uute Wine'i prefikside jaoks kaust",
         "disable_controller": "Keela Heroic'u mängupuldiga navigeerimine",
         "discordRPC": "Luba Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Sünkroonimine paigaldatud Epic Games'iga",
         "enableFSRHack": "Luba FSR häkk (Wine'i versioon peab seda toetama)",
         "esync": "Luba Esync",
@@ -305,6 +325,7 @@
         "maxworkers": "Töötajate maksimaalne arv allalaadimisel",
         "minimize-on-launch": "Minimeeri Heroic pärast mängu käivitamist",
         "offlinemode": "Käivita mäng võrguühenduseta",
+        "prefered_language": "Eelistatud keel (keelekood)",
         "primerun": "Kasuta spetsiaalset graafikakaarti",
         "resizableBar": "Luba muudetav BAR (ainult NVIDIA RTX 30xx)",
         "runexe": {
@@ -337,12 +358,18 @@
             "other": "Muu",
             "sync": "Salvesta-sünkrooni"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Ava konfiguratsioonifail",
         "reset-heroic": "Lähtesta Heroic"
     },
     "Settings": "Seaded",
+    "sidebar": {
+        "collapse": "Ahenda külgriba",
+        "uncollapse": "Lahtista külgriba"
+    },
     "status": {
-        "logging": "Sisselogimine..."
+        "installing": "Paigaldamine",
+        "logging": "Sisselogimine...",
+        "processing": "Failide töötlemine, palun oodake"
     },
     "store": "Epic Pood",
     "stores": "Poed",
@@ -363,14 +390,12 @@
         "addpath": "Lisa uus tee",
         "removepath": "Eemalda tee"
     },
-    "Total Games": "Mänge kokku",
     "tray": {
         "about": "Info",
         "quit": "Sulge",
         "reload": "Laadi uuesti",
         "show": "Näita"
     },
-    "Unreal Marketplace": "Unreal'i Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Logi välja",
@@ -386,14 +411,15 @@
             "reload": "Laadi leht uuesti"
         }
     },
-    "wiki": "Viki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Ei saanud Wine/Proton versioone kätte.",
             "link": "Wine'i haldur",
             "title": "Wine'i haldur",
             "unzipping": "Lahtipakkimine"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Suurus"
+    }
 }

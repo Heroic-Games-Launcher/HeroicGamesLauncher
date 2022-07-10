@@ -2,9 +2,8 @@ name: Draft Beta Release Linux
 
 on:
   push:
-    branches: [beta]
     tags:
-      - 'v*'
+      - '*beta'
   workflow_dispatch:
 
 jobs:

@@ -1,29 +1,48 @@
 .gameList {
   color: var(--text-secondary);
   display: grid;
-  grid-template-columns: repeat(auto-fill, clamp(130px, 8vw, 200px));
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   grid-gap: 1.2rem;
-  padding: 1rem 1rem 2rem;
+  padding: 1rem 1rem 7rem;
 }
 
 .gameListLayout {
   display: flex;
   flex-direction: column;
-  position: relative;
   padding-top: 1em;
   min-height: 2vh;
   min-width: 80vw;
 }
 
+.gameListHeader {
+  display: grid;
+  grid-template-columns: 3fr 2fr 1fr 10%;
+  justify-items: baseline;
+  margin: 0 2rem;
+  border-bottom: 1px solid gray;
+  color: var(--text-default);
+  font-weight: 700;
+  padding-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.gameListHeader span:last-child {
+  justify-self: center;
+}
+
 .libraryHeader {
   text-align: left;
   padding: 0 2rem;
+  margin: 12px;
 }
 
-.titleWithIcons {
-  display: flex;
-  align-items: baseline;
+.libraryHeaderWrapper {
+  display: grid;
+  align-items: center;
   margin: -4px 0;
+  grid-template-columns: clamp(230px, 8vw, 250px) min-content;
+  justify-content: start;
+  grid-template-areas: 'title action';
 }
 
 #backToTopBtn {
@@ -55,4 +74,10 @@
 .listing {
   overflow-y: auto;
   flex: 100% 1 1;
+}
+
+.numberOfgames {
+  margin-left: 4px;
+  font-size: 1rem;
+  font-weight: 400;
 }

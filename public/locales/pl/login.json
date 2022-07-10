@@ -3,7 +3,7 @@
         "login": "Zaloguj"
     },
     "message": {
-        "part1": "Żeby się zalogować i instalować gry, najpierw wykonaj następujące kroki :",
+        "part1": "Żeby się zalogować i móc instalować gry, najpierw wykonaj następujące kroki :",
         "part2": "Otwórz",
         "part3": "Epic Games Store",
         "part4": ", zaloguj się na swoje konto i skopiuj swój",
@@ -14,7 +14,7 @@
     },
     "status": {
         "error": "Błąd",
-        "loading": "Ładowanie listy Gier, proszę czekać"
+        "loading": "Ładowanie listy gier, proszę czekać"
     },
     "welcome": "Witaj!"
 }

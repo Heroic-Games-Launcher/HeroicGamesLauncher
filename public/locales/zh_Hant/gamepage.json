@@ -9,7 +9,7 @@
         "importpath": "選擇要導入的遊戲資料夾",
         "move": {
             "message": "這可能需要很長的時間，確定？",
-            "path": "選擇要移動的位置",
+            "path": "選擇要移動的目的地",
             "title": "移動遊戲安裝"
         },
         "no": "否",
@@ -23,7 +23,7 @@
             "title": "停止安裝"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
+            "checkbox": "您也要將此 prefix 容器一併移除嗎？這將不能被復原。",
             "checkbox_prefix": "Prefix",
             "message": "你希望將這個遊戲解除安裝嗎？",
             "title": "解除安裝"
@@ -32,37 +32,38 @@
             "message": "此遊戲有更新，你希望現在更新嗎？",
             "title": "遊戲需要更新"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "選擇WinePrefix資料夾",
         "yes": "是"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
-        "cancel": "取消",
+        "add_to_favourites": "加入我的最愛",
+        "cancel": "暫停/取消",
         "continue": "繼續下載",
+        "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "導入",
         "install": "安裝",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "自我的最愛移除",
+        "unhide_game": "取消隱藏遊戲",
         "uninstall": "解除安裝",
         "update": "更新"
     },
     "disabled": "已禁用",
     "dlc": {
-        "installDlcs": "Install all DLCs"
+        "installDlcs": "安裝所有DLC"
     },
     "enabled": "已啟用",
     "game": {
-        "downloadSize": "Download Size",
+        "downloadSize": "下載大小",
         "firstPlayed": "首次遊玩",
-        "info": "Info",
-        "installSize": "Install Size",
-        "language": "Language",
+        "info": "資訊",
+        "installSize": "安裝大小",
+        "language": "語言",
         "lastPlayed": "上次遊玩",
         "neverPlayed": "從未遊玩",
-        "platform": "Select Platform Version to Install",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "platform": "選擇要安裝的平台版本",
+        "reuirements": "系統需求",
+        "tools": "工具",
         "totalPlayed": "遊玩時間"
     },
     "gamecard": {
@@ -70,24 +71,24 @@
         "repairing": "修復中"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "未知的錯誤"
     },
     "info": {
-        "canRunOffline": "Online Required",
-        "installedPlatform": "Installed Platform",
+        "canRunOffline": "需要連線至網路",
+        "installedPlatform": "已安裝平台",
         "path": "安裝路徑",
         "size": "大小",
         "syncsaves": "同步存檔",
         "version": "版本"
     },
     "install": {
-        "disk-space-left": "Space Available",
-        "not-enough-disk-space": "Not enough disk space",
-        "path": "Select Install Path",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
-        "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "disk-space-left": "可用空間",
+        "not-enough-disk-space": "空間不足",
+        "path": "選擇安裝路徑",
+        "path-not-writtable": "警告：路徑可能不可寫入。",
+        "space-after-install": "安裝後",
+        "wineprefix": "WinePrefix容器",
+        "wineversion": "Wine版本"
     },
     "label": {
         "playing": {
@@ -99,15 +100,15 @@
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "啟動選項..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "回報執行此遊戲時出現的問題",
     "sdl": {
-        "title": "Select components to Install"
+        "title": "選擇要安裝的元件"
     },
     "specs": {
-        "minimum": "最低配置",
-        "recommended": "建議配置"
+        "minimum": "最低配備",
+        "recommended": "建議配備"
     },
     "status": {
         "clickToUpdate": "點擊更新",
@@ -116,7 +117,7 @@
         "installing": "正在安裝",
         "moving": "正在移動，請稍等",
         "notinstalled": "未安裝此遊戲",
-        "processing": "Processing files, please wait",
+        "processing": "檔案處理中，請等待",
         "reparing": "遊戲修復中，請稍等",
         "totalDownloaded": "總共已下載",
         "updating": "遊戲更新中"

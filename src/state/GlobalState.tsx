@@ -33,9 +33,9 @@ import {
   libraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
+import { ipcRenderer } from 'src/helpers'
 
 const storage: Storage = window.localStorage
-const { ipcRenderer } = window.require('electron')
 
 const RTL_LANGUAGES = ['fa']
 
@@ -72,6 +72,7 @@ interface StateProps {
   refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
   showHidden: boolean
+  showFavourites: boolean
   favouriteGames: FavouriteGame[]
   recentGames: GameInfo[]
   theme: string
@@ -79,6 +80,7 @@ interface StateProps {
   contentFontFamily: string
   actionsFontFamily: string
   allTilesInColor: boolean
+  sidebarCollapsed: boolean
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -131,6 +133,10 @@ export class GlobalState extends PureComponent<Props> {
     hiddenGames:
       (configStore.get('games.hidden', []) as Array<HiddenGame>) || [],
     showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
+    showFavourites: JSON.parse(storage.getItem('show_favorites') || 'false'),
+    sidebarCollapsed: JSON.parse(
+      storage.getItem('sidebar_collapsed') || 'false'
+    ),
     favouriteGames:
       (configStore.get('games.favourites', []) as Array<FavouriteGame>) || [],
     recentGames: [],
@@ -184,6 +190,14 @@ export class GlobalState extends PureComponent<Props> {
 
   setShowHidden = (value: boolean) => {
     this.setState({ showHidden: value })
+  }
+
+  setShowFavourites = (value: boolean) => {
+    this.setState({ showFavourites: value })
+  }
+
+  setSideBarCollapsed = (value: boolean) => {
+    this.setState({ sidebarCollapsed: value })
   }
 
   hideGame = (appNameToHide: string, appTitle: string) => {
@@ -491,48 +505,57 @@ export class GlobalState extends PureComponent<Props> {
       this.handleCategory('legendary')
     }
     // Deals launching from protocol. Also checks if the game is already running
-    ipcRenderer.on('launchGame', async (e, appName, runner) => {
-      const currentApp = libraryStatus.filter(
-        (game) => game.appName === appName
-      )[0]
-      if (!currentApp) {
-        // Add finding a runner for games
-        const hasUpdate = this.state.gameUpdates?.includes(appName)
-        return launch({ appName, t, runner, hasUpdate })
+    ipcRenderer.on(
+      'launchGame',
+      async (e: Event, appName: string, runner: Runner) => {
+        const currentApp = libraryStatus.filter(
+          (game) => game.appName === appName
+        )[0]
+        if (!currentApp) {
+          // Add finding a runner for games
+          const hasUpdate = this.state.gameUpdates?.includes(appName)
+          return launch({ appName, t, runner, hasUpdate })
+        }
       }
-    })
+    )
 
     // TODO: show the install modal instead of just installing like this since it has no options to choose
-    ipcRenderer.on('installGame', async (e, args) => {
-      const currentApp = libraryStatus.filter(
-        (game) => game.appName === appName
-      )[0]
-      const { appName, installPath, runner } = args
-      if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
-        return install({
-          appName,
-          handleGameStatus: this.handleGameStatus,
-          installPath,
-          isInstalling: false,
-          previousProgress: null,
-          progress: {
-            bytes: '0.00MiB',
-            eta: '00:00:00',
-            percent: 0
-          },
-          t,
-          runner,
-          platformToInstall: 'Windows'
-        })
+    ipcRenderer.on(
+      'installGame',
+      async (
+        e: Event,
+        args: { appName: string; installPath: string; runner: Runner }
+      ) => {
+        const currentApp = libraryStatus.filter(
+          (game) => game.appName === appName
+        )[0]
+        const { appName, installPath, runner } = args
+        if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
+          return install({
+            appName,
+            handleGameStatus: this.handleGameStatus,
+            installPath,
+            isInstalling: false,
+            previousProgress: null,
+            progress: {
+              bytes: '0.00MiB',
+              eta: '00:00:00',
+              percent: 0
+            },
+            t,
+            runner,
+            platformToInstall: 'Windows'
+          })
+        }
       }
-    })
+    )
 
-    ipcRenderer.on('setGameStatus', async (e, args: GameStatus) => {
+    ipcRenderer.on('setGameStatus', async (e: Event, args: GameStatus) => {
       const { libraryStatus } = this.state
       this.handleGameStatus({ ...libraryStatus, ...args })
     })
 
-    ipcRenderer.on('refreshLibrary', async (e, runner) => {
+    ipcRenderer.on('refreshLibrary', async (e: Event, runner: Runner) => {
       this.refreshLibrary({
         checkForUpdates: false,
         fullRefresh: true,
@@ -587,7 +610,9 @@ export class GlobalState extends PureComponent<Props> {
       layout,
       category,
       showHidden,
-      libraryTopSection
+      libraryTopSection,
+      showFavourites,
+      sidebarCollapsed
     } = this.state
 
     storage.setItem('category', category)
@@ -595,6 +620,8 @@ export class GlobalState extends PureComponent<Props> {
     storage.setItem('layout', layout)
     storage.setItem('updates', JSON.stringify(gameUpdates))
     storage.setItem('show_hidden', JSON.stringify(showHidden))
+    storage.setItem('show_favorites', JSON.stringify(showFavourites))
+    storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
     storage.setItem('library_top_section', libraryTopSection)
 
     const pendingOps = libraryStatus.filter(
@@ -643,6 +670,7 @@ export class GlobalState extends PureComponent<Props> {
             remove: this.unhideGame
           },
           setShowHidden: this.setShowHidden,
+          setShowFavourites: this.setShowFavourites,
           favouriteGames: {
             list: this.state.favouriteGames,
             add: this.addGameToFavourites,
@@ -653,7 +681,8 @@ export class GlobalState extends PureComponent<Props> {
           setZoomPercent: this.setZoomPercent,
           setContentFontFamily: this.setContentFontFamily,
           setActionsFontFamily: this.setActionsFontFamily,
-          setAllTilesInColor: this.setAllTilesInColor
+          setAllTilesInColor: this.setAllTilesInColor,
+          setSideBarCollapsed: this.setSideBarCollapsed
         }}
       >
         {this.props.children}

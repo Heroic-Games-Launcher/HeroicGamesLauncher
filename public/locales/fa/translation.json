@@ -1,9 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "خانواده فونت اعمال (پیش فرض: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
+        "all_tiles_in_color": "نمایش رنگی تمام کاشی های بازی",
         "content_font_family": "خانواده فونت محتوا (پیش فرض: \"Cabin\")",
-        "fonts": "Fonts",
+        "fonts": "فونت ها",
         "title": "دسترسی ها",
         "zoom": "زوم"
     },
@@ -25,8 +25,8 @@
                 "message": "اعتبار ورود شما منقضی شده است، لطفا دوباره خارج شده و داخل شوید."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "باتل CrossOver \"{{bottle_name}}\" موجود نمی باشد، نمیتوان اجرا کرد!",
+                "title": "باتل CrossOver یافت نشد"
             },
             "diskspace": {
                 "message": "فضای ذخیره سازی کافی موجود نیست",
@@ -37,7 +37,7 @@
                 "title": "خطای DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "به نظر می رسد پوشه بازی حذف شده است،‌آیا می خواهید بازی از لیست نصب شده ها حذف شود؟"
             },
             "generic": {
                 "message": "",
@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "نسخه ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
                 "title": "Wine یافت نشد"
+            },
+            "zstd": {
+                "message": "ZSTD یافت نشد، لطفا آن را نصب کرده و Heroic را مجددا راه اندازی کنید",
+                "title": "فقدان وابستگی"
             }
         },
         "info": {
@@ -118,18 +122,24 @@
         "syncing": "در حال همگام سازی",
         "unsync": "عدم همگام سازی"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویسهای آنلاین ممکن است کار نکنند!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "اپیک گیمز",
     "favourites": "علاقه مندی ها",
+    "game": {
+        "status": "Status",
+        "store": "فروشگاه",
+        "title": "عنوان بازی"
+    },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "بازی یافت نشد - خروج از حساب و ورود مجدد را امتحان کرده یا یکی از گزینه های زیر را امتحان کنید"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "تازه سازی کتابخانه"
         }
     },
     "globalSettings": "تنظیمات عمومی",
@@ -138,9 +148,17 @@
     "header": {
         "ignore_hidden": "نادیده گرفتن موارد پنهان",
         "platform": "پلتفرم",
-        "show_hidden": "نمایش موارد پنهان"
+        "show_all_games": "نمایش همه بازی ها",
+        "show_favourites_only": "نمایش مورد علاقه ها",
+        "show_hidden": "نمایش موارد پنهان",
+        "store": "فیلتر فروشگاه"
     },
     "help": {
+        "game_language": {
+            "fallback": "برای استفاده از زبان Heroic خالی بگذارید.",
+            "in_game_config": "تمام بازی ها از این پیکربندی پشتیبانی نمی کنند،‌برخی تنظیمات زبان داخل بازی دارند.",
+            "valid_codes": "کدهای معتبر زبان وابسته به بازی هستند."
+        },
         "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGL همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
         "other": {
             "part1": "استفاده از ",
@@ -166,7 +184,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "تنظیمات به صورت خودکار ذخیره شدند"
+        "settings": "تنظیمات به صورت خودکار ذخیره شدند",
+        "version": "نسخه Wine"
     },
     "infobox": {
         "help": "راهنما",
@@ -195,8 +214,6 @@
         "sync": "همگامسازی کامل شد",
         "unsync": "عدم همگامسازی کامل شد"
     },
-    "Missing Dependency": "",
-    "nogames": "بازی یافت نشد",
     "notify": {
         "error": {
             "move": "خطا در جابهجا کردن بازی",
@@ -213,8 +230,9 @@
             "startInstall": "نصب آغاز شد"
         },
         "moved": "انتقال کامل شد",
+        "moving": "در حال انتقال بازی",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "امکان دریافت نسخه از آپ استریم گیت هاب نیست! بعدا تلاش کنید."
         },
         "uninstalled": "حذف شد",
         "update": {
@@ -241,7 +259,8 @@
     "placeholder": {
         "alt-gogdl-bin": "استفاده از باینری GOGDL داخلی...",
         "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
-        "egs-prefix": "محل نصب شده EGS"
+        "egs-prefix": "محل نصب شده EGS",
+        "prefered_language": "کد دو حرفی (مانند \"en\" یا \"fr\")"
     },
     "platforms": {
         "linux": "لینوکس",
@@ -251,7 +270,7 @@
     "Plugins": "افزونهها",
     "Projects": "پروژهها",
     "Recent": "اخیرا بازی شده",
-    "search": "نام بازی را اینجا وارد کنید...",
+    "search": "جست و جو برای بازی ها",
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
@@ -268,6 +287,7 @@
         "defaultWinePrefix": "تنظیم پوشه برای Wine Prefix جدید",
         "disable_controller": "غیر فعال کردن کنترل Heroic با استفاده از دسته",
         "discordRPC": "فعالسازی Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "همگامسازی با بازیهای اپیک نصب شده",
         "enableFSRHack": "فعالسازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
         "esync": "فعالسازی Esync",
@@ -305,6 +325,7 @@
         "maxworkers": "بیسترین تعداد ورکر هنگام دانلود",
         "minimize-on-launch": "کوچک کردن Heroic بعد از اجرای بازی",
         "offlinemode": "اجرای آفلاین بازی",
+        "prefered_language": "زبان ترجیحی (کد زبان)",
         "primerun": "استفاده از کارت گرافیک اختصاص یافته",
         "resizableBar": "فعالسازی Resizable BAR (فقط محصولات NVIDIA RTX 30xx)",
         "runexe": {
@@ -319,7 +340,7 @@
         "showUnrealMarket": "نمایش فروشگاه Unreal (نیازمند راهاندازی مجدد)",
         "start-in-tray": "شروع در حالت پسزمینه",
         "steamruntime": "استفاده از Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "CrossOver باتل",
         "wineprefix": "پوشه محل Wine",
         "wineversion": "نسخه Wine"
     },
@@ -337,12 +358,18 @@
             "other": "بقیه",
             "sync": "همگامسازی ذخیرهها"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "باز کردن فایل پیکربندی",
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "تنظیمات",
+    "sidebar": {
+        "collapse": "بستن ساید بار",
+        "uncollapse": "باز کردن سایدبار"
+    },
     "status": {
-        "logging": "در حال وارد شدن..."
+        "installing": "در حال نصب",
+        "logging": "در حال وارد شدن...",
+        "processing": "در حال پردازش فایلها، لطفا منتظر بمانید"
     },
     "store": "فروشگاه اپیک",
     "stores": "فروشگاهها",
@@ -363,14 +390,12 @@
         "addpath": "افزودن مسیر جدید",
         "removepath": "حذف مسیر"
     },
-    "Total Games": "همه بازیها",
     "tray": {
         "about": "درباره",
         "quit": "خروج",
         "reload": "بارگیری مجدد",
         "show": "نمایش"
     },
-    "Unreal Marketplace": "بازار Unreal",
     "userselector": {
         "discord": "Discord",
         "logout": "خروج از حساب",
@@ -386,14 +411,15 @@
             "reload": "تازه کردن صفحه"
         }
     },
-    "wiki": "ویکی",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "نمیتوان در این زمان نسخههای Wine/Proton را به دست آورد.",
             "link": "مدیریت Wine",
             "title": "مدیریت کننده Wine",
             "unzipping": "در حال خارج کردن از حالت فشرده"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "اندازه"
+    }
 }

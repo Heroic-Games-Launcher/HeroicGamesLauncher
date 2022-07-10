@@ -7,6 +7,7 @@ import {
 import classNames from 'classnames'
 import { IpcRenderer, Clipboard } from 'electron'
 import { useTranslation } from 'react-i18next'
+import { ToggleSwitch } from 'src/components/UI'
 import React, { useEffect, useState } from 'react'
 import { AppSettings, Path } from 'src/types'
 import { configStore } from 'src/helpers/electronStores'
@@ -24,16 +25,20 @@ const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
 interface Props {
   altLegendaryBin: string
   altGogdlBin: string
+  downloadNoHttps: boolean
   setAltLegendaryBin: (value: string) => void
   setAltGogdlBin: (value: string) => void
+  toggleDownloadNoHttps: () => void
   settingsToSave: AppSettings
 }
 
 export const AdvancedSettings = ({
   altLegendaryBin,
   altGogdlBin,
+  downloadNoHttps,
   setAltLegendaryBin,
   setAltGogdlBin,
+  toggleDownloadNoHttps,
   settingsToSave
 }: Props) => {
   const [legendaryVersion, setLegendaryVersion] = useState('')
@@ -210,13 +215,23 @@ export const AdvancedSettings = ({
         }
       />
 
+      <ToggleSwitch
+        htmlId="downloadNoHttps"
+        value={downloadNoHttps}
+        handleChange={toggleDownloadNoHttps}
+        title={t(
+          'setting.download-no-https',
+          'Download games without HTTPS (useful for CDNs e.g. LanCache)'
+        )}
+      />
+
       <div className="footerFlex">
         <button
           className={classNames('button', 'is-footer', {
             isSuccess: isCopiedToClipboard
           })}
           onClick={() => {
-            clipboard.writeText(JSON.stringify({ ...settingsToSave }))
+            clipboard.writeText(JSON.stringify({ ...settingsToSave }, null, 2))
             setCopiedToClipboard(true)
           }}
         >

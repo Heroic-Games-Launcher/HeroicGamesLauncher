@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "Sinkroniziranje",
         "unsync": "Desinkroniziraj"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Heroic vjerojatno neče raditi zato što EpicGames serveri su ugašeni!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
     "favourites": "Favourites",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,9 +148,17 @@
     "header": {
         "ignore_hidden": "Ignore Hidden",
         "platform": "Platforma",
-        "show_hidden": "Show Hidden"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Show Hidden",
+        "store": "Filter Store"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "Sinkronizira sa EGL ako imaš instalaciju EpicGames Launcher-a negdje drugdje i želiš uvesti igrice bez ponovnog preuzimanja.",
         "other": {
             "part1": "Koristi ",
@@ -164,39 +182,38 @@
     },
     "info": {
         "heroic": {
-            "version": "Heroic Version"
+            "version": "Heroic verzija"
         },
-        "settings": "Postavke se automatski spremaju"
+        "settings": "Postavke se automatski spremaju",
+        "version": "Wine verzija"
     },
     "infobox": {
         "help": "Pomoč",
         "requirements": "Zahtjevi sustava"
     },
     "install": {
-        "path": "Odaberite put instalacije"
+        "path": "Odaberi stazu instalacije"
     },
     "library": {
-        "gridView": "Pogled Rešetke",
-        "listView": "Pogled Liste",
+        "gridView": "Pločasto",
+        "listView": "Popis",
         "refresh": "Osvježi",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "Razvrstaj uzlazno",
+        "sortByStatus": "Razvrstaj po stanju",
+        "sortDescending": "Razvrstaj silazno"
     },
-    "Library": "Knižnjica",
+    "Library": "Biblioteka",
     "loading": {
         "default": "Učitavanje",
-        "website": "Loading Website"
+        "website": "Učitavanje web-stranice"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "Vanjska prijava"
     },
     "message": {
         "sync": "Sinkroniziranje završeno",
-        "unsync": "Desinkronizacija završena"
+        "unsync": "Desinkroniziranje završeno"
     },
-    "Missing Dependency": "",
-    "nogames": "Igrice nisu pronađene",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -213,6 +230,7 @@
             "startInstall": "Installation Started"
         },
         "moved": "Premještanje gotovo",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -241,7 +259,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
-        "egs-prefix": "Put gdje je EGS instaliran"
+        "egs-prefix": "Put gdje je EGS instaliran",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -251,7 +270,7 @@
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Recent": "Played Recently",
-    "search": "Upiši ime igrice ovdje...",
+    "search": "Traži igre",
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
@@ -268,6 +287,7 @@
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Enable Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Sinkroniziraj sa instaliranim Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "esync": "Enable Esync",
@@ -305,6 +325,7 @@
         "maxworkers": "Maksimalan broj radnika za preuzimanje",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "Pokreni igrice bez pristupa internetu",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "Use Dedicated Graphics Card",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
@@ -332,7 +353,7 @@
         },
         "navbar": {
             "advanced": "Advanced",
-            "general": "Generalno",
+            "general": "Općenito",
             "log": "Log",
             "other": "Ostalo",
             "sync": "Spremi-Podatke"
@@ -341,8 +362,14 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "Postavke",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "Logging In..."
+        "installing": "Instaliranje u tijeku",
+        "logging": "Logging In...",
+        "processing": "Obrada datoteka, pričekaj"
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -363,14 +390,12 @@
         "addpath": "Add New Path",
         "removepath": "Remove Path"
     },
-    "Total Games": "Sveukupno igrica",
     "tray": {
         "about": "About",
         "quit": "Quit",
         "reload": "Reload",
         "show": "Pokaži"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Logout",
@@ -386,14 +411,15 @@
             "reload": "Osvježi stranicu"
         }
     },
-    "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

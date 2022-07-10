@@ -9,7 +9,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
 import classNames from 'classnames'
-import { IpcRenderer } from 'electron'
 
 import React, {
   useCallback,
@@ -57,10 +56,7 @@ import './index.css'
 
 import { SDL_GAMES, SelectiveDownload } from './selective_dl'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+import { ipcRenderer } from 'src/helpers'
 type Props = {
   appName: string
   backdropClick: () => void
@@ -253,7 +249,7 @@ export default function InstallModal({
         }
         const { message, free, validPath } = await ipcRenderer.invoke(
           'checkDiskSpace',
-          installPath
+          installPath === 'default' ? config.defaultInstallPath : installPath
         )
         if (gameInstallInfo?.manifest?.disk_size) {
           let notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
@@ -382,12 +378,14 @@ export default function InstallModal({
         )
         if (Array.isArray(newWineList)) {
           setWineVersionList(newWineList)
-          if (
-            !newWineList.some(
-              (newWine) => wineVersion && newWine.bin === wineVersion.bin
-            )
-          ) {
-            setWineVersion(undefined)
+          if (wineVersion?.bin) {
+            if (
+              !newWineList.some(
+                (newWine) => wineVersion && newWine.bin === wineVersion.bin
+              )
+            ) {
+              setWineVersion(undefined)
+            }
           }
         }
       })()

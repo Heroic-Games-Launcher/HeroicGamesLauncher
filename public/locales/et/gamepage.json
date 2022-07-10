@@ -39,6 +39,7 @@
         "add_to_favourites": "Lisa lemmikute hulka",
         "cancel": "Peata/Tühista",
         "continue": "Jätka allalaadimist",
+        "force_update": "Force Update if Available",
         "hide_game": "Peida mäng",
         "import": "Impordi mäng",
         "install": "Paigalda",
@@ -61,8 +62,8 @@
         "lastPlayed": "Viimati mängitud",
         "neverPlayed": "Mitte kunagi",
         "platform": "Valige paigaldatava platvormi versioon",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "Süsteeminõuded",
+        "tools": "Tööriistad",
         "totalPlayed": "Mängitud aeg"
     },
     "gamecard": {
@@ -70,7 +71,7 @@
         "repairing": "Parandamine"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Teadmata viga"
     },
     "info": {
         "canRunOffline": "Võrguühendus nõutud",
@@ -84,7 +85,7 @@
         "disk-space-left": "Vaba ruumi",
         "not-enough-disk-space": "Ei ole piisavalt kettaruumi",
         "path": "Valige paigaldustee",
-        "path-not-writtable": "Warning: path might not be writable.",
+        "path-not-writtable": "Hoiatus: tee ei pruugi olla kirjutatav.",
         "space-after-install": "Pärast paigaldamist",
         "wineprefix": "WinePrefiks",
         "wineversion": "Wine'i versioon"

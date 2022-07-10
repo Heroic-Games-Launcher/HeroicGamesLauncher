@@ -39,6 +39,7 @@
         "add_to_favourites": "Přidat do oblíbených",
         "cancel": "Zrušit",
         "continue": "Pokračovat ve stahování",
+        "force_update": "Force Update if Available",
         "hide_game": "Skrýt hru",
         "import": "Importovat Hru",
         "install": "Instalovat",
@@ -116,7 +117,7 @@
         "installing": "Instaluji",
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
-        "processing": "Zpracovávám soubory, prosím počkejte",
+        "processing": "Zpracovávám soubory, čekejte prosím",
         "reparing": "Opravuji hru, čekejte prosím",
         "totalDownloaded": "Celkově staženo",
         "updating": "Aktualizuji hru"

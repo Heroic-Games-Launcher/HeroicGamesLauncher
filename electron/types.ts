@@ -22,6 +22,7 @@ export interface AppSettings {
   defaultInstallPath: string
   disableController: boolean
   discordRPC: boolean
+  downloadNoHttps: boolean
   egsLinkedPath: string
   exitToTray: boolean
   enableEsync: boolean
@@ -57,14 +58,6 @@ export type ExecResult = {
   stdout: string
   fullCommand?: string
   error?: string
-}
-
-export type LaunchResult = {
-  success: boolean
-  stdout: string
-  stderr: string
-  gameSettings: GameSettings
-  command?: string
 }
 
 export interface ExtraInfo {
@@ -145,6 +138,7 @@ export interface GameSettings {
   enableFsync: boolean
   enableResizableBar: boolean
   maxSharpness: number
+  language: string
   launcherArgs: string
   nvidiaPrime: boolean
   offlineMode: boolean
@@ -364,4 +358,12 @@ export interface RpcClient {
   updatePresence(d: unknown): void
   reply(user: unknown, response: unknown): void
   disconnect(): void
+}
+
+export interface CallRunnerOptions {
+  logMessagePrefix?: string
+  logFile?: string
+  env?: Record<string, string>
+  wrappers?: string[]
+  onOutput?: (output: string) => void
 }

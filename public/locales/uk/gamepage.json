@@ -39,6 +39,7 @@
         "add_to_favourites": "Додати до вподобань",
         "cancel": "Призупинити/Скасувати",
         "continue": "Продовжити завантаження",
+        "force_update": "Force Update if Available",
         "hide_game": "Приховати гру",
         "import": "Імпортувати гру",
         "install": "Встановити",
@@ -60,8 +61,8 @@
         "language": "Мова",
         "lastPlayed": "Востаннє зіграно",
         "neverPlayed": "Ніколи",
-        "platform": "Оберіть версію якої ОС встановити",
-        "reuirements": "Вимоги до системи",
+        "platform": "Оберіть версію платформи для встановлення",
+        "reuirements": "Системні вимоги",
         "tools": "Інструменти",
         "totalPlayed": "Зіграно часу"
     },

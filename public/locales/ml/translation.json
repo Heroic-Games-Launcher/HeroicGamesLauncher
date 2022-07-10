@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            },
+            "zstd": {
+                "message": "ZSTD was not found, please install it and restart Heroic",
+                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
         "unsync": "പിരിക്കൂ"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "എപിക് ഗെയിംസ്",
     "favourites": "Favourites",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,9 +148,17 @@
     "header": {
         "ignore_hidden": "Ignore Hidden",
         "platform": "",
-        "show_hidden": "Show Hidden"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Show Hidden",
+        "store": "Filter Store"
     },
     "help": {
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
         "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടീല് മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില് നിങ്ങളുടെ കളികള് വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
         "other": {
             "part1": "കളി ഓടിക്കുന്നതിനുമുന്പുള്ള വിളികള്ക്കായി ",
@@ -166,7 +184,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "ക്രമീകരണങ്ങള് താനെ സൂക്ഷിക്കപ്പെട്ടിരിക്കുന്നു"
+        "settings": "ക്രമീകരണങ്ങള് താനെ സൂക്ഷിക്കപ്പെട്ടിരിക്കുന്നു",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "സഹായിക്കൂ",
@@ -195,8 +214,6 @@
         "sync": "ഒന്നിപ്പിച്ചു",
         "unsync": "പിരിച്ചു"
     },
-    "Missing Dependency": "",
-    "nogames": "കളികളൊന്നും കണ്ടെത്തിയില്ല",
     "notify": {
         "error": {
             "move": "കളി നീക്കുന്നതില് പിഴവു പറ്റി",
@@ -213,6 +230,7 @@
             "startInstall": "നടീല് തുടങ്ങി"
         },
         "moved": "മാറ്റിക്കഴിഞ്ഞു",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -241,7 +259,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "തനത് ലെജന്ററി ഈരക്കരേഖ ഉപയോഗിക്കുന്നു...",
-        "egs-prefix": "EGS സ്ഥാപിച്ചയിടം"
+        "egs-prefix": "EGS സ്ഥാപിച്ചയിടം",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "",
@@ -268,6 +287,7 @@
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "ഡിസ്കോര്ഡ് റിച്ച് പ്രെസന്സ് വക്കൂ",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "സ്ഥാപിച്ച എപിക് ഗെയിംസുമായി ഒന്നിപ്പിക്കുക",
         "enableFSRHack": "എഫ്എസ്ആര് ഹാക്ക് വയ്ക്കൂ (Wine version needs to support it)",
         "esync": "Esync വയ്ക്കൂ",
@@ -305,6 +325,7 @@
         "maxworkers": "ഇറക്കിയെടുക്കുമ്പോള് പണിയുന്നവരുടെ പരമാവധി എണ്ണം",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "ഓഫ്ലൈനില് കളിക്കുക",
+        "prefered_language": "Prefered Language (Language Code)",
         "primerun": "എന്വിഡിയ പ്രൈം റെന്റര് വയ്ക്കൂ",
         "resizableBar": "വലുപ്പം മാറ്റാവുന്ന BAR വയ്ക്കൂ (എന്വിഡിയ RTX 30xxനു മാത്രം)",
         "runexe": {
@@ -341,8 +362,14 @@
         "reset-heroic": "Reset Heroic"
     },
     "Settings": "ക്രമീകരണങ്ങള്",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "Logging In..."
+        "installing": "Installing",
+        "logging": "Logging In...",
+        "processing": "Processing files, please wait"
     },
     "store": "കട",
     "stores": "Stores",
@@ -363,14 +390,12 @@
         "addpath": "പുതിയ ഇടം ചേര്ക്കുക",
         "removepath": "ഇടം നീക്കുക"
     },
-    "Total Games": "ആകെ കളികള്",
     "tray": {
         "about": "ഇതിനെക്കുറിച്ച്",
         "quit": "പുറത്തുകടക്കുക",
         "reload": "വീണ്ടും എടുക്കൂ",
         "show": "കാണിക്കൂ"
     },
-    "Unreal Marketplace": "അണ്റിയല് ചന്ത",
     "userselector": {
         "discord": "ഡിസ്കോഡ഻്",
         "logout": "ഇറങ്ങൂ(ലോഗൌട്ട്)",
@@ -386,14 +411,15 @@
             "reload": ""
         }
     },
-    "wiki": "അറിവിന്കൂട്ടം",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

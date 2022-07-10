@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './index.css'
-import EpicLogo from '../../assets/epic-logo.svg'
 import Runner from './components/Runner'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
-import GOGLogo from 'src/assets/gog-logo.svg'
+import { ReactComponent as EpicLogo } from 'src/assets/epic-logo.svg'
+import { ReactComponent as GOGLogo } from 'src/assets/gog-logo.svg'
+
 import { LanguageSelector, UpdateComponent } from 'src/components/UI'
 import { FlagPosition } from 'src/components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
@@ -51,7 +52,7 @@ export default function NewLogin() {
           <Runner
             class="epic"
             loginUrl="/loginweb/legendary"
-            icon={() => <img src={EpicLogo} alt="Epic" />}
+            icon={() => <EpicLogo />}
             isLoggedIn={isEpicLoggedIn}
             user={epic.username}
             logoutAction={epic.logout}
@@ -61,7 +62,7 @@ export default function NewLogin() {
           />
           <Runner
             class="gog"
-            icon={() => <img src={GOGLogo} alt="GOG" />}
+            icon={() => <GOGLogo />}
             loginUrl="/loginweb/gog"
             isLoggedIn={isGogLoggedIn}
             user={gog.username}

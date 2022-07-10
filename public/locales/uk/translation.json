@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Не обрана версія Wine. Перевірте налаштування гри!",
                 "title": "Wine не знайдено"
+            },
+            "zstd": {
+                "message": "ZSTD не знайдено, будь ласка, встановіть його і перезапустіть Heroic",
+                "title": "Залежність відсутня"
             }
         },
         "info": {
@@ -118,12 +122,18 @@
         "syncing": "Синхронізую",
         "unsync": "Десинхронізувати"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Heroic ймовірно не працюватиме!",
         "offline-notification-title": "офлайн"
     },
     "Epic Games": "Epic Games",
     "favourites": "Уподобання",
+    "game": {
+        "status": "Status",
+        "store": "Магазин",
+        "title": "Назва гри"
+    },
     "generic": {
         "error": {
             "component": "Ігри не знайдено - Спробуйте вийти та увійти наново або один із варіантів нижче"
@@ -138,9 +148,17 @@
     "header": {
         "ignore_hidden": "Ігнорувати приховане",
         "platform": "Платформа",
-        "show_hidden": "Показати приховане"
+        "show_all_games": "Показати всі ігри",
+        "show_favourites_only": "Показати лише вподобання",
+        "show_hidden": "Показати приховане",
+        "store": "Фільтр магазина"
     },
     "help": {
+        "game_language": {
+            "fallback": "Залиште порожнім для використання мови Heroic.",
+            "in_game_config": "Не всі ігри підтримують цю конфігурацію, деякі мають налаштування мови всередині гри.",
+            "valid_codes": "Прийнятні коди мов залежать від гри."
+        },
         "general": "Синхронізувати з EGL якщо ви маєте встановлений Epic Games Launcher і хочете імпортувати ігри уникнувши їх повторного завантаження.",
         "other": {
             "part1": "Використовуйте ",
@@ -166,7 +184,8 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Налаштування збережені автоматично"
+        "settings": "Налаштування збережені автоматично",
+        "version": "Версія Wine"
     },
     "infobox": {
         "help": "Допомога",
@@ -195,8 +214,6 @@
         "sync": "Синхронізація завершена",
         "unsync": "Десинхронізація завершена"
     },
-    "Missing Dependency": "",
-    "nogames": "Не знайдено ігор",
     "notify": {
         "error": {
             "move": "Помилка під час переміщення гри",
@@ -213,6 +230,7 @@
             "startInstall": "Розпочалось встановлення"
         },
         "moved": "Переміщення завершене",
+        "moving": "Переміщення гри",
         "refresh": {
             "error": "Не вдалося отримати версію з джерела, можливо, через обмеження API Github! Спробуйте пізніше."
         },
@@ -241,7 +259,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Використання вбудованого GOGDL-файлу...",
         "alt-legendary-bin": "Використовую вбудований двійковий Legendary...",
-        "egs-prefix": "Префікс де встановлено EGS"
+        "egs-prefix": "Префікс де встановлено EGS",
+        "prefered_language": "2-значний код (приклад: \"en\" або \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -251,7 +270,7 @@
     "Plugins": "Плаґіни",
     "Projects": "Проєкти",
     "Recent": "Нещодавно зіграні",
-    "search": "Вкажіть тут назву гри...",
+    "search": "Пошук ігор",
     "setting": {
         "adddesktopshortcuts": "Створювати ярлики на робочому столі автоматично",
         "addgamestostartmenu": "Додавати ігри до головного меню автоматично",
@@ -268,6 +287,7 @@
         "defaultWinePrefix": "Обрати теку для нових префіксів Wine",
         "disable_controller": "Вимкнути навігацію Heroic за допомогою контролера",
         "discordRPC": "Ввімкнути Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Синхронізуватися із встановленим Epic Games Launcher",
         "enableFSRHack": "Ввімкнути FSR Hack (версія Wine має це підтримувати)",
         "esync": "Ввімкнути Esync",
@@ -305,6 +325,7 @@
         "maxworkers": "Максимальна кількість працівників при завантаженні",
         "minimize-on-launch": "Згортати Heroic після запуску гри",
         "offlinemode": "Запустити гру оффлайн",
+        "prefered_language": "Бажана мова (код мови)",
         "primerun": "Використовувати виділену відеокарту",
         "resizableBar": "Ввімкнути Resizable BAR (тільки NVIDIA RTX 30xx)",
         "runexe": {
@@ -341,8 +362,14 @@
         "reset-heroic": "Скинути Heroic"
     },
     "Settings": "Налаштування",
+    "sidebar": {
+        "collapse": "Згорнути бічну панель",
+        "uncollapse": "Розгорнути бічну панель"
+    },
     "status": {
-        "logging": "Заходжу..."
+        "installing": "Встановлюю",
+        "logging": "Заходжу...",
+        "processing": "Обробка файлів, будь ласка, зачекайте"
     },
     "store": "Магазин Епік",
     "stores": "Крамниці",
@@ -363,14 +390,12 @@
         "addpath": "Додати новий шлях",
         "removepath": "Вилучити шлях"
     },
-    "Total Games": "Ігор загалом",
     "tray": {
         "about": "Про застосунок",
         "quit": "Закрити",
         "reload": "Перезавантажити",
         "show": "Показати"
     },
-    "Unreal Marketplace": "Торговий майданчик Unreal",
     "userselector": {
         "discord": "Діскорд",
         "logout": "Вийти",
@@ -386,14 +411,15 @@
             "reload": "Перезавантажити сторінку"
         }
     },
-    "wiki": "Вікі",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Цього разу не вдалось отримати версії Wine/Proton.",
             "link": "Керування Wine",
             "title": "Керування Wine",
             "unzipping": "Розпаковую"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Розмір"
+    }
 }

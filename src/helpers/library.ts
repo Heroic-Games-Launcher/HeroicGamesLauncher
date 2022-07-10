@@ -6,15 +6,12 @@ import {
   PlatformToInstall,
   Runner
 } from 'src/types'
-import { IpcRenderer } from 'electron'
+
 import { TFunction } from 'react-i18next'
 import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
 import { configStore } from './electronStores'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+import { ipcRenderer } from 'src/helpers'
 const storage: Storage = window.localStorage
 
 type InstallArgs = {
@@ -284,14 +281,7 @@ const launch = async ({
     })
   }
 
-  return ipcRenderer
-    .invoke('launch', { appName, launchArguments, runner })
-    .then(async (err: string | string[]) => {
-      if (!err) {
-        return
-      }
-      return ipcRenderer.invoke('showErrorBox', ['Error', `${err}`])
-    })
+  return ipcRenderer.invoke('launch', { appName, launchArguments, runner })
 }
 
 const updateGame = async (appName: string, runner: Runner): Promise<void> =>

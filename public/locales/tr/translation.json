@@ -1,9 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Eylemler Yazı Tipi Ailesi (Öntanımlı: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
+        "all_tiles_in_color": "Tüm oyun karolarını renkli göster",
         "content_font_family": "İçerik Yazı Tipi Ailesi (Öntanımlı: \"Cabin\")",
-        "fonts": "Fonts",
+        "fonts": "Yazı Tipleri",
         "title": "Erişilebilirlik",
         "zoom": "Zoom"
     },
@@ -25,8 +25,8 @@
                 "message": "Kimlik bilgilerinizin süresi doldu, lütfen oturumunuzu kapatın ve tekrar oturum açın."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "\"{{bottle_name}}\" CrossOver şişesi mevcut değil, başlatılamıyor!",
+                "title": "CrossOver şişesi bulunamadı"
             },
             "diskspace": {
                 "message": "Yeterli kullanılabilir disk alanı yok",
@@ -37,7 +37,7 @@
                 "title": "DXVK/VKD3D hatası"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Oyun klasörü silinmiş görünüyor, oyunu kurulu listesinden kaldırmak istiyor musunuz?"
             },
             "generic": {
                 "message": "",
@@ -55,6 +55,10 @@
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
                 "title": "Wine Bulunamadı"
+            },
+            "zstd": {
+                "message": "ZSTD bulunamadı, lütfen kurun ve Heroic'i yeniden başlatın",
+                "title": "Eksik Bağımlılık"
             }
         },
         "info": {
@@ -118,18 +122,24 @@
         "syncing": "Eşzamanlanıyor",
         "unsync": "Eşzamanlamayı kaldır"
     },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Epic Games sunucuları çevrim dışı olduğundan çevrim içi hizmetler tam olarak çalışmayabilir!",
         "offline-notification-title": "çevrim dışı"
     },
     "Epic Games": "Epic Games",
     "favourites": "Favoriler",
+    "game": {
+        "status": "Status",
+        "store": "Mağaza",
+        "title": "Oyun Adı"
+    },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Oyun bulunamadı - Oturumu kapatıp tekrar açmayı veya aşağıdaki seçeneklerden birini deneyin"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Kütüphaneyi Yenile"
         }
     },
     "globalSettings": "Genel Ayarlar",
@@ -138,9 +148,17 @@
     "header": {
         "ignore_hidden": "Gizlileri Yoksay",
         "platform": "Platform",
-        "show_hidden": "Gizlileri Göster"
+        "show_all_games": "Tüm oyunları göster",
+        "show_favourites_only": "Yalnızca Favorileri göster",
+        "show_hidden": "Gizlileri Göster",
+        "store": "Mağazayı Filtrele"
     },
     "help": {
+        "game_language": {
+            "fallback": "Heroic'in dilini kullanmak için boş bırakın.",
+            "in_game_config": "Tüm oyunlar bu yapılandırmayı desteklemez, bazılarının oyun içi dil ayarı vardır.",
+            "valid_codes": "Geçerli dil kodları oyuna bağlıdır."
+        },
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
         "other": {
             "part1": "Oyun başlatılmadan önce çağırılması için ",
@@ -166,7 +184,8 @@
         "heroic": {
             "version": "Heroic Sürümü"
         },
-        "settings": "Ayarlar otomatik kaydedilir"
+        "settings": "Ayarlar otomatik kaydedilir",
+        "version": "Wine Sürümü"
     },
     "infobox": {
         "help": "Yardım",
@@ -195,8 +214,6 @@
         "sync": "Eşzamanlama Tamamlandı",
         "unsync": "Eşzamanlamayı Kaldırma Tamamlandı"
     },
-    "Missing Dependency": "",
-    "nogames": "Oyun Bulunamadı",
     "notify": {
         "error": {
             "move": "Oyunu Taşıma Hatası",
@@ -213,8 +230,9 @@
             "startInstall": "Kurulum Başladı"
         },
         "moved": "Taşıma Tamamlandı",
+        "moving": "Oyun Taşınıyor",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "Belki de Github API kısıtlamaları nedeniyle yukarı akıştan sürümler getirilemedi! Daha sonra tekrar deneyin."
         },
         "uninstalled": "Kaldırıldı",
         "update": {
@@ -241,7 +259,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Yerleşik GOGDL çalıştırılabilir dosyasını kullanılıyor...",
         "alt-legendary-bin": "Yerleşik Legendary çalıştırılabilir dosyası kullanılıyor...",
-        "egs-prefix": "EGS'nin kurulu olduğu yer"
+        "egs-prefix": "EGS'nin kurulu olduğu yer",
+        "prefered_language": "2 karakterli kod (örneğin: \"en\" veya \"tr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -251,7 +270,7 @@
     "Plugins": "Eklentiler",
     "Projects": "Projeler",
     "Recent": "Son Oynanan",
-    "search": "Buraya oyun adı girin...",
+    "search": "Oyun Ara",
     "setting": {
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
@@ -268,6 +287,7 @@
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
         "disable_controller": "Denetleyiciyi kullanarak Heroic gezinmesini devre dışı bırak",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
         "esync": "Esync'i Etkinleştir",
@@ -305,6 +325,7 @@
         "maxworkers": "İndirirken azami işçi sayısı",
         "minimize-on-launch": "Oyun Başlatıldıktan Sonra Heroic'i Simge Durumuna Küçült",
         "offlinemode": "Oyunu Çevrim Dışı Çalıştır",
+        "prefered_language": "Tercih Edilen Dil (Dil Kodu)",
         "primerun": "Özel Grafik Kartını Kullan",
         "resizableBar": "Resizable BAR'ı etkinleştir (yalnızca NVIDIA RTX 30xx)",
         "runexe": {
@@ -337,12 +358,18 @@
             "other": "Diğer",
             "sync": "Kaydet-Eşzamanla"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Yapılandırma Dosyasını Aç",
         "reset-heroic": "Heroic'i Sıfırla"
     },
     "Settings": "Ayarlar",
+    "sidebar": {
+        "collapse": "Kenar çubuğunu daralt",
+        "uncollapse": "Kenar çubuğunu genişlet"
+    },
     "status": {
-        "logging": "Oturum Açılıyor…"
+        "installing": "Kuruluyor",
+        "logging": "Oturum Açılıyor…",
+        "processing": "Dosyalar işleniyor, lütfen bekleyin"
     },
     "store": "Epic Mağazası",
     "stores": "Mağazalar",
@@ -363,14 +390,12 @@
         "addpath": "Yeni Yol Ekle",
         "removepath": "Yolu Kaldır"
     },
-    "Total Games": "Toplam Oyun",
     "tray": {
         "about": "Hakkında",
         "quit": "Çık",
         "reload": "Yenile",
         "show": "Göster"
     },
-    "Unreal Marketplace": "Unreal Mağazası",
     "userselector": {
         "discord": "Discord",
         "logout": "Oturumu kapat",
@@ -386,14 +411,15 @@
             "reload": "Sayfayı yeniden yükle"
         }
     },
-    "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Wine/Proton sürümleri bu defa alınamadı.",
             "link": "Wine Yöneticisi",
             "title": "Wine Yöneticisi",
             "unzipping": "Çıkartılıyor"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Boyut"
+    }
 }

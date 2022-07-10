@@ -1,3 +1,15 @@
+.wineList {
+  margin-top: 48px;
+}
+
+.wineList > .gameListHeader {
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+}
+
+.wineList > .gameListHeader span:nth-child(3) {
+  justify-self: center;
+}
+
 .wineManager
   > .MuiTabs-root
   > .MuiTabs-scroller

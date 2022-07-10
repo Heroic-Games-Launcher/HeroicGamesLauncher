@@ -18,6 +18,7 @@ export interface AppSettings {
   defaultInstallPath: string
   disableController: boolean
   discordRPC: boolean
+  downloadNoHttps: boolean
   egsLinkedPath: string
   exitToTray: boolean
   enableEsync: boolean
@@ -89,6 +90,8 @@ export interface ContextType {
   }
   showHidden: boolean
   setShowHidden: (value: boolean) => void
+  showFavourites: boolean
+  setShowFavourites: (value: boolean) => void
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number
@@ -111,6 +114,8 @@ export interface ContextType {
   }
   allTilesInColor: boolean
   setAllTilesInColor: (value: boolean) => void
+  setSideBarCollapsed: (value: boolean) => void
+  sidebarCollapsed: boolean
 }
 
 export type LibraryTopSectionOptions =
@@ -165,6 +170,7 @@ export interface GameSettings {
   enableFsync: boolean
   enableResizableBar: boolean
   maxSharpness: number
+  language: string
   launcherArgs: string
   nvidiaPrime: boolean
   offlineMode: boolean

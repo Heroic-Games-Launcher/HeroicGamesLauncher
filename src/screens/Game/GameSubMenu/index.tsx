@@ -3,7 +3,7 @@ import './index.css'
 import React, { useContext, useEffect, useState } from 'react'
 
 import { AppSettings, Runner } from 'src/types'
-import { IpcRenderer } from 'electron'
+
 import { SmallInfo } from 'src/components/UI'
 import { createNewWindow, getGameInfo, repair } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
@@ -11,9 +11,7 @@ import ContextProvider from 'src/state/ContextProvider'
 import { uninstall } from 'src/helpers/library'
 import { NavLink } from 'react-router-dom'
 
-const { ipcRenderer } = window.require('electron')
-
-const renderer: IpcRenderer = ipcRenderer
+import { ipcRenderer } from 'src/helpers'
 
 interface Props {
   appName: string
@@ -21,6 +19,8 @@ interface Props {
   title: string
   storeUrl: string
   runner: Runner
+  handleUpdate: () => void
+  disableUpdate: boolean
 }
 
 type otherInfo = {
@@ -33,7 +33,9 @@ export default function GamesSubmenu({
   isInstalled,
   title,
   storeUrl,
-  runner
+  runner,
+  handleUpdate,
+  disableUpdate
 }: Props) {
   const { handleGameStatus, refresh, platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
@@ -64,7 +66,7 @@ export default function GamesSubmenu({
       })
       if (path) {
         await handleGameStatus({ appName, runner, status: 'moving' })
-        await renderer.invoke('moveInstall', [appName, path, runner])
+        await ipcRenderer.invoke('moveInstall', [appName, path, runner])
         await handleGameStatus({ appName, runner, status: 'done' })
       }
     }
@@ -88,7 +90,7 @@ export default function GamesSubmenu({
         defaultPath: defaultInstallPath
       })
       if (path) {
-        await renderer.invoke('changeInstallPath', [appName, path, runner])
+        await ipcRenderer.invoke('changeInstallPath', [appName, path, runner])
         await refresh(runner)
       }
       return
@@ -164,6 +166,13 @@ export default function GamesSubmenu({
               className="link button is-text is-link"
             >
               {t('submenu.move')}
+            </button>{' '}
+            <button
+              onClick={async () => handleUpdate()}
+              className="link button is-text is-link"
+              disabled={disableUpdate}
+            >
+              {t('button.force_update', 'Force Update if Available')}
             </button>{' '}
             <button
               onClick={async () => handleChangeInstall()}

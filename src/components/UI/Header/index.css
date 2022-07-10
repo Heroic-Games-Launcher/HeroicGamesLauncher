@@ -3,11 +3,11 @@
   top: 0;
   z-index: 7;
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr min-content;
-  grid-template-areas: 'filters search summary hidden';
+  grid-template-columns: 330px 50%;
+  grid-template-areas: 'filters search';
   grid-gap: 8px;
-  align-items: center;
-  margin: 0 32px;
+  align-items: start;
+  margin: 0 32px 24px;
   padding: 15px 0;
   background: var(--gradient-body-background);
   color: var(--text-secondary);
@@ -15,18 +15,16 @@
 
 @media screen and (max-width: 1000px) {
   .Header {
-    grid-template-columns: 1fr min-content min-content;
+    grid-template-columns: 1fr min-content;
     grid-template-areas:
-      'search search search'
-      'filters summary hidden';
+      'search search'
+      'filters filters';
   }
 }
 
 .Header__filters {
   grid-area: filters;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
 }
 
 .Header__filters .FormControl {
@@ -35,6 +33,7 @@
 
 .Header__search {
   grid-area: search;
+  max-width: 700px;
 }
 
 .Header__search .FormControl {
