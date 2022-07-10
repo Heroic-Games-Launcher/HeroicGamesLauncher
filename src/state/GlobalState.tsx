@@ -454,7 +454,10 @@ export class GlobalState extends PureComponent<Props> {
     // add app to libraryStatus if it was not present
     if (!currentApp) {
       return this.setState({
-        libraryStatus: [...libraryStatus, { appName, status, folder, progress }]
+        libraryStatus: [
+          ...libraryStatus,
+          { appName, status, folder, progress, runner }
+        ]
       })
     }
 
@@ -598,6 +601,8 @@ export class GlobalState extends PureComponent<Props> {
         runInBackground: Boolean(epic.library.length)
       })
     }
+
+    ipcRenderer.send('frontendReady')
   }
 
   componentDidUpdate() {

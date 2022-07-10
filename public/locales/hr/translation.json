@@ -117,7 +117,7 @@
     },
     "button": {
         "go_to_library": "Go to Library",
-        "login": "Login",
+        "login": "Prijava",
         "sync": "Sinkroniziraj",
         "syncing": "Sinkroniziranje",
         "unsync": "Desinkroniziraj"
@@ -182,37 +182,37 @@
     },
     "info": {
         "heroic": {
-            "version": "Heroic Version"
+            "version": "Heroic verzija"
         },
         "settings": "Postavke se automatski spremaju",
-        "version": "Wine Version"
+        "version": "Wine verzija"
     },
     "infobox": {
         "help": "Pomoč",
         "requirements": "Zahtjevi sustava"
     },
     "install": {
-        "path": "Odaberite put instalacije"
+        "path": "Odaberi stazu instalacije"
     },
     "library": {
-        "gridView": "Pogled Rešetke",
-        "listView": "Pogled Liste",
+        "gridView": "Pločasto",
+        "listView": "Popis",
         "refresh": "Osvježi",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortAscending": "Razvrstaj uzlazno",
+        "sortByStatus": "Razvrstaj po stanju",
+        "sortDescending": "Razvrstaj silazno"
     },
-    "Library": "Knižnjica",
+    "Library": "Biblioteka",
     "loading": {
         "default": "Učitavanje",
-        "website": "Loading Website"
+        "website": "Učitavanje web-stranice"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "Vanjska prijava"
     },
     "message": {
         "sync": "Sinkroniziranje završeno",
-        "unsync": "Desinkronizacija završena"
+        "unsync": "Desinkroniziranje završeno"
     },
     "notify": {
         "error": {
@@ -270,7 +270,7 @@
     "Plugins": "Plugins",
     "Projects": "Projects",
     "Recent": "Played Recently",
-    "search": "Upiši ime igrice ovdje...",
+    "search": "Traži igre",
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
@@ -353,7 +353,7 @@
         },
         "navbar": {
             "advanced": "Advanced",
-            "general": "Generalno",
+            "general": "Općenito",
             "log": "Log",
             "other": "Ostalo",
             "sync": "Spremi-Podatke"
@@ -367,9 +367,9 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Instaliranje u tijeku",
         "logging": "Logging In...",
-        "processing": "Processing files, please wait"
+        "processing": "Obrada datoteka, pričekaj"
     },
     "store": "Epic Store",
     "stores": "Stores",

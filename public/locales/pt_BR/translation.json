@@ -1,9 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Fonte para ações (Padrão: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
+        "all_tiles_in_color": "Mostrar todas os quadrados de jogos em cores",
         "content_font_family": "Fonte para conteúdo (Padrão: \"Cabin\")",
-        "fonts": "Fonts",
+        "fonts": "Fontes",
         "title": "Accessibilidade",
         "zoom": "Zoom"
     },
@@ -25,8 +25,8 @@
                 "message": "Suas credenciais expiraram, por favor desconecte sua conta e entre novamente."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "A garrafa CrossOver \"{{bottle_name}}\" não existe, não pode ser lançada!",
+                "title": "Garrafa CrossOver não encontrada"
             },
             "diskspace": {
                 "message": "Sem espaço suficiente disponível no disco",
@@ -37,7 +37,7 @@
                 "title": "DXVK/VKD3D Erro"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "A pasta do jogo parece ter sido excluída, você deseja remover o jogo da lista de instalados?"
             },
             "generic": {
                 "message": "",
@@ -136,10 +136,10 @@
     },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Nenhum jogo encontrado - Tente sair e fazer login novamente ou uma das opções abaixo"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Atualizar biblioteca"
         }
     },
     "globalSettings": "Configurações globais",
@@ -232,7 +232,7 @@
         "moved": "Movido com sucesso",
         "moving": "Moving Game",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "Não foi possível buscar lançamentos do upstream, talvez por causa das restrições da API do Github! Tente mais tarde."
         },
         "uninstalled": "Desinstalado",
         "update": {
@@ -358,7 +358,7 @@
             "other": "Outros",
             "sync": "Sincronização"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Abrir arquivo de configuração",
         "reset-heroic": "Redefinir Heroic"
     },
     "Settings": "Configurações",

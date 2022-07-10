@@ -41,21 +41,30 @@
         "import": "Importer Spil",
         "install": "Installer",
         "uninstall": "Afinstaller",
-        "update": "Opdater"
+        "update": "Opdater",
+        "hide_game": "Skjul Spil",
+        "unhide_game": "Vis spil",
+        "add_to_favourites": "Tilføj til favorit",
+        "remove_from_favourites": "Fjern fra favoritter"
     },
     "disabled": "Slå Fra",
     "dlc": {
         "installDlcs": "Installer alle DLC'er",
         "title": "DLC'er"
     },
-    "enabled": "Slå til",
+    "enabled": "Slået til",
     "game": {
         "downloadSize": "Download Størrelse",
         "firstPlayed": "Spillede Første Gang",
         "neverPlayed": "Aldrig",
         "totalPlayed": "Spilletid",
         "installSize": "Installations Størrelse",
-        "lastPlayed": "Sidst Spillet"
+        "lastPlayed": "Sidst Spillet",
+        "language": "Sprog",
+        "info": "Info",
+        "platform": "Vælg platformsversion, der skal installeres",
+        "reuirements": "System Krav",
+        "tools": "Værktøjer"
     },
     "gamecard": {
         "moving": "Flytter",
@@ -66,11 +75,17 @@
         "path": "Installationssti",
         "size": "Størrelse",
         "syncsaves": "Synkroniser Saves",
-        "version": "Version"
+        "version": "Version",
+        "installedPlatform": "Installeret platform"
     },
     "install": {
-        "path": "Vælg Installationssti",
-        "wineprefix": "WinePrefix"
+        "path": "Vælg Installations Sti",
+        "wineprefix": "WinePrefix",
+        "not-enough-disk-space": "Ikke nok diskplads",
+        "wineversion": "Wine version",
+        "space-after-install": "Efter installation",
+        "disk-space-left": "Ledig diskplads",
+        "path-not-writtable": "Advarsel: Sti er muligvis ikke skrivebar."
     },
     "label": {
         "playing": {
@@ -100,7 +115,8 @@
         "notinstalled": "Spillet er ikke installeret",
         "reparing": "Reparerer Spillet, vent venligst",
         "totalDownloaded": "I alt downloaded",
-        "updating": "Opdaterer Spil"
+        "updating": "Opdaterer Spil",
+        "processing": "Behandler filerne, vent venligst"
     },
     "submenu": {
         "addShortcut": "Opret genvej",
@@ -111,5 +127,9 @@
         "settings": "Indstillinger",
         "store": "Butik",
         "verify": "Verificer og Reparer"
-    }
+    },
+    "generic": {
+        "error": "Ukendt fejl"
+    },
+    "report_problem": "Rapportér et problem med at køre dette spil"
 }

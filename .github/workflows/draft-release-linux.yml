@@ -2,6 +2,7 @@ name: Draft Release Linux
 
 on:
   push:
+    branches: [main]
     tags:
       - 'v*'
   workflow_dispatch:

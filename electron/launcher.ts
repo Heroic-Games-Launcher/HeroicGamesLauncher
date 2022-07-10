@@ -500,7 +500,7 @@ async function callRunner(
   )
 
   logInfo(
-    [options?.logMessagePrefix ?? `Running command`, ':', safeCommand],
+    [(options?.logMessagePrefix ?? `Running command`) + ':', safeCommand],
     runner.logPrefix
   )
 
@@ -538,7 +538,7 @@ async function callRunner(
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString())
+        options.onOutput(data.toString(), child)
       }
 
       stdout.push(data.toString().trim())
@@ -550,7 +550,7 @@ async function callRunner(
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString())
+        options.onOutput(data.toString(), child)
       }
 
       stderr.push(data.toString().trim())
@@ -564,7 +564,7 @@ async function callRunner(
         appName
       })
 
-      if (signal) {
+      if (signal && !child.killed) {
         rej('Process terminated with signal ' + signal)
       }
 
@@ -635,7 +635,7 @@ function getRunnerCallWithoutCredentials(
         continue
       }
     }
-    formattedEnvVars.push(`${key}=${value}`)
+    formattedEnvVars.push(`${key}=${quoteIfNecessary(value)}`)
   }
 
   commandParts = commandParts.filter(Boolean)

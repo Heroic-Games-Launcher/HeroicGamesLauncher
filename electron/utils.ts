@@ -2,7 +2,7 @@ import { Runner } from './types'
 import { WineInstallation } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
-import { exec } from 'child_process'
+import { exec, spawnSync } from 'child_process'
 import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
@@ -230,15 +230,13 @@ async function handleExit(window: BrowserWindow) {
 
     // Kill all child processes
     // This is very hacky
-    let killCommand = 'pkill --signal SIGINT '
-    if (isWindows) {
-      killCommand = 'Stop-Process -name '
-    }
     const possibleChildren = ['legendary', 'gogdl']
-    possibleChildren.forEach(async (procName) => {
-      await execAsync(killCommand + procName).catch((error) => {
-        logInfo([`Unable to kill ${procName}, ignoring.`, error])
-      })
+    possibleChildren.forEach((procName) => {
+      try {
+        killPattern(procName)
+      } catch (error) {
+        logInfo([`Unable to kill ${procName}, ignoring.`, `${error}`])
+      }
     })
   }
   app.exit()
@@ -543,10 +541,28 @@ const formatEpicStoreUrl = (title: string) => {
 }
 
 function quoteIfNecessary(stringToQuote: string) {
-  if (stringToQuote.includes(' ')) {
+  if (
+    (stringToQuote.charAt(0) !== '"' ||
+      stringToQuote.charAt(stringToQuote.length - 1) !== '"') &&
+    stringToQuote.includes(' ')
+  ) {
     return `"${stringToQuote}"`
   }
   return stringToQuote
+}
+
+function killPattern(pattern: string) {
+  logInfo(['Trying to kill', pattern], LogPrefix.Backend)
+  let ret
+  if (isWindows) {
+    ret = spawnSync('Stop-Process', ['-name', pattern], {
+      shell: 'powershell.exe'
+    })
+  } else {
+    ret = spawnSync('pkill', ['-f', pattern])
+  }
+  logInfo(['Killed', pattern], LogPrefix.Backend)
+  return ret
 }
 
 export {
@@ -570,5 +586,6 @@ export {
   searchForExecutableOnPath,
   getSteamRuntime,
   constructAndUpdateRPC,
-  quoteIfNecessary
+  quoteIfNecessary,
+  killPattern
 }
