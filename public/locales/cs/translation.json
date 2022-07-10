@@ -57,8 +57,8 @@
                 "title": "Wine nenalezen"
             },
             "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
+                "message": "ZSTD nebyl nalezen, nainstalujte ho a restartujte Heroic",
+                "title": "Chybějící závislost"
             }
         },
         "info": {
@@ -131,8 +131,8 @@
     "favourites": "Oblíbené",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Obchod",
+        "title": "Název hry"
     },
     "generic": {
         "error": {
@@ -148,16 +148,16 @@
     "header": {
         "ignore_hidden": "Ignorovat skryté",
         "platform": "Platforma",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
+        "show_all_games": "Zobrazit všechny hry",
+        "show_favourites_only": "Zobrazit pouze oblíbené",
         "show_hidden": "Zobrazit skryté",
-        "store": "Filter Store"
+        "store": "Filtrovat obchod"
     },
     "help": {
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "Ponechte prázdné pro použití jazyk Heroic.",
+            "in_game_config": "Ne všechny hry tuto konfiguraci podporují, některé mají nastavení jazyka ve hře.",
+            "valid_codes": "Platné kódy jazyků jsou závislé na hře."
         },
         "general": "Synchronizujte s EGL v případě, že máte funkční instalaci Epic Games Launcher jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
         "other": {
@@ -182,7 +182,7 @@
             "version": "Heroic Version"
         },
         "settings": "Nastavení se ukládají automaticky",
-        "version": "Wine Version"
+        "version": "Verze Wine"
     },
     "infobox": {
         "help": "Pomoc",
@@ -227,7 +227,7 @@
             "startInstall": "Instalace zahájena"
         },
         "moved": "Přesun dokončen",
-        "moving": "Moving Game",
+        "moving": "Přesouvám hru",
         "refresh": {
             "error": "Nepodařilo se načíst vydání z upstreamu, možná kvůli omezením Github API! Zkuste to později."
         },
@@ -268,7 +268,7 @@
         "alt-gogdl-bin": "Pomocí vestavěného GOGDL...",
         "alt-legendary-bin": "Pomocí vestavěného Legendary...",
         "egs-prefix": "Prefix kde je nainstalován EGS",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -278,7 +278,7 @@
     "Plugins": "Plugins",
     "Projects": "Projekty",
     "Recent": "Recently Played",
-    "search": "Zde zadejte název hry...",
+    "search": "Vyhledat hry",
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
@@ -301,7 +301,7 @@
         "esync": "Povolit Esync",
         "exit-to-tray": "Ukončit do systémové oblasti",
         "FsrSharpnessStrenght": "Síla ostrosti FSR",
-        "fsync": "Povolit Esync",
+        "fsync": "Povolit Fsync",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
         "language": "Vybrat jazyk aplikace",
         "library_top_option": {
@@ -333,7 +333,7 @@
         "maxworkers": "Maximální počet vláken při stahování",
         "minimize-on-launch": "Minimalizujte Heroic po spuštění hry",
         "offlinemode": "Spustit hru offline",
-        "prefered_language": "Prefered Language (Language Code)",
+        "prefered_language": "Preferovaný jazyk (kód jazyka)",
         "primerun": "Použít dedikovanou grafickou kartu",
         "resizableBar": "Používat Resizable BAR (pouze s NVIDIA RTX 30xx)",
         "runexe": {
@@ -371,13 +371,13 @@
     },
     "Settings": "Nastavení",
     "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "collapse": "Sbalit postranní panel",
+        "uncollapse": "Rozbalit postranní panel"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Instaluji",
         "logging": "Přihlašování...",
-        "processing": "Processing files, please wait"
+        "processing": "Zpracovávám soubory, čekejte prosím"
     },
     "store": "Epic Store",
     "stores": "Obchody",
@@ -428,6 +428,6 @@
             "unzipping": "Rozbalování"
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Velikost"
     }
 }
