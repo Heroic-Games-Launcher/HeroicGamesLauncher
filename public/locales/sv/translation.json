@@ -55,10 +55,6 @@
             "wine-not-found": {
                 "message": "Ingen Wine version vald. Kontrollera spelinställningar!",
                 "title": "Wine hittades ej"
-            },
-            "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
             }
         },
         "info": {

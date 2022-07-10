@@ -55,10 +55,6 @@
             "wine-not-found": {
                 "message": "Nincs kiválasztott Wine verzió. Ellenőrizd a játék beállításait!",
                 "title": "Wine nem található"
-            },
-            "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
             }
         },
         "info": {

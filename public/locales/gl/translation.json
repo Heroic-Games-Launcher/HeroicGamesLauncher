@@ -55,10 +55,6 @@
             "wine-not-found": {
                 "message": "No se seleccionou a versión de Wine. ¡Comprueba a configuración do xogo!",
                 "title": "No se atopou Wine"
-            },
-            "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
             }
         },
         "info": {

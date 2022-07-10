@@ -55,10 +55,6 @@
             "wine-not-found": {
                 "message": "No s'ha seleccionat cap versió del Wine. Comprova la configuració del joc.",
                 "title": "No s'ha trobat el Wine"
-            },
-            "zstd": {
-                "message": "No s'ha trobat el ZSTD. Instal·leu-lo i reinicieu el Heroic.",
-                "title": "Falta una dependència."
             }
         },
         "info": {
