@@ -117,7 +117,7 @@
     },
     "button": {
         "go_to_library": "Go to Library",
-        "login": "Login",
+        "login": "Prijava",
         "sync": "Sinkroniziraj",
         "syncing": "Sinkroniziranje",
         "unsync": "Desinkroniziraj"
