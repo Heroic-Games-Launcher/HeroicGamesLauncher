@@ -1,0 +1,20 @@
+{
+    "button": {
+        "login": "Log ind"
+    },
+    "message": {
+        "part1": "For at logge ind og installere dine spil, skal du først følge nedenstående trin:",
+        "part2": "Åben",
+        "part3": "Epic Store her",
+        "part4": ", log ind på din konto og kopier dine",
+        "part5": "SID informations nummer",
+        "part6": "Indsæt dit",
+        "part7": "SID nummer",
+        "part8": "i nedenstående boks og klik på log ind knappen."
+    },
+    "status": {
+        "error": "Fejl",
+        "loading": "Indlæser spil liste, vent venligst"
+    },
+    "welcome": "Velkommen!"
+}

@@ -57,8 +57,8 @@
                 "title": "Wine Tidak Ditemukan"
             },
             "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
+                "message": "ZSTD tidak ditemukan, silakan pasang dan mulai ulang Heroic",
+                "title": "Ketergantungan yang Hilang"
             }
         },
         "info": {
@@ -131,8 +131,8 @@
     "favourites": "Favorit",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Toko",
+        "title": "Judul Gim"
     },
     "generic": {
         "error": {
@@ -148,16 +148,16 @@
     "header": {
         "ignore_hidden": "Abaikan yang Disembunyikan",
         "platform": "Platform",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
+        "show_all_games": "Tampilkan semua gim",
+        "show_favourites_only": "Hanya Tampilkan Gim Favorit",
         "show_hidden": "Tampilkan yang Disembunyikan",
-        "store": "Filter Store"
+        "store": "Toko Filter"
     },
     "help": {
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "Biarkan kosong untuk menggunakan bahasa Heroic.",
+            "in_game_config": "Tidak semua gim mendukung konfigurasi ini, sebagian memiliki pengaturan bahasa dalam gim.",
+            "valid_codes": "Kode bahasa yang valid bergantung pada gim."
         },
         "general": "Sinkronkan dengan EGL jika Anda memiliki instalasi Epic Games Launcher yang berjalan di tempat lain dan ingin mengimpor gim Anda untuk menghindari pengunduhan ulang.",
         "other": {
@@ -185,7 +185,7 @@
             "version": "Versi Heroic"
         },
         "settings": "Pengaturan disimpan secara otomatis",
-        "version": "Wine Version"
+        "version": "Versi Wine"
     },
     "infobox": {
         "help": "Bantuan",
@@ -230,7 +230,7 @@
             "startInstall": "Pemasangan Dimulai"
         },
         "moved": "Selesai Memindahkan",
-        "moving": "Moving Game",
+        "moving": "Memindahkan Gim",
         "refresh": {
             "error": "Tidak dapat mengambil rilis dari sumber, ini mungkin karena pembatasan API Github! Coba lagi nanti."
         },
@@ -260,7 +260,7 @@
         "alt-gogdl-bin": "Menggunakan GOGDL binary bawaan…",
         "alt-legendary-bin": "Menggunakan Legendary binary bawaan...",
         "egs-prefix": "Prefiks di mana EGS dipasang",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -270,7 +270,7 @@
     "Plugins": "Pengaya",
     "Projects": "Proyek",
     "Recent": "Dimainkan Baru-Baru Ini",
-    "search": "Masukkan nama gim di sini...",
+    "search": "Cari Gim",
     "setting": {
         "adddesktopshortcuts": "Tambahkan pintasan desktop secara otomatis",
         "addgamestostartmenu": "Tambahkan gim untuk memulai menu secara otomatis",
@@ -325,7 +325,7 @@
         "maxworkers": "Jumlah Maksimum Worker saat mengunduh",
         "minimize-on-launch": "Minimalkan Jendela Heroic Setelah Gim Diluncurkan",
         "offlinemode": "Jalankan Game Secara Luring",
-        "prefered_language": "Prefered Language (Language Code)",
+        "prefered_language": "Bahasa Pilihan (Kode Bahasa)",
         "primerun": "Gunakan Kartu Grafis untuk Rendering",
         "resizableBar": "Aktifkan Resizable BAR (hanya untuk NVIDIA RTX 30xx saja)",
         "runexe": {
@@ -363,13 +363,13 @@
     },
     "Settings": "Pengaturan",
     "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "collapse": "Tutup bilah samping",
+        "uncollapse": "Tampilkan bilah samping"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Memasang",
         "logging": "Log Masuk...",
-        "processing": "Processing files, please wait"
+        "processing": "Memproses berkas, harap tunggu"
     },
     "store": "Epic Store",
     "stores": "Toko",
@@ -420,6 +420,6 @@
             "unzipping": "Mengekstrak"
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Ukuran"
     }
 }

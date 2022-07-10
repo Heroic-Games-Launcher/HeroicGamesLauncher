@@ -281,14 +281,7 @@ const launch = async ({
     })
   }
 
-  return ipcRenderer
-    .invoke('launch', { appName, launchArguments, runner })
-    .then(async (err: string | string[]) => {
-      if (!err) {
-        return
-      }
-      return ipcRenderer.invoke('showErrorBox', ['Error', `${err}`])
-    })
+  return ipcRenderer.invoke('launch', { appName, launchArguments, runner })
 }
 
 const updateGame = async (appName: string, runner: Runner): Promise<void> =>
