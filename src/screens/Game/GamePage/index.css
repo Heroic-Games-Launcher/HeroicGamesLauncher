@@ -259,6 +259,10 @@
   margin-right: 0.4em;
 }
 
+.buttonsWrapper .button {
+  min-width: 170px;
+}
+
 @keyframes animate-stripes {
   100% {
     background-position: -100px 0px;
