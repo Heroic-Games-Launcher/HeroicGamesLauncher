@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { GOGLibrary } from './library'
 import { BrowserWindow } from 'electron'
-import { spawn } from 'child_process'
 import { join } from 'path'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
+import { killPattern } from '../utils'
 import {
   ExtraInfo,
   GameInfo,
@@ -23,8 +23,7 @@ import {
   isWindows,
   execOptions,
   isMac,
-  isLinux,
-  userHome
+  isLinux
 } from '../constants'
 import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
@@ -49,11 +48,6 @@ import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts'
 import setup from './setup'
 import { runGogdlCommand } from './library'
 import { removeNonSteamGame } from '../shortcuts/nonsteamgame'
-
-function verifyProgress(stderr: string): boolean {
-  const text = stderr.split('\n').at(-1)
-  return text.includes('INFO: Done')
-}
 
 class GOGGame extends Game {
   public appName: string
@@ -495,24 +489,7 @@ class GOGGame extends Game {
 
   public async stop(): Promise<void> {
     const pattern = isLinux ? this.appName : 'gogdl'
-    logInfo(['killing', pattern], LogPrefix.Gog)
-
-    if (isWindows) {
-      try {
-        await execAsync(`Stop-Process -name  ${pattern}`, execOptions)
-        return logInfo(`${pattern} killed`, LogPrefix.Gog)
-      } catch (error) {
-        return logError(
-          [`not possible to kill ${pattern}`, `${error}`],
-          LogPrefix.Gog
-        )
-      }
-    }
-
-    const child = spawn('pkill', ['-f', pattern])
-    child.on('exit', () => {
-      return logInfo(`${pattern} killed`, LogPrefix.Gog)
-    })
+    killPattern(pattern)
   }
 
   async syncSaves(arg: string, path: string): Promise<ExecResult> {

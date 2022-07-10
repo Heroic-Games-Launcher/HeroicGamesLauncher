@@ -1,8 +1,8 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 
-import { AppSettings, Runner } from 'src/types'
+import { AppSettings, GameStatus, Runner } from 'src/types'
 
 import { SmallInfo } from 'src/components/UI'
 import { createNewWindow, getGameInfo, repair } from 'src/helpers'
@@ -38,7 +38,8 @@ export default function GamesSubmenu({
   handleUpdate,
   disableUpdate
 }: Props) {
-  const { handleGameStatus, refresh, platform } = useContext(ContextProvider)
+  const { handleGameStatus, refresh, platform, libraryStatus } =
+    useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
@@ -46,6 +47,9 @@ export default function GamesSubmenu({
   const [isNative, setIsNative] = useState(false)
   const [steamRefresh, setSteamRefresh] = useState<boolean>(false)
   const [addedToSteam, setAddedToSteam] = useState<boolean>(false)
+  const [eosOverlayEnabled, setEosOverlayEnabled] = useState(false)
+  const [eosOverlayRefresh, setEosOverlayRefresh] = useState(false)
+  const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const { t } = useTranslation('gamepage')
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
@@ -162,6 +166,76 @@ export default function GamesSubmenu({
     })
   }, [])
 
+  useEffect(() => {
+    const isEosOverlayEnabled = async () => {
+      const { winePrefix } = await ipcRenderer.invoke(
+        'requestSettings',
+        appName
+      )
+      const enabled = await ipcRenderer.invoke(
+        'isEosOverlayEnabled',
+        winePrefix
+      )
+      setEosOverlayEnabled(enabled)
+    }
+    isEosOverlayEnabled()
+  }, [eosOverlayEnabled])
+
+  useEffect(() => {
+    const { status } =
+      libraryStatus.filter(
+        (game: GameStatus) => game.appName === eosOverlayAppName
+      )[0] || {}
+    setEosOverlayRefresh(status === 'installing')
+  }, [eosOverlayRefresh])
+
+  const handleEosOverlay = useCallback(async () => {
+    setEosOverlayRefresh(true)
+    const { winePrefix, wineVersion } = await ipcRenderer.invoke(
+      'requestSettings',
+      appName
+    )
+    const actualPrefix =
+      wineVersion.type === 'proton' ? `${winePrefix}/pfx` : winePrefix
+
+    if (eosOverlayEnabled) {
+      await ipcRenderer.invoke('disableEosOverlay', actualPrefix)
+      setEosOverlayEnabled(false)
+    } else {
+      const initialEnableResult = await ipcRenderer.invoke(
+        'enableEosOverlay',
+        actualPrefix
+      )
+      const { installNow } = initialEnableResult
+      let { wasEnabled } = initialEnableResult
+
+      if (installNow) {
+        await handleGameStatus({
+          appName: eosOverlayAppName,
+          runner: 'legendary',
+          status: 'installing'
+        })
+
+        await ipcRenderer.invoke('installEosOverlay')
+        await handleGameStatus({
+          appName: eosOverlayAppName,
+          runner: 'legendary',
+          status: 'done'
+        })
+        setEosOverlayRefresh(false)
+        wasEnabled = (
+          await ipcRenderer.invoke('enableEosOverlay', actualPrefix)
+        ).wasEnabled
+      }
+
+      setEosOverlayEnabled(wasEnabled)
+    }
+  }, [eosOverlayEnabled])
+
+  const refreshCircle = () => {
+    return <CircularProgress className="link button is-text is-link" />
+  }
+
   return (
     <div className="gameTools subMenuContainer">
       <div className={`submenu`}>
@@ -220,9 +294,7 @@ export default function GamesSubmenu({
                 {t('submenu.addShortcut', 'Add shortcut')}
               </button>
             )}
-            {steamRefresh ? (
-              <CircularProgress className="link button is-text is-link" />
-            ) : (
+            {steamRefresh ? refreshCircle() : (
               <button
                 onClick={async () => handleAddToSteam()}
                 className="link button is-text is-link"
@@ -232,6 +304,16 @@ export default function GamesSubmenu({
                   : t('submenu.addToSteam', 'Add to Steam')}
               </button>
             )}
+            {isLinux && (eosOverlayRefresh ? refreshCircle() : (
+              <button
+                className="link button is-text is-link"
+                onClick={handleEosOverlay}
+              >
+                {eosOverlayEnabled
+                  ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
+                  : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
+              </button>
+            ))}
           </>
         )}
         <NavLink

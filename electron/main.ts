@@ -1187,7 +1187,7 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('egsSync', async (event, args) => {
+ipcMain.handle('egsSync', async (event, args: string) => {
   if (isWindows) {
     const egl_manifestPath =
       'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
@@ -1369,3 +1369,4 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
 import './logger/ipc_handler'
 import './wine-manager/ipc_handler'
 import './shortcuts/ipc_handler'
+import './legendary/eos_overlay/ipc_handler'
