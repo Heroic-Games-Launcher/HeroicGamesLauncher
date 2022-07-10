@@ -513,8 +513,6 @@ async function callRunner(
     bin = runner.bin
   }
 
-  console.log(options?.env)
-
   return new Promise((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
