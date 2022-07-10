@@ -375,5 +375,5 @@ export interface EnviromentVariable {
 
 export interface WrapperVariable {
   exe: string
-  args: string[]
+  args: string
 }

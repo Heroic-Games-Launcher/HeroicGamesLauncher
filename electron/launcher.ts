@@ -47,6 +47,7 @@ import {
   WineInstallation
 } from './types'
 import { spawn } from 'child_process'
+import shlex from 'shlex'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -315,7 +316,9 @@ function setupWrappers(
   if (gameSettings.wrapperOptions) {
     gameSettings.wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
       wrappers.push(wrapperEntry.exe)
-      wrappers.push(...wrapperEntry.args)
+      // Check "??" can be removed if https://github.com/rgov/node-shlex/pull/22
+      // is merged
+      wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
     })
   }
   if (gameSettings.showMangohud) {

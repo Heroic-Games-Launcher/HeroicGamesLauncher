@@ -250,12 +250,13 @@
             "placeholder": "Insérez ici les arguments de lancement",
             "title": "Arguments de jeu (À lancer après la commande):"
         },
+        "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
             "args": "Arguments",
             "arguments_example": "Arguments example: --arg; --extra-file=\"file-path/ with/spaces\"",
             "exe": "Wrapper",
             "placeHolderKey": "New Wrapper",
-            "placeHolderValue": "Seperated by semicolon (;)",
+            "placeHolderValue": "Wrapper Arguments",
             "title": "Wrapper command:"
         }
     },

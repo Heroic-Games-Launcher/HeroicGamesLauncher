@@ -47,6 +47,7 @@ import {
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import setup from './setup'
 import { runGogdlCommand } from './library'
+import shlex from 'shlex'
 
 function verifyProgress(stderr: string): boolean {
   const text = stderr.split('\n').at(-1)
@@ -325,6 +326,7 @@ class GOGGame extends Game {
           steamRuntime
         )
       }
+
       commandParts = [
         'launch',
         gameInfo.install.install_path,
@@ -332,8 +334,10 @@ class GOGGame extends Game {
         gameInfo.app_name,
         '--platform',
         `${gameInfo.install.platform}`,
-        launchArguments,
-        gameSettings.launcherArgs
+        // Check "??" can be removed if https://github.com/rgov/node-shlex/pull/22
+        // is merged
+        ...shlex.split(launchArguments ?? ''),
+        ...shlex.split(gameSettings.launcherArgs ?? '')
       ]
     } else {
       const {
@@ -390,8 +394,10 @@ class GOGGame extends Game {
         ...winePrefixFlag,
         '--os',
         gameInfo.install.platform.toLowerCase(),
-        launchArguments,
-        launcherArgs
+        // Check "??" can be removed if https://github.com/rgov/node-shlex/pull/22
+        // is merged
+        ...shlex.split(launchArguments ?? ''),
+        ...shlex.split(launcherArgs ?? '')
       ]
     }
 

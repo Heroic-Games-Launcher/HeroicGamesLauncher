@@ -25,6 +25,7 @@ interface Props {
   fullFills?: FullFillProps
   onChange: (values: ColumnProps[]) => void
   inputPlaceHolder?: ColumnProps
+  warning?: ReactNode
   afterInput?: ReactNode
 }
 
@@ -36,6 +37,7 @@ export function TableInput({
   fullFills = { key: true, value: true },
   onChange,
   inputPlaceHolder = { key: '', value: '' },
+  warning,
   afterInput
 }: Props) {
   const { isRTL } = useContext(ContextProvider)
@@ -142,6 +144,7 @@ export function TableInput({
           </tr>
         </tfoot>
       </table>
+      {valueInputs.value && warning}
       {afterInput}
     </div>
   )

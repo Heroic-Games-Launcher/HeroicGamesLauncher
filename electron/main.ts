@@ -94,6 +94,7 @@ import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
+import shlex from 'shlex'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -739,16 +740,18 @@ ipcMain.handle('requestSettings', async (event, appName) => {
       }
 
       if (config.wrapperOptions.length <= 0) {
+        const args = [] as string[]
         config.otherOptions
           .split(' ')
           .filter((val) => val.indexOf('=') === -1)
           .forEach((val, index) => {
             if (index === 0) {
-              config.wrapperOptions.push({ exe: val, args: [] })
+              config.wrapperOptions.push({ exe: val, args: '' })
             } else {
-              config.wrapperOptions.at(0).args.push(val)
+              args.push(val)
             }
           })
+        config.wrapperOptions.at(0).args = shlex.join(args)
       }
 
       delete config.otherOptions

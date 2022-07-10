@@ -117,7 +117,7 @@ export default function OtherSettings({
     values.forEach((value) =>
       wrappers.push({
         exe: value.key,
-        args: value.value.split(';').map((arg) => arg.trim())
+        args: value.value.trim()
       })
     )
     setWrapperOptions([...wrappers])
@@ -125,7 +125,7 @@ export default function OtherSettings({
   const getWrapperVariables = () => {
     const columns: ColumnProps[] = []
     wrapperOptions.forEach((wrapper) =>
-      columns.push({ key: wrapper.exe, value: wrapper.args.join('; ') })
+      columns.push({ key: wrapper.exe, value: wrapper.args })
     )
     return columns
   }
@@ -348,11 +348,16 @@ export default function OtherSettings({
           onChange={handleWrapperVariables}
           inputPlaceHolder={{
             key: t('options.wrapper.placeHolderKey', 'New Wrapper'),
-            value: t(
-              'options.wrapper.placeHolderValue',
-              'Seperated by semicolon (;)'
-            )
+            value: t('options.wrapper.placeHolderValue', 'Wrapper Arguments')
           }}
+          warning={
+            <span className="warning">
+              {`${t(
+                'options.quote-args-with-spaces',
+                'Warning: Make sure to quote args with spaces! E.g.: "path/with spaces/"'
+              )}`}
+            </span>
+          }
           afterInput={wrapperInfo}
         />
       )}
@@ -363,6 +368,14 @@ export default function OtherSettings({
           placeholder={t('options.gameargs.placeholder')}
           value={launcherArgs}
           onChange={handleLauncherArgs}
+          warning={
+            <span className="warning">
+              {`${t(
+                'options.quote-args-with-spaces',
+                'Warning: Make sure to quote args with spaces! E.g.: "path/with spaces/"'
+              )}`}
+            </span>
+          }
           afterInput={info}
         />
       )}
