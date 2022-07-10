@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { spawn } from 'child_process'
-import { mkdirSync, writeFileSync } from 'graceful-fs'
-import { logError, LogPrefix } from './../../logger/logger'
+import { mkdirSync, writeFile } from 'graceful-fs'
 
 interface GithubAssetMetadata {
   url: string
@@ -34,6 +33,9 @@ async function getAssetDataFromDownload(
     )
   ).data
   const assets: Array<GithubAssetMetadata> = releaseData.assets
+  if (!assets) {
+    throw new Error('Asset metadata could not be found')
+  }
   return assets.find((asset) => {
     if (asset.name === assetName) {
       return true
@@ -42,8 +44,18 @@ async function getAssetDataFromDownload(
 }
 
 async function downloadFile(url: string, filePath: string) {
-  const data = (await axios.get(url)).data
-  writeFileSync(filePath, data)
+  const response = await axios.get(url, { responseType: 'arraybuffer' })
+  if (response.status !== 200) {
+    throw new Error(`Failed to download ${url}: ${response.status}`)
+  }
+  return new Promise<void>((res, rej) => {
+    writeFile(filePath, response.data, (err) => {
+      if (err) {
+        rej(new Error(`Failed to save downloaded data to file: ${err.stack}`))
+      }
+      res()
+    })
+  })
 }
 
 async function extractTarFile(
@@ -63,10 +75,6 @@ async function extractTarFile(
       tarflags = '-Jxf'
       break
     default:
-      logError(
-        ['extractTarFile: Unrecognized content_type', contentType],
-        LogPrefix.Runtime
-      )
       throw new Error('Unrecognized content_type ' + contentType)
   }
   return new Promise((res, rej) => {

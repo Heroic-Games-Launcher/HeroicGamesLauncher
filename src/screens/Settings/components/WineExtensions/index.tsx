@@ -53,7 +53,15 @@ export default function WineExtensions({
       )
       if (!isInstalled) {
         setEacInstalling(true)
-        await ipcRenderer.invoke('downloadRuntime', 'eac_runtime')
+        const success = await ipcRenderer.invoke(
+          'downloadRuntime',
+          'eac_runtime'
+        )
+        if (!success) {
+          // We already know we're toggling the runtime on here, so toggling it again will make it stay off
+          // Error handling/communication is handled in downloadRuntime by the backend
+          toggleEacRuntime()
+        }
         setEacInstalling(false)
       }
     }
@@ -67,7 +75,13 @@ export default function WineExtensions({
       )
       if (!isInstalled) {
         setBattlEyeInstalling(true)
-        await ipcRenderer.invoke('downloadRuntime', 'battleye_runtime')
+        const success = await ipcRenderer.invoke(
+          'downloadRuntime',
+          'battleye_runtime'
+        )
+        if (!success) {
+          toggleBattlEyeRuntime()
+        }
         setBattlEyeInstalling(false)
       }
     }
