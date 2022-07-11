@@ -188,12 +188,20 @@ function isInstalled() {
   return existsSync(installedVersionPath)
 }
 
-async function isEnabled(prefix: string) {
+async function isEnabled(appName: string, runner: Runner) {
   let enabled = false
 
-  // The overlay can't be enabled globally on Linux
-  if (isLinux && !prefix) {
-    return false
+  let prefix = ''
+  if (isLinux) {
+    const game = Game.get(appName, runner)
+    const { winePrefix, wineVersion } = await game.getSettings()
+    prefix =
+      wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
+
+    // The overlay can't be enabled globally on Linux
+    if (!prefix) {
+      return false
+    }
   }
 
   await runLegendaryCommand(
