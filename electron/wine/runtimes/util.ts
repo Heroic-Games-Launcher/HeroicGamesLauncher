@@ -27,15 +27,15 @@ async function getAssetDataFromDownload(
 ): Promise<GithubAssetMetadata> {
   const splitUrl = url.split('/').filter(Boolean)
   const [, , author, repo, , , tag, assetName] = splitUrl
-  const releaseData = await axios.get(
+  const response = await axios.get(
     `https://api.github.com/repos/${author}/${repo}/releases/tags/${tag}`
   )
 
-  if (!releaseData || !releaseData.data || !releaseData.data.assets) {
+  if (!response || !response.data || !response.data.assets) {
     throw new Error('Asset metadata could not be found')
   }
 
-  const assets: Array<GithubAssetMetadata> = releaseData.data.assets
+  const assets: Array<GithubAssetMetadata> = response.data.assets
   return assets.find((asset) => {
     if (asset.name === assetName) {
       return true
