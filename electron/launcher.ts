@@ -545,12 +545,7 @@ async function callRunner(
   // fixes the std::log_error for Fall Guys
   // thanks to https://github.com/Diyou
   if (!process.env.LD_PRELOAD && !options?.env?.LD_PRELOAD) {
-    if (!options) {
-      options = { env: {} } as CallRunnerOptions
-    } else if (!options.env) {
-      options.env = {} as Record<string, string>
-    }
-    options.env.LD_PRELOAD = ''
+    process.env.LD_PRELOAD = ''
   }
 
   return new Promise((res, rej) => {
