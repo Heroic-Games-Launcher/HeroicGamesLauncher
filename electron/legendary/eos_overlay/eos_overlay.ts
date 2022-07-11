@@ -64,7 +64,7 @@ async function getLatestVersion() {
 async function updateInfo() {
   // Without the overlay being installed, this will do nothing at all.
   // So we can just skip running the command if that's the case
-  if (isInstalled()) {
+  if (!isInstalled()) {
     return
   }
   await runLegendaryCommand(['status'], {
