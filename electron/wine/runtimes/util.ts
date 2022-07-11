@@ -37,7 +37,10 @@ async function getAssetDataFromDownload(
       throw new Error(`Failed to access GitHub API: ${error.toJSON()}`)
     })
 
-  if (!response || !response.data || !response.data.assets) {
+  if (response.status !== 200) {
+    throw new Error(`Got HTTP error code ${response.status}`)
+  }
+  if (!response.data.assets) {
     throw new Error('Asset metadata could not be found')
   }
 
