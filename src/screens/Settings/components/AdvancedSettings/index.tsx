@@ -158,7 +158,7 @@ export const AdvancedSettings = ({
     const enabledGlobally = async () => {
       if (isWindows) {
         setEosOverlayEnabledGlobally(
-          await ipcRenderer.invoke('isEosOverlayEnabled', '')
+          await ipcRenderer.invoke('isEosOverlayEnabled')
         )
       }
     }
