@@ -175,7 +175,7 @@
             "part6": " для вызова после команды запуска, например: ",
             "part7": " чтобы пропустить лаунчер в некоторых играх, интро и т.д."
         },
-        "preferSystemLibs": "Wine alternatives (Wine-Ge, Wine-Lutris) is shipped with its library dependencies. By enabling this option wine will use the system libraries. Warning! Malfunctions can occur if dependencies are not met.",
+        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
@@ -356,7 +356,7 @@
         "minimize-on-launch": "Сворачивать Heroic в трей при запуске игры",
         "offlinemode": "Запускать игру офлайн",
         "prefered_language": "Предпочтительный язык (код языка)",
-        "preferSystemLibs": "Prefer system librarys",
+        "preferSystemLibs": "Prefer system libraries",
         "primerun": "Использовать выделенную видеокарту",
         "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",
         "runexe": {

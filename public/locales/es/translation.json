@@ -175,7 +175,7 @@
             "part6": " para ser llamado después del comando de lanzamiento, por ejemplo: ",
             "part7": " para omitir el lanzador en algunos juegos, etc."
         },
-        "preferSystemLibs": "Wine alternatives (Wine-Ge, Wine-Lutris) is shipped with its library dependencies. By enabling this option wine will use the system libraries. Warning! Malfunctions can occur if dependencies are not met.",
+        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
@@ -356,7 +356,7 @@
         "minimize-on-launch": "Minimizar Heroic al ejecutar un juego",
         "offlinemode": "Ejecutar juego sin conexión",
         "prefered_language": "Prefered Language (Language Code)",
-        "preferSystemLibs": "Prefer system librarys",
+        "preferSystemLibs": "Prefer system libraries",
         "primerun": "Utilizar tarjeta de video dedicada",
         "resizableBar": "Habilitar Resizable Bar (NVIDIA RTX 30xx únicamente)",
         "runexe": {

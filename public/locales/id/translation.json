@@ -175,7 +175,7 @@
             "part6": " dipanggil setelah perintah peluncuran, misalnya: ",
             "part7": " untuk melewati peluncur di beberapa gim, dll."
         },
-        "preferSystemLibs": "Wine alternatives (Wine-Ge, Wine-Lutris) is shipped with its library dependencies. By enabling this option wine will use the system libraries. Warning! Malfunctions can occur if dependencies are not met.",
+        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
@@ -356,7 +356,7 @@
         "minimize-on-launch": "Minimalkan Jendela Heroic Setelah Gim Diluncurkan",
         "offlinemode": "Jalankan Game Secara Luring",
         "prefered_language": "Bahasa Pilihan (Kode Bahasa)",
-        "preferSystemLibs": "Prefer system librarys",
+        "preferSystemLibs": "Prefer system libraries",
         "primerun": "Gunakan Kartu Grafis untuk Rendering",
         "resizableBar": "Aktifkan Resizable BAR (hanya untuk NVIDIA RTX 30xx saja)",
         "runexe": {
