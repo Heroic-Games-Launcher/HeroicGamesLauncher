@@ -194,11 +194,9 @@ export default function GamesSubmenu({
       )[0] || {}
     setEosOverlayRefresh(status === 'installing')
 
-    if (!isWin) {
-      ipcRenderer
-        .invoke('isEosOverlayEnabled', appName, runner)
-        .then((enabled) => setEosOverlayEnabled(enabled))
-    }
+    ipcRenderer
+      .invoke('isEosOverlayEnabled', appName, runner)
+      .then((enabled) => setEosOverlayEnabled(enabled))
   }, [])
 
   const refreshCircle = () => {
