@@ -17,10 +17,9 @@ import Backspace from '@mui/icons-material/Backspace'
 import { getGameInfo } from 'src/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-
-import { ipcRenderer } from 'src/helpers'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { ipcRenderer } from 'src/helpers'
+
 
 interface Props {
   audioFix: boolean
