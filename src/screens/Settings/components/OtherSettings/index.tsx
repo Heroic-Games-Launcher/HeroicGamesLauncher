@@ -20,7 +20,6 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { ipcRenderer } from 'src/helpers'
 
-
 interface Props {
   audioFix: boolean
   isDefault: boolean
