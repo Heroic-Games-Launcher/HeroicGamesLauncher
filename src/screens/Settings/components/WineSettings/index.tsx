@@ -380,7 +380,7 @@ export default function WineSettings({
               icon={faCircleInfo}
               title={t(
                 'help.preferSystemLibs',
-                'Wine alternatives (Wine-Ge, Wine-Lutris) is shipped with its library dependencies. By enabling this option wine will use the system libraries. Warning! Malfunctions can occur if dependencies are not met.'
+                'Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.'
               )}
             />
           </div>
