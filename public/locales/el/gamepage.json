@@ -126,6 +126,8 @@
         "addShortcut": "Προσθήκη συντόμευσης",
         "addToSteam": "Add to Steam",
         "change": "Αλλαγή διαδρομής εγκατάστασης",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Τελευταίο αρχείο καταγραφής",
         "move": "Μετακίνηση παιχνιδιού",
         "protondb": "Έλεγχος συμβατότητας",

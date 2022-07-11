@@ -167,12 +167,18 @@
         "store": "Lọc cửa hàng"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
             "fallback": "Để trống để dùng ngôn ngữ mặc định của Heroic",
             "in_game_config": "Không phải game nào cũng hỗ trợ cấu hình này, một số game có cài đặt ngôn ngữ riêng trong game",
             "valid_codes": "Mã ngôn ngữ phụ thuộc vào từng game."
         },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Đồng bộ với EGL nếu bạn đang cài Epic Games Launcher trên máy và muốn import game của mình để không phải tải lại.",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part1": "Sử dụng ",
             "part2": "Tùy chọn nâng cao",
@@ -182,12 +188,15 @@
             "part6": " được gọi sau lệnh khởi chạy, ví dụ: ",
             "part7": " để bỏ qua trình khởi chạy trong một số trò chơi, v.v."
         },
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic đang tìm thư mục lưu, đa phần đều đúng. Trong trường hợp Heroic tìm sai, hãy sử dụng ô ghi đè để thay đổi.",
             "part2": "Trong trường hợp bạn thay đổi thư mục prefix cho Wine hoặc Proton, bạn sẽ cần kiểm tra lại đường dẫn vì Proton sử dụng prefix (/pfx) và tên người dùng (steamuser) khác. Bạn có thể xóa đường dẫn hiện tại, thoát khỏi trang cài đặt đồng bộ và quay lại lần nữa để Heroic tìm thư mục với prefix đúng.",
             "part3": "Đồng bộ thủ công: Chọn Tải xuống để tải xuống các trò chơi được lưu trên Đám mây. Tải lên để tải game trong máy lên đám mây. Buộc Tải xuống và Buộc Tải lên sẽ bỏ qua phiên bản trong máy hoặc trên đám mây.",
             "part4": "Đồng bộ lưu tự động sẽ đồng bộ các bản sao lưu mỗi lần bạn bắt đầu và kết thúc chơi game."
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "Heroic tìm kiếm các phiên bản Wine, Proton và CrossOver trong các thư mục sau:",
             "part2": "Đối với vị trí khác, sử dụng biểu tượng liên kết với một trong những thư mục này"
@@ -318,6 +327,26 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Đồng bộ với Game Epic đã cài",
         "enableFSRHack": "Bật tính năng FSR hack (Phiên bản Wine cần hỗ trợ tính năng này)",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "Bật Esync",
         "exit-to-tray": "Thoát ra khay hệ thống",
         "FsrSharpnessStrenght": "Độ sắc nét FSR",

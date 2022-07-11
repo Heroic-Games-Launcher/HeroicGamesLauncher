@@ -126,6 +126,8 @@
         "addShortcut": "Añadir acceso directo",
         "addToSteam": "Add to Steam",
         "change": "Modificar la ubicación",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Último registro",
         "move": "Mover juego",
         "protondb": "Verificar compatibilidad",

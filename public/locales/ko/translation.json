@@ -167,12 +167,18 @@
         "store": "Filter Store"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
             "fallback": "Leave blank to use Heroic's language.",
             "in_game_config": "Not all games support this configuration, some have in-game language setting.",
             "valid_codes": "Valid language codes are game-dependant."
         },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Epic Games Launcher가 다른 곳에 설치되어 있고 게임을 가져와서 다시 다운로드하지 않으려면 Epic Games Launcher와 동기화 하십시오.",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part1": "다음 사용 ",
             "part2": "고급 옵션",
@@ -182,12 +188,15 @@
             "part6": " 시작 명령 후에 실행됩니다, 다음 예시와 같습니다: ",
             "part7": " 일부 게임 등에서 런처를 건너 뜁니다."
         },
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic은 올바른 저장 폴더를 찾으려고 시도하며 대부분의 경우에 작동합니다. 폴더가 잘못된 경우 재정의 상자를 사용하여 변경하세요.",
             "part2": "Wine 또는 Proton의 접두사 폴더를 변경하면 Proton은 다른 접두사(/pfx)와 사용자 이름(steamuser)을 사용하므로 경로를 다시 확인해야 합니다. 따라서 현재 경로를 지우고 동기화 설정 페이지에서 나갔다 돌아오면 Heroic이 올바른 접두사로 폴더를 다시 찾을 수 있습니다.",
             "part3": "수동 동기화: 다운로드를 선택하여 클라우드에 저장된 게임 세이브을 다운로드합니다. 로컬 항목을 클라우드에 업로드하려면 업로드를 선택합니다. 강제 다운로드 및 강제 업로드는 로컬 또는 클라우드에 있는 버전을 무시합니다.",
             "part4": "세이브 동기화는 게임을 시작하거나 종료할 때 마다 자동으로 동기화 합니다."
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "Heroric은 다음 폴더에서 Wine, Proton, 그리고 CrossOver 의 버전을 검색합니다:",
             "part2": "다른 경로의 경우에는, 이 폴더 중 하나에 심볼릭 링크를 사용하세요"
@@ -318,6 +327,26 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "설치된 Epic Games와 동기화",
         "enableFSRHack": "FSR 활성화 (지원하는 Wine 버전을 사용해야 합니다)",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "Esync 활성화",
         "exit-to-tray": "시스템 트레이로 나가기",
         "FsrSharpnessStrenght": "FSR 선명도 강도",

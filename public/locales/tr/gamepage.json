@@ -126,6 +126,8 @@
         "addShortcut": "Kısayol ekle",
         "addToSteam": "Add to Steam",
         "change": "Kurulum yerini değiştir",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Güncel Log",
         "move": "Oyunu Taşı",
         "protondb": "Uyumluluğu Denetle",

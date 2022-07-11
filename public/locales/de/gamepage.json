@@ -126,6 +126,8 @@
         "addShortcut": "Verknüpfung hinzufügen",
         "addToSteam": "Add to Steam",
         "change": "Installationspfad ändern",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Neuester Log",
         "move": "Spiel verschieben",
         "protondb": "Kompatibilität überprüfen",

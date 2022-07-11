@@ -167,12 +167,18 @@
         "store": "Mağazayı Filtrele"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
             "fallback": "Heroic'in dilini kullanmak için boş bırakın.",
             "in_game_config": "Tüm oyunlar bu yapılandırmayı desteklemez, bazılarının oyun içi dil ayarı vardır.",
             "valid_codes": "Geçerli dil kodları oyuna bağlıdır."
         },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part1": "Oyun başlatılmadan önce çağırılması için ",
             "part2": "Gelişmiş Seçenekler",
@@ -182,12 +188,15 @@
             "part6": " 'ni kullanın, örneğin bazı oyunlarda başlatıcıyı atlamak için: ",
             "part7": " gibi."
         },
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic doğru kayıt klasörünü algılamaya çalışır ve bu çoğu zaman çalışıyor. Eğer klasör yanlışsa, değiştirmek için geçersiz kıl kutucuğunu kullan.",
             "part2": "Wine ya da Proton klasörünü değiştirmek isterseniz, Proton farklı bir yol (/pfx) ve kullanıcı adı (steamuser) kullandığı için yolu tekrar gözden geçirmeniz gerekecek. Heroic'in doğru klasörü bir kez daha tahmin etmesi için basitçe eşzamanlama ayarlarından geçerli yolu silebilir ve tekrar geri dönebilirsiniz.",
             "part3": "Elle Eşzamanla: Bulutta depolanan oyun kayıtlarını indirmek için İndir seçeneğini seçin. Yerel kayıtları buluta yüklemek için Karşıya Yükle seçeneğini seçin. İndirmeye Zorla ve Karşıya Yüklemeye Zorla yerel veya buluttaki sürümü dikkate almayacaktır.",
             "part4": "Kayıtları Otomatik Eşzamanla, oyunu her başlattığınızda ve oynamayı bitirdiğinizde kayıtları eşzamanlayacak."
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "Heroic; Wine, Proton ve CrossOver sürümlerini şu klasörlerde arar:",
             "part2": "Diğer yerler için bu klasörlerden birisine sembolik bağlantı kullanın"
@@ -318,6 +327,26 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Kurulu Epic Games ile Eşzamanla",
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "Esync'i Etkinleştir",
         "exit-to-tray": "Sistem Tepsisine Küçült",
         "FsrSharpnessStrenght": "FSR Keskinlik Gücü",

@@ -126,6 +126,8 @@
         "addShortcut": "Snelkoppeling toevoegen",
         "addToSteam": "Add to Steam",
         "change": "Wijzig installatiepad",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Laatste log",
         "move": "Spel verplaatsen",
         "protondb": "Compatibiliteit controleren",

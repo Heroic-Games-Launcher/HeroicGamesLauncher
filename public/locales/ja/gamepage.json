@@ -126,6 +126,8 @@
         "addShortcut": "ショートカットを追加する",
         "addToSteam": "Add to Steam",
         "change": "インストールパスを変更する",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "最新のログ",
         "move": "ゲームを移動する",
         "protondb": "互換性を確認する",

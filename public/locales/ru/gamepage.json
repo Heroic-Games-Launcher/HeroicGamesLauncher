@@ -126,6 +126,8 @@
         "addShortcut": "Создать ярлык",
         "addToSteam": "Add to Steam",
         "change": "Изменить путь установки",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Последний журнал",
         "move": "Переместить игру",
         "protondb": "Проверить совместимость",
