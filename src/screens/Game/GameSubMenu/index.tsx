@@ -149,6 +149,10 @@ export default function GamesSubmenu({
   }, [])
 
   useEffect(() => {
+    // We only ever check for eosOverlayEnabled if we're on Linux
+    if (isWin) {
+      return
+    }
     const isEosOverlayEnabled = async () => {
       const { winePrefix } = await ipcRenderer.invoke(
         'requestSettings',
