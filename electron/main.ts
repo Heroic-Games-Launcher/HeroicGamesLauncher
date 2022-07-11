@@ -84,7 +84,8 @@ import {
   wikiLink,
   fontsStore,
   heroicConfigPath,
-  isMac
+  isMac,
+  isSteamDeckGameMode
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -147,6 +148,14 @@ async function createWindow(): Promise<BrowserWindow> {
     }
   })
 
+  if (isSteamDeckGameMode) {
+    logInfo(
+      'Heroic started via Steam-Deck gamemode. Switching to fullscreen',
+      LogPrefix.Backend
+    )
+    mainWindow.setFullScreen(true)
+  }
+
   setTimeout(() => {
     if (process.platform === 'linux') {
       DXVK.getLatest()
@@ -165,8 +174,10 @@ async function createWindow(): Promise<BrowserWindow> {
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
-    // store windows properties
-    configStore.set('window-props', mainWindow.getBounds())
+    if (!isSteamDeckGameMode) {
+      // store windows properties
+      configStore.set('window-props', mainWindow.getBounds())
+    }
 
     const { exitToTray } = GlobalConfig.get().config
 
@@ -1175,7 +1186,7 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('egsSync', async (event, args) => {
+ipcMain.handle('egsSync', async (event, args: string) => {
   if (isWindows) {
     const egl_manifestPath =
       'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
@@ -1377,3 +1388,4 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
  */
 import './logger/ipc_handler'
 import './wine-manager/ipc_handler'
+import './legendary/eos_overlay/ipc_handler'
