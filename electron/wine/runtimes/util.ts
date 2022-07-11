@@ -26,6 +26,10 @@ async function getAssetDataFromDownload(
   url: string
 ): Promise<GithubAssetMetadata> {
   const splitUrl = url.split('/').filter(Boolean)
+  if (!splitUrl || splitUrl.length < 8) {
+    throw new Error('Invalid URL provided')
+  }
+
   const [, , author, repo, , , tag, assetName] = splitUrl
   const response = await axios.get(
     `https://api.github.com/repos/${author}/${repo}/releases/tags/${tag}`
