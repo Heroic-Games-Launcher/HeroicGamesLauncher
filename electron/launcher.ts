@@ -257,7 +257,7 @@ function setupEnvVars(gameSettings: GameSettings) {
           [
             `Couldn't find all library folders of ${gameSettings.wineVersion.name}!`,
             `Missing ${lib32} or ${lib64}!`,
-            `Fallback to system librarys!`
+            `Falling back to system libraries!`
           ].join('\n')
         )
       }
