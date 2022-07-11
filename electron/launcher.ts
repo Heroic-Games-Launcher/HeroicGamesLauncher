@@ -240,7 +240,10 @@ function setupEnvVars(gameSettings: GameSettings) {
   if (gameSettings.audioFix) {
     ret.PULSE_LATENCY_MSEC = '60'
   }
-  if (!gameSettings.preferSystemLibs) {
+  if (
+    !gameSettings.preferSystemLibs &&
+    gameSettings.wineVersion.type === 'wine'
+  ) {
     if (gameSettings.wineVersion.bin) {
       const lib32 = join(gameSettings.wineVersion.bin, '../../lib')
       const lib64 = join(gameSettings.wineVersion.bin, '../../lib64')
