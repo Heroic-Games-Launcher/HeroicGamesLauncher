@@ -42,6 +42,10 @@ function getStatus(): {
 
 async function getLatestVersion() {
   if (!existsSync(currentVersionPath)) {
+    // HACK: `overlay_version.json` isn't created when the overlay isn't installed
+    if (!isInstalled()) {
+      return ''
+    }
     await updateInfo()
     if (!existsSync(currentVersionPath)) {
       logError(
@@ -58,6 +62,11 @@ async function getLatestVersion() {
 }
 
 async function updateInfo() {
+  // Without the overlay being installed, this will do nothing at all.
+  // So we can just skip running the command if that's the case
+  if (isInstalled()) {
+    return
+  }
   await runLegendaryCommand(['status'], {
     logMessagePrefix: 'Updating EOS Overlay information'
   })
