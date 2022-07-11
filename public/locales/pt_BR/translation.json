@@ -1,9 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Fonte para ações (Padrão: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
+        "all_tiles_in_color": "Mostrar quadrados dos jogos coloridos",
         "content_font_family": "Fonte para conteúdo (Padrão: \"Cabin\")",
-        "fonts": "Fonts",
+        "fonts": "Fontes",
         "title": "Accessibilidade",
         "zoom": "Zoom"
     },
@@ -25,8 +25,8 @@
                 "message": "Suas credenciais expiraram, por favor desconecte sua conta e entre novamente."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "Não é posível iniciar, a garrafa CrossOver \"{{bottle_name}}\" não existe!",
+                "title": "Garrafa CrossOver não encontrada"
             },
             "diskspace": {
                 "message": "Sem espaço suficiente disponível no disco",
@@ -37,7 +37,7 @@
                 "title": "DXVK/VKD3D Erro"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "A pasta do jogo parece ter sido excluída, você deseja remover o jogo da lista de instalados?"
             },
             "generic": {
                 "message": "",
@@ -57,8 +57,8 @@
                 "title": "Wine Não Encontrado"
             },
             "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
+                "message": "ZSTD não foi encontrado, instale-o e reinicie o Heroic",
+                "title": "Dependência faltante"
             }
         },
         "info": {
@@ -131,15 +131,15 @@
     "favourites": "Favoritos",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Loja",
+        "title": "Título do jogo"
     },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Nenhum jogo encontrado - Tente sair e fazer login novamente ou uma das opções abaixo"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Recarregar biblioteca"
         }
     },
     "globalSettings": "Configurações globais",
@@ -148,16 +148,16 @@
     "header": {
         "ignore_hidden": "Ignorar escondidos",
         "platform": "Plataforma",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
+        "show_all_games": "Mostrar todos os jogos",
+        "show_favourites_only": "Mostrar apenas favoritos",
         "show_hidden": "Mostrar escondidos",
-        "store": "Filter Store"
+        "store": "Filtrar loja"
     },
     "help": {
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "Deixe em branco para usar a linguagem do Heroic.",
+            "in_game_config": "Nem todos os jogos suportam essa configuração, alguns têm configuração de idioma dentro do jogo.",
+            "valid_codes": "Os códigos de idioma válidos dependem do jogo."
         },
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
         "other": {
@@ -185,7 +185,7 @@
             "version": "Heroic Version"
         },
         "settings": "As configurações são salvas automaticamente",
-        "version": "Wine Version"
+        "version": "Versão do Wine"
     },
     "infobox": {
         "help": "Ajuda",
@@ -230,9 +230,9 @@
             "startInstall": "Instalação iniciada"
         },
         "moved": "Movido com sucesso",
-        "moving": "Moving Game",
+        "moving": "Movendo jogo",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "Não foi possível buscar lançamentos do upstream, talvez por causa das restrições da API do Github! Tente mais tarde."
         },
         "uninstalled": "Desinstalado",
         "update": {
@@ -260,7 +260,7 @@
         "alt-gogdl-bin": "Usando binário do GOGDL embutido...",
         "alt-legendary-bin": "Usando o binário embutido do Legendary...",
         "egs-prefix": "Prefixo onde a EGS está instalada",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "Código de 2 caracteres (ou seja: \"en\" ou \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -270,7 +270,7 @@
     "Plugins": "Plugins",
     "Projects": "Projetos",
     "Recent": "Jogados Recentemente",
-    "search": "Insira o nome do jogo aqui…",
+    "search": "Buscar jogos",
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos dos jogos no menu iniciar automaticamente",
@@ -287,7 +287,7 @@
         "defaultWinePrefix": "Pasta padrão para novos prefixos Wine",
         "disable_controller": "Desabilitar navegação por controle no Heroic",
         "discordRPC": "Habilitar o Discord Rich Presence",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "download-no-https": "Baixar jogos sem HTTPS (útil para CDNs, por exemplo, LanCache)",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (a versão do Wine precisa suportar o recurso)",
         "esync": "Habilitar Esync",
@@ -322,10 +322,10 @@
             "upload": "Upload"
         },
         "maxRecentGames": "Máximo de jogos em Jogados Recentemente",
-        "maxworkers": "Máximo de núcleos da CPU para utilizar ao fazer baixar jogos",
+        "maxworkers": "Máximo de núcleos da CPU durante downloads",
         "minimize-on-launch": "Minimizar Heroic ao iniciar um jogo",
         "offlinemode": "Iniciar o jogo offline",
-        "prefered_language": "Prefered Language (Language Code)",
+        "prefered_language": "Idioma preferido (código do idioma)",
         "primerun": "Usar placa gráfica dedicada",
         "resizableBar": "Habilitar Resizable BAR (somente NVIDIA RTX 30xx)",
         "runexe": {
@@ -358,18 +358,18 @@
             "other": "Outros",
             "sync": "Sincronização"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Abrir arquivo de configuração",
         "reset-heroic": "Redefinir Heroic"
     },
     "Settings": "Configurações",
     "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "collapse": "Recolher barra lateral",
+        "uncollapse": "Mostrar barra lateral"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Instalando",
         "logging": "Logando...",
-        "processing": "Processing files, please wait"
+        "processing": "Processando arquivos, aguarde"
     },
     "store": "Loja Epic",
     "stores": "Lojas",
@@ -420,6 +420,6 @@
             "unzipping": "Descompactando"
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Tamanho"
     }
 }
