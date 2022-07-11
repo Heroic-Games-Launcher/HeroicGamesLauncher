@@ -247,7 +247,8 @@ function setupEnvVars(gameSettings: GameSettings) {
   }
   if (gameSettings.enviromentOptions) {
     gameSettings.enviromentOptions.forEach((envEntry: EnviromentVariable) => {
-      ret[envEntry.key] = envEntry.value
+      // replace(/^"+/, '').replace(/"+$/, '') removes quotes around the value
+      ret[envEntry.key] = envEntry.value.replace(/^"+/, '').replace(/"+$/, '')
     })
   }
   return ret
@@ -316,8 +317,6 @@ function setupWrappers(
   if (gameSettings.wrapperOptions) {
     gameSettings.wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
       wrappers.push(wrapperEntry.exe)
-      // Check "??" can be removed if https://github.com/rgov/node-shlex/pull/22
-      // is merged
       wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
     })
   }

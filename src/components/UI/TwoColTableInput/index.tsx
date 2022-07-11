@@ -3,6 +3,7 @@ import SvgButton from '../SvgButton'
 import TextInputField from '../TextInputField'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import EditIcon from '@mui/icons-material/Edit'
 import classnames from 'classnames'
 import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
@@ -57,7 +58,13 @@ export function TableInput({
       return
     }
 
-    rowData.push(row)
+    // update already added envs
+    const index = rowData.findIndex((entry: ColumnProps) => entry.key === row.key)
+    if(index >= 0) {
+      rowData[index].value = row.value
+    } else {
+      rowData.push(row)
+    }
     setRowData([...rowData])
     onChange(rowData)
     setValueInputs({ key: '', value: '' })
@@ -68,6 +75,10 @@ export function TableInput({
     rowData.splice(index, 1)
     setRowData([...rowData])
     onChange(rowData)
+  }
+
+  function editRow(row: ColumnProps) {
+    setValueInputs({ key: row.key, value: row.value })
   }
 
   return (
@@ -95,6 +106,12 @@ export function TableInput({
                     <span>{row.value}</span>
                   </td>
                   <td>
+                    <SvgButton onClick={() => editRow(row)}>
+                      <EditIcon
+                        style={{ color: 'var(--accent)' }}
+                        fontSize="large"
+                      />
+                    </SvgButton>
                     <SvgButton onClick={() => removeRow(row)}>
                       <RemoveCircleIcon
                         style={{ color: 'var(--danger)' }}

@@ -328,8 +328,6 @@ class GOGGame extends Game {
         gameInfo.app_name,
         '--platform',
         `${gameInfo.install.platform}`,
-        // Check "??" can be removed if https://github.com/rgov/node-shlex/pull/22
-        // is merged
         ...shlex.split(launchArguments ?? ''),
         ...shlex.split(gameSettings.launcherArgs ?? '')
       ]
@@ -388,8 +386,6 @@ class GOGGame extends Game {
         ...winePrefixFlag,
         '--os',
         gameInfo.install.platform.toLowerCase(),
-        // Check "??" can be removed if https://github.com/rgov/node-shlex/pull/22
-        // is merged
         ...shlex.split(launchArguments ?? ''),
         ...shlex.split(launcherArgs ?? '')
       ]

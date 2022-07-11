@@ -601,8 +601,6 @@ class LegendaryGame extends Game {
         ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
-        // Check "??" can be removed if https://github.com/rgov/node-shlex/pull/22
-        // is merged
         ...shlex.split(launchArguments ?? ''),
         ...shlex.split(gameSettings.launcherArgs ?? '')
       ]
@@ -671,8 +669,6 @@ class LegendaryGame extends Game {
         offlineFlag,
         ...wineFlag,
         ...winePrefixFlag,
-        // Check "??" can be removed if https://github.com/rgov/node-shlex/pull/22
-        // is merged
         ...shlex.split(launchArguments ?? ''),
         ...shlex.split(launcherArgs ?? '')
       ]
