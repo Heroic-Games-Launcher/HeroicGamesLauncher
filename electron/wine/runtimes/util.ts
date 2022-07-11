@@ -31,9 +31,11 @@ async function getAssetDataFromDownload(
   }
 
   const [, , author, repo, , , tag, assetName] = splitUrl
-  const response = await axios.get(
-    `https://api.github.com/repos/${author}/${repo}/releases/tags/${tag}`
-  )
+  const response = await axios
+    .get(`https://api.github.com/repos/${author}/${repo}/releases/tags/${tag}`)
+    .catch((error) => {
+      throw new Error(`Failed to access GitHub API: ${error.toJSON()}`)
+    })
 
   if (!response || !response.data || !response.data.assets) {
     throw new Error('Asset metadata could not be found')
