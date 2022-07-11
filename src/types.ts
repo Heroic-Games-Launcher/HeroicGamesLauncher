@@ -363,3 +363,59 @@ export interface GamepadActionStatus {
 
 export type Runner = 'legendary' | 'gog' | 'heroic'
 export type PlatformToInstall = 'Windows' | 'Mac' | 'Linux' | ''
+
+export type AntiCheatStatus =
+  | 'Planned'
+  | 'Denied'
+  | 'Broken'
+  | 'Supported'
+  | 'Running'
+
+export type AntiCheat =
+  | 'Arbiter'
+  | 'BattlEye'
+  | 'Denuvo Anti-Cheat'
+  | 'Easy Anti-Cheat'
+  | 'EQU8'
+  | 'FACEIT'
+  | 'FairFight'
+  | 'Mail.ru Anti-Cheat'
+  | 'miHoYo Protect'
+  | 'miHoYo Protect 2'
+  | 'NEAC Protect'
+  | 'Nexon Game Security'
+  | 'nProtect GameGuard'
+  | 'PunkBuster'
+  | 'RICOCHET'
+  | 'Sabreclaw'
+  | 'Treyarch Anti-Cheat'
+  | 'UNCHEATER'
+  | 'Unknown (Custom)'
+  | 'VAC'
+  | 'Vanguard'
+  | 'Warden'
+  | 'XIGNCODE3'
+  | 'Zakynthos'
+
+export interface AntiCheatInfo {
+  name: string
+  status: ''
+  anticheats: AntiCheat[]
+  notes: string[]
+  native: boolean
+  storeIds: {
+    epic?: {
+      namespace: string
+      slug: string
+    }
+    steam?: string
+  }
+  reference: string
+  updates: AntiCheatReference[]
+}
+
+interface AntiCheatReference {
+  name: string
+  date: string
+  reference: string
+}

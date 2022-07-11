@@ -1,3 +1,4 @@
+import { downloadAntiCheatData } from './anticheat/utils'
 import {
   InstallParams,
   GamepadInputEventKey,
@@ -419,6 +420,8 @@ if (!gotTheLock) {
         appIcon.setContextMenu(contextMenu())
       }, 500)
     })
+
+    downloadAntiCheatData()
 
     return
   })
@@ -1388,4 +1391,5 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
  */
 import './logger/ipc_handler'
 import './wine-manager/ipc_handler'
+import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
