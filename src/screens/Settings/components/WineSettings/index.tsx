@@ -53,6 +53,8 @@ interface Props {
   toggleEsync: () => void
   enableFsync: boolean
   toggleFsync: () => void
+  preferSystemLibs: boolean
+  togglePreferSystemLibs: () => void
 }
 
 export default function WineSettings({
@@ -82,7 +84,9 @@ export default function WineSettings({
   enableFsync,
   toggleFsync,
   defaultWinePrefix,
-  setDefaultWinePrefix
+  setDefaultWinePrefix,
+  preferSystemLibs,
+  togglePreferSystemLibs
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
   const { platform } = useContext(ContextProvider)
@@ -359,6 +363,24 @@ export default function WineSettings({
               title={t(
                 'help.vkd3d',
                 'VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.'
+              )}
+            />
+          </div>
+
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="systemLibsToggle"
+              value={preferSystemLibs || false}
+              handleChange={togglePreferSystemLibs}
+              title={t('setting.preferSystemLibs', 'Prefer system librarys')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.preferSystemLibs',
+                'Wine alternatives (Wine-Ge, Wine-Lutris) is shipped with its library dependencies. By enabling this option wine will use the system libraries. Warning! Malfunctions can occur if dependencies are not met.'
               )}
             />
           </div>

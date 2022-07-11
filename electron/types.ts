@@ -16,6 +16,7 @@ export interface AppSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
+  preferSystemLibs: boolean
   autoSyncSaves: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: string[]
@@ -133,6 +134,7 @@ export interface GameSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
+  preferSystemLibs: boolean
   autoSyncSaves: boolean
   enableEsync: boolean
   enableFSR: boolean

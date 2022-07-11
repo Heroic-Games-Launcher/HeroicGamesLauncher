@@ -240,6 +240,27 @@ function setupEnvVars(gameSettings: GameSettings) {
   if (gameSettings.audioFix) {
     ret.PULSE_LATENCY_MSEC = '60'
   }
+  if (!gameSettings.preferSystemLibs) {
+    if (gameSettings.wineVersion.bin) {
+      const lib32 = join(gameSettings.wineVersion.bin, '../../lib')
+      const lib64 = join(gameSettings.wineVersion.bin, '../../lib64')
+      if (existsSync(lib32) && existsSync(lib64)) {
+        // append wine libs at the beginning
+        ret.LD_LIBRARY_PATH = [lib32, lib64, process.env.LD_LIBRARY_PATH].join(
+          ':'
+        )
+      } else {
+        logError(
+          [
+            `Couldn't find all library folders of ${gameSettings.wineVersion.name}!`,
+            `Missing ${lib32} or`,
+            `${lib64}!`,
+            `Fallback to system librarys!`
+          ].join('\n')
+        )
+      }
+    }
+  }
   if (gameSettings.otherOptions) {
     gameSettings.otherOptions
       .split(' ')
@@ -515,6 +536,18 @@ async function callRunner(
     commandParts.unshift(...wrappers, runner.bin)
   } else {
     bin = runner.bin
+  }
+
+  // setup LD_PRELOAD if not defined
+  // fixes the std::log_error for Fall Guys
+  // thanks to https://github.com/Diyou
+  if (!process.env.LD_PRELOAD && !options?.env?.LD_PRELOAD) {
+    if (!options) {
+      options = { env: {} } as CallRunnerOptions
+    } else if (!options.env) {
+      options.env = {} as Record<string, string>
+    }
+    options.env.LD_PRELOAD = ''
   }
 
   return new Promise((res, rej) => {
