@@ -20,38 +20,28 @@ describe('Runtimes-utils', () => {
     })
   })
 
-  test('getAssetDataFromDownload - catch asset metadata does not exist', async () => {
-    // empty url
-    await getAssetDataFromDownload('')
-      .then(() => {
-        throw Error("Function shouldn't success!")
-      })
-      .catch((error: Error) => {
-        expect(error.message).toBe('Asset metadata could not be found')
-      })
+  it('getAssetDataFromDownload - catch invalid URL/responses', async () => {
+    expect.assertions(3)
 
-    // no data entry
-    axios.get = jest.fn().mockResolvedValue({ noData: {} })
-    await getAssetDataFromDownload(
-      'https://github.com/lutris/buildbot/releases/download/2021.11.20/eac_runtime.tar.xz'
+    // Empty URL
+    expect(getAssetDataFromDownload('')).rejects.toEqual(
+      Error('Asset metadata could not be found')
     )
-      .then(() => {
-        throw Error("Function shouldn't success!")
-      })
-      .catch((error: Error) => {
-        expect(error.message).toBe('Asset metadata could not be found')
-      })
 
-    // empty data
+    // No data
+    axios.get = jest.fn().mockResolvedValue({})
+    expect(
+      getAssetDataFromDownload(
+        'https://github.com/lutris/buildbot/releases/download/2021.11.20/eac_runtime.tar.xz'
+      )
+    ).rejects.toEqual(Error('Asset metadata could not be found'))
+
+    // Empty data
     axios.get = jest.fn().mockResolvedValue({ data: {} })
-    await getAssetDataFromDownload(
-      'https://github.com/lutris/buildbot/releases/download/2021.11.20/eac_runtime.tar.xz'
-    )
-      .then(() => {
-        throw Error("Function shouldn't success!")
-      })
-      .catch((error: Error) => {
-        expect(error.message).toBe('Asset metadata could not be found')
-      })
+    expect(
+      getAssetDataFromDownload(
+        'https://github.com/lutris/buildbot/releases/download/2021.11.20/eac_runtime.tar.xz'
+      )
+    ).rejects.toEqual(Error('Asset metadata could not be found'))
   })
 })
