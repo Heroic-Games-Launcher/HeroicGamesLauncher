@@ -165,17 +165,16 @@ export default function GamesSubmenu({
       setAddedToSteam(added)
     })
 
-    ipcRenderer.invoke(
-      'requestSettings',
-      appName
-    ).then(async (response: GameSettings | AppSettings) => {
-      console.log(response)
-      const enabled = await ipcRenderer.invoke(
-        'isEosOverlayEnabled',
-        response.winePrefix
-      )
-      setEosOverlayEnabled(enabled)
-    })
+    ipcRenderer
+      .invoke('requestSettings', appName)
+      .then(async (response: GameSettings | AppSettings) => {
+        console.log(response)
+        const enabled = await ipcRenderer.invoke(
+          'isEosOverlayEnabled',
+          response.winePrefix
+        )
+        setEosOverlayEnabled(enabled)
+      })
   }, [])
 
   useEffect(() => {
@@ -290,7 +289,9 @@ export default function GamesSubmenu({
                 {t('submenu.addShortcut', 'Add shortcut')}
               </button>
             )}
-            {steamRefresh ? refreshCircle() : (
+            {steamRefresh ? (
+              refreshCircle()
+            ) : (
               <button
                 onClick={async () => handleAddToSteam()}
                 className="link button is-text is-link"
@@ -300,16 +301,19 @@ export default function GamesSubmenu({
                   : t('submenu.addToSteam', 'Add to Steam')}
               </button>
             )}
-            {isLinux && (eosOverlayRefresh ? refreshCircle() : (
-              <button
-                className="link button is-text is-link"
-                onClick={handleEosOverlay}
-              >
-                {eosOverlayEnabled
-                  ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
-                  : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
-              </button>
-            ))}
+            {isLinux &&
+              (eosOverlayRefresh ? (
+                refreshCircle()
+              ) : (
+                <button
+                  className="link button is-text is-link"
+                  onClick={handleEosOverlay}
+                >
+                  {eosOverlayEnabled
+                    ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
+                    : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
+                </button>
+              ))}
           </>
         )}
         <NavLink
