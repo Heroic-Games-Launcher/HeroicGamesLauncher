@@ -59,8 +59,10 @@ export function TableInput({
     }
 
     // update already added envs
-    const index = rowData.findIndex((entry: ColumnProps) => entry.key === row.key)
-    if(index >= 0) {
+    const index = rowData.findIndex(
+      (entry: ColumnProps) => entry.key === row.key
+    )
+    if (index >= 0) {
       rowData[index].value = row.value
     } else {
       rowData.push(row)
