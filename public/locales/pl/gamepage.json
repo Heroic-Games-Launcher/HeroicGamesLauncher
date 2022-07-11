@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Dodaj skrót",
         "change": "Zmień ścieżkę instalacji",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Ostatni log",
         "move": "Przenieś grę",
         "protondb": "Sprawdź spójność",

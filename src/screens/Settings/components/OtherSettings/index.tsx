@@ -261,7 +261,7 @@ export default function OtherSettings({
                 className="helpIcon"
                 icon={faCircleInfo}
                 title={t(
-                  'help.',
+                  'help.steamruntime',
                   'Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.'
                 )}
               />

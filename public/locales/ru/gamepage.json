@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Создать ярлык",
         "change": "Изменить путь установки",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Последний журнал",
         "move": "Переместить игру",
         "protondb": "Проверить совместимость",

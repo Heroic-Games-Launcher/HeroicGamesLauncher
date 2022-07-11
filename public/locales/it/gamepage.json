@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Aggiungi scorciatoia",
         "change": "Cambia percorso d'installazione",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Ultimo Log",
         "move": "Muovi gioco",
         "protondb": "Controlla compatibilità",
