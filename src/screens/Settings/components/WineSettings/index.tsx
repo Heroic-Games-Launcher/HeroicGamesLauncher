@@ -372,7 +372,7 @@ export default function WineSettings({
               htmlId="systemLibsToggle"
               value={preferSystemLibs || false}
               handleChange={togglePreferSystemLibs}
-              title={t('setting.preferSystemLibs', 'Prefer system librarys')}
+              title={t('setting.preferSystemLibs', 'Prefer system libraries')}
             />
 
             <FontAwesomeIcon
