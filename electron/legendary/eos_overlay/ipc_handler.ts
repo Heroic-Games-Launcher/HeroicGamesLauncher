@@ -17,11 +17,11 @@ ipcMain.handle('updateEosOverlayInfo', updateInfo)
 ipcMain.handle('installEosOverlay', install)
 ipcMain.handle('removeEosOverlay', remove)
 ipcMain.handle('cancelEosOverlayInstallOrUpdate', cancelInstallOrUpdate)
-ipcMain.handle('enableEosOverlay', async (e, prefix) => {
-  return enable(prefix)
+ipcMain.handle('enableEosOverlay', async (e, appName, runner) => {
+  return enable(appName, runner)
 })
-ipcMain.handle('disableEosOverlay', async (e, prefix) => {
-  return disable(prefix)
+ipcMain.handle('disableEosOverlay', async (e, appName, runner) => {
+  return disable(appName, runner)
 })
 ipcMain.handle('isEosOverlayEnabled', async (e, prefix) => {
   return isEnabled(prefix)

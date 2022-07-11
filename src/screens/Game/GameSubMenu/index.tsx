@@ -172,20 +172,14 @@ export default function GamesSubmenu({
   }, [eosOverlayInstalling])
 
   const handleEosOverlay = useCallback(async () => {
-    const { winePrefix, wineVersion } = await ipcRenderer.invoke(
-      'requestSettings',
-      appName
-    )
-    const actualPrefix =
-      wineVersion.type === 'proton' ? `${winePrefix}/pfx` : winePrefix
-
     if (eosOverlayEnabled) {
-      await ipcRenderer.invoke('disableEosOverlay', actualPrefix)
+      await ipcRenderer.invoke('disableEosOverlay', appName, runner)
       setEosOverlayEnabled(false)
     } else {
       const initialEnableResult = await ipcRenderer.invoke(
         'enableEosOverlay',
-        actualPrefix
+        appName,
+        runner
       )
       const { installNow } = initialEnableResult
       let { wasEnabled } = initialEnableResult
@@ -205,7 +199,7 @@ export default function GamesSubmenu({
         })
         setEosOverlayInstalling(false)
         wasEnabled = (
-          await ipcRenderer.invoke('enableEosOverlay', actualPrefix)
+          await ipcRenderer.invoke('enableEosOverlay', appName, runner)
         ).wasEnabled
       }
 

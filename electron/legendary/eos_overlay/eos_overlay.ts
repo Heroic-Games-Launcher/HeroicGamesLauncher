@@ -9,6 +9,9 @@ import { logError, LogPrefix, logWarning } from '../../logger/logger'
 import { runLegendaryCommand } from '../library'
 import { LegendaryGame } from '../games'
 import { killPattern } from '../../utils'
+import { Runner } from '../../types'
+import { Game } from '../../games'
+import { verifyWinePrefix } from '../../launcher'
 
 const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
 const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
@@ -127,8 +130,17 @@ function cancelInstallOrUpdate() {
 }
 
 async function enable(
-  prefix: string
+  appName: string,
+  runner: Runner
 ): Promise<{ wasEnabled: boolean; installNow?: boolean }> {
+  let prefix = ''
+  if (isLinux) {
+    const game = Game.get(appName, runner)
+    await verifyWinePrefix(game)
+    const { winePrefix, wineVersion } = await game.getSettings()
+    prefix =
+      wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
+  }
   if (!isInstalled()) {
     const { response } = await dialog.showMessageBox({
       title: t('setting.eosOverlay.notInstalledTitle', 'Overlay not installed'),
@@ -148,7 +160,15 @@ async function enable(
   return { wasEnabled: true }
 }
 
-async function disable(prefix: string) {
+async function disable(appName: string, runner: Runner) {
+  let prefix = ''
+  if (isLinux) {
+    const game = Game.get(appName, runner)
+    const { winePrefix, wineVersion } = await game.getSettings()
+    prefix =
+      wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
+  }
+
   await runLegendaryCommand(
     ['eos-overlay', 'disable', ...(prefix ? ['--prefix', prefix] : [])],
     { logMessagePrefix: 'Disabling EOS Overlay' }
