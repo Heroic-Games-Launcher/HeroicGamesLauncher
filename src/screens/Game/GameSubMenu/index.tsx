@@ -1,8 +1,8 @@
 import './index.css'
 
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings, GameStatus, Runner } from 'src/types'
+import { AppSettings, GameSettings, GameStatus, Runner } from 'src/types'
 
 import { SmallInfo } from 'src/components/UI'
 import { createNewWindow, getGameInfo, repair } from 'src/helpers'
@@ -164,22 +164,19 @@ export default function GamesSubmenu({
     ipcRenderer.invoke('isAddedToSteam', appName, runner).then((added) => {
       setAddedToSteam(added)
     })
-  }, [])
 
-  useEffect(() => {
-    const isEosOverlayEnabled = async () => {
-      const { winePrefix } = await ipcRenderer.invoke(
-        'requestSettings',
-        appName
-      )
+    ipcRenderer.invoke(
+      'requestSettings',
+      appName
+    ).then(async (response: GameSettings | AppSettings) => {
+      console.log(response)
       const enabled = await ipcRenderer.invoke(
         'isEosOverlayEnabled',
-        winePrefix
+        response.winePrefix
       )
       setEosOverlayEnabled(enabled)
-    }
-    isEosOverlayEnabled()
-  }, [eosOverlayEnabled])
+    })
+  }, [])
 
   useEffect(() => {
     const { status } =
@@ -189,8 +186,7 @@ export default function GamesSubmenu({
     setEosOverlayRefresh(status === 'installing')
   }, [eosOverlayRefresh])
 
-  const handleEosOverlay = useCallback(async () => {
-    setEosOverlayRefresh(true)
+  async function handleEosOverlay() {
     const { winePrefix, wineVersion } = await ipcRenderer.invoke(
       'requestSettings',
       appName
@@ -215,7 +211,7 @@ export default function GamesSubmenu({
           runner: 'legendary',
           status: 'installing'
         })
-
+        setEosOverlayRefresh(true)
         await ipcRenderer.invoke('installEosOverlay')
         await handleGameStatus({
           appName: eosOverlayAppName,
@@ -230,7 +226,7 @@ export default function GamesSubmenu({
 
       setEosOverlayEnabled(wasEnabled)
     }
-  }, [eosOverlayEnabled])
+  }
 
   const refreshCircle = () => {
     return <CircularProgress className="link button is-text is-link" />
