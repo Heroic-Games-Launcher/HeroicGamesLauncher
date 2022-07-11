@@ -43,7 +43,10 @@ export default function GamesSubmenu({
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
-  const [info, setInfo] = useState<otherInfo>({ prefix: '', wine: '' } as otherInfo)
+  const [info, setInfo] = useState<otherInfo>({
+    prefix: '',
+    wine: ''
+  } as otherInfo)
   const [isNative, setIsNative] = useState<boolean>(false)
   const [eosOverlayEnabled, setEosOverlayEnabled] = useState<boolean>(false)
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
