@@ -154,24 +154,33 @@
         "store": "過濾商店"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
             "fallback": "留空使用 Heroic 的語言。",
             "in_game_config": "不是所有遊戲都支持此設定，一些遊戲有內部語言設定。",
             "valid_codes": "有效語言代碼取決於遊戲。"
         },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "與 Epic Games 啟動器同步，如果你在其他地方安裝了Epic Games 啟動器，而且想要導入你的遊戲，以免再次下載它們。",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part4": "使用 ",
             "part5": "遊戲參數",
             "part6": " 在執行啟動命令後調用，例如： ",
             "part7": " 在某些遊戲中跳過啟動器等。"
         },
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "大多數情況下，Heroic啟動器會正確猜測的存檔的位置。但如果位置是錯誤的，請使用覆蓋框更改。",
             "part2": "如果你改變了 Wine 或 Proton 的文件夾，你將需要再次檢查路徑，因為 Proton 使用不同的前綴（/pfx）和使用者名稱（steamuser）。很簡單，你可以直接刪除目前的路徑，離開同步設置頁面再回來，Heroic 會去重新猜測正確 Prefix 的文件夾。",
             "part3": "手動同步：選擇下載以下載存儲在雲端的存檔。選擇上傳將會把本地存檔上傳到雲端。強制下載將會忽略本地版本，強制上傳將會忽略雲端版本。",
             "part4": "自動同步將在你每次開始遊戲時和結束遊戲後同步存檔。"
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "Heroic啟動器會在以下資料夾中搜尋現有的Wine/Proton/CrossOver：",
             "part2": "如果在其它位置，請使用軟鏈接連接到這些中的一個資料夾"
@@ -299,6 +308,26 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "與已安裝的Epic Games同步",
         "enableFSRHack": "啟用FSR（需要支持的 Wine 版本）",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "啟用 Esync",
         "exit-to-tray": "縮小到系統列",
         "FsrSharpnessStrenght": "FSR 銳利度",

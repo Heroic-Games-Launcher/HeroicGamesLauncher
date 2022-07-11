@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "添加捷徑",
         "change": "更改安裝路徑",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "最新日誌",
         "move": "移動遊戲",
         "protondb": "檢查相容性",

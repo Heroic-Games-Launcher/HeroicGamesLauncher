@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Añadir acceso directo",
         "change": "Modificar la ubicación",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Último registro",
         "move": "Mover juego",
         "protondb": "Verificar compatibilidad",
