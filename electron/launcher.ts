@@ -19,7 +19,8 @@ import {
   showErrorBoxModalAuto,
   searchForExecutableOnPath,
   quoteIfNecessary,
-  errorHandler
+  errorHandler,
+  removeQuoteIfNecessary
 } from './utils'
 import {
   logDebug,
@@ -247,8 +248,7 @@ function setupEnvVars(gameSettings: GameSettings) {
   }
   if (gameSettings.enviromentOptions) {
     gameSettings.enviromentOptions.forEach((envEntry: EnviromentVariable) => {
-      // replace(/^"+/, '').replace(/"+$/, '') removes quotes around the value
-      ret[envEntry.key] = envEntry.value.replace(/^"+/, '').replace(/"+$/, '')
+      ret[envEntry.key] = removeQuoteIfNecessary(envEntry.value)
     })
   }
   return ret
