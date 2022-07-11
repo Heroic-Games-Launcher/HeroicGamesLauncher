@@ -56,7 +56,7 @@
     "game": {
         "downloadSize": "下载大小",
         "firstPlayed": "首次游玩",
-        "info": "Info",
+        "info": "信息",
         "installSize": "安装大小",
         "language": "语言",
         "lastPlayed": "上次游玩",
@@ -114,7 +114,7 @@
         "clickToUpdate": "点击更新",
         "hasUpdates": "新版本可用！",
         "installed": "已安装",
-        "installing": "正在安装",
+        "installing": "安装中",
         "moving": "正在移动安装，请稍等",
         "notinstalled": "未安装此游戏",
         "processing": "处理文件中，请等待",
@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "添加快捷方式",
         "change": "更改安装路径",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "最新日志",
         "move": "移动游戏",
         "protondb": "检查兼容性",

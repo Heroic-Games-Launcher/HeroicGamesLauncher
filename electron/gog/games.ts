@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { GOGLibrary } from './library'
 import { BrowserWindow } from 'electron'
-import { spawn } from 'child_process'
 import { join } from 'path'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
+import { killPattern } from '../utils'
 import {
   ExtraInfo,
   GameInfo,
@@ -13,24 +13,29 @@ import {
   GameSettings,
   ExecResult,
   InstallArgs,
-  LaunchResult,
   GOGLoginData,
   InstalledInfo
 } from 'types'
-import { existsSync, rmSync } from 'graceful-fs'
+import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {
   heroicGamesConfigPath,
   isWindows,
   execOptions,
   isMac,
-  isLinux,
-  userHome
+  isLinux
 } from '../constants'
 import { configStore, installedGamesStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { errorHandler, execAsync, getFileSize, getSteamRuntime } from '../utils'
+import {
+  errorHandler,
+  execAsync,
+  getFileSize,
+  getGOGdlBin,
+  getSteamRuntime
+} from '../utils'
 import { GOGUser } from './user'
 import {
+  getRunnerCallWithoutCredentials,
   launchCleanup,
   prepareLaunch,
   prepareWineLaunch,
@@ -41,11 +46,6 @@ import {
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import setup from './setup'
 import { runGogdlCommand } from './library'
-
-function verifyProgress(stderr: string): boolean {
-  const text = stderr.split('\n').at(-1)
-  return text.includes('INFO: Done')
-}
 
 class GOGGame extends Game {
   public appName: string
@@ -61,7 +61,7 @@ class GOGGame extends Game {
     }
     return this.instances.get(appName)
   }
-  public async getExtraInfo(namespace: string): Promise<ExtraInfo> {
+  public async getExtraInfo(): Promise<ExtraInfo> {
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
     let targetPlatform: 'windows' | 'osx' | 'linux' = 'windows'
 
@@ -79,7 +79,7 @@ class GOGGame extends Game {
     }
     return extra
   }
-  public async getGameInfo(): Promise<GameInfo> {
+  public getGameInfo(): GameInfo {
     return GOGLibrary.get().getGameInfo(this.appName)
   }
   async getInstallInfo(installPlatform?: string): Promise<InstallInfo> {
@@ -240,9 +240,8 @@ class GOGGame extends Game {
     return { status: 'done' }
   }
 
-  public async isNative(): Promise<boolean> {
-    const gameInfo = await this.getGameInfo()
-
+  public isNative(): boolean {
+    const gameInfo = this.getGameInfo()
     if (isWindows) {
       return true
     }
@@ -259,14 +258,14 @@ class GOGGame extends Game {
   }
 
   public async addShortcuts(fromMenu?: boolean) {
-    return addShortcuts(await this.getGameInfo(), fromMenu)
+    return addShortcuts(this.getGameInfo(), fromMenu)
   }
 
   public async removeShortcuts() {
     return removeShortcuts(this.appName, 'gog')
   }
 
-  async launch(launchArguments?: string): Promise<LaunchResult> {
+  async launch(launchArguments?: string): Promise<boolean> {
     const gameSettings =
       GameConfig.get(this.appName).config ||
       (await GameConfig.get(this.appName).getSettings())
@@ -289,12 +288,11 @@ class GOGGame extends Game {
       steamRuntime
     } = await prepareLaunch(this, gameInfo)
     if (!launchPrepSuccess) {
-      return {
-        success: false,
-        stdout: '',
-        stderr: 'Launch aborted: ' + launchPrepFailReason,
-        gameSettings
-      }
+      appendFileSync(
+        this.logFileLocation,
+        `Launch aborted: ${launchPrepFailReason}`
+      )
+      return false
     }
 
     const exeOverrideFlag = gameSettings.targetExe
@@ -338,12 +336,11 @@ class GOGGame extends Game {
         envVars: wineEnvVars
       } = await prepareWineLaunch(this)
       if (!wineLaunchPrepSuccess) {
-        return {
-          success: false,
-          stdout: '',
-          stderr: 'Launch aborted: ' + wineLaunchPrepFailReason,
-          gameSettings
-        }
+        appendFileSync(
+          this.logFileLocation,
+          `Launch aborted: ${wineLaunchPrepFailReason}`
+        )
+        return false
       }
 
       commandEnv = {
@@ -392,14 +389,25 @@ class GOGGame extends Game {
       ]
     }
 
-    const { error, stderr, stdout, fullCommand } = await runGogdlCommand(
+    const fullCommand = getRunnerCallWithoutCredentials(
       commandParts,
-      {
-        env: commandEnv,
-        wrappers,
-        logMessagePrefix: `Launching ${gameInfo.title}`
-      }
+      commandEnv,
+      wrappers,
+      join(...Object.values(getGOGdlBin()))
     )
+    appendFileSync(
+      this.logFileLocation,
+      `Launch Command: ${fullCommand}\n\nGame Log:\n`
+    )
+
+    const { error } = await runGogdlCommand(commandParts, {
+      env: commandEnv,
+      wrappers,
+      logMessagePrefix: `Launching ${gameInfo.title}`,
+      onOutput: (output) => {
+        appendFileSync(this.logFileLocation, output)
+      }
+    })
 
     if (error) {
       logError(['Error launching game:', error], LogPrefix.Gog)
@@ -407,20 +415,14 @@ class GOGGame extends Game {
 
     launchCleanup(rpcClient)
 
-    return {
-      success: !error,
-      stdout,
-      stderr,
-      gameSettings,
-      command: fullCommand
-    }
+    return !error
   }
 
   public async moveInstall(newInstallPath: string): Promise<string> {
     const {
       install: { install_path },
       title
-    } = await this.getGameInfo()
+    } = this.getGameInfo()
 
     if (isWindows) {
       newInstallPath += '\\' + install_path.split('\\').slice(-1)[0]
@@ -482,24 +484,7 @@ class GOGGame extends Game {
 
   public async stop(): Promise<void> {
     const pattern = isLinux ? this.appName : 'gogdl'
-    logInfo(['killing', pattern], LogPrefix.Gog)
-
-    if (isWindows) {
-      try {
-        await execAsync(`Stop-Process -name  ${pattern}`, execOptions)
-        return logInfo(`${pattern} killed`, LogPrefix.Gog)
-      } catch (error) {
-        return logError(
-          [`not possible to kill ${pattern}`, `${error}`],
-          LogPrefix.Gog
-        )
-      }
-    }
-
-    const child = spawn('pkill', ['-f', pattern])
-    child.on('exit', () => {
-      return logInfo(`${pattern} killed`, LogPrefix.Gog)
-    })
+    killPattern(pattern)
   }
 
   async syncSaves(arg: string, path: string): Promise<ExecResult> {

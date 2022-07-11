@@ -65,8 +65,8 @@
                 "title": "Wine Tidak Ditemukan"
             },
             "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
+                "message": "ZSTD tidak ditemukan, silakan pasang dan mulai ulang Heroic",
+                "title": "Ketergantungan yang Hilang"
             }
         },
         "info": {
@@ -139,8 +139,8 @@
     "favourites": "Favorit",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Toko",
+        "title": "Judul Gim"
     },
     "generic": {
         "error": {
@@ -156,18 +156,24 @@
     "header": {
         "ignore_hidden": "Abaikan yang Disembunyikan",
         "platform": "Platform",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
+        "show_all_games": "Tampilkan semua gim",
+        "show_favourites_only": "Hanya Tampilkan Gim Favorit",
         "show_hidden": "Tampilkan yang Disembunyikan",
-        "store": "Filter Store"
+        "store": "Toko Filter"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "Biarkan kosong untuk menggunakan bahasa Heroic.",
+            "in_game_config": "Tidak semua gim mendukung konfigurasi ini, sebagian memiliki pengaturan bahasa dalam gim.",
+            "valid_codes": "Kode bahasa yang valid bergantung pada gim."
         },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Sinkronkan dengan EGL jika Anda memiliki instalasi Epic Games Launcher yang berjalan di tempat lain dan ingin mengimpor gim Anda untuk menghindari pengunduhan ulang.",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part1": "Gunakan ",
             "part2": "Opsi Lanjutan",
@@ -177,12 +183,15 @@
             "part6": " dipanggil setelah perintah peluncuran, misalnya: ",
             "part7": " untuk melewati peluncur di beberapa gim, dll."
         },
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic mencoba untuk menebak folder penyimpanan yang tepat dan ini biasanya akan berhasil. Jika folder salah, gunakan kotak penimpaan untuk mengubahnya.",
             "part2": "Jika Anda mengubah prefiks folder untuk Wine atau Proton, Anda perlu memeriksa lokasinya lagi karena Proton menggunakan prefiks (/pfx) dan nama pengguna (steamuser) yang berbeda. Jadi Anda dapat dengan mudah menghapus lokasi saat ini, keluar dari halaman pengaturan sinkronisasi, lalu kembali lagi dan biarkan Heroic menebak folder dengan prefiks yang tepat sekali lagi.",
             "part3": "Sinkronisasi Manual: Pilih Unduh untuk mengunduh gim yang tersimpan di Awan. Unggah untuk mengunggah berkas lokal ke Awan. Unduh Paksa dan Unggah Paksa akan mengabaikan versi yang ada di penyimpanan lokal atau awan.",
             "part4": "Sinkroninasi Penyimpanan Secara Otomatis akan menyinkronkan penyimpanan setiap kali Anda Memulai Gim dan setelah Anda selesai bermain."
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "Heroic mencari versi Wine, Proton, dan CrossOver di folder berikut ini:",
             "part2": "Untuk tempat lain, gunakan tautan simbolis ke salah satu folder ini"
@@ -193,7 +202,7 @@
             "version": "Versi Heroic"
         },
         "settings": "Pengaturan disimpan secara otomatis",
-        "version": "Wine Version"
+        "version": "Versi Wine"
     },
     "infobox": {
         "help": "Bantuan",
@@ -238,7 +247,7 @@
             "startInstall": "Pemasangan Dimulai"
         },
         "moved": "Selesai Memindahkan",
-        "moving": "Moving Game",
+        "moving": "Memindahkan Gim",
         "refresh": {
             "error": "Tidak dapat mengambil rilis dari sumber, ini mungkin karena pembatasan API Github! Coba lagi nanti."
         },
@@ -268,7 +277,7 @@
         "alt-gogdl-bin": "Menggunakan GOGDL binary bawaan…",
         "alt-legendary-bin": "Menggunakan Legendary binary bawaan...",
         "egs-prefix": "Prefiks di mana EGS dipasang",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -278,7 +287,7 @@
     "Plugins": "Pengaya",
     "Projects": "Proyek",
     "Recent": "Dimainkan Baru-Baru Ini",
-    "search": "Masukkan nama gim di sini...",
+    "search": "Cari Gim",
     "setting": {
         "adddesktopshortcuts": "Tambahkan pintasan desktop secara otomatis",
         "addgamestostartmenu": "Tambahkan gim untuk memulai menu secara otomatis",
@@ -298,6 +307,26 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Sinkronkan dengan Epic Games yang Terpasang",
         "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "Aktifkan Esync",
         "exit-to-tray": "Keluar ke Baki Sistem",
         "FsrSharpnessStrenght": "Kekuatan Ketajaman FSR",
@@ -333,7 +362,7 @@
         "maxworkers": "Jumlah Maksimum Worker saat mengunduh",
         "minimize-on-launch": "Minimalkan Jendela Heroic Setelah Gim Diluncurkan",
         "offlinemode": "Jalankan Game Secara Luring",
-        "prefered_language": "Prefered Language (Language Code)",
+        "prefered_language": "Bahasa Pilihan (Kode Bahasa)",
         "primerun": "Gunakan Kartu Grafis untuk Rendering",
         "resizableBar": "Aktifkan Resizable BAR (hanya untuk NVIDIA RTX 30xx saja)",
         "runexe": {
@@ -371,13 +400,13 @@
     },
     "Settings": "Pengaturan",
     "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "collapse": "Tutup bilah samping",
+        "uncollapse": "Tampilkan bilah samping"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Memasang",
         "logging": "Log Masuk...",
-        "processing": "Processing files, please wait"
+        "processing": "Memproses berkas, harap tunggu"
     },
     "store": "Epic Store",
     "stores": "Toko",
@@ -428,6 +457,6 @@
             "unzipping": "Mengekstrak"
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Ukuran"
     }
 }

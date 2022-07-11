@@ -1,9 +1,9 @@
 {
     "accessibility": {
         "actions_font_family": "Fonte para ações (Padrão: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
+        "all_tiles_in_color": "Mostrar todas os quadrados de jogos em cores",
         "content_font_family": "Fonte para conteúdo (Padrão: \"Cabin\")",
-        "fonts": "Fonts",
+        "fonts": "Fontes",
         "title": "Accessibilidade",
         "zoom": "Zoom"
     },
@@ -33,8 +33,8 @@
                 "message": "Suas credenciais expiraram, por favor desconecte sua conta e entre novamente."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "A garrafa CrossOver \"{{bottle_name}}\" não existe, não pode ser lançada!",
+                "title": "Garrafa CrossOver não encontrada"
             },
             "diskspace": {
                 "message": "Sem espaço suficiente disponível no disco",
@@ -45,7 +45,7 @@
                 "title": "DXVK/VKD3D Erro"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "A pasta do jogo parece ter sido excluída, você deseja remover o jogo da lista de instalados?"
             },
             "generic": {
                 "message": "",
@@ -144,10 +144,10 @@
     },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Nenhum jogo encontrado - Tente sair e fazer login novamente ou uma das opções abaixo"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Atualizar biblioteca"
         }
     },
     "globalSettings": "Configurações globais",
@@ -162,12 +162,18 @@
         "store": "Filter Store"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
             "fallback": "Leave blank to use Heroic's language.",
             "in_game_config": "Not all games support this configuration, some have in-game language setting.",
             "valid_codes": "Valid language codes are game-dependant."
         },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part1": "Use o ",
             "part2": "Opções avançadas",
@@ -177,12 +183,15 @@
             "part6": " para que sejam chamados após o comando, por exemplo: ",
             "part7": " para evitar abrir o launcher em alguns jogos, etc."
         },
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic tenta advinhar a pasta de saves correta e isso funcionará na maioria dos casos. No caso da pasta estar errada, você pode selecioná-la manualmente.",
             "part2": "Caso você mude sua pasta de prefixo Wine ou Proton, você precisará conferir o diretório novamente, já que o Proton usa um prefixo (/pfx) e usuário (steamuser) diferentes. Então você pode simplesmente apagar o diretório atual, sair e abrir novamente a página de configuração das sincronizações para que o Heroic tente advinhar novamente a pasta com o prefix correto.",
             "part3": "Sincronização Manual: Escolha Download para baixar os saves dos jogos salvos em nuvem; Upload para fazer upload dos saves locais para a nuvem. Forçar Download e Forçar Upload ignorarão a versão que está salva localmente ou na nuvem.",
             "part4": "Sincronizar Saves Automaticamente sincronizará os saves toda vez que você iniciar ou parar de jogar um jogo."
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "O Heroic busca por versões do Wine, Proton e CrossOver nas pastas a seguir:",
             "part2": "Para outros locais, use um link simbólico para uma dessas pastas"
@@ -240,7 +249,7 @@
         "moved": "Movido com sucesso",
         "moving": "Moving Game",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "Não foi possível buscar lançamentos do upstream, talvez por causa das restrições da API do Github! Tente mais tarde."
         },
         "uninstalled": "Desinstalado",
         "update": {
@@ -298,6 +307,26 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (a versão do Wine precisa suportar o recurso)",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "Habilitar Esync",
         "exit-to-tray": "Fechar para a barra de tarefas",
         "FsrSharpnessStrenght": "FSR Força de nitidez",
@@ -366,7 +395,7 @@
             "other": "Outros",
             "sync": "Sincronização"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Abrir arquivo de configuração",
         "reset-heroic": "Redefinir Heroic"
     },
     "Settings": "Configurações",

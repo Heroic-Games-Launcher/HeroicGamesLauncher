@@ -1,10 +1,10 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "actions_font_family": "Tipus de lletra per les accions (per defecte: «Rubik»)",
+        "all_tiles_in_color": "Mostra tots els títols dels jocs en color",
+        "content_font_family": "Tipus de lletra del contingut (per defecte: «Cabin»)",
         "fonts": "Fonts",
-        "title": "Accessibility",
+        "title": "Accessibilitat",
         "zoom": "Zoom"
     },
     "All": "Tot",
@@ -24,7 +24,7 @@
         },
         "choose": "Tria",
         "choose-egs-prefix": "Tria el prefix on l'EGS està instal·lat",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Selecciona el binari del GOGDL (cal reiniciar)",
         "choose-legendary-binary": "Selecciona el binari del Legendary",
         "customWine": "Selecciona el binary del Wine o del Proton",
         "default-install-path": "Tria la ruta d'instal·lació predefinida",
@@ -33,8 +33,8 @@
                 "message": "Les teves credencials han caducat, tanca la sessió i inicia-la de nou."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "L'ampolla CrossOver «{{bottle_name}}» no existeix. No es pot executar.",
+                "title": "L'ampolla CrossOver no s'ha trobat."
             },
             "diskspace": {
                 "message": "No hi ha prou espai al disc",
@@ -45,19 +45,19 @@
                 "title": "Error del DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "La carpeta del joc sembla que s'ha esborrat. Voleu treure el joc de la llista de jocs instal·lats?"
             },
             "generic": {
                 "message": "",
                 "title": ""
             },
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "L'execució del programa ha fallat. El joc necessita una connexió a Internet per funcionar.",
+                "title": "El mode sense connexió no està suportat."
             },
             "title": "Error",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "L'actualització ha fallat. Si us plau, comproveu els registres o proveu-ho de nou més tard.",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -65,18 +65,18 @@
                 "title": "No s'ha trobat el Wine"
             },
             "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
+                "message": "No s'ha trobat el ZSTD. Instal·leu-lo i reinicieu el Heroic.",
+                "title": "Falta una dependència."
             }
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Obre el registre de canvis",
+                "detail": "Voleu descarregar l'actualització en segon pla?",
+                "message": "Hi ha una versió nova disponible.",
+                "message-finished": "Voleu reiniciar el Heroic ara?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "L'actualització s'ha completat."
             }
         },
         "no": "NO",
@@ -114,17 +114,17 @@
         },
         "warning": {
             "epic": {
-                "import": "Els servidors de l'Epic estan patint una caiguda massiva ara mateix, no s'ha pogut importar el joc.",
-                "install": "Els servidors de l'Epic estan patint una caiguda massiva ara mateix, no s'ha pogut instal·lar el joc.",
-                "update": "Els servidors de l'Epic estan patint una caiguda massiva ara mateix, no s'ha pogut actualitzar el joc."
+                "import": "Els servidors de l'Epic estan patint una caiguda massiva ara mateix. El joc no s'ha pogut importar.",
+                "install": "Els servidors de l'Epic estan patint una caiguda massiva ara mateix. El joc no s'ha pogut instal·lar.",
+                "update": "Els servidors de l'Epic estan patint una caiguda massiva ara mateix. El joc no s'ha pogut actualitzar."
             },
             "title": "Atenció"
         },
-        "wineprefix": "Tria la carpeta del prefix del Wine",
+        "wineprefix": "Tria la carpeta del WinePrefix",
         "yes": "SÍ"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "Vés a la biblioteca",
         "login": "Inicia la sessió",
         "sync": "Sincronitza",
         "syncing": "S'està sincronitzant",
@@ -132,57 +132,66 @@
     },
     "docs": "Documentation",
     "epic": {
-        "offline-notification-body": "L'Heroic probablement no funcionarà.",
+        "offline-notification-body": "Els serveis en línia potser no funcionen del tot, ja que els servidors d'Epic Games estan desconnectats!",
         "offline-notification-title": "fora de línia"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "Preferits",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Botiga",
+        "title": "Títol del joc"
     },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "No s'han trobat jocs. Proveu a reiniciar la sessió o alguna de les opcions de sota."
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Actualitza la biblioteca"
         }
     },
     "globalSettings": "Configuració global",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "Botiga del GOG",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
-        "platform": "",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Show Hidden",
-        "store": "Filter Store"
+        "ignore_hidden": "Ignora els amagats",
+        "platform": "Plataforma",
+        "show_all_games": "Mostra tots els jocs",
+        "show_favourites_only": "Mostra només els preferits",
+        "show_hidden": "Mostra els amagats",
+        "store": "Filtre de botigues"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "Deixeu-ho en blanc per usar l'idioma del Heroic.",
+            "in_game_config": "No tots els jocs suporten aquesta configuració. En alguns s'ha de configurar l'idioma quan s'executa el programa.",
+            "valid_codes": "Els codis de llenguatge vàlids depenen del joc."
         },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Sincronitza amb l'EGL si ja tens instal·lat l'Epic Games Laucher en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part1": "Utilitza les ",
             "part2": "opcions avançades",
             "part3": "abans d'iniciar el joc; ",
             "part4": "Utilitza els ",
             "part5": "arguments del joc",
-            "part6": " després de l'ordre d'inici, per exemple: ",
+            "part6": " després de l'ordre d'inici, com ara: ",
             "part7": " per a ometre el llançador a alguns jocs, etc."
         },
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "L'Heroic prova d'endevinar el directori on es desen les partides, i això funcionarà a la majoria de casos. En cas que el directori no sigui el correcte, utilitza la caixa per a canviar-lo.",
             "part2": "Si canvies el directori del prefix del Wine o del Proton, hauràs de comprovar de nou la ruta perquè el Proton empra un prefix (/pfx) i nom d'usuari (steamuser) diferent. Així doncs, pots suprimir la ruta actual, sortir de la configuració de sincronització i tornar-hi de nou perquè l'Heroic pugui esbrinar el directori de nou amb el prefix correcte.",
             "part3": "Sincronització manual: Tria «Baixa» per a baixar les partides desades al núvol. «Puja» per a pujar les dades locals al núvol. «Força la baixada» i «Força la pujada» ignorarà la versió local o del núvol.",
             "part4": "«Sincronitza les partides desades automàticament» sincronitzarà les dades cada vegada que iniciïs un joc i quan acabis de jugar."
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "L'Heroic cerca les versions del Wine, Proton i CrossOver als directoris següents:",
             "part2": "Per a altres llocs, utilitza un enllaç simbòlic (symlink) a algun d'aquests directoris"
@@ -193,7 +202,7 @@
             "version": "Heroic Version"
         },
         "settings": "La configuració es desa automàticament",
-        "version": "Wine Version"
+        "version": "Versió del Wine"
     },
     "infobox": {
         "help": "Ajuda",
@@ -203,20 +212,20 @@
         "path": "Selecciona la ruta d'instal·lació"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": "",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "gridView": "Vista en graella",
+        "listView": "Vista en llista",
+        "refresh": "Actualitza",
+        "sortAscending": "Ordre ascendent",
+        "sortByStatus": "Ordena per estat",
+        "sortDescending": "Ordre descendent"
     },
     "Library": "Biblioteca",
     "loading": {
-        "default": "",
+        "default": "S'està carregant...",
         "website": "S'està carregant el lloc web"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "Inici de sessió extern"
     },
     "message": {
         "sync": "S'ha completat la sincronització",
@@ -232,20 +241,20 @@
         },
         "install": {
             "canceled": "S'ha cancel·lat la instal·lació",
-            "error": "",
+            "error": "La instal·lació ha fallat",
             "finished": "Ha finalitzat la instal·lació",
             "imported": "S'ha importat el joc",
             "startInstall": "S'ha iniciat la instal·lació"
         },
         "moved": "Ha finalitzat el desplaçament",
-        "moving": "Moving Game",
+        "moving": "S'està movent el joc...",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "No s'ha pogut aconseguir el llistat de versions, potser per les restriccions de l'API del GitHub. Proveu-ho més tard."
         },
         "uninstalled": "Desinstal·lat",
         "update": {
             "canceled": "S'ha cancel·lat l'actualització",
-            "finished": "Ha finalitzat l'actualització",
+            "finished": "L'actualització ha acabat",
             "started": "S'ha iniciat l'actualització"
         }
     },
@@ -260,44 +269,64 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
+        "gogdl-version": "Versió del GOGDL: ",
         "legendary-version": "Versió del Legendary: ",
         "weblate": "Ajuda a traduir l'Heroic."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-gogdl-bin": "S'està usant un binari del GOGDL integrat.",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
         "egs-prefix": "Prefix on l'EGS està instal·lat",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "Codi de dos caràcters, com ara «en», «fr» o «ca»"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Extensions",
     "Projects": "Projectes",
     "Recent": "Jugats fa poc",
-    "search": "Introdueix el nom del joc...",
+    "search": "Cerca jocs",
     "setting": {
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Tria un binari alternatiu del Legendary (cal reiniciar)",
+        "alt-gogdl-bin": "Tria un fitxer binari alternatiu del GOGDL",
+        "alt-legendary-bin": "Tria un binari alternatiu del Legendary",
         "audiofix": "Corregeix l'àudio (latència del Pulse Audio)",
         "autodxvk": "Instal·la/Actualitza el DXVK al prefix automàticament",
         "autosync": "Sincronitza automàticament les partides desades",
         "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",
         "change-target-exe": "Selecciona un EXE alternatiu a executar",
         "customWineProton": "Rutes del Wine o Proton personalitzades",
-        "darktray": "Emprar la icona fosca al Tray",
+        "darktray": "Utilitza la icona fosca a la safata",
         "default-install-path": "Ruta d'instal·lació predefinida",
         "defaultWinePrefix": "Directori de prefixos Wine nous",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "disable_controller": "Desactiva la navegació del Heroic amb el controlador",
         "discordRPC": "Activa la Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Sincronitza amb l'Epic Games instal·lat",
         "enableFSRHack": "Activa el FSR Hack (cal que la versió del Wine en sigui compatible)",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "Activa l'Esync",
         "exit-to-tray": "Surt a la safata del sistema",
         "FsrSharpnessStrenght": "Força de la nitidesa de l'FSR",
@@ -305,16 +334,16 @@
         "gamemode": "Utilitza el GameMode (cal que el Feral Game Mode estigui instal·lat)",
         "language": "Tria la llengua de l'aplicació",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "disabled": "Desactivat",
+            "favourites": "Jocs preferits",
+            "recently_played": "Jocs jugats fa poc"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "Secció superior de la biblioteca",
         "log": {
             "copy-to-clipboard": "Copia el registre al porta-retalls",
             "current-log": "Registre actual",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "Uniu-vos al nostra canal de Discord i busqueu el canal que s'adigui amb el vostre sistema operatiu. Compartiu-hi el contingut del registre i incloeu-hi una explicació clara del problema amb tota la informació i detalls rellevants.",
+            "instructions_title": "Com informar d'un problema",
             "last-log": "Últim registre",
             "no-file": "No s'ha trobat cap registre",
             "show-in-folder": "Obre la carpeta del registre"
@@ -331,10 +360,10 @@
         },
         "maxRecentGames": "Jugats recentment a mostrar",
         "maxworkers": "Nombre màxim de Workers en baixar",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "Minimitza el Heroic després d'executar un joc",
         "offlinemode": "Executa el joc sense connexió",
-        "prefered_language": "Prefered Language (Language Code)",
-        "primerun": "Activa l'Nvidia Prime Render",
+        "prefered_language": "Idioma preferit (codi de l'idioma)",
+        "primerun": "Usa la targeta gràfica dedicada",
         "resizableBar": "Activa el BAR redimensionable (només amb NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Arrossega i solta els fitxers aquí",
@@ -343,11 +372,11 @@
         "savefolder": {
             "placeholder": "Selecciona el directori exacte on es desen els jocs"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "Selecciona un tema",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
         "showUnrealMarket": "Mostra la llibreria d'Unreal (cal reiniciar)",
         "start-in-tray": "Inicia minimitzat",
-        "steamruntime": "Use Steam Runtime",
+        "steamruntime": "Usa el Runtime de l'Steam",
         "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Directori WinePrefix",
         "wineversion": "Versió del Wine"
@@ -357,30 +386,30 @@
         "copiedToClipboard": "S'ha copiat al porta-retalls.",
         "copyToClipboard": "Copia tota la configuració al porta-retalls",
         "log": {
-            "long-log-hint": "S'ha truncat el registre, es mostren les últimes 1.000 línies."
+            "long-log-hint": "S'ha truncat el registre. Es mostren les últimes 1.000 línies."
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "Avançat",
             "general": "General",
             "log": "Registre",
             "other": "Altres",
             "sync": "Desa-sincronitza"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "Obre el fitxer de configuració",
         "reset-heroic": "Restableix l'Heroic"
     },
     "Settings": "Configuració",
     "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "collapse": "Col·lapsa la barra lateral",
+        "uncollapse": "Expandeix la barra lateral"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "S'està instal·lant...",
         "logging": "S'està iniciant la sessió...",
-        "processing": "Processing files, please wait"
+        "processing": "S'està processant els fitxers. Espereu."
     },
-    "store": "Botiga",
-    "stores": "Stores",
+    "store": "Botiga de l'Epic",
+    "stores": "Botigues",
     "title": {
         "allGames": "Tots els jocs",
         "allUnreal": "Unreal - Tot",
@@ -408,15 +437,15 @@
         "discord": "Discord",
         "logout": "Tanca la sessió",
         "logout_confirmation": "Segur que vols tancar la sessió?",
-        "manageaccounts": "Manage Accounts",
+        "manageaccounts": "Gestiona els comptes",
         "quit": "Surt"
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Enrere",
+            "forward": "Endavant",
+            "openInBrowser": "Obre al gestor de fitxers",
+            "reload": "Torna a carregar la pàgina"
         }
     },
     "wine": {
@@ -428,6 +457,6 @@
             "unzipping": "S'està descomprimint"
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Mida"
     }
 }

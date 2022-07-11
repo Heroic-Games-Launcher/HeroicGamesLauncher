@@ -65,8 +65,8 @@
                 "title": "Wine nenalezen"
             },
             "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
+                "message": "ZSTD nebyl nalezen, nainstalujte ho a restartujte Heroic",
+                "title": "Chybějící závislost"
             }
         },
         "info": {
@@ -139,8 +139,8 @@
     "favourites": "Oblíbené",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Obchod",
+        "title": "Název hry"
     },
     "generic": {
         "error": {
@@ -156,18 +156,24 @@
     "header": {
         "ignore_hidden": "Ignorovat skryté",
         "platform": "Platforma",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
+        "show_all_games": "Zobrazit všechny hry",
+        "show_favourites_only": "Zobrazit pouze oblíbené",
         "show_hidden": "Zobrazit skryté",
-        "store": "Filter Store"
+        "store": "Filtrovat obchod"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "Ponechte prázdné pro použití jazyk Heroic.",
+            "in_game_config": "Ne všechny hry tuto konfiguraci podporují, některé mají nastavení jazyka ve hře.",
+            "valid_codes": "Platné kódy jazyků jsou závislé na hře."
         },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Synchronizujte s EGL v případě, že máte funkční instalaci Epic Games Launcher jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part1": "Použijte ",
             "part2": "Pokročilé možnosti",
@@ -177,12 +183,15 @@
             "part6": " které budou použity při spuštění hry, například: ",
             "part7": " pro přeskočení spouštěče u některých her, apod."
         },
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic se pokusí uhodnout správnou složku pro ukládání, což bude ve většině případů fungovat. V případě, že je složka špatně, změňte ji pomocí pole přepsání.",
             "part2": "V případě, že změníte složku prefixu pro Wine nebo Proton, budete muset cestu znovu zkontrolovat, protože Proton používá jiný prefix (/pfx) a uživatelské jméno (steamuser). Můžete tedy jednoduše vymazat aktuální cestu, dostat se ze stránky nastavení synchronizace a vrátit se zpět, aby Heroic mohl uhodnout složku se správným prefixem.",
             "part3": "Ruční synchronizace: Vyberte Stáhnout pro stažení uložených souborů hry z cloudu. Nahrát pro nahrání místních souborů do cloudu. Vynutit stahování a Vynutit nahrávání bude ignorovat verzi, která je místní nebo v cloudu.",
             "part4": "Automatická synchronizace uložených souborů synchronizuje uložené soubory při každém spuštění hry a po dokončení hraní."
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "Heroic hledá verze Wine, Proton a CrossOver v následujících složkách:",
             "part2": "Pro jiná místa použijte symbolický odkaz na jednu z těchto složek"
@@ -193,7 +202,7 @@
             "version": "Heroic Version"
         },
         "settings": "Nastavení se ukládají automaticky",
-        "version": "Wine Version"
+        "version": "Verze Wine"
     },
     "infobox": {
         "help": "Pomoc",
@@ -238,7 +247,7 @@
             "startInstall": "Instalace zahájena"
         },
         "moved": "Přesun dokončen",
-        "moving": "Moving Game",
+        "moving": "Přesouvám hru",
         "refresh": {
             "error": "Nepodařilo se načíst vydání z upstreamu, možná kvůli omezením Github API! Zkuste to později."
         },
@@ -268,7 +277,7 @@
         "alt-gogdl-bin": "Pomocí vestavěného GOGDL...",
         "alt-legendary-bin": "Pomocí vestavěného Legendary...",
         "egs-prefix": "Prefix kde je nainstalován EGS",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -278,7 +287,7 @@
     "Plugins": "Plugins",
     "Projects": "Projekty",
     "Recent": "Recently Played",
-    "search": "Zde zadejte název hry...",
+    "search": "Vyhledat hry",
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
@@ -298,10 +307,30 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
         "enableFSRHack": "Povolte FSR Hack (verze Wine jej musí podporovat)",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "Povolit Esync",
         "exit-to-tray": "Ukončit do systémové oblasti",
         "FsrSharpnessStrenght": "Síla ostrosti FSR",
-        "fsync": "Povolit Esync",
+        "fsync": "Povolit Fsync",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
         "language": "Vybrat jazyk aplikace",
         "library_top_option": {
@@ -333,7 +362,7 @@
         "maxworkers": "Maximální počet vláken při stahování",
         "minimize-on-launch": "Minimalizujte Heroic po spuštění hry",
         "offlinemode": "Spustit hru offline",
-        "prefered_language": "Prefered Language (Language Code)",
+        "prefered_language": "Preferovaný jazyk (kód jazyka)",
         "primerun": "Použít dedikovanou grafickou kartu",
         "resizableBar": "Používat Resizable BAR (pouze s NVIDIA RTX 30xx)",
         "runexe": {
@@ -371,13 +400,13 @@
     },
     "Settings": "Nastavení",
     "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "collapse": "Sbalit postranní panel",
+        "uncollapse": "Rozbalit postranní panel"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Instaluji",
         "logging": "Přihlašování...",
-        "processing": "Processing files, please wait"
+        "processing": "Zpracovávám soubory, čekejte prosím"
     },
     "store": "Epic Store",
     "stores": "Obchody",
@@ -428,6 +457,6 @@
             "unzipping": "Rozbalování"
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Velikost"
     }
 }

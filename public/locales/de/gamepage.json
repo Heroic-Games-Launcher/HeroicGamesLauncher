@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",
         "change": "Installationspfad ändern",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Neuester Log",
         "move": "Spiel verschieben",
         "protondb": "Kompatibilität überprüfen",

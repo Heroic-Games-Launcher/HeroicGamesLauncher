@@ -1,3 +1,4 @@
+import { ChildProcess } from 'child_process'
 export type Runner = 'legendary' | 'gog' | 'heroic'
 
 interface About {
@@ -58,14 +59,6 @@ export type ExecResult = {
   stdout: string
   fullCommand?: string
   error?: string
-}
-
-export type LaunchResult = {
-  success: boolean
-  stdout: string
-  stderr: string
-  gameSettings: GameSettings
-  command?: string
 }
 
 export interface ExtraInfo {
@@ -373,7 +366,7 @@ export interface CallRunnerOptions {
   logFile?: string
   env?: Record<string, string>
   wrappers?: string[]
-  onOutput?: (output: string) => void
+  onOutput?: (output: string, child: ChildProcess) => void
 }
 
 export type AntiCheatStatus =

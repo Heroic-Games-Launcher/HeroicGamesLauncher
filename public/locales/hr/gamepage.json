@@ -3,7 +3,7 @@
         "change": {
             "message": "Ovo će promijeniti lokaciju instalacije za ovu igru, jeste li sigurni?",
             "path": "Odaberite novu lokaciju za instalaciju",
-            "title": "Promijenite lokaciju instalacije igrica"
+            "title": "Promijenite lokaciju instalacije igre"
         },
         "choose": "Odaberi",
         "importpath": "Odaberi mapu igre za uvesti",
@@ -29,8 +29,8 @@
             "title": "Deinstaliraj"
         },
         "update": {
-            "message": "Ova igrica ima ažuriranje, želite li ažurirati sada?",
-            "title": "Igrica treba ažuriranje"
+            "message": "Ova igra ima ažuriranje, želite li ažurirati sada?",
+            "title": "Igra treba ažuriranje"
         },
         "wineprefix": "Odaberite WinePrefix mapu",
         "yes": "DA"
@@ -62,8 +62,8 @@
         "lastPlayed": "Zadnje odigrano",
         "neverPlayed": "Nikad",
         "platform": "Odaberi verziju platforme za instalirati",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "Zahtjevi sustava",
+        "tools": "Alati",
         "totalPlayed": "Vrijeme igranja"
     },
     "gamecard": {
@@ -71,7 +71,7 @@
         "repairing": "Popravljanje"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Nepoznata greška"
     },
     "info": {
         "canRunOffline": "Internet Potreban",
@@ -84,8 +84,8 @@
     "install": {
         "disk-space-left": "Prostora dostupno",
         "not-enough-disk-space": "Nema dovoljno prostora na disku",
-        "path": "Odaberite put instalacije",
-        "path-not-writtable": "Warning: path might not be writable.",
+        "path": "Odaberi stazu instalacije",
+        "path-not-writtable": "Upozorenje: staza se možda ne može prepisati.",
         "space-after-install": "Nakon Instalacije",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine verzija"
@@ -104,7 +104,7 @@
     },
     "report_problem": "Prijavi problem za ovu igricu",
     "sdl": {
-        "title": "Odaberite kompomente za instalaciju"
+        "title": "Odaberite komponente za instalaciju"
     },
     "specs": {
         "minimum": "Minimalno",
@@ -114,10 +114,10 @@
         "clickToUpdate": "Klikni za ažuriranje",
         "hasUpdates": "Nova Verzija Dostupna!",
         "installed": "Instalirano",
-        "installing": "Instalira se",
+        "installing": "Instaliranje u tijeku",
         "moving": "Premještanje instalacije, molim pričekajte",
-        "notinstalled": "Ova igrica nije instalirana",
-        "processing": "Procesiranje datoteka, molimo čekajte",
+        "notinstalled": "Ova igra nije instalirana",
+        "processing": "Obrada datoteka, pričekaj",
         "reparing": "Popravljanje igrice, molimo pričekajte",
         "totalDownloaded": "Sveukupno preuzeto",
         "updating": "Ažuriranje igrice"
@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Dodaj prečace",
         "change": "Promijeni put instalacije",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Najnoviji dnevnik",
         "move": "Premjesti igricu",
         "protondb": "Provjeri Kompatibilnost",

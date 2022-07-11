@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Add shortcut",
         "change": "Change install path",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Latest Log",
         "move": "Move Game",
         "protondb": "Check Compatibility",

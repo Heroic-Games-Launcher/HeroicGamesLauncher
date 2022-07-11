@@ -56,7 +56,7 @@
     "game": {
         "downloadSize": "Размер загрузки",
         "firstPlayed": "Первый запуск",
-        "info": "Info",
+        "info": "Информация",
         "installSize": "Размер установки",
         "language": "Язык",
         "lastPlayed": "Последний запуск",
@@ -114,10 +114,10 @@
         "clickToUpdate": "Нажмите, чтобы обновить",
         "hasUpdates": "Доступна новая версия!",
         "installed": "Установлено",
-        "installing": "Устанавливается",
+        "installing": "Установка",
         "moving": "Перемещение установленных файлов. Пожалуйста, подождите",
         "notinstalled": "Игра не установлена",
-        "processing": "Обработка файлов, пожалуйста, подождите",
+        "processing": "Обработка файлов, подождите",
         "reparing": "Восстановление игры. Пожалуйста, подождите",
         "totalDownloaded": "Всего загружено",
         "updating": "Обновление игры"
@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Создать ярлык",
         "change": "Изменить путь установки",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Последний журнал",
         "move": "Переместить игру",
         "protondb": "Проверить совместимость",

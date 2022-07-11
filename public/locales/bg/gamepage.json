@@ -36,15 +36,15 @@
         "yes": "ДА"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Добавяне към любимите",
         "cancel": "Пауза/Отказ",
         "continue": "Продължаване на свалянето",
         "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "Внасяне на игра",
         "install": "Инсталиране",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Премахване от любимите",
+        "unhide_game": "Показване на играта",
         "uninstall": "Деинсталиране",
         "update": "Обновяване"
     },
@@ -61,9 +61,9 @@
         "language": "Език",
         "lastPlayed": "Последно пускане",
         "neverPlayed": "Никога",
-        "platform": "Select Platform Version to Install",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "platform": "Изберете версия за инсталиране",
+        "reuirements": "Системни изисквания",
+        "tools": "Инструменти",
         "totalPlayed": "Изиграно време"
     },
     "gamecard": {
@@ -71,22 +71,22 @@
         "repairing": "Поправяне"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Неизвестна грешка"
     },
     "info": {
         "canRunOffline": "Изисква се достъп до Интернет",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "Инсталирана система",
         "path": "Инсталационна папка",
         "size": "Размер",
         "syncsaves": "Синхронизиране на запазените файлове",
         "version": "Версия"
     },
     "install": {
-        "disk-space-left": "Space Available",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Свободно място",
+        "not-enough-disk-space": "Няма достатъчно място на диска",
         "path": "Изберете местоположение за инсталиране",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
+        "path-not-writtable": "Внимание: пътят може да не позволява запис.",
+        "space-after-install": "След инсталиране",
         "wineprefix": "Префикс на Wine",
         "wineversion": "Версия на Wine"
     },
@@ -102,7 +102,7 @@
     "launch": {
         "options": "Параметри за стартиране…"
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Докладване за проблем с пускането на тази игра",
     "sdl": {
         "title": "Изберете компоненти за инсталиране"
     },
@@ -114,10 +114,10 @@
         "clickToUpdate": "Натиснете за обновяване",
         "hasUpdates": "Има нова версия!",
         "installed": "Инсталирана",
-        "installing": "В процес на инсталиране",
+        "installing": "Инсталиране",
         "moving": "Преместване на играта; моля, изчакайте",
         "notinstalled": "Играта не е инсталирана",
-        "processing": "Processing files, please wait",
+        "processing": "Файловете се обработват, изчакайте",
         "reparing": "Поправяне на играта; моля, изчакайте",
         "totalDownloaded": "Общо свалено",
         "updating": "Обновяване на играта"
@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Добавяне на пряк път",
         "change": "Промяна на инсталационната папка",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Последни записи в журнала",
         "move": "Преместване на играта",
         "protondb": "Проверка на съвместимостта",

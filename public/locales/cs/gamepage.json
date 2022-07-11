@@ -117,7 +117,7 @@
         "installing": "Instaluji",
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
-        "processing": "Zpracovávám soubory, prosím počkejte",
+        "processing": "Zpracovávám soubory, čekejte prosím",
         "reparing": "Opravuji hru, čekejte prosím",
         "totalDownloaded": "Celkově staženo",
         "updating": "Aktualizuji hru"
@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Přidat zkratku",
         "change": "Změnit cestu instalace",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Nejnovější záznam",
         "move": "Přesunout hru",
         "protondb": "Zkontrolovat kompatibilitu",
