@@ -39,7 +39,7 @@
         "add_to_favourites": "Adicionar aos favoritos",
         "cancel": "Pausar/Cancelar",
         "continue": "Continuar baixando",
-        "force_update": "Force Update if Available",
+        "force_update": "Forçar atualização se disponível",
         "hide_game": "Ocultar jogo",
         "import": "Importar Jogo",
         "install": "Instalar",
@@ -71,7 +71,7 @@
         "repairing": "Reparando"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Erro desconhecido"
     },
     "info": {
         "canRunOffline": "Requer Internet",
@@ -83,10 +83,10 @@
     },
     "install": {
         "disk-space-left": "Espaço restante no dispositivo",
-        "not-enough-disk-space": "Not enough disk space",
+        "not-enough-disk-space": "Sem espaço suficiente no disco",
         "path": "Selecione o local de instalação",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
+        "path-not-writtable": "Aviso: caminho pode não permitir escrita.",
+        "space-after-install": "Pós-instalação",
         "wineprefix": "Prefixo Wine",
         "wineversion": "Versão do Wine"
     },
@@ -117,7 +117,7 @@
         "installing": "Instalando",
         "moving": "Movendo Instalação,Por favor Aguarde",
         "notinstalled": "Este jogo não está instalado",
-        "processing": "Processing files, please wait",
+        "processing": "Processando arquivos, aguarde",
         "reparing": "Reparando Jogo, Por favor Aguarde",
         "totalDownloaded": "Total Baixado",
         "updating": "Atualizando Jogo"
