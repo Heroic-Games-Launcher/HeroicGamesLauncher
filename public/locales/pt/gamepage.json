@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Adicionar Atalhos",
         "change": "Modificar local de instalação",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Último Log",
         "move": "Mover Jogo",
         "protondb": "Compatibilidade",

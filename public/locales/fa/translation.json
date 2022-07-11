@@ -37,7 +37,7 @@
                 "title": "خطای DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "به نظر می رسد پوشه بازی حذف شده است،‌آیا می خواهید بازی از لیست نصب شده ها حذف شود؟"
+                "title": "به نظر می رسد پوشه بازی حذف شده است،\u200cآیا می خواهید بازی از لیست نصب شده ها حذف شود؟"
             },
             "generic": {
                 "message": "",
@@ -154,12 +154,18 @@
         "store": "فیلتر فروشگاه"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
             "fallback": "برای استفاده از زبان Heroic خالی بگذارید.",
-            "in_game_config": "تمام بازی ها از این پیکربندی پشتیبانی نمی کنند،‌برخی تنظیمات زبان داخل بازی دارند.",
+            "in_game_config": "تمام بازی ها از این پیکربندی پشتیبانی نمی کنند،\u200cبرخی تنظیمات زبان داخل بازی دارند.",
             "valid_codes": "کدهای معتبر زبان وابسته به بازی هستند."
         },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGL همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part1": "استفاده از ",
             "part2": "گزینه های پیشرفته",
@@ -169,12 +175,15 @@
             "part6": " تا قبل از اجرای دستور صدا زده شود، به عنوان مثال: ",
             "part7": " تا لانچر در برخی بازیها رد شود، غیره."
         },
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic تلاش میکند تا پوشه صحیح ذخیره سازی را پیدا کند و در اکثر مواقع کار خواهد کرد. در صورتی که پوشه اشتباه بود، از بخش رونویسی برای تغییر آن استفاده کنید.",
             "part2": "در صورتی که محل Wine یا Proton را تغییر دهید، شما باید دوباره مسیر را چک کنید از آنجایی که Proton از محل و کاربری متفاوتی استفاده میکند. پس شما میتوانید مسیر فعلی را حذف ساده کنید از صفحه تنظیمات همگامسازی خارج شده و دوباره برگردید تا Heroic یک بار دیگر با محل درست پوشه را حدس بزند.",
             "part3": "همگام سازی دستی: برای بارگیری ذخیره بازیهای ذخیره شده در Cloud ، بارگیری را انتخاب کنید. آپلود تا موارد محلی را روی ابر آپلود کنید. دانلود اجباری و آپلود اجباری نسخه ای را که بصورت محلی یا روی ابر است نادیده می گیرند.",
             "part4": "همگامسازی ذخیرهها به طور خودکار هر زمان که یک بازی را شروع می کنید و پس از اتمام بازی ، ذخیره ها را همگامسازی می کند."
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "Heroic در این پوشهها برای نسخههای Wine، Proton و CrossOver جستوجو میکند:",
             "part2": "برای دیگر مکانها،از یک symbolic link به یکی از این پوشهها استفاده کنید"
@@ -290,6 +299,26 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "همگامسازی با بازیهای اپیک نصب شده",
         "enableFSRHack": "فعالسازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "فعالسازی Esync",
         "exit-to-tray": "خروج به میزکار سیستم",
         "FsrSharpnessStrenght": "قدرت تیزی FSR",

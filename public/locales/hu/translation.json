@@ -154,12 +154,18 @@
         "store": "Filter Store"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
             "fallback": "Leave blank to use Heroic's language.",
             "in_game_config": "Not all games support this configuration, some have in-game language setting.",
             "valid_codes": "Valid language codes are game-dependant."
         },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Abban az esetben szinkronizálj EGL-lel , ha van egy működő, Epic Games Launcher telepítésed máshol, és importálni szeretnéd a játékaid, hogy elkerüld az újbóli letöltésüket.",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part1": "A ",
             "part2": "Haladó beállítások",
@@ -169,12 +175,15 @@
             "part6": " azt használd, amit meg akarsz hívni a játék indítási parancs után, példaképpen: ",
             "part7": " hogy kihagyd a launchert néhány játékban, stb."
         },
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "A Heroic megpróbálja megtalálni a megfelelő mentési mappát, és ez esetek többségében működik. Abban az esetben, ha a mappa nem megfelelő, használd a felülírás dobozt, hogy megváltoztasd.",
             "part2": "Abban az esetben, ha megváltoztatod a Wine vagy Proton prefix mappáját, ismét ellenőrizned kell az útvonalat, mivel a Proton más prefix-et (/pfx) és felhasználónevet (steamuser) használ. Tehát egyszerűen kitörölheted az útvonalat, lépj ki a szinkronizálási beállítások oldalból és lépj vissza ahhoz, hogy a Heroic mégegyszer megpróbálja megtalálni a mappát a megfelelő prefix-el.",
             "part3": "Manuális szinkronizálás: válaszd a letöltést, hogy letöltsd a játékmentéseket, amiket a felhőben tárolsz. Válaszd a feltöltést, hogy feltöltsd a helyieket a felhőbe. Kényszerített letöltés és kényszerített feltöltés figyelmen kívül fogja hagyni a helyi vagy a felhőben lévő fájlok verzióját.",
             "part4": "A mentések automatikus szinkronizálása szinkronizálni fogja a mentéseket minden alkalommal, amikor elindítod a játékot és miután befejezted a játszást."
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "A Heroic a Wine, Proton és CrossOver verzióit a következő mappákban keresi:",
             "part2": "Más hely esetén, használj egy szimbolikus linket az egyik mappához"
@@ -290,6 +299,26 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Szinkronizálás a telepített Epic Gamesszel",
         "enableFSRHack": "FSR hack engedélyezése (a Wine verziónak támogatnia kell)",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "Esync engedélyezése",
         "exit-to-tray": "Kilépés a rendszertálcára",
         "FsrSharpnessStrenght": "FSR élesség erőssége",

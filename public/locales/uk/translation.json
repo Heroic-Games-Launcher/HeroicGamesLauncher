@@ -154,12 +154,18 @@
         "store": "Фільтр магазина"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
             "fallback": "Залиште порожнім для використання мови Heroic.",
             "in_game_config": "Не всі ігри підтримують цю конфігурацію, деякі мають налаштування мови всередині гри.",
             "valid_codes": "Прийнятні коди мов залежать від гри."
         },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Синхронізувати з EGL якщо ви маєте встановлений Epic Games Launcher і хочете імпортувати ігри уникнувши їх повторного завантаження.",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part1": "Використовуйте ",
             "part2": "Додаткові параметри",
@@ -169,12 +175,15 @@
             "part6": " які будуть вжиті після запуску гри, наприклад: ",
             "part7": " щоб пропустити лаунчер в деяких іграх, тощо."
         },
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic намагається вгадати теку збережень і це працює в більшості випадків. Якщо тека неправильна, використайте поле заміни щоб змінити шлях.",
             "part2": "Якщо ви зміните теку префіксу для Wine або Proton, вам доведеться перевірити шлях знову оскільки Proton використовує инший префікс (/pfx) та ім'я користувача (steamuser). Тому ви можете просто стерти поточний шлях, вийти з налаштувань синхронізації і повернутись щоб Heroic знов спробував вгадати теку з правильним префіксом.",
             "part3": "Ручна синхронізація: Оберіть \"Завантажити\" щоб завантажити збереження, розташовані на хмарі. \"Вивантажити\" щоб відправити локальні збереження на хмару. \"Примусове завантаження\" і \"Примусове вивантаження\" ігноруватимуть версію яка зараз локально чи на хмарі.",
             "part4": "Функція автоматичної синхронізації збережень виконуватиметься кожен раз коли ви починаєте та завершуєте грати."
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "Heroic шукає версії Wine, Proton, і CrossOver в цих теках:",
             "part2": "Для інших місць скористайтесь символьною ланкою на одну з цих тек"
@@ -290,6 +299,26 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Синхронізуватися із встановленим Epic Games Launcher",
         "enableFSRHack": "Ввімкнути FSR Hack (версія Wine має це підтримувати)",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "Ввімкнути Esync",
         "exit-to-tray": "Вийти до системної панелі",
         "FsrSharpnessStrenght": "Посилення різкості FSR",

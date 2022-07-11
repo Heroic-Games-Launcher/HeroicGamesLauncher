@@ -154,12 +154,18 @@
         "store": "Filter Store"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
             "fallback": "Leave blank to use Heroic's language.",
             "in_game_config": "Not all games support this configuration, some have in-game language setting.",
             "valid_codes": "Valid language codes are game-dependant."
         },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part1": "Use the ",
             "part2": "மேம்பட்ட விருப்பங்கள்",
@@ -169,12 +175,15 @@
             "part6": " to be called after the launch command, for instance: ",
             "part7": " to skip the launcher in some games, etc."
         },
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "சரியான சேமிப்பு கோப்புறையை ஹீரோயிக் யூகிக்க முயற்சிக்கும், இது பெரும்பாலான சந்தர்ப்பங்களில் வேலை செய்யும். கோப்புறை தவறாக இருந்தால், அதை மாற்ற override பெட்டியைப் பயன்படுத்தவும்.",
             "part2": "Wine அல்லது Proton முன்னொட்டு கோப்புறையை நீங்கள் மாற்றியிருந்தால், வேறு Proton முன்னொட்டு (/pfx) மற்றும் பயனர்பெயர் (steamuser) ஆகியவற்றைப் பயன்படுத்துவதால் நீங்கள் மீண்டும் பாதையை சரிபார்க்க வேண்டும். எனவே நீங்கள் தற்போதைய பாதையை ஒத்திசைவு அமைப்புகள் பக்கத்திலிருந்து எளிமையாக அழிக்க முடியும், அதன் பிறகு இன்னும் ஒரு முறை சரியான முன்னொட்டின் கோப்புறையை யூகிக்க எபிக் க்கு மீண்டும் திரும்பவும்.",
             "part3": "கைமுறை ஒத்திசைவு: மேகக்கணியில் சேமிக்கப்பட்ட விளையாட்டு சேமிப்புகளை பதிவிறக்க பதிவிறக்கத்தை தேர்வுசெய். கணினியில் உள்ளவற்றை மேகக்கணியில் பதிவேற்ற பதிவேற்றத்தை தேர்வுசெய். கட்டாயப்படுத்தப்பட்ட பதிவிறக்கம் அல்லது கட்டாயப்படுத்தப்பட்ட பதிவேற்றத்தை பயன்படுத்தினால், கணினி அல்லது மேகக்கணி பதிப்பை புறக்கணிக்கும்.",
             "part4": "'ஒத்திசைவு சேமிப்புகள்' நீங்கள் ஒரு விளையாட்டை துவங்கும்போதும் மற்றும் விளையாட்டை முடித்தபின்னும் சேமிப்புகளை தானாக ஒத்திசைக்கும்."
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "ஹீரோயிக் பின்வரும் கோப்புறைகளில் Wine மற்றும் Proton பதிப்புகளை தேடும்:",
             "part2": "பிற இடங்களுக்கு, இவற்றில் ஒரு கோப்புறைக்கு குறியீட்டு-இணைப்பை பயன்படுத்து"
@@ -290,6 +299,26 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "நிறுவப்பட்ட எபிக் விளையாட்டுகளுடன் ஒத்திசை",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "Enable Esync",
         "exit-to-tray": "கணினி தட்டிற்கு வெளியேறு",
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
