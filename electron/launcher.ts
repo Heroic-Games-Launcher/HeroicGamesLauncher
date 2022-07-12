@@ -39,8 +39,7 @@ import {
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
-  RpcClient,
-  WineInstallation
+  RpcClient
 } from './types'
 import { spawn } from 'child_process'
 
@@ -262,15 +261,22 @@ function setupEnvVars(gameSettings: GameSettings) {
  * @returns A Record that can be passed to execAsync/spawn
  */
 function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
-  const { wineVersion } = gameSettings
+  const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
+
+  const ret: Record<string, string> = {}
 
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
-  const ret: Record<string, string> = {
-    ...getWineEnvSetup(
-      wineVersion,
-      gameSettings.winePrefix,
-      gameSettings.wineCrossoverBottle
-    )
+  const steamInstallPath = join(flatPakHome, '.steam', 'steam')
+  switch (wineVersion.type) {
+    case 'wine':
+      ret.WINEPREFIX = winePrefix
+      break
+    case 'proton':
+      ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
+      ret.STEAM_COMPAT_DATA_PATH = winePrefix
+      break
+    case 'crossover':
+      ret.CX_BOTTLE = wineCrossoverBottle
   }
 
   if (gameSettings.showFps) {
@@ -380,32 +386,6 @@ export async function verifyWinePrefix(
     })
 }
 
-/**
- * Returns appropriate environment variables for running a Wine/Proton/CX command
- * @returns The required environment variables
- */
-function getWineEnvSetup(
-  wineVersion: WineInstallation,
-  winePrefix: string,
-  cx_bottle?: string
-): Record<string, string> {
-  const ret: Record<string, string> = {}
-  const steamInstallPath = join(flatPakHome, '.steam', 'steam')
-
-  switch (wineVersion.type) {
-    case 'wine':
-      ret.WINEPREFIX = winePrefix
-      break
-    case 'proton':
-      ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
-      ret.STEAM_COMPAT_DATA_PATH = winePrefix
-      break
-    case 'crossover':
-      ret.CX_BOTTLE = cx_bottle
-  }
-  return ret
-}
-
 function launchCleanup(rpcClient: RpcClient) {
   if (rpcClient) {
     rpcClient.disconnect()
@@ -419,11 +399,12 @@ async function runWineCommand(
   altWineBin: string,
   wait: boolean
 ) {
-  const { wineVersion, winePrefix } = gameSettings
+  const { wineVersion } = gameSettings
 
   const env_vars = {
     ...process.env,
-    ...getWineEnvSetup(wineVersion, winePrefix)
+    ...setupEnvVars(gameSettings),
+    ...setupWineEnvVars(gameSettings)
   }
 
   let additional_command = ''
@@ -645,7 +626,6 @@ function getRunnerCallWithoutCredentials(
 export {
   prepareLaunch,
   launchCleanup,
-  getWineEnvSetup,
   prepareWineLaunch,
   setupEnvVars,
   setupWineEnvVars,
