@@ -42,10 +42,7 @@ abstract class Game {
   abstract uninstall(): Promise<ExecResult>
   abstract update(): Promise<{ status: 'done' | 'error' }>
   abstract isNative(): boolean
-  abstract runWineCommand(
-    command: string,
-    wait?: boolean
-  ): Promise<ExecResult>
+  abstract runWineCommand(command: string, wait?: boolean): Promise<ExecResult>
 }
 
 import { LegendaryGame } from './legendary/games'
