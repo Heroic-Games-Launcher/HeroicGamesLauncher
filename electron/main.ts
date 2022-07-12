@@ -754,7 +754,10 @@ ipcMain.handle('requestSettings', async (event, appName) => {
               args.push(val)
             }
           })
-        config.wrapperOptions.at(0).args = shlex.join(args)
+
+        if (config.wrapperOptions.at(0)) {
+          config.wrapperOptions.at(0).args = shlex.join(args)
+        }
       }
 
       delete config.otherOptions
