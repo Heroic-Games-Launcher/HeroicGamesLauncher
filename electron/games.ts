@@ -44,7 +44,6 @@ abstract class Game {
   abstract isNative(): boolean
   abstract runWineCommand(
     command: string,
-    altWineBin?: string,
     wait?: boolean
   ): Promise<ExecResult>
 }

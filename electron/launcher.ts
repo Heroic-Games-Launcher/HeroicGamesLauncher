@@ -42,6 +42,7 @@ import {
   RpcClient
 } from './types'
 import { spawn } from 'child_process'
+import { Game } from 'games'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -371,7 +372,7 @@ export async function verifyWinePrefix(
   const haveToWait = !existsSync(systemRegPath)
 
   return game
-    .runWineCommand('wineboot --init', '', haveToWait)
+    .runWineCommand('wineboot --init', haveToWait)
     .then((result) => {
       if (wineVersion.type === 'proton') {
         return { res: result, updated: true }
@@ -393,31 +394,24 @@ function launchCleanup(rpcClient: RpcClient) {
   }
 }
 
-async function runWineCommand(
-  gameSettings: GameSettings,
-  command: string,
-  altWineBin: string,
-  wait: boolean
-) {
+async function runWineCommand(game: Game, command: string, wait: boolean) {
+  const gameSettings = await game.getSettings()
+  const { folder_name: installFolderName } = game.getGameInfo()
+
   const { wineVersion } = gameSettings
 
   const env_vars = {
     ...process.env,
     ...setupEnvVars(gameSettings),
-    ...setupWineEnvVars(gameSettings)
+    ...setupWineEnvVars(gameSettings, installFolderName)
   }
 
   let additional_command = ''
-  let wineBin = wineVersion.bin.replaceAll("'", '')
   if (wineVersion.type === 'proton') {
     command = 'run ' + command
     // TODO: Respect 'wait' here. Not sure if Proton can even do that
     // TODO: Use Steamruntime here in the future
   } else {
-    // This is only allowed for Wine since Proton only has one binary (the 'proton' script)
-    if (altWineBin) {
-      wineBin = altWineBin.replaceAll("'", '')
-    }
     // Can't wait if we don't have a Wineserver
     if (wait) {
       if (wineVersion.wineserver) {
@@ -431,6 +425,7 @@ async function runWineCommand(
     }
   }
 
+  const wineBin = wineVersion.bin.replaceAll("'", '')
   let finalCommand = `"${wineBin}" ${command}`
   if (additional_command) {
     finalCommand += ` && ${additional_command}`
