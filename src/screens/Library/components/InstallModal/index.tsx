@@ -37,6 +37,7 @@ import {
 import ContextProvider from 'src/state/ContextProvider'
 import {
   AppSettings,
+  GameInfo,
   GameStatus,
   InstallInfo,
   InstallProgress,
@@ -51,6 +52,7 @@ import {
   DialogFooter,
   DialogHeader
 } from 'src/components/UI/Dialog'
+import Anticheat from 'src/components/UI/Anticheat'
 
 import './index.css'
 
@@ -110,7 +112,8 @@ export default function InstallModal({
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
-  const [gameInstallInfo, setGameInfo] = useState({} as InstallInfo)
+  const [gameInfo, setGameInfo] = useState({} as GameInfo)
+  const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
   const [winePrefix, setWinePrefix] = useState('...')
   const [wineVersion, setWineVersion] = useState<WineInstallation | undefined>(
@@ -301,7 +304,8 @@ export default function InstallModal({
         return
       }
       const gameData = await getGameInfo(appName, runner)
-      setGameInfo(gameInstallInfo)
+      setGameInfo(gameData)
+      setGameInstallInfo(gameInstallInfo)
       if (gameInstallInfo.manifest?.languages) {
         setInstallLanguages(gameInstallInfo.manifest.languages)
         setInstallLanguage(
@@ -415,6 +419,7 @@ export default function InstallModal({
                 />
               ))}
             </DialogHeader>
+            <Anticheat gameInfo={gameInfo} />
             <DialogContent>
               <div className="InstallModal__sizes">
                 <div className="InstallModal__size">

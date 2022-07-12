@@ -8,6 +8,14 @@
         "zoom": "Uvečaj"
     },
     "All": "Sve",
+    "anticheat": {
+        "anticheats": "Anticheats",
+        "may_not_work": "It may not work due to denied or broken anticheat support.",
+        "reference": "Reference",
+        "source": "Source",
+        "status": "Status",
+        "title": "This game includes anticheat software"
+    },
     "Assets": "Assets",
     "box": {
         "cache-cleared": {
