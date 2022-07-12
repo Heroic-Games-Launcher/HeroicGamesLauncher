@@ -240,29 +240,6 @@ function setupEnvVars(gameSettings: GameSettings) {
   if (gameSettings.audioFix) {
     ret.PULSE_LATENCY_MSEC = '60'
   }
-  if (
-    !gameSettings.preferSystemLibs &&
-    gameSettings.wineVersion.type === 'wine'
-  ) {
-    if (gameSettings.wineVersion.bin) {
-      const lib32 = join(gameSettings.wineVersion.bin, '../../lib')
-      const lib64 = join(gameSettings.wineVersion.bin, '../../lib64')
-      if (existsSync(lib32) && existsSync(lib64)) {
-        // append wine libs at the beginning
-        ret.LD_LIBRARY_PATH = [lib32, lib64, process.env.LD_LIBRARY_PATH].join(
-          ':'
-        )
-      } else {
-        logError(
-          [
-            `Couldn't find all library folders of ${gameSettings.wineVersion.name}!`,
-            `Missing ${lib32} or ${lib64}!`,
-            `Falling back to system libraries!`
-          ].join('\n')
-        )
-      }
-    }
-  }
   if (gameSettings.otherOptions) {
     gameSettings.otherOptions
       .split(' ')
@@ -331,6 +308,24 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     if (gameSettings.otherOptions.includes('PROTON_LOG=')) {
       // Stop Proton from overriding WINEDEBUG; this prevents logs growing to a few GB for some games
       ret.WINEDEBUG = 'timestamp'
+    }
+  }
+  if (!gameSettings.preferSystemLibs && wineVersion.type === 'wine') {
+    if (wineVersion.lib32 && wineVersion.lib) {
+      // append wine libs at the beginning
+      ret.LD_LIBRARY_PATH = [
+        wineVersion.lib32,
+        wineVersion.lib,
+        process.env.LD_LIBRARY_PATH
+      ].join(':')
+    } else {
+      logError(
+        [
+          `Couldn't find all library folders of ${wineVersion.name}!`,
+          `Missing ${wineVersion.lib32} or ${wineVersion.lib}!`,
+          `Falling back to system libraries!`
+        ].join('\n')
+      )
     }
   }
   return ret

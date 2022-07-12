@@ -238,6 +238,8 @@ export interface WineInstallation {
   bin: string
   name: string
   type: 'wine' | 'proton' | 'crossover'
+  lib?: string
+  lib32?: string
   wineboot?: string
   wineserver?: string
 }
