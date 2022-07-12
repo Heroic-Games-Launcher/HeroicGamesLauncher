@@ -257,8 +257,7 @@ export class GlobalState extends PureComponent<Props> {
     this.handleCategory(runner)
     this.refreshLibrary({
       fullRefresh: true,
-      runInBackground: false,
-      library: runner
+      runInBackground: false
     })
   }
 
@@ -480,8 +479,7 @@ export class GlobalState extends PureComponent<Props> {
         // This avoids calling legendary again before the previous process is killed when canceling
         this.refreshLibrary({
           checkForUpdates: true,
-          runInBackground: true,
-          library: runner
+          runInBackground: true
         })
 
         storage.setItem(
@@ -495,7 +493,7 @@ export class GlobalState extends PureComponent<Props> {
         })
       }
 
-      this.refreshLibrary({ runInBackground: true, library: runner })
+      this.refreshLibrary({ runInBackground: true })
       this.setState({ libraryStatus: newLibraryStatus })
     }
   }
@@ -558,12 +556,11 @@ export class GlobalState extends PureComponent<Props> {
       this.handleGameStatus({ ...libraryStatus, ...args })
     })
 
-    ipcRenderer.on('refreshLibrary', async (e: Event, runner: Runner) => {
+    ipcRenderer.on('refreshLibrary', async () => {
       this.refreshLibrary({
         checkForUpdates: false,
         fullRefresh: true,
-        runInBackground: true,
-        library: runner
+        runInBackground: true
       })
     })
 

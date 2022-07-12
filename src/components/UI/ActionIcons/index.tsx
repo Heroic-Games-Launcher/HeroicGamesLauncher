@@ -16,7 +16,6 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import FormControl from '../FormControl'
 import './index.css'
-import { Runner } from 'src/types'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import classNames from 'classnames'
 
@@ -25,11 +24,9 @@ interface Props {
   sortInstalled: boolean
   toggleSortDescending: () => void
   toggleSortinstalled: () => void
-  library: Runner
 }
 
 export default function ActionIcons({
-  library,
   sortDescending,
   toggleSortDescending,
   sortInstalled,
@@ -136,8 +133,7 @@ export default function ActionIcons({
             refreshLibrary({
               checkForUpdates: true,
               fullRefresh: true,
-              runInBackground: false,
-              library
+              runInBackground: false
             })
           }
         >

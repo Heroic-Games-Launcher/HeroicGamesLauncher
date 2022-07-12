@@ -82,7 +82,7 @@
 .gameCard .gameTitle {
   position: absolute;
   width: 100%;
-  bottom: min(0.5vh, 46px);
+  bottom: min(1vw, 46px);
   padding: 0.3vw;
   color: var(--text-secondary);
   display: flex;
@@ -129,13 +129,11 @@
   position: absolute;
   bottom: 0px;
   background: var(--icons-background);
-  min-height: 42px;
-  max-height: 56px;
-  height: 3vw;
   justify-content: space-around;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 'update settings play';
+  padding: 6px 0px;
 }
 
 .gameCard > .icons > .svg-button {
