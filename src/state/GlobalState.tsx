@@ -481,7 +481,7 @@ export class GlobalState extends PureComponent<Props> {
         this.refreshLibrary({
           checkForUpdates: true,
           runInBackground: true,
-          library: runner
+          library: 'all'
         })
 
         storage.setItem(
