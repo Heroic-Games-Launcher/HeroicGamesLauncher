@@ -149,6 +149,11 @@ function Settings() {
     setOn: setAutoInstallVkd3d
   } = useToggle(false)
   const {
+    on: preferSystemLibs,
+    toggle: togglePreferSystemLibs,
+    setOn: setPreferSystemLibs
+  } = useToggle(false)
+  const {
     on: enableFSR,
     toggle: toggleFSR,
     setOn: setEnableFSR
@@ -232,6 +237,7 @@ function Settings() {
         setDiscordRPC(config.discordRPC)
         setAutoInstallDxvk(config.autoInstallDxvk)
         setAutoInstallVkd3d(config.autoInstallVkd3d)
+        setPreferSystemLibs(config.preferSystemLibs)
         setEnableEsync(config.enableEsync)
         setEnableFsync(config.enableFsync)
         setEnableFSR(config.enableFSR)
@@ -288,6 +294,7 @@ function Settings() {
       audioFix,
       autoInstallDxvk,
       autoInstallVkd3d,
+      preferSystemLibs,
       customWinePaths,
       darkTrayIcon,
       defaultInstallPath,
@@ -320,6 +327,7 @@ function Settings() {
       audioFix,
       autoInstallDxvk,
       autoInstallVkd3d,
+      preferSystemLibs,
       autoSyncSaves,
       enableEsync,
       enableFSR,
@@ -359,6 +367,7 @@ function Settings() {
     audioFix,
     autoInstallDxvk,
     autoInstallVkd3d,
+    preferSystemLibs,
     autoSyncSaves,
     customWinePaths,
     darkTrayIcon,
@@ -495,6 +504,8 @@ function Settings() {
               setFsrSharpness={setFsrSharpness}
               enableResizableBar={enableResizableBar}
               toggleResizableBar={toggleResizableBar}
+              preferSystemLibs={preferSystemLibs}
+              togglePreferSystemLibs={togglePreferSystemLibs}
             />
           )}
           {isWineSettings && !isDefault && <Tools appName={appName} />}
