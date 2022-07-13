@@ -2,7 +2,6 @@
   background-color: var(--gradient-gamecard);
   text-align: left;
   width: 100%;
-  aspect-ratio: 8 / 12;
   overflow: hidden;
   position: relative;
   transition-duration: 0.5s;
@@ -57,19 +56,21 @@
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .gameCard .gameImg {
   width: 100%;
-  height: 100%;
   object-fit: cover;
+  aspect-ratio: 3 / 4;
+  display: block;
 }
 
 .gameCard .gameLogo {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, -50%);
   width: 50%;
 }
 
@@ -80,8 +81,8 @@
 .gameCard .gameTitle {
   position: absolute;
   width: 100%;
-  bottom: 20px;
-  padding: 0.3vw;
+  bottom: 0px;
+  padding: 0.4rem 0.3rem;
   color: var(--text-secondary);
   display: flex;
   background: var(--gradient-gamecard);
@@ -91,25 +92,14 @@
   font-weight: 700;
   line-height: 17px;
   color: var(--text-default);
-  height: 0;
-  max-height: 68px;
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
-}
-
-.gameCard .gameTitle span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  max-height: 18px;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  transform: translateY(100%);
 }
 
 .gameCard:hover .gameTitle {
-  height: 60%;
-  max-height: 105px;
+  transform: translateY(0);
 }
 
 .gameCard:hover .gameTitle span {
@@ -123,9 +113,6 @@
 }
 
 .gameCard > .icons {
-  opacity: 1;
-  position: absolute;
-  bottom: 0px;
   background: var(--icons-background);
   justify-content: space-around;
   display: grid;
