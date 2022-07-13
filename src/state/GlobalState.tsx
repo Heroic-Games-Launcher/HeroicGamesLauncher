@@ -324,7 +324,10 @@ export class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
-  refresh = async (library?: Runner, checkUpdates?: boolean): Promise<void> => {
+  refresh = async (
+    library?: Runner | 'all',
+    checkUpdates?: boolean
+  ): Promise<void> => {
     console.log('refreshing')
 
     let updates = this.state.gameUpdates
