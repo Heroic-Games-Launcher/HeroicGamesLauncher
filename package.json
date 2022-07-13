@@ -104,7 +104,8 @@
       "depends": [
         "gawk",
         "curl",
-        "zstd"
+        "zstd",
+        "wine"
       ]
     },
     "pacman": {
@@ -112,7 +113,8 @@
       "depends": [
         "gawk",
         "curl",
-        "zstd"
+        "zstd",
+        "wine"
       ]
     },
     "rpm": {
@@ -120,7 +122,8 @@
       "depends": [
         "gawk",
         "curl",
-        "zstd"
+        "zstd",
+        "wine"
       ]
     }
   },
