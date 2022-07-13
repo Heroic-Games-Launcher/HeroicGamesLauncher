@@ -82,7 +82,7 @@
 .gameCard .gameTitle {
   position: absolute;
   width: 100%;
-  display: none;
+  bottom: -50px;
   padding: 0.3vw;
   color: var(--text-secondary);
   background: var(--gradient-gamecard);
@@ -93,7 +93,6 @@
   line-height: 17px;
   color: var(--text-default);
   height: 0;
-  max-height: 68px;
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
@@ -109,16 +108,16 @@
 }
 
 .gameCard:hover .gameTitle {
-  height: 60%;
-  max-height: 105px;
+  height: calc(var(--icons-size) + 3vh);
+  display: block;
+  bottom: var(--icons-size);
+  min-height: 32%;
 }
 
 .gameCard:hover .gameTitle span {
   overflow: visible;
   text-overflow: ellipsis;
   display: -webkit-box;
-  max-height: fit-content;
-  height: min-content;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
 }
