@@ -11,6 +11,7 @@ export interface AppSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
+  preferSystemLibs: boolean
   autoSyncSaves: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: Array<string>
@@ -165,6 +166,7 @@ export interface GameSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
   autoSyncSaves: boolean
+  preferSystemLibs: boolean
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
@@ -297,6 +299,8 @@ export interface WineInstallation {
   bin: string
   name: string
   type: 'wine' | 'proton' | 'crossover'
+  lib?: string
+  lib32?: string
   wineboot?: string
   wineserver?: string
 }

@@ -210,6 +210,7 @@ abstract class GlobalConfig {
         bin: wineBin,
         name: `Wine - ${version}`,
         type: 'wine',
+        ...this.getWineLibs(wineBin),
         ...this.getWineExecs(wineBin)
       })
     })
@@ -224,6 +225,7 @@ abstract class GlobalConfig {
           bin: wineBin,
           name: `Wine - ${version}`,
           type: 'wine',
+          ...this.getWineLibs(wineBin),
           ...this.getWineExecs(wineBin)
         })
       })
@@ -302,6 +304,28 @@ abstract class GlobalConfig {
     const potWinebootPath = join(wineDir, 'wineboot')
     if (existsSync(potWinebootPath)) {
       ret.wineboot = potWinebootPath
+    }
+    return ret
+  }
+
+  /**
+   * Checks if a Wine version has lib/lib32 folders and returns the path to those if they're present
+   * @param wineBin The unquoted path to the Wine binary ('wine')
+   * @returns The paths to lib and lib32, if present
+   */
+  public getWineLibs(wineBin: string): {
+    lib: string
+    lib32: string
+  } {
+    const wineDir = dirname(wineBin)
+    const ret = { lib: '', lib32: '' }
+    const potLib32Path = join(wineDir, '../lib')
+    if (existsSync(potLib32Path)) {
+      ret.lib32 = potLib32Path
+    }
+    const potLibPath = join(wineDir, '../lib64')
+    if (existsSync(potLibPath)) {
+      ret.lib = potLibPath
     }
     return ret
   }
@@ -453,6 +477,7 @@ class GlobalConfigV0 extends GlobalConfig {
       addStartMenuShortcuts: false,
       autoInstallDxvk: false,
       autoInstallVkd3d: false,
+      preferSystemLibs: false,
       checkForUpdatesOnStartup: !isFlatpak,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,

@@ -252,6 +252,13 @@ function setupEnvVars(gameSettings: GameSettings) {
       })
   }
 
+  // setup LD_PRELOAD if not defined
+  // fixes the std::log_error for Fall Guys
+  // thanks to https://github.com/Diyou
+  if (!process.env.LD_PRELOAD) {
+    ret.LD_PRELOAD = ''
+  }
+
   return ret
 }
 
@@ -301,6 +308,24 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     if (gameSettings.otherOptions.includes('PROTON_LOG=')) {
       // Stop Proton from overriding WINEDEBUG; this prevents logs growing to a few GB for some games
       ret.WINEDEBUG = 'timestamp'
+    }
+  }
+  if (!gameSettings.preferSystemLibs && wineVersion.type === 'wine') {
+    if (wineVersion.lib32 && wineVersion.lib) {
+      // append wine libs at the beginning
+      ret.LD_LIBRARY_PATH = [
+        wineVersion.lib32,
+        wineVersion.lib,
+        process.env.LD_LIBRARY_PATH
+      ].join(':')
+    } else {
+      logError(
+        [
+          `Couldn't find all library folders of ${wineVersion.name}!`,
+          `Missing ${wineVersion.lib32} or ${wineVersion.lib}!`,
+          `Falling back to system libraries!`
+        ].join('\n')
+      )
     }
   }
   return ret

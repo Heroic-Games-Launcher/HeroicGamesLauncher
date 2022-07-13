@@ -183,6 +183,7 @@
             "part6": " ഉപയോഗിക്കുക, ഉദ്ദാഹരണത്തിന്:ചില കളികളില് ലോഞ്ചര് ഒഴിച്ചുവിടാനായി ",
             "part7": " ചില കളികളുടെ തുറകള് ഒഴിവാക്കാനും മറ്റും."
         },
+        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
@@ -363,6 +364,7 @@
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "offlinemode": "ഓഫ്ലൈനില് കളിക്കുക",
         "prefered_language": "Prefered Language (Language Code)",
+        "preferSystemLibs": "Prefer system libraries",
         "primerun": "എന്വിഡിയ പ്രൈം റെന്റര് വയ്ക്കൂ",
         "resizableBar": "വലുപ്പം മാറ്റാവുന്ന BAR വയ്ക്കൂ (എന്വിഡിയ RTX 30xxനു മാത്രം)",
         "runexe": {
