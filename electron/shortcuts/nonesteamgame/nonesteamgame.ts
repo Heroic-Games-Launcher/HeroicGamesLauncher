@@ -7,9 +7,9 @@ import {
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'graceful-fs'
 import { readFileSync } from 'fs-extra'
 import { join } from 'path'
-import { GameInfo } from '../types'
-import { ShortcutsResult } from './types'
-import { getIcon } from './utils'
+import { GameInfo } from '../../types'
+import { ShortcutsResult } from '../types'
+import { getIcon } from '../utils'
 import {
   prepareImagesForSteam,
   generateShortcutId,
@@ -18,8 +18,8 @@ import {
   removeImagesFromSteam
 } from './steamhelper'
 import { app, dialog, Notification } from 'electron'
-import { isFlatpak, isWindows, tsStore } from '../constants'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { isFlatpak, isWindows, tsStore } from '../../constants'
+import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
 
 /**
@@ -259,7 +259,7 @@ async function addNonSteamGame(props: {
         )
       )
 
-    prepareImagesForSteam({
+    await prepareImagesForSteam({
       steamUserConfigDir: configDir,
       appID: {
         bigPictureAppID: generateAppId(newEntry.Exe, newEntry.AppName),

@@ -44,10 +44,10 @@ import {
   setupEnvVars,
   setupWrappers
 } from '../launcher'
-import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts'
+import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import setup from './setup'
 import { runGogdlCommand } from './library'
-import { removeNonSteamGame } from '../shortcuts/nonsteamgame'
+import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 
 class GOGGame extends Game {
   public appName: string

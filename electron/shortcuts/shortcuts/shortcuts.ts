@@ -1,13 +1,13 @@
 import { app, shell } from 'electron'
 import { unlink, writeFile } from 'graceful-fs'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { GlobalConfig } from '../config'
-import { removeSpecialcharacters } from '../utils'
-import { Game } from '../games'
-import { Runner, GameInfo } from '../types'
-import { userHome } from '../constants'
-import { GOGLibrary } from '../gog/library'
-import { getIcon } from './utils'
+import { logError, logInfo, LogPrefix } from '../../logger/logger'
+import { GlobalConfig } from '../../config'
+import { removeSpecialcharacters } from '../../utils'
+import { Game } from '../../games'
+import { Runner, GameInfo } from '../../types'
+import { userHome } from '../../constants'
+import { GOGLibrary } from '../../gog/library'
+import { getIcon } from '../utils'
 
 /**
  * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications

@@ -5,7 +5,7 @@ import { DirResult, dirSync } from 'tmp'
 import {
   addNonSteamGame,
   removeNonSteamGame
-} from '../../shortcuts/nonsteamgame'
+} from '../../shortcuts/nonesteamgame/nonesteamgame'
 import { dialog } from 'electron'
 
 import { createNewLogFileAndClearOldOnces } from '../../logger/logger'

@@ -34,11 +34,11 @@ import {
   launchCleanup,
   getRunnerCallWithoutCredentials
 } from '../launcher'
-import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts'
+import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import { basename, join } from 'path'
 import { runLegendaryCommand } from './library'
 import { gameInfoStore } from './electronStores'
-import { removeNonSteamGame } from '../shortcuts/nonsteamgame'
+import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 
 class LegendaryGame extends Game {
   public appName: string

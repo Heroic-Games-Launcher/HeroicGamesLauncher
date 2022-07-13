@@ -8,7 +8,7 @@ import {
   addNonSteamGame,
   isAddedToSteam,
   removeNonSteamGame
-} from './nonsteamgame'
+} from './nonesteamgame/nonesteamgame'
 
 const getSteamUserdataDir = async () => {
   const { defaultSteamPath } = await GlobalConfig.get().getSettings()
