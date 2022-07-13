@@ -213,7 +213,7 @@ a {
 }
 
 .settingsWrapper .button {
-  max-height: auto;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 }
