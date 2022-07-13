@@ -3,7 +3,7 @@
   top: 0;
   z-index: 7;
   display: grid;
-  grid-template-columns: 330px 50%;
+  grid-template-columns: minmax(min-content, 350px) 1fr;
   grid-template-areas: 'filters search';
   grid-gap: 8px;
   align-items: start;

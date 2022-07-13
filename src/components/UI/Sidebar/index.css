@@ -40,6 +40,7 @@
   font-size: 18px;
   color: var(--navbar-accent);
   transition: color 250ms;
+  text-align: start;
 }
 
 .Sidebar__item:focus-visible {
@@ -67,6 +68,7 @@
   display: inline-flex;
   justify-content: center;
   color: var(--accent);
+  flex-shrink: 0;
 }
 
 .currentDownloads {
