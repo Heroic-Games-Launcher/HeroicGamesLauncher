@@ -180,6 +180,7 @@
             "part6": " تا قبل از اجرای دستور صدا زده شود، به عنوان مثال: ",
             "part7": " تا لانچر در برخی بازیها رد شود، غیره."
         },
+        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
@@ -372,6 +373,7 @@
         "minimize-on-launch": "کوچک کردن Heroic بعد از اجرای بازی",
         "offlinemode": "اجرای آفلاین بازی",
         "prefered_language": "زبان ترجیحی (کد زبان)",
+        "preferSystemLibs": "Prefer system libraries",
         "primerun": "استفاده از کارت گرافیک اختصاص یافته",
         "resizableBar": "فعالسازی Resizable BAR (فقط محصولات NVIDIA RTX 30xx)",
         "runexe": {

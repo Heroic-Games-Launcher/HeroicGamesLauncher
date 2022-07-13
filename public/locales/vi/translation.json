@@ -180,6 +180,7 @@
             "part6": " được gọi sau lệnh khởi chạy, ví dụ: ",
             "part7": " để bỏ qua trình khởi chạy trong một số trò chơi, v.v."
         },
+        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
@@ -372,6 +373,7 @@
         "minimize-on-launch": "Thu nhỏ Heroic sau khi khởi chạy trò chơi",
         "offlinemode": "Chạy game oflline",
         "prefered_language": "Ngôn ngữ ưa thích (Mã ngôn ngữ)",
+        "preferSystemLibs": "Prefer system libraries",
         "primerun": "Bật Nvidia Prime Render",
         "resizableBar": "Bật tính năng thay đổi kích thước bar (chỉ dùng được với NVIDIA RTX 30xx)",
         "runexe": {
