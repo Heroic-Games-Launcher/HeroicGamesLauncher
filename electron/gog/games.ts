@@ -46,6 +46,7 @@ import {
 import { addShortcuts, removeShortcuts } from '../shortcuts'
 import setup from './setup'
 import { runGogdlCommand } from './library'
+import shlex from 'shlex'
 
 class GOGGame extends Game {
   public appName: string
@@ -319,6 +320,7 @@ class GOGGame extends Game {
           steamRuntime
         )
       }
+
       commandParts = [
         'launch',
         gameInfo.install.install_path,
@@ -326,8 +328,8 @@ class GOGGame extends Game {
         gameInfo.app_name,
         '--platform',
         `${gameInfo.install.platform}`,
-        launchArguments,
-        gameSettings.launcherArgs
+        ...shlex.split(launchArguments ?? ''),
+        ...shlex.split(gameSettings.launcherArgs ?? '')
       ]
     } else {
       const {
@@ -384,8 +386,8 @@ class GOGGame extends Game {
         ...winePrefixFlag,
         '--os',
         gameInfo.install.platform.toLowerCase(),
-        launchArguments,
-        launcherArgs
+        ...shlex.split(launchArguments ?? ''),
+        ...shlex.split(launcherArgs ?? '')
       ]
     }
 
