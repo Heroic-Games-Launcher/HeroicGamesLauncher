@@ -339,54 +339,50 @@ export default function WineSettings({
 
       {isLinux && !isProton && (
         <>
-          <div>
-            <div className="toggleRow">
-              <ToggleSwitch
-                htmlId="autovkd3d"
-                value={autoInstallVkd3d}
-                handleChange={() => {
-                  const action = autoInstallVkd3d ? 'restore' : 'backup'
-                  ipcRenderer.send('toggleVKD3D', [
-                    { winePrefix, winePath: wineVersion.bin },
-                    action
-                  ])
-                  return toggleAutoInstallVkd3d()
-                }}
-                title={t(
-                  'setting.autovkd3d',
-                  'Auto Install/Update VKD3D on Prefix'
-                )}
-              />
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="autovkd3d"
+              value={autoInstallVkd3d}
+              handleChange={() => {
+                const action = autoInstallVkd3d ? 'restore' : 'backup'
+                ipcRenderer.send('toggleVKD3D', [
+                  { winePrefix, winePath: wineVersion.bin },
+                  action
+                ])
+                return toggleAutoInstallVkd3d()
+              }}
+              title={t(
+                'setting.autovkd3d',
+                'Auto Install/Update VKD3D on Prefix'
+              )}
+            />
 
-              <FontAwesomeIcon
-                className="helpIcon"
-                icon={faCircleInfo}
-                title={t(
-                  'help.vkd3d',
-                  'VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.'
-                )}
-              />
-            </div>
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.vkd3d',
+                'VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.'
+              )}
+            />
           </div>
 
-          <div>
-            <div className="toggleRow">
-              <ToggleSwitch
-                htmlId="systemLibsToggle"
-                value={preferSystemLibs || false}
-                handleChange={togglePreferSystemLibs}
-                title={t('setting.preferSystemLibs', 'Prefer system libraries')}
-              />
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="systemLibsToggle"
+              value={preferSystemLibs || false}
+              handleChange={togglePreferSystemLibs}
+              title={t('setting.preferSystemLibs', 'Prefer system libraries')}
+            />
 
-              <FontAwesomeIcon
-                className="helpIcon"
-                icon={faCircleInfo}
-                title={t(
-                  'help.preferSystemLibs',
-                  'Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.'
-                )}
-              />
-            </div>
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.preferSystemLibs',
+                'Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.'
+              )}
+            />
           </div>
         </>
       )}
