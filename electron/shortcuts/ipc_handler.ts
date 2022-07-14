@@ -37,13 +37,27 @@ ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
   game.removeShortcuts()
 })
 
-ipcMain.handle('addToSteam', async (event, appName: string, runner: Runner) => {
-  const game = Game.get(appName, runner)
-  const gameInfo = await game.getGameInfo()
-  const steamUserdataDir = await getSteamUserdataDir()
+ipcMain.handle(
+  'addToSteam',
+  async (
+    event,
+    appName: string,
+    runner: Runner,
+    bkgDataUrl: string,
+    bigPicDataUrl: string
+  ) => {
+    const game = Game.get(appName, runner)
+    const gameInfo = await game.getGameInfo()
+    const steamUserdataDir = await getSteamUserdataDir()
 
-  await addNonSteamGame({ steamUserdataDir, gameInfo })
-})
+    await addNonSteamGame({
+      steamUserdataDir,
+      gameInfo,
+      bkgDataUrl,
+      bigPicDataUrl
+    })
+  }
+)
 
 ipcMain.handle(
   'removeFromSteam',

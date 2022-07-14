@@ -190,6 +190,8 @@ const checkIfAlreadyAdded = (object: Partial<ShortcutObject>, title: string) =>
 async function addNonSteamGame(props: {
   steamUserdataDir: string
   gameInfo: GameInfo
+  bkgDataUrl: string
+  bigPicDataUrl: string
 }): Promise<void> {
   const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
 
@@ -265,7 +267,9 @@ async function addNonSteamGame(props: {
         bigPictureAppID: generateAppId(newEntry.Exe, newEntry.AppName),
         otherGridAppID: generateShortAppId(newEntry.Exe, newEntry.AppName)
       },
-      gameInfo: props.gameInfo
+      gameInfo: props.gameInfo,
+      bkgDataUrl: props.bkgDataUrl,
+      bigPicDataUrl: props.bigPicDataUrl
     })
 
     const args = []

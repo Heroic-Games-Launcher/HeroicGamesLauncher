@@ -22,11 +22,59 @@ interface Props {
   runner: Runner
   handleUpdate: () => void
   disableUpdate: boolean
+  steamImageUrl: string
 }
 
 type otherInfo = {
   prefix: string
   wine: string
+}
+
+const imageData = async (
+  src: string,
+  cw: number,
+  ch: number
+): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement('CANVAS') as HTMLCanvasElement
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+
+    const img = document.createElement('IMG') as HTMLImageElement
+    img.crossOrigin = 'anonymous'
+
+    img.addEventListener(
+      'load',
+      function () {
+        canvas.width = cw
+        canvas.height = ch
+
+        const imgWidth = img.width
+        const imgHeight = img.height
+
+        const bkgW = cw
+        const bkgH = (imgHeight * cw) / imgWidth
+        const bkgX = 0
+        const bkgY = ch / 2 - bkgH / 2
+        ctx.filter = 'blur(10px)'
+        ctx.drawImage(img, bkgX, bkgY, bkgW, bkgH)
+
+        const drawH = ch
+        const drawW = (imgWidth * ch) / imgHeight
+        const drawY = 0
+        const drawX = cw / 2 - drawW / 2
+        ctx.filter = 'blur(0)'
+        ctx.drawImage(img, drawX, drawY, drawW, drawH)
+        resolve(canvas.toDataURL('image/jpeg', 0.9))
+      },
+      false
+    )
+
+    img.addEventListener('error', (error) => {
+      reject(error)
+    })
+
+    img.src = src
+  })
 }
 
 export default function GamesSubmenu({
@@ -36,7 +84,8 @@ export default function GamesSubmenu({
   storeUrl,
   runner,
   handleUpdate,
-  disableUpdate
+  disableUpdate,
+  steamImageUrl
 }: Props) {
   const { handleGameStatus, refresh, platform, libraryStatus } =
     useContext(ContextProvider)
@@ -128,7 +177,16 @@ export default function GamesSubmenu({
     if (addedToSteam) {
       await ipcRenderer.invoke('removeFromSteam', appName, runner)
     } else {
-      await ipcRenderer.invoke('addToSteam', appName, runner)
+      const bkgDataURL = await imageData(steamImageUrl, 1920, 620)
+      const bigPicDataURL = await imageData(steamImageUrl, 920, 430)
+
+      await ipcRenderer.invoke(
+        'addToSteam',
+        appName,
+        runner,
+        bkgDataURL,
+        bigPicDataURL
+      )
     }
     setAddedToSteam(!addedToSteam)
     setSteamRefresh(false)

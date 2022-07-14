@@ -25,6 +25,8 @@ async function prepareImagesForSteam(props: {
     otherGridAppID: string
   }
   gameInfo: GameInfo
+  bkgDataUrl: string
+  bigPicDataUrl: string
 }) {
   const gridFolder = join(props.steamUserConfigDir, 'grid')
   const coverArt = join(gridFolder, props.appID.otherGridAppID + coverArtSufix)
@@ -58,11 +60,8 @@ async function prepareImagesForSteam(props: {
   const images = new Map<string, ImageProps>([
     [coverArt, { url: props.gameInfo.art_square }],
     [headerArt, { url: props.gameInfo.art_cover }],
-    [
-      backGroundArt,
-      { url: props.gameInfo.art_cover, width: 1920, height: 620 }
-    ],
-    [bigPictureArt, { url: props.gameInfo.art_cover, width: 920, height: 430 }]
+    [backGroundArt, { url: props.bkgDataUrl }],
+    [bigPictureArt, { url: props.bigPicDataUrl }]
   ])
 
   // if no logo art is provided we add a 1x1 transparent png
