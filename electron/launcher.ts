@@ -19,7 +19,8 @@ import {
   showErrorBoxModalAuto,
   searchForExecutableOnPath,
   quoteIfNecessary,
-  errorHandler
+  errorHandler,
+  removeQuoteIfNecessary
 } from './utils'
 import {
   logDebug,
@@ -34,8 +35,12 @@ import { DXVK } from './tools'
 import setup from './gog/setup'
 import { GOGGame } from 'gog/games'
 import { LegendaryGame } from 'legendary/games'
-import { CallRunnerOptions, GameInfo, Runner } from './types'
 import {
+  CallRunnerOptions,
+  GameInfo,
+  Runner,
+  EnviromentVariable,
+  WrapperVariable,
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
@@ -43,6 +48,7 @@ import {
   WineInstallation
 } from './types'
 import { spawn } from 'child_process'
+import shlex from 'shlex'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -244,16 +250,10 @@ function setupEnvVars(gameSettings: GameSettings) {
   if (gameSettings.audioFix) {
     ret.PULSE_LATENCY_MSEC = '60'
   }
-  if (gameSettings.otherOptions) {
-    gameSettings.otherOptions
-      .split(' ')
-      .filter((val) => val.indexOf('=') !== -1)
-      .forEach((envKeyAndVar) => {
-        const keyAndValueSplit = envKeyAndVar.split('=')
-        const key = keyAndValueSplit.shift()
-        const value = keyAndValueSplit.join('=')
-        ret[key] = value
-      })
+  if (gameSettings.enviromentOptions) {
+    gameSettings.enviromentOptions.forEach((envEntry: EnviromentVariable) => {
+      ret[envEntry.key] = removeQuoteIfNecessary(envEntry.value)
+    })
   }
 
   // setup LD_PRELOAD if not defined
@@ -309,7 +309,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.PROTON_LOG_DIR = flatPakHome
 
     // Only set WINEDEBUG if PROTON_LOG is set since Proton will also log if just WINEDEBUG is set
-    if (gameSettings.otherOptions.includes('PROTON_LOG=')) {
+    if (
+      gameSettings.enviromentOptions.find((env) => env.key === 'PROTON_LOG')
+    ) {
       // Stop Proton from overriding WINEDEBUG; this prevents logs growing to a few GB for some games
       ret.WINEDEBUG = 'timestamp'
     }
@@ -342,14 +344,11 @@ function setupWrappers(
   steamRuntime: string
 ): Array<string> {
   const wrappers = Array<string>()
-  // Wrappers could be specified in the environment variable section as well
-  if (gameSettings.otherOptions) {
-    gameSettings.otherOptions
-      .split(' ')
-      .filter((val) => val.indexOf('=') === -1)
-      .forEach((val) => {
-        wrappers.push(val)
-      })
+  if (gameSettings.wrapperOptions) {
+    gameSettings.wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
+      wrappers.push(wrapperEntry.exe)
+      wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
+    })
   }
   if (gameSettings.showMangohud) {
     // Mangohud needs some arguments in addition to the command, so we have to split here

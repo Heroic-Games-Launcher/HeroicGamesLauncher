@@ -559,6 +559,10 @@ function quoteIfNecessary(stringToQuote: string) {
   return stringToQuote
 }
 
+function removeQuoteIfNecessary(stringToUnquote: string) {
+  return stringToUnquote.replace(/^"+/, '').replace(/"+$/, '')
+}
+
 function killPattern(pattern: string) {
   logInfo(['Trying to kill', pattern], LogPrefix.Backend)
   let ret
@@ -595,5 +599,6 @@ export {
   getSteamRuntime,
   constructAndUpdateRPC,
   quoteIfNecessary,
+  removeQuoteIfNecessary,
   killPattern
 }
