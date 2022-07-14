@@ -6,6 +6,8 @@
   position: relative;
   transition-duration: 0.5s;
   box-shadow: 0px 0px 12px 4px #00000055;
+  display: flex;
+  flex-direction: column;
 }
 
 .gameCard:focus-within {
@@ -82,9 +84,8 @@
   position: absolute;
   width: 100%;
   bottom: 0px;
-  padding: 0.4rem 0.3rem;
+  padding: 0.6rem 0.3rem;
   color: var(--text-secondary);
-  display: flex;
   background: var(--gradient-gamecard);
   transition: 200ms;
   font-family: var(--content-font-family);
@@ -99,17 +100,8 @@
 }
 
 .gameCard:hover .gameTitle {
+  display: block;
   transform: translateY(0);
-}
-
-.gameCard:hover .gameTitle span {
-  overflow: visible;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  max-height: fit-content;
-  height: min-content;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
 }
 
 .gameCard > .icons {
@@ -272,15 +264,14 @@
   justify-content: flex-end;
   z-index: 4;
   padding: 6px;
-  margin-right: 4px;
   transition: 300ms;
 }
 
 .icons > button > svg,
 .icons > a > svg,
 .icons > svg {
-  width: clamp(28px, 1vw, 36px);
   height: clamp(28px, 1vw, 36px);
+  aspect-ratio: 1;
   display: block;
 }
 
