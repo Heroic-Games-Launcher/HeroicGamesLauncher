@@ -50,26 +50,18 @@ async function prepareImagesForSteam(props: {
     LogPrefix.Shortcuts
   )
 
-  interface ImageProps {
-    url: string
-    width?: number
-    height?: number
-  }
-
   const errors: string[] = []
-  const images = new Map<string, ImageProps>([
-    [coverArt, { url: props.gameInfo.art_square }],
-    [headerArt, { url: props.gameInfo.art_cover }],
-    [backGroundArt, { url: props.bkgDataUrl }],
-    [bigPictureArt, { url: props.bigPicDataUrl }]
+  const images = new Map<string, string>([
+    [coverArt, props.gameInfo.art_square],
+    [headerArt, props.gameInfo.art_cover],
+    [backGroundArt, props.bkgDataUrl],
+    [bigPictureArt, props.bigPicDataUrl]
   ])
 
   // if no logo art is provided we add a 1x1 transparent png
   // to get rid of game title in steam
   if (props.gameInfo.art_logo) {
-    images.set(logoArt, {
-      url: props.gameInfo.art_logo
-    })
+    images.set(logoArt, props.gameInfo.art_logo)
   } else {
     const error = createImage(
       Buffer.from(transparentSteamLogoHex, 'hex'),
@@ -80,20 +72,17 @@ async function prepareImagesForSteam(props: {
     }
   }
 
-  for (const [key, value] of images) {
-    if (!checkImageExistsAlready(key) && value.url) {
-      let error = downloadImage(value.url, key)
-      if (error) {
-        errors.push(error)
-      }
+  for (const [key, imgUrl] of images) {
+    if (!checkImageExistsAlready(key) && imgUrl) {
+      if (imgUrl.startsWith('http')) {
+        const error = downloadImage(imgUrl, key)
+        if (error) {
+          errors.push(error)
+        }
+      } else {
+        const image = nativeImage.createFromDataURL(imgUrl).toJPEG(90)
 
-      if (value.width && value.height) {
-        const image = nativeImage
-          .createFromPath(key)
-          .resize({ width: value.width, height: value.height })
-          .toJPEG(90)
-
-        error = createImage(image, key)
+        const error = createImage(image, key)
 
         if (error) {
           errors.push(error)

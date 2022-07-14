@@ -57,7 +57,9 @@ describe('NonSteamGame', () => {
 
     await addNonSteamGame({
       steamUserdataDir: tmpDir.name,
-      gameInfo: game
+      gameInfo: game,
+      bkgDataUrl: '',
+      bigPicDataUrl: ''
     })
 
     const contentAfter = readFileSync(shortcutFilePath).toString()
@@ -82,7 +84,9 @@ describe('NonSteamGame', () => {
 
     await addNonSteamGame({
       steamUserdataDir: tmpDir.name,
-      gameInfo: game
+      gameInfo: game,
+      bkgDataUrl: '',
+      bigPicDataUrl: ''
     })
 
     const contentBetween = readFileSync(shortcutFilePath).toString()
@@ -131,7 +135,9 @@ describe('NonSteamGame', () => {
     // add and remove to see if empty shortcuts.vdf is correctly created
     await addNonSteamGame({
       steamUserdataDir: tmpDir.name,
-      gameInfo: game
+      gameInfo: game,
+      bkgDataUrl: '',
+      bigPicDataUrl: ''
     })
 
     await removeNonSteamGame({
@@ -183,7 +189,9 @@ describe('NonSteamGame', () => {
 
     await addNonSteamGame({
       steamUserdataDir: tmpDir.name,
-      gameInfo: game
+      gameInfo: game,
+      bkgDataUrl: '',
+      bigPicDataUrl: ''
     })
     expect(console.log).not.toBeCalled()
     expect(console.error).toBeCalledWith(
@@ -213,7 +221,9 @@ describe('NonSteamGame', () => {
 
     await addNonSteamGame({
       steamUserdataDir: tmpDir.name,
-      gameInfo: game
+      gameInfo: game,
+      bkgDataUrl: '',
+      bigPicDataUrl: ''
     })
 
     expect(console.log).not.toBeCalled()
@@ -244,7 +254,9 @@ describe('NonSteamGame', () => {
 
     await addNonSteamGame({
       steamUserdataDir: tmpDir.name,
-      gameInfo: game
+      gameInfo: game,
+      bkgDataUrl: '',
+      bigPicDataUrl: ''
     })
 
     expect(console.log).not.toBeCalled()
@@ -291,7 +303,9 @@ describe('NonSteamGame', () => {
 
       await addNonSteamGame({
         steamUserdataDir: tmpDir.name,
-        gameInfo: game
+        gameInfo: game,
+        bkgDataUrl: '',
+        bigPicDataUrl: ''
       })
 
       const contentBetween = readFileSync(shortcutFilePath).toString()
@@ -368,7 +382,9 @@ describe('NonSteamGame', () => {
 
       await addNonSteamGame({
         steamUserdataDir: tmpDir.name,
-        gameInfo: game
+        gameInfo: game,
+        bkgDataUrl: '',
+        bigPicDataUrl: ''
       })
 
       const contentAfter = readFileSync(shortcutFilePath).toString()
