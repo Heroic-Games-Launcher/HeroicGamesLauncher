@@ -366,7 +366,11 @@ export default function WineSettings({
               )}
             />
           </div>
+        </div>
+      )}
 
+      {isLinux && !isProton && (
+        <div>
           <div className="toggleRow">
             <ToggleSwitch
               htmlId="systemLibsToggle"
