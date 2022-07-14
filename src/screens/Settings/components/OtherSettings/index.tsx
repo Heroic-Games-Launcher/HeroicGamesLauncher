@@ -12,13 +12,14 @@ import {
   TextInputWithIconField
 } from 'src/components/UI'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
-import { Path } from 'src/types'
+import { EnviromentVariable, Path, WrapperVariable } from 'src/types'
 import Backspace from '@mui/icons-material/Backspace'
 import { getGameInfo } from 'src/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 import { ipcRenderer } from 'src/helpers'
+import { ColumnProps, TableInput } from 'src/components/UI/TwoColTableInput'
 
 interface Props {
   audioFix: boolean
@@ -29,14 +30,16 @@ interface Props {
   launcherArgs: string
   canRunOffline: boolean
   offlineMode: boolean
-  otherOptions: string
+  enviromentOptions: EnviromentVariable[]
+  wrapperOptions: WrapperVariable[]
   primeRun: boolean
   addDesktopShortcuts: boolean
   addGamesToStartMenu: boolean
   discordRPC: boolean
   setLanguageCode: (value: string) => void
   setLauncherArgs: (value: string) => void
-  setOtherOptions: (value: string) => void
+  setEnviromentOptions: (value: EnviromentVariable[]) => void
+  setWrapperOptions: (value: WrapperVariable[]) => void
   setMaxRecentGames: (value: number) => void
   setTargetExe: (value: string) => void
   showFps: boolean
@@ -60,8 +63,10 @@ interface Props {
 }
 
 export default function OtherSettings({
-  otherOptions,
-  setOtherOptions,
+  enviromentOptions,
+  setEnviromentOptions,
+  wrapperOptions,
+  setWrapperOptions,
   useGameMode,
   toggleUseGameMode,
   showFps,
@@ -97,8 +102,37 @@ export default function OtherSettings({
   isProton,
   appName
 }: Props) {
-  const handleOtherOptions = (event: ChangeEvent<HTMLInputElement>) =>
-    setOtherOptions(event.currentTarget.value)
+  const handleEnviromentVariables = (values: ColumnProps[]) => {
+    const envs: EnviromentVariable[] = []
+    values.forEach((value) =>
+      envs.push({ key: value.key.trim(), value: value.value.trim() })
+    )
+    setEnviromentOptions([...envs])
+  }
+  const getEnvironmentVariables = () => {
+    const columns: ColumnProps[] = []
+    enviromentOptions.forEach((env) =>
+      columns.push({ key: env.key, value: env.value })
+    )
+    return columns
+  }
+  const handleWrapperVariables = (values: ColumnProps[]) => {
+    const wrappers = [] as WrapperVariable[]
+    values.forEach((value) =>
+      wrappers.push({
+        exe: value.key,
+        args: value.value.trim()
+      })
+    )
+    setWrapperOptions([...wrappers])
+  }
+  const getWrapperVariables = () => {
+    const columns: ColumnProps[] = []
+    wrapperOptions.forEach((wrapper) =>
+      columns.push({ key: wrapper.exe, value: wrapper.args })
+    )
+    return columns
+  }
   const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
     setLauncherArgs(event.currentTarget.value)
   const handleLanguageCode = (event: ChangeEvent<HTMLInputElement>) =>
@@ -113,19 +147,13 @@ export default function OtherSettings({
 
   const info = (
     <InfoBox text="infobox.help">
-      {t('help.other.part1')}
-      <strong>{`${t('help.other.part2')} `}</strong>
-      {t('help.other.part3')}
-      <br />
-      {!isDefault && (
-        <span>
-          {t('help.other.part4')}
-          <strong>{t('help.other.part5')}</strong>
-          {t('help.other.part6')}
-          <strong>{` -nolauncher `}</strong>
-          {t('help.other.part7')}
-        </span>
-      )}
+      <span>
+        {t('help.other.part4')}
+        <strong>{t('help.other.part5')}</strong>
+        {t('help.other.part6')}
+        <strong>{` -nolauncher `}</strong>
+        {t('help.other.part7')}
+      </span>
     </InfoBox>
   )
 
@@ -144,6 +172,15 @@ export default function OtherSettings({
       {t(
         'help.game_language.valid_codes',
         'Valid language codes are game-dependant.'
+      )}
+    </InfoBox>
+  )
+
+  const wrapperInfo = (
+    <InfoBox text="infobox.help">
+      {t(
+        'options.wrapper.arguments_example',
+        'Arguments example: --arg; --extra-file="file-path/ with/spaces"'
       )}
     </InfoBox>
   )
@@ -321,13 +358,48 @@ export default function OtherSettings({
         </SelectField>
       )}
       {!isWin && (
-        <TextInputField
+        <TableInput
           label={t('options.advanced.title')}
-          htmlId="otherOptions"
-          placeholder={t('options.advanced.placeholder')}
-          value={otherOptions}
-          onChange={handleOtherOptions}
-          afterInput={info}
+          htmlId={'enviromentOptions'}
+          header={{
+            key: t('options.advanced.key', 'Variable Name'),
+            value: t('options.advanced.value', 'Value')
+          }}
+          rows={getEnvironmentVariables()}
+          onChange={handleEnviromentVariables}
+          inputPlaceHolder={{
+            key: t('options.advanced.placeHolderKey', 'NAME'),
+            value: t(
+              'options.advanced.placeHolderValue',
+              'E.g.: Path/To/ExtraFiles'
+            )
+          }}
+        />
+      )}
+      {!isWin && (
+        <TableInput
+          label={t('options.wrapper.title', 'Wrapper command:')}
+          htmlId={'wrapperOptions'}
+          header={{
+            key: t('options.wrapper.exe', 'Wrapper'),
+            value: t('options.wrapper.args', 'Arguments')
+          }}
+          rows={getWrapperVariables()}
+          fullFills={{ key: true, value: false }}
+          onChange={handleWrapperVariables}
+          inputPlaceHolder={{
+            key: t('options.wrapper.placeHolderKey', 'New Wrapper'),
+            value: t('options.wrapper.placeHolderValue', 'Wrapper Arguments')
+          }}
+          warning={
+            <span className="warning">
+              {`${t(
+                'options.quote-args-with-spaces',
+                'Warning: Make sure to quote args with spaces! E.g.: "path/with spaces/"'
+              )}`}
+            </span>
+          }
+          afterInput={wrapperInfo}
         />
       )}
       {!isDefault && (
@@ -337,6 +409,14 @@ export default function OtherSettings({
           placeholder={t('options.gameargs.placeholder')}
           value={launcherArgs}
           onChange={handleLauncherArgs}
+          warning={
+            <span className="warning">
+              {`${t(
+                'options.quote-args-with-spaces',
+                'Warning: Make sure to quote args with spaces! E.g.: "path/with spaces/"'
+              )}`}
+            </span>
+          }
           afterInput={info}
         />
       )}

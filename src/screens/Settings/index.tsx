@@ -2,7 +2,13 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings, Runner, WineInstallation } from 'src/types'
+import {
+  AppSettings,
+  EnviromentVariable,
+  Runner,
+  WineInstallation,
+  WrapperVariable
+} from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'src/helpers'
@@ -56,7 +62,10 @@ function Settings() {
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
   const [defaultWinePrefix, setDefaultWinePrefix] = useState('')
   const [targetExe, setTargetExe] = useState('')
-  const [otherOptions, setOtherOptions] = useState('')
+  const [enviromentOptions, setEnviromentOptions] = useState<
+    EnviromentVariable[]
+  >([])
+  const [wrapperOptions, setWrapperOptions] = useState<WrapperVariable[]>([])
   const [launcherArgs, setLauncherArgs] = useState('')
   const [languageCode, setLanguageCode] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
@@ -223,7 +232,8 @@ function Settings() {
         setWineVersion(config.wineVersion)
         setWinePrefix(config.winePrefix)
         setWineCrossoverBottle(config.wineCrossoverBottle)
-        setOtherOptions(config.otherOptions)
+        setEnviromentOptions(config.enviromentOptions)
+        setWrapperOptions(config.wrapperOptions)
         setLauncherArgs(config.launcherArgs)
         setUseNvidiaPrime(config.nvidiaPrime)
         setEgsLinkedPath(config.egsLinkedPath || '')
@@ -307,7 +317,8 @@ function Settings() {
       maxWorkers,
       minimizeOnLaunch,
       nvidiaPrime,
-      otherOptions,
+      enviromentOptions,
+      wrapperOptions,
       showFps,
       showMangohud,
       showUnrealMarket,
@@ -335,7 +346,8 @@ function Settings() {
       launcherArgs,
       nvidiaPrime,
       offlineMode,
-      otherOptions,
+      enviromentOptions,
+      wrapperOptions,
       savesPath,
       showFps,
       showMangohud,
@@ -382,7 +394,8 @@ function Settings() {
     maxSharpness,
     minimizeOnLaunch,
     nvidiaPrime,
-    otherOptions,
+    enviromentOptions,
+    wrapperOptions,
     showFps,
     showMangohud,
     showUnrealMarket,
@@ -508,8 +521,10 @@ function Settings() {
           {isWineSettings && !isDefault && <Tools appName={appName} />}
           {isOtherSettings && (
             <OtherSettings
-              otherOptions={otherOptions}
-              setOtherOptions={setOtherOptions}
+              enviromentOptions={enviromentOptions}
+              wrapperOptions={wrapperOptions}
+              setEnviromentOptions={setEnviromentOptions}
+              setWrapperOptions={setWrapperOptions}
               launcherArgs={launcherArgs}
               setLauncherArgs={setLauncherArgs}
               languageCode={languageCode}

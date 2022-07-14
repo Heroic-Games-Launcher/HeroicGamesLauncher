@@ -34,7 +34,9 @@ export interface AppSettings {
   minimizeOnLaunch: boolean
   nvidiaPrime: boolean
   offlineMode: boolean
-  otherOptions: string
+  otherOptions: string //depricated
+  enviromentOptions: EnviromentVariable[]
+  wrapperOptions: WrapperVariable[]
   savesPath: string
   showFps: boolean
   showMangohud: boolean
@@ -176,7 +178,9 @@ export interface GameSettings {
   launcherArgs: string
   nvidiaPrime: boolean
   offlineMode: boolean
-  otherOptions: string
+  otherOptions: string //deprecated
+  enviromentOptions: EnviromentVariable[]
+  wrapperOptions: WrapperVariable[]
   savesPath: string
   showFps: boolean
   showMangohud: boolean
@@ -367,6 +371,16 @@ export interface GamepadActionStatus {
 
 export type Runner = 'legendary' | 'gog' | 'heroic'
 export type PlatformToInstall = 'Windows' | 'Mac' | 'Linux' | ''
+
+export interface EnviromentVariable {
+  key: string
+  value: string
+}
+
+export interface WrapperVariable {
+  exe: string
+  args: string
+}
 
 export type AntiCheatStatus =
   | 'Planned'
