@@ -60,20 +60,9 @@ async function prepareImagesForSteam(props: {
     [headerArt, { url: props.gameInfo.art_cover }],
     [
       backGroundArt,
-      {
-        url: props.gameInfo.art_cover,
-        width: 1920,
-        height: 620
-      }
+      { url: props.gameInfo.art_cover, width: 1920, height: 620 }
     ],
-    [
-      bigPictureArt,
-      {
-        url: props.gameInfo.art_cover,
-        width: 920,
-        height: 430
-      }
-    ]
+    [bigPictureArt, { url: props.gameInfo.art_cover, width: 920, height: 430 }]
   ])
 
   // if no logo art is provided we add a 1x1 transparent png
