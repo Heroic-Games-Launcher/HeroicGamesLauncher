@@ -2,7 +2,7 @@ import { crc32 } from 'crc'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { join } from 'path'
 import { GameInfo } from '../../types'
-import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import {
   checkImageExistsAlready,
   createImage,
@@ -17,7 +17,6 @@ import {
   pictureExt
 } from './constants'
 import { nativeImage } from 'electron'
-import SGDB from 'steamgriddb'
 
 async function prepareImagesForSteam(props: {
   steamUserConfigDir: string
@@ -49,9 +48,6 @@ async function prepareImagesForSteam(props: {
     LogPrefix.Shortcuts
   )
 
-  // check steamgriddb
-  const steamPictures = await getSteamGridDBImages(props.gameInfo.title)
-
   interface ImageProps {
     url: string
     width?: number
@@ -60,12 +56,12 @@ async function prepareImagesForSteam(props: {
 
   const errors: string[] = []
   const images = new Map<string, ImageProps>([
-    [coverArt, { url: steamPictures.coverArt ?? props.gameInfo.art_square }],
-    [headerArt, { url: steamPictures.headerArt ?? props.gameInfo.art_cover }],
+    [coverArt, { url: props.gameInfo.art_square }],
+    [headerArt, { url: props.gameInfo.art_cover }],
     [
       backGroundArt,
       {
-        url: steamPictures.backGroundArt ?? props.gameInfo.art_cover,
+        url: props.gameInfo.art_cover,
         width: 1920,
         height: 620
       }
@@ -73,7 +69,7 @@ async function prepareImagesForSteam(props: {
     [
       bigPictureArt,
       {
-        url: steamPictures.bigPictureArt ?? props.gameInfo.art_cover,
+        url: props.gameInfo.art_cover,
         width: 920,
         height: 430
       }
@@ -82,9 +78,9 @@ async function prepareImagesForSteam(props: {
 
   // if no logo art is provided we add a 1x1 transparent png
   // to get rid of game title in steam
-  if (steamPictures.logoArt || props.gameInfo.art_logo) {
+  if (props.gameInfo.art_logo) {
     images.set(logoArt, {
-      url: steamPictures.logoArt ?? props.gameInfo.art_logo
+      url: props.gameInfo.art_logo
     })
   } else {
     const error = createImage(
@@ -207,134 +203,6 @@ function generateShortcutId(exe: string, appname: string) {
   return Number(
     (generatePreliminaryId(exe, appname) >> BigInt(32)) - BigInt(0x100000000)
   )
-}
-
-interface SteamGridDBImageUrls {
-  coverArt: string
-  headerArt: string
-  backGroundArt: string
-  bigPictureArt: string
-  logoArt: string
-}
-
-async function getSteamGridDBImages(
-  title: string
-): Promise<SteamGridDBImageUrls> {
-  // need a steamgriddb API key of steam account
-  // https://www.steamgriddb.com/profile/preferences/api
-  const steamGridDB = new SGDB('')
-
-  const steamGridDBImageUrls = {} as SteamGridDBImageUrls
-  let gameFound = undefined
-  await steamGridDB
-    .searchGame(title)
-    .then((games: []) => {
-      gameFound = games.find((game) => {
-        if ('types' in game) {
-          const types = game['types'] as string[]
-          const typeFound = types.find((type) => type === 'steam')
-          return game['name'] === title && game['id'] && typeFound
-        }
-      })
-    })
-    .catch((error) =>
-      logWarning(
-        [`SteamGridDB failed to find game with:`, `${error}`].join('\n'),
-        LogPrefix.Shortcuts
-      )
-    )
-
-  if (gameFound) {
-    // get coverArt, headerArt and bigpictureArt
-    await steamGridDB
-      .getGrids({
-        id: gameFound['id'],
-        type: 'game',
-        styles: ['alternate', 'white_logo']
-      })
-      .then((grids: []) => {
-        grids.some((grid) => {
-          if (
-            grid['width'] === 600 &&
-            grid['height'] === 900 &&
-            !steamGridDBImageUrls.coverArt
-          ) {
-            steamGridDBImageUrls.coverArt = grid['thumb']
-          } else if (
-            grid['width'] === 920 &&
-            grid['height'] === 430 &&
-            !steamGridDBImageUrls.headerArt
-          ) {
-            steamGridDBImageUrls.headerArt = grid['thumb']
-            steamGridDBImageUrls.bigPictureArt = grid['thumb']
-          }
-
-          return steamGridDBImageUrls.headerArt && steamGridDBImageUrls.coverArt
-        })
-      })
-      .catch((error) =>
-        logWarning(
-          [`SteamGridDB failed to find grid images with:`, `${error}`].join(
-            '\n'
-          ),
-          LogPrefix.Shortcuts
-        )
-      )
-
-    // get backgroundArt
-    await steamGridDB
-      .getHeroes({
-        id: gameFound['id'],
-        type: 'game',
-        styles: ['alternate']
-      })
-      .then((grids: []) => {
-        grids.some((grid) => {
-          if (
-            grid['width'] === 1920 &&
-            grid['height'] === 620 &&
-            !steamGridDBImageUrls.backGroundArt
-          ) {
-            steamGridDBImageUrls.backGroundArt = grid['thumb']
-            return true
-          }
-        })
-      })
-      .catch((error) =>
-        logWarning(
-          [`SteamGridDB failed to find heroes images with:`, `${error}`].join(
-            '\n'
-          ),
-          LogPrefix.Shortcuts
-        )
-      )
-
-    // get logo
-    await steamGridDB
-      .getLogos({
-        id: gameFound['id'],
-        type: 'game',
-        styles: ['official']
-      })
-      .then((grids: []) => {
-        grids.some((grid) => {
-          if (!steamGridDBImageUrls.logoArt) {
-            steamGridDBImageUrls.logoArt = grid['thumb']
-            return true
-          }
-        })
-      })
-      .catch((error) =>
-        logWarning(
-          [`SteamGridDB failed to find heroes images with:`, `${error}`].join(
-            '\n'
-          ),
-          LogPrefix.Shortcuts
-        )
-      )
-  }
-
-  return steamGridDBImageUrls
 }
 
 export {
