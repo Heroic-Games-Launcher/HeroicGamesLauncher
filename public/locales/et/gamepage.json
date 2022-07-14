@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Lisa otsetee",
         "change": "Muuda paigalduskohta",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Viimane logi",
         "move": "Liiguta mängu",
         "protondb": "Kontrolli ühilduvust",

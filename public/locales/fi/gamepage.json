@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Lisää pikakuvake",
         "change": "Vaihda asennussijaintia",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Uusin lokitiedosto",
         "move": "Siirrä peli",
         "protondb": "Tarkista yhteensopivuus",

@@ -16,6 +16,7 @@ export interface AppSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
+  preferSystemLibs: boolean
   autoSyncSaves: boolean
   battlEyeRuntime: boolean
   checkForUpdatesOnStartup: boolean
@@ -40,7 +41,9 @@ export interface AppSettings {
   minimizeOnLaunch: boolean
   nvidiaPrime: boolean
   offlineMode: boolean
-  otherOptions: string
+  otherOptions: string //depricated
+  enviromentOptions: EnviromentVariable[]
+  wrapperOptions: WrapperVariable[]
   savesPath: string
   showFps: boolean
   showMangohud: boolean
@@ -135,6 +138,7 @@ export interface GameSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
+  preferSystemLibs: boolean
   autoSyncSaves: boolean
   battlEyeRuntime: boolean
   eacRuntime: boolean
@@ -147,7 +151,9 @@ export interface GameSettings {
   launcherArgs: string
   nvidiaPrime: boolean
   offlineMode: boolean
-  otherOptions: string
+  otherOptions: string //deprecated
+  enviromentOptions: EnviromentVariable[]
+  wrapperOptions: WrapperVariable[]
   savesPath: string
   showFps: boolean
   showMangohud: boolean
@@ -240,6 +246,8 @@ export interface WineInstallation {
   bin: string
   name: string
   type: 'wine' | 'proton' | 'crossover'
+  lib?: string
+  lib32?: string
   wineboot?: string
   wineserver?: string
 }
@@ -371,6 +379,71 @@ export interface CallRunnerOptions {
   env?: Record<string, string>
   wrappers?: string[]
   onOutput?: (output: string, child: ChildProcess) => void
+}
+
+export interface EnviromentVariable {
+  key: string
+  value: string
+}
+
+export interface WrapperVariable {
+  exe: string
+  args: string
+}
+
+export type AntiCheatStatus =
+  | 'Planned'
+  | 'Denied'
+  | 'Broken'
+  | 'Supported'
+  | 'Running'
+
+export type AntiCheat =
+  | 'Arbiter'
+  | 'BattlEye'
+  | 'Denuvo Anti-Cheat'
+  | 'Easy Anti-Cheat'
+  | 'EQU8'
+  | 'FACEIT'
+  | 'FairFight'
+  | 'Mail.ru Anti-Cheat'
+  | 'miHoYo Protect'
+  | 'miHoYo Protect 2'
+  | 'NEAC Protect'
+  | 'Nexon Game Security'
+  | 'nProtect GameGuard'
+  | 'PunkBuster'
+  | 'RICOCHET'
+  | 'Sabreclaw'
+  | 'Treyarch Anti-Cheat'
+  | 'UNCHEATER'
+  | 'Unknown (Custom)'
+  | 'VAC'
+  | 'Vanguard'
+  | 'Warden'
+  | 'XIGNCODE3'
+  | 'Zakynthos'
+
+export interface AntiCheatInfo {
+  status: ''
+  anticheats: AntiCheat[]
+  notes: string[]
+  native: boolean
+  storeIds: {
+    epic?: {
+      namespace: string
+      slug: string
+    }
+    steam?: string
+  }
+  reference: string
+  updates: AntiCheatReference[]
+}
+
+interface AntiCheatReference {
+  name: string
+  date: string
+  reference: string
 }
 
 export interface Runtime {

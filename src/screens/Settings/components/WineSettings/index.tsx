@@ -1,3 +1,5 @@
+import './index.css'
+
 import React, { useContext, useEffect, useState } from 'react'
 
 import { Path, WineInstallation } from 'src/types'
@@ -18,6 +20,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { Tooltip } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { configStore } from 'src/helpers/electronStores'
 
 import { ipcRenderer } from 'src/helpers'
@@ -50,6 +53,8 @@ interface Props {
   toggleEsync: () => void
   enableFsync: boolean
   toggleFsync: () => void
+  preferSystemLibs: boolean
+  togglePreferSystemLibs: () => void
 }
 
 export default function WineSettings({
@@ -79,7 +84,9 @@ export default function WineSettings({
   enableFsync,
   toggleFsync,
   defaultWinePrefix,
-  setDefaultWinePrefix
+  setDefaultWinePrefix,
+  preferSystemLibs,
+  togglePreferSystemLibs
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
   const { platform } = useContext(ContextProvider)
@@ -299,46 +306,107 @@ export default function WineSettings({
       )}
 
       {isLinux && !isProton && (
-        <ToggleSwitch
-          htmlId="autodxvk"
-          value={autoInstallDxvk}
-          handleChange={() => {
-            const action = autoInstallDxvk ? 'restore' : 'backup'
-            ipcRenderer.send('toggleDXVK', [
-              { winePrefix, winePath: wineVersion.bin },
-              action
-            ])
-            return toggleAutoInstallDxvk()
-          }}
-          title={t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
-        />
+        <div>
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="autodxvk"
+              value={autoInstallDxvk}
+              handleChange={() => {
+                const action = autoInstallDxvk ? 'restore' : 'backup'
+                ipcRenderer.send('toggleDXVK', [
+                  { winePrefix, winePath: wineVersion.bin },
+                  action
+                ])
+                return toggleAutoInstallDxvk()
+              }}
+              title={t(
+                'setting.autodxvk',
+                'Auto Install/Update DXVK on Prefix'
+              )}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.dxvk',
+                'DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.'
+              )}
+            />
+          </div>
+        </div>
       )}
 
       {isLinux && !isProton && (
-        <ToggleSwitch
-          htmlId="autovkd3d"
-          value={autoInstallVkd3d}
-          handleChange={() => {
-            const action = autoInstallVkd3d ? 'restore' : 'backup'
-            ipcRenderer.send('toggleVKD3D', [
-              { winePrefix, winePath: wineVersion.bin },
-              action
-            ])
-            return toggleAutoInstallVkd3d()
-          }}
-          title={t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')}
-        />
+        <div>
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="autovkd3d"
+              value={autoInstallVkd3d}
+              handleChange={() => {
+                const action = autoInstallVkd3d ? 'restore' : 'backup'
+                ipcRenderer.send('toggleVKD3D', [
+                  { winePrefix, winePath: wineVersion.bin },
+                  action
+                ])
+                return toggleAutoInstallVkd3d()
+              }}
+              title={t(
+                'setting.autovkd3d',
+                'Auto Install/Update VKD3D on Prefix'
+              )}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.vkd3d',
+                'VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.'
+              )}
+            />
+          </div>
+
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="systemLibsToggle"
+              value={preferSystemLibs || false}
+              handleChange={togglePreferSystemLibs}
+              title={t('setting.preferSystemLibs', 'Prefer system libraries')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.preferSystemLibs',
+                'Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.'
+              )}
+            />
+          </div>
+        </div>
       )}
 
-      <ToggleSwitch
-        htmlId="enableFSR"
-        value={enableFSR || false}
-        handleChange={toggleFSR}
-        title={t(
-          'setting.enableFSRHack',
-          'Enable FSR Hack (Wine version needs to support it)'
-        )}
-      />
+      <div className="toggleRow">
+        <ToggleSwitch
+          htmlId="enableFSR"
+          value={enableFSR || false}
+          handleChange={toggleFSR}
+          title={t(
+            'setting.enableFSRHack',
+            'Enable FSR Hack (Wine version needs to support it)'
+          )}
+        />
+
+        <FontAwesomeIcon
+          className="helpIcon"
+          icon={faCircleInfo}
+          title={t(
+            'help.amdfsr',
+            "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance."
+          )}
+        />
+      </div>
 
       {enableFSR && (
         <SelectField
@@ -356,29 +424,62 @@ export default function WineSettings({
 
       {isLinux && (
         <>
-          <ToggleSwitch
-            htmlId="resizableBar"
-            value={enableResizableBar || false}
-            handleChange={toggleResizableBar}
-            title={t(
-              'setting.resizableBar',
-              'Enable Resizable BAR (NVIDIA RTX only)'
-            )}
-          />
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="resizableBar"
+              value={enableResizableBar || false}
+              handleChange={toggleResizableBar}
+              title={t(
+                'setting.resizableBar',
+                'Enable Resizable BAR (NVIDIA RTX only)'
+              )}
+            />
 
-          <ToggleSwitch
-            htmlId="esyncToggle"
-            value={enableEsync || false}
-            handleChange={toggleEsync}
-            title={t('setting.esync', 'Enable Esync')}
-          />
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.resizablebar',
+                "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games."
+              )}
+            />
+          </div>
 
-          <ToggleSwitch
-            htmlId="fsyncToggle"
-            value={enableFsync || false}
-            handleChange={toggleFsync}
-            title={t('setting.fsync', 'Enable Fsync')}
-          />
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="esyncToggle"
+              value={enableEsync || false}
+              handleChange={toggleEsync}
+              title={t('setting.esync', 'Enable Esync')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.esync',
+                'Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.'
+              )}
+            />
+          </div>
+
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="fsyncToggle"
+              value={enableFsync || false}
+              handleChange={toggleFsync}
+              title={t('setting.fsync', 'Enable Fsync')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.fsync',
+                'Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.'
+              )}
+            />
+          </div>
         </>
       )}
     </>

@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",
         "change": "Telepítési útvonal megváltoztatása",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Legutóbbi napló",
         "move": "Játék áthelyezése",
         "protondb": "Kompatibilitás ellenőrzése",

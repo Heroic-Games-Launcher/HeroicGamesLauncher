@@ -125,6 +125,8 @@
     "submenu": {
         "addShortcut": "Tambahkan pintasan",
         "change": "Ubah lokasi pemsangan",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Log Terbaru",
         "move": "Pindahkan gim",
         "protondb": "Periksa Kompatibilitas",

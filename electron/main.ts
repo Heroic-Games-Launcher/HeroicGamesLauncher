@@ -1,9 +1,12 @@
+import { downloadAntiCheatData } from './anticheat/utils'
 import {
   InstallParams,
   GamepadInputEventKey,
   GamepadInputEventWheel,
   GamepadInputEventMouse,
-  Runner
+  Runner,
+  AppSettings,
+  GameSettings
 } from './types'
 import * as path from 'path'
 import {
@@ -92,6 +95,7 @@ import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
+import shlex from 'shlex'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -420,6 +424,8 @@ if (!gotTheLock) {
       }, 500)
     })
 
+    downloadAntiCheatData()
+
     return
   })
 }
@@ -718,11 +724,53 @@ ipcMain.handle('readConfig', async (event, config_class) => {
 })
 
 ipcMain.handle('requestSettings', async (event, appName) => {
+  // To the changes how we handle env and wrappers
+  // otherOptions is deprectaed and needs to be mapped
+  // to new approach.
+  // Can be removed if otherOptions is removed aswell
+  const mapOtherSettings = (config: AppSettings | GameSettings) => {
+    if (config.otherOptions) {
+      if (config.enviromentOptions.length <= 0) {
+        config.otherOptions
+          .split(' ')
+          .filter((val) => val.indexOf('=') !== -1)
+          .forEach((envKeyAndVar) => {
+            const keyAndValueSplit = envKeyAndVar.split('=')
+            const key = keyAndValueSplit.shift()
+            const value = keyAndValueSplit.join('=')
+            config.enviromentOptions.push({ key, value })
+          })
+      }
+
+      if (config.wrapperOptions.length <= 0) {
+        const args = [] as string[]
+        config.otherOptions
+          .split(' ')
+          .filter((val) => val.indexOf('=') === -1)
+          .forEach((val, index) => {
+            if (index === 0) {
+              config.wrapperOptions.push({ exe: val, args: '' })
+            } else {
+              args.push(val)
+            }
+          })
+
+        if (config.wrapperOptions.at(0)) {
+          config.wrapperOptions.at(0).args = shlex.join(args)
+        }
+      }
+
+      delete config.otherOptions
+    }
+    return config
+  }
+
   if (appName === 'default') {
-    return GlobalConfig.get().config
+    return mapOtherSettings(GlobalConfig.get().config)
   }
   // We can't use .config since apparently its not loaded fast enough.
-  return GameConfig.get(appName).getSettings()
+  const config = await GameConfig.get(appName).getSettings()
+  return mapOtherSettings(config)
 })
 
 ipcMain.on('toggleDXVK', (event, [{ winePrefix, winePath }, action]) => {
@@ -1388,5 +1436,6 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
  */
 import './logger/ipc_handler'
 import './wine/manager/ipc_handler'
+import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
