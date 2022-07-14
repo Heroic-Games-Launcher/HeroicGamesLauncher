@@ -53,9 +53,15 @@ async function getAssetDataFromDownload(
 }
 
 async function downloadFile(url: string, filePath: string) {
-  const response = await axios.get(url, { responseType: 'arraybuffer' })
+  const response = await axios
+    .get(url, { responseType: 'arraybuffer' })
+    .catch((error) => {
+      throw new Error(`Failed to download ${url}: ${error.toJSON()}`)
+    })
   if (response.status !== 200) {
-    throw new Error(`Failed to download ${url}: ${response.status}`)
+    throw new Error(
+      `Failed to download ${url}: HTTP error code ${response.status}`
+    )
   }
   return new Promise<void>((res, rej) => {
     writeFile(filePath, response.data, (err) => {
