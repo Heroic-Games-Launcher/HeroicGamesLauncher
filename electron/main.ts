@@ -87,7 +87,13 @@ import {
   isMac
 } from './constants'
 import { handleProtocol } from './protocol'
-import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
@@ -466,35 +472,42 @@ ipcMain.handle('kill', async (event, appName, runner) => {
 })
 
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
-  let isWrittable = true
-  // Check If path is writtable
-  access(folder, constants.W_OK, (err) => {
-    if (err) {
-      isWrittable = false
-      logWarning(
-        `${folder} ${err ? 'is not writable' : 'is writable'}`,
-        LogPrefix.Backend
+  return new Promise((res) => {
+    access(folder, constants.W_OK, async (writeError) => {
+      const { free, size: diskSize } = await checkDiskSpace(folder).catch(
+        (checkSpaceError) => {
+          logError(
+            [
+              'Failed to check disk space for',
+              `"${folder}":`,
+              checkSpaceError.stack ?? `${checkSpaceError}`
+            ],
+            LogPrefix.Backend
+          )
+          return { free: 0, size: 0 }
+        }
       )
-    }
-  })
+      if (writeError) {
+        logWarning(
+          [
+            'Cannot write to',
+            `"${folder}":`,
+            writeError.stack ?? `${writeError}`
+          ],
+          LogPrefix.Backend
+        )
+      }
 
-  // Check if path has enough space
-  try {
-    const { free, size: diskSize } = await checkDiskSpace(folder)
-    return {
-      free,
-      diskSize,
-      message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
-      validPath: isWrittable
-    }
-  } catch (error) {
-    return {
-      free: 0,
-      diskSize: 0,
-      message: `ERROR`,
-      validPath: false
-    }
-  }
+      const ret = {
+        free,
+        diskSize,
+        message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
+        validPath: !writeError
+      }
+      logDebug(`${JSON.stringify(ret)}`, LogPrefix.Backend)
+      res(ret)
+    })
+  })
 })
 
 ipcMain.on('quit', async () => handleExit(mainWindow))
