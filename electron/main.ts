@@ -48,6 +48,7 @@ import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
 import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
+import setup from './gog/setup'
 import {
   clearCache,
   execAsync,
@@ -1271,7 +1272,7 @@ ipcMain.handle('egsSync', async (event, args: string) => {
 })
 
 ipcMain.handle('syncSaves', async (event, args) => {
-  const [arg = '', path, appName] = args
+  const [arg = '', path, appName, runner] = args
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline) {
     logWarning('Epic is Offline right now, cannot sync saves!')
@@ -1285,7 +1286,10 @@ ipcMain.handle('syncSaves', async (event, args) => {
     return
   }
 
-  const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
+  const { stderr, stdout } = await Game.get(appName, runner).syncSaves(
+    arg,
+    path
+  )
   logInfo(`${stdout}`, LogPrefix.Backend)
   if (stderr.includes('ERROR')) {
     logError(`${stderr}`, LogPrefix.Backend)
@@ -1403,6 +1407,25 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
     fontsStore.set('fonts', cachedFonts)
   }
   return cachedFonts
+})
+
+ipcMain.handle(
+  'runWineCommandForGame',
+  async (event, { appName, command, runner }) => {
+    const game = Game.get(appName, runner)
+
+    const { updated } = await verifyWinePrefix(game)
+
+    if (runner === 'gog' && updated) {
+      await setup(game.appName)
+    }
+
+    return game.runWineCommand(command, '', false, true)
+  }
+)
+
+ipcMain.handle('getShellPath', async (event, path) => {
+  return (await execAsync(`echo "${path}"`)).stdout.trim()
 })
 
 /*

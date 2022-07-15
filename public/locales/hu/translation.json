@@ -431,7 +431,10 @@
             "sync": "Mentés szinkronizálás"
         },
         "open-config-file": "Open Config File",
-        "reset-heroic": "Heroic visszaállítása"
+        "reset-heroic": "Heroic visszaállítása",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Beállítások",
     "sidebar": {

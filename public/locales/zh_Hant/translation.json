@@ -431,7 +431,10 @@
             "sync": "存檔-同步"
         },
         "open-config-file": "開啟配置檔案",
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Reset Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "設定",
     "sidebar": {
