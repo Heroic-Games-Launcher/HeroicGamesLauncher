@@ -62,6 +62,7 @@ export default function LibraryHeader({
           sortDescending={sortDescending}
           toggleSortDescending={() => handleSortDescending()}
           sortInstalled={sortInstalled}
+          library={category === 'legendary' ? 'legendary' : 'gog'}
           toggleSortinstalled={() => handleSortInstalled()}
         />
       </div>

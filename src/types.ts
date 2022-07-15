@@ -275,7 +275,7 @@ export interface Path {
 export type RefreshOptions = {
   checkForUpdates?: boolean
   fullRefresh?: boolean
-  library?: Runner | 'all'
+  library?: Runner
   runInBackground?: boolean
 }
 
