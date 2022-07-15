@@ -28,8 +28,8 @@ export const DXVK = {
     const tools = [
       {
         name: 'vkd3d',
-        url: 'https://api.github.com/repos/HansKristian-Work/vkd3d-proton/releases/latest',
-        extractCommand: 'tar -I zstd -xvf'
+        url: 'https://api.github.com/repos/bottlesdevs/vkd3d-proton/releases/latest',
+        extractCommand: 'tar -zxf'
       },
       {
         name: 'dxvk',
@@ -80,15 +80,6 @@ export const DXVK = {
               )
             )
             .catch((error) => {
-              if (tool.name === 'vkd3d') {
-                showErrorBoxModalAuto(
-                  i18next.t('box.error.zstd.title', 'Missing Dependency'),
-                  i18next.t(
-                    'box.error.zstd.message',
-                    'ZSTD was not found, please install it and restart Heroic'
-                  )
-                )
-              }
               logError(
                 `Extraction of ${tool.name} failed with: ${error}`,
                 LogPrefix.DXVKInstaller
@@ -106,7 +97,7 @@ export const DXVK = {
             i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
             i18next.t(
               'box.error.dxvk.message',
-              'Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed'
+              'Error installing DXVK/VKD3D! Check your connection!'
             )
           )
         })

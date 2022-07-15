@@ -70,7 +70,7 @@ export default function CurrentDownload({ appName, runner }: Props) {
               <Box sx={{ width: '100%', mr: 1 }}>
                 <LinearProgress
                   variant="determinate"
-                  value={progress.percent}
+                  value={progress.percent || 0}
                 />
               </Box>
               <Box sx={{ minWidth: 35 }}>

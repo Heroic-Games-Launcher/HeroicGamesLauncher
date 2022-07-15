@@ -93,7 +93,7 @@ body.old-school {
     var(--body-background) 64px,
     var(--body-background) 100%
   );
-  --input-background: #1d1f1f;
+  --input-background: #323232;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
   --success: #0bd48c;

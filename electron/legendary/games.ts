@@ -2,7 +2,7 @@ import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
 import { BrowserWindow } from 'electron'
-import { ExecResult, ExtraInfo, InstallArgs } from '../types'
+import { ExecResult, ExtraInfo, InstallArgs, SteamRuntime } from '../types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
@@ -34,10 +34,12 @@ import {
   launchCleanup,
   getRunnerCallWithoutCredentials
 } from '../launcher'
-import { addShortcuts, removeShortcuts } from '../shortcuts'
+import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import { basename, join } from 'path'
 import { runLegendaryCommand } from './library'
 import { gameInfoStore } from './electronStores'
+import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
+import shlex from 'shlex'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -457,7 +459,14 @@ class LegendaryGame extends Game {
         LogPrefix.Legendary
       )
     } else {
-      removeShortcuts(this.appName, 'legendary')
+      await removeShortcuts(this.appName, 'legendary')
+      const gameInfo = await this.getGameInfo()
+      const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+      const steamUserdataDir = join(
+        defaultSteamPath.replaceAll("'", ''),
+        'userdata'
+      )
+      await removeNonSteamGame({ steamUserdataDir, gameInfo })
     }
     return res
   }
@@ -584,6 +593,7 @@ class LegendaryGame extends Game {
           ...commandEnv,
           ...setupEnvVars(gameSettings)
         }
+
         wrappers = setupWrappers(
           gameSettings,
           mangoHudCommand,
@@ -599,8 +609,8 @@ class LegendaryGame extends Game {
         ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
-        launchArguments,
-        gameSettings.launcherArgs
+        ...shlex.split(launchArguments ?? ''),
+        ...shlex.split(gameSettings.launcherArgs ?? '')
       ]
     } else {
       // -> We're using Wine/Proton/CX on either Linux or Mac
@@ -622,6 +632,7 @@ class LegendaryGame extends Game {
         ...setupEnvVars(gameSettings),
         ...wineEnvVars
       }
+
       wrappers = setupWrappers(
         gameSettings,
         mangoHudCommand,
@@ -643,7 +654,10 @@ class LegendaryGame extends Game {
       // avoid breaking on old configs when path is not absolute
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        const runtime = useSteamRuntime ? getSteamRuntime('soldier') : null
+        let runtime = null as SteamRuntime
+        if (useSteamRuntime) {
+          await getSteamRuntime('soldier').then((path) => (runtime = path))
+        }
 
         if (runtime?.path) {
           // The Steam runtime masks /run, so if our game is on another hard drive, we'll get problems. Just including the game's install path
@@ -666,8 +680,8 @@ class LegendaryGame extends Game {
         offlineFlag,
         ...wineFlag,
         ...winePrefixFlag,
-        launchArguments,
-        launcherArgs
+        ...shlex.split(launchArguments ?? ''),
+        ...shlex.split(launcherArgs ?? '')
       ]
     }
 
@@ -708,7 +722,8 @@ class LegendaryGame extends Game {
   public async runWineCommand(
     command: string,
     altWineBin = '',
-    wait = false
+    wait = false,
+    forceRunInPrefixVerb = false
   ): Promise<ExecResult> {
     const isNative = this.isNative()
 
@@ -717,7 +732,13 @@ class LegendaryGame extends Game {
       return { stdout: '', stderr: '' }
     }
 
-    return runWineCommand(await this.getSettings(), command, altWineBin, wait)
+    return runWineCommand(
+      await this.getSettings(),
+      command,
+      altWineBin,
+      wait,
+      forceRunInPrefixVerb
+    )
   }
 
   public async stop() {

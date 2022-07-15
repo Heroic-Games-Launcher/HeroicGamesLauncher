@@ -124,12 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",
+        "addToSteam": "Add to Steam",
         "change": "Telepítési útvonal megváltoztatása",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
         "log": "Legutóbbi napló",
         "move": "Játék áthelyezése",
         "protondb": "Kompatibilitás ellenőrzése",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Beállítások",
         "store": "Áruházi oldal",
         "verify": "Ellenőrzés és javítás"

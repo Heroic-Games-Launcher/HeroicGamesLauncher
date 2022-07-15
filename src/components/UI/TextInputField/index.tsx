@@ -13,6 +13,7 @@ interface TextInputFieldProps {
   placeholder?: string
   disabled?: boolean
   extraClass?: string
+  warning?: ReactNode
 }
 
 const TextInputField = ({
@@ -24,7 +25,8 @@ const TextInputField = ({
   disabled = false,
   extraClass = '',
   inputIcon,
-  afterInput
+  afterInput,
+  warning
 }: TextInputFieldProps) => {
   const { isRTL } = useContext(ContextProvider)
 
@@ -44,6 +46,7 @@ const TextInputField = ({
         disabled={disabled}
         placeholder={placeholder}
       />
+      {value && warning}
       {afterInput}
     </div>
   )

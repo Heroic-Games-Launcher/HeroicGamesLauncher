@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { Path, SyncType } from 'src/types'
+import { Path, Runner, SyncType } from 'src/types'
 import { fixSaveFolder, getGameInfo, syncSaves } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 
@@ -15,6 +15,8 @@ import {
 import Backspace from '@mui/icons-material/Backspace'
 import ContextProvider from 'src/state/ContextProvider'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   appName: string
@@ -23,6 +25,7 @@ interface Props {
   savesPath: string
   setAutoSyncSaves: (value: boolean) => void
   setSavesPath: (value: string) => void
+  runner: Runner
   winePrefix?: string
 }
 
@@ -33,7 +36,8 @@ export default function SyncSaves({
   autoSyncSaves,
   setAutoSyncSaves,
   isProton,
-  winePrefix
+  winePrefix,
+  runner
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('--skip-upload')
@@ -43,15 +47,37 @@ export default function SyncSaves({
 
   useEffect(() => {
     const getSyncFolder = async () => {
+      if (savesPath) return // Don't work on getting the save path if we won't change it
       const {
         save_folder,
-        install: { install_path }
-      } = await getGameInfo(appName)
+        install: { install_path, platform }
+      } = await getGameInfo(appName, runner)
       setAutoSyncSaves(autoSyncSaves)
       const prefix = winePrefix ? winePrefix : ''
-      let folder = await fixSaveFolder(save_folder, prefix, isProton || false)
-      folder = folder.replace('{InstallDir}', `${install_path}`)
-      const path = savesPath ? savesPath : folder
+      let folder = await fixSaveFolder(
+        save_folder,
+        prefix,
+        isProton || false,
+        runner,
+        platform || ''
+      )
+      folder = folder
+        .replace('{InstallDir}', `${install_path}`)
+        .replace('<?INSTALL?>', `${install_path}`)
+
+      let actualPath
+      if (!isWin) {
+        const { stdout } = await ipcRenderer.invoke('runWineCommandForGame', {
+          appName,
+          runner,
+          command: `cmd /c winepath "${folder}"`
+        })
+        actualPath = stdout.trim()
+      } else {
+        actualPath = await ipcRenderer.invoke('getShellPath', folder)
+      }
+
+      const path = savesPath ? savesPath : actualPath
       const fixedPath = isWin
         ? path.replaceAll('/', '\\')
         : path.replaceAll(/\\/g, '/') // invert slashes and remove latest on windows
@@ -72,11 +98,12 @@ export default function SyncSaves({
   async function handleSync() {
     setIsSyncing(true)
 
-    await syncSaves(savesPath, appName, syncType).then(async (res: string) =>
-      ipcRenderer.invoke('openMessageBox', {
-        message: res,
-        title: 'Saves Sync'
-      })
+    await syncSaves(savesPath, appName, runner, syncType).then(
+      async (res: string) =>
+        ipcRenderer.invoke('openMessageBox', {
+          message: res,
+          title: 'Saves Sync'
+        })
     )
     setIsSyncing(false)
   }
@@ -84,7 +111,13 @@ export default function SyncSaves({
   return (
     <>
       <h3 className="settingSubheader">{t('settings.navbar.sync')}</h3>
-
+      <div className="infoBox saves-warning">
+        <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
+        {t(
+          'settings.saves.warning',
+          'Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)'
+        )}
+      </div>
       <TextInputWithIconField
         htmlId="inputSavePath"
         placeholder={t('setting.savefolder.placeholder')}
@@ -117,7 +150,6 @@ export default function SyncSaves({
             : () => setSavesPath('')
         }
       />
-
       <SelectField
         label={t('setting.manualsync.title')}
         htmlId="selectSyncType"
@@ -149,7 +181,6 @@ export default function SyncSaves({
           </option>
         ))}
       </SelectField>
-
       <ToggleSwitch
         htmlId="autosync"
         value={autoSyncSaves}
@@ -157,7 +188,6 @@ export default function SyncSaves({
         handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
         title={t('setting.autosync')}
       />
-
       <InfoBox text="infobox.help">
         <ul>
           <li>{t('help.sync.part1')}</li>

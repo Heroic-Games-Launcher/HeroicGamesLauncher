@@ -39,7 +39,7 @@
         "add_to_favourites": "Добавить в избранное",
         "cancel": "Пауза/Отмена",
         "continue": "Продолжить загрузку",
-        "force_update": "Force Update if Available",
+        "force_update": "Принудительное обновление, если доступно",
         "hide_game": "Скрыть игру",
         "import": "Импортировать игру",
         "install": "Установить",
@@ -124,12 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Создать ярлык",
+        "addToSteam": "Add to Steam",
         "change": "Изменить путь установки",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
         "log": "Последний журнал",
         "move": "Переместить игру",
         "protondb": "Проверить совместимость",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Настройки",
         "store": "Страница в магазине",
         "verify": "Проверить и восстановить"

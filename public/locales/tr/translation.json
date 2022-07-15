@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Legendary çalıştırılabilir dosyasını seç",
         "customWine": "Wine veya Proton çalıştırılabilir dosyasını seç",
         "default-install-path": "Öntanımlı Kurulum Yerini Seçin",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Kimlik bilgilerinizin süresi doldu, lütfen oturumunuzu kapatın ve tekrar oturum açın."
             },
@@ -55,6 +62,12 @@
                 "message": "Başlatma iptal edildi! Oyunu çalıştırmak için internet bağlantısı gereklidir.",
                 "title": "Çevrim dışı mod desteklenmiyor."
             },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
+            },
             "title": "Hata",
             "update": {
                 "message": "Güncellemeyle ilgili bir sorun oluştu, lütfen günlük kayıtlarına göz atın veya daha sonra tekrar deneyin!",
@@ -63,10 +76,6 @@
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
                 "title": "Wine Bulunamadı"
-            },
-            "zstd": {
-                "message": "ZSTD bulunamadı, lütfen kurun ve Heroic'i yeniden başlatın",
-                "title": "Eksik Bağımlılık"
             }
         },
         "info": {
@@ -142,6 +151,7 @@
         "store": "Mağaza",
         "title": "Oyun Adı"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Oyun bulunamadı - Oturumu kapatıp tekrar açmayı veya aşağıdaki seçeneklerden birini deneyin"
@@ -175,14 +185,12 @@
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
-            "part1": "Oyun başlatılmadan önce çağırılması için ",
-            "part2": "Gelişmiş Seçenekler",
-            "part3": "'i kullanın; ",
             "part4": "Oyunu başlatma komutuna eklenmesi için ",
             "part5": "Oyun Parametleri",
             "part6": " 'ni kullanın, örneğin bazı oyunlarda başlatıcıyı atlamak için: ",
             "part7": " gibi."
         },
+        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
@@ -238,6 +246,20 @@
             "reparing": "Onarım Hatası"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "Onarım Tamamlandı"
         },
         "install": {
@@ -261,12 +283,24 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Diğer başlatma seçeneklerini buraya girin",
-            "title": "Gelişmiş Seçenekler (Ortam Değişkenleri):"
+            "key": "Variable Name",
+            "placeHolderKey": "NAME",
+            "placeHolderValue": "E.g.: Path/To/ExtraFiles",
+            "title": "Gelişmiş Seçenekler (Ortam Değişkenleri):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Başlatma Parametrelerini buraya girin",
             "title": "Oyun Parametreleri (Komutun sonunda çalıştırmak için):"
+        },
+        "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
+        "wrapper": {
+            "args": "Arguments",
+            "arguments_example": "Arguments example: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "exe": "Wrapper",
+            "placeHolderKey": "New Wrapper",
+            "placeHolderValue": "Wrapper Arguments",
+            "title": "Wrapper command:"
         }
     },
     "other": {
@@ -302,6 +336,7 @@
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Koyu Tepsi Simgesi Kullan",
         "default-install-path": "Öntanımlı Kurulum Yeri",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
         "disable_controller": "Denetleyiciyi kullanarak Heroic gezinmesini devre dışı bırak",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
@@ -364,6 +399,7 @@
         "minimize-on-launch": "Oyun Başlatıldıktan Sonra Heroic'i Simge Durumuna Küçült",
         "offlinemode": "Oyunu Çevrim Dışı Çalıştır",
         "prefered_language": "Tercih Edilen Dil (Dil Kodu)",
+        "preferSystemLibs": "Prefer system libraries",
         "primerun": "Özel Grafik Kartını Kullan",
         "resizableBar": "Resizable BAR'ı etkinleştir (yalnızca NVIDIA RTX 30xx)",
         "runexe": {
@@ -397,7 +433,10 @@
             "sync": "Kaydet-Eşzamanla"
         },
         "open-config-file": "Yapılandırma Dosyasını Aç",
-        "reset-heroic": "Heroic'i Sıfırla"
+        "reset-heroic": "Heroic'i Sıfırla",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Ayarlar",
     "sidebar": {

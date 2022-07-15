@@ -53,6 +53,8 @@ interface Props {
   toggleEsync: () => void
   enableFsync: boolean
   toggleFsync: () => void
+  preferSystemLibs: boolean
+  togglePreferSystemLibs: () => void
 }
 
 export default function WineSettings({
@@ -82,7 +84,9 @@ export default function WineSettings({
   enableFsync,
   toggleFsync,
   defaultWinePrefix,
-  setDefaultWinePrefix
+  setDefaultWinePrefix,
+  preferSystemLibs,
+  togglePreferSystemLibs
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
   const { platform } = useContext(ContextProvider)
@@ -336,7 +340,7 @@ export default function WineSettings({
       )}
 
       {isLinux && !isProton && (
-        <div>
+        <>
           <div className="toggleRow">
             <ToggleSwitch
               htmlId="autovkd3d"
@@ -364,7 +368,25 @@ export default function WineSettings({
               )}
             />
           </div>
-        </div>
+
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="systemLibsToggle"
+              value={preferSystemLibs || false}
+              handleChange={togglePreferSystemLibs}
+              title={t('setting.preferSystemLibs', 'Prefer system libraries')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.preferSystemLibs',
+                'Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.'
+              )}
+            />
+          </div>
+        </>
       )}
 
       <div className="toggleRow">

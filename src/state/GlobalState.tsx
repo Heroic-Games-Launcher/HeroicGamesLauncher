@@ -343,8 +343,12 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     try {
+      const newUpdates: string[] = await ipcRenderer.invoke(
+        'checkGameUpdates',
+        library
+      )
       updates = checkUpdates
-        ? await ipcRenderer.invoke('checkGameUpdates', library)
+        ? [...new Set([...newUpdates, ...this.state.gameUpdates])]
         : this.state.gameUpdates
     } catch (error) {
       ipcRenderer.send('logError', error)

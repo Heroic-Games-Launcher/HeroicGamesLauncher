@@ -6,4 +6,5 @@
 
 .helpIcon {
   padding-left: 5px;
+  color: var(--accent);
 }

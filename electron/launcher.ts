@@ -19,7 +19,8 @@ import {
   showErrorBoxModalAuto,
   searchForExecutableOnPath,
   quoteIfNecessary,
-  errorHandler
+  errorHandler,
+  removeQuoteIfNecessary
 } from './utils'
 import {
   logDebug,
@@ -34,8 +35,12 @@ import { DXVK } from './tools'
 import setup from './gog/setup'
 import { GOGGame } from 'gog/games'
 import { LegendaryGame } from 'legendary/games'
-import { CallRunnerOptions, GameInfo, Runner } from './types'
 import {
+  CallRunnerOptions,
+  GameInfo,
+  Runner,
+  EnviromentVariable,
+  WrapperVariable,
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
@@ -43,6 +48,7 @@ import {
   WineInstallation
 } from './types'
 import { spawn } from 'child_process'
+import shlex from 'shlex'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -115,14 +121,18 @@ async function prepareLaunch(
 
   if (gameSettings.useSteamRuntime && isLinuxNative) {
     // for native games lets use scout for now
-    const runtime = getSteamRuntime('scout')
-    if (!runtime.path) {
-      logWarning(`Couldn't find a valid Steam runtime path`, LogPrefix.Backend)
-    } else {
-      logInfo(`Using ${runtime.type} Steam runtime`, LogPrefix.Backend)
-      steamRuntime =
-        runtime.version === 'soldier' ? `${runtime.path} -- ` : runtime.path
-    }
+    await getSteamRuntime('scout').then((runtime) => {
+      if (!runtime.path) {
+        logWarning(
+          `Couldn't find a valid Steam runtime path`,
+          LogPrefix.Backend
+        )
+      } else {
+        logInfo(`Using ${runtime.type} Steam runtime`, LogPrefix.Backend)
+        steamRuntime =
+          runtime.version === 'soldier' ? `${runtime.path} -- ` : runtime.path
+      }
+    })
   }
 
   return {
@@ -240,16 +250,17 @@ function setupEnvVars(gameSettings: GameSettings) {
   if (gameSettings.audioFix) {
     ret.PULSE_LATENCY_MSEC = '60'
   }
-  if (gameSettings.otherOptions) {
-    gameSettings.otherOptions
-      .split(' ')
-      .filter((val) => val.indexOf('=') !== -1)
-      .forEach((envKeyAndVar) => {
-        const keyAndValueSplit = envKeyAndVar.split('=')
-        const key = keyAndValueSplit.shift()
-        const value = keyAndValueSplit.join('=')
-        ret[key] = value
-      })
+  if (gameSettings.enviromentOptions) {
+    gameSettings.enviromentOptions.forEach((envEntry: EnviromentVariable) => {
+      ret[envEntry.key] = removeQuoteIfNecessary(envEntry.value)
+    })
+  }
+
+  // setup LD_PRELOAD if not defined
+  // fixes the std::log_error for Fall Guys
+  // thanks to https://github.com/Diyou
+  if (!process.env.LD_PRELOAD) {
+    ret.LD_PRELOAD = ''
   }
 
   return ret
@@ -298,9 +309,29 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.PROTON_LOG_DIR = flatPakHome
 
     // Only set WINEDEBUG if PROTON_LOG is set since Proton will also log if just WINEDEBUG is set
-    if (gameSettings.otherOptions.includes('PROTON_LOG=')) {
+    if (
+      gameSettings.enviromentOptions.find((env) => env.key === 'PROTON_LOG')
+    ) {
       // Stop Proton from overriding WINEDEBUG; this prevents logs growing to a few GB for some games
       ret.WINEDEBUG = 'timestamp'
+    }
+  }
+  if (!gameSettings.preferSystemLibs && wineVersion.type === 'wine') {
+    if (wineVersion.lib32 && wineVersion.lib) {
+      // append wine libs at the beginning
+      ret.LD_LIBRARY_PATH = [
+        wineVersion.lib32,
+        wineVersion.lib,
+        process.env.LD_LIBRARY_PATH
+      ].join(':')
+    } else {
+      logError(
+        [
+          `Couldn't find all library folders of ${wineVersion.name}!`,
+          `Missing ${wineVersion.lib32} or ${wineVersion.lib}!`,
+          `Falling back to system libraries!`
+        ].join('\n')
+      )
     }
   }
   return ret
@@ -313,14 +344,11 @@ function setupWrappers(
   steamRuntime: string
 ): Array<string> {
   const wrappers = Array<string>()
-  // Wrappers could be specified in the environment variable section as well
-  if (gameSettings.otherOptions) {
-    gameSettings.otherOptions
-      .split(' ')
-      .filter((val) => val.indexOf('=') === -1)
-      .forEach((val) => {
-        wrappers.push(val)
-      })
+  if (gameSettings.wrapperOptions) {
+    gameSettings.wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
+      wrappers.push(wrapperEntry.exe)
+      wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
+    })
   }
   if (gameSettings.showMangohud) {
     // Mangohud needs some arguments in addition to the command, so we have to split here
@@ -417,7 +445,8 @@ async function runWineCommand(
   gameSettings: GameSettings,
   command: string,
   altWineBin: string,
-  wait: boolean
+  wait: boolean,
+  forceRunInPrefixVerb?: boolean
 ) {
   const { wineVersion, winePrefix } = gameSettings
 
@@ -429,8 +458,13 @@ async function runWineCommand(
   let additional_command = ''
   let wineBin = wineVersion.bin.replaceAll("'", '')
   if (wineVersion.type === 'proton') {
-    command = 'run ' + command
-    // TODO: Respect 'wait' here. Not sure if Proton can even do that
+    if (forceRunInPrefixVerb) {
+      command = 'runinprefix ' + command
+    } else if (wait) {
+      command = 'waitforexitandrun ' + command
+    } else {
+      command = 'run ' + command
+    }
     // TODO: Use Steamruntime here in the future
   } else {
     // This is only allowed for Wine since Proton only has one binary (the 'proton' script)
@@ -486,6 +520,7 @@ async function callRunner(
   // Necessary to get rid of possible undefined or null entries, else
   // TypeError is triggered
   commandParts = commandParts.filter(Boolean)
+
   const safeCommand = getRunnerCallWithoutCredentials(
     [...commandParts],
     options?.env,
@@ -612,13 +647,14 @@ function getRunnerCallWithoutCredentials(
   wrappers: string[] = [],
   runnerPath: string
 ): string {
+  const commandArguments = Object.assign([], commandParts)
   // Redact sensitive arguments (SID for Legendary, token for GOGDL)
   for (const sensitiveArg of ['--sid', '--token']) {
-    const sensitiveArgIndex = commandParts.indexOf(sensitiveArg)
+    const sensitiveArgIndex = commandArguments.indexOf(sensitiveArg)
     if (sensitiveArgIndex === -1) {
       continue
     }
-    commandParts[sensitiveArgIndex + 1] = '<redacted>'
+    commandArguments[sensitiveArgIndex + 1] = '<redacted>'
   }
 
   const formattedEnvVars: string[] = []
@@ -638,7 +674,7 @@ function getRunnerCallWithoutCredentials(
     ...formattedEnvVars,
     ...wrappers.map(quoteIfNecessary),
     quoteIfNecessary(runnerPath),
-    ...commandParts.map(quoteIfNecessary)
+    ...commandArguments.map(quoteIfNecessary)
   ].join(' ')
 }
 

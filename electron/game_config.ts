@@ -6,6 +6,9 @@ import {
   currentGameConfigVersion,
   heroicConfigPath,
   heroicGamesConfigPath,
+  isLinux,
+  isMac,
+  isWindows,
   userHome
 } from './constants'
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -195,23 +198,14 @@ class GameConfigV0 extends GameConfig {
   }
 
   public async getSettings(): Promise<GameSettings> {
-    if (!existsSync(this.path)) {
-      return { ...GlobalConfig.get().config } as GameSettings
-    }
-    const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
     // Take defaults, then overwrite if explicitly set values exist.
     // The settings defined work as overrides.
-
-    // fix relative paths
-    const { winePrefix: gameWinePrefix } =
-      (settings[this.appName] as GameSettings) || {}
-
-    const defaults = GlobalConfig.get().config
 
     const {
       audioFix,
       autoInstallDxvk,
       autoInstallVkd3d,
+      preferSystemLibs,
       autoSyncSaves,
       enableEsync,
       enableFSR,
@@ -221,7 +215,8 @@ class GameConfigV0 extends GameConfig {
       launcherArgs,
       nvidiaPrime,
       offlineMode,
-      otherOptions,
+      enviromentOptions,
+      wrapperOptions,
       savesPath,
       showFps,
       showMangohud,
@@ -231,12 +226,15 @@ class GameConfigV0 extends GameConfig {
       wineCrossoverBottle,
       wineVersion,
       useSteamRuntime
-    } = defaults
+    } = GlobalConfig.get().config
 
-    const settingsToReturn = {
+    // initialize generic defaults
+    // TODO: I know more values can be moved that are not used in windows
+    const defaultSettings = {
       audioFix,
       autoInstallDxvk,
       autoInstallVkd3d,
+      preferSystemLibs,
       autoSyncSaves,
       enableEsync,
       enableFSR,
@@ -246,25 +244,49 @@ class GameConfigV0 extends GameConfig {
       launcherArgs,
       nvidiaPrime,
       offlineMode,
-      otherOptions,
+      enviromentOptions: enviromentOptions,
+      wrapperOptions,
       savesPath,
       showFps,
       showMangohud,
       targetExe,
       useGameMode,
-      winePrefix: winePrefix || `${userHome}/.wine`,
-      wineCrossoverBottle,
-      wineVersion,
       useSteamRuntime,
-      ...settings[this.appName],
-      language: ''
+      language: '' // we want to fallback to '' always here, fallback lang for games should be ''
     } as GameSettings
 
-    if (gameWinePrefix) {
-      settingsToReturn.winePrefix = gameWinePrefix.replace('~', userHome)
+    let gameSettings = {} as GameSettings
+
+    if (existsSync(this.path)) {
+      // read game's settings
+      const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
+      gameSettings = settings[this.appName] || ({} as GameSettings)
     }
 
-    return settingsToReturn
+    if (!isWindows) {
+      defaultSettings.wineVersion = wineVersion
+
+      // set specific keys depending on the platform
+      if (isMac) {
+        defaultSettings.wineCrossoverBottle = wineCrossoverBottle
+      } else if (isLinux) {
+        defaultSettings.winePrefix = winePrefix || `${userHome}/.wine`
+
+        // fix winePrefix if needed
+        if (gameSettings.winePrefix?.includes('~')) {
+          gameSettings.winePrefix = gameSettings.winePrefix.replace(
+            '~',
+            userHome
+          )
+        }
+      }
+    }
+
+    // return an object with the game's settings, with fallbacks to the defaults
+    return {
+      ...defaultSettings,
+      ...gameSettings
+    }
   }
 
   public async resetToDefaults() {
