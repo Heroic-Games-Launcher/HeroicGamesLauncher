@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Pilih Legendary binary",
         "customWine": "Pilih Wine atau Proton Binary",
         "default-install-path": "Pilih Lokasi Pemasangan Bawaan",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi."
             },
@@ -54,6 +61,12 @@
             "no-offline-mode": {
                 "message": "Peluncuran dibatalkan! Gim membutuhkan koneksi internet untuk menjalankannya.",
                 "title": "Mode luring tidak didukung."
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
             },
             "title": "Galat",
             "update": {
@@ -231,6 +244,20 @@
             "reparing": "Perbaikan Kesalahan"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "Perbaikan Selesai"
         },
         "install": {
@@ -307,6 +334,7 @@
         "customWineProton": "Lokasi Wine/Proton Khusus",
         "darktray": "Gunakan Ikon Baki Gelap",
         "default-install-path": "Lokasi Pemasangan Bawaan",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Atur Folder untuk Prefiks Wine baru",
         "disable_controller": "Nonaktifkan navigasi Heroic menggunakan pengontrol",
         "discordRPC": "Aktifkan Discord Rich Presence",

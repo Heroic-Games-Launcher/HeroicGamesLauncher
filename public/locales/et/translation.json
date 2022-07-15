@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Valige Legendary binaarfail",
         "customWine": "Valige Wine või Proton-i binaar",
         "default-install-path": "Valige Vaikimisi paigalduskoht",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Teie kasutaja andmed on aegunud, palun logige välja ja logige uuesti sisse."
             },
@@ -54,6 +61,12 @@
             "no-offline-mode": {
                 "message": "Käivitamine katkestatud! Mängu käivitamiseks on vaja internetiühendust.",
                 "title": "Võrguühenduseta režiim ei ole toetatud."
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
             },
             "title": "Viga",
             "update": {
@@ -231,6 +244,20 @@
             "reparing": "Viga parandamisel"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "Parandamine lõpetatud"
         },
         "install": {
@@ -307,6 +334,7 @@
         "customWineProton": "Kohandatud Wine/Proton teed",
         "darktray": "Kasuta tumedat süsteemiriiuli ikooni",
         "default-install-path": "Vaikimisi paigaldustee",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Määrake uute Wine'i prefikside jaoks kaust",
         "disable_controller": "Keela Heroic'u mängupuldiga navigeerimine",
         "discordRPC": "Luba Discord Rich Presence",

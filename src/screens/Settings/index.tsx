@@ -60,6 +60,7 @@ function Settings() {
   const [winePrefix, setWinePrefix] = useState(`${home}/.wine`)
   const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
+  const [defaultSteamPath, setDefaultSteamPath] = useState('')
   const [defaultWinePrefix, setDefaultWinePrefix] = useState('')
   const [targetExe, setTargetExe] = useState('')
   const [enviromentOptions, setEnviromentOptions] = useState<
@@ -229,6 +230,7 @@ function Settings() {
         setAudioFix(config.audioFix)
         setShowMangoHud(config.showMangohud)
         setDefaultInstallPath(config.defaultInstallPath)
+        setDefaultSteamPath(config.defaultSteamPath)
         setWineVersion(config.wineVersion)
         setWinePrefix(config.winePrefix)
         setWineCrossoverBottle(config.wineCrossoverBottle)
@@ -306,6 +308,7 @@ function Settings() {
       customWinePaths,
       darkTrayIcon,
       defaultInstallPath,
+      defaultSteamPath,
       defaultWinePrefix,
       disableController,
       discordRPC,
@@ -559,6 +562,8 @@ function Settings() {
               isLinuxNative={isLinuxNative}
               isProton={wineVersion.type === 'proton'}
               appName={appName}
+              defaultSteamPath={defaultSteamPath}
+              setDefaultSteamPath={setDefaultSteamPath}
             />
           )}
           {isSyncSettings && (

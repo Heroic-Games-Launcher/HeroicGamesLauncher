@@ -124,12 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Adicionar Atalho",
+        "addToSteam": "Add to Steam",
         "change": "Modificar Local de Instalação",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
         "log": "Último Log",
         "move": "Mover o Jogo",
         "protondb": "Verificar Compatibilidade",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Configurações",
         "store": "Loja Epic",
         "verify": "Verificar e Reparar"

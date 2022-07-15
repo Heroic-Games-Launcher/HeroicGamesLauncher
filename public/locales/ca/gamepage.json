@@ -124,12 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",
+        "addToSteam": "Add to Steam",
         "change": "Canvia la ruta d'instal·lació",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
         "log": "Últim registre",
         "move": "Mou el joc",
         "protondb": "Comprova la compatibilitat",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Configuració",
         "store": "Botiga",
         "verify": "Verifica i repara"

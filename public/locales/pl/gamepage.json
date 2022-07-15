@@ -124,12 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",
+        "addToSteam": "Add to Steam",
         "change": "Zmień ścieżkę instalacji",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
         "log": "Ostatni log",
         "move": "Przenieś grę",
-        "protondb": "Sprawdź spójność",
+        "protondb": "Sprawdź kompatybilność",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Ustawienia",
         "store": "Strona sklepu",
         "verify": "Sprawdź i napraw"

@@ -14,7 +14,8 @@ import {
   ExecResult,
   InstallArgs,
   GOGLoginData,
-  InstalledInfo
+  InstalledInfo,
+  SteamRuntime
 } from 'types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {
@@ -47,9 +48,10 @@ import {
   setupEnvVars,
   setupWrappers
 } from '../launcher'
-import { addShortcuts, removeShortcuts } from '../shortcuts'
+import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import setup from './setup'
 import { runGogdlCommand } from './library'
+import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 
 class GOGGame extends Game {
@@ -368,7 +370,10 @@ class GOGGame extends Game {
       // avoid breaking on old configs when path is not absolute
       let winePrefixFlag = ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
-        const runtime = useSteamRuntime ? getSteamRuntime('soldier') : null
+        let runtime = null as SteamRuntime
+        if (useSteamRuntime) {
+          await getSteamRuntime('soldier').then((path) => (runtime = path))
+        }
 
         if (runtime?.path) {
           const runWithRuntime = `${runtime.path} -- '${wineVersion.bin}' waitforexitandrun`
@@ -567,8 +572,15 @@ class GOGGame extends Game {
     }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
-    removeShortcuts(this.appName, 'gog')
+    await removeShortcuts(this.appName, 'gog')
     syncStore.delete(this.appName)
+    const gameInfo = await this.getGameInfo()
+    const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+    const steamUserdataDir = join(
+      defaultSteamPath.replaceAll("'", ''),
+      'userdata'
+    )
+    await removeNonSteamGame({ steamUserdataDir, gameInfo })
     return res
   }
 
