@@ -46,8 +46,12 @@ export default function SidebarLinks() {
 
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
-  const [isDefaultSetting, setIsDefaultSetting] = useState(location.pathname.startsWith('/settings/default'))
-  const [defaultSettingsPath, setDefaultSettingsPath] = useState('/settings/default/general')
+  const [isDefaultSetting, setIsDefaultSetting] = useState(
+    location.pathname.startsWith('/settings/default')
+  )
+  const [defaultSettingsPath, setDefaultSettingsPath] = useState(
+    '/settings/default/general'
+  )
 
   const {
     hasCloudSave = false,
@@ -168,7 +172,10 @@ export default function SidebarLinks() {
         >
           <>
             <div className="Sidebar__itemIcon">
-              <FontAwesomeIcon icon={faSlidersH} title={isDefaultSetting ? t('Settings') : t('GameSettings')} />
+              <FontAwesomeIcon
+                icon={faSlidersH}
+                title={isDefaultSetting ? t('Settings') : t('GameSettings')}
+              />
             </div>
             <span>{isDefaultSetting ? t('Settings') : t('GameSettings')}</span>
           </>
