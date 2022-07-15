@@ -403,7 +403,10 @@
             "sync": "存档-同步"
         },
         "open-config-file": "打开配置文件",
-        "reset-heroic": "重置 Heroic"
+        "reset-heroic": "重置 Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "设置",
     "sidebar": {

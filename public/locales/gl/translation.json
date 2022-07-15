@@ -403,7 +403,10 @@
             "sync": "Gardar-Sincronizar"
         },
         "open-config-file": "Open Config File",
-        "reset-heroic": "Restabelecer Heroic"
+        "reset-heroic": "Restabelecer Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Preferencias",
     "sidebar": {

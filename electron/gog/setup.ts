@@ -162,23 +162,25 @@ async function setup(
           )
 
           const executablePath = path.join(
-            gameInfo.install.install_path,
             handlePathVars(executableName, pathsValues)
           )
-          if (!existsSync(executablePath)) {
-            logError(
-              ['Executable', executablePath, "doesn't exsist"],
-              LogPrefix.Gog
-            )
-            break
-          }
+
           let command = `${commandPrefix} "${executablePath}" ${exeArguments}`
           // Requires testing
           if (isWindows) {
             command = `Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList "${exeArguments}"`
           }
-          logInfo(['Setup: Executing', command], LogPrefix.Gog)
-          await execAsync(command, { cwd: workingDir })
+          logInfo(
+            [
+              'Setup: Executing',
+              command,
+              `${workingDir || gameInfo.install.install_path}`
+            ],
+            LogPrefix.Gog
+          )
+          await execAsync(command, {
+            cwd: workingDir || gameInfo.install.install_path
+          })
           break
         }
         case 'supportData': {

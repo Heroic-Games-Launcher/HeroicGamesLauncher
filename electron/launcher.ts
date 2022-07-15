@@ -441,7 +441,8 @@ async function runWineCommand(
   gameSettings: GameSettings,
   command: string,
   altWineBin: string,
-  wait: boolean
+  wait: boolean,
+  forceRunInPrefixVerb?: boolean
 ) {
   const { wineVersion, winePrefix } = gameSettings
 
@@ -453,8 +454,13 @@ async function runWineCommand(
   let additional_command = ''
   let wineBin = wineVersion.bin.replaceAll("'", '')
   if (wineVersion.type === 'proton') {
-    command = 'run ' + command
-    // TODO: Respect 'wait' here. Not sure if Proton can even do that
+    if (forceRunInPrefixVerb) {
+      command = 'runinprefix ' + command
+    } else if (wait) {
+      command = 'waitforexitandrun ' + command
+    } else {
+      command = 'run ' + command
+    }
     // TODO: Use Steamruntime here in the future
   } else {
     // This is only allowed for Wine since Proton only has one binary (the 'proton' script)
@@ -510,6 +516,7 @@ async function callRunner(
   // Necessary to get rid of possible undefined or null entries, else
   // TypeError is triggered
   commandParts = commandParts.filter(Boolean)
+
   const safeCommand = getRunnerCallWithoutCredentials(
     [...commandParts],
     options?.env,
@@ -636,13 +643,14 @@ function getRunnerCallWithoutCredentials(
   wrappers: string[] = [],
   runnerPath: string
 ): string {
+  const commandArguments = Object.assign([], commandParts)
   // Redact sensitive arguments (SID for Legendary, token for GOGDL)
   for (const sensitiveArg of ['--sid', '--token']) {
-    const sensitiveArgIndex = commandParts.indexOf(sensitiveArg)
+    const sensitiveArgIndex = commandArguments.indexOf(sensitiveArg)
     if (sensitiveArgIndex === -1) {
       continue
     }
-    commandParts[sensitiveArgIndex + 1] = '<redacted>'
+    commandArguments[sensitiveArgIndex + 1] = '<redacted>'
   }
 
   const formattedEnvVars: string[] = []
@@ -662,7 +670,7 @@ function getRunnerCallWithoutCredentials(
     ...formattedEnvVars,
     ...wrappers.map(quoteIfNecessary),
     quoteIfNecessary(runnerPath),
-    ...commandParts.map(quoteIfNecessary)
+    ...commandArguments.map(quoteIfNecessary)
   ].join(' ')
 }
 

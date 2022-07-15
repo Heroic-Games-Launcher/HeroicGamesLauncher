@@ -403,7 +403,10 @@
             "sync": "Synchronizuj zapisy"
         },
         "open-config-file": "Otwórz plik konfiguracyjny",
-        "reset-heroic": "Zresetuj Heroic"
+        "reset-heroic": "Zresetuj Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Ustawienia",
     "sidebar": {

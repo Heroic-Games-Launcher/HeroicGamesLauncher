@@ -711,7 +711,8 @@ class LegendaryGame extends Game {
   public async runWineCommand(
     command: string,
     altWineBin = '',
-    wait = false
+    wait = false,
+    forceRunInPrefixVerb = false
   ): Promise<ExecResult> {
     const isNative = this.isNative()
 
@@ -720,7 +721,13 @@ class LegendaryGame extends Game {
       return { stdout: '', stderr: '' }
     }
 
-    return runWineCommand(await this.getSettings(), command, altWineBin, wait)
+    return runWineCommand(
+      await this.getSettings(),
+      command,
+      altWineBin,
+      wait,
+      forceRunInPrefixVerb
+    )
   }
 
   public async stop() {
