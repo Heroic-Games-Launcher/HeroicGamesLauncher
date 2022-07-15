@@ -49,9 +49,7 @@ export default function SidebarLinks() {
   const [isDefaultSetting, setIsDefaultSetting] = useState(
     location.pathname.startsWith('/settings/default')
   )
-  const [settingsPath, setSettingsPath] = useState(
-    '/settings/default/general'
-  )
+  const [settingsPath, setSettingsPath] = useState('/settings/default/general')
 
   const {
     hasCloudSave = false,
