@@ -38,6 +38,7 @@ import { addShortcuts, removeShortcuts } from '../shortcuts'
 import { basename, join } from 'path'
 import { runLegendaryCommand } from './library'
 import { gameInfoStore } from './electronStores'
+import shlex from 'shlex'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -584,6 +585,7 @@ class LegendaryGame extends Game {
           ...commandEnv,
           ...setupEnvVars(gameSettings)
         }
+
         wrappers = setupWrappers(
           gameSettings,
           mangoHudCommand,
@@ -599,8 +601,8 @@ class LegendaryGame extends Game {
         ...languageFlag,
         ...exeOverrideFlag,
         offlineFlag,
-        launchArguments,
-        gameSettings.launcherArgs
+        ...shlex.split(launchArguments ?? ''),
+        ...shlex.split(gameSettings.launcherArgs ?? '')
       ]
     } else {
       // -> We're using Wine/Proton/CX on either Linux or Mac
@@ -622,6 +624,7 @@ class LegendaryGame extends Game {
         ...setupEnvVars(gameSettings),
         ...wineEnvVars
       }
+
       wrappers = setupWrappers(
         gameSettings,
         mangoHudCommand,
@@ -666,8 +669,8 @@ class LegendaryGame extends Game {
         offlineFlag,
         ...wineFlag,
         ...winePrefixFlag,
-        launchArguments,
-        launcherArgs
+        ...shlex.split(launchArguments ?? ''),
+        ...shlex.split(launcherArgs ?? '')
       ]
     }
 
