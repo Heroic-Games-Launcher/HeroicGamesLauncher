@@ -144,8 +144,8 @@
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "other": {
             "part1": "Use the ",
-            "part2": "Advanced Options",
-            "part3": "to be called before launching the game; ",
+            "part2": "Advanced Options ",
+            "part3": "to be called before launching the game.",
             "part4": "Use the ",
             "part5": "Game Arguments",
             "part6": " to be called after the launch command, for instance: ",

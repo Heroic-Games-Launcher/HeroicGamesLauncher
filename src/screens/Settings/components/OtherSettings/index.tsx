@@ -103,12 +103,18 @@ export default function OtherSettings({
   const shouldRenderFpsOption = !isMacNative && !isWin && !isLinuxNative
   const showSteamRuntime = isLinuxNative || isProton
 
-  const info = (
+  const otherOptions_info = (
     <InfoBox text="infobox.help">
-      {t('help.other.part1')}
-      <strong>{`${t('help.other.part2')} `}</strong>
-      {t('help.other.part3')}
-      <br />
+      <span>
+        {t('help.other.part1')}
+        <strong>{t('help.other.part2')}</strong>
+        {t('help.other.part3')}
+      </span>
+    </InfoBox>
+  )
+
+  const launcherArgs_info = (
+    <InfoBox text="infobox.help">
       {!isDefault && (
         <span>
           {t('help.other.part4')}
@@ -263,7 +269,7 @@ export default function OtherSettings({
           placeholder={t('options.advanced.placeholder')}
           value={otherOptions}
           onChange={handleOtherOptions}
-          afterInput={info}
+          afterInput={otherOptions_info}
         />
       )}
       {!isDefault && (
@@ -273,7 +279,7 @@ export default function OtherSettings({
           placeholder={t('options.gameargs.placeholder')}
           value={launcherArgs}
           onChange={handleLauncherArgs}
-          afterInput={info}
+          afterInput={launcherArgs_info}
         />
       )}
     </>
