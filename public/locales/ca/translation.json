@@ -151,6 +151,7 @@
         "store": "Botiga",
         "title": "Títol del joc"
     },
+    "GameSettings": "",
     "generic": {
         "error": {
             "component": "No s'han trobat jocs. Proveu a reiniciar la sessió o alguna de les opcions de sota."

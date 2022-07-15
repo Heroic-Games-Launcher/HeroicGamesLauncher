@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { openDiscordLink } from 'src/helpers'
 import classNames from 'classnames'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import {
@@ -46,7 +46,8 @@ export default function SidebarLinks() {
 
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
-  const isDefaultSetting = location.pathname.startsWith('/settings/default')
+  const [isDefaultSetting, setIsDefaultSetting] = useState(location.pathname.startsWith('/settings/default'))
+  const [defaultSettingsPath, setDefaultSettingsPath] = useState('/settings/default/general')
 
   const {
     hasCloudSave = false,
@@ -62,18 +63,22 @@ export default function SidebarLinks() {
 
   const loggedIn = epic.username || gog.username
 
-  function whichSettings() {
+  useEffect(() => {
     let tmpAppName = ''
     if (location.pathname.startsWith('/gamepage/')) {
       tmpAppName = location.pathname.replace('/gamepage/', '')
     } else {
-      tmpAppName = appName
+      tmpAppName = appName !== 'default' ? appName : ''
     }
 
-    return tmpAppName
-      ? `/settings/${tmpAppName}/wine`
-      : '/settings/default/general'
-  }
+    if (tmpAppName) {
+      setDefaultSettingsPath(`/settings/${tmpAppName}/wine`)
+      setIsDefaultSetting(false)
+    } else {
+      setDefaultSettingsPath('/settings/default/general')
+      setIsDefaultSetting(true)
+    }
+  }, [location])
 
   return (
     <div className="SidebarLinks Sidebar__section">
@@ -158,14 +163,14 @@ export default function SidebarLinks() {
           className={({ isActive }) =>
             classNames('Sidebar__item', { active: isActive })
           }
-          to={{ pathname: whichSettings() }}
+          to={{ pathname: defaultSettingsPath }}
           state={{ fromGameCard: false }}
         >
           <>
             <div className="Sidebar__itemIcon">
-              <FontAwesomeIcon icon={faSlidersH} title={t('Settings')} />
+              <FontAwesomeIcon icon={faSlidersH} title={isDefaultSetting ? t('Settings') : t('GameSettings')} />
             </div>
-            <span>{t('Settings')}</span>
+            <span>{isDefaultSetting ? t('Settings') : t('GameSettings')}</span>
           </>
         </NavLink>
         {isSettings && (

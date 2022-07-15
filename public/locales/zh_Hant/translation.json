@@ -151,6 +151,7 @@
         "store": "商店",
         "title": "遊戲名稱"
     },
+    "GameSettings": "",
     "generic": {
         "error": {
             "component": "沒有發現遊戲 - 嘗試登入並再次登入或以下選項之一"
