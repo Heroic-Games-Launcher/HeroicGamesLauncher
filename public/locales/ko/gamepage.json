@@ -124,12 +124,14 @@
     },
     "submenu": {
         "addShortcut": "바로가기 생성",
+        "addToSteam": "Add to Steam",
         "change": "설치 경로 변경",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
         "log": "최신 로그",
         "move": "게임 이동",
         "protondb": "호환성 체크",
+        "removeFromSteam": "Remove from Steam",
         "settings": "설정",
         "store": "스토어 페이지",
         "verify": "확인 및 복구"

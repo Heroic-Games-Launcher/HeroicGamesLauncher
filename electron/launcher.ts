@@ -121,14 +121,18 @@ async function prepareLaunch(
 
   if (gameSettings.useSteamRuntime && isLinuxNative) {
     // for native games lets use scout for now
-    const runtime = getSteamRuntime('scout')
-    if (!runtime.path) {
-      logWarning(`Couldn't find a valid Steam runtime path`, LogPrefix.Backend)
-    } else {
-      logInfo(`Using ${runtime.type} Steam runtime`, LogPrefix.Backend)
-      steamRuntime =
-        runtime.version === 'soldier' ? `${runtime.path} -- ` : runtime.path
-    }
+    await getSteamRuntime('scout').then((runtime) => {
+      if (!runtime.path) {
+        logWarning(
+          `Couldn't find a valid Steam runtime path`,
+          LogPrefix.Backend
+        )
+      } else {
+        logInfo(`Using ${runtime.type} Steam runtime`, LogPrefix.Backend)
+        steamRuntime =
+          runtime.version === 'soldier' ? `${runtime.path} -- ` : runtime.path
+      }
+    })
   }
 
   return {

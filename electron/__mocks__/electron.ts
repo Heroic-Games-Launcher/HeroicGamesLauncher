@@ -8,3 +8,9 @@ export const dialog = {
 export const app = {
   getPath: jest.fn().mockReturnValue(tmpdir())
 }
+
+export class Notification {
+  public show() {
+    return
+  }
+}

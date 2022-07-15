@@ -302,6 +302,7 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     const systemInfo = await getSystemInfo()
+
     logInfo(
       ['Legendary location:', join(...Object.values(getLegendaryBin()))],
       LogPrefix.Legendary
@@ -1209,7 +1210,7 @@ ipcMain.handle('updateGame', async (e, appName, runner) => {
       logInfo('finished updating', LogPrefix.Backend)
     })
     .catch((err) => {
-      logError(err, LogPrefix.Backend)
+      logError(`${err}`, LogPrefix.Backend)
       notify({ title, body: i18next.t('notify.update.canceled') })
       return err
     })
@@ -1268,27 +1269,6 @@ ipcMain.handle('egsSync', async (event, args: string) => {
     logError(`${error}`, LogPrefix.Legendary)
     return 'Error'
   }
-})
-
-ipcMain.on(
-  'addShortcut',
-  async (event, appName: string, runner: Runner, fromMenu: boolean) => {
-    const game = Game.get(appName, runner)
-    game.addShortcuts(fromMenu)
-    openMessageBox({
-      buttons: [i18next.t('box.ok', 'Ok')],
-      message: i18next.t(
-        'box.shortcuts.message',
-        'Shortcuts were created on Desktop and Start Menu'
-      ),
-      title: i18next.t('box.shortcuts.title', 'Shortcuts')
-    })
-  }
-)
-
-ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
-  const game = Game.get(appName, runner)
-  game.removeShortcuts()
 })
 
 ipcMain.handle('syncSaves', async (event, args) => {
@@ -1459,5 +1439,6 @@ ipcMain.handle('getShellPath', async (event, path) => {
  */
 import './logger/ipc_handler'
 import './wine-manager/ipc_handler'
+import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'

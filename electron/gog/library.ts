@@ -248,7 +248,22 @@ export class GOGLibrary {
   }
 
   public getGameInfo(slug: string): GameInfo {
-    return this.library.get(slug) || null
+    return this.library.get(slug) || this.getInstallAndGameInfo(slug) || null
+  }
+
+  public getInstallAndGameInfo(slug: string): GameInfo {
+    const game = (libraryStore.get('games') as GameInfo[]).find(
+      (value) => value.app_name === slug
+    )
+
+    if (!game) return null
+    const installedInfo = this.installedGames.get(game.app_name)
+    if (installedInfo) {
+      game.is_installed = true
+      game.install = installedInfo
+    }
+
+    return game
   }
 
   /**
@@ -483,10 +498,6 @@ export class GOGLibrary {
       }
       horizontalCover = `https:${info.image}.jpg`
       description = gamesdbData.game.summary['*']
-      // horizontalCover = gamesdbData._links.logo.href
-      // horizontalCover = gamesdbData.game.background.url_format
-      //   .replace('{formatter}', '')
-      //   .replace('{ext}', 'webp')
     } else {
       logWarning(
         `Unable to get covers from gamesdb for ${info.title}. Trying to get it from api.gog.com`,

@@ -28,7 +28,14 @@
         "choose-legendary-binary": "选择 Legendary 二进制文件",
         "customWine": "选择 Wine 或 Proton 二进制文件",
         "default-install-path": "选择默认安装路径",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "你的凭据已过期，请注销并重新登录。"
             },
@@ -54,6 +61,12 @@
             "no-offline-mode": {
                 "message": "启动失败！游戏需要网络连接才能运行。",
                 "title": "不支持离线模式。"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
             },
             "title": "错误",
             "update": {
@@ -231,6 +244,20 @@
             "reparing": "修复时出错"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "已完成修复"
         },
         "install": {
@@ -307,6 +334,7 @@
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "为新的 WinePrefix设置文件夹",
         "disable_controller": "使用控制器禁止 Heroic 导航",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",

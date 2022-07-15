@@ -75,6 +75,7 @@ html,
 }
 
 .button {
+  --line-height: 17px;
   cursor: pointer;
   padding: 0.75rem;
   background: var(--primary);
@@ -84,7 +85,7 @@ html,
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-  line-height: 17px;
+  line-height: var(--line-height);
   color: #161616;
   border: none;
   max-height: 40px;

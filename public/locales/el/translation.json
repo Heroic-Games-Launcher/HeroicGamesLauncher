@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Επιλέξτε το δυαδικό αρχείο του Legendary",
         "customWine": "Επιλέξτε το δυαδικό αρχείο Wine ή Proton",
         "default-install-path": "Επιλέξτε Κύρια Διαδρομή Εγκατάστασης",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Τα διαπιστευτήριά σας έληξαν, παρακαλώ αποσυνδεθείτε και επανασυνδεθείτε εκ νέου."
             },
@@ -54,6 +61,12 @@
             "no-offline-mode": {
                 "message": "Η έναρξη διακόπηκε! Το παιχνίδι απαιτεί σύνδεση στο διαδύκτιο για να τρέξει.",
                 "title": "Η λειτουργία εκτός σύνδεσης δεν υποστηρίζεται."
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
             },
             "title": "Σφάλμα",
             "update": {
@@ -231,6 +244,20 @@
             "reparing": "Σφάλμα Επιδιόρθωσης"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "Ολοκλήρωση Επιδιόρθωσης"
         },
         "install": {
@@ -307,6 +334,7 @@
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Καθορισμός Φακέλου για νέα Προθήματα Wine",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Ενεργοποίηση Discord Rich Presence",
