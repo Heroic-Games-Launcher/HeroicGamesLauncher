@@ -310,7 +310,7 @@
         "defaultWinePrefix": "Directori de prefixos Wine nous",
         "disable_controller": "Desactiva la navegació del Heroic amb el controlador",
         "discordRPC": "Activa la Discord Rich Presence",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "download-no-https": "Descarrega jocs sense HTTPS (útil per CDNs com ara LanCache)",
         "egs-sync": "Sincronitza amb l'Epic Games instal·lat",
         "enableFSRHack": "Activa el FSR Hack (cal que la versió del Wine en sigui compatible)",
         "eosOverlay": {
