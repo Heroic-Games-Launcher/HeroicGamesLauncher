@@ -151,7 +151,7 @@
         "store": "Store",
         "title": "Game Title"
     },
-    "GameSettings": "",
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Keine Spiele gefunden - Versuchen Sie, sich abzumelden und erneut anzumelden, oder wählen Sie eine der folgenden Optionen"

@@ -151,7 +151,7 @@
         "store": "Магазин",
         "title": "Название игры"
     },
-    "GameSettings": "",
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Игры не найдены. Попробуйте выйти из системы и войти снова или один из вариантов ниже"

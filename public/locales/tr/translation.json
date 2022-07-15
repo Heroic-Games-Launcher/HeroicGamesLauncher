@@ -151,7 +151,7 @@
         "store": "Mağaza",
         "title": "Oyun Adı"
     },
-    "GameSettings": "",
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Oyun bulunamadı - Oturumu kapatıp tekrar açmayı veya aşağıdaki seçeneklerden birini deneyin"

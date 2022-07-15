@@ -151,7 +151,7 @@
         "store": "商店",
         "title": "游戏名"
     },
-    "GameSettings": "",
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "没有发现游戏 - 尝试注销并再次登录或以下选项之一"

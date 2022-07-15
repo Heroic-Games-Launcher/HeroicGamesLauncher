@@ -174,10 +174,10 @@ export default function SidebarLinks() {
             <div className="Sidebar__itemIcon">
               <FontAwesomeIcon
                 icon={faSlidersH}
-                title={isDefaultSetting ? t('Settings') : t('GameSettings')}
+                title={isDefaultSetting ? t('Settings') : t('GameSettings', 'Game Settings')}
               />
             </div>
-            <span>{isDefaultSetting ? t('Settings') : t('GameSettings')}</span>
+            <span>{isDefaultSetting ? t('Settings') : t('GameSettings', 'Game Settings')}</span>
           </>
         </NavLink>
         {isSettings && (

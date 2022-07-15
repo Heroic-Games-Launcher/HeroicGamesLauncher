@@ -151,7 +151,7 @@
         "store": "Cửa hàng",
         "title": "Tựa game"
     },
-    "GameSettings": "",
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Không tìm thấy game - Hãy thử đăng xuất rồi đăng nhập lại hoặc một trong các cách sau"
