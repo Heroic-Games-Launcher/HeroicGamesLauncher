@@ -151,6 +151,7 @@
         "store": "Loja",
         "title": "Título do jogo"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Nenhum jogo encontrado - Tente sair e fazer login novamente ou uma das opções abaixo"

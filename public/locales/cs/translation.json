@@ -151,6 +151,7 @@
         "store": "Obchod",
         "title": "Název hry"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Nebyly nalezeny žádné hry - Zkuste se znovu odhlásit a přihlásit nebo jednu z níže uvedených možností"

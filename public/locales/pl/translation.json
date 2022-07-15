@@ -151,6 +151,7 @@
         "store": "Sklep",
         "title": "Tytuł Gry"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Nie znaleziono żadnych gier - Spróbuj wylogować i zalogować się ponownie lub postępuj zgodnie z jedną z opcji poniżej"

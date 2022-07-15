@@ -151,6 +151,7 @@
         "store": "Toko",
         "title": "Judul Gim"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Tidak ada Gim yang ditemukan - Silakan coba log keluar lalu log masuk lagi atau salah satu opsi di bawah ini"
