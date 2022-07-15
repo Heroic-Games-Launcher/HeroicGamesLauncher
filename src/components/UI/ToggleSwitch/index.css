@@ -4,6 +4,7 @@
   grid-template-columns: min-content 1fr;
   align-items: center;
   justify-items: flex-start;
+  text-align: start;
   cursor: pointer;
 }
 

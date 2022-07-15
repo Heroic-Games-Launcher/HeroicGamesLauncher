@@ -42,6 +42,12 @@ html {
   --icons-background: #17131c;
   --divider: #ffbb3384;
 
+  --anticheat-denied: var(--danger);
+  --anticheat-broken: #e8590c;
+  --anticheat-running: #0e8598;
+  --anticheat-supported: #2f9e44;
+  --anticheat-planned: #6841d9;
+
   /* Gradients */
   --gradient-welcome: linear-gradient(#13172a 100%, #13172a 89%, #13172a 0%);
   --gradient-big-game-menu: linear-gradient(

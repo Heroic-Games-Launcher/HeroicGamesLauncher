@@ -124,10 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Dodaj prečace",
+        "addToSteam": "Add to Steam",
         "change": "Promijeni put instalacije",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Najnoviji dnevnik",
         "move": "Premjesti igricu",
         "protondb": "Provjeri Kompatibilnost",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Postavke",
         "store": "Stranica Trgovine",
         "verify": "Provjeri i popravi"

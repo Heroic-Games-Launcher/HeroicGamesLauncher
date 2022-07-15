@@ -39,7 +39,7 @@
         "add_to_favourites": "Adicionar aos favoritos",
         "cancel": "Pausar/Cancelar",
         "continue": "Continuar baixando",
-        "force_update": "Force Update if Available",
+        "force_update": "Forçar atualização se disponível",
         "hide_game": "Ocultar jogo",
         "import": "Importar Jogo",
         "install": "Instalar",
@@ -82,11 +82,11 @@
         "version": "Versão"
     },
     "install": {
-        "disk-space-left": "Espaço disponível",
-        "not-enough-disk-space": "Espaço em disco insuficiente",
+        "disk-space-left": "Espaço restante no dispositivo",
+        "not-enough-disk-space": "Sem espaço suficiente no disco",
         "path": "Selecione o local de instalação",
-        "path-not-writtable": "Aviso: o caminho pode não ser gravável.",
-        "space-after-install": "Após a instalação",
+        "path-not-writtable": "Aviso: caminho pode não permitir escrita.",
+        "space-after-install": "Pós-instalação",
         "wineprefix": "Prefixo Wine",
         "wineversion": "Versão do Wine"
     },
@@ -117,17 +117,21 @@
         "installing": "Instalando",
         "moving": "Movendo Instalação,Por favor Aguarde",
         "notinstalled": "Este jogo não está instalado",
-        "processing": "Processando arquivos, aguarde.",
+        "processing": "Processando arquivos, aguarde",
         "reparing": "Reparando Jogo, Por favor Aguarde",
         "totalDownloaded": "Total Baixado",
         "updating": "Atualizando Jogo"
     },
     "submenu": {
         "addShortcut": "Adicionar Atalho",
+        "addToSteam": "Add to Steam",
         "change": "Modificar Local de Instalação",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Último Log",
         "move": "Mover o Jogo",
         "protondb": "Verificar Compatibilidade",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Configurações",
         "store": "Loja Epic",
         "verify": "Verificar e Reparar"

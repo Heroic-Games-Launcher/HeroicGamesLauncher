@@ -3,7 +3,7 @@ import { autoUpdater } from 'electron-updater'
 import { t } from 'i18next'
 
 import { icon } from './constants'
-import { logError } from './logger/logger'
+import { logError, LogPrefix } from './logger/logger'
 import { nativeImage } from 'electron/common'
 
 autoUpdater.autoDownload = false
@@ -56,5 +56,5 @@ autoUpdater.on('error', (err) => {
       'Something went wrong with the update, please check the logs or try again later!'
     )
   )
-  logError('failed to update', err, false)
+  logError(['failed to update', `${err}`], LogPrefix.Backend, false)
 })

@@ -39,7 +39,7 @@
         "add_to_favourites": "添加到收藏",
         "cancel": "暂停/取消",
         "continue": "继续下载",
-        "force_update": "Force Update if Available",
+        "force_update": "如可用则强制更新",
         "hide_game": "隐藏游戏",
         "import": "导入游戏",
         "install": "安装",
@@ -124,10 +124,14 @@
     },
     "submenu": {
         "addShortcut": "添加快捷方式",
+        "addToSteam": "Add to Steam",
         "change": "更改安装路径",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "最新日志",
         "move": "移动游戏",
         "protondb": "检查兼容性",
+        "removeFromSteam": "Remove from Steam",
         "settings": "设置",
         "store": "商店页面",
         "verify": "验证并修复"

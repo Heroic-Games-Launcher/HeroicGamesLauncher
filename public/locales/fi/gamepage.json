@@ -124,10 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Lisää pikakuvake",
+        "addToSteam": "Add to Steam",
         "change": "Vaihda asennussijaintia",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Uusin lokitiedosto",
         "move": "Siirrä peli",
         "protondb": "Tarkista yhteensopivuus",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Asetukset",
         "store": "Kauppasivu",
         "verify": "Vahvista ja korjaa"

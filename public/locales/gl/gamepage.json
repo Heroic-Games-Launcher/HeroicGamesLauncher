@@ -124,10 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Engadir acceso directo",
+        "addToSteam": "Add to Steam",
         "change": "Modificar a localización de instalación",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Último rexistro",
         "move": "Mover xogo",
         "protondb": "Verificar compatibilidade",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Axustes",
         "store": "Páxina da tenda",
         "verify": "Verificar e reparar"

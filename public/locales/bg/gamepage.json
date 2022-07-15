@@ -124,10 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Добавяне на пряк път",
+        "addToSteam": "Add to Steam",
         "change": "Промяна на инсталационната папка",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Последни записи в журнала",
         "move": "Преместване на играта",
         "protondb": "Проверка на съвместимостта",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Настройки",
         "store": "Страница в магазина",
         "verify": "Проверка и поправяне"

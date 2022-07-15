@@ -124,10 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Skapa genväg",
+        "addToSteam": "Add to Steam",
         "change": "Ändra installationssökväg",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Senaste loggen",
         "move": "Flytta spelet",
         "protondb": "Kontrollera kompatibilitet",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Inställningar",
         "store": "Butikssida",
         "verify": "Verifiera och reparera"

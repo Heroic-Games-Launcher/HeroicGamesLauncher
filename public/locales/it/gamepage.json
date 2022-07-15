@@ -124,10 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Aggiungi scorciatoia",
+        "addToSteam": "Add to Steam",
         "change": "Cambia percorso d'installazione",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Ultimo Log",
         "move": "Muovi gioco",
         "protondb": "Controlla compatibilità",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Impostazioni",
         "store": "Pagina dello store",
         "verify": "Verifica e ripara"

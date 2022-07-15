@@ -1,5 +1,5 @@
 import { homedir, platform } from 'os'
-import { join } from 'path'
+import { join, normalize } from 'path'
 import Store from 'electron-store'
 import { parse } from '@node-steam/vdf'
 
@@ -12,6 +12,7 @@ import {
 import { env } from 'process'
 import { app } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
+import { GlobalConfig } from './config'
 
 const configStore = new Store({
   cwd: 'store'
@@ -49,6 +50,7 @@ const heroicIconFolder = join(heroicFolder, 'icons')
 const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
 const heroicDefaultWinePrefix = join(homedir(), 'Games', 'Heroic', 'Prefixes')
+const heroicAnticheatDataPath = join(heroicFolder, 'areweanticheatyet.json')
 
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
@@ -58,7 +60,6 @@ const iconDark = fixAsarPath(join(__dirname, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(__dirname, 'icon-light.png'))
 const installed = join(legendaryConfigPath, 'installed.json')
 const libraryPath = join(legendaryConfigPath, 'metadata')
-const steamCompatFolder: string = getSteamCompatFolder()
 const fallBackImage = 'fallback'
 const epicLoginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
@@ -108,15 +109,41 @@ function fixAsarPath(origin: string): string {
   return origin
 }
 
-function getSteamCompatFolder() {
-  if (existsSync(`${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`)) {
-    return `${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`
+export function getSteamCompatFolder() {
+  // Paths are from https://savelocation.net/steam-game-folder
+  if (isWindows) {
+    const defaultWinPath = join(process.env['PROGRAMFILES(X86)'], 'Steam')
+    return defaultWinPath
+    // Reading of steam registry key should work with registry-js
+    // in electron enviroment but there is a npm node-gyp problem so far:
+    // https://github.com/desktop/registry-js/issues/224
+    //
+    // try {
+    //   const entry = enumerateValues(
+    //     HKEY.HKEY_LOCAL_MACHINE,
+    //     'SOFTWARE\\WOW6432Node\\Valve\\Steam'
+    //   ).filter((value) => value.name === 'InstallPath')[0]
+    //   return (entry && String(entry.data)) || defaultWinPath
+    // } catch {
+    //   return defaultWinPath
+    // }
+  } else if (isMac) {
+    return normalize(join(userHome, 'Library/Application Support/Steam'))
+  } else {
+    const flatpakSteamPath = normalize(
+      join(userHome, '.var/app/com.valvesoftware.Steam/.steam/steam')
+    )
+    if (existsSync(flatpakSteamPath)) {
+      return flatpakSteamPath
+    }
+    return normalize(join(userHome, '.steam/steam'))
   }
-  return `${userHome}/.steam/steam`
 }
 
-export function getSteamLibraries(): string[] {
-  const vdfFile = join(steamCompatFolder, 'steamapps', 'libraryfolders.vdf')
+export async function getSteamLibraries(): Promise<string[]> {
+  const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+  const path = defaultSteamPath.replaceAll("'", '')
+  const vdfFile = join(path, 'steamapps', 'libraryfolders.vdf')
   const libraries = ['/usr/share/steam']
 
   if (existsSync(vdfFile)) {
@@ -160,6 +187,7 @@ export {
   heroicInstallPath,
   heroicToolsPath,
   heroicDefaultWinePrefix,
+  heroicAnticheatDataPath,
   userHome,
   flatPakHome,
   kofiPage,
@@ -182,7 +210,6 @@ export {
   userInfo,
   weblateUrl,
   wikiLink,
-  steamCompatFolder,
   tsStore,
   fontsStore,
   isSteamDeckGameMode

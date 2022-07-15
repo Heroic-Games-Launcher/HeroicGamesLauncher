@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "To zmieni lokalizację, w której gra zostanie zainstalowana. Czy jesteś pewien?",
+            "message": "To zmieni lokalizację plików gry. Czy jesteś pewien?",
             "path": "Wybierz nową ścieżkę instalacji",
             "title": "Zmień ścieżkę instalacji gier"
         },
@@ -32,16 +32,16 @@
             "message": "Ta gra ma dostępną aktualizację, czy chcesz zainstalować ją teraz?",
             "title": "Gra wymaga aktualizacji"
         },
-        "wineprefix": "Wybierz folder z prefiksem Wine",
+        "wineprefix": "Wybierz folder z prefiksami Wine",
         "yes": "TAK"
     },
     "button": {
         "add_to_favourites": "Dodaj do ulubionych",
         "cancel": "Wstrzymaj/Anuluj",
         "continue": "Kontynuuj pobieranie",
-        "force_update": "Force Update if Available",
-        "hide_game": "Ukryj Grę",
-        "import": "Importuj Grę",
+        "force_update": "Wymuś dostępne aktualizacje",
+        "hide_game": "Ukryj grę",
+        "import": "Importuj grę",
         "install": "Instaluj",
         "remove_from_favourites": "Usuń z ulubionych",
         "unhide_game": "Odkryj Grę",
@@ -124,10 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",
+        "addToSteam": "Add to Steam",
         "change": "Zmień ścieżkę instalacji",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Ostatni log",
         "move": "Przenieś grę",
-        "protondb": "Sprawdź spójność",
+        "protondb": "Sprawdź kompatybilność",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Ustawienia",
         "store": "Strona sklepu",
         "verify": "Sprawdź i napraw"

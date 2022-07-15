@@ -2,7 +2,13 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings, Runner, WineInstallation } from 'src/types'
+import {
+  AppSettings,
+  EnviromentVariable,
+  Runner,
+  WineInstallation,
+  WrapperVariable
+} from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'src/helpers'
@@ -54,9 +60,13 @@ function Settings() {
   const [winePrefix, setWinePrefix] = useState(`${home}/.wine`)
   const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
+  const [defaultSteamPath, setDefaultSteamPath] = useState('')
   const [defaultWinePrefix, setDefaultWinePrefix] = useState('')
   const [targetExe, setTargetExe] = useState('')
-  const [otherOptions, setOtherOptions] = useState('')
+  const [enviromentOptions, setEnviromentOptions] = useState<
+    EnviromentVariable[]
+  >([])
+  const [wrapperOptions, setWrapperOptions] = useState<WrapperVariable[]>([])
   const [launcherArgs, setLauncherArgs] = useState('')
   const [languageCode, setLanguageCode] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
@@ -148,6 +158,11 @@ function Settings() {
     setOn: setAutoInstallVkd3d
   } = useToggle(false)
   const {
+    on: preferSystemLibs,
+    toggle: togglePreferSystemLibs,
+    setOn: setPreferSystemLibs
+  } = useToggle(false)
+  const {
     on: enableFSR,
     toggle: toggleFSR,
     setOn: setEnableFSR
@@ -215,10 +230,12 @@ function Settings() {
         setAudioFix(config.audioFix)
         setShowMangoHud(config.showMangohud)
         setDefaultInstallPath(config.defaultInstallPath)
+        setDefaultSteamPath(config.defaultSteamPath)
         setWineVersion(config.wineVersion)
         setWinePrefix(config.winePrefix)
         setWineCrossoverBottle(config.wineCrossoverBottle)
-        setOtherOptions(config.otherOptions)
+        setEnviromentOptions(config.enviromentOptions)
+        setWrapperOptions(config.wrapperOptions)
         setLauncherArgs(config.launcherArgs)
         setUseNvidiaPrime(config.nvidiaPrime)
         setEgsLinkedPath(config.egsLinkedPath || '')
@@ -230,6 +247,7 @@ function Settings() {
         setDiscordRPC(config.discordRPC)
         setAutoInstallDxvk(config.autoInstallDxvk)
         setAutoInstallVkd3d(config.autoInstallVkd3d)
+        setPreferSystemLibs(config.preferSystemLibs)
         setEnableEsync(config.enableEsync)
         setEnableFsync(config.enableFsync)
         setEnableFSR(config.enableFSR)
@@ -286,9 +304,11 @@ function Settings() {
       audioFix,
       autoInstallDxvk,
       autoInstallVkd3d,
+      preferSystemLibs,
       customWinePaths,
       darkTrayIcon,
       defaultInstallPath,
+      defaultSteamPath,
       defaultWinePrefix,
       disableController,
       discordRPC,
@@ -300,7 +320,8 @@ function Settings() {
       maxWorkers,
       minimizeOnLaunch,
       nvidiaPrime,
-      otherOptions,
+      enviromentOptions,
+      wrapperOptions,
       showFps,
       showMangohud,
       showUnrealMarket,
@@ -317,6 +338,7 @@ function Settings() {
       audioFix,
       autoInstallDxvk,
       autoInstallVkd3d,
+      preferSystemLibs,
       autoSyncSaves,
       enableEsync,
       enableFSR,
@@ -327,7 +349,8 @@ function Settings() {
       launcherArgs,
       nvidiaPrime,
       offlineMode,
-      otherOptions,
+      enviromentOptions,
+      wrapperOptions,
       savesPath,
       showFps,
       showMangohud,
@@ -356,6 +379,7 @@ function Settings() {
     audioFix,
     autoInstallDxvk,
     autoInstallVkd3d,
+    preferSystemLibs,
     autoSyncSaves,
     customWinePaths,
     darkTrayIcon,
@@ -373,7 +397,8 @@ function Settings() {
     maxSharpness,
     minimizeOnLaunch,
     nvidiaPrime,
-    otherOptions,
+    enviromentOptions,
+    wrapperOptions,
     showFps,
     showMangohud,
     showUnrealMarket,
@@ -492,13 +517,17 @@ function Settings() {
               setFsrSharpness={setFsrSharpness}
               enableResizableBar={enableResizableBar}
               toggleResizableBar={toggleResizableBar}
+              preferSystemLibs={preferSystemLibs}
+              togglePreferSystemLibs={togglePreferSystemLibs}
             />
           )}
           {isWineSettings && !isDefault && <Tools appName={appName} />}
           {isOtherSettings && (
             <OtherSettings
-              otherOptions={otherOptions}
-              setOtherOptions={setOtherOptions}
+              enviromentOptions={enviromentOptions}
+              wrapperOptions={wrapperOptions}
+              setEnviromentOptions={setEnviromentOptions}
+              setWrapperOptions={setWrapperOptions}
               launcherArgs={launcherArgs}
               setLauncherArgs={setLauncherArgs}
               languageCode={languageCode}
@@ -533,6 +562,8 @@ function Settings() {
               isLinuxNative={isLinuxNative}
               isProton={wineVersion.type === 'proton'}
               appName={appName}
+              defaultSteamPath={defaultSteamPath}
+              setDefaultSteamPath={setDefaultSteamPath}
             />
           )}
           {isSyncSettings && (
@@ -544,6 +575,7 @@ function Settings() {
               setAutoSyncSaves={setAutoSyncSaves}
               isProton={!isWin && wineVersion.type === 'proton'}
               winePrefix={winePrefix}
+              runner={runner}
             />
           )}
           {isAdvancedSetting && (

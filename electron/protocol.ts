@@ -1,6 +1,6 @@
 import { BrowserWindow, dialog } from 'electron'
 import { Game } from './games'
-import { logInfo, LogPrefix } from './logger/logger'
+import { logError, logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
 
 export async function handleProtocol(window: BrowserWindow, args: string[]) {
@@ -30,6 +30,14 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
 
   if (command === 'launch') {
     const game = Game.get(arg, 'legendary') || Game.get(arg, 'gog')
+
+    if (!game) {
+      return logError(
+        `Could not receive game data for ${arg}!`,
+        LogPrefix.ProtocolHandler
+      )
+    }
+
     const { is_installed, title, app_name, runner } = game.getGameInfo()
     if (!is_installed) {
       logInfo(`"${arg}" not installed.`, LogPrefix.ProtocolHandler)

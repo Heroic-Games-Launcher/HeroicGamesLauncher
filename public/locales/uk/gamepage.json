@@ -124,10 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Додати ярлик",
+        "addToSteam": "Add to Steam",
         "change": "Змінити шлях встановлення",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Останній лоґ",
         "move": "Перенести гру",
         "protondb": "Перевірити сумісність",
+        "removeFromSteam": "Remove from Steam",
         "settings": "Налаштування",
         "store": "Сторінка в крамниці",
         "verify": "Перевірити і відновити"
