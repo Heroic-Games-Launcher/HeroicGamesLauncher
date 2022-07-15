@@ -49,7 +49,7 @@ export default function SidebarLinks() {
   const [isDefaultSetting, setIsDefaultSetting] = useState(
     location.pathname.startsWith('/settings/default')
   )
-  const [defaultSettingsPath, setDefaultSettingsPath] = useState(
+  const [settingsPath, setSettingsPath] = useState(
     '/settings/default/general'
   )
 
@@ -76,10 +76,10 @@ export default function SidebarLinks() {
     }
 
     if (tmpAppName) {
-      setDefaultSettingsPath(`/settings/${tmpAppName}/wine`)
+      setSettingsPath(`/settings/${tmpAppName}/wine`)
       setIsDefaultSetting(false)
     } else {
-      setDefaultSettingsPath('/settings/default/general')
+      setSettingsPath('/settings/default/general')
       setIsDefaultSetting(true)
     }
   }, [location])
@@ -167,7 +167,7 @@ export default function SidebarLinks() {
           className={({ isActive }) =>
             classNames('Sidebar__item', { active: isActive })
           }
-          to={{ pathname: defaultSettingsPath }}
+          to={{ pathname: settingsPath }}
           state={{ fromGameCard: false }}
         >
           <>
