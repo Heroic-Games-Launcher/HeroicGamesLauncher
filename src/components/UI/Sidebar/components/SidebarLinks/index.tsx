@@ -62,6 +62,19 @@ export default function SidebarLinks() {
 
   const loggedIn = epic.username || gog.username
 
+  function whichSettings() {
+    let tmpAppName = ''
+    if (location.pathname.startsWith('/gamepage/')) {
+      tmpAppName = location.pathname.replace('/gamepage/', '')
+    } else {
+      tmpAppName = appName
+    }
+
+    return tmpAppName
+      ? `/settings/${tmpAppName}/wine`
+      : '/settings/default/general'
+  }
+
   return (
     <div className="SidebarLinks Sidebar__section">
       {loggedIn && (
@@ -145,7 +158,7 @@ export default function SidebarLinks() {
           className={({ isActive }) =>
             classNames('Sidebar__item', { active: isActive })
           }
-          to={{ pathname: '/settings/default/general' }}
+          to={{ pathname: whichSettings() }}
           state={{ fromGameCard: false }}
         >
           <>
