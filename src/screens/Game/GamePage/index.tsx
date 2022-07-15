@@ -184,6 +184,7 @@ export default function GamePage(): JSX.Element | null {
       ? `/settings/${appName}/other`
       : `/settings/${appName}/wine`
 
+    const showCloudSaveInfo = cloud_save_enabled && is_game && !isLinuxNative
     /*
     Other Keys:
     t('box.stopInstall.title')
@@ -260,19 +261,16 @@ export default function GamePage(): JSX.Element | null {
                             : ''
                           : ''}
                       </div>
-                      {is_installed &&
-                        cloud_save_enabled &&
-                        is_game &&
-                        !isLinuxNative && (
-                          <div
-                            style={{
-                              color: autoSyncSaves ? '#07C5EF' : ''
-                            }}
-                          >
-                            {t('info.syncsaves')}:{' '}
-                            {autoSyncSaves ? t('enabled') : t('disabled')}
-                          </div>
-                        )}
+                      {is_installed && showCloudSaveInfo && (
+                        <div
+                          style={{
+                            color: autoSyncSaves ? '#07C5EF' : ''
+                          }}
+                        >
+                          {t('info.syncsaves')}:{' '}
+                          {autoSyncSaves ? t('enabled') : t('disabled')}
+                        </div>
+                      )}
                       {!is_installed && (
                         <>
                           <div>

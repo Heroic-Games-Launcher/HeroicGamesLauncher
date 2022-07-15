@@ -154,7 +154,6 @@ async function fixGogSaveFolder(
     case 'APPLICATION_SUPPORT':
       folder = folder.replace(matches[0], '/Library/Application Support')
   }
-  console.log(folder, prefix, isProton)
   return folder
 }
 

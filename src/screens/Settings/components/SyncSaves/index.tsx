@@ -15,6 +15,8 @@ import {
 import Backspace from '@mui/icons-material/Backspace'
 import ContextProvider from 'src/state/ContextProvider'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   appName: string
@@ -109,7 +111,13 @@ export default function SyncSaves({
   return (
     <>
       <h3 className="settingSubheader">{t('settings.navbar.sync')}</h3>
-
+      <div className="infoBox saves-warning">
+        <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
+        {t(
+          'settings.saves.warning',
+          'Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)'
+        )}
+      </div>
       <TextInputWithIconField
         htmlId="inputSavePath"
         placeholder={t('setting.savefolder.placeholder')}
@@ -142,7 +150,6 @@ export default function SyncSaves({
             : () => setSavesPath('')
         }
       />
-
       <SelectField
         label={t('setting.manualsync.title')}
         htmlId="selectSyncType"
@@ -174,7 +181,6 @@ export default function SyncSaves({
           </option>
         ))}
       </SelectField>
-
       <ToggleSwitch
         htmlId="autosync"
         value={autoSyncSaves}
@@ -182,7 +188,6 @@ export default function SyncSaves({
         handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
         title={t('setting.autosync')}
       />
-
       <InfoBox text="infobox.help">
         <ul>
           <li>{t('help.sync.part1')}</li>

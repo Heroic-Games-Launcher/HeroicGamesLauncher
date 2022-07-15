@@ -217,3 +217,12 @@ a {
   align-items: center;
   justify-content: center;
 }
+
+.infoBox.saves-warning {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.infoBox.saves-warning svg {
+  padding-right: 10px;
+}
