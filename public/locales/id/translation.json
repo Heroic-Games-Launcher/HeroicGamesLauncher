@@ -206,7 +206,8 @@
     },
     "infobox": {
         "help": "Bantuan",
-        "requirements": "Persyaratan Sistem"
+        "requirements": "Persyaratan Sistem",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Pilih Lokasi Pemasangan"

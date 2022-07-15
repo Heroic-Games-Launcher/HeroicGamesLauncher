@@ -206,7 +206,8 @@
     },
     "infobox": {
         "help": "உதவி",
-        "requirements": "கணினி தேவைப்பாடுகள்"
+        "requirements": "கணினி தேவைப்பாடுகள்",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Select Install Path"

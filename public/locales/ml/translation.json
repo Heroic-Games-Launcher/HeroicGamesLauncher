@@ -206,7 +206,8 @@
     },
     "infobox": {
         "help": "സഹായിക്കൂ",
-        "requirements": "ശുപാര്ശിക്കുന്ന സംവിധാനങ്ങള്"
+        "requirements": "ശുപാര്ശിക്കുന്ന സംവിധാനങ്ങള്",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ"

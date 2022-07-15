@@ -206,7 +206,8 @@
     },
     "infobox": {
         "help": "Aide",
-        "requirements": "Configuration Requise"
+        "requirements": "Configuration Requise",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Sélectionner le chemin d'installation"
