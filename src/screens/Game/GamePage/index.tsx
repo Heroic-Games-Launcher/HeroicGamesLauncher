@@ -184,6 +184,7 @@ export default function GamePage(): JSX.Element | null {
       ? `/settings/${appName}/other`
       : `/settings/${appName}/wine`
 
+    const showCloudSaveInfo = cloud_save_enabled && is_game && !isLinuxNative
     /*
     Other Keys:
     t('box.stopInstall.title')
@@ -260,7 +261,7 @@ export default function GamePage(): JSX.Element | null {
                             : ''
                           : ''}
                       </div>
-                      {is_installed && cloud_save_enabled && is_game && (
+                      {is_installed && showCloudSaveInfo && (
                         <div
                           style={{
                             color: autoSyncSaves ? '#07C5EF' : ''
@@ -425,6 +426,7 @@ export default function GamePage(): JSX.Element | null {
                     runner={gameInfo.runner}
                     handleUpdate={handleUpdate}
                     disableUpdate={updateRequested || isUpdating}
+                    steamImageUrl={gameInfo.art_cover}
                   />
                   <GameRequirements gameInfo={gameInfo} />
                 </>
@@ -541,7 +543,7 @@ export default function GamePage(): JSX.Element | null {
 
       if (autoSyncSaves) {
         setIsSyncing(true)
-        await syncSaves(savesPath, appName)
+        await syncSaves(savesPath, appName, gameInfo.runner)
         setIsSyncing(false)
       }
       await launch({
@@ -554,7 +556,7 @@ export default function GamePage(): JSX.Element | null {
 
       if (autoSyncSaves) {
         setIsSyncing(true)
-        await syncSaves(savesPath, appName)
+        await syncSaves(savesPath, appName, gameInfo.runner)
         setIsSyncing(false)
       }
     }

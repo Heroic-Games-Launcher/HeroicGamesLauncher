@@ -138,7 +138,7 @@ export default function GeneralSettings({
       <TextInputWithIconField
         label={t('setting.default-install-path')}
         htmlId="default_install_path"
-        value={defaultInstallPath.replaceAll("'", '')}
+        value={defaultInstallPath?.replaceAll("'", '')}
         placeholder={defaultInstallPath}
         onChange={(event) => setDefaultInstallPath(event.target.value)}
         icon={

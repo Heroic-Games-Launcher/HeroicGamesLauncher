@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Изберете изпълнимия файл на Legendary",
         "customWine": "Изберете изпълнимия файл на Wine или Proton",
         "default-install-path": "Изберете пътя по подразбиране за инсталиране",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Данните Ви за удостоверяване са изтекли. Излезте и влезте отново."
             },
@@ -55,6 +62,12 @@
                 "message": "Пускането е прекратено! Играта изисква връзка с Интернет, за да бъде пусната.",
                 "title": "Не се поддържа режим извън линия."
             },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
+            },
             "title": "Грешка",
             "update": {
                 "message": "Нещо се обърка при обновяването. Проверете журналите или опитайте отново по-късно!",
@@ -63,10 +76,6 @@
             "wine-not-found": {
                 "message": "Няма избрана версия на Wine. Проверете настройките на играта!",
                 "title": "Wine не е намерен"
-            },
-            "zstd": {
-                "message": "ZSTD не е намерен. Моля, инсталирайте го и рестартирайте Heroic",
-                "title": "Липсваща зависимост"
             }
         },
         "info": {
@@ -142,6 +151,7 @@
         "store": "Магазин",
         "title": "Име на играта"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Няма намерени игри. Опитайте да излезете и влезете пак с регистрацията си, или пробвайте един от вариантите по-долу"
@@ -235,6 +245,20 @@
             "reparing": "Грешка при поправянето"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "Поправката е завършена"
         },
         "install": {
@@ -311,6 +335,7 @@
         "customWineProton": "Персонализирани пътища за Wine/Proton",
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
         "default-install-path": "Папка по подразбиране за инсталации",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Задаване на папка за нови префикси на Wine",
         "disable_controller": "Изключване на навигирането в Heroic посредством контролер",
         "discordRPC": "Включване на актуализирането на присъствието в Дискорд",
@@ -407,7 +432,10 @@
             "sync": "Синхронизиране на запазените файлове"
         },
         "open-config-file": "Отваряне на конфигурационния файл",
-        "reset-heroic": "Зачистване на Heroic"
+        "reset-heroic": "Зачистване на Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Настройки",
     "sidebar": {

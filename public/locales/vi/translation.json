@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Chọn Legendary binary",
         "customWine": "Chọn Wine/Proton binary",
         "default-install-path": "Chọn đường dẫn cài mặc định",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Thông tin đăng nhập hết hạn, vui lòng đăng xuất rồi đăng nhập lại."
             },
@@ -55,6 +62,12 @@
                 "message": "Quá trình khởi chạy đã hủy! Cần có kết nối mạng để chạy game.",
                 "title": "Không hỗ trợ chế độ offline."
             },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
+            },
             "title": "Lỗi",
             "update": {
                 "message": "Đã xảy ra lỗi với bản cập nhật, vui lòng kiểm tra lại log hoặc thử lại sau!",
@@ -63,10 +76,6 @@
             "wine-not-found": {
                 "message": "Chưa chọn phiên bản Wine. Kiểm tra phần cài đặt!",
                 "title": "Không tìm thấy Wine"
-            },
-            "zstd": {
-                "message": "Không tìm thấy ZSTD, vui lòng cài đặt lại Heroic và khởi động lại",
-                "title": "Thiếu Dependency"
             }
         },
         "info": {
@@ -142,6 +151,7 @@
         "store": "Cửa hàng",
         "title": "Tựa game"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Không tìm thấy game - Hãy thử đăng xuất rồi đăng nhập lại hoặc một trong các cách sau"
@@ -235,6 +245,20 @@
             "reparing": "Đang sửa lỗi"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "Sửa chữa hoàn tất"
         },
         "install": {
@@ -311,6 +335,7 @@
         "customWineProton": "Đường dẫn Wine/Proton tùy chọn",
         "darktray": "Sử dụng icon tối",
         "default-install-path": "Thư mục cài mặc định",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Đặt thư mục cho prefix mới của Wine",
         "disable_controller": "Tắt điều hướng Heroic bằng cần điều khiển",
         "discordRPC": "Bật tính năng Discord Rich Presence",
@@ -407,7 +432,10 @@
             "sync": "Lưu - Đồng bộ"
         },
         "open-config-file": "Mở tệp cấu hình",
-        "reset-heroic": "Đặt lại Heroic"
+        "reset-heroic": "Đặt lại Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Cài đặt",
     "sidebar": {

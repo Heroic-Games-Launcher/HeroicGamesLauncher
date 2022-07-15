@@ -38,3 +38,12 @@
   padding-top: 60px;
   word-break: break-word;
 }
+
+.submenu .MuiCircularProgress-root.is-link {
+  width: auto !important;
+  height: auto !important;
+}
+.submenu .MuiCircularProgress-root.is-link svg {
+  width: var(--line-height) !important;
+  height: var(--line-height) !important;
+}

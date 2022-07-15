@@ -13,8 +13,9 @@ import { GameInfo, InstalledInfo } from '../types'
 import { execAsync, isOnline, quoteIfNecessary } from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { userHome, isWindows, steamCompatFolder } from '../constants'
+import { userHome, isWindows } from '../constants'
 import ini from 'ini'
+import { GlobalConfig } from '../config'
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
  * For Galaxy games only (Windows)
@@ -50,8 +51,9 @@ async function setup(
   const crossoverEnv =
     isCrossover && crossoverBottle ? `CX_BOTTLE=${crossoverBottle}` : ''
   const isProton = gameSettings.wineVersion.type === 'proton'
+  const { defaultSteamPath } = await GlobalConfig.get().getSettings()
   const prefix = isProton
-    ? `STEAM_COMPAT_CLIENT_INSTALL_PATH="${steamCompatFolder}" STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
+    ? `STEAM_COMPAT_CLIENT_INSTALL_PATH="${defaultSteamPath}" STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
         .replaceAll("'", '')
         .replace('~', userHome)}'`
     : `WINEPREFIX="${gameSettings.winePrefix
@@ -162,23 +164,25 @@ async function setup(
           )
 
           const executablePath = path.join(
-            gameInfo.install.install_path,
             handlePathVars(executableName, pathsValues)
           )
-          if (!existsSync(executablePath)) {
-            logError(
-              ['Executable', executablePath, "doesn't exsist"],
-              LogPrefix.Gog
-            )
-            break
-          }
+
           let command = `${commandPrefix} "${executablePath}" ${exeArguments}`
           // Requires testing
           if (isWindows) {
             command = `Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList "${exeArguments}"`
           }
-          logInfo(['Setup: Executing', command], LogPrefix.Gog)
-          await execAsync(command, { cwd: workingDir })
+          logInfo(
+            [
+              'Setup: Executing',
+              command,
+              `${workingDir || gameInfo.install.install_path}`
+            ],
+            LogPrefix.Gog
+          )
+          await execAsync(command, {
+            cwd: workingDir || gameInfo.install.install_path
+          })
           break
         }
         case 'supportData': {

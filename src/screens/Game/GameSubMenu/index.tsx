@@ -1,8 +1,8 @@
 import './index.css'
 
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings, GameStatus, Runner } from 'src/types'
+import { AppSettings, GameSettings, GameStatus, Runner } from 'src/types'
 
 import { SmallInfo } from 'src/components/UI'
 import { createNewWindow, getGameInfo, repair } from 'src/helpers'
@@ -12,6 +12,7 @@ import { uninstall } from 'src/helpers/library'
 import { NavLink } from 'react-router-dom'
 
 import { ipcRenderer } from 'src/helpers'
+import { CircularProgress } from '@mui/material'
 
 interface Props {
   appName: string
@@ -21,11 +22,66 @@ interface Props {
   runner: Runner
   handleUpdate: () => void
   disableUpdate: boolean
+  steamImageUrl: string
 }
 
 type otherInfo = {
   prefix: string
   wine: string
+}
+
+// helper function to generate images for steam
+// image is centered, sides are padded with blurred image
+// returns dataURL of the generated image
+const imageData = async (
+  src: string,
+  cw: number,
+  ch: number
+): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement('CANVAS') as HTMLCanvasElement
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+    const img = document.createElement('IMG') as HTMLImageElement
+    img.crossOrigin = 'anonymous' // prevents cors errors when exporting
+
+    img.addEventListener(
+      'load',
+      function () {
+        // measure canvas and image
+        canvas.width = cw
+        canvas.height = ch
+        const imgWidth = img.width
+        const imgHeight = img.height
+
+        // calculate drawing of the background
+        const bkgW = cw
+        const bkgH = (imgHeight * cw) / imgWidth
+        const bkgX = 0
+        const bkgY = ch / 2 - bkgH / 2
+        ctx.filter = 'blur(10px)' // add blur and draw
+        ctx.drawImage(img, bkgX, bkgY, bkgW, bkgH)
+
+        // calculate drawing of the foreground
+        const drawH = ch
+        const drawW = (imgWidth * ch) / imgHeight
+        const drawY = 0
+        const drawX = cw / 2 - drawW / 2
+        ctx.filter = 'blur(0)' // remove blur and draw
+        ctx.drawImage(img, drawX, drawY, drawW, drawH)
+
+        // resolve with dataURL
+        resolve(canvas.toDataURL('image/jpeg', 0.9))
+      },
+      false
+    )
+
+    img.addEventListener('error', (error) => {
+      reject(error)
+    })
+
+    // set src to trigger the callback
+    img.src = src
+  })
 }
 
 export default function GamesSubmenu({
@@ -35,7 +91,8 @@ export default function GamesSubmenu({
   storeUrl,
   runner,
   handleUpdate,
-  disableUpdate
+  disableUpdate,
+  steamImageUrl
 }: Props) {
   const { handleGameStatus, refresh, platform, libraryStatus } =
     useContext(ContextProvider)
@@ -44,8 +101,10 @@ export default function GamesSubmenu({
   const isLinux = platform === 'linux'
   const [info, setInfo] = useState({ prefix: '', wine: '' } as otherInfo)
   const [isNative, setIsNative] = useState(false)
+  const [steamRefresh, setSteamRefresh] = useState<boolean>(false)
+  const [addedToSteam, setAddedToSteam] = useState<boolean>(false)
   const [eosOverlayEnabled, setEosOverlayEnabled] = useState(false)
-  const [eosOverlayInstalling, setEosOverlayInstalling] = useState(false)
+  const [eosOverlayRefresh, setEosOverlayRefresh] = useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const { t } = useTranslation('gamepage')
 
@@ -120,6 +179,26 @@ export default function GamesSubmenu({
     ipcRenderer.send('addShortcut', appName, runner, true)
   }
 
+  async function handleAddToSteam() {
+    setSteamRefresh(true)
+    if (addedToSteam) {
+      await ipcRenderer.invoke('removeFromSteam', appName, runner)
+    } else {
+      const bkgDataURL = await imageData(steamImageUrl, 1920, 620)
+      const bigPicDataURL = await imageData(steamImageUrl, 920, 430)
+
+      await ipcRenderer.invoke(
+        'addToSteam',
+        appName,
+        runner,
+        bkgDataURL,
+        bigPicDataURL
+      )
+    }
+    setAddedToSteam(!addedToSteam)
+    setSteamRefresh(false)
+  }
+
   useEffect(() => {
     if (isWin) {
       return
@@ -146,32 +225,32 @@ export default function GamesSubmenu({
     }
     getWineInfo()
     getGameDetails()
-  }, [])
 
-  useEffect(() => {
-    const isEosOverlayEnabled = async () => {
-      const { winePrefix } = await ipcRenderer.invoke(
-        'requestSettings',
-        appName
-      )
-      const enabled = await ipcRenderer.invoke(
-        'isEosOverlayEnabled',
-        winePrefix
-      )
-      setEosOverlayEnabled(enabled)
-    }
-    isEosOverlayEnabled()
-  }, [eosOverlayEnabled])
+    ipcRenderer.invoke('isAddedToSteam', appName, runner).then((added) => {
+      setAddedToSteam(added)
+    })
+
+    ipcRenderer
+      .invoke('requestSettings', appName)
+      .then(async (response: GameSettings | AppSettings) => {
+        console.log(response)
+        const enabled = await ipcRenderer.invoke(
+          'isEosOverlayEnabled',
+          response.winePrefix
+        )
+        setEosOverlayEnabled(enabled)
+      })
+  }, [])
 
   useEffect(() => {
     const { status } =
       libraryStatus.filter(
         (game: GameStatus) => game.appName === eosOverlayAppName
       )[0] || {}
-    setEosOverlayInstalling(status === 'installing')
-  }, [eosOverlayInstalling])
+    setEosOverlayRefresh(status === 'installing')
+  }, [eosOverlayRefresh])
 
-  const handleEosOverlay = useCallback(async () => {
+  async function handleEosOverlay() {
     const { winePrefix, wineVersion } = await ipcRenderer.invoke(
       'requestSettings',
       appName
@@ -196,14 +275,14 @@ export default function GamesSubmenu({
           runner: 'legendary',
           status: 'installing'
         })
-        setEosOverlayInstalling(true)
+        setEosOverlayRefresh(true)
         await ipcRenderer.invoke('installEosOverlay')
         await handleGameStatus({
           appName: eosOverlayAppName,
           runner: 'legendary',
           status: 'done'
         })
-        setEosOverlayInstalling(false)
+        setEosOverlayRefresh(false)
         wasEnabled = (
           await ipcRenderer.invoke('enableEosOverlay', actualPrefix)
         ).wasEnabled
@@ -211,7 +290,11 @@ export default function GamesSubmenu({
 
       setEosOverlayEnabled(wasEnabled)
     }
-  }, [eosOverlayEnabled])
+  }
+
+  const refreshCircle = () => {
+    return <CircularProgress className="link button is-text is-link" />
+  }
 
   return (
     <div className="gameTools subMenuContainer">
@@ -271,16 +354,31 @@ export default function GamesSubmenu({
                 {t('submenu.addShortcut', 'Add shortcut')}
               </button>
             )}
-            {isLinux && !eosOverlayInstalling && (
+            {steamRefresh ? (
+              refreshCircle()
+            ) : (
               <button
+                onClick={async () => handleAddToSteam()}
                 className="link button is-text is-link"
-                onClick={handleEosOverlay}
               >
-                {eosOverlayEnabled
-                  ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
-                  : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
+                {addedToSteam
+                  ? t('submenu.removeFromSteam', 'Remove from Steam')
+                  : t('submenu.addToSteam', 'Add to Steam')}
               </button>
             )}
+            {isLinux &&
+              (eosOverlayRefresh ? (
+                refreshCircle()
+              ) : (
+                <button
+                  className="link button is-text is-link"
+                  onClick={handleEosOverlay}
+                >
+                  {eosOverlayEnabled
+                    ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
+                    : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
+                </button>
+              ))}
           </>
         )}
         <NavLink

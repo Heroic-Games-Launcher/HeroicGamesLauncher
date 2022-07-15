@@ -48,6 +48,7 @@ import { LegendaryLibrary } from './legendary/library'
 import { LegendaryUser } from './legendary/user'
 import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
+import setup from './gog/setup'
 import {
   clearCache,
   execAsync,
@@ -301,6 +302,7 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     const systemInfo = await getSystemInfo()
+
     logInfo(
       ['Legendary location:', join(...Object.values(getLegendaryBin()))],
       LogPrefix.Legendary
@@ -1208,7 +1210,7 @@ ipcMain.handle('updateGame', async (e, appName, runner) => {
       logInfo('finished updating', LogPrefix.Backend)
     })
     .catch((err) => {
-      logError(err, LogPrefix.Backend)
+      logError(`${err}`, LogPrefix.Backend)
       notify({ title, body: i18next.t('notify.update.canceled') })
       return err
     })
@@ -1269,29 +1271,8 @@ ipcMain.handle('egsSync', async (event, args: string) => {
   }
 })
 
-ipcMain.on(
-  'addShortcut',
-  async (event, appName: string, runner: Runner, fromMenu: boolean) => {
-    const game = Game.get(appName, runner)
-    game.addShortcuts(fromMenu)
-    openMessageBox({
-      buttons: [i18next.t('box.ok', 'Ok')],
-      message: i18next.t(
-        'box.shortcuts.message',
-        'Shortcuts were created on Desktop and Start Menu'
-      ),
-      title: i18next.t('box.shortcuts.title', 'Shortcuts')
-    })
-  }
-)
-
-ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
-  const game = Game.get(appName, runner)
-  game.removeShortcuts()
-})
-
 ipcMain.handle('syncSaves', async (event, args) => {
-  const [arg = '', path, appName] = args
+  const [arg = '', path, appName, runner] = args
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline) {
     logWarning('Epic is Offline right now, cannot sync saves!')
@@ -1305,7 +1286,10 @@ ipcMain.handle('syncSaves', async (event, args) => {
     return
   }
 
-  const { stderr, stdout } = await Game.get(appName).syncSaves(arg, path)
+  const { stderr, stdout } = await Game.get(appName, runner).syncSaves(
+    arg,
+    path
+  )
   logInfo(`${stdout}`, LogPrefix.Backend)
   if (stderr.includes('ERROR')) {
     logError(`${stderr}`, LogPrefix.Backend)
@@ -1425,6 +1409,25 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
   return cachedFonts
 })
 
+ipcMain.handle(
+  'runWineCommandForGame',
+  async (event, { appName, command, runner }) => {
+    const game = Game.get(appName, runner)
+
+    const { updated } = await verifyWinePrefix(game)
+
+    if (runner === 'gog' && updated) {
+      await setup(game.appName)
+    }
+
+    return game.runWineCommand(command, false, true)
+  }
+)
+
+ipcMain.handle('getShellPath', async (event, path) => {
+  return (await execAsync(`echo "${path}"`)).stdout.trim()
+})
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1436,5 +1439,6 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
  */
 import './logger/ipc_handler'
 import './wine-manager/ipc_handler'
+import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'

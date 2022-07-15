@@ -338,7 +338,7 @@ export default function WineSettings({
       )}
 
       {isLinux && !isProton && (
-        <div>
+        <>
           <div className="toggleRow">
             <ToggleSwitch
               htmlId="autovkd3d"
@@ -384,7 +384,7 @@ export default function WineSettings({
               )}
             />
           </div>
-        </div>
+        </>
       )}
 
       <div className="toggleRow">
