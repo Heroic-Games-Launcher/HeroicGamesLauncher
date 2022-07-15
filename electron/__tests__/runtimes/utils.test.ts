@@ -8,10 +8,10 @@ import {
 } from '../../wine/runtimes/util'
 // @ts-ignore: Don't know why ts complains about it.
 import { test_data } from './test_data/github-api-heroic-test-data.json'
-import { fileSync } from 'tmp'
 
 const testUrl =
   'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v2.3.9/Heroic-2.3.9.AppImage'
+const testTarFilePath = join(__dirname, 'test_data/TestArchive.tar.xz')
 
 afterEach(jest.restoreAllMocks)
 
@@ -70,18 +70,31 @@ describe('getAssetDataFromDownload', () => {
 
 describe('downloadFile', () => {
   it('Success', async () => {
-    const expectedData = readFileSync(
-      join(__dirname, 'test_data/TestArchive.tar.xz')
-    )
+    const expectedData = readFileSync(testTarFilePath)
 
     jest.spyOn(axios, 'get').mockResolvedValue({
       status: 200,
       data: expectedData
     })
+    jest
+      .spyOn(graceful_fs, 'writeFile')
+      .mockImplementation(
+        (
+          path: any,
+          data: any,
+          callback: (err: NodeJS.ErrnoException | null) => void
+        ) => {
+          callback(null)
+        }
+      )
 
-    const tmpfile = fileSync()
-    await expect(downloadFile(testUrl, tmpfile.name)).resolves.toBeUndefined()
-    expect(readFileSync(tmpfile.fd)).toEqual(expectedData)
+    const tmpFileName = '/tmp/someFile'
+    await expect(downloadFile(testUrl, tmpFileName)).resolves.toBeUndefined()
+    expect(graceful_fs.writeFile).toBeCalledWith(
+      tmpFileName,
+      expectedData,
+      expect.anything()
+    )
   })
 
   it('Axios error', async () => {
