@@ -103,24 +103,21 @@
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl",
-        "zstd"
+        "curl"
       ]
     },
     "pacman": {
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl",
-        "zstd"
+        "curl"
       ]
     },
     "rpm": {
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl",
-        "zstd"
+        "curl"
       ]
     }
   },

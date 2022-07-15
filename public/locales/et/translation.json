@@ -63,10 +63,6 @@
             "wine-not-found": {
                 "message": "Wine'i versiooni pole valitud. Kontrolli mängu seadeid!",
                 "title": "Wine'i ei leitud"
-            },
-            "zstd": {
-                "message": "ZSTD'd ei leitud, palun paigaldage see ja käivitage Heroic uuesti",
-                "title": "Puuduv dependency"
             }
         },
         "info": {

@@ -63,10 +63,6 @@
             "wine-not-found": {
                 "message": "Není vybrána žádná verze Wine. Zkontrolujte nastavení hry!",
                 "title": "Wine nenalezen"
-            },
-            "zstd": {
-                "message": "ZSTD nebyl nalezen, nainstalujte ho a restartujte Heroic",
-                "title": "Chybějící závislost"
             }
         },
         "info": {

@@ -63,10 +63,6 @@
             "wine-not-found": {
                 "message": "没有选中 Wine 版本。检查游戏设置！",
                 "title": "未找到 Wine"
-            },
-            "zstd": {
-                "message": "未找到 ZSTD，请安装并重启 Heroic",
-                "title": "缺少依赖"
             }
         },
         "info": {
