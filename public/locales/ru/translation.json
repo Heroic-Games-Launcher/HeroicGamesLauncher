@@ -407,7 +407,10 @@
             "sync": "Сохранение-Синхронизация"
         },
         "open-config-file": "Открыть файл конфигурации",
-        "reset-heroic": "Сброс Heroic"
+        "reset-heroic": "Сброс Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Настройки",
     "sidebar": {
