@@ -36,7 +36,9 @@ async function download(name: RuntimeName): Promise<boolean> {
     await downloadFile(runtime.url, tarFilePath)
 
     const extractedFolderPath = join(runtimePath, name)
-    await extractTarFile(tarFilePath, content_type, extractedFolderPath)
+    await extractTarFile(tarFilePath, content_type, {
+      extractedPath: extractedFolderPath
+    })
 
     unlinkSync(tarFilePath)
 

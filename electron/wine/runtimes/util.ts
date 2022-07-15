@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { spawn } from 'child_process'
-import { mkdirSync, writeFile } from 'graceful-fs'
+import { existsSync, mkdirSync, writeFile } from 'graceful-fs'
 
 interface GithubAssetMetadata {
   url: string
@@ -76,8 +76,13 @@ async function downloadFile(url: string, filePath: string) {
 async function extractTarFile(
   filePath: string,
   contentType: string,
-  extractedPath?: string
+  options?: { extractedPath?: string; strip?: number }
 ) {
+  if (!existsSync(filePath)) {
+    throw new Error('Specified file does not exist: ' + filePath)
+  }
+
+  let extractedPath = options?.extractedPath
   if (!extractedPath) {
     const splitPath = filePath.split('.tar')
     splitPath.pop()
@@ -90,14 +95,15 @@ async function extractTarFile(
       tarflags = '-Jxf'
       break
     default:
-      throw new Error('Unrecognized content_type ' + contentType)
+      throw new Error('Unrecognized content_type: ' + contentType)
   }
+
+  const strip = options?.strip
   return new Promise((res, rej) => {
     const child = spawn('tar', [
       '--directory',
       extractedPath,
-      '--strip-components',
-      '1',
+      ...(strip ? ['--strip-components', `${strip}`] : []),
       tarflags,
       filePath
     ])
