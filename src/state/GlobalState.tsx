@@ -324,10 +324,7 @@ export class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
-  refresh = async (
-    library?: Runner | 'all',
-    checkUpdates?: boolean
-  ): Promise<void> => {
+  refresh = async (library?: Runner, checkUpdates?: boolean): Promise<void> => {
     console.log('refreshing')
 
     let updates = this.state.gameUpdates
@@ -346,8 +343,12 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     try {
+      const newUpdates: string[] = await ipcRenderer.invoke(
+        'checkGameUpdates',
+        library
+      )
       updates = checkUpdates
-        ? await ipcRenderer.invoke('checkGameUpdates', library)
+        ? [...new Set([...newUpdates, ...this.state.gameUpdates])]
         : this.state.gameUpdates
     } catch (error) {
       ipcRenderer.send('logError', error)
@@ -484,7 +485,7 @@ export class GlobalState extends PureComponent<Props> {
         this.refreshLibrary({
           checkForUpdates: true,
           runInBackground: true,
-          library: 'all'
+          library: runner
         })
 
         storage.setItem(
