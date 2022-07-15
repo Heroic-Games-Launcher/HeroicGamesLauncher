@@ -76,10 +76,6 @@
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
                 "title": "Wine Bulunamadı"
-            },
-            "zstd": {
-                "message": "ZSTD bulunamadı, lütfen kurun ve Heroic'i yeniden başlatın",
-                "title": "Eksik Bağımlılık"
             }
         },
         "info": {

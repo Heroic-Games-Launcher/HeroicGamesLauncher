@@ -76,10 +76,6 @@
             "wine-not-found": {
                 "message": "Chưa chọn phiên bản Wine. Kiểm tra phần cài đặt!",
                 "title": "Không tìm thấy Wine"
-            },
-            "zstd": {
-                "message": "Không tìm thấy ZSTD, vui lòng cài đặt lại Heroic và khởi động lại",
-                "title": "Thiếu Dependency"
             }
         },
         "info": {

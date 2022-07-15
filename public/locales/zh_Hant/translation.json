@@ -76,10 +76,6 @@
             "wine-not-found": {
                 "message": "沒有選擇之 Wine 版本。檢查遊戲設定！",
                 "title": "未找到Wine"
-            },
-            "zstd": {
-                "message": "未找到 ZSTD，請安裝並重啟 Heroic",
-                "title": "遺漏相依性"
             }
         },
         "info": {

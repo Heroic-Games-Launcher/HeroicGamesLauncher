@@ -1,7 +1,7 @@
 {
     "accessibility": {
         "actions_font_family": "Fonte para ações (Padrão: \"Rubik\")",
-        "all_tiles_in_color": "Mostrar todas os quadrados de jogos em cores",
+        "all_tiles_in_color": "Mostrar quadrados dos jogos coloridos",
         "content_font_family": "Fonte para conteúdo (Padrão: \"Cabin\")",
         "fonts": "Fontes",
         "title": "Accessibilidade",
@@ -40,7 +40,7 @@
                 "message": "Suas credenciais expiraram, por favor desconecte sua conta e entre novamente."
             },
             "cx-bottle-not-found": {
-                "message": "A garrafa CrossOver \"{{bottle_name}}\" não existe, não pode ser lançada!",
+                "message": "Não é posível iniciar, a garrafa CrossOver \"{{bottle_name}}\" não existe!",
                 "title": "Garrafa CrossOver não encontrada"
             },
             "diskspace": {
@@ -76,10 +76,6 @@
             "wine-not-found": {
                 "message": "Nenhuma Versão do wine selecionada. Cheque as configurações do jogo!",
                 "title": "Wine Não Encontrado"
-            },
-            "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -152,8 +148,8 @@
     "favourites": "Favoritos",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Loja",
+        "title": "Título do jogo"
     },
     "generic": {
         "error": {
@@ -169,10 +165,10 @@
     "header": {
         "ignore_hidden": "Ignorar escondidos",
         "platform": "Plataforma",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
+        "show_all_games": "Mostrar todos os jogos",
+        "show_favourites_only": "Mostrar apenas favoritos",
         "show_hidden": "Mostrar escondidos",
-        "store": "Filter Store"
+        "store": "Filtrar loja"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -180,9 +176,9 @@
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "Deixe em branco para usar a linguagem do Heroic.",
+            "in_game_config": "Nem todos os jogos suportam essa configuração, alguns têm configuração de idioma dentro do jogo.",
+            "valid_codes": "Os códigos de idioma válidos dependem do jogo."
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
@@ -213,7 +209,7 @@
             "version": "Heroic Version"
         },
         "settings": "As configurações são salvas automaticamente",
-        "version": "Wine Version"
+        "version": "Versão do Wine"
     },
     "infobox": {
         "help": "Ajuda",
@@ -272,7 +268,7 @@
             "startInstall": "Instalação iniciada"
         },
         "moved": "Movido com sucesso",
-        "moving": "Moving Game",
+        "moving": "Movendo jogo",
         "refresh": {
             "error": "Não foi possível buscar lançamentos do upstream, talvez por causa das restrições da API do Github! Tente mais tarde."
         },
@@ -314,7 +310,7 @@
         "alt-gogdl-bin": "Usando binário do GOGDL embutido...",
         "alt-legendary-bin": "Usando o binário embutido do Legendary...",
         "egs-prefix": "Prefixo onde a EGS está instalada",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "Código de 2 caracteres (ou seja: \"en\" ou \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -324,7 +320,7 @@
     "Plugins": "Plugins",
     "Projects": "Projetos",
     "Recent": "Jogados Recentemente",
-    "search": "Insira o nome do jogo aqui…",
+    "search": "Buscar jogos",
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos dos jogos no menu iniciar automaticamente",
@@ -342,7 +338,7 @@
         "defaultWinePrefix": "Pasta padrão para novos prefixos Wine",
         "disable_controller": "Desabilitar navegação por controle no Heroic",
         "discordRPC": "Habilitar o Discord Rich Presence",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "download-no-https": "Baixar jogos sem HTTPS (útil para CDNs, por exemplo, LanCache)",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (a versão do Wine precisa suportar o recurso)",
         "eosOverlay": {
@@ -397,11 +393,10 @@
             "upload": "Upload"
         },
         "maxRecentGames": "Máximo de jogos em Jogados Recentemente",
-        "maxworkers": "Máximo de núcleos da CPU para utilizar ao fazer baixar jogos",
+        "maxworkers": "Máximo de núcleos da CPU durante downloads",
         "minimize-on-launch": "Minimizar Heroic ao iniciar um jogo",
         "offlinemode": "Iniciar o jogo offline",
-        "prefered_language": "Prefered Language (Language Code)",
-        "preferSystemLibs": "Prefer system libraries",
+        "prefered_language": "Idioma preferido (código do idioma)",
         "primerun": "Usar placa gráfica dedicada",
         "resizableBar": "Habilitar Resizable BAR (somente NVIDIA RTX 30xx)",
         "runexe": {
@@ -439,13 +434,13 @@
     },
     "Settings": "Configurações",
     "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "collapse": "Recolher barra lateral",
+        "uncollapse": "Mostrar barra lateral"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Instalando",
         "logging": "Logando...",
-        "processing": "Processing files, please wait"
+        "processing": "Processando arquivos, aguarde"
     },
     "store": "Loja Epic",
     "stores": "Lojas",
@@ -496,6 +491,6 @@
             "unzipping": "Descompactando"
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Tamanho"
     }
 }

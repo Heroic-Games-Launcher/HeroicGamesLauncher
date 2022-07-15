@@ -76,10 +76,6 @@
             "wine-not-found": {
                 "message": "Nie wybrano wersji Wine. Sprawdź ustawienia gry!",
                 "title": "Nie znaleziono Wine"
-            },
-            "zstd": {
-                "message": "Nie odnaleziono ZSTD. Zainstaluj ZSTD i uruchom ponownie Heroic",
-                "title": "Brakujące zależności"
             }
         },
         "info": {
@@ -133,7 +129,7 @@
             },
             "title": "Ostrzeżenie"
         },
-        "wineprefix": "Wybierz folder prefiksu Wine",
+        "wineprefix": "Wybierz folder z prefikem Wine",
         "yes": "TAK"
     },
     "button": {
@@ -217,7 +213,7 @@
     },
     "infobox": {
         "help": "Pomoc",
-        "requirements": "Wymagania Systemowe"
+        "requirements": "Wymagania systemowe"
     },
     "install": {
         "path": "Wybierz ścieżkę instalacji"
@@ -342,7 +338,7 @@
         "defaultWinePrefix": "Wybierz folder dla nowych prefiksów Wine",
         "disable_controller": "Wyłącz nawigację kontrolerem",
         "discordRPC": "Włącz Discord Rich Presence",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "download-no-https": "Pobieraj gry bez użycia szyfrowania HTTPS (przydatne przy CDN'ach np. LanCache)",
         "egs-sync": "Synchronizuj z zainstalowanym Epic Games",
         "enableFSRHack": "Włącz FSR Hack (Wymagana odpowiednia wersja Wine)",
         "eosOverlay": {
