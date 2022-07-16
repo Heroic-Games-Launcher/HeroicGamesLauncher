@@ -9,6 +9,9 @@ import { logError, LogPrefix, logWarning } from '../../logger/logger'
 import { runLegendaryCommand } from '../library'
 import { LegendaryGame } from '../games'
 import { killPattern } from '../../utils'
+import { Runner } from '../../types'
+import { Game } from '../../games'
+import { verifyWinePrefix } from '../../launcher'
 
 const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
 const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
@@ -39,6 +42,10 @@ function getStatus(): {
 
 async function getLatestVersion() {
   if (!existsSync(currentVersionPath)) {
+    // HACK: `overlay_version.json` isn't created when the overlay isn't installed
+    if (!isInstalled()) {
+      return ''
+    }
     await updateInfo()
     if (!existsSync(currentVersionPath)) {
       logError(
@@ -55,6 +62,11 @@ async function getLatestVersion() {
 }
 
 async function updateInfo() {
+  // Without the overlay being installed, this will do nothing at all.
+  // So we can just skip running the command if that's the case
+  if (!isInstalled()) {
+    return
+  }
   await runLegendaryCommand(['status'], {
     logMessagePrefix: 'Updating EOS Overlay information'
   })
@@ -127,8 +139,17 @@ function cancelInstallOrUpdate() {
 }
 
 async function enable(
-  prefix: string
+  appName: string,
+  runner: Runner
 ): Promise<{ wasEnabled: boolean; installNow?: boolean }> {
+  let prefix = ''
+  if (isLinux) {
+    const game = Game.get(appName, runner)
+    await verifyWinePrefix(game)
+    const { winePrefix, wineVersion } = await game.getSettings()
+    prefix =
+      wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
+  }
   if (!isInstalled()) {
     const { response } = await dialog.showMessageBox({
       title: t('setting.eosOverlay.notInstalledTitle', 'Overlay not installed'),
@@ -148,7 +169,15 @@ async function enable(
   return { wasEnabled: true }
 }
 
-async function disable(prefix: string) {
+async function disable(appName: string, runner: Runner) {
+  let prefix = ''
+  if (isLinux) {
+    const game = Game.get(appName, runner)
+    const { winePrefix, wineVersion } = await game.getSettings()
+    prefix =
+      wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
+  }
+
   await runLegendaryCommand(
     ['eos-overlay', 'disable', ...(prefix ? ['--prefix', prefix] : [])],
     { logMessagePrefix: 'Disabling EOS Overlay' }
@@ -159,12 +188,21 @@ function isInstalled() {
   return existsSync(installedVersionPath)
 }
 
-async function isEnabled(prefix: string) {
+/**
+ * Checks if the EOS Overlay is enabled (either for a specific game on Linux or globally on Windows)
+ * @param appName required on Linux, does nothing on Windows
+ * @param runner required on Linux, does nothing on Windows
+ * @returns Enabled = True; Disabled = False
+ */
+async function isEnabled(appName?: string, runner?: Runner) {
   let enabled = false
 
-  // The overlay can't be enabled globally on Linux
-  if (isLinux && !prefix) {
-    return false
+  let prefix = ''
+  if (isLinux || !(appName && runner)) {
+    const game = Game.get(appName, runner)
+    const { winePrefix, wineVersion } = await game.getSettings()
+    prefix =
+      wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
   }
 
   await runLegendaryCommand(

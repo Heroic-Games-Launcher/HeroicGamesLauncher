@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings, GameSettings, GameStatus, Runner } from 'src/types'
+import { AppSettings, GameStatus, Runner } from 'src/types'
 
 import { SmallInfo } from 'src/components/UI'
 import { createNewWindow, getGameInfo, repair } from 'src/helpers'
@@ -99,12 +99,15 @@ export default function GamesSubmenu({
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
-  const [info, setInfo] = useState({ prefix: '', wine: '' } as otherInfo)
-  const [isNative, setIsNative] = useState(false)
+  const [info, setInfo] = useState<otherInfo>({
+    prefix: '',
+    wine: ''
+  } as otherInfo)
+  const [isNative, setIsNative] = useState<boolean>(false)
   const [steamRefresh, setSteamRefresh] = useState<boolean>(false)
   const [addedToSteam, setAddedToSteam] = useState<boolean>(false)
-  const [eosOverlayEnabled, setEosOverlayEnabled] = useState(false)
-  const [eosOverlayRefresh, setEosOverlayRefresh] = useState(false)
+  const [eosOverlayEnabled, setEosOverlayEnabled] = useState<boolean>(false)
+  const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const { t } = useTranslation('gamepage')
 
@@ -179,6 +182,43 @@ export default function GamesSubmenu({
     ipcRenderer.send('addShortcut', appName, runner, true)
   }
 
+  async function handleEosOverlay() {
+    setEosOverlayRefresh(true)
+    if (eosOverlayEnabled) {
+      await ipcRenderer.invoke('disableEosOverlay', appName, runner)
+      setEosOverlayEnabled(false)
+    } else {
+      const initialEnableResult = await ipcRenderer.invoke(
+        'enableEosOverlay',
+        appName,
+        runner
+      )
+      const { installNow } = initialEnableResult
+      let { wasEnabled } = initialEnableResult
+
+      if (installNow) {
+        await handleGameStatus({
+          appName: eosOverlayAppName,
+          runner: 'legendary',
+          status: 'installing'
+        })
+
+        await ipcRenderer.invoke('installEosOverlay')
+        await handleGameStatus({
+          appName: eosOverlayAppName,
+          runner: 'legendary',
+          status: 'done'
+        })
+
+        wasEnabled = (
+          await ipcRenderer.invoke('enableEosOverlay', appName, runner)
+        ).wasEnabled
+      }
+      setEosOverlayEnabled(wasEnabled)
+    }
+    setEosOverlayRefresh(false)
+  }
+
   async function handleAddToSteam() {
     setSteamRefresh(true)
     if (addedToSteam) {
@@ -230,67 +270,16 @@ export default function GamesSubmenu({
       setAddedToSteam(added)
     })
 
-    ipcRenderer
-      .invoke('requestSettings', appName)
-      .then(async (response: GameSettings | AppSettings) => {
-        console.log(response)
-        const enabled = await ipcRenderer.invoke(
-          'isEosOverlayEnabled',
-          response.winePrefix
-        )
-        setEosOverlayEnabled(enabled)
-      })
-  }, [])
-
-  useEffect(() => {
     const { status } =
       libraryStatus.filter(
         (game: GameStatus) => game.appName === eosOverlayAppName
       )[0] || {}
     setEosOverlayRefresh(status === 'installing')
-  }, [eosOverlayRefresh])
 
-  async function handleEosOverlay() {
-    const { winePrefix, wineVersion } = await ipcRenderer.invoke(
-      'requestSettings',
-      appName
-    )
-    const actualPrefix =
-      wineVersion.type === 'proton' ? `${winePrefix}/pfx` : winePrefix
-
-    if (eosOverlayEnabled) {
-      await ipcRenderer.invoke('disableEosOverlay', actualPrefix)
-      setEosOverlayEnabled(false)
-    } else {
-      const initialEnableResult = await ipcRenderer.invoke(
-        'enableEosOverlay',
-        actualPrefix
-      )
-      const { installNow } = initialEnableResult
-      let { wasEnabled } = initialEnableResult
-
-      if (installNow) {
-        await handleGameStatus({
-          appName: eosOverlayAppName,
-          runner: 'legendary',
-          status: 'installing'
-        })
-        setEosOverlayRefresh(true)
-        await ipcRenderer.invoke('installEosOverlay')
-        await handleGameStatus({
-          appName: eosOverlayAppName,
-          runner: 'legendary',
-          status: 'done'
-        })
-        setEosOverlayRefresh(false)
-        wasEnabled = (
-          await ipcRenderer.invoke('enableEosOverlay', actualPrefix)
-        ).wasEnabled
-      }
-
-      setEosOverlayEnabled(wasEnabled)
-    }
-  }
+    ipcRenderer
+      .invoke('isEosOverlayEnabled', appName, runner)
+      .then((enabled) => setEosOverlayEnabled(enabled))
+  }, [])
 
   const refreshCircle = () => {
     return <CircularProgress className="link button is-text is-link" />
