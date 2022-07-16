@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { InfoBox, SelectField, ToggleSwitch } from 'src/components/UI'
 import LanguageSelector from 'src/components/UI/LanguageSelector'
-import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 
 import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
@@ -322,8 +321,6 @@ export default function GeneralSettings({
           {t('setting.library_top_option.disabled', 'Disabled')}
         </option>
       </SelectField>
-
-      <ThemeSelector />
 
       <SelectField
         htmlId="max_workers"
