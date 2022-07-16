@@ -65,7 +65,8 @@ import {
   getLegendaryBin,
   getGOGdlBin,
   showErrorBoxModal,
-  getFileSize
+  getFileSize,
+  detectVCRedist
 } from './utils'
 import {
   configStore,
@@ -187,11 +188,16 @@ async function createWindow(): Promise<BrowserWindow> {
     const { exitToTray } = GlobalConfig.get().config
 
     if (exitToTray) {
+      logInfo('Exitting to tray instead of quitting', LogPrefix.Backend)
       return mainWindow.hide()
     }
 
     handleExit(mainWindow)
   })
+
+  if (isWindows) {
+    detectVCRedist(mainWindow)
+  }
 
   if (!app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
