@@ -27,6 +27,9 @@ const InstallModal = lazy(
 
 const storage = window.localStorage
 
+const epicCategories = ['all', 'legendary', 'epic', 'unreal']
+const gogCategories = ['all', 'gog']
+
 export default function Library(): JSX.Element {
   const {
     layout,
@@ -45,6 +48,7 @@ export default function Library(): JSX.Element {
     filterPlatform,
     hiddenGames,
     showHidden,
+    handleCategory,
     showFavourites: showFavouritesLibrary
   } = useContext(ContextProvider)
 
@@ -100,6 +104,16 @@ export default function Library(): JSX.Element {
 
     setInstalling(newInstalling)
   }, [libraryStatus])
+
+  useEffect(() => {
+    // This code avoids getting stuck on a empty library after logout of the current selected store
+    if (epicCategories.includes(category) && !epic.username) {
+      handleCategory('gog')
+    }
+    if (gogCategories.includes(category) && !gog.username) {
+      handleCategory('legendary')
+    }
+  }, [epic.username, gog.username])
 
   const filterLibrary = (library: GameInfo[], filter: string) => {
     if (!library) {
@@ -204,8 +218,6 @@ export default function Library(): JSX.Element {
         category === 'all' ? g : g.runner === category
       )
     } else {
-      const epicCategories = ['all', 'legendary', 'epic', 'unreal']
-      const gogCategories = ['all', 'gog']
       const isEpic = epic.username && epicCategories.includes(category)
       const isGog = gog.username && gogCategories.includes(category)
       const epicLibrary = isEpic ? epic.library : []
