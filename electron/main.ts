@@ -1420,7 +1420,7 @@ ipcMain.handle(
       await setup(game.appName)
     }
 
-    return game.runWineCommand(command, '', false, true)
+    return game.runWineCommand(command, false, true)
   }
 )
 

@@ -44,11 +44,11 @@ import {
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
-  RpcClient,
-  WineInstallation
+  RpcClient
 } from './types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
+import { Game } from './games'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -273,15 +273,22 @@ function setupEnvVars(gameSettings: GameSettings) {
  * @returns A Record that can be passed to execAsync/spawn
  */
 function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
-  const { wineVersion } = gameSettings
+  const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
+
+  const ret: Record<string, string> = {}
 
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
-  const ret: Record<string, string> = {
-    ...getWineEnvSetup(
-      wineVersion,
-      gameSettings.winePrefix,
-      gameSettings.wineCrossoverBottle
-    )
+  const steamInstallPath = join(flatPakHome, '.steam', 'steam')
+  switch (wineVersion.type) {
+    case 'wine':
+      ret.WINEPREFIX = winePrefix
+      break
+    case 'proton':
+      ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
+      ret.STEAM_COMPAT_DATA_PATH = winePrefix
+      break
+    case 'crossover':
+      ret.CX_BOTTLE = wineCrossoverBottle
   }
 
   if (gameSettings.showFps) {
@@ -399,7 +406,7 @@ export async function verifyWinePrefix(
   const haveToWait = !existsSync(systemRegPath)
 
   return game
-    .runWineCommand('wineboot --init', '', haveToWait)
+    .runWineCommand('wineboot --init', haveToWait)
     .then((result) => {
       if (wineVersion.type === 'proton') {
         return { res: result, updated: true }
@@ -414,55 +421,30 @@ export async function verifyWinePrefix(
     })
 }
 
-/**
- * Returns appropriate environment variables for running a Wine/Proton/CX command
- * @returns The required environment variables
- */
-function getWineEnvSetup(
-  wineVersion: WineInstallation,
-  winePrefix: string,
-  cx_bottle?: string
-): Record<string, string> {
-  const ret: Record<string, string> = {}
-  const steamInstallPath = join(flatPakHome, '.steam', 'steam')
-
-  switch (wineVersion.type) {
-    case 'wine':
-      ret.WINEPREFIX = winePrefix
-      break
-    case 'proton':
-      ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
-      ret.STEAM_COMPAT_DATA_PATH = winePrefix
-      break
-    case 'crossover':
-      ret.CX_BOTTLE = cx_bottle
-  }
-  return ret
-}
-
 function launchCleanup(rpcClient: RpcClient) {
   if (rpcClient) {
     rpcClient.disconnect()
     logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
   }
 }
-
 async function runWineCommand(
-  gameSettings: GameSettings,
+  game: Game,
   command: string,
-  altWineBin: string,
   wait: boolean,
-  forceRunInPrefixVerb?: boolean
+  forceRunInPrefixVerb = false
 ) {
-  const { wineVersion, winePrefix } = gameSettings
+  const gameSettings = await game.getSettings()
+  const { folder_name: installFolderName } = game.getGameInfo()
+
+  const { wineVersion } = gameSettings
 
   const env_vars = {
     ...process.env,
-    ...getWineEnvSetup(wineVersion, winePrefix)
+    ...setupEnvVars(gameSettings),
+    ...setupWineEnvVars(gameSettings, installFolderName)
   }
 
   let additional_command = ''
-  let wineBin = wineVersion.bin.replaceAll("'", '')
   if (wineVersion.type === 'proton') {
     if (forceRunInPrefixVerb) {
       command = 'runinprefix ' + command
@@ -473,10 +455,6 @@ async function runWineCommand(
     }
     // TODO: Use Steamruntime here in the future
   } else {
-    // This is only allowed for Wine since Proton only has one binary (the 'proton' script)
-    if (altWineBin) {
-      wineBin = altWineBin.replaceAll("'", '')
-    }
     // Can't wait if we don't have a Wineserver
     if (wait) {
       if (wineVersion.wineserver) {
@@ -490,6 +468,7 @@ async function runWineCommand(
     }
   }
 
+  const wineBin = wineVersion.bin.replaceAll("'", '')
   let finalCommand = `"${wineBin}" ${command}`
   if (additional_command) {
     finalCommand += ` && ${additional_command}`
@@ -687,7 +666,6 @@ function getRunnerCallWithoutCredentials(
 export {
   prepareLaunch,
   launchCleanup,
-  getWineEnvSetup,
   prepareWineLaunch,
   setupEnvVars,
   setupWineEnvVars,
