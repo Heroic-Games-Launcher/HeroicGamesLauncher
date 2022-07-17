@@ -307,6 +307,9 @@ function getRecentGames(library: GameInfo[]) {
   return library.filter((game) => recentGamesList.includes(game.app_name))
 }
 
+export const epicCategories = ['all', 'legendary', 'epic', 'unreal']
+export const gogCategories = ['all', 'gog']
+
 export {
   handleStopInstallation,
   getRecentGames,

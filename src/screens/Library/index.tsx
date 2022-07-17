@@ -20,15 +20,13 @@ import { GamesList } from './components/GamesList'
 import { GameInfo, Runner } from 'src/types'
 import ErrorComponent from 'src/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
+import { epicCategories, gogCategories } from 'src/helpers/library'
 
 const InstallModal = lazy(
   async () => import('src/screens/Library/components/InstallModal')
 )
 
 const storage = window.localStorage
-
-const epicCategories = ['all', 'legendary', 'epic', 'unreal']
-const gogCategories = ['all', 'gog']
 
 export default function Library(): JSX.Element {
   const {
