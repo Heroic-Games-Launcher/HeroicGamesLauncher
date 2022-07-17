@@ -545,8 +545,6 @@ function Settings() {
               toggleEacRuntime={toggleEacRuntime}
               battlEyeRuntime={battlEyeRuntime}
               toggleBattlEyeRuntime={toggleBattlEyeRuntime}
-              gameMode={useGameMode}
-              toggleGameMode={toggleUseGameMode}
             />
           )}
           {isOtherSettings && (

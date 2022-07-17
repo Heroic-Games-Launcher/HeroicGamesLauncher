@@ -8,19 +8,15 @@ import { ipcRenderer } from 'src/helpers'
 interface Props {
   eacRuntime: boolean
   battlEyeRuntime: boolean
-  gameMode: boolean
   toggleEacRuntime: () => void
   toggleBattlEyeRuntime: () => void
-  toggleGameMode: () => void
 }
 
 export default function WineExtensions({
   eacRuntime,
   battlEyeRuntime,
-  gameMode,
   toggleEacRuntime,
-  toggleBattlEyeRuntime,
-  toggleGameMode
+  toggleBattlEyeRuntime
 }: Props) {
   const [eacInstalling, setEacInstalling] = useState(false)
   const [battlEyeInstalling, setBattlEyeInstalling] = useState(false)
@@ -29,24 +25,6 @@ export default function WineExtensions({
   const handleEacRuntime = async () => {
     toggleEacRuntime()
     if (!eacRuntime) {
-      // Check if GameMode is turned on if the EAC runtime was turned on
-      if (!gameMode) {
-        const { response } = await ipcRenderer.invoke('openMessageBox', {
-          buttons: [t('box.yes'), t('box.no')],
-          message: t(
-            'settings.eacRuntime.gameModeRequired.message',
-            'Feral GameMode is required for the EAC runtime to work correctly. Do you want to enable it now?'
-          ),
-          title: t(
-            'settings.eacRuntime.gameModeRequired.title',
-            'GameMode required'
-          )
-        })
-        if (response === 0) {
-          toggleGameMode()
-        }
-      }
-
       const isInstalled = await ipcRenderer.invoke(
         'isRuntimeInstalled',
         'eac_runtime'
