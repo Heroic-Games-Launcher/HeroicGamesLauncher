@@ -43,7 +43,10 @@ Categories=Game;
           logInfo(`Shortcut saved on ${desktopFile}`, LogPrefix.Backend)
         })
         chmod(desktopFile, '+x', () => {
-          logInfo(`Shortcut permissions set on ${desktopFile}`, LogPrefix.Backend)
+          logInfo(
+            `Shortcut permissions set on ${desktopFile}`,
+            LogPrefix.Backend
+          )
         })
       }
       if (addStartMenuShortcuts || fromMenu) {
