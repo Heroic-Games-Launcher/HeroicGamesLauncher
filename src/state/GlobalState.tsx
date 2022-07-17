@@ -280,8 +280,9 @@ export class GlobalState extends PureComponent<Props> {
     return response.status
   }
 
-  epicLogout = () => {
-    ipcRenderer.invoke('logoutLegendary').finally(() => {
+  epicLogout = async () => {
+    this.setState({ refreshing: true })
+    await ipcRenderer.invoke('logoutLegendary').finally(() => {
       this.setState({
         epic: {
           library: [],
@@ -290,6 +291,7 @@ export class GlobalState extends PureComponent<Props> {
       })
     })
     console.log('Logging out from epic')
+    this.setState({ refreshing: false })
     window.location.reload()
   }
 
@@ -311,8 +313,8 @@ export class GlobalState extends PureComponent<Props> {
     return response.status
   }
 
-  gogLogout = () => {
-    ipcRenderer.invoke('logoutGOG').finally(() => {
+  gogLogout = async () => {
+    await ipcRenderer.invoke('logoutGOG').finally(() => {
       this.setState({
         gog: {
           library: [],

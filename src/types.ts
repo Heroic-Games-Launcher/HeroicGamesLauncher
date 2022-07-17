@@ -110,13 +110,13 @@ export interface ContextType {
     library: GameInfo[]
     username: string | null
     login: (sid: string) => Promise<string>
-    logout: () => void
+    logout: () => Promise<void>
   }
   gog: {
     library: GameInfo[]
     username: string | null
     login: (token: string) => Promise<string>
-    logout: () => void
+    logout: () => Promise<void>
   }
   allTilesInColor: boolean
   setAllTilesInColor: (value: boolean) => void
