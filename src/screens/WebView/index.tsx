@@ -95,29 +95,31 @@ export default function WebView() {
           }
         } else {
           webview.addEventListener('did-navigate', () => {
-            webview.findInPage('sid')
-            webview.addEventListener('found-in-page', async (res) => {
-              const data = res as Event & { result: { matches: number } }
+            webview.focus()
 
-              if (!data.result.matches) {
-                return
-              }
+            setTimeout(() => {
+              webview.findInPage('sid')
+            }, 500)
+            webview.addEventListener('found-in-page', async () => {
               webview.focus()
               webview.selectAll()
               webview.copy()
 
-              const { sid }: SID = JSON.parse(clipboard.readText())
-              try {
-                setLoading({
-                  refresh: true,
-                  message: t('status.logging', 'Logging In...')
-                })
-                await epic.login(sid)
-                handleSuccessfulLogin()
-              } catch (error) {
-                console.error(error)
-                ipcRenderer.send('logError', error)
-              }
+              setTimeout(async () => {
+                const { sid }: SID = JSON.parse(clipboard.readText())
+
+                try {
+                  setLoading({
+                    refresh: true,
+                    message: t('status.logging', 'Logging In...')
+                  })
+                  await epic.login(sid)
+                  handleSuccessfulLogin()
+                } catch (error) {
+                  console.error(error)
+                  ipcRenderer.send('logError', error)
+                }
+              }, 500)
             })
           })
         }
