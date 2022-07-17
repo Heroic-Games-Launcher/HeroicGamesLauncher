@@ -29,9 +29,11 @@ async function updateWineVersionInfos(
 ): Promise<WineVersionInfo[]> {
   let releases: WineVersionInfo[] = []
 
-  logInfo('Updating wine versions info', LogPrefix.WineDownloader)
+  logInfo('Updating wine versions info', { prefix: LogPrefix.WineDownloader })
   if (fetch) {
-    logInfo('Fetching upstream information...', LogPrefix.WineDownloader)
+    logInfo('Fetching upstream information...', {
+      prefix: LogPrefix.WineDownloader
+    })
     await getAvailableVersions({
       repositorys: [
         Repositorys.WINEGE,
@@ -74,7 +76,7 @@ async function updateWineVersionInfos(
 
     wineDownloaderInfoStore.set('wine-releases', releases)
   } else {
-    logInfo('Read local information ...', LogPrefix.WineDownloader)
+    logInfo('Read local information ...', { prefix: LogPrefix.WineDownloader })
     if (wineDownloaderInfoStore.has('wine-releases')) {
       releases.push(
         ...(wineDownloaderInfoStore.get(
@@ -85,7 +87,7 @@ async function updateWineVersionInfos(
     }
   }
 
-  logInfo('wine versions updated', LogPrefix.WineDownloader)
+  logInfo('wine versions updated', { prefix: LogPrefix.WineDownloader })
   return releases
 }
 
@@ -104,10 +106,9 @@ async function installWineVersion(
     mkdirSync(`${heroicToolsPath}/proton`, { recursive: true })
   }
 
-  logInfo(
-    `Start installation of wine version ${release.version}`,
-    LogPrefix.WineDownloader
-  )
+  logInfo(`Start installation of wine version ${release.version}`, {
+    prefix: LogPrefix.WineDownloader
+  })
 
   const installDir = release?.type?.includes('Wine')
     ? `${heroicToolsPath}/wine`
@@ -130,10 +131,10 @@ async function installWineVersion(
     })
     .catch((error: Error) => {
       if (error.name.includes('AbortError')) {
-        logWarning(`${error.message}`, LogPrefix.WineDownloader)
+        logWarning(`${error.message}`, { prefix: LogPrefix.WineDownloader })
         return 'abort'
       }
-      logError(`${error.message}`, LogPrefix.WineDownloader)
+      logError(`${error.message}`, { prefix: LogPrefix.WineDownloader })
       return 'error'
     })
 
@@ -154,7 +155,7 @@ async function installWineVersion(
     if (index === -1) {
       logError(
         `Can't find ${release.version} in electron-store -> wine-downloader-info.json!`,
-        LogPrefix.WineDownloader
+        { prefix: LogPrefix.WineDownloader }
       )
       return 'error'
     }
@@ -165,15 +166,14 @@ async function installWineVersion(
   } else {
     logError(
       `Couldn't find a tools entry in electron-store -> wine-downloader-info.json. Tool ${release.version} couldn't be installed!`,
-      LogPrefix.WineDownloader
+      { prefix: LogPrefix.WineDownloader }
     )
     return 'error'
   }
 
-  logInfo(
-    `Finished installation of wine version ${release.version}`,
-    LogPrefix.WineDownloader
-  )
+  logInfo(`Finished installation of wine version ${release.version}`, {
+    prefix: LogPrefix.WineDownloader
+  })
   return 'success'
 }
 
@@ -183,10 +183,10 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
     try {
       rmSync(release.installDir, { recursive: true })
     } catch (error) {
-      logError(`${error}`, LogPrefix.WineDownloader)
+      logError(error, { prefix: LogPrefix.WineDownloader })
       logWarning(
         `Couldn't remove folder ${release.installDir}! Still mark wine version ${release.version} as not installed!`,
-        LogPrefix.WineDownloader
+        { prefix: LogPrefix.WineDownloader }
       )
     }
   }
@@ -204,8 +204,7 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
     if (index === -1) {
       logError(
         `Can't find ${release.version} in electron-store -> wine-downloader-info.json!`,
-        LogPrefix.WineDownloader,
-        false
+        { prefix: LogPrefix.WineDownloader }
       )
       return false
     }
@@ -219,16 +218,14 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
   } else {
     logError(
       `Couldn't find a wine-releases entry in electron-store -> wine-downloader-info.json. Release ${release.version} couldn't be removed!`,
-      LogPrefix.WineDownloader,
-      false
+      { prefix: LogPrefix.WineDownloader }
     )
     return false
   }
 
-  logInfo(
-    `Removed wine version ${release.version} succesfully.`,
-    LogPrefix.WineDownloader
-  )
+  logInfo(`Removed wine version ${release.version} succesfully.`, {
+    prefix: LogPrefix.WineDownloader
+  })
   return true
 }
 

@@ -65,7 +65,9 @@ export function showErrorBoxModalAuto(title: string, message: string) {
     }
     showErrorBoxModal(window, title, message)
   } catch (error) {
-    logWarning(['showErrorBoxModalAuto:', `${error}`], LogPrefix.Backend)
+    logWarning(['showErrorBoxModalAuto:', error], {
+      prefix: LogPrefix.Backend
+    })
     showErrorBox(title, message)
   }
 }
@@ -117,7 +119,7 @@ export function getWineFromProton(
       wineVersion.name,
       'has an abnormal structure, unable to supply Wine binary!'
     ],
-    LogPrefix.Backend
+    { prefix: LogPrefix.Backend }
   )
 
   return { wineBin: '', winePrefix }
@@ -157,10 +159,9 @@ async function isEpicServiceOffline(
     notification.show()
     return false
   } catch (error) {
-    logError(
-      `Failed to get epic service status with ${error}`,
-      LogPrefix.Backend
-    )
+    logError(`Failed to get epic service status with ${error}`, {
+      prefix: LogPrefix.Backend
+    })
     return false
   }
 }
@@ -235,7 +236,7 @@ async function handleExit(window: BrowserWindow) {
       try {
         killPattern(procName)
       } catch (error) {
-        logInfo([`Unable to kill ${procName}, ignoring.`, `${error}`])
+        logInfo([`Unable to kill ${procName}, ignoring.`, error])
       }
     })
   }
@@ -306,7 +307,7 @@ async function errorHandler(
     execAsync(`tail "${logPath}" | grep 'disk space'`)
       .then(({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
-          logError(noSpaceMsg, LogPrefix.Backend)
+          logError(noSpaceMsg, { prefix: LogPrefix.Backend })
           return showErrorBoxModal(
             window,
             i18next.t('box.error.diskspace.title', 'No Space'),
@@ -317,7 +318,9 @@ async function errorHandler(
           )
         }
       })
-      .catch(() => logInfo('operation interrupted', LogPrefix.Backend))
+      .catch(() =>
+        logInfo('operation interrupted', { prefix: LogPrefix.Backend })
+      )
   }
   if (error) {
     if (error.includes(deletedFolderMsg) && appName) {
@@ -392,10 +395,9 @@ function showItemInFolder(item: string) {
     try {
       shell.showItemInFolder(item)
     } catch (error) {
-      logError(
-        `Failed to show item in folder with: ${error}`,
-        LogPrefix.Backend
-      )
+      logError(['Failed to show item in folder with:', error], {
+        prefix: LogPrefix.Backend
+      })
     }
   }
 }
@@ -468,7 +470,7 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
         return stdout.split('\n')[0]
       })
       .catch((error) => {
-        logError(`${error}`, LogPrefix.Backend)
+        logError(error, { prefix: LogPrefix.Backend })
         return ''
       })
   }
@@ -564,7 +566,7 @@ function removeQuoteIfNecessary(stringToUnquote: string) {
 }
 
 function killPattern(pattern: string) {
-  logInfo(['Trying to kill', pattern], LogPrefix.Backend)
+  logInfo(['Trying to kill', pattern], { prefix: LogPrefix.Backend })
   let ret
   if (isWindows) {
     ret = spawnSync('Stop-Process', ['-name', pattern], {
@@ -573,7 +575,7 @@ function killPattern(pattern: string) {
   } else {
     ret = spawnSync('pkill', ['-f', pattern])
   }
-  logInfo(['Killed', pattern], LogPrefix.Backend)
+  logInfo(['Killed', pattern], { prefix: LogPrefix.Backend })
   return ret
 }
 

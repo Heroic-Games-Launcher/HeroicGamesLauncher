@@ -84,14 +84,13 @@ export class LegendaryLibrary {
    * Refresh library.
    */
   public async refresh(): Promise<ExecResult> {
-    logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
+    logInfo('Refreshing Epic Games...', { prefix: LogPrefix.Legendary })
     const { showUnrealMarket } = await GlobalConfig.get().getSettings()
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline) {
-      logWarning(
-        'Epic is Offline right now, cannot update game list!',
-        LogPrefix.Backend
-      )
+      logWarning('Epic is Offline right now, cannot update game list!', {
+        prefix: LogPrefix.Backend
+      })
       return
     }
 
@@ -99,7 +98,9 @@ export class LegendaryLibrary {
     const res = await runLegendaryCommand(['list', includeUEFlag])
 
     if (res.error) {
-      logError(['Failed to refresh library:', res.error], LogPrefix.Legendary)
+      logError(['Failed to refresh library:', res.error], {
+        prefix: LogPrefix.Legendary
+      })
     }
     this.refreshInstalled()
     this.loadAll()
@@ -119,12 +120,8 @@ export class LegendaryLibrary {
       } catch (error) {
         // disabling log here because its giving false positives on import command
         logError(
-          [
-            'Corrupted intalled.json file, cannot load installed games',
-            `${error}`
-          ],
-          LogPrefix.Legendary,
-          false
+          ['Corrupted intalled.json file, cannot load installed games', error],
+          { prefix: LogPrefix.Legendary }
         )
         this.installedGames = new Map()
       }
@@ -145,7 +142,7 @@ export class LegendaryLibrary {
     format: 'info' | 'class' = 'class',
     fullRefresh?: boolean
   ): Promise<(LegendaryGame | GameInfo)[]> {
-    logInfo('Refreshing library...', LogPrefix.Legendary)
+    logInfo('Refreshing library...', { prefix: LogPrefix.Legendary })
     const isLoggedIn = await LegendaryUser.isLoggedIn()
     if (!isLoggedIn) {
       return
@@ -155,7 +152,7 @@ export class LegendaryLibrary {
       try {
         await this.refresh()
       } catch (error) {
-        logError(`${error}`, LogPrefix.Legendary)
+        logError(error, { prefix: LogPrefix.Legendary })
       }
     }
 
@@ -163,7 +160,7 @@ export class LegendaryLibrary {
       this.refreshInstalled()
       await this.loadAll()
     } catch (error) {
-      logError(`${error}`, LogPrefix.Legendary)
+      logError(error, { prefix: LogPrefix.Legendary })
     }
     const arr = Array.from(this.library.values())
 
@@ -171,9 +168,9 @@ export class LegendaryLibrary {
       if (libraryStore.has('library')) {
         libraryStore.delete('library')
       }
-      logInfo('Updating game list', LogPrefix.Legendary)
+      logInfo('Updating game list', { prefix: LogPrefix.Legendary })
       libraryStore.set('library', arr)
-      logInfo('Game List Updated', LogPrefix.Legendary)
+      logInfo('Game List Updated', { prefix: LogPrefix.Legendary })
       return arr
     }
     if (format === 'class') {
@@ -209,11 +206,13 @@ export class LegendaryLibrary {
   ): Promise<InstallInfo> {
     const cache = installStore.get(appName) as InstallInfo
     if (cache) {
-      logDebug('Using cached install info', LogPrefix.Legendary)
+      logDebug('Using cached install info', { prefix: LogPrefix.Legendary })
       return cache
     }
 
-    logInfo(`Getting more details with 'legendary info'`, LogPrefix.Legendary)
+    logInfo(`Getting more details with 'legendary info'`, {
+      prefix: LogPrefix.Legendary
+    })
     const res = await runLegendaryCommand([
       '--pretty-json',
       'info',
@@ -225,11 +224,9 @@ export class LegendaryLibrary {
     ])
 
     if (res.error) {
-      logError(
-        ['Failed to get more details:', res.error],
-        LogPrefix.Legendary,
-        false
-      )
+      logError(['Failed to get more details:', res.error], {
+        prefix: LogPrefix.Legendary
+      })
     }
 
     const info: InstallInfo = JSON.parse(res.stdout)
@@ -250,24 +247,21 @@ export class LegendaryLibrary {
     }
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline) {
-      logWarning(
-        'Epic servers are offline, cannot check for game updates',
-        LogPrefix.Backend
-      )
+      logWarning('Epic servers are offline, cannot check for game updates', {
+        prefix: LogPrefix.Backend
+      })
       return []
     }
 
     const commandParts = ['list-installed', '--check-updates', '--tsv']
 
-    logInfo('Checking for game updates.', LogPrefix.Legendary)
+    logInfo('Checking for game updates.', { prefix: LogPrefix.Legendary })
     const res = await runLegendaryCommand(commandParts)
 
     if (res.error) {
-      logError(
-        ['Failed to check for game updates:', res.error],
-        LogPrefix.Legendary,
-        false
-      )
+      logError(['Failed to check for game updates:', res.error], {
+        prefix: LogPrefix.Legendary
+      })
       return []
     }
 
@@ -276,7 +270,9 @@ export class LegendaryLibrary {
       .filter((item) => item.split('\t')[4] === 'True')
       .map((item) => item.split('\t')[0])
       .filter((item) => item.length > 1)
-    logInfo(`Found ${updates.length} game(s) to update`, LogPrefix.Legendary)
+    logInfo(`Found ${updates.length} game(s) to update`, {
+      prefix: LogPrefix.Legendary
+    })
     return updates
   }
 
@@ -321,10 +317,9 @@ export class LegendaryLibrary {
       const modifiedInstall = { ...file, [appName]: game }
       writeFileSync(installed, JSON.stringify(modifiedInstall, null, 2))
     } catch (error) {
-      logError(
-        `Error reading ${installed}, could not complete operation`,
-        LogPrefix.Legendary
-      )
+      logError(`Error reading ${installed}, could not complete operation`, {
+        prefix: LogPrefix.Legendary
+      })
     }
   }
 
@@ -506,11 +501,9 @@ export class LegendaryLibrary {
 
       return app_name
     } catch (error) {
-      logError(
-        `Library file corrupted, please check ${fileName}`,
-        LogPrefix.Legendary,
-        false
-      )
+      logError(`Library file corrupted, please check ${fileName}`, {
+        prefix: LogPrefix.Legendary
+      })
     }
   }
 
@@ -527,7 +520,9 @@ export class LegendaryLibrary {
       this.library.set(app_name, null)
       return app_name
     } catch (error) {
-      logError(`Metadata for ${fileName} corrupted`, LogPrefix.Legendary)
+      logError(`Metadata for ${fileName} corrupted`, {
+        prefix: LogPrefix.Legendary
+      })
       return 'error'
     }
   }

@@ -100,7 +100,9 @@ async function prepareLaunch(
   if (gameSettings.showMangohud) {
     const mangoHudBin = await searchForExecutableOnPath('mangohud')
     if (!mangoHudBin) {
-      logWarning('MangoHud enabled but not installed', LogPrefix.Backend)
+      logWarning('MangoHud enabled but not installed', {
+        prefix: LogPrefix.Backend
+      })
       // Should we display an error box and return { success: false } here?
     } else {
       mangoHudCommand = `${mangoHudBin} --dlsym`
@@ -109,7 +111,9 @@ async function prepareLaunch(
   if (gameSettings.useGameMode) {
     gameModeBin = await searchForExecutableOnPath('gamemoderun')
     if (!gameModeBin) {
-      logWarning('GameMode enabled but not installed', LogPrefix.Backend)
+      logWarning('GameMode enabled but not installed', {
+        prefix: LogPrefix.Backend
+      })
     }
   }
 
@@ -123,12 +127,13 @@ async function prepareLaunch(
     // for native games lets use scout for now
     await getSteamRuntime('scout').then((runtime) => {
       if (!runtime.path) {
-        logWarning(
-          `Couldn't find a valid Steam runtime path`,
-          LogPrefix.Backend
-        )
+        logWarning(`Couldn't find a valid Steam runtime path`, {
+          prefix: LogPrefix.Backend
+        })
       } else {
-        logInfo(`Using ${runtime.type} Steam runtime`, LogPrefix.Backend)
+        logInfo(`Using ${runtime.type} Steam runtime`, {
+          prefix: LogPrefix.Backend
+        })
         steamRuntime =
           runtime.version === 'soldier' ? `${runtime.path} -- ` : runtime.path
       }
@@ -170,7 +175,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
   if (gameSettings.wineVersion.type === 'proton') {
     logWarning(
       'You are using Proton, this can lead to some bugs. Please do not open issues with bugs related to games',
-      LogPrefix.Backend
+      { prefix: LogPrefix.Backend }
     )
   }
 
@@ -202,10 +207,9 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
 
   const { updated: winePrefixUpdated } = await verifyWinePrefix(game)
   if (winePrefixUpdated) {
-    logInfo(
-      ['Created/Updated Wineprefix at', gameSettings.winePrefix],
-      LogPrefix.Backend
-    )
+    logInfo(['Created/Updated Wineprefix at', gameSettings.winePrefix], {
+      prefix: LogPrefix.Backend
+    })
     await setup(game.appName)
   }
 
@@ -403,7 +407,9 @@ export async function verifyWinePrefix(
       return { res: result, updated: wasUpdated }
     })
     .catch((error) => {
-      logError(['Unable to create Wineprefix: ', `${error}`], LogPrefix.Backend)
+      logError(['Unable to create Wineprefix: ', error], {
+        prefix: LogPrefix.Backend
+      })
       throw error
     })
 }
@@ -437,7 +443,7 @@ function getWineEnvSetup(
 function launchCleanup(rpcClient: RpcClient) {
   if (rpcClient) {
     rpcClient.disconnect()
-    logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
+    logInfo('Stopped Discord Rich Presence', { prefix: LogPrefix.Backend })
   }
 }
 
@@ -476,10 +482,9 @@ async function runWineCommand(
       if (wineVersion.wineserver) {
         additional_command = `"${wineVersion.wineserver}" --wait`
       } else {
-        logWarning(
-          'Unable to wait on Wine command, no Wineserver!',
-          LogPrefix.Backend
-        )
+        logWarning('Unable to wait on Wine command, no Wineserver!', {
+          prefix: LogPrefix.Backend
+        })
       }
     }
   }
@@ -489,15 +494,21 @@ async function runWineCommand(
     finalCommand += ` && ${additional_command}`
   }
 
-  logDebug(['Running Wine command:', finalCommand], LogPrefix.Legendary)
+  logDebug(['Running Wine command:', finalCommand], {
+    prefix: LogPrefix.Legendary
+  })
   return execAsync(finalCommand, { env: env_vars })
     .then((response) => {
-      logDebug(['Ran Wine command:', finalCommand], LogPrefix.Legendary)
+      logDebug(['Ran Wine command:', finalCommand], {
+        prefix: LogPrefix.Legendary
+      })
       return response
     })
     .catch((error) => {
       // error might not always be a string
-      logError(['Error running Wine command:', `${error}`], LogPrefix.Backend)
+      logError(['Error running Wine command:', `${error}`], {
+        prefix: LogPrefix.Backend
+      })
       throw error
     })
 }
@@ -530,11 +541,15 @@ async function callRunner(
 
   logInfo(
     [(options?.logMessagePrefix ?? `Running command`) + ':', safeCommand],
-    runner.logPrefix
+    {
+      prefix: runner.logPrefix
+    }
   )
 
   if (options?.logFile) {
-    logDebug(`Logging to file "${options?.logFile}"`, runner.logPrefix)
+    logDebug(`Logging to file "${options?.logFile}"`, {
+      prefix: runner.logPrefix
+    })
   }
 
   if (existsSync(options?.logFile)) {
@@ -622,11 +637,10 @@ async function callRunner(
         !`${error}`.includes('signal') &&
         !`${error}`.includes('appears to be deleted')
 
-      logError(
-        ['Error running', 'command', `"${safeCommand}": ${error}`],
-        runner.logPrefix,
+      logError(['Error running', 'command', `"${safeCommand}":`, error], {
+        prefix: runner.logPrefix,
         showDialog
-      )
+      })
 
       return { stdout: '', stderr: `${error}`, fullCommand: safeCommand, error }
     })

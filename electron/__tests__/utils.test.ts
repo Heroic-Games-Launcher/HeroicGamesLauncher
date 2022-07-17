@@ -1,5 +1,7 @@
 import { quoteIfNecessary, removeQuoteIfNecessary } from '../utils'
 
+jest.mock('../logger/logfile')
+
 describe('electron/utils.ts', () => {
   test('quoteIfNeccessary', () => {
     const testCases = new Map<string, string>([

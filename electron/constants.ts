@@ -4,11 +4,8 @@ import Store from 'electron-store'
 import { parse } from '@node-steam/vdf'
 
 import { GameConfigVersion, GlobalConfigVersion } from './types'
-import {
-  createNewLogFileAndClearOldOnces,
-  logDebug,
-  LogPrefix
-} from './logger/logger'
+import { logDebug, LogPrefix } from './logger/logger'
+import { createNewLogFileAndClearOldOnces } from './logger/logfile'
 import { env } from 'process'
 import { app } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -155,10 +152,9 @@ export async function getSteamLibraries(): Promise<string[]> {
       (path) => existsSync(path)
     )
   }
-  logDebug(
-    'Unable to load Steam Libraries, libraryfolders.vdf not found',
-    LogPrefix.Backend
-  )
+  logDebug('Unable to load Steam Libraries, libraryfolders.vdf not found', {
+    prefix: LogPrefix.Backend
+  })
   return libraries
 }
 

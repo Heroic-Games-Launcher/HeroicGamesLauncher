@@ -12,17 +12,16 @@ export class LegendaryUser {
   public static async login(sid: string) {
     const commandParts = ['auth', '--sid', sid]
 
-    logInfo('Logging in with Legendary.', LogPrefix.Legendary)
+    logInfo('Logging in with Legendary.', { prefix: LogPrefix.Legendary })
 
     try {
       await runLegendaryCommand(commandParts)
       const userInfo = await this.getUserInfo()
       return { status: 'done', data: userInfo }
     } catch (error) {
-      logError(
-        ['Failed to login with Legendary:', `${error}`],
-        LogPrefix.Legendary
-      )
+      logError(['Failed to login with Legendary:', `${error}`], {
+        prefix: LogPrefix.Legendary
+      })
 
       return { status: 'failed' }
     }
@@ -31,12 +30,14 @@ export class LegendaryUser {
   public static async logout() {
     const commandParts = ['auth', '--delete']
 
-    logInfo('Logging out.', LogPrefix.Legendary)
+    logInfo('Logging out.', { prefix: LogPrefix.Legendary })
 
     const res = await runLegendaryCommand(commandParts)
 
     if (res.error) {
-      logError(['Failed to logout:', res.error], LogPrefix.Legendary)
+      logError(['Failed to logout:', res.error], {
+        prefix: LogPrefix.Legendary
+      })
     }
 
     const ses = session.fromPartition('persist:epicstore')
@@ -73,10 +74,9 @@ export class LegendaryUser {
         configStore.set('userInfo', info)
         return info
       } catch (error) {
-        logError(
-          `User info file corrupted, check ${userInfo}`,
-          LogPrefix.Legendary
-        )
+        logError(`User info file corrupted, check ${userInfo}`, {
+          prefix: LogPrefix.Legendary
+        })
         const info: UserInfo = {
           account_id: '',
           displayName: '',

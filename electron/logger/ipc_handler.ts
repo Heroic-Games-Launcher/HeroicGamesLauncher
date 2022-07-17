@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron'
 import { readFileSync } from 'graceful-fs'
 import { showItemInFolder } from '../utils'
-import { getLogFile } from './logger'
+import { getLogFile } from './logfile'
 
 ipcMain.handle(
   'getLogContent',
