@@ -29,12 +29,12 @@ export const DXVK = {
       {
         name: 'vkd3d',
         url: 'https://api.github.com/repos/bottlesdevs/vkd3d-proton/releases/latest',
-        extractCommand: 'tar -zxf'
+        extractCommand: 'tar -xf'
       },
       {
         name: 'dxvk',
         url: 'https://api.github.com/repos/doitsujin/dxvk/releases/latest',
-        extractCommand: 'tar -zxf'
+        extractCommand: 'tar -xf'
       }
     ]
 
