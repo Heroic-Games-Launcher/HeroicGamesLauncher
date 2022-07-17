@@ -152,7 +152,7 @@ describe('downloadFile', () => {
 
 describe('extractTarFile', () => {
   it('Success without strip', async () => {
-    const tmpDir = dirSync()
+    const tmpDir = dirSync({ unsafeCleanup: true })
     jest.spyOn(child_process, 'spawn')
 
     await expect(
@@ -174,7 +174,7 @@ describe('extractTarFile', () => {
 
   // Largely the same as the test above
   it('Success with strip', async () => {
-    const tmpDir = dirSync()
+    const tmpDir = dirSync({ unsafeCleanup: true })
     jest.spyOn(child_process, 'spawn')
 
     await expect(
