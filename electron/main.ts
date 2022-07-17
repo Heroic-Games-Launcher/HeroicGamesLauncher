@@ -221,6 +221,7 @@ async function createWindow(): Promise<BrowserWindow> {
 // Some APIs can only be used after this event occurs.
 let appIcon: Tray = null
 const gotTheLock = app.requestSingleInstanceLock()
+let openUrlArgument = ''
 
 const contextMenu = () => {
   const recentGames: Array<RecentGame> =
@@ -452,7 +453,7 @@ ipcMain.on('Notify', (event, args) => {
 })
 
 ipcMain.on('frontendReady', () => {
-  handleProtocol(mainWindow, process.argv)
+  handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
 })
 
 // Maybe this can help with white screens
@@ -529,7 +530,11 @@ app.on('window-all-closed', () => {
 
 app.on('open-url', (event, url) => {
   event.preventDefault()
-  handleProtocol(mainWindow, [url])
+  if (mainWindow) {
+    handleProtocol(mainWindow, [url])
+  } else {
+    openUrlArgument = url
+  }
 })
 
 ipcMain.on('openFolder', async (event, folder) => openUrlOrFile(folder))

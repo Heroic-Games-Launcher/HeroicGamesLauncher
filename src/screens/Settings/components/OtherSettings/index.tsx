@@ -149,7 +149,7 @@ export default function OtherSettings({
   const shouldRenderFpsOption = !isMacNative && !isWin && !isLinuxNative
   const showSteamRuntime = isLinuxNative || isProton
 
-  const info = (
+  const launcherArgs_info = (
     <InfoBox text="infobox.help">
       <span>
         {t('help.other.part4')}
@@ -440,15 +440,7 @@ export default function OtherSettings({
           placeholder={t('options.gameargs.placeholder')}
           value={launcherArgs}
           onChange={handleLauncherArgs}
-          warning={
-            <span className="warning">
-              {`${t(
-                'options.quote-args-with-spaces',
-                'Warning: Make sure to quote args with spaces! E.g.: "path/with spaces/"'
-              )}`}
-            </span>
-          }
-          afterInput={info}
+          afterInput={launcherArgs_info}
         />
       )}
       {!isDefault && (
