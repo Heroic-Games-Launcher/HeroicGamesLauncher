@@ -515,10 +515,6 @@ function Settings() {
               setWinePrefix={setWinePrefix}
               wineCrossoverBottle={wineCrossoverBottle}
               setWineCrossoverBottle={setWineCrossoverBottle}
-              autoInstallDxvk={autoInstallDxvk}
-              autoInstallVkd3d={autoInstallVkd3d}
-              toggleAutoInstallDxvk={toggleAutoInstallDxvk}
-              toggleAutoInstallVkd3d={toggleAutoInstallVkd3d}
               customWinePaths={customWinePaths}
               setCustomWinePaths={setCustomWinePaths}
               isDefault={isDefault}
@@ -541,10 +537,16 @@ function Settings() {
           {isWineSettings && !isDefault && <Tools appName={appName} />}
           {isWineExtensions && (
             <WineExtensions
+              winePrefix={winePrefix}
+              wineVersion={wineVersion}
               eacRuntime={eacRuntime}
               toggleEacRuntime={toggleEacRuntime}
               battlEyeRuntime={battlEyeRuntime}
               toggleBattlEyeRuntime={toggleBattlEyeRuntime}
+              autoInstallDxvk={autoInstallDxvk}
+              toggleAutoInstallDxvk={toggleAutoInstallDxvk}
+              autoInstallVkd3d={autoInstallVkd3d}
+              toggleAutoInstallVkd3d={toggleAutoInstallVkd3d}
             />
           )}
           {isOtherSettings && (

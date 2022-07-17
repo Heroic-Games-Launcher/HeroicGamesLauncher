@@ -27,8 +27,6 @@ import { ipcRenderer } from 'src/helpers'
 
 interface Props {
   altWine: WineInstallation[]
-  autoInstallDxvk: boolean
-  autoInstallVkd3d: boolean
   customWinePaths: string[]
   isDefault: boolean
   maxSharpness: number
@@ -40,8 +38,6 @@ interface Props {
   setDefaultWinePrefix: (value: string) => void
   setFsrSharpness: (value: number) => void
   setWineVersion: (wine: WineInstallation) => void
-  toggleAutoInstallDxvk: () => void
-  toggleAutoInstallVkd3d: () => void
   toggleFSR: () => void
   toggleResizableBar: () => void
   wineCrossoverBottle: string
@@ -64,12 +60,8 @@ export default function WineSettings({
   setAltWine,
   wineVersion,
   altWine,
-  toggleAutoInstallDxvk,
-  toggleAutoInstallVkd3d,
   enableFSR,
   toggleFSR,
-  autoInstallDxvk,
-  autoInstallVkd3d,
   customWinePaths,
   setCustomWinePaths,
   wineCrossoverBottle,
@@ -307,66 +299,6 @@ export default function WineSettings({
 
       {isLinux && !isProton && (
         <div>
-          <div className="toggleRow">
-            <ToggleSwitch
-              htmlId="autodxvk"
-              value={autoInstallDxvk}
-              handleChange={() => {
-                const action = autoInstallDxvk ? 'restore' : 'backup'
-                ipcRenderer.send('toggleDXVK', [
-                  { winePrefix, winePath: wineVersion.bin },
-                  action
-                ])
-                return toggleAutoInstallDxvk()
-              }}
-              title={t(
-                'setting.autodxvk',
-                'Auto Install/Update DXVK on Prefix'
-              )}
-            />
-
-            <FontAwesomeIcon
-              className="helpIcon"
-              icon={faCircleInfo}
-              title={t(
-                'help.dxvk',
-                'DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.'
-              )}
-            />
-          </div>
-        </div>
-      )}
-
-      {isLinux && !isProton && (
-        <div>
-          <div className="toggleRow">
-            <ToggleSwitch
-              htmlId="autovkd3d"
-              value={autoInstallVkd3d}
-              handleChange={() => {
-                const action = autoInstallVkd3d ? 'restore' : 'backup'
-                ipcRenderer.send('toggleVKD3D', [
-                  { winePrefix, winePath: wineVersion.bin },
-                  action
-                ])
-                return toggleAutoInstallVkd3d()
-              }}
-              title={t(
-                'setting.autovkd3d',
-                'Auto Install/Update VKD3D on Prefix'
-              )}
-            />
-
-            <FontAwesomeIcon
-              className="helpIcon"
-              icon={faCircleInfo}
-              title={t(
-                'help.vkd3d',
-                'VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.'
-              )}
-            />
-          </div>
-
           <div className="toggleRow">
             <ToggleSwitch
               htmlId="systemLibsToggle"
