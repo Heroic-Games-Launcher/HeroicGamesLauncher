@@ -66,7 +66,7 @@ export default function SearchBar() {
           id="search" // this id is used for the virtualkeyboard, don't change it
           className="FormControl__input"
         />
-        {filterText.length > 1 && (
+        {filterText.length > 0 && (
           <ul className="autoComplete">
             {list.length > 0 &&
               list.map((title, i) => (
