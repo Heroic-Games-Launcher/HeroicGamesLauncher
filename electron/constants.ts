@@ -47,6 +47,7 @@ const heroicConfigPath = join(heroicFolder, 'config.json')
 const heroicGamesConfigPath = join(heroicFolder, 'GamesConfig')
 const heroicToolsPath = join(heroicFolder, 'tools')
 const heroicIconFolder = join(heroicFolder, 'icons')
+const runtimePath = join(heroicToolsPath, 'runtimes')
 const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
 const heroicDefaultWinePrefix = join(homedir(), 'Games', 'Heroic', 'Prefixes')
@@ -212,5 +213,6 @@ export {
   wikiLink,
   tsStore,
   fontsStore,
-  isSteamDeckGameMode
+  isSteamDeckGameMode,
+  runtimePath
 }

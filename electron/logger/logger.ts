@@ -27,6 +27,7 @@ export enum LogPrefix {
   ProtocolHandler = 'ProtocolHandler',
   Frontend = 'Frontend',
   Backend = 'Backend',
+  Runtime = 'Runtime',
   Shortcuts = 'Shortcuts'
 }
 

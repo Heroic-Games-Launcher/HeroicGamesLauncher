@@ -13,6 +13,7 @@ export interface AppSettings {
   autoInstallVkd3d: boolean
   preferSystemLibs: boolean
   autoSyncSaves: boolean
+  battlEyeRuntime: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: Array<string>
   darkTrayIcon: boolean
@@ -20,6 +21,7 @@ export interface AppSettings {
   defaultSteamPath: string
   disableController: boolean
   discordRPC: boolean
+  eacRuntime: boolean
   downloadNoHttps: boolean
   egsLinkedPath: string
   exitToTray: boolean

@@ -18,6 +18,7 @@ export interface AppSettings {
   autoInstallVkd3d: boolean
   preferSystemLibs: boolean
   autoSyncSaves: boolean
+  battlEyeRuntime: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: string[]
   darkTrayIcon: boolean
@@ -25,6 +26,7 @@ export interface AppSettings {
   defaultSteamPath: string
   disableController: boolean
   discordRPC: boolean
+  eacRuntime: boolean
   downloadNoHttps: boolean
   egsLinkedPath: string
   exitToTray: boolean
@@ -139,6 +141,8 @@ export interface GameSettings {
   autoInstallVkd3d: boolean
   preferSystemLibs: boolean
   autoSyncSaves: boolean
+  battlEyeRuntime: boolean
+  eacRuntime: boolean
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
@@ -442,3 +446,13 @@ interface AntiCheatReference {
   date: string
   reference: string
 }
+
+export interface Runtime {
+  id: number
+  name: string
+  created_at: string
+  architecture: string
+  url: string
+}
+
+export type RuntimeName = 'eac_runtime' | 'battleye_runtime'

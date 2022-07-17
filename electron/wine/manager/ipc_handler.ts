@@ -6,7 +6,7 @@ import {
   removeWineVersion,
   updateWineVersionInfos
 } from './utils'
-import { logError, LogPrefix } from '../logger/logger'
+import { logError, LogPrefix } from '../../logger/logger'
 
 const abortControllers = new Map<string, AbortController>()
 
