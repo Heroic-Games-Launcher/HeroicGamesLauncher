@@ -28,7 +28,14 @@
         "choose-legendary-binary": "選擇Legendary二進制文件",
         "customWine": "選擇已編譯的Wine或Proton",
         "default-install-path": "選擇預設安裝路徑",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "您的憑證已過期，請登出並重新登入。"
             },
@@ -55,6 +62,12 @@
                 "message": "啟動失敗！遊戲需要網路才能執行。",
                 "title": "不支持離線模式。"
             },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
+            },
             "title": "錯誤",
             "update": {
                 "message": "更新出現問題，請檢查日誌或稍後再試！",
@@ -63,10 +76,6 @@
             "wine-not-found": {
                 "message": "沒有選擇之 Wine 版本。檢查遊戲設定！",
                 "title": "未找到Wine"
-            },
-            "zstd": {
-                "message": "未找到 ZSTD，請安裝並重啟 Heroic",
-                "title": "遺漏相依性"
             }
         },
         "info": {
@@ -142,6 +151,7 @@
         "store": "商店",
         "title": "遊戲名稱"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "沒有發現遊戲 - 嘗試登入並再次登入或以下選項之一"
@@ -204,7 +214,8 @@
     },
     "infobox": {
         "help": "幫助",
-        "requirements": "系統要求"
+        "requirements": "系統要求",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "選擇安裝路徑"
@@ -235,6 +246,20 @@
             "reparing": "修復時出現錯誤"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "已完成修復"
         },
         "install": {
@@ -311,6 +336,7 @@
         "customWineProton": "自定義Wine/Proton路徑",
         "darktray": "使用暗色系統列圖示",
         "default-install-path": "預設安裝路徑",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "為新的 Wine Prefix 設定資料夾",
         "disable_controller": "禁止使用控制器操作 Heroic",
         "discordRPC": "啟用Discord的Rich Presence（活動狀態）",
@@ -407,7 +433,10 @@
             "sync": "存檔-同步"
         },
         "open-config-file": "開啟配置檔案",
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Reset Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "設定",
     "sidebar": {

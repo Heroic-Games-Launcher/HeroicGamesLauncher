@@ -17,7 +17,7 @@ import Backspace from '@mui/icons-material/Backspace'
 import { getGameInfo } from 'src/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { ipcRenderer } from 'src/helpers'
 import { ColumnProps, TableInput } from 'src/components/UI/TwoColTableInput'
 
@@ -41,10 +41,12 @@ interface Props {
   setEnviromentOptions: (value: EnviromentVariable[]) => void
   setWrapperOptions: (value: WrapperVariable[]) => void
   setMaxRecentGames: (value: number) => void
+  setDefaultSteamPath: (value: string) => void
   setTargetExe: (value: string) => void
   showFps: boolean
   showMangohud: boolean
   maxRecentGames: number
+  defaultSteamPath: string
   toggleAudioFix: () => void
   toggleFps: () => void
   toggleMangoHud: () => void
@@ -100,7 +102,9 @@ export default function OtherSettings({
   toggleUseSteamRuntime,
   useSteamRuntime,
   isProton,
-  appName
+  appName,
+  setDefaultSteamPath,
+  defaultSteamPath
 }: Props) {
   const handleEnviromentVariables = (values: ColumnProps[]) => {
     const envs: EnviromentVariable[] = []
@@ -356,6 +360,33 @@ export default function OtherSettings({
             <option key={n + 1}>{n + 1}</option>
           ))}
         </SelectField>
+      )}
+      {isDefault && (
+        <TextInputWithIconField
+          label={t('setting.default-steam-path', 'Default Steam path')}
+          htmlId="default_steam_path"
+          value={defaultSteamPath.replaceAll("'", '')}
+          placeholder={defaultSteamPath}
+          onChange={(event) => setDefaultSteamPath(event.target.value)}
+          icon={
+            <FontAwesomeIcon
+              icon={faFolderOpen}
+              data-testid="setsteampathbutton"
+            />
+          }
+          onIconClick={async () =>
+            ipcRenderer
+              .invoke('openDialog', {
+                buttonLabel: t('box.choose'),
+                properties: ['openDirectory'],
+                title: t('box.default-steam-path', 'Steam path.'),
+                defaultPath: defaultSteamPath
+              })
+              .then(({ path }: Path) =>
+                setDefaultSteamPath(path ? `${path}` : defaultSteamPath)
+              )
+          }
+        />
       )}
       {!isWin && (
         <TableInput

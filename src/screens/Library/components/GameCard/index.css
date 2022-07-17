@@ -2,13 +2,12 @@
   background-color: var(--gradient-gamecard);
   text-align: left;
   width: 100%;
-  aspect-ratio: 8 / 12;
-  max-height: 308px;
-  min-height: 182px;
   overflow: hidden;
   position: relative;
   transition-duration: 0.5s;
   box-shadow: 0px 0px 12px 4px #00000055;
+  display: flex;
+  flex-direction: column;
 }
 
 .gameCard:focus-within {
@@ -59,19 +58,21 @@
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .gameCard .gameImg {
   width: 100%;
-  height: 100%;
   object-fit: cover;
+  aspect-ratio: 3 / 4;
+  display: block;
 }
 
 .gameCard .gameLogo {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, -50%);
   width: 50%;
 }
 
@@ -82,60 +83,34 @@
 .gameCard .gameTitle {
   position: absolute;
   width: 100%;
-  bottom: min(0.5vh, 46px);
-  padding: 0.3vw;
+  bottom: 0px;
+  padding: 0.6rem 0.3rem;
   color: var(--text-secondary);
-  display: flex;
   background: var(--gradient-gamecard);
   transition: 200ms;
   font-family: var(--content-font-family);
-  font-size: clamp(14px, 1vw, 16px);
+  font-size: 1rem;
   font-weight: 700;
   line-height: 17px;
   color: var(--text-default);
-  height: 35%;
-  max-height: 68px;
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
-}
-
-.gameCard .gameTitle span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  max-height: 18px;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  transform: translateY(100%);
 }
 
 .gameCard:hover .gameTitle {
-  height: 50%;
-  max-height: 90px;
-}
-
-.gameCard:hover .gameTitle span {
-  overflow: visible;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  max-height: fit-content;
-  height: min-content;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
+  display: block;
+  transform: translateY(0);
 }
 
 .gameCard > .icons {
-  opacity: 1;
-  position: absolute;
-  bottom: 0px;
   background: var(--icons-background);
-  min-height: 42px;
-  max-height: 56px;
-  height: 3vw;
   justify-content: space-around;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 'update settings play';
+  padding: 6px auto;
 }
 
 .gameCard > .icons > .svg-button {
@@ -289,15 +264,14 @@
   justify-content: flex-end;
   z-index: 4;
   padding: 6px;
-  margin-right: 4px;
   transition: 300ms;
 }
 
 .icons > button > svg,
 .icons > a > svg,
 .icons > svg {
-  width: clamp(22px, calc(1vw + 9px), 36px);
-  height: clamp(22px, calc(1vw + 9px), 36px);
+  height: clamp(28px, 1vw, 36px);
+  aspect-ratio: 1;
   display: block;
 }
 

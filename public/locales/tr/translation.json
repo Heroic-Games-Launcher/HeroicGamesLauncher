@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Legendary çalıştırılabilir dosyasını seç",
         "customWine": "Wine veya Proton çalıştırılabilir dosyasını seç",
         "default-install-path": "Öntanımlı Kurulum Yerini Seçin",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Kimlik bilgilerinizin süresi doldu, lütfen oturumunuzu kapatın ve tekrar oturum açın."
             },
@@ -55,6 +62,12 @@
                 "message": "Başlatma iptal edildi! Oyunu çalıştırmak için internet bağlantısı gereklidir.",
                 "title": "Çevrim dışı mod desteklenmiyor."
             },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
+            },
             "title": "Hata",
             "update": {
                 "message": "Güncellemeyle ilgili bir sorun oluştu, lütfen günlük kayıtlarına göz atın veya daha sonra tekrar deneyin!",
@@ -63,10 +76,6 @@
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
                 "title": "Wine Bulunamadı"
-            },
-            "zstd": {
-                "message": "ZSTD bulunamadı, lütfen kurun ve Heroic'i yeniden başlatın",
-                "title": "Eksik Bağımlılık"
             }
         },
         "info": {
@@ -142,6 +151,7 @@
         "store": "Mağaza",
         "title": "Oyun Adı"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Oyun bulunamadı - Oturumu kapatıp tekrar açmayı veya aşağıdaki seçeneklerden birini deneyin"
@@ -204,7 +214,8 @@
     },
     "infobox": {
         "help": "Yardım",
-        "requirements": "Sistem Gereksinimleri"
+        "requirements": "Sistem Gereksinimleri",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Kurulum Yolunu Seçin"
@@ -235,6 +246,20 @@
             "reparing": "Onarım Hatası"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "Onarım Tamamlandı"
         },
         "install": {
@@ -311,6 +336,7 @@
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Koyu Tepsi Simgesi Kullan",
         "default-install-path": "Öntanımlı Kurulum Yeri",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
         "disable_controller": "Denetleyiciyi kullanarak Heroic gezinmesini devre dışı bırak",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
@@ -407,7 +433,10 @@
             "sync": "Kaydet-Eşzamanla"
         },
         "open-config-file": "Yapılandırma Dosyasını Aç",
-        "reset-heroic": "Heroic'i Sıfırla"
+        "reset-heroic": "Heroic'i Sıfırla",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Ayarlar",
     "sidebar": {

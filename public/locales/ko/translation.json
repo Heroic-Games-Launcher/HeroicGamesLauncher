@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Legendary 바이너리 파일 선택",
         "customWine": "Wine 혹은 Proton 바이너리 파일 선택",
         "default-install-path": "기본 설치 경로 선택",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "사용자의 인증서가 만료되었습니다, 로그아웃 한 뒤 다시 로그인 해주세요."
             },
@@ -55,6 +62,12 @@
                 "message": "시작 실패! 게임을 실행하려면 인터넷 연결이 필요합니다.",
                 "title": "오프라인 모드는 지원되지 않습니다."
             },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
+            },
             "title": "오류",
             "update": {
                 "message": "업데이트에 문제가 발생했습니다. 로그를 확인하거나 나중에 다시 시도하세요!",
@@ -63,10 +76,6 @@
             "wine-not-found": {
                 "message": "Wine 버전이 선택되지 않았습니다. 게임 설정을 확인하세요!",
                 "title": "Wine을 찾을 수 없음"
-            },
-            "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -142,6 +151,7 @@
         "store": "Store",
         "title": "Game Title"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -204,7 +214,8 @@
     },
     "infobox": {
         "help": "도움말",
-        "requirements": "시스템 요구 사양"
+        "requirements": "시스템 요구 사양",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "설치 경로 선택"
@@ -235,6 +246,20 @@
             "reparing": "복구 중 오류 발생"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "복구 완료"
         },
         "install": {
@@ -311,6 +336,7 @@
         "customWineProton": "커스텀 Wine/Proton 경로",
         "darktray": "다크 트레이 아이콘 사용",
         "default-install-path": "기본 설치 경로",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "새로운 Wine 접두사를 위한 폴더 설정",
         "disable_controller": "컨트롤러를 이용한 Heroic 탐색 비활성화",
         "discordRPC": "Discord Rich Presence 활성화",
@@ -407,7 +433,10 @@
             "sync": "세이브-동기화"
         },
         "open-config-file": "Open Config File",
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Reset Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "설정",
     "sidebar": {

@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Επιλέξτε το δυαδικό αρχείο του Legendary",
         "customWine": "Επιλέξτε το δυαδικό αρχείο Wine ή Proton",
         "default-install-path": "Επιλέξτε Κύρια Διαδρομή Εγκατάστασης",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Τα διαπιστευτήριά σας έληξαν, παρακαλώ αποσυνδεθείτε και επανασυνδεθείτε εκ νέου."
             },
@@ -55,6 +62,12 @@
                 "message": "Η έναρξη διακόπηκε! Το παιχνίδι απαιτεί σύνδεση στο διαδύκτιο για να τρέξει.",
                 "title": "Η λειτουργία εκτός σύνδεσης δεν υποστηρίζεται."
             },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
+            },
             "title": "Σφάλμα",
             "update": {
                 "message": "Something went wrong with the update, please check the logs or try again later!",
@@ -63,10 +76,6 @@
             "wine-not-found": {
                 "message": "Δεν επιλέχθηκε έκδοση Wine. Ελέγξτε τις ρυθμίσεις παιχνιδιού!",
                 "title": "Το Wine δεν βρέθηκε"
-            },
-            "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -142,6 +151,7 @@
         "store": "Store",
         "title": "Game Title"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -204,7 +214,8 @@
     },
     "infobox": {
         "help": "Βοήθεια",
-        "requirements": "Απαιτήσεις Συστήματος"
+        "requirements": "Απαιτήσεις Συστήματος",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Επιλέξτε διαδρομή εγκατάστασης"
@@ -235,6 +246,20 @@
             "reparing": "Σφάλμα Επιδιόρθωσης"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "Ολοκλήρωση Επιδιόρθωσης"
         },
         "install": {
@@ -311,6 +336,7 @@
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Καθορισμός Φακέλου για νέα Προθήματα Wine",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Ενεργοποίηση Discord Rich Presence",
@@ -407,7 +433,10 @@
             "sync": "Αποθήκευση-Συγχρονισμός"
         },
         "open-config-file": "Open Config File",
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Reset Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Ρυθμίσεις",
     "sidebar": {

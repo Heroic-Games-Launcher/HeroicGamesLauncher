@@ -103,24 +103,21 @@
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl",
-        "zstd"
+        "curl"
       ]
     },
     "pacman": {
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl",
-        "zstd"
+        "curl"
       ]
     },
     "rpm": {
       "packageCategory": "games",
       "depends": [
         "gawk",
-        "curl",
-        "zstd"
+        "curl"
       ]
     }
   },
@@ -140,6 +137,7 @@
     "axios": "^0.26.1",
     "check-disk-space": "^3.3.0",
     "classnames": "^2.3.1",
+    "crc": "^4.1.1",
     "discord-rich-presence-typescript": "^0.0.8",
     "electron-store": "^8.0.1",
     "electron-updater": "^5.0.1",
@@ -162,6 +160,7 @@
     "shlex": "^2.1.2",
     "simple-keyboard": "^3.4.24",
     "source-map-support": "^0.5.21",
+    "steam-shortcut-editor": "^3.1.1",
     "systeminformation": "^5.11.14",
     "tslib": "^2.4.0"
   },
@@ -216,7 +215,7 @@
     "@types/tmp": "^0.2.3",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
-    "electron": "^19.0.3",
+    "electron": "^19.0.8",
     "electron-builder": "^23.0.3",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.13.0",

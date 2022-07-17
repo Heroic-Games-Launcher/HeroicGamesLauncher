@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Select Legendary Binary",
         "customWine": "WineまたはProtonバイナリを選択します",
         "default-install-path": "デフォルトのインストールパスを選択します",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "クレデンシャルの有効期限が切れています。ログアウトしてから再度ログインしてください。"
             },
@@ -55,6 +62,12 @@
                 "message": "Launch aborted! The game requires a internet connection to run it.",
                 "title": "Offline mode not supported."
             },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
+            },
             "title": "エラー",
             "update": {
                 "message": "Something went wrong with the update, please check the logs or try again later!",
@@ -63,10 +76,6 @@
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
-            },
-            "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -142,6 +151,7 @@
         "store": "Store",
         "title": "Game Title"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -204,7 +214,8 @@
     },
     "infobox": {
         "help": "ヘルプ",
-        "requirements": "システム要求"
+        "requirements": "システム要求",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Select Install Path"
@@ -235,6 +246,20 @@
             "reparing": "Error Repairing"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "修復が完了しました"
         },
         "install": {
@@ -311,6 +336,7 @@
         "customWineProton": "カスタムWine/Protonパス",
         "darktray": "ダークトレイアイコンを使用する",
         "default-install-path": "デフォルトのインストールパス",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Discord Rich Presenceを有効にする",
@@ -407,7 +433,10 @@
             "sync": "同期を保存"
         },
         "open-config-file": "Open Config File",
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Reset Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "設定",
     "sidebar": {

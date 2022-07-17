@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Selecciona el binari del Legendary",
         "customWine": "Selecciona el binary del Wine o del Proton",
         "default-install-path": "Tria la ruta d'instal·lació predefinida",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Les teves credencials han caducat, tanca la sessió i inicia-la de nou."
             },
@@ -55,6 +62,12 @@
                 "message": "L'execució del programa ha fallat. El joc necessita una connexió a Internet per funcionar.",
                 "title": "El mode sense connexió no està suportat."
             },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
+            },
             "title": "Error",
             "update": {
                 "message": "L'actualització ha fallat. Si us plau, comproveu els registres o proveu-ho de nou més tard.",
@@ -63,10 +76,6 @@
             "wine-not-found": {
                 "message": "No s'ha seleccionat cap versió del Wine. Comprova la configuració del joc.",
                 "title": "No s'ha trobat el Wine"
-            },
-            "zstd": {
-                "message": "No s'ha trobat el ZSTD. Instal·leu-lo i reinicieu el Heroic.",
-                "title": "Falta una dependència."
             }
         },
         "info": {
@@ -142,6 +151,7 @@
         "store": "Botiga",
         "title": "Títol del joc"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "No s'han trobat jocs. Proveu a reiniciar la sessió o alguna de les opcions de sota."
@@ -204,7 +214,8 @@
     },
     "infobox": {
         "help": "Ajuda",
-        "requirements": "Requisits del sistema"
+        "requirements": "Requisits del sistema",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Selecciona la ruta d'instal·lació"
@@ -235,6 +246,20 @@
             "reparing": "Error en reparar"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "Ha finalitzat la reparació del joc"
         },
         "install": {
@@ -311,10 +336,11 @@
         "customWineProton": "Rutes del Wine o Proton personalitzades",
         "darktray": "Utilitza la icona fosca a la safata",
         "default-install-path": "Ruta d'instal·lació predefinida",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Directori de prefixos Wine nous",
         "disable_controller": "Desactiva la navegació del Heroic amb el controlador",
         "discordRPC": "Activa la Discord Rich Presence",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "download-no-https": "Descarrega jocs sense HTTPS (útil per CDNs com ara LanCache)",
         "egs-sync": "Sincronitza amb l'Epic Games instal·lat",
         "enableFSRHack": "Activa el FSR Hack (cal que la versió del Wine en sigui compatible)",
         "eosOverlay": {
@@ -407,7 +433,10 @@
             "sync": "Desa-sincronitza"
         },
         "open-config-file": "Obre el fitxer de configuració",
-        "reset-heroic": "Restableix l'Heroic"
+        "reset-heroic": "Restableix l'Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Configuració",
     "sidebar": {

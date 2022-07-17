@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Seleccionar o binario Legendary",
         "customWine": "Selecciona o binario de Wine ou Proton",
         "default-install-path": "Seleccionar a ruta de instalación predeterminada",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "As túas credenciais expiraron, pecha sesión e iníciaa de novo."
             },
@@ -55,6 +62,12 @@
                 "message": "Lanzamento abortado! O xogo reqire dunha conexión a Internet para executalo.",
                 "title": "O modo sin conexión non está soportado."
             },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
+            },
             "title": "Erro",
             "update": {
                 "message": "Something went wrong with the update, please check the logs or try again later!",
@@ -63,10 +76,6 @@
             "wine-not-found": {
                 "message": "No se seleccionou a versión de Wine. ¡Comprueba a configuración do xogo!",
                 "title": "No se atopou Wine"
-            },
-            "zstd": {
-                "message": "ZSTD was not found, please install it and restart Heroic",
-                "title": "Missing Dependency"
             }
         },
         "info": {
@@ -142,6 +151,7 @@
         "store": "Store",
         "title": "Game Title"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -204,7 +214,8 @@
     },
     "infobox": {
         "help": "Axuda",
-        "requirements": "Requisitos do sistema"
+        "requirements": "Requisitos do sistema",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Seleccionar a ruta de instalación"
@@ -235,6 +246,20 @@
             "reparing": "Erro ao reparar"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "Reparación rematada"
         },
         "install": {
@@ -311,6 +336,7 @@
         "customWineProton": "Rutas personalizadas de Wine e Proton",
         "darktray": "Usar icona escura na bandexa do sistema",
         "default-install-path": "Ruta de instalación predeterminada",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Estabelecer cartafol para os prefixos de Wine",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Activar a presencia enriquecida de Discord",
@@ -407,7 +433,10 @@
             "sync": "Gardar-Sincronizar"
         },
         "open-config-file": "Open Config File",
-        "reset-heroic": "Restabelecer Heroic"
+        "reset-heroic": "Restabelecer Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Preferencias",
     "sidebar": {

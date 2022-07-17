@@ -28,7 +28,14 @@
         "choose-legendary-binary": "انتخاب باینری Legendary",
         "customWine": "انتخاب فایل باینری Wine یا Proton",
         "default-install-path": "انتخاب محل پیشفرض نصب",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "اعتبار ورود شما منقضی شده است، لطفا دوباره خارج شده و داخل شوید."
             },
@@ -55,6 +62,12 @@
                 "message": "اجرا متوقف شد! بازی برای اجرا به اتصال اینترنت نیاز دارد.",
                 "title": "حالت آفلاین پشتیبانی نمیشود."
             },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
+            },
             "title": "خطا",
             "update": {
                 "message": "مشکلی در به روز رسانی پیش آمد، لطفا لاگ ها را بررسی کرده و مجددا امتحان کنید!",
@@ -63,10 +76,6 @@
             "wine-not-found": {
                 "message": "نسخه ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
                 "title": "Wine یافت نشد"
-            },
-            "zstd": {
-                "message": "ZSTD یافت نشد، لطفا آن را نصب کرده و Heroic را مجددا راه اندازی کنید",
-                "title": "فقدان وابستگی"
             }
         },
         "info": {
@@ -142,6 +151,7 @@
         "store": "فروشگاه",
         "title": "عنوان بازی"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "بازی یافت نشد - خروج از حساب و ورود مجدد را امتحان کرده یا یکی از گزینه های زیر را امتحان کنید"
@@ -204,7 +214,8 @@
     },
     "infobox": {
         "help": "راهنما",
-        "requirements": "نیازمندیهای سیستم"
+        "requirements": "نیازمندیهای سیستم",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "انتخاب محل نصب"
@@ -235,6 +246,20 @@
             "reparing": "خطا در تعمیر"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "تعمیر کردن کامل شد"
         },
         "install": {
@@ -311,6 +336,7 @@
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیشفرض نصب",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "تنظیم پوشه برای Wine Prefix جدید",
         "disable_controller": "غیر فعال کردن کنترل Heroic با استفاده از دسته",
         "discordRPC": "فعالسازی Discord Rich Presence",
@@ -407,7 +433,10 @@
             "sync": "همگامسازی ذخیرهها"
         },
         "open-config-file": "باز کردن فایل پیکربندی",
-        "reset-heroic": "Reset Heroic"
+        "reset-heroic": "Reset Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "تنظیمات",
     "sidebar": {

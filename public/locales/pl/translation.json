@@ -28,7 +28,14 @@
         "choose-legendary-binary": "Wybierz plik binarny Legendary",
         "customWine": "Wybierz plik binarny Wine lub Proton",
         "default-install-path": "Wybierz domyślną ścieżkę instalacji",
+        "default-steam-path": "Steam path.",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Twoje dane logowania wygasły, wyloguj się i zaloguj ponownie."
             },
@@ -55,6 +62,12 @@
                 "message": "Uruchomienie przerwane! Gra wymaga połączenia z internetem aby ją uruchomić.",
                 "title": "Tryb Offline nie jest wspierany."
             },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
+            },
             "title": "Error",
             "update": {
                 "message": "Aktualizacja nie powiodła się, sprawdź logi lub spróbuj ponownie!",
@@ -63,10 +76,6 @@
             "wine-not-found": {
                 "message": "Nie wybrano wersji Wine. Sprawdź ustawienia gry!",
                 "title": "Nie znaleziono Wine"
-            },
-            "zstd": {
-                "message": "Nie odnaleziono ZSTD. Zainstaluj ZSTD i uruchom ponownie Heroic",
-                "title": "Brakujące zależności"
             }
         },
         "info": {
@@ -120,7 +129,7 @@
             },
             "title": "Ostrzeżenie"
         },
-        "wineprefix": "Wybierz folder prefiksu Wine",
+        "wineprefix": "Wybierz folder z prefikem Wine",
         "yes": "TAK"
     },
     "button": {
@@ -142,6 +151,7 @@
         "store": "Sklep",
         "title": "Tytuł Gry"
     },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Nie znaleziono żadnych gier - Spróbuj wylogować i zalogować się ponownie lub postępuj zgodnie z jedną z opcji poniżej"
@@ -204,7 +214,8 @@
     },
     "infobox": {
         "help": "Pomoc",
-        "requirements": "Wymagania Systemowe"
+        "requirements": "Wymagania Systemowe",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Wybierz ścieżkę instalacji"
@@ -235,6 +246,20 @@
             "reparing": "Błąd naprawy"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "Naprawa zakończona"
         },
         "install": {
@@ -311,10 +336,11 @@
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikon",
         "default-install-path": "Domyślna ścieżka instalacji",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Wybierz folder dla nowych prefiksów Wine",
         "disable_controller": "Wyłącz nawigację kontrolerem",
         "discordRPC": "Włącz Discord Rich Presence",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "download-no-https": "Pobieraj gry bez użycia szyfrowania HTTPS (przydatne przy CDN'ach np. LanCache)",
         "egs-sync": "Synchronizuj z zainstalowanym Epic Games",
         "enableFSRHack": "Włącz FSR Hack (Wymagana odpowiednia wersja Wine)",
         "eosOverlay": {
@@ -407,7 +433,10 @@
             "sync": "Synchronizuj zapisy"
         },
         "open-config-file": "Otwórz plik konfiguracyjny",
-        "reset-heroic": "Zresetuj Heroic"
+        "reset-heroic": "Zresetuj Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Ustawienia",
     "sidebar": {
