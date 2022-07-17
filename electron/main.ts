@@ -623,6 +623,7 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 ipcMain.handle('getHeroicVersion', () => app.getVersion())
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 ipcMain.handle('getGogdlVersion', async () => getGogdlVersion())
+ipcMain.handle('isSteamDeckMode', () => isSteamDeckGameMode)
 
 ipcMain.handle('getPlatform', () => process.platform)
 
