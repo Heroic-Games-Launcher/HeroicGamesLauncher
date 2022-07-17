@@ -214,7 +214,8 @@
     },
     "infobox": {
         "help": "Помощ",
-        "requirements": "Системни изисквания"
+        "requirements": "Системни изисквания",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Изберете местоположение за инсталиране"

@@ -214,7 +214,8 @@
     },
     "infobox": {
         "help": "Pomoč",
-        "requirements": "Zahtjevi sustava"
+        "requirements": "Zahtjevi sustava",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Odaberi stazu instalacije"

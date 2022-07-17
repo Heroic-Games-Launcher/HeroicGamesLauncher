@@ -214,7 +214,8 @@
     },
     "infobox": {
         "help": "Abi",
-        "requirements": "Süsteeminõuded"
+        "requirements": "Süsteeminõuded",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Valige paigaldustee"

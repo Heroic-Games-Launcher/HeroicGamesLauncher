@@ -270,7 +270,9 @@ export default function WineSettings({
         value={wineVersion.name}
         afterSelect={
           <>
-            <InfoBox text="infobox.wine-path">{wineVersion.bin}</InfoBox>
+            <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
+              {wineVersion.bin}
+            </InfoBox>
             <InfoBox text="infobox.help">
               <span>{t('help.wine.part1')}</span>
               <ul>
