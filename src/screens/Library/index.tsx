@@ -310,6 +310,7 @@ export default function Library(): JSX.Element {
             <h3 className="libraryHeader">{t('Recent', 'Played Recently')}</h3>
             <GamesList
               library={recentGames}
+              isFirstLane
               handleGameCardClick={handleModal}
             />
           </>
@@ -318,7 +319,11 @@ export default function Library(): JSX.Element {
         {showFavourites && !showFavouritesLibrary && (
           <>
             <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
-            <GamesList library={favourites} handleGameCardClick={handleModal} />
+            <GamesList
+              library={favourites}
+              handleGameCardClick={handleModal}
+              isFirstLane
+            />
           </>
         )}
 
