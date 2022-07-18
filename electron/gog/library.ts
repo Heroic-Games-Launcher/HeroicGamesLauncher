@@ -252,7 +252,7 @@ export class GOGLibrary {
   }
 
   public getInstallAndGameInfo(slug: string): GameInfo {
-    const game = (libraryStore.get('games') as GameInfo[]).find(
+    const game = (libraryStore.get('games') as GameInfo[])?.find(
       (value) => value.app_name === slug
     )
 
