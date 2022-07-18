@@ -2,7 +2,7 @@ import { Runner } from './types'
 import { WineInstallation } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
-import { exec, spawnSync } from 'child_process'
+import { exec, spawn, spawnSync } from 'child_process'
 import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
@@ -577,6 +577,73 @@ function killPattern(pattern: string) {
   return ret
 }
 
+/**
+ * Detects MS Visual C++ Redistributable and prompts for its installation if it's not found
+ * Many games require this while not actually specifying it, so it's good to have
+ *
+ * Only works on Windows of course
+ */
+function detectVCRedist(mainWindow: BrowserWindow) {
+  if (!isWindows) {
+    return
+  }
+
+  const detectedVCRInstallations: string[] = []
+  let stderr = ''
+  const child = spawn('wmic', [
+    'path',
+    'Win32_Product',
+    'WHERE',
+    'Name LIKE "Microsoft Visual C++ 2022%"',
+    'GET',
+    'Name'
+  ])
+  child.stdout.on('data', (data: Buffer) => {
+    // WMIC might push more than one line at a time
+    const splitData = data.toString().split('\n')
+    for (const installation of splitData) {
+      if (installation) {
+        detectedVCRInstallations.push(installation)
+      }
+    }
+  })
+  child.stderr.on('data', (data: Buffer) => {
+    stderr += data.toString()
+  })
+  child.on('close', async (code) => {
+    if (code) {
+      logError(
+        `Failed to check for VCRuntime installations\n${stderr}`,
+        LogPrefix.Backend
+      )
+    }
+    // VCR installers install both the "Minimal" and "Additional" runtime, and we have 2 installers (x86 and x64) -> 4 installations in total
+    if (detectedVCRInstallations.length < 4) {
+      const { response } = await dialog.showMessageBox(mainWindow, {
+        title: t('box.vcruntime.notfound.title', 'VCRuntime not installed'),
+        message: t(
+          'box.vcruntime.notfound.message',
+          'The Microsoft Visual C++ Runtimes are not installed, which are required by some games'
+        ),
+        buttons: [t('box.downloadNow', 'Download now'), t('box.ok', 'Ok')]
+      })
+
+      if (response === 0) {
+        openUrlOrFile('https://aka.ms/vs/17/release/vc_redist.x86.exe')
+        openUrlOrFile('https://aka.ms/vs/17/release/vc_redist.x64.exe')
+        dialog.showMessageBox(mainWindow, {
+          message: t(
+            'box.vcruntime.install.message',
+            'The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions.'
+          )
+        })
+      }
+    } else {
+      logInfo('VCRuntime is installed', LogPrefix.Backend)
+    }
+  })
+}
+
 export {
   errorHandler,
   execAsync,
@@ -600,5 +667,6 @@ export {
   constructAndUpdateRPC,
   quoteIfNecessary,
   removeQuoteIfNecessary,
-  killPattern
+  killPattern,
+  detectVCRedist
 }

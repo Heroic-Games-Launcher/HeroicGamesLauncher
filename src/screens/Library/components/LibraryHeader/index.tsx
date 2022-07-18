@@ -1,6 +1,7 @@
 import React, { useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import ActionIcons from 'src/components/UI/ActionIcons'
+import { epicCategories } from 'src/helpers/library'
 import ContextProvider from 'src/state/ContextProvider'
 import { GameInfo } from 'src/types'
 import { getLibraryTitle } from '../../constants'
@@ -49,6 +50,18 @@ export default function LibraryHeader({
     storage.setItem('sortInstalled', JSON.stringify(!sortInstalled))
   }
 
+  function getLibrary() {
+    if (category === 'all') {
+      return category
+    }
+
+    if (epicCategories.includes(category)) {
+      return 'legendary'
+    }
+
+    return 'gog'
+  }
+
   return (
     <h3 className="libraryHeader">
       <div className="libraryHeaderWrapper">
@@ -62,7 +75,7 @@ export default function LibraryHeader({
           sortDescending={sortDescending}
           toggleSortDescending={() => handleSortDescending()}
           sortInstalled={sortInstalled}
-          library={category === 'legendary' ? 'legendary' : 'gog'}
+          library={getLibrary()}
           toggleSortinstalled={() => handleSortInstalled()}
         />
       </div>

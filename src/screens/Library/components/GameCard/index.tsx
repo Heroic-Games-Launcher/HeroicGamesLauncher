@@ -125,7 +125,7 @@ const GameCard = ({
 
   function getStatus() {
     if (isUpdating) {
-      return t('status.updating') + ` ${percent}`
+      return t('status.updating') + ` ${percent}%`
     }
     if (isInstalling) {
       return t('status.installing') + ` ${percent || 0}%`
@@ -373,7 +373,7 @@ const GameCard = ({
           {
             <>
               <span className="icons">
-                {hasUpdate && (
+                {hasUpdate && !isUpdating && (
                   <SvgButton
                     className="updateIcon"
                     title={`${t('button.update')} (${title})`}

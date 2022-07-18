@@ -32,7 +32,7 @@
             "message": "Ta gra ma dostępną aktualizację, czy chcesz zainstalować ją teraz?",
             "title": "Gra wymaga aktualizacji"
         },
-        "wineprefix": "Wybierz folder z prefiksami Wine",
+        "wineprefix": "Wybierz folder z prefiksem Wine",
         "yes": "TAK"
     },
     "button": {
@@ -46,7 +46,7 @@
         "remove_from_favourites": "Usuń z ulubionych",
         "unhide_game": "Odkryj Grę",
         "uninstall": "Odinstaluj",
-        "update": "Aktualizacja"
+        "update": "Aktualizuj"
     },
     "disabled": "Wyłączone",
     "dlc": {
@@ -124,14 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",
-        "addToSteam": "Add to Steam",
+        "addToSteam": "Dodaj do Steam'a",
         "change": "Zmień ścieżkę instalacji",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "Wyłącz nakładkę EOS",
+        "enableEosOverlay": "Włącz nakładkę EOS",
         "log": "Ostatni log",
         "move": "Przenieś grę",
         "protondb": "Sprawdź kompatybilność",
-        "removeFromSteam": "Remove from Steam",
+        "removeFromSteam": "Usuń ze Steam'a",
         "settings": "Ustawienia",
         "store": "Strona sklepu",
         "verify": "Sprawdź i napraw"

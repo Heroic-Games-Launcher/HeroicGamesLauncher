@@ -48,7 +48,7 @@
                 "title": "Nedostatek místa"
             },
             "dxvk": {
-                "message": "Chyba při instalaci DXVK/VKD3D! Zkontrolujte připojení nebo zda máte nainstalovaný zstd/libzstd1",
+                "message": "Chyba při instalaci DXVK/VKD3D! Zkontrolujte své připojení!",
                 "title": "Chyba DXVK/VKD3D"
             },
             "folder-not-found": {

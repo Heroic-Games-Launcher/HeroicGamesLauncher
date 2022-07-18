@@ -280,8 +280,9 @@ export class GlobalState extends PureComponent<Props> {
     return response.status
   }
 
-  epicLogout = () => {
-    ipcRenderer.invoke('logoutLegendary').finally(() => {
+  epicLogout = async () => {
+    this.setState({ refreshing: true })
+    await ipcRenderer.invoke('logoutLegendary').finally(() => {
       this.setState({
         epic: {
           library: [],
@@ -290,6 +291,7 @@ export class GlobalState extends PureComponent<Props> {
       })
     })
     console.log('Logging out from epic')
+    this.setState({ refreshing: false })
     window.location.reload()
   }
 
@@ -311,8 +313,8 @@ export class GlobalState extends PureComponent<Props> {
     return response.status
   }
 
-  gogLogout = () => {
-    ipcRenderer.invoke('logoutGOG').finally(() => {
+  gogLogout = async () => {
+    await ipcRenderer.invoke('logoutGOG').finally(() => {
       this.setState({
         gog: {
           library: [],
@@ -324,7 +326,10 @@ export class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
-  refresh = async (library?: Runner, checkUpdates?: boolean): Promise<void> => {
+  refresh = async (
+    library?: Runner | 'all',
+    checkUpdates?: boolean
+  ): Promise<void> => {
     console.log('refreshing')
 
     let updates = this.state.gameUpdates
@@ -487,11 +492,6 @@ export class GlobalState extends PureComponent<Props> {
           runInBackground: true,
           library: runner
         })
-
-        storage.setItem(
-          'updates',
-          JSON.stringify(gameUpdates.filter((g) => g !== currentApp.appName))
-        )
 
         return this.setState({
           gameUpdates: updatedGamesUpdates,

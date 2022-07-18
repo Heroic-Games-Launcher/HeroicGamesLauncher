@@ -65,7 +65,8 @@ import {
   getLegendaryBin,
   getGOGdlBin,
   showErrorBoxModal,
-  getFileSize
+  getFileSize,
+  detectVCRedist
 } from './utils'
 import {
   configStore,
@@ -187,11 +188,16 @@ async function createWindow(): Promise<BrowserWindow> {
     const { exitToTray } = GlobalConfig.get().config
 
     if (exitToTray) {
+      logInfo('Exitting to tray instead of quitting', LogPrefix.Backend)
       return mainWindow.hide()
     }
 
     handleExit(mainWindow)
   })
+
+  if (isWindows) {
+    detectVCRedist(mainWindow)
+  }
 
   if (!app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -623,6 +629,7 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 ipcMain.handle('getHeroicVersion', () => app.getVersion())
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 ipcMain.handle('getGogdlVersion', async () => getGogdlVersion())
+ipcMain.handle('isSteamDeckMode', () => isSteamDeckGameMode)
 
 ipcMain.handle('getPlatform', () => process.platform)
 
