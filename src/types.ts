@@ -110,13 +110,13 @@ export interface ContextType {
     library: GameInfo[]
     username: string | null
     login: (sid: string) => Promise<string>
-    logout: () => void
+    logout: () => Promise<void>
   }
   gog: {
     library: GameInfo[]
     username: string | null
     login: (token: string) => Promise<string>
-    logout: () => void
+    logout: () => Promise<void>
   }
   allTilesInColor: boolean
   setAllTilesInColor: (value: boolean) => void
@@ -284,7 +284,7 @@ export interface Path {
 export type RefreshOptions = {
   checkForUpdates?: boolean
   fullRefresh?: boolean
-  library?: Runner
+  library?: Runner | 'all'
   runInBackground?: boolean
 }
 

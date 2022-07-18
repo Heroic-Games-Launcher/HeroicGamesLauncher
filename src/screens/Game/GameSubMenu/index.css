@@ -39,6 +39,10 @@
   word-break: break-word;
 }
 
+.otherInfo > .clickable {
+  margin-top: 12px;
+}
+
 .submenu .MuiCircularProgress-root.is-link {
   width: auto !important;
   height: auto !important;

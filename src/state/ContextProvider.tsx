@@ -8,13 +8,13 @@ const initialContext: ContextType = {
     library: [],
     username: null,
     login: async () => Promise.resolve(''),
-    logout: () => null
+    logout: async () => Promise.resolve()
   },
   gog: {
     library: [],
     username: null,
     login: async () => Promise.resolve(''),
-    logout: () => null
+    logout: async () => Promise.resolve()
   },
   wineVersions: [],
   error: false,

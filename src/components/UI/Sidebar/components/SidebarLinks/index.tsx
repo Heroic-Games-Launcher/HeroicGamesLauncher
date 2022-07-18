@@ -23,6 +23,7 @@ import { ipcRenderer } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
 import { Runner } from 'src/types'
 import './index.css'
+import QuitButton from '../QuitButton'
 
 interface LocationState {
   fromGameCard: boolean
@@ -49,6 +50,7 @@ export default function SidebarLinks() {
     location.pathname.startsWith('/settings/default')
   )
   const [settingsPath, setSettingsPath] = useState('/settings/default/general')
+  const [isSteamDeckGameMode, setIsSteamDeckGameMode] = useState(false)
 
   const {
     hasCloudSave = false,
@@ -80,6 +82,12 @@ export default function SidebarLinks() {
       setIsDefaultSetting(true)
     }
   }, [location])
+
+  useEffect(() => {
+    ipcRenderer
+      .invoke('isSteamDeckMode')
+      .then((res) => setIsSteamDeckGameMode(res))
+  }, [])
 
   return (
     <div className="SidebarLinks Sidebar__section">
@@ -360,6 +368,7 @@ export default function SidebarLinks() {
         </div>
         <span>Ko-fi</span>
       </button>
+      {isSteamDeckGameMode && <QuitButton />}
     </div>
   )
 }

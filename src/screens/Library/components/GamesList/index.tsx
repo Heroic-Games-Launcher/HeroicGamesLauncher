@@ -8,13 +8,15 @@ import { useTranslation } from 'react-i18next'
 interface Props {
   library: GameInfo[]
   layout?: string
+  isFirstLane?: boolean
   handleGameCardClick: (app_name: string, runner: Runner) => void
 }
 
 export const GamesList = ({
   library = [],
   layout = 'grid',
-  handleGameCardClick
+  handleGameCardClick,
+  isFirstLane = false
 }: Props): JSX.Element => {
   const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -24,7 +26,8 @@ export const GamesList = ({
       style={!library.length ? { backgroundColor: 'transparent' } : {}}
       className={cx({
         gameList: layout === 'grid',
-        gameListLayout: layout === 'list'
+        gameListLayout: layout === 'list',
+        firstLane: isFirstLane
       })}
     >
       {layout === 'list' && (

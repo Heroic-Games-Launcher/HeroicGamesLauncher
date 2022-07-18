@@ -252,9 +252,13 @@ export class GOGLibrary {
   }
 
   public getInstallAndGameInfo(slug: string): GameInfo {
-    const game = (libraryStore.get('games') as GameInfo[]).find(
-      (value) => value.app_name === slug
-    )
+    const lib = libraryStore.get('games')
+
+    if (!Array.isArray(lib)) {
+      return
+    }
+
+    const game: GameInfo = lib.find((value) => value.app_name === slug)
 
     if (!game) return null
     const installedInfo = this.installedGames.get(game.app_name)

@@ -286,6 +286,12 @@ export const AdvancedSettings = ({
     setEosOverlayCheckingForUpdates(false)
   }
 
+  function clearHeroicCache() {
+    const storage: Storage = window.localStorage
+    storage.removeItem('updates')
+    return ipcRenderer.send('clearCache')
+  }
+
   return (
     <div>
       <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
@@ -522,7 +528,7 @@ export const AdvancedSettings = ({
         </button>
         <button
           className="button is-footer is-danger"
-          onClick={() => ipcRenderer.send('clearCache')}
+          onClick={() => clearHeroicCache()}
         >
           <div className="button-icontext-flex">
             <div className="button-icon-flex">

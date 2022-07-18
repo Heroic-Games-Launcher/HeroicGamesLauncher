@@ -6,6 +6,10 @@
   padding: 1rem 1rem 7rem;
 }
 
+.gameList.firstLane {
+  padding: 1rem 1rem 2rem;
+}
+
 .gameListLayout {
   display: flex;
   flex-direction: column;
