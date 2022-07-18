@@ -9,12 +9,12 @@
     },
     "All": "Все",
     "anticheat": {
-        "anticheats": "Anticheats",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
+        "anticheats": "Античиты",
+        "may_not_work": "Может не работать из-за отсутствующей или сломанной поддержки античита.",
         "reference": "Reference",
         "source": "Source",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "Эта игра включает в себя античит"
     },
     "Assets": "Ресурсы",
     "box": {
@@ -28,12 +28,12 @@
         "choose-legendary-binary": "Выбрать исполняемый файл Legendary",
         "customWine": "Выбрать исполняемый файл Wine или Proton",
         "default-install-path": "Выбрать стандартный путь установки",
-        "default-steam-path": "Steam path.",
+        "default-steam-path": "Путь к Steam.",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "body": "Добавление {{game}} в Steam не удалось:{{newLine}}{{error}}",
+                    "title": "Ошибка добавления"
                 }
             },
             "credentials": {
@@ -48,7 +48,7 @@
                 "title": "Нет места"
             },
             "dxvk": {
-                "message": "Ошибка при установке DXVK/VKD3D! Проверьте подключение или наличие установленного zstd/libzstd1",
+                "message": "Ошибка при установке DXVK/VKD3D! Проверьте своё соединение!",
                 "title": "Ошибка DXVK/VKD3D"
             },
             "folder-not-found": {
@@ -64,8 +64,8 @@
             },
             "remove": {
                 "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
+                    "body": "Удаление {{game}} из Steam не удалось:{{newLine}}{{error}}",
+                    "title": "Ошибка удаления"
                 }
             },
             "title": "Ошибка",
@@ -151,7 +151,7 @@
         "store": "Магазин",
         "title": "Название игры"
     },
-    "GameSettings": "Game Settings",
+    "GameSettings": "Настройки игры",
     "generic": {
         "error": {
             "component": "Игры не найдены. Попробуйте выйти из системы и войти снова или один из вариантов ниже"
@@ -172,18 +172,18 @@
         "store": "Магазин"
     },
     "help": {
-        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
-        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
-        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
-        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "amdfsr": "AMD FSR помогает увеличить частоту кадров за счет увеличения масштаба разрешения в полноэкранном режиме. Качество изображения увеличивается с 5 до 1 за счет небольшого снижения производительности. Включение может повысить производительность.",
+        "dxvk": "DXVK - это транслятор вызовов в Vulkan для игр DirectX 9, 10 и 11. Включение может улучшить совместимость. Может вызвать проблемы, особенно для старых игр DirectX.",
+        "esync": "Esync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность.",
+        "fsync": "Esync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность на совместимых ядрах Linux.",
         "game_language": {
             "fallback": "Оставьте пустым, чтобы использовать язык Heroic.",
             "in_game_config": "Не все игры поддерживают эту конфигурацию, некоторые имеют внутриигровую настройку языка.",
             "valid_codes": "Допустимые коды языков зависят от игры."
         },
-        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
+        "gamemode": "Feral GameMode применяет автоматические и временные настройки системы при запуске игр. Включение может повысить производительность.",
         "general": "Синхронизируйте с EGL, если у вас есть работающий Epic Games Launcher в другом месте и вы хотите импортировать свои игры, чтобы избежать их повторного скачивания.",
-        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "mangohud": "MangoHUD - это оверлей, который отображает и отслеживает FPS, температуру, нагрузку CPU/GPU и другие системные ресурсы.",
         "other": {
             "part4": "Используйте ",
             "part5": "аргументы игры",
