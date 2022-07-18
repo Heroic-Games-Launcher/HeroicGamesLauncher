@@ -84,9 +84,7 @@ export default function SidebarLinks() {
   }, [location])
 
   useEffect(() => {
-    ipcRenderer
-      .invoke('isFullscreen')
-      .then((res) => setIsFullscreen(res))
+    ipcRenderer.invoke('isFullscreen').then((res) => setIsFullscreen(res))
   }, [])
 
   return (
