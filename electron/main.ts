@@ -90,7 +90,8 @@ import {
   fontsStore,
   heroicConfigPath,
   isMac,
-  isSteamDeckGameMode
+  isSteamDeckGameMode,
+  isCLIFullscreen
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -154,9 +155,14 @@ async function createWindow(): Promise<BrowserWindow> {
     }
   })
 
-  if (isSteamDeckGameMode) {
+  if (isSteamDeckGameMode || isCLIFullscreen) {
     logInfo(
-      'Heroic started via Steam-Deck gamemode. Switching to fullscreen',
+      [
+        isSteamDeckGameMode
+          ? 'Heroic started via Steam-Deck gamemode.'
+          : 'Heroic started with --fullscreen',
+        'Switching to fullscreen'
+      ],
       LogPrefix.Backend
     )
     mainWindow.setFullScreen(true)
@@ -180,7 +186,7 @@ async function createWindow(): Promise<BrowserWindow> {
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
-    if (!isSteamDeckGameMode) {
+    if (!isCLIFullscreen && !isSteamDeckGameMode) {
       // store windows properties
       configStore.set('window-props', mainWindow.getBounds())
     }
@@ -629,7 +635,7 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 ipcMain.handle('getHeroicVersion', () => app.getVersion())
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 ipcMain.handle('getGogdlVersion', async () => getGogdlVersion())
-ipcMain.handle('isSteamDeckMode', () => isSteamDeckGameMode)
+ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 
 ipcMain.handle('getPlatform', () => process.platform)
 
