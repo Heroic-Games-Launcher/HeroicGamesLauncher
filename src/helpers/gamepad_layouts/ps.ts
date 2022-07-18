@@ -68,7 +68,6 @@ export function checkPS5(
     down = buttons[13],
     left = buttons[14],
     right = buttons[15],
-    // PSButton = buttons[10],
     leftAxisX = axes[0],
     leftAxisY = axes[1],
     rightAxisX = axes[2],
