@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "2.3.9",
+  "version": "2.3.10",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -214,8 +214,8 @@
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
-    "electron": "^18.2.3",
-    "electron-builder": "^23.0.3",
+    "electron": "^19.0.8",
+    "electron-builder": "^23.1.0",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
