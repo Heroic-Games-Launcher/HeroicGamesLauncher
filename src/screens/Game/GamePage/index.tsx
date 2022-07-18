@@ -147,7 +147,7 @@ export default function GamePage(): JSX.Element | null {
     setShowModal({ game: appName, show: true })
   }
 
-  const hasUpdate = gameUpdates?.includes(appName)
+  let hasUpdate = false
 
   if (gameInfo && gameInfo.install) {
     const {
@@ -168,6 +168,9 @@ export default function GamePage(): JSX.Element | null {
       cloud_save_enabled,
       canRunOffline
     }: GameInfo = gameInfo
+
+    hasUpdate = is_installed && gameUpdates?.includes(appName)
+
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
       size(Number(gameInstallInfo?.manifest?.download_size))
