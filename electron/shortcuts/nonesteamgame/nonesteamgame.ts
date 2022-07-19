@@ -277,7 +277,9 @@ async function addNonSteamGame(props: {
     if (!isWindows) {
       args.push('--no-sandbox')
     }
-    args.push(`"heroic://launch/${props.gameInfo.app_name}"`)
+    args.push(
+      `"heroic://launch?appName=${props.gameInfo.app_name}&runner=${props.gameInfo.runner}"`
+    )
     newEntry.LaunchOptions = args.join(' ')
     if (isFlatpak) {
       newEntry.LaunchOptions = `run com.heroicgameslauncher.hgl ${newEntry.LaunchOptions}`
