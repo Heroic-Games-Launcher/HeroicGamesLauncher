@@ -460,6 +460,20 @@ export class GlobalState extends PureComponent<Props> {
       (game) => game.appName === appName
     )[0]
 
+    // Update recently played games if the game was just launched
+    // HACK: Ideally we'd use `configStore.onDidChange('games.recent')` here, but it's for some reason not working
+    if (status === 'playing') {
+      const { epic, gog } = this.state
+      const recentGames: GameInfo[] = getRecentGames([
+        ...epic.library,
+        ...gog.library
+      ])
+
+      this.setState({
+        recentGames
+      })
+    }
+
     // add app to libraryStatus if it was not present
     if (!currentApp) {
       return this.setState({

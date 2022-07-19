@@ -854,11 +854,6 @@ ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }: LaunchParams) => {
     const window = BrowserWindow.getAllWindows()[0]
-    window.webContents.send('setGameStatus', {
-      appName,
-      runner,
-      status: 'playing'
-    })
     const recentGames =
       (configStore.get('games.recent') as Array<RecentGame>) || []
     const game = Game.get(appName, runner)
@@ -893,6 +888,12 @@ ipcMain.handle(
     } else {
       configStore.set('games.recent', [{ appName: game.appName, title }])
     }
+
+    window.webContents.send('setGameStatus', {
+      appName,
+      runner,
+      status: 'playing'
+    })
 
     if (minimizeOnLaunch) {
       mainWindow.hide()
