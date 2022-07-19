@@ -1,7 +1,71 @@
-import { BrowserWindow, dialog } from 'electron'
+import { Runner } from './types'
+import { BrowserWindow } from 'electron'
 import { Game } from './games'
 import { logError, logInfo, LogPrefix } from './logger/logger'
-import i18next from 'i18next'
+import { wrappedLaunch } from './launcher'
+
+function command_ping(args: Record<string, string>) {
+  logInfo(
+    ['Received ping! Args:', JSON.stringify(args)],
+    LogPrefix.ProtocolHandler
+  )
+}
+
+async function command_launch(
+  args: Record<string, string>,
+  window: BrowserWindow
+) {
+  const appName = args.appName ?? ''
+  const runner: Runner = (args.runner as Runner) ?? 'legendary'
+
+  const game = Game.get(appName, runner)
+  if (!game) {
+    logError(['Game', appName, 'was not found in library, cannot launch'])
+    return
+  }
+  const { is_installed, title } = game.getGameInfo()
+  if (!is_installed) {
+    logError(
+      ['Game', title, 'is not installed, cannot launch'],
+      LogPrefix.ProtocolHandler
+    )
+    return
+  }
+
+  wrappedLaunch(appName, runner, '', window)
+}
+
+function parseProtocolString(protocolString: string): {
+  command: string
+  args: Record<string, string>
+} {
+  const [scheme, path] = protocolString.split('://')
+  if (scheme !== 'heroic' || !path) {
+    return { command: '', args: {} }
+  }
+
+  let command = ''
+  const args: Record<string, string> = {}
+  // TEMP: Old-style protocol handling (heroic://launch/AppName)
+  if (path.includes('/')) {
+    const splitPath = path.split('/')
+    command = splitPath.shift()
+    // HACK: The only valid protocol with this style is 'launch', so it's fine to just assume `appName` & no more parameters here
+    args.appName = splitPath.shift()
+  } else {
+    // Newer-style (heroic://launch?appName=SomeAppName&runner=Runner)
+    const splitPath = path.split('?')
+    command = splitPath.shift()
+    const variables = splitPath.shift().split('&')
+    for (const variableNameAndValue of variables) {
+      const splitNameAndValue = variableNameAndValue.split('=')
+      const name = splitNameAndValue.shift()
+      const value = splitNameAndValue.join('=').replaceAll('%20', ' ')
+      args[name] = value
+    }
+  }
+  return { command, args }
+}
 
 export async function handleProtocol(window: BrowserWindow, args: string[]) {
   // Figure out which argv element is our protocol
@@ -12,66 +76,22 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
     }
   })
 
-  const [scheme, path] = url.split('://')
-  if (!url || scheme !== 'heroic' || !path) {
+  const { command, args: cmd_args } = parseProtocolString(url)
+  if (!command) {
     return
   }
-  let [command, arg] = path.split('/')
-  if (!command || !arg) {
-    command = path
-    arg = null
-  }
 
-  logInfo(`received '${url}'`, LogPrefix.ProtocolHandler)
+  logInfo(`Received '${url}'`, LogPrefix.ProtocolHandler)
 
-  if (command === 'ping') {
-    return logInfo(['Received ping! Arg:', arg], LogPrefix.ProtocolHandler)
-  }
-
-  if (command === 'launch') {
-    const game = Game.get(arg, 'legendary') || Game.get(arg, 'gog')
-
-    if (!game) {
-      return logError(
-        `Could not receive game data for ${arg}!`,
+  switch (command) {
+    case 'ping':
+      return command_ping(cmd_args)
+    case 'launch':
+      return command_launch(cmd_args, window)
+    default:
+      logError(
+        ['Unknown protocol command:', command],
         LogPrefix.ProtocolHandler
       )
-    }
-
-    const { is_installed, title, app_name, runner } = game.getGameInfo()
-    if (!is_installed) {
-      logInfo(`"${arg}" not installed.`, LogPrefix.ProtocolHandler)
-      const { response } = await dialog.showMessageBox(window, {
-        buttons: [i18next.t('box.yes'), i18next.t('box.no')],
-        cancelId: 1,
-        message: `${title} ${i18next.t(
-          'box.protocol.install.not_installed',
-          'Is Not Installed, do you wish to Install it?'
-        )}`,
-        title: title
-      })
-      if (response === 0) {
-        const { filePaths, canceled } = await dialog.showOpenDialog({
-          buttonLabel: i18next.t('box.choose'),
-          properties: ['openDirectory'],
-          title: i18next.t('install.path', 'Select Install Path')
-        })
-        if (canceled) {
-          return
-        }
-        if (filePaths[0]) {
-          return window.webContents.send('installGame', {
-            appName: app_name,
-            runner,
-            installPath: filePaths[0]
-          })
-        }
-      }
-      if (response === 1) {
-        return logInfo('Not installing game', LogPrefix.ProtocolHandler)
-      }
-    }
-    window.hide()
-    window.webContents.send('launchGame', arg, runner)
   }
 }
