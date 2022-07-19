@@ -93,7 +93,7 @@ export default function WineExtensions({
               htmlId="autodxvk"
               value={autoInstallDxvk}
               handleChange={() => {
-                const action = autoInstallDxvk ? 'restore' : 'backup'
+                const action = autoInstallDxvk ? 'remove' : 'install'
                 ipcRenderer.send('toggleDXVK', [
                   { winePrefix, winePath: wineVersion.bin },
                   action
@@ -120,7 +120,7 @@ export default function WineExtensions({
               htmlId="autovkd3d"
               value={autoInstallVkd3d}
               handleChange={() => {
-                const action = autoInstallVkd3d ? 'restore' : 'backup'
+                const action = autoInstallDxvk ? 'remove' : 'install'
                 ipcRenderer.send('toggleVKD3D', [
                   { winePrefix, winePath: wineVersion.bin },
                   action

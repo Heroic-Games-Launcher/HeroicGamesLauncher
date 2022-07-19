@@ -106,51 +106,51 @@ export const DXVK = {
 
   installRemove: async (
     prefix: string,
-    winePath: string,
+    wineBin: string,
     tool: 'dxvk' | 'vkd3d',
-    action: 'backup' | 'restore'
+    action: 'install' | 'remove'
   ) => {
     const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
 
     if (!isValidPrefix) {
       logWarning(
-        'DXVK cannot be installed on a Proton or a invalid prefix!',
+        `${tool} cannot be installed on an invalid prefix!`,
         LogPrefix.DXVKInstaller
       )
       return
     }
 
     // remove the last part of the path since we need the folder only
-    const wineBin = dirname(winePath.replace("'", ''))
+    const wineDir = dirname(wineBin.replace("'", ''))
 
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
       logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
       await DXVK.getLatest()
     }
 
-    const globalVersion = readFileSync(
+    const latestVersion = readFileSync(
       `${heroicToolsPath}/${tool}/latest_${tool}`
     )
       .toString()
       .split('\n')[0]
-    const toolPath = `${heroicToolsPath}/${tool}/${globalVersion}`
-    const currentVersionCheck = `${winePrefix}/current_${tool}`
+    const toolPath = `${heroicToolsPath}/${tool}/${latestVersion}`
+    const currentVersionPath = `${winePrefix}/current_${tool}`
     let currentVersion = ''
 
-    if (existsSync(currentVersionCheck)) {
-      currentVersion = readFileSync(currentVersionCheck)
+    if (existsSync(currentVersionPath)) {
+      currentVersion = readFileSync(currentVersionPath)
         .toString()
         .split('\n')[0]
     }
 
-    const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh install --symlink`
-    const updatedVersionfile = `echo '${globalVersion}' > ${currentVersionCheck}`
+    const installCommand = `PATH=${wineDir}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh install --symlink`
+    const updatedVersionfile = `echo '${latestVersion}' > ${currentVersionPath}`
 
-    if (action === 'restore') {
+    if (action === 'remove') {
       logInfo(`Removing ${tool} version information`, LogPrefix.DXVKInstaller)
-      const updatedVersionfile = `rm -rf ${currentVersionCheck}`
-      const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh uninstall --symlink`
+      const updatedVersionfile = `rm -rf ${currentVersionPath}`
+      const removeCommand = `PATH=${wineDir}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh uninstall --symlink`
       return execAsync(removeCommand, execOptions)
         .then(() => {
           logInfo(`${tool} removed from ${winePrefix}`, LogPrefix.DXVKInstaller)
@@ -158,26 +158,26 @@ export const DXVK = {
         })
         .catch((error) => {
           logError(
-            ['error when removing DXVK, please try again', `${error}`],
+            ['Error when removing ', tool, ', please try again', `${error}`],
             LogPrefix.DXVKInstaller
           )
         })
     }
 
-    if (currentVersion === globalVersion) {
+    if (currentVersion === latestVersion) {
       return
     }
 
-    logInfo([`installing ${tool} on...`, prefix], LogPrefix.DXVKInstaller)
+    logInfo(['Installing', tool, 'on', prefix], LogPrefix.DXVKInstaller)
     await execAsync(installCommand, { shell: '/bin/bash' })
       .then(() => {
-        logInfo(`${tool} installed on ${winePrefix}`, LogPrefix.DXVKInstaller)
+        logInfo([tool, 'installed on', winePrefix], LogPrefix.DXVKInstaller)
         return exec(updatedVersionfile)
       })
       .catch((error) => {
         logError(
           [
-            'error when installing DXVK, please try launching the game again',
+            `Error when installing ${tool}, please try launching the game again`,
             `${error}`
           ],
           LogPrefix.DXVKInstaller
