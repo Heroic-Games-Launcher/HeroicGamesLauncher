@@ -148,6 +148,15 @@ async function prepareLaunch(
       '\n'
   )
 
+  // Check if the game folder exists
+  if (!existsSync(gameInfo.install.install_path)) {
+    return {
+      success: false,
+      failureReason: 'Game folder no longer exists',
+      startPlayingDate
+    }
+  }
+
   // Check if the game needs an internet connection
   // If the game can run offline just fine, we don't have to check anything
   if (!gameInfo.canRunOffline) {
@@ -155,19 +164,10 @@ async function prepareLaunch(
     const epicNonReachable = !isOnline() || (await isEpicServiceOffline())
     // If the game is configured to use offline mode or Epic isn't reachable, but the game can't run offline, we can't launch
     if (gameSettings.offlineMode || epicNonReachable) {
-      showErrorBoxModalAuto(
-        i18next.t(
-          'box.error.no-offline-mode.title',
-          'Offline mode not supported.'
-        ),
-        i18next.t(
-          'box.error.no-offline-mode.message',
-          'Launch aborted! The game requires a internet connection to run it.'
-        )
-      )
       return {
         success: false,
-        failureReason: 'Offline mode not supported'
+        failureReason: 'Offline mode not supported',
+        startPlayingDate
       }
     }
   }
@@ -180,7 +180,7 @@ async function prepareLaunch(
 
   // If we're not on Linux, we can return here
   if (!isLinux) {
-    return { success: true, rpcClient: rpcClient }
+    return { success: true, rpcClient: rpcClient, startPlayingDate }
   }
 
   // Figure out where MangoHud/GameMode are located, if they're enabled
@@ -192,7 +192,8 @@ async function prepareLaunch(
       return {
         success: false,
         failureReason:
-          'Mangohud is enabled, but `mangohud` executable could not be found on $PATH'
+          'Mangohud is enabled, but `mangohud` executable could not be found on $PATH',
+        startPlayingDate
       }
     } else {
       mangoHudCommand = [mangoHudBin, '--dlsym']
@@ -204,7 +205,8 @@ async function prepareLaunch(
       return {
         success: false,
         failureReason:
-          'GameMode is enabled, but `gamemoderun` executable could not be found on $PATH'
+          'GameMode is enabled, but `gamemoderun` executable could not be found on $PATH',
+        startPlayingDate
       }
     }
   }
@@ -225,7 +227,11 @@ async function prepareLaunch(
       return {
         success: false,
         failureReason:
-          'Steam Runtime is enabled, but no runtimes could be found'
+          'Steam Runtime is enabled, but no runtimes could be found\n' +
+          `Make sure Steam ${
+            game.isNative() ? 'is' : 'and the "SteamLinuxRuntime - Soldier" are'
+          } installed`,
+        startPlayingDate
       }
     }
     steamRuntime = [path, ...args]

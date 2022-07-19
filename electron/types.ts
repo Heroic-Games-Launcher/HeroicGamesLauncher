@@ -361,12 +361,12 @@ export interface SteamRuntime {
 
 export interface LaunchPreperationResult {
   success: boolean
+  startPlayingDate: Date
   failureReason?: string
   rpcClient?: RpcClient
   mangoHudCommand?: string[]
   gameModeBin?: string
   steamRuntime?: string[]
-  startPlayingDate?: Date
 }
 
 export interface RpcClient {

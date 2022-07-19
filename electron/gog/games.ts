@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { GOGLibrary } from './library'
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, dialog } from 'electron'
 import { join } from 'path'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
@@ -53,6 +53,7 @@ import setup from './setup'
 import { runGogdlCommand } from './library'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
+import { t } from 'i18next'
 
 class GOGGame extends Game {
   public appName: string
@@ -272,19 +273,12 @@ class GOGGame extends Game {
     return removeShortcuts(this.appName, 'gog')
   }
 
-  async launch(launchArguments?: string): Promise<boolean> {
-    const gameSettings =
-      GameConfig.get(this.appName).config ||
-      (await GameConfig.get(this.appName).getSettings())
-    const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
-
-    if (!existsSync(gameInfo.install.install_path)) {
-      errorHandler({
-        error: 'appears to be deleted',
-        runner: 'gog',
-        appName: gameInfo.app_name
-      })
-    }
+  async launch(
+    launchArguments: string,
+    mainWindow?: BrowserWindow
+  ): Promise<boolean> {
+    const gameSettings = await this.getSettings()
+    const gameInfo = this.getGameInfo()
 
     const {
       success: launchPrepSuccess,
@@ -292,13 +286,27 @@ class GOGGame extends Game {
       rpcClient,
       mangoHudCommand,
       gameModeBin,
-      steamRuntime
-    } = await prepareLaunch(this, gameInfo)
+      steamRuntime,
+      startPlayingDate
+    } = await prepareLaunch(this, mainWindow)
     if (!launchPrepSuccess) {
-      appendFileSync(
-        this.logFileLocation,
-        `Launch aborted: ${launchPrepFailReason}`
-      )
+      if (launchPrepFailReason === 'Game folder no longer exists') {
+        errorHandler({
+          error: 'appears to be deleted',
+          runner: 'gog',
+          appName: gameInfo.app_name
+        })
+      } else {
+        appendFileSync(
+          this.logFileLocation,
+          `Launch aborted: ${launchPrepFailReason}`
+        )
+        dialog.showErrorBox(
+          t('box.error.launchAborted', 'Launch aborted'),
+          launchPrepFailReason
+        )
+      }
+      await launchCleanup(this, rpcClient, startPlayingDate, mainWindow)
       return false
     }
 
@@ -306,38 +314,11 @@ class GOGGame extends Game {
       ? ['--override-exe', gameSettings.targetExe]
       : []
 
-    const isNative = await this.isNative()
-
-    let commandParts = new Array<string>()
-    let commandEnv = {}
-    let wrappers = new Array<string>()
-
-    if (isNative) {
-      if (!isWindows) {
-        // These options can only be used on Mac/Linux
-        commandEnv = {
-          ...commandEnv,
-          ...setupEnvVars(gameSettings)
-        }
-        wrappers = setupWrappers(
-          gameSettings,
-          mangoHudCommand,
-          gameModeBin,
-          steamRuntime
-        )
-      }
-
-      commandParts = [
-        'launch',
-        gameInfo.install.install_path,
-        ...exeOverrideFlag,
-        gameInfo.app_name,
-        '--platform',
-        `${gameInfo.install.platform}`,
-        ...shlex.split(launchArguments ?? ''),
-        ...shlex.split(gameSettings.launcherArgs ?? '')
-      ]
-    } else {
+    let commandEnv = isWindows
+      ? process.env
+      : { ...process.env, ...setupEnvVars(gameSettings) }
+    const wineFlag: string[] = []
+    if (!this.isNative()) {
       const {
         success: wineLaunchPrepSuccess,
         failureReason: wineLaunchPrepFailReason,
@@ -348,57 +329,50 @@ class GOGGame extends Game {
           this.logFileLocation,
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
+        dialog.showErrorBox(
+          t('box.error.launchAborted', 'Launch aborted'),
+          wineLaunchPrepFailReason
+        )
+        await launchCleanup(this, rpcClient, startPlayingDate, mainWindow)
         return false
       }
 
       commandEnv = {
         ...commandEnv,
-        ...setupEnvVars(gameSettings),
         ...wineEnvVars
       }
-      wrappers = setupWrappers(
-        gameSettings,
-        mangoHudCommand,
-        gameModeBin,
-        steamRuntime
+
+      const { bin: wineExec, type: wineType } = gameSettings.wineVersion
+
+      const wineBin =
+        wineExec.startsWith("'") && wineExec.endsWith("'")
+          ? wineExec.replaceAll("'", '')
+          : wineExec
+
+      wineFlag.push(
+        ...(wineType === 'proton'
+          ? ['--no-wine', '--wrapper', `'${wineBin}' run`]
+          : ['--wine', wineBin])
       )
-
-      const { wineVersion, winePrefix, launcherArgs, useSteamRuntime } =
-        gameSettings
-      let wineFlag = ['--wine', wineVersion.bin]
-
-      // avoid breaking on old configs when path is not absolute
-      let winePrefixFlag = ['--wine-prefix', winePrefix]
-      if (wineVersion.type === 'proton') {
-        let runtime = null as SteamRuntime
-        if (useSteamRuntime) {
-          await getSteamRuntime('soldier').then((path) => (runtime = path))
-        }
-
-        if (runtime?.path) {
-          const runWithRuntime = `${runtime.path} -- '${wineVersion.bin}' waitforexitandrun`
-          wineFlag = ['--no-wine', '--wrapper', runWithRuntime]
-          winePrefixFlag = []
-        } else {
-          logWarning('No Steam runtime found')
-          wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
-          winePrefixFlag = []
-        }
-      }
-
-      commandParts = [
-        'launch',
-        gameInfo.install.install_path,
-        ...exeOverrideFlag,
-        gameInfo.app_name,
-        ...wineFlag,
-        ...winePrefixFlag,
-        '--os',
-        gameInfo.install.platform.toLowerCase(),
-        ...shlex.split(launchArguments ?? ''),
-        ...shlex.split(launcherArgs ?? '')
-      ]
     }
+
+    const commandParts = [
+      'launch',
+      gameInfo.install.install_path,
+      ...exeOverrideFlag,
+      gameInfo.app_name,
+      ...wineFlag,
+      '--platform',
+      gameInfo.install.platform.toLowerCase(),
+      ...shlex.split(launchArguments ?? ''),
+      ...shlex.split(gameSettings.launcherArgs ?? '')
+    ]
+    const wrappers = setupWrappers(
+      gameSettings,
+      mangoHudCommand,
+      gameModeBin,
+      steamRuntime
+    )
 
     const fullCommand = getRunnerCallWithoutCredentials(
       commandParts,
@@ -424,7 +398,7 @@ class GOGGame extends Game {
       logError(['Error launching game:', error], LogPrefix.Gog)
     }
 
-    launchCleanup(rpcClient)
+    await launchCleanup(this, rpcClient, startPlayingDate, mainWindow)
 
     return !error
   }
