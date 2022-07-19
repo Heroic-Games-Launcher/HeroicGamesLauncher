@@ -6,7 +6,8 @@ import {
   GamepadInputEventMouse,
   Runner,
   AppSettings,
-  GameSettings
+  GameSettings,
+  RecentGame
 } from './types'
 import * as path from 'path'
 import {
@@ -26,7 +27,6 @@ import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {
   access,
-  appendFileSync,
   constants,
   existsSync,
   mkdirSync,
@@ -84,7 +84,6 @@ import {
   patreonPage,
   sidInfoUrl,
   supportURL,
-  tsStore,
   weblateUrl,
   wikiLink,
   fontsStore,
@@ -96,7 +95,7 @@ import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
-import { verifyWinePrefix } from './launcher'
+import { verifyWinePrefix, wrappedLaunch } from './launcher'
 import shlex from 'shlex'
 
 const { showMessageBox, showOpenDialog } = dialog
@@ -839,11 +838,6 @@ ipcMain.handle('refreshLibrary', async (e, fullRefresh, library?: Runner) => {
 ipcMain.on('logError', (e, err) => logError(`${err}`, LogPrefix.Frontend))
 ipcMain.on('logInfo', (e, info) => logInfo(`${info}`, LogPrefix.Frontend))
 
-type RecentGame = {
-  appName: string
-  title: string
-}
-
 type LaunchParams = {
   appName: string
   launchArguments: string
@@ -853,105 +847,8 @@ type LaunchParams = {
 ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }: LaunchParams) => {
-    const window = BrowserWindow.getAllWindows()[0]
-    window.webContents.send('setGameStatus', {
-      appName,
-      runner,
-      status: 'playing'
-    })
-    const recentGames =
-      (configStore.get('games.recent') as Array<RecentGame>) || []
-    const game = Game.get(appName, runner)
-    const { title } = game.getGameInfo()
-    const { minimizeOnLaunch, maxRecentGames: MAX_RECENT_GAMES = 5 } =
-      await GlobalConfig.get().getSettings()
-
-    const startPlayingDate = new Date()
-
-    if (!tsStore.has(game.appName)) {
-      tsStore.set(`${game.appName}.firstPlayed`, startPlayingDate)
-    }
-
-    logInfo(`Launching ${title} (${game.appName})`, LogPrefix.Backend)
-
-    if (recentGames.length) {
-      let updatedRecentGames = recentGames.filter(
-        (a) => a.appName && a.appName !== game.appName
-      )
-      if (updatedRecentGames.length > MAX_RECENT_GAMES) {
-        const newArr = []
-        for (let i = 0; i <= MAX_RECENT_GAMES; i++) {
-          newArr.push(updatedRecentGames[i])
-        }
-        updatedRecentGames = newArr
-      }
-      if (updatedRecentGames.length === MAX_RECENT_GAMES) {
-        updatedRecentGames.pop()
-      }
-      updatedRecentGames.unshift({ appName: game.appName, title })
-      configStore.set('games.recent', updatedRecentGames)
-    } else {
-      configStore.set('games.recent', [{ appName: game.appName, title }])
-    }
-
-    if (minimizeOnLaunch) {
-      mainWindow.hide()
-    }
-
-    const systemInfo = await getSystemInfo()
-    const gameSettingsString = JSON.stringify(
-      await game.getSettings(),
-      null,
-      '\t'
-    )
-    writeFileSync(
-      game.logFileLocation,
-      'System Info:\n' +
-        `${systemInfo}\n` +
-        '\n' +
-        `Game Settings: ${gameSettingsString}\n` +
-        '\n' +
-        `Game launched at: ${startPlayingDate}\n` +
-        '\n'
-    )
-    return game
-      .launch(launchArguments)
-      .catch((exception: Error) => {
-        logError(exception.stack, LogPrefix.Backend)
-        appendFileSync(
-          game.logFileLocation,
-          `An exception occurred when launching the game:\n${exception.stack}`
-        )
-      })
-      .finally(() => {
-        // Update playtime and last played date
-        const finishedPlayingDate = new Date()
-        tsStore.set(`${game.appName}.lastPlayed`, finishedPlayingDate)
-        // Playtime of this session in minutes
-        const sessionPlaytime =
-          (finishedPlayingDate.getTime() - startPlayingDate.getTime()) /
-          1000 /
-          60
-        let totalPlaytime = sessionPlaytime
-        if (tsStore.has(`${game.appName}.totalPlayed`)) {
-          totalPlaytime += tsStore.get(`${game.appName}.totalPlayed`) as number
-        }
-        tsStore.set(`${game.appName}.totalPlayed`, Math.floor(totalPlaytime))
-
-        if (minimizeOnLaunch) {
-          mainWindow.show()
-        }
-        window.webContents.send('setGameStatus', {
-          appName,
-          runner,
-          status: 'done'
-        })
-
-        // Exit if we've been launched without UI
-        if (process.argv.includes('--no-gui')) {
-          app.exit()
-        }
-      })
+    const mainWindow = BrowserWindow.getAllWindows()[0]
+    return wrappedLaunch(appName, runner, launchArguments, mainWindow)
   }
 )
 

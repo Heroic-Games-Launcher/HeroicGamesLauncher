@@ -1,3 +1,4 @@
+import { app, BrowserWindow } from 'electron'
 // This handles launching games, prefix creation etc..
 
 import i18next from 'i18next'
@@ -9,7 +10,16 @@ import {
 } from 'graceful-fs'
 import { join } from 'path'
 
-import { flatPakHome, isLinux, isMac, runtimePath, userHome } from './constants'
+import {
+  configStore,
+  flatPakHome,
+  isLinux,
+  isMac,
+  isWindows,
+  runtimePath,
+  tsStore,
+  userHome
+} from './constants'
 import {
   constructAndUpdateRPC,
   execAsync,
@@ -20,7 +30,8 @@ import {
   searchForExecutableOnPath,
   quoteIfNecessary,
   errorHandler,
-  removeQuoteIfNecessary
+  removeQuoteIfNecessary,
+  getSystemInfo
 } from './utils'
 import {
   logDebug,
@@ -37,27 +48,105 @@ import { GOGGame } from 'gog/games'
 import { LegendaryGame } from 'legendary/games'
 import {
   CallRunnerOptions,
-  GameInfo,
   Runner,
   EnviromentVariable,
   WrapperVariable,
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
-  RpcClient
+  RpcClient,
+  RecentGame
 } from './types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { Game } from './games'
 
+/**
+ * Runs `Game.launch` and catches errors
+ * @returns True on success, False on failure
+ */
+async function wrappedLaunch(
+  appName: string,
+  runner: Runner,
+  launchArguments: string,
+  mainWindow: BrowserWindow
+) {
+  const game = Game.get(appName, runner)
+  return game.launch(launchArguments, mainWindow).catch((exception: Error) => {
+    logError(exception.stack, LogPrefix.Backend)
+    appendFileSync(
+      game.logFileLocation,
+      `An exception occurred when launching the game:\n${exception.stack}`
+    )
+    mainWindow.webContents.send('setGameStatus', {
+      appName: game.appName,
+      runner,
+      status: 'done'
+    })
+    return false
+  })
+}
+
+/**
+ * Takes care of a lot of pre-launch tasks
+ * @param game The game that is about to be launched
+ * @param mainWindow Our main window. Gets obtained from BrowserWindow if not specified
+ * @returns
+ */
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
-  gameInfo: GameInfo
+  mainWindow?: BrowserWindow
 ): Promise<LaunchPreperationResult> {
-  const gameSettings =
-    GameConfig.get(game.appName).config ||
-    (await GameConfig.get(game.appName).getSettings())
+  const gameSettings = await game.getSettings()
+  const gameInfo = game.getGameInfo()
   const globalSettings = await GlobalConfig.get().getSettings()
+  mainWindow = mainWindow ?? BrowserWindow.getAllWindows()[0]
+
+  logInfo(`Launching ${gameInfo.title} (${game.appName})`, LogPrefix.Backend)
+
+  mainWindow.webContents.send('setGameStatus', {
+    appName: game.appName,
+    runner: gameInfo.runner,
+    status: 'playing'
+  })
+
+  // Update recently played games
+  const recentGames =
+    (configStore.get('games.recent') as Array<RecentGame>) || []
+  const newRecentGames = recentGames.filter(
+    (a) => a.appName && a.appName !== game.appName
+  )
+  newRecentGames.unshift({ appName: game.appName, title: gameInfo.title })
+  const maxRecentGames = globalSettings.maxRecentGames || 5
+  newRecentGames.length = Math.min(maxRecentGames, newRecentGames.length)
+  configStore.set('games.recent', newRecentGames)
+
+  if (globalSettings.minimizeOnLaunch) {
+    mainWindow.hide()
+  }
+
+  const startPlayingDate = new Date()
+  if (!tsStore.has(game.appName)) {
+    tsStore.set(`${game.appName}.firstPlayed`, startPlayingDate)
+  }
+
+  // Write initial log file
+  const systemInfo = await getSystemInfo()
+  const gameSettingsString = JSON.stringify(
+    await game.getSettings(),
+    null,
+    '\t'
+  )
+  writeFileSync(
+    game.logFileLocation,
+    'System Info:\n' +
+      `${systemInfo}\n` +
+      '\n' +
+      `Game Settings: ${gameSettingsString}\n` +
+      '\n' +
+      `Game launched at: ${startPlayingDate}\n` +
+      '\n'
+  )
 
   // Check if the game needs an internet connection
   // If the game can run offline just fine, we don't have to check anything
@@ -95,44 +184,51 @@ async function prepareLaunch(
   }
 
   // Figure out where MangoHud/GameMode are located, if they're enabled
-  let mangoHudCommand = ''
+  let mangoHudCommand: string[] = []
   let gameModeBin = ''
   if (gameSettings.showMangohud) {
     const mangoHudBin = await searchForExecutableOnPath('mangohud')
     if (!mangoHudBin) {
-      logWarning('MangoHud enabled but not installed', LogPrefix.Backend)
-      // Should we display an error box and return { success: false } here?
+      return {
+        success: false,
+        failureReason:
+          'Mangohud is enabled, but `mangohud` executable could not be found on $PATH'
+      }
     } else {
-      mangoHudCommand = `${mangoHudBin} --dlsym`
+      mangoHudCommand = [mangoHudBin, '--dlsym']
     }
   }
   if (gameSettings.useGameMode) {
     gameModeBin = await searchForExecutableOnPath('gamemoderun')
     if (!gameModeBin) {
-      logWarning('GameMode enabled but not installed', LogPrefix.Backend)
+      return {
+        success: false,
+        failureReason:
+          'GameMode is enabled, but `gamemoderun` executable could not be found on $PATH'
+      }
     }
   }
 
   // If the Steam Runtime is enabled, find a valid one
-  let steamRuntime = ''
-  const isLinuxNative =
-    gameInfo?.install?.platform &&
-    gameInfo?.install?.platform.toLowerCase() === 'linux'
-
-  if (gameSettings.useSteamRuntime && isLinuxNative) {
+  let steamRuntime: string[] = []
+  // Don't enable the runtime for non-native games when not using Proton
+  // NOTE: This limitation is a little arbitrary, I don't think anything prevents
+  //       Wine from running in the Steam Runtime
+  const shouldUseRuntime =
+    gameSettings.useSteamRuntime &&
+    (game.isNative() || gameSettings.wineVersion.type === 'proton')
+  if (shouldUseRuntime) {
     // for native games lets use scout for now
-    await getSteamRuntime('scout').then((runtime) => {
-      if (!runtime.path) {
-        logWarning(
-          `Couldn't find a valid Steam runtime path`,
-          LogPrefix.Backend
-        )
-      } else {
-        logInfo(`Using ${runtime.type} Steam runtime`, LogPrefix.Backend)
-        steamRuntime =
-          runtime.version === 'soldier' ? `${runtime.path} -- ` : runtime.path
+    const runtimeType = game.isNative() ? 'scout' : 'soldier'
+    const { path, args } = await getSteamRuntime(runtimeType)
+    if (!path) {
+      return {
+        success: false,
+        failureReason:
+          'Steam Runtime is enabled, but no runtimes could be found'
       }
-    })
+    }
+    steamRuntime = [path, ...args]
   }
 
   return {
@@ -140,7 +236,8 @@ async function prepareLaunch(
     rpcClient,
     mangoHudCommand,
     gameModeBin,
-    steamRuntime
+    steamRuntime,
+    startPlayingDate
   }
 }
 
@@ -163,7 +260,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
         'No Wine Version Selected. Check Game Settings!'
       )
     )
-    return { success: false }
+    return { success: false, failureReason: 'No Wine version selected' }
   }
 
   // Log warning about Proton
@@ -196,11 +293,17 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
           { bottle_name: gameSettings.wineCrossoverBottle }
         )
       )
-      return { success: false }
+      return { success: false, failureReason: "CrossOver bottle doesn't exist" }
     }
   }
 
-  const { updated: winePrefixUpdated } = await verifyWinePrefix(game)
+  let winePrefixUpdated = false
+  try {
+    winePrefixUpdated = (await verifyWinePrefix(game)).updated
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : `${error}`
+    return { success: false, failureReason: reason }
+  }
   if (winePrefixUpdated) {
     logInfo(
       ['Created/Updated Wineprefix at', gameSettings.winePrefix],
@@ -216,7 +319,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
         gameSettings.winePrefix,
         gameSettings.wineVersion.bin,
         'dxvk',
-        'backup'
+        'install'
       )
     }
     if (gameSettings.autoInstallVkd3d) {
@@ -224,7 +327,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
         gameSettings.winePrefix,
         gameSettings.wineVersion.bin,
         'vkd3d',
-        'backup'
+        'install'
       )
     }
   }
@@ -352,27 +455,27 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
 
 function setupWrappers(
   gameSettings: GameSettings,
-  mangoHudBin: string,
-  gameModeBin: string,
-  steamRuntime: string
+  mangoHudCommand?: string[],
+  gameModeBin?: string,
+  steamRuntime?: string[]
 ): Array<string> {
-  const wrappers = Array<string>()
-  if (gameSettings.wrapperOptions) {
-    gameSettings.wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
-      wrappers.push(wrapperEntry.exe)
-      wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
-    })
-  }
-  if (gameSettings.showMangohud) {
-    // Mangohud needs some arguments in addition to the command, so we have to split here
-    wrappers.push(...mangoHudBin.split(' '))
-  }
-  if (gameSettings.useGameMode) {
+  const wrappers: string[] = []
+
+  const wrapperOptions = gameSettings.wrapperOptions || []
+  wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
+    wrappers.push(wrapperEntry.exe)
+    wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
+  })
+
+  if (!isWindows) {
+    // We don't need to check game settings here since
+    // the strings will be '' / arrays will be empty if the
+    // respective option is disabled
+    wrappers.push(...mangoHudCommand)
     wrappers.push(gameModeBin)
+    wrappers.push(...steamRuntime)
   }
-  if (gameSettings.useSteamRuntime) {
-    wrappers.push(steamRuntime)
-  }
+
   return wrappers.filter((n) => n)
 }
 
@@ -421,10 +524,45 @@ export async function verifyWinePrefix(
     })
 }
 
-function launchCleanup(rpcClient: RpcClient) {
+async function launchCleanup(
+  game: Game,
+  rpcClient: RpcClient,
+  startPlayingDate: Date,
+  mainWindow?: BrowserWindow
+) {
   if (rpcClient) {
     rpcClient.disconnect()
     logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
+  }
+
+  // Update playtime and last played date
+  const finishedPlayingDate = new Date()
+  tsStore.set(`${game.appName}.lastPlayed`, finishedPlayingDate)
+  // Playtime of this session in minutes
+  const sessionPlaytime =
+    (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
+  let totalPlaytime = sessionPlaytime
+  if (tsStore.has(`${game.appName}.totalPlayed`)) {
+    totalPlaytime += tsStore.get(`${game.appName}.totalPlayed`) as number
+  }
+  tsStore.set(`${game.appName}.totalPlayed`, Math.floor(totalPlaytime))
+
+  mainWindow = mainWindow ?? BrowserWindow.getAllWindows()[0]
+  const { minimizeOnLaunch } = await GlobalConfig.get().getSettings()
+  if (minimizeOnLaunch) {
+    mainWindow.show()
+  }
+
+  const { runner } = game.getGameInfo()
+  mainWindow.webContents.send('setGameStatus', {
+    appName: game.appName,
+    runner,
+    status: 'done'
+  })
+
+  // Exit if we've been launched without UI
+  if (process.argv.includes('--no-gui')) {
+    app.exit()
   }
 }
 async function runWineCommand(
@@ -672,5 +810,6 @@ export {
   setupWrappers,
   runWineCommand,
   callRunner,
-  getRunnerCallWithoutCredentials
+  getRunnerCallWithoutCredentials,
+  wrappedLaunch
 }

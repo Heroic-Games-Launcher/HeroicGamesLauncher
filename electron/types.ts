@@ -363,9 +363,10 @@ export interface LaunchPreperationResult {
   success: boolean
   failureReason?: string
   rpcClient?: RpcClient
-  mangoHudCommand?: string
+  mangoHudCommand?: string[]
   gameModeBin?: string
-  steamRuntime?: string
+  steamRuntime?: string[]
+  startPlayingDate?: Date
 }
 
 export interface RpcClient {
@@ -456,3 +457,8 @@ export interface Runtime {
 }
 
 export type RuntimeName = 'eac_runtime' | 'battleye_runtime'
+
+export type RecentGame = {
+  appName: string
+  title: string
+}
