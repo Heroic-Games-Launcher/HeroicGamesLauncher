@@ -584,14 +584,10 @@ export class GlobalState extends PureComponent<Props> {
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
-    let recentGames: GameInfo[] = []
-
-    if (epic.library.length > 0) {
-      recentGames = [...getRecentGames(epic.library)]
-    }
-    if (gog.library.length > 0) {
-      recentGames = [...recentGames, ...getRecentGames(gog.library)]
-    }
+    const recentGames: GameInfo[] = getRecentGames([
+      ...epic.library,
+      ...gog.library
+    ])
 
     this.setState({
       platform,
