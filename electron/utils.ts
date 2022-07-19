@@ -475,49 +475,47 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
 }
 
 async function getSteamRuntime(
-  version: 'scout' | 'soldier'
+  requestedType: 'scout' | 'soldier'
 ): Promise<SteamRuntime> {
-  const soldier: Array<SteamRuntime> = await getSteamLibraries().then((libs) =>
-    libs.map((p) => {
-      if (
-        existsSync(join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'))
-      ) {
-        return {
-          path: join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'),
-          type: 'unpackaged',
-          version: 'soldier'
-        }
-      }
-    })
-  )
-
-  const scout: Array<SteamRuntime> = await getSteamLibraries().then((libs) =>
-    libs.map((p) => {
-      if (existsSync(join(p, 'ubuntu12_32/steam-runtime/run.sh'))) {
-        return {
-          path: join(p, 'ubuntu12_32/steam-runtime/run.sh'),
-          type: 'unpackaged',
-          version: 'scout'
-        }
-      }
-    })
-  )
-
-  if (version === 'soldier') {
-    if (soldier.length) {
-      return soldier[0]
-    } else {
-      if (scout.length) {
-        return scout[0]
-      }
+  const steamLibraries = await getSteamLibraries()
+  const runtimeTypes: SteamRuntime[] = [
+    {
+      path: 'steamapps/common/SteamLinuxRuntime_soldier/run',
+      type: 'soldier',
+      args: ['--']
+    },
+    {
+      path: 'ubuntu12_32/steam-runtime/run.sh',
+      type: 'scout',
+      args: []
     }
+  ]
+  const allAvailableRuntimes: SteamRuntime[] = []
+  steamLibraries.forEach((library) => {
+    runtimeTypes.forEach(({ path, type, args }) => {
+      const fullPath = join(library, path)
+      if (existsSync(fullPath)) {
+        allAvailableRuntimes.push({ path: fullPath, type, args })
+      }
+    })
+  })
+  // Add dummy runtime at the end to not return `undefined`
+  allAvailableRuntimes.push({ path: '', type: 'scout', args: [] })
+  const requestedRuntime = allAvailableRuntimes.find(({ type }) => {
+    return type === requestedType
+  })
+  if (requestedRuntime) {
+    return requestedRuntime
   }
-
-  if (version === 'scout' && scout.length) {
-    return scout[0]
-  }
-
-  return { path: '', type: 'unpackaged', version: 'scout' }
+  logWarning(
+    [
+      'No runtimes of type',
+      requestedType,
+      'could be found, returning first available one'
+    ],
+    LogPrefix.Backend
+  )
+  return allAvailableRuntimes.pop()
 }
 
 function constructAndUpdateRPC(gameName: string): RpcClient {
