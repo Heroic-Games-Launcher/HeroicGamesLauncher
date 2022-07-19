@@ -355,7 +355,7 @@ export default function GamesSubmenu({
                   : t('submenu.addToSteam', 'Add to Steam')}
               </button>
             )}
-            {isLinux &&
+            {isLinux && runner === 'legendary' &&
               (eosOverlayRefresh ? (
                 refreshCircle()
               ) : (
