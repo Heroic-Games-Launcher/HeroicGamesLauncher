@@ -11,9 +11,9 @@
     "anticheat": {
         "anticheats": "Античиты",
         "may_not_work": "Может не работать из-за отсутствующей или сломанной поддержки античита.",
-        "reference": "Reference",
-        "source": "Source",
-        "status": "Status",
+        "reference": "Ссылка",
+        "source": "Источник",
+        "status": "Состояние",
         "title": "Эта игра включает в себя античит"
     },
     "Assets": "Ресурсы",
@@ -175,7 +175,7 @@
         "amdfsr": "AMD FSR помогает увеличить частоту кадров за счет увеличения масштаба разрешения в полноэкранном режиме. Качество изображения увеличивается с 5 до 1 за счет небольшого снижения производительности. Включение может повысить производительность.",
         "dxvk": "DXVK - это транслятор вызовов в Vulkan для игр DirectX 9, 10 и 11. Включение может улучшить совместимость. Может вызвать проблемы, особенно для старых игр DirectX.",
         "esync": "Esync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность.",
-        "fsync": "Esync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность на совместимых ядрах Linux.",
+        "fsync": "Fsync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность на совместимых ядрах Linux.",
         "game_language": {
             "fallback": "Оставьте пустым, чтобы использовать язык Heroic.",
             "in_game_config": "Не все игры поддерживают эту конфигурацию, некоторые имеют внутриигровую настройку языка.",
@@ -190,16 +190,16 @@
             "part6": " для вызова после команды запуска, например: ",
             "part7": " чтобы пропустить лаунчер в некоторых играх, интро и т.д."
         },
-        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
-        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
-        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
+        "preferSystemLibs": "Пользовательские версии Wine (Wine-GE, Wine-Lutris) поставляются со своими библиотечными зависимостями. При включении этой опции эти поставляемые библиотеки будут игнорироваться, и Wine будет загружать системные библиотеки вместо них. Внимание! При несоблюдении зависимостей могут возникнуть проблемы.",
+        "resizablebar": "NVIDIA's Resizable Bar помогает повысить частоту кадров, предоставляя ЦП доступ ко всему графическому буферу. Включение может повысить производительность в играх на базе Vulkan.",
+        "steamruntime": "Пользовательские библиотеки, предоставляемые Steam для запуска игр для Linux и Windows (Proton). Включение может улучшить совместимость.",
         "sync": {
             "part1": "Heroic пытается угадать правильную папку для сохранения, и это сработает в большинстве случаев. В случае, если папка неправильная, используйте поле переопределения, чтобы изменить ее.",
             "part2": "Если вы измените папку префиксов для Wine или Proton, вам нужно будет снова проверить путь, поскольку Proton использует другой префикс (/pfx) и имя пользователя (steamuser). Таким образом, вы можете просто стереть текущий путь, выйти из страницы настроек синхронизации и вернуться, чтобы Heroic еще раз угадал папку с правильным префиксом.",
             "part3": "Ручная синхронизация: выберите «Скачать», чтобы скачать сохраненные игры, хранящиеся в облаке. «Загрузить», чтобы загрузить локальные в облако. Принудительное скачивание и принудительная загрузка игнорируют версию, которая находится локально или в облаке.",
             "part4": "Синхронизация сохранений автоматически синхронизирует сохранения каждый раз при запуске игры и после завершения игры."
         },
-        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
+        "vkd3d": "VKD3D - это транслятор вызовов в Vulkan для игр с DirectX 12. Его включение может значительно улучшить совместимость. Не влияет на игры со старым DirectX.",
         "wine": {
             "part1": "Heroic ищет версии Wine, Proton и CrossOver в следующих папках:",
             "part2": "Для других мест используйте символическую ссылку на одну из этих папок"
@@ -215,7 +215,7 @@
     "infobox": {
         "help": "Помощь",
         "requirements": "Системные требования",
-        "wine-path": "Wine Path"
+        "wine-path": "Путь к Wine"
     },
     "install": {
         "path": "Выберите путь установки"
@@ -248,16 +248,16 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
-                    "title": "Added to Steam"
+                    "corrupt": "{{game}} не удалось добавить всем найденным пользователям Steam. Дополнительную информацию см. в журналах.  Чтобы изменения вступили в силу, требуется перезапуск Steam.",
+                    "success": "{{game}} была успешно добавлена в Steam. Чтобы изменения вступили в силу, требуется перезапуск Steam.",
+                    "title": "Добавлено в Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
-                    "title": "Removed from Steam"
+                    "corrupt": "{{game}} не удалось удалить у всех найденных пользователей Steam. Дополнительную информацию см. в журналах.  Чтобы изменения вступили в силу, требуется перезапуск Steam.",
+                    "success": "{{game}} была успешно удалена из Steam.  Чтобы изменения вступили в силу, требуется перезапуск Steam.",
+                    "title": "Удалено из Steam"
                 }
             },
             "reparing": "Восстановление завершено"
@@ -285,22 +285,22 @@
         "advanced": {
             "key": "Variable Name",
             "placeHolderKey": "NAME",
-            "placeHolderValue": "E.g.: Path/To/ExtraFiles",
+            "placeHolderValue": "Например: Path/To/ExtraFiles",
             "title": "Расширенные настройки (Переменные среды):",
-            "value": "Value"
+            "value": "Значение"
         },
         "gameargs": {
             "placeholder": "Вставьте сюда аргументы запуска",
             "title": "Аргументы игры (Для запуска после команды):"
         },
-        "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
+        "quote-args-with-spaces": "Предупреждение: обязательно заключайте в кавычки аргументы с пробелами! Например: \"путь/с пробелами/\"",
         "wrapper": {
-            "args": "Arguments",
-            "arguments_example": "Arguments example: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "args": "Аргументы",
+            "arguments_example": "Пример аргументов: --arg; --extra-file=\"путь к файлу/с/пробелами\"",
             "exe": "Wrapper",
-            "placeHolderKey": "New Wrapper",
-            "placeHolderValue": "Wrapper Arguments",
-            "title": "Wrapper command:"
+            "placeHolderKey": "Новый Wrapper",
+            "placeHolderValue": "Аргументы Wrapper",
+            "title": "Команда Wrapper:"
         }
     },
     "other": {
@@ -336,7 +336,7 @@
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
-        "default-steam-path": "Default Steam path",
+        "default-steam-path": "Путь к Steam по умолчанию",
         "defaultWinePrefix": "Указать папку для новых префиксов Wine",
         "disable_controller": "Отключить навигацию в Heroic с помощью контроллера",
         "discordRPC": "Включить Discord Rich Presence",
@@ -344,24 +344,24 @@
         "egs-sync": "Синхронизировать с установленнными играми EGS",
         "enableFSRHack": "Включить FSR Hack (версия Wine должна поддерживать)",
         "eosOverlay": {
-            "cancelInstall": "Cancel",
-            "checkForUpdates": "Check for updates",
-            "checkingForUpdates": "Checking for updates...",
-            "currentVersion": "Current Version: {{version}}",
-            "disable": "Disable",
-            "enable": "Enable",
+            "cancelInstall": "Отмена",
+            "checkForUpdates": "Проверьте наличие обновлений",
+            "checkingForUpdates": "Проверка обновлений...",
+            "currentVersion": "Текущая версия: {{version}}",
+            "disable": "Отключить",
+            "enable": "Включить",
             "install": "Install",
-            "installed": "The EOS Overlay is installed",
-            "installing": "The EOS Overlay is being installed...",
-            "latestVersion": "Latest Version: {{version}}",
-            "notInstalled": "The EOS Overlay is not installed",
-            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
-            "notInstalledTitle": "Overlay not installed",
-            "remove": "Uninstall",
-            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
-            "removeConfirmTitle": "Confirm overlay removal",
+            "installed": "Оверлей EOS установлен",
+            "installing": "Оверлей EOS устанавливается...",
+            "latestVersion": "Последняя версия: {{version}}",
+            "notInstalled": "Оверлей EOS не установлен",
+            "notInstalledMsg": "Оверлей EOS не установлен. Хотите установить его сейчас?",
+            "notInstalledTitle": "Оверлей не установлен",
+            "remove": "Удалить",
+            "removeConfirm": "Вы уверены, что хотите удалить оверлей EOS?",
+            "removeConfirmTitle": "Подтверждение удаления оверлея",
             "updateNow": "Update",
-            "updating": "Updating..."
+            "updating": "Обновление..."
         },
         "esync": "Включить Esync",
         "exit-to-tray": "Сворачивать в системный трей",
@@ -399,7 +399,7 @@
         "minimize-on-launch": "Сворачивать Heroic в трей при запуске игры",
         "offlinemode": "Запускать игру офлайн",
         "prefered_language": "Предпочтительный язык (код языка)",
-        "preferSystemLibs": "Prefer system libraries",
+        "preferSystemLibs": "Предпочитать системные библиотеки",
         "primerun": "Использовать выделенную видеокарту",
         "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",
         "runexe": {
@@ -435,7 +435,7 @@
         "open-config-file": "Открыть файл конфигурации",
         "reset-heroic": "Сброс Heroic",
         "saves": {
-            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+            "warning": "Функция облачных сохранений находится в стадии бета-тестирования, сделайте резервную копию ваших сохранений перед синхронизацией (на случай, если что-то пойдет не так)"
         }
     },
     "Settings": "Настройки",
