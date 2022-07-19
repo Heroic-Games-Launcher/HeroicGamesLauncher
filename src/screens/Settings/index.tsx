@@ -590,7 +590,7 @@ function Settings() {
               toggleUseSteamRuntime={toggleUseSteamRuntime}
               isMacNative={isMacNative}
               isLinuxNative={isLinuxNative}
-              isProton={wineVersion.type === 'proton'}
+              isProton={!isWin && wineVersion.type === 'proton'}
               appName={appName}
               defaultSteamPath={defaultSteamPath}
               setDefaultSteamPath={setDefaultSteamPath}
