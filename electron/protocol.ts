@@ -19,9 +19,14 @@ async function command_launch(
   window: BrowserWindow
 ) {
   const appName = args.appName ?? ''
-  const runner: Runner = (args.runner as Runner) ?? 'legendary'
+  let runner: Runner = (args.runner as Runner) ?? 'legendary'
 
-  const game = Game.get(appName, runner)
+  let game = Game.get(appName, runner)
+  // Fix for old protocol (which doesn't specify 'runner')
+  if (!game.getGameInfo()) {
+    runner = 'gog'
+    game = Game.get(appName, runner)
+  }
   if (!game) {
     logError(['Game', appName, 'was not found in library, cannot launch'])
     return
