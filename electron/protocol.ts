@@ -47,10 +47,10 @@ function parseProtocolString(protocolString: string): {
   let command = ''
   const args: Record<string, string> = {}
   // TEMP: Old-style protocol handling (heroic://launch/AppName)
-  if (path.includes('/')) {
+  // HACK: The only valid protocol with this style is 'launch', but this is still a little hacky
+  if (path.startsWith('launch/')) {
     const splitPath = path.split('/')
     command = splitPath.shift()
-    // HACK: The only valid protocol with this style is 'launch', so it's fine to just assume `appName` & no more parameters here
     args.appName = splitPath.shift()
   } else {
     // Newer-style (heroic://launch?appName=SomeAppName&runner=Runner)
