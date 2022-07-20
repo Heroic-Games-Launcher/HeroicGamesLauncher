@@ -33,6 +33,7 @@ const isWindows = platform() === 'win32'
 const isLinux = platform() === 'linux'
 const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
 const isCLIFullscreen = process.argv.includes('--fullscreen')
+const isCLINoGui = process.argv.includes('--no-gui')
 const isFlatpak = Boolean(env.FLATPAK_ID)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
@@ -215,6 +216,7 @@ export {
   tsStore,
   fontsStore,
   isSteamDeckGameMode,
+  runtimePath,
   isCLIFullscreen,
-  runtimePath
+  isCLINoGui
 }
