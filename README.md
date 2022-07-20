@@ -167,23 +167,15 @@ Download the `heroic_x.x.x_amd64.deb` from the Releases section
 sudo dpkg -i heroic_x.x.x_amd64.deb
 ```
 
-#### Debian (third party `apt` repository)
+#### Debian/Ubuntu (third party `apt` repository)
 
-You can add the [**MAD Linux**](https://madlinux.sourceforge.io) [`apt` repository](https://gitlab.com/myawesomedistro/madrepo):
-
-```bash
-bash <(wget -O- https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/main/madrepo.sh)
-```
-
-If you need support on it, get access to **MAD Linux** [**Guilded**](https://guilded.gg/madlinux) server.
-
-Maybe you want to boost the download speed on updates with [`apt-fast`](https://github.com/ilikenwf/apt-fast):
+You can add the [**Raul Dipeas**](https://rauldipeas.surge.sh) _personal_ [`apt` repository](https://github.com/rauldipeas/apt-repository):
 
 ```bash
-sudo add-apt-repository -y ppa:apt-fast/stable
-sudo apt install -y apt-fast
-apt-fast install -y heroic
+bash <(wget -qO- https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/main/rauldipeas.sh)
 ```
+
+If you need support on it, talk to **Raul Dipeas** on [**Twitter**](https://twitter.com/rauldipeas).
 
 #### Arch (AUR)
 
