@@ -16,7 +16,6 @@ import {
   isCLINoGui,
   isLinux,
   isMac,
-  isWindows,
   runtimePath,
   tsStore,
   userHome
@@ -474,7 +473,7 @@ function setupWrappers(
     wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
   })
 
-  if (!isWindows) {
+  if (isLinux) {
     // We don't need to check game settings here since
     // the strings will be '' / arrays will be empty if the
     // respective option is disabled
