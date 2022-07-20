@@ -13,6 +13,7 @@ import { join } from 'path'
 import {
   configStore,
   flatPakHome,
+  isCLINoGui,
   isLinux,
   isMac,
   isWindows,
@@ -368,7 +369,7 @@ function setupEnvVars(gameSettings: GameSettings) {
   // setup LD_PRELOAD if not defined
   // fixes the std::log_error for Fall Guys
   // thanks to https://github.com/Diyou
-  if (!process.env.LD_PRELOAD) {
+  if (!process.env.LD_PRELOAD && !ret.LD_PRELOAD) {
     ret.LD_PRELOAD = ''
   }
 
@@ -567,7 +568,7 @@ async function launchCleanup(
   })
 
   // Exit if we've been launched without UI
-  if (process.argv.includes('--no-gui')) {
+  if (isCLINoGui) {
     app.exit()
   }
 }
