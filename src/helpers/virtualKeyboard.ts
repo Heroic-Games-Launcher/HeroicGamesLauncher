@@ -8,7 +8,7 @@ function currentElement() {
 }
 
 function searchInput() {
-  return document.querySelector('.searchInput') as HTMLInputElement
+  return document.querySelector('#search') as HTMLInputElement
 }
 
 function focusKeyboard() {
