@@ -29,6 +29,7 @@ const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const isLinux = platform() === 'linux'
 const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
+const isCLINoGui = process.argv.includes('--no-gui')
 const isFlatpak = Boolean(env.FLATPAK_ID)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
@@ -44,6 +45,7 @@ const heroicConfigPath = join(heroicFolder, 'config.json')
 const heroicGamesConfigPath = join(heroicFolder, 'GamesConfig')
 const heroicToolsPath = join(heroicFolder, 'tools')
 const heroicIconFolder = join(heroicFolder, 'icons')
+const runtimePath = join(heroicToolsPath, 'runtimes')
 const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
 const heroicDefaultWinePrefix = join(homedir(), 'Games', 'Heroic', 'Prefixes')
@@ -208,5 +210,7 @@ export {
   wikiLink,
   tsStore,
   fontsStore,
-  isSteamDeckGameMode
+  isSteamDeckGameMode,
+  runtimePath,
+  isCLINoGui
 }

@@ -27,6 +27,7 @@ import WineSettings from './components/WineSettings'
 import LogSettings from './components/LogSettings'
 import { AdvancedSettings } from './components/AdvancedSettings'
 import FooterInfo from './components/FooterInfo'
+import { WineExtensions } from './components'
 import { configStore } from 'src/helpers/electronStores'
 import ContextMenu from '../Library/components/ContextMenu'
 
@@ -193,6 +194,16 @@ function Settings() {
     setOn: setDisableController
   } = useToggle(false)
   const {
+    on: eacRuntime,
+    toggle: toggleEacRuntime,
+    setOn: setEacRuntime
+  } = useToggle(false)
+  const {
+    on: battlEyeRuntime,
+    toggle: toggleBattlEyeRuntime,
+    setOn: setBattlEyeRuntime
+  } = useToggle(false)
+  const {
     on: downloadNoHttps,
     toggle: toggleDownloadNoHttps,
     setOn: setDownloadNoHttps
@@ -210,6 +221,7 @@ function Settings() {
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
   const isWineSettings = type === 'wine'
+  const isWineExtensions = type === 'wineExt'
   const isSyncSettings = type === 'sync'
   const isOtherSettings = type === 'other'
   const isLogSettings = type === 'log'
@@ -267,6 +279,8 @@ function Settings() {
         setDefaultWinePrefix(config.defaultWinePrefix)
         setUseSteamRuntime(config.useSteamRuntime)
         setDisableController(config.disableController || false)
+        setEacRuntime(config.eacRuntime || false)
+        setBattlEyeRuntime(config.battlEyeRuntime || false)
         setDownloadNoHttps(config.downloadNoHttps)
 
         if (!isDefault) {
@@ -331,7 +345,9 @@ function Settings() {
       winePrefix,
       wineVersion,
       enableFSR,
-      enableResizableBar
+      enableResizableBar,
+      eacRuntime,
+      battlEyeRuntime
     } as AppSettings
 
     const GameSettings = {
@@ -359,7 +375,9 @@ function Settings() {
       wineCrossoverBottle,
       winePrefix,
       wineVersion,
-      useSteamRuntime
+      useSteamRuntime,
+      eacRuntime,
+      battlEyeRuntime
     } as AppSettings
 
     setSettingsToSave(isDefault ? GlobalSettings : GameSettings)
@@ -414,7 +432,9 @@ function Settings() {
     offlineMode,
     savesPath,
     targetExe,
-    useSteamRuntime
+    useSteamRuntime,
+    eacRuntime,
+    battlEyeRuntime
   ])
 
   // when the settingsToSave state changes:
@@ -498,10 +518,6 @@ function Settings() {
               setWinePrefix={setWinePrefix}
               wineCrossoverBottle={wineCrossoverBottle}
               setWineCrossoverBottle={setWineCrossoverBottle}
-              autoInstallDxvk={autoInstallDxvk}
-              autoInstallVkd3d={autoInstallVkd3d}
-              toggleAutoInstallDxvk={toggleAutoInstallDxvk}
-              toggleAutoInstallVkd3d={toggleAutoInstallVkd3d}
               customWinePaths={customWinePaths}
               setCustomWinePaths={setCustomWinePaths}
               isDefault={isDefault}
@@ -522,6 +538,20 @@ function Settings() {
             />
           )}
           {isWineSettings && !isDefault && <Tools appName={appName} />}
+          {isWineExtensions && (
+            <WineExtensions
+              winePrefix={winePrefix}
+              wineVersion={wineVersion}
+              eacRuntime={eacRuntime}
+              toggleEacRuntime={toggleEacRuntime}
+              battlEyeRuntime={battlEyeRuntime}
+              toggleBattlEyeRuntime={toggleBattlEyeRuntime}
+              autoInstallDxvk={autoInstallDxvk}
+              toggleAutoInstallDxvk={toggleAutoInstallDxvk}
+              autoInstallVkd3d={autoInstallVkd3d}
+              toggleAutoInstallVkd3d={toggleAutoInstallVkd3d}
+            />
+          )}
           {isOtherSettings && (
             <OtherSettings
               enviromentOptions={enviromentOptions}

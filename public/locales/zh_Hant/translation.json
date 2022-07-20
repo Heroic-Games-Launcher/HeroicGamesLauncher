@@ -214,7 +214,8 @@
     },
     "infobox": {
         "help": "幫助",
-        "requirements": "系統要求"
+        "requirements": "系統要求",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "選擇安裝路徑"

@@ -5,7 +5,7 @@
 
 import Store from 'electron-store'
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { WineVersionInfo } from './types'
 
 import {
@@ -16,7 +16,7 @@ import {
   State,
   VersionInfo
 } from 'heroic-wine-downloader'
-import { heroicToolsPath } from '../constants'
+import { heroicToolsPath } from '../../constants'
 
 const wineDownloaderInfoStore = new Store({
   cwd: 'store',

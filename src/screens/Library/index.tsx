@@ -20,6 +20,7 @@ import { GamesList } from './components/GamesList'
 import { GameInfo, Runner } from 'src/types'
 import ErrorComponent from 'src/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
+import { epicCategories, gogCategories } from 'src/helpers/library'
 
 const InstallModal = lazy(
   async () => import('src/screens/Library/components/InstallModal')
@@ -45,6 +46,7 @@ export default function Library(): JSX.Element {
     filterPlatform,
     hiddenGames,
     showHidden,
+    handleCategory,
     showFavourites: showFavouritesLibrary
   } = useContext(ContextProvider)
 
@@ -100,6 +102,16 @@ export default function Library(): JSX.Element {
 
     setInstalling(newInstalling)
   }, [libraryStatus])
+
+  useEffect(() => {
+    // This code avoids getting stuck on a empty library after logout of the current selected store
+    if (epicCategories.includes(category) && !epic.username) {
+      handleCategory('gog')
+    }
+    if (gogCategories.includes(category) && !gog.username) {
+      handleCategory('legendary')
+    }
+  }, [epic.username, gog.username])
 
   const filterLibrary = (library: GameInfo[], filter: string) => {
     if (!library) {
@@ -204,8 +216,6 @@ export default function Library(): JSX.Element {
         category === 'all' ? g : g.runner === category
       )
     } else {
-      const epicCategories = ['all', 'legendary', 'epic', 'unreal']
-      const gogCategories = ['all', 'gog']
       const isEpic = epic.username && epicCategories.includes(category)
       const isGog = gog.username && gogCategories.includes(category)
       const epicLibrary = isEpic ? epic.library : []
@@ -300,6 +310,7 @@ export default function Library(): JSX.Element {
             <h3 className="libraryHeader">{t('Recent', 'Played Recently')}</h3>
             <GamesList
               library={recentGames}
+              isFirstLane
               handleGameCardClick={handleModal}
             />
           </>
@@ -308,7 +319,11 @@ export default function Library(): JSX.Element {
         {showFavourites && !showFavouritesLibrary && (
           <>
             <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
-            <GamesList library={favourites} handleGameCardClick={handleModal} />
+            <GamesList
+              library={favourites}
+              handleGameCardClick={handleModal}
+              isFirstLane
+            />
           </>
         )}
 

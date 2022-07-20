@@ -25,7 +25,7 @@ interface Props {
   sortInstalled: boolean
   toggleSortDescending: () => void
   toggleSortinstalled: () => void
-  library: Runner
+  library: Runner | 'all'
 }
 
 export default function ActionIcons({

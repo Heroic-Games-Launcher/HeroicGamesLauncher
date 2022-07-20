@@ -65,7 +65,8 @@ import {
   getLegendaryBin,
   getGOGdlBin,
   showErrorBoxModal,
-  getFileSize
+  getFileSize,
+  detectVCRedist
 } from './utils'
 import {
   configStore,
@@ -89,7 +90,8 @@ import {
   fontsStore,
   heroicConfigPath,
   isMac,
-  isSteamDeckGameMode
+  isSteamDeckGameMode,
+  isCLINoGui
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -153,7 +155,7 @@ async function createWindow(): Promise<BrowserWindow> {
     }
   })
 
-  if (isSteamDeckGameMode) {
+  if (isSteamDeckGameMode && !isCLINoGui) {
     logInfo('Heroic started via Steam-Deck gamemode. Switching to fullscreen', {
       prefix: LogPrefix.Backend
     })
@@ -186,11 +188,16 @@ async function createWindow(): Promise<BrowserWindow> {
     const { exitToTray } = GlobalConfig.get().config
 
     if (exitToTray) {
+      logInfo('Exitting to tray instead of quitting', LogPrefix.Backend)
       return mainWindow.hide()
     }
 
     handleExit(mainWindow)
   })
+
+  if (isWindows) {
+    detectVCRedist(mainWindow)
+  }
 
   if (!app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -220,6 +227,7 @@ async function createWindow(): Promise<BrowserWindow> {
 // Some APIs can only be used after this event occurs.
 let appIcon: Tray = null
 const gotTheLock = app.requestSingleInstanceLock()
+let openUrlArgument = ''
 
 const contextMenu = () => {
   const recentGames: Array<RecentGame> =
@@ -389,7 +397,7 @@ if (!gotTheLock) {
     }
 
     const { startInTray } = await GlobalConfig.get().getSettings()
-    const headless = process.argv.includes('--no-gui') || startInTray
+    const headless = isCLINoGui || startInTray
     if (!headless) {
       mainWindow.show()
     }
@@ -456,7 +464,7 @@ ipcMain.on('Notify', (event, args) => {
 })
 
 ipcMain.on('frontendReady', () => {
-  handleProtocol(mainWindow, process.argv)
+  handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
 })
 
 // Maybe this can help with white screens
@@ -532,7 +540,11 @@ app.on('window-all-closed', () => {
 
 app.on('open-url', (event, url) => {
   event.preventDefault()
-  handleProtocol(mainWindow, [url])
+  if (mainWindow) {
+    handleProtocol(mainWindow, [url])
+  } else {
+    openUrlArgument = url
+  }
 })
 
 ipcMain.on('openFolder', async (event, folder) => openUrlOrFile(folder))
@@ -621,6 +633,7 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 ipcMain.handle('getHeroicVersion', () => app.getVersion())
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 ipcMain.handle('getGogdlVersion', async () => getGogdlVersion())
+ipcMain.handle('isSteamDeckMode', () => isSteamDeckGameMode)
 
 ipcMain.handle('getPlatform', () => process.platform)
 
@@ -943,7 +956,7 @@ ipcMain.handle(
         })
 
         // Exit if we've been launched without UI
-        if (process.argv.includes('--no-gui')) {
+        if (isCLINoGui) {
           app.exit()
         }
       })
@@ -1427,7 +1440,7 @@ ipcMain.handle(
       await setup(game.appName)
     }
 
-    return game.runWineCommand(command, '', false, true)
+    return game.runWineCommand(command, false, true)
   }
 )
 
@@ -1445,7 +1458,8 @@ ipcMain.handle('getShellPath', async (event, path) => {
  * INSERT OTHER IPC HANLDER HERE
  */
 import './logger/ipc_handler'
-import './wine-manager/ipc_handler'
+import './wine/manager/ipc_handler'
 import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
+import './wine/runtimes/ipc_handler'

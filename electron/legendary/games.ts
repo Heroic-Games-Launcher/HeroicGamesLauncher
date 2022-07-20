@@ -714,26 +714,17 @@ class LegendaryGame extends Game {
 
   public async runWineCommand(
     command: string,
-    altWineBin = '',
     wait = false,
     forceRunInPrefixVerb = false
   ): Promise<ExecResult> {
-    const isNative = this.isNative()
-
-    if (isNative) {
+    if (this.isNative()) {
       logError('runWineCommand called on native game!', {
         prefix: LogPrefix.Legendary
       })
       return { stdout: '', stderr: '' }
     }
 
-    return runWineCommand(
-      await this.getSettings(),
-      command,
-      altWineBin,
-      wait,
-      forceRunInPrefixVerb
-    )
+    return runWineCommand(this, command, wait, forceRunInPrefixVerb)
   }
 
   public async stop() {

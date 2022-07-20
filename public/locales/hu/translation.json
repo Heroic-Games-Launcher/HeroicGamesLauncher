@@ -214,7 +214,8 @@
     },
     "infobox": {
         "help": "Segítség",
-        "requirements": "Rendszerkövetelmények"
+        "requirements": "Rendszerkövetelmények",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Telepítési útvonal kiválasztása"

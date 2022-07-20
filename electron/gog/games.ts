@@ -682,26 +682,17 @@ class GOGGame extends Game {
 
   public async runWineCommand(
     command: string,
-    altWineBin = '',
     wait = false,
     forceRunInPrefixVerb = false
   ): Promise<ExecResult> {
-    const isNative = await this.isNative()
-
-    if (isNative) {
+    if (this.isNative()) {
       logError('runWineCommand called on native game!', {
         prefix: LogPrefix.Gog
       })
       return { stdout: '', stderr: '' }
     }
 
-    return runWineCommand(
-      await this.getSettings(),
-      command,
-      altWineBin,
-      wait,
-      forceRunInPrefixVerb
-    )
+    return runWineCommand(this, command, wait, forceRunInPrefixVerb)
   }
 
   async forceUninstall(): Promise<void> {

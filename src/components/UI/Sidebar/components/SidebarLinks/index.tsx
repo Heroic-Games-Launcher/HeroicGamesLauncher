@@ -50,6 +50,7 @@ export default function SidebarLinks() {
     location.pathname.startsWith('/settings/default')
   )
   const [settingsPath, setSettingsPath] = useState('/settings/default/general')
+  const [isSteamDeckGameMode, setIsSteamDeckGameMode] = useState(false)
 
   const {
     hasCloudSave = false,
@@ -81,6 +82,12 @@ export default function SidebarLinks() {
       setIsDefaultSetting(true)
     }
   }, [location])
+
+  useEffect(() => {
+    ipcRenderer
+      .invoke('isSteamDeckMode')
+      .then((res) => setIsSteamDeckGameMode(res))
+  }, [])
 
   return (
     <div className="SidebarLinks Sidebar__section">
@@ -201,16 +208,28 @@ export default function SidebarLinks() {
               </NavLink>
             )}
             {shouldRenderWineSettings && (
-              <NavLink
-                role="link"
-                to={`/settings/${appName}/wine`}
-                state={{ ...state, runner: state?.runner }}
-                className={classNames('Sidebar__item SidebarLinks__subItem', {
-                  ['active']: type === 'wine'
-                })}
-              >
-                <span>Wine</span>
-              </NavLink>
+              <>
+                <NavLink
+                  role="link"
+                  to={`/settings/${appName}/wine`}
+                  state={{ ...state, runner: state?.runner }}
+                  className={classNames('Sidebar__item SidebarLinks__subItem', {
+                    ['active']: type === 'wine'
+                  })}
+                >
+                  <span>Wine</span>
+                </NavLink>
+                <NavLink
+                  role="link"
+                  to={`/settings/${appName}/wineExt`}
+                  state={{ ...state, runner: state?.runner }}
+                  className={classNames('Sidebar__item SidebarLinks__subItem', {
+                    ['active']: type === 'wineExt'
+                  })}
+                >
+                  <span>{t('settings.navbar.wineExt', 'Wine Extensions')}</span>
+                </NavLink>
+              </>
             )}
             {hasCloudSave && !isLinuxGame && (
               <NavLink
@@ -349,7 +368,7 @@ export default function SidebarLinks() {
         </div>
         <span>Ko-fi</span>
       </button>
-      <QuitButton />
+      {isSteamDeckGameMode && <QuitButton />}
     </div>
   )
 }

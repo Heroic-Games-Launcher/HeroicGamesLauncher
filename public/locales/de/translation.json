@@ -214,7 +214,8 @@
     },
     "infobox": {
         "help": "Hilfe",
-        "requirements": "Systemanforderungen"
+        "requirements": "Systemanforderungen",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Installationspfad auswählen"

@@ -13,6 +13,7 @@ export interface AppSettings {
   autoInstallVkd3d: boolean
   preferSystemLibs: boolean
   autoSyncSaves: boolean
+  battlEyeRuntime: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: Array<string>
   darkTrayIcon: boolean
@@ -20,6 +21,7 @@ export interface AppSettings {
   defaultSteamPath: string
   disableController: boolean
   discordRPC: boolean
+  eacRuntime: boolean
   downloadNoHttps: boolean
   egsLinkedPath: string
   exitToTray: boolean
@@ -108,13 +110,13 @@ export interface ContextType {
     library: GameInfo[]
     username: string | null
     login: (sid: string) => Promise<string>
-    logout: () => void
+    logout: () => Promise<void>
   }
   gog: {
     library: GameInfo[]
     username: string | null
     login: (token: string) => Promise<string>
-    logout: () => void
+    logout: () => Promise<void>
   }
   allTilesInColor: boolean
   setAllTilesInColor: (value: boolean) => void
@@ -282,7 +284,7 @@ export interface Path {
 export type RefreshOptions = {
   checkForUpdates?: boolean
   fullRefresh?: boolean
-  library?: Runner
+  library?: Runner | 'all'
   runInBackground?: boolean
 }
 
