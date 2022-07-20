@@ -3,6 +3,9 @@ import { BrowserWindow } from 'electron'
 import { Game } from './games'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import { wrappedLaunch } from './launcher'
+import shlex from 'shlex'
+import { runLegendaryCommand } from './legendary/library'
+import { runGogdlCommand } from './gog/library'
 
 function command_ping(args: Record<string, string>) {
   logInfo(
@@ -33,6 +36,20 @@ async function command_launch(
   }
 
   wrappedLaunch(appName, runner, '', window)
+}
+
+async function command_runLegendary(args: Record<string, string>) {
+  const commandParts = shlex.split(args.arguments ?? '')
+  return runLegendaryCommand(commandParts, {
+    onOutput: (output) => console.log(output.trim())
+  })
+}
+
+async function command_runGogdl(args: Record<string, string>) {
+  const commandParts = shlex.split(args.arguments ?? '')
+  return runGogdlCommand(commandParts, {
+    onOutput: (output) => console.log(output.trim())
+  })
 }
 
 function parseProtocolString(protocolString: string): {
@@ -88,6 +105,10 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
       return command_ping(cmd_args)
     case 'launch':
       return command_launch(cmd_args, window)
+    case 'runLegendaryCommand':
+      return command_runLegendary(cmd_args)
+    case 'runGogdlCommand':
+      return command_runGogdl(cmd_args)
     default:
       logError(
         ['Unknown protocol command:', command],
