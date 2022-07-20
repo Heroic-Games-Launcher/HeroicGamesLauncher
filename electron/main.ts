@@ -90,7 +90,8 @@ import {
   fontsStore,
   heroicConfigPath,
   isMac,
-  isSteamDeckGameMode
+  isSteamDeckGameMode,
+  isCLINoGui
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -154,7 +155,7 @@ async function createWindow(): Promise<BrowserWindow> {
     }
   })
 
-  if (isSteamDeckGameMode) {
+  if (isSteamDeckGameMode && !isCLINoGui) {
     logInfo(
       'Heroic started via Steam-Deck gamemode. Switching to fullscreen',
       LogPrefix.Backend
@@ -394,7 +395,7 @@ if (!gotTheLock) {
     }
 
     const { startInTray } = await GlobalConfig.get().getSettings()
-    const headless = process.argv.includes('--no-gui') || startInTray
+    const headless = isCLINoGui || startInTray
     if (!headless) {
       mainWindow.show()
     }
@@ -948,7 +949,7 @@ ipcMain.handle(
         })
 
         // Exit if we've been launched without UI
-        if (process.argv.includes('--no-gui')) {
+        if (isCLINoGui) {
           app.exit()
         }
       })
