@@ -178,6 +178,8 @@ export const initGamepad = () => {
     const el = currentElement()
     if (!el) return false
 
+    // only change this if you change the id of the input element
+    // in src/components/UI/SearchBar/index.tsx
     return el.id === 'search'
   }
 
