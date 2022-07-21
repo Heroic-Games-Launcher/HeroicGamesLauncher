@@ -402,6 +402,7 @@ function Settings() {
     customWinePaths,
     darkTrayIcon,
     defaultInstallPath,
+    defaultSteamPath,
     defaultWinePrefix,
     disableController,
     discordRPC,
