@@ -22,10 +22,10 @@ export enum LogPrefix {
   Shortcuts = 'Shortcuts'
 }
 
-type LogInputType = string | Error | object | number | boolean | unknown
+type LogInputType = unknown[] | unknown
 
 // helper to convert LogInputType to string
-function convertInputToString(param: LogInputType[] | LogInputType): string {
+function convertInputToString(param: LogInputType): string {
   const getString = (value: LogInputType): string => {
     switch (typeof value) {
       case 'string':
@@ -93,7 +93,7 @@ const getPrefixString = (prefix: LogPrefix) => {
  * @defaultvalue {@link LogPrefix.General}
  */
 export function logDebug(
-  input: LogInputType[] | LogInputType,
+  input: LogInputType,
   options?: {
     prefix?: LogPrefix
     showDialog?: boolean
@@ -105,10 +105,7 @@ export function logDebug(
     options?.prefix
   )}`
 
-  const makeInputArray = Array.isArray(input)
-    ? input
-    : ([input] as LogInputType[])
-  console.log(messagePrefix, ...makeInputArray)
+  console.log(messagePrefix, ...(Array.isArray(input) ? input : [input]))
 
   if (options?.showDialog) {
     showErrorBoxModalAuto(options?.prefix, text)
@@ -128,7 +125,7 @@ export function logDebug(
  * @defaultvalue {@link LogPrefix.General}
  */
 export function logError(
-  input: LogInputType[] | LogInputType,
+  input: LogInputType,
   options?: {
     prefix?: LogPrefix
     showDialog?: boolean
@@ -140,10 +137,7 @@ export function logError(
     options?.prefix
   )}`
 
-  const makeInputArray = Array.isArray(input)
-    ? input
-    : ([input] as LogInputType[])
-  console.error(messagePrefix, ...makeInputArray)
+  console.error(messagePrefix, ...(Array.isArray(input) ? input : [input]))
 
   if (options?.showDialog) {
     showErrorBoxModalAuto(options?.prefix, text)
@@ -163,7 +157,7 @@ export function logError(
  * @defaultvalue {@link LogPrefix.General}
  */
 export function logInfo(
-  input: LogInputType[] | LogInputType,
+  input: LogInputType,
   options?: {
     prefix?: LogPrefix
     showDialog?: boolean
@@ -175,10 +169,7 @@ export function logInfo(
     options?.prefix
   )}`
 
-  const makeInputArray = Array.isArray(input)
-    ? input
-    : ([input] as LogInputType[])
-  console.log(messagePrefix, ...makeInputArray)
+  console.log(messagePrefix, ...(Array.isArray(input) ? input : [input]))
 
   if (options?.showDialog) {
     showErrorBoxModalAuto(options?.prefix, text)
@@ -198,7 +189,7 @@ export function logInfo(
  * @defaultvalue {@link LogPrefix.General}
  */
 export function logWarning(
-  input: LogInputType[] | LogInputType,
+  input: LogInputType,
   options?: {
     prefix?: LogPrefix
     showDialog?: boolean
@@ -209,10 +200,8 @@ export function logWarning(
   const messagePrefix = `${getTimeStamp()} WARNING: ${getPrefixString(
     options?.prefix
   )}`
-  const makeInputArray = Array.isArray(input)
-    ? input
-    : ([input] as LogInputType[])
-  console.warn(messagePrefix, ...makeInputArray)
+
+  console.warn(messagePrefix, ...(Array.isArray(input) ? input : [input]))
 
   if (options?.showDialog) {
     showErrorBoxModalAuto(options?.prefix, text)

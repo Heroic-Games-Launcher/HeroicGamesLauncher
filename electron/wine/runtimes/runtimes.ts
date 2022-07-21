@@ -10,7 +10,7 @@ async function _get(): Promise<Runtime[]> {
   mkdirSync(runtimePath, { recursive: true })
   const allRuntimes = await axios.get('https://lutris.net/api/runtimes')
   if (!allRuntimes.data) {
-    logError('Failed to fetch runtime list', LogPrefix.Runtime)
+    logError('Failed to fetch runtime list', { prefix: LogPrefix.Runtime })
   }
   return allRuntimes.data || []
 }
@@ -24,10 +24,9 @@ async function download(name: RuntimeName): Promise<boolean> {
     if (!runtime) {
       throw new Error(`Runtime ${name} was not found in runtime list`)
     }
-    logInfo(
-      ['Downloading runtime', name, 'with download link', runtime.url],
-      LogPrefix.Runtime
-    )
+    logInfo(['Downloading runtime', name, 'with download link', runtime.url], {
+      prefix: LogPrefix.Runtime
+    })
 
     const { name: tarFileName, content_type } = await getAssetDataFromDownload(
       runtime.url
@@ -51,7 +50,7 @@ async function download(name: RuntimeName): Promise<boolean> {
         `${name}:`,
         error instanceof Error ? error.stack : `${error}`
       ],
-      LogPrefix.Runtime
+      { prefix: LogPrefix.Runtime }
     )
     return false
   }

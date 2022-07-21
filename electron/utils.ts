@@ -614,10 +614,9 @@ function detectVCRedist(mainWindow: BrowserWindow) {
   })
   child.on('close', async (code) => {
     if (code) {
-      logError(
-        `Failed to check for VCRuntime installations\n${stderr}`,
-        LogPrefix.Backend
-      )
+      logError(`Failed to check for VCRuntime installations\n${stderr}`, {
+        prefix: LogPrefix.Backend
+      })
     }
     // VCR installers install both the "Minimal" and "Additional" runtime, and we have 2 installers (x86 and x64) -> 4 installations in total
     if (detectedVCRInstallations.length < 4) {
@@ -641,7 +640,7 @@ function detectVCRedist(mainWindow: BrowserWindow) {
         })
       }
     } else {
-      logInfo('VCRuntime is installed', LogPrefix.Backend)
+      logInfo('VCRuntime is installed', { prefix: LogPrefix.Backend })
     }
   })
 }

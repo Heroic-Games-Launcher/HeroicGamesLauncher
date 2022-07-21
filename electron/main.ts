@@ -188,7 +188,9 @@ async function createWindow(): Promise<BrowserWindow> {
     const { exitToTray } = GlobalConfig.get().config
 
     if (exitToTray) {
-      logInfo('Exitting to tray instead of quitting', LogPrefix.Backend)
+      logInfo('Exitting to tray instead of quitting', {
+        prefix: LogPrefix.Backend
+      })
       return mainWindow.hide()
     }
 
