@@ -8,7 +8,9 @@ function currentElement() {
 }
 
 function searchInput() {
-  return document.querySelector('.searchInput') as HTMLInputElement
+  // only change this if you change the id of the input element
+  // in src/components/UI/SearchBar/index.tsx
+  return document.querySelector('#search') as HTMLInputElement
 }
 
 function focusKeyboard() {
