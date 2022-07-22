@@ -41,7 +41,7 @@ Categories=Game;
       if (addDesktopShortcuts || fromMenu) {
         writeFile(desktopFile, shortcut, () => {
           logInfo(`Shortcut saved on ${desktopFile}`, LogPrefix.Backend)
-          chmod(desktopFile, '+x', () => {
+          chmod(desktopFile, 777, () => {
             logInfo(
               `Shortcut permissions set on ${desktopFile}`,
               LogPrefix.Backend
