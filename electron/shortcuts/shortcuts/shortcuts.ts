@@ -39,7 +39,8 @@ Categories=Game;
 `
 
       if (addDesktopShortcuts || fromMenu) {
-        writeFile(desktopFile, shortcut, () => {
+        //777 = -rwxrwxrwx
+        writeFile(desktopFile, shortcut, { mode: 0o777 }, () => {
           logInfo(`Shortcut saved on ${desktopFile}`, LogPrefix.Backend)
         })
       }
