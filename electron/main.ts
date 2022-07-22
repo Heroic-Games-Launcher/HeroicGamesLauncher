@@ -945,9 +945,6 @@ ipcMain.handle(
         }
         tsStore.set(`${game.appName}.totalPlayed`, Math.floor(totalPlaytime))
 
-        if (minimizeOnLaunch) {
-          mainWindow.show()
-        }
         window.webContents.send('setGameStatus', {
           appName,
           runner,
@@ -957,6 +954,8 @@ ipcMain.handle(
         // Exit if we've been launched without UI
         if (isCLINoGui) {
           app.exit()
+        } else {
+          mainWindow.show()
         }
       })
   }
