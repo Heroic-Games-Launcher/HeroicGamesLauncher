@@ -37,11 +37,11 @@
     },
     "button": {
         "add_to_favourites": "Add To Favourites",
-        "cancel": "ரத்துசெய்",
+        "cancel": "இடைநிறுத்து/ரத்துசெய்",
         "continue": "பதிவிறக்கத்தை தொடரு",
         "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
-        "import": "இறக்குமதி செய்",
+        "import": "விளையாட்டை இறக்குமதி செய்",
         "install": "நிறுவு",
         "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
@@ -88,7 +88,7 @@
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "wineversion": "வைன் பதிப்பு"
     },
     "label": {
         "playing": {
