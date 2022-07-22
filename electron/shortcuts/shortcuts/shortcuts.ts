@@ -39,15 +39,9 @@ Categories=Game;
 `
 
       if (addDesktopShortcuts || fromMenu) {
-        writeFile(desktopFile, shortcut, () => {
+        //777 = -rwxrwxrwx
+        writeFile(desktopFile, shortcut, { mode: 0o777 }, () => {
           logInfo(`Shortcut saved on ${desktopFile}`, LogPrefix.Backend)
-          //777 = -rwxrwxrwx
-          chmod(desktopFile, 0o777, () => {
-            logInfo(
-              `Shortcut permissions set on ${desktopFile}`,
-              LogPrefix.Backend
-            )
-          })
         })
       }
       if (addStartMenuShortcuts || fromMenu) {
