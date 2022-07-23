@@ -34,7 +34,6 @@ const initialContext: ContextType = {
   handleLibraryTopSection: () => null,
   platform: 'unknown',
   refresh: async () => Promise.resolve(),
-  recentGames: [],
   refreshLibrary: async () => Promise.resolve(),
   refreshWineVersionInfo: async () => Promise.resolve(),
   refreshing: false,

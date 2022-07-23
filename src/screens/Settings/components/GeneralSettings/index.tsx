@@ -310,6 +310,12 @@ export default function GeneralSettings({
             'Recently Played Games'
           )}
         </option>
+        <option value="recently_played_installed">
+          {t(
+            'setting.library_top_option.recently_played_installed',
+            'Recently Played Games (Only Installed)'
+          )}
+        </option>
         <option value="favourites">
           {t('setting.library_top_option.favourites', 'Favourite Games')}
         </option>
