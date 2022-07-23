@@ -545,6 +545,8 @@ function Settings() {
               wineVersion={wineVersion}
               eacRuntime={eacRuntime}
               toggleEacRuntime={toggleEacRuntime}
+              gameMode={useGameMode}
+              toggleGameMode={toggleUseGameMode}
               battlEyeRuntime={battlEyeRuntime}
               toggleBattlEyeRuntime={toggleBattlEyeRuntime}
               autoInstallDxvk={autoInstallDxvk}
@@ -565,6 +567,8 @@ function Settings() {
               setLanguageCode={setLanguageCode}
               useGameMode={useGameMode}
               toggleUseGameMode={toggleUseGameMode}
+              eacRuntime={eacRuntime}
+              toggleEacRuntime={toggleEacRuntime}
               primeRun={nvidiaPrime}
               togglePrimeRun={toggleNvidiaPrime}
               showFps={showFps}

@@ -11,6 +11,8 @@ interface Props {
   winePrefix: string
   eacRuntime: boolean
   toggleEacRuntime: () => void
+  gameMode: boolean
+  toggleGameMode: () => void
   battlEyeRuntime: boolean
   toggleBattlEyeRuntime: () => void
   autoInstallDxvk: boolean
@@ -23,10 +25,12 @@ export default function WineExtensions({
   wineVersion,
   winePrefix,
   eacRuntime,
+  gameMode,
   battlEyeRuntime,
   autoInstallDxvk,
   autoInstallVkd3d,
   toggleEacRuntime,
+  toggleGameMode,
   toggleBattlEyeRuntime,
   toggleAutoInstallDxvk,
   toggleAutoInstallVkd3d
@@ -38,6 +42,26 @@ export default function WineExtensions({
 
   const handleEacRuntime = async () => {
     if (!eacRuntime) {
+      if (!gameMode) {
+        const isFlatpak = await ipcRenderer.invoke('isFlatpak')
+        if (isFlatpak) {
+          const { response } = await ipcRenderer.invoke('openMessageBox', {
+            message: t(
+              'settings.eacRuntime.gameModeRequired.message',
+              'GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?'
+            ),
+            title: t(
+              'settings.eacRuntime.gameModeRequired.title',
+              'GameMode required'
+            ),
+            buttons: [t('box.yes'), t('box.no')]
+          })
+          if (response === 1) {
+            return
+          }
+          toggleGameMode()
+        }
+      }
       const isInstalled = await ipcRenderer.invoke(
         'isRuntimeInstalled',
         'eac_runtime'
