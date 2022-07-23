@@ -29,6 +29,7 @@
         "customWine": "Wine 혹은 Proton 바이너리 파일 선택",
         "default-install-path": "기본 설치 경로 선택",
         "default-steam-path": "Steam path.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "선택",
             "error": "유효하지 않은 경로",
             "title": "저장 디렉토리 선택"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -372,7 +382,8 @@
         "library_top_option": {
             "disabled": "비활성화",
             "favourites": "Favourite Games",
-            "recently_played": "최근 플레이 한 게임"
+            "recently_played": "최근 플레이 한 게임",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "라이브러리 상단 섹션",
         "log": {
@@ -419,9 +430,17 @@
         "wineversion": "Wine 버전"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Heroic 캐시 삭제",
         "copiedToClipboard": "클립보드에 복사되었습니다!",
         "copyToClipboard": "모든 설정을 클립보드에 복사",
+        "eacRuntime": {
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
         "log": {
             "long-log-hint": "로그 잘림, 마지막 1000줄이 표시됩니다!"
         },
@@ -430,7 +449,8 @@
             "general": "일반",
             "log": "Log",
             "other": "기타",
-            "sync": "세이브-동기화"
+            "sync": "세이브-동기화",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",

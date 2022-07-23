@@ -29,6 +29,7 @@
         "customWine": "选择 Wine 或 Proton 二进制文件",
         "default-install-path": "选择默认安装路径",
         "default-steam-path": "Steam 路径.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "选择",
             "error": "无效路径",
             "title": "选择存档的目录"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -372,7 +382,8 @@
         "library_top_option": {
             "disabled": "已禁用",
             "favourites": "最爱的游戏",
-            "recently_played": "最近玩过的游戏"
+            "recently_played": "最近玩过的游戏",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "库的顶部",
         "log": {
@@ -419,9 +430,17 @@
         "wineversion": "Wine 版本"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "清理 Heroic 缓存",
         "copiedToClipboard": "已复制到剪贴板！",
         "copyToClipboard": "复制所有设置到剪贴板",
+        "eacRuntime": {
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
         "log": {
             "long-log-hint": "日志被截断，显示最后 1000 行！"
         },
@@ -430,7 +449,8 @@
             "general": "常规",
             "log": "日志",
             "other": "其它",
-            "sync": "存档-同步"
+            "sync": "存档-同步",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",

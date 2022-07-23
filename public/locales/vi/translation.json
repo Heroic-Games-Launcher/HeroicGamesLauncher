@@ -29,6 +29,7 @@
         "customWine": "Chọn Wine/Proton binary",
         "default-install-path": "Chọn đường dẫn cài mặc định",
         "default-steam-path": "Steam path.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "Chọn",
             "error": "Đường dẫn không hợp lệ",
             "title": "Chọn thư mục lưu"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -372,7 +382,8 @@
         "library_top_option": {
             "disabled": "Tắt",
             "favourites": "Game ưa thích",
-            "recently_played": "Game chơi gần đây"
+            "recently_played": "Game chơi gần đây",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Phần trên cùng của Thư viện",
         "log": {
@@ -419,9 +430,17 @@
         "wineversion": "Phiên bản Wine"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Xóa bộ nhớ đệm của Heroic",
         "copiedToClipboard": "Đã sao chép vào bộ nhớ tạm!",
         "copyToClipboard": "Sao chép toàn bộ cài đặt vào bộ nhớ tạm",
+        "eacRuntime": {
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
         "log": {
             "long-log-hint": "Log bị cắt ngắn, hiển thị 1000 dòng cuối!"
         },
@@ -430,7 +449,8 @@
             "general": "Tổng quan",
             "log": "Log",
             "other": "Khác",
-            "sync": "Lưu - Đồng bộ"
+            "sync": "Lưu - Đồng bộ",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Mở tệp cấu hình",
         "reset-heroic": "Đặt lại Heroic",

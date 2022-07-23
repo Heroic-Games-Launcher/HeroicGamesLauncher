@@ -29,6 +29,7 @@
         "customWine": "Scegli fra il binario Wine o Proton",
         "default-install-path": "Seleziona il percorso d'installazione predefinito",
         "default-steam-path": "Percorso Steam.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "Scegli",
             "error": "Percorso non valido",
             "title": "Seleziona la cartella dei salvataggi"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -372,7 +382,8 @@
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "recently_played": "Recently Played Games",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Library Top Section",
         "log": {
@@ -419,9 +430,17 @@
         "wineversion": "Versione di Wine"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Pulisci cache Heroic",
         "copiedToClipboard": "Copiato negli appunti!",
         "copyToClipboard": "Copia tutte le impostazioni negli appunti",
+        "eacRuntime": {
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
@@ -430,7 +449,8 @@
             "general": "Generale",
             "log": "Log",
             "other": "Altro",
-            "sync": "Sincronizzazione salvataggi"
+            "sync": "Sincronizzazione salvataggi",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",

@@ -29,6 +29,7 @@
         "customWine": "Изберете изпълнимия файл на Wine или Proton",
         "default-install-path": "Изберете пътя по подразбиране за инсталиране",
         "default-steam-path": "Път до Steam.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "Избиране",
             "error": "Неправилен път",
             "title": "Изберете папка за запазване на файлове"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -372,7 +382,8 @@
         "library_top_option": {
             "disabled": "Изключено",
             "favourites": "Любими игри",
-            "recently_played": "Наскоро пускани игри"
+            "recently_played": "Наскоро пускани игри",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Горна секция на библиотеката",
         "log": {
@@ -419,9 +430,17 @@
         "wineversion": "Версия на Wine"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Изчистване на кеша на Heroic",
         "copiedToClipboard": "Копирано в буфера за обмен!",
         "copyToClipboard": "Копиране на всички настройки в буфера за обмен",
+        "eacRuntime": {
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
         "log": {
             "long-log-hint": "Журналът е отрязан. Показани са последните 1000 реда!"
         },
@@ -430,7 +449,8 @@
             "general": "Общи",
             "log": "Журнал",
             "other": "Други",
-            "sync": "Синхронизиране на запазените файлове"
+            "sync": "Синхронизиране на запазените файлове",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Отваряне на конфигурационния файл",
         "reset-heroic": "Зачистване на Heroic",

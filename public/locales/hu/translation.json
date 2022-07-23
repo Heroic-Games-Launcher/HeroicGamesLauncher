@@ -29,6 +29,7 @@
         "customWine": "Válaszd ki a Wine vagy Proton binárist",
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
         "default-steam-path": "Steam path.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "Kiválasztás",
             "error": "Érvénytelen útvonal",
             "title": "Válaszd ki a mentések könyvtárát"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -372,7 +382,8 @@
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "recently_played": "Recently Played Games",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Library Top Section",
         "log": {
@@ -419,9 +430,17 @@
         "wineversion": "Wine verzió"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Heroic gyorsítótár törlése",
         "copiedToClipboard": "Vágólapra másolva!",
         "copyToClipboard": "Összes beállítás másolása a vágólapra",
+        "eacRuntime": {
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
         "log": {
             "long-log-hint": "A napló rövidítve van, az utolsó 1000 sor van megjelenítve!"
         },
@@ -430,7 +449,8 @@
             "general": "Általános",
             "log": "Napló",
             "other": "Egyéb",
-            "sync": "Mentés szinkronizálás"
+            "sync": "Mentés szinkronizálás",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Heroic visszaállítása",
