@@ -69,10 +69,10 @@ export default function WineExtensions({
           'downloadRuntime',
           'battleye_runtime'
         )
-        if (!success) {
-          toggleBattlEyeRuntime()
-        }
         setBattlEyeInstalling(false)
+        if (!success) {
+          return
+        }
       }
     }
     toggleBattlEyeRuntime()
