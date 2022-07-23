@@ -37,7 +37,6 @@ export default function WineExtensions({
   const { t } = useTranslation()
 
   const handleEacRuntime = async () => {
-    toggleEacRuntime()
     if (!eacRuntime) {
       const isInstalled = await ipcRenderer.invoke(
         'isRuntimeInstalled',
@@ -49,14 +48,13 @@ export default function WineExtensions({
           'downloadRuntime',
           'eac_runtime'
         )
-        if (!success) {
-          // We already know we're toggling the runtime on here, so toggling it again will make it stay off
-          // Error handling/communication is handled in downloadRuntime by the backend
-          toggleEacRuntime()
-        }
         setEacInstalling(false)
+        if (!success) {
+          return
+        }
       }
     }
+    toggleEacRuntime()
   }
 
   const handleBattlEyeRuntime = async () => {
