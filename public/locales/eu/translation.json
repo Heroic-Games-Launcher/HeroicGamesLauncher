@@ -52,17 +52,42 @@
             "wine-not-found": {
                 "message": "Ez da Wine bertsioa hautatu. Egiaztatu jokoaren konfigurazioa!",
                 "title": "Wine ez da aurkitu"
+            },
+            "no-offline-mode": {
+                "title": "Lineaz kanpoko modua ez dago onartuta."
+            },
+            "update": {
+                "title": "Eguneraketa errorea",
+                "message": "Zerbait gaizki joan da eguneratzean, mesedez egiaztatu erregistroak edo saiatu berriz geroago!"
+            },
+            "add": {
+                "steam": {
+                    "title": "Gehitze-errorea",
+                    "body": "{{game}} Steam-era gehitzeak huts egin du honekin:{{newLine}} {{error}}"
+                }
+            },
+            "cx-bottle-not-found": {
+                "title": "Ez da CrossOver botila aurkitu"
+            },
+            "dxvk": {
+                "message": "Errorea DXVK/VKD3D instalatzean! Egiaztatu zure konexioa mesedez!",
+                "title": "DXVK/VKD3D errorea"
+            },
+            "remove": {
+                "steam": {
+                    "title": "Kentze errorea"
+                }
             }
         },
         "default-install-path": "Aukeratu lehenetsitako instalazio-ibilbidea",
-        "customWine": "Aukeratu Wine edo Proton bitarra",
+        "customWine": "Aukeratu Wine edo Proton binarioa",
         "appupdate": {
             "message": "Heroicen bertsio berri bat dago eskuragarri. Eguneratu nahi duzu orain?",
             "title": "Eguneratze erabilgarria"
         },
         "choose": "Aukeratu",
         "choose-egs-prefix": "Aukeratu EGS instalatuta dagoen Wine-Preferx",
-        "choose-legendary-binary": "Aukeratu Legendary-ren bitarra",
+        "choose-legendary-binary": "Aukeratu Legendary-ren binarioa",
         "ok": "Adoz",
         "warning": {
             "epic": {
@@ -87,7 +112,19 @@
             "title": "Lasterbideak"
         },
         "wineprefix": "Aukeratu Wine-Prefix karpeta",
-        "yes": "BAI"
+        "yes": "BAI",
+        "info": {
+            "update": {
+                "detail": "Eguneraketa atzeko planoan deskargatu nahi duzu?",
+                "changelog": "Ireki aldaketa erregistroa",
+                "message": "Bertsio berri bat eskuragarri dago!",
+                "title": "Heroic Games Launcher",
+                "message-finished": "Heroic berrabiarazi nahi duzu?",
+                "title-finished": "Eguneraketa bukatu da"
+            }
+        },
+        "choose-gogdl-binary": "Hautatu GOGDL binarioa (berrabiarazi behar da)",
+        "default-steam-path": "Steam bide-izena."
     },
     "Assets": "Assets",
     "help": {
@@ -106,13 +143,17 @@
             "part2": "Prefix karpeta Wine edo Proton karpeta erabiliz gero, berriro egiaztatu beharko duzu ibilbidea, Proton-ek Prefix (/pfx) bat eta erabiltzaile-izen (steamuser) bat erabiltzen baititu. Beraz, uneko ibilbidea ezaba dezakezu, sinkronizazioko konfigurazio-orritik irten eta itzuli Heroic-ek karpeta berriro ere Prefix zuzenarekin asma dezan.",
             "part3": "Eskuzko sinkronizazioa: Aukeratu «Deskargatu» hodeian gordetako jokoak deskargatzeko. «Igo» Igo lokalak hodeira igotzeko. «Behartu deskarga» eta «Karga behartua» ez dute kontuan hartuko tokiko bertsioa edo hodeiko bertsioa.",
             "part4": "Automatikoki gordetako sinkronizatzeak gordeak sinkronizatuko ditu joko bat hasten den bakoitzean eta jolasten amaitu ondoren."
+        },
+        "game_language": {
+            "fallback": "Utzi hutsik Heroic-en hizkuntza erabiltzeko."
         }
     },
     "button": {
         "syncing": "Sinkronizatzen",
         "login": "Hasi saioa",
         "sync": "Sinkronizatu",
-        "unsync": "Desinkronizatu"
+        "unsync": "Desinkronizatu",
+        "go_to_library": "Joan liburutegira"
     },
     "Epic Games": "Epic Games",
     "filter": {
@@ -120,5 +161,53 @@
     },
     "Filter": "Iragazkiarekin",
     "Downloading": "Deskargatzen",
-    "globalSettings": "Ezarpen globalak"
+    "globalSettings": "Ezarpen globalak",
+    "info": {
+        "heroic": {
+            "version": "Heroic bertsioa"
+        }
+    },
+    "accessibility": {
+        "all_tiles_in_color": "Erakutsi joko-lauza guztiak koloreekin",
+        "fonts": "Letra-tipoak",
+        "title": "Erabilerraztasuna",
+        "zoom": "Zoom"
+    },
+    "header": {
+        "show_hidden": "Erakutsi ezkutatutakoak",
+        "ignore_hidden": "Ezikusi ezkutatutakoak",
+        "platform": "Plataforma",
+        "show_all_games": "Erakutsi joko guztiak",
+        "show_favourites_only": "Erakutsi gogokoenak soilik",
+        "store": "Iragazi denda"
+    },
+    "anticheat": {
+        "anticheats": "Antitranpak",
+        "reference": "Erreferentzia",
+        "status": "Egoera",
+        "title": "Joko honek antitranpa softwarea dauka",
+        "may_not_work": "Posible da ez funtzionatzea antitranpa sistema ukatu edo apurtutako batengatik.",
+        "source": "Iturria"
+    },
+    "docs": "Dokumentazioa",
+    "epic": {
+        "offline-notification-title": "lineaz kanpo"
+    },
+    "favourites": "Gogokoenak",
+    "game": {
+        "status": "Egoera",
+        "store": "Denda",
+        "title": "Jokoaren izenburua"
+    },
+    "GameSettings": "Jokoaren ezarpenak",
+    "generic": {
+        "error": {
+            "component": "Ez da jokorik aurkitu - Saiatu saioa amaitzen eta berriro hasten edo azpiko aukeraren bat"
+        },
+        "library": {
+            "refresh": "Freskatu liburutegia"
+        }
+    },
+    "GOG": "GOG",
+    "gog-store": "GOG denda"
 }

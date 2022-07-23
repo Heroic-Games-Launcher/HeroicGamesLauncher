@@ -29,7 +29,9 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
   }
 
   if (command === 'launch') {
-    const game = Game.get(arg, 'legendary') || Game.get(arg, 'gog')
+    const game =
+      Game.get(arg, 'legendary').getGameInfo() ||
+      Game.get(arg, 'gog').getGameInfo()
 
     if (!game) {
       return logError(
@@ -38,7 +40,7 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
       )
     }
 
-    const { is_installed, title, app_name, runner } = game.getGameInfo()
+    const { is_installed, title, app_name, runner } = game
     if (!is_installed) {
       logInfo(`"${arg}" not installed.`, LogPrefix.ProtocolHandler)
       const { response } = await dialog.showMessageBox(window, {

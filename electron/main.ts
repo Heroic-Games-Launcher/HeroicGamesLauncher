@@ -90,7 +90,9 @@ import {
   fontsStore,
   heroicConfigPath,
   isMac,
-  isSteamDeckGameMode
+  isSteamDeckGameMode,
+  isCLIFullscreen,
+  isCLINoGui
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -154,9 +156,14 @@ async function createWindow(): Promise<BrowserWindow> {
     }
   })
 
-  if (isSteamDeckGameMode) {
+  if ((isSteamDeckGameMode || isCLIFullscreen) && !isCLINoGui) {
     logInfo(
-      'Heroic started via Steam-Deck gamemode. Switching to fullscreen',
+      [
+        isSteamDeckGameMode
+          ? 'Heroic started via Steam-Deck gamemode.'
+          : 'Heroic started with --fullscreen',
+        'Switching to fullscreen'
+      ],
       LogPrefix.Backend
     )
     mainWindow.setFullScreen(true)
@@ -180,7 +187,7 @@ async function createWindow(): Promise<BrowserWindow> {
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
-    if (!isSteamDeckGameMode) {
+    if (!isCLIFullscreen && !isSteamDeckGameMode) {
       // store windows properties
       configStore.set('window-props', mainWindow.getBounds())
     }
@@ -394,7 +401,7 @@ if (!gotTheLock) {
     }
 
     const { startInTray } = await GlobalConfig.get().getSettings()
-    const headless = process.argv.includes('--no-gui') || startInTray
+    const headless = isCLINoGui || startInTray
     if (!headless) {
       mainWindow.show()
     }
@@ -629,7 +636,7 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 ipcMain.handle('getHeroicVersion', () => app.getVersion())
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 ipcMain.handle('getGogdlVersion', async () => getGogdlVersion())
-ipcMain.handle('isSteamDeckMode', () => isSteamDeckGameMode)
+ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 
 ipcMain.handle('getPlatform', () => process.platform)
 
@@ -854,11 +861,6 @@ ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }: LaunchParams) => {
     const window = BrowserWindow.getAllWindows()[0]
-    window.webContents.send('setGameStatus', {
-      appName,
-      runner,
-      status: 'playing'
-    })
     const recentGames =
       (configStore.get('games.recent') as Array<RecentGame>) || []
     const game = Game.get(appName, runner)
@@ -893,6 +895,12 @@ ipcMain.handle(
     } else {
       configStore.set('games.recent', [{ appName: game.appName, title }])
     }
+
+    window.webContents.send('setGameStatus', {
+      appName,
+      runner,
+      status: 'playing'
+    })
 
     if (minimizeOnLaunch) {
       mainWindow.hide()
@@ -938,9 +946,6 @@ ipcMain.handle(
         }
         tsStore.set(`${game.appName}.totalPlayed`, Math.floor(totalPlaytime))
 
-        if (minimizeOnLaunch) {
-          mainWindow.show()
-        }
         window.webContents.send('setGameStatus', {
           appName,
           runner,
@@ -948,8 +953,10 @@ ipcMain.handle(
         })
 
         // Exit if we've been launched without UI
-        if (process.argv.includes('--no-gui')) {
+        if (isCLINoGui) {
           app.exit()
+        } else {
+          mainWindow.show()
         }
       })
   }

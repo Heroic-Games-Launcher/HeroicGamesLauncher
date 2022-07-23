@@ -412,7 +412,7 @@ export class GOGLibrary {
   }
 
   // This checks for updates of Windows and Mac titles
-  // Linux installers need to be checked differenly
+  // Linux installers need to be checked differently
   public async listUpdateableGames(): Promise<string[]> {
     const installed = Array.from(this.installedGames.values())
     const updateable: Array<string> = []
