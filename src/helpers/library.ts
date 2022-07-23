@@ -299,12 +299,17 @@ type RecentGame = {
   title: string
 }
 
-function getRecentGames(library: GameInfo[]) {
+function getRecentGames(libraries: GameInfo[]) {
   const recentGames =
     (configStore.get('games.recent', []) as Array<RecentGame>) || []
-  const recentGamesList = recentGames.map((a) => a.appName) as string[]
-
-  return library.filter((game) => recentGamesList.includes(game.app_name))
+  return (
+    recentGames
+      .map((game) => {
+        return libraries.find((info) => info.app_name === game.appName)
+      })
+      // With this `.filter`, no empty entries can be returned. TS doesn't understand this, so we have to add the `as GameInfo[]`
+      .filter(Boolean) as GameInfo[]
+  )
 }
 
 export const epicCategories = ['all', 'legendary', 'epic', 'unreal']
