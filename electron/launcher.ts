@@ -229,8 +229,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     }
   }
 
-  const { folder_name: installFolderName } = game.getGameInfo()
-  const envVars = setupWineEnvVars(gameSettings, installFolderName)
+  const envVars = setupWineEnvVars(gameSettings, game.appName)
 
   return { success: true, envVars: envVars }
 }
@@ -321,7 +320,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
   if (wineVersion.type === 'proton') {
     // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
-    ret.STEAM_COMPAT_APP_ID = '0'
+    ret.STEAM_COMPAT_APP_ID = `heroic-${gameId}`
     ret.SteamAppId = ret.STEAM_COMPAT_APP_ID
     // This sets the name of the log file given when setting PROTON_LOG=1
     ret.SteamGameId = `heroic-${gameId}`
@@ -440,14 +439,13 @@ async function runWineCommand(
   forceRunInPrefixVerb = false
 ) {
   const gameSettings = await game.getSettings()
-  const { folder_name: installFolderName } = game.getGameInfo()
 
   const { wineVersion } = gameSettings
 
   const env_vars = {
     ...process.env,
     ...setupEnvVars(gameSettings),
-    ...setupWineEnvVars(gameSettings, installFolderName)
+    ...setupWineEnvVars(gameSettings, game.appName)
   }
 
   let additional_command = ''
