@@ -1,0 +1,31 @@
+#!/bin/sh
+
+
+if [ -z $HGL_BOTTLE_NAME ]; then
+	echo "NO HGL_BOTTLE_NAME?"
+	exit 1
+fi
+
+if [[ -z $FLATPAK_ID ]]; then
+	command_prompt=""
+else
+	command_prompt="flatpak-spawn --host"
+fi
+
+if [ $# -eq 0 ]; then
+	echo "NO EXE?"
+	exit 1
+fi
+
+if flatpak info com.usebottles.bottles &>/dev/null; then
+	sh -c "$command_prompt flatpak run --command='bottles-cli' com.usebottles.bottles run -b $HGL_BOTTLE_NAME -e \"$1\" $(if [[ $# -ne 1 ]]; then echo "-a \"${@:2}\""; fi)"
+else
+	if which bottles-cli &>/dev/null; then
+		sh -c "$command_prompt bottles-cli run -b $HGL_BOTTLE_NAME -e \"$1\" $(if [[ $# -ne 1 ]]; then echo "-a \"${@:2}\""; fi)"
+	else
+		echo "BOTTLES NOT INSTALLED"
+		exit 1
+	fi
+fi
+
+exit $?

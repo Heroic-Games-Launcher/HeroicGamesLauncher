@@ -161,6 +161,7 @@ export interface GameSettings {
   useGameMode: boolean
   useSteamRuntime: boolean
   wineCrossoverBottle: string
+  bottlesBottle: string
   winePrefix: string
   wineVersion: WineInstallation
   gogSaves?: GOGCloudSavesLocation[]

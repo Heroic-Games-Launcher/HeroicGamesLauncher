@@ -21,7 +21,8 @@ import {
   isMac,
   isWindows,
   installed,
-  configStore
+  configStore,
+  bottlesWineBin
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import {
@@ -634,11 +635,17 @@ class LegendaryGame extends Game {
           ? wineExec.replaceAll("'", '')
           : wineExec
 
-      wineFlag.push(
-        ...(wineType === 'proton'
-          ? ['--no-wine', '--wrapper', `'${wineBin}' run`]
-          : ['--wine', wineBin])
-      )
+      if (wineType === 'proton') {
+        wineFlag.push(...['--no-wine', '--wrapper', `'${wineBin}' run`])
+      } else if (wineType === 'bottles') {
+        commandEnv = {
+          ...commandEnv,
+          HGL_BOTTLE_NAME: 'Heroic'
+        }
+        wineFlag.push(...['--no-wine', '--wrapper', bottlesWineBin])
+      } else {
+        wineFlag.push(...['--wine', wineBin])
+      }
     }
     const commandParts = [
       'launch',

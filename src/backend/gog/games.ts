@@ -25,7 +25,8 @@ import {
   isWindows,
   execOptions,
   isMac,
-  isLinux
+  isLinux,
+  bottlesWineBin
 } from '../constants'
 import { installedGamesStore, syncStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
@@ -383,11 +384,17 @@ class GOGGame extends Game {
           ? wineExec.replaceAll("'", '')
           : wineExec
 
-      wineFlag.push(
-        ...(wineType === 'proton'
-          ? ['--no-wine', '--wrapper', `'${wineBin}' run`]
-          : ['--wine', wineBin])
-      )
+      if (wineType === 'proton') {
+        wineFlag.push(...['--no-wine', '--wrapper', `'${wineBin}' run`])
+      } else if (wineType === 'bottles') {
+        commandEnv = {
+          ...commandEnv,
+          HGL_BOTTLE_NAME: 'Heroic'
+        }
+        wineFlag.push(...['--no-wine', '--wrapper', bottlesWineBin])
+      } else {
+        wineFlag.push(...['--wine', wineBin])
+      }
     }
 
     const commandParts = [

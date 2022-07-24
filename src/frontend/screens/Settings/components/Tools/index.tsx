@@ -5,9 +5,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { getGameInfo } from 'frontend/helpers'
+import useSetting from 'frontend/hooks/useSetting'
 
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
+import { WineInstallation } from 'common/types'
+import { defaultWineVersion } from '../WineSettings'
 
 export default function Tools() {
   const { t } = useTranslation()
@@ -15,6 +18,8 @@ export default function Tools() {
   const [winetricksRunning, setWinetricksRunning] = useState(false)
   const [progress, setProgress] = useState<string[]>([])
   const { appName, runner } = useContext(SettingsContext)
+
+  const [wine] = useSetting<WineInstallation>('wineVersion', defaultWineVersion)
 
   type Tool = 'winecfg' | 'winetricks' | string
   async function callTools(tool: Tool, exe?: string) {
@@ -109,15 +114,27 @@ export default function Tools() {
           >
             <span className="toolTitle">Winecfg</span>
           </button>
-          <button
-            data-testid="wineTricks"
-            className={classNames('button outline', {
-              active: winetricksRunning
-            })}
-            onClick={async () => callTools('winetricks')}
-          >
-            <span className="toolTitle">Winetricks</span>
-          </button>
+          {wine.type !== 'bottles' && (
+            <button
+              data-testid="wineTricks"
+              className={classNames('button outline', {
+                active: winetricksRunning
+              })}
+              onClick={async () => callTools('winetricks')}
+            >
+              <span className="toolTitle">Winetricks</span>
+            </button>
+          )}
+
+          {wine.type === 'bottles' && (
+            <button
+              data-testid="bottles"
+              className={classNames('button outline')}
+              onClick={async () => callTools('bottles')}
+            >
+              BOTTLES
+            </button>
+          )}
           <a
             data-testid="toolsDrag"
             draggable

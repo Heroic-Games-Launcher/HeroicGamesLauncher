@@ -387,7 +387,7 @@ export async function verifyWinePrefix(
 ): Promise<{ res: ExecResult; updated: boolean }> {
   const { winePrefix, wineVersion } = await game.getSettings()
 
-  if (wineVersion.type === 'crossover') {
+  if (wineVersion.type === 'crossover' || wineVersion.type === 'bottles') {
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
@@ -444,7 +444,8 @@ async function runWineCommand(
   const env_vars = {
     ...process.env,
     ...setupEnvVars(gameSettings),
-    ...setupWineEnvVars(gameSettings, installFolderName)
+    ...setupWineEnvVars(gameSettings, installFolderName),
+    HGL_BOTTLE_NAME: gameSettings.bottlesBottle
   }
 
   let additional_command = ''

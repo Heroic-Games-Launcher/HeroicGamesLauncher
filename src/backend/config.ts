@@ -195,8 +195,10 @@ abstract class GlobalConfig {
     const bottles = new Set<WineInstallation>()
     if (!isLinux) return bottles
 
-    // Check if bottles are installed through AUR
-    const AURversion = await execAsync('bottles --version').catch(() => null)
+    // Check if bottles are installed through distro package manager
+    const AURversion = await execAsync(
+      `${isFlatpak ? 'flatpak-spawn --host' : ''} bottles --version`
+    ).catch(() => null)
     const version = AURversion?.stdout.split('\n')[0]
     if (version) {
       const binPath = await execAsync('which bottles').catch(() => null)
@@ -204,29 +206,30 @@ abstract class GlobalConfig {
         return null
       }
       bottles.add({
-        name: `Bottles - ${version}`,
+        name: `Bottles - native`,
         type: 'bottles',
-        bin: binPath?.stdout
+        bin: 'os'
       })
       return bottles
     }
 
-    // Check if bottles are installed through Flatpak
-    if (existsSync(join(homedir(), '.var', 'app', 'com.usebottles.bottles'))) {
+    {
+      // Check if bottles are installed through Flatpak
       const FlatpakVersion = await execAsync(
-        'flatpak run com.usebottles.bottles --version'
+        `${
+          isFlatpak ? 'flatpak-spawn --host' : ''
+        } flatpak run com.usebottles.bottles --version`
       ).catch(() => null)
       const version = FlatpakVersion?.stdout.split('\n')[0]
       if (version) {
         bottles.add({
-          name: `Bottles - ${version}`,
+          name: `Bottles - flatpak`,
           type: 'bottles',
-          bin: 'flatpak run com.usebottles.bottles'
+          bin: 'flatpak'
         })
         return bottles
       }
     }
-
     return bottles
   }
 

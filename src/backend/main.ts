@@ -116,6 +116,7 @@ import {
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
+import { openBottles, runBottlesCommand } from './bottles/utils'
 import shlex from 'shlex'
 import {
   initOnlineMonitor,
@@ -645,7 +646,7 @@ ipcMain.handle(
   'callTool',
   async (event, { tool, exe, appName, runner }: Tools) => {
     const game = getGame(appName, runner)
-    const { wineVersion, winePrefix } = await game.getSettings()
+    const { wineVersion, winePrefix, bottlesBottle } = await game.getSettings()
     await verifyWinePrefix(game)
 
     switch (tool) {
@@ -653,6 +654,13 @@ ipcMain.handle(
         await Winetricks.run(wineVersion, winePrefix, event)
         break
       case 'winecfg':
+        if (wineVersion.type === 'bottles') {
+          await runBottlesCommand(
+            ['tools', 'winecfg', '-b', bottlesBottle],
+            wineVersion.bin
+          )
+          break
+        }
         game.runWineCommand('winecfg')
         break
       case 'runExe':
@@ -660,6 +668,10 @@ ipcMain.handle(
           exe = quoteIfNecessary(exe)
           game.runWineCommand(exe)
         }
+        break
+
+      case 'bottles':
+        openBottles(bottlesBottle, wineVersion.bin)
         break
     }
   }
@@ -1585,6 +1597,7 @@ import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
+import './bottles/ipc_handler'
 import './dialog/ipc_handler'
 
 // import Store from 'electron-store'
