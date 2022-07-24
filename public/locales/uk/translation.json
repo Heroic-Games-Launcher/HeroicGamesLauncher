@@ -29,6 +29,7 @@
         "customWine": "Оберіть двійковий файл Wine або Proton",
         "default-install-path": "Вкажіть стандартний шлях встановлення",
         "default-steam-path": "Steam path.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "Обрати",
             "error": "Неіснуючий шлях",
             "title": "Оберіть теку збережень"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -419,9 +429,27 @@
         "wineversion": "Версія Wine"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Очистити кеш Heroic",
         "copiedToClipboard": "Копійовано в сховище обміну!",
         "copyToClipboard": "Копіювати всі налаштування в сховище обміну",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
+        },
         "log": {
             "long-log-hint": "Лог усічений, показані останні 1000 рядків!"
         },
@@ -430,7 +458,8 @@
             "general": "Загальні",
             "log": "Лог",
             "other": "Інше",
-            "sync": "Синхронізація збережень"
+            "sync": "Синхронізація збережень",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Відкрити файл конфігурації",
         "reset-heroic": "Скинути Heroic",

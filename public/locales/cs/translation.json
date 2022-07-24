@@ -29,6 +29,7 @@
         "customWine": "Vyberte spustitelný soubor Wine nebo Proton",
         "default-install-path": "Vyberte výchozí cestu pro instalaci",
         "default-steam-path": "Steam path.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "Vybrat",
             "error": "Neplatná cesta",
             "title": "Vyberte cestu s uloženými soubory"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -419,9 +429,27 @@
         "wineversion": "Verze Wine"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Vymazat mezipaměť Heroic",
         "copiedToClipboard": "Zkopírováno do schránky!",
         "copyToClipboard": "Kopírovat všechna nastavení do schránky",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
+        },
         "log": {
             "long-log-hint": "Záznam je zkrácen, zobrazeno je posledních 1000 řádků!"
         },
@@ -430,7 +458,8 @@
             "general": "Obecné",
             "log": "Log",
             "other": "Ostatní",
-            "sync": "Synchronizace uložených souborů"
+            "sync": "Synchronizace uložených souborů",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Otevřít soubor konfigurace",
         "reset-heroic": "Reset Heroic",
