@@ -29,6 +29,7 @@
         "customWine": "Seleccione binario de Wine o Proton",
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "default-steam-path": "Steam path.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "Elegir",
             "error": "Ruta no válida",
             "title": "Elija el directorio de guardado"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -419,9 +429,27 @@
         "wineversion": "Versión de Wine"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Borrar la caché de Heroic",
         "copiedToClipboard": "¡Copiado en el portapapeles!",
         "copyToClipboard": "Copiar todas las configuraciones al portapapeles",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
+        },
         "log": {
             "long-log-hint": "Registro truncado. ¡Se mostrarán las últimas 1000 líneas!"
         },
@@ -430,7 +458,8 @@
             "general": "General",
             "log": "Registro",
             "other": "Otro",
-            "sync": "Guardar-Sincronización"
+            "sync": "Guardar-Sincronización",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Restablecer Heroic",

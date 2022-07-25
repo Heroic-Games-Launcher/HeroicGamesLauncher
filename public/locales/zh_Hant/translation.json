@@ -29,6 +29,7 @@
         "customWine": "選擇已編譯的Wine或Proton",
         "default-install-path": "選擇預設安裝路徑",
         "default-steam-path": "Steam path.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "選擇",
             "error": "無效路徑",
             "title": "選擇存檔的目錄"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -419,9 +429,27 @@
         "wineversion": "Wine 版本"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "清除 Heroic 快取",
         "copiedToClipboard": "已複製到剪貼簿！",
         "copyToClipboard": "複製所有設定至剪貼簿",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
+        },
         "log": {
             "long-log-hint": "日誌被截斷，顯示最後一千行！"
         },
@@ -430,7 +458,8 @@
             "general": "一般",
             "log": "Log",
             "other": "其它",
-            "sync": "存檔-同步"
+            "sync": "存檔-同步",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "開啟配置檔案",
         "reset-heroic": "Reset Heroic",

@@ -29,6 +29,7 @@
         "customWine": "Pilih Wine atau Proton Binary",
         "default-install-path": "Pilih Lokasi Pemasangan Bawaan",
         "default-steam-path": "Lokasi Steam.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "Pilih",
             "error": "Lokasi Tidak Valid",
             "title": "Pilih direktori penyimpanan"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -419,9 +429,27 @@
         "wineversion": "Versi Wine"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Hapus Tembolok Heroic",
         "copiedToClipboard": "Disalin ke Papan Klip!",
         "copyToClipboard": "Salin Semua Pengaturan ke Papan Klip",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
+        },
         "log": {
             "long-log-hint": "Log terpotong, 1000 baris terakhir akan ditampilkan!"
         },
@@ -430,7 +458,8 @@
             "general": "Umum",
             "log": "Log",
             "other": "Lainnya",
-            "sync": "Sinkronisasi Penyimpanan"
+            "sync": "Sinkronisasi Penyimpanan",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Buka Berkas Pengaturan",
         "reset-heroic": "Reset Heroic",

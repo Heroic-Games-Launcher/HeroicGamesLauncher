@@ -218,9 +218,11 @@ export default function GeneralSettings({
                   }`}
                 </button>
               </span>
-              {!isWindows && (
-                <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
-              )}
+              <div>
+                {!isWindows && (
+                  <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
+                )}
+              </div>
             </>
           }
         />

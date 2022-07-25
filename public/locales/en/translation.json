@@ -29,6 +29,7 @@
         "customWine": "Select the Wine or Proton binary",
         "default-install-path": "Choose Default Install Path",
         "default-steam-path": "Steam path.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "Choose",
             "error": "Invalid Path",
             "title": "Choose the saves directory"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -419,9 +429,27 @@
         "wineversion": "Wine Version"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Settings to Clipboard",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
+        },
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
@@ -430,7 +458,8 @@
             "general": "General",
             "log": "Log",
             "other": "Other",
-            "sync": "Save-Sync"
+            "sync": "Save-Sync",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",

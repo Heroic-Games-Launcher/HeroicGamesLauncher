@@ -29,6 +29,7 @@
         "customWine": "Valige Wine või Proton-i binaar",
         "default-install-path": "Valige Vaikimisi paigalduskoht",
         "default-steam-path": "Steami tee.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -120,6 +121,15 @@
             "button": "Valige",
             "error": "Vale koht",
             "title": "Valige salvestuste kaust"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -419,9 +429,27 @@
         "wineversion": "Wine'i versioon"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Tühjenda Heroic'u vahemälu",
         "copiedToClipboard": "Kopeeritud lõikelauale!",
         "copyToClipboard": "Kopeeri kõik seaded lõikelauale",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
+        },
         "log": {
             "long-log-hint": "Logi on kärbitud, näidatakse viimased 1000 rida!"
         },
@@ -430,7 +458,8 @@
             "general": "Üldine",
             "log": "Logi",
             "other": "Muu",
-            "sync": "Salvesta-sünkrooni"
+            "sync": "Salvesta-sünkrooni",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Ava konfiguratsioonifail",
         "reset-heroic": "Lähtesta Heroic",

@@ -92,7 +92,8 @@ import {
   isMac,
   isSteamDeckGameMode,
   isCLIFullscreen,
-  isCLINoGui
+  isCLINoGui,
+  isFlatpak
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -637,6 +638,7 @@ ipcMain.handle('getHeroicVersion', () => app.getVersion())
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 ipcMain.handle('getGogdlVersion', async () => getGogdlVersion())
 ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
+ipcMain.handle('isFlatpak', () => isFlatpak)
 
 ipcMain.handle('getPlatform', () => process.platform)
 
