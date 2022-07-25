@@ -99,6 +99,7 @@ export default function GamesSubmenu({
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+
   const [info, setInfo] = useState<otherInfo>({
     prefix: '',
     wine: ''
@@ -106,6 +107,7 @@ export default function GamesSubmenu({
   const [isNative, setIsNative] = useState<boolean>(false)
   const [steamRefresh, setSteamRefresh] = useState<boolean>(false)
   const [addedToSteam, setAddedToSteam] = useState<boolean>(false)
+  const [hasShortcuts, setHasShortcuts] = useState(false)
   const [eosOverlayEnabled, setEosOverlayEnabled] = useState<boolean>(false)
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
@@ -179,7 +181,13 @@ export default function GamesSubmenu({
   }
 
   function handleShortcuts() {
+    if (hasShortcuts) {
+      ipcRenderer.send('removeShortcut', appName, runner, true)
+      return setHasShortcuts(false)
+    }
     ipcRenderer.send('addShortcut', appName, runner, true)
+
+    return setHasShortcuts(true)
   }
 
   async function handleEosOverlay() {
@@ -266,6 +274,12 @@ export default function GamesSubmenu({
     getWineInfo()
     getGameDetails()
 
+    // Check for game shortcuts on desktop and start menu
+    ipcRenderer.invoke('shortcutsExists', appName, runner).then((added) => {
+      setHasShortcuts(added)
+    })
+
+    // Check for game shortcuts on Steam
     ipcRenderer.invoke('isAddedToSteam', appName, runner).then((added) => {
       setAddedToSteam(added)
     })
@@ -340,7 +354,9 @@ export default function GamesSubmenu({
                 onClick={() => handleShortcuts()}
                 className="link button is-text is-link"
               >
-                {t('submenu.addShortcut', 'Add shortcut')}
+                {hasShortcuts
+                  ? t('submenu.removeShortcut', 'Remove shortcuts')
+                  : t('submenu.addShortcut', 'Add shortcut')}
               </button>
             )}
             {steamRefresh ? (

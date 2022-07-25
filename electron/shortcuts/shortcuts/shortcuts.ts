@@ -131,4 +131,4 @@ function shortcutFiles(gameTitle: string) {
   return [desktopFile, menuFile]
 }
 
-export { removeShortcuts, addShortcuts }
+export { removeShortcuts, addShortcuts, shortcutFiles }

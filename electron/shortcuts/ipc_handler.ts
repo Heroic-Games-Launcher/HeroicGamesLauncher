@@ -1,5 +1,6 @@
+import { existsSync } from 'graceful-fs'
 import { GlobalConfig } from '../config'
-import { ipcMain, ipcRenderer } from 'electron'
+import { ipcMain, dialog } from 'electron'
 import i18next from 'i18next'
 import { join } from 'path'
 import { Game } from '../games'
@@ -9,6 +10,7 @@ import {
   isAddedToSteam,
   removeNonSteamGame
 } from './nonesteamgame/nonesteamgame'
+import { shortcutFiles } from './shortcuts/shortcuts'
 
 const getSteamUserdataDir = async () => {
   const { defaultSteamPath } = await GlobalConfig.get().getSettings()
@@ -19,9 +21,9 @@ ipcMain.on(
   'addShortcut',
   async (event, appName: string, runner: Runner, fromMenu: boolean) => {
     const game = Game.get(appName, runner)
-    game.addShortcuts(fromMenu)
+    await game.addShortcuts(fromMenu)
 
-    await ipcRenderer.invoke('openMessageBox', {
+    dialog.showMessageBox({
       buttons: [i18next.t('box.ok', 'Ok')],
       message: i18next.t(
         'box.shortcuts.message',
@@ -32,9 +34,24 @@ ipcMain.on(
   }
 )
 
+ipcMain.handle('shortcutsExists', (event, appName: string, runner: Runner) => {
+  const title = Game.get(appName, runner).getGameInfo().title
+  const [desktopFile, menuFile] = shortcutFiles(title)
+
+  return existsSync(desktopFile) || existsSync(menuFile)
+})
+
 ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
   const game = Game.get(appName, runner)
-  game.removeShortcuts()
+  await game.removeShortcuts()
+  dialog.showMessageBox({
+    buttons: [i18next.t('box.ok', 'Ok')],
+    message: i18next.t(
+      'box.shortcuts.message-remove',
+      'Shortcuts were removed from Desktop and Start Menu'
+    ),
+    title: i18next.t('box.shortcuts.title', 'Shortcuts Removed')
+  })
 })
 
 ipcMain.handle(

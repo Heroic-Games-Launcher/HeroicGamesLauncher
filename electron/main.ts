@@ -681,6 +681,7 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
       return null
     }
     info.extra = await game.getExtraInfo()
+    // eslint-disable-next-line @typescript-eslint/return-await
     return info
   } catch (error) {
     logError(`${error}`, LogPrefix.Backend)
