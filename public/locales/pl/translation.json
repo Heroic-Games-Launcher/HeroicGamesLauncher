@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Skróty zostały stworzone na Pulpicie i w Menu Start",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Skróty"
         },
         "sync": {

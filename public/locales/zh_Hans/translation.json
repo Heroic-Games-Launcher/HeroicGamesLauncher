@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "桌面与开始菜单快捷方式已创建",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "快捷方式"
         },
         "sync": {

@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Pikakuvakkeet luotiin työpöydälle ja Käynnistä-valikkoon",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Pikanäppäimet"
         },
         "sync": {

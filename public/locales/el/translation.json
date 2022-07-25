@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Συντομεύσεις δημιουργήθηκαν στην Επιφάνεια Εργασίας και στο Μενού Έναρξης",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Συντομεύσεις"
         },
         "sync": {
