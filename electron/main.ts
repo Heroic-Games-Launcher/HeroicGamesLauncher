@@ -91,7 +91,9 @@ import {
   heroicConfigPath,
   isMac,
   isSteamDeckGameMode,
-  isCLINoGui
+  isCLIFullscreen,
+  isCLINoGui,
+  isFlatpak
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -155,10 +157,16 @@ async function createWindow(): Promise<BrowserWindow> {
     }
   })
 
-  if (isSteamDeckGameMode && !isCLINoGui) {
-    logInfo('Heroic started via Steam-Deck gamemode. Switching to fullscreen', {
-      prefix: LogPrefix.Backend
-    })
+  if ((isSteamDeckGameMode || isCLIFullscreen) && !isCLINoGui) {
+    logInfo(
+      [
+        isSteamDeckGameMode
+          ? 'Heroic started via Steam-Deck gamemode.'
+          : 'Heroic started with --fullscreen',
+        'Switching to fullscreen'
+      ],
+      { prefix: LogPrefix.Backend }
+    )
     mainWindow.setFullScreen(true)
   }
 
@@ -180,7 +188,7 @@ async function createWindow(): Promise<BrowserWindow> {
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
-    if (!isSteamDeckGameMode) {
+    if (!isCLIFullscreen && !isSteamDeckGameMode) {
       // store windows properties
       configStore.set('window-props', mainWindow.getBounds())
     }
@@ -589,25 +597,29 @@ interface Tools {
   exe: string
   tool: string
   appName: string
+  runner: Runner
 }
 
-ipcMain.handle('callTool', async (event, { tool, exe, appName }: Tools) => {
-  const game = Game.get(appName)
-  const { wineVersion, winePrefix } = await game.getSettings()
-  await verifyWinePrefix(game)
+ipcMain.handle(
+  'callTool',
+  async (event, { tool, exe, appName, runner }: Tools) => {
+    const game = Game.get(appName, runner)
+    const { wineVersion, winePrefix } = await game.getSettings()
+    await verifyWinePrefix(game)
 
-  switch (tool) {
-    case 'winetricks':
-      Winetricks.run(wineVersion, winePrefix)
-      break
-    case 'winecfg':
-      game.runWineCommand('winecfg')
-      break
-    case 'runExe':
-      game.runWineCommand(exe)
-      break
+    switch (tool) {
+      case 'winetricks':
+        Winetricks.run(wineVersion, winePrefix)
+        break
+      case 'winecfg':
+        game.runWineCommand('winecfg')
+        break
+      case 'runExe':
+        game.runWineCommand(exe)
+        break
+    }
   }
-})
+)
 
 /// IPC handlers begin here.
 
@@ -635,7 +647,8 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 ipcMain.handle('getHeroicVersion', () => app.getVersion())
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 ipcMain.handle('getGogdlVersion', async () => getGogdlVersion())
-ipcMain.handle('isSteamDeckMode', () => isSteamDeckGameMode)
+ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
+ipcMain.handle('isFlatpak', () => isFlatpak)
 
 ipcMain.handle('getPlatform', () => process.platform)
 
@@ -862,11 +875,6 @@ ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }: LaunchParams) => {
     const window = BrowserWindow.getAllWindows()[0]
-    window.webContents.send('setGameStatus', {
-      appName,
-      runner,
-      status: 'playing'
-    })
     const recentGames =
       (configStore.get('games.recent') as Array<RecentGame>) || []
     const game = Game.get(appName, runner)
@@ -903,6 +911,12 @@ ipcMain.handle(
     } else {
       configStore.set('games.recent', [{ appName: game.appName, title }])
     }
+
+    window.webContents.send('setGameStatus', {
+      appName,
+      runner,
+      status: 'playing'
+    })
 
     if (minimizeOnLaunch) {
       mainWindow.hide()
@@ -948,9 +962,6 @@ ipcMain.handle(
         }
         tsStore.set(`${game.appName}.totalPlayed`, Math.floor(totalPlaytime))
 
-        if (minimizeOnLaunch) {
-          mainWindow.show()
-        }
         window.webContents.send('setGameStatus', {
           appName,
           runner,
@@ -960,6 +971,8 @@ ipcMain.handle(
         // Exit if we've been launched without UI
         if (isCLINoGui) {
           app.exit()
+        } else {
+          mainWindow.show()
         }
       })
   }

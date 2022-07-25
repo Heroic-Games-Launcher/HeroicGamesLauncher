@@ -39,7 +39,7 @@
         "add_to_favourites": "Tambahkan Ke Favorit",
         "cancel": "Jeda/Batal",
         "continue": "Lanjutkan Unduhan",
-        "force_update": "Force Update if Available",
+        "force_update": "Paksa Pembaruan jika Tersedia",
         "hide_game": "Sembunyikan Gim",
         "import": "Impor Gim",
         "install": "Pasang",
@@ -62,8 +62,8 @@
         "lastPlayed": "Terakhir Dimainkan",
         "neverPlayed": "Tidak pernah",
         "platform": "Pilih Versi Platform yang Akan Dipasang",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "Persyaratan Sistem",
+        "tools": "Peralatan",
         "totalPlayed": "Lama Dimainkan"
     },
     "gamecard": {
@@ -124,14 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",
-        "addToSteam": "Add to Steam",
+        "addToSteam": "Tambahkan ke Steam",
         "change": "Ubah lokasi pemsangan",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "Nonaktifkan EOS Overlay",
+        "enableEosOverlay": "Aktifkan EOS Overlay",
         "log": "Log Terbaru",
         "move": "Pindahkan gim",
         "protondb": "Periksa Kompatibilitas",
-        "removeFromSteam": "Remove from Steam",
+        "removeFromSteam": "Hapus dari Steam",
         "settings": "Pengaturan",
         "store": "Halaman Toko",
         "verify": "Verifikasi dan Perbaiki"

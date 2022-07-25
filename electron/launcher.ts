@@ -302,11 +302,17 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.WINE_FULLSCREEN_FSR = '1'
     ret.WINE_FULLSCREEN_FSR_STRENGTH = gameSettings.maxSharpness.toString()
   }
-  if (gameSettings.enableEsync) {
+  if (gameSettings.enableEsync && wineVersion.type !== 'proton') {
     ret.WINEESYNC = '1'
   }
-  if (gameSettings.enableFsync) {
+  if (!gameSettings.enableEsync && wineVersion.type === 'proton') {
+    ret.PROTON_NO_ESYNC = '1'
+  }
+  if (gameSettings.enableFsync && wineVersion.type !== 'proton') {
     ret.WINEFSYNC = '1'
+  }
+  if (!gameSettings.enableFsync && wineVersion.type === 'proton') {
+    ret.PROTON_NO_FSYNC = '1'
   }
   if (gameSettings.enableResizableBar) {
     ret.VKD3D_CONFIG = 'upload_hvv'

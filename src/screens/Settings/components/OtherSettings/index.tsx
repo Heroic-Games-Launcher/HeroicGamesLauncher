@@ -53,11 +53,13 @@ interface Props {
   toggleOffline: () => void
   togglePrimeRun: () => void
   toggleUseGameMode: () => void
+  toggleEacRuntime: () => void
   toggleAddDesktopShortcuts: () => void
   toggleAddGamesToStartMenu: () => void
   toggleDiscordRPC: () => void
   targetExe: string
   useGameMode: boolean
+  eacRuntime: boolean
   useSteamRuntime: boolean
   toggleUseSteamRuntime: () => void
   isProton: boolean
@@ -104,7 +106,9 @@ export default function OtherSettings({
   isProton,
   appName,
   setDefaultSteamPath,
-  defaultSteamPath
+  defaultSteamPath,
+  toggleEacRuntime,
+  eacRuntime
 }: Props) {
   const handleEnviromentVariables = (values: ColumnProps[]) => {
     const envs: EnviromentVariable[] = []
@@ -205,6 +209,30 @@ export default function OtherSettings({
     setTargetExe('')
   }, [targetExe])
 
+  async function handleGameMode() {
+    if (useGameMode && eacRuntime) {
+      const isFlatpak = await ipcRenderer.invoke('isFlatpak')
+      if (isFlatpak) {
+        const { response } = await ipcRenderer.invoke('openMessageBox', {
+          message: t(
+            'settings.gameMode.eacRuntimeEnabled.message',
+            "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?"
+          ),
+          title: t(
+            'settings.gameMode.eacRuntimeEnabled.title',
+            'EAC runtime enabled'
+          ),
+          buttons: [t('box.yes'), t('box.no')]
+        })
+        if (response === 1) {
+          return
+        }
+        toggleEacRuntime()
+      }
+    }
+    toggleUseGameMode()
+  }
+
   return (
     <>
       <h3 className="settingSubheader">{t('settings.navbar.other')}</h3>
@@ -243,7 +271,7 @@ export default function OtherSettings({
             <ToggleSwitch
               htmlId="gamemode"
               value={useGameMode}
-              handleChange={toggleUseGameMode}
+              handleChange={handleGameMode}
               title={t('setting.gamemode')}
             />
 

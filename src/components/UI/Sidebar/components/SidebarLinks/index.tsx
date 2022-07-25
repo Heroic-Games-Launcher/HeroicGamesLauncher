@@ -50,7 +50,7 @@ export default function SidebarLinks() {
     location.pathname.startsWith('/settings/default')
   )
   const [settingsPath, setSettingsPath] = useState('/settings/default/general')
-  const [isSteamDeckGameMode, setIsSteamDeckGameMode] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
 
   const {
     hasCloudSave = false,
@@ -84,9 +84,7 @@ export default function SidebarLinks() {
   }, [location])
 
   useEffect(() => {
-    ipcRenderer
-      .invoke('isSteamDeckMode')
-      .then((res) => setIsSteamDeckGameMode(res))
+    ipcRenderer.invoke('isFullscreen').then((res) => setIsFullscreen(res))
   }, [])
 
   return (
@@ -368,7 +366,7 @@ export default function SidebarLinks() {
         </div>
         <span>Ko-fi</span>
       </button>
-      {isSteamDeckGameMode && <QuitButton />}
+      {isFullscreen && <QuitButton />}
     </div>
   )
 }

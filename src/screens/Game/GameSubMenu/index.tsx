@@ -356,6 +356,7 @@ export default function GamesSubmenu({
               </button>
             )}
             {isLinux &&
+              runner === 'legendary' &&
               (eosOverlayRefresh ? (
                 refreshCircle()
               ) : (

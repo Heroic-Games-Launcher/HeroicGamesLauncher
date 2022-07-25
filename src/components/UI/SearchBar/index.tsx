@@ -63,7 +63,10 @@ export default function SearchBar() {
           ref={input}
           data-testid="searchInput"
           placeholder={t('search')}
-          id="search" // this id is used for the virtualkeyboard, don't change it
+          // this id is used for the virtualkeyboard, don't change it,
+          // if this must be changed, reflect the change in src/helpers/virtualKeyboard.ts#searchInput
+          // and in src/helpers/gamepad.ts#isSearchInput
+          id="search"
           className="FormControl__input"
         />
         {filterText.length > 0 && (
