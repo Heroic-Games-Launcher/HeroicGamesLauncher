@@ -32,6 +32,7 @@ import {
 import { execAsync } from './utils'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import { dirname, join } from 'path'
+import { runBottlesCommand } from './bottles/utils'
 
 /**
  * This class does config handling.
@@ -196,15 +197,12 @@ abstract class GlobalConfig {
     if (!isLinux) return bottles
 
     // Check if bottles are installed through distro package manager
-    const AURversion = await execAsync(
-      `${isFlatpak ? 'flatpak-spawn --host' : ''} bottles --version`
-    ).catch(() => null)
-    const version = AURversion?.stdout.split('\n')[0]
-    if (version) {
-      const binPath = await execAsync('which bottles').catch(() => null)
-      if (!binPath) {
-        return null
-      }
+    const AURversion = await runBottlesCommand(['--version'], 'os').catch(
+      () => null
+    )
+    console.log(AURversion)
+
+    if (!AURversion?.error) {
       bottles.add({
         name: `Bottles - native`,
         type: 'bottles',
@@ -215,13 +213,12 @@ abstract class GlobalConfig {
 
     {
       // Check if bottles are installed through Flatpak
-      const FlatpakVersion = await execAsync(
-        `${
-          isFlatpak ? 'flatpak-spawn --host' : ''
-        } flatpak run com.usebottles.bottles --version`
+      const FlatpakVersion = await runBottlesCommand(
+        ['--version'],
+        'flatpak'
       ).catch(() => null)
-      const version = FlatpakVersion?.stdout.split('\n')[0]
-      if (version) {
+      console.log(FlatpakVersion)
+      if (!FlatpakVersion?.error) {
         bottles.add({
           name: `Bottles - flatpak`,
           type: 'bottles',

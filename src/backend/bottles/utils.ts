@@ -1,7 +1,7 @@
 import { spawn } from 'child_process'
 import { logDebug, LogPrefix } from '../logger/logger'
 import { isFlatpak } from '../constants'
-import { execAsync, quoteIfNecessary } from '../utils'
+import { quoteIfNecessary } from '../utils'
 
 function prepareBottlesCommand(
   args: string[],
@@ -36,41 +36,61 @@ async function getBottlesNames(
   bottlesBin: 'flatpak' | 'os'
 ): Promise<string[]> {
   // Prepare command
-  const [executable, ...args] = prepareBottlesCommand(
+  const { stdout } = await runBottlesCommand(
     ['--json', 'list', 'bottles'],
     bottlesBin
   )
 
-  return new Promise((res) => {
-    logDebug(
-      ['Spawning Bottles command', executable, ...args],
-      LogPrefix.Backend
-    )
-    const proc = spawn(executable, args)
-    let stdout: string
-
-    proc.stdout.on('data', (data: Buffer) => {
-      if (data) stdout += data.toString()
-    })
-
-    proc.on('close', () => {
-      const jsonStart = stdout.indexOf('{')
-      const parsedData = JSON.parse(stdout.trim().slice(jsonStart))
-
-      res(Object.keys(parsedData))
-    })
-  })
+  const jsonStart = stdout.indexOf('{')
+  const parsedData = JSON.parse(stdout.trim().slice(jsonStart))
+  return Object.keys(parsedData)
 }
 
-async function runBottlesCommand(command: string[], bottlesType: string) {
-  const bottlesCommand = prepareBottlesCommand(
+async function runBottlesCommand(
+  command: string[],
+  bottlesType: string,
+  noCli?: boolean
+): Promise<{ stdout: string; stderr: string; error: boolean }> {
+  const [exe, ...bottlesCommand] = prepareBottlesCommand(
     command,
     bottlesType,
-    false,
-    true
+    noCli
   ) as string
+  logDebug(
+    ['Launching bottles command', exe, bottlesCommand.join(' ')],
+    LogPrefix.Backend
+  )
+  const process = spawn(exe, bottlesCommand)
 
-  return execAsync(bottlesCommand)
+  let stdout = ''
+  let stderr = ''
+
+  return new Promise((res) => {
+    process.stdout.addListener('data', (data) => {
+      if (data) {
+        stdout += data.toString()
+      }
+    })
+    process.stderr.addListener('data', (data) => {
+      if (data) {
+        stderr += data.toString()
+      }
+    })
+    process.addListener('error', () => {
+      res({
+        stdout,
+        stderr,
+        error: true
+      })
+    })
+    process.addListener('close', (code) => {
+      res({
+        stdout,
+        stderr,
+        error: code !== 0
+      })
+    })
+  })
 }
 
 async function openBottles(bottle: string, bottlesType: string) {
