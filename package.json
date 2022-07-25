@@ -171,7 +171,7 @@
     "react-start": "HOST=localhost BROWSER=none react-scripts start",
     "react-start:win": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --noStackTrace",
+    "test": "jest",
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
     "eject": "react-scripts eject",
@@ -228,7 +228,7 @@
     "pretty-quick": "^3.1.3",
     "tmp": "^0.2.1",
     "ts-jest": "^27.1.4",
-    "typescript": "^4.6.3"
+    "typescript": "^4.7.4"
   },
   "browserslist": {
     "production": [

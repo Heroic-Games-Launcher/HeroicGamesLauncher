@@ -38,7 +38,7 @@ function getStringPassedToLogFile(
   ].join('\n')
 }
 
-describe('Logger', () => {
+describe('logger/logger.ts', () => {
   afterEach(jest.restoreAllMocks)
 
   test('log a error message invokes console.error', () => {

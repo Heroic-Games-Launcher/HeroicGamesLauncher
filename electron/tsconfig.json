@@ -12,5 +12,5 @@
     "target": "esnext"
   },
   "include": ["."],
-  "exclude": ["__tests__"]
+  "exclude": ["**/__tests__/**", "**/__mocks__/**"]
 }

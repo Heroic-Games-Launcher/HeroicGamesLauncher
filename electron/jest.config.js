@@ -12,6 +12,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   testPathIgnorePatterns: ['./node_modules/'],
   resetMocks: true,
+  automock: false,
 
   rootDir: '..',
 

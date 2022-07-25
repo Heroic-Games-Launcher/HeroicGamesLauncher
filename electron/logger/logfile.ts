@@ -37,7 +37,7 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
   try {
     openSync(newLogFile, 'w')
   } catch (error) {
-    logError([`Open ${currentLogFile} failed with`, error], {
+    logError([`Open ${newLogFile} failed with`, error], {
       prefix: LogPrefix.Backend,
       skipLogToFile: true
     })
@@ -68,7 +68,7 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
         }
       })
     } catch (error) {
-      logError(`Removing old logs in ${logDir} failed with ${error}`, {
+      logError([`Removing old logs in ${logDir} failed with`, error], {
         prefix: LogPrefix.Backend,
         skipLogToFile: true
       })
