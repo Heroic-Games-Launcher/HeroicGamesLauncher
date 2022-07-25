@@ -550,17 +550,27 @@ const formatEpicStoreUrl = (title: string) => {
 
 function quoteIfNecessary(stringToQuote: string) {
   if (
-    (stringToQuote.charAt(0) !== '"' ||
-      stringToQuote.charAt(stringToQuote.length - 1) !== '"') &&
+    stringToQuote &&
+    !stringToQuote.startsWith('"') &&
+    !stringToQuote.endsWith('"') &&
     stringToQuote.includes(' ')
   ) {
     return `"${stringToQuote}"`
   }
-  return stringToQuote
+
+  return String(stringToQuote)
 }
 
 function removeQuoteIfNecessary(stringToUnquote: string) {
-  return stringToUnquote.replace(/^"+/, '').replace(/"+$/, '')
+  if (
+    stringToUnquote &&
+    stringToUnquote.startsWith('"') &&
+    stringToUnquote.endsWith('"')
+  ) {
+    return stringToUnquote.replace(/^"+/, '').replace(/"+$/, '')
+  }
+
+  return String(stringToUnquote)
 }
 
 function killPattern(pattern: string) {
