@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "میانبرها در دسکتاپ و منوی استارت ایجاد شدند",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "میانبرها"
         },
         "sync": {

@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "На робочому столі та в головному меню створені ярлики",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Ярлики"
         },
         "sync": {

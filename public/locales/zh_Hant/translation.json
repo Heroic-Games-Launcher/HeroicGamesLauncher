@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "已建立捷徑在桌面和開始功能表內",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "捷徑"
         },
         "sync": {

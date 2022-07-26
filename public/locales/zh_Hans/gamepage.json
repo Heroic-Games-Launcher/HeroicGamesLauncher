@@ -132,6 +132,7 @@
         "move": "移动游戏",
         "protondb": "检查兼容性",
         "removeFromSteam": "从 Steam 删除",
+        "removeShortcut": "Remove shortcuts",
         "settings": "设置",
         "store": "商店页面",
         "verify": "验证并修复"

@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Töölauale ja Start Menüüsse on loodud otseteed",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Otseteed"
         },
         "sync": {

@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "S'han creat dreceres a l'escriptori i al menú d'inici",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Dreceres"
         },
         "sync": {

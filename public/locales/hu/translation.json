@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Parancsikonok létre lettek hozva az asztalon és a Start menüben",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Parancsikonok"
         },
         "sync": {
