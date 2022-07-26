@@ -1556,6 +1556,10 @@ ipcMain.handle(
   }
 )
 
+ipcMain.handle('runGOGSetupForGame', async (event, appName) => {
+  return setup(appName)
+})
+
 ipcMain.handle('getShellPath', async (event, path) => {
   return normalize((await execAsync(`echo "${path}"`)).stdout.trim())
 })

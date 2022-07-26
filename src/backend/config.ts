@@ -200,7 +200,6 @@ abstract class GlobalConfig {
     const AURversion = await runBottlesCommand(['--version'], 'os').catch(
       () => null
     )
-    console.log(AURversion)
 
     if (!AURversion?.error) {
       bottles.add({
@@ -217,7 +216,6 @@ abstract class GlobalConfig {
         ['--version'],
         'flatpak'
       ).catch(() => null)
-      console.log(FlatpakVersion)
       if (!FlatpakVersion?.error) {
         bottles.add({
           name: `Bottles - flatpak`,

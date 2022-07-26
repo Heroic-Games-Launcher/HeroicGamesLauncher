@@ -49,6 +49,7 @@ import shlex from 'shlex'
 import { Game } from './games'
 import { isOnline } from './online_monitor'
 import { showErrorBoxModalAuto } from './dialog/dialog'
+import { prepareBottlesCommand } from './bottles/utils'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -439,7 +440,7 @@ async function runWineCommand(
   const gameSettings = await game.getSettings()
   const { folder_name: installFolderName } = game.getGameInfo()
 
-  const { wineVersion } = gameSettings
+  const { wineVersion, bottlesBottle } = gameSettings
 
   const env_vars = {
     ...process.env,
@@ -473,6 +474,14 @@ async function runWineCommand(
 
   const wineBin = wineVersion.bin.replaceAll("'", '')
   let finalCommand = `"${wineBin}" ${command}`
+  if (wineVersion.type === 'bottles') {
+    finalCommand = prepareBottlesCommand(
+      ['shell', '-b', bottlesBottle, '-i', command],
+      wineVersion.bin,
+      false,
+      true // since this is true it will always be a string
+    ) as string
+  }
   if (additional_command) {
     finalCommand += ` && ${additional_command}`
   }

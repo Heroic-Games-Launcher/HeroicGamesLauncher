@@ -233,6 +233,10 @@ export default function GamesSubmenu({
     setSteamRefresh(false)
   }
 
+  async function handleGogSetup() {
+    await ipcRenderer.invoke('runGOGSetupForGame', appName)
+  }
+
   useEffect(() => {
     if (!isInstalled) {
       return
@@ -367,6 +371,14 @@ export default function GamesSubmenu({
                     : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
                 </button>
               ))}
+            {isLinux && runner === 'gog' && (
+              <button
+                className="link button is-text is-link"
+                onClick={handleGogSetup}
+              >
+                {t('submenu.rungogsetup', 'Run GOG setup')}
+              </button>
+            )}
           </>
         )}
         <NavLink

@@ -1,7 +1,7 @@
 import { spawn } from 'child_process'
 import { logDebug, LogPrefix } from '../logger/logger'
 import { isFlatpak } from '../constants'
-import { quoteIfNecessary } from '../utils'
+import shlex from 'shlex'
 
 function prepareBottlesCommand(
   args: string[],
@@ -27,7 +27,7 @@ function prepareBottlesCommand(
 
   command.push(...args)
   if (join) {
-    return command.map(quoteIfNecessary).join(' ')
+    return shlex.join(command)
   }
   return command
 }

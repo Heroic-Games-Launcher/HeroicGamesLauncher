@@ -15,8 +15,10 @@ import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { userHome, isWindows } from '../constants'
 import ini from 'ini'
+import shlex from 'shlex'
 import { GlobalConfig } from '../config'
 import { isOnline } from '../online_monitor'
+import { prepareBottlesCommand } from '../bottles/utils'
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
  * For Galaxy games only (Windows)
@@ -123,7 +125,33 @@ async function setup(
             keyCommand = `/d "${valueData}" /v "${valueName}" /t ${regType}`
           }
           // Now create a key
-          const command = `${commandPrefix} reg add "${registryPath}" ${keyCommand} /f /reg:32`
+          let command = `${commandPrefix} reg add "${registryPath}" ${keyCommand} /f /reg:32`
+          if (gameSettings.wineVersion.type === 'bottles') {
+            let keyData: string[] = []
+
+            if (valueData && valueName) {
+              keyData = [
+                '/v',
+                valueName,
+                '/d',
+                valueData,
+                '/t',
+                getRegDataType(valueType)
+              ]
+            }
+            command = prepareBottlesCommand(
+              [
+                'shell',
+                '-b',
+                gameSettings.bottlesBottle,
+                '-i',
+                shlex.join(['reg', 'add', registryPath, ...keyData])
+              ],
+              gameSettings.wineVersion.bin,
+              false,
+              true
+            ) as string
+          }
           logInfo(
             [
               'Setup: Adding a registry key',
@@ -175,6 +203,23 @@ async function setup(
           )
 
           let command = `${commandPrefix} "${executablePath}" ${exeArguments}`
+
+          if (gameSettings.wineVersion.type === 'bottles') {
+            command = prepareBottlesCommand(
+              [
+                'run',
+                '-b',
+                gameSettings.bottlesBottle,
+                '-e',
+                executablePath,
+                '-a',
+                exeArguments
+              ],
+              gameSettings.wineVersion.bin,
+              false,
+              true
+            ) as string
+          }
           // Requires testing
           if (isWindows) {
             command = `Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList "${exeArguments}"`
