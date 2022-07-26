@@ -11,14 +11,15 @@
     "url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher"
   },
   "author": {
-    "name": "Heroic",
-    "email": "flavioislima@gmail.com"
+    "name": "Heroic Games Launcher",
+    "email": "heroicgameslauncher@protonmail.com"
   },
   "build": {
     "appId": "com.electron.heroic",
     "productName": "Heroic",
     "files": [
       "build/**/*",
+      "node_modules/**/*",
       "!build/bin/*",
       "build/bin/legendary.LICENSE"
     ],
@@ -205,7 +206,7 @@
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "@vitejs/plugin-react": "^2.0.0",
-    "electron": "^19.0.8",
+    "electron": "^19.0.9",
     "electron-builder": "^23.1.0",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.13.0",

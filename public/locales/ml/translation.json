@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "കുറുക്കുവഴികള് പണിമേശയിലേക്കും തുടക്കപ്പട്ടികയിലേക്കും ചേര്ത്തിട്ടുണ്ട്",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "കുറുക്കുവഴികള്"
         },
         "sync": {

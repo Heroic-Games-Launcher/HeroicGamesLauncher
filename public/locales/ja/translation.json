@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Shortcuts"
         },
         "sync": {

@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Genvägar skapades på Skrivbordet och Startmenyn",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Genvägar"
         },
         "sync": {

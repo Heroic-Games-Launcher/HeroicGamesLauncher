@@ -132,6 +132,7 @@
         "move": "Move Game",
         "protondb": "Check Compatibility",
         "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
         "settings": "Settings",
         "store": "Store Page",
         "verify": "Verify and Repair"

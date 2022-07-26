@@ -117,7 +117,7 @@
         "installing": "Εγκατάσταση",
         "moving": "Μετακίνηση εγκατάστασης, παρακαλώ περιμένετε",
         "notinstalled": "Αυτό το παιχνίδι δεν είναι εγκατεστημένο",
-        "processing": "Processing files, please wait",
+        "processing": "Επεξεργασία αρχείων, παρακαλώ περιμένετε",
         "reparing": "Επιδιόρθωση παιχνιδιού, παρακαλώ περιμένετε",
         "totalDownloaded": "Σύνολο ληφθέντων",
         "updating": "Ενημέρωση παιχνιδιού"
@@ -132,6 +132,7 @@
         "move": "Μετακίνηση παιχνιδιού",
         "protondb": "Έλεγχος συμβατότητας",
         "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
         "settings": "Ρυθμίσεις",
         "store": "Κατάστημα",
         "verify": "Επαλήθευση και Επιδιόρθωση"

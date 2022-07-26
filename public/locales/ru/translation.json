@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Ярлыки созданы на Рабочем столе и в Меню приложений",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Ярлыки"
         },
         "sync": {
