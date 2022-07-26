@@ -5,8 +5,8 @@ describe('electron/utils.ts', () => {
     const testCases = new Map<string, string>([
       ['path/without/spaces', 'path/without/spaces'],
       ['path/with /spaces', '"path/with /spaces"'],
-      ['"path/with /start/quote', '"path/with /start/quote'],
-      ['path/with /end/quote"', 'path/with /end/quote"'],
+      ['"path/with /start/quote', '""path/with /start/quote"'],
+      ['path/with /end/quote"', '"path/with /end/quote""'],
       ['"path/quoted/without/spaces"', '"path/quoted/without/spaces"'],
       ['"path/quoted/with /spaces"', '"path/quoted/with /spaces"'],
       [undefined as any, 'undefined']

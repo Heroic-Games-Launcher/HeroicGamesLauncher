@@ -551,8 +551,7 @@ const formatEpicStoreUrl = (title: string) => {
 function quoteIfNecessary(stringToQuote: string) {
   if (
     stringToQuote &&
-    !stringToQuote.startsWith('"') &&
-    !stringToQuote.endsWith('"') &&
+    !(stringToQuote.startsWith('"') && stringToQuote.endsWith('"')) &&
     stringToQuote.includes(' ')
   ) {
     return `"${stringToQuote}"`
