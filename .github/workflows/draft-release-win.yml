@@ -20,3 +20,4 @@ jobs:
       - run: npm run release:win
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
