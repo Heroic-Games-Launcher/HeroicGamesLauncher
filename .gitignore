@@ -33,3 +33,5 @@ downloads*.json
 
 flatpak/build
 .flatpak-builder
+
+vite-plugin-electron.log

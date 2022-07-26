@@ -18,7 +18,7 @@
     },
     "ecmaVersion": 12,
     "sourceType": "module",
-    "project": ["./tsconfig.json", "./electron/tsconfig.json"]
+    "project": ["./tsconfig.json"]
   },
   "plugins": ["react", "@typescript-eslint"],
   "settings": {
