@@ -28,8 +28,8 @@
         "choose-legendary-binary": "Selecciona el binari del Legendary",
         "customWine": "Selecciona el binary del Wine o del Proton",
         "default-install-path": "Tria la ruta d'instal·lació predefinida",
-        "downloadNow": "Download now",
         "default-steam-path": "Camí de l'Steam.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {

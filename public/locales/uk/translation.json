@@ -28,8 +28,8 @@
         "choose-legendary-binary": "Оберіть двійковий файл Legendary",
         "customWine": "Оберіть двійковий файл Wine або Proton",
         "default-install-path": "Вкажіть стандартний шлях встановлення",
-        "downloadNow": "Download now",
         "default-steam-path": "Шлях до Steam.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -435,6 +435,8 @@
             "name": "BattlEye AntiCheat Runtime"
         },
         "clear-cache": "Очистити кеш Heroic",
+        "copiedToClipboard": "Копійовано у сховище обміну!",
+        "copyToClipboard": "Копіювати всі налаштування у сховище обміну",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -449,8 +451,6 @@
                 "title": "EAC runtime enabled"
             }
         },
-        "copiedToClipboard": "Копійовано у сховище обміну!",
-        "copyToClipboard": "Копіювати всі налаштування у сховище обміну",
         "log": {
             "long-log-hint": "Журнал обрізаний, показані останні 1000 рядків!"
         },

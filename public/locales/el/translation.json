@@ -28,8 +28,8 @@
         "choose-legendary-binary": "Επιλέξτε το δυαδικό αρχείο του Legendary",
         "customWine": "Επιλέξτε το δυαδικό αρχείο Wine ή Proton",
         "default-install-path": "Επιλέξτε Κύρια Διαδρομή Εγκατάστασης",
-        "downloadNow": "Download now",
         "default-steam-path": "Διαδρομή Steam.",
+        "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
@@ -435,6 +435,8 @@
             "name": "BattlEye AntiCheat Runtime"
         },
         "clear-cache": "Εκκαθάριση κρυφής μνήμης Heroic",
+        "copiedToClipboard": "Αντιγράφηκε στο πρόχειρο!",
+        "copyToClipboard": "Αντιγραφή όλων των ρυθμίσεων στο Πρόχειρο",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -449,8 +451,6 @@
                 "title": "EAC runtime enabled"
             }
         },
-        "copiedToClipboard": "Αντιγράφηκε στο πρόχειρο!",
-        "copyToClipboard": "Αντιγραφή όλων των ρυθμίσεων στο Πρόχειρο",
         "log": {
             "long-log-hint": "Το αρχείο καταγραφής ελαττώθηκε, εμφάνιση τελευταίων 1000 γραμμών!"
         },
