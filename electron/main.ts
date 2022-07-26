@@ -591,25 +591,29 @@ interface Tools {
   exe: string
   tool: string
   appName: string
+  runner: Runner
 }
 
-ipcMain.handle('callTool', async (event, { tool, exe, appName }: Tools) => {
-  const game = Game.get(appName)
-  const { wineVersion, winePrefix } = await game.getSettings()
-  await verifyWinePrefix(game)
+ipcMain.handle(
+  'callTool',
+  async (event, { tool, exe, appName, runner }: Tools) => {
+    const game = Game.get(appName, runner)
+    const { wineVersion, winePrefix } = await game.getSettings()
+    await verifyWinePrefix(game)
 
-  switch (tool) {
-    case 'winetricks':
-      Winetricks.run(wineVersion, winePrefix)
-      break
-    case 'winecfg':
-      game.runWineCommand('winecfg')
-      break
-    case 'runExe':
-      game.runWineCommand(exe)
-      break
+    switch (tool) {
+      case 'winetricks':
+        Winetricks.run(wineVersion, winePrefix)
+        break
+      case 'winecfg':
+        game.runWineCommand('winecfg')
+        break
+      case 'runExe':
+        game.runWineCommand(exe)
+        break
+    }
   }
-})
+)
 
 /// IPC handlers begin here.
 

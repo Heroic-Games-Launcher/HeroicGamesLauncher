@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Creáronse atallos no escritorio e no menú principal",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Atallos"
         },
         "sync": {

@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Les raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Raccourcis"
         },
         "sync": {

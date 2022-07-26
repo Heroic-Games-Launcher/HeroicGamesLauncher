@@ -159,12 +159,18 @@ async function setup(
           }" /nodesktopshorctut /nodesktopshortcut`
 
           const workingDir = handlePathVars(
-            actionArguments.workingDir,
+            actionArguments.workingDir.replace(
+              '{app}',
+              gameInfo.install.install_path
+            ),
             pathsValues
           )
 
           const executablePath = path.join(
-            handlePathVars(executableName, pathsValues)
+            handlePathVars(
+              executableName.replace('{app}', gameInfo.install.install_path),
+              pathsValues
+            )
           )
 
           let command = `${commandPrefix} "${executablePath}" ${exeArguments}`

@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Verknüpfungen wurden auf dem Desktop und im Startmenü erstellt",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Verknüpfungen"
         },
         "sync": {

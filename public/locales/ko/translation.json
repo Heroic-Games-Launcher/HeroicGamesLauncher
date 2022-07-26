@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "바탕 화면 및 시작 메뉴에 바로 가기가 생성되었습니다",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "바로가기"
         },
         "sync": {

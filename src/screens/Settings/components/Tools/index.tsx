@@ -7,12 +7,14 @@ import classNames from 'classnames'
 import { getGameInfo, quoteIfNecessary } from 'src/helpers'
 
 import { ipcRenderer } from 'src/helpers'
+import { Runner } from 'src/types'
 
 interface Props {
   appName: string
+  runner: Runner
 }
 
-export default function Tools({ appName }: Props) {
+export default function Tools({ appName, runner }: Props) {
   const { t } = useTranslation()
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
@@ -29,7 +31,8 @@ export default function Tools({ appName }: Props) {
     await ipcRenderer.invoke('callTool', {
       tool,
       exe,
-      appName
+      appName,
+      runner
     })
     setWinetricksRunning(false)
     setWinecfgRunning(false)

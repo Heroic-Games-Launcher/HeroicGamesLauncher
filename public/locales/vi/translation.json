@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Shortcut đã được tạo ở màn hình chính và menu Start",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Shortcut"
         },
         "sync": {

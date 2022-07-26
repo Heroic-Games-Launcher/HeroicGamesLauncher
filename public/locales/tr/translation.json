@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Kısayol Masaüstüne ve Başlat Menüsüne eklendi",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Kısayol"
         },
         "sync": {

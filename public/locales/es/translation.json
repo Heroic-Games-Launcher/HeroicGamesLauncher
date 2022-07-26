@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Se han creado accesos directos en el Escritorio y en el Menú Inicio",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Accesos directos"
         },
         "sync": {
