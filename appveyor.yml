@@ -16,7 +16,7 @@ install:
 
 environment:
   GH_TOKEN:
-    secure: RsPfrJUhOE6XFcNZfPHfqt671n6jjVnvnKn+qAHPB9U=
+    secure: SJeFi81pEqk0BF19H9ki+JCictbc0/5+xpj4jDLD7ag=
 
 build_script:
   - npm run dist-win nsis portable
