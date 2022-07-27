@@ -15,7 +15,7 @@ install:
   - npm i --legacy-peer-deps
 
 environment:
-  APPVEYOR_SECRET:
+  GH_TOKEN:
     secure: RsPfrJUhOE6XFcNZfPHfqt671n6jjVnvnKn+qAHPB9U=
 
 build_script:
