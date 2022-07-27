@@ -477,27 +477,23 @@ process.on('uncaughtException', (err) => {
 
 let powerId: number | null
 
-ipcMain.on('lock', (event, reason: 'play' | 'download') => {
-  if (reason === 'download') {
-    if (!existsSync(join(heroicGamesConfigPath, 'lock'))) {
-      writeFileSync(join(heroicGamesConfigPath, 'lock'), '')
-      if (!powerId) {
-        logInfo('Preventing machine to sleep', LogPrefix.Backend)
-        powerId = powerSaveBlocker.start('prevent-app-suspension')
-        return powerId
-      }
+ipcMain.on('lock', () => {
+  if (!existsSync(join(heroicGamesConfigPath, 'lock'))) {
+    writeFileSync(join(heroicGamesConfigPath, 'lock'), '')
+    if (!powerId) {
+      logInfo('Preventing machine to sleep', LogPrefix.Backend)
+      powerId = powerSaveBlocker.start('prevent-app-suspension')
+      return powerId
     }
   }
 })
 
-ipcMain.on('unlock', (event, reason: 'play' | 'download') => {
-  if (reason === 'download') {
-    if (existsSync(join(heroicGamesConfigPath, 'lock'))) {
-      unlinkSync(join(heroicGamesConfigPath, 'lock'))
-      if (powerId) {
-        logInfo('Stopping Power Saver Blocker', LogPrefix.Backend)
-        return powerSaveBlocker.stop(powerId)
-      }
+ipcMain.on('unlock', () => {
+  if (existsSync(join(heroicGamesConfigPath, 'lock'))) {
+    unlinkSync(join(heroicGamesConfigPath, 'lock'))
+    if (powerId) {
+      logInfo('Stopping Power Saver Blocker', LogPrefix.Backend)
+      return powerSaveBlocker.stop(powerId)
     }
   }
 })
