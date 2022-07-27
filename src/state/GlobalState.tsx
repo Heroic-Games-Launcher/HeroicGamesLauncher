@@ -644,16 +644,11 @@ export class GlobalState extends PureComponent<Props> {
     const pendingOps = libraryStatus.filter(
       (game) => game.status !== 'playing' && game.status !== 'done'
     ).length
-    const playing = libraryStatus.filter(
-      (game) => game.status === 'playing'
-    ).length
 
-    const reason: 'play' | 'download' = playing ? 'play' : 'download'
-
-    if (pendingOps || playing) {
-      ipcRenderer.send('lock', reason)
+    if (pendingOps) {
+      ipcRenderer.send('lock', 'download')
     } else {
-      ipcRenderer.send('unlock', reason)
+      ipcRenderer.send('unlock', 'download')
     }
   }
 
