@@ -84,13 +84,6 @@ export default function GamePage(): JSX.Element | null {
   )
 
   useEffect(() => {
-    if (isPlaying) {
-      return ipcRenderer.send('lock', 'play')
-    }
-    return ipcRenderer.send('unlock', 'play')
-  }, [isPlaying])
-
-  useEffect(() => {
     const updateConfig = async () => {
       try {
         let newInfo = await getGameInfo(appName, 'legendary')

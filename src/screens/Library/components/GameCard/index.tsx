@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, CSSProperties, useMemo, useEffect } from 'react'
+import React, { useContext, CSSProperties, useMemo } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
@@ -12,13 +12,7 @@ import { ReactComponent as PlayIcon } from 'src/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'src/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'src/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'src/assets/stop-icon-alt.svg'
-import {
-  getProgress,
-  install,
-  ipcRenderer,
-  launch,
-  sendKill
-} from 'src/helpers'
+import { getProgress, install, launch, sendKill } from 'src/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import fallbackImage from 'src/assets/fallback-image.jpg'
@@ -330,13 +324,6 @@ const GameCard = ({
     }
     return null
   }
-
-  useEffect(() => {
-    if (isPlaying) {
-      return ipcRenderer.send('lock', 'play')
-    }
-    return ipcRenderer.send('unlock', 'play')
-  }, [isPlaying])
 
   return (
     <>
