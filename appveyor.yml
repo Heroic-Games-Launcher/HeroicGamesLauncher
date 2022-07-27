@@ -14,6 +14,10 @@ install:
   - ps: Install-Product node 16 x64
   - npm i --legacy-peer-deps
 
+environment:
+  APPVEYOR_SECRET:
+    secure: RsPfrJUhOE6XFcNZfPHfqt671n6jjVnvnKn+qAHPB9U=
+
 build_script:
   - npm run dist-win nsis portable
 
