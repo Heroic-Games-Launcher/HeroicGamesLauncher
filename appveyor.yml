@@ -1,0 +1,26 @@
+image: Visual Studio 2019
+
+platform:
+  - x64
+
+cache:
+  - node_modules
+  - '%USERPROFILE%\.electron'
+
+init:
+  - git config --global core.autocrlf input
+
+install:
+  - ps: Install-Product node 16 x64
+  - npm i --legacy-peer-deps
+
+build_script:
+  - npm run dist-win nsis portable
+
+test: off
+
+deploy:
+  - provider: Webhook
+    url: https://app.signpath.io/API/v1/f7f99393-5adb-408c-8ca3-67e07cfe31e6/Integrations/AppVeyor?ProjectSlug=HeroicGamesLauncher&SigningPolicySlug=test-signing
+    authorization:
+      secure: h7E0ayuitukQHwIttJmgV0dQX7BWSbeV8xds1CczLpbYUA/i9IMXR6wA629OfwXCQJA+RY/NoxKJUUnkLhmwXw==
