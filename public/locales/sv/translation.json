@@ -232,12 +232,14 @@
         "path": "Ange installationssökväg"
     },
     "library": {
-        "gridView": "Rutnätsvy",
-        "listView": "Listvy",
         "refresh": "Uppdatera",
         "sortAscending": "Sortera stigande",
         "sortByStatus": "Sortera efter status",
-        "sortDescending": "Sortera fallande"
+        "sortDescending": "Sortera fallande",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Bibliotek",
     "loading": {

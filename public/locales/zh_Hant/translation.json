@@ -232,12 +232,14 @@
         "path": "選擇安裝路徑"
     },
     "library": {
-        "gridView": "網格檢視",
-        "listView": "清單檢視",
         "refresh": "重新整理",
         "sortAscending": "升序排列",
         "sortByStatus": "依安裝狀態排序",
-        "sortDescending": "降序排列"
+        "sortDescending": "降序排列",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "遊戲庫",
     "loading": {

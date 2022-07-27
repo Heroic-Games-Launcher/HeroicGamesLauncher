@@ -232,12 +232,14 @@
         "path": "Kurulum Yolunu Seçin"
     },
     "library": {
-        "gridView": "Izgara görünümü",
-        "listView": "Liste görünümü",
         "refresh": "Yenile",
         "sortAscending": "Artan Sıralama",
         "sortByStatus": "Duruma Göre Sırala",
-        "sortDescending": "Azalan Sıralama"
+        "sortDescending": "Azalan Sıralama",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Kütüphane",
     "loading": {

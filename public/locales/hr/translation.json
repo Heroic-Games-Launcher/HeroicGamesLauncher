@@ -232,12 +232,14 @@
         "path": "Odaberi stazu instalacije"
     },
     "library": {
-        "gridView": "Pločasto",
-        "listView": "Popis",
         "refresh": "Osvježi",
         "sortAscending": "Razvrstaj uzlazno",
         "sortByStatus": "Razvrstaj po stanju",
-        "sortDescending": "Razvrstaj silazno"
+        "sortDescending": "Razvrstaj silazno",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Biblioteka",
     "loading": {
