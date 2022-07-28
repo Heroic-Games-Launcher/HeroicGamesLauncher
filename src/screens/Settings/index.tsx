@@ -285,8 +285,8 @@ function Settings() {
 
         if (!isDefault) {
           setLanguageCode(config.language)
-          const { title: gameTitle, canRunOffline: can_run_offline } =
-            await getGameInfo(appName, runner)
+          const info = await getGameInfo(appName, runner)
+          const { title: gameTitle, canRunOffline: can_run_offline } = info
           setCanRunOffline(can_run_offline)
           setTitle(gameTitle)
         } else {
@@ -302,7 +302,7 @@ function Settings() {
   let returnPath = '/'
 
   if (!fromGameCard) {
-    returnPath = `/gamepage/${appName}`
+    returnPath = `/gamepage/${runner}/${appName}`
     if (returnPath === '/gamepage/default') {
       returnPath = '/'
     }
@@ -559,6 +559,7 @@ function Settings() {
           )}
           {isOtherSettings && (
             <OtherSettings
+              runner={runner}
               enviromentOptions={enviromentOptions}
               wrapperOptions={wrapperOptions}
               setEnviromentOptions={setEnviromentOptions}

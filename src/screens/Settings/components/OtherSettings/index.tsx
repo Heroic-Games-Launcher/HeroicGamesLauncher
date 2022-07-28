@@ -12,7 +12,7 @@ import {
   TextInputWithIconField
 } from 'src/components/UI'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
-import { EnviromentVariable, Path, WrapperVariable } from 'src/types'
+import { EnviromentVariable, Path, Runner, WrapperVariable } from 'src/types'
 import Backspace from '@mui/icons-material/Backspace'
 import { getGameInfo } from 'src/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -64,6 +64,7 @@ interface Props {
   toggleUseSteamRuntime: () => void
   isProton: boolean
   appName: string
+  runner: Runner
 }
 
 export default function OtherSettings({
@@ -108,7 +109,8 @@ export default function OtherSettings({
   setDefaultSteamPath,
   defaultSteamPath,
   toggleEacRuntime,
-  eacRuntime
+  eacRuntime,
+  runner
 }: Props) {
   const handleEnviromentVariables = (values: ColumnProps[]) => {
     const envs: EnviromentVariable[] = []
@@ -195,7 +197,7 @@ export default function OtherSettings({
 
   const handleTargetExe = useCallback(async () => {
     if (!targetExe.length) {
-      const gameinfo = await getGameInfo(appName)
+      const gameinfo = await getGameInfo(appName, runner)
 
       ipcRenderer
         .invoke('openDialog', {
