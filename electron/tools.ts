@@ -1,8 +1,8 @@
 import { WineInstallation } from './types'
 import * as axios from 'axios'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { exec } from 'child_process'
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
+import { exec, spawn } from 'child_process'
 
 import {
   execAsync,
@@ -215,21 +215,29 @@ export const Winetricks = {
 
     const winepath = dirname(wineBin)
 
-    // use wine instead of wine64 since it breaks on flatpak
-    const command = `WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`
-
-    logInfo(['trying to run', command], LogPrefix.Backend)
-    try {
-      const { stderr, stdout } = await execAsync(command, execOptions)
-      logInfo(`Output: ${stderr} \n ${stdout}`)
-    } catch (error) {
-      logError(
-        [
-          `Something went wrong! Check if WineTricks is available and ${wineBin} exists`,
-          `${error}`
-        ],
-        LogPrefix.Backend
-      )
+    const envs = {
+      ...process.env,
+      WINEPREFIX: winePrefix,
+      PATH: `${winepath}:${process.env.PATH}`
     }
+
+    logInfo(
+      `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`,
+      LogPrefix.WineTricks
+    )
+
+    const child = spawn(winetricks, ['-q'], { env: envs })
+
+    child.stdout.on('data', (data: Buffer) => {
+      logInfo(data.toString(), LogPrefix.WineTricks)
+    })
+
+    child.stderr.on('data', (data: Buffer) => {
+      logError(data.toString(), LogPrefix.WineTricks)
+    })
+
+    child.on('error', (error) => {
+      logError(`Winetricks throwed Error: ${error}`, LogPrefix.WineTricks)
+    })
   }
 }
