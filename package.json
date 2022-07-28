@@ -11,8 +11,8 @@
     "url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher"
   },
   "author": {
-    "name": "Heroic",
-    "email": "flavioislima@gmail.com"
+    "name": "Heroic Games Launcher",
+    "email": "heroicgameslauncher@protonmail.com"
   },
   "build": {
     "appId": "com.electron.heroic",
@@ -20,8 +20,8 @@
     "files": [
       "build/**/*",
       "node_modules/**/*",
-      "build/bin/legendary.LICENSE",
-      "!build/bin/*"
+      "!build/bin/*",
+      "build/bin/legendary.LICENSE"
     ],
     "asarUnpack": [
       "build/icon.png",

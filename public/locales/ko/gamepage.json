@@ -132,6 +132,7 @@
         "move": "게임 이동",
         "protondb": "호환성 체크",
         "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
         "settings": "설정",
         "store": "스토어 페이지",
         "verify": "확인 및 복구"

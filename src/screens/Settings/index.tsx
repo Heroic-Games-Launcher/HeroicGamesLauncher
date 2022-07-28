@@ -538,7 +538,9 @@ function Settings() {
               togglePreferSystemLibs={togglePreferSystemLibs}
             />
           )}
-          {isWineSettings && !isDefault && <Tools appName={appName} />}
+          {isWineSettings && !isDefault && (
+            <Tools appName={appName} runner={runner} />
+          )}
           {isWineExtensions && (
             <WineExtensions
               winePrefix={winePrefix}

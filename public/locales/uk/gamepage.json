@@ -114,7 +114,7 @@
         "clickToUpdate": "Клацніть для оновлення",
         "hasUpdates": "Доступна нова версія!",
         "installed": "Встановлено",
-        "installing": "Встановлюю",
+        "installing": "Встановлення",
         "moving": "Переміщую встановлення, будь ласка зачекайте",
         "notinstalled": "Гра не встановлена",
         "processing": "Обробка файлів, будь ласка, зачекайте",
@@ -132,6 +132,7 @@
         "move": "Перенести гру",
         "protondb": "Перевірити сумісність",
         "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
         "settings": "Налаштування",
         "store": "Сторінка в крамниці",
         "verify": "Перевірити і відновити"

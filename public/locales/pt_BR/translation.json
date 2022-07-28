@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Os atalhos foram criados na área de trabalho e no menu Iniciar",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Atalhos"
         },
         "sync": {

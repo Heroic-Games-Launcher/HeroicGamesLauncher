@@ -1,8 +1,8 @@
 .gameList {
   color: var(--text-secondary);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  grid-gap: 1.2rem;
+  grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
+  grid-gap: 1.5rem;
   padding: 1rem 1rem 7rem;
 }
 

@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Zástupci byli vytvořeni na ploše a v nabídce Start",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Zástupci"
         },
         "sync": {
