@@ -303,10 +303,12 @@ function Settings() {
 
   if (!fromGameCard) {
     returnPath = `/gamepage/${runner}/${appName}`
-    if (returnPath === '/gamepage/default') {
+    if (returnPath === '/gamepage/undefined/default') {
       returnPath = '/'
     }
   }
+
+  console.log({ returnPath })
 
   // Helper function to update the `settingsToSave` state
   const setSettingsToSaveState = () => {
