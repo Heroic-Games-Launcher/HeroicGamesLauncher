@@ -66,7 +66,7 @@ export default function GamePage(): JSX.Element | null {
   const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
-  const [gogSaves, setGOGSaves] = useState([] as Array<GOGCloudSavesLocation>)
+  const [gogSaves, setGOGSaves] = useState<GOGCloudSavesLocation[]>([])
   const [isSyncing, setIsSyncing] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
   const [launchArguments, setLaunchArguments] = useState('')

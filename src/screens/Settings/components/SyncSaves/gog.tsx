@@ -37,7 +37,7 @@ export default function GOGSyncSaves({
 
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
-  const isMac = ['osx', 'Mac']
+  const macPlatforms = ['osx', 'Mac']
 
   useEffect(() => {
     const getLocations = async () => {
@@ -61,7 +61,7 @@ export default function GOGSyncSaves({
         })
       }
 
-      const isMacNative = isMac.includes(installed_platform ?? '')
+      const isMacNative = macPlatforms.includes(installed_platform ?? '')
       const isLinuxNative = installed_platform === 'linux'
       const isNative = isWin || isMacNative || isLinuxNative
 
@@ -71,7 +71,6 @@ export default function GOGSyncSaves({
           location.replace('<?INSTALL?>', String(install_path)),
           String(installed_platform)
         )
-        console.log(saveLocation)
         let actualPath: string
         if (!isNative) {
           const { stdout } = await ipcRenderer
@@ -81,8 +80,12 @@ export default function GOGSyncSaves({
               command: `cmd /c winepath "${saveLocation}"`
             })
             .catch((error) => {
-              console.error('There was an error getting the path', error)
+              ipcRenderer.invoke(
+                'logError',
+                `There was an error getting the save path ${error}`
+              )
               setIsLoading(false)
+              return { stdout: '' }
             })
           actualPath = stdout.trim()
         } else {
@@ -92,8 +95,8 @@ export default function GOGSyncSaves({
           (value) => value.name === name
         )
 
-        console.log(actualPath)
-        if (locationIndex >= 0 && !locations[locationIndex]?.location.length) {
+        const currentLocation = locations[locationIndex]
+        if (locationIndex >= 0 && !currentLocation?.location.length) {
           locations[locationIndex].location = actualPath
         } else if (locationIndex < 0) {
           locations.push({ name, location: actualPath })

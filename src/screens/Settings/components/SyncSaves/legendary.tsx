@@ -17,7 +17,7 @@ import {
   syncSaves
 } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
-import { Path, Runner, SyncType } from 'src/types'
+import { Path, SyncType } from 'src/types'
 
 interface Props {
   appName: string
@@ -26,7 +26,6 @@ interface Props {
   savesPath: string
   setAutoSyncSaves: (value: boolean) => void
   setSavesPath: (value: string) => void
-  runner: Runner
   winePrefix?: string
 }
 
@@ -37,8 +36,7 @@ export default function LegendarySyncSaves({
   autoSyncSaves,
   setAutoSyncSaves,
   isProton,
-  winePrefix,
-  runner
+  winePrefix
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [isLoading, setLoading] = useState(false)
@@ -56,7 +54,7 @@ export default function LegendarySyncSaves({
       const {
         save_folder,
         install: { install_path }
-      } = await getGameInfo(appName, runner)
+      } = await getGameInfo(appName, 'legendary')
       setAutoSyncSaves(autoSyncSaves)
       const prefix = winePrefix ? winePrefix : ''
       let folder = await fixLegendarySaveFolder(
@@ -73,7 +71,7 @@ export default function LegendarySyncSaves({
         const { stdout } = await ipcRenderer
           .invoke('runWineCommandForGame', {
             appName,
-            runner,
+            runner: 'legendary',
             command: `cmd /c winepath "${folder}"`
           })
           .catch((error) => {
@@ -107,7 +105,7 @@ export default function LegendarySyncSaves({
   async function handleSync() {
     setIsSyncing(true)
 
-    await syncSaves(savesPath, appName, runner, syncType).then(
+    await syncSaves(savesPath, appName, 'legendary', syncType).then(
       async (res: string) =>
         ipcRenderer.invoke('openMessageBox', {
           message: res,
