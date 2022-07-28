@@ -308,8 +308,6 @@ function Settings() {
     }
   }
 
-  console.log({ returnPath })
-
   // Helper function to update the `settingsToSave` state
   const setSettingsToSaveState = () => {
     const GlobalSettings = {
