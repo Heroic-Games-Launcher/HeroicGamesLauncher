@@ -39,7 +39,7 @@ export default function Sidebar() {
           <CurrentDownload
             key={g.appName}
             appName={g.appName}
-            runner={g.runner}
+            runner={g.runner || 'legendary'}
           />
         ))}
       </div>
