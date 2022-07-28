@@ -20,6 +20,7 @@ const SCROLL_REPEAT_DELAY = 50
  */
 
 let controllerIsDisabled = false
+let currentController = -1
 
 export const initGamepad = () => {
   ipcRenderer
@@ -148,6 +149,8 @@ export const initGamepad = () => {
           }
           break
       }
+
+      emitControllerEvent(controllerIndex)
 
       if (action === 'mainAction') {
         currentElement()?.click()
@@ -300,6 +303,27 @@ export const initGamepad = () => {
 
   function removegamepad(gamepad: Gamepad) {
     controllers = controllers.filter((idx) => idx !== gamepad.index)
+  }
+
+  function emitControllerEvent(controllerIndex: number) {
+    if (currentController === controllerIndex) {
+      return
+    }
+
+    const gamepads = navigator.getGamepads()
+    const gamepad = gamepads[controllerIndex]
+    if (!gamepad) {
+      return
+    }
+
+    currentController = controllerIndex
+    const controllerEvent = new CustomEvent('controller-changed', {
+      detail: {
+        controllerId: gamepad.id
+      }
+    })
+
+    window.dispatchEvent(controllerEvent)
   }
 
   window.addEventListener('gamepadconnected', connecthandler)

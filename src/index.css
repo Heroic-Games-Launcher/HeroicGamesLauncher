@@ -147,7 +147,7 @@ code {
 .simple-keyboard {
   position: fixed;
   z-index: 10;
-  bottom: 0px;
+  bottom: calc(min(20px, 1rem) + 2rem);
   left: 0px;
   right: 0px;
   background: var(--osk-background);
