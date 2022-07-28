@@ -38,18 +38,18 @@ export default function SidebarLinks() {
   const navigate = useNavigate()
   const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
-  const [appName, type] = location.pathname
-    .replaceAll('/settings/', '')
-    .split('/')
+  const [, , runner, appName, type] = location.pathname.split('/')
 
   const { epic, gog, platform } = useContext(ContextProvider)
 
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
   const [isDefaultSetting, setIsDefaultSetting] = useState(
-    location.pathname.startsWith('/settings/default')
+    !runner || runner === 'app'
   )
-  const [settingsPath, setSettingsPath] = useState('/settings/default/general')
+  const [settingsPath, setSettingsPath] = useState(
+    '/settings/app/default/general'
+  )
   const [isFullscreen, setIsFullscreen] = useState(false)
 
   const {
@@ -67,19 +67,12 @@ export default function SidebarLinks() {
   const loggedIn = epic.username || gog.username
 
   useEffect(() => {
-    let tmpAppName = ''
-    if (location.pathname.startsWith('/gamepage/')) {
-      tmpAppName = location.pathname.replace('/gamepage/', '')
-    } else {
-      tmpAppName = appName !== 'default' ? appName : ''
-    }
-
-    if (tmpAppName) {
-      setSettingsPath(`/settings/${tmpAppName}/wine`)
-      setIsDefaultSetting(false)
-    } else {
-      setSettingsPath('/settings/default/general')
+    if (!runner || runner === 'app') {
       setIsDefaultSetting(true)
+      setSettingsPath('/settings/app/default/general')
+    } else {
+      setIsDefaultSetting(false)
+      setSettingsPath(`/settings/${runner}/${appName}/wine`)
     }
   }, [location])
 
@@ -171,7 +164,7 @@ export default function SidebarLinks() {
             classNames('Sidebar__item', { active: isActive })
           }
           to={{ pathname: settingsPath }}
-          state={{ fromGameCard: false }}
+          state={{ fromGameCard: false, runner: runner }}
         >
           <>
             <div className="Sidebar__itemIcon">
@@ -196,7 +189,7 @@ export default function SidebarLinks() {
             {isDefaultSetting && (
               <NavLink
                 role="link"
-                to={{ pathname: '/settings/default/general' }}
+                to={{ pathname: '/settings/app/default/general' }}
                 state={{ fromGameCard: false }}
                 className={classNames('Sidebar__item SidebarLinks__subItem', {
                   ['active']: type === 'general'
@@ -209,7 +202,7 @@ export default function SidebarLinks() {
               <>
                 <NavLink
                   role="link"
-                  to={`/settings/${appName}/wine`}
+                  to={`/settings/${runner}/${appName}/wine`}
                   state={{ ...state, runner: state?.runner }}
                   className={classNames('Sidebar__item SidebarLinks__subItem', {
                     ['active']: type === 'wine'
@@ -219,7 +212,7 @@ export default function SidebarLinks() {
                 </NavLink>
                 <NavLink
                   role="link"
-                  to={`/settings/${appName}/wineExt`}
+                  to={`/settings/${runner}/${appName}/wineExt`}
                   state={{ ...state, runner: state?.runner }}
                   className={classNames('Sidebar__item SidebarLinks__subItem', {
                     ['active']: type === 'wineExt'
@@ -233,7 +226,7 @@ export default function SidebarLinks() {
               <NavLink
                 role="link"
                 data-testid="linkSync"
-                to={`/settings/${appName}/sync`}
+                to={`/settings/${runner}/${appName}/sync`}
                 state={{ ...state, runner: state?.runner }}
                 className={classNames('Sidebar__item SidebarLinks__subItem', {
                   ['active']: type === 'sync'
@@ -244,7 +237,7 @@ export default function SidebarLinks() {
             )}
             <NavLink
               role="link"
-              to={`/settings/${appName}/other`}
+              to={`/settings/${runner}/${appName}/other`}
               state={{ ...state, runner: state?.runner }}
               className={classNames('Sidebar__item SidebarLinks__subItem', {
                 ['active']: type === 'other'
@@ -255,7 +248,7 @@ export default function SidebarLinks() {
             {isDefaultSetting && (
               <NavLink
                 role="link"
-                to={`/settings/${appName}/advanced`}
+                to={`/settings/${runner}/${appName}/advanced`}
                 state={{ ...state, runner: state?.runner }}
                 className={classNames('Sidebar__item SidebarLinks__subItem', {
                   ['active']: type === 'advanced'
@@ -266,7 +259,7 @@ export default function SidebarLinks() {
             )}
             <NavLink
               role="link"
-              to={`/settings/${appName}/log`}
+              to={`/settings/${runner}/${appName}/log`}
               state={{ ...state, runner: state?.runner }}
               className={classNames('Sidebar__item SidebarLinks__subItem', {
                 ['active']: type === 'log'
