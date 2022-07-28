@@ -87,7 +87,6 @@ export default function SidebarLinks() {
       tmpAppName = ''
     }
     
-
     if (tmpAppName) {
       setSettingsPath(`/settings/${tmpAppName}/wine`)
       setIsDefaultSetting(false)
