@@ -188,7 +188,6 @@
     ]
   },
   "devDependencies": {
-    "@honkhonk/vite-plugin-svgr": "^1.1.0",
     "@testing-library/dom": "^7.31.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
@@ -222,6 +221,7 @@
     "typescript": "^4.6.3",
     "vite": "^3.0.3",
     "vite-plugin-electron": "^0.8.3",
+    "vite-plugin-svgr": "^2.2.1",
     "vite-tsconfig-paths": "^3.5.0"
   }
 }

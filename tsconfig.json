@@ -22,7 +22,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "src/"
+    "baseUrl": "src/",
+    "types": ["vite-plugin-svgr/client"],
+    "typeRoots": ["./node-modules/@types", "src/common/typedefs"]
   },
   "exclude": ["vite.config.ts"]
 }
