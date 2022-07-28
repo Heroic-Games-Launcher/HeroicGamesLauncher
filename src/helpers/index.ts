@@ -118,12 +118,7 @@ function getProgress(progress: InstallProgress): number {
   return 0
 }
 
-async function fixGogSaveFolder(
-  folder: string,
-  prefix: string,
-  isProton: boolean,
-  installedPlatform: string
-) {
+async function fixGogSaveFolder(folder: string, installedPlatform: string) {
   const isMac = installedPlatform === 'osx'
   const isWindows = installedPlatform === 'windows'
   const matches = folder.match(/<\?(\w+)\?>/)
@@ -157,16 +152,11 @@ async function fixGogSaveFolder(
   return folder
 }
 
-async function fixSaveFolder(
+async function fixLegendarySaveFolder(
   folder: string,
   prefix: string,
-  isProton: boolean,
-  runner: Runner,
-  installedPlatform: string
+  isProton: boolean
 ) {
-  if (runner === 'gog') {
-    return fixGogSaveFolder(folder, prefix, isProton, installedPlatform)
-  }
   const { user, account_id: epicId } = await ipcRenderer.invoke('getUserInfo')
   const username = isProton ? 'steamuser' : user
 
@@ -254,7 +244,8 @@ function quoteIfNecessary(stringToQuote: string) {
 
 export {
   createNewWindow,
-  fixSaveFolder,
+  fixLegendarySaveFolder,
+  fixGogSaveFolder,
   getGameInfo,
   getGameSettings,
   getInstallInfo,

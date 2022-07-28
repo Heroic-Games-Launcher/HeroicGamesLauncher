@@ -7,7 +7,8 @@ import {
   InstalledInfo,
   GOGImportData,
   ExecResult,
-  CallRunnerOptions
+  CallRunnerOptions,
+  GOGCloudSavesLocation
 } from '../types'
 import { join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -33,7 +34,7 @@ export class GOGLibrary {
   public async getSaveSyncLocation(
     appName: string,
     install: InstalledInfo
-  ): Promise<string> {
+  ): Promise<GOGCloudSavesLocation[] | null> {
     let syncPlatform = 'Windows'
     const platform = install.platform
     switch (platform) {
@@ -50,7 +51,7 @@ export class GOGLibrary {
       logWarning(
         `No clientId in goggame-${appName}.info file. Cannot resolve save path`
       )
-      return ''
+      return null
     }
     const response = await axios
       .get(
@@ -64,19 +65,17 @@ export class GOGLibrary {
         return null
       })
     if (!response) {
-      return ''
+      return null
     }
     const platformInfo = response.data.content[syncPlatform]
     const savesInfo = platformInfo.cloudStorage
     if (!savesInfo.enabled) {
-      return ''
+      return null
     }
 
-    const location = savesInfo.locations.find(
-      (value: { name: string; location: string }) => value.name === 'saves'
-    )?.location
+    const locations = savesInfo.locations
 
-    return location
+    return locations
   }
   /**
    * Returns ids of games with requested features ids
@@ -215,14 +214,14 @@ export class GOGLibrary {
         installedInfo &&
         installedInfo?.platform !== 'linux'
       ) {
-        const saveLocation = await this.getSaveSyncLocation(
+        const saveLocations = await this.getSaveSyncLocation(
           unifiedObject.app_name,
           installedInfo
         )
 
-        if (saveLocation) {
+        if (saveLocations) {
           unifiedObject.cloud_save_enabled = true
-          unifiedObject.save_folder = saveLocation
+          unifiedObject.gog_save_location = saveLocations
         }
       }
       // Create new object to not write install data into library store
@@ -322,17 +321,17 @@ export class GOGLibrary {
       (value) => value.app_name === appName
     )
     if (
-      !libraryArray[gameObjectIndex].save_folder &&
+      !libraryArray[gameObjectIndex].gog_save_location &&
       this.installedGames.get(appName) &&
       this.installedGames.get(appName)?.platform !== 'linux'
     ) {
-      gameData.save_folder = await this.getSaveSyncLocation(
+      gameData.gog_save_location = await this.getSaveSyncLocation(
         appName,
         this.installedGames.get(appName)
       )
     }
     libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
-    libraryArray[gameObjectIndex].save_folder = gameData.save_folder
+    libraryArray[gameObjectIndex].gog_save_location = gameData.gog_save_location
     gameData.folder_name = gogInfo.folder_name
     libraryStore.set('games', libraryArray)
     this.library.set(appName, gameData)

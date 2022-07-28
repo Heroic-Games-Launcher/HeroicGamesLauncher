@@ -20,7 +20,13 @@ import { UpdateComponent, SelectField } from 'src/components/UI'
 
 import { updateGame } from 'src/helpers'
 
-import { AppSettings, GameInfo, GameStatus, InstallInfo } from 'src/types'
+import {
+  AppSettings,
+  GameInfo,
+  GameStatus,
+  GOGCloudSavesLocation,
+  InstallInfo
+} from 'src/types'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -60,6 +66,7 @@ export default function GamePage(): JSX.Element | null {
   const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
+  const [gogSaves, setGOGSaves] = useState([] as Array<GOGCloudSavesLocation>)
   const [isSyncing, setIsSyncing] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
   const [launchArguments, setLaunchArguments] = useState('')
@@ -114,9 +121,10 @@ export default function GamePage(): JSX.Element | null {
           })
         if (newInfo?.cloud_save_enabled) {
           try {
-            const { autoSyncSaves, savesPath }: AppSettings =
+            const { autoSyncSaves, savesPath, gogSaves }: AppSettings =
               await ipcRenderer.invoke('requestSettings', appName)
             setAutoSyncSaves(autoSyncSaves)
+            setGOGSaves(gogSaves ?? [])
             return setSavesPath(savesPath)
           } catch (error) {
             setHasError({ error: true, message: error })
@@ -538,6 +546,16 @@ export default function GamePage(): JSX.Element | null {
     return t('button.install')
   }
 
+  async function doAutoSyncSaves() {
+    setIsSyncing(true)
+    if (gameInfo.runner === 'legendary') {
+      await syncSaves(savesPath, appName, gameInfo.runner)
+    } else if (gameInfo.runner === 'gog') {
+      await ipcRenderer.invoke('syncGOGSaves', gogSaves, appName, '')
+    }
+    setIsSyncing(false)
+  }
+
   function handlePlay() {
     return async () => {
       if (status === 'playing' || status === 'updating') {
@@ -545,9 +563,7 @@ export default function GamePage(): JSX.Element | null {
       }
 
       if (autoSyncSaves) {
-        setIsSyncing(true)
-        await syncSaves(savesPath, appName, gameInfo.runner)
-        setIsSyncing(false)
+        await doAutoSyncSaves()
       }
       await launch({
         appName,
@@ -558,9 +574,7 @@ export default function GamePage(): JSX.Element | null {
       })
 
       if (autoSyncSaves) {
-        setIsSyncing(true)
-        await syncSaves(savesPath, appName, gameInfo.runner)
-        setIsSyncing(false)
+        await doAutoSyncSaves()
       }
     }
   }

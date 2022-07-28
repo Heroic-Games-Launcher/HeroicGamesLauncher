@@ -6,7 +6,8 @@ import {
   GamepadInputEventMouse,
   Runner,
   AppSettings,
-  GameSettings
+  GameSettings,
+  GOGCloudSavesLocation
 } from './types'
 import * as path from 'path'
 import {
@@ -705,6 +706,10 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
   return GOGLibrary.getLinuxInstallersLanguages(appName)
 })
 
+ipcMain.handle('getGOGGameClientId', (event, appName) => {
+  return GOGLibrary.get().readInfoFile(appName)?.clientId
+})
+
 ipcMain.handle(
   'getInstallInfo',
   async (event, game, runner: Runner, installPlatform: string) => {
@@ -1296,6 +1301,16 @@ ipcMain.handle('egsSync', async (event, args: string) => {
     return 'Error'
   }
 })
+
+ipcMain.handle(
+  'syncGOGSaves',
+  async (
+    event,
+    gogSaves: GOGCloudSavesLocation[],
+    appName: string,
+    arg: string
+  ) => Game.get(appName, 'gog').syncSaves(arg, '', gogSaves)
+)
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName, runner] = args
