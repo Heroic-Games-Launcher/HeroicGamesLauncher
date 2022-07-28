@@ -12,7 +12,7 @@ import FormControl from '../FormControl'
 import './index.css'
 
 function fixFilter(text: string) {
-  const regex = new RegExp(/([\\|*|+|(|)|[|]||\\])+/, 'g')
+  const regex = new RegExp(/([\\|*|+|(|)|[|]|])+/, 'g')
   return text.replaceAll(regex, '')
 }
 
