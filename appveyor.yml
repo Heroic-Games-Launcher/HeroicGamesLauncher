@@ -23,6 +23,10 @@ build_script:
 
 test: off
 
+artifacts:
+  - path: dist/Heroic*.exe
+    name: Heroic_EXE
+
 deploy:
   - provider: Webhook
     url: https://app.signpath.io/API/v1/f7f99393-5adb-408c-8ca3-67e07cfe31e6/Integrations/AppVeyor?ProjectSlug=HeroicGamesLauncher&SigningPolicySlug=test-signing
