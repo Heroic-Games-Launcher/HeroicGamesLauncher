@@ -465,6 +465,7 @@
         "open-config-file": "باز کردن فایل پیکربندی",
         "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },

@@ -465,6 +465,7 @@
         "open-config-file": "Otwórz plik konfiguracyjny",
         "reset-heroic": "Zresetuj Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Zapisy w chmurze są w wazie Beta, zrób kopię swoich zapisów przed synchronizacją (na wypadek niepowodzenia)"
         }
     },
