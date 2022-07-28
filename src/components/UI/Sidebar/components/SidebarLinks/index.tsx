@@ -74,6 +74,19 @@ export default function SidebarLinks() {
       tmpAppName = appName !== 'default' ? appName : ''
     }
 
+    if (
+      !(
+        gog.library.some(
+          (game) => game.app_name === tmpAppName && game.is_installed
+        ) ||
+        epic.library.some(
+          (game) => game.app_name === tmpAppName && game.is_installed
+        )
+      )
+    ) {
+      tmpAppName = ''
+    }
+
     if (tmpAppName) {
       setSettingsPath(`/settings/${tmpAppName}/wine`)
       setIsDefaultSetting(false)
