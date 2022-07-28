@@ -219,8 +219,8 @@ const GameCard = ({
   const isLinuxNative = installedPlatform === 'linux'
   const isNative = isWin || isMacNative || isLinuxNative
   const pathname = isNative
-    ? `/settings/${appName}/other`
-    : `/settings/${appName}/wine`
+    ? `/settings/${runner}/${appName}/other`
+    : `/settings/${runner}/${appName}/wine`
 
   const items: Item[] = [
     {
