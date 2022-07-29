@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "Отключить",
             "favourites": "Избранные игры",
-            "recently_played": "Недавние игры"
+            "recently_played": "Недавние игры",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Верхний раздел библиотеки",
         "log": {

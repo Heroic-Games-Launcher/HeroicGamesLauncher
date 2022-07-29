@@ -21,6 +21,7 @@ import { GameInfo, Runner } from 'src/types'
 import ErrorComponent from 'src/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import { epicCategories, gogCategories } from 'src/helpers/library'
+import RecentlyPlayed from './components/RecentlyPlayed'
 
 const InstallModal = lazy(
   async () => import('src/screens/Library/components/InstallModal')
@@ -38,7 +39,6 @@ export default function Library(): JSX.Element {
     filter,
     epic,
     gog,
-    recentGames,
     favouriteGames,
     libraryTopSection,
     filterText,
@@ -183,9 +183,7 @@ export default function Library(): JSX.Element {
 
   // top section
   const showRecentGames =
-    libraryTopSection === 'recently_played' &&
-    !!recentGames.length &&
-    category !== 'unreal'
+    libraryTopSection.startsWith('recently_played') && category !== 'unreal'
 
   const showFavourites =
     libraryTopSection === 'favourites' &&
@@ -306,14 +304,10 @@ export default function Library(): JSX.Element {
       <div className="listing">
         <span id="top" />
         {showRecentGames && (
-          <>
-            <h3 className="libraryHeader">{t('Recent', 'Played Recently')}</h3>
-            <GamesList
-              library={recentGames}
-              isFirstLane
-              handleGameCardClick={handleModal}
-            />
-          </>
+          <RecentlyPlayed
+            handleModal={handleModal}
+            onlyInstalled={libraryTopSection.endsWith('installed')}
+          />
         )}
 
         {showFavourites && !showFavouritesLibrary && (

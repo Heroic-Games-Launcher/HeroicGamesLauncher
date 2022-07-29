@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "Deaktiverad",
             "favourites": "Favoritspel",
-            "recently_played": "Nyligen spelade"
+            "recently_played": "Nyligen spelade",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Bibliotek topplista",
         "log": {

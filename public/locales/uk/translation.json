@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "Вимкнено",
             "favourites": "Улюблені ігри",
-            "recently_played": "Нещодавно зіграні ігри"
+            "recently_played": "Нещодавно зіграні ігри",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Верхній розділ бібліотеки",
         "log": {

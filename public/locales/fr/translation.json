@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "recently_played": "Recently Played Games",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Library Top Section",
         "log": {

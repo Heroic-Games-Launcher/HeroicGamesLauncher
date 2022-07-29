@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "Matikan",
             "favourites": "Gim Favorit",
-            "recently_played": "Gim yang Baru Dimainkan"
+            "recently_played": "Gim yang Baru Dimainkan",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Bagian Atas Pustaka",
         "log": {

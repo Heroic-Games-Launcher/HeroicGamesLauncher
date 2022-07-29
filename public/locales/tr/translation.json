@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "Devre dışı",
             "favourites": "Favori Oyunlar",
-            "recently_played": "Son Oynanan Oyunlar"
+            "recently_played": "Son Oynanan Oyunlar",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Kütüphane Üst Bölümü",
         "log": {

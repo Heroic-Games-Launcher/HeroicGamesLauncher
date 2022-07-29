@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "已關閉",
             "favourites": "我的最愛",
-            "recently_played": "最近遊玩"
+            "recently_played": "最近遊玩",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "遊戲庫頂部",
         "log": {
