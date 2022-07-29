@@ -34,6 +34,7 @@ import {
   rmSync,
   unlinkSync,
   watch,
+  realpathSync,
   writeFileSync
 } from 'graceful-fs'
 
@@ -1468,7 +1469,7 @@ ipcMain.handle(
 ipcMain.handle('getShellPath', async (event, path) => {
   return (await execAsync(`echo "${path}"`)).stdout.trim()
 })
-
+ipcMain.handle('getRealPath', (event, path) => realpathSync(path))
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')

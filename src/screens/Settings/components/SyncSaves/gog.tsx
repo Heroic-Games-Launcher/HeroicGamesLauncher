@@ -91,6 +91,8 @@ export default function GOGSyncSaves({
         } else {
           actualPath = await ipcRenderer.invoke('getShellPath', saveLocation)
         }
+
+        actualPath = await ipcRenderer.invoke('getRealPath', actualPath)
         const locationIndex = locations.findIndex(
           (value) => value.name === name
         )
