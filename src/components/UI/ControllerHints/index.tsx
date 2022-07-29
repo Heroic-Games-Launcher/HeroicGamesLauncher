@@ -110,8 +110,12 @@ export default function ControllerHints() {
     // set the brand for the images to use
     if (controller.match(/sony|0ce6|PS3|PLAYSTATION|0268|'2563.*0523/i)) {
       setLayout('ps')
-    } else {
+    } else if (controller.match(/28de.*11ff/)) {
+      setLayout('steam-deck')
+    } else if (controller.match(/microsoft|xbox/i)) {
       setLayout('xbox')
+    } else {
+      setLayout('steam-deck')
     }
   }, [controller])
 
@@ -147,7 +151,6 @@ export default function ControllerHints() {
         <i className="buttonImage right-stick" />
         Scroll
       </div>
-      <span>{controller}</span>
     </div>
   )
 }

@@ -1,19 +1,22 @@
 .controller-hints {
   background: transparent;
-  padding: 0.5rem;
   display: flex;
-  justify-content: space-between;
   box-shadow: 0 0 36px 10px rgb(0 0 0 / 70%);
   z-index: 1;
+  min-height: 3rem;
+  padding: 0.2rem 1rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .controller-hints .hint {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  white-space: nowrap;
   text-align: left;
   flex-basis: 16%;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .controller-hints .buttonImage {
@@ -22,6 +25,7 @@
   display: inline-block;
   background-image: var(--imageUrl);
   background-size: 100% 100%;
+  flex-shrink: 0;
 }
 
 .controller-hints.xbox .buttonImage.d-pad {
@@ -83,7 +87,7 @@
 .controller-hints.steam-deck .buttonImage.alt-action {
   --imageUrl: url(/src/assets/controllers/steam-deck/SteamDeck_X.png);
 }
-.controller-hints.steam-deck .buttonImage.alt-action {
+.controller-hints.steam-deck .buttonImage.alt-action2 {
   --imageUrl: url(/src/assets/controllers/steam-deck/SteamDeck_Y.png);
 }
 .controller-hints.steam-deck .buttonImage.back {

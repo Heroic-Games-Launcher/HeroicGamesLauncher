@@ -302,14 +302,41 @@ export const initGamepad = () => {
   }
 
   function removegamepad(gamepad: Gamepad) {
+    const removedIndex = controllers.findIndex((idx) => idx === gamepad.index)
+
+    // remove disconnected controller
     controllers = controllers.filter((idx) => idx !== gamepad.index)
+
+    // if controller was the current controller, reset and emit
+    if (removedIndex === currentController) {
+      emitControllerEvent(-1)
+    }
+  }
+
+  function dispatchControllerEvent(id: string) {
+    const controllerEvent = new CustomEvent('controller-changed', {
+      detail: {
+        controllerId: id
+      }
+    })
+
+    window.dispatchEvent(controllerEvent)
   }
 
   function emitControllerEvent(controllerIndex: number) {
+    // don't emit a change if it didn't change
     if (currentController === controllerIndex) {
       return
     }
 
+    // if disconnected event
+    if (controllerIndex === -1) {
+      currentController = controllerIndex
+      dispatchControllerEvent('')
+      return
+    }
+
+    // if not disconnected event, look for id
     const gamepads = navigator.getGamepads()
     const gamepad = gamepads[controllerIndex]
     if (!gamepad) {
@@ -317,13 +344,7 @@ export const initGamepad = () => {
     }
 
     currentController = controllerIndex
-    const controllerEvent = new CustomEvent('controller-changed', {
-      detail: {
-        controllerId: gamepad.id
-      }
-    })
-
-    window.dispatchEvent(controllerEvent)
+    dispatchControllerEvent(gamepad.id)
   }
 
   window.addEventListener('gamepadconnected', connecthandler)
