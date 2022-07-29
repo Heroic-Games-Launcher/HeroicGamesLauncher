@@ -21,7 +21,7 @@ test: off
 
 artifacts:
   - path: dist/Heroic*.exe
-    name: Heroic_EXE
+    name: Heroic_setup
 
 deploy:
   - provider: Webhook
