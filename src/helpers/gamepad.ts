@@ -106,6 +106,8 @@ export const initGamepad = () => {
       // set last triggeredAt timestamp, used for repeater
       data.triggeredAt[controllerIndex] = now
 
+      emitControllerEvent(controllerIndex)
+
       // check special cases for the different actions, more details on the wiki
       switch (action) {
         case 'mainAction':
@@ -148,9 +150,14 @@ export const initGamepad = () => {
             return
           }
           break
+        case 'rightClick':
+          if (VirtualKeyboardController.isActive()) {
+            VirtualKeyboardController.space()
+            return
+          }
       }
 
-      emitControllerEvent(controllerIndex)
+      //emitControllerEvent(controllerIndex)
 
       if (action === 'mainAction') {
         currentElement()?.click()

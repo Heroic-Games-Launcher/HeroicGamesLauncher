@@ -54,8 +54,8 @@ export default function ControllerHints() {
       // focusing a virtual keyboard element
       main = t('controller.hints.activate', 'Activate')
       back = t('controller.hints.close_keyboard', 'Close keyboard')
-      alt = t('controller.hints.activate', 'Activate')
-      alt2 = t('controller.hints.activate', 'Backspace')
+      alt = t('controller.hints.space', 'Space')
+      alt2 = t('controller.hints.backspace', 'Backspace')
     }
 
     setMainActionHint(main)

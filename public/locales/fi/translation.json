@@ -153,6 +153,7 @@
     "controller": {
         "hints": {
             "activate": "Backspace",
+            "backspace": "Backspace",
             "close_context_menu": "Close context menu",
             "close_keyboard": "Close keyboard",
             "context_menu": "Context menu",
@@ -164,6 +165,7 @@
             "open_virtual_keyboard": "Open virtual keyboard",
             "play_game": "Play game",
             "scroll": "Scroll",
+            "space": "Space",
             "update_game": "Update game"
         }
     },
