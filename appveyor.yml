@@ -3,10 +3,6 @@ image: Visual Studio 2019
 platform:
   - x64
 
-cache:
-  - node_modules
-  - '%USERPROFILE%\.electron'
-
 init:
   - git config --global core.autocrlf input
 
