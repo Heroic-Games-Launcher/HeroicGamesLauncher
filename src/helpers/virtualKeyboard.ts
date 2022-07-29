@@ -25,7 +25,9 @@ function typeInSearchInput(button: string) {
   if (!input) return
 
   if (button.length === 1) {
-    input.value = input.value + button
+    input.value += button
+  } else if (button === '{space}') {
+    input.value += ' '
   } else if (button === '{bksp}') {
     if (input.value.length > 0) {
       input.value = input.value.slice(0, -1)
@@ -49,7 +51,7 @@ export const VirtualKeyboardController = {
     const el = currentElement()
     if (!el) return false
 
-    return currentElement().classList.contains('hg-button')
+    return el.classList.contains('hg-button')
   },
   isActive: () => virtualKeyboard !== null,
   destroy: () => {
