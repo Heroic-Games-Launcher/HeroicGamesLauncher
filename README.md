@@ -211,7 +211,7 @@ cd HeroicGamesLauncher
 ```bash
 yarn
 
-yarn dist {package to create} (eg: deb, pacman, tar.xz, rpm, AppImage)
+yarn dist:linux {package to create} (eg: deb, pacman, tar.xz, rpm, AppImage)
 ```
 
 - Build for Windows (Beta):
@@ -219,7 +219,7 @@ yarn dist {package to create} (eg: deb, pacman, tar.xz, rpm, AppImage)
 ```bash
 yarn.cmd (or npm install)
 
-yarn.cmd (or npm run) dist-win
+yarn.cmd (or npm run) dist:win
 ```
 
 - Build for Mac (Alpha):
@@ -227,7 +227,7 @@ yarn.cmd (or npm run) dist-win
 ```bash
 yarn (or npm install)
 
-yarn (or npm run) dist-mac
+yarn (or npm run) dist:mac
 ```
 
 ### Any OS (development environment)
@@ -257,7 +257,7 @@ There is a `.devcontainer` directory containing a definition that VS Code will r
 3. If the above prompt does not occur, on the bottom left, there is a green icon that should be there if the remote extension is installed. Click on it, and select "Reopen in container".
 4. The bottom left green icon should now say: "Dev Container: Heroic Games Launcher".
 
-After the container's package manager runs, open a new terminal session and you should be able to run bash commands from within the container. Any yarn dist builds should also now show up on your host filesystem.
+After the container's package manager runs, open a new terminal session and you should be able to run bash commands from within the container. Any yarn dist:linux builds should also now show up on your host filesystem.
 
 **Manually Building the Docker Image**
 

@@ -22,7 +22,7 @@ jobs:
       - name: Install modules.
         run: yarn
       - name: Build artifacts.
-        run: yarn dist appimage --publish=never
+        run: yarn dist:linux appimage --publish=never
       - name: Upload AppImage.
         uses: actions/upload-artifact@v2
         with:

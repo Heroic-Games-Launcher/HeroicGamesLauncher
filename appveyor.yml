@@ -19,7 +19,7 @@ environment:
     secure: kZMGyhBmfPsJKEryrd+I7gTEudm8tW0jSrKKhtT/3fbqKQzndTWp47C1Eetx5kFs
 
 build_script:
-  - npm run dist-win nsis
+  - npm run dist:win
 
 test: off
 

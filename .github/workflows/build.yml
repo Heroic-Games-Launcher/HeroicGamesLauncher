@@ -20,7 +20,7 @@ jobs:
       - name: Install modules.
         run: npm i --legacy-peer-deps
       - name: Build artifacts.
-        run: npm run dist-win portable
+        run: npm run dist:win portable
       - name: Upload EXE.
         uses: actions/upload-artifact@v2
         with:
@@ -39,7 +39,7 @@ jobs:
       - name: Install modules.
         run: yarn
       - name: Build artifacts.
-        run: yarn dist appimage --publish=never
+        run: yarn dist:linux appimage --publish=never
       - name: Upload AppImage.
         uses: actions/upload-artifact@v2
         with:
@@ -58,7 +58,7 @@ jobs:
       - name: Install modules.
         run: yarn
       - name: Build artifacts.
-        run: yarn dist-mac --publish=never
+        run: yarn dist:mac --publish=never
       - name: Upload DMG.
         uses: actions/upload-artifact@v2
         with:
