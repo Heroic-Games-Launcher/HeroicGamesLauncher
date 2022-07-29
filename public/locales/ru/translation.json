@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Ярлыки созданы на Рабочем столе и в Меню приложений",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Ярлыки"
         },
         "sync": {
@@ -438,8 +439,18 @@
         "copiedToClipboard": "Скопировано в буфер обмена!",
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
         "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
             "installing": "Installing EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
         },
         "log": {
             "long-log-hint": "Журнал урезан, показаны последние 1000 строк!"

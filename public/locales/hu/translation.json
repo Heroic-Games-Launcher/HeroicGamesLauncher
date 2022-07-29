@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Parancsikonok létre lettek hozva az asztalon és a Start menüben",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Parancsikonok"
         },
         "sync": {
@@ -438,8 +439,18 @@
         "copiedToClipboard": "Vágólapra másolva!",
         "copyToClipboard": "Összes beállítás másolása a vágólapra",
         "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
             "installing": "Installing EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
         },
         "log": {
             "long-log-hint": "A napló rövidítve van, az utolsó 1000 sor van megjelenítve!"

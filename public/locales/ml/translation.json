@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "കുറുക്കുവഴികള് പണിമേശയിലേക്കും തുടക്കപ്പട്ടികയിലേക്കും ചേര്ത്തിട്ടുണ്ട്",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "കുറുക്കുവഴികള്"
         },
         "sync": {
@@ -438,8 +439,18 @@
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Setting to Clipboard",
         "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
             "installing": "Installing EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
         },
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"

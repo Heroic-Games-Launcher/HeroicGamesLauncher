@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "바탕 화면 및 시작 메뉴에 바로 가기가 생성되었습니다",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "바로가기"
         },
         "sync": {
@@ -438,8 +439,18 @@
         "copiedToClipboard": "클립보드에 복사되었습니다!",
         "copyToClipboard": "모든 설정을 클립보드에 복사",
         "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
             "installing": "Installing EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
         },
         "log": {
             "long-log-hint": "로그 잘림, 마지막 1000줄이 표시됩니다!"

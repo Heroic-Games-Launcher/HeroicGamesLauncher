@@ -9,12 +9,12 @@
     },
     "All": "همه",
     "anticheat": {
-        "anticheats": "Anticheats",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
+        "anticheats": "آنتی چیت ها",
+        "may_not_work": "ممکن است به خاطر پشتیبانی ناقص یا عدم پشتیبانی آنتی چیت کار نکند.",
+        "reference": "مرجع",
         "source": "Source",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "این بازی شامل نرم افزار آنتی چیت می باشد"
     },
     "Assets": "دارایی ها",
     "box": {
@@ -28,13 +28,13 @@
         "choose-legendary-binary": "انتخاب باینری Legendary",
         "customWine": "انتخاب فایل باینری Wine یا Proton",
         "default-install-path": "انتخاب محل پیشفرض نصب",
-        "default-steam-path": "Steam path.",
+        "default-steam-path": "مسیر استیم.",
         "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "body": "افزودن {{game}} به استیم با مشکل مواجه شد:{{newLine}} {{error}}",
+                    "title": "خطای افزودن"
                 }
             },
             "credentials": {
@@ -49,7 +49,7 @@
                 "title": "فضایی موجود نیست"
             },
             "dxvk": {
-                "message": "خطا در نصب DXVK/VKD3D! اتصال به اینترنت خود یا نصب داشتن zstd/libzstd1 را چک کنید",
+                "message": "خطا در نصب DXVK/VKD3D! اتصال به اینترنت خود را چک کنید!",
                 "title": "خطای DXVK/VKD3D"
             },
             "folder-not-found": {
@@ -65,8 +65,8 @@
             },
             "remove": {
                 "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
+                    "body": "حذف کردن {{game}} از استیم با مشکل مواجه شد:{{newLine}} {{error}}",
+                    "title": "خطای حذف کردن"
                 }
             },
             "title": "خطا",
@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "میانبرها در دسکتاپ و منوی استارت ایجاد شدند",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "میانبرها"
         },
         "sync": {
@@ -161,7 +162,7 @@
         "store": "فروشگاه",
         "title": "عنوان بازی"
     },
-    "GameSettings": "Game Settings",
+    "GameSettings": "تنظیمات بازی",
     "generic": {
         "error": {
             "component": "بازی یافت نشد - خروج از حساب و ورود مجدد را امتحان کرده یا یکی از گزینه های زیر را امتحان کنید"
@@ -182,26 +183,26 @@
         "store": "فیلتر فروشگاه"
     },
     "help": {
-        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
-        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
-        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
-        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "amdfsr": "AMD's FSR با ارتقاء مقیاس وضوح پایینتر در حالت تمام صفحه به افزایش فریم ریت کمک می کند. کیفیت تصویر در ازای کاهش جزئی عملکرد از ۵ به ۱ افزایش می یابد. فعال کردن ممکن است باعث بهبود کارایی شود.",
+        "dxvk": "DXVK لایه ترجمه\u200cای بر پایه Vulkan برای بازی های DirectX 9، 10، 11 می باشد. فعال کردن ممکن است سبب افزایش سازگاری شود. ممکن است باعث ایجاد مشکلات خصوصا برای بازی های DirectX قدیمی شود.",
+        "esync": "Esync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است باعث افزایش کارایی شود.",
+        "fsync": "Fsync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است در لینوکس کرنل های پشتیبانی شده باعث افزایش کارایی شود.",
         "game_language": {
             "fallback": "برای استفاده از زبان Heroic خالی بگذارید.",
             "in_game_config": "تمام بازی ها از این پیکربندی پشتیبانی نمی کنند،\u200cبرخی تنظیمات زبان داخل بازی دارند.",
             "valid_codes": "کدهای معتبر زبان وابسته به بازی هستند."
         },
-        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
+        "gamemode": "Feral GameMode هنگام اجرای بازی ها تغییرات خودکار و موقت را در سیستم به وجود می آورد. فعال کردن ممکن است باعث افزایش کارایی شود.",
         "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGL همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
-        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "mangohud": "MangoHUD پوششی است که FPS، دماها،\u200c لود CPU/GPU و دیگر منابع سیستم را نظارت و نمایش می دهد.",
         "other": {
             "part4": "استفاده کنید ",
             "part5": "آرگومانهای بازی",
             "part6": " تا قبل از اجرای دستور صدا زده شود، به عنوان مثال: ",
             "part7": " تا لانچر در برخی بازیها رد شود، غیره."
         },
-        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
-        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "preferSystemLibs": "نسخه های سفارشی Wine (Wine-GE, Wine-Lutris) همراه با وابستگی های کتابخانه خود عرضه می شوند. با فعال کردن این گزینه، این کتابخانه ها نادیده گرفته شده و Wine به جای آن کتابخانه های سیستم را اجرا خواهد کرد. هشدار! در صورت عدم وجود وابستگی ها امکان بروز مشکلات وجود دارد.",
+        "resizablebar": "NVIDIA's Resizable Bar با ایجاد امکان دسترسی CPU به کل بافر گرافیک سبب افزایش نرخ فریم می شود.فعال کردن ممکن است باعث بهبود عملکرد بازی های مبتنی بر Vulkan شود.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic تلاش میکند تا پوشه صحیح ذخیره سازی را پیدا کند و در اکثر مواقع کار خواهد کرد. در صورتی که پوشه اشتباه بود، از بخش رونویسی برای تغییر آن استفاده کنید.",
@@ -438,8 +439,18 @@
         "copiedToClipboard": "در کليپ بورد کپی شد!",
         "copyToClipboard": "کپی کردن همه تنظیمات در کليپ بورد",
         "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
             "installing": "Installing EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
         },
         "log": {
             "long-log-hint": "لاگ کوتاه شد، ١٠٠٠ خط آخر نمایش داده شدهاند!"

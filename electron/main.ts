@@ -92,7 +92,8 @@ import {
   isMac,
   isSteamDeckGameMode,
   isCLIFullscreen,
-  isCLINoGui
+  isCLINoGui,
+  isFlatpak
 } from './constants'
 import { handleProtocol } from './protocol'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -590,25 +591,29 @@ interface Tools {
   exe: string
   tool: string
   appName: string
+  runner: Runner
 }
 
-ipcMain.handle('callTool', async (event, { tool, exe, appName }: Tools) => {
-  const game = Game.get(appName)
-  const { wineVersion, winePrefix } = await game.getSettings()
-  await verifyWinePrefix(game)
+ipcMain.handle(
+  'callTool',
+  async (event, { tool, exe, appName, runner }: Tools) => {
+    const game = Game.get(appName, runner)
+    const { wineVersion, winePrefix } = await game.getSettings()
+    await verifyWinePrefix(game)
 
-  switch (tool) {
-    case 'winetricks':
-      Winetricks.run(wineVersion, winePrefix)
-      break
-    case 'winecfg':
-      game.runWineCommand('winecfg')
-      break
-    case 'runExe':
-      game.runWineCommand(exe)
-      break
+    switch (tool) {
+      case 'winetricks':
+        Winetricks.run(wineVersion, winePrefix)
+        break
+      case 'winecfg':
+        game.runWineCommand('winecfg')
+        break
+      case 'runExe':
+        game.runWineCommand(exe)
+        break
+    }
   }
-})
+)
 
 /// IPC handlers begin here.
 
@@ -637,6 +642,7 @@ ipcMain.handle('getHeroicVersion', () => app.getVersion())
 ipcMain.handle('getLegendaryVersion', async () => getLegendaryVersion())
 ipcMain.handle('getGogdlVersion', async () => getGogdlVersion())
 ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
+ipcMain.handle('isFlatpak', () => isFlatpak)
 
 ipcMain.handle('getPlatform', () => process.platform)
 
@@ -679,6 +685,7 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
       return null
     }
     info.extra = await game.getExtraInfo()
+    // eslint-disable-next-line @typescript-eslint/return-await
     return info
   } catch (error) {
     logError(`${error}`, LogPrefix.Backend)

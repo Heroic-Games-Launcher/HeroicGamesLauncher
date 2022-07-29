@@ -115,6 +115,7 @@
         },
         "shortcuts": {
             "message": "Genvägar skapades på Skrivbordet och Startmenyn",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Genvägar"
         },
         "sync": {
@@ -438,8 +439,18 @@
         "copiedToClipboard": "Kopierat till urklipp/klippbord!",
         "copyToClipboard": "Kopiera all inställningar till urklipp/klippbord",
         "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
             "installing": "Installing EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
         },
         "log": {
             "long-log-hint": "Loggen avkortad , enbart senaste 1000 rader visas!"

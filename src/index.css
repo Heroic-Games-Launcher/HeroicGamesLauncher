@@ -41,6 +41,9 @@ html {
   --icon-disabled: #625e69;
   --icons-background: #17131c;
   --divider: #ffbb3384;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: var(--navbar-background);
 
   --anticheat-denied: var(--danger);
   --anticheat-broken: #e8590c;
@@ -147,6 +150,19 @@ code {
   bottom: 0px;
   left: 0px;
   right: 0px;
+  background: var(--osk-background);
+}
+
+.simple-keyboard .hg-button {
+  background: var(--osk-button-background);
+  border-color: var(--osk-button-border);
+  color: var(--text-default);
+}
+
+.simple-keyboard .hg-button:active {
+  background: var(--osk-border);
+  border-color: var(--osk-button-border);
+  color: var(--text-default);
 }
 
 h1,

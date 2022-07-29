@@ -538,13 +538,17 @@ function Settings() {
               togglePreferSystemLibs={togglePreferSystemLibs}
             />
           )}
-          {isWineSettings && !isDefault && <Tools appName={appName} />}
+          {isWineSettings && !isDefault && (
+            <Tools appName={appName} runner={runner} />
+          )}
           {isWineExtensions && (
             <WineExtensions
               winePrefix={winePrefix}
               wineVersion={wineVersion}
               eacRuntime={eacRuntime}
               toggleEacRuntime={toggleEacRuntime}
+              gameMode={useGameMode}
+              toggleGameMode={toggleUseGameMode}
               battlEyeRuntime={battlEyeRuntime}
               toggleBattlEyeRuntime={toggleBattlEyeRuntime}
               autoInstallDxvk={autoInstallDxvk}
@@ -565,6 +569,8 @@ function Settings() {
               setLanguageCode={setLanguageCode}
               useGameMode={useGameMode}
               toggleUseGameMode={toggleUseGameMode}
+              eacRuntime={eacRuntime}
+              toggleEacRuntime={toggleEacRuntime}
               primeRun={nvidiaPrime}
               togglePrimeRun={toggleNvidiaPrime}
               showFps={showFps}
