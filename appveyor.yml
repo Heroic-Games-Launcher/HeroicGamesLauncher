@@ -24,7 +24,7 @@ build_script:
 test: off
 
 artifacts:
-  - path: dist/Heroic*.exe
+  - path: dist\Heroic*.exe
     name: Heroic_setup
 
 deploy:
