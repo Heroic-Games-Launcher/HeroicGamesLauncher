@@ -152,7 +152,8 @@
     },
     "controller": {
         "hints": {
-            "activate": "Backspace",
+            "activate": "Activate",
+            "back": "Back",
             "backspace": "Backspace",
             "close_context_menu": "Close context menu",
             "close_keyboard": "Close keyboard",

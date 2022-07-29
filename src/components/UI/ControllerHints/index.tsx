@@ -104,7 +104,7 @@ export default function ControllerHints() {
     if (history.state.idx === 0) {
       setBackActionFallback('')
     } else {
-      setBackActionFallback('Back')
+      setBackActionFallback(t('controller.hints.back', 'Back'))
     }
 
     // check focused element after a page change
