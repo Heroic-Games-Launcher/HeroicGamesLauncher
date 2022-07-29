@@ -37,7 +37,7 @@ html,
   color: var(--text-default);
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
-  grid-template-areas: 'sidebar content' 'hints hints';
+  grid-template-areas: 'sidebar content' 'controller controller';
   grid-template-rows: 1fr min-content;
   font-family: var(--content-font-family);
   background: var(--body-background);
@@ -70,8 +70,9 @@ html,
   width: var(--content-width);
 }
 
-.App .controller-hints {
-  grid-area: hints;
+.App .controller {
+  grid-area: controller;
+  position: relative;
 }
 
 .danger {

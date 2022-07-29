@@ -150,6 +150,23 @@
         "syncing": "正在同步",
         "unsync": "不同步"
     },
+    "controller": {
+        "hints": {
+            "activate": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Documentation",
     "epic": {
         "offline-notification-body": "因為Epic Games伺服器離線，可能無法提供完整線上服務！",

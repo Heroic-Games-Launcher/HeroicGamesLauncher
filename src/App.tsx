@@ -55,7 +55,10 @@ function App() {
             <Route path="/accessibility" element={<Accessibility />} />
           </Routes>
         </main>
-        <ControllerHints />
+        <div className="controller">
+          <ControllerHints />
+          <div className="simple-keyboard"></div>
+        </div>
       </HashRouter>
     </div>
   )
