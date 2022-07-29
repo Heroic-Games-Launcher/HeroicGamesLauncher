@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "Изключено",
             "favourites": "Любими игри",
-            "recently_played": "Наскоро пускани игри"
+            "recently_played": "Наскоро пускани игри",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Горна секция на библиотеката",
         "log": {

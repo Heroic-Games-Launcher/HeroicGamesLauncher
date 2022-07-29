@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "Deaktiviert",
             "favourites": "Lieblingsspiele",
-            "recently_played": "Zuletzt gespielte Spiele"
+            "recently_played": "Zuletzt gespielte Spiele",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Oberer Abschnitt der Bibliothek",
         "log": {

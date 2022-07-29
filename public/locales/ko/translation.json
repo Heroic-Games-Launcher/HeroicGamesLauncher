@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "비활성화",
             "favourites": "Favourite Games",
-            "recently_played": "최근 플레이 한 게임"
+            "recently_played": "최근 플레이 한 게임",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "라이브러리 상단 섹션",
         "log": {

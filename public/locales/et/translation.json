@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "Keelatud",
             "favourites": "Lemmikmängud",
-            "recently_played": "Hiljuti mängitud mängud"
+            "recently_played": "Hiljuti mängitud mängud",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Teegi ülemine osa",
         "log": {

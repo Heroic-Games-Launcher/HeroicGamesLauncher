@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "已禁用",
             "favourites": "最爱的游戏",
-            "recently_played": "最近玩过的游戏"
+            "recently_played": "最近玩过的游戏",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "库的顶部",
         "log": {

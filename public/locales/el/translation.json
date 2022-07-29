@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Αγαπημένα παιχνίδια",
-            "recently_played": "Παιχνίδια που παίχτηκαν πρόσφατα"
+            "recently_played": "Παιχνίδια που παίχτηκαν πρόσφατα",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Library Top Section",
         "log": {

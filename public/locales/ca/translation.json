@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "Desactivat",
             "favourites": "Jocs preferits",
-            "recently_played": "Jocs jugats fa poc"
+            "recently_played": "Jocs jugats fa poc",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Secció superior de la biblioteca",
         "log": {

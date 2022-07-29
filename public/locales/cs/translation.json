@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "Zakázáno",
             "favourites": "Oblíbené hry",
-            "recently_played": "Nedávno hrané hry"
+            "recently_played": "Nedávno hrané hry",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Horní část knihovny",
         "log": {

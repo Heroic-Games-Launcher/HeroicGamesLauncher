@@ -383,7 +383,8 @@
         "library_top_option": {
             "disabled": "غیر فعال",
             "favourites": "بازی های مورد علاقه",
-            "recently_played": "بازی های اخیرا اجرا شده"
+            "recently_played": "بازی های اخیرا اجرا شده",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "قسمت بالایی کتابخانه",
         "log": {
