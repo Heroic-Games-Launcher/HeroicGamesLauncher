@@ -143,6 +143,12 @@ export const initGamepad = () => {
             // when pressing Y on a game card, open the game details
             action = 'mainAction'
           } else if (VirtualKeyboardController.isActive()) {
+            VirtualKeyboardController.space()
+            return
+          }
+          break
+        case 'rightClick':
+          if (VirtualKeyboardController.isActive()) {
             VirtualKeyboardController.backspace()
             return
           }
