@@ -1,8 +1,7 @@
-// Holds layouts for different XBox official an clone controllers
+// Holds layouts for controllers mapped correctly by chromium
 
-// Vendor: 045e, Product: 02ea
-// Microsoft Controller (STANDARD GAMEPAD Vendor: 045e Product: 02ea)
-export function checkXbox(
+//standard layout
+export function checkStandard(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
   controllerIndex: number,
