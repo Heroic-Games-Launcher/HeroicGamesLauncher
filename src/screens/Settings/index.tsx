@@ -230,6 +230,12 @@ function Settings() {
   const isOtherSettings = type === 'other'
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced' && isDefault
+  const syncCommands = [
+    { name: t('setting.manualsync.download'), value: '--skip-upload' },
+    { name: t('setting.manualsync.upload'), value: '--skip-download' },
+    { name: t('setting.manualsync.forcedownload'), value: '--force-download' },
+    { name: t('setting.manualsync.forceupload'), value: '--force-upload' }
+  ]
 
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
@@ -620,6 +626,7 @@ function Settings() {
                 setAutoSyncSaves={setAutoSyncSaves}
                 isProton={!isWin && wineVersion.type === 'proton'}
                 winePrefix={winePrefix}
+                syncCommands={syncCommands}
               />
             ) : (
               <GOGSyncSaves
@@ -628,6 +635,7 @@ function Settings() {
                 setGogSaves={setGogSavesLocations}
                 autoSyncSaves={autoSyncSaves}
                 setAutoSyncSaves={setAutoSyncSaves}
+                syncCommands={syncCommands}
               />
             ))}
           {isAdvancedSetting && (

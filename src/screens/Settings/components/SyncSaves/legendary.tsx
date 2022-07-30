@@ -27,6 +27,7 @@ interface Props {
   setAutoSyncSaves: (value: boolean) => void
   setSavesPath: (value: string) => void
   winePrefix?: string
+  syncCommands: { name: string; value: string }[]
 }
 
 export default function LegendarySyncSaves({
@@ -36,7 +37,8 @@ export default function LegendarySyncSaves({
   autoSyncSaves,
   setAutoSyncSaves,
   isProton,
-  winePrefix
+  winePrefix,
+  syncCommands
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [isLoading, setLoading] = useState(false)
@@ -95,13 +97,6 @@ export default function LegendarySyncSaves({
   }, [winePrefix, isProton])
 
   const isLinked = Boolean(savesPath.length)
-
-  const syncCommands = [
-    { name: t('setting.manualsync.download'), value: '--skip-upload' },
-    { name: t('setting.manualsync.upload'), value: '--skip-download' },
-    { name: t('setting.manualsync.forcedownload'), value: '--force-download' },
-    { name: t('setting.manualsync.forceupload'), value: '--force-upload' }
-  ]
 
   async function handleSync() {
     setIsSyncing(true)

@@ -20,6 +20,7 @@ interface Props {
   setGogSaves: (saves: GOGCloudSavesLocation[]) => void
   autoSyncSaves: boolean
   setAutoSyncSaves: (value: boolean) => void
+  syncCommands: { name: string; value: string }[]
 }
 
 export default function GOGSyncSaves({
@@ -27,7 +28,8 @@ export default function GOGSyncSaves({
   gogSaves,
   setGogSaves,
   autoSyncSaves,
-  setAutoSyncSaves
+  setAutoSyncSaves,
+  syncCommands
 }: Props) {
   const [isLoading, setIsLoading] = useState(true)
   const [isSyncing, setIsSyncing] = useState(false)
@@ -125,13 +127,6 @@ export default function GOGSyncSaves({
 
     setIsSyncing(false)
   }
-
-  const syncCommands = [
-    { name: t('setting.manualsync.download'), value: '--skip-upload' },
-    { name: t('setting.manualsync.upload'), value: '--skip-download' },
-    { name: t('setting.manualsync.forcedownload'), value: '--force-download' },
-    { name: t('setting.manualsync.forceupload'), value: '--force-upload' }
-  ]
 
   return (
     <>
