@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { openDiscordLink } from 'src/helpers'
+import { getGameInfo, openDiscordLink } from 'src/helpers'
 import classNames from 'classnames'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -33,12 +33,21 @@ interface LocationState {
   isMacNative: boolean
 }
 
+type PathSplit = [
+  a: undefined,
+  b: undefined,
+  runner: Runner | 'app',
+  appName: string,
+  type: string
+]
+
 export default function SidebarLinks() {
+  const [hasCloudSave, setHasCloudSave] = useState(false)
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
-  const [, , runner, appName, type] = location.pathname.split('/')
+  const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
 
   const { epic, gog, platform } = useContext(ContextProvider)
 
@@ -52,11 +61,7 @@ export default function SidebarLinks() {
   )
   const [isFullscreen, setIsFullscreen] = useState(false)
 
-  const {
-    hasCloudSave = false,
-    isLinuxNative = false,
-    isMacNative = false
-  } = state || {}
+  const { isLinuxNative = false, isMacNative = false } = state || {}
   const isWin = platform === 'win32'
   const isLinuxGame = isLinuxNative && platform === 'linux'
   const isMacGame = isMacNative && platform === 'darwin'
@@ -72,13 +77,26 @@ export default function SidebarLinks() {
       setSettingsPath('/settings/app/default/general')
     } else {
       setIsDefaultSetting(false)
-      setSettingsPath(`/settings/${runner}/${appName}/wine`)
+      const wineOrOther = isWin
+        ? `/settings/${runner}/${appName}/other`
+        : `/settings/${runner}/${appName}/wine`
+      setSettingsPath(wineOrOther)
     }
   }, [location])
 
   useEffect(() => {
     ipcRenderer.invoke('isFullscreen').then((res) => setIsFullscreen(res))
   }, [])
+
+  useEffect(() => {
+    if (!runner || runner === 'app') {
+      setHasCloudSave(false)
+      return
+    }
+    getGameInfo(appName, runner).then((info) =>
+      setHasCloudSave(info.cloud_save_enabled)
+    )
+  }, [appName, location])
 
   return (
     <div className="SidebarLinks Sidebar__section">
@@ -164,7 +182,7 @@ export default function SidebarLinks() {
             classNames('Sidebar__item', { active: isActive })
           }
           to={{ pathname: settingsPath }}
-          state={{ fromGameCard: false, runner: runner }}
+          state={{ fromGameCard: false, runner: runner, hasCloudSave }}
         >
           <>
             <div className="Sidebar__itemIcon">
