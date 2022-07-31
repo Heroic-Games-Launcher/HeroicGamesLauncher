@@ -6,11 +6,11 @@ import './index.css'
 
 export default function ControllerHints() {
   const [controller, setController] = useState('')
-  const [layout, setLayout] = useState('xbox')
-  const [mainActionHint, setMainActionHint] = useState('')
-  const [altActionHint, setAltActionHint] = useState('') // context menu
-  const [altActionHint2, setAltActionHint2] = useState('') // secondary action
-  const [backActionHint, setBackActionHint] = useState('')
+  const [layout, setLayout] = useState('steam-deck') // default to steam deck icons
+  const [mainActionHint, setMainActionHint] = useState('') // A / Cross
+  const [altActionHint, setAltActionHint] = useState('') // X / Square
+  const [altActionHint2, setAltActionHint2] = useState('') // Y / Triangle
+  const [backActionHint, setBackActionHint] = useState('') // B / Circle
   const [backActionFallback, setBackActionFallback] = useState('')
 
   const location = useLocation()
