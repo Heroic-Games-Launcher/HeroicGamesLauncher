@@ -25,9 +25,7 @@ function typeInSearchInput(button: string) {
   if (!input) return
 
   if (button.length === 1) {
-    input.value += button
-  } else if (button === '{space}') {
-    input.value += ' '
+    input.value = input.value + button
   } else if (button === '{bksp}') {
     if (input.value.length > 0) {
       input.value = input.value.slice(0, -1)
