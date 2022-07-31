@@ -49,7 +49,7 @@
                 "title": "Nema Prostora"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "message": "Greška prilikom instalinanja DXVK/VKD3D! Provjeri vezu!",
                 "title": "DXVK/VKD3D error"
             },
             "folder-not-found": {
