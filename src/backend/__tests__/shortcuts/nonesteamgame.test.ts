@@ -8,8 +8,6 @@ import {
 } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import { dialog } from 'electron'
 
-import { createNewLogFileAndClearOldOnces } from '../../logger/logger'
-
 jest.mock('../../logger/logger', () => {
   const original = jest.requireActual('../../logger/logger')
   return {

@@ -1,5 +1,13 @@
 import { quoteIfNecessary, removeQuoteIfNecessary } from '../utils'
 
+jest.mock('../logger/logger', () => {
+  const original = jest.requireActual('../logger/logger')
+  return {
+    ...original,
+    createNewLogFileAndClearOldOnces: jest.fn().mockReturnValue('')
+  }
+})
+
 describe('electron/utils.ts', () => {
   test('quoteIfNeccessary', () => {
     const testCases = new Map<string, string>([
