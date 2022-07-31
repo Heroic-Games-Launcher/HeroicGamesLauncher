@@ -232,12 +232,14 @@
         "path": "Επιλέξτε διαδρομή εγκατάστασης"
     },
     "library": {
-        "gridView": "Προβολή Πλέγματος",
-        "listView": "Προβολή Λίστας",
         "refresh": "Ανανέωση",
         "sortAscending": "Αύξουσα ταξινόμηση",
         "sortByStatus": "Ταξινόμηση κατά Κατάσταση",
-        "sortDescending": "Φθίνουσα ταξινόμηση"
+        "sortDescending": "Φθίνουσα ταξινόμηση",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Συλλογή",
     "loading": {
@@ -383,7 +385,8 @@
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Αγαπημένα παιχνίδια",
-            "recently_played": "Παιχνίδια που παίχτηκαν πρόσφατα"
+            "recently_played": "Παιχνίδια που παίχτηκαν πρόσφατα",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Library Top Section",
         "log": {

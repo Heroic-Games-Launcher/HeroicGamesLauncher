@@ -1,7 +1,7 @@
 import { WineInstallation } from 'common/types'
 import * as axios from 'axios'
+import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
-import { existsSync, readFileSync } from 'graceful-fs'
 
 import {
   execAsync,
@@ -144,7 +144,6 @@ export const DXVK = {
     }
 
     const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh install --symlink`
-    const updatedVersionfile = `echo '${globalVersion}' > ${currentVersionCheck}`
 
     if (action === 'restore') {
       logInfo(`Removing ${tool} version information`, LogPrefix.DXVKInstaller)
@@ -171,7 +170,7 @@ export const DXVK = {
     await execAsync(installCommand, { shell: '/bin/bash' })
       .then(() => {
         logInfo(`${tool} installed on ${winePrefix}`, LogPrefix.DXVKInstaller)
-        return exec(updatedVersionfile)
+        return writeFileSync(currentVersionCheck, globalVersion)
       })
       .catch((error) => {
         logError(

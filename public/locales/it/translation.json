@@ -232,12 +232,14 @@
         "path": "Seleziona percorso di installazione"
     },
     "library": {
-        "gridView": "Vista griglia",
-        "listView": "Vista elenco",
         "refresh": "Aggiorna",
         "sortAscending": "Ordinamento crescente",
         "sortByStatus": "Ordina per stato",
-        "sortDescending": "Sort Descending"
+        "sortDescending": "Sort Descending",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Libreria",
     "loading": {
@@ -383,7 +385,8 @@
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "recently_played": "Recently Played Games",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Library Top Section",
         "log": {

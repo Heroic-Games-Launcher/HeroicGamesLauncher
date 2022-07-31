@@ -168,10 +168,6 @@ export interface InstalledInfo {
   buildId?: string // For verifing GOG games
 }
 
-export interface Path {
-  path: string
-}
-
 interface Reqs {
   minimum: string
   recommended: string
@@ -404,11 +400,6 @@ export interface HiddenGame {
 }
 
 export type FavouriteGame = HiddenGame
-
-export type LibraryTopSectionOptions =
-  | 'disabled'
-  | 'recently_played'
-  | 'favourites'
 
 export type RefreshOptions = {
   checkForUpdates?: boolean

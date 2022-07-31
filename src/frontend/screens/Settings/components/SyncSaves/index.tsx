@@ -1,10 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { Path, Runner, SyncType } from 'common/types'
-import { fixSaveFolder, getGameInfo, syncSaves } from 'frontend/helpers'
+import { Runner, SyncType } from 'common/types'
+import { Path } from 'frontend/types'
+import {
+  fixSaveFolder,
+  getGameInfo,
+  syncSaves,
+  ipcRenderer
+} from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 
-import { ipcRenderer } from 'frontend/helpers'
 import {
   InfoBox,
   ToggleSwitch,

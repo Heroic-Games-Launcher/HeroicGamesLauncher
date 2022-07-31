@@ -232,12 +232,14 @@
         "path": "설치 경로 선택"
     },
     "library": {
-        "gridView": "그리드 보기",
-        "listView": "목록 보기",
         "refresh": "새로고침",
         "sortAscending": "오름차순 정렬",
         "sortByStatus": "상태별 정렬",
-        "sortDescending": "내림차순 정렬"
+        "sortDescending": "내림차순 정렬",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "라이브러리",
     "loading": {
@@ -383,7 +385,8 @@
         "library_top_option": {
             "disabled": "비활성화",
             "favourites": "Favourite Games",
-            "recently_played": "최근 플레이 한 게임"
+            "recently_played": "최근 플레이 한 게임",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "라이브러리 상단 섹션",
         "log": {

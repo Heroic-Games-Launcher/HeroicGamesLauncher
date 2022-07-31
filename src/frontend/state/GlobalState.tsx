@@ -7,11 +7,11 @@ import {
   GameStatus,
   HiddenGame,
   InstalledInfo,
-  LibraryTopSectionOptions,
   RefreshOptions,
   Runner,
   WineVersionInfo
-} from '../../common/types'
+} from 'common/types'
+import { LibraryTopSectionOptions } from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   getLegendaryConfig,
@@ -23,7 +23,6 @@ import {
 import { i18n, t } from 'i18next'
 
 import ContextProvider from './ContextProvider'
-import { getRecentGames } from '../helpers/library'
 
 import {
   configStore,
@@ -74,7 +73,6 @@ interface StateProps {
   showHidden: boolean
   showFavourites: boolean
   favouriteGames: FavouriteGame[]
-  recentGames: GameInfo[]
   theme: string
   zoomPercent: number
   contentFontFamily: string
@@ -139,7 +137,6 @@ export class GlobalState extends PureComponent<Props> {
     ),
     favouriteGames:
       (configStore.get('games.favourites', []) as Array<FavouriteGame>) || [],
-    recentGames: [],
     theme: (configStore.get('theme', '') as string) || '',
     zoomPercent: parseInt(
       (configStore.get('zoomPercent', '100') as string) || '100'
@@ -460,20 +457,6 @@ export class GlobalState extends PureComponent<Props> {
       (game) => game.appName === appName
     )[0]
 
-    // Update recently played games if the game was just launched
-    // HACK: Ideally we'd use `configStore.onDidChange('games.recent')` here, but it's for some reason not working
-    if (status === 'playing') {
-      const { epic, gog } = this.state
-      const recentGames: GameInfo[] = getRecentGames([
-        ...epic.library,
-        ...gog.library
-      ])
-
-      this.setState({
-        recentGames
-      })
-    }
-
     // add app to libraryStatus if it was not present
     if (!currentApp) {
       return this.setState({
@@ -520,7 +503,7 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { t } = this.props
-    const { epic, gog, gameUpdates = [], libraryStatus, category } = this.state
+    const { epic, gameUpdates = [], libraryStatus, category } = this.state
     const oldCategory: string = category
     if (oldCategory === 'epic') {
       this.handleCategory('legendary')
@@ -598,15 +581,7 @@ export class GlobalState extends PureComponent<Props> {
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
-    const recentGames: GameInfo[] = getRecentGames([
-      ...epic.library,
-      ...gog.library
-    ])
-
-    this.setState({
-      platform,
-      recentGames
-    })
+    this.setState({ platform })
 
     if (legendaryUser || gogUser) {
       this.refreshLibrary({
@@ -644,10 +619,11 @@ export class GlobalState extends PureComponent<Props> {
     const pendingOps = libraryStatus.filter(
       (game) => game.status !== 'playing' && game.status !== 'done'
     ).length
+
     if (pendingOps) {
-      ipcRenderer.send('lock')
+      ipcRenderer.send('lock', 'download')
     } else {
-      ipcRenderer.send('unlock')
+      ipcRenderer.send('unlock', 'download')
     }
   }
 

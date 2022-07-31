@@ -2,7 +2,8 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { Path, WineInstallation } from 'common/types'
+import { WineInstallation } from 'common/types'
+import { Path } from 'frontend/types'
 import { useTranslation } from 'react-i18next'
 import {
   InfoBox,

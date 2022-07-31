@@ -29,7 +29,7 @@
         "customWine": "Selecciona el binary del Wine o del Proton",
         "default-install-path": "Tria la ruta d'instal·lació predefinida",
         "default-steam-path": "Camí de l'Steam.",
-        "downloadNow": "Download now",
+        "downloadNow": "Descarrega ara",
         "error": {
             "add": {
                 "steam": {
@@ -115,7 +115,7 @@
         },
         "shortcuts": {
             "message": "S'han creat dreceres a l'escriptori i al menú d'inici",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove": "S'han eliminat les dreceres de l'escriptori i del menú d'inici.",
             "title": "Dreceres"
         },
         "sync": {
@@ -125,11 +125,11 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "Els enllaços de descàrrega dels Visual C++ Runtimes s'han obert. Instal·leu les versions x86 i x64."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "Els Microsoft Visual C++ Runtimes no estan instal·lats i els necessiten alguns jocs.",
+                "title": "El VCRuntime no està instal·lat."
             }
         },
         "warning": {
@@ -232,12 +232,14 @@
         "path": "Selecciona la ruta d'instal·lació"
     },
     "library": {
-        "gridView": "Vista en graella",
-        "listView": "Vista en llista",
         "refresh": "Actualitza",
         "sortAscending": "Ordre ascendent",
         "sortByStatus": "Ordena per estat",
-        "sortDescending": "Ordre descendent"
+        "sortDescending": "Ordre descendent",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Biblioteca",
     "loading": {
@@ -383,7 +385,8 @@
         "library_top_option": {
             "disabled": "Desactivat",
             "favourites": "Jocs preferits",
-            "recently_played": "Jocs jugats fa poc"
+            "recently_played": "Jocs jugats fa poc",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Secció superior de la biblioteca",
         "log": {
@@ -431,24 +434,24 @@
     },
     "settings": {
         "battlEyeRuntime": {
-            "installing": "Installing BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "installing": "S'està instal·lant el BattlEye Runtime...",
+            "name": "Antitrampes BattlEye Runtime"
         },
         "clear-cache": "Esborra la memòria cau de l'Heroic",
         "copiedToClipboard": "S'ha copiat al porta-retalls.",
         "copyToClipboard": "Copia tota la configuració al porta-retalls",
         "eacRuntime": {
             "gameModeRequired": {
-                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
-                "title": "GameMode required"
+                "message": "Es necessita el GameMode per tal que el EAC funcioni en Flatpak. Voleu activar-lo?",
+                "title": "Necessita el GameMode."
             },
-            "installing": "Installing EAC Runtime...",
+            "installing": "S'està instal·lant el EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
-                "title": "EAC runtime enabled"
+                "message": "El EAC runtime està activat, però no funcionarà correctament sense el GameMode. Voleu desactivar el EAC Runtime i el GameMode?",
+                "title": "S'ha activat el EAC runtime."
             }
         },
         "log": {
@@ -460,7 +463,7 @@
             "log": "Registre",
             "other": "Altres",
             "sync": "Desa-sincronitza",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Extensions del Wine"
         },
         "open-config-file": "Obre el fitxer de configuració",
         "reset-heroic": "Restableix l'Heroic",

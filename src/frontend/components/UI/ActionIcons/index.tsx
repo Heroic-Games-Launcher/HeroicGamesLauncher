@@ -66,26 +66,29 @@ export default function ActionIcons({
   return (
     <div className="ActionIcons">
       <FormControl segmented small>
-        <button
-          className={cx('FormControl__button', { active: layout === 'grid' })}
-          title={t('library.gridView')}
-          onClick={() => handleLayout('grid')}
-        >
-          <FontAwesomeIcon
-            className="FormControl__segmentedFaIcon"
-            icon={faBorderAll}
-          />
-        </button>
-        <button
-          className={cx('FormControl__button', { active: layout === 'list' })}
-          title={t('library.listView')}
-          onClick={() => handleLayout('list')}
-        >
-          <FontAwesomeIcon
-            className="FormControl__segmentedFaIcon"
-            icon={faList}
-          />
-        </button>
+        {layout === 'grid' ? (
+          <button
+            className={cx('FormControl__button', { active: layout === 'grid' })}
+            title={t('library.toggleLayout.list', 'Toggle to a list layout')}
+            onClick={() => handleLayout('list')}
+          >
+            <FontAwesomeIcon
+              className="FormControl__segmentedFaIcon"
+              icon={faBorderAll}
+            />
+          </button>
+        ) : (
+          <button
+            className={cx('FormControl__button')}
+            title={t('library.toggleLayout.grid', 'Toggle to a grid layout')}
+            onClick={() => handleLayout('grid')}
+          >
+            <FontAwesomeIcon
+              className="FormControl__segmentedFaIcon"
+              icon={faList}
+            />
+          </button>
+        )}
         <button
           className={cx('FormControl__button', { active: !sortDescending })}
           title={

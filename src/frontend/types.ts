@@ -6,7 +6,6 @@ export type Category = 'all' | 'legendary' | 'gog' | 'unreal' | 'heroic'
 export interface ContextType {
   category: Category
   wineVersions: WineVersionInfo[]
-  recentGames: GameInfo[]
   error: boolean
   filter: string
   filterText: string
@@ -74,6 +73,7 @@ export interface ContextType {
 export type LibraryTopSectionOptions =
   | 'disabled'
   | 'recently_played'
+  | 'recently_played_installed'
   | 'favourites'
 
 export interface HiddenGame {

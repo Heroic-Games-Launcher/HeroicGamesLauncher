@@ -232,12 +232,14 @@
         "path": "انتخاب محل نصب"
     },
     "library": {
-        "gridView": "نمای شبکه ای",
-        "listView": "نمای لیستی",
         "refresh": "تازه کردن",
         "sortAscending": "چینش صعودی",
         "sortByStatus": "چینش بر اساس وضعیت",
-        "sortDescending": "چینش نزولی"
+        "sortDescending": "چینش نزولی",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "کتابخانه",
     "loading": {
@@ -383,7 +385,8 @@
         "library_top_option": {
             "disabled": "غیر فعال",
             "favourites": "بازی های مورد علاقه",
-            "recently_played": "بازی های اخیرا اجرا شده"
+            "recently_played": "بازی های اخیرا اجرا شده",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "قسمت بالایی کتابخانه",
         "log": {

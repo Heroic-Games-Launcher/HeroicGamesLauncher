@@ -11,6 +11,11 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import FormControl from '../FormControl'
 import './index.css'
 
+function fixFilter(text: string) {
+  const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')
+  return text.replaceAll(regex, '')
+}
+
 export default function SearchBar() {
   const { handleSearch, filterText, epic, gog } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -20,7 +25,9 @@ export default function SearchBar() {
     const library = new Set(
       [...epic.library, ...gog.library].map((g) => g.title).sort()
     )
-    return [...library].filter((i) => new RegExp(filterText, 'i').test(i))
+    return [...library].filter((i) =>
+      new RegExp(fixFilter(filterText), 'i').test(i)
+    )
   }, [epic.library, gog.library, filterText])
 
   // we have to use an event listener instead of the react

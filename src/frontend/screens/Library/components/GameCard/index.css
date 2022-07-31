@@ -133,7 +133,7 @@
 
 .gameCard:hover,
 .gameCard:focus-within {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .gameCard.hidden .gameImg,

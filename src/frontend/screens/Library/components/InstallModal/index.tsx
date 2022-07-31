@@ -40,11 +40,11 @@ import {
   GameInfo,
   GameStatus,
   InstallProgress,
-  Path,
   InstallPlatform,
   Runner,
   WineInstallation
 } from 'common/types'
+import { Path } from 'frontend/types'
 import {
   Dialog,
   DialogContent,

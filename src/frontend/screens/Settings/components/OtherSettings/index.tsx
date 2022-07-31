@@ -12,7 +12,8 @@ import {
   TextInputWithIconField
 } from 'frontend/components/UI'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
-import { EnviromentVariable, Path, WrapperVariable } from 'common/types'
+import { EnviromentVariable, WrapperVariable } from 'common/types'
+import { Path } from 'frontend/types'
 import Backspace from '@mui/icons-material/Backspace'
 import { getGameInfo } from 'frontend/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

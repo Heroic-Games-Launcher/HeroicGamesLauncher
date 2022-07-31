@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { LibraryTopSectionOptions, Path } from 'common/types'
+import { LibraryTopSectionOptions, Path } from 'frontend/types'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { InfoBox, SelectField, ToggleSwitch } from 'frontend/components/UI'
@@ -310,6 +310,12 @@ export default function GeneralSettings({
           {t(
             'setting.library_top_option.recently_played',
             'Recently Played Games'
+          )}
+        </option>
+        <option value="recently_played_installed">
+          {t(
+            'setting.library_top_option.recently_played_installed',
+            'Recently Played Games (Only Installed)'
           )}
         </option>
         <option value="favourites">
