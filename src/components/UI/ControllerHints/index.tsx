@@ -134,7 +134,7 @@ export default function ControllerHints() {
   }, [controller])
 
   // empty if no controller activated
-  if (controller === '') {
+  if (!controller) {
     return <></>
   }
 
