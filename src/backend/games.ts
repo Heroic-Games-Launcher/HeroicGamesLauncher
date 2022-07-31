@@ -1,12 +1,16 @@
+import { GogInstallInfo } from 'common/types/gog'
+import { LegendaryInstallInfo } from 'common/types/legendary'
 import {
   ExecResult,
   ExtraInfo,
   GameInfo,
   GameSettings,
-  InstallArgs,
-  InstallInfo
-} from '../common/types'
-import type { Runner } from '../common/types'
+  InstallArgs
+} from 'common/types'
+
+import { BrowserWindow } from 'electron'
+import { join } from 'path'
+import { heroicGamesConfigPath } from './constants'
 
 abstract class Game {
   public get logFileLocation() {
@@ -17,7 +21,9 @@ abstract class Game {
   abstract window: BrowserWindow
   abstract getExtraInfo(): Promise<ExtraInfo>
   abstract getGameInfo(installPlatform?: string): GameInfo
-  abstract getInstallInfo(installPlatform?: string): Promise<InstallInfo>
+  abstract getInstallInfo(
+    installPlatform?: string
+  ): Promise<LegendaryInstallInfo | GogInstallInfo>
   abstract getSettings(): Promise<GameSettings>
   abstract hasUpdate(): Promise<boolean>
   abstract import(path: string): Promise<ExecResult>
@@ -35,8 +41,4 @@ abstract class Game {
   abstract runWineCommand(command: string, wait?: boolean): Promise<ExecResult>
 }
 
-import { BrowserWindow } from 'electron'
-import { join } from 'path'
-import { heroicGamesConfigPath } from './constants'
-
-export { Game, Runner }
+export { Game }

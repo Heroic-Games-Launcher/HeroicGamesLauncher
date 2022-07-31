@@ -1,9 +1,9 @@
-import { existsSync, readFile } from 'graceful-fs'
+import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from 'common/types'
 import { clearCache } from '../utils'
 import { userInfo, configStore } from '../constants'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
+import { logError, LogPrefix } from '../logger/logger'
 import { userInfo as user } from 'os'
 import { session } from 'electron'
 import { runLegendaryCommand } from './library'
@@ -12,10 +12,10 @@ export class LegendaryUser {
   public static async login(sid: string) {
     const commandParts = ['auth', '--sid', sid]
 
-    logInfo('Logging in with Legendary.', LogPrefix.Legendary)
-
     try {
-      await runLegendaryCommand(commandParts)
+      await runLegendaryCommand(commandParts, {
+        logMessagePrefix: 'Logging in'
+      })
       const userInfo = await this.getUserInfo()
       return { status: 'done', data: userInfo }
     } catch (error) {
@@ -31,9 +31,9 @@ export class LegendaryUser {
   public static async logout() {
     const commandParts = ['auth', '--delete']
 
-    logInfo('Logging out.', LogPrefix.Legendary)
-
-    const res = await runLegendaryCommand(commandParts)
+    const res = await runLegendaryCommand(commandParts, {
+      logMessagePrefix: 'Logging out'
+    })
 
     if (res.error) {
       logError(['Failed to logout:', res.error], LogPrefix.Legendary)
@@ -53,39 +53,26 @@ export class LegendaryUser {
   }
 
   public static async getUserInfo(): Promise<UserInfo> {
-    if (LegendaryUser.isLoggedIn()) {
-      const userInfoContent = await new Promise<string>((resolve, reject) => {
-        readFile(userInfo, 'utf-8', (err, content) => {
-          if (err) {
-            reject(err)
-          } else {
-            resolve(content)
-          }
-        })
-      })
-      try {
-        const userInfoObject = JSON.parse(userInfoContent)
-        const info: UserInfo = {
-          account_id: userInfoObject.account_id,
-          displayName: userInfoObject.displayName,
-          user: user().username
-        }
-        configStore.set('userInfo', info)
-        return info
-      } catch (error) {
-        logError(
-          `User info file corrupted, check ${userInfo}`,
-          LogPrefix.Legendary
-        )
-        const info: UserInfo = {
-          account_id: '',
-          displayName: '',
-          user: ''
-        }
-        return info
-      }
+    if (!LegendaryUser.isLoggedIn()) {
+      configStore.delete('userInfo')
+      return {}
     }
-    configStore.delete('userInfo')
-    return { account_id: '', displayName: null }
+    const userInfoContent = readFileSync(userInfo).toString()
+    try {
+      const userInfoObject = JSON.parse(userInfoContent)
+      const info: UserInfo = {
+        account_id: userInfoObject.account_id,
+        displayName: userInfoObject.displayName,
+        user: user().username
+      }
+      configStore.set('userInfo', info)
+      return info
+    } catch (error) {
+      logError(
+        `User info file corrupted, check ${userInfo}`,
+        LogPrefix.Legendary
+      )
+      return {}
+    }
   }
 }

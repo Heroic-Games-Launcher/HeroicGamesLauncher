@@ -66,16 +66,6 @@ async function prepareLaunch(
     const epicNonReachable = !isOnline() || (await isEpicServiceOffline())
     // If the game is configured to use offline mode or Epic isn't reachable, but the game can't run offline, we can't launch
     if (gameSettings.offlineMode || epicNonReachable) {
-      showErrorBoxModalAuto(
-        i18next.t(
-          'box.error.no-offline-mode.title',
-          'Offline mode not supported.'
-        ),
-        i18next.t(
-          'box.error.no-offline-mode.message',
-          'Launch aborted! The game requires a internet connection to run it.'
-        )
-      )
       return {
         success: false,
         failureReason: 'Offline mode not supported'
@@ -84,55 +74,62 @@ async function prepareLaunch(
   }
 
   // Update Discord RPC if enabled
-  let rpcClient = null
+  let rpcClient = undefined
   if (globalSettings.discordRPC) {
     rpcClient = constructAndUpdateRPC(gameInfo.title)
   }
 
   // If we're not on Linux, we can return here
   if (!isLinux) {
-    return { success: true, rpcClient: rpcClient }
+    return { success: true, rpcClient }
   }
 
   // Figure out where MangoHud/GameMode are located, if they're enabled
-  let mangoHudCommand = ''
+  let mangoHudCommand: string[] = []
   let gameModeBin = ''
   if (gameSettings.showMangohud) {
     const mangoHudBin = await searchForExecutableOnPath('mangohud')
     if (!mangoHudBin) {
-      logWarning('MangoHud enabled but not installed', LogPrefix.Backend)
-      // Should we display an error box and return { success: false } here?
+      return {
+        success: false,
+        failureReason:
+          'Mangohud is enabled, but `mangohud` executable could not be found on $PATH'
+      }
     } else {
-      mangoHudCommand = `${mangoHudBin} --dlsym`
+      mangoHudCommand = [mangoHudBin, '--dlsym']
     }
   }
   if (gameSettings.useGameMode) {
     gameModeBin = await searchForExecutableOnPath('gamemoderun')
     if (!gameModeBin) {
-      logWarning('GameMode enabled but not installed', LogPrefix.Backend)
+      return {
+        success: false,
+        failureReason:
+          'GameMode is enabled, but `gamemoderun` executable could not be found on $PATH'
+      }
     }
   }
 
   // If the Steam Runtime is enabled, find a valid one
-  let steamRuntime = ''
-  const isLinuxNative =
-    gameInfo?.install?.platform &&
-    gameInfo?.install?.platform.toLowerCase() === 'linux'
-
-  if (gameSettings.useSteamRuntime && isLinuxNative) {
+  let steamRuntime: string[] = []
+  const shouldUseRuntime =
+    gameSettings.useSteamRuntime &&
+    (game.isNative() || gameSettings.wineVersion.type === 'proton')
+  if (shouldUseRuntime) {
     // for native games lets use scout for now
-    await getSteamRuntime('scout').then((runtime) => {
-      if (!runtime.path) {
-        logWarning(
-          `Couldn't find a valid Steam runtime path`,
-          LogPrefix.Backend
-        )
-      } else {
-        logInfo(`Using ${runtime.type} Steam runtime`, LogPrefix.Backend)
-        steamRuntime =
-          runtime.version === 'soldier' ? `${runtime.path} -- ` : runtime.path
+    const runtimeType = game.isNative() ? 'scout' : 'soldier'
+    const { path, args } = await getSteamRuntime(runtimeType)
+    if (!path) {
+      return {
+        success: false,
+        failureReason:
+          'Steam Runtime is enabled, but no runtimes could be found\n' +
+          `Make sure Steam ${
+            game.isNative() ? 'is' : 'and the "SteamLinuxRuntime - Soldier" are'
+          } installed`
       }
-    })
+    }
+    steamRuntime = [path, ...args]
   }
 
   return {
@@ -342,7 +339,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
         wineVersion.lib32,
         wineVersion.lib,
         process.env.LD_LIBRARY_PATH
-      ].join(':')
+      ]
+        .filter(Boolean)
+        .join(':')
     } else {
       logError(
         [
@@ -358,26 +357,25 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
 
 function setupWrappers(
   gameSettings: GameSettings,
-  mangoHudBin: string,
-  gameModeBin: string,
-  steamRuntime: string
+  mangoHudCommand?: string[],
+  gameModeBin?: string,
+  steamRuntime?: string[]
 ): Array<string> {
-  const wrappers = Array<string>()
+  const wrappers: string[] = []
   if (gameSettings.wrapperOptions) {
     gameSettings.wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
       wrappers.push(wrapperEntry.exe)
       wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
     })
   }
-  if (gameSettings.showMangohud) {
-    // Mangohud needs some arguments in addition to the command, so we have to split here
-    wrappers.push(...mangoHudBin.split(' '))
+  if (mangoHudCommand) {
+    wrappers.push(...mangoHudCommand)
   }
-  if (gameSettings.useGameMode) {
+  if (gameModeBin) {
     wrappers.push(gameModeBin)
   }
-  if (gameSettings.useSteamRuntime) {
-    wrappers.push(steamRuntime)
+  if (steamRuntime) {
+    wrappers.push(...steamRuntime)
   }
   return wrappers.filter((n) => n)
 }
@@ -427,7 +425,7 @@ export async function verifyWinePrefix(
     })
 }
 
-function launchCleanup(rpcClient: RpcClient) {
+function launchCleanup(rpcClient?: RpcClient) {
   if (rpcClient) {
     rpcClient.disconnect()
     logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
@@ -528,7 +526,7 @@ async function callRunner(
     logDebug(`Logging to file "${options?.logFile}"`, runner.logPrefix)
   }
 
-  if (existsSync(options?.logFile)) {
+  if (options?.logFile && existsSync(options.logFile)) {
     writeFileSync(options.logFile, '')
   }
 
@@ -537,13 +535,13 @@ async function callRunner(
   const wrappers = options?.wrappers || []
   let bin = ''
   if (wrappers.length) {
-    bin = wrappers.shift()
+    bin = wrappers.shift()!
     commandParts.unshift(...wrappers, runner.bin)
   } else {
     bin = runner.bin
   }
 
-  return new Promise((res, rej) => {
+  return new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
       env: { ...process.env, ...options?.env }
@@ -634,18 +632,18 @@ async function callRunner(
  */
 function getRunnerCallWithoutCredentials(
   commandParts: string[],
-  env: Record<string, string> = {},
+  env: Record<string, string> | NodeJS.ProcessEnv = {},
   wrappers: string[] = [],
   runnerPath: string
 ): string {
-  const commandArguments = Object.assign([], commandParts)
+  const modifiedCommandParts = [...commandParts]
   // Redact sensitive arguments (SID for Legendary, token for GOGDL)
   for (const sensitiveArg of ['--sid', '--token']) {
-    const sensitiveArgIndex = commandArguments.indexOf(sensitiveArg)
+    const sensitiveArgIndex = modifiedCommandParts.indexOf(sensitiveArg)
     if (sensitiveArgIndex === -1) {
       continue
     }
-    commandArguments[sensitiveArgIndex + 1] = '<redacted>'
+    modifiedCommandParts[sensitiveArgIndex + 1] = '<redacted>'
   }
 
   const formattedEnvVars: string[] = []
@@ -656,7 +654,7 @@ function getRunnerCallWithoutCredentials(
         continue
       }
     }
-    formattedEnvVars.push(`${key}=${quoteIfNecessary(value)}`)
+    formattedEnvVars.push(`${key}=${quoteIfNecessary(value ?? '')}`)
   }
 
   commandParts = commandParts.filter(Boolean)
@@ -665,7 +663,7 @@ function getRunnerCallWithoutCredentials(
     ...formattedEnvVars,
     ...wrappers.map(quoteIfNecessary),
     quoteIfNecessary(runnerPath),
-    ...commandArguments.map(quoteIfNecessary)
+    ...modifiedCommandParts.map(quoteIfNecessary)
   ].join(' ')
 }
 

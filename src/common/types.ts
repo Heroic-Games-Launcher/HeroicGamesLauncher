@@ -1,3 +1,5 @@
+import { GogInstallPlatform } from './types/gog'
+import { LegendaryInstallPlatform } from './types/legendary'
 import { ChildProcess } from 'child_process'
 import { VersionInfo } from 'heroic-wine-downloader'
 
@@ -5,7 +7,7 @@ export type Runner = 'legendary' | 'gog'
 
 interface About {
   description: string
-  shortDescription: string
+  longDescription: string
 }
 
 export interface AppSettings {
@@ -80,19 +82,14 @@ export interface GameInfo {
   store_url: string
   app_name: string
   art_cover: string
-  art_logo: string
+  art_logo?: string
   art_square: string
   cloud_save_enabled: boolean
-  compatible_apps: string[]
   developer: string
   extra: ExtraInfo
   folder_name: string
-  install: InstalledInfo
-  is_game: boolean
+  install: Partial<InstalledInfo>
   is_installed: boolean
-  is_ue_asset: boolean
-  is_ue_plugin: boolean
-  is_ue_project: boolean
   namespace: string
   save_folder: string
   title: string
@@ -100,43 +97,6 @@ export interface GameInfo {
   is_mac_native: boolean
   is_linux_native: boolean
 }
-
-type DLCInfo = {
-  app_name: string
-  title: string
-}
-
-type GameInstallInfo = {
-  app_name: string
-  launch_options: Array<string>
-  owned_dlc: Array<DLCInfo>
-  title: string
-  version: string
-  platform_versions: { Mac: string; Windows: string }
-  buildId?: string
-}
-
-type Prerequisites = {
-  args: string
-  name: string
-  path: string
-}
-
-type GameManifest = {
-  app_name: string
-  disk_size: number
-  download_size: number
-  install_tags: Array<string>
-  launch_exe: string
-  prerequisites: Prerequisites
-  languages?: Array<string>
-  versionEtag?: string
-}
-export interface InstallInfo {
-  game: GameInstallInfo
-  manifest: GameManifest
-}
-
 export interface GameSettings {
   audioFix: boolean
   autoInstallDxvk: boolean
@@ -195,43 +155,21 @@ export interface InstallProgress {
   percent: number
 }
 export interface InstalledInfo {
-  executable: string | null
-  install_path: string | null
-  install_size: string | null
+  executable: string
+  install_path: string
+  install_size: string
   is_dlc: boolean
-  version: string | null
-  platform: string
+  version: string
+  platform: InstallPlatform
   appName?: string
   installedWithDLCs?: boolean // For verifing GOG games
   language?: string // For verifing GOG games
   versionEtag?: string // Checksum for checking GOG updates
   buildId?: string // For verifing GOG games
 }
-export interface KeyImage {
-  type: string
-}
 
 export interface Path {
-  filePaths: string[]
-}
-
-export interface RawGameJSON {
-  app_name: string
-  art_cover: string
-  art_logo: string
-  art_square: string
-  cloudSaveEnabled: boolean
-  developer: string
-  executable: string
-  extraInfo: ExtraInfo
-  folderName: string
-  install_path: string
-  install_size: number
-  isInstalled: boolean
-  is_dlc: boolean
-  saveFolder: string
-  title: string
-  version: string
+  path: string
 }
 
 interface Reqs {
@@ -262,19 +200,14 @@ export interface WineInstallation {
 export interface InstallArgs {
   path: string
   installDlcs?: boolean
-  sdlList?: Array<string>
-  platformToInstall: 'Windows' | 'Mac' | 'Linux'
+  sdlList: string[]
+  platformToInstall: InstallPlatform
   installLanguage?: string
 }
 
-export interface InstallParams {
+export interface InstallParams extends InstallArgs {
   appName: string
-  path: string
-  installDlcs?: boolean
-  sdlList?: Array<string>
-  installLanguage?: string
   runner: Runner
-  platformToInstall: 'Windows' | 'Mac' | 'Linux'
 }
 
 export interface GOGLoginData {
@@ -335,7 +268,7 @@ export interface GOGImportData {
     type: string
   }>
   installedLanguage: string
-  platform: string
+  platform: GogInstallPlatform
   versionName: string
   installedWithDlcs: boolean
 }
@@ -360,18 +293,18 @@ export interface GamepadInputEventMouse {
 }
 
 export interface SteamRuntime {
-  type: 'unpackaged' | 'flatpak'
   path: string
-  version: 'soldier' | 'scout'
+  type: 'soldier' | 'scout'
+  args: string[]
 }
 
 export interface LaunchPreperationResult {
   success: boolean
   failureReason?: string
   rpcClient?: RpcClient
-  mangoHudCommand?: string
+  mangoHudCommand?: string[]
   gameModeBin?: string
-  steamRuntime?: string
+  steamRuntime?: string[]
 }
 
 export interface RpcClient {
@@ -383,7 +316,7 @@ export interface RpcClient {
 export interface CallRunnerOptions {
   logMessagePrefix?: string
   logFile?: string
-  env?: Record<string, string>
+  env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
   onOutput?: (output: string, child: ChildProcess) => void
 }
@@ -512,4 +445,4 @@ export type ElWebview = {
 
 export type WebviewType = HTMLWebViewElement & ElWebview
 
-export type PlatformToInstall = 'Windows' | 'Mac' | 'Linux' | ''
+export type InstallPlatform = LegendaryInstallPlatform | GogInstallPlatform

@@ -41,6 +41,10 @@ export class GOGUser {
       return
     }
     const user = await this.getCredentials()
+    if (!user) {
+      logError("No credentials, can't get user data", LogPrefix.Gog)
+      return
+    }
     const response = await axios
       .get(`https://embed.gog.com/userData.json`, {
         headers: {
@@ -50,8 +54,11 @@ export class GOGUser {
       })
       .catch((error) => {
         logError(['Error getting user Data', `${error}`], LogPrefix.Gog)
-        return null
       })
+
+    if (!response) {
+      return
+    }
 
     const data = response.data
 
@@ -79,7 +86,7 @@ export class GOGUser {
   /**
    * Refreshes token and returns new credentials
    */
-  public static async refreshToken(): Promise<GOGLoginData | null> {
+  public static async refreshToken(): Promise<GOGLoginData | undefined> {
     const user: GOGLoginData = configStore.get(
       'credentials',
       {}
@@ -93,7 +100,6 @@ export class GOGUser {
             'Error with refreshing token, reauth required',
             LogPrefix.Gog
           )
-          return null
         })
 
       if (!response) {
@@ -111,7 +117,7 @@ export class GOGUser {
         error: 'No credentials',
         runner: 'GOG'
       })
-      return null
+      return
     }
   }
 

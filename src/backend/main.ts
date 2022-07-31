@@ -6,7 +6,8 @@ import {
   GamepadInputEventMouse,
   Runner,
   AppSettings,
-  GameSettings
+  GameSettings,
+  InstallPlatform
 } from 'common/types'
 import * as path from 'path'
 import {
@@ -676,27 +677,35 @@ ipcMain.on('createNewWindow', async (e, url) =>
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 )
 
-ipcMain.handle('getGameInfo', async (event, appName, runner) => {
-  try {
-    const game = getGame(appName, runner)
-    const info = game.getGameInfo()
-    if (!info) {
+ipcMain.handle(
+  'getGameInfo',
+  async (event, appName: string, runner: Runner) => {
+    // Fastpath since we sometines have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
+    if (runner === 'legendary' && !LegendaryLibrary.get().hasGame(appName)) {
       return null
     }
-    info.extra = await game.getExtraInfo()
-    // eslint-disable-next-line @typescript-eslint/return-await
-    return info
-  } catch (error) {
-    logError(`${error}`, LogPrefix.Backend)
+    try {
+      const game = getGame(appName, runner)
+      const info = game.getGameInfo()
+      if (!info.app_name) {
+        return null
+      }
+      info.extra = await game.getExtraInfo()
+      // eslint-disable-next-line @typescript-eslint/return-await
+      return info
+    } catch (error) {
+      logError(`${error}`, LogPrefix.Backend)
+      return null
+    }
   }
-})
+)
 
 ipcMain.handle('getGameSettings', async (event, game, runner) => {
   try {
-    const settings = await getGame(game, runner).getSettings()
-    return settings
+    return await getGame(game, runner).getSettings()
   } catch (error) {
     logError(`${error}`, LogPrefix.Backend)
+    return null
   }
 })
 
@@ -706,12 +715,13 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
 
 ipcMain.handle(
   'getInstallInfo',
-  async (event, game, runner: Runner, installPlatform: string) => {
+  async (event, game, runner: Runner, installPlatform: InstallPlatform) => {
     if (!isOnline()) {
       return { game: {}, metadata: {} }
     }
 
     try {
+      // @ts-ignore This is actually fine as long as the frontend always passes the right InstallPlatform for the right runner
       const info = await getGame(game, runner).getInstallInfo(installPlatform)
       return info
     } catch (error) {
@@ -738,7 +748,7 @@ ipcMain.handle('getAlternativeWine', async () =>
 ipcMain.handle('readConfig', async (event, config_class) => {
   switch (config_class) {
     case 'library':
-      return LegendaryLibrary.get().getGames('info')
+      return LegendaryLibrary.get().getGames()
     case 'user':
       return (await LegendaryUser.getUserInfo()).displayName
     default:
@@ -763,7 +773,7 @@ ipcMain.handle('requestSettings', async (event, appName) => {
           .filter((val) => val.indexOf('=') !== -1)
           .forEach((envKeyAndVar) => {
             const keyAndValueSplit = envKeyAndVar.split('=')
-            const key = keyAndValueSplit.shift()
+            const key = keyAndValueSplit.shift()!
             const value = keyAndValueSplit.join('=')
             config.enviromentOptions.push({ key, value })
           })
@@ -783,7 +793,7 @@ ipcMain.handle('requestSettings', async (event, appName) => {
           })
 
         if (config.wrapperOptions.at(0)) {
-          config.wrapperOptions.at(0).args = shlex.join(args)
+          config.wrapperOptions.at(0)!.args = shlex.join(args)
         }
       }
 
@@ -835,14 +845,14 @@ if (existsSync(installed)) {
 ipcMain.handle('refreshLibrary', async (e, fullRefresh, library?: Runner) => {
   switch (library) {
     case 'legendary':
-      await LegendaryLibrary.get().getGames('info', fullRefresh)
+      await LegendaryLibrary.get().getGames(fullRefresh)
       break
     case 'gog':
       await GOGLibrary.get().sync()
       break
     default:
       await Promise.allSettled([
-        LegendaryLibrary.get().getGames('info', fullRefresh),
+        LegendaryLibrary.get().getGames(fullRefresh),
         GOGLibrary.get().sync()
       ])
       break
@@ -930,11 +940,11 @@ ipcMain.handle(
     )
     return game
       .launch(launchArguments)
-      .catch((exception: Error) => {
-        logError(exception.stack, LogPrefix.Backend)
+      .catch((error) => {
+        logError(error.stack ?? `${error}`, LogPrefix.Backend)
         appendFileSync(
           game.logFileLocation,
-          `An exception occurred when launching the game:\n${exception.stack}`
+          `An exception occurred when launching the game:\n${error.stack}`
         )
       })
       .finally(() => {
@@ -1009,7 +1019,7 @@ ipcMain.handle('install', async (event, params) => {
     appName,
     path,
     installDlcs,
-    sdlList,
+    sdlList = [],
     runner,
     installLanguage,
     platformToInstall
@@ -1150,51 +1160,58 @@ ipcMain.handle('moveInstall', async (event, [appName, path, runner]) => {
   }
 })
 
-ipcMain.handle('importGame', async (event, args) => {
-  const { appName, path, runner } = args
-  const epicOffline = await isEpicServiceOffline()
-  if (epicOffline && runner === 'legendary') {
-    showErrorBoxModal(
-      mainWindow,
-      i18next.t('box.warning.title', 'Warning'),
-      i18next.t(
-        'box.warning.epic.import',
-        'Epic Servers are having major outage right now, the game cannot be imported!'
+ipcMain.handle(
+  'importGame',
+  async (event, args): Promise<{ status: 'done' | 'error' }> => {
+    const { appName, path, runner } = args
+    const epicOffline = await isEpicServiceOffline()
+    if (epicOffline && runner === 'legendary') {
+      showErrorBoxModal(
+        mainWindow,
+        i18next.t('box.warning.title', 'Warning'),
+        i18next.t(
+          'box.warning.epic.import',
+          'Epic Servers are having major outage right now, the game cannot be imported!'
+        )
       )
-    )
-    return { status: 'error' }
-  }
-  const game = getGame(appName, runner)
-  const { title } = game.getGameInfo()
-  mainWindow.webContents.send('setGameStatus', {
-    appName,
-    runner,
-    status: 'installing'
-  })
-  game
-    .import(path)
-    .then(() => {
-      notify({
-        title,
-        body: i18next.t('notify.install.imported', 'Game Imported')
-      })
-      mainWindow.webContents.send('setGameStatus', {
-        appName,
-        runner,
-        status: 'done'
-      })
-      logInfo(`imported ${title}`, LogPrefix.Backend)
+      return { status: 'error' }
+    }
+    const game = getGame(appName, runner)
+    const { title } = game.getGameInfo()
+    mainWindow.webContents.send('setGameStatus', {
+      appName,
+      runner,
+      status: 'installing'
     })
-    .catch((err) => {
+    try {
+      await game.import(path)
+    } catch (error) {
       notify({ title, body: i18next.t('notify.install.canceled') })
       mainWindow.webContents.send('setGameStatus', {
         appName,
         runner,
         status: 'done'
       })
-      logInfo(err, LogPrefix.Backend)
+      logInfo(
+        error instanceof Error ? error.stack ?? error.message : `${error}`,
+        LogPrefix.Backend
+      )
+      return { status: 'error' }
+    }
+
+    notify({
+      title,
+      body: i18next.t('notify.install.imported', 'Game Imported')
     })
-})
+    mainWindow.webContents.send('setGameStatus', {
+      appName,
+      runner,
+      status: 'done'
+    })
+    logInfo(`imported ${title}`, LogPrefix.Backend)
+    return { status: 'done' }
+  }
+)
 
 ipcMain.handle('updateGame', async (e, appName, runner) => {
   if (!isOnline()) {

@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, unlinkSync } from 'graceful-fs'
 import { join } from 'path'
 import { runtimePath } from './../../constants'
 import { logError, logInfo, LogPrefix } from './../../logger/logger'
-import { Runtime, RuntimeName } from './../../types'
+import { Runtime, RuntimeName } from 'common/types'
 import { downloadFile, extractTarFile, getAssetDataFromDownload } from './util'
 
 async function _get(): Promise<Runtime[]> {
@@ -49,7 +49,7 @@ async function download(name: RuntimeName): Promise<boolean> {
       [
         'Failed to download runtime',
         `${name}:`,
-        error instanceof Error ? error.stack : `${error}`
+        error instanceof Error ? error.stack ?? error.message : `${error}`
       ],
       LogPrefix.Runtime
     )

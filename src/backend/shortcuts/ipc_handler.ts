@@ -38,7 +38,7 @@ ipcMain.handle('shortcutsExists', (event, appName: string, runner: Runner) => {
   const title = getGame(appName, runner).getGameInfo().title
   const [desktopFile, menuFile] = shortcutFiles(title)
 
-  return existsSync(desktopFile) || existsSync(menuFile)
+  return existsSync(desktopFile ?? '') || existsSync(menuFile ?? '')
 })
 
 ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {

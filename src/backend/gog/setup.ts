@@ -72,12 +72,12 @@ async function setup(
     ).catch()
   }
   // Funny part begins here
-  // Deterimine if it's basicly from .script file or from manifest
+  // Deterimine if it's basically from .script file or from manifest
   if (instructions[0]?.install) {
     // It's from .script file
     // Parse actions
     const supportDir = path.join(
-      gameInfo.install.install_path,
+      gameInfo.install.install_path!,
       'support',
       appName
     )
@@ -138,7 +138,7 @@ async function setup(
         case 'Execute': {
           const executableName = actionArguments.executable
           const infoPath = path.join(
-            gameInfo.install.install_path,
+            gameInfo.install.install_path!,
             `goggame-${appName}.info`
           )
           let Language = 'english'
@@ -313,7 +313,7 @@ async function setup(
 async function obtainSetupInstructions(gameInfo: GameInfo) {
   const { buildId, appName, install_path } = gameInfo.install
 
-  const scriptPath = path.join(install_path, `goggame-${appName}.script`)
+  const scriptPath = path.join(install_path!, `goggame-${appName}.script`)
   if (existsSync(scriptPath)) {
     const data = readFileSync(scriptPath, { encoding: 'utf-8' })
     return JSON.parse(data).actions
@@ -350,7 +350,7 @@ const registryDataTypes = new Map([
   ['binary', 'REG_BINARY']
   // If needed please add those values REG_NONE REG_EXPAND_SZ REG_MULTI_SZ
 ])
-const getRegDataType = (dataType: string): string =>
+const getRegDataType = (dataType: string): string | undefined =>
   registryDataTypes.get(dataType.toLowerCase())
 
 /**
@@ -372,7 +372,10 @@ const handlePathVars = (
   for (const value of variables) {
     const trimmedValue = value.slice(1, -1)
 
-    return path.replace(value, possibleValues.get(trimmedValue.toLowerCase()))
+    return path.replace(
+      value,
+      possibleValues.get(trimmedValue.toLowerCase()) ?? ''
+    )
   }
 
   return ''

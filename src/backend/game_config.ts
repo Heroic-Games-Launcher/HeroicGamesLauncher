@@ -26,6 +26,7 @@ abstract class GameConfig {
 
   public abstract version: GameConfigVersion
 
+  // @ts-expect-error TODO: Somehow figure out how to synchronously load the config
   public config: GameSettings
 
   readonly appName: string
@@ -72,7 +73,7 @@ abstract class GameConfig {
       GameConfig.reload(appName, version)
     }
 
-    return GameConfig.instances.get(appName)
+    return GameConfig.instances.get(appName)!
   }
 
   /**
@@ -99,7 +100,7 @@ abstract class GameConfig {
         break
     }
     // Try to upgrade outdated config.
-    if (GameConfig.instances.get(appName).upgrade()) {
+    if (GameConfig.instances.get(appName)!.upgrade()) {
       // Upgrade done, we need to fully reload config.
       logInfo(
         `[${appName}]: Upgraded outdated ${version} config to ${currentGameConfigVersion}.`,

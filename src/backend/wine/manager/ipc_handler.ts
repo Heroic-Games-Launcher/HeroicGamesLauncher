@@ -12,7 +12,7 @@ const abortControllers = new Map<string, AbortController>()
 
 ipcMain.on('abortWineInstallation', (e, version: string) => {
   if (abortControllers.has(version)) {
-    const abortController = abortControllers.get(version)
+    const abortController = abortControllers.get(version)!
     if (!abortController.signal.aborted) {
       abortController.abort()
     }
@@ -23,7 +23,7 @@ ipcMain.handle('installWineVersion', async (e, release: WineVersionInfo) => {
   const abortController = new AbortController()
   abortControllers.set(release.version, abortController)
 
-  const onProgress = (state: State, progress: ProgressInfo) => {
+  const onProgress = (state: State, progress?: ProgressInfo) => {
     e.sender.send('progressOf' + release.version, { state, progress })
   }
   const result = await installWineVersion(

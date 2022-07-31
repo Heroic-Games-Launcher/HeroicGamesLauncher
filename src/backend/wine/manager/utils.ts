@@ -91,7 +91,7 @@ async function updateWineVersionInfos(
 
 async function installWineVersion(
   release: WineVersionInfo,
-  onProgress: (state: State, progress: ProgressInfo) => void,
+  onProgress: (state: State, progress?: ProgressInfo) => void,
   abortSignal: AbortSignal
 ) {
   let updatedInfo: WineVersionInfo
@@ -113,32 +113,28 @@ async function installWineVersion(
     ? `${heroicToolsPath}/wine`
     : `${heroicToolsPath}/proton`
 
-  const result = await installVersion({
-    versionInfo: release as VersionInfo,
-    installDir,
-    onProgress: onProgress,
-    abortSignal: abortSignal
-  })
-    .then((response) => {
-      updatedInfo = {
-        ...response.versionInfo,
-        installDir: response.installDir,
-        isInstalled: true,
-        hasUpdate: false,
-        type: release.type
-      }
+  try {
+    const response = await installVersion({
+      versionInfo: release as VersionInfo,
+      installDir,
+      onProgress: onProgress,
+      abortSignal: abortSignal
     })
-    .catch((error: Error) => {
-      if (error.name.includes('AbortError')) {
-        logWarning(`${error.message}`, LogPrefix.WineDownloader)
-        return 'abort'
-      }
-      logError(`${error.message}`, LogPrefix.WineDownloader)
+    updatedInfo = {
+      ...response.versionInfo,
+      installDir: response.installDir,
+      isInstalled: true,
+      hasUpdate: false,
+      type: release.type
+    }
+  } catch (error) {
+    if (error instanceof Error && error.name.includes('AbortError')) {
+      logWarning(`${error.message}`, LogPrefix.WineDownloader)
+      return 'abort'
+    } else {
+      logError(`${error}`, LogPrefix.WineDownloader)
       return 'error'
-    })
-
-  if (result === 'abort' || result === 'error') {
-    return result
+    }
   }
 
   // Update stored information

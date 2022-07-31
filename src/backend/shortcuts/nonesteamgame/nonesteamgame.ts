@@ -79,11 +79,11 @@ function notifyFrontend(props: { message: string; adding: boolean }) {
  */
 function checkSteamUserDataDir(steamUserdataDir: string): {
   folders: string[]
-  error: string
+  error?: string
 } {
   if (!existsSync(steamUserdataDir)) {
     return {
-      folders: undefined,
+      folders: [],
       error: `${steamUserdataDir} does not exist. Can't add/remove game to/from Steam!`
     }
   }
@@ -97,12 +97,12 @@ function checkSteamUserDataDir(steamUserdataDir: string): {
 
   if (folders.length <= 0) {
     return {
-      folders: undefined,
+      folders: [],
       error: `${steamUserdataDir} does not contain a valid user directory!`
     }
   }
 
-  return { folders, error: undefined }
+  return { folders }
 }
 
 /**
@@ -131,11 +131,11 @@ function readShortcutFile(file: string): Partial<ShortcutObject> {
 function writeShortcutFile(
   file: string,
   object: Partial<ShortcutObject>
-): string {
+): string | undefined {
   const buffer = writeBuffer(object)
   try {
     writeFileSync(file, buffer)
-    return undefined
+    return
   } catch (error) {
     return `${error}`
   }
@@ -178,8 +178,10 @@ function checkIfShortcutObjectIsValid(
  * @param title Title of the game
  * @returns Index of the found title, else if not found -1
  */
-const checkIfAlreadyAdded = (object: Partial<ShortcutObject>, title: string) =>
-  object.shortcuts.findIndex((entry) => entry.AppName === title)
+function checkIfAlreadyAdded(object: Partial<ShortcutObject>, title: string) {
+  const shortcuts = object.shortcuts ?? []
+  return shortcuts.findIndex((entry) => entry.AppName === title)
+}
 
 /**
  * Adds a non-steam game to steam via editing shortcuts.vdf
@@ -221,6 +223,7 @@ async function addNonSteamGame(props: {
 
     // read file
     const content = readShortcutFile(shortcutsFile)
+    content.shortcuts = content.shortcuts ?? []
 
     const checkResult = checkIfShortcutObjectIsValid(content)
     if (!checkResult.success) {
@@ -390,15 +393,18 @@ async function removeNonSteamGame(props: {
       )
       continue
     }
+    // This is just to make TS happy, in reality checkIfShortcutObjectIsValid already checks for this array
+    content.shortcuts = content.shortcuts || []
 
     const index = checkIfAlreadyAdded(content, props.gameInfo.title)
 
     if (index < 0) {
       continue
     }
+    const shortcutObj = content.shortcuts.at(index)!
 
-    const exe = content.shortcuts.at(index).Exe
-    const appName = content.shortcuts.at(index).AppName
+    const exe = shortcutObj.Exe
+    const appName = shortcutObj.AppName
 
     // remove
     content.shortcuts.splice(index, 1)

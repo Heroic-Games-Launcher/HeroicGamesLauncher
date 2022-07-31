@@ -5,7 +5,10 @@ import { GameInfo } from 'common/types'
 import { spawnSync } from 'child_process'
 import { basename, dirname, extname, join } from 'path'
 
-function createImage(buffer: Buffer, outputFilePath: string): string {
+function createImage(
+  buffer: Buffer,
+  outputFilePath: string
+): string | undefined {
   try {
     writeFileSync(outputFilePath, buffer, {
       encoding: 'ascii'
@@ -13,25 +16,28 @@ function createImage(buffer: Buffer, outputFilePath: string): string {
   } catch (error) {
     return `${error}`
   }
-  return undefined
+  return
 }
 
-function downloadImage(imageURL: string, outputFilePath: string): string {
+function downloadImage(
+  imageURL: string,
+  outputFilePath: string
+): string | undefined {
   try {
     spawnSync('curl', ['-L', imageURL, '-o', outputFilePath])
   } catch (error) {
     return `Donwloading of ${imageURL} failed with:\n${error}`
   }
-  return undefined
+  return
 }
 
-function removeImage(imagePath: string): string {
+function removeImage(imagePath: string): string | undefined {
   try {
     unlinkSync(imagePath)
   } catch (error) {
     return `Removing of ${imagePath} failed with:\n${error}`
   }
-  return undefined
+  return
 }
 
 function checkImageExistsAlready(image: string): boolean {
@@ -63,7 +69,7 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
       downloadImage(image, icon)
     }
     return icon
-  } else if (gameInfo.runner === 'gog') {
+  } else {
     const apiData = await GOGLibrary.get().getGamesData(appName)
     let iconUrl = apiData?._links?.icon.href
     iconUrl = iconUrl.replace('{ext}', 'png')

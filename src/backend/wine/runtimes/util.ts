@@ -45,11 +45,11 @@ async function getAssetDataFromDownload(
   }
 
   const assets: Array<GithubAssetMetadata> = response.data.assets
-  return assets.find((asset) => {
-    if (asset.name === assetName) {
-      return true
-    }
-  })
+  const asset = assets.find((asset) => asset.name === assetName)
+  if (!asset) {
+    throw new Error(`Asset with name ${assetName} was not found`)
+  }
+  return asset
 }
 
 async function downloadFile(url: string, filePath: string) {
@@ -82,7 +82,7 @@ async function extractTarFile(
     throw new Error('Specified file does not exist: ' + filePath)
   }
 
-  let extractedPath = options?.extractedPath
+  let extractedPath = options?.extractedPath ?? ''
   if (!extractedPath) {
     const splitPath = filePath.split('.tar')
     splitPath.pop()

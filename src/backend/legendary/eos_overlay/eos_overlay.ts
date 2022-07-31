@@ -9,7 +9,6 @@ import { logError, LogPrefix, logWarning } from '../../logger/logger'
 import { runLegendaryCommand } from '../library'
 import { LegendaryGame } from '../games'
 import { getGame, killPattern } from '../../utils'
-import { Runner } from 'common/types'
 import { verifyWinePrefix } from '../../launcher'
 
 const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
@@ -138,12 +137,11 @@ function cancelInstallOrUpdate() {
 }
 
 async function enable(
-  appName: string,
-  runner: Runner
+  appName: string
 ): Promise<{ wasEnabled: boolean; installNow?: boolean }> {
   let prefix = ''
   if (isLinux) {
-    const game = getGame(appName, runner)
+    const game = getGame(appName, 'legendary')
     await verifyWinePrefix(game)
     const { winePrefix, wineVersion } = await game.getSettings()
     prefix =
@@ -168,10 +166,10 @@ async function enable(
   return { wasEnabled: true }
 }
 
-async function disable(appName: string, runner: Runner) {
+async function disable(appName: string) {
   let prefix = ''
   if (isLinux) {
-    const game = getGame(appName, runner)
+    const game = getGame(appName, 'legendary')
     const { winePrefix, wineVersion } = await game.getSettings()
     prefix =
       wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
@@ -193,12 +191,19 @@ function isInstalled() {
  * @param runner required on Linux, does nothing on Windows
  * @returns Enabled = True; Disabled = False
  */
-async function isEnabled(appName?: string, runner?: Runner) {
+async function isEnabled(appName?: string) {
   let enabled = false
 
   let prefix = ''
-  if (isLinux || !(appName && runner)) {
-    const game = getGame(appName, runner)
+  if (isLinux) {
+    if (!appName) {
+      logError(
+        'Checking for EOS overlay on Linux is only possible on a game-by-game basis',
+        LogPrefix.Legendary
+      )
+      return false
+    }
+    const game = getGame(appName, 'legendary')
     const { winePrefix, wineVersion } = await game.getSettings()
     prefix =
       wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix

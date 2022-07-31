@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { GOGLibrary } from './library'
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, dialog } from 'electron'
 import { join } from 'path'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
@@ -9,13 +8,10 @@ import { killPattern } from '../utils'
 import {
   ExtraInfo,
   GameInfo,
-  InstallInfo,
   GameSettings,
   ExecResult,
   InstallArgs,
-  GOGLoginData,
-  InstalledInfo,
-  SteamRuntime
+  InstalledInfo
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {
@@ -25,19 +21,9 @@ import {
   isMac,
   isLinux
 } from '../constants'
-import {
-  configStore,
-  installedGamesStore,
-  syncStore
-} from '../gog/electronStores'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import {
-  errorHandler,
-  execAsync,
-  getFileSize,
-  getGOGdlBin,
-  getSteamRuntime
-} from '../utils'
+import { installedGamesStore, syncStore } from '../gog/electronStores'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
+import { errorHandler, execAsync, getFileSize, getGOGdlBin } from '../utils'
 import { GOGUser } from './user'
 import {
   getRunnerCallWithoutCredentials,
@@ -53,6 +39,8 @@ import setup from './setup'
 import { runGogdlCommand } from './library'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
+import { GogInstallInfo, GogInstallPlatform } from 'common/types/gog'
+import { t } from 'i18next'
 
 class GOGGame extends Game {
   public appName: string
@@ -69,8 +57,8 @@ class GOGGame extends Game {
     return this.instances.get(appName) as GOGGame
   }
   public async getExtraInfo(): Promise<ExtraInfo> {
-    const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
-    let targetPlatform: 'windows' | 'osx' | 'linux' = 'windows'
+    const gameInfo = this.getGameInfo()
+    let targetPlatform: GogInstallPlatform = 'windows'
 
     if (isMac && gameInfo.is_mac_native) {
       targetPlatform = 'osx'
@@ -87,10 +75,41 @@ class GOGGame extends Game {
     return extra
   }
   public getGameInfo(): GameInfo {
-    return GOGLibrary.get().getGameInfo(this.appName)
+    const info = GOGLibrary.get().getGameInfo(this.appName)
+    if (!info) {
+      logError(
+        [
+          'Could not get game info for',
+          `${this.appName},`,
+          'returning empty object. Something is probably gonna go wrong soon'
+        ],
+        LogPrefix.Gog
+      )
+      // @ts-expect-error TODO: Handle this better
+      return {}
+    }
+    return info
   }
-  async getInstallInfo(installPlatform?: string): Promise<InstallInfo> {
-    return GOGLibrary.get().getInstallInfo(this.appName, installPlatform)
+  async getInstallInfo(
+    installPlatform: GogInstallPlatform = 'windows'
+  ): Promise<GogInstallInfo> {
+    const info = await GOGLibrary.get().getInstallInfo(
+      this.appName,
+      installPlatform
+    )
+    if (!info) {
+      logError(
+        [
+          'Could not get install info for',
+          `${this.appName},`,
+          'returning empty object. Something is probably gonna go wrong soon'
+        ],
+        LogPrefix.Gog
+      )
+      // @ts-expect-error TODO: Handle this better
+      return {}
+    }
+    return info
   }
   async getSettings(): Promise<GameSettings> {
     return (
@@ -112,16 +131,21 @@ class GOGGame extends Game {
         ['Failed to import', `${this.appName}:`, res.error],
         LogPrefix.Gog
       )
+      return res
     }
     try {
       await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
-      return res
     } catch (error) {
       logError(
-        ['Failed to import', `${this.appName}:`, res.error],
+        [
+          'Failed to import',
+          `${this.appName}:`,
+          error instanceof Error ? error.stack ?? error.message : `${error}`
+        ],
         LogPrefix.Gog
       )
     }
+    return res
   }
 
   public onInstallOrUpdateOutput(
@@ -170,10 +194,16 @@ class GOGGame extends Game {
 
     const credentials = await GOGUser.getCredentials()
 
-    let installPlatform = platformToInstall.toLowerCase()
-    if (installPlatform === 'mac') {
-      installPlatform = 'osx'
+    if (!credentials) {
+      logError(
+        ['Failed to install', `${this.appName}:`, 'No credentials'],
+        LogPrefix.Gog
+      )
+      return { status: 'error' }
     }
+
+    const installPlatform =
+      platformToInstall.toLowerCase() as GogInstallPlatform
 
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
@@ -211,7 +241,7 @@ class GOGGame extends Game {
     // Installation succeded
     // Save new game info to installed games store
     const installInfo = await this.getInstallInfo(installPlatform)
-    const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
+    const gameInfo = this.getGameInfo()
     const isLinuxNative = installPlatform === 'linux'
     const additionalInfo = isLinuxNative
       ? await GOGLibrary.getLinuxInstallerInfo(this.appName)
@@ -273,10 +303,16 @@ class GOGGame extends Game {
   }
 
   async launch(launchArguments?: string): Promise<boolean> {
-    const gameSettings =
-      GameConfig.get(this.appName).config ||
-      (await GameConfig.get(this.appName).getSettings())
-    const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
+    const gameSettings = await this.getSettings()
+    const gameInfo = this.getGameInfo()
+
+    if (
+      !gameInfo.install ||
+      !gameInfo.install.install_path ||
+      !gameInfo.install.platform
+    ) {
+      return false
+    }
 
     if (!existsSync(gameInfo.install.install_path)) {
       errorHandler({
@@ -284,6 +320,7 @@ class GOGGame extends Game {
         runner: 'gog',
         appName: gameInfo.app_name
       })
+      return false
     }
 
     const {
@@ -299,6 +336,10 @@ class GOGGame extends Game {
         this.logFileLocation,
         `Launch aborted: ${launchPrepFailReason}`
       )
+      dialog.showErrorBox(
+        t('box.error.launchAborted', 'Launch aborted'),
+        launchPrepFailReason!
+      )
       return false
     }
 
@@ -306,38 +347,12 @@ class GOGGame extends Game {
       ? ['--override-exe', gameSettings.targetExe]
       : []
 
-    const isNative = await this.isNative()
+    let commandEnv = isWindows
+      ? process.env
+      : { ...process.env, ...setupEnvVars(gameSettings) }
+    const wineFlag: string[] = []
 
-    let commandParts = new Array<string>()
-    let commandEnv = {}
-    let wrappers = new Array<string>()
-
-    if (isNative) {
-      if (!isWindows) {
-        // These options can only be used on Mac/Linux
-        commandEnv = {
-          ...commandEnv,
-          ...setupEnvVars(gameSettings)
-        }
-        wrappers = setupWrappers(
-          gameSettings,
-          mangoHudCommand,
-          gameModeBin,
-          steamRuntime
-        )
-      }
-
-      commandParts = [
-        'launch',
-        gameInfo.install.install_path,
-        ...exeOverrideFlag,
-        gameInfo.app_name,
-        '--platform',
-        `${gameInfo.install.platform}`,
-        ...shlex.split(launchArguments ?? ''),
-        ...shlex.split(gameSettings.launcherArgs ?? '')
-      ]
-    } else {
+    if (!this.isNative()) {
       const {
         success: wineLaunchPrepSuccess,
         failureReason: wineLaunchPrepFailReason,
@@ -348,57 +363,50 @@ class GOGGame extends Game {
           this.logFileLocation,
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
+        dialog.showErrorBox(
+          t('box.error.launchAborted', 'Launch aborted'),
+          wineLaunchPrepFailReason!
+        )
         return false
       }
 
       commandEnv = {
         ...commandEnv,
-        ...setupEnvVars(gameSettings),
         ...wineEnvVars
       }
-      wrappers = setupWrappers(
-        gameSettings,
-        mangoHudCommand,
-        gameModeBin,
-        steamRuntime
+
+      const { bin: wineExec, type: wineType } = gameSettings.wineVersion
+
+      // Fix for people with old config
+      const wineBin =
+        wineExec.startsWith("'") && wineExec.endsWith("'")
+          ? wineExec.replaceAll("'", '')
+          : wineExec
+
+      wineFlag.push(
+        ...(wineType === 'proton'
+          ? ['--no-wine', '--wrapper', `'${wineBin}' run`]
+          : ['--wine', wineBin])
       )
-
-      const { wineVersion, winePrefix, launcherArgs, useSteamRuntime } =
-        gameSettings
-      let wineFlag = ['--wine', wineVersion.bin]
-
-      // avoid breaking on old configs when path is not absolute
-      let winePrefixFlag = ['--wine-prefix', winePrefix]
-      if (wineVersion.type === 'proton') {
-        let runtime = null as SteamRuntime
-        if (useSteamRuntime) {
-          await getSteamRuntime('soldier').then((path) => (runtime = path))
-        }
-
-        if (runtime?.path) {
-          const runWithRuntime = `${runtime.path} -- '${wineVersion.bin}' waitforexitandrun`
-          wineFlag = ['--no-wine', '--wrapper', runWithRuntime]
-          winePrefixFlag = []
-        } else {
-          logWarning('No Steam runtime found')
-          wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
-          winePrefixFlag = []
-        }
-      }
-
-      commandParts = [
-        'launch',
-        gameInfo.install.install_path,
-        ...exeOverrideFlag,
-        gameInfo.app_name,
-        ...wineFlag,
-        ...winePrefixFlag,
-        '--os',
-        gameInfo.install.platform.toLowerCase(),
-        ...shlex.split(launchArguments ?? ''),
-        ...shlex.split(launcherArgs ?? '')
-      ]
     }
+
+    const commandParts = [
+      'launch',
+      gameInfo.install.install_path,
+      ...exeOverrideFlag,
+      gameInfo.app_name,
+      ...wineFlag,
+      '--platform',
+      gameInfo.install.platform.toLowerCase(),
+      ...shlex.split(launchArguments ?? ''),
+      ...shlex.split(gameSettings.launcherArgs ?? '')
+    ]
+    const wrappers = setupWrappers(
+      gameSettings,
+      mangoHudCommand,
+      gameModeBin,
+      steamRuntime
+    )
 
     const fullCommand = getRunnerCallWithoutCredentials(
       commandParts,
@@ -435,10 +443,14 @@ class GOGGame extends Game {
       title
     } = this.getGameInfo()
 
+    if (!install_path) {
+      return ''
+    }
+
     if (isWindows) {
-      newInstallPath += '\\' + install_path.split('\\').slice(-1)[0]
+      newInstallPath += '\\' + install_path.split('\\').at(-1)
     } else {
-      newInstallPath += '/' + install_path.split('/').slice(-1)[0]
+      newInstallPath += '/' + install_path.split('/').at(-1)
     }
 
     logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Gog)
@@ -464,11 +476,15 @@ class GOGGame extends Game {
       workers
     } = await this.getCommandParameters()
 
+    if (!credentials) {
+      return { stderr: 'Unable to repair game, no credentials', stdout: '' }
+    }
+
     const commandParts = [
       'repair',
       this.appName,
       '--platform',
-      installPlatform,
+      installPlatform!,
       `--path=${gameData.install.install_path}`,
       '--token',
       `"${credentials.access_token}"`,
@@ -500,7 +516,15 @@ class GOGGame extends Game {
 
   async syncSaves(arg: string, path: string): Promise<ExecResult> {
     const credentials = await GOGUser.getCredentials()
+    if (!credentials) {
+      return { stderr: 'Unable to sync saves, no credentials', stdout: '' }
+    }
+
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
+    if (!gameInfo) {
+      return { stderr: 'Unable to sync saves, game info not found', stdout: '' }
+    }
+
     const commandParts = [
       'save-sync',
       path,
@@ -508,7 +532,7 @@ class GOGGame extends Game {
       '--token',
       `"${credentials.refresh_token}"`,
       '--os',
-      gameInfo.install.platform,
+      gameInfo.install.platform!,
       '--ts',
       syncStore.get(this.appName, '0') as string,
       arg
@@ -593,6 +617,10 @@ class GOGGame extends Game {
       logPath,
       workers
     } = await this.getCommandParameters()
+    if (!installPlatform || !credentials) {
+      return { status: 'error' }
+    }
+
     const commandParts = [
       'update',
       this.appName,
@@ -640,13 +668,16 @@ class GOGGame extends Game {
     const gameObject = installedArray[gameIndex]
 
     if (gameData.install.platform !== 'linux') {
-      const installInfo = await GOGLibrary.get().getInstallInfo(this.appName)
+      const installInfo = await this.getInstallInfo()
       gameObject.buildId = installInfo.game.buildId
       gameObject.version = installInfo.game.version
       gameObject.versionEtag = installInfo.manifest.versionEtag
       gameObject.install_size = getFileSize(installInfo.manifest.disk_size)
     } else {
       const installerInfo = await GOGLibrary.getLinuxInstallerInfo(this.appName)
+      if (!installerInfo) {
+        return { status: 'error' }
+      }
       gameObject.version = installerInfo.version
     }
     installedGamesStore.set('installed', installedArray)
@@ -661,7 +692,9 @@ class GOGGame extends Game {
   public async getCommandParameters() {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
-    const gameData = GOGLibrary.get().getGameInfo(this.appName)
+    const gameData = this.getGameInfo()
+    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
+    const credentials = await GOGUser.getCredentials()
 
     const withDlcs = gameData.install.installedWithDLCs
       ? '--with-dlcs'
@@ -669,10 +702,8 @@ class GOGGame extends Game {
     if (GOGUser.isTokenExpired()) {
       await GOGUser.refreshToken()
     }
-    const credentials = configStore.get('credentials', {}) as GOGLoginData
 
     const installPlatform = gameData.install.platform
-    const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 
     return {
       withDlcs,
@@ -704,7 +735,8 @@ class GOGGame extends Game {
     ) as Array<InstalledInfo>
     const newInstalled = installed.filter((g) => g.appName !== this.appName)
     installedGamesStore.set('installed', newInstalled)
-    const mainWindow = BrowserWindow.getFocusedWindow()
+    const mainWindow =
+      BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
     mainWindow.webContents.send('refreshLibrary', 'gog')
   }
 }

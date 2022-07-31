@@ -19,7 +19,7 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
   let [command, arg] = path.split('/')
   if (!command || !arg) {
     command = path
-    arg = null
+    arg = ''
   }
 
   logInfo(`received '${url}'`, LogPrefix.ProtocolHandler)

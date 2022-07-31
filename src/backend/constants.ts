@@ -67,7 +67,7 @@ const icon = fixAsarPath(join(publicDir, 'icon.png'))
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
 const installed = join(legendaryConfigPath, 'installed.json')
-const libraryPath = join(legendaryConfigPath, 'metadata')
+const legendaryMetadata = join(legendaryConfigPath, 'metadata')
 const fallBackImage = 'fallback'
 const epicLoginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
@@ -120,7 +120,7 @@ function fixAsarPath(origin: string): string {
 export function getSteamCompatFolder() {
   // Paths are from https://savelocation.net/steam-game-folder
   if (isWindows) {
-    const defaultWinPath = join(process.env['PROGRAMFILES(X86)'], 'Steam')
+    const defaultWinPath = join(process.env['PROGRAMFILES(X86)'] ?? '', 'Steam')
     return defaultWinPath
     // Reading of steam registry key should work with registry-js
     // in electron enviroment but there is a npm node-gyp problem so far:
@@ -208,7 +208,7 @@ export {
   isWindows,
   isLinux,
   legendaryConfigPath,
-  libraryPath,
+  legendaryMetadata,
   epicLoginUrl,
   gogLoginUrl,
   patreonPage,

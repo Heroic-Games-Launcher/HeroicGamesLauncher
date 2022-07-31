@@ -44,6 +44,7 @@ abstract class GlobalConfig {
 
   public abstract version: GlobalConfigVersion
 
+  // @ts-expect-error TODO: Somehow figure out how to synchronously load the config
   public config: AppSettings
 
   /**
@@ -477,6 +478,7 @@ class GlobalConfigV0 extends GlobalConfig {
     const userName = user().username
     const defaultWine = isWindows ? {} : await this.getDefaultWine()
 
+    // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return {
       checkUpdatesInterval: 10,
       enableUpdates: false,

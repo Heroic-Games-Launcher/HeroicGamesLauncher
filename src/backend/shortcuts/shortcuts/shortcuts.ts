@@ -22,6 +22,9 @@ async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
 
   const launchWithProtocol = `heroic://launch/${gameInfo.app_name}`
   const [desktopFile, menuFile] = shortcutFiles(gameInfo.title)
+  if (!desktopFile || !menuFile) {
+    return
+  }
   const { addDesktopShortcuts, addStartMenuShortcuts } =
     await GlobalConfig.get().getSettings()
 

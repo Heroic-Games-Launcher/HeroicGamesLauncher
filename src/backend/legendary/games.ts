@@ -1,31 +1,29 @@
 import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
-import { BrowserWindow } from 'electron'
-import { ExecResult, ExtraInfo, InstallArgs, SteamRuntime } from 'common/types'
+import { BrowserWindow, dialog } from 'electron'
+import {
+  ExecResult,
+  ExtraInfo,
+  GameInfo,
+  InstallArgs,
+  InstallPlatform
+} from 'common/types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary } from './library'
 import { LegendaryUser } from './user'
-import {
-  execAsync,
-  getGame,
-  getLegendaryBin,
-  getSteamRuntime,
-  isOnline,
-  killPattern
-} from '../utils'
+import { execAsync, getLegendaryBin, isOnline, killPattern } from '../utils'
 import {
   heroicGamesConfigPath,
   userHome,
-  isLinux,
   isMac,
   isWindows,
   installed,
   configStore
 } from '../constants'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
 import {
   prepareLaunch,
   prepareWineLaunch,
@@ -41,6 +39,7 @@ import { runLegendaryCommand } from './library'
 import { gameInfoStore } from './electronStores'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
+import { t } from 'i18next'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -75,8 +74,21 @@ class LegendaryGame extends Game {
    *
    * @returns GameInfo
    */
-  public getGameInfo() {
-    return LegendaryLibrary.get().getGameInfo(this.appName)
+  public getGameInfo(): GameInfo {
+    const info = LegendaryLibrary.get().getGameInfo(this.appName)
+    if (!info) {
+      logError(
+        [
+          'Could not get game info for',
+          `${this.appName},`,
+          'returning empty object. Something is probably gonna go wrong soon'
+        ],
+        LogPrefix.Legendary
+      )
+      // @ts-expect-error TODO: Handle this better
+      return {}
+    }
+    return info
   }
 
   /**
@@ -84,7 +96,7 @@ class LegendaryGame extends Game {
    *
    * @returns InstallInfo
    */
-  public async getInstallInfo(installPlatform?: string) {
+  public async getInstallInfo(installPlatform: InstallPlatform) {
     return LegendaryLibrary.get().getInstallInfo(this.appName, installPlatform)
   }
 
@@ -122,9 +134,12 @@ class LegendaryGame extends Game {
     }
     if (!isOnline()) {
       return {
-        about: {},
+        about: {
+          description: '',
+          longDescription: ''
+        },
         reqs: []
-      } as ExtraInfo
+      }
     }
     let lang = GlobalConfig.get().config.language
     if (lang === 'pt') {
@@ -165,15 +180,18 @@ class LegendaryGame extends Game {
       return {
         about: about.data.about,
         reqs: about.data.requirements.systems[0].details
-      } as ExtraInfo
+      }
     } catch (error) {
       logError('Error Getting Info from Epic API', LogPrefix.Legendary)
 
       gameInfoStore.set(namespace, { about: {}, reqs: [] })
       return {
-        about: {},
+        about: {
+          description: '',
+          longDescription: ''
+        },
         reqs: []
-      } as ExtraInfo
+      }
     }
   }
 
@@ -209,7 +227,7 @@ class LegendaryGame extends Game {
    * @returns The amended install path.
    */
   public async moveInstall(newInstallPath: string) {
-    const oldInstallPath = this.getGameInfo().install.install_path
+    const oldInstallPath = this.getGameInfo().install.install_path!
 
     newInstallPath = join(newInstallPath, basename(oldInstallPath))
 
@@ -221,8 +239,8 @@ class LegendaryGame extends Game {
     )
 
     await execAsync(command)
-      .then(() => {
-        LegendaryLibrary.get().changeGameInstallPath(
+      .then(async () => {
+        await LegendaryLibrary.get().changeGameInstallPath(
           this.appName,
           newInstallPath
         )
@@ -306,7 +324,8 @@ class LegendaryGame extends Game {
     })
     const { maxWorkers, downloadNoHttps } =
       await GlobalConfig.get().getSettings()
-    const info = await getGame(this.appName, 'legendary').getInstallInfo()
+    const installPlatform = this.getGameInfo().install.platform!
+    const info = await this.getInstallInfo(installPlatform)
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const noHttps = downloadNoHttps ? ['--no-https'] : []
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
@@ -383,9 +402,7 @@ class LegendaryGame extends Game {
   }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
     const { maxWorkers, downloadNoHttps } =
       await GlobalConfig.get().getSettings()
-    const info = await getGame(this.appName, 'legendary').getInstallInfo(
-      platformToInstall
-    )
+    const info = await this.getInstallInfo(platformToInstall)
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const noHttps = downloadNoHttps ? ['--no-https'] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
@@ -449,7 +466,6 @@ class LegendaryGame extends Game {
   public async uninstall(): Promise<ExecResult> {
     const commandParts = ['uninstall', this.appName, '-y']
 
-    LegendaryLibrary.get().installState(this.appName, false)
     const res = await runLegendaryCommand(commandParts, {
       logMessagePrefix: `Uninstalling ${this.appName}`
     })
@@ -460,8 +476,9 @@ class LegendaryGame extends Game {
         LogPrefix.Legendary
       )
     } else {
+      LegendaryLibrary.get().installState(this.appName, false)
       await removeShortcuts(this.appName, 'legendary')
-      const gameInfo = await this.getGameInfo()
+      const gameInfo = this.getGameInfo()
       const { defaultSteamPath } = await GlobalConfig.get().getSettings()
       const steamUserdataDir = join(
         defaultSteamPath.replaceAll("'", ''),
@@ -569,6 +586,10 @@ class LegendaryGame extends Game {
         this.logFileLocation,
         `Launch aborted: ${launchPrepFailReason}`
       )
+      dialog.showErrorBox(
+        t('box.error.launchAborted', 'Launch aborted'),
+        launchPrepFailReason!
+      )
       return false
     }
 
@@ -577,44 +598,16 @@ class LegendaryGame extends Game {
       ? ['--override-exe', gameSettings.targetExe]
       : []
 
-    const isNative = this.isNative()
-
     const languageCode =
       gameSettings.language || (configStore.get('language', '') as string)
-
     const languageFlag = languageCode ? ['--language', languageCode] : []
 
-    let commandParts = new Array<string>()
-    let commandEnv = process.env
-    let wrappers = new Array<string>()
-    if (isNative) {
-      if (!isWindows) {
-        // These options can only be used on Mac/Linux
-        commandEnv = {
-          ...commandEnv,
-          ...setupEnvVars(gameSettings)
-        }
-
-        wrappers = setupWrappers(
-          gameSettings,
-          mangoHudCommand,
-          gameModeBin,
-          steamRuntime
-        )
-      }
-
-      // These options are required on both Windows and Mac
-      commandParts = [
-        'launch',
-        this.appName,
-        ...languageFlag,
-        ...exeOverrideFlag,
-        offlineFlag,
-        ...shlex.split(launchArguments ?? ''),
-        ...shlex.split(gameSettings.launcherArgs ?? '')
-      ]
-    } else {
-      // -> We're using Wine/Proton/CX on either Linux or Mac
+    let commandEnv = isWindows
+      ? process.env
+      : { ...process.env, ...setupEnvVars(gameSettings) }
+    const wineFlag: string[] = []
+    if (!this.isNative()) {
+      // -> We're using Wine/Proton on Linux or CX on Mac
       const {
         success: wineLaunchPrepSuccess,
         failureReason: wineLaunchPrepFailReason,
@@ -625,66 +618,48 @@ class LegendaryGame extends Game {
           this.logFileLocation,
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
+        dialog.showErrorBox(
+          t('box.error.launchAborted', 'Launch aborted'),
+          wineLaunchPrepFailReason!
+        )
         return false
       }
 
       commandEnv = {
         ...commandEnv,
-        ...setupEnvVars(gameSettings),
         ...wineEnvVars
       }
 
-      wrappers = setupWrappers(
-        gameSettings,
-        mangoHudCommand,
-        gameModeBin,
-        steamRuntime
-      )
-
-      const { wineVersion, winePrefix, launcherArgs, useSteamRuntime } =
-        gameSettings
+      const { bin: wineExec, type: wineType } = gameSettings.wineVersion
 
       // Fix for people with old config
       const wineBin =
-        wineVersion.bin.startsWith("'") && wineVersion.bin.endsWith("'")
-          ? wineVersion.bin.replaceAll("'", '')
-          : wineVersion.bin
+        wineExec.startsWith("'") && wineExec.endsWith("'")
+          ? wineExec.replaceAll("'", '')
+          : wineExec
 
-      let wineFlag = ['--wine', wineBin]
-
-      // avoid breaking on old configs when path is not absolute
-      let winePrefixFlag = ['--wine-prefix', winePrefix]
-      if (wineVersion.type === 'proton') {
-        let runtime = null as SteamRuntime
-        if (useSteamRuntime) {
-          await getSteamRuntime('soldier').then((path) => (runtime = path))
-        }
-
-        if (runtime?.path) {
-          // The Steam runtime masks /run, so if our game is on another hard drive, we'll get problems. Just including the game's install path
-          // should be fine for now, if we ever get more issues we can change this to just /run/ entirely or something
-          const runWithRuntime = `${runtime.path} --filesystem=${gameInfo.install.install_path} -- '${wineVersion.bin}' waitforexitandrun`
-          wineFlag = ['--no-wine', '--wrapper', runWithRuntime]
-          winePrefixFlag = []
-        } else {
-          logWarning('No Steam runtime found', LogPrefix.Legendary)
-          wineFlag = ['--no-wine', '--wrapper', `'${wineVersion.bin}' run`]
-          winePrefixFlag = []
-        }
-      }
-
-      commandParts = [
-        'launch',
-        this.appName,
-        ...languageFlag,
-        ...exeOverrideFlag,
-        offlineFlag,
-        ...wineFlag,
-        ...winePrefixFlag,
-        ...shlex.split(launchArguments ?? ''),
-        ...shlex.split(launcherArgs ?? '')
-      ]
+      wineFlag.push(
+        ...(wineType === 'proton'
+          ? ['--no-wine', '--wrapper', `'${wineBin}' run`]
+          : ['--wine', wineBin])
+      )
     }
+    const commandParts = [
+      'launch',
+      this.appName,
+      ...languageFlag,
+      ...exeOverrideFlag,
+      ...offlineFlag,
+      ...wineFlag,
+      ...shlex.split(launchArguments ?? ''),
+      ...shlex.split(gameSettings.launcherArgs ?? '')
+    ]
+    const wrappers = setupWrappers(
+      gameSettings,
+      mangoHudCommand,
+      gameModeBin,
+      steamRuntime
+    )
 
     const fullCommand = getRunnerCallWithoutCredentials(
       commandParts,
@@ -753,10 +728,6 @@ class LegendaryGame extends Game {
       return true
     }
 
-    if (isLinux && gameInfo?.install?.platform === 'Linux') {
-      return true
-    }
-
     return false
   }
 
@@ -769,7 +740,8 @@ class LegendaryGame extends Game {
         '-y',
         '--keep-files'
       ])
-      const mainWindow = BrowserWindow.getFocusedWindow()
+      const mainWindow =
+        BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
       mainWindow.webContents.send('refreshLibrary', 'legendary')
     } catch (error) {
       logError(
