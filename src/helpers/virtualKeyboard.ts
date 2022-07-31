@@ -61,8 +61,5 @@ export const VirtualKeyboardController = {
   },
   backspace: () => {
     typeInSearchInput('{bksp}')
-  },
-  space: () => {
-    typeInSearchInput('{space}')
   }
 }
