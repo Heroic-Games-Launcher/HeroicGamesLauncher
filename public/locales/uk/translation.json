@@ -232,12 +232,14 @@
         "path": "Вкажіть шлях встановлення"
     },
     "library": {
-        "gridView": "Подання сітки",
-        "listView": "Подання списку",
         "refresh": "Оновити",
         "sortAscending": "Сортувати за зростанням",
         "sortByStatus": "Сортувати за станом",
-        "sortDescending": "Сортувати за спаданням"
+        "sortDescending": "Сортувати за спаданням",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Бібліотека",
     "loading": {

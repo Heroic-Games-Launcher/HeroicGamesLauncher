@@ -232,12 +232,14 @@
         "path": "Pilih Lokasi Pemasangan"
     },
     "library": {
-        "gridView": "Tampilan bergaris",
-        "listView": "Tampilan daftar",
         "refresh": "Segarkan",
         "sortAscending": "Urutkan Naik",
         "sortByStatus": "Urutkan Berdasarkan Status",
-        "sortDescending": "Urutkan Turun"
+        "sortDescending": "Urutkan Turun",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Pustaka",
     "loading": {

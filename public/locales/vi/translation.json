@@ -232,12 +232,14 @@
         "path": "Chọn đường dẫn cài"
     },
     "library": {
-        "gridView": "Hiển thị dạng ô",
-        "listView": "Hiển thị dạng danh sánh",
         "refresh": "Tải lại",
         "sortAscending": "Sắp xếp Tăng dần",
         "sortByStatus": "Sắp xếp theo trạng thái",
-        "sortDescending": "Sắp xếp giảm dần"
+        "sortDescending": "Sắp xếp giảm dần",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Thư viện",
     "loading": {

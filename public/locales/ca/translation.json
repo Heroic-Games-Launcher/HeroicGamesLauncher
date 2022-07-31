@@ -232,12 +232,14 @@
         "path": "Selecciona la ruta d'instal·lació"
     },
     "library": {
-        "gridView": "Vista en graella",
-        "listView": "Vista en llista",
         "refresh": "Actualitza",
         "sortAscending": "Ordre ascendent",
         "sortByStatus": "Ordena per estat",
-        "sortDescending": "Ordre descendent"
+        "sortDescending": "Ordre descendent",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Biblioteca",
     "loading": {

@@ -232,12 +232,14 @@
         "path": "Wybierz ścieżkę instalacji"
     },
     "library": {
-        "gridView": "Widok siatki",
-        "listView": "Widok listy",
         "refresh": "Odśwież",
         "sortAscending": "Sortuj rosnąco",
         "sortByStatus": "Sortuj według statusu",
-        "sortDescending": "Sortuj malejąco"
+        "sortDescending": "Sortuj malejąco",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Biblioteka",
     "loading": {

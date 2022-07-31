@@ -232,12 +232,14 @@
         "path": "Select Install Path"
     },
     "library": {
-        "gridView": "கட்டப் பார்வை",
-        "listView": "பட்டியல் பார்வை",
         "refresh": "புதுப்பி",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortDescending": "Sort Descending",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "விளையாட்டு பட்டியல்",
     "loading": {

@@ -232,12 +232,14 @@
         "path": "Vyberte cestu instalace"
     },
     "library": {
-        "gridView": "Zobrazení mřížky",
-        "listView": "Zobrazení seznamu",
         "refresh": "Obnovit",
         "sortAscending": "Seřadit vzestupně",
         "sortByStatus": "Seřadit podle stavu",
-        "sortDescending": "Seřadit sestupně"
+        "sortDescending": "Seřadit sestupně",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Knihovna",
     "loading": {

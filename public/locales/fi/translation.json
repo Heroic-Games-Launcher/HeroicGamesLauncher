@@ -232,12 +232,14 @@
         "path": "Valitse asennuspolku"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
         "refresh": "",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortDescending": "Sort Descending",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Kirjasto",
     "loading": {
