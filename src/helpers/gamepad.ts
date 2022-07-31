@@ -162,8 +162,6 @@ export const initGamepad = () => {
           }
       }
 
-      //emitControllerEvent(controllerIndex)
-
       if (action === 'mainAction') {
         currentElement()?.click()
       } else {
