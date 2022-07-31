@@ -92,18 +92,21 @@
 
 .collapseIcon {
   position: fixed;
-  left: calc(var(--sidebar-width) - 8px);
-  bottom: 55vh;
+  left: calc(var(--sidebar-width) - 21px);
+  bottom: 100px;
   align-items: center;
   cursor: pointer;
   opacity: 0;
   transition: opacity 500ms 500ms;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 .collapseIcon svg {
   color: var(--text-secondary);
-  transform: scaleY(2.5);
-  width: 14px;
+  transform: scaleX(0.6);
+  height: 40px;
 }
 
 .Sidebar:hover .collapseIcon {

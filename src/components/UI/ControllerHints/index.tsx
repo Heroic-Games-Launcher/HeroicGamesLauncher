@@ -18,6 +18,7 @@ export default function ControllerHints() {
 
   // set hints for an element
   const setHintsFor = (target: HTMLElement) => {
+    console.log({ target })
     const classes = target.classList
 
     let main = t('controller.hints.activate', 'Activate')
@@ -25,7 +26,10 @@ export default function ControllerHints() {
     let alt2 = ''
     let back = ''
 
-    if (target.closest('.gameCard')) {
+    const card = target.closest('.gameCard')
+    const installDialog = target.closest('.InstallModal__dialog')
+
+    if (card) {
       // focusing a card or an icon inside card
       alt = t('controller.hints.context_menu', 'Context menu')
       if (classes.contains('updateIcon')) {
@@ -36,9 +40,12 @@ export default function ControllerHints() {
         main = t('controller.hints.play_game', 'Play game')
       } else if (classes.contains('downIcon')) {
         main = t('controller.hints.install_game', 'Install game')
-      } else {
+      } else if (card.classList.contains('installed')) {
         alt2 = t('controller.hints.game_details', 'Game details')
         main = t('controller.hints.play_game', 'Play game')
+      } else {
+        alt2 = t('controller.hints.game_details', 'Game details')
+        main = t('controller.hints.install_game', 'Install game')
       }
     } else if (target.id === 'search') {
       // focusing the search bar
@@ -54,8 +61,10 @@ export default function ControllerHints() {
       // focusing a virtual keyboard element
       main = t('controller.hints.activate', 'Activate')
       back = t('controller.hints.close_keyboard', 'Close keyboard')
-      alt = t('controller.hints.space', 'Space')
-      alt2 = t('controller.hints.backspace', 'Backspace')
+      alt = t('controller.hints.backspace', 'Backspace')
+      alt2 = t('controller.hints.space', 'Space')
+    } else if (installDialog) {
+      back = t('controller.hints.close_dialog', 'Close dialog')
     }
 
     setMainActionHint(main)

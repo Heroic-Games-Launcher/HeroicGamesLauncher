@@ -116,8 +116,11 @@ export const initGamepad = () => {
             // if the current element requires a simulated click, change the action to `leftClick`
             action = 'leftClick'
           } else if (playable()) {
-            // if the current element ia a card of a game and it's installed, play it
+            // if the current element is a card of a game and it's installed, play it
             playGame()
+            return
+          } else if (isGameCard()) {
+            installGame()
             return
           } else if (VirtualKeyboardController.isButtonFocused()) {
             // simulate a left click on a virtual keyboard button
@@ -139,20 +142,22 @@ export const initGamepad = () => {
             el?.blur()
             el?.focus()
             return
+          } else if (insideInstallDialog()) {
+            closeInstallDialog()
           }
           break
         case 'altAction':
-          if (playable()) {
+          if (isGameCard()) {
             // when pressing Y on a game card, open the game details
             action = 'mainAction'
           } else if (VirtualKeyboardController.isActive()) {
-            VirtualKeyboardController.backspace()
+            VirtualKeyboardController.space()
             return
           }
           break
         case 'rightClick':
           if (VirtualKeyboardController.isActive()) {
-            VirtualKeyboardController.space()
+            VirtualKeyboardController.backspace()
             return
           }
       }
@@ -193,6 +198,16 @@ export const initGamepad = () => {
     return el.id === 'search'
   }
 
+  function isGameCard() {
+    const el = currentElement()
+    if (!el) return false
+
+    const parent = el.parentElement
+    if (!parent) return false
+
+    return parent.classList.contains('gameCard')
+  }
+
   function playable() {
     const el = currentElement()
     if (!el) return false
@@ -214,8 +229,45 @@ export const initGamepad = () => {
     const parent = el.parentElement
     if (!parent) return false
 
-    const playButton = parent.querySelector('.playButton') as HTMLButtonElement
+    const playButton = parent.querySelector('.playIcon') as HTMLButtonElement
     if (playButton) playButton.click()
+
+    return true
+  }
+
+  function installGame() {
+    const el = currentElement()
+    if (!el) return false
+
+    const parent = el.parentElement
+    if (!parent) return false
+
+    const installButton = parent.querySelector('.downIcon') as HTMLButtonElement
+    if (installButton) installButton.click()
+
+    return true
+  }
+
+  function insideInstallDialog() {
+    const el = currentElement()
+    if (!el) return false
+
+    return !!el.closest('.InstallModal__dialog')
+  }
+
+  function closeInstallDialog() {
+    const el = currentElement()
+    if (!el) return false
+
+    const dialog = el.closest('.InstallModal__dialog')
+    if (!dialog) return false
+
+    const closeButton = dialog.querySelector(
+      '.Dialog__headerCloseButton'
+    ) as HTMLButtonElement
+    if (!closeButton) return false
+
+    closeButton.click()
 
     return true
   }

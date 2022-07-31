@@ -27,3 +27,7 @@
   background-color: var(--accent);
   color: var(--background);
 }
+
+.SearchBar .FormControl__leftButton {
+  pointer-events: none;
+}
