@@ -39,10 +39,9 @@ import {
   AppSettings,
   GameInfo,
   GameStatus,
-  InstallInfo,
   InstallProgress,
   Path,
-  PlatformToInstall,
+  InstallPlatform,
   Runner,
   WineInstallation
 } from 'common/types'
@@ -59,6 +58,8 @@ import './index.css'
 import { SDL_GAMES, SelectiveDownload } from './selective_dl'
 
 import { ipcRenderer } from 'frontend/helpers'
+import { LegendaryInstallInfo } from 'common/types/legendary'
+import { GogInstallInfo } from 'common/types/gog'
 type Props = {
   appName: string
   backdropClick: () => void
@@ -113,7 +114,10 @@ export default function InstallModal({
     (game: GameStatus) => game.appName === appName
   )[0]
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
-  const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
+  const [gameInstallInfo, setGameInstallInfo] = useState<
+    LegendaryInstallInfo | GogInstallInfo
+    // @ts-expect-error TODO: Proper default here
+  >({})
   const [installDlcs, setInstallDlcs] = useState(false)
   const [winePrefix, setWinePrefix] = useState('...')
   const [wineVersion, setWineVersion] = useState<WineInstallation | undefined>(
@@ -134,7 +138,8 @@ export default function InstallModal({
 
   const [isLinuxNative, setIsLinuxNative] = useState(false)
   const [isMacNative, setIsMacNative] = useState(false)
-  const [defaultPlatform, setDefaultPlatform] = useState<PlatformToInstall>('')
+  const [defaultPlatform, setDefaultPlatform] =
+    useState<InstallPlatform>('Windows')
 
   const installFolder = gameStatus?.folder || installPath
 
@@ -166,7 +171,7 @@ export default function InstallModal({
 
   useEffect(() => {
     const selectedPlatform = isLinuxNative
-      ? 'Linux'
+      ? 'linux'
       : isMacNative
       ? 'Mac'
       : 'Windows'
@@ -176,7 +181,7 @@ export default function InstallModal({
   }, [isLinuxNative, isMacNative])
 
   const [platformToInstall, setPlatformToInstall] =
-    useState<PlatformToInstall>(defaultPlatform)
+    useState<InstallPlatform>(defaultPlatform)
 
   const sdls: Array<SelectiveDownload> = SDL_GAMES[appName]
   const haveSDL = Array.isArray(sdls) && sdls.length !== 0
@@ -287,14 +292,11 @@ export default function InstallModal({
 
   useEffect(() => {
     const getInfo = async () => {
-      const installPlatform =
-        platformToInstall !== '' ? platformToInstall : 'Windows'
       const gameInstallInfo = await getInstallInfo(
         appName,
         runner,
-        installPlatform
+        platformToInstall
       )
-      const gameInfo = await getGameInfo(appName, runner)
       if (!gameInstallInfo) {
         ipcRenderer.invoke('showErrorBox', [
           tr('box.error.generic.title', 'Error!'),
@@ -306,7 +308,7 @@ export default function InstallModal({
       const gameData = await getGameInfo(appName, runner)
       setGameInfo(gameData)
       setGameInstallInfo(gameInstallInfo)
-      if (gameInstallInfo.manifest?.languages) {
+      if ('languages' in gameInstallInfo.manifest) {
         setInstallLanguages(gameInstallInfo.manifest.languages)
         setInstallLanguage(
           getInstallLanguage(gameInstallInfo.manifest.languages, i18n.languages)
@@ -314,7 +316,7 @@ export default function InstallModal({
       }
       setIsLinuxNative(gameData.is_linux_native && isLinux)
       setIsMacNative(gameData.is_mac_native && isMac)
-      if (installPlatform === 'Linux' && runner === 'gog') {
+      if (platformToInstall === 'linux' && runner === 'gog') {
         const installer_languages = (await ipcRenderer.invoke(
           'getGOGLinuxInstallersLangs',
           appName
@@ -324,7 +326,7 @@ export default function InstallModal({
           getInstallLanguage(installer_languages, i18n.languages)
         )
       }
-      const bottleName = gameInfo.folder_name
+      const bottleName = gameData.folder_name
       const { defaultWinePrefix, wineVersion } = await getAppSettings()
       const sugestedWinePrefix = `${defaultWinePrefix}/${bottleName}`
       setWinePrefix(sugestedWinePrefix)
@@ -468,7 +470,7 @@ export default function InstallModal({
                   htmlId="platformPick"
                   value={platformToInstall}
                   onChange={(e) =>
-                    setPlatformToInstall(e.target.value as PlatformToInstall)
+                    setPlatformToInstall(e.target.value as InstallPlatform)
                   }
                 >
                   {availablePlatforms.map((p) => (

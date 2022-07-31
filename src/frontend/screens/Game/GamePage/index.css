@@ -113,7 +113,6 @@
   overflow: hidden;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
-  border-bottom: solid 1px var(--divider);
   overflow: auto;
   max-height: 150px;
 }

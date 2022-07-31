@@ -11,7 +11,7 @@ type Props = {
 function GameRequirements({ gameInfo }: Props) {
   const { t } = useTranslation('gamepage')
 
-  const { is_game, extra }: GameInfo = gameInfo
+  const { extra }: GameInfo = gameInfo
   const haveSystemRequirements = Boolean(extra?.reqs?.length)
 
   return (
@@ -19,7 +19,7 @@ function GameRequirements({ gameInfo }: Props) {
       className="gameRequirements"
       style={{ marginBottom: haveSystemRequirements ? 0 : '2em' }}
     >
-      {haveSystemRequirements && is_game && (
+      {haveSystemRequirements && (
         <>
           <table>
             <tbody>

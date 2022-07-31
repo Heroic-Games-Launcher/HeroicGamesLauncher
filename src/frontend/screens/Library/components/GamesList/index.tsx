@@ -49,7 +49,6 @@ export const GamesList = ({
             is_installed,
             runner,
             cloud_save_enabled,
-            is_game,
             install: { version, install_size, is_dlc, platform }
           }: GameInfo) => {
             if (is_dlc) {
@@ -62,12 +61,12 @@ export const GamesList = ({
                 runner={runner}
                 cover={art_square}
                 coverList={art_cover}
+                // @ts-expect-error TODO: Verify `art_logo` is not undefined here
                 logo={art_logo}
                 hasCloudSave={cloud_save_enabled}
                 title={title}
                 appName={app_name}
                 isInstalled={is_installed}
-                isGame={is_game}
                 version={`${version}`}
                 size={`${install_size}`}
                 hasUpdate={hasUpdate}

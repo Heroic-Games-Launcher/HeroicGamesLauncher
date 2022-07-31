@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
-import { GameStatus, Runner } from 'common/types'
+import { FavouriteGame, GameStatus, HiddenGame, Runner } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
@@ -32,7 +32,6 @@ interface Card {
   coverList: string
   hasUpdate: boolean
   hasCloudSave: boolean
-  isGame: boolean
   isInstalled: boolean
   logo: string
   size: string
@@ -47,7 +46,6 @@ const GameCard = ({
   cover,
   title,
   appName,
-  isGame,
   isInstalled,
   logo,
   coverList,
@@ -81,12 +79,13 @@ const GameCard = ({
   const grid = forceCard || layout === 'grid'
 
   const gameStatus: GameStatus = libraryStatus.filter(
-    (game) => game.appName === appName
+    (game: GameStatus) => game.appName === appName
   )[0]
 
   const hasDownloads = Boolean(
     libraryStatus.filter(
-      (game) => game.status === 'installing' || game.status === 'updating'
+      (game: GameStatus) =>
+        game.status === 'installing' || game.status === 'updating'
     ).length
   )
 
@@ -166,7 +165,7 @@ const GameCard = ({
         </SvgButton>
       )
     }
-    if (isInstalled && isGame) {
+    if (isInstalled) {
       return (
         <SvgButton
           className="playIcon"
@@ -204,13 +203,13 @@ const GameCard = ({
 
   const isHiddenGame = useMemo(() => {
     return !!hiddenGames.list.find(
-      (hiddenGame) => hiddenGame.appName === appName
+      (hiddenGame: HiddenGame) => hiddenGame.appName === appName
     )
   }, [hiddenGames, appName])
 
   const isFavouriteGame = useMemo(() => {
     return !!favouriteGames.list.find(
-      (favouriteGame) => favouriteGame.appName === appName
+      (favouriteGame: FavouriteGame) => favouriteGame.appName === appName
     )
   }, [favouriteGames, appName])
 
@@ -382,7 +381,7 @@ const GameCard = ({
                     <FontAwesomeIcon size={'2x'} icon={faRepeat} />
                   </SvgButton>
                 )}
-                {isInstalled && isGame && (
+                {isInstalled && (
                   <>
                     <SvgButton
                       title={`${t('submenu.settings')} (${title})`}
@@ -422,8 +421,7 @@ const GameCard = ({
         previousProgress,
         progress,
         t,
-        runner,
-        platformToInstall: ''
+        runner
       })
     }
     if (status === 'playing' || status === 'updating') {

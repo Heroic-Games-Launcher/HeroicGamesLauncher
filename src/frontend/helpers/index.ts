@@ -1,12 +1,13 @@
-import { PlatformToInstall } from './../types'
 import {
   AppSettings,
   GameInfo,
-  InstallInfo,
   InstallProgress,
   Runner,
-  GameSettings
+  GameSettings,
+  InstallPlatform
 } from 'common/types'
+import { LegendaryInstallInfo } from 'common/types/legendary'
+import { GogInstallInfo } from 'common/types/gog'
 
 import { install, launch, repair, updateGame } from './library'
 import fileSize from 'filesize'
@@ -92,15 +93,9 @@ const getGameSettings = async (
 const getInstallInfo = async (
   appName: string,
   runner: Runner,
-  installPlatform?: PlatformToInstall | string
-): Promise<InstallInfo | null> => {
+  installPlatform: InstallPlatform
+): Promise<LegendaryInstallInfo | GogInstallInfo | null> => {
   return ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
-}
-
-const handleSavePath = async (game: string) => {
-  const { cloud_save_enabled, save_folder } = await getGameInfo(game)
-
-  return { cloud_save_enabled, save_folder }
 }
 
 const createNewWindow = (url: string) =>
@@ -264,7 +259,6 @@ export {
   getAppSettings,
   handleKofi,
   handleQuit,
-  handleSavePath,
   install,
   isLoggedIn,
   launch,

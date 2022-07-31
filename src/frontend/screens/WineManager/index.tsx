@@ -1,6 +1,5 @@
 import './index.css'
 
-import { WineVersionInfo } from 'common/types'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent } from 'frontend/components/UI'
 
@@ -95,7 +94,7 @@ export default function WineManager(): JSX.Element | null {
               <span>{t('wine.actions', 'Action')}</span>
             </div>
             {!!wineVersions.length &&
-              wineVersions.map((release: WineVersionInfo, key: unknown) => {
+              wineVersions.map((release, key) => {
                 if (release.type === repository) {
                   return <WineItem key={key} {...release} />
                 }

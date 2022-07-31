@@ -1,9 +1,9 @@
+import { InstallPlatform } from 'common/types'
 import {
   AppSettings,
   GameInfo,
   GameStatus,
   InstallProgress,
-  PlatformToInstall,
   Runner
 } from 'common/types'
 
@@ -22,7 +22,7 @@ type InstallArgs = {
   previousProgress: InstallProgress | null
   progress: InstallProgress
   setInstallPath?: (path: string) => void
-  platformToInstall: PlatformToInstall
+  platformToInstall?: InstallPlatform
   t: TFunction<'gamepage'>
   installDlcs?: boolean
   sdlList?: Array<string>
@@ -43,13 +43,13 @@ async function install({
   installDlcs = false,
   installLanguage = 'en-US',
   runner = 'legendary',
-  platformToInstall
+  platformToInstall = 'Windows'
 }: InstallArgs) {
   if (!installPath) {
     return
   }
 
-  const { folder_name, is_game, is_installed }: GameInfo = await getGameInfo(
+  const { folder_name, is_installed }: GameInfo = await getGameInfo(
     appName,
     runner
   )
@@ -67,7 +67,7 @@ async function install({
     return uninstall({ appName, handleGameStatus, t, runner })
   }
 
-  if (installPath === 'import' && is_game) {
+  if (installPath === 'import') {
     const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke(
       'requestSettings',
       'default'
@@ -87,7 +87,7 @@ async function install({
     return importGame({ appName, path, runner })
   }
 
-  if (installPath !== 'default' || !is_game) {
+  if (installPath !== 'default') {
     setInstallPath && setInstallPath(installPath)
     // If the user changed the previous folder, the percentage should start from zero again.
     if (previousProgress && previousProgress.folder !== installPath) {
@@ -117,35 +117,33 @@ async function install({
       })
   }
 
-  if (is_game) {
-    // If the user changed the previous folder, the percentage should start from zero again.
-    let path = installPath
-    if (installPath === 'default') {
-      const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke(
-        'requestSettings',
-        'default'
-      )
-      path = defaultInstallPath
-    }
-    if (previousProgress && previousProgress.folder !== path) {
-      storage.removeItem(appName)
-    }
-
-    return ipcRenderer
-      .invoke('install', {
-        appName,
-        path: `${path}`,
-        installDlcs,
-        sdlList,
-        runner
-      })
-      .finally(() => {
-        if (progress.percent === 100) {
-          storage.removeItem(appName)
-        }
-        return
-      })
+  // If the user changed the previous folder, the percentage should start from zero again.
+  let path = installPath
+  if (installPath === 'default') {
+    const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke(
+      'requestSettings',
+      'default'
+    )
+    path = defaultInstallPath
   }
+  if (previousProgress && previousProgress.folder !== path) {
+    storage.removeItem(appName)
+  }
+
+  return ipcRenderer
+    .invoke('install', {
+      appName,
+      path: `${path}`,
+      installDlcs,
+      sdlList,
+      runner
+    })
+    .finally(() => {
+      if (progress.percent === 100) {
+        storage.removeItem(appName)
+      }
+      return
+    })
 }
 
 const importGame = async (args: {

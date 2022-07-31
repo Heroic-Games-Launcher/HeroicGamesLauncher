@@ -119,44 +119,14 @@ export default function Library(): JSX.Element {
     }
   }, [epic.username, gog.username])
 
-  const filterLibrary = (library: GameInfo[], filter: string) => {
-    if (!library) {
-      return []
-    }
-
-    if (filter.includes('UE_')) {
-      return library.filter((game) => {
-        if (!game?.compatible_apps) {
-          return false
-        }
-        return game?.compatible_apps?.includes(filter)
-      })
-    } else {
-      switch (filter) {
-        case 'unreal':
-          return library.filter(
-            (game) =>
-              game.is_ue_project || game?.is_ue_asset || game?.is_ue_plugin
-          )
-        case 'asset':
-          return library.filter((game) => game?.is_ue_asset)
-        case 'plugin':
-          return library.filter((game) => game?.is_ue_plugin)
-        case 'project':
-          return library.filter((game) => game?.is_ue_project)
-        default:
-          return library.filter((game) => game?.is_game)
-      }
-    }
-  }
-
   const filterByPlatform = (library: GameInfo[], filter: string) => {
     if (!library) {
       return []
     }
 
+    // Epic doesn't offer Linux games, so just default to showing all games there
     if (category === 'legendary' && platform === 'linux') {
-      return library.filter((game) => game?.is_game)
+      return library
     }
 
     const isMac = ['osx', 'Mac']
@@ -183,7 +153,7 @@ export default function Library(): JSX.Element {
             : game?.is_linux_native
         })
       default:
-        return library.filter((game) => game?.is_game)
+        return library
     }
   }
 
@@ -231,10 +201,7 @@ export default function Library(): JSX.Element {
 
     // filter
     try {
-      const filteredLibrary = filterByPlatform(
-        filterLibrary(library, filter),
-        filterPlatform
-      )
+      const filteredLibrary = filterByPlatform(library, filterPlatform)
       const options = {
         minMatchCharLength: 1,
         threshold: 0.4,

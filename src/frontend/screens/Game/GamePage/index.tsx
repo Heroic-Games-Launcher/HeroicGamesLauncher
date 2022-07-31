@@ -20,7 +20,9 @@ import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
 import { updateGame } from 'frontend/helpers'
 
-import { AppSettings, GameInfo, GameStatus, InstallInfo } from 'common/types'
+import { AppSettings, GameInfo, GameStatus } from 'common/types'
+import { LegendaryInstallInfo } from 'common/types/legendary'
+import { GogInstallInfo } from 'common/types/gog'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -51,17 +53,21 @@ export default function GamePage(): JSX.Element | null {
   const { libraryStatus, handleGameStatus, epic, gog, gameUpdates, platform } =
     useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
-    (game: GameStatus) => game.appName === appName
+    (game) => game.appName === appName
   )[0]
 
   const { status } = gameStatus || {}
   const [progress, previousProgress] = hasProgress(appName)
-  const [gameInfo, setGameInfo] = useState({} as GameInfo)
+  // @ts-expect-error TODO: Proper default value
+  const [gameInfo, setGameInfo] = useState<GameInfo>({})
   const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
-  const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
+  const [gameInstallInfo, setGameInstallInfo] = useState<
+    LegendaryInstallInfo | GogInstallInfo
+    // @ts-expect-error Same as above
+  >({})
   const [launchArguments, setLaunchArguments] = useState('')
   const [hasError, setHasError] = useState<{
     error: boolean
@@ -79,8 +85,7 @@ export default function GamePage(): JSX.Element | null {
   const isMoving = status === 'moving'
   const hasDownloads = Boolean(
     libraryStatus.filter(
-      (game: GameStatus) =>
-        game.status === 'installing' || game.status === 'updating'
+      (game) => game.status === 'installing' || game.status === 'updating'
     ).length
   )
 
@@ -96,7 +101,7 @@ export default function GamePage(): JSX.Element | null {
 
         const installPlatform =
           install.platform || (is_linux_native && isLinux)
-            ? 'Linux'
+            ? 'linux'
             : is_mac_native && isMac
             ? 'Mac'
             : 'Windows'
@@ -162,8 +167,6 @@ export default function GamePage(): JSX.Element | null {
         platform: installPlatform
       },
       is_installed,
-      is_game,
-      compatible_apps,
       extra,
       developer,
       cloud_save_enabled,
@@ -188,7 +191,7 @@ export default function GamePage(): JSX.Element | null {
       ? `/settings/${appName}/other`
       : `/settings/${appName}/wine`
 
-    const showCloudSaveInfo = cloud_save_enabled && is_game && !isLinuxNative
+    const showCloudSaveInfo = cloud_save_enabled && !isLinuxNative
     /*
     Other Keys:
     t('box.stopInstall.title')
@@ -233,7 +236,7 @@ export default function GamePage(): JSX.Element | null {
               {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
             </div>
             <div className={`gameTabs ${tabToShow}`}>
-              {is_game && (
+              {
                 <>
                   <nav>
                     <button data-tab="info" onClick={onTabClick}>
@@ -251,17 +254,12 @@ export default function GamePage(): JSX.Element | null {
                     <h1 className="title">{title}</h1>
                     <div className="infoWrapper">
                       <div className="developer">{developer}</div>
-                      {!is_game && (
-                        <div className="compatibleApps">
-                          {compatible_apps.join(', ')}
-                        </div>
-                      )}
                       <div className="summary">
                         {extra && extra.about
-                          ? extra.about.shortDescription
-                            ? extra.about.shortDescription
-                            : extra.about.description
+                          ? extra.about.description
                             ? extra.about.description
+                            : extra.about.longDescription
+                            ? extra.about.longDescription
                             : ''
                           : ''}
                       </div>
@@ -340,7 +338,7 @@ export default function GamePage(): JSX.Element | null {
                         {getInstallLabel(is_installed)}
                       </p>
                     </div>
-                    {is_installed && Boolean(launchOptions?.length) && (
+                    {is_installed && Boolean(launchOptions.length) && (
                       <SelectField
                         htmlId="launch_options"
                         onChange={(event) =>
@@ -358,7 +356,7 @@ export default function GamePage(): JSX.Element | null {
                     )}
                     <Anticheat gameInfo={gameInfo} />
                     <div className="buttonsWrapper">
-                      {is_installed && is_game && (
+                      {is_installed && (
                         <>
                           <button
                             disabled={isReparing || isMoving || isUpdating}
@@ -434,7 +432,7 @@ export default function GamePage(): JSX.Element | null {
                   />
                   <GameRequirements gameInfo={gameInfo} />
                 </>
-              )}
+              }
             </div>
           </>
         ) : (
@@ -572,7 +570,7 @@ export default function GamePage(): JSX.Element | null {
     }
 
     const gameStatus: GameStatus = libraryStatus.filter(
-      (game) => game.appName === appName
+      (game: GameStatus) => game.appName === appName
     )[0]
     const { folder } = gameStatus
     if (!folder) {
@@ -587,8 +585,7 @@ export default function GamePage(): JSX.Element | null {
       previousProgress,
       progress,
       t,
-      runner: gameInfo.runner,
-      platformToInstall: ''
+      runner: gameInfo.runner
     })
   }
 }
