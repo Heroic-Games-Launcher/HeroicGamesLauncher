@@ -248,10 +248,7 @@ export default function GamesSubmenu({
   }
 
   useEffect(() => {
-    if (isInstalled) {
-      if (isWin) {
-        return
-      }
+    if (isInstalled && !isWin) {
       const getWineInfo = async () => {
         try {
           const { wineVersion, winePrefix }: AppSettings =
