@@ -346,6 +346,7 @@
         "autosync": "Automaattisesti synkronoi tallennukset",
         "autovkd3d": "VKD3D:n automaattinen asennus/päivitys prefixille",
         "change-target-exe": "Valitse vaihtoehtoinen EXE suoritettavaksi",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Mukautetut Wine/Proton sijainnit",
         "darktray": "Käytä tummaa ilmaisinalueen kuvaketta",
         "default-install-path": "Oletus asennussijainti",

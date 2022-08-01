@@ -346,6 +346,7 @@
         "autosync": "Sinkronisasi Penyimpanan Otomatis",
         "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Lokasi Wine/Proton Khusus",
         "darktray": "Gunakan Ikon Baki Gelap",
         "default-install-path": "Lokasi Pemasangan Bawaan",

@@ -268,7 +268,7 @@
             },
             "remove": {
                 "steam": {
-                    "corrupt": "Gra {{game}} nie mogła zostać usunięta dla wszystkich użytkowników Steam. Sprawdź logi po więcej informacji. Restart Steam'a jest wymagany, by zastosować zmiany.",
+                    "corrupt": "Gra {{game}} nie mogła zostać usunięta dla wszystkich użytkowników Steam. Sprawdź logi po więcej informacji. Restart Steam'a jest wymagany, by zastosować\u00a0zmiany.",
                     "success": "Gra {{game}} została usunięta ze Steam. Restart Steam'a jest wymagany, by zastosować zmiany.",
                     "title": "Usunięto ze Steam"
                 }
@@ -346,6 +346,7 @@
         "autosync": "Automatyczna synchronizacja zapisów",
         "autovkd3d": "Automatyczne Instaluj/Aktualizuj VKD3D w prefiksie",
         "change-target-exe": "Wybierz alternatywny plik EXE do uruchomienia",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikon",
         "default-install-path": "Domyślna ścieżka instalacji",

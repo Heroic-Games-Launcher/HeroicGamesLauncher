@@ -346,6 +346,7 @@
         "autosync": "Autosync Saves",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon",
         "default-install-path": "Default Installation Path",

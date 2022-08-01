@@ -346,6 +346,7 @@
         "autosync": "Automaatne salvestiste sünkroonimine",
         "autovkd3d": "VKD3D automaatne paigaldamine/uuendamine prefiksile",
         "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Kohandatud Wine/Proton teed",
         "darktray": "Kasuta tumedat süsteemiriiuli ikooni",
         "default-install-path": "Vaikimisi paigaldustee",

@@ -346,6 +346,7 @@
         "autosync": "Spielstände automatisch synchronisieren",
         "autovkd3d": "VKD3D automatisch im Präfix installieren/aktualisieren",
         "change-target-exe": "Wähle eine alternative EXE zum Ausführen",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Wähle die Wine oder Proton Binärdatei",
         "darktray": "Dunkles Taskleisten-Icon benutzen",
         "default-install-path": "Standard-Installationspfad",

@@ -346,6 +346,7 @@
         "autosync": "همگامسازی خودکار ذخیرهها",
         "autovkd3d": "نصب/بهروزرسانی خودکار VKD3D در مسیر",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
+        "crossover-version": "Crossover Version",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیشفرض نصب",

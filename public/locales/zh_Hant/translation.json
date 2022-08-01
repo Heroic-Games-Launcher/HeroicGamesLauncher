@@ -346,6 +346,7 @@
         "autosync": "自動同步存檔",
         "autovkd3d": "自動在 Prefix 中安裝/更新 VKD3D",
         "change-target-exe": "選擇要執行的替代 EXE",
+        "crossover-version": "Crossover Version",
         "customWineProton": "自定義Wine/Proton路徑",
         "darktray": "使用暗色系統列圖示",
         "default-install-path": "預設安裝路徑",

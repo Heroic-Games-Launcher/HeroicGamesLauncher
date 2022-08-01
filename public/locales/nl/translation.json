@@ -346,6 +346,7 @@
         "autosync": "Automatisch Synchroniseren van saves",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Selecteer een alternatieve EXE om uit te voeren",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Aangepaste wijn- of protonpaden",
         "darktray": "Gebruik donker tray icoon",
         "default-install-path": "Standaard installatie pad",

@@ -346,6 +346,7 @@
         "autosync": "Kayıtları Otomatik Eşzamanla",
         "autovkd3d": "Prefix'te VKD3D'yi Otomatik Kur/Güncelle",
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Koyu Tepsi Simgesi Kullan",
         "default-install-path": "Öntanımlı Kurulum Yeri",

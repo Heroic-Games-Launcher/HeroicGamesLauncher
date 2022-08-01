@@ -346,6 +346,7 @@
         "autosync": "Sincronitza automàticament les partides desades",
         "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",
         "change-target-exe": "Selecciona un EXE alternatiu a executar",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Rutes del Wine o Proton personalitzades",
         "darktray": "Utilitza la icona fosca a la safata",
         "default-install-path": "Ruta d'instal·lació predefinida",
