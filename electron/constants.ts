@@ -151,6 +151,9 @@ export async function getSteamLibraries(): Promise<string[]> {
 
   if (existsSync(vdfFile)) {
     const json = parse(readFileSync(vdfFile, 'utf-8'))
+    if (!json.libraryfolders) {
+      return libraries
+    }
     const folders = Object.values(json.libraryfolders) as Array<{
       path: string
     }>
