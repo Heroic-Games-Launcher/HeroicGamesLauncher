@@ -1,4 +1,4 @@
-image: Visual Studio 2019
+image: Ubuntu2004
 
 platform:
   - x64
@@ -7,8 +7,7 @@ cache:
   - node_modules
 
 install:
-  - ps: Install-Product node 16 x64
-  - npm i --legacy-peer-deps
+  - npm i --force
 
 environment:
   GH_TOKEN:
@@ -21,7 +20,7 @@ build_script:
   - yarn dist:win
 
 artifacts:
-  - path: 'dist/Heroic*.exe'
+  - path: dist/Heroic*.exe
     name: Heroic_setup
 
 deploy:
