@@ -248,29 +248,46 @@ export default function GamesSubmenu({
   }
 
   useEffect(() => {
-    if (isInstalled && !isWin) {
-      const getWineInfo = async () => {
-        try {
-          const { wineVersion, winePrefix }: AppSettings =
-            await ipcRenderer.invoke('requestSettings', appName)
-          let wine = wineVersion.name
-            .replace('Wine - ', '')
-            .replace('Proton - ', '')
-          if (wine.includes('Default')) {
-            wine = wine.split('-')[0]
+    if (isInstalled) {
+      if (!isWin) {
+        // get information about wine (Prefix)
+        const getWineInfo = async () => {
+          try {
+            const { wineVersion, winePrefix }: AppSettings =
+              await ipcRenderer.invoke('requestSettings', appName)
+            let wine = wineVersion.name
+              .replace('Wine - ', '')
+              .replace('Proton - ', '')
+            if (wine.includes('Default')) {
+              wine = wine.split('-')[0]
+            }
+            setInfo({ prefix: winePrefix, wine })
+          } catch (error) {
+            ipcRenderer.send('logError', error)
           }
-          setInfo({ prefix: winePrefix, wine })
-        } catch (error) {
-          ipcRenderer.send('logError', error)
         }
+        getWineInfo()
+
+        // get information if game is a linux native game
+        const getGameDetails = async () => {
+          const gameInfo = await getGameInfo(appName, runner)
+          const isLinuxNative =
+            gameInfo.install?.platform === 'linux' && isLinux
+          setIsNative(isLinuxNative)
+        }
+        getGameDetails()
+
+        // check if eos overlay is enabled
+        const { status } =
+          libraryStatus.filter(
+            (game: GameStatus) => game.appName === eosOverlayAppName
+          )[0] || {}
+        setEosOverlayRefresh(status === 'installing')
+
+        ipcRenderer
+          .invoke('isEosOverlayEnabled', appName, runner)
+          .then((enabled) => setEosOverlayEnabled(enabled))
       }
-      const getGameDetails = async () => {
-        const gameInfo = await getGameInfo(appName, runner)
-        const isLinuxNative = gameInfo.install?.platform === 'linux' && isLinux
-        setIsNative(isLinuxNative)
-      }
-      getWineInfo()
-      getGameDetails()
 
       // Check for game shortcuts on desktop and start menu
       ipcRenderer.invoke('shortcutsExists', appName, runner).then((added) => {
@@ -281,16 +298,6 @@ export default function GamesSubmenu({
       ipcRenderer.invoke('isAddedToSteam', appName, runner).then((added) => {
         setAddedToSteam(added)
       })
-
-      const { status } =
-        libraryStatus.filter(
-          (game: GameStatus) => game.appName === eosOverlayAppName
-        )[0] || {}
-      setEosOverlayRefresh(status === 'installing')
-
-      ipcRenderer
-        .invoke('isEosOverlayEnabled', appName, runner)
-        .then((enabled) => setEosOverlayEnabled(enabled))
     }
   }, [])
 
