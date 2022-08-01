@@ -8,7 +8,7 @@ cache:
 
 install:
   - nvm use 16.15.1
-  - npm i --legacy-peer-deps
+  - yarn install
 
 environment:
   GH_TOKEN:
