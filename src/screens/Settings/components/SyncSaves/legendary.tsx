@@ -49,7 +49,7 @@ export default function LegendarySyncSaves({
 
   useEffect(() => {
     const getSyncFolder = async () => {
-      if (savesPath) {
+      if (savesPath.length) {
         return
       } // Don't work on getting the save path if we won't change it
       setLoading(true)

@@ -69,6 +69,12 @@ export default function GOGSyncSaves({
 
       for (const loc of gog_save_location) {
         const { name, location } = loc
+        const locationIndex = locations.findIndex(
+          (value) => value.name === name
+        )
+        if (locationIndex >= 0 && locations[locationIndex]?.location.length) {
+          continue // Skip fetching the path if it's already set
+        }
         const saveLocation = await fixGogSaveFolder(
           location.replace('<?INSTALL?>', String(install_path)),
           String(installed_platform)
@@ -95,9 +101,6 @@ export default function GOGSyncSaves({
         }
 
         actualPath = await ipcRenderer.invoke('getRealPath', actualPath)
-        const locationIndex = locations.findIndex(
-          (value) => value.name === name
-        )
 
         const currentLocation = locations[locationIndex]
         if (locationIndex >= 0 && !currentLocation?.location.length) {

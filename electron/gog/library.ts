@@ -629,10 +629,20 @@ export class GOGLibrary {
   public readInfoFile(appName: string, installPath?: string): any {
     const gameInfo = this.getGameInfo(appName)
     const infoFileName = `goggame-${appName}.info`
-    const infoFilePath = join(
+    let infoFilePath = join(
       installPath ? installPath : gameInfo.install.install_path,
       infoFileName
     )
+
+    if (gameInfo.install.platform === 'osx') {
+      // Since mac games can only be installed on mac we don't need to check for current platfrom
+      infoFilePath = join(
+        installPath ? installPath : gameInfo.install.install_path,
+        'Contents',
+        'Resources',
+        infoFileName
+      )
+    }
 
     if (existsSync(infoFilePath)) {
       const fileData = readFileSync(infoFilePath, { encoding: 'utf-8' })
