@@ -1,4 +1,4 @@
-image: macOS-Monterey
+image: Ubuntu2004
 
 platform:
   - x64
@@ -7,8 +7,8 @@ cache:
   - node_modules
 
 install:
-  - nvm use 16.14.0
-  - npm i -g yarn
+  - nvm use 16.15.1
+  - sudo apt-get update && sudo apt-get install wine -y
   - yarn install
 
 environment:
