@@ -131,7 +131,7 @@ export default function WineSettings({
 
   return (
     <>
-      <h3 className="settingSubheader">Wine</h3>
+      <h3 className="settingSubheader">{isLinux ? 'Wine' : 'Crossover'}</h3>
 
       {isLinux && isDefault && (
         <TextInputWithIconField
@@ -198,7 +198,7 @@ export default function WineSettings({
         />
       )}
 
-      {isDefault && (
+      {isDefault && isLinux && (
         <SelectField
           label={t('setting.customWineProton', 'Custom Wine/Proton Paths')}
           htmlId="selectWinePath"
@@ -252,7 +252,11 @@ export default function WineSettings({
       )}
 
       <SelectField
-        label={t('setting.wineversion')}
+        label={
+          isLinux
+            ? t('setting.wineversion')
+            : t('setting.crossover-version', 'Crossover Version')
+        }
         htmlId="setWineVersion"
         onChange={(event) =>
           setWineVersion(
@@ -262,26 +266,29 @@ export default function WineSettings({
         value={wineVersion.name}
         afterSelect={
           <>
-            <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
-              {wineVersion.bin}
-            </InfoBox>
-            <InfoBox text="infobox.help">
-              <span>{t('help.wine.part1')}</span>
-              <ul>
-                <i>
-                  <li>~/.config/heroic/tools/wine</li>
-                  <li>~/.config/heroic/tools/proton</li>
-                  <li>~/.steam/root/compatibilitytools.d</li>
-                  <li>~/.steam/steamapps/common</li>
-                  <li>~/.local/share/lutris/runners/wine</li>
-                  <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
-                  <li>/usr/share/steam</li>
-                  <li>Everywhere on the system (CrossOver Mac)</li>
-                  <li>/opt/cxoffice (CrossOver Linux)</li>
-                </i>
-              </ul>
-              <span>{t('help.wine.part2')}</span>
-            </InfoBox>
+            {isLinux && (
+              <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
+                {wineVersion.bin}
+              </InfoBox>
+            )}
+            {isLinux && (
+              <InfoBox text="infobox.help">
+                <span>{t('help.wine.part1')}</span>
+                <ul>
+                  <i>
+                    <li>~/.config/heroic/tools/wine</li>
+                    <li>~/.config/heroic/tools/proton</li>
+                    <li>~/.steam/root/compatibilitytools.d</li>
+                    <li>~/.steam/steamapps/common</li>
+                    <li>~/.local/share/lutris/runners/wine</li>
+                    <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
+                    <li>/usr/share/steam</li>
+                    <li>Everywhere on the system (CrossOver Mac)</li>
+                  </i>
+                </ul>
+                <span>{t('help.wine.part2')}</span>
+              </InfoBox>
+            )}
           </>
         }
       >
@@ -319,26 +326,28 @@ export default function WineSettings({
         </div>
       )}
 
-      <div className="toggleRow">
-        <ToggleSwitch
-          htmlId="enableFSR"
-          value={enableFSR || false}
-          handleChange={toggleFSR}
-          title={t(
-            'setting.enableFSRHack',
-            'Enable FSR Hack (Wine version needs to support it)'
-          )}
-        />
+      {isLinux && (
+        <div className="toggleRow">
+          <ToggleSwitch
+            htmlId="enableFSR"
+            value={enableFSR || false}
+            handleChange={toggleFSR}
+            title={t(
+              'setting.enableFSRHack',
+              'Enable FSR Hack (Wine version needs to support it)'
+            )}
+          />
 
-        <FontAwesomeIcon
-          className="helpIcon"
-          icon={faCircleInfo}
-          title={t(
-            'help.amdfsr',
-            "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance."
-          )}
-        />
-      </div>
+          <FontAwesomeIcon
+            className="helpIcon"
+            icon={faCircleInfo}
+            title={t(
+              'help.amdfsr',
+              "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance."
+            )}
+          />
+        </div>
+      )}
 
       {enableFSR && (
         <SelectField
