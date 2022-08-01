@@ -368,7 +368,7 @@ class GOGGame extends Game {
       let wineFlag = ['--wine', wineVersion.bin]
 
       // avoid breaking on old configs when path is not absolute
-      let winePrefixFlag = ['--wine-prefix', winePrefix]
+      let winePrefixFlag = isMac ? [] : ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
         let runtime = null as SteamRuntime
         if (useSteamRuntime) {
