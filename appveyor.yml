@@ -3,9 +3,6 @@ image: Visual Studio 2019
 platform:
   - x64
 
-init:
-  - git config --global core.autocrlf input
-
 cache:
   - node_modules
   - '%USERPROFILE%\.electron'
@@ -20,15 +17,3 @@ environment:
 
 build_script:
   - yarn dist:win
-
-test: off
-
-artifacts:
-  - path: 'dist\Heroic*.exe'
-    name: Heroic_setup
-
-deploy:
-  - provider: Webhook
-    url: https://app.signpath.io/API/v1/f7f99393-5adb-408c-8ca3-67e07cfe31e6/Integrations/AppVeyor?ProjectSlug=HeroicGamesLauncher&SigningPolicySlug=test-signing
-    authorization:
-      secure: 0xlTR3DMFume9u66Kf7WkMP1sMl9S7GMoP8vZgrIAKr/eHXCKfLBM+LbmACtCHWoqeTXVIuAYCfUJIPoJt1SBA==
