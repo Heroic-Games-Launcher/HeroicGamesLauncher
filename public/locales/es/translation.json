@@ -49,7 +49,7 @@
                 "title": "Sin espacio"
             },
             "dxvk": {
-                "message": "¡Error al instalar DXVK/VKD3D! Comprueba tu conexión o si tienes instalado zstd/libzstd1",
+                "message": "¡Error al instalar DXVK/VKD3D! ¡Por favor, comprueba tu conexión!",
                 "title": "Error de DXVK/VKD3D"
             },
             "folder-not-found": {

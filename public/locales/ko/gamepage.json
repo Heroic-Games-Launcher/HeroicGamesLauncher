@@ -39,7 +39,7 @@
         "add_to_favourites": "즐겨찾기에 추가",
         "cancel": "일시정지/취소",
         "continue": "계속 다운로드",
-        "force_update": "Force Update if Available",
+        "force_update": "사용 가능한 경우 강제 업데이트",
         "hide_game": "게임 숨김",
         "import": "게임 들여오기",
         "install": "설치",
@@ -62,8 +62,8 @@
         "lastPlayed": "마지막 플레이",
         "neverPlayed": "플레이 한 적 없음",
         "platform": "설치할 플랫폼 버전 선택",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "시스템 요구 사항",
+        "tools": "도구",
         "totalPlayed": "플레이 시간"
     },
     "gamecard": {
@@ -71,7 +71,7 @@
         "repairing": "복구 중"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "알 수 없는 오류"
     },
     "info": {
         "canRunOffline": "네트워크 연결이 필요합니다",
@@ -82,11 +82,11 @@
         "version": "버전"
     },
     "install": {
-        "disk-space-left": "장치 여유 공간",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "사용 가능한 공간",
+        "not-enough-disk-space": "디스크 공간이 부족합니다",
         "path": "설치 경로 선택",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
+        "path-not-writtable": "경고: 경로가 쓰기가 불가능할 수 있습니다.",
+        "space-after-install": "설치 후",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine 버전"
     },
@@ -117,22 +117,22 @@
         "installing": "설치 중",
         "moving": "설치를 이동 중 입니다, 잠시만 기다려 주세요",
         "notinstalled": "이 게임은 설치 되지 않았습니다",
-        "processing": "Processing files, please wait",
+        "processing": "파일을 처리 중입니다 잠시만 기다려 주십시오",
         "reparing": "게임을 복구 중입니다, 잠시만 기다려 주세요",
         "totalDownloaded": "총 다운로드",
         "updating": "게임 업데이트 중"
     },
     "submenu": {
         "addShortcut": "바로가기 생성",
-        "addToSteam": "Add to Steam",
+        "addToSteam": "Steam에 추가",
         "change": "설치 경로 변경",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "EOS 오버레이 비활성화",
+        "enableEosOverlay": "EOS 오버레이 활성화",
         "log": "최신 로그",
         "move": "게임 이동",
         "protondb": "호환성 체크",
-        "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeFromSteam": "Steam에서 제거",
+        "removeShortcut": "바로가기 제거",
         "settings": "설정",
         "store": "스토어 페이지",
         "verify": "확인 및 복구"
