@@ -19,7 +19,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
     - [Linux](#linux)
       - [Flatpak](#flatpak)
       - [Debian, Ubuntu and Derivatives](#debian-ubuntu-and-derivatives)
-      - [Debian (third party `apt` repository)](#debian-third-party-apt-repository)
+      - [Debian (third party `apt` repository)](#debianubuntu-third-party-apt-repository)
       - [Arch (AUR)](#arch-aur)
       - [Fedora](#fedora)
       - [Other Distributions (AppImage and TAR.XZ)](#other-distributions-appimage-and-tarxz)
@@ -274,6 +274,11 @@ cd /tmp/heroic
 ```
 
 And you should be good to go, code and build away!
+
+## Sponsors
+
+![weblate](https://s.weblate.org/cdn/Logo-Darktext-borders.png)
+![signpath](https://user-images.githubusercontent.com/26871415/182468471-6ef4aac6-a4e2-4ae8-93ef-d638cd01627d.png)
 
 ## Screenshots
 
