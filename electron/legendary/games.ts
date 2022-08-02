@@ -561,7 +561,8 @@ class LegendaryGame extends Game {
       rpcClient,
       mangoHudCommand,
       gameModeBin,
-      steamRuntime
+      steamRuntime,
+      offlineMode
     } = await prepareLaunch(this, gameInfo)
     if (!launchPrepSuccess) {
       appendFileSync(
@@ -571,7 +572,7 @@ class LegendaryGame extends Game {
       return false
     }
 
-    const offlineFlag = gameSettings.offlineMode ? '--offline' : ''
+    const offlineFlag = offlineMode ? '--offline' : ''
     const exeOverrideFlag = gameSettings.targetExe
       ? ['--override-exe', gameSettings.targetExe]
       : []
