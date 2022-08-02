@@ -346,6 +346,7 @@
         "autosync": "Synkronisera sparfiler automatiskt",
         "autovkd3d": "Installera/uppdatera VKD3D i prefix automatiskt",
         "change-target-exe": "Ange alternativ EXE-fil att köra",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Anpassad Wine/Proton sökväg",
         "darktray": "Använd mörk ikon i systemfältet",
         "default-install-path": "Standard installationssökväg",

@@ -346,6 +346,7 @@
         "autosync": "Tự động đồng bộ bản sao lưu",
         "autovkd3d": "Tự động cài đặt/cập nhật DXVK trên prefix",
         "change-target-exe": "Chọn một EXE thay thế để chạy",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Đường dẫn Wine/Proton tùy chọn",
         "darktray": "Sử dụng icon tối",
         "default-install-path": "Thư mục cài mặc định",

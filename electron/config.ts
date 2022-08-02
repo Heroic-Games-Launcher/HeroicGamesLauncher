@@ -195,6 +195,15 @@ abstract class GlobalConfig {
   public async getAlternativeWine(
     scanCustom = true
   ): Promise<WineInstallation[]> {
+    if (isMac) {
+      // On Mac, prioritise CX installations since Wine/Proton does not work
+      const crossover = await this.getCrossover()
+
+      if (crossover.size) {
+        return [...crossover]
+      }
+    }
+
     if (!existsSync(`${heroicToolsPath}/wine`)) {
       mkdirSync(`${heroicToolsPath}/wine`, { recursive: true })
     }
@@ -263,8 +272,6 @@ abstract class GlobalConfig {
       }
     })
 
-    const crossover = await this.getCrossover()
-
     const defaultWineSet = new Set<WineInstallation>()
     const defaultWine = await this.getDefaultWine()
     if (!defaultWine.name.includes('Not Found')) {
@@ -276,17 +283,7 @@ abstract class GlobalConfig {
       customWineSet = await this.getCustomWinePaths()
     }
 
-    // On Mac, prioritise CX installations since Wine/Proton does not work
-    if (isMac && crossover.size) {
-      return [...crossover, ...customWineSet]
-    }
-    return [
-      ...defaultWineSet,
-      ...altWine,
-      ...proton,
-      ...crossover,
-      ...customWineSet
-    ]
+    return [...defaultWineSet, ...altWine, ...proton, ...customWineSet]
   }
 
   /**

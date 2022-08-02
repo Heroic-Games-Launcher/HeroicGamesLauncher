@@ -346,6 +346,7 @@
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
         "autovkd3d": "Αυτόματη Εγκατάσταση/Ενημέρωση VKD3D με Πρόθημα",
         "change-target-exe": "Επιλέξτε ένα εναλλακτικό αρχείο EXE προς εκτέλεση",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",

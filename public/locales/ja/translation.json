@@ -346,6 +346,7 @@
         "autosync": "保存を自動的に同期する",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "実行する代替EXEを選択します",
+        "crossover-version": "Crossover Version",
         "customWineProton": "カスタムWine/Protonパス",
         "darktray": "ダークトレイアイコンを使用する",
         "default-install-path": "デフォルトのインストールパス",

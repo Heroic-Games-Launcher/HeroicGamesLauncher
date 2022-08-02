@@ -346,6 +346,7 @@
         "autosync": "세이브 자동 동기화",
         "autovkd3d": "접두사에서 VKD3D 자동 설치/업데이트",
         "change-target-exe": "대체하여 실행할 EXE 선택",
+        "crossover-version": "Crossover Version",
         "customWineProton": "커스텀 Wine/Proton 경로",
         "darktray": "다크 트레이 아이콘 사용",
         "default-install-path": "기본 설치 경로",

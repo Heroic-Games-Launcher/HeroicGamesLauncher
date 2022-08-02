@@ -346,6 +346,7 @@
         "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
+        "crossover-version": "Crossover Version",
         "customWineProton": "தனிப்பயன் Wine/Proton பாதைகள்",
         "darktray": "கணினி தட்டில் இருண்ட சின்னத்தை பயன்படுத்து",
         "default-install-path": "இயல்புநிலை நிறுவல் பாதை",
