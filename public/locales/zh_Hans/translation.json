@@ -237,8 +237,8 @@
         "sortByStatus": "按状态排列",
         "sortDescending": "降序排列",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "切换到网格布局",
+            "list": "切换到列表布局"
         }
     },
     "Library": "仓库",
@@ -386,7 +386,7 @@
             "disabled": "已禁用",
             "favourites": "最爱的游戏",
             "recently_played": "最近玩过的游戏",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "recently_played_installed": "最近玩过的游戏 (仅已安装）"
         },
         "library_top_section": "库的顶部",
         "log": {
