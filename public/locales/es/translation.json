@@ -232,12 +232,14 @@
         "path": "Seleccione la ruta de instalación"
     },
     "library": {
-        "gridView": "Vista de grilla",
-        "listView": "Vista de lista",
         "refresh": "Actualizar",
         "sortAscending": "Orden Ascendente",
         "sortByStatus": "Ordenar por Estado",
-        "sortDescending": "Orden Descendente"
+        "sortDescending": "Orden Descendente",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Biblioteca",
     "loading": {
@@ -344,6 +346,7 @@
         "autosync": "Autosincronizar guardados",
         "autovkd3d": "Instalación/actualización automática de VKD3D en el prefijo",
         "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilizar el icono oscuro en la bandeja",
         "default-install-path": "Ruta de instalación predeterminada",
@@ -383,7 +386,8 @@
         "library_top_option": {
             "disabled": "Desactivada",
             "favourites": "Juegos Favoritos",
-            "recently_played": "Juegos Jugados Recientemente"
+            "recently_played": "Juegos Jugados Recientemente",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Sección superior de la Biblioteca",
         "log": {

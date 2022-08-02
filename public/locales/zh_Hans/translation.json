@@ -29,7 +29,7 @@
         "customWine": "选择 Wine 或 Proton 二进制文件",
         "default-install-path": "选择默认安装路径",
         "default-steam-path": "Steam 路径.",
-        "downloadNow": "Download now",
+        "downloadNow": "立即下载",
         "error": {
             "add": {
                 "steam": {
@@ -115,7 +115,7 @@
         },
         "shortcuts": {
             "message": "桌面与开始菜单快捷方式已创建",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove": "从桌面和启动菜单移除了快捷方式",
             "title": "快捷方式"
         },
         "sync": {
@@ -125,11 +125,11 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "Visual C++ Runtimes 下载链接已打开。 请同时安装 x86 和 x64 版本。"
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "未安装某些游戏必需的 Microsoft Visual C++ Runtimes",
+                "title": "VCRuntime 未安装"
             }
         },
         "warning": {
@@ -232,12 +232,14 @@
         "path": "选择安装路径"
     },
     "library": {
-        "gridView": "网格视图",
-        "listView": "列表视图",
         "refresh": "刷新",
         "sortAscending": "升序排列",
         "sortByStatus": "按状态排列",
-        "sortDescending": "降序排列"
+        "sortDescending": "降序排列",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "仓库",
     "loading": {
@@ -344,6 +346,7 @@
         "autosync": "自动同步存档",
         "autovkd3d": "自动在前置中安装/更新 VKD3D",
         "change-target-exe": "选择要运行的替代 EXE",
+        "crossover-version": "Crossover Version",
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
@@ -383,7 +386,8 @@
         "library_top_option": {
             "disabled": "已禁用",
             "favourites": "最爱的游戏",
-            "recently_played": "最近玩过的游戏"
+            "recently_played": "最近玩过的游戏",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "库的顶部",
         "log": {
@@ -431,7 +435,7 @@
     },
     "settings": {
         "battlEyeRuntime": {
-            "installing": "Installing BattlEye Runtime...",
+            "installing": "安装 BattlEye Runtime 中...",
             "name": "BattlEye AntiCheat Runtime"
         },
         "clear-cache": "清理 Heroic 缓存",
@@ -439,16 +443,16 @@
         "copyToClipboard": "复制所有设置到剪贴板",
         "eacRuntime": {
             "gameModeRequired": {
-                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
-                "title": "GameMode required"
+                "message": "需要 GameMode 才能让 EAC runtime 在 Flatpak 上工作。你想马上启用它吗？",
+                "title": "必须启用 GameMode"
             },
-            "installing": "Installing EAC Runtime...",
+            "installing": "正安装 EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
-                "title": "EAC runtime enabled"
+                "message": "EAC runtime 已启用，但没有 GameMode 它无法正常运作。你想禁用 EAC Runtime 和 GameMode 吗？",
+                "title": "EAC runtime 已启用"
             }
         },
         "log": {
@@ -460,7 +464,7 @@
             "log": "日志",
             "other": "其它",
             "sync": "存档-同步",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine 扩展"
         },
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",

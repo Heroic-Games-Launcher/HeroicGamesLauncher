@@ -232,12 +232,14 @@
         "path": "Chọn đường dẫn cài"
     },
     "library": {
-        "gridView": "Hiển thị dạng ô",
-        "listView": "Hiển thị dạng danh sánh",
         "refresh": "Tải lại",
         "sortAscending": "Sắp xếp Tăng dần",
         "sortByStatus": "Sắp xếp theo trạng thái",
-        "sortDescending": "Sắp xếp giảm dần"
+        "sortDescending": "Sắp xếp giảm dần",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Thư viện",
     "loading": {
@@ -344,6 +346,7 @@
         "autosync": "Tự động đồng bộ bản sao lưu",
         "autovkd3d": "Tự động cài đặt/cập nhật DXVK trên prefix",
         "change-target-exe": "Chọn một EXE thay thế để chạy",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Đường dẫn Wine/Proton tùy chọn",
         "darktray": "Sử dụng icon tối",
         "default-install-path": "Thư mục cài mặc định",
@@ -383,7 +386,8 @@
         "library_top_option": {
             "disabled": "Tắt",
             "favourites": "Game ưa thích",
-            "recently_played": "Game chơi gần đây"
+            "recently_played": "Game chơi gần đây",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Phần trên cùng của Thư viện",
         "log": {

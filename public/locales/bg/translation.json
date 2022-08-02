@@ -232,12 +232,14 @@
         "path": "Изберете местоположение за инсталиране"
     },
     "library": {
-        "gridView": "Изглед във вид на решетка",
-        "listView": "Изглед във вид на списък",
         "refresh": "Опресняване",
         "sortAscending": "Подреждане във възходящ ред",
         "sortByStatus": "Подреждане по състояние",
-        "sortDescending": "Подреждане в низходящ ред"
+        "sortDescending": "Подреждане в низходящ ред",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Библиотека",
     "loading": {
@@ -344,6 +346,7 @@
         "autosync": "Автоматично синхронизиране на запазените файлове",
         "autovkd3d": "Автоматично инсталиране/обновяване на VKD3D в префикса",
         "change-target-exe": "Изберете алтернативен файл EXE за изпълнение",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Персонализирани пътища за Wine/Proton",
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
         "default-install-path": "Папка по подразбиране за инсталации",
@@ -383,7 +386,8 @@
         "library_top_option": {
             "disabled": "Изключено",
             "favourites": "Любими игри",
-            "recently_played": "Наскоро пускани игри"
+            "recently_played": "Наскоро пускани игри",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Горна секция на библиотеката",
         "log": {

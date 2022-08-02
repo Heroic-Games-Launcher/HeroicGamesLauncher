@@ -232,12 +232,14 @@
         "path": "انتخاب محل نصب"
     },
     "library": {
-        "gridView": "نمای شبکه ای",
-        "listView": "نمای لیستی",
         "refresh": "تازه کردن",
         "sortAscending": "چینش صعودی",
         "sortByStatus": "چینش بر اساس وضعیت",
-        "sortDescending": "چینش نزولی"
+        "sortDescending": "چینش نزولی",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "کتابخانه",
     "loading": {
@@ -344,6 +346,7 @@
         "autosync": "همگامسازی خودکار ذخیرهها",
         "autovkd3d": "نصب/بهروزرسانی خودکار VKD3D در مسیر",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
+        "crossover-version": "Crossover Version",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیشفرض نصب",
@@ -383,7 +386,8 @@
         "library_top_option": {
             "disabled": "غیر فعال",
             "favourites": "بازی های مورد علاقه",
-            "recently_played": "بازی های اخیرا اجرا شده"
+            "recently_played": "بازی های اخیرا اجرا شده",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "قسمت بالایی کتابخانه",
         "log": {

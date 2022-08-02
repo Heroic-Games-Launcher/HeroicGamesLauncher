@@ -476,10 +476,12 @@ process.on('uncaughtException', (err) => {
 })
 
 let powerId: number | null
+
 ipcMain.on('lock', () => {
   if (!existsSync(join(heroicGamesConfigPath, 'lock'))) {
     writeFileSync(join(heroicGamesConfigPath, 'lock'), '')
     if (!powerId) {
+      logInfo('Preventing machine to sleep', LogPrefix.Backend)
       powerId = powerSaveBlocker.start('prevent-app-suspension')
       return powerId
     }
@@ -490,6 +492,7 @@ ipcMain.on('unlock', () => {
   if (existsSync(join(heroicGamesConfigPath, 'lock'))) {
     unlinkSync(join(heroicGamesConfigPath, 'lock'))
     if (powerId) {
+      logInfo('Stopping Power Saver Blocker', LogPrefix.Backend)
       return powerSaveBlocker.stop(powerId)
     }
   }
@@ -864,6 +867,8 @@ type LaunchParams = {
   runner: Runner
 }
 
+let powerDisplayId: number | null
+
 ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }: LaunchParams) => {
@@ -913,6 +918,12 @@ ipcMain.handle(
       mainWindow.hide()
     }
 
+    // Prevent display from sleep
+    if (!powerDisplayId) {
+      logInfo('Preventing display from sleep', LogPrefix.Backend)
+      powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
+    }
+
     const systemInfo = await getSystemInfo()
     const gameSettingsString = JSON.stringify(
       await game.getSettings(),
@@ -939,6 +950,12 @@ ipcMain.handle(
         )
       })
       .finally(() => {
+        // Stop display sleep blocker
+        if (powerDisplayId !== null) {
+          logInfo('Stopping Display Power Saver Blocker', LogPrefix.Backend)
+          powerSaveBlocker.stop(powerDisplayId)
+        }
+
         // Update playtime and last played date
         const finishedPlayingDate = new Date()
         tsStore.set(`${game.appName}.lastPlayed`, finishedPlayingDate)

@@ -10,13 +10,15 @@ interface Props {
   layout?: string
   isFirstLane?: boolean
   handleGameCardClick: (app_name: string, runner: Runner) => void
+  onlyInstalled?: boolean
 }
 
 export const GamesList = ({
   library = [],
   layout = 'grid',
   handleGameCardClick,
-  isFirstLane = false
+  isFirstLane = false,
+  onlyInstalled = false
 }: Props): JSX.Element => {
   const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -55,6 +57,10 @@ export const GamesList = ({
             if (is_dlc) {
               return null
             }
+            if (!is_installed && onlyInstalled) {
+              return null
+            }
+
             const hasUpdate = is_installed && gameUpdates?.includes(app_name)
             return (
               <GameCard

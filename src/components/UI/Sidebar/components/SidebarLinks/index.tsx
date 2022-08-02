@@ -63,8 +63,9 @@ export default function SidebarLinks() {
 
   const { isLinuxNative = false, isMacNative = false } = state || {}
   const isWin = platform === 'win32'
+  const isMac = platform === 'darwin'
   const isLinuxGame = isLinuxNative && platform === 'linux'
-  const isMacGame = isMacNative && platform === 'darwin'
+  const isMacGame = isMacNative && isMac
   const isLinux = platform === 'linux'
 
   const shouldRenderWineSettings = !isWin && !isMacGame && !isLinuxGame
@@ -226,18 +227,25 @@ export default function SidebarLinks() {
                     ['active']: type === 'wine'
                   })}
                 >
-                  <span>Wine</span>
+                  <span>{isMac ? 'Crossover' : 'Wine'}</span>
                 </NavLink>
-                <NavLink
-                  role="link"
-                  to={`/settings/${runner}/${appName}/wineExt`}
-                  state={{ ...state, runner: state?.runner }}
-                  className={classNames('Sidebar__item SidebarLinks__subItem', {
-                    ['active']: type === 'wineExt'
-                  })}
-                >
-                  <span>{t('settings.navbar.wineExt', 'Wine Extensions')}</span>
-                </NavLink>
+                {isLinux && (
+                  <NavLink
+                    role="link"
+                    to={`/settings/${appName}/wineExt`}
+                    state={{ ...state, runner: state?.runner }}
+                    className={classNames(
+                      'Sidebar__item SidebarLinks__subItem',
+                      {
+                        ['active']: type === 'wineExt'
+                      }
+                    )}
+                  >
+                    <span>
+                      {t('settings.navbar.wineExt', 'Wine Extensions')}
+                    </span>
+                  </NavLink>
+                )}
               </>
             )}
             {hasCloudSave && !isLinuxGame && (

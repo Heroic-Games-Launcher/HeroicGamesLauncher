@@ -232,12 +232,14 @@
         "path": "Vyberte cestu instalace"
     },
     "library": {
-        "gridView": "Zobrazení mřížky",
-        "listView": "Zobrazení seznamu",
         "refresh": "Obnovit",
         "sortAscending": "Seřadit vzestupně",
         "sortByStatus": "Seřadit podle stavu",
-        "sortDescending": "Seřadit sestupně"
+        "sortDescending": "Seřadit sestupně",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Knihovna",
     "loading": {
@@ -344,6 +346,7 @@
         "autosync": "Automaticky synchronizovat uložené soubory",
         "autovkd3d": "Automaticky Installovat/aktualizovat VKD3D na Prefixu",
         "change-target-exe": "Vyberte alternativní EXE ke spuštění",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Vlastní cesty pro Wine/Proton",
         "darktray": "Použít tmavou ikonu v systémové oblasti",
         "default-install-path": "Výchozí cesta pro instalaci",
@@ -383,7 +386,8 @@
         "library_top_option": {
             "disabled": "Zakázáno",
             "favourites": "Oblíbené hry",
-            "recently_played": "Nedávno hrané hry"
+            "recently_played": "Nedávno hrané hry",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Horní část knihovny",
         "log": {
