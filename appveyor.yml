@@ -1,28 +1,30 @@
-image: macOS-Monterey
+image: Visual Studio 2019
 
 platform:
   - x64
 
+init:
+  - git config --global core.autocrlf input
+
 cache:
   - node_modules
+  - '%USERPROFILE%\.electron'
 
 install:
-  - nvm use 16.14.0
-  - npm i -g yarn
-  - yarn install
+  - ps: Install-Product node 16 x64
+  - npm i --legacy-peer-deps
 
 environment:
   GH_TOKEN:
     secure: kZMGyhBmfPsJKEryrd+I7gTEudm8tW0jSrKKhtT/3fbqKQzndTWp47C1Eetx5kFs
 
-build:
-  verbosity: detailed
-
 build_script:
   - yarn dist:win
 
+test: off
+
 artifacts:
-  - path: dist/Heroic*.exe
+  - path: dist\Heroic*.exe
     name: Heroic_setup
 
 deploy:
