@@ -237,8 +237,8 @@
         "sortByStatus": "Сортировать по статусу",
         "sortDescending": "Сортировать по убыванию",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "Переключить на сетку",
+            "list": "Переключить на список"
         }
     },
     "Library": "Библиотека",
@@ -386,7 +386,7 @@
             "disabled": "Отключить",
             "favourites": "Избранные игры",
             "recently_played": "Недавние игры",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "recently_played_installed": "Недавние игры (Только установленные)"
         },
         "library_top_section": "Верхний раздел библиотеки",
         "log": {
