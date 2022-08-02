@@ -118,7 +118,11 @@ function getProgress(progress: InstallProgress): number {
   return 0
 }
 
-async function fixGogSaveFolder(folder: string, installedPlatform: string) {
+async function fixGogSaveFolder(
+  folder: string,
+  installedPlatform: string,
+  appName: string
+) {
   const isMac = installedPlatform === 'osx'
   const isWindows = installedPlatform === 'windows'
   const matches = folder.match(/<\?(\w+)\?>/)
@@ -140,14 +144,33 @@ async function fixGogSaveFolder(folder: string, installedPlatform: string) {
       folder = folder.replace(matches[0], '%APPDATA%')
       break
     case 'DOCUMENTS':
-      if (isWindows)
-        folder = folder.replace(matches[0], '%USERPROFILE%/Documents')
-      else if (isMac) {
+      if (isWindows) {
+        const documentsResult = await ipcRenderer.invoke(
+          'runWineCommandForGame',
+          {
+            appName,
+            runner: 'gog',
+            command:
+              'reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" /v Personal'
+          }
+        )
+        const documentsFolder = documentsResult.stdout
+          ?.trim()
+          .split('\n')[1]
+          ?.trim()
+          .split('    ')
+          .pop()
+
+        folder = folder.replace(
+          matches[0],
+          documentsFolder ?? '%USERPROFILE%/Documents'
+        )
+      } else if (isMac) {
         folder = folder.replace(matches[0], '$HOME/Documents')
       }
       break
     case 'APPLICATION_SUPPORT':
-      folder = folder.replace(matches[0], '/Library/Application Support')
+      folder = folder.replace(matches[0], '$HOME/Library/Application Support')
   }
   return folder
 }

@@ -1455,7 +1455,9 @@ ipcMain.handle(
   'runWineCommandForGame',
   async (event, { appName, command, runner }) => {
     const game = Game.get(appName, runner)
-
+    if (isWindows) {
+      return execAsync(command)
+    }
     const { updated } = await verifyWinePrefix(game)
 
     if (runner === 'gog' && updated) {
@@ -1469,7 +1471,19 @@ ipcMain.handle(
 ipcMain.handle('getShellPath', async (event, path) => {
   return (await execAsync(`echo "${path}"`)).stdout.trim()
 })
-ipcMain.handle('getRealPath', (event, path) => realpathSync(path))
+ipcMain.handle('getRealPath', (event, path) => {
+  let resolvedPath = path
+  try {
+    resolvedPath = realpathSync(path)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    if (err?.path) {
+      resolvedPath = err.path // Reslove most accurate path (most likely followed symlinks)
+    }
+  }
+
+  return resolvedPath
+})
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')

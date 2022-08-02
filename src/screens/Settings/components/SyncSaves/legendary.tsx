@@ -46,6 +46,7 @@ export default function LegendarySyncSaves({
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
+  const macPlatforms = ['osx', 'Mac']
 
   useEffect(() => {
     const getSyncFolder = async () => {
@@ -55,7 +56,7 @@ export default function LegendarySyncSaves({
       setLoading(true)
       const {
         save_folder,
-        install: { install_path }
+        install: { install_path, platform: installed_platform }
       } = await getGameInfo(appName, 'legendary')
       setAutoSyncSaves(autoSyncSaves)
       const prefix = winePrefix ? winePrefix : ''
@@ -69,7 +70,10 @@ export default function LegendarySyncSaves({
         .replace('<?INSTALL?>', `${install_path}`)
 
       let actualPath
-      if (!isWin) {
+      const isMacNative = macPlatforms.includes(installed_platform ?? '')
+      const isNative = isWin || isMacNative
+
+      if (!isNative) {
         const { stdout } = await ipcRenderer
           .invoke('runWineCommandForGame', {
             appName,

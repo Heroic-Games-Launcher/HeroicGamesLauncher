@@ -77,7 +77,8 @@ export default function GOGSyncSaves({
         }
         const saveLocation = await fixGogSaveFolder(
           location.replace('<?INSTALL?>', String(install_path)),
-          String(installed_platform)
+          String(installed_platform),
+          appName
         )
         let actualPath: string
         if (!isNative) {
@@ -102,8 +103,7 @@ export default function GOGSyncSaves({
 
         actualPath = await ipcRenderer.invoke('getRealPath', actualPath)
 
-        const currentLocation = locations[locationIndex]
-        if (locationIndex >= 0 && !currentLocation?.location.length) {
+        if (locationIndex >= 0 && !locations[locationIndex]?.location.length) {
           locations[locationIndex].location = actualPath
         } else if (locationIndex < 0) {
           locations.push({ name, location: actualPath })
