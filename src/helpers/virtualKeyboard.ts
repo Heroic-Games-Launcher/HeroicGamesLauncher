@@ -30,6 +30,8 @@ function typeInSearchInput(button: string) {
     if (input.value.length > 0) {
       input.value = input.value.slice(0, -1)
     }
+  } else if (button === '{space}') {
+    input.value = input.value + ' '
   }
   input.dispatchEvent(new Event('input'))
 }
@@ -59,5 +61,8 @@ export const VirtualKeyboardController = {
   },
   backspace: () => {
     typeInSearchInput('{bksp}')
+  },
+  space: () => {
+    typeInSearchInput(' ')
   }
 }

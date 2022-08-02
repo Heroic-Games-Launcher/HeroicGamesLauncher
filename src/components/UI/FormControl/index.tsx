@@ -43,9 +43,9 @@ const FormControl: React.FC<FormControlProps> = ({
         </span>
       )}
       {onClear && (
-        <span className="FormControl__clear" onClick={onClear} tabIndex={-1}>
+        <button className="FormControl__clear" onClick={onClear} tabIndex={-1}>
           <FontAwesomeIcon icon={faXmark} />
-        </span>
+        </button>
       )}
       {sideButton && (
         <span

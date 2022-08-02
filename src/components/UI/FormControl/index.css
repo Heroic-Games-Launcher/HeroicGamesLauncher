@@ -151,6 +151,9 @@
 
 .FormControl__clear {
   cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--text);
 }
 
 .FormControl__clear:hover {
