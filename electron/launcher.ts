@@ -61,25 +61,22 @@ async function prepareLaunch(
 
   const offlineMode =
     gameSettings.offlineMode || !isOnline() || (await isEpicServiceOffline())
+
   // Check if the game needs an internet connection
-  // If the game can run offline just fine, we don't have to check anything
-  if (!gameInfo.canRunOffline) {
-    // If the game is configured to use offline mode or Epic isn't reachable, but the game can't run offline, we can't launch
-    if (offlineMode) {
-      showErrorBoxModalAuto(
-        i18next.t(
-          'box.error.no-offline-mode.title',
-          'Offline mode not supported.'
-        ),
-        i18next.t(
-          'box.error.no-offline-mode.message',
-          'Launch aborted! The game requires a internet connection to run it.'
-        )
+  if (!gameInfo.canRunOffline && offlineMode) {
+    showErrorBoxModalAuto(
+      i18next.t(
+        'box.error.no-offline-mode.title',
+        'Offline mode not supported.'
+      ),
+      i18next.t(
+        'box.error.no-offline-mode.message',
+        'Launch aborted! The game requires a internet connection to run it.'
       )
-      return {
-        success: false,
-        failureReason: 'Offline mode not supported'
-      }
+    )
+    return {
+      success: false,
+      failureReason: 'Offline mode not supported'
     }
   }
 
