@@ -21,7 +21,7 @@ import {
 import { ipcRenderer } from 'src/helpers'
 
 import ContextProvider from 'src/state/ContextProvider'
-import { Runner } from 'src/types'
+import { GameInfo, Runner } from 'src/types'
 import './index.css'
 import QuitButton from '../QuitButton'
 
@@ -42,7 +42,10 @@ type PathSplit = [
 ]
 
 export default function SidebarLinks() {
-  const [hasCloudSave, setHasCloudSave] = useState(false)
+  const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({
+    cloud_save_enabled: false,
+    is_installed: false
+  })
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { state } = useLocation() as { state: LocationState }
@@ -51,11 +54,10 @@ export default function SidebarLinks() {
 
   const { epic, gog, platform } = useContext(ContextProvider)
 
+  //console.log({ isAppSettings, runner, gameInfo })
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
-  const [isDefaultSetting, setIsDefaultSetting] = useState(
-    !runner || runner === 'app'
-  )
+  const [isDefaultSetting, setIsDefaultSetting] = useState(true)
   const [settingsPath, setSettingsPath] = useState(
     '/settings/app/default/general'
   )
@@ -75,13 +77,19 @@ export default function SidebarLinks() {
   useEffect(() => {
     if (!runner || runner === 'app') {
       setIsDefaultSetting(true)
+      setGameInfo({ ...gameInfo, cloud_save_enabled: false })
       setSettingsPath('/settings/app/default/general')
     } else {
-      setIsDefaultSetting(false)
-      const wineOrOther = isWin
-        ? `/settings/${runner}/${appName}/other`
-        : `/settings/${runner}/${appName}/wine`
-      setSettingsPath(wineOrOther)
+      getGameInfo(appName, runner).then((info) => {
+        setGameInfo(info)
+        if (info.is_installed) {
+          setIsDefaultSetting(false)
+          const wineOrOther = isWin
+            ? `/settings/${runner}/${appName}/other`
+            : `/settings/${runner}/${appName}/wine`
+          setSettingsPath(wineOrOther)
+        }
+      })
     }
   }, [location])
 
@@ -91,13 +99,9 @@ export default function SidebarLinks() {
 
   useEffect(() => {
     if (!runner || runner === 'app') {
-      setHasCloudSave(false)
-      return
+      return setIsDefaultSetting(true)
     }
-    getGameInfo(appName, runner).then((info) =>
-      setHasCloudSave(info.cloud_save_enabled)
-    )
-  }, [appName, location])
+  }, [location])
 
   return (
     <div className="SidebarLinks Sidebar__section">
@@ -183,7 +187,11 @@ export default function SidebarLinks() {
             classNames('Sidebar__item', { active: isActive })
           }
           to={{ pathname: settingsPath }}
-          state={{ fromGameCard: false, runner: runner, hasCloudSave }}
+          state={{
+            fromGameCard: false,
+            runner: runner,
+            hasCloudSave: gameInfo.cloud_save_enabled
+          }}
         >
           <>
             <div className="Sidebar__itemIcon">
@@ -248,7 +256,7 @@ export default function SidebarLinks() {
                 )}
               </>
             )}
-            {hasCloudSave && !isLinuxGame && (
+            {gameInfo.cloud_save_enabled && !isLinuxGame && (
               <NavLink
                 role="link"
                 data-testid="linkSync"
