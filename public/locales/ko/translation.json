@@ -3,13 +3,13 @@
         "actions_font_family": "작업 글꼴 패밀리 (기본값: \"Rubik\")",
         "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "콘텐츠 글꼴 패밀리 (기본값: \"Cabin\")",
-        "fonts": "Fonts",
+        "fonts": "글꼴",
         "title": "접근성",
         "zoom": "Zoom"
     },
     "All": "모두",
     "anticheat": {
-        "anticheats": "Anticheats",
+        "anticheats": "안티 치트",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
         "reference": "Reference",
         "source": "Source",
@@ -49,7 +49,7 @@
                 "title": "공간 없음"
             },
             "dxvk": {
-                "message": "DXVK/VKD3D 설치 오류! 연결을 확인하거나 zstd/libzstd1이 설치되어 있는지 확인하십시오",
+                "message": "DXVK/VKD3D를 설치하는 동안 오류가 발생했습니다! 연결을 확인하세요!",
                 "title": "DXVK/VKD3D 오류"
             },
             "folder-not-found": {
@@ -335,7 +335,7 @@
     "Plugins": "플러그인",
     "Projects": "프로젝트",
     "Recent": "최근 플레이한 게임",
-    "search": "여기에 게임 이름을 입력 ...",
+    "search": "게임 검색",
     "setting": {
         "adddesktopshortcuts": "데스크톱 바로 가기 자동 추가",
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
@@ -477,9 +477,9 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "설치 중",
         "logging": "로그인 중…",
-        "processing": "Processing files, please wait"
+        "processing": "파일을 처리 중입니다 잠시만 기다려 주십시오"
     },
     "store": "Epic Store",
     "stores": "Stores",
