@@ -395,7 +395,7 @@ export default function OtherSettings({
         <TextInputWithIconField
           label={t('setting.default-steam-path', 'Default Steam path')}
           htmlId="default_steam_path"
-          value={defaultSteamPath.replaceAll("'", '')}
+          value={defaultSteamPath?.replaceAll("'", '')}
           placeholder={defaultSteamPath}
           onChange={(event) => setDefaultSteamPath(event.target.value)}
           icon={
