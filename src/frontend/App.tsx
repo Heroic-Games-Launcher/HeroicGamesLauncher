@@ -12,6 +12,7 @@ import Settings from './screens/Settings'
 import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
 import classNames from 'classnames'
+import { ControllerHints } from './components/UI'
 
 function App() {
   const { epic, gog, contentFontFamily, actionsFontFamily, sidebarCollapsed } =
@@ -54,6 +55,10 @@ function App() {
             <Route path="/accessibility" element={<Accessibility />} />
           </Routes>
         </main>
+        <div className="controller">
+          <ControllerHints />
+          <div className="simple-keyboard"></div>
+        </div>
       </HashRouter>
     </div>
   )

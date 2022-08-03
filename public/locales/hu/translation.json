@@ -150,6 +150,27 @@
         "syncing": "Szinkronizálás folyamatban",
         "unsync": "Deszinkronizálás"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Az online szolgáltatások lehet, hogy nem működnek teljesen, mert az Epic Games szerverek offline vannak!",
@@ -346,6 +367,7 @@
         "autosync": "Mentések automatikus szinkronizálása",
         "autovkd3d": "A VKD3D automatikus telepítése/frissítése a prefixen",
         "change-target-exe": "Válassz egy alternatív EXE fájlt a futtatáshoz",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét tálcaikon használata",
         "default-install-path": "Alapértelmezett telepítési útvonal",

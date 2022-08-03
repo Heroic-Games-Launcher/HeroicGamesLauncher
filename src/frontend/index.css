@@ -145,9 +145,9 @@ code {
 }
 
 .simple-keyboard {
-  position: fixed;
+  position: absolute;
   z-index: 10;
-  bottom: 0px;
+  bottom: 100%;
   left: 0px;
   right: 0px;
   background: var(--osk-background);

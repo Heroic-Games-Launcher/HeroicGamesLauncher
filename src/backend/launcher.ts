@@ -59,17 +59,14 @@ async function prepareLaunch(
     (await GameConfig.get(game.appName).getSettings())
   const globalSettings = await GlobalConfig.get().getSettings()
 
+  const offlineMode =
+    gameSettings.offlineMode || !isOnline() || (await isEpicServiceOffline())
+
   // Check if the game needs an internet connection
-  // If the game can run offline just fine, we don't have to check anything
-  if (!gameInfo.canRunOffline) {
-    // If either we or Epic's servers are offline, we can't reach Epic
-    const epicNonReachable = !isOnline() || (await isEpicServiceOffline())
-    // If the game is configured to use offline mode or Epic isn't reachable, but the game can't run offline, we can't launch
-    if (gameSettings.offlineMode || epicNonReachable) {
-      return {
-        success: false,
-        failureReason: 'Offline mode not supported'
-      }
+  if (!gameInfo.canRunOffline && offlineMode) {
+    return {
+      success: false,
+      failureReason: 'Offline mode not supported'
     }
   }
 
@@ -137,7 +134,8 @@ async function prepareLaunch(
     rpcClient,
     mangoHudCommand,
     gameModeBin,
-    steamRuntime
+    steamRuntime,
+    offlineMode
   }
 }
 

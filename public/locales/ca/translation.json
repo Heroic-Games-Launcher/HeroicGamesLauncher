@@ -150,6 +150,27 @@
         "syncing": "S'està sincronitzant",
         "unsync": "Dessincronitza"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Els serveis en línia potser no funcionen del tot, ja que els servidors d'Epic Games estan desconnectats!",
@@ -346,6 +367,7 @@
         "autosync": "Sincronitza automàticament les partides desades",
         "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",
         "change-target-exe": "Selecciona un EXE alternatiu a executar",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Rutes del Wine o Proton personalitzades",
         "darktray": "Utilitza la icona fosca a la safata",
         "default-install-path": "Ruta d'instal·lació predefinida",

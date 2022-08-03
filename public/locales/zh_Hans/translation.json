@@ -150,6 +150,27 @@
         "syncing": "正在同步",
         "unsync": "不同步"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Documentation",
     "epic": {
         "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
@@ -237,8 +258,8 @@
         "sortByStatus": "按状态排列",
         "sortDescending": "降序排列",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "切换到网格布局",
+            "list": "切换到列表布局"
         }
     },
     "Library": "仓库",
@@ -346,6 +367,7 @@
         "autosync": "自动同步存档",
         "autovkd3d": "自动在前置中安装/更新 VKD3D",
         "change-target-exe": "选择要运行的替代 EXE",
+        "crossover-version": "Crossover Version",
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
@@ -386,7 +408,7 @@
             "disabled": "已禁用",
             "favourites": "最爱的游戏",
             "recently_played": "最近玩过的游戏",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "recently_played_installed": "最近玩过的游戏 (仅已安装）"
         },
         "library_top_section": "库的顶部",
         "log": {

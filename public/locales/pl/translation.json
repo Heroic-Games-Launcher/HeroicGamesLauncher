@@ -150,6 +150,27 @@
         "syncing": "Synchronizowanie",
         "unsync": "Desynchronizuj"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Dokumentacja",
     "epic": {
         "offline-notification-body": "Usługi online mogą nie działać w pełni, ponieważ serwery Epic Games są offline!",
@@ -268,7 +289,7 @@
             },
             "remove": {
                 "steam": {
-                    "corrupt": "Gra {{game}} nie mogła zostać usunięta dla wszystkich użytkowników Steam. Sprawdź logi po więcej informacji. Restart Steam'a jest wymagany, by zastosować zmiany.",
+                    "corrupt": "Gra {{game}} nie mogła zostać usunięta dla wszystkich użytkowników Steam. Sprawdź logi po więcej informacji. Restart Steam'a jest wymagany, by zastosować zmiany.",
                     "success": "Gra {{game}} została usunięta ze Steam. Restart Steam'a jest wymagany, by zastosować zmiany.",
                     "title": "Usunięto ze Steam"
                 }
@@ -346,6 +367,7 @@
         "autosync": "Automatyczna synchronizacja zapisów",
         "autovkd3d": "Automatyczne Instaluj/Aktualizuj VKD3D w prefiksie",
         "change-target-exe": "Wybierz alternatywny plik EXE do uruchomienia",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikon",
         "default-install-path": "Domyślna ścieżka instalacji",
@@ -386,7 +408,7 @@
             "disabled": "Wyłączone",
             "favourites": "Ulubione gry",
             "recently_played": "Ostatnio uruchamiane gry",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "recently_played_installed": "Ostatnio uruchamiane gry (Tylko zainstalowane)"
         },
         "library_top_section": "Górna sekcja Biblioteki",
         "log": {

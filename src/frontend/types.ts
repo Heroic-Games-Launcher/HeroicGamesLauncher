@@ -186,3 +186,9 @@ interface AntiCheatReference {
   date: string
   reference: string
 }
+
+declare global {
+  interface WindowEventMap {
+    'controller-changed': CustomEvent<{ controllerId: string }>
+  }
+}

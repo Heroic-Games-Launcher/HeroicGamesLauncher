@@ -50,7 +50,10 @@ export default function Sidebar() {
         )}
         <strong>{version}</strong>
       </div>
-      <span className="collapseIcon">
+      <button
+        className="collapseIcon"
+        onClick={() => setSideBarCollapsed(!sidebarCollapsed)}
+      >
         <FontAwesomeIcon
           icon={sidebarCollapsed ? faSquareCaretRight : faSquareCaretLeft}
           title={
@@ -58,9 +61,8 @@ export default function Sidebar() {
               ? t('sidebar.uncollapse', 'Uncollapse sidebar')
               : t('sidebar.collapse', 'Collapse sidebar')
           }
-          onClick={() => setSideBarCollapsed(!sidebarCollapsed)}
         />
-      </span>
+      </button>
     </aside>
   )
 }
