@@ -486,7 +486,6 @@ process.on('uncaughtException', async (err) => {
       error: err
     })
   )
-
   app.exit(1)
 })
 
