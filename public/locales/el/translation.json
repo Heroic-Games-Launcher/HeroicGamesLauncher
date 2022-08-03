@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Η έναρξη διακόπηκε! Το παιχνίδι απαιτεί σύνδεση στο διαδύκτιο για να τρέξει.",
-                "title": "Η λειτουργία εκτός σύνδεσης δεν υποστηρίζεται."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "Η κατάργηση του {{game}} από το Steam απέτυχε με:{{newLine}} {{error}}",

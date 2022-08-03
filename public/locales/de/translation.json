@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Start abgebrochen! Das Spiel benötigt eine Internetverbindung, damit es läuft.",
-                "title": "Offline-Modus wird nicht unterstützt."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",

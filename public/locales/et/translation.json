@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Käivitamine katkestatud! Mängu käivitamiseks on vaja internetiühendust.",
-                "title": "Võrguühenduseta režiim ei ole toetatud."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "Mängu {{game}} eemaldamine Steamist ebaõnnestus:{{newLine}} {{error}}",

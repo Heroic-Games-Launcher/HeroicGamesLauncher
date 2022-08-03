@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Uruchomienie przerwane! Gra wymaga połączenia z internetem aby ją uruchomić.",
-                "title": "Tryb Offline nie jest wspierany."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "Usuwanie {{game}} ze Steam'a zakończyło się błędem:{{newLine}} {{error}}",

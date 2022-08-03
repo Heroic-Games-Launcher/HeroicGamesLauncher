@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Запуск прерван! Для запуска игры требуется подключение к интернету.",
-                "title": "Автономный режим не поддерживается."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "Удаление {{game}} из Steam не удалось:{{newLine}}{{error}}",

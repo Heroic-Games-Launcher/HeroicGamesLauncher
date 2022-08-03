@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "L'execució del programa ha fallat. El joc necessita una connexió a Internet per funcionar.",
-                "title": "El mode sense connexió no està suportat."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "{{game}} no s'ha pogut treure de l'Steam a causa de:{{newLine}} {{error}}",

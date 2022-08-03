@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Avvio interrotto! Il gioco richiede una connessione a Internet per essere eseguito.",
-                "title": "Modalità offline non supportata."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "La rimozione di {{game}} da Steam è fallita con:{{newLine}} {{error}}",

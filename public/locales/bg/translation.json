@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Пускането е прекратено! Играта изисква връзка с Интернет, за да бъде пусната.",
-                "title": "Не се поддържа режим извън линия."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "Премахването на {{game}} от Steam беше неуспешно:{{newLine}} {{error}}",

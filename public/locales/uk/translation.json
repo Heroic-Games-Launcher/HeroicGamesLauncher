@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Запуск перервано! Гра потребує з'єднання з інтернетом.",
-                "title": "Автономний режим не підтримується."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "Не вдалося видалити {{game}} зі Steam, з наступною помилкою: {{newLine}} {{error}}",

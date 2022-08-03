@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",

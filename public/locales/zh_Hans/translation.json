@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "启动失败！游戏需要网络连接才能运行。",
-                "title": "不支持离线模式。"
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "从 Steam 删除 {{game}} 失败，错误：{{newLine}} {{error}}",

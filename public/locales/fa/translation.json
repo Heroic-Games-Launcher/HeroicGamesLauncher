@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "اجرا متوقف شد! بازی برای اجرا به اتصال اینترنت نیاز دارد.",
-                "title": "حالت آفلاین پشتیبانی نمیشود."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "حذف کردن {{game}} از استیم با مشکل مواجه شد:{{newLine}} {{error}}",

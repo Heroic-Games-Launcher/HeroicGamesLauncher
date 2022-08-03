@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Peluncuran dibatalkan! Gim membutuhkan koneksi internet untuk menjalankannya.",
-                "title": "Mode luring tidak didukung."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "Gagal menghapus {{game}} dari Steam dengan:{{newLine}} {{error}}",

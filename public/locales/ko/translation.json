@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "시작 실패! 게임을 실행하려면 인터넷 연결이 필요합니다.",
-                "title": "오프라인 모드는 지원되지 않습니다."
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",

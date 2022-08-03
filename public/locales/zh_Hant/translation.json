@@ -59,10 +59,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "啟動失敗！遊戲需要網路才能執行。",
-                "title": "不支持離線模式。"
-            },
+            "launchAborted": "Launch aborted",
             "remove": {
                 "steam": {
                     "body": "從 Steam 移除 {{game}} 失敗，錯誤：{{newLine}} {{error}}",
