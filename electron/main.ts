@@ -471,8 +471,22 @@ ipcMain.on('frontendReady', () => {
 })
 
 // Maybe this can help with white screens
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException', async (err) => {
   logError(`${err.name}: ${err.message}`, LogPrefix.Backend)
+  await showErrorBoxModal(
+    mainWindow,
+    i18next.t(
+      'box.error.uncaught-exception.title',
+      'Uncaught Exception occured!'
+    ),
+    i18next.t('box.error.uncaught-exception.message', {
+      defaultValue:
+        'A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.',
+      newLine: '\n',
+      error: err
+    })
+  )
+  app.exit(1)
 })
 
 let powerId: number | null

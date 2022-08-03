@@ -40,19 +40,19 @@ const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
 
-export function showErrorBoxModal(
+export async function showErrorBoxModal(
   window: BrowserWindow | undefined | null,
   title: string,
   message: string
 ) {
   if (window) {
-    showMessageBox(window, {
+    await showMessageBox(window, {
       type: 'error',
       title,
       message
     })
   } else {
-    showErrorBox(title, message)
+    await showErrorBox(title, message)
   }
 }
 
@@ -304,7 +304,7 @@ async function errorHandler(
 
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
-      .then(({ stdout }) => {
+      .then(async ({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
           logError(noSpaceMsg, LogPrefix.Backend)
           return showErrorBoxModal(
@@ -339,7 +339,7 @@ async function errorHandler(
       }
     }
 
-    otherErrorMessages.forEach((message) => {
+    otherErrorMessages.forEach(async (message) => {
       if (error.includes(message)) {
         return showErrorBoxModal(
           window,

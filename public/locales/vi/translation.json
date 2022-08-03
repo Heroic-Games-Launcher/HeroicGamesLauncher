@@ -70,6 +70,10 @@
                 }
             },
             "title": "Lỗi",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
+            },
             "update": {
                 "message": "Đã xảy ra lỗi với bản cập nhật, vui lòng kiểm tra lại log hoặc thử lại sau!",
                 "title": "Update Error"
