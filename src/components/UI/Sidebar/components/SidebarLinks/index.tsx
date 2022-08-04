@@ -240,7 +240,7 @@ export default function SidebarLinks() {
                 {isLinux && (
                   <NavLink
                     role="link"
-                    to={`/settings/${appName}/wineExt`}
+                    to={`/settings/${runner}/${appName}/wineExt`}
                     state={{ ...state, runner: state?.runner }}
                     className={classNames(
                       'Sidebar__item SidebarLinks__subItem',
