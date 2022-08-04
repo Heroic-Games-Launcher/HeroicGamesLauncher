@@ -7,7 +7,6 @@ import { join } from 'path'
 import {
   heroicToolsPath,
   isLinux,
-  isWindows,
   legendaryConfigPath
 } from '../../constants'
 import { logError, LogPrefix, logWarning } from '../../logger/logger'
