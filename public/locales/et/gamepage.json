@@ -84,7 +84,7 @@
         "disk-space-left": "Vaba ruumi",
         "not-enough-disk-space": "Ei ole piisavalt kettaruumi",
         "path": "Valige paigaldustee",
-        "path-not-writtable": "Warning: path might not be writable.",
+        "path-not-writtable": "Warning: path doesn't exists or might not be writable.",
         "space-after-install": "Pärast paigaldamist",
         "wineprefix": "WinePrefiks",
         "wineversion": "Wine'i versioon"

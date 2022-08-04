@@ -84,7 +84,7 @@
         "disk-space-left": "Space Available",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Seleccionar a ruta de instalación",
-        "path-not-writtable": "Warning: path might not be writable.",
+        "path-not-writtable": "Warning: path doesn't exists or might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "Prefixo de Wine",
         "wineversion": "Versión de Wine"
