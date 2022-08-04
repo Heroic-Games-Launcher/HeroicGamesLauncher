@@ -472,8 +472,9 @@ ipcMain.handle('kill', async (event, appName, runner) => {
 })
 
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
+  const parent = path.dirname(folder)
   return new Promise((res) => {
-    access(folder, constants.W_OK, async (writeError) => {
+    access(parent, constants.W_OK, async (writeError) => {
       const { free, size: diskSize } = await checkDiskSpace(folder).catch(
         (checkSpaceError) => {
           logError(
