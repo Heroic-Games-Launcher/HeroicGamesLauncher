@@ -4,7 +4,12 @@ import { existsSync, readFileSync } from 'graceful-fs'
 import { t } from 'i18next'
 import { join } from 'path'
 
-import { heroicToolsPath, isLinux, legendaryConfigPath } from '../../constants'
+import {
+  heroicToolsPath,
+  isLinux,
+  isWindows,
+  legendaryConfigPath
+} from '../../constants'
 import { logError, LogPrefix, logWarning } from '../../logger/logger'
 import { runLegendaryCommand } from '../library'
 import { LegendaryGame } from '../games'
@@ -198,7 +203,7 @@ async function isEnabled(appName?: string, runner?: Runner) {
   let enabled = false
 
   let prefix = ''
-  if (isLinux || !(appName && runner)) {
+  if (!isWindows && isLinux && appName && runner) {
     const game = Game.get(appName, runner)
     const { winePrefix, wineVersion } = await game.getSettings()
     prefix =
