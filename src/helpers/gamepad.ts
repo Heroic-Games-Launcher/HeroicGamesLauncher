@@ -3,6 +3,7 @@ import {
   checkGameCube,
   checkStandard,
   checkN64Clone1,
+  checkPS3Clone1,
   checkGenius1
 } from './gamepad_layouts'
 import { ipcRenderer } from 'src/helpers'
@@ -240,6 +241,8 @@ export const initGamepad = () => {
           checkN64Clone1(buttons, axes, index, checkAction)
         } else if (controller.id.match(/0583.*a009/i)) {
           checkGenius1(buttons, axes, index, checkAction)
+        } else if (controller.id.match(/2563.*0523/i)) {
+          checkPS3Clone1(buttons, axes, index, checkAction)
         } else {
           // Most controllers follow the standard layout (xbox layout) once they are supported by chromium,
           // so we can use the standard layout for them and add edge cases above.
