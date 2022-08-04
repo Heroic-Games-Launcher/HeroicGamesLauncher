@@ -203,7 +203,7 @@ async function isEnabled(appName?: string, runner?: Runner) {
   let enabled = false
 
   let prefix = ''
-  if (!isWindows && isLinux && appName && runner) {
+  if (isLinux && appName && runner) {
     const game = Game.get(appName, runner)
     const { winePrefix, wineVersion } = await game.getSettings()
     prefix =
