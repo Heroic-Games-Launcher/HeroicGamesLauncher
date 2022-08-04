@@ -598,7 +598,7 @@ function Settings() {
               toggleUseSteamRuntime={toggleUseSteamRuntime}
               isMacNative={isMacNative}
               isLinuxNative={isLinuxNative}
-              isProton={wineVersion.type === 'proton'}
+              isProton={!isWin && wineVersion?.type === 'proton'}
               appName={appName}
               defaultSteamPath={defaultSteamPath}
               setDefaultSteamPath={setDefaultSteamPath}
@@ -611,7 +611,7 @@ function Settings() {
               appName={appName}
               autoSyncSaves={autoSyncSaves}
               setAutoSyncSaves={setAutoSyncSaves}
-              isProton={!isWin && wineVersion.type === 'proton'}
+              isProton={!isWin && wineVersion?.type === 'proton'}
               winePrefix={winePrefix}
               runner={runner}
             />
