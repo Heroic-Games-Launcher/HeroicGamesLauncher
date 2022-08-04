@@ -6,7 +6,8 @@ import {
   InstallInfo,
   InstalledInfo,
   GOGImportData,
-  ExecResult
+  ExecResult,
+  CallRunnerOptions
 } from '../types'
 import { join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -19,10 +20,7 @@ import {
   libraryStore,
   installedGamesStore
 } from './electronStores'
-import {
-  getLegendaryOrGogdlCommand,
-  runLegendaryOrGogdlCommand
-} from '../launcher'
+import { callRunner } from '../launcher'
 
 export class GOGLibrary {
   private static globalInstance: GOGLibrary = null
@@ -31,6 +29,98 @@ export class GOGLibrary {
 
   private constructor() {
     this.refreshInstalled()
+  }
+  public async getSaveSyncLocation(
+    appName: string,
+    install: InstalledInfo
+  ): Promise<string> {
+    let syncPlatform = 'Windows'
+    const platform = install.platform
+    switch (platform) {
+      case 'windows':
+        syncPlatform = 'Windows'
+        break
+      case 'osx':
+        syncPlatform = 'MacOS'
+        break
+    }
+    const clientId = this.readInfoFile(appName, install.install_path)?.clientId
+
+    if (!clientId) {
+      logWarning(
+        `No clientId in goggame-${appName}.info file. Cannot resolve save path`
+      )
+      return ''
+    }
+    const response = await axios
+      .get(
+        `https://remote-config.gog.com/components/galaxy_client/clients/${clientId}?component_version=2.0.45`
+      )
+      .catch((error) => {
+        logError(
+          ['Failed to get remote config information for', appName, `${error}`],
+          LogPrefix.Gog
+        )
+        return null
+      })
+    if (!response) {
+      return ''
+    }
+    const platformInfo = response.data.content[syncPlatform]
+    const savesInfo = platformInfo.cloudStorage
+    if (!savesInfo.enabled) {
+      return ''
+    }
+
+    const location = savesInfo.locations.find(
+      (value: { name: string; location: string }) => value.name === 'saves'
+    )?.location
+
+    return location
+  }
+  /**
+   * Returns ids of games with requested features ids
+   * @param features
+   * @returns
+   */
+  private async getGamesWithFeatures(features: string[] = ['512']) {
+    const credentials = await GOGUser.getCredentials()
+    const headers = {
+      Authorization: 'Bearer ' + credentials.access_token,
+      'User-Agent': 'GOGGalaxyClient/2.0.45.61 (GOG Galaxy)'
+    }
+    const gameArray = []
+    const games = await axios
+      .get(
+        `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&feature=${features.join()}`,
+        { headers }
+      )
+      .catch((e: AxiosError) => {
+        logError(
+          [
+            'There was an error getting games with features',
+            `${features}`,
+            `${e.message}`
+          ],
+          LogPrefix.Gog
+        )
+        return null
+      })
+
+    gameArray.push(...games.data.products)
+    const numberOfPages = games?.data.totalPages
+    for (let page = 2; page <= numberOfPages; page++) {
+      logInfo(['Getting data for page', String(page)], LogPrefix.Gog)
+      const pageData = await axios.get(
+        `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page=${page}&features=${features.join()}`,
+        { headers }
+      )
+      if (pageData.data?.products) {
+        gameArray.push(...pageData.data.products)
+      }
+    }
+
+    return gameArray.map((value) => String(value.id))
   }
 
   public async sync() {
@@ -87,11 +177,16 @@ export class GOGLibrary {
 
     const gamesObjects: GameInfo[] = []
     const gamesArray = libraryStore.get('games', []) as GameInfo[]
+    const isConfigCloudSavesReady = libraryStore.get(
+      'cloud_saves_enabled',
+      false
+    )
+    const cloudSavesEnabledGames = await this.getGamesWithFeatures(['512'])
     for (const game of gameApiArray as GOGGameInfo[]) {
       let unifiedObject = gamesArray
         ? gamesArray.find((value) => value.app_name === String(game.id))
         : null
-      if (!unifiedObject) {
+      if (!unifiedObject || !isConfigCloudSavesReady) {
         let apiData = apiInfoCache.get(String(game.id)) as {
           isUpdated: boolean
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -105,10 +200,31 @@ export class GOGLibrary {
           apiData = data
           apiInfoCache.set(String(game.id), apiData)
         }
-        unifiedObject = await this.gogToUnifiedInfo(game, apiData)
+        unifiedObject = await this.gogToUnifiedInfo(
+          game,
+          apiData,
+          cloudSavesEnabledGames
+        )
       }
       gamesObjects.push(unifiedObject)
       const installedInfo = this.installedGames.get(String(game.id))
+      // If game is installed, verify if installed game supports cloud saves
+      if (
+        !isConfigCloudSavesReady &&
+        !cloudSavesEnabledGames.includes(String(game.id)) &&
+        installedInfo &&
+        installedInfo?.platform !== 'linux'
+      ) {
+        const saveLocation = await this.getSaveSyncLocation(
+          unifiedObject.app_name,
+          installedInfo
+        )
+
+        if (saveLocation) {
+          unifiedObject.cloud_save_enabled = true
+          unifiedObject.save_folder = saveLocation
+        }
+      }
       // Create new object to not write install data into library store
       const copyObject = Object.assign({}, unifiedObject)
       if (installedInfo) {
@@ -120,6 +236,7 @@ export class GOGLibrary {
     libraryStore.set('games', gamesObjects)
     libraryStore.set('totalGames', games.data.totalProducts)
     libraryStore.set('totalMovies', games.data.moviesCount)
+    libraryStore.set('cloud_saves_enabled', true)
     logInfo('Saved games data', LogPrefix.Gog)
   }
 
@@ -131,7 +248,26 @@ export class GOGLibrary {
   }
 
   public getGameInfo(slug: string): GameInfo {
-    return this.library.get(slug) || null
+    return this.library.get(slug) || this.getInstallAndGameInfo(slug) || null
+  }
+
+  public getInstallAndGameInfo(slug: string): GameInfo {
+    const lib = libraryStore.get('games')
+
+    if (!Array.isArray(lib)) {
+      return
+    }
+
+    const game: GameInfo = lib.find((value) => value.app_name === slug)
+
+    if (!game) return null
+    const installedInfo = this.installedGames.get(game.app_name)
+    if (installedInfo) {
+      game.is_installed = true
+      game.install = installedInfo
+    }
+
+    return game
   }
 
   /**
@@ -169,9 +305,8 @@ export class GOGLibrary {
       '--os',
       installPlatform
     ]
-    const command = getGogdlCommand(commandParts)
 
-    logInfo(['Getting game metadata:', command], LogPrefix.Gog)
+    logInfo('Getting game metadata.', LogPrefix.Gog)
 
     const res = await runGogdlCommand(commandParts)
     if (res.error) {
@@ -186,7 +321,18 @@ export class GOGLibrary {
     const gameObjectIndex = libraryArray.findIndex(
       (value) => value.app_name === appName
     )
+    if (
+      !libraryArray[gameObjectIndex].save_folder &&
+      this.installedGames.get(appName) &&
+      this.installedGames.get(appName)?.platform !== 'linux'
+    ) {
+      gameData.save_folder = await this.getSaveSyncLocation(
+        appName,
+        this.installedGames.get(appName)
+      )
+    }
     libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
+    libraryArray[gameObjectIndex].save_folder = gameData.save_folder
     gameData.folder_name = gogInfo.folder_name
     libraryStore.set('games', libraryArray)
     this.library.set(appName, gameData)
@@ -266,7 +412,7 @@ export class GOGLibrary {
   }
 
   // This checks for updates of Windows and Mac titles
-  // Linux installers need to be checked differenly
+  // Linux installers need to be checked differently
   public async listUpdateableGames(): Promise<string[]> {
     const installed = Array.from(this.installedGames.values())
     const updateable: Array<string> = []
@@ -336,7 +482,8 @@ export class GOGLibrary {
   public async gogToUnifiedInfo(
     info: GOGGameInfo,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    gamesdbData: any
+    gamesdbData: any,
+    cloudSavesEnabledGames: string[]
   ): Promise<GameInfo> {
     let developer: string
     let verticalCover = fallBackImage
@@ -355,10 +502,6 @@ export class GOGLibrary {
       }
       horizontalCover = `https:${info.image}.jpg`
       description = gamesdbData.game.summary['*']
-      // horizontalCover = gamesdbData._links.logo.href
-      // horizontalCover = gamesdbData.game.background.url_format
-      //   .replace('{formatter}', '')
-      //   .replace('{ext}', 'webp')
     } else {
       logWarning(
         `Unable to get covers from gamesdb for ${info.title}. Trying to get it from api.gog.com`,
@@ -385,7 +528,7 @@ export class GOGLibrary {
       art_logo: null,
       art_cover: horizontalCover,
       art_square: verticalCover,
-      cloud_save_enabled: false,
+      cloud_save_enabled: cloudSavesEnabledGames.includes(String(info.id)),
       compatible_apps: [],
       extra: {
         about: { description: description, shortDescription: '' },
@@ -479,28 +622,25 @@ export class GOGLibrary {
     return returnValue
   }
 
-  public getExecutable(appName: string): string {
+  /**
+   * Reads goggame-appName.info file and returns JSON object of it
+   * @param appName
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public readInfoFile(appName: string, installPath?: string): any {
     const gameInfo = this.getGameInfo(appName)
     const infoFileName = `goggame-${appName}.info`
-    const infoFilePath = join(gameInfo.install.install_path, infoFileName)
+    const infoFilePath = join(
+      installPath ? installPath : gameInfo.install.install_path,
+      infoFileName
+    )
 
     if (existsSync(infoFilePath)) {
-      logInfo(`Loading playTask data from ${infoFilePath}`, LogPrefix.Backend)
       const fileData = readFileSync(infoFilePath, { encoding: 'utf-8' })
 
       try {
         const jsonData = JSON.parse(fileData)
-        const playTasks = jsonData.playTasks
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const primary = playTasks.find((value: any) => value?.isPrimary)
-
-        const workingDir = primary?.workingDir
-
-        if (workingDir) {
-          return join(workingDir, primary.path)
-        }
-        return primary.path
+        return jsonData
       } catch (error) {
         logError(
           `Error reading ${fileData}, could not complete operation`,
@@ -508,8 +648,22 @@ export class GOGLibrary {
         )
       }
     }
+    return {}
+  }
 
-    return ''
+  public getExecutable(appName: string): string {
+    const jsonData = this.readInfoFile(appName)
+    const playTasks = jsonData.playTasks
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const primary = playTasks.find((value: any) => value?.isPrimary)
+
+    const workingDir = primary?.workingDir
+
+    if (workingDir) {
+      return join(workingDir, primary.path)
+    }
+    return primary.path
   }
 
   /**
@@ -625,33 +779,12 @@ export class GOGLibrary {
  */
 export async function runGogdlCommand(
   commandParts: string[],
-  options?: {
-    logFile?: string
-    env?: Record<string, string>
-    wrappers?: string[]
-    onOutput?: (output: string) => void
-  }
+  options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getGOGdlBin()
-  return runLegendaryOrGogdlCommand(
+  return callRunner(
     commandParts,
-    { name: 'GOGDL', logPrefix: LogPrefix.Gog, bin, dir },
+    { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
     options
   )
-}
-
-/**
- * Generates a "safe" GOGDL command **for formatting**.
- * Command generated by this function are not meant to be ran directly, use runGogdlCommand for that.
- * A "safe" command does not include the user's token
- * @param commandParts The command to run, e. g. 'update', 'install'...
- * @returns The full command as a string
- */
-export function getGogdlCommand(
-  commandParts: string[],
-  env: Record<string, string> = {},
-  wrappers: string[] = []
-): string {
-  const gogdlPath = join(...Object.values(getGOGdlBin()))
-  return getLegendaryOrGogdlCommand(commandParts, env, wrappers, gogdlPath)
 }

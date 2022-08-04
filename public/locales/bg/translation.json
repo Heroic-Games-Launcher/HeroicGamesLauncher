@@ -1,13 +1,21 @@
 {
     "accessibility": {
         "actions_font_family": "Семейство на шрифта за действията (по подразбиране: „Rubik“)",
-        "all_tiles_in_color": "Show all game tiles in color",
+        "all_tiles_in_color": "Показване на всички плочки с игри цветни",
         "content_font_family": "Семейство на шрифта за съдържанието (по подразбиране: „Cabin“)",
-        "fonts": "Fonts",
+        "fonts": "Шрифтове",
         "title": "Достъпност",
         "zoom": "Увеличаване"
     },
     "All": "Всички",
+    "anticheat": {
+        "anticheats": "Софтуер против мамене",
+        "may_not_work": "Може да не работи поради отказана или неработеща поддръжка на софтуера против мамене.",
+        "reference": "Справка",
+        "source": "Source",
+        "status": "Status",
+        "title": "Тази игра включва софтуер против мамене"
+    },
     "Assets": "Ресурси",
     "box": {
         "cache-cleared": {
@@ -20,24 +28,32 @@
         "choose-legendary-binary": "Изберете изпълнимия файл на Legendary",
         "customWine": "Изберете изпълнимия файл на Wine или Proton",
         "default-install-path": "Изберете пътя по подразбиране за инсталиране",
+        "default-steam-path": "Път до Steam.",
+        "downloadNow": "Download now",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Добавянето на {{game}} към Steam беше неуспешно:{{newLine}} {{error}}",
+                    "title": "Грешка при добавянето"
+                }
+            },
             "credentials": {
                 "message": "Данните Ви за удостоверяване са изтекли. Излезте и влезте отново."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "Не съществува бутилка CrossOver с име „{{bottle_name}}“. Пускането е невъзможно!",
+                "title": "Не е намерена бутилка CrossOver"
             },
             "diskspace": {
                 "message": "Няма достатъчно свободно място на диска",
                 "title": "Недостатъчно място"
             },
             "dxvk": {
-                "message": "Грешка при инсталирането на DXVK/VKD3D! Проверете връзката си, или дали имате инсталиран пакета zstd/libzstd1",
+                "message": "Грешка при инсталирането на DXVK/VKD3D! Проверете връзката си с Интернет!",
                 "title": "Грешка от DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Изглежда папката на играта е изтрита. Искате ли да премахнете играта от списъка с инсталирани?"
             },
             "generic": {
                 "message": "",
@@ -47,10 +63,16 @@
                 "message": "Пускането е прекратено! Играта изисква връзка с Интернет, за да бъде пусната.",
                 "title": "Не се поддържа режим извън линия."
             },
+            "remove": {
+                "steam": {
+                    "body": "Премахването на {{game}} от Steam беше неуспешно:{{newLine}} {{error}}",
+                    "title": "Грешка при премахването"
+                }
+            },
             "title": "Грешка",
             "update": {
                 "message": "Нещо се обърка при обновяването. Проверете журналите или опитайте отново по-късно!",
-                "title": "Update Error"
+                "title": "Грешка при обновяването"
             },
             "wine-not-found": {
                 "message": "Няма избрана версия на Wine. Проверете настройките на играта!",
@@ -93,12 +115,22 @@
         },
         "shortcuts": {
             "message": "Бяха създадени преки пътища на работния плот и в менюто с приложения",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Преки пътища"
         },
         "sync": {
             "button": "Избиране",
             "error": "Неправилен път",
             "title": "Изберете папка за запазване на файлове"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -118,18 +150,46 @@
         "syncing": "Синхронизиране",
         "unsync": "Десинхронизиране"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
+    "docs": "Документация",
     "epic": {
         "offline-notification-body": "Услугите, зависещи от Интернет, може да не работят изцяло, тъй като сървърите на Epic Games не са достъпни!",
-        "offline-notification-title": "offline"
+        "offline-notification-title": "извън линия"
     },
     "Epic Games": "Epic Games",
     "favourites": "Любими",
+    "game": {
+        "status": "Състояние",
+        "store": "Магазин",
+        "title": "Име на играта"
+    },
+    "GameSettings": "Настройки на играта",
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Няма намерени игри. Опитайте да излезете и влезете пак с регистрацията си, или пробвайте един от вариантите по-долу"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Опресняване на библиотеката"
         }
     },
     "globalSettings": "Глобални настройки",
@@ -138,25 +198,40 @@
     "header": {
         "ignore_hidden": "Пренебрегване на скритите",
         "platform": "Платформа",
-        "show_hidden": "Показване на скритите"
+        "show_all_games": "Показване на всички игри",
+        "show_favourites_only": "Показване само на любимите",
+        "show_hidden": "Показване на скритите",
+        "store": "Филтриране на магазина"
     },
     "help": {
+        "amdfsr": "Технологията FSR на AMD помага за увеличаване на броя кадри в секунда, като скалира по-ниските разделителни способности към по-високи, когато сте в режим на цял екран. Качеството на картината се увеличава от 5 до 1 на цената на малка намаляване на производителността. Включването на това може да подобри производителността.",
+        "dxvk": "DXVK е базиран на Vulkan междинен слой за игри ползващи DirectX 9, 10 или 11. Включването му може да подобри съвместимостта. Може да предизвика проблеми при по-стари игри използващи DirectX.",
+        "esync": "Esync има за цел да намали натоварването причинено от wineserver за игри, които значително натоварват централния процесор. Включването му може да подобри производителността.",
+        "fsync": "Fsync има за цел да намали натоварването причинено от wineserver за игри, които значително натоварват централния процесор. Включването му може да подобри производителността при условие, че се ползва някое от поддържаните ядра на Линукс.",
+        "game_language": {
+            "fallback": "Оставете това празно, за да използвате езика на Heroic.",
+            "in_game_config": "Не всички игри поддържат това. Някои имат настройка за езика вътре в играта.",
+            "valid_codes": "Допустимите кодове на езици зависят от играта."
+        },
+        "gamemode": "Feral GameMode автоматично прилага малки временни промени в настройките на системата, докато е пусната игра. Включването му може да подобри производителността.",
         "general": "Синхронизирайте с EGS, в случай че вече имате работеща инсталация на Epic Games Launcher и искате да внесете игрите си от там, за да избегнете повторното им сваляне.",
+        "mangohud": "MangoHUD слой върху играта, който следи и показва кадрите/сек, натоварването на ЦП и ГП, както и други системни ресурси.",
         "other": {
-            "part1": "Използвайте ",
-            "part2": "Разширените настройки",
-            "part3": "които да се викнат преди пускането на играта; ",
             "part4": "Използвайте ",
             "part5": "Аргументите за играта",
             "part6": " които да се викнат след командата за пускане, например: ",
             "part7": " за да се пропусне стартиращата програма в някои игри и т.н."
         },
+        "preferSystemLibs": "Вариациите на Wine (Wine-GE, Wine-Lutris) вървят със своите собствени библиотечни зависимости. Ако включите тази настройка, те ще бъдат пренебрегнати и Wine ще ползва системните библиотеки. Внимание! Ако зависимостите не са изпълнени, може да има проблеми.",
+        "resizablebar": "Технологията „Resizable Bar“ на NVIDIA помага за увеличаване на броя кадри в секунда, като дава на централния процесор достъп до целия графичен буфер. Включването на това може да подобри производителността за игри използващи Vulkan.",
+        "steamruntime": "Специални библиотеки осигурени от Steam, които помагат за пускането на игри за Линукс и Уиндоус (чрез Proton). Включването им може да подобри съвместимостта.",
         "sync": {
             "part1": "Heroic се опитва да отгатне правилната папка за съхранение. В повечето случаи това работи както трябва, но в случай че папката е грешна, използвайте полето, за да въведете друга.",
             "part2": "Ако промените папката за префикс на Wine или Proton, ще трябва да проверите пътя отново, тъй като Proton използва различен префикс (/pfx) и потребителско име (steamuser). Можете просто да изтриете текущия път, да излезете от настройките за синхронизация и да влезете отново, така че Heroic да се опита да отгатне папката още веднъж, с правилния префикс.",
             "part3": "Ръчно синхронизиране: изберете „Сваляне“, за да свалите запазените файлове за игрите си, съхранявани в облака. „Качване“ ще качи файловете от този компютър в облака. „Принудително сваляне“ и „Принудително качване“ ще пренебрегнат версията, която е налична съответно на този компютър или в облака.",
             "part4": "Автоматичното синхронизиране на запазените файлове ще ги синхронизира всеки пък, когато пуснете игра, както и след като я спрете."
         },
+        "vkd3d": "VKD3D е базиран на Vulkan междинен слой за игри ползващи DirectX 12. Включването му може значително да подобри съвместимостта. Няма ефект при по-стари игри използващи DirectX.",
         "wine": {
             "part1": "Heroic търси версии на Wine, Proton и CrossOver в следните папки:",
             "part2": "За други места използвайте символна връзка към една от тези папки"
@@ -164,24 +239,28 @@
     },
     "info": {
         "heroic": {
-            "version": "Heroic Version"
+            "version": "Версия на Heroic"
         },
-        "settings": "Настройките се запазват автоматично"
+        "settings": "Настройките се запазват автоматично",
+        "version": "Версия на Wine"
     },
     "infobox": {
         "help": "Помощ",
-        "requirements": "Системни изисквания"
+        "requirements": "Системни изисквания",
+        "wine-path": "Път до Wine"
     },
     "install": {
         "path": "Изберете местоположение за инсталиране"
     },
     "library": {
-        "gridView": "Изглед във вид на решетка",
-        "listView": "Изглед във вид на списък",
         "refresh": "Опресняване",
         "sortAscending": "Подреждане във възходящ ред",
         "sortByStatus": "Подреждане по състояние",
-        "sortDescending": "Подреждане в низходящ ред"
+        "sortDescending": "Подреждане в низходящ ред",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Библиотека",
     "loading": {
@@ -195,14 +274,26 @@
         "sync": "Синхронизацията е завършена",
         "unsync": "Десинхронизацията е завършена"
     },
-    "Missing Dependency": "",
-    "nogames": "Няма намерени игри",
     "notify": {
         "error": {
             "move": "Грешка при преместването на играта",
             "reparing": "Грешка при поправянето"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} не може да се добави за всички намерени потребители на Steam. Вижте журнала за подробности.  За да влязат промените в сила, трябва да рестартирате Steam.",
+                    "success": "Добавянето на {{game}} в Steam беше успешно. За да влязат промените в сила, трябва да рестартирате Steam.",
+                    "title": "Добавено в Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} не може да се премахне от всички намерени потребители на Steam. Вижте журнала за подробности.  За да влязат промените в сила, трябва да рестартирате Steam.",
+                    "success": "Премахването на {{game}} от Steam беше успешно.  За да влязат промените в сила, трябва да рестартирате Steam.",
+                    "title": "Премахнато от Steam"
+                }
+            },
             "reparing": "Поправката е завършена"
         },
         "install": {
@@ -213,8 +304,9 @@
             "startInstall": "Инсталацията е започната"
         },
         "moved": "Преместването е завършено",
+        "moving": "Преместване на играта",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "Не могат да бъдат получени изданията от отдалеченото хранилище, може би поради ограничения на ППИ на Github! Опитайте отново по-късно."
         },
         "uninstalled": "Деинсталирано",
         "update": {
@@ -225,12 +317,24 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Тук можете да въведете други аргументи за пускане",
-            "title": "Разширени настройки (променливи на средата):"
+            "key": "Variable Name",
+            "placeHolderKey": "NAME",
+            "placeHolderValue": "Пример: път/до/допълните/файлове",
+            "title": "Разширени настройки (променливи на средата):",
+            "value": "Стойност"
         },
         "gameargs": {
             "placeholder": "Въведете аргументите за пускане тук",
             "title": "Аргументи за играта (които да се изпълнят след командата):"
+        },
+        "quote-args-with-spaces": "Внимание: ако има аргументи с интервали, оградете пътя с кавички! Пример: \"път/с интервали/\"",
+        "wrapper": {
+            "args": "Аргументи",
+            "arguments_example": "Примерни аргументи: --arg; --extra-file=\"път/с интервали\"",
+            "exe": "Обвивка",
+            "placeHolderKey": "Нова обвивка",
+            "placeHolderValue": "Аргументи на обвивката",
+            "title": "Команда на обвивката:"
         }
     },
     "other": {
@@ -241,7 +345,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Използване на вградения изпълним файл на GOGDL…",
         "alt-legendary-bin": "Използване на вградения изпълним файл на Legendary…",
-        "egs-prefix": "Префикс, където е инсталиран EGS"
+        "egs-prefix": "Префикс, където е инсталиран EGS",
+        "prefered_language": "Код съставен от 2 знака (например: „en“ или „fr“)"
     },
     "platforms": {
         "linux": "Линукс",
@@ -251,7 +356,7 @@
     "Plugins": "Добавки",
     "Projects": "Проекти",
     "Recent": "Играно наскоро",
-    "search": "Въведете името на играта...",
+    "search": "Търсене на игри",
     "setting": {
         "adddesktopshortcuts": "Автоматично добавяне на преки пътища на работния плот",
         "addgamestostartmenu": "Автоматично добавяне на игрите в менюто с приложения",
@@ -262,14 +367,37 @@
         "autosync": "Автоматично синхронизиране на запазените файлове",
         "autovkd3d": "Автоматично инсталиране/обновяване на VKD3D в префикса",
         "change-target-exe": "Изберете алтернативен файл EXE за изпълнение",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Персонализирани пътища за Wine/Proton",
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
         "default-install-path": "Папка по подразбиране за инсталации",
+        "default-steam-path": "Път по подразбиране до Steam",
         "defaultWinePrefix": "Задаване на папка за нови префикси на Wine",
         "disable_controller": "Изключване на навигирането в Heroic посредством контролер",
         "discordRPC": "Включване на актуализирането на присъствието в Дискорд",
+        "download-no-https": "Сваляне на игри без HTTPS (полезно за мрежи за доставка на съдържание, като LanCache)",
         "egs-sync": "Синхронизиране с вече инсталиран Epic Games",
         "enableFSRHack": "Включване на хака FSR (версията на Wine трябва да го поддържа)",
+        "eosOverlay": {
+            "cancelInstall": "Отказ",
+            "checkForUpdates": "Проверка за обновления",
+            "checkingForUpdates": "Проверяване за обновления…",
+            "currentVersion": "Текуща версия: {{version}}",
+            "disable": "Изключване",
+            "enable": "Включване",
+            "install": "Инсталиране",
+            "installed": "Слоят на EOS е инсталиран",
+            "installing": "Слоят на EOS се инсталира…",
+            "latestVersion": "Последна версия: {{version}}",
+            "notInstalled": "Слоят на EOS не е инсталиран",
+            "notInstalledMsg": "Слоят на EOS не е инсталиран. Искате ли да го инсталирате сега?",
+            "notInstalledTitle": "Слоят не е инсталиран",
+            "remove": "Деинсталиране",
+            "removeConfirm": "Наистина ли искате да деинсталирате слоя на EOS?",
+            "removeConfirmTitle": "Потвърждаване на премахването на слоя",
+            "updateNow": "Update",
+            "updating": "Обновяване…"
+        },
         "esync": "Включване на Esync",
         "exit-to-tray": "Затваряне в системната област за уведомления",
         "FsrSharpnessStrenght": "Сила на остротата на FSR",
@@ -279,7 +407,8 @@
         "library_top_option": {
             "disabled": "Изключено",
             "favourites": "Любими игри",
-            "recently_played": "Наскоро пускани игри"
+            "recently_played": "Наскоро пускани игри",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Горна секция на библиотеката",
         "log": {
@@ -305,6 +434,8 @@
         "maxworkers": "Максимален брой работни процеси при сваляне",
         "minimize-on-launch": "Минимизиране на Heroic при пускане на игра",
         "offlinemode": "Пускане на играта в режим „извън линия“",
+        "prefered_language": "Предпочитан език (код на езика)",
+        "preferSystemLibs": "Да се предпочитат системните библиотеки",
         "primerun": "Използване на отделната видео-карта",
         "resizableBar": "Включване на „Resizable BAR“ (Само за NVIDIA RTX 30xx)",
         "runexe": {
@@ -319,30 +450,58 @@
         "showUnrealMarket": "Показване на Пазара на Unreal (изисква рестартиране)",
         "start-in-tray": "Стартиране в минимизирано състояние",
         "steamruntime": "Използване на средата за изпълнение на Steam",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "Бутилка CrossOver",
         "wineprefix": "Папка за префикс на Wine",
         "wineversion": "Версия на Wine"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Изчистване на кеша на Heroic",
         "copiedToClipboard": "Копирано в буфера за обмен!",
         "copyToClipboard": "Копиране на всички настройки в буфера за обмен",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
+        },
         "log": {
             "long-log-hint": "Журналът е отрязан. Показани са последните 1000 реда!"
         },
         "navbar": {
             "advanced": "Разширени",
             "general": "Общи",
-            "log": "Log",
+            "log": "Журнал",
             "other": "Други",
-            "sync": "Синхронизиране на запазените файлове"
+            "sync": "Синхронизиране на запазените файлове",
+            "wineExt": "Wine Extensions"
         },
-        "open-config-file": "Open Config File",
-        "reset-heroic": "Зачистване на Heroic"
+        "open-config-file": "Отваряне на конфигурационния файл",
+        "reset-heroic": "Зачистване на Heroic",
+        "saves": {
+            "warning": "Функционалността за съхраняване на запазените игри в облака е в състояние на Бета. Направете резервно копие на запазените си игри, преди да синхронизирате (в случай, че нещо се обърка)"
+        }
     },
     "Settings": "Настройки",
+    "sidebar": {
+        "collapse": "Свиване на страничната лента",
+        "uncollapse": "Разпъване на страничната лента"
+    },
     "status": {
-        "logging": "Влизане…"
+        "installing": "Инсталиране",
+        "logging": "Влизане…",
+        "processing": "Файловете се обработват, изчакайте"
     },
     "store": "Мазагин на Epic",
     "stores": "Магазини",
@@ -363,14 +522,12 @@
         "addpath": "Добавяне на нов път",
         "removepath": "Премахване на пътя"
     },
-    "Total Games": "Общ брой игри",
     "tray": {
         "about": "Относно",
         "quit": "Изход",
         "reload": "Презареждане",
         "show": "Показване"
     },
-    "Unreal Marketplace": "Пазар на Unreal",
     "userselector": {
         "discord": "Дискорд",
         "logout": "Излизане",
@@ -386,14 +543,15 @@
             "reload": "Презареждане на страницата"
         }
     },
-    "wiki": "Уики",
     "wine": {
+        "actions": "Действие",
         "manager": {
             "error": "В момента не могат да бъдат получени версиите на Wine/Proton.",
             "link": "Управление на Wine",
             "title": "Управление на Wine",
             "unzipping": "Разархивиране"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Дата на изданието",
+        "size": "Размер"
+    }
 }

@@ -1,8 +1,8 @@
 import { WineInstallation } from './types'
 import * as axios from 'axios'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { exec } from 'child_process'
-import { existsSync, readFileSync } from 'graceful-fs'
+import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
+import { exec, spawn } from 'child_process'
 
 import {
   execAsync,
@@ -17,7 +17,7 @@ import { dirname } from 'path'
 
 export const DXVK = {
   getLatest: async () => {
-    if (!(await isOnline())) {
+    if (!isOnline()) {
       logWarning(
         'App offline, skipping possible DXVK update.',
         LogPrefix.DXVKInstaller
@@ -28,13 +28,13 @@ export const DXVK = {
     const tools = [
       {
         name: 'vkd3d',
-        url: 'https://api.github.com/repos/HansKristian-Work/vkd3d-proton/releases/latest',
-        extractCommand: 'tar -I zstd -xvf'
+        url: 'https://api.github.com/repos/bottlesdevs/vkd3d-proton/releases/latest',
+        extractCommand: 'tar -xf'
       },
       {
         name: 'dxvk',
         url: 'https://api.github.com/repos/doitsujin/dxvk/releases/latest',
-        extractCommand: 'tar -zxf'
+        extractCommand: 'tar -xf'
       }
     ]
 
@@ -80,14 +80,6 @@ export const DXVK = {
               )
             )
             .catch((error) => {
-              if (tool.name === 'vkd3d') {
-                showErrorBoxModalAuto(
-                  i18next.t('Missing Dependency'),
-                  i18next.t(
-                    'ZSTD was not found, please install it and restart Heroic'
-                  )
-                )
-              }
               logError(
                 `Extraction of ${tool.name} failed with: ${error}`,
                 LogPrefix.DXVKInstaller
@@ -105,7 +97,7 @@ export const DXVK = {
             i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
             i18next.t(
               'box.error.dxvk.message',
-              'Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed'
+              'Error installing DXVK/VKD3D! Check your connection!'
             )
           )
         })
@@ -153,7 +145,6 @@ export const DXVK = {
     }
 
     const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh install --symlink`
-    const updatedVersionfile = `echo '${globalVersion}' > ${currentVersionCheck}`
 
     if (action === 'restore') {
       logInfo(`Removing ${tool} version information`, LogPrefix.DXVKInstaller)
@@ -180,7 +171,7 @@ export const DXVK = {
     await execAsync(installCommand, { shell: '/bin/bash' })
       .then(() => {
         logInfo(`${tool} installed on ${winePrefix}`, LogPrefix.DXVKInstaller)
-        return exec(updatedVersionfile)
+        return writeFileSync(currentVersionCheck, globalVersion)
       })
       .catch((error) => {
         logError(
@@ -224,21 +215,29 @@ export const Winetricks = {
 
     const winepath = dirname(wineBin)
 
-    // use wine instead of wine64 since it breaks on flatpak
-    const command = `WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`
-
-    logInfo(['trying to run', command], LogPrefix.Backend)
-    try {
-      const { stderr, stdout } = await execAsync(command, execOptions)
-      logInfo(`Output: ${stderr} \n ${stdout}`)
-    } catch (error) {
-      logError(
-        [
-          `Something went wrong! Check if WineTricks is available and ${wineBin} exists`,
-          `${error}`
-        ],
-        LogPrefix.Backend
-      )
+    const envs = {
+      ...process.env,
+      WINEPREFIX: winePrefix,
+      PATH: `${winepath}:${process.env.PATH}`
     }
+
+    logInfo(
+      `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`,
+      LogPrefix.WineTricks
+    )
+
+    const child = spawn(winetricks, ['-q'], { env: envs })
+
+    child.stdout.on('data', (data: Buffer) => {
+      logInfo(data.toString(), LogPrefix.WineTricks)
+    })
+
+    child.stderr.on('data', (data: Buffer) => {
+      logError(data.toString(), LogPrefix.WineTricks)
+    })
+
+    child.on('error', (error) => {
+      logError(`Winetricks throwed Error: ${error}`, LogPrefix.WineTricks)
+    })
   }
 }

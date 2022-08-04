@@ -8,7 +8,9 @@ function currentElement() {
 }
 
 function searchInput() {
-  return document.querySelector('.searchInput') as HTMLInputElement
+  // only change this if you change the id of the input element
+  // in src/components/UI/SearchBar/index.tsx
+  return document.querySelector('#search') as HTMLInputElement
 }
 
 function focusKeyboard() {
@@ -28,6 +30,8 @@ function typeInSearchInput(button: string) {
     if (input.value.length > 0) {
       input.value = input.value.slice(0, -1)
     }
+  } else if (button === '{space}') {
+    input.value = input.value + ' '
   }
   input.dispatchEvent(new Event('input'))
 }
@@ -57,5 +61,8 @@ export const VirtualKeyboardController = {
   },
   backspace: () => {
     typeInSearchInput('{bksp}')
+  },
+  space: () => {
+    typeInSearchInput(' ')
   }
 }

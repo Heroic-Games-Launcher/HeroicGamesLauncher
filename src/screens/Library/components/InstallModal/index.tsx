@@ -9,7 +9,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
 import classNames from 'classnames'
-import { IpcRenderer } from 'electron'
 
 import React, {
   useCallback,
@@ -38,6 +37,7 @@ import {
 import ContextProvider from 'src/state/ContextProvider'
 import {
   AppSettings,
+  GameInfo,
   GameStatus,
   InstallInfo,
   InstallProgress,
@@ -52,15 +52,13 @@ import {
   DialogFooter,
   DialogHeader
 } from 'src/components/UI/Dialog'
+import Anticheat from 'src/components/UI/Anticheat'
 
 import './index.css'
 
 import { SDL_GAMES, SelectiveDownload } from './selective_dl'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+import { ipcRenderer } from 'src/helpers'
 type Props = {
   appName: string
   backdropClick: () => void
@@ -114,7 +112,8 @@ export default function InstallModal({
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
   )[0]
-  const [gameInstallInfo, setGameInfo] = useState({} as InstallInfo)
+  const [gameInfo, setGameInfo] = useState({} as GameInfo)
+  const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
   const [installDlcs, setInstallDlcs] = useState(false)
   const [winePrefix, setWinePrefix] = useState('...')
   const [wineVersion, setWineVersion] = useState<WineInstallation | undefined>(
@@ -305,7 +304,8 @@ export default function InstallModal({
         return
       }
       const gameData = await getGameInfo(appName, runner)
-      setGameInfo(gameInstallInfo)
+      setGameInfo(gameData)
+      setGameInstallInfo(gameInstallInfo)
       if (gameInstallInfo.manifest?.languages) {
         setInstallLanguages(gameInstallInfo.manifest.languages)
         setInstallLanguage(
@@ -382,12 +382,14 @@ export default function InstallModal({
         )
         if (Array.isArray(newWineList)) {
           setWineVersionList(newWineList)
-          if (
-            !newWineList.some(
-              (newWine) => wineVersion && newWine.bin === wineVersion.bin
-            )
-          ) {
-            setWineVersion(undefined)
+          if (wineVersion?.bin) {
+            if (
+              !newWineList.some(
+                (newWine) => wineVersion && newWine.bin === wineVersion.bin
+              )
+            ) {
+              setWineVersion(undefined)
+            }
           }
         }
       })()
@@ -417,6 +419,7 @@ export default function InstallModal({
                 />
               ))}
             </DialogHeader>
+            <Anticheat gameInfo={gameInfo} />
             <DialogContent>
               <div className="InstallModal__sizes">
                 <div className="InstallModal__size">

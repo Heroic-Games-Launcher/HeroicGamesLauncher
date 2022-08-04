@@ -7,15 +7,23 @@ import {
   faUniversalAccess
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { openDiscordLink } from 'src/helpers'
 import classNames from 'classnames'
-import cx from 'classnames'
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink, useLocation } from 'react-router-dom'
-import { getAppSettings } from 'src/helpers'
+import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
+import {
+  faCoffee,
+  faUserAlt,
+  faWineGlass
+} from '@fortawesome/free-solid-svg-icons'
+import { ipcRenderer } from 'src/helpers'
+
 import ContextProvider from 'src/state/ContextProvider'
-import { Category, Runner } from 'src/types'
+import { Runner } from 'src/types'
 import './index.css'
+import QuitButton from '../QuitButton'
 
 interface LocationState {
   fromGameCard: boolean
@@ -27,20 +35,22 @@ interface LocationState {
 
 export default function SidebarLinks() {
   const { t } = useTranslation()
-  const [showUnrealMarket, setShowUnrealMarket] = useState(false)
+  const navigate = useNavigate()
   const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
   const [appName, type] = location.pathname
     .replaceAll('/settings/', '')
     .split('/')
 
-  const { epic, gog, category, handleCategory, handleFilter, platform } =
-    useContext(ContextProvider)
+  const { epic, gog, platform } = useContext(ContextProvider)
 
-  const isLibrary = location.pathname === '/'
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
-  const isDefaultSetting = location.pathname.startsWith('/settings/default')
+  const [isDefaultSetting, setIsDefaultSetting] = useState(
+    location.pathname.startsWith('/settings/default')
+  )
+  const [settingsPath, setSettingsPath] = useState('/settings/default/general')
+  const [isFullscreen, setIsFullscreen] = useState(false)
 
   const {
     hasCloudSave = false,
@@ -48,31 +58,34 @@ export default function SidebarLinks() {
     isMacNative = false
   } = state || {}
   const isWin = platform === 'win32'
+  const isMac = platform === 'darwin'
   const isLinuxGame = isLinuxNative && platform === 'linux'
-  const isMacGame = isMacNative && platform === 'darwin'
+  const isMacGame = isMacNative && isMac
+  const isLinux = platform === 'linux'
 
   const shouldRenderWineSettings = !isWin && !isMacGame && !isLinuxGame
 
-  const showLibrarySubmenu =
-    ((epic.username && gog.username) || (epic.username && showUnrealMarket)) &&
-    isLibrary
-
   const loggedIn = epic.username || gog.username
 
-  const toggleCategory = useCallback(
-    (newCategory: Category) => {
-      if (category !== newCategory) {
-        handleCategory(newCategory)
-        handleFilter(newCategory === 'unreal' ? 'unreal' : 'all')
-      }
-    },
-    [category, handleCategory, handleFilter]
-  )
+  useEffect(() => {
+    let tmpAppName = ''
+    if (location.pathname.startsWith('/gamepage/')) {
+      tmpAppName = location.pathname.replace('/gamepage/', '')
+    } else {
+      tmpAppName = appName !== 'default' ? appName : ''
+    }
+
+    if (tmpAppName) {
+      setSettingsPath(`/settings/${tmpAppName}/wine`)
+      setIsDefaultSetting(false)
+    } else {
+      setSettingsPath('/settings/default/general')
+      setIsDefaultSetting(true)
+    }
+  }, [location])
 
   useEffect(() => {
-    getAppSettings().then(({ showUnrealMarket }) =>
-      setShowUnrealMarket(showUnrealMarket)
-    )
+    ipcRenderer.invoke('isFullscreen').then((res) => setIsFullscreen(res))
   }, [])
 
   return (
@@ -86,9 +99,9 @@ export default function SidebarLinks() {
         >
           <>
             <div className="Sidebar__itemIcon">
-              <FontAwesomeIcon icon={faGamepad} />
+              <FontAwesomeIcon icon={faGamepad} title={t('Library')} />
             </div>
-            {t('Library')}
+            <span>{t('Library')}</span>
           </>
         </NavLink>
       )}
@@ -101,176 +114,204 @@ export default function SidebarLinks() {
         >
           <>
             <div className="Sidebar__itemIcon">
-              <FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon
+                icon={faUser}
+                title={t('button.login', 'Login')}
+              />
             </div>
-            {t('button.login', 'Login')}
+            <span>{t('button.login', 'Login')}</span>
           </>
         </NavLink>
       )}
-      {showLibrarySubmenu && (
-        <>
-          {epic.username && (
-            <a
-              href="#"
-              onClick={() => toggleCategory('legendary')}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
-                ['active']: category === 'legendary'
-              })}
+      <div className="SidebarItemWithSubmenu">
+        <NavLink
+          className={({ isActive }) =>
+            classNames('Sidebar__item', { active: isActive })
+          }
+          to="/epicstore"
+        >
+          <>
+            <div className="Sidebar__itemIcon">
+              <FontAwesomeIcon icon={faStore} title={t('stores', 'Stores')} />
+            </div>
+            <span>{t('stores', 'Stores')}</span>
+          </>
+        </NavLink>
+        {isStore && (
+          <div className="SidebarSubmenu">
+            <NavLink
+              data-testid="store"
+              className={({ isActive }) =>
+                classNames('Sidebar__item', 'SidebarLinks__subItem', {
+                  active: isActive
+                })
+              }
+              to="/epicstore"
             >
-              {t('Epic Games', 'Epic Games')}
-            </a>
-          )}
-          {gog.username && (
-            <a
-              href="#"
-              onClick={() => toggleCategory('gog')}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
-                ['active']: category === 'gog'
-              })}
+              <span>{t('store', 'Epic Store')}</span>
+            </NavLink>
+            <NavLink
+              data-testid="store"
+              className={({ isActive }) =>
+                classNames('Sidebar__item', 'SidebarLinks__subItem', {
+                  active: isActive
+                })
+              }
+              to="/gogstore"
             >
-              {t('GOG', 'GOG')}
-            </a>
-          )}
-          {showUnrealMarket && epic.username && (
-            <a
-              href="#"
-              onClick={() => toggleCategory('unreal')}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
-                ['active']: category === 'unreal'
-              })}
-            >
-              {t('Unreal Marketplace', 'Unreal Marketplace')}
-            </a>
-          )}
-        </>
-      )}
-      <NavLink
-        className={({ isActive }) =>
-          classNames('Sidebar__item', { active: isActive })
-        }
-        to="/epicstore"
-      >
-        <>
-          <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon icon={faStore} />
+              <span>{t('gog-store', 'GOG Store')}</span>
+            </NavLink>
           </div>
-          {t('stores', 'Stores')}
-        </>
-      </NavLink>
-      {isStore && (
-        <>
-          <NavLink
-            data-testid="store"
-            className={({ isActive }) =>
-              classNames('Sidebar__item', 'SidebarLinks__subItem', {
-                active: isActive
-              })
-            }
-            to="/epicstore"
-          >
-            {t('store', 'Epic Store')}
-          </NavLink>
-          <NavLink
-            data-testid="store"
-            className={({ isActive }) =>
-              classNames('Sidebar__item', 'SidebarLinks__subItem', {
-                active: isActive
-              })
-            }
-            to="/gogstore"
-          >
-            {t('gog-store', 'GOG Store')}
-          </NavLink>
-        </>
-      )}
-      <NavLink
-        data-testid="settings"
-        className={({ isActive }) =>
-          classNames('Sidebar__item', { active: isActive })
-        }
-        to={{ pathname: '/settings/default/general' }}
-        state={{ fromGameCard: false }}
-      >
-        <>
-          <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon icon={faSlidersH} />
+        )}
+      </div>
+      <div className="divider" />
+      <div className="SidebarItemWithSubmenu">
+        <NavLink
+          data-testid="settings"
+          className={({ isActive }) =>
+            classNames('Sidebar__item', { active: isActive })
+          }
+          to={{ pathname: settingsPath }}
+          state={{ fromGameCard: false }}
+        >
+          <>
+            <div className="Sidebar__itemIcon">
+              <FontAwesomeIcon
+                icon={faSlidersH}
+                title={
+                  isDefaultSetting
+                    ? t('Settings')
+                    : t('GameSettings', 'Game Settings')
+                }
+              />
+            </div>
+            <span>
+              {isDefaultSetting
+                ? t('Settings')
+                : t('GameSettings', 'Game Settings')}
+            </span>
+          </>
+        </NavLink>
+        {isSettings && (
+          <div className="SidebarSubmenu settings">
+            {isDefaultSetting && (
+              <NavLink
+                role="link"
+                to={{ pathname: '/settings/default/general' }}
+                state={{ fromGameCard: false }}
+                className={classNames('Sidebar__item SidebarLinks__subItem', {
+                  ['active']: type === 'general'
+                })}
+              >
+                <span>{t('settings.navbar.general')}</span>
+              </NavLink>
+            )}
+            {shouldRenderWineSettings && (
+              <>
+                <NavLink
+                  role="link"
+                  to={`/settings/${appName}/wine`}
+                  state={{ ...state, runner: state?.runner }}
+                  className={classNames('Sidebar__item SidebarLinks__subItem', {
+                    ['active']: type === 'wine'
+                  })}
+                >
+                  <span>{isMac ? 'Crossover' : 'Wine'}</span>
+                </NavLink>
+                {isLinux && (
+                  <NavLink
+                    role="link"
+                    to={`/settings/${appName}/wineExt`}
+                    state={{ ...state, runner: state?.runner }}
+                    className={classNames(
+                      'Sidebar__item SidebarLinks__subItem',
+                      {
+                        ['active']: type === 'wineExt'
+                      }
+                    )}
+                  >
+                    <span>
+                      {t('settings.navbar.wineExt', 'Wine Extensions')}
+                    </span>
+                  </NavLink>
+                )}
+              </>
+            )}
+            {hasCloudSave && !isLinuxGame && (
+              <NavLink
+                role="link"
+                data-testid="linkSync"
+                to={`/settings/${appName}/sync`}
+                state={{ ...state, runner: state?.runner }}
+                className={classNames('Sidebar__item SidebarLinks__subItem', {
+                  ['active']: type === 'sync'
+                })}
+              >
+                <span>{t('settings.navbar.sync')}</span>
+              </NavLink>
+            )}
+            <NavLink
+              role="link"
+              to={`/settings/${appName}/other`}
+              state={{ ...state, runner: state?.runner }}
+              className={classNames('Sidebar__item SidebarLinks__subItem', {
+                ['active']: type === 'other'
+              })}
+            >
+              <span>{t('settings.navbar.other')}</span>
+            </NavLink>
+            {isDefaultSetting && (
+              <NavLink
+                role="link"
+                to={`/settings/${appName}/advanced`}
+                state={{ ...state, runner: state?.runner }}
+                className={classNames('Sidebar__item SidebarLinks__subItem', {
+                  ['active']: type === 'advanced'
+                })}
+              >
+                <span>{t('settings.navbar.advanced', 'Advanced')}</span>
+              </NavLink>
+            )}
+            <NavLink
+              role="link"
+              to={`/settings/${appName}/log`}
+              state={{ ...state, runner: state?.runner }}
+              className={classNames('Sidebar__item SidebarLinks__subItem', {
+                ['active']: type === 'log'
+              })}
+            >
+              <span>{t('settings.navbar.log', 'Log')}</span>
+            </NavLink>
           </div>
-          {t('Settings')}
-        </>
-      </NavLink>
-      {isSettings && (
-        <>
-          {isDefaultSetting && (
-            <NavLink
-              role="link"
-              to={{ pathname: '/settings/default/general' }}
-              state={{ fromGameCard: false }}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
-                ['active']: type === 'general'
-              })}
-            >
-              {t('settings.navbar.general')}
-            </NavLink>
-          )}
-          {shouldRenderWineSettings && (
-            <NavLink
-              role="link"
-              to={`/settings/${appName}/wine`}
-              state={{ ...state, runner: state?.runner }}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
-                ['active']: type === 'wine'
-              })}
-            >
-              Wine
-            </NavLink>
-          )}
-          {hasCloudSave && (
-            <NavLink
-              role="link"
-              data-testid="linkSync"
-              to={`/settings/${appName}/sync`}
-              state={{ ...state, runner: state?.runner }}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
-                ['active']: type === 'sync'
-              })}
-            >
-              {t('settings.navbar.sync')}
-            </NavLink>
-          )}
-          <NavLink
-            role="link"
-            to={`/settings/${appName}/other`}
-            state={{ ...state, runner: state?.runner }}
-            className={cx('Sidebar__item SidebarLinks__subItem', {
-              ['active']: type === 'other'
-            })}
-          >
-            {t('settings.navbar.other')}
-          </NavLink>
-          {isDefaultSetting && (
-            <NavLink
-              role="link"
-              to={`/settings/${appName}/advanced`}
-              state={{ ...state, runner: state?.runner }}
-              className={cx('Sidebar__item SidebarLinks__subItem', {
-                ['active']: type === 'advanced'
-              })}
-            >
-              {t('settings.navbar.advanced', 'Advanced')}
-            </NavLink>
-          )}
-          <NavLink
-            role="link"
-            to={`/settings/${appName}/log`}
-            state={{ ...state, runner: state?.runner }}
-            className={cx('Sidebar__item SidebarLinks__subItem', {
-              ['active']: type === 'log'
-            })}
-          >
-            {t('settings.navbar.log', 'Log')}
-          </NavLink>
-        </>
+        )}
+      </div>
+      {isLinux && (
+        <NavLink
+          className={({ isActive }) =>
+            classNames('Sidebar__item', { active: isActive })
+          }
+          to={{ pathname: '/wine-manager' }}
+        >
+          <>
+            <div className="Sidebar__itemIcon">
+              <FontAwesomeIcon
+                icon={faWineGlass}
+                title={t('wine.manager.link', 'Wine Manager')}
+              />
+            </div>
+            <span>{t('wine.manager.link', 'Wine Manager')}</span>
+          </>
+        </NavLink>
       )}
+      <button className="Sidebar__item" onClick={() => navigate('/login')}>
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon
+            icon={faUserAlt}
+            title={t('userselector.manageaccounts', 'Manage Accounts')}
+          />
+        </div>
+        <span>{t('userselector.manageaccounts', 'Manage Accounts')}</span>
+      </button>
       <NavLink
         data-testid="accessibility"
         className={({ isActive }) =>
@@ -280,11 +321,15 @@ export default function SidebarLinks() {
       >
         <>
           <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon icon={faUniversalAccess} />
+            <FontAwesomeIcon
+              icon={faUniversalAccess}
+              title={t('accessibility.title', 'Accessibility')}
+            />
           </div>
-          {t('accessibility.title', 'Accessibility')}
+          <span>{t('accessibility.title', 'Accessibility')}</span>
         </>
       </NavLink>
+      <div className="divider" />
       <NavLink
         data-testid="wiki"
         className={({ isActive }) =>
@@ -294,11 +339,42 @@ export default function SidebarLinks() {
       >
         <>
           <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon icon={faBookOpen} />
+            <FontAwesomeIcon
+              icon={faBookOpen}
+              title={t('docs', 'Documentation')}
+            />
           </div>
-          {t('wiki', 'Wiki')}
+          <span>{t('docs', 'Documentation')}</span>
         </>
       </NavLink>
+      <button className="Sidebar__item" onClick={() => openDiscordLink()}>
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon
+            icon={faDiscord}
+            title={t('userselector.discord', 'Discord')}
+          />
+        </div>
+        <span>{t('userselector.discord', 'Discord')}</span>
+      </button>
+      <button
+        className="Sidebar__item"
+        onClick={() => ipcRenderer.send('openPatreonPage')}
+      >
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faPatreon} title="Patreon" />
+        </div>
+        <span>Patreon</span>
+      </button>
+      <button
+        className="Sidebar__item"
+        onClick={() => ipcRenderer.send('openKofiPage')}
+      >
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon icon={faCoffee} title="Ko-fi" />
+        </div>
+        <span>Ko-fi</span>
+      </button>
+      {isFullscreen && <QuitButton />}
     </div>
   )
 }

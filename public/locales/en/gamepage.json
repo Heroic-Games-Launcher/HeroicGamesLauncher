@@ -39,6 +39,7 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "Pause/Cancel",
         "continue": "Continue Download",
+        "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Install",
@@ -123,10 +124,15 @@
     },
     "submenu": {
         "addShortcut": "Add shortcut",
+        "addToSteam": "Add to Steam",
         "change": "Change install path",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Latest Log",
         "move": "Move Game",
         "protondb": "Check Compatibility",
+        "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
         "settings": "Settings",
         "store": "Store Page",
         "verify": "Verify and Repair"

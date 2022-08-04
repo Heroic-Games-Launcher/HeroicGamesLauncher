@@ -39,6 +39,7 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "Szüneteltetés/mégse",
         "continue": "Letöltés folytatása",
+        "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "Játék importálása",
         "install": "Telepítés",
@@ -123,10 +124,15 @@
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",
+        "addToSteam": "Add to Steam",
         "change": "Telepítési útvonal megváltoztatása",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Legutóbbi napló",
         "move": "Játék áthelyezése",
         "protondb": "Kompatibilitás ellenőrzése",
+        "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
         "settings": "Beállítások",
         "store": "Áruházi oldal",
         "verify": "Ellenőrzés és javítás"

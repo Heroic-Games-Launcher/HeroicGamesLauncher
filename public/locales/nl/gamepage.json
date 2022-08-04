@@ -39,6 +39,7 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "Pauzeren/Annuleren",
         "continue": "Doorgaan met Download",
+        "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "Importeren",
         "install": "Installeren",
@@ -123,10 +124,15 @@
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",
+        "addToSteam": "Add to Steam",
         "change": "Wijzig installatiepad",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Laatste log",
         "move": "Spel verplaatsen",
         "protondb": "Compatibiliteit controleren",
+        "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
         "settings": "Instellingen",
         "store": "Winkel",
         "verify": "Verifiëren en repareren"

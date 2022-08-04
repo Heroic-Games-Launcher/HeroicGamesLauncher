@@ -1,77 +1,99 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
-        "fonts": "Fonts",
-        "title": "Accessibility",
+        "actions_font_family": "操作字型家族 (預設: \"Rubik\")",
+        "all_tiles_in_color": "對所有遊戲瓷貼上色",
+        "content_font_family": "內容字型家族 (預設: \"Cabin\")",
+        "fonts": "字型",
+        "title": "無障礙設定",
         "zoom": "Zoom"
     },
     "All": "全部",
+    "anticheat": {
+        "anticheats": "反作弊",
+        "may_not_work": "由於拒絕或破壞的反作弊支持，它可能無法運作。",
+        "reference": "參考",
+        "source": "Source",
+        "status": "Status",
+        "title": "此遊戲包含反作弊軟體"
+    },
     "Assets": "素材",
     "box": {
         "cache-cleared": {
-            "message": "Heroic緩存已清理",
-            "title": "緩存清理"
+            "message": "Heroic快取已清理。",
+            "title": "清理快取"
         },
         "choose": "請選擇",
         "choose-egs-prefix": "選擇已安裝Epic Game商城的前綴",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "選擇 GOGDL 二進制文件（需要重啟）",
         "choose-legendary-binary": "選擇Legendary二進制文件",
         "customWine": "選擇已編譯的Wine或Proton",
         "default-install-path": "選擇預設安裝路徑",
+        "default-steam-path": "Steam 路徑.",
+        "downloadNow": "現在下載",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "添加 {{game}} 到 Steam 失敗，錯誤：{{newLine}} {{error}}",
+                    "title": "添加錯誤"
+                }
+            },
             "credentials": {
-                "message": "您的憑據已過期，請登出並重新登入。"
+                "message": "您的憑證已過期，請登出並重新登入。"
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "CrossOver 容器 \"{{bottle_name}}\" 不存在，無法啟動！",
+                "title": "未找到 CrossOver 容器"
             },
             "diskspace": {
                 "message": "磁碟空間不足",
                 "title": "空間不足"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "安裝 DXVK/VKD3D 出錯！請檢查你的網路！",
+                "title": "DXVK/VKD3D 錯誤"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "遊戲資料夾似乎已被刪除，你是否要從安裝列表中刪除遊戲？"
             },
             "generic": {
                 "message": "",
                 "title": ""
             },
             "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
+                "message": "啟動失敗！遊戲需要網路才能執行。",
+                "title": "不支持離線模式。"
+            },
+            "remove": {
+                "steam": {
+                    "body": "從 Steam 移除 {{game}} 失敗，錯誤：{{newLine}} {{error}}",
+                    "title": "移除出錯"
+                }
             },
             "title": "錯誤",
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "更新出現問題，請檢查日誌或稍後再試！",
                 "title": "Update Error"
             },
             "wine-not-found": {
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "message": "沒有選擇之 Wine 版本。檢查遊戲設定！",
+                "title": "未找到Wine"
             }
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "打開更新日誌",
+                "detail": "你想在背景下載更新嗎？",
+                "message": "目前有新版本可用！",
+                "message-finished": "你想立即重啟 Heroic 嗎？",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "更新完成"
             }
         },
         "no": "否",
-        "ok": "Ok",
+        "ok": "是",
         "protocol": {
             "install": {
-                "not_installed": "未安裝，您是否希望安裝它？"
+                "not_installed": "未安裝，要安裝嗎？"
             }
         },
         "quit": {
@@ -80,7 +102,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "你確定你要重設 Heroic 嗎？這將刪除所有設定和快取，但不會刪除你的已安裝遊戲或你的 Epic 登錄憑證",
                 "title": "Reset Heroic"
             }
         },
@@ -88,77 +110,130 @@
             "title": "選擇要執行的EXE檔案"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "選擇",
+            "exe": "選擇EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "已建立捷徑在桌面和開始功能表內",
+            "message-remove": "將捷徑從桌面和開始功能表移除",
+            "title": "捷徑"
         },
         "sync": {
             "button": "選擇",
             "error": "無效路徑",
             "title": "選擇存檔的目錄"
         },
+        "vcruntime": {
+            "install": {
+                "message": "Visual C++ Runtimes 下載連結已開啟。請同時安裝 x86 和 x64 版本。"
+            },
+            "notfound": {
+                "message": "未安裝某些遊戲需要的 Microsoft Visual C++ Runtimes",
+                "title": "未安裝 VCRuntime"
+            }
+        },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "Epic 伺服器出現大故障，無法導入遊戲！",
+                "install": "Epic 伺服器出現大故障，無法安裝遊戲！",
+                "update": "Epic 伺服器出現大故障，無法更新遊戲！"
             },
-            "title": "Warning"
+            "title": "警告"
         },
-        "wineprefix": "選擇WINEPREFIX的資料夾",
+        "wineprefix": "選擇 WinePrefix 資料夾",
         "yes": "是"
     },
     "button": {
-        "go_to_library": "Go to Library",
-        "login": "Login",
+        "go_to_library": "前往遊戲庫",
+        "login": "登入",
         "sync": "同步",
         "syncing": "正在同步",
         "unsync": "不同步"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
+    "docs": "Documentation",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "因為Epic Games伺服器離線，可能無法提供完整線上服務！",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Favourites",
+    "favourites": "最愛",
+    "game": {
+        "status": "Status",
+        "store": "商店",
+        "title": "遊戲名稱"
+    },
+    "GameSettings": "遊戲設定",
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "沒有發現遊戲 - 嘗試登入並再次登入或以下選項之一"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "重新整理遊戲庫"
         }
     },
     "globalSettings": "全域設定",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "GOG 商店",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
-        "platform": "",
-        "show_hidden": "Show Hidden"
+        "ignore_hidden": "忽略隱藏項",
+        "platform": "平台",
+        "show_all_games": "顯示所有遊戲",
+        "show_favourites_only": "僅顯示我的最愛",
+        "show_hidden": "顯示隱藏項",
+        "store": "過濾商店"
     },
     "help": {
-        "general": "與Epic Games商城同步，如果您在其他地方已經安裝了Epic Games啟動器，可以導入您的遊戲以避免再次下載它們。",
+        "amdfsr": "AMD FSR 通過在全螢幕模式下提高較低解析度來提高畫面幀率。影像品質從 5 提高到 1，但代價是性能稍有下降。啟用可能會提高性能。",
+        "dxvk": "DXVK 是一個基於 Vulkan 的轉譯層，用於 DirectX 9、10和11遊戲。啟用也許會提高相容性。但可能會導致問題，特別是對老舊的 DirectX 遊戲。",
+        "esync": "Esync 的目標是在 CPU 消耗很大的遊戲中減少 wineserver 的開銷。啟用可能會提高性能。",
+        "fsync": "Fsync 的目標是在 CPU 開銷很大的遊戲中減少 wineserver 的開銷。啟用可能會提高受支持的 Linux 內核的性能。",
+        "game_language": {
+            "fallback": "留空使用 Heroic 的語言。",
+            "in_game_config": "不是所有遊戲都支持此設定，一些遊戲有內部語言設定。",
+            "valid_codes": "有效語言代碼取決於遊戲。"
+        },
+        "gamemode": "執行遊戲時，Feral GameMode 使用自動和臨時的系統調整。啟用可能會提高性能。",
+        "general": "與 Epic Games 啟動器同步，如果你在其他地方安裝了Epic Games 啟動器，而且想要導入你的遊戲，以免再次下載它們。",
+        "mangohud": "MangoHUD 是一個內嵌界面，顯示和監控 FPS、溫度、CPU/GPU 負載和其他系統資源。",
         "other": {
-            "part1": "使用 ",
-            "part2": "高級選項",
-            "part3": "在啟動遊戲前調用； ",
             "part4": "使用 ",
             "part5": "遊戲參數",
             "part6": " 在執行啟動命令後調用，例如： ",
             "part7": " 在某些遊戲中跳過啟動器等。"
         },
+        "preferSystemLibs": "自定義 Wine 版本(Wine- ge、Wine- lutris)隨它們的庫依賴項一起發布。啟用此選項，這些附帶的庫將被忽略，Wine 將加載系統庫。警告！如果不滿足依賴關系，可能會出現問題。",
+        "resizablebar": "NVIDIA Resizable Bar 通過讓 CPU 訪問整個圖形緩衝區來提高幀率。啟用可能會提高基於 Vulkan 的遊戲的性能。",
+        "steamruntime": "Steam 提供的用於幫助執行 Linux 和 Windows（Proton）遊戲的自定義庫。啟用可能會提高相容性。",
         "sync": {
             "part1": "大多數情況下，Heroic啟動器會正確猜測的存檔的位置。但如果位置是錯誤的，請使用覆蓋框更改。",
-            "part2": "如果你改變了Wine或Proton的文件夾，你將需要再次檢查路徑，因為Proton使用不同的前綴（/pfx）和使用者名稱（steamuser）。很簡單，你可以直接刪除當前的路徑，離開同步設置頁面再回來，Heroic會去重新猜測正確PREFIX的文件夾。",
+            "part2": "如果你改變了 Wine 或 Proton 的文件夾，你將需要再次檢查路徑，因為 Proton 使用不同的前綴（/pfx）和使用者名稱（steamuser）。很簡單，你可以直接刪除目前的路徑，離開同步設置頁面再回來，Heroic 會去重新猜測正確 Prefix 的文件夾。",
             "part3": "手動同步：選擇下載以下載存儲在雲端的存檔。選擇上傳將會把本地存檔上傳到雲端。強制下載將會忽略本地版本，強制上傳將會忽略雲端版本。",
             "part4": "自動同步將在你每次開始遊戲時和結束遊戲後同步存檔。"
         },
+        "vkd3d": "VKD3D 是一個基於 Vulkan 的轉換層，用於 DirectX 12 遊戲。啟用可能會顯著提高相容性。對老舊的 DirectX 遊戲沒有效果。",
         "wine": {
-            "part1": "Heroic啟動器會在以下資料夾中搜尋現有的Wine和Proton版本：",
+            "part1": "Heroic啟動器會在以下資料夾中搜尋現有的Wine/Proton/CrossOver：",
             "part2": "如果在其它位置，請使用軟鏈接連接到這些中的一個資料夾"
         }
     },
@@ -166,130 +241,184 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "設定會自動保存"
+        "settings": "設定會自動保存",
+        "version": "Wine 版本"
     },
     "infobox": {
         "help": "幫助",
-        "requirements": "系統要求"
+        "requirements": "系統要求",
+        "wine-path": "Wine 路徑"
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "選擇安裝路徑"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
-        "refresh": "",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "refresh": "重新整理",
+        "sortAscending": "升序排列",
+        "sortByStatus": "依安裝狀態排序",
+        "sortDescending": "降序排列",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
-    "Library": "收藏庫",
+    "Library": "遊戲庫",
     "loading": {
-        "default": "",
-        "website": "Loading Website"
+        "default": "載入",
+        "website": "載入網站"
     },
     "login": {
-        "externalLogin": "External Login"
+        "externalLogin": "外部登入"
     },
     "message": {
         "sync": "同步完成",
         "unsync": "取消同步完成"
     },
-    "Missing Dependency": "",
-    "nogames": "未找到遊戲",
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "移動遊戲時出現錯誤",
+            "reparing": "修復時出現錯誤"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} 無法被添加到所有已找到的 Steam 使用者。查看日誌獲取更多資訊。  需要重啟 Steam 更改才能生效。",
+                    "success": "{{game}} 被成功添加到 Steam。需要重啟 Steam，更改才能生效。",
+                    "title": "已添加到 Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "無法從所有找到的 Steam 使用者刪除 {{game}}。 查看日誌了解更多資訊。  需要重啟 Steam，更改才能生效。",
+                    "success": "成功從 Steam 刪除了 {{game}}。  需要重啟 Steam，更改才能生效。",
+                    "title": "已從 Steam 移除"
+                }
+            },
             "reparing": "已完成修復"
         },
         "install": {
             "canceled": "已取消安裝",
-            "error": "",
+            "error": "安裝失敗",
             "finished": "安裝完成",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "遊戲已導入",
+            "startInstall": "安裝開始"
         },
         "moved": "移動完成",
+        "moving": "移動遊戲中",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "不能從上遊獲取releases，可能是因為 Github API 的限制！請稍後再試。"
         },
         "uninstalled": "已解除安裝",
         "update": {
             "canceled": "已取消更新",
-            "finished": "已更新",
-            "started": "Update Started"
+            "finished": "更新完成",
+            "started": "更新開始"
         }
     },
     "options": {
         "advanced": {
-            "placeholder": "將其他啟動選項放在這裏",
-            "title": "進階選項（環境變量）："
+            "key": "Variable Name",
+            "placeHolderKey": "NAME",
+            "placeHolderValue": "例: Path/To/ExtraFiles",
+            "title": "進階選項（環境變量）：",
+            "value": "數值"
         },
         "gameargs": {
             "placeholder": "將啟動器參數放在這裏",
             "title": "遊戲參數（在命令後運行）："
+        },
+        "quote-args-with-spaces": "警告：請確保引用參數時使用空格！例：\"path/with spaces/\"",
+        "wrapper": {
+            "args": "引數",
+            "arguments_example": "引數例子： --arg; --extra-file=\"file-path/ with/spaces\"",
+            "exe": "包裝容器",
+            "placeHolderKey": "新的包裝容器",
+            "placeHolderValue": "包裝容器參數",
+            "title": "包裝容器命令："
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
-        "legendary-version": "Legendary Version: ",
+        "gogdl-version": "GOGDL 版本: ",
+        "legendary-version": "Legendary 版本: ",
         "weblate": "請幫助翻譯Heroic啟動器。"
     },
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
-        "alt-legendary-bin": "Using built-in Legendary binary...",
-        "egs-prefix": "Epic Games商城安裝位置"
+        "alt-gogdl-bin": "使用內置的 GOGDL 二進制文件...",
+        "alt-legendary-bin": "使用內置的 Legendary 二進制文件...",
+        "egs-prefix": "Epic Games商城安裝位置",
+        "prefered_language": "雙字元代碼 (如: \"en\" 或 \"fr\")"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "外掛插件",
     "Projects": "專案",
-    "Recent": "最近的遊戲",
-    "search": "在此處輸入遊戲名稱...",
+    "Recent": "最近遊玩的遊戲",
+    "search": "搜尋遊戲",
     "setting": {
         "adddesktopshortcuts": "自動添加桌面捷徑",
         "addgamestostartmenu": "自動添加捷徑到開始功能表",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-gogdl-bin": "選擇要使用的備選 GOGDL 二進制文件",
+        "alt-legendary-bin": "選擇備選的 Legendary 二進制文件",
         "audiofix": "音頻修覆（Pulse Audio延遲）",
         "autodxvk": "在PREFIX自動安裝並更新DXVK",
         "autosync": "自動同步存檔",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
-        "change-target-exe": "Select an alternative EXE to run",
+        "autovkd3d": "自動在 Prefix 中安裝/更新 VKD3D",
+        "change-target-exe": "選擇要執行的替代 EXE",
+        "crossover-version": "Crossover Version",
         "customWineProton": "自定義Wine/Proton路徑",
         "darktray": "使用暗色系統列圖示",
         "default-install-path": "預設安裝路徑",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
-        "disable_controller": "Disable Heroic navigation using controller",
+        "default-steam-path": "預設 Steam 路徑",
+        "defaultWinePrefix": "為新的 Wine Prefix 設定資料夾",
+        "disable_controller": "禁止使用控制器操作 Heroic",
         "discordRPC": "啟用Discord的Rich Presence（活動狀態）",
+        "download-no-https": "不使用 HTTPS 下載遊戲 （對 LanCache 等 CDN 有用）",
         "egs-sync": "與已安裝的Epic Games同步",
-        "enableFSRHack": "啟用FSR（需要支持的WINE版本）",
-        "esync": "Enable Esync",
-        "exit-to-tray": "退出到系統列",
-        "FsrSharpnessStrenght": "FSR 銳化度",
-        "fsync": "Enable Fsync",
-        "gamemode": "使用GameMode（需要已安裝Feral Game Mode）",
-        "language": "選擇應用語言",
-        "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+        "enableFSRHack": "啟用FSR（需要支持的 Wine 版本）",
+        "eosOverlay": {
+            "cancelInstall": "取消",
+            "checkForUpdates": "檢查更新",
+            "checkingForUpdates": "檢查更新中...",
+            "currentVersion": "目前版本： {{version}}",
+            "disable": "停用",
+            "enable": "啟用",
+            "install": "Install",
+            "installed": "已安裝 EOS 內嵌介面",
+            "installing": "正在安裝 EOS 內嵌介面...",
+            "latestVersion": "最新版本： {{version}}",
+            "notInstalled": "未安裝 EOS 內嵌介面",
+            "notInstalledMsg": "未安裝 EOS 內嵌介面。是否現在安裝？",
+            "notInstalledTitle": "未安裝內嵌介面",
+            "remove": "解除安裝",
+            "removeConfirm": "確定要現在解除安裝 EOS 內嵌介面嗎？",
+            "removeConfirmTitle": "確認移除內嵌介面",
+            "updateNow": "Update",
+            "updating": "更新中..."
         },
-        "library_top_section": "Library Top Section",
+        "esync": "啟用 Esync",
+        "exit-to-tray": "縮小到系統列",
+        "FsrSharpnessStrenght": "FSR 銳利度",
+        "fsync": "啟用 Fsync",
+        "gamemode": "使用GameMode（需要已安裝Feral Game Mode）",
+        "language": "選擇 Heroic 語言",
+        "library_top_option": {
+            "disabled": "已關閉",
+            "favourites": "我的最愛",
+            "recently_played": "最近遊玩",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
+        },
+        "library_top_section": "遊戲庫頂部",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
-            "instructions_title": "How to report a problem?",
-            "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "copy-to-clipboard": "複製日誌內容至剪貼簿",
+            "current-log": "目前日誌",
+            "instructions": "加入我們的 Discord，尋找與您的操作系統相符的頻道。分享此處顯示的日誌內容，並包含對問題的清晰描述以及任何相關訊息和細節。",
+            "instructions_title": "如何回報問題？",
+            "last-log": "上一個日誌",
+            "no-file": "未找到日誌檔案",
+            "show-in-folder": "顯示日誌所在資料夾"
         },
         "mangohud": "啟用MangoHud（需要已安裝Mangohud）",
         "manualsync": {
@@ -301,11 +430,13 @@
             "title": "手動同步存檔",
             "upload": "上傳"
         },
-        "maxRecentGames": "最近要展示的遊戲",
+        "maxRecentGames": "要顯示最近遊玩的遊戲",
         "maxworkers": "下載時的最大Worker數量",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "遊戲啟動後最小化 Heroic",
         "offlinemode": "離線運行遊戲",
-        "primerun": "啟用Nvidia Prime渲染",
+        "prefered_language": "首選語言（語言代碼）",
+        "preferSystemLibs": "偏好系統庫",
+        "primerun": "使用獨立顯卡",
         "resizableBar": "啟用 Resizable BAR (僅限 NVIDIA RTX 30xx)",
         "runexe": {
             "message": "將檔案拖放到此處",
@@ -314,86 +445,113 @@
         "savefolder": {
             "placeholder": "選擇存檔的保存位置"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "選擇主題",
         "showfps": "顯示幀數（Directx 9，10和11）",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
+        "showUnrealMarket": "顯示 Unreal Marketplace（需要重啟）",
         "start-in-tray": "啟動時最小化",
-        "steamruntime": "Use Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "steamruntime": "使用 Steam 執行環境",
+        "winecrossoverbottle": "CrossOver 容器",
         "wineprefix": "WINEPREFIX文件夾",
-        "wineversion": "WINE版本"
+        "wineversion": "Wine 版本"
     },
     "settings": {
-        "clear-cache": "Clear Heroic Cache",
-        "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "battlEyeRuntime": {
+            "installing": "安裝 BattlEye Runtime 中...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
+        "clear-cache": "清除 Heroic 快取",
+        "copiedToClipboard": "已複製到剪貼簿！",
+        "copyToClipboard": "複製所有設定至剪貼簿",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "需要 GameMode 才能讓 EAC runtime 在 Flatpak 上運作。你想馬上啟用它嗎？",
+                "title": "需要啟用 GameMode"
+            },
+            "installing": "安裝 EAC Runtime 中...",
+            "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "EAC runtime 已啟用，但沒有 GameMode 它無法正常運作。你想停用 EAC Runtime 和 GameMode 嗎？",
+                "title": "已啟用 EAC runtime"
+            }
+        },
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "日誌被截斷，顯示最後一千行！"
         },
         "navbar": {
-            "advanced": "Advanced",
+            "advanced": "進階",
             "general": "一般",
             "log": "Log",
             "other": "其它",
-            "sync": "存檔-同步"
+            "sync": "存檔-同步",
+            "wineExt": "Wine 擴充元件"
         },
-        "open-config-file": "Open Config File",
-        "reset-heroic": "Reset Heroic"
+        "open-config-file": "開啟配置檔案",
+        "reset-heroic": "Reset Heroic",
+        "saves": {
+            "warning": "雲端存檔功能處於測試階段，請在同步前備份你的存檔（以防出現問題）"
+        }
     },
     "Settings": "設定",
-    "status": {
-        "logging": "Logging In..."
+    "sidebar": {
+        "collapse": "收起側邊欄",
+        "uncollapse": "展開側邊欄"
     },
-    "store": "商店",
-    "stores": "Stores",
+    "status": {
+        "installing": "正在安裝",
+        "logging": "正在登入...",
+        "processing": "檔案處理中，請等待"
+    },
+    "store": "Epic 商店",
+    "stores": "商店",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects"
+        "allGames": "所有遊戲",
+        "allUnreal": "Unreal - 所有項目",
+        "unrealAssets": "Unreal - 素材",
+        "unrealPlugins": "Unreal - 外掛插件",
+        "unrealProjects": "Unreal - 專案"
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "default-wineprefix": "為新配置選擇預設 Prefix 資料夾",
+            "wineprefix": "為新的 Wine Prefix 選擇資料夾"
         }
     },
     "tooltip": {
         "addpath": "添加新路徑",
         "removepath": "刪除路徑"
     },
-    "Total Games": "總遊戲數",
     "tray": {
         "about": "關於",
         "quit": "退出",
         "reload": "重新載入",
         "show": "顯示"
     },
-    "Unreal Marketplace": "虛幻商城",
     "userselector": {
         "discord": "Discord",
         "logout": "登出",
         "logout_confirmation": "您確定要登出嗎？",
-        "manageaccounts": "Manage Accounts",
+        "manageaccounts": "管理帳號",
         "quit": "退出"
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "返回",
+            "forward": "下一頁",
+            "openInBrowser": "在瀏覽器中打開",
+            "reload": "重新載入頁面"
         }
     },
-    "wiki": "Wiki百科",
     "wine": {
+        "actions": "Action",
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
-            "link": "Wine Manager",
-            "title": "Wine Manager",
-            "unzipping": "Unzipping"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+            "error": "此次無法獲取 Wine/Proton 版本。",
+            "link": "Wine 管理員",
+            "title": "Wine 管理員",
+            "unzipping": "解壓縮"
+        },
+        "release": "Release Date",
+        "size": "大小"
+    }
 }

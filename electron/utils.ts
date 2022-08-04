@@ -2,7 +2,7 @@ import { Runner } from './types'
 import { WineInstallation } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
-import { exec } from 'child_process'
+import { exec, spawn, spawnSync } from 'child_process'
 import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
@@ -230,15 +230,13 @@ async function handleExit(window: BrowserWindow) {
 
     // Kill all child processes
     // This is very hacky
-    let killCommand = 'pkill --signal SIGINT '
-    if (isWindows) {
-      killCommand = 'Stop-Process -name '
-    }
     const possibleChildren = ['legendary', 'gogdl']
-    possibleChildren.forEach(async (procName) => {
-      await execAsync(killCommand + procName).catch((error) => {
-        logInfo([`Unable to kill ${procName}, ignoring.`, error])
-      })
+    possibleChildren.forEach((procName) => {
+      try {
+        killPattern(procName)
+      } catch (error) {
+        logInfo([`Unable to kill ${procName}, ignoring.`, `${error}`])
+      }
     })
   }
   app.exit()
@@ -325,7 +323,7 @@ async function errorHandler(
     if (error.includes(deletedFolderMsg) && appName) {
       const runner = r.toLocaleLowerCase() as Runner
       const game = Game.get(appName, runner)
-      const { title } = await game.getGameInfo()
+      const { title } = game.getGameInfo()
       const { response } = await showMessageBox({
         type: 'question',
         title,
@@ -476,26 +474,34 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
   }
 }
 
-function getSteamRuntime(version: 'scout' | 'soldier'): SteamRuntime {
-  const soldier: Array<SteamRuntime> = getSteamLibraries().map((p) => {
-    if (existsSync(join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'))) {
-      return {
-        path: join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'),
-        type: 'unpackaged',
-        version: 'soldier'
+async function getSteamRuntime(
+  version: 'scout' | 'soldier'
+): Promise<SteamRuntime> {
+  const soldier: Array<SteamRuntime> = await getSteamLibraries().then((libs) =>
+    libs.map((p) => {
+      if (
+        existsSync(join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'))
+      ) {
+        return {
+          path: join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'),
+          type: 'unpackaged',
+          version: 'soldier'
+        }
       }
-    }
-  })
+    })
+  )
 
-  const scout: Array<SteamRuntime> = getSteamLibraries().map((p) => {
-    if (existsSync(join(p, 'ubuntu12_32/steam-runtime/run.sh'))) {
-      return {
-        path: join(p, 'ubuntu12_32/steam-runtime/run.sh'),
-        type: 'unpackaged',
-        version: 'scout'
+  const scout: Array<SteamRuntime> = await getSteamLibraries().then((libs) =>
+    libs.map((p) => {
+      if (existsSync(join(p, 'ubuntu12_32/steam-runtime/run.sh'))) {
+        return {
+          path: join(p, 'ubuntu12_32/steam-runtime/run.sh'),
+          type: 'unpackaged',
+          version: 'scout'
+        }
       }
-    }
-  })
+    })
+  )
 
   if (version === 'soldier') {
     if (soldier.length) {
@@ -544,13 +550,107 @@ const formatEpicStoreUrl = (title: string) => {
 
 function quoteIfNecessary(stringToQuote: string) {
   if (
-    (stringToQuote.charAt(0) !== '"' ||
-      stringToQuote.charAt(stringToQuote.length - 1) !== '"') &&
+    stringToQuote &&
+    !(stringToQuote.startsWith('"') && stringToQuote.endsWith('"')) &&
     stringToQuote.includes(' ')
   ) {
     return `"${stringToQuote}"`
   }
-  return stringToQuote
+
+  return String(stringToQuote)
+}
+
+function removeQuoteIfNecessary(stringToUnquote: string) {
+  if (
+    stringToUnquote &&
+    stringToUnquote.startsWith('"') &&
+    stringToUnquote.endsWith('"')
+  ) {
+    return stringToUnquote.replace(/^"+/, '').replace(/"+$/, '')
+  }
+
+  return String(stringToUnquote)
+}
+
+function killPattern(pattern: string) {
+  logInfo(['Trying to kill', pattern], LogPrefix.Backend)
+  let ret
+  if (isWindows) {
+    ret = spawnSync('Stop-Process', ['-name', pattern], {
+      shell: 'powershell.exe'
+    })
+  } else {
+    ret = spawnSync('pkill', ['-f', pattern])
+  }
+  logInfo(['Killed', pattern], LogPrefix.Backend)
+  return ret
+}
+
+/**
+ * Detects MS Visual C++ Redistributable and prompts for its installation if it's not found
+ * Many games require this while not actually specifying it, so it's good to have
+ *
+ * Only works on Windows of course
+ */
+function detectVCRedist(mainWindow: BrowserWindow) {
+  if (!isWindows) {
+    return
+  }
+
+  const detectedVCRInstallations: string[] = []
+  let stderr = ''
+  const child = spawn('wmic', [
+    'path',
+    'Win32_Product',
+    'WHERE',
+    'Name LIKE "Microsoft Visual C++ 2022%"',
+    'GET',
+    'Name'
+  ])
+  child.stdout.on('data', (data: Buffer) => {
+    // WMIC might push more than one line at a time
+    const splitData = data.toString().split('\n')
+    for (const installation of splitData) {
+      if (installation) {
+        detectedVCRInstallations.push(installation)
+      }
+    }
+  })
+  child.stderr.on('data', (data: Buffer) => {
+    stderr += data.toString()
+  })
+  child.on('close', async (code) => {
+    if (code) {
+      logError(
+        `Failed to check for VCRuntime installations\n${stderr}`,
+        LogPrefix.Backend
+      )
+    }
+    // VCR installers install both the "Minimal" and "Additional" runtime, and we have 2 installers (x86 and x64) -> 4 installations in total
+    if (detectedVCRInstallations.length < 4) {
+      const { response } = await dialog.showMessageBox(mainWindow, {
+        title: t('box.vcruntime.notfound.title', 'VCRuntime not installed'),
+        message: t(
+          'box.vcruntime.notfound.message',
+          'The Microsoft Visual C++ Runtimes are not installed, which are required by some games'
+        ),
+        buttons: [t('box.downloadNow', 'Download now'), t('box.ok', 'Ok')]
+      })
+
+      if (response === 0) {
+        openUrlOrFile('https://aka.ms/vs/17/release/vc_redist.x86.exe')
+        openUrlOrFile('https://aka.ms/vs/17/release/vc_redist.x64.exe')
+        dialog.showMessageBox(mainWindow, {
+          message: t(
+            'box.vcruntime.install.message',
+            'The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions.'
+          )
+        })
+      }
+    } else {
+      logInfo('VCRuntime is installed', LogPrefix.Backend)
+    }
+  })
 }
 
 export {
@@ -574,5 +674,8 @@ export {
   searchForExecutableOnPath,
   getSteamRuntime,
   constructAndUpdateRPC,
-  quoteIfNecessary
+  quoteIfNecessary,
+  removeQuoteIfNecessary,
+  killPattern,
+  detectVCRedist
 }

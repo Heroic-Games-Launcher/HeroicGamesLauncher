@@ -8,13 +8,13 @@ const initialContext: ContextType = {
     library: [],
     username: null,
     login: async () => Promise.resolve(''),
-    logout: () => null
+    logout: async () => Promise.resolve()
   },
   gog: {
     library: [],
     username: null,
     login: async () => Promise.resolve(''),
-    logout: () => null
+    logout: async () => Promise.resolve()
   },
   wineVersions: [],
   error: false,
@@ -34,7 +34,6 @@ const initialContext: ContextType = {
   handleLibraryTopSection: () => null,
   platform: 'unknown',
   refresh: async () => Promise.resolve(),
-  recentGames: [],
   refreshLibrary: async () => Promise.resolve(),
   refreshWineVersionInfo: async () => Promise.resolve(),
   refreshing: false,
@@ -49,6 +48,8 @@ const initialContext: ContextType = {
   },
   showHidden: false,
   setShowHidden: () => null,
+  showFavourites: false,
+  setShowFavourites: () => null,
   favouriteGames: {
     list: [],
     add: () => null,
@@ -63,7 +64,9 @@ const initialContext: ContextType = {
   actionsFontFamily: "'Rubik', sans-serif",
   setActionsFontFamily: () => null,
   allTilesInColor: false,
-  setAllTilesInColor: () => null
+  setAllTilesInColor: () => null,
+  sidebarCollapsed: false,
+  setSideBarCollapsed: () => null
 }
 
 export default React.createContext(initialContext)

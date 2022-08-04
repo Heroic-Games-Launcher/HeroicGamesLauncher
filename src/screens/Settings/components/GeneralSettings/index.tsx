@@ -5,19 +5,14 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import { InfoBox, SelectField, ToggleSwitch } from 'src/components/UI'
 import LanguageSelector from 'src/components/UI/LanguageSelector'
-import { ThemeSelector } from 'src/components/UI/ThemeSelector'
 
-import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
 import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
 import TextInputWithIconField from 'src/components/UI/TextInputWithIconField'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+import { ipcRenderer } from 'src/helpers'
 interface Props {
   darkTrayIcon: boolean
   defaultInstallPath: string
@@ -142,7 +137,7 @@ export default function GeneralSettings({
       <TextInputWithIconField
         label={t('setting.default-install-path')}
         htmlId="default_install_path"
-        value={defaultInstallPath.replaceAll("'", '')}
+        value={defaultInstallPath?.replaceAll("'", '')}
         placeholder={defaultInstallPath}
         onChange={(event) => setDefaultInstallPath(event.target.value)}
         icon={
@@ -223,9 +218,11 @@ export default function GeneralSettings({
                   }`}
                 </button>
               </span>
-              {!isWindows && (
-                <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
-              )}
+              <div>
+                {!isWindows && (
+                  <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
+                )}
+              </div>
             </>
           }
         />
@@ -315,6 +312,12 @@ export default function GeneralSettings({
             'Recently Played Games'
           )}
         </option>
+        <option value="recently_played_installed">
+          {t(
+            'setting.library_top_option.recently_played_installed',
+            'Recently Played Games (Only Installed)'
+          )}
+        </option>
         <option value="favourites">
           {t('setting.library_top_option.favourites', 'Favourite Games')}
         </option>
@@ -322,8 +325,6 @@ export default function GeneralSettings({
           {t('setting.library_top_option.disabled', 'Disabled')}
         </option>
       </SelectField>
-
-      <ThemeSelector />
 
       <SelectField
         htmlId="max_workers"

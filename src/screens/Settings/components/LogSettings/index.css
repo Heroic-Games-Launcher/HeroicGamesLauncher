@@ -30,6 +30,10 @@
   user-select: text;
 }
 
+.setting.log-box.collapsed {
+  width: calc(90vw - var(--sidebar-width));
+}
+
 .log-error,
 .log-warning,
 .log-info {

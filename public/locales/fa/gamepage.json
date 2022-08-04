@@ -39,6 +39,7 @@
         "add_to_favourites": "افزودن به مورد علاقه ها",
         "cancel": "توقف/انصراف",
         "continue": "ادامه بارگیری",
+        "force_update": "اعمال اجباری به روز رسانی در صورت موجود بودن",
         "hide_game": "مخفی کردن بازی",
         "import": "وارد کردن بازی",
         "install": "نصب",
@@ -61,8 +62,8 @@
         "lastPlayed": "آخرین اجرا",
         "neverPlayed": "هرگز",
         "platform": "انتخاب نسخه پلتفرم برای نصب",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "نیازهای سیستم",
+        "tools": "ابزارها",
         "totalPlayed": "زمان بازی"
     },
     "gamecard": {
@@ -70,7 +71,7 @@
         "repairing": "در حال تعمیر"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "خطای نامشخص"
     },
     "info": {
         "canRunOffline": "نیازمندی به آنلاین بودن",
@@ -81,11 +82,11 @@
         "version": "نسخه"
     },
     "install": {
-        "disk-space-left": "فضای باقی مانده در دستگاه",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "فضای موجود",
+        "not-enough-disk-space": "عدم فضای کافی دیسک",
         "path": "انتخاب محل نصب",
-        "path-not-writtable": "Warning: path doesn't exists or might not be writable.",
-        "space-after-install": "After Install",
+        "path-not-writtable": "خطا: مسیر ممکن است قابل نوشتن نباشد.",
+        "space-after-install": "بعد از نصب",
         "wineprefix": "Wine Prefix",
         "wineversion": "نسخه Wine"
     },
@@ -116,17 +117,22 @@
         "installing": "در حال نصب",
         "moving": "در حال انتقال نصب، لطفا صبر کنید",
         "notinstalled": "این بازی نصب نشده است",
-        "processing": "Processing files, please wait",
+        "processing": "در حال پردازش فایلها، لطفا منتظر بمانید",
         "reparing": "در حال تعمیر بازی، لطفا صبر کنید",
         "totalDownloaded": "حجم کل دانلود شده",
         "updating": "در حال به روزرسانی بازی"
     },
     "submenu": {
         "addShortcut": "افزودن میانبر",
+        "addToSteam": "افزودن به استیم",
         "change": "تغییر محل نصب",
+        "disableEosOverlay": "عیر فعال کردن EOS Overlay",
+        "enableEosOverlay": "فعال کردن EOS Overlay",
         "log": "لاگهای اخیر",
         "move": "انتقال بازی",
         "protondb": "بررسی سازگاری",
+        "removeFromSteam": "حذف کردن از استیم",
+        "removeShortcut": "Remove shortcuts",
         "settings": "تنظیمات",
         "store": "صفحه فروشگاه",
         "verify": "بررسی و تعمیر"

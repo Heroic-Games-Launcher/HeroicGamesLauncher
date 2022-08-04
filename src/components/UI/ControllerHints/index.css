@@ -1,0 +1,95 @@
+.controller-hints {
+  background: transparent;
+  display: flex;
+  box-shadow: 0 0 36px 10px rgb(0 0 0 / 70%);
+  z-index: 1;
+  min-height: 3rem;
+  padding: 0.2rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controller-hints .hint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: left;
+  flex-basis: 16%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.controller-hints .buttonImage {
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  background-image: var(--imageUrl);
+  background-size: 100% 100%;
+  flex-shrink: 0;
+}
+
+.controller-hints.xbox .buttonImage.d-pad {
+  --imageUrl: url(/src/assets/controllers/xbox-series/XboxSeriesX_Dpad.png);
+}
+.controller-hints.xbox .buttonImage.left-stick {
+  --imageUrl: url(/src/assets/controllers/xbox-series/XboxSeriesX_Left_Stick.png);
+}
+.controller-hints.xbox .buttonImage.right-stick {
+  --imageUrl: url(/src/assets/controllers/xbox-series/XboxSeriesX_Right_Stick.png);
+}
+.controller-hints.xbox .buttonImage.main-action {
+  --imageUrl: url(/src/assets/controllers/xbox-series/XboxSeriesX_A.png);
+}
+.controller-hints.xbox .buttonImage.alt-action {
+  --imageUrl: url(/src/assets/controllers/xbox-series/XboxSeriesX_X.png);
+}
+.controller-hints.xbox .buttonImage.alt-action2 {
+  --imageUrl: url(/src/assets/controllers/xbox-series/XboxSeriesX_Y.png);
+}
+.controller-hints.xbox .buttonImage.back {
+  --imageUrl: url(/src/assets/controllers/xbox-series/XboxSeriesX_B.png);
+}
+
+.controller-hints.ps .buttonImage.d-pad {
+  --imageUrl: url(/src/assets/controllers/ps/PS5_Dpad.png);
+}
+.controller-hints.ps .buttonImage.left-stick {
+  --imageUrl: url(/src/assets/controllers/ps/PS5_Left_Stick.png);
+}
+.controller-hints.ps .buttonImage.right-stick {
+  --imageUrl: url(/src/assets/controllers/ps/PS5_Right_Stick.png);
+}
+.controller-hints.ps .buttonImage.main-action {
+  --imageUrl: url(/src/assets/controllers/ps/PS5_Cross.png);
+}
+.controller-hints.ps .buttonImage.alt-action {
+  --imageUrl: url(/src/assets/controllers/ps/PS5_Square.png);
+}
+.controller-hints.ps .buttonImage.alt-action2 {
+  --imageUrl: url(/src/assets/controllers/ps/PS5_Triangle.png);
+}
+.controller-hints.ps .buttonImage.back {
+  --imageUrl: url(/src/assets/controllers/ps/PS5_Circle.png);
+}
+
+.controller-hints.steam-deck .buttonImage.d-pad {
+  --imageUrl: url(/src/assets/controllers/steam-deck/SteamDeck_Dpad.png);
+}
+.controller-hints.steam-deck .buttonImage.left-stick {
+  --imageUrl: url(/src/assets/controllers/steam-deck/SteamDeck_Left_Stick.png);
+}
+.controller-hints.steam-deck .buttonImage.right-stick {
+  --imageUrl: url(/src/assets/controllers/steam-deck/SteamDeck_Right_Stick.png);
+}
+.controller-hints.steam-deck .buttonImage.main-action {
+  --imageUrl: url(/src/assets/controllers/steam-deck/SteamDeck_A.png);
+}
+.controller-hints.steam-deck .buttonImage.alt-action {
+  --imageUrl: url(/src/assets/controllers/steam-deck/SteamDeck_X.png);
+}
+.controller-hints.steam-deck .buttonImage.alt-action2 {
+  --imageUrl: url(/src/assets/controllers/steam-deck/SteamDeck_Y.png);
+}
+.controller-hints.steam-deck .buttonImage.back {
+  --imageUrl: url(/src/assets/controllers/steam-deck/SteamDeck_B.png);
+}

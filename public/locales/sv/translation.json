@@ -8,6 +8,14 @@
         "zoom": "Zoom"
     },
     "All": "Alla",
+    "anticheat": {
+        "anticheats": "Anticheats",
+        "may_not_work": "It may not work due to denied or broken anticheat support.",
+        "reference": "Reference",
+        "source": "Source",
+        "status": "Status",
+        "title": "This game includes anticheat software"
+    },
     "Assets": "Tillgångar",
     "box": {
         "cache-cleared": {
@@ -20,7 +28,15 @@
         "choose-legendary-binary": "Ange Legendary binärfil",
         "customWine": "Ange Wine/Proton version",
         "default-install-path": "Ange standard installationssökväg",
+        "default-steam-path": "Steam path.",
+        "downloadNow": "Download now",
         "error": {
+            "add": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Adding Error"
+                }
+            },
             "credentials": {
                 "message": "Autentisering har utgått, logga ut och logga sedan in igen."
             },
@@ -46,6 +62,12 @@
             "no-offline-mode": {
                 "message": "Speluppstart avbröts! Internetanslutning krävs.",
                 "title": "Offline-läge stöds ej."
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Removing Error"
+                }
             },
             "title": "Problem",
             "update": {
@@ -93,12 +115,22 @@
         },
         "shortcuts": {
             "message": "Genvägar skapades på Skrivbordet och Startmenyn",
+            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "title": "Genvägar"
         },
         "sync": {
             "button": "Ok",
             "error": "Ogilltig sökväg",
             "title": "Väl mapp för sparfiler"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+            },
+            "notfound": {
+                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
+                "title": "VCRuntime not installed"
+            }
         },
         "warning": {
             "epic": {
@@ -118,12 +150,40 @@
         "syncing": "Synkroniserar",
         "unsync": "Avbryt synkronisering"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
+    "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Onlinetjänster kanske inte fungerar korrekt då Epics servrar är nere för tillfället!",
         "offline-notification-title": "Offline"
     },
     "Epic Games": "Epic Games",
     "favourites": "Favoriter",
+    "game": {
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
+    },
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -138,25 +198,40 @@
     "header": {
         "ignore_hidden": "Ignorera dolda",
         "platform": "Plattform",
-        "show_hidden": "Visa dolda"
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Visa dolda",
+        "store": "Filter Store"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "game_language": {
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
+        },
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Synkronisera med EGS om du har en fungerande Epic Games Launcher installation och vill importera spel istället för att ladda ner dem igen.",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
-            "part1": "Använd ",
-            "part2": "Avancerade alternativ",
-            "part3": "laddas innan speluppstart; ",
             "part4": "Använd ",
             "part5": "Spelspecifika argument",
             "part6": " körs efter startkommandot, t.ex.: ",
             "part7": " för att starta utan launcher i vissa spel."
         },
+        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
+        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic försöker gissa mapp för sparfiler vilket oftast fungerar. Om det blir fel, använd fältet för att ange korrekt sökväg.",
             "part2": "Om du ändrar sökväg för Wine eller Proton prefix kommer du behöva kontrollera sökvägen igen. Proton använder annorlunda prefix (/pfx) och användarnamn (steamuser) jämfört med Wine. Du kan radera aktuell sökväg och lämna synkroniseringsinställningarna, öppna dem på nytt så försöker Heroic automatiskt hitta rätt prefix igen.",
             "part3": "Manuell synkronisering: Ladda ner sparfiler från molnlagring. Ladda upp lokala sparfiler till molnlagring. Tvingad nedladdning och tvingad uppladdning ignorerar versionskontroll både lokalt och i molnlagring.",
             "part4": "Synkronisera sparfiler automatiskt kommer synkronisera sparfiler varje gång ett spel startas samt avslutas."
         },
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
             "part1": "Heroic söker efter Wine, Proton och CrossOver i dessa mappar:",
             "part2": "För övriga platser, använd symbolisk länk till en av dessa mappar"
@@ -166,22 +241,26 @@
         "heroic": {
             "version": "Heroic Version"
         },
-        "settings": "Inställningar sparas automatiskt"
+        "settings": "Inställningar sparas automatiskt",
+        "version": "Wine Version"
     },
     "infobox": {
         "help": "Hjälp",
-        "requirements": "Systemkrav"
+        "requirements": "Systemkrav",
+        "wine-path": "Wine Path"
     },
     "install": {
         "path": "Ange installationssökväg"
     },
     "library": {
-        "gridView": "Rutnätsvy",
-        "listView": "Listvy",
         "refresh": "Uppdatera",
         "sortAscending": "Sortera stigande",
         "sortByStatus": "Sortera efter status",
-        "sortDescending": "Sortera fallande"
+        "sortDescending": "Sortera fallande",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Bibliotek",
     "loading": {
@@ -195,14 +274,26 @@
         "sync": "Synkronisering slutförd",
         "unsync": "Avbryt synkronisering slutfört"
     },
-    "Missing Dependency": "",
-    "nogames": "Inga spel hittades",
     "notify": {
         "error": {
             "move": "Problem vid flytt av spel",
             "reparing": "Problem vid reparation"
         },
         "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "title": "Added to Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "title": "Removed from Steam"
+                }
+            },
             "reparing": "Reparation slutförd"
         },
         "install": {
@@ -213,6 +304,7 @@
             "startInstall": "Installation påbörjad"
         },
         "moved": "Spelflytt slutförd",
+        "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -225,12 +317,24 @@
     },
     "options": {
         "advanced": {
-            "placeholder": "Ange övriga startalternativ här",
-            "title": "Avancerade alternativ (Miljövariabler):"
+            "key": "Variable Name",
+            "placeHolderKey": "NAME",
+            "placeHolderValue": "E.g.: Path/To/ExtraFiles",
+            "title": "Avancerade alternativ (Miljövariabler):",
+            "value": "Value"
         },
         "gameargs": {
             "placeholder": "Ange Launcher-specifika argument",
             "title": "Spelspecifika argument (körs efter startkommandot):"
+        },
+        "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
+        "wrapper": {
+            "args": "Arguments",
+            "arguments_example": "Arguments example: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "exe": "Wrapper",
+            "placeHolderKey": "New Wrapper",
+            "placeHolderValue": "Wrapper Arguments",
+            "title": "Wrapper command:"
         }
     },
     "other": {
@@ -241,7 +345,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Använder inbyggd GOGDL version...",
         "alt-legendary-bin": "Använder inbyggd Legendary version...",
-        "egs-prefix": "Prefix för befintlig EGS installation"
+        "egs-prefix": "Prefix för befintlig EGS installation",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -262,14 +367,37 @@
         "autosync": "Synkronisera sparfiler automatiskt",
         "autovkd3d": "Installera/uppdatera VKD3D i prefix automatiskt",
         "change-target-exe": "Ange alternativ EXE-fil att köra",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Anpassad Wine/Proton sökväg",
         "darktray": "Använd mörk ikon i systemfältet",
         "default-install-path": "Standard installationssökväg",
+        "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Ange sökväg för nya Wine-prefix",
         "disable_controller": "Deaktivera navigering via handkontroll",
         "discordRPC": "Aktivera Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine-versionen måste stödja det)",
+        "eosOverlay": {
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
+        },
         "esync": "Aktivera Esync",
         "exit-to-tray": "Minimera till systemfältet",
         "FsrSharpnessStrenght": "FSR skärpningsnivå",
@@ -279,7 +407,8 @@
         "library_top_option": {
             "disabled": "Deaktiverad",
             "favourites": "Favoritspel",
-            "recently_played": "Nyligen spelade"
+            "recently_played": "Nyligen spelade",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Bibliotek topplista",
         "log": {
@@ -305,6 +434,8 @@
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "minimize-on-launch": "Minimera Heroic efter spelstart",
         "offlinemode": "Kör spelet offline",
+        "prefered_language": "Prefered Language (Language Code)",
+        "preferSystemLibs": "Prefer system libraries",
         "primerun": "Använd dedikerat grafikkort",
         "resizableBar": "Aktivera Resizable BAR (NVIDIA RTX endast)",
         "runexe": {
@@ -324,9 +455,27 @@
         "wineversion": "Wine version"
     },
     "settings": {
+        "battlEyeRuntime": {
+            "installing": "Installing BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
         "clear-cache": "Rensa Heroic cache",
         "copiedToClipboard": "Kopierat till urklipp/klippbord!",
         "copyToClipboard": "Kopiera all inställningar till urklipp/klippbord",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
+                "title": "GameMode required"
+            },
+            "installing": "Installing EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "title": "EAC runtime enabled"
+            }
+        },
         "log": {
             "long-log-hint": "Loggen avkortad , enbart senaste 1000 rader visas!"
         },
@@ -335,14 +484,24 @@
             "general": "Allmänt",
             "log": "Logg",
             "other": "Övrigt",
-            "sync": "Synkronisera sparfiler"
+            "sync": "Synkronisera sparfiler",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
-        "reset-heroic": "Grundinställ Heroic"
+        "reset-heroic": "Grundinställ Heroic",
+        "saves": {
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        }
     },
     "Settings": "Inställningar",
+    "sidebar": {
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
+    },
     "status": {
-        "logging": "Loggar in..."
+        "installing": "Installing",
+        "logging": "Loggar in...",
+        "processing": "Processing files, please wait"
     },
     "store": "Epic Butik",
     "stores": "Butiker",
@@ -363,14 +522,12 @@
         "addpath": "Lägg till ny sökväg",
         "removepath": "Ta bort sökväg"
     },
-    "Total Games": "Totalt antal spel",
     "tray": {
         "about": "Om",
         "quit": "Avsluta",
         "reload": "Ladda om",
         "show": "Visa"
     },
-    "Unreal Marketplace": "Unreal Marketplace",
     "userselector": {
         "discord": "Discord",
         "logout": "Logga ut",
@@ -386,14 +543,15 @@
             "reload": "Ladda om sida"
         }
     },
-    "wiki": "Wiki",
     "wine": {
+        "actions": "Action",
         "manager": {
             "error": "Kunde inte hämta Wine/Proton versioner.",
             "link": "Wine hanterare",
             "title": "Wine hanterare",
             "unzipping": "Packar upp"
-        }
-    },
-    "ZSTD was not found, please install it and restart Heroic": ""
+        },
+        "release": "Release Date",
+        "size": "Size"
+    }
 }

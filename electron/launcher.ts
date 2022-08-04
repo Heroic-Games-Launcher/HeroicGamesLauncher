@@ -9,7 +9,7 @@ import {
 } from 'graceful-fs'
 import { join } from 'path'
 
-import { flatPakHome, isLinux, isMac, userHome } from './constants'
+import { flatPakHome, isLinux, isMac, runtimePath, userHome } from './constants'
 import {
   constructAndUpdateRPC,
   execAsync,
@@ -19,7 +19,8 @@ import {
   showErrorBoxModalAuto,
   searchForExecutableOnPath,
   quoteIfNecessary,
-  errorHandler
+  errorHandler,
+  removeQuoteIfNecessary
 } from './utils'
 import {
   logDebug,
@@ -34,15 +35,20 @@ import { DXVK } from './tools'
 import setup from './gog/setup'
 import { GOGGame } from 'gog/games'
 import { LegendaryGame } from 'legendary/games'
-import { GameInfo } from './types'
 import {
+  CallRunnerOptions,
+  GameInfo,
+  Runner,
+  EnviromentVariable,
+  WrapperVariable,
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
-  RpcClient,
-  WineInstallation
+  RpcClient
 } from './types'
 import { spawn } from 'child_process'
+import shlex from 'shlex'
+import { Game } from './games'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -53,27 +59,24 @@ async function prepareLaunch(
     (await GameConfig.get(game.appName).getSettings())
   const globalSettings = await GlobalConfig.get().getSettings()
 
+  const offlineMode =
+    gameSettings.offlineMode || !isOnline() || (await isEpicServiceOffline())
+
   // Check if the game needs an internet connection
-  // If the game can run offline just fine, we don't have to check anything
-  if (!gameInfo.canRunOffline) {
-    // If either we or Epic's servers are offline, we can't reach Epic
-    const epicNonReachable = !isOnline() || (await isEpicServiceOffline())
-    // If the game is configured to use offline mode or Epic isn't reachable, but the game can't run offline, we can't launch
-    if (gameSettings.offlineMode || epicNonReachable) {
-      showErrorBoxModalAuto(
-        i18next.t(
-          'box.error.no-offline-mode.title',
-          'Offline mode not supported.'
-        ),
-        i18next.t(
-          'box.error.no-offline-mode.message',
-          'Launch aborted! The game requires a internet connection to run it.'
-        )
+  if (!gameInfo.canRunOffline && offlineMode) {
+    showErrorBoxModalAuto(
+      i18next.t(
+        'box.error.no-offline-mode.title',
+        'Offline mode not supported.'
+      ),
+      i18next.t(
+        'box.error.no-offline-mode.message',
+        'Launch aborted! The game requires a internet connection to run it.'
       )
-      return {
-        success: false,
-        failureReason: 'Offline mode not supported'
-      }
+    )
+    return {
+      success: false,
+      failureReason: 'Offline mode not supported'
     }
   }
 
@@ -115,14 +118,18 @@ async function prepareLaunch(
 
   if (gameSettings.useSteamRuntime && isLinuxNative) {
     // for native games lets use scout for now
-    const runtime = getSteamRuntime('scout')
-    if (!runtime.path) {
-      logWarning(`Couldn't find a valid Steam runtime path`, LogPrefix.Backend)
-    } else {
-      logInfo(`Using ${runtime.type} Steam runtime`, LogPrefix.Backend)
-      steamRuntime =
-        runtime.version === 'soldier' ? `${runtime.path} -- ` : runtime.path
-    }
+    await getSteamRuntime('scout').then((runtime) => {
+      if (!runtime.path) {
+        logWarning(
+          `Couldn't find a valid Steam runtime path`,
+          LogPrefix.Backend
+        )
+      } else {
+        logInfo(`Using ${runtime.type} Steam runtime`, LogPrefix.Backend)
+        steamRuntime =
+          runtime.version === 'soldier' ? `${runtime.path} -- ` : runtime.path
+      }
+    })
   }
 
   return {
@@ -130,7 +137,8 @@ async function prepareLaunch(
     rpcClient,
     mangoHudCommand,
     gameModeBin,
-    steamRuntime
+    steamRuntime,
+    offlineMode
   }
 }
 
@@ -219,7 +227,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     }
   }
 
-  const installFolderName = (await game.getGameInfo()).folder_name
+  const { folder_name: installFolderName } = game.getGameInfo()
   const envVars = setupWineEnvVars(gameSettings, installFolderName)
 
   return { success: true, envVars: envVars }
@@ -240,16 +248,17 @@ function setupEnvVars(gameSettings: GameSettings) {
   if (gameSettings.audioFix) {
     ret.PULSE_LATENCY_MSEC = '60'
   }
-  if (gameSettings.otherOptions) {
-    gameSettings.otherOptions
-      .split(' ')
-      .filter((val) => val.indexOf('=') !== -1)
-      .forEach((envKeyAndVar) => {
-        const keyAndValueSplit = envKeyAndVar.split('=')
-        const key = keyAndValueSplit.shift()
-        const value = keyAndValueSplit.join('=')
-        ret[key] = value
-      })
+  if (gameSettings.enviromentOptions) {
+    gameSettings.enviromentOptions.forEach((envEntry: EnviromentVariable) => {
+      ret[envEntry.key] = removeQuoteIfNecessary(envEntry.value)
+    })
+  }
+
+  // setup LD_PRELOAD if not defined
+  // fixes the std::log_error for Fall Guys
+  // thanks to https://github.com/Diyou
+  if (!process.env.LD_PRELOAD && !ret.LD_PRELOAD) {
+    ret.LD_PRELOAD = ''
   }
 
   return ret
@@ -262,15 +271,22 @@ function setupEnvVars(gameSettings: GameSettings) {
  * @returns A Record that can be passed to execAsync/spawn
  */
 function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
-  const { wineVersion } = gameSettings
+  const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
+
+  const ret: Record<string, string> = {}
 
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
-  const ret: Record<string, string> = {
-    ...getWineEnvSetup(
-      wineVersion,
-      gameSettings.winePrefix,
-      gameSettings.wineCrossoverBottle
-    )
+  const steamInstallPath = join(flatPakHome, '.steam', 'steam')
+  switch (wineVersion.type) {
+    case 'wine':
+      ret.WINEPREFIX = winePrefix
+      break
+    case 'proton':
+      ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
+      ret.STEAM_COMPAT_DATA_PATH = winePrefix
+      break
+    case 'crossover':
+      ret.CX_BOTTLE = wineCrossoverBottle
   }
 
   if (gameSettings.showFps) {
@@ -280,14 +296,26 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.WINE_FULLSCREEN_FSR = '1'
     ret.WINE_FULLSCREEN_FSR_STRENGTH = gameSettings.maxSharpness.toString()
   }
-  if (gameSettings.enableEsync) {
+  if (gameSettings.enableEsync && wineVersion.type !== 'proton') {
     ret.WINEESYNC = '1'
   }
-  if (gameSettings.enableFsync) {
+  if (!gameSettings.enableEsync && wineVersion.type === 'proton') {
+    ret.PROTON_NO_ESYNC = '1'
+  }
+  if (gameSettings.enableFsync && wineVersion.type !== 'proton') {
     ret.WINEFSYNC = '1'
+  }
+  if (!gameSettings.enableFsync && wineVersion.type === 'proton') {
+    ret.PROTON_NO_FSYNC = '1'
   }
   if (gameSettings.enableResizableBar) {
     ret.VKD3D_CONFIG = 'upload_hvv'
+  }
+  if (gameSettings.eacRuntime) {
+    ret.PROTON_EAC_RUNTIME = join(runtimePath, 'eac_runtime')
+  }
+  if (gameSettings.battlEyeRuntime) {
+    ret.PROTON_BATTLEYE_RUNTIME = join(runtimePath, 'battleye_runtime')
   }
   if (wineVersion.type === 'proton') {
     // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
@@ -298,9 +326,29 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.PROTON_LOG_DIR = flatPakHome
 
     // Only set WINEDEBUG if PROTON_LOG is set since Proton will also log if just WINEDEBUG is set
-    if (gameSettings.otherOptions.includes('PROTON_LOG=')) {
+    if (
+      gameSettings.enviromentOptions.find((env) => env.key === 'PROTON_LOG')
+    ) {
       // Stop Proton from overriding WINEDEBUG; this prevents logs growing to a few GB for some games
       ret.WINEDEBUG = 'timestamp'
+    }
+  }
+  if (!gameSettings.preferSystemLibs && wineVersion.type === 'wine') {
+    if (wineVersion.lib32 && wineVersion.lib) {
+      // append wine libs at the beginning
+      ret.LD_LIBRARY_PATH = [
+        wineVersion.lib32,
+        wineVersion.lib,
+        process.env.LD_LIBRARY_PATH
+      ].join(':')
+    } else {
+      logError(
+        [
+          `Couldn't find all library folders of ${wineVersion.name}!`,
+          `Missing ${wineVersion.lib32} or ${wineVersion.lib}!`,
+          `Falling back to system libraries!`
+        ].join('\n')
+      )
     }
   }
   return ret
@@ -313,14 +361,11 @@ function setupWrappers(
   steamRuntime: string
 ): Array<string> {
   const wrappers = Array<string>()
-  // Wrappers could be specified in the environment variable section as well
-  if (gameSettings.otherOptions) {
-    gameSettings.otherOptions
-      .split(' ')
-      .filter((val) => val.indexOf('=') === -1)
-      .forEach((val) => {
-        wrappers.push(val)
-      })
+  if (gameSettings.wrapperOptions) {
+    gameSettings.wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
+      wrappers.push(wrapperEntry.exe)
+      wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
+    })
   }
   if (gameSettings.showMangohud) {
     // Mangohud needs some arguments in addition to the command, so we have to split here
@@ -365,7 +410,7 @@ export async function verifyWinePrefix(
   const haveToWait = !existsSync(systemRegPath)
 
   return game
-    .runWineCommand('wineboot --init', '', haveToWait)
+    .runWineCommand('wineboot --init', haveToWait)
     .then((result) => {
       if (wineVersion.type === 'proton') {
         return { res: result, updated: true }
@@ -376,34 +421,8 @@ export async function verifyWinePrefix(
     })
     .catch((error) => {
       logError(['Unable to create Wineprefix: ', `${error}`], LogPrefix.Backend)
-      return { res: { stderr: `${error}`, stdout: '' }, updated: false }
+      throw error
     })
-}
-
-/**
- * Returns appropriate environment variables for running a Wine/Proton/CX command
- * @returns The required environment variables
- */
-function getWineEnvSetup(
-  wineVersion: WineInstallation,
-  winePrefix: string,
-  cx_bottle?: string
-): Record<string, string> {
-  const ret: Record<string, string> = {}
-  const steamInstallPath = join(flatPakHome, '.steam', 'steam')
-
-  switch (wineVersion.type) {
-    case 'wine':
-      ret.WINEPREFIX = winePrefix
-      break
-    case 'proton':
-      ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
-      ret.STEAM_COMPAT_DATA_PATH = winePrefix
-      break
-    case 'crossover':
-      ret.CX_BOTTLE = cx_bottle
-  }
-  return ret
 }
 
 function launchCleanup(rpcClient: RpcClient) {
@@ -412,31 +431,34 @@ function launchCleanup(rpcClient: RpcClient) {
     logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
   }
 }
-
 async function runWineCommand(
-  gameSettings: GameSettings,
+  game: Game,
   command: string,
-  altWineBin: string,
-  wait: boolean
+  wait: boolean,
+  forceRunInPrefixVerb = false
 ) {
-  const { wineVersion, winePrefix } = gameSettings
+  const gameSettings = await game.getSettings()
+  const { folder_name: installFolderName } = game.getGameInfo()
+
+  const { wineVersion } = gameSettings
 
   const env_vars = {
     ...process.env,
-    ...getWineEnvSetup(wineVersion, winePrefix)
+    ...setupEnvVars(gameSettings),
+    ...setupWineEnvVars(gameSettings, installFolderName)
   }
 
   let additional_command = ''
-  let wineBin = wineVersion.bin.replaceAll("'", '')
   if (wineVersion.type === 'proton') {
-    command = 'run ' + command
-    // TODO: Respect 'wait' here. Not sure if Proton can even do that
+    if (forceRunInPrefixVerb) {
+      command = 'runinprefix ' + command
+    } else if (wait) {
+      command = 'waitforexitandrun ' + command
+    } else {
+      command = 'run ' + command
+    }
     // TODO: Use Steamruntime here in the future
   } else {
-    // This is only allowed for Wine since Proton only has one binary (the 'proton' script)
-    if (altWineBin) {
-      wineBin = altWineBin.replaceAll("'", '')
-    }
     // Can't wait if we don't have a Wineserver
     if (wait) {
       if (wineVersion.wineserver) {
@@ -450,6 +472,7 @@ async function runWineCommand(
     }
   }
 
+  const wineBin = wineVersion.bin.replaceAll("'", '')
   let finalCommand = `"${wineBin}" ${command}`
   if (additional_command) {
     finalCommand += ` && ${additional_command}`
@@ -464,39 +487,45 @@ async function runWineCommand(
     .catch((error) => {
       // error might not always be a string
       logError(['Error running Wine command:', `${error}`], LogPrefix.Backend)
-      return { stderr: `${error}`, stdout: '' }
+      throw error
     })
 }
 
-async function runLegendaryOrGogdlCommand(
+interface RunnerProps {
+  name: Runner
+  logPrefix: LogPrefix
+  bin: string
+  dir: string
+}
+
+async function callRunner(
   commandParts: string[],
-  runner: {
-    name: 'GOGDL' | 'Legendary'
-    logPrefix: LogPrefix
-    bin: string
-    dir: string
-  },
-  options?: {
-    logFile?: string
-    env?: Record<string, string>
-    wrappers?: string[]
-    onOutput?: (output: string) => void
-  }
+  runner: RunnerProps,
+  options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const fullRunnerPath = join(runner.dir, runner.bin)
   const appName = commandParts[commandParts.findIndex(() => 'launch') + 1]
-  const safeCommand = getLegendaryOrGogdlCommand(
-    commandParts,
+
+  // Necessary to get rid of possible undefined or null entries, else
+  // TypeError is triggered
+  commandParts = commandParts.filter(Boolean)
+
+  const safeCommand = getRunnerCallWithoutCredentials(
+    [...commandParts],
     options?.env,
     options?.wrappers,
     fullRunnerPath
   )
-  logDebug(['Running', runner.name, 'command:', safeCommand], runner.logPrefix)
+
+  logInfo(
+    [(options?.logMessagePrefix ?? `Running command`) + ':', safeCommand],
+    runner.logPrefix
+  )
+
   if (options?.logFile) {
-    logDebug([`Logging to file "${options.logFile}"`], runner.logPrefix)
+    logDebug(`Logging to file "${options?.logFile}"`, runner.logPrefix)
   }
 
-  commandParts = commandParts.filter((n) => n)
   if (existsSync(options?.logFile)) {
     writeFileSync(options.logFile, '')
   }
@@ -521,28 +550,27 @@ async function runLegendaryOrGogdlCommand(
     const stdout: string[] = []
     const stderr: string[] = []
 
-    if (options?.logFile) {
-      child.stdout.on('data', (data: Buffer) => {
-        appendFileSync(options.logFile, data.toString())
-      })
-      child.stderr.on('data', (data: Buffer) => {
-        appendFileSync(options.logFile, data.toString())
-      })
-    }
-
-    if (options?.onOutput) {
-      child.stdout.on('data', (data: Buffer) => {
-        options.onOutput(data.toString())
-      })
-      child.stderr.on('data', (data: Buffer) => {
-        options.onOutput(data.toString())
-      })
-    }
-
     child.stdout.on('data', (data: Buffer) => {
+      if (options?.logFile) {
+        appendFileSync(options.logFile, data.toString())
+      }
+
+      if (options?.onOutput) {
+        options.onOutput(data.toString(), child)
+      }
+
       stdout.push(data.toString().trim())
     })
+
     child.stderr.on('data', (data: Buffer) => {
+      if (options?.logFile) {
+        appendFileSync(options.logFile, data.toString())
+      }
+
+      if (options?.onOutput) {
+        options.onOutput(data.toString(), child)
+      }
+
       stderr.push(data.toString().trim())
     })
 
@@ -554,7 +582,7 @@ async function runLegendaryOrGogdlCommand(
         appName
       })
 
-      if (signal) {
+      if (signal && !child.killed) {
         rej('Process terminated with signal ' + signal)
       }
 
@@ -563,6 +591,7 @@ async function runLegendaryOrGogdlCommand(
         stderr: stderr.join('\n')
       })
     })
+
     child.on('error', (error) => {
       rej(error)
     })
@@ -583,29 +612,38 @@ async function runLegendaryOrGogdlCommand(
         !`${error}`.includes('appears to be deleted')
 
       logError(
-        ['Error running', runner.name, 'command', `"${safeCommand}": ${error}`],
+        ['Error running', 'command', `"${safeCommand}": ${error}`],
         runner.logPrefix,
         showDialog
       )
+
       return { stdout: '', stderr: `${error}`, fullCommand: safeCommand, error }
     })
 }
 
-function getLegendaryOrGogdlCommand(
+/**
+ * Generates a formatted, safe command that can be logged
+ * @param commandParts The runner command that's executed, e. g. install, list, etc.
+ * Note that this will be modified, so pass a copy of your actual command parts
+ * @param env Enviroment variables to use
+ * @param wrappers Wrappers to use (gamemode, steam runtime, etc.)
+ * @param runnerPath The full path to the runner executable
+ * @returns
+ */
+function getRunnerCallWithoutCredentials(
   commandParts: string[],
   env: Record<string, string> = {},
   wrappers: string[] = [],
   runnerPath: string
 ): string {
-  commandParts = commandParts.filter((n) => n)
-
+  const commandArguments = Object.assign([], commandParts)
   // Redact sensitive arguments (SID for Legendary, token for GOGDL)
   for (const sensitiveArg of ['--sid', '--token']) {
-    const sensitiveArgIndex = commandParts.indexOf(sensitiveArg)
+    const sensitiveArgIndex = commandArguments.indexOf(sensitiveArg)
     if (sensitiveArgIndex === -1) {
       continue
     }
-    commandParts[sensitiveArgIndex + 1] = '<redacted>'
+    commandArguments[sensitiveArgIndex + 1] = '<redacted>'
   }
 
   const formattedEnvVars: string[] = []
@@ -619,23 +657,24 @@ function getLegendaryOrGogdlCommand(
     formattedEnvVars.push(`${key}=${quoteIfNecessary(value)}`)
   }
 
+  commandParts = commandParts.filter(Boolean)
+
   return [
     ...formattedEnvVars,
     ...wrappers.map(quoteIfNecessary),
     quoteIfNecessary(runnerPath),
-    ...commandParts.map(quoteIfNecessary)
+    ...commandArguments.map(quoteIfNecessary)
   ].join(' ')
 }
 
 export {
   prepareLaunch,
   launchCleanup,
-  getWineEnvSetup,
   prepareWineLaunch,
   setupEnvVars,
   setupWineEnvVars,
   setupWrappers,
   runWineCommand,
-  runLegendaryOrGogdlCommand,
-  getLegendaryOrGogdlCommand
+  callRunner,
+  getRunnerCallWithoutCredentials
 }

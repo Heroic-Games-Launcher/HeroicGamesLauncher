@@ -39,6 +39,7 @@
         "add_to_favourites": "Lägg till i Favoriter",
         "cancel": "Paus/Avbryt",
         "continue": "Fortsätt nedladdning",
+        "force_update": "Force Update if Available",
         "hide_game": "Dölj spel",
         "import": "Importera spel",
         "install": "Installera",
@@ -123,10 +124,15 @@
     },
     "submenu": {
         "addShortcut": "Skapa genväg",
+        "addToSteam": "Add to Steam",
         "change": "Ändra installationssökväg",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "Senaste loggen",
         "move": "Flytta spelet",
         "protondb": "Kontrollera kompatibilitet",
+        "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
         "settings": "Inställningar",
         "store": "Butikssida",
         "verify": "Verifiera och reparera"

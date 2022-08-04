@@ -1,4 +1,3 @@
-import { IpcRenderer } from 'electron'
 import { AppSettings, GamepadActionStatus } from 'src/types'
 import {
   checkGameCube,
@@ -9,9 +8,7 @@ import {
   checkN64Clone1,
   checkGenius1
 } from './gamepad_layouts'
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
+import { ipcRenderer } from 'src/helpers'
 import { VirtualKeyboardController } from './virtualKeyboard'
 
 const KEY_REPEAT_DELAY = 500
@@ -23,6 +20,7 @@ const SCROLL_REPEAT_DELAY = 50
  */
 
 let controllerIsDisabled = false
+let currentController = -1
 
 export const initGamepad = () => {
   ipcRenderer
@@ -108,6 +106,8 @@ export const initGamepad = () => {
       // set last triggeredAt timestamp, used for repeater
       data.triggeredAt[controllerIndex] = now
 
+      emitControllerEvent(controllerIndex)
+
       // check special cases for the different actions, more details on the wiki
       switch (action) {
         case 'mainAction':
@@ -116,8 +116,11 @@ export const initGamepad = () => {
             // if the current element requires a simulated click, change the action to `leftClick`
             action = 'leftClick'
           } else if (playable()) {
-            // if the current element ia a card of a game and it's installed, play it
+            // if the current element is a card of a game and it's installed, play it
             playGame()
+            return
+          } else if (isGameCard()) {
+            installGame()
             return
           } else if (VirtualKeyboardController.isButtonFocused()) {
             // simulate a left click on a virtual keyboard button
@@ -139,17 +142,24 @@ export const initGamepad = () => {
             el?.blur()
             el?.focus()
             return
+          } else if (insideInstallDialog()) {
+            closeInstallDialog()
           }
           break
         case 'altAction':
-          if (playable()) {
+          if (isGameCard()) {
             // when pressing Y on a game card, open the game details
             action = 'mainAction'
           } else if (VirtualKeyboardController.isActive()) {
-            VirtualKeyboardController.backspace()
+            VirtualKeyboardController.space()
             return
           }
           break
+        case 'rightClick':
+          if (VirtualKeyboardController.isActive()) {
+            VirtualKeyboardController.backspace()
+            return
+          }
       }
 
       if (action === 'mainAction') {
@@ -181,7 +191,19 @@ export const initGamepad = () => {
     const el = currentElement()
     if (!el) return false
 
+    // only change this if you change the id of the input element
+    // in src/components/UI/SearchBar/index.tsx
     return el.id === 'search'
+  }
+
+  function isGameCard() {
+    const el = currentElement()
+    if (!el) return false
+
+    const parent = el.parentElement
+    if (!parent) return false
+
+    return parent.classList.contains('gameCard')
   }
 
   function playable() {
@@ -205,8 +227,45 @@ export const initGamepad = () => {
     const parent = el.parentElement
     if (!parent) return false
 
-    const playButton = parent.querySelector('.playButton') as HTMLButtonElement
+    const playButton = parent.querySelector('.playIcon') as HTMLButtonElement
     if (playButton) playButton.click()
+
+    return true
+  }
+
+  function installGame() {
+    const el = currentElement()
+    if (!el) return false
+
+    const parent = el.parentElement
+    if (!parent) return false
+
+    const installButton = parent.querySelector('.downIcon') as HTMLButtonElement
+    if (installButton) installButton.click()
+
+    return true
+  }
+
+  function insideInstallDialog() {
+    const el = currentElement()
+    if (!el) return false
+
+    return !!el.closest('.InstallModal__dialog')
+  }
+
+  function closeInstallDialog() {
+    const el = currentElement()
+    if (!el) return false
+
+    const dialog = el.closest('.InstallModal__dialog')
+    if (!dialog) return false
+
+    const closeButton = dialog.querySelector(
+      '.Dialog__headerCloseButton'
+    ) as HTMLButtonElement
+    if (!closeButton) return false
+
+    closeButton.click()
 
     return true
   }
@@ -300,7 +359,49 @@ export const initGamepad = () => {
   }
 
   function removegamepad(gamepad: Gamepad) {
+    const removedIndex = controllers.findIndex((idx) => idx === gamepad.index)
+
+    // remove disconnected controller
     controllers = controllers.filter((idx) => idx !== gamepad.index)
+
+    // if controller was the current controller, reset and emit
+    if (removedIndex === currentController) {
+      emitControllerEvent(-1)
+    }
+  }
+
+  function dispatchControllerEvent(id: string) {
+    const controllerEvent = new CustomEvent('controller-changed', {
+      detail: {
+        controllerId: id
+      }
+    })
+
+    window.dispatchEvent(controllerEvent)
+  }
+
+  function emitControllerEvent(controllerIndex: number) {
+    // don't emit a change if it didn't change
+    if (currentController === controllerIndex) {
+      return
+    }
+
+    // if disconnected event
+    if (controllerIndex === -1) {
+      currentController = controllerIndex
+      dispatchControllerEvent('')
+      return
+    }
+
+    // if not disconnected event, look for id
+    const gamepads = navigator.getGamepads()
+    const gamepad = gamepads[controllerIndex]
+    if (!gamepad) {
+      return
+    }
+
+    currentController = controllerIndex
+    dispatchControllerEvent(gamepad.id)
   }
 
   window.addEventListener('gamepadconnected', connecthandler)

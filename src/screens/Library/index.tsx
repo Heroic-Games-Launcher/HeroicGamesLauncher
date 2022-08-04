@@ -16,11 +16,12 @@ import Fuse from 'fuse.js'
 
 import ContextProvider from 'src/state/ContextProvider'
 
-import { getLibraryTitle } from './constants'
-import ActionIcons from 'src/components/UI/ActionIcons'
 import { GamesList } from './components/GamesList'
 import { GameInfo, Runner } from 'src/types'
 import ErrorComponent from 'src/components/UI/ErrorComponent'
+import LibraryHeader from './components/LibraryHeader'
+import { epicCategories, gogCategories } from 'src/helpers/library'
+import RecentlyPlayed from './components/RecentlyPlayed'
 
 const InstallModal = lazy(
   async () => import('src/screens/Library/components/InstallModal')
@@ -38,14 +39,15 @@ export default function Library(): JSX.Element {
     filter,
     epic,
     gog,
-    recentGames,
     favouriteGames,
     libraryTopSection,
     filterText,
     platform,
     filterPlatform,
     hiddenGames,
-    showHidden
+    showHidden,
+    handleCategory,
+    showFavourites: showFavouritesLibrary
   } = useContext(ContextProvider)
 
   const [showModal, setShowModal] = useState({
@@ -90,31 +92,6 @@ export default function Library(): JSX.Element {
     setShowModal({ game: appName, show: true, runner })
   }
 
-  function handleSortDescending() {
-    setSortDescending(!sortDescending)
-    storage.setItem('sortDescending', JSON.stringify(!sortDescending))
-  }
-
-  function handleSortInstalled() {
-    setSortInstalled(!sortInstalled)
-    storage.setItem('sortInstalled', JSON.stringify(!sortInstalled))
-  }
-
-  function titleWithIcons() {
-    return (
-      <div className="titleWithIcons">
-        {getLibraryTitle(category, filter, t)}
-        <ActionIcons
-          sortDescending={sortDescending}
-          toggleSortDescending={() => handleSortDescending()}
-          sortInstalled={sortInstalled}
-          library={category === 'legendary' ? 'legendary' : 'gog'}
-          toggleSortinstalled={() => handleSortInstalled()}
-        />
-      </div>
-    )
-  }
-
   // cache list of games being installed
   const [installing, setInstalling] = useState<string[]>([])
 
@@ -125,6 +102,16 @@ export default function Library(): JSX.Element {
 
     setInstalling(newInstalling)
   }, [libraryStatus])
+
+  useEffect(() => {
+    // This code avoids getting stuck on a empty library after logout of the current selected store
+    if (epicCategories.includes(category) && !epic.username) {
+      handleCategory('gog')
+    }
+    if (gogCategories.includes(category) && !gog.username) {
+      handleCategory('legendary')
+    }
+  }, [epic.username, gog.username])
 
   const filterLibrary = (library: GameInfo[], filter: string) => {
     if (!library) {
@@ -194,23 +181,44 @@ export default function Library(): JSX.Element {
     }
   }
 
+  // top section
+  const showRecentGames =
+    libraryTopSection.startsWith('recently_played') && category !== 'unreal'
+
+  const showFavourites =
+    libraryTopSection === 'favourites' &&
+    !!favouriteGames.list.length &&
+    category !== 'unreal'
+
+  const favourites: GameInfo[] = useMemo(() => {
+    const tempArray: GameInfo[] = []
+    if (showFavourites || showFavouritesLibrary) {
+      const favouriteAppNames = favouriteGames.list.map(
+        (favourite) => favourite.appName
+      )
+      epic.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
+      gog.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
+    }
+    return tempArray
+  }, [showFavourites, favouriteGames, epic, gog])
+
   // select library
   const libraryToShow = useMemo(() => {
     let library: GameInfo[] = []
-    const isEpic =
-      epic.username && (category === 'legendary' || category === 'unreal')
-    const isGog = gog.username && category === 'gog'
-
-    if (isEpic) {
-      library = epic.library
-    } else if (isGog) {
-      library = gog.library
-    } else if (!isEpic) {
-      if (gog.username) {
-        library = gog.library
-      }
+    if (showFavouritesLibrary) {
+      library = [...favourites].filter((g) =>
+        category === 'all' ? g : g.runner === category
+      )
     } else {
-      library = epic.library
+      const isEpic = epic.username && epicCategories.includes(category)
+      const isGog = gog.username && gogCategories.includes(category)
+      const epicLibrary = isEpic ? epic.library : []
+      const gogLibrary = isGog ? gog.library : []
+      library = [...epicLibrary, ...gogLibrary]
     }
 
     // filter
@@ -219,10 +227,13 @@ export default function Library(): JSX.Element {
         filterLibrary(library, filter),
         filterPlatform
       )
-      const fuse = new Fuse(filteredLibrary, {
-        minMatchCharLength: 2,
+      const options = {
+        minMatchCharLength: 1,
+        threshold: 0.4,
+        useExtendedSearch: true,
         keys: ['title']
-      })
+      }
+      const fuse = new Fuse(filteredLibrary, options)
 
       if (filterText) {
         const fuzzySearch = fuse.search(filterText).map((g) => g.item)
@@ -275,33 +286,6 @@ export default function Library(): JSX.Element {
     showHidden
   ])
 
-  // top section
-  const showRecentGames =
-    libraryTopSection === 'recently_played' &&
-    !!recentGames.length &&
-    category !== 'unreal'
-
-  const showFavourites =
-    libraryTopSection === 'favourites' &&
-    !!favouriteGames.list.length &&
-    category !== 'unreal'
-
-  const favourites: GameInfo[] = useMemo(() => {
-    const tempArray: GameInfo[] = []
-    if (showFavourites) {
-      const favouriteAppNames = favouriteGames.list.map(
-        (favourite) => favourite.appName
-      )
-      epic.library.forEach((game) => {
-        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
-      })
-      gog.library.forEach((game) => {
-        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
-      })
-    }
-    return tempArray
-  }, [showFavourites, favouriteGames, epic, gog])
-
   if (!epic && !gog) {
     return (
       <ErrorComponent
@@ -315,28 +299,35 @@ export default function Library(): JSX.Element {
 
   return (
     <>
-      <Header list={libraryToShow} />
+      <Header />
 
       <div className="listing">
         <span id="top" />
         {showRecentGames && (
+          <RecentlyPlayed
+            handleModal={handleModal}
+            onlyInstalled={libraryTopSection.endsWith('installed')}
+          />
+        )}
+
+        {showFavourites && !showFavouritesLibrary && (
           <>
-            <h3 className="libraryHeader">{t('Recent', 'Played Recently')}</h3>
+            <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
             <GamesList
-              library={recentGames}
+              library={favourites}
               handleGameCardClick={handleModal}
+              isFirstLane
             />
           </>
         )}
 
-        {showFavourites && (
-          <>
-            <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
-            <GamesList library={favourites} handleGameCardClick={handleModal} />
-          </>
-        )}
-
-        <h3 className="libraryHeader">{titleWithIcons()}</h3>
+        <LibraryHeader
+          list={libraryToShow}
+          setSortDescending={setSortDescending}
+          setSortInstalled={setSortInstalled}
+          sortDescending={sortDescending}
+          sortInstalled={sortInstalled}
+        />
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
 

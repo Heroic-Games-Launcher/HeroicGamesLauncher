@@ -21,11 +21,15 @@ body.dracula-classic {
   --download-button: #44475a;
   --download-button-overlay: #1372d7;
   --success: #50fa7b;
-  --success-hover: #42ff71;
+  --success-hover: #3be666;
   --primary: #ff79c6;
   --primary-hover: #f560b4;
   --danger: #ff5555;
   --text-title: #8be9fd;
+  --icons-background: #17131c;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: var(--navbar-background);
 }
 
 body.marine,
@@ -46,6 +50,9 @@ body.marine-classic {
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
   --success: #98f2ff;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: var(--navbar-background);
 }
 
 body.zombie,
@@ -65,10 +72,13 @@ body.zombie-classic {
     var(--body-background) 64px,
     var(--body-background) 100%
   );
-  --input-background: #1d1f1f;
+  --input-background: #323232;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
   --success: #1bd01a;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: var(--navbar-background);
 }
 
 body.zombie .downIcon > circle,
@@ -92,10 +102,13 @@ body.old-school {
     var(--body-background) 64px,
     var(--body-background) 100%
   );
-  --input-background: #1d1f1f;
+  --input-background: #323232;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
   --success: #0bd48c;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: var(--navbar-background);
 }
 
 body.classic,

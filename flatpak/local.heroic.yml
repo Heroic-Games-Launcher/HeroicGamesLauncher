@@ -23,7 +23,8 @@ finish-args:
   - --talk-name=org.freedesktop.Notifications
   - --persist=.wine
   - --filesystem=host
-  - --env=PATH=/app/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin/
+  - --env=LD_LIBRARY_PATH=/app/lib:/app/lib32
+  - --env=PATH=/app/bin:/app/utils/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin/
   - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/app/lib32/gstreamer-1.0:/usr/lib/extensions/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0
 
 
@@ -48,6 +49,16 @@ add-extensions:
     merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
     download-if: active-gl-driver
     enable-if: active-gl-driver
+
+  com.valvesoftware.Steam.Utility:
+    subdirectories: true
+    directory: utils
+    version: stable
+    versions: stable;beta;test
+    add-ld-path: lib
+    merge-dirs: bin
+    no-autodownload: true
+    autodelete: true
   
   org.freedesktop.Platform.ffmpeg-full:
     directory: lib/ffmpeg
@@ -124,8 +135,8 @@ modules:
   - name: heroic
     buildsystem: simple
     build-commands:
-      - unappimage Heroic-2.3.3.AppImage
-      - rm Heroic-2.3.3.AppImage
+      - unappimage Heroic-2.4.0-beta.2.AppImage
+      - rm Heroic-2.4.0-beta.2.AppImage
       - mv squashfs-root /app/bin/heroic
       - install -D heroic-run -t /app/bin
     sources:
@@ -135,9 +146,9 @@ modules:
           - zypak-wrapper /app/bin/heroic/heroic "$@"
 
       - type: file
-        filename: Heroic-2.3.3.AppImage
+        filename: Heroic-2.4.0-beta.2.AppImage
         # put right path here
-        path: ../dist/Heroic-2.3.3.AppImage
+        path: ../dist/Heroic-2.4.0-beta.2.AppImage
 
   - name: platform-bootstrap
     buildsystem: simple
@@ -145,6 +156,7 @@ modules:
       - |
         set -e
         mkdir -p /app/bin
+        mkdir -p /app/utils
         mkdir -p /app/lib/ffmpeg
         mkdir -p /app/lib32/ffmpeg
         mkdir -p /app/lib/i386-linux-gnu

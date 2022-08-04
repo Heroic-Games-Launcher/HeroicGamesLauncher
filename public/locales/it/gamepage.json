@@ -36,14 +36,15 @@
         "yes": "SI"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Aggiungi Ai Preferiti",
         "cancel": "Pausa/Annulla",
         "continue": "Continua Download",
-        "hide_game": "Hide Game",
+        "force_update": "Forza aggiornamento se disponibile",
+        "hide_game": "Nascondi Gioco",
         "import": "Importa gioco",
         "install": "Installa",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Rimuovi Dai Preferiti",
+        "unhide_game": "Mostra gioco",
         "uninstall": "Disinstalla",
         "update": "Update"
     },
@@ -57,12 +58,12 @@
         "firstPlayed": "Giocato per la prima volta",
         "info": "Info",
         "installSize": "Dimensione dell'installazione",
-        "language": "Language",
+        "language": "Lingua",
         "lastPlayed": "Giocato recentemente",
         "neverPlayed": "Mai",
-        "platform": "Select Platform Version to Install",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "platform": "Seleziona la versione della piattaforma da installare",
+        "reuirements": "Requisiti Di Sistema",
+        "tools": "Strumenti",
         "totalPlayed": "Tempo giocato"
     },
     "gamecard": {
@@ -70,24 +71,24 @@
         "repairing": "Riparazione in corso"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Errore sconosciuto"
     },
     "info": {
         "canRunOffline": "Online richiesto",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "Piattaforma installata",
         "path": "Percorso d'installazione",
         "size": "Dimensione",
         "syncsaves": "Sincronizza i salvataggi",
         "version": "Versione"
     },
     "install": {
-        "disk-space-left": "Space Available",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Spazio Disponibile",
+        "not-enough-disk-space": "Spazio su disco insufficiente",
         "path": "Seleziona percorso di installazione",
-        "path-not-writtable": "Warning: path doesn't exists or might not be writable.",
-        "space-after-install": "After Install",
+        "path-not-writtable": "Attenzione: il percorso potrebbe non essere scrivibile.",
+        "space-after-install": "Dopo l'installazione",
         "wineprefix": "Prefisso Wine",
-        "wineversion": ""
+        "wineversion": "Versione Wine"
     },
     "label": {
         "playing": {
@@ -101,7 +102,7 @@
     "launch": {
         "options": "Opzioni di avvio..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Segnala un problema nell'esecuzione di questo gioco",
     "sdl": {
         "title": "Seleziona i componenti da installare"
     },
@@ -116,17 +117,22 @@
         "installing": "Installazione in corso",
         "moving": "Spostamento dell'installazione in corso, per favore attendi",
         "notinstalled": "Questo gioco non è installato",
-        "processing": "Processing files, please wait",
+        "processing": "File in elaborazione, attendere",
         "reparing": "Riparazione del gioco in corso, per favore attendi",
         "totalDownloaded": "Totale scaricato",
         "updating": "Aggiornamento in corso"
     },
     "submenu": {
         "addShortcut": "Aggiungi scorciatoia",
+        "addToSteam": "Aggiungi a Steam",
         "change": "Cambia percorso d'installazione",
+        "disableEosOverlay": "Disabilita overlay EOS",
+        "enableEosOverlay": "Abilita overlay EOS",
         "log": "Ultimo Log",
         "move": "Muovi gioco",
         "protondb": "Controlla compatibilità",
+        "removeFromSteam": "Rimuovi da Steam",
+        "removeShortcut": "Remove shortcuts",
         "settings": "Impostazioni",
         "store": "Pagina dello store",
         "verify": "Verifica e ripara"

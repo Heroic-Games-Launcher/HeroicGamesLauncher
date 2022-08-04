@@ -6,15 +6,12 @@ import {
   PlatformToInstall,
   Runner
 } from 'src/types'
-import { IpcRenderer } from 'electron'
+
 import { TFunction } from 'react-i18next'
 import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
 import { configStore } from './electronStores'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+import { ipcRenderer } from 'src/helpers'
 const storage: Storage = window.localStorage
 
 type InstallArgs = {
@@ -284,14 +281,7 @@ const launch = async ({
     })
   }
 
-  return ipcRenderer
-    .invoke('launch', { appName, launchArguments, runner })
-    .then(async (err: string | string[]) => {
-      if (!err) {
-        return
-      }
-      return ipcRenderer.invoke('showErrorBox', ['Error', `${err}`])
-    })
+  return ipcRenderer.invoke('launch', { appName, launchArguments, runner })
 }
 
 const updateGame = async (appName: string, runner: Runner): Promise<void> =>
@@ -309,13 +299,21 @@ type RecentGame = {
   title: string
 }
 
-function getRecentGames(library: GameInfo[]) {
+function getRecentGames(libraries: GameInfo[]) {
   const recentGames =
     (configStore.get('games.recent', []) as Array<RecentGame>) || []
-  const recentGamesList = recentGames.map((a) => a.appName) as string[]
-
-  return library.filter((game) => recentGamesList.includes(game.app_name))
+  return (
+    recentGames
+      .map((game) => {
+        return libraries.find((info) => info.app_name === game.appName)
+      })
+      // With this `.filter`, no empty entries can be returned. TS doesn't understand this, so we have to add the `as GameInfo[]`
+      .filter(Boolean) as GameInfo[]
+  )
 }
+
+export const epicCategories = ['all', 'legendary', 'epic', 'unreal']
+export const gogCategories = ['all', 'gog']
 
 export {
   handleStopInstallation,

@@ -2,7 +2,13 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings, Runner, WineInstallation } from 'src/types'
+import {
+  AppSettings,
+  EnviromentVariable,
+  Runner,
+  WineInstallation,
+  WrapperVariable
+} from 'src/types'
 import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'src/helpers'
@@ -21,6 +27,7 @@ import WineSettings from './components/WineSettings'
 import LogSettings from './components/LogSettings'
 import { AdvancedSettings } from './components/AdvancedSettings'
 import FooterInfo from './components/FooterInfo'
+import { WineExtensions } from './components'
 import { configStore } from 'src/helpers/electronStores'
 import ContextMenu from '../Library/components/ContextMenu'
 
@@ -54,10 +61,15 @@ function Settings() {
   const [winePrefix, setWinePrefix] = useState(`${home}/.wine`)
   const [wineCrossoverBottle, setWineCrossoverBottle] = useState('Heroic')
   const [defaultInstallPath, setDefaultInstallPath] = useState('')
+  const [defaultSteamPath, setDefaultSteamPath] = useState('')
   const [defaultWinePrefix, setDefaultWinePrefix] = useState('')
   const [targetExe, setTargetExe] = useState('')
-  const [otherOptions, setOtherOptions] = useState('')
+  const [enviromentOptions, setEnviromentOptions] = useState<
+    EnviromentVariable[]
+  >([])
+  const [wrapperOptions, setWrapperOptions] = useState<WrapperVariable[]>([])
   const [launcherArgs, setLauncherArgs] = useState('')
+  const [languageCode, setLanguageCode] = useState('')
   const [egsLinkedPath, setEgsLinkedPath] = useState('')
   const [title, setTitle] = useState('')
   const [maxWorkers, setMaxWorkers] = useState(0)
@@ -147,6 +159,11 @@ function Settings() {
     setOn: setAutoInstallVkd3d
   } = useToggle(false)
   const {
+    on: preferSystemLibs,
+    toggle: togglePreferSystemLibs,
+    setOn: setPreferSystemLibs
+  } = useToggle(false)
+  const {
     on: enableFSR,
     toggle: toggleFSR,
     setOn: setEnableFSR
@@ -176,144 +193,112 @@ function Settings() {
     toggle: toggleDisableController,
     setOn: setDisableController
   } = useToggle(false)
+  const {
+    on: eacRuntime,
+    toggle: toggleEacRuntime,
+    setOn: setEacRuntime
+  } = useToggle(false)
+  const {
+    on: battlEyeRuntime,
+    toggle: toggleBattlEyeRuntime,
+    setOn: setBattlEyeRuntime
+  } = useToggle(false)
+  const {
+    on: downloadNoHttps,
+    toggle: toggleDownloadNoHttps,
+    setOn: setDownloadNoHttps
+  } = useToggle(false)
 
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [altWine, setAltWine] = useState([] as WineInstallation[])
+
+  const [configLoaded, setConfigLoaded] = useState(false)
+  const [settingsToSave, setSettingsToSave] = useState<AppSettings>(
+    {} as AppSettings
+  )
 
   const { appName = '', type = '' } = useParams()
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
   const isWineSettings = type === 'wine'
+  const isWineExtensions = type === 'wineExt'
   const isSyncSettings = type === 'sync'
   const isOtherSettings = type === 'other'
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced' && isDefault
 
+  // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
     const getSettings = async () => {
-      const config: AppSettings = await ipcRenderer.invoke(
-        'requestSettings',
-        appName
-      )
-      setAutoSyncSaves(config.autoSyncSaves)
-      setUseGameMode(config.useGameMode)
-      setShowFps(config.showFps)
-      setShowOffline(config.offlineMode)
-      setAudioFix(config.audioFix)
-      setShowMangoHud(config.showMangohud)
-      setDefaultInstallPath(config.defaultInstallPath)
-      setWineVersion(config.wineVersion)
-      setWinePrefix(config.winePrefix)
-      setWineCrossoverBottle(config.wineCrossoverBottle)
-      setOtherOptions(config.otherOptions)
-      setLauncherArgs(config.launcherArgs)
-      setUseNvidiaPrime(config.nvidiaPrime)
-      setEgsLinkedPath(config.egsLinkedPath || '')
-      setEgsPath(config.egsLinkedPath || '')
-      setExitToTray(config.exitToTray)
-      setStartInTray(config.startInTray)
-      setMinimizeOnLaunch(config.minimizeOnLaunch)
-      setDarkTrayIcon(config.darkTrayIcon)
-      setDiscordRPC(config.discordRPC)
-      setAutoInstallDxvk(config.autoInstallDxvk)
-      setAutoInstallVkd3d(config.autoInstallVkd3d)
-      setEnableEsync(config.enableEsync)
-      setEnableFsync(config.enableFsync)
-      setEnableFSR(config.enableFSR)
-      setFsrSharpness(config.maxSharpness || 2)
-      setResizableBar(config.enableResizableBar)
-      setSavesPath(config.savesPath || '')
-      setMaxWorkers(config.maxWorkers ?? 0)
-      setMaxRecentGames(config.maxRecentGames ?? 5)
-      setCustomWinePaths(config.customWinePaths || [])
-      setAddDesktopShortcuts(config.addDesktopShortcuts)
-      setAddGamesToStartMenu(config.addStartMenuShortcuts)
-      setCustomWinePaths(config.customWinePaths || [])
-      setTargetExe(config.targetExe || '')
-      setAltLegendaryBin(config.altLegendaryBin || '')
-      setAltGogdlBin(config.altGogdlBin || '')
-      setShowUnrealMarket(config.showUnrealMarket)
-      setDefaultWinePrefix(config.defaultWinePrefix)
-      setUseSteamRuntime(config.useSteamRuntime)
-      setDisableController(config.disableController || false)
+      if (!configLoaded) {
+        const config: AppSettings = await ipcRenderer.invoke(
+          'requestSettings',
+          appName
+        )
+        setAutoSyncSaves(config.autoSyncSaves)
+        setUseGameMode(config.useGameMode)
+        setShowFps(config.showFps)
+        setShowOffline(config.offlineMode)
+        setAudioFix(config.audioFix)
+        setShowMangoHud(config.showMangohud)
+        setDefaultInstallPath(config.defaultInstallPath)
+        setDefaultSteamPath(config.defaultSteamPath)
+        setWineVersion(config.wineVersion)
+        setWinePrefix(config.winePrefix)
+        setWineCrossoverBottle(config.wineCrossoverBottle)
+        setEnviromentOptions(config.enviromentOptions)
+        setWrapperOptions(config.wrapperOptions)
+        setLauncherArgs(config.launcherArgs)
+        setUseNvidiaPrime(config.nvidiaPrime)
+        setEgsLinkedPath(config.egsLinkedPath || '')
+        setEgsPath(config.egsLinkedPath || '')
+        setExitToTray(config.exitToTray)
+        setStartInTray(config.startInTray)
+        setMinimizeOnLaunch(config.minimizeOnLaunch)
+        setDarkTrayIcon(config.darkTrayIcon)
+        setDiscordRPC(config.discordRPC)
+        setAutoInstallDxvk(config.autoInstallDxvk)
+        setAutoInstallVkd3d(config.autoInstallVkd3d)
+        setPreferSystemLibs(config.preferSystemLibs)
+        setEnableEsync(config.enableEsync)
+        setEnableFsync(config.enableFsync)
+        setEnableFSR(config.enableFSR)
+        setFsrSharpness(config.maxSharpness || 2)
+        setResizableBar(config.enableResizableBar)
+        setSavesPath(config.savesPath || '')
+        setMaxWorkers(config.maxWorkers ?? 0)
+        setMaxRecentGames(config.maxRecentGames ?? 5)
+        setCustomWinePaths(config.customWinePaths || [])
+        setAddDesktopShortcuts(config.addDesktopShortcuts)
+        setAddGamesToStartMenu(config.addStartMenuShortcuts)
+        setCustomWinePaths(config.customWinePaths || [])
+        setTargetExe(config.targetExe || '')
+        setAltLegendaryBin(config.altLegendaryBin || '')
+        setAltGogdlBin(config.altGogdlBin || '')
+        setShowUnrealMarket(config.showUnrealMarket)
+        setDefaultWinePrefix(config.defaultWinePrefix)
+        setUseSteamRuntime(config.useSteamRuntime)
+        setDisableController(config.disableController || false)
+        setEacRuntime(config.eacRuntime || false)
+        setBattlEyeRuntime(config.battlEyeRuntime || false)
+        setDownloadNoHttps(config.downloadNoHttps)
 
-      if (!isDefault) {
-        const { title: gameTitle, canRunOffline: can_run_offline } =
-          await getGameInfo(appName, runner)
-        setCanRunOffline(can_run_offline)
-        setTitle(gameTitle)
-      } else {
-        setTitle(t('globalSettings', 'Global Settings'))
+        if (!isDefault) {
+          setLanguageCode(config.language)
+          const { title: gameTitle, canRunOffline: can_run_offline } =
+            await getGameInfo(appName, runner)
+          setCanRunOffline(can_run_offline)
+          setTitle(gameTitle)
+        } else {
+          setTitle(t('globalSettings', 'Global Settings'))
+        }
+
+        setSettingsToSaveState()
       }
     }
     getSettings()
-
-    return () => {
-      ipcRenderer.removeAllListeners('requestSettings')
-    }
   }, [appName, type, isDefault, i18n.language])
 
-  const GlobalSettings = {
-    altLegendaryBin,
-    altGogdlBin,
-    addDesktopShortcuts,
-    addStartMenuShortcuts,
-    audioFix,
-    autoInstallDxvk,
-    autoInstallVkd3d,
-    customWinePaths,
-    darkTrayIcon,
-    defaultInstallPath,
-    defaultWinePrefix,
-    disableController,
-    discordRPC,
-    egsLinkedPath,
-    enableEsync,
-    enableFsync,
-    exitToTray,
-    maxRecentGames,
-    maxWorkers,
-    minimizeOnLaunch,
-    nvidiaPrime,
-    otherOptions,
-    showFps,
-    showMangohud,
-    showUnrealMarket,
-    startInTray,
-    useGameMode,
-    wineCrossoverBottle,
-    winePrefix,
-    wineVersion,
-    enableFSR,
-    enableResizableBar
-  } as AppSettings
-
-  const GameSettings = {
-    audioFix,
-    autoInstallDxvk,
-    autoInstallVkd3d,
-    autoSyncSaves,
-    enableEsync,
-    enableFSR,
-    enableFsync,
-    maxSharpness,
-    enableResizableBar,
-    launcherArgs,
-    nvidiaPrime,
-    offlineMode,
-    otherOptions,
-    savesPath,
-    showFps,
-    showMangohud,
-    targetExe,
-    useGameMode,
-    wineCrossoverBottle,
-    winePrefix,
-    wineVersion,
-    useSteamRuntime
-  } as AppSettings
-
-  const settingsToSave = isDefault ? GlobalSettings : GameSettings
   let returnPath = '/'
 
   if (!fromGameCard) {
@@ -323,9 +308,147 @@ function Settings() {
     }
   }
 
+  // Helper function to update the `settingsToSave` state
+  const setSettingsToSaveState = () => {
+    const GlobalSettings = {
+      altLegendaryBin,
+      altGogdlBin,
+      addDesktopShortcuts,
+      addStartMenuShortcuts,
+      audioFix,
+      autoInstallDxvk,
+      autoInstallVkd3d,
+      preferSystemLibs,
+      customWinePaths,
+      darkTrayIcon,
+      defaultInstallPath,
+      defaultSteamPath,
+      defaultWinePrefix,
+      disableController,
+      discordRPC,
+      egsLinkedPath,
+      enableEsync,
+      enableFsync,
+      exitToTray,
+      maxRecentGames,
+      maxWorkers,
+      minimizeOnLaunch,
+      nvidiaPrime,
+      enviromentOptions,
+      wrapperOptions,
+      showFps,
+      showMangohud,
+      showUnrealMarket,
+      startInTray,
+      useGameMode,
+      wineCrossoverBottle,
+      winePrefix,
+      wineVersion,
+      enableFSR,
+      enableResizableBar,
+      eacRuntime,
+      battlEyeRuntime
+    } as AppSettings
+
+    const GameSettings = {
+      audioFix,
+      autoInstallDxvk,
+      autoInstallVkd3d,
+      preferSystemLibs,
+      autoSyncSaves,
+      enableEsync,
+      enableFSR,
+      enableFsync,
+      maxSharpness,
+      enableResizableBar,
+      language: languageCode,
+      launcherArgs,
+      nvidiaPrime,
+      offlineMode,
+      enviromentOptions,
+      wrapperOptions,
+      savesPath,
+      showFps,
+      showMangohud,
+      targetExe,
+      useGameMode,
+      wineCrossoverBottle,
+      winePrefix,
+      wineVersion,
+      useSteamRuntime,
+      eacRuntime,
+      battlEyeRuntime
+    } as AppSettings
+
+    setSettingsToSave(isDefault ? GlobalSettings : GameSettings)
+  }
+
+  // update the settingsToSave state when any of the configurations changes
+  // but only after the configuration was loaded
   useEffect(() => {
-    writeConfig([appName, settingsToSave])
-  }, [GlobalSettings, GameSettings, appName])
+    if (configLoaded) {
+      setSettingsToSaveState()
+    }
+  }, [
+    altLegendaryBin,
+    altGogdlBin,
+    addDesktopShortcuts,
+    addStartMenuShortcuts,
+    audioFix,
+    autoInstallDxvk,
+    autoInstallVkd3d,
+    preferSystemLibs,
+    autoSyncSaves,
+    customWinePaths,
+    darkTrayIcon,
+    defaultInstallPath,
+    defaultSteamPath,
+    defaultWinePrefix,
+    disableController,
+    discordRPC,
+    downloadNoHttps,
+    egsLinkedPath,
+    enableEsync,
+    enableFsync,
+    exitToTray,
+    maxRecentGames,
+    maxWorkers,
+    maxSharpness,
+    minimizeOnLaunch,
+    nvidiaPrime,
+    enviromentOptions,
+    wrapperOptions,
+    showFps,
+    showMangohud,
+    showUnrealMarket,
+    startInTray,
+    useGameMode,
+    wineCrossoverBottle,
+    winePrefix,
+    wineVersion,
+    enableFSR,
+    enableResizableBar,
+    languageCode,
+    launcherArgs,
+    offlineMode,
+    savesPath,
+    targetExe,
+    useSteamRuntime,
+    eacRuntime,
+    battlEyeRuntime
+  ])
+
+  // when the settingsToSave state changes:
+  // - write the config if it completed loading before
+  // - set the `configLoaded` state to ensure it can only be written after loaded
+  useEffect(() => {
+    if (configLoaded) {
+      writeConfig([appName, settingsToSave])
+    } else {
+      // initial state is {}, consider loaded when the object has keys in it
+      setConfigLoaded(Object.keys(settingsToSave).length > 0)
+    }
+  }, [settingsToSave])
 
   if (!title) {
     return <UpdateComponent />
@@ -396,10 +519,6 @@ function Settings() {
               setWinePrefix={setWinePrefix}
               wineCrossoverBottle={wineCrossoverBottle}
               setWineCrossoverBottle={setWineCrossoverBottle}
-              autoInstallDxvk={autoInstallDxvk}
-              autoInstallVkd3d={autoInstallVkd3d}
-              toggleAutoInstallDxvk={toggleAutoInstallDxvk}
-              toggleAutoInstallVkd3d={toggleAutoInstallVkd3d}
               customWinePaths={customWinePaths}
               setCustomWinePaths={setCustomWinePaths}
               isDefault={isDefault}
@@ -415,17 +534,43 @@ function Settings() {
               setFsrSharpness={setFsrSharpness}
               enableResizableBar={enableResizableBar}
               toggleResizableBar={toggleResizableBar}
+              preferSystemLibs={preferSystemLibs}
+              togglePreferSystemLibs={togglePreferSystemLibs}
             />
           )}
-          {isWineSettings && !isDefault && <Tools appName={appName} />}
+          {isWineSettings && !isDefault && (
+            <Tools appName={appName} runner={runner} />
+          )}
+          {isWineExtensions && (
+            <WineExtensions
+              winePrefix={winePrefix}
+              wineVersion={wineVersion}
+              eacRuntime={eacRuntime}
+              toggleEacRuntime={toggleEacRuntime}
+              gameMode={useGameMode}
+              toggleGameMode={toggleUseGameMode}
+              battlEyeRuntime={battlEyeRuntime}
+              toggleBattlEyeRuntime={toggleBattlEyeRuntime}
+              autoInstallDxvk={autoInstallDxvk}
+              toggleAutoInstallDxvk={toggleAutoInstallDxvk}
+              autoInstallVkd3d={autoInstallVkd3d}
+              toggleAutoInstallVkd3d={toggleAutoInstallVkd3d}
+            />
+          )}
           {isOtherSettings && (
             <OtherSettings
-              otherOptions={otherOptions}
-              setOtherOptions={setOtherOptions}
+              enviromentOptions={enviromentOptions}
+              wrapperOptions={wrapperOptions}
+              setEnviromentOptions={setEnviromentOptions}
+              setWrapperOptions={setWrapperOptions}
               launcherArgs={launcherArgs}
               setLauncherArgs={setLauncherArgs}
+              languageCode={languageCode}
+              setLanguageCode={setLanguageCode}
               useGameMode={useGameMode}
               toggleUseGameMode={toggleUseGameMode}
+              eacRuntime={eacRuntime}
+              toggleEacRuntime={toggleEacRuntime}
               primeRun={nvidiaPrime}
               togglePrimeRun={toggleNvidiaPrime}
               showFps={showFps}
@@ -454,6 +599,8 @@ function Settings() {
               isLinuxNative={isLinuxNative}
               isProton={wineVersion.type === 'proton'}
               appName={appName}
+              defaultSteamPath={defaultSteamPath}
+              setDefaultSteamPath={setDefaultSteamPath}
             />
           )}
           {isSyncSettings && (
@@ -465,6 +612,7 @@ function Settings() {
               setAutoSyncSaves={setAutoSyncSaves}
               isProton={!isWin && wineVersion.type === 'proton'}
               winePrefix={winePrefix}
+              runner={runner}
             />
           )}
           {isAdvancedSetting && (
@@ -473,6 +621,8 @@ function Settings() {
               setAltLegendaryBin={setAltLegendaryBin}
               altGogdlBin={altGogdlBin}
               setAltGogdlBin={setAltGogdlBin}
+              downloadNoHttps={downloadNoHttps}
+              toggleDownloadNoHttps={toggleDownloadNoHttps}
               settingsToSave={settingsToSave}
             />
           )}

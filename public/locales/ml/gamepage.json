@@ -39,6 +39,7 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "നിര്ത്തൂ/റദ്ദാക്കൂ",
         "continue": "ഇറക്കൽ തുടരൂ",
+        "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "കളി ഇറക്കുമതി ചെയ്യൂ",
         "install": "നടൂ",
@@ -123,10 +124,15 @@
     },
     "submenu": {
         "addShortcut": "കുറുക്കുവഴി ചേര്ക്കൂ",
+        "addToSteam": "Add to Steam",
         "change": "നടീലിടം മാറ്റുന്നു",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "ഒടുവിലത്തെ കുറി(log)",
         "move": "കളി മാറ്റൂ",
         "protondb": "പറ്റുമോന്നു നോക്കൂ",
+        "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
         "settings": "ക്രമീകരണങ്ങള്",
         "store": "കടത്താള്",
         "verify": "കണ്ടെത്തി നന്നാക്കൂ"

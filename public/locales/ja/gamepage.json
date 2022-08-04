@@ -39,6 +39,7 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "一時停止/キャンセル",
         "continue": "ダウンロードを続ける",
+        "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "インポート",
         "install": "インストール",
@@ -123,10 +124,15 @@
     },
     "submenu": {
         "addShortcut": "ショートカットを追加する",
+        "addToSteam": "Add to Steam",
         "change": "インストールパスを変更する",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
         "log": "最新のログ",
         "move": "ゲームを移動する",
         "protondb": "互換性を確認する",
+        "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
         "settings": "設定",
         "store": "ストアページ",
         "verify": "確認と修復"

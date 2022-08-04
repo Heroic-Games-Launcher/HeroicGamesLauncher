@@ -23,7 +23,6 @@ import {
 import { i18n, t } from 'i18next'
 
 import ContextProvider from './ContextProvider'
-import { getRecentGames } from 'src/helpers/library'
 
 import {
   configStore,
@@ -33,9 +32,9 @@ import {
   libraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
+import { ipcRenderer } from 'src/helpers'
 
 const storage: Storage = window.localStorage
-const { ipcRenderer } = window.require('electron')
 
 const RTL_LANGUAGES = ['fa']
 
@@ -72,13 +71,14 @@ interface StateProps {
   refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
   showHidden: boolean
+  showFavourites: boolean
   favouriteGames: FavouriteGame[]
-  recentGames: GameInfo[]
   theme: string
   zoomPercent: number
   contentFontFamily: string
   actionsFontFamily: string
   allTilesInColor: boolean
+  sidebarCollapsed: boolean
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -131,9 +131,12 @@ export class GlobalState extends PureComponent<Props> {
     hiddenGames:
       (configStore.get('games.hidden', []) as Array<HiddenGame>) || [],
     showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
+    showFavourites: JSON.parse(storage.getItem('show_favorites') || 'false'),
+    sidebarCollapsed: JSON.parse(
+      storage.getItem('sidebar_collapsed') || 'false'
+    ),
     favouriteGames:
       (configStore.get('games.favourites', []) as Array<FavouriteGame>) || [],
-    recentGames: [],
     theme: (configStore.get('theme', '') as string) || '',
     zoomPercent: parseInt(
       (configStore.get('zoomPercent', '100') as string) || '100'
@@ -184,6 +187,14 @@ export class GlobalState extends PureComponent<Props> {
 
   setShowHidden = (value: boolean) => {
     this.setState({ showHidden: value })
+  }
+
+  setShowFavourites = (value: boolean) => {
+    this.setState({ showFavourites: value })
+  }
+
+  setSideBarCollapsed = (value: boolean) => {
+    this.setState({ sidebarCollapsed: value })
   }
 
   hideGame = (appNameToHide: string, appTitle: string) => {
@@ -266,8 +277,9 @@ export class GlobalState extends PureComponent<Props> {
     return response.status
   }
 
-  epicLogout = () => {
-    ipcRenderer.invoke('logoutLegendary').finally(() => {
+  epicLogout = async () => {
+    this.setState({ refreshing: true })
+    await ipcRenderer.invoke('logoutLegendary').finally(() => {
       this.setState({
         epic: {
           library: [],
@@ -276,6 +288,7 @@ export class GlobalState extends PureComponent<Props> {
       })
     })
     console.log('Logging out from epic')
+    this.setState({ refreshing: false })
     window.location.reload()
   }
 
@@ -297,8 +310,8 @@ export class GlobalState extends PureComponent<Props> {
     return response.status
   }
 
-  gogLogout = () => {
-    ipcRenderer.invoke('logoutGOG').finally(() => {
+  gogLogout = async () => {
+    await ipcRenderer.invoke('logoutGOG').finally(() => {
       this.setState({
         gog: {
           library: [],
@@ -310,7 +323,10 @@ export class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
-  refresh = async (library?: Runner, checkUpdates?: boolean): Promise<void> => {
+  refresh = async (
+    library?: Runner | 'all',
+    checkUpdates?: boolean
+  ): Promise<void> => {
     console.log('refreshing')
 
     let updates = this.state.gameUpdates
@@ -329,8 +345,12 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     try {
+      const newUpdates: string[] = await ipcRenderer.invoke(
+        'checkGameUpdates',
+        library
+      )
       updates = checkUpdates
-        ? await ipcRenderer.invoke('checkGameUpdates', library)
+        ? [...new Set([...newUpdates, ...this.state.gameUpdates])]
         : this.state.gameUpdates
     } catch (error) {
       ipcRenderer.send('logError', error)
@@ -440,7 +460,10 @@ export class GlobalState extends PureComponent<Props> {
     // add app to libraryStatus if it was not present
     if (!currentApp) {
       return this.setState({
-        libraryStatus: [...libraryStatus, { appName, status, folder, progress }]
+        libraryStatus: [
+          ...libraryStatus,
+          { appName, status, folder, progress, runner }
+        ]
       })
     }
 
@@ -467,11 +490,6 @@ export class GlobalState extends PureComponent<Props> {
           library: runner
         })
 
-        storage.setItem(
-          'updates',
-          JSON.stringify(gameUpdates.filter((g) => g !== currentApp.appName))
-        )
-
         return this.setState({
           gameUpdates: updatedGamesUpdates,
           libraryStatus: newLibraryStatus
@@ -485,54 +503,63 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { t } = this.props
-    const { epic, gog, gameUpdates = [], libraryStatus, category } = this.state
+    const { epic, gameUpdates = [], libraryStatus, category } = this.state
     const oldCategory: string = category
     if (oldCategory === 'epic') {
       this.handleCategory('legendary')
     }
     // Deals launching from protocol. Also checks if the game is already running
-    ipcRenderer.on('launchGame', async (e, appName, runner) => {
-      const currentApp = libraryStatus.filter(
-        (game) => game.appName === appName
-      )[0]
-      if (!currentApp) {
-        // Add finding a runner for games
-        const hasUpdate = this.state.gameUpdates?.includes(appName)
-        return launch({ appName, t, runner, hasUpdate })
+    ipcRenderer.on(
+      'launchGame',
+      async (e: Event, appName: string, runner: Runner) => {
+        const currentApp = libraryStatus.filter(
+          (game) => game.appName === appName
+        )[0]
+        if (!currentApp) {
+          // Add finding a runner for games
+          const hasUpdate = this.state.gameUpdates?.includes(appName)
+          return launch({ appName, t, runner, hasUpdate })
+        }
       }
-    })
+    )
 
     // TODO: show the install modal instead of just installing like this since it has no options to choose
-    ipcRenderer.on('installGame', async (e, args) => {
-      const currentApp = libraryStatus.filter(
-        (game) => game.appName === appName
-      )[0]
-      const { appName, installPath, runner } = args
-      if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
-        return install({
-          appName,
-          handleGameStatus: this.handleGameStatus,
-          installPath,
-          isInstalling: false,
-          previousProgress: null,
-          progress: {
-            bytes: '0.00MiB',
-            eta: '00:00:00',
-            percent: 0
-          },
-          t,
-          runner,
-          platformToInstall: 'Windows'
-        })
+    ipcRenderer.on(
+      'installGame',
+      async (
+        e: Event,
+        args: { appName: string; installPath: string; runner: Runner }
+      ) => {
+        const currentApp = libraryStatus.filter(
+          (game) => game.appName === appName
+        )[0]
+        const { appName, installPath, runner } = args
+        if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
+          return install({
+            appName,
+            handleGameStatus: this.handleGameStatus,
+            installPath,
+            isInstalling: false,
+            previousProgress: null,
+            progress: {
+              bytes: '0.00MiB',
+              eta: '00:00:00',
+              percent: 0
+            },
+            t,
+            runner,
+            platformToInstall: 'Windows'
+          })
+        }
       }
-    })
+    )
 
-    ipcRenderer.on('setGameStatus', async (e, args: GameStatus) => {
+    ipcRenderer.on('setGameStatus', async (e: Event, args: GameStatus) => {
       const { libraryStatus } = this.state
       this.handleGameStatus({ ...libraryStatus, ...args })
     })
 
-    ipcRenderer.on('refreshLibrary', async (e, runner) => {
+    ipcRenderer.on('refreshLibrary', async (e: Event, runner: Runner) => {
       this.refreshLibrary({
         checkForUpdates: false,
         fullRefresh: true,
@@ -554,19 +581,7 @@ export class GlobalState extends PureComponent<Props> {
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
-    let recentGames: GameInfo[] = []
-
-    if (epic.library.length > 0) {
-      recentGames = [...getRecentGames(epic.library)]
-    }
-    if (gog.library.length > 0) {
-      recentGames = [...recentGames, ...getRecentGames(gog.library)]
-    }
-
-    this.setState({
-      platform,
-      recentGames
-    })
+    this.setState({ platform })
 
     if (legendaryUser || gogUser) {
       this.refreshLibrary({
@@ -587,7 +602,9 @@ export class GlobalState extends PureComponent<Props> {
       layout,
       category,
       showHidden,
-      libraryTopSection
+      libraryTopSection,
+      showFavourites,
+      sidebarCollapsed
     } = this.state
 
     storage.setItem('category', category)
@@ -595,15 +612,18 @@ export class GlobalState extends PureComponent<Props> {
     storage.setItem('layout', layout)
     storage.setItem('updates', JSON.stringify(gameUpdates))
     storage.setItem('show_hidden', JSON.stringify(showHidden))
+    storage.setItem('show_favorites', JSON.stringify(showFavourites))
+    storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
     storage.setItem('library_top_section', libraryTopSection)
 
     const pendingOps = libraryStatus.filter(
       (game) => game.status !== 'playing' && game.status !== 'done'
     ).length
+
     if (pendingOps) {
-      ipcRenderer.send('lock')
+      ipcRenderer.send('lock', 'download')
     } else {
-      ipcRenderer.send('unlock')
+      ipcRenderer.send('unlock', 'download')
     }
   }
 
@@ -643,6 +663,7 @@ export class GlobalState extends PureComponent<Props> {
             remove: this.unhideGame
           },
           setShowHidden: this.setShowHidden,
+          setShowFavourites: this.setShowFavourites,
           favouriteGames: {
             list: this.state.favouriteGames,
             add: this.addGameToFavourites,
@@ -653,7 +674,8 @@ export class GlobalState extends PureComponent<Props> {
           setZoomPercent: this.setZoomPercent,
           setContentFontFamily: this.setContentFontFamily,
           setActionsFontFamily: this.setActionsFontFamily,
-          setAllTilesInColor: this.setAllTilesInColor
+          setAllTilesInColor: this.setAllTilesInColor,
+          setSideBarCollapsed: this.setSideBarCollapsed
         }}
       >
         {this.props.children}
