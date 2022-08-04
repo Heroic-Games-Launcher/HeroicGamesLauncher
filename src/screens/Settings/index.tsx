@@ -300,10 +300,9 @@ function Settings() {
   }, [appName, type, isDefault, i18n.language])
 
   let returnPath = '/'
-
   if (!fromGameCard) {
     returnPath = `/gamepage/${runner}/${appName}`
-    if (returnPath === '/gamepage/undefined/default') {
+    if (returnPath.includes('default')) {
       returnPath = '/'
     }
   }
