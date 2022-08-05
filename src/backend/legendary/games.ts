@@ -12,7 +12,7 @@ import {
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
-import { LegendaryLibrary , runLegendaryCommand } from './library'
+import { LegendaryLibrary, runLegendaryCommand } from './library'
 import { LegendaryUser } from './user'
 import { execAsync, getLegendaryBin, isOnline, killPattern } from '../utils'
 import {

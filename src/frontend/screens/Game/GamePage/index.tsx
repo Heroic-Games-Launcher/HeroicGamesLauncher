@@ -11,13 +11,14 @@ import {
   launch,
   sendKill,
   size,
-  syncSaves
-, updateGame , ipcRenderer } from 'frontend/helpers'
+  syncSaves,
+  updateGame,
+  ipcRenderer
+} from 'frontend/helpers'
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
-
 
 import { AppSettings, GameInfo, GameStatus } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'

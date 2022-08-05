@@ -18,8 +18,9 @@ import {
   getPlatform,
   install,
   launch,
-  notify
-, ipcRenderer } from '../helpers'
+  notify,
+  ipcRenderer
+} from '../helpers'
 import { i18n, t } from 'i18next'
 
 import ContextProvider from './ContextProvider'

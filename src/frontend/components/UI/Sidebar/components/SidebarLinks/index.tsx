@@ -4,8 +4,7 @@ import {
   faSlidersH,
   faStore,
   faUser,
-  faUniversalAccess
-,
+  faUniversalAccess,
   faCoffee,
   faUserAlt,
   faWineGlass

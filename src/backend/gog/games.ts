@@ -1,10 +1,16 @@
-import { GOGLibrary , runGogdlCommand } from './library'
+import { GOGLibrary, runGogdlCommand } from './library'
 import { BrowserWindow, dialog } from 'electron'
 import { join } from 'path'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
-import { killPattern , errorHandler, execAsync, getFileSize, getGOGdlBin } from '../utils'
+import {
+  killPattern,
+  errorHandler,
+  execAsync,
+  getFileSize,
+  getGOGdlBin
+} from '../utils'
 import {
   ExtraInfo,
   GameInfo,

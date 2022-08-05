@@ -20,7 +20,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { Tooltip } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen , faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { faFolderOpen, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { configStore } from 'frontend/helpers/electronStores'
 
 import { ipcRenderer } from 'frontend/helpers'

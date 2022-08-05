@@ -67,7 +67,9 @@ export default function ActionIcons({
       <FormControl segmented small>
         {layout === 'grid' ? (
           <button
-            className={classNames('FormControl__button', { active: layout === 'grid' })}
+            className={classNames('FormControl__button', {
+              active: layout === 'grid'
+            })}
             title={t('library.toggleLayout.list', 'Toggle to a list layout')}
             onClick={() => handleLayout('list')}
           >
@@ -89,7 +91,9 @@ export default function ActionIcons({
           </button>
         )}
         <button
-          className={classNames('FormControl__button', { active: !sortDescending })}
+          className={classNames('FormControl__button', {
+            active: !sortDescending
+          })}
           title={
             sortDescending
               ? t('library.sortDescending', 'Sort Descending')
@@ -103,7 +107,9 @@ export default function ActionIcons({
           />
         </button>
         <button
-          className={classNames('FormControl__button', { active: sortInstalled })}
+          className={classNames('FormControl__button', {
+            active: sortInstalled
+          })}
           title={t('library.sortByStatus', 'Sort by Status')}
           onClick={() => toggleSortinstalled()}
         >
@@ -113,7 +119,9 @@ export default function ActionIcons({
           />
         </button>
         <button
-          className={classNames('FormControl__button', { active: showFavourites })}
+          className={classNames('FormControl__button', {
+            active: showFavourites
+          })}
           title={showFavouritesTitle}
           onClick={toggleShowFavourites}
         >

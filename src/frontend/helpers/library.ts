@@ -1,4 +1,5 @@
-import { InstallPlatform ,
+import {
+  InstallPlatform,
   AppSettings,
   GameInfo,
   GameStatus,

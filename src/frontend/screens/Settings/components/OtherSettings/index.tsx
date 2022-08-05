@@ -15,9 +15,9 @@ import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import { EnviromentVariable, WrapperVariable } from 'common/types'
 import { Path } from 'frontend/types'
 import Backspace from '@mui/icons-material/Backspace'
-import { getGameInfo , ipcRenderer } from 'frontend/helpers'
+import { getGameInfo, ipcRenderer } from 'frontend/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo , faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { faCircleInfo, faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import {
   ColumnProps,
   TableInput
