@@ -12,7 +12,7 @@ import {
   ExecResult,
   InstallArgs,
   InstalledInfo
-} from 'common/types'
+} from '../../common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {
   heroicGamesConfigPath,
@@ -39,7 +39,7 @@ import setup from './setup'
 import { runGogdlCommand } from './library'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
-import { GogInstallInfo, GogInstallPlatform } from 'common/types/gog'
+import { GogInstallInfo, GogInstallPlatform } from '../../common/types/gog'
 import { t } from 'i18next'
 
 class GOGGame extends Game {

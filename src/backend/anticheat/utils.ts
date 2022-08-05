@@ -2,7 +2,7 @@ import { heroicAnticheatDataPath, isLinux } from '../constants'
 import * as axios from 'axios'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { readFileSync, writeFileSync } from 'graceful-fs'
-import { AntiCheatInfo } from 'common/types'
+import { AntiCheatInfo } from '../../common/types'
 
 async function downloadAntiCheatData() {
   if (!isLinux) return
@@ -14,10 +14,9 @@ async function downloadAntiCheatData() {
     writeFileSync(heroicAnticheatDataPath, JSON.stringify(data, null, 2))
     logInfo(`AreWeAntiCheatYet data downloaded`, { prefix: LogPrefix.Backend })
   } catch (error) {
-    logWarning(
-      `Failed download of AreWeAntiCheatYet data: ${error}`,
-      LogPrefix.Backend
-    )
+    logWarning(`Failed download of AreWeAntiCheatYet data: ${error}`, {
+      prefix: LogPrefix.Backend
+    })
   }
 }
 

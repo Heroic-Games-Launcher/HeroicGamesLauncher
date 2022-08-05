@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, unlinkSync } from 'graceful-fs'
 import { join } from 'path'
 import { runtimePath } from './../../constants'
 import { logError, logInfo, LogPrefix } from './../../logger/logger'
-import { Runtime, RuntimeName } from 'common/types'
+import { Runtime, RuntimeName } from '../../../common/types'
 import { downloadFile, extractTarFile, getAssetDataFromDownload } from './util'
 
 async function _get(): Promise<Runtime[]> {
@@ -24,10 +24,9 @@ async function download(name: RuntimeName): Promise<boolean> {
     if (!runtime) {
       throw new Error(`Runtime ${name} was not found in runtime list`)
     }
-    logInfo(
-      ['Downloading runtime', name, 'with download link', runtime.url],
-      LogPrefix.Runtime
-    )
+    logInfo(['Downloading runtime', name, 'with download link', runtime.url], {
+      prefix: LogPrefix.Runtime
+    })
 
     const { name: tarFileName, content_type } = await getAssetDataFromDownload(
       runtime.url
@@ -51,7 +50,7 @@ async function download(name: RuntimeName): Promise<boolean> {
         `${name}:`,
         error instanceof Error ? error.stack ?? error.message : `${error}`
       ],
-      LogPrefix.Runtime
+      { prefix: LogPrefix.Runtime }
     )
     return false
   }

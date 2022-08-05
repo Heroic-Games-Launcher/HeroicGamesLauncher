@@ -1,6 +1,11 @@
 import { GOGGame } from './gog/games'
 import { LegendaryGame } from './legendary/games'
-import { Runner, WineInstallation, RpcClient, SteamRuntime } from 'common/types'
+import {
+  Runner,
+  WineInstallation,
+  RpcClient,
+  SteamRuntime
+} from '../common/types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, spawnSync } from 'child_process'

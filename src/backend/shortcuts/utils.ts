@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, unlinkSync, writeFileSync } from 'graceful-fs'
 import { GOGLibrary } from '../gog/library'
 import { heroicIconFolder } from '../constants'
-import { GameInfo } from 'common/types'
+import { GameInfo } from '../../common/types'
 import { spawnSync } from 'child_process'
 import { basename, dirname, extname, join } from 'path'
 

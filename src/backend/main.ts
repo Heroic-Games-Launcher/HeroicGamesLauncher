@@ -8,7 +8,7 @@ import {
   AppSettings,
   GameSettings,
   InstallPlatform
-} from 'common/types'
+} from '../common/types'
 import * as path from 'path'
 import {
   BrowserWindow,
