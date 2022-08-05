@@ -505,6 +505,7 @@ export class GlobalState extends PureComponent<Props> {
 
   handleOnlineStatus = (status: boolean) => {
     this.setState({ isOnline: status })
+    ipcRenderer.send('isOnline', status)
   }
 
   async componentDidMount() {
@@ -602,6 +603,7 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     ipcRenderer.send('frontendReady')
+    ipcRenderer.sendSync('isOnline', navigator.onLine)
   }
 
   componentDidUpdate() {

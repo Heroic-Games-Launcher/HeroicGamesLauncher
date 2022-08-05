@@ -1,7 +1,7 @@
 import { Runner } from './types'
 import { WineInstallation } from './types'
 import * as axios from 'axios'
-import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
+import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, spawnSync } from 'child_process'
 import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
@@ -34,6 +34,7 @@ import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { RpcClient, SteamRuntime } from 'types'
 import { Game } from './games'
+import { ipcMain } from 'electron/main'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -87,7 +88,9 @@ function semverGt(target: string, base: string) {
 }
 
 function isOnline() {
-  return net.isOnline()
+  let status = true
+  ipcMain.on('isOnline', (e, s) => (status = s))
+  return status
 }
 
 export const getFileSize = fileSize.partial({ base: 2 })

@@ -1486,6 +1486,8 @@ ipcMain.handle('getShellPath', async (event, path) => {
   return (await execAsync(`echo "${path}"`)).stdout.trim()
 })
 
+ipcMain.addListener('isOnline', (e, status) => console.log({ status }))
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
