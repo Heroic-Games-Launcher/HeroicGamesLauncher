@@ -3,3 +3,4 @@ flatpak/build/
 flatpak/.flatpak-builder/
 vite.config.ts
 **/__tests__/**
+**/__mocks__/**

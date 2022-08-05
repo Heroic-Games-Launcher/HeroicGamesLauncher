@@ -7,7 +7,7 @@ import {
   getAssetDataFromDownload,
   downloadFile,
   extractTarFile
-} from '../../wine/runtimes/util'
+} from '../../util'
 // @ts-ignore: Don't know why ts complains about it.
 import { test_data } from './test_data/github-api-heroic-test-data.json'
 import { dirSync } from 'tmp'

@@ -7,7 +7,7 @@ import {
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'graceful-fs'
 import { readFileSync } from 'fs-extra'
 import { join } from 'path'
-import { GameInfo } from 'common/types'
+import { GameInfo } from '../../../common/types'
 import { ShortcutsResult } from '../types'
 import { getIcon } from '../utils'
 import {
@@ -198,7 +198,7 @@ async function addNonSteamGame(props: {
   const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
 
   if (error) {
-    logError(error, LogPrefix.Shortcuts)
+    logError(error, { prefix: LogPrefix.Shortcuts })
     showErrorInFrontend({
       gameTitle: props.gameInfo.title,
       error,
@@ -315,7 +315,7 @@ async function addNonSteamGame(props: {
 
   if (!added) {
     const errorMessage = errors.join('\n')
-    logError(errorMessage, LogPrefix.Shortcuts)
+    logError(errorMessage, { prefix: LogPrefix.Shortcuts })
     showErrorInFrontend({
       gameTitle: props.gameInfo.title,
       error: errorMessage,
@@ -325,10 +325,9 @@ async function addNonSteamGame(props: {
   }
 
   if (errors.length === 0) {
-    logInfo(
-      `${props.gameInfo.title} was successfully added to Steam.`,
-      LogPrefix.Shortcuts
-    )
+    logInfo(`${props.gameInfo.title} was successfully added to Steam.`, {
+      prefix: LogPrefix.Shortcuts
+    })
 
     const message = i18next.t('notify.finished.add.steam.success', {
       defaultValue:
@@ -339,9 +338,9 @@ async function addNonSteamGame(props: {
   } else {
     logWarning(
       `${props.gameInfo.title} could not be added to all found Steam users.`,
-      LogPrefix.Shortcuts
+      { prefix: LogPrefix.Shortcuts }
     )
-    logError(errors.join('\n'), LogPrefix.Shortcuts)
+    logError(errors.join('\n'), { prefix: LogPrefix.Shortcuts })
 
     const message = i18next.t('notify.finished.add.steam.corrupt', {
       defaultValue:
@@ -365,7 +364,7 @@ async function removeNonSteamGame(props: {
   const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
 
   if (error) {
-    logError(error, LogPrefix.Shortcuts)
+    logError(error, { prefix: LogPrefix.Shortcuts })
     showErrorInFrontend({
       gameTitle: props.gameInfo.title,
       error,
@@ -428,10 +427,9 @@ async function removeNonSteamGame(props: {
   }
 
   if (errors.length === 0) {
-    logInfo(
-      `${props.gameInfo.title} was successfully removed from Steam.`,
-      LogPrefix.Shortcuts
-    )
+    logInfo(`${props.gameInfo.title} was successfully removed from Steam.`, {
+      prefix: LogPrefix.Shortcuts
+    })
 
     const message = i18next.t('notify.finished.remove.steam.success', {
       defaultValue:
@@ -442,9 +440,9 @@ async function removeNonSteamGame(props: {
   } else {
     logWarning(
       `${props.gameInfo.title} could not be removed from all found Steam users.`,
-      LogPrefix.Shortcuts
+      { prefix: LogPrefix.Shortcuts }
     )
-    logError(errors.join('\n'), LogPrefix.Shortcuts)
+    logError(errors.join('\n'), { prefix: LogPrefix.Shortcuts })
 
     const message = i18next.t('notify.finished.remove.steam.corrupt', {
       defaultValue:

@@ -29,9 +29,11 @@ async function updateWineVersionInfos(
 ): Promise<WineVersionInfo[]> {
   let releases: WineVersionInfo[] = []
 
-  logInfo('Updating wine versions info', LogPrefix.WineDownloader)
+  logInfo('Updating wine versions info', { prefix: LogPrefix.WineDownloader })
   if (fetch) {
-    logInfo('Fetching upstream information...', LogPrefix.WineDownloader)
+    logInfo('Fetching upstream information...', {
+      prefix: LogPrefix.WineDownloader
+    })
     await getAvailableVersions({
       repositorys: [
         Repositorys.WINEGE,
@@ -74,7 +76,7 @@ async function updateWineVersionInfos(
 
     wineDownloaderInfoStore.set('wine-releases', releases)
   } else {
-    logInfo('Read local information ...', LogPrefix.WineDownloader)
+    logInfo('Read local information ...', { prefix: LogPrefix.WineDownloader })
     if (wineDownloaderInfoStore.has('wine-releases')) {
       releases.push(
         ...(wineDownloaderInfoStore.get(
@@ -85,7 +87,7 @@ async function updateWineVersionInfos(
     }
   }
 
-  logInfo('wine versions updated', LogPrefix.WineDownloader)
+  logInfo('wine versions updated', { prefix: LogPrefix.WineDownloader })
   return releases
 }
 
@@ -129,10 +131,10 @@ async function installWineVersion(
     }
   } catch (error) {
     if (error instanceof Error && error.name.includes('AbortError')) {
-      logWarning(`${error.message}`, LogPrefix.WineDownloader)
+      logWarning(`${error.message}`, { prefix: LogPrefix.WineDownloader })
       return 'abort'
     } else {
-      logError(`${error}`, LogPrefix.WineDownloader)
+      logError(`${error}`, { prefix: LogPrefix.WineDownloader })
       return 'error'
     }
   }
@@ -179,7 +181,7 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
     try {
       rmSync(release.installDir, { recursive: true })
     } catch (error) {
-      logError(`${error}`, LogPrefix.WineDownloader)
+      logError(`${error}`, { prefix: LogPrefix.WineDownloader })
       logWarning(
         `Couldn't remove folder ${release.installDir}! Still mark wine version ${release.version} as not installed!`,
         LogPrefix.WineDownloader

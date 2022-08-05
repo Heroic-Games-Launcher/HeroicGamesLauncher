@@ -17,10 +17,9 @@ import { dirname } from 'path'
 export const DXVK = {
   getLatest: async () => {
     if (!isOnline()) {
-      logWarning(
-        'App offline, skipping possible DXVK update.',
-        LogPrefix.DXVKInstaller
-      )
+      logWarning('App offline, skipping possible DXVK update.', {
+        prefix: LogPrefix.DXVKInstaller
+      })
       return
     }
 
@@ -64,34 +63,37 @@ export const DXVK = {
       const echoCommand = `echo ${pkg} > ${heroicToolsPath}/${tool.name}/latest_${tool.name}`
       const cleanCommand = `rm ${latestVersion}`
 
-      logInfo([`Updating ${tool.name} to:`, pkg], LogPrefix.DXVKInstaller)
+      logInfo([`Updating ${tool.name} to:`, pkg], {
+        prefix: LogPrefix.DXVKInstaller
+      })
 
       return execAsync(downloadCommand)
         .then(async () => {
-          logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
-          logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
+          logInfo(`downloaded ${tool.name}`, {
+            prefix: LogPrefix.DXVKInstaller
+          })
+          logInfo(`extracting ${tool.name}`, {
+            prefix: LogPrefix.DXVKInstaller
+          })
           exec(echoCommand)
           await execAsync(extractCommand)
             .then(() =>
-              logInfo(
-                `extracting ${tool.name} updated!`,
-                LogPrefix.DXVKInstaller
-              )
+              logInfo(`extracting ${tool.name} updated!`, {
+                prefix: LogPrefix.DXVKInstaller
+              })
             )
             .catch((error) => {
-              logError(
-                `Extraction of ${tool.name} failed with: ${error}`,
-                LogPrefix.DXVKInstaller
-              )
+              logError(`Extraction of ${tool.name} failed with: ${error}`, {
+                prefix: LogPrefix.DXVKInstaller
+              })
             })
 
           exec(cleanCommand)
         })
         .catch((error) => {
-          logWarning(
-            [`Error when downloading ${tool.name}`, error],
-            LogPrefix.DXVKInstaller
-          )
+          logWarning([`Error when downloading ${tool.name}`, error], {
+            prefix: LogPrefix.DXVKInstaller
+          })
           showErrorBoxModalAuto(
             i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
             i18next.t(
@@ -113,10 +115,9 @@ export const DXVK = {
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
 
     if (!isValidPrefix) {
-      logWarning(
-        'DXVK cannot be installed on a Proton or a invalid prefix!',
-        LogPrefix.DXVKInstaller
-      )
+      logWarning('DXVK cannot be installed on a Proton or a invalid prefix!', {
+        prefix: LogPrefix.DXVKInstaller
+      })
       return
     }
 
@@ -124,7 +125,7 @@ export const DXVK = {
     const wineBin = dirname(winePath.replace("'", ''))
 
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
-      logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
+      logWarning('dxvk not found!', { prefix: LogPrefix.DXVKInstaller })
       await DXVK.getLatest()
     }
 
@@ -146,19 +147,22 @@ export const DXVK = {
     const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh install --symlink`
 
     if (action === 'restore') {
-      logInfo(`Removing ${tool} version information`, LogPrefix.DXVKInstaller)
+      logInfo(`Removing ${tool} version information`, {
+        prefix: LogPrefix.DXVKInstaller
+      })
       const updatedVersionfile = `rm -rf ${currentVersionCheck}`
       const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh uninstall --symlink`
       return execAsync(removeCommand, execOptions)
         .then(() => {
-          logInfo(`${tool} removed from ${winePrefix}`, LogPrefix.DXVKInstaller)
+          logInfo(`${tool} removed from ${winePrefix}`, {
+            prefix: LogPrefix.DXVKInstaller
+          })
           return exec(updatedVersionfile)
         })
         .catch((error) => {
-          logError(
-            ['error when removing DXVK, please try again', `${error}`],
-            LogPrefix.DXVKInstaller
-          )
+          logError(['error when removing DXVK, please try again', `${error}`], {
+            prefix: LogPrefix.DXVKInstaller
+          })
         })
     }
 
@@ -166,10 +170,14 @@ export const DXVK = {
       return
     }
 
-    logInfo([`installing ${tool} on...`, prefix], LogPrefix.DXVKInstaller)
+    logInfo([`installing ${tool} on...`, prefix], {
+      prefix: LogPrefix.DXVKInstaller
+    })
     await execAsync(installCommand, { shell: '/bin/bash' })
       .then(() => {
-        logInfo(`${tool} installed on ${winePrefix}`, LogPrefix.DXVKInstaller)
+        logInfo(`${tool} installed on ${winePrefix}`, {
+          prefix: LogPrefix.DXVKInstaller
+        })
         return writeFileSync(currentVersionCheck, globalVersion)
       })
       .catch((error) => {
@@ -178,7 +186,7 @@ export const DXVK = {
             'error when installing DXVK, please try launching the game again',
             `${error}`
           ],
-          LogPrefix.DXVKInstaller
+          { prefix: LogPrefix.DXVKInstaller }
         )
       })
   }
@@ -198,10 +206,12 @@ export const Winetricks = {
     return execAsync(downloadCommand)
       .then(() => {
         exec(`chmod +x ${path}`)
-        logInfo('Downloaded Winetricks', LogPrefix.Backend)
+        logInfo('Downloaded Winetricks', { prefix: LogPrefix.Backend })
       })
       .catch(() => {
-        logWarning('Error Downloading Winetricks', LogPrefix.Backend)
+        logWarning('Error Downloading Winetricks', {
+          prefix: LogPrefix.Backend
+        })
       })
   },
   run: async (wineVersion: WineInstallation, baseWinePrefix: string) => {
@@ -222,21 +232,23 @@ export const Winetricks = {
 
     logInfo(
       `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`,
-      LogPrefix.WineTricks
+      { prefix: LogPrefix.WineTricks }
     )
 
     const child = spawn(winetricks, ['-q'], { env: envs })
 
     child.stdout.on('data', (data: Buffer) => {
-      logInfo(data.toString(), LogPrefix.WineTricks)
+      logInfo(data.toString(), { prefix: LogPrefix.WineTricks })
     })
 
     child.stderr.on('data', (data: Buffer) => {
-      logError(data.toString(), LogPrefix.WineTricks)
+      logError(data.toString(), { prefix: LogPrefix.WineTricks })
     })
 
     child.on('error', (error) => {
-      logError(`Winetricks throwed Error: ${error}`, LogPrefix.WineTricks)
+      logError(`Winetricks throwed Error: ${error}`, {
+        prefix: LogPrefix.WineTricks
+      })
     })
   }
 }

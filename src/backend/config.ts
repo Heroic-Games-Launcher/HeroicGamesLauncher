@@ -12,7 +12,7 @@ import {
   AppSettings,
   GlobalConfigVersion,
   WineInstallation
-} from 'common/types'
+} from '../common/types'
 import { LegendaryUser } from './legendary/user'
 import {
   currentGlobalConfigVersion,
@@ -66,11 +66,9 @@ abstract class GlobalConfig {
       try {
         version = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))['version']
       } catch (error) {
-        logError(
-          `Config file is corrupted, please check ${heroicConfigPath}`,
-          LogPrefix.Backend,
-          false
-        )
+        logError(`Config file is corrupted, please check ${heroicConfigPath}`, {
+          prefix: LogPrefix.Backend
+        })
         version = 'v0'
       }
       // Legacy config file without a version field, it's a v0 config.
@@ -99,11 +97,9 @@ abstract class GlobalConfig {
         GlobalConfig.globalInstance = new GlobalConfigV0()
         break
       default:
-        logError(
-          `Invalid config version '${version}' requested.`,
-          LogPrefix.GlobalConfig,
-          false
-        )
+        logError(`Invalid config version '${version}' requested.`, {
+          prefix: LogPrefix.GlobalConfig
+        })
         break
     }
     // Try to upgrade outdated config.
@@ -111,16 +107,14 @@ abstract class GlobalConfig {
       // Upgrade done, we need to fully reload config.
       logInfo(
         `Upgraded outdated ${version} config to ${currentGlobalConfigVersion}.`,
-        LogPrefix.GlobalConfig
+        { prefix: LogPrefix.GlobalConfig }
       )
       return GlobalConfig.reload(currentGlobalConfigVersion)
     } else if (version !== currentGlobalConfigVersion) {
       // Upgrade failed.
-      logError(
-        `Failed to upgrade outdated ${version} config.`,
-        LogPrefix.GlobalConfig,
-        false
-      )
+      logError(`Failed to upgrade outdated ${version} config.`, {
+        prefix: LogPrefix.GlobalConfig
+      })
     }
   }
 

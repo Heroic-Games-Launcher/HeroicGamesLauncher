@@ -4,17 +4,8 @@
  *        Note that with console.log and console.warn everything will be saved too.
  *        error equals console.error
  */
-import { openSync, readdirSync, unlinkSync, appendFileSync } from 'graceful-fs'
-
-import {
-  configStore,
-  currentLogFile,
-  heroicGamesConfigPath,
-  lastLogFile
-} from '../constants'
-import { app } from 'electron'
-import { join } from 'path'
 import { showErrorBoxModalAuto } from '../utils'
+import { appendMessageToLogFile, getLongestPrefix } from './logfile'
 
 export enum LogPrefix {
   General = '',
@@ -32,17 +23,42 @@ export enum LogPrefix {
   WineTricks = 'Winetricks'
 }
 
-let longestPrefix = 0
+type LogInputType = unknown[] | unknown
 
-// helper to convert arrays to string
-function convertArrayToString(param: string | string[]): string {
-  if (typeof param === 'string') {
-    return param
-  } else if (Array.isArray(param)) {
-    return param.join(' ')
+// helper to convert LogInputType to string
+function convertInputToString(param: LogInputType): string {
+  const getString = (value: LogInputType): string => {
+    switch (typeof value) {
+      case 'string':
+        return value
+      case 'object':
+        // Object.prototype.toString.call(value).includes('Error') will catch all
+        // Error types (Error, EvalError, SyntaxError, ...)
+        if (Object.prototype.toString.call(value).includes('Error')) {
+          return value!.toString()
+        } else if (Object.prototype.toString.call(value).includes('Object')) {
+          return JSON.stringify(value, null, 2)
+        } else {
+          return `${value}`
+        }
+      case 'number':
+        return String(value)
+      case 'boolean':
+        return value ? 'true' : 'false'
+      default:
+        return `${value}`
+    }
   }
-  // if somehow the param is an object and not array or string
-  return JSON.stringify(param)
+
+  if (!Array.isArray(param)) {
+    return getString(param)
+  }
+
+  const strings = [] as string[]
+  param.forEach((value) => {
+    strings.push(getString(value))
+  })
+  return strings.join(' ')
 }
 
 const padNumberToTwo = (n: number) => {
@@ -65,221 +81,134 @@ const getTimeStamp = () => {
 
 const getPrefixString = (prefix: LogPrefix) => {
   return prefix !== LogPrefix.General
-    ? `[${prefix}]: ${repeatString(longestPrefix - prefix.length, ' ')}`
+    ? `[${prefix}]: ${repeatString(getLongestPrefix() - prefix.length, ' ')}`
     : ''
 }
 
 /**
  * Log debug messages
- * @param text debug messages to log
+ * @param input debug messages to log
  * @param prefix added before the message {@link LogPrefix}
  * @param skipLogToFile set true to not log to file
+ * @param showDialog set true to show in frontend
  * @defaultvalue {@link LogPrefix.General}
  */
 export function logDebug(
-  text: string[] | string,
-  prefix: LogPrefix = LogPrefix.General,
-  showDialog = false,
-  skipLogToFile = false
+  input: LogInputType,
+  options?: {
+    prefix?: LogPrefix
+    showDialog?: boolean
+    skipLogToFile?: boolean
+  }
 ) {
-  const extendText = `${getTimeStamp()} DEBUG:   ${getPrefixString(
-    prefix
-  )}${convertArrayToString(text)}`
-  console.log(extendText)
+  const text = convertInputToString(input)
+  const messagePrefix = `${getTimeStamp()} DEBUG:   ${getPrefixString(
+    options?.prefix ?? LogPrefix.Backend
+  )}`
 
-  if (showDialog) {
-    showErrorBoxModalAuto(getPrefixString(prefix), convertArrayToString(text))
+  console.log(messagePrefix, ...(Array.isArray(input) ? input : [input]))
+
+  if (options?.showDialog) {
+    showErrorBoxModalAuto(options?.prefix ?? LogPrefix.Backend, text)
   }
 
-  if (!skipLogToFile) {
-    appendMessageToLogFile(extendText)
+  if (!options?.skipLogToFile) {
+    appendMessageToLogFile(`${messagePrefix} ${text}`)
   }
 }
 
 /**
  * Log error messages
- * @param text error messages to log
+ * @param input error messages to log
  * @param prefix added before the message {@link LogPrefix}
  * @param skipLogToFile set true to not log to file
+ * @param showDialog set true to show in frontend
  * @defaultvalue {@link LogPrefix.General}
  */
 export function logError(
-  text: string[] | string,
-  prefix: LogPrefix = LogPrefix.General,
-  showDialog = false,
-  skipLogToFile = false
+  input: LogInputType,
+  options?: {
+    prefix?: LogPrefix
+    showDialog?: boolean
+    skipLogToFile?: boolean
+  }
 ) {
-  const extendText = `${getTimeStamp()} ERROR:   ${getPrefixString(
-    prefix
-  )}${convertArrayToString(text)}`
-  console.error(extendText)
+  const text = convertInputToString(input)
+  const messagePrefix = `${getTimeStamp()} ERROR:   ${getPrefixString(
+    options?.prefix ?? LogPrefix.Backend
+  )}`
 
-  if (showDialog) {
-    showErrorBoxModalAuto(getPrefixString(prefix), convertArrayToString(text))
+  console.error(messagePrefix, ...(Array.isArray(input) ? input : [input]))
+
+  if (options?.showDialog) {
+    showErrorBoxModalAuto(options?.prefix ?? LogPrefix.Backend, text)
   }
 
-  if (!skipLogToFile) {
-    appendMessageToLogFile(extendText)
+  if (!options?.skipLogToFile) {
+    appendMessageToLogFile(`${messagePrefix} ${text}`)
   }
 }
 
 /**
  * Log info messages
- * @param text info messages to log
+ * @param input info messages to log
  * @param prefix added before the message {@link LogPrefix}
  * @param skipLogToFile set true to not log to file
+ * @param showDialog set true to show in frontend
  * @defaultvalue {@link LogPrefix.General}
  */
 export function logInfo(
-  text: string[] | string,
-  prefix: LogPrefix = LogPrefix.General,
-  showDialog = false,
-  skipLogToFile = false
+  input: LogInputType,
+  options?: {
+    prefix?: LogPrefix
+    showDialog?: boolean
+    skipLogToFile?: boolean
+  }
 ) {
-  const extendText = `${getTimeStamp()} INFO:    ${getPrefixString(
-    prefix
-  )}${convertArrayToString(text)}`
-  console.log(extendText)
+  const text = convertInputToString(input)
+  const messagePrefix = `${getTimeStamp()} INFO:    ${getPrefixString(
+    options?.prefix ?? LogPrefix.Backend
+  )}`
 
-  if (showDialog) {
-    showErrorBoxModalAuto(getPrefixString(prefix), convertArrayToString(text))
+  console.log(messagePrefix, ...(Array.isArray(input) ? input : [input]))
+
+  if (options?.showDialog) {
+    showErrorBoxModalAuto(options?.prefix ?? LogPrefix.Backend, text)
   }
 
-  if (!skipLogToFile) {
-    appendMessageToLogFile(extendText)
+  if (!options?.skipLogToFile) {
+    appendMessageToLogFile(`${messagePrefix} ${text}`)
   }
 }
 
 /**
  * Log warning messages
- * @param text warning messages to log
+ * @param input warning messages to log
  * @param prefix added before the message {@link LogPrefix}
  * @param skipLogToFile set true to not log to file
+ * @param showDialog set true to show in frontend
  * @defaultvalue {@link LogPrefix.General}
  */
 export function logWarning(
-  text: string[] | string,
-  prefix: LogPrefix = LogPrefix.General,
-  showDialog = false,
-  skipLogToFile = false
+  input: LogInputType,
+  options?: {
+    prefix?: LogPrefix
+    showDialog?: boolean
+    skipLogToFile?: boolean
+  }
 ) {
-  const extendText = `${getTimeStamp()} WARNING: ${getPrefixString(
-    prefix
-  )}${convertArrayToString(text)}`
-  console.warn(extendText)
+  const text = convertInputToString(input)
+  const messagePrefix = `${getTimeStamp()} WARNING: ${getPrefixString(
+    options?.prefix ?? LogPrefix.Backend
+  )}`
 
-  if (showDialog) {
-    showErrorBoxModalAuto(getPrefixString(prefix), convertArrayToString(text))
+  console.warn(messagePrefix, ...(Array.isArray(input) ? input : [input]))
+
+  if (options?.showDialog) {
+    showErrorBoxModalAuto(options?.prefix ?? LogPrefix.Backend, text)
   }
 
-  if (!skipLogToFile) {
-    appendMessageToLogFile(extendText)
-  }
-}
-
-interface createLogFileReturn {
-  currentLogFile: string
-  lastLogFile: string
-}
-
-/**
- * Creates a new log file in heroic config path under folder Logs.
- * It also removes old logs every new month.
- * @returns path to current log file
- */
-export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
-  const date = new Date()
-  const logDir = app.getPath('logs')
-  const fmtDate = date.toISOString().replaceAll(':', '_')
-  const newLogFile = join(logDir, `heroic-${fmtDate}.log`)
-  try {
-    openSync(newLogFile, 'w')
-  } catch (error) {
-    logError(
-      `Open ${currentLogFile} failed with ${error}`,
-      LogPrefix.Backend,
-      true
-    )
-  }
-
-  // Clean out logs that are more than a month old
-  try {
-    const logs = readdirSync(logDir)
-    logs.forEach((log) => {
-      if (log.includes('heroic-')) {
-        const dateString = log
-          .replace('heroic-', '')
-          .replace('.log', '')
-          .replaceAll('_', ':')
-        const logDate = new Date(dateString)
-        if (
-          logDate.getFullYear() < date.getFullYear() ||
-          logDate.getMonth() < date.getMonth()
-        ) {
-          unlinkSync(`${logDir}/${log}`)
-        }
-      }
-    })
-  } catch (error) {
-    logError(
-      `Removing old logs in ${logDir} failed with ${error}`,
-      LogPrefix.Backend,
-      true
-    )
-  }
-
-  let logs: createLogFileReturn = {
-    currentLogFile: '',
-    lastLogFile: ''
-  }
-  if (configStore.has('general-logs')) {
-    logs = configStore.get('general-logs') as createLogFileReturn
-  }
-
-  logs.lastLogFile = logs.currentLogFile
-  logs.currentLogFile = newLogFile
-
-  configStore.set('general-logs', logs)
-
-  // get longest prefix to log lines in a kind of table
-  for (const prefix in LogPrefix) {
-    if (longestPrefix < String(prefix).length) {
-      longestPrefix = String(prefix).length
-    }
-  }
-
-  return logs
-}
-
-/**
- * Returns according to options the fitting log file
- * @param isDefault   getting heroic default log
- * @param appName     needed to get appName log
- * @param defaultLast if set getting heroic default latest log
- * @returns path to log file
- */
-export function getLogFile(
-  isDefault: boolean,
-  appName: string,
-  defaultLast = false
-): string {
-  return isDefault
-    ? defaultLast
-      ? lastLogFile
-      : currentLogFile
-    : join(heroicGamesConfigPath, appName + '-lastPlay.log')
-}
-
-/**
- * Appends given message to the current log file
- * @param message message to append
- */
-function appendMessageToLogFile(message: string) {
-  try {
-    if (currentLogFile) {
-      appendFileSync(currentLogFile, `${message}\n`)
-    }
-  } catch (error) {
-    logError(`Writing log file failed with ${error}`, LogPrefix.Backend, true)
+  if (!options?.skipLogToFile) {
+    appendMessageToLogFile(`${messagePrefix} ${text}`)
   }
 }

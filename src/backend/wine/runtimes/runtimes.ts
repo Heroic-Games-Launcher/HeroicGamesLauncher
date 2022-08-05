@@ -10,7 +10,7 @@ async function _get(): Promise<Runtime[]> {
   mkdirSync(runtimePath, { recursive: true })
   const allRuntimes = await axios.get('https://lutris.net/api/runtimes')
   if (!allRuntimes.data) {
-    logError('Failed to fetch runtime list', LogPrefix.Runtime)
+    logError('Failed to fetch runtime list', { prefix: LogPrefix.Runtime })
   }
   return allRuntimes.data || []
 }

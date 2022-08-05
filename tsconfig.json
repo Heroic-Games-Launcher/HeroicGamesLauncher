@@ -26,5 +26,5 @@
     "types": ["vite-plugin-svgr/client", "@types/jest"],
     "typeRoots": ["./node-modules/@types", "src/common/typedefs"]
   },
-  "exclude": ["vite.config.ts"]
+  "exclude": ["vite.config.ts", "**/__tests__/**", "**/__mocks__/**"]
 }

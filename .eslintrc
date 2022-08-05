@@ -49,6 +49,13 @@
       "error",
       "single",
       { "avoidEscape": true, "allowTemplateLiterals": true }
+    ],
+    "eslint-plugin-import/import/no-cycle": [
+      "error",
+      {
+        "maxDepth": 10,
+        "ignoreExternal": true
+      }
     ]
   }
 }

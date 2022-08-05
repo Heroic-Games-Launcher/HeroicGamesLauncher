@@ -83,7 +83,7 @@ class GOGGame extends Game {
           `${this.appName},`,
           'returning empty object. Something is probably gonna go wrong soon'
         ],
-        LogPrefix.Gog
+        { prefix: LogPrefix.Gog }
       )
       // @ts-expect-error TODO: Handle this better
       return {}
@@ -104,7 +104,7 @@ class GOGGame extends Game {
           `${this.appName},`,
           'returning empty object. Something is probably gonna go wrong soon'
         ],
-        LogPrefix.Gog
+        { prefix: LogPrefix.Gog }
       )
       // @ts-expect-error TODO: Handle this better
       return {}
@@ -127,10 +127,9 @@ class GOGGame extends Game {
     })
 
     if (res.error) {
-      logError(
-        ['Failed to import', `${this.appName}:`, res.error],
-        LogPrefix.Gog
-      )
+      logError(['Failed to import', `${this.appName}:`, res.error], {
+        prefix: LogPrefix.Gog
+      })
       return res
     }
     try {
@@ -142,7 +141,7 @@ class GOGGame extends Game {
           `${this.appName}:`,
           error instanceof Error ? error.stack ?? error.message : `${error}`
         ],
-        LogPrefix.Gog
+        { prefix: LogPrefix.Gog }
       )
     }
     return res
@@ -166,7 +165,7 @@ class GOGGame extends Game {
           `Progress for ${this.appName}:`,
           `${percent}%/${bytes}MiB/${eta}`.trim()
         ],
-        LogPrefix.Gog
+        { prefix: LogPrefix.Gog }
       )
 
       this.window.webContents.send('setGameStatus', {
@@ -195,10 +194,9 @@ class GOGGame extends Game {
     const credentials = await GOGUser.getCredentials()
 
     if (!credentials) {
-      logError(
-        ['Failed to install', `${this.appName}:`, 'No credentials'],
-        LogPrefix.Gog
-      )
+      logError(['Failed to install', `${this.appName}:`, 'No credentials'], {
+        prefix: LogPrefix.Gog
+      })
       return { status: 'error' }
     }
 
@@ -231,10 +229,9 @@ class GOGGame extends Game {
     })
 
     if (res.error) {
-      logError(
-        ['Failed to install', `${this.appName}:`, res.error],
-        LogPrefix.Gog
-      )
+      logError(['Failed to install', `${this.appName}:`, res.error], {
+        prefix: LogPrefix.Gog
+      })
       return { status: 'error' }
     }
 
@@ -268,10 +265,9 @@ class GOGGame extends Game {
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
     if (isWindows) {
-      logInfo(
-        'Windows os, running setup instructions on install',
-        LogPrefix.Gog
-      )
+      logInfo('Windows os, running setup instructions on install', {
+        prefix: LogPrefix.Gog
+      })
       await setup(this.appName, installedData)
     }
     return { status: 'done' }
@@ -429,7 +425,7 @@ class GOGGame extends Game {
     })
 
     if (error) {
-      logError(['Error launching game:', error], LogPrefix.Gog)
+      logError(['Error launching game:', error], { prefix: LogPrefix.Gog })
     }
 
     launchCleanup(rpcClient)
@@ -453,13 +449,13 @@ class GOGGame extends Game {
       newInstallPath += '/' + install_path.split('/').at(-1)
     }
 
-    logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Gog)
+    logInfo(`Moving ${title} to ${newInstallPath}`, { prefix: LogPrefix.Gog })
     await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
       .then(() => {
         GOGLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
-        logInfo(`Finished Moving ${title}`, LogPrefix.Gog)
+        logInfo(`Finished Moving ${title}`, { prefix: LogPrefix.Gog })
       })
-      .catch((error) => logError(`${error}`, LogPrefix.Gog))
+      .catch((error) => logError(`${error}`, { prefix: LogPrefix.Gog }))
     return newInstallPath
   }
 
@@ -500,10 +496,9 @@ class GOGGame extends Game {
     })
 
     if (res.error) {
-      logError(
-        ['Failed to repair', `${this.appName}:`, res.error],
-        LogPrefix.Gog
-      )
+      logError(['Failed to repair', `${this.appName}:`, res.error], {
+        prefix: LogPrefix.Gog
+      })
     }
 
     return res
@@ -538,14 +533,14 @@ class GOGGame extends Game {
       arg
     ]
 
-    logInfo([`Syncing saves for ${this.appName}`], LogPrefix.Gog)
+    logInfo([`Syncing saves for ${this.appName}`], { prefix: LogPrefix.Gog })
 
     const res = await runGogdlCommand(commandParts)
 
     if (res.error) {
       logError(
         ['Failed to sync saves for', `${this.appName}`, `${res.error}`],
-        LogPrefix.Gog
+        { prefix: LogPrefix.Gog }
       )
     }
     if (res.stdout) {
@@ -562,7 +557,7 @@ class GOGGame extends Game {
     }
 
     const [object] = array.splice(index, 1)
-    logInfo(['Removing', object.install_path], LogPrefix.Gog)
+    logInfo(['Removing', object.install_path], { prefix: LogPrefix.Gog })
     // TODO: Run unins000.exe /verysilent /dir=Z:/path/to/game
     const uninstallerPath = join(object.install_path, 'unins000.exe')
 
@@ -582,7 +577,9 @@ class GOGGame extends Game {
       } "${uninstallerPath}" /verysilent /dir="${isWindows ? '' : 'Z:'}${
         object.install_path
       }"`
-      logInfo(['Executing uninstall command', command], LogPrefix.Gog)
+      logInfo(['Executing uninstall command', command], {
+        prefix: LogPrefix.Gog
+      })
       execAsync(command)
         .then(({ stdout, stderr }) => {
           res.stdout = stdout
@@ -652,10 +649,9 @@ class GOGGame extends Game {
     })
 
     if (res.error) {
-      logError(
-        ['Failed to update', `${this.appName}:`, res.error],
-        LogPrefix.Gog
-      )
+      logError(['Failed to update', `${this.appName}:`, res.error], {
+        prefix: LogPrefix.Gog
+      })
       return { status: 'error' }
     }
 
@@ -721,7 +717,9 @@ class GOGGame extends Game {
     forceRunInPrefixVerb = false
   ): Promise<ExecResult> {
     if (this.isNative()) {
-      logError('runWineCommand called on native game!', LogPrefix.Gog)
+      logError('runWineCommand called on native game!', {
+        prefix: LogPrefix.Gog
+      })
       return { stdout: '', stderr: '' }
     }
 

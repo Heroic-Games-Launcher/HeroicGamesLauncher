@@ -45,10 +45,9 @@ async function prepareImagesForSteam(props: {
     mkdirSync(gridFolder)
   }
 
-  logInfo(
-    `Prepare Steam images for ${props.gameInfo.title}`,
-    LogPrefix.Shortcuts
-  )
+  logInfo(`Prepare Steam images for ${props.gameInfo.title}`, {
+    prefix: LogPrefix.Shortcuts
+  })
 
   const errors: string[] = []
   const images = new Map<string, string>([
@@ -97,7 +96,7 @@ async function prepareImagesForSteam(props: {
         `Preparing Steam images for ${props.gameInfo.title} failed with:\n`,
         errors.join('\n')
       ],
-      LogPrefix.Shortcuts
+      { prefix: LogPrefix.Shortcuts }
     )
   }
 }
@@ -127,10 +126,9 @@ function removeImagesFromSteam(props: {
     return
   }
 
-  logInfo(
-    `Remove Steam images for ${props.gameInfo.title}`,
-    LogPrefix.Shortcuts
-  )
+  logInfo(`Remove Steam images for ${props.gameInfo.title}`, {
+    prefix: LogPrefix.Shortcuts
+  })
 
   const errors: string[] = []
   const images = [coverArt, headerArt, backGroundArt, bigPictureArt, logoArt]
@@ -150,7 +148,7 @@ function removeImagesFromSteam(props: {
         `Removing Steam images for ${props.gameInfo.title} failed with:\n`,
         errors.join('\n')
       ],
-      LogPrefix.Shortcuts
+      { prefix: LogPrefix.Shortcuts }
     )
   }
 }
