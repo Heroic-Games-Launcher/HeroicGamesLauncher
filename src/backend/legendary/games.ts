@@ -659,7 +659,9 @@ class LegendaryGame extends Game {
       gameSettings,
       mangoHudCommand,
       gameModeBin,
-      steamRuntime
+      steamRuntime?.length
+        ? [...steamRuntime, `--filesystem=${gameInfo.install.install_path}`]
+        : undefined
     )
 
     const fullCommand = getRunnerCallWithoutCredentials(
