@@ -66,7 +66,8 @@ const initialContext: ContextType = {
   allTilesInColor: false,
   setAllTilesInColor: () => null,
   sidebarCollapsed: false,
-  setSideBarCollapsed: () => null
+  setSideBarCollapsed: () => null,
+  isOnline: navigator.onLine
 }
 
 export default React.createContext(initialContext)

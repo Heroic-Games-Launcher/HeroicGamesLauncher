@@ -79,6 +79,7 @@ interface StateProps {
   actionsFontFamily: string
   allTilesInColor: boolean
   sidebarCollapsed: boolean
+  isOnline: boolean
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -145,7 +146,8 @@ export class GlobalState extends PureComponent<Props> {
       (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
     actionsFontFamily:
       (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
-    allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false
+    allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
+    isOnline: navigator.onLine
   }
 
   setLanguage = (newLanguage: string) => {
@@ -501,9 +503,17 @@ export class GlobalState extends PureComponent<Props> {
     }
   }
 
+  handleOnlineStatus = (status: boolean) => {
+    this.setState({ isOnline: status })
+  }
+
   async componentDidMount() {
     const { t } = this.props
     const { epic, gameUpdates = [], libraryStatus, category } = this.state
+
+    window.addEventListener('online', () => this.handleOnlineStatus(true))
+    window.addEventListener('offline', () => this.handleOnlineStatus(false))
+
     const oldCategory: string = category
     if (oldCategory === 'epic') {
       this.handleCategory('legendary')
