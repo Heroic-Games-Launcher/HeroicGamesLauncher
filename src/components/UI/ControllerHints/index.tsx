@@ -18,7 +18,6 @@ export default function ControllerHints() {
 
   // set hints for an element
   const setHintsFor = (target: HTMLElement) => {
-    console.log({ target })
     const classes = target.classList
 
     let main = t('controller.hints.activate', 'Activate')
