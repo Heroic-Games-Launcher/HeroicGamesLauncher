@@ -46,7 +46,6 @@ export default function LegendarySyncSaves({
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
-  const macPlatforms = ['osx', 'Mac']
 
   useEffect(() => {
     const getSyncFolder = async () => {
@@ -61,6 +60,7 @@ export default function LegendarySyncSaves({
       setAutoSyncSaves(autoSyncSaves)
       const prefix = winePrefix ? winePrefix : ''
       let folder = await fixLegendarySaveFolder(
+        appName,
         save_folder,
         prefix,
         isProton || false
@@ -70,7 +70,7 @@ export default function LegendarySyncSaves({
         .replace('<?INSTALL?>', `${install_path}`)
 
       let actualPath
-      const isMacNative = macPlatforms.includes(installed_platform ?? '')
+      const isMacNative = installed_platform === 'Mac'
       const isNative = isWin || isMacNative
 
       if (!isNative) {

@@ -39,7 +39,6 @@ export default function GOGSyncSaves({
 
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
-  const macPlatforms = ['osx', 'Mac']
 
   useEffect(() => {
     const getLocations = async () => {
@@ -63,7 +62,7 @@ export default function GOGSyncSaves({
         })
       }
 
-      const isMacNative = macPlatforms.includes(installed_platform ?? '')
+      const isMacNative = installed_platform === 'osx'
       const isLinuxNative = installed_platform === 'linux'
       const isNative = isWin || isMacNative || isLinuxNative
 

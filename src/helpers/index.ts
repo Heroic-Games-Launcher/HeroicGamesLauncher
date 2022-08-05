@@ -177,6 +177,7 @@ async function fixGogSaveFolder(
 }
 
 async function fixLegendarySaveFolder(
+  appName: string,
   folder: string,
   prefix: string,
   isProton: boolean
@@ -249,7 +250,22 @@ async function fixLegendarySaveFolder(
   }
 
   if (folder.includes('{UserDir}')) {
-    return folder.replace('{UserDir}', `%USERPROFILE%/Documents`)
+    const documentsResult = await ipcRenderer.invoke('runWineCommandForGame', {
+      appName,
+      runner: 'legendary',
+      command:
+        'reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" /v Personal'
+    })
+    const documentsFolder = documentsResult.stdout
+      ?.trim()
+      .split('\n')[1]
+      ?.trim()
+      .split('    ')
+      .pop()
+    return folder.replace(
+      '{UserDir}',
+      documentsFolder ?? `%USERPROFILE%/Documents`
+    )
   }
 
   return folder
