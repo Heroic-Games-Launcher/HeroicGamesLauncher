@@ -78,7 +78,7 @@ body.zombie-classic {
   --success: #1bd01a;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
-  --osk-button-border: var(--navbar-background);
+  --osk-button-border: #434343;
 }
 
 body.zombie .downIcon > circle,
@@ -108,7 +108,7 @@ body.old-school {
   --success: #0bd48c;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
-  --osk-button-border: var(--navbar-background);
+  --osk-button-border: #434343;
 }
 
 body.classic,

@@ -49,7 +49,7 @@
                 "title": "Sin espacio"
             },
             "dxvk": {
-                "message": "¡Error al instalar DXVK/VKD3D! Comprueba tu conexión o si tienes instalado zstd/libzstd1",
+                "message": "¡Error al instalar DXVK/VKD3D! ¡Por favor, comprueba tu conexión!",
                 "title": "Error de DXVK/VKD3D"
             },
             "folder-not-found": {
@@ -150,6 +150,27 @@
         "syncing": "Sincronizando",
         "unsync": "Desincronizar"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Documentation",
     "epic": {
         "offline-notification-body": "¡Puede que algunos servicios no funcionen correctamente si no estás conectado a los servidores de Epic Games!",
@@ -232,12 +253,14 @@
         "path": "Seleccione la ruta de instalación"
     },
     "library": {
-        "gridView": "Vista de grilla",
-        "listView": "Vista de lista",
         "refresh": "Actualizar",
         "sortAscending": "Orden Ascendente",
         "sortByStatus": "Ordenar por Estado",
-        "sortDescending": "Orden Descendente"
+        "sortDescending": "Orden Descendente",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Biblioteca",
     "loading": {
@@ -344,6 +367,7 @@
         "autosync": "Autosincronizar guardados",
         "autovkd3d": "Instalación/actualización automática de VKD3D en el prefijo",
         "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilizar el icono oscuro en la bandeja",
         "default-install-path": "Ruta de instalación predeterminada",
@@ -383,7 +407,8 @@
         "library_top_option": {
             "disabled": "Desactivada",
             "favourites": "Juegos Favoritos",
-            "recently_played": "Juegos Jugados Recientemente"
+            "recently_played": "Juegos Jugados Recientemente",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Sección superior de la Biblioteca",
         "log": {

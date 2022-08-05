@@ -150,6 +150,27 @@
         "syncing": "Синхронізація",
         "unsync": "Десинхронізувати"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Документація",
     "epic": {
         "offline-notification-body": "Мережеві сервіси можуть не повністю працювати, тому що сервери Epic Games наразі недоступні!",
@@ -232,12 +253,14 @@
         "path": "Вкажіть шлях встановлення"
     },
     "library": {
-        "gridView": "Подання сітки",
-        "listView": "Подання списку",
         "refresh": "Оновити",
         "sortAscending": "Сортувати за зростанням",
         "sortByStatus": "Сортувати за станом",
-        "sortDescending": "Сортувати за спаданням"
+        "sortDescending": "Сортувати за спаданням",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Бібліотека",
     "loading": {
@@ -344,6 +367,7 @@
         "autosync": "Автосинхронізувати збереження",
         "autovkd3d": "Автоматично встановлювати/оновлювати VKD3D на префіксі",
         "change-target-exe": "Обрати для запуску альтернативний EXE файл",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Інші шляхи до Wine/Proton",
         "darktray": "Використовувати темну піктограму на панелі",
         "default-install-path": "Стандартний шлях встановлення",
@@ -383,7 +407,8 @@
         "library_top_option": {
             "disabled": "Вимкнено",
             "favourites": "Улюблені ігри",
-            "recently_played": "Нещодавно зіграні ігри"
+            "recently_played": "Нещодавно зіграні ігри",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Верхній розділ бібліотеки",
         "log": {

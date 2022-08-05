@@ -150,6 +150,27 @@
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Serviços online podem não funcionar totalmente, os servidores da Epic Games estão offline!",
@@ -232,12 +253,14 @@
         "path": "Selecione o local de instalação"
     },
     "library": {
-        "gridView": "Visualização em grade",
-        "listView": "Visualização em lista",
         "refresh": "Atualizar",
         "sortAscending": "Ordem crescente",
         "sortByStatus": "Ordenar por estado",
-        "sortDescending": "Ordem decrescente"
+        "sortDescending": "Ordem decrescente",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Biblioteca",
     "loading": {
@@ -344,6 +367,7 @@
         "autosync": "Sincronizar saves automaticamente",
         "autovkd3d": "Instalar/Atualizar VKD3D automaticamente no prefixo",
         "change-target-exe": "Selecione um EXE alternativo para executar",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Locais com Wine/Proton customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",
         "default-install-path": "Local de instalação padrão",
@@ -383,7 +407,8 @@
         "library_top_option": {
             "disabled": "Desabilitada",
             "favourites": "Jogos favoritos",
-            "recently_played": "Jogados recentemente"
+            "recently_played": "Jogados recentemente",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Coluna de destaque da biblioteca",
         "log": {

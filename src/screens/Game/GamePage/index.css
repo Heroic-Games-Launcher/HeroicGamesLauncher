@@ -188,6 +188,10 @@
   grid-column-gap: 1em;
 }
 
+.selectFieldWrapper.Field ~ .buttonsWrapper {
+  margin-top: 24px;
+}
+
 .updateText {
   cursor: pointer;
 }

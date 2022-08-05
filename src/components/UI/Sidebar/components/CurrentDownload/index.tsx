@@ -15,7 +15,7 @@ import Badge from '@mui/material/Badge'
 
 type Props = {
   appName: string
-  runner: Runner | undefined
+  runner: Runner
 }
 
 export default function CurrentDownload({ appName, runner }: Props) {
@@ -49,7 +49,7 @@ export default function CurrentDownload({ appName, runner }: Props) {
 
   return (
     <>
-      <Link to={`gamepage/${appName}`} className="currentDownload">
+      <Link to={`gamepage/${runner}/${appName}`} className="currentDownload">
         {sidebarCollapsed && (
           <span className="statusIcon" title={`${getStatus()} - ${gameTitle}`}>
             <Badge

@@ -12,6 +12,7 @@ import Settings from './screens/Settings'
 import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
 import classNames from 'classnames'
+import { ControllerHints } from './components/UI'
 
 function App() {
   const { epic, gog, contentFontFamily, actionsFontFamily, sidebarCollapsed } =
@@ -39,21 +40,29 @@ function App() {
             <Route path="gogstore" element={<WebView />} />
             <Route path="wiki" element={<WebView />} />
             <Route path="gamepage">
-              <Route path=":appName" element={<GamePage />} />
+              <Route path=":runner">
+                <Route path=":appName" element={<GamePage />} />
+              </Route>
             </Route>
             <Route path="/store-page" element={<WebView />} />
             <Route path="loginweb">
               <Route path=":runner" element={<WebView />} />
             </Route>
             <Route path="settings">
-              <Route path=":appName">
-                <Route path=":type" element={<Settings />} />
+              <Route path=":runner">
+                <Route path=":appName">
+                  <Route path=":type" element={<Settings />} />
+                </Route>
               </Route>
             </Route>
             <Route path="/wine-manager" element={<WineManager />} />
             <Route path="/accessibility" element={<Accessibility />} />
           </Routes>
         </main>
+        <div className="controller">
+          <ControllerHints />
+          <div className="simple-keyboard"></div>
+        </div>
       </HashRouter>
     </div>
   )

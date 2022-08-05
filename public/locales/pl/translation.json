@@ -29,7 +29,7 @@
         "customWine": "Wybierz plik binarny Wine lub Proton",
         "default-install-path": "Wybierz domyślną ścieżkę instalacji",
         "default-steam-path": "Ścieżka Steam.",
-        "downloadNow": "Download now",
+        "downloadNow": "Pobierz teraz",
         "error": {
             "add": {
                 "steam": {
@@ -49,7 +49,7 @@
                 "title": "Brak miejsca"
             },
             "dxvk": {
-                "message": "Błąd podczas instalacji DXVK/VKD3D! Sprawdź swoje połączenie lub czy zstd/libzstd1 jest zainstalowany",
+                "message": "Błąd podczas instalacji DXVK/VKD3D! Sprawdź swoje połączenie lub czy zstd/libzstd1 jest zainstalowany!",
                 "title": "Błąd DXVK/VKD3D"
             },
             "folder-not-found": {
@@ -115,7 +115,7 @@
         },
         "shortcuts": {
             "message": "Skróty zostały stworzone na Pulpicie i w Menu Start",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove": "Usunięto skróty z pulpitu i menu Start",
             "title": "Skróty"
         },
         "sync": {
@@ -125,11 +125,11 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "Otwarto linki do pobrania Visual C++ Runtimes. Pobierz obie wersje (x86 i x64)."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "Microsoft Visual C++ Runtimes nie zostały zainstalowane, niektóre gry ich wymagają",
+                "title": "VCRuntime nie zainstalowany"
             }
         },
         "warning": {
@@ -140,7 +140,7 @@
             },
             "title": "Ostrzeżenie"
         },
-        "wineprefix": "Wybierz folder z prefikem Wine",
+        "wineprefix": "Wybierz folder z prefiksem Wine",
         "yes": "TAK"
     },
     "button": {
@@ -149,6 +149,27 @@
         "sync": "Synchronizuj",
         "syncing": "Synchronizowanie",
         "unsync": "Desynchronizuj"
+    },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
     },
     "docs": "Dokumentacja",
     "epic": {
@@ -232,12 +253,14 @@
         "path": "Wybierz ścieżkę instalacji"
     },
     "library": {
-        "gridView": "Widok siatki",
-        "listView": "Widok listy",
         "refresh": "Odśwież",
         "sortAscending": "Sortuj rosnąco",
         "sortByStatus": "Sortuj według statusu",
-        "sortDescending": "Sortuj malejąco"
+        "sortDescending": "Sortuj malejąco",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Biblioteka",
     "loading": {
@@ -266,7 +289,7 @@
             },
             "remove": {
                 "steam": {
-                    "corrupt": "Gra {{game}} nie mogła zostać usunięta dla wszystkich użytkowników Steam. Sprawdź logi po więcej informacji. Restart Steam'a jest wymagany, by zastosować\u00a0zmiany.",
+                    "corrupt": "Gra {{game}} nie mogła zostać usunięta dla wszystkich użytkowników Steam. Sprawdź logi po więcej informacji. Restart Steam'a jest wymagany, by zastosować zmiany.",
                     "success": "Gra {{game}} została usunięta ze Steam. Restart Steam'a jest wymagany, by zastosować zmiany.",
                     "title": "Usunięto ze Steam"
                 }
@@ -344,6 +367,7 @@
         "autosync": "Automatyczna synchronizacja zapisów",
         "autovkd3d": "Automatyczne Instaluj/Aktualizuj VKD3D w prefiksie",
         "change-target-exe": "Wybierz alternatywny plik EXE do uruchomienia",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikon",
         "default-install-path": "Domyślna ścieżka instalacji",
@@ -383,7 +407,8 @@
         "library_top_option": {
             "disabled": "Wyłączone",
             "favourites": "Ulubione gry",
-            "recently_played": "Ostatnio uruchamiane gry"
+            "recently_played": "Ostatnio uruchamiane gry",
+            "recently_played_installed": "Ostatnio uruchamiane gry (Tylko zainstalowane)"
         },
         "library_top_section": "Górna sekcja Biblioteki",
         "log": {
@@ -431,24 +456,24 @@
     },
     "settings": {
         "battlEyeRuntime": {
-            "installing": "Installing BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "installing": "Instalowanie programu BattlEye...",
+            "name": "BattlEye AntiCheat"
         },
         "clear-cache": "Wyczyść pamięć cache Heroic",
         "copiedToClipboard": "Skopiowano do schowka!",
         "copyToClipboard": "Kopiuj wszystkie ustawienia do schowka",
         "eacRuntime": {
             "gameModeRequired": {
-                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
-                "title": "GameMode required"
+                "message": "GameMode jest wymagany by EAC działało przez Flatpak. Czy chcesz go teraz włączyć?",
+                "title": "Wymagany GameMode"
             },
-            "installing": "Installing EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "installing": "Instalowanie programu EAC...",
+            "name": "EasyAntiCheat"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
-                "title": "EAC runtime enabled"
+                "message": "Program EasyAntiCheat jest włączony, nie będzie on poprawnie funkcjonował bez GameMode. Czy chcesz wyłączyć EAC i GameMode?",
+                "title": "EasyAntiCheat włączony"
             }
         },
         "log": {
@@ -460,7 +485,7 @@
             "log": "Log",
             "other": "Inne",
             "sync": "Synchronizuj zapisy",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Rozszerzenia Wine"
         },
         "open-config-file": "Otwórz plik konfiguracyjny",
         "reset-heroic": "Zresetuj Heroic",

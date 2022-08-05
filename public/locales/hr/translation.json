@@ -49,7 +49,7 @@
                 "title": "Nema Prostora"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "message": "Greška prilikom instalinanja DXVK/VKD3D! Provjeri vezu!",
                 "title": "DXVK/VKD3D error"
             },
             "folder-not-found": {
@@ -150,6 +150,27 @@
         "syncing": "Sinkroniziranje",
         "unsync": "Desinkroniziraj"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Heroic vjerojatno neče raditi zato što EpicGames serveri su ugašeni!",
@@ -232,12 +253,14 @@
         "path": "Odaberi stazu instalacije"
     },
     "library": {
-        "gridView": "Pločasto",
-        "listView": "Popis",
         "refresh": "Osvježi",
         "sortAscending": "Razvrstaj uzlazno",
         "sortByStatus": "Razvrstaj po stanju",
-        "sortDescending": "Razvrstaj silazno"
+        "sortDescending": "Razvrstaj silazno",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Biblioteka",
     "loading": {
@@ -344,6 +367,7 @@
         "autosync": "Automatsko sinkroniziranje podataka",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon",
         "default-install-path": "Zadani put instalacije",
@@ -383,7 +407,8 @@
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "recently_played": "Recently Played Games",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Library Top Section",
         "log": {

@@ -561,7 +561,8 @@ class LegendaryGame extends Game {
       rpcClient,
       mangoHudCommand,
       gameModeBin,
-      steamRuntime
+      steamRuntime,
+      offlineMode
     } = await prepareLaunch(this, gameInfo)
     if (!launchPrepSuccess) {
       appendFileSync(
@@ -571,7 +572,7 @@ class LegendaryGame extends Game {
       return false
     }
 
-    const offlineFlag = gameSettings.offlineMode ? '--offline' : ''
+    const offlineFlag = offlineMode ? '--offline' : ''
     const exeOverrideFlag = gameSettings.targetExe
       ? ['--override-exe', gameSettings.targetExe]
       : []
@@ -652,7 +653,7 @@ class LegendaryGame extends Game {
       let wineFlag = ['--wine', wineBin]
 
       // avoid breaking on old configs when path is not absolute
-      let winePrefixFlag = ['--wine-prefix', winePrefix]
+      let winePrefixFlag = isMac ? [] : ['--wine-prefix', winePrefix]
       if (wineVersion.type === 'proton') {
         let runtime = null as SteamRuntime
         if (useSteamRuntime) {

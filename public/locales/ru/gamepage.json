@@ -75,7 +75,7 @@
     },
     "info": {
         "canRunOffline": "Требуется онлайн",
-        "installedPlatform": "Установленная платформа",
+        "installedPlatform": "Платформа",
         "path": "Путь установки",
         "size": "Размер",
         "syncsaves": "Синхронизация сохранений",
@@ -132,7 +132,7 @@
         "move": "Переместить игру",
         "protondb": "Проверить совместимость",
         "removeFromSteam": "Удалить из Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeShortcut": "Удалить ярлыки",
         "settings": "Настройки",
         "store": "Страница в магазине",
         "verify": "Проверить и восстановить"

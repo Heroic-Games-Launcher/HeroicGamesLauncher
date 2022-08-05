@@ -368,6 +368,7 @@ export interface LaunchPreperationResult {
   mangoHudCommand?: string
   gameModeBin?: string
   steamRuntime?: string
+  offlineMode?: boolean
 }
 
 export interface RpcClient {

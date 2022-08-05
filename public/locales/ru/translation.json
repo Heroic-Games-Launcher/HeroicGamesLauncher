@@ -29,7 +29,7 @@
         "customWine": "Выбрать исполняемый файл Wine или Proton",
         "default-install-path": "Выбрать стандартный путь установки",
         "default-steam-path": "Путь к Steam.",
-        "downloadNow": "Download now",
+        "downloadNow": "Скачать сейчас",
         "error": {
             "add": {
                 "steam": {
@@ -114,8 +114,8 @@
             "exe": "Выбрать EXE"
         },
         "shortcuts": {
-            "message": "Ярлыки созданы на Рабочем столе и в Меню приложений",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message": "Ярлыки созданы на рабочем столе и в меню «Пуск»",
+            "message-remove": "Ярлыки были удалены с рабочего стола и меню «Пуск»",
             "title": "Ярлыки"
         },
         "sync": {
@@ -125,11 +125,11 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "Ссылки на скачивание Visual C++ Runtimes были открыты. Пожалуйста, установите обе версии x86 и x64."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "Не установлен Microsoft Visual C++ Runtimes, который требуется для некоторых игр",
+                "title": "VCRuntime не установлен"
             }
         },
         "warning": {
@@ -149,6 +149,27 @@
         "sync": "Синхронизировать",
         "syncing": "Синхронизация",
         "unsync": "Рассинхронизировать"
+    },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
     },
     "docs": "Документация",
     "epic": {
@@ -232,12 +253,14 @@
         "path": "Выберите путь установки"
     },
     "library": {
-        "gridView": "В виде сетки",
-        "listView": "В виде списка",
         "refresh": "Обновить",
         "sortAscending": "Сортировать по возрастанию",
         "sortByStatus": "Сортировать по статусу",
-        "sortDescending": "Сортировать по убыванию"
+        "sortDescending": "Сортировать по убыванию",
+        "toggleLayout": {
+            "grid": "Переключить на сетку",
+            "list": "Переключить на список"
+        }
     },
     "Library": "Библиотека",
     "loading": {
@@ -294,8 +317,8 @@
     },
     "options": {
         "advanced": {
-            "key": "Variable Name",
-            "placeHolderKey": "NAME",
+            "key": "Имя переменной",
+            "placeHolderKey": "ИМЯ",
             "placeHolderValue": "Например: Path/To/ExtraFiles",
             "title": "Расширенные настройки (Переменные среды):",
             "value": "Значение"
@@ -308,7 +331,7 @@
         "wrapper": {
             "args": "Аргументы",
             "arguments_example": "Пример аргументов: --arg; --extra-file=\"путь к файлу/с/пробелами\"",
-            "exe": "Wrapper",
+            "exe": "Обертка",
             "placeHolderKey": "Новый Wrapper",
             "placeHolderValue": "Аргументы Wrapper",
             "title": "Команда Wrapper:"
@@ -344,6 +367,7 @@
         "autosync": "Автосинхронизация сохранений",
         "autovkd3d": "Автоматически устанавливать/обновлять VKD3D в префиксе",
         "change-target-exe": "Выбрать другой EXE для запуска",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
@@ -361,7 +385,7 @@
             "currentVersion": "Текущая версия: {{version}}",
             "disable": "Отключить",
             "enable": "Включить",
-            "install": "Install",
+            "install": "Установить",
             "installed": "Оверлей EOS установлен",
             "installing": "Оверлей EOS устанавливается...",
             "latestVersion": "Последняя версия: {{version}}",
@@ -371,7 +395,7 @@
             "remove": "Удалить",
             "removeConfirm": "Вы уверены, что хотите удалить оверлей EOS?",
             "removeConfirmTitle": "Подтверждение удаления оверлея",
-            "updateNow": "Update",
+            "updateNow": "Обновить",
             "updating": "Обновление..."
         },
         "esync": "Включить Esync",
@@ -383,7 +407,8 @@
         "library_top_option": {
             "disabled": "Отключить",
             "favourites": "Избранные игры",
-            "recently_played": "Недавние игры"
+            "recently_played": "Недавние игры",
+            "recently_played_installed": "Недавние игры (Только установленные)"
         },
         "library_top_section": "Верхний раздел библиотеки",
         "log": {
@@ -424,31 +449,31 @@
         "showfps": "Показывать FPS (DX9, 10 и 11)",
         "showUnrealMarket": "Показать Unreal Marketplace (требуется перезапуск)",
         "start-in-tray": "Запускать свернутым в трей",
-        "steamruntime": "Использовать Steam Runtime",
+        "steamruntime": "Использовать среду выполнения Steam",
         "winecrossoverbottle": "Бутылка CrossOver",
         "wineprefix": "Папка префикса Wine",
         "wineversion": "Версия Wine"
     },
     "settings": {
         "battlEyeRuntime": {
-            "installing": "Installing BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "installing": "Установка среды выполнения BattlEye...",
+            "name": "Среда выполнения BattlEye AntiCheat"
         },
         "clear-cache": "Очистить кэш Heroic",
         "copiedToClipboard": "Скопировано в буфер обмена!",
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
         "eacRuntime": {
             "gameModeRequired": {
-                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
-                "title": "GameMode required"
+                "message": "GameMode необходим для того, чтобы среда выполнения EAC работала на Flatpak. Хотите включить его сейчас?",
+                "title": "Требуется GameMode"
             },
-            "installing": "Installing EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "installing": "Установка среды выполнения EAC...",
+            "name": "Среда выполнения EasyAntiCheat"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
-                "title": "EAC runtime enabled"
+                "message": "Включена среда выполнения EAC, которая не будет работать правильно без GameMode. Хотите отключить среду выполнения EAC и GameMode?",
+                "title": "Среда выполнения EAC включена"
             }
         },
         "log": {
@@ -460,7 +485,7 @@
             "log": "Журнал",
             "other": "Другие",
             "sync": "Сохранение-Синхронизация",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Расширения Wine"
         },
         "open-config-file": "Открыть файл конфигурации",
         "reset-heroic": "Сброс Heroic",

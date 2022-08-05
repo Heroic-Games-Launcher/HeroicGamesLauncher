@@ -60,7 +60,6 @@ export type Category = 'all' | 'legendary' | 'gog' | 'unreal' | 'heroic'
 export interface ContextType {
   category: Category
   wineVersions: WineVersionInfo[]
-  recentGames: GameInfo[]
   error: boolean
   filter: string
   filterText: string
@@ -128,6 +127,7 @@ export interface ContextType {
 export type LibraryTopSectionOptions =
   | 'disabled'
   | 'recently_played'
+  | 'recently_played_installed'
   | 'favourites'
 
 interface ExtraInfo {
@@ -447,4 +447,10 @@ interface AntiCheatReference {
 export interface GOGCloudSavesLocation {
   name: string
   location: string
+}
+
+declare global {
+  interface WindowEventMap {
+    'controller-changed': CustomEvent<{ controllerId: string }>
+  }
 }

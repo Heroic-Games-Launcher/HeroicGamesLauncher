@@ -150,6 +150,27 @@
         "syncing": "Eşzamanlanıyor",
         "unsync": "Eşzamanlamayı kaldır"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Epic Games sunucuları çevrim dışı olduğundan çevrim içi hizmetler tam olarak çalışmayabilir!",
@@ -232,12 +253,14 @@
         "path": "Kurulum Yolunu Seçin"
     },
     "library": {
-        "gridView": "Izgara görünümü",
-        "listView": "Liste görünümü",
         "refresh": "Yenile",
         "sortAscending": "Artan Sıralama",
         "sortByStatus": "Duruma Göre Sırala",
-        "sortDescending": "Azalan Sıralama"
+        "sortDescending": "Azalan Sıralama",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Kütüphane",
     "loading": {
@@ -344,6 +367,7 @@
         "autosync": "Kayıtları Otomatik Eşzamanla",
         "autovkd3d": "Prefix'te VKD3D'yi Otomatik Kur/Güncelle",
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Koyu Tepsi Simgesi Kullan",
         "default-install-path": "Öntanımlı Kurulum Yeri",
@@ -383,7 +407,8 @@
         "library_top_option": {
             "disabled": "Devre dışı",
             "favourites": "Favori Oyunlar",
-            "recently_played": "Son Oynanan Oyunlar"
+            "recently_played": "Son Oynanan Oyunlar",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Kütüphane Üst Bölümü",
         "log": {

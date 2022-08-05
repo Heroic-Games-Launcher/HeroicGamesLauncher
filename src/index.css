@@ -145,9 +145,9 @@ code {
 }
 
 .simple-keyboard {
-  position: fixed;
+  position: absolute;
   z-index: 10;
-  bottom: 0px;
+  bottom: 100%;
   left: 0px;
   right: 0px;
   background: var(--osk-background);
@@ -159,8 +159,8 @@ code {
   color: var(--text-default);
 }
 
-.simple-keyboard .hg-button:active {
-  background: var(--osk-border);
+.simple-keyboard .hg-button.hg-activeButton {
+  background: var(--osk-button-border);
   border-color: var(--osk-button-border);
   color: var(--text-default);
 }

@@ -3,13 +3,13 @@
         "actions_font_family": "작업 글꼴 패밀리 (기본값: \"Rubik\")",
         "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family": "콘텐츠 글꼴 패밀리 (기본값: \"Cabin\")",
-        "fonts": "Fonts",
+        "fonts": "글꼴",
         "title": "접근성",
         "zoom": "Zoom"
     },
     "All": "모두",
     "anticheat": {
-        "anticheats": "Anticheats",
+        "anticheats": "안티 치트",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
         "reference": "Reference",
         "source": "Source",
@@ -49,7 +49,7 @@
                 "title": "공간 없음"
             },
             "dxvk": {
-                "message": "DXVK/VKD3D 설치 오류! 연결을 확인하거나 zstd/libzstd1이 설치되어 있는지 확인하십시오",
+                "message": "DXVK/VKD3D를 설치하는 동안 오류가 발생했습니다! 연결을 확인하세요!",
                 "title": "DXVK/VKD3D 오류"
             },
             "folder-not-found": {
@@ -150,6 +150,27 @@
         "syncing": "싱크중",
         "unsync": "싱크 해제"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Epic Games 서버가 오프라인 상태이므로 온라인 서비스가 완전히 작동하지 않을 수 있습니다!",
@@ -232,12 +253,14 @@
         "path": "설치 경로 선택"
     },
     "library": {
-        "gridView": "그리드 보기",
-        "listView": "목록 보기",
         "refresh": "새로고침",
         "sortAscending": "오름차순 정렬",
         "sortByStatus": "상태별 정렬",
-        "sortDescending": "내림차순 정렬"
+        "sortDescending": "내림차순 정렬",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "라이브러리",
     "loading": {
@@ -333,7 +356,7 @@
     "Plugins": "플러그인",
     "Projects": "프로젝트",
     "Recent": "최근 플레이한 게임",
-    "search": "여기에 게임 이름을 입력 ...",
+    "search": "게임 검색",
     "setting": {
         "adddesktopshortcuts": "데스크톱 바로 가기 자동 추가",
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
@@ -344,6 +367,7 @@
         "autosync": "세이브 자동 동기화",
         "autovkd3d": "접두사에서 VKD3D 자동 설치/업데이트",
         "change-target-exe": "대체하여 실행할 EXE 선택",
+        "crossover-version": "Crossover Version",
         "customWineProton": "커스텀 Wine/Proton 경로",
         "darktray": "다크 트레이 아이콘 사용",
         "default-install-path": "기본 설치 경로",
@@ -383,7 +407,8 @@
         "library_top_option": {
             "disabled": "비활성화",
             "favourites": "Favourite Games",
-            "recently_played": "최근 플레이 한 게임"
+            "recently_played": "최근 플레이 한 게임",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "라이브러리 상단 섹션",
         "log": {
@@ -475,9 +500,9 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "설치 중",
         "logging": "로그인 중…",
-        "processing": "Processing files, please wait"
+        "processing": "파일을 처리 중입니다 잠시만 기다려 주십시오"
     },
     "store": "Epic Store",
     "stores": "Stores",

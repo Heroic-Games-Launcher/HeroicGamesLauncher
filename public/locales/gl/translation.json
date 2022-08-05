@@ -150,6 +150,27 @@
         "syncing": "Sincronizando",
         "unsync": "Desincronizar"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Os servizos en liña podería non funcionar correctamente xa que os servidores de Epic Games están sen conexión!",
@@ -232,12 +253,14 @@
         "path": "Seleccionar a ruta de instalación"
     },
     "library": {
-        "gridView": "Vista de cadrícula",
-        "listView": "Vista de lista",
         "refresh": "Actualizar",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortDescending": "Sort Descending",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "Biblioteca",
     "loading": {
@@ -344,6 +367,7 @@
         "autosync": "Autosincronizar partidas gardadas",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Seleccionar un EXE alternativo a executar",
+        "crossover-version": "Crossover Version",
         "customWineProton": "Rutas personalizadas de Wine e Proton",
         "darktray": "Usar icona escura na bandexa do sistema",
         "default-install-path": "Ruta de instalación predeterminada",
@@ -383,7 +407,8 @@
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "recently_played": "Recently Played Games",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Library Top Section",
         "log": {

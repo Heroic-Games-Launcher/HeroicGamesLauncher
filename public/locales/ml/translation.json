@@ -150,6 +150,27 @@
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
         "unsync": "പിരിക്കൂ"
     },
+    "controller": {
+        "hints": {
+            "activate": "Activate",
+            "back": "Back",
+            "backspace": "Backspace",
+            "close_context_menu": "Close context menu",
+            "close_dialog": "Close dialog",
+            "close_keyboard": "Close keyboard",
+            "context_menu": "Context menu",
+            "game_details": "Game details",
+            "game_settings": "Game settings",
+            "install_game": "Install game",
+            "move_cursor": "Move cursor",
+            "none": "None",
+            "open_virtual_keyboard": "Open virtual keyboard",
+            "play_game": "Play game",
+            "scroll": "Scroll",
+            "space": "Space",
+            "update_game": "Update game"
+        }
+    },
     "docs": "Documentation",
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
@@ -232,12 +253,14 @@
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ"
     },
     "library": {
-        "gridView": "",
-        "listView": "",
         "refresh": "",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending"
+        "sortDescending": "Sort Descending",
+        "toggleLayout": {
+            "grid": "Toggle to a grid layout",
+            "list": "Toggle to a list layout"
+        }
     },
     "Library": "കളിശാല",
     "loading": {
@@ -344,6 +367,7 @@
         "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "ഓടിക്കുവാനായി പകരംവയ്ക്കാവുന്ന ഒരു EXE തിരഞ്ഞെടുക്കൂ",
+        "crossover-version": "Crossover Version",
         "customWineProton": "ഇഷ്ടാനുസൃതം ചേര്ത്ത വൈന്/പ്രോട്ടോണ് അറകള്",
         "darktray": "താലത്തില്(ട്രേയില്) ഇരുണ്ട ചിത്രം ഉപയോഗിക്കുക",
         "default-install-path": "തനത് സ്ഥാപനയിടം",
@@ -383,7 +407,8 @@
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games"
+            "recently_played": "Recently Played Games",
+            "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Library Top Section",
         "log": {
