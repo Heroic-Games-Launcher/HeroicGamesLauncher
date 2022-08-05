@@ -13,7 +13,7 @@ import { join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getGOGdlBin, getFileSize } from '../utils'
+import { getGOGdlBin, getFileSize, isOnline } from '../utils'
 import { fallBackImage } from '../constants'
 import {
   apiInfoCache,
@@ -128,6 +128,18 @@ export class GOGLibrary {
       return
     }
     this.refreshInstalled()
+
+    if (!isOnline()) {
+      for (const game of libraryStore.get('games', []) as GameInfo[]) {
+        const copyObject = { ...game }
+        if (this.installedGames.has(game.app_name)) {
+          copyObject.install = this.installedGames.get(game.app_name)
+          copyObject.is_installed = true
+        }
+        this.library.set(game.app_name, copyObject)
+      }
+      return
+    }
 
     // This gets games ibrary
     // Handles multiple pages
@@ -414,6 +426,9 @@ export class GOGLibrary {
   // This checks for updates of Windows and Mac titles
   // Linux installers need to be checked differently
   public async listUpdateableGames(): Promise<string[]> {
+    if (!isOnline()) {
+      return []
+    }
     const installed = Array.from(this.installedGames.values())
     const updateable: Array<string> = []
     for (const game of installed) {
@@ -590,6 +605,9 @@ export class GOGLibrary {
     appName: string,
     os: 'windows' | 'linux' | 'osx'
   ) {
+    if (!isOnline()) {
+      return []
+    }
     const apiData = await this.getGamesData(appName)
     const operatingSystems = apiData._embedded.supportedOperatingSystems
     let requirements = operatingSystems.find(

@@ -337,7 +337,7 @@ if (!gotTheLock) {
     }
 
     // Update user details
-    if (GOGUser.isLoggedIn()) {
+    if (GOGUser.isLoggedIn() && isOnline()) {
       GOGUser.getUserDetails()
     }
 
