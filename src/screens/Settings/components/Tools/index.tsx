@@ -40,7 +40,7 @@ export default function Tools({ appName, runner }: Props) {
 
   const handleRunExe = async () => {
     let exe = ''
-    const gameinfo = await getGameInfo(appName)
+    const gameinfo = await getGameInfo(appName, runner)
     const { path } = await ipcRenderer.invoke('openDialog', {
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],

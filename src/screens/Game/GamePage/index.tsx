@@ -184,8 +184,8 @@ export default function GamePage(): JSX.Element | null {
     const isLinuxNative = installPlatform === 'linux'
     const isNative = isWin || isMacNative || isLinuxNative
     const pathname = isNative
-      ? `/settings/${appName}/other`
-      : `/settings/${appName}/wine`
+      ? `/settings/${runner}/${appName}/other`
+      : `/settings/${runner}/${appName}/wine`
 
     const showCloudSaveInfo = cloud_save_enabled && is_game && !isLinuxNative
     /*
@@ -400,7 +400,7 @@ export default function GamePage(): JSX.Element | null {
                     </div>
                     {is_installed && (
                       <NavLink
-                        to={`/settings/${appName}/log`}
+                        to={`/settings/${runner}/${appName}/log`}
                         state={{
                           fromGameCard: false,
                           runner,
