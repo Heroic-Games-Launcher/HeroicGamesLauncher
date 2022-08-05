@@ -545,7 +545,7 @@ export default function InstallModal({
                       <span className="warning">
                         {`${t(
                           'install.path-not-writtable',
-                          `Warning: path doesn't exists or might not be writable.`
+                          'Warning: path might not be writable.'
                         )}`}
                       </span>
                     )}
