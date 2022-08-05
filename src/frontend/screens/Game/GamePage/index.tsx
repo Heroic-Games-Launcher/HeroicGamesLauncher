@@ -12,13 +12,12 @@ import {
   sendKill,
   size,
   syncSaves
-} from 'frontend/helpers'
+, updateGame , ipcRenderer } from 'frontend/helpers'
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
-import { updateGame } from 'frontend/helpers'
 
 import { AppSettings, GameInfo, GameStatus } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
@@ -39,7 +38,6 @@ import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
 
-import { ipcRenderer } from 'frontend/helpers'
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
 export default function GamePage(): JSX.Element | null {

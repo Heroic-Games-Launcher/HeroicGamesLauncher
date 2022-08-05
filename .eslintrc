@@ -20,7 +20,7 @@
     "sourceType": "module",
     "project": ["./tsconfig.json"]
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint", "import"],
   "settings": {
     "react": {
       "version": "detect"
@@ -49,6 +49,7 @@
       "error",
       "single",
       { "avoidEscape": true, "allowTemplateLiterals": true }
-    ]
+    ],
+    "import/no-duplicates": ["error"]
   }
 }

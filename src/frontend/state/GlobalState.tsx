@@ -10,8 +10,8 @@ import {
   RefreshOptions,
   Runner,
   WineVersionInfo
-} from 'common/types'
-import { LibraryTopSectionOptions } from 'frontend/types'
+} from '../../common/types'
+import { LibraryTopSectionOptions } from '../../frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   getLegendaryConfig,
@@ -19,7 +19,7 @@ import {
   install,
   launch,
   notify
-} from '../helpers'
+, ipcRenderer } from '../helpers'
 import { i18n, t } from 'i18next'
 
 import ContextProvider from './ContextProvider'
@@ -32,7 +32,6 @@ import {
   libraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
-import { ipcRenderer } from '../helpers'
 
 const storage: Storage = window.localStorage
 

@@ -1,5 +1,5 @@
 import { VersionInfo } from 'heroic-wine-downloader'
-import { GameInfo, GameStatus, Runner } from 'common/types'
+import { GameInfo, GameStatus, Runner } from '../common/types'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'unreal' | 'heroic'
 

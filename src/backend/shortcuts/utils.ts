@@ -1,5 +1,4 @@
 import { existsSync, mkdirSync, unlinkSync, writeFileSync } from 'graceful-fs'
-import { GOGLibrary } from '../gog/library'
 import { heroicIconFolder } from '../constants'
 import { GameInfo } from '../../common/types'
 import { spawnSync } from 'child_process'
@@ -58,27 +57,16 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
     mkdirSync(heroicIconFolder)
   }
 
-  if (gameInfo.runner === 'legendary') {
-    const image = gameInfo.art_square.replaceAll(' ', '%20')
-    let ext = image.split('.').reverse()[0]
-    if (ext !== 'jpg' && ext !== 'png') {
-      ext = 'jpg'
-    }
-    const icon = `${heroicIconFolder}/${appName}.${ext}`
-    if (!checkImageExistsAlready(icon)) {
-      downloadImage(image, icon)
-    }
-    return icon
-  } else {
-    const apiData = await GOGLibrary.get().getGamesData(appName)
-    let iconUrl = apiData?._links?.icon.href
-    iconUrl = iconUrl.replace('{ext}', 'png')
-    const icon = `${heroicIconFolder}/${appName}.png`
-    if (!checkImageExistsAlready(icon)) {
-      downloadImage(iconUrl, icon)
-    }
-    return icon
+  const image = gameInfo.art_square
+    .replaceAll(' ', '%20')
+    .replace('{ext}', 'jpg')
+
+  const icon = `${heroicIconFolder}/${appName}.jpg`
+
+  if (!checkImageExistsAlready(icon)) {
+    downloadImage(image, icon)
   }
+  return icon
 }
 
 export {

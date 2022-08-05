@@ -5,13 +5,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AppSettings, GameStatus, Runner } from 'common/types'
 
 import { SmallInfo } from 'frontend/components/UI'
-import { createNewWindow, getGameInfo, repair } from 'frontend/helpers'
+import { createNewWindow, getGameInfo, repair , ipcRenderer } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { uninstall } from 'frontend/helpers/library'
 import { NavLink } from 'react-router-dom'
 
-import { ipcRenderer } from 'frontend/helpers'
 import { CircularProgress } from '@mui/material'
 
 interface Props {

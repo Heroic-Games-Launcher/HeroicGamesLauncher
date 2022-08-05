@@ -7,7 +7,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import cx from 'classnames'
 import classNames from 'classnames'
 
 import React, {
@@ -33,7 +32,7 @@ import {
   install,
   size,
   writeConfig
-} from 'frontend/helpers'
+, ipcRenderer } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
   AppSettings,
@@ -57,7 +56,6 @@ import './index.css'
 
 import { SDL_GAMES, SelectiveDownload } from './selective_dl'
 
-import { ipcRenderer } from 'frontend/helpers'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo } from 'common/types/gog'
 type Props = {
@@ -405,7 +403,7 @@ export default function InstallModal({
     <div className="InstallModal">
       <Dialog
         onClose={backdropClick}
-        className={cx('InstallModal__dialog', {
+        className={classNames('InstallModal__dialog', {
           'InstallModal__dialog--loading': !title
         })}
       >

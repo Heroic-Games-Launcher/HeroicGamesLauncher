@@ -12,7 +12,7 @@ import {
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
-import { LegendaryLibrary } from './library'
+import { LegendaryLibrary , runLegendaryCommand } from './library'
 import { LegendaryUser } from './user'
 import { execAsync, getLegendaryBin, isOnline, killPattern } from '../utils'
 import {
@@ -35,7 +35,6 @@ import {
 } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import { basename, join } from 'path'
-import { runLegendaryCommand } from './library'
 import { gameInfoStore } from './electronStores'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'

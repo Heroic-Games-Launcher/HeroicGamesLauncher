@@ -36,10 +36,9 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
       getGame(arg, 'gog').getGameInfo()
 
     if (!game) {
-      return logError(
-        `Could not receive game data for ${arg}!`,
-        LogPrefix.ProtocolHandler
-      )
+      return logError(`Could not receive game data for ${arg}!`, {
+        prefix: LogPrefix.ProtocolHandler
+      })
     }
 
     const { is_installed, title, app_name, runner } = game

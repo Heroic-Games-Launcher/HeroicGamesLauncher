@@ -1,5 +1,4 @@
-import { InstallPlatform } from 'common/types'
-import {
+import { InstallPlatform ,
   AppSettings,
   GameInfo,
   GameStatus,

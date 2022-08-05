@@ -1,10 +1,10 @@
-import { GOGLibrary } from './library'
+import { GOGLibrary , runGogdlCommand } from './library'
 import { BrowserWindow, dialog } from 'electron'
 import { join } from 'path'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
-import { killPattern } from '../utils'
+import { killPattern , errorHandler, execAsync, getFileSize, getGOGdlBin } from '../utils'
 import {
   ExtraInfo,
   GameInfo,
@@ -23,7 +23,6 @@ import {
 } from '../constants'
 import { installedGamesStore, syncStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { errorHandler, execAsync, getFileSize, getGOGdlBin } from '../utils'
 import { GOGUser } from './user'
 import {
   getRunnerCallWithoutCredentials,
@@ -36,7 +35,6 @@ import {
 } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import setup from './setup'
-import { runGogdlCommand } from './library'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { GogInstallInfo, GogInstallPlatform } from '../../common/types/gog'
