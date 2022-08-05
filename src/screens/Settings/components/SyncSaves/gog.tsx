@@ -101,7 +101,9 @@ export default function GOGSyncSaves({
           actualPath = await ipcRenderer.invoke('getShellPath', saveLocation)
         }
 
-        actualPath = await ipcRenderer.invoke('getRealPath', actualPath)
+        actualPath = isWin
+          ? actualPath
+          : await ipcRenderer.invoke('getRealPath', actualPath)
 
         if (locationIndex >= 0 && !locations[locationIndex]?.location.length) {
           locations[locationIndex].location = actualPath

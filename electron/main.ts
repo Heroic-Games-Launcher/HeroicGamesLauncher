@@ -40,7 +40,7 @@ import {
 
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
-import { join } from 'path'
+import { join, normalize } from 'path'
 import checkDiskSpace from 'check-disk-space'
 import { DXVK, Winetricks } from './tools'
 import { Game } from './games'
@@ -1469,10 +1469,11 @@ ipcMain.handle(
 )
 
 ipcMain.handle('getShellPath', async (event, path) => {
-  return (await execAsync(`echo "${path}"`)).stdout.trim()
+  return normalize((await execAsync(`echo "${path}"`)).stdout.trim())
 })
+
 ipcMain.handle('getRealPath', (event, path) => {
-  let resolvedPath = path
+  let resolvedPath = normalize(path)
   try {
     resolvedPath = realpathSync(path)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

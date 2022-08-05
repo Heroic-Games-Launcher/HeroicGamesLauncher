@@ -129,6 +129,7 @@ async function fixGogSaveFolder(
   if (!matches) {
     return folder
   }
+
   switch (matches[1]) {
     case 'SAVED_GAMES':
       // This path is only on Windows
@@ -244,11 +245,11 @@ async function fixLegendarySaveFolder(
   }
 
   if (folder.includes('{userdir}')) {
-    return folder.replace('{userdir}', `/users/${username}/My Documents`)
+    return folder.replace('{userdir}', `/users/${username}/Documents`)
   }
 
   if (folder.includes('{UserDir}')) {
-    return folder.replace('{UserDir}', `%USERPROFILE%/My Documents`)
+    return folder.replace('{UserDir}', `%USERPROFILE%/Documents`)
   }
 
   return folder

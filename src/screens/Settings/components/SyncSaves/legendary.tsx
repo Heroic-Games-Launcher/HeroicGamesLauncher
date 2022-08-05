@@ -88,7 +88,10 @@ export default function LegendarySyncSaves({
       } else {
         actualPath = await ipcRenderer.invoke('getShellPath', folder)
       }
-      actualPath = await ipcRenderer.invoke('getRealPath', actualPath)
+
+      actualPath = isWin
+        ? actualPath
+        : await ipcRenderer.invoke('getRealPath', actualPath)
 
       const path = savesPath ? savesPath : actualPath
       const fixedPath = isWin
