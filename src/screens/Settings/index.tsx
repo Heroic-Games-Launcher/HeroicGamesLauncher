@@ -285,8 +285,8 @@ function Settings() {
 
         if (!isDefault) {
           setLanguageCode(config.language)
-          const { title: gameTitle, canRunOffline: can_run_offline } =
-            await getGameInfo(appName, runner)
+          const info = await getGameInfo(appName, runner)
+          const { title: gameTitle, canRunOffline: can_run_offline } = info
           setCanRunOffline(can_run_offline)
           setTitle(gameTitle)
         } else {
@@ -300,10 +300,9 @@ function Settings() {
   }, [appName, type, isDefault, i18n.language])
 
   let returnPath = '/'
-
   if (!fromGameCard) {
-    returnPath = `/gamepage/${appName}`
-    if (returnPath === '/gamepage/default') {
+    returnPath = `/gamepage/${runner}/${appName}`
+    if (returnPath.includes('default')) {
       returnPath = '/'
     }
   }
@@ -559,6 +558,7 @@ function Settings() {
           )}
           {isOtherSettings && (
             <OtherSettings
+              runner={runner}
               enviromentOptions={enviromentOptions}
               wrapperOptions={wrapperOptions}
               setEnviromentOptions={setEnviromentOptions}
@@ -597,7 +597,7 @@ function Settings() {
               toggleUseSteamRuntime={toggleUseSteamRuntime}
               isMacNative={isMacNative}
               isLinuxNative={isLinuxNative}
-              isProton={wineVersion.type === 'proton'}
+              isProton={!isWin && wineVersion?.type === 'proton'}
               appName={appName}
               defaultSteamPath={defaultSteamPath}
               setDefaultSteamPath={setDefaultSteamPath}
@@ -610,7 +610,7 @@ function Settings() {
               appName={appName}
               autoSyncSaves={autoSyncSaves}
               setAutoSyncSaves={setAutoSyncSaves}
-              isProton={!isWin && wineVersion.type === 'proton'}
+              isProton={!isWin && wineVersion?.type === 'proton'}
               winePrefix={winePrefix}
               runner={runner}
             />

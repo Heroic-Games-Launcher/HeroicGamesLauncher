@@ -77,7 +77,7 @@ const getLegendaryConfig = async (): Promise<{
 
 const getGameInfo = async (
   appName: string,
-  runner: Runner = 'legendary'
+  runner: Runner
 ): Promise<GameInfo> => {
   return ipcRenderer.invoke('getGameInfo', appName, runner)
 }
@@ -97,8 +97,8 @@ const getInstallInfo = async (
   return ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
 }
 
-const handleSavePath = async (game: string) => {
-  const { cloud_save_enabled, save_folder } = await getGameInfo(game)
+const handleSavePath = async (game: string, runner: Runner) => {
+  const { cloud_save_enabled, save_folder } = await getGameInfo(game, runner)
 
   return { cloud_save_enabled, save_folder }
 }
