@@ -735,9 +735,10 @@ ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))
 ipcMain.handle('logoutLegendary', async () => LegendaryUser.logout())
 ipcMain.handle('logoutGOG', async () => GOGUser.logout())
 
-ipcMain.handle('getAlternativeWine', async () =>
-  GlobalConfig.get().getAlternativeWine()
-)
+ipcMain.handle('getAlternativeWine', async () => {
+  logInfo('Looking for wine paths', LogPrefix.Backend)
+  return GlobalConfig.get().getAlternativeWine()
+})
 
 ipcMain.handle('readConfig', async (event, config_class) => {
   switch (config_class) {

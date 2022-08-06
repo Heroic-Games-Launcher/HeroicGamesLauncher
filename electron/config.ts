@@ -204,6 +204,8 @@ abstract class GlobalConfig {
       }
     }
 
+    logInfo('Creating paths if needed', LogPrefix.Backend)
+
     if (!existsSync(`${heroicToolsPath}/wine`)) {
       mkdirSync(`${heroicToolsPath}/wine`, { recursive: true })
     }
@@ -214,8 +216,11 @@ abstract class GlobalConfig {
 
     const altWine = new Set<WineInstallation>()
 
+    logInfo(`Checking dir ${heroicToolsPath}/wine/`, LogPrefix.Backend)
     readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
+      logInfo(`Found ${version}`, LogPrefix.Backend)
       const wineBin = join(heroicToolsPath, 'wine', version, 'bin', 'wine')
+      logInfo(`Appending bin ${wineBin}`, LogPrefix.Backend)
       altWine.add({
         bin: wineBin,
         name: `Wine - ${version}`,
@@ -228,9 +233,13 @@ abstract class GlobalConfig {
     const lutrisPath = `${homedir()}/.local/share/lutris`
     const lutrisCompatPath = `${lutrisPath}/runners/wine/`
 
+    logInfo(`Checking if ${lutrisPath} exists`, LogPrefix.Backend)
     if (existsSync(lutrisCompatPath)) {
+      logInfo(`Checking dir ${lutrisCompatPath}`, LogPrefix.Backend)
       readdirSync(lutrisCompatPath).forEach((version) => {
+        logInfo(`Found ${version}`, LogPrefix.Backend)
         const wineBin = join(lutrisCompatPath, version, 'bin', 'wine')
+        logInfo(`Appending bin ${wineBin}`, LogPrefix.Backend)
         altWine.add({
           bin: wineBin,
           name: `Wine - ${version}`,
@@ -243,6 +252,7 @@ abstract class GlobalConfig {
 
     const protonPaths = [`${heroicToolsPath}/proton/`]
 
+    logInfo(`Checking steam paths`)
     await getSteamLibraries().then((libs) => {
       libs.forEach((path) => {
         protonPaths.push(`${path}/steam/steamapps/common`)
@@ -256,9 +266,12 @@ abstract class GlobalConfig {
     const proton = new Set<WineInstallation>()
 
     protonPaths.forEach((path) => {
+      logInfo(`Checking steam path ${path}`)
       if (existsSync(path)) {
         readdirSync(path).forEach((version) => {
+          logInfo(`Found ${version}`, LogPrefix.Backend)
           const protonBin = join(path, version, 'proton')
+          logInfo(`Appending proton ${protonBin}`, LogPrefix.Backend)
           // check if bin exists to avoid false positives
           if (existsSync(protonBin)) {
             proton.add({
@@ -274,6 +287,8 @@ abstract class GlobalConfig {
 
     const defaultWineSet = new Set<WineInstallation>()
     const defaultWine = await this.getDefaultWine()
+    logInfo(`Looking for default wine`, LogPrefix.Backend)
+    logInfo(`Result: ${JSON.stringify(defaultWine)}`, LogPrefix.Backend)
     if (!defaultWine.name.includes('Not Found')) {
       defaultWineSet.add(defaultWine)
     }
@@ -282,6 +297,17 @@ abstract class GlobalConfig {
     if (scanCustom) {
       customWineSet = await this.getCustomWinePaths()
     }
+
+    logInfo(`Paths found:`, LogPrefix.Backend)
+    logInfo(
+      JSON.stringify(
+        [...defaultWineSet, ...altWine, ...proton, ...customWineSet],
+        null,
+        2
+      ),
+      LogPrefix.Backend
+    )
+    logInfo('End of found paths', LogPrefix.Backend)
 
     return [...defaultWineSet, ...altWine, ...proton, ...customWineSet]
   }
