@@ -79,6 +79,7 @@ interface StateProps {
   actionsFontFamily: string
   allTilesInColor: boolean
   sidebarCollapsed: boolean
+  activeController: string
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -145,7 +146,8 @@ export class GlobalState extends PureComponent<Props> {
       (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
     actionsFontFamily:
       (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
-    allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false
+    allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
+    activeController: ''
   }
 
   setLanguage = (newLanguage: string) => {
@@ -590,6 +592,13 @@ export class GlobalState extends PureComponent<Props> {
         runInBackground: Boolean(epic.library.length)
       })
     }
+
+    window.addEventListener(
+      'controller-changed',
+      (e: CustomEvent<{ controllerId: string }>) => {
+        this.setState({ activeController: e.detail.controllerId })
+      }
+    )
 
     ipcRenderer.send('frontendReady')
   }

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
+import ContextProvider from 'src/state/ContextProvider'
 
 import './index.css'
 
 export default function ControllerHints() {
-  const [controller, setController] = useState('')
+  const { activeController } = useContext(ContextProvider)
   const [layout, setLayout] = useState('steam-deck') // default to steam deck icons
   const [mainActionHint, setMainActionHint] = useState('') // A / Cross
   const [altActionHint, setAltActionHint] = useState('') // X / Square
@@ -18,7 +19,6 @@ export default function ControllerHints() {
 
   // set hints for an element
   const setHintsFor = (target: HTMLElement) => {
-    console.log({ target })
     const classes = target.classList
 
     let main = t('controller.hints.activate', 'Activate')
@@ -90,11 +90,6 @@ export default function ControllerHints() {
   // listen to `controller-changed` custom events to set the controller brand
   // listen to `focus` events to detect the current focused element
   useEffect(() => {
-    const onControllerChanged = (e: CustomEvent<{ controllerId: string }>) => {
-      setController(e.detail.controllerId)
-    }
-    window.addEventListener('controller-changed', onControllerChanged)
-
     const onFocusChanged = (e: FocusEvent) => {
       const tgt = !e.target ? null : (e.target as HTMLElement)
       setHints(tgt)
@@ -103,7 +98,6 @@ export default function ControllerHints() {
     window.addEventListener('focus', onFocusChanged, true)
 
     return () => {
-      window.removeEventListener('controller-changed', onControllerChanged)
       window.removeEventListener('focus', onFocusChanged)
     }
   }, [])
@@ -122,19 +116,19 @@ export default function ControllerHints() {
 
   useEffect(() => {
     // set the brand for the images to use
-    if (controller.match(/sony|0ce6|PS3|PLAYSTATION|0268|'2563.*0523/i)) {
+    if (activeController.match(/sony|0ce6|PS3|PLAYSTATION|0268|'2563.*0523/i)) {
       setLayout('ps')
-    } else if (controller.match(/28de.*11ff/)) {
+    } else if (activeController.match(/28de.*11ff/)) {
       setLayout('steam-deck')
-    } else if (controller.match(/microsoft|xbox/i)) {
+    } else if (activeController.match(/microsoft|xbox/i)) {
       setLayout('xbox')
     } else {
       setLayout('steam-deck')
     }
-  }, [controller])
+  }, [activeController])
 
   // empty if no controller activated
-  if (!controller) {
+  if (!activeController) {
     return <></>
   }
 

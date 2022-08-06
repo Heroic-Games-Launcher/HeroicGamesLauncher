@@ -121,6 +121,7 @@ export interface ContextType {
   setAllTilesInColor: (value: boolean) => void
   setSideBarCollapsed: (value: boolean) => void
   sidebarCollapsed: boolean
+  activeController: string
 }
 
 export type LibraryTopSectionOptions =
