@@ -570,6 +570,7 @@ app.on('open-url', (event, url) => {
   }
 })
 
+ipcMain.on('openExternalUrl', async (event, url) => openUrlOrFile(url))
 ipcMain.on('openFolder', async (event, folder) => openUrlOrFile(folder))
 ipcMain.on('openSupportPage', async () => openUrlOrFile(supportURL))
 ipcMain.on('openReleases', async () => openUrlOrFile(heroicGithubURL))

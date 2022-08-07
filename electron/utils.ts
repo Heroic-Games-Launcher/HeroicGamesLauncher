@@ -687,7 +687,7 @@ export const getLatestReleases = async (): Promise<Release[]> => {
     const current = app.getVersion()
     const thereIsNewStable = semverGt(latestStable.tag_name, current)
     const thereIsNewBeta = semverGt(latestBeta.tag_name, current)
-    const newReleases = []
+    const newReleases: Release[] = []
 
     if (thereIsNewStable) {
       newReleases.push({ ...latestStable, type: 'stable' })
@@ -695,6 +695,7 @@ export const getLatestReleases = async (): Promise<Release[]> => {
     if (thereIsNewBeta) {
       newReleases.push({ ...latestBeta, type: 'beta' })
     }
+
     return newReleases
   } catch (error) {
     logError(

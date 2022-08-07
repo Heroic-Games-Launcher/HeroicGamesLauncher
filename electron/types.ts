@@ -7,7 +7,7 @@ interface About {
 }
 
 export type Release = {
-  type: string
+  type: 'stable' | 'beta'
   html_url: string
   name: string
   tag_name: string
