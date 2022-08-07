@@ -215,7 +215,7 @@
     "@types/tmp": "^0.2.3",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
-    "electron": "^20.0.0",
+    "electron": "^20.0.1",
     "electron-builder": "^23.1.0",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.13.0",
