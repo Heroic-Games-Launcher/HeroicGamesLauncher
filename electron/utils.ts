@@ -1,4 +1,4 @@
-import { Runner } from './types'
+import { Release, Runner } from './types'
 import { WineInstallation } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
@@ -12,6 +12,7 @@ import {
   configStore,
   fixAsarPath,
   getSteamLibraries,
+  GITHUB_API,
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
@@ -75,6 +76,14 @@ export function showErrorBoxModalAuto(title: string, message: string) {
  * Checks if target is newer than base.
  */
 function semverGt(target: string, base: string) {
+  target = target.replace('v', '')
+
+  if (base.includes('beta')) {
+    base = base.split('beta.')[1]
+    target = target.split('beta.')[1]
+    return target > base
+  }
+
   const [bmajor, bminor, bpatch] = base.split('.').map(Number)
   const [tmajor, tminor, tpatch] = target.split('.').map(Number)
 
@@ -664,6 +673,35 @@ export function getFirstExistingParentPath(directoryPath: string): string {
   }
 
   return parentDirectoryPath !== '.' ? parentDirectoryPath : ''
+}
+
+export const getLatestReleases = async (): Promise<Release[]> => {
+  try {
+    const { data: releases } = await axios.default.get(GITHUB_API)
+    const latestStable: Release = releases.filter(
+      (rel: Release) => rel.prerelease === false
+    )[0]
+    const latestBeta: Release = releases.filter(
+      (rel: Release) => rel.prerelease === true
+    )[0]
+    const current = app.getVersion()
+    const thereIsNewStable = semverGt(latestStable.tag_name, current)
+    const thereIsNewBeta = semverGt(latestBeta.tag_name, current)
+    const newReleases = []
+
+    if (thereIsNewStable) {
+      newReleases.push({ ...latestStable, type: 'stable' })
+    }
+    if (thereIsNewBeta) {
+      newReleases.push({ ...latestBeta, type: 'beta' })
+    }
+    return newReleases
+  } catch (error) {
+    logError(
+      ['Error when checking for Heroic updates', `${error}`],
+      LogPrefix.Backend
+    )
+  }
 }
 
 export {

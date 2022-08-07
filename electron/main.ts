@@ -67,7 +67,8 @@ import {
   showErrorBoxModal,
   getFileSize,
   detectVCRedist,
-  getFirstExistingParentPath
+  getFirstExistingParentPath,
+  getLatestReleases
 } from './utils'
 import {
   configStore,
@@ -663,6 +664,8 @@ ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 ipcMain.handle('isFlatpak', () => isFlatpak)
 
 ipcMain.handle('getPlatform', () => process.platform)
+
+ipcMain.handle('getLatestReleases', async () => getLatestReleases())
 
 ipcMain.on('clearCache', () => {
   clearCache()

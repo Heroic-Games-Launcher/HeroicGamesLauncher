@@ -6,6 +6,16 @@ interface About {
   shortDescription: string
 }
 
+export type Release = {
+  type: string
+  html_url: string
+  name: string
+  tag_name: string
+  published_at: string
+  prerelease: boolean
+  id: number
+}
+
 export interface AppSettings {
   checkUpdatesInterval: number
   enableUpdates: boolean
