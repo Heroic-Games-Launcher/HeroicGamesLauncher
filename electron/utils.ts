@@ -18,7 +18,7 @@ import {
   isWindows
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
-import { basename, dirname, join } from 'path'
+import { basename, dirname, join, normalize } from 'path'
 import { runLegendaryCommand } from './legendary/library'
 import { runGogdlCommand } from './gog/library'
 import {
@@ -652,6 +652,18 @@ function detectVCRedist(mainWindow: BrowserWindow) {
       logInfo('VCRuntime is installed', LogPrefix.Backend)
     }
   })
+}
+
+export function getFirstExistingParentPath(directoryPath: string): string {
+  let parentDirectoryPath = directoryPath
+  let parentDirectoryFound = existsSync(parentDirectoryPath)
+
+  while (!parentDirectoryFound) {
+    parentDirectoryPath = normalize(parentDirectoryPath + '/..')
+    parentDirectoryFound = existsSync(parentDirectoryPath)
+  }
+
+  return parentDirectoryPath !== '.' ? parentDirectoryPath : ''
 }
 
 export {

@@ -54,7 +54,6 @@ export default function SidebarLinks() {
 
   const { epic, gog, platform } = useContext(ContextProvider)
 
-  //console.log({ isAppSettings, runner, gameInfo })
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
   const [isDefaultSetting, setIsDefaultSetting] = useState(true)

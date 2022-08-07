@@ -135,7 +135,7 @@
     "@mui/material": "^5.6.2",
     "@node-steam/vdf": "^2.2.0",
     "axios": "^0.26.1",
-    "check-disk-space": "^3.3.0",
+    "check-disk-space": "^3.3.1",
     "classnames": "^2.3.1",
     "crc": "^4.1.1",
     "discord-rich-presence-typescript": "^0.0.8",
@@ -158,10 +158,10 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "shlex": "^2.1.2",
-    "simple-keyboard": "^3.4.24",
+    "simple-keyboard": "^3.4.136",
     "source-map-support": "^0.5.21",
     "steam-shortcut-editor": "^3.1.1",
-    "systeminformation": "^5.11.14",
+    "systeminformation": "^5.12.3",
     "tslib": "^2.4.0"
   },
   "scripts": {
