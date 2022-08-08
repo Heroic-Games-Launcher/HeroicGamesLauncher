@@ -628,6 +628,9 @@ export class GOGLibrary {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public readInfoFile(appName: string, installPath?: string): any {
     const gameInfo = this.getGameInfo(appName)
+    if (!gameInfo) {
+      return
+    }
     const infoFileName = `goggame-${appName}.info`
     let infoFilePath = join(
       installPath ? installPath : gameInfo.install.install_path,
