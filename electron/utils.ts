@@ -80,9 +80,18 @@ function semverGt(target: string, base: string) {
 
   // beta to beta
   if (base.includes('-beta') && target.includes('-beta')) {
-    base = base.split('-beta.')[1]
-    target = target.split('-beta.')[1]
-    return target > base
+    const bSplit = base.split('-beta.')
+    const tSplit = target.split('-beta.')
+
+    // same major beta?
+    if (bSplit[0] === tSplit[0]) {
+      base = bSplit[1]
+      target = tSplit[1]
+      return target > base
+    } else {
+      base = bSplit[0]
+      target = tSplit[0]
+    }
   }
 
   // beta to stable
