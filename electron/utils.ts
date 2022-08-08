@@ -75,6 +75,9 @@ export function showErrorBoxModalAuto(title: string, message: string) {
  * Checks if target is newer than base.
  */
 function semverGt(target: string, base: string) {
+  if (!target || !base) {
+    return false
+  }
   target = target.replace('v', '')
 
   // beta to beta

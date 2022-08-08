@@ -43,7 +43,8 @@ describe('electron/utils.ts', () => {
       [{ target: 'v2.4.0-beta.1', base: '2.3.10' }, true],
       [{ target: 'v2.4.0-beta.1', base: '2.4.0' }, false],
       [{ target: 'v2.4.0-beta.2', base: '2.4.0-beta.1' }, true],
-      [{ target: 'v2.4.0-beta.1', base: '2.4.0-beta.2' }, false]
+      [{ target: 'v2.4.0-beta.1', base: '2.4.0-beta.2' }, false],
+      [{ target: undefined as any, base: undefined as any }, false]
     ])
 
     testCases.forEach((expectValue, versions) => {
