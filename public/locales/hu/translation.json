@@ -1,20 +1,20 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
-        "fonts": "Fonts",
-        "title": "Accessibility",
-        "zoom": "Zoom"
+        "actions_font_family": "Betűtípus tevékenységhez (Alap: \"Rubik\")",
+        "all_tiles_in_color": "Játékok csempéi mindig színesek",
+        "content_font_family": "Betűtípus tartalomhoz (Alap: \"Cabin\")",
+        "fonts": "Betűtípusok",
+        "title": "Hozzáférhetőség",
+        "zoom": "Nagyítás"
     },
     "All": "Összes",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
         "reference": "Reference",
-        "source": "Source",
-        "status": "Status",
-        "title": "This game includes anticheat software"
+        "source": "Forrás",
+        "status": "Állapot",
+        "title": "Ez a játék csalásellenes szoftvert tartalmaz"
     },
     "Assets": "Eszközök",
     "box": {
@@ -49,7 +49,7 @@
                 "title": "Nincs hely"
             },
             "dxvk": {
-                "message": "Hiba a DXVK/VKD3D telepítésekor! Ellenőrizd le az internetkapcsolatod, illetve hogy a zstd/libzstd1 telepítve van",
+                "message": "Hiba a DXVK/VKD3D telepítésekor! Ellenőrizd az internetkapcsolatod, illetve hogy a zstd/libzstd1 telepítve van-e!",
                 "title": "DXVK/VKD3D hiba"
             },
             "folder-not-found": {
@@ -242,7 +242,7 @@
             "version": "Heroic Version"
         },
         "settings": "A beállítások automatikusan mentődnek",
-        "version": "Wine Version"
+        "version": "Wine verzió"
     },
     "infobox": {
         "help": "Segítség",
@@ -356,7 +356,7 @@
     "Plugins": "Beépülők",
     "Projects": "Projektek",
     "Recent": "Nemrég játszott",
-    "search": "Add meg itt a játék nevét...",
+    "search": "Játékok keresése",
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalhoz",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
@@ -436,7 +436,7 @@
         "offlinemode": "Játék futtatása offline",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Nvidia Prime Render engedélyezése",
+        "primerun": "Dedikált grafikus kártya használata",
         "resizableBar": "Átméretezhető BAR engedélyezése (csak NVIDIA RTX 30xx kártyáknál)",
         "runexe": {
             "message": "Fogd és húzd ide a fájlokat",
@@ -499,9 +499,9 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Telepítés",
         "logging": "Bejelentkezés...",
-        "processing": "Processing files, please wait"
+        "processing": "Fájlok feldolgozása, kérlek várj"
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -548,7 +548,7 @@
         "manager": {
             "error": "Nem sikerült most letölteni a Wine/Proton verziókat.",
             "link": "Wine kezelő",
-            "title": "Wine kezelő (béta)",
+            "title": "Wine kezelő",
             "unzipping": "Kicsomagolás"
         },
         "release": "Release Date",
