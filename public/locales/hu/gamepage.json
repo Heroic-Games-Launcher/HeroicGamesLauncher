@@ -88,7 +88,7 @@
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "Telepítés után",
         "wineprefix": "Wine prefix",
-        "wineversion": "Wine Version"
+        "wineversion": "Wine verzió"
     },
     "label": {
         "playing": {
