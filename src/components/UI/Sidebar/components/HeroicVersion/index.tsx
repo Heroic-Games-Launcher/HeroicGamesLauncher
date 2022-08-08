@@ -42,7 +42,6 @@ export default function HeroicVersion() {
     ? heroicVersion.replace('-beta', 'b')
     : heroicVersion
 
-  console.log({ newBeta, newStable })
   return (
     <>
       <div className="heroicVersion">
