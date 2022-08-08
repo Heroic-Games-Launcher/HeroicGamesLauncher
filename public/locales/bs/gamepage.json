@@ -45,7 +45,8 @@
         "uninstall": "Deinstaliraj",
         "update": "Ažuriraj",
         "hide_game": "Sakrij igru",
-        "add_to_favourites": "Dodaj u favorite"
+        "add_to_favourites": "Dodaj u favorite",
+        "force_update": "Prisilno ažuriranje ako je dostupno"
     },
     "disabled": "Onemogućeno",
     "dlc": {
@@ -125,7 +126,12 @@
         "store": "Webstranica Trgovine",
         "move": "Premjesti video igru",
         "protondb": "Provjeri kompatibilnost",
-        "verify": "Provjeri i popravi"
+        "verify": "Provjeri i popravi",
+        "removeShortcut": "Uklonite prečice",
+        "addToSteam": "Dodaj u Steam",
+        "disableEosOverlay": "Onemogućite EOS Overlay",
+        "enableEosOverlay": "Omogućite EOS Overlay",
+        "removeFromSteam": "Uklonite sa Steam-a"
     },
     "generic": {
         "error": "Nepoznata greška"
