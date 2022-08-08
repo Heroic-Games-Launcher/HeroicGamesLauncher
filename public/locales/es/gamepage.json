@@ -6,7 +6,7 @@
             "title": "Modificar la ubicación de instalación para los juegos"
         },
         "choose": "Elegir",
-        "importpath": "Elija la carpeta del juego a ser importada",
+        "importpath": "Elija la carpeta del juego a importar",
         "move": {
             "message": "Esto puede tardar mucho tiempo. ¿Estás seguro?",
             "path": "Elige la ubicación del destino",
@@ -24,12 +24,12 @@
         },
         "uninstall": {
             "checkbox": "¿Quieres eliminar el prefijo también? Esto no se puede deshacer.",
-            "checkbox_prefix": "Prefix",
+            "checkbox_prefix": "Prefijo",
             "message": "¿Quieres desinstalar este juego?",
             "title": "Desinstalar"
         },
         "update": {
-            "message": "Este juego tiene una actualización. ¿Quieres aplicarlo ahora?",
+            "message": "Este juego tiene una actualización. ¿Quieres aplicarla ahora?",
             "title": "El juego necesita una actualización"
         },
         "wineprefix": "Elija la carpeta con el Prefijo de Wine",
@@ -39,7 +39,7 @@
         "add_to_favourites": "Agregar a Favoritos",
         "cancel": "Pausar/Cancelar",
         "continue": "Seguir descargando",
-        "force_update": "Force Update if Available",
+        "force_update": "Comprobar si hay una actualización e instalarla",
         "hide_game": "Ocultar Juego",
         "import": "Importar juego",
         "install": "Instalar",
@@ -52,7 +52,7 @@
     "dlc": {
         "installDlcs": "Instalar todos los DLCs"
     },
-    "enabled": "Habilitar",
+    "enabled": "Habilitado",
     "game": {
         "downloadSize": "Tamaño de Descarga",
         "firstPlayed": "Jugado por Primera Vez",
@@ -62,8 +62,8 @@
         "lastPlayed": "Jugado por Última Vez",
         "neverPlayed": "Nunca",
         "platform": "Seleccionar la Version de la Plataforma para Instalar",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "Requerimientos del Sistema",
+        "tools": "Herramientas",
         "totalPlayed": "Tiempo Jugado"
     },
     "gamecard": {
@@ -71,7 +71,7 @@
         "repairing": "Reparando"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Error desconocido"
     },
     "info": {
         "canRunOffline": "Requiere Online",
@@ -83,10 +83,10 @@
     },
     "install": {
         "disk-space-left": "Espacio disponible",
-        "not-enough-disk-space": "Not enough disk space",
+        "not-enough-disk-space": "Almacenamiento insuficiente",
         "path": "Seleccione la ruta de instalación",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
+        "path-not-writtable": "Aviso: Puedes no tener acceso a la ruta .",
+        "space-after-install": "Después de la instalación",
         "wineprefix": "Prefijo de Wine",
         "wineversion": "Version de Wine"
     },
@@ -96,7 +96,7 @@
             "stop": "Detener"
         },
         "saves": {
-            "syncing": "Sincronización de guardados"
+            "syncing": "Sincronizando guardados"
         }
     },
     "launch": {
@@ -104,7 +104,7 @@
     },
     "report_problem": "Reportar un problema ejecutando este juego",
     "sdl": {
-        "title": "Elija Componentes a Instalar"
+        "title": "Elija componentes a instalar"
     },
     "specs": {
         "minimum": "Mínimo",
@@ -117,22 +117,22 @@
         "installing": "Instalando",
         "moving": "Moviendo la instalación, por favor espere",
         "notinstalled": "Este juego no está instalado",
-        "processing": "Processing files, please wait",
+        "processing": "Procesando los archivos, por favor espere",
         "reparing": "Reparando el juego, por favor espere",
         "totalDownloaded": "Total descargado",
         "updating": "Actualización de juego"
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",
-        "addToSteam": "Add to Steam",
+        "addToSteam": "Agregar a Steam",
         "change": "Modificar la ubicación",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "Desactivar EOS Overlay",
+        "enableEosOverlay": "Activar EOS Overlay",
         "log": "Último registro",
         "move": "Mover juego",
         "protondb": "Verificar compatibilidad",
-        "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeFromSteam": "Remover de Steam",
+        "removeShortcut": "Eliminar accesos directos",
         "settings": "Ajustes",
         "store": "Página de la tienda",
         "verify": "Verificar y reparar"
