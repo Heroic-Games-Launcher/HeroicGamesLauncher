@@ -127,11 +127,12 @@ export function getSteamCompatFolder() {
     )
 
     if (existsSync(flatpakSteamPath)) {
-      // check if steam is really installed
+      // check if steam is really installed via flatpak
       const { status } = spawnSync('flatpak', [
         'info',
         'com.valvesoftware.Steam'
       ])
+
       if (status === 0) {
         return flatpakSteamPath
       }

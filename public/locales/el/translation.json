@@ -106,7 +106,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Είστε σίγουροι πως θέλετε να επαναφέρετε το Heroic; Θα αφαιρεθούν όλες οι ρυθμίσεις και η κρηφή μνήμη αλλά δεν θα αφαιρεθούν τα παιχνίδια ή τα Epic διαπιστευτήρια",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Επαναφορά Heroic"
             }
         },

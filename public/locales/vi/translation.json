@@ -106,7 +106,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Xác nhận đặt lại Heroic? Thao tác này sẽ xóa tất cả Cài đặt và Bộ nhớ đệm nhưng sẽ không xóa các game đã cài đặt hoặc thông tin đăng nhập Epic của bạn",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Đặt lại Heroic"
             }
         },

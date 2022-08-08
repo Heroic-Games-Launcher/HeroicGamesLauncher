@@ -106,7 +106,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Heroic을 초기화하시겠습니까? 이렇게 하면 모든 설정과 캐시가 제거되지만 설치된 게임이나 Epic 자격 증명은 제거되지 않습니다",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Reset Heroic"
             }
         },
