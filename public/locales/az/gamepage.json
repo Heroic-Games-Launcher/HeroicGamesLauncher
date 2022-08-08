@@ -2,11 +2,11 @@
     "box": {
         "no": "YOX",
         "change": {
-            "message": "Bu, bu oyunun quraşdırma yerini dəyişəcək, əminsinizmi?",
+            "message": "Bu oyunun quraşdırılma yerini dəyişəcək, əminsinizmi?",
             "path": "Yeni quraşdırma yolunu seçin",
             "title": "Oyunların quraşdırılması yolunu dəyişdirin"
         },
-        "choose": "seçin",
+        "choose": "Seçin",
         "importpath": "Import etmək üçün Oyun Qovluğu seçin",
         "move": {
             "message": "Bu uzun müddət çəkə bilər, əminsinizmi?",
