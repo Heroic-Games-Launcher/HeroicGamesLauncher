@@ -258,8 +258,8 @@
         "sortByStatus": "依安裝狀態排序",
         "sortDescending": "降序排列",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "切換到網格排版",
+            "list": "切換到清單排版"
         }
     },
     "Library": "遊戲庫",
@@ -408,7 +408,7 @@
             "disabled": "已關閉",
             "favourites": "我的最愛",
             "recently_played": "最近遊玩",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "recently_played_installed": "最近遊玩的遊戲（僅已安裝）"
         },
         "library_top_section": "遊戲庫頂部",
         "log": {
