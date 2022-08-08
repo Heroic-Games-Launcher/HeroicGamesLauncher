@@ -490,6 +490,7 @@
         "open-config-file": "Buka Berkas Pengaturan",
         "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Fitur Cloud Saves masih dalam versi Beta, harap buat rekam cadang penyimpanan Anda sebelum menyinkronkan (jaga-jaga bila terjadi kesalahan)"
         }
     },

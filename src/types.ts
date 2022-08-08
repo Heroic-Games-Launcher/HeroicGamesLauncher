@@ -52,6 +52,7 @@ export interface AppSettings {
   winePrefix: string
   wineVersion: WineInstallation
   useSteamRuntime: boolean
+  gogSaves?: GOGCloudSavesLocation[]
 }
 
 export type Category = 'all' | 'legendary' | 'gog' | 'unreal' | 'heroic'
@@ -156,6 +157,7 @@ export interface GameInfo {
   is_ue_project: boolean
   namespace: unknown
   save_folder: string
+  gog_save_location?: GOGCloudSavesLocation[]
   title: string
   canRunOffline: boolean
 }
@@ -193,6 +195,7 @@ export interface GameSettings {
   winePrefix: string
   wineVersion: WineInstallation
   useSteamRuntime: boolean
+  gogSaves?: GOGCloudSavesLocation[]
 }
 
 type DLCInfo = {
@@ -439,6 +442,11 @@ interface AntiCheatReference {
   name: string
   date: string
   reference: string
+}
+
+export interface GOGCloudSavesLocation {
+  name: string
+  location: string
 }
 
 declare global {

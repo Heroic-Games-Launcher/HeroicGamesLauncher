@@ -93,6 +93,7 @@ export interface GameInfo {
   is_ue_project: boolean
   namespace: string
   save_folder: string
+  gog_save_location?: GOGCloudSavesLocation[]
   title: string
   canRunOffline: boolean
   is_mac_native: boolean
@@ -164,6 +165,7 @@ export interface GameSettings {
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
+  gogSaves?: GOGCloudSavesLocation[]
 }
 
 export interface GameStatus {
@@ -457,3 +459,8 @@ export interface Runtime {
 }
 
 export type RuntimeName = 'eac_runtime' | 'battleye_runtime'
+
+export interface GOGCloudSavesLocation {
+  name: string
+  location: string
+}

@@ -490,6 +490,7 @@
         "open-config-file": "Open Config File",
         "reset-heroic": "Grundinställ Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
