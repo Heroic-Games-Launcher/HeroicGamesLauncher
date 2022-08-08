@@ -15,7 +15,8 @@
         "part5": "SID-informasjonsnummer",
         "part6": "Lim inn",
         "part7": "SID-nummeret",
-        "part8": "i boksen nedenfor, klikk på «Logg inn» og vent."
+        "part8": "i boksen nedenfor, klikk på «Logg inn» og vent.",
+        "part2": "Åpne"
     },
     "status": {
         "error": "Feil",

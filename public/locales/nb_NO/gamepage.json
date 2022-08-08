@@ -23,8 +23,118 @@
             "title": "Stopp installasjon"
         },
         "uninstall": {
-            "message": "Avinstaller dette spillet?"
+            "message": "Avinstaller dette spillet?",
+            "title": "Avinstaller",
+            "checkbox": "Vil du fjerne prefikset også? Dette kan ikke angres.",
+            "checkbox_prefix": "Prefiks"
         },
-        "yes": "Ja"
+        "yes": "Ja",
+        "wineprefix": "Velg WinePrefix-mappe",
+        "update": {
+            "message": "Dette spillet har en oppdatering. Vil du bruke oppdatering nå?",
+            "title": "Spillet trenger oppdatering"
+        }
+    },
+    "submenu": {
+        "removeShortcut": "Fjern snarveier",
+        "change": "Endre installasjonsbane",
+        "verify": "Bekreft og reparer",
+        "settings": "Innstillinger",
+        "addToSteam": "Legg til Steam",
+        "disableEosOverlay": "Deaktiver EOS Overlay",
+        "enableEosOverlay": "Aktiver EOS Overlay",
+        "removeFromSteam": "Fjern fra Steam",
+        "store": "Butikkside",
+        "addShortcut": "Legg til snarvei",
+        "log": "Siste logg",
+        "move": "Move Game",
+        "protondb": "Sjekk kompatibilitet"
+    },
+    "button": {
+        "force_update": "Tving oppdatering hvis tilgjengelig",
+        "import": "Importer spill",
+        "remove_from_favourites": "Fjern fra favoritter",
+        "unhide_game": "Vis spill",
+        "update": "Oppdater",
+        "cancel": "Pause/avbryt",
+        "continue": "Fortsett nedlasting",
+        "install": "Installere",
+        "uninstall": "Avinstaller",
+        "add_to_favourites": "Legg til i favoritter",
+        "hide_game": "Skjul spillet"
+    },
+    "enabled": "Aktivert",
+    "game": {
+        "firstPlayed": "Først spilt",
+        "installSize": "Installasjonsstørrelse",
+        "language": "Språk",
+        "downloadSize": "Last ned størrelse",
+        "info": "Info",
+        "lastPlayed": "Sist spilt",
+        "neverPlayed": "Aldri",
+        "platform": "Velg plattformversjon som skal installeres",
+        "reuirements": "Systemkrav",
+        "tools": "Verktøy",
+        "totalPlayed": "Spilletid"
+    },
+    "launch": {
+        "options": "Startalternativer..."
+    },
+    "report_problem": "Rapporter et problem med å kjøre dette spillet",
+    "sdl": {
+        "title": "Velg komponenter som skal installeres"
+    },
+    "status": {
+        "installing": "Installerer",
+        "clickToUpdate": "Klikk for å oppdatere",
+        "hasUpdates": "Ny versjon tilgjengelig!",
+        "installed": "Installert",
+        "moving": "Flytting Installasjon, vennligst vent",
+        "notinstalled": "Dette spillet er ikke installert",
+        "processing": "Behandler filer, vennligst vent",
+        "reparing": "Reparerer spillet, vennligst vent",
+        "totalDownloaded": "Totalt nedlastede",
+        "updating": "Oppdaterer spillet"
+    },
+    "install": {
+        "path-not-writtable": "Advarsel: banen er kanskje ikke skrivbar.",
+        "space-after-install": "Etter installasjon",
+        "path": "Velg Installer bane",
+        "wineprefix": "WinePrefix",
+        "not-enough-disk-space": "Ikke nok lagringsplass",
+        "disk-space-left": "Plass tilgjengelig",
+        "wineversion": "Vinversjon"
+    },
+    "info": {
+        "version": "Versjon",
+        "installedPlatform": "Installert plattform",
+        "size": "Størrelse",
+        "canRunOffline": "Online nødvendig",
+        "path": "Installer bane",
+        "syncsaves": "Synkroniser lagrer"
+    },
+    "disabled": "Funksjonshemmet",
+    "dlc": {
+        "installDlcs": "Installer alle DLC-er"
+    },
+    "generic": {
+        "error": "Ukjent feil"
+    },
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Anbefalt"
+    },
+    "gamecard": {
+        "repairing": "Reparerer",
+        "moving": "Flytte"
+    },
+    "label": {
+        "playing": {
+            "start": "Leke nå",
+            "stop": "Spiller (Stopp)"
+        },
+        "saves": {
+            "syncing": "Synkroniserer lagrer"
+        }
     }
 }
