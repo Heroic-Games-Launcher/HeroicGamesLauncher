@@ -6,7 +6,6 @@ import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import si from 'systeminformation'
-import ping from 'ping'
 
 import {
   configStore,
@@ -123,16 +122,22 @@ function isOnline() {
   if (online) {
     const hosts = ['google.com', 'store.epicgames.com', 'gog.com']
     hosts.forEach((host) => {
-      const callback = (isAlive: boolean, error: unknown) => {
-        if (error) {
-          logError(
-            ['Ping of ', host, ' failed with:\n', `${error}`],
-            LogPrefix.Backend
-          )
-        }
-        online = isAlive
+      const args = [host] as string[]
+
+      if (isWindows) {
+        args.push('-n', '1')
+      } else {
+        args.push('-c', '1')
       }
-      ping.sys.probe(host, callback)
+
+      const { status, stderr } = spawnSync('ping', args)
+      if (stderr.length) {
+        logError(
+          ['Ping of ', host, ' failed with:\n', stderr.toString()],
+          LogPrefix.Backend
+        )
+      }
+      online = status === 0
     })
   }
   return online
