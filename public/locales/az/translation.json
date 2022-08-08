@@ -1,0 +1,63 @@
+{
+    "accessibility": {
+        "fonts": "Şriftlər",
+        "title": "Əlçatanlıq",
+        "zoom": "Zoom",
+        "all_tiles_in_color": "Bütün oyun plitələrini rəngli göstərin",
+        "content_font_family": "Məzmun Şrift Ailəsi (Defolt: \"Kabin\")",
+        "actions_font_family": "Hadisələr Yazı Tipi Ailəsi (Varsayılan: \"Rubik\")"
+    },
+    "All": "Hamısı",
+    "anticheat": {
+        "anticheats": "Antifırıldaqçılar",
+        "may_not_work": "Bu, rədd edilmiş və ya pozulmuş anticheat dəstəyi səbəbindən işləməyə bilər.",
+        "reference": "İstinad",
+        "source": "Mənbə",
+        "status": "Vəziyyət",
+        "title": "Bu oyuna anticheat proqramı daxildir"
+    },
+    "Assets": "Aktivlər",
+    "box": {
+        "cache-cleared": {
+            "message": "Qəhrəmanca yaddaş silindi.",
+            "title": "Keş təmizləndi"
+        },
+        "choose": "Seçin",
+        "choose-egs-prefix": "EGS-nin quraşdırıldığı Prefiksi seçin",
+        "choose-gogdl-binary": "GOGDL Binary seçin (yenidən başlamalıdır)",
+        "choose-legendary-binary": "Əfsanəvi binar seçin",
+        "customWine": "Şərab və ya Proton binarını seçin",
+        "default-install-path": "Defolt quraşdırma yolunu seçin",
+        "default-steam-path": "Buxar yolu.",
+        "downloadNow": "İndi yüklə",
+        "error": {
+            "add": {
+                "steam": {
+                    "body": "Buxara {{game}} əlavə etmək uğursuz oldu:{{newLine}} {{error}}",
+                    "title": "Əlavə etmə xətası"
+                }
+            },
+            "credentials": {
+                "message": "Etibarnamənizin müddəti başa çatıb, lütfən, sistemdən çıxın və yenidən daxil olun."
+            },
+            "cx-bottle-not-found": {
+                "message": "CrossOver şüşəsi \"{{bottle_name}}\" mövcud deyil, işə salına bilməz!",
+                "title": "CrossOver şüşə tapılmadı"
+            },
+            "diskspace": {
+                "message": "Kifayət qədər mövcud disk sahəsi yoxdur",
+                "title": "Yer yoxdur"
+            },
+            "dxvk": {
+                "message": "DXVK/VKD3D quraşdırarkən xəta baş verdi! Zəhmət olmasa əlaqənizi yoxlayın!",
+                "title": "DXVK/VKD3D xətası"
+            },
+            "folder-not-found": {
+                "title": "Oyun qovluğu silinmiş kimi görünür, oyunu quraşdırılmış siyahıdan silmək istəyirsiniz?"
+            },
+            "no-offline-mode": {
+                "message": "Başlatma dayandırıldı! Oyunu idarə etmək üçün internet bağlantısı tələb olunur."
+            }
+        }
+    }
+}
