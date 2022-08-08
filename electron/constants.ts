@@ -69,11 +69,13 @@ const epicLoginUrl =
 const gogLoginUrl =
   'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 const sidInfoUrl =
-  'https://github.com/flavioislima/HeroicGamesLauncher/issues/42'
+  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues/42'
 const heroicGithubURL =
-  'https://github.com/flavioislima/HeroicGamesLauncher/releases/latest'
+  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest'
+const GITHUB_API =
+  'https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases'
 const supportURL =
-  'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
+  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
 const wikiLink =
   'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
@@ -221,5 +223,6 @@ export {
   isSteamDeckGameMode,
   runtimePath,
   isCLIFullscreen,
-  isCLINoGui
+  isCLINoGui,
+  GITHUB_API
 }

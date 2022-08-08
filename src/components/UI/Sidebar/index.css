@@ -5,7 +5,7 @@
   z-index: 10;
   display: grid;
   grid-template-rows: 2fr min-content min-content;
-  grid-template-areas: 'links' 'utils' 'version';
+  grid-template-areas: 'links' 'utils' 'updates' 'version';
   grid-area: sidebar;
   height: 100%;
   padding: 0;
@@ -88,6 +88,25 @@
   grid-area: version;
   margin: 0 4px var(--sidebar-vertical-padding)
     var(--sidebar-horizontal-padding);
+  font-size: 0.9rem;
+}
+
+.heroicNewReleases {
+  grid-area: updates;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 4px 12px var(--sidebar-horizontal-padding);
+  font-size: 0.9rem;
+}
+
+.heroicNewReleases > a {
+  color: var(--accent);
+  transition: 300ms;
+}
+
+.heroicNewReleases > a:hover {
+  color: var(--accent-overlay);
 }
 
 .collapseIcon {

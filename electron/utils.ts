@@ -1,5 +1,4 @@
-import { Runner } from './types'
-import { WineInstallation } from './types'
+import { WineInstallation, Release, Runner } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, spawnSync } from 'child_process'
@@ -12,6 +11,7 @@ import {
   configStore,
   fixAsarPath,
   getSteamLibraries,
+  GITHUB_API,
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
@@ -75,6 +75,37 @@ export function showErrorBoxModalAuto(title: string, message: string) {
  * Checks if target is newer than base.
  */
 function semverGt(target: string, base: string) {
+  if (!target || !base) {
+    return false
+  }
+  target = target.replace('v', '')
+
+  // beta to beta
+  if (base.includes('-beta') && target.includes('-beta')) {
+    const bSplit = base.split('-beta.')
+    const tSplit = target.split('-beta.')
+
+    // same major beta?
+    if (bSplit[0] === tSplit[0]) {
+      base = bSplit[1]
+      target = tSplit[1]
+      return target > base
+    } else {
+      base = bSplit[0]
+      target = tSplit[0]
+    }
+  }
+
+  // beta to stable
+  if (base.includes('-beta')) {
+    base = base.split('-beta.')[0]
+  }
+
+  // stable to beta
+  if (target.includes('-beta')) {
+    target = target.split('-beta.')[0]
+  }
+
   const [bmajor, bminor, bpatch] = base.split('.').map(Number)
   const [tmajor, tminor, tpatch] = target.split('.').map(Number)
 
@@ -664,6 +695,64 @@ export function getFirstExistingParentPath(directoryPath: string): string {
   }
 
   return parentDirectoryPath !== '.' ? parentDirectoryPath : ''
+}
+
+export const getLatestReleases = async (): Promise<Release[]> => {
+  const newReleases: Release[] = []
+  logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
+
+  try {
+    const { data: releases } = await axios.default.get(GITHUB_API)
+    const latestStable: Release = releases.filter(
+      (rel: Release) => rel.prerelease === false
+    )[0]
+    const latestBeta: Release = releases.filter(
+      (rel: Release) => rel.prerelease === true
+    )[0]
+
+    const current = app.getVersion()
+
+    const thereIsNewStable = semverGt(latestStable.tag_name, current)
+    const thereIsNewBeta = semverGt(latestBeta.tag_name, current)
+
+    if (thereIsNewStable) {
+      newReleases.push({ ...latestStable, type: 'stable' })
+    }
+    if (thereIsNewBeta) {
+      newReleases.push({ ...latestBeta, type: 'beta' })
+    }
+
+    if (newReleases.length) {
+      notify({
+        title: t('Update Available!'),
+        body: t('A new Heroic version was released!')
+      })
+    }
+
+    return newReleases
+  } catch (error) {
+    logError(
+      ['Error when checking for Heroic updates', `${error}`],
+      LogPrefix.Backend
+    )
+    return []
+  }
+}
+
+type NotifyType = {
+  title: string
+  body: string
+}
+
+export function notify({ body, title }: NotifyType) {
+  const mainWindow = BrowserWindow.getAllWindows()[0]
+  const notify = new Notification({
+    body,
+    title
+  })
+
+  notify.on('click', () => mainWindow.show())
+  notify.show()
 }
 
 export {

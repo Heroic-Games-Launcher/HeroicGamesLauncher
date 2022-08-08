@@ -13,7 +13,6 @@ import * as path from 'path'
 import {
   BrowserWindow,
   Menu,
-  Notification,
   Tray,
   app,
   dialog,
@@ -69,7 +68,9 @@ import {
   showErrorBoxModal,
   getFileSize,
   detectVCRedist,
-  getFirstExistingParentPath
+  getFirstExistingParentPath,
+  getLatestReleases,
+  notify
 } from './utils'
 import {
   configStore,
@@ -456,21 +457,6 @@ if (!gotTheLock) {
   })
 }
 
-type NotifyType = {
-  title: string
-  body: string
-}
-
-function notify({ body, title }: NotifyType) {
-  const notify = new Notification({
-    body,
-    title
-  })
-
-  notify.on('click', () => mainWindow.show())
-  notify.show()
-}
-
 ipcMain.on('Notify', (event, args) => {
   notify({ body: args[1], title: args[0] })
 })
@@ -585,6 +571,7 @@ app.on('open-url', (event, url) => {
   }
 })
 
+ipcMain.on('openExternalUrl', async (event, url) => openUrlOrFile(url))
 ipcMain.on('openFolder', async (event, folder) => openUrlOrFile(folder))
 ipcMain.on('openSupportPage', async () => openUrlOrFile(supportURL))
 ipcMain.on('openReleases', async () => openUrlOrFile(heroicGithubURL))
@@ -679,6 +666,15 @@ ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 ipcMain.handle('isFlatpak', () => isFlatpak)
 
 ipcMain.handle('getPlatform', () => process.platform)
+
+ipcMain.handle('showUpdateSetting', () => !isFlatpak)
+
+ipcMain.handle('getLatestReleases', async () => {
+  const { checkForUpdatesOnStartup } = GlobalConfig.get().config
+  if (checkForUpdatesOnStartup) {
+    return getLatestReleases()
+  }
+})
 
 ipcMain.on('clearCache', () => {
   clearCache()
