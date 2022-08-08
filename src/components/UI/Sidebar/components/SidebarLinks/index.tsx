@@ -52,7 +52,7 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
 
-  const { epic, gog, platform } = useContext(ContextProvider)
+  const { epic, gog, platform, activeController } = useContext(ContextProvider)
 
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
@@ -392,7 +392,7 @@ export default function SidebarLinks() {
         </div>
         <span>Ko-fi</span>
       </button>
-      {isFullscreen && <QuitButton />}
+      {(isFullscreen || activeController) && <QuitButton />}
     </div>
   )
 }
