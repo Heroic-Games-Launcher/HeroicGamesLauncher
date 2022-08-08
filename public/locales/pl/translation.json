@@ -152,23 +152,23 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
-            "back": "Back",
+            "activate": "Aktywuj",
+            "back": "Cofnij",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
+            "close_context_menu": "Zamknij menu kontekstowe",
+            "close_dialog": "Zamknij okno",
+            "close_keyboard": "Zamknij klawiaturę",
             "context_menu": "Context menu",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
+            "game_details": "Szczegóły gry",
+            "game_settings": "Ustawienia gry",
+            "install_game": "Zainstaluj grę",
+            "move_cursor": "Przesuń kursor",
             "none": "None",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "play_game": "Play game",
+            "open_virtual_keyboard": "Otwórz wirtualną klawiaturę",
+            "play_game": "Uruchom grę",
             "scroll": "Scroll",
-            "space": "Space",
-            "update_game": "Update game"
+            "space": "spacja",
+            "update_game": "Zaktualizuj grę"
         }
     },
     "docs": "Dokumentacja",
@@ -258,8 +258,8 @@
         "sortByStatus": "Sortuj według statusu",
         "sortDescending": "Sortuj malejąco",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "Przełącz na tryb siatki",
+            "list": "Przełącz na tryb listy"
         }
     },
     "Library": "Biblioteka",
@@ -367,7 +367,7 @@
         "autosync": "Automatyczna synchronizacja zapisów",
         "autovkd3d": "Automatyczne Instaluj/Aktualizuj VKD3D w prefiksie",
         "change-target-exe": "Wybierz alternatywny plik EXE do uruchomienia",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Wersja Crossover",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikon",
         "default-install-path": "Domyślna ścieżka instalacji",
