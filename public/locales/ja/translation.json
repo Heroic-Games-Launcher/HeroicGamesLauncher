@@ -197,7 +197,7 @@
     "gog-store": "GOG Store",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "",
+        "platform": "プラットホーム",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
@@ -253,7 +253,7 @@
         "path": "Select Install Path"
     },
     "library": {
-        "refresh": "",
+        "refresh": "リフレッシュ",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -264,7 +264,7 @@
     },
     "Library": "ライブラリ",
     "loading": {
-        "default": "",
+        "default": "読み込み中",
         "website": "Loading Website"
     },
     "login": {
@@ -311,7 +311,7 @@
         "uninstalled": "アンインストールしました",
         "update": {
             "canceled": "更新がキャンセルされました",
-            "finished": "",
+            "finished": "Update Finished",
             "started": "Update Started"
         }
     },
@@ -349,9 +349,9 @@
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "マック",
+        "win": "ウィンドウズ"
     },
     "Plugins": "プラグイン",
     "Projects": "プロジェクト",
@@ -537,10 +537,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "戻る",
+            "forward": "前進する",
+            "openInBrowser": "ブラウザで開く",
+            "reload": "ページをリロード"
         }
     },
     "wine": {
