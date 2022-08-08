@@ -121,17 +121,17 @@ function semverGt(target: string, base: string) {
 function isOnline() {
   let online = net.isOnline()
   if (online) {
-    const callback = (isAlive: boolean, error: unknown) => {
-      if (error) {
-        logError(
-          ['Ping of ', hosts.join(', '), ' failed with:\n', `${error}`],
-          LogPrefix.Backend
-        )
-      }
-      online = isAlive
-    }
     const hosts = ['google.com', 'store.epicgames.com', 'gog.com']
     hosts.forEach((host) => {
+      const callback = (isAlive: boolean, error: unknown) => {
+        if (error) {
+          logError(
+            ['Ping of ', host, ' failed with:\n', `${error}`],
+            LogPrefix.Backend
+          )
+        }
+        online = isAlive
+      }
       ping.sys.probe(host, callback)
     })
   }
