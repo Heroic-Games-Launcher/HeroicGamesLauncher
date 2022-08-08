@@ -53,6 +53,18 @@
             },
             "folder-not-found": {
                 "title": "Čini se da je mapa za video igre izbrisana. Da li želite da uklonite igru sa liste instaliranih?"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Uklanjanje {{game}} iz Steam-a nije uspjelo sa: {{newLine}} {{error}}",
+                    "title": "Uklanjanje greške"
+                }
+            },
+            "add": {
+                "steam": {
+                    "body": "Dodavanje {{game}} u Steam nije uspjelo sa: {{newLine}} {{error}}",
+                    "title": "Greška pri dodavanju"
+                }
             }
         },
         "choose": "Izaberi",
@@ -91,7 +103,8 @@
         },
         "shortcuts": {
             "message": "Prečice su kreirane na radnoj površini i Start meniju",
-            "title": "Prečice"
+            "title": "Prečice",
+            "message-remove": "Prečice su uklonjene sa radne površine i Start menija"
         },
         "sync": {
             "error": "Neispravan put",
@@ -109,7 +122,18 @@
         "wineprefix": "Odaberite Wine Prefix mapu",
         "choose-egs-prefix": "Izaberi Prefix gdje je EGS instaliran",
         "no": "NE",
-        "yes": "DA"
+        "yes": "DA",
+        "downloadNow": "Preuzeti sada",
+        "vcruntime": {
+            "install": {
+                "message": "Veze za preuzimanje za Visual C++ Runtimes su otvorene. Molimo instalirajte i x86 i x64 verziju."
+            },
+            "notfound": {
+                "message": "Microsoft Visual C++ Runtimes nije instaliran, što je potrebno za neke igre",
+                "title": "VCRuntime nije instaliran"
+            }
+        },
+        "default-steam-path": "Steam path."
     },
     "button": {
         "go_to_library": "Idi u biblioteku",
@@ -173,7 +197,17 @@
         "wine": {
             "part1": "Heroic traži verzije Wine, Proton i CrossOver u sljedećim mapama:",
             "part2": "Za druga mjesta koristite simboličku vezu do jednog od ovih mapa"
-        }
+        },
+        "amdfsr": "AMD-ov FSR pomaže u povećanju frekvencije kadrova povećavajući niže rezolucije u načinu rada preko cijelog ekrana. Kvalitet slike se povećava sa 5 na 1 po cenu blagog smanjenja performansi. Omogućavanje može poboljšati performanse.",
+        "dxvk": "DXVK je translacijski sloj baziran na Vulkanu za DirectX 9, 10 i 11 igre. Omogućavanje može poboljšati kompatibilnost. Može uzrokovati probleme posebno za starije DirectX igre.",
+        "esync": "Esync ima za cilj smanjenje troškova wineservera u igrama koje zahtijevaju CPU. Omogućavanje može poboljšati performanse.",
+        "gamemode": "Feral GameMode primjenjuje automatska i privremena podešavanja na sistemu prilikom pokretanja igara. Omogućavanje može poboljšati performanse.",
+        "preferSystemLibs": "Prilagođene verzije Wine-a (Wine-GE, Wine-Lutris) se isporučuju sa njihovim zavisnostima biblioteke. Ako omogućite ovu opciju, ove isporučene biblioteke će biti zanemarene i Wine će umjesto njih učitati sistemske biblioteke. Upozorenje! Problemi se mogu pojaviti ako ovisnosti nisu ispunjene.",
+        "fsync": "Fsync ima za cilj smanjenje troškova wineservera u igrama koje zahtijevaju CPU. Omogućavanje može poboljšati performanse na podržanim Linux kernelima.",
+        "resizablebar": "NVIDIA-ina traka za promjenu veličine pomaže u povećanju brzine kadrova tako što CPU pristupa cijelom grafičkom baferu. Omogućavanje može poboljšati performanse za igre zasnovane na Vulkanu.",
+        "steamruntime": "Prilagođene biblioteke koje pruža Steam za pomoć u pokretanju Linux i Windows (Proton) igara. Omogućavanje može poboljšati kompatibilnost.",
+        "mangohud": "MangoHUD je prekrivač koji prikazuje i prati FPS, temperature, CPU/GPU opterećenje i druge sistemske resurse.",
+        "vkd3d": "VKD3D je translacijski sloj baziran na Vulkanu za DirectX 12 igre. Omogućavanje može značajno poboljšati kompatibilnost. Nema efekta na starije DirectX igre."
     },
     "info": {
         "heroic": {
@@ -193,7 +227,11 @@
         "sortByStatus": "Poredaj po statusu",
         "sortDescending": "Poredaj silazno",
         "listView": "Prikaz liste",
-        "gridView": "Mrežni prikaz"
+        "gridView": "Mrežni prikaz",
+        "toggleLayout": {
+            "grid": "Prebacite se na raspored mreže",
+            "list": "Prebacite se na izgled liste"
+        }
     },
     "Library": "Biblioteka",
     "loading": {
@@ -210,7 +248,21 @@
             "reparing": "Greška prilikom popravke"
         },
         "finished": {
-            "reparing": "Popravka završena"
+            "reparing": "Popravka završena",
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} nije bilo moguće dodati svim pronađenim korisnicima Steam-a. Pogledajte dnevnike za više informacija. Potrebno je ponovno pokretanje Steam-a, promjene će stupiti na snagu.",
+                    "success": "{{game}} je uspješno dodan u Steam. Potrebno je ponovno pokretanje Steam-a, promjene će stupiti na snagu.",
+                    "title": "Dodato u Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} nije bilo moguće ukloniti sa svih pronađenih Steam korisnika. Pogledajte dnevnike za više informacija. Potrebno je ponovno pokretanje Steam-a, promjene će stupiti na snagu.",
+                    "success": "{{game}} je uspješno uklonjen na Steam. Potrebno je ponovno pokretanje Steam-a, promjene će stupiti na snagu.",
+                    "title": "Uklonjeno sa Steam-a"
+                }
+            }
         },
         "install": {
             "error": "Instalacija neuspješna",
@@ -234,11 +286,24 @@
     "options": {
         "advanced": {
             "placeholder": "Ovdje stavite druge opcije pokretanja",
-            "title": "Napredne opcije (varijable okruženja):"
+            "title": "Napredne opcije (varijable okruženja):",
+            "key": "Ime varijable",
+            "placeHolderKey": "NAME",
+            "placeHolderValue": "Npr.: Put/Do/ExtraFiles",
+            "value": "Vrijednost"
         },
         "gameargs": {
             "placeholder": "Stavite ovdje argumente pokretača",
             "title": "Argumenti igre (za pokretanje nakon naredbe):"
+        },
+        "quote-args-with-spaces": "Upozorenje: Obavezno navedite argumente sa razmacima! Npr.: \"put/sa razmacima/\"",
+        "wrapper": {
+            "args": "Argumenti",
+            "arguments_example": "Primjer argumenata: --arg; --extra-file=\"putanja do datoteke/ sa/razmacima\"",
+            "exe": "Wrapper",
+            "placeHolderKey": "New Wrapper",
+            "placeHolderValue": "Argumenti omotača",
+            "title": "Naredba omotača:"
         }
     },
     "other": {
@@ -277,7 +342,8 @@
         "library_top_option": {
             "disabled": "Onemogućeno",
             "favourites": "Omiljene igre",
-            "recently_played": "Nedavno igrane igre"
+            "recently_played": "Nedavno igrane igre",
+            "recently_played_installed": "Nedavno igrane igre (samo instalirane)"
         },
         "library_top_section": "Gornji dio biblioteke",
         "log": {
@@ -326,7 +392,31 @@
             "title": "Pokrenite EXE na prefiksu"
         },
         "winecrossoverbottle": "CrossOver Bottle",
-        "start-in-tray": "Pokreni minimizirano"
+        "start-in-tray": "Pokreni minimizirano",
+        "eosOverlay": {
+            "updateNow": "Ažuriraj",
+            "updating": "Ažuriranje...",
+            "checkForUpdates": "Provjerite ima li ažuriranja",
+            "install": "Instaliraj",
+            "installed": "EOS Overlay je instaliran",
+            "installing": "EOS Overlay se instalira...",
+            "notInstalledMsg": "EOS Overlay nije instaliran. Želite li ga sada instalirati?",
+            "removeConfirm": "Jeste li sigurni da želite deinstalirati EOS Overlay?",
+            "removeConfirmTitle": "Potvrdite uklanjanje preklapanja",
+            "cancelInstall": "Otkaži",
+            "checkingForUpdates": "Provjera ažuriranja...",
+            "currentVersion": "Trenutna verzija: {{version}}",
+            "disable": "Onemogući",
+            "enable": "Omogući",
+            "latestVersion": "Najnovija verzija: {{version}}",
+            "notInstalled": "EOS Overlay nije instaliran",
+            "notInstalledTitle": "Overlay nije instaliran",
+            "remove": "Deinstaliraj"
+        },
+        "download-no-https": "Preuzmite igre bez HTTPS-a (korisno za CDN-ove, npr. LanCache)",
+        "preferSystemLibs": "Preferirajte sistemske biblioteke",
+        "crossover-version": "Crossover verzija",
+        "default-steam-path": "Zadana staza Steam-a"
     },
     "favourites": "Favoriti",
     "install": {
@@ -351,11 +441,33 @@
             "log": "Prijavite se",
             "sync": "Spremi-Sinhroniziraj",
             "general": "Generalno",
-            "other": "Drugi"
+            "other": "Drugi",
+            "wineExt": "Wine Extensions"
         },
         "open-config-file": "Otvorite konfig. fajl",
         "clear-cache": "Obrišite Heroic predmemoriju",
-        "reset-heroic": "Resetujte Heroic"
+        "reset-heroic": "Resetujte Heroic",
+        "saves": {
+            "warning": "Funkcija čuvanja u oblaku je u beta verziji, napravite sigurnosnu kopiju vaših sačuvanih podataka prije sinhronizacije (u slučaju da nešto krene po zlu)"
+        },
+        "eacRuntime": {
+            "installing": "Instaliranje EAC Runtime...",
+            "name": "EasyAntiCheat Runtime",
+            "gameModeRequired": {
+                "message": "GameMode je neophodan da EAC runtime radi na Flatpaku. Želite li ga sada omogućiti?",
+                "title": "Potreban je GameMode"
+            }
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "EAC vrijeme izvođenja je omogućeno, koje neće ispravno funkcionirati bez GameModea. Želite li onemogućiti EAC Runtime i GameMode?",
+                "title": "EAC vrijeme izvođenja je omogućeno"
+            }
+        },
+        "battlEyeRuntime": {
+            "installing": "Instaliranje BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        }
     },
     "Settings": "Postavke",
     "sidebar": {
@@ -417,5 +529,35 @@
         },
         "release": "Datum izlaska",
         "size": "Veličina"
+    },
+    "controller": {
+        "hints": {
+            "activate": "Aktiviraj",
+            "back": "Nazad",
+            "backspace": "Backspace",
+            "scroll": "Scroll",
+            "space": "Prostor",
+            "update_game": "Ažurirajte igru",
+            "close_context_menu": "Zatvorite kontekstni meni",
+            "close_dialog": "Zatvori dijalog",
+            "close_keyboard": "Zatvorite tastaturu",
+            "context_menu": "Kontekstni meni",
+            "game_details": "Detalji igre",
+            "game_settings": "Postavke igre",
+            "install_game": "Instaliraj igru",
+            "move_cursor": "Pomeri kursor",
+            "none": "Nema",
+            "open_virtual_keyboard": "Otvorite virtuelnu tastaturu",
+            "play_game": "Igrati igru"
+        }
+    },
+    "GameSettings": "Postavke igre",
+    "anticheat": {
+        "anticheats": "Anticheats",
+        "may_not_work": "Možda neće raditi zbog odbijene ili pokvarene anticheat podrške.",
+        "reference": "Referenca",
+        "source": "Izvor",
+        "status": "Status",
+        "title": "Ova igra uključuje anticheat softver"
     }
 }

@@ -45,7 +45,8 @@
         "hide_game": "Skjul Spil",
         "unhide_game": "Vis spil",
         "add_to_favourites": "Tilføj til favorit",
-        "remove_from_favourites": "Fjern fra favoritter"
+        "remove_from_favourites": "Fjern fra favoritter",
+        "force_update": "Tving opdatering, hvis tilgængelig"
     },
     "disabled": "Slå Fra",
     "dlc": {
@@ -126,7 +127,12 @@
         "protondb": "Check Compatabilitet",
         "settings": "Indstillinger",
         "store": "Butik",
-        "verify": "Verificer og Reparer"
+        "verify": "Verificer og Reparer",
+        "removeShortcut": "Fjern genveje",
+        "removeFromSteam": "Fjern fra Steam",
+        "addToSteam": "Tilføj til Steam",
+        "disableEosOverlay": "Deaktiver EOS Overlay",
+        "enableEosOverlay": "Aktiver EOS Overlay"
     },
     "generic": {
         "error": "Ukendt fejl"

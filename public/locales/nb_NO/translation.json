@@ -2,7 +2,8 @@
     "box": {
         "choose": "Velg",
         "quit": {
-            "title": "Avslutt"
+            "title": "Avslutt",
+            "message": "Det er ventende operasjoner, er du sikker?"
         },
         "runexe": {
             "title": "Velg EXE å kjøre"
@@ -36,7 +37,38 @@
                 "title": "Fant ingen logg",
                 "message": "Fant ingen loggføring for dette spillet"
             },
-            "title": "Feil"
+            "title": "Feil",
+            "folder-not-found": {
+                "title": "Spillmappen ser ut til å være slettet, vil du fjerne spillet fra installeringslisten?"
+            },
+            "dxvk": {
+                "title": "DXVK/VKD3D feil",
+                "message": "Feil ved installasjon av DXVK/VKD3D! Vennligst sjekk tilkoblingen din!"
+            },
+            "update": {
+                "title": "Oppdateringsfeil",
+                "message": "Noe gikk galt med oppdateringen, vennligst sjekk loggene eller prøv igjen senere!"
+            },
+            "cx-bottle-not-found": {
+                "message": "CrossOver-flasken \"{{bottle_name}}\" eksisterer ikke, kan ikke startes!",
+                "title": "CrossOver-flasken ble ikke funnet"
+            },
+            "add": {
+                "steam": {
+                    "body": "Å legge til {{game}} til Steam mislyktes med:{{newLine}} {{error}}",
+                    "title": "Legge til feil"
+                }
+            },
+            "no-offline-mode": {
+                "message": "Lansering avbrutt! Spillet krever en internettforbindelse for å kjøre det.",
+                "title": "Frakoblet modus støttes ikke."
+            },
+            "remove": {
+                "steam": {
+                    "body": "Fjerning av {{game}} fra Steam mislyktes med:{{newLine}} {{error}}",
+                    "title": "Fjerner feil"
+                }
+            }
         },
         "select": {
             "button": "Velg",
@@ -48,7 +80,9 @@
         },
         "ok": "OK",
         "shortcuts": {
-            "title": "Snarveier"
+            "title": "Snarveier",
+            "message": "Snarveier ble opprettet på skrivebordet og startmenyen",
+            "message-remove": "Snarveier ble fjernet fra skrivebordet og startmenyen"
         },
         "sync": {
             "button": "Velg",
@@ -70,14 +104,51 @@
         },
         "choose-egs-prefix": "Velg Wine-prefiks der EGS er installert",
         "customWine": "Velg kjørbar Wine- eller Proton-fil",
-        "default-install-path": "Velg forvalgt installasjonssted"
+        "default-install-path": "Velg forvalgt installasjonssted",
+        "warning": {
+            "epic": {
+                "install": "Epic Servers har stor driftsstans akkurat nå, spillet kan ikke installeres!",
+                "import": "Epic Servers har stor driftsstans akkurat nå, spillet kan ikke importeres!",
+                "update": "Epic Servers har stor driftsstans akkurat nå, spillet kan ikke oppdateres!"
+            },
+            "title": "Advarsel"
+        },
+        "downloadNow": "Last ned nå",
+        "info": {
+            "update": {
+                "message": "Det er en ny versjon tilgjengelig!",
+                "title-finished": "Oppgradering fullført",
+                "message-finished": "Vil du starte Heroic på nytt nå?",
+                "title": "Heroic Games Launcher",
+                "changelog": "Åpne endringslogg",
+                "detail": "Vil du laste ned oppdateringen i bakgrunnen?"
+            }
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Er du sikker på at du vil tilbakestille Heroic? Dette vil fjerne alle innstillinger og hurtigbufring, men vil ikke fjerne de installerte spillene dine eller Epic-legitimasjonen din",
+                "title": "Tilbakestill Heroic"
+            }
+        },
+        "vcruntime": {
+            "install": {
+                "message": "Nedlastingskoblingene for Visual C++ Runtimes er åpnet. Installer både x86- og x64-versjonene."
+            },
+            "notfound": {
+                "message": "Microsoft Visual C++ Runtimes er ikke installert, noe som kreves av enkelte spill",
+                "title": "VCRuntime er ikke installert"
+            }
+        },
+        "choose-gogdl-binary": "Velg GOGDL Binary (trenger omstart)",
+        "default-steam-path": "Dampbane."
     },
     "notify": {
         "install": {
             "canceled": "Installasjon avbrutt",
             "finished": "Installasjon fullført",
             "imported": "Spill importert",
-            "startInstall": "Installasjon startet"
+            "startInstall": "Installasjon startet",
+            "error": "Installasjon feilet"
         },
         "uninstalled": "Avinstallert",
         "moved": "Flytting fullført",
@@ -85,6 +156,31 @@
             "started": "Oppgradering startet",
             "canceled": "Oppgradering avbrutt",
             "finished": "Oppgradering fullført"
+        },
+        "finished": {
+            "reparing": "Ferdig med reparasjon",
+            "remove": {
+                "steam": {
+                    "success": "{{game}} ble fjernet til Steam. En omstart av Steam er nødvendig, endringer trer i kraft.",
+                    "corrupt": "{{game}} kunne ikke fjernes fra alle Steam-brukere som ble funnet. Se logger for mer info. En omstart av Steam er nødvendig, endringer trer i kraft.",
+                    "title": "Fjernet fra Steam"
+                }
+            },
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} kunne ikke legges til alle Steam-brukere som ble funnet. Se logger for mer info. En omstart av Steam er nødvendig, endringer trer i kraft.",
+                    "success": "{{game}} ble lagt til Steam. En omstart av Steam er nødvendig, endringer trer i kraft.",
+                    "title": "Lagt til Steam"
+                }
+            }
+        },
+        "moving": "Moving Game",
+        "refresh": {
+            "error": "Kunne ikke hente utgivelser fra oppstrøms, kanskje på grunn av Github API-begrensninger! Prøv igjen senere."
+        },
+        "error": {
+            "move": "Feil ved flytting av spillet",
+            "reparing": "Feil ved reparasjon"
         }
     },
     "setting": {
@@ -94,20 +190,103 @@
             "upload": "Last opp",
             "syncing": "Synkroniserer …",
             "download": "Last ned",
-            "forcedownload": "Tving nedlasting"
+            "forcedownload": "Tving nedlasting",
+            "title": "Manuell synkronisering lagrer"
         },
         "offlinemode": "Kjør spillet frakoblet",
         "addgamestostartmenu": "Legg til spill på startmenyen automatisk",
         "exit-to-tray": "Avslutt til systemkurv",
         "adddesktopshortcuts": "Legg til skrivebordssnarveier automatisk",
-        "language": "Velg programspråk"
+        "language": "Velg programspråk",
+        "default-steam-path": "Standard Steam-bane",
+        "eosOverlay": {
+            "checkingForUpdates": "Ser etter oppdateringer...",
+            "currentVersion": "Gjeldende versjon: {{version}}",
+            "latestVersion": "Siste versjon: {{version}}",
+            "notInstalled": "EOS-overlegget er ikke installert",
+            "notInstalledMsg": "EOS-overlegget er ikke installert. Vil du installere den nå?",
+            "removeConfirm": "Er du sikker på at du vil avinstallere EOS Overlay?",
+            "notInstalledTitle": "Overlegg ikke installert",
+            "remove": "Avinstaller",
+            "cancelInstall": "Avbryt",
+            "checkForUpdates": "Se etter oppdateringer",
+            "disable": "Deaktiver",
+            "enable": "Muliggjøre",
+            "install": "Installere",
+            "installed": "EOS-overlegget er installert",
+            "installing": "EOS-overlegget blir installert...",
+            "removeConfirmTitle": "Bekreft fjerning av overlegg",
+            "updateNow": "Oppdater",
+            "updating": "Oppdaterer..."
+        },
+        "primerun": "Bruk dedikert grafikkort",
+        "alt-gogdl-bin": "Velg en alternativ GOGDL-binær du vil bruke",
+        "autosync": "Autosync lagrer",
+        "darktray": "Bruk mørkt skuff-ikon",
+        "disable_controller": "Deaktiver heroisk navigasjon ved hjelp av kontrolleren",
+        "defaultWinePrefix": "Angi mappe for nye vinprefikser",
+        "maxRecentGames": "Spilt nylig for å vise",
+        "resizableBar": "Aktiver endringsbar BAR (kun NVIDIA RTX 30xx)",
+        "runexe": {
+            "message": "Dra og slipp filer her",
+            "title": "Kjør EXE på prefiks"
+        },
+        "savefolder": {
+            "placeholder": "Velg den nøyaktige mappen for lagring av spill"
+        },
+        "minimize-on-launch": "Minimer heroisk etter spillstart",
+        "maxworkers": "Maksimalt antall arbeidere ved nedlasting",
+        "select_theme": "Velg Tema",
+        "winecrossoverbottle": "CrossOver flaske",
+        "FsrSharpnessStrenght": "FSR Skarphet Styrke",
+        "showfps": "Vis FPS (DX9, 10 og 11)",
+        "showUnrealMarket": "Vis Unreal Marketplace (trenger omstart)",
+        "start-in-tray": "Start Minimert",
+        "steamruntime": "Bruk Steam Runtime",
+        "wineprefix": "WinePrefix-mappen",
+        "wineversion": "Vinversjon",
+        "gamemode": "Bruk GameMode (Feral Game Mode må installeres)",
+        "log": {
+            "copy-to-clipboard": "Kopier logginnhold til utklippstavlen",
+            "instructions_title": "Hvordan rapportere et problem?",
+            "no-file": "Ingen loggfil funnet",
+            "show-in-folder": "Vis loggfil i mappe",
+            "current-log": "Gjeldende logg",
+            "instructions": "Bli med i vår Discord og se etter kanalen som matcher operativsystemet ditt. Del innholdet i loggene som vises her, og inkluder en tydelig beskrivelse av problemet med relevant informasjon og detaljer.",
+            "last-log": "Siste logg"
+        },
+        "library_top_option": {
+            "disabled": "Funksjonshemmet",
+            "favourites": "Favorittspill",
+            "recently_played": "Nylig spilte spill",
+            "recently_played_installed": "Nylig spilte spill (kun installert)"
+        },
+        "alt-legendary-bin": "Velg en alternativ legendarisk binær",
+        "audiofix": "Lydfiks (pulslydforsinkelse)",
+        "autovkd3d": "Autoinstaller/oppdater VKD3D på prefiks",
+        "change-target-exe": "Velg en alternativ EXE å kjøre",
+        "crossover-version": "Crossover-versjon",
+        "customWineProton": "Egendefinerte vin-/protonbaner",
+        "default-install-path": "Standard installasjonsbane",
+        "discordRPC": "Aktiver Discord Rich Presence",
+        "download-no-https": "Last ned spill uten HTTPS (nyttig for CDN-er, f.eks. LanCache)",
+        "egs-sync": "Synkroniser med installerte episke spill",
+        "enableFSRHack": "Aktiver FSR Hack (Wine-versjonen må støtte det)",
+        "esync": "Aktiver Esync",
+        "fsync": "Aktiver Fsync",
+        "library_top_section": "Bibliotekets øverste seksjon",
+        "mangohud": "Aktiver Mangohud (Mangohud må installeres)",
+        "prefered_language": "Foretrukket språk (språkkode)",
+        "preferSystemLibs": "Foretrekker systembiblioteker",
+        "autodxvk": "Autoinstaller/oppdater DXVK på prefiks"
     },
     "Unreal Marketplace": "Unreal-markedsplass",
     "Downloading": "Laster ned …",
     "Epic Games": "Epic Games",
     "Filter": "Filtrer",
     "tooltip": {
-        "removepath": "Fjern sti"
+        "removepath": "Fjern sti",
+        "addpath": "Legg til ny bane"
     },
     "tray": {
         "reload": "Last inn igjen",
@@ -120,19 +299,25 @@
         "allUnreal": "Unreal - Alt",
         "notInstalledGames": "Ikke installert",
         "installedGames": "Installerte spill",
-        "unrealAssets": "Unreal - Ressurser"
+        "unrealAssets": "Unreal - Ressurser",
+        "unrealPlugins": "Uvirkelig - Plugins",
+        "allGames": "Alle spill",
+        "unrealProjects": "Uvirkelig - Prosjekter"
     },
     "Updates": "Oppgraderinger",
     "userselector": {
         "quit": "Avslutt",
         "logout": "Logg ut",
-        "discord": "Discord"
+        "discord": "Discord",
+        "logout_confirmation": "Er du sikker på at du vil logge ut?",
+        "manageaccounts": "Administrer kontoer"
     },
     "button": {
         "sync": "Synkroniser",
         "syncing": "Synkroniserer …",
         "unsync": "Omgjør synkronisering",
-        "login": "Logg inn"
+        "login": "Logg inn",
+        "go_to_library": "Gå til biblioteket"
     },
     "filter": {
         "noFilter": "Uten filter"
@@ -144,5 +329,259 @@
     "Total Games": "Totalt antall spill",
     "All": "Alle",
     "Assets": "Ressurser",
-    "wiki": "Wiki"
+    "wiki": "Wiki",
+    "epic": {
+        "offline-notification-title": "offline",
+        "offline-notification-body": "Netttjenester fungerer kanskje ikke fullt ut siden Epic Games-servere er offline!"
+    },
+    "game": {
+        "status": "Status",
+        "store": "butikk",
+        "title": "Spilltittel"
+    },
+    "docs": "Dokumentasjon",
+    "GameSettings": "Spillinnstillinger",
+    "generic": {
+        "error": {
+            "component": "Ingen spill funnet - Prøv å logge ut og logge på igjen eller ett av alternativene nedenfor"
+        },
+        "library": {
+            "refresh": "Oppdater biblioteket"
+        }
+    },
+    "gog-store": "GOG Store",
+    "header": {
+        "show_all_games": "Vis alle spill",
+        "show_favourites_only": "Vis kun favoritter",
+        "store": "Filterbutikk",
+        "ignore_hidden": "Ignorer skjult",
+        "platform": "Plattform",
+        "show_hidden": "Vis skjult"
+    },
+    "help": {
+        "amdfsr": "AMDs FSR bidrar til å øke bildefrekvensen ved å oppskalere lavere oppløsninger i fullskjermmodus. Bildekvaliteten øker fra 5 til 1 på bekostning av et lite ytelsestreff. Aktivering kan forbedre ytelsen.",
+        "dxvk": "DXVK er et Vulkan-basert translasjonslag for DirectX 9, 10 og 11-spill. Aktivering kan forbedre kompatibiliteten. Kan forårsake problemer spesielt for eldre DirectX-spill.",
+        "esync": "Esync har som mål å redusere vinserveroverhead i CPU-intensive spill. Aktivering kan forbedre ytelsen.",
+        "fsync": "Fsync har som mål å redusere vinserveroverhead i CPU-intensive spill. Aktivering kan forbedre ytelsen på støttede Linux-kjerner.",
+        "gamemode": "Feral GameMode bruker automatiske og midlertidige justeringer på systemet når du kjører spill. Aktivering kan forbedre ytelsen.",
+        "mangohud": "MangoHUD er et overlegg som viser og overvåker FPS, temperaturer, CPU/GPU-belastning og andre systemressurser.",
+        "other": {
+            "part6": " for å bli kalt etter startkommandoen, for eksempel: ",
+            "part4": "Bruke ",
+            "part5": "Spillargumenter",
+            "part7": " for å hoppe over startprogrammet i noen spill osv."
+        },
+        "game_language": {
+            "in_game_config": "Ikke alle spill støtter denne konfigurasjonen, noen har språkinnstilling i spillet.",
+            "fallback": "La stå tomt for å bruke Heroics språk.",
+            "valid_codes": "Gyldige språkkoder er spillavhengige."
+        },
+        "resizablebar": "NVIDIAs Resizable Bar bidrar til å øke framerate ved å gi CPU-en tilgang til hele grafikkbufferen. Aktivering kan forbedre ytelsen for Vulkan-baserte spill.",
+        "preferSystemLibs": "Custom Wine-versjoner (Wine-GE, Wine-Lutris) sendes med deres bibliotekavhengigheter. Ved å aktivere dette alternativet vil disse sendte bibliotekene bli ignorert og Wine vil laste inn systembibliotekene i stedet. Advarsel! Problemer kan oppstå hvis avhengigheter ikke oppfylles.",
+        "steamruntime": "Egendefinerte biblioteker levert av Steam for å hjelpe til med å kjøre Linux og Windows (Proton)-spill. Aktivering kan forbedre kompatibiliteten.",
+        "sync": {
+            "part2": "I tilfelle du endrer prefiksmappen for Wine eller Proton, må du sjekke banen på nytt siden Proton bruker et annet prefiks (/pfx) og brukernavn (steamuser). Så du kan enkelt slette den gjeldende banen gå ut av siden med synkroniseringsinnstillinger og komme tilbake igjen for Heroic å gjette mappen en gang til med riktig prefiks.",
+            "part3": "Manuell synkronisering: Velg Last ned for å laste ned spill som er lagret i nettskyen. Last opp for å laste opp de lokale til skyen. Tving nedlasting og Tving opplasting vil ignorere versjonen som er lokalt eller på skyen.",
+            "part4": "Synkroniser lagrer Automatisk vil synkronisere lagrene hver gang du starter et spill og etter endt spill.",
+            "part1": "Heroic prøver å gjette riktig lagringsmappe, og dette vil fungere i de fleste tilfeller. I tilfelle mappen er feil, bruk overstyringsboksen for å endre den."
+        },
+        "vkd3d": "VKD3D er et Vulkan-basert translasjonslag for DirectX 12-spill. Aktivering kan forbedre kompatibiliteten betraktelig. Har ingen effekt på eldre DirectX-spill.",
+        "wine": {
+            "part1": "Heroiske søk etter versjoner av Wine, Proton og CrossOver i følgende mapper:",
+            "part2": "For andre steder, bruk en symbolsk lenke til en av disse mappene"
+        },
+        "general": "Synkroniser med EGL hvis du har en fungerende installasjon av Epic Games Launcher andre steder og vil importere spillene dine for å unngå å laste dem ned igjen."
+    },
+    "info": {
+        "version": "Vinversjon",
+        "settings": "Innstillinger lagres automatisk",
+        "heroic": {
+            "version": "Heroisk versjon"
+        }
+    },
+    "options": {
+        "wrapper": {
+            "arguments_example": "Argument eksempel: --arg; --extra-file=\"filbane/ med/mellomrom\"",
+            "args": "Argumenter",
+            "exe": "Innpakning",
+            "placeHolderKey": "Ny wrapper",
+            "placeHolderValue": "Innpakningsargumenter",
+            "title": "Wrapper kommando:"
+        },
+        "quote-args-with-spaces": "Advarsel: Sørg for å sitere args med mellomrom! For eksempel: \"bane/med mellomrom/\"",
+        "advanced": {
+            "title": "Avanserte alternativer (miljøvariabler):",
+            "key": "Variabelnavn",
+            "placeHolderKey": "NAVN",
+            "placeHolderValue": "Eks.: Path/To/ExtraFiles",
+            "value": "Verdi"
+        },
+        "gameargs": {
+            "placeholder": "Legg inn Launcher-argumentene her",
+            "title": "Spillargumenter (for å kjøre etter kommandoen):"
+        }
+    },
+    "settings": {
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "EAC runtime er aktivert, som ikke vil fungere korrekt uten GameMode. Vil du deaktivere EAC Runtime og GameMode?",
+                "title": "EAC kjøretid aktivert"
+            }
+        },
+        "navbar": {
+            "general": "Generell",
+            "wineExt": "Wine Extensions",
+            "sync": "Lagre-synkronisering",
+            "advanced": "Avansert",
+            "log": "Logg",
+            "other": "Annen"
+        },
+        "battlEyeRuntime": {
+            "installing": "Installerer BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
+        "open-config-file": "Åpne konfigurasjonsfil",
+        "clear-cache": "Tøm heroisk cache",
+        "log": {
+            "long-log-hint": "Logg avkortet, siste 1000 linjer vises!"
+        },
+        "copyToClipboard": "Kopier alle innstillinger til utklippstavlen",
+        "copiedToClipboard": "Kopiert til utklippstavlen!",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode kreves for at EAC-kjøretiden skal fungere på Flatpak. Vil du aktivere det nå?",
+                "title": "Spillmodus kreves"
+            },
+            "installing": "Installerer EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
+        "reset-heroic": "Tilbakestill Heroic",
+        "saves": {
+            "warning": "Cloud Saves-funksjonen er i beta, vennligst ta sikkerhetskopi av lagrene dine før synkronisering (i tilfelle noe går galt)"
+        }
+    },
+    "accessibility": {
+        "actions_font_family": "Actions Font Family (Standard: \"Rubik\")",
+        "all_tiles_in_color": "Vis alle spillbrikker i farger",
+        "content_font_family": "Innholdsskriftfamilie (standard: \"Cabin\")",
+        "fonts": "Skrifter",
+        "title": "tilgjengelighet",
+        "zoom": "Zoom"
+    },
+    "favourites": "Favoritter",
+    "other": {
+        "weblate": "Hjelp til å oversette Heroic.",
+        "legendary-version": "Legendarisk versjon: ",
+        "gogdl-version": "GOGDL-versjon: "
+    },
+    "placeholder": {
+        "prefered_language": "2-tegnskode (dvs.: \"en\" eller \"fr\")",
+        "egs-prefix": "Prefiks der EGS er installert",
+        "alt-gogdl-bin": "Bruker innebygd GOGDL binær...",
+        "alt-legendary-bin": "Bruker innebygd Legendary binær..."
+    },
+    "platforms": {
+        "linux": "Linux",
+        "win": "Windows",
+        "mac": "Mac"
+    },
+    "infobox": {
+        "help": "Hjelp",
+        "requirements": "Systemkrav",
+        "wine-path": "Vinstien"
+    },
+    "status": {
+        "logging": "Logger inn...",
+        "installing": "Installerer",
+        "processing": "Behandler filer, vennligst vent"
+    },
+    "store": "Episk butikk",
+    "library": {
+        "toggleLayout": {
+            "grid": "Bytt til et rutenettoppsett",
+            "list": "Bytt til et listeoppsett"
+        },
+        "refresh": "Forfriske",
+        "sortAscending": "Sorter stigende",
+        "sortByStatus": "Sorter etter status",
+        "sortDescending": "Sorter synkende"
+    },
+    "install": {
+        "path": "Velg Installer bane"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Velg standard prefiksmappe for nye konfigurasjoner",
+            "wineprefix": "Velg en mappe for nye vinprefikser"
+        }
+    },
+    "login": {
+        "externalLogin": "Ekstern pålogging"
+    },
+    "stores": "Butikker",
+    "webview": {
+        "controls": {
+            "back": "Gå tilbake",
+            "reload": "Last inn siden på nytt",
+            "forward": "Gå framover",
+            "openInBrowser": "Åpne i nettleseren"
+        }
+    },
+    "wine": {
+        "manager": {
+            "title": "Vinsjef",
+            "error": "Kunne ikke hente Wine/Proton-versjoner denne gangen.",
+            "link": "Vinsjef",
+            "unzipping": "Pakning ut"
+        },
+        "actions": "Handling",
+        "release": "Utgivelsesdato",
+        "size": "Størrelse"
+    },
+    "message": {
+        "unsync": "Avsynkronisering fullført",
+        "sync": "Synkronisering fullført"
+    },
+    "Plugins": "Plugins",
+    "controller": {
+        "hints": {
+            "activate": "Aktiver",
+            "back": "Tilbake",
+            "backspace": "Tilbake",
+            "close_context_menu": "Lukk kontekstmenyen",
+            "close_dialog": "Lukk dialog",
+            "close_keyboard": "Lukk tastaturet",
+            "context_menu": "Kontekstmenyen",
+            "game_details": "Spilldetaljer",
+            "move_cursor": "Flytt markøren",
+            "none": "Ingen",
+            "open_virtual_keyboard": "Åpne virtuelt tastatur",
+            "play_game": "Spill",
+            "scroll": "Rull",
+            "space": "Rom",
+            "update_game": "Oppdater spillet",
+            "game_settings": "Spillinnstillinger",
+            "install_game": "Installer spillet"
+        }
+    },
+    "GOG": "GOG",
+    "Library": "Bibliotek",
+    "loading": {
+        "default": "Laster",
+        "website": "Laster inn nettsted"
+    },
+    "Settings": "Innstillinger",
+    "sidebar": {
+        "collapse": "Skjul sidefeltet",
+        "uncollapse": "Slå opp sidefeltet"
+    },
+    "globalSettings": "Globale innstillinger",
+    "anticheat": {
+        "reference": "Referanse",
+        "anticheats": "Anticheats",
+        "source": "Kilde",
+        "may_not_work": "Det kan hende det ikke fungerer på grunn av avvist eller ødelagt anticheat-støtte.",
+        "status": "Status",
+        "title": "Dette spillet inkluderer anticheat-programvare"
+    }
 }

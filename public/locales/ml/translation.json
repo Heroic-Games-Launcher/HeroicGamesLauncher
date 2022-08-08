@@ -70,6 +70,10 @@
                 }
             },
             "title": "കുഴപ്പം",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
+            },
             "update": {
                 "message": "Something went wrong with the update, please check the logs or try again later!",
                 "title": "Update Error"
@@ -197,7 +201,7 @@
     "gog-store": "GOG Store",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "",
+        "platform": "പ്ലാറ്റ്ഫോം",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
@@ -253,7 +257,7 @@
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ"
     },
     "library": {
-        "refresh": "",
+        "refresh": "പുതുക്കുക",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -264,7 +268,7 @@
     },
     "Library": "കളിശാല",
     "loading": {
-        "default": "",
+        "default": "ലോഡിംഗ്",
         "website": "Loading Website"
     },
     "login": {
@@ -349,9 +353,9 @@
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "ലിനക്സ്",
+        "mac": "മാക്",
+        "win": "വിൻഡോസ്"
     },
     "Plugins": "കൂടുതലുകള്",
     "Projects": "ഏര്പാടുകള്",
@@ -538,10 +542,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "മടങ്ങിപ്പോവുക",
+            "forward": "മുന്നോട്ട് പോകുക",
+            "openInBrowser": "ബ്രൗസറിൽ തുറക്കുക",
+            "reload": "പേജ് റീലോഡ് ചെയ്യുക"
         }
     },
     "wine": {
