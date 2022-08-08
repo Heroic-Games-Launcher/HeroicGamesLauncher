@@ -12,7 +12,6 @@ import * as path from 'path'
 import {
   BrowserWindow,
   Menu,
-  Notification,
   Tray,
   app,
   dialog,
@@ -68,7 +67,8 @@ import {
   getFileSize,
   detectVCRedist,
   getFirstExistingParentPath,
-  getLatestReleases
+  getLatestReleases,
+  notify
 } from './utils'
 import {
   configStore,
@@ -455,21 +455,6 @@ if (!gotTheLock) {
   })
 }
 
-type NotifyType = {
-  title: string
-  body: string
-}
-
-function notify({ body, title }: NotifyType) {
-  const notify = new Notification({
-    body,
-    title
-  })
-
-  notify.on('click', () => mainWindow.show())
-  notify.show()
-}
-
 ipcMain.on('Notify', (event, args) => {
   notify({ body: args[1], title: args[0] })
 })
@@ -666,7 +651,14 @@ ipcMain.handle('isFlatpak', () => isFlatpak)
 
 ipcMain.handle('getPlatform', () => process.platform)
 
-ipcMain.handle('getLatestReleases', async () => getLatestReleases())
+ipcMain.handle('showUpdateSetting', () => !isFlatpak)
+
+ipcMain.handle('getLatestReleases', async () => {
+  const { checkForUpdatesOnStartup } = GlobalConfig.get().config
+  if (checkForUpdatesOnStartup) {
+    return getLatestReleases()
+  }
+})
 
 ipcMain.on('clearCache', () => {
   clearCache()

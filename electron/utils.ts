@@ -688,6 +688,7 @@ export function getFirstExistingParentPath(directoryPath: string): string {
 
 export const getLatestReleases = async (): Promise<Release[]> => {
   const newReleases: Release[] = []
+  logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
 
   try {
     const { data: releases } = await axios.default.get(GITHUB_API)
@@ -710,6 +711,13 @@ export const getLatestReleases = async (): Promise<Release[]> => {
       newReleases.push({ ...latestBeta, type: 'beta' })
     }
 
+    if (newReleases.length) {
+      notify({
+        title: t('Update Available!'),
+        body: t('A new Heroic version was released!')
+      })
+    }
+
     return newReleases
   } catch (error) {
     logError(
@@ -718,6 +726,22 @@ export const getLatestReleases = async (): Promise<Release[]> => {
     )
     return []
   }
+}
+
+type NotifyType = {
+  title: string
+  body: string
+}
+
+export function notify({ body, title }: NotifyType) {
+  const mainWindow = BrowserWindow.getAllWindows()[0]
+  const notify = new Notification({
+    body,
+    title
+  })
+
+  notify.on('click', () => mainWindow.show())
+  notify.show()
 }
 
 export {

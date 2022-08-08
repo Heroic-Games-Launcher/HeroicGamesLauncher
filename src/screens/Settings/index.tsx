@@ -98,6 +98,11 @@ function Settings() {
     setOn: setUseGameMode
   } = useToggle(false)
   const {
+    on: checkForUpdatesOnStartup,
+    toggle: toggleUpdatesOnStartup,
+    setOn: setCheckForUpdatesOnStartup
+  } = useToggle(false)
+  const {
     on: useSteamRuntime,
     toggle: toggleUseSteamRuntime,
     setOn: setUseSteamRuntime
@@ -235,6 +240,7 @@ function Settings() {
           'requestSettings',
           appName
         )
+        setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup)
         setAutoSyncSaves(config.autoSyncSaves)
         setUseGameMode(config.useGameMode)
         setShowFps(config.showFps)
@@ -319,6 +325,7 @@ function Settings() {
       autoInstallVkd3d,
       preferSystemLibs,
       customWinePaths,
+      checkForUpdatesOnStartup,
       darkTrayIcon,
       defaultInstallPath,
       defaultSteamPath,
@@ -400,6 +407,7 @@ function Settings() {
     autoSyncSaves,
     customWinePaths,
     darkTrayIcon,
+    checkForUpdatesOnStartup,
     defaultInstallPath,
     defaultSteamPath,
     defaultWinePrefix,
@@ -506,6 +514,8 @@ function Settings() {
               toggleMinimizeOnLaunch={toggleMinimizeOnLaunch}
               disableController={disableController}
               toggleDisableController={toggleDisableController}
+              checkForUpdatesOnStartup={checkForUpdatesOnStartup}
+              toggleUpdatesOnStartup={toggleUpdatesOnStartup}
             />
           )}
           {isWineSettings && (
