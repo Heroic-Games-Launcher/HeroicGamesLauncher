@@ -78,10 +78,21 @@ export function showErrorBoxModalAuto(title: string, message: string) {
 function semverGt(target: string, base: string) {
   target = target.replace('v', '')
 
-  if (base.includes('beta')) {
-    base = base.split('beta.')[1]
-    target = target.split('beta.')[1]
+  // beta to beta
+  if (base.includes('-beta') && target.includes('-beta')) {
+    base = base.split('-beta.')[1]
+    target = target.split('-beta.')[1]
     return target > base
+  }
+
+  // beta to stable
+  if (base.includes('-beta')) {
+    base = base.split('-beta.')[0]
+  }
+
+  // stable to beta
+  if (target.includes('-beta')) {
+    target = target.split('-beta.')[0]
   }
 
   const [bmajor, bminor, bpatch] = base.split('.').map(Number)
@@ -676,6 +687,8 @@ export function getFirstExistingParentPath(directoryPath: string): string {
 }
 
 export const getLatestReleases = async (): Promise<Release[]> => {
+  const newReleases: Release[] = []
+
   try {
     const { data: releases } = await axios.default.get(GITHUB_API)
     const latestStable: Release = releases.filter(
@@ -684,10 +697,11 @@ export const getLatestReleases = async (): Promise<Release[]> => {
     const latestBeta: Release = releases.filter(
       (rel: Release) => rel.prerelease === true
     )[0]
+
     const current = app.getVersion()
+
     const thereIsNewStable = semverGt(latestStable.tag_name, current)
     const thereIsNewBeta = semverGt(latestBeta.tag_name, current)
-    const newReleases: Release[] = []
 
     if (thereIsNewStable) {
       newReleases.push({ ...latestStable, type: 'stable' })
@@ -702,6 +716,7 @@ export const getLatestReleases = async (): Promise<Release[]> => {
       ['Error when checking for Heroic updates', `${error}`],
       LogPrefix.Backend
     )
+    return []
   }
 }
 
