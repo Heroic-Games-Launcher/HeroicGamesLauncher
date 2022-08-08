@@ -152,23 +152,23 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
-            "back": "Back",
+            "activate": "Activa",
+            "back": "Enrere",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
+            "close_context_menu": "Tanca el menú contextual",
+            "close_dialog": "Tanca el diàleg",
+            "close_keyboard": "Tanca el teclat virtual",
             "context_menu": "Context menu",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
+            "game_details": "Detalls del joc",
+            "game_settings": "Configuració del joc",
+            "install_game": "Instal·la el joc",
+            "move_cursor": "Mou el cursor",
             "none": "None",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "play_game": "Play game",
+            "open_virtual_keyboard": "Obre el teclat virtual",
+            "play_game": "Juga al joc",
             "scroll": "Scroll",
-            "space": "Space",
-            "update_game": "Update game"
+            "space": "Espai",
+            "update_game": "Actualitza el joc"
         }
     },
     "docs": "Documentation",
@@ -258,8 +258,8 @@
         "sortByStatus": "Ordena per estat",
         "sortDescending": "Ordre descendent",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "Commuta a una vista de graella",
+            "list": "Commuta a una vista en llista"
         }
     },
     "Library": "Biblioteca",
@@ -367,7 +367,7 @@
         "autosync": "Sincronitza automàticament les partides desades",
         "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",
         "change-target-exe": "Selecciona un EXE alternatiu a executar",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Versió híbrida (crossover)",
         "customWineProton": "Rutes del Wine o Proton personalitzades",
         "darktray": "Utilitza la icona fosca a la safata",
         "default-install-path": "Ruta d'instal·lació predefinida",
@@ -408,7 +408,7 @@
             "disabled": "Desactivat",
             "favourites": "Jocs preferits",
             "recently_played": "Jocs jugats fa poc",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "recently_played_installed": "Jocs jugats fa poc (només els instal·lats)"
         },
         "library_top_section": "Secció superior de la biblioteca",
         "log": {
@@ -430,7 +430,7 @@
             "title": "Sincronització manual de partides desades",
             "upload": "Puja"
         },
-        "maxRecentGames": "Jugats recentment a mostrar",
+        "maxRecentGames": "Jugats fa poc a mostrar",
         "maxworkers": "Nombre màxim de Workers en baixar",
         "minimize-on-launch": "Minimitza el Heroic després d'executar un joc",
         "offlinemode": "Executa el joc sense connexió",
