@@ -140,7 +140,7 @@
             },
             "title": "警告"
         },
-        "wineprefix": "选择 WinePrefix文件夹",
+        "wineprefix": "选择 Wine Prefix 文件夹",
         "yes": "是"
     },
     "button": {
@@ -152,23 +152,23 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
-            "back": "Back",
+            "activate": "激活",
+            "back": "返回",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
+            "close_context_menu": "关闭右键菜单",
+            "close_dialog": "关闭对话框",
+            "close_keyboard": "关闭键盘",
             "context_menu": "Context menu",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
+            "game_details": "游戏详情",
+            "game_settings": "游戏设置",
+            "install_game": "安装游戏",
+            "move_cursor": "移动光标",
             "none": "None",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "play_game": "Play game",
+            "open_virtual_keyboard": "打开虚拟键盘",
+            "play_game": "玩游戏",
             "scroll": "Scroll",
-            "space": "Space",
-            "update_game": "Update game"
+            "space": "空格",
+            "update_game": "更新游戏"
         }
     },
     "docs": "Documentation",
@@ -367,7 +367,7 @@
         "autosync": "自动同步存档",
         "autovkd3d": "自动在前置中安装/更新 VKD3D",
         "change-target-exe": "选择要运行的替代 EXE",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Crossover 版本",
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
