@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "This game includes anticheat software"
     },
-    "Assets": "Tillgångar",
     "box": {
         "cache-cleared": {
             "message": "Heroic cache rensades.",
@@ -350,8 +349,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Plugins",
-    "Projects": "Projekt",
     "Recent": "Nyligen spelat",
     "search": "Ange spelets titel här...",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "Välj tema",
         "showfps": "Visa FPS (DX9, 10 och 11)",
-        "showUnrealMarket": "Visa Unreal Marketplace (kräver omstart)",
         "start-in-tray": "Starta minimerad",
         "steamruntime": "Använd Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -503,11 +499,7 @@
     "store": "Epic Butik",
     "stores": "Butiker",
     "title": {
-        "allGames": "Alla spel",
-        "allUnreal": "Unreal - allt",
-        "unrealAssets": "Unreal - Tillgångar",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projekt"
+        "allGames": "Alla spel"
     },
     "toolbox": {
         "settings": {

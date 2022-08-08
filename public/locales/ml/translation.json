@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "This game includes anticheat software"
     },
-    "Assets": "വഹകള്",
     "box": {
         "cache-cleared": {
             "message": "ഹീറോയിക് പിടിച്ചുവച്ചവ വിട്ടു.",
@@ -350,8 +349,6 @@
         "mac": "",
         "win": ""
     },
-    "Plugins": "കൂടുതലുകള്",
-    "Projects": "ഏര്പാടുകള്",
     "Recent": "പതിവ് കളികള്",
     "search": "കളിയുടെ പേര് ഇവിടെ എഴുതൂ...",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "ചെറിയ കളമാക്കി തുറക്കൂ",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "ക്രോസ്സോവര് കുപ്പി",
@@ -503,11 +499,7 @@
     "store": "കട",
     "stores": "Stores",
     "title": {
-        "allGames": "മൊത്തം കളികള്",
-        "allUnreal": "അണ്റിയല് - എല്ലാം",
-        "unrealAssets": "അണ്റിയല് - വകകള്",
-        "unrealPlugins": "അണ്റിയല് - Plugins",
-        "unrealProjects": "അണ്റിയല് - പണികള്"
+        "allGames": "മൊത്തം കളികള്"
     },
     "toolbox": {
         "settings": {

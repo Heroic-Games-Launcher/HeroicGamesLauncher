@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "This game includes anticheat software"
     },
-    "Assets": "Assets",
     "box": {
         "cache-cleared": {
             "message": "Heroic Cache Was Cleared!",
@@ -350,8 +349,6 @@
         "mac": "",
         "win": ""
     },
-    "Plugins": "Plugins",
-    "Projects": "Projecten",
     "Recent": "Recente Spellen",
     "search": "Voor je spel naam hier in...",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Geminimaliseerd",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -503,11 +499,7 @@
     "store": "Winkel",
     "stores": "Stores",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects"
+        "allGames": "All Games"
     },
     "toolbox": {
         "settings": {

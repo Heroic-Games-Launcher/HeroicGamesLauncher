@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "This game includes anticheat software"
     },
-    "Assets": "Eszközök",
     "box": {
         "cache-cleared": {
             "message": "Heroic gyorsítótár törölve.",
@@ -350,8 +349,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Beépülők",
-    "Projects": "Projektek",
     "Recent": "Nemrég játszott",
     "search": "Add meg itt a játék nevét...",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",
-        "showUnrealMarket": "Unreal piactér megjelenítése (újraindítás szükséges)",
         "start-in-tray": "Indítás tálcára téve",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver palack",
@@ -503,11 +499,7 @@
     "store": "Epic Store",
     "stores": "Stores",
     "title": {
-        "allGames": "Összes játék",
-        "allUnreal": "Unreal - Minden",
-        "unrealAssets": "Unreal - Eszközök",
-        "unrealPlugins": "Unreal - Bővítmények",
-        "unrealProjects": "Unreal - Projektek"
+        "allGames": "Összes játék"
     },
     "toolbox": {
         "settings": {

@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "Тази игра включва софтуер против мамене"
     },
-    "Assets": "Ресурси",
     "box": {
         "cache-cleared": {
             "message": "Кешът на Heroic беше изчистен.",
@@ -350,8 +349,6 @@
         "mac": "Мак",
         "win": "Уиндоус"
     },
-    "Plugins": "Добавки",
-    "Projects": "Проекти",
     "Recent": "Играно наскоро",
     "search": "Търсене на игри",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "Изберете тема",
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",
-        "showUnrealMarket": "Показване на Пазара на Unreal (изисква рестартиране)",
         "start-in-tray": "Стартиране в минимизирано състояние",
         "steamruntime": "Използване на средата за изпълнение на Steam",
         "winecrossoverbottle": "Бутилка CrossOver",
@@ -503,11 +499,7 @@
     "store": "Мазагин на Epic",
     "stores": "Магазини",
     "title": {
-        "allGames": "Всички игри",
-        "allUnreal": "Unreal – Всичко",
-        "unrealAssets": "Unreal – Ресурси",
-        "unrealPlugins": "Unreal – Добавки",
-        "unrealProjects": "Unreal – Проекти"
+        "allGames": "Всички игри"
     },
     "toolbox": {
         "settings": {

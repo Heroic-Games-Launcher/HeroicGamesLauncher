@@ -16,7 +16,6 @@
         "status": "Стан",
         "title": "Ця гра містить в собі систему античитів"
     },
-    "Assets": "Надатки",
     "box": {
         "cache-cleared": {
             "message": "Кеш Heroic очищено.",
@@ -350,8 +349,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Плагіни",
-    "Projects": "Проєкти",
     "Recent": "Нещодавно зіграні",
     "search": "Пошук ігор",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "Оберіть тему",
         "showfps": "Показувати кількість кадрів (DX9, 10 та 11)",
-        "showUnrealMarket": "Показувати торговий майданчик Unreal (необхідний перезапуск)",
         "start-in-tray": "Запускати згорнутим",
         "steamruntime": "Використовувати Steam Runtime",
         "winecrossoverbottle": "Пляшка CrossOver",
@@ -503,11 +499,7 @@
     "store": "Крамниця Epic",
     "stores": "Крамниці",
     "title": {
-        "allGames": "Усі ігри",
-        "allUnreal": "Unreal - Всі",
-        "unrealAssets": "Unreal - Надатки",
-        "unrealPlugins": "Unreal - Плагіни",
-        "unrealProjects": "Unreal - Проєкти"
+        "allGames": "Усі ігри"
     },
     "toolbox": {
         "settings": {

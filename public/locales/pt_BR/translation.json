@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "This game includes anticheat software"
     },
-    "Assets": "Recursos",
     "box": {
         "cache-cleared": {
             "message": "O cache do Heroic foi limpo.",
@@ -350,8 +349,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Plugins",
-    "Projects": "Projetos",
     "Recent": "Jogados Recentemente",
     "search": "Buscar jogos",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "Selecione um tema",
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
-        "showUnrealMarket": "Mostrar Unreal Marketplace (requer reinício)",
         "start-in-tray": "Iniciar minimizado",
         "steamruntime": "Utilizar Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -503,11 +499,7 @@
     "store": "Loja Epic",
     "stores": "Lojas",
     "title": {
-        "allGames": "Todos os Jogos",
-        "allUnreal": "Unreal - Tudo",
-        "unrealAssets": "Unreal - Recursos",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projetos"
+        "allGames": "Todos os Jogos"
     },
     "toolbox": {
         "settings": {

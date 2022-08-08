@@ -184,11 +184,6 @@ function Settings() {
     setOn: setEnableFsync
   } = useToggle(false)
   const {
-    on: showUnrealMarket,
-    toggle: toggleUnrealMarket,
-    setOn: setShowUnrealMarket
-  } = useToggle(false)
-  const {
     on: disableController,
     toggle: toggleDisableController,
     setOn: setDisableController
@@ -275,7 +270,6 @@ function Settings() {
         setTargetExe(config.targetExe || '')
         setAltLegendaryBin(config.altLegendaryBin || '')
         setAltGogdlBin(config.altGogdlBin || '')
-        setShowUnrealMarket(config.showUnrealMarket)
         setDefaultWinePrefix(config.defaultWinePrefix)
         setUseSteamRuntime(config.useSteamRuntime)
         setDisableController(config.disableController || false)
@@ -338,7 +332,6 @@ function Settings() {
       wrapperOptions,
       showFps,
       showMangohud,
-      showUnrealMarket,
       startInTray,
       useGameMode,
       wineCrossoverBottle,
@@ -420,7 +413,6 @@ function Settings() {
     wrapperOptions,
     showFps,
     showMangohud,
-    showUnrealMarket,
     startInTray,
     useGameMode,
     wineCrossoverBottle,
@@ -501,8 +493,6 @@ function Settings() {
               setMaxWorkers={setMaxWorkers}
               toggleDarkTrayIcon={toggleDarkTrayIcon}
               darkTrayIcon={darkTrayIcon}
-              toggleUnrealMarket={toggleUnrealMarket}
-              showUnrealMarket={showUnrealMarket}
               minimizeOnLaunch={minimizeOnLaunch}
               toggleMinimizeOnLaunch={toggleMinimizeOnLaunch}
               disableController={disableController}

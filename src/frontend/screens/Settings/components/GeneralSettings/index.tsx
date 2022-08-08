@@ -21,7 +21,6 @@ interface Props {
   egsPath: string
   exitToTray: boolean
   maxWorkers: number
-  showUnrealMarket: boolean
   minimizeOnLaunch: boolean
   setDefaultInstallPath: (value: string) => void
   setEgsLinkedPath: (value: string) => void
@@ -33,7 +32,6 @@ interface Props {
   toggleStartInTray: () => void
   toggleTray: () => void
   toggleMinimizeOnLaunch: () => void
-  toggleUnrealMarket: () => void
 }
 
 export default function GeneralSettings({
@@ -43,12 +41,10 @@ export default function GeneralSettings({
   setEgsPath,
   egsLinkedPath,
   setEgsLinkedPath,
-  showUnrealMarket,
   exitToTray,
   startInTray,
   toggleTray,
   toggleStartInTray,
-  toggleUnrealMarket,
   maxWorkers,
   setMaxWorkers,
   darkTrayIcon,
@@ -260,16 +256,6 @@ export default function GeneralSettings({
         title={t(
           'setting.minimize-on-launch',
           'Minimize Heroic After Game Launch'
-        )}
-      />
-
-      <ToggleSwitch
-        htmlId="showUnrealMarket"
-        value={showUnrealMarket}
-        handleChange={() => toggleUnrealMarket()}
-        title={t(
-          'setting.showUnrealMarket',
-          'Show Unreal Marketplace (needs restart)'
         )}
       />
 

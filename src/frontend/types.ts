@@ -1,13 +1,12 @@
 import { VersionInfo } from 'heroic-wine-downloader'
 import { GameInfo, GameStatus, Runner } from 'common/types'
 
-export type Category = 'all' | 'legendary' | 'gog' | 'unreal' | 'heroic'
+export type Category = 'all' | 'legendary' | 'gog'
 
 export interface ContextType {
   category: Category
   wineVersions: WineVersionInfo[]
   error: boolean
-  filter: string
   filterText: string
   filterPlatform: string
   gameUpdates: string[]
@@ -15,7 +14,6 @@ export interface ContextType {
   language: string
   setLanguage: (newLanguage: string) => void
   handleCategory: (value: Category) => void
-  handleFilter: (value: string) => void
   handlePlatformFilter: (value: string) => void
   handleGameStatus: (game: GameStatus) => Promise<void>
   handleLayout: (value: string) => void

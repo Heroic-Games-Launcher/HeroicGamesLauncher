@@ -16,7 +16,6 @@
         "status": "Κατάσταση",
         "title": "Αυτό το παιχνίδι περιλαμβάνει λογισμικό anticheat"
     },
-    "Assets": "Αντικείμενα",
     "box": {
         "cache-cleared": {
             "message": "Η προσωρινή μνήμη Heroic καθαρίστηκε.",
@@ -350,8 +349,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Plugins",
-    "Projects": "Πρότζεκτ",
     "Recent": "Παίχτηκε Πρόσφατα",
     "search": "Αναζήτηση για Παιχνίδια",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "Επιλογή θέματος",
         "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",
-        "showUnrealMarket": "Εμφάνιση Καταστήματος Unreal (απαιτεί επανεκίννηση)",
         "start-in-tray": "Ελαχιστοποιημένη Έναρξη",
         "steamruntime": "Χρήση Steam Runtime",
         "winecrossoverbottle": "CrossOver Περιβάλλον",
@@ -503,11 +499,7 @@
     "store": "Κατάστημα Epic",
     "stores": "Καταστήματα",
     "title": {
-        "allGames": "Όλα τα παιχνίδια",
-        "allUnreal": "Unreal - Όλα",
-        "unrealAssets": "Unreal - Στοιχεία",
-        "unrealPlugins": "Unreal - Πρόσθετα",
-        "unrealProjects": "Unreal - Πρότζεκτ"
+        "allGames": "Όλα τα παιχνίδια"
     },
     "toolbox": {
         "settings": {

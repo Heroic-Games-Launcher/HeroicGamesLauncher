@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "此游戏包含反作弊软件"
     },
-    "Assets": "素材",
     "box": {
         "cache-cleared": {
             "message": "Heroic 缓存已清理。",
@@ -350,8 +349,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "插件",
-    "Projects": "项目",
     "Recent": "最近玩过",
     "search": "搜索游戏",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",
-        "showUnrealMarket": "显示虚幻市场（需重启）",
         "start-in-tray": "启动时最小化",
         "steamruntime": "使用 Steam 运行时",
         "winecrossoverbottle": "CrossOver 容器",
@@ -503,11 +499,7 @@
     "store": "Epic 商店",
     "stores": "商店",
     "title": {
-        "allGames": "所有游戏",
-        "allUnreal": "虚幻 - 所有",
-        "unrealAssets": "虚幻 - 素材",
-        "unrealPlugins": "虚幻 - 插件",
-        "unrealProjects": "虚幻 - 项目"
+        "allGames": "所有游戏"
     },
     "toolbox": {
         "settings": {

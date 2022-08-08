@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "此遊戲包含反作弊軟體"
     },
-    "Assets": "素材",
     "box": {
         "cache-cleared": {
             "message": "Heroic快取已清理。",
@@ -350,8 +349,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "外掛插件",
-    "Projects": "專案",
     "Recent": "最近遊玩的遊戲",
     "search": "搜尋遊戲",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "選擇主題",
         "showfps": "顯示幀數（Directx 9，10和11）",
-        "showUnrealMarket": "顯示 Unreal Marketplace（需要重啟）",
         "start-in-tray": "啟動時最小化",
         "steamruntime": "使用 Steam 執行環境",
         "winecrossoverbottle": "CrossOver 容器",
@@ -503,11 +499,7 @@
     "store": "Epic 商店",
     "stores": "商店",
     "title": {
-        "allGames": "所有遊戲",
-        "allUnreal": "Unreal - 所有項目",
-        "unrealAssets": "Unreal - 素材",
-        "unrealPlugins": "Unreal - 外掛插件",
-        "unrealProjects": "Unreal - 專案"
+        "allGames": "所有遊戲"
     },
     "toolbox": {
         "settings": {

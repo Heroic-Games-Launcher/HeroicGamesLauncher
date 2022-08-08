@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "Ta gra wykorzystuje system anticheat"
     },
-    "Assets": "Assety",
     "box": {
         "cache-cleared": {
             "message": "Wyczyszczono pamięć podręczną Heroic.",
@@ -350,8 +349,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Rozszerzenia",
-    "Projects": "Projekty",
     "Recent": "Ostatnio uruchamiane",
     "search": "Wyszukaj gry",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "Wybierz Motyw",
         "showfps": "Pokaż FPS (DX9, DX10, DX11)",
-        "showUnrealMarket": "Pokaż Unreal Marketplace (wymaga ponownego uruchomienia)",
         "start-in-tray": "Uruchamiaj zminimalizowany",
         "steamruntime": "Używaj Steam Runtime",
         "winecrossoverbottle": "Butelka CrossOver",
@@ -503,11 +499,7 @@
     "store": "Sklep Epic",
     "stores": "Sklepy",
     "title": {
-        "allGames": "Wszystkie gry",
-        "allUnreal": "Unreal - Wszystko",
-        "unrealAssets": "Unreal - Assety",
-        "unrealPlugins": "Unreal - Pluginy",
-        "unrealProjects": "Unreal - Projekty"
+        "allGames": "Wszystkie gry"
     },
     "toolbox": {
         "settings": {

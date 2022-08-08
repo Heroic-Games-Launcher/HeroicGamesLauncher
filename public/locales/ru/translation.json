@@ -16,7 +16,6 @@
         "status": "Состояние",
         "title": "Эта игра включает в себя античит"
     },
-    "Assets": "Ресурсы",
     "box": {
         "cache-cleared": {
             "message": "Кэш Heroic очищен.",
@@ -350,8 +349,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Плагины",
-    "Projects": "Проекты",
     "Recent": "Запускались недавно",
     "search": "Поиск игр",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",
-        "showUnrealMarket": "Показать Unreal Marketplace (требуется перезапуск)",
         "start-in-tray": "Запускать свернутым в трей",
         "steamruntime": "Использовать среду выполнения Steam",
         "winecrossoverbottle": "Бутылка CrossOver",
@@ -503,11 +499,7 @@
     "store": "Магазин Epic",
     "stores": "Магазины",
     "title": {
-        "allGames": "Все игры",
-        "allUnreal": "Unreal - Все",
-        "unrealAssets": "Unreal - Ресурсы",
-        "unrealPlugins": "Unreal - Плагины",
-        "unrealProjects": "Unreal - Проекты"
+        "allGames": "Все игры"
     },
     "toolbox": {
         "settings": {

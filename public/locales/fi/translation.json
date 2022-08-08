@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "This game includes anticheat software"
     },
-    "Assets": "Omaisuuserät",
     "box": {
         "cache-cleared": {
             "message": "Heroic:in välimuisti tyhjennettiin.",
@@ -350,8 +349,6 @@
         "mac": "",
         "win": ""
     },
-    "Plugins": "Laajennukset",
-    "Projects": "Projektit",
     "Recent": "Viimeksi pelatut",
     "search": "Kirjoita tähän pelin nimi...",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
-        "showUnrealMarket": "Näytä Unreal Marketplace (tarvitsee uudelleenkäynnistyksen)",
         "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
         "steamruntime": "Käytä Steam Runtimea",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -503,11 +499,7 @@
     "store": "Epic-kauppa",
     "stores": "Kaupat",
     "title": {
-        "allGames": "Kaikki pelit",
-        "allUnreal": "Unreal - Kaikki",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Liitännäiset",
-        "unrealProjects": "Unreal - Projektit"
+        "allGames": "Kaikki pelit"
     },
     "toolbox": {
         "settings": {

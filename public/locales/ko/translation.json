@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "This game includes anticheat software"
     },
-    "Assets": "에셋",
     "box": {
         "cache-cleared": {
             "message": "Heroic 캐시 삭제됨.",
@@ -350,8 +349,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "플러그인",
-    "Projects": "프로젝트",
     "Recent": "최근 플레이한 게임",
     "search": "게임 검색",
     "setting": {
@@ -444,7 +441,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "FPS 표시 (DX9, 10 및 11)",
-        "showUnrealMarket": "Unreal Marketplace 표시 (다시 시작해야 함)",
         "start-in-tray": "최소화로 시작",
         "steamruntime": "Steam 런타임 사용",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -503,11 +499,7 @@
     "store": "Epic Store",
     "stores": "Stores",
     "title": {
-        "allGames": "모든 게임",
-        "allUnreal": "Unreal - Everything",
-        "unrealAssets": "Unreal - 에셋",
-        "unrealPlugins": "Unreal - 플러그인",
-        "unrealProjects": "Unreal - 프로젝트"
+        "allGames": "모든 게임"
     },
     "toolbox": {
         "settings": {

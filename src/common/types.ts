@@ -52,7 +52,6 @@ export interface AppSettings {
   savesPath: string
   showFps: boolean
   showMangohud: boolean
-  showUnrealMarket: boolean
   startInTray: boolean
   useGameMode: boolean
   targetExe: string
@@ -392,8 +391,6 @@ export interface Runtime {
 }
 
 export type RuntimeName = 'eac_runtime' | 'battleye_runtime'
-
-export type Category = 'all' | 'legendary' | 'gog' | 'unreal' | 'heroic'
 
 export interface HiddenGame {
   appName: string
