@@ -189,7 +189,7 @@ export default function SidebarLinks() {
           state={{
             fromGameCard: false,
             runner: runner,
-            hasCloudSave: gameInfo.cloud_save_enabled
+            hasCloudSave: gameInfo?.cloud_save_enabled
           }}
         >
           <>
