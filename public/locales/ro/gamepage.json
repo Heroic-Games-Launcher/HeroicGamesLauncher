@@ -30,13 +30,16 @@
         },
         "uninstall": {
             "message": "Doriți să dezinstalați acest joc?",
-            "title": "Dezinstalează"
+            "title": "Dezinstalează",
+            "checkbox": "Doriți să eliminați și prefixul? Acest lucru nu poate fi anulat.",
+            "checkbox_prefix": "Prefix"
         },
         "update": {
             "message": "Acest joc are o actualizare, vrei să actualizezi acum?",
             "title": "Jocul necesită actualizare"
         },
-        "yes": "DA"
+        "yes": "DA",
+        "wineprefix": "Selectați folderul WinePrefix"
     },
     "button": {
         "cancel": "Pauză/Anulează",
@@ -44,7 +47,12 @@
         "import": "Importă Jocul",
         "install": "Instalează",
         "uninstall": "Dezinstalează",
-        "update": "Actualizează"
+        "update": "Actualizează",
+        "hide_game": "Ascunde jocul",
+        "unhide_game": "Afișează jocul",
+        "force_update": "Forțați actualizarea dacă este disponibilă",
+        "add_to_favourites": "Adaugă la favorite",
+        "remove_from_favourites": "Eliminați din Favorite"
     },
     "disabled": "Dezactivat",
     "dlc": {
@@ -58,7 +66,12 @@
         "installSize": "Mărime Instalare",
         "lastPlayed": "Ultima Dată Jucat",
         "neverPlayed": "Niciodată",
-        "totalPlayed": "Timp Jucat"
+        "totalPlayed": "Timp Jucat",
+        "info": "Info",
+        "language": "Limba",
+        "platform": "Selectați versiunea platformei de instalat",
+        "reuirements": "Cerințe de sistem",
+        "tools": "Instrumente"
     },
     "gamecard": {
         "moving": "Mutare",
@@ -69,12 +82,20 @@
         "path": "Cale De Instalare",
         "size": "Mărime",
         "syncsaves": "Salvări sincronizate",
-        "version": "Versiune"
+        "version": "Versiune",
+        "installedPlatform": "Platformă instalată"
     },
     "install": {
         "another": "Instalați pe altă cale",
         "default": "Instalează în",
-        "import": "Importă Joc"
+        "import": "Importă Joc",
+        "wineprefix": "WinePrefix",
+        "disk-space-left": "Spatiu disponibil",
+        "not-enough-disk-space": "Spatiu pe disc insuficient",
+        "path": "Selectați Calea de instalare",
+        "path-not-writtable": "Atenție: este posibil ca calea să nu poată fi scrisă.",
+        "space-after-install": "După instalare",
+        "wineversion": "Versiune Wine"
     },
     "label": {
         "playing": {
@@ -105,7 +126,8 @@
         "notinstalled": "Acest joc nu este instalat",
         "reparing": "Reparare joc, vă rugăm așteptați",
         "totalDownloaded": "Descărcat total",
-        "updating": "Joc in curs de actualizare"
+        "updating": "Joc in curs de actualizare",
+        "processing": "Se procesează fișierele, așteptați"
     },
     "submenu": {
         "addShortcut": "Adaugă scurtătură",
@@ -115,6 +137,15 @@
         "protondb": "Verificați compatibilitatea",
         "settings": "Setări",
         "store": "Pagina magazinului",
-        "verify": "Verificați și Reparați"
-    }
+        "verify": "Verificați și Reparați",
+        "removeShortcut": "Eliminați comenzile rapide",
+        "addToSteam": "Adăugați la Steam",
+        "disableEosOverlay": "Dezactivați suprapunerea EOS",
+        "enableEosOverlay": "Activați EOS Overlay",
+        "removeFromSteam": "Scoateți din Steam"
+    },
+    "generic": {
+        "error": "Eroare Necunoscută"
+    },
+    "report_problem": "Raportați o problemă la rularea acestui joc"
 }

@@ -15,7 +15,8 @@
         "part5": "numărul de informații SID",
         "part6": "Lipește",
         "part7": "număr SID",
-        "part8": "în caseta de introducere de mai jos, faceți clic pe butonul de conectare și așteptați."
+        "part8": "în caseta de introducere de mai jos, faceți clic pe butonul de conectare și așteptați.",
+        "part2": "Deschide"
     },
     "status": {
         "error": "Eroare",
