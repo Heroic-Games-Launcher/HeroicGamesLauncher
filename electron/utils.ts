@@ -6,6 +6,7 @@ import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import si from 'systeminformation'
+import ping from 'ping'
 
 import {
   configStore,
@@ -118,7 +119,24 @@ function semverGt(target: string, base: string) {
 }
 
 function isOnline() {
-  return net.isOnline()
+  let online = net.isOnline()
+  if (online) {
+    const callback = (isAlive: boolean, error: unknown) => {
+      if (error) {
+        logError(
+          ['Ping of ', hosts.join(', '), ' failed with:\n', `${error}`],
+          LogPrefix.Backend
+        )
+      }
+      online = isAlive
+    }
+    const hosts = ['google.com', 'store.epicgames.com', 'gog.com']
+    hosts.forEach((host) => {
+      ping.sys.probe(host, callback)
+    })
+  }
+  console.log('Are we online?: ', online)
+  return online
 }
 
 export const getFileSize = fileSize.partial({ base: 2 })
