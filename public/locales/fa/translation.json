@@ -107,7 +107,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "آیا مطمئن هستید که میخواهید Heroic را بازنشانی کنید؟ این کار تمام تنظیمات و کشها را پاک میکند اما بازیهای نصب شده یا اعتبار کاربری شما را پاک نمیکند",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Reset Heroic"
             }
         },

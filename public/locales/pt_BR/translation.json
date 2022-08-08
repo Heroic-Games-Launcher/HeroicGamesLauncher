@@ -107,7 +107,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Tem certeza que deseja redefinir o Heroic? Isso removerá todas as configurações e o cache, mas não removerá seus jogos instalados ou suas credenciais da Epic",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Redefinir Heroic"
             }
         },
@@ -499,8 +499,8 @@
         "open-config-file": "Abrir arquivo de configuração",
         "reset-heroic": "Redefinir Heroic",
         "saves": {
-            "warning": "O recurso Cloud Saves está em Beta, faça backup de seus saves antes de sincronizar (caso algo dê errado)",
-            "label": "Save Location:"
+            "label": "Save Location:",
+            "warning": "O recurso Cloud Saves está em Beta, faça backup de seus saves antes de sincronizar (caso algo dê errado)"
         }
     },
     "Settings": "Configurações",

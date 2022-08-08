@@ -107,7 +107,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Kas olete kindel, et soovite Heroic'u lähtestada? See eemaldab kõik seaded ja vahemälu, kuid ei eemalda installitud mänge ega Epic'u kredentsiaale",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Lähtesta Heroic"
             }
         },

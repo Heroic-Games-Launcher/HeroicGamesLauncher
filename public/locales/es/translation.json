@@ -107,7 +107,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "¿Estás seguro de que quieres reiniciar Heroic? Esto eliminará todos los ajustes y el almacenamiento en caché, pero no eliminará tus juegos instalados o tus credenciales de Epic",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Restablecer Heroic"
             }
         },
