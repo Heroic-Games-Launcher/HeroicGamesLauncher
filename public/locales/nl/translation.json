@@ -197,7 +197,7 @@
     "gog-store": "GOG Store",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "",
+        "platform": "Platform",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
@@ -253,7 +253,7 @@
         "path": "Select Install Path"
     },
     "library": {
-        "refresh": "",
+        "refresh": "Vernieuwen",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -264,7 +264,7 @@
     },
     "Library": "Bibliotheek",
     "loading": {
-        "default": "",
+        "default": "Bezig met laden",
         "website": "Loading Website"
     },
     "login": {
@@ -298,7 +298,7 @@
         },
         "install": {
             "canceled": "Installatie geannuleerd",
-            "error": "",
+            "error": "Installatie mislukt",
             "finished": "Installatie is voltooid",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -349,9 +349,9 @@
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "ramen"
     },
     "Plugins": "Plugins",
     "Projects": "Projecten",
@@ -537,10 +537,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Ga terug",
+            "forward": "Ga vooruit",
+            "openInBrowser": "Open in de browser",
+            "reload": "Herlaad pagina"
         }
     },
     "wine": {
