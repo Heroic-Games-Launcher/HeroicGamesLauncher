@@ -34,7 +34,7 @@
             "add": {
                 "steam": {
                     "body": "Adicionando {{game}} ao Steam falhou com:{{newLine}} {{error}}",
-                    "title": ""
+                    "title": "Adding Error"
                 }
             },
             "credentials": {
@@ -435,7 +435,7 @@
         "minimize-on-launch": "Minimizar Heroic ao iniciar um jogo",
         "offlinemode": "Iniciar o jogo offline",
         "prefered_language": "Idioma preferido (código do idioma)",
-        "preferSystemLibs": "",
+        "preferSystemLibs": "Prefer system libraries",
         "primerun": "Usar placa gráfica dedicada",
         "resizableBar": "Habilitar Resizable BAR (somente NVIDIA RTX 30xx)",
         "runexe": {
