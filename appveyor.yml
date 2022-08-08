@@ -19,7 +19,7 @@ environment:
     secure: kZMGyhBmfPsJKEryrd+I7gTEudm8tW0jSrKKhtT/3fbqKQzndTWp47C1Eetx5kFs
 
 build_script:
-  - yarn dist:win
+  - yarn release:win
 
 test: off
 
@@ -29,6 +29,6 @@ artifacts:
 
 deploy:
   - provider: Webhook
-    url: https://app.signpath.io/API/v1/f7f99393-5adb-408c-8ca3-67e07cfe31e6/Integrations/AppVeyor?ProjectSlug=HeroicGamesLauncher&SigningPolicySlug=test-signing
+    url: https://app.signpath.io/API/v1/f7f99393-5adb-408c-8ca3-67e07cfe31e6/Integrations/AppVeyor?ProjectSlug=HeroicGamesLauncher&SigningPolicySlug=release-signing
     authorization:
       secure: 0xlTR3DMFume9u66Kf7WkMP1sMl9S7GMoP8vZgrIAKr/eHXCKfLBM+LbmACtCHWoqeTXVIuAYCfUJIPoJt1SBA==

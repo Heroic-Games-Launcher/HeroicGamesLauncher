@@ -33,3 +33,4 @@ downloads*.json
 
 flatpak/build
 .flatpak-builder
+.tool-versions
