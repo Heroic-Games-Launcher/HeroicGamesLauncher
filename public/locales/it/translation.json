@@ -29,7 +29,7 @@
         "customWine": "Scegli fra il binario Wine o Proton",
         "default-install-path": "Seleziona il percorso d'installazione predefinito",
         "default-steam-path": "Percorso Steam.",
-        "downloadNow": "Download now",
+        "downloadNow": "Scarica ora",
         "error": {
             "add": {
                 "steam": {
@@ -115,7 +115,7 @@
         },
         "shortcuts": {
             "message": "Sono stati creati i collegamenti sul Desktop e nel menu Start",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove": "Le scorciatoie sono state rimosse dal Desktop e dal menu Start",
             "title": "Collegamenti"
         },
         "sync": {
@@ -125,11 +125,11 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "I link per il download dei Visual C++ Runtimes sono stati aperti. Installa sia le versioni x86 e x64."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "Non sono installati i Microsoft Visual C++ Runtimes, richiesti da alcuni giochi",
+                "title": "VCRuntime non installato"
             }
         },
         "warning": {
@@ -153,13 +153,13 @@
     "controller": {
         "hints": {
             "activate": "Activate",
-            "back": "Back",
+            "back": "Indietro",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
+            "close_context_menu": "Chiudi il menu contestuale",
             "close_dialog": "Close dialog",
             "close_keyboard": "Close keyboard",
             "context_menu": "Context menu",
-            "game_details": "Game details",
+            "game_details": "Dettagli del gioco",
             "game_settings": "Game settings",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
