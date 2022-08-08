@@ -491,6 +491,7 @@
         "reset-heroic": "Redefinir Heroic",
         "saves": {
             "warning": "O recurso Cloud Saves está em Beta, faça backup de seus saves antes de sincronizar (caso algo dê errado)"
+            "label": "Save Location:",
         }
     },
     "Settings": "Configurações",

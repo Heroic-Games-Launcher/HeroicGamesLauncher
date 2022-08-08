@@ -6,7 +6,8 @@ import {
   GamepadInputEventMouse,
   Runner,
   AppSettings,
-  GameSettings
+  GameSettings,
+  GOGCloudSavesLocation
 } from './types'
 import * as path from 'path'
 import {
@@ -33,12 +34,13 @@ import {
   rmSync,
   unlinkSync,
   watch,
+  realpathSync,
   writeFileSync
 } from 'graceful-fs'
 
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
-import { join } from 'path'
+import { join, normalize } from 'path'
 import checkDiskSpace from 'check-disk-space'
 import { DXVK, Winetricks } from './tools'
 import { Game } from './games'
@@ -723,6 +725,10 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
   return GOGLibrary.getLinuxInstallersLanguages(appName)
 })
 
+ipcMain.handle('getGOGGameClientId', (event, appName) => {
+  return GOGLibrary.get().readInfoFile(appName)?.clientId
+})
+
 ipcMain.handle(
   'getInstallInfo',
   async (event, game, runner: Runner, installPlatform: string) => {
@@ -1329,6 +1335,16 @@ ipcMain.handle('egsSync', async (event, args: string) => {
   }
 })
 
+ipcMain.handle(
+  'syncGOGSaves',
+  async (
+    event,
+    gogSaves: GOGCloudSavesLocation[],
+    appName: string,
+    arg: string
+  ) => Game.get(appName, 'gog').syncSaves(arg, '', gogSaves)
+)
+
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName, runner] = args
   const epicOffline = await isEpicServiceOffline()
@@ -1471,7 +1487,9 @@ ipcMain.handle(
   'runWineCommandForGame',
   async (event, { appName, command, runner }) => {
     const game = Game.get(appName, runner)
-
+    if (isWindows) {
+      return execAsync(command)
+    }
     const { updated } = await verifyWinePrefix(game)
 
     if (runner === 'gog' && updated) {
@@ -1483,9 +1501,22 @@ ipcMain.handle(
 )
 
 ipcMain.handle('getShellPath', async (event, path) => {
-  return (await execAsync(`echo "${path}"`)).stdout.trim()
+  return normalize((await execAsync(`echo "${path}"`)).stdout.trim())
 })
 
+ipcMain.handle('getRealPath', (event, path) => {
+  let resolvedPath = normalize(path)
+  try {
+    resolvedPath = realpathSync(path)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    if (err?.path) {
+      resolvedPath = err.path // Reslove most accurate path (most likely followed symlinks)
+    }
+  }
+
+  return resolvedPath
+})
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')

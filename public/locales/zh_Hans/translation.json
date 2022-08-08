@@ -490,6 +490,7 @@
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "云保存功能处于测试期，请在同步前备份你的保存（以防出现问题）"
         }
     },

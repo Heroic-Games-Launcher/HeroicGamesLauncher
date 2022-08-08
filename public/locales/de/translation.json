@@ -490,6 +490,7 @@
         "open-config-file": "Konfigurationsdatei öffnen",
         "reset-heroic": "Heroic zurücksetzen",
         "saves": {
+            "label": "Save Location:",
             "warning": "Die Cloudspeicher-Funktion befindet sich in der Beta-Phase, bitte sichere deine Speicherstände vor der Synchronisierung (falls etwas schiefgeht)"
         }
     },

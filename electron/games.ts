@@ -3,6 +3,7 @@ import {
   ExtraInfo,
   GameInfo,
   GameSettings,
+  GOGCloudSavesLocation,
   InstallArgs,
   InstallInfo,
   Runner
@@ -39,6 +40,11 @@ abstract class Game {
   abstract stop(): Promise<void>
   abstract forceUninstall(): Promise<void>
   abstract syncSaves(arg: string, path: string): Promise<ExecResult>
+  abstract syncSaves(
+    arg: string,
+    path: string,
+    gogSaves?: GOGCloudSavesLocation[]
+  ): Promise<ExecResult>
   abstract uninstall(): Promise<ExecResult>
   abstract update(): Promise<{ status: 'done' | 'error' }>
   abstract isNative(): boolean

@@ -490,6 +490,7 @@
         "open-config-file": "開啟配置檔案",
         "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "雲端存檔功能處於測試階段，請在同步前備份你的存檔（以防出現問題）"
         }
     },
