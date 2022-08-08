@@ -1,5 +1,6 @@
+import { spawnSync } from 'child_process'
 import { homedir, platform } from 'os'
-import { join, normalize } from 'path'
+import { join } from 'path'
 import Store from 'electron-store'
 import { parse } from '@node-steam/vdf'
 
@@ -117,29 +118,25 @@ export function getSteamCompatFolder() {
   if (isWindows) {
     const defaultWinPath = join(process.env['PROGRAMFILES(X86)'], 'Steam')
     return defaultWinPath
-    // Reading of steam registry key should work with registry-js
-    // in electron enviroment but there is a npm node-gyp problem so far:
-    // https://github.com/desktop/registry-js/issues/224
-    //
-    // try {
-    //   const entry = enumerateValues(
-    //     HKEY.HKEY_LOCAL_MACHINE,
-    //     'SOFTWARE\\WOW6432Node\\Valve\\Steam'
-    //   ).filter((value) => value.name === 'InstallPath')[0]
-    //   return (entry && String(entry.data)) || defaultWinPath
-    // } catch {
-    //   return defaultWinPath
-    // }
   } else if (isMac) {
-    return normalize(join(userHome, 'Library/Application Support/Steam'))
+    return join(userHome, 'Library/Application Support/Steam')
   } else {
-    const flatpakSteamPath = normalize(
-      join(userHome, '.var/app/com.valvesoftware.Steam/.steam/steam')
+    const flatpakSteamPath = join(
+      userHome,
+      '.var/app/com.valvesoftware.Steam/.steam/steam'
     )
+
     if (existsSync(flatpakSteamPath)) {
-      return flatpakSteamPath
+      // check if steam is really installed
+      const { status } = spawnSync('flatpak', [
+        'info',
+        'com.valvesoftware.Steam'
+      ])
+      if (status === 0) {
+        return flatpakSteamPath
+      }
     }
-    return normalize(join(userHome, '.steam/steam'))
+    return join(userHome, '.steam/steam')
   }
 }
 
