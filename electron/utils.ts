@@ -135,7 +135,6 @@ function isOnline() {
       ping.sys.probe(host, callback)
     })
   }
-  console.log('Are we online?: ', online)
   return online
 }
 
