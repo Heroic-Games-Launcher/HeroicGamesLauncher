@@ -42,6 +42,7 @@
       }
     ],
     "win": {
+      "artifactName": "Heroic_Setup_${version}.${ext}",
       "icon": "build/win_icon.ico",
       "asarUnpack": [
         "build/bin/win32/legendary.exe",
