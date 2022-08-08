@@ -19,13 +19,13 @@
     "Assets": "Assets",
     "box": {
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Cache do Heroic foi limpo!",
+            "title": "Cache limpo"
         },
         "choose": "Selecionar",
         "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-legendary-binary": "Selecionar binário do Legendary",
         "customWine": "Selecione o binário do Wine ou Proton",
         "default-install-path": "Selecione o Local de instalação padrão",
         "default-steam-path": "Steam path.",
@@ -110,8 +110,8 @@
             "title": "Selecione o EXE"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "Selecionar",
+            "exe": "Selecionar .EXE"
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
@@ -173,7 +173,7 @@
     },
     "docs": "Documentation",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Serviços online talvez não funcionem completamente enquanto os servidores Epic Games estão offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -197,7 +197,7 @@
     "gog-store": "GOG Store",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "",
+        "platform": "Plataforma",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
@@ -253,7 +253,7 @@
         "path": "Select Install Path"
     },
     "library": {
-        "refresh": "",
+        "refresh": "Atualizar",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -264,7 +264,7 @@
     },
     "Library": "Biblioteca",
     "loading": {
-        "default": "",
+        "default": "Carregando",
         "website": "Loading Website"
     },
     "login": {
@@ -298,7 +298,7 @@
         },
         "install": {
             "canceled": "Instalação cancelada",
-            "error": "",
+            "error": "Instalação falhada",
             "finished": "Instalação concluída",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
@@ -349,9 +349,9 @@
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "janelas"
     },
     "Plugins": "Plugins",
     "Projects": "Projetos",
@@ -366,7 +366,7 @@
         "autodxvk": "Instalar/Atualizar DXVK automaticamente",
         "autosync": "Ativar Sincronização Automática",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "Selecio-ne  um EXE alternativo\nSelect an alternative EXE to run",
         "crossover-version": "Crossover Version",
         "customWineProton": "Wine e Proton Customizados",
         "darktray": "Usar ícone escuro",
@@ -537,10 +537,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Volte",
+            "forward": "Vá em frente",
+            "openInBrowser": "Abra no navegador",
+            "reload": "Recarregar página"
         }
     },
     "wine": {
