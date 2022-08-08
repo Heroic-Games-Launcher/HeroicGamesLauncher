@@ -36,15 +36,15 @@
         "yes": "IGEN"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Kedvencekhez adás",
         "cancel": "Szüneteltetés/mégse",
         "continue": "Letöltés folytatása",
         "force_update": "Force Update if Available",
-        "hide_game": "Hide Game",
+        "hide_game": "Játék elrejtése",
         "import": "Játék importálása",
         "install": "Telepítés",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Eltávolítás a kedvencekből",
+        "unhide_game": "Játék felfedése",
         "uninstall": "Eltávolítás",
         "update": "Frissítés"
     },
@@ -61,9 +61,9 @@
         "language": "Nyelv",
         "lastPlayed": "Legutóbb játszott",
         "neverPlayed": "Soha",
-        "platform": "Select Platform Version to Install",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "platform": "Telepítendő platform változat kiválasztása",
+        "reuirements": "Rendszerkövetelmények",
+        "tools": "Ezközök",
         "totalPlayed": "Játszott idő"
     },
     "gamecard": {
@@ -71,22 +71,22 @@
         "repairing": "Javítás"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Ismeretlen hiba"
     },
     "info": {
         "canRunOffline": "Online szükséges",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "Telepített platform",
         "path": "Telepítési útvonal",
         "size": "Méret",
         "syncsaves": "Mentések szinkronizálása",
         "version": "Verzió"
     },
     "install": {
-        "disk-space-left": "Space Available",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Elérhető tárhely",
+        "not-enough-disk-space": "Nincs elég lemezterület",
         "path": "Telepítési útvonal kiválasztása",
         "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
+        "space-after-install": "Telepítés után",
         "wineprefix": "Wine prefix",
         "wineversion": "Wine Version"
     },
@@ -102,7 +102,7 @@
     "launch": {
         "options": "Indítási opciók..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {
         "title": "Válaszd ki a telepíteni kívánt elemeket"
     },
@@ -117,7 +117,7 @@
         "installing": "Telepítés",
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
-        "processing": "Processing files, please wait",
+        "processing": "Fájlok feldolgozása, kérlek várj",
         "reparing": "Játék javítása, kérlek várj",
         "totalDownloaded": "Teljesen letöltve",
         "updating": "Játék frissítése"
@@ -132,7 +132,7 @@
         "move": "Játék áthelyezése",
         "protondb": "Kompatibilitás ellenőrzése",
         "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeShortcut": "Parancsikonok eltávolítása",
         "settings": "Beállítások",
         "store": "Áruházi oldal",
         "verify": "Ellenőrzés és javítás"
