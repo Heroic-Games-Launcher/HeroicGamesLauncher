@@ -57,6 +57,18 @@
             },
             "folder-not-found": {
                 "title": "يبدو أن مجلد اللعبة قد تم حذفه، هل تريد إزالة اللعبة من القائمة؟"
+            },
+            "add": {
+                "steam": {
+                    "body": "فشلت إضافة {{game}} إلى Steam مع: {{newLine}} {{error}}",
+                    "title": "إضافة خطأ"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "title": "إزالة الخطأ",
+                    "body": "فشلت إزالة {{game}} من Steam مع: {{newLine}} {{error}}"
+                }
             }
         },
         "no": "لا",
@@ -89,7 +101,8 @@
         },
         "shortcuts": {
             "title": "أختصارات",
-            "message": "تم إنشاء الاختصارات على سطح المكتب وقائمة ابدأ"
+            "message": "تم إنشاء الاختصارات على سطح المكتب وقائمة ابدأ",
+            "message-remove": "تمت إزالة الاختصارات من سطح المكتب وقائمة ابدأ"
         },
         "warning": {
             "epic": {
@@ -117,7 +130,18 @@
                 "title": "Heroic مشغل الألعاب",
                 "title-finished": "أنتهى التحديث"
             }
-        }
+        },
+        "downloadNow": "التحميل الان",
+        "vcruntime": {
+            "install": {
+                "message": "تم فتح روابط التنزيل لأوقات تشغيل Visual C ++. الرجاء تثبيت الإصدارين x86 و x64."
+            },
+            "notfound": {
+                "message": "لم يتم تثبيت Microsoft Visual C ++ Runtimes ، والتي تتطلبها بعض الألعاب",
+                "title": "VCRuntime غير مثبت"
+            }
+        },
+        "default-steam-path": "مسار البخار."
     },
     "install": {
         "path": "اختر مسار التثبيت"
@@ -161,7 +185,22 @@
         "wine": {
             "part2": "بالنسبة للأماكن الأخرى ، استخدم symbolic link لأحد هذه المجلدات",
             "part1": "يبحث هيرويك عن إصدارات Wine و Proton و CrossOver في المجلدات التالية:"
-        }
+        },
+        "mangohud": "MangoHUD عبارة عن تراكب يعرض ويراقب FPS ودرجات الحرارة وتحميل وحدة المعالجة المركزية / وحدة معالجة الرسومات وموارد النظام الأخرى.",
+        "preferSystemLibs": "يتم شحن إصدارات النبيذ المخصصة (Wine-GE ، Wine-Lutris) مع تبعيات المكتبات الخاصة بهم. من خلال تمكين هذا الخيار ، سيتم تجاهل هذه المكتبات المشحونة وسيقوم Wine بتحميل مكتبات النظام بدلاً من ذلك. تحذير! قد تحدث مشكلات إذا لم يتم استيفاء التبعيات.",
+        "game_language": {
+            "in_game_config": "لا تدعم جميع الألعاب هذا التكوين ، وبعضها يحتوي على إعداد لغة داخل اللعبة.",
+            "fallback": "اتركه فارغًا لاستخدام لغة Heroic.",
+            "valid_codes": "تعتمد رموز اللغة الصالحة على اللعبة."
+        },
+        "amdfsr": "تساعد FSR من AMD على تعزيز معدل الإطارات من خلال رفع مستوى الدقة المنخفضة في وضع ملء الشاشة. تزداد جودة الصورة من 5 إلى 1 على حساب أداء طفيف. قد يؤدي التمكين إلى تحسين الأداء.",
+        "dxvk": "DXVK هي طبقة ترجمة تعتمد على Vulkan لألعاب DirectX 9 و 10 و 11. التمكين قد يحسن التوافق. قد يتسبب في حدوث مشكلات خاصة لألعاب DirectX الأقدم.",
+        "esync": "تهدف Esync إلى تقليل عبء الخوادم في الألعاب كثيفة الاستخدام لوحدة المعالجة المركزية. قد يؤدي التمكين إلى تحسين الأداء.",
+        "fsync": "تهدف Fsync إلى تقليل حمل النبيذ في الألعاب كثيفة الاستخدام لوحدة المعالجة المركزية. قد يؤدي التمكين إلى تحسين الأداء على نواة Linux المدعومة.",
+        "gamemode": "يطبق Feral GameMode تعديلات تلقائية ومؤقتة على النظام عند تشغيل الألعاب. قد يؤدي التمكين إلى تحسين الأداء.",
+        "resizablebar": "يساعد شريط Resizable Bar من NVIDIA على زيادة معدل الإطارات عن طريق جعل وحدة المعالجة المركزية تصل إلى المخزن المؤقت للرسومات بالكامل. قد يؤدي التمكين إلى تحسين أداء الألعاب المستندة إلى Vulkan.",
+        "steamruntime": "مكتبات مخصصة مقدمة من Steam للمساعدة في تشغيل ألعاب Linux و Windows (Proton). قد يؤدي التمكين إلى تحسين التوافق.",
+        "vkd3d": "VKD3D هي طبقة ترجمة تعتمد على Vulkan لألعاب DirectX 12. قد يؤدي التمكين إلى تحسين التوافق بشكل كبير. ليس له أي تأثير على ألعاب DirectX القديمة."
     },
     "login": {
         "loginWithEpic": "تسجيل الدخول بإستخدام Epic",
@@ -175,8 +214,21 @@
         },
         "advanced": {
             "placeholder": "ضع خيارات التشغيل الأخرى هنا",
-            "title": "الخيارات المتقدمة (Environment Variables):"
-        }
+            "title": "الخيارات المتقدمة (Environment Variables):",
+            "key": "اسم المتغير",
+            "placeHolderKey": "اسم",
+            "placeHolderValue": "على سبيل المثال: مسار / إلى / ملفات إضافية",
+            "value": "قيمة"
+        },
+        "wrapper": {
+            "arguments_example": "مثال على الحجج: --arg؛ - ملف إضافي = \"مسار ملف / مع / مسافات\"",
+            "args": "الحجج",
+            "exe": "غلاف",
+            "placeHolderKey": "غلاف جديد",
+            "placeHolderValue": "حجج التفاف",
+            "title": "أمر الغلاف:"
+        },
+        "quote-args-with-spaces": "تحذير: تأكد من اقتباس علامات بمسافات! على سبيل المثال: \"مسار / بمسافات /\""
     },
     "other": {
         "legendary-version": "إصدار Legendary: ",
@@ -186,18 +238,21 @@
     "placeholder": {
         "alt-legendary-bin": "يتم استخدام Legendary binary المدمج...",
         "egs-prefix": "Prefix حيث تم تثبيت EGS",
-        "alt-gogdl-bin": "يتم استخدام ملف تشغيل GOGDL المدمج..."
+        "alt-gogdl-bin": "يتم استخدام ملف تشغيل GOGDL المدمج...",
+        "prefered_language": "رمز 2-char (مثل \"en\" أو \"fr\")"
     },
     "Filter": "فلتر",
     "info": {
         "settings": "يتم حفظ الإعدادات تلقائيًا",
         "heroic": {
             "version": "إصدار Heroic"
-        }
+        },
+        "version": "نسخة Wine"
     },
     "infobox": {
         "requirements": "متطلبات النظام",
-        "help": "مساعدة"
+        "help": "مساعدة",
+        "wine-path": "مسار النبيذ"
     },
     "message": {
         "sync": "اكتملت المزامنة",
@@ -216,7 +271,21 @@
             "reparing": "إصلاح الخطأ"
         },
         "finished": {
-            "reparing": "اكتمل الإصلاح"
+            "reparing": "اكتمل الإصلاح",
+            "remove": {
+                "steam": {
+                    "success": "تمت إزالة {{game}} بنجاح إلى Steam. مطلوب إعادة تشغيل Steam ، التغييرات سارية المفعول.",
+                    "corrupt": "لا يمكن إزالة {{game}} من جميع مستخدمي Steam الذين تم العثور عليهم. انظر السجلات لمزيد من المعلومات. مطلوب إعادة تشغيل Steam ، التغييرات سارية المفعول.",
+                    "title": "تمت إزالته من Steam"
+                }
+            },
+            "add": {
+                "steam": {
+                    "corrupt": "تعذر إضافة {{game}} لجميع مستخدمي Steam الذين تم العثور عليهم. انظر السجلات لمزيد من المعلومات. مطلوب إعادة تشغيل Steam ، التغييرات سارية المفعول.",
+                    "success": "تمت إضافة {{game}} بنجاح إلى Steam. مطلوب إعادة تشغيل Steam ، التغييرات سارية المفعول.",
+                    "title": "تمت إضافته إلى Steam"
+                }
+            }
         },
         "install": {
             "imported": "تم استيراد اللعبة",
@@ -234,7 +303,8 @@
         "uninstalled": "تم الغاء التثبيت",
         "refresh": {
             "error": "تعذر جلب الإصدارات من المصدر, ربما بسبب قيود API جيتهاب! الرجاء المحاولة لاحقا."
-        }
+        },
+        "moving": "لعبة تتحرك"
     },
     "Projects": "المشاريع",
     "Epic Games": "Epic Games",
@@ -307,11 +377,37 @@
         "library_top_option": {
             "disabled": "متوقف",
             "favourites": "الألعاب المفضلة",
-            "recently_played": "الألعاب الملعوبة مؤخراً"
+            "recently_played": "الألعاب الملعوبة مؤخراً",
+            "recently_played_installed": "الألعاب التي تم لعبها مؤخرًا (المثبتة فقط)"
         },
         "disable_controller": "تعطيل تنقل Heroic باستخدام وحدة التحكم",
         "select_theme": "اختر نمطا",
-        "library_top_section": "القسم العلوي للمكتبة"
+        "library_top_section": "القسم العلوي للمكتبة",
+        "download-no-https": "تنزيل الألعاب بدون HTTPS (مفيد لشبكات CDN مثل LanCache)",
+        "eosOverlay": {
+            "cancelInstall": "إلغاء",
+            "latestVersion": "أحدث إصدار: {{version}}",
+            "notInstalled": "لم يتم تثبيت EOS Overlay",
+            "checkForUpdates": "تحقق من وجود تحديثات",
+            "checkingForUpdates": "البحث عن تحديثات...",
+            "currentVersion": "الإصدار الحالي: {{version}}",
+            "disable": "تعطيل",
+            "enable": "يُمكَِن",
+            "install": "ثبت",
+            "installed": "تم تثبيت EOS Overlay",
+            "installing": "جارٍ تثبيت EOS Overlay ...",
+            "notInstalledMsg": "لم يتم تثبيت EOS Overlay. هل تريد تثبيته الآن؟",
+            "notInstalledTitle": "التراكب غير مثبت",
+            "remove": "الغاء التثبيت",
+            "removeConfirm": "هل أنت متأكد من أنك تريد إلغاء تثبيت EOS Overlay؟",
+            "removeConfirmTitle": "تأكيد إزالة التراكب",
+            "updateNow": "حدّث",
+            "updating": "جارٍ التحديث ..."
+        },
+        "prefered_language": "اللغة المفضلة (رمز اللغة)",
+        "crossover-version": "نسخة كروس",
+        "default-steam-path": "مسار Steam الافتراضي",
+        "preferSystemLibs": "تفضل مكتبات النظام"
     },
     "Recent": "لعبت مؤخرا",
     "Return": "عودة",
@@ -326,13 +422,35 @@
             "other": "آخر",
             "sync": "مزامنة المحفوظات",
             "log": "سجل",
-            "advanced": "أعدادات متقدمة"
+            "advanced": "أعدادات متقدمة",
+            "wineExt": "ملحقات النبيذ"
         },
         "copyToClipboard": "نسخ جميع الإعدادات إلى الحافظة",
         "log": {
             "long-log-hint": "تم قطع السجل ، يتم عرض آخر 1000 سطر!"
         },
-        "open-config-file": "افتح ملف التكوين"
+        "open-config-file": "افتح ملف التكوين",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "title": "GameMode مطلوب",
+                "message": "GameMode مطلوب حتى يعمل وقت تشغيل EAC على Flatpak. هل تريد تمكينه الآن؟"
+            },
+            "installing": "جاري تثبيت EAC Runtime ...",
+            "name": "وقت تشغيل EasyAntiCheat"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "title": "تم تمكين وقت تشغيل EAC",
+                "message": "تم تمكين وقت تشغيل EAC ، والذي لن يعمل بشكل صحيح بدون GameMode. هل تريد تعطيل EAC Runtime و GameMode؟"
+            }
+        },
+        "saves": {
+            "warning": "ميزة Cloud Saves موجودة في الإصدار التجريبي ، يرجى الاحتفاظ بنسخة احتياطية من المحفوظات قبل المزامنة (في حالة حدوث خطأ ما)"
+        },
+        "battlEyeRuntime": {
+            "installing": "جارٍ تثبيت BattlEye Runtime ...",
+            "name": "لعبة BattlEye AntiCheat Runtime"
+        }
     },
     "title": {
         "allUnreal": "Unreal - كل شيء",
@@ -359,7 +477,10 @@
             "error": "تعذر جلب إصدارات Wine / Proton هذه المرة.",
             "unzipping": "جاري فك الضغط",
             "title": "مدير Wine"
-        }
+        },
+        "actions": "عمل",
+        "release": "يوم الاصدار",
+        "size": "حجم"
     },
     "tooltip": {
         "addpath": "أضف مسار جديد",
@@ -395,7 +516,11 @@
         "sortByStatus": "فرز حسب الحالة",
         "sortDescending": "ترتيب تنازلي",
         "sortAscending": "ترتيب تصاعدي",
-        "listView": "اللائحة الافقية"
+        "listView": "اللائحة الافقية",
+        "toggleLayout": {
+            "grid": "التبديل إلى تخطيط الشبكة",
+            "list": "التبديل إلى تخطيط القائمة"
+        }
     },
     "platforms": {
         "win": "ويندوز",
@@ -413,7 +538,10 @@
     "header": {
         "ignore_hidden": "تجاهل المخفي",
         "platform": "منصة",
-        "show_hidden": "إظهار المخفي"
+        "show_hidden": "إظهار المخفي",
+        "show_all_games": "عرض كل الألعاب",
+        "show_favourites_only": "إظهار المفضلة فقط",
+        "store": "تصفية المتجر"
     },
     "favourites": "المفضلة",
     "accessibility": {
@@ -431,5 +559,45 @@
         "library": {
             "refresh": "إنعاش المكتبة"
         }
+    },
+    "controller": {
+        "hints": {
+            "close_context_menu": "إغلاق قائمة السياق",
+            "close_dialog": "إغلاق الحوار",
+            "close_keyboard": "إغلاق لوحة المفاتيح",
+            "play_game": "ألعب لعبة",
+            "scroll": "انتقل",
+            "space": "مساحة",
+            "update_game": "تحديث اللعبة",
+            "activate": "تفعيل",
+            "back": "خلف",
+            "backspace": "مسافة للخلف",
+            "context_menu": "قائمة السياق",
+            "game_details": "تفاصيل اللعبة",
+            "game_settings": "إعدادات اللعبة",
+            "install_game": "تثبيت اللعبة",
+            "move_cursor": "حرك المؤشر",
+            "none": "لا أحد",
+            "open_virtual_keyboard": "افتح لوحة المفاتيح الافتراضية"
+        }
+    },
+    "GameSettings": "إعدادات اللعبة",
+    "sidebar": {
+        "uncollapse": "شريط جانبي لإلغاء الانهيار",
+        "collapse": "طي الشريط الجانبي"
+    },
+    "docs": "توثيق",
+    "game": {
+        "status": "حالة",
+        "store": "متجر",
+        "title": "عنوان اللعبة"
+    },
+    "anticheat": {
+        "anticheats": "Anticheats",
+        "may_not_work": "قد لا يعمل بسبب رفض دعم مضاد الغش أو كسره.",
+        "reference": "المرجعي",
+        "source": "مصدر",
+        "status": "حالة",
+        "title": "تتضمن هذه اللعبة برامج مكافحة الغش"
     }
 }

@@ -50,7 +50,8 @@
         "hide_game": "إخفاء اللعبة",
         "remove_from_favourites": "حذف من المفضلة",
         "unhide_game": "إظهار اللعبة",
-        "add_to_favourites": "أضف إلي المفضلة"
+        "add_to_favourites": "أضف إلي المفضلة",
+        "force_update": "فرض التحديث إذا كان متاحًا"
     },
     "disabled": "معطّل",
     "enabled": "مفعّل",
@@ -74,7 +75,12 @@
         "store": "صفحة المتجر",
         "verify": "تحقق وأصلح",
         "move": "انقل اللعبة",
-        "change": "تغيير مسار التثبيت"
+        "change": "تغيير مسار التثبيت",
+        "removeShortcut": "إزالة الاختصارات",
+        "addToSteam": "أضف إلى Steam",
+        "disableEosOverlay": "تعطيل تراكب EOS",
+        "enableEosOverlay": "تفعيل تراكب EOS",
+        "removeFromSteam": "أخرجه من البخار"
     },
     "install": {
         "another": "ثبّت في مسار آخر",
