@@ -70,6 +70,10 @@
                 }
             },
             "title": "오류",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
+            },
             "update": {
                 "message": "업데이트에 문제가 발생했습니다. 로그를 확인하거나 나중에 다시 시도하세요!",
                 "title": "Update Error"

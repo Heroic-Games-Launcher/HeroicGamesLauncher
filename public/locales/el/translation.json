@@ -70,6 +70,10 @@
                 }
             },
             "title": "Σφάλμα",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
+            },
             "update": {
                 "message": "Κάτι πήγε στραβά με την ενημέρωση, ελέγξτε τα αρχεία καταγραφής ή δοκιμάστε ξανά αργότερα!",
                 "title": "Σφάλμα ενημέρωσης"
