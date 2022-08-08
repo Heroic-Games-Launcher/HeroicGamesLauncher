@@ -1,5 +1,4 @@
-import { Release, Runner } from './types'
-import { WineInstallation } from './types'
+import { WineInstallation, Release, Runner } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, spawnSync } from 'child_process'
@@ -80,8 +79,8 @@ function semverGt(target: string, base: string) {
 
   // beta to beta
   if (base.includes('-beta') && target.includes('-beta')) {
-    const bSplit = base.split('-beta.')
-    const tSplit = target.split('-beta.')
+    const bSplit = base.split('-beta')
+    const tSplit = target.split('-beta')
 
     // same major beta?
     if (bSplit[0] === tSplit[0]) {
@@ -96,12 +95,12 @@ function semverGt(target: string, base: string) {
 
   // beta to stable
   if (base.includes('-beta')) {
-    base = base.split('-beta.')[0]
+    base = base.split('-beta')[0]
   }
 
   // stable to beta
   if (target.includes('-beta')) {
-    target = target.split('-beta.')[0]
+    target = target.split('-beta')[0]
   }
 
   const [bmajor, bminor, bpatch] = base.split('.').map(Number)

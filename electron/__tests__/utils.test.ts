@@ -1,4 +1,4 @@
-import { quoteIfNecessary, removeQuoteIfNecessary } from '../utils'
+import { quoteIfNecessary, removeQuoteIfNecessary, semverGt } from '../utils'
 
 describe('electron/utils.ts', () => {
   test('quoteIfNeccessary', () => {
@@ -28,6 +28,26 @@ describe('electron/utils.ts', () => {
 
     testCases.forEach((expectString, inputString) => {
       expect(removeQuoteIfNecessary(inputString)).toStrictEqual(expectString)
+    })
+  })
+
+  test('semverGt', () => {
+    // target: vx.x.x or vx.x.x-beta.x
+    // base: x.x.x or x.x.x-beta.x
+
+    const testCases = new Map<{ target: string; base: string }, boolean>([
+      [{ target: 'v2.3.10', base: '2.4.0-beta' }, false],
+      [{ target: 'v2.3.10', base: '2.4.0' }, false],
+      [{ target: 'v2.3.10', base: '2.3.9' }, true],
+      [{ target: 'v2.3.10', base: '2.3.9-beta' }, true],
+      [{ target: 'v2.4.0-beta', base: '2.3.10' }, true],
+      [{ target: 'v2.4.0-beta', base: '2.4.0' }, false],
+      [{ target: 'v2.4.0-beta.2', base: '2.4.0-beta' }, true],
+      [{ target: 'v2.4.0-beta', base: '2.4.0-beta.2' }, false]
+    ])
+
+    testCases.forEach((expectValue, versions) => {
+      expect(semverGt(versions.target, versions.base)).toBe(expectValue)
     })
   })
 })
