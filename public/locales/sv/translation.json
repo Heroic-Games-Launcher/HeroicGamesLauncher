@@ -49,7 +49,7 @@
                 "title": "Otillräckligt utrymme"
             },
             "dxvk": {
-                "message": "Problem vid installation av DXVK/VKD3D! Kontrollera internetanslutningen och att du har zstd/libzstd1 installerade",
+                "message": "Problem vid installation av DXVK/VKD3D! Kontrollera din internetanslutning!",
                 "title": "DXVK/VKD3D problem"
             },
             "folder-not-found": {
@@ -356,7 +356,7 @@
     "Plugins": "Plugins",
     "Projects": "Projekt",
     "Recent": "Nyligen spelat",
-    "search": "Ange spelets titel här...",
+    "search": "Sök efter spel",
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg till spel i startmenyn automatiskt",
