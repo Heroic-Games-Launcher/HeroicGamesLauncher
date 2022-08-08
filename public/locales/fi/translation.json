@@ -197,7 +197,7 @@
     "gog-store": "GOG Store",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "",
+        "platform": "Alusta",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
@@ -253,7 +253,7 @@
         "path": "Valitse asennuspolku"
     },
     "library": {
-        "refresh": "",
+        "refresh": "virkistää",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -264,7 +264,7 @@
     },
     "Library": "Kirjasto",
     "loading": {
-        "default": "",
+        "default": "Ladataan",
         "website": "Ladataan verkkosivustoa"
     },
     "login": {
@@ -349,9 +349,9 @@
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "Plugins": "Laajennukset",
     "Projects": "Projektit",
@@ -537,10 +537,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Mene takaisin",
+            "forward": "Mene eteenpäin",
+            "openInBrowser": "Avaa selaimessa",
+            "reload": "Lataa sivu uudelleen"
         }
     },
     "wine": {
