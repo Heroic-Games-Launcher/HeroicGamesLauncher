@@ -121,7 +121,8 @@ function isOnline() {
   let online = net.isOnline()
   if (online) {
     const hosts = ['google.com', 'store.epicgames.com', 'gog.com']
-    hosts.forEach((host) => {
+    const errors = [] as string[]
+    online = hosts.some((host) => {
       const args = [host] as string[]
 
       if (isWindows) {
@@ -132,14 +133,18 @@ function isOnline() {
 
       const { status, stderr } = spawnSync('ping', args)
       if (stderr.length) {
-        logError(
-          ['Ping of ', host, ' failed with:\n', stderr.toString()],
-          LogPrefix.Backend
+        errors.push(
+          [`Ping of ${host} failed with:`, stderr.toString()].join('\n')
         )
       }
-      online = status === 0
+      return status === 0
     })
+
+    if (!online && errors.length) {
+      logError(errors.join('\n'), LogPrefix.Backend)
+    }
   }
+
   return online
 }
 
