@@ -1,4 +1,5 @@
 {
+    "A new Heroic version was released!": "",
     "accessibility": {
         "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
         "all_tiles_in_color": "Show all game tiles in color",
@@ -150,6 +151,7 @@
         "syncing": "Synkroniserar",
         "unsync": "Avbryt synkronisering"
     },
+    "Check for Heroic Updates on Startup": "",
     "controller": {
         "hints": {
             "activate": "Activate",
@@ -239,6 +241,9 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Heroic Version"
         },
         "settings": "Inställningar sparas automatiskt",
@@ -528,6 +533,7 @@
         "reload": "Ladda om",
         "show": "Visa"
     },
+    "Update Available!": "",
     "userselector": {
         "discord": "Discord",
         "logout": "Logga ut",
