@@ -63,12 +63,6 @@
                 "message": "Lançamento cancelado! O jogo requer uma conexão com a internet para executá-lo.",
                 "title": "Modo offline não suportado."
             },
-            "remove": {
-                "steam": {
-                    "body": "Erro ao remover {{game}} da Steam:{{newLine}} {{error}}",
-                    "title": "Erro de Remoção"
-                }
-            },
             "title": "Erro",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",

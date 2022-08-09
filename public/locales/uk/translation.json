@@ -63,12 +63,6 @@
                 "message": "Запуск перервано! Гра потребує з'єднання з інтернетом.",
                 "title": "Автономний режим не підтримується."
             },
-            "remove": {
-                "steam": {
-                    "body": "Не вдалося видалити {{game}} зі Steam, з наступною помилкою: {{newLine}} {{error}}",
-                    "title": "Помилка видалення"
-                }
-            },
             "title": "Помилка",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",

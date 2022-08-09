@@ -63,12 +63,6 @@
                 "message": "Uruchomienie przerwane! Gra wymaga połączenia z internetem aby ją uruchomić.",
                 "title": "Tryb Offline nie jest wspierany."
             },
-            "remove": {
-                "steam": {
-                    "body": "Usuwanie {{game}} ze Steam'a zakończyło się błędem:{{newLine}} {{error}}",
-                    "title": "Usuwanie błędu"
-                }
-            },
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",

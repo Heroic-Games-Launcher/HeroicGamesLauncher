@@ -63,12 +63,6 @@
                 "message": "啟動失敗！遊戲需要網路才能執行。",
                 "title": "不支持離線模式。"
             },
-            "remove": {
-                "steam": {
-                    "body": "從 Steam 移除 {{game}} 失敗，錯誤：{{newLine}} {{error}}",
-                    "title": "移除出錯"
-                }
-            },
             "title": "錯誤",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",

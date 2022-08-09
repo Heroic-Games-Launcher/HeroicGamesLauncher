@@ -63,12 +63,6 @@
                 "message": "L'execució del programa ha fallat. El joc necessita una connexió a Internet per funcionar.",
                 "title": "El mode sense connexió no està suportat."
             },
-            "remove": {
-                "steam": {
-                    "body": "{{game}} no s'ha pogut treure de l'Steam a causa de:{{newLine}} {{error}}",
-                    "title": "Error al treure el component"
-                }
-            },
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",

@@ -63,12 +63,6 @@
                 "message": "Spouštění přerušeno! Ke spuštění hry je potřeba připojení k internetu.",
                 "title": "Režim offline není podporován."
             },
-            "remove": {
-                "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
-                }
-            },
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",

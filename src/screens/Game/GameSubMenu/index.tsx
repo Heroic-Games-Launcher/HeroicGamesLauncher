@@ -230,20 +230,17 @@ export default function GamesSubmenu({
   async function handleAddToSteam() {
     setSteamRefresh(true)
     if (addedToSteam) {
-      await ipcRenderer.invoke('removeFromSteam', appName, runner)
+      await ipcRenderer
+        .invoke('removeFromSteam', appName, runner)
+        .then(() => setAddedToSteam(false))
     } else {
       const bkgDataURL = await imageData(steamImageUrl, 1920, 620)
       const bigPicDataURL = await imageData(steamImageUrl, 920, 430)
 
-      await ipcRenderer.invoke(
-        'addToSteam',
-        appName,
-        runner,
-        bkgDataURL,
-        bigPicDataURL
-      )
+      await ipcRenderer
+        .invoke('addToSteam', appName, runner, bkgDataURL, bigPicDataURL)
+        .then((added) => setAddedToSteam(added))
     }
-    setAddedToSteam(!addedToSteam)
     setSteamRefresh(false)
   }
 
@@ -301,7 +298,7 @@ export default function GamesSubmenu({
         .invoke('isEosOverlayEnabled', appName, runner)
         .then((enabled) => setEosOverlayEnabled(enabled))
     }
-  }, [])
+  }, [isInstalled])
 
   const refreshCircle = () => {
     return <CircularProgress className="link button is-text is-link" />

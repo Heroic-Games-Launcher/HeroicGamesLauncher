@@ -63,12 +63,6 @@
                 "message": "Peluncuran dibatalkan! Gim membutuhkan koneksi internet untuk menjalankannya.",
                 "title": "Mode luring tidak didukung."
             },
-            "remove": {
-                "steam": {
-                    "body": "Gagal menghapus {{game}} dari Steam dengan:{{newLine}} {{error}}",
-                    "title": "Galat Menghapus Gim"
-                }
-            },
             "title": "Galat",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",

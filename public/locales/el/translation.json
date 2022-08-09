@@ -63,12 +63,6 @@
                 "message": "Η έναρξη διακόπηκε! Το παιχνίδι απαιτεί σύνδεση στο διαδύκτιο για να τρέξει.",
                 "title": "Η λειτουργία εκτός σύνδεσης δεν υποστηρίζεται."
             },
-            "remove": {
-                "steam": {
-                    "body": "Η κατάργηση του {{game}} από το Steam απέτυχε με:{{newLine}} {{error}}",
-                    "title": "Σφάλμα Κατάργησης"
-                }
-            },
             "title": "Σφάλμα",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",

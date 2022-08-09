@@ -63,12 +63,6 @@
                 "message": "Speluppstart avbröts! Internetanslutning krävs.",
                 "title": "Offline-läge stöds ej."
             },
-            "remove": {
-                "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
-                }
-            },
             "title": "Problem",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",

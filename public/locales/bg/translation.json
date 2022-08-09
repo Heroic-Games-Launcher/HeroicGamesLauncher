@@ -63,12 +63,6 @@
                 "message": "Пускането е прекратено! Играта изисква връзка с Интернет, за да бъде пусната.",
                 "title": "Не се поддържа режим извън линия."
             },
-            "remove": {
-                "steam": {
-                    "body": "Премахването на {{game}} от Steam беше неуспешно:{{newLine}} {{error}}",
-                    "title": "Грешка при премахването"
-                }
-            },
             "title": "Грешка",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",

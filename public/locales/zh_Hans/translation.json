@@ -63,12 +63,6 @@
                 "message": "启动失败！游戏需要网络连接才能运行。",
                 "title": "不支持离线模式。"
             },
-            "remove": {
-                "steam": {
-                    "body": "从 Steam 删除 {{game}} 失败，错误：{{newLine}} {{error}}",
-                    "title": "删除出错"
-                }
-            },
             "title": "错误",
             "uncaught-exception": {
                 "message": "发生了未捕获的异常：{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic 将被关闭！在我们的 Github 仓库报告这个异常。",

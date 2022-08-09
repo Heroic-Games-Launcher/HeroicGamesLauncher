@@ -63,12 +63,6 @@
                 "message": "¡Lanzamiento abortado! El juego requiere una conexión a Internet ser ejecutado.",
                 "title": "El modo sin conexión no está soportado."
             },
-            "remove": {
-                "steam": {
-                    "body": "Removiendo {{game}} de Steam falló con:{{newLine}} {{error}}",
-                    "title": "Error removiendo"
-                }
-            },
             "title": "Error",
             "uncaught-exception": {
                 "message": "Ocurrió un error:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic va a ser cerrado! Reporta el error en nuestro repositorio de Github.",

@@ -63,12 +63,6 @@
                 "message": "Avvio interrotto! Il gioco richiede una connessione a Internet per essere eseguito.",
                 "title": "Modalità offline non supportata."
             },
-            "remove": {
-                "steam": {
-                    "body": "La rimozione di {{game}} da Steam è fallita con:{{newLine}} {{error}}",
-                    "title": "Errore di rimozione"
-                }
-            },
             "title": "Errore",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",

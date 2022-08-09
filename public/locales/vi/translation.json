@@ -63,12 +63,6 @@
                 "message": "Quá trình khởi chạy đã hủy! Cần có kết nối mạng để chạy game.",
                 "title": "Không hỗ trợ chế độ offline."
             },
-            "remove": {
-                "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
-                }
-            },
             "title": "Lỗi",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",

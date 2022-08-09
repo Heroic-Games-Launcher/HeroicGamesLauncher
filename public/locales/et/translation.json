@@ -63,12 +63,6 @@
                 "message": "Käivitamine katkestatud! Mängu käivitamiseks on vaja internetiühendust.",
                 "title": "Võrguühenduseta režiim ei ole toetatud."
             },
-            "remove": {
-                "steam": {
-                    "body": "Mängu {{game}} eemaldamine Steamist ebaõnnestus:{{newLine}} {{error}}",
-                    "title": "Viga eemaldamisel"
-                }
-            },
             "title": "Viga",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
