@@ -73,6 +73,10 @@
             "wine-not-found": {
                 "message": "Şərab Versiyası Seçilməyib. Oyun Parametrlərini yoxlayın!",
                 "title": "Şərab tapılmadı"
+            },
+            "uncaught-exception": {
+                "message": "Tutulmamış istisna baş verdi:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic bağlanacaq! Github anbarımızdakı istisnanı bildirin.",
+                "title": "Tutulmamış İstisna baş verdi!"
             }
         },
         "sync": {
@@ -316,7 +320,8 @@
         "open-config-file": "Konfiqurasiya faylını açın",
         "reset-heroic": "Qəhrəmanı sıfırlayın",
         "saves": {
-            "warning": "Bulud Saxlama funksiyası Beta-dadır, lütfən, sinxronizasiya etməzdən əvvəl yaddaşı ehtiyat nüsxəsini çıxarın (nəsə səhv olarsa)"
+            "warning": "Bulud Saxlama funksiyası Beta-dadır, lütfən, sinxronizasiya etməzdən əvvəl yaddaşı ehtiyat nüsxəsini çıxarın (nəsə səhv olarsa)",
+            "label": "Məkanı Saxla:"
         }
     },
     "webview": {
@@ -400,7 +405,10 @@
     },
     "info": {
         "heroic": {
-            "version": "Qəhrəmanlıq versiyası"
+            "version": "Qəhrəmanlıq versiyası",
+            "beta": "Beta",
+            "newReleases": "Yeniləmə Mövcuddur!",
+            "stable": "Stabil"
         },
         "settings": "Parametrlər avtomatik olaraq saxlanılır",
         "version": "Şərab versiyası"
