@@ -1,0 +1,20 @@
+{
+    "button": {
+        "login": "Hasi saioa"
+    },
+    "welcome": "Ongi etorri!",
+    "message": {
+        "part1": "Saioa hasteko eta jolasak instalatzeko, lehenik eta behin, jarraitu beharreko pausoak:",
+        "part2": "Ireki botoia",
+        "part3": "Epic Store hemen",
+        "part4": "Saioa hasi bere kontuan eta bere",
+        "part5": "INFORMAZIO-zenbakia SID",
+        "part6": "Jo zure",
+        "part7": "SID zenbakia",
+        "part8": "sarrerako koadroan, eta klik egin saio hasierako botoian."
+    },
+    "status": {
+        "error": "Errorea",
+        "loading": "Jokoen zerrenda kargatzen, mesedez itxaron"
+    }
+}

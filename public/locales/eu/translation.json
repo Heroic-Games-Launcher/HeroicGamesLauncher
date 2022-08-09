@@ -83,6 +83,10 @@
             },
             "folder-not-found": {
                 "title": "Joko karpeta ezabatu egin dela dirudi, jokoa instalatutako zerrendatik kendu nahi duzu?"
+            },
+            "uncaught-exception": {
+                "message": "Harrapatu gabeko salbuespen bat gertatu da:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic itxi egingo da! Salatu salbuespena gure Github biltegian.",
+                "title": "Harrapatu gabeko Salbuespena gertatu da!"
             }
         },
         "default-install-path": "Aukeratu lehenetsitako instalazio-ibilbidea",
@@ -197,7 +201,10 @@
     "globalSettings": "Ezarpen globalak",
     "info": {
         "heroic": {
-            "version": "Heroic bertsioa"
+            "version": "Heroic bertsioa",
+            "beta": "Beta",
+            "newReleases": "Eguneratze erabilgarria",
+            "stable": "Egonkorra"
         },
         "settings": "Ezarpenak automatikoki gordetzen dira",
         "version": "Ardoaren Bertsioa"
@@ -406,7 +413,8 @@
         "clear-cache": "Garbitu Cache heroikoa",
         "reset-heroic": "Berrezarri Heroic",
         "saves": {
-            "warning": "Hodeiko Gordeen eginbidea beta-n dago. Sinkronizatu aurretik gordetako babeskopiak egin behar dira (zerbait gaizki gertatzen bada)"
+            "warning": "Hodeiko Gordeen eginbidea beta-n dago. Sinkronizatu aurretik gordetako babeskopiak egin behar dira (zerbait gaizki gertatzen bada)",
+            "label": "Gorde kokapena:"
         },
         "battlEyeRuntime": {
             "installing": "BattlEye Runtime instalatzen...",
