@@ -311,8 +311,8 @@
             "startInstall": "Instalación iniciada"
         },
         "moved": "Movimiento terminado",
-        "new-heroic-version": "A new Heroic version was released!",
         "moving": "Moviendo juego",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "No se pudieron descargar las versiones, puede deberse a una limitación en la API de Github! Intente más tarde nuevamente."
         },
