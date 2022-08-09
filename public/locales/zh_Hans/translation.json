@@ -72,8 +72,8 @@
             },
             "title": "错误",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "发生了未捕获的异常：{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic 将被关闭！在我们的 Github 仓库报告这个异常。",
+                "title": "发生了未捕获的异常！"
             },
             "update": {
                 "message": "更新有问题，请检查日志或稍后再试！",
@@ -107,7 +107,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "你确定要重置 Heroic 吗？这会删除所有设置和缓存但不会删除你已安装的游戏或你的 Epic 凭据。便携版本 (AppImage, WinPortable, ...) 的 heroic 需要稍后手动重启。",
                 "title": "重置 Heroic"
             }
         },
@@ -246,8 +246,8 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "newReleases": "Update Available!",
-            "stable": "Stable",
+            "newReleases": "更新可用！",
+            "stable": "稳定版",
             "version": "Heroic 版本"
         },
         "settings": "设置会自动保存",
@@ -499,7 +499,7 @@
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
         "saves": {
-            "label": "Save Location:",
+            "label": "保存位置：",
             "warning": "云保存功能处于测试期，请在同步前备份你的保存（以防出现问题）"
         }
     },
