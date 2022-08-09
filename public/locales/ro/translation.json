@@ -71,6 +71,10 @@
             },
             "folder-not-found": {
                 "title": "Dosarul jocului pare să fie șters, doriți să eliminați jocul din lista instalată?"
+            },
+            "uncaught-exception": {
+                "message": "A apărut o excepție neprinsă:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic va fi închis! Raportați excepția în depozitul nostru Github.",
+                "title": "A avut loc o excepție neprinsă!"
             }
         },
         "no": "NU",
@@ -415,7 +419,8 @@
         },
         "reset-heroic": "Resetează eroic",
         "saves": {
-            "warning": "Funcția Cloud Saves este în versiune beta, vă rugăm să faceți backup înainte de sincronizare (în cazul în care ceva nu merge bine)"
+            "warning": "Funcția Cloud Saves este în versiune beta, vă rugăm să faceți backup înainte de sincronizare (în cazul în care ceva nu merge bine)",
+            "label": "Salveaza locatia:"
         },
         "copyToClipboard": "Copiați toate setările în Clipboard"
     },
@@ -459,7 +464,10 @@
         "settings": "Setările sunt salvate automat",
         "version": "Versiune Wine",
         "heroic": {
-            "version": "Versiune eroică"
+            "version": "Versiune eroică",
+            "beta": "Beta",
+            "stable": "Grajd",
+            "newReleases": "Actualizare disponibila"
         }
     },
     "Plugins": "Pluginuri",
