@@ -65,6 +65,10 @@
                     "body": "Dodavanje {{game}} u Steam nije uspjelo sa: {{newLine}} {{error}}",
                     "title": "Greška pri dodavanju"
                 }
+            },
+            "uncaught-exception": {
+                "title": "Došlo je do neuhvaćenog izuzetka!",
+                "message": "Dogodio se neuhvaćeni izuzetak: {{newLine}}{{error}}{{newLine}}{{newLine}}Heroic će biti zatvoren! Prijavite izuzetak na našem Github spremištu."
             }
         },
         "choose": "Izaberi",
@@ -211,7 +215,10 @@
     },
     "info": {
         "heroic": {
-            "version": "Heroic verzija"
+            "version": "Heroic verzija",
+            "beta": "Beta",
+            "newReleases": "Dostupno ažuriranje!",
+            "stable": "Stabilan"
         },
         "settings": "Postavke se automatski spremaju",
         "version": "Verzija Wine-a"
@@ -448,7 +455,8 @@
         "clear-cache": "Obrišite Heroic predmemoriju",
         "reset-heroic": "Resetujte Heroic",
         "saves": {
-            "warning": "Funkcija čuvanja u oblaku je u beta verziji, napravite sigurnosnu kopiju vaših sačuvanih podataka prije sinhronizacije (u slučaju da nešto krene po zlu)"
+            "warning": "Funkcija čuvanja u oblaku je u beta verziji, napravite sigurnosnu kopiju vaših sačuvanih podataka prije sinhronizacije (u slučaju da nešto krene po zlu)",
+            "label": "Sačuvaj lokaciju:"
         },
         "eacRuntime": {
             "installing": "Instaliranje EAC Runtime...",
