@@ -1,5 +1,4 @@
 {
-    "A new Heroic version was released!": "",
     "accessibility": {
         "actions_font_family": "Семейство на шрифта за действията (по подразбиране: „Rubik“)",
         "all_tiles_in_color": "Показване на всички плочки с игри цветни",
@@ -155,7 +154,6 @@
         "syncing": "Синхронизиране",
         "unsync": "Десинхронизиране"
     },
-    "Check for Heroic Updates on Startup": "",
     "controller": {
         "hints": {
             "activate": "Activate",
@@ -314,6 +312,7 @@
         },
         "moved": "Преместването е завършено",
         "moving": "Преместване на играта",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Не могат да бъдат получени изданията от отдалеченото хранилище, може би поради ограничения на ППИ на Github! Опитайте отново по-късно."
         },
@@ -376,6 +375,7 @@
         "autosync": "Автоматично синхронизиране на запазените файлове",
         "autovkd3d": "Автоматично инсталиране/обновяване на VKD3D в префикса",
         "change-target-exe": "Изберете алтернативен файл EXE за изпълнение",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "Персонализирани пътища за Wine/Proton",
         "darktray": "Използване на тъмна иконка за системната област за уведомления",

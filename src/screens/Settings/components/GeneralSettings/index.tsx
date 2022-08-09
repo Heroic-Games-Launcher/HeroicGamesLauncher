@@ -255,7 +255,10 @@ export default function GeneralSettings({
           htmlId="checkForUpdatesOnStartup"
           value={checkForUpdatesOnStartup}
           handleChange={toggleUpdatesOnStartup}
-          title={t('Check for Heroic Updates on Startup')}
+          title={t(
+            'setting.checkForUpdatesOnStartup',
+            'Check for Heroic Updates on Startup'
+          )}
         />
       )}
 

@@ -1,5 +1,4 @@
 {
-    "A new Heroic version was released!": "",
     "accessibility": {
         "actions_font_family": "Οικογένεια γραμματοσειρών ενεργειών (Προεπιλογή: \"Rubik\")",
         "all_tiles_in_color": "Εμφάνιση όλων των πλακιδίων παιχνιδιού με χρώμα",
@@ -155,7 +154,6 @@
         "syncing": "Συγχρονισμός",
         "unsync": "Αποσυγχρονισμός"
     },
-    "Check for Heroic Updates on Startup": "",
     "controller": {
         "hints": {
             "activate": "Activate",
@@ -314,6 +312,7 @@
         },
         "moved": "Η μετακίνηση ολοκληρώθηκε",
         "moving": "Μετακίνηση παιχνιδιού",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Δεν ήταν δυνατή η ανάκτηση εκδόσεων από το upstream, ίσως λόγω περιορισμών στο Github API! Προσπαθήστε ξανά αργότερα."
         },
@@ -376,6 +375,7 @@
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
         "autovkd3d": "Αυτόματη Εγκατάσταση/Ενημέρωση VKD3D με Πρόθημα",
         "change-target-exe": "Επιλέξτε ένα εναλλακτικό αρχείο EXE προς εκτέλεση",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου",

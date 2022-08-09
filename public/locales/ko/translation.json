@@ -1,5 +1,4 @@
 {
-    "A new Heroic version was released!": "",
     "accessibility": {
         "actions_font_family": "작업 글꼴 패밀리 (기본값: \"Rubik\")",
         "all_tiles_in_color": "Show all game tiles in color",
@@ -155,7 +154,6 @@
         "syncing": "싱크중",
         "unsync": "싱크 해제"
     },
-    "Check for Heroic Updates on Startup": "",
     "controller": {
         "hints": {
             "activate": "Activate",
@@ -314,6 +312,7 @@
         },
         "moved": "이동 완료됨",
         "moving": "Moving Game",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -376,6 +375,7 @@
         "autosync": "세이브 자동 동기화",
         "autovkd3d": "접두사에서 VKD3D 자동 설치/업데이트",
         "change-target-exe": "대체하여 실행할 EXE 선택",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "커스텀 Wine/Proton 경로",
         "darktray": "다크 트레이 아이콘 사용",

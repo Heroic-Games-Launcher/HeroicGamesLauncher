@@ -1,5 +1,4 @@
 {
-    "A new Heroic version was released!": "",
     "accessibility": {
         "actions_font_family": "Famiglia di caratteri per le Azioni (predefinito: \"Rubik\")",
         "all_tiles_in_color": "Mostra tutte le tessere dei giochi a colori",
@@ -155,7 +154,6 @@
         "syncing": "Sincronizzazione in corso",
         "unsync": "Annulla sincronizzazione"
     },
-    "Check for Heroic Updates on Startup": "",
     "controller": {
         "hints": {
             "activate": "Activate",
@@ -314,6 +312,7 @@
         },
         "moved": "Spostamento completato",
         "moving": "Moving Game",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -376,6 +375,7 @@
         "autosync": "Sincronizza automaticamente i salvataggi",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Seleziona un eseguibile alternativo da avviare",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "Percorsi di Wine/Proton personalizzati",
         "darktray": "Usa l'icona scura della barra delle applicazioni",

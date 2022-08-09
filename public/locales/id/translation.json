@@ -1,5 +1,4 @@
 {
-    "A new Heroic version was released!": "",
     "accessibility": {
         "actions_font_family": "Keluarga Fon Aksi (Bawaan: \"Rubik\")",
         "all_tiles_in_color": "Tampilkan semua kolom gim dalam warna",
@@ -155,7 +154,6 @@
         "syncing": "Menyinkronkan",
         "unsync": "Batalkan sinkronisasi"
     },
-    "Check for Heroic Updates on Startup": "",
     "controller": {
         "hints": {
             "activate": "Activate",
@@ -314,6 +312,7 @@
         },
         "moved": "Selesai Memindahkan",
         "moving": "Memindahkan Gim",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Tidak dapat mengambil rilis dari sumber, ini mungkin karena pembatasan API Github! Coba lagi nanti."
         },
@@ -376,6 +375,7 @@
         "autosync": "Sinkronisasi Penyimpanan Otomatis",
         "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "Lokasi Wine/Proton Khusus",
         "darktray": "Gunakan Ikon Baki Gelap",

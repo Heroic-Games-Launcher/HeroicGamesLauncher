@@ -1,5 +1,4 @@
 {
-    "A new Heroic version was released!": "",
     "accessibility": {
         "actions_font_family": "خانواده فونت اعمال (پیش فرض: \"Rubik\")",
         "all_tiles_in_color": "نمایش رنگی تمام کاشی های بازی",
@@ -155,7 +154,6 @@
         "syncing": "در حال همگام سازی",
         "unsync": "عدم همگام سازی"
     },
-    "Check for Heroic Updates on Startup": "",
     "controller": {
         "hints": {
             "activate": "Activate",
@@ -314,6 +312,7 @@
         },
         "moved": "انتقال کامل شد",
         "moving": "در حال انتقال بازی",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "امکان دریافت نسخه از آپ استریم گیت هاب نیست! بعدا تلاش کنید."
         },
@@ -376,6 +375,7 @@
         "autosync": "همگامسازی خودکار ذخیرهها",
         "autovkd3d": "نصب/بهروزرسانی خودکار VKD3D در مسیر",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",

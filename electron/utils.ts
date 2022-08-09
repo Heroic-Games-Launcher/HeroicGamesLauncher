@@ -725,7 +725,10 @@ export const getLatestReleases = async (): Promise<Release[]> => {
     if (newReleases.length) {
       notify({
         title: t('Update Available!'),
-        body: t('A new Heroic version was released!')
+        body: t(
+          'notify.new-heroic-version',
+          'A new Heroic version was released!'
+        )
       })
     }
 

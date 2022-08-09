@@ -1,5 +1,4 @@
 {
-    "A new Heroic version was released!": "",
     "accessibility": {
         "actions_font_family": "Czcionka akcji (Domyślna: \"Rubik\")",
         "all_tiles_in_color": "Pokaż wszystkie tytuły gier w kolorze",
@@ -155,7 +154,6 @@
         "syncing": "Synchronizowanie",
         "unsync": "Desynchronizuj"
     },
-    "Check for Heroic Updates on Startup": "",
     "controller": {
         "hints": {
             "activate": "Aktywuj",
@@ -314,6 +312,7 @@
         },
         "moved": "Przenoszenie zakończone",
         "moving": "Przenoszenie gry",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Nie udało się pobrać nowej wersji, prawdopodobnie z powodu limitacji API Github'a! Spróbuj ponownie później."
         },
@@ -376,6 +375,7 @@
         "autosync": "Automatyczna synchronizacja zapisów",
         "autovkd3d": "Automatyczne Instaluj/Aktualizuj VKD3D w prefiksie",
         "change-target-exe": "Wybierz alternatywny plik EXE do uruchomienia",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Wersja Crossover",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikon",

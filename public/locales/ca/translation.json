@@ -1,5 +1,4 @@
 {
-    "A new Heroic version was released!": "",
     "accessibility": {
         "actions_font_family": "Tipus de lletra per les accions (per defecte: «Rubik»)",
         "all_tiles_in_color": "Mostra tots els títols dels jocs en color",
@@ -155,7 +154,6 @@
         "syncing": "S'està sincronitzant",
         "unsync": "Dessincronitza"
     },
-    "Check for Heroic Updates on Startup": "",
     "controller": {
         "hints": {
             "activate": "Activa",
@@ -314,6 +312,7 @@
         },
         "moved": "Ha finalitzat el desplaçament",
         "moving": "S'està movent el joc...",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "No s'ha pogut aconseguir el llistat de versions, potser per les restriccions de l'API del GitHub. Proveu-ho més tard."
         },
@@ -376,6 +375,7 @@
         "autosync": "Sincronitza automàticament les partides desades",
         "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",
         "change-target-exe": "Selecciona un EXE alternatiu a executar",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Versió híbrida (crossover)",
         "customWineProton": "Rutes del Wine o Proton personalitzades",
         "darktray": "Utilitza la icona fosca a la safata",

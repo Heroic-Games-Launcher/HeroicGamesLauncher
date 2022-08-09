@@ -1,5 +1,4 @@
 {
-    "A new Heroic version was released!": "",
     "accessibility": {
         "actions_font_family": "Семейство шрифтов для действий (По умолчанию: \"Rubik\")",
         "all_tiles_in_color": "Показать все плитки игр в цвете",
@@ -155,7 +154,6 @@
         "syncing": "Синхронизация",
         "unsync": "Рассинхронизировать"
     },
-    "Check for Heroic Updates on Startup": "",
     "controller": {
         "hints": {
             "activate": "Активировать",
@@ -314,6 +312,7 @@
         },
         "moved": "Перемещение завершено",
         "moving": "Перемещение игры",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Не удалось получить выпуски из основной ветки разработки, возможно, из-за ограничений Github API! Попробуйте позже."
         },
@@ -376,6 +375,7 @@
         "autosync": "Автосинхронизация сохранений",
         "autovkd3d": "Автоматически устанавливать/обновлять VKD3D в префиксе",
         "change-target-exe": "Выбрать другой EXE для запуска",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Версия Crossover",
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",
