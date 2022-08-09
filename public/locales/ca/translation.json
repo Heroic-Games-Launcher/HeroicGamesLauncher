@@ -289,15 +289,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} no s'ha pogut afegir a tots els usuaris de l'Steam trobats. Consulteu els registres per obtenir més informació. Cal reiniciar l'Steam per tal que els canvis tinguin efecte.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required, changes to take effect.",
                     "success": "{{game}} s'ha afegit correctament a l'Steam. Cal reiniciar l'Steam per tal que els canvis tinguin efecte.",
                     "title": "S'ha afegit a l'Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} no s'ha pogut suprimir de tots els usuaris de l'Steam trobats. Vegeu els registres per obtenir més informació. Cal reiniciar l'Steam per tal que els canvis tinguin efecte.",
-                    "success": "{{game}} s'ha tret correctament de l'Steam. Cal reiniciar l'Steam per tal que els canvis tinguin efecte.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required, changes to take effect.",
                     "title": "S'ha tret de l'Steam"
                 }
             },

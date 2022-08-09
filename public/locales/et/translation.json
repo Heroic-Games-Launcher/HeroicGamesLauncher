@@ -289,15 +289,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "Mängu {{game}} ei saanud lisada kõigile leitud Steami kasutajatele. Lisainfo saamiseks vaadake logisid. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required, changes to take effect.",
                     "success": "{{game}} lisati edukalt Steami. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
                     "title": "Lisatud Steami"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "Mängu {{game}} ei saanud eemaldada kõigilt leitud Steami kasutajatelt. Lisainfo saamiseks vaadake logisid. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
-                    "success": "{{game}} eemaldati edukalt Steamist. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required, changes to take effect.",
                     "title": "Steamist eemaldatud"
                 }
             },

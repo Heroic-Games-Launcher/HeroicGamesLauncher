@@ -289,15 +289,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} no pudo ser agregado a todos los usuarios Steam encontrados. Revise los registros para más información. Require reiniciar Steam para que los cambios tengan efecto.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required, changes to take effect.",
                     "success": "{{game}} fue agregado a Steam correctamente. Require reiniciar Steam para que los cambios tengan efecto.",
                     "title": "Agregado a Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} no se pudo remover de todos los usuarios Steam encontrados. Revise los registros para más inforamción. Require reiniciar Steam para que los cambios tengan efecto.",
-                    "success": "{{game}} fue removido de Steam correctamente. Require reiniciar Steam para que los cambios tengan efecto.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required, changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required, changes to take effect.",
                     "title": "Removido de Steam"
                 }
             },

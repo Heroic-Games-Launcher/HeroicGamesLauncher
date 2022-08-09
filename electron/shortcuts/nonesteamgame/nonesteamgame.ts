@@ -342,7 +342,7 @@ async function addNonSteamGame(props: {
 
     const message = i18next.t('notify.finished.add.steam.corrupt', {
       defaultValue:
-        '{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.',
+        '{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required, changes to take effect.',
       game: props.gameInfo.title
     })
     notifyFrontend({ message, adding: true })
@@ -372,6 +372,7 @@ async function removeNonSteamGame(props: {
   }
 
   const errors = []
+  let removed = false
   for (const folder of folders) {
     const configDir = join(props.steamUserdataDir, folder, 'config')
     const shortcutsFile = join(configDir, 'shortcuts.vdf')
@@ -411,6 +412,8 @@ async function removeNonSteamGame(props: {
       continue
     }
 
+    removed = true
+
     removeImagesFromSteam({
       steamUserConfigDir: configDir,
       appID: {
@@ -421,6 +424,12 @@ async function removeNonSteamGame(props: {
     })
   }
 
+  // game was not on any steam shortcut
+  // nothing to notify
+  if (!removed) {
+    return
+  }
+
   if (errors.length === 0) {
     logInfo(
       `${props.gameInfo.title} was successfully removed from Steam.`,
@@ -429,7 +438,7 @@ async function removeNonSteamGame(props: {
 
     const message = i18next.t('notify.finished.remove.steam.success', {
       defaultValue:
-        '{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.',
+        '{{game}} was successfully removed from Steam. A restart of Steam is required, changes to take effect.',
       game: props.gameInfo.title
     })
     notifyFrontend({ message, adding: false })
@@ -442,7 +451,7 @@ async function removeNonSteamGame(props: {
 
     const message = i18next.t('notify.finished.remove.steam.corrupt', {
       defaultValue:
-        '{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.',
+        '{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required, changes to take effect.',
       game: props.gameInfo.title
     })
     notifyFrontend({ message, adding: false })
