@@ -66,7 +66,7 @@
             },
             "remove": {
                 "steam": {
-                    "body": "Das Entfernen von {{game}} aus Steam ist fehlgeschlagen:{{newLine}} {{error}}",
+                    "body": "Das Entfernen von {{game}} aus Steam schlug fehl mit:{{newLine}} {{error}}",
                     "title": "Fehler beim Entfernen"
                 }
             },
@@ -130,7 +130,7 @@
         },
         "vcruntime": {
             "install": {
-                "message": "Die Download-Links für die Visual C++-Runtimes wurden geöffnet. Bitte installieren Sie sowohl die x86- als auch die x64-Version."
+                "message": "Die Download-Links für die Visual C++-Runtimes wurden geöffnet. Bitte installiere sowohl die x86- als auch die x64-Version."
             },
             "notfound": {
                 "message": "Die Microsoft Visual C++-Runtimes sind nicht installiert, die für einige Spiele erforderlich sind",
@@ -192,7 +192,7 @@
     "GameSettings": "Spiel-Einstellungen",
     "generic": {
         "error": {
-            "component": "Keine Spiele gefunden - Versuchen Sie, sich abzumelden und erneut anzumelden, oder wählen Sie eine der folgenden Optionen"
+            "component": "Keine Spiele gefunden - Versuche dich abzumelden und erneut anzumelden, oder wähle eine der folgenden Optionen"
         },
         "library": {
             "refresh": "Bibliothek aktualisieren"
@@ -299,8 +299,8 @@
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} konnte nicht von allen gefundenen Steam-Benutzern entfernt werden. Siehe Logs für weitere Informationen. Ein Neustart von Steam ist erforderlich, damit die Änderungen wirksam werden.",
-                    "success": "{{game}} wurde erfolgreich von Steam entfernt. Ein Neustart von Steam ist erforderlich, damit die Änderungen wirksam werden.",
-                    "title": "Von Steam entfernt"
+                    "success": "{{game}} wurde erfolgreich aus Steam entfernt. Ein Neustart von Steam ist erforderlich, damit die Änderungen wirksam werden.",
+                    "title": "Aus Steam entfernt"
                 }
             },
             "reparing": "Reparatur abgeschlossen"
@@ -395,14 +395,14 @@
             "disable": "Deaktivieren",
             "enable": "Aktivieren",
             "install": "Install",
-            "installed": "Das EOS Overlay ist installiert",
-            "installing": "Das EOS Overlay wird installiert...",
+            "installed": "Das EOS-Overlay ist installiert",
+            "installing": "Das EOS-Overlay wird installiert...",
             "latestVersion": "Neueste Version: {{version}}",
-            "notInstalled": "Das EOS Overlay ist nicht installiert",
-            "notInstalledMsg": "Das EOS Overlay ist nicht installiert. Möchtest du es jetzt installieren?",
+            "notInstalled": "Das EOS-Overlay ist nicht installiert",
+            "notInstalledMsg": "Das EOS-Overlay ist nicht installiert. Möchtest du es jetzt installieren?",
             "notInstalledTitle": "Overlay nicht installiert",
             "remove": "Deinstallieren",
-            "removeConfirm": "Bist du sicher, dass du das EOS Overlay deinstallieren möchtest?",
+            "removeConfirm": "Bist du sicher, dass du das EOS-Overlay deinstallieren möchtest?",
             "removeConfirmTitle": "Overlay-Entfernung bestätigen",
             "updateNow": "Update",
             "updating": "Aktualisieren..."
