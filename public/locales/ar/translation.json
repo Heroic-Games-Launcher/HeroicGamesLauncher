@@ -69,6 +69,10 @@
                     "title": "إزالة الخطأ",
                     "body": "فشلت إزالة {{game}} من Steam مع: {{newLine}} {{error}}"
                 }
+            },
+            "uncaught-exception": {
+                "message": "حدث استثناء غير معلوم: {{newLine}} {{error}} {{newLine}} {{newLine}} سيتم إغلاق البطولية! أبلغ عن الاستثناء في مستودع Github الخاص بنا.",
+                "title": "حدث استثناء غير معلوم!"
             }
         },
         "no": "لا",
@@ -245,7 +249,10 @@
     "info": {
         "settings": "يتم حفظ الإعدادات تلقائيًا",
         "heroic": {
-            "version": "إصدار Heroic"
+            "version": "إصدار Heroic",
+            "beta": "بيتا",
+            "newReleases": "يتوفر تحديث",
+            "stable": "مستقر"
         },
         "version": "نسخة Wine"
     },
@@ -445,7 +452,8 @@
             }
         },
         "saves": {
-            "warning": "ميزة Cloud Saves موجودة في الإصدار التجريبي ، يرجى الاحتفاظ بنسخة احتياطية من المحفوظات قبل المزامنة (في حالة حدوث خطأ ما)"
+            "warning": "ميزة Cloud Saves موجودة في الإصدار التجريبي ، يرجى الاحتفاظ بنسخة احتياطية من المحفوظات قبل المزامنة (في حالة حدوث خطأ ما)",
+            "label": "حفظ الموقع:"
         },
         "battlEyeRuntime": {
             "installing": "جارٍ تثبيت BattlEye Runtime ...",

@@ -83,6 +83,10 @@
             },
             "folder-not-found": {
                 "title": "Joko karpeta ezabatu egin dela dirudi, jokoa instalatutako zerrendatik kendu nahi duzu?"
+            },
+            "uncaught-exception": {
+                "message": "Harrapatu gabeko salbuespen bat gertatu da:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic itxi egingo da! Salatu salbuespena gure Github biltegian.",
+                "title": "Harrapatu gabeko Salbuespena gertatu da!"
             }
         },
         "default-install-path": "Aukeratu lehenetsitako instalazio-ibilbidea",
@@ -109,7 +113,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Ziur zaude Heroic berrabiarazi nahi duzula? Horrek ezarpen guztiak eta cacheko biltegiratzea ezabatuko ditu, baina ez ditu zure instalatutako jokoak edo Epic-eko kredentzialak ezabatuko",
+                "message": "Ziur zaude Heroic berrabiarazi nahi duzula? Horrek ezarpen guztiak eta cacheko biltegiratzea ezabatuko ditu, baina ez ditu zure instalatutako jokoak edo Epic-eko kredentzialak ezabatuko. Heroic-en bertsio eramangarriak (AppImage, WinPortable, ...) berrabiarazi egin behar dira.",
                 "title": "Berrezarri Heroic"
             }
         },
@@ -143,9 +147,9 @@
         },
         "downloadNow": "Deskargatu orain"
     },
-    "Assets": "Assets",
+    "Assets": "Baliabideak",
     "help": {
-        "general": "Sinkronizatu EGSrekin, baldin eta EGSren instalazio funtzional bat beste nonbait badu eta bere jokoak inportatu nahi baditu berriro deskargatzea saihesteko.",
+        "general": "Sinkronizatu EGLrekin, Epic Games Launcher-en instalazio funtzional bat beste nonbait baduzu eta bere jokoak inportatu nahi baditu berriro deskargatzea saihesteko.",
         "other": {
             "part2": "Ezarpen aurreratuak",
             "part5": "Jokoaren argudioak",
@@ -197,7 +201,10 @@
     "globalSettings": "Ezarpen globalak",
     "info": {
         "heroic": {
-            "version": "Heroic bertsioa"
+            "version": "Heroic bertsioa",
+            "beta": "Beta",
+            "newReleases": "Eguneraketa eskuragarri!",
+            "stable": "Egonkorra"
         },
         "settings": "Ezarpenak automatikoki gordetzen dira",
         "version": "Ardoaren Bertsioa"
@@ -406,7 +413,8 @@
         "clear-cache": "Garbitu Cache heroikoa",
         "reset-heroic": "Berrezarri Heroic",
         "saves": {
-            "warning": "Hodeiko Gordeen eginbidea beta-n dago. Sinkronizatu aurretik gordetako babeskopiak egin behar dira (zerbait gaizki gertatzen bada)"
+            "warning": "Hodeiko Gordeen eginbidea beta-n dago. Sinkronizatu aurretik gordetako babeskopiak egin behar dira (zerbait gaizki gertatzen bada)",
+            "label": "Gorde kokapena:"
         },
         "battlEyeRuntime": {
             "installing": "BattlEye Runtime instalatzen...",

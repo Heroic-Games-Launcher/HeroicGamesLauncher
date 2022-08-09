@@ -59,6 +59,10 @@
                     "body": "Fjernelse af {{game}} fra Steam mislykkedes med:{{newLine}} {{error}}",
                     "title": "Fjerner fejl"
                 }
+            },
+            "uncaught-exception": {
+                "message": "En ufanget undtagelse opstod:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic vil blive lukket! Rapporter undtagelsen på vores Github-lager.",
+                "title": "Ufanget undtagelse opstod!"
             }
         },
         "info": {
@@ -136,7 +140,10 @@
     "info": {
         "version": "Wine Version",
         "heroic": {
-            "version": "Heroisk version"
+            "version": "Heroisk version",
+            "beta": "Beta",
+            "newReleases": "Opdatering tilgængelig!",
+            "stable": "Stabil"
         },
         "settings": "Indstillinger gemmes automatisk"
     },
@@ -378,7 +385,8 @@
         "open-config-file": "Åbn Config File",
         "reset-heroic": "Nulstil Heroic",
         "saves": {
-            "warning": "Cloud Saves-funktionen er i beta, vær venlig at sikkerhedskopiere dine gemmer før synkronisering (i tilfælde af at noget går galt)"
+            "warning": "Cloud Saves-funktionen er i beta, vær venlig at sikkerhedskopiere dine gemmer før synkronisering (i tilfælde af at noget går galt)",
+            "label": "Gem placering:"
         },
         "log": {
             "long-log-hint": "Log afkortet, sidste 1000 linjer vises!"

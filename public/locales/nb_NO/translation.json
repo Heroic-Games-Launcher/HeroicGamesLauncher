@@ -68,6 +68,10 @@
                     "body": "Fjerning av {{game}} fra Steam mislyktes med:{{newLine}} {{error}}",
                     "title": "Fjerner feil"
                 }
+            },
+            "uncaught-exception": {
+                "message": "Et uoppdaget unntak skjedde:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic vil bli stengt! Rapporter unntaket på Github-depotet vårt.",
+                "title": "Ufanget unntak skjedde!"
             }
         },
         "select": {
@@ -396,7 +400,10 @@
         "version": "Vinversjon",
         "settings": "Innstillinger lagres automatisk",
         "heroic": {
-            "version": "Heroisk versjon"
+            "version": "Heroisk versjon",
+            "beta": "Beta",
+            "stable": "Stabil",
+            "newReleases": "Ny versjon tilgjengelig"
         }
     },
     "options": {
@@ -457,7 +464,8 @@
         },
         "reset-heroic": "Tilbakestill Heroic",
         "saves": {
-            "warning": "Cloud Saves-funksjonen er i beta, vennligst ta sikkerhetskopi av lagrene dine før synkronisering (i tilfelle noe går galt)"
+            "warning": "Cloud Saves-funksjonen er i beta, vennligst ta sikkerhetskopi av lagrene dine før synkronisering (i tilfelle noe går galt)",
+            "label": "Lagre plassering:"
         }
     },
     "accessibility": {

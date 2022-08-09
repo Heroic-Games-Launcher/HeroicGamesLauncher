@@ -71,8 +71,8 @@
             },
             "title": "Ошибка",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Произошло необрабатываемое исключение:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic будет закрыт! Сообщите об исключении в нашем репозитории Github.",
+                "title": "Произошло необрабатываемое исключение!"
             },
             "update": {
                 "message": "Что-то пошло не так с обновлением, проверьте журналы или повторите попытку позже!",
@@ -106,7 +106,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Вы уверены, что хотите сбросить Heroic? Это удалит все настройки и кэширование, но не удалит установленные игры или учетные данные Epic. Портативные версии (AppImage, WinPortable, ...) Heroic после этого необходимо перезапустить вручную.",
                 "title": "Сброс Heroic"
             }
         },
@@ -244,8 +244,8 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "newReleases": "Update Available!",
-            "stable": "Stable",
+            "newReleases": "Доступно обновление!",
+            "stable": "Стабильный",
             "version": "Версия Heroic"
         },
         "settings": "Настройки сохраняются автоматически",

@@ -33,7 +33,7 @@
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adicionando {{game}} ao Steam falhou com:{{newLine}} {{error}}",
+                    "body": "Erro ao adicionar {{game}} à Steam:{{newLine}} {{error}}",
                     "title": "Adding Error"
                 }
             },
@@ -65,7 +65,7 @@
             },
             "remove": {
                 "steam": {
-                    "body": "A remoção {{game}} do Steam falhou com:{{newLine}} {{error}}",
+                    "body": "Erro ao remover {{game}} da Steam:{{newLine}} {{error}}",
                     "title": "Erro de Remoção"
                 }
             },
