@@ -755,7 +755,6 @@ export function notify({ body, title }: NotifyType) {
       body,
       title
     })
-
     notify.on('click', () => mainWindow.show())
     notify.show()
   }
