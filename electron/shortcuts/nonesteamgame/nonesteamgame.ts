@@ -312,7 +312,7 @@ async function addNonSteamGame(props: {
 
     const message = i18next.t('notify.finished.add.steam.success', {
       defaultValue:
-        '{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.',
+        '{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.',
       game: props.gameInfo.title
     })
     notifyFrontend({ message, adding: true })
@@ -326,7 +326,7 @@ async function addNonSteamGame(props: {
 
     const message = i18next.t('notify.finished.add.steam.corrupt', {
       defaultValue:
-        '{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required, changes to take effect.',
+        '{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.',
       game: props.gameInfo.title
     })
     notifyFrontend({ message, adding: true })
@@ -421,7 +421,7 @@ async function removeNonSteamGame(props: {
 
     const message = i18next.t('notify.finished.remove.steam.success', {
       defaultValue:
-        '{{game}} was successfully removed from Steam. A restart of Steam is required, changes to take effect.',
+        '{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.',
       game: props.gameInfo.title
     })
     notifyFrontend({ message, adding: false })
@@ -434,7 +434,7 @@ async function removeNonSteamGame(props: {
 
     const message = i18next.t('notify.finished.remove.steam.corrupt', {
       defaultValue:
-        '{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required, changes to take effect.',
+        '{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.',
       game: props.gameInfo.title
     })
     notifyFrontend({ message, adding: false })
