@@ -15,7 +15,6 @@ import {
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
-  isSteamDeckGameMode,
   isWindows
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -749,7 +748,7 @@ type NotifyType = {
 }
 
 export function notify({ body, title }: NotifyType) {
-  if (!isSteamDeckGameMode) {
+  if (Notification.isSupported()) {
     const mainWindow = BrowserWindow.getAllWindows()[0]
     const notify = new Notification({
       body,
