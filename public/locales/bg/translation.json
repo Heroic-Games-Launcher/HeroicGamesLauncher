@@ -63,12 +63,6 @@
                 "message": "Пускането е прекратено! Играта изисква връзка с Интернет, за да бъде пусната.",
                 "title": "Не се поддържа режим извън линия."
             },
-            "remove": {
-                "steam": {
-                    "body": "Премахването на {{game}} от Steam беше неуспешно:{{newLine}} {{error}}",
-                    "title": "Грешка при премахването"
-                }
-            },
             "title": "Грешка",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
@@ -289,15 +283,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} не може да се добави за всички намерени потребители на Steam. Вижте журнала за подробности.  За да влязат промените в сила, трябва да рестартирате Steam.",
-                    "success": "Добавянето на {{game}} в Steam беше успешно. За да влязат промените в сила, трябва да рестартирате Steam.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Добавено в Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} не може да се премахне от всички намерени потребители на Steam. Вижте журнала за подробности.  За да влязат промените в сила, трябва да рестартирате Steam.",
-                    "success": "Премахването на {{game}} от Steam беше успешно.  За да влязат промените в сила, трябва да рестартирате Steam.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Премахнато от Steam"
                 }
             },

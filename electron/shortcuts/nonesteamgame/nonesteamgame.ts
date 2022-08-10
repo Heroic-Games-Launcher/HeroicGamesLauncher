@@ -26,33 +26,18 @@ import i18next from 'i18next'
  * Opens a error dialog in frontend with the error message
  * @param props
  */
-function showErrorInFrontend(props: {
-  gameTitle: string
-  error: string
-  adding: boolean
-}) {
-  const body = props.adding
-    ? i18next.t('box.error.add.steam.body', {
-        defaultValue:
-          'Adding {{game}} to Steam failed with:{{newLine}} {{error}}',
-        game: props.gameTitle,
-        newLine: '\n',
-        error: props.error
-      })
-    : i18next.t('box.error.remove.steam.body', {
-        defaultValue:
-          'Removing {{game}} from Steam failed with:{{newLine}} {{error}}',
-        game: props.gameTitle,
-        newLine: '\n',
-        error: props.error
-      })
+function showErrorInFrontend(props: { gameTitle: string; error: string }) {
+  const body = i18next.t('box.error.add.steam.body', {
+    defaultValue: 'Adding {{game}} to Steam failed with:{{newLine}} {{error}}',
+    game: props.gameTitle,
+    newLine: '\n',
+    error: props.error
+  })
 
-  const title = props.adding
-    ? i18next.t('box.error.add.steam.title', 'Error Adding Game to Steam')
-    : i18next.t(
-        'box.error.remove.steam.title',
-        'Error Removing Game from Steam'
-      )
+  const title = i18next.t(
+    'box.error.add.steam.title',
+    'Error Adding Game to Steam'
+  )
 
   dialog.showErrorBox(title, body)
 }
@@ -185,24 +170,23 @@ const checkIfAlreadyAdded = (object: Partial<ShortcutObject>, title: string) =>
  * Adds a non-steam game to steam via editing shortcuts.vdf
  * @param steamUserdataDir Path to steam userdata directory
  * @param gameInfo @see GameInfo of the game to add
- * @returns none
+ * @returns boolean
  */
 async function addNonSteamGame(props: {
   steamUserdataDir: string
   gameInfo: GameInfo
   bkgDataUrl: string
   bigPicDataUrl: string
-}): Promise<void> {
+}): Promise<boolean> {
   const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
 
   if (error) {
     logError(error, LogPrefix.Shortcuts)
     showErrorInFrontend({
       gameTitle: props.gameInfo.title,
-      error,
-      adding: true
+      error
     })
-    return
+    return false
   }
 
   const errors = []
@@ -315,10 +299,9 @@ async function addNonSteamGame(props: {
     logError(errorMessage, LogPrefix.Shortcuts)
     showErrorInFrontend({
       gameTitle: props.gameInfo.title,
-      error: errorMessage,
-      adding: true
+      error: errorMessage
     })
-    return
+    return false
   }
 
   if (errors.length === 0) {
@@ -329,10 +312,11 @@ async function addNonSteamGame(props: {
 
     const message = i18next.t('notify.finished.add.steam.success', {
       defaultValue:
-        '{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.',
+        '{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.',
       game: props.gameInfo.title
     })
     notifyFrontend({ message, adding: true })
+    return true
   } else {
     logWarning(
       `${props.gameInfo.title} could not be added to all found Steam users.`,
@@ -342,10 +326,11 @@ async function addNonSteamGame(props: {
 
     const message = i18next.t('notify.finished.add.steam.corrupt', {
       defaultValue:
-        '{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.',
+        '{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.',
       game: props.gameInfo.title
     })
     notifyFrontend({ message, adding: true })
+    return true
   }
 }
 
@@ -361,17 +346,16 @@ async function removeNonSteamGame(props: {
 }): Promise<void> {
   const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
 
+  // we don't show a error here.
+  // If someone changes the steam path to a invalid one
+  // we just assume it is removed
   if (error) {
-    logError(error, LogPrefix.Shortcuts)
-    showErrorInFrontend({
-      gameTitle: props.gameInfo.title,
-      error,
-      adding: false
-    })
+    logWarning(error, LogPrefix.Shortcuts)
     return
   }
 
   const errors = []
+  let removed = false
   for (const folder of folders) {
     const configDir = join(props.steamUserdataDir, folder, 'config')
     const shortcutsFile = join(configDir, 'shortcuts.vdf')
@@ -411,6 +395,8 @@ async function removeNonSteamGame(props: {
       continue
     }
 
+    removed = true
+
     removeImagesFromSteam({
       steamUserConfigDir: configDir,
       appID: {
@@ -421,6 +407,12 @@ async function removeNonSteamGame(props: {
     })
   }
 
+  // game was not on any steam shortcut
+  // nothing to notify
+  if (!removed) {
+    return
+  }
+
   if (errors.length === 0) {
     logInfo(
       `${props.gameInfo.title} was successfully removed from Steam.`,
@@ -429,7 +421,7 @@ async function removeNonSteamGame(props: {
 
     const message = i18next.t('notify.finished.remove.steam.success', {
       defaultValue:
-        '{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.',
+        '{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.',
       game: props.gameInfo.title
     })
     notifyFrontend({ message, adding: false })
@@ -442,7 +434,7 @@ async function removeNonSteamGame(props: {
 
     const message = i18next.t('notify.finished.remove.steam.corrupt', {
       defaultValue:
-        '{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.',
+        '{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.',
       game: props.gameInfo.title
     })
     notifyFrontend({ message, adding: false })

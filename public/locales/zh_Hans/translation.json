@@ -63,12 +63,6 @@
                 "message": "启动失败！游戏需要网络连接才能运行。",
                 "title": "不支持离线模式。"
             },
-            "remove": {
-                "steam": {
-                    "body": "从 Steam 删除 {{game}} 失败，错误：{{newLine}} {{error}}",
-                    "title": "删除出错"
-                }
-            },
             "title": "错误",
             "uncaught-exception": {
                 "message": "发生了未捕获的异常：{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic 将被关闭！在我们的 Github 仓库报告这个异常。",
@@ -289,15 +283,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} 无法被添加到所有已找到的 Steam 用户。查看日志获取更多消息。  需要重启 Steam 更改才能生效。",
-                    "success": "{{game}} 被成功添加到 Steam。需要重启 Steam，更改才能生效。",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "已添加到 Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "无法从所有找到的 Steam 用户删除 {{game}}。 查看日志了解更多信息。  需要重启 Steam，更改才能生效。",
-                    "success": "从 Steam 成功删除了 {{game}}  需要重启 Steam，更改才能生效。",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "已从 Steam 删除"
                 }
             },

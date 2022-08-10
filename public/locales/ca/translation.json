@@ -63,12 +63,6 @@
                 "message": "L'execució del programa ha fallat. El joc necessita una connexió a Internet per funcionar.",
                 "title": "El mode sense connexió no està suportat."
             },
-            "remove": {
-                "steam": {
-                    "body": "{{game}} no s'ha pogut treure de l'Steam a causa de:{{newLine}} {{error}}",
-                    "title": "Error al treure el component"
-                }
-            },
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
@@ -289,15 +283,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} no s'ha pogut afegir a tots els usuaris de l'Steam trobats. Consulteu els registres per obtenir més informació. Cal reiniciar l'Steam per tal que els canvis tinguin efecte.",
-                    "success": "{{game}} s'ha afegit correctament a l'Steam. Cal reiniciar l'Steam per tal que els canvis tinguin efecte.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "S'ha afegit a l'Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} no s'ha pogut suprimir de tots els usuaris de l'Steam trobats. Vegeu els registres per obtenir més informació. Cal reiniciar l'Steam per tal que els canvis tinguin efecte.",
-                    "success": "{{game}} s'ha tret correctament de l'Steam. Cal reiniciar l'Steam per tal que els canvis tinguin efecte.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "S'ha tret de l'Steam"
                 }
             },
