@@ -10,6 +10,7 @@ import { join } from 'path'
 import { GameInfo } from '../../types'
 import { ShortcutsResult } from '../types'
 import { getIcon } from '../utils'
+import { notify } from '../../utils'
 import {
   prepareImagesForSteam,
   generateShortcutId,
@@ -17,7 +18,7 @@ import {
   generateShortAppId,
   removeImagesFromSteam
 } from './steamhelper'
-import { app, dialog, Notification } from 'electron'
+import { app, dialog } from 'electron'
 import { isFlatpak, isWindows, tsStore } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
@@ -66,10 +67,10 @@ function notifyFrontend(props: { message: string; adding: boolean }) {
     ? i18next.t('notify.finished.add.steam.title', 'Added to Steam')
     : i18next.t('notify.finished.remove.steam.title', 'Removed from Steam')
 
-  new Notification({
+  notify({
     body: props.message,
     title
-  }).show()
+  })
 }
 
 /**
