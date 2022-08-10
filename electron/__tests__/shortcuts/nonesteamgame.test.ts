@@ -7,7 +7,6 @@ import {
   removeNonSteamGame
 } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import { dialog } from 'electron'
-
 import { createNewLogFileAndClearOldOnces } from '../../logger/logger'
 
 jest.mock('../../logger/logger', () => {
@@ -15,6 +14,14 @@ jest.mock('../../logger/logger', () => {
   return {
     ...original,
     createNewLogFileAndClearOldOnces: jest.fn().mockReturnValue('')
+  }
+})
+
+jest.mock('../../utils', () => {
+  const original = jest.requireActual('../../utils')
+  return {
+    ...original,
+    notify: jest.fn()
   }
 })
 
