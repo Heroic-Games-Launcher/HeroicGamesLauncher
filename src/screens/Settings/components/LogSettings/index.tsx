@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { UpdateComponent } from 'src/components/UI'
 import './index.css'
 
-const { ipcRenderer } = window.require('electron')
+import { ipcRenderer } from 'src/helpers'
 
 interface LogBoxProps {
   logFileContent: string

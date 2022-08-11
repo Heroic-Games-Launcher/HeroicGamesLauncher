@@ -13,6 +13,13 @@
 
 * {
   box-sizing: border-box;
+  /* Measurements */
+}
+
+@media screen and (max-width: 730px) {
+  * {
+    --sidebar-width: calc(var(--sidebar-width) - 1em);
+  }
 }
 
 body,
@@ -30,9 +37,18 @@ html,
   color: var(--text-default);
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
-  grid-template-areas: 'sidebar content';
+  grid-template-areas: 'sidebar content' 'controller controller';
+  grid-template-rows: 1fr min-content;
   font-family: var(--content-font-family);
   background: var(--body-background);
+  --sidebar-width: 240px;
+  --content-width: calc(100vw - var(--sidebar-width));
+}
+
+.App.collapsed {
+  --sidebar-width: 68px;
+  --content-width: calc(100vw - var(--sidebar-width));
+  grid-template-columns: var(--sidebar-width) 1fr;
 }
 
 .App .content {
@@ -50,15 +66,24 @@ html,
   width: var(--content-width);
 }
 
+.App .content .UpdateComponent--topLevel.collapsed {
+  width: var(--content-width);
+}
+
+.App .controller {
+  grid-area: controller;
+  position: relative;
+}
+
 .danger {
   font-weight: 700;
   color: var(--danger);
 }
 
 .button {
+  --line-height: 17px;
   cursor: pointer;
   padding: 0.75rem;
-  border-radius: 10px;
   background: var(--primary);
   color: #1a1b1c;
   text-transform: uppercase;
@@ -66,10 +91,9 @@ html,
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-  line-height: 17px;
+  line-height: var(--line-height);
   color: #161616;
   border: none;
-  min-width: 170px;
   max-height: 40px;
   text-align: center;
   transition: 500ms;
@@ -251,6 +275,11 @@ html,
 
 .button.is-link:hover {
   color: var(--text-hover);
+}
+
+.button.is-link[disabled] {
+  color: var(--icon-disabled);
+  cursor: wait;
 }
 
 .icons > * {

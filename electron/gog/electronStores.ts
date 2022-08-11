@@ -19,5 +19,15 @@ const libraryStore = new Store({
   name: 'library',
   clearInvalidConfig: true
 })
-
-export { configStore, installedGamesStore, apiInfoCache, libraryStore }
+const syncStore = new Store({
+  cwd: 'gog_store',
+  name: 'saveTimestamps',
+  clearInvalidConfig: true
+})
+export {
+  configStore,
+  installedGamesStore,
+  apiInfoCache,
+  libraryStore,
+  syncStore
+}

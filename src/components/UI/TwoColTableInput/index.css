@@ -1,0 +1,83 @@
+.tableFieldWrapper {
+  display: grid;
+  grid-template-areas: 'label' 'table';
+}
+
+.tableFieldWrapper label {
+  grid-area: label;
+  text-align: start;
+}
+
+.tableFieldWrapper table {
+  border-collapse: collapse;
+  grid-area: table;
+  max-width: 100%;
+}
+
+.tableFieldWrapper th {
+  color: var(--accent);
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+/* using max and min width on purpose, width doesn't work as expected on these */
+.tableFieldWrapper tr {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 150px auto min-content;
+}
+
+.tableFieldWrapper td {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+
+.tableFieldWrapper td:last-child {
+  padding: 0;
+}
+
+.tableFieldWrapper td span {
+  padding: 0.3rem 0;
+  text-align: left;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.tableFieldWrapper tbody tr:nth-child(even),
+.tableFieldWrapper tbody tr:nth-child(even) span::-webkit-scrollbar {
+  background-color: var(--input-background);
+}
+
+.tableFieldWrapper th:last-child button,
+.tableFieldWrapper th:last-child button svg,
+.tableFieldWrapper td:last-child button,
+.tableFieldWrapper td:last-child button svg {
+  display: block;
+}
+
+.tableFieldWrapper tfoot tr:first-child td {
+  padding-top: 1rem;
+}
+
+.tableFieldWrapper tfoot .Field {
+  margin: 0;
+}
+
+.tableFieldWrapper tfoot .Field label {
+  display: none;
+}
+
+.tableFieldWrapper tfoot td {
+  padding: 0;
+}
+
+.tableFieldWrapper tfoot td:not(:last-child) {
+  padding-inline-end: 0.2rem;
+}
+
+.tableFieldWrapper input[type='text'] {
+  text-indent: 0.5rem;
+}

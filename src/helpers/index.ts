@@ -7,13 +7,10 @@ import {
   Runner,
   GameSettings
 } from 'src/types'
-import { IpcRenderer } from 'electron'
+
 import { install, launch, repair, updateGame } from './library'
 import fileSize from 'filesize'
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+const { ipcRenderer } = window.require('electron')
 const readFile = async (file: string) => ipcRenderer.invoke('readConfig', file)
 
 const writeConfig = async (
@@ -49,6 +46,7 @@ const isLoggedIn = async (): Promise<void> => ipcRenderer.invoke('isLoggedIn')
 const syncSaves = async (
   savesPath: string,
   appName: string,
+  runner: Runner,
   arg?: string
 ): Promise<string> => {
   const { user } = await ipcRenderer.invoke('getUserInfo')
@@ -57,7 +55,8 @@ const syncSaves = async (
   const response: string = await ipcRenderer.invoke('syncSaves', [
     arg,
     path,
-    appName
+    appName,
+    runner
   ])
   return response
 }
@@ -78,7 +77,7 @@ const getLegendaryConfig = async (): Promise<{
 
 const getGameInfo = async (
   appName: string,
-  runner: Runner = 'legendary'
+  runner: Runner
 ): Promise<GameInfo> => {
   return ipcRenderer.invoke('getGameInfo', appName, runner)
 }
@@ -98,8 +97,8 @@ const getInstallInfo = async (
   return ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
 }
 
-const handleSavePath = async (game: string) => {
-  const { cloud_save_enabled, save_folder } = await getGameInfo(game)
+const handleSavePath = async (game: string, runner: Runner) => {
+  const { cloud_save_enabled, save_folder } = await getGameInfo(game, runner)
 
   return { cloud_save_enabled, save_folder }
 }
@@ -119,18 +118,72 @@ function getProgress(progress: InstallProgress): number {
   return 0
 }
 
-async function fixSaveFolder(
+async function fixGogSaveFolder(
+  folder: string,
+  installedPlatform: string,
+  appName: string
+) {
+  const isMac = installedPlatform === 'osx'
+  const isWindows = installedPlatform === 'windows'
+  const matches = folder.match(/<\?(\w+)\?>/)
+  if (!matches) {
+    return folder
+  }
+
+  switch (matches[1]) {
+    case 'SAVED_GAMES':
+      // This path is only on Windows
+      folder = folder.replace(matches[0], '%USERPROFILE%/Saved Games')
+      break
+    case 'APPLICATION_DATA_LOCAL':
+      folder = folder.replace(matches[0], '%LOCALAPPDATA%')
+      break
+    case 'APPLICATION_DATA_LOCAL_LOW':
+      folder = folder.replace(matches[0], '%USERPROFILE%/AppData/LocalLow')
+      break
+    case 'APPLICATION_DATA_ROAMING':
+      folder = folder.replace(matches[0], '%APPDATA%')
+      break
+    case 'DOCUMENTS':
+      if (isWindows) {
+        const documentsResult = await ipcRenderer.invoke(
+          'runWineCommandForGame',
+          {
+            appName,
+            runner: 'gog',
+            command:
+              'reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" /v Personal'
+          }
+        )
+        const documentsFolder = documentsResult.stdout
+          ?.trim()
+          .split('\n')[1]
+          ?.trim()
+          .split('    ')
+          .pop()
+
+        folder = folder.replace(
+          matches[0],
+          documentsFolder ?? '%USERPROFILE%/Documents'
+        )
+      } else if (isMac) {
+        folder = folder.replace(matches[0], '$HOME/Documents')
+      }
+      break
+    case 'APPLICATION_SUPPORT':
+      folder = folder.replace(matches[0], '$HOME/Library/Application Support')
+  }
+  return folder
+}
+
+async function fixLegendarySaveFolder(
+  appName: string,
   folder: string,
   prefix: string,
   isProton: boolean
 ) {
   const { user, account_id: epicId } = await ipcRenderer.invoke('getUserInfo')
   const username = isProton ? 'steamuser' : user
-  const platform = await getPlatform()
-  const isWin = platform === 'win32'
-  let winePrefix = !isWin && prefix ? prefix.replaceAll("'", '') : ''
-  winePrefix = isProton ? `${winePrefix}/pfx` : winePrefix
-  const driveC = isWin ? 'C:' : `${winePrefix}/drive_c`
 
   folder = folder.replace('{EpicID}', epicId)
   folder = folder.replace('{EpicId}', epicId)
@@ -138,74 +191,80 @@ async function fixSaveFolder(
   if (folder.includes('locallow')) {
     return folder.replace(
       '{appdata}/../locallow',
-      `${driveC}/users/${username}/AppData/LocalLow`
+      `%USERPROFILE%/AppData/LocalLow`
     )
   }
 
   if (folder.includes('LocalLow')) {
     return folder.replace(
       '{AppData}/../LocalLow',
-      `${driveC}/users/${username}/AppData/LocalLow`
+      `%USERPROFILE%/AppData/LocalLow`
     )
   }
 
   if (folder.includes('{UserSavedGames}')) {
-    return folder.replace(
-      '{UserSavedGames}',
-      `${driveC}/users/${username}/Saved Games`
-    )
+    return folder.replace('{UserSavedGames}', `%USERPROFILE%/Saved Games`)
   }
 
   if (folder.includes('{usersavedgames}')) {
-    return folder.replace(
-      '{usersavedgames}',
-      `${driveC}/users/${username}/Saved Games`
-    )
+    return folder.replace('{usersavedgames}', `%USERPROFILE%/Saved Games`)
   }
 
   if (folder.includes('roaming')) {
     return folder.replace(
       '{appdata}/../roaming',
-      `${driveC}/users/${username}/Application Data`
+      `%USERPROFILE%/Application Data`
     )
   }
 
   if (folder.includes('{appdata}/../Roaming/')) {
     return folder.replace(
       '{appdata}/../Roaming',
-      `${driveC}/users/${username}/Application Data`
+      `%USERPROFILE%/Application Data`
     )
   }
 
   if (folder.includes('Roaming')) {
     return folder.replace(
       '{AppData}/../Roaming',
-      `${driveC}/users/${username}/Application Data`
+      `%USERPROFILE%/Application Data`
     )
   }
 
   if (folder.includes('{AppData}')) {
     return folder.replace(
       '{AppData}',
-      `${driveC}/users/${username}/Local Settings/Application Data`
+      `%USERPROFILE%/Local Settings/Application Data`
     )
   }
 
   if (folder.includes('{appdata}')) {
     return folder.replace(
       '{appdata}',
-      `${driveC}/users/${username}/Local Settings/Application Data`
+      `%USERPROFILE%/Local Settings/Application Data`
     )
   }
 
   if (folder.includes('{userdir}')) {
-    return folder.replace('{userdir}', `/users/${username}/My Documents`)
+    return folder.replace('{userdir}', `/users/${username}/Documents`)
   }
 
   if (folder.includes('{UserDir}')) {
+    const documentsResult = await ipcRenderer.invoke('runWineCommandForGame', {
+      appName,
+      runner: 'legendary',
+      command:
+        'reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" /v Personal'
+    })
+    const documentsFolder = documentsResult.stdout
+      ?.trim()
+      .split('\n')[1]
+      ?.trim()
+      .split('    ')
+      .pop()
     return folder.replace(
       '{UserDir}',
-      `${driveC}/users/${username}/My Documents`
+      documentsFolder ?? `%USERPROFILE%/Documents`
     )
   }
 
@@ -225,7 +284,8 @@ function quoteIfNecessary(stringToQuote: string) {
 
 export {
   createNewWindow,
-  fixSaveFolder,
+  fixLegendarySaveFolder,
+  fixGogSaveFolder,
   getGameInfo,
   getGameSettings,
   getInstallInfo,
@@ -250,5 +310,6 @@ export {
   syncSaves,
   updateGame,
   writeConfig,
+  ipcRenderer,
   quoteIfNecessary
 }

@@ -10,7 +10,6 @@
   appearance: none;
   height: 40px;
   background: var(--input-background);
-  border-radius: 10px;
   font: var(--font-secondary-bold);
   color: var(--text-secondary);
   padding: 0 22px;
@@ -56,6 +55,10 @@
 
 .FormControl--hasSideButton > input {
   padding-right: 64px;
+}
+
+.FormControl--hasLeftButton > input {
+  text-indent: 16px;
 }
 
 .FormControl--select > select {
@@ -122,6 +125,12 @@
   border-radius: 10px;
 }
 
+.FormControl__leftButton {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
 .FormControl__sideButton:focus-visible {
   outline: none;
   box-shadow: var(--accent) 0 0 0 2px inset;
@@ -142,6 +151,9 @@
 
 .FormControl__clear {
   cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--text);
 }
 
 .FormControl__clear:hover {
@@ -172,4 +184,17 @@
 
 .FormControl option:checked {
   color: var(--accent);
+}
+
+.FormControl__button.small {
+  max-width: fit-content;
+}
+
+.FormControl--small .FormControl__segmentedFaIcon.brands {
+  height: 24px;
+  fill: var(--text-default);
+}
+
+.FormControl--small .FormControl__segmentedFaIcon.brands.active {
+  fill: var(--accent);
 }

@@ -1,3 +1,4 @@
+import { spawnSync } from 'child_process'
 import { homedir, platform } from 'os'
 import { join } from 'path'
 import Store from 'electron-store'
@@ -12,6 +13,7 @@ import {
 import { env } from 'process'
 import { app } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
+import { GlobalConfig } from './config'
 
 const configStore = new Store({
   cwd: 'store'
@@ -30,6 +32,9 @@ const fontsStore = new Store({
 const isMac = platform() === 'darwin'
 const isWindows = platform() === 'win32'
 const isLinux = platform() === 'linux'
+const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
+const isCLIFullscreen = process.argv.includes('--fullscreen')
+const isCLINoGui = process.argv.includes('--no-gui')
 const isFlatpak = Boolean(env.FLATPAK_ID)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
@@ -45,9 +50,11 @@ const heroicConfigPath = join(heroicFolder, 'config.json')
 const heroicGamesConfigPath = join(heroicFolder, 'GamesConfig')
 const heroicToolsPath = join(heroicFolder, 'tools')
 const heroicIconFolder = join(heroicFolder, 'icons')
+const runtimePath = join(heroicToolsPath, 'runtimes')
 const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
 const heroicDefaultWinePrefix = join(homedir(), 'Games', 'Heroic', 'Prefixes')
+const heroicAnticheatDataPath = join(heroicFolder, 'areweanticheatyet.json')
 
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
@@ -57,18 +64,19 @@ const iconDark = fixAsarPath(join(__dirname, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(__dirname, 'icon-light.png'))
 const installed = join(legendaryConfigPath, 'installed.json')
 const libraryPath = join(legendaryConfigPath, 'metadata')
-const steamCompatFolder: string = getSteamCompatFolder()
 const fallBackImage = 'fallback'
 const epicLoginUrl =
   'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
 const gogLoginUrl =
   'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 const sidInfoUrl =
-  'https://github.com/flavioislima/HeroicGamesLauncher/issues/42'
+  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues/42'
 const heroicGithubURL =
-  'https://github.com/flavioislima/HeroicGamesLauncher/releases/latest'
+  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest'
+const GITHUB_API =
+  'https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases'
 const supportURL =
-  'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
+  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
 const wikiLink =
   'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
@@ -107,19 +115,45 @@ function fixAsarPath(origin: string): string {
   return origin
 }
 
-function getSteamCompatFolder() {
-  if (existsSync(`${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`)) {
-    return `${userHome}/.var/app/com.valvesoftware.Steam/.steam/steam`
+export function getSteamCompatFolder() {
+  // Paths are from https://savelocation.net/steam-game-folder
+  if (isWindows) {
+    const defaultWinPath = join(process.env['PROGRAMFILES(X86)'], 'Steam')
+    return defaultWinPath
+  } else if (isMac) {
+    return join(userHome, 'Library/Application Support/Steam')
+  } else {
+    const flatpakSteamPath = join(
+      userHome,
+      '.var/app/com.valvesoftware.Steam/.steam/steam'
+    )
+
+    if (existsSync(flatpakSteamPath)) {
+      // check if steam is really installed via flatpak
+      const { status } = spawnSync('flatpak', [
+        'info',
+        'com.valvesoftware.Steam'
+      ])
+
+      if (status === 0) {
+        return flatpakSteamPath
+      }
+    }
+    return join(userHome, '.steam/steam')
   }
-  return `${userHome}/.steam/steam`
 }
 
-export function getSteamLibraries(): string[] {
-  const vdfFile = join(steamCompatFolder, 'steamapps', 'libraryfolders.vdf')
+export async function getSteamLibraries(): Promise<string[]> {
+  const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+  const path = defaultSteamPath.replaceAll("'", '')
+  const vdfFile = join(path, 'steamapps', 'libraryfolders.vdf')
   const libraries = ['/usr/share/steam']
 
   if (existsSync(vdfFile)) {
     const json = parse(readFileSync(vdfFile, 'utf-8'))
+    if (!json.libraryfolders) {
+      return libraries
+    }
     const folders = Object.values(json.libraryfolders) as Array<{
       path: string
     }>
@@ -159,6 +193,7 @@ export {
   heroicInstallPath,
   heroicToolsPath,
   heroicDefaultWinePrefix,
+  heroicAnticheatDataPath,
   userHome,
   flatPakHome,
   kofiPage,
@@ -181,7 +216,11 @@ export {
   userInfo,
   weblateUrl,
   wikiLink,
-  steamCompatFolder,
   tsStore,
-  fontsStore
+  fontsStore,
+  isSteamDeckGameMode,
+  runtimePath,
+  isCLIFullscreen,
+  isCLINoGui,
+  GITHUB_API
 }

@@ -45,6 +45,7 @@
   width: 100px;
   margin: 20px;
   fill: #fff;
+  height: 100%;
 }
 
 .userData {
@@ -60,4 +61,7 @@
 }
 .runnerWrapper.gog {
   margin-left: 32px;
+}
+.runnerWrapper.gog svg {
+  margin-top: 14px;
 }

@@ -39,6 +39,7 @@
         "add_to_favourites": "Zu Favoriten hinzufügen",
         "cancel": "Pausieren/Abbrechen",
         "continue": "Download fortsetzen",
+        "force_update": "Update erzwingen, falls verfügbar",
         "hide_game": "Spiel ausblenden",
         "import": "Spiel importieren",
         "install": "Installieren",
@@ -61,8 +62,8 @@
         "lastPlayed": "Zuletzt gespielt",
         "neverPlayed": "Nie",
         "platform": "Zu installierende Plattformversion auswählen",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "Systemanforderungen",
+        "tools": "Werkzeuge",
         "totalPlayed": "Spielzeit"
     },
     "gamecard": {
@@ -123,10 +124,14 @@
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",
+        "addToSteam": "Zu Steam hinzufügen",
         "change": "Installationspfad ändern",
-        "log": "Neuester Log",
+        "disableEosOverlay": "EOS-Overlay deaktivieren",
+        "enableEosOverlay": "EOS-Overlay aktivieren",
         "move": "Spiel verschieben",
         "protondb": "Kompatibilität überprüfen",
+        "removeFromSteam": "Aus Steam entfernen",
+        "removeShortcut": "Verknüpfungen entfernen",
         "settings": "Einstellungen",
         "store": "Store-Seite",
         "verify": "Prüfen und reparieren"

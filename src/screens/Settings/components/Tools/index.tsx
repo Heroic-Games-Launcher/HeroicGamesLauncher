@@ -2,20 +2,19 @@ import './index.css'
 
 import React, { useState } from 'react'
 
-import { IpcRenderer } from 'electron'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { getGameInfo, quoteIfNecessary } from 'src/helpers'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
+import { ipcRenderer } from 'src/helpers'
+import { Runner } from 'src/types'
 
 interface Props {
   appName: string
+  runner: Runner
 }
 
-export default function Tools({ appName }: Props) {
+export default function Tools({ appName, runner }: Props) {
   const { t } = useTranslation()
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
@@ -32,7 +31,8 @@ export default function Tools({ appName }: Props) {
     await ipcRenderer.invoke('callTool', {
       tool,
       exe,
-      appName
+      appName,
+      runner
     })
     setWinetricksRunning(false)
     setWinecfgRunning(false)
@@ -40,7 +40,7 @@ export default function Tools({ appName }: Props) {
 
   const handleRunExe = async () => {
     let exe = ''
-    const gameinfo = await getGameInfo(appName)
+    const gameinfo = await getGameInfo(appName, runner)
     const { path } = await ipcRenderer.invoke('openDialog', {
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],

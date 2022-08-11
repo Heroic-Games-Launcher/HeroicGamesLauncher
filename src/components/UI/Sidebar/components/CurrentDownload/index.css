@@ -1,0 +1,36 @@
+.currentDownload {
+  font-size: 13px;
+  padding: 16px 0;
+  transition: 300ms;
+  margin-top: 12px;
+}
+
+.currentDownload > .gameTitle {
+  font-size: 16px;
+  transition: 600ms;
+  font-weight: 700;
+}
+
+.currentDownload:hover > .gameTitle {
+  color: var(--accent-overlay);
+  transition: 600ms;
+}
+
+.downloadStatus {
+  color: var(--success);
+  font-family: var(--actions-font-family);
+  font-style: italic;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 12px;
+}
+
+.currentDownload .MuiLinearProgress-bar1Determinate {
+  background-color: var(--success);
+}
+
+.statusIcon svg {
+  width: 27px;
+  height: auto;
+  color: var(--success);
+}

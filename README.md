@@ -29,7 +29,11 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
     - [Any OS (development environment)](#any-os-development-environment)
     - [Building with VS Code](#building-with-vs-code)
     - [Development Using a Container](#development-using-a-container)
+    - [Any OS (development environment)](#any-os-development-environment)
+    - [Building with VS Code](#building-with-vs-code)
+    - [Development Using a Container](#development-using-a-container)
   - [Screenshots](#screenshots)
+  - [Credits](#credits)
 
 ## Features available right now
 
@@ -51,6 +55,18 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Download queue
 - Add Games outside GOG and Epic Games
 - Support Other Store (Amazon Gaming, IndieGala, etc)
+- Play GOG games online
+
+## Supported Operating Systems
+
+- Linux:
+  - Ubuntu 20.04LTS or newer
+  - Fedora 33 or newer
+  - Arch Linux (Manjaro and Garuda as well)
+  - Heroic will still work on most distros but we do not give official support for them. So do not open Issues here in these cases, instead, open a Discussion or try our Discord.
+- SteamOS (downloading using Discover only)
+- Windows 8+ (might work on Win7 if you have the latest PowerShell but we do not give support for it)
+- macOS 10.15 or higher
 - Play GOG games online
 
 ## Supported Operating Systems
@@ -288,3 +304,13 @@ And you should be good to go, code and build away!
 ![gamepage](https://user-images.githubusercontent.com/26871415/168449021-222673fd-675a-4a17-9e5b-907d99919e11.png)
 
 [![jump](https://img.shields.io/badge/Back%20to%20top-%20?style=flat&color=grey&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgwVjB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTQgMTJsMS40MSAxLjQxTDExIDcuODNWMjBoMlY3LjgzbDUuNTggNS41OUwyMCAxMmwtOC04LTggOHoiLz48L3N2Zz4=)](#heroic-games-launcher)
+
+## Credits
+
+### Weblate: Localization platform
+
+- URL: https://weblate.org/en/
+
+### Those Awesome Guys: Gamepad prompts images
+
+- URL: https://thoseawesomeguys.com/prompts/

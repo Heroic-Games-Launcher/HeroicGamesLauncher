@@ -26,7 +26,10 @@ export enum LogPrefix {
   GameConfig = 'GameConfig',
   ProtocolHandler = 'ProtocolHandler',
   Frontend = 'Frontend',
-  Backend = 'Backend'
+  Backend = 'Backend',
+  Runtime = 'Runtime',
+  Shortcuts = 'Shortcuts',
+  WineTricks = 'Winetricks'
 }
 
 let longestPrefix = 0

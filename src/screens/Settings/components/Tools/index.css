@@ -32,7 +32,6 @@
   display: grid;
   border: var(--background) solid 1px;
   color: var(--text-default);
-  border-radius: 7px;
   padding: 12px 20px;
   grid-area: runexe;
   margin-top: 30px;

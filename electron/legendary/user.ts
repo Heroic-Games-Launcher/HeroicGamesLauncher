@@ -6,13 +6,13 @@ import { userInfo, configStore } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { userInfo as user } from 'os'
 import { session } from 'electron'
-import { getLegendaryCommand, runLegendaryCommand } from './library'
+import { runLegendaryCommand } from './library'
 
 export class LegendaryUser {
   public static async login(sid: string) {
     const commandParts = ['auth', '--sid', sid]
-    const command = getLegendaryCommand(commandParts)
-    logInfo(['Logging in with Legendary:', command], LogPrefix.Legendary)
+
+    logInfo('Logging in with Legendary.', LogPrefix.Legendary)
 
     try {
       await runLegendaryCommand(commandParts)
@@ -30,8 +30,8 @@ export class LegendaryUser {
 
   public static async logout() {
     const commandParts = ['auth', '--delete']
-    const command = getLegendaryCommand(commandParts)
-    logInfo(['Logging out:', command], LogPrefix.Legendary)
+
+    logInfo('Logging out.', LogPrefix.Legendary)
 
     const res = await runLegendaryCommand(commandParts)
 

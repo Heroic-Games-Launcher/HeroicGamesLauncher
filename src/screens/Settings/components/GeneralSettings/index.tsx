@@ -6,17 +6,13 @@ import ContextProvider from 'src/state/ContextProvider'
 import { InfoBox, SelectField, ToggleSwitch } from 'src/components/UI'
 import LanguageSelector from 'src/components/UI/LanguageSelector'
 
-import { IpcRenderer } from 'electron'
 import Backspace from '@mui/icons-material/Backspace'
 import { toggleControllerIsDisabled } from 'src/helpers/gamepad'
 import TextInputWithIconField from 'src/components/UI/TextInputWithIconField'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+import { ipcRenderer } from 'src/helpers'
 interface Props {
   darkTrayIcon: boolean
   defaultInstallPath: string
@@ -27,6 +23,7 @@ interface Props {
   maxWorkers: number
   showUnrealMarket: boolean
   minimizeOnLaunch: boolean
+  checkForUpdatesOnStartup: boolean
   setDefaultInstallPath: (value: string) => void
   setEgsLinkedPath: (value: string) => void
   setEgsPath: (value: string) => void
@@ -38,6 +35,7 @@ interface Props {
   toggleTray: () => void
   toggleMinimizeOnLaunch: () => void
   toggleUnrealMarket: () => void
+  toggleUpdatesOnStartup: () => void
 }
 
 export default function GeneralSettings({
@@ -60,8 +58,13 @@ export default function GeneralSettings({
   minimizeOnLaunch,
   toggleMinimizeOnLaunch,
   disableController,
-  toggleDisableController
+  toggleDisableController,
+  checkForUpdatesOnStartup,
+  toggleUpdatesOnStartup
 }: Props) {
+  const [showUpdateSettings, setShowUpdateSettings] = useState(
+    checkForUpdatesOnStartup
+  )
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
   const {
@@ -81,6 +84,12 @@ export default function GeneralSettings({
     }
     getMoreInfo()
   }, [maxWorkers])
+
+  useEffect(() => {
+    ipcRenderer
+      .invoke('showUpdateSetting')
+      .then((s) => setShowUpdateSettings(s))
+  }, [])
 
   async function handleSync() {
     setIsSyncing(true)
@@ -141,7 +150,7 @@ export default function GeneralSettings({
       <TextInputWithIconField
         label={t('setting.default-install-path')}
         htmlId="default_install_path"
-        value={defaultInstallPath.replaceAll("'", '')}
+        value={defaultInstallPath?.replaceAll("'", '')}
         placeholder={defaultInstallPath}
         onChange={(event) => setDefaultInstallPath(event.target.value)}
         icon={
@@ -222,9 +231,11 @@ export default function GeneralSettings({
                   }`}
                 </button>
               </span>
-              {!isWindows && (
-                <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
-              )}
+              <div>
+                {!isWindows && (
+                  <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
+                )}
+              </div>
             </>
           }
         />
@@ -236,6 +247,18 @@ export default function GeneralSettings({
           value={isLinked}
           handleChange={handleSync}
           title={t('setting.egs-sync')}
+        />
+      )}
+
+      {showUpdateSettings && (
+        <ToggleSwitch
+          htmlId="checkForUpdatesOnStartup"
+          value={checkForUpdatesOnStartup}
+          handleChange={toggleUpdatesOnStartup}
+          title={t(
+            'setting.checkForUpdatesOnStartup',
+            'Check for Heroic Updates on Startup'
+          )}
         />
       )}
 
@@ -312,6 +335,12 @@ export default function GeneralSettings({
           {t(
             'setting.library_top_option.recently_played',
             'Recently Played Games'
+          )}
+        </option>
+        <option value="recently_played_installed">
+          {t(
+            'setting.library_top_option.recently_played_installed',
+            'Recently Played Games (Only Installed)'
           )}
         </option>
         <option value="favourites">

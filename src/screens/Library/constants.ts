@@ -5,8 +5,15 @@ export function getLibraryTitle(
   filter: string,
   t: TFunction<'translation'>
 ) {
-  if (category === 'legendary' || category === 'gog') {
-    return t('title.allGames', 'All Games')
+  switch (category) {
+    case 'all':
+      return t('title.allGames', 'All Games')
+    case 'legendary':
+      return t('Epic Games', 'Epic Games')
+    case 'gog':
+      return t('GOG', 'GOG')
+    case 'unreal':
+      return t('title.allUnreal', 'Unreal - Everything')
   }
 
   switch (filter) {

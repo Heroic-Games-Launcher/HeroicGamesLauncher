@@ -1,8 +1,7 @@
-import { Runner } from './types'
-import { WineInstallation } from './types'
+import { WineInstallation, Release, Runner } from './types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
-import { exec } from 'child_process'
+import { exec, spawn, spawnSync } from 'child_process'
 import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
@@ -12,13 +11,15 @@ import {
   configStore,
   fixAsarPath,
   getSteamLibraries,
+  GITHUB_API,
   heroicConfigPath,
   heroicGamesConfigPath,
   icon,
+  isSteamDeckGameMode,
   isWindows
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
-import { basename, dirname, join } from 'path'
+import { basename, dirname, join, normalize } from 'path'
 import { runLegendaryCommand } from './legendary/library'
 import { runGogdlCommand } from './gog/library'
 import {
@@ -40,19 +41,19 @@ const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
 
-export function showErrorBoxModal(
+export async function showErrorBoxModal(
   window: BrowserWindow | undefined | null,
   title: string,
   message: string
 ) {
   if (window) {
-    showMessageBox(window, {
+    await showMessageBox(window, {
       type: 'error',
       title,
       message
     })
   } else {
-    showErrorBox(title, message)
+    await showErrorBox(title, message)
   }
 }
 
@@ -75,6 +76,37 @@ export function showErrorBoxModalAuto(title: string, message: string) {
  * Checks if target is newer than base.
  */
 function semverGt(target: string, base: string) {
+  if (!target || !base) {
+    return false
+  }
+  target = target.replace('v', '')
+
+  // beta to beta
+  if (base.includes('-beta') && target.includes('-beta')) {
+    const bSplit = base.split('-beta.')
+    const tSplit = target.split('-beta.')
+
+    // same major beta?
+    if (bSplit[0] === tSplit[0]) {
+      base = bSplit[1]
+      target = tSplit[1]
+      return target > base
+    } else {
+      base = bSplit[0]
+      target = tSplit[0]
+    }
+  }
+
+  // beta to stable
+  if (base.includes('-beta')) {
+    base = base.split('-beta.')[0]
+  }
+
+  // stable to beta
+  if (target.includes('-beta')) {
+    target = target.split('-beta.')[0]
+  }
+
   const [bmajor, bminor, bpatch] = base.split('.').map(Number)
   const [tmajor, tminor, tpatch] = target.split('.').map(Number)
 
@@ -192,7 +224,7 @@ export const getGogdlVersion = async () => {
 export const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Brook'
+  const STABLE_VERSION_NAME = 'Chopper'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -230,15 +262,13 @@ async function handleExit(window: BrowserWindow) {
 
     // Kill all child processes
     // This is very hacky
-    let killCommand = 'pkill --signal SIGINT '
-    if (isWindows) {
-      killCommand = 'Stop-Process -name '
-    }
     const possibleChildren = ['legendary', 'gogdl']
-    possibleChildren.forEach(async (procName) => {
-      await execAsync(killCommand + procName).catch((error) => {
-        logInfo([`Unable to kill ${procName}, ignoring.`, error])
-      })
+    possibleChildren.forEach((procName) => {
+      try {
+        killPattern(procName)
+      } catch (error) {
+        logInfo([`Unable to kill ${procName}, ignoring.`, `${error}`])
+      }
     })
   }
   app.exit()
@@ -306,7 +336,7 @@ async function errorHandler(
 
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
-      .then(({ stdout }) => {
+      .then(async ({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
           logError(noSpaceMsg, LogPrefix.Backend)
           return showErrorBoxModal(
@@ -325,7 +355,7 @@ async function errorHandler(
     if (error.includes(deletedFolderMsg) && appName) {
       const runner = r.toLocaleLowerCase() as Runner
       const game = Game.get(appName, runner)
-      const { title } = await game.getGameInfo()
+      const { title } = game.getGameInfo()
       const { response } = await showMessageBox({
         type: 'question',
         title,
@@ -341,7 +371,7 @@ async function errorHandler(
       }
     }
 
-    otherErrorMessages.forEach((message) => {
+    otherErrorMessages.forEach(async (message) => {
       if (error.includes(message)) {
         return showErrorBoxModal(
           window,
@@ -476,26 +506,34 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
   }
 }
 
-function getSteamRuntime(version: 'scout' | 'soldier'): SteamRuntime {
-  const soldier: Array<SteamRuntime> = getSteamLibraries().map((p) => {
-    if (existsSync(join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'))) {
-      return {
-        path: join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'),
-        type: 'unpackaged',
-        version: 'soldier'
+async function getSteamRuntime(
+  version: 'scout' | 'soldier'
+): Promise<SteamRuntime> {
+  const soldier: Array<SteamRuntime> = await getSteamLibraries().then((libs) =>
+    libs.map((p) => {
+      if (
+        existsSync(join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'))
+      ) {
+        return {
+          path: join(p, 'steamapps/common/SteamLinuxRuntime_soldier/run'),
+          type: 'unpackaged',
+          version: 'soldier'
+        }
       }
-    }
-  })
+    })
+  )
 
-  const scout: Array<SteamRuntime> = getSteamLibraries().map((p) => {
-    if (existsSync(join(p, 'ubuntu12_32/steam-runtime/run.sh'))) {
-      return {
-        path: join(p, 'ubuntu12_32/steam-runtime/run.sh'),
-        type: 'unpackaged',
-        version: 'scout'
+  const scout: Array<SteamRuntime> = await getSteamLibraries().then((libs) =>
+    libs.map((p) => {
+      if (existsSync(join(p, 'ubuntu12_32/steam-runtime/run.sh'))) {
+        return {
+          path: join(p, 'ubuntu12_32/steam-runtime/run.sh'),
+          type: 'unpackaged',
+          version: 'scout'
+        }
       }
-    }
-  })
+    })
+  )
 
   if (version === 'soldier') {
     if (soldier.length) {
@@ -543,14 +581,184 @@ const formatEpicStoreUrl = (title: string) => {
 }
 
 function quoteIfNecessary(stringToQuote: string) {
-  if (
-    (stringToQuote.charAt(0) !== '"' ||
-      stringToQuote.charAt(stringToQuote.length - 1) !== '"') &&
+  const shouldQuote =
+    typeof stringToQuote === 'string' &&
+    !(stringToQuote.startsWith('"') && stringToQuote.endsWith('"')) &&
     stringToQuote.includes(' ')
-  ) {
+
+  if (shouldQuote) {
     return `"${stringToQuote}"`
   }
-  return stringToQuote
+
+  return String(stringToQuote)
+}
+
+function removeQuoteIfNecessary(stringToUnquote: string) {
+  if (
+    stringToUnquote &&
+    stringToUnquote.startsWith('"') &&
+    stringToUnquote.endsWith('"')
+  ) {
+    return stringToUnquote.replace(/^"+/, '').replace(/"+$/, '')
+  }
+
+  return String(stringToUnquote)
+}
+
+function killPattern(pattern: string) {
+  logInfo(['Trying to kill', pattern], LogPrefix.Backend)
+  let ret
+  if (isWindows) {
+    ret = spawnSync('Stop-Process', ['-name', pattern], {
+      shell: 'powershell.exe'
+    })
+  } else {
+    ret = spawnSync('pkill', ['-f', pattern])
+  }
+  logInfo(['Killed', pattern], LogPrefix.Backend)
+  return ret
+}
+
+/**
+ * Detects MS Visual C++ Redistributable and prompts for its installation if it's not found
+ * Many games require this while not actually specifying it, so it's good to have
+ *
+ * Only works on Windows of course
+ */
+function detectVCRedist(mainWindow: BrowserWindow) {
+  if (!isWindows) {
+    return
+  }
+
+  const detectedVCRInstallations: string[] = []
+  let stderr = ''
+  const child = spawn('wmic', [
+    'path',
+    'Win32_Product',
+    'WHERE',
+    'Name LIKE "Microsoft Visual C++ 2022%"',
+    'GET',
+    'Name'
+  ])
+  child.stdout.on('data', (data: Buffer) => {
+    // WMIC might push more than one line at a time
+    const splitData = data.toString().split('\n')
+    for (const installation of splitData) {
+      if (installation) {
+        detectedVCRInstallations.push(installation)
+      }
+    }
+  })
+  child.stderr.on('data', (data: Buffer) => {
+    stderr += data.toString()
+  })
+  child.on('close', async (code) => {
+    if (code) {
+      logError(
+        `Failed to check for VCRuntime installations\n${stderr}`,
+        LogPrefix.Backend
+      )
+    }
+    // VCR installers install both the "Minimal" and "Additional" runtime, and we have 2 installers (x86 and x64) -> 4 installations in total
+    if (detectedVCRInstallations.length < 4) {
+      const { response } = await dialog.showMessageBox(mainWindow, {
+        title: t('box.vcruntime.notfound.title', 'VCRuntime not installed'),
+        message: t(
+          'box.vcruntime.notfound.message',
+          'The Microsoft Visual C++ Runtimes are not installed, which are required by some games'
+        ),
+        buttons: [t('box.downloadNow', 'Download now'), t('box.ok', 'Ok')]
+      })
+
+      if (response === 0) {
+        openUrlOrFile('https://aka.ms/vs/17/release/vc_redist.x86.exe')
+        openUrlOrFile('https://aka.ms/vs/17/release/vc_redist.x64.exe')
+        dialog.showMessageBox(mainWindow, {
+          message: t(
+            'box.vcruntime.install.message',
+            'The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions.'
+          )
+        })
+      }
+    } else {
+      logInfo('VCRuntime is installed', LogPrefix.Backend)
+    }
+  })
+}
+
+export function getFirstExistingParentPath(directoryPath: string): string {
+  let parentDirectoryPath = directoryPath
+  let parentDirectoryFound = existsSync(parentDirectoryPath)
+
+  while (!parentDirectoryFound) {
+    parentDirectoryPath = normalize(parentDirectoryPath + '/..')
+    parentDirectoryFound = existsSync(parentDirectoryPath)
+  }
+
+  return parentDirectoryPath !== '.' ? parentDirectoryPath : ''
+}
+
+export const getLatestReleases = async (): Promise<Release[]> => {
+  const newReleases: Release[] = []
+  logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
+
+  try {
+    const { data: releases } = await axios.default.get(GITHUB_API)
+    const latestStable: Release = releases.filter(
+      (rel: Release) => rel.prerelease === false
+    )[0]
+    const latestBeta: Release = releases.filter(
+      (rel: Release) => rel.prerelease === true
+    )[0]
+
+    const current = app.getVersion()
+
+    const thereIsNewStable = semverGt(latestStable.tag_name, current)
+    const thereIsNewBeta = semverGt(latestBeta.tag_name, current)
+
+    if (thereIsNewStable) {
+      newReleases.push({ ...latestStable, type: 'stable' })
+    }
+    if (thereIsNewBeta) {
+      newReleases.push({ ...latestBeta, type: 'beta' })
+    }
+
+    if (newReleases.length) {
+      notify({
+        title: t('Update Available!'),
+        body: t(
+          'notify.new-heroic-version',
+          'A new Heroic version was released!'
+        )
+      })
+    }
+
+    return newReleases
+  } catch (error) {
+    logError(
+      ['Error when checking for Heroic updates', `${error}`],
+      LogPrefix.Backend
+    )
+    return []
+  }
+}
+
+type NotifyType = {
+  title: string
+  body: string
+}
+
+export function notify({ body, title }: NotifyType) {
+  if (Notification.isSupported() && !isSteamDeckGameMode) {
+    const mainWindow = BrowserWindow.getAllWindows()[0]
+    const notify = new Notification({
+      body,
+      title
+    })
+
+    notify.on('click', () => mainWindow.show())
+    notify.show()
+  }
 }
 
 export {
@@ -574,5 +782,8 @@ export {
   searchForExecutableOnPath,
   getSteamRuntime,
   constructAndUpdateRPC,
-  quoteIfNecessary
+  quoteIfNecessary,
+  removeQuoteIfNecessary,
+  killPattern,
+  detectVCRedist
 }

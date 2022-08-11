@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState, MouseEvent } from 'react'
 
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
-import { IpcRenderer } from 'electron'
 import {
   getGameInfo,
   getInstallInfo,
@@ -21,7 +20,13 @@ import { UpdateComponent, SelectField } from 'src/components/UI'
 
 import { updateGame } from 'src/helpers'
 
-import { AppSettings, GameInfo, GameStatus, InstallInfo } from 'src/types'
+import {
+  AppSettings,
+  GameInfo,
+  GameStatus,
+  GOGCloudSavesLocation,
+  InstallInfo
+} from 'src/types'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -30,17 +35,15 @@ import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'src/screens/Library/components'
 import { install } from 'src/helpers/library'
-import EpicLogo from 'src/assets/epic-logo.svg'
-import GOGLogo from 'src/assets/gog-logo.svg'
+import { ReactComponent as EpicLogo } from 'src/assets/epic-logo.svg'
+import { ReactComponent as GOGLogo } from 'src/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'src/hooks/hasProgress'
 import ErrorComponent from 'src/components/UI/ErrorComponent'
+import Anticheat from 'src/components/UI/Anticheat'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+import { ipcRenderer } from 'src/helpers'
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
 export default function GamePage(): JSX.Element | null {
@@ -60,8 +63,10 @@ export default function GamePage(): JSX.Element | null {
   const { status } = gameStatus || {}
   const [progress, previousProgress] = hasProgress(appName)
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
+  const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
+  const [gogSaves, setGOGSaves] = useState<GOGCloudSavesLocation[]>([])
   const [isSyncing, setIsSyncing] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState({} as InstallInfo)
   const [launchArguments, setLaunchArguments] = useState('')
@@ -116,9 +121,10 @@ export default function GamePage(): JSX.Element | null {
           })
         if (newInfo?.cloud_save_enabled) {
           try {
-            const { autoSyncSaves, savesPath }: AppSettings =
+            const { autoSyncSaves, savesPath, gogSaves }: AppSettings =
               await ipcRenderer.invoke('requestSettings', appName)
             setAutoSyncSaves(autoSyncSaves)
+            setGOGSaves(gogSaves ?? [])
             return setSavesPath(savesPath)
           } catch (error) {
             setHasError({ error: true, message: error })
@@ -134,6 +140,7 @@ export default function GamePage(): JSX.Element | null {
   }, [isInstalling, isPlaying, appName, epic, gog])
 
   async function handleUpdate() {
+    setUpdateRequested(true)
     await handleGameStatus({
       appName,
       runner: gameInfo.runner,
@@ -141,13 +148,14 @@ export default function GamePage(): JSX.Element | null {
     })
     await updateGame(appName, gameInfo.runner)
     await handleGameStatus({ appName, runner: gameInfo.runner, status: 'done' })
+    setUpdateRequested(false)
   }
 
   function handleModal() {
     setShowModal({ game: appName, show: true })
   }
 
-  const hasUpdate = gameUpdates?.includes(appName)
+  let hasUpdate = false
 
   if (gameInfo && gameInfo.install) {
     const {
@@ -168,6 +176,9 @@ export default function GamePage(): JSX.Element | null {
       cloud_save_enabled,
       canRunOffline
     }: GameInfo = gameInfo
+
+    hasUpdate = is_installed && gameUpdates?.includes(appName)
+
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
       size(Number(gameInstallInfo?.manifest?.download_size))
@@ -181,9 +192,10 @@ export default function GamePage(): JSX.Element | null {
     const isLinuxNative = installPlatform === 'linux'
     const isNative = isWin || isMacNative || isLinuxNative
     const pathname = isNative
-      ? `/settings/${appName}/other`
-      : `/settings/${appName}/wine`
+      ? `/settings/${runner}/${appName}/other`
+      : `/settings/${runner}/${appName}/wine`
 
+    const showCloudSaveInfo = cloud_save_enabled && is_game && !isLinuxNative
     /*
     Other Keys:
     t('box.stopInstall.title')
@@ -225,11 +237,7 @@ export default function GamePage(): JSX.Element | null {
               <ArrowCircleLeftIcon />
             </NavLink>
             <div className="store-icon">
-              <img
-                src={runner === 'legendary' ? EpicLogo : GOGLogo}
-                className={runner === 'legendary' ? '' : 'gogIcon'}
-                alt=""
-              />
+              {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
             </div>
             <div className={`gameTabs ${tabToShow}`}>
               {is_game && (
@@ -264,7 +272,7 @@ export default function GamePage(): JSX.Element | null {
                             : ''
                           : ''}
                       </div>
-                      {is_installed && cloud_save_enabled && is_game && (
+                      {is_installed && showCloudSaveInfo && (
                         <div
                           style={{
                             color: autoSyncSaves ? '#07C5EF' : ''
@@ -355,6 +363,7 @@ export default function GamePage(): JSX.Element | null {
                         ))}
                       </SelectField>
                     )}
+                    <Anticheat gameInfo={gameInfo} />
                     <div className="buttonsWrapper">
                       {is_installed && is_game && (
                         <>
@@ -399,7 +408,7 @@ export default function GamePage(): JSX.Element | null {
                     </div>
                     {is_installed && (
                       <NavLink
-                        to={`/settings/${appName}/log`}
+                        to={`/settings/${runner}/${appName}/log`}
                         state={{
                           fromGameCard: false,
                           runner,
@@ -426,6 +435,9 @@ export default function GamePage(): JSX.Element | null {
                     title={title}
                     storeUrl={gameInfo.store_url}
                     runner={gameInfo.runner}
+                    handleUpdate={handleUpdate}
+                    disableUpdate={updateRequested || isUpdating}
+                    steamImageUrl={gameInfo.art_cover}
                   />
                   <GameRequirements gameInfo={gameInfo} />
                 </>
@@ -534,6 +546,16 @@ export default function GamePage(): JSX.Element | null {
     return t('button.install')
   }
 
+  async function doAutoSyncSaves() {
+    setIsSyncing(true)
+    if (gameInfo.runner === 'legendary') {
+      await syncSaves(savesPath, appName, gameInfo.runner)
+    } else if (gameInfo.runner === 'gog') {
+      await ipcRenderer.invoke('syncGOGSaves', gogSaves, appName, '')
+    }
+    setIsSyncing(false)
+  }
+
   function handlePlay() {
     return async () => {
       if (status === 'playing' || status === 'updating') {
@@ -541,9 +563,7 @@ export default function GamePage(): JSX.Element | null {
       }
 
       if (autoSyncSaves) {
-        setIsSyncing(true)
-        await syncSaves(savesPath, appName)
-        setIsSyncing(false)
+        await doAutoSyncSaves()
       }
       await launch({
         appName,
@@ -554,9 +574,7 @@ export default function GamePage(): JSX.Element | null {
       })
 
       if (autoSyncSaves) {
-        setIsSyncing(true)
-        await syncSaves(savesPath, appName)
-        setIsSyncing(false)
+        await doAutoSyncSaves()
       }
     }
   }

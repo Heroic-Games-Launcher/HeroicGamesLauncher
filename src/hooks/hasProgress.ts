@@ -1,11 +1,7 @@
-import { IpcRenderer } from 'electron'
 import { useEffect, useState } from 'react'
 import { GameStatus, InstallProgress } from 'src/types'
 
-const { ipcRenderer } = window.require('electron') as {
-  ipcRenderer: IpcRenderer
-}
-
+import { ipcRenderer } from 'src/helpers'
 const storage: Storage = window.localStorage
 
 export const hasProgress = (appName: string) => {

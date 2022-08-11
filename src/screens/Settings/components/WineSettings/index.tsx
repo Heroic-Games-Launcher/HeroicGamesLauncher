@@ -1,3 +1,5 @@
+import './index.css'
+
 import React, { useContext, useEffect, useState } from 'react'
 
 import { Path, WineInstallation } from 'src/types'
@@ -18,14 +20,13 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { Tooltip } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { configStore } from 'src/helpers/electronStores'
 
-const { ipcRenderer } = window.require('electron')
+import { ipcRenderer } from 'src/helpers'
 
 interface Props {
   altWine: WineInstallation[]
-  autoInstallDxvk: boolean
-  autoInstallVkd3d: boolean
   customWinePaths: string[]
   isDefault: boolean
   maxSharpness: number
@@ -37,8 +38,6 @@ interface Props {
   setDefaultWinePrefix: (value: string) => void
   setFsrSharpness: (value: number) => void
   setWineVersion: (wine: WineInstallation) => void
-  toggleAutoInstallDxvk: () => void
-  toggleAutoInstallVkd3d: () => void
   toggleFSR: () => void
   toggleResizableBar: () => void
   wineCrossoverBottle: string
@@ -50,6 +49,8 @@ interface Props {
   toggleEsync: () => void
   enableFsync: boolean
   toggleFsync: () => void
+  preferSystemLibs: boolean
+  togglePreferSystemLibs: () => void
 }
 
 export default function WineSettings({
@@ -59,12 +60,8 @@ export default function WineSettings({
   setAltWine,
   wineVersion,
   altWine,
-  toggleAutoInstallDxvk,
-  toggleAutoInstallVkd3d,
   enableFSR,
   toggleFSR,
-  autoInstallDxvk,
-  autoInstallVkd3d,
   customWinePaths,
   setCustomWinePaths,
   wineCrossoverBottle,
@@ -79,7 +76,9 @@ export default function WineSettings({
   enableFsync,
   toggleFsync,
   defaultWinePrefix,
-  setDefaultWinePrefix
+  setDefaultWinePrefix,
+  preferSystemLibs,
+  togglePreferSystemLibs
 }: Props) {
   const [selectedPath, setSelectedPath] = useState('')
   const { platform } = useContext(ContextProvider)
@@ -132,7 +131,7 @@ export default function WineSettings({
 
   return (
     <>
-      <h3 className="settingSubheader">Wine</h3>
+      <h3 className="settingSubheader">{isLinux ? 'Wine' : 'Crossover'}</h3>
 
       {isLinux && isDefault && (
         <TextInputWithIconField
@@ -199,7 +198,7 @@ export default function WineSettings({
         />
       )}
 
-      {isDefault && (
+      {isDefault && isLinux && (
         <SelectField
           label={t('setting.customWineProton', 'Custom Wine/Proton Paths')}
           htmlId="selectWinePath"
@@ -253,7 +252,11 @@ export default function WineSettings({
       )}
 
       <SelectField
-        label={t('setting.wineversion')}
+        label={
+          isLinux
+            ? t('setting.wineversion')
+            : t('setting.crossover-version', 'Crossover Version')
+        }
         htmlId="setWineVersion"
         onChange={(event) =>
           setWineVersion(
@@ -262,23 +265,31 @@ export default function WineSettings({
         }
         value={wineVersion.name}
         afterSelect={
-          <InfoBox text="infobox.help">
-            <span>{t('help.wine.part1')}</span>
-            <ul>
-              <i>
-                <li>~/.config/heroic/tools/wine</li>
-                <li>~/.config/heroic/tools/proton</li>
-                <li>~/.steam/root/compatibilitytools.d</li>
-                <li>~/.steam/steamapps/common</li>
-                <li>~/.local/share/lutris/runners/wine</li>
-                <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
-                <li>/usr/share/steam</li>
-                <li>Everywhere on the system (CrossOver Mac)</li>
-                <li>/opt/cxoffice (CrossOver Linux)</li>
-              </i>
-            </ul>
-            <span>{t('help.wine.part2')}</span>
-          </InfoBox>
+          <>
+            {isLinux && (
+              <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
+                {wineVersion.bin}
+              </InfoBox>
+            )}
+            {isLinux && (
+              <InfoBox text="infobox.help">
+                <span>{t('help.wine.part1')}</span>
+                <ul>
+                  <i>
+                    <li>~/.config/heroic/tools/wine</li>
+                    <li>~/.config/heroic/tools/proton</li>
+                    <li>~/.steam/root/compatibilitytools.d</li>
+                    <li>~/.steam/steamapps/common</li>
+                    <li>~/.local/share/lutris/runners/wine</li>
+                    <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
+                    <li>/usr/share/steam</li>
+                    <li>Everywhere on the system (CrossOver Mac)</li>
+                  </i>
+                </ul>
+                <span>{t('help.wine.part2')}</span>
+              </InfoBox>
+            )}
+          </>
         }
       >
         {altWine.map(({ name }) => (
@@ -296,46 +307,47 @@ export default function WineSettings({
       )}
 
       {isLinux && !isProton && (
-        <ToggleSwitch
-          htmlId="autodxvk"
-          value={autoInstallDxvk}
-          handleChange={() => {
-            const action = autoInstallDxvk ? 'restore' : 'backup'
-            ipcRenderer.send('toggleDXVK', [
-              { winePrefix, winePath: wineVersion.bin },
-              action
-            ])
-            return toggleAutoInstallDxvk()
-          }}
-          title={t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
-        />
+        <div className="toggleRow">
+          <ToggleSwitch
+            htmlId="systemLibsToggle"
+            value={preferSystemLibs || false}
+            handleChange={togglePreferSystemLibs}
+            title={t('setting.preferSystemLibs', 'Prefer system libraries')}
+          />
+
+          <FontAwesomeIcon
+            className="helpIcon"
+            icon={faCircleInfo}
+            title={t(
+              'help.preferSystemLibs',
+              'Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.'
+            )}
+          />
+        </div>
       )}
 
-      {isLinux && !isProton && (
-        <ToggleSwitch
-          htmlId="autovkd3d"
-          value={autoInstallVkd3d}
-          handleChange={() => {
-            const action = autoInstallVkd3d ? 'restore' : 'backup'
-            ipcRenderer.send('toggleVKD3D', [
-              { winePrefix, winePath: wineVersion.bin },
-              action
-            ])
-            return toggleAutoInstallVkd3d()
-          }}
-          title={t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')}
-        />
-      )}
+      {isLinux && (
+        <div className="toggleRow">
+          <ToggleSwitch
+            htmlId="enableFSR"
+            value={enableFSR || false}
+            handleChange={toggleFSR}
+            title={t(
+              'setting.enableFSRHack',
+              'Enable FSR Hack (Wine version needs to support it)'
+            )}
+          />
 
-      <ToggleSwitch
-        htmlId="enableFSR"
-        value={enableFSR || false}
-        handleChange={toggleFSR}
-        title={t(
-          'setting.enableFSRHack',
-          'Enable FSR Hack (Wine version needs to support it)'
-        )}
-      />
+          <FontAwesomeIcon
+            className="helpIcon"
+            icon={faCircleInfo}
+            title={t(
+              'help.amdfsr',
+              "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance."
+            )}
+          />
+        </div>
+      )}
 
       {enableFSR && (
         <SelectField
@@ -353,29 +365,62 @@ export default function WineSettings({
 
       {isLinux && (
         <>
-          <ToggleSwitch
-            htmlId="resizableBar"
-            value={enableResizableBar || false}
-            handleChange={toggleResizableBar}
-            title={t(
-              'setting.resizableBar',
-              'Enable Resizable BAR (NVIDIA RTX only)'
-            )}
-          />
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="resizableBar"
+              value={enableResizableBar || false}
+              handleChange={toggleResizableBar}
+              title={t(
+                'setting.resizableBar',
+                'Enable Resizable BAR (NVIDIA RTX only)'
+              )}
+            />
 
-          <ToggleSwitch
-            htmlId="esyncToggle"
-            value={enableEsync || false}
-            handleChange={toggleEsync}
-            title={t('setting.esync', 'Enable Esync')}
-          />
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.resizablebar',
+                "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games."
+              )}
+            />
+          </div>
 
-          <ToggleSwitch
-            htmlId="fsyncToggle"
-            value={enableFsync || false}
-            handleChange={toggleFsync}
-            title={t('setting.fsync', 'Enable Fsync')}
-          />
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="esyncToggle"
+              value={enableEsync || false}
+              handleChange={toggleEsync}
+              title={t('setting.esync', 'Enable Esync')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.esync',
+                'Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.'
+              )}
+            />
+          </div>
+
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="fsyncToggle"
+              value={enableFsync || false}
+              handleChange={toggleFsync}
+              title={t('setting.fsync', 'Enable Fsync')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.fsync',
+                'Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.'
+              )}
+            />
+          </div>
         </>
       )}
     </>

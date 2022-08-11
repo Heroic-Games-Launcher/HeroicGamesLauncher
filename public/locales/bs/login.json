@@ -1,0 +1,20 @@
+{
+    "button": {
+        "login": "Prijavite se"
+    },
+    "message": {
+        "part1": "Da biste se prijavili i instalirali svoje igre, prvo morate slijediti korake u nastavku:",
+        "part2": "Otvorite",
+        "part3": "Epic Trgovina ovdje",
+        "part4": ", prijavite se na svoj račun i kopirajte svoj",
+        "part5": "SID informacijski broj",
+        "part7": "SID broj",
+        "part6": "Zalijepite svoj",
+        "part8": "u polju za unos ispod i kliknite na dugme za prijavu."
+    },
+    "status": {
+        "error": "Greška",
+        "loading": "Učitavanje liste video igara, sačekajte"
+    },
+    "welcome": "Dobrodošli!"
+}

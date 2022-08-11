@@ -21,7 +21,8 @@ import {
   isFlatpak,
   isMac,
   isWindows,
-  getSteamLibraries
+  getSteamLibraries,
+  getSteamCompatFolder
 } from './constants'
 import { execAsync } from './utils'
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -156,55 +157,33 @@ abstract class GlobalConfig {
   public async getCrossover(): Promise<Set<WineInstallation>> {
     const crossover = new Set<WineInstallation>()
 
-    if (isMac) {
-      await execAsync(
-        'mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"'
-      ).then(async ({ stdout }) => {
-        stdout.split('\n').forEach((crossoverMacPath) => {
-          const infoFilePath = join(crossoverMacPath, 'Contents', 'Info.plist')
-          if (crossoverMacPath && existsSync(infoFilePath)) {
-            const info = plistParse(
-              readFileSync(infoFilePath, 'utf-8')
-            ) as PlistObject
-            const version = info['CFBundleShortVersionString'] || ''
-            const crossoverWineBin = join(
-              crossoverMacPath,
-              'Contents',
-              'SharedSupport',
-              'CrossOver',
-              'bin',
-              'wine'
-            )
-            crossover.add({
-              bin: crossoverWineBin,
-              name: `CrossOver - ${version}`,
-              type: 'crossover',
-              ...this.getWineExecs(crossoverWineBin)
-            })
-          }
-        })
-      })
-    } else if (!isWindows && !isFlatpak) {
-      // Linux
-      const crossoverWineBin = '/opt/cxoffice/bin/wine'
-      if (!existsSync(crossoverWineBin)) {
-        return crossover
-      }
-      const crossoverVersion = (
-        await execAsync(crossoverWineBin + ' --version')
-      ).stdout
-        .toString()
-        .split('\n')[2]
-        .split(':')[1]
-        .trim()
-      crossover.add({
-        bin: crossoverWineBin,
-        name: `CrossOver - ${crossoverVersion}`,
-        type: 'crossover',
-        ...this.getWineExecs(crossoverWineBin)
-      })
+    if (!isMac) {
+      return crossover
     }
 
+    await execAsync(
+      'mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"'
+    ).then(async ({ stdout }) => {
+      stdout.split('\n').forEach((crossoverMacPath) => {
+        const infoFilePath = join(crossoverMacPath, 'Contents/Info.plist')
+        if (crossoverMacPath && existsSync(infoFilePath)) {
+          const info = plistParse(
+            readFileSync(infoFilePath, 'utf-8')
+          ) as PlistObject
+          const version = info['CFBundleShortVersionString'] || ''
+          const crossoverWineBin = join(
+            crossoverMacPath,
+            'Contents/SharedSupport/CrossOver/bin/wine'
+          )
+          crossover.add({
+            bin: crossoverWineBin,
+            name: `CrossOver - ${version}`,
+            type: 'crossover',
+            ...this.getWineExecs(crossoverWineBin)
+          })
+        }
+      })
+    })
     return crossover
   }
 
@@ -216,6 +195,15 @@ abstract class GlobalConfig {
   public async getAlternativeWine(
     scanCustom = true
   ): Promise<WineInstallation[]> {
+    if (isMac) {
+      // On Mac, prioritise CX installations since Wine/Proton does not work
+      const crossover = await this.getCrossover()
+
+      if (crossover.size) {
+        return [...crossover]
+      }
+    }
+
     if (!existsSync(`${heroicToolsPath}/wine`)) {
       mkdirSync(`${heroicToolsPath}/wine`, { recursive: true })
     }
@@ -232,6 +220,7 @@ abstract class GlobalConfig {
         bin: wineBin,
         name: `Wine - ${version}`,
         type: 'wine',
+        ...this.getWineLibs(wineBin),
         ...this.getWineExecs(wineBin)
       })
     })
@@ -246,6 +235,7 @@ abstract class GlobalConfig {
           bin: wineBin,
           name: `Wine - ${version}`,
           type: 'wine',
+          ...this.getWineLibs(wineBin),
           ...this.getWineExecs(wineBin)
         })
       })
@@ -253,12 +243,14 @@ abstract class GlobalConfig {
 
     const protonPaths = [`${heroicToolsPath}/proton/`]
 
-    getSteamLibraries().forEach((path) => {
-      protonPaths.push(`${path}/steam/steamapps/common`)
-      protonPaths.push(`${path}/steamapps/common`)
-      protonPaths.push(`${path}/root/compatibilitytools.d`)
-      protonPaths.push(`${path}/compatibilitytools.d`)
-      return
+    await getSteamLibraries().then((libs) => {
+      libs.forEach((path) => {
+        protonPaths.push(`${path}/steam/steamapps/common`)
+        protonPaths.push(`${path}/steamapps/common`)
+        protonPaths.push(`${path}/root/compatibilitytools.d`)
+        protonPaths.push(`${path}/compatibilitytools.d`)
+        return
+      })
     })
 
     const proton = new Set<WineInstallation>()
@@ -280,8 +272,6 @@ abstract class GlobalConfig {
       }
     })
 
-    const crossover = await this.getCrossover()
-
     const defaultWineSet = new Set<WineInstallation>()
     const defaultWine = await this.getDefaultWine()
     if (!defaultWine.name.includes('Not Found')) {
@@ -293,17 +283,7 @@ abstract class GlobalConfig {
       customWineSet = await this.getCustomWinePaths()
     }
 
-    // On Mac, prioritise CX installations since Wine/Proton does not work
-    if (isMac && crossover.size) {
-      return [...crossover, ...customWineSet]
-    }
-    return [
-      ...defaultWineSet,
-      ...altWine,
-      ...proton,
-      ...crossover,
-      ...customWineSet
-    ]
+    return [...defaultWineSet, ...altWine, ...proton, ...customWineSet]
   }
 
   /**
@@ -324,6 +304,28 @@ abstract class GlobalConfig {
     const potWinebootPath = join(wineDir, 'wineboot')
     if (existsSync(potWinebootPath)) {
       ret.wineboot = potWinebootPath
+    }
+    return ret
+  }
+
+  /**
+   * Checks if a Wine version has lib/lib32 folders and returns the path to those if they're present
+   * @param wineBin The unquoted path to the Wine binary ('wine')
+   * @returns The paths to lib and lib32, if present
+   */
+  public getWineLibs(wineBin: string): {
+    lib: string
+    lib32: string
+  } {
+    const wineDir = dirname(wineBin)
+    const ret = { lib: '', lib32: '' }
+    const potLib32Path = join(wineDir, '../lib')
+    if (existsSync(potLib32Path)) {
+      ret.lib32 = potLib32Path
+    }
+    const potLibPath = join(wineDir, '../lib64')
+    if (existsSync(potLibPath)) {
+      ret.lib = potLibPath
     }
     return ret
   }
@@ -475,15 +477,18 @@ class GlobalConfigV0 extends GlobalConfig {
       addStartMenuShortcuts: false,
       autoInstallDxvk: false,
       autoInstallVkd3d: false,
+      preferSystemLibs: false,
       checkForUpdatesOnStartup: !isFlatpak,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
+      defaultSteamPath: getSteamCompatFolder(),
       defaultWinePrefix: heroicDefaultWinePrefix,
       language: 'en',
       maxWorkers: 0,
       minimizeOnLaunch: false,
       nvidiaPrime: false,
-      otherOptions: '',
+      enviromentOptions: [],
+      wrapperOptions: [],
       showUnrealMarket: false,
       showFps: false,
       useGameMode: false,

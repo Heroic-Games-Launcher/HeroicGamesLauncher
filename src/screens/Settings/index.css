@@ -207,3 +207,22 @@ a {
   max-width: none;
   margin: 0;
 }
+
+.eosSettings {
+  text-align: left;
+}
+
+.settingsWrapper .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.infoBox.saves-warning {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.infoBox.saves-warning svg {
+  padding-right: 10px;
+}

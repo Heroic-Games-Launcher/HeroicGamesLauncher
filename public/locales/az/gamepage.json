@@ -1,0 +1,140 @@
+{
+    "box": {
+        "no": "YOX",
+        "change": {
+            "message": "Bu oyunun quraşdırılma yerini dəyişəcək, əminsinizmi?",
+            "path": "Yeni quraşdırma yolunu seçin",
+            "title": "Oyunların quraşdırılması yolunu dəyişdirin"
+        },
+        "choose": "Seçin",
+        "importpath": "Import etmək üçün Oyun Qovluğu seçin",
+        "move": {
+            "message": "Bu uzun müddət çəkə bilər, əminsinizmi?",
+            "path": "Hara köçmək istədiyinizi seçin",
+            "title": "Move Oyun Quraşdırması"
+        },
+        "repair": {
+            "message": "Bu oyunu təmir etməyə cəhd etmək istəyirsiniz? Bu uzun müddət çəkə bilər.",
+            "title": "Doğrulayın və Təmir edin"
+        },
+        "stopInstall": {
+            "keepInstalling": "Quraşdırmağa davam edin",
+            "message": "Endirilmiş faylları SAXLAMAQ istəyirsiniz?",
+            "title": "Quraşdırmanı dayandırın"
+        },
+        "uninstall": {
+            "checkbox": "Siz də prefiksi silmək istərdinizmi? Bu geri qaytarıla bilməz.",
+            "checkbox_prefix": "Prefiks",
+            "message": "Bu oyunu silmək istəyirsiniz?",
+            "title": "Silin"
+        },
+        "update": {
+            "message": "Bu oyunun yeniləməsi var, yeniləmə indi tətbiq edilsin?",
+            "title": "Oyun yeniləməyə ehtiyacı var"
+        },
+        "wineprefix": "WinePrefix Qovluğunu seçin",
+        "yes": "HƏ"
+    },
+    "submenu": {
+        "move": "Hərəkət Oyunu",
+        "protondb": "Uyğunluğu yoxlayın",
+        "removeFromSteam": "Buxardan çıxarın",
+        "removeShortcut": "Qısayolları silin",
+        "settings": "Parametrlər",
+        "store": "Mağaza Səhifəsi",
+        "verify": "Doğrulayın və Təmir edin",
+        "addShortcut": "Qısayol əlavə edin",
+        "addToSteam": "Steam-ə əlavə edin",
+        "change": "Quraşdırma yolunu dəyişdirin",
+        "disableEosOverlay": "EOS Overlay'ı söndürün",
+        "enableEosOverlay": "EOS Overlay-ı aktivləşdirin",
+        "log": "Ən son Giriş"
+    },
+    "button": {
+        "add_to_favourites": "Sevimlilərə əlavə edin",
+        "cancel": "Pauza/Ləğv et",
+        "continue": "Yükləməyə davam edin",
+        "force_update": "Mövcuddursa Yeniləməni məcbur edin",
+        "hide_game": "Oyunu Gizlət",
+        "import": "İdxal Oyunu",
+        "install": "Yüklemek",
+        "remove_from_favourites": "Sevimlilərdən Sil",
+        "unhide_game": "Oyunu Gizlət",
+        "uninstall": "Silin",
+        "update": "Yeniləyin"
+    },
+    "disabled": "Əlil",
+    "dlc": {
+        "installDlcs": "Bütün DLC-ləri quraşdırın"
+    },
+    "enabled": "Aktivdir",
+    "game": {
+        "downloadSize": "Yükləmə ölçüsü",
+        "firstPlayed": "İlk Oynadı",
+        "info": "Məlumat",
+        "installSize": "Quraşdırma Ölçüsü",
+        "language": "Dil",
+        "lastPlayed": "Son Oynama",
+        "neverPlayed": "Heç vaxt",
+        "platform": "Quraşdırmaq üçün Platforma Versiyasını seçin",
+        "reuirements": "Sistem Tələbləri",
+        "tools": "Alətlər",
+        "totalPlayed": "Oynanan Vaxt"
+    },
+    "gamecard": {
+        "moving": "Hərəkət edir",
+        "repairing": "Təmir"
+    },
+    "generic": {
+        "error": "Naməlum xəta"
+    },
+    "info": {
+        "canRunOffline": "Onlayn Tələb olunur",
+        "installedPlatform": "Quraşdırılmış Platforma",
+        "path": "Quraşdırma Yolu",
+        "size": "Ölçü",
+        "syncsaves": "Sync Saves",
+        "version": "Versiya"
+    },
+    "install": {
+        "disk-space-left": "Yer Mövcuddur",
+        "not-enough-disk-space": "Disk sahəsi kifayət deyil",
+        "path": "Quraşdırma yolunu seçin",
+        "path-not-writtable": "Xəbərdarlıq: yol yazıla bilən olmaya bilər.",
+        "space-after-install": "Quraşdırıldıqdan sonra",
+        "wineprefix": "WinePrefiks",
+        "wineversion": "Şərab versiyası"
+    },
+    "label": {
+        "playing": {
+            "start": "İndi oyna",
+            "stop": "Oynanır (Dayandır)"
+        },
+        "saves": {
+            "syncing": "Sinxronizasiya Saxlamalar"
+        }
+    },
+    "launch": {
+        "options": "Başlama Seçimləri..."
+    },
+    "report_problem": "Bu oyunu idarə edən problemi bildirin",
+    "sdl": {
+        "title": "Quraşdırılacaq komponentləri seçin"
+    },
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Tövsiyə"
+    },
+    "status": {
+        "clickToUpdate": "Yeniləmək üçün klikləyin",
+        "hasUpdates": "Yeni Versiya mövcuddur!",
+        "installed": "Quraşdırılıb",
+        "installing": "Quraşdırılır",
+        "moving": "Quraşdırma köçürülür, zəhmət olmasa gözləyin",
+        "notinstalled": "Bu oyun quraşdırılmayıb",
+        "processing": "Fayllar emal olunur, gözləyin",
+        "reparing": "Oyun Təmir edilir, zəhmət olmasa gözləyin",
+        "totalDownloaded": "Toplam Endirilib",
+        "updating": "Oyun Yenilənir"
+    }
+}

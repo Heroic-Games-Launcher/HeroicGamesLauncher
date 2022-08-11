@@ -52,22 +52,26 @@ export function checkPS5(
   controllerIndex: number,
   checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
 ) {
-  const Circle = buttons[0],
-    Triangle = buttons[1],
-    X = buttons[2],
-    Square = buttons[3],
+  const X = buttons[0],
+    Circle = buttons[1],
+    Square = buttons[2],
+    Triangle = buttons[3],
     // LB = buttons[4],
     // RB = buttons[5],
-    rightAxisX = buttons[6],
-    rightAxisY = buttons[7],
-    // share = buttons[8],
-    // menu = buttons[9],
+    // LT = buttons[6],
+    // RT = buttons[7],
+    // select = buttons[8],
+    // start = buttons[9],
+    // L3 = buttons[10], // press left stick
+    // R3 = buttons[11], // press right stick
     up = buttons[12],
     down = buttons[13],
     left = buttons[14],
     right = buttons[15],
     leftAxisX = axes[0],
-    leftAxisY = axes[1]
+    leftAxisY = axes[1],
+    rightAxisX = axes[2],
+    rightAxisY = axes[3]
 
   checkAction('padUp', up.pressed, controllerIndex)
   checkAction('padDown', down.pressed, controllerIndex)
@@ -77,10 +81,10 @@ export function checkPS5(
   checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
   checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
   checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
-  checkAction('rightStickLeft', rightAxisX.value < 0.25, controllerIndex)
-  checkAction('rightStickRight', rightAxisX.value > 0.75, controllerIndex)
-  checkAction('rightStickUp', rightAxisY.value < 0.25, controllerIndex)
-  checkAction('rightStickDown', rightAxisY.value > 0.75, controllerIndex)
+  checkAction('rightStickLeft', rightAxisX < -0.5, controllerIndex)
+  checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
+  checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
+  checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
   checkAction('mainAction', X.pressed, controllerIndex)
   checkAction('back', Circle.pressed, controllerIndex)
   checkAction('altAction', Triangle.pressed, controllerIndex)
