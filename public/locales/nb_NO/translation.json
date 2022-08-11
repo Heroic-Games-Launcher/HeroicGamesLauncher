@@ -185,7 +185,8 @@
         "error": {
             "move": "Feil ved flytting av spillet",
             "reparing": "Feil ved reparasjon"
-        }
+        },
+        "new-heroic-version": "En ny Heroic-versjon ble utgitt!"
     },
     "setting": {
         "manualsync": {
@@ -282,7 +283,8 @@
         "mangohud": "Aktiver Mangohud (Mangohud må installeres)",
         "prefered_language": "Foretrukket språk (språkkode)",
         "preferSystemLibs": "Foretrekker systembiblioteker",
-        "autodxvk": "Autoinstaller/oppdater DXVK på prefiks"
+        "autodxvk": "Autoinstaller/oppdater DXVK på prefiks",
+        "checkForUpdatesOnStartup": "Se etter heroiske oppdateringer ved oppstart"
     },
     "Unreal Marketplace": "Unreal-markedsplass",
     "Downloading": "Laster ned …",
