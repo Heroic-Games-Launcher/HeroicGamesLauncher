@@ -283,15 +283,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "{{game}} no se pudo agregar a todos los usuarios de Steam encontrados. Revisar los registros para más información. Es necesario reiniciar Steam para que los cambios tengan efecto.",
+                    "success": "{{game}} se agregó correctamente a Steam. Es necesario reiniciar Steam para que los cambios tengan efecto.",
                     "title": "Agregado a Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "{{game}} no se pudo remover de todos los usuarios de Steam encontrados. Revisar los registros para más información. Es necesario reiniciar Steam para que los cambios tengan efecto.",
+                    "success": "{{game}} se removió correctamente de Steam. Es necesario reiniciar Steam para que los cambios tengan efecto.",
                     "title": "Removido de Steam"
                 }
             },
@@ -306,7 +306,7 @@
         },
         "moved": "Movimiento terminado",
         "moving": "Moviendo juego",
-        "new-heroic-version": "A new Heroic version was released!",
+        "new-heroic-version": "¡Una nueva versión de Heroic fue publicada!",
         "refresh": {
             "error": "No se pudieron descargar las versiones, puede deberse a una limitación en la API de Github! Intente más tarde nuevamente."
         },
@@ -369,7 +369,7 @@
         "autosync": "Autosincronizar guardados",
         "autovkd3d": "Instalación/actualización automática de VKD3D en el prefijo",
         "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
-        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
+        "checkForUpdatesOnStartup": "Comprobar actualizaciones de Heroic al iniciar",
         "crossover-version": "Versión de Crossover",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilizar el icono oscuro en la bandeja",

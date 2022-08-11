@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Αυτό θα αλλάξει την διαδρομή εγκατάστασης του παιχνιδιού, είστε σίγουροι;",
+            "message": "Αυτό θα αλλάξει την τοποθεσία εγκατάστασης του παιχνιδιού, είστε σίγουροι;",
             "path": "Επιλέξτε νέα διαδρομή εγκατάστασης",
             "title": "Αλλαγή Διαδρομής Εγκατάστασης Παιχνιδιών"
         },
@@ -32,19 +32,19 @@
             "message": "Το παιχνίδι έχει μια ενημέρωση, εφαρμογή ενημερώσεως τώρα;",
             "title": "Το παιχνίδι χρειάζεται ενημέρωση"
         },
-        "wineprefix": "Επιλέξτε φάκελο προθημάτων Wine",
+        "wineprefix": "Επιλέξτε φάκελο προθεμάτων Wine",
         "yes": "ΝΑΙ"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "Προσθήκη στα Αγαπημένα",
         "cancel": "Παύση/Ακύρωση",
         "continue": "Συνέχιση λήψης",
-        "force_update": "Force Update if Available",
-        "hide_game": "Hide Game",
+        "force_update": "Επιβολή ενημέρωσης εαν είναι διαθέσιμη",
+        "hide_game": "Απόκρυψη Παιχνιδιού",
         "import": "Εισαγωγή Παιχνιδιού",
         "install": "Εγκατάσταση",
-        "remove_from_favourites": "Remove From Favourites",
-        "unhide_game": "Unhide Game",
+        "remove_from_favourites": "Κατάργηση από τα Αγαπημένα",
+        "unhide_game": "Φανέρωση Παιχνιδιού",
         "uninstall": "Απεγκατάσταση",
         "update": "Ενημέρωση"
     },
@@ -61,9 +61,9 @@
         "language": "Γλώσσα",
         "lastPlayed": "Παίχτηκε Τελευταία φορά",
         "neverPlayed": "Ποτέ",
-        "platform": "Select Platform Version to Install",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "platform": "Επιλέξτε Έκδοση Πλατφόρμας για εγκατάσταση",
+        "reuirements": "Απαιτήσεις Συστήματος",
+        "tools": "Εργαλεία",
         "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού"
     },
     "gamecard": {
@@ -71,22 +71,22 @@
         "repairing": "Επιδιόρθωση"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Άγνωστο Σφάλμα"
     },
     "info": {
         "canRunOffline": "Απαιτείται Σύνδεση",
-        "installedPlatform": "Installed Platform",
+        "installedPlatform": "Εγκατεστημένη Πλατφόρμα",
         "path": "Διαδρομή Εγκατάστασης",
         "size": "Μέγεθος",
         "syncsaves": "Συγχρονισμός Αποθηκεύσεων",
         "version": "Έκδοση"
     },
     "install": {
-        "disk-space-left": "Space Available",
-        "not-enough-disk-space": "Not enough disk space",
+        "disk-space-left": "Διαθέσιμος Αποθηκευτικός Χώρος",
+        "not-enough-disk-space": "Μη επαρκής αποθηκευτικός χώρος",
         "path": "Επιλέξτε διαδρομή εγκατάστασης",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
+        "path-not-writtable": "Προειδοποίηση: μπορεί να μην είναι δυνατή η εγγραγή στη συγκεκριμένη διαδρομή.",
+        "space-after-install": "Μετά την Εγκατάσταση",
         "wineprefix": "Πρόθεμα Wine",
         "wineversion": "Έκδοση Wine"
     },
@@ -102,7 +102,7 @@
     "launch": {
         "options": "Ρυθμίσεις εκκίνησης..."
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "Αναφορά προβλήματος κατά την εκτέλεση του παιχνιδιού",
     "sdl": {
         "title": "Διαλέξτε στοιχεία για εγκατάσταση"
     },
@@ -124,14 +124,15 @@
     },
     "submenu": {
         "addShortcut": "Προσθήκη συντόμευσης",
-        "addToSteam": "Add to Steam",
+        "addToSteam": "Προσθήκη στο Steam",
         "change": "Αλλαγή διαδρομής εγκατάστασης",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "Απενεργοποίηση Επικάλυψης EOS",
+        "enableEosOverlay": "Ενεργοποίηση Επικάλυψης EOS",
+        "log": "Τελευταίο αρχείο καταγραφής",
         "move": "Μετακίνηση παιχνιδιού",
         "protondb": "Έλεγχος συμβατότητας",
-        "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeFromSteam": "Κατάργηση από το Steam",
+        "removeShortcut": "Κατάργηση συντεμεύσεων",
         "settings": "Ρυθμίσεις",
         "store": "Κατάστημα",
         "verify": "Επαλήθευση και Επιδιόρθωση"

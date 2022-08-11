@@ -288,7 +288,8 @@
             "finished": "Ažuriranje završeno",
             "started": "Ažuriranje započeto"
         },
-        "moved": "Premještanje završeno"
+        "moved": "Premještanje završeno",
+        "new-heroic-version": "Objavljena je nova Heroic verzija!"
     },
     "options": {
         "advanced": {
@@ -423,7 +424,8 @@
         "download-no-https": "Preuzmite igre bez HTTPS-a (korisno za CDN-ove, npr. LanCache)",
         "preferSystemLibs": "Preferirajte sistemske biblioteke",
         "crossover-version": "Crossover verzija",
-        "default-steam-path": "Zadana staza Steam-a"
+        "default-steam-path": "Zadana staza Steam-a",
+        "checkForUpdatesOnStartup": "Provjeri ima li Heroic Updates pri pokretanju"
     },
     "favourites": "Favoriti",
     "install": {
