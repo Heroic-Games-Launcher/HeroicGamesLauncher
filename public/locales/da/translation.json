@@ -241,7 +241,8 @@
             "canceled": "Opdateret annulleret",
             "finished": "Opdatering Færdig",
             "started": "Opdatering startet"
-        }
+        },
+        "new-heroic-version": "En ny Heroic-version blev frigivet!"
     },
     "Plugins": "Plugins",
     "Projects": "Projekter",
@@ -341,7 +342,8 @@
         "maxworkers": "Maksimalt antal arbejdere ved download",
         "minimize-on-launch": "Minimer heroisk efter spilstart",
         "offlinemode": "Kør spil offline",
-        "prefered_language": "Foretrukken sprog (sprogkode)"
+        "prefered_language": "Foretrukken sprog (sprogkode)",
+        "checkForUpdatesOnStartup": "Søg efter heroiske opdateringer ved opstart"
     },
     "wine": {
         "manager": {
