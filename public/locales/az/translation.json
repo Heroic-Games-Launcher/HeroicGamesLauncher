@@ -282,7 +282,8 @@
         "steamruntime": "Steam Runtime istifadə edin",
         "winecrossoverbottle": "Krossover şüşə",
         "wineprefix": "WinePrefix qovluğu",
-        "wineversion": "Şərab versiyası"
+        "wineversion": "Şərab versiyası",
+        "checkForUpdatesOnStartup": "Başlanğıcda qəhrəmanlıq yenilənmələrini yoxlayın"
     },
     "settings": {
         "clear-cache": "Qəhrəmanlıq önbelleğini təmizləyin",
@@ -472,7 +473,8 @@
             "canceled": "Yeniləndi Ləğv edildi",
             "finished": "Yeniləmə Tamamlandı",
             "started": "Yeniləmə Başladı"
-        }
+        },
+        "new-heroic-version": "Yeni \"Heroic\" versiyası təqdim edildi!"
     },
     "options": {
         "advanced": {
