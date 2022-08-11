@@ -1,0 +1,20 @@
+{
+    "button": {
+        "login": "Daxil ol"
+    },
+    "message": {
+        "part1": "Oyunlarınızı daxil etmək və quraşdırmaq üçün əvvəlcə aşağıdakı addımları yerinə yetirməlisiniz:",
+        "part2": "açın",
+        "part3": "Epic Store burada",
+        "part4": ", hesabınıza daxil olun və kopyalayın",
+        "part5": "SID məlumat nömrəsi",
+        "part6": "Özünüzü yapışdırın",
+        "part7": "SID nömrəsi",
+        "part8": "aşağıdakı giriş qutusuna daxil edin və giriş düyməsini basın."
+    },
+    "status": {
+        "error": "Xəta",
+        "loading": "Oyun siyahısı yüklənir, gözləyin"
+    },
+    "welcome": "Xoş gəldiniz!"
+}
