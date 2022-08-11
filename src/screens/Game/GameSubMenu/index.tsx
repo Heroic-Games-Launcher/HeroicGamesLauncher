@@ -309,6 +309,28 @@ export default function GamesSubmenu({
       <div className={`submenu`}>
         {isInstalled && (
           <>
+            {!isMac && (
+              <button
+                onClick={() => handleShortcuts()}
+                className="link button is-text is-link"
+              >
+                {hasShortcuts
+                  ? t('submenu.removeShortcut', 'Remove shortcuts')
+                  : t('submenu.addShortcut', 'Add shortcut')}
+              </button>
+            )}
+            {steamRefresh ? (
+              refreshCircle()
+            ) : (
+              <button
+                onClick={async () => handleAddToSteam()}
+                className="link button is-text is-link"
+              >
+                {addedToSteam
+                  ? t('submenu.removeFromSteam', 'Remove from Steam')
+                  : t('submenu.addToSteam', 'Add to Steam')}
+              </button>
+            )}
             <button
               onClick={async () =>
                 uninstall({ appName, t, handleGameStatus, runner })
@@ -342,28 +364,6 @@ export default function GamesSubmenu({
             >
               {t('submenu.verify')}
             </button>{' '}
-            {!isMac && (
-              <button
-                onClick={() => handleShortcuts()}
-                className="link button is-text is-link"
-              >
-                {hasShortcuts
-                  ? t('submenu.removeShortcut', 'Remove shortcuts')
-                  : t('submenu.addShortcut', 'Add shortcut')}
-              </button>
-            )}
-            {steamRefresh ? (
-              refreshCircle()
-            ) : (
-              <button
-                onClick={async () => handleAddToSteam()}
-                className="link button is-text is-link"
-              >
-                {addedToSteam
-                  ? t('submenu.removeFromSteam', 'Remove from Steam')
-                  : t('submenu.addToSteam', 'Add to Steam')}
-              </button>
-            )}
             {isLinux &&
               runner === 'legendary' &&
               (eosOverlayRefresh ? (
