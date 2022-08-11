@@ -247,7 +247,8 @@
         "refresh": {
             "error": "Nu s-au putut prelua versiunile din amonte, poate din cauza restricțiilor API-ului Github! Încercați mai târziu."
         },
-        "moving": "Joc de Mișcare"
+        "moving": "Joc de Mișcare",
+        "new-heroic-version": "A fost lansată o nouă versiune heroică!"
     },
     "options": {
         "advanced": {
