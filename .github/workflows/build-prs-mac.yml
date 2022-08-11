@@ -22,7 +22,7 @@ jobs:
       - name: Install modules.
         run: yarn
       - name: Build artifacts.
-        run: yarn dist-mac --publish=never
+        run: yarn dist:mac --publish=never
       - name: Upload DMG.
         uses: actions/upload-artifact@v2
         with:
