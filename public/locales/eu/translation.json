@@ -350,7 +350,8 @@
         "gamemode": "Erabili GameMode (Feral Game Mode instalatu behar da)",
         "language": "Aukeratu aplikazioaren hizkuntza",
         "maxRecentGames": "Duela gutxi erreproduzitu da erakusteko",
-        "minimize-on-launch": "Minimizatu Heroikoa Jokoa abiarazi ondoren"
+        "minimize-on-launch": "Minimizatu Heroikoa Jokoa abiarazi ondoren",
+        "checkForUpdatesOnStartup": "Hasieran eguneraketak bilatu"
     },
     "userselector": {
         "quit": "Irten",
@@ -376,14 +377,14 @@
             "add": {
                 "steam": {
                     "corrupt": "Ezin izan da {{game}} gehitu aurkitutako Steam-eko erabiltzaile guztiei. Ikusi erregistroak informazio gehiago lortzeko. Steam berrabiarazi behar da, aldaketak eragina izateko.",
-                    "success": "{{game}} behar bezala gehitu da Steam-en. Steam berrabiarazi behar da, aldaketak indarrean jartzeko.",
+                    "success": "{{game}} behar bezala gehitu da Steam-en. Steam berrabiarazi behar da aldaketak indarrean jartzeko.",
                     "title": "Steam-en gehitu da"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "Ezin izan da {{game}} kendu aurkitutako Steam-eko erabiltzaile guztietatik. Ikusi erregistroak informazio gehiago lortzeko. Steam berrabiarazi behar da, aldaketak indarrean jartzeko.",
-                    "success": "{{game}} behar bezala kendu da Steam-era. Steam berrabiarazi behar da, aldaketak eragina izateko.",
+                    "corrupt": "Ezin izan da {{game}} kendu aurkitutako Steam-eko erabiltzaile guztietatik. Ikusi erregistroak informazio gehiago lortzeko. Steam berrabiarazi behar da aldaketak indarrean jartzeko.",
+                    "success": "{{game}} behar bezala kendu da Steam-etik. Steam berrabiarazi behar da aldaketak eragina izateko.",
                     "title": "Lurrunetik kendu da"
                 }
             }
@@ -398,7 +399,8 @@
             "finished": "Eguneraketa bukatu da"
         },
         "moved": "Mugitzen amaitu",
-        "moving": "Mugimendu Jokoa"
+        "moving": "Mugimendu Jokoa",
+        "new-heroic-version": "Bertsio heroiko berri bat kaleratu zen!"
     },
     "settings": {
         "navbar": {
