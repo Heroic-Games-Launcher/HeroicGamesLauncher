@@ -350,7 +350,8 @@
         "gamemode": "Erabili GameMode (Feral Game Mode instalatu behar da)",
         "language": "Aukeratu aplikazioaren hizkuntza",
         "maxRecentGames": "Duela gutxi erreproduzitu da erakusteko",
-        "minimize-on-launch": "Minimizatu Heroikoa Jokoa abiarazi ondoren"
+        "minimize-on-launch": "Minimizatu Heroikoa Jokoa abiarazi ondoren",
+        "checkForUpdatesOnStartup": "Hasieran eguneraketak bilatu"
     },
     "userselector": {
         "quit": "Irten",
@@ -398,7 +399,8 @@
             "finished": "Eguneraketa bukatu da"
         },
         "moved": "Mugitzen amaitu",
-        "moving": "Mugimendu Jokoa"
+        "moving": "Mugimendu Jokoa",
+        "new-heroic-version": "Bertsio heroiko berri bat kaleratu zen!"
     },
     "settings": {
         "navbar": {
