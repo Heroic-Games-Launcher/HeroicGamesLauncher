@@ -283,15 +283,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "{{game}} 不能被添加到所有找到的 Steam 用户。查看日志了解更多信息。 需要重启 Steam 更改才能生效。",
+                    "success": "成功添加 {{game}} 到 Steam。需要重启 Steam 更改才能生效。",
                     "title": "已添加到 Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "无法从所有找到的 Steam 用户删除 {{game}}。查看日志了解更多信息。需要重启 Steam 更改才能生效。",
+                    "success": "成功从 Steam 删除了 {{game}}。需要重启 Steam 更改才能生效。",
                     "title": "已从 Steam 删除"
                 }
             },
@@ -306,7 +306,7 @@
         },
         "moved": "移动完成",
         "moving": "移动游戏中",
-        "new-heroic-version": "A new Heroic version was released!",
+        "new-heroic-version": "新的 Heroic 版本发布了！",
         "refresh": {
             "error": "不能从上游获取发布，可能是因为 Github API 的限制！请稍后再试。"
         },
@@ -369,7 +369,7 @@
         "autosync": "自动同步存档",
         "autovkd3d": "自动在前置中安装/更新 VKD3D",
         "change-target-exe": "选择要运行的替代 EXE",
-        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
+        "checkForUpdatesOnStartup": "启动时检查 Heroic 更新",
         "crossover-version": "Crossover 版本",
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
