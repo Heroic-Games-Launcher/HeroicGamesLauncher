@@ -8,6 +8,7 @@ import { getGameInfo, quoteIfNecessary } from 'src/helpers'
 
 import { ipcRenderer } from 'src/helpers'
 import { Runner } from 'src/types'
+import { Dialog, DialogContent, DialogHeader } from 'src/components/UI/Dialog'
 
 interface Props {
   appName: string
@@ -18,6 +19,19 @@ export default function Tools({ appName, runner }: Props) {
   const { t } = useTranslation()
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
+  const [progress, setProgress] = useState<{
+    running: boolean
+    info: string
+    error: string
+  }>({ running: false, info: '', error: '' })
+
+  ipcRenderer.on('progressOfWinetricks', (e, status) => {
+    setProgress({
+      running: status.running,
+      info: status.info ?? progress.info,
+      error: status.error ?? progress.error
+    })
+  })
 
   type Tool = 'winecfg' | 'winetricks' | string
   async function callTools(tool: Tool, exe?: string) {
@@ -79,6 +93,28 @@ export default function Tools({ appName, runner }: Props) {
   return (
     <>
       <div data-testid="toolsSettings" className="settingsTools">
+        {winetricksRunning ||
+          (progress.running && (
+            <Dialog
+              onClose={() => {
+                setProgress({ running: false, info: '', error: '' })
+              }}
+            >
+              <DialogHeader
+                onClose={() => {
+                  setProgress({ running: false, info: '', error: '' })
+                }}
+              >
+                <div>Winetricks</div>
+              </DialogHeader>
+              <DialogContent>
+                <div>Progress:</div>
+                {progress.info}
+                <div>Error:</div>
+                {progress.error}
+              </DialogContent>
+            </Dialog>
+          ))}
         <div className="toolsWrapper">
           <button
             data-testid="wineCFG"

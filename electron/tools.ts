@@ -205,7 +205,11 @@ export const Winetricks = {
         logWarning('Error Downloading Winetricks', LogPrefix.Backend)
       })
   },
-  run: async (wineVersion: WineInstallation, baseWinePrefix: string) => {
+  run: async (
+    wineVersion: WineInstallation,
+    baseWinePrefix: string,
+    event: Electron.IpcMainInvokeEvent
+  ) => {
     const winetricks = `${heroicToolsPath}/winetricks`
 
     const { winePrefix, wineBin } = getWineFromProton(
@@ -221,6 +225,10 @@ export const Winetricks = {
       PATH: `${winepath}:${process.env.PATH}`
     }
 
+    const sendProgress = (running: boolean, info: string, error: string) => {
+      event.sender.send('progressOfWinetricks', { running, info, error })
+    }
+
     logInfo(
       `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`,
       LogPrefix.WineTricks
@@ -228,16 +236,30 @@ export const Winetricks = {
 
     const child = spawn(winetricks, ['-q'], { env: envs })
 
-    child.stdout.on('data', (data: Buffer) => {
-      logInfo(data.toString(), LogPrefix.WineTricks)
+    child.stdout.setEncoding('utf8')
+    child.stdout.on('data', (data: string) => {
+      logInfo(data, LogPrefix.WineTricks)
+      if (data.includes('Executing')) {
+        sendProgress(true, data, '')
+      }
     })
 
-    child.stderr.on('data', (data: Buffer) => {
-      logError(data.toString(), LogPrefix.WineTricks)
+    child.stderr.setEncoding('utf8')
+    child.stderr.on('data', (data: string) => {
+      logError(data, LogPrefix.WineTricks)
+      sendProgress(true, '', data)
     })
 
     child.on('error', (error) => {
       logError(`Winetricks throwed Error: ${error}`, LogPrefix.WineTricks)
+    })
+
+    child.on('close', () => {
+      sendProgress(false, '', '')
+    })
+
+    child.on('exit', () => {
+      sendProgress(false, '', '')
     })
   }
 }
