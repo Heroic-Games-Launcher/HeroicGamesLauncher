@@ -74,7 +74,7 @@ add-extensions:
     no-autodownload: true
     autodelete: false
   
-    org.freedesktop.Platform.VAAPI.Intel.i386:
+  org.freedesktop.Platform.VAAPI.Intel.i386:
     directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
     version: '21.08'
     versions: '21.08'
@@ -82,7 +82,7 @@ add-extensions:
     no-autodownload: true
     add-ld-path: lib
     download-if: have-intel-gpu
-    autoprune-unless: have-intel-gpu
+    autoprune-unless: have-intel-gpu  
 
 modules:
   - name: unappimage
@@ -135,8 +135,8 @@ modules:
   - name: heroic
     buildsystem: simple
     build-commands:
-      - unappimage Heroic-2.4.0-beta.2.AppImage
-      - rm Heroic-2.4.0-beta.2.AppImage
+      - unappimage Heroic-2.4.0.AppImage
+      - rm Heroic-2.4.0.AppImage
       - mv squashfs-root /app/bin/heroic
       - install -D heroic-run -t /app/bin
     sources:
@@ -146,9 +146,9 @@ modules:
           - zypak-wrapper /app/bin/heroic/heroic "$@"
 
       - type: file
-        filename: Heroic-2.4.0-beta.2.AppImage
+        filename: Heroic-2.4.0.AppImage
         # put right path here
-        path: ../dist/Heroic-2.4.0-beta.2.AppImage
+        path: ../dist/Heroic-2.4.0.AppImage
 
   - name: platform-bootstrap
     buildsystem: simple
@@ -179,3 +179,123 @@ modules:
         path: com.heroicgameslauncher.hgl.png
       - type: file
         path: com.heroicgameslauncher.hgl.desktop
+
+  - name: p7zip
+    no-autogen: true
+    build-options:
+      strip: true
+    make-args:
+      - all2
+      - OPTFLAGS=-O2 -g -std=gnu++14
+      - DEST_HOME=$(FLATPAK_DEST)
+      - DEST_BIN=$(FLATPAK_DEST)/bin
+      - DEST_SHARE=$(FLATPAK_DEST)/lib/p7zip
+      - DEST_MAN=$(FLATPAK_DEST)/share/man
+    make-install-args:
+      - DEST_HOME=$(FLATPAK_DEST)
+      - DEST_BIN=$(FLATPAK_DEST)/bin
+      - DEST_SHARE=$(FLATPAK_DEST)/lib/p7zip
+      - DEST_MAN=$(FLATPAK_DEST)/share/man
+    sources:
+      - type: archive
+        url: "https://downloads.sourceforge.net/p7zip/p7zip_16.02_src_all.tar.bz2"
+        sha256: 5eb20ac0e2944f6cb9c2d51dd6c4518941c185347d4089ea89087ffdd6e2341f
+      - type: patch
+        paths:
+          - patches/p7zip/gcc10-conversion.patch
+      - type: shell
+        only-arches:
+          - "x86_64"
+        commands:
+          - ln -sf makefile.linux_amd64_asm makefile.machine
+      - type: shell
+        only-arches:
+          - "i386"
+        commands:
+          - ln -sf makefile.linux_x86_asm_gcc_4.X makefile.machine
+    modules:
+      - name: yasm
+        buildsystem: cmake-ninja
+        sources:
+          - type: archive
+            url: "https://github.com/yasm/yasm/archive/v1.3.0.tar.gz"
+            sha256: f708be0b7b8c59bc1dbe7134153cd2f31faeebaa8eec48676c10f972a1f13df3
+        cleanup:
+          - "*"
+
+  - name: cabextract
+    build-options:
+      strip: true
+    sources:
+      - type: archive
+        url: "https://www.cabextract.org.uk/cabextract-1.9.1.tar.gz"
+        sha256: afc253673c8ef316b4d5c29cc4aa8445844bee14afffbe092ee9469405851ca7
+
+  - name: unrar
+    no-autogen: true
+    build-options:
+      strip: true
+    make-install-args:
+      - DESTDIR=$(FLATPAK_DEST)
+    sources:
+      - type: archive
+        url: "https://www.rarlab.com/rar/unrarsrc-5.8.3.tar.gz"
+        sha256: 3591685c8f5bbcb0be09de3d0a0544adb88966b9cccb80986f6cd2b534fd91a6
+
+  - name: binutils-ar
+    buildsystem: simple
+    build-options:
+      strip: true
+    build-commands:
+      - install -Dm755 /usr/bin/ar -t ${FLATPAK_DEST}/bin/
+      - install -Dm755 /usr/lib/$(gcc -print-multiarch)/libbfd-*.so -t ${FLATPAK_DEST}/lib/
+
+  - name: perl
+    no-autogen: true
+    config-opts:
+      - "-des"
+    cleanup:
+      - "*.pod"
+      - "/bin/perl5*"
+      - "/bin/c2ph"
+      - "/bin/corelist"
+      - "/bin/cpan"
+      - "/bin/enc2xs"
+      - "/bin/encguess"
+      - "/bin/h2*"
+      - "/bin/instmodsh"
+      - "/bin/json_pp"
+      - "/bin/libnetcfg"
+      - "/bin/perlbug"
+      - "/bin/perldoc"
+      - "/bin/perlthanks"
+      - "/bin/piconv"
+      - "/bin/pl2pm"
+      - "/bin/pod*"
+      - "/bin/prove"
+      - "/bin/pstruct"
+      - "/bin/ptar*"
+      - "/bin/shasum"
+      - "/bin/splain"
+      - "/bin/xsubpp"
+      - "/bin/zipdetails"
+    sources:
+      - type: archive
+        url: "https://www.cpan.org/src/5.0/perl-5.32.0.tar.gz"
+        sha256: efeb1ce1f10824190ad1cadbcccf6fdb8a5d37007d0100d2d9ae5f2b5900c0b4
+      - type: script
+        dest-filename: configure
+        commands:
+          - "exec ./configure.gnu $@"
+    post-install:
+      - "find ${FLATPAK_DEST}/lib/perl5 -type f -exec chmod u+w {} \\;"
+
+  - name: aria2
+    config-opts:
+      - --disable-libaria2
+      - --disable-websocket
+      - --without-sqlite3
+    sources:
+      - type: archive
+        sha256: 58d1e7608c12404f0229a3d9a4953d0d00c18040504498b483305bcb3de907a5
+        url: "https://github.com/aria2/aria2/releases/download/release-1.36.0/aria2-1.36.0.tar.xz"
