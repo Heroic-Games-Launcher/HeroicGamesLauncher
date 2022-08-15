@@ -17,14 +17,13 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import fallbackImage from 'src/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'src/helpers/library'
-import { SvgButton } from 'src/components/UI'
+import { CachedImage, SvgButton } from 'src/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'src/hooks/hasProgress'
 
 import { ReactComponent as EpicLogo } from 'src/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'src/assets/gog-logo.svg'
 import classNames from 'classnames'
-import CachedImage from 'src/components/CachedImage'
 
 interface Card {
   appName: string
