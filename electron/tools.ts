@@ -227,6 +227,7 @@ export const Winetricks = {
       }
 
       const executeMessages = [] as string[]
+      let progressUpdated = false
       const appendMessage = (message: string) => {
         // Don't store more than 100 messages, to not
         // fill the storage and make render still fast
@@ -234,9 +235,13 @@ export const Winetricks = {
           executeMessages.shift()
         }
         executeMessages.push(message)
+        progressUpdated = true
       }
       const sendProgress = setInterval(() => {
-        event.sender.send('progressOfWinetricks', executeMessages)
+        if (progressUpdated) {
+          event.sender.send('progressOfWinetricks', executeMessages)
+          progressUpdated = false
+        }
       }, 1000)
 
       logInfo(

@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
@@ -21,6 +21,7 @@ export default function Tools({ appName, runner }: Props) {
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
   const [progress, setProgress] = useState<string[]>([])
+  const winetricksOutputBottomRef = useRef<HTMLDivElement>(null)
 
   ipcRenderer.on('progressOfWinetricks', (e, messages) => {
     setProgress(messages)
@@ -48,6 +49,14 @@ export default function Tools({ appName, runner }: Props) {
   useEffect(() => {
     setProgress([])
   }, [winetricksRunning])
+
+  const scrollToBottom = () => {
+    winetricksOutputBottomRef.current?.scrollIntoView({behavior: 'auto'})
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [progress]);
 
   const handleRunExe = async () => {
     let exe = ''
@@ -128,7 +137,8 @@ export default function Tools({ appName, runner }: Props) {
                     )
                   }
                 })}
-              </div>
+                <div ref={winetricksOutputBottomRef}/>
+              </div >
               <LinearProgress />
             </DialogContent>
           </Dialog>
