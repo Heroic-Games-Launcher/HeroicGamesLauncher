@@ -22,6 +22,8 @@ export default function Tools({ appName, runner }: Props) {
   const [winetricksRunning, setWinetricksRunning] = useState(false)
   const [progress, setProgress] = useState<string[]>([])
   const winetricksOutputBottomRef = useRef<HTMLDivElement>(null)
+  const logRef = useRef<HTMLDivElement>(null)
+  const [autoScroll, setAutoScroll] = useState(true)
 
   ipcRenderer.on('progressOfWinetricks', (e, messages) => {
     setProgress(messages)
@@ -55,8 +57,26 @@ export default function Tools({ appName, runner }: Props) {
   }
 
   useEffect(() => {
-    scrollToBottom()
-  }, [progress])
+    if (autoScroll) {
+      scrollToBottom()
+    }
+  }, [progress, autoScroll])
+
+  const onLogScroll = (ev: Event) => {
+    const target = ev.target as HTMLDivElement
+
+    const atTheBottom =
+      target.scrollTop + target.getBoundingClientRect().height >=
+      target.scrollHeight
+
+    setAutoScroll(atTheBottom)
+  }
+
+  useEffect(() => {
+    if (logRef.current) {
+      logRef.current.addEventListener('scroll', onLogScroll)
+    }
+  }, [logRef.current])
 
   const handleRunExe = async () => {
     let exe = ''
@@ -115,7 +135,7 @@ export default function Tools({ appName, runner }: Props) {
             </DialogHeader>
             <DialogContent>
               <div>Progress:</div>
-              <div className="winetricks log-box">
+              <div className="winetricks log-box" ref={logRef}>
                 {progress.map((line, key) => {
                   if (line.toLowerCase().includes(' err')) {
                     return (
