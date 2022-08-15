@@ -106,8 +106,8 @@ export default function Tools({ appName, runner }: Props) {
             </DialogHeader>
             <DialogContent>
               <div>Progress:</div>
-              <span className="winetricks log-box">
-                {progress.slice(-20).map((line, key) => {
+              <div className="winetricks log-box">
+                {progress.map((line, key) => {
                   if (line.toLowerCase().includes(' err')) {
                     return (
                       <p key={key} className="winetricks log-error">
@@ -128,7 +128,7 @@ export default function Tools({ appName, runner }: Props) {
                     )
                   }
                 })}
-              </span>
+              </div>
               <LinearProgress />
             </DialogContent>
           </Dialog>

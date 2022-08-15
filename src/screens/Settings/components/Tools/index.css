@@ -53,7 +53,16 @@
 }
 
 .WinetricksProgress__dialog {
+  max-width: min(700px, 85vw);
   width: 100%;
+}
+
+.WinetricksProgress__dialog .Dialog__content {
+  width: 100%;
+}
+
+.WinetricksProgress__dialog .Dialog__headerClose {
+  display: none;
 }
 
 .winetricks.log-box {
