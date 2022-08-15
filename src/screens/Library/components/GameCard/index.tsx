@@ -24,6 +24,7 @@ import { hasProgress } from 'src/hooks/hasProgress'
 import { ReactComponent as EpicLogo } from 'src/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'src/assets/gog-logo.svg'
 import classNames from 'classnames'
+import CachedImage from 'src/components/CachedImage'
 
 interface Card {
   appName: string
@@ -337,9 +338,9 @@ const GameCard = ({
             }
           >
             {showStoreLogos()}
-            <img src={imageSrc} className={imgClasses} alt="cover" />
+            <CachedImage src={imageSrc} className={imgClasses} alt="cover" />
             {logo && (
-              <img
+              <CachedImage
                 alt="logo"
                 src={`${logo}?h=400&resize=1&w=300`}
                 className={logoClasses}

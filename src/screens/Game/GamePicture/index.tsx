@@ -1,6 +1,8 @@
 import React from 'react'
 import './index.css'
 import fallbackImage from 'src/assets/fallback-image.jpg'
+import CachedImage from 'src/components/CachedImage'
+
 type Props = {
   art_square: string
   store: string
@@ -18,7 +20,11 @@ function GamePicture({ art_square, store }: Props) {
 
   return (
     <div className="gamePicture">
-      <img alt="cover-art" src={getImageFormatting()} className="gameImg" />
+      <CachedImage
+        alt="cover-art"
+        src={getImageFormatting()}
+        className="gameImg"
+      />
     </div>
   )
 }
