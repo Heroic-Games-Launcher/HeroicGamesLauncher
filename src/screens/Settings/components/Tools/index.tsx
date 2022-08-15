@@ -93,13 +93,13 @@ export default function Tools({ appName, runner }: Props) {
         {winetricksRunning && (
           <Dialog
             onClose={() => {
-              setWinetricksRunning(false)
+              return
             }}
             className={classNames('WinetricksProgress__dialog')}
           >
             <DialogHeader
               onClose={() => {
-                setWinetricksRunning(false)
+                return
               }}
             >
               <div>Winetricks</div>
