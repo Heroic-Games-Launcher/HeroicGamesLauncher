@@ -51,12 +51,12 @@ export default function Tools({ appName, runner }: Props) {
   }, [winetricksRunning])
 
   const scrollToBottom = () => {
-    winetricksOutputBottomRef.current?.scrollIntoView({behavior: 'auto'})
+    winetricksOutputBottomRef.current?.scrollIntoView({ behavior: 'auto' })
   }
 
   useEffect(() => {
     scrollToBottom()
-  }, [progress]);
+  }, [progress])
 
   const handleRunExe = async () => {
     let exe = ''
@@ -137,8 +137,8 @@ export default function Tools({ appName, runner }: Props) {
                     )
                   }
                 })}
-                <div ref={winetricksOutputBottomRef}/>
-              </div >
+                <div ref={winetricksOutputBottomRef} />
+              </div>
               <LinearProgress />
             </DialogContent>
           </Dialog>
