@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
@@ -9,6 +9,7 @@ import { getGameInfo, quoteIfNecessary } from 'src/helpers'
 import { ipcRenderer } from 'src/helpers'
 import { Runner } from 'src/types'
 import { Dialog, DialogContent, DialogHeader } from 'src/components/UI/Dialog'
+import { LinearProgress } from '@mui/material'
 
 interface Props {
   appName: string
@@ -19,18 +20,10 @@ export default function Tools({ appName, runner }: Props) {
   const { t } = useTranslation()
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
-  const [progress, setProgress] = useState<{
-    running: boolean
-    info: string
-    error: string
-  }>({ running: false, info: '', error: '' })
+  const [progress, setProgress] = useState<string[]>([])
 
-  ipcRenderer.on('progressOfWinetricks', (e, status) => {
-    setProgress({
-      running: status.running,
-      info: status.info ?? progress.info,
-      error: status.error ?? progress.error
-    })
+  ipcRenderer.on('progressOfWinetricks', (e, messages) => {
+    setProgress(messages)
   })
 
   type Tool = 'winecfg' | 'winetricks' | string
@@ -51,6 +44,10 @@ export default function Tools({ appName, runner }: Props) {
     setWinetricksRunning(false)
     setWinecfgRunning(false)
   }
+
+  useEffect(() => {
+    setProgress([])
+  }, [winetricksRunning])
 
   const handleRunExe = async () => {
     let exe = ''
@@ -93,28 +90,49 @@ export default function Tools({ appName, runner }: Props) {
   return (
     <>
       <div data-testid="toolsSettings" className="settingsTools">
-        {winetricksRunning ||
-          (progress.running && (
-            <Dialog
+        {winetricksRunning && (
+          <Dialog
+            onClose={() => {
+              setWinetricksRunning(false)
+            }}
+            className={classNames('WinetricksProgress__dialog')}
+          >
+            <DialogHeader
               onClose={() => {
-                setProgress({ running: false, info: '', error: '' })
+                setWinetricksRunning(false)
               }}
             >
-              <DialogHeader
-                onClose={() => {
-                  setProgress({ running: false, info: '', error: '' })
-                }}
-              >
-                <div>Winetricks</div>
-              </DialogHeader>
-              <DialogContent>
-                <div>Progress:</div>
-                {progress.info}
-                <div>Error:</div>
-                {progress.error}
-              </DialogContent>
-            </Dialog>
-          ))}
+              <div>Winetricks</div>
+            </DialogHeader>
+            <DialogContent>
+              <div>Progress:</div>
+              <span className="winetricks log-box">
+                {progress.slice(-20).map((line, key) => {
+                  if (line.toLowerCase().includes(' err')) {
+                    return (
+                      <p key={key} className="winetricks log-error">
+                        {line}
+                      </p>
+                    )
+                  } else if (line.toLowerCase().includes(' warn')) {
+                    return (
+                      <p key={key} className="winetricks log-warning">
+                        {line}
+                      </p>
+                    )
+                  } else {
+                    return (
+                      <p key={key} className="winetricks log-info">
+                        {line}
+                      </p>
+                    )
+                  }
+                })}
+              </span>
+              <LinearProgress />
+            </DialogContent>
+          </Dialog>
+        )}
         <div className="toolsWrapper">
           <button
             data-testid="wineCFG"

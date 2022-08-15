@@ -210,56 +210,78 @@ export const Winetricks = {
     baseWinePrefix: string,
     event: Electron.IpcMainInvokeEvent
   ) => {
-    const winetricks = `${heroicToolsPath}/winetricks`
+    return new Promise<void>((resolve) => {
+      const winetricks = `${heroicToolsPath}/winetricks`
 
-    const { winePrefix, wineBin } = getWineFromProton(
-      wineVersion,
-      baseWinePrefix
-    )
+      const { winePrefix, wineBin } = getWineFromProton(
+        wineVersion,
+        baseWinePrefix
+      )
 
-    const winepath = dirname(wineBin)
+      const winepath = dirname(wineBin)
 
-    const envs = {
-      ...process.env,
-      WINEPREFIX: winePrefix,
-      PATH: `${winepath}:${process.env.PATH}`
-    }
-
-    const sendProgress = (running: boolean, info: string, error: string) => {
-      event.sender.send('progressOfWinetricks', { running, info, error })
-    }
-
-    logInfo(
-      `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`,
-      LogPrefix.WineTricks
-    )
-
-    const child = spawn(winetricks, ['-q'], { env: envs })
-
-    child.stdout.setEncoding('utf8')
-    child.stdout.on('data', (data: string) => {
-      logInfo(data, LogPrefix.WineTricks)
-      if (data.includes('Executing')) {
-        sendProgress(true, data, '')
+      const envs = {
+        ...process.env,
+        WINEPREFIX: winePrefix,
+        PATH: `${winepath}:${process.env.PATH}`
       }
-    })
 
-    child.stderr.setEncoding('utf8')
-    child.stderr.on('data', (data: string) => {
-      logError(data, LogPrefix.WineTricks)
-      sendProgress(true, '', data)
-    })
+      const executeMessages = [] as string[]
+      const appendMessage = (message: string) => {
+        // Don't store more than 100 messages, to not
+        // fill the storage and make render still fast
+        if (executeMessages.length > 100) {
+          executeMessages.shift()
+        }
+        executeMessages.push(message)
+      }
+      const sendProgress = setInterval(() => {
+        event.sender.send('progressOfWinetricks', executeMessages)
+      }, 1000)
 
-    child.on('error', (error) => {
-      logError(`Winetricks throwed Error: ${error}`, LogPrefix.WineTricks)
-    })
+      logInfo(
+        `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`,
+        LogPrefix.WineTricks
+      )
 
-    child.on('close', () => {
-      sendProgress(false, '', '')
-    })
+      const child = spawn(winetricks, ['-q'], { env: envs })
 
-    child.on('exit', () => {
-      sendProgress(false, '', '')
+      child.stdout.setEncoding('utf8')
+      child.stdout.on('data', (data: string) => {
+        logInfo(data, LogPrefix.WineTricks)
+        appendMessage(data)
+      })
+
+      child.stderr.setEncoding('utf8')
+      child.stderr.on('data', (data: string) => {
+        logError(data, LogPrefix.WineTricks)
+        appendMessage(data)
+      })
+
+      child.on('error', (error) => {
+        logError(`Winetricks throwed Error: ${error}`, LogPrefix.WineTricks)
+        showErrorBoxModalAuto(
+          i18next.t('box.error.winetricks.title', 'Winetricks error'),
+          i18next.t('box.error.winetricks.message', {
+            defaultValue:
+              'Winetricks throwed following error during execution:{{newLine}}{{error}}',
+            newLine: '\n',
+            error: `${error}`
+          })
+        )
+        clearInterval(sendProgress)
+        resolve()
+      })
+
+      child.on('exit', () => {
+        clearInterval(sendProgress)
+        resolve()
+      })
+
+      child.on('close', () => {
+        clearInterval(sendProgress)
+        resolve()
+      })
     })
   }
 }

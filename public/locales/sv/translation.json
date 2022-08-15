@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "Ingen Wine version vald. Kontrollera spelinställningar!",
                 "title": "Wine hittades ej"
+            },
+            "winetricks": {
+                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {

@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "Wine'i versiooni pole valitud. Kontrolli mängu seadeid!",
                 "title": "Wine'i ei leitud"
+            },
+            "winetricks": {
+                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {

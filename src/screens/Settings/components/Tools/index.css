@@ -51,3 +51,45 @@
   color: var(--text-secondary);
   text-decoration: none;
 }
+
+.WinetricksProgress__dialog {
+  width: 100%;
+}
+
+.winetricks.log-box {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding-block: 4px;
+  padding-inline: 6px;
+  height: 25em;
+  width: calc(90vw - var(--sidebar-width));
+  overflow: auto;
+  user-select: text;
+}
+
+.winetricks.log-box.collapsed {
+  width: calc(90vw - var(--sidebar-width));
+}
+
+.winetricks.log-error,
+.winetricks.log-warning,
+.winetricks.log-info {
+  text-align: left;
+  margin-block: 0;
+  min-height: 1em;
+  height: max-content;
+  white-space: pre;
+  font-family: monospace;
+}
+
+.winetricks.log-error {
+  color: #c18672;
+}
+
+.winetricks.log-warning {
+  color: #f5cf69;
+}
+
+.winetricks.log-info {
+  color: rgb(175, 172, 172);
+}

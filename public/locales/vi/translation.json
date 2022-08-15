@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "Chưa chọn phiên bản Wine. Kiểm tra phần cài đặt!",
                 "title": "Không tìm thấy Wine"
+            },
+            "winetricks": {
+                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {

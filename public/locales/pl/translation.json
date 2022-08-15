@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "Nie wybrano wersji Wine. Sprawdź ustawienia gry!",
                 "title": "Nie znaleziono Wine"
+            },
+            "winetricks": {
+                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
