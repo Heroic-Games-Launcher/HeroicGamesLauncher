@@ -77,7 +77,7 @@
                 "title": "Wine nem található"
             },
             "winetricks": {
-                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             }
         },
@@ -360,6 +360,7 @@
         "win": "Windows"
     },
     "Plugins": "Beépülők",
+    "progress": "Progress",
     "Projects": "Projektek",
     "Recent": "Nemrég játszott",
     "search": "Játékok keresése",

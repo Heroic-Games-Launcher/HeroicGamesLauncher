@@ -77,7 +77,7 @@
                 "title": "Wine не найден"
             },
             "winetricks": {
-                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             }
         },
@@ -360,6 +360,7 @@
         "win": "Windows"
     },
     "Plugins": "Плагины",
+    "progress": "Progress",
     "Projects": "Проекты",
     "Recent": "Запускались недавно",
     "search": "Поиск игр",

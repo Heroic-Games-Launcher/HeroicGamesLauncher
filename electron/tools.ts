@@ -264,12 +264,12 @@ export const Winetricks = {
       })
 
       child.on('error', (error) => {
-        logError(`Winetricks throwed Error: ${error}`, LogPrefix.WineTricks)
+        logError(`Winetricks threw Error: ${error}`, LogPrefix.WineTricks)
         showErrorBoxModalAuto(
           i18next.t('box.error.winetricks.title', 'Winetricks error'),
           i18next.t('box.error.winetricks.message', {
             defaultValue:
-              'Winetricks throwed following error during execution:{{newLine}}{{error}}',
+              'Winetricks returned the following error during execution:{{newLine}}{{error}}',
             newLine: '\n',
             error: `${error}`
           })

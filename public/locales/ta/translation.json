@@ -77,7 +77,7 @@
                 "title": "Wine Not Found"
             },
             "winetricks": {
-                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             }
         },
@@ -360,6 +360,7 @@
         "win": "விண்டோஸ்"
     },
     "Plugins": "செருகுநிரல்கள்",
+    "progress": "Progress",
     "Projects": "செயல்திட்டம்",
     "Recent": "சமீபத்தில் விளையாடியவை",
     "search": "விளையாட்டுகளைத் தேடு",

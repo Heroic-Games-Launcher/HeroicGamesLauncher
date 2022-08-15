@@ -77,7 +77,7 @@
                 "title": "Không tìm thấy Wine"
             },
             "winetricks": {
-                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             }
         },
@@ -360,6 +360,7 @@
         "win": "Windows"
     },
     "Plugins": "Plugin",
+    "progress": "Progress",
     "Projects": "Project",
     "Recent": "Chơi gần đây",
     "search": "Tìm kiếm game",

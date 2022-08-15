@@ -77,7 +77,7 @@
                 "title": "未找到 Wine"
             },
             "winetricks": {
-                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             }
         },
@@ -360,6 +360,7 @@
         "win": "Windows"
     },
     "Plugins": "插件",
+    "progress": "Progress",
     "Projects": "项目",
     "Recent": "最近玩过",
     "search": "搜索游戏",

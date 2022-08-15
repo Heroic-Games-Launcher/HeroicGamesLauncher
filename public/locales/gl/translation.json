@@ -77,7 +77,7 @@
                 "title": "No se atopou Wine"
             },
             "winetricks": {
-                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             }
         },
@@ -360,6 +360,7 @@
         "win": "Windows"
     },
     "Plugins": "Engadidos",
+    "progress": "Progress",
     "Projects": "Proxectos",
     "Recent": "Xogado recentemente",
     "search": "Escribe o nome do xogo aquí...",

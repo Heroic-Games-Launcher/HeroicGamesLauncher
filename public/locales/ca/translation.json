@@ -77,7 +77,7 @@
                 "title": "No s'ha trobat el Wine"
             },
             "winetricks": {
-                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             }
         },
@@ -360,6 +360,7 @@
         "win": "Windows"
     },
     "Plugins": "Extensions",
+    "progress": "Progress",
     "Projects": "Projectes",
     "Recent": "Jugats fa poc",
     "search": "Cerca jocs",

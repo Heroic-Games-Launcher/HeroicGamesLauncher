@@ -77,7 +77,7 @@
                 "title": "Wine یافت نشد"
             },
             "winetricks": {
-                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             }
         },
@@ -360,6 +360,7 @@
         "win": "ویندوز"
     },
     "Plugins": "افزونهها",
+    "progress": "Progress",
     "Projects": "پروژهها",
     "Recent": "اخیرا بازی شده",
     "search": "جست و جو برای بازی ها",

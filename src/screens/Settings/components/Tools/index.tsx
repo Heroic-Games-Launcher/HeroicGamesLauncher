@@ -23,10 +23,6 @@ export default function Tools({ appName, runner }: Props) {
   const [progress, setProgress] = useState<string[]>([])
   const winetricksOutputBottomRef = useRef<HTMLDivElement>(null)
 
-  ipcRenderer.on('progressOfWinetricks', (e, messages) => {
-    setProgress(messages)
-  })
-
   type Tool = 'winecfg' | 'winetricks' | string
   async function callTools(tool: Tool, exe?: string) {
     if (tool === 'winetricks') {
@@ -45,6 +41,12 @@ export default function Tools({ appName, runner }: Props) {
     setWinetricksRunning(false)
     setWinecfgRunning(false)
   }
+
+  useEffect(() => {
+    ipcRenderer.on('progressOfWinetricks', (e, messages) => {
+      setProgress(messages)
+    })
+  }, [])
 
   useEffect(() => {
     setProgress([])
@@ -114,7 +116,7 @@ export default function Tools({ appName, runner }: Props) {
               <div>Winetricks</div>
             </DialogHeader>
             <DialogContent>
-              <div>Progress:</div>
+              <div>{t('progress', 'Progress')}:</div>
               <div className="winetricks log-box">
                 {progress.map((line, key) => {
                   if (line.toLowerCase().includes(' err')) {

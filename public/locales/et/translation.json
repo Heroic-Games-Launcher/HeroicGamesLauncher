@@ -77,7 +77,7 @@
                 "title": "Wine'i ei leitud"
             },
             "winetricks": {
-                "message": "Winetricks throwed following error during execution:{{newLine}}{{error}}",
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             }
         },
@@ -360,6 +360,7 @@
         "win": "Windows"
     },
     "Plugins": "Pluginad",
+    "progress": "Progress",
     "Projects": "Projektid",
     "Recent": "Hiljuti mängitud",
     "search": "Otsi mänge",
