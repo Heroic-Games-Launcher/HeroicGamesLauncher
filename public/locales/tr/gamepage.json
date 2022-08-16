@@ -48,6 +48,7 @@
         "uninstall": "Kaldır",
         "update": "Güncelle"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Devre dışı",
     "dlc": {
         "installDlcs": "Tüm DLC'leri kur"

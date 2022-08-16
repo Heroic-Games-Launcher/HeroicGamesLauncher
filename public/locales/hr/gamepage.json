@@ -48,6 +48,7 @@
         "uninstall": "Deinstaliraj",
         "update": "Ažuriraj"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Onemogućeno",
     "dlc": {
         "installDlcs": "Instaliraj sve DLC-eve"

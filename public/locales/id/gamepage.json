@@ -48,6 +48,7 @@
         "uninstall": "Copot",
         "update": "Perbarui"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Dinonaktifkan",
     "dlc": {
         "installDlcs": "Pasang semua DLC"

@@ -48,6 +48,7 @@
         "uninstall": "Eemalda",
         "update": "Uuenda"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Keelatud",
     "dlc": {
         "installDlcs": "Paigalda kõik DLC'd"

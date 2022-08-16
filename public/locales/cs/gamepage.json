@@ -48,6 +48,7 @@
         "uninstall": "Odinstalovat",
         "update": "Update"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Zakázáno",
     "dlc": {
         "installDlcs": "Instalovat všechna DLC"
