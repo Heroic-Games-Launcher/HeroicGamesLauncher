@@ -48,6 +48,7 @@
         "uninstall": "Deinstallieren",
         "update": "Update"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Deaktiviert",
     "dlc": {
         "installDlcs": "Alle DLCs installieren"

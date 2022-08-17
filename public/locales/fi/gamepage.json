@@ -48,6 +48,7 @@
         "uninstall": "Poista",
         "update": "Päivitä"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Pois käytöstä",
     "dlc": {
         "installDlcs": "Asenna kaikki ladattava sisältö"

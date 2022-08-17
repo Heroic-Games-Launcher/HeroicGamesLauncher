@@ -48,6 +48,7 @@
         "uninstall": "Видалити",
         "update": "Оновити"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Вимкнено",
     "dlc": {
         "installDlcs": "Встановити всі DLC"

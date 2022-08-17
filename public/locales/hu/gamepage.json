@@ -48,6 +48,7 @@
         "uninstall": "Eltávolítás",
         "update": "Frissítés"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Letiltva",
     "dlc": {
         "installDlcs": "Összes DLC telepítése"

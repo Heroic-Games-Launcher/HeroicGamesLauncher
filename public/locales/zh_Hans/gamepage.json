@@ -48,6 +48,7 @@
         "uninstall": "卸载",
         "update": "更新"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "已禁用",
     "dlc": {
         "installDlcs": "安装所有 DLC"
