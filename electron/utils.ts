@@ -119,7 +119,34 @@ function semverGt(target: string, base: string) {
 }
 
 function isOnline() {
-  return net.isOnline()
+  let online = net.isOnline()
+  if (online) {
+    const hosts = ['google.com', 'store.epicgames.com', 'gog.com']
+    const errors = [] as string[]
+    online = hosts.some((host) => {
+      const args = [host] as string[]
+
+      if (isWindows) {
+        args.push('-n', '1')
+      } else {
+        args.push('-c', '1')
+      }
+
+      const { status, stderr } = spawnSync('ping', args)
+      if (stderr.length) {
+        errors.push(
+          [`Ping of ${host} failed with:`, stderr.toString()].join('\n')
+        )
+      }
+      return status === 0
+    })
+
+    if (!online && errors.length) {
+      logError(errors.join('\n'), LogPrefix.Backend)
+    }
+  }
+
+  return online
 }
 
 export const getFileSize = fileSize.partial({ base: 2 })
