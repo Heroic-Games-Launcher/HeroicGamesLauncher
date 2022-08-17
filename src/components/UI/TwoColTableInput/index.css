@@ -25,7 +25,7 @@
 .tableFieldWrapper tr {
   max-width: 100%;
   display: grid;
-  grid-template-columns: 150px auto min-content;
+  grid-template-columns: 150px min-content auto min-content;
 }
 
 .tableFieldWrapper td {
@@ -80,4 +80,39 @@
 
 .tableFieldWrapper input[type='text'] {
   text-indent: 0.5rem;
+}
+
+.tableFieldWrapper tfoot tr.dirty {
+  display: flex;
+}
+
+.tableFieldWrapper tfoot tr.dirty td {
+  padding-top: 0.2rem;
+  justify-self: flex-end;
+  flex-grow: 1;
+}
+
+.tableFieldWrapper tfoot tr.dirty span {
+  white-space: normal;
+  text-align: right;
+  flex-grow: 1;
+}
+
+.tableFieldWrapper tfoot tr.dirty td svg {
+  margin: 0 0.7rem;
+}
+
+.tableFieldWrapper tfoot tr.error {
+  display: table-row;
+}
+
+.tableFieldWrapper tfoot tr.error td {
+  display: table-cell;
+  text-align: left;
+  padding-top: 0.2rem;
+}
+
+.tableFieldWrapper .Field.error input {
+  border: 1px solid red;
+  outline: none;
 }

@@ -322,8 +322,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "例: Path/To/ExtraFiles",
-            "title": "高级选项（环境变量）：",
+            "title": "Environment Variables",
             "value": "值"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "将启动器参数放在这里",
@@ -531,6 +540,9 @@
         "quit": "退出",
         "reload": "重新加载",
         "show": "显示"
+    },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
     },
     "Update Available!": "",
     "userselector": {
