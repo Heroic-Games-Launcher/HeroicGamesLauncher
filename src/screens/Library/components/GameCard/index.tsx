@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'src/state/ContextProvider'
 import fallbackImage from 'src/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'src/helpers/library'
-import { SvgButton } from 'src/components/UI'
+import { CachedImage, SvgButton } from 'src/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'src/hooks/hasProgress'
 
@@ -337,9 +337,9 @@ const GameCard = ({
             }
           >
             {showStoreLogos()}
-            <img src={imageSrc} className={imgClasses} alt="cover" />
+            <CachedImage src={imageSrc} className={imgClasses} alt="cover" />
             {logo && (
-              <img
+              <CachedImage
                 alt="logo"
                 src={`${logo}?h=400&resize=1&w=300`}
                 className={logoClasses}
