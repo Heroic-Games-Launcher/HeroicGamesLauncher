@@ -427,7 +427,6 @@ const GameCard = ({
       })
     }
     if (status === 'playing' || status === 'updating') {
-      await handleGameStatus({ appName, runner, status: 'done' })
       return sendKill(appName, runner)
     }
     if (isInstalled) {
