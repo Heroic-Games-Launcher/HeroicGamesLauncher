@@ -389,7 +389,7 @@ class GOGGame extends Game {
       } else if (wineType === 'bottles') {
         commandEnv = {
           ...commandEnv,
-          HGL_BOTTLE_NAME: 'Heroic'
+          HGL_BOTTLE_NAME: gameSettings.bottlesBottle
         }
         wineFlag.push(...['--no-wine', '--wrapper', bottlesWineBin])
       } else {
