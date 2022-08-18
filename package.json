@@ -94,7 +94,8 @@
       },
       "asarUnpack": [
         "build/bin/linux/legendary",
-        "build/bin/linux/gogdl"
+        "build/bin/linux/gogdl",
+        "build/bin/linux/bottles-wine"
       ],
       "files": [
         "build/bin/linux/*"
