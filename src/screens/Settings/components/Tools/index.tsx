@@ -45,9 +45,16 @@ export default function Tools({ appName, runner }: Props) {
   }
 
   useEffect(() => {
-    ipcRenderer.on('progressOfWinetricks', (e, messages) => {
+    const onProgress = (e: Electron.IpcRendererEvent, messages: string[]) => {
       setProgress(messages)
-    })
+    }
+
+    ipcRenderer.on('progressOfWinetricks', onProgress)
+
+    //useEffect unmount
+    return () => {
+      ipcRenderer.removeListener('progressOfWinetricks', onProgress)
+    }
   }, [])
 
   useEffect(() => {
