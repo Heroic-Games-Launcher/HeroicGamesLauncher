@@ -393,6 +393,7 @@
         "autodxvk": "Αυτόματη Εγκατάσταση/Ενημέρωση DXVK με Πρόθημα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
         "autovkd3d": "Αυτόματη Εγκατάσταση/Ενημέρωση VKD3D με Πρόθημα",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "Επιλέξτε ένα εναλλακτικό αρχείο EXE προς εκτέλεση",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
@@ -515,10 +516,14 @@
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Άνοιγμα αρχείου παραμετροποίησης",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Επαναφορά Heroic",
         "saves": {
             "label": "Save Location:",
             "warning": "Η λειτουργία Cloud Saves είναι σε Beta, δημιουργήστε αντίγραφα ασφαλείας των αποθηκευμένων παιχνιδιών σας πριν από τον συγχρονισμό (σε περίπτωση που κάτι πάει στραβά)"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "Ρυθμίσεις",

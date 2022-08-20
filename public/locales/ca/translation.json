@@ -393,6 +393,7 @@
         "autodxvk": "Instal·la/Actualitza el DXVK al prefix automàticament",
         "autosync": "Sincronitza automàticament les partides desades",
         "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "Selecciona un EXE alternatiu a executar",
         "checkForUpdatesOnStartup": "Comprova si hi ha actualitzacions del Heroic a l'inici",
         "crossover-version": "Versió híbrida (crossover)",
@@ -515,10 +516,14 @@
             "wineExt": "Extensions del Wine"
         },
         "open-config-file": "Obre el fitxer de configuració",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Restableix l'Heroic",
         "saves": {
             "label": "Ubicació de les desades:",
             "warning": "La funció de desar al núvol està en versió beta. Si us plau, feu una còpia de seguretat de les vostres partides desades abans de sincronitzar-les, per si quelcom sortís malament."
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "Configuració",

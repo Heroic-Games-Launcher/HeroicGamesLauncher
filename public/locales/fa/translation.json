@@ -393,6 +393,7 @@
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
         "autosync": "همگامسازی خودکار ذخیرهها",
         "autovkd3d": "نصب/بهروزرسانی خودکار VKD3D در مسیر",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
         "checkForUpdatesOnStartup": "بررسی برای به روزرسانی های Heroic در آغاز به کار",
         "crossover-version": "نسخه Crossover",
@@ -515,10 +516,14 @@
             "wineExt": "افزونه های Wine"
         },
         "open-config-file": "باز کردن فایل پیکربندی",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "محل ذخیره:",
             "warning": "ویژگی ذخیره های ابری آزمایشی می باشد، لطفا قبل از هنگام سازی از ذخیره های خود نسخه پشتیبان تهیه کنید (در صورتی که مشکلی به وجود آید)"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "تنظیمات",

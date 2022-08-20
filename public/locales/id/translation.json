@@ -393,6 +393,7 @@
         "autodxvk": "Pasang/Perbarui Otomatis DXVK di Prefiks",
         "autosync": "Sinkronisasi Penyimpanan Otomatis",
         "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
@@ -515,10 +516,14 @@
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Buka Berkas Pengaturan",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Save Location:",
             "warning": "Fitur Cloud Saves masih dalam versi Beta, harap buat rekam cadang penyimpanan Anda sebelum menyinkronkan (jaga-jaga bila terjadi kesalahan)"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "Pengaturan",

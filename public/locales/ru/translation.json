@@ -393,6 +393,7 @@
         "autodxvk": "Автоматически устанавливать/обновлять DXVK в префиксе",
         "autosync": "Автосинхронизация сохранений",
         "autovkd3d": "Автоматически устанавливать/обновлять VKD3D в префиксе",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "Выбрать другой EXE для запуска",
         "checkForUpdatesOnStartup": "Проверять обновления Heroic при запуске",
         "crossover-version": "Версия Crossover",
@@ -515,10 +516,14 @@
             "wineExt": "Расширения Wine"
         },
         "open-config-file": "Открыть файл конфигурации",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Сброс Heroic",
         "saves": {
             "label": "Место сохранения:",
             "warning": "Функция облачных сохранений находится в стадии бета-тестирования, сделайте резервную копию ваших сохранений перед синхронизацией (на случай, если что-то пойдет не так)"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "Настройки",

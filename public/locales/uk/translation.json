@@ -393,6 +393,7 @@
         "autodxvk": "Автоматично встановлювати/оновлювати DXVK на префіксі",
         "autosync": "Автосинхронізувати збереження",
         "autovkd3d": "Автоматично встановлювати/оновлювати VKD3D на префіксі",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "Обрати для запуску альтернативний EXE файл",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
@@ -515,10 +516,14 @@
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Відкрити файл налаштування",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Скинути Heroic",
         "saves": {
             "label": "Save Location:",
             "warning": "Збереження у хмарі, наразі у тестовому режимі. Будь ласка збережіть ваш файл збереження у іншому місці (у разі якщо щось піде не так)"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "Налаштування",

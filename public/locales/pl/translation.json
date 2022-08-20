@@ -393,6 +393,7 @@
         "autodxvk": "Automatycznie instaluj/Aktualizuj DXVK w prefiksie",
         "autosync": "Automatyczna synchronizacja zapisów",
         "autovkd3d": "Automatyczne Instaluj/Aktualizuj VKD3D w prefiksie",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "Wybierz alternatywny plik EXE do uruchomienia",
         "checkForUpdatesOnStartup": "Sprawdzaj aktualizacje Heroic podczas uruchomienia",
         "crossover-version": "Wersja Crossover",
@@ -515,10 +516,14 @@
             "wineExt": "Rozszerzenia Wine"
         },
         "open-config-file": "Otwórz plik konfiguracyjny",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Zresetuj Heroic",
         "saves": {
             "label": "Lokalizacja zapisów gry:",
             "warning": "Zapisy w chmurze są w wazie Beta, zrób kopię swoich zapisów przed synchronizacją (na wypadek niepowodzenia)"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "Ustawienia",

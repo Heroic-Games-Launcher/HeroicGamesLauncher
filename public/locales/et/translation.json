@@ -393,6 +393,7 @@
         "autodxvk": "DXVK automaatne paigaldamine/uuendamine prefiksile",
         "autosync": "Automaatne salvestiste sünkroonimine",
         "autovkd3d": "VKD3D automaatne paigaldamine/uuendamine prefiksile",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
         "checkForUpdatesOnStartup": "Kontrolli Heroicu uuendusi käivitamisel",
         "crossover-version": "Crossoveri versioon",
@@ -515,10 +516,14 @@
             "wineExt": "Wine'i laiendused"
         },
         "open-config-file": "Ava konfiguratsioonifail",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Lähtesta Heroic",
         "saves": {
             "label": "Salvestuste asukoht:",
             "warning": "Pilvesalvestuse funktsioon on beetaversioonis, enne sünkroonimist varundage oma salvestused (juhuks, kui midagi läheb valesti)"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "Seaded",

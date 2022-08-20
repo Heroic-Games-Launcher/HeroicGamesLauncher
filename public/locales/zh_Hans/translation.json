@@ -393,6 +393,7 @@
         "autodxvk": "在前置自动安装并更新 DXVK",
         "autosync": "自动同步存档",
         "autovkd3d": "自动在前置中安装/更新 VKD3D",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "选择要运行的替代 EXE",
         "checkForUpdatesOnStartup": "启动时检查 Heroic 更新",
         "crossover-version": "Crossover 版本",
@@ -515,10 +516,14 @@
             "wineExt": "Wine 扩展"
         },
         "open-config-file": "打开配置文件",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "重置 Heroic",
         "saves": {
             "label": "存档位置：",
             "warning": "云存档功能处于测试期，请在同步前备份你的存档（以防出现问题）"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "设置",
