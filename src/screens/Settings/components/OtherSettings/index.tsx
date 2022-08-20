@@ -277,12 +277,23 @@ export default function OtherSettings({
             />
           </div>
 
-          <ToggleSwitch
-            htmlId="primerun"
-            value={primeRun}
-            handleChange={togglePrimeRun}
-            title={t('setting.primerun', 'Use Dedicated Graphics Card')}
-          />
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="primerun"
+              value={primeRun}
+              handleChange={togglePrimeRun}
+              title={t('setting.primerun', 'Use Dedicated Graphics Card')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.primerun',
+                'Use dedicated graphics card to render game on multi gpu systems. Only needed on gaming laptops, or desktops that use a headless gpu for graphics rendering, e.g.: laptops with NVIDIA Optimus'
+              )}
+            />
+          </div>
 
           <ToggleSwitch
             htmlId="audiofix"
