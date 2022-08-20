@@ -23,8 +23,7 @@
             "title": "நிறுவலை நிறுத்து"
         },
         "uninstall": {
-            "checkbox": "முன்னொட்டையும் நீக்க விரும்புகிறீர்களா? இதை செயல்தவிர்க்க முடியாது.",
-            "checkbox_prefix": "முன்னொட்டு",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "இந்த விளையாட்டை நிறுவல்-நீக்க விரும்புகிறீர்களா?",
             "title": "நிறுவல் நீக்கு"
         },

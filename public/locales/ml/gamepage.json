@@ -23,8 +23,7 @@
             "title": "നടീല് നിര്ത്തൂ"
         },
         "uninstall": {
-            "checkbox": "പ്രിഫിക്സ് നീക്കംചെയ്യാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ? ഇത് പഴയപടിയാക്കാൻ കഴിയില്ല.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "ഇാ കളി എടുത്തുനീക്കട്ടെ?",
             "title": "എടുത്തു നീക്കൂ"
         },

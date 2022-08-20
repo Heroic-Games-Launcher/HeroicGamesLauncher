@@ -185,16 +185,12 @@ async function uninstall({
     const wineprefix = (await getGameSettings(appName, runner)).winePrefix
 
     linuxArgs = {
-      checkboxLabel: [
-        t(
-          'gamepage:box.uninstall.checkbox',
-          "Would you like to remove the prefix aswell? This can't be undone."
-        ),
-        `${t(
-          'gamepage:box.uninstall.checkbox_prefix',
-          'Prefix'
-        )}: ${wineprefix}`
-      ].join('\n'),
+      checkboxLabel: t('gamepage:box.uninstall.checkbox', {
+        defaultValue:
+          "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+        prefix: wineprefix,
+        newLine: '\n'
+      }),
       checkboxChecked: false
     }
   }

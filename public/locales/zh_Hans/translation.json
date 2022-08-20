@@ -249,7 +249,13 @@
     "infobox": {
         "help": "帮助",
         "requirements": "系统要求",
-        "wine-path": "Wine 路径"
+        "wine-path": "Wine 路径",
+        "wine-prefix": {
+            "title": "Wine Prefix"
+        },
+        "wine-repfix": {
+            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+        }
     },
     "install": {
         "path": "选择安装路径"

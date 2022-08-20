@@ -23,8 +23,7 @@
             "title": "Zastavit instalaci"
         },
         "uninstall": {
-            "checkbox": "Chcete odstranit i prefix? Tuto akci nelze vrátit zpět.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Chcete odinstalovat tuto hru?",
             "title": "Odinstalovat"
         },

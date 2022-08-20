@@ -23,8 +23,7 @@
             "title": "Зупинити встановлення"
         },
         "uninstall": {
-            "checkbox": "Бажаєте вилучити також префікс? Це неможливо скасувати.",
-            "checkbox_prefix": "Префікс",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Бажаєте видалити цю гру?",
             "title": "Видалити"
         },
