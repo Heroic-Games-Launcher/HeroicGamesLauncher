@@ -220,3 +220,7 @@ a {
 .infoBox.saves-warning svg {
   padding-right: 10px;
 }
+
+.bottles-button {
+  margin: 10px auto;
+}

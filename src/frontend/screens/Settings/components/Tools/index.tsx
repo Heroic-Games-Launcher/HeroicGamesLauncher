@@ -132,7 +132,7 @@ export default function Tools() {
               className={classNames('button outline')}
               onClick={async () => callTools('bottles')}
             >
-              BOTTLES
+              {t('settings.openBottles', 'OPEN BOTTLES')}
             </button>
           )}
           <a
