@@ -109,6 +109,7 @@ export default function GamesSubmenu({
   const [hasShortcuts, setHasShortcuts] = useState(false)
   const [eosOverlayEnabled, setEosOverlayEnabled] = useState<boolean>(false)
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
+  const [gogSetupInProgress, setGogSetupInProgress] = useState<boolean>(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const { t } = useTranslation('gamepage')
 
@@ -234,7 +235,9 @@ export default function GamesSubmenu({
   }
 
   async function handleGogSetup() {
+    setGogSetupInProgress(true)
     await ipcRenderer.invoke('runGOGSetupForGame', appName)
+    setGogSetupInProgress(false)
   }
 
   useEffect(() => {
@@ -371,14 +374,18 @@ export default function GamesSubmenu({
                     : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
                 </button>
               ))}
-            {isLinux && runner === 'gog' && (
-              <button
-                className="link button is-text is-link"
-                onClick={handleGogSetup}
-              >
-                {t('submenu.rungogsetup', 'Run GOG setup')}
-              </button>
-            )}
+            {isLinux &&
+              runner === 'gog' &&
+              (gogSetupInProgress ? (
+                refreshCircle()
+              ) : (
+                <button
+                  className="link button is-text is-link"
+                  onClick={handleGogSetup}
+                >
+                  {t('submenu.rungogsetup', 'Run GOG setup')}
+                </button>
+              ))}
           </>
         )}
         <NavLink

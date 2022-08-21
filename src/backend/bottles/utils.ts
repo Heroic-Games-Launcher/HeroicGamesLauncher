@@ -64,16 +64,17 @@ async function runBottlesCommand(
 
   let stdout = ''
   let stderr = ''
-
+  process.stdout.setEncoding('utf-8')
+  process.stderr.setEncoding('utf-8')
   return new Promise((res) => {
     process.stdout.addListener('data', (data) => {
       if (data) {
-        stdout += data.toString()
+        stdout += data
       }
     })
     process.stderr.addListener('data', (data) => {
       if (data) {
-        stderr += data.toString()
+        stderr += data
       }
     })
     process.addListener('error', () => {

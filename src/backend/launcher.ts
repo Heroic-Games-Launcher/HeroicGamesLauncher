@@ -268,7 +268,8 @@ function setupEnvVars(gameSettings: GameSettings) {
  * @returns A Record that can be passed to execAsync/spawn
  */
 function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
-  const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
+  const { wineVersion, winePrefix, wineCrossoverBottle, bottlesBottle } =
+    gameSettings
 
   const ret: Record<string, string> = {}
 
@@ -284,6 +285,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       break
     case 'crossover':
       ret.CX_BOTTLE = wineCrossoverBottle
+      break
+    case 'bottles':
+      ret.HGL_BOTTLE_NAME = bottlesBottle
   }
 
   if (gameSettings.showFps) {
@@ -445,8 +449,7 @@ async function runWineCommand(
   const env_vars = {
     ...process.env,
     ...setupEnvVars(gameSettings),
-    ...setupWineEnvVars(gameSettings, installFolderName),
-    HGL_BOTTLE_NAME: gameSettings.bottlesBottle
+    ...setupWineEnvVars(gameSettings, installFolderName)
   }
 
   let additional_command = ''
