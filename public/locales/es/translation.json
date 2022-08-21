@@ -221,7 +221,7 @@
             "part7": " para omitir el lanzador en algunos juegos, etc."
         },
         "preferSystemLibs": "Versiones custom de Wine (Wine-GE, Wine-Lutris) incluyen sus propias librerías para sus dependencias. Al activar esta opción, esa librarías son ignoradas y Wine cargará las librarías del sistema en su lugar. Advertencia! Pueden ocurrir errores si las dependencias no se cumplen.",
-        "primerun": "Use dedicated graphics card to render game on multi gpu systems. Only needed on gaming laptops, or desktops that use a headless gpu for graphics rendering, e.g.: laptops with NVIDIA Optimus",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar ayuda a mejorar los cuadros por segundo haciendo que la CPU tenga acceso a la totalidad del buffer gráficor. Activarlo puede mejorar el rendimiento para juegos basados en Vulkan.",
         "steamruntime": "Librerías provistas por Steam para ayudar a ejecutar juegos de Linux y Windows (Proton). Activarlas puede mejorar la compatibilidad.",
         "sync": {

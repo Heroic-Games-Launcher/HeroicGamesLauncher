@@ -221,7 +221,7 @@
             "part7": " untuk melewati peluncur di beberapa gim, dll."
         },
         "preferSystemLibs": "Versi Wine khusus (Wine-GE, Wine-Lutris) dikirimkan dengan dependensi pustakanya. Dengan mengaktifkan opsi ini, pustaka yang dikirimkan tersebut akan diabaikan dan Wine akan memuat pustaka sistem sebagai gantinya. Peringatan! Masalah dapat terjadi jika dependensi tidak terpenuhi.",
-        "primerun": "Use dedicated graphics card to render game on multi gpu systems. Only needed on gaming laptops, or desktops that use a headless gpu for graphics rendering, e.g.: laptops with NVIDIA Optimus",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "Resizable Bar NVIDIA membantu meningkatkan framerate dengan membuat CPU mengakses seluruh penyangga grafis. Mengaktifkannya dapat meningkatkan kinerja untuk gim berbasis Vulkan.",
         "steamruntime": "Pustaka khusus disediakan oleh Steam untuk membantu menjalankan gim Linux dan Windows (Proton). Mengaktifkannya dapat meningkatkan kompatibilitas.",
         "sync": {

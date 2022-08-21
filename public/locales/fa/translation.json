@@ -221,7 +221,7 @@
             "part7": " تا لانچر در برخی بازیها رد شود، غیره."
         },
         "preferSystemLibs": "نسخه های سفارشی Wine (Wine-GE, Wine-Lutris) همراه با وابستگی های کتابخانه خود عرضه می شوند. با فعال کردن این گزینه، این کتابخانه ها نادیده گرفته شده و Wine به جای آن کتابخانه های سیستم را اجرا خواهد کرد. هشدار! در صورت عدم وجود وابستگی ها امکان بروز مشکلات وجود دارد.",
-        "primerun": "Use dedicated graphics card to render game on multi gpu systems. Only needed on gaming laptops, or desktops that use a headless gpu for graphics rendering, e.g.: laptops with NVIDIA Optimus",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar با ایجاد امکان دسترسی CPU به کل بافر گرافیک سبب افزایش نرخ فریم می شود.فعال کردن ممکن است باعث بهبود عملکرد بازی های مبتنی بر Vulkan شود.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {

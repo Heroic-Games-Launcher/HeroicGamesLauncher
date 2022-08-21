@@ -290,7 +290,7 @@ export default function OtherSettings({
               icon={faCircleInfo}
               title={t(
                 'help.primerun',
-                'Use dedicated graphics card to render game on multi gpu systems. Only needed on gaming laptops, or desktops that use a headless gpu for graphics rendering, e.g.: laptops with NVIDIA Optimus'
+                'Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)'
               )}
             />
           </div>
