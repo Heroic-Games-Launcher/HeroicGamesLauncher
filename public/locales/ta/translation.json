@@ -7,7 +7,7 @@
         "title": "Accessibility",
         "zoom": "Zoom"
     },
-    "All": "",
+    "All": "அனைத்தும்",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
@@ -18,37 +18,37 @@
     },
     "box": {
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "ஹீராய்க் இன் cache அழிக்கப்பட்டது",
+            "title": "கேஷ் அழிக்கப்பட்டது"
         },
-        "choose": "",
-        "choose-egs-prefix": "",
+        "choose": "தேர்வு செய்",
+        "choose-egs-prefix": "EGS நிறுவப்பட்ட இடத்தின் முன்னொட்டை தேர்வுசெய்க",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
-        "choose-legendary-binary": "Select Legendary Binary (needs restart)",
-        "customWine": "Select the Wine or Proton Binary",
-        "default-install-path": "",
+        "choose-legendary-binary": "Legendary binary யைத் தேர்வு செய்",
+        "customWine": "Wine அல்லது Proton binary யைத் தேர்வு செய்",
+        "default-install-path": "இயல்புநிலை நிறுவல் பாதையை தேர்வு செய்",
         "default-steam-path": "Steam path.",
         "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
                     "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Error Adding Game to Steam"
+                    "title": "Adding Error"
                 }
             },
             "credentials": {
-                "message": "Your Crendentials have expired, Logout and Login Again!"
+                "message": "உங்கள் சான்றிதழ்கள் காலாவதியாகிவிட்டன, தயவுசெய்து வெளியேறி மீண்டும் உள்நுழைக."
             },
             "cx-bottle-not-found": {
                 "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
                 "title": "CrossOver bottle not found"
             },
             "diskspace": {
-                "message": "Not enough available disk space",
-                "title": "No Space"
+                "message": "போதுமான இடம் இல்லை",
+                "title": "இடம் இல்லை"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection!",
+                "message": "DXVK/VKD3D நிறுவும் போது பிழையாகிவிட்டது! தயவுசெய்து உங்கள் இணைப்பை சரிபார்க்கவும்!",
                 "title": "DXVK/VKD3D error"
             },
             "folder-not-found": {
@@ -59,7 +59,7 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "title": "Error",
+            "title": "பிழை",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
                 "title": "Uncaught Exception occured!"
@@ -83,16 +83,16 @@
                 "title-finished": "Update Finished"
             }
         },
-        "no": "",
-        "ok": "Ok",
+        "no": "இல்லை",
+        "ok": "சரி",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "நிறுவப்படவில்லை, அதை நிறுவ விரும்புகிறீர்களா?"
             }
         },
         "quit": {
-            "message": "There are pending operations, are you sure?",
-            "title": "Exit"
+            "message": "செயல்பாடுகள் நிலுவையில் உள்ளன, உறுதி செய்யவா?",
+            "title": "வெளியேறு"
         },
         "reset-heroic": {
             "question": {
@@ -101,21 +101,21 @@
             }
         },
         "runexe": {
-            "title": ""
+            "title": "EXE ஐ இயக்க தேர்ந்தெடு"
         },
         "select": {
             "button": "Select",
-            "exe": "Select EXE..."
+            "exe": "Select EXE"
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
-            "title": "Shortcuts Removed"
+            "title": "Shortcuts"
         },
         "sync": {
-            "button": "",
-            "error": "",
-            "title": ""
+            "button": "தேர்வு செய்",
+            "error": "தவறான பாதை",
+            "title": "சேமிக்கும் கோப்பகத்தை தேர்வுசெய்"
         },
         "vcruntime": {
             "install": {
@@ -134,15 +134,15 @@
             },
             "title": "Warning"
         },
-        "wineprefix": "",
-        "yes": ""
+        "wineprefix": "Wine முன்னொட்டு கோப்புறையை தேர்வுசெய்",
+        "yes": "ஆம்"
     },
     "button": {
         "go_to_library": "Go to Library",
-        "login": "Login",
-        "sync": "",
-        "syncing": "",
-        "unsync": ""
+        "login": "உள்நுழை",
+        "sync": "ஒத்திசைவு செய்",
+        "syncing": "ஒத்திசைவு செய்யப்படுகிறது",
+        "unsync": "ஒத்திசைவை செயல்தவிர்"
     },
     "controller": {
         "hints": {
@@ -167,7 +167,7 @@
     },
     "docs": "Documentation",
     "epic": {
-        "offline-notification-body": "Heroic will maybe not work probably!",
+        "offline-notification-body": "Epic games இன் சர்வர்கள் ஆஃப்லைனில் உள்ளதால் ஆன்லைன் சேவைகள் முழுமையாக இயங்காமல் போகலாம்!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -186,12 +186,12 @@
             "refresh": "Refresh Library"
         }
     },
-    "globalSettings": "Global Settings",
+    "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "",
+        "platform": "தளம்",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
@@ -208,27 +208,27 @@
             "valid_codes": "Valid language codes are game-dependant."
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
-        "general": "",
+        "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
-            "part4": "",
-            "part5": "",
-            "part6": "",
-            "part7": ""
+            "part4": "இதைப் பயன்படுத்து ",
+            "part5": "விளையாட்டு வாதங்கள்",
+            "part6": " ஏவுதல் கட்டளைக்குப் பின் அழைக்கப்பட வேண்டும், உதாரணமாக: ",
+            "part7": " Launcher ஐ சில விளையாட்டுகளுக்கு தவிர்ப்பது, முதலியன."
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
-            "part1": "",
-            "part2": "",
-            "part3": "",
-            "part4": ""
+            "part1": "சரியான சேமிப்பு கோப்புறையை ஹீரோயிக் யூகிக்க முயற்சிக்கும், இது பெரும்பாலான சந்தர்ப்பங்களில் வேலை செய்யும். கோப்புறை தவறாக இருந்தால், அதை மாற்ற override பெட்டியைப் பயன்படுத்தவும்.",
+            "part2": "Wine அல்லது Proton முன்னொட்டு கோப்புறையை நீங்கள் மாற்றியிருந்தால், வேறு Proton முன்னொட்டு (/pfx) மற்றும் பயனர்பெயர் (steamuser) ஆகியவற்றைப் பயன்படுத்துவதால் நீங்கள் மீண்டும் பாதையை சரிபார்க்க வேண்டும். எனவே நீங்கள் தற்போதைய பாதையை ஒத்திசைவு அமைப்புகள் பக்கத்திலிருந்து எளிமையாக அழிக்க முடியும், அதன் பிறகு இன்னும் ஒரு முறை சரியான முன்னொட்டின் கோப்புறையை யூகிக்க எபிக் க்கு மீண்டும் திரும்பவும்.",
+            "part3": "கைமுறை ஒத்திசைவு: மேகக்கணியில் சேமிக்கப்பட்ட விளையாட்டு சேமிப்புகளை பதிவிறக்க பதிவிறக்கத்தை தேர்வுசெய். கணினியில் உள்ளவற்றை மேகக்கணியில் பதிவேற்ற பதிவேற்றத்தை தேர்வுசெய். கட்டாயப்படுத்தப்பட்ட பதிவிறக்கம் அல்லது கட்டாயப்படுத்தப்பட்ட பதிவேற்றத்தை பயன்படுத்தினால், கணினி அல்லது மேகக்கணி பதிப்பை புறக்கணிக்கும்.",
+            "part4": "'ஒத்திசைவு சேமிப்புகள்' நீங்கள் ஒரு விளையாட்டை துவங்கும்போதும் மற்றும் விளையாட்டை முடித்தபின்னும் சேமிப்புகளை தானாக ஒத்திசைக்கும்."
         },
         "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
-            "part1": "",
-            "part2": ""
+            "part1": "ஹீரோயிக் பின்வரும் கோப்புறைகளில் Wine, Proton மற்றும் crossover பதிப்புகளை தேடும்:",
+            "part2": "பிற இடங்களுக்கு, இவற்றில் ஒரு கோப்புறைக்கு குறியீட்டு-இணைப்பை பயன்படுத்து"
         }
     },
     "info": {
@@ -238,19 +238,19 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
-        "settings": "",
+        "settings": "அமைப்புகள் தானாகவே சேமிக்கப்படும்",
         "version": "Wine Version"
     },
     "infobox": {
-        "help": "",
-        "requirements": "",
+        "help": "உதவி",
+        "requirements": "கணினி தேவைப்பாடுகள்",
         "wine-path": "Wine Path"
     },
     "install": {
         "path": "Select Install Path"
     },
     "library": {
-        "refresh": "Refresh Library",
+        "refresh": "புதுப்பி",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -259,17 +259,17 @@
             "list": "Toggle to a list layout"
         }
     },
-    "Library": "",
+    "Library": "விளையாட்டு பட்டியல்",
     "loading": {
-        "default": "",
+        "default": "ஏற்றுகிறது",
         "website": "Loading Website"
     },
     "login": {
         "externalLogin": "External Login"
     },
     "message": {
-        "sync": "",
-        "unsync": ""
+        "sync": "ஒத்திசைவு நிறைப்படைந்தது",
+        "unsync": "ஒத்திசைவு செயல்தவிர் நிறைப்படைந்தது"
     },
     "notify": {
         "error": {
@@ -291,25 +291,25 @@
                     "title": "Removed from Steam"
                 }
             },
-            "reparing": ""
+            "reparing": "பழுதுபார்ப்பு முடிவடைந்தது"
         },
         "install": {
-            "canceled": "",
-            "error": "",
-            "finished": "",
+            "canceled": "நிறுவல் ரத்துசெய்யப்பட்டது",
+            "error": "நிறுவல் தோல்வி",
+            "finished": "நிறுவல் முடிவடைந்தது",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
         },
-        "moved": "",
+        "moved": "நகர்தல் முடிவடைந்தது",
         "moving": "Moving Game",
         "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
-        "uninstalled": "",
+        "uninstalled": "நிறுவல் நீக்கப்பட்டது",
         "update": {
-            "canceled": "",
-            "finished": "",
+            "canceled": "புதுப்பிப்பு ரத்து செய்யப்பட்டது",
+            "finished": "புதுப்பிப்பு நிறைவடைந்தது",
             "started": "Update Started"
         }
     },
@@ -318,12 +318,12 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "",
+            "title": "மேம்பட்ட விருப்பங்கள் (Environment Variables):",
             "value": "Value"
         },
         "gameargs": {
-            "placeholder": "",
-            "title": ""
+            "placeholder": "துவக்கி வாதங்களை இங்கே உள்ளிடவும்",
+            "title": "விளையாட்டு வாதங்கள் (கட்டளைக்குப் பின் இயக்க):"
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -338,42 +338,42 @@
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
-        "weblate": "Help Improve this translation."
+        "weblate": "ஹீரோயிக் ஐ மொழிபெயர்க்க உதவுங்கள்."
     },
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
-        "egs-prefix": "",
+        "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "லினக்ஸ்",
+        "mac": "மேக்",
+        "win": "விண்டோஸ்"
     },
-    "Recent": "Played Recently",
-    "search": "",
+    "Recent": "சமீபத்தில் விளையாடியவை",
+    "search": "விளையாட்டுகளைத் தேடு",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)to use",
-        "audiofix": "",
-        "autodxvk": "Auto Install/Update DXVK on Prefix",
-        "autosync": "",
+        "adddesktopshortcuts": "திரைமுகப்பு குறுக்குவழிகளை தானாக சேர்",
+        "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
+        "alt-gogdl-bin": "மாற்று GOGDL Binary ஐத் தேர்வு செய்",
+        "alt-legendary-bin": "மாற்று Legendary Binary ஐத் தேர்வு செய்",
+        "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
+        "autodxvk": "முன்னொட்டில் DXVK ஐ தானாக நிறுவு/புதுப்பி",
+        "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
-        "customWineProton": "Custom Wine/Proton Paths",
-        "darktray": "Use Dark Tray Icon (needs restart)",
-        "default-install-path": "",
+        "customWineProton": "தனிப்பயன் Wine/Proton பாதைகள்",
+        "darktray": "கணினி தட்டில் இருண்ட சின்னத்தை பயன்படுத்து",
+        "default-install-path": "இயல்புநிலை நிறுவல் பாதை",
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
-        "egs-sync": "",
+        "egs-sync": "நிறுவப்பட்ட எபிக் விளையாட்டுகளுடன் ஒத்திசை",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
@@ -396,11 +396,11 @@
             "updating": "Updating..."
         },
         "esync": "Enable Esync",
-        "exit-to-tray": "",
+        "exit-to-tray": "கணினி தட்டிற்கு வெளியேறு",
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
-        "gamemode": "",
-        "language": "Choose App Language",
+        "gamemode": "GameMode ஐ பயன்படுது (Feral விளையாட்டு பயன்முறையை நிறுவப்பட்டிருக்க வேண்டும்)",
+        "language": "பயன்பாட்டின் மொழியை தேர்வுசெய்",
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
@@ -409,46 +409,46 @@
         },
         "library_top_section": "Library Top Section",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard.",
-            "current-log": "Current log",
+            "copy-to-clipboard": "Copy log content to clipboard",
+            "current-log": "Current Log",
             "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
-            "no-file": "No log file found.",
+            "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
         },
-        "mangohud": "",
+        "mangohud": "Mangohud ஐ இயக்கு (Mangohud நிறுவப்பட்டிருக்க வேண்டும்)",
         "manualsync": {
-            "download": "",
-            "forcedownload": "",
-            "forceupload": "",
-            "sync": "",
-            "syncing": "",
-            "title": "",
-            "upload": ""
+            "download": "பதிவிறக்கு",
+            "forcedownload": "கட்டாயப்படுத்தப்பட்ட பதிவிறக்கம்",
+            "forceupload": "கட்டாயப்படுத்தப்பட்ட பதிவேற்றம்",
+            "sync": "ஒத்திசைவு",
+            "syncing": "ஒத்திசைத்தல்",
+            "title": "கைமுறை ஒத்திசைவு சேமிப்புகள்",
+            "upload": "பதிவேற்றம்"
         },
-        "maxRecentGames": "Recent Games to Show",
-        "maxworkers": "",
+        "maxRecentGames": "Played Recently to Show",
+        "maxworkers": "பதிவிறக்கும் போது வேலையாளிகளின் அதிகபட்ச எண்ணிக்கை",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
-        "offlinemode": "",
+        "offlinemode": "இணையத்துடன் இணையாமல் விளையாட்டை துவக்கு",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Use Dedicated Graphics Card",
+        "primerun": "Dedicated Graphics Card ஐ பயன்படுத்து",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
-            "message": "",
-            "title": ""
+            "message": "கோப்புகளை இங்கே இழுத்து விடுங்கள்",
+            "title": "முன்னொட்டில் EXE ஐ இயக்கு"
         },
         "savefolder": {
-            "placeholder": ""
+            "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு"
         },
         "select_theme": "Select Theme",
-        "showfps": "",
+        "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "",
-        "wineversion": ""
+        "wineprefix": "WinePrefix கோப்புறை",
+        "wineversion": "Wine பதிப்பு"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -457,7 +457,7 @@
         },
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Settings to Clipboard",
+        "copyToClipboard": "அனைத்து செட்டிங்ஸையும் கிளிப் போர்டில் நகல் எடு",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -477,10 +477,10 @@
         },
         "navbar": {
             "advanced": "Advanced",
-            "general": "",
+            "general": "பொதுவானவை",
             "log": "Log",
-            "other": "",
-            "sync": "",
+            "other": "மற்றவை",
+            "sync": "சேமிப்பு-ஒத்திசைவு",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
@@ -490,7 +490,7 @@
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
-    "Settings": "",
+    "Settings": "அமைப்புகள்",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar"
@@ -500,7 +500,7 @@
         "logging": "Logging In...",
         "processing": "Processing files, please wait"
     },
-    "store": "Epic Store",
+    "store": "Epic விற்பனைக்கூடம்",
     "stores": "Stores",
     "title": {
         "allGames": "All Games"
@@ -512,28 +512,29 @@
         }
     },
     "tooltip": {
-        "addpath": "Add New Path",
-        "removepath": "Remove Path"
+        "addpath": "புதிய பாதையை சேர்",
+        "removepath": "பாதையை அகற்று"
     },
     "tray": {
-        "about": "About",
-        "quit": "Quit",
-        "reload": "Reload",
-        "show": ""
+        "about": "இதனை பற்றி",
+        "quit": "வெளியேறு",
+        "reload": "மீண்டும் ஏற்று",
+        "show": "காட்டு"
     },
     "Update Available!": "",
     "userselector": {
-        "discord": "Discord",
-        "logout": "Logout",
+        "discord": "டிஸ்கார்ட் (Discord)",
+        "logout": "வெளியேறு",
+        "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit"
+        "quit": "வெளியேறு"
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "பின்செல்",
+            "forward": "முன்செல்",
+            "openInBrowser": "Browser இல் திற",
+            "reload": "பக்கத்தை reload செய்"
         }
     },
     "wine": {
@@ -541,7 +542,7 @@
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
+            "title": "Wine Manager",
             "unzipping": "Unzipping"
         },
         "release": "Release Date",

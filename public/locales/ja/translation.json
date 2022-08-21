@@ -7,7 +7,7 @@
         "title": "Accessibility",
         "zoom": "Zoom"
     },
-    "All": "",
+    "All": "全て",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
@@ -21,34 +21,34 @@
             "message": "Heroic Cache Was Cleared!",
             "title": "Cache Cleared"
         },
-        "choose": "",
-        "choose-egs-prefix": "",
+        "choose": "選ぶ",
+        "choose-egs-prefix": "EGSがインストールされているプレフィックスを選択します",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
-        "choose-legendary-binary": "Select Legendary Binary (needs restart)",
-        "customWine": "Select the Wine or Proton Binary",
-        "default-install-path": "",
+        "choose-legendary-binary": "Select Legendary Binary",
+        "customWine": "WineまたはProtonバイナリを選択します",
+        "default-install-path": "デフォルトのインストールパスを選択します",
         "default-steam-path": "Steam path.",
         "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
                     "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Error Adding Game to Steam"
+                    "title": "Adding Error"
                 }
             },
             "credentials": {
-                "message": "Your Crendentials have expired, Logout and Login Again!"
+                "message": "クレデンシャルの有効期限が切れています。ログアウトしてから再度ログインしてください。"
             },
             "cx-bottle-not-found": {
                 "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
                 "title": "CrossOver bottle not found"
             },
             "diskspace": {
-                "message": "Not enough available disk space",
-                "title": "No Space"
+                "message": "使用可能なディスク容量が不足しています",
+                "title": "ディスク容量がありません"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection!",
+                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
                 "title": "DXVK/VKD3D error"
             },
             "folder-not-found": {
@@ -59,7 +59,7 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "title": "Error",
+            "title": "エラー",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
                 "title": "Uncaught Exception occured!"
@@ -83,16 +83,16 @@
                 "title-finished": "Update Finished"
             }
         },
-        "no": "",
+        "no": "いいえ",
         "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "Is Not Installed, do you wish to Install it?"
+                "not_installed": "インストールされていませんが、インストールしますか？"
             }
         },
         "quit": {
-            "message": "There are pending operations, are you sure?",
-            "title": "Exit"
+            "message": "保留中の操作があります、よろしいですか？",
+            "title": "エグジット"
         },
         "reset-heroic": {
             "question": {
@@ -101,21 +101,21 @@
             }
         },
         "runexe": {
-            "title": ""
+            "title": "実行するEXEを選択します"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE..."
+            "button": "選択",
+            "exe": "EXEを選択します"
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
-            "title": "Shortcuts Removed"
+            "title": "Shortcuts"
         },
         "sync": {
-            "button": "",
-            "error": "",
-            "title": ""
+            "button": "選ぶ",
+            "error": "無効なパス",
+            "title": "保存ディレクトリを選択します"
         },
         "vcruntime": {
             "install": {
@@ -134,15 +134,15 @@
             },
             "title": "Warning"
         },
-        "wineprefix": "",
-        "yes": ""
+        "wineprefix": "Wineプレフィックスフォルダを選択します",
+        "yes": "はい"
     },
     "button": {
         "go_to_library": "Go to Library",
         "login": "Login",
-        "sync": "",
-        "syncing": "",
-        "unsync": ""
+        "sync": "同期",
+        "syncing": "同期しています",
+        "unsync": "非同期"
     },
     "controller": {
         "hints": {
@@ -167,7 +167,7 @@
     },
     "docs": "Documentation",
     "epic": {
-        "offline-notification-body": "Heroic will maybe not work probably!",
+        "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -186,12 +186,12 @@
             "refresh": "Refresh Library"
         }
     },
-    "globalSettings": "Global Settings",
+    "globalSettings": "全体設定",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "",
+        "platform": "プラットホーム",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
@@ -208,27 +208,27 @@
             "valid_codes": "Valid language codes are game-dependant."
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
-        "general": "",
+        "general": "Epic Games Storeが他の場所に正常にインストールされていて、ゲームをインポートして再度ダウンロードしないようにする場合は、EGSと同期します。",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
-            "part4": "",
-            "part5": "",
-            "part6": "",
-            "part7": ""
+            "part4": "使用： ",
+            "part5": "ゲームの議論",
+            "part6": " 起動コマンドの後に呼び出されます。例： ",
+            "part7": " 一部のゲームなどでランチャーをスキップします。"
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
-            "part1": "",
-            "part2": "",
-            "part3": "",
-            "part4": ""
+            "part1": "Heroicは正しい保存フォルダを推測しようとしますが、これはほとんどの場合に機能します。フォルダが間違っている場合は、オーバーライドボックスを使用して変更します。",
+            "part2": "WineまたはProtonのプレフィックスフォルダを変更した場合、Protonは別のプレフィックス（/ pfx）とユーザー名（steamuser）を使用するため、パスを再度確認する必要があります。したがって、現在のパスを消去して同期設定ページから抜け出し、Heroicがもう一度戻って、正しいプレフィックスでフォルダをもう一度推測することができます。",
+            "part3": "手動同期：クラウドに保存されているゲームの保存をダウンロードするには、[ダウンロード]を選択します。アップロードして、ローカルのものをクラウドにアップロードします。強制ダウンロードと強制アップロードは、ローカルまたはクラウド上にあるバージョンを無視します。",
+            "part4": "保存を同期すると、自動的にゲームを開始するたび、およびプレイが終了した後に保存が同期されます。"
         },
         "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
-            "part1": "",
-            "part2": ""
+            "part1": "Heroicは、次のフォルダーでWine、Proton、およびCrossOverのバージョンを検索します：",
+            "part2": "その他の場所については、これらのフォルダの1つへのシンボリックリンクを使用してください"
         }
     },
     "info": {
@@ -238,19 +238,19 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
-        "settings": "",
+        "settings": "設定は自動的に保存されます",
         "version": "Wine Version"
     },
     "infobox": {
-        "help": "",
-        "requirements": "",
+        "help": "ヘルプ",
+        "requirements": "システム要求",
         "wine-path": "Wine Path"
     },
     "install": {
         "path": "Select Install Path"
     },
     "library": {
-        "refresh": "Refresh Library",
+        "refresh": "リフレッシュ",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -259,17 +259,17 @@
             "list": "Toggle to a list layout"
         }
     },
-    "Library": "",
+    "Library": "ライブラリ",
     "loading": {
-        "default": "",
+        "default": "読み込み中",
         "website": "Loading Website"
     },
     "login": {
         "externalLogin": "External Login"
     },
     "message": {
-        "sync": "",
-        "unsync": ""
+        "sync": "同期が完了しました",
+        "unsync": "非同期が完了しました"
     },
     "notify": {
         "error": {
@@ -291,25 +291,25 @@
                     "title": "Removed from Steam"
                 }
             },
-            "reparing": ""
+            "reparing": "修復が完了しました"
         },
         "install": {
-            "canceled": "",
-            "error": "",
-            "finished": "",
+            "canceled": "インストールがキャンセルされました",
+            "error": "インストールに失敗しました",
+            "finished": "インストールが完了しました",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
         },
-        "moved": "",
+        "moved": "移動が完了しました",
         "moving": "Moving Game",
         "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
-        "uninstalled": "",
+        "uninstalled": "アンインストールしました",
         "update": {
-            "canceled": "",
-            "finished": "",
+            "canceled": "更新がキャンセルされました",
+            "finished": "Update Finished",
             "started": "Update Started"
         }
     },
@@ -318,12 +318,12 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "",
+            "title": "高度なオプション（環境変数）：",
             "value": "Value"
         },
         "gameargs": {
-            "placeholder": "",
-            "title": ""
+            "placeholder": "ここにランチャーの引数を入れてください",
+            "title": "ゲームの引数（コマンドの後に実行するため）："
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -338,43 +338,43 @@
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
-        "weblate": "Help Improve this translation."
+        "weblate": "Heroicの翻訳を手伝ってください。"
     },
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
-        "egs-prefix": "",
+        "egs-prefix": "EGSがインストールされているプレフィックス",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "マック",
+        "win": "ウィンドウズ"
     },
-    "Recent": "Played Recently",
-    "search": "",
+    "Recent": "最近のゲーム",
+    "search": "ここにゲーム名を入力してください...",
     "setting": {
-        "adddesktopshortcuts": "Add desktop shortcuts automatically",
-        "addgamestostartmenu": "Add games to start menu automatically",
+        "adddesktopshortcuts": "デスクトップショートカットを自動的に追加する",
+        "addgamestostartmenu": "ゲームをスタートメニューに自動的に追加する",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)to use",
-        "audiofix": "",
-        "autodxvk": "Auto Install/Update DXVK on Prefix",
-        "autosync": "",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",
+        "autodxvk": "プレフィックスでのDXVKの自動インストール/更新",
+        "autosync": "保存を自動的に同期する",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
-        "change-target-exe": "Select an alternative EXE to run",
+        "change-target-exe": "実行する代替EXEを選択します",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
-        "customWineProton": "Custom Wine/Proton Paths",
-        "darktray": "Use Dark Tray Icon (needs restart)",
-        "default-install-path": "",
+        "customWineProton": "カスタムWine/Protonパス",
+        "darktray": "ダークトレイアイコンを使用する",
+        "default-install-path": "デフォルトのインストールパス",
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
-        "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC": "Discord Rich Presenceを有効にする",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
-        "egs-sync": "",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "egs-sync": "インストールされているEpic Gamesと同期する",
+        "enableFSRHack": "FSRハックを有効にする（Wineバージョンはそれをサポートする必要があります）",
         "eosOverlay": {
             "cancelInstall": "Cancel",
             "checkForUpdates": "Check for updates",
@@ -395,12 +395,12 @@
             "updateNow": "Update",
             "updating": "Updating..."
         },
-        "esync": "Enable Esync",
-        "exit-to-tray": "",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "fsync": "Enable Fsync",
-        "gamemode": "",
-        "language": "Choose App Language",
+        "esync": "Esyncを有効にする",
+        "exit-to-tray": "システムトレイに戻る",
+        "FsrSharpnessStrenght": "FSRシャープネス強度",
+        "fsync": "Fsyncを有効にする",
+        "gamemode": "GameModeを使用する（Feral Game Modeをインストールする必要があります）",
+        "language": "アプリの言語を選択",
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
@@ -409,46 +409,46 @@
         },
         "library_top_section": "Library Top Section",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard.",
-            "current-log": "Current log",
+            "copy-to-clipboard": "Copy log content to clipboard",
+            "current-log": "Current Log",
             "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
-            "no-file": "No log file found.",
+            "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
         },
-        "mangohud": "",
+        "mangohud": "Mangohudを有効にする（Mangohudをインストールする必要があります）",
         "manualsync": {
-            "download": "",
-            "forcedownload": "",
-            "forceupload": "",
-            "sync": "",
-            "syncing": "",
-            "title": "",
-            "upload": ""
+            "download": "ダウンロード",
+            "forcedownload": "強制ダウンロード",
+            "forceupload": "強制アップロード",
+            "sync": "同期",
+            "syncing": "同期しています",
+            "title": "手動同期保存",
+            "upload": "アップロード"
         },
-        "maxRecentGames": "Recent Games to Show",
-        "maxworkers": "",
+        "maxRecentGames": "表示する最近のゲーム",
+        "maxworkers": "ダウンロード時のワーカーの最大数",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
-        "offlinemode": "",
+        "offlinemode": "ゲームをオフラインで実行する",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Use Dedicated Graphics Card",
-        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
+        "primerun": "Nvidia Prime Renderを有効にする",
+        "resizableBar": "サイズ変更可能なBARを有効にする（NVIDIA RTX 30xxのみ）",
         "runexe": {
-            "message": "",
-            "title": ""
+            "message": "ここにファイルをドラッグアンドドロップします",
+            "title": "プレフィックスでEXEを実行する"
         },
         "savefolder": {
-            "placeholder": ""
+            "placeholder": "正確なゲーム保存フォルダを選択してください"
         },
         "select_theme": "Select Theme",
-        "showfps": "",
-        "start-in-tray": "Start Minimized",
+        "showfps": "FPSを表示（DX9、10、11）",
+        "start-in-tray": "最小化を開始",
         "steamruntime": "Use Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "",
-        "wineversion": ""
+        "winecrossoverbottle": "CrossOver ボトル",
+        "wineprefix": "Wineプレフィックスフォルダー",
+        "wineversion": "Wineバージョン"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -457,7 +457,7 @@
         },
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Settings to Clipboard",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -477,10 +477,10 @@
         },
         "navbar": {
             "advanced": "Advanced",
-            "general": "",
+            "general": "一般",
             "log": "Log",
-            "other": "",
-            "sync": "",
+            "other": "他",
+            "sync": "同期を保存",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
@@ -490,7 +490,7 @@
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
-    "Settings": "",
+    "Settings": "設定",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar"
@@ -500,7 +500,7 @@
         "logging": "Logging In...",
         "processing": "Processing files, please wait"
     },
-    "store": "Epic Store",
+    "store": "ストア",
     "stores": "Stores",
     "title": {
         "allGames": "All Games"
@@ -512,28 +512,29 @@
         }
     },
     "tooltip": {
-        "addpath": "Add New Path",
-        "removepath": "Remove Path"
+        "addpath": "新しいパスを追加する",
+        "removepath": "パスを削除する"
     },
     "tray": {
-        "about": "About",
-        "quit": "Quit",
-        "reload": "Reload",
-        "show": ""
+        "about": "について",
+        "quit": "終了",
+        "reload": "リロード",
+        "show": "表示する"
     },
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
-        "logout": "Logout",
+        "logout": "ログアウト",
+        "logout_confirmation": "ログアウトしてもよろしいですか？",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit"
+        "quit": "終了"
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "戻る",
+            "forward": "前進する",
+            "openInBrowser": "ブラウザで開く",
+            "reload": "ページをリロード"
         }
     },
     "wine": {
@@ -541,7 +542,7 @@
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
-            "title": "Wine Manager (Beta)",
+            "title": "Wine Manager",
             "unzipping": "Unzipping"
         },
         "release": "Release Date",
