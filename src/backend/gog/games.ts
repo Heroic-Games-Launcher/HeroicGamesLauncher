@@ -39,7 +39,11 @@ import setup from './setup'
 import { runGogdlCommand } from './library'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
-import { GogInstallInfo, GogInstallPlatform } from 'common/types/gog'
+import {
+  GOGCloudSavesLocation,
+  GogInstallInfo,
+  GogInstallPlatform
+} from 'common/types/gog'
 import { t } from 'i18next'
 
 class GOGGame extends Game {
@@ -516,44 +520,71 @@ class GOGGame extends Game {
     killPattern(pattern)
   }
 
-  async syncSaves(arg: string, path: string): Promise<ExecResult> {
+  async syncSaves(
+    arg: string,
+    path: string,
+    gogSaves?: GOGCloudSavesLocation[]
+  ): Promise<ExecResult> {
+    if (!gogSaves) {
+      return {
+        stderr: 'Unable to sync saves, gogSaves is undefined',
+        stdout: ''
+      }
+    }
+
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
       return { stderr: 'Unable to sync saves, no credentials', stdout: '' }
     }
 
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
-    if (!gameInfo) {
+    if (!gameInfo || !gameInfo.install.platform) {
       return { stderr: 'Unable to sync saves, game info not found', stdout: '' }
     }
 
-    const commandParts = [
-      'save-sync',
-      path,
-      this.appName,
-      '--token',
-      `"${credentials.refresh_token}"`,
-      '--os',
-      gameInfo.install.platform!,
-      '--ts',
-      syncStore.get(this.appName, '0') as string,
-      arg
-    ]
+    const stderr: string[] = []
 
-    logInfo([`Syncing saves for ${this.appName}`], LogPrefix.Gog)
+    for (const location of gogSaves) {
+      const commandParts = [
+        'save-sync',
+        location.location,
+        this.appName,
+        '--token',
+        `"${credentials.refresh_token}"`,
+        '--os',
+        gameInfo.install.platform,
+        '--ts',
+        syncStore.get([this.appName, location.name].join('.'), '0') as string,
+        '--name',
+        location.name,
+        arg
+      ]
 
-    const res = await runGogdlCommand(commandParts)
+      logInfo([`Syncing saves for ${this.appName}`], LogPrefix.Gog)
 
-    if (res.error) {
-      logError(
-        ['Failed to sync saves for', `${this.appName}`, `${res.error}`],
-        LogPrefix.Gog
-      )
+      const res = await runGogdlCommand(commandParts)
+
+      if (res.error) {
+        logError(
+          ['Failed to sync saves for', `${this.appName}`, `${res.error}`],
+          LogPrefix.Gog
+        )
+      }
+      if (res.stdout) {
+        syncStore.set(
+          [this.appName, location.name].join('.'),
+          res.stdout.trim()
+        )
+      }
+      if (res.stderr) {
+        stderr.push(res.stderr.toString())
+      }
     }
-    if (res.stdout) {
-      syncStore.set(this.appName, res.stdout.trim())
+
+    return {
+      stderr: stderr.join('\n'),
+      stdout: ''
     }
-    return res
   }
   public async uninstall(): Promise<ExecResult> {
     const array: Array<InstalledInfo> =

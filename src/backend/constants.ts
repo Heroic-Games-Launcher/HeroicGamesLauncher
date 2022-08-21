@@ -1,5 +1,6 @@
+import { spawnSync } from 'child_process'
 import { homedir, platform } from 'os'
-import path, { join, normalize } from 'path'
+import { join, resolve } from 'path'
 import Store from 'electron-store'
 import { parse } from '@node-steam/vdf'
 
@@ -58,11 +59,7 @@ const heroicAnticheatDataPath = join(heroicFolder, 'areweanticheatyet.json')
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
 
-const publicDir = path.resolve(
-  __dirname,
-  '..',
-  app.isPackaged ? '' : '../public'
-)
+const publicDir = resolve(__dirname, '..', app.isPackaged ? '' : '../public')
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
@@ -74,11 +71,13 @@ const epicLoginUrl =
 const gogLoginUrl =
   'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 const sidInfoUrl =
-  'https://github.com/flavioislima/HeroicGamesLauncher/issues/42'
+  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues/42'
 const heroicGithubURL =
-  'https://github.com/flavioislima/HeroicGamesLauncher/releases/latest'
+  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest'
+const GITHUB_API =
+  'https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases'
 const supportURL =
-  'https://github.com/flavioislima/HeroicGamesLauncher/blob/main/Support.md'
+  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
 const wikiLink =
   'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
@@ -122,29 +121,26 @@ export function getSteamCompatFolder() {
   if (isWindows) {
     const defaultWinPath = join(process.env['PROGRAMFILES(X86)'] ?? '', 'Steam')
     return defaultWinPath
-    // Reading of steam registry key should work with registry-js
-    // in electron enviroment but there is a npm node-gyp problem so far:
-    // https://github.com/desktop/registry-js/issues/224
-    //
-    // try {
-    //   const entry = enumerateValues(
-    //     HKEY.HKEY_LOCAL_MACHINE,
-    //     'SOFTWARE\\WOW6432Node\\Valve\\Steam'
-    //   ).filter((value) => value.name === 'InstallPath')[0]
-    //   return (entry && String(entry.data)) || defaultWinPath
-    // } catch {
-    //   return defaultWinPath
-    // }
   } else if (isMac) {
-    return normalize(join(userHome, 'Library/Application Support/Steam'))
+    return join(userHome, 'Library/Application Support/Steam')
   } else {
-    const flatpakSteamPath = normalize(
-      join(userHome, '.var/app/com.valvesoftware.Steam/.steam/steam')
+    const flatpakSteamPath = join(
+      userHome,
+      '.var/app/com.valvesoftware.Steam/.steam/steam'
     )
+
     if (existsSync(flatpakSteamPath)) {
-      return flatpakSteamPath
+      // check if steam is really installed via flatpak
+      const { status } = spawnSync('flatpak', [
+        'info',
+        'com.valvesoftware.Steam'
+      ])
+
+      if (status === 0) {
+        return flatpakSteamPath
+      }
     }
-    return normalize(join(userHome, '.steam/steam'))
+    return join(userHome, '.steam/steam')
   }
 }
 
@@ -227,5 +223,6 @@ export {
   runtimePath,
   isCLIFullscreen,
   isCLINoGui,
-  publicDir
+  publicDir,
+  GITHUB_API
 }

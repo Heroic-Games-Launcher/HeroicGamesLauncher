@@ -21,7 +21,7 @@ import UpdateComponent from 'frontend/components/UI/UpdateComponent'
 
 import GeneralSettings from './components/GeneralSettings'
 import OtherSettings from './components/OtherSettings'
-import SyncSaves from './components/SyncSaves'
+import { LegendarySyncSaves, GOGSyncSaves } from './components/SyncSaves'
 import Tools from './components/Tools'
 import WineSettings from './components/WineSettings'
 import LogSettings from './components/LogSettings'
@@ -30,6 +30,7 @@ import FooterInfo from './components/FooterInfo'
 import { WineExtensions } from './components'
 import { configStore } from 'frontend/helpers/electronStores'
 import ContextMenu from '../Library/components/ContextMenu'
+import { GOGCloudSavesLocation } from 'common/types/gog'
 
 interface ElectronProps {
   ipcRenderer: IpcRenderer
@@ -79,8 +80,11 @@ function Settings() {
   const [altLegendaryBin, setAltLegendaryBin] = useState('')
   const [altGogdlBin, setAltGogdlBin] = useState('')
   const [canRunOffline, setCanRunOffline] = useState(true)
-  const [customWinePaths, setCustomWinePaths] = useState([] as Array<string>)
+  const [customWinePaths, setCustomWinePaths] = useState<string[]>([])
   const [savesPath, setSavesPath] = useState('')
+  const [gogSavesLocations, setGogSavesLocations] = useState<
+    GOGCloudSavesLocation[]
+  >([])
 
   const {
     on: addDesktopShortcuts,
@@ -96,6 +100,11 @@ function Settings() {
     on: useGameMode,
     toggle: toggleUseGameMode,
     setOn: setUseGameMode
+  } = useToggle(false)
+  const {
+    on: checkForUpdatesOnStartup,
+    toggle: toggleUpdatesOnStartup,
+    setOn: setCheckForUpdatesOnStartup
   } = useToggle(false)
   const {
     on: useSteamRuntime,
@@ -221,6 +230,12 @@ function Settings() {
   const isOtherSettings = type === 'other'
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced' && isDefault
+  const syncCommands = [
+    { name: t('setting.manualsync.download'), value: '--skip-upload' },
+    { name: t('setting.manualsync.upload'), value: '--skip-download' },
+    { name: t('setting.manualsync.forcedownload'), value: '--force-download' },
+    { name: t('setting.manualsync.forceupload'), value: '--force-upload' }
+  ]
 
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
@@ -230,6 +245,7 @@ function Settings() {
           'requestSettings',
           appName
         )
+        setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup)
         setAutoSyncSaves(config.autoSyncSaves)
         setUseGameMode(config.useGameMode)
         setShowFps(config.showFps)
@@ -261,6 +277,7 @@ function Settings() {
         setFsrSharpness(config.maxSharpness || 2)
         setResizableBar(config.enableResizableBar)
         setSavesPath(config.savesPath || '')
+        setGogSavesLocations(config.gogSaves || [])
         setMaxWorkers(config.maxWorkers ?? 0)
         setMaxRecentGames(config.maxRecentGames ?? 5)
         setCustomWinePaths(config.customWinePaths || [])
@@ -279,8 +296,8 @@ function Settings() {
 
         if (!isDefault) {
           setLanguageCode(config.language)
-          const { title: gameTitle, canRunOffline: can_run_offline } =
-            await getGameInfo(appName, runner)
+          const info = await getGameInfo(appName, runner)
+          const { title: gameTitle, canRunOffline: can_run_offline } = info
           setCanRunOffline(can_run_offline)
           setTitle(gameTitle)
         } else {
@@ -294,10 +311,9 @@ function Settings() {
   }, [appName, type, isDefault, i18n.language])
 
   let returnPath = '/'
-
   if (!fromGameCard) {
-    returnPath = `/gamepage/${appName}`
-    if (returnPath === '/gamepage/default') {
+    returnPath = `/gamepage/${runner}/${appName}`
+    if (returnPath.includes('default')) {
       returnPath = '/'
     }
   }
@@ -314,6 +330,7 @@ function Settings() {
       autoInstallVkd3d,
       preferSystemLibs,
       customWinePaths,
+      checkForUpdatesOnStartup,
       darkTrayIcon,
       defaultInstallPath,
       defaultSteamPath,
@@ -370,7 +387,8 @@ function Settings() {
       wineVersion,
       useSteamRuntime,
       eacRuntime,
-      battlEyeRuntime
+      battlEyeRuntime,
+      gogSaves: gogSavesLocations
     } as AppSettings
 
     setSettingsToSave(isDefault ? GlobalSettings : GameSettings)
@@ -394,6 +412,7 @@ function Settings() {
     autoSyncSaves,
     customWinePaths,
     darkTrayIcon,
+    checkForUpdatesOnStartup,
     defaultInstallPath,
     defaultSteamPath,
     defaultWinePrefix,
@@ -427,7 +446,8 @@ function Settings() {
     targetExe,
     useSteamRuntime,
     eacRuntime,
-    battlEyeRuntime
+    battlEyeRuntime,
+    gogSavesLocations
   ])
 
   // when the settingsToSave state changes:
@@ -497,6 +517,8 @@ function Settings() {
               toggleMinimizeOnLaunch={toggleMinimizeOnLaunch}
               disableController={disableController}
               toggleDisableController={toggleDisableController}
+              checkForUpdatesOnStartup={checkForUpdatesOnStartup}
+              toggleUpdatesOnStartup={toggleUpdatesOnStartup}
             />
           )}
           {isWineSettings && (
@@ -549,6 +571,7 @@ function Settings() {
           )}
           {isOtherSettings && (
             <OtherSettings
+              runner={runner}
               enviromentOptions={enviromentOptions}
               wrapperOptions={wrapperOptions}
               setEnviromentOptions={setEnviromentOptions}
@@ -587,24 +610,34 @@ function Settings() {
               toggleUseSteamRuntime={toggleUseSteamRuntime}
               isMacNative={isMacNative}
               isLinuxNative={isLinuxNative}
-              isProton={wineVersion.type === 'proton'}
+              isProton={!isWin && wineVersion?.type === 'proton'}
               appName={appName}
               defaultSteamPath={defaultSteamPath}
               setDefaultSteamPath={setDefaultSteamPath}
             />
           )}
-          {isSyncSettings && (
-            <SyncSaves
-              savesPath={savesPath}
-              setSavesPath={setSavesPath}
-              appName={appName}
-              autoSyncSaves={autoSyncSaves}
-              setAutoSyncSaves={setAutoSyncSaves}
-              isProton={!isWin && wineVersion.type === 'proton'}
-              winePrefix={winePrefix}
-              runner={runner}
-            />
-          )}
+          {isSyncSettings &&
+            (runner === 'legendary' ? (
+              <LegendarySyncSaves
+                savesPath={savesPath}
+                setSavesPath={setSavesPath}
+                appName={appName}
+                autoSyncSaves={autoSyncSaves}
+                setAutoSyncSaves={setAutoSyncSaves}
+                isProton={!isWin && wineVersion.type === 'proton'}
+                winePrefix={winePrefix}
+                syncCommands={syncCommands}
+              />
+            ) : (
+              <GOGSyncSaves
+                appName={appName}
+                gogSaves={gogSavesLocations}
+                setGogSaves={setGogSavesLocations}
+                autoSyncSaves={autoSyncSaves}
+                setAutoSyncSaves={setAutoSyncSaves}
+                syncCommands={syncCommands}
+              />
+            ))}
           {isAdvancedSetting && (
             <AdvancedSettings
               altLegendaryBin={altLegendaryBin}

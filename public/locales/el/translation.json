@@ -1,123 +1,121 @@
 {
     "accessibility": {
-        "actions_font_family": "Οικογένεια γραμματοσειρών ενεργειών (Προεπιλογή: \"Rubik\")",
-        "all_tiles_in_color": "Εμφάνιση όλων των πλακιδίων παιχνιδιού με χρώμα",
-        "content_font_family": "Οικογένεια γραμματοσειρών περιεχομένου (Προεπιλογή: \"Καμπίνα\")",
-        "fonts": "Γραμματοσειρές",
-        "title": "Προσβασιμότητα",
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
+        "title": "Accessibility",
         "zoom": "Zoom"
     },
-    "All": "Όλα",
+    "All": "",
     "anticheat": {
         "anticheats": "Anticheats",
-        "may_not_work": "Μπορεί να μην λειτουργεί λόγω άρνησης ή ελλειπής υποστήριξης anticheat.",
-        "reference": "Αναφορά",
-        "source": "Πηγή",
-        "status": "Κατάσταση",
-        "title": "Αυτό το παιχνίδι περιλαμβάνει λογισμικό anticheat"
+        "may_not_work": "It may not work due to denied or broken anticheat support.",
+        "reference": "Reference",
+        "source": "Source",
+        "status": "Status",
+        "title": "This game includes anticheat software"
     },
     "box": {
         "cache-cleared": {
-            "message": "Η προσωρινή μνήμη Heroic καθαρίστηκε.",
-            "title": "Προσωρινή Μνήμη Καθαρίστηκε"
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
         },
-        "choose": "Επιλογή",
-        "choose-egs-prefix": "Επιλέξτε πρόθημα στη διαδρομή εγκατάστασης EGS",
-        "choose-gogdl-binary": "Επιλογή δυαδικού αρχείου GOGDL (χρειάζεται επανεκκίνηση)",
-        "choose-legendary-binary": "Επιλέξτε το δυαδικό αρχείο του Legendary",
-        "customWine": "Επιλέξτε το δυαδικό αρχείο Wine ή Proton",
-        "default-install-path": "Επιλέξτε Κύρια Διαδρομή Εγκατάστασης",
-        "default-steam-path": "Διαδρομή Steam.",
+        "choose": "",
+        "choose-egs-prefix": "",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-legendary-binary": "Select Legendary Binary (needs restart)",
+        "customWine": "Select the Wine or Proton Binary",
+        "default-install-path": "",
+        "default-steam-path": "Steam path.",
         "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Η προσθήκη του {{game}} στο Steam απέτυχε με:{{newLine}} {{error}}",
-                    "title": "Σφάλμα προσθήκης"
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": "Error Adding Game to Steam"
                 }
             },
             "credentials": {
-                "message": "Τα διαπιστευτήριά σας έληξαν, παρακαλώ αποσυνδεθείτε και επανασυνδεθείτε εκ νέου."
+                "message": "Your Crendentials have expired, Logout and Login Again!"
             },
             "cx-bottle-not-found": {
-                "message": "Το μπουκάλι CrossOver \"{{bottle_name}}\" δεν υπάρχει, δεν μπορεί να εκκινήσει!",
-                "title": "Το μπουκάλι CrossOver δεν βρέθηκε"
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
             },
             "diskspace": {
-                "message": "Δεν υπάρχει αρκετός διαθέσιμος χώρος στο δίσκο",
-                "title": "Ανεπαρκής χώρος"
+                "message": "Not enough available disk space",
+                "title": "No Space"
             },
             "dxvk": {
-                "message": "Σφάλμα κατά την εγκατάσταση του DXVK/VKD3D! Παρακαλώ ελέγξτε τη σύνδεσή σας!",
-                "title": "Σφάλμα DXVK/VKD3D"
+                "message": "Error installing DXVK/VKD3D! Check your connection!",
+                "title": "DXVK/VKD3D error"
             },
             "folder-not-found": {
-                "title": "Ο φάκελος παιχνιδιού φαίνεται να έχει διαγραφεί, θέλετε να αφαιρέσετε το παιχνίδι από την λίστα εγκατεστημένων;"
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },
             "generic": {
                 "message": "",
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Η κατάργηση του {{game}} από το Steam απέτυχε με:{{newLine}} {{error}}",
-                    "title": "Σφάλμα Κατάργησης"
-                }
+            "title": "Error",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
             },
-            "title": "Σφάλμα",
             "update": {
-                "message": "Κάτι πήγε στραβά με την ενημέρωση, ελέγξτε τα αρχεία καταγραφής ή δοκιμάστε ξανά αργότερα!",
-                "title": "Σφάλμα ενημέρωσης"
+                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "title": "Update Error"
             },
             "wine-not-found": {
-                "message": "Δεν επιλέχθηκε έκδοση Wine. Ελέγξτε τις ρυθμίσεις παιχνιδιού!",
-                "title": "Το Wine δεν βρέθηκε"
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
             }
         },
         "info": {
             "update": {
-                "changelog": "Άνοιγμα αρχείου καταγραφής αλλαγών",
-                "detail": "Θέλετε να κάνετε λήψη της ενημέρωσης στο παρασκήνιο;",
-                "message": "Υπάρχει μια νέα έκδοση διαθέσιμη!",
-                "message-finished": "Θέλετε να επανεκκινήσετε το Heroic τώρα;",
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Η ενημέρωση ολοκληρώθηκε"
+                "title-finished": "Update Finished"
             }
         },
-        "no": "ΟΧΙ",
-        "ok": "ΟΚ",
+        "no": "",
+        "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "Αυτή τη στιγμή είναι μη εγκατεστημένο.Να εγκατασταθεί;"
+                "not_installed": "Is Not Installed, do you wish to Install it?"
             }
         },
         "quit": {
-            "message": "Υπάρχουν εκκρεμείς διεργασίες, είστε σίγουροι;",
-            "title": "Έξοδος"
+            "message": "There are pending operations, are you sure?",
+            "title": "Exit"
         },
         "reset-heroic": {
             "question": {
-                "message": "Είστε σίγουροι πως θέλετε να επαναφέρετε το Heroic; Θα αφαιρεθούν όλες οι ρυθμίσεις και η κρηφή μνήμη αλλά δεν θα αφαιρεθούν τα παιχνίδια ή τα Epic διαπιστευτήρια",
-                "title": "Επαναφορά Heroic"
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "title": "Reset Heroic"
             }
         },
         "runexe": {
-            "title": "Επιλέξτε EXE για εκτέλεση"
+            "title": ""
         },
         "select": {
-            "button": "Επιλογή",
-            "exe": "Επιλογή αρχείου EXE"
+            "button": "Select",
+            "exe": "Select EXE..."
         },
         "shortcuts": {
-            "message": "Συντομεύσεις δημιουργήθηκαν στην Επιφάνεια Εργασίας και στο Μενού Έναρξης",
+            "message": "Shortcuts were created on Desktop and Start Menu",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
-            "title": "Συντομεύσεις"
+            "title": "Shortcuts Removed"
         },
         "sync": {
-            "button": "Επιλέξτε",
-            "error": "Μη έγκυρη διαδρομή",
-            "title": "Επιλέξτε την διαδρομή αποθήκευσης"
+            "button": "",
+            "error": "",
+            "title": ""
         },
         "vcruntime": {
             "install": {
@@ -130,21 +128,21 @@
         },
         "warning": {
             "epic": {
-                "import": "Οι Epic Servers έχουν σημαντικές διακοπές λειτουργίας, το παιχνίδι δεν μπορεί να εισαχθεί!",
-                "install": "Οι Epic Servers έχουν σημαντικές διακοπές λειτουργίας, το παιχνίδι δεν μπορεί να εγκατασταθεί!",
-                "update": "Οι Epic Servers έχουν σημαντικές διακοπές λειτουργίας, το παιχνίδι δεν μπορεί να ενημερωθεί!"
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
-            "title": "Προειδοποίηση"
+            "title": "Warning"
         },
-        "wineprefix": "Διαλέξτε τον φάκελο Προθήματος Wine",
-        "yes": "ΝΑΙ"
+        "wineprefix": "",
+        "yes": ""
     },
     "button": {
-        "go_to_library": "Μεταβείτε στη Συλλογή",
-        "login": "Σύνδεση",
-        "sync": "Συγχρονισμός",
-        "syncing": "Συγχρονισμός",
-        "unsync": "Αποσυγχρονισμός"
+        "go_to_library": "Go to Library",
+        "login": "Login",
+        "sync": "",
+        "syncing": "",
+        "unsync": ""
     },
     "controller": {
         "hints": {
@@ -169,146 +167,149 @@
     },
     "docs": "Documentation",
     "epic": {
-        "offline-notification-body": "Οι διαδικτυακές υπηρεσίες πιθανό να μη λειτουργούν πλήρως καθώς οι διακομιστές Epic Games ειναι εκτός σύνδεσης!",
-        "offline-notification-title": "Εκτός Σύνδεσης"
+        "offline-notification-body": "Heroic will maybe not work probably!",
+        "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "favourites": "Αγαπημένα",
+    "favourites": "Favourites",
     "game": {
-        "status": "Κατάσταση",
-        "store": "Κατάστημα",
-        "title": "Τίτλος παιχνιδιού"
+        "status": "Status",
+        "store": "Store",
+        "title": "Game Title"
     },
-    "GameSettings": "Ρυθμίσεις παιχνιδιού",
+    "GameSettings": "Game Settings",
     "generic": {
         "error": {
-            "component": "Δεν βρέθηκαν παιχνίδια - Δοκιμάστε να αποσυνδεθείτε και να συνδεθείτε ξανά ή μια από τις παρακάτω επιλογές"
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
         },
         "library": {
-            "refresh": "Ανανέωση συλλογής"
+            "refresh": "Refresh Library"
         }
     },
-    "globalSettings": "Καθολικές Ρυθμίσεις",
+    "globalSettings": "Global Settings",
     "GOG": "GOG",
-    "gog-store": "Κατάστημα GOG",
+    "gog-store": "GOG Store",
     "header": {
-        "ignore_hidden": "Παράλειψη κρυφών στοιχείων",
-        "platform": "Πλατφόρμα",
-        "show_all_games": "Εμφάνιση όλων των παιχνιδιών",
-        "show_favourites_only": "Εμφάνιση μόνο αγαπημένων",
-        "show_hidden": "Εμφάνιση κρυφών στοιχείων",
-        "store": "Φιλτράρισμα καταστήματος"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Show Hidden",
+        "store": "Filter Store"
     },
     "help": {
-        "amdfsr": "Το FSR της AMD συμβάλλει στην ενίσχυση του ρυθμού καρέ αναβαθμίζοντας χαμηλότερες αναλύσεις σε λειτουργία πλήρους οθόνης. Η ποιότητα της εικόνας αυξάνεται από 5 σε 1 με το κόστος μιας μικρής μείωσης της απόδοσης. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση.",
-        "dxvk": "Το DXVK είναι ένα πρόγραμμα μετάφρασης που βασίζεται σε Vulkan για παιχνίδια DirectX 9, 10 και 11. Η ενεργοποίηση μπορεί να βελτιώσει τη συμβατότητα. Μπορεί να προκαλέσει προβλήματα ειδικά για παλαιότερα παιχνίδια DirectX.",
-        "esync": "Το Esync στοχεύει να μειώσει το κόστος του wineserver σε παιχνίδια που χρησιμοποιούν εντατικά τη CPU. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση.",
-        "fsync": "Το Fsync στοχεύει να μειώσει το κόστος του wineserver σε παιχνίδια που χρησιμοποιούν εντατικά τη CPU. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση σε υποστηριζόμενους πυρήνες Linux.",
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
-            "fallback": "Αφήστε το κενό για να χρησιμοποιήσετε τη γλώσσα του Heroic.",
-            "in_game_config": "Δεν υποστηρίζουν όλα τα παιχνίδια αυτήν τη διαμόρφωση, ορισμένα έχουν ρύθμιση γλώσσας εντός του παιχνιδιού.",
-            "valid_codes": "Οι έγκυροι κωδικοί γλώσσας εξαρτώνται από το παιχνίδι."
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
         },
-        "gamemode": "Το Feral GameMode εφαρμόζει αυτόματες και προσωρινές τροποποιήσεις στο σύστημα κατά την εκτέλεση παιχνιδιών. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση.",
-        "general": "Συγχρονίστε με το EGL εάν έχετε μια λειτουργική εγκατάσταση του Epic Games Launcher αλλού και θέλετε να εισαγάγετε τα παιχνίδια σας για να αποφύγετε τη λήψη τους ξανά.",
-        "mangohud": "Το MangoHUD είναι μια επικάλυψη που εμφανίζει και παρακολουθεί τα FPS, τις θερμοκρασίες, το φορτίο CPU/GPU και άλλους πόρους του συστήματος.",
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
+        "general": "",
+        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
-            "part4": "Χρησιμοποιήστε το ",
-            "part5": "Επιχειρήματα Παιχνιδιού",
-            "part6": " για κλήση μετά την εντολή εκκίνησης, για παράδειγμα: ",
-            "part7": " για παράλειψη του εκκινητή σε κάποια παιχνίδια, κτλ."
+            "part4": "",
+            "part5": "",
+            "part6": "",
+            "part7": ""
         },
-        "preferSystemLibs": "Οι προσαρμοσμένες εκδόσεις Wine (Wine-GE, Wine-Lutris) αποστέλλονται με τις εξαρτήσεις της βιβλιοθήκης τους. Με την ενεργοποίηση αυτής της επιλογής, αυτές οι αποσταλμένες βιβλιοθήκες θα αγνοηθούν και το Wine θα φορτώσει τις βιβλιοθήκες του συστήματος. Προειδοποίηση! Ενδέχεται να προκύψουν προβλήματα εάν δεν ικανοποιηθούν οι εξαρτήσεις.",
+        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
-            "part1": "Το Heroic προσπαθεί να μαντέψει τον σωστό φάκελο αποθήκευσης και αυτό θα δουλέψει στην πλειοψηφία των περιπτώσεων. Αν ο φάκελος είναι λάθος, χρησιμοποιήστε το κουτί κατίσχυσης για να τον αλλάξετε.",
-            "part2": "Αν αλλάξετε τον φάκελο προθημάτων Wine ή Proton, θα χρειαστεί να επανελέγξετε την διαδρομή, καθώς το Proton χρησιμοποιεί διαφορετικό πρόθημα (/pfx) και όνομα χρήστη (steamuser). Έτσι, μπορείτε απλά να διαγράψετε την παρούσα διαδρομή, να βγείτε έξω από την σελίδα επιλογών συγχρονισμού και να επιστρέψετε για να μαντέψει το Heroic μία ακόμη φορά τον φάκελο χρησιμοποιώντας το σωστό πρόθημα.",
-            "part3": "Χειροκίνητος Συγχρονισμός: Επιλέξτε Λήψη για να κατεβάσετε τα δεδομένα παιχνιδιού αποθηκευμένα στο Νέφος. Μεταφόρτωση για να ανεβάσετε τα τοπικά στο Νέφος. Επιβολή Λήψης και Επιβολή Μεταφόρτωσης θα αγνοήσει την τοπική ή στο Νέφος έκδοση.",
-            "part4": "Ο Αυτόματος Συγχρονισμός Δεδομένων θα συγχρονίσει τα δεδομένα παιχνιδιού κάθε φορά που ξεκινάτε ένα παιχνίδι και αφού το κλείσετε."
+            "part1": "",
+            "part2": "",
+            "part3": "",
+            "part4": ""
         },
-        "vkd3d": "Το VKD3D είναι ένα πρόγραμμα μετάφρασης που βασίζεται σε Vulkan για παιχνίδια DirectX 12. Η ενεργοποίηση μπορεί να βελτιώσει σημαντικά τη συμβατότητα. Δεν έχει καμία επίδραση σε παλαιότερα παιχνίδια DirectX.",
+        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
-            "part1": "Το Heroic αναζητά εκδόσεις Wine, Proton και CrossOver στους ακόλουθους φακέλους:",
-            "part2": "Για άλλες τοποθεσίες, χρησιμοποιήστε έναν συμβολικό σύνδεσμο σε έναν απ' αυτούς τους φακέλους"
+            "part1": "",
+            "part2": ""
         }
     },
     "info": {
         "heroic": {
-            "version": "Έκδοση Heroic"
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
+            "version": "Heroic Version"
         },
-        "settings": "Οι ρυθμίσεις αποθηκεύονται αυτομάτως",
-        "version": "Έκδοση Wine"
+        "settings": "",
+        "version": "Wine Version"
     },
     "infobox": {
-        "help": "Βοήθεια",
-        "requirements": "Απαιτήσεις Συστήματος",
-        "wine-path": "Διαδρομή Wine"
+        "help": "",
+        "requirements": "",
+        "wine-path": "Wine Path"
     },
     "install": {
-        "path": "Επιλέξτε διαδρομή εγκατάστασης"
+        "path": "Select Install Path"
     },
     "library": {
-        "refresh": "Ανανέωση",
-        "sortAscending": "Αύξουσα ταξινόμηση",
-        "sortByStatus": "Ταξινόμηση κατά Κατάσταση",
-        "sortDescending": "Φθίνουσα ταξινόμηση",
+        "refresh": "Refresh Library",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending",
         "toggleLayout": {
             "grid": "Toggle to a grid layout",
             "list": "Toggle to a list layout"
         }
     },
-    "Library": "Συλλογή",
+    "Library": "",
     "loading": {
-        "default": "Φόρτωση",
-        "website": "Φόρτωση Ιστοσελίδας"
+        "default": "",
+        "website": "Loading Website"
     },
     "login": {
-        "externalLogin": "Εξωτερική Σύνδεση"
+        "externalLogin": "External Login"
     },
     "message": {
-        "sync": "Ο συγχρονισμός ολοκληρώθηκε",
-        "unsync": "Ο αποσυγχρονισμός ολοκληρώθηκε"
+        "sync": "",
+        "unsync": ""
     },
     "notify": {
         "error": {
-            "move": "Σφάλμα μετακίνησης του Παιχνιδιού",
-            "reparing": "Σφάλμα Επιδιόρθωσης"
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
         },
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "Δεν ήταν δυνατή η προσθήκη του {{game}} σε όλους τους χρήστες του Steam που βρέθηκαν. Δείτε τα αρχεία καταγραφής για περισσότερες πληροφορίες. Απαιτείται επανεκκίνηση του Steam για να τεθούν οι αλλαγές σε ισχύ.",
-                    "success": "Το {{game}} προστέθηκε με επιτυχία στο Steam. Απαιτείται επανεκκίνηση του Steam για να τεθούν οι αλλαγές σε ισχύ.",
-                    "title": "Προστέθηκε στο Steam"
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
+                    "title": "Added to Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "Δεν ήταν δυνατή η κατάργηση του {{game}} από όλους τους χρήστες του Steam που βρέθηκαν. Δείτε τα αρχεία καταγραφής για περισσότερες πληροφορίες.  Απαιτείται επανεκκίνηση του Steam για να τεθούν οι αλλαγές σε ισχύ.",
-                    "success": "Το {{game}} καταργήθηκε με επιτυχία στο Steam.  Απαιτείται επανεκκίνηση του Steam για να τεθούν οι αλλαγές σε ισχύ.",
-                    "title": "Καταργήθηκε από το Steam"
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
+                    "title": "Removed from Steam"
                 }
             },
-            "reparing": "Ολοκλήρωση Επιδιόρθωσης"
+            "reparing": ""
         },
         "install": {
-            "canceled": "Η εγκατάσταση ακυρώθηκε",
-            "error": "Αποτυχημένη Εγκατάσταση",
-            "finished": "Η εγκατάσταση ολοκληρώθηκε",
-            "imported": "Το παιχνίδι εισάχθηκε",
-            "startInstall": "Η Εγκατάσταση έχει ξεκινήσει"
+            "canceled": "",
+            "error": "",
+            "finished": "",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
-        "moved": "Η μετακίνηση ολοκληρώθηκε",
-        "moving": "Μετακίνηση παιχνιδιού",
+        "moved": "",
+        "moving": "Moving Game",
         "refresh": {
-            "error": "Δεν ήταν δυνατή η ανάκτηση εκδόσεων από το upstream, ίσως λόγω περιορισμών στο Github API! Προσπαθήστε ξανά αργότερα."
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
-        "uninstalled": "Απεγκαταστάθηκε",
+        "uninstalled": "",
         "update": {
-            "canceled": "Η ενημέρωση ακυρώθηκε",
-            "finished": "Η ενημέρωση ολοκληρώθηκε",
-            "started": "Έναρξη Ενημέρωσης"
+            "canceled": "",
+            "finished": "",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -316,12 +317,12 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "Προχωρημένες ρυθμίσεις (Μεταβλητές περιβάλλοντος):",
-            "value": "Τιμή"
+            "title": "",
+            "value": "Value"
         },
         "gameargs": {
-            "placeholder": "Εισαγάγετε τα επιχειρήματα εκκινητή",
-            "title": "Επιχειρήματα παιχνιδιού (Εκτέλεση μετά την εντολή):"
+            "placeholder": "",
+            "title": ""
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -334,127 +335,128 @@
         }
     },
     "other": {
-        "gogdl-version": "Έκδοση GOGDL: ",
-        "legendary-version": "Έκδοση Legendary: ",
-        "weblate": "Βοηθήστε να μεταφραστεί το Heroic."
+        "gogdl-version": "GOGDL Version: ",
+        "legendary-version": "Legendary Version: ",
+        "weblate": "Help Improve this translation."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Χρήση ενσωματωμένου δυαδικού αρχείου GOGDL...",
-        "alt-legendary-bin": "Χρήση ενσωματωμένου δυαδικού αρχείου Legendary...",
-        "egs-prefix": "Πρόθημα διαδρομής εγκατάστασης EGS",
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "egs-prefix": "",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
-        "linux": "Linux",
-        "mac": "Mac",
-        "win": "Windows"
+        "linux": "",
+        "mac": "",
+        "win": ""
     },
-    "Recent": "Παίχτηκε Πρόσφατα",
-    "search": "Αναζήτηση για Παιχνίδια",
+    "Recent": "Played Recently",
+    "search": "",
     "setting": {
-        "adddesktopshortcuts": "Αυτόματη προσθήκη συντομεύσεων επιφάνειας εργασίας",
-        "addgamestostartmenu": "Αυτόματη προσθήκη παιχνιδιών στο Μενού εκκίνησης",
-        "alt-gogdl-bin": "Επιλογή Εναλλακτικού δυαδικού GOGDL για χρήση",
-        "alt-legendary-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Legendary",
-        "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
-        "autodxvk": "Αυτόματη Εγκατάσταση/Ενημέρωση DXVK με Πρόθημα",
-        "autosync": "Αυτόματος συγχρονισμός δεδομένων",
-        "autovkd3d": "Αυτόματη Εγκατάσταση/Ενημέρωση VKD3D με Πρόθημα",
-        "change-target-exe": "Επιλέξτε ένα εναλλακτικό αρχείο EXE προς εκτέλεση",
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)to use",
+        "audiofix": "",
+        "autodxvk": "Auto Install/Update DXVK on Prefix",
+        "autosync": "",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "change-target-exe": "Select an alternative EXE to run",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
-        "customWineProton": "Ειδικές διαδρομές Wine/Proton",
-        "darktray": "Χρήση σκοτεινού εικονιδίου",
-        "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
-        "default-steam-path": "Προεπιλεγμένη διαδρομή Steam",
-        "defaultWinePrefix": "Καθορισμός Φακέλου για νέα Προθήματα Wine",
-        "disable_controller": "Απενεργοποίηση πλοήγησης με χρήση χειριστηρίου στο Heroic",
-        "discordRPC": "Ενεργοποίηση Discord Rich Presence",
-        "download-no-https": "Λήψη παιχνιδιών χωρίς HTTPS (χρήσιμο για CDN π.χ. LanCache)",
-        "egs-sync": "Συγχρονισμός με εγκατεστημένο Epic Games",
-        "enableFSRHack": "Ενεργοποίηση FSR Hack (Η έκδοση Wine πρέπει να το υποστηρίζει)",
+        "customWineProton": "Custom Wine/Proton Paths",
+        "darktray": "Use Dark Tray Icon (needs restart)",
+        "default-install-path": "",
+        "default-steam-path": "Default Steam path",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "disable_controller": "Disable Heroic navigation using controller",
+        "discordRPC": "Enable Discord Rich Presence",
+        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "egs-sync": "",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
-            "cancelInstall": "Ακύρωση",
-            "checkForUpdates": "Ελεγχος για ενημερώσεις",
-            "checkingForUpdates": "Ελεγχος για ενημερώσεις...",
-            "currentVersion": "Τρέχουσα έκδοση: {{version}}",
-            "disable": "Απενεργοποίηση",
-            "enable": "Ενεργοποίηση",
-            "install": "Εγκατάσταση",
-            "installed": "Η επικάλυψη EOS έχει εγκατασταθεί",
-            "installing": "Η επικάλυψη EOS εγκαθίσταται...",
-            "latestVersion": "Τελευταία έκδοση: {{version}}",
-            "notInstalled": "Η επικάλυψη EOS δεν έχει εγκατασταθεί",
-            "notInstalledMsg": "Η επικάλυψη EOS δεν έχει εγκατασταθεί. Θέλετε να τη εγκαταστήσετε τώρα;",
-            "notInstalledTitle": "Η επικάλυψη δεν έχει εγκατασταθεί",
-            "remove": "Απεγκατάσταση",
-            "removeConfirm": "Είστε βέβαιοι ότι θέλετε να απεγκαταστήσετε την επικάλυψη EOS;",
-            "removeConfirmTitle": "Επιβεβαίωση αφαίρεσης επικάλυψης",
-            "updateNow": "Ενημέρωση",
-            "updating": "Ενημέρωση..."
+            "cancelInstall": "Cancel",
+            "checkForUpdates": "Check for updates",
+            "checkingForUpdates": "Checking for updates...",
+            "currentVersion": "Current Version: {{version}}",
+            "disable": "Disable",
+            "enable": "Enable",
+            "install": "Install",
+            "installed": "The EOS Overlay is installed",
+            "installing": "The EOS Overlay is being installed...",
+            "latestVersion": "Latest Version: {{version}}",
+            "notInstalled": "The EOS Overlay is not installed",
+            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
+            "notInstalledTitle": "Overlay not installed",
+            "remove": "Uninstall",
+            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
+            "removeConfirmTitle": "Confirm overlay removal",
+            "updateNow": "Update",
+            "updating": "Updating..."
         },
-        "esync": "Ενεργοποίηση Esync",
-        "exit-to-tray": "Έξοδος σε Μπάρα Εργαλειών",
-        "FsrSharpnessStrenght": "Βαθμός οξύτητας FSR",
-        "fsync": "Ενεργοποίηση Fsync",
-        "gamemode": "Χρήση λειτουργίας παιχνιδιού (απαραίτητη η εγκατάσταση του Feral Game Mode)",
-        "language": "Διαλέξτε γλώσσα εφαρμογής",
+        "esync": "Enable Esync",
+        "exit-to-tray": "",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "fsync": "Enable Fsync",
+        "gamemode": "",
+        "language": "Choose App Language",
         "library_top_option": {
             "disabled": "Disabled",
-            "favourites": "Αγαπημένα παιχνίδια",
-            "recently_played": "Παιχνίδια που παίχτηκαν πρόσφατα",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games",
             "recently_played_installed": "Recently Played Games (Only Installed)"
         },
         "library_top_section": "Library Top Section",
         "log": {
-            "copy-to-clipboard": "Αντιγραφή αρχείου καταγραφής στο πρόχειρο",
-            "current-log": "Τρέχων Αρχείο Καταγραφής",
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current log",
             "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
             "instructions_title": "How to report a problem?",
-            "last-log": "Τελευταίο Αρχείο Καταγραφής",
-            "no-file": "Δεν βρέθηκε αρχείο σύνδεσης",
-            "show-in-folder": "Εμφάνιση αρχείου καταγραφής στον φάκελο"
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder"
         },
-        "mangohud": "Ενεργοποίηση Mangohud (απαραίτητη η εγκατάσταση του Mangohud)",
+        "mangohud": "",
         "manualsync": {
-            "download": "Λήψη",
-            "forcedownload": "Εξαναγκασμός Λήψης",
-            "forceupload": "Εξαναγκασμός Μεταφόρτωσης",
-            "sync": "Συγχρονισμός",
-            "syncing": "Συγχρονίζεται",
-            "title": "Δεδομένα Χειροκίνητου Συγχρονισμού",
-            "upload": "Μεταφόρτωση"
+            "download": "",
+            "forcedownload": "",
+            "forceupload": "",
+            "sync": "",
+            "syncing": "",
+            "title": "",
+            "upload": ""
         },
-        "maxRecentGames": "Παίχτηκε Πρόσφατα για Προβολή",
-        "maxworkers": "Μέγιστος αριθμός εργατών κατά την λήψη",
-        "minimize-on-launch": "Ελαχιστοποίηση Heroic Μετά Την 'Εναρξη",
-        "offlinemode": "Εκτέλεση Παιχνιδιού Εκτός Δικτύου",
-        "prefered_language": "Προτιμώμενη γλώσσα (Κωδικός γλώσσας)",
-        "preferSystemLibs": "Προτίμηση βιβλιοθηκών συστήματος",
-        "primerun": "Χρήση κύριας κάρτας γραφικών",
-        "resizableBar": "Ενεργοποίηση Μεταβλητού BAR (NVIDIA RTX 30xx μόνο)",
+        "maxRecentGames": "Recent Games to Show",
+        "maxworkers": "",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "offlinemode": "",
+        "prefered_language": "Prefered Language (Language Code)",
+        "preferSystemLibs": "Prefer system libraries",
+        "primerun": "Use Dedicated Graphics Card",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
-            "message": "Εναποθέστε αρχεία εδώ",
-            "title": "Εκτέλεση EXE με Πρόθημα"
+            "message": "",
+            "title": ""
         },
         "savefolder": {
-            "placeholder": "Διαλέξτε τον ακριβή φάκελο αποθήκευσης παιχνιδιών"
+            "placeholder": ""
         },
-        "select_theme": "Επιλογή θέματος",
-        "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",
-        "start-in-tray": "Ελαχιστοποιημένη Έναρξη",
-        "steamruntime": "Χρήση Steam Runtime",
-        "winecrossoverbottle": "CrossOver Περιβάλλον",
-        "wineprefix": "Φάκελος Προθημάτων Wine",
-        "wineversion": "Έκδοση Wine"
+        "select_theme": "Select Theme",
+        "showfps": "",
+        "start-in-tray": "Start Minimized",
+        "steamruntime": "Use Steam Runtime",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "",
+        "wineversion": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Installing BattlEye Runtime...",
             "name": "BattlEye AntiCheat Runtime"
         },
-        "clear-cache": "Εκκαθάριση κρυφής μνήμης Heroic",
-        "copiedToClipboard": "Αντιγράφηκε στο πρόχειρο!",
-        "copyToClipboard": "Αντιγραφή όλων των ρυθμίσεων στο Πρόχειρο",
+        "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
+        "copyToClipboard": "Copy All Settings to Clipboard",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -470,77 +472,77 @@
             }
         },
         "log": {
-            "long-log-hint": "Το αρχείο καταγραφής ελαττώθηκε, εμφάνιση τελευταίων 1000 γραμμών!"
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
-            "advanced": "Προχωρημένες",
-            "general": "Γενικά",
-            "log": "Αρχεία καταγραφής",
-            "other": "Άλλα",
-            "sync": "Αποθήκευση-Συγχρονισμός",
+            "advanced": "Advanced",
+            "general": "",
+            "log": "Log",
+            "other": "",
+            "sync": "",
             "wineExt": "Wine Extensions"
         },
-        "open-config-file": "Άνοιγμα αρχείου παραμετροποίησης",
-        "reset-heroic": "Επαναφορά Heroic",
+        "open-config-file": "Open Config File",
+        "reset-heroic": "Reset Heroic",
         "saves": {
-            "warning": "Η λειτουργία Cloud Saves είναι σε Beta, δημιουργήστε αντίγραφα ασφαλείας των αποθηκευμένων παιχνιδιών σας πριν από τον συγχρονισμό (σε περίπτωση που κάτι πάει στραβά)"
+            "label": "Save Location:",
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
-    "Settings": "Ρυθμίσεις",
+    "Settings": "",
     "sidebar": {
-        "collapse": "Σύμπτυξη πλαϊνής γραμμής",
-        "uncollapse": "Κατάργηση σύμπτυξης πλαϊνής γραμμής"
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Εγκατάσταση",
-        "logging": "Σύνδεση...",
-        "processing": "Επεξεργασία αρχείων, παρακαλώ περιμένετε"
+        "installing": "Installing",
+        "logging": "Logging In...",
+        "processing": "Processing files, please wait"
     },
-    "store": "Κατάστημα Epic",
-    "stores": "Καταστήματα",
+    "store": "Epic Store",
+    "stores": "Stores",
     "title": {
-        "allGames": "Όλα τα παιχνίδια"
+        "allGames": "All Games"
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Επιλέξτε τον βασικό φάκελο προθημάτων για νέες παραμετροποιήσεις",
-            "wineprefix": "Επιλέξτε έναν φάκελο για νέα Προθήματα Wine"
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
         }
     },
     "tooltip": {
-        "addpath": "Προσθήκη Νέας Διαδρομής",
-        "removepath": "Αφαίρεση Διαδρομής"
+        "addpath": "Add New Path",
+        "removepath": "Remove Path"
     },
     "tray": {
-        "about": "Περί",
-        "quit": "Έξοδος",
-        "reload": "Επαναφόρτωση",
-        "show": "Εμφάνιση"
+        "about": "About",
+        "quit": "Quit",
+        "reload": "Reload",
+        "show": ""
     },
     "userselector": {
         "discord": "Discord",
-        "logout": "Αποσύνδεση",
-        "logout_confirmation": "Είστε σίγουροι πως θέλετε να αποσυνδεθείτε;",
-        "manageaccounts": "Διαχείριση Λογαριασμών",
-        "quit": "Έξοδος"
+        "logout": "Logout",
+        "manageaccounts": "Manage Accounts",
+        "quit": "Quit"
     },
     "webview": {
         "controls": {
-            "back": "Πήγαινε πίσω",
-            "forward": "Πήγαινε μπροστά",
-            "openInBrowser": "Άνοιγμα σε πρόγραμμα περιήγησης",
-            "reload": "Επαναφόρτωση σελίδας"
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
         }
     },
     "wine": {
-        "actions": "Ενέργεια",
+        "actions": "Action",
         "manager": {
-            "error": "Μη δυνατή πάρση Wine/Proton εκδόσεων αυτή τη φορά.",
-            "link": "Διαχειριστής Wine",
-            "title": "Διαχειριστής Wine",
-            "unzipping": "Αποσυμπίεση"
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
         },
-        "release": "Ημερομηνία κυκλοφορίας",
-        "size": "Μέγεθος"
+        "release": "Release Date",
+        "size": "Size"
     }
 }

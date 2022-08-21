@@ -22,7 +22,7 @@ import { updateGame } from 'frontend/helpers'
 
 import { AppSettings, GameInfo, GameStatus } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
-import { GogInstallInfo } from 'common/types/gog'
+import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -63,6 +63,7 @@ export default function GamePage(): JSX.Element | null {
   const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
+  const [gogSaves, setGOGSaves] = useState<GOGCloudSavesLocation[]>([])
   const [isSyncing, setIsSyncing] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState<
     LegendaryInstallInfo | GogInstallInfo
@@ -120,9 +121,10 @@ export default function GamePage(): JSX.Element | null {
           })
         if (newInfo?.cloud_save_enabled) {
           try {
-            const { autoSyncSaves, savesPath }: AppSettings =
+            const { autoSyncSaves, savesPath, gogSaves }: AppSettings =
               await ipcRenderer.invoke('requestSettings', appName)
             setAutoSyncSaves(autoSyncSaves)
+            setGOGSaves(gogSaves ?? [])
             return setSavesPath(savesPath)
           } catch (error) {
             setHasError({ error: true, message: error })
@@ -188,8 +190,8 @@ export default function GamePage(): JSX.Element | null {
     const isLinuxNative = installPlatform === 'linux'
     const isNative = isWin || isMacNative || isLinuxNative
     const pathname = isNative
-      ? `/settings/${appName}/other`
-      : `/settings/${appName}/wine`
+      ? `/settings/${runner}/${appName}/other`
+      : `/settings/${runner}/${appName}/wine`
 
     const showCloudSaveInfo = cloud_save_enabled && !isLinuxNative
     /*
@@ -399,7 +401,7 @@ export default function GamePage(): JSX.Element | null {
                     </div>
                     {is_installed && (
                       <NavLink
-                        to={`/settings/${appName}/log`}
+                        to={`/settings/${runner}/${appName}/log`}
                         state={{
                           fromGameCard: false,
                           runner,
@@ -537,6 +539,16 @@ export default function GamePage(): JSX.Element | null {
     return t('button.install')
   }
 
+  async function doAutoSyncSaves() {
+    setIsSyncing(true)
+    if (gameInfo.runner === 'legendary') {
+      await syncSaves(savesPath, appName, gameInfo.runner)
+    } else if (gameInfo.runner === 'gog') {
+      await ipcRenderer.invoke('syncGOGSaves', gogSaves, appName, '')
+    }
+    setIsSyncing(false)
+  }
+
   function handlePlay() {
     return async () => {
       if (status === 'playing' || status === 'updating') {
@@ -544,9 +556,7 @@ export default function GamePage(): JSX.Element | null {
       }
 
       if (autoSyncSaves) {
-        setIsSyncing(true)
-        await syncSaves(savesPath, appName, gameInfo.runner)
-        setIsSyncing(false)
+        await doAutoSyncSaves()
       }
       await launch({
         appName,
@@ -557,9 +567,7 @@ export default function GamePage(): JSX.Element | null {
       })
 
       if (autoSyncSaves) {
-        setIsSyncing(true)
-        await syncSaves(savesPath, appName, gameInfo.runner)
-        setIsSyncing(false)
+        await doAutoSyncSaves()
       }
     }
   }

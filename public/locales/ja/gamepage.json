@@ -88,7 +88,7 @@
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "wineversion": "Wine Version"
     },
     "label": {
         "playing": {
@@ -128,7 +128,6 @@
         "change": "インストールパスを変更する",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "log": "最新のログ",
         "move": "ゲームを移動する",
         "protondb": "互換性を確認する",
         "removeFromSteam": "Remove from Steam",

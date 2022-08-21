@@ -16,6 +16,14 @@ jest.mock('../../logger/logger', () => {
   }
 })
 
+jest.mock('../../utils', () => {
+  const original = jest.requireActual('../../utils')
+  return {
+    ...original,
+    notify: jest.fn()
+  }
+})
+
 let tmpDir = {} as DirResult
 let tmpSteamUserConfigDir = '' as string
 

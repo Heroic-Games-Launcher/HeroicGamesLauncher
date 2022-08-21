@@ -1,13 +1,13 @@
 {
     "accessibility": {
-        "actions_font_family": "Họ phông chữ action(Mặc định: \"Rubik\")",
-        "all_tiles_in_color": "Hiển thị tất cả các ô trò chơi bằng màu sắc",
-        "content_font_family": "Họ Phông chữ Nội dung (Mặc định: \"Cabin\")",
-        "fonts": "Phông chữ",
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
-    "All": "Tất cả",
+    "All": "",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
@@ -18,106 +18,104 @@
     },
     "box": {
         "cache-cleared": {
-            "message": "Đã xoá bộ nhớ đệm của Heroic.",
-            "title": "Đã xoá bộ nhớ đệm"
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
         },
-        "choose": "Chọn",
-        "choose-egs-prefix": "Chọn Prefix nơi EGS được cài đặt",
-        "choose-gogdl-binary": "Chọn GOGDL Binary (cần khởi động lại)",
-        "choose-legendary-binary": "Chọn Legendary binary",
-        "customWine": "Chọn Wine/Proton binary",
-        "default-install-path": "Chọn đường dẫn cài mặc định",
+        "choose": "",
+        "choose-egs-prefix": "",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-legendary-binary": "Select Legendary Binary (needs restart)",
+        "customWine": "Select the Wine or Proton Binary",
+        "default-install-path": "",
         "default-steam-path": "Steam path.",
         "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
                     "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "title": "Error Adding Game to Steam"
                 }
             },
             "credentials": {
-                "message": "Thông tin đăng nhập hết hạn, vui lòng đăng xuất rồi đăng nhập lại."
+                "message": "Your Crendentials have expired, Logout and Login Again!"
             },
             "cx-bottle-not-found": {
-                "message": "CrossOver bottle \"{{bottle_name}}\" không tồn tại, không thể khởi chạy!",
-                "title": "Không tìm thấy CrossOver bottle"
+                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
+                "title": "CrossOver bottle not found"
             },
             "diskspace": {
-                "message": "Không đủ bộ nhớ trống",
-                "title": "Không đủ bộ nhớ"
+                "message": "Not enough available disk space",
+                "title": "No Space"
             },
             "dxvk": {
-                "message": "Lỗi cài đặt DXVK/VKD3D! Kiểm tra kết nối hoặc zstd/libzstd1",
-                "title": "DXVK/VKD3D lỗi"
+                "message": "Error installing DXVK/VKD3D! Check your connection!",
+                "title": "DXVK/VKD3D error"
             },
             "folder-not-found": {
-                "title": "Thư mục game dường như đã bị xóa, bạn có muốn xóa trò chơi khỏi danh sách đã cài đặt không?"
+                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },
             "generic": {
                 "message": "",
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
-                }
+            "title": "Error",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
             },
-            "title": "Lỗi",
             "update": {
-                "message": "Đã xảy ra lỗi với bản cập nhật, vui lòng kiểm tra lại log hoặc thử lại sau!",
+                "message": "Something went wrong with the update, please check the logs or try again later!",
                 "title": "Update Error"
             },
             "wine-not-found": {
-                "message": "Chưa chọn phiên bản Wine. Kiểm tra phần cài đặt!",
-                "title": "Không tìm thấy Wine"
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
             }
         },
         "info": {
             "update": {
-                "changelog": "Mở changelog",
-                "detail": "Bạn có muốn tải bản cập nhật chạy nền không?",
-                "message": "Có phiên bản mới!",
-                "message-finished": "Bạn có muốn khởi động lại Heroic không?",
+                "changelog": "Open changelog",
+                "detail": "Do you want to download the update in the background?",
+                "message": "There is a new Version available!",
+                "message-finished": "Do you want to restart Heroic now?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Cập nhật hoàn tất"
+                "title-finished": "Update Finished"
             }
         },
-        "no": "Không",
-        "ok": "OK",
+        "no": "",
+        "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "Chưa được cài. Cài ngay?"
+                "not_installed": "Is Not Installed, do you wish to Install it?"
             }
         },
         "quit": {
-            "message": "Vẫn có lệnh đang chờ, bạn chắc chứ?",
-            "title": "Thoát"
+            "message": "There are pending operations, are you sure?",
+            "title": "Exit"
         },
         "reset-heroic": {
             "question": {
-                "message": "Xác nhận đặt lại Heroic? Thao tác này sẽ xóa tất cả Cài đặt và Bộ nhớ đệm nhưng sẽ không xóa các game đã cài đặt hoặc thông tin đăng nhập Epic của bạn",
-                "title": "Đặt lại Heroic"
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "title": "Reset Heroic"
             }
         },
         "runexe": {
-            "title": "Chọn file EXE để chạy"
+            "title": ""
         },
         "select": {
-            "button": "Chọn",
-            "exe": "Chọn file EXE"
+            "button": "Select",
+            "exe": "Select EXE..."
         },
         "shortcuts": {
-            "message": "Shortcut đã được tạo ở màn hình chính và menu Start",
+            "message": "Shortcuts were created on Desktop and Start Menu",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
-            "title": "Shortcut"
+            "title": "Shortcuts Removed"
         },
         "sync": {
-            "button": "Chọn",
-            "error": "Đường dẫn không hợp lệ",
-            "title": "Chọn thư mục lưu"
+            "button": "",
+            "error": "",
+            "title": ""
         },
         "vcruntime": {
             "install": {
@@ -130,21 +128,21 @@
         },
         "warning": {
             "epic": {
-                "import": "Máy chủ Epic đang gặp sự cố nghiêm trọng, không thể import game!",
-                "install": "Máy chủ Epic đang gặp sự cố nghiêm trọng, không thể cài đặt game!",
-                "update": "Máy chủ Epic đang gặp sự cố nghiêm trọng, không thể cập nhật game!"
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
-            "title": "Cảnh báo"
+            "title": "Warning"
         },
-        "wineprefix": "Chọn thư mục Wine Prefix",
-        "yes": "Có"
+        "wineprefix": "",
+        "yes": ""
     },
     "button": {
-        "go_to_library": "Tới thư viện",
-        "login": "Đăng nhập",
-        "sync": "Đồng bộ",
-        "syncing": "Đang đồng bộ",
-        "unsync": "Hủy đồng bộ"
+        "go_to_library": "Go to Library",
+        "login": "Login",
+        "sync": "",
+        "syncing": "",
+        "unsync": ""
     },
     "controller": {
         "hints": {
@@ -169,35 +167,35 @@
     },
     "docs": "Documentation",
     "epic": {
-        "offline-notification-body": "Các dịch vụ trực tuyến có thể không hoạt động đầy đủ vì máy chủ của Epic Games đang ngoại tuyến!",
+        "offline-notification-body": "Heroic will maybe not work probably!",
         "offline-notification-title": "offline"
     },
-    "Epic Games": "Epic Game",
-    "favourites": "Mục ưa thích",
+    "Epic Games": "Epic Games",
+    "favourites": "Favourites",
     "game": {
         "status": "Status",
-        "store": "Cửa hàng",
-        "title": "Tựa game"
+        "store": "Store",
+        "title": "Game Title"
     },
     "GameSettings": "Game Settings",
     "generic": {
         "error": {
-            "component": "Không tìm thấy game - Hãy thử đăng xuất rồi đăng nhập lại hoặc một trong các cách sau"
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
         },
         "library": {
-            "refresh": "Tải lại thư viện"
+            "refresh": "Refresh Library"
         }
     },
-    "globalSettings": "Cài đặt chung",
+    "globalSettings": "Global Settings",
     "GOG": "GOG",
-    "gog-store": "Cửa hàng GOG",
+    "gog-store": "GOG Store",
     "header": {
-        "ignore_hidden": "Bỏ qua mục bị ẩn",
-        "platform": "Nền tảng",
-        "show_all_games": "Hiển thị toàn bộ game",
-        "show_favourites_only": "Chỉ hiển thị mục ưa thích",
-        "show_hidden": "Hiển thị mục bị ẩn",
-        "store": "Lọc cửa hàng"
+        "ignore_hidden": "Ignore Hidden",
+        "platform": "",
+        "show_all_games": "Show all games",
+        "show_favourites_only": "Show Favourites only",
+        "show_hidden": "Show Hidden",
+        "store": "Filter Store"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -205,110 +203,113 @@
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
-            "fallback": "Để trống để dùng ngôn ngữ mặc định của Heroic",
-            "in_game_config": "Không phải game nào cũng hỗ trợ cấu hình này, một số game có cài đặt ngôn ngữ riêng trong game",
-            "valid_codes": "Mã ngôn ngữ phụ thuộc vào từng game."
+            "fallback": "Leave blank to use Heroic's language.",
+            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "valid_codes": "Valid language codes are game-dependant."
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
-        "general": "Đồng bộ với EGL nếu bạn đang cài Epic Games Launcher trên máy và muốn import game của mình để không phải tải lại.",
+        "general": "",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
-            "part4": "Sử dụng ",
-            "part5": "Game Argument",
-            "part6": " được gọi sau lệnh khởi chạy, ví dụ: ",
-            "part7": " để bỏ qua trình khởi chạy trong một số trò chơi, v.v."
+            "part4": "",
+            "part5": "",
+            "part6": "",
+            "part7": ""
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
-            "part1": "Heroic đang tìm thư mục lưu, đa phần đều đúng. Trong trường hợp Heroic tìm sai, hãy sử dụng ô ghi đè để thay đổi.",
-            "part2": "Trong trường hợp bạn thay đổi thư mục prefix cho Wine hoặc Proton, bạn sẽ cần kiểm tra lại đường dẫn vì Proton sử dụng prefix (/pfx) và tên người dùng (steamuser) khác. Bạn có thể xóa đường dẫn hiện tại, thoát khỏi trang cài đặt đồng bộ và quay lại lần nữa để Heroic tìm thư mục với prefix đúng.",
-            "part3": "Đồng bộ thủ công: Chọn Tải xuống để tải xuống các trò chơi được lưu trên Đám mây. Tải lên để tải game trong máy lên đám mây. Buộc Tải xuống và Buộc Tải lên sẽ bỏ qua phiên bản trong máy hoặc trên đám mây.",
-            "part4": "Đồng bộ lưu tự động sẽ đồng bộ các bản sao lưu mỗi lần bạn bắt đầu và kết thúc chơi game."
+            "part1": "",
+            "part2": "",
+            "part3": "",
+            "part4": ""
         },
         "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
-            "part1": "Heroic tìm kiếm các phiên bản Wine, Proton và CrossOver trong các thư mục sau:",
-            "part2": "Đối với vị trí khác, sử dụng biểu tượng liên kết với một trong những thư mục này"
+            "part1": "",
+            "part2": ""
         }
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Heroic Version"
         },
-        "settings": "Cài đặt được tự đông lưu",
-        "version": "Phiên bản Wine"
+        "settings": "",
+        "version": "Wine Version"
     },
     "infobox": {
-        "help": "Hỗ trợ",
-        "requirements": "Yêu cầu về hệ thống",
+        "help": "",
+        "requirements": "",
         "wine-path": "Wine Path"
     },
     "install": {
-        "path": "Chọn đường dẫn cài"
+        "path": "Select Install Path"
     },
     "library": {
-        "refresh": "Tải lại",
-        "sortAscending": "Sắp xếp Tăng dần",
-        "sortByStatus": "Sắp xếp theo trạng thái",
-        "sortDescending": "Sắp xếp giảm dần",
+        "refresh": "Refresh Library",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending",
         "toggleLayout": {
             "grid": "Toggle to a grid layout",
             "list": "Toggle to a list layout"
         }
     },
-    "Library": "Thư viện",
+    "Library": "",
     "loading": {
-        "default": "Đang tải",
-        "website": "Đang tải trang web"
+        "default": "",
+        "website": "Loading Website"
     },
     "login": {
-        "externalLogin": "Đăng nhập bên ngoài"
+        "externalLogin": "External Login"
     },
     "message": {
-        "sync": "Hoàn tất quá trình đồng bộ",
-        "unsync": "Hoàn tất quá trình hủy đồng bộ"
+        "sync": "",
+        "unsync": ""
     },
     "notify": {
         "error": {
-            "move": "Gặp lỗi khi di chuyển game",
-            "reparing": "Đang sửa lỗi"
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
         },
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Added to Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Removed from Steam"
                 }
             },
-            "reparing": "Sửa chữa hoàn tất"
+            "reparing": ""
         },
         "install": {
-            "canceled": "Đã hủy quá trình cài đặt",
-            "error": "Cài đặt thất bại",
-            "finished": "Cài đặt hoàn tất",
-            "imported": "Game đã được import",
-            "startInstall": "Quá trình cài đặt đã bắt đầu"
+            "canceled": "",
+            "error": "",
+            "finished": "",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
-        "moved": "Di chuyển hoàn tất",
-        "moving": "Đang di chuyển Game",
+        "moved": "",
+        "moving": "Moving Game",
         "refresh": {
-            "error": "Không thể tìm nạp các bản phát hành từ server, có thể do các hạn chế của API Github! Thử lại sau."
+            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
-        "uninstalled": "Gỡ cài đặt",
+        "uninstalled": "",
         "update": {
-            "canceled": "Quá trình cập nhật đã hủy",
-            "finished": "Cập nhật hoàn tất",
-            "started": "Quá trình cập nhật đã bắt đầu"
+            "canceled": "",
+            "finished": "",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -316,12 +317,12 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "Tùy chọn nâng cao (Tùy biến môi trường):",
+            "title": "",
             "value": "Value"
         },
         "gameargs": {
-            "placeholder": "Thêm Launcher Argument ở đây",
-            "title": "Game Argument (Để chạy sau lệnh):"
+            "placeholder": "",
+            "title": ""
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -334,44 +335,45 @@
         }
     },
     "other": {
-        "gogdl-version": "Phiên bản GOGDL: ",
-        "legendary-version": "Phiên bản Legendary ",
-        "weblate": "Giúp dịch Heroic."
+        "gogdl-version": "GOGDL Version: ",
+        "legendary-version": "Legendary Version: ",
+        "weblate": "Help Improve this translation."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Sử dụng GOGDL binary tích hợp sẵn...",
-        "alt-legendary-bin": "Sử dụng Legendary binary tích hợp sẵn...",
-        "egs-prefix": "Prefix nơi EGS được cài đặt",
-        "prefered_language": "mã ngôn ngữ (2 ký tự ví dụ: \"en\" or \"fr\")"
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "egs-prefix": "",
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
-        "linux": "LInux",
-        "mac": "Mac",
-        "win": "Windows"
+        "linux": "",
+        "mac": "",
+        "win": ""
     },
-    "Recent": "Chơi gần đây",
-    "search": "Tìm kiếm game",
+    "Recent": "Played Recently",
+    "search": "",
     "setting": {
-        "adddesktopshortcuts": "Tự động thêm shortcut trên màn hình chính",
-        "addgamestostartmenu": "Tự động thêm game vào menu Start",
-        "alt-gogdl-bin": "Chọn GOGDL binary thay thế để sử dụng",
-        "alt-legendary-bin": "Chọn Legendary binary thay thế để sử dụng",
-        "audiofix": "Sửa âm thanh (Pulse Audio Latency)",
-        "autodxvk": "Tự động cài đặt/cập nhật DXVK trên prefix",
-        "autosync": "Tự động đồng bộ bản sao lưu",
-        "autovkd3d": "Tự động cài đặt/cập nhật DXVK trên prefix",
-        "change-target-exe": "Chọn một EXE thay thế để chạy",
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)to use",
+        "audiofix": "",
+        "autodxvk": "Auto Install/Update DXVK on Prefix",
+        "autosync": "",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "change-target-exe": "Select an alternative EXE to run",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
-        "customWineProton": "Đường dẫn Wine/Proton tùy chọn",
-        "darktray": "Sử dụng icon tối",
-        "default-install-path": "Thư mục cài mặc định",
+        "customWineProton": "Custom Wine/Proton Paths",
+        "darktray": "Use Dark Tray Icon (needs restart)",
+        "default-install-path": "",
         "default-steam-path": "Default Steam path",
-        "defaultWinePrefix": "Đặt thư mục cho prefix mới của Wine",
-        "disable_controller": "Tắt điều hướng Heroic bằng cần điều khiển",
-        "discordRPC": "Bật tính năng Discord Rich Presence",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "disable_controller": "Disable Heroic navigation using controller",
+        "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
-        "egs-sync": "Đồng bộ với Game Epic đã cài",
-        "enableFSRHack": "Bật tính năng FSR hack (Phiên bản Wine cần hỗ trợ tính năng này)",
+        "egs-sync": "",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
             "checkForUpdates": "Check for updates",
@@ -392,69 +394,69 @@
             "updateNow": "Update",
             "updating": "Updating..."
         },
-        "esync": "Bật Esync",
-        "exit-to-tray": "Thoát ra khay hệ thống",
-        "FsrSharpnessStrenght": "Độ sắc nét FSR",
-        "fsync": "Bật Fsync",
-        "gamemode": "Sử dụng GameMode (Cần cài đặt Feral Game Mode)",
-        "language": "Chọn ngôn ngữ của ứng dụng",
+        "esync": "Enable Esync",
+        "exit-to-tray": "",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "fsync": "Enable Fsync",
+        "gamemode": "",
+        "language": "Choose App Language",
         "library_top_option": {
-            "disabled": "Tắt",
-            "favourites": "Game ưa thích",
-            "recently_played": "Game chơi gần đây",
+            "disabled": "Disabled",
+            "favourites": "Favourite Games",
+            "recently_played": "Recently Played Games",
             "recently_played_installed": "Recently Played Games (Only Installed)"
         },
-        "library_top_section": "Phần trên cùng của Thư viện",
+        "library_top_section": "Library Top Section",
         "log": {
-            "copy-to-clipboard": "Sao chép nội dung log vào bộ nhớ tạm",
-            "current-log": "Log hiện tại",
-            "instructions": "Tham gia Discord và tìm kênh phù hợp với hệ điều hành của bạn. Nội dung log bao gồm mô tả chi tiết về lỗi và thông tin liên quan được chia sẻ ở đây",
-            "instructions_title": "Làm sao để báo lỗi?",
-            "last-log": "Log lần trước",
-            "no-file": "Không tìm thấy file log",
-            "show-in-folder": "Hiển thị file log trong thư mục"
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current log",
+            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions_title": "How to report a problem?",
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder"
         },
-        "mangohud": "Bật Mangohud (Cần cài mangohud)",
+        "mangohud": "",
         "manualsync": {
-            "download": "Tải xuống",
-            "forcedownload": "Buộc tải xuống",
-            "forceupload": "Buộc tải lên",
-            "sync": "Đồng bộ",
-            "syncing": "Đang đồng bộ",
-            "title": "Đồng bộ thủ công bản sao lưu",
-            "upload": "Tải lên"
+            "download": "",
+            "forcedownload": "",
+            "forceupload": "",
+            "sync": "",
+            "syncing": "",
+            "title": "",
+            "upload": ""
         },
-        "maxRecentGames": "Hiển thị số game đã chơi gần đây",
-        "maxworkers": "Số lượng tối đa khi tải xuống",
-        "minimize-on-launch": "Thu nhỏ Heroic sau khi khởi chạy trò chơi",
-        "offlinemode": "Chạy game oflline",
-        "prefered_language": "Ngôn ngữ ưa thích (Mã ngôn ngữ)",
+        "maxRecentGames": "Recent Games to Show",
+        "maxworkers": "",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "offlinemode": "",
+        "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Bật Nvidia Prime Render",
-        "resizableBar": "Bật tính năng thay đổi kích thước bar (chỉ dùng được với NVIDIA RTX 30xx)",
+        "primerun": "Use Dedicated Graphics Card",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
-            "message": "Kéo thả file vào đây",
-            "title": "Chạy EXE trên prefix"
+            "message": "",
+            "title": ""
         },
         "savefolder": {
-            "placeholder": "Chọn chính xác thư mục lưu game"
+            "placeholder": ""
         },
-        "select_theme": "chọn Theme",
-        "showfps": "Hiển thị FPS (DX9, 10 và 11)",
-        "start-in-tray": "Thu nhỏ khi khởi động",
-        "steamruntime": "Sử dụng Steam Runtime",
+        "select_theme": "Select Theme",
+        "showfps": "",
+        "start-in-tray": "Start Minimized",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "Thư mục WinePrefix",
-        "wineversion": "Phiên bản Wine"
+        "wineprefix": "",
+        "wineversion": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Installing BattlEye Runtime...",
             "name": "BattlEye AntiCheat Runtime"
         },
-        "clear-cache": "Xóa bộ nhớ đệm của Heroic",
-        "copiedToClipboard": "Đã sao chép vào bộ nhớ tạm!",
-        "copyToClipboard": "Sao chép toàn bộ cài đặt vào bộ nhớ tạm",
+        "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
+        "copyToClipboard": "Copy All Settings to Clipboard",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -470,77 +472,77 @@
             }
         },
         "log": {
-            "long-log-hint": "Log bị cắt ngắn, hiển thị 1000 dòng cuối!"
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
-            "advanced": "Nâng cao",
-            "general": "Tổng quan",
+            "advanced": "Advanced",
+            "general": "",
             "log": "Log",
-            "other": "Khác",
-            "sync": "Lưu - Đồng bộ",
+            "other": "",
+            "sync": "",
             "wineExt": "Wine Extensions"
         },
-        "open-config-file": "Mở tệp cấu hình",
-        "reset-heroic": "Đặt lại Heroic",
+        "open-config-file": "Open Config File",
+        "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
-    "Settings": "Cài đặt",
+    "Settings": "",
     "sidebar": {
-        "collapse": "Thu gọn sidebar",
-        "uncollapse": "Hủy thu gọn sidebar"
+        "collapse": "Collapse sidebar",
+        "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Đang cài đặt",
-        "logging": "Đang đăng nhập...",
-        "processing": "Đang xử lý tệp, vui lòng đợi"
+        "installing": "Installing",
+        "logging": "Logging In...",
+        "processing": "Processing files, please wait"
     },
-    "store": "Cửa hàng Epic",
-    "stores": "Cửa hàng",
+    "store": "Epic Store",
+    "stores": "Stores",
     "title": {
-        "allGames": "Tất cả game"
+        "allGames": "All Games"
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Chọn thư mục prefix mặc định cho các cấu hình mới",
-            "wineprefix": "Chọn thư mục cho Wine Prefix mới"
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
         }
     },
     "tooltip": {
-        "addpath": "Thêm đường dẫn mới",
-        "removepath": "Xóa đường dẫn"
+        "addpath": "Add New Path",
+        "removepath": "Remove Path"
     },
     "tray": {
-        "about": "Giới thiệu",
-        "quit": "Thoát",
-        "reload": "Tải lại",
-        "show": "Hiển thị"
+        "about": "About",
+        "quit": "Quit",
+        "reload": "Reload",
+        "show": ""
     },
     "userselector": {
         "discord": "Discord",
-        "logout": "Đăng xuất",
-        "logout_confirmation": "Xác nhận đăng xuất?",
-        "manageaccounts": "Quản lý tài khoản",
-        "quit": "Thoát"
+        "logout": "Logout",
+        "manageaccounts": "Manage Accounts",
+        "quit": "Quit"
     },
     "webview": {
         "controls": {
-            "back": "Quay lại",
-            "forward": "Đi tiếp",
-            "openInBrowser": "Mở trong trình duyệt",
-            "reload": "Tải lại trang"
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
         }
     },
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Không thể tìm nạp phiên bản Wine/Proton lần này.",
-            "link": "Quản lý Wine",
-            "title": "Quản lý Wine (thử nghiệm)",
-            "unzipping": "Đang giải nén"
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
         },
         "release": "Release Date",
-        "size": "Kích thước"
+        "size": "Size"
     }
 }

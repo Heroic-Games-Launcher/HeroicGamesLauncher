@@ -1,13 +1,13 @@
 {
     "accessibility": {
-        "actions_font_family": "Font za akcije(Default: \"Rubik\")",
-        "all_tiles_in_color": "Pokaži sve igrice u boji",
-        "content_font_family": "Font za sadržaj (Default: \"Cabin\")",
-        "fonts": "Fontovi",
-        "title": "Prilagođeni pristup",
-        "zoom": "Uvečaj"
+        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
+        "all_tiles_in_color": "Show all game tiles in color",
+        "content_font_family": "Content Font Family (Default: \"Cabin\")",
+        "fonts": "Fonts",
+        "title": "Accessibility",
+        "zoom": "Zoom"
     },
-    "All": "Sve",
+    "All": "",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
@@ -18,37 +18,37 @@
     },
     "box": {
         "cache-cleared": {
-            "message": "Heroic cache je očišćen.",
-            "title": "Cache očišćen"
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
         },
-        "choose": "Odaberi",
-        "choose-egs-prefix": "Odaberite Prefix gdje je EGS instaliran",
-        "choose-gogdl-binary": "Odaberi GOGDL Binary (treba ponovno pokrenuti)",
+        "choose": "",
+        "choose-egs-prefix": "",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary Binary (needs restart)",
         "customWine": "Select the Wine or Proton Binary",
-        "default-install-path": "Odaberite Zadanu Lokaciju Instalacije",
+        "default-install-path": "",
         "default-steam-path": "Steam path.",
         "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
                     "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "title": "Error Adding Game to Steam"
                 }
             },
             "credentials": {
-                "message": "Vaša prijava je istekla, ponovno se prijavite."
+                "message": "Your Crendentials have expired, Logout and Login Again!"
             },
             "cx-bottle-not-found": {
                 "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
                 "title": "CrossOver bottle not found"
             },
             "diskspace": {
-                "message": "Nema dovoljno slobodnog prostora na disku",
-                "title": "Nema Prostora"
+                "message": "Not enough available disk space",
+                "title": "No Space"
             },
             "dxvk": {
-                "message": "Greška prilikom instalinanja DXVK/VKD3D! Provjeri vezu!",
+                "message": "Error installing DXVK/VKD3D! Check your connection!",
                 "title": "DXVK/VKD3D error"
             },
             "folder-not-found": {
@@ -59,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
-                }
+            "title": "Error",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
             },
-            "title": "Greška",
             "update": {
                 "message": "Something went wrong with the update, please check the logs or try again later!",
                 "title": "Update Error"
@@ -85,7 +83,7 @@
                 "title-finished": "Update Finished"
             }
         },
-        "no": "NE",
+        "no": "",
         "ok": "Ok",
         "protocol": {
             "install": {
@@ -98,26 +96,26 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Reset Heroic"
             }
         },
         "runexe": {
-            "title": "Odaberi EXE za pokrenuti"
+            "title": ""
         },
         "select": {
             "button": "Select",
-            "exe": "Select EXE"
+            "exe": "Select EXE..."
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
-            "title": "Shortcuts"
+            "title": "Shortcuts Removed"
         },
         "sync": {
-            "button": "Odaberi",
-            "error": "Pogrešni put",
-            "title": "Odaberi mapu za podatke"
+            "button": "",
+            "error": "",
+            "title": ""
         },
         "vcruntime": {
             "install": {
@@ -136,15 +134,15 @@
             },
             "title": "Warning"
         },
-        "wineprefix": "Odaberi Wine Prefix mapu",
-        "yes": "DA"
+        "wineprefix": "",
+        "yes": ""
     },
     "button": {
         "go_to_library": "Go to Library",
-        "login": "Prijava",
-        "sync": "Sinkroniziraj",
-        "syncing": "Sinkroniziranje",
-        "unsync": "Desinkroniziraj"
+        "login": "Login",
+        "sync": "",
+        "syncing": "",
+        "unsync": ""
     },
     "controller": {
         "hints": {
@@ -169,7 +167,7 @@
     },
     "docs": "Documentation",
     "epic": {
-        "offline-notification-body": "Heroic vjerojatno neče raditi zato što EpicGames serveri su ugašeni!",
+        "offline-notification-body": "Heroic will maybe not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -193,7 +191,7 @@
     "gog-store": "GOG Store",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "Platforma",
+        "platform": "",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
@@ -210,65 +208,68 @@
             "valid_codes": "Valid language codes are game-dependant."
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
-        "general": "Sinkronizira sa EGL ako imaš instalaciju EpicGames Launcher-a negdje drugdje i želiš uvesti igrice bez ponovnog preuzimanja.",
+        "general": "",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
-            "part4": "Koristi ",
-            "part5": "Argumenti igrice",
-            "part6": " pokrenuti če se poslije komande za pokretanje, naprimjer: ",
-            "part7": " za preskoćiti pokretač u nekim igricama, itd."
+            "part4": "",
+            "part5": "",
+            "part6": "",
+            "part7": ""
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
-            "part1": "Heroic pokušava pogoditi točnu lokaciju podata i ovo če raditi u večini sličaja. U sličaju da je mapa kriva, koristi premjesti polje da ju promijeniš.",
-            "part2": "U sličaju da promijeti mapu podata za WINE/PROTON, morat če te provjeriti mapu opet pošto PROTON koristi drugu mapu (/pfx) i korisničko ime (steamuser). Tako da možete jednostavno obrisati trenutni mapu i pokušati ponovno u postavke sinkronizacije da Heroic pogodi pravi put.",
-            "part3": "Manualna sinkronizacija: Odaberi Preuzimanje da preuzmeš podatke od igrice sa Cloud-a. Prebacivanje za prebaciti lokalne datoteke u Cloud. Forsirano preuzimanje i prebacivanje če ignorirati lokalne verzije i one u Cloud-u.",
-            "part4": "Sinkroniziranje se automatski radi svaki put kada pokrenete igricu i završtite sa igrom."
+            "part1": "",
+            "part2": "",
+            "part3": "",
+            "part4": ""
         },
         "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
-            "part1": "Heroic traži verzije za WIne, Proton i CrossOver u sljedečim mapama:",
-            "part2": "Za druga mjesta, koristite simbolični link do tih mapa"
+            "part1": "",
+            "part2": ""
         }
     },
     "info": {
         "heroic": {
-            "version": "Heroic verzija"
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
+            "version": "Heroic Version"
         },
-        "settings": "Postavke se automatski spremaju",
-        "version": "Wine verzija"
+        "settings": "",
+        "version": "Wine Version"
     },
     "infobox": {
-        "help": "Pomoč",
-        "requirements": "Zahtjevi sustava",
+        "help": "",
+        "requirements": "",
         "wine-path": "Wine Path"
     },
     "install": {
-        "path": "Odaberi stazu instalacije"
+        "path": "Select Install Path"
     },
     "library": {
-        "refresh": "Osvježi",
-        "sortAscending": "Razvrstaj uzlazno",
-        "sortByStatus": "Razvrstaj po stanju",
-        "sortDescending": "Razvrstaj silazno",
+        "refresh": "Refresh Library",
+        "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
+        "sortDescending": "Sort Descending",
         "toggleLayout": {
             "grid": "Toggle to a grid layout",
             "list": "Toggle to a list layout"
         }
     },
-    "Library": "Biblioteka",
+    "Library": "",
     "loading": {
-        "default": "Učitavanje",
-        "website": "Učitavanje web-stranice"
+        "default": "",
+        "website": "Loading Website"
     },
     "login": {
-        "externalLogin": "Vanjska prijava"
+        "externalLogin": "External Login"
     },
     "message": {
-        "sync": "Sinkroniziranje završeno",
-        "unsync": "Desinkroniziranje završeno"
+        "sync": "",
+        "unsync": ""
     },
     "notify": {
         "error": {
@@ -278,36 +279,36 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Added to Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Removed from Steam"
                 }
             },
-            "reparing": "Zavšen popravak"
+            "reparing": ""
         },
         "install": {
-            "canceled": "Instalacije prekinuta",
-            "error": "Instalacija Neuspjela",
-            "finished": "Instalacija gotova",
+            "canceled": "",
+            "error": "",
+            "finished": "",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
         },
-        "moved": "Premještanje gotovo",
+        "moved": "",
         "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
-        "uninstalled": "Deinstalirano",
+        "uninstalled": "",
         "update": {
-            "canceled": "Ažuriranje prekinuto",
-            "finished": "Ažuriranje gotovo",
+            "canceled": "",
+            "finished": "",
             "started": "Update Started"
         }
     },
@@ -316,12 +317,12 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "Napradne postavke (Environmment Variables):",
+            "title": "",
             "value": "Value"
         },
         "gameargs": {
-            "placeholder": "Ovjde upiši argumente launchera",
-            "title": "Argumenti igrice (Za pokrenuti poslije komande):"
+            "placeholder": "",
+            "title": ""
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -341,36 +342,37 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
-        "egs-prefix": "Put gdje je EGS instaliran",
+        "egs-prefix": "",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
-        "linux": "Linux",
-        "mac": "Mac",
-        "win": "Windows"
+        "linux": "",
+        "mac": "",
+        "win": ""
     },
     "Recent": "Played Recently",
-    "search": "Traži igre",
+    "search": "",
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
-        "alt-gogdl-bin": "Odaberi drugu verziju GOGDL programa za koristiti",
-        "alt-legendary-bin": "Odaberi drugu verziju Legendary programa",
-        "audiofix": "Popravak zvuka (Pulse audio latencija)",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)to use",
+        "audiofix": "",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
-        "autosync": "Automatsko sinkroniziranje podataka",
+        "autosync": "",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "Custom Wine/Proton Paths",
-        "darktray": "Use Dark Tray Icon",
-        "default-install-path": "Zadani put instalacije",
+        "darktray": "Use Dark Tray Icon (needs restart)",
+        "default-install-path": "",
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
-        "egs-sync": "Sinkroniziraj sa instaliranim Epic Games",
+        "egs-sync": "",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
@@ -393,11 +395,11 @@
             "updating": "Updating..."
         },
         "esync": "Enable Esync",
-        "exit-to-tray": "Izađi u ikonu na sistemsku ladicu",
+        "exit-to-tray": "",
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
-        "gamemode": "Koristi GameMode(Feral Game Mode mora biti instaliran)",
-        "language": "Odaberi Jezik",
+        "gamemode": "",
+        "language": "Choose App Language",
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
@@ -414,38 +416,38 @@
             "no-file": "No log file found.",
             "show-in-folder": "Show log file in folder"
         },
-        "mangohud": "Omogući Mangohud (Mangohud mora biti instaliran)",
+        "mangohud": "",
         "manualsync": {
-            "download": "Preuzmi",
-            "forcedownload": "Forsiraj preuzimanje",
-            "forceupload": "Forsijaj prebacivanje podataka",
-            "sync": "Sinkroniziraj",
-            "syncing": "Sinkroniziranje",
-            "title": "Manualna sinkronizacija podataka",
-            "upload": "Prebaci"
+            "download": "",
+            "forcedownload": "",
+            "forceupload": "",
+            "sync": "",
+            "syncing": "",
+            "title": "",
+            "upload": ""
         },
         "maxRecentGames": "Recent Games to Show",
-        "maxworkers": "Maksimalan broj radnika za preuzimanje",
+        "maxworkers": "",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
-        "offlinemode": "Pokreni igrice bez pristupa internetu",
+        "offlinemode": "",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
         "primerun": "Use Dedicated Graphics Card",
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
-            "message": "Povicute i pustite datoteke ovjde",
-            "title": "Pokreni EXE na putu"
+            "message": "",
+            "title": ""
         },
         "savefolder": {
-            "placeholder": "Odaberi točnu mapu podataka za igricu"
+            "placeholder": ""
         },
         "select_theme": "Select Theme",
-        "showfps": "Pokaži FPS (DX9, 10 i 11)",
+        "showfps": "",
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix mapa",
-        "wineversion": "Wine Verzija"
+        "wineprefix": "",
+        "wineversion": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -474,27 +476,28 @@
         },
         "navbar": {
             "advanced": "Advanced",
-            "general": "Općenito",
+            "general": "",
             "log": "Log",
-            "other": "Ostalo",
-            "sync": "Spremi-Podatke",
+            "other": "",
+            "sync": "",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
-    "Settings": "Postavke",
+    "Settings": "",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Instaliranje u tijeku",
+        "installing": "Installing",
         "logging": "Logging In...",
-        "processing": "Obrada datoteka, pričekaj"
+        "processing": "Processing files, please wait"
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -515,21 +518,20 @@
         "about": "About",
         "quit": "Quit",
         "reload": "Reload",
-        "show": "Pokaži"
+        "show": ""
     },
     "userselector": {
         "discord": "Discord",
         "logout": "Logout",
-        "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
         "manageaccounts": "Manage Accounts",
         "quit": "Quit"
     },
     "webview": {
         "controls": {
-            "back": "Nazad",
-            "forward": "Naprijed",
-            "openInBrowser": "Otvori u pretraživaću",
-            "reload": "Osvježi stranicu"
+            "back": "",
+            "forward": "",
+            "openInBrowser": "",
+            "reload": ""
         }
     },
     "wine": {
@@ -537,7 +539,7 @@
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
-            "title": "Wine Manager",
+            "title": "Wine Manager (Beta)",
             "unzipping": "Unzipping"
         },
         "release": "Release Date",

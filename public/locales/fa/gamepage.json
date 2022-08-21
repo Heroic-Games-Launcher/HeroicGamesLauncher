@@ -128,11 +128,10 @@
         "change": "تغییر محل نصب",
         "disableEosOverlay": "عیر فعال کردن EOS Overlay",
         "enableEosOverlay": "فعال کردن EOS Overlay",
-        "log": "لاگهای اخیر",
         "move": "انتقال بازی",
         "protondb": "بررسی سازگاری",
         "removeFromSteam": "حذف کردن از استیم",
-        "removeShortcut": "Remove shortcuts",
+        "removeShortcut": "حذف میانبرها",
         "settings": "تنظیمات",
         "store": "صفحه فروشگاه",
         "verify": "بررسی و تعمیر"

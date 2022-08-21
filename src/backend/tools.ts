@@ -198,10 +198,10 @@ export const Winetricks = {
     return execAsync(downloadCommand)
       .then(() => {
         exec(`chmod +x ${path}`)
-        logInfo('Downloaded Winetricks', LogPrefix.Backend)
+        logInfo('Downloaded Winetricks', LogPrefix.WineTricks)
       })
       .catch(() => {
-        logWarning('Error Downloading Winetricks', LogPrefix.Backend)
+        logWarning('Error Downloading Winetricks', LogPrefix.WineTricks)
       })
   },
   run: async (wineVersion: WineInstallation, baseWinePrefix: string) => {

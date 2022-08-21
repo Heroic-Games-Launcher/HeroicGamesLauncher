@@ -7,7 +7,7 @@
         "title": "Accessibility",
         "zoom": "Zoom"
     },
-    "All": "എല്ലാം",
+    "All": "",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
@@ -18,37 +18,37 @@
     },
     "box": {
         "cache-cleared": {
-            "message": "ഹീറോയിക് പിടിച്ചുവച്ചവ വിട്ടു.",
-            "title": "പിടിച്ചുവച്ചവ നീക്കി"
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
         },
-        "choose": "തിരഞ്ഞെടുക്കൂ",
-        "choose-egs-prefix": "EGSന്റെ സ്ഥാപനയിടം തിരഞ്ഞെടുക്കൂ",
+        "choose": "",
+        "choose-egs-prefix": "",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
-        "choose-legendary-binary": "ലെജന്ററിയുടെ ഈരക്കരേഖ തിരഞ്ഞെടുക്കുക",
-        "customWine": "വൈനിന്റെയോ പ്രോട്ടോണിന്റെയോ ഈരക്കരേഖ(Binary file) നല്കൂ",
-        "default-install-path": "പൊതു ഇന്സ്റ്റാളിടം തിരഞ്ഞെടുക്കൂ",
+        "choose-legendary-binary": "Select Legendary Binary (needs restart)",
+        "customWine": "Select the Wine or Proton Binary",
+        "default-install-path": "",
         "default-steam-path": "Steam path.",
         "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
                     "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "title": "Error Adding Game to Steam"
                 }
             },
             "credentials": {
-                "message": "നിങ്ങളെക്കുറിച്ചുള്ള വിവരങ്ങള് പഴകിയിരിക്കുന്നു, പുറത്തുകടന്ന് വീണ്ടും കയറിനോക്കൂ."
+                "message": "Your Crendentials have expired, Logout and Login Again!"
             },
             "cx-bottle-not-found": {
                 "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
                 "title": "CrossOver bottle not found"
             },
             "diskspace": {
-                "message": "തകിടില്(disk) ആവശ്യത്തിന് സ്ഥലമില്ലല്ലോ",
-                "title": "സ്ഥലമില്ല"
+                "message": "Not enough available disk space",
+                "title": "No Space"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "message": "Error installing DXVK/VKD3D! Check your connection!",
                 "title": "DXVK/VKD3D error"
             },
             "folder-not-found": {
@@ -59,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
-                }
+            "title": "Error",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
             },
-            "title": "കുഴപ്പം",
             "update": {
                 "message": "Something went wrong with the update, please check the logs or try again later!",
                 "title": "Update Error"
@@ -85,39 +83,39 @@
                 "title-finished": "Update Finished"
             }
         },
-        "no": "വേണ്ട",
-        "ok": "ശരി",
+        "no": "",
+        "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "ഇത് നട്ടിട്ടില്ല, നടണോ?"
+                "not_installed": "Is Not Installed, do you wish to Install it?"
             }
         },
         "quit": {
-            "message": "ചെയ്തുതീര്ക്കാത്ത പണികളുണ്ട്, ഉറപ്പല്ലേ?",
-            "title": "പുറത്തിറക്ക്"
+            "message": "There are pending operations, are you sure?",
+            "title": "Exit"
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Reset Heroic"
             }
         },
         "runexe": {
-            "title": "ഓടിക്കുവാനുള്ള EXE നല്കൂ"
+            "title": ""
         },
         "select": {
-            "button": "തിരഞ്ഞെടുക്കൂ",
-            "exe": "EXE തിരഞ്ഞെടുക്കൂ"
+            "button": "Select",
+            "exe": "Select EXE..."
         },
         "shortcuts": {
-            "message": "കുറുക്കുവഴികള് പണിമേശയിലേക്കും തുടക്കപ്പട്ടികയിലേക്കും ചേര്ത്തിട്ടുണ്ട്",
+            "message": "Shortcuts were created on Desktop and Start Menu",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
-            "title": "കുറുക്കുവഴികള്"
+            "title": "Shortcuts Removed"
         },
         "sync": {
-            "button": "തിരഞ്ഞെടുക്കൂ",
-            "error": "വഴി ശരിയല്ലല്ലോ",
-            "title": "സൂക്ഷിക്കാനുള്ള അറ തിരഞ്ഞെടുക്കൂ"
+            "button": "",
+            "error": "",
+            "title": ""
         },
         "vcruntime": {
             "install": {
@@ -136,15 +134,15 @@
             },
             "title": "Warning"
         },
-        "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
-        "yes": "ശരി"
+        "wineprefix": "",
+        "yes": ""
     },
     "button": {
         "go_to_library": "Go to Library",
-        "login": "അകത്ത് കയറുക",
-        "sync": "ഒന്നിപ്പിക്കൂ",
-        "syncing": "ഒന്നിപ്പിക്കുന്നു",
-        "unsync": "പിരിക്കൂ"
+        "login": "Login",
+        "sync": "",
+        "syncing": "",
+        "unsync": ""
     },
     "controller": {
         "hints": {
@@ -169,10 +167,10 @@
     },
     "docs": "Documentation",
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Heroic will maybe not work probably!",
         "offline-notification-title": "offline"
     },
-    "Epic Games": "എപിക് ഗെയിംസ്",
+    "Epic Games": "Epic Games",
     "favourites": "Favourites",
     "game": {
         "status": "Status",
@@ -188,7 +186,7 @@
             "refresh": "Refresh Library"
         }
     },
-    "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്",
+    "globalSettings": "Global Settings",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
@@ -210,46 +208,49 @@
             "valid_codes": "Valid language codes are game-dependant."
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
-        "general": "എപിക് ഗെയിം കടയുടെ കുഴപ്പമൊന്നുില്ലാത്ത ഒരു നടീല് മറ്റെവിടെയെങ്കിലും ഉണ്ടെങ്കില് നിങ്ങളുടെ കളികള് വീണ്ടും ഇറക്കിയെടുക്കുന്നത് ഒഴിവാക്കാനായി EGSുമായി ഒന്നിപ്പിക്കുക.",
+        "general": "",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
-            "part4": "കളി ഓടിത്തുടങ്ങിയതിനു ശേഷം വിളിക്കാന് ",
-            "part5": "കളിവാദങ്ങള്",
-            "part6": " ഉപയോഗിക്കുക, ഉദ്ദാഹരണത്തിന്:ചില കളികളില് ലോഞ്ചര് ഒഴിച്ചുവിടാനായി ",
-            "part7": " ചില കളികളുടെ തുറകള് ഒഴിവാക്കാനും മറ്റും."
+            "part4": "",
+            "part5": "",
+            "part6": "",
+            "part7": ""
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
-            "part1": "ശരിയായ അറകള് ഭൂരിഭാഗം തവണയും ഹീറോയിക് തപ്പിക്കണ്ടുപിടിക്കാറുണ്ട്. ഇത്തവണ ഈ അറ തെറ്റാണ്, ഇത് മാറ്റാനായി മാറ്റിയെഴുത്തുകളം ഉപയോഗിക്കൂ.",
-            "part2": "നിങ്ങള് വൈനിന്റെയോ പ്രോട്ടോണിന്റെയോ അറകള്(ഉപസര്ഗ്ഗം/prefix) മാറ്റി എന്നിരിക്കട്ടെ, പ്രോട്ടോണ് ഒരു വ്യത്യസ്ത ഉപസര്ഗ്ഗവും(/pref) ഉപഭോക്തൃനാമവും(streamuser) ഉപയോഗിക്കുന്നുതിനാല് അതിന്റെ പാത(path) നിങ്ങള് ഉറപ്പുവരുത്തേണ്ടിയിരിക്കുന്നു. അതിന്റെ പഴയ അറ ഇല്ലായ്മ ചെയ്തശേഷം ഒന്നിപ്പിക്കല്(syncing) താളില്നിന്നു പുറത്തിറങ്ങി വീണ്ടും കയറി ഹീറോയികിനെ പുതിയ സ്ഥലം താനെ കണ്ടെത്താന് അനുവദിക്കൂ.",
-            "part3": "നിര്ദ്ദേശിത ഒന്നിപ്പിക്കല്(manual syncing) : ക്ലൌഡില് സുക്ഷിച്ചിട്ടുള്ള കളിസൂക്ഷിപ്പുകള് ഇറക്കിയെടുക്കുവാനായി ഇറക്കിയെടുക്കൂ അമര്ത്തൂ. ക്ലൌഡിലേക്ക് കയറ്റിവയ്ക്കാനായി കയറ്റിവയ്ക്കൂ അമര്ത്തൂ. ക്ലൌഡിലുള്ള തനത് പതിപ്പ് അവഗണിക്കാനായി നിര്ബന്ധിച്ച് ഇറക്കിയെടുക്കുകയോ കയറ്റിവയ്ക്കുകയോ ആവാം.",
-            "part4": "താനേയുള്ള ഒന്നിപ്പിക്കല് സുക്ഷിപ്പ്(sync save), ഓരോ തവണ നിങ്ങള് കളി തുടങ്ങുമ്പോഴും കളികഴിഞ്ഞിറങ്ങുമ്പോഴും നിങ്ങളുടെ ഒന്നിപ്പിക്കലുകള് സൂക്ഷിക്കുന്നു."
+            "part1": "",
+            "part2": "",
+            "part3": "",
+            "part4": ""
         },
         "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
-            "part1": "വൈനിനും പ്രോട്ടോണിനും ക്രോസ്സോവറിനുമായി ഹീറോയിക് താഴെപ്പറയുന്ന സ്ഥലങ്ങളില് തപ്പുന്നു:",
-            "part2": "മറ്റിടങ്ങളെ ഈ സ്ഥലങ്ങളുമായി കോര്ക്കാന് കണ്ണികള് ഉപയോഗിക്കൂ"
+            "part1": "",
+            "part2": ""
         }
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Heroic Version"
         },
-        "settings": "ക്രമീകരണങ്ങള് താനെ സൂക്ഷിക്കപ്പെട്ടിരിക്കുന്നു",
+        "settings": "",
         "version": "Wine Version"
     },
     "infobox": {
-        "help": "സഹായിക്കൂ",
-        "requirements": "ശുപാര്ശിക്കുന്ന സംവിധാനങ്ങള്",
+        "help": "",
+        "requirements": "",
         "wine-path": "Wine Path"
     },
     "install": {
-        "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ"
+        "path": "Select Install Path"
     },
     "library": {
-        "refresh": "",
+        "refresh": "Refresh Library",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -258,7 +259,7 @@
             "list": "Toggle to a list layout"
         }
     },
-    "Library": "കളിശാല",
+    "Library": "",
     "loading": {
         "default": "",
         "website": "Loading Website"
@@ -267,47 +268,47 @@
         "externalLogin": "External Login"
     },
     "message": {
-        "sync": "ഒന്നിപ്പിച്ചു",
-        "unsync": "പിരിച്ചു"
+        "sync": "",
+        "unsync": ""
     },
     "notify": {
         "error": {
-            "move": "കളി നീക്കുന്നതില് പിഴവു പറ്റി",
-            "reparing": "നന്നാക്കുന്നതല് പിഴവു പറ്റി"
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
         },
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Added to Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Removed from Steam"
                 }
             },
-            "reparing": "നന്നാക്കിക്കഴിഞ്ഞു"
+            "reparing": ""
         },
         "install": {
-            "canceled": "സ്ഥാപനം റദ്ദാക്കി",
-            "error": "നടീല് പരാജയപ്പെട്ടു",
-            "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു",
-            "imported": "കളി കൊണ്ടുവന്നു",
-            "startInstall": "നടീല് തുടങ്ങി"
+            "canceled": "",
+            "error": "",
+            "finished": "",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
-        "moved": "മാറ്റിക്കഴിഞ്ഞു",
+        "moved": "",
         "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
-        "uninstalled": "എടുത്തുനീക്കി",
+        "uninstalled": "",
         "update": {
-            "canceled": "പുതുക്കല് റദ്ദാക്കി",
-            "finished": "പുതുക്കി",
+            "canceled": "",
+            "finished": "",
             "started": "Update Started"
         }
     },
@@ -316,12 +317,12 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "ഉയര്ന്ന ക്രമീകരണങ്ങള് (Environment Variables):",
+            "title": "",
             "value": "Value"
         },
         "gameargs": {
-            "placeholder": "ഇവിടെ ലോഞ്ചര് വാദങ്ങള് ഇടൂ",
-            "title": "കളി വാദങ്ങള് ആജ്ഞക്കു(command) ശേഷം ഒടിക്കാന്:"
+            "placeholder": "",
+            "title": ""
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -335,13 +336,13 @@
     },
     "other": {
         "gogdl-version": "GOGDL Version: ",
-        "legendary-version": "ലെജന്ററിയുടെ പതിപ്പ്: ",
-        "weblate": "ഹീറോയിക്കിനെ മൊഴിമാറ്റുവാന് സഹായിക്കൂ."
+        "legendary-version": "Legendary Version: ",
+        "weblate": "Help Improve this translation."
     },
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
-        "alt-legendary-bin": "തനത് ലെജന്ററി ഈരക്കരേഖ ഉപയോഗിക്കുന്നു...",
-        "egs-prefix": "EGS സ്ഥാപിച്ചയിടം",
+        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "egs-prefix": "",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
@@ -349,29 +350,30 @@
         "mac": "",
         "win": ""
     },
-    "Recent": "പതിവ് കളികള്",
-    "search": "കളിയുടെ പേര് ഇവിടെ എഴുതൂ...",
+    "Recent": "Played Recently",
+    "search": "",
     "setting": {
-        "adddesktopshortcuts": "കുറുക്കുവഴികള് മേശപ്പുറത്ത് താനേ ചേര്ക്കൂ",
-        "addgamestostartmenu": "കളികള് തുടക്കപ്പട്ടികയില് താനേ ചേര്ക്കൂ",
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
-        "audiofix": "ശബ്ദം ശരിയാക്കൂ (പള്സ് ഓഡിയോ ലാറ്റന്സി)",
-        "autodxvk": "ഉപസഗ്ഗ഻ത്തില്(പ്രഫിക്സില്) DXVK തന്നത്താന് സ്ഥാപിക്കൂ/പുതുക്കൂ",
-        "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)to use",
+        "audiofix": "",
+        "autodxvk": "Auto Install/Update DXVK on Prefix",
+        "autosync": "",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
-        "change-target-exe": "ഓടിക്കുവാനായി പകരംവയ്ക്കാവുന്ന ഒരു EXE തിരഞ്ഞെടുക്കൂ",
+        "change-target-exe": "Select an alternative EXE to run",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
-        "customWineProton": "ഇഷ്ടാനുസൃതം ചേര്ത്ത വൈന്/പ്രോട്ടോണ് അറകള്",
-        "darktray": "താലത്തില്(ട്രേയില്) ഇരുണ്ട ചിത്രം ഉപയോഗിക്കുക",
-        "default-install-path": "തനത് സ്ഥാപനയിടം",
+        "customWineProton": "Custom Wine/Proton Paths",
+        "darktray": "Use Dark Tray Icon (needs restart)",
+        "default-install-path": "",
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
-        "discordRPC": "ഡിസ്കോര്ഡ് റിച്ച് പ്രെസന്സ് വക്കൂ",
+        "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
-        "egs-sync": "സ്ഥാപിച്ച എപിക് ഗെയിംസുമായി ഒന്നിപ്പിക്കുക",
-        "enableFSRHack": "എഫ്എസ്ആര് ഹാക്ക് വയ്ക്കൂ (Wine version needs to support it)",
+        "egs-sync": "",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
             "checkForUpdates": "Check for updates",
@@ -392,12 +394,12 @@
             "updateNow": "Update",
             "updating": "Updating..."
         },
-        "esync": "Esync വയ്ക്കൂ",
-        "exit-to-tray": "സംവിധാന താലത്തിലേക്ക്(സിസ്റ്റം ട്രേ) ചുരുക്കുക",
-        "FsrSharpnessStrenght": "എഫ്എസ്ആര് ഷാര്പ്പ്നെസ്സ് സ്ട്രെങ്ത്",
-        "fsync": "Fsync വയ്ക്കൂ",
-        "gamemode": "ഗെയിംമോഡ് ഉപയോഗിക്കൂ (ഫെറലിന്റെ ഗെയിംമോഡ് ഇന്സ്റ്റാള് ചെയ്തിരിക്കണം)",
-        "language": "ആപ്പിന്റെ ഭാഷ",
+        "esync": "Enable Esync",
+        "exit-to-tray": "",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "fsync": "Enable Fsync",
+        "gamemode": "",
+        "language": "Choose App Language",
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
@@ -406,46 +408,46 @@
         },
         "library_top_section": "Library Top Section",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current log",
             "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
-            "no-file": "No log file found",
+            "no-file": "No log file found.",
             "show-in-folder": "Show log file in folder"
         },
-        "mangohud": "മാന്ഘൗട്ട് ഉപയോഗിക്കൂ(മാന്ഘൗട്ട് ഇന്സ്റ്റാള് ചെയ്തിരിക്കണം)",
+        "mangohud": "",
         "manualsync": {
-            "download": "ഇറക്കിയെടുക്കൂ",
-            "forcedownload": "നിബ഻ന്ധിച്ച് ഇറക്കിയെടുക്ക്",
-            "forceupload": "നിബ഻ന്ധിച്ച് കയറ്റിവയ്ക്ക്",
-            "sync": "ഒന്നിപ്പിക്കൂ",
-            "syncing": "ഒന്നിപ്പിക്കുന്നു",
-            "title": "നിങ്ങള് സൂക്ഷിച്ച ഒന്നിപ്പിക്കലുകള്",
-            "upload": "കയറ്റിവയ്ക്കുൂ"
+            "download": "",
+            "forcedownload": "",
+            "forceupload": "",
+            "sync": "",
+            "syncing": "",
+            "title": "",
+            "upload": ""
         },
-        "maxRecentGames": "അടുത്തിടെയുള്ള പതിവ് കളികള്",
-        "maxworkers": "ഇറക്കിയെടുക്കുമ്പോള് പണിയുന്നവരുടെ പരമാവധി എണ്ണം",
+        "maxRecentGames": "Recent Games to Show",
+        "maxworkers": "",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
-        "offlinemode": "ഓഫ്ലൈനില് കളിക്കുക",
+        "offlinemode": "",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "എന്വിഡിയ പ്രൈം റെന്റര് വയ്ക്കൂ",
-        "resizableBar": "വലുപ്പം മാറ്റാവുന്ന BAR വയ്ക്കൂ (എന്വിഡിയ RTX 30xxനു മാത്രം)",
+        "primerun": "Use Dedicated Graphics Card",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
-            "message": "രേഖകള് ഇവിടെനിന്നും വലിച്ചെടുക്കുക/ഇടുക",
-            "title": "ഉപസഗ്ഗ഻ത്തില് EXE ഓടിക്കുക"
+            "message": "",
+            "title": ""
         },
         "savefolder": {
-            "placeholder": "കളി സൂക്ഷിക്കാനുള്ള കൃത്യമായ സ്ഥലം നല്കൂ"
+            "placeholder": ""
         },
         "select_theme": "Select Theme",
-        "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
-        "start-in-tray": "ചെറിയ കളമാക്കി തുറക്കൂ",
+        "showfps": "",
+        "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
-        "winecrossoverbottle": "ക്രോസ്സോവര് കുപ്പി",
-        "wineprefix": "വൈനിരിക്കുന്ന അറ",
-        "wineversion": "വൈനിന്റെ പതിപ്പ്"
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "",
+        "wineversion": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -454,7 +456,7 @@
         },
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copyToClipboard": "Copy All Settings to Clipboard",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -474,19 +476,20 @@
         },
         "navbar": {
             "advanced": "Advanced",
-            "general": "പൊതുവായവ",
+            "general": "",
             "log": "Log",
-            "other": "മറ്റുള്ളവ",
-            "sync": "ഒന്നിപ്പിക്കല് സൂക്ഷിക്കൂ",
+            "other": "",
+            "sync": "",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
-    "Settings": "ക്രമീകരണങ്ങള്",
+    "Settings": "",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar"
@@ -496,10 +499,10 @@
         "logging": "Logging In...",
         "processing": "Processing files, please wait"
     },
-    "store": "കട",
+    "store": "Epic Store",
     "stores": "Stores",
     "title": {
-        "allGames": "മൊത്തം കളികള്"
+        "allGames": "All Games"
     },
     "toolbox": {
         "settings": {
@@ -508,21 +511,20 @@
         }
     },
     "tooltip": {
-        "addpath": "പുതിയ ഇടം ചേര്ക്കുക",
-        "removepath": "ഇടം നീക്കുക"
+        "addpath": "Add New Path",
+        "removepath": "Remove Path"
     },
     "tray": {
-        "about": "ഇതിനെക്കുറിച്ച്",
-        "quit": "പുറത്തുകടക്കുക",
-        "reload": "വീണ്ടും എടുക്കൂ",
-        "show": "കാണിക്കൂ"
+        "about": "About",
+        "quit": "Quit",
+        "reload": "Reload",
+        "show": ""
     },
     "userselector": {
-        "discord": "ഡിസ്കോഡ഻്",
-        "logout": "ഇറങ്ങൂ(ലോഗൌട്ട്)",
-        "logout_confirmation": "Logout?",
+        "discord": "Discord",
+        "logout": "Logout",
         "manageaccounts": "Manage Accounts",
-        "quit": "പുറത്തുകടക്കൂ"
+        "quit": "Quit"
     },
     "webview": {
         "controls": {
@@ -537,7 +539,7 @@
         "manager": {
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
-            "title": "Wine Manager",
+            "title": "Wine Manager (Beta)",
             "unzipping": "Unzipping"
         },
         "release": "Release Date",

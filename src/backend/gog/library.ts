@@ -8,12 +8,12 @@ import {
   ExecResult,
   CallRunnerOptions
 } from 'common/types'
-import { GogInstallInfo } from 'common/types/gog'
+import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
 import { join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getGOGdlBin, getFileSize } from '../utils'
+import { getGOGdlBin, getFileSize, isOnline } from '../utils'
 import { fallBackImage } from '../constants'
 import {
   apiInfoCache,
@@ -34,7 +34,7 @@ export class GOGLibrary {
   public async getSaveSyncLocation(
     appName: string,
     install: InstalledInfo
-  ): Promise<string> {
+  ): Promise<GOGCloudSavesLocation[] | undefined> {
     let syncPlatform = 'Windows'
     const platform = install.platform
     switch (platform) {
@@ -51,7 +51,7 @@ export class GOGLibrary {
       logWarning(
         `No clientId in goggame-${appName}.info file. Cannot resolve save path`
       )
-      return ''
+      return
     }
     const response = await axios
       .get(
@@ -65,19 +65,17 @@ export class GOGLibrary {
         return null
       })
     if (!response) {
-      return ''
+      return
     }
     const platformInfo = response.data.content[syncPlatform]
     const savesInfo = platformInfo.cloudStorage
     if (!savesInfo.enabled) {
-      return ''
+      return
     }
 
-    const location = savesInfo.locations.find(
-      (value: { name: string; location: string }) => value.name === 'saves'
-    )?.location
+    const locations = savesInfo.locations
 
-    return location
+    return locations
   }
   /**
    * Returns ids of games with requested features ids
@@ -138,6 +136,18 @@ export class GOGLibrary {
       return
     }
     this.refreshInstalled()
+
+    if (!isOnline()) {
+      for (const game of libraryStore.get('games', []) as GameInfo[]) {
+        const copyObject = { ...game }
+        if (this.installedGames.has(game.app_name)) {
+          copyObject.install = this.installedGames.get(game.app_name)!
+          copyObject.is_installed = true
+        }
+        this.library.set(game.app_name, copyObject)
+      }
+      return
+    }
 
     // This gets games ibrary
     // Handles multiple pages
@@ -225,14 +235,14 @@ export class GOGLibrary {
         installedInfo &&
         installedInfo?.platform !== 'linux'
       ) {
-        const saveLocation = await this.getSaveSyncLocation(
+        const saveLocations = await this.getSaveSyncLocation(
           unifiedObject.app_name,
           installedInfo
         )
 
-        if (saveLocation) {
+        if (saveLocations) {
           unifiedObject.cloud_save_enabled = true
-          unifiedObject.save_folder = saveLocation
+          unifiedObject.gog_save_location = saveLocations
         }
       }
       // Create new object to not write install data into library store
@@ -341,17 +351,17 @@ export class GOGLibrary {
       (value) => value.app_name === appName
     )
     if (
-      !libraryArray[gameObjectIndex].save_folder &&
+      !libraryArray[gameObjectIndex].gog_save_location &&
       this.installedGames.get(appName) &&
       this.installedGames.get(appName)?.platform !== 'linux'
     ) {
-      gameData.save_folder = await this.getSaveSyncLocation(
+      gameData.gog_save_location = await this.getSaveSyncLocation(
         appName,
         this.installedGames.get(appName)!
       )
     }
     libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
-    libraryArray[gameObjectIndex].save_folder = gameData.save_folder
+    libraryArray[gameObjectIndex].gog_save_location = gameData.gog_save_location
     gameData.folder_name = gogInfo.folder_name
     libraryStore.set('games', libraryArray)
     this.library.set(appName, gameData)
@@ -444,6 +454,9 @@ export class GOGLibrary {
   // This checks for updates of Windows and Mac titles
   // Linux installers need to be checked differently
   public async listUpdateableGames(): Promise<string[]> {
+    if (!isOnline()) {
+      return []
+    }
     const installed = Array.from(this.installedGames.values())
     const updateable: Array<string> = []
     for (const game of installed) {
@@ -613,6 +626,9 @@ export class GOGLibrary {
     appName: string,
     os: 'windows' | 'linux' | 'osx'
   ) {
+    if (!isOnline()) {
+      return []
+    }
     const apiData = await this.getGamesData(appName)
     const operatingSystems = apiData._embedded.supportedOperatingSystems
     let requirements = operatingSystems.find(
@@ -652,6 +668,9 @@ export class GOGLibrary {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public readInfoFile(appName: string, installPath?: string): any {
     const gameInfo = this.getGameInfo(appName)
+    if (!gameInfo) {
+      return
+    }
 
     installPath = installPath ?? gameInfo?.install.install_path
     if (!installPath) {
@@ -659,7 +678,12 @@ export class GOGLibrary {
     }
 
     const infoFileName = `goggame-${appName}.info`
-    const infoFilePath = join(installPath, infoFileName)
+    let infoFilePath = join(installPath, infoFileName)
+
+    if (gameInfo.install.platform === 'osx') {
+      // Since mac games can only be installed on mac we don't need to check for current platfrom
+      infoFilePath = join(installPath, 'Contents', 'Resources', infoFileName)
+    }
 
     if (existsSync(infoFilePath)) {
       const fileData = readFileSync(infoFilePath, { encoding: 'utf-8' })

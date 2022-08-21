@@ -12,7 +12,7 @@ import {
   TextInputWithIconField
 } from 'frontend/components/UI'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
-import { EnviromentVariable, WrapperVariable } from 'common/types'
+import { EnviromentVariable, WrapperVariable, Runner } from 'common/types'
 import { Path } from 'frontend/types'
 import Backspace from '@mui/icons-material/Backspace'
 import { getGameInfo } from 'frontend/helpers'
@@ -68,6 +68,7 @@ interface Props {
   toggleUseSteamRuntime: () => void
   isProton: boolean
   appName: string
+  runner: Runner
 }
 
 export default function OtherSettings({
@@ -112,7 +113,8 @@ export default function OtherSettings({
   setDefaultSteamPath,
   defaultSteamPath,
   toggleEacRuntime,
-  eacRuntime
+  eacRuntime,
+  runner
 }: Props) {
   const handleEnviromentVariables = (values: ColumnProps[]) => {
     const envs: EnviromentVariable[] = []
@@ -199,7 +201,7 @@ export default function OtherSettings({
 
   const handleTargetExe = useCallback(async () => {
     if (!targetExe.length) {
-      const gameinfo = await getGameInfo(appName)
+      const gameinfo = await getGameInfo(appName, runner)
 
       ipcRenderer
         .invoke('openDialog', {
@@ -397,7 +399,7 @@ export default function OtherSettings({
         <TextInputWithIconField
           label={t('setting.default-steam-path', 'Default Steam path')}
           htmlId="default_steam_path"
-          value={defaultSteamPath.replaceAll("'", '')}
+          value={defaultSteamPath?.replaceAll("'", '')}
           placeholder={defaultSteamPath}
           onChange={(event) => setDefaultSteamPath(event.target.value)}
           icon={

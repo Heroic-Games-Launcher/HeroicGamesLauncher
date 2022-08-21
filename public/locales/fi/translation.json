@@ -7,7 +7,7 @@
         "title": "Accessibility",
         "zoom": "Zoom"
     },
-    "All": "Kaikki",
+    "All": "",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
@@ -18,38 +18,38 @@
     },
     "box": {
         "cache-cleared": {
-            "message": "Heroic:in välimuisti tyhjennettiin.",
-            "title": "Välimuisti tyhjennetty"
+            "message": "Heroic Cache Was Cleared!",
+            "title": "Cache Cleared"
         },
-        "choose": "Valitse",
-        "choose-egs-prefix": "Valitse Prefiksi, jonne EGS asennetaan",
-        "choose-gogdl-binary": "Valitse GOGDL-binääri (vaatii uudelleenkäynnistyksen)",
-        "choose-legendary-binary": "Valitse Legendary:n ajettava binääritiedosto",
-        "customWine": "Valitse Wine tai Proton-binääritiedosto",
-        "default-install-path": "Valitse Oletus Asennussijainti",
+        "choose": "",
+        "choose-egs-prefix": "",
+        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-legendary-binary": "Select Legendary Binary (needs restart)",
+        "customWine": "Select the Wine or Proton Binary",
+        "default-install-path": "",
         "default-steam-path": "Steam path.",
         "downloadNow": "Download now",
         "error": {
             "add": {
                 "steam": {
                     "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "title": "Error Adding Game to Steam"
                 }
             },
             "credentials": {
-                "message": "Kirjautumistietosi ovat vanhentuneet, ole hyvä ja kirjaudu uudelleen sisään."
+                "message": "Your Crendentials have expired, Logout and Login Again!"
             },
             "cx-bottle-not-found": {
                 "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
                 "title": "CrossOver bottle not found"
             },
             "diskspace": {
-                "message": "Ei tarpeeksi tilaa levyllä",
-                "title": "Ei ole tilaa levyllä"
+                "message": "Not enough available disk space",
+                "title": "No Space"
             },
             "dxvk": {
-                "message": "Virhe DXVK/VKD3D:n asennuksessa! Tarkista yhteys tai onko zstd/libzstd1 asennettu",
-                "title": "DXVK/VKD3D-virhe"
+                "message": "Error installing DXVK/VKD3D! Check your connection!",
+                "title": "DXVK/VKD3D error"
             },
             "folder-not-found": {
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
@@ -59,20 +59,18 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
-                }
+            "title": "Error",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
             },
-            "title": "Virhe",
             "update": {
                 "message": "Something went wrong with the update, please check the logs or try again later!",
                 "title": "Update Error"
             },
             "wine-not-found": {
-                "message": "Winen versiota ei ole valittu. Tarkista peliasetukset!",
-                "title": "Wineä ei löytynyt"
+                "message": "No Wine Version Selected. Check Game Settings!",
+                "title": "Wine Not Found"
             }
         },
         "info": {
@@ -85,39 +83,39 @@
                 "title-finished": "Update Finished"
             }
         },
-        "no": "EI",
-        "ok": "Selvä",
+        "no": "",
+        "ok": "Ok",
         "protocol": {
             "install": {
-                "not_installed": "Ei asennettuna tällä hetkellä. Asennetaanko?"
+                "not_installed": "Is Not Installed, do you wish to Install it?"
             }
         },
         "quit": {
-            "message": "On odottavia toimintoja, oletko varma?",
-            "title": "Poistu"
+            "message": "There are pending operations, are you sure?",
+            "title": "Exit"
         },
         "reset-heroic": {
             "question": {
-                "message": "Oletko varma, että haluat nollata Heroicin? Tämä poistaa kaikki asetukset ja välimuistitallennuksen, mutta ei poista asennettuja pelejä tai Epicin tunnuksia",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Reset Heroic"
             }
         },
         "runexe": {
-            "title": "Valitse EXE pyöritettäväksi"
+            "title": ""
         },
         "select": {
-            "button": "Valitse",
-            "exe": "Valitse EXE"
+            "button": "Select",
+            "exe": "Select EXE..."
         },
         "shortcuts": {
-            "message": "Pikakuvakkeet luotiin työpöydälle ja Käynnistä-valikkoon",
+            "message": "Shortcuts were created on Desktop and Start Menu",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
-            "title": "Pikanäppäimet"
+            "title": "Shortcuts Removed"
         },
         "sync": {
-            "button": "Valitse",
-            "error": "Virheellinen Polku",
-            "title": "Valitse kansio tallennuksille"
+            "button": "",
+            "error": "",
+            "title": ""
         },
         "vcruntime": {
             "install": {
@@ -130,21 +128,21 @@
         },
         "warning": {
             "epic": {
-                "import": "Epic-palvelimilla on suuri katkos juuri nyt, peliä ei voi tuoda!",
-                "install": "Epicin palvelimilla on suuri katkos juuri nyt, peliä ei voi asentaa!",
-                "update": "Epic-palvelimilla on suuri katkos juuri nyt, peliä ei voi päivittää!"
+                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
+                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
+                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
-            "title": "Varoitus"
+            "title": "Warning"
         },
-        "wineprefix": "Valitse Wine Prefix kansio",
-        "yes": "KYLLÄ"
+        "wineprefix": "",
+        "yes": ""
     },
     "button": {
         "go_to_library": "Go to Library",
-        "login": "Kirjaudu sisään",
-        "sync": "Synkronoi",
-        "syncing": "Synkronoidaan",
-        "unsync": "Älä synkronoi"
+        "login": "Login",
+        "sync": "",
+        "syncing": "",
+        "unsync": ""
     },
     "controller": {
         "hints": {
@@ -169,7 +167,7 @@
     },
     "docs": "Documentation",
     "epic": {
-        "offline-notification-body": "Verkkopalvelut eivät välttämättä toimi kokonaisuudessaan Epic Games:in palvelinten ollessa vailla verkkoyhteyttä!",
+        "offline-notification-body": "Heroic will maybe not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -188,7 +186,7 @@
             "refresh": "Refresh Library"
         }
     },
-    "globalSettings": "Globaalit asetukset",
+    "globalSettings": "Global Settings",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
@@ -210,46 +208,49 @@
             "valid_codes": "Valid language codes are game-dependant."
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
-        "general": "Synkronisoi EGL:n kanssa mikäli sinulla on toimiva Epic Games Launcher:in asennus toisaalla ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
+        "general": "",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
-            "part4": "Käytä ",
-            "part5": "Pelin argumentit",
-            "part6": " kutsutaan käynnistyskomennon jälkeen, esimerkiksi: ",
-            "part7": " ohittaa käynnistys joissakin peleissä jne."
+            "part4": "",
+            "part5": "",
+            "part6": "",
+            "part7": ""
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
-            "part1": "Heroic yrittää arvata oikean kansion tallenteita varten. Tämä toimii useimmissa tapauksissa. Jos kansio on väärä, vaihda se ohitusruudun avulla.",
-            "part2": "Jos aiot vaihtaa Winen tai Protonin prefix-kansiota, polku tulee tarkistaa uudelleen, koska Proton käyttää toista prefixiä (/pfx) ja käyttäjänimeä (steamuser). Voit poistaa nykyisen polun synkronointiasetuksista ja antaa Heroicin arvata kansio vielä kerran oikealla prefixillä.",
-            "part3": "Manuaalinen synkronointi: valitse \"Lataa\" lataaksesi pelien tallennukset pilvipalvelusta. Valitse \"Lähetä\" lähettääksesi paikalliset tallennukset pilvipalveluun. \"Pakota Lataus\" ja \"Pakota Lähetys\" jättävät huomiotta version, jota säilytetään joko paikallisesti tai pilvipalvelussa.",
-            "part4": "\"Synkronoi tallennukset automaattisesti\" synkronoi tallennukset joka kerta kun käynnistät pelin ja suljet sen."
+            "part1": "",
+            "part2": "",
+            "part3": "",
+            "part4": ""
         },
         "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
-            "part1": "Heroic etsii Wine, Proton- ja CrossOver -versioita seuraavista kansioista:",
-            "part2": "Muille sijainneille käytä symbolista linkkiä kansioon"
+            "part1": "",
+            "part2": ""
         }
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Heroic Version"
         },
-        "settings": "Asetukset tallennetaan automaattisesti",
+        "settings": "",
         "version": "Wine Version"
     },
     "infobox": {
-        "help": "Apua",
-        "requirements": "Laitteistovaatimukset",
+        "help": "",
+        "requirements": "",
         "wine-path": "Wine Path"
     },
     "install": {
-        "path": "Valitse asennuspolku"
+        "path": "Select Install Path"
     },
     "library": {
-        "refresh": "",
+        "refresh": "Refresh Library",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -258,57 +259,57 @@
             "list": "Toggle to a list layout"
         }
     },
-    "Library": "Kirjasto",
+    "Library": "",
     "loading": {
         "default": "",
-        "website": "Ladataan verkkosivustoa"
+        "website": "Loading Website"
     },
     "login": {
-        "externalLogin": "Ulkoinen kirjautuminen"
+        "externalLogin": "External Login"
     },
     "message": {
-        "sync": "Synkronointi valmis",
-        "unsync": "Synkronoinnin poisto valmis"
+        "sync": "",
+        "unsync": ""
     },
     "notify": {
         "error": {
-            "move": "Virhe pelin siirtämisessä",
-            "reparing": "Virhe korjauksessa"
+            "move": "Error Moving the Game",
+            "reparing": "Error Repairing"
         },
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Added to Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Removed from Steam"
                 }
             },
-            "reparing": "Korjaus valmis"
+            "reparing": ""
         },
         "install": {
-            "canceled": "Asennus peruutettu",
-            "error": "Asennus epäonnistui",
-            "finished": "Asennus valmis",
-            "imported": "Peli tuotu",
-            "startInstall": "Asennus aloitettu"
+            "canceled": "",
+            "error": "",
+            "finished": "",
+            "imported": "Game Imported",
+            "startInstall": "Installation Started"
         },
-        "moved": "Siirto valmis",
+        "moved": "",
         "moving": "Moving Game",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
-        "uninstalled": "Poistettu",
+        "uninstalled": "",
         "update": {
-            "canceled": "Päivitys peruutettu",
-            "finished": "Päivitys valmis",
-            "started": "Päivitys aloitettu"
+            "canceled": "",
+            "finished": "",
+            "started": "Update Started"
         }
     },
     "options": {
@@ -316,12 +317,12 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "Lisäasetukset (Ympäristömuuttujat):",
+            "title": "",
             "value": "Value"
         },
         "gameargs": {
-            "placeholder": "Laita tähän käynnistysargumentit",
-            "title": "Pelin argumentit (suoritetaan komennon jälkeen):"
+            "placeholder": "",
+            "title": ""
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -334,14 +335,14 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL-versio: ",
-        "legendary-version": "Legendaarinen versio: ",
-        "weblate": "Auta kääntämään Heroic."
+        "gogdl-version": "GOGDL Version: ",
+        "legendary-version": "Legendary Version: ",
+        "weblate": "Help Improve this translation."
     },
     "placeholder": {
-        "alt-gogdl-bin": "Käytetään sisäänrakennettua GOGDL-binääriä...",
-        "alt-legendary-bin": "Käytetään sisäänrakennettua legendaarista binääriä...",
-        "egs-prefix": "Prefiksi johon EGS on asennettu",
+        "alt-gogdl-bin": "Using built-in GOGDL binary...",
+        "alt-legendary-bin": "Using built-in Legendary binary...",
+        "egs-prefix": "",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
@@ -349,29 +350,30 @@
         "mac": "",
         "win": ""
     },
-    "Recent": "Viimeksi pelatut",
-    "search": "Kirjoita tähän pelin nimi...",
+    "Recent": "Played Recently",
+    "search": "",
     "setting": {
-        "adddesktopshortcuts": "Lisää työpöydän pikakuvakkeet automaattisesti",
-        "addgamestostartmenu": "Lisää pelit aloitusvalikkoon automaattisesti",
-        "alt-gogdl-bin": "Valitse vaihtoehtoinen GOGDL-binääri käytettäväksi (vaatii uudelleenkäynnistyksen)",
-        "alt-legendary-bin": "Valitse vaihtoehtoinen Legendary-binääritiedosto (uudelleenkäynnistys vaaditaan)",
-        "audiofix": "Äänikorjaus (Pulse Audion viive)",
-        "autodxvk": "Asenna automaattisesti/Päivitä DXVK Prefiksissä",
-        "autosync": "Automaattisesti synkronoi tallennukset",
-        "autovkd3d": "VKD3D:n automaattinen asennus/päivitys prefixille",
-        "change-target-exe": "Valitse vaihtoehtoinen EXE suoritettavaksi",
+        "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestostartmenu": "Add games to start menu automatically",
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)to use",
+        "audiofix": "",
+        "autodxvk": "Auto Install/Update DXVK on Prefix",
+        "autosync": "",
+        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "change-target-exe": "Select an alternative EXE to run",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
-        "customWineProton": "Mukautetut Wine/Proton sijainnit",
-        "darktray": "Käytä tummaa ilmaisinalueen kuvaketta",
-        "default-install-path": "Oletus asennussijainti",
+        "customWineProton": "Custom Wine/Proton Paths",
+        "darktray": "Use Dark Tray Icon (needs restart)",
+        "default-install-path": "",
         "default-steam-path": "Default Steam path",
-        "defaultWinePrefix": "Aseta kansio uusille Winen Prefixeille",
+        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
-        "discordRPC": "Ota käyttöön Discord Rich Presence",
+        "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
-        "egs-sync": "Synkronoi asennetun Epic Gamesin kanssa",
-        "enableFSRHack": "Ota käyttöön FSR Hack (Wine version tulee tukea sitä)",
+        "egs-sync": "",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
             "checkForUpdates": "Check for updates",
@@ -392,12 +394,12 @@
             "updateNow": "Update",
             "updating": "Updating..."
         },
-        "esync": "Ota Esync käyttöön",
-        "exit-to-tray": "Sulje ilmaisinalueelle",
-        "FsrSharpnessStrenght": "FSR terävyyden voimakkuus",
-        "fsync": "Ota Fsync käyttöön",
-        "gamemode": "Käytä GameModea (Feral Game Mode tulee olla asennettu)",
-        "language": "Valitse applikaation kieli",
+        "esync": "Enable Esync",
+        "exit-to-tray": "",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "fsync": "Enable Fsync",
+        "gamemode": "",
+        "language": "Choose App Language",
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
@@ -406,55 +408,55 @@
         },
         "library_top_section": "Library Top Section",
         "log": {
-            "copy-to-clipboard": "Kopioi lokin sisältö leikepöydälle",
-            "current-log": "Nykyinen loki",
+            "copy-to-clipboard": "Copy log content to clipboard.",
+            "current-log": "Current log",
             "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
             "instructions_title": "How to report a problem?",
-            "last-log": "Viimeisin loki",
-            "no-file": "Lokitiedostoja ei löytynyt",
-            "show-in-folder": "Näytä lokitiedosto kansiossa"
+            "last-log": "Last Log",
+            "no-file": "No log file found.",
+            "show-in-folder": "Show log file in folder"
         },
-        "mangohud": "Ota Mangohud käyttöön (Mangohudin tulee olla asennettu)",
+        "mangohud": "",
         "manualsync": {
-            "download": "Lataa",
-            "forcedownload": "Pakota lataus",
-            "forceupload": "Pakota lähetys",
-            "sync": "Synkronoi",
-            "syncing": "Synkronoidaan",
-            "title": "Manuaalinen tallennusten synkronointi",
-            "upload": "Lähetä"
+            "download": "",
+            "forcedownload": "",
+            "forceupload": "",
+            "sync": "",
+            "syncing": "",
+            "title": "",
+            "upload": ""
         },
-        "maxRecentGames": "Viimeksi pelatut näkyvillä",
-        "maxworkers": "Työntekijöiden enimmäismäärä ladattaessa",
-        "minimize-on-launch": "Minimoi Heroic pelin käynnistämisen jälkeen",
-        "offlinemode": "Käynnistä peli offline-tilassa",
+        "maxRecentGames": "Recent Games to Show",
+        "maxworkers": "",
+        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "offlinemode": "",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Ota käyttöön Nvidia Prime Render",
-        "resizableBar": "Ota käyttöön Resizable BAR (Vain NVIDIA RTX 30xx)",
+        "primerun": "Use Dedicated Graphics Card",
+        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
-            "message": "Pudota tiedostoja tänne",
-            "title": "Käynnistä EXE prefixissä"
+            "message": "",
+            "title": ""
         },
         "savefolder": {
-            "placeholder": "Valitse täsmällinen pelitallennuksien kansio"
+            "placeholder": ""
         },
         "select_theme": "Select Theme",
-        "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
-        "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
-        "steamruntime": "Käytä Steam Runtimea",
+        "showfps": "",
+        "start-in-tray": "Start Minimized",
+        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefixin kansio",
-        "wineversion": "Winen versio"
+        "wineprefix": "",
+        "wineversion": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Installing BattlEye Runtime...",
             "name": "BattlEye AntiCheat Runtime"
         },
-        "clear-cache": "Tyhjennä Heroicin välimuisti",
-        "copiedToClipboard": "Kopioitu leikepöydälle!",
-        "copyToClipboard": "Jäljennä kaikki asetukset leikepöydälle",
+        "clear-cache": "Clear Heroic Cache",
+        "copiedToClipboard": "Copied to Clipboard!",
+        "copyToClipboard": "Copy All Settings to Clipboard",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -470,59 +472,59 @@
             }
         },
         "log": {
-            "long-log-hint": "Loki typistetty, viimeiset 1000 riviä näytetään!"
+            "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
             "advanced": "Advanced",
-            "general": "Yleiset",
+            "general": "",
             "log": "Log",
-            "other": "Muut",
-            "sync": "Tallenna ja synkronoi",
+            "other": "",
+            "sync": "",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
-    "Settings": "Asetukset",
+    "Settings": "",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
         "installing": "Installing",
-        "logging": "Kirjaudutaan sisään...",
+        "logging": "Logging In...",
         "processing": "Processing files, please wait"
     },
-    "store": "Epic-kauppa",
-    "stores": "Kaupat",
+    "store": "Epic Store",
+    "stores": "Stores",
     "title": {
-        "allGames": "Kaikki pelit"
+        "allGames": "All Games"
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Valitse uusien konfiguraatioiden oletusprefiksi-kansio",
-            "wineprefix": "Valitse kansio uusille Wine Prefixeille"
+            "default-wineprefix": "Select the default prefix folder for new configs",
+            "wineprefix": "Select a Folder for new Wine Prefixes"
         }
     },
     "tooltip": {
-        "addpath": "Lisää uusi sijainti",
-        "removepath": "Poista sijainti"
+        "addpath": "Add New Path",
+        "removepath": "Remove Path"
     },
     "tray": {
-        "about": "Tietoja",
-        "quit": "Poistu",
-        "reload": "Lataa uudelleen",
-        "show": "Näytä"
+        "about": "About",
+        "quit": "Quit",
+        "reload": "Reload",
+        "show": ""
     },
     "userselector": {
         "discord": "Discord",
-        "logout": "Kirjaudu ulos",
-        "logout_confirmation": "Haluatko varmasti kirjautua ulos?",
-        "manageaccounts": "Hallitse tilejä",
-        "quit": "Poistu"
+        "logout": "Logout",
+        "manageaccounts": "Manage Accounts",
+        "quit": "Quit"
     },
     "webview": {
         "controls": {
@@ -535,10 +537,10 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Viini-/Proton-versioita ei voitu noutaa tällä kertaa.",
-            "link": "Wine Manageri",
-            "title": "Wine Manageri",
-            "unzipping": "Purkaminen"
+            "error": "Could not fetch Wine/Proton versions this time.",
+            "link": "Wine Manager",
+            "title": "Wine Manager (Beta)",
+            "unzipping": "Unzipping"
         },
         "release": "Release Date",
         "size": "Size"

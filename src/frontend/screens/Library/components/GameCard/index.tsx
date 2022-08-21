@@ -218,8 +218,8 @@ const GameCard = ({
   const isLinuxNative = installedPlatform === 'linux'
   const isNative = isWin || isMacNative || isLinuxNative
   const pathname = isNative
-    ? `/settings/${appName}/other`
-    : `/settings/${appName}/wine`
+    ? `/settings/${runner}/${appName}/other`
+    : `/settings/${runner}/${appName}/wine`
 
   const items: Item[] = [
     {
@@ -260,7 +260,7 @@ const GameCard = ({
     {
       label: t('button.install'),
       onclick: () => (!hasDownloads ? buttonClick() : () => null),
-      show: !isInstalled && !isInstalling
+      show: !isInstalled && !isInstalling && !hasDownloads
     },
     {
       label: t('button.cancel'),
@@ -330,7 +330,7 @@ const GameCard = ({
         <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
           <Link
-            to={`gamepage/${appName}`}
+            to={`gamepage/${runner}/${appName}`}
             style={
               { '--installing-effect': installingGrayscale } as CSSProperties
             }

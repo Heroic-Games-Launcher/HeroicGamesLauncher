@@ -32,3 +32,8 @@ interface GameManifest {
   languages: string[]
   versionEtag: string
 }
+
+export interface GOGCloudSavesLocation {
+  name: string
+  location: string
+}

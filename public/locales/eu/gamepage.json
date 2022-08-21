@@ -1,0 +1,140 @@
+{
+    "box": {
+        "change": {
+            "message": "Honek jokoaren instalazioaren kokalekua aldatuko du, ziur zaude?",
+            "path": "Aukeratu instalazio bide-izen berri bat",
+            "title": "Aldatu jokoen instalazio bide-izena"
+        },
+        "choose": "Aukeratu",
+        "importpath": "Aukeratu inportatzeko joko karpeta",
+        "move": {
+            "path": "Aukeratu nora mugitu nahi duzun",
+            "message": "Honek denbora luzea eraman dezake, ziur zaude?",
+            "title": "Mugitu jokoaren instalazioa"
+        },
+        "no": "EZ",
+        "repair": {
+            "message": "Joko hau konpontzen saiatu nahi duzu? Denbora asko eraman dezake.",
+            "title": "Egiaztatu eta konpondu"
+        },
+        "stopInstall": {
+            "keepInstalling": "Instalatzen jarraitu",
+            "message": "Fitxategiak deskargatuta MANTENDU nahi dituzu?",
+            "title": "Instalazioa gelditu"
+        },
+        "uninstall": {
+            "checkbox": "Aurrizkia ere ezabatzea gustatuko litzaizuke? Ezin da desegin.",
+            "checkbox_prefix": "Aurrizkia",
+            "message": "Joko hau desinstatu nahi duzu?",
+            "title": "Desinslalatu"
+        },
+        "update": {
+            "message": "Joko honek eguneraketa bat du, orain eguneratu?",
+            "title": "Jokoak eguneraketa behar du"
+        },
+        "wineprefix": "Hautatu WinePrefix karpeta",
+        "yes": "BAI"
+    },
+    "button": {
+        "unhide_game": "Erakutsi jokoa",
+        "uninstall": "Desinslalatu",
+        "update": "Eguneratu",
+        "add_to_favourites": "Gehitu gogokoetara",
+        "cancel": "Gelditu/Utzi",
+        "continue": "Jarraitu deskarga",
+        "force_update": "Eguneratu eguneraketarik badago",
+        "hide_game": "Ezkutatu jokoa",
+        "import": "Inportatu jokoa",
+        "install": "Instalatu",
+        "remove_from_favourites": "Kendu gogokoenetik"
+    },
+    "disabled": "Desgaituta",
+    "game": {
+        "downloadSize": "Deskarga-tamaina",
+        "firstPlayed": "Lehen aldiz jokatua",
+        "info": "Informazioa",
+        "installSize": "Instalazioaren tamaina",
+        "language": "Hizkuntza",
+        "lastPlayed": "Azken jokaldia",
+        "neverPlayed": "Inoiz ez",
+        "platform": "Instalatzeko plataformaren bertsioa hautatu",
+        "reuirements": "Sistemaren betekizunak",
+        "tools": "Tresnak",
+        "totalPlayed": "Denbora jokatua"
+    },
+    "info": {
+        "size": "Tamaina",
+        "canRunOffline": "Linean egon behar da",
+        "installedPlatform": "Instalatutako plataforma",
+        "path": "Instalazio-ibilbidea",
+        "syncsaves": "Sinkronizatu gordetakoak",
+        "version": "Bertsioa"
+    },
+    "submenu": {
+        "move": "Mugimendu jokoa",
+        "verify": "Egiaztatzea eta konpontzea",
+        "addShortcut": "Sarbide zuzena gehitu",
+        "addToSteam": "Gehitu Steam-i",
+        "change": "Instalazio-ibilbidea aldatu",
+        "disableEosOverlay": "OS-en gainjartzea desgaitzea",
+        "enableEosOverlay": "OS-en gainjartzea gaitzea",
+        "log": "Azken erregistroa",
+        "protondb": "Bateragarritasuna egiaztatu",
+        "removeFromSteam": "Steam-en ezabatzea",
+        "removeShortcut": "Sarbide zuzenak kendu",
+        "settings": "Konfigurazioa",
+        "store": "Dendaren orrialdea"
+    },
+    "dlc": {
+        "installDlcs": "Instalatu DLC guztiak"
+    },
+    "enabled": "Gaituta",
+    "gamecard": {
+        "moving": "Mugitzen",
+        "repairing": "Konpontzen"
+    },
+    "generic": {
+        "error": "Errore ezezaguna"
+    },
+    "install": {
+        "disk-space-left": "Espazio erabilgarria",
+        "not-enough-disk-space": "Ez nahikoa leku diskoan",
+        "path": "Aukeratu instalazio-ibilbidea",
+        "path-not-writtable": "Ohartarazpena: sarbide-ibilbidea ezin da idatzi.",
+        "space-after-install": "Instalazioaren ondoren",
+        "wineprefix": "WinePrefix",
+        "wineversion": "Ardoaren bertsioa"
+    },
+    "label": {
+        "playing": {
+            "start": "Jokatu orain",
+            "stop": "Ugalketa (Detener)"
+        },
+        "saves": {
+            "syncing": "Zaintza-zaindegien sinkronizazioa"
+        }
+    },
+    "launch": {
+        "options": "Jaurtiketa-aukerak..."
+    },
+    "report_problem": "Joko hau gauzatzean arazo baten berri ematea",
+    "sdl": {
+        "title": "Instalatzeko osagaiak hautatzea"
+    },
+    "specs": {
+        "minimum": "Gutxienekoa",
+        "recommended": "Gomendatua"
+    },
+    "status": {
+        "clickToUpdate": "Egin klik eguneratu ahal izateko",
+        "hasUpdates": "Bertsio berria!",
+        "installed": "Instalatuta",
+        "installing": "Instalatu",
+        "moving": "Instalazio mugikorra, itxaron",
+        "notinstalled": "Joko hau ez instalatuta",
+        "processing": "Artxiboak prozesatzen, mesedez itxaron",
+        "reparing": "Jokoaren konponketa, mesedez",
+        "totalDownloaded": "Deskargatutakoa, guztira",
+        "updating": "Jokoa eguneratzea"
+    }
+}

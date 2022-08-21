@@ -22,6 +22,7 @@ interface Props {
   exitToTray: boolean
   maxWorkers: number
   minimizeOnLaunch: boolean
+  checkForUpdatesOnStartup: boolean
   setDefaultInstallPath: (value: string) => void
   setEgsLinkedPath: (value: string) => void
   setEgsPath: (value: string) => void
@@ -32,6 +33,7 @@ interface Props {
   toggleStartInTray: () => void
   toggleTray: () => void
   toggleMinimizeOnLaunch: () => void
+  toggleUpdatesOnStartup: () => void
 }
 
 export default function GeneralSettings({
@@ -52,8 +54,13 @@ export default function GeneralSettings({
   minimizeOnLaunch,
   toggleMinimizeOnLaunch,
   disableController,
-  toggleDisableController
+  toggleDisableController,
+  checkForUpdatesOnStartup,
+  toggleUpdatesOnStartup
 }: Props) {
+  const [showUpdateSettings, setShowUpdateSettings] = useState(
+    checkForUpdatesOnStartup
+  )
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
   const {
@@ -73,6 +80,12 @@ export default function GeneralSettings({
     }
     getMoreInfo()
   }, [maxWorkers])
+
+  useEffect(() => {
+    ipcRenderer
+      .invoke('showUpdateSetting')
+      .then((s) => setShowUpdateSettings(s))
+  }, [])
 
   async function handleSync() {
     setIsSyncing(true)
@@ -230,6 +243,18 @@ export default function GeneralSettings({
           value={isLinked}
           handleChange={handleSync}
           title={t('setting.egs-sync')}
+        />
+      )}
+
+      {showUpdateSettings && (
+        <ToggleSwitch
+          htmlId="checkForUpdatesOnStartup"
+          value={checkForUpdatesOnStartup}
+          handleChange={toggleUpdatesOnStartup}
+          title={t(
+            'setting.checkForUpdatesOnStartup',
+            'Check for Heroic Updates on Startup'
+          )}
         />
       )}
 

@@ -230,20 +230,17 @@ export default function GamesSubmenu({
   async function handleAddToSteam() {
     setSteamRefresh(true)
     if (addedToSteam) {
-      await ipcRenderer.invoke('removeFromSteam', appName, runner)
+      await ipcRenderer
+        .invoke('removeFromSteam', appName, runner)
+        .then(() => setAddedToSteam(false))
     } else {
       const bkgDataURL = await imageData(steamImageUrl, 1920, 620)
       const bigPicDataURL = await imageData(steamImageUrl, 920, 430)
 
-      await ipcRenderer.invoke(
-        'addToSteam',
-        appName,
-        runner,
-        bkgDataURL,
-        bigPicDataURL
-      )
+      await ipcRenderer
+        .invoke('addToSteam', appName, runner, bkgDataURL, bigPicDataURL)
+        .then((added) => setAddedToSteam(added))
     }
-    setAddedToSteam(!addedToSteam)
     setSteamRefresh(false)
   }
 
@@ -301,7 +298,7 @@ export default function GamesSubmenu({
         .invoke('isEosOverlayEnabled', appName, runner)
         .then((enabled) => setEosOverlayEnabled(enabled))
     }
-  }, [])
+  }, [isInstalled])
 
   const refreshCircle = () => {
     return <CircularProgress className="link button is-text is-link" />
@@ -312,51 +309,6 @@ export default function GamesSubmenu({
       <div className={`submenu`}>
         {isInstalled && (
           <>
-            <NavLink
-              to={`/settings/${appName}/log`}
-              state={{
-                fromGameCard: false,
-                runner,
-                isLinuxNative: isNative,
-                isMacNative: isNative
-              }}
-              className="link button is-text is-link"
-            >
-              {t('submenu.log')}
-            </NavLink>
-            <button
-              onClick={async () => handleMoveInstall()}
-              className="link button is-text is-link"
-            >
-              {t('submenu.move')}
-            </button>{' '}
-            <button
-              onClick={async () => handleUpdate()}
-              className="link button is-text is-link"
-              disabled={disableUpdate}
-            >
-              {t('button.force_update', 'Force Update if Available')}
-            </button>{' '}
-            <button
-              onClick={async () => handleChangeInstall()}
-              className="link button is-text is-link"
-            >
-              {t('submenu.change')}
-            </button>{' '}
-            <button
-              onClick={async () => handleRepair(appName)}
-              className="link button is-text is-link"
-            >
-              {t('submenu.verify')}
-            </button>{' '}
-            <button
-              onClick={async () =>
-                uninstall({ appName, t, handleGameStatus, runner })
-              }
-              className="link button is-text is-link"
-            >
-              {t('button.uninstall')}
-            </button>{' '}
             {!isMac && (
               <button
                 onClick={() => handleShortcuts()}
@@ -379,6 +331,39 @@ export default function GamesSubmenu({
                   : t('submenu.addToSteam', 'Add to Steam')}
               </button>
             )}
+            <button
+              onClick={async () =>
+                uninstall({ appName, t, handleGameStatus, runner })
+              }
+              className="link button is-text is-link"
+            >
+              {t('button.uninstall')}
+            </button>{' '}
+            <button
+              onClick={async () => handleUpdate()}
+              className="link button is-text is-link"
+              disabled={disableUpdate}
+            >
+              {t('button.force_update', 'Force Update if Available')}
+            </button>{' '}
+            <button
+              onClick={async () => handleMoveInstall()}
+              className="link button is-text is-link"
+            >
+              {t('submenu.move')}
+            </button>{' '}
+            <button
+              onClick={async () => handleChangeInstall()}
+              className="link button is-text is-link"
+            >
+              {t('submenu.change')}
+            </button>{' '}
+            <button
+              onClick={async () => handleRepair(appName)}
+              className="link button is-text is-link"
+            >
+              {t('submenu.verify')}
+            </button>{' '}
             {isLinux &&
               runner === 'legendary' &&
               (eosOverlayRefresh ? (

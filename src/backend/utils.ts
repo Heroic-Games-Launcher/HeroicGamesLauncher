@@ -1,6 +1,12 @@
 import { GOGGame } from './gog/games'
 import { LegendaryGame } from './legendary/games'
-import { Runner, WineInstallation, RpcClient, SteamRuntime } from 'common/types'
+import {
+  Runner,
+  WineInstallation,
+  RpcClient,
+  SteamRuntime,
+  Release
+} from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, spawnSync } from 'child_process'
@@ -17,10 +23,12 @@ import {
   heroicGamesConfigPath,
   icon,
   isWindows,
-  publicDir
+  publicDir,
+  GITHUB_API,
+  isSteamDeckGameMode
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
-import { basename, dirname, join } from 'path'
+import { basename, dirname, join, normalize } from 'path'
 import { runLegendaryCommand } from './legendary/library'
 import { runGogdlCommand } from './gog/library'
 import {
@@ -40,19 +48,19 @@ const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
 
-export function showErrorBoxModal(
+export async function showErrorBoxModal(
   window: BrowserWindow | undefined | null,
   title: string,
   message: string
 ) {
   if (window) {
-    showMessageBox(window, {
+    await showMessageBox(window, {
       type: 'error',
       title,
       message
     })
   } else {
-    showErrorBox(title, message)
+    await showErrorBox(title, message)
   }
 }
 
@@ -75,6 +83,37 @@ export function showErrorBoxModalAuto(title: string, message: string) {
  * Checks if target is newer than base.
  */
 function semverGt(target: string, base: string) {
+  if (!target || !base) {
+    return false
+  }
+  target = target.replace('v', '')
+
+  // beta to beta
+  if (base.includes('-beta') && target.includes('-beta')) {
+    const bSplit = base.split('-beta.')
+    const tSplit = target.split('-beta.')
+
+    // same major beta?
+    if (bSplit[0] === tSplit[0]) {
+      base = bSplit[1]
+      target = tSplit[1]
+      return target > base
+    } else {
+      base = bSplit[0]
+      target = tSplit[0]
+    }
+  }
+
+  // beta to stable
+  if (base.includes('-beta')) {
+    base = base.split('-beta.')[0]
+  }
+
+  // stable to beta
+  if (target.includes('-beta')) {
+    target = target.split('-beta.')[0]
+  }
+
   const [bmajor, bminor, bpatch] = base.split('.').map(Number)
   const [tmajor, tminor, tpatch] = target.split('.').map(Number)
 
@@ -87,7 +126,34 @@ function semverGt(target: string, base: string) {
 }
 
 function isOnline() {
-  return net.isOnline()
+  let online = net.isOnline()
+  if (online) {
+    const hosts = ['google.com', 'store.epicgames.com', 'gog.com']
+    const errors = [] as string[]
+    online = hosts.some((host) => {
+      const args = [host] as string[]
+
+      if (isWindows) {
+        args.push('-n', '1')
+      } else {
+        args.push('-c', '1')
+      }
+
+      const { status, stderr } = spawnSync('ping', args)
+      if (stderr.length) {
+        errors.push(
+          [`Ping of ${host} failed with:`, stderr.toString()].join('\n')
+        )
+      }
+      return status === 0
+    })
+
+    if (!online && errors.length) {
+      logError(errors.join('\n'), LogPrefix.Backend)
+    }
+  }
+
+  return online
 }
 
 export const getFileSize = fileSize.partial({ base: 2 })
@@ -192,7 +258,7 @@ export const getGogdlVersion = async () => {
 export const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Brook'
+  const STABLE_VERSION_NAME = 'Chopper'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -304,7 +370,7 @@ async function errorHandler(
 
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
-      .then(({ stdout }) => {
+      .then(async ({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
           logError(noSpaceMsg, LogPrefix.Backend)
           return showErrorBoxModal(
@@ -339,7 +405,7 @@ async function errorHandler(
       }
     }
 
-    otherErrorMessages.forEach((message) => {
+    otherErrorMessages.forEach(async (message) => {
       if (error.includes(message)) {
         return showErrorBoxModal(
           window,
@@ -546,11 +612,12 @@ const formatEpicStoreUrl = (title: string) => {
 }
 
 function quoteIfNecessary(stringToQuote: string) {
-  if (
-    stringToQuote &&
+  const shouldQuote =
+    typeof stringToQuote === 'string' &&
     !(stringToQuote.startsWith('"') && stringToQuote.endsWith('"')) &&
     stringToQuote.includes(' ')
-  ) {
+
+  if (shouldQuote) {
     return `"${stringToQuote}"`
   }
 
@@ -656,6 +723,81 @@ function getGame(appName: string, runner: Runner) {
       return LegendaryGame.get(appName)
     case 'gog':
       return GOGGame.get(appName)
+  }
+}
+
+export function getFirstExistingParentPath(directoryPath: string): string {
+  let parentDirectoryPath = directoryPath
+  let parentDirectoryFound = existsSync(parentDirectoryPath)
+
+  while (!parentDirectoryFound) {
+    parentDirectoryPath = normalize(parentDirectoryPath + '/..')
+    parentDirectoryFound = existsSync(parentDirectoryPath)
+  }
+
+  return parentDirectoryPath !== '.' ? parentDirectoryPath : ''
+}
+
+export const getLatestReleases = async (): Promise<Release[]> => {
+  const newReleases: Release[] = []
+  logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
+
+  try {
+    const { data: releases } = await axios.default.get(GITHUB_API)
+    const latestStable: Release = releases.filter(
+      (rel: Release) => rel.prerelease === false
+    )[0]
+    const latestBeta: Release = releases.filter(
+      (rel: Release) => rel.prerelease === true
+    )[0]
+
+    const current = app.getVersion()
+
+    const thereIsNewStable = semverGt(latestStable.tag_name, current)
+    const thereIsNewBeta = semverGt(latestBeta.tag_name, current)
+
+    if (thereIsNewStable) {
+      newReleases.push({ ...latestStable, type: 'stable' })
+    }
+    if (thereIsNewBeta) {
+      newReleases.push({ ...latestBeta, type: 'beta' })
+    }
+
+    if (newReleases.length) {
+      notify({
+        title: t('Update Available!'),
+        body: t(
+          'notify.new-heroic-version',
+          'A new Heroic version was released!'
+        )
+      })
+    }
+
+    return newReleases
+  } catch (error) {
+    logError(
+      ['Error when checking for Heroic updates', `${error}`],
+      LogPrefix.Backend
+    )
+    return []
+  }
+}
+
+type NotifyType = {
+  title: string
+  body: string
+}
+
+export function notify({ body, title }: NotifyType) {
+  if (Notification.isSupported() && !isSteamDeckGameMode) {
+    const mainWindow = BrowserWindow.getAllWindows()[0]
+    const notify = new Notification({
+      body,
+      title
+    })
+
+    notify.on('click', () => mainWindow.show())
+    notify.show()
   }
 }
 
