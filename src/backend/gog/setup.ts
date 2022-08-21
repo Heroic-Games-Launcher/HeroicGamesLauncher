@@ -12,10 +12,15 @@ import { GOGLibrary } from './library'
 import { GameInfo, InstalledInfo } from 'common/types'
 import { execAsync, quoteIfNecessary } from '../utils'
 import { GameConfig } from '../game_config'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from '../logger/logger'
 import { userHome, isWindows } from '../constants'
 import ini from 'ini'
-import shlex from 'shlex'
 import { GlobalConfig } from '../config'
 import { isOnline } from '../online_monitor'
 import { prepareBottlesCommand } from '../bottles/utils'
@@ -127,25 +132,23 @@ async function setup(
           // Now create a key
           let command = `${commandPrefix} reg add "${registryPath}" ${keyCommand} /f /reg:32`
           if (gameSettings.wineVersion.type === 'bottles') {
-            let keyData: string[] = []
-
-            if (valueData && valueName) {
-              keyData = [
-                '/v',
-                valueName,
-                '/d',
-                valueData,
-                '/t',
-                getRegDataType(valueType)
-              ]
+            if (!valueName && !valueData) {
+              break // Skip creating just registry path, bottles CLI needs some key to add
             }
             command = prepareBottlesCommand(
               [
-                'shell',
+                'reg',
+                'add',
                 '-b',
                 gameSettings.bottlesBottle,
-                '-i',
-                shlex.join(['reg', 'add', registryPath, ...keyData])
+                '-k',
+                registryPath,
+                '-v',
+                valueName,
+                '-d',
+                valueData,
+                '-t',
+                getRegDataType(valueType)
               ],
               gameSettings.wineVersion.bin,
               false,
@@ -161,6 +164,7 @@ async function setup(
             ],
             { prefix: LogPrefix.Gog }
           )
+          logDebug(['Running command', String(command)], LogPrefix.Gog)
           await execAsync(command)
           break
         }
