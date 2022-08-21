@@ -21,7 +21,7 @@ if flatpak info com.usebottles.bottles &>/dev/null; then
 	sh -c "$command_prompt flatpak run --command='bottles-cli' com.usebottles.bottles run -b $HGL_BOTTLE_NAME -e \"$1\" $(if [[ $# -ne 1 ]]; then echo "-a \"${@:2}\""; fi)"
 else
 	if which bottles-cli &>/dev/null; then
-		sh -c "$command_prompt bottles-cli run -b $HGL_BOTTLE_NAME -e \"$1\" $(if [[ $# -ne 1 ]]; then echo "-a \"${@:2}\""; fi)"
+		sh -c "bottles-cli run -b $HGL_BOTTLE_NAME -e \"$1\" $(if [[ $# -ne 1 ]]; then echo "-a \"${@:2}\""; fi)"
 	else
 		echo "BOTTLES NOT INSTALLED"
 		exit 1
