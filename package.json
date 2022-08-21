@@ -163,6 +163,7 @@
   },
   "scripts": {
     "dev": "vite",
+    "codecheck": "tsc --noEmit",
     "test": "jest --noStackTrace",
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
