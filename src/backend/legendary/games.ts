@@ -62,7 +62,7 @@ class LegendaryGame extends Game {
    * Alias for `LegendaryLibrary.listUpdateableGames`
    */
   public static async checkGameUpdates() {
-    const isLoggedIn = await LegendaryUser.isLoggedIn()
+    const isLoggedIn = LegendaryUser.isLoggedIn()
     if (!isLoggedIn) {
       return []
     }
@@ -209,14 +209,14 @@ class LegendaryGame extends Game {
   }
 
   /**
-   * Helper for `checkGameUpdates().contains(this.appName)`
+   * Helper for `listUpdateableGames().includes(this.appName)`
    *
    * @returns If game has an update.
    */
   public async hasUpdate() {
-    return (await LegendaryLibrary.get().listUpdateableGames()).includes(
-      this.appName
-    )
+    const allUpdateableGames =
+      await LegendaryLibrary.get().listUpdateableGames()
+    return allUpdateableGames.includes(this.appName)
   }
 
   /**
