@@ -638,18 +638,11 @@ ipcMain.handle(
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', async (event, library?: Runner) => {
-  switch (library) {
-    case 'legendary':
-      return LegendaryLibrary.get().listUpdateableGames()
-    case 'gog':
-      return GOGLibrary.get().listUpdateableGames()
-    default:
-      return [
-        ...(await LegendaryLibrary.get().listUpdateableGames()),
-        ...(await GOGLibrary.get().listUpdateableGames())
-      ]
-  }
+ipcMain.handle('checkGameUpdates', async () => {
+  return [
+    ...(await LegendaryLibrary.get().listUpdateableGames()),
+    ...(await GOGLibrary.get().listUpdateableGames())
+  ]
 })
 
 ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())

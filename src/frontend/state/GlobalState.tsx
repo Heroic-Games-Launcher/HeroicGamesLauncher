@@ -323,11 +323,10 @@ export class GlobalState extends PureComponent<Props> {
 
   refresh = async (
     library?: Runner | 'all',
-    checkUpdates?: boolean
+    checkUpdates = false
   ): Promise<void> => {
     console.log('refreshing')
 
-    let updates = this.state.gameUpdates
     const currentLibraryLength = this.state.epic.library?.length
     let epicLibrary: Array<GameInfo> =
       (libraryStore.get('library', []) as Array<GameInfo>) || []
@@ -342,16 +341,13 @@ export class GlobalState extends PureComponent<Props> {
       epicLibrary = legendaryLibrary
     }
 
-    try {
-      const newUpdates: string[] = await ipcRenderer.invoke(
-        'checkGameUpdates',
-        library
-      )
-      updates = checkUpdates
-        ? [...new Set([...newUpdates, ...this.state.gameUpdates])]
-        : this.state.gameUpdates
-    } catch (error) {
-      ipcRenderer.send('logError', error)
+    let updates = this.state.gameUpdates
+    if (checkUpdates && library) {
+      try {
+        updates = await ipcRenderer.invoke('checkGameUpdates')
+      } catch (error) {
+        ipcRenderer.send('logError', error)
+      }
     }
 
     this.setState({
