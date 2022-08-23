@@ -48,6 +48,7 @@
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Tắt",
     "dlc": {
         "installDlcs": "Cài đặt tất cả bản mở rộng (DLC)"

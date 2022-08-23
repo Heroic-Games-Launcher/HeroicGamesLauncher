@@ -55,6 +55,7 @@ const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
 const heroicDefaultWinePrefix = join(homedir(), 'Games', 'Heroic', 'Prefixes')
 const heroicAnticheatDataPath = join(heroicFolder, 'areweanticheatyet.json')
+const imagesCachePath = join(heroicFolder, 'images-cache')
 
 const { currentLogFile: currentLogFile, lastLogFile: lastLogFile } =
   createNewLogFileAndClearOldOnces()
@@ -195,6 +196,7 @@ export {
   heroicToolsPath,
   heroicDefaultWinePrefix,
   heroicAnticheatDataPath,
+  imagesCachePath,
   userHome,
   flatPakHome,
   kofiPage,

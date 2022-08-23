@@ -48,6 +48,7 @@
         "uninstall": "アンインストール",
         "update": "アップデート"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "無効になっています",
     "dlc": {
         "installDlcs": "すべてのDLCをインストールします"

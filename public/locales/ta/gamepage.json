@@ -48,6 +48,7 @@
         "uninstall": "நிறுவல் நீக்கு",
         "update": "Update"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "முடக்கப்பட்டது",
     "dlc": {
         "installDlcs": "Install all DLCs"

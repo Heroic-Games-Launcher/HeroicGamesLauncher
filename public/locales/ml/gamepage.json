@@ -48,6 +48,7 @@
         "uninstall": "എടുത്തുനീക്കൂ",
         "update": "പുതുക്കൂ"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "പ്രവര്ത്തനരഹിതം",
     "dlc": {
         "installDlcs": "എല്ലാ കൂട്ടുരേഖകളും നടൂ"

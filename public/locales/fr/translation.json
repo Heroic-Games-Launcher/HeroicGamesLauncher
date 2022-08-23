@@ -48,7 +48,7 @@
                 "title": "Pas de place"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "message": "Une erreur est survenue lors de l'installation de DXVK/VKD3D! Vérifiez votre connexion ou si vous avez bien zstd/libzstd d'installé!",
                 "title": "Erreur DXVK/VKD3D"
             },
             "folder-not-found": {
@@ -318,8 +318,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "Options Avancées (Variables d'Environnement):",
+            "title": "Environment Variables",
             "value": "Value"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "Insérez ici les arguments de lancement",
@@ -352,7 +361,7 @@
         "win": "Windows"
     },
     "Recent": "Joué récemment",
-    "search": "Insérez le nom du jeu ici...",
+    "search": "Chercher un jeu",
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
@@ -427,7 +436,7 @@
             "title": "Synchronisation manuelle des sauvegardes",
             "upload": "Téléverser"
         },
-        "maxRecentGames": "Jeux récents à afficher",
+        "maxRecentGames": "Jeux joué récemment à afficher",
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
         "minimize-on-launch": "Minimiser Heroic après le lancement du jeu",
         "offlinemode": "Lancer le jeu hors ligne",
@@ -520,6 +529,9 @@
         "quit": "Quitter",
         "reload": "Recharger",
         "show": "Montrer"
+    },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
     },
     "Update Available!": "",
     "userselector": {

@@ -24,6 +24,7 @@ import {
   ColumnProps,
   TableInput
 } from 'frontend/components/UI/TwoColTableInput'
+import EnvVariablesTable from './EnvVariablesTable'
 
 interface Props {
   audioFix: boolean
@@ -116,19 +117,8 @@ export default function OtherSettings({
   eacRuntime,
   runner
 }: Props) {
-  const handleEnviromentVariables = (values: ColumnProps[]) => {
-    const envs: EnviromentVariable[] = []
-    values.forEach((value) =>
-      envs.push({ key: value.key.trim(), value: value.value.trim() })
-    )
-    setEnviromentOptions([...envs])
-  }
-  const getEnvironmentVariables = () => {
-    const columns: ColumnProps[] = []
-    enviromentOptions.forEach((env) =>
-      columns.push({ key: env.key, value: env.value })
-    )
-    return columns
+  const handleEnviromentVariables = (variables: EnviromentVariable[]) => {
+    setEnviromentOptions([...variables])
   }
   const handleWrapperVariables = (values: ColumnProps[]) => {
     const wrappers = [] as WrapperVariable[]
@@ -423,22 +413,9 @@ export default function OtherSettings({
         />
       )}
       {!isWin && (
-        <TableInput
-          label={t('options.advanced.title')}
-          htmlId={'enviromentOptions'}
-          header={{
-            key: t('options.advanced.key', 'Variable Name'),
-            value: t('options.advanced.value', 'Value')
-          }}
-          rows={getEnvironmentVariables()}
-          onChange={handleEnviromentVariables}
-          inputPlaceHolder={{
-            key: t('options.advanced.placeHolderKey', 'NAME'),
-            value: t(
-              'options.advanced.placeHolderValue',
-              'E.g.: Path/To/ExtraFiles'
-            )
-          }}
+        <EnvVariablesTable
+          environmentVariables={enviromentOptions}
+          handleEnviromentVariables={handleEnviromentVariables}
         />
       )}
       {!isWin && (

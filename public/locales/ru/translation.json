@@ -152,7 +152,7 @@
             "close_context_menu": "Закрыть контекстное меню",
             "close_dialog": "Закрыть диалог",
             "close_keyboard": "Закрыть клавиатуру",
-            "context_menu": "Context menu",
+            "context_menu": "Контекстное меню",
             "game_details": "Детали игры",
             "game_settings": "Настройки игры",
             "install_game": "Установить игру",
@@ -279,15 +279,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "{{game}} не удалось добавить для всех найденных пользователей Steam. Дополнительную информацию см. в журналах. Для вступления изменений в силу требуется перезапуск Steam.",
+                    "success": "{{game}} был успешно добавлен в Steam. Для вступления изменений в силу требуется перезапуск Steam.",
                     "title": "Добавлено в Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "{{game}} не удалось удалить у всех найденных пользователей Steam. Дополнительные сведения см. в журналах. Для вступления изменений в силу требуется перезапуск Steam.",
+                    "success": "{{game}} был успешно удален из Steam. Для вступления изменений в силу требуется перезапуск Steam.",
                     "title": "Удалено из Steam"
                 }
             },
@@ -318,8 +318,17 @@
             "key": "Имя переменной",
             "placeHolderKey": "ИМЯ",
             "placeHolderValue": "Например: Path/To/ExtraFiles",
-            "title": "Расширенные настройки (Переменные среды):",
+            "title": "Environment Variables",
             "value": "Значение"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "Вставьте сюда аргументы запуска",
@@ -486,7 +495,7 @@
         "open-config-file": "Открыть файл конфигурации",
         "reset-heroic": "Сброс Heroic",
         "saves": {
-            "label": "Save Location:",
+            "label": "Место сохранения:",
             "warning": "Функция облачных сохранений находится в стадии бета-тестирования, сделайте резервную копию ваших сохранений перед синхронизацией (на случай, если что-то пойдет не так)"
         }
     },
@@ -520,6 +529,9 @@
         "quit": "Выйти",
         "reload": "Перезагрузить",
         "show": "Показать"
+    },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
     },
     "Update Available!": "",
     "userselector": {

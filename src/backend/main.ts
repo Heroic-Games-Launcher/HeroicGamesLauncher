@@ -1,3 +1,4 @@
+import { initImagesCache } from './images_cache'
 import { downloadAntiCheatData } from './anticheat/utils'
 import {
   InstallParams,
@@ -328,6 +329,8 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     const systemInfo = await getSystemInfo()
+
+    initImagesCache()
 
     logInfo(
       ['Legendary location:', join(...Object.values(getLegendaryBin()))],
