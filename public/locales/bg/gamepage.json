@@ -48,6 +48,7 @@
         "uninstall": "Деинсталиране",
         "update": "Обновяване"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Изключено",
     "dlc": {
         "installDlcs": "Инсталиране на всички сваляеми съдържания"

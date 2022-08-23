@@ -48,6 +48,7 @@
         "uninstall": "설치 제거",
         "update": "업데이트"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "비활성화",
     "dlc": {
         "installDlcs": "모든 DLC를 설치합니다"

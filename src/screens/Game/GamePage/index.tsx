@@ -282,6 +282,16 @@ export default function GamePage(): JSX.Element | null {
                           {autoSyncSaves ? t('enabled') : t('disabled')}
                         </div>
                       )}
+                      {is_installed && !showCloudSaveInfo && (
+                        <div
+                          style={{
+                            color: '#F45460'
+                          }}
+                        >
+                          {t('info.syncsaves')}:{' '}
+                          {t('cloud_save_unsupported', 'Unsupported')}
+                        </div>
+                      )}
                       {!is_installed && (
                         <>
                           <div>

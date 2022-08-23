@@ -4,16 +4,16 @@
         "all_tiles_in_color": "对所有游戏磁贴着色",
         "content_font_family": "内容字族 (默认: \"Cabin\")",
         "fonts": "字体",
-        "title": "可存取性",
+        "title": "辅助功能",
         "zoom": "缩放"
     },
     "All": "全部",
     "anticheat": {
         "anticheats": "反作弊",
         "may_not_work": "由于拒绝或损坏的反作弊支持，它可能无法工作。",
-        "reference": "参考",
-        "source": "Source",
-        "status": "Status",
+        "reference": "引用",
+        "source": "来源",
+        "status": "状态",
         "title": "此游戏包含反作弊软件"
     },
     "Assets": "素材",
@@ -42,10 +42,10 @@
             },
             "cx-bottle-not-found": {
                 "message": "CrossOver bottle \"{{bottle_name}}\" 不存在，无法启动！",
-                "title": "没找到 CrossOver bottle"
+                "title": "未找到 CrossOver bottle"
             },
             "diskspace": {
-                "message": "没有足够的可用磁盘空间",
+                "message": "可用磁盘空间不足",
                 "title": "没有空间"
             },
             "dxvk": {
@@ -73,7 +73,7 @@
                 "title": "更新错误"
             },
             "wine-not-found": {
-                "message": "没有选中 Wine 版本。检查游戏设置！",
+                "message": "未选择 Wine 版本。检查游戏设置！",
                 "title": "未找到 Wine"
             }
         },
@@ -119,7 +119,7 @@
         "sync": {
             "button": "选择",
             "error": "无效路径",
-            "title": "选择存档的目录"
+            "title": "选择存档目录"
         },
         "vcruntime": {
             "install": {
@@ -146,7 +146,7 @@
         "login": "登录",
         "sync": "同步",
         "syncing": "正在同步",
-        "unsync": "不同步"
+        "unsync": "取消同步"
     },
     "controller": {
         "hints": {
@@ -156,20 +156,20 @@
             "close_context_menu": "关闭右键菜单",
             "close_dialog": "关闭对话框",
             "close_keyboard": "关闭键盘",
-            "context_menu": "Context menu",
+            "context_menu": "右键菜单",
             "game_details": "游戏详情",
             "game_settings": "游戏设置",
             "install_game": "安装游戏",
             "move_cursor": "移动光标",
-            "none": "None",
+            "none": "无",
             "open_virtual_keyboard": "打开虚拟键盘",
             "play_game": "玩游戏",
-            "scroll": "Scroll",
+            "scroll": "滚动",
             "space": "空格",
             "update_game": "更新游戏"
         }
     },
-    "docs": "Documentation",
+    "docs": "文档",
     "epic": {
         "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
         "offline-notification-title": "离线"
@@ -177,9 +177,9 @@
     "Epic Games": "Epic 游戏",
     "favourites": "最爱",
     "game": {
-        "status": "Status",
+        "status": "状态",
         "store": "商店",
-        "title": "游戏名"
+        "title": "游戏标题"
     },
     "GameSettings": "游戏设置",
     "generic": {
@@ -197,7 +197,7 @@
         "ignore_hidden": "忽略隐藏项",
         "platform": "平台",
         "show_all_games": "显示所有游戏",
-        "show_favourites_only": "仅显示收藏",
+        "show_favourites_only": "仅显示最爱",
         "show_hidden": "显示隐藏项",
         "store": "过滤商店"
     },
@@ -313,17 +313,26 @@
         "uninstalled": "已卸载",
         "update": {
             "canceled": "已取消更新",
-            "finished": "更新已完成的",
-            "started": "升级已开始"
+            "finished": "更新已完成",
+            "started": "更新已开始"
         }
     },
     "options": {
         "advanced": {
-            "key": "Variable Name",
-            "placeHolderKey": "NAME",
-            "placeHolderValue": "例: Path/To/ExtraFiles",
+            "key": "变量名称",
+            "placeHolderKey": "名称",
+            "placeHolderValue": "例：Path/To/ExtraFiles",
             "title": "高级选项（环境变量）：",
             "value": "值"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "将启动器参数放在这里",
@@ -333,16 +342,16 @@
         "wrapper": {
             "args": "参数",
             "arguments_example": "参数例子： --arg; --extra-file=\"file-path/ with/spaces\"",
-            "exe": "包装器",
-            "placeHolderKey": "新包装器",
-            "placeHolderValue": "包装器参数",
-            "title": "包装器命令行："
+            "exe": "封装器",
+            "placeHolderKey": "新封装器",
+            "placeHolderValue": "封装器参数",
+            "title": "封装器命令："
         }
     },
     "other": {
         "gogdl-version": "GOGDL 版本： ",
         "legendary-version": "Legendary 版本： ",
-        "weblate": "请帮助翻译 Heroic。"
+        "weblate": "帮助翻译 Heroic。"
     },
     "placeholder": {
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
@@ -388,22 +397,22 @@
             "currentVersion": "当前版本： {{version}}",
             "disable": "禁用",
             "enable": "启用",
-            "install": "Install",
-            "installed": "EOS 覆盖已安装",
-            "installing": "正安装 EOS 覆盖...",
+            "install": "安装",
+            "installed": "EOS 叠加已安装",
+            "installing": "正安装 EOS 叠加...",
             "latestVersion": "最新版：{{version}}",
-            "notInstalled": "EOS 覆盖未安装",
-            "notInstalledMsg": "EOS 覆盖未安装。 你想立即安装吗？",
-            "notInstalledTitle": "未安装覆盖",
+            "notInstalled": "EOS 叠加未安装",
+            "notInstalledMsg": "EOS 叠加未安装。 你想立即安装吗？",
+            "notInstalledTitle": "未安装叠加",
             "remove": "卸载",
-            "removeConfirm": "你确定要卸载 EOS 覆盖吗？",
-            "removeConfirmTitle": "确认删除覆盖",
-            "updateNow": "Update",
+            "removeConfirm": "你确定要卸载 EOS 叠加吗？",
+            "removeConfirmTitle": "确认删除叠加",
+            "updateNow": "更新",
             "updating": "更新中..."
         },
         "esync": "启用 Esync",
         "exit-to-tray": "退出到系统托盘",
-        "FsrSharpnessStrenght": "FSR 锐化度",
+        "FsrSharpnessStrenght": "FSR 锐化强度",
         "fsync": "启用 Fsync",
         "gamemode": "使用 GameMode（需要已安装 Feral Game Mode）",
         "language": "选择应用语言",
@@ -413,7 +422,7 @@
             "recently_played": "最近玩过的游戏",
             "recently_played_installed": "最近玩过的游戏 (仅已安装）"
         },
-        "library_top_section": "库的顶部",
+        "library_top_section": "仓库顶区",
         "log": {
             "copy-to-clipboard": "复制日志内容到剪贴板",
             "current-log": "当前日志",
@@ -438,7 +447,7 @@
         "minimize-on-launch": "游戏启动后最小化 Heroic",
         "offlinemode": "离线运行游戏",
         "prefered_language": "首选语言 (语言代码)",
-        "preferSystemLibs": "偏好系统库",
+        "preferSystemLibs": "首选系统库",
         "primerun": "使用独立显卡",
         "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
         "runexe": {
@@ -459,8 +468,8 @@
     },
     "settings": {
         "battlEyeRuntime": {
-            "installing": "安装 BattlEye Runtime 中...",
-            "name": "BattlEye AntiCheat Runtime"
+            "installing": "安装 BattlEye 运行时中...",
+            "name": "BattlEye 反作弊运行时"
         },
         "clear-cache": "清理 Heroic 缓存",
         "copiedToClipboard": "已复制到剪贴板！",
@@ -470,13 +479,13 @@
                 "message": "需要 GameMode 才能让 EAC runtime 在 Flatpak 上工作。你想马上启用它吗？",
                 "title": "必须启用 GameMode"
             },
-            "installing": "正安装 EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "installing": "安装 EAC 运行时中...",
+            "name": "EasyAntiCheat 运行时"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "EAC runtime 已启用，但没有 GameMode 它无法正常运作。你想禁用 EAC Runtime 和 GameMode 吗？",
-                "title": "EAC runtime 已启用"
+                "message": "EAC 运行时已启用，但没有 GameMode 它无法正常运作。你想禁用 EAC 运行时和 GameMode 吗？",
+                "title": "EAC 运行时已启用"
             }
         },
         "log": {
@@ -493,8 +502,8 @@
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
         "saves": {
-            "label": "保存位置：",
-            "warning": "云保存功能处于测试期，请在同步前备份你的保存（以防出现问题）"
+            "label": "存档位置：",
+            "warning": "云存档功能处于测试期，请在同步前备份你的存档（以防出现问题）"
         }
     },
     "Settings": "设置",
@@ -505,7 +514,7 @@
     "status": {
         "installing": "安装中",
         "logging": "正在登录...",
-        "processing": "处理文件中，请等待"
+        "processing": "处理文件中，请稍等"
     },
     "store": "Epic 商店",
     "stores": "商店",
@@ -532,6 +541,9 @@
         "reload": "重新加载",
         "show": "显示"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
@@ -543,20 +555,20 @@
     "webview": {
         "controls": {
             "back": "返回",
-            "forward": "向前",
+            "forward": "前进",
             "openInBrowser": "在浏览器中打开",
             "reload": "重新加载页面"
         }
     },
     "wine": {
-        "actions": "Action",
+        "actions": "动作",
         "manager": {
             "error": "此次无法获取 Wine/Proton 版本。",
             "link": "Wine 管理器",
             "title": "Wine 管理器",
             "unzipping": "解压缩"
         },
-        "release": "Release Date",
+        "release": "发布日期",
         "size": "大小"
     }
 }
