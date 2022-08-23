@@ -49,7 +49,7 @@
                 "title": "Pas de place"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "message": "Une erreur est survenue lors de l'installation de DXVK/VKD3D! Vérifiez votre connexion ou si vous avez bien zstd/libzstd d'installé!",
                 "title": "Erreur DXVK/VKD3D"
             },
             "folder-not-found": {
@@ -358,7 +358,7 @@
     "Plugins": "Plugins",
     "Projects": "Projets",
     "Recent": "Joué récemment",
-    "search": "Insérez le nom du jeu ici...",
+    "search": "Chercher un jeu",
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
@@ -433,7 +433,7 @@
             "title": "Synchronisation manuelle des sauvegardes",
             "upload": "Téléverser"
         },
-        "maxRecentGames": "Jeux récents à afficher",
+        "maxRecentGames": "Jeux joué récemment à afficher",
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
         "minimize-on-launch": "Minimiser Heroic après le lancement du jeu",
         "offlinemode": "Lancer le jeu hors ligne",
