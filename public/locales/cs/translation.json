@@ -9,12 +9,12 @@
     },
     "All": "Vše",
     "anticheat": {
-        "anticheats": "Anticheats",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
+        "anticheats": "Anticheaty",
+        "may_not_work": "Nemusí fungovat kvůli zamítnuté nebo chybné anticheat podpoře.",
         "reference": "Reference",
         "source": "Source",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "Tato hra obsahuje anticheatový software"
     },
     "Assets": "Assety",
     "box": {
@@ -28,13 +28,13 @@
         "choose-legendary-binary": "Vyberte spustitelný soubor Legendary",
         "customWine": "Vyberte spustitelný soubor Wine nebo Proton",
         "default-install-path": "Vyberte výchozí cestu pro instalaci",
-        "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "default-steam-path": "Cesta ke službě Steam.",
+        "downloadNow": "Stáhnout nyní",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "body": "Přidání hry {{game}} do Steamu se nezdařilo s:{{newLine}} {{error}}",
+                    "title": "Chyba při přidávání"
                 }
             },
             "credentials": {
@@ -65,11 +65,11 @@
             },
             "title": "Error",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Došlo k nezachycené výjimce:{{newLine}}{{error}}{{newLine}}{{newLine}} Heroic bude ukončen! Nahlaste výjimku v našem repozitáři na Githubu.",
+                "title": "Došlo k nezachycené výjimce!"
             },
             "update": {
-                "message": "Při aktualizaci se něco pokazilo, zkontrolujte záznamy nebo to zkuste znovu později!",
+                "message": "Při aktualizaci se něco pokazilo, zkontrolujte protokoly nebo to zkuste znovu později!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -100,7 +100,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Jste si jistí, že chcete resetovat Heroic? Tím se odstraní všechna nastavení a mezipaměť, ale neodstraní se nainstalované hry ani přihlašovací údaje Epic. Přenosné verze (AppImage, WinPortable, ...) je poté nutné restartovat ručně.",
                 "title": "Reset Heroic"
             }
         },
@@ -113,7 +113,7 @@
         },
         "shortcuts": {
             "message": "Zástupci byli vytvořeni na ploše a v nabídce Start",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove": "Zástupci byli odebráni z plochy a nabídky Start",
             "title": "Zástupci"
         },
         "sync": {
@@ -123,11 +123,11 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "Odkazy ke stažení pro Visual C++ Runtimes byly otevřeny. Nainstalujte verze x86 i x64."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "Nejsou nainstalovány moduly Microsoft Visual C++ Runtimes, které některé hry vyžadují",
+                "title": "VCRuntime není nainstalován"
             }
         },
         "warning": {
@@ -150,23 +150,23 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
-            "back": "Back",
+            "activate": "Aktivovat",
+            "back": "Zpět",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
+            "close_context_menu": "Zavřít kontextovou nabídku",
+            "close_dialog": "Zavřít dialogové okno",
+            "close_keyboard": "Zavřít klávesnici",
             "context_menu": "Context menu",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
+            "game_details": "Podrobnosti o hře",
+            "game_settings": "Nastavení hry",
+            "install_game": "Instalovat hru",
+            "move_cursor": "Přesunout kurzor",
             "none": "None",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "play_game": "Play game",
+            "open_virtual_keyboard": "Otevřít virtuální klávesnici",
+            "play_game": "Hrát hru",
             "scroll": "Scroll",
-            "space": "Space",
-            "update_game": "Update game"
+            "space": "Místo",
+            "update_game": "Aktualizovat hru"
         }
     },
     "docs": "Documentation",
@@ -181,7 +181,7 @@
         "store": "Obchod",
         "title": "Název hry"
     },
-    "GameSettings": "Game Settings",
+    "GameSettings": "Nastavení hry",
     "generic": {
         "error": {
             "component": "Nebyly nalezeny žádné hry - Zkuste se znovu odhlásit a přihlásit nebo jednu z níže uvedených možností"
@@ -202,34 +202,34 @@
         "store": "Filtrovat obchod"
     },
     "help": {
-        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
-        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
-        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
-        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
+        "dxvk": "DXVK je překladová vrstva založená na Vulkanu pro hry DirectX 9, 10 a 11. Povolení může zlepšit kompatibilitu. Může ale způsobit problémy zejména u starších her s rozhraním DirectX.",
+        "esync": "Cílem Esync je snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může zlepšit výkon.",
+        "fsync": "Cílem Fsync je snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může zlepšit výkon na podporovaných jádrech Linuxu.",
         "game_language": {
             "fallback": "Ponechte prázdné pro použití jazyk Heroic.",
             "in_game_config": "Ne všechny hry tuto konfiguraci podporují, některé mají nastavení jazyka ve hře.",
             "valid_codes": "Platné kódy jazyků jsou závislé na hře."
         },
-        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
+        "gamemode": "Feral GameMode aplikuje automatické a dočasné úpravy systému při spouštění her. Povolení může zlepšit výkon.",
         "general": "Synchronizujte s EGL v případě, že máte funkční instalaci Epic Games Launcher jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
-        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "mangohud": "MangoHUD je překryvný program, který zobrazuje a monitoruje FPS, teploty, zatížení CPU/GPU a další systémové prostředky.",
         "other": {
             "part4": "Použijte ",
             "part5": "Herní argumenty",
             "part6": " které budou použity při spuštění hry, například: ",
             "part7": " pro přeskočení spouštěče u některých her, apod."
         },
-        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
-        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
-        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
+        "preferSystemLibs": "Vlastní verze Wine (Wine-GE, Wine-Lutris) jsou dodávány se závislostmi knihovnami. Povolením této možnosti budou tyto dodávané knihovny ignorovány a Wine místo nich načte systémové knihovny. Pozor! Při nedodržení závislostí může dojít k problémům.",
+        "resizablebar": "NVIDIA Resizable Bar pomáhá zvýšit snímkovou frekvenci tím, že umožňuje procesoru přístup k celé grafické vyrovnávací paměti. Povolení může zlepšit výkon her založených na Vulkanu.",
+        "steamruntime": "Vlastní knihovny poskytované službou Steam, které pomáhají spouštět hry pro Linux a Windows (Proton). Jejich povolení může zlepšit kompatibilitu.",
         "sync": {
             "part1": "Heroic se pokusí uhodnout správnou složku pro ukládání, což bude ve většině případů fungovat. V případě, že je složka špatně, změňte ji pomocí pole přepsání.",
             "part2": "V případě, že změníte složku prefixu pro Wine nebo Proton, budete muset cestu znovu zkontrolovat, protože Proton používá jiný prefix (/pfx) a uživatelské jméno (steamuser). Můžete tedy jednoduše vymazat aktuální cestu, dostat se ze stránky nastavení synchronizace a vrátit se zpět, aby Heroic mohl uhodnout složku se správným prefixem.",
             "part3": "Ruční synchronizace: Vyberte Stáhnout pro stažení uložených souborů hry z cloudu. Nahrát pro nahrání místních souborů do cloudu. Vynutit stahování a Vynutit nahrávání bude ignorovat verzi, která je místní nebo v cloudu.",
             "part4": "Automatická synchronizace uložených souborů synchronizuje uložené soubory při každém spuštění hry a po dokončení hraní."
         },
-        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
+        "vkd3d": "VKD3D je překladová vrstva založená na Vulkanu pro hry DirectX 12. Povolení může výrazně zlepšit kompatibilitu. Nemá žádný vliv na starší DirectX hry.",
         "wine": {
             "part1": "Heroic hledá verze Wine, Proton a CrossOver v následujících složkách:",
             "part2": "Pro jiná místa použijte symbolický odkaz na jednu z těchto složek"
@@ -238,8 +238,8 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "newReleases": "Update Available!",
-            "stable": "Stable",
+            "newReleases": "K dispozici je nová aktualizace!",
+            "stable": "Stabilní",
             "version": "Heroic Version"
         },
         "settings": "Nastavení se ukládají automaticky",
@@ -248,7 +248,7 @@
     "infobox": {
         "help": "Pomoc",
         "requirements": "Systémové požadavky",
-        "wine-path": "Wine Path"
+        "wine-path": "Cesta Wine"
     },
     "install": {
         "path": "Vyberte cestu instalace"
@@ -259,8 +259,8 @@
         "sortByStatus": "Seřadit podle stavu",
         "sortDescending": "Seřadit sestupně",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "Přepnutí na rozvržení mřížky",
+            "list": "Přepnutí na rozvržení seznamu"
         }
     },
     "Library": "Knihovna",
@@ -283,16 +283,16 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Added to Steam"
+                    "corrupt": "Hru {{game}} se nepodařilo přidat všem nalezeným uživatelům Steam. Další informace naleznete v protokolech. Aby se změny projevily, je nutné službu Steam restartovat.",
+                    "success": "Hra {{game}} byla úspěšně přidána do služby Steam. Aby se změny projevily, je nutné službu Steam restartovat.",
+                    "title": "Přidáno do Steamu"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Removed from Steam"
+                    "corrupt": "Hru {{game}} se nepodařilo odstranit u všech nalezených uživatelů Steam. Další informace naleznete v protokolech. Aby se změny projevily, je nutné službu Steam restartovat.",
+                    "success": "Hra {{game}} byla úspěšně odstraněna ze služby Steam. Aby se změny projevily, je nutné službu Steam restartovat.",
+                    "title": "Odebráno ze Steamu"
                 }
             },
             "reparing": "Oprava dokončena"
@@ -306,7 +306,7 @@
         },
         "moved": "Přesun dokončen",
         "moving": "Přesouvám hru",
-        "new-heroic-version": "A new Heroic version was released!",
+        "new-heroic-version": "Byla vydána nová verze Heroic!",
         "refresh": {
             "error": "Nepodařilo se načíst vydání z upstreamu, možná kvůli omezením Github API! Zkuste to později."
         },
@@ -321,9 +321,9 @@
         "advanced": {
             "key": "Variable Name",
             "placeHolderKey": "NAME",
-            "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "Environment Variables",
-            "value": "Value"
+            "placeHolderValue": "Např.: Cesta/K/ExtraSouborům",
+            "title": "Pokročilé možnosti (Proměnné prostředí):",
+            "value": "Hodnota"
         },
         "env_variables": {
             "error": {
@@ -338,14 +338,14 @@
             "placeholder": "Sem vložte argumenty spouštěče",
             "title": "Herní argumenty (Pro spuštění po příkazu):"
         },
-        "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
+        "quote-args-with-spaces": "Upozornění: Nezapomeňte uvozovat argumenty s mezerami! Např.: \"cesta/s mezerami/\"",
         "wrapper": {
-            "args": "Arguments",
-            "arguments_example": "Arguments example: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "args": "Argumenty",
+            "arguments_example": "Příklad argumentů: --arg; --extra-file=\"cesta/s mezerami\"",
             "exe": "Wrapper",
-            "placeHolderKey": "New Wrapper",
-            "placeHolderValue": "Wrapper Arguments",
-            "title": "Wrapper command:"
+            "placeHolderKey": "Nový Wrapper",
+            "placeHolderValue": "Argumenty Wrapperu",
+            "title": "Příkaz Wrapper:"
         }
     },
     "other": {
@@ -378,37 +378,37 @@
         "autosync": "Automaticky synchronizovat uložené soubory",
         "autovkd3d": "Automaticky Installovat/aktualizovat VKD3D na Prefixu",
         "change-target-exe": "Vyberte alternativní EXE ke spuštění",
-        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
-        "crossover-version": "Crossover Version",
+        "checkForUpdatesOnStartup": "Kontrolovat aktualizace Heroic při spuštění",
+        "crossover-version": "Verze Crossover",
         "customWineProton": "Vlastní cesty pro Wine/Proton",
         "darktray": "Použít tmavou ikonu v systémové oblasti",
         "default-install-path": "Výchozí cesta pro instalaci",
-        "default-steam-path": "Default Steam path",
+        "default-steam-path": "Výchozí cesta služby Steam",
         "defaultWinePrefix": "Nastavit složku pro nové Prefixy Wine",
         "disable_controller": "Zakázat navigaci v Heroic pomocí ovladače",
         "discordRPC": "Povolit Discord Rich Presence",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "download-no-https": "Stahovat hry bez HTTPS (užitečné pro CDN, např. LanCache)",
         "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
         "enableFSRHack": "Povolte FSR Hack (verze Wine jej musí podporovat)",
         "eosOverlay": {
-            "cancelInstall": "Cancel",
-            "checkForUpdates": "Check for updates",
-            "checkingForUpdates": "Checking for updates...",
-            "currentVersion": "Current Version: {{version}}",
-            "disable": "Disable",
-            "enable": "Enable",
+            "cancelInstall": "Zrušit",
+            "checkForUpdates": "Zkontrolovat aktualizace",
+            "checkingForUpdates": "Kontrola aktualizací...",
+            "currentVersion": "Aktuální verze: {{version}}",
+            "disable": "Zakázat",
+            "enable": "Povolit",
             "install": "Install",
-            "installed": "The EOS Overlay is installed",
-            "installing": "The EOS Overlay is being installed...",
-            "latestVersion": "Latest Version: {{version}}",
-            "notInstalled": "The EOS Overlay is not installed",
-            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
-            "notInstalledTitle": "Overlay not installed",
-            "remove": "Uninstall",
-            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
-            "removeConfirmTitle": "Confirm overlay removal",
+            "installed": "Je nainstalován EOS Overlay",
+            "installing": "EOS Overlay se instaluje...",
+            "latestVersion": "Nejnovější verze: {{version}}",
+            "notInstalled": "EOS Overlay není nainstalován",
+            "notInstalledMsg": "EOS Overlay není nainstalován. Chcete jej nainstalovat nyní?",
+            "notInstalledTitle": "Overlay není naistalován",
+            "remove": "Odinstalovat",
+            "removeConfirm": "Opravdu chcete odinstalovat EOS Overlay?",
+            "removeConfirmTitle": "Potvrdit odstranění Overlay",
             "updateNow": "Update",
-            "updating": "Updating..."
+            "updating": "Aktualizuji..."
         },
         "esync": "Povolit Esync",
         "exit-to-tray": "Ukončit do systémové oblasti",
@@ -420,17 +420,17 @@
             "disabled": "Zakázáno",
             "favourites": "Oblíbené hry",
             "recently_played": "Nedávno hrané hry",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "recently_played_installed": "Nedávno hrané hry (pouze nainstalované)"
         },
         "library_top_section": "Horní část knihovny",
         "log": {
-            "copy-to-clipboard": "Zkopírovat obsah záznamu do schránky",
-            "current-log": "Aktuální záznam",
-            "instructions": "Připojte se k našemu Discordu a vyhledejte kanál, který odpovídá vašemu operačnímu systému. Sdílejte obsah zde zobrazených záznamů a připojte jasný popis problému s veškerými důležitými informacemi a podrobnostmi.",
+            "copy-to-clipboard": "Zkopírovat obsah protokolu do schránky",
+            "current-log": "Aktuální protokol",
+            "instructions": "Připojte se k našemu Discordu a vyhledejte kanál, který odpovídá vašemu operačnímu systému. Sdílejte obsah zde zobrazených protokolů a připojte jasný popis problému s veškerými důležitými informacemi a podrobnostmi.",
             "instructions_title": "Jak nahlásit problém?",
-            "last-log": "Poslední záznam",
-            "no-file": "Nebyl nalezen žádný soubor záznamu",
-            "show-in-folder": "Zobrazit soubor záznamu ve složce"
+            "last-log": "Poslední protokol",
+            "no-file": "Nebyl nalezen žádný soubor protokolu",
+            "show-in-folder": "Zobrazit soubor protokolu ve složce"
         },
         "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
         "manualsync": {
@@ -447,7 +447,7 @@
         "minimize-on-launch": "Minimalizujte Heroic po spuštění hry",
         "offlinemode": "Spustit hru offline",
         "prefered_language": "Preferovaný jazyk (kód jazyka)",
-        "preferSystemLibs": "Prefer system libraries",
+        "preferSystemLibs": "Preferovat systémové knihovny",
         "primerun": "Použít dedikovanou grafickou kartu",
         "resizableBar": "Používat Resizable BAR (pouze s NVIDIA RTX 30xx)",
         "runexe": {
@@ -468,7 +468,7 @@
     },
     "settings": {
         "battlEyeRuntime": {
-            "installing": "Installing BattlEye Runtime...",
+            "installing": "Instaluji BattleEye Runtime...",
             "name": "BattlEye AntiCheat Runtime"
         },
         "clear-cache": "Vymazat mezipaměť Heroic",
@@ -476,34 +476,34 @@
         "copyToClipboard": "Kopírovat všechna nastavení do schránky",
         "eacRuntime": {
             "gameModeRequired": {
-                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
-                "title": "GameMode required"
+                "message": "Ke správné funkci EAC runtime na Flatpaku je vyžadován GameMode. Chcete jej nyní povolit?",
+                "title": "Je vyžadován GameMode"
             },
-            "installing": "Installing EAC Runtime...",
+            "installing": "Instaluji EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
-                "title": "EAC runtime enabled"
+                "message": "Je povolen EAC runtime, který bez GameMode nebude fungovat správně. Chcete vypnout běhové prostředí EAC a GameMode?",
+                "title": "EAC runtime povolen"
             }
         },
         "log": {
-            "long-log-hint": "Záznam je zkrácen, zobrazeno je posledních 1000 řádků!"
+            "long-log-hint": "Protokol je zkrácen, zobrazeno je posledních 1000 řádků!"
         },
         "navbar": {
             "advanced": "Pokročilé",
             "general": "Obecné",
-            "log": "Log",
+            "log": "Protokol",
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine rozšíření"
         },
         "open-config-file": "Otevřít soubor konfigurace",
         "reset-heroic": "Reset Heroic",
         "saves": {
-            "label": "Save Location:",
-            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+            "label": "Umístění pro ukládání:",
+            "warning": "Funkce Cloud Saves je v Beta verzi, před synchronizací si prosím uložená data zálohujte (pro případ, že by se něco pokazilo)"
         }
     },
     "Settings": "Nastavení",

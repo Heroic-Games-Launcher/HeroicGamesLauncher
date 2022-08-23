@@ -39,7 +39,7 @@
         "add_to_favourites": "Přidat do oblíbených",
         "cancel": "Zrušit",
         "continue": "Pokračovat ve stahování",
-        "force_update": "Force Update if Available",
+        "force_update": "Vynutit aktualizaci, pokud je dostupná",
         "hide_game": "Skrýt hru",
         "import": "Importovat Hru",
         "install": "Instalovat",
@@ -63,8 +63,8 @@
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
         "platform": "Vyberte verzi platformy, kterou chcete nainstalovat",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "Systémové požadavky",
+        "tools": "Nástroje",
         "totalPlayed": "Odehraný čas"
     },
     "gamecard": {
@@ -124,15 +124,15 @@
         "updating": "Aktualizuji hru"
     },
     "submenu": {
-        "addShortcut": "Přidat zkratku",
-        "addToSteam": "Add to Steam",
+        "addShortcut": "Přidat zástupce",
+        "addToSteam": "Přidat do Steamu",
         "change": "Změnit cestu instalace",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "Zakázat překrytí služby EOS",
+        "enableEosOverlay": "Povolit překrytí služby EOS",
         "move": "Přesunout hru",
         "protondb": "Zkontrolovat kompatibilitu",
-        "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeFromSteam": "Odebrat ze Steamu",
+        "removeShortcut": "Odebrat zástupce",
         "settings": "Nastavení",
         "store": "Stránka obchodu",
         "verify": "Zkontrolovat a opravit"

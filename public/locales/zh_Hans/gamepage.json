@@ -15,10 +15,10 @@
         "no": "否",
         "repair": {
             "message": "您想尝试修复这个游戏的文件吗？这可能需要很长的时间。",
-            "title": "验证并修复游戏文件"
+            "title": "验证和修复"
         },
         "stopInstall": {
-            "keepInstalling": "继续安装",
+            "keepInstalling": "保留安装",
             "message": "要保留已下载的文件吗？",
             "title": "停止安装"
         },
@@ -94,7 +94,7 @@
     "label": {
         "playing": {
             "start": "开始游戏",
-            "stop": "停止游戏"
+            "stop": "游戏中（停止）"
         },
         "saves": {
             "syncing": "存档同步中"
@@ -118,7 +118,7 @@
         "installing": "安装中",
         "moving": "正在移动安装，请稍等",
         "notinstalled": "未安装此游戏",
-        "processing": "处理文件中，请等待",
+        "processing": "处理文件中，请稍等",
         "reparing": "正在修复游戏，请稍等",
         "totalDownloaded": "下载总计",
         "updating": "游戏更新中"
@@ -127,14 +127,14 @@
         "addShortcut": "添加快捷方式",
         "addToSteam": "添加到 Steam",
         "change": "更改安装路径",
-        "disableEosOverlay": "禁用 EOS 覆盖",
-        "enableEosOverlay": "启用 EOS 覆盖",
+        "disableEosOverlay": "禁用 EOS 叠加",
+        "enableEosOverlay": "启用 EOS 叠加",
         "move": "移动游戏",
         "protondb": "检查兼容性",
         "removeFromSteam": "从 Steam 删除",
         "removeShortcut": "删除快捷方式",
         "settings": "设置",
         "store": "商店页面",
-        "verify": "验证并修复"
+        "verify": "验证和修复"
     }
 }
