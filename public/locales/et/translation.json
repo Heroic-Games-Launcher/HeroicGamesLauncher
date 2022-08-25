@@ -65,8 +65,8 @@
             },
             "title": "Viga",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Tekkis tabamata erand:{{newLine}}{{error}}{{newLine}}{{newLine}} Heroic suletakse! Teatage erandist meie Githubi repositooriumis.",
+                "title": "Tekkis ootamatu erand!"
             },
             "update": {
                 "message": "Midagi läks uuendusega valesti, palun kontrollige logisid või proovige hiljem uuesti!",
@@ -100,7 +100,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Kas olete kindel, et soovite Heroicu lähtestada? See eemaldab kõik Seaded ja Vahemällu salvestamise, kuid ei eemalda teie paigaldatud mänge ega Epicu mandaate. Heroicu kaasaskantavad versioonid (AppImage, WinPortable, ...) tuleb hiljem käsitsi taaskäivitada.",
                 "title": "Lähtesta Heroic"
             }
         },
@@ -150,23 +150,23 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
-            "back": "Back",
+            "activate": "Aktiveeri",
+            "back": "Tagasi",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
+            "close_context_menu": "Sulge kontekstimenüü",
+            "close_dialog": "Sulge dialoog",
+            "close_keyboard": "Sulge klaviatuur",
             "context_menu": "Context menu",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
+            "game_details": "Mängu üksikasjad",
+            "game_settings": "Mängu seaded",
+            "install_game": "Paigalda mäng",
+            "move_cursor": "Liiguta kursorit",
             "none": "None",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "play_game": "Play game",
+            "open_virtual_keyboard": "Ava virtuaalne klaviatuur",
+            "play_game": "Mängi mängu",
             "scroll": "Scroll",
-            "space": "Space",
-            "update_game": "Update game"
+            "space": "Tühik",
+            "update_game": "Uuenda mängu"
         }
     },
     "docs": "Documentation",
@@ -239,8 +239,8 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "newReleases": "Update Available!",
-            "stable": "Stable",
+            "newReleases": "Uuendus saadaval!",
+            "stable": "Stabiilne",
             "version": "Heroic Version"
         },
         "settings": "Seaded salvestatakse automaatselt",
@@ -266,8 +266,8 @@
         "sortByStatus": "Järjesta staatuse järgi",
         "sortDescending": "Järjesta kahanevalt",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "Vaheta ruudustiku paigutusele",
+            "list": "Vaheta loendi paigutusele"
         }
     },
     "Library": "Varamu",
@@ -290,15 +290,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "Mängu {{game}} ei saanud lisada kõigile leitud Steami kasutajatele. Lisainfo saamiseks vaadake logisid. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
+                    "success": "Mäng {{game}} lisati edukalt Steami. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
                     "title": "Lisatud Steami"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "Mängu {{game}} ei saanud eemaldada kõigilt leitud Steami kasutajatelt. Lisainfo saamiseks vaadake logisid. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
+                    "success": "Mäng {{game}} eemaldati edukalt Steamist. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
                     "title": "Steamist eemaldatud"
                 }
             },
@@ -313,7 +313,7 @@
         },
         "moved": "Teisaldamine on lõpule viidud",
         "moving": "Mängu liigutamine",
-        "new-heroic-version": "A new Heroic version was released!",
+        "new-heroic-version": "Ilmus uus Heroicu versioon!",
         "refresh": {
             "error": "Ei saanud hankida väljalaskeid upstream'ist, võib-olla Githubi API piirangute tõttu! Proovige hiljem uuesti."
         },
@@ -385,8 +385,8 @@
         "autosync": "Automaatne salvestiste sünkroonimine",
         "autovkd3d": "VKD3D automaatne paigaldamine/uuendamine prefiksile",
         "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
-        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
-        "crossover-version": "Crossover Version",
+        "checkForUpdatesOnStartup": "Kontrolli Heroicu uuendusi käivitamisel",
+        "crossover-version": "Crossoveri versioon",
         "customWineProton": "Kohandatud Wine/Proton teed",
         "darktray": "Kasuta tumedat süsteemiriiuli ikooni",
         "default-install-path": "Vaikimisi paigaldustee",
@@ -427,7 +427,7 @@
             "disabled": "Keelatud",
             "favourites": "Lemmikmängud",
             "recently_played": "Hiljuti mängitud mängud",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "recently_played_installed": "Hiljuti mängitud mängud (ainult paigaldatud)"
         },
         "library_top_section": "Teegi ülemine osa",
         "log": {
@@ -509,7 +509,7 @@
         "open-config-file": "Ava konfiguratsioonifail",
         "reset-heroic": "Lähtesta Heroic",
         "saves": {
-            "label": "Save Location:",
+            "label": "Salvestuste asukoht:",
             "warning": "Pilvesalvestuse funktsioon on beetaversioonis, enne sünkroonimist varundage oma salvestused (juhuks, kui midagi läheb valesti)"
         }
     },

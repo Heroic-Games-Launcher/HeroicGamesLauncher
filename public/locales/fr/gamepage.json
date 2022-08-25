@@ -24,7 +24,7 @@
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "Voulez-vous désinstaller ce jeu\u202f?",
+            "message": "Voulez-vous désinstaller ce jeu ?",
             "title": "Désinstaller"
         },
         "update": {
@@ -82,7 +82,7 @@
         "version": "Version"
     },
     "install": {
-        "disk-space-left": "Espace restant sur l'appareil",
+        "disk-space-left": "Espace restant",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Sélectionner le chemin d'installation",
         "path-not-writtable": "Warning: path might not be writable.",
