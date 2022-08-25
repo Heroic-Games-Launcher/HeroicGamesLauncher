@@ -23,8 +23,7 @@
             "title": "Parar a Instalação"
         },
         "uninstall": {
-            "checkbox": "Você gostaria de remover o prefixo também? Isso não pode ser desfeito.",
-            "checkbox_prefix": "Prefixo",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Deseja desinstalar este jogo?",
             "title": "Desinstalar"
         },
@@ -48,6 +47,7 @@
         "uninstall": "Desinstalar",
         "update": "Update"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Desabilitado",
     "dlc": {
         "installDlcs": "Instalar DLCs"
@@ -124,7 +124,7 @@
     },
     "submenu": {
         "addShortcut": "Adicionar Atalho",
-        "addToSteam": "Add to Steam",
+        "addToSteam": "Adicionar à Steam",
         "change": "Modificar Local de Instalação",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",

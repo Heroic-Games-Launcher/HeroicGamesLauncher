@@ -23,8 +23,7 @@
             "title": "Kurulumu Durdur"
         },
         "uninstall": {
-            "checkbox": "Prefix'i de kaldırmak ister misiniz? Bu geri alınamaz.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Oyunu kaldırmak istiyor musunuz?",
             "title": "Kaldır"
         },
@@ -48,6 +47,7 @@
         "uninstall": "Kaldır",
         "update": "Güncelle"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Devre dışı",
     "dlc": {
         "installDlcs": "Tüm DLC'leri kur"

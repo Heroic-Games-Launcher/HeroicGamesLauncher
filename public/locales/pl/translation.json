@@ -225,6 +225,7 @@
             "part7": " , żeby pominąć launcher w niektórych grach, itp."
         },
         "preferSystemLibs": "Customowe wersje Wine (Wine-GE, Wine-Lutris) są pobierane wraz z wymaganymi bibliotekami. Włączając tą opcję, te biblioteki zostaną zignorowane, a zamiast nich zostaną wykorzystane biblioteki systemowe Wine. Uwaga! Może powodować problemy z kompatybilnością zależności.",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar pomaga podnieść ilość klatek pozwalając CPU na dostęp do całego bufora graficznego. Włączenie tej opcji może podnieść wydajność w grach opartych na Vulkan'ie.",
         "steamruntime": "Customowe biblioteki dostarczane przez Steam w celu ułatwienia uruchamiania gier Windows'owych na Linux'ie. Włączenie podniesie kompatybilność.",
         "sync": {
@@ -252,7 +253,13 @@
     "infobox": {
         "help": "Pomoc",
         "requirements": "Wymagania Systemowe",
-        "wine-path": "Ścieżka Wine"
+        "wine-path": "Ścieżka Wine",
+        "wine-prefix": {
+            "title": "Wine Prefix"
+        },
+        "wine-repfix": {
+            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+        }
     },
     "install": {
         "path": "Wybierz ścieżkę instalacji"
@@ -326,8 +333,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "Np. : Ścieżka/Do/DodatkowychPlików",
-            "title": "Opcje zaawansowane (zmienne środowiskowe):",
+            "title": "Environment Variables",
             "value": "Wartość"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "Wstaw tutaj argumenty uruchamiania",
@@ -536,6 +552,9 @@
         "quit": "Wyjdź",
         "reload": "Odśwież",
         "show": "Pokaż"
+    },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
     },
     "Update Available!": "",
     "userselector": {

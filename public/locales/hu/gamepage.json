@@ -23,8 +23,7 @@
             "title": "Telepítés megállítása"
         },
         "uninstall": {
-            "checkbox": "Szeretnéd a prefixet is eltávolítani? Ezt nem lehet visszacsinálni.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "El akarod távolítani ezt a játékot?",
             "title": "Eltávolítás"
         },
@@ -48,6 +47,7 @@
         "uninstall": "Eltávolítás",
         "update": "Frissítés"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Letiltva",
     "dlc": {
         "installDlcs": "Összes DLC telepítése"

@@ -23,8 +23,7 @@
             "title": "Διακοπή εγκατάστασης"
         },
         "uninstall": {
-            "checkbox": "Θέλετε να αφαιρέσετε και τα προθήματα; Αυτό δεν μπορεί να αναιρεθεί.",
-            "checkbox_prefix": "Πρόθημα",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Θέλετε να απεγκαταστήσετε αυτό το παιχνίδι;",
             "title": "Απεγκατάσταση"
         },
@@ -48,6 +47,7 @@
         "uninstall": "Απεγκατάσταση",
         "update": "Ενημέρωση"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Απενεργοποιημένο",
     "dlc": {
         "installDlcs": "Εγκατάσταση όλων των DLCs"

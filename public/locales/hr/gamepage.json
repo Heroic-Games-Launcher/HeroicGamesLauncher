@@ -23,8 +23,7 @@
             "title": "Zaustavi instalaciju"
         },
         "uninstall": {
-            "checkbox": "Želite li obrisati i prefix? Nemože se poništiti.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Želite li deinstalirati igricu?",
             "title": "Deinstaliraj"
         },
@@ -48,6 +47,7 @@
         "uninstall": "Deinstaliraj",
         "update": "Ažuriraj"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Onemogućeno",
     "dlc": {
         "installDlcs": "Instaliraj sve DLC-eve"

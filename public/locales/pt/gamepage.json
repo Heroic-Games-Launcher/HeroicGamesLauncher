@@ -23,8 +23,7 @@
             "title": "Cancelar Instalação"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Você deseja desinstalar esse jogo?",
             "title": "Desinstalar"
         },
@@ -48,6 +47,7 @@
         "uninstall": "Desinstalar",
         "update": "Update"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Desabilitado",
     "dlc": {
         "installDlcs": "Instalar todas as DLCs"

@@ -20,6 +20,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { ipcRenderer } from 'src/helpers'
 import { ColumnProps, TableInput } from 'src/components/UI/TwoColTableInput'
+import EnvVariablesTable from './EnvVariablesTable'
 
 interface Props {
   audioFix: boolean
@@ -112,19 +113,8 @@ export default function OtherSettings({
   eacRuntime,
   runner
 }: Props) {
-  const handleEnviromentVariables = (values: ColumnProps[]) => {
-    const envs: EnviromentVariable[] = []
-    values.forEach((value) =>
-      envs.push({ key: value.key.trim(), value: value.value.trim() })
-    )
-    setEnviromentOptions([...envs])
-  }
-  const getEnvironmentVariables = () => {
-    const columns: ColumnProps[] = []
-    enviromentOptions.forEach((env) =>
-      columns.push({ key: env.key, value: env.value })
-    )
-    return columns
+  const handleEnviromentVariables = (variables: EnviromentVariable[]) => {
+    setEnviromentOptions([...variables])
   }
   const handleWrapperVariables = (values: ColumnProps[]) => {
     const wrappers = [] as WrapperVariable[]
@@ -287,12 +277,23 @@ export default function OtherSettings({
             />
           </div>
 
-          <ToggleSwitch
-            htmlId="primerun"
-            value={primeRun}
-            handleChange={togglePrimeRun}
-            title={t('setting.primerun', 'Use Dedicated Graphics Card')}
-          />
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="primerun"
+              value={primeRun}
+              handleChange={togglePrimeRun}
+              title={t('setting.primerun', 'Use Dedicated Graphics Card')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.primerun',
+                'Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)'
+              )}
+            />
+          </div>
 
           <ToggleSwitch
             htmlId="audiofix"
@@ -419,22 +420,9 @@ export default function OtherSettings({
         />
       )}
       {!isWin && (
-        <TableInput
-          label={t('options.advanced.title')}
-          htmlId={'enviromentOptions'}
-          header={{
-            key: t('options.advanced.key', 'Variable Name'),
-            value: t('options.advanced.value', 'Value')
-          }}
-          rows={getEnvironmentVariables()}
-          onChange={handleEnviromentVariables}
-          inputPlaceHolder={{
-            key: t('options.advanced.placeHolderKey', 'NAME'),
-            value: t(
-              'options.advanced.placeHolderValue',
-              'E.g.: Path/To/ExtraFiles'
-            )
-          }}
+        <EnvVariablesTable
+          environmentVariables={enviromentOptions}
+          handleEnviromentVariables={handleEnviromentVariables}
         />
       )}
       {!isWin && (

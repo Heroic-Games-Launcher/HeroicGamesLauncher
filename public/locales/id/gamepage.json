@@ -23,8 +23,7 @@
             "title": "Hentikan Pemasangan"
         },
         "uninstall": {
-            "checkbox": "Apakah Anda ingin menghapus prefiks juga? Ini tidak dapat dibatalkan.",
-            "checkbox_prefix": "Prefiks",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Apakah Anda ingin mencopot pemasangan gim ini?",
             "title": "Copot Pemasangan"
         },
@@ -48,6 +47,7 @@
         "uninstall": "Copot",
         "update": "Perbarui"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Dinonaktifkan",
     "dlc": {
         "installDlcs": "Pasang semua DLC"

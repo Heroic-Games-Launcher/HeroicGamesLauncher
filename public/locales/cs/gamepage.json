@@ -23,8 +23,7 @@
             "title": "Zastavit instalaci"
         },
         "uninstall": {
-            "checkbox": "Chcete odstranit i prefix? Tuto akci nelze vrátit zpět.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Chcete odinstalovat tuto hru?",
             "title": "Odinstalovat"
         },
@@ -39,7 +38,7 @@
         "add_to_favourites": "Přidat do oblíbených",
         "cancel": "Zrušit",
         "continue": "Pokračovat ve stahování",
-        "force_update": "Force Update if Available",
+        "force_update": "Vynutit aktualizaci, pokud je dostupná",
         "hide_game": "Skrýt hru",
         "import": "Importovat Hru",
         "install": "Instalovat",
@@ -48,6 +47,7 @@
         "uninstall": "Odinstalovat",
         "update": "Update"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Zakázáno",
     "dlc": {
         "installDlcs": "Instalovat všechna DLC"
@@ -62,8 +62,8 @@
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
         "platform": "Vyberte verzi platformy, kterou chcete nainstalovat",
-        "reuirements": "System Requirements",
-        "tools": "Tools",
+        "reuirements": "Systémové požadavky",
+        "tools": "Nástroje",
         "totalPlayed": "Odehraný čas"
     },
     "gamecard": {
@@ -123,15 +123,15 @@
         "updating": "Aktualizuji hru"
     },
     "submenu": {
-        "addShortcut": "Přidat zkratku",
-        "addToSteam": "Add to Steam",
+        "addShortcut": "Přidat zástupce",
+        "addToSteam": "Přidat do Steamu",
         "change": "Změnit cestu instalace",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "Zakázat překrytí služby EOS",
+        "enableEosOverlay": "Povolit překrytí služby EOS",
         "move": "Přesunout hru",
         "protondb": "Zkontrolovat kompatibilitu",
-        "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeFromSteam": "Odebrat ze Steamu",
+        "removeShortcut": "Odebrat zástupce",
         "settings": "Nastavení",
         "store": "Stránka obchodu",
         "verify": "Zkontrolovat a opravit"

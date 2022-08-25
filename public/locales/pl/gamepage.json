@@ -23,8 +23,7 @@
             "title": "Zatrzymaj instalację"
         },
         "uninstall": {
-            "checkbox": "Czy chcesz również usunąć prefiks Wine? Ta operacja nie może być cofnięta.",
-            "checkbox_prefix": "Prefiks",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Czy chcesz odinstalować tę grę?",
             "title": "Odinstaluj"
         },
@@ -48,6 +47,7 @@
         "uninstall": "Odinstaluj",
         "update": "Aktualizuj"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Wyłączone",
     "dlc": {
         "installDlcs": "Zainstaluj wszystkie DLC"

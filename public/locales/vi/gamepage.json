@@ -23,8 +23,7 @@
             "title": "Dừng quá trình cài đặt"
         },
         "uninstall": {
-            "checkbox": "Bạn có muốn xóa cả prefix không? Không thể hoàn tác.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Xác nhận gỡ cài đặt game?",
             "title": "Gỡ cài đặt"
         },
@@ -48,6 +47,7 @@
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Tắt",
     "dlc": {
         "installDlcs": "Cài đặt tất cả bản mở rộng (DLC)"

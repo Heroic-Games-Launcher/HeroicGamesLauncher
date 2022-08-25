@@ -23,8 +23,7 @@
             "title": "Peata paigaldamine"
         },
         "uninstall": {
-            "checkbox": "Kas soovite ka prefiksi eemaldada? Seda ei saa tagasi võtta.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Kas soovite selle mängu eemaldada?",
             "title": "Eemalda"
         },
@@ -48,6 +47,7 @@
         "uninstall": "Eemalda",
         "update": "Uuenda"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Keelatud",
     "dlc": {
         "installDlcs": "Paigalda kõik DLC'd"

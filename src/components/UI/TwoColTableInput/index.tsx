@@ -1,12 +1,15 @@
-import React, { ReactNode, useContext, useState } from 'react'
+import React, { ReactNode, useContext, useEffect, useState } from 'react'
 import SvgButton from '../SvgButton'
 import TextInputField from '../TextInputField'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons'
 import EditIcon from '@mui/icons-material/Edit'
 import classnames from 'classnames'
 import ContextProvider from 'src/state/ContextProvider'
 import './index.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useTranslation } from 'react-i18next'
 
 export interface ColumnProps {
   key: string
@@ -28,7 +31,11 @@ interface Props {
   inputPlaceHolder?: ColumnProps
   warning?: ReactNode
   afterInput?: ReactNode
+  validation?: (key: string, value: string) => [string, string]
+  connector?: string
 }
+
+const EMPTY_INPUTS = { key: '', value: '' }
 
 export function TableInput({
   label,
@@ -37,18 +44,54 @@ export function TableInput({
   rows,
   fullFills = { key: true, value: true },
   onChange,
-  inputPlaceHolder = { key: '', value: '' },
+  inputPlaceHolder = EMPTY_INPUTS,
   warning,
-  afterInput
+  afterInput,
+  validation,
+  connector = ''
 }: Props) {
   const { isRTL } = useContext(ContextProvider)
+  const { t } = useTranslation()
   const [rowData, setRowData] = useState<ColumnProps[]>(rows)
-  const [valueInputs, setValueInputs] = useState<ColumnProps>({
-    key: '',
-    value: ''
-  })
+  const [valueInputs, setValueInputs] = useState<ColumnProps>(EMPTY_INPUTS)
+  const [originalInputs, setOriginalInputs] =
+    useState<ColumnProps>(EMPTY_INPUTS)
+  const [dirtyInputs, setDirtyInputs] = useState(false)
+  const [keyError, setKeyError] = useState('')
+  const [valueError, setValueError] = useState('')
+
+  useEffect(() => {
+    setDirtyInputs(
+      valueInputs.key !== originalInputs.key ||
+        valueInputs.value !== originalInputs.value
+    )
+
+    if (
+      // if there's a connector, try to split the key
+      connector &&
+      valueInputs.key.includes(connector) &&
+      !valueInputs.value
+    ) {
+      const [key, value] = valueInputs.key.split(connector)
+      setValueInputs({ key: key, value: value })
+    } else {
+      // else, validate input
+      if (validation) {
+        const [keyError, valueError] = validation(
+          valueInputs.key,
+          valueInputs.value
+        )
+        setKeyError(keyError)
+        setValueError(valueError)
+      }
+    }
+  }, [valueInputs])
 
   function addRow(row: ColumnProps) {
+    if (keyError) {
+      return
+    }
+
     if (!row) {
       return
     } else if (
@@ -69,7 +112,9 @@ export function TableInput({
     }
     setRowData([...rowData])
     onChange(rowData)
-    setValueInputs({ key: '', value: '' })
+    setValueInputs(EMPTY_INPUTS)
+    setOriginalInputs(EMPTY_INPUTS)
+    setDirtyInputs(false)
   }
 
   function removeRow(row: ColumnProps) {
@@ -81,6 +126,7 @@ export function TableInput({
 
   function editRow(row: ColumnProps) {
     setValueInputs({ key: row.key, value: row.value })
+    setOriginalInputs({ key: row.key, value: row.value })
   }
 
   return (
@@ -104,6 +150,7 @@ export function TableInput({
                   <td>
                     <span>{row.key}</span>
                   </td>
+                  <td></td>
                   <td>
                     <span>{row.value}</span>
                   </td>
@@ -133,11 +180,13 @@ export function TableInput({
                 value={valueInputs.key}
                 htmlId={`${header.key}-key`}
                 placeholder={inputPlaceHolder.key}
+                extraClass={keyError ? 'error' : ''}
                 onChange={(event) => {
                   setValueInputs({ ...valueInputs, key: event.target.value })
                 }}
               />
             </td>
+            <td>{connector}</td>
             <td>
               <TextInputField
                 label={header.value}
@@ -161,6 +210,24 @@ export function TableInput({
               </SvgButton>
             </td>
           </tr>
+          {(keyError || valueError) && (
+            <tr className="error">
+              <td colSpan={3}>{keyError || valueError}</td>
+            </tr>
+          )}
+          {dirtyInputs && !keyError && !valueError && valueInputs.key && (
+            <tr className="dirty">
+              <td colSpan={3}>
+                <span>
+                  {t(
+                    'two_col_table.save_hint',
+                    'Changes in this table are not saved automatically. Click the + button'
+                  )}
+                </span>
+                <FontAwesomeIcon icon={faArrowUp} />
+              </td>
+            </tr>
+          )}
         </tfoot>
       </table>
       {valueInputs.value && warning}

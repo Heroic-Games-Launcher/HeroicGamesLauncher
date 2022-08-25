@@ -23,8 +23,7 @@
             "title": "توقف نصب"
         },
         "uninstall": {
-            "checkbox": "آیا میخواهید مسیر را هم پاک کنید؟ این کار بازگشت پذیر نیست.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "آیا میخواهید این بازی را حذف کنید؟",
             "title": "حذف"
         },
@@ -48,6 +47,7 @@
         "uninstall": "حذف",
         "update": "بهروزرسانی"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "غیر فعال",
     "dlc": {
         "installDlcs": "نصب همه DLCها"

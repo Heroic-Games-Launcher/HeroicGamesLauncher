@@ -23,8 +23,7 @@
             "title": "Installatie stoppen"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Wilt u dit spel verwijderen?",
             "title": "Verwijderen"
         },
@@ -48,6 +47,7 @@
         "uninstall": "Verwijderen",
         "update": "Update"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Uitgeschakeld",
     "dlc": {
         "installDlcs": "Installeer alle DLC's"
