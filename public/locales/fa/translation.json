@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "این بازی شامل نرم افزار آنتی چیت می باشد"
     },
-    "Assets": "دارایی ها",
     "box": {
         "cache-cleared": {
             "message": "کش Heroic پاک شد.",
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "اجرا متوقف شد! بازی برای اجرا به اتصال اینترنت نیاز دارد.",
-                "title": "حالت آفلاین پشتیبانی نمیشود."
-            },
+            "launchAborted": "Launch aborted",
             "title": "خطا",
             "uncaught-exception": {
                 "message": "یک خطای نامشخص رخ داد:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic بسته خواهد شد! خطا را در ریپوزیتوری گیت‌هاب ما گزارش دهید.",
@@ -364,8 +360,6 @@
         "mac": "مک",
         "win": "ویندوز"
     },
-    "Plugins": "افزونهها",
-    "Projects": "پروژهها",
     "Recent": "اخیرا بازی شده",
     "search": "جست و جو برای بازی ها",
     "setting": {
@@ -459,7 +453,6 @@
         },
         "select_theme": "انتخاب تم",
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
-        "showUnrealMarket": "نمایش فروشگاه Unreal (نیازمند راهاندازی مجدد)",
         "start-in-tray": "شروع در حالت پسزمینه",
         "steamruntime": "استفاده از Steam Runtime",
         "winecrossoverbottle": "CrossOver باتل",
@@ -519,11 +512,7 @@
     "store": "فروشگاه اپیک",
     "stores": "فروشگاهها",
     "title": {
-        "allGames": "همه بازیها",
-        "allUnreal": "Unreal - همهچیز",
-        "unrealAssets": "Unreal - مهرهها",
-        "unrealPlugins": "Unreal - افزونهها",
-        "unrealProjects": "Unreal - پروژهها"
+        "allGames": "همه بازیها"
     },
     "toolbox": {
         "settings": {

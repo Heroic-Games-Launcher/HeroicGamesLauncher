@@ -23,6 +23,9 @@ jobs:
         run: yarn
       - name: Build artifacts.
         run: yarn dist:mac --publish=never
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Upload DMG.
         uses: actions/upload-artifact@v2
         with:

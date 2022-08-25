@@ -23,6 +23,9 @@ jobs:
         run: npm i --legacy-peer-deps
       - name: Build artifacts.
         run: npm run dist:win portable
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Upload EXE.
         uses: actions/upload-artifact@v2
         with:

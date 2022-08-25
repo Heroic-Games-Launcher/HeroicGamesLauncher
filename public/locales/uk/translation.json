@@ -16,7 +16,6 @@
         "status": "Стан",
         "title": "Ця гра містить в собі систему античитів"
     },
-    "Assets": "Надатки",
     "box": {
         "cache-cleared": {
             "message": "Кеш Heroic очищено.",
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Запуск перервано! Гра потребує з'єднання з інтернетом.",
-                "title": "Автономний режим не підтримується."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Помилка",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
@@ -364,8 +360,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Плагіни",
-    "Projects": "Проєкти",
     "Recent": "Нещодавно зіграні",
     "search": "Пошук ігор",
     "setting": {
@@ -459,7 +453,6 @@
         },
         "select_theme": "Оберіть тему",
         "showfps": "Показувати кількість кадрів (DX9, 10 та 11)",
-        "showUnrealMarket": "Показувати торговий майданчик Unreal (необхідний перезапуск)",
         "start-in-tray": "Запускати згорнутим",
         "steamruntime": "Використовувати Steam Runtime",
         "winecrossoverbottle": "Пляшка CrossOver",
@@ -519,11 +512,7 @@
     "store": "Крамниця Epic",
     "stores": "Крамниці",
     "title": {
-        "allGames": "Усі ігри",
-        "allUnreal": "Unreal - Всі",
-        "unrealAssets": "Unreal - Надатки",
-        "unrealPlugins": "Unreal - Плагіни",
-        "unrealProjects": "Unreal - Проєкти"
+        "allGames": "Усі ігри"
     },
     "toolbox": {
         "settings": {

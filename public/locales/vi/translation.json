@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "This game includes anticheat software"
     },
-    "Assets": "Asset",
     "box": {
         "cache-cleared": {
             "message": "Đã xoá bộ nhớ đệm của Heroic.",
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Quá trình khởi chạy đã hủy! Cần có kết nối mạng để chạy game.",
-                "title": "Không hỗ trợ chế độ offline."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Lỗi",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
@@ -364,8 +360,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Plugin",
-    "Projects": "Project",
     "Recent": "Chơi gần đây",
     "search": "Tìm kiếm game",
     "setting": {
@@ -459,7 +453,6 @@
         },
         "select_theme": "chọn Theme",
         "showfps": "Hiển thị FPS (DX9, 10 và 11)",
-        "showUnrealMarket": "Hiển thị Unreal Marketplace (cần khởi động lại)",
         "start-in-tray": "Thu nhỏ khi khởi động",
         "steamruntime": "Sử dụng Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -519,11 +512,7 @@
     "store": "Cửa hàng Epic",
     "stores": "Cửa hàng",
     "title": {
-        "allGames": "Tất cả game",
-        "allUnreal": "Unreal - Tất cả",
-        "unrealAssets": "Unreal - Asset",
-        "unrealPlugins": "Unreal - Plugin",
-        "unrealProjects": "Unreal - Project"
+        "allGames": "Tất cả game"
     },
     "toolbox": {
         "settings": {

@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "안티 치트 소프트웨어가 포함된 게임입니다"
     },
-    "Assets": "에셋",
     "box": {
         "cache-cleared": {
             "message": "Heroic 캐시 삭제됨.",
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "시작 실패! 게임을 실행하려면 인터넷 연결이 필요합니다.",
-                "title": "오프라인 모드는 지원되지 않습니다."
-            },
+            "launchAborted": "Launch aborted",
             "title": "오류",
             "uncaught-exception": {
                 "message": "잡히지 않는 예외가 발생했습니다:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic이 종료 됩니다! Github 레포지트리에 이 예외를 보고하세요.",
@@ -364,8 +360,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "플러그인",
-    "Projects": "프로젝트",
     "Recent": "최근 플레이한 게임",
     "search": "게임 검색",
     "setting": {
@@ -459,7 +453,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "FPS 표시 (DX9, 10 및 11)",
-        "showUnrealMarket": "Unreal Marketplace 표시 (다시 시작해야 함)",
         "start-in-tray": "최소화로 시작",
         "steamruntime": "Steam 런타임 사용",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -519,11 +512,7 @@
     "store": "Epic Store",
     "stores": "Stores",
     "title": {
-        "allGames": "모든 게임",
-        "allUnreal": "Unreal - Everything",
-        "unrealAssets": "Unreal - 에셋",
-        "unrealPlugins": "Unreal - 플러그인",
-        "unrealProjects": "Unreal - 프로젝트"
+        "allGames": "모든 게임"
     },
     "toolbox": {
         "settings": {
