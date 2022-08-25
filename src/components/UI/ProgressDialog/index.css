@@ -7,10 +7,6 @@
   width: 100%;
 }
 
-.progressDialog .Dialog__headerClose {
-  display: none;
-}
-
 .progressDialog.log-box {
   background-color: #1e1e1e;
   border-radius: 10px;

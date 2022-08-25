@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 export function ProgressDialog(props: {
   title: string
   progress: string[]
+  showCloseButton: boolean
   onClose: () => void
 }) {
   const { t } = useTranslation()
@@ -45,7 +46,10 @@ export function ProgressDialog(props: {
   return (
     <>
       <Dialog onClose={props.onClose} className={classNames('progressDialog')}>
-        <DialogHeader onClose={props.onClose}>
+        <DialogHeader
+          onClose={props.onClose}
+          showCloseButton={props.showCloseButton}
+        >
           <div>{props.title}</div>
         </DialogHeader>
         <DialogContent>

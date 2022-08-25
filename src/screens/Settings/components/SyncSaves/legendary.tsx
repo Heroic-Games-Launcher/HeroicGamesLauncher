@@ -10,6 +10,7 @@ import {
   TextInputWithIconField,
   ToggleSwitch
 } from 'src/components/UI'
+import { ProgressDialog } from 'src/components/UI/ProgressDialog'
 import {
   fixLegendarySaveFolder,
   getGameInfo,
@@ -43,6 +44,8 @@ export default function LegendarySyncSaves({
   const [isSyncing, setIsSyncing] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [syncType, setSyncType] = useState('--skip-upload')
+  const [manuallyOutput, setManuallyOutput] = useState<string[]>([])
+  const [manuallyOutputShow, setManuallyOutputShow] = useState<boolean>(false)
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
@@ -109,11 +112,10 @@ export default function LegendarySyncSaves({
     setIsSyncing(true)
 
     await syncSaves(savesPath, appName, 'legendary', syncType).then(
-      async (res: string) =>
-        ipcRenderer.invoke('openMessageBox', {
-          message: res,
-          title: 'Saves Sync'
-        })
+      (response: string) => {
+        setManuallyOutput(response.split('\n'))
+        setManuallyOutputShow(true)
+      }
     )
     setIsSyncing(false)
   }
@@ -121,6 +123,16 @@ export default function LegendarySyncSaves({
   return (
     <>
       <h3 className="settingSubheader">{t('settings.navbar.sync')}</h3>
+      {manuallyOutputShow && (
+        <ProgressDialog
+          title={'Sync-Saves'}
+          progress={manuallyOutput}
+          showCloseButton={true}
+          onClose={() => {
+            setManuallyOutputShow(false)
+          }}
+        />
+      )}
       <div className="infoBox saves-warning">
         <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
         {t(

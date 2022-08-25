@@ -102,6 +102,7 @@ export default function Tools({ appName, runner }: Props) {
           <ProgressDialog
             title={'Winetricks'}
             progress={progress}
+            showCloseButton={false}
             onClose={() => {
               return
             }}
