@@ -221,6 +221,7 @@
             "part7": " за да се пропусне стартиращата програма в някои игри и т.н."
         },
         "preferSystemLibs": "Вариациите на Wine (Wine-GE, Wine-Lutris) вървят със своите собствени библиотечни зависимости. Ако включите тази настройка, те ще бъдат пренебрегнати и Wine ще ползва системните библиотеки. Внимание! Ако зависимостите не са изпълнени, може да има проблеми.",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "Технологията „Resizable Bar“ на NVIDIA помага за увеличаване на броя кадри в секунда, като дава на централния процесор достъп до целия графичен буфер. Включването на това може да подобри производителността за игри използващи Vulkan.",
         "steamruntime": "Специални библиотеки осигурени от Steam, които помагат за пускането на игри за Линукс и Уиндоус (чрез Proton). Включването им може да подобри съвместимостта.",
         "sync": {
@@ -248,7 +249,13 @@
     "infobox": {
         "help": "Помощ",
         "requirements": "Системни изисквания",
-        "wine-path": "Път до Wine"
+        "wine-path": "Път до Wine",
+        "wine-prefix": {
+            "title": "Wine Prefix"
+        },
+        "wine-repfix": {
+            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+        }
     },
     "install": {
         "path": "Изберете местоположение за инсталиране"

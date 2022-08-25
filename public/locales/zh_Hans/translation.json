@@ -221,6 +221,7 @@
             "part7": " 在某些游戏中跳过启动器等。"
         },
         "preferSystemLibs": "自定义 Wine 版本(Wine- ge、Wine- lutris)随它们的库依赖项一起发布。启用此选项，这些附带的库将被忽略，Wine 将加载系统库。警告！如果不满足依赖关系，可能会出现问题。",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA 的 Resizable Bar 通过让 CPU 访问整个图形缓冲区来提高帧率。启用可能会提高基于 Vulkan 的游戏的性能。",
         "steamruntime": "Steam 提供的用于帮助运行 Linux 和 Windows（Proton）游戏的自定义库。启用可能会提高兼容性。",
         "sync": {
@@ -248,7 +249,13 @@
     "infobox": {
         "help": "帮助",
         "requirements": "系统要求",
-        "wine-path": "Wine 路径"
+        "wine-path": "Wine 路径",
+        "wine-prefix": {
+            "title": "Wine Prefix"
+        },
+        "wine-repfix": {
+            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+        }
     },
     "install": {
         "path": "选择安装路径"

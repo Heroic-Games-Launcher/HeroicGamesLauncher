@@ -221,6 +221,7 @@
             "part7": " et jätta mõnedes mängudes käivitaja vahele jne."
         },
         "preferSystemLibs": "Kohandatud Wine versioonid (Wine-GE, Wine-Lutris) tarnitakse koos nende teegi sõltuvustega. Selle valiku lubamisel ignoreeritakse neid tarnitud teeke ja Wine laadib selle asemel süsteemiteeke. Hoiatus! Kui sõltuvusi ei täideta, võib tekkida probleeme.",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA Resizable Bar aitab suurendada kaadrisagedust, sundides protsessorit kasutama kogu graafikapuhvrit. Selle lubamine võib parandada Vulkanil põhinevate mängude jõudlust.",
         "steamruntime": "Steami pakutavad kohandatud teegid, mis aitavad käivitada Linuxi ja Windowsi (Protoni) mänge. Lubamine võib parandada ühilduvust.",
         "sync": {
@@ -248,7 +249,13 @@
     "infobox": {
         "help": "Abi",
         "requirements": "Süsteeminõuded",
-        "wine-path": "Wine'i tee"
+        "wine-path": "Wine'i tee",
+        "wine-prefix": {
+            "title": "Wine Prefix"
+        },
+        "wine-repfix": {
+            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+        }
     },
     "install": {
         "path": "Valige paigaldustee"

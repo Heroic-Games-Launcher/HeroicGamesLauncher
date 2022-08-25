@@ -221,6 +221,7 @@
             "part7": " um den Launcher in einigen Spielen zu überspringen, usw."
         },
         "preferSystemLibs": "Benutzerdefinierte Wine-Versionen (Wine-GE, Wine-Lutris) werden mit ihren Bibliotheks-Abhängigkeiten ausgeliefert. Wenn du diese Option aktivierst, werden diese mitgelieferten Bibliotheken ignoriert und Wine lädt stattdessen die Systembibliotheken. Warnung! Es können Probleme auftreten, wenn die Abhängigkeiten nicht erfüllt sind.",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIAs Resizable Bar trägt zur Verbesserung der Framerate bei, indem die CPU auf den gesamten Grafikpuffer zugreift. Durch Aktivieren kann die Leistung für Vulkan-basierte Spiele verbessert werden.",
         "steamruntime": "Benutzerdefinierte Bibliotheken, die von Steam bereitgestellt werden, um die Ausführung von Linux- und Windows-Spielen (Proton) zu unterstützen. Durch Aktivieren kann die Kompatibilität verbessert werden.",
         "sync": {
@@ -248,7 +249,13 @@
     "infobox": {
         "help": "Hilfe",
         "requirements": "Systemanforderungen",
-        "wine-path": "Wine-Pfad"
+        "wine-path": "Wine-Pfad",
+        "wine-prefix": {
+            "title": "Wine Prefix"
+        },
+        "wine-repfix": {
+            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+        }
     },
     "install": {
         "path": "Installationspfad auswählen"

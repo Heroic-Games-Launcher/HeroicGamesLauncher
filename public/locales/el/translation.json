@@ -221,6 +221,7 @@
             "part7": " για παράλειψη του εκκινητή σε κάποια παιχνίδια, κτλ."
         },
         "preferSystemLibs": "Οι προσαρμοσμένες εκδόσεις Wine (Wine-GE, Wine-Lutris) αποστέλλονται με τις εξαρτήσεις της βιβλιοθήκης τους. Με την ενεργοποίηση αυτής της επιλογής, αυτές οι αποσταλμένες βιβλιοθήκες θα αγνοηθούν και το Wine θα φορτώσει τις βιβλιοθήκες του συστήματος. Προειδοποίηση! Ενδέχεται να προκύψουν προβλήματα εάν δεν ικανοποιηθούν οι εξαρτήσεις.",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
@@ -248,7 +249,13 @@
     "infobox": {
         "help": "Βοήθεια",
         "requirements": "Απαιτήσεις Συστήματος",
-        "wine-path": "Διαδρομή Wine"
+        "wine-path": "Διαδρομή Wine",
+        "wine-prefix": {
+            "title": "Wine Prefix"
+        },
+        "wine-repfix": {
+            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+        }
     },
     "install": {
         "path": "Επιλέξτε διαδρομή εγκατάστασης"

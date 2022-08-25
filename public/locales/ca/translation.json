@@ -221,6 +221,7 @@
             "part7": " per a ometre el llançador a alguns jocs, etc."
         },
         "preferSystemLibs": "Les versions personalitzades del Wine (Wine-GE, Wine-Lutris) s'envien amb les seves dependències de biblioteques. Quan s'activa aquesta opció, s'ignoraran les biblioteques enviades i Wine carregarà les biblioteques del sistema. Avís! Es poden produir problemes si no es compleixen les dependències.",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "La barra redimensionable de NVIDIA ajuda a augmentar els FPS fent que la CPU accedeixi a la memòria gràfica. Si s'habilita, el rendiment dels jocs basats en Vulkan pot millorar.",
         "steamruntime": "Biblioteques personalitzades que proporciona l'Steam per executar jocs en Linux i en Windows (Proton). Si s'activa, pot millorar la compatibilitat.",
         "sync": {
@@ -248,7 +249,13 @@
     "infobox": {
         "help": "Ajuda",
         "requirements": "Requisits del sistema",
-        "wine-path": "Camí del Wine"
+        "wine-path": "Camí del Wine",
+        "wine-prefix": {
+            "title": "Wine Prefix"
+        },
+        "wine-repfix": {
+            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+        }
     },
     "install": {
         "path": "Selecciona la ruta d'instal·lació"

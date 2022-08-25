@@ -17,10 +17,7 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
   const loadRecentGames = () => {
-    const newRecentGames: GameInfo[] = getRecentGames([
-      ...epic.library,
-      ...gog.library
-    ])
+    const newRecentGames = getRecentGames([...epic.library, ...gog.library])
 
     setRecentGames(newRecentGames)
   }

@@ -23,8 +23,7 @@
             "title": "インストールを停止する"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "このゲームをアンインストールしたいですか？",
             "title": "アンインストール"
         },

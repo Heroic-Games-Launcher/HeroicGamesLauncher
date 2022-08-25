@@ -23,8 +23,7 @@
             "title": "Pysäytä asennus"
         },
         "uninstall": {
-            "checkbox": "Haluatko poistaa myös etuliitteen? Tätä ei voi perua.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Haluatko poistaa pelin asennuksen?",
             "title": "Poista"
         },
