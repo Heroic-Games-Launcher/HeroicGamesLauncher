@@ -295,15 +295,13 @@ type RecentGame = {
   title: string
 }
 
-function getRecentGames(libraries: GameInfo[]) {
+function getRecentGames(libraries: GameInfo[]): GameInfo[] {
   const recentGames =
     (configStore.get('games.recent', []) as Array<RecentGame>) || []
 
-  return (
-    recentGames.filter(Boolean).map((game) => {
-      return libraries.find((info) => info.app_name === game.appName)
-    }) ?? ([] as GameInfo[]) // needed to return empty array instead undefined
-  )
+  return recentGames.filter(Boolean).map((game) => {
+    return libraries.find((info) => info.app_name === game.appName)
+  }) as GameInfo[] // set to not return a undefined array
 }
 
 export const epicCategories = ['all', 'legendary', 'epic', 'unreal']
