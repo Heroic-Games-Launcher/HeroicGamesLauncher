@@ -53,7 +53,9 @@ export function ProgressDialog(props: {
           <div>{props.title}</div>
         </DialogHeader>
         <DialogContent>
-          <div>{t('progress', 'Progress')}:</div>
+          <div className="progressDialog header">
+            {t('progress', 'Progress')}:
+          </div>
           <div className="progressDialog log-box" ref={logRef}>
             {props.progress.map((line, key) => {
               if (line.toLowerCase().includes(' err')) {
@@ -78,7 +80,7 @@ export function ProgressDialog(props: {
             })}
             <div ref={winetricksOutputBottomRef} />
           </div>
-          <LinearProgress />
+          <LinearProgress className="progressDialog linearProgress" />
         </DialogContent>
       </Dialog>
     </>

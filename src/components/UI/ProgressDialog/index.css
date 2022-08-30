@@ -44,3 +44,16 @@
 .progressDialog.log-info {
   color: rgb(175, 172, 172);
 }
+
+.progressDialog.header {
+  margin-bottom: 10px;
+}
+
+.progressDialog.linearProgress {
+  margin-top: 10px;
+  background-color: var(--primary);
+}
+
+.progressDialog.linearProgress > .MuiLinearProgress-bar {
+  background-color: var(--accent);
+}
