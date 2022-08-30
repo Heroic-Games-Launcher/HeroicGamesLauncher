@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
+            },
+            "winetricks": {
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
@@ -372,6 +376,7 @@
         "win": "விண்டோஸ்"
     },
     "Plugins": "செருகுநிரல்கள்",
+    "progress": "Progress",
     "Projects": "செயல்திட்டம்",
     "Recent": "சமீபத்தில் விளையாடியவை",
     "search": "விளையாட்டுகளைத் தேடு",

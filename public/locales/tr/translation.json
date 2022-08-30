@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
                 "title": "Wine Bulunamadı"
+            },
+            "winetricks": {
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
@@ -372,6 +376,7 @@
         "win": "Windows"
     },
     "Plugins": "Eklentiler",
+    "progress": "Progress",
     "Projects": "Projeler",
     "Recent": "Son Oynanan",
     "search": "Oyun Ara",

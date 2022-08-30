@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "Tidak Ada Versi Wine yang Dipilih. Periksa Pengaturan Gim!",
                 "title": "Wine Tidak Ditemukan"
+            },
+            "winetricks": {
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
@@ -372,6 +376,7 @@
         "win": "Windows"
     },
     "Plugins": "Pengaya",
+    "progress": "Progress",
     "Projects": "Proyek",
     "Recent": "Dimainkan Baru-Baru Ini",
     "search": "Cari Gim",

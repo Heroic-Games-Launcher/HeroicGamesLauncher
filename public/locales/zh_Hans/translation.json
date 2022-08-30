@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "未选择 Wine 版本。检查游戏设置！",
                 "title": "未找到 Wine"
+            },
+            "winetricks": {
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
@@ -372,6 +376,7 @@
         "win": "Windows"
     },
     "Plugins": "插件",
+    "progress": "Progress",
     "Projects": "项目",
     "Recent": "最近玩过",
     "search": "搜索游戏",

@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "Δεν επιλέχθηκε έκδοση Wine. Ελέγξτε τις ρυθμίσεις παιχνιδιού!",
                 "title": "Το Wine δεν βρέθηκε"
+            },
+            "winetricks": {
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
@@ -372,6 +376,7 @@
         "win": "Windows"
     },
     "Plugins": "Plugins",
+    "progress": "Progress",
     "Projects": "Πρότζεκτ",
     "Recent": "Παίχτηκε Πρόσφατα",
     "search": "Αναζήτηση για Παιχνίδια",

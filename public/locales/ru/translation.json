@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
                 "title": "Wine не найден"
+            },
+            "winetricks": {
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
@@ -372,6 +376,7 @@
         "win": "Windows"
     },
     "Plugins": "Плагины",
+    "progress": "Progress",
     "Projects": "Проекты",
     "Recent": "Запускались недавно",
     "search": "Поиск игр",

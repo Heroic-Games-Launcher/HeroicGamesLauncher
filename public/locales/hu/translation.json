@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "Nincs kiválasztott Wine verzió. Ellenőrizd a játék beállításait!",
                 "title": "Wine nem található"
+            },
+            "winetricks": {
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
@@ -372,6 +376,7 @@
         "win": "Windows"
     },
     "Plugins": "Beépülők",
+    "progress": "Progress",
     "Projects": "Projektek",
     "Recent": "Nemrég játszott",
     "search": "Játékok keresése",

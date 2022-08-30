@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "Chưa chọn phiên bản Wine. Kiểm tra phần cài đặt!",
                 "title": "Không tìm thấy Wine"
+            },
+            "winetricks": {
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
@@ -372,6 +376,7 @@
         "win": "Windows"
     },
     "Plugins": "Plugin",
+    "progress": "Progress",
     "Projects": "Project",
     "Recent": "Chơi gần đây",
     "search": "Tìm kiếm game",

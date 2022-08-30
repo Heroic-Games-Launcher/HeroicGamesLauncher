@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "Nessuna versione di Wine selezionata. Controlla le impostazioni del gioco!",
                 "title": "Wine non trovato"
+            },
+            "winetricks": {
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
@@ -372,6 +376,7 @@
         "win": "Windows"
     },
     "Plugins": "Plugins",
+    "progress": "Progress",
     "Projects": "Progetti",
     "Recent": "Giocato di recente",
     "search": "Cerca giochi",

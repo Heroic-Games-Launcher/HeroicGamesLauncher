@@ -75,6 +75,10 @@
             "wine-not-found": {
                 "message": "Wine 버전이 선택되지 않았습니다. 게임 설정을 확인하세요!",
                 "title": "Wine을 찾을 수 없음"
+            },
+            "winetricks": {
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
@@ -372,6 +376,7 @@
         "win": "Windows"
     },
     "Plugins": "플러그인",
+    "progress": "Progress",
     "Projects": "프로젝트",
     "Recent": "최근 플레이한 게임",
     "search": "게임 검색",
