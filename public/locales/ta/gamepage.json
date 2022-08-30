@@ -23,8 +23,8 @@
             "title": "நிறுவலை நிறுத்து"
         },
         "uninstall": {
-            "checkbox": "Would you like to remove the prefix aswell? This can't be undone.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "முன்னொட்டையும் நீக்க விரும்புகிறீர்களா? இதை செயல்தவிர்க்க முடியாது.",
+            "checkbox_prefix": "முன்னொட்டு",
             "message": "இந்த விளையாட்டை நிறுவல்-நீக்க விரும்புகிறீர்களா?",
             "title": "நிறுவல் நீக்கு"
         },
@@ -32,7 +32,7 @@
             "message": "இந்த விளையாட்டுக்கு ஒரு புதுப்பிப்பு உள்ளது, இப்போது புதுப்பிக்க விரும்புகிறீர்களா?",
             "title": "விளையாட்டு புதுப்பிப்பு தேவை"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "ஒயின் ப்ரிஃபிக்ஸ் கோப்புறையைத் தேர்ந்தெடுக்கவும்",
         "yes": "ஆம்"
     },
     "button": {
@@ -48,6 +48,7 @@
         "uninstall": "நிறுவல் நீக்கு",
         "update": "Update"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "முடக்கப்பட்டது",
     "dlc": {
         "installDlcs": "Install all DLCs"
@@ -128,7 +129,6 @@
         "change": "நிறுவல் பாதையை மாற்று",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "log": "சமீபத்திய பதிவு",
         "move": "விளையாட்டை நகர்த்து",
         "protondb": "பொருந்தக்கூடிய தன்மையை சரிபார்",
         "removeFromSteam": "Remove from Steam",

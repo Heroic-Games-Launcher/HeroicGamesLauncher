@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 
 import {
-  Category,
   FavouriteGame,
   GameInfo,
   GameStatus,
@@ -10,8 +9,8 @@ import {
   RefreshOptions,
   Runner,
   WineVersionInfo
-} from '../../common/types'
-import { LibraryTopSectionOptions } from '../../frontend/types'
+} from 'common/types'
+import { Category, LibraryTopSectionOptions } from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   getLegendaryConfig,
@@ -58,7 +57,6 @@ interface StateProps {
   }
   wineVersions: WineVersionInfo[]
   error: boolean
-  filter: string
   filterText: string
   filterPlatform: string
   gameUpdates: string[]
@@ -79,6 +77,7 @@ interface StateProps {
   actionsFontFamily: string
   allTilesInColor: boolean
   sidebarCollapsed: boolean
+  activeController: string
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -116,7 +115,6 @@ export class GlobalState extends PureComponent<Props> {
       ? (wineDownloaderInfoStore.get('wine-releases', []) as WineVersionInfo[])
       : [],
     error: false,
-    filter: storage.getItem('filter') || 'all',
     filterText: '',
     filterPlatform: 'all',
     gameUpdates: [],
@@ -145,7 +143,8 @@ export class GlobalState extends PureComponent<Props> {
       (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
     actionsFontFamily:
       (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
-    allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false
+    allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
+    activeController: ''
   }
 
   setLanguage = (newLanguage: string) => {
@@ -250,7 +249,6 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   handleSuccessfulLogin = (runner: Runner) => {
-    this.handleFilter('all')
     this.handleCategory(runner)
     this.refreshLibrary({
       fullRefresh: true,
@@ -325,11 +323,10 @@ export class GlobalState extends PureComponent<Props> {
 
   refresh = async (
     library?: Runner | 'all',
-    checkUpdates?: boolean
+    checkUpdates = false
   ): Promise<void> => {
     console.log('refreshing')
 
-    let updates = this.state.gameUpdates
     const currentLibraryLength = this.state.epic.library?.length
     let epicLibrary: Array<GameInfo> =
       (libraryStore.get('library', []) as Array<GameInfo>) || []
@@ -344,16 +341,13 @@ export class GlobalState extends PureComponent<Props> {
       epicLibrary = legendaryLibrary
     }
 
-    try {
-      const newUpdates: string[] = await ipcRenderer.invoke(
-        'checkGameUpdates',
-        library
-      )
-      updates = checkUpdates
-        ? [...new Set([...newUpdates, ...this.state.gameUpdates])]
-        : this.state.gameUpdates
-    } catch (error) {
-      ipcRenderer.send('logError', error)
+    let updates = this.state.gameUpdates
+    if (checkUpdates && library) {
+      try {
+        updates = await ipcRenderer.invoke('checkGameUpdates')
+      } catch (error) {
+        ipcRenderer.send('logError', error)
+      }
     }
 
     this.setState({
@@ -439,7 +433,6 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   handleSearch = (input: string) => this.setState({ filterText: input })
-  handleFilter = (filter: string) => this.setState({ filter })
   handlePlatformFilter = (filterPlatform: string) =>
     this.setState({ filterPlatform })
   handleLayout = (layout: string) => this.setState({ layout })
@@ -591,12 +584,18 @@ export class GlobalState extends PureComponent<Props> {
       })
     }
 
+    window.addEventListener(
+      'controller-changed',
+      (e: CustomEvent<{ controllerId: string }>) => {
+        this.setState({ activeController: e.detail.controllerId })
+      }
+    )
+
     ipcRenderer.send('frontendReady')
   }
 
   componentDidUpdate() {
     const {
-      filter,
       gameUpdates,
       libraryStatus,
       layout,
@@ -608,7 +607,6 @@ export class GlobalState extends PureComponent<Props> {
     } = this.state
 
     storage.setItem('category', category)
-    storage.setItem('filter', filter)
     storage.setItem('layout', layout)
     storage.setItem('updates', JSON.stringify(gameUpdates))
     storage.setItem('show_hidden', JSON.stringify(showHidden))
@@ -647,7 +645,6 @@ export class GlobalState extends PureComponent<Props> {
             logout: this.gogLogout
           },
           handleCategory: this.handleCategory,
-          handleFilter: this.handleFilter,
           handleGameStatus: this.handleGameStatus,
           handleLayout: this.handleLayout,
           handlePlatformFilter: this.handlePlatformFilter,

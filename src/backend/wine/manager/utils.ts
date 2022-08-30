@@ -133,7 +133,7 @@ async function installWineVersion(
       logWarning(`${error.message}`, { prefix: LogPrefix.WineDownloader })
       return 'abort'
     } else {
-      logError(`${error}`, { prefix: LogPrefix.WineDownloader })
+      logError(error, { prefix: LogPrefix.WineDownloader })
       return 'error'
     }
   }
@@ -179,7 +179,7 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
     try {
       rmSync(release.installDir, { recursive: true })
     } catch (error) {
-      logError(`${error}`, { prefix: LogPrefix.WineDownloader })
+      logError(error, { prefix: LogPrefix.WineDownloader })
       logWarning(
         `Couldn't remove folder ${release.installDir}! Still mark wine version ${release.version} as not installed!`,
         { prefix: LogPrefix.WineDownloader }

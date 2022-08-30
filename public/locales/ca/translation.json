@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "Aquest joc inclou programari antitrampes."
     },
-    "Assets": "Recursos",
     "box": {
         "cache-cleared": {
             "message": "S'ha buidat la memòria cau de l'Heroic.",
@@ -60,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "{{game}} no s'ha pogut treure de l'Steam a causa de:{{newLine}} {{error}}",
-                    "title": "Error al treure el component"
-                }
-            },
             "title": "Error",
+            "uncaught-exception": {
+                "message": "S'ha produït una excepció no detectada:{{newLine}}{{error}}{{newLine}}{{newLine}}El Heroic es tancarà! Informeu de l'error al nostre dipòsit de Github.",
+                "title": "S'ha produït una excepció no detectada!"
+            },
             "update": {
                 "message": "L'actualització ha fallat. Si us plau, comproveu els registres o proveu-ho de nou més tard.",
                 "title": "Update Error"
@@ -99,7 +96,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Segur que vols restablir l'Heroic? Això suprimirà tota la configuració i la memòria cau, però no suprimirà els jocs instal·lats o les credencials de l'Epic",
+                "message": "Esteu segur que voleu restablir el Heroic? Es suprimirà tota la configuració i la memòria cau, però no eliminarà els jocs instal·lats ni les vostres credencials d'Epic. Les versions portables (AppImage, WinPortable, ...) del Heroic s'han de reiniciar manualment després.",
                 "title": "Restableix l'Heroic"
             }
         },
@@ -149,23 +146,23 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
-            "back": "Back",
+            "activate": "Activa",
+            "back": "Enrere",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
+            "close_context_menu": "Tanca el menú contextual",
+            "close_dialog": "Tanca el diàleg",
+            "close_keyboard": "Tanca el teclat virtual",
             "context_menu": "Context menu",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
+            "game_details": "Detalls del joc",
+            "game_settings": "Configuració del joc",
+            "install_game": "Instal·la el joc",
+            "move_cursor": "Mou el cursor",
             "none": "None",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "play_game": "Play game",
+            "open_virtual_keyboard": "Obre el teclat virtual",
+            "play_game": "Juga al joc",
             "scroll": "Scroll",
-            "space": "Space",
-            "update_game": "Update game"
+            "space": "Espai",
+            "update_game": "Actualitza el joc"
         }
     },
     "docs": "Documentation",
@@ -236,6 +233,9 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Hi ha una actualització disponible!",
+            "stable": "Estable",
             "version": "Heroic Version"
         },
         "settings": "La configuració es desa automàticament",
@@ -255,8 +255,8 @@
         "sortByStatus": "Ordena per estat",
         "sortDescending": "Ordre descendent",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "Commuta a una vista de graella",
+            "list": "Commuta a una vista en llista"
         }
     },
     "Library": "Biblioteca",
@@ -279,15 +279,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} no s'ha pogut afegir a tots els usuaris de l'Steam trobats. Consulteu els registres per obtenir més informació. Cal reiniciar l'Steam per tal que els canvis tinguin efecte.",
-                    "success": "{{game}} s'ha afegit correctament a l'Steam. Cal reiniciar l'Steam per tal que els canvis tinguin efecte.",
+                    "corrupt": "{{game}} no s'ha pogut afegir per tots els usuaris de l'Steam. Vegeu els registres per més informació. Cal reiniciar l'Steam perquè els canvis tinguin efecte.",
+                    "success": "{{game}} s'ha afegit correctament a l'Steam. Cal reiniciar l'Steam perquè els canvis tinguin efecte.",
                     "title": "S'ha afegit a l'Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} no s'ha pogut suprimir de tots els usuaris de l'Steam trobats. Vegeu els registres per obtenir més informació. Cal reiniciar l'Steam per tal que els canvis tinguin efecte.",
-                    "success": "{{game}} s'ha tret correctament de l'Steam. Cal reiniciar l'Steam per tal que els canvis tinguin efecte.",
+                    "corrupt": "{{game}} no s'ha pogut eliminar de tots els usuaris de l'Steam trobats. Consulteu els registres per obtenir més informació. Cal reiniciar l'Steam perquè els canvis tinguin efecte.",
+                    "success": "{{game}} s'ha eliminat correctament de l'Steam. Cal reiniciar l'Steam perquè els canvis tinguin efecte.",
                     "title": "S'ha tret de l'Steam"
                 }
             },
@@ -302,6 +302,7 @@
         },
         "moved": "Ha finalitzat el desplaçament",
         "moving": "S'està movent el joc...",
+        "new-heroic-version": "Hi ha una nova versió del Heroic!",
         "refresh": {
             "error": "No s'ha pogut aconseguir el llistat de versions, potser per les restriccions de l'API del GitHub. Proveu-ho més tard."
         },
@@ -317,8 +318,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "Per exemple: Camí/A/FitxersAddicionals",
-            "title": "Opcions avançades (variables d'entorn):",
+            "title": "Environment Variables",
             "value": "Valor"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "Introdueix aquí els arguments del llançador",
@@ -350,8 +360,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Extensions",
-    "Projects": "Projectes",
     "Recent": "Jugats fa poc",
     "search": "Cerca jocs",
     "setting": {
@@ -364,7 +372,8 @@
         "autosync": "Sincronitza automàticament les partides desades",
         "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",
         "change-target-exe": "Selecciona un EXE alternatiu a executar",
-        "crossover-version": "Crossover Version",
+        "checkForUpdatesOnStartup": "Comprova si hi ha actualitzacions del Heroic a l'inici",
+        "crossover-version": "Versió híbrida (crossover)",
         "customWineProton": "Rutes del Wine o Proton personalitzades",
         "darktray": "Utilitza la icona fosca a la safata",
         "default-install-path": "Ruta d'instal·lació predefinida",
@@ -405,7 +414,7 @@
             "disabled": "Desactivat",
             "favourites": "Jocs preferits",
             "recently_played": "Jocs jugats fa poc",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "recently_played_installed": "Jocs jugats fa poc (només els instal·lats)"
         },
         "library_top_section": "Secció superior de la biblioteca",
         "log": {
@@ -427,7 +436,7 @@
             "title": "Sincronització manual de partides desades",
             "upload": "Puja"
         },
-        "maxRecentGames": "Jugats recentment a mostrar",
+        "maxRecentGames": "Jugats fa poc a mostrar",
         "maxworkers": "Nombre màxim de Workers en baixar",
         "minimize-on-launch": "Minimitza el Heroic després d'executar un joc",
         "offlinemode": "Executa el joc sense connexió",
@@ -444,7 +453,6 @@
         },
         "select_theme": "Selecciona un tema",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
-        "showUnrealMarket": "Mostra la llibreria d'Unreal (cal reiniciar)",
         "start-in-tray": "Inicia minimitzat",
         "steamruntime": "Usa el Runtime de l'Steam",
         "winecrossoverbottle": "Ampolla CrossOver",
@@ -487,6 +495,7 @@
         "open-config-file": "Obre el fitxer de configuració",
         "reset-heroic": "Restableix l'Heroic",
         "saves": {
+            "label": "Ubicació de les desades:",
             "warning": "La funció de desar al núvol està en versió beta. Si us plau, feu una còpia de seguretat de les vostres partides desades abans de sincronitzar-les, per si quelcom sortís malament."
         }
     },
@@ -503,11 +512,7 @@
     "store": "Botiga de l'Epic",
     "stores": "Botigues",
     "title": {
-        "allGames": "Tots els jocs",
-        "allUnreal": "Unreal - Tot",
-        "unrealAssets": "Unreal - Recursos",
-        "unrealPlugins": "Unreal - Extensions",
-        "unrealProjects": "Unreal - Projectes"
+        "allGames": "Tots els jocs"
     },
     "toolbox": {
         "settings": {
@@ -525,6 +530,10 @@
         "reload": "Carrega de nou",
         "show": "Mostra"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
+    "Update Available!": "",
     "userselector": {
         "discord": "Discord",
         "logout": "Tanca la sessió",

@@ -16,7 +16,6 @@
         "status": "Состояние",
         "title": "Эта игра включает в себя античит"
     },
-    "Assets": "Ресурсы",
     "box": {
         "cache-cleared": {
             "message": "Кэш Heroic очищен.",
@@ -60,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Удаление {{game}} из Steam не удалось:{{newLine}}{{error}}",
-                    "title": "Ошибка удаления"
-                }
-            },
             "title": "Ошибка",
+            "uncaught-exception": {
+                "message": "Произошло необрабатываемое исключение:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic будет закрыт! Сообщите об исключении в нашем репозитории Github.",
+                "title": "Произошло необрабатываемое исключение!"
+            },
             "update": {
                 "message": "Что-то пошло не так с обновлением, проверьте журналы или повторите попытку позже!",
                 "title": "Ошибка обновления"
@@ -99,7 +96,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Вы уверены, что хотите сбросить Heroic? Это удалит все настройки и кэш, но не удалит установленные игры или ваши учетные данные Epic",
+                "message": "Вы уверены, что хотите сбросить Heroic? Это удалит все настройки и кэширование, но не удалит установленные игры или учетные данные Epic. Портативные версии (AppImage, WinPortable, ...) Heroic после этого необходимо перезапустить вручную.",
                 "title": "Сброс Heroic"
             }
         },
@@ -149,23 +146,23 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
-            "back": "Back",
+            "activate": "Активировать",
+            "back": "Назад",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
-            "context_menu": "Context menu",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
+            "close_context_menu": "Закрыть контекстное меню",
+            "close_dialog": "Закрыть диалог",
+            "close_keyboard": "Закрыть клавиатуру",
+            "context_menu": "Контекстное меню",
+            "game_details": "Детали игры",
+            "game_settings": "Настройки игры",
+            "install_game": "Установить игру",
+            "move_cursor": "Перемещение курсора",
             "none": "None",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "play_game": "Play game",
+            "open_virtual_keyboard": "Открыть виртуальную клавиатуру",
+            "play_game": "Играть",
             "scroll": "Scroll",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Обновить игру"
         }
     },
     "docs": "Документация",
@@ -236,6 +233,9 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Доступно обновление!",
+            "stable": "Стабильный",
             "version": "Версия Heroic"
         },
         "settings": "Настройки сохраняются автоматически",
@@ -279,15 +279,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} не удалось добавить всем найденным пользователям Steam. Дополнительную информацию см. в журналах.  Чтобы изменения вступили в силу, требуется перезапуск Steam.",
-                    "success": "{{game}} была успешно добавлена в Steam. Чтобы изменения вступили в силу, требуется перезапуск Steam.",
+                    "corrupt": "{{game}} не удалось добавить для всех найденных пользователей Steam. Дополнительную информацию см. в журналах. Для вступления изменений в силу требуется перезапуск Steam.",
+                    "success": "{{game}} был успешно добавлен в Steam. Для вступления изменений в силу требуется перезапуск Steam.",
                     "title": "Добавлено в Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} не удалось удалить у всех найденных пользователей Steam. Дополнительную информацию см. в журналах.  Чтобы изменения вступили в силу, требуется перезапуск Steam.",
-                    "success": "{{game}} была успешно удалена из Steam.  Чтобы изменения вступили в силу, требуется перезапуск Steam.",
+                    "corrupt": "{{game}} не удалось удалить у всех найденных пользователей Steam. Дополнительные сведения см. в журналах. Для вступления изменений в силу требуется перезапуск Steam.",
+                    "success": "{{game}} был успешно удален из Steam. Для вступления изменений в силу требуется перезапуск Steam.",
                     "title": "Удалено из Steam"
                 }
             },
@@ -302,6 +302,7 @@
         },
         "moved": "Перемещение завершено",
         "moving": "Перемещение игры",
+        "new-heroic-version": "Вышла новая версия Heroic!",
         "refresh": {
             "error": "Не удалось получить выпуски из основной ветки разработки, возможно, из-за ограничений Github API! Попробуйте позже."
         },
@@ -317,8 +318,17 @@
             "key": "Имя переменной",
             "placeHolderKey": "ИМЯ",
             "placeHolderValue": "Например: Path/To/ExtraFiles",
-            "title": "Расширенные настройки (Переменные среды):",
+            "title": "Environment Variables",
             "value": "Значение"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "Вставьте сюда аргументы запуска",
@@ -350,8 +360,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Плагины",
-    "Projects": "Проекты",
     "Recent": "Запускались недавно",
     "search": "Поиск игр",
     "setting": {
@@ -364,7 +372,8 @@
         "autosync": "Автосинхронизация сохранений",
         "autovkd3d": "Автоматически устанавливать/обновлять VKD3D в префиксе",
         "change-target-exe": "Выбрать другой EXE для запуска",
-        "crossover-version": "Crossover Version",
+        "checkForUpdatesOnStartup": "Проверять обновления Heroic при запуске",
+        "crossover-version": "Версия Crossover",
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
@@ -444,7 +453,6 @@
         },
         "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",
-        "showUnrealMarket": "Показать Unreal Marketplace (требуется перезапуск)",
         "start-in-tray": "Запускать свернутым в трей",
         "steamruntime": "Использовать среду выполнения Steam",
         "winecrossoverbottle": "Бутылка CrossOver",
@@ -487,6 +495,7 @@
         "open-config-file": "Открыть файл конфигурации",
         "reset-heroic": "Сброс Heroic",
         "saves": {
+            "label": "Место сохранения:",
             "warning": "Функция облачных сохранений находится в стадии бета-тестирования, сделайте резервную копию ваших сохранений перед синхронизацией (на случай, если что-то пойдет не так)"
         }
     },
@@ -503,11 +512,7 @@
     "store": "Магазин Epic",
     "stores": "Магазины",
     "title": {
-        "allGames": "Все игры",
-        "allUnreal": "Unreal - Все",
-        "unrealAssets": "Unreal - Ресурсы",
-        "unrealPlugins": "Unreal - Плагины",
-        "unrealProjects": "Unreal - Проекты"
+        "allGames": "Все игры"
     },
     "toolbox": {
         "settings": {
@@ -525,6 +530,10 @@
         "reload": "Перезагрузить",
         "show": "Показать"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
+    "Update Available!": "",
     "userselector": {
         "discord": "Дискорд",
         "logout": "Выйти из аккаунта",

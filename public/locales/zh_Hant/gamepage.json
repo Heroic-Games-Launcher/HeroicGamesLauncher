@@ -48,6 +48,7 @@
         "uninstall": "解除安裝",
         "update": "更新"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "已禁用",
     "dlc": {
         "installDlcs": "安裝所有DLC"
@@ -128,7 +129,6 @@
         "change": "更改安裝路徑",
         "disableEosOverlay": "停用 EOS 內嵌界面",
         "enableEosOverlay": "啟用 EOS 內嵌界面",
-        "log": "最新日誌",
         "move": "移動遊戲",
         "protondb": "檢查相容性",
         "removeFromSteam": "從 Steam 移除",

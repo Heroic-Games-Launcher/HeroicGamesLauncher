@@ -188,21 +188,13 @@ function isInstalled() {
 /**
  * Checks if the EOS Overlay is enabled (either for a specific game on Linux or globally on Windows)
  * @param appName required on Linux, does nothing on Windows
- * @param runner required on Linux, does nothing on Windows
  * @returns Enabled = True; Disabled = False
  */
 async function isEnabled(appName?: string) {
   let enabled = false
 
   let prefix = ''
-  if (isLinux) {
-    if (!appName) {
-      logError(
-        'Checking for EOS overlay on Linux is only possible on a game-by-game basis',
-        { prefix: LogPrefix.Legendary }
-      )
-      return false
-    }
+  if (isLinux && appName) {
     const game = getGame(appName, 'legendary')
     const { winePrefix, wineVersion } = await game.getSettings()
     prefix =

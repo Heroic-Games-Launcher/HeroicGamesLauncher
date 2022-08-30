@@ -42,7 +42,6 @@ export default function Library(): JSX.Element {
     refreshing,
     refreshingInTheBackground,
     category,
-    filter,
     epic,
     gog,
     favouriteGames,
@@ -158,13 +157,10 @@ export default function Library(): JSX.Element {
   }
 
   // top section
-  const showRecentGames =
-    libraryTopSection.startsWith('recently_played') && category !== 'unreal'
+  const showRecentGames = libraryTopSection.startsWith('recently_played')
 
   const showFavourites =
-    libraryTopSection === 'favourites' &&
-    !!favouriteGames.list.length &&
-    category !== 'unreal'
+    libraryTopSection === 'favourites' && !!favouriteGames.list.length
 
   const favourites: GameInfo[] = useMemo(() => {
     const tempArray: GameInfo[] = []
@@ -251,7 +247,6 @@ export default function Library(): JSX.Element {
     category,
     epic,
     gog,
-    filter,
     filterText,
     filterPlatform,
     sortDescending,

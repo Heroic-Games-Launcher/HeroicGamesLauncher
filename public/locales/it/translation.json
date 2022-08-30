@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "Questo gioco include software anticheat"
     },
-    "Assets": "Asset",
     "box": {
         "cache-cleared": {
             "message": "Cache di Heroic cancellata.",
@@ -29,7 +28,7 @@
         "customWine": "Scegli fra il binario Wine o Proton",
         "default-install-path": "Seleziona il percorso d'installazione predefinito",
         "default-steam-path": "Percorso Steam.",
-        "downloadNow": "Download now",
+        "downloadNow": "Scarica ora",
         "error": {
             "add": {
                 "steam": {
@@ -60,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "La rimozione di {{game}} da Steam è fallita con:{{newLine}} {{error}}",
-                    "title": "Errore di rimozione"
-                }
-            },
             "title": "Errore",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
+            },
             "update": {
                 "message": "Qualcosa è andato storto con l'aggiornamento, controlla i log o riprova più tardi!",
                 "title": "Update Error"
@@ -99,7 +96,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Sei sicuro di voler resettare Heroic? Questo rimuoverà tutte le Impostazioni e la Cache ma non rimuoverà i tuoi giochi Installati o le tue credenziali Epic",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Ripristina Heroic"
             }
         },
@@ -112,7 +109,7 @@
         },
         "shortcuts": {
             "message": "Sono stati creati i collegamenti sul Desktop e nel menu Start",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove": "Le scorciatoie sono state rimosse dal Desktop e dal menu Start",
             "title": "Collegamenti"
         },
         "sync": {
@@ -122,11 +119,11 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "I link per il download dei Visual C++ Runtimes sono stati aperti. Installa sia le versioni x86 e x64."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "Non sono installati i Microsoft Visual C++ Runtimes, richiesti da alcuni giochi",
+                "title": "VCRuntime non installato"
             }
         },
         "warning": {
@@ -150,13 +147,13 @@
     "controller": {
         "hints": {
             "activate": "Activate",
-            "back": "Back",
+            "back": "Indietro",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
+            "close_context_menu": "Chiudi il menu contestuale",
             "close_dialog": "Close dialog",
             "close_keyboard": "Close keyboard",
             "context_menu": "Context menu",
-            "game_details": "Game details",
+            "game_details": "Dettagli del gioco",
             "game_settings": "Game settings",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
@@ -236,6 +233,9 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Heroic Version"
         },
         "settings": "Le impostazioni sono salvate automaticamente",
@@ -279,15 +279,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Added to Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Removed from Steam"
                 }
             },
@@ -302,6 +302,7 @@
         },
         "moved": "Spostamento completato",
         "moving": "Moving Game",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -317,8 +318,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "Opzioni avanzate (Variabili d'ambiente):",
+            "title": "Environment Variables",
             "value": "Value"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "Inserisci qui le opzioni del Launcher",
@@ -350,8 +360,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Plugins",
-    "Projects": "Progetti",
     "Recent": "Giocato di recente",
     "search": "Cerca giochi",
     "setting": {
@@ -364,6 +372,7 @@
         "autosync": "Sincronizza automaticamente i salvataggi",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Seleziona un eseguibile alternativo da avviare",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "Percorsi di Wine/Proton personalizzati",
         "darktray": "Usa l'icona scura della barra delle applicazioni",
@@ -444,7 +453,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "Mostra FPS (DX9, 10 e 11)",
-        "showUnrealMarket": "Mostra Unreal Marketplace (richiede riavvio)",
         "start-in-tray": "Avvio Minimizzato",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "Bottiglia CrossOver",
@@ -487,6 +495,7 @@
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
@@ -503,11 +512,7 @@
     "store": "Epic Store",
     "stores": "Stores",
     "title": {
-        "allGames": "Tutti i giochi",
-        "allUnreal": "Unreal - Tutto",
-        "unrealAssets": "Unreal - Risorse",
-        "unrealPlugins": "Unreal - Plugin",
-        "unrealProjects": "Unreal - Progetti"
+        "allGames": "Tutti i giochi"
     },
     "toolbox": {
         "settings": {
@@ -525,6 +530,10 @@
         "reload": "Ricarica",
         "show": "Mostra"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
+    "Update Available!": "",
     "userselector": {
         "discord": "Discord",
         "logout": "Disconnetti",

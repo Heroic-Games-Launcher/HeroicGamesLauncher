@@ -1,4 +1,4 @@
-import { GogInstallPlatform } from './types/gog'
+import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform } from './types/legendary'
 import { ChildProcess } from 'child_process'
 import { VersionInfo } from 'heroic-wine-downloader'
@@ -8,6 +8,16 @@ export type Runner = 'legendary' | 'gog'
 interface About {
   description: string
   longDescription: string
+}
+
+export type Release = {
+  type: 'stable' | 'beta'
+  html_url: string
+  name: string
+  tag_name: string
+  published_at: string
+  prerelease: boolean
+  id: number
 }
 
 export interface AppSettings {
@@ -52,7 +62,6 @@ export interface AppSettings {
   savesPath: string
   showFps: boolean
   showMangohud: boolean
-  showUnrealMarket: boolean
   startInTray: boolean
   useGameMode: boolean
   targetExe: string
@@ -62,6 +71,7 @@ export interface AppSettings {
   defaultWinePrefix: string
   wineVersion: WineInstallation
   useSteamRuntime: boolean
+  gogSaves?: GOGCloudSavesLocation[]
 }
 
 export type ExecResult = {
@@ -92,6 +102,7 @@ export interface GameInfo {
   is_installed: boolean
   namespace: string
   save_folder: string
+  gog_save_location?: GOGCloudSavesLocation[]
   title: string
   canRunOffline: boolean
   is_mac_native: boolean
@@ -126,6 +137,7 @@ export interface GameSettings {
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
+  gogSaves?: GOGCloudSavesLocation[]
 }
 
 export interface GameStatus {
@@ -392,8 +404,6 @@ export interface Runtime {
 }
 
 export type RuntimeName = 'eac_runtime' | 'battleye_runtime'
-
-export type Category = 'all' | 'legendary' | 'gog' | 'unreal' | 'heroic'
 
 export interface HiddenGame {
   appName: string

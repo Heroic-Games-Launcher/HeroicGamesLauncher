@@ -160,7 +160,7 @@ export const DXVK = {
           return exec(updatedVersionfile)
         })
         .catch((error) => {
-          logError(['error when removing DXVK, please try again', `${error}`], {
+          logError(['error when removing DXVK, please try again', error], {
             prefix: LogPrefix.DXVKInstaller
           })
         })
@@ -184,7 +184,7 @@ export const DXVK = {
         logError(
           [
             'error when installing DXVK, please try launching the game again',
-            `${error}`
+            error
           ],
           { prefix: LogPrefix.DXVKInstaller }
         )
@@ -206,11 +206,11 @@ export const Winetricks = {
     return execAsync(downloadCommand)
       .then(() => {
         exec(`chmod +x ${path}`)
-        logInfo('Downloaded Winetricks', { prefix: LogPrefix.Backend })
+        logInfo('Downloaded Winetricks', { prefix: LogPrefix.WineTricks })
       })
       .catch(() => {
         logWarning('Error Downloading Winetricks', {
-          prefix: LogPrefix.Backend
+          prefix: LogPrefix.WineTricks
         })
       })
   },

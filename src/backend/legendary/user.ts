@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'graceful-fs'
 
-import { UserInfo } from '../../common/types'
+import { UserInfo } from 'common/types'
 import { clearCache } from '../utils'
 import { userInfo, configStore } from '../constants'
 import { logError, LogPrefix } from '../logger/logger'
@@ -19,7 +19,7 @@ export class LegendaryUser {
       const userInfo = await this.getUserInfo()
       return { status: 'done', data: userInfo }
     } catch (error) {
-      logError(['Failed to login with Legendary:', `${error}`], {
+      logError(['Failed to login with Legendary:', error], {
         prefix: LogPrefix.Legendary
       })
 

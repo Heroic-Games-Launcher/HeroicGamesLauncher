@@ -1,7 +1,7 @@
 {
     "accessibility": {
         "actions_font_family": "작업 글꼴 패밀리 (기본값: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
+        "all_tiles_in_color": "모든 게임 타일을 컬러로 표시",
         "content_font_family": "콘텐츠 글꼴 패밀리 (기본값: \"Cabin\")",
         "fonts": "글꼴",
         "title": "접근성",
@@ -10,13 +10,12 @@
     "All": "모두",
     "anticheat": {
         "anticheats": "안티 치트",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
+        "may_not_work": "안티 치트 지원이 거부되거나 중단되어서 작동하지 않을 수 있습니다",
         "reference": "Reference",
         "source": "Source",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "안티 치트 소프트웨어가 포함된 게임입니다"
     },
-    "Assets": "에셋",
     "box": {
         "cache-cleared": {
             "message": "Heroic 캐시 삭제됨.",
@@ -28,21 +27,21 @@
         "choose-legendary-binary": "Legendary 바이너리 파일 선택",
         "customWine": "Wine 혹은 Proton 바이너리 파일 선택",
         "default-install-path": "기본 설치 경로 선택",
-        "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "default-steam-path": "Steam 경로.",
+        "downloadNow": "지금 다운로드",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "body": "Steam에 {{game}} 게임 추가 실패, 에러:{{newLine}} {{error}}",
+                    "title": "추가 중 에러"
                 }
             },
             "credentials": {
                 "message": "사용자의 인증서가 만료되었습니다, 로그아웃 한 뒤 다시 로그인 해주세요."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "\"{{bottle_name}}\" CrossOver bottle 이 없어 시작 할 수 없습니다!",
+                "title": "CrossOver bottle 없음"
             },
             "diskspace": {
                 "message": "사용 가능한 디스크 공간이 충분하지 않습니다",
@@ -53,20 +52,18 @@
                 "title": "DXVK/VKD3D 오류"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "게임 폴더가 삭제된 것 같습니다, 설치 목록에서 게임을 제거 하겠습니까?"
             },
             "generic": {
                 "message": "",
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
-                }
-            },
             "title": "오류",
+            "uncaught-exception": {
+                "message": "잡히지 않는 예외가 발생했습니다:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic이 종료 됩니다! Github 레포지트리에 이 예외를 보고하세요.",
+                "title": "잡히지 않은 예외 발생!"
+            },
             "update": {
                 "message": "업데이트에 문제가 발생했습니다. 로그를 확인하거나 나중에 다시 시도하세요!",
                 "title": "Update Error"
@@ -99,7 +96,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Heroic을 초기화하시겠습니까? 이렇게 하면 모든 설정과 캐시가 제거되지만 설치된 게임이나 Epic 자격 증명은 제거되지 않습니다",
+                "message": "Heroic을 정말 리셋하시겠습니까? 모든 설정과 캐시를 삭제하지만 설치된 게임이나 Epic 인증은 삭제되지 않습니다. 포터블 버전 Heroic은(AppImage, WinPortable 등) 나중에 직접 재시작해야 합니다.",
                 "title": "Reset Heroic"
             }
         },
@@ -112,7 +109,7 @@
         },
         "shortcuts": {
             "message": "바탕 화면 및 시작 메뉴에 바로 가기가 생성되었습니다",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove": "데스크톱 및 시작 메뉴에서 바로 가기가 제거되었습니다",
             "title": "바로가기"
         },
         "sync": {
@@ -122,11 +119,11 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "Visual C++ 런타임 다운로드 링크를 열었습니다. x86, x64 버전 모두 설치해 주세요."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "일부 게임에 필요한 Microsoft Visual C++ 런타임이 설치되지 않았습니다",
+                "title": "VC 런타임 설치되지 않음"
             }
         },
         "warning": {
@@ -149,23 +146,23 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
-            "back": "Back",
+            "activate": "활성화",
+            "back": "뒤로",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
+            "close_context_menu": "우클릭 메뉴 닫기",
+            "close_dialog": "대화상자 닫기",
+            "close_keyboard": "키보드 닫기",
             "context_menu": "Context menu",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
+            "game_details": "게임 세부 정보",
+            "game_settings": "게임 설정",
+            "install_game": "게임 설치",
+            "move_cursor": "커서 이동",
             "none": "None",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "play_game": "Play game",
+            "open_virtual_keyboard": "가상 키보드 열기",
+            "play_game": "게임 플레이",
             "scroll": "Scroll",
-            "space": "Space",
-            "update_game": "Update game"
+            "space": "스페이스바",
+            "update_game": "게임 업데이트"
         }
     },
     "docs": "Documentation",
@@ -177,16 +174,16 @@
     "favourites": "즐겨찾기",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "스토어",
+        "title": "게임 이름"
     },
-    "GameSettings": "Game Settings",
+    "GameSettings": "게임 설정",
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "게임을 찾을 수 없습니다, 로그아웃했다가 다시 로그인하거나 아래 옵션 중 하나를 시도하세요"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "라이브러리 새로 고침"
         }
     },
     "globalSettings": "글로벌 설정",
@@ -195,8 +192,8 @@
     "header": {
         "ignore_hidden": "숨김 무시",
         "platform": "플랫폼",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
+        "show_all_games": "모든 게임 표시",
+        "show_favourites_only": "즐겨찾기만 표시",
         "show_hidden": "숨김 표시",
         "store": "Filter Store"
     },
@@ -236,6 +233,9 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Heroic Version"
         },
         "settings": "설정은 자동으로 저장됩니다",
@@ -279,15 +279,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Added to Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Removed from Steam"
                 }
             },
@@ -302,6 +302,7 @@
         },
         "moved": "이동 완료됨",
         "moving": "Moving Game",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -317,8 +318,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "고급 설정 (환경 변수):",
+            "title": "Environment Variables",
             "value": "Value"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "여기에 런처 인자를 넣으세요",
@@ -350,8 +360,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "플러그인",
-    "Projects": "프로젝트",
     "Recent": "최근 플레이한 게임",
     "search": "게임 검색",
     "setting": {
@@ -364,6 +372,7 @@
         "autosync": "세이브 자동 동기화",
         "autovkd3d": "접두사에서 VKD3D 자동 설치/업데이트",
         "change-target-exe": "대체하여 실행할 EXE 선택",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "커스텀 Wine/Proton 경로",
         "darktray": "다크 트레이 아이콘 사용",
@@ -444,7 +453,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "FPS 표시 (DX9, 10 및 11)",
-        "showUnrealMarket": "Unreal Marketplace 표시 (다시 시작해야 함)",
         "start-in-tray": "최소화로 시작",
         "steamruntime": "Steam 런타임 사용",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -487,6 +495,7 @@
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
@@ -503,11 +512,7 @@
     "store": "Epic Store",
     "stores": "Stores",
     "title": {
-        "allGames": "모든 게임",
-        "allUnreal": "Unreal - Everything",
-        "unrealAssets": "Unreal - 에셋",
-        "unrealPlugins": "Unreal - 플러그인",
-        "unrealProjects": "Unreal - 프로젝트"
+        "allGames": "모든 게임"
     },
     "toolbox": {
         "settings": {
@@ -525,6 +530,10 @@
         "reload": "새로고침",
         "show": "표시"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
+    "Update Available!": "",
     "userselector": {
         "discord": "Discord",
         "logout": "로그아웃",

@@ -78,7 +78,7 @@ const getLegendaryConfig = async (): Promise<{
 
 const getGameInfo = async (
   appName: string,
-  runner: Runner = 'legendary'
+  runner: Runner
 ): Promise<GameInfo> => {
   return ipcRenderer.invoke('getGameInfo', appName, runner)
 }
@@ -115,9 +115,8 @@ function getProgress(progress: InstallProgress): number {
 
 async function fixGogSaveFolder(
   folder: string,
-  prefix: string,
-  isProton: boolean,
-  installedPlatform: string
+  installedPlatform: string,
+  appName: string
 ) {
   const isMac = installedPlatform === 'osx'
   const isWindows = installedPlatform === 'windows'
@@ -125,6 +124,7 @@ async function fixGogSaveFolder(
   if (!matches) {
     return folder
   }
+
   switch (matches[1]) {
     case 'SAVED_GAMES':
       // This path is only on Windows
@@ -140,28 +140,43 @@ async function fixGogSaveFolder(
       folder = folder.replace(matches[0], '%APPDATA%')
       break
     case 'DOCUMENTS':
-      if (isWindows)
-        folder = folder.replace(matches[0], '%USERPROFILE%/Documents')
-      else if (isMac) {
+      if (isWindows) {
+        const documentsResult = await ipcRenderer.invoke(
+          'runWineCommandForGame',
+          {
+            appName,
+            runner: 'gog',
+            command:
+              'reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" /v Personal'
+          }
+        )
+        const documentsFolder = documentsResult.stdout
+          ?.trim()
+          .split('\n')[1]
+          ?.trim()
+          .split('    ')
+          .pop()
+
+        folder = folder.replace(
+          matches[0],
+          documentsFolder ?? '%USERPROFILE%/Documents'
+        )
+      } else if (isMac) {
         folder = folder.replace(matches[0], '$HOME/Documents')
       }
       break
     case 'APPLICATION_SUPPORT':
-      folder = folder.replace(matches[0], '/Library/Application Support')
+      folder = folder.replace(matches[0], '$HOME/Library/Application Support')
   }
   return folder
 }
 
-async function fixSaveFolder(
+async function fixLegendarySaveFolder(
+  appName: string,
   folder: string,
   prefix: string,
-  isProton: boolean,
-  runner: Runner,
-  installedPlatform: string
+  isProton: boolean
 ) {
-  if (runner === 'gog') {
-    return fixGogSaveFolder(folder, prefix, isProton, installedPlatform)
-  }
   const { user, account_id: epicId } = await ipcRenderer.invoke('getUserInfo')
   const username = isProton ? 'steamuser' : user
 
@@ -226,11 +241,26 @@ async function fixSaveFolder(
   }
 
   if (folder.includes('{userdir}')) {
-    return folder.replace('{userdir}', `/users/${username}/My Documents`)
+    return folder.replace('{userdir}', `/users/${username}/Documents`)
   }
 
   if (folder.includes('{UserDir}')) {
-    return folder.replace('{UserDir}', `%USERPROFILE%/My Documents`)
+    const documentsResult = await ipcRenderer.invoke('runWineCommandForGame', {
+      appName,
+      runner: 'legendary',
+      command:
+        'reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" /v Personal'
+    })
+    const documentsFolder = documentsResult.stdout
+      ?.trim()
+      .split('\n')[1]
+      ?.trim()
+      .split('    ')
+      .pop()
+    return folder.replace(
+      '{UserDir}',
+      documentsFolder ?? `%USERPROFILE%/Documents`
+    )
   }
 
   return folder
@@ -249,7 +279,8 @@ function quoteIfNecessary(stringToQuote: string) {
 
 export {
   createNewWindow,
-  fixSaveFolder,
+  fixLegendarySaveFolder,
+  fixGogSaveFolder,
   getGameInfo,
   getGameSettings,
   getInstallInfo,

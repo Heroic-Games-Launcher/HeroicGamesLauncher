@@ -67,7 +67,7 @@ ipcMain.handle(
     const gameInfo = await game.getGameInfo()
     const steamUserdataDir = await getSteamUserdataDir()
 
-    await addNonSteamGame({
+    return addNonSteamGame({
       steamUserdataDir,
       gameInfo,
       bkgDataUrl,

@@ -44,14 +44,9 @@ async function download(name: RuntimeName): Promise<boolean> {
 
     return true
   } catch (error) {
-    logError(
-      [
-        'Failed to download runtime',
-        `${name}:`,
-        error instanceof Error ? error.stack ?? error.message : `${error}`
-      ],
-      { prefix: LogPrefix.Runtime }
-    )
+    logError(['Failed to download runtime', `${name}:`, error], {
+      prefix: LogPrefix.Runtime
+    })
     return false
   }
 }

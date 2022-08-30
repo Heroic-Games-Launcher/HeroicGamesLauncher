@@ -7,6 +7,7 @@ jest.mock('../../utils')
 
 const testData = [
   1234,
+  true,
   'normalString',
   ['string1', 'string2'],
   { key1: 100, key2: 'value', key3: { subKey: ['hello', 'world'] } },
@@ -17,11 +18,11 @@ function getStringPassedToLogFile(
   type: 'WARNING' | 'ERROR' | 'INFO' | 'DEBUG',
   skipMessagePrefix = false
 ) {
-  let messagePrefix = '1234 normalString string1,string2 {'
+  let messagePrefix = '1234 true normalString string1,string2 {'
   if (!skipMessagePrefix) {
     messagePrefix = `${type}:${' '.repeat(7 - type.length)} [${
       logger.LogPrefix.Backend
-    }]:  1234 normalString string1,string2 {`
+    }]:  ${messagePrefix}`
   }
 
   return [

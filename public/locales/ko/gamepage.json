@@ -48,6 +48,7 @@
         "uninstall": "설치 제거",
         "update": "업데이트"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "비활성화",
     "dlc": {
         "installDlcs": "모든 DLC를 설치합니다"
@@ -128,7 +129,6 @@
         "change": "설치 경로 변경",
         "disableEosOverlay": "EOS 오버레이 비활성화",
         "enableEosOverlay": "EOS 오버레이 활성화",
-        "log": "최신 로그",
         "move": "게임 이동",
         "protondb": "호환성 체크",
         "removeFromSteam": "Steam에서 제거",

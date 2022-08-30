@@ -417,7 +417,7 @@ export async function verifyWinePrefix(
       return { res: result, updated: wasUpdated }
     })
     .catch((error) => {
-      logError(['Unable to create Wineprefix: ', `${error}`], {
+      logError(['Unable to create Wineprefix: ', error], {
         prefix: LogPrefix.Backend
       })
       throw error
@@ -617,7 +617,7 @@ async function callRunner(
         !`${error}`.includes('signal') &&
         !`${error}`.includes('appears to be deleted')
 
-      logError(['Error running', 'command', `"${safeCommand}": ${error}`], {
+      logError(['Error running', 'command', `"${safeCommand}":`, error], {
         prefix: runner.logPrefix,
         showDialog
       })

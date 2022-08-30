@@ -48,6 +48,7 @@
         "uninstall": "Deinstaliraj",
         "update": "Ažuriraj"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Onemogućeno",
     "dlc": {
         "installDlcs": "Instaliraj sve DLC-eve"
@@ -128,7 +129,6 @@
         "change": "Promijeni put instalacije",
         "disableEosOverlay": "Isključi EOS prekrivanje",
         "enableEosOverlay": "Uključi EOS prekrivanje",
-        "log": "Najnoviji dnevnik",
         "move": "Premjesti igricu",
         "protondb": "Provjeri Kompatibilnost",
         "removeFromSteam": "Ukloni iz Steama",

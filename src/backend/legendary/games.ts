@@ -61,7 +61,7 @@ class LegendaryGame extends Game {
    * Alias for `LegendaryLibrary.listUpdateableGames`
    */
   public static async checkGameUpdates() {
-    const isLoggedIn = await LegendaryUser.isLoggedIn()
+    const isLoggedIn = LegendaryUser.isLoggedIn()
     if (!isLoggedIn) {
       return []
     }
@@ -154,7 +154,7 @@ class LegendaryGame extends Game {
       try {
         productSlug = await this.getProductSlug(namespace)
       } catch (error) {
-        logError(`${error}`, { prefix: LogPrefix.Legendary })
+        logError(error, { prefix: LogPrefix.Legendary })
         productSlug = this.appName
       }
       epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
@@ -210,14 +210,14 @@ class LegendaryGame extends Game {
   }
 
   /**
-   * Helper for `checkGameUpdates().contains(this.appName)`
+   * Helper for `listUpdateableGames().includes(this.appName)`
    *
    * @returns If game has an update.
    */
   public async hasUpdate() {
-    return (await LegendaryLibrary.get().listUpdateableGames()).includes(
-      this.appName
-    )
+    const allUpdateableGames =
+      await LegendaryLibrary.get().listUpdateableGames()
+    return allUpdateableGames.includes(this.appName)
   }
 
   /**
@@ -652,7 +652,9 @@ class LegendaryGame extends Game {
       gameSettings,
       mangoHudCommand,
       gameModeBin,
-      steamRuntime
+      steamRuntime?.length
+        ? [...steamRuntime, `--filesystem=${gameInfo.install.install_path}`]
+        : undefined
     )
 
     const fullCommand = getRunnerCallWithoutCredentials(

@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "此遊戲包含反作弊軟體"
     },
-    "Assets": "素材",
     "box": {
         "cache-cleared": {
             "message": "Heroic快取已清理。",
@@ -60,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "從 Steam 移除 {{game}} 失敗，錯誤：{{newLine}} {{error}}",
-                    "title": "移除出錯"
-                }
-            },
             "title": "錯誤",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
+            },
             "update": {
                 "message": "更新出現問題，請檢查日誌或稍後再試！",
                 "title": "Update Error"
@@ -99,7 +96,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "你確定你要重設 Heroic 嗎？這將刪除所有設定和快取，但不會刪除你的已安裝遊戲或你的 Epic 登錄憑證",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Reset Heroic"
             }
         },
@@ -236,6 +233,9 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Heroic Version"
         },
         "settings": "設定會自動保存",
@@ -255,8 +255,8 @@
         "sortByStatus": "依安裝狀態排序",
         "sortDescending": "降序排列",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "切換到網格排版",
+            "list": "切換到清單排版"
         }
     },
     "Library": "遊戲庫",
@@ -279,15 +279,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} 無法被添加到所有已找到的 Steam 使用者。查看日誌獲取更多資訊。  需要重啟 Steam 更改才能生效。",
-                    "success": "{{game}} 被成功添加到 Steam。需要重啟 Steam，更改才能生效。",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "已添加到 Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "無法從所有找到的 Steam 使用者刪除 {{game}}。 查看日誌了解更多資訊。  需要重啟 Steam，更改才能生效。",
-                    "success": "成功從 Steam 刪除了 {{game}}。  需要重啟 Steam，更改才能生效。",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "已從 Steam 移除"
                 }
             },
@@ -302,6 +302,7 @@
         },
         "moved": "移動完成",
         "moving": "移動遊戲中",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "不能從上遊獲取releases，可能是因為 Github API 的限制！請稍後再試。"
         },
@@ -317,8 +318,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "例: Path/To/ExtraFiles",
-            "title": "進階選項（環境變量）：",
+            "title": "Environment Variables",
             "value": "數值"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "將啟動器參數放在這裏",
@@ -350,8 +360,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "外掛插件",
-    "Projects": "專案",
     "Recent": "最近遊玩的遊戲",
     "search": "搜尋遊戲",
     "setting": {
@@ -364,6 +372,7 @@
         "autosync": "自動同步存檔",
         "autovkd3d": "自動在 Prefix 中安裝/更新 VKD3D",
         "change-target-exe": "選擇要執行的替代 EXE",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "自定義Wine/Proton路徑",
         "darktray": "使用暗色系統列圖示",
@@ -405,7 +414,7 @@
             "disabled": "已關閉",
             "favourites": "我的最愛",
             "recently_played": "最近遊玩",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "recently_played_installed": "最近遊玩的遊戲（僅已安裝）"
         },
         "library_top_section": "遊戲庫頂部",
         "log": {
@@ -444,7 +453,6 @@
         },
         "select_theme": "選擇主題",
         "showfps": "顯示幀數（Directx 9，10和11）",
-        "showUnrealMarket": "顯示 Unreal Marketplace（需要重啟）",
         "start-in-tray": "啟動時最小化",
         "steamruntime": "使用 Steam 執行環境",
         "winecrossoverbottle": "CrossOver 容器",
@@ -487,6 +495,7 @@
         "open-config-file": "開啟配置檔案",
         "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "雲端存檔功能處於測試階段，請在同步前備份你的存檔（以防出現問題）"
         }
     },
@@ -503,11 +512,7 @@
     "store": "Epic 商店",
     "stores": "商店",
     "title": {
-        "allGames": "所有遊戲",
-        "allUnreal": "Unreal - 所有項目",
-        "unrealAssets": "Unreal - 素材",
-        "unrealPlugins": "Unreal - 外掛插件",
-        "unrealProjects": "Unreal - 專案"
+        "allGames": "所有遊戲"
     },
     "toolbox": {
         "settings": {
@@ -525,6 +530,10 @@
         "reload": "重新載入",
         "show": "顯示"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
+    "Update Available!": "",
     "userselector": {
         "discord": "Discord",
         "logout": "登出",

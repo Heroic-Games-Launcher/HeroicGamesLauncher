@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import fallbackImage from 'frontend/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'frontend/helpers/library'
-import { SvgButton } from 'frontend/components/UI'
+import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 
@@ -218,8 +218,8 @@ const GameCard = ({
   const isLinuxNative = installedPlatform === 'linux'
   const isNative = isWin || isMacNative || isLinuxNative
   const pathname = isNative
-    ? `/settings/${appName}/other`
-    : `/settings/${appName}/wine`
+    ? `/settings/${runner}/${appName}/other`
+    : `/settings/${runner}/${appName}/wine`
 
   const items: Item[] = [
     {
@@ -260,7 +260,7 @@ const GameCard = ({
     {
       label: t('button.install'),
       onclick: () => (!hasDownloads ? buttonClick() : () => null),
-      show: !isInstalled && !isInstalling
+      show: !isInstalled && !isInstalling && !hasDownloads
     },
     {
       label: t('button.cancel'),
@@ -330,15 +330,15 @@ const GameCard = ({
         <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
           <Link
-            to={`gamepage/${appName}`}
+            to={`gamepage/${runner}/${appName}`}
             style={
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
           >
             {showStoreLogos()}
-            <img src={imageSrc} className={imgClasses} alt="cover" />
+            <CachedImage src={imageSrc} className={imgClasses} alt="cover" />
             {logo && (
-              <img
+              <CachedImage
                 alt="logo"
                 src={`${logo}?h=400&resize=1&w=300`}
                 className={logoClasses}
@@ -425,7 +425,6 @@ const GameCard = ({
       })
     }
     if (status === 'playing' || status === 'updating') {
-      await handleGameStatus({ appName, runner, status: 'done' })
       return sendKill(appName, runner)
     }
     if (isInstalled) {

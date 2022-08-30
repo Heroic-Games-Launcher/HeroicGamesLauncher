@@ -48,6 +48,7 @@
         "uninstall": "Деинсталиране",
         "update": "Обновяване"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Изключено",
     "dlc": {
         "installDlcs": "Инсталиране на всички сваляеми съдържания"
@@ -128,7 +129,6 @@
         "change": "Промяна на инсталационната папка",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "log": "Последни записи в журнала",
         "move": "Преместване на играта",
         "protondb": "Проверка на съвместимостта",
         "removeFromSteam": "Remove from Steam",

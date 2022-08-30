@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "This game includes anticheat software"
     },
-    "Assets": "Objets",
     "box": {
         "cache-cleared": {
             "message": "Le cache Heroic a été effacé !",
@@ -49,7 +48,7 @@
                 "title": "Pas de place"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "message": "Une erreur est survenue lors de l'installation de DXVK/VKD3D! Vérifiez votre connexion ou si vous avez bien zstd/libzstd d'installé!",
                 "title": "Erreur DXVK/VKD3D"
             },
             "folder-not-found": {
@@ -60,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
-                }
-            },
             "title": "Erreur",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
+            },
             "update": {
                 "message": "Something went wrong with the update, please check the logs or try again later!",
                 "title": "Update Error"
@@ -99,7 +96,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Êtes-vous sûr·e de vouloir réinitialiser Heroic ? Cela supprimera tous les paramètres et la mémoire cache mais pas vos jeux installés ou vos identifiants Epic",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Reset Heroic"
             }
         },
@@ -236,6 +233,9 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Heroic Version"
         },
         "settings": "Les options sont sauvegardées automatiquement",
@@ -279,15 +279,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Added to Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Removed from Steam"
                 }
             },
@@ -302,6 +302,7 @@
         },
         "moved": "Déplacement Terminé",
         "moving": "Moving Game",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -317,8 +318,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "Options Avancées (Variables d'Environnement):",
+            "title": "Environment Variables",
             "value": "Value"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "Insérez ici les arguments de lancement",
@@ -350,10 +360,8 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Plugins",
-    "Projects": "Projets",
     "Recent": "Joué récemment",
-    "search": "Insérez le nom du jeu ici...",
+    "search": "Chercher un jeu",
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
@@ -364,6 +372,7 @@
         "autosync": "Sauvegardes Autosync",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Choisir un EXE alternatif pour faire fonctionner",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
         "darktray": "Utiliser Dark Tray Icon",
@@ -427,7 +436,7 @@
             "title": "Synchronisation manuelle des sauvegardes",
             "upload": "Téléverser"
         },
-        "maxRecentGames": "Jeux récents à afficher",
+        "maxRecentGames": "Jeux joué récemment à afficher",
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
         "minimize-on-launch": "Minimiser Heroic après le lancement du jeu",
         "offlinemode": "Lancer le jeu hors ligne",
@@ -444,7 +453,6 @@
         },
         "select_theme": "Sélectionner le thème",
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
-        "showUnrealMarket": "Afficher Unreal Marketplace (nécessite le redémarrage d'Heroic)",
         "start-in-tray": "Réduire au démarrage",
         "steamruntime": "Utiliser le runtime Steam",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -487,6 +495,7 @@
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
@@ -503,11 +512,7 @@
     "store": "Boutique Epic",
     "stores": "Stores",
     "title": {
-        "allGames": "Tous les jeux",
-        "allUnreal": "Unreal - Tout",
-        "unrealAssets": "Unreal - Ressources",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projets"
+        "allGames": "Tous les jeux"
     },
     "toolbox": {
         "settings": {
@@ -525,6 +530,10 @@
         "reload": "Recharger",
         "show": "Montrer"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
+    "Update Available!": "",
     "userselector": {
         "discord": "Discord",
         "logout": "Déconnexion",

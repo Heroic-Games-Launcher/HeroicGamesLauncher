@@ -1,22 +1,21 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Default: \"Rubik\")",
-        "all_tiles_in_color": "Show all game tiles in color",
-        "content_font_family": "Content Font Family (Default: \"Cabin\")",
-        "fonts": "Fonts",
-        "title": "Accessibility",
-        "zoom": "Zoom"
+        "actions_font_family": "Betűtípus tevékenységhez (Alap: \"Rubik\")",
+        "all_tiles_in_color": "Játékok csempéi mindig színesek",
+        "content_font_family": "Betűtípus tartalomhoz (Alap: \"Cabin\")",
+        "fonts": "Betűtípusok",
+        "title": "Hozzáférhetőség",
+        "zoom": "Nagyítás"
     },
     "All": "Összes",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
         "reference": "Reference",
-        "source": "Source",
-        "status": "Status",
-        "title": "This game includes anticheat software"
+        "source": "Forrás",
+        "status": "Állapot",
+        "title": "Ez a játék csalásellenes szoftvert tartalmaz"
     },
-    "Assets": "Eszközök",
     "box": {
         "cache-cleared": {
             "message": "Heroic gyorsítótár törölve.",
@@ -49,7 +48,7 @@
                 "title": "Nincs hely"
             },
             "dxvk": {
-                "message": "Hiba a DXVK/VKD3D telepítésekor! Ellenőrizd le az internetkapcsolatod, illetve hogy a zstd/libzstd1 telepítve van",
+                "message": "Hiba a DXVK/VKD3D telepítésekor! Ellenőrizd az internetkapcsolatod, illetve hogy a zstd/libzstd1 telepítve van-e!",
                 "title": "DXVK/VKD3D hiba"
             },
             "folder-not-found": {
@@ -60,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
-                }
-            },
             "title": "Hiba",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
+            },
             "update": {
                 "message": "Something went wrong with the update, please check the logs or try again later!",
                 "title": "Update Error"
@@ -99,7 +96,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Biztos vagy benne, hogy visszaállítod a Heroic-ot? Ez el fogja távolítani az összes beállítást és gyorsítótárat de nem fogja eltávolítani a telepített játékokat vagy az Epic hitelesítő adataid",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Heroic visszaállítása"
             }
         },
@@ -236,10 +233,13 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Heroic Version"
         },
         "settings": "A beállítások automatikusan mentődnek",
-        "version": "Wine Version"
+        "version": "Wine verzió"
     },
     "infobox": {
         "help": "Segítség",
@@ -279,15 +279,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Added to Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Removed from Steam"
                 }
             },
@@ -302,6 +302,7 @@
         },
         "moved": "Áthelyezés befejezve",
         "moving": "Moving Game",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
@@ -317,8 +318,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "Haladó beállítások (környezeti változók):",
+            "title": "Environment Variables",
             "value": "Value"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "Ide írd az indító argumentumait",
@@ -350,10 +360,8 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Beépülők",
-    "Projects": "Projektek",
     "Recent": "Nemrég játszott",
-    "search": "Add meg itt a játék nevét...",
+    "search": "Játékok keresése",
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalhoz",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
@@ -364,6 +372,7 @@
         "autosync": "Mentések automatikus szinkronizálása",
         "autovkd3d": "A VKD3D automatikus telepítése/frissítése a prefixen",
         "change-target-exe": "Válassz egy alternatív EXE fájlt a futtatáshoz",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét tálcaikon használata",
@@ -433,7 +442,7 @@
         "offlinemode": "Játék futtatása offline",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Nvidia Prime Render engedélyezése",
+        "primerun": "Dedikált grafikus kártya használata",
         "resizableBar": "Átméretezhető BAR engedélyezése (csak NVIDIA RTX 30xx kártyáknál)",
         "runexe": {
             "message": "Fogd és húzd ide a fájlokat",
@@ -444,7 +453,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",
-        "showUnrealMarket": "Unreal piactér megjelenítése (újraindítás szükséges)",
         "start-in-tray": "Indítás tálcára téve",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver palack",
@@ -487,6 +495,7 @@
         "open-config-file": "Open Config File",
         "reset-heroic": "Heroic visszaállítása",
         "saves": {
+            "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
@@ -496,18 +505,14 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Telepítés",
         "logging": "Bejelentkezés...",
-        "processing": "Processing files, please wait"
+        "processing": "Fájlok feldolgozása, kérlek várj"
     },
     "store": "Epic Store",
     "stores": "Stores",
     "title": {
-        "allGames": "Összes játék",
-        "allUnreal": "Unreal - Minden",
-        "unrealAssets": "Unreal - Eszközök",
-        "unrealPlugins": "Unreal - Bővítmények",
-        "unrealProjects": "Unreal - Projektek"
+        "allGames": "Összes játék"
     },
     "toolbox": {
         "settings": {
@@ -525,6 +530,10 @@
         "reload": "Újratöltés",
         "show": "Megjelenítés"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
+    "Update Available!": "",
     "userselector": {
         "discord": "Discord",
         "logout": "Kijelentkezés",
@@ -545,7 +554,7 @@
         "manager": {
             "error": "Nem sikerült most letölteni a Wine/Proton verziókat.",
             "link": "Wine kezelő",
-            "title": "Wine kezelő (béta)",
+            "title": "Wine kezelő",
             "unzipping": "Kicsomagolás"
         },
         "release": "Release Date",

@@ -48,6 +48,7 @@
         "uninstall": "Desinstalar",
         "update": "Actualizar"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Deshabilitar",
     "dlc": {
         "installDlcs": "Instalar todos os DLCs"
@@ -128,7 +129,6 @@
         "change": "Modificar a localización de instalación",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "log": "Último rexistro",
         "move": "Mover xogo",
         "protondb": "Verificar compatibilidade",
         "removeFromSteam": "Remove from Steam",

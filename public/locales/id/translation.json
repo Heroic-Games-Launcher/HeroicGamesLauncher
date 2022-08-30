@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "Gim ini mengandung perangkat lunak anticheat"
     },
-    "Assets": "Aset",
     "box": {
         "cache-cleared": {
             "message": "Tembolok Heroic telah dibersihkan.",
@@ -60,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Gagal menghapus {{game}} dari Steam dengan:{{newLine}} {{error}}",
-                    "title": "Galat Menghapus Gim"
-                }
-            },
             "title": "Galat",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
+            },
             "update": {
                 "message": "Terjadi kesalahan saat melakukan pembaruan, silakan cek log atau coba lagi nanti!",
                 "title": "Update Error"
@@ -99,7 +96,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Anda yakin ingin menyetel ulang Heroic? Ini akan menghapus semua Pengaturan dan Tembolok tetapi tidak akan menghapus gim yang Terinstal atau kredensial Epic Anda",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Reset Heroic"
             }
         },
@@ -236,6 +233,9 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Versi Heroic"
         },
         "settings": "Pengaturan disimpan secara otomatis",
@@ -279,15 +279,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} tidak dapat ditambahkan ke semua pengguna Steam yang ditemukan. Lihat log untuk info lebih lanjut. Steam perlu dimuat ulang untuk menerapkan perubahan.",
-                    "success": "{{game}} berhasil ditambahkan ke Steam. Perlu memuat ulang Steam untuk menerapkan perubahan.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Ditambahkan ke Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} tidak dapat dihapus dari semua pengguna Steam yang ditemukan. Lihat log untuk info lebih lanjut. Steam perlu dimuat ulang untuk menerapkan perubahan.",
-                    "success": "{{game}} berhasil dihapus dari Steam. Perlu memuat ulang Steam untuk menerapkan perubahan.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Dihapus dari Steam"
                 }
             },
@@ -302,6 +302,7 @@
         },
         "moved": "Selesai Memindahkan",
         "moving": "Memindahkan Gim",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Tidak dapat mengambil rilis dari sumber, ini mungkin karena pembatasan API Github! Coba lagi nanti."
         },
@@ -317,8 +318,17 @@
             "key": "Nama Variabel",
             "placeHolderKey": "NAMA",
             "placeHolderValue": "Misalnya: Lokasi/Ke/BerkasEkstra",
-            "title": "Opsi Lanjutan (Variabel Lingkungan):",
+            "title": "Environment Variables",
             "value": "Nilai"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "Letakkan Argumen Peluncur di sini",
@@ -350,8 +360,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Pengaya",
-    "Projects": "Proyek",
     "Recent": "Dimainkan Baru-Baru Ini",
     "search": "Cari Gim",
     "setting": {
@@ -364,6 +372,7 @@
         "autosync": "Sinkronisasi Penyimpanan Otomatis",
         "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "Lokasi Wine/Proton Khusus",
         "darktray": "Gunakan Ikon Baki Gelap",
@@ -444,7 +453,6 @@
         },
         "select_theme": "Pilih Tema",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
-        "showUnrealMarket": "Tampilkan Unreal Marketplace (perlu memulai ulang)",
         "start-in-tray": "Mulai Diminimalkan",
         "steamruntime": "Gunakan Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -487,6 +495,7 @@
         "open-config-file": "Buka Berkas Pengaturan",
         "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Fitur Cloud Saves masih dalam versi Beta, harap buat rekam cadang penyimpanan Anda sebelum menyinkronkan (jaga-jaga bila terjadi kesalahan)"
         }
     },
@@ -503,11 +512,7 @@
     "store": "Epic Store",
     "stores": "Toko",
     "title": {
-        "allGames": "Semua Gim",
-        "allUnreal": "Unreal - Semuanya",
-        "unrealAssets": "Unreal - Aset",
-        "unrealPlugins": "Unreal - Pengaya",
-        "unrealProjects": "Unreal - Proyek"
+        "allGames": "Semua Gim"
     },
     "toolbox": {
         "settings": {
@@ -525,6 +530,10 @@
         "reload": "Muat Ulang",
         "show": "Tampilkan"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
+    "Update Available!": "",
     "userselector": {
         "discord": "Discord",
         "logout": "Keluar",

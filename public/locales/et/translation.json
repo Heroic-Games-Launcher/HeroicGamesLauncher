@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "See mäng sisaldab sohitegemisvastast tarkvara"
     },
-    "Assets": "Varamu",
     "box": {
         "cache-cleared": {
             "message": "Heroic-u vahemälu puhastati.",
@@ -60,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Mängu {{game}} eemaldamine Steamist ebaõnnestus:{{newLine}} {{error}}",
-                    "title": "Viga eemaldamisel"
-                }
-            },
             "title": "Viga",
+            "uncaught-exception": {
+                "message": "Tekkis tabamata erand:{{newLine}}{{error}}{{newLine}}{{newLine}} Heroic suletakse! Teatage erandist meie Githubi repositooriumis.",
+                "title": "Tekkis ootamatu erand!"
+            },
             "update": {
                 "message": "Midagi läks uuendusega valesti, palun kontrollige logisid või proovige hiljem uuesti!",
                 "title": "Viga uuendamisel"
@@ -99,7 +96,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Kas olete kindel, et soovite Heroic'u lähtestada? See eemaldab kõik seaded ja vahemälu, kuid ei eemalda installitud mänge ega Epic'u kredentsiaale",
+                "message": "Kas olete kindel, et soovite Heroicu lähtestada? See eemaldab kõik Seaded ja Vahemällu salvestamise, kuid ei eemalda teie paigaldatud mänge ega Epicu mandaate. Heroicu kaasaskantavad versioonid (AppImage, WinPortable, ...) tuleb hiljem käsitsi taaskäivitada.",
                 "title": "Lähtesta Heroic"
             }
         },
@@ -149,23 +146,23 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
-            "back": "Back",
+            "activate": "Aktiveeri",
+            "back": "Tagasi",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
+            "close_context_menu": "Sulge kontekstimenüü",
+            "close_dialog": "Sulge dialoog",
+            "close_keyboard": "Sulge klaviatuur",
             "context_menu": "Context menu",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
+            "game_details": "Mängu üksikasjad",
+            "game_settings": "Mängu seaded",
+            "install_game": "Paigalda mäng",
+            "move_cursor": "Liiguta kursorit",
             "none": "None",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "play_game": "Play game",
+            "open_virtual_keyboard": "Ava virtuaalne klaviatuur",
+            "play_game": "Mängi mängu",
             "scroll": "Scroll",
-            "space": "Space",
-            "update_game": "Update game"
+            "space": "Tühik",
+            "update_game": "Uuenda mängu"
         }
     },
     "docs": "Documentation",
@@ -236,6 +233,9 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Uuendus saadaval!",
+            "stable": "Stabiilne",
             "version": "Heroic Version"
         },
         "settings": "Seaded salvestatakse automaatselt",
@@ -255,8 +255,8 @@
         "sortByStatus": "Järjesta staatuse järgi",
         "sortDescending": "Järjesta kahanevalt",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "Vaheta ruudustiku paigutusele",
+            "list": "Vaheta loendi paigutusele"
         }
     },
     "Library": "Varamu",
@@ -280,14 +280,14 @@
             "add": {
                 "steam": {
                     "corrupt": "Mängu {{game}} ei saanud lisada kõigile leitud Steami kasutajatele. Lisainfo saamiseks vaadake logisid. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
-                    "success": "{{game}} lisati edukalt Steami. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
+                    "success": "Mäng {{game}} lisati edukalt Steami. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
                     "title": "Lisatud Steami"
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "Mängu {{game}} ei saanud eemaldada kõigilt leitud Steami kasutajatelt. Lisainfo saamiseks vaadake logisid. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
-                    "success": "{{game}} eemaldati edukalt Steamist. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
+                    "success": "Mäng {{game}} eemaldati edukalt Steamist. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
                     "title": "Steamist eemaldatud"
                 }
             },
@@ -302,6 +302,7 @@
         },
         "moved": "Teisaldamine on lõpule viidud",
         "moving": "Mängu liigutamine",
+        "new-heroic-version": "Ilmus uus Heroicu versioon!",
         "refresh": {
             "error": "Ei saanud hankida väljalaskeid upstream'ist, võib-olla Githubi API piirangute tõttu! Proovige hiljem uuesti."
         },
@@ -317,8 +318,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "Nt: Path/To/ExtraFiles",
-            "title": "Täpsemad valikud (environment variables):",
+            "title": "Environment Variables",
             "value": "Väärtus"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "Pange siia käiviti argumendid",
@@ -350,8 +360,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Pluginad",
-    "Projects": "Projektid",
     "Recent": "Hiljuti mängitud",
     "search": "Otsi mänge",
     "setting": {
@@ -364,7 +372,8 @@
         "autosync": "Automaatne salvestiste sünkroonimine",
         "autovkd3d": "VKD3D automaatne paigaldamine/uuendamine prefiksile",
         "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
-        "crossover-version": "Crossover Version",
+        "checkForUpdatesOnStartup": "Kontrolli Heroicu uuendusi käivitamisel",
+        "crossover-version": "Crossoveri versioon",
         "customWineProton": "Kohandatud Wine/Proton teed",
         "darktray": "Kasuta tumedat süsteemiriiuli ikooni",
         "default-install-path": "Vaikimisi paigaldustee",
@@ -405,7 +414,7 @@
             "disabled": "Keelatud",
             "favourites": "Lemmikmängud",
             "recently_played": "Hiljuti mängitud mängud",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "recently_played_installed": "Hiljuti mängitud mängud (ainult paigaldatud)"
         },
         "library_top_section": "Teegi ülemine osa",
         "log": {
@@ -444,7 +453,6 @@
         },
         "select_theme": "Valige teema",
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
-        "showUnrealMarket": "Näita Unreal Marketplace'i (vajab taaskäivitamist)",
         "start-in-tray": "Käivita minimeeritult",
         "steamruntime": "Kasuta Steam Runtime'i",
         "winecrossoverbottle": "CrossOveri pudel",
@@ -487,6 +495,7 @@
         "open-config-file": "Ava konfiguratsioonifail",
         "reset-heroic": "Lähtesta Heroic",
         "saves": {
+            "label": "Salvestuste asukoht:",
             "warning": "Pilvesalvestuse funktsioon on beetaversioonis, enne sünkroonimist varundage oma salvestused (juhuks, kui midagi läheb valesti)"
         }
     },
@@ -503,11 +512,7 @@
     "store": "Epic Pood",
     "stores": "Poed",
     "title": {
-        "allGames": "Kõik mängud",
-        "allUnreal": "Unreal - Kõik",
-        "unrealAssets": "Unreal - varamu",
-        "unrealPlugins": "Unreal - pluginad",
-        "unrealProjects": "Unreal - Projektid"
+        "allGames": "Kõik mängud"
     },
     "toolbox": {
         "settings": {
@@ -525,6 +530,10 @@
         "reload": "Laadi uuesti",
         "show": "Näita"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
+    "Update Available!": "",
     "userselector": {
         "discord": "Discord",
         "logout": "Logi välja",

@@ -48,6 +48,7 @@
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Tắt",
     "dlc": {
         "installDlcs": "Cài đặt tất cả bản mở rộng (DLC)"
@@ -128,7 +129,6 @@
         "change": "Đổi đường dẫn",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "log": "Log mới nhất",
         "move": "Di chuyển game",
         "protondb": "Kiểm tra độ tương thích",
         "removeFromSteam": "Remove from Steam",

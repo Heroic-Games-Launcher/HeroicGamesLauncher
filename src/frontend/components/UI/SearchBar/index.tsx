@@ -64,7 +64,6 @@ export default function SearchBar() {
 
   return (
     <div className="SearchBar" data-testid="searchBar">
-      {/* TODO change placeholder for Unreal Marketplace */}
       <FormControl onClear={onClear} leftButton={<Search />}>
         <input
           ref={input}

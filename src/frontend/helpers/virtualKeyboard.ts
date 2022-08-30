@@ -51,7 +51,7 @@ export const VirtualKeyboardController = {
     const el = currentElement()
     if (!el) return false
 
-    return currentElement().classList.contains('hg-button')
+    return el.classList.contains('hg-button')
   },
   isActive: () => virtualKeyboard !== null,
   destroy: () => {

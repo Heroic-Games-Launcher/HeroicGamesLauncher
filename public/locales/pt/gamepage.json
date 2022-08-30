@@ -48,6 +48,7 @@
         "uninstall": "Desinstalar",
         "update": "Update"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Desabilitado",
     "dlc": {
         "installDlcs": "Instalar todas as DLCs"
@@ -88,7 +89,7 @@
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "wineversion": "Wine Version"
     },
     "label": {
         "playing": {
@@ -128,7 +129,6 @@
         "change": "Modificar local de instalação",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "log": "Último Log",
         "move": "Mover Jogo",
         "protondb": "Compatibilidade",
         "removeFromSteam": "Remove from Steam",

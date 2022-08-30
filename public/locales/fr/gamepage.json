@@ -48,6 +48,7 @@
         "uninstall": "Désinstaller",
         "update": "Mise à jour"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Désactivé",
     "dlc": {
         "installDlcs": "Installer tout le contenu téléchargeable (DLC)"
@@ -82,7 +83,7 @@
         "version": "Version"
     },
     "install": {
-        "disk-space-left": "Espace restant sur l'appareil",
+        "disk-space-left": "Espace restant",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Sélectionner le chemin d'installation",
         "path-not-writtable": "Warning: path might not be writable.",
@@ -128,7 +129,6 @@
         "change": "Changer le chemin d'installation",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "log": "Dernier rapport",
         "move": "Déplacer le jeu",
         "protondb": "Vérifier la compatibilité",
         "removeFromSteam": "Remove from Steam",

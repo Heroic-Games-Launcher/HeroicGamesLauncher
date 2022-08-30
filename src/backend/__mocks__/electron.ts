@@ -19,6 +19,10 @@ class Notification {
   public show() {
     return
   }
+
+  public isSupported() {
+    return false
+  }
 }
 
 export { dialog, app, Notification }

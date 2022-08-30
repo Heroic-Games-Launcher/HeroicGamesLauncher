@@ -48,6 +48,7 @@
         "uninstall": "Desinstal·la",
         "update": "Actualitza"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Desactivat",
     "dlc": {
         "installDlcs": "Instal·la tots els DLCs"
@@ -128,7 +129,6 @@
         "change": "Canvia la ruta d'instal·lació",
         "disableEosOverlay": "Desactiva la superposició EOS",
         "enableEosOverlay": "Activa la superposició EOS",
-        "log": "Últim registre",
         "move": "Mou el joc",
         "protondb": "Comprova la compatibilitat",
         "removeFromSteam": "Treu de l'Steam",

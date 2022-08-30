@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "This game includes anticheat software"
     },
-    "Assets": "資産",
     "box": {
         "cache-cleared": {
             "message": "Heroic Cache Was Cleared!",
@@ -60,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
-                }
-            },
             "title": "エラー",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
+            },
             "update": {
                 "message": "Something went wrong with the update, please check the logs or try again later!",
                 "title": "Update Error"
@@ -99,7 +96,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Reset Heroic"
             }
         },
@@ -194,7 +191,7 @@
     "gog-store": "GOG Store",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "",
+        "platform": "プラットホーム",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
@@ -236,6 +233,9 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Heroic Version"
         },
         "settings": "設定は自動的に保存されます",
@@ -250,7 +250,7 @@
         "path": "Select Install Path"
     },
     "library": {
-        "refresh": "",
+        "refresh": "リフレッシュ",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -261,7 +261,7 @@
     },
     "Library": "ライブラリ",
     "loading": {
-        "default": "",
+        "default": "読み込み中",
         "website": "Loading Website"
     },
     "login": {
@@ -279,15 +279,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Added to Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Removed from Steam"
                 }
             },
@@ -302,13 +302,14 @@
         },
         "moved": "移動が完了しました",
         "moving": "Moving Game",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
         "uninstalled": "アンインストールしました",
         "update": {
             "canceled": "更新がキャンセルされました",
-            "finished": "",
+            "finished": "Update Finished",
             "started": "Update Started"
         }
     },
@@ -317,8 +318,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "高度なオプション（環境変数）：",
+            "title": "Environment Variables",
             "value": "Value"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "ここにランチャーの引数を入れてください",
@@ -346,12 +356,10 @@
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "マック",
+        "win": "ウィンドウズ"
     },
-    "Plugins": "プラグイン",
-    "Projects": "プロジェクト",
     "Recent": "最近のゲーム",
     "search": "ここにゲーム名を入力してください...",
     "setting": {
@@ -364,6 +372,7 @@
         "autosync": "保存を自動的に同期する",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "実行する代替EXEを選択します",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "カスタムWine/Protonパス",
         "darktray": "ダークトレイアイコンを使用する",
@@ -444,7 +453,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "FPSを表示（DX9、10、11）",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "最小化を開始",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver ボトル",
@@ -487,6 +495,7 @@
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
@@ -503,11 +512,7 @@
     "store": "ストア",
     "stores": "Stores",
     "title": {
-        "allGames": "All Games",
-        "allUnreal": "Unreal - Everything",
-        "unrealAssets": "Unreal - Assets",
-        "unrealPlugins": "Unreal - Plugins",
-        "unrealProjects": "Unreal - Projects"
+        "allGames": "All Games"
     },
     "toolbox": {
         "settings": {
@@ -525,6 +530,10 @@
         "reload": "リロード",
         "show": "表示する"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
+    "Update Available!": "",
     "userselector": {
         "discord": "Discord",
         "logout": "ログアウト",
@@ -534,10 +543,10 @@
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "戻る",
+            "forward": "前進する",
+            "openInBrowser": "ブラウザで開く",
+            "reload": "ページをリロード"
         }
     },
     "wine": {

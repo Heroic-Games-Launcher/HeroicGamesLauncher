@@ -48,6 +48,7 @@
         "uninstall": "Удалить",
         "update": "Обновить"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Выключено",
     "dlc": {
         "installDlcs": "Установить все DLC"
@@ -128,7 +129,6 @@
         "change": "Изменить путь установки",
         "disableEosOverlay": "Отключить оверлей EOS",
         "enableEosOverlay": "Включить оверлей EOS",
-        "log": "Последний журнал",
         "move": "Переместить игру",
         "protondb": "Проверить совместимость",
         "removeFromSteam": "Удалить из Steam",

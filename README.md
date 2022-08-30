@@ -19,13 +19,16 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
     - [Linux](#linux)
       - [Flatpak](#flatpak)
       - [Debian, Ubuntu and Derivatives](#debian-ubuntu-and-derivatives)
-      - [Debian (third party `apt` repository)](#debian-third-party-apt-repository)
+      - [Debian (third party `apt` repository)](#debianubuntu-third-party-apt-repository)
       - [Arch (AUR)](#arch-aur)
       - [Fedora](#fedora)
       - [Other Distributions (AppImage and TAR.XZ)](#other-distributions-appimage-and-tarxz)
     - [Windows](#windows)
     - [macOS](#macos)
     - [Build binaries locally (All platforms)](#build-binaries-locally-all-platforms)
+    - [Any OS (development environment)](#any-os-development-environment)
+    - [Building with VS Code](#building-with-vs-code)
+    - [Development Using a Container](#development-using-a-container)
     - [Any OS (development environment)](#any-os-development-environment)
     - [Building with VS Code](#building-with-vs-code)
     - [Development Using a Container](#development-using-a-container)
@@ -117,23 +120,15 @@ Download the `heroic_x.x.x_amd64.deb` from the Releases section
 sudo dpkg -i heroic_x.x.x_amd64.deb
 ```
 
-#### Debian (third party `apt` repository)
+#### Debian/Ubuntu (third party `apt` repository)
 
-You can add the [**MAD Linux**](https://madlinux.sourceforge.io) [`apt` repository](https://gitlab.com/myawesomedistro/madrepo):
-
-```bash
-bash <(wget -O- https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/main/madrepo.sh)
-```
-
-If you need support on it, get access to **MAD Linux** [**Guilded**](https://guilded.gg/madlinux) server.
-
-Maybe you want to boost the download speed on updates with [`apt-fast`](https://github.com/ilikenwf/apt-fast):
+You can add the [**Raul Dipeas**](https://rauldipeas.surge.sh) _personal_ [`apt` repository](https://github.com/rauldipeas/apt-repository):
 
 ```bash
-sudo add-apt-repository -y ppa:apt-fast/stable
-sudo apt install -y apt-fast
-apt-fast install -y heroic
+bash <(wget -qO- https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/main/rauldipeas.sh)
 ```
+
+If you need support on it, talk to **Raul Dipeas** on [**Twitter**](https://twitter.com/rauldipeas).
 
 #### Arch (AUR)
 
@@ -212,7 +207,7 @@ cd HeroicGamesLauncher
 ```bash
 yarn
 
-yarn dist {package to create} (eg: deb, pacman, tar.xz, rpm, AppImage)
+yarn dist:linux {package to create} (eg: deb, pacman, tar.xz, rpm, AppImage)
 ```
 
 - Build for Windows (Beta):
@@ -220,7 +215,7 @@ yarn dist {package to create} (eg: deb, pacman, tar.xz, rpm, AppImage)
 ```bash
 yarn.cmd (or npm install)
 
-yarn.cmd (or npm run) dist-win
+yarn.cmd (or npm run) dist:win
 ```
 
 - Build for Mac (Alpha):
@@ -228,7 +223,7 @@ yarn.cmd (or npm run) dist-win
 ```bash
 yarn (or npm install)
 
-yarn (or npm run) dist-mac
+yarn (or npm run) dist:mac
 ```
 
 ### Any OS (development environment)
@@ -258,7 +253,7 @@ There is a `.devcontainer` directory containing a definition that VS Code will r
 3. If the above prompt does not occur, on the bottom left, there is a green icon that should be there if the remote extension is installed. Click on it, and select "Reopen in container".
 4. The bottom left green icon should now say: "Dev Container: Heroic Games Launcher".
 
-After the container's package manager runs, open a new terminal session and you should be able to run bash commands from within the container. Any yarn dist builds should also now show up on your host filesystem.
+After the container's package manager runs, open a new terminal session and you should be able to run bash commands from within the container. Any yarn dist:linux builds should also now show up on your host filesystem.
 
 **Manually Building the Docker Image**
 
@@ -284,12 +279,20 @@ cd /tmp/heroic
 
 And you should be good to go, code and build away!
 
+## Sponsors
+
+![weblate](https://s.weblate.org/cdn/Logo-Darktext-borders.png)
+![signpath](https://user-images.githubusercontent.com/26871415/182468471-6ef4aac6-a4e2-4ae8-93ef-d638cd01627d.png)
+
 ## Screenshots
 
-![epic](https://user-images.githubusercontent.com/26871415/168448807-768a2ffc-7c6b-4010-bc48-b2f6acec9a32.png)
-![gog](https://user-images.githubusercontent.com/26871415/168448826-3fab90d7-7fba-4774-96d9-064f53fe718a.png)
-![image](https://user-images.githubusercontent.com/26871415/168449037-62ccfa8b-6e91-4cbf-bd37-48087f2ce998.png)
-![gamepage](https://user-images.githubusercontent.com/26871415/168449021-222673fd-675a-4a17-9e5b-907d99919e11.png)
+![image](https://user-images.githubusercontent.com/26871415/184140182-0b0b92b0-e388-401f-910b-ff95b22db059.png)
+![image](https://user-images.githubusercontent.com/26871415/184139791-8666bc1d-a54f-467c-8c30-ea1eb6d24458.png)
+![image](https://user-images.githubusercontent.com/26871415/184139827-ff8ae4ef-f5c3-42f4-b789-1b30595ec0b0.png)
+![image](https://user-images.githubusercontent.com/26871415/184140036-28ee0d8b-a263-4ed8-a30a-1cd19436f90a.png)
+![image](https://user-images.githubusercontent.com/26871415/184141942-937f8cc0-f148-4729-b03e-bfcc8132c233.png)
+![image](https://user-images.githubusercontent.com/26871415/184144277-699e1108-52d9-4558-b113-84db5c90922c.png)
+![image](https://user-images.githubusercontent.com/26871415/184144417-b3eb0ea5-5433-4273-ad35-15317f22588b.png)
 
 [![jump](https://img.shields.io/badge/Back%20to%20top-%20?style=flat&color=grey&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgwVjB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTQgMTJsMS40MSAxLjQxTDExIDcuODNWMjBoMlY3LjgzbDUuNTggNS41OUwyMCAxMmwtOC04LTggOHoiLz48L3N2Zz4=)](#heroic-games-launcher)
 

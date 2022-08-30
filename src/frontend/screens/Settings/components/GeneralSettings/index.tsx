@@ -21,8 +21,8 @@ interface Props {
   egsPath: string
   exitToTray: boolean
   maxWorkers: number
-  showUnrealMarket: boolean
   minimizeOnLaunch: boolean
+  checkForUpdatesOnStartup: boolean
   setDefaultInstallPath: (value: string) => void
   setEgsLinkedPath: (value: string) => void
   setEgsPath: (value: string) => void
@@ -33,7 +33,7 @@ interface Props {
   toggleStartInTray: () => void
   toggleTray: () => void
   toggleMinimizeOnLaunch: () => void
-  toggleUnrealMarket: () => void
+  toggleUpdatesOnStartup: () => void
 }
 
 export default function GeneralSettings({
@@ -43,12 +43,10 @@ export default function GeneralSettings({
   setEgsPath,
   egsLinkedPath,
   setEgsLinkedPath,
-  showUnrealMarket,
   exitToTray,
   startInTray,
   toggleTray,
   toggleStartInTray,
-  toggleUnrealMarket,
   maxWorkers,
   setMaxWorkers,
   darkTrayIcon,
@@ -56,8 +54,13 @@ export default function GeneralSettings({
   minimizeOnLaunch,
   toggleMinimizeOnLaunch,
   disableController,
-  toggleDisableController
+  toggleDisableController,
+  checkForUpdatesOnStartup,
+  toggleUpdatesOnStartup
 }: Props) {
+  const [showUpdateSettings, setShowUpdateSettings] = useState(
+    checkForUpdatesOnStartup
+  )
   const [isSyncing, setIsSyncing] = useState(false)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
   const {
@@ -77,6 +80,12 @@ export default function GeneralSettings({
     }
     getMoreInfo()
   }, [maxWorkers])
+
+  useEffect(() => {
+    ipcRenderer
+      .invoke('showUpdateSetting')
+      .then((s) => setShowUpdateSettings(s))
+  }, [])
 
   async function handleSync() {
     setIsSyncing(true)
@@ -237,6 +246,18 @@ export default function GeneralSettings({
         />
       )}
 
+      {showUpdateSettings && (
+        <ToggleSwitch
+          htmlId="checkForUpdatesOnStartup"
+          value={checkForUpdatesOnStartup}
+          handleChange={toggleUpdatesOnStartup}
+          title={t(
+            'setting.checkForUpdatesOnStartup',
+            'Check for Heroic Updates on Startup'
+          )}
+        />
+      )}
+
       <ToggleSwitch
         htmlId="exitToTray"
         value={exitToTray}
@@ -260,16 +281,6 @@ export default function GeneralSettings({
         title={t(
           'setting.minimize-on-launch',
           'Minimize Heroic After Game Launch'
-        )}
-      />
-
-      <ToggleSwitch
-        htmlId="showUnrealMarket"
-        value={showUnrealMarket}
-        handleChange={() => toggleUnrealMarket()}
-        title={t(
-          'setting.showUnrealMarket',
-          'Show Unreal Marketplace (needs restart)'
         )}
       />
 

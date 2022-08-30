@@ -15,10 +15,10 @@ import classNames from 'classnames'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
-import { ipcRenderer, openDiscordLink } from 'frontend/helpers'
+import { ipcRenderer, openDiscordLink, getGameInfo } from 'frontend/helpers'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Runner } from 'common/types'
+import { Runner, GameInfo } from 'common/types'
 import './index.css'
 import QuitButton from '../QuitButton'
 
@@ -30,30 +30,36 @@ interface LocationState {
   isMacNative: boolean
 }
 
+type PathSplit = [
+  a: undefined,
+  b: undefined,
+  runner: Runner | 'app',
+  appName: string,
+  type: string
+]
+
 export default function SidebarLinks() {
+  const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({
+    cloud_save_enabled: false,
+    is_installed: false
+  })
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
-  const [appName, type] = location.pathname
-    .replaceAll('/settings/', '')
-    .split('/')
+  const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
 
-  const { epic, gog, platform } = useContext(ContextProvider)
+  const { epic, gog, platform, activeController } = useContext(ContextProvider)
 
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
-  const [isDefaultSetting, setIsDefaultSetting] = useState(
-    location.pathname.startsWith('/settings/default')
+  const [isDefaultSetting, setIsDefaultSetting] = useState(true)
+  const [settingsPath, setSettingsPath] = useState(
+    '/settings/app/default/general'
   )
-  const [settingsPath, setSettingsPath] = useState('/settings/default/general')
   const [isFullscreen, setIsFullscreen] = useState(false)
 
-  const {
-    hasCloudSave = false,
-    isLinuxNative = false,
-    isMacNative = false
-  } = state || {}
+  const { isLinuxNative = false, isMacNative = false } = state || {}
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinuxGame = isLinuxNative && platform === 'linux'
@@ -65,25 +71,33 @@ export default function SidebarLinks() {
   const loggedIn = epic.username || gog.username
 
   useEffect(() => {
-    let tmpAppName = ''
-    if (location.pathname.startsWith('/gamepage/')) {
-      tmpAppName = location.pathname.replace('/gamepage/', '')
-    } else {
-      tmpAppName = appName !== 'default' ? appName : ''
-    }
-
-    if (tmpAppName) {
-      setSettingsPath(`/settings/${tmpAppName}/wine`)
-      setIsDefaultSetting(false)
-    } else {
-      setSettingsPath('/settings/default/general')
+    if (!runner || runner === 'app') {
       setIsDefaultSetting(true)
+      setGameInfo({ ...gameInfo, cloud_save_enabled: false })
+      setSettingsPath('/settings/app/default/general')
+    } else {
+      getGameInfo(appName, runner).then((info) => {
+        setGameInfo(info)
+        if (info.is_installed) {
+          setIsDefaultSetting(false)
+          const wineOrOther = isWin
+            ? `/settings/${runner}/${appName}/other`
+            : `/settings/${runner}/${appName}/wine`
+          setSettingsPath(wineOrOther)
+        }
+      })
     }
   }, [location])
 
   useEffect(() => {
     ipcRenderer.invoke('isFullscreen').then((res) => setIsFullscreen(res))
   }, [])
+
+  useEffect(() => {
+    if (!runner || runner === 'app') {
+      return setIsDefaultSetting(true)
+    }
+  }, [location])
 
   return (
     <div className="SidebarLinks Sidebar__section">
@@ -169,7 +183,11 @@ export default function SidebarLinks() {
             classNames('Sidebar__item', { active: isActive })
           }
           to={{ pathname: settingsPath }}
-          state={{ fromGameCard: false }}
+          state={{
+            fromGameCard: false,
+            runner: runner,
+            hasCloudSave: gameInfo?.cloud_save_enabled
+          }}
         >
           <>
             <div className="Sidebar__itemIcon">
@@ -194,7 +212,7 @@ export default function SidebarLinks() {
             {isDefaultSetting && (
               <NavLink
                 role="link"
-                to={{ pathname: '/settings/default/general' }}
+                to={{ pathname: '/settings/app/default/general' }}
                 state={{ fromGameCard: false }}
                 className={classNames('Sidebar__item SidebarLinks__subItem', {
                   ['active']: type === 'general'
@@ -207,7 +225,7 @@ export default function SidebarLinks() {
               <>
                 <NavLink
                   role="link"
-                  to={`/settings/${appName}/wine`}
+                  to={`/settings/${runner}/${appName}/wine`}
                   state={{ ...state, runner: state?.runner }}
                   className={classNames('Sidebar__item SidebarLinks__subItem', {
                     ['active']: type === 'wine'
@@ -218,7 +236,7 @@ export default function SidebarLinks() {
                 {isLinux && (
                   <NavLink
                     role="link"
-                    to={`/settings/${appName}/wineExt`}
+                    to={`/settings/${runner}/${appName}/wineExt`}
                     state={{ ...state, runner: state?.runner }}
                     className={classNames(
                       'Sidebar__item SidebarLinks__subItem',
@@ -234,11 +252,11 @@ export default function SidebarLinks() {
                 )}
               </>
             )}
-            {hasCloudSave && !isLinuxGame && (
+            {gameInfo.cloud_save_enabled && !isLinuxGame && (
               <NavLink
                 role="link"
                 data-testid="linkSync"
-                to={`/settings/${appName}/sync`}
+                to={`/settings/${runner}/${appName}/sync`}
                 state={{ ...state, runner: state?.runner }}
                 className={classNames('Sidebar__item SidebarLinks__subItem', {
                   ['active']: type === 'sync'
@@ -249,7 +267,7 @@ export default function SidebarLinks() {
             )}
             <NavLink
               role="link"
-              to={`/settings/${appName}/other`}
+              to={`/settings/${runner}/${appName}/other`}
               state={{ ...state, runner: state?.runner }}
               className={classNames('Sidebar__item SidebarLinks__subItem', {
                 ['active']: type === 'other'
@@ -260,7 +278,7 @@ export default function SidebarLinks() {
             {isDefaultSetting && (
               <NavLink
                 role="link"
-                to={`/settings/${appName}/advanced`}
+                to={`/settings/${runner}/${appName}/advanced`}
                 state={{ ...state, runner: state?.runner }}
                 className={classNames('Sidebar__item SidebarLinks__subItem', {
                   ['active']: type === 'advanced'
@@ -271,7 +289,7 @@ export default function SidebarLinks() {
             )}
             <NavLink
               role="link"
-              to={`/settings/${appName}/log`}
+              to={`/settings/${runner}/${appName}/log`}
               state={{ ...state, runner: state?.runner }}
               className={classNames('Sidebar__item SidebarLinks__subItem', {
                 ['active']: type === 'log'
@@ -371,7 +389,7 @@ export default function SidebarLinks() {
         </div>
         <span>Ko-fi</span>
       </button>
-      {isFullscreen && <QuitButton />}
+      {(isFullscreen || activeController) && <QuitButton />}
     </div>
   )
 }

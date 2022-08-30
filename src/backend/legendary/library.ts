@@ -6,12 +6,12 @@ import {
   CallRunnerOptions,
   ExecResult,
   InstallPlatform
-} from '../../common/types'
+} from 'common/types'
 import {
   InstalledJsonMetadata,
   GameMetadata,
   LegendaryInstallInfo
-} from '../../common/types/legendary'
+} from 'common/types/legendary'
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
 import {
@@ -120,10 +120,7 @@ export class LegendaryLibrary {
       } catch (error) {
         // disabling log here because its giving false positives on import command
         logError(
-          [
-            'Corrupted installed.json file, cannot load installed games',
-            `${error}`
-          ],
+          ['Corrupted installed.json file, cannot load installed games', error],
           { prefix: LogPrefix.Legendary }
         )
         this.installedGames = new Map()
@@ -155,7 +152,7 @@ export class LegendaryLibrary {
     try {
       await this.loadAll()
     } catch (error) {
-      logError(`${error}`, { prefix: LogPrefix.Legendary })
+      logError(error, { prefix: LogPrefix.Legendary })
     }
     const arr = Array.from(this.library.values())
 

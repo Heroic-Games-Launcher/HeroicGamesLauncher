@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "This game includes anticheat software"
     },
-    "Assets": "Varlıklar",
     "box": {
         "cache-cleared": {
             "message": "Heroic önbelleği temizlendi.",
@@ -60,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
-                    "title": "Removing Error"
-                }
-            },
             "title": "Hata",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
+            },
             "update": {
                 "message": "Güncellemeyle ilgili bir sorun oluştu, lütfen günlük kayıtlarına göz atın veya daha sonra tekrar deneyin!",
                 "title": "Update Error"
@@ -99,7 +96,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Heroic'i sıfırlamak istediğine emin misin? Bu tüm Ayarları ve Önbelleği silecektir ama Epic kimlik bilgilerini ya da Yüklü oyunları silmeyecektir",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Heroic'i Sıfırla"
             }
         },
@@ -236,6 +233,9 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Heroic Sürümü"
         },
         "settings": "Ayarlar otomatik kaydedilir",
@@ -279,15 +279,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Added to Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info.  A restart of Steam is required, changes to take effect.",
-                    "success": "{{game}} was successfully removed to Steam.  A restart of Steam is required, changes to take effect.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Removed from Steam"
                 }
             },
@@ -302,6 +302,7 @@
         },
         "moved": "Taşıma Tamamlandı",
         "moving": "Oyun Taşınıyor",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Belki de Github API kısıtlamaları nedeniyle yukarı akıştan sürümler getirilemedi! Daha sonra tekrar deneyin."
         },
@@ -317,8 +318,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "Gelişmiş Seçenekler (Ortam Değişkenleri):",
+            "title": "Environment Variables",
             "value": "Value"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "Başlatma Parametrelerini buraya girin",
@@ -350,8 +360,6 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Eklentiler",
-    "Projects": "Projeler",
     "Recent": "Son Oynanan",
     "search": "Oyun Ara",
     "setting": {
@@ -364,6 +372,7 @@
         "autosync": "Kayıtları Otomatik Eşzamanla",
         "autovkd3d": "Prefix'te VKD3D'yi Otomatik Kur/Güncelle",
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Koyu Tepsi Simgesi Kullan",
@@ -444,7 +453,6 @@
         },
         "select_theme": "Tema Seç",
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
-        "showUnrealMarket": "Unreal Pazar Yerini Göster (yeniden başlatma gerekir)",
         "start-in-tray": "Simge Durumunda Başlat",
         "steamruntime": "Steam Çalışma Zamanını Kullan",
         "winecrossoverbottle": "CrossOver Şişesi",
@@ -487,6 +495,7 @@
         "open-config-file": "Yapılandırma Dosyasını Aç",
         "reset-heroic": "Heroic'i Sıfırla",
         "saves": {
+            "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
@@ -503,11 +512,7 @@
     "store": "Epic Mağazası",
     "stores": "Mağazalar",
     "title": {
-        "allGames": "Tüm Oyunlar",
-        "allUnreal": "Unreal - Her şey",
-        "unrealAssets": "Unreal - Varlıklar",
-        "unrealPlugins": "Unreal - Eklentiler",
-        "unrealProjects": "Unreal - Projeler"
+        "allGames": "Tüm Oyunlar"
     },
     "toolbox": {
         "settings": {
@@ -525,6 +530,10 @@
         "reload": "Yenile",
         "show": "Göster"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
+    "Update Available!": "",
     "userselector": {
         "discord": "Discord",
         "logout": "Oturumu kapat",

@@ -6,6 +6,13 @@ import { addNonSteamGame, removeNonSteamGame } from '../nonesteamgame'
 import { dialog } from 'electron'
 
 jest.mock('../../../logger/logfile')
+jest.mock('../../../utils', () => {
+  const original = jest.requireActual('../../../utils')
+  return {
+    ...original,
+    notify: jest.fn()
+  }
+})
 
 let tmpDir = {} as DirResult
 let tmpSteamUserConfigDir = '' as string

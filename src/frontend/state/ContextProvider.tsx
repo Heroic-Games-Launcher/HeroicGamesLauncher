@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ContextType } from '../../frontend/types'
+import { ContextType } from 'frontend/types'
 
 const initialContext: ContextType = {
   category: 'legendary',
@@ -18,12 +18,10 @@ const initialContext: ContextType = {
   },
   wineVersions: [],
   error: false,
-  filter: 'all',
   filterText: '',
   filterPlatform: 'all',
   gameUpdates: [],
   handleCategory: () => null,
-  handleFilter: () => null,
   handleGameStatus: async () => Promise.resolve(),
   handleLayout: () => null,
   handlePlatformFilter: () => null,
@@ -66,7 +64,8 @@ const initialContext: ContextType = {
   allTilesInColor: false,
   setAllTilesInColor: () => null,
   sidebarCollapsed: false,
-  setSideBarCollapsed: () => null
+  setSideBarCollapsed: () => null,
+  activeController: ''
 }
 
 export default React.createContext(initialContext)

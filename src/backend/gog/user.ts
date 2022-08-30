@@ -2,7 +2,7 @@ import axios from 'axios'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { GOGLoginData } from '../../common/types'
 import { configStore, libraryStore } from '../gog/electronStores'
-import { errorHandler } from '../utils'
+import { errorHandler, isOnline } from '../utils'
 
 const gogAuthenticateUrl =
   'https://auth.gog.com/token?client_id=46899977096215655&client_secret=9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&code='
@@ -18,7 +18,7 @@ export class GOGUser {
       .get(gogAuthenticateUrl + code)
       .catch((error) => {
         // Handle fetching error
-        logError(['Failed to get access_token', `${error}`], {
+        logError(['Failed to get access_token', error], {
           prefix: LogPrefix.Gog
         })
         return null
@@ -37,6 +37,12 @@ export class GOGUser {
   }
 
   public static async getUserDetails() {
+    if (!isOnline()) {
+      logError('Unable to get user data, Heroic offline', {
+        prefix: LogPrefix.Gog
+      })
+      return null
+    }
     logInfo('Getting data about the user', { prefix: LogPrefix.Gog })
     if (!this.isLoggedIn()) {
       logWarning('User is not logged in', { prefix: LogPrefix.Gog })
@@ -55,7 +61,7 @@ export class GOGUser {
         }
       })
       .catch((error) => {
-        logError(['Error getting user Data', `${error}`], {
+        logError(['Error getting user Data', error], {
           prefix: LogPrefix.Gog
         })
       })

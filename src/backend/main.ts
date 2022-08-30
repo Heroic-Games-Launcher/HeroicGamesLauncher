@@ -1,3 +1,4 @@
+import { initImagesCache } from './images_cache'
 import { downloadAntiCheatData } from './anticheat/utils'
 import {
   InstallParams,
@@ -8,12 +9,12 @@ import {
   AppSettings,
   GameSettings,
   InstallPlatform
-} from '../common/types'
+} from 'common/types'
+import { GOGCloudSavesLocation } from 'common/types/gog'
 import * as path from 'path'
 import {
   BrowserWindow,
   Menu,
-  Notification,
   Tray,
   app,
   dialog,
@@ -34,12 +35,13 @@ import {
   rmSync,
   unlinkSync,
   watch,
+  realpathSync,
   writeFileSync
 } from 'graceful-fs'
 
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
-import { join } from 'path'
+import { join, normalize } from 'path'
 import checkDiskSpace from 'check-disk-space'
 import { DXVK, Winetricks } from './tools'
 import { GameConfig } from './game_config'
@@ -67,7 +69,10 @@ import {
   showErrorBoxModal,
   getFileSize,
   detectVCRedist,
-  getGame
+  getGame,
+  getFirstExistingParentPath,
+  getLatestReleases,
+  notify
 } from './utils'
 import {
   configStore,
@@ -98,7 +103,13 @@ import {
   publicDir
 } from './constants'
 import { handleProtocol } from './protocol'
-import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
@@ -321,6 +332,8 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     const systemInfo = await getSystemInfo()
 
+    initImagesCache()
+
     logInfo(
       ['Legendary location:', join(...Object.values(getLegendaryBin()))],
       { prefix: LogPrefix.Legendary }
@@ -455,21 +468,6 @@ if (!gotTheLock) {
   })
 }
 
-type NotifyType = {
-  title: string
-  body: string
-}
-
-function notify({ body, title }: NotifyType) {
-  const notify = new Notification({
-    body,
-    title
-  })
-
-  notify.on('click', () => mainWindow.show())
-  notify.show()
-}
-
 ipcMain.on('Notify', (event, args) => {
   notify({ body: args[1], title: args[0] })
 })
@@ -479,8 +477,22 @@ ipcMain.on('frontendReady', () => {
 })
 
 // Maybe this can help with white screens
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException', async (err) => {
   logError(`${err.name}: ${err.message}`, { prefix: LogPrefix.Backend })
+  await showErrorBoxModal(
+    mainWindow,
+    i18next.t(
+      'box.error.uncaught-exception.title',
+      'Uncaught Exception occured!'
+    ),
+    i18next.t('box.error.uncaught-exception.message', {
+      defaultValue:
+        'A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.',
+      newLine: '\n',
+      error: err
+    })
+  )
+  app.exit(1)
 })
 
 let powerId: number | null
@@ -510,34 +522,43 @@ ipcMain.handle('kill', async (event, appName, runner) => {
 })
 
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
-  let isWrittable = true
-  // Check If path is writtable
-  access(folder, constants.W_OK, (err) => {
-    if (err) {
-      isWrittable = false
-      logWarning(`${folder} ${err ? 'is not writable' : 'is writable'}`, {
-        prefix: LogPrefix.Backend
-      })
-    }
-  })
+  const parent = getFirstExistingParentPath(folder)
+  return new Promise((res) => {
+    access(parent, constants.W_OK, async (writeError) => {
+      const { free, size: diskSize } = await checkDiskSpace(folder).catch(
+        (checkSpaceError) => {
+          logError(
+            [
+              'Failed to check disk space for',
+              `"${folder}":`,
+              checkSpaceError.stack ?? `${checkSpaceError}`
+            ],
+            { prefix: LogPrefix.Backend }
+          )
+          return { free: 0, size: 0 }
+        }
+      )
+      if (writeError) {
+        logWarning(
+          [
+            'Cannot write to',
+            `"${folder}":`,
+            writeError.stack ?? `${writeError}`
+          ],
+          { prefix: LogPrefix.Backend }
+        )
+      }
 
-  // Check if path has enough space
-  try {
-    const { free, size: diskSize } = await checkDiskSpace(folder)
-    return {
-      free,
-      diskSize,
-      message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
-      validPath: isWrittable
-    }
-  } catch (error) {
-    return {
-      free: 0,
-      diskSize: 0,
-      message: `ERROR`,
-      validPath: false
-    }
-  }
+      const ret = {
+        free,
+        diskSize,
+        message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
+        validPath: !writeError
+      }
+      logDebug(`${JSON.stringify(ret)}`, { prefix: LogPrefix.Backend })
+      res(ret)
+    })
+  })
 })
 
 ipcMain.on('quit', async () => handleExit(mainWindow))
@@ -560,6 +581,7 @@ app.on('open-url', (event, url) => {
   }
 })
 
+ipcMain.on('openExternalUrl', async (event, url) => openUrlOrFile(url))
 ipcMain.on('openFolder', async (event, folder) => openUrlOrFile(folder))
 ipcMain.on('openSupportPage', async () => openUrlOrFile(supportURL))
 ipcMain.on('openReleases', async () => openUrlOrFile(heroicGithubURL))
@@ -626,18 +648,11 @@ ipcMain.handle(
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', async (event, library?: Runner) => {
-  switch (library) {
-    case 'legendary':
-      return LegendaryLibrary.get().listUpdateableGames()
-    case 'gog':
-      return GOGLibrary.get().listUpdateableGames()
-    default:
-      return [
-        ...(await LegendaryLibrary.get().listUpdateableGames()),
-        ...(await GOGLibrary.get().listUpdateableGames())
-      ]
-  }
+ipcMain.handle('checkGameUpdates', async () => {
+  return [
+    ...(await LegendaryLibrary.get().listUpdateableGames()),
+    ...(await GOGLibrary.get().listUpdateableGames())
+  ]
 })
 
 ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
@@ -654,6 +669,17 @@ ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 ipcMain.handle('isFlatpak', () => isFlatpak)
 
 ipcMain.handle('getPlatform', () => process.platform)
+
+ipcMain.handle('showUpdateSetting', () => !isFlatpak)
+
+ipcMain.handle('getLatestReleases', async () => {
+  const { checkForUpdatesOnStartup } = GlobalConfig.get().config
+  if (checkForUpdatesOnStartup) {
+    return getLatestReleases()
+  } else {
+    return []
+  }
+})
 
 ipcMain.on('clearCache', () => {
   clearCache()
@@ -672,7 +698,7 @@ ipcMain.on('resetHeroic', async () => {
     title: i18next.t('box.reset-heroic.question.title', 'Reset Heroic'),
     message: i18next.t(
       'box.reset-heroic.question.message',
-      "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials"
+      "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
     ),
     buttons: [i18next.t('box.no'), i18next.t('box.yes')]
   })
@@ -703,7 +729,7 @@ ipcMain.handle(
       // eslint-disable-next-line @typescript-eslint/return-await
       return info
     } catch (error) {
-      logError(`${error}`, { prefix: LogPrefix.Backend })
+      logError(error, { prefix: LogPrefix.Backend })
       return null
     }
   }
@@ -713,13 +739,17 @@ ipcMain.handle('getGameSettings', async (event, game, runner) => {
   try {
     return await getGame(game, runner).getSettings()
   } catch (error) {
-    logError(`${error}`, { prefix: LogPrefix.Backend })
+    logError(error, { prefix: LogPrefix.Backend })
     return null
   }
 })
 
 ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) => {
   return GOGLibrary.getLinuxInstallersLanguages(appName)
+})
+
+ipcMain.handle('getGOGGameClientId', (event, appName) => {
+  return GOGLibrary.get().readInfoFile(appName)?.clientId
 })
 
 ipcMain.handle(
@@ -734,7 +764,7 @@ ipcMain.handle(
       const info = await getGame(game, runner).getInstallInfo(installPlatform)
       return info
     } catch (error) {
-      logError(`${error}`, { prefix: LogPrefix.Backend })
+      logError(error, { prefix: LogPrefix.Backend })
       return null
     }
   }
@@ -867,7 +897,7 @@ ipcMain.handle('refreshLibrary', async (e, fullRefresh, library?: Runner) => {
 })
 
 ipcMain.on('logError', (e, err) =>
-  logError(`${err}`, { prefix: LogPrefix.Frontend })
+  logError(err, { prefix: LogPrefix.Frontend })
 )
 ipcMain.on('logInfo', (e, info) =>
   logInfo(`${info}`, { prefix: LogPrefix.Frontend })
@@ -961,11 +991,11 @@ ipcMain.handle(
     )
     return game
       .launch(launchArguments)
-      .catch((error) => {
-        logError(error.stack ?? `${error}`, { prefix: LogPrefix.Backend })
+      .catch((exception: Error) => {
+        logError(exception.stack, { prefix: LogPrefix.Backend })
         appendFileSync(
           game.logFileLocation,
-          `An exception occurred when launching the game:\n${error.stack}`
+          `An exception occurred when launching the game:\n${exception.stack}`
         )
       })
       .finally(() => {
@@ -1142,7 +1172,7 @@ ipcMain.handle('uninstall', async (event, args) => {
       notify({ title, body: i18next.t('notify.uninstalled') })
       logInfo('finished uninstalling', { prefix: LogPrefix.Backend })
     })
-    .catch((error) => logError(`${error}`, { prefix: LogPrefix.Backend }))
+    .catch((error) => logError(error, { prefix: LogPrefix.Backend }))
 })
 
 ipcMain.handle('repair', async (event, appName, runner) => {
@@ -1166,7 +1196,7 @@ ipcMain.handle('repair', async (event, appName, runner) => {
         title,
         body: i18next.t('notify.error.reparing', 'Error Repairing')
       })
-      logError(`${error}`, { prefix: LogPrefix.Backend })
+      logError(error, { prefix: LogPrefix.Backend })
     })
 })
 
@@ -1185,7 +1215,7 @@ ipcMain.handle('moveInstall', async (event, [appName, path, runner]) => {
       title,
       body: i18next.t('notify.error.move', 'Error Moving the Game')
     })
-    logError(`${error}`, { prefix: LogPrefix.Backend })
+    logError(error, { prefix: LogPrefix.Backend })
   }
 })
 
@@ -1221,10 +1251,7 @@ ipcMain.handle(
         runner,
         status: 'done'
       })
-      logInfo(
-        error instanceof Error ? error.stack ?? error.message : `${error}`,
-        { prefix: LogPrefix.Backend }
-      )
+      logError(error, { prefix: LogPrefix.Backend })
       return { status: 'error' }
     }
 
@@ -1280,7 +1307,7 @@ ipcMain.handle('updateGame', async (e, appName, runner) => {
       logInfo('finished updating', { prefix: LogPrefix.Backend })
     })
     .catch((err) => {
-      logError(`${err}`, { prefix: LogPrefix.Backend })
+      logError(err, { prefix: LogPrefix.Backend })
       notify({ title, body: i18next.t('notify.update.canceled') })
       return err
     })
@@ -1338,10 +1365,20 @@ ipcMain.handle('egsSync', async (event, args: string) => {
     }
     return `${stdout} - ${stderr}`
   } catch (error) {
-    logError(`${error}`, { prefix: LogPrefix.Legendary })
+    logError(error, { prefix: LogPrefix.Legendary })
     return 'Error'
   }
 })
+
+ipcMain.handle(
+  'syncGOGSaves',
+  async (
+    event,
+    gogSaves: GOGCloudSavesLocation[],
+    appName: string,
+    arg: string
+  ) => getGame(appName, 'gog').syncSaves(arg, '', gogSaves)
+)
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName, runner] = args
@@ -1481,7 +1518,9 @@ ipcMain.handle(
   'runWineCommandForGame',
   async (event, { appName, command, runner }) => {
     const game = getGame(appName, runner)
-
+    if (isWindows) {
+      return execAsync(command)
+    }
     const { updated } = await verifyWinePrefix(game)
 
     if (runner === 'gog' && updated) {
@@ -1493,9 +1532,22 @@ ipcMain.handle(
 )
 
 ipcMain.handle('getShellPath', async (event, path) => {
-  return (await execAsync(`echo "${path}"`)).stdout.trim()
+  return normalize((await execAsync(`echo "${path}"`)).stdout.trim())
 })
 
+ipcMain.handle('getRealPath', (event, path) => {
+  let resolvedPath = normalize(path)
+  try {
+    resolvedPath = realpathSync(path)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    if (err?.path) {
+      resolvedPath = err.path // Reslove most accurate path (most likely followed symlinks)
+    }
+  }
+
+  return resolvedPath
+})
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')

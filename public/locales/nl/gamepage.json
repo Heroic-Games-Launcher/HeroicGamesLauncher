@@ -48,6 +48,7 @@
         "uninstall": "Verwijderen",
         "update": "Update"
     },
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Uitgeschakeld",
     "dlc": {
         "installDlcs": "Installeer alle DLC's"
@@ -88,7 +89,7 @@
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "wineversion": "Wine Version"
     },
     "label": {
         "playing": {
@@ -128,7 +129,6 @@
         "change": "Wijzig installatiepad",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "log": "Laatste log",
         "move": "Spel verplaatsen",
         "protondb": "Compatibiliteit controleren",
         "removeFromSteam": "Remove from Steam",

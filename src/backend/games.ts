@@ -1,4 +1,4 @@
-import { GogInstallInfo } from '../common/types/gog'
+import { GOGCloudSavesLocation, GogInstallInfo } from '../common/types/gog'
 import { LegendaryInstallInfo } from '../common/types/legendary'
 import {
   ExecResult,
@@ -35,6 +35,11 @@ abstract class Game {
   abstract stop(): Promise<void>
   abstract forceUninstall(): Promise<void>
   abstract syncSaves(arg: string, path: string): Promise<ExecResult>
+  abstract syncSaves(
+    arg: string,
+    path: string,
+    gogSaves?: GOGCloudSavesLocation[]
+  ): Promise<ExecResult>
   abstract uninstall(): Promise<ExecResult>
   abstract update(): Promise<{ status: 'done' | 'error' }>
   abstract isNative(): boolean

@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "Тази игра включва софтуер против мамене"
     },
-    "Assets": "Ресурси",
     "box": {
         "cache-cleared": {
             "message": "Кешът на Heroic беше изчистен.",
@@ -60,13 +59,11 @@
                 "title": ""
             },
             "launchAborted": "Launch aborted",
-            "remove": {
-                "steam": {
-                    "body": "Премахването на {{game}} от Steam беше неуспешно:{{newLine}} {{error}}",
-                    "title": "Грешка при премахването"
-                }
-            },
             "title": "Грешка",
+            "uncaught-exception": {
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "title": "Uncaught Exception occured!"
+            },
             "update": {
                 "message": "Нещо се обърка при обновяването. Проверете журналите или опитайте отново по-късно!",
                 "title": "Грешка при обновяването"
@@ -99,7 +96,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Наистина ли искате да зачистите Heroic? Това ще премахне всички настройки и кеша, но няма да изтрие инсталираните игри, нито удостоверителните данни за Epic",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "title": "Зачистване на Heroic"
             }
         },
@@ -236,6 +233,9 @@
     },
     "info": {
         "heroic": {
+            "beta": "Beta",
+            "newReleases": "Update Available!",
+            "stable": "Stable",
             "version": "Версия на Heroic"
         },
         "settings": "Настройките се запазват автоматично",
@@ -279,15 +279,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} не може да се добави за всички намерени потребители на Steam. Вижте журнала за подробности.  За да влязат промените в сила, трябва да рестартирате Steam.",
-                    "success": "Добавянето на {{game}} в Steam беше успешно. За да влязат промените в сила, трябва да рестартирате Steam.",
+                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Добавено в Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} не може да се премахне от всички намерени потребители на Steam. Вижте журнала за подробности.  За да влязат промените в сила, трябва да рестартирате Steam.",
-                    "success": "Премахването на {{game}} от Steam беше успешно.  За да влязат промените в сила, трябва да рестартирате Steam.",
+                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Премахнато от Steam"
                 }
             },
@@ -302,6 +302,7 @@
         },
         "moved": "Преместването е завършено",
         "moving": "Преместване на играта",
+        "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Не могат да бъдат получени изданията от отдалеченото хранилище, може би поради ограничения на ППИ на Github! Опитайте отново по-късно."
         },
@@ -317,8 +318,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "Пример: път/до/допълните/файлове",
-            "title": "Разширени настройки (променливи на средата):",
+            "title": "Environment Variables",
             "value": "Стойност"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Variable names can't be empty",
+                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
+                "space_in_key": "Variable names can't contain spaces"
+            },
+            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "info": "Set environment variables to append to the command."
         },
         "gameargs": {
             "placeholder": "Въведете аргументите за пускане тук",
@@ -350,8 +360,6 @@
         "mac": "Мак",
         "win": "Уиндоус"
     },
-    "Plugins": "Добавки",
-    "Projects": "Проекти",
     "Recent": "Играно наскоро",
     "search": "Търсене на игри",
     "setting": {
@@ -364,6 +372,7 @@
         "autosync": "Автоматично синхронизиране на запазените файлове",
         "autovkd3d": "Автоматично инсталиране/обновяване на VKD3D в префикса",
         "change-target-exe": "Изберете алтернативен файл EXE за изпълнение",
+        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
         "customWineProton": "Персонализирани пътища за Wine/Proton",
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
@@ -444,7 +453,6 @@
         },
         "select_theme": "Изберете тема",
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",
-        "showUnrealMarket": "Показване на Пазара на Unreal (изисква рестартиране)",
         "start-in-tray": "Стартиране в минимизирано състояние",
         "steamruntime": "Използване на средата за изпълнение на Steam",
         "winecrossoverbottle": "Бутилка CrossOver",
@@ -487,6 +495,7 @@
         "open-config-file": "Отваряне на конфигурационния файл",
         "reset-heroic": "Зачистване на Heroic",
         "saves": {
+            "label": "Save Location:",
             "warning": "Функционалността за съхраняване на запазените игри в облака е в състояние на Бета. Направете резервно копие на запазените си игри, преди да синхронизирате (в случай, че нещо се обърка)"
         }
     },
@@ -503,11 +512,7 @@
     "store": "Мазагин на Epic",
     "stores": "Магазини",
     "title": {
-        "allGames": "Всички игри",
-        "allUnreal": "Unreal – Всичко",
-        "unrealAssets": "Unreal – Ресурси",
-        "unrealPlugins": "Unreal – Добавки",
-        "unrealProjects": "Unreal – Проекти"
+        "allGames": "Всички игри"
     },
     "toolbox": {
         "settings": {
@@ -525,6 +530,10 @@
         "reload": "Презареждане",
         "show": "Показване"
     },
+    "two_col_table": {
+        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+    },
+    "Update Available!": "",
     "userselector": {
         "discord": "Дискорд",
         "logout": "Излизане",
