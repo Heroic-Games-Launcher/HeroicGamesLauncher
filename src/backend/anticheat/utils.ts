@@ -14,7 +14,7 @@ async function downloadAntiCheatData() {
     writeFileSync(heroicAnticheatDataPath, JSON.stringify(data, null, 2))
     logInfo(`AreWeAntiCheatYet data downloaded`, { prefix: LogPrefix.Backend })
   } catch (error) {
-    logWarning(`Failed download of AreWeAntiCheatYet data: ${error}`, {
+    logWarning(['Failed download of AreWeAntiCheatYet data:', error], {
       prefix: LogPrefix.Backend
     })
   }

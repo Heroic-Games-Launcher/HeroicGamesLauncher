@@ -246,7 +246,7 @@ class LegendaryGame extends Game {
         )
       })
       .catch((error) => {
-        logError(`Failed to move ${this.appName}: ${error}`, {
+        logError([`Failed to move ${this.appName}:`, error], {
           prefix: LogPrefix.Legendary
         })
       })

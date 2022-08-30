@@ -225,7 +225,7 @@ async function isEpicServiceOffline(
     notification.show()
     return false
   } catch (error) {
-    logError(`Failed to get epic service status with ${error}`, {
+    logError(['Failed to get epic service status with', error], {
       prefix: LogPrefix.Backend
     })
     return false
@@ -461,7 +461,7 @@ function showItemInFolder(item: string) {
     try {
       shell.showItemInFolder(item)
     } catch (error) {
-      logError(`Failed to show item in folder with: ${error}`, {
+      logError(['Failed to show item in folder with:', error], {
         prefix: LogPrefix.Backend
       })
     }

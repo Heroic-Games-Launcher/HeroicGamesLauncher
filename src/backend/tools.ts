@@ -83,7 +83,7 @@ export const DXVK = {
               })
             )
             .catch((error) => {
-              logError(`Extraction of ${tool.name} failed with: ${error}`, {
+              logError([`Extraction of ${tool.name} failed with:`, error], {
                 prefix: LogPrefix.DXVKInstaller
               })
             })
@@ -246,7 +246,7 @@ export const Winetricks = {
     })
 
     child.on('error', (error) => {
-      logError(`Winetricks throwed Error: ${error}`, {
+      logError(['Winetricks throwed Error:', error], {
         prefix: LogPrefix.WineTricks
       })
     })

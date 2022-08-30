@@ -488,7 +488,7 @@ async function runWineCommand(
     })
     .catch((error) => {
       // error might not always be a string
-      logError(['Error running Wine command:', `${error}`], {
+      logError(['Error running Wine command:', error], {
         prefix: LogPrefix.Backend
       })
       throw error

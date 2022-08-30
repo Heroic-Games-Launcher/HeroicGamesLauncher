@@ -245,7 +245,8 @@ async function addNonSteamGame(props: {
       .then((path) => (newEntry.icon = path))
       .catch((error) =>
         logWarning(
-          `Couldn't find a icon for ${props.gameInfo.title} with: ${error}`
+          [`Couldn't find a icon for ${props.gameInfo.title} with:`, error],
+          { prefix: LogPrefix.Shortcuts }
         )
       )
 
