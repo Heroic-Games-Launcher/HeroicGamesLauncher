@@ -42,7 +42,7 @@
       }
     ],
     "win": {
-      "artifactName": "Heroic_Setup_${version}.${ext}",
+      "artifactName": "${productName}-${version}-Setup.${ext}",
       "icon": "build/win_icon.ico",
       "asarUnpack": [
         "build/bin/win32/legendary.exe",
@@ -51,6 +51,9 @@
       "files": [
         "build/bin/win32/*"
       ]
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-Portable.${ext}"
     },
     "mac": {
       "target": "dmg",
