@@ -34,8 +34,7 @@ export default function WebView() {
     lang = 'pt-BR'
   }
 
-  const epicLoginUrl =
-    'https://www.epicgames.com/id/login'
+  const epicLoginUrl = 'https://www.epicgames.com/id/login'
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://gog.com`
   const wikiURL =
