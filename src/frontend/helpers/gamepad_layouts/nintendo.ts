@@ -6,22 +6,22 @@ export function checkGameCube(
   controllerIndex: number,
   checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
 ) {
-  const A = buttons[0],
-    X = buttons[1],
-    Y = buttons[2],
-    B = buttons[3],
+  const A = buttons[0]!,
+    X = buttons[1]!,
+    Y = buttons[2]!,
+    B = buttons[3]!,
     // LT = buttons[4],
     // RT = buttons[5],
     // Z = buttons[6],
     // Start = buttons[7],
-    up = buttons[8],
-    down = buttons[9],
-    left = buttons[10],
-    right = buttons[11],
-    leftAxisX = axes[0],
-    leftAxisY = axes[1],
-    rightAxisX = axes[3],
-    rightAxisY = axes[4]
+    up = buttons[8]!,
+    down = buttons[9]!,
+    left = buttons[10]!,
+    right = buttons[11]!,
+    leftAxisX = axes[0]!,
+    leftAxisY = axes[1]!,
+    rightAxisX = axes[3]!,
+    rightAxisY = axes[4]!
 
   checkAction('padUp', up.pressed, controllerIndex)
   checkAction('padDown', down.pressed, controllerIndex)
@@ -50,17 +50,17 @@ export function checkN64Clone1(
 ) {
   const // CUp = buttons[0],
     // CRight = buttons[1],
-    CDown = buttons[2],
+    CDown = buttons[2]!,
     // CUp = buttons[3],
     // L = buttons[4],
     // R = buttons[5],
-    A = buttons[6],
-    Z = buttons[7],
-    B = buttons[8],
+    A = buttons[6]!,
+    Z = buttons[7]!,
+    B = buttons[8]!,
     // Start = buttons[9],
-    axisX = axes[0],
-    axisY = axes[1],
-    dPadAxis = axes[9]
+    axisX = axes[0]!,
+    axisY = axes[1]!,
+    dPadAxis = axes[9]!
 
   // dPad values are mapped to AXIS 9 as:
   // up: -1

@@ -57,7 +57,7 @@ const GameCard = ({
   runner,
   installedPlatform
 }: Card) => {
-  const [progress, previousProgress] = hasProgress(appName)
+  const { progress, previousProgress } = hasProgress(appName)
 
   const { t } = useTranslation('gamepage')
 
@@ -78,9 +78,9 @@ const GameCard = ({
 
   const grid = forceCard || layout === 'grid'
 
-  const gameStatus: GameStatus = libraryStatus.filter(
-    (game: GameStatus) => game.appName === appName
-  )[0]
+  const { status, folder } =
+    libraryStatus.filter((game: GameStatus) => game.appName === appName)[0] ||
+    {}
 
   const hasDownloads = Boolean(
     libraryStatus.filter(
@@ -89,7 +89,6 @@ const GameCard = ({
     ).length
   )
 
-  const { status, folder } = gameStatus || {}
   const isInstalling = status === 'installing' || status === 'updating'
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'

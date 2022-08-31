@@ -49,7 +49,8 @@ export const DXVK = {
       const pastVersionCheck = `${heroicToolsPath}/${tool.name}/latest_${tool.name}`
       let pastVersion = ''
       if (existsSync(pastVersionCheck)) {
-        pastVersion = readFileSync(pastVersionCheck).toString().split('\n')[0]
+        pastVersion =
+          readFileSync(pastVersionCheck, 'utf-8').split('\n')[0] || ''
       }
 
       if (
@@ -128,19 +129,17 @@ export const DXVK = {
       await DXVK.getLatest()
     }
 
-    const globalVersion = readFileSync(
-      `${heroicToolsPath}/${tool}/latest_${tool}`
-    )
-      .toString()
-      .split('\n')[0]
+    const globalVersion =
+      readFileSync(`${heroicToolsPath}/${tool}/latest_${tool}`, 'utf-8').split(
+        '\n'
+      )[0] || ''
     const toolPath = `${heroicToolsPath}/${tool}/${globalVersion}`
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
 
     if (existsSync(currentVersionCheck)) {
-      currentVersion = readFileSync(currentVersionCheck)
-        .toString()
-        .split('\n')[0]
+      currentVersion =
+        readFileSync(currentVersionCheck, 'utf-8').split('\n')[0] || ''
     }
 
     const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh install --symlink`

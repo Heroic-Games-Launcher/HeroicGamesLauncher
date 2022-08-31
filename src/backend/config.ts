@@ -138,10 +138,14 @@ abstract class GlobalConfig {
     return execAsync(`which wine`)
       .then(async ({ stdout }) => {
         const wineBin = stdout.split('\n')[0]
-        defaultWine.bin = wineBin
-
         const { stdout: out } = await execAsync(`wine --version`)
         const version = out.split('\n')[0]
+
+        if (!wineBin || !version) {
+          return defaultWine
+        }
+
+        defaultWine.bin = wineBin
         defaultWine.name = `Wine Default - ${version}`
 
         return {

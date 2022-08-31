@@ -191,3 +191,9 @@ declare global {
     'controller-changed': CustomEvent<{ controllerId: string }>
   }
 }
+
+export interface SelectiveDownload {
+  tags: Array<string>
+  name: string
+  mandatory?: boolean
+}

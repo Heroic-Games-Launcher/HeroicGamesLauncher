@@ -121,7 +121,7 @@ async function fixGogSaveFolder(
   const isMac = installedPlatform === 'osx'
   const isWindows = installedPlatform === 'windows'
   const matches = folder.match(/<\?(\w+)\?>/)
-  if (!matches) {
+  if (!matches || !matches[0]) {
     return folder
   }
 

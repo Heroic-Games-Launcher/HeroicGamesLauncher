@@ -351,7 +351,7 @@ export class GOGLibrary {
       (value) => value.app_name === appName
     )
     if (
-      !libraryArray[gameObjectIndex].gog_save_location &&
+      !libraryArray[gameObjectIndex]!.gog_save_location &&
       this.installedGames.get(appName) &&
       this.installedGames.get(appName)?.platform !== 'linux'
     ) {
@@ -360,8 +360,9 @@ export class GOGLibrary {
         this.installedGames.get(appName)!
       )
     }
-    libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
-    libraryArray[gameObjectIndex].gog_save_location = gameData.gog_save_location
+    libraryArray[gameObjectIndex]!.folder_name = gogInfo.folder_name
+    libraryArray[gameObjectIndex]!.gog_save_location =
+      gameData.gog_save_location
     gameData.folder_name = gogInfo.folder_name
     libraryStore.set('games', libraryArray)
     this.library.set(appName, gameData)
@@ -418,7 +419,7 @@ export class GOGLibrary {
       (value) => value.appName === appName
     )
 
-    installedArray[gameIndex].install_path = newInstallPath
+    installedArray[gameIndex]!.install_path = newInstallPath
     cachedGameData.install.install_path = newInstallPath
     installedGamesStore.set('installed', installedArray)
   }

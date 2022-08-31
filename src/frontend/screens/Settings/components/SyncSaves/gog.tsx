@@ -107,7 +107,7 @@ export default function GOGSyncSaves({
           : await ipcRenderer.invoke('getRealPath', actualPath)
 
         if (locationIndex >= 0 && !locations[locationIndex]?.location.length) {
-          locations[locationIndex].location = actualPath
+          locations[locationIndex]!.location = actualPath
         } else if (locationIndex < 0) {
           locations.push({ name, location: actualPath })
         }
@@ -162,7 +162,7 @@ export default function GOGSyncSaves({
                 disabled={isSyncing}
                 onChange={(event: { target: { value: string } }) => {
                   const saves = [...gogSaves]
-                  saves[index].location = event.target.value
+                  saves[index]!.location = event.target.value
                   setGogSaves(saves)
                 }}
                 icon={
@@ -189,12 +189,12 @@ export default function GOGSyncSaves({
                           })
                           .then(({ path }: Path) => {
                             const saves = [...gogSaves]
-                            saves[index].location = path ?? ''
+                            saves[index]!.location = path ?? ''
                             setGogSaves(saves)
                           })
                     : () => {
                         const saves = [...gogSaves]
-                        saves[index].location = ''
+                        saves[index]!.location = ''
                         setGogSaves(saves)
                       }
                 }

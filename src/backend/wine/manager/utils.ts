@@ -57,11 +57,11 @@ async function updateWineVersionInfos(
 
         if (existsSync(old?.installDir)) {
           if (index !== -1) {
-            releases[index].installDir = old.installDir
-            releases[index].isInstalled = old.isInstalled
-            releases[index].disksize = old.disksize
-            if (releases[index].checksum !== old.checksum) {
-              releases[index].hasUpdate = true
+            releases[index]!.installDir = old.installDir
+            releases[index]!.isInstalled = old.isInstalled
+            releases[index]!.disksize = old.disksize
+            if (releases[index]!.checksum !== old.checksum) {
+              releases[index]!.hasUpdate = true
             }
           } else {
             releases.push(old)
@@ -206,10 +206,10 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
       return false
     }
 
-    releases[index].isInstalled = false
-    releases[index].installDir = ''
-    releases[index].disksize = 0
-    releases[index].hasUpdate = false
+    releases[index]!.isInstalled = false
+    releases[index]!.installDir = ''
+    releases[index]!.disksize = 0
+    releases[index]!.hasUpdate = false
 
     wineDownloaderInfoStore.set('wine-releases', releases)
   } else {

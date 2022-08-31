@@ -8,10 +8,10 @@ export function checkXbox(
   controllerIndex: number,
   checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
 ) {
-  const A = buttons[0],
-    B = buttons[1],
-    X = buttons[2],
-    Y = buttons[3],
+  const A = buttons[0]!,
+    B = buttons[1]!,
+    X = buttons[2]!,
+    Y = buttons[3]!,
     // LB = buttons[4],
     // RB = buttons[5],
     // LT = buttons[6], // has .value
@@ -20,15 +20,15 @@ export function checkXbox(
     // menu = buttons[9],
     // L3 = buttons[10], // press left stick
     // R3 = buttons[11], // press right stick
-    up = buttons[12],
-    down = buttons[13],
-    left = buttons[14],
-    right = buttons[15],
+    up = buttons[12]!,
+    down = buttons[13]!,
+    left = buttons[14]!,
+    right = buttons[15]!,
     // XBOX = buttons[16],
-    leftAxisX = axes[0],
-    leftAxisY = axes[1],
-    rightAxisX = axes[2],
-    rightAxisY = axes[3]
+    leftAxisX = axes[0]!,
+    leftAxisY = axes[1]!,
+    rightAxisX = axes[2]!,
+    rightAxisY = axes[3]!
 
   // use the `?` operator here since this layout is used as fallback
   // and mapping can be incorrect

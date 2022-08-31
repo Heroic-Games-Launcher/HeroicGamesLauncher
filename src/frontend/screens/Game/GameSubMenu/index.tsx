@@ -158,7 +158,7 @@ export default function GamesSubmenu({
         defaultPath: defaultInstallPath
       })
       if (path) {
-        await ipcRenderer.invoke('changeInstallPath', [appName, path, runner])
+        await ipcRenderer.invoke('changeInstallPath', appName, runner, path)
         await refresh(runner)
       }
       return
@@ -266,12 +266,9 @@ export default function GamesSubmenu({
         try {
           const { wineVersion, winePrefix }: AppSettings =
             await ipcRenderer.invoke('requestSettings', appName)
-          let wine = wineVersion.name
+          const wine = wineVersion.name
             .replace('Wine - ', '')
             .replace('Proton - ', '')
-          if (wine.includes('Default')) {
-            wine = wine.split('-')[0]
-          }
           setInfo({ prefix: winePrefix, wine })
         } catch (error) {
           ipcRenderer.send('logError', error)

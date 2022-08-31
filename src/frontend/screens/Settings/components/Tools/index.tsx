@@ -58,14 +58,15 @@ export default function Tools({ appName, runner }: Props) {
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault()
 
-    if (ev.dataTransfer.items) {
-      // Use DataTransferItemList interface to access the file(s)
-      // If dropped items aren't files, reject them
-      if (ev.dataTransfer.items[0].kind === 'file') {
-        const exe = ev.dataTransfer.items[0].getAsFile()?.path
-        if (exe) {
-          return callTools('runExe', exe)
-        }
+    if (!ev.dataTransfer.items[0]) {
+      return
+    }
+    // Use DataTransferItemList interface to access the file(s)
+    // If dropped items aren't files, reject them
+    if (ev.dataTransfer.items[0].kind === 'file') {
+      const exe = ev.dataTransfer.items[0].getAsFile()?.path
+      if (exe) {
+        return callTools('runExe', exe)
       }
     }
     return

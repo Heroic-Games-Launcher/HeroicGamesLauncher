@@ -90,9 +90,9 @@ export class GlobalState extends PureComponent<Props> {
       []
     for (const igame in games) {
       for (const installedGame of installedGames) {
-        if (installedGame.appName === games[igame].app_name) {
-          games[igame].install = installedGame
-          games[igame].is_installed = true
+        if (installedGame.appName === games[igame]!.app_name) {
+          games[igame]!.install = installedGame
+          games[igame]!.is_installed = true
         }
       }
     }

@@ -15,7 +15,7 @@ import { ipcRenderer } from 'frontend/helpers'
 
 export interface WebviewControlsProps {
   webview: WebviewType | null
-  initURL: string
+  initURL?: string
   openInBrowser: boolean
 }
 
@@ -32,10 +32,10 @@ function removeSelection(event: SyntheticEvent<unknown>) {
 
 export default function WebviewControls({
   webview,
-  initURL,
+  initURL = '',
   openInBrowser
 }: WebviewControlsProps) {
-  const [url, setUrl] = React.useState(initURL)
+  const [url, setUrl] = useState(initURL)
   const { t } = useTranslation()
   const [canGoBack, setCanGoBack] = useState(false)
   const [canGoForward, setCanGoForward] = useState(false)

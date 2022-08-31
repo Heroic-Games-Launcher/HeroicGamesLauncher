@@ -8,10 +8,10 @@ export function checkGenius1(
   controllerIndex: number,
   checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
 ) {
-  const one = buttons[0],
-    two = buttons[1],
-    three = buttons[2],
-    four = buttons[3],
+  const one = buttons[0]!,
+    two = buttons[1]!,
+    three = buttons[2]!,
+    four = buttons[3]!,
     // L1 = buttons[4],
     // R1 = buttons[5],
     // L2 = buttons[6],
@@ -20,10 +20,10 @@ export function checkGenius1(
     // start = buttons[9],
     // L3 = buttons[10], // press left stick
     // R3 = buttons[11], // press right stick
-    leftAxisX = axes[0],
-    leftAxisY = axes[1],
-    rightAxisX = axes[2],
-    rightAxisY = axes[3],
+    leftAxisX = axes[0]!,
+    leftAxisY = axes[1]!,
+    rightAxisX = axes[2]!,
+    rightAxisY = axes[3]!,
     dPadX = axes[4],
     dPadY = axes[5]
 
@@ -41,6 +41,6 @@ export function checkGenius1(
   checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
   checkAction('mainAction', one.pressed, controllerIndex)
   checkAction('back', two.pressed, controllerIndex)
-  checkAction('altAction', four.pressed, controllerIndex)
   checkAction('rightClick', three.pressed, controllerIndex)
+  checkAction('altAction', four.pressed, controllerIndex)
 }

@@ -65,7 +65,7 @@ export async function showErrorBoxModal(
 }
 
 export function showErrorBoxModalAuto(title: string, message: string) {
-  let window: BrowserWindow | null
+  let window: BrowserWindow | null | undefined
   try {
     window = BrowserWindow.getFocusedWindow()
     if (!window) {
@@ -95,23 +95,23 @@ function semverGt(target: string, base: string) {
 
     // same major beta?
     if (bSplit[0] === tSplit[0]) {
-      base = bSplit[1]
-      target = tSplit[1]
+      base = bSplit[1] || ''
+      target = tSplit[1] || ''
       return target > base
     } else {
-      base = bSplit[0]
-      target = tSplit[0]
+      base = bSplit[0] || ''
+      target = tSplit[0] || ''
     }
   }
 
   // beta to stable
   if (base.includes('-beta')) {
-    base = base.split('-beta.')[0]
+    base = base.split('-beta.')[0] || ''
   }
 
   // stable to beta
   if (target.includes('-beta')) {
-    target = target.split('-beta.')[0]
+    target = target.split('-beta.')[0] || ''
   }
 
   const [bmajor, bminor, bpatch] = base.split('.').map(Number)
@@ -119,9 +119,9 @@ function semverGt(target: string, base: string) {
 
   let isGE = false
   // A pretty nice piece of logic if you ask me. :P
-  isGE ||= tmajor > bmajor
-  isGE ||= tmajor === bmajor && tminor > bminor
-  isGE ||= tmajor === bmajor && tminor === bminor && tpatch > bpatch
+  isGE ||= tmajor! > bmajor!
+  isGE ||= tmajor === bmajor && tminor! > bminor!
+  isGE ||= tmajor === bmajor && tminor === bminor && tpatch! > bpatch!
   return isGE
 }
 
@@ -239,7 +239,7 @@ export const getLegendaryVersion = async () => {
   }
 
   return stdout
-    .split('legendary version')[1]
+    .replaceAll('legendary version ', '')
     .replaceAll('"', '')
     .replaceAll(', codename', '')
     .replaceAll('\n', '')
@@ -365,7 +365,8 @@ async function errorHandler(
   const otherErrorMessages = ['No saved credentials', 'No credentials']
 
   if (!window) {
-    window = BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows[0]
+    window =
+      BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
   }
 
   if (logPath) {
@@ -531,7 +532,7 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
   } else {
     return execAsync(`which ${executable}`)
       .then(({ stdout }) => {
-        return stdout.split('\n')[0]
+        return stdout.split('\n')[0] || ''
       })
       .catch((error) => {
         logError(`${error}`, LogPrefix.Backend)
@@ -789,16 +790,22 @@ type NotifyType = {
 }
 
 export function notify({ body, title }: NotifyType) {
-  if (Notification.isSupported() && !isSteamDeckGameMode) {
-    const mainWindow = BrowserWindow.getAllWindows()[0]
-    const notify = new Notification({
-      body,
-      title
-    })
-
-    notify.on('click', () => mainWindow.show())
-    notify.show()
+  if (isSteamDeckGameMode || !Notification.isSupported()) {
+    return
   }
+  const mainWindow =
+    BrowserWindow.getFocusedWindow() || BrowserWindow.getAllWindows()[0]
+  if (!mainWindow) {
+    return
+  }
+
+  const notify = new Notification({
+    body,
+    title
+  })
+
+  notify.on('click', () => mainWindow.show())
+  notify.show()
 }
 
 export {

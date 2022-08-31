@@ -43,7 +43,7 @@ import { t } from 'i18next'
 
 class LegendaryGame extends Game {
   public appName: string
-  public window = BrowserWindow.getAllWindows()[0]
+  public window = BrowserWindow.getAllWindows()[0]!
   private static instances: Map<string, LegendaryGame> = new Map()
 
   private constructor(appName: string) {
@@ -266,14 +266,14 @@ class LegendaryGame extends Game {
 
     // store the download size, needed for correct calculation
     // when cancel/resume downloads
-    if (downloadSizeMatch) {
+    if (downloadSizeMatch && downloadSizeMatch[1]) {
       this.currentDownloadSize = parseFloat(downloadSizeMatch[1])
     }
 
     // parse log for game download progress
     const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
     const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
-    if (!etaMatch || !bytesMatch) {
+    if (!etaMatch || !etaMatch[1] || !bytesMatch || !bytesMatch[1]) {
       return
     }
 
@@ -334,7 +334,7 @@ class LegendaryGame extends Game {
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
-        'installing',
+        'updating',
         info.manifest.download_size,
         data
       )
@@ -428,7 +428,7 @@ class LegendaryGame extends Game {
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
-        'updating',
+        'installing',
         info.manifest.download_size,
         data
       )
@@ -743,9 +743,7 @@ class LegendaryGame extends Game {
         '-y',
         '--keep-files'
       ])
-      const mainWindow =
-        BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
-      mainWindow.webContents.send('refreshLibrary', 'legendary')
+      this.window.webContents.send('refreshLibrary', 'legendary')
     } catch (error) {
       logError(
         `Error reading ${installed}, could not complete operation`,

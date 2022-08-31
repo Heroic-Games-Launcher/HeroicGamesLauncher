@@ -99,11 +99,11 @@ export default function WineSettings({
       setAltWine(wineList)
       // Avoids not updating wine config when having one wine install only
       if (wineList && wineList.length === 1) {
-        setWineVersion(wineList[0])
+        setWineVersion(wineList[0]!)
       }
     }
     getAltWine()
-    setSelectedPath(customWinePaths.length ? customWinePaths[0] : '')
+    setSelectedPath(customWinePaths[0] || '')
   }, [customWinePaths])
 
   const { t } = useTranslation()
@@ -127,7 +127,7 @@ export default function WineSettings({
   function removeCustomPath() {
     const newPaths = customWinePaths.filter((path) => path !== selectedPath)
     setCustomWinePaths(newPaths)
-    return setSelectedPath(customWinePaths.length ? customWinePaths[0] : '')
+    return setSelectedPath(customWinePaths[0] || '')
   }
 
   return (
@@ -259,11 +259,13 @@ export default function WineSettings({
             : t('setting.crossover-version', 'Crossover Version')
         }
         htmlId="setWineVersion"
-        onChange={(event) =>
-          setWineVersion(
-            altWine.filter(({ name }) => name === event.target.value)[0]
+        onChange={(event) => {
+          // Note: There should only ever be one and exactly one version in this list
+          const selectedWineVersions = altWine.filter(
+            ({ name }) => name === event.target.value
           )
-        }
+          setWineVersion(selectedWineVersions[0]!)
+        }}
         value={wineVersion.name}
         afterSelect={
           <>

@@ -298,7 +298,7 @@ export class LegendaryLibrary {
               return
             }
             const latestVersion = currentAsset.build_version
-            if (currentVersion !== latestVersion) {
+            if (latestVersion && currentVersion !== latestVersion) {
               logDebug(
                 [
                   'Update is available for',
@@ -502,7 +502,9 @@ export class LegendaryLibrary {
       namespace,
       is_mac_native: info
         ? platform === 'Mac'
-        : releaseInfo[0].platform.includes('Mac'),
+        : releaseInfo[0]
+        ? releaseInfo[0].platform.includes('Mac')
+        : false,
       save_folder: saveFolder,
       title,
       canRunOffline,

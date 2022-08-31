@@ -10,19 +10,19 @@ type Props = {
 }
 
 function GamePicture({ art_square, store }: Props) {
-  function getImageFormatting() {
-    if (art_square === 'fallback') return fallbackImage
+  function getImageFormatting(): { src: string; fallback?: string } {
+    if (art_square === 'fallback') return { src: fallbackImage }
     if (store === 'legendary') {
-      return [
-        `${art_square}?h=800&resize=1&w=600`,
-        `${art_square}?h=400&resize=1&w=300`
-      ]
+      return {
+        src: `${art_square}?h=800&resize=1&w=600`,
+        fallback: `${art_square}?h=400&resize=1&w=300`
+      }
     } else {
-      return [art_square, '']
+      return { src: art_square }
     }
   }
 
-  const [src, fallback] = getImageFormatting()
+  const { src, fallback } = getImageFormatting()
 
   return (
     <div className="gamePicture">

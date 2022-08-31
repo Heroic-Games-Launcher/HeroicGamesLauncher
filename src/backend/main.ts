@@ -311,8 +311,9 @@ const processZoomForScreen = (zoomFactor: number) => {
 }
 
 ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
-  const window = BrowserWindow.getAllWindows()[0]
-  window.webContents.setZoomFactor(processZoomForScreen(parseFloat(zoomFactor)))
+  mainWindow.webContents.setZoomFactor(
+    processZoomForScreen(parseFloat(zoomFactor))
+  )
 })
 
 if (!gotTheLock) {
@@ -910,7 +911,6 @@ let powerDisplayId: number | null
 ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }: LaunchParams) => {
-    const window = BrowserWindow.getAllWindows()[0]
     const recentGames =
       (configStore.get('games.recent') as Array<RecentGame>) || []
     const game = getGame(appName, runner)
@@ -933,7 +933,7 @@ ipcMain.handle(
       if (updatedRecentGames.length > MAX_RECENT_GAMES) {
         const newArr = []
         for (let i = 0; i <= MAX_RECENT_GAMES; i++) {
-          newArr.push(updatedRecentGames[i])
+          newArr.push(updatedRecentGames[i]!)
         }
         updatedRecentGames = newArr
       }
@@ -946,7 +946,7 @@ ipcMain.handle(
       configStore.set('games.recent', [{ appName: game.appName, title }])
     }
 
-    window.webContents.send('setGameStatus', {
+    mainWindow.webContents.send('setGameStatus', {
       appName,
       runner,
       status: 'playing'
@@ -1008,7 +1008,7 @@ ipcMain.handle(
         }
         tsStore.set(`${game.appName}.totalPlayed`, Math.floor(totalPlaytime))
 
-        window.webContents.send('setGameStatus', {
+        mainWindow.webContents.send('setGameStatus', {
           appName,
           runner,
           status: 'done'
@@ -1306,7 +1306,7 @@ ipcMain.handle('updateGame', async (e, appName, runner) => {
 
 ipcMain.handle(
   'changeInstallPath',
-  async (event, [appName, newPath, runner]: string[]) => {
+  async (event, appName: string, runner: Runner, newPath: string) => {
     let instance = null
     switch (runner) {
       case 'legendary':
@@ -1396,7 +1396,6 @@ ipcMain.handle('syncSaves', async (event, args) => {
 // Simulate keyboard and mouse actions as if the real input device is used
 ipcMain.handle('gamepadAction', async (event, args) => {
   const [action, metadata] = args
-  const window = BrowserWindow.getAllWindows()[0]
   const inputEvents: (
     | GamepadInputEventKey
     | GamepadInputEventWheel
@@ -1416,16 +1415,16 @@ ipcMain.handle('gamepadAction', async (event, args) => {
       inputEvents.push({
         type: 'mouseWheel',
         deltaY: 50,
-        x: window.getBounds().width / 2,
-        y: window.getBounds().height / 2
+        x: mainWindow.getBounds().width / 2,
+        y: mainWindow.getBounds().height / 2
       })
       break
     case 'rightStickDown':
       inputEvents.push({
         type: 'mouseWheel',
         deltaY: -50,
-        x: window.getBounds().width / 2,
-        y: window.getBounds().height / 2
+        x: mainWindow.getBounds().width / 2,
+        y: mainWindow.getBounds().height / 2
       })
       break
     case 'leftStickUp':
@@ -1475,7 +1474,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
       })
       break
     case 'back':
-      window.webContents.goBack()
+      mainWindow.webContents.goBack()
       break
     case 'esc':
       inputEvents.push({
@@ -1490,7 +1489,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   }
 
   if (inputEvents.length) {
-    inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
+    inputEvents.forEach((event) => mainWindow.webContents.sendInputEvent(event))
   }
 })
 

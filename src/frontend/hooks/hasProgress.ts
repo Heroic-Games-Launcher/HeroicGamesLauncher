@@ -50,5 +50,5 @@ export const hasProgress = (appName: string) => {
     }
   }, [])
 
-  return [progress, previousProgress]
+  return { progress, previousProgress }
 }

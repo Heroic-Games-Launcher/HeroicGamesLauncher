@@ -20,7 +20,7 @@ import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
 import { updateGame } from 'frontend/helpers'
 
-import { AppSettings, GameInfo, GameStatus } from 'common/types'
+import { AppSettings, GameInfo } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
 
@@ -52,12 +52,10 @@ export default function GamePage(): JSX.Element | null {
 
   const { libraryStatus, handleGameStatus, epic, gog, gameUpdates, platform } =
     useContext(ContextProvider)
-  const gameStatus: GameStatus = libraryStatus.filter(
-    (game) => game.appName === appName
-  )[0]
+  const { status } =
+    libraryStatus.filter((game) => game.appName === appName)[0] || {}
 
-  const { status } = gameStatus || {}
-  const [progress, previousProgress] = hasProgress(appName)
+  const { progress, previousProgress } = hasProgress(appName)
   // @ts-expect-error TODO: Proper default value
   const [gameInfo, setGameInfo] = useState<GameInfo>({})
   const [updateRequested, setUpdateRequested] = useState(false)
@@ -587,10 +585,8 @@ export default function GamePage(): JSX.Element | null {
       return handleModal()
     }
 
-    const gameStatus: GameStatus = libraryStatus.filter(
-      (game: GameStatus) => game.appName === appName
-    )[0]
-    const { folder } = gameStatus
+    const { folder } =
+      libraryStatus.filter((game) => game.appName === appName)[0] || {}
     if (!folder) {
       return
     }

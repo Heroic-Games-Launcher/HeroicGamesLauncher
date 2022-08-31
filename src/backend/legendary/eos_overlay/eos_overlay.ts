@@ -84,7 +84,7 @@ async function install() {
       logMessagePrefix: 'Getting EOS Overlay install size',
       onOutput: (output: string, child: ChildProcess) => {
         const downloadMatch = output.match(/Download size: ([\d.]+) MiB/)
-        if (downloadMatch) {
+        if (downloadMatch && downloadMatch[1]) {
           downloadSize = parseFloat(downloadMatch[1])
           // Output is in MiB, we want it in bytes
           downloadSize = downloadSize * 1024 ** 2

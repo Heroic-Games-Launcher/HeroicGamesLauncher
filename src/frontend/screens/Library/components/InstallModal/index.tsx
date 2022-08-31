@@ -44,7 +44,7 @@ import {
   Runner,
   WineInstallation
 } from 'common/types'
-import { Path } from 'frontend/types'
+import { Path, SelectiveDownload } from 'frontend/types'
 import {
   Dialog,
   DialogContent,
@@ -55,7 +55,7 @@ import Anticheat from 'frontend/components/UI/Anticheat'
 
 import './index.css'
 
-import { SDL_GAMES, SelectiveDownload } from './selective_dl'
+import { SDL_GAMES } from './selective_dl'
 
 import { ipcRenderer } from 'frontend/helpers'
 import { LegendaryInstallInfo } from 'common/types/legendary'
@@ -83,7 +83,7 @@ function getInstallLanguage(
       return foundAvailable
     }
   }
-  return availableLanguages[0]
+  return availableLanguages[0]!
 }
 
 function getUniqueKey(sdl: SelectiveDownload) {
@@ -110,9 +110,6 @@ export default function InstallModal({
   const { t: tr } = useTranslation()
   const { libraryStatus, handleGameStatus, platform } =
     useContext(ContextProvider)
-  const gameStatus: GameStatus = libraryStatus.filter(
-    (game: GameStatus) => game.appName === appName
-  )[0]
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
   const [gameInstallInfo, setGameInstallInfo] = useState<
     LegendaryInstallInfo | GogInstallInfo
@@ -141,8 +138,9 @@ export default function InstallModal({
   const [defaultPlatform, setDefaultPlatform] =
     useState<InstallPlatform>('Windows')
 
-  const installFolder = gameStatus?.folder || installPath
-
+  const { folder: installFolder = installPath } =
+    libraryStatus.filter((game: GameStatus) => game.appName === appName)[0] ||
+    {}
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
 
@@ -183,7 +181,7 @@ export default function InstallModal({
   const [platformToInstall, setPlatformToInstall] =
     useState<InstallPlatform>(defaultPlatform)
 
-  const sdls: Array<SelectiveDownload> = SDL_GAMES[appName]
+  const sdls = SDL_GAMES[appName]
   const haveSDL = Array.isArray(sdls) && sdls.length !== 0
 
   const [selectedSdls, setSelectedSdls] = useState<{ [key: string]: boolean }>(

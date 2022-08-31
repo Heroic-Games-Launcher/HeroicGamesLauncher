@@ -22,7 +22,7 @@ import {
   isLinux
 } from '../constants'
 import { installedGamesStore, syncStore } from '../gog/electronStores'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
+import { logDebug, logError, logInfo, LogPrefix } from '../logger/logger'
 import { errorHandler, execAsync, getFileSize, getGOGdlBin } from '../utils'
 import { GOGUser } from './user'
 import {
@@ -48,7 +48,7 @@ import { t } from 'i18next'
 
 class GOGGame extends Game {
   public appName: string
-  public window = BrowserWindow.getAllWindows()[0]
+  public window = BrowserWindow.getAllWindows()[0]!
   private static instances = new Map<string, GOGGame>()
   private constructor(appName: string) {
     super()
@@ -159,7 +159,14 @@ class GOGGame extends Game {
     const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
     const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
     const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
-    if (etaMatch && bytesMatch && progressMatch) {
+    if (
+      etaMatch &&
+      etaMatch[1] &&
+      bytesMatch &&
+      bytesMatch[1] &&
+      progressMatch &&
+      progressMatch[1]
+    ) {
       const eta = etaMatch[1]
       const bytes = bytesMatch[1]
       let percent = parseFloat(progressMatch[1])
@@ -587,51 +594,54 @@ class GOGGame extends Game {
     }
   }
   public async uninstall(): Promise<ExecResult> {
-    const array: Array<InstalledInfo> =
+    const allInstallledInfo: InstalledInfo[] =
       (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
-    const index = array.findIndex((game) => game.appName === this.appName)
-    if (index === -1) {
+    const installedInfo = allInstallledInfo.find(
+      (game) => game.appName === this.appName
+    )
+    if (!installedInfo) {
       throw Error("Game isn't installed")
     }
+    const newInstalledInfoArray = allInstallledInfo.filter(
+      (game) => game !== installedInfo
+    )
+    const { install_path } = installedInfo
 
-    const [object] = array.splice(index, 1)
-    logInfo(['Removing', object.install_path], LogPrefix.Gog)
+    logInfo(['Removing', install_path], LogPrefix.Gog)
     // TODO: Run unins000.exe /verysilent /dir=Z:/path/to/game
-    const uninstallerPath = join(object.install_path, 'unins000.exe')
+    const uninstallerPath = join(install_path, 'unins000.exe')
 
     const res: ExecResult = { stdout: '', stderr: '' }
     if (existsSync(uninstallerPath)) {
-      const {
-        winePrefix,
-        wineVersion: { bin, name },
-        wineCrossoverBottle
-      } = GameConfig.get(this.appName).config
-      let commandPrefix = `WINEPREFIX="${winePrefix}" ${bin}`
-      if (name.includes('CrossOver')) {
-        commandPrefix = `CX_BOTTLE=${wineCrossoverBottle} ${bin}`
-      }
-      const command = `${
-        isWindows ? '' : commandPrefix
-      } "${uninstallerPath}" /verysilent /dir="${isWindows ? '' : 'Z:'}${
-        object.install_path
-      }"`
-      logInfo(['Executing uninstall command', command], LogPrefix.Gog)
-      execAsync(command)
-        .then(({ stdout, stderr }) => {
+      if (!this.isNative()) {
+        const { stdout: wineGamePath } = await this.runWineCommand(
+          `winepath -w ${install_path}`
+        )
+        logDebug(['Game path from within Wine:', wineGamePath], LogPrefix.Gog)
+        this.runWineCommand(
+          `${uninstallerPath} /verysilent /dir=${wineGamePath}`
+        ).then(({ stdout, stderr }) => {
           res.stdout = stdout
           res.stderr = stderr
         })
-        .catch((error) => {
-          res.error = `${error}`
-        })
+      } else {
+        execAsync(`${uninstallerPath} /verysilent /dir=${install_path}`)
+          .then(({ stdout, stderr }) => {
+            res.stdout = stdout
+            res.stderr = stderr
+          })
+          .catch((error) => {
+            res.error = `${error}`
+          })
+      }
     } else {
-      rmSync(object.install_path, { recursive: true })
+      rmSync(install_path, { recursive: true })
     }
-    installedGamesStore.set('installed', array)
+    installedGamesStore.set('installed', newInstalledInfoArray)
     GOGLibrary.get().refreshInstalled()
     await removeShortcuts(this.appName, 'gog')
     syncStore.delete(this.appName)
-    const gameInfo = await this.getGameInfo()
+    const gameInfo = this.getGameInfo()
     const { defaultSteamPath } = await GlobalConfig.get().getSettings()
     const steamUserdataDir = join(
       defaultSteamPath.replaceAll("'", ''),
@@ -693,12 +703,17 @@ class GOGGame extends Game {
     }
 
     const installedArray = installedGamesStore.get(
-      'installed'
+      'installed',
+      []
     ) as InstalledInfo[]
     const gameIndex = installedArray.findIndex(
       (value) => this.appName === value.appName
     )
     const gameObject = installedArray[gameIndex]
+
+    if (!gameObject) {
+      return { status: 'error' }
+    }
 
     if (gameData.install.platform !== 'linux') {
       const installInfo = await this.getInstallInfo()
@@ -768,9 +783,7 @@ class GOGGame extends Game {
     ) as Array<InstalledInfo>
     const newInstalled = installed.filter((g) => g.appName !== this.appName)
     installedGamesStore.set('installed', newInstalled)
-    const mainWindow =
-      BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
-    mainWindow.webContents.send('refreshLibrary', 'gog')
+    this.window.webContents.send('refreshLibrary', 'gog')
   }
 }
 

@@ -76,7 +76,11 @@ export const initGamepad = () => {
     }
 
     const data = actions[action]
-    const triggeredAt = data.triggeredAt[controllerIndex]
+    const triggeredAt = data?.triggeredAt[controllerIndex]
+
+    if (!data || !triggeredAt) {
+      return
+    }
 
     if (!pressed) {
       // set 0 if not pressed (means inactive button)
@@ -332,14 +336,14 @@ export const initGamepad = () => {
     const buttons = controller.buttons
     const axes = controller.axes
 
-    for (const button in buttons) {
-      if (buttons[button].pressed)
-        console.log(`button ${button} pressed ${buttons[button].value}`)
+    for (const button of buttons) {
+      if (button.pressed)
+        console.log(`button ${button} pressed ${button.value}`)
     }
-    for (const axis in axes) {
-      if (axes[axis] < -0.2 && axes[axis] >= -1)
+    for (const axis of axes) {
+      if (axis < -0.2 && axis >= -1)
         console.log(`axis ${axis} activated negative`)
-      if (axes[axis] > 0.2 && axes[axis] <= 1)
+      if (axis > 0.2 && axis <= 1)
         console.log(`axis ${axis} activated positive`)
     }
   }

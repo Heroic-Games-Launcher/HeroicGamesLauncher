@@ -73,7 +73,9 @@ export function TableInput({
       !valueInputs.value
     ) {
       const [key, value] = valueInputs.key.split(connector)
-      setValueInputs({ key: key, value: value })
+      if (key && value) {
+        setValueInputs({ key: key, value: value })
+      }
     } else {
       // else, validate input
       if (validation) {
@@ -106,7 +108,7 @@ export function TableInput({
       (entry: ColumnProps) => entry.key === row.key
     )
     if (index >= 0) {
-      rowData[index].value = row.value
+      rowData[index]!.value = row.value
     } else {
       rowData.push(row)
     }
@@ -210,12 +212,12 @@ export function TableInput({
               </SvgButton>
             </td>
           </tr>
-          {(keyError || valueError) && (
+          {keyError || valueError ? (
             <tr className="error">
               <td colSpan={3}>{keyError || valueError}</td>
             </tr>
-          )}
-          {dirtyInputs && !keyError && !valueError && valueInputs.key && (
+          ) : null}
+          {dirtyInputs && !keyError && !valueError && valueInputs.key ? (
             <tr className="dirty">
               <td colSpan={3}>
                 <span>
@@ -227,7 +229,7 @@ export function TableInput({
                 <FontAwesomeIcon icon={faArrowUp} />
               </td>
             </tr>
-          )}
+          ) : null}
         </tfoot>
       </table>
       {valueInputs.value && warning}

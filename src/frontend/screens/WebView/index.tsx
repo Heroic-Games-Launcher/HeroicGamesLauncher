@@ -34,27 +34,18 @@ export default function WebView() {
     lang = 'pt-BR'
   }
 
-  const epicLoginUrl =
-    'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
-  const epicStore = `https://www.epicgames.com/store/${lang}/`
-  const gogStore = `https://gog.com`
-  const wikiURL =
-    'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
-  const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
-  const gogLoginUrl =
-    'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
-
   const trueAsStr = 'true' as unknown as boolean | undefined
   const { runner } = useParams() as { runner: Runner }
 
-  const urls = {
-    '/epicstore': epicStore,
-    '/gogstore': gogStore,
-    '/wiki': wikiURL,
-    '/loginEpic': epicLoginUrl,
-    '/loginGOG': gogLoginUrl,
-    '/loginweb/legendary': epicLoginUrl,
-    '/loginweb/gog': gogLoginUrl
+  const urls: { [index: string]: string } = {
+    '/epicstore': `https://www.epicgames.com/store/${lang}/`,
+    '/gogstore': `https://gog.com`,
+    '/wiki':
+      'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki',
+    '/loginweb/legendary':
+      'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect',
+    '/loginweb/gog':
+      'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
   }
   let startUrl = urls[pathname]
 
@@ -80,7 +71,7 @@ export default function WebView() {
           return
         } else if (runner === 'gog') {
           const pageUrl = webview.getURL()
-          if (pageUrl.match(gogEmbedRegExp)) {
+          if (pageUrl.match('https://embed.gog.com/on_login_success?')) {
             const parsedURL = new URL(pageUrl)
             const code = parsedURL.searchParams.get('code')
             setLoading({
@@ -140,7 +131,7 @@ export default function WebView() {
         <WebviewControls
           webview={webviewRef.current}
           initURL={startUrl}
-          openInBrowser={!startUrl.startsWith('login')}
+          openInBrowser={!startUrl?.startsWith('login')}
         />
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}

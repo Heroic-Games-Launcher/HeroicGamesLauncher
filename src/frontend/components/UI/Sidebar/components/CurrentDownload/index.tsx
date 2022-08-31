@@ -19,7 +19,7 @@ type Props = {
 }
 
 export default function CurrentDownload({ appName, runner }: Props) {
-  const [progress] = hasProgress(appName)
+  const { progress } = hasProgress(appName)
   const [gameTitle, setGameTitle] = useState('')
   const { sidebarCollapsed } = useContext(ContextProvider)
   const { t } = useTranslation()
