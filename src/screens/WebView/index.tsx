@@ -8,17 +8,17 @@ import ContextProvider from 'src/state/ContextProvider'
 import { Runner, WebviewType } from 'src/types'
 import './index.css'
 
-const { clipboard, ipcRenderer } = window.require('electron')
+//const { clipboard, ipcRenderer } = window.require('electron')
 
-type SID = {
-  sid: string
-}
+// type SID = {
+//   sid: string
+// }
 
 export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog } = useContext(ContextProvider)
+  const { gog } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -35,7 +35,7 @@ export default function WebView() {
   }
 
   const epicLoginUrl =
-    'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
+    'https://www.epicgames.com/id/login'
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://gog.com`
   const wikiURL =
@@ -74,6 +74,9 @@ export default function WebView() {
     const webview = webviewRef.current
     if (webview) {
       const loadstop = () => {
+        /* eslint-disable */
+        //@ts-ignore
+        webview.openDevTools()
         setLoading({ ...loading, refresh: false })
         // Ignore the login handling if not on login page
         if (!runner) {
@@ -97,30 +100,30 @@ export default function WebView() {
           webview.addEventListener('did-navigate', () => {
             webview.focus()
 
-            setTimeout(() => {
-              webview.findInPage('sid')
-            }, 500)
-            webview.addEventListener('found-in-page', async () => {
-              webview.focus()
-              webview.selectAll()
-              webview.copy()
+            // setTimeout(() => {
+            //   webview.findInPage('sid')
+            // }, 500)
+            // webview.addEventListener('found-in-page', async () => {
+            //   webview.focus()
+            //   webview.selectAll()
+            //   webview.copy()
 
-              setTimeout(async () => {
-                const { sid }: SID = JSON.parse(clipboard.readText())
+            //   setTimeout(async () => {
+            //     const { sid }: SID = JSON.parse(clipboard.readText())
 
-                try {
-                  setLoading({
-                    refresh: true,
-                    message: t('status.logging', 'Logging In...')
-                  })
-                  await epic.login(sid)
-                  handleSuccessfulLogin()
-                } catch (error) {
-                  console.error(error)
-                  ipcRenderer.send('logError', error)
-                }
-              }, 500)
-            })
+            //     try {
+            //       setLoading({
+            //         refresh: true,
+            //         message: t('status.logging', 'Logging In...')
+            //       })
+            //       await epic.login(sid)
+            //       handleSuccessfulLogin()
+            //     } catch (error) {
+            //       console.error(error)
+            //       ipcRenderer.send('logError', error)
+            //     }
+            //   }, 500)
+            // })
           })
         }
       }
@@ -150,6 +153,7 @@ export default function WebView() {
         partition="persist:epicstore"
         src={startUrl}
         allowpopups={trueAsStr}
+        preload={`file:///home/niklas/Repository/HeroicGamesLauncher/public/preloadEpic.js`}
       />
     </div>
   )
