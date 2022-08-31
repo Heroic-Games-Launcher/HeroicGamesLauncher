@@ -25,7 +25,7 @@
         "uninstall": {
             "checkbox": "Voulez-vous également retirer le préfixe ? Ceci ne peut pas être annulé.",
             "checkbox_prefix": "Préfixe",
-            "message": "Voulez-vous désinstaller ce jeu ?",
+            "message": "Voulez-vous désinstaller ce jeu\u202f?",
             "title": "Désinstaller"
         },
         "update": {
