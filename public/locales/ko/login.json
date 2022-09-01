@@ -7,9 +7,9 @@
         "part2": "열기",
         "part3": "Epic Store",
         "part4": ", 사용자의 계정으로 로그인 하고, 다음을 복사합니다:",
-        "part5": "SID 정보 번호",
+        "part5": "authorization code 정보 번호",
         "part6": "다음을 입력란에 붙여 넣습니다:",
-        "part7": "SID 번호",
+        "part7": "authorization code 번호",
         "part8": "이후, 로그인 버튼을 누르십시오."
     },
     "status": {
