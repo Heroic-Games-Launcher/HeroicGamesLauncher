@@ -521,8 +521,8 @@ ipcMain.handle('getLocalPeloadPath', async () => {
   )}`
 })
 
-ipcMain.on('processEpicToken', async (event, token) => {
-  LegendaryUser.loginWithToken(token)
+ipcMain.on('processEpicLoginCode', async (event, code: string) => {
+  LegendaryUser.loginWithCode(code)
 })
 
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {

@@ -3,8 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld('ue', {
   signinprompt: {
     requestexchangecodesignin: (data) => {
-      console.log('exchange:', data)
-      ipcRenderer.send('processEpicToken', data)
+      ipcRenderer.send('processEpicLoginCode', data)
     },
     registersignincompletecallback: () => {
       return
