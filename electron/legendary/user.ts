@@ -29,7 +29,7 @@ export class LegendaryUser {
   }
 
   public static async loginWithCode(code: string) {
-    const commandParts = ['auth', '--code', code]
+    const commandParts = ['auth', '--token', code]
 
     logInfo('Logging in with Legendary.', LogPrefix.Legendary)
 
