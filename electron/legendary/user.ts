@@ -5,7 +5,7 @@ import { clearCache } from '../utils'
 import { userInfo, configStore } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { userInfo as user } from 'os'
-import { session } from 'electron'
+import { BrowserWindow, session } from 'electron'
 import { runLegendaryCommand } from './library'
 
 export class LegendaryUser {
@@ -26,6 +26,33 @@ export class LegendaryUser {
 
       return { status: 'failed' }
     }
+  }
+
+  public static async loginWithToken(token: string) {
+    const commandParts = ['auth', '--code', token]
+
+    logInfo('Logging in with Legendary.', LogPrefix.Legendary)
+
+    let response
+
+    try {
+      await runLegendaryCommand(commandParts)
+      const userInfo = await this.getUserInfo()
+      response = { status: 'done', data: userInfo }
+    } catch (error) {
+      logError(
+        ['Failed to login with Legendary:', `${error}`],
+        LogPrefix.Legendary
+      )
+
+      response = { status: 'failed' }
+    }
+
+    // send login result message to the frontend
+    BrowserWindow.getAllWindows()[0].webContents.send(
+      'epicLoginResponse',
+      response
+    )
   }
 
   public static async logout() {

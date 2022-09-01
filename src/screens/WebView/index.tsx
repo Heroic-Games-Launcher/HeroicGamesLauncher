@@ -1,38 +1,29 @@
-import React, { useContext, useLayoutEffect, useRef, useState } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router'
 
 import { UpdateComponent } from 'src/components/UI'
 import WebviewControls from 'src/components/UI/WebviewControls'
+import { ipcRenderer } from 'src/helpers'
 import ContextProvider from 'src/state/ContextProvider'
 import { Runner, WebviewType } from 'src/types'
 import './index.css'
 
-//const { clipboard, ipcRenderer } = window.require('electron')
-
-// type SID = {
-//   sid: string
-// }
-
 export default function WebView() {
   const { i18n } = useTranslation()
-  const { pathname, search } = useLocation()
-  const { t } = useTranslation()
-  const { gog } = useContext(ContextProvider)
-  const [loading, setLoading] = useState<{
-    refresh: boolean
-    message: string
-  }>(() => ({
-    refresh: true,
-    message: t('loading.website', 'Loading Website')
-  }))
-  const navigate = useNavigate()
-  const webviewRef = useRef<WebviewType>(null)
 
   let lang = i18n.language
   if (i18n.language === 'pt') {
     lang = 'pt-BR'
   }
+
+  const { pathname, search } = useLocation()
 
   const epicLoginUrl = 'https://www.epicgames.com/id/login'
   const epicStore = `https://www.epicgames.com/store/${lang}/`
@@ -65,17 +56,66 @@ export default function WebView() {
     }
   }
 
+  const { t } = useTranslation()
+  const { gog, epic } = useContext(ContextProvider)
+  const [loading, setLoading] = useState<{
+    refresh: boolean
+    message: string
+  }>(() => ({
+    refresh: true,
+    message: t('loading.website', 'Loading Website')
+  }))
+  const navigate = useNavigate()
+  const webviewRef = useRef<WebviewType>(null)
+
+  const isEpicLogin = runner === 'legendary' && startUrl === epicLoginUrl
+
+  const [preloadPath, setPreloadPath] = useState('')
+
+  useEffect(() => {
+    let mounted = true
+    const fetchLocalPreloadPath = async () => {
+      const path = (await ipcRenderer.invoke('getLocalPeloadPath')) as unknown
+      if (mounted) {
+        setPreloadPath(path as string)
+      }
+    }
+
+    if (isEpicLogin) {
+      fetchLocalPreloadPath()
+    }
+
+    return () => {
+      mounted = false
+    }
+  }, [])
+
   const handleSuccessfulLogin = () => {
     navigate('/login')
   }
 
+  useEffect(() => {
+    if (isEpicLogin) {
+      ipcRenderer.addListener('epicLoginResponse', async (event, response) => {
+        const status = await epic.login(response)
+        if (status === 'done') {
+          handleSuccessfulLogin()
+        }
+      })
+
+      return () => {
+        ipcRenderer.removeListener('epicLoginResponse', epic.login)
+      }
+    } else {
+      return
+    }
+  }, [epic.login])
+
   useLayoutEffect(() => {
     const webview = webviewRef.current
-    if (webview) {
+    if (webview && ((preloadPath && isEpicLogin) || !isEpicLogin)) {
       const loadstop = () => {
         /* eslint-disable */
-        //@ts-ignore
-        webview.openDevTools()
         setLoading({ ...loading, refresh: false })
         // Ignore the login handling if not on login page
         if (!runner) {
@@ -95,35 +135,6 @@ export default function WebView() {
               })
             }
           }
-        } else {
-          webview.addEventListener('did-navigate', () => {
-            webview.focus()
-
-            // setTimeout(() => {
-            //   webview.findInPage('sid')
-            // }, 500)
-            // webview.addEventListener('found-in-page', async () => {
-            //   webview.focus()
-            //   webview.selectAll()
-            //   webview.copy()
-
-            //   setTimeout(async () => {
-            //     const { sid }: SID = JSON.parse(clipboard.readText())
-
-            //     try {
-            //       setLoading({
-            //         refresh: true,
-            //         message: t('status.logging', 'Logging In...')
-            //       })
-            //       await epic.login(sid)
-            //       handleSuccessfulLogin()
-            //     } catch (error) {
-            //       console.error(error)
-            //       ipcRenderer.send('logError', error)
-            //     }
-            //   }, 500)
-            // })
-          })
         }
       }
 
@@ -134,7 +145,11 @@ export default function WebView() {
       }
     }
     return
-  }, [webviewRef.current])
+  }, [webviewRef.current, preloadPath])
+
+  if (!preloadPath && isEpicLogin) {
+    return <></>
+  }
 
   return (
     <div className="WebView">
@@ -152,7 +167,7 @@ export default function WebView() {
         partition="persist:epicstore"
         src={startUrl}
         allowpopups={trueAsStr}
-        preload={`file:///home/niklas/Repository/HeroicGamesLauncher/public/preloadEpic.js`}
+        preload={preloadPath}
       />
     </div>
   )

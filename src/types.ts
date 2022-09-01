@@ -109,7 +109,10 @@ export interface ContextType {
   epic: {
     library: GameInfo[]
     username: string | null
-    login: (sid: string) => Promise<string>
+    login: (response: {
+      status: string
+      data: { displayName: string }
+    }) => Promise<string>
     logout: () => Promise<void>
   }
   gog: {

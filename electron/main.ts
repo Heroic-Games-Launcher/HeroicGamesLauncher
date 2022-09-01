@@ -98,7 +98,8 @@ import {
   isSteamDeckGameMode,
   isCLIFullscreen,
   isCLINoGui,
-  isFlatpak
+  isFlatpak,
+  fixAsarPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -512,6 +513,16 @@ ipcMain.on('unlock', () => {
 
 ipcMain.handle('kill', async (event, appName, runner) => {
   return Game.get(appName, runner).stop()
+})
+
+ipcMain.handle('getLocalPeloadPath', async () => {
+  return `file://${fixAsarPath(
+    join(__dirname, '..', 'public', 'preloadEpic.js')
+  )}`
+})
+
+ipcMain.on('processEpicToken', async (event, token) => {
+  LegendaryUser.loginWithToken(token)
 })
 
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {

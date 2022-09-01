@@ -261,10 +261,10 @@ export class GlobalState extends PureComponent<Props> {
     })
   }
 
-  epicLogin = async (sid: string) => {
-    console.log('logging epic')
-    const response = await ipcRenderer.invoke('login', sid)
-
+  epicLoginResponse = async (response: {
+    status: string
+    data: { displayName: string }
+  }) => {
     if (response.status === 'done') {
       this.setState({
         epic: {
@@ -646,7 +646,7 @@ export class GlobalState extends PureComponent<Props> {
           epic: {
             library: this.state.epic.library,
             username: this.state.epic.username,
-            login: this.epicLogin,
+            login: this.epicLoginResponse,
             logout: this.epicLogout
           },
           gog: {

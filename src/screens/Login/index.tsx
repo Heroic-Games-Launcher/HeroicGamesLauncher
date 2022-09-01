@@ -56,9 +56,9 @@ export default function NewLogin() {
             isLoggedIn={isEpicLoggedIn}
             user={epic.username}
             logoutAction={epic.logout}
-            alternativeLoginAction={() => {
-              setShowSidLogin(true)
-            }}
+            // alternativeLoginAction={() => {
+            //   setShowSidLogin(true)
+            // }}
           />
           <Runner
             class="gog"
