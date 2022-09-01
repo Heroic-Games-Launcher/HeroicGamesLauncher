@@ -7,9 +7,9 @@
         "part2": "Epic Store'u",
         "part3": "buradan",
         "part4": "açın, hesabınıza giriş yapın ve",
-        "part5": "SID bilgi numarasını kopyalayın",
+        "part5": "authorization code bilgi numarasını kopyalayın",
         "part6": "Aşağıdaki kutucuğa",
-        "part7": "SID numaranızı",
+        "part7": "authorization code numaranızı",
         "part8": "yapıştırın ve oturum aç düğmesine tıklayın."
     },
     "status": {
