@@ -117,11 +117,16 @@ function semverGt(target: string, base: string) {
   const [bmajor, bminor, bpatch] = base.split('.').map(Number)
   const [tmajor, tminor, tpatch] = target.split('.').map(Number)
 
+  // If base or target aren't actually in SemVer format, bail out
+  if (!tmajor || !bmajor || !tminor || !bminor || !tpatch || !bpatch) {
+    return false
+  }
+
   let isGE = false
   // A pretty nice piece of logic if you ask me. :P
-  isGE ||= tmajor! > bmajor!
-  isGE ||= tmajor === bmajor && tminor! > bminor!
-  isGE ||= tmajor === bmajor && tminor === bminor && tpatch! > bpatch!
+  isGE ||= tmajor > bmajor
+  isGE ||= tmajor === bmajor && tminor > bminor
+  isGE ||= tmajor === bmajor && tminor === bminor && tpatch > bpatch
   return isGE
 }
 
