@@ -11,7 +11,7 @@ import './index.css'
 const { clipboard, ipcRenderer } = window.require('electron')
 
 type SID = {
-  sid: string
+  authorizationCode: string
 }
 
 export default function WebView() {
@@ -34,8 +34,8 @@ export default function WebView() {
     lang = 'pt-BR'
   }
 
-  const epicLoginUrl =
-    'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
+  const epicLoginUrl = 'https://legendary.gl/epiclogin'
+
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://gog.com`
   const wikiURL =
@@ -94,7 +94,7 @@ export default function WebView() {
             }
           }
         } else {
-          webview.addEventListener('did-navigate', () => {
+          webview.addEventListener('did-navigate', async () => {
             webview.focus()
 
             setTimeout(() => {
@@ -106,14 +106,16 @@ export default function WebView() {
               webview.copy()
 
               setTimeout(async () => {
-                const { sid }: SID = JSON.parse(clipboard.readText())
+                const { authorizationCode }: SID = JSON.parse(
+                  clipboard.readText()
+                )
 
                 try {
                   setLoading({
                     refresh: true,
                     message: t('status.logging', 'Logging In...')
                   })
-                  await epic.login(sid)
+                  await epic.login(authorizationCode)
                   handleSuccessfulLogin()
                 } catch (error) {
                   console.error(error)

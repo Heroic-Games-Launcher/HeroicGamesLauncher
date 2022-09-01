@@ -9,8 +9,8 @@ import { session } from 'electron'
 import { runLegendaryCommand } from './library'
 
 export class LegendaryUser {
-  public static async login(sid: string) {
-    const commandParts = ['auth', '--sid', sid]
+  public static async login(authorizationCode: string) {
+    const commandParts = ['auth', '--code', authorizationCode]
 
     logInfo('Logging in with Legendary.', LogPrefix.Legendary)
 
