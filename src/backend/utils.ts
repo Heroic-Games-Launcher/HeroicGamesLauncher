@@ -14,6 +14,7 @@ import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import si from 'systeminformation'
+import semver from 'semver'
 
 import {
   configStore,
@@ -83,51 +84,10 @@ export function showErrorBoxModalAuto(title: string, message: string) {
  * Checks if target is newer than base.
  */
 function semverGt(target: string, base: string) {
-  if (!target || !base) {
+  if (!semver.valid(target) || !semver.valid(base)) {
     return false
   }
-  target = target.replace('v', '')
-
-  // beta to beta
-  if (base.includes('-beta') && target.includes('-beta')) {
-    const bSplit = base.split('-beta.')
-    const tSplit = target.split('-beta.')
-
-    // same major beta?
-    if (bSplit[0] === tSplit[0]) {
-      base = bSplit[1] || ''
-      target = tSplit[1] || ''
-      return target > base
-    } else {
-      base = bSplit[0] || ''
-      target = tSplit[0] || ''
-    }
-  }
-
-  // beta to stable
-  if (base.includes('-beta')) {
-    base = base.split('-beta.')[0] || ''
-  }
-
-  // stable to beta
-  if (target.includes('-beta')) {
-    target = target.split('-beta.')[0] || ''
-  }
-
-  const [bmajor, bminor, bpatch] = base.split('.').map(Number)
-  const [tmajor, tminor, tpatch] = target.split('.').map(Number)
-
-  // If base or target aren't actually in SemVer format, bail out
-  if (!tmajor || !bmajor || !tminor || !bminor || !tpatch || !bpatch) {
-    return false
-  }
-
-  let isGE = false
-  // A pretty nice piece of logic if you ask me. :P
-  isGE ||= tmajor > bmajor
-  isGE ||= tmajor === bmajor && tminor > bminor
-  isGE ||= tmajor === bmajor && tminor === bminor && tpatch > bpatch
-  return isGE
+  return semver.gt(target, base)
 }
 
 function isOnline() {
