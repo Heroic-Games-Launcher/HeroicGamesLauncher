@@ -10,7 +10,7 @@ import './index.css'
 
 const { clipboard, ipcRenderer } = window.require('electron')
 
-type SID = {
+type CODE = {
   authorizationCode: string
 }
 
@@ -98,7 +98,7 @@ export default function WebView() {
             webview.focus()
 
             setTimeout(() => {
-              webview.findInPage('sid')
+              webview.findInPage('authorizationCode')
             }, 500)
             webview.addEventListener('found-in-page', async () => {
               webview.focus()
@@ -106,7 +106,7 @@ export default function WebView() {
               webview.copy()
 
               setTimeout(async () => {
-                const { authorizationCode }: SID = JSON.parse(
+                const { authorizationCode }: CODE = JSON.parse(
                   clipboard.readText()
                 )
 
