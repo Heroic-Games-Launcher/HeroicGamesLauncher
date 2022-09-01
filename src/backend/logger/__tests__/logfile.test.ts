@@ -3,6 +3,7 @@ import graceful_fs from 'graceful-fs'
 import { join } from 'path'
 import { app } from 'electron'
 import { configStore } from '../../constants'
+import * as constants from '../../constants'
 import * as logfile from '../logfile'
 import { logError } from '../logger'
 
@@ -74,6 +75,7 @@ describe('logger/logfile.ts', () => {
     date.setMonth(date.getMonth() > 0 ? date.getMonth() - 1 : 11)
     const monthOutdated = join(
       tmpDir.name,
+      // @ts-ignore replaceAll error
       `heroic-${date.toISOString().replaceAll(':', '_')}.log`
     )
 
@@ -99,11 +101,13 @@ describe('logger/logfile.ts', () => {
     date.setMonth(date.getMonth() > 0 ? date.getMonth() - 1 : 11)
     const monthOutdated = join(
       tmpDir.name,
+      // @ts-ignore replaceAll error
       `heroic-${date.toISOString().replaceAll(':', '_')}.log`
     )
     date.setFullYear(2021)
     const yearOutdated = join(
       tmpDir.name,
+      // @ts-ignore replaceAll error
       `heroic-${date.toISOString().replaceAll(':', '_')}.log`
     )
 
@@ -118,5 +122,65 @@ describe('logger/logfile.ts', () => {
     expect(logError).not.toBeCalled()
     expect(graceful_fs.existsSync(monthOutdated)).toBeFalsy()
     expect(graceful_fs.existsSync(yearOutdated)).toBeFalsy()
+  })
+
+  test('getLogFile all possible values', () => {
+    //@ts-ignore Needed override the currentLogFile
+    constants.currentLogFile = 'current.log'
+    //@ts-ignore Needed override the lastLogFile
+    constants.lastLogFile = 'last.log'
+
+    // get global current logfile
+    expect(logfile.getLogFile(true, 'MyApp')).toBe('current.log')
+    // get global last logfile
+    expect(logfile.getLogFile(true, 'MyApp', true)).toBe('last.log')
+
+    // get game log
+    expect(logfile.getLogFile(false, 'MyApp', false)).toBe(
+      '/tmp/appData/heroic/GamesConfig/MyApp-lastPlay.log'
+    )
+    // get game log and isDefaultLast as no impact
+    expect(logfile.getLogFile(false, 'MyApp', true)).toBe(
+      '/tmp/appData/heroic/GamesConfig/MyApp-lastPlay.log'
+    )
+  })
+
+  test('appendMessageToLogFile success', () => {
+    //@ts-ignore Needed override the currentLogFile
+    constants.currentLogFile = 'current.log'
+
+    const appendFileSyncSpy = jest
+      .spyOn(graceful_fs, 'appendFileSync')
+      .mockReturnValue()
+
+    logfile.appendMessageToLogFile('Hello World')
+    expect(appendFileSyncSpy).toBeCalledWith('current.log', 'Hello World\n')
+  })
+
+  test('appendMessageToLogFile logfile undefined', () => {
+    const appendFileSyncSpy = jest
+      .spyOn(graceful_fs, 'appendFileSync')
+      .mockReturnValue()
+    //@ts-ignore Needed override the currentLogFile
+    constants.currentLogFile = ''
+
+    logfile.appendMessageToLogFile('Hello World')
+    expect(appendFileSyncSpy).not.toBeCalled()
+  })
+
+  test('appendMessageToLogFile fails', () => {
+    const appendFileSyncSpy = jest
+      .spyOn(graceful_fs, 'appendFileSync')
+      .mockImplementation(() => {
+        throw Error('append failed')
+      })
+    //@ts-ignore Needed override the currentLogFile
+    constants.currentLogFile = 'current.log'
+
+    logfile.appendMessageToLogFile('Hello World')
+    expect(logError).toBeCalledWith(
+      ['Writing log file failed with', Error('append failed')],
+      { prefix: 'Backend', skipLogToFile: true }
+    )
   })
 })

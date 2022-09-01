@@ -100,9 +100,9 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
 
 /**
  * Returns according to options the fitting log file
- * @param isDefault   getting heroic default log
+ * @param isDefault   getting heroic default current log
  * @param appName     needed to get appName log
- * @param defaultLast if set getting heroic default latest log
+ * @param defaultLast if set getting heroic default last log
  * @returns path to log file
  */
 export function getLogFile(
