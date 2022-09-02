@@ -83,6 +83,7 @@ const wikiLink =
 const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
 const kofiPage = 'https://ko-fi.com/heroicgames'
 const patreonPage = 'https://www.patreon.com/heroicgameslauncher'
+const wineprefixFAQ = 'https://wiki.winehq.org/FAQ#Wineprefixes'
 
 /**
  * Get shell for different os
@@ -223,5 +224,6 @@ export {
   runtimePath,
   isCLIFullscreen,
   isCLINoGui,
-  GITHUB_API
+  GITHUB_API,
+  wineprefixFAQ
 }

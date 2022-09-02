@@ -203,8 +203,14 @@ export default function WineSettings({
                   'Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored.'
                 )}
               </p>
-              <a href={'https://wiki.winehq.org/FAQ#Wineprefixes'}>
-                Wineprefix FAQ
+
+              <a>
+                <span
+                  className="winefaq"
+                  onClick={() => ipcRenderer.send('openWinePrefixFAQ')}
+                >
+                  WinePrefix FAQ
+                </span>
               </a>
             </InfoBox>
           }
