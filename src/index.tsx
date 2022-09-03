@@ -12,6 +12,11 @@ import GlobalState from 'src/state/GlobalState'
 import { UpdateComponentBase } from 'src/components/UI/UpdateComponent'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
+import { ipcRenderer } from './helpers'
+
+window.addEventListener('error', (ev: ErrorEvent) => {
+  ipcRenderer.send('frontendError', ev.error.stack)
+})
 
 const Backend = new HttpApi(null, {
   addPath: 'build/locales/{{lng}}/{{ns}}',

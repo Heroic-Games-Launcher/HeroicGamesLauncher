@@ -468,6 +468,10 @@ ipcMain.on('frontendReady', () => {
   handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
 })
 
+ipcMain.on('frontendError', async (event, error: string) => {
+  logError(error, LogPrefix.Frontend)
+})
+
 // Maybe this can help with white screens
 process.on('uncaughtException', async (err) => {
   logError(`${err.name}: ${err.message}`, LogPrefix.Backend)
