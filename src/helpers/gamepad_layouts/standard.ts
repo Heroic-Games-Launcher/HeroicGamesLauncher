@@ -8,7 +8,7 @@ export function checkStandard(
 ) {
   const mainButton = buttons[0], // Xbox: A, PS: Cross
     backButton = buttons[1], // Xbox: B, PS: Circle
-    subMenuButton = buttons[2], // Xbox: X, PS: Square
+    contextMenuButton = buttons[2], // Xbox: X, PS: Square
     altButton = buttons[3], // Xbox: Y, PS: Triangle
     // LB = buttons[4],
     // RB = buttons[5],
@@ -45,5 +45,5 @@ export function checkStandard(
   checkAction('padDown', down?.pressed, controllerIndex)
   checkAction('padLeft', left?.pressed, controllerIndex)
   checkAction('padRight', right?.pressed, controllerIndex)
-  checkAction('rightClick', subMenuButton?.pressed, controllerIndex)
+  checkAction('rightClick', contextMenuButton?.pressed, controllerIndex)
 }
