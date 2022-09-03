@@ -6,8 +6,8 @@ export function checkStandard(
   controllerIndex: number,
   checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
 ) {
-  const mainButton = buttons[0], //Xbox: A, PS: Cross
-    backButton = buttons[1], //Xbox: B, PS: Circle
+  const mainButton = buttons[0], // Xbox: A, PS: Cross
+    backButton = buttons[1], // Xbox: B, PS: Circle
     subMenuButton = buttons[2], // Xbox: X, PS: Square
     altButton = buttons[3], // Xbox: Y, PS: Triangle
     // LB = buttons[4],
