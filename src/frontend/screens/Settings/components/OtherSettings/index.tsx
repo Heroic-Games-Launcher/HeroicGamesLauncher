@@ -19,7 +19,6 @@ import { getGameInfo } from 'frontend/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
-import { ipcRenderer } from 'frontend/helpers'
 import {
   ColumnProps,
   TableInput
@@ -193,8 +192,8 @@ export default function OtherSettings({
     if (!targetExe.length) {
       const gameinfo = await getGameInfo(appName, runner)
 
-      ipcRenderer
-        .invoke('openDialog', {
+      window.api
+        .openDialog({
           buttonLabel: t('box.select.button', 'Select'),
           properties: ['openFile'],
           title: t('box.select.exe', 'Select EXE'),
@@ -207,9 +206,9 @@ export default function OtherSettings({
 
   async function handleGameMode() {
     if (useGameMode && eacRuntime) {
-      const isFlatpak = await ipcRenderer.invoke('isFlatpak')
+      const isFlatpak = await window.api.isFlatpak()
       if (isFlatpak) {
-        const { response } = await ipcRenderer.invoke('openMessageBox', {
+        const { response } = await window.api.openMessageBox({
           message: t(
             'settings.gameMode.eacRuntimeEnabled.message',
             "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?"
@@ -399,8 +398,8 @@ export default function OtherSettings({
             />
           }
           onIconClick={async () =>
-            ipcRenderer
-              .invoke('openDialog', {
+            window.api
+              .openDialog({
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
                 title: t('box.default-steam-path', 'Steam path.'),

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ipcRenderer } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 type Release = {
@@ -19,15 +18,11 @@ export default function HeroicVersion() {
   const { sidebarCollapsed } = useContext(ContextProvider)
 
   useEffect(() => {
-    ipcRenderer
-      .invoke('getHeroicVersion')
-      .then((version) => setHeroicVersion(version))
+    window.api.getHeroicVersion().then((version) => setHeroicVersion(version))
   }, [])
 
   useEffect(() => {
-    ipcRenderer
-      .invoke('getLatestReleases')
-      .then((releases) => setNewReleases(releases))
+    window.api.getLatestReleases().then((releases) => setNewReleases(releases))
   }, [])
 
   const newStable: Release | undefined = newReleases?.filter(
@@ -58,9 +53,7 @@ export default function HeroicVersion() {
           {newStable && (
             <a
               title={newStable.tag_name}
-              onClick={() =>
-                ipcRenderer.send('openExternalUrl', newStable.html_url)
-              }
+              onClick={() => window.api.openExternalUrl(newStable.html_url)}
             >
               {t('info.heroic.stable', 'Stable')} ({newStable.tag_name})
             </a>
@@ -68,9 +61,7 @@ export default function HeroicVersion() {
           {newBeta && (
             <a
               title={newBeta.tag_name}
-              onClick={() =>
-                ipcRenderer.send('openExternalUrl', newBeta.html_url)
-              }
+              onClick={() => window.api.openExternalUrl(newBeta.html_url)}
             >
               {t('info.heroic.beta', 'Beta')} ({newBeta.tag_name})
             </a>

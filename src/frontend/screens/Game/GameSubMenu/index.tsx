@@ -11,7 +11,6 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { uninstall } from 'frontend/helpers/library'
 import { NavLink } from 'react-router-dom'
 
-import { ipcRenderer } from 'frontend/helpers'
 import { CircularProgress } from '@mui/material'
 
 interface Props {
@@ -116,17 +115,15 @@ export default function GamesSubmenu({
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
   async function handleMoveInstall() {
-    const { response } = await ipcRenderer.invoke('openMessageBox', {
+    const { response } = await window.api.openMessageBox({
       buttons: [t('box.yes'), t('box.no')],
       message: t('box.move.message'),
       title: t('box.move.title')
     })
     if (response === 0) {
-      const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke(
-        'requestSettings',
-        'default'
-      )
-      const { path } = await ipcRenderer.invoke('openDialog', {
+      const { defaultInstallPath }: AppSettings =
+        await window.api.requestSettings('default')
+      const { path } = await window.api.openDialog({
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
         title: t('box.move.path'),
@@ -134,31 +131,29 @@ export default function GamesSubmenu({
       })
       if (path) {
         await handleGameStatus({ appName, runner, status: 'moving' })
-        await ipcRenderer.invoke('moveInstall', [appName, path, runner])
+        await window.api.moveInstall([appName, path, runner])
         await handleGameStatus({ appName, runner, status: 'done' })
       }
     }
   }
 
   async function handleChangeInstall() {
-    const { response } = await ipcRenderer.invoke('openMessageBox', {
+    const { response } = await window.api.openMessageBox({
       buttons: [t('box.yes'), t('box.no')],
       message: t('box.change.message'),
       title: t('box.change.title')
     })
     if (response === 0) {
-      const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke(
-        'requestSettings',
-        'default'
-      )
-      const { path } = await ipcRenderer.invoke('openDialog', {
+      const { defaultInstallPath }: AppSettings =
+        await window.api.requestSettings('default')
+      const { path } = await window.api.openDialog({
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
         title: t('box.change.path'),
         defaultPath: defaultInstallPath
       })
       if (path) {
-        await ipcRenderer.invoke('changeInstallPath', [appName, path, runner])
+        await window.api.changeInstallPath([appName, path, runner])
         await refresh(runner)
       }
       return
@@ -167,7 +162,7 @@ export default function GamesSubmenu({
   }
 
   async function handleRepair(appName: string) {
-    const { response } = await ipcRenderer.invoke('openMessageBox', {
+    const { response } = await window.api.openMessageBox({
       buttons: [t('box.yes'), t('box.no')],
       message: t('box.repair.message'),
       title: t('box.repair.title')
@@ -182,10 +177,10 @@ export default function GamesSubmenu({
 
   function handleShortcuts() {
     if (hasShortcuts) {
-      ipcRenderer.send('removeShortcut', appName, runner, true)
+      window.api.removeShortcut(appName, runner)
       return setHasShortcuts(false)
     }
-    ipcRenderer.send('addShortcut', appName, runner, true)
+    window.api.addShortcut(appName, runner, true)
 
     return setHasShortcuts(true)
   }
@@ -193,11 +188,10 @@ export default function GamesSubmenu({
   async function handleEosOverlay() {
     setEosOverlayRefresh(true)
     if (eosOverlayEnabled) {
-      await ipcRenderer.invoke('disableEosOverlay', appName, runner)
+      await window.api.disableEosOverlay(appName, runner)
       setEosOverlayEnabled(false)
     } else {
-      const initialEnableResult = await ipcRenderer.invoke(
-        'enableEosOverlay',
+      const initialEnableResult = await window.api.enableEosOverlay(
         appName,
         runner
       )
@@ -211,16 +205,15 @@ export default function GamesSubmenu({
           status: 'installing'
         })
 
-        await ipcRenderer.invoke('installEosOverlay')
+        await window.api.installEosOverlay()
         await handleGameStatus({
           appName: eosOverlayAppName,
           runner: 'legendary',
           status: 'done'
         })
 
-        wasEnabled = (
-          await ipcRenderer.invoke('enableEosOverlay', appName, runner)
-        ).wasEnabled
+        wasEnabled = (await window.api.enableEosOverlay(appName, runner))
+          .wasEnabled
       }
       setEosOverlayEnabled(wasEnabled)
     }
@@ -230,15 +223,15 @@ export default function GamesSubmenu({
   async function handleAddToSteam() {
     setSteamRefresh(true)
     if (addedToSteam) {
-      await ipcRenderer
-        .invoke('removeFromSteam', appName, runner)
+      await window.api
+        .removeFromSteam(appName, runner)
         .then(() => setAddedToSteam(false))
     } else {
       const bkgDataURL = await imageData(steamImageUrl, 1920, 620)
       const bigPicDataURL = await imageData(steamImageUrl, 920, 430)
 
-      await ipcRenderer
-        .invoke('addToSteam', appName, runner, bkgDataURL, bigPicDataURL)
+      await window.api
+        .addToSteam(appName, runner, bkgDataURL, bigPicDataURL)
         .then((added) => setAddedToSteam(added))
     }
     setSteamRefresh(false)
@@ -250,12 +243,12 @@ export default function GamesSubmenu({
     }
 
     // Check for game shortcuts on desktop and start menu
-    ipcRenderer.invoke('shortcutsExists', appName, runner).then((added) => {
+    window.api.shortcutsExists(appName, runner).then((added) => {
       setHasShortcuts(added)
     })
 
     // Check for game shortcuts on Steam
-    ipcRenderer.invoke('isAddedToSteam', appName, runner).then((added) => {
+    window.api.isAddedToSteam(appName, runner).then((added) => {
       setAddedToSteam(added)
     })
 
@@ -265,7 +258,7 @@ export default function GamesSubmenu({
       const getWineInfo = async () => {
         try {
           const { wineVersion, winePrefix }: AppSettings =
-            await ipcRenderer.invoke('requestSettings', appName)
+            await window.api.requestSettings(appName)
           let wine = wineVersion.name
             .replace('Wine - ', '')
             .replace('Proton - ', '')
@@ -274,7 +267,7 @@ export default function GamesSubmenu({
           }
           setInfo({ prefix: winePrefix, wine })
         } catch (error) {
-          ipcRenderer.send('logError', error)
+          window.api.logError(`${error}`)
         }
       }
       getWineInfo()
@@ -294,8 +287,8 @@ export default function GamesSubmenu({
         )[0] || {}
       setEosOverlayRefresh(status === 'installing')
 
-      ipcRenderer
-        .invoke('isEosOverlayEnabled', appName, runner)
+      window.api
+        .isEosOverlayEnabled(appName)
         .then((enabled) => setEosOverlayEnabled(enabled))
     }
   }, [isInstalled])
@@ -401,7 +394,7 @@ export default function GamesSubmenu({
           <SmallInfo
             title="Prefix:"
             subtitle={info.prefix}
-            handleclick={() => ipcRenderer.send('openFolder', info.prefix)}
+            handleclick={() => window.api.openFolder(info.prefix)}
           />
         </div>
       )}

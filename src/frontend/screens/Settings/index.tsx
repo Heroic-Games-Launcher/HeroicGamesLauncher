@@ -9,7 +9,7 @@ import {
   WineInstallation,
   WrapperVariable
 } from 'common/types'
-import { Clipboard, IpcRenderer } from 'electron'
+import { Clipboard } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'frontend/helpers'
 import { useToggle } from 'frontend/hooks'
@@ -33,11 +33,10 @@ import ContextMenu from '../Library/components/ContextMenu'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 
 interface ElectronProps {
-  ipcRenderer: IpcRenderer
   clipboard: Clipboard
 }
 
-const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
+const { clipboard } = window.require('electron') as ElectronProps
 
 interface LocationState {
   fromGameCard: boolean
@@ -241,10 +240,7 @@ function Settings() {
   useEffect(() => {
     const getSettings = async () => {
       if (!configLoaded) {
-        const config: AppSettings = await ipcRenderer.invoke(
-          'requestSettings',
-          appName
-        )
+        const config: AppSettings = await window.api.requestSettings(appName)
         setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup)
         setAutoSyncSaves(config.autoSyncSaves)
         setUseGameMode(config.useGameMode)
@@ -482,7 +478,7 @@ function Settings() {
         },
         {
           label: t('settings.open-config-file', 'Open Config File'),
-          onclick: () => ipcRenderer.send('showConfigFileInFolder', appName),
+          onclick: () => window.api.showConfigFileInFolder(appName),
           show: !isLogSettings
         }
       ]}

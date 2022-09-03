@@ -5,6 +5,24 @@ import { VersionInfo } from 'heroic-wine-downloader'
 
 export type Runner = 'legendary' | 'gog'
 
+export function typedCallback<T>(arg: T) {
+  return arg
+}
+
+export type WrapApiFunction<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TFunction extends (...args: any) => any
+> = (
+  e: Electron.IpcMainInvokeEvent,
+  ...args: [...Parameters<TFunction>]
+) => ReturnType<TFunction>
+
+export type LaunchParams = {
+  appName: string
+  launchArguments: string
+  runner: Runner
+}
+
 interface About {
   description: string
   longDescription: string
@@ -448,3 +466,10 @@ export type ElWebview = {
 export type WebviewType = HTMLWebViewElement & ElWebview
 
 export type InstallPlatform = LegendaryInstallPlatform | GogInstallPlatform
+
+export interface Tools {
+  exe: string
+  tool: string
+  appName: string
+  runner: Runner
+}

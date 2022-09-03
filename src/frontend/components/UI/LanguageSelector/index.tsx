@@ -4,8 +4,6 @@ import { configStore } from 'frontend/helpers/electronStores'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SelectField } from '..'
 
-import { ipcRenderer } from 'frontend/helpers'
-
 const storage: Storage = window.localStorage
 
 export enum FlagPosition {
@@ -97,7 +95,7 @@ export default function LanguageSelector({
   const currentLanguage = language || i18n.language || 'en'
 
   const handleChangeLanguage = (newLanguage: string) => {
-    ipcRenderer.send('changeLanguage', newLanguage)
+    window.api.changeLanguage(newLanguage)
     storage.setItem('language', newLanguage)
     configStore.set('language', newLanguage)
     i18n.changeLanguage(newLanguage)
@@ -105,7 +103,7 @@ export default function LanguageSelector({
   }
 
   function handleWeblate() {
-    return ipcRenderer.send('openWeblate')
+    return window.api.openWeblate
   }
 
   const renderOption = (lang: string) => {

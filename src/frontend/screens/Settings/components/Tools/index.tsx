@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { getGameInfo, quoteIfNecessary } from 'frontend/helpers'
 
-import { ipcRenderer } from 'frontend/helpers'
 import { Runner } from 'common/types'
 
 interface Props {
@@ -28,12 +27,14 @@ export default function Tools({ appName, runner }: Props) {
       setWinecfgRunning(true)
     }
     exe = exe ? quoteIfNecessary(exe) : undefined
-    await ipcRenderer.invoke('callTool', {
-      tool,
-      exe,
-      appName,
-      runner
-    })
+    exe
+      ? await window.api.callTool({
+          tool,
+          exe,
+          appName,
+          runner
+        })
+      : {}
     setWinetricksRunning(false)
     setWinecfgRunning(false)
   }
@@ -41,7 +42,7 @@ export default function Tools({ appName, runner }: Props) {
   const handleRunExe = async () => {
     let exe = ''
     const gameinfo = await getGameInfo(appName, runner)
-    const { path } = await ipcRenderer.invoke('openDialog', {
+    const { path } = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
       title: t('box.runexe.title'),

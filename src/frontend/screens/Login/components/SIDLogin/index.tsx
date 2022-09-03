@@ -6,7 +6,7 @@ import './index.css'
 import { Autorenew } from '@mui/icons-material'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-const { ipcRenderer, clipboard } = window.require('electron')
+const { clipboard } = window.require('electron')
 
 interface Props {
   backdropClick: () => void
@@ -29,10 +29,10 @@ export default function SIDLogin({ backdropClick }: Props) {
         loading: true,
         message: t('status.loading', 'Loading Game list, please wait')
       })
-      ipcRenderer.send('logInfo', 'Called Login')
+      window.api.logInfo('Called Login')
       console.log(res)
       if (res === 'done') {
-        await ipcRenderer.invoke('getUserInfo')
+        await window.api.getUserInfo()
         setStatus({ loading: false, message: '' })
         backdropClick()
       } else {

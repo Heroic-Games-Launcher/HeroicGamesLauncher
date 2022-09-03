@@ -55,7 +55,7 @@ async function updateWineVersionInfos(
           return release?.version === old?.version
         })
 
-        if (existsSync(old?.installDir)) {
+        if (old.installDir !== undefined && existsSync(old?.installDir)) {
           if (index !== -1) {
             releases[index].installDir = old.installDir
             releases[index].isInstalled = old.isInstalled
@@ -175,7 +175,7 @@ async function installWineVersion(
 
 async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
   // remove folder if exist
-  if (existsSync(release.installDir)) {
+  if (release.installDir !== undefined && existsSync(release.installDir)) {
     try {
       rmSync(release.installDir, { recursive: true })
     } catch (error) {

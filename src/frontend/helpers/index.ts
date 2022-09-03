@@ -11,38 +11,34 @@ import { GogInstallInfo } from 'common/types/gog'
 
 import { install, launch, repair, updateGame } from './library'
 import fileSize from 'filesize'
-const { ipcRenderer } = window.require('electron')
-const readFile = async (file: string) => ipcRenderer.invoke('readConfig', file)
+const readFile = window.api.readConfig
 
-const writeConfig = async (
-  data: [appName: string, x: unknown]
-): Promise<void> => ipcRenderer.invoke('writeConfig', data)
+const writeConfig = window.api.writeConfig
 
 const notify = ([title, message]: [title: string, message: string]): void =>
-  ipcRenderer.send('Notify', [title, message])
+  window.api.notify([title, message])
 
-const loginPage = (): void => ipcRenderer.send('openLoginPage')
+const loginPage = window.api.openLoginPage
 
-const getPlatform = async () => ipcRenderer.invoke('getPlatform')
+const getPlatform = window.api.getPlatform
 
-const sidInfoPage = (): void => ipcRenderer.send('openSidInfoPage')
+const sidInfoPage = window.api.openSidInfoPage
 
-const handleKofi = (): void => ipcRenderer.send('openSupportPage')
+const handleKofi = window.api.openSupportPage
 
-const handleQuit = (): void => ipcRenderer.send('quit')
+const handleQuit = window.api.quit
 
-const openAboutWindow = (): void => ipcRenderer.send('showAboutWindow')
+const openAboutWindow = window.api.showAboutWindow
 
-const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
+const openDiscordLink = window.api.openDiscordLink
 
 export const size = fileSize.partial({ base: 2 })
 
 let progress: string
 
-const sendKill = async (appName: string, runner: Runner): Promise<void> =>
-  ipcRenderer.invoke('kill', appName, runner)
+const sendKill = window.api.kill
 
-const isLoggedIn = async (): Promise<void> => ipcRenderer.invoke('isLoggedIn')
+const isLoggedIn = window.api.isLoggedIn
 
 const syncSaves = async (
   savesPath: string,
@@ -50,10 +46,10 @@ const syncSaves = async (
   runner: Runner,
   arg?: string
 ): Promise<string> => {
-  const { user } = await ipcRenderer.invoke('getUserInfo')
+  const { user } = await window.api.getUserInfo()
   const path = savesPath.replace('~', `/home/${user}`)
 
-  const response: string = await ipcRenderer.invoke('syncSaves', [
+  const response: string = await window.api.syncSaves([
     arg,
     path,
     appName,
@@ -80,14 +76,14 @@ const getGameInfo = async (
   appName: string,
   runner: Runner
 ): Promise<GameInfo> => {
-  return ipcRenderer.invoke('getGameInfo', appName, runner)
+  return window.api.getGameInfo(appName, runner)
 }
 
 const getGameSettings = async (
   appName: string,
   runner: Runner
 ): Promise<GameSettings> => {
-  return ipcRenderer.invoke('getGameSettings', appName, runner)
+  return window.api.getGameSettings(appName, runner)
 }
 
 const getInstallInfo = async (
@@ -95,11 +91,10 @@ const getInstallInfo = async (
   runner: Runner,
   installPlatform: InstallPlatform
 ): Promise<LegendaryInstallInfo | GogInstallInfo | null> => {
-  return ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
+  return window.api.getInstallInfo(appName, runner, installPlatform)
 }
 
-const createNewWindow = (url: string) =>
-  ipcRenderer.send('createNewWindow', url)
+const createNewWindow = (url: string) => window.api.createNewWindow(url)
 
 function getProgress(progress: InstallProgress): number {
   if (progress && progress.percent) {
@@ -141,15 +136,12 @@ async function fixGogSaveFolder(
       break
     case 'DOCUMENTS':
       if (isWindows) {
-        const documentsResult = await ipcRenderer.invoke(
-          'runWineCommandForGame',
-          {
-            appName,
-            runner: 'gog',
-            command:
-              'reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" /v Personal'
-          }
-        )
+        const documentsResult = await window.api.runWineCommandForGame({
+          appName,
+          runner: 'gog',
+          command:
+            'reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" /v Personal'
+        })
         const documentsFolder = documentsResult.stdout
           ?.trim()
           .split('\n')[1]
@@ -177,7 +169,7 @@ async function fixLegendarySaveFolder(
   prefix: string,
   isProton: boolean
 ) {
-  const { user, account_id: epicId } = await ipcRenderer.invoke('getUserInfo')
+  const { user, account_id: epicId } = await window.api.getUserInfo()
   const username = isProton ? 'steamuser' : user
 
   folder = folder.replace('{EpicID}', epicId)
@@ -245,7 +237,7 @@ async function fixLegendarySaveFolder(
   }
 
   if (folder.includes('{UserDir}')) {
-    const documentsResult = await ipcRenderer.invoke('runWineCommandForGame', {
+    const documentsResult = await window.api.runWineCommandForGame({
       appName,
       runner: 'legendary',
       command:
@@ -267,7 +259,7 @@ async function fixLegendarySaveFolder(
 }
 
 async function getAppSettings(): Promise<AppSettings> {
-  return ipcRenderer.invoke('requestSettings', 'default')
+  return window.api.requestSettings('default')
 }
 
 function quoteIfNecessary(stringToQuote: string) {
@@ -304,6 +296,5 @@ export {
   syncSaves,
   updateGame,
   writeConfig,
-  ipcRenderer,
   quoteIfNecessary
 }

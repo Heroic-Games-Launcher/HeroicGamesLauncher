@@ -8,7 +8,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { Runner, WebviewType } from 'common/types'
 import './index.css'
 
-const { clipboard, ipcRenderer } = window.require('electron')
+const { clipboard } = window.require('electron')
 
 type SID = {
   sid: string
@@ -117,7 +117,7 @@ export default function WebView() {
                   handleSuccessfulLogin()
                 } catch (error) {
                   console.error(error)
-                  ipcRenderer.send('logError', error)
+                  window.api.logError(error)
                 }
               }, 500)
             })

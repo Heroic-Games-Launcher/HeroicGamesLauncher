@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { GameStatus, InstallProgress } from 'common/types'
 
-import { ipcRenderer } from 'frontend/helpers'
 const storage: Storage = window.localStorage
 
 export const hasProgress = (appName: string) => {
@@ -43,10 +42,10 @@ export const hasProgress = (appName: string) => {
         })
       }
     }
-    ipcRenderer.on('setGameStatus', onGameStatusUpdate)
+    window.api.handleSetGameStatus(onGameStatusUpdate)
 
     return () => {
-      ipcRenderer.removeListener('setGameStatus', onGameStatusUpdate)
+      window.api.setGameStatusRemoveListener(onGameStatusUpdate)
     }
   }, [])
 

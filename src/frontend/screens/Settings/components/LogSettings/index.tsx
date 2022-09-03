@@ -6,8 +6,6 @@ import { useTranslation } from 'react-i18next'
 import { UpdateComponent } from 'frontend/components/UI'
 import './index.css'
 
-import { ipcRenderer } from 'frontend/helpers'
-
 interface LogBoxProps {
   logFileContent: string
 }
@@ -72,8 +70,8 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
   const [refreshing, setRefreshing] = useState<boolean>(true)
 
   const getLogContent = () => {
-    ipcRenderer
-      .invoke('getLogContent', { isDefault, appName, defaultLast })
+    window.api
+      .getLogContent({ isDefault, appName, defaultLast })
       .then((content: string) => {
         setLogFileContent(content)
         setLogFileExist(true)
@@ -100,7 +98,7 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
   }, [isDefault, defaultLast])
 
   function showLogFileInFolder() {
-    ipcRenderer.send('showLogFileInFolder', { isDefault, appName })
+    window.api.showLogFileInFolder({ isDefault, appName })
   }
 
   return (
