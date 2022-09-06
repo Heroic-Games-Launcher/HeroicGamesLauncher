@@ -9,7 +9,7 @@ import {
   InstallArgs,
   InstallPlatform
 } from 'common/types'
-import { Game } from '../games'
+import { ExternalGame } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary } from './library'
@@ -41,7 +41,7 @@ import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { t } from 'i18next'
 
-class LegendaryGame extends Game {
+class LegendaryGame extends ExternalGame {
   public appName: string
   public window = BrowserWindow.getAllWindows()[0]
   private static instances: Map<string, LegendaryGame> = new Map()
