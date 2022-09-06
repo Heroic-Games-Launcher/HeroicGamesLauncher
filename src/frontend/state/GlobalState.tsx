@@ -31,6 +31,7 @@ import {
   libraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
+import { UserInfo } from 'common/types'
 
 const storage: Storage = window.localStorage
 
@@ -104,11 +105,13 @@ export class GlobalState extends PureComponent<Props> {
       library: libraryStore.has('library')
         ? (libraryStore.get('library', []) as GameInfo[])
         : [],
-      username: configStore.get('userInfo', null)?.displayName || null
+      username:
+        (configStore.get('userInfo', null) as UserInfo)?.displayName || null
     },
     gog: {
       library: this.loadGOGLibrary(),
-      username: gogConfigStore.get('userData', null)?.username || null
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      username: (gogConfigStore.get('userData', null) as any)?.username || null
     },
     wineVersions: wineDownloaderInfoStore.has('wine-releases')
       ? (wineDownloaderInfoStore.get('wine-releases', []) as WineVersionInfo[])

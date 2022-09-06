@@ -6,8 +6,6 @@ import './index.css'
 import { Autorenew } from '@mui/icons-material'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-const { clipboard } = window.require('electron')
-
 interface Props {
   backdropClick: () => void
 }
@@ -83,7 +81,10 @@ export default function SIDLogin({ backdropClick }: Props) {
           type="text"
           className="sid-input"
           value={input}
-          onAuxClick={() => setInput(clipboard.readText('clipboard'))}
+          onAuxClick={async () => {
+            const text = await window.api.clipboardReadText()
+            setInput(text)
+          }} // clipboard.readText('clipboard'))}
           onChange={(e) => setInput(e.target.value)}
         />
         {loading && (

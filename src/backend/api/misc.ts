@@ -89,3 +89,48 @@ export const requestSettingsRemoveListeners = () =>
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setGameStatusRemoveListener = (onGameStatusUpdate: any) =>
   ipcRenderer.removeListener('setGameStatus', onGameStatusUpdate)
+
+export const clipboardReadText = async () =>
+  ipcRenderer.invoke('clipboardReadText')
+
+export const clipboardWriteText = async (text: string) =>
+  ipcRenderer.send('clipboardWriteText', text)
+
+import Store from 'electron-store'
+// export const storeNew = async (
+//   name: string,
+//   options: Store.Options<Record<string, unknown>>
+// ) => ipcRenderer.send('storeNew', name, options)
+
+// export const storeSet = async (name: string, key: string, value?: unknown) =>
+//   ipcRenderer.send('storeSet', name, key, value)
+
+// export const storeHas = async (name: string, key: string) =>
+//   ipcRenderer.invoke('storeHas', name, key)
+
+// export const storeGet = async (name: string, key: string) =>
+//   ipcRenderer.invoke('storeGet', name, key)
+
+interface StoreMap {
+  [key: string]: Store
+}
+const stores: StoreMap = {}
+
+export const storeNew = function (
+  storeName: string,
+  options: Store.Options<Record<string, unknown>>
+) {
+  stores[storeName] = new Store(options)
+}
+
+export const storeSet = (storeName: string, key: string, value?: unknown) =>
+  stores[storeName].set(key, value)
+
+export const storeHas = (storeName: string, key: string) =>
+  stores[storeName].has(key)
+
+export const storeGet = (
+  storeName: string,
+  key: string,
+  defaultValue?: unknown
+) => stores[storeName].get(key, defaultValue)

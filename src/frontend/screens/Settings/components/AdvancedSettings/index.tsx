@@ -11,7 +11,6 @@ import {
   DeselectOutlined
 } from '@mui/icons-material'
 import classNames from 'classnames'
-import { Clipboard } from 'electron'
 import { useTranslation } from 'react-i18next'
 import React, { useContext, useEffect, useState } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -22,12 +21,6 @@ import { configStore } from 'frontend/helpers/electronStores'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
-
-interface ElectronProps {
-  clipboard: Clipboard
-}
-
-const { clipboard } = window.require('electron') as ElectronProps
 
 interface Props {
   altLegendaryBin: string
@@ -502,7 +495,9 @@ export const AdvancedSettings = ({
             isSuccess: isCopiedToClipboard
           })}
           onClick={() => {
-            clipboard.writeText(JSON.stringify({ ...settingsToSave }, null, 2))
+            window.api.clipboardWriteText(
+              JSON.stringify({ ...settingsToSave }, null, 2)
+            )
             setCopiedToClipboard(true)
           }}
         >

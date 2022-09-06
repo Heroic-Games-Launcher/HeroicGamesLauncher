@@ -9,7 +9,6 @@ import {
   WineInstallation,
   WrapperVariable
 } from 'common/types'
-import { Clipboard } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'frontend/helpers'
 import { useToggle } from 'frontend/hooks'
@@ -31,12 +30,6 @@ import { WineExtensions } from './components'
 import { configStore } from 'frontend/helpers/electronStores'
 import ContextMenu from '../Library/components/ContextMenu'
 import { GOGCloudSavesLocation } from 'common/types/gog'
-
-interface ElectronProps {
-  clipboard: Clipboard
-}
-
-const { clipboard } = window.require('electron') as ElectronProps
 
 interface LocationState {
   fromGameCard: boolean
@@ -470,8 +463,8 @@ function Settings() {
             'settings.copyToClipboard',
             'Copy All Settings to Clipboard'
           ),
-          onclick: () =>
-            clipboard.writeText(
+          onclick: async () =>
+            window.api.clipboardWriteText(
               JSON.stringify({ appName, title, ...settingsToSave })
             ),
           show: !isLogSettings

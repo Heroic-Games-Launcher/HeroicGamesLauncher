@@ -24,7 +24,7 @@ initShortcuts()
 
 const storage: Storage = window.localStorage
 
-let languageCode = configStore.get('language')
+let languageCode: string | undefined = configStore.get('language') as string
 
 if (!languageCode) {
   languageCode = storage.getItem('language') || 'en'

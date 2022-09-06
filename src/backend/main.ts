@@ -170,9 +170,9 @@ async function createWindow(): Promise<BrowserWindow> {
     webPreferences: {
       webviewTag: true,
       contextIsolation: true,
-      nodeIntegration: false,
-      sandbox: true,
-      preload: path.join(__dirname, 'preload.ts')
+      nodeIntegration: true,
+      // sandbox: false,
+      preload: path.join(__dirname, 'preload.js')
     }
   })
 
@@ -229,13 +229,13 @@ async function createWindow(): Promise<BrowserWindow> {
   if (!app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
-    import('electron-devtools-installer').then((devtools) => {
-      const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
+    // import('electron-devtools-installer').then((devtools) => {
+    //   const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
-      installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        logWarning(['An error occurred: ', err], LogPrefix.Backend)
-      })
-    })
+    //   installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
+    //     logWarning(['An error occurred: ', err], LogPrefix.Backend)
+    //   })
+    // })
     mainWindow.loadURL('http://localhost:5173')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
@@ -1554,3 +1554,34 @@ import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
+
+import { clipboard } from 'electron'
+ipcMain.handle('clipboardReadText', () => {
+  return clipboard.readText()
+})
+
+ipcMain.on('clipboardWriteText', (event, text) => {
+  return clipboard.writeText(text)
+})
+
+// import Store from 'electron-store'
+// interface StoreMap {
+//   [key: string]: Store
+// }
+// const stores: StoreMap = {}
+
+// ipcMain.on('storeNew', (event, storeName, options) => {
+//   stores[storeName] = new Store(options)
+// })
+
+// ipcMain.handle('storeHas', (event, storeName, key) => {
+//   return stores[storeName].has(key)
+// })
+
+// ipcMain.handle('storeGet', (event, storeName, key) => {
+//   return stores[storeName].get(key)
+// })
+
+// ipcMain.on('storeSet', (event, storeName, key, value) => {
+//   stores[storeName].set(key, value)
+// })
