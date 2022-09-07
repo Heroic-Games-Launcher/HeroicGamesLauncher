@@ -399,7 +399,7 @@ export default function InstallModal({
       >
         {title ? (
           <>
-            <DialogHeader onClose={backdropClick}>
+            <DialogHeader onClose={backdropClick} showCloseButton={true}>
               {title}
               {availablePlatforms.map((p) => (
                 <FontAwesomeIcon

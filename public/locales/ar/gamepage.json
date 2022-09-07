@@ -93,7 +93,7 @@
         "invalid-folder": "خطأ: المسار غير صالح",
         "not-enough-disk-space": "مساحة غير كافيه",
         "space-after-install": "بعد التثبيت",
-        "path-not-writtable": "تحذير: المسار قد لا يكون قابلاً للتحرير."
+        "path-not-writtable": "تحذير: المسار قد لا يكون قابلاً للحرير."
     },
     "label": {
         "playing": {

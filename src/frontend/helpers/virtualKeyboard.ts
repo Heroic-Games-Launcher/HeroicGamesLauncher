@@ -9,7 +9,7 @@ function currentElement() {
 
 function searchInput() {
   // only change this if you change the id of the input element
-  // in src/components/UI/SearchBar/index.tsx
+  // in frontend/components/UI/SearchBar/index.tsx
   return document.querySelector('#search') as HTMLInputElement
 }
 

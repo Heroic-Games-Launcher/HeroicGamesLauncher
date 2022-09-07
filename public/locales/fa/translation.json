@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "خطا",
             "uncaught-exception": {
-                "message": "یک خطای نامشخص رخ داد:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic بسته خواهد شد! خطا را در ریپوزیتوری گیت‌هاب ما گزارش دهید.",
+                "message": "یک خطای نامشخص رخ داد:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic بسته خواهد شد! خطا را در ریپوزیتوری گیت\u200cهاب ما گزارش دهید.",
                 "title": "خطای نامشخص رخ داد!"
             },
             "update": {
@@ -71,6 +71,10 @@
             "wine-not-found": {
                 "message": "نسخه ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
                 "title": "Wine یافت نشد"
+            },
+            "winetricks": {
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
@@ -217,6 +221,7 @@
             "part7": " تا لانچر در برخی بازیها رد شود، غیره."
         },
         "preferSystemLibs": "نسخه های سفارشی Wine (Wine-GE, Wine-Lutris) همراه با وابستگی های کتابخانه خود عرضه می شوند. با فعال کردن این گزینه، این کتابخانه ها نادیده گرفته شده و Wine به جای آن کتابخانه های سیستم را اجرا خواهد کرد. هشدار! در صورت عدم وجود وابستگی ها امکان بروز مشکلات وجود دارد.",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar با ایجاد امکان دسترسی CPU به کل بافر گرافیک سبب افزایش نرخ فریم می شود.فعال کردن ممکن است باعث بهبود عملکرد بازی های مبتنی بر Vulkan شود.",
         "steamruntime": "کتابخانه های سفارشی توسط استیم برای کمک به اجرا بازی های لینوکس و ویندوز (Proton) ارائه می شود. فعال کردن ممکن است سبب افزایش سازگاری شود.",
         "sync": {
@@ -244,7 +249,13 @@
     "infobox": {
         "help": "راهنما",
         "requirements": "نیازمندیهای سیستم",
-        "wine-path": "مسیر Wine"
+        "wine-path": "مسیر Wine",
+        "wine-prefix": {
+            "title": "Wine Prefix"
+        },
+        "wine-repfix": {
+            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+        }
     },
     "install": {
         "path": "انتخاب محل نصب"
@@ -360,6 +371,7 @@
         "mac": "مک",
         "win": "ویندوز"
     },
+    "progress": "Progress",
     "Recent": "اخیرا بازی شده",
     "search": "جست و جو برای بازی ها",
     "setting": {
@@ -477,7 +489,7 @@
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "ران تایم EAC که بدون GameMode به درستی کار نمی کند،‌ فعال شده است. آیا می خواهید ران تایم EAC و GameMode را غیرفعال کنید؟",
+                "message": "ران تایم EAC که بدون GameMode به درستی کار نمی کند،\u200c فعال شده است. آیا می خواهید ران تایم EAC و GameMode را غیرفعال کنید؟",
                 "title": "ران تایم EAC فعال شد"
             }
         },
