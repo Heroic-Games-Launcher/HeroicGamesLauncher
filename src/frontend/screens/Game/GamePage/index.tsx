@@ -489,7 +489,7 @@ export default function GamePage(): JSX.Element | null {
         ? ''
         : `${
             percent && bytes && eta
-              ? `${percent}% [${bytes}] | ETA: ${eta}`
+              ? `${percent}% [${bytes}] ${eta ? `ETA: ${eta}` : ''}`
               : '...'
           }`
 
