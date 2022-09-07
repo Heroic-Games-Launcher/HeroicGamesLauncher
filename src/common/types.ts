@@ -5,6 +5,13 @@ import { VersionInfo } from 'heroic-wine-downloader'
 
 export type Runner = 'legendary' | 'gog'
 
+// here is a way to type the callback function in ipcMain.on or ipcMain.handle
+// does not prevent callbacks with fewer parameters from being passed though
+// the microsoft team is very opposed to enabling the above constraint https://github.com/microsoft/TypeScript/issues/17868
+// for ipcMain.handle('updateGame', async (e, appName, runner) => { for instance could be converted to:
+// ipcMain.handle('updateGame', typedCallback<WrapApiFunction<typeof updateGame>>() => {
+// this has the benefit of type checking for the arguments typed in the preload api
+// but may be overly complex for a small benefit
 export function typedCallback<T>(arg: T) {
   return arg
 }

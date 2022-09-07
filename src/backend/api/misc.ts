@@ -97,6 +97,11 @@ export const clipboardWriteText = async (text: string) =>
   ipcRenderer.send('clipboardWriteText', text)
 
 import Store from 'electron-store'
+// FUTURE WORK
+// here is how the store methods can be refactored
+// in order to set nodeIntegration: false
+// but converting sync methods to async propagates through frontend
+
 // export const storeNew = async (
 //   name: string,
 //   options: Store.Options<Record<string, unknown>>
