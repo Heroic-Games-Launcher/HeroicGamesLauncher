@@ -77,6 +77,10 @@
             "uncaught-exception": {
                 "message": "Tutulmamış istisna baş verdi:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic bağlanacaq! Github anbarımızdakı istisnanı bildirin.",
                 "title": "Tutulmamış İstisna baş verdi!"
+            },
+            "winetricks": {
+                "message": "Winetricks icra zamanı aşağıdakı xətanı qaytardı:{{newLine}}{{error}}",
+                "title": "Winetricks xətası"
             }
         },
         "sync": {
@@ -175,7 +179,8 @@
             "part3": "Manual Sync: Buludda saxlanan oyunları yükləmək üçün Download seçin. Yerliləri buludlara yükləmək üçün yükləyin. Məcburi Endirmə və Məcburi Yükləmə yerli və ya buludda olan versiyaya məhəl qoymayacaq.",
             "part4": "Sync Saves Avtomatik olaraq hər dəfə Oyuna Başladığınız zaman və oyunu bitirdikdən sonra yadda saxlamaları sinxronlaşdıracaq."
         },
-        "vkd3d": "VKD3D DirectX 12 oyunları üçün Vulkan əsaslı tərcümə qatıdır. Aktivləşdirmə uyğunluğu əhəmiyyətli dərəcədə yaxşılaşdıra bilər. Köhnə DirectX oyunlarına heç bir təsiri yoxdur."
+        "vkd3d": "VKD3D DirectX 12 oyunları üçün Vulkan əsaslı tərcümə qatıdır. Aktivləşdirmə uyğunluğu əhəmiyyətli dərəcədə yaxşılaşdıra bilər. Köhnə DirectX oyunlarına heç bir təsiri yoxdur.",
+        "primerun": "Multi-GPU sistemlərində oyunu göstərmək üçün xüsusi qrafik kartdan istifadə edin. Yalnız göstərmə üçün başsız GPU istifadə edən oyun noutbukları və ya stolüstü kompüterlərdə lazımdır (NVIDIA Optimus, AMD CrossFire)"
     },
     "library": {
         "refresh": "təzələmək",
@@ -417,7 +422,13 @@
     "infobox": {
         "help": "Kömək edin",
         "requirements": "Sistem Tələbləri",
-        "wine-path": "Şərab yolu"
+        "wine-path": "Şərab yolu",
+        "wine-prefix": {
+            "title": "Şərab prefiksi"
+        },
+        "wine-repfix": {
+            "message": "Wine, Windows proqramlarını əhatə etmək üçün WINEPREFIX adlanandan istifadə edir. Bu prefiks Şərab konfiqurasiya fayllarını və C: fayl iyerarxiyasının reproduksiyasını ehtiva edir (Windows OS-də əsas disk). C: sürücüsünün bu reproduksiyasında oyun saxlama faylları və winetricks vasitəsilə quraşdırılmış asılılıqlar saxlanılır."
+        }
     },
     "install": {
         "path": "Quraşdırma yolunu seçin"
@@ -496,6 +507,15 @@
             "placeHolderKey": "Yeni Qapaq",
             "placeHolderValue": "Sarmalayıcı Arqumentlər",
             "title": "Sarma əmri:"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Dəyişən adları boş ola bilməz",
+                "equal_sign_in_key": "Dəyişən adlarında \"=\" işarəsi ola bilməz",
+                "space_in_key": "Dəyişən adlarında boşluq ola bilməz"
+            },
+            "example": "\"=\" işarəsini DAXİL ETMƏYİN, məsələn: \"MY_FLAG=123\" kimi parametr üçün MY_FLAG-ı NAME, 123-ü VALUE-da təyin edin.",
+            "info": "Komandaya əlavə etmək üçün mühit dəyişənlərini təyin edin."
         }
     },
     "other": {
@@ -559,5 +579,9 @@
         "logout_confirmation": "Çıxmaq istədiyinizə əminsiniz?",
         "manageaccounts": "Hesabları idarə et",
         "quit": "Çıxın"
-    }
+    },
+    "two_col_table": {
+        "save_hint": "Bu cədvəldəki dəyişikliklər avtomatik olaraq yadda saxlanmır. + düyməsini basın"
+    },
+    "progress": "Tərəqqi"
 }
