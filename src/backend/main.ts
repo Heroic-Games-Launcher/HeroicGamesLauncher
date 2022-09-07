@@ -74,7 +74,8 @@ import {
   getGame,
   getFirstExistingParentPath,
   getLatestReleases,
-  notify
+  notify,
+  quoteIfNecessary
 } from './utils'
 import {
   configStore,
@@ -229,13 +230,13 @@ async function createWindow(): Promise<BrowserWindow> {
   if (!app.isPackaged) {
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     //@ts-ignore
-    // import('electron-devtools-installer').then((devtools) => {
-    //   const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
+    import('electron-devtools-installer').then((devtools) => {
+      const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
-    //   installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-    //     logWarning(['An error occurred: ', err], LogPrefix.Backend)
-    //   })
-    // })
+      installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
+        logWarning(['An error occurred: ', err], LogPrefix.Backend)
+      })
+    })
     mainWindow.loadURL('http://localhost:5173')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
@@ -632,7 +633,10 @@ ipcMain.handle(
         game.runWineCommand('winecfg')
         break
       case 'runExe':
-        game.runWineCommand(exe)
+        if (exe) {
+          exe = quoteIfNecessary(exe)
+          game.runWineCommand(exe)
+        }
         break
     }
   }

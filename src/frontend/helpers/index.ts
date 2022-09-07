@@ -262,13 +262,6 @@ async function getAppSettings(): Promise<AppSettings> {
   return window.api.requestSettings('default')
 }
 
-function quoteIfNecessary(stringToQuote: string) {
-  if (stringToQuote.includes(' ')) {
-    return `"${stringToQuote}"`
-  }
-  return stringToQuote
-}
-
 export {
   createNewWindow,
   fixLegendarySaveFolder,
@@ -295,6 +288,5 @@ export {
   sidInfoPage,
   syncSaves,
   updateGame,
-  writeConfig,
-  quoteIfNecessary
+  writeConfig
 }

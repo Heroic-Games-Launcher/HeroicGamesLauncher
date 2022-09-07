@@ -162,7 +162,7 @@
     "tslib": "^2.4.0"
   },
   "scripts": {
-    "dev": "esbuild src/backend/preload.ts --platform=node --external:electron --bundle --outfile=build/electron/preload.js && vite",
+    "dev": "vite",
     "codecheck": "tsc --noEmit",
     "test": "jest --noStackTrace",
     "test-watch": "jest --watch --maxWorkers=25%",

@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import { getGameInfo, quoteIfNecessary } from 'frontend/helpers'
+import { getGameInfo } from 'frontend/helpers'
 
 import { Runner } from 'common/types'
 
@@ -26,15 +26,12 @@ export default function Tools({ appName, runner }: Props) {
     if (tool === 'winecfg') {
       setWinecfgRunning(true)
     }
-    exe = exe ? quoteIfNecessary(exe) : undefined
-    exe
-      ? await window.api.callTool({
-          tool,
-          exe,
-          appName,
-          runner
-        })
-      : {}
+    await window.api.callTool({
+      tool,
+      exe,
+      appName,
+      runner
+    })
     setWinetricksRunning(false)
     setWinecfgRunning(false)
   }

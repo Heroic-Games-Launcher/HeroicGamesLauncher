@@ -475,7 +475,7 @@ export type WebviewType = HTMLWebViewElement & ElWebview
 export type InstallPlatform = LegendaryInstallPlatform | GogInstallPlatform
 
 export interface Tools {
-  exe: string
+  exe?: string
   tool: string
   appName: string
   runner: Runner
