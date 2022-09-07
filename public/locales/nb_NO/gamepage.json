@@ -136,5 +136,6 @@
         "saves": {
             "syncing": "Synkroniserer lagrer"
         }
-    }
+    },
+    "cloud_save_unsupported": "Ustøttet"
 }

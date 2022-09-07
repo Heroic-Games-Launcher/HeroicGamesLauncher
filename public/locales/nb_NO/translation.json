@@ -72,6 +72,10 @@
             "uncaught-exception": {
                 "message": "Et uoppdaget unntak skjedde:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic vil bli stengt! Rapporter unntaket på Github-depotet vårt.",
                 "title": "Ufanget unntak skjedde!"
+            },
+            "winetricks": {
+                "message": "Winetricks returnerte følgende feil under kjøring:{{newLine}}{{error}}",
+                "title": "Winetricks feil"
             }
         },
         "select": {
@@ -396,7 +400,8 @@
             "part1": "Heroiske søk etter versjoner av Wine, Proton og CrossOver i følgende mapper:",
             "part2": "For andre steder, bruk en symbolsk lenke til en av disse mappene"
         },
-        "general": "Synkroniser med EGL hvis du har en fungerende installasjon av Epic Games Launcher andre steder og vil importere spillene dine for å unngå å laste dem ned igjen."
+        "general": "Synkroniser med EGL hvis du har en fungerende installasjon av Epic Games Launcher andre steder og vil importere spillene dine for å unngå å laste dem ned igjen.",
+        "primerun": "Bruk dedikert grafikkort til å gjengi spill på multi-GPU-systemer. Bare nødvendig på bærbare eller stasjonære gaming-maskiner som bruker en hodeløs GPU for gjengivelse (NVIDIA Optimus, AMD CrossFire)"
     },
     "info": {
         "version": "Vinversjon",
@@ -428,6 +433,15 @@
         "gameargs": {
             "placeholder": "Legg inn Launcher-argumentene her",
             "title": "Spillargumenter (for å kjøre etter kommandoen):"
+        },
+        "env_variables": {
+            "error": {
+                "equal_sign_in_key": "Variabelnavn kan ikke inneholde \"=\"-tegnet",
+                "space_in_key": "Variabelnavn kan ikke inneholde mellomrom",
+                "empty_key": "Variabelnavn kan ikke være tomme"
+            },
+            "example": "IKKE ta med \"=\"-tegnet, f.eks. for en innstilling som \"MY_FLAG=123\", sett MY_FLAG i NAME og 123 i VALUE.",
+            "info": "Angi miljøvariabler som skal legges til kommandoen."
         }
     },
     "settings": {
@@ -498,7 +512,13 @@
     "infobox": {
         "help": "Hjelp",
         "requirements": "Systemkrav",
-        "wine-path": "Vinstien"
+        "wine-path": "Vinstien",
+        "wine-prefix": {
+            "title": "Vinprefiks"
+        },
+        "wine-repfix": {
+            "message": "Wine bruker det som kalles WINEPREFIX for å kapsle inn Windows-applikasjoner. Dette prefikset inneholder Wine-konfigurasjonsfilene og en reproduksjon av filhierarkiet til C: (hoveddisken på et Windows-operativsystem). I denne reproduksjonen av C:-stasjonen, lagres spilllagringsfiler og avhengigheter installert via vintriks."
+        }
     },
     "status": {
         "logging": "Logger inn...",
@@ -593,5 +613,9 @@
         "may_not_work": "Det kan hende det ikke fungerer på grunn av avvist eller ødelagt anticheat-støtte.",
         "status": "Status",
         "title": "Dette spillet inkluderer anticheat-programvare"
-    }
+    },
+    "two_col_table": {
+        "save_hint": "Endringer i denne tabellen lagres ikke automatisk. Klikk på +-knappen"
+    },
+    "progress": "Framgang"
 }
