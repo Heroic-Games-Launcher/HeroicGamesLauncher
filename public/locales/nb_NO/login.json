@@ -6,15 +6,15 @@
         "needHelp": "Trenger du hjelp?"
     },
     "input": {
-        "placeholder": "Lim inn SID-nummeret her"
+        "placeholder": "Lim inn authorization code-nummeret her"
     },
     "message": {
         "part1": "Følg instruksen for å logge inn og installere spill:",
         "part3": "Epic-butikken her",
         "part4": ", logg inn på kontoen din og kopier ditt",
-        "part5": "SID-informasjonsnummer",
+        "part5": "authorization code-informasjonsnummer",
         "part6": "Lim inn",
-        "part7": "SID-nummeret",
+        "part7": "authorization code-nummeret",
         "part8": "i boksen nedenfor, klikk på «Logg inn» og vent.",
         "part2": "Åpne"
     },

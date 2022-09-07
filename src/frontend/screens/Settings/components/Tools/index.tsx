@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
@@ -8,6 +8,7 @@ import { getGameInfo, quoteIfNecessary } from 'frontend/helpers'
 
 import { ipcRenderer } from 'frontend/helpers'
 import { Runner } from 'common/types'
+import { ProgressDialog } from 'components/UI/ProgressDialog'
 
 interface Props {
   appName: string
@@ -18,6 +19,7 @@ export default function Tools({ appName, runner }: Props) {
   const { t } = useTranslation()
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
+  const [progress, setProgress] = useState<string[]>([])
 
   type Tool = 'winecfg' | 'winetricks' | string
   async function callTools(tool: Tool, exe?: string) {
@@ -37,6 +39,23 @@ export default function Tools({ appName, runner }: Props) {
     setWinetricksRunning(false)
     setWinecfgRunning(false)
   }
+
+  useEffect(() => {
+    const onProgress = (e: Electron.IpcRendererEvent, messages: string[]) => {
+      setProgress(messages)
+    }
+
+    ipcRenderer.on('progressOfWinetricks', onProgress)
+
+    //useEffect unmount
+    return () => {
+      ipcRenderer.removeListener('progressOfWinetricks', onProgress)
+    }
+  }, [])
+
+  useEffect(() => {
+    setProgress([])
+  }, [winetricksRunning])
 
   const handleRunExe = async () => {
     let exe = ''
@@ -79,6 +98,16 @@ export default function Tools({ appName, runner }: Props) {
   return (
     <>
       <div data-testid="toolsSettings" className="settingsTools">
+        {winetricksRunning && (
+          <ProgressDialog
+            title={'Winetricks'}
+            progress={progress}
+            showCloseButton={false}
+            onClose={() => {
+              return
+            }}
+          />
+        )}
         <div className="toolsWrapper">
           <button
             data-testid="wineCFG"

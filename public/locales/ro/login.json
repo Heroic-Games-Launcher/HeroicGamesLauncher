@@ -6,15 +6,15 @@
         "needHelp": "Ai nevoie de ajutor?"
     },
     "input": {
-        "placeholder": "Lipiți numărul SID aici"
+        "placeholder": "Lipiți numărul authorization code aici"
     },
     "message": {
         "part1": "Pentru a vă putea conecta și a instala jocurile, trebuie mai întâi să urmați pașii de mai jos:",
         "part3": "Epic Store aici",
         "part4": ", conectați-vă contul și copiați-vă",
-        "part5": "numărul de informații SID",
+        "part5": "numărul de informații authorization code",
         "part6": "Lipește",
-        "part7": "număr SID",
+        "part7": "număr authorization code",
         "part8": "în caseta de introducere de mai jos, faceți clic pe butonul de conectare și așteptați.",
         "part2": "Deschide"
     },

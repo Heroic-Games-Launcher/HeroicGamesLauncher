@@ -23,8 +23,7 @@
             "title": "설치 중지"
         },
         "uninstall": {
-            "checkbox": "접두사도 제거하시겠습니까? 이 작업은 취소할 수 없습니다.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "이 게임을 제거하시겠습니까?",
             "title": "설치 제거"
         },

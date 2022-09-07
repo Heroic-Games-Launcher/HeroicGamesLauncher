@@ -23,8 +23,7 @@
             "title": "Deter a instalación"
         },
         "uninstall": {
-            "checkbox": "Queres eliminar o prefixo tam'en? Isto non se pode desfacer.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Desexas desinstalar o xogo?",
             "title": "Desinstalar"
         },
