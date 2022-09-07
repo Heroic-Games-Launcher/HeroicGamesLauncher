@@ -73,16 +73,17 @@ export class LegendaryLibrary {
    * Loads all of the user's games into `this.allGames`
    */
   public loadGamesInAccount() {
-    if (existsSync(legendaryMetadata)) {
-      readdirSync(legendaryMetadata).forEach((filename) => {
-        // This shouldn't ever happen, but just in case
-        if (!filename.endsWith('.json')) {
-          return
-        }
-        const appName = filename.split('.').at(0)!
-        this.allGames.add(appName)
-      })
+    if (!existsSync(legendaryMetadata)) {
+      return
     }
+    readdirSync(legendaryMetadata).forEach((filename) => {
+      // This shouldn't ever happen, but just in case
+      if (!filename.endsWith('.json')) {
+        return
+      }
+      const appName = filename.split('.').at(0)!
+      this.allGames.add(appName)
+    })
   }
 
   /**
