@@ -21,7 +21,6 @@ abstract class Game {
   abstract window: BrowserWindow
   abstract getGameInfo(installPlatform?: string): GameInfo
   abstract getSettings(): Promise<GameSettings>
-  abstract install(args: InstallArgs): Promise<{ status: string }>
   abstract addShortcuts(): Promise<void>
   abstract launch(launchArguments?: string): Promise<boolean>
   abstract moveInstall(newInstallPath: string): Promise<string>
@@ -37,6 +36,7 @@ abstract class ExternalGame extends Game {
   ): Promise<LegendaryInstallInfo | GogInstallInfo>
   abstract update(): Promise<{ status: 'done' | 'error' }>
   abstract repair(): Promise<ExecResult>
+  abstract install(args: InstallArgs): Promise<{ status: string }>
   abstract forceUninstall(): Promise<void>
   abstract getExtraInfo(): Promise<ExtraInfo>
   abstract syncSaves(arg: string, path: string): Promise<ExecResult>
