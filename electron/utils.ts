@@ -637,12 +637,16 @@ function detectVCRedist(mainWindow: BrowserWindow) {
   let stderr = ''
 
   // get applications
-  const child = spawn('powershell', [
+  const child = spawn('powershell.exe', [
     'Get-ItemProperty',
     'HKLM:\\Software\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*,',
     'HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*',
-    '-Name',
-    'DisplayName'
+    '|',
+    'Select-Object',
+    'DisplayName',
+    '|',
+    'Format-Table',
+    '–AutoSize'
   ])
 
   child.stdout.setEncoding('utf-8')
