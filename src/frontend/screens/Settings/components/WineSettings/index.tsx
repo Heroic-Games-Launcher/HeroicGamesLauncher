@@ -195,6 +195,19 @@ export default function WineSettings({
                 setWinePrefix(path ? `${path}` : winePrefix)
               )
           }
+          afterInput={
+            <InfoBox text={t('infobox.wine-prefix.title', 'Wine Prefix')}>
+              <p>
+                {t(
+                  'infobox.wine-repfix.message',
+                  'Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored.'
+                )}
+              </p>
+              <a href={'https://wiki.winehq.org/FAQ#Wineprefixes'}>
+                Wineprefix FAQ
+              </a>
+            </InfoBox>
+          }
         />
       )}
 

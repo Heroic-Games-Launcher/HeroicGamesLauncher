@@ -208,7 +208,7 @@
     },
     "login": {
         "loginWithEpic": "تسجيل الدخول بإستخدام Epic",
-        "loginWithSid": "تسجيل الدخول بإستخدام SID",
+        "loginWithSid": "تسجيل الدخول بإستخدام authorization code",
         "externalLogin": "تسجيل الدخول الخارجي"
     },
     "options": {

@@ -78,7 +78,7 @@ export default function SidebarLinks() {
     } else {
       getGameInfo(appName, runner).then((info) => {
         setGameInfo(info)
-        if (info.is_installed) {
+        if (info?.is_installed) {
           setIsDefaultSetting(false)
           const wineOrOther = isWin
             ? `/settings/${runner}/${appName}/other`
