@@ -646,7 +646,7 @@ function detectVCRedist(mainWindow: BrowserWindow) {
     'DisplayName',
     '|',
     'Format-Table',
-    '–AutoSize'
+    '-AutoSize'
   ])
 
   child.stdout.setEncoding('utf-8')
