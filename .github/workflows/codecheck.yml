@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+  codecheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
