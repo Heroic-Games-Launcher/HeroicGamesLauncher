@@ -1,4 +1,4 @@
-name: Lint
+name: Code check
 
 on:
   pull_request:
@@ -15,7 +15,5 @@ jobs:
           node-version: '16'
       - name: Install modules.
         run: yarn
-      - name: Lint code.
-        run: yarn lint
-      - name: Prettier code.
-        run: yarn prettier
+      - name: Check Typescript syntax
+        run: yarn codecheck
