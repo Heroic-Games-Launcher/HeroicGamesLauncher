@@ -43,11 +43,11 @@ export default function Tools({ appName, runner }: Props) {
       setProgress(messages)
     }
 
-    ipcRenderer.on('progressOfWinetricks', onProgress)
+    window.api.handleProgressOfWinetricks(onProgress)
 
     //useEffect unmount
     return () => {
-      ipcRenderer.removeListener('progressOfWinetricks', onProgress)
+      window.api.progressOfWinetricksRemoveListener(onProgress)
     }
   }, [])
 

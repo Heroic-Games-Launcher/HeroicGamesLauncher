@@ -23,3 +23,11 @@ export const installWineVersion = async (release: WineVersionInfo) =>
   ipcRenderer.invoke('installWineVersion', release)
 export const removeWineVersion = async (release: WineVersionInfo) =>
   ipcRenderer.invoke('removeWineVersion', release)
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const handleProgressOfWinetricks = (onProgress: any) =>
+  ipcRenderer.on('progressOfWinetricks', onProgress)
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const progressOfWinetricksRemoveListener = (onProgress: any) =>
+  ipcRenderer.removeListener('progressOfWinetricks', onProgress)
