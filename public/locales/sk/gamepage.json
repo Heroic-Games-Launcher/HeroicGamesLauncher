@@ -5,18 +5,18 @@
             "path": "Vyberte novú cestu inštalácie",
             "title": "Zmeniť cestu inštalácie hier"
         },
+        "choose": "Vyberte si",
+        "importpath": "Vyberte priečinok hry, ktorý chcete importovať",
         "move": {
+            "message": "Môže to trvať dlho, si si istý?",
             "path": "Vyberte si, kam sa chcete presunúť",
-            "title": "Inštalácia hry Move",
-            "message": "Môže to trvať dlho, si si istý?"
+            "title": "Inštalácia hry Move"
         },
         "no": "NIE",
         "repair": {
             "message": "Chcete sa pokúsiť opraviť túto hru? Môže to trvať dlho.",
             "title": "Overiť a opraviť"
         },
-        "choose": "Vyberte si",
-        "importpath": "Vyberte priečinok hry, ktorý chcete importovať",
         "stopInstall": {
             "keepInstalling": "Pokračujte v inštalácii",
             "message": "Prajete si PONECHAŤ stiahnuté súbory?",
@@ -33,20 +33,6 @@
         },
         "wineprefix": "Vyberte Priečinok WinePrefix",
         "yes": "ÁNO"
-    },
-    "submenu": {
-        "addShortcut": "Pridať skratku",
-        "addToSteam": "Pridať do služby Steam",
-        "change": "Zmeňte cestu inštalácie",
-        "disableEosOverlay": "Zakázať prekrytie EOS",
-        "move": "Presunúť hru",
-        "protondb": "Skontrolujte kompatibilitu",
-        "removeFromSteam": "Odstrániť zo služby Steam",
-        "removeShortcut": "Odstráňte skratky",
-        "settings": "nastavenie",
-        "store": "Stránka obchodu",
-        "verify": "Overiť a opraviť",
-        "enableEosOverlay": "Povoliť prekrytie EOS"
     },
     "button": {
         "add_to_favourites": "Pridať do obľúbených",
@@ -135,5 +121,19 @@
         "reparing": "Oprava hry, čakajte prosím",
         "totalDownloaded": "Celkom stiahnutých",
         "updating": "Aktualizácia hry"
+    },
+    "submenu": {
+        "addShortcut": "Pridať skratku",
+        "addToSteam": "Pridať do služby Steam",
+        "change": "Zmeňte cestu inštalácie",
+        "disableEosOverlay": "Zakázať prekrytie EOS",
+        "enableEosOverlay": "Povoliť prekrytie EOS",
+        "move": "Presunúť hru",
+        "protondb": "Skontrolujte kompatibilitu",
+        "removeFromSteam": "Odstrániť zo služby Steam",
+        "removeShortcut": "Odstráňte skratky",
+        "settings": "nastavenie",
+        "store": "Stránka obchodu",
+        "verify": "Overiť a opraviť"
     }
 }
