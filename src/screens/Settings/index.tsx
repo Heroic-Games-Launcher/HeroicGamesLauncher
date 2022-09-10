@@ -343,6 +343,7 @@ function Settings() {
       defaultWinePrefix,
       disableController,
       discordRPC,
+      downloadNoHttps,
       egsLinkedPath,
       enableEsync,
       enableFsync,
