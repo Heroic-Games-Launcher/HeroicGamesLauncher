@@ -300,9 +300,9 @@
         "manualsync": {
             "upload": "Kargatu",
             "download": "Deskargatu",
-            "forceupload": "Behartu kargatzea",
+            "forceupload": "Karga behartu",
             "syncing": "Sinkronizatzen",
-            "forcedownload": "Deskargatu behartu",
+            "forcedownload": "Deskarga behartu",
             "sync": "Sinkronizatu",
             "title": "Eskuzko sinkronizazioa gordetzen du"
         },
@@ -325,7 +325,7 @@
         "start-in-tray": "Hasi minimizatua",
         "resizableBar": "Gaitu tamaina aldagarria BAR (NVIDIA RTX 30xx soilik)",
         "exit-to-tray": "Irten sistemaren erretilura",
-        "library_top_section": "Liburutegiaren Goiko Atala",
+        "library_top_section": "Liburutegiaren goiko atala",
         "mangohud": "Gaitu Mangohud (Mangohud instalatu behar da)",
         "audiofix": "Audio konponketa (Pultso Audio latentzia)",
         "autodxvk": "Instalatu/Eguneratu automatikoki DXVK aurrizkian",
@@ -360,7 +360,7 @@
     },
     "userselector": {
         "quit": "Irten",
-        "discord": "Discordia",
+        "discord": "Discord",
         "manageaccounts": "Kudeatu Kontuak",
         "logout": "Saioa amaitu",
         "logout_confirmation": "Ziur saioa amaitu nahi duzula?"
