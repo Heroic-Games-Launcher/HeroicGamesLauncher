@@ -147,5 +147,6 @@
     "report_problem": "أبلغ عن مشكلة في تشغيل هذه اللعبة",
     "generic": {
         "error": "خطأ مجهول"
-    }
+    },
+    "cloud_save_unsupported": "غير مدعوم"
 }

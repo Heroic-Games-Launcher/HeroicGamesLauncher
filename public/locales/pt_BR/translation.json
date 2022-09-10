@@ -34,7 +34,7 @@
             "add": {
                 "steam": {
                     "body": "Erro ao adicionar {{game}} à Steam:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "title": "Erro ao adicionar"
                 }
             },
             "credentials": {
@@ -65,8 +65,8 @@
             },
             "title": "Erro",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Ocorreu uma exceção não capturada:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic será fechado! Relate a exceção em nosso repositório do Github.",
+                "title": "Ocorreu uma exceção não capturada!"
             },
             "update": {
                 "message": "Algo deu errado ao atualizar, cheque os logs ou tente novamente mais tarde!",
@@ -77,8 +77,8 @@
                 "title": "Wine Não Encontrado"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks retornou o seguinte erro durante a execução:{{newLine}}{{error}}",
+                "title": "Erro do Winetricks"
             }
         },
         "info": {

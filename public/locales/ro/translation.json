@@ -75,6 +75,10 @@
             "uncaught-exception": {
                 "message": "A apărut o excepție neprinsă:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic va fi închis! Raportați excepția în depozitul nostru Github.",
                 "title": "A avut loc o excepție neprinsă!"
+            },
+            "winetricks": {
+                "message": "Winetricks a returnat următoarea eroare în timpul execuției:{{newLine}}{{error}}",
+                "title": "Eroare Winetricks"
             }
         },
         "no": "NU",
@@ -194,12 +198,19 @@
         "gamemode": "Feral GameMode aplică ajustări automate și temporare sistemului atunci când rulează jocuri. Activarea poate îmbunătăți performanța.",
         "mangohud": "MangoHUD este o suprapunere care afișează și monitorizează FPS, temperaturile, încărcarea CPU/GPU și alte resurse de sistem.",
         "resizablebar": "Bara resizable de la NVIDIA ajută la creșterea ratei de cadre, făcând ca procesorul să acceseze întregul buffer grafic. Activarea poate îmbunătăți performanța pentru jocurile bazate pe Vulkan.",
-        "vkd3d": "VKD3D este un strat translațional bazat pe Vulkan pentru jocurile DirectX 12. Activarea poate îmbunătăți semnificativ compatibilitatea. Nu are niciun efect asupra jocurilor DirectX mai vechi."
+        "vkd3d": "VKD3D este un strat translațional bazat pe Vulkan pentru jocurile DirectX 12. Activarea poate îmbunătăți semnificativ compatibilitatea. Nu are niciun efect asupra jocurilor DirectX mai vechi.",
+        "primerun": "Utilizați placa grafică dedicată pentru a reda jocul pe sisteme multi-GPU. Este necesar doar pe laptop-uri sau desktop-uri de jocuri care utilizează un GPU fără cap pentru randare (NVIDIA Optimus, AMD CrossFire)"
     },
     "infobox": {
         "help": "Ajutor",
         "requirements": "Cerințe de sistem",
-        "wine-path": "Calea Vinului"
+        "wine-path": "Calea Vinului",
+        "wine-prefix": {
+            "title": "Prefix de vin"
+        },
+        "wine-repfix": {
+            "message": "Wine folosește ceea ce se numește WINEPREFIX pentru a încapsula aplicațiile Windows. Acest prefix conține fișierele de configurare Wine și o reproducere a ierarhiei fișierelor C: (discul principal pe un sistem de operare Windows). În această reproducere a unității C:, sunt stocate fișierele de salvare a jocului și dependențele instalate prin winetricks."
+        }
     },
     "Library": "Bibliotecă",
     "message": {
@@ -271,6 +282,15 @@
             "placeHolderKey": "Noul Wrapper",
             "placeHolderValue": "Argumentele Wrapper",
             "title": "Comanda Wrapper:"
+        },
+        "env_variables": {
+            "error": {
+                "space_in_key": "Numele variabilelor nu pot conține spații",
+                "empty_key": "Numele variabilelor nu pot fi goale",
+                "equal_sign_in_key": "Numele variabilelor nu pot conține semnul „=\""
+            },
+            "example": "NU includeți semnul „=\", de exemplu: pentru o setare precum „MY_FLAG=123”, setați MY_FLAG în NAME și 123 în VALUE.",
+            "info": "Setați variabilele de mediu pentru a le adăuga la comandă."
         }
     },
     "placeholder": {
@@ -599,5 +619,9 @@
         "source": "Sursă",
         "status": "stare",
         "title": "Acest joc include software anticheat"
-    }
+    },
+    "two_col_table": {
+        "save_hint": "Modificările din acest tabel nu sunt salvate automat. Faceți clic pe butonul +"
+    },
+    "progress": "Progres"
 }

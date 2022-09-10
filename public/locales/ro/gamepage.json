@@ -147,5 +147,6 @@
     "generic": {
         "error": "Eroare Necunoscută"
     },
-    "report_problem": "Raportați o problemă la rularea acestui joc"
+    "report_problem": "Raportați o problemă la rularea acestui joc",
+    "cloud_save_unsupported": "Neacceptat"
 }

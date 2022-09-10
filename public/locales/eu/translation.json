@@ -87,6 +87,10 @@
             "uncaught-exception": {
                 "message": "Harrapatu gabeko salbuespen bat gertatu da:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic itxi egingo da! Salatu salbuespena gure Github biltegian.",
                 "title": "Harrapatu gabeko Salbuespena gertatu da!"
+            },
+            "winetricks": {
+                "message": "Winetricks-ek errore hau itzuli du exekuzioan:{{newLine}}{{error}}",
+                "title": "Winetricks errorea"
             }
         },
         "default-install-path": "Aukeratu lehenetsitako instalazio-ibilbidea",
@@ -183,7 +187,8 @@
         "dxvk": "DXVK DirectX 9, 10 eta 11 jokoetarako Vulkan-en oinarritutako translazio-geruza da. Gaitzeak bateragarritasuna hobetu dezake. Arazoak sor ditzake bereziki DirectX joko zaharretan.",
         "esync": "Esync-ek ardo-zerbitzariaren gainkostua murriztea du helburu PUZa duten jokoetan. Gaitzeak errendimendua hobe dezake.",
         "amdfsr": "AMD-ren FSR-k fotograma-tasa areagotzen laguntzen du pantaila osoko moduan bereizmen baxuagoak igoz. Irudiaren kalitatea 5etik 1era igotzen da errendimendu txiki baten truke. Gaitzeak errendimendua hobetu dezake.",
-        "preferSystemLibs": "Wine bertsio pertsonalizatuak (Wine-GE, Wine-Lutris) beren liburutegiko mendekotasunekin bidaltzen dira. Aukera hau gaituz gero, bidaltzen diren liburutegi hauek ez ikusi egingo dira eta Wine-k sistemako liburutegiak kargatuko ditu ordez. Kontuz! Arazoak gerta daitezke mendekotasunak betetzen ez badira."
+        "preferSystemLibs": "Wine bertsio pertsonalizatuak (Wine-GE, Wine-Lutris) beren liburutegiko mendekotasunekin bidaltzen dira. Aukera hau gaituz gero, bidaltzen diren liburutegi hauek ez ikusi egingo dira eta Wine-k sistemako liburutegiak kargatuko ditu ordez. Kontuz! Arazoak gerta daitezke mendekotasunak betetzen ez badira.",
+        "primerun": "Erabili txartel grafiko dedikatua jokoa errendatzeko GPU anitzeko sistemetan. Errendatzeko bururik gabeko GPU bat erabiltzen duten joko-ordenagailu eramangarrietan edo mahaigainetan bakarrik behar da (NVIDIA Optimus, AMD CrossFire)"
     },
     "button": {
         "syncing": "Sinkronizatzen",
@@ -487,7 +492,13 @@
     "infobox": {
         "help": "Laguntza",
         "requirements": "Sistemaren eskakizunak",
-        "wine-path": "Ardoaren Bidea"
+        "wine-path": "Ardoaren Bidea",
+        "wine-prefix": {
+            "title": "Ardoaren aurrizkia"
+        },
+        "wine-repfix": {
+            "message": "Wine-k WINEPREFIX deritzona erabiltzen du Windows aplikazioak kapsulatzeko. Aurrizki honek Wine konfigurazio-fitxategiak eta C:-ren fitxategi-hierarkiaren erreprodukzioa ditu (Windows OS bateko disko nagusia). C: diskoaren erreprodukzio honetan, zure jokoa gordetzeko fitxategiak eta winetricks bidez instalatutako mendekotasunak gordetzen dira."
+        }
     },
     "stores": "Dendak",
     "library": {
@@ -585,8 +596,21 @@
             "placeHolderKey": "Bilgarri berria",
             "placeHolderValue": "Biltzeko argudioak",
             "title": "Wrapper komandoa:"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Aldagaien izenak ezin dira hutsik egon",
+                "equal_sign_in_key": "Aldagaien izenek ezin dute \"=\" zeinua izan",
+                "space_in_key": "Aldagaien izenek ezin dute zuriunerik izan"
+            },
+            "info": "Ezarri ingurune-aldagaiak komandoari eransteko.",
+            "example": "EZ sartu \"=\" ikurra, adibidez: \"MY_FLAG=123\" bezalako ezarpen baterako, ezarri NIRE_FLAG NAME eta 123 VALUE atalean."
         }
     },
     "Plugins": "Pluginak",
-    "Recent": "Duela gutxi jokatuta"
+    "Recent": "Duela gutxi jokatuta",
+    "two_col_table": {
+        "save_hint": "Taula honetako aldaketak ez dira automatikoki gordetzen. Egin klik + botoian"
+    },
+    "progress": "Aurrerapena"
 }
