@@ -103,7 +103,7 @@ describe('logger/logger.ts', () => {
     })
   })
 
-  test.only('log can be shown as dialog', () => {
+  test('log can be shown as dialog', () => {
     jest.spyOn(global.console, 'error').mockImplementation()
     jest.spyOn(global.console, 'log').mockImplementation()
     jest.spyOn(global.console, 'warn').mockImplementation()
