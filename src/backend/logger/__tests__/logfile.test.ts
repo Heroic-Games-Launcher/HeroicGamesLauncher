@@ -3,7 +3,6 @@ import graceful_fs from 'graceful-fs'
 import { join } from 'path'
 import { app } from 'electron'
 import { configStore } from '../../constants'
-import * as constants from '../../constants'
 import * as logfile from '../logfile'
 import { logError } from '../logger'
 
@@ -154,18 +153,14 @@ describe('logger/logfile.ts', () => {
       .spyOn(graceful_fs, 'appendFileSync')
       .mockReturnValue()
 
-    // store the default current log value
-    const defaultCurrentLogName = constants.currentLogFile
-
-    // make currentLogFile empty
-    // @ts-ignore Needed override the currentLogFile
-    constants.currentLogFile = ''
+    const mockConstants = jest.requireMock('../../constants')
+    const defaultCurrentLogName = mockConstants.currentLogFile
+    mockConstants.currentLogFile = ''
 
     logfile.appendMessageToLogFile('Hello World')
 
-    // restore old current log value
-    // @ts-ignore Needed override the currentLogFile
-    constants.currentLogFile = defaultCurrentLogName
+    mockConstants.currentLogFile = defaultCurrentLogName
+
     expect(appendFileSyncSpy).not.toBeCalled()
   })
 
