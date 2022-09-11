@@ -23,8 +23,7 @@
             "title": "Kurulumu Durdur"
         },
         "uninstall": {
-            "checkbox": "Prefix'i de kaldırmak ister misiniz? Bu geri alınamaz.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Oyunu kaldırmak istiyor musunuz?",
             "title": "Kaldır"
         },

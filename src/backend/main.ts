@@ -628,7 +628,7 @@ ipcMain.handle(
 
     switch (tool) {
       case 'winetricks':
-        Winetricks.run(wineVersion, winePrefix)
+        await Winetricks.run(wineVersion, winePrefix, event)
         break
       case 'winecfg':
         game.runWineCommand('winecfg')

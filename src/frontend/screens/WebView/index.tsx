@@ -10,8 +10,8 @@ import './index.css'
 
 const { clipboard, ipcRenderer } = window.require('electron')
 
-type SID = {
-  sid: string
+type CODE = {
+  authorizationCode: string
 }
 
 export default function WebView() {
@@ -42,8 +42,7 @@ export default function WebView() {
     '/gogstore': `https://gog.com`,
     '/wiki':
       'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki',
-    '/loginweb/legendary':
-      'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect',
+    '/loginweb/legendary': 'https://legendary.gl/epiclogin',
     '/loginweb/gog':
       'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
   }
@@ -85,11 +84,11 @@ export default function WebView() {
             }
           }
         } else {
-          webview.addEventListener('did-navigate', () => {
+          webview.addEventListener('did-navigate', async () => {
             webview.focus()
 
             setTimeout(() => {
-              webview.findInPage('sid')
+              webview.findInPage('authorizationCode')
             }, 500)
             webview.addEventListener('found-in-page', async () => {
               webview.focus()
@@ -97,14 +96,16 @@ export default function WebView() {
               webview.copy()
 
               setTimeout(async () => {
-                const { sid }: SID = JSON.parse(clipboard.readText())
+                const { authorizationCode }: CODE = JSON.parse(
+                  clipboard.readText()
+                )
 
                 try {
                   setLoading({
                     refresh: true,
                     message: t('status.logging', 'Logging In...')
                   })
-                  await epic.login(sid)
+                  await epic.login(authorizationCode)
                   handleSuccessfulLogin()
                 } catch (error) {
                   console.error(error)

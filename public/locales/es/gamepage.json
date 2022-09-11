@@ -23,8 +23,7 @@
             "title": "Detener la instalación"
         },
         "uninstall": {
-            "checkbox": "¿Quieres eliminar el prefijo también? Esto no se puede deshacer.",
-            "checkbox_prefix": "Prefijo",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "¿Quieres desinstalar este juego?",
             "title": "Desinstalar"
         },

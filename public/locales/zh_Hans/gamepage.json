@@ -23,8 +23,7 @@
             "title": "停止安装"
         },
         "uninstall": {
-            "checkbox": "是否同时删除前置？此操作无法撤销。",
-            "checkbox_prefix": "前置",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "您想要卸载该游戏吗？",
             "title": "卸载"
         },

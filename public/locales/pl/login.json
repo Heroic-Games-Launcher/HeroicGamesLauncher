@@ -7,9 +7,9 @@
         "part2": "Otwórz",
         "part3": "Epic Games Store",
         "part4": ", zaloguj się na swoje konto i skopiuj swój",
-        "part5": "numer informacyjny SID",
+        "part5": "numer informacyjny authorization code",
         "part6": "Wklej swój",
-        "part7": "numer SID",
+        "part7": "numer authorization code",
         "part8": "w pole poniżej, i kliknij na przycisk zaloguj się."
     },
     "status": {
