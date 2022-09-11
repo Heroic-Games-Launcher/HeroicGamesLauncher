@@ -100,21 +100,19 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
 
 /**
  * Returns according to options the fitting log file
- * @param isDefault   getting heroic default current log
- * @param appName     needed to get appName log
+ * @param appName     if given returns game log
  * @param defaultLast if set getting heroic default last log
  * @returns path to log file
  */
-export function getLogFile(
-  isDefault: boolean,
-  appName: string,
-  defaultLast = false
-): string {
-  return isDefault
-    ? defaultLast
-      ? lastLogFile
-      : currentLogFile
-    : join(heroicGamesConfigPath, appName + '-lastPlay.log')
+export function getLogFile(props: {
+  appName?: string
+  defaultLast?: boolean
+}): string {
+  return props.appName
+    ? join(heroicGamesConfigPath, props.appName + '-lastPlay.log')
+    : props.defaultLast
+    ? lastLogFile
+    : currentLogFile
 }
 
 /**

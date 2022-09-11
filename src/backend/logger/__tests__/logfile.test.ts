@@ -73,15 +73,15 @@ describe('logger/logfile.ts', () => {
       })
     const date = new Date()
     date.setMonth(date.getMonth() > 0 ? date.getMonth() - 1 : 11)
-    const monthOutdated = join(
+    const monthOutdatedLogFile = join(
       tmpDir.name,
       // @ts-ignore replaceAll error
       `heroic-${date.toISOString().replaceAll(':', '_')}.log`
     )
 
-    graceful_fs.openSync(monthOutdated, 'w')
+    graceful_fs.closeSync(graceful_fs.openSync(monthOutdatedLogFile, 'w'))
 
-    expect(graceful_fs.existsSync(monthOutdated)).toBeTruthy()
+    expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeTruthy()
 
     const data = logfile.createNewLogFileAndClearOldOnces()
 
@@ -92,63 +92,55 @@ describe('logger/logfile.ts', () => {
       ],
       { prefix: 'Backend', skipLogToFile: true }
     )
-    expect(graceful_fs.existsSync(monthOutdated)).toBeTruthy()
+    expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeTruthy()
   })
 
   test('createNewLogFileAndClearOldOnces removing old logs successful', () => {
     jest.spyOn(app, 'getPath').mockReturnValue(tmpDir.name)
     const date = new Date()
     date.setMonth(date.getMonth() > 0 ? date.getMonth() - 1 : 11)
-    const monthOutdated = join(
+    const monthOutdatedLogFile = join(
       tmpDir.name,
       // @ts-ignore replaceAll error
       `heroic-${date.toISOString().replaceAll(':', '_')}.log`
     )
     date.setFullYear(2021)
-    const yearOutdated = join(
+    const yearOutdatedLogFile = join(
       tmpDir.name,
       // @ts-ignore replaceAll error
       `heroic-${date.toISOString().replaceAll(':', '_')}.log`
     )
 
-    graceful_fs.openSync(monthOutdated, 'w')
-    graceful_fs.openSync(yearOutdated, 'w')
+    graceful_fs.closeSync(graceful_fs.openSync(monthOutdatedLogFile, 'w'))
+    graceful_fs.closeSync(graceful_fs.openSync(yearOutdatedLogFile, 'w'))
 
-    expect(graceful_fs.existsSync(monthOutdated)).toBeTruthy()
-    expect(graceful_fs.existsSync(yearOutdated)).toBeTruthy()
+    expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeTruthy()
+    expect(graceful_fs.existsSync(yearOutdatedLogFile)).toBeTruthy()
 
     const data = logfile.createNewLogFileAndClearOldOnces()
 
     expect(logError).not.toBeCalled()
-    expect(graceful_fs.existsSync(monthOutdated)).toBeFalsy()
-    expect(graceful_fs.existsSync(yearOutdated)).toBeFalsy()
+    expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeFalsy()
+    expect(graceful_fs.existsSync(yearOutdatedLogFile)).toBeFalsy()
   })
 
   test('getLogFile all possible values', () => {
-    //@ts-ignore Needed override the currentLogFile
-    constants.currentLogFile = 'current.log'
-    //@ts-ignore Needed override the lastLogFile
-    constants.lastLogFile = 'last.log'
-
     // get global current logfile
-    expect(logfile.getLogFile(true, 'MyApp')).toBe('current.log')
+    expect(logfile.getLogFile({})).toBe('current.log')
     // get global last logfile
-    expect(logfile.getLogFile(true, 'MyApp', true)).toBe('last.log')
+    expect(logfile.getLogFile({ defaultLast: true })).toBe('last.log')
 
     // get game log
-    expect(logfile.getLogFile(false, 'MyApp', false)).toBe(
+    expect(logfile.getLogFile({ appName: 'MyApp' })).toBe(
       '/tmp/appData/heroic/GamesConfig/MyApp-lastPlay.log'
     )
-    // get game log and isDefaultLast as no impact
-    expect(logfile.getLogFile(false, 'MyApp', true)).toBe(
+    // get game log and isDefaultLast has no impact
+    expect(logfile.getLogFile({ appName: 'MyApp', defaultLast: true })).toBe(
       '/tmp/appData/heroic/GamesConfig/MyApp-lastPlay.log'
     )
   })
 
   test('appendMessageToLogFile success', () => {
-    //@ts-ignore Needed override the currentLogFile
-    constants.currentLogFile = 'current.log'
-
     const appendFileSyncSpy = jest
       .spyOn(graceful_fs, 'appendFileSync')
       .mockReturnValue()
@@ -161,10 +153,19 @@ describe('logger/logfile.ts', () => {
     const appendFileSyncSpy = jest
       .spyOn(graceful_fs, 'appendFileSync')
       .mockReturnValue()
-    //@ts-ignore Needed override the currentLogFile
+
+    // store the default current log value
+    const defaultCurrentLogName = constants.currentLogFile
+
+    // make currentLogFile empty
+    // @ts-ignore Needed override the currentLogFile
     constants.currentLogFile = ''
 
     logfile.appendMessageToLogFile('Hello World')
+
+    // restore old current log value
+    // @ts-ignore Needed override the currentLogFile
+    constants.currentLogFile = defaultCurrentLogName
     expect(appendFileSyncSpy).not.toBeCalled()
   })
 
@@ -174,8 +175,6 @@ describe('logger/logfile.ts', () => {
       .mockImplementation(() => {
         throw Error('append failed')
       })
-    //@ts-ignore Needed override the currentLogFile
-    constants.currentLogFile = 'current.log'
 
     logfile.appendMessageToLogFile('Hello World')
     expect(logError).toBeCalledWith(

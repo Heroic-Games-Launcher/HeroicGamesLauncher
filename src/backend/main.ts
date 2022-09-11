@@ -991,8 +991,8 @@ ipcMain.handle(
     )
     return game
       .launch(launchArguments)
-      .catch((exception: Error) => {
-        logError(exception.stack, { prefix: LogPrefix.Backend })
+      .catch((exception) => {
+        logError(exception, { prefix: LogPrefix.Backend })
         appendFileSync(
           game.logFileLocation,
           `An exception occurred when launching the game:\n${exception.stack}`

@@ -7,6 +7,7 @@ jest.mock('../../utils')
 
 const testData = [
   1234,
+  undefined,
   true,
   'normalString',
   ['string1', 'string2'],
@@ -14,11 +15,10 @@ const testData = [
   new Error('FAILED')
 ]
 
-function getStringPassedToLogFile(
-  type: 'WARNING' | 'ERROR' | 'INFO' | 'DEBUG',
-  skipMessagePrefix = false
-) {
-  let messagePrefix = '1234 true normalString string1,string2 {'
+type logLevel = 'WARNING' | 'ERROR' | 'INFO' | 'DEBUG'
+
+function getStringPassedToLogFile(type: logLevel, skipMessagePrefix = false) {
+  let messagePrefix = '1234 undefined true normalString string1,string2 {'
   if (!skipMessagePrefix) {
     messagePrefix = `${type}:${' '.repeat(7 - type.length)} [${
       logger.LogPrefix.Backend
@@ -42,172 +42,91 @@ function getStringPassedToLogFile(
 describe('logger/logger.ts', () => {
   afterEach(jest.restoreAllMocks)
 
-  test('log a error message invokes console.error', () => {
+  test('log invokes console', () => {
     const spyConsoleError = jest
       .spyOn(global.console, 'error')
       .mockImplementation()
-
-    logger.logError(testData, {
-      prefix: logger.LogPrefix.Backend,
-      skipLogToFile: true
-    })
-
-    expect(spyConsoleError).toBeCalledWith(
-      expect.stringContaining(`ERROR:   [${logger.LogPrefix.Backend}]`),
-      ...testData
-    )
-  })
-
-  test('log a error message appends to log file', () => {
-    jest.spyOn(global.console, 'error').mockImplementation()
-
-    logger.logError(testData, {
-      prefix: logger.LogPrefix.Backend
-    })
-
-    expect(appendMessageToLogFile).toBeCalledWith(
-      expect.stringContaining(getStringPassedToLogFile('ERROR'))
-    )
-  })
-
-  test('log a error message can be shown as dialog', () => {
-    jest.spyOn(global.console, 'error').mockImplementation()
-
-    logger.logError(testData, {
-      prefix: logger.LogPrefix.Backend,
-      skipLogToFile: true,
-      showDialog: true
-    })
-
-    expect(showErrorBoxModalAuto).toBeCalledWith(
-      'Backend',
-      getStringPassedToLogFile('ERROR', true)
-    )
-  })
-
-  test('log a warning message invokes console.warn', () => {
+    const spyConsoleLog = jest.spyOn(global.console, 'log').mockImplementation()
     const spyConsoleWarn = jest
       .spyOn(global.console, 'warn')
       .mockImplementation()
 
-    logger.logWarning(testData, {
-      prefix: logger.LogPrefix.Backend,
-      skipLogToFile: true
-    })
+    interface TestCaseProps {
+      function: Function
+      spyConsole: jest.SpyInstance
+    }
 
-    expect(spyConsoleWarn).toBeCalledWith(
-      expect.stringContaining(`WARNING: [${logger.LogPrefix.Backend}]`),
-      ...testData
-    )
+    const testCases = new Map<logLevel, TestCaseProps>([
+      ['ERROR', { function: logger.logError, spyConsole: spyConsoleError }],
+      ['INFO', { function: logger.logInfo, spyConsole: spyConsoleLog }],
+      ['WARNING', { function: logger.logWarning, spyConsole: spyConsoleWarn }],
+      ['DEBUG', { function: logger.logDebug, spyConsole: spyConsoleLog }]
+    ])
+
+    testCases.forEach((props, level) => {
+      props.function(testData, {
+        prefix: logger.LogPrefix.Backend,
+        skipLogToFile: true
+      })
+
+      expect(props.spyConsole).toBeCalledWith(
+        expect.stringContaining(
+          `${level}:${' '.repeat(7 - level.length)} [${
+            logger.LogPrefix.Backend
+          }]`
+        ),
+        ...testData
+      )
+    })
   })
 
-  test('log a warning message appends to log file', () => {
+  test('log appends to log file', () => {
+    jest.spyOn(global.console, 'error').mockImplementation()
+    jest.spyOn(global.console, 'log').mockImplementation()
     jest.spyOn(global.console, 'warn').mockImplementation()
 
-    logger.logWarning(testData, {
-      prefix: logger.LogPrefix.Backend
-    })
+    const testCases = new Map<logLevel, Function>([
+      ['ERROR', logger.logError],
+      ['INFO', logger.logInfo],
+      ['WARNING', logger.logWarning],
+      ['DEBUG', logger.logDebug]
+    ])
 
-    expect(appendMessageToLogFile).toBeCalledWith(
-      expect.stringContaining(getStringPassedToLogFile('WARNING'))
-    )
+    testCases.forEach((logFunction, level) => {
+      logFunction(testData, {
+        prefix: logger.LogPrefix.Backend
+      })
+
+      expect(appendMessageToLogFile).toBeCalledWith(
+        expect.stringContaining(getStringPassedToLogFile(level))
+      )
+    })
   })
 
-  test('log a warn message can be shown as dialog', () => {
+  test.only('log can be shown as dialog', () => {
+    jest.spyOn(global.console, 'error').mockImplementation()
+    jest.spyOn(global.console, 'log').mockImplementation()
     jest.spyOn(global.console, 'warn').mockImplementation()
 
-    logger.logWarning(testData, {
-      prefix: logger.LogPrefix.Backend,
-      skipLogToFile: true,
-      showDialog: true
+    const testCases = new Map<logLevel, Function>([
+      ['ERROR', logger.logError],
+      ['INFO', logger.logInfo],
+      ['WARNING', logger.logWarning],
+      ['DEBUG', logger.logDebug]
+    ])
+
+    testCases.forEach((logFunction, level) => {
+      logFunction(testData, {
+        prefix: logger.LogPrefix.Backend,
+        skipLogToFile: true,
+        showDialog: true
+      })
+
+      expect(showErrorBoxModalAuto).toBeCalledWith(
+        'Backend',
+        expect.stringContaining(getStringPassedToLogFile(level, true))
+      )
     })
-
-    expect(showErrorBoxModalAuto).toBeCalledWith(
-      'Backend',
-      getStringPassedToLogFile('WARNING', true)
-    )
-  })
-
-  test('log a info message invokes console.log', () => {
-    const spyConsoleLog = jest.spyOn(global.console, 'log').mockImplementation()
-
-    logger.logInfo(testData, {
-      prefix: logger.LogPrefix.Backend,
-      skipLogToFile: true
-    })
-
-    expect(spyConsoleLog).toBeCalledWith(
-      expect.stringContaining(`INFO:    [${logger.LogPrefix.Backend}]`),
-      ...testData
-    )
-  })
-
-  test('log a info message appends to log file', () => {
-    jest.spyOn(global.console, 'log').mockImplementation()
-
-    logger.logInfo(testData, {
-      prefix: logger.LogPrefix.Backend
-    })
-
-    expect(appendMessageToLogFile).toBeCalledWith(
-      expect.stringContaining(getStringPassedToLogFile('INFO'))
-    )
-  })
-
-  test('log a info message can be shown as dialog', () => {
-    jest.spyOn(global.console, 'log').mockImplementation()
-
-    logger.logInfo(testData, {
-      prefix: logger.LogPrefix.Backend,
-      skipLogToFile: true,
-      showDialog: true
-    })
-
-    expect(showErrorBoxModalAuto).toBeCalledWith(
-      'Backend',
-      getStringPassedToLogFile('INFO', true)
-    )
-  })
-
-  test('log a debug message invokes console.log', () => {
-    const spyConsoleLog = jest.spyOn(global.console, 'log').mockImplementation()
-
-    logger.logDebug(testData, {
-      prefix: logger.LogPrefix.Backend,
-      skipLogToFile: true
-    })
-
-    expect(spyConsoleLog).toBeCalledWith(
-      expect.stringContaining(`DEBUG:   [${logger.LogPrefix.Backend}]`),
-      ...testData
-    )
-  })
-
-  test('log a debug message appends to log file', () => {
-    jest.spyOn(global.console, 'log').mockImplementation()
-
-    logger.logDebug(testData, {
-      prefix: logger.LogPrefix.Backend
-    })
-
-    expect(appendMessageToLogFile).toBeCalledWith(
-      expect.stringContaining(getStringPassedToLogFile('DEBUG'))
-    )
-  })
-
-  test('log a debug message can be shown as dialog', () => {
-    jest.spyOn(global.console, 'log').mockImplementation()
-
-    logger.logDebug(testData, {
-      prefix: logger.LogPrefix.Backend,
-      skipLogToFile: true,
-      showDialog: true
-    })
-
-    expect(showErrorBoxModalAuto).toBeCalledWith(
-      'Backend',
-      getStringPassedToLogFile('DEBUG', true)
-    )
   })
 
   test('log undefined variable works', () => {

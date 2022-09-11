@@ -35,7 +35,7 @@ function convertInputToString(param: LogInputType): string {
         // Object.prototype.toString.call(value).includes('Error') will catch all
         // Error types (Error, EvalError, SyntaxError, ...)
         if (Object.prototype.toString.call(value).includes('Error')) {
-          return value!.toString()
+          return value!['stack'] ? value!['stack'] : value!.toString()
         } else if (Object.prototype.toString.call(value).includes('Object')) {
           return JSON.stringify(value, null, 2)
         } else {
@@ -54,7 +54,7 @@ function convertInputToString(param: LogInputType): string {
     return getString(param)
   }
 
-  const strings = [] as string[]
+  const strings: string[] = []
   param.forEach((value) => {
     strings.push(getString(value))
   })
@@ -79,10 +79,51 @@ const getTimeStamp = () => {
   ].join(':')})`
 }
 
+const getLogLevelString = (level: 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR') => {
+  return `${level}:${repeatString(7 - level.length, ' ')}`
+}
+
 const getPrefixString = (prefix: LogPrefix) => {
   return prefix !== LogPrefix.General
     ? `[${prefix}]: ${repeatString(getLongestPrefix() - prefix.length, ' ')}`
     : ''
+}
+
+function logBase(
+  input: LogInputType,
+  level: 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR',
+  options?: {
+    prefix?: LogPrefix
+    showDialog?: boolean
+    skipLogToFile?: boolean
+  }
+) {
+  const text = convertInputToString(input)
+  const messagePrefix = `${getTimeStamp()} ${getLogLevelString(
+    level
+  )} ${getPrefixString(options?.prefix ?? LogPrefix.Backend)}`
+
+  switch (level) {
+    case 'ERROR':
+      console.error(messagePrefix, ...(Array.isArray(input) ? input : [input]))
+      break
+    case 'WARNING':
+      console.warn(messagePrefix, ...(Array.isArray(input) ? input : [input]))
+      break
+    case 'INFO':
+    case 'DEBUG':
+    default:
+      console.log(messagePrefix, ...(Array.isArray(input) ? input : [input]))
+      break
+  }
+
+  if (options?.showDialog) {
+    showErrorBoxModalAuto(options?.prefix ?? LogPrefix.Backend, text)
+  }
+
+  if (!options?.skipLogToFile) {
+    appendMessageToLogFile(`${messagePrefix} ${text}`)
+  }
 }
 
 /**
@@ -101,20 +142,7 @@ export function logDebug(
     skipLogToFile?: boolean
   }
 ) {
-  const text = convertInputToString(input)
-  const messagePrefix = `${getTimeStamp()} DEBUG:   ${getPrefixString(
-    options?.prefix ?? LogPrefix.Backend
-  )}`
-
-  console.log(messagePrefix, ...(Array.isArray(input) ? input : [input]))
-
-  if (options?.showDialog) {
-    showErrorBoxModalAuto(options?.prefix ?? LogPrefix.Backend, text)
-  }
-
-  if (!options?.skipLogToFile) {
-    appendMessageToLogFile(`${messagePrefix} ${text}`)
-  }
+  logBase(input, 'DEBUG', options)
 }
 
 /**
@@ -133,20 +161,7 @@ export function logError(
     skipLogToFile?: boolean
   }
 ) {
-  const text = convertInputToString(input)
-  const messagePrefix = `${getTimeStamp()} ERROR:   ${getPrefixString(
-    options?.prefix ?? LogPrefix.Backend
-  )}`
-
-  console.error(messagePrefix, ...(Array.isArray(input) ? input : [input]))
-
-  if (options?.showDialog) {
-    showErrorBoxModalAuto(options?.prefix ?? LogPrefix.Backend, text)
-  }
-
-  if (!options?.skipLogToFile) {
-    appendMessageToLogFile(`${messagePrefix} ${text}`)
-  }
+  logBase(input, 'ERROR', options)
 }
 
 /**
@@ -165,20 +180,7 @@ export function logInfo(
     skipLogToFile?: boolean
   }
 ) {
-  const text = convertInputToString(input)
-  const messagePrefix = `${getTimeStamp()} INFO:    ${getPrefixString(
-    options?.prefix ?? LogPrefix.Backend
-  )}`
-
-  console.log(messagePrefix, ...(Array.isArray(input) ? input : [input]))
-
-  if (options?.showDialog) {
-    showErrorBoxModalAuto(options?.prefix ?? LogPrefix.Backend, text)
-  }
-
-  if (!options?.skipLogToFile) {
-    appendMessageToLogFile(`${messagePrefix} ${text}`)
-  }
+  logBase(input, 'INFO', options)
 }
 
 /**
@@ -197,18 +199,5 @@ export function logWarning(
     skipLogToFile?: boolean
   }
 ) {
-  const text = convertInputToString(input)
-  const messagePrefix = `${getTimeStamp()} WARNING: ${getPrefixString(
-    options?.prefix ?? LogPrefix.Backend
-  )}`
-
-  console.warn(messagePrefix, ...(Array.isArray(input) ? input : [input]))
-
-  if (options?.showDialog) {
-    showErrorBoxModalAuto(options?.prefix ?? LogPrefix.Backend, text)
-  }
-
-  if (!options?.skipLogToFile) {
-    appendMessageToLogFile(`${messagePrefix} ${text}`)
-  }
+  logBase(input, 'WARNING', options)
 }

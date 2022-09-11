@@ -15,7 +15,7 @@ import { Backspace, CreateNewFolder } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
-import { ProgressDialog } from 'components/UI/ProgressDialog'
+import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 
 interface Props {
   appName: string
