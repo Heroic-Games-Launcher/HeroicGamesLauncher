@@ -627,34 +627,52 @@ function detectVCRedist(mainWindow: BrowserWindow) {
     return
   }
 
+  // According to this article avoid using wmic and Win32_Product
+  // https://xkln.net/blog/please-stop-using-win32product-to-find-installed-software-alternatives-inside/
+  // wmic is also deprecated
   const detectedVCRInstallations: string[] = []
   let stderr = ''
-  const child = spawn('wmic', [
-    'path',
-    'Win32_Product',
-    'WHERE',
-    'Name LIKE "Microsoft Visual C++ 2022%"',
-    'GET',
-    'Name'
+
+  // get applications
+  const child = spawn('powershell.exe', [
+    'Get-ItemProperty',
+    'HKLM:\\Software\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*,',
+    'HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*',
+    '|',
+    'Select-Object',
+    'DisplayName',
+    '|',
+    'Format-Table',
+    '-AutoSize'
   ])
-  child.stdout.on('data', (data: Buffer) => {
-    // WMIC might push more than one line at a time
-    const splitData = data.toString().split('\n')
+
+  child.stdout.setEncoding('utf-8')
+  child.stdout.on('data', (data: string) => {
+    const splitData = data.split('\n')
     for (const installation of splitData) {
-      if (installation) {
+      if (installation && installation.includes('Microsoft Visual C++ 2022')) {
         detectedVCRInstallations.push(installation)
       }
     }
   })
-  child.stderr.on('data', (data: Buffer) => {
-    stderr += data.toString()
+
+  child.stderr.setEncoding('utf-8')
+  child.stderr.on('data', (data: string) => {
+    stderr += data
   })
-  child.on('close', async (code) => {
+
+  child.on('error', (error: Error) => {
+    logError(`Check of VCRuntime crashed with:\n${error}`, LogPrefix.Backend)
+    return
+  })
+
+  child.on('close', async (code: number) => {
     if (code) {
       logError(
         `Failed to check for VCRuntime installations\n${stderr}`,
         LogPrefix.Backend
       )
+      return
     }
     // VCR installers install both the "Minimal" and "Additional" runtime, and we have 2 installers (x86 and x64) -> 4 installations in total
     if (detectedVCRInstallations.length < 4) {

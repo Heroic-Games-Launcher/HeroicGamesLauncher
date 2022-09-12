@@ -159,15 +159,8 @@ class GOGGame extends Game {
     const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
     const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
     const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
-    if (
-      etaMatch &&
-      etaMatch[1] &&
-      bytesMatch &&
-      bytesMatch[1] &&
-      progressMatch &&
-      progressMatch[1]
-    ) {
-      const eta = etaMatch[1]
+    if (bytesMatch && bytesMatch[1] && progressMatch && progressMatch[1]) {
+      const eta = etaMatch ? etaMatch[1] : null
       const bytes = bytesMatch[1]
       let percent = parseFloat(progressMatch[1])
       if (percent < 0) percent = 0

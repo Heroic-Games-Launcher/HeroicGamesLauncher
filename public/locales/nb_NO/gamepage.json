@@ -23,53 +23,43 @@
             "title": "Stopp installasjon"
         },
         "uninstall": {
-            "message": "Avinstaller dette spillet?",
-            "title": "Avinstaller",
             "checkbox": "Vil du fjerne prefikset også? Dette kan ikke angres.",
-            "checkbox_prefix": "Prefiks"
+            "checkbox_prefix": "Prefiks",
+            "message": "Avinstaller dette spillet?",
+            "title": "Avinstaller"
         },
-        "yes": "Ja",
-        "wineprefix": "Velg WinePrefix-mappe",
         "update": {
             "message": "Dette spillet har en oppdatering. Vil du bruke oppdatering nå?",
             "title": "Spillet trenger oppdatering"
-        }
-    },
-    "submenu": {
-        "removeShortcut": "Fjern snarveier",
-        "change": "Endre installasjonsbane",
-        "verify": "Bekreft og reparer",
-        "settings": "Innstillinger",
-        "addToSteam": "Legg til Steam",
-        "disableEosOverlay": "Deaktiver EOS Overlay",
-        "enableEosOverlay": "Aktiver EOS Overlay",
-        "removeFromSteam": "Fjern fra Steam",
-        "store": "Butikkside",
-        "addShortcut": "Legg til snarvei",
-        "log": "Siste logg",
-        "move": "Move Game",
-        "protondb": "Sjekk kompatibilitet"
+        },
+        "wineprefix": "Velg WinePrefix-mappe",
+        "yes": "Ja"
     },
     "button": {
-        "force_update": "Tving oppdatering hvis tilgjengelig",
-        "import": "Importer spill",
-        "remove_from_favourites": "Fjern fra favoritter",
-        "unhide_game": "Vis spill",
-        "update": "Oppdater",
+        "add_to_favourites": "Legg til i favoritter",
         "cancel": "Pause/avbryt",
         "continue": "Fortsett nedlasting",
+        "force_update": "Tving oppdatering hvis tilgjengelig",
+        "hide_game": "Skjul spillet",
+        "import": "Importer spill",
         "install": "Installere",
+        "remove_from_favourites": "Fjern fra favoritter",
+        "unhide_game": "Vis spill",
         "uninstall": "Avinstaller",
-        "add_to_favourites": "Legg til i favoritter",
-        "hide_game": "Skjul spillet"
+        "update": "Oppdater"
+    },
+    "cloud_save_unsupported": "Ustøttet",
+    "disabled": "Funksjonshemmet",
+    "dlc": {
+        "installDlcs": "Installer alle DLC-er"
     },
     "enabled": "Aktivert",
     "game": {
+        "downloadSize": "Last ned størrelse",
         "firstPlayed": "Først spilt",
+        "info": "Info",
         "installSize": "Installasjonsstørrelse",
         "language": "Språk",
-        "downloadSize": "Last ned størrelse",
-        "info": "Info",
         "lastPlayed": "Sist spilt",
         "neverPlayed": "Aldri",
         "platform": "Velg plattformversjon som skal installeres",
@@ -77,56 +67,29 @@
         "tools": "Verktøy",
         "totalPlayed": "Spilletid"
     },
-    "launch": {
-        "options": "Startalternativer..."
-    },
-    "report_problem": "Rapporter et problem med å kjøre dette spillet",
-    "sdl": {
-        "title": "Velg komponenter som skal installeres"
-    },
-    "status": {
-        "installing": "Installerer",
-        "clickToUpdate": "Klikk for å oppdatere",
-        "hasUpdates": "Ny versjon tilgjengelig!",
-        "installed": "Installert",
-        "moving": "Flytting Installasjon, vennligst vent",
-        "notinstalled": "Dette spillet er ikke installert",
-        "processing": "Behandler filer, vennligst vent",
-        "reparing": "Reparerer spillet, vennligst vent",
-        "totalDownloaded": "Totalt nedlastede",
-        "updating": "Oppdaterer spillet"
-    },
-    "install": {
-        "path-not-writtable": "Advarsel: banen er kanskje ikke skrivbar.",
-        "space-after-install": "Etter installasjon",
-        "path": "Velg Installer bane",
-        "wineprefix": "WinePrefix",
-        "not-enough-disk-space": "Ikke nok lagringsplass",
-        "disk-space-left": "Plass tilgjengelig",
-        "wineversion": "Vinversjon"
-    },
-    "info": {
-        "version": "Versjon",
-        "installedPlatform": "Installert plattform",
-        "size": "Størrelse",
-        "canRunOffline": "Online nødvendig",
-        "path": "Installer bane",
-        "syncsaves": "Synkroniser lagrer"
-    },
-    "disabled": "Funksjonshemmet",
-    "dlc": {
-        "installDlcs": "Installer alle DLC-er"
+    "gamecard": {
+        "moving": "Flytte",
+        "repairing": "Reparerer"
     },
     "generic": {
         "error": "Ukjent feil"
     },
-    "specs": {
-        "minimum": "Minimum",
-        "recommended": "Anbefalt"
+    "info": {
+        "canRunOffline": "Online nødvendig",
+        "installedPlatform": "Installert plattform",
+        "path": "Installer bane",
+        "size": "Størrelse",
+        "syncsaves": "Synkroniser lagrer",
+        "version": "Versjon"
     },
-    "gamecard": {
-        "repairing": "Reparerer",
-        "moving": "Flytte"
+    "install": {
+        "disk-space-left": "Plass tilgjengelig",
+        "not-enough-disk-space": "Ikke nok lagringsplass",
+        "path": "Velg Installer bane",
+        "path-not-writtable": "Advarsel: banen er kanskje ikke skrivbar.",
+        "space-after-install": "Etter installasjon",
+        "wineprefix": "WinePrefix",
+        "wineversion": "Vinversjon"
     },
     "label": {
         "playing": {
@@ -136,5 +99,42 @@
         "saves": {
             "syncing": "Synkroniserer lagrer"
         }
+    },
+    "launch": {
+        "options": "Startalternativer..."
+    },
+    "report_problem": "Rapporter et problem med å kjøre dette spillet",
+    "sdl": {
+        "title": "Velg komponenter som skal installeres"
+    },
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Anbefalt"
+    },
+    "status": {
+        "clickToUpdate": "Klikk for å oppdatere",
+        "hasUpdates": "Ny versjon tilgjengelig!",
+        "installed": "Installert",
+        "installing": "Installerer",
+        "moving": "Flytting Installasjon, vennligst vent",
+        "notinstalled": "Dette spillet er ikke installert",
+        "processing": "Behandler filer, vennligst vent",
+        "reparing": "Reparerer spillet, vennligst vent",
+        "totalDownloaded": "Totalt nedlastede",
+        "updating": "Oppdaterer spillet"
+    },
+    "submenu": {
+        "addShortcut": "Legg til snarvei",
+        "addToSteam": "Legg til Steam",
+        "change": "Endre installasjonsbane",
+        "disableEosOverlay": "Deaktiver EOS Overlay",
+        "enableEosOverlay": "Aktiver EOS Overlay",
+        "move": "Move Game",
+        "protondb": "Sjekk kompatibilitet",
+        "removeFromSteam": "Fjern fra Steam",
+        "removeShortcut": "Fjern snarveier",
+        "settings": "Innstillinger",
+        "store": "Butikkside",
+        "verify": "Bekreft og reparer"
     }
 }

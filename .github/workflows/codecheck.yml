@@ -1,0 +1,19 @@
+name: Code check
+
+on:
+  pull_request:
+    branches: [main, beta]
+  workflow_dispatch:
+
+jobs:
+  codecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Install modules.
+        run: yarn
+      - name: Check Typescript syntax
+        run: yarn codecheck

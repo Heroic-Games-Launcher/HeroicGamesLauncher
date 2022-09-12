@@ -264,9 +264,17 @@ export class LegendaryLibrary {
 
     // Once we ran `legendary list`, `assets.json` will be updated with the newest
     // game versions, and `installed.json` has our currently installed ones
-    const installedJson: Record<string, InstalledJsonMetadata> = JSON.parse(
-      readFileSync(join(legendaryConfigPath, 'installed.json')).toString()
-    )
+    const installedJsonFile = join(legendaryConfigPath, 'installed.json')
+    let installedJson: Record<string, InstalledJsonMetadata> = {}
+    try {
+      installedJson = JSON.parse(readFileSync(installedJsonFile).toString())
+    } catch (error) {
+      logWarning(
+        `Failed to read games from ${installedJsonFile} with:\n${error}`,
+        LogPrefix.Legendary
+      )
+    }
+
     // First go through all our installed games and store their versions...
     const installedGames: Map<string, { version: string; platform: string }> =
       new Map()
@@ -278,9 +286,17 @@ export class LegendaryLibrary {
     }
     // ...and now go through all games in `assets.json` to get the newest version
     // HACK: Same as above,                         ↓ this isn't always `string`, but it works for now
-    const assetsJson: Record<string, Record<string, string>[]> = JSON.parse(
-      readFileSync(join(legendaryConfigPath, 'assets.json')).toString()
-    )
+    const assetsJsonFile = join(legendaryConfigPath, 'assets.json')
+    let assetsJson: Record<string, Record<string, string>[]> = {}
+    try {
+      assetsJson = JSON.parse(readFileSync(assetsJsonFile).toString())
+    } catch (error) {
+      logWarning(
+        `Failed to read games from ${assetsJsonFile} with:\n${error}`,
+        LogPrefix.Legendary
+      )
+    }
+
     const updateableGames: string[] = []
     for (const [platform, assets] of Object.entries(assetsJson)) {
       installedGames.forEach(

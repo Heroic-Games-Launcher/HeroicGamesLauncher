@@ -2,26 +2,19 @@
     "button": {
         "login": "Logg inn"
     },
-    "info": {
-        "needHelp": "Trenger du hjelp?"
-    },
-    "input": {
-        "placeholder": "Lim inn authorization code-nummeret her"
-    },
     "message": {
         "part1": "Følg instruksen for å logge inn og installere spill:",
+        "part2": "Åpne",
         "part3": "Epic-butikken her",
         "part4": ", logg inn på kontoen din og kopier ditt",
         "part5": "authorization code-informasjonsnummer",
         "part6": "Lim inn",
         "part7": "authorization code-nummeret",
-        "part8": "i boksen nedenfor, klikk på «Logg inn» og vent.",
-        "part2": "Åpne"
+        "part8": "i boksen nedenfor, klikk på «Logg inn» og vent."
     },
     "status": {
         "error": "Feil",
-        "loading": "Laster inn liste over spill …",
-        "logging": "Logger inn …"
+        "loading": "Laster inn liste over spill …"
     },
     "welcome": "Velkommen."
 }
