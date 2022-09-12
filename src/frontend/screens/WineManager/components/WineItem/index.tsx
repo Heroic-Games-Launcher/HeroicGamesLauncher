@@ -68,7 +68,7 @@ const WineItem = ({
         isInstalled,
         hasUpdate,
         type,
-        installDir: '' //dummy value for type checking, not used in installWineVersion
+        installDir
       })
       .then((response) => {
         switch (response) {
@@ -100,7 +100,7 @@ const WineItem = ({
         isInstalled,
         hasUpdate,
         installDir,
-        type: 'Wine-GE' //dummy value for type checking, not used in removeWineVersion
+        type
       })
       .then((response) => {
         if (response) {
