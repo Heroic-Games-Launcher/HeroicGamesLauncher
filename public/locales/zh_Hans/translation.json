@@ -73,8 +73,8 @@
                 "title": "未找到 Wine"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks 在执行期间返回了以下错误：{{newLine}}{{error}}",
+                "title": "Winetricks 错误"
             }
         },
         "info": {
@@ -221,7 +221,7 @@
             "part7": " 在某些游戏中跳过启动器等。"
         },
         "preferSystemLibs": "自定义 Wine 版本(Wine- ge、Wine- lutris)随它们的库依赖项一起发布。启用此选项，这些附带的库将被忽略，Wine 将加载系统库。警告！如果不满足依赖关系，可能会出现问题。",
-        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+        "primerun": "在多 GPU 系统上使用独立显卡渲染游戏。仅适用于使用无头 GPU 进行渲染的游戏笔记本或台式机 (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA 的 Resizable Bar 通过让 CPU 访问整个图形缓冲区来提高帧率。启用可能会提高基于 Vulkan 的游戏的性能。",
         "steamruntime": "Steam 提供的用于帮助运行 Linux 和 Windows（Proton）游戏的自定义库。启用可能会提高兼容性。",
         "sync": {
@@ -251,10 +251,10 @@
         "requirements": "系统要求",
         "wine-path": "Wine 路径",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "Wine 前缀"
         },
         "wine-repfix": {
-            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+            "message": "Wine 使用所谓的 WINEPREFIX 来封装 Windows 应用程序。这个前缀包含 Wine 配置文件和 C:(Windows操作系统上的主磁盘) 文件层次结构的副本。你的游戏保存文件和通过 winetricks 安装的依赖项存储在这个复制的 C:驱动器中。"
         }
     },
     "install": {
@@ -329,17 +329,17 @@
             "key": "变量名称",
             "placeHolderKey": "名称",
             "placeHolderValue": "例：Path/To/ExtraFiles",
-            "title": "高级选项（环境变量）：",
+            "title": "环境变量",
             "value": "值"
         },
         "env_variables": {
             "error": {
-                "empty_key": "Variable names can't be empty",
-                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "empty_key": "变量名不能为空",
+                "equal_sign_in_key": "变量名不能包含“=”符号",
+                "space_in_key": "变量名不能包含空格"
             },
-            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "example": "不要包含“=”符号，例如：对于像“MY_FLAG=123”这样的设置，在 NAME 中设置 MY_FLAG，在 VALUE 中设置 123。",
+            "info": "设置要附加到命令的环境变量。"
         },
         "gameargs": {
             "placeholder": "将启动器参数放在这里",
@@ -543,7 +543,7 @@
         "show": "显示"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "此表中的更改不会自动保存。 单击 + 按钮"
     },
     "Update Available!": "",
     "userselector": {

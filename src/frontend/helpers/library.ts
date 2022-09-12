@@ -295,12 +295,15 @@ type RecentGame = {
 
 function getRecentGames(libraries: GameInfo[]): GameInfo[] {
   const recentGames =
-    (configStore.get('games.recent', []) as Array<RecentGame>).filter(
-      Boolean
-    ) || []
+    (configStore.get('games.recent', []) as Array<RecentGame>) || []
 
   return libraries.filter((game: GameInfo) =>
-    recentGames.some((recent) => recent.appName === game.app_name)
+    recentGames.some((recent) => {
+      if (!recent || !game) {
+        return false
+      }
+      return recent.appName === game.app_name
+    })
   )
 }
 

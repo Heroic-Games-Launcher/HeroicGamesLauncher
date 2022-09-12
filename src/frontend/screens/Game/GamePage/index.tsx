@@ -489,8 +489,8 @@ export default function GamePage(): JSX.Element | null {
       getProgress(progress) >= 99
         ? ''
         : `${
-            percent && bytes && eta
-              ? `${percent}% [${bytes}] | ETA: ${eta}`
+            percent && bytes
+              ? `${percent}% [${bytes}] ${eta ? `ETA: ${eta}` : ''}`
               : '...'
           }`
 

@@ -12,6 +12,11 @@ import GlobalState from './state/GlobalState'
 import { UpdateComponentBase } from './components/UI/UpdateComponent'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
+import { ipcRenderer } from './helpers'
+
+window.addEventListener('error', (ev: ErrorEvent) => {
+  ipcRenderer.send('frontendError', ev.error.stack)
+})
 
 const Backend = new HttpApi(null, {
   addPath: 'build/locales/{{lng}}/{{ns}}',
@@ -48,7 +53,10 @@ i18next
       useSuspense: true
     },
     supportedLngs: [
+      'az',
+      'be',
       'bg',
+      'bs',
       'ca',
       'cs',
       'de',
@@ -56,6 +64,7 @@ i18next
       'en',
       'es',
       'et',
+      'eu',
       'fa',
       'fi',
       'fr',
@@ -67,11 +76,14 @@ i18next
       'id',
       'it',
       'ml',
+      'nb_NO',
       'nl',
       'pl',
       'pt',
       'pt_BR',
+      'ro',
       'ru',
+      'sk',
       'sv',
       'ta',
       'tr',

@@ -18,7 +18,10 @@ interface Props {
 }
 
 const languageLabels: { [key: string]: string } = {
+  az: 'آذربایجان دیلی',
+  be: 'беларуская мова',
   bg: 'български',
+  bs: 'босански',
   ca: 'Català',
   cs: 'Čeština',
   de: 'Deutsch',
@@ -26,6 +29,7 @@ const languageLabels: { [key: string]: string } = {
   en: 'English',
   es: 'Español',
   et: 'Eesti keel',
+  eu: 'Euskara',
   fa: 'فارسی',
   fi: 'Suomen kieli',
   fr: 'Français',
@@ -37,11 +41,14 @@ const languageLabels: { [key: string]: string } = {
   id: 'Bahasa Indonesia',
   it: 'Italiano',
   ml: 'മലയാളം',
+  nb_NO: 'bokmål',
   nl: 'Nederlands',
   pl: 'Polski',
   pt: 'Português',
   pt_BR: 'Português (Brasil)',
+  ro: 'limba română',
   ru: 'Русский',
+  sk: 'slovenčina',
   sv: 'Svenska',
   ta: 'தமிழ்',
   tr: 'Türkçe',
@@ -52,8 +59,10 @@ const languageLabels: { [key: string]: string } = {
 }
 
 const languageFlags: { [key: string]: string } = {
-  // Catalan isn't a sovereign state (yet). So it hasn't a flag in the unicode standard.
+  az: '🇦🇿',
+  be: '🇧🇾',
   bg: '🇧🇬',
+  bs: '🇧🇦',
   ca: '🇪🇸',
   cs: '🇨🇿',
   de: '🇩🇪',
@@ -61,6 +70,7 @@ const languageFlags: { [key: string]: string } = {
   en: '🇬🇧',
   es: '🇪🇸',
   et: '🇪🇪',
+  eu: '🇪🇸',
   fa: '🇮🇷',
   fi: '🇫🇮',
   fr: '🇫🇷',
@@ -72,11 +82,14 @@ const languageFlags: { [key: string]: string } = {
   id: '🇮🇩',
   it: '🇮🇹',
   ml: '🇮🇳',
+  nb_NO: '🇳🇴',
   nl: '🇳🇱',
   pl: '🇵🇱',
   pt: '🇵🇹',
   pt_BR: '🇧🇷',
+  ro: '🇷🇴',
   ru: '🇷🇺',
+  sk: '🇸🇰',
   sv: '🇸🇪',
   ta: '🇮🇳',
   tr: '🇹🇷',

@@ -73,8 +73,8 @@
                 "title": "Wine'i ei leitud"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks tagastas jooksmise ajal järgmise vea:{{newLine}}{{error}}",
+                "title": "Winetricksi viga"
             }
         },
         "info": {
@@ -221,7 +221,7 @@
             "part7": " et jätta mõnedes mängudes käivitaja vahele jne."
         },
         "preferSystemLibs": "Kohandatud Wine versioonid (Wine-GE, Wine-Lutris) tarnitakse koos nende teegi sõltuvustega. Selle valiku lubamisel ignoreeritakse neid tarnitud teeke ja Wine laadib selle asemel süsteemiteeke. Hoiatus! Kui sõltuvusi ei täideta, võib tekkida probleeme.",
-        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+        "primerun": "Mitme GPU-süsteemides mängu renderdamiseks kasutage spetsiaalset graafikakaarti. Vajalik ainult mängusülearvutites või lauaarvutites, mis kasutavad renderdamiseks peata GPU-d (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA Resizable Bar aitab suurendada kaadrisagedust, sundides protsessorit kasutama kogu graafikapuhvrit. Selle lubamine võib parandada Vulkanil põhinevate mängude jõudlust.",
         "steamruntime": "Steami pakutavad kohandatud teegid, mis aitavad käivitada Linuxi ja Windowsi (Protoni) mänge. Lubamine võib parandada ühilduvust.",
         "sync": {
@@ -251,10 +251,10 @@
         "requirements": "Süsteeminõuded",
         "wine-path": "Wine'i tee",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "Wine prefiks"
         },
         "wine-repfix": {
-            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+            "message": "Wine kasutab Windowsi rakenduste kapseldamiseks nn WINEPREFIXi. See eesliide sisaldab Wine'i konfiguratsioonifaile ja C: (Windows OSi põhiketta) failihierarhia reproduktsiooni. Sellesse C: ketta reproduktsiooni salvestatakse teie mängu salvestusfailid ja winetricks'i kaudu paigaldatud sõltuvused."
         }
     },
     "install": {
@@ -329,17 +329,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "Nt: Path/To/ExtraFiles",
-            "title": "Environment Variables",
+            "title": "Keskkonnamuutujad",
             "value": "Väärtus"
         },
         "env_variables": {
             "error": {
-                "empty_key": "Variable names can't be empty",
-                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "empty_key": "Muutujate nimed ei saa olla tühjad",
+                "equal_sign_in_key": "Muutujate nimed ei tohi sisaldada märki \"=\"",
+                "space_in_key": "Muutujate nimed ei tohi sisaldada tühikuid"
             },
-            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "example": "ÄRGE lisage märki \"=\", nt: sellise seadistuse nagu \"MY_FLAG=123\" puhul määrake NAME-sse MY_FLAG ja VALUE-sse 123.",
+            "info": "Määra keskkonnamuutujad, mis lisatakse käsule."
         },
         "gameargs": {
             "placeholder": "Pange siia käiviti argumendid",
@@ -543,7 +543,7 @@
         "show": "Näita"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Selles tabelis tehtud muudatusi ei salvestata automaatselt. Klõpsake nuppu +"
     },
     "Update Available!": "",
     "userselector": {

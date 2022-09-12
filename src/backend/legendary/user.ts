@@ -57,8 +57,8 @@ export class LegendaryUser {
       configStore.delete('userInfo')
       return {}
     }
-    const userInfoContent = readFileSync(userInfo).toString()
     try {
+      const userInfoContent = readFileSync(userInfo).toString()
       const userInfoObject = JSON.parse(userInfoContent)
       const info: UserInfo = {
         account_id: userInfoObject.account_id,

@@ -11,9 +11,9 @@
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
-        "source": "Source",
-        "status": "Status",
+        "reference": "Referans",
+        "source": "Kaynak",
+        "status": "Durum",
         "title": "This game includes anticheat software"
     },
     "box": {
@@ -28,7 +28,7 @@
         "customWine": "Wine veya Proton çalıştırılabilir dosyasını seç",
         "default-install-path": "Öntanımlı Kurulum Yerini Seçin",
         "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "downloadNow": "Şimdi indir",
         "error": {
             "add": {
                 "steam": {
@@ -48,7 +48,7 @@
                 "title": "Alan Yok"
             },
             "dxvk": {
-                "message": "DXVK/VKD3D kurulurken hata oluştu! Bağlantınıza veya zstd/libzstd1 kurulu olup olmadığına bakın",
+                "message": "DXVK/VKD3D yüklenirken hata oluştu! Lütfen bağlantınızı kontrol edin!",
                 "title": "DXVK/VKD3D hatası"
             },
             "folder-not-found": {

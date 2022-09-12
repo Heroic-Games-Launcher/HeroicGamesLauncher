@@ -2,7 +2,6 @@
     "button": {
         "login": "Hasi saioa"
     },
-    "welcome": "Ongi etorri!",
     "message": {
         "part1": "Saioa hasteko eta jolasak instalatzeko, lehenik eta behin, jarraitu beharreko pausoak:",
         "part2": "Ireki",
@@ -16,5 +15,6 @@
     "status": {
         "error": "Errorea",
         "loading": "Jokoen zerrenda kargatzen, mesedez itxaron"
-    }
+    },
+    "welcome": "Ongi etorri!"
 }
