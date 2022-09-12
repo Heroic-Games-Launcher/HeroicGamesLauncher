@@ -266,8 +266,13 @@ export class LegendaryLibrary {
     // game versions, and `installed.json` has our currently installed ones
     const installedJsonFile = join(legendaryConfigPath, 'installed.json')
     let installedJson: Record<string, InstalledJsonMetadata> = {}
-    if (existsSync(installedJsonFile)) {
+    try {
       installedJson = JSON.parse(readFileSync(installedJsonFile).toString())
+    } catch (error) {
+      logWarning(
+        `Failed to read games from ${installedJsonFile} with:\n${error}`,
+        LogPrefix.Legendary
+      )
     }
 
     // First go through all our installed games and store their versions...
@@ -283,8 +288,13 @@ export class LegendaryLibrary {
     // HACK: Same as above,                         ↓ this isn't always `string`, but it works for now
     const assetsJsonFile = join(legendaryConfigPath, 'assets.json')
     let assetsJson: Record<string, Record<string, string>[]> = {}
-    if (existsSync(assetsJsonFile)) {
+    try {
       assetsJson = JSON.parse(readFileSync(assetsJsonFile).toString())
+    } catch (error) {
+      logWarning(
+        `Failed to read games from ${assetsJsonFile} with:\n${error}`,
+        LogPrefix.Legendary
+      )
     }
 
     const updateableGames: string[] = []
