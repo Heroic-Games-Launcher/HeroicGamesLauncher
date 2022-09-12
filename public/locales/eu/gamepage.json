@@ -8,8 +8,8 @@
         "choose": "Aukeratu",
         "importpath": "Aukeratu inportatzeko joko karpeta",
         "move": {
-            "path": "Aukeratu nora mugitu nahi duzun",
             "message": "Honek denbora luzea eraman dezake, ziur zaude?",
+            "path": "Aukeratu nora mugitu nahi duzun",
             "title": "Mugitu jokoaren instalazioa"
         },
         "no": "EZ",
@@ -36,9 +36,6 @@
         "yes": "BAI"
     },
     "button": {
-        "unhide_game": "Erakutsi jokoa",
-        "uninstall": "Desinslalatu",
-        "update": "Eguneratu",
         "add_to_favourites": "Gehitu gogokoetara",
         "cancel": "Gelditu/Utzi",
         "continue": "Jarraitu deskarga",
@@ -46,9 +43,17 @@
         "hide_game": "Ezkutatu jokoa",
         "import": "Inportatu jokoa",
         "install": "Instalatu",
-        "remove_from_favourites": "Kendu gogokoenetik"
+        "remove_from_favourites": "Kendu gogokoenetik",
+        "unhide_game": "Erakutsi jokoa",
+        "uninstall": "Desinslalatu",
+        "update": "Eguneratu"
     },
+    "cloud_save_unsupported": "Onartu gabe",
     "disabled": "Desgaituta",
+    "dlc": {
+        "installDlcs": "Instalatu DLC guztiak"
+    },
+    "enabled": "Gaituta",
     "game": {
         "downloadSize": "Deskarga-tamaina",
         "firstPlayed": "Lehen aldiz jokatua",
@@ -62,39 +67,20 @@
         "tools": "Tresnak",
         "totalPlayed": "Denbora jokatua"
     },
-    "info": {
-        "size": "Tamaina",
-        "canRunOffline": "Linean egon behar da",
-        "installedPlatform": "Instalatutako plataforma",
-        "path": "Instalazio-ibilbidea",
-        "syncsaves": "Sinkronizatu gordetakoak",
-        "version": "Bertsioa"
-    },
-    "submenu": {
-        "move": "Mugimendu jokoa",
-        "verify": "Egiaztatzea eta konpontzea",
-        "addShortcut": "Sarbide zuzena gehitu",
-        "addToSteam": "Gehitu Steam-i",
-        "change": "Instalazio-ibilbidea aldatu",
-        "disableEosOverlay": "OS-en gainjartzea desgaitzea",
-        "enableEosOverlay": "OS-en gainjartzea gaitzea",
-        "log": "Azken erregistroa",
-        "protondb": "Bateragarritasuna egiaztatu",
-        "removeFromSteam": "Steam-en ezabatzea",
-        "removeShortcut": "Sarbide zuzenak kendu",
-        "settings": "Konfigurazioa",
-        "store": "Dendaren orrialdea"
-    },
-    "dlc": {
-        "installDlcs": "Instalatu DLC guztiak"
-    },
-    "enabled": "Gaituta",
     "gamecard": {
         "moving": "Mugitzen",
         "repairing": "Konpontzen"
     },
     "generic": {
         "error": "Errore ezezaguna"
+    },
+    "info": {
+        "canRunOffline": "Linean egon behar da",
+        "installedPlatform": "Instalatutako plataforma",
+        "path": "Instalazio-ibilbidea",
+        "size": "Tamaina",
+        "syncsaves": "Sinkronizatu gordetakoak",
+        "version": "Bertsioa"
     },
     "install": {
         "disk-space-left": "Espazio erabilgarria",
@@ -136,5 +122,19 @@
         "reparing": "Jokoaren konponketa, mesedez",
         "totalDownloaded": "Deskargatutakoa, guztira",
         "updating": "Jokoa eguneratzea"
+    },
+    "submenu": {
+        "addShortcut": "Sarbide zuzena gehitu",
+        "addToSteam": "Gehitu Steam-i",
+        "change": "Instalazio-ibilbidea aldatu",
+        "disableEosOverlay": "OS-en gainjartzea desgaitzea",
+        "enableEosOverlay": "OS-en gainjartzea gaitzea",
+        "move": "Mugimendu jokoa",
+        "protondb": "Bateragarritasuna egiaztatu",
+        "removeFromSteam": "Steam-en ezabatzea",
+        "removeShortcut": "Sarbide zuzenak kendu",
+        "settings": "Konfigurazioa",
+        "store": "Dendaren orrialdea",
+        "verify": "Egiaztatzea eta konpontzea"
     }
 }

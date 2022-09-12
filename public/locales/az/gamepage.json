@@ -1,6 +1,5 @@
 {
     "box": {
-        "no": "YOX",
         "change": {
             "message": "Bu oyunun quraşdırılma yerini dəyişəcək, əminsinizmi?",
             "path": "Yeni quraşdırma yolunu seçin",
@@ -13,6 +12,7 @@
             "path": "Hara köçmək istədiyinizi seçin",
             "title": "Move Oyun Quraşdırması"
         },
+        "no": "YOX",
         "repair": {
             "message": "Bu oyunu təmir etməyə cəhd etmək istəyirsiniz? Bu uzun müddət çəkə bilər.",
             "title": "Doğrulayın və Təmir edin"
@@ -35,21 +35,6 @@
         "wineprefix": "WinePrefix Qovluğunu seçin",
         "yes": "HƏ"
     },
-    "submenu": {
-        "move": "Hərəkət Oyunu",
-        "protondb": "Uyğunluğu yoxlayın",
-        "removeFromSteam": "Buxardan çıxarın",
-        "removeShortcut": "Qısayolları silin",
-        "settings": "Parametrlər",
-        "store": "Mağaza Səhifəsi",
-        "verify": "Doğrulayın və Təmir edin",
-        "addShortcut": "Qısayol əlavə edin",
-        "addToSteam": "Steam-ə əlavə edin",
-        "change": "Quraşdırma yolunu dəyişdirin",
-        "disableEosOverlay": "EOS Overlay'ı söndürün",
-        "enableEosOverlay": "EOS Overlay-ı aktivləşdirin",
-        "log": "Ən son Giriş"
-    },
     "button": {
         "add_to_favourites": "Sevimlilərə əlavə edin",
         "cancel": "Pauza/Ləğv et",
@@ -63,6 +48,7 @@
         "uninstall": "Silin",
         "update": "Yeniləyin"
     },
+    "cloud_save_unsupported": "Dəstəklənmir",
     "disabled": "Əlil",
     "dlc": {
         "installDlcs": "Bütün DLC-ləri quraşdırın"
@@ -136,5 +122,19 @@
         "reparing": "Oyun Təmir edilir, zəhmət olmasa gözləyin",
         "totalDownloaded": "Toplam Endirilib",
         "updating": "Oyun Yenilənir"
+    },
+    "submenu": {
+        "addShortcut": "Qısayol əlavə edin",
+        "addToSteam": "Steam-ə əlavə edin",
+        "change": "Quraşdırma yolunu dəyişdirin",
+        "disableEosOverlay": "EOS Overlay'ı söndürün",
+        "enableEosOverlay": "EOS Overlay-ı aktivləşdirin",
+        "move": "Hərəkət Oyunu",
+        "protondb": "Uyğunluğu yoxlayın",
+        "removeFromSteam": "Buxardan çıxarın",
+        "removeShortcut": "Qısayolları silin",
+        "settings": "Parametrlər",
+        "store": "Mağaza Səhifəsi",
+        "verify": "Doğrulayın və Təmir edin"
     }
 }

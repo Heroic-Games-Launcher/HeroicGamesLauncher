@@ -137,5 +137,6 @@
     "generic": {
         "error": "Ukendt fejl"
     },
-    "report_problem": "Rapportér et problem med at køre dette spil"
+    "report_problem": "Rapportér et problem med at køre dette spil",
+    "cloud_save_unsupported": "Ikke understøttet"
 }
