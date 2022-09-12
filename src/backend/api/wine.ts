@@ -1,7 +1,6 @@
 import { ipcRenderer } from 'electron'
 import { RuntimeName, WineVersionInfo } from '../../common/types'
 
-//wine extensions
 export const toggleDXVK = (
   args: [wineArgs: { winePrefix: string; winePath: string }, action: string]
 ) => ipcRenderer.send('toggleDXVK', args)
@@ -14,7 +13,6 @@ export const isRuntimeInstalled = async (runtime_name: RuntimeName) =>
 export const downloadRuntime = async (runtime_name: RuntimeName) =>
   ipcRenderer.invoke('downloadRuntime', runtime_name)
 
-//winemanager/components/wineitem
 export const showItemInFolder = (installDir: string) =>
   ipcRenderer.send('showItemInFolder', installDir)
 export const abortWineInstallation = (version: string) =>

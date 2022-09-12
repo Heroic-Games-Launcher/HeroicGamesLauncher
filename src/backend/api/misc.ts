@@ -2,16 +2,13 @@ import { GOGCloudSavesLocation } from 'common/types/gog'
 import { ipcRenderer } from 'electron'
 import { Runner, Tools } from '../../common/types'
 
-//src/components/ui/errorcomponent/index.tsx
 export const clearCache = () => ipcRenderer.send('clearCache')
 export const resetHeroic = () => ipcRenderer.send('resetHeroic')
 
-//src/components/ui/languageselector
 export const openWeblate = () => ipcRenderer.send('openWeblate')
 export const changeLanguage = (newLanguage: string) =>
   ipcRenderer.send('changeLanguage', newLanguage)
 
-//src/components/ui/sidebar/components/heroicversion
 export const openExternalUrl = (url: string) =>
   ipcRenderer.send('openExternalUrl', url)
 export const getHeroicVersion = async () =>
@@ -19,16 +16,13 @@ export const getHeroicVersion = async () =>
 export const getLatestReleases = async () =>
   ipcRenderer.invoke('getLatestReleases')
 
-//src/components/ui/sidebar/components/sidebarlinks/index.tsx
 export const openPatreonPage = () => ipcRenderer.send('openPatreonPage')
 export const openKofiPage = () => ipcRenderer.send('openKofiPage')
 export const isFullscreen = async () => ipcRenderer.invoke('isFullscreen')
 
-//src/components/ui/webviewcontrols/index.tsx
 export const openWebviewPage = (url: string) =>
   ipcRenderer.send('openWebviewPage', url)
 
-//src/frontend/state/globalstate
 export const setZoomFactor = (zoom: string) =>
   ipcRenderer.send('setZoomFactor', zoom)
 export const frontendReady = () => ipcRenderer.send('frontendReady')
@@ -48,12 +42,10 @@ export const refreshLibrary = async (
   library?: Runner | 'all'
 ) => ipcRenderer.invoke('refreshLibrary', fullRefresh, library)
 
-//src/frontend/helpers/gamepads
 export const gamepadAction = async (
   args: [action: string, metadata: { elementTag: string; x: number; y: number }]
 ) => ipcRenderer.invoke('gamepadAction', args)
 
-// misc
 export const logError = (error: string) => ipcRenderer.send('logError', error)
 export const logInfo = (info: string) => ipcRenderer.send('logInfo', info)
 export const showConfigFileInFolder = (appName: string) =>

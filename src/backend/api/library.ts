@@ -1,11 +1,9 @@
 import { ipcRenderer } from 'electron'
 import { Runner, InstallPlatform, LaunchParams } from '../../common/types'
 
-//src/frontend/helpers/library.ts
 export const removeFolder = (args: [path: string, folderName: string]) =>
   ipcRenderer.send('removeFolder', args)
 
-//invoke
 export const openDialog = async (args: Electron.OpenDialogOptions) =>
   ipcRenderer.invoke('openDialog', args)
 interface InstallArgs {
@@ -39,7 +37,6 @@ interface ImportGameArgs {
 export const importGame = async (args: ImportGameArgs) =>
   ipcRenderer.invoke('importGame', args)
 
-//main to renderer
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const handleSetGameStatus = (callback: any) =>
   ipcRenderer.on('setGameStatus', callback)

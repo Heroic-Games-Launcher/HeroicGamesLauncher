@@ -1,7 +1,6 @@
 import { ipcRenderer } from 'electron'
 import { Runner, InstallPlatform } from '../../common/types'
 
-//src/frontend/helpers/index.ts
 export const notify = (notification: string[]) =>
   ipcRenderer.send('Notify', notification)
 export const openLoginPage = () => ipcRenderer.send('openLoginPage')
@@ -13,7 +12,6 @@ export const openDiscordLink = () => ipcRenderer.send('openDiscordLink')
 export const createNewWindow = (url: string) =>
   ipcRenderer.send('createNewWindow', url)
 
-//invoke
 export const readConfig = async (file: string) =>
   ipcRenderer.invoke('readConfig', file)
 export const getPlatform = async () => ipcRenderer.invoke('getPlatform')

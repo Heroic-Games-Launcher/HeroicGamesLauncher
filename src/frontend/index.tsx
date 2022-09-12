@@ -12,10 +12,9 @@ import GlobalState from './state/GlobalState'
 import { UpdateComponentBase } from './components/UI/UpdateComponent'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
-import { ipcRenderer } from './helpers'
 
 window.addEventListener('error', (ev: ErrorEvent) => {
-  ipcRenderer.send('frontendError', ev.error.stack)
+  window.api.logError(ev.error.stack)
 })
 
 const Backend = new HttpApi(null, {

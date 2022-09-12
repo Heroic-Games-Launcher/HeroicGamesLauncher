@@ -1,7 +1,6 @@
 import { ipcRenderer } from 'electron'
 import { Runner } from '../../common/types'
 
-//src/frontend/screens/game/gamesubmenu
 export const removeShortcut = (appName: string, runner: Runner) =>
   ipcRenderer.send('removeShortcut', appName, runner)
 export const addShortcut = (
