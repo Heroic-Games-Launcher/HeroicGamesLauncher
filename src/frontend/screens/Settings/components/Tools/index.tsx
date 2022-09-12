@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { getGameInfo } from 'frontend/helpers'
 
 import { Runner } from 'common/types'
-import { ProgressDialog } from 'components/UI/ProgressDialog'
+import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 
 interface Props {
   appName: string

@@ -188,13 +188,10 @@ export default function GamesSubmenu({
   async function handleEosOverlay() {
     setEosOverlayRefresh(true)
     if (eosOverlayEnabled) {
-      await window.api.disableEosOverlay(appName, runner)
+      await window.api.disableEosOverlay(appName)
       setEosOverlayEnabled(false)
     } else {
-      const initialEnableResult = await window.api.enableEosOverlay(
-        appName,
-        runner
-      )
+      const initialEnableResult = await window.api.enableEosOverlay(appName)
       const { installNow } = initialEnableResult
       let { wasEnabled } = initialEnableResult
 
@@ -212,8 +209,7 @@ export default function GamesSubmenu({
           status: 'done'
         })
 
-        wasEnabled = (await window.api.enableEosOverlay(appName, runner))
-          .wasEnabled
+        wasEnabled = (await window.api.enableEosOverlay(appName)).wasEnabled
       }
       setEosOverlayEnabled(wasEnabled)
     }

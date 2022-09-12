@@ -17,7 +17,7 @@ import {
 } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Path, SyncType } from 'frontend/types'
-import { ProgressDialog } from 'components/UI/ProgressDialog'
+import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 
 interface Props {
   appName: string
