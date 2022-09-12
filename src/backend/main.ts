@@ -770,7 +770,10 @@ ipcMain.handle(
       const info = await getGame(game, runner).getInstallInfo(installPlatform)
       return info
     } catch (error) {
-      logError(`${error}`, LogPrefix.Backend)
+      logError(
+        `${error}`,
+        runner === 'legendary' ? LogPrefix.Legendary : LogPrefix.Gog
+      )
       return null
     }
   }
