@@ -2,26 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "command": "yarn react-start",
-      "name": "Start renderer process",
-      "request": "launch",
-      "type": "node-terminal"
-    },
-    {
-      "name": "Debug Main Process",
-      "type": "pwa-node",
+      "name": "Launch Heroic (HMR & HR)",
+      "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/vite",
       "windows": {
-        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
-      },
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
-        "!**/node_modules/**"
-      ],
-      "args": ["."],
-      "outputCapture": "std"
+        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/vite.cmd"
+      }
     }
   ]
 }
