@@ -40,9 +40,10 @@ Heroic is built with Web Technologies:
       - [Other Distributions (AppImage and TAR.XZ)](#other-distributions-appimage-and-tarxz)
     - [Windows](#windows)
     - [macOS](#macos)
-    - [Build binaries locally (All platforms)](#build-binaries-locally-all-platforms)
+  - [Development environment](#development-environment)
+    - [Building Heroic Binaries](#building-heroic-binaries)
     - [Building with VS Code](#building-with-vs-code)
-    - [Any OS (development environment)](#any-os-development-environment)
+    - [Quickly testing/debugging Heroic on your own system](#quickly-testingdebugging-heroic-on-your-own-system)
     - [Development Using a Container](#development-using-a-container)
   - [Sponsors](#sponsors)
   - [Screenshots](#screenshots)
@@ -200,7 +201,7 @@ The Setup will create shortcuts to Heroic on your Desktop and in your Start Menu
 If you use Homebrew, you can run `brew install --cask heroic` to install Heroic.  
 Otherwise, download the file ending in .dmg from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest), double-click it to mount it, and drag the "Heroic" application into the "Applications" folder
 
-### Development environment
+## Development environment
 
 This part will walk you through setting up a development environment so you can build Heroic binaries yourself or make changes to the code.
 
@@ -214,7 +215,7 @@ This part will walk you through setting up a development environment so you can 
 
 3. Make sure all dependencies are installed by running `yarn`
 
-#### Building Heroic Binaries
+### Building Heroic Binaries
 
 Run the appropriate command for your OS:
 
@@ -235,12 +236,12 @@ Run the appropriate command for your OS:
   yarn dist:mac
   ```
 
-#### Building with VS Code
+### Building with VS Code
 
 Instead of using the above commands to build Heroic, you can also use the Tasks in VSCode to build.
 To do that, open up the command palette (Ctrl + P), type in "task" and press Space. You will then see 3 build tasks, "Build for Linux", "Build for Windows", and "Build for MacOS". Click the one you want to run.
 
-#### Quickly testing/debugging Heroic on your own system
+### Quickly testing/debugging Heroic on your own system
 
 If you want to quickly test a change, or you're implementing features that require a lot of restarts, you can use Vite's development server to speed up the process:  
 Go to the "Run and Debug" tab of VSCode and start the "Launch Heroic (HMR & HR)" task (alternatively, if you're not using VSCode or just prefer the terminal, run `yarn dev`). Heroic will start up after a short while, and once you make any change to the code, it'll reload/restart.
