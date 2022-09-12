@@ -23,7 +23,7 @@
             "title": "Parar a Instalação"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "{{newLine}}Remover prefixo: {{prefix}}{{newLine}}Obs.: Isso não pode ser desfeito e também vai remover jogos salvos sem backup",
             "message": "Deseja desinstalar este jogo?",
             "title": "Desinstalar"
         },
@@ -47,7 +47,7 @@
         "uninstall": "Desinstalar",
         "update": "Update"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Sem suporte",
     "disabled": "Desabilitado",
     "dlc": {
         "installDlcs": "Instalar DLCs"
@@ -126,12 +126,12 @@
         "addShortcut": "Adicionar Atalho",
         "addToSteam": "Adicionar à Steam",
         "change": "Modificar Local de Instalação",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "Desativar EOS Overlay",
+        "enableEosOverlay": "Ativar EOS Overlay",
         "move": "Mover o Jogo",
         "protondb": "Verificar Compatibilidade",
-        "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeFromSteam": "Remover da Steam",
+        "removeShortcut": "Remover atalhos",
         "settings": "Configurações",
         "store": "Loja Epic",
         "verify": "Verificar e Reparar"

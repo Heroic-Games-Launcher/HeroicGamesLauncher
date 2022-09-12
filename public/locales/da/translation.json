@@ -63,6 +63,10 @@
             "uncaught-exception": {
                 "message": "En ufanget undtagelse opstod:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic vil blive lukket! Rapporter undtagelsen på vores Github-lager.",
                 "title": "Ufanget undtagelse opstod!"
+            },
+            "winetricks": {
+                "title": "Winetricks fejl",
+                "message": "Winetricks returnerede følgende fejl under udførelsen:{{newLine}}{{error}}"
             }
         },
         "info": {
@@ -159,7 +163,13 @@
     "infobox": {
         "help": "Hjælp",
         "requirements": "System Krav",
-        "wine-path": "Vinstien"
+        "wine-path": "Vinstien",
+        "wine-prefix": {
+            "title": "Vin præfiks"
+        },
+        "wine-repfix": {
+            "message": "Wine bruger det, der kaldes en WINEPREFIX til at indkapsle Windows-applikationer. Dette præfiks indeholder Wine-konfigurationsfilerne og en gengivelse af filhierarkiet af C: (hoveddisken på et Windows OS). I denne gengivelse af C:-drevet gemmes dine spillagringsfiler og afhængigheder installeret via winetricks."
+        }
     },
     "button": {
         "go_to_library": "Gå til biblioteket",
@@ -200,7 +210,8 @@
             "in_game_config": "Ikke alle spil understøtter denne konfiguration, nogle har sprogindstilling i spillet.",
             "valid_codes": "Gyldige sprogkoder er spilafhængige."
         },
-        "general": "Synkroniser med EGL, hvis du har en fungerende installation af Epic Games Launcher et andet sted og vil importere dine spil for at undgå at downloade dem igen."
+        "general": "Synkroniser med EGL, hvis du har en fungerende installation af Epic Games Launcher et andet sted og vil importere dine spil for at undgå at downloade dem igen.",
+        "primerun": "Brug dedikeret grafikkort til at gengive spil på multi-GPU-systemer. Kun nødvendig på bærbare gaming-computere eller stationære computere, der bruger en hovedløs GPU til gengivelse (NVIDIA Optimus, AMD CrossFire)"
     },
     "notify": {
         "uninstalled": "Afinstalleret",
@@ -474,6 +485,15 @@
             "placeHolderKey": "Ny indpakning",
             "placeHolderValue": "Indpakningsargumenter",
             "title": "Indpakningskommando:"
+        },
+        "env_variables": {
+            "error": {
+                "equal_sign_in_key": "Variablenavne må ikke indeholde tegnet \"=\"",
+                "empty_key": "Variabelnavne må ikke være tomme",
+                "space_in_key": "Variabelnavne må ikke indeholde mellemrum"
+            },
+            "example": "Inkluder IKKE tegnet \"=\", f.eks.: for en indstilling som \"MY_FLAG=123\", sæt MY_FLAG i NAVN og 123 i VÆRDI.",
+            "info": "Indstil miljøvariabler til at føje til kommandoen."
         }
     },
     "other": {
@@ -562,5 +582,9 @@
             "openInBrowser": "Åbn i browser",
             "reload": "Genindlæs siden"
         }
-    }
+    },
+    "two_col_table": {
+        "save_hint": "Ændringer i denne tabel gemmes ikke automatisk. Klik på knappen +"
+    },
+    "progress": "Fremskridt"
 }

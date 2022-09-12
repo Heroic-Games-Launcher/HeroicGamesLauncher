@@ -1,0 +1,20 @@
+{
+    "button": {
+        "login": "Login"
+    },
+    "message": {
+        "part1": "In order for you to be able to log in and install your games, we first need you to follow the steps below:",
+        "part2": "",
+        "part3": "",
+        "part4": "",
+        "part5": "",
+        "part6": "",
+        "part7": "",
+        "part8": ""
+    },
+    "status": {
+        "error": "Error",
+        "loading": "Loading Game list, please wait"
+    },
+    "welcome": "Welcome!"
+}
