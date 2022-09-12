@@ -273,7 +273,7 @@ export const Winetricks = {
       })
 
       child.on('error', (error) => {
-        logError(`Winetricks threw Error: ${error}`, {
+        logError(['Winetricks threw Error:', error], {
           prefix: LogPrefix.WineTricks
         })
         showErrorBoxModalAuto(

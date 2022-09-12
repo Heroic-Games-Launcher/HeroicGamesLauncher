@@ -777,7 +777,9 @@ ipcMain.handle(
       const info = await getGame(game, runner).getInstallInfo(installPlatform)
       return info
     } catch (error) {
-      logError(error, { prefix: LogPrefix.Backend })
+      logError(error, {
+        prefix: runner === 'legendary' ? LogPrefix.Legendary : LogPrefix.Gog
+      })
       return null
     }
   }
@@ -913,7 +915,7 @@ ipcMain.on('logError', (e, err) =>
   logError(err, { prefix: LogPrefix.Frontend })
 )
 ipcMain.on('logInfo', (e, info) =>
-  logInfo(`${info}`, { prefix: LogPrefix.Frontend })
+  logInfo(info, { prefix: LogPrefix.Frontend })
 )
 
 type RecentGame = {
