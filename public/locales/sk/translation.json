@@ -613,7 +613,8 @@
         "logout": "Logout",
         "logout_confirmation": "Naozaj sa chcete odhlásiť?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit"
+        "quit": "Quit",
+        "logout_confirmation": "Naozaj sa chcete odhlásiť?"
     },
     "webview": {
         "controls": {
