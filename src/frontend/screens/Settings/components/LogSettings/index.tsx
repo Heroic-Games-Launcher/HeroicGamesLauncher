@@ -73,7 +73,10 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
 
   const getLogContent = () => {
     ipcRenderer
-      .invoke('getLogContent', { isDefault, appName, defaultLast })
+      .invoke('getLogContent', {
+        appName: isDefault ? '' : appName,
+        defaultLast
+      })
       .then((content: string) => {
         setLogFileContent(content)
         setLogFileExist(true)
@@ -100,7 +103,10 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
   }, [isDefault, defaultLast])
 
   function showLogFileInFolder() {
-    ipcRenderer.send('showLogFileInFolder', { isDefault, appName })
+    ipcRenderer.send('showLogFileInFolder', {
+      appName: isDefault ? '' : appName,
+      defaultLast
+    })
   }
 
   return (

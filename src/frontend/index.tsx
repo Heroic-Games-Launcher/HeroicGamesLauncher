@@ -15,7 +15,7 @@ import { configStore } from './helpers/electronStores'
 import { ipcRenderer } from './helpers'
 
 window.addEventListener('error', (ev: ErrorEvent) => {
-  ipcRenderer.send('frontendError', ev.error.stack)
+  ipcRenderer.send('frontendError', ev.error)
 })
 
 const Backend = new HttpApi(null, {

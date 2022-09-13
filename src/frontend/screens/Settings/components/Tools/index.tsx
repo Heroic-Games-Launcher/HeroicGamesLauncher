@@ -4,11 +4,10 @@ import React, { useEffect, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import { getGameInfo, quoteIfNecessary } from 'frontend/helpers'
+import { getGameInfo, quoteIfNecessary, ipcRenderer } from 'frontend/helpers'
 
-import { ipcRenderer } from 'frontend/helpers'
 import { Runner } from 'common/types'
-import { ProgressDialog } from 'components/UI/ProgressDialog'
+import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 
 interface Props {
   appName: string

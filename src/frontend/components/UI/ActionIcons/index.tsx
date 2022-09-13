@@ -10,7 +10,6 @@ import {
 import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import cx from 'classnames'
 import React, { useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -68,7 +67,9 @@ export default function ActionIcons({
       <FormControl segmented small>
         {layout === 'grid' ? (
           <button
-            className={cx('FormControl__button', { active: layout === 'grid' })}
+            className={classNames('FormControl__button', {
+              active: layout === 'grid'
+            })}
             title={t('library.toggleLayout.list', 'Toggle to a list layout')}
             onClick={() => handleLayout('list')}
           >
@@ -79,7 +80,7 @@ export default function ActionIcons({
           </button>
         ) : (
           <button
-            className={cx('FormControl__button')}
+            className={classNames('FormControl__button')}
             title={t('library.toggleLayout.grid', 'Toggle to a grid layout')}
             onClick={() => handleLayout('grid')}
           >
@@ -90,7 +91,9 @@ export default function ActionIcons({
           </button>
         )}
         <button
-          className={cx('FormControl__button', { active: !sortDescending })}
+          className={classNames('FormControl__button', {
+            active: !sortDescending
+          })}
           title={
             sortDescending
               ? t('library.sortDescending', 'Sort Descending')
@@ -104,7 +107,9 @@ export default function ActionIcons({
           />
         </button>
         <button
-          className={cx('FormControl__button', { active: sortInstalled })}
+          className={classNames('FormControl__button', {
+            active: sortInstalled
+          })}
           title={t('library.sortByStatus', 'Sort by Status')}
           onClick={() => toggleSortinstalled()}
         >
@@ -114,7 +119,9 @@ export default function ActionIcons({
           />
         </button>
         <button
-          className={cx('FormControl__button', { active: showFavourites })}
+          className={classNames('FormControl__button', {
+            active: showFavourites
+          })}
           title={showFavouritesTitle}
           onClick={toggleShowFavourites}
         >
@@ -124,14 +131,14 @@ export default function ActionIcons({
           />
         </button>
         <button
-          className={cx('FormControl__button', { active: showHidden })}
+          className={classNames('FormControl__button', { active: showHidden })}
           title={showHiddenTitle}
           onClick={toggleShowHidden}
         >
           {showHidden ? <Visibility /> : <VisibilityOff />}
         </button>
         <button
-          className={cx('FormControl__button', {
+          className={classNames('FormControl__button', {
             active: refreshing
           })}
           title={t('generic.library.refresh', 'Refresh Library')}

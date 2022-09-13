@@ -1,16 +1,28 @@
 import { tmpdir } from 'os'
+import { join } from 'path'
 
-export const dialog = {
+const appBasePath = tmpdir()
+const dialog = {
+  // dialog override
   showErrorBox: jest.fn(),
   showMessageBox: jest.fn()
 }
 
-export const app = {
-  getPath: jest.fn().mockReturnValue(tmpdir())
+const app = {
+  // app override
+  getPath: jest.fn().mockImplementation((path: string) => {
+    return join(appBasePath, path)
+  })
 }
 
-export class Notification {
+class Notification {
   public show() {
     return
   }
+
+  public isSupported() {
+    return false
+  }
 }
+
+export { dialog, app, Notification }

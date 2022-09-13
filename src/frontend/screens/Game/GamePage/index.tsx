@@ -11,14 +11,14 @@ import {
   launch,
   sendKill,
   size,
-  syncSaves
+  syncSaves,
+  updateGame,
+  ipcRenderer
 } from 'frontend/helpers'
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
-
-import { updateGame } from 'frontend/helpers'
 
 import { AppSettings, GameInfo, GameStatus } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
@@ -39,7 +39,6 @@ import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
 
-import { ipcRenderer } from 'frontend/helpers'
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
 export default function GamePage(): JSX.Element | null {
@@ -116,7 +115,7 @@ export default function GamePage(): JSX.Element | null {
           })
           .catch((error) => {
             console.error(error)
-            ipcRenderer.send('logError', `${error}`)
+            ipcRenderer.send('logError', error)
             setHasError({ error: true, message: `${error}` })
           })
         if (newInfo?.cloud_save_enabled) {
