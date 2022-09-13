@@ -613,7 +613,8 @@
         "logout": "Logout",
         "logout_confirmation": "Вы ўпэўнены, што хочаце выйсці?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit"
+        "quit": "Quit",
+        "logout_confirmation": "Вы ўпэўнены, што хочаце выйсці?"
     },
     "webview": {
         "controls": {
