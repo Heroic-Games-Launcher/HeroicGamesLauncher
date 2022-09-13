@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "Ova igra uključuje anticheat softver"
     },
-    "Assets": "Aktiva",
     "box": {
         "cache-cleared": {
             "message": "Memorija Heroica izbrisana.",
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Pokretanje prekinuto! Za pokretanje video igre je potrebna internetska veza.",
-                "title": "Offline način rada nije podržan."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Greška",
             "uncaught-exception": {
                 "message": "Dogodio se neuhvaćeni izuzetak: {{newLine}}{{error}}{{newLine}}{{newLine}}Heroic će biti zatvoren! Prijavite izuzetak na našem Github spremištu.",
@@ -375,9 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Dodaci",
     "progress": "Napredak",
-    "Projects": "Projekti",
     "Recent": "Igrano nedavno",
     "search": "Potražite igre",
     "setting": {
@@ -471,7 +465,6 @@
         },
         "select_theme": "Izaberite temu",
         "showfps": "Pokaži FPS (DX9, 10 i 11)",
-        "showUnrealMarket": "Prikaži Unreal Marketplace (potrebno je ponovno pokretanje)",
         "start-in-tray": "Pokreni minimizirano",
         "steamruntime": "Koristi Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -531,11 +524,7 @@
     "store": "Epic Store",
     "stores": "Trgovine",
     "title": {
-        "allGames": "Sve igre",
-        "allUnreal": "Unreal - sve",
-        "unrealAssets": "Unreal - aktive",
-        "unrealPlugins": "Unreal- dodaci",
-        "unrealProjects": "Unreal - projekti"
+        "allGames": "Sve igre"
     },
     "toolbox": {
         "settings": {

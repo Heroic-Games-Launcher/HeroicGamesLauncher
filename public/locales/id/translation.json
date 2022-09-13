@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "Gim ini mengandung perangkat lunak anticheat"
     },
-    "Assets": "Aset",
     "box": {
         "cache-cleared": {
             "message": "Tembolok Heroic telah dibersihkan.",
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Peluncuran dibatalkan! Gim membutuhkan koneksi internet untuk menjalankannya.",
-                "title": "Mode luring tidak didukung."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Galat",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
@@ -375,9 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Pengaya",
     "progress": "Progress",
-    "Projects": "Proyek",
     "Recent": "Dimainkan Baru-Baru Ini",
     "search": "Cari Gim",
     "setting": {
@@ -471,7 +465,6 @@
         },
         "select_theme": "Pilih Tema",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
-        "showUnrealMarket": "Tampilkan Unreal Marketplace (perlu memulai ulang)",
         "start-in-tray": "Mulai Diminimalkan",
         "steamruntime": "Gunakan Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -531,11 +524,7 @@
     "store": "Epic Store",
     "stores": "Toko",
     "title": {
-        "allGames": "Semua Gim",
-        "allUnreal": "Unreal - Semuanya",
-        "unrealAssets": "Unreal - Aset",
-        "unrealPlugins": "Unreal - Pengaya",
-        "unrealProjects": "Unreal - Proyek"
+        "allGames": "Semua Gim"
     },
     "toolbox": {
         "settings": {

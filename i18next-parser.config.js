@@ -28,7 +28,7 @@ module.exports = {
   indentation: 4,
   // Indentation of the catalog files
 
-  input: ['src/**/*.{ts,tsx}', 'electron/**/*.{ts,tsx}'],
+  input: ['src/**/*.{ts,tsx}'],
   // An array of globs that describe where to look for source files
   // relative to the location of the configuration file
 

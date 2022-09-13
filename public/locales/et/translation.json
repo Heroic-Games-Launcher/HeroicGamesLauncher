@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "See mäng sisaldab sohitegemisvastast tarkvara"
     },
-    "Assets": "Varamu",
     "box": {
         "cache-cleared": {
             "message": "Heroic-u vahemälu puhastati.",
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Käivitamine katkestatud! Mängu käivitamiseks on vaja internetiühendust.",
-                "title": "Võrguühenduseta režiim ei ole toetatud."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Viga",
             "uncaught-exception": {
                 "message": "Tekkis tabamata erand:{{newLine}}{{error}}{{newLine}}{{newLine}} Heroic suletakse! Teatage erandist meie Githubi repositooriumis.",
@@ -375,9 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Pluginad",
     "progress": "Progress",
-    "Projects": "Projektid",
     "Recent": "Hiljuti mängitud",
     "search": "Otsi mänge",
     "setting": {
@@ -471,7 +465,6 @@
         },
         "select_theme": "Valige teema",
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
-        "showUnrealMarket": "Näita Unreal Marketplace'i (vajab taaskäivitamist)",
         "start-in-tray": "Käivita minimeeritult",
         "steamruntime": "Kasuta Steam Runtime'i",
         "winecrossoverbottle": "CrossOveri pudel",
@@ -531,11 +524,7 @@
     "store": "Epic Pood",
     "stores": "Poed",
     "title": {
-        "allGames": "Kõik mängud",
-        "allUnreal": "Unreal - Kõik",
-        "unrealAssets": "Unreal - varamu",
-        "unrealPlugins": "Unreal - pluginad",
-        "unrealProjects": "Unreal - Projektid"
+        "allGames": "Kõik mängud"
     },
     "toolbox": {
         "settings": {

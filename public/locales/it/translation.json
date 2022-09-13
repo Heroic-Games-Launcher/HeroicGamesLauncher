@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "Questo gioco include software anticheat"
     },
-    "Assets": "Asset",
     "box": {
         "cache-cleared": {
             "message": "Cache di Heroic cancellata.",
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Avvio interrotto! Il gioco richiede una connessione a Internet per essere eseguito.",
-                "title": "Modalità offline non supportata."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Errore",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
@@ -375,9 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Plugins",
     "progress": "Progress",
-    "Projects": "Progetti",
     "Recent": "Giocato di recente",
     "search": "Cerca giochi",
     "setting": {
@@ -471,7 +465,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "Mostra FPS (DX9, 10 e 11)",
-        "showUnrealMarket": "Mostra Unreal Marketplace (richiede riavvio)",
         "start-in-tray": "Avvio Minimizzato",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "Bottiglia CrossOver",
@@ -531,11 +524,7 @@
     "store": "Epic Store",
     "stores": "Stores",
     "title": {
-        "allGames": "Tutti i giochi",
-        "allUnreal": "Unreal - Tutto",
-        "unrealAssets": "Unreal - Risorse",
-        "unrealPlugins": "Unreal - Plugin",
-        "unrealProjects": "Unreal - Progetti"
+        "allGames": "Tutti i giochi"
     },
     "toolbox": {
         "settings": {

@@ -16,7 +16,6 @@
         "status": "Egoera",
         "title": "Joko honek antitranpa softwarea dauka"
     },
-    "Assets": "Baliabideak",
     "box": {
         "cache-cleared": {
             "message": "Heroic-en catxea garbitu da.",
@@ -59,10 +58,7 @@
                 "message": "Errore ezezagun bat gertatu da",
                 "title": "Errore ezezaguna"
             },
-            "no-offline-mode": {
-                "message": "Abiarazpena bertan behera utzi da! Jokoak Interneteko konexioa behar du martxan jartzeko.",
-                "title": "Lineaz kanpoko modua ez dago onartuta."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Errorea",
             "uncaught-exception": {
                 "message": "Harrapatu gabeko salbuespen bat gertatu da:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic itxi egingo da! Salatu salbuespena gure Github biltegian.",
@@ -375,9 +371,7 @@
         "mac": "Mac",
         "win": "Leihoak"
     },
-    "Plugins": "Pluginak",
     "progress": "Aurrerapena",
-    "Projects": "Proiektuak",
     "Recent": "Duela gutxi jokatuta",
     "search": "Bilatu jokoak",
     "setting": {
@@ -471,7 +465,6 @@
         },
         "select_theme": "Hautatu Gaia",
         "showfps": "Erakutsi FPS (DX9, 10 eta 11)",
-        "showUnrealMarket": "Erakutsi Unreal Marketplace (berrabiarazi behar da)",
         "start-in-tray": "Hasi minimizatua",
         "steamruntime": "Erabili Steam Runtime",
         "winecrossoverbottle": "CrossOver botila",
@@ -531,11 +524,7 @@
     "store": "Denda epikoa",
     "stores": "Dendak",
     "title": {
-        "allGames": "Joko guztiak",
-        "allUnreal": "Irreala - Dena",
-        "unrealAssets": "Unreal - Aktiboak",
-        "unrealPlugins": "Unreal - Pluginak",
-        "unrealProjects": "Unreal - Proiektuak"
+        "allGames": "Joko guztiak"
     },
     "toolbox": {
         "settings": {

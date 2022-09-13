@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "Dette spillet inkluderer anticheat-programvare"
     },
-    "Assets": "Ressurser",
     "box": {
         "cache-cleared": {
             "message": "Heroic-hurtiglager tømt.",
@@ -59,10 +58,7 @@
                 "message": "En ukjent feil oppstod",
                 "title": "Ukjent feil"
             },
-            "no-offline-mode": {
-                "message": "Lansering avbrutt! Spillet krever en internettforbindelse for å kjøre det.",
-                "title": "Frakoblet modus støttes ikke."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Feil",
             "uncaught-exception": {
                 "message": "Et uoppdaget unntak skjedde:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic vil bli stengt! Rapporter unntaket på Github-depotet vårt.",
@@ -375,9 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Plugins",
     "progress": "Framgang",
-    "Projects": "Prosjekter",
     "Recent": "Spillt nylig",
     "search": "Skriv inn spillnavnet her …",
     "setting": {
@@ -471,7 +465,6 @@
         },
         "select_theme": "Velg Tema",
         "showfps": "Vis FPS (DX9, 10 og 11)",
-        "showUnrealMarket": "Vis Unreal Marketplace (trenger omstart)",
         "start-in-tray": "Start Minimert",
         "steamruntime": "Bruk Steam Runtime",
         "winecrossoverbottle": "CrossOver flaske",
@@ -531,11 +524,7 @@
     "store": "Episk butikk",
     "stores": "Butikker",
     "title": {
-        "allGames": "Alle spill",
-        "allUnreal": "Unreal - Alt",
-        "unrealAssets": "Unreal - Ressurser",
-        "unrealPlugins": "Uvirkelig - Plugins",
-        "unrealProjects": "Uvirkelig - Prosjekter"
+        "allGames": "Alle spill"
     },
     "toolbox": {
         "settings": {

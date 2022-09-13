@@ -16,7 +16,6 @@
         "status": "Vəziyyət",
         "title": "Bu oyuna anticheat proqramı daxildir"
     },
-    "Assets": "Aktivlər",
     "box": {
         "cache-cleared": {
             "message": "Qəhrəmanca yaddaş silindi.",
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Başlatma dayandırıldı! Oyunu idarə etmək üçün internet bağlantısı tələb olunur.",
-                "title": "Oflayn rejim dəstəklənmir."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Xəta",
             "uncaught-exception": {
                 "message": "Tutulmamış istisna baş verdi:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic bağlanacaq! Github anbarımızdakı istisnanı bildirin.",
@@ -375,9 +371,7 @@
         "mac": "Makintoş",
         "win": "Windows"
     },
-    "Plugins": "Pluginlər",
     "progress": "Tərəqqi",
-    "Projects": "Layihələr",
     "Recent": "Bu yaxınlarda oynanılıb",
     "search": "Oyunlar axtarın",
     "setting": {
@@ -471,7 +465,6 @@
         },
         "select_theme": "Mövzu seçin",
         "showfps": "FPS göstərin (DX9, 10 və 11)",
-        "showUnrealMarket": "Unreal Marketplace-i göstərin (yenidən başlamalıdır)",
         "start-in-tray": "Minimallaşdırılmış başlayın",
         "steamruntime": "Steam Runtime istifadə edin",
         "winecrossoverbottle": "Krossover şüşə",
@@ -531,11 +524,7 @@
     "store": "Epic Store",
     "stores": "Mağazalar",
     "title": {
-        "allGames": "Bütün Oyunlar",
-        "allUnreal": "Qeyri-real - Hər şey",
-        "unrealAssets": "Qeyri-real - Aktivlər",
-        "unrealPlugins": "Qeyri-real - Pluginlər",
-        "unrealProjects": "Qeyri-real - Layihələr"
+        "allGames": "Bütün Oyunlar"
     },
     "toolbox": {
         "settings": {

@@ -16,7 +16,6 @@
         "status": "Állapot",
         "title": "Ez a játék csalásellenes szoftvert tartalmaz"
     },
-    "Assets": "Eszközök",
     "box": {
         "cache-cleared": {
             "message": "Heroic gyorsítótár törölve.",
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Launch aborted! The game requires a internet connection to run it.",
-                "title": "Offline mode not supported."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Hiba",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
@@ -375,9 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Beépülők",
     "progress": "Progress",
-    "Projects": "Projektek",
     "Recent": "Nemrég játszott",
     "search": "Játékok keresése",
     "setting": {
@@ -471,7 +465,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",
-        "showUnrealMarket": "Unreal piactér megjelenítése (újraindítás szükséges)",
         "start-in-tray": "Indítás tálcára téve",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver palack",
@@ -531,11 +524,7 @@
     "store": "Epic Store",
     "stores": "Stores",
     "title": {
-        "allGames": "Összes játék",
-        "allUnreal": "Unreal - Minden",
-        "unrealAssets": "Unreal - Eszközök",
-        "unrealPlugins": "Unreal - Bővítmények",
-        "unrealProjects": "Unreal - Projektek"
+        "allGames": "Összes játék"
     },
     "toolbox": {
         "settings": {

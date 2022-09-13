@@ -16,7 +16,6 @@
         "status": "stare",
         "title": "Acest joc include software anticheat"
     },
-    "Assets": "Asset-uri",
     "box": {
         "cache-cleared": {
             "message": "Cache-ul eroic a fost golit.",
@@ -59,10 +58,7 @@
                 "message": "O Eroare Necunoscută a apărut",
                 "title": "Eroare Necunoscută"
             },
-            "no-offline-mode": {
-                "message": "Lansarea a fost anulată! Jocul necesită o conexiune la internet pentru a-l rula.",
-                "title": "Modul offline nu este acceptat."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Eroare",
             "uncaught-exception": {
                 "message": "A apărut o excepție neprinsă:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic va fi închis! Raportați excepția în depozitul nostru Github.",
@@ -375,9 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Pluginuri",
     "progress": "Progres",
-    "Projects": "Proiecte",
     "Recent": "Jocuri Recente",
     "search": "Introdu numele jocului aici...",
     "setting": {
@@ -471,7 +465,6 @@
         },
         "select_theme": "Selectează tema",
         "showfps": "Afișați FPS (DX9, 10 și 11)",
-        "showUnrealMarket": "Afișați Unreal Marketplace (trebuie repornit)",
         "start-in-tray": "Pornește minimizat",
         "steamruntime": "Utilizați Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -531,11 +524,7 @@
     "store": "Magazin",
     "stores": "Magazine",
     "title": {
-        "allGames": "Toate jocurile",
-        "allUnreal": "Unreal - Totul",
-        "unrealAssets": "Unreal - Asset-uri",
-        "unrealPlugins": "Unreal - Plugin-uri",
-        "unrealProjects": "Unreal - Proiecte"
+        "allGames": "Toate jocurile"
     },
     "toolbox": {
         "settings": {
