@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Xəta",
             "uncaught-exception": {
-                "message": "Tutulmamış istisna baş verdi:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic bağlanacaq! Github anbarımızdakı istisnanı bildirin.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Tutulmamış İstisna baş verdi!"
             },
             "update": {

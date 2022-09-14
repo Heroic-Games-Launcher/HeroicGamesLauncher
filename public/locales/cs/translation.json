@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Error",
             "uncaught-exception": {
-                "message": "Došlo k nezachycené výjimce:{{newLine}}{{error}}{{newLine}}{{newLine}} Heroic bude ukončen! Nahlaste výjimku v našem repozitáři na Githubu.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Došlo k nezachycené výjimce!"
             },
             "update": {

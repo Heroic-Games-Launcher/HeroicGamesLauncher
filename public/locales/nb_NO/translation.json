@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Feil",
             "uncaught-exception": {
-                "message": "Et uoppdaget unntak skjedde:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic vil bli stengt! Rapporter unntaket på Github-depotet vårt.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Ufanget unntak skjedde!"
             },
             "update": {

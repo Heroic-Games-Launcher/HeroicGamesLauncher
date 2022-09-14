@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "错误",
             "uncaught-exception": {
-                "message": "发生了未捕获的异常：{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic 将被关闭！在我们的 Github 仓库报告这个异常。",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "发生了未捕获的异常！"
             },
             "update": {

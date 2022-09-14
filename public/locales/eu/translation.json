@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Errorea",
             "uncaught-exception": {
-                "message": "Harrapatu gabeko salbuespen bat gertatu da:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic itxi egingo da! Salatu salbuespena gure Github biltegian.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Harrapatu gabeko Salbuespena gertatu da!"
             },
             "update": {

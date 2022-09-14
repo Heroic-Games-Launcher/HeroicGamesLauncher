@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Eroare",
             "uncaught-exception": {
-                "message": "A apărut o excepție neprinsă:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic va fi închis! Raportați excepția în depozitul nostru Github.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "A avut loc o excepție neprinsă!"
             },
             "update": {

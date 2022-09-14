@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Σφάλμα",
             "uncaught-exception": {
-                "message": "Συνέβη μια μη διαχειρίσιμη εξαίρεση:{{newLine}}{{error}}{{newLine}}{{newLine}} Το Heroic θα κλείσει! Κάντε αναφορά στο Github repository μας.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Συνέβη μια μη διαχειρίσιμη εξαίρεση!"
             },
             "update": {

@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Error",
             "uncaught-exception": {
-                "message": "S'ha produït una excepció no detectada:{{newLine}}{{error}}{{newLine}}{{newLine}}El Heroic es tancarà! Informeu de l'error al nostre dipòsit de Github.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "S'ha produït una excepció no detectada!"
             },
             "update": {
