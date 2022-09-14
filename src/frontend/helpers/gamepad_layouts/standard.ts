@@ -1,17 +1,15 @@
-// Holds layouts for different XBox official an clone controllers
+// Holds layouts for controllers officially supported by chromium
 
-// Vendor: 045e, Product: 02ea
-// Microsoft Controller (STANDARD GAMEPAD Vendor: 045e Product: 02ea)
-export function checkXbox(
+export function checkStandard(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
   controllerIndex: number,
   checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
 ) {
-  const A = buttons[0],
-    B = buttons[1],
-    X = buttons[2],
-    Y = buttons[3],
+  const mainButton = buttons[0], // Xbox: A, PS: Cross
+    backButton = buttons[1], // Xbox: B, PS: Circle
+    contextMenuButton = buttons[2], // Xbox: X, PS: Square
+    altButton = buttons[3], // Xbox: Y, PS: Triangle
     // LB = buttons[4],
     // RB = buttons[5],
     // LT = buttons[6], // has .value
@@ -32,9 +30,9 @@ export function checkXbox(
 
   // use the `?` operator here since this layout is used as fallback
   // and mapping can be incorrect
-  checkAction('mainAction', A?.pressed, controllerIndex)
-  checkAction('back', B?.pressed, controllerIndex)
-  checkAction('altAction', Y?.pressed, controllerIndex)
+  checkAction('mainAction', mainButton?.pressed, controllerIndex)
+  checkAction('back', backButton?.pressed, controllerIndex)
+  checkAction('altAction', altButton?.pressed, controllerIndex)
   checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
   checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
   checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
@@ -47,5 +45,5 @@ export function checkXbox(
   checkAction('padDown', down?.pressed, controllerIndex)
   checkAction('padLeft', left?.pressed, controllerIndex)
   checkAction('padRight', right?.pressed, controllerIndex)
-  checkAction('rightClick', X?.pressed, controllerIndex)
+  checkAction('rightClick', contextMenuButton?.pressed, controllerIndex)
 }
