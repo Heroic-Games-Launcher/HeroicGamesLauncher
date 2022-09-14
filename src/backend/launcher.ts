@@ -151,13 +151,13 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
   // Verify that a Wine binary is set
   // This happens when there aren't any Wine versions installed
   if (!gameSettings.wineVersion.bin) {
-    showErrorBoxModalAuto(
-      i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
-      i18next.t(
+    showErrorBoxModalAuto({
+      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
+      error: i18next.t(
         'box.error.wine-not-found.message',
         'No Wine Version Selected. Check Game Settings!'
       )
-    )
+    })
     return { success: false }
   }
 
@@ -180,17 +180,17 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
       )
     )
     if (!bottleExists) {
-      showErrorBoxModalAuto(
-        i18next.t(
+      showErrorBoxModalAuto({
+        title: i18next.t(
           'box.error.cx-bottle-not-found.title',
           'CrossOver bottle not found'
         ),
-        i18next.t(
+        error: i18next.t(
           'box.error.cx-bottle-not-found.message',
           `The CrossOver bottle "{{bottle_name}}" does not exist, can't launch!`,
           { bottle_name: gameSettings.wineCrossoverBottle }
         )
-      )
+      })
       return { success: false }
     }
   }

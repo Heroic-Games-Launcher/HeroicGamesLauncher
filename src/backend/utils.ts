@@ -48,35 +48,27 @@ const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
 
-export async function showErrorBoxModal(
-  window: BrowserWindow | undefined | null,
-  title: string,
-  message: string
-) {
-  if (window) {
-    await showMessageBox(window, {
-      type: 'error',
-      title,
-      message
-    })
+export function showErrorBoxModalAuto(props: {
+  event?: Electron.IpcMainInvokeEvent
+  title: string
+  error: string
+}) {
+  if (props.event) {
+    props.event.sender.send('showErrorDialog', props.title, props.error)
   } else {
-    await showErrorBox(title, message)
-  }
-}
-
-export function showErrorBoxModalAuto(title: string, message: string) {
-  let window: BrowserWindow | null
-  try {
-    window = BrowserWindow.getFocusedWindow()
-    if (!window) {
-      window = BrowserWindow.getAllWindows()[0]
+    let window: BrowserWindow | null
+    try {
+      window = BrowserWindow.getFocusedWindow()
+      if (!window) {
+        window = BrowserWindow.getAllWindows()[0]
+      }
+      window.webContents.send('showErrorDialog', props.title, props.error)
+    } catch (error) {
+      logWarning(['showErrorBoxModalAuto:', error], {
+        prefix: LogPrefix.Backend
+      })
+      showErrorBox(props.title, props.error)
     }
-    showErrorBoxModal(window, title, message)
-  } catch (error) {
-    logWarning(['showErrorBoxModalAuto:', error], {
-      prefix: LogPrefix.Backend
-    })
-    showErrorBox(title, message)
   }
 }
 
@@ -374,14 +366,13 @@ async function errorHandler(
       .then(async ({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
           logError(noSpaceMsg, { prefix: LogPrefix.Backend })
-          return showErrorBoxModal(
-            window,
-            i18next.t('box.error.diskspace.title', 'No Space'),
-            i18next.t(
+          return showErrorBoxModalAuto({
+            title: i18next.t('box.error.diskspace.title', 'No Space'),
+            error: i18next.t(
               'box.error.diskspace.message',
               'Not enough available disk space'
             )
-          )
+          })
         }
       })
       .catch(() =>
@@ -410,14 +401,13 @@ async function errorHandler(
 
     otherErrorMessages.forEach(async (message) => {
       if (error.includes(message)) {
-        return showErrorBoxModal(
-          window,
-          plat,
-          i18next.t(
+        return showErrorBoxModalAuto({
+          title: plat,
+          error: i18next.t(
             'box.error.credentials.message',
             'Your Crendentials have expired, Logout and Login Again!'
           )
-        )
+        })
       }
     })
   }

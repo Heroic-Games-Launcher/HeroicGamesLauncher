@@ -118,7 +118,10 @@ function logBase(
   }
 
   if (options?.showDialog) {
-    showErrorBoxModalAuto(options?.prefix ?? LogPrefix.Backend, text)
+    showErrorBoxModalAuto({
+      title: options?.prefix ?? LogPrefix.Backend,
+      error: text
+    })
   }
 
   if (!options?.skipLogToFile) {

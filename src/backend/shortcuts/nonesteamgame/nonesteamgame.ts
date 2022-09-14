@@ -10,7 +10,7 @@ import { join } from 'path'
 import { GameInfo } from 'common/types'
 import { ShortcutsResult } from '../types'
 import { getIcon } from '../utils'
-import { notify } from '../../utils'
+import { notify, showErrorBoxModalAuto } from '../../utils'
 import {
   prepareImagesForSteam,
   generateShortcutId,
@@ -18,7 +18,7 @@ import {
   generateShortAppId,
   removeImagesFromSteam
 } from './steamhelper'
-import { app, dialog } from 'electron'
+import { app } from 'electron'
 import { isFlatpak, isWindows, tsStore } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
@@ -28,7 +28,7 @@ import i18next from 'i18next'
  * @param props
  */
 function showErrorInFrontend(props: { gameTitle: string; error: string }) {
-  const body = i18next.t('box.error.add.steam.body', {
+  const error = i18next.t('box.error.add.steam.body', {
     defaultValue: 'Adding {{game}} to Steam failed with:{{newLine}} {{error}}',
     game: props.gameTitle,
     newLine: '\n',
@@ -40,7 +40,7 @@ function showErrorInFrontend(props: { gameTitle: string; error: string }) {
     'Error Adding Game to Steam'
   )
 
-  dialog.showErrorBox(title, body)
+  showErrorBoxModalAuto({ title, error })
 }
 
 /**

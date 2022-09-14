@@ -122,10 +122,10 @@ describe('logger/logger.ts', () => {
         showDialog: true
       })
 
-      expect(showErrorBoxModalAuto).toBeCalledWith(
-        'Backend',
-        expect.stringContaining(getStringPassedToLogFile(level, true))
-      )
+      expect(showErrorBoxModalAuto).toBeCalledWith({
+        title: 'Backend',
+        error: expect.stringContaining(getStringPassedToLogFile(level, true))
+      })
     })
   })
 

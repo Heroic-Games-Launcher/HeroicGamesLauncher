@@ -94,13 +94,13 @@ export const DXVK = {
           logWarning([`Error when downloading ${tool.name}`, error], {
             prefix: LogPrefix.DXVKInstaller
           })
-          showErrorBoxModalAuto(
-            i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
-            i18next.t(
+          showErrorBoxModalAuto({
+            title: i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
+            error: i18next.t(
               'box.error.dxvk.message',
               'Error installing DXVK/VKD3D! Check your connection!'
             )
-          )
+          })
         })
     })
   },
@@ -276,15 +276,16 @@ export const Winetricks = {
         logError(['Winetricks threw Error:', error], {
           prefix: LogPrefix.WineTricks
         })
-        showErrorBoxModalAuto(
-          i18next.t('box.error.winetricks.title', 'Winetricks error'),
-          i18next.t('box.error.winetricks.message', {
+        showErrorBoxModalAuto({
+          event,
+          title: i18next.t('box.error.winetricks.title', 'Winetricks error'),
+          error: i18next.t('box.error.winetricks.message', {
             defaultValue:
               'Winetricks returned the following error during execution:{{newLine}}{{error}}',
             newLine: '\n',
             error: `${error}`
           })
-        )
+        })
         clearInterval(sendProgress)
         resolve()
       })
