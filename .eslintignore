@@ -1,5 +1,5 @@
-public/start-react.js
 i18next-parser.config.js
 flatpak/build/
 flatpak/.flatpak-builder/
+vite.config.ts
 **/__tests__/**

@@ -11,12 +11,11 @@
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
-        "source": "Source",
-        "status": "Status",
+        "reference": "Referans",
+        "source": "Kaynak",
+        "status": "Durum",
         "title": "This game includes anticheat software"
     },
-    "Assets": "Varlıklar",
     "box": {
         "cache-cleared": {
             "message": "Heroic önbelleği temizlendi.",
@@ -29,7 +28,7 @@
         "customWine": "Wine veya Proton çalıştırılabilir dosyasını seç",
         "default-install-path": "Öntanımlı Kurulum Yerini Seçin",
         "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "downloadNow": "Şimdi indir",
         "error": {
             "add": {
                 "steam": {
@@ -49,7 +48,7 @@
                 "title": "Alan Yok"
             },
             "dxvk": {
-                "message": "DXVK/VKD3D kurulurken hata oluştu! Bağlantınıza veya zstd/libzstd1 kurulu olup olmadığına bakın",
+                "message": "DXVK/VKD3D yüklenirken hata oluştu! Lütfen bağlantınızı kontrol edin!",
                 "title": "DXVK/VKD3D hatası"
             },
             "folder-not-found": {
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Başlatma iptal edildi! Oyunu çalıştırmak için internet bağlantısı gereklidir.",
-                "title": "Çevrim dışı mod desteklenmiyor."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Hata",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
@@ -375,9 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Eklentiler",
     "progress": "Progress",
-    "Projects": "Projeler",
     "Recent": "Son Oynanan",
     "search": "Oyun Ara",
     "setting": {
@@ -471,7 +465,6 @@
         },
         "select_theme": "Tema Seç",
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
-        "showUnrealMarket": "Unreal Pazar Yerini Göster (yeniden başlatma gerekir)",
         "start-in-tray": "Simge Durumunda Başlat",
         "steamruntime": "Steam Çalışma Zamanını Kullan",
         "winecrossoverbottle": "CrossOver Şişesi",
@@ -531,11 +524,7 @@
     "store": "Epic Mağazası",
     "stores": "Mağazalar",
     "title": {
-        "allGames": "Tüm Oyunlar",
-        "allUnreal": "Unreal - Her şey",
-        "unrealAssets": "Unreal - Varlıklar",
-        "unrealPlugins": "Unreal - Eklentiler",
-        "unrealProjects": "Unreal - Projeler"
+        "allGames": "Tüm Oyunlar"
     },
     "toolbox": {
         "settings": {

@@ -23,7 +23,7 @@
             "title": "Прекращение установки"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Удалить префикс: {{prefix}}{{newLine}} Примечание: Это действие нельзя отменить, и оно также приведет к удалению файлов сохранений.",
             "message": "Вы хотите удалить эту игру?",
             "title": "Удалить"
         },
@@ -47,7 +47,7 @@
         "uninstall": "Удалить",
         "update": "Обновить"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Не поддерживается",
     "disabled": "Выключено",
     "dlc": {
         "installDlcs": "Установить все DLC"

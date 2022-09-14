@@ -19,3 +19,4 @@ jobs:
       - run: npm run release:linux
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}

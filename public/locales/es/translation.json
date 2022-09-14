@@ -16,7 +16,6 @@
         "status": "Estado",
         "title": "Este juego contiene software anticheat"
     },
-    "Assets": "Recursos",
     "box": {
         "cache-cleared": {
             "message": "El caché de Heroic ha sido limpiado.",
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "¡Lanzamiento abortado! El juego requiere una conexión a Internet ser ejecutado.",
-                "title": "El modo sin conexión no está soportado."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Error",
             "uncaught-exception": {
                 "message": "Ocurrió un error:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic va a ser cerrado! Reporta el error en nuestro repositorio de Github.",
@@ -206,7 +202,7 @@
         "store": "Filtrar tienda"
     },
     "help": {
-        "amdfsr": "FSR de AMD ayuda a mejorar los cuadros por segundos agrandando resoluciones más chicas en modo pentalla completa. La calidad de imagen se incrementa de 5 a 1 con el costo de un poco de impacto en rendimiento. Activarlo puede mejorar el rendimiento.",
+        "amdfsr": "El FSR de AMD ayuda a aumentar la velocidad de los fotogramas mediante el escalado de las resoluciones más bajas en el modo de pantalla completa. La calidad de la imagen aumenta de 5 a 1 a costa de un ligero impacto en el rendimiento. Su activación puede mejorar el rendimiento.",
         "dxvk": "DXVK es una capa de traducción basada en Vulkan para juegos que usan DirectX 9, 10 y 11. Activarlo puede mejorar la compatibilidad. Puede causar errores especialmente en juegos antiguos que usen DirectX.",
         "esync": "Esync intenta reducir la sobrecarga de wineserver en juegos con intenso uso de CPU. Activarlo puede mejorar el rendimiento.",
         "fsync": "Fsync intenta reducir la sobrecarga de wineserver en juegos con uso intensivo de CPU. Activarlo puede mejorar el rendimiento en kernels de Linux que lo soporten.",
@@ -375,9 +371,7 @@
         "mac": "macOS",
         "win": "Windows"
     },
-    "Plugins": "Plugins",
     "progress": "Progress",
-    "Projects": "Proyectos",
     "Recent": "Jugado recientemente",
     "search": "Buscar juegos",
     "setting": {
@@ -397,7 +391,7 @@
         "default-install-path": "Ruta de instalación predeterminada",
         "default-steam-path": "Ruta de Steam por defecto",
         "defaultWinePrefix": "Establecer carpeta para nuevos prefijos de Wine",
-        "disable_controller": "Desactivar la navegación de Heroic usando el controlador",
+        "disable_controller": "Desactivar la navegación de Heroic mediante un gamepad",
         "discordRPC": "Activar Discord Rich Presence",
         "download-no-https": "Descargar juegos sin HTTPS (útil para CDNs, ej: LanCache)",
         "egs-sync": "Sincronizar con juegos EGS",
@@ -434,11 +428,11 @@
             "recently_played": "Juegos Jugados Recientemente",
             "recently_played_installed": "Juegos Jugados Recientemente (Sólo Instalados)"
         },
-        "library_top_section": "Sección superior de la Biblioteca",
+        "library_top_section": "Sección superior de la biblioteca",
         "log": {
             "copy-to-clipboard": "Copiar el contenido del registro en el portapapeles",
             "current-log": "Registro actual",
-            "instructions": "Unete a nuestro Discord y busca el canal que correponde a tu sistema operateivo. Comparte el contenido del registro mostrado aquí, e incluye una descripción clara del problema con cualquier información relevante y detalles.",
+            "instructions": "Únete a nuestro Discord y busca el canal que corresponde a tu sistema operativo. Comparte el contenido del registro mostrado aquí, e incluye una descripción clara del problema con cualquier información relevante y detalles.",
             "instructions_title": "¿Cómo reportar un problema?",
             "last-log": "Último registro",
             "no-file": "No se ha encontrado ningún archivo de registro",
@@ -471,7 +465,6 @@
         },
         "select_theme": "Seleccionar Tema",
         "showfps": "Mostrar FPS (Cuadros Por Segundo) (DX9, 10 y 11)",
-        "showUnrealMarket": "Mostrar la tienda de Unreal (requiere reiniciar)",
         "start-in-tray": "Iniciar minimizado",
         "steamruntime": "Usar Steam Runtime",
         "winecrossoverbottle": "Botella de CrossOver",
@@ -531,11 +524,7 @@
     "store": "Tienda de Epic",
     "stores": "Tiendas",
     "title": {
-        "allGames": "Todos los juegos",
-        "allUnreal": "Unreal - Todo",
-        "unrealAssets": "Unreal - Recursos",
-        "unrealPlugins": "Unreal - Plug-ins",
-        "unrealProjects": "Unreal - Proyectos"
+        "allGames": "Todos los juegos"
     },
     "toolbox": {
         "settings": {

@@ -70,7 +70,13 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 
 ## Language Support
 
+Thanks to the community Heroic was translated to almost 40 different languages so far:
+
 - English
+- Azerbaijani
+- Basque
+- Belarussian
+- Bosnian
 - Bulgarian
 - Catalan
 - Czech
@@ -83,11 +89,13 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - French
 - German
 - Greek
+- Japanese
 - Korean
 - Hungarian
 - Italian
 - Indonesian
 - Malayalam
+- Norwegian Bokmål
 - Persian
 - Polish
 - Portuguese
@@ -95,6 +103,7 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
 - Romanian
 - Russian
 - Spanish
+- Slovak
 - Swedish
 - Tamil
 - Turkish
