@@ -7,9 +7,9 @@
         "part2": "Отворете",
         "part3": "Epic Store от тук",
         "part4": ", влезте в акаунта си и копирайте своя",
-        "part5": "номер SID",
+        "part5": "номер authorization code",
         "part6": "Поставете своя",
-        "part7": "номер SID",
+        "part7": "номер authorization code",
         "part8": "в полето по-долу и натиснете бутона за вход."
     },
     "status": {

@@ -7,9 +7,9 @@
         "part2": "打开",
         "part3": "Epic 游戏商城",
         "part4": "，登录您的账户，复制您的",
-        "part5": "SID 信息号码",
+        "part5": "authorization code 信息号码",
         "part6": "粘贴您的",
-        "part7": "SID 号码",
+        "part7": "authorization code 号码",
         "part8": "到下面的输入框中并点击登录按钮。"
     },
     "status": {

@@ -98,7 +98,8 @@ import {
   isSteamDeckGameMode,
   isCLIFullscreen,
   isCLINoGui,
-  isFlatpak
+  isFlatpak,
+  wineprefixFAQ
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -584,6 +585,7 @@ ipcMain.on('openLoginPage', async () => openUrlOrFile(epicLoginUrl))
 ipcMain.on('openDiscordLink', async () => openUrlOrFile(discordLink))
 ipcMain.on('openPatreonPage', async () => openUrlOrFile(patreonPage))
 ipcMain.on('openKofiPage', async () => openUrlOrFile(kofiPage))
+ipcMain.on('openWinePrefixFAQ', async () => openUrlOrFile(wineprefixFAQ))
 ipcMain.on('openWebviewPage', async (event, url) => openUrlOrFile(url))
 ipcMain.on('openWikiLink', async () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', async () => openUrlOrFile(sidInfoUrl))
