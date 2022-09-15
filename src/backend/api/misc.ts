@@ -78,9 +78,6 @@ export const getAnticheatInfo = async (namespace: string) =>
 
 export const requestSettingsRemoveListeners = () =>
   ipcRenderer.removeAllListeners('requestSettings')
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const setGameStatusRemoveListener = (onGameStatusUpdate: any) =>
-  ipcRenderer.removeListener('setGameStatus', onGameStatusUpdate)
 
 export const clipboardReadText = async () =>
   ipcRenderer.invoke('clipboardReadText')

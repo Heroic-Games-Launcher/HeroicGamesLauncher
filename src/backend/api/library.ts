@@ -1,26 +1,18 @@
 import { ipcRenderer } from 'electron'
-import { Runner, InstallPlatform, LaunchParams } from '../../common/types'
+import { Runner, InstallParams, LaunchParams } from '../../common/types'
 
 export const removeFolder = (args: [path: string, folderName: string]) =>
   ipcRenderer.send('removeFolder', args)
 
 export const openDialog = async (args: Electron.OpenDialogOptions) =>
   ipcRenderer.invoke('openDialog', args)
-interface InstallArgs {
-  appName: string
-  path: string
-  installDlcs: boolean
-  sdlList: string[]
-  installLanguage?: string
-  runner: Runner
-  platformToInstall?: InstallPlatform
-}
-export const install = async (args: InstallArgs) =>
+
+export const install = async (args: InstallParams) =>
   ipcRenderer.invoke('install', args)
 export const openMessageBox = async (args: Electron.MessageBoxOptions) =>
   ipcRenderer.invoke('openMessageBox', args)
 export const uninstall = async (
-  args: [appName: string, checkboxChecked: boolean, runner: Runner]
+  args: [appName: string, shouldRemovePrefix: boolean, runner: Runner]
 ) => ipcRenderer.invoke('uninstall', args)
 export const repair = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('repair', appName, runner)
@@ -38,8 +30,16 @@ export const importGame = async (args: ImportGameArgs) =>
   ipcRenderer.invoke('importGame', args)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleSetGameStatus = (callback: any) =>
+export const handleSetGameStatus = (callback: any) => {
   ipcRenderer.on('setGameStatus', callback)
+  return () => {
+    ipcRenderer.removeListener('setGameStatus', callback)
+  }
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// export const setGameStatusRemoveListener = (onGameStatusUpdate: any) => {
+//   ipcRenderer.removeListener('setGameStatus', onGameStatusUpdate)
+// }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const handleProgressOf = (version: string, callback: any) =>
   ipcRenderer.on('progressOf' + version, callback)

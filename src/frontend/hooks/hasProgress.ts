@@ -42,10 +42,11 @@ export const hasProgress = (appName: string) => {
         })
       }
     }
-    window.api.handleSetGameStatus(onGameStatusUpdate)
+    const setGameStatusRemoveListener =
+      window.api.handleSetGameStatus(onGameStatusUpdate)
 
     return () => {
-      window.api.setGameStatusRemoveListener(onGameStatusUpdate)
+      setGameStatusRemoveListener()
     }
   }, [])
 

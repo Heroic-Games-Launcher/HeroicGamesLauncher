@@ -141,7 +141,8 @@ async function install({
       path: `${path}`,
       installDlcs,
       sdlList,
-      runner
+      runner,
+      platformToInstall
     })
     .finally(() => {
       if (progress.percent === 100) {

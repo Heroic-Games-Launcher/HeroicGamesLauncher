@@ -32,10 +32,11 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
   }
 
   useEffect(() => {
-    window.api.handleSetGameStatus(onGameStatusUpdates)
+    const setGameStatusRemoveListener =
+      window.api.handleSetGameStatus(onGameStatusUpdates)
 
     return () => {
-      window.api.setGameStatusRemoveListener(onGameStatusUpdates)
+      setGameStatusRemoveListener()
     }
   })
 
