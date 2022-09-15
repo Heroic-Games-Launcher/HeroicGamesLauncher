@@ -12,8 +12,7 @@ import {
   sendKill,
   size,
   syncSaves,
-  updateGame,
-  ipcRenderer
+  updateGame
 } from 'frontend/helpers'
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'

@@ -31,8 +31,7 @@ import {
   getProgress,
   install,
   size,
-  writeConfig,
-  ipcRenderer
+  writeConfig
 } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {

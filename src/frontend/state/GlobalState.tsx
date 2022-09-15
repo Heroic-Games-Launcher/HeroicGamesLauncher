@@ -17,8 +17,7 @@ import {
   getPlatform,
   install,
   launch,
-  notify,
-  ipcRenderer
+  notify
 } from '../helpers'
 import { i18n, t } from 'i18next'
 

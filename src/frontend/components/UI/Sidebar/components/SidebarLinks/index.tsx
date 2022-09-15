@@ -15,11 +15,6 @@ import classNames from 'classnames'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
-import {
-  faCoffee,
-  faUserAlt,
-  faWineGlass
-} from '@fortawesome/free-solid-svg-icons'
 import { openDiscordLink, getGameInfo } from 'frontend/helpers'
 
 import ContextProvider from 'frontend/state/ContextProvider'
