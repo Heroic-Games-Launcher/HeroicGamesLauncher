@@ -47,7 +47,7 @@
         "uninstall": "Deinstallieren",
         "update": "Update"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
     "dlc": {
         "installDlcs": "Alle DLCs installieren"
@@ -76,7 +76,7 @@
     "info": {
         "canRunOffline": "Online erforderlich",
         "installedPlatform": "Installierte Plattform",
-        "path": "Installations-Pfad",
+        "path": "Installationspfad",
         "size": "Größe",
         "syncsaves": "Spielstände synchronisieren",
         "version": "Version"

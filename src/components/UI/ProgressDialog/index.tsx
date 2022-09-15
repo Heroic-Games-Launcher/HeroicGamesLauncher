@@ -1,7 +1,11 @@
 import './index.css'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { Dialog, DialogContent, DialogHeader } from 'src/components/UI/Dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader
+} from 'frontend/components/UI/Dialog'
 import { LinearProgress } from '@mui/material'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'

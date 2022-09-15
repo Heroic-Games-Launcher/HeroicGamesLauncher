@@ -16,7 +16,6 @@
         "status": "Status",
         "title": "Tato hra obsahuje anticheatový software"
     },
-    "Assets": "Assety",
     "box": {
         "cache-cleared": {
             "message": "Mezipaměť Heroic vymazána.",
@@ -59,10 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "no-offline-mode": {
-                "message": "Spouštění přerušeno! Ke spuštění hry je potřeba připojení k internetu.",
-                "title": "Režim offline není podporován."
-            },
+            "launchAborted": "Launch aborted",
             "title": "Error",
             "uncaught-exception": {
                 "message": "Došlo k nezachycené výjimce:{{newLine}}{{error}}{{newLine}}{{newLine}} Heroic bude ukončen! Nahlaste výjimku v našem repozitáři na Githubu.",
@@ -375,9 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "Plugins": "Plugins",
     "progress": "Progress",
-    "Projects": "Projekty",
     "Recent": "Recently Played",
     "search": "Vyhledat hry",
     "setting": {
@@ -471,7 +465,6 @@
         },
         "select_theme": "Vybrat motiv",
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
-        "showUnrealMarket": "Zobrazit Unreal Marketplace (vyžaduje restart)",
         "start-in-tray": "Spustit minimalizované",
         "steamruntime": "Použít služby Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -531,11 +524,7 @@
     "store": "Epic Store",
     "stores": "Obchody",
     "title": {
-        "allGames": "Všechny hry",
-        "allUnreal": "Unreal - Vše",
-        "unrealAssets": "Unreal - Součásti",
-        "unrealPlugins": "Unreal - Pluginy",
-        "unrealProjects": "Unreal - Projekty"
+        "allGames": "Všechny hry"
     },
     "toolbox": {
         "settings": {

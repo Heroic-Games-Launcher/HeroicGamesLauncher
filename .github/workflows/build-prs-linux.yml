@@ -23,6 +23,9 @@ jobs:
         run: yarn
       - name: Build artifacts.
         run: yarn dist:linux appimage --publish=never
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Upload AppImage.
         uses: actions/upload-artifact@v2
         with:

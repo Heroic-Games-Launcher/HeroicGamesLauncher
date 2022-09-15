@@ -18,3 +18,4 @@ jobs:
       - run: npm run release:mac
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}

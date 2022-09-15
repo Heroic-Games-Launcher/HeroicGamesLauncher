@@ -2,26 +2,19 @@
     "button": {
         "login": "Autentificare"
     },
-    "info": {
-        "needHelp": "Ai nevoie de ajutor?"
-    },
-    "input": {
-        "placeholder": "Lipiți numărul authorization code aici"
-    },
     "message": {
-        "part1": "Pentru a vă putea conecta și a instala jocurile, trebuie mai întâi să urmați pașii de mai jos:",
+        "part1": "In order to log in and install your games, you first need to follow the steps below:",
+        "part2": "Deschide",
         "part3": "Epic Store aici",
-        "part4": ", conectați-vă contul și copiați-vă",
+        "part4": ", log in to your account and copy your",
         "part5": "numărul de informații authorization code",
-        "part6": "Lipește",
+        "part6": "Paste your",
         "part7": "număr authorization code",
-        "part8": "în caseta de introducere de mai jos, faceți clic pe butonul de conectare și așteptați.",
-        "part2": "Deschide"
+        "part8": "in the input box below and click on the login button."
     },
     "status": {
         "error": "Eroare",
-        "loading": "Se încarcă lista de jocuri, așteptați",
-        "logging": "Autentificare…"
+        "loading": "Se încarcă lista de jocuri, așteptați"
     },
     "welcome": "Bun venit!"
 }
