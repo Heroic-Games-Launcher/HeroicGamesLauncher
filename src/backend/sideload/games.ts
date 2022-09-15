@@ -2,6 +2,12 @@ import { Game } from '../games'
 import { GameSettings, ExecResult, GameInfo } from '../../common/types'
 import { BrowserWindow } from 'electron/main'
 import { libraryStore } from './electronStores'
+import { GameConfig } from 'backend/game_config'
+import { runWineCommand } from 'backend/launcher'
+import { isWindows, isMac, isLinux, execOptions } from 'backend/constants'
+import { execAsync, killPattern } from 'backend/utils'
+import { logError, logInfo, LogPrefix } from 'backend/logger/logger'
+import { SideLoadLibrary } from './library'
 
 interface SideloadGame {
   runner: string
@@ -32,37 +38,99 @@ export default class SideloadGames extends Game {
     return this.instances.get(appName) as SideloadGames
   }
 
-  public getGameInfo(installPlatform?: string | undefined): GameInfo {
-    throw new Error('Method not implemented.')
+  public getGameInfo(): GameInfo {
+    return libraryStore.get(this.appName, {}) as GameInfo
   }
-  public getSettings(): Promise<GameSettings> {
-    throw new Error('Method not implemented.')
+
+  async getSettings(): Promise<GameSettings> {
+    return (
+      GameConfig.get(this.appName).config ||
+      (await GameConfig.get(this.appName).getSettings())
+    )
   }
+
   public install(app: SideloadGame) {
     return libraryStore.set(this.appName, app)
   }
-  public addShortcuts(): Promise<void> {
+  public async addShortcuts(): Promise<void> {
     throw new Error('Method not implemented.')
   }
-  public launch(launchArguments?: string | undefined): Promise<boolean> {
-    throw new Error('Method not implemented.')
+  public async launch(launchArguments?: string | undefined): Promise<boolean> {
+    const {
+      install: { executable }
+    } = this.getGameInfo()
+    if (executable) {
+      console.log({ launchArguments })
+      return this.runWineCommand(executable)
+        .then(() => true)
+        .catch(() => false)
+    }
+    return false
   }
-  public moveInstall(newInstallPath: string): Promise<string> {
-    throw new Error('Method not implemented.')
+
+  public async moveInstall(newInstallPath: string): Promise<string> {
+    const {
+      install: { install_path },
+      title
+    } = this.getGameInfo()
+
+    if (!install_path) {
+      return ''
+    }
+
+    if (isWindows) {
+      newInstallPath += '\\' + install_path.split('\\').at(-1)
+    } else {
+      newInstallPath += '/' + install_path.split('/').at(-1)
+    }
+
+    logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Backend)
+    await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
+      .then(() => {
+        SideLoadLibrary.get().changeGameInstallPath(
+          this.appName,
+          newInstallPath
+        )
+        logInfo(`Finished Moving ${title}`, LogPrefix.Gog)
+      })
+      .catch((error) => logError(`${error}`, LogPrefix.Gog))
+    return newInstallPath
   }
-  public stop(): Promise<void> {
-    throw new Error('Method not implemented.')
+
+  public async stop(): Promise<void> {
+    const {
+      install: { executable }
+    } = this.getGameInfo()
+
+    if (executable) {
+      killPattern(executable)
+    }
   }
-  public uninstall(): Promise<ExecResult> {
-    throw new Error('Method not implemented.')
+
+  public uninstall(): void {
+    return libraryStore.delete(this.appName)
   }
   public isNative(): boolean {
-    throw new Error('Method not implemented.')
+    const gameInfo = this.getGameInfo()
+    if (isWindows) {
+      return true
+    }
+
+    if (isMac && gameInfo.install.platform === 'osx') {
+      return true
+    }
+
+    if (isLinux && gameInfo.install.platform === 'linux') {
+      return true
+    }
+
+    return false
   }
-  public runWineCommand(
+
+  public async runWineCommand(
     command: string,
     wait?: boolean | undefined
   ): Promise<ExecResult> {
-    throw new Error('Method not implemented.')
+    return runWineCommand(this, command, Boolean(wait))
   }
 }

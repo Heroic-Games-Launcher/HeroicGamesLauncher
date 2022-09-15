@@ -25,7 +25,7 @@ abstract class Game {
   abstract launch(launchArguments?: string): Promise<boolean>
   abstract moveInstall(newInstallPath: string): Promise<string>
   abstract stop(): Promise<void>
-  abstract uninstall(): Promise<ExecResult>
+  abstract uninstall(): Promise<ExecResult> | void
   abstract isNative(): boolean
   abstract runWineCommand(command: string, wait?: boolean): Promise<ExecResult>
 }
