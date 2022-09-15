@@ -8,7 +8,8 @@ import {
   InstalledInfo,
   RefreshOptions,
   Runner,
-  WineVersionInfo
+  WineVersionInfo,
+  UserInfo
 } from 'common/types'
 import { Category, LibraryTopSectionOptions } from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
@@ -31,7 +32,6 @@ import {
   libraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
-import { UserInfo } from 'common/types'
 
 const storage: Storage = window.localStorage
 

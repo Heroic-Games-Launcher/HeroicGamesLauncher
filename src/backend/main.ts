@@ -23,7 +23,8 @@ import {
   ipcMain,
   powerSaveBlocker,
   protocol,
-  screen
+  screen,
+  clipboard
 } from 'electron'
 import './updater'
 import { autoUpdater } from 'electron-updater'
@@ -118,7 +119,6 @@ import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
-import { clipboard } from 'electron'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
