@@ -2,40 +2,42 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "npm",
-      "script": "dist",
-      "problemMatcher": [],
-      "label": "Test",
+      "type": "shell",
+      "label": "Run tests",
+      "command": "yarn test",
       "detail": "yarn test",
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      }
+      "group": "test"
     },
     {
-      "type": "npm",
-      "script": "dist",
-      "problemMatcher": [],
+      "type": "shell",
       "label": "Build for Linux",
-      "detail": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --linux",
+      "command": "yarn dist:linux",
+      "detail": "yarn dist:linux",
       "group": {
         "kind": "build",
         "isDefault": true
       }
     },
     {
-      "type": "npm",
-      "script": "dist",
-      "problemMatcher": [],
+      "type": "shell",
       "label": "Build for Windows",
-      "detail": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --win"
+      "command": "yarn dist:win",
+      "detail": "yarn dist:win",
+      "group": "build"
     },
     {
-      "type": "npm",
-      "script": "dist",
-      "problemMatcher": [],
+      "type": "shell",
       "label": "Build for MacOS",
-      "detail": "yarn build-electron && yarn build && electron-builder -c.extraMetadata.main=build/main.js --darwin"
+      "command": "yarn dist:mac",
+      "detail": "yarn dist:mac",
+      "group": "build"
+    },
+    {
+      "type": "shell",
+      "label": "Check code for errors",
+      "command": "yarn codecheck",
+      "detail": "yarn codecheck",
+      "group": "test"
     }
   ]
 }

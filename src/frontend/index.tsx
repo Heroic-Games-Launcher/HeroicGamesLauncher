@@ -14,7 +14,7 @@ import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
 
 window.addEventListener('error', (ev: ErrorEvent) => {
-  window.api.logError(ev.error.stack)
+  window.api.logError(ev.error)
 })
 
 const Backend = new HttpApi(null, {

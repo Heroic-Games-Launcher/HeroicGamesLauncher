@@ -4,7 +4,10 @@ import {
   faSlidersH,
   faStore,
   faUser,
-  faUniversalAccess
+  faUniversalAccess,
+  faCoffee,
+  faUserAlt,
+  faWineGlass
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'

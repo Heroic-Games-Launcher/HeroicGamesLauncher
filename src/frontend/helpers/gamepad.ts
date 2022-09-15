@@ -1,4 +1,4 @@
-import { AppSettings, GamepadActionStatus } from '../../common/types'
+import { AppSettings, GamepadActionStatus } from 'common/types'
 import {
   checkGameCube,
   checkPS3,
@@ -318,7 +318,7 @@ export const initGamepad = () => {
           checkXbox(buttons, axes, index, checkAction)
         }
       } catch (error) {
-        console.log(`Gamepad error: ${error}`)
+        console.log('Gamepad error:', error)
       }
     })
 

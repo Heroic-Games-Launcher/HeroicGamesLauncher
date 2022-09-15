@@ -7,7 +7,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import cx from 'classnames'
 import classNames from 'classnames'
 
 import React, {
@@ -32,7 +31,8 @@ import {
   getProgress,
   install,
   size,
-  writeConfig
+  writeConfig,
+  ipcRenderer
 } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
@@ -393,7 +393,7 @@ export default function InstallModal({
     <div className="InstallModal">
       <Dialog
         onClose={backdropClick}
-        className={cx('InstallModal__dialog', {
+        className={classNames('InstallModal__dialog', {
           'InstallModal__dialog--loading': !title
         })}
       >

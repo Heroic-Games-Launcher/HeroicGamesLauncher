@@ -71,7 +71,7 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
 
   const getLogContent = () => {
     window.api
-      .getLogContent({ isDefault, appName, defaultLast })
+      .getLogContent({ isDefault, appName: isDefault ? '' : appName, defaultLast })
       .then((content: string) => {
         setLogFileContent(content)
         setLogFileExist(true)
@@ -98,7 +98,7 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
   }, [isDefault, defaultLast])
 
   function showLogFileInFolder() {
-    window.api.showLogFileInFolder({ isDefault, appName })
+    window.api.showLogFileInFolder({ isDefault, isDefault ? '' : appName, defaultLast })
   }
 
   return (

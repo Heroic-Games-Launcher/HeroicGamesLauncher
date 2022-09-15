@@ -56,7 +56,7 @@ export const AdvancedSettings = ({
     useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
-  const { libraryStatus, handleGameStatus, platform } =
+  const { libraryStatus, handleGameStatus, platform, refreshLibrary } =
     useContext(ContextProvider)
   const { t } = useTranslation()
   const isWindows = platform === 'win32'
@@ -273,10 +273,11 @@ export const AdvancedSettings = ({
     setEosOverlayCheckingForUpdates(false)
   }
 
-  function clearHeroicCache() {
+  async function clearHeroicCache() {
     const storage: Storage = window.localStorage
     storage.removeItem('updates')
     return window.api.clearCache()
+    return refreshLibrary({ fullRefresh: true, runInBackground: true })
   }
 
   return (
@@ -517,7 +518,7 @@ export const AdvancedSettings = ({
         </button>
         <button
           className="button is-footer is-danger"
-          onClick={() => clearHeroicCache()}
+          onClick={async () => clearHeroicCache()}
         >
           <div className="button-icontext-flex">
             <div className="button-icon-flex">
