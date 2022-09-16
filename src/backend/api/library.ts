@@ -37,13 +37,6 @@ export const handleSetGameStatus = (callback: any) => {
   }
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-// export const setGameStatusRemoveListener = (onGameStatusUpdate: any) => {
-//   ipcRenderer.removeListener('setGameStatus', onGameStatusUpdate)
-// }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleProgressOf = (version: string, callback: any) =>
-  ipcRenderer.on('progressOf' + version, callback)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const handleLaunchGame = (callback: any) =>
   ipcRenderer.on('launchGame', callback)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

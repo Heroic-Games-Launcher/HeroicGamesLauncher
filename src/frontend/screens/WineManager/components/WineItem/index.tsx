@@ -35,7 +35,7 @@ const WineItem = ({
 
   if (version) {
     window.api.handleProgressOf(
-      'progressOf' + version,
+      version,
       (
         e: Electron.IpcRendererEvent,
         progress: {

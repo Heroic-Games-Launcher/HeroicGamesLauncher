@@ -24,12 +24,10 @@ export const showErrorBox = async (args: [title: string, message: string]) =>
   ipcRenderer.invoke('showErrorBox', args)
 
 export const showLogFileInFolder = (args: {
-  isDefault: boolean
   appName: string
   defaultLast?: boolean
 }) => ipcRenderer.send('showLogFileInFolder', args)
 export const getLogContent = async (args: {
-  isDefault: boolean
   appName: string
   defaultLast?: boolean
 }) => ipcRenderer.invoke('getLogContent', args)

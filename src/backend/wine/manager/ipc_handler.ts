@@ -24,7 +24,10 @@ ipcMain.handle('installWineVersion', async (e, release: WineVersionInfo) => {
   abortControllers.set(release.version, abortController)
 
   const onProgress = (state: State, progress?: ProgressInfo) => {
-    e.sender.send('progressOf' + release.version, { state, progress })
+    e.sender.send('progressOfWineManager' + release.version, {
+      state,
+      progress
+    })
   }
   const result = await installWineVersion(
     release,

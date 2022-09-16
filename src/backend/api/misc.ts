@@ -35,8 +35,6 @@ export const authGOG = async (token: string) =>
 export const logoutGOG = async () => ipcRenderer.invoke('logoutGOG')
 export const checkGameUpdates = async () =>
   ipcRenderer.invoke('checkGameUpdates')
-export const refreshWineVersionInfo = async (fetch?: boolean) =>
-  ipcRenderer.invoke('refreshWineVersionInfo', fetch)
 export const refreshLibrary = async (
   fullRefresh?: boolean,
   library?: Runner | 'all'
