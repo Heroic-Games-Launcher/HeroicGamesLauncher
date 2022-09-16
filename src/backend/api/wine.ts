@@ -33,5 +33,5 @@ export const progressOfWinetricksRemoveListener = (onProgress: any) =>
   ipcRenderer.removeListener('progressOfWinetricks', onProgress)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleProgressOf = (version: string, callback: any) =>
+export const handleProgressOfWineManager = (version: string, callback: any) =>
   ipcRenderer.on('progressOfWineManager' + version, callback)

@@ -34,7 +34,7 @@ const WineItem = ({
   }>({ state: 'idle', progress: { percentage: 0, avgSpeed: 0, eta: Infinity } })
 
   if (version) {
-    window.api.handleProgressOf(
+    window.api.handleProgressOfWineManager(
       version,
       (
         e: Electron.IpcRendererEvent,
