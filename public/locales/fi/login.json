@@ -7,9 +7,9 @@
         "part2": "Avaa",
         "part3": "Epic Store tässä",
         "part4": ", kirjaudu sisään omalle käyttäjällesi ja kopioi sinun",
-        "part5": "SID-tietonumero",
+        "part5": "authorization code-tietonumero",
         "part6": "Liitä oma",
-        "part7": "SID-numero",
+        "part7": "authorization code-numero",
         "part8": "syötelaatikkoon alla sekä napsauta sisäänkirjautumisen painiketta."
     },
     "status": {

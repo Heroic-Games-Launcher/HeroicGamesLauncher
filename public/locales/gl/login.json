@@ -7,9 +7,9 @@
         "part2": "Abrir o",
         "part3": "Epic Store aquí",
         "part4": ", inicia sesión coa túa conta e copia o teu",
-        "part5": "número de información de SID",
+        "part5": "número de información de authorization code",
         "part6": "Pega o teu",
-        "part7": "número SID",
+        "part7": "número authorization code",
         "part8": "no cadro de entrada de abaixo e fai clic no botón de inicio de sesión."
     },
     "status": {

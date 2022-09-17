@@ -17,7 +17,8 @@ import {
   getPlatform,
   install,
   launch,
-  notify
+  notify,
+  ipcRenderer
 } from '../helpers'
 import { i18n, t } from 'i18next'
 
@@ -31,7 +32,6 @@ import {
   libraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
-import { ipcRenderer } from '../helpers'
 
 const storage: Storage = window.localStorage
 

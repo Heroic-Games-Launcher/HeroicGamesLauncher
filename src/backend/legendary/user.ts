@@ -9,8 +9,8 @@ import { session } from 'electron'
 import { runLegendaryCommand } from './library'
 
 export class LegendaryUser {
-  public static async login(sid: string) {
-    const commandParts = ['auth', '--sid', sid]
+  public static async login(authorizationCode: string) {
+    const commandParts = ['auth', '--code', authorizationCode]
 
     try {
       await runLegendaryCommand(commandParts, {
@@ -19,10 +19,9 @@ export class LegendaryUser {
       const userInfo = await this.getUserInfo()
       return { status: 'done', data: userInfo }
     } catch (error) {
-      logError(
-        ['Failed to login with Legendary:', `${error}`],
-        LogPrefix.Legendary
-      )
+      logError(['Failed to login with Legendary:', error], {
+        prefix: LogPrefix.Legendary
+      })
 
       return { status: 'failed' }
     }
@@ -36,7 +35,9 @@ export class LegendaryUser {
     })
 
     if (res.error) {
-      logError(['Failed to logout:', res.error], LogPrefix.Legendary)
+      logError(['Failed to logout:', res.error], {
+        prefix: LogPrefix.Legendary
+      })
     }
 
     const ses = session.fromPartition('persist:epicstore')
@@ -57,8 +58,8 @@ export class LegendaryUser {
       configStore.delete('userInfo')
       return {}
     }
-    const userInfoContent = readFileSync(userInfo).toString()
     try {
+      const userInfoContent = readFileSync(userInfo).toString()
       const userInfoObject = JSON.parse(userInfoContent)
       const info: UserInfo = {
         account_id: userInfoObject.account_id,
@@ -68,10 +69,9 @@ export class LegendaryUser {
       configStore.set('userInfo', info)
       return info
     } catch (error) {
-      logError(
-        `User info file corrupted, check ${userInfo}`,
-        LogPrefix.Legendary
-      )
+      logError(`User info file corrupted, check ${userInfo}`, {
+        prefix: LogPrefix.Legendary
+      })
       return {}
     }
   }

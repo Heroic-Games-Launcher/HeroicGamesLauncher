@@ -1,5 +1,5 @@
-import { InstallPlatform } from 'common/types'
 import {
+  InstallPlatform,
   AppSettings,
   GameInfo,
   GameStatus,
@@ -183,16 +183,12 @@ async function uninstall({
     const wineprefix = (await getGameSettings(appName, runner)).winePrefix
 
     linuxArgs = {
-      checkboxLabel: [
-        t(
-          'gamepage:box.uninstall.checkbox',
-          "Would you like to remove the prefix aswell? This can't be undone."
-        ),
-        `${t(
-          'gamepage:box.uninstall.checkbox_prefix',
-          'Prefix'
-        )}: ${wineprefix}`
-      ].join('\n'),
+      checkboxLabel: t('gamepage:box.uninstall.checkbox', {
+        defaultValue:
+          "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+        prefix: wineprefix,
+        newLine: '\n'
+      }),
       checkboxChecked: false
     }
   }
@@ -297,16 +293,17 @@ type RecentGame = {
   title: string
 }
 
-function getRecentGames(libraries: GameInfo[]) {
+function getRecentGames(libraries: GameInfo[]): GameInfo[] {
   const recentGames =
     (configStore.get('games.recent', []) as Array<RecentGame>) || []
-  return (
-    recentGames
-      .map((game) => {
-        return libraries.find((info) => info.app_name === game.appName)
-      })
-      // With this `.filter`, no empty entries can be returned. TS doesn't understand this, so we have to add the `as GameInfo[]`
-      .filter(Boolean) as GameInfo[]
+
+  return libraries.filter((game: GameInfo) =>
+    recentGames.some((recent) => {
+      if (!recent || !game) {
+        return false
+      }
+      return recent.appName === game.app_name
+    })
   )
 }
 

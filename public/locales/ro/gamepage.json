@@ -7,21 +7,15 @@
         },
         "choose": "Alege",
         "importpath": "Alege dosarul de joc pentru a importa",
-        "installpath": "Alegeți Calea de instalare",
         "move": {
             "message": "Acest lucru poate dura mult timp, ești sigur?",
             "path": "Alegeți unde doriți să mutați",
             "title": "Mutați Instalarea Jocului"
         },
         "no": "NU",
-        "ok": "Ok",
         "repair": {
-            "title": "Verifică și Repară",
-            "message": "Vrei să încerci să repari acest joc? Acest lucru poate dura mult timp."
-        },
-        "shortcuts": {
-            "title": "Scurtături",
-            "message": "Scurtăturile au fost create pe Desktop și pe meniul Start"
+            "message": "Vrei să încerci să repari acest joc? Acest lucru poate dura mult timp.",
+            "title": "Verifică și Repară"
         },
         "stopInstall": {
             "keepInstalling": "Continuați să instalați",
@@ -29,72 +23,72 @@
             "title": "Opriți instalarea"
         },
         "uninstall": {
-            "message": "Doriți să dezinstalați acest joc?",
-            "title": "Dezinstalează",
             "checkbox": "Doriți să eliminați și prefixul? Acest lucru nu poate fi anulat.",
-            "checkbox_prefix": "Prefix"
+            "checkbox_prefix": "Prefix",
+            "message": "Doriți să dezinstalați acest joc?",
+            "title": "Dezinstalează"
         },
         "update": {
             "message": "Acest joc are o actualizare, vrei să actualizezi acum?",
             "title": "Jocul necesită actualizare"
         },
-        "yes": "DA",
-        "wineprefix": "Selectați folderul WinePrefix"
+        "wineprefix": "Selectați folderul WinePrefix",
+        "yes": "DA"
     },
     "button": {
+        "add_to_favourites": "Adaugă la favorite",
         "cancel": "Pauză/Anulează",
         "continue": "Continuați descărcarea",
+        "force_update": "Forțați actualizarea dacă este disponibilă",
+        "hide_game": "Ascunde jocul",
         "import": "Importă Jocul",
         "install": "Instalează",
-        "uninstall": "Dezinstalează",
-        "update": "Actualizează",
-        "hide_game": "Ascunde jocul",
+        "remove_from_favourites": "Eliminați din Favorite",
         "unhide_game": "Afișează jocul",
-        "force_update": "Forțați actualizarea dacă este disponibilă",
-        "add_to_favourites": "Adaugă la favorite",
-        "remove_from_favourites": "Eliminați din Favorite"
+        "uninstall": "Dezinstalează",
+        "update": "Actualizează"
     },
+    "cloud_save_unsupported": "Neacceptat",
     "disabled": "Dezactivat",
     "dlc": {
-        "installDlcs": "Instalați toate DLC-urile",
-        "title": "DLC-uri"
+        "installDlcs": "Instalați toate DLC-urile"
     },
     "enabled": "Activat",
     "game": {
         "downloadSize": "Dimensiune descărcare",
         "firstPlayed": "Prima dată jucat",
+        "info": "Info",
         "installSize": "Mărime Instalare",
+        "language": "Limba",
         "lastPlayed": "Ultima Dată Jucat",
         "neverPlayed": "Niciodată",
-        "totalPlayed": "Timp Jucat",
-        "info": "Info",
-        "language": "Limba",
         "platform": "Selectați versiunea platformei de instalat",
         "reuirements": "Cerințe de sistem",
-        "tools": "Instrumente"
+        "tools": "Instrumente",
+        "totalPlayed": "Timp Jucat"
     },
     "gamecard": {
         "moving": "Mutare",
         "repairing": "Reparare"
     },
+    "generic": {
+        "error": "Eroare Necunoscută"
+    },
     "info": {
         "canRunOffline": "Online Necesar",
+        "installedPlatform": "Platformă instalată",
         "path": "Cale De Instalare",
         "size": "Mărime",
         "syncsaves": "Salvări sincronizate",
-        "version": "Versiune",
-        "installedPlatform": "Platformă instalată"
+        "version": "Versiune"
     },
     "install": {
-        "another": "Instalați pe altă cale",
-        "default": "Instalează în",
-        "import": "Importă Joc",
-        "wineprefix": "WinePrefix",
         "disk-space-left": "Spatiu disponibil",
         "not-enough-disk-space": "Spatiu pe disc insuficient",
         "path": "Selectați Calea de instalare",
         "path-not-writtable": "Atenție: este posibil ca calea să nu poată fi scrisă.",
         "space-after-install": "După instalare",
+        "wineprefix": "WinePrefix",
         "wineversion": "Versiune Wine"
     },
     "label": {
@@ -109,8 +103,8 @@
     "launch": {
         "options": "Opțiuni de Lansare..."
     },
+    "report_problem": "Raportați o problemă la rularea acestui joc",
     "sdl": {
-        "showList": "Faceți clic pentru a afișa/ascunde componentele suplimentare",
         "title": "Selectați componentele de instalat"
     },
     "specs": {
@@ -124,28 +118,23 @@
         "installing": "Se Instalează",
         "moving": "Se mută instalarea, așteptați",
         "notinstalled": "Acest joc nu este instalat",
+        "processing": "Se procesează fișierele, așteptați",
         "reparing": "Reparare joc, vă rugăm așteptați",
         "totalDownloaded": "Descărcat total",
-        "updating": "Joc in curs de actualizare",
-        "processing": "Se procesează fișierele, așteptați"
+        "updating": "Joc in curs de actualizare"
     },
     "submenu": {
         "addShortcut": "Adaugă scurtătură",
-        "change": "Schimbați calea de instalare",
-        "log": "Ultimul jurnal",
-        "move": "Mută Jocul",
-        "protondb": "Verificați compatibilitatea",
-        "settings": "Setări",
-        "store": "Pagina magazinului",
-        "verify": "Verificați și Reparați",
-        "removeShortcut": "Eliminați comenzile rapide",
         "addToSteam": "Adăugați la Steam",
+        "change": "Schimbați calea de instalare",
         "disableEosOverlay": "Dezactivați suprapunerea EOS",
         "enableEosOverlay": "Activați EOS Overlay",
-        "removeFromSteam": "Scoateți din Steam"
-    },
-    "generic": {
-        "error": "Eroare Necunoscută"
-    },
-    "report_problem": "Raportați o problemă la rularea acestui joc"
+        "move": "Mută Jocul",
+        "protondb": "Verificați compatibilitatea",
+        "removeFromSteam": "Scoateți din Steam",
+        "removeShortcut": "Eliminați comenzile rapide",
+        "settings": "Setări",
+        "store": "Pagina magazinului",
+        "verify": "Verificați și Reparați"
+    }
 }

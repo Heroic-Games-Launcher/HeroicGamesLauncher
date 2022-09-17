@@ -11,20 +11,21 @@ import CurrentDownload from './components/CurrentDownload'
 import SidebarLinks from './components/SidebarLinks'
 import './index.css'
 import HeroicVersion from './components/HeroicVersion'
+import { GameStatus } from 'common/types'
 
 export default function Sidebar() {
   const { t } = useTranslation()
   const { libraryStatus, sidebarCollapsed, setSideBarCollapsed } =
     useContext(ContextProvider)
   const downloading = libraryStatus.filter(
-    (g) => g.status === 'installing' || g.status === 'updating'
+    (g: GameStatus) => g.status === 'installing' || g.status === 'updating'
   )
 
   return (
     <aside className={classNames('Sidebar', { collapsed: sidebarCollapsed })}>
       <SidebarLinks />
       <div className="currentDownloads">
-        {downloading.map((g) => (
+        {downloading.map((g: GameStatus) => (
           <CurrentDownload
             key={g.appName}
             appName={g.appName}

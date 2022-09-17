@@ -61,8 +61,8 @@
             "launchAborted": "Launch aborted",
             "title": "Error",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Wystąpił nieoczekiwany błąd:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic zostanie zamknięty. Możesz zgłosić to na naszym Github'ie.",
+                "title": "Wystąpił nieoczekiwany błąd!"
             },
             "update": {
                 "message": "Aktualizacja nie powiodła się, sprawdź logi lub spróbuj ponownie!",
@@ -71,6 +71,10 @@
             "wine-not-found": {
                 "message": "Nie wybrano wersji Wine. Sprawdź ustawienia gry!",
                 "title": "Nie znaleziono Wine"
+            },
+            "winetricks": {
+                "message": "Podczas uruchamiania, Winetricks zwrócił błąd:{{newLine}}{{error}}",
+                "title": "Błąd Winetricks"
             }
         },
         "info": {
@@ -96,7 +100,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Czy jesteś pewny, że chcesz zresetować Heroic? To działanie usunie wszystkie twoje ustawienia i pliki cache, lecz nie usunie zainstalowanych gier. Wersje przenośne (AppImage, WinPortable, ...) muszą później zostać uruchomione ponownie ręcznie.",
                 "title": "Zresetuj Heroic"
             }
         },
@@ -217,6 +221,7 @@
             "part7": " , żeby pominąć launcher w niektórych grach, itp."
         },
         "preferSystemLibs": "Customowe wersje Wine (Wine-GE, Wine-Lutris) są pobierane wraz z wymaganymi bibliotekami. Włączając tą opcję, te biblioteki zostaną zignorowane, a zamiast nich zostaną wykorzystane biblioteki systemowe Wine. Uwaga! Może powodować problemy z kompatybilnością zależności.",
+        "primerun": "Używaj dedykowanej karty graficznej do renderowania na urządzeniach multi-GPU. Potrzebne tylko dla gamingowych laptopów, lub komputerów używających więcej niż jednej karty graficznej (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar pomaga podnieść ilość klatek pozwalając CPU na dostęp do całego bufora graficznego. Włączenie tej opcji może podnieść wydajność w grach opartych na Vulkan'ie.",
         "steamruntime": "Customowe biblioteki dostarczane przez Steam w celu ułatwienia uruchamiania gier Windows'owych na Linux'ie. Włączenie podniesie kompatybilność.",
         "sync": {
@@ -234,8 +239,8 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "newReleases": "Update Available!",
-            "stable": "Stable",
+            "newReleases": "Dostępna Aktualizacja!",
+            "stable": "Stabilna",
             "version": "Wersja Heroic"
         },
         "settings": "Ustawienia są zapisywane automatycznie",
@@ -244,7 +249,13 @@
     "infobox": {
         "help": "Pomoc",
         "requirements": "Wymagania Systemowe",
-        "wine-path": "Ścieżka Wine"
+        "wine-path": "Ścieżka Wine",
+        "wine-prefix": {
+            "title": "Prefiks Wine"
+        },
+        "wine-repfix": {
+            "message": "Wine wykorzystuje tzw. Prefiks w celu przechowywania aplikacji Windowsowych. Prefiks ten zawiera pliki konfiguracyjne Wine oraz dokładne odwzorowanie hierarchii dysku C:// (głównego dysku w systemie Windows). Tam przechowywane są zapisy gier oraz pliki potrzebne do uruchomienia gry zainstalowane przez winetricks."
+        }
     },
     "install": {
         "path": "Wybierz ścieżkę instalacji"
@@ -279,15 +290,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "Gra {{game}} nie mogła zostać dodana dla wszystkich znalezionych użytkowników Steam. Zobacz logi po więcej informacji. Restart aplikacji Steam jest wymagany by zatwierdzić zmiany.",
+                    "success": "Gra {{game}} została dodana do Steam. Restart aplikacji Steam jest wymagany by zatwierdzić zmiany.",
                     "title": "Dodano do Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "Gra {{game}} nie mogła zostać usunięta od wszystkich użytkowników Steam. Zobacz logi po więcej informacji. Restart aplikacji Steam jest wymagany by zatwierdzić zmiany.",
+                    "success": "Gra {{game}} została usunięta ze Steam'a. Restart aplikacji Steam jest wymagany by zatwierdzić zmiany.",
                     "title": "Usunięto ze Steam"
                 }
             },
@@ -302,7 +313,7 @@
         },
         "moved": "Przenoszenie zakończone",
         "moving": "Przenoszenie gry",
-        "new-heroic-version": "A new Heroic version was released!",
+        "new-heroic-version": "Pojawiła się nowa wersja Heroic!",
         "refresh": {
             "error": "Nie udało się pobrać nowej wersji, prawdopodobnie z powodu limitacji API Github'a! Spróbuj ponownie później."
         },
@@ -318,17 +329,17 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "Np. : Ścieżka/Do/DodatkowychPlików",
-            "title": "Environment Variables",
+            "title": "Zmienne środowiskowe",
             "value": "Wartość"
         },
         "env_variables": {
             "error": {
-                "empty_key": "Variable names can't be empty",
-                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "empty_key": "Nazwy zmiennych nie mogą być puste",
+                "equal_sign_in_key": "Nazwy zmiennych nie mogą zawierać znaku \"=\"",
+                "space_in_key": "Nazwy zmiennych nie mogą zawierać spacji"
             },
-            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "example": "NIE zawieraj znaku \"=\" by ustawić np. \"MY_FLAG=123\", zamiast tego użyj \"MY_FLAG\" w nazwie zmiennej oraz \"123\" w wartości.",
+            "info": "Ustaw zmienne środowiskowe dołączane do komendy."
         },
         "gameargs": {
             "placeholder": "Wstaw tutaj argumenty uruchamiania",
@@ -360,6 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "progress": "Progres",
     "Recent": "Ostatnio uruchamiane",
     "search": "Wyszukaj gry",
     "setting": {
@@ -372,7 +384,7 @@
         "autosync": "Automatyczna synchronizacja zapisów",
         "autovkd3d": "Automatyczne Instaluj/Aktualizuj VKD3D w prefiksie",
         "change-target-exe": "Wybierz alternatywny plik EXE do uruchomienia",
-        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
+        "checkForUpdatesOnStartup": "Sprawdzaj aktualizacje Heroic podczas uruchomienia",
         "crossover-version": "Wersja Crossover",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikon",
@@ -495,7 +507,7 @@
         "open-config-file": "Otwórz plik konfiguracyjny",
         "reset-heroic": "Zresetuj Heroic",
         "saves": {
-            "label": "Save Location:",
+            "label": "Lokalizacja zapisów gry:",
             "warning": "Zapisy w chmurze są w wazie Beta, zrób kopię swoich zapisów przed synchronizacją (na wypadek niepowodzenia)"
         }
     },
@@ -531,7 +543,7 @@
         "show": "Pokaż"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Zmiany w tej tabeli nie są zapisywane automatycznie. Użyj guzika +"
     },
     "Update Available!": "",
     "userselector": {

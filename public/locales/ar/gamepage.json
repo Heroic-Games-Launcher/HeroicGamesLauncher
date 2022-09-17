@@ -93,7 +93,7 @@
         "invalid-folder": "خطأ: المسار غير صالح",
         "not-enough-disk-space": "مساحة غير كافيه",
         "space-after-install": "بعد التثبيت",
-        "path-not-writtable": "تحذير: المسار قد لا يكون قابلاً للتحرير."
+        "path-not-writtable": "تحذير: المسار قد لا يكون قابلاً للحرير."
     },
     "label": {
         "playing": {
@@ -147,5 +147,6 @@
     "report_problem": "أبلغ عن مشكلة في تشغيل هذه اللعبة",
     "generic": {
         "error": "خطأ مجهول"
-    }
+    },
+    "cloud_save_unsupported": "غير مدعوم"
 }

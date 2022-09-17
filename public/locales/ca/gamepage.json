@@ -23,8 +23,7 @@
             "title": "Atura la instal·lació"
         },
         "uninstall": {
-            "checkbox": "Vols suprimir també el prefix? Això no es pot desfer.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Treu el prefix: {{prefix}}{{newLine}}Avís: No es pot desfer i també traurà les desades de les quals no s'hagin fet còpies de seguretat.",
             "message": "Vols desinstal·lar aquest joc?",
             "title": "Desinstal·la"
         },
@@ -48,7 +47,7 @@
         "uninstall": "Desinstal·la",
         "update": "Actualitza"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "No suportat",
     "disabled": "Desactivat",
     "dlc": {
         "installDlcs": "Instal·la tots els DLCs"

@@ -3,7 +3,7 @@
         "actions_font_family": "Fonte para ações (Padrão: \"Rubik\")",
         "all_tiles_in_color": "Mostrar quadrados dos jogos coloridos",
         "content_font_family": "Fonte para conteúdo (Padrão: \"Cabin\")",
-        "fonts": "Fontes",
+        "fonts": "Fontees",
         "title": "Accessibilidade",
         "zoom": "Zoom"
     },
@@ -33,7 +33,7 @@
             "add": {
                 "steam": {
                     "body": "Erro ao adicionar {{game}} à Steam:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "title": "Erro ao adicionar"
                 }
             },
             "credentials": {
@@ -61,8 +61,8 @@
             "launchAborted": "Launch aborted",
             "title": "Erro",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Ocorreu uma exceção não capturada:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic será fechado! Relate a exceção em nosso repositório do Github.",
+                "title": "Ocorreu uma exceção não capturada!"
             },
             "update": {
                 "message": "Algo deu errado ao atualizar, cheque os logs ou tente novamente mais tarde!",
@@ -71,6 +71,10 @@
             "wine-not-found": {
                 "message": "Nenhuma Versão do wine selecionada. Cheque as configurações do jogo!",
                 "title": "Wine Não Encontrado"
+            },
+            "winetricks": {
+                "message": "Winetricks retornou o seguinte erro durante a execução:{{newLine}}{{error}}",
+                "title": "Erro do Winetricks"
             }
         },
         "info": {
@@ -217,6 +221,7 @@
             "part7": " para evitar abrir o launcher em alguns jogos, etc."
         },
         "preferSystemLibs": "Versões personalizadas do Wine (Wine-GE, Wine-Lutris) são enviadas com suas dependências de biblioteca. Ao habilitar esta opção, essas bibliotecas enviadas serão ignoradas e o Wine carregará as bibliotecas do sistema. Aviso! Podem ocorrer problemas se as dependências não forem atendidas.",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "A barra redimensionável da NVIDIA ajuda a aumentar a taxa de quadros fazendo com que a CPU acesse todo o buffer gráfico. A ativação pode melhorar o desempenho de jogos baseados em Vulkan.",
         "steamruntime": "Bibliotecas personalizadas fornecidas pelo Steam para ajudar a executar jogos Linux e Windows (Proton). A ativação pode melhorar a compatibilidade.",
         "sync": {
@@ -244,7 +249,13 @@
     "infobox": {
         "help": "Ajuda",
         "requirements": "Requisitos do Sistema",
-        "wine-path": "Caminho do Wine"
+        "wine-path": "Caminho do Wine",
+        "wine-prefix": {
+            "title": "Wine Prefix"
+        },
+        "wine-repfix": {
+            "message": "O Wine usa o que é chamado de prefixo Wine para encapsular aplicativos do Windows. Este prefixo contém os arquivos de configuração do Wine e uma reprodução da hierarquia de arquivos de C: (o disco principal em um sistema operacional Windows). Nesta reprodução da unidade C:, são armazenados os arquivos salvos do jogo e as dependências instaladas via winetricks."
+        }
     },
     "install": {
         "path": "Selecione o local de instalação"
@@ -360,6 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "progress": "Progress",
     "Recent": "Jogados Recentemente",
     "search": "Buscar jogos",
     "setting": {

@@ -1,0 +1,59 @@
+.progressDialog {
+  max-width: min(700px, 85vw);
+  width: 100%;
+}
+
+.progressDialog .Dialog__content {
+  width: 100%;
+}
+
+.progressDialog.log-box {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding-block: 4px;
+  padding-inline: 6px;
+  height: 25em;
+  width: calc(90vw - var(--sidebar-width));
+  overflow: auto;
+  user-select: text;
+}
+
+.progressDialog.log-box.collapsed {
+  width: calc(90vw - var(--sidebar-width));
+}
+
+.progressDialog.log-error,
+.progressDialog.log-warning,
+.progressDialog.log-info {
+  text-align: left;
+  margin-block: 0;
+  min-height: 1em;
+  height: max-content;
+  white-space: pre;
+  font-family: monospace;
+}
+
+.progressDialog.log-error {
+  color: #c18672;
+}
+
+.progressDialog.log-warning {
+  color: #f5cf69;
+}
+
+.progressDialog.log-info {
+  color: rgb(175, 172, 172);
+}
+
+.progressDialog.header {
+  margin-bottom: 10px;
+}
+
+.progressDialog.linearProgress {
+  margin-top: 10px;
+  background-color: var(--primary);
+}
+
+.progressDialog.linearProgress > .MuiLinearProgress-bar {
+  background-color: var(--accent);
+}

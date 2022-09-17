@@ -23,8 +23,7 @@
             "title": "Installation abbrechen"
         },
         "uninstall": {
-            "checkbox": "Möchtest du das Präfix ebenfalls entfernen? Dies kann nicht rückgängig gemacht werden.",
-            "checkbox_prefix": "Präfix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Möchtest du dieses Spiel deinstallieren?",
             "title": "Deinstallieren"
         },
@@ -48,7 +47,7 @@
         "uninstall": "Deinstallieren",
         "update": "Update"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
     "dlc": {
         "installDlcs": "Alle DLCs installieren"
@@ -77,7 +76,7 @@
     "info": {
         "canRunOffline": "Online erforderlich",
         "installedPlatform": "Installierte Plattform",
-        "path": "Installations-Pfad",
+        "path": "Installationspfad",
         "size": "Größe",
         "syncsaves": "Spielstände synchronisieren",
         "version": "Version"

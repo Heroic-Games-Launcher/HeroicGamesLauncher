@@ -15,11 +15,9 @@ import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import { EnviromentVariable, WrapperVariable, Runner } from 'common/types'
 import { Path } from 'frontend/types'
 import Backspace from '@mui/icons-material/Backspace'
-import { getGameInfo } from 'frontend/helpers'
+import { getGameInfo, ipcRenderer } from 'frontend/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
-import { ipcRenderer } from 'frontend/helpers'
+import { faCircleInfo, faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import {
   ColumnProps,
   TableInput
@@ -281,12 +279,23 @@ export default function OtherSettings({
             />
           </div>
 
-          <ToggleSwitch
-            htmlId="primerun"
-            value={primeRun}
-            handleChange={togglePrimeRun}
-            title={t('setting.primerun', 'Use Dedicated Graphics Card')}
-          />
+          <div className="toggleRow">
+            <ToggleSwitch
+              htmlId="primerun"
+              value={primeRun}
+              handleChange={togglePrimeRun}
+              title={t('setting.primerun', 'Use Dedicated Graphics Card')}
+            />
+
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.primerun',
+                'Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)'
+              )}
+            />
+          </div>
 
           <ToggleSwitch
             htmlId="audiofix"

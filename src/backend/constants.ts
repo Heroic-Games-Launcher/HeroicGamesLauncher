@@ -5,11 +5,8 @@ import Store from 'electron-store'
 import { parse } from '@node-steam/vdf'
 
 import { GameConfigVersion, GlobalConfigVersion } from 'common/types'
-import {
-  createNewLogFileAndClearOldOnces,
-  logDebug,
-  LogPrefix
-} from './logger/logger'
+import { logDebug, LogPrefix } from './logger/logger'
+import { createNewLogFileAndClearOldOnces } from './logger/logfile'
 import { env } from 'process'
 import { app } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -67,8 +64,7 @@ const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
 const installed = join(legendaryConfigPath, 'installed.json')
 const legendaryMetadata = join(legendaryConfigPath, 'metadata')
 const fallBackImage = 'fallback'
-const epicLoginUrl =
-  'https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect'
+const epicLoginUrl = 'https://legendary.gl/epiclogin'
 const gogLoginUrl =
   'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 const sidInfoUrl =
@@ -85,6 +81,7 @@ const wikiLink =
 const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
 const kofiPage = 'https://ko-fi.com/heroicgames'
 const patreonPage = 'https://www.patreon.com/heroicgameslauncher'
+const wineprefixFAQ = 'https://wiki.winehq.org/FAQ#Wineprefixes'
 
 /**
  * Get shell for different os
@@ -163,10 +160,9 @@ export async function getSteamLibraries(): Promise<string[]> {
       (path) => existsSync(path)
     )
   }
-  logDebug(
-    'Unable to load Steam Libraries, libraryfolders.vdf not found',
-    LogPrefix.Backend
-  )
+  logDebug('Unable to load Steam Libraries, libraryfolders.vdf not found', {
+    prefix: LogPrefix.Backend
+  })
   return libraries
 }
 
@@ -226,5 +222,6 @@ export {
   isCLIFullscreen,
   isCLINoGui,
   publicDir,
-  GITHUB_API
+  GITHUB_API,
+  wineprefixFAQ
 }

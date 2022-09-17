@@ -11,9 +11,9 @@
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
-        "source": "Source",
-        "status": "Status",
+        "reference": "Referans",
+        "source": "Kaynak",
+        "status": "Durum",
         "title": "This game includes anticheat software"
     },
     "box": {
@@ -28,7 +28,7 @@
         "customWine": "Wine veya Proton çalıştırılabilir dosyasını seç",
         "default-install-path": "Öntanımlı Kurulum Yerini Seçin",
         "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "downloadNow": "Şimdi indir",
         "error": {
             "add": {
                 "steam": {
@@ -48,7 +48,7 @@
                 "title": "Alan Yok"
             },
             "dxvk": {
-                "message": "DXVK/VKD3D kurulurken hata oluştu! Bağlantınıza veya zstd/libzstd1 kurulu olup olmadığına bakın",
+                "message": "DXVK/VKD3D yüklenirken hata oluştu! Lütfen bağlantınızı kontrol edin!",
                 "title": "DXVK/VKD3D hatası"
             },
             "folder-not-found": {
@@ -71,6 +71,10 @@
             "wine-not-found": {
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
                 "title": "Wine Bulunamadı"
+            },
+            "winetricks": {
+                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "title": "Winetricks error"
             }
         },
         "info": {
@@ -217,6 +221,7 @@
             "part7": " gibi."
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
+        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
@@ -244,7 +249,13 @@
     "infobox": {
         "help": "Yardım",
         "requirements": "Sistem Gereksinimleri",
-        "wine-path": "Wine Path"
+        "wine-path": "Wine Path",
+        "wine-prefix": {
+            "title": "Wine Prefix"
+        },
+        "wine-repfix": {
+            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+        }
     },
     "install": {
         "path": "Kurulum Yolunu Seçin"
@@ -360,6 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "progress": "Progress",
     "Recent": "Son Oynanan",
     "search": "Oyun Ara",
     "setting": {

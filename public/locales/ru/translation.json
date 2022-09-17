@@ -71,6 +71,10 @@
             "wine-not-found": {
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
                 "title": "Wine не найден"
+            },
+            "winetricks": {
+                "message": "Winetricks вернул следующую ошибку во время выполнения: {{newLine}}{{error}}",
+                "title": "Ошибка Winetricks"
             }
         },
         "info": {
@@ -161,7 +165,7 @@
             "open_virtual_keyboard": "Открыть виртуальную клавиатуру",
             "play_game": "Играть",
             "scroll": "Scroll",
-            "space": "Space",
+            "space": "Пробел",
             "update_game": "Обновить игру"
         }
     },
@@ -217,6 +221,7 @@
             "part7": " чтобы пропустить лаунчер в некоторых играх, интро и т.д."
         },
         "preferSystemLibs": "Пользовательские версии Wine (Wine-GE, Wine-Lutris) поставляются со своими библиотечными зависимостями. При включении этой опции эти поставляемые библиотеки будут игнорироваться, и Wine будет загружать системные библиотеки вместо них. Внимание! При несоблюдении зависимостей могут возникнуть проблемы.",
+        "primerun": "Использовать выделенную видеокарту для рендеринга игры в системах с несколькими GPU. Необходимо только для игровых ноутбуков или настольных компьютеров, использующих для рендеринга headless GPU (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar помогает повысить частоту кадров, предоставляя ЦП доступ ко всему графическому буферу. Включение может повысить производительность в играх на базе Vulkan.",
         "steamruntime": "Пользовательские библиотеки, предоставляемые Steam для запуска игр для Linux и Windows (Proton). Включение может улучшить совместимость.",
         "sync": {
@@ -244,7 +249,13 @@
     "infobox": {
         "help": "Помощь",
         "requirements": "Системные требования",
-        "wine-path": "Путь к Wine"
+        "wine-path": "Путь к Wine",
+        "wine-prefix": {
+            "title": "Префикс Wine"
+        },
+        "wine-repfix": {
+            "message": "Wine использует так называемый WINEPREFIX для инкапсуляции приложений Windows. Этот префикс содержит файлы конфигурации Wine и воспроизведение файловой иерархии диска C: (основной диск в ОС Windows). В этом воспроизведении диска C: хранятся файлы сохранения игр и зависимости, установленные с помощью winetricks."
+        }
     },
     "install": {
         "path": "Выберите путь установки"
@@ -318,17 +329,17 @@
             "key": "Имя переменной",
             "placeHolderKey": "ИМЯ",
             "placeHolderValue": "Например: Path/To/ExtraFiles",
-            "title": "Environment Variables",
+            "title": "Переменные среды",
             "value": "Значение"
         },
         "env_variables": {
             "error": {
-                "empty_key": "Variable names can't be empty",
-                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "empty_key": "Имена переменных не могут быть пустыми",
+                "equal_sign_in_key": "Имена переменных не могут содержать знак \"=\"",
+                "space_in_key": "Имена переменных не могут содержать пробелы"
             },
-            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "example": "НЕ включайте знак \"=\", например: для такого параметра, как \"MY_FLAG=123\", установите MY_FLAG в ИМЯ и 123 в ЗНАЧЕНИЕ.",
+            "info": "Задать переменные среды для добавления к команде."
         },
         "gameargs": {
             "placeholder": "Вставьте сюда аргументы запуска",
@@ -360,6 +371,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "progress": "Progress",
     "Recent": "Запускались недавно",
     "search": "Поиск игр",
     "setting": {
@@ -531,7 +543,7 @@
         "show": "Показать"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Изменения в этой таблице не сохраняются автоматически. Нажмите кнопку +"
     },
     "Update Available!": "",
     "userselector": {

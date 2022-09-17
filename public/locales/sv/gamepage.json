@@ -23,8 +23,7 @@
             "title": "Avbryt installationen"
         },
         "uninstall": {
-            "checkbox": "Vill du även radera Wine-prefix? Radering kan ej ångras.",
-            "checkbox_prefix": "Prefix",
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Vill du avinstallera spelet?",
             "title": "Avinstallera"
         },

@@ -11,7 +11,9 @@ import {
   launch,
   sendKill,
   size,
-  syncSaves
+  syncSaves,
+  updateGame,
+  ipcRenderer
 } from 'frontend/helpers'
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -490,8 +492,8 @@ export default function GamePage(): JSX.Element | null {
       getProgress(progress) >= 99
         ? ''
         : `${
-            percent && bytes && eta
-              ? `${percent}% [${bytes}] | ETA: ${eta}`
+            percent && bytes
+              ? `${percent}% [${bytes}] ${eta ? `ETA: ${eta}` : ''}`
               : '...'
           }`
 

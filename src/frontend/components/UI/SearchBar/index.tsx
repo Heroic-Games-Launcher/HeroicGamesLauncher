@@ -23,7 +23,10 @@ export default function SearchBar() {
 
   const list = useMemo(() => {
     const library = new Set(
-      [...epic.library, ...gog.library].map((g) => g.title).sort()
+      [...epic.library, ...gog.library]
+        .filter(Boolean)
+        .map((g) => g.title)
+        .sort()
     )
     return [...library].filter((i) =>
       new RegExp(fixFilter(filterText), 'i').test(i)

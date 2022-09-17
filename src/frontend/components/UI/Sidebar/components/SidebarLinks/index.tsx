@@ -4,7 +4,10 @@ import {
   faSlidersH,
   faStore,
   faUser,
-  faUniversalAccess
+  faUniversalAccess,
+  faCoffee,
+  faUserAlt,
+  faWineGlass
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
@@ -12,11 +15,6 @@ import classNames from 'classnames'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
-import {
-  faCoffee,
-  faUserAlt,
-  faWineGlass
-} from '@fortawesome/free-solid-svg-icons'
 import { ipcRenderer, openDiscordLink, getGameInfo } from 'frontend/helpers'
 
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -83,7 +81,7 @@ export default function SidebarLinks() {
         const info =
           runner === 'sideload' ? emptyCard : await getGameInfo(appName, runner)
         setGameInfo(info)
-        if (info.is_installed) {
+        if (info?.is_installed) {
           setIsDefaultSetting(false)
           const wineOrOther = isWin
             ? `/settings/${runner}/${appName}/other`

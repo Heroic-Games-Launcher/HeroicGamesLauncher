@@ -20,8 +20,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { Tooltip } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { faFolderOpen, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { configStore } from 'frontend/helpers/electronStores'
 
 import { ipcRenderer } from 'frontend/helpers'
@@ -195,6 +194,19 @@ export default function WineSettings({
               .then(({ path }: Path) =>
                 setWinePrefix(path ? `${path}` : winePrefix)
               )
+          }
+          afterInput={
+            <InfoBox text={t('infobox.wine-prefix.title', 'Wine Prefix')}>
+              <p>
+                {t(
+                  'infobox.wine-repfix.message',
+                  'Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored.'
+                )}
+              </p>
+              <a href={'https://wiki.winehq.org/FAQ#Wineprefixes'}>
+                Wineprefix FAQ
+              </a>
+            </InfoBox>
           }
         />
       )}
