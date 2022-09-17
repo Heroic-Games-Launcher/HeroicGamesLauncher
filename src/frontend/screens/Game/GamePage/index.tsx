@@ -20,8 +20,6 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
-import { updateGame } from 'frontend/helpers'
-
 import { AppSettings, GameInfo, GameStatus, Runner } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
@@ -39,7 +37,6 @@ import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
 
-import { ipcRenderer } from 'frontend/helpers'
 import { emptyCard } from 'frontend/screens/Library/constants'
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 // This component is becoming really complex and it needs to be refactored in smaller ones

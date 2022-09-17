@@ -1,12 +1,13 @@
+import { BrowserWindow } from 'electron'
+
 import { Game } from '../games'
 import { GameSettings, ExecResult, GameInfo } from '../../common/types'
-import { BrowserWindow } from 'electron/main'
 import { libraryStore } from './electronStores'
-import { GameConfig } from 'backend/game_config'
-import { runWineCommand } from 'backend/launcher'
-import { isWindows, isMac, isLinux, execOptions } from 'backend/constants'
-import { execAsync, killPattern } from 'backend/utils'
-import { logError, logInfo, LogPrefix } from 'backend/logger/logger'
+import { GameConfig } from '../game_config'
+import { runWineCommand } from '../launcher'
+import { isWindows, isMac, isLinux, execOptions } from '../constants'
+import { execAsync, killPattern } from '../utils'
+import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { SideLoadLibrary } from './library'
 
 interface SideloadGame {
@@ -84,16 +85,18 @@ export default class SideloadGames extends Game {
       newInstallPath += '/' + install_path.split('/').at(-1)
     }
 
-    logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Backend)
+    logInfo(`Moving ${title} to ${newInstallPath}`, {
+      prefix: LogPrefix.Backend
+    })
     await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
       .then(() => {
         SideLoadLibrary.get().changeGameInstallPath(
           this.appName,
           newInstallPath
         )
-        logInfo(`Finished Moving ${title}`, LogPrefix.Gog)
+        logInfo(`Finished Moving ${title}`, { prefix: LogPrefix.Backend })
       })
-      .catch((error) => logError(`${error}`, LogPrefix.Gog))
+      .catch((error) => logError(`${error}`, { prefix: LogPrefix.Backend }))
     return newInstallPath
   }
 
@@ -132,5 +135,9 @@ export default class SideloadGames extends Game {
     wait?: boolean | undefined
   ): Promise<ExecResult> {
     return runWineCommand(this, command, Boolean(wait))
+  }
+
+  public forceUninstall() {
+    return this.uninstall()
   }
 }

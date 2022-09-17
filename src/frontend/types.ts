@@ -1,7 +1,7 @@
 import { VersionInfo } from 'heroic-wine-downloader'
 import { GameInfo, GameStatus, Runner } from 'common/types'
 
-export type Category = 'all' | 'legendary' | 'gog'
+export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
 
 export interface ContextType {
   category: Category

@@ -1,4 +1,4 @@
-import { logError, LogPrefix } from 'backend/logger/logger'
+import { logError, LogPrefix } from '../logger/logger'
 import { GameInfo, InstalledInfo } from 'common/types'
 import { libraryStore } from './electronStores'
 
@@ -20,7 +20,7 @@ export class SideLoadLibrary {
     if (!cachedGameData) {
       logError(
         "Changing game install path failed: Game data couldn't be found",
-        LogPrefix.Backend
+        { prefix: LogPrefix.Backend }
       )
       return
     }
