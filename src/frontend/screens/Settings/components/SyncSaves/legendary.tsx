@@ -19,9 +19,9 @@ import {
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Path, SyncType } from 'frontend/types'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
+import SettingsContext from '../../SettingsContext'
 
 interface Props {
-  appName: string
   autoSyncSaves: boolean
   isProton?: boolean
   savesPath: string
@@ -34,7 +34,6 @@ interface Props {
 export default function LegendarySyncSaves({
   savesPath,
   setSavesPath,
-  appName,
   autoSyncSaves,
   setAutoSyncSaves,
   isProton,
@@ -49,6 +48,7 @@ export default function LegendarySyncSaves({
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
+  const { appName } = useContext(SettingsContext)
 
   useEffect(() => {
     const getSyncFolder = async () => {

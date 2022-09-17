@@ -1,141 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 
-import { LibraryTopSectionOptions, Path } from 'frontend/types'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
-import { InfoBox, SelectField, ToggleSwitch } from 'frontend/components/UI'
+
 import LanguageSelector from 'frontend/components/UI/LanguageSelector'
+import DefaultInstallPath from './DefaultInstallPath'
+import CheckUpdatesOnStartup from './CheckUpdatesOnStartup'
+import TraySettings from './TraySettings'
+import MinimizeOnGameLaunch from './MinimizeOnGameLaunch'
+import UseDarkTrayIcon from './UseDarkTrayIcon'
+import DisableController from './DisableController'
+import LibraryTopSection from './LibraryTopSection'
+import MaxWorkers from './MaxWorkers'
+import EgsSettings from './EgsSettings'
 
-import Backspace from '@mui/icons-material/Backspace'
-import { toggleControllerIsDisabled } from 'frontend/helpers/gamepad'
-import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
-
-import { ipcRenderer } from 'frontend/helpers'
-interface Props {
-  darkTrayIcon: boolean
-  defaultInstallPath: string
-  disableController: boolean
-  egsLinkedPath: string
-  egsPath: string
-  exitToTray: boolean
-  maxWorkers: number
-  minimizeOnLaunch: boolean
-  checkForUpdatesOnStartup: boolean
-  setDefaultInstallPath: (value: string) => void
-  setEgsLinkedPath: (value: string) => void
-  setEgsPath: (value: string) => void
-  setMaxWorkers: (value: number) => void
-  startInTray: boolean
-  toggleDarkTrayIcon: () => void
-  toggleDisableController: () => void
-  toggleStartInTray: () => void
-  toggleTray: () => void
-  toggleMinimizeOnLaunch: () => void
-  toggleUpdatesOnStartup: () => void
-}
-
-export default function GeneralSettings({
-  defaultInstallPath,
-  setDefaultInstallPath,
-  egsPath,
-  setEgsPath,
-  egsLinkedPath,
-  setEgsLinkedPath,
-  exitToTray,
-  startInTray,
-  toggleTray,
-  toggleStartInTray,
-  maxWorkers,
-  setMaxWorkers,
-  darkTrayIcon,
-  toggleDarkTrayIcon,
-  minimizeOnLaunch,
-  toggleMinimizeOnLaunch,
-  disableController,
-  toggleDisableController,
-  checkForUpdatesOnStartup,
-  toggleUpdatesOnStartup
-}: Props) {
-  const [showUpdateSettings, setShowUpdateSettings] = useState(
-    checkForUpdatesOnStartup
-  )
-  const [isSyncing, setIsSyncing] = useState(false)
-  const [maxCpus, setMaxCpus] = useState(maxWorkers)
-  const {
-    platform,
-    refreshLibrary,
-    libraryTopSection,
-    handleLibraryTopSection
-  } = useContext(ContextProvider)
+export default function GeneralSettings() {
   const { t } = useTranslation()
-  const isLinked = Boolean(egsLinkedPath.length)
-  const isWindows = platform === 'win32'
-
-  useEffect(() => {
-    const getMoreInfo = async () => {
-      const cores = await ipcRenderer.invoke('getMaxCpus')
-      setMaxCpus(cores)
-    }
-    getMoreInfo()
-  }, [maxWorkers])
-
-  useEffect(() => {
-    ipcRenderer
-      .invoke('showUpdateSetting')
-      .then((s) => setShowUpdateSettings(s))
-  }, [])
-
-  async function handleSync() {
-    setIsSyncing(true)
-    if (isLinked) {
-      return ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
-        await ipcRenderer.invoke('openMessageBox', {
-          message: t('message.unsync'),
-          title: 'EGS Sync'
-        })
-        setEgsLinkedPath('')
-        setEgsPath('')
-        setIsSyncing(false)
-        refreshLibrary({ fullRefresh: true, runInBackground: false })
-      })
-    }
-
-    return ipcRenderer.invoke('egsSync', egsPath).then(async (res: string) => {
-      if (res === 'Error') {
-        setIsSyncing(false)
-        ipcRenderer.invoke('showErrorBox', [
-          t('box.error.title', 'Error'),
-          t('box.sync.error')
-        ])
-        setEgsLinkedPath('')
-        setEgsPath('')
-        return
-      }
-      await ipcRenderer.invoke('openMessageBox', {
-        message: t('message.sync'),
-        title: 'EGS Sync'
-      })
-
-      setIsSyncing(false)
-      setEgsLinkedPath(isWindows ? 'windows' : egsPath)
-      refreshLibrary({ fullRefresh: true, runInBackground: false })
-    })
-  }
-
-  function handleEgsFolder() {
-    if (isLinked) {
-      return ''
-    }
-    return ipcRenderer
-      .invoke('openDialog', {
-        buttonLabel: t('box.choose'),
-        properties: ['openDirectory'],
-        title: t('box.choose-egs-prefix')
-      })
-      .then(({ path }: Path) => setEgsPath(path ? path : ''))
-  }
 
   return (
     <>
@@ -143,214 +22,23 @@ export default function GeneralSettings({
 
       <LanguageSelector />
 
-      <TextInputWithIconField
-        label={t('setting.default-install-path')}
-        htmlId="default_install_path"
-        value={defaultInstallPath?.replaceAll("'", '')}
-        placeholder={defaultInstallPath}
-        onChange={(event) => setDefaultInstallPath(event.target.value)}
-        icon={
-          <FontAwesomeIcon
-            icon={faFolderOpen}
-            data-testid="setinstallpathbutton"
-          />
-        }
-        onIconClick={async () =>
-          ipcRenderer
-            .invoke('openDialog', {
-              buttonLabel: t('box.choose'),
-              properties: ['openDirectory'],
-              title: t('box.default-install-path'),
-              defaultPath: defaultInstallPath
-            })
-            .then(({ path }: Path) =>
-              setDefaultInstallPath(path ? `${path}` : defaultInstallPath)
-            )
-        }
-      />
+      <DefaultInstallPath />
 
-      {!isWindows && (
-        <TextInputWithIconField
-          label={t('setting.egs-sync')}
-          extraClass="withRightButton"
-          htmlId="set_epic_sync_path"
-          placeholder={t('placeholder.egs-prefix')}
-          value={egsPath || egsLinkedPath}
-          disabled={isLinked}
-          onChange={(event) => setEgsPath(event.target.value)}
-          icon={
-            !egsPath.length ? (
-              <FontAwesomeIcon
-                icon={faFolderOpen}
-                data-testid="setEpicSyncPathButton"
-                style={{
-                  color: isLinked ? 'transparent' : 'currentColor'
-                }}
-              />
-            ) : (
-              <Backspace
-                data-testid="setEpicSyncPathBackspace"
-                style={
-                  isLinked
-                    ? { color: 'transparent', pointerEvents: 'none' }
-                    : { color: '#B0ABB6' }
-                }
-              />
-            )
-          }
-          onIconClick={
-            !egsPath.length
-              ? () => handleEgsFolder()
-              : () => (isLinked ? '' : setEgsPath(''))
-          }
-          afterInput={
-            <>
-              <span className="rightButton">
-                <button
-                  data-testid="syncButton"
-                  onClick={async () => handleSync()}
-                  disabled={isSyncing || !egsPath.length}
-                  className={`button is-small ${
-                    isLinked
-                      ? 'is-danger'
-                      : isSyncing
-                      ? 'is-primary'
-                      : 'settings'
-                  }`}
-                >
-                  {`${
-                    isLinked
-                      ? t('button.unsync')
-                      : isSyncing
-                      ? t('button.syncing')
-                      : t('button.sync')
-                  }`}
-                </button>
-              </span>
-              <div>
-                {!isWindows && (
-                  <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
-                )}
-              </div>
-            </>
-          }
-        />
-      )}
+      <EgsSettings />
 
-      {isWindows && (
-        <ToggleSwitch
-          htmlId="syncToggle"
-          value={isLinked}
-          handleChange={handleSync}
-          title={t('setting.egs-sync')}
-        />
-      )}
+      <CheckUpdatesOnStartup />
 
-      {showUpdateSettings && (
-        <ToggleSwitch
-          htmlId="checkForUpdatesOnStartup"
-          value={checkForUpdatesOnStartup}
-          handleChange={toggleUpdatesOnStartup}
-          title={t(
-            'setting.checkForUpdatesOnStartup',
-            'Check for Heroic Updates on Startup'
-          )}
-        />
-      )}
+      <TraySettings />
 
-      <ToggleSwitch
-        htmlId="exitToTray"
-        value={exitToTray}
-        handleChange={toggleTray}
-        title={t('setting.exit-to-tray')}
-      />
+      <MinimizeOnGameLaunch />
 
-      {exitToTray && (
-        <ToggleSwitch
-          htmlId="startInTray"
-          value={startInTray}
-          handleChange={toggleStartInTray}
-          title={t('setting.start-in-tray', 'Start Minimized')}
-        />
-      )}
+      <UseDarkTrayIcon />
 
-      <ToggleSwitch
-        htmlId="minimizeOnLaunch"
-        value={minimizeOnLaunch}
-        handleChange={toggleMinimizeOnLaunch}
-        title={t(
-          'setting.minimize-on-launch',
-          'Minimize Heroic After Game Launch'
-        )}
-      />
+      <DisableController />
 
-      <ToggleSwitch
-        htmlId="changeTrayColor"
-        value={darkTrayIcon}
-        handleChange={() => {
-          toggleDarkTrayIcon()
-          return ipcRenderer.send('changeTrayColor')
-        }}
-        title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
-      />
+      <LibraryTopSection />
 
-      <ToggleSwitch
-        htmlId="disableController"
-        value={disableController}
-        handleChange={() => {
-          toggleDisableController()
-          toggleControllerIsDisabled(!disableController)
-        }}
-        title={t(
-          'setting.disable_controller',
-          'Disable Heroic navigation using controller'
-        )}
-      />
-
-      <SelectField
-        label={t('setting.library_top_section', 'Library Top Section')}
-        htmlId="library_top_section_selector"
-        onChange={(event) =>
-          handleLibraryTopSection(
-            event.target.value as LibraryTopSectionOptions
-          )
-        }
-        value={libraryTopSection}
-      >
-        <option value="recently_played">
-          {t(
-            'setting.library_top_option.recently_played',
-            'Recently Played Games'
-          )}
-        </option>
-        <option value="recently_played_installed">
-          {t(
-            'setting.library_top_option.recently_played_installed',
-            'Recently Played Games (Only Installed)'
-          )}
-        </option>
-        <option value="favourites">
-          {t('setting.library_top_option.favourites', 'Favourite Games')}
-        </option>
-        <option value="disabled">
-          {t('setting.library_top_option.disabled', 'Disabled')}
-        </option>
-      </SelectField>
-
-      <SelectField
-        htmlId="max_workers"
-        label={t('setting.maxworkers')}
-        onChange={(event) => setMaxWorkers(Number(event.target.value))}
-        value={maxWorkers.toString()}
-        extraClass="smaller"
-      >
-        {Array.from(Array(maxCpus).keys()).map((n) => (
-          <option key={n + 1}>{n + 1}</option>
-        ))}
-        <option key={0} value={0}>
-          Max
-        </option>
-      </SelectField>
+      <MaxWorkers />
     </>
   )
 }
