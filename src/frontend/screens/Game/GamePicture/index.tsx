@@ -23,7 +23,7 @@ function GamePicture({ art_square, store }: Props) {
   }
 
   const [src, fallback] = getImageFormatting()
-
+  console.log({ fallback })
   return (
     <div className="gamePicture">
       <CachedImage

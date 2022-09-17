@@ -3,7 +3,7 @@ import { LegendaryInstallPlatform } from './types/legendary'
 import { ChildProcess } from 'child_process'
 import { VersionInfo } from 'heroic-wine-downloader'
 
-export type Runner = 'legendary' | 'gog'
+export type Runner = 'legendary' | 'gog' | 'sideload'
 
 interface About {
   description: string

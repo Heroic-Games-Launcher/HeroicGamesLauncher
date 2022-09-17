@@ -28,6 +28,7 @@ import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import { epicCategories, gogCategories } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
+import { SideloadCard, emptyCard } from './constants'
 
 const InstallModal = lazy(
   async () => import('frontend/screens/Library/components/InstallModal')
@@ -180,7 +181,7 @@ export default function Library(): JSX.Element {
 
   // select library
   const libraryToShow = useMemo(() => {
-    let library: GameInfo[] = []
+    let library: Array<SideloadCard | GameInfo> = []
     if (showFavouritesLibrary) {
       library = [...favourites].filter((g) =>
         category === 'all' ? g : g.runner === category
@@ -242,7 +243,7 @@ export default function Library(): JSX.Element {
       ? [...installed, ...installingGames, ...notInstalled]
       : library
 
-    return library
+    return [emptyCard, ...library]
   }, [
     category,
     epic,
@@ -268,7 +269,6 @@ export default function Library(): JSX.Element {
   return (
     <>
       <Header />
-
       <div className="listing">
         <span id="top" />
         {showRecentGames && (

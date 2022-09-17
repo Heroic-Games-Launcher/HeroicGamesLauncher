@@ -23,6 +23,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { Runner, GameInfo } from 'common/types'
 import './index.css'
 import QuitButton from '../QuitButton'
+import { emptyCard } from 'frontend/screens/Library/constants'
 
 interface LocationState {
   fromGameCard: boolean
@@ -73,12 +74,14 @@ export default function SidebarLinks() {
   const loggedIn = epic.username || gog.username
 
   useEffect(() => {
-    if (!runner || runner === 'app') {
-      setIsDefaultSetting(true)
-      setGameInfo({ ...gameInfo, cloud_save_enabled: false })
-      setSettingsPath('/settings/app/default/general')
-    } else {
-      getGameInfo(appName, runner).then((info) => {
+    const gameInfo = async () => {
+      if (!runner || runner === 'app') {
+        setIsDefaultSetting(true)
+        setGameInfo({ ...gameInfo, cloud_save_enabled: false })
+        setSettingsPath('/settings/app/default/general')
+      } else {
+        const info =
+          runner === 'sideload' ? emptyCard : await getGameInfo(appName, runner)
         setGameInfo(info)
         if (info.is_installed) {
           setIsDefaultSetting(false)
@@ -87,8 +90,9 @@ export default function SidebarLinks() {
             : `/settings/${runner}/${appName}/wine`
           setSettingsPath(wineOrOther)
         }
-      })
+      }
     }
+    gameInfo()
   }, [location])
 
   useEffect(() => {

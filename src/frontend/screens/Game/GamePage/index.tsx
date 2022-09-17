@@ -20,7 +20,7 @@ import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
 import { updateGame } from 'frontend/helpers'
 
-import { AppSettings, GameInfo, GameStatus } from 'common/types'
+import { AppSettings, GameInfo, GameStatus, Runner } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
 
@@ -31,8 +31,6 @@ import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'frontend/screens/Library/components'
 import { install } from 'frontend/helpers/library'
-import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
-import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'frontend/hooks/hasProgress'
@@ -40,10 +38,12 @@ import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
 
 import { ipcRenderer } from 'frontend/helpers'
+import { emptyCard } from 'frontend/screens/Library/constants'
+import StoreLogos from 'frontend/components/UI/StoreLogos'
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
 export default function GamePage(): JSX.Element | null {
-  const { appName } = useParams() as { appName: string }
+  const { appName, runner } = useParams() as { appName: string; runner: Runner }
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
@@ -93,12 +93,11 @@ export default function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateConfig = async () => {
       try {
-        let newInfo = await getGameInfo(appName, 'legendary')
-        if (!newInfo) {
-          newInfo = await getGameInfo(appName, 'gog')
-        }
+        const newInfo =
+          runner === 'sideload' ? emptyCard : await getGameInfo(appName, runner)
+        console.log({ newInfo })
         setGameInfo(newInfo)
-        const { install, is_linux_native, is_mac_native, runner } = newInfo
+        const { install, is_linux_native, is_mac_native } = newInfo
 
         const installPlatform =
           install.platform || (is_linux_native && isLinux)
@@ -107,18 +106,21 @@ export default function GamePage(): JSX.Element | null {
             ? 'Mac'
             : 'Windows'
 
-        getInstallInfo(appName, runner, installPlatform)
-          .then((info) => {
-            if (!info) {
-              throw 'Cannot get game info'
-            }
-            setGameInstallInfo(info)
-          })
-          .catch((error) => {
-            console.error(error)
-            ipcRenderer.send('logError', `${error}`)
-            setHasError({ error: true, message: `${error}` })
-          })
+        if (runner !== 'sideload') {
+          getInstallInfo(appName, runner, installPlatform)
+            .then((info) => {
+              if (!info) {
+                throw 'Cannot get game info'
+              }
+              setGameInstallInfo(info)
+            })
+            .catch((error) => {
+              console.error(error)
+              ipcRenderer.send('logError', `${error}`)
+              setHasError({ error: true, message: `${error}` })
+            })
+        }
+
         if (newInfo?.cloud_save_enabled) {
           try {
             const { autoSyncSaves, savesPath, gogSaves }: AppSettings =
@@ -235,7 +237,7 @@ export default function GamePage(): JSX.Element | null {
               <ArrowCircleLeftIcon />
             </NavLink>
             <div className="store-icon">
-              {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
+              <StoreLogos runner={runner} />
             </div>
             <div className={`gameTabs ${tabToShow}`}>
               {

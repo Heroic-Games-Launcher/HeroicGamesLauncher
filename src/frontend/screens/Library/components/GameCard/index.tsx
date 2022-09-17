@@ -21,9 +21,8 @@ import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 
-import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
-import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import classNames from 'classnames'
+import StoreLogos from 'frontend/components/UI/StoreLogos'
 
 interface Card {
   appName: string
@@ -69,9 +68,7 @@ const GameCard = ({
     platform,
     hiddenGames,
     favouriteGames,
-    allTilesInColor,
-    epic,
-    gog
+    allTilesInColor
   } = useContext(ContextProvider)
 
   const isWin = platform === 'win32'
@@ -309,19 +306,8 @@ const GameCard = ({
       case 'gog':
         return 'GOG'
       default:
-        return 'Heroic'
+        return 'sideload'
     }
-  }
-
-  const showStoreLogos = () => {
-    if (epic.username && gog.username) {
-      return runner === 'legendary' ? (
-        <EpicLogo className="store-icon" />
-      ) : (
-        <GOGLogo className="store-icon" />
-      )
-    }
-    return null
   }
 
   return (
@@ -335,7 +321,7 @@ const GameCard = ({
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
           >
-            {showStoreLogos()}
+            <StoreLogos runner={runner} />
             <CachedImage src={imageSrc} className={imgClasses} alt="cover" />
             {logo && (
               <CachedImage
