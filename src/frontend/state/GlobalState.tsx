@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import {
+  ConnectivityStatus,
   FavouriteGame,
   GameInfo,
   GameStatus,
@@ -78,6 +79,7 @@ interface StateProps {
   allTilesInColor: boolean
   sidebarCollapsed: boolean
   activeController: string
+  connectivity: { status: ConnectivityStatus; retryIn: number }
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -144,7 +146,8 @@ export class GlobalState extends PureComponent<Props> {
     actionsFontFamily:
       (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
     allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
-    activeController: ''
+    activeController: '',
+    connectivity: { status: 'offline', retryIn: 0 }
   }
 
   setLanguage = (newLanguage: string) => {
@@ -590,6 +593,16 @@ export class GlobalState extends PureComponent<Props> {
         this.setState({ activeController: e.detail.controllerId })
       }
     )
+
+    // listen to custom connectivity-changed event to update state
+    ipcRenderer.on('connectivity-changed', (_, connectivity) => {
+      this.setState({ connectivity })
+    })
+
+    // get the current status
+    ipcRenderer
+      .invoke('get-connectivity-status', [])
+      .then((connectivity) => this.setState({ connectivity }))
 
     ipcRenderer.send('frontendReady')
   }

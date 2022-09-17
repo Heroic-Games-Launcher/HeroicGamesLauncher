@@ -37,8 +37,8 @@ html,
   color: var(--text-default);
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
-  grid-template-areas: 'sidebar content' 'controller controller';
-  grid-template-rows: 1fr min-content;
+  grid-template-areas: 'offline offline' 'sidebar content' 'controller controller';
+  grid-template-rows: min-content 1fr min-content;
   font-family: var(--content-font-family);
   background: var(--body-background);
   --sidebar-width: 240px;
@@ -51,8 +51,13 @@ html,
   grid-template-columns: var(--sidebar-width) 1fr;
 }
 
+.App .Sidebar {
+  grid-area: sidebar;
+}
+
 .App .content {
   display: flex;
+  grid-area: content;
   flex-direction: column;
   height: 100%;
   overflow-y: auto;
@@ -73,6 +78,10 @@ html,
 .App .controller {
   grid-area: controller;
   position: relative;
+}
+
+.App .offline-message {
+  grid-area: offline;
 }
 
 .danger {

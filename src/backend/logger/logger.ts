@@ -20,7 +20,8 @@ export enum LogPrefix {
   Backend = 'Backend',
   Runtime = 'Runtime',
   Shortcuts = 'Shortcuts',
-  WineTricks = 'Winetricks'
+  WineTricks = 'Winetricks',
+  Connection = 'Connection'
 }
 
 type LogInputType = unknown[] | unknown

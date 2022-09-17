@@ -12,7 +12,7 @@ import Settings from './screens/Settings'
 import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
 import classNames from 'classnames'
-import { ControllerHints } from './components/UI'
+import { ControllerHints, OfflineMessage } from './components/UI'
 
 function App() {
   const { epic, gog, contentFontFamily, actionsFontFamily, sidebarCollapsed } =
@@ -31,6 +31,7 @@ function App() {
       style={style}
     >
       <HashRouter>
+        <OfflineMessage />
         <Sidebar />
         <main className="content">
           <Routes>

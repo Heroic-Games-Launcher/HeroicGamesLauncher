@@ -65,7 +65,8 @@ const initialContext: ContextType = {
   setAllTilesInColor: () => null,
   sidebarCollapsed: false,
   setSideBarCollapsed: () => null,
-  activeController: ''
+  activeController: '',
+  connectivity: { status: 'online', retryIn: 0 }
 }
 
 export default React.createContext(initialContext)

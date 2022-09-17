@@ -1,0 +1,36 @@
+.offline-message {
+  background: wheat;
+  padding: 0.5rem;
+  color: black;
+  display: grid;
+  position: relative;
+}
+
+.offline-message span,
+.offline-message button {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.offline-message button {
+  justify-self: flex-end;
+  align-self: flex-end;
+  background: wheat;
+  border: 2px solid rgb(243, 200, 121);
+}
+
+.offline-message .retry-hint {
+  display: none;
+  position: absolute;
+  top: calc(100% - 5px);
+  right: 5px;
+  width: 200px;
+  z-index: 100;
+  background: wheat;
+  padding: 1rem;
+  border: 2px solid rgb(243, 200, 121);
+}
+
+.offline-message .retry-hint.show {
+  display: block;
+}

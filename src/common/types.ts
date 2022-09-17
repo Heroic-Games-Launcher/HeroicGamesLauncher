@@ -448,3 +448,5 @@ export type ElWebview = {
 export type WebviewType = HTMLWebViewElement & ElWebview
 
 export type InstallPlatform = LegendaryInstallPlatform | GogInstallPlatform
+
+export type ConnectivityStatus = 'offline' | 'check-online' | 'online'

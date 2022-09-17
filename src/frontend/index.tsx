@@ -13,6 +13,9 @@ import { UpdateComponentBase } from './components/UI/UpdateComponent'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
 import { ipcRenderer } from './helpers'
+import { initOnlineMonitor } from './helpers/onlineMonitor'
+
+initOnlineMonitor()
 
 window.addEventListener('error', (ev: ErrorEvent) => {
   ipcRenderer.send('frontendError', ev.error)

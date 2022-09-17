@@ -1,5 +1,5 @@
 import { VersionInfo } from 'heroic-wine-downloader'
-import { GameInfo, GameStatus, Runner } from 'common/types'
+import { ConnectivityStatus, GameInfo, GameStatus, Runner } from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog'
 
@@ -67,6 +67,7 @@ export interface ContextType {
   setSideBarCollapsed: (value: boolean) => void
   sidebarCollapsed: boolean
   activeController: string
+  connectivity: { status: ConnectivityStatus; retryIn: number }
 }
 
 export type LibraryTopSectionOptions =
