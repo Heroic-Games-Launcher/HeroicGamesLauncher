@@ -29,9 +29,6 @@ Heroic is built with Web Technologies like: TypeScript, React, NodeJS and Electr
     - [Any OS (development environment)](#any-os-development-environment)
     - [Building with VS Code](#building-with-vs-code)
     - [Development Using a Container](#development-using-a-container)
-    - [Any OS (development environment)](#any-os-development-environment)
-    - [Building with VS Code](#building-with-vs-code)
-    - [Development Using a Container](#development-using-a-container)
   - [Screenshots](#screenshots)
   - [Credits](#credits)
 
@@ -289,8 +286,12 @@ cd /tmp/heroic
 And you should be good to go, code and build away!
 
 ## Sponsors
+Thanks [Weblate](https://weblate.org/en/) for hosting our translations
 
 ![weblate](https://s.weblate.org/cdn/Logo-Darktext-borders.png)
+
+Thanks [Signpath](https://about.signpath.io) for providing free signing of Windows binaries
+
 ![signpath](https://user-images.githubusercontent.com/26871415/182468471-6ef4aac6-a4e2-4ae8-93ef-d638cd01627d.png)
 
 ## Screenshots
