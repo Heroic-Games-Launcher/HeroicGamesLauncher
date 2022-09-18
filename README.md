@@ -286,6 +286,7 @@ cd /tmp/heroic
 And you should be good to go, code and build away!
 
 ## Sponsors
+
 Thanks [Weblate](https://weblate.org/en/) for hosting our translations
 
 ![weblate](https://s.weblate.org/cdn/Logo-Darktext-borders.png)
