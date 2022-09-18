@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { WineVersionInfo } from 'common/types'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
@@ -33,20 +33,26 @@ const WineItem = ({
     progress: ProgressInfo
   }>({ state: 'idle', progress: { percentage: 0, avgSpeed: 0, eta: Infinity } })
 
-  if (version) {
-    window.api.handleProgressOfWineManager(
-      version,
-      (
-        e: Electron.IpcRendererEvent,
-        progress: {
-          state: State
-          progress: ProgressInfo
-        }
-      ) => {
-        setProgress(progress)
-      }
-    )
-  }
+  useEffect(() => {
+    if (version) {
+      const removeWineManagerDownloadListener =
+        window.api.handleProgressOfWineManager(
+          version,
+          (
+            e: Electron.IpcRendererEvent,
+            progress: {
+              state: State
+              progress: ProgressInfo
+            }
+          ) => {
+            setProgress(progress)
+          }
+        )
+      return removeWineManagerDownloadListener
+    }
+    /* eslint-disable @typescript-eslint/no-empty-function */
+    return () => {}
+  }, [])
 
   if (!version || !downsize) {
     return null
