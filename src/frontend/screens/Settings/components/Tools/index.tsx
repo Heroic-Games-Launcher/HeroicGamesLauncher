@@ -43,12 +43,11 @@ export default function Tools({ appName, runner }: Props) {
       setProgress(messages)
     }
 
-    window.api.handleProgressOfWinetricks(onProgress)
+    const removeWinetricksProgressListener =
+      window.api.handleProgressOfWinetricks(onProgress)
 
     //useEffect unmount
-    return () => {
-      window.api.progressOfWinetricksRemoveListener(onProgress)
-    }
+    return removeWinetricksProgressListener
   }, [])
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { ipcRenderer } from 'electron'
 import { RuntimeName, WineVersionInfo } from '../../common/types'
+import { ProgressInfo, State } from 'heroic-wine-downloader'
 
 export const toggleDXVK = (
   args: [wineArgs: { winePrefix: string; winePath: string }, action: string]
@@ -24,16 +25,25 @@ export const removeWineVersion = async (release: WineVersionInfo) =>
 export const refreshWineVersionInfo = async (fetch?: boolean) =>
   ipcRenderer.invoke('refreshWineVersionInfo', fetch)
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleProgressOfWinetricks = (onProgress: any) =>
+export const handleProgressOfWinetricks = (
+  onProgress: (e: Electron.IpcRendererEvent, messages: string[]) => void
+) => {
   ipcRenderer.on('progressOfWinetricks', onProgress)
+  return () => {
+    ipcRenderer.removeListener('progressOfWinetricks', onProgress)
+  }
+}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const progressOfWinetricksRemoveListener = (onProgress: any) =>
-  ipcRenderer.removeListener('progressOfWinetricks', onProgress)
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleProgressOfWineManager = (version: string, callback: any) => {
+export const handleProgressOfWineManager = (
+  version: string,
+  callback: (
+    e: Electron.IpcRendererEvent,
+    progress: {
+      state: State
+      progress: ProgressInfo
+    }
+  ) => void
+) => {
   ipcRenderer.on('progressOfWineManager' + version, callback)
   return () => {
     ipcRenderer.removeListener('progressOfWineManager' + version, callback)
