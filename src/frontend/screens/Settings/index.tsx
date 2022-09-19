@@ -19,17 +19,20 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import ContextProvider from 'frontend/state/ContextProvider'
 import UpdateComponent from 'frontend/components/UI/UpdateComponent'
 
-import GeneralSettings from './components/GeneralSettings'
-import OtherSettings from './components/OtherSettings'
-import { LegendarySyncSaves, GOGSyncSaves } from './components/SyncSaves'
-import Tools from './components/Tools'
-import WineSettings from './components/WineSettings'
-import LogSettings from './components/LogSettings'
-import { AdvancedSettings } from './components/AdvancedSettings'
-import FooterInfo from './components/FooterInfo'
-import { WineExtensions } from './components'
+import {
+  GeneralSettings,
+  WineExtensions,
+  OtherSettings,
+  Tools,
+  WineSettings,
+  LogSettings,
+  AdvancedSettings,
+  FooterInfo,
+  LegendarySyncSaves,
+  GOGSyncSaves
+} from './components'
 import { configStore } from 'frontend/helpers/electronStores'
-import ContextMenu from '../Library/components/ContextMenu'
+import { ContextMenu } from '../Library/components/'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 
 interface ElectronProps {

@@ -16,7 +16,7 @@ import Fuse from 'fuse.js'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 
-import { GamesList } from './components/GamesList'
+import { GamesList, LibraryHeader, RecentlyPlayed } from './components'
 import {
   FavouriteGame,
   GameInfo,
@@ -25,9 +25,7 @@ import {
   Runner
 } from 'common/types'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
-import LibraryHeader from './components/LibraryHeader'
 import { epicCategories, gogCategories } from 'frontend/helpers/library'
-import RecentlyPlayed from './components/RecentlyPlayed'
 
 const InstallModal = lazy(
   async () => import('frontend/screens/Library/components/InstallModal')

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { SearchBar } from 'frontend/components/UI'
+import SearchBar from '../SearchBar'
 import StoreFilter from 'frontend/components/UI/StoreFilter'
 import ContextProvider from 'frontend/state/ContextProvider'
 import PlatformFilter from '../PlatformFilter'

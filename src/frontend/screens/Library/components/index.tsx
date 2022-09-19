@@ -1,2 +1,5 @@
-export { default as GameCard } from './GameCard'
+export { default as ContextMenu } from './ContextMenu'
+export { default as GamesList } from './GamesList'
 export { default as InstallModal } from './InstallModal'
+export { default as LibraryHeader } from './LibraryHeader'
+export { default as RecentlyPlayed } from './RecentlyPlayed'

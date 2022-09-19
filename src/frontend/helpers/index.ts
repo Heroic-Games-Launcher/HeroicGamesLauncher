@@ -27,22 +27,14 @@ const getPlatform = async () => ipcRenderer.invoke('getPlatform')
 
 const sidInfoPage = (): void => ipcRenderer.send('openSidInfoPage')
 
-const handleKofi = (): void => ipcRenderer.send('openSupportPage')
-
 const handleQuit = (): void => ipcRenderer.send('quit')
-
-const openAboutWindow = (): void => ipcRenderer.send('showAboutWindow')
 
 const openDiscordLink = (): void => ipcRenderer.send('openDiscordLink')
 
 export const size = fileSize.partial({ base: 2 })
 
-let progress: string
-
 const sendKill = async (appName: string, runner: Runner): Promise<void> =>
   ipcRenderer.invoke('kill', appName, runner)
-
-const isLoggedIn = async (): Promise<void> => ipcRenderer.invoke('isLoggedIn')
 
 const syncSaves = async (
   savesPath: string,
@@ -288,16 +280,12 @@ export {
   getPlatform,
   getProgress,
   getAppSettings,
-  handleKofi,
   handleQuit,
   install,
-  isLoggedIn,
   launch,
   loginPage,
   notify,
-  openAboutWindow,
   openDiscordLink,
-  progress,
   repair,
   sendKill,
   sidInfoPage,

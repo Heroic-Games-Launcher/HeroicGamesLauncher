@@ -1,5 +1,11 @@
-import { VersionInfo } from 'heroic-wine-downloader'
-import { GameInfo, GameStatus, Runner } from 'common/types'
+import {
+  GameInfo,
+  GameStatus,
+  HiddenGame,
+  RefreshOptions,
+  Runner,
+  WineVersionInfo
+} from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog'
 
@@ -75,116 +81,11 @@ export type LibraryTopSectionOptions =
   | 'recently_played_installed'
   | 'favourites'
 
-export interface HiddenGame {
-  appName: string
-  title: string
-}
-
-export type FavouriteGame = HiddenGame
-
-export interface InstallProgress {
-  bytes: string
-  eta: string
-  folder?: string
-  percent: number
-}
-
 export interface Path {
   path: string
 }
 
-export type RefreshOptions = {
-  checkForUpdates?: boolean
-  fullRefresh?: boolean
-  library?: Runner | 'all'
-  runInBackground?: boolean
-}
-
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
-
-export interface WineVersionInfo extends VersionInfo {
-  isInstalled: boolean
-  hasUpdate: boolean
-  installDir: string
-}
-
-export type ElWebview = {
-  canGoBack: () => boolean
-  canGoForward: () => boolean
-  goBack: () => void
-  goForward: () => void
-  reload: () => void
-  isLoading: () => boolean
-  getURL: () => string
-  copy: () => string
-  selectAll: () => void
-  findInPage: (text: string | RegExp) => void
-}
-
-export type WebviewType = HTMLWebViewElement & ElWebview
-
-export interface GamepadActionStatus {
-  [key: string]: {
-    triggeredAt: { [key: number]: number }
-    repeatDelay: false | number
-  }
-}
-
-export type AntiCheatStatus =
-  | 'Planned'
-  | 'Denied'
-  | 'Broken'
-  | 'Supported'
-  | 'Running'
-
-export type AntiCheat =
-  | 'Arbiter'
-  | 'BattlEye'
-  | 'Denuvo Anti-Cheat'
-  | 'Easy Anti-Cheat'
-  | 'EQU8'
-  | 'FACEIT'
-  | 'FairFight'
-  | 'Mail.ru Anti-Cheat'
-  | 'miHoYo Protect'
-  | 'miHoYo Protect 2'
-  | 'NEAC Protect'
-  | 'Nexon Game Security'
-  | 'nProtect GameGuard'
-  | 'PunkBuster'
-  | 'RICOCHET'
-  | 'Sabreclaw'
-  | 'Treyarch Anti-Cheat'
-  | 'UNCHEATER'
-  | 'Unknown (Custom)'
-  | 'VAC'
-  | 'Vanguard'
-  | 'Warden'
-  | 'XIGNCODE3'
-  | 'Zakynthos'
-
-export interface AntiCheatInfo {
-  name: string
-  status: ''
-  anticheats: AntiCheat[]
-  notes: string[]
-  native: boolean
-  storeIds: {
-    epic?: {
-      namespace: string
-      slug: string
-    }
-    steam?: string
-  }
-  reference: string
-  updates: AntiCheatReference[]
-}
-
-interface AntiCheatReference {
-  name: string
-  date: string
-  reference: string
-}
 
 declare global {
   interface WindowEventMap {

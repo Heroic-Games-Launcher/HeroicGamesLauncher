@@ -310,13 +310,4 @@ function getRecentGames(libraries: GameInfo[]): GameInfo[] {
 export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
 
-export {
-  handleStopInstallation,
-  getRecentGames,
-  install,
-  launch,
-  repair,
-  uninstall,
-  // updateAllGames,
-  updateGame
-}
+export { getRecentGames, install, launch, repair, uninstall, updateGame }

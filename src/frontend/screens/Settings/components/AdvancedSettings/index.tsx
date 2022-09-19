@@ -40,7 +40,7 @@ interface Props {
   settingsToSave: AppSettings
 }
 
-export const AdvancedSettings = ({
+export default function AdvancedSettings({
   altLegendaryBin,
   altGogdlBin,
   downloadNoHttps,
@@ -48,7 +48,7 @@ export const AdvancedSettings = ({
   setAltGogdlBin,
   toggleDownloadNoHttps,
   settingsToSave
-}: Props) => {
+}: Props) {
   const [legendaryVersion, setLegendaryVersion] = useState('')
   const [gogdlVersion, setGogdlVersion] = useState('')
   const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)

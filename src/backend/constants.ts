@@ -65,16 +65,12 @@ const installed = join(legendaryConfigPath, 'installed.json')
 const legendaryMetadata = join(legendaryConfigPath, 'metadata')
 const fallBackImage = 'fallback'
 const epicLoginUrl = 'https://legendary.gl/epiclogin'
-const gogLoginUrl =
-  'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 const sidInfoUrl =
   'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues/42'
 const heroicGithubURL =
   'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest'
 const GITHUB_API =
   'https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases'
-const supportURL =
-  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/blob/main/Support.md'
 const discordLink = 'https://discord.gg/rHJ2uqdquK'
 const wikiLink =
   'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
@@ -181,10 +177,8 @@ export {
   discordLink,
   execOptions,
   fixAsarPath,
-  getShell,
   configStore,
   heroicConfigPath,
-  heroicFolder,
   heroicGamesConfigPath,
   heroicGithubURL,
   heroicIconFolder,
@@ -207,10 +201,8 @@ export {
   legendaryConfigPath,
   legendaryMetadata,
   epicLoginUrl,
-  gogLoginUrl,
   patreonPage,
   sidInfoUrl,
-  supportURL,
   fallBackImage,
   userInfo,
   weblateUrl,
@@ -223,5 +215,6 @@ export {
   isCLINoGui,
   publicDir,
   GITHUB_API,
-  wineprefixFAQ
+  wineprefixFAQ,
+  getShell
 }

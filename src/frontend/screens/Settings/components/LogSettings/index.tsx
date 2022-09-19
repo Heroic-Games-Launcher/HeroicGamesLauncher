@@ -59,7 +59,7 @@ const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
   )
 }
 
-export interface LogSettingsProps {
+interface LogSettingsProps {
   isDefault: boolean
   appName: string
 }

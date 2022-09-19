@@ -10,7 +10,7 @@ import {
 import * as axios from 'axios'
 import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, spawnSync } from 'child_process'
-import { existsSync, rmSync, stat } from 'graceful-fs'
+import { existsSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import si from 'systeminformation'
@@ -44,7 +44,6 @@ import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 
 const execAsync = promisify(exec)
-const statAsync = promisify(stat)
 
 const { showErrorBox, showMessageBox } = dialog
 
@@ -256,7 +255,7 @@ export const getGogdlVersion = async () => {
   return stdout
 }
 
-export const getHeroicVersion = () => {
+const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
   const STABLE_VERSION_NAME = 'Chopper'
@@ -828,17 +827,14 @@ export {
   isOnline,
   isEpicServiceOffline,
   openUrlOrFile,
-  semverGt,
   showAboutWindow,
   showItemInFolder,
-  statAsync,
   removeSpecialcharacters,
   clearCache,
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
   formatEpicStoreUrl,
-  getFormattedOsName,
   searchForExecutableOnPath,
   getSteamRuntime,
   constructAndUpdateRPC,
@@ -846,5 +842,6 @@ export {
   removeQuoteIfNecessary,
   killPattern,
   detectVCRedist,
-  getGame
+  getGame,
+  semverGt
 }

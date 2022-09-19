@@ -18,7 +18,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import fallbackImage from 'frontend/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
-import ContextMenu, { Item } from '../ContextMenu'
+import ContextMenu, { Item } from '../../../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 
 import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'

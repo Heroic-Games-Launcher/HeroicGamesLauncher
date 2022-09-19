@@ -2,7 +2,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ReactNode } from 'react'
 
-export interface DialogHeaderProps {
+interface DialogHeaderProps {
   onClose: () => void
   showCloseButton?: boolean
   children: ReactNode

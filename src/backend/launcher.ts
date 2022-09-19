@@ -677,7 +677,6 @@ export {
   launchCleanup,
   prepareWineLaunch,
   setupEnvVars,
-  setupWineEnvVars,
   setupWrappers,
   runWineCommand,
   callRunner,

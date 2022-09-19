@@ -23,12 +23,12 @@ import { UpdateComponent, SelectField } from 'frontend/components/UI'
 import { AppSettings, GameInfo, GameStatus } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
-
-import GamePicture from '../GamePicture'
-import TimeContainer from '../TimeContainer'
-
-import GameRequirements from '../GameRequirements'
-import { GameSubMenu } from '..'
+import {
+  GamePicture,
+  GameRequirements,
+  GameSubMenu,
+  TimeContainer
+} from './components'
 import { InstallModal } from 'frontend/screens/Library/components'
 import { install } from 'frontend/helpers/library'
 import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'

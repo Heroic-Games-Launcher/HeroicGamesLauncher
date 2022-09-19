@@ -89,7 +89,6 @@ import {
   epicLoginUrl,
   patreonPage,
   sidInfoUrl,
-  supportURL,
   tsStore,
   weblateUrl,
   wikiLink,
@@ -595,10 +594,8 @@ app.on('open-url', (event, url) => {
 
 ipcMain.on('openExternalUrl', async (event, url) => openUrlOrFile(url))
 ipcMain.on('openFolder', async (event, folder) => openUrlOrFile(folder))
-ipcMain.on('openSupportPage', async () => openUrlOrFile(supportURL))
 ipcMain.on('openReleases', async () => openUrlOrFile(heroicGithubURL))
 ipcMain.on('openWeblate', async () => openUrlOrFile(weblateUrl))
-ipcMain.on('showAboutWindow', () => showAboutWindow())
 ipcMain.on('openLoginPage', async () => openUrlOrFile(epicLoginUrl))
 ipcMain.on('openDiscordLink', async () => openUrlOrFile(discordLink))
 ipcMain.on('openPatreonPage', async () => openUrlOrFile(patreonPage))
@@ -786,9 +783,6 @@ ipcMain.handle(
 )
 
 ipcMain.handle('getUserInfo', async () => LegendaryUser.getUserInfo())
-
-// Checks if the user have logged in with Legendary already
-ipcMain.handle('isLoggedIn', async () => LegendaryUser.isLoggedIn())
 
 ipcMain.handle('login', async (event, sid) => LegendaryUser.login(sid))
 ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))

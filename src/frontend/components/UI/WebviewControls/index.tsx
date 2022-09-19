@@ -13,7 +13,7 @@ import './index.css'
 
 import { ipcRenderer } from 'frontend/helpers'
 
-export interface WebviewControlsProps {
+interface WebviewControlsProps {
   webview: WebviewType | null
   initURL: string
   openInBrowser: boolean

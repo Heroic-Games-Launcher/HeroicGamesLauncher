@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { GameInfo, Runner } from 'common/types'
 import cx from 'classnames'
-import GameCard from '../GameCard'
+import GameCard from './components/GameCard'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 
@@ -13,13 +13,13 @@ interface Props {
   onlyInstalled?: boolean
 }
 
-export const GamesList = ({
+export default function GamesList({
   library = [],
   layout = 'grid',
   handleGameCardClick,
   isFirstLane = false,
   onlyInstalled = false
-}: Props): JSX.Element => {
+}: Props): JSX.Element {
   const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
 

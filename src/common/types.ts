@@ -340,14 +340,7 @@ export interface WrapperVariable {
   args: string
 }
 
-export type AntiCheatStatus =
-  | 'Planned'
-  | 'Denied'
-  | 'Broken'
-  | 'Supported'
-  | 'Running'
-
-export type AntiCheat =
+type AntiCheat =
   | 'Arbiter'
   | 'BattlEye'
   | 'Denuvo Anti-Cheat'
@@ -432,7 +425,7 @@ export interface GamepadActionStatus {
   }
 }
 
-export type ElWebview = {
+type ElWebview = {
   canGoBack: () => boolean
   canGoForward: () => boolean
   goBack: () => void
