@@ -42,7 +42,6 @@ import {
 } from './gog/electronStores'
 import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
-import SideloadGames from './sideload/games'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -756,10 +755,8 @@ function getGame(appName: string, runner: Runner) {
   switch (runner) {
     case 'legendary':
       return LegendaryGame.get(appName)
-    case 'gog':
-      return GOGGame.get(appName)
     default:
-      return SideloadGames.get(appName)
+      return GOGGame.get(appName)
   }
 }
 

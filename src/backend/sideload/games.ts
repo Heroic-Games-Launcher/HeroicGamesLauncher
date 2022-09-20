@@ -1,10 +1,6 @@
-import { BrowserWindow } from 'electron'
-
-import { Game } from '../games'
-import { GameSettings, ExecResult, GameInfo } from '../../common/types'
+import { GameSettings, GameInfo } from '../../common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../game_config'
-import { runWineCommand } from '../launcher'
 import { isWindows, isMac, isLinux, execOptions } from '../constants'
 import { execAsync, killPattern } from '../utils'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
@@ -22,58 +18,43 @@ interface SideloadGame {
   }
 }
 
-export default class SideloadGames extends Game {
-  public appName: string
-  public window = BrowserWindow.getAllWindows()[0]
-  private static instances = new Map<string, SideloadGames>()
+const SideloadGames = {
+  getGameInfo(appName: string): GameInfo {
+    return libraryStore.get(appName, {}) as GameInfo
+  },
 
-  private constructor(appName: string) {
-    super()
-    this.appName = appName
-  }
-
-  public static get(appName: string) {
-    if (!this.instances.get(appName)) {
-      this.instances.set(appName, new SideloadGames(appName))
-    }
-    return this.instances.get(appName) as SideloadGames
-  }
-
-  public getGameInfo(): GameInfo {
-    return libraryStore.get(this.appName, {}) as GameInfo
-  }
-
-  async getSettings(): Promise<GameSettings> {
+  async getSettings(appName: string): Promise<GameSettings> {
     return (
-      GameConfig.get(this.appName).config ||
-      (await GameConfig.get(this.appName).getSettings())
+      GameConfig.get(appName).config ||
+      (await GameConfig.get(appName).getSettings())
     )
-  }
+  },
 
-  public install(app: SideloadGame) {
-    return libraryStore.set(this.appName, app)
-  }
-  public async addShortcuts(): Promise<void> {
+  install(app: SideloadGame): void {
+    return libraryStore.set(app.app_name, app)
+  },
+  async addShortcuts(): Promise<void> {
     throw new Error('Method not implemented.')
-  }
-  public async launch(launchArguments?: string | undefined): Promise<boolean> {
+  },
+
+  async launch(
+    appName: string,
+    launchArguments?: string | undefined
+  ): Promise<boolean> {
     const {
       install: { executable }
-    } = this.getGameInfo()
+    } = this.getGameInfo(appName)
     if (executable) {
-      console.log({ launchArguments })
-      return this.runWineCommand(executable)
-        .then(() => true)
-        .catch(() => false)
+      console.log({ launchArguments, executable })
     }
     return false
-  }
+  },
 
-  public async moveInstall(newInstallPath: string): Promise<string> {
+  async moveInstall(appName: string, newInstallPath: string): Promise<string> {
     const {
       install: { install_path },
       title
-    } = this.getGameInfo()
+    } = this.getGameInfo(appName)
 
     if (!install_path) {
       return ''
@@ -90,31 +71,29 @@ export default class SideloadGames extends Game {
     })
     await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
       .then(() => {
-        SideLoadLibrary.get().changeGameInstallPath(
-          this.appName,
-          newInstallPath
-        )
+        SideLoadLibrary.get().changeGameInstallPath(appName, newInstallPath)
         logInfo(`Finished Moving ${title}`, { prefix: LogPrefix.Backend })
       })
       .catch((error) => logError(`${error}`, { prefix: LogPrefix.Backend }))
     return newInstallPath
-  }
+  },
 
-  public async stop(): Promise<void> {
+  async stop(appName: string): Promise<void> {
     const {
       install: { executable }
-    } = this.getGameInfo()
+    } = this.getGameInfo(appName)
 
     if (executable) {
       killPattern(executable)
     }
-  }
+  },
 
-  public uninstall(): void {
-    return libraryStore.delete(this.appName)
-  }
-  public isNative(): boolean {
-    const gameInfo = this.getGameInfo()
+  uninstall(appName: string): void {
+    return libraryStore.delete(appName)
+  },
+
+  isNative(appName: string): boolean {
+    const gameInfo = this.getGameInfo(appName)
     if (isWindows) {
       return true
     }
@@ -129,15 +108,6 @@ export default class SideloadGames extends Game {
 
     return false
   }
-
-  public async runWineCommand(
-    command: string,
-    wait?: boolean | undefined
-  ): Promise<ExecResult> {
-    return runWineCommand(this, command, Boolean(wait))
-  }
-
-  public forceUninstall() {
-    return this.uninstall()
-  }
 }
+
+export default SideloadGames

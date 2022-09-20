@@ -1,7 +1,7 @@
 import { GOGLibrary, runGogdlCommand } from './library'
 import { BrowserWindow, dialog } from 'electron'
 import { join } from 'path'
-import { ExternalGame } from '../games'
+import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import {
@@ -50,7 +50,7 @@ import {
 } from 'common/types/gog'
 import { t } from 'i18next'
 
-class GOGGame extends ExternalGame {
+class GOGGame extends Game {
   public appName: string
   public window = BrowserWindow.getAllWindows()[0]
   private static instances = new Map<string, GOGGame>()
