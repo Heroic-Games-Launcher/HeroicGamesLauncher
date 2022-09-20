@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { WineVersionInfo } from 'common/types'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
@@ -13,8 +13,6 @@ import { ProgressInfo, State } from 'heroic-wine-downloader'
 import { notify, size } from 'frontend/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
-
-const { ipcRenderer } = window.require('electron')
 
 const WineItem = ({
   version,
@@ -35,11 +33,26 @@ const WineItem = ({
     progress: ProgressInfo
   }>({ state: 'idle', progress: { percentage: 0, avgSpeed: 0, eta: Infinity } })
 
-  if (version) {
-    ipcRenderer.on('progressOf' + version, (e, progress) => {
-      setProgress(progress)
-    })
-  }
+  useEffect(() => {
+    if (version) {
+      const removeWineManagerDownloadListener =
+        window.api.handleProgressOfWineManager(
+          version,
+          (
+            e: Electron.IpcRendererEvent,
+            progress: {
+              state: State
+              progress: ProgressInfo
+            }
+          ) => {
+            setProgress(progress)
+          }
+        )
+      return removeWineManagerDownloadListener
+    }
+    /* eslint-disable @typescript-eslint/no-empty-function */
+    return () => {}
+  }, [])
 
   if (!version || !downsize) {
     return null
@@ -50,8 +63,8 @@ const WineItem = ({
 
   async function install() {
     notify([`${version}`, t('notify.install.startInstall')])
-    ipcRenderer
-      .invoke('installWineVersion', {
+    window.api
+      .installWineVersion({
         version,
         date,
         downsize,
@@ -60,7 +73,8 @@ const WineItem = ({
         checksum,
         isInstalled,
         hasUpdate,
-        type
+        type,
+        installDir
       })
       .then((response) => {
         switch (response) {
@@ -81,8 +95,8 @@ const WineItem = ({
   }
 
   async function remove() {
-    ipcRenderer
-      .invoke('removeWineVersion', {
+    window.api
+      .removeWineVersion({
         version,
         date,
         downsize,
@@ -91,7 +105,8 @@ const WineItem = ({
         checksum,
         isInstalled,
         hasUpdate,
-        installDir
+        installDir,
+        type
       })
       .then((response) => {
         if (response) {
@@ -102,7 +117,7 @@ const WineItem = ({
   }
 
   function openInstallDir() {
-    ipcRenderer.send('showItemInFolder', installDir)
+    installDir !== undefined ? window.api.showItemInFolder(installDir) : {}
   }
 
   const renderStatus = () => {
@@ -127,7 +142,7 @@ const WineItem = ({
     if (isInstalled) {
       remove()
     } else if (isDownloading || unZipping) {
-      ipcRenderer.send('abortWineInstallation', version)
+      window.api.abortWineInstallation(version)
     } else {
       install()
     }

@@ -1,6 +1,6 @@
 import React, { MouseEvent, useEffect, useState } from 'react'
 import { AntiCheatInfo, GameInfo } from 'common/types'
-import { createNewWindow, ipcRenderer } from 'frontend/helpers'
+import { createNewWindow } from 'frontend/helpers'
 
 import './index.css'
 import { useTranslation } from 'react-i18next'
@@ -18,8 +18,8 @@ export default function Anticheat({ gameInfo }: Props) {
 
   useEffect(() => {
     if (gameInfo?.title) {
-      ipcRenderer
-        .invoke('getAnticheatInfo', gameInfo.namespace)
+      window.api
+        .getAnticheatInfo(gameInfo.namespace)
         .then((anticheatInfo: AntiCheatInfo | null) => {
           setAnticheatInfo(anticheatInfo)
         })

@@ -12,8 +12,7 @@ import {
   sendKill,
   size,
   syncSaves,
-  updateGame,
-  ipcRenderer
+  updateGame
 } from 'frontend/helpers'
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -115,19 +114,19 @@ export default function GamePage(): JSX.Element | null {
           })
           .catch((error) => {
             console.error(error)
-            ipcRenderer.send('logError', error)
+            window.api.logError(`${error}`)
             setHasError({ error: true, message: `${error}` })
           })
         if (newInfo?.cloud_save_enabled) {
           try {
             const { autoSyncSaves, savesPath, gogSaves }: AppSettings =
-              await ipcRenderer.invoke('requestSettings', appName)
+              await window.api.requestSettings(appName)
             setAutoSyncSaves(autoSyncSaves)
             setGOGSaves(gogSaves ?? [])
             return setSavesPath(savesPath)
           } catch (error) {
             setHasError({ error: true, message: error })
-            ipcRenderer.send('logError', error)
+            window.api.logError(`${error}`)
           }
         }
       } catch (error) {
@@ -318,7 +317,9 @@ export default function GamePage(): JSX.Element | null {
                           <div
                             className="clickable"
                             onClick={() =>
-                              ipcRenderer.send('openFolder', install_path)
+                              install_path !== undefined
+                                ? window.api.openFolder(install_path)
+                                : {}
                             }
                           >
                             {t('info.path')}: {install_path}
@@ -553,7 +554,7 @@ export default function GamePage(): JSX.Element | null {
     if (gameInfo.runner === 'legendary') {
       await syncSaves(savesPath, appName, gameInfo.runner)
     } else if (gameInfo.runner === 'gog') {
-      await ipcRenderer.invoke('syncGOGSaves', gogSaves, appName, '')
+      await window.api.syncGOGSaves(gogSaves, appName, '')
     }
     setIsSyncing(false)
   }

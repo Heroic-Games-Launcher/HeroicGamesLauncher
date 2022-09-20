@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import { ipcRenderer } from 'frontend/helpers'
 import { WineInstallation } from 'common/types'
 
 interface Props {
@@ -43,9 +42,9 @@ export default function WineExtensions({
   const handleEacRuntime = async () => {
     if (!eacRuntime) {
       if (!gameMode) {
-        const isFlatpak = await ipcRenderer.invoke('isFlatpak')
+        const isFlatpak = await window.api.isFlatpak()
         if (isFlatpak) {
-          const { response } = await ipcRenderer.invoke('openMessageBox', {
+          const { response } = await window.api.openMessageBox({
             message: t(
               'settings.eacRuntime.gameModeRequired.message',
               'GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?'
@@ -62,16 +61,10 @@ export default function WineExtensions({
           toggleGameMode()
         }
       }
-      const isInstalled = await ipcRenderer.invoke(
-        'isRuntimeInstalled',
-        'eac_runtime'
-      )
+      const isInstalled = await window.api.isRuntimeInstalled('eac_runtime')
       if (!isInstalled) {
         setEacInstalling(true)
-        const success = await ipcRenderer.invoke(
-          'downloadRuntime',
-          'eac_runtime'
-        )
+        const success = await window.api.downloadRuntime('eac_runtime')
         setEacInstalling(false)
         if (!success) {
           return
@@ -83,16 +76,12 @@ export default function WineExtensions({
 
   const handleBattlEyeRuntime = async () => {
     if (!battlEyeRuntime) {
-      const isInstalled = await ipcRenderer.invoke(
-        'isRuntimeInstalled',
+      const isInstalled = await window.api.isRuntimeInstalled(
         'battleye_runtime'
       )
       if (!isInstalled) {
         setBattlEyeInstalling(true)
-        const success = await ipcRenderer.invoke(
-          'downloadRuntime',
-          'battleye_runtime'
-        )
+        const success = await window.api.downloadRuntime('battleye_runtime')
         setBattlEyeInstalling(false)
         if (!success) {
           return
@@ -116,7 +105,7 @@ export default function WineExtensions({
               value={autoInstallDxvk}
               handleChange={() => {
                 const action = autoInstallDxvk ? 'restore' : 'backup'
-                ipcRenderer.send('toggleDXVK', [
+                window.api.toggleDXVK([
                   { winePrefix, winePath: wineVersion.bin },
                   action
                 ])
@@ -143,7 +132,7 @@ export default function WineExtensions({
               value={autoInstallVkd3d}
               handleChange={() => {
                 const action = autoInstallVkd3d ? 'restore' : 'backup'
-                ipcRenderer.send('toggleVKD3D', [
+                window.api.toggleVKD3D([
                   { winePrefix, winePath: wineVersion.bin },
                   action
                 ])
