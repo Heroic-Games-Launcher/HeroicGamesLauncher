@@ -23,8 +23,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { configStore } from 'frontend/helpers/electronStores'
 
-import { ipcRenderer } from 'frontend/helpers'
-
 interface Props {
   altWine: WineInstallation[]
   customWinePaths: string[]
@@ -92,9 +90,7 @@ export default function WineSettings({
 
   useEffect(() => {
     const getAltWine = async () => {
-      const wineList: WineInstallation[] = await ipcRenderer.invoke(
-        'getAlternativeWine'
-      )
+      const wineList: WineInstallation[] = await window.api.getAlternativeWine()
       setAltWine(wineList)
       // Avoids not updating wine config when having one wine install only
       if (wineList && wineList.length === 1) {
@@ -108,8 +104,8 @@ export default function WineSettings({
   const { t } = useTranslation()
 
   function selectCustomPath() {
-    ipcRenderer
-      .invoke('openDialog', {
+    window.api
+      .openDialog({
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
         title: t('box.customWine', 'Select the Wine or Proton Binary')
@@ -153,8 +149,8 @@ export default function WineSettings({
             />
           }
           onIconClick={async () =>
-            ipcRenderer
-              .invoke('openDialog', {
+            window.api
+              .openDialog({
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
                 title: t('box.wineprefix'),
@@ -184,8 +180,8 @@ export default function WineSettings({
             />
           }
           onIconClick={async () =>
-            ipcRenderer
-              .invoke('openDialog', {
+            window.api
+              .openDialog({
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
                 title: t('box.wineprefix'),

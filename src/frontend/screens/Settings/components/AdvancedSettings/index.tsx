@@ -11,7 +11,6 @@ import {
   DeselectOutlined
 } from '@mui/icons-material'
 import classNames from 'classnames'
-import { IpcRenderer, Clipboard } from 'electron'
 import { useTranslation } from 'react-i18next'
 import React, { useContext, useEffect, useState } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -22,13 +21,6 @@ import { configStore } from 'frontend/helpers/electronStores'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
-
-interface ElectronProps {
-  ipcRenderer: IpcRenderer
-  clipboard: Clipboard
-}
-
-const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
 
 interface Props {
   altLegendaryBin: string
@@ -93,7 +85,7 @@ export const AdvancedSettings = ({
         altLeg: altLegendaryBin
       })
 
-      const legendaryVer = await ipcRenderer.invoke('getLegendaryVersion')
+      const legendaryVer = await window.api.getLegendaryVersion()
       if (legendaryVer === 'invalid') {
         setLegendaryVersion('Invalid')
         setTimeout(() => {
@@ -112,7 +104,7 @@ export const AdvancedSettings = ({
         ...settings,
         altGogdl: altGogdlBin
       })
-      const gogdlVersion = await ipcRenderer.invoke('getGogdlVersion')
+      const gogdlVersion = await window.api.getGogdlVersion()
       if (gogdlVersion === 'invalid') {
         setGogdlVersion('Invalid')
         setTimeout(() => {
@@ -128,9 +120,7 @@ export const AdvancedSettings = ({
 
   useEffect(() => {
     const getEosStatus = async () => {
-      const { isInstalled, version } = await ipcRenderer.invoke(
-        'getEosOverlayStatus'
-      )
+      const { isInstalled, version } = await window.api.getEosOverlayStatus()
       setEosOverlayInstalled(isInstalled)
       setEosOverlayVersion(version)
     }
@@ -139,7 +129,7 @@ export const AdvancedSettings = ({
 
   useEffect(() => {
     const getLatestEosOverlayVersion = async () => {
-      const version = await ipcRenderer.invoke('getLatestEosOverlayVersion')
+      const version = await window.api.getLatestEosOverlayVersion()
       setEosOverlayLatestVersion(version)
     }
     getLatestEosOverlayVersion()
@@ -158,17 +148,15 @@ export const AdvancedSettings = ({
   useEffect(() => {
     const enabledGlobally = async () => {
       if (isWindows) {
-        setEosOverlayEnabledGlobally(
-          await ipcRenderer.invoke('isEosOverlayEnabled')
-        )
+        setEosOverlayEnabledGlobally(await window.api.isEosOverlayEnabled())
       }
     }
     enabledGlobally()
   }, [eosOverlayEnabledGlobally])
 
   async function handleLegendaryBinary() {
-    return ipcRenderer
-      .invoke('openDialog', {
+    return window.api
+      .openDialog({
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
         title: t(
@@ -180,8 +168,8 @@ export const AdvancedSettings = ({
   }
 
   async function handleGogdlBinary() {
-    return ipcRenderer
-      .invoke('openDialog', {
+    return window.api
+      .openDialog({
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
         title: t(
@@ -220,7 +208,7 @@ export const AdvancedSettings = ({
       status: 'installing'
     })
     setEosOverlayInstallingOrUpdating(true)
-    const installError = await ipcRenderer.invoke('installEosOverlay')
+    const installError = await window.api.installEosOverlay()
     await handleGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',
@@ -235,7 +223,7 @@ export const AdvancedSettings = ({
   }
 
   async function removeEosOverlay() {
-    const wasRemoved = await ipcRenderer.invoke('removeEosOverlay')
+    const wasRemoved = await window.api.removeEosOverlay()
     setEosOverlayInstalled(!wasRemoved)
   }
 
@@ -246,21 +234,19 @@ export const AdvancedSettings = ({
       status: 'updating'
     })
     setEosOverlayInstallingOrUpdating(true)
-    await ipcRenderer.invoke('installEosOverlay')
+    await window.api.installEosOverlay()
     await handleGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',
       status: 'done'
     })
     setEosOverlayInstallingOrUpdating(false)
-    const { version: newVersion } = await ipcRenderer.invoke(
-      'getEosOverlayStatus'
-    )
+    const { version: newVersion } = await window.api.getEosOverlayStatus()
     setEosOverlayVersion(newVersion)
   }
 
   async function cancelEosOverlayInstallOrUpdate() {
-    await ipcRenderer.invoke('cancelEosOverlayInstallOrUpdate')
+    await window.api.cancelEosOverlayInstallOrUpdate()
     await handleGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',
@@ -271,18 +257,18 @@ export const AdvancedSettings = ({
 
   async function toggleEosOverlay() {
     if (eosOverlayEnabledGlobally) {
-      await ipcRenderer.invoke('disableEosOverlay', '')
+      await window.api.disableEosOverlay('')
       setEosOverlayEnabledGlobally(false)
     } else {
-      const { wasEnabled } = await ipcRenderer.invoke('enableEosOverlay', '')
+      const { wasEnabled } = await window.api.enableEosOverlay('')
       setEosOverlayEnabledGlobally(wasEnabled)
     }
   }
 
   async function checkForEosOverlayUpdates() {
     setEosOverlayCheckingForUpdates(true)
-    await ipcRenderer.invoke('updateEosOverlayInfo')
-    const newVersion = await ipcRenderer.invoke('getLatestEosOverlayVersion')
+    await window.api.updateEosOverlayInfo()
+    const newVersion = await window.api.getLatestEosOverlayVersion()
     setEosOverlayLatestVersion(newVersion)
     setEosOverlayCheckingForUpdates(false)
   }
@@ -290,7 +276,7 @@ export const AdvancedSettings = ({
   async function clearHeroicCache() {
     const storage: Storage = window.localStorage
     storage.removeItem('updates')
-    ipcRenderer.send('clearCache')
+    return window.api.clearCache()
     return refreshLibrary({ fullRefresh: true, runInBackground: true })
   }
 
@@ -510,7 +496,9 @@ export const AdvancedSettings = ({
             isSuccess: isCopiedToClipboard
           })}
           onClick={() => {
-            clipboard.writeText(JSON.stringify({ ...settingsToSave }, null, 2))
+            window.api.clipboardWriteText(
+              JSON.stringify({ ...settingsToSave }, null, 2)
+            )
             setCopiedToClipboard(true)
           }}
         >
@@ -544,7 +532,7 @@ export const AdvancedSettings = ({
 
         <button
           className="button is-footer is-danger"
-          onClick={() => ipcRenderer.send('resetHeroic')}
+          onClick={() => window.api.resetHeroic()}
         >
           <div className="button-icontext-flex">
             <div className="button-icon-flex">

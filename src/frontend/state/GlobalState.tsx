@@ -8,7 +8,8 @@ import {
   InstalledInfo,
   RefreshOptions,
   Runner,
-  WineVersionInfo
+  WineVersionInfo,
+  UserInfo
 } from 'common/types'
 import { Category, LibraryTopSectionOptions } from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
@@ -17,8 +18,7 @@ import {
   getPlatform,
   install,
   launch,
-  notify,
-  ipcRenderer
+  notify
 } from '../helpers'
 import { i18n, t } from 'i18next'
 
@@ -105,11 +105,13 @@ export class GlobalState extends PureComponent<Props> {
       library: libraryStore.has('library')
         ? (libraryStore.get('library', []) as GameInfo[])
         : [],
-      username: configStore.get('userInfo', null)?.displayName || null
+      username:
+        (configStore.get('userInfo', null) as UserInfo)?.displayName || null
     },
     gog: {
       library: this.loadGOGLibrary(),
-      username: gogConfigStore.get('userData', null)?.username || null
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      username: (gogConfigStore.get('userData', null) as any)?.username || null
     },
     wineVersions: wineDownloaderInfoStore.has('wine-releases')
       ? (wineDownloaderInfoStore.get('wine-releases', []) as WineVersionInfo[])
@@ -165,7 +167,7 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ zoomPercent: newZoomPercent })
 
     this.zoomTimer = setTimeout(() => {
-      ipcRenderer.send('setZoomFactor', (newZoomPercent / 100).toString())
+      window.api.setZoomFactor((newZoomPercent / 100).toString())
     }, 500)
   }
 
@@ -259,7 +261,7 @@ export class GlobalState extends PureComponent<Props> {
 
   epicLogin = async (sid: string) => {
     console.log('logging epic')
-    const response = await ipcRenderer.invoke('login', sid)
+    const response = await window.api.login(sid)
 
     if (response.status === 'done') {
       this.setState({
@@ -277,7 +279,7 @@ export class GlobalState extends PureComponent<Props> {
 
   epicLogout = async () => {
     this.setState({ refreshing: true })
-    await ipcRenderer.invoke('logoutLegendary').finally(() => {
+    await window.api.logoutLegendary().finally(() => {
       this.setState({
         epic: {
           library: [],
@@ -292,7 +294,7 @@ export class GlobalState extends PureComponent<Props> {
 
   gogLogin = async (token: string) => {
     console.log('logging gog')
-    const response = await ipcRenderer.invoke('authGOG', token)
+    const response = await window.api.authGOG(token)
 
     if (response.status === 'done') {
       this.setState({
@@ -309,7 +311,7 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   gogLogout = async () => {
-    await ipcRenderer.invoke('logoutGOG').finally(() => {
+    await window.api.logoutGOG().finally(() => {
       this.setState({
         gog: {
           library: [],
@@ -333,10 +335,7 @@ export class GlobalState extends PureComponent<Props> {
 
     const gogLibrary: Array<GameInfo> = this.loadGOGLibrary()
     if (!epicLibrary.length || !this.state.epic.library.length) {
-      ipcRenderer.send(
-        'logInfo',
-        'No cache found, getting data from legendary...'
-      )
+      window.api.logInfo('No cache found, getting data from legendary...')
       const { library: legendaryLibrary } = await getLegendaryConfig()
       epicLibrary = legendaryLibrary
     }
@@ -344,9 +343,9 @@ export class GlobalState extends PureComponent<Props> {
     let updates = this.state.gameUpdates
     if (checkUpdates && library) {
       try {
-        updates = await ipcRenderer.invoke('checkGameUpdates')
+        updates = await window.api.checkGameUpdates()
       } catch (error) {
-        ipcRenderer.send('logError', error)
+        window.api.logError(`${error}`)
       }
     }
 
@@ -365,7 +364,7 @@ export class GlobalState extends PureComponent<Props> {
     })
 
     if (currentLibraryLength !== epicLibrary.length) {
-      ipcRenderer.send('logInfo', 'Force Update')
+      window.api.logInfo('Force Update')
       this.forceUpdate()
     }
   }
@@ -382,11 +381,11 @@ export class GlobalState extends PureComponent<Props> {
       refreshing: true,
       refreshingInTheBackground: runInBackground
     })
-    ipcRenderer.send('logInfo', 'Refreshing Library')
+    window.api.logInfo('Refreshing Library')
     try {
-      await ipcRenderer.invoke('refreshLibrary', fullRefresh, library)
+      window.api.refreshLibrary(fullRefresh, library)
     } catch (error) {
-      ipcRenderer.send('logError', error)
+      window.api.logError(`${error}`)
     }
     this.refresh(library, checkForUpdates)
   }
@@ -395,10 +394,10 @@ export class GlobalState extends PureComponent<Props> {
     if (this.state.platform !== 'linux') {
       return
     }
-    ipcRenderer.send('logInfo', 'Refreshing wine downloader releases')
+    window.api.logInfo('Refreshing wine downloader releases')
     this.setState({ refreshing: true })
-    await ipcRenderer
-      .invoke('refreshWineVersionInfo', fetch)
+    await window.api
+      .refreshWineVersionInfo(fetch)
       .then((releases) => {
         this.setState({
           wineVersions: releases,
@@ -409,17 +408,15 @@ export class GlobalState extends PureComponent<Props> {
       .catch(async () => {
         if (fetch) {
           // try to restore the saved information
-          await ipcRenderer
-            .invoke('refreshWineVersionInfo')
-            .then((releases) => {
-              this.setState({
-                wineVersions: releases
-              })
+          await window.api.refreshWineVersionInfo().then((releases) => {
+            this.setState({
+              wineVersions: releases
             })
+          })
         }
 
         this.setState({ refreshing: false })
-        ipcRenderer.send('logError', 'Sync with upstream releases failed')
+        window.api.logError('Sync with upstream releases failed')
 
         notify([
           'Wine-Manager',
@@ -502,8 +499,7 @@ export class GlobalState extends PureComponent<Props> {
       this.handleCategory('legendary')
     }
     // Deals launching from protocol. Also checks if the game is already running
-    ipcRenderer.on(
-      'launchGame',
+    window.api.handleLaunchGame(
       async (e: Event, appName: string, runner: Runner) => {
         const currentApp = libraryStatus.filter(
           (game) => game.appName === appName
@@ -517,8 +513,7 @@ export class GlobalState extends PureComponent<Props> {
     )
 
     // TODO: show the install modal instead of just installing like this since it has no options to choose
-    ipcRenderer.on(
-      'installGame',
+    window.api.handleInstallGame(
       async (
         e: Event,
         args: { appName: string; installPath: string; runner: Runner }
@@ -547,12 +542,12 @@ export class GlobalState extends PureComponent<Props> {
       }
     )
 
-    ipcRenderer.on('setGameStatus', async (e: Event, args: GameStatus) => {
+    window.api.handleSetGameStatus(async (e: Event, args: GameStatus) => {
       const { libraryStatus } = this.state
       this.handleGameStatus({ ...libraryStatus, ...args })
     })
 
-    ipcRenderer.on('refreshLibrary', async (e: Event, runner: Runner) => {
+    window.api.handleRefreshLibrary(async (e: Event, runner: Runner) => {
       this.refreshLibrary({
         checkForUpdates: false,
         fullRefresh: true,
@@ -566,7 +561,7 @@ export class GlobalState extends PureComponent<Props> {
     const platform = await getPlatform()
 
     if (legendaryUser) {
-      await ipcRenderer.invoke('getUserInfo')
+      await window.api.getUserInfo()
     }
 
     if (!gameUpdates.length) {
@@ -591,7 +586,7 @@ export class GlobalState extends PureComponent<Props> {
       }
     )
 
-    ipcRenderer.send('frontendReady')
+    window.api.frontendReady()
   }
 
   componentDidUpdate() {
@@ -619,9 +614,9 @@ export class GlobalState extends PureComponent<Props> {
     ).length
 
     if (pendingOps) {
-      ipcRenderer.send('lock', 'download')
+      window.api.lock()
     } else {
-      ipcRenderer.send('unlock', 'download')
+      window.api.unlock()
     }
   }
 
