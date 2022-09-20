@@ -516,6 +516,7 @@
         "collapse": "收起側邊欄",
         "uncollapse": "展開側邊欄"
     },
+    "Sideload": "Sideloaded Games",
     "status": {
         "installing": "正在安裝",
         "logging": "正在登入...",

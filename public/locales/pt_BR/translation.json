@@ -516,6 +516,7 @@
         "collapse": "Recolher barra lateral",
         "uncollapse": "Mostrar barra lateral"
     },
+    "Sideload": "Sideloaded Games",
     "status": {
         "installing": "Instalando",
         "logging": "Logando...",

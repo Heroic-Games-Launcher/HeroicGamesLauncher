@@ -516,6 +516,7 @@
         "collapse": "Skjul sidefeltet",
         "uncollapse": "Slå opp sidefeltet"
     },
+    "Sideload": "Sideloaded Games",
     "status": {
         "installing": "Installerer",
         "logging": "Logger inn...",

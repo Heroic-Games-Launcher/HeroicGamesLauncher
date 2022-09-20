@@ -516,6 +516,7 @@
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar"
     },
+    "Sideload": "Sideloaded Games",
     "status": {
         "installing": "설치 중",
         "logging": "로그인 중…",

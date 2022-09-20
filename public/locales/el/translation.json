@@ -516,6 +516,7 @@
         "collapse": "Σύμπτυξη πλαϊνής γραμμής",
         "uncollapse": "Κατάργηση σύμπτυξης πλαϊνής γραμμής"
     },
+    "Sideload": "Sideloaded Games",
     "status": {
         "installing": "Εγκατάσταση",
         "logging": "Σύνδεση...",

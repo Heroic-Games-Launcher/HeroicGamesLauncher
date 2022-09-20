@@ -516,6 +516,7 @@
         "collapse": "Згорнути бічну панель",
         "uncollapse": "Розгорнути бічну панель"
     },
+    "Sideload": "Sideloaded Games",
     "status": {
         "installing": "Встановлення",
         "logging": "Вхід...",
