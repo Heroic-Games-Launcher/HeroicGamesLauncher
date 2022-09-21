@@ -75,7 +75,6 @@ import {
   getFirstExistingParentPath,
   getLatestReleases,
   notify,
-  showErrorBoxModalAuto,
   quoteIfNecessary
 } from './utils'
 import {
@@ -119,6 +118,7 @@ import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
+import { showErrorBoxModalAuto } from './dialog/utils'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -1074,14 +1074,6 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle(
-  'showErrorBox',
-  async (event, args: [title: string, error: string]) => {
-    const [title, error] = args
-    return showErrorBoxModalAuto({ event, title, error })
-  }
-)
-
 ipcMain.handle('install', async (event, params) => {
   const {
     appName,
@@ -1584,6 +1576,7 @@ import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
+import './dialog/ipc_handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

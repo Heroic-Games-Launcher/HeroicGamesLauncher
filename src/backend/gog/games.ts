@@ -9,8 +9,7 @@ import {
   errorHandler,
   execAsync,
   getFileSize,
-  getGOGdlBin,
-  showErrorBoxModalAuto
+  getGOGdlBin
 } from '../utils'
 import {
   ExtraInfo,
@@ -50,6 +49,7 @@ import {
   GogInstallPlatform
 } from 'common/types/gog'
 import { t } from 'i18next'
+import { showErrorBoxModalAuto } from '../dialog/utils'
 
 class GOGGame extends Game {
   public appName: string

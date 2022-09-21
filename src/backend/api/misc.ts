@@ -92,8 +92,6 @@ export const handleShowErrorDialog = (
   }
 }
 
-export const closeErrorDialog = () => ipcRenderer.send('closeErrorDialog')
-
 import Store from 'electron-store'
 // FUTURE WORK
 // here is how the store methods can be refactored

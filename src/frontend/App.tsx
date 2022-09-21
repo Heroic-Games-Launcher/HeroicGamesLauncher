@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext} from 'react'
 
 import './App.css'
 import { HashRouter, Route, Routes } from 'react-router-dom'
@@ -13,14 +13,11 @@ import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
 import classNames from 'classnames'
 import { ControllerHints } from './components/UI'
-import { ErrorDialog } from './components/UI/ErrorDialog'
+import DialogHandler from './components/UI/DialogHandler'
 
 function App() {
   const { epic, gog, contentFontFamily, actionsFontFamily, sidebarCollapsed } =
     useContext(ContextProvider)
-  const [showErrorDialog, setShowErrorDialog] = useState(false)
-  const [errorTitle, setErrorTitle] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
 
   const style = {
     '--content-font-family': contentFontFamily,
@@ -28,26 +25,6 @@ function App() {
   } as React.CSSProperties
 
   const loggedIn = epic.username || gog.username
-
-  useEffect(() => {
-    const onError = (
-      e: Electron.IpcRendererEvent,
-      title: string,
-      error: string
-    ) => {
-      setErrorTitle(title)
-      setErrorMessage(error)
-      setShowErrorDialog(true)
-    }
-
-    const removeHandleShowErrorDialogListener =
-      window.api.handleShowErrorDialog(onError)
-
-    //useEffect unmount
-    return () => {
-      removeHandleShowErrorDialogListener()
-    }
-  }, [])
 
   return (
     <div
@@ -57,13 +34,7 @@ function App() {
       <HashRouter>
         <Sidebar />
         <main className="content">
-          {showErrorDialog && (
-            <ErrorDialog
-              title={errorTitle}
-              error={errorMessage}
-              onClose={() => setShowErrorDialog(false)}
-            />
-          )}
+          <DialogHandler/>
           <Routes>
             <Route path="/" element={loggedIn ? <Library /> : <Login />} />
             <Route path="login" element={<Login />} />

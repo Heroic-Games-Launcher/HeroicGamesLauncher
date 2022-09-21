@@ -42,35 +42,12 @@ import {
 } from './gog/electronStores'
 import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
+import { showErrorBoxModalAuto } from './dialog/utils'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
 
-const { showErrorBox, showMessageBox } = dialog
-
-export function showErrorBoxModalAuto(props: {
-  event?: Electron.IpcMainInvokeEvent
-  title: string
-  error: string
-}) {
-  if (props.event) {
-    props.event.sender.send('showErrorDialog', props.title, props.error)
-  } else {
-    let window: BrowserWindow | null
-    try {
-      window = BrowserWindow.getFocusedWindow()
-      if (!window) {
-        window = BrowserWindow.getAllWindows()[0]
-      }
-      window.webContents.send('showErrorDialog', props.title, props.error)
-    } catch (error) {
-      logWarning(['showErrorBoxModalAuto:', error], {
-        prefix: LogPrefix.Backend
-      })
-      showErrorBox(props.title, props.error)
-    }
-  }
-}
+const { showMessageBox } = dialog
 
 /**
  * Compares 2 SemVer strings following "major.minor.patch".
