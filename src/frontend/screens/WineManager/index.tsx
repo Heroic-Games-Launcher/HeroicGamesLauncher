@@ -7,14 +7,13 @@ import React, { lazy, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
 import { Type } from 'heroic-wine-downloader'
-import ElectronStore from 'electron-store'
-const Store = window.require('electron-store')
+import { StoreIpc } from 'frontend/helpers/electronStores'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
 )
 
-const configStore: ElectronStore = new Store({
+const configStore = new StoreIpc('wineManagerConfigStore', {
   cwd: 'store'
 })
 
@@ -40,7 +39,8 @@ export default function WineManager(): JSX.Element | null {
     })
 
   useEffect(() => {
-    if (configStore.has('wine-manager-settings')) {
+    const hasSettings = configStore.has('wine-manager-settings')
+    if (hasSettings) {
       const oldWineManagerSettings = configStore.get(
         'wine-manager-settings'
       ) as WineManagerUISettings

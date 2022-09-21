@@ -14,7 +14,6 @@ import ContextProvider from './state/ContextProvider'
 import classNames from 'classnames'
 import { ControllerHints } from './components/UI'
 import { ErrorDialog } from './components/UI/ErrorDialog'
-import { ipcRenderer } from './helpers'
 
 function App() {
   const { epic, gog, contentFontFamily, actionsFontFamily, sidebarCollapsed } =
@@ -41,11 +40,12 @@ function App() {
       setShowErrorDialog(true)
     }
 
-    ipcRenderer.on('showErrorDialog', onError)
+    const removeHandleShowErrorDialogListener =
+      window.api.handleShowErrorDialog(onError)
 
     //useEffect unmount
     return () => {
-      ipcRenderer.removeListener('showErrorDialog', onError)
+      removeHandleShowErrorDialogListener()
     }
   }, [])
 

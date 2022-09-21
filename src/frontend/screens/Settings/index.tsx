@@ -9,7 +9,6 @@ import {
   WineInstallation,
   WrapperVariable
 } from 'common/types'
-import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getGameInfo, writeConfig } from 'frontend/helpers'
 import { useToggle } from 'frontend/hooks'
@@ -31,13 +30,6 @@ import { WineExtensions } from './components'
 import { configStore } from 'frontend/helpers/electronStores'
 import ContextMenu from '../Library/components/ContextMenu'
 import { GOGCloudSavesLocation } from 'common/types/gog'
-
-interface ElectronProps {
-  ipcRenderer: IpcRenderer
-  clipboard: Clipboard
-}
-
-const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
 
 interface LocationState {
   fromGameCard: boolean
@@ -241,10 +233,7 @@ function Settings() {
   useEffect(() => {
     const getSettings = async () => {
       if (!configLoaded) {
-        const config: AppSettings = await ipcRenderer.invoke(
-          'requestSettings',
-          appName
-        )
+        const config: AppSettings = await window.api.requestSettings(appName)
         setCheckForUpdatesOnStartup(config.checkForUpdatesOnStartup)
         setAutoSyncSaves(config.autoSyncSaves)
         setUseGameMode(config.useGameMode)
@@ -475,15 +464,15 @@ function Settings() {
             'settings.copyToClipboard',
             'Copy All Settings to Clipboard'
           ),
-          onclick: () =>
-            clipboard.writeText(
+          onclick: async () =>
+            window.api.clipboardWriteText(
               JSON.stringify({ appName, title, ...settingsToSave })
             ),
           show: !isLogSettings
         },
         {
           label: t('settings.open-config-file', 'Open Config File'),
-          onclick: () => ipcRenderer.send('showConfigFileInFolder', appName),
+          onclick: () => window.api.showConfigFileInFolder(appName),
           show: !isLogSettings
         }
       ]}
