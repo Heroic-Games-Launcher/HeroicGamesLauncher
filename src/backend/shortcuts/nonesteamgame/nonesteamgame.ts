@@ -22,7 +22,7 @@ import { app } from 'electron'
 import { isFlatpak, isWindows, tsStore } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
-import { showErrorBoxModalAuto } from '../../dialog/utils'
+import { showErrorBoxModalAuto } from '../../dialog/dialog'
 
 /**
  * Opens a error dialog in frontend with the error message

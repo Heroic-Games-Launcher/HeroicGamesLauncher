@@ -49,7 +49,7 @@ import {
   GogInstallPlatform
 } from 'common/types/gog'
 import { t } from 'i18next'
-import { showErrorBoxModalAuto } from '../dialog/utils'
+import { showErrorBoxModalAuto } from '../dialog/dialog'
 
 class GOGGame extends Game {
   public appName: string

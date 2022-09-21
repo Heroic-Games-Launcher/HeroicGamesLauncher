@@ -8,7 +8,7 @@ import { execOptions, heroicToolsPath, userHome } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
 import { dirname } from 'path'
-import { showErrorBoxModalAuto } from './dialog/utils'
+import { showErrorBoxModalAuto } from './dialog/dialog'
 
 export const DXVK = {
   getLatest: async () => {

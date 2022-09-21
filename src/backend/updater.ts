@@ -3,7 +3,7 @@ import { autoUpdater } from 'electron-updater'
 import { t } from 'i18next'
 
 import { icon } from './constants'
-import { showErrorBoxModalAuto } from './dialog/utils'
+import { showErrorBoxModalAuto } from './dialog/dialog'
 import { logError, LogPrefix } from './logger/logger'
 
 autoUpdater.autoDownload = false

@@ -42,7 +42,7 @@ import {
 } from './gog/electronStores'
 import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
-import { showErrorBoxModalAuto } from './dialog/utils'
+import { showErrorBoxModalAuto } from './dialog/dialog'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)

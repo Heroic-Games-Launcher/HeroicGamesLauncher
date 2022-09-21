@@ -118,7 +118,7 @@ import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
-import { showErrorBoxModalAuto } from './dialog/utils'
+import { showErrorBoxModalAuto } from './dialog/dialog'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'

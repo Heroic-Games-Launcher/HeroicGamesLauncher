@@ -3,9 +3,10 @@ import { GameInfo } from '../../../../common/types'
 import { join } from 'path'
 import { DirResult, dirSync } from 'tmp'
 import { addNonSteamGame, removeNonSteamGame } from '../nonesteamgame'
-import { showErrorBoxModalAuto } from '../../../utils'
+import { showErrorBoxModalAuto } from '../../../dialog/dialog'
 
 jest.mock('../../../logger/logfile')
+jest.mock('../../../dialog/dialog')
 jest.mock('../../../utils')
 
 let tmpDir = {} as DirResult

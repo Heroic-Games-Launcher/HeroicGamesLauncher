@@ -39,7 +39,7 @@ import { gameInfoStore } from './electronStores'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { t } from 'i18next'
-import { showErrorBoxModalAuto } from '../dialog/utils'
+import { showErrorBoxModalAuto } from '../dialog/dialog'
 
 class LegendaryGame extends Game {
   public appName: string

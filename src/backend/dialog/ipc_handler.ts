@@ -1,5 +1,5 @@
 import { ipcMain } from 'electron'
-import { showErrorBoxModalAuto } from './utils'
+import { showErrorBoxModalAuto } from './dialog'
 
 ipcMain.handle(
   'showErrorBox',

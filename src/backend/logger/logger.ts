@@ -4,7 +4,7 @@
  *        Note that with console.log and console.warn everything will be saved too.
  *        error equals console.error
  */
-import { showErrorBoxModalAuto } from '../dialog/utils'
+import { showErrorBoxModalAuto } from '../dialog/dialog'
 import { appendMessageToLogFile, getLongestPrefix } from './logfile'
 
 export enum LogPrefix {
