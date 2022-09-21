@@ -1,4 +1,4 @@
-import React, { useContext} from 'react'
+import React, { useContext } from 'react'
 
 import './App.css'
 import { HashRouter, Route, Routes } from 'react-router-dom'
@@ -34,7 +34,7 @@ function App() {
       <HashRouter>
         <Sidebar />
         <main className="content">
-          <DialogHandler/>
+          <DialogHandler />
           <Routes>
             <Route path="/" element={loggedIn ? <Library /> : <Login />} />
             <Route path="login" element={<Login />} />
