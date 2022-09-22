@@ -9,9 +9,9 @@ interface Point {
 
 export default function ProgressChart(props: { appName: string }) {
   const [progress] = hasProgress(props.appName)
-  const [avgDownloadSpeed, setAvgDownloadSpeed] = useState<Point[]>([
-    { value: 0, atm: 0 }
-  ])
+  const [avgDownloadSpeed, setAvgDownloadSpeed] = useState<Point[]>(
+    Array<Point>(10).fill({ value: 0, atm: 0 })
+  )
 
   useEffect(() => {
     if (avgDownloadSpeed.length > 10) {
@@ -19,7 +19,7 @@ export default function ProgressChart(props: { appName: string }) {
     }
 
     avgDownloadSpeed.push({
-      value: progress.percent,
+      value: progress.percent ?? avgDownloadSpeed.at(-1)?.value,
       atm: avgDownloadSpeed.length
     })
 
@@ -31,7 +31,7 @@ export default function ProgressChart(props: { appName: string }) {
       <AreaChart data={avgDownloadSpeed} margin={{ top: 10 }}>
         <Area
           isAnimationActive={false}
-          type="natural"
+          type="monotone"
           dataKey="value"
           stroke="var(--primary)"
           strokeWidth="2px"

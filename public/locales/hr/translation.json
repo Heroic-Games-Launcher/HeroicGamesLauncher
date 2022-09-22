@@ -177,8 +177,7 @@
             "queue": {
                 "actions": "Action",
                 "element": "Name",
-                "release": "Release Date",
-                "size": "Size"
+                "state": "State"
             },
             "title": "Download Manager (Beta)"
         }
