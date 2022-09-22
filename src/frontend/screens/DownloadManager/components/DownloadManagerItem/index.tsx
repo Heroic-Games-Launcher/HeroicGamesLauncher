@@ -8,11 +8,10 @@ const DownloadManagerItem = ({ appName }: InstallParams) => {
   //const { t } = useTranslation()
 
   return (
-    <div className="wineManagerListItem">
-      <span className="wineManagerTitleList">{appName}</span>
-      <div className="wineManagerListDate">{''}</div>
-      <div className="wineManagerListSize">{''}</div>
-      <span className="icons"></span>
+    <div className="downloadManagerListItem">
+      <span className="downloadManagerTitleList">{appName}</span>
+      <div className="downloadManagerListState">{'Test'}</div>
+      <span className="icons">{}</span>
     </div>
   )
 }

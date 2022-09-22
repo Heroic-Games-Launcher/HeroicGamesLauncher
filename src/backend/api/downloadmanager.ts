@@ -13,7 +13,7 @@ export const getDMQueueInformation = async () => {
 }
 
 export const handleDMQueueInformation = (
-  onChange: (e: Electron.IpcRendererEvent, elements: InstallParams[]) => void
+  onChange: (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => void
 ) => {
   ipcRenderer.on('changedDMQueueInformation', onChange)
   return () => {

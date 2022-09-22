@@ -1,4 +1,4 @@
-.wineManagerListItem > .icons {
+.downloadManagerListItem > .icons {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -8,12 +8,12 @@
   flex-wrap: wrap;
 }
 
-.wineManagerListItem > .icons > .material-icons.settings.folder {
+.downloadManagerListItem > .icons > .material-icons.settings.folder {
   position: initial;
 }
 
-.wineManagerListItem > .icons > a > svg,
-.wineManagerListItem > .icons > svg {
+.downloadManagerListItem > .icons > a > svg,
+.downloadManagerListItem > .icons > svg {
   width: min(calc(1vw + 9px), 36px);
   height: min(calc(1vw + 9px), 36px);
   min-width: 22px;
@@ -21,10 +21,10 @@
   margin-left: 12px;
 }
 
-.wineManagerListItem {
+.downloadManagerListItem {
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr 1fr;
-  grid-template-areas: 'name date size action';
+  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-areas: 'name state action';
   margin: 0.5em 2em;
   align-items: center;
   justify-items: baseline;
@@ -35,26 +35,26 @@
   padding: 0.5rem 0;
 }
 
-.wineManagerTitleList {
+.downloadManagerTitleList {
   grid-area: name;
   font-size: 1em;
   font-weight: bold;
   text-transform: capitalize;
 }
 
-.wineManagerListItem > a {
+.downloadManagerListItem > a {
   grid-area: cover;
   max-width: 15vh;
   width: 100%;
   height: 100%;
 }
 
-.wineManagerListItem > .icons > button {
+.downloadManagerListItem > .icons > button {
   margin-left: 0;
   padding-left: 4px;
 }
 
-.wineManagerListItem > .progress {
+.downloadManagerListItem > .progress {
   z-index: 5;
   grid-area: cover;
   font-weight: 500;
@@ -72,21 +72,15 @@
   line-height: 12px;
 }
 
-.wineManagerListItem > .progress > .MuiSvgIcon-root {
+.downloadManagerListItem > .progress > .MuiSvgIcon-root {
   position: relative;
   bottom: 0;
   top: 0;
 }
 
-.wineManagerListDate {
+.downloadManagerListState {
   font-size: 1em;
-  grid-area: date;
-}
-
-.wineManagerListSize {
-  font-size: 1em;
-  grid-area: size;
-  justify-self: center;
+  grid-area: state;
 }
 
 .react-contextmenu--visible {

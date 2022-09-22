@@ -14,6 +14,6 @@ ipcMain.on('removeFromDMQueue', (e, element: DMQueueElement) => {
   removeFromQueue(element)
 })
 
-ipcMain.handle('getDMQueueInformation', async () => {
+ipcMain.handle('getDMQueueInformation', () => {
   return getQueueInformation()
 })
