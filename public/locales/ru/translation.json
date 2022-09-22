@@ -170,6 +170,19 @@
         }
     },
     "docs": "Документация",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "release": "Release Date",
+                "size": "Size"
+            },
+            "title": "Download Manager (Beta)"
+        }
+    },
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
         "offline-notification-title": "офлайн"

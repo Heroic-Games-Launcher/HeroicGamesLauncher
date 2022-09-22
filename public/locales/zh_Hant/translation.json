@@ -170,6 +170,19 @@
         }
     },
     "docs": "Documentation",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "release": "Release Date",
+                "size": "Size"
+            },
+            "title": "Download Manager (Beta)"
+        }
+    },
     "epic": {
         "offline-notification-body": "因為Epic Games伺服器離線，可能無法提供完整線上服務！",
         "offline-notification-title": "offline"

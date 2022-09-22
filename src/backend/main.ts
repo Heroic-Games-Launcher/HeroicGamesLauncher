@@ -1,7 +1,6 @@
 import { initImagesCache } from './images_cache'
 import { downloadAntiCheatData } from './anticheat/utils'
 import {
-  InstallParams,
   GamepadInputEventKey,
   GamepadInputEventWheel,
   GamepadInputEventMouse,
@@ -119,6 +118,7 @@ import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
+import { initQueue } from './downloadmanager/downloadqueue'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -489,6 +489,7 @@ ipcMain.on('Notify', (event, args) => {
 
 ipcMain.on('frontendReady', () => {
   handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
+  initQueue()
 })
 
 // Maybe this can help with white screens
@@ -1084,85 +1085,6 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('install', async (event, params) => {
-  const {
-    appName,
-    path,
-    installDlcs,
-    sdlList = [],
-    runner,
-    installLanguage,
-    platformToInstall
-  } = params as InstallParams
-  const game = getGame(appName, runner)
-  const { title } = game.getGameInfo()
-
-  if (!isOnline()) {
-    logWarning(`App offline, skipping install for game '${title}'.`, {
-      prefix: LogPrefix.Backend
-    })
-    return { status: 'error' }
-  }
-
-  const epicOffline = await isEpicServiceOffline()
-  if (epicOffline && runner === 'legendary') {
-    showErrorBoxModal(
-      mainWindow,
-      i18next.t('box.warning.title', 'Warning'),
-      i18next.t(
-        'box.warning.epic.install',
-        'Epic Servers are having major outage right now, the game cannot be installed!'
-      )
-    )
-    return { status: 'error' }
-  }
-
-  mainWindow.webContents.send('setGameStatus', {
-    appName,
-    runner,
-    status: 'installing',
-    folder: path
-  })
-
-  notify({
-    title,
-    body: i18next.t('notify.install.startInstall', 'Installation Started')
-  })
-  return game
-    .install({
-      path: path.replaceAll("'", ''),
-      installDlcs,
-      sdlList,
-      platformToInstall,
-      installLanguage
-    })
-    .then(async (res) => {
-      notify({
-        title,
-        body:
-          res.status === 'done'
-            ? i18next.t('notify.install.finished')
-            : i18next.t('notify.install.canceled')
-      })
-      logInfo('finished installing', { prefix: LogPrefix.Backend })
-      mainWindow.webContents.send('setGameStatus', {
-        appName,
-        runner,
-        status: 'done'
-      })
-      return res
-    })
-    .catch((res) => {
-      notify({ title, body: i18next.t('notify.install.canceled') })
-      mainWindow.webContents.send('setGameStatus', {
-        appName,
-        runner,
-        status: 'done'
-      })
-      return res
-    })
-})
-
 ipcMain.handle('uninstall', async (event, args) => {
   const [appName, shouldRemovePrefix, runner] = args
   const game = getGame(appName, runner)
@@ -1586,6 +1508,7 @@ import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
+import './downloadmanager/ipc_handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

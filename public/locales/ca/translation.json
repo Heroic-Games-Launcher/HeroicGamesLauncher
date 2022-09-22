@@ -170,6 +170,19 @@
         }
     },
     "docs": "Documentation",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "release": "Release Date",
+                "size": "Size"
+            },
+            "title": "Download Manager (Beta)"
+        }
+    },
     "epic": {
         "offline-notification-body": "Els serveis en línia potser no funcionen del tot, ja que els servidors d'Epic Games estan desconnectats!",
         "offline-notification-title": "fora de línia"

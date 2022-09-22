@@ -13,6 +13,7 @@ import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
 import classNames from 'classnames'
 import { ControllerHints } from './components/UI'
+import DownloadManager from './screens/DownloadManager'
 
 function App() {
   const { epic, gog, contentFontFamily, actionsFontFamily, sidebarCollapsed } =
@@ -56,6 +57,7 @@ function App() {
               </Route>
             </Route>
             <Route path="/wine-manager" element={<WineManager />} />
+            <Route path="/download-manager" element={<DownloadManager />} />
             <Route path="/accessibility" element={<Accessibility />} />
           </Routes>
         </main>

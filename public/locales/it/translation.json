@@ -170,6 +170,19 @@
         }
     },
     "docs": "Documentation",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "release": "Release Date",
+                "size": "Size"
+            },
+            "title": "Download Manager (Beta)"
+        }
+    },
     "epic": {
         "offline-notification-body": "I servizi online potrebbero non funzionare completamente poiché i server di Epic Games sono offline!",
         "offline-notification-title": "offline"

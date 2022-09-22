@@ -480,3 +480,7 @@ export interface Tools {
   appName: string
   runner: Runner
 }
+
+export interface DMQueueElement {
+  params: InstallParams
+}

@@ -67,10 +67,7 @@ export async function showErrorBoxModal(
 export function showErrorBoxModalAuto(title: string, message: string) {
   let window: BrowserWindow | null
   try {
-    window = BrowserWindow.getFocusedWindow()
-    if (!window) {
-      window = BrowserWindow.getAllWindows()[0]
-    }
+    window = getMainWindow()
     showErrorBoxModal(window, title, message)
   } catch (error) {
     logWarning(['showErrorBoxModalAuto:', error], {
@@ -366,7 +363,7 @@ async function errorHandler(
   const otherErrorMessages = ['No saved credentials', 'No credentials']
 
   if (!window) {
-    window = BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows[0]
+    window = getMainWindow()
   }
 
   if (logPath) {
@@ -821,6 +818,10 @@ type NotifyType = {
   body: string
 }
 
+function getMainWindow(): BrowserWindow {
+  return BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows[0]
+}
+
 export {
   errorHandler,
   execAsync,
@@ -846,5 +847,6 @@ export {
   removeQuoteIfNecessary,
   killPattern,
   detectVCRedist,
-  getGame
+  getGame,
+  getMainWindow
 }

@@ -170,6 +170,19 @@
         }
     },
     "docs": "Documentación",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "release": "Release Date",
+                "size": "Size"
+            },
+            "title": "Download Manager (Beta)"
+        }
+    },
     "epic": {
         "offline-notification-body": "¡Puede que algunos servicios no funcionen correctamente si no estás conectado a los servidores de Epic Games!",
         "offline-notification-title": "Sin conexión"

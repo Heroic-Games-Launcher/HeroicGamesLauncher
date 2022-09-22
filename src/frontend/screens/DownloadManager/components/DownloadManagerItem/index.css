@@ -1,0 +1,115 @@
+.wineManagerListItem > .icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0 1rem;
+  align-self: center;
+  flex-wrap: wrap;
+}
+
+.wineManagerListItem > .icons > .material-icons.settings.folder {
+  position: initial;
+}
+
+.wineManagerListItem > .icons > a > svg,
+.wineManagerListItem > .icons > svg {
+  width: min(calc(1vw + 9px), 36px);
+  height: min(calc(1vw + 9px), 36px);
+  min-width: 22px;
+  min-height: 22px;
+  margin-left: 12px;
+}
+
+.wineManagerListItem {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+  grid-template-areas: 'name date size action';
+  margin: 0.5em 2em;
+  align-items: center;
+  justify-items: baseline;
+  position: relative;
+  cursor: default;
+  place-self: center;
+  border-bottom: 1px solid gray;
+  padding: 0.5rem 0;
+}
+
+.wineManagerTitleList {
+  grid-area: name;
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.wineManagerListItem > a {
+  grid-area: cover;
+  max-width: 15vh;
+  width: 100%;
+  height: 100%;
+}
+
+.wineManagerListItem > .icons > button {
+  margin-left: 0;
+  padding-left: 4px;
+}
+
+.wineManagerListItem > .progress {
+  z-index: 5;
+  grid-area: cover;
+  font-weight: 500;
+  background: var(--background-gradient);
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: var(--success);
+  position: relative;
+  bottom: -38px;
+  left: -38px;
+  color: var(--success);
+  font-family: var(--actions-font-family);
+  font-style: italic;
+  font-weight: normal;
+  line-height: 12px;
+}
+
+.wineManagerListItem > .progress > .MuiSvgIcon-root {
+  position: relative;
+  bottom: 0;
+  top: 0;
+}
+
+.wineManagerListDate {
+  font-size: 1em;
+  grid-area: date;
+}
+
+.wineManagerListSize {
+  font-size: 1em;
+  grid-area: size;
+  justify-self: center;
+}
+
+.react-contextmenu--visible {
+  background-color: var(--background);
+  padding: 14px 22px;
+  border-radius: 6px;
+  z-index: 99;
+}
+
+.react-contextmenu-item {
+  color: var(--text-default);
+  font-size: 14px;
+  line-height: 26px;
+  font-family: var(--actions-font-family);
+  cursor: pointer;
+  text-align: left;
+}
+
+.react-contextmenu-item:hover {
+  color: var(--download-button);
+}
+
+.react-contextmenu-item.disabled {
+  color: var(--icon-disabled);
+  cursor: initial;
+}

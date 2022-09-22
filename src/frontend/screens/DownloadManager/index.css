@@ -1,0 +1,30 @@
+.wineList {
+  margin-top: 48px;
+}
+
+.wineList > .gameListHeader {
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+}
+
+.wineList > .gameListHeader span:nth-child(3) {
+  justify-self: center;
+}
+
+.wineManager
+  > .MuiTabs-root
+  > .MuiTabs-scroller
+  > .MuiTabs-flexContainer
+  > .MuiTab-root {
+  color: var(--text-default);
+}
+
+.wineManager
+  > .MuiTabs-root
+  > .MuiTabs-scroller
+  > .MuiTabs-flexContainer
+  > .Mui-selected {
+  color: var(--accent);
+}
+.wineManager > .MuiTabs-root > .MuiTabs-scroller > .MuiTabs-indicator {
+  background-color: var(--accent);
+}
