@@ -120,6 +120,9 @@
   min-height: 0px;
   overflow: auto;
   max-height: 100%;
+}
+
+.gameRequirements {
   min-width: 60vw;
 }
 
