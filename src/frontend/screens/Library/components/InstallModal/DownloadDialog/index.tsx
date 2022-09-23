@@ -30,7 +30,6 @@ import {
   size,
   getInstallInfo,
   getGameInfo,
-  getAppSettings,
   writeConfig,
   install
 } from 'frontend/helpers'
@@ -52,14 +51,9 @@ interface Props {
   appName: string
   runner: Runner
   platformToInstall: InstallPlatform
-  setWineVersion: React.Dispatch<
-    React.SetStateAction<WineInstallation | undefined>
-  >
-  setWinePrefix: React.Dispatch<React.SetStateAction<string>>
   availablePlatforms: AvailablePlatforms
   setIsLinuxNative: React.Dispatch<React.SetStateAction<boolean>>
   setIsMacNative: React.Dispatch<React.SetStateAction<boolean>>
-  setPlatformToInstall: React.Dispatch<React.SetStateAction<InstallPlatform>>
   winePrefix: string
   wineVersion: WineInstallation | undefined
   children: React.ReactNode
@@ -101,13 +95,10 @@ export default function DownloadDialog({
   appName,
   runner,
   platformToInstall,
-  setWinePrefix,
-  setWineVersion,
   availablePlatforms,
   setIsLinuxNative,
   setIsMacNative,
   winePrefix,
-  setPlatformToInstall,
   wineVersion,
   children
 }: Props) {
@@ -231,11 +222,6 @@ export default function DownloadDialog({
           getInstallLanguage(installer_languages, i18n.languages)
         )
       }
-      const bottleName = gameData.folder_name
-      const { defaultWinePrefix, wineVersion } = await getAppSettings()
-      const sugestedWinePrefix = `${defaultWinePrefix}/${bottleName}`
-      setWinePrefix(sugestedWinePrefix)
-      setWineVersion(wineVersion || undefined)
     }
     getInfo()
   }, [appName, i18n.languages, platformToInstall])
@@ -299,8 +285,6 @@ export default function DownloadDialog({
       }
     }
   }, [i18n.languages, platformToInstall])
-
-  const showPlatformSelection = availablePlatforms.length > 1
 
   const { validPath, notEnoughDiskSpace, message, spaceLeftAfter } = spaceLeft
   const title = gameInstallInfo?.game?.title
@@ -381,25 +365,6 @@ export default function DownloadDialog({
             </div>
           )}
         </div>
-        {showPlatformSelection && (
-          <SelectField
-            label={`${t(
-              'game.platform',
-              'Select Platform Version to Install'
-            )}:`}
-            htmlId="platformPick"
-            value={platformToInstall}
-            onChange={(e) =>
-              setPlatformToInstall(e.target.value as InstallPlatform)
-            }
-          >
-            {availablePlatforms.map((p) => (
-              <option value={p.value} key={p.value}>
-                {p.name}
-              </option>
-            ))}
-          </SelectField>
-        )}
         {installLanguages && installLanguages?.length > 1 && (
           <SelectField
             label={`${t('game.language', 'Language')}:`}

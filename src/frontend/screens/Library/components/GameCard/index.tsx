@@ -220,25 +220,6 @@ const GameCard = ({
 
   const items: Item[] = [
     {
-      label: t('label.playing.start'),
-      onclick: async () => handlePlay(runner),
-      show: isInstalled
-    },
-    {
-      label: t('submenu.settings'),
-      onclick: () =>
-        navigate(pathname, {
-          state: {
-            fromGameCard: true,
-            runner,
-            hasCloudSave,
-            isLinuxNative,
-            isMacNative
-          }
-        }),
-      show: isInstalled
-    },
-    {
       label: t('button.update', 'Update'),
       onclick: async () => handleUpdate(),
       show: hasUpdate

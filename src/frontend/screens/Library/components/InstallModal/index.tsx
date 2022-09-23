@@ -12,6 +12,8 @@ import './index.css'
 import DownloadDialog from './DownloadDialog'
 import SideloadDialog from './SideloadDialog'
 import WineSelector from './WineSelector'
+import { SelectField } from 'frontend/components/UI'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   appName: string
@@ -32,6 +34,7 @@ export default function InstallModal({
   runner
 }: Props) {
   const { platform } = useContext(ContextProvider)
+  const { t } = useTranslation('gamepage')
 
   const [winePrefix, setWinePrefix] = useState('...')
   const [wineVersion, setWineVersion] = useState<WineInstallation | undefined>(
@@ -110,6 +113,30 @@ export default function InstallModal({
     }
   }, [hasWine, wineVersion])
 
+  function platformSelection() {
+    const showPlatformSelection = availablePlatforms.length > 1
+
+    if (!showPlatformSelection) {
+      return null
+    }
+    return (
+      <SelectField
+        label={`${t('game.platform', 'Select Platform Version to Install')}:`}
+        htmlId="platformPick"
+        value={platformToInstall}
+        onChange={(e) =>
+          setPlatformToInstall(e.target.value as InstallPlatform)
+        }
+      >
+        {availablePlatforms.map((p) => (
+          <option value={p.value} key={p.value}>
+            {p.name}
+          </option>
+        ))}
+      </SelectField>
+    )
+  }
+
   return (
     <div className="InstallModal">
       <Dialog onClose={backdropClick} className={'InstallModal__dialog'}>
@@ -121,17 +148,16 @@ export default function InstallModal({
               setIsLinuxNative,
               backdropClick,
               availablePlatforms,
-              setWinePrefix,
               appName,
               runner,
               setIsMacNative,
               setPlatformToInstall,
-              setWineVersion,
               winePrefix,
               hasWine,
               wineVersion
             }}
           >
+            {platformSelection()}
             {hasWine ? (
               <WineSelector
                 {...{
@@ -156,9 +182,11 @@ export default function InstallModal({
               winePrefix,
               wineVersion,
               wineVersionList,
-              hasWine
+              hasWine,
+              backdropClick
             }}
           >
+            {platformSelection()}
             {hasWine ? (
               <WineSelector
                 {...{
