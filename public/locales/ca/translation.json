@@ -176,8 +176,7 @@
             "link": "Download Manager",
             "queue": {
                 "actions": "Action",
-                "element": "Name",
-                "state": "State"
+                "element": "Name"
             },
             "title": "Download Manager (Beta)"
         }
