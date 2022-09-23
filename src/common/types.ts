@@ -190,6 +190,8 @@ export interface InstallProgress {
   eta: string
   folder?: string
   percent: number
+  downSpeed?: number
+  diskSpeed?: number
 }
 export interface InstalledInfo {
   executable: string

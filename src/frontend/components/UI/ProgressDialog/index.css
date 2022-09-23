@@ -57,3 +57,7 @@
 .progressDialog.linearProgress > .MuiLinearProgress-bar {
   background-color: var(--accent);
 }
+
+.progressHeaderETA {
+  color: var(--accent);
+}

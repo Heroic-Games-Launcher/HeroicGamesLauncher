@@ -23,8 +23,8 @@
 
 .downloadManagerListItem {
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
-  grid-template-areas: 'name state action';
+  grid-template-columns: 3fr 1fr;
+  grid-template-areas: 'name action';
   margin: 0.5em 2em;
   align-items: center;
   justify-items: baseline;
@@ -76,11 +76,6 @@
   position: relative;
   bottom: 0;
   top: 0;
-}
-
-.downloadManagerListState {
-  font-size: 1em;
-  grid-area: state;
 }
 
 .react-contextmenu--visible {

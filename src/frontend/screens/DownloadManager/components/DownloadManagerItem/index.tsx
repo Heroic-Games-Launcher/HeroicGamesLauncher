@@ -10,7 +10,6 @@ const DownloadManagerItem = ({ appName }: InstallParams) => {
   return (
     <div className="downloadManagerListItem">
       <span className="downloadManagerTitleList">{appName}</span>
-      <div className="downloadManagerListState">{'Test'}</div>
       <span className="icons">{}</span>
     </div>
   )

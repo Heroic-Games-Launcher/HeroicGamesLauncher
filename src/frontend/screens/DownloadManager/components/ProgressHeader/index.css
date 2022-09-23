@@ -1,0 +1,35 @@
+.progressHeader {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.5fr 1fr;
+  grid-template-areas: 'speed percent eta';
+  margin: 0.5em 2em;
+  align-items: center;
+  position: relative;
+  cursor: default;
+  border-bottom: 1px solid gray;
+  padding: 0.5rem 0;
+}
+
+.progressHeader.linearProgress {
+  margin-top: 10px;
+  background-color: var(--primary);
+}
+
+.progressHeader.linearProgress > .MuiLinearProgress-bar {
+  background-color: var(--accent);
+}
+
+.progressChartValues {
+  display: grid;
+  flex-direction: column;
+  justify-content: start;
+  justify-items: start;
+}
+
+.progressChartValues > .downSpeed {
+  color: var(--accent);
+}
+
+.progressChartValues > .diskSpeed {
+  color: var(--primary);
+}

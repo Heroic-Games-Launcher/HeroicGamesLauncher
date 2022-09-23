@@ -1,15 +1,9 @@
-.areaChart {
-  align-self: center;
-  width: 50%;
-  height: 10%;
-}
-
 .downloadList {
   margin-top: 48px;
 }
 
 .downloadList > .gameListHeader {
-  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-columns: 3fr 1fr;
 }
 
 .downloadList > .gameListHeader span:nth-child(3) {
@@ -31,6 +25,7 @@
   > .Mui-selected {
   color: var(--accent);
 }
+
 .downloadManager > .MuiTabs-root > .MuiTabs-scroller > .MuiTabs-indicator {
   background-color: var(--accent);
 }

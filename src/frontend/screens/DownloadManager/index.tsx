@@ -4,7 +4,7 @@ import React, { lazy, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DMQueueElement } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
-import ProgressChart from './components/ProgressChart'
+import ProgressHeader from './components/ProgressHeader'
 
 const DownloadManagerItem = lazy(
   async () =>
@@ -43,11 +43,7 @@ export default function DownloadManager(): JSX.Element | null {
       <h2>{t('download.manager.title', 'Download Manager (Beta)')}</h2>
       {queueElements?.length ? (
         <>
-          <span className="areaChart">
-            <ProgressChart
-              appName={queueElements.at(0)?.params.appName ?? ''}
-            />
-          </span>
+          <ProgressHeader appName={queueElements.at(0)?.params.appName ?? ''} />
           <div className="downloadManager">
             <div
               style={
@@ -55,14 +51,32 @@ export default function DownloadManager(): JSX.Element | null {
               }
               className="downloadList"
             >
+              <h3>Current</h3>
               <div className="gameListHeader">
                 <span>{t('download.manager.queue.element', 'Name')}</span>
-                <span>{t('download.manager.queue.state', 'State')}</span>
+                <span>{t('download.manager.queue.actions', 'Action')}</span>
+              </div>
+              <DownloadManagerItem
+                appName={queueElements.at(0)?.params.appName ?? ''}
+                path={queueElements.at(0)?.params.path ?? ''}
+                installDlcs={queueElements.at(0)?.params.installDlcs}
+                sdlList={queueElements.at(0)?.params.sdlList ?? []}
+                platformToInstall={
+                  queueElements.at(0)?.params.platformToInstall ?? 'Windows'
+                }
+                runner={queueElements.at(0)?.params.runner ?? 'legendary'}
+              />
+              <h3>Plannend</h3>
+              <div className="gameListHeader">
+                <span>{t('download.manager.queue.element', 'Name')}</span>
                 <span>{t('download.manager.queue.actions', 'Action')}</span>
               </div>
               {!!queueElements.length &&
                 queueElements.map((element, key) => {
-                  return <DownloadManagerItem key={key} {...element.params} />
+                  if (key !== 0) {
+                    return <DownloadManagerItem key={key} {...element.params} />
+                  }
+                  return null
                 })}
             </div>
           </div>

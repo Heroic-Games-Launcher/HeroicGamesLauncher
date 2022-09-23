@@ -276,6 +276,18 @@ class LegendaryGame extends Game {
       return
     }
 
+    // parse log for download speed
+    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
+    const downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
+      ? Number(downSpeedMBytes?.at(1))
+      : 0
+
+    // parse disk write speed
+    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
+    const diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
+      ? Number(diskSpeedMBytes?.at(1))
+      : 0
+
     const eta = etaMatch[1]
     const bytes = bytesMatch[1]
 
@@ -306,7 +318,9 @@ class LegendaryGame extends Game {
       progress: {
         eta: eta,
         percent,
-        bytes: `${bytes}MiB`
+        bytes: `${bytes}MiB`,
+        downSpeed,
+        diskSpeed
       }
     })
   }

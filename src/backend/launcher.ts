@@ -556,28 +556,30 @@ async function callRunner(
     const stdout: string[] = []
     const stderr: string[] = []
 
-    child.stdout.on('data', (data: Buffer) => {
+    child.stdout.setEncoding('utf-8')
+    child.stdout.on('data', (data: string) => {
       if (options?.logFile) {
-        appendFileSync(options.logFile, data.toString())
+        appendFileSync(options.logFile, data)
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString(), child)
+        options.onOutput(data, child)
       }
 
-      stdout.push(data.toString().trim())
+      stdout.push(data.trim())
     })
 
-    child.stderr.on('data', (data: Buffer) => {
+    child.stderr.setEncoding('utf-8')
+    child.stderr.on('data', (data: string) => {
       if (options?.logFile) {
-        appendFileSync(options.logFile, data.toString())
+        appendFileSync(options.logFile, data)
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString(), child)
+        options.onOutput(data, child)
       }
 
-      stderr.push(data.toString().trim())
+      stderr.push(data.trim())
     })
 
     child.on('close', (code, signal) => {
