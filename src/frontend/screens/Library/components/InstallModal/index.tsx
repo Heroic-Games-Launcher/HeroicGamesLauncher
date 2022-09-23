@@ -10,6 +10,8 @@ import { Dialog } from 'frontend/components/UI/Dialog'
 import './index.css'
 
 import DownloadDialog from './DownloadDialog'
+import SideloadDialog from './SideloadDialog'
+import WineSelector from './WineSelector'
 
 type Props = {
   appName: string
@@ -49,13 +51,13 @@ export default function InstallModal({
   const platforms: AvailablePlatforms = [
     {
       name: 'Linux',
-      available: isLinuxNative && !isMac,
+      available: (isLinux && isSideload) || (isLinuxNative && !isMac),
       value: 'Linux',
       icon: faLinux
     },
     {
       name: 'macOS',
-      available: isMacNative && !isLinux,
+      available: (isMac && isSideload) || (isMacNative && !isLinux),
       value: 'Mac',
       icon: faApple
     },
@@ -108,45 +110,69 @@ export default function InstallModal({
     }
   }, [hasWine, wineVersion])
 
-  console.log({
-    ...{
-      platformToInstall,
-      wineVersionList,
-      setIsLinuxNative,
-      backdropClick,
-      availablePlatforms,
-      setWinePrefix,
-      appName,
-      runner,
-      setIsMacNative,
-      setPlatformToInstall,
-      setWineVersion,
-      winePrefix,
-      hasWine,
-      wineVersion
-    }
-  })
-
   return (
     <div className="InstallModal">
       <Dialog onClose={backdropClick} className={'InstallModal__dialog'}>
-        {!isSideload && (
+        {!isSideload ? (
           <DownloadDialog
-            platformToInstall={platformToInstall}
-            wineVersionList={wineVersionList}
-            setIsLinuxNative={setIsLinuxNative}
-            backdropClick={backdropClick}
-            availablePlatforms={availablePlatforms}
-            setWinePrefix={setWinePrefix}
-            appName={appName}
-            runner={runner}
-            setIsMacNative={setIsMacNative}
-            setPlatformToInstall={setPlatformToInstall}
-            setWineVersion={setWineVersion}
-            winePrefix={winePrefix}
-            hasWine={hasWine}
-            wineVersion={wineVersion}
-          />
+            {...{
+              platformToInstall,
+              wineVersionList,
+              setIsLinuxNative,
+              backdropClick,
+              availablePlatforms,
+              setWinePrefix,
+              appName,
+              runner,
+              setIsMacNative,
+              setPlatformToInstall,
+              setWineVersion,
+              winePrefix,
+              hasWine,
+              wineVersion
+            }}
+          >
+            {hasWine ? (
+              <WineSelector
+                {...{
+                  winePrefix,
+                  wineVersion,
+                  wineVersionList,
+                  setWinePrefix,
+                  setWineVersion,
+                  runner,
+                  appName
+                }}
+              />
+            ) : null}
+          </DownloadDialog>
+        ) : (
+          <SideloadDialog
+            {...{
+              setWinePrefix,
+              setPlatformToInstall,
+              setWineVersion,
+              availablePlatforms,
+              winePrefix,
+              wineVersion,
+              wineVersionList,
+              hasWine
+            }}
+          >
+            {hasWine ? (
+              <WineSelector
+                {...{
+                  winePrefix,
+                  wineVersion,
+                  wineVersionList,
+                  setWinePrefix,
+                  setWineVersion,
+                  runner,
+                  appName
+                }}
+              />
+            ) : null}
+          </SideloadDialog>
         )}
       </Dialog>
     </div>

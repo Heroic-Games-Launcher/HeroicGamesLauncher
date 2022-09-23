@@ -57,13 +57,12 @@ interface Props {
   >
   setWinePrefix: React.Dispatch<React.SetStateAction<string>>
   availablePlatforms: AvailablePlatforms
-  wineVersionList: WineInstallation[]
   setIsLinuxNative: React.Dispatch<React.SetStateAction<boolean>>
   setIsMacNative: React.Dispatch<React.SetStateAction<boolean>>
   setPlatformToInstall: React.Dispatch<React.SetStateAction<InstallPlatform>>
   winePrefix: string
-  hasWine: boolean
   wineVersion: WineInstallation | undefined
+  children: React.ReactNode
 }
 
 type DiskSpaceInfo = {
@@ -107,11 +106,10 @@ export default function DownloadDialog({
   availablePlatforms,
   setIsLinuxNative,
   setIsMacNative,
-  wineVersionList,
   winePrefix,
   setPlatformToInstall,
   wineVersion,
-  hasWine
+  children
 }: Props) {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
@@ -481,50 +479,7 @@ export default function DownloadDialog({
             </span>
           }
         />
-
-        {hasWine && (
-          <>
-            <TextInputWithIconField
-              label={t('install.wineprefix', 'WinePrefix')}
-              htmlId="setinstallpath"
-              placeholder={winePrefix}
-              value={winePrefix.replaceAll("'", '')}
-              onChange={(event) => setWinePrefix(event.target.value)}
-              icon={<FontAwesomeIcon icon={faFolderOpen} />}
-              onIconClick={async () =>
-                window.api
-                  .openDialog({
-                    buttonLabel: t('box.choose'),
-                    properties: ['openDirectory'],
-                    title: t('box.wineprefix', 'Select WinePrefix Folder')
-                  })
-                  .then(({ path }: Path) =>
-                    setWinePrefix(path ? path : winePrefix)
-                  )
-              }
-            />
-
-            <SelectField
-              label={`${t('install.wineversion')}:`}
-              htmlId="wineVersion"
-              value={wineVersion?.bin || ''}
-              onChange={(e) =>
-                setWineVersion(
-                  wineVersionList.find(
-                    (version) => version.bin === e.target.value
-                  )
-                )
-              }
-            >
-              {wineVersionList &&
-                wineVersionList.map((version) => (
-                  <option value={version.bin} key={version.bin}>
-                    {version.name}
-                  </option>
-                ))}
-            </SelectField>
-          </>
-        )}
+        {children}
         {(haveDLCs || haveSDL) && (
           <div className="InstallModal__sectionHeader">
             {t('sdl.title', 'Select components to Install')}:
