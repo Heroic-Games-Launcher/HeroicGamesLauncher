@@ -56,14 +56,12 @@
     "game": {
         "downloadSize": "Памер спампоўкі",
         "firstPlayed": "Упершыню сыграна",
-        "info": "Інфармацыя",
         "installSize": "Памер усталявання",
         "language": "мова",
         "lastPlayed": "Апошняя гульня",
         "neverPlayed": "ніколі",
         "platform": "Выберыце версію платформы для ўстаноўкі",
         "reuirements": "Сістэмныя патрабаванні",
-        "tools": "інструменты",
         "totalPlayed": "Згуляны час"
     },
     "gamecard": {

@@ -57,14 +57,12 @@
     "game": {
         "downloadSize": "Deskarga-tamaina",
         "firstPlayed": "Lehen aldiz jokatua",
-        "info": "Informazioa",
         "installSize": "Instalazioaren tamaina",
         "language": "Hizkuntza",
         "lastPlayed": "Azken jokaldia",
         "neverPlayed": "Inoiz ez",
         "platform": "Instalatzeko plataformaren bertsioa hautatu",
         "reuirements": "Sistemaren betekizunak",
-        "tools": "Tresnak",
         "totalPlayed": "Denbora jokatua"
     },
     "gamecard": {

@@ -56,14 +56,12 @@
     "game": {
         "downloadSize": "下载大小",
         "firstPlayed": "首次游玩",
-        "info": "信息",
         "installSize": "安装大小",
         "language": "语言",
         "lastPlayed": "上次玩",
         "neverPlayed": "从未玩过",
         "platform": "选择要安装的平台版本",
         "reuirements": "系统要求",
-        "tools": "工具",
         "totalPlayed": "游玩时间"
     },
     "gamecard": {

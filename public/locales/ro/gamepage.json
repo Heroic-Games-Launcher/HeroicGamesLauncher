@@ -57,14 +57,12 @@
     "game": {
         "downloadSize": "Dimensiune descărcare",
         "firstPlayed": "Prima dată jucat",
-        "info": "Info",
         "installSize": "Mărime Instalare",
         "language": "Limba",
         "lastPlayed": "Ultima Dată Jucat",
         "neverPlayed": "Niciodată",
         "platform": "Selectați versiunea platformei de instalat",
         "reuirements": "Cerințe de sistem",
-        "tools": "Instrumente",
         "totalPlayed": "Timp Jucat"
     },
     "gamecard": {

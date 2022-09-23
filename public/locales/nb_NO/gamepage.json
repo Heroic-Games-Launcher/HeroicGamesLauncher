@@ -57,14 +57,12 @@
     "game": {
         "downloadSize": "Last ned størrelse",
         "firstPlayed": "Først spilt",
-        "info": "Info",
         "installSize": "Installasjonsstørrelse",
         "language": "Språk",
         "lastPlayed": "Sist spilt",
         "neverPlayed": "Aldri",
         "platform": "Velg plattformversjon som skal installeres",
         "reuirements": "Systemkrav",
-        "tools": "Verktøy",
         "totalPlayed": "Spilletid"
     },
     "gamecard": {
