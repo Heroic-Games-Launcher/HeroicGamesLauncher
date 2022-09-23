@@ -21,6 +21,7 @@ interface Props {
   handleUpdate: () => void
   disableUpdate: boolean
   steamImageUrl: string
+  onShowRequirements?: () => void
 }
 
 // helper function to generate images for steam
@@ -85,7 +86,8 @@ export default function GamesSubmenu({
   runner,
   handleUpdate,
   disableUpdate,
-  steamImageUrl
+  steamImageUrl,
+  onShowRequirements
 }: Props) {
   const { handleGameStatus, refresh, platform, libraryStatus } =
     useContext(ContextProvider)
@@ -344,6 +346,14 @@ export default function GamesSubmenu({
             className="link button is-text is-link"
           >
             {t('submenu.protondb')}
+          </button>
+        )}
+        {onShowRequirements && (
+          <button
+            onClick={async () => onShowRequirements()}
+            className="link button is-text is-link"
+          >
+            {t('game.reuirements', 'Requirements')}
           </button>
         )}
       </div>

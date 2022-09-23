@@ -116,12 +116,11 @@
 
 .gameInfo,
 .gameRequirements {
-  display: none;
   align-self: flex-start;
-  padding: 8vh 2.2em 1.2em 1.2em;
   min-height: 0px;
   overflow: auto;
   max-height: 100%;
+  min-width: 60vw;
 }
 
 .gameTabs {
@@ -134,6 +133,7 @@
 }
 
 .gameInfo {
+  padding: 8vh 2.2em 1.2em 1.2em;
   display: flex;
 }
 
@@ -305,7 +305,7 @@
   max-height: 0px;
   overflow: hidden;
   right: 0;
-  top: 0;
+  top: 100%;
 }
 
 .game-actions .gameTools .link {

@@ -40,6 +40,11 @@ import {
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader
+} from 'frontend/components/UI/Dialog'
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
@@ -76,6 +81,7 @@ export default function GamePage(): JSX.Element | null {
   }>({ error: false, message: '' })
   const [winePrefix, setWinePrefix] = useState('')
   const [wineVersion, setWineVersion] = useState('')
+  const [showRequirements, setShowRequirements] = useState(false)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -173,6 +179,7 @@ export default function GamePage(): JSX.Element | null {
   }
 
   let hasUpdate = false
+  let hasRequirements = false
 
   if (gameInfo && gameInfo.install) {
     const {
@@ -192,6 +199,7 @@ export default function GamePage(): JSX.Element | null {
       canRunOffline
     }: GameInfo = gameInfo
 
+    hasRequirements = extra?.reqs?.length > 0
     hasUpdate = is_installed && gameUpdates?.includes(appName)
 
     const downloadSize =
@@ -262,6 +270,9 @@ export default function GamePage(): JSX.Element | null {
                 handleUpdate={handleUpdate}
                 disableUpdate={updateRequested || isUpdating}
                 steamImageUrl={gameInfo.art_cover}
+                onShowRequirements={
+                  hasRequirements ? () => setShowRequirements(true) : undefined
+                }
               />
             </div>
             <div className="gameInfo">
@@ -450,7 +461,19 @@ export default function GamePage(): JSX.Element | null {
               )}
             </div>
 
-            <GameRequirements gameInfo={gameInfo} />
+            {hasRequirements && showRequirements && (
+              <Dialog onClose={() => setShowRequirements(false)}>
+                <DialogHeader
+                  showCloseButton={true}
+                  onClose={() => setShowRequirements(false)}
+                >
+                  <div>{t('game.reuirements', 'Requirements')}</div>
+                </DialogHeader>
+                <DialogContent>
+                  <GameRequirements gameInfo={gameInfo} />
+                </DialogContent>
+              </Dialog>
+            )}
           </>
         ) : (
           <UpdateComponent />
