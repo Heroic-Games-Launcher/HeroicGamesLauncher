@@ -106,22 +106,15 @@ async function install({
       runner,
       status: 'installing'
     })
-    return window.api
-      .install({
-        appName,
-        path: `${installPath}`,
-        installDlcs,
-        sdlList,
-        installLanguage,
-        runner,
-        platformToInstall
-      })
-      .finally(() => {
-        if (progress.percent === 100) {
-          storage.removeItem(appName)
-        }
-        return
-      })
+    return window.api.install({
+      appName,
+      path: `${installPath}`,
+      installDlcs,
+      sdlList,
+      installLanguage,
+      runner,
+      platformToInstall
+    })
   }
 
   // If the user changed the previous folder, the percentage should start from zero again.
@@ -135,21 +128,14 @@ async function install({
     storage.removeItem(appName)
   }
 
-  return window.api
-    .install({
-      appName,
-      path: `${path}`,
-      installDlcs,
-      sdlList,
-      runner,
-      platformToInstall
-    })
-    .finally(() => {
-      if (progress.percent === 100) {
-        storage.removeItem(appName)
-      }
-      return
-    })
+  return window.api.install({
+    appName,
+    path: `${path}`,
+    installDlcs,
+    sdlList,
+    runner,
+    platformToInstall
+  })
 }
 
 const importGame = window.api.importGame

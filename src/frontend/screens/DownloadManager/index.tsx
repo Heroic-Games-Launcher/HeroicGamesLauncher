@@ -14,18 +14,21 @@ const DownloadManagerItem = lazy(
 export default function DownloadManager(): JSX.Element | null {
   const { t } = useTranslation()
   const [refreshing, setRefreshing] = useState(false)
-  const [queueElements, setQueueElements] = useState<DMQueueElement[]>([])
+  const [plannendElements, setPlannendElements] = useState<DMQueueElement[]>([])
+  const [currentElement, setCurrentElement] = useState<DMQueueElement>()
 
   useEffect(() => {
     setRefreshing(true)
     window.api.getDMQueueInformation().then((elements: DMQueueElement[]) => {
-      setQueueElements(elements)
+      setCurrentElement(elements.at(0))
+      setPlannendElements([...elements.slice(1)])
       setRefreshing(false)
     })
 
     const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
       (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => {
-        setQueueElements(elements)
+        setCurrentElement(elements.at(0))
+        setPlannendElements([...elements.slice(1)])
       }
     )
 
@@ -41,14 +44,12 @@ export default function DownloadManager(): JSX.Element | null {
   return (
     <>
       <h2>{t('download.manager.title', 'Download Manager (Beta)')}</h2>
-      {queueElements?.length ? (
+      {currentElement ? (
         <>
-          <ProgressHeader appName={queueElements.at(0)?.params.appName ?? ''} />
+          <ProgressHeader appName={currentElement?.params.appName ?? ''} />
           <div className="downloadManager">
             <div
-              style={
-                !queueElements.length ? { backgroundColor: 'transparent' } : {}
-              }
+              style={!currentElement ? { backgroundColor: 'transparent' } : {}}
               className="downloadList"
             >
               <h3>Current</h3>
@@ -57,27 +58,27 @@ export default function DownloadManager(): JSX.Element | null {
                 <span>{t('download.manager.queue.actions', 'Action')}</span>
               </div>
               <DownloadManagerItem
-                appName={queueElements.at(0)?.params.appName ?? ''}
-                path={queueElements.at(0)?.params.path ?? ''}
-                installDlcs={queueElements.at(0)?.params.installDlcs}
-                sdlList={queueElements.at(0)?.params.sdlList ?? []}
+                appName={currentElement?.params.appName ?? ''}
+                path={currentElement?.params.path ?? ''}
+                installDlcs={currentElement?.params.installDlcs}
+                sdlList={currentElement?.params.sdlList ?? []}
                 platformToInstall={
-                  queueElements.at(0)?.params.platformToInstall ?? 'Windows'
+                  currentElement?.params.platformToInstall ?? 'Windows'
                 }
-                runner={queueElements.at(0)?.params.runner ?? 'legendary'}
+                runner={currentElement?.params.runner ?? 'legendary'}
               />
-              <h3>Plannend</h3>
-              <div className="gameListHeader">
-                <span>{t('download.manager.queue.element', 'Name')}</span>
-                <span>{t('download.manager.queue.actions', 'Action')}</span>
-              </div>
-              {!!queueElements.length &&
-                queueElements.map((element, key) => {
-                  if (key !== 0) {
+              {!!plannendElements.length && (
+                <>
+                  <h3>Plannend</h3>
+                  <div className="gameListHeader">
+                    <span>{t('download.manager.queue.element', 'Name')}</span>
+                    <span>{t('download.manager.queue.actions', 'Action')}</span>
+                  </div>
+                  {plannendElements.map((element, key) => {
                     return <DownloadManagerItem key={key} {...element.params} />
-                  }
-                  return null
-                })}
+                  })}
+                </>
+              )}
             </div>
           </div>
         </>

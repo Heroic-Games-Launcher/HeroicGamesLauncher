@@ -48,7 +48,7 @@ export const hasProgress = (appName: string) => {
     return () => {
       setGameStatusRemoveListener()
     }
-  }, [])
+  }, [appName])
 
   return [progress, previousProgress]
 }
