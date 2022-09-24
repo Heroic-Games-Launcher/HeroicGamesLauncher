@@ -4,7 +4,6 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-import { ipcRenderer } from 'frontend/helpers'
 
 const EacRuntime = () => {
   const { t } = useTranslation()
@@ -18,9 +17,9 @@ const EacRuntime = () => {
   const handleEacRuntime = async () => {
     if (!eacRuntime) {
       if (!useGameMode) {
-        const isFlatpak = await ipcRenderer.invoke('isFlatpak')
+        const isFlatpak = await window.api.isFlatpak()
         if (isFlatpak) {
-          const { response } = await ipcRenderer.invoke('openMessageBox', {
+          const { response } = await window.api.openMessageBox({
             message: t(
               'settings.eacRuntime.gameModeRequired.message',
               'GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?'
@@ -37,16 +36,10 @@ const EacRuntime = () => {
           setUseGameMode(!useGameMode)
         }
       }
-      const isInstalled = await ipcRenderer.invoke(
-        'isRuntimeInstalled',
-        'eac_runtime'
-      )
+      const isInstalled = await window.api.isRuntimeInstalled('eac_runtime')
       if (!isInstalled) {
         setInstalling(true)
-        const success = await ipcRenderer.invoke(
-          'downloadRuntime',
-          'eac_runtime'
-        )
+        const success = await window.api.downloadRuntime('eac_runtime')
         setInstalling(false)
         if (!success) {
           return

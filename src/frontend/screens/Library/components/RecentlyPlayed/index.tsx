@@ -4,7 +4,6 @@ import { getRecentGames } from 'frontend/helpers/library'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, GameStatus, Runner } from 'common/types'
 import { GamesList } from '../GamesList'
-import { ipcRenderer } from 'frontend/helpers'
 
 interface Props {
   handleModal: (appName: string, runner: Runner) => void
@@ -33,10 +32,11 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
   }
 
   useEffect(() => {
-    ipcRenderer.on('setGameStatus', onGameStatusUpdates)
+    const setGameStatusRemoveListener =
+      window.api.handleSetGameStatus(onGameStatusUpdates)
 
     return () => {
-      ipcRenderer.removeListener('setGameStatus', onGameStatusUpdates)
+      setGameStatusRemoveListener()
     }
   })
 

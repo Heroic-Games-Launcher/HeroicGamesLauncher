@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSetting from 'frontend/hooks/useSetting'
-import { ipcRenderer } from 'frontend/helpers'
 import { Path } from 'frontend/types'
 import { TextInputWithIconField } from 'frontend/components/UI'
 
@@ -15,8 +14,8 @@ const DefaultInstallPath = () => {
   )
 
   const onFolderIconClick = async () => {
-    ipcRenderer
-      .invoke('openDialog', {
+    window.api
+      .openDialog({
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
         title: t('box.default-install-path'),

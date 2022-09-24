@@ -4,7 +4,6 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-import { ipcRenderer } from 'frontend/helpers'
 
 const BattlEyeRuntime = () => {
   const { t } = useTranslation()
@@ -16,16 +15,12 @@ const BattlEyeRuntime = () => {
 
   const handleBattlEyeRuntime = async () => {
     if (!battlEyeRuntime) {
-      const isInstalled = await ipcRenderer.invoke(
-        'isRuntimeInstalled',
+      const isInstalled = await window.api.isRuntimeInstalled(
         'battleye_runtime'
       )
       if (!isInstalled) {
         setInstalling(true)
-        const success = await ipcRenderer.invoke(
-          'downloadRuntime',
-          'battleye_runtime'
-        )
+        const success = await window.api.downloadRuntime('battleye_runtime')
         setInstalling(false)
         if (!success) {
           return

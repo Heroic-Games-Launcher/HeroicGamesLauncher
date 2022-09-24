@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField, SvgButton } from 'frontend/components/UI'
-import { ipcRenderer } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Path } from 'frontend/types'
 import useSetting from 'frontend/hooks/useSetting'
@@ -28,8 +27,8 @@ export default function CustomWineProton() {
   }, [customWinePaths])
 
   function selectCustomPath() {
-    ipcRenderer
-      .invoke('openDialog', {
+    window.api
+      .openDialog({
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
         title: t('box.customWine', 'Select the Wine or Proton Binary')

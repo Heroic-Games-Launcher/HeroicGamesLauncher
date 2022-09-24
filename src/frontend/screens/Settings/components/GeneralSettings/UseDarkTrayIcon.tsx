@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import { ipcRenderer } from 'frontend/helpers'
 import useSetting from 'frontend/hooks/useSetting'
 
 const UseDarkTrayIcon = () => {
@@ -13,7 +12,7 @@ const UseDarkTrayIcon = () => {
 
   const toggleDarkTrayIcon = () => {
     setDarkTrayIcon(!darkTrayIcon)
-    ipcRenderer.send('changeTrayColor')
+    window.api.changeTrayColor()
   }
 
   return (

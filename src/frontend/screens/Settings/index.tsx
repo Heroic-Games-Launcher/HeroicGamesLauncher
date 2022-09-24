@@ -2,7 +2,6 @@ import './index.css'
 
 import React, { useEffect, useState } from 'react'
 
-import { Clipboard, IpcRenderer } from 'electron'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
@@ -25,14 +24,7 @@ import { getGameInfo, writeConfig } from 'frontend/helpers'
 import { UpdateComponent } from 'frontend/components/UI'
 import { SettingsContextType } from 'frontend/types'
 
-interface ElectronProps {
-  ipcRenderer: IpcRenderer
-  clipboard: Clipboard
-}
-
-const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
-
-export interface LocationState {
+interface LocationState {
   fromGameCard: boolean
   runner: Runner
   isLinuxNative: boolean
@@ -63,10 +55,7 @@ function Settings() {
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
     const getSettings = async () => {
-      const config: AppSettings = await ipcRenderer.invoke(
-        'requestSettings',
-        appName
-      )
+      const config: AppSettings = await window.api.requestSettings(appName)
       setCurrentConfig(config)
 
       if (!isDefault) {
@@ -78,7 +67,7 @@ function Settings() {
       }
     }
     getSettings()
-  }, [appName, type, isDefault, i18n.language])
+  }, [appName, isDefault, i18n.language])
 
   // render `loading` while we fetch the settings
   if (!title) {
@@ -121,15 +110,15 @@ function Settings() {
             'settings.copyToClipboard',
             'Copy All Settings to Clipboard'
           ),
-          onclick: () =>
-            clipboard.writeText(
+          onclick: async () =>
+            window.api.clipboardWriteText(
               JSON.stringify({ appName, title, ...currentConfig })
             ),
           show: !isLogSettings
         },
         {
           label: t('settings.open-config-file', 'Open Config File'),
-          onclick: () => ipcRenderer.send('showConfigFileInFolder', appName),
+          onclick: () => window.api.showConfigFileInFolder(appName),
           show: !isLogSettings
         }
       ]}

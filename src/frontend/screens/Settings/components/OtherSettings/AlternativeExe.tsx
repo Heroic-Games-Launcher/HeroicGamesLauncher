@@ -4,7 +4,7 @@ import SettingsContext from '../../SettingsContext'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import Backspace from '@mui/icons-material/Backspace'
 import useSetting from 'frontend/hooks/useSetting'
-import { getGameInfo, ipcRenderer } from 'frontend/helpers'
+import { getGameInfo } from 'frontend/helpers'
 import { Path } from 'frontend/types'
 import { TextInputWithIconField } from 'frontend/components/UI'
 
@@ -22,8 +22,8 @@ const AlternativeExe = () => {
     if (!targetExe.length) {
       const gameinfo = await getGameInfo(appName, runner)
 
-      ipcRenderer
-        .invoke('openDialog', {
+      window.api
+        .openDialog({
           buttonLabel: t('box.select.button', 'Select'),
           properties: ['openFile'],
           title: t('box.select.exe', 'Select EXE'),

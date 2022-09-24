@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import { getGameInfo, quoteIfNecessary, ipcRenderer } from 'frontend/helpers'
+import { getGameInfo } from 'frontend/helpers'
 
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
@@ -24,8 +24,7 @@ export default function Tools() {
     if (tool === 'winecfg') {
       setWinecfgRunning(true)
     }
-    exe = exe ? quoteIfNecessary(exe) : undefined
-    await ipcRenderer.invoke('callTool', {
+    await window.api.callTool({
       tool,
       exe,
       appName,
@@ -40,12 +39,11 @@ export default function Tools() {
       setProgress(messages)
     }
 
-    ipcRenderer.on('progressOfWinetricks', onProgress)
+    const removeWinetricksProgressListener =
+      window.api.handleProgressOfWinetricks(onProgress)
 
     //useEffect unmount
-    return () => {
-      ipcRenderer.removeListener('progressOfWinetricks', onProgress)
-    }
+    return removeWinetricksProgressListener
   }, [])
 
   useEffect(() => {
@@ -55,7 +53,7 @@ export default function Tools() {
   const handleRunExe = async () => {
     let exe = ''
     const gameinfo = await getGameInfo(appName, runner)
-    const { path } = await ipcRenderer.invoke('openDialog', {
+    const { path } = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
       title: t('box.runexe.title'),

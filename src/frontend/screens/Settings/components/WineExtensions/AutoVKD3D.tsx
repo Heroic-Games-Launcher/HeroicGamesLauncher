@@ -4,7 +4,6 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { ipcRenderer } from 'frontend/helpers'
 import { WineInstallation } from 'common/types'
 import { configStore } from 'frontend/helpers/electronStores'
 import { defaultWineVersion } from '../WineSettings'
@@ -30,10 +29,7 @@ const AutoVKD3D = () => {
 
   const handleAutoInstallVkd3d = () => {
     const action = autoInstallVkd3d ? 'restore' : 'backup'
-    ipcRenderer.send('toggleVKD3D', [
-      { winePrefix, winePath: wineVersion.bin },
-      action
-    ])
+    window.api.toggleVKD3D([{ winePrefix, winePath: wineVersion.bin }, action])
     return setAutoInstallVkd3d(!autoInstallVkd3d)
   }
 

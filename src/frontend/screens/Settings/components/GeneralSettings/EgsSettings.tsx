@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
-import { ipcRenderer } from 'frontend/helpers'
 import { Path } from 'frontend/types'
 import {
   InfoBox,
@@ -30,8 +29,8 @@ const EgsSettings = () => {
   async function handleSync() {
     setIsSyncing(true)
     if (isLinked) {
-      return ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
-        await ipcRenderer.invoke('openMessageBox', {
+      return window.api.egsSync('unlink').then(async () => {
+        await window.api.openMessageBox({
           message: t('message.unsync'),
           title: 'EGS Sync'
         })
@@ -42,10 +41,10 @@ const EgsSettings = () => {
       })
     }
 
-    return ipcRenderer.invoke('egsSync', egsPath).then(async (res: string) => {
+    return window.api.egsSync(egsPath).then(async (res: string) => {
       if (res === 'Error') {
         setIsSyncing(false)
-        ipcRenderer.invoke('showErrorBox', [
+        window.api.showErrorBox([
           t('box.error.title', 'Error'),
           t('box.sync.error')
         ])
@@ -53,7 +52,7 @@ const EgsSettings = () => {
         setEgsPath('')
         return
       }
-      await ipcRenderer.invoke('openMessageBox', {
+      await window.api.openMessageBox({
         message: t('message.sync'),
         title: 'EGS Sync'
       })
@@ -68,8 +67,8 @@ const EgsSettings = () => {
     if (isLinked) {
       return ''
     }
-    return ipcRenderer
-      .invoke('openDialog', {
+    return window.api
+      .openDialog({
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
         title: t('box.choose-egs-prefix')

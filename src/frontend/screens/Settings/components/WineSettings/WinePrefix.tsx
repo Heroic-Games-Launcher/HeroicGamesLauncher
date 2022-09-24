@@ -6,7 +6,6 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import { configStore } from 'frontend/helpers/electronStores'
 import { InfoBox, TextInputWithIconField } from 'frontend/components/UI'
-import { ipcRenderer } from 'frontend/helpers'
 import { Path } from 'frontend/types'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 
@@ -53,8 +52,8 @@ const WinePrefix = () => {
             />
           }
           onIconClick={async () =>
-            ipcRenderer
-              .invoke('openDialog', {
+            window.api
+              .openDialog({
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
                 title: t('box.wineprefix'),
@@ -84,8 +83,8 @@ const WinePrefix = () => {
             />
           }
           onIconClick={async () =>
-            ipcRenderer
-              .invoke('openDialog', {
+            window.api
+              .openDialog({
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
                 title: t('box.wineprefix'),
@@ -107,7 +106,7 @@ const WinePrefix = () => {
               <a>
                 <span
                   className="winefaq"
-                  onClick={() => ipcRenderer.send('openWinePrefixFAQ')}
+                  onClick={() => window.api.openWinePrefixFAQ()}
                 >
                   WinePrefix FAQ
                 </span>

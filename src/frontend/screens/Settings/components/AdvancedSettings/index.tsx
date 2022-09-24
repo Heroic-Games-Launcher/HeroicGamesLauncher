@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { IpcRenderer, Clipboard } from 'electron'
 import { useTranslation } from 'react-i18next'
 import {
   CleaningServicesOutlined,
@@ -19,13 +18,6 @@ import DownloadNoHTTPS from './DownloadNoHTTPS'
 import SettingsContext from '../../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameStatus } from 'common/types'
-
-interface ElectronProps {
-  ipcRenderer: IpcRenderer
-  clipboard: Clipboard
-}
-
-const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
 
 export default function AdvancedSettings() {
   const { config } = useContext(SettingsContext)
@@ -62,9 +54,7 @@ export default function AdvancedSettings() {
 
   useEffect(() => {
     const getEosStatus = async () => {
-      const { isInstalled, version } = await ipcRenderer.invoke(
-        'getEosOverlayStatus'
-      )
+      const { isInstalled, version } = await window.api.getEosOverlayStatus()
       setEosOverlayInstalled(isInstalled)
       setEosOverlayVersion(version)
     }
@@ -73,7 +63,7 @@ export default function AdvancedSettings() {
 
   useEffect(() => {
     const getLatestEosOverlayVersion = async () => {
-      const version = await ipcRenderer.invoke('getLatestEosOverlayVersion')
+      const version = await window.api.getLatestEosOverlayVersion()
       setEosOverlayLatestVersion(version)
     }
     getLatestEosOverlayVersion()
@@ -92,9 +82,7 @@ export default function AdvancedSettings() {
   useEffect(() => {
     const enabledGlobally = async () => {
       if (isWindows) {
-        setEosOverlayEnabledGlobally(
-          await ipcRenderer.invoke('isEosOverlayEnabled')
-        )
+        setEosOverlayEnabledGlobally(await window.api.isEosOverlayEnabled())
       }
     }
     enabledGlobally()
@@ -128,7 +116,7 @@ export default function AdvancedSettings() {
       status: 'installing'
     })
     setEosOverlayInstallingOrUpdating(true)
-    const installError = await ipcRenderer.invoke('installEosOverlay')
+    const installError = await window.api.installEosOverlay()
     await handleGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',
@@ -143,7 +131,7 @@ export default function AdvancedSettings() {
   }
 
   async function removeEosOverlay() {
-    const wasRemoved = await ipcRenderer.invoke('removeEosOverlay')
+    const wasRemoved = await window.api.removeEosOverlay()
     setEosOverlayInstalled(!wasRemoved)
   }
 
@@ -154,21 +142,19 @@ export default function AdvancedSettings() {
       status: 'updating'
     })
     setEosOverlayInstallingOrUpdating(true)
-    await ipcRenderer.invoke('installEosOverlay')
+    await window.api.installEosOverlay()
     await handleGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',
       status: 'done'
     })
     setEosOverlayInstallingOrUpdating(false)
-    const { version: newVersion } = await ipcRenderer.invoke(
-      'getEosOverlayStatus'
-    )
+    const { version: newVersion } = await window.api.getEosOverlayStatus()
     setEosOverlayVersion(newVersion)
   }
 
   async function cancelEosOverlayInstallOrUpdate() {
-    await ipcRenderer.invoke('cancelEosOverlayInstallOrUpdate')
+    await window.api.cancelEosOverlayInstallOrUpdate()
     await handleGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',
@@ -179,18 +165,18 @@ export default function AdvancedSettings() {
 
   async function toggleEosOverlay() {
     if (eosOverlayEnabledGlobally) {
-      await ipcRenderer.invoke('disableEosOverlay', '')
+      await window.api.disableEosOverlay('')
       setEosOverlayEnabledGlobally(false)
     } else {
-      const { wasEnabled } = await ipcRenderer.invoke('enableEosOverlay', '')
+      const { wasEnabled } = await window.api.enableEosOverlay('')
       setEosOverlayEnabledGlobally(wasEnabled)
     }
   }
 
   async function checkForEosOverlayUpdates() {
     setEosOverlayCheckingForUpdates(true)
-    await ipcRenderer.invoke('updateEosOverlayInfo')
-    const newVersion = await ipcRenderer.invoke('getLatestEosOverlayVersion')
+    await window.api.updateEosOverlayInfo()
+    const newVersion = await window.api.getLatestEosOverlayVersion()
     setEosOverlayLatestVersion(newVersion)
     setEosOverlayCheckingForUpdates(false)
   }
@@ -198,7 +184,7 @@ export default function AdvancedSettings() {
   async function clearHeroicCache() {
     const storage: Storage = window.localStorage
     storage.removeItem('updates')
-    ipcRenderer.send('clearCache')
+    return window.api.clearCache()
     return refreshLibrary({ fullRefresh: true, runInBackground: true })
   }
 
@@ -334,7 +320,9 @@ export default function AdvancedSettings() {
             isSuccess: isCopiedToClipboard
           })}
           onClick={() => {
-            clipboard.writeText(JSON.stringify({ ...config }, null, 2))
+            window.api.clipboardWriteText(
+              JSON.stringify({ ...config }, null, 2)
+            )
             setCopiedToClipboard(true)
           }}
         >
@@ -368,7 +356,7 @@ export default function AdvancedSettings() {
 
         <button
           className="button is-footer is-danger"
-          onClick={() => ipcRenderer.send('resetHeroic')}
+          onClick={() => window.api.resetHeroic()}
         >
           <div className="button-icontext-flex">
             <div className="button-icon-flex">

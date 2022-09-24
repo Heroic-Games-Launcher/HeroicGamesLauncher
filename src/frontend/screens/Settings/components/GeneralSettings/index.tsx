@@ -1,7 +1,5 @@
 import React from 'react'
-
 import { useTranslation } from 'react-i18next'
-
 import LanguageSelector from 'frontend/components/UI/LanguageSelector'
 import DefaultInstallPath from './DefaultInstallPath'
 import CheckUpdatesOnStartup from './CheckUpdatesOnStartup'

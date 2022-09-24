@@ -5,7 +5,6 @@ import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { Backspace } from '@mui/icons-material'
 import useSetting from 'frontend/hooks/useSetting'
 import { configStore } from 'frontend/helpers/electronStores'
-import { ipcRenderer } from 'frontend/helpers'
 import { Path } from 'frontend/types'
 import { TextInputWithIconField } from 'frontend/components/UI'
 
@@ -28,7 +27,7 @@ const AltLegendaryBin = () => {
         altLeg: altLegendaryBin
       })
 
-      const legendaryVer = await ipcRenderer.invoke('getLegendaryVersion')
+      const legendaryVer = await window.api.getLegendaryVersion()
       if (legendaryVer === 'invalid') {
         setLegendaryVersion('Invalid')
         setTimeout(() => {
@@ -42,8 +41,8 @@ const AltLegendaryBin = () => {
   }, [altLegendaryBin])
 
   async function handleLegendaryBinary() {
-    return ipcRenderer
-      .invoke('openDialog', {
+    return window.api
+      .openDialog({
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
         title: t(

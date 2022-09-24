@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
-import { ipcRenderer } from 'frontend/helpers'
 import useSetting from 'frontend/hooks/useSetting'
 
 const MaxWorkers = () => {
@@ -11,7 +10,7 @@ const MaxWorkers = () => {
 
   useEffect(() => {
     const getMoreInfo = async () => {
-      const cores = await ipcRenderer.invoke('getMaxCpus')
+      const cores = await window.api.getMaxCpus()
       setMaxCpus(cores)
     }
     getMoreInfo()

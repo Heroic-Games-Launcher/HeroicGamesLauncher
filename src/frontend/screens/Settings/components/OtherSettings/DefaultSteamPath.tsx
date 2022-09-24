@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { TextInputWithIconField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../../SettingsContext'
-import { ipcRenderer } from 'frontend/helpers'
 import { Path } from 'frontend/types'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -31,8 +30,8 @@ const DefaultSteamPath = () => {
         <FontAwesomeIcon icon={faFolderOpen} data-testid="setsteampathbutton" />
       }
       onIconClick={async () =>
-        ipcRenderer
-          .invoke('openDialog', {
+        window.api
+          .openDialog({
             buttonLabel: t('box.choose'),
             properties: ['openDirectory'],
             title: t('box.default-steam-path', 'Steam path.'),

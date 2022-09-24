@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, SelectField } from 'frontend/components/UI'
-import { ipcRenderer } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { WineInstallation } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
@@ -20,9 +19,7 @@ export default function WineVersionSelector() {
 
   useEffect(() => {
     const getAltWine = async () => {
-      const wineList: WineInstallation[] = await ipcRenderer.invoke(
-        'getAlternativeWine'
-      )
+      const wineList: WineInstallation[] = await window.api.getAlternativeWine()
       setAltWine(wineList)
       // Avoids not updating wine config when having one wine install only
       if (wineList && wineList.length === 1) {

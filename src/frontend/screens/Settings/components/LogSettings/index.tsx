@@ -4,7 +4,6 @@ import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { UpdateComponent } from 'frontend/components/UI'
-import { ipcRenderer } from 'frontend/helpers'
 import SettingsContext from '../../SettingsContext'
 import './index.css'
 
@@ -68,8 +67,8 @@ export default function LogSettings() {
   const { appName, isDefault } = useContext(SettingsContext)
 
   const getLogContent = () => {
-    ipcRenderer
-      .invoke('getLogContent', {
+    window.api
+      .getLogContent({
         appName: isDefault ? '' : appName,
         defaultLast
       })
@@ -99,7 +98,7 @@ export default function LogSettings() {
   }, [isDefault, defaultLast])
 
   function showLogFileInFolder() {
-    ipcRenderer.send('showLogFileInFolder', {
+    window.api.showLogFileInFolder({
       appName: isDefault ? '' : appName,
       defaultLast
     })

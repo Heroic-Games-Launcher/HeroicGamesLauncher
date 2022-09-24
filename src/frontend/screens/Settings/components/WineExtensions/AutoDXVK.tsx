@@ -6,7 +6,6 @@ import { defaultWineVersion } from '../WineSettings'
 import useSetting from 'frontend/hooks/useSetting'
 import { configStore } from 'frontend/helpers/electronStores'
 import { WineInstallation } from 'common/types'
-import { ipcRenderer } from 'frontend/helpers'
 import { ToggleSwitch } from 'frontend/components/UI'
 
 const AutoDXVK = () => {
@@ -30,10 +29,7 @@ const AutoDXVK = () => {
 
   const handleAutoInstallDxvk = () => {
     const action = autoInstallDxvk ? 'restore' : 'backup'
-    ipcRenderer.send('toggleDXVK', [
-      { winePrefix, winePath: wineVersion.bin },
-      action
-    ])
+    window.api.toggleDXVK([{ winePrefix, winePath: wineVersion.bin }, action])
     return setAutoInstallDxak(!autoInstallDxvk)
   }
 

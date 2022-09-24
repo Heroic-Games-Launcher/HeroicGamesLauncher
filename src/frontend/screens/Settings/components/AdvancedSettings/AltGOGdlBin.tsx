@@ -5,7 +5,6 @@ import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { Backspace } from '@mui/icons-material'
 import useSetting from 'frontend/hooks/useSetting'
 import { configStore } from 'frontend/helpers/electronStores'
-import { ipcRenderer } from 'frontend/helpers'
 import { TextInputWithIconField } from 'frontend/components/UI'
 import { Path } from 'frontend/types'
 
@@ -24,7 +23,7 @@ const AltGOGdlBin = () => {
         ...settings,
         altGogdl: altGogdlBin
       })
-      const gogdlVersion = await ipcRenderer.invoke('getGogdlVersion')
+      const gogdlVersion = await window.api.getGogdlVersion()
       if (gogdlVersion === 'invalid') {
         setGogdlVersion('Invalid')
         setTimeout(() => {
@@ -39,8 +38,8 @@ const AltGOGdlBin = () => {
   }, [altGogdlBin])
 
   async function handleGogdlBinary() {
-    return ipcRenderer
-      .invoke('openDialog', {
+    return window.api
+      .openDialog({
         buttonLabel: t('box.choose'),
         properties: ['openFile'],
         title: t(

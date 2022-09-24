@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { ToggleSwitch } from 'frontend/components/UI'
-import { ipcRenderer } from 'frontend/helpers'
 import useSetting from 'frontend/hooks/useSetting'
 import { useTranslation } from 'react-i18next'
 
@@ -12,7 +11,7 @@ const CheckUpdatesOnStartup = () => {
   const [show, setShow] = useState(checkForUpdatesOnStartup)
 
   useEffect(() => {
-    ipcRenderer.invoke('showUpdateSetting').then((s) => setShow(s))
+    window.api.showUpdateSetting().then((s) => setShow(s))
   }, [])
 
   if (!show) {

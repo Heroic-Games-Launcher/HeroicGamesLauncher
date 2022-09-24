@@ -5,7 +5,6 @@ import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { ipcRenderer } from 'frontend/helpers'
 
 const GameMode = () => {
   const { t } = useTranslation()
@@ -23,9 +22,9 @@ const GameMode = () => {
 
   async function handleGameMode() {
     if (useGameMode && eacRuntime) {
-      const isFlatpak = await ipcRenderer.invoke('isFlatpak')
+      const isFlatpak = await window.api.isFlatpak()
       if (isFlatpak) {
-        const { response } = await ipcRenderer.invoke('openMessageBox', {
+        const { response } = await window.api.openMessageBox({
           message: t(
             'settings.gameMode.eacRuntimeEnabled.message',
             "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?"

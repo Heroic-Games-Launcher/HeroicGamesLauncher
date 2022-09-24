@@ -14,7 +14,6 @@ import { ThemeSelector } from 'frontend/components/UI/ThemeSelector'
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-import { ipcRenderer } from 'frontend/helpers'
 import './index.css'
 
 export default function Accessibility() {
@@ -35,10 +34,7 @@ export default function Accessibility() {
   const [refreshing, setRefreshing] = useState(false)
 
   const getFonts = async (reload = false) => {
-    const systemFonts = (await ipcRenderer.invoke(
-      'getFonts',
-      reload
-    )) as string[]
+    const systemFonts = (await window.api.getFonts(reload)) as string[]
     setFonts(["'Cabin', sans-serif", "'Rubik', sans-serif", ...systemFonts])
   }
 
