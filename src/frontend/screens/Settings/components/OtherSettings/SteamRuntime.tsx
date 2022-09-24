@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { LocationState } from '../..'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { WineInstallation } from 'common/types'
 import { defaultWineVersion } from '../WineSettings'
+import { LocationState } from 'frontend/types'
 
 const SteamRuntime = () => {
   const { t } = useTranslation()
