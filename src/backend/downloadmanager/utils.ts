@@ -10,8 +10,6 @@ import {
 import { InstallParams } from 'common/types'
 import i18next from 'i18next'
 
-const storage: Storage = window.localStorage
-
 async function installQueueElement(
   mainWindow: BrowserWindow,
   params: InstallParams
@@ -105,7 +103,9 @@ async function installQueueElement(
       return error
     })
     .finally(() => {
-      storage.removeItem(appName)
+      mainWindow.webContents.executeJavaScript(
+        `localStorage.removeItem(${appName})`
+      )
     })
 }
 
