@@ -702,7 +702,16 @@ class LegendaryGame extends Game {
       return { stdout: '', stderr: '' }
     }
 
-    return runWineCommand(this, command, wait, forceRunInPrefixVerb)
+    const { folder_name } = this.getGameInfo()
+    const gameSettings = await this.getSettings()
+
+    return runWineCommand({
+      gameSettings,
+      installFolderName: folder_name,
+      command,
+      wait,
+      forceRunInPrefixVerb
+    })
   }
 
   public async stop() {

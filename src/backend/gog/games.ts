@@ -754,8 +754,16 @@ class GOGGame extends Game {
       })
       return { stdout: '', stderr: '' }
     }
+    const { folder_name } = this.getGameInfo()
+    const gameSettings = await this.getSettings()
 
-    return runWineCommand(this, command, wait, forceRunInPrefixVerb)
+    return runWineCommand({
+      gameSettings,
+      installFolderName: folder_name,
+      command,
+      wait,
+      forceRunInPrefixVerb
+    })
   }
 
   async forceUninstall(): Promise<void> {
