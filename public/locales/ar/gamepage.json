@@ -24,7 +24,7 @@
             "title": "أزِل",
             "message": "هل تريد إزالة هذه اللعبة؟",
             "checkbox_prefix": "بادئة",
-            "checkbox": "هل ترغب في إزالة Prefix أيضًا؟ لا يمكن التراجع عن هذا."
+            "checkbox": "إزالة Prefix:{{prefix}}{{newLine}} ملحوظة : لا يمكن التراجع عن الازالة و ستيم حذف ملفات التقدم غير المخزنة احتياطيا."
         },
         "yes": "نعم",
         "ok": "موافق",
@@ -57,7 +57,7 @@
     "enabled": "مفعّل",
     "info": {
         "size": "حجم",
-        "version": "الإصدار",
+        "version": "نسخة",
         "syncsaves": "مزامنة المحفوظات",
         "canRunOffline": "الاتصال بشبكة الإنترنت مطلوب",
         "path": "مسار التثبيت",
@@ -78,16 +78,16 @@
         "change": "تغيير مسار التثبيت",
         "removeShortcut": "إزالة الاختصارات",
         "addToSteam": "أضف إلى Steam",
-        "disableEosOverlay": "تعطيل تراكب EOS",
+        "disableEosOverlay": "تعطيل طبقة EOS",
         "enableEosOverlay": "تفعيل تراكب EOS",
-        "removeFromSteam": "أخرجه من البخار"
+        "removeFromSteam": "أخرجه من Steam"
     },
     "install": {
         "another": "ثبّت في مسار آخر",
         "import": "استورد لعبة",
         "default": "ثبّت في",
         "path": "اختر مسار التثبيت",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "اوامر بداية Wine",
         "wineversion": "إصدار Wine",
         "disk-space-left": "المساحة المتوفرة",
         "invalid-folder": "خطأ: المسار غير صالح",
