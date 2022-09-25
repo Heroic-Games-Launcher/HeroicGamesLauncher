@@ -111,7 +111,7 @@ export default function InstallModal({
         }
       })()
     }
-  }, [hasWine, wineVersion])
+  }, [hasWine])
 
   function platformSelection() {
     const showPlatformSelection = availablePlatforms.length > 1
@@ -142,62 +142,48 @@ export default function InstallModal({
       <Dialog onClose={backdropClick} className={'InstallModal__dialog'}>
         {!isSideload ? (
           <DownloadDialog
-            {...{
-              platformToInstall,
-              wineVersionList,
-              setIsLinuxNative,
-              backdropClick,
-              availablePlatforms,
-              appName,
-              runner,
-              setIsMacNative,
-              setPlatformToInstall,
-              winePrefix,
-              hasWine,
-              wineVersion
-            }}
+            setIsLinuxNative={setIsLinuxNative}
+            setIsMacNative={setIsMacNative}
+            appName={appName}
+            runner={runner}
+            winePrefix={winePrefix}
+            wineVersion={wineVersion}
+            availablePlatforms={availablePlatforms}
+            backdropClick={backdropClick}
+            platformToInstall={platformToInstall}
           >
             {platformSelection()}
             {hasWine ? (
               <WineSelector
-                {...{
-                  winePrefix,
-                  wineVersion,
-                  wineVersionList,
-                  setWinePrefix,
-                  setWineVersion,
-                  runner,
-                  appName
-                }}
+                winePrefix={winePrefix}
+                wineVersion={wineVersion}
+                wineVersionList={wineVersionList}
+                appName={appName}
+                runner={runner}
+                setWinePrefix={setWinePrefix}
+                setWineVersion={setWineVersion}
               />
             ) : null}
           </DownloadDialog>
         ) : (
           <SideloadDialog
-            {...{
-              setWinePrefix,
-              setPlatformToInstall,
-              setWineVersion,
-              availablePlatforms,
-              winePrefix,
-              wineVersion,
-              wineVersionList,
-              hasWine,
-              backdropClick
-            }}
+            setWinePrefix={setWinePrefix}
+            winePrefix={winePrefix}
+            wineVersion={wineVersion}
+            availablePlatforms={availablePlatforms}
+            backdropClick={backdropClick}
+            platformToInstall={platformToInstall}
           >
             {platformSelection()}
             {hasWine ? (
               <WineSelector
-                {...{
-                  winePrefix,
-                  wineVersion,
-                  wineVersionList,
-                  setWinePrefix,
-                  setWineVersion,
-                  runner,
-                  appName
-                }}
+                winePrefix={winePrefix}
+                wineVersion={wineVersion}
+                wineVersionList={wineVersionList}
+                appName={appName}
+                runner={runner}
+                setWinePrefix={setWinePrefix}
+                setWineVersion={setWineVersion}
               />
             ) : null}
           </SideloadDialog>
