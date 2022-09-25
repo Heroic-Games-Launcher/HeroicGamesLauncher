@@ -1,51 +1,97 @@
-import { GameSettings, GameInfo } from '../../common/types'
+import { GameSettings, GameInfo, SideloadGame } from '../../common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../game_config'
-import { isWindows, isMac, isLinux, execOptions } from '../constants'
-import { execAsync, killPattern } from '../utils'
+import {
+  isWindows,
+  isMac,
+  isLinux,
+  execOptions,
+  heroicGamesConfigPath
+} from '../constants'
+import { execAsync, killPattern, notify } from '../utils'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { SideLoadLibrary } from './library'
+import { dirname, join } from 'path'
+import { existsSync, rmSync } from 'graceful-fs'
+import i18next from 'i18next'
+import { runWineCommand } from '../launcher'
 
-interface SideloadGame {
-  runner: string
-  app_name: string
-  art_cover: string
-  folder_name: string
-  title: string
-  install: {
-    executable: string
-    platform: 'native' | 'windows'
-  }
+export function appLogFileLocation(appName: string) {
+  return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)
 }
 
-export function getGameInfo(appName: string): GameInfo {
-  return libraryStore.get(appName, {}) as GameInfo
+export function getAppInfo(appName: string): GameInfo {
+  const store = libraryStore.get('games', []) as GameInfo[]
+  return store.filter((app) => app.app_name === appName)[0] || {}
 }
 
-export async function getSettings(appName: string): Promise<GameSettings> {
+export async function getAppSettings(appName: string): Promise<GameSettings> {
   return (
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
   )
 }
 
-export function install(app: SideloadGame): void {
-  return libraryStore.set(app.app_name, app)
+export function addNewApp({
+  app_name,
+  title,
+  install: { executable, platform },
+  art_cover = 'fallback',
+  art_square = 'fallback'
+}: SideloadGame): void {
+  console.log({
+    appName: {
+      runner: 'sideload',
+      app_name,
+      title,
+      install: {
+        executable,
+        platform
+      },
+      folder_name: dirname(executable),
+      art_cover,
+      platform
+    }
+  })
+
+  const game: SideloadGame = {
+    runner: 'sideload',
+    app_name,
+    title,
+    install: {
+      executable,
+      platform
+    },
+    folder_name: dirname(executable),
+    art_cover,
+    is_installed: true,
+    art_square
+  }
+
+  const current = libraryStore.get('games', []) as SideloadGame[]
+  current.push(game)
+  return libraryStore.set('games', current)
 }
 
 export async function addShortcuts(): Promise<void> {
   throw new Error('Method not implemented.')
 }
 
-export async function launch(
-  appName: string,
-  launchArguments?: string | undefined
-): Promise<boolean> {
+export async function launchApp(appName: string): Promise<boolean> {
   const {
-    install: { executable }
-  } = getGameInfo(appName)
+    install: { executable },
+    folder_name
+  } = getAppInfo(appName)
   if (executable) {
-    console.log({ launchArguments, executable })
+    const gameSettings = await getAppSettings(appName)
+    await runWineCommand({
+      command: executable,
+      gameSettings,
+      installFolderName: folder_name,
+      wait: false,
+      forceRunInPrefixVerb: false
+    })
+    return true
   }
   return false
 }
@@ -57,7 +103,7 @@ export async function moveInstall(
   const {
     install: { install_path },
     title
-  } = getGameInfo(appName)
+  } = getAppInfo(appName)
 
   if (!install_path) {
     return ''
@@ -83,19 +129,41 @@ export async function moveInstall(
 export async function stop(appName: string): Promise<void> {
   const {
     install: { executable }
-  } = getGameInfo(appName)
+  } = getAppInfo(appName)
 
   if (executable) {
     killPattern(executable)
   }
 }
 
-export function uninstall(appName: string): void {
-  return libraryStore.delete(appName)
+type RemoveArgs = {
+  appName: string
+  shouldRemovePrefix: boolean
+}
+export async function removeApp({
+  appName,
+  shouldRemovePrefix
+}: RemoveArgs): Promise<void> {
+  const old = libraryStore.get('games', []) as SideloadGame[]
+  const current = old.filter((a: SideloadGame) => a.app_name !== appName)
+  libraryStore.set('games', current)
+
+  const { title } = getAppInfo(appName)
+  const { winePrefix } = await getAppSettings(appName)
+
+  if (shouldRemovePrefix) {
+    logInfo(`Removing prefix ${winePrefix}`, { prefix: LogPrefix.Backend })
+    if (existsSync(winePrefix)) {
+      // remove prefix if exists
+      rmSync(winePrefix, { recursive: true })
+    }
+  }
+  notify({ title, body: i18next.t('notify.uninstalled') })
+  return logInfo('finished uninstalling', { prefix: LogPrefix.Backend })
 }
 
 export function isNative(appName: string): boolean {
-  const gameInfo = getGameInfo(appName)
+  const gameInfo = getAppInfo(appName)
   if (isWindows) {
     return true
   }

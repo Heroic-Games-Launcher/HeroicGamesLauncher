@@ -48,7 +48,6 @@ import {
 } from 'common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
-import { Game } from './games'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -430,15 +429,22 @@ function launchCleanup(rpcClient?: RpcClient) {
     logInfo('Stopped Discord Rich Presence', { prefix: LogPrefix.Backend })
   }
 }
-async function runWineCommand(
-  game: Game,
-  command: string,
-  wait: boolean,
-  forceRunInPrefixVerb = false
-) {
-  const gameSettings = await game.getSettings()
-  const { folder_name: installFolderName } = game.getGameInfo()
 
+type WineCommandArgs = {
+  gameSettings: GameSettings
+  command: string
+  wait: boolean
+  forceRunInPrefixVerb?: boolean
+  installFolderName: string
+}
+
+async function runWineCommand({
+  gameSettings,
+  command,
+  wait,
+  forceRunInPrefixVerb,
+  installFolderName
+}: WineCommandArgs) {
   const { wineVersion } = gameSettings
 
   const env_vars = {
@@ -477,12 +483,13 @@ async function runWineCommand(
   }
 
   logDebug(['Running Wine command:', finalCommand], {
-    prefix: LogPrefix.Legendary
+    prefix: LogPrefix.Backend
   })
+
   return execAsync(finalCommand, { env: env_vars })
     .then((response) => {
       logDebug(['Ran Wine command:', finalCommand], {
-        prefix: LogPrefix.Legendary
+        prefix: LogPrefix.Backend
       })
       return response
     })

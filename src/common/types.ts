@@ -480,3 +480,17 @@ export interface Tools {
   appName: string
   runner: Runner
 }
+
+export interface SideloadGame {
+  runner: Runner
+  app_name: string
+  art_cover: string
+  art_square: string
+  is_installed: boolean
+  title: string
+  install: {
+    executable: string
+    platform: InstallPlatform
+  }
+  folder_name?: string
+}
