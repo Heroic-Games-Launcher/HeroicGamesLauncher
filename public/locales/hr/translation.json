@@ -243,6 +243,9 @@
             "stable": "Stable",
             "version": "Heroic verzija"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Postavke se automatski spremaju",
         "version": "Wine verzija"
     },

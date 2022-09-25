@@ -243,6 +243,9 @@
             "stable": "Grajd",
             "version": "Versiune eroică"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Setările sunt salvate automat",
         "version": "Versiune Wine"
     },

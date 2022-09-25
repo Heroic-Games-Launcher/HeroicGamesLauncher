@@ -243,6 +243,9 @@
             "stable": "Σταθερή",
             "version": "Έκδοση Heroic"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Οι ρυθμίσεις αποθηκεύονται αυτομάτως",
         "version": "Έκδοση Wine"
     },

@@ -75,7 +75,6 @@
         "neverPlayed": "Aldri",
         "platform": "Velg plattformversjon som skal installeres",
         "reuirements": "Systemkrav",
-        "title": "Title",
         "tools": "Verktøy",
         "totalPlayed": "Spilletid"
     },
@@ -123,6 +122,9 @@
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"
+        },
+        "placeholder": {
+            "title": "Add a title to your Game/App"
         }
     },
     "specs": {

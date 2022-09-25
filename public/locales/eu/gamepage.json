@@ -75,7 +75,6 @@
         "neverPlayed": "Inoiz ez",
         "platform": "Instalatzeko plataformaren bertsioa hautatu",
         "reuirements": "Sistemaren betekizunak",
-        "title": "Title",
         "tools": "Tresnak",
         "totalPlayed": "Denbora jokatua"
     },
@@ -123,6 +122,9 @@
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"
+        },
+        "placeholder": {
+            "title": "Add a title to your Game/App"
         }
     },
     "specs": {

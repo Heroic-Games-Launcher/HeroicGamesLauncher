@@ -74,7 +74,6 @@
         "neverPlayed": "Mai",
         "platform": "Selecciona la versió de la plataforma per instal·lar",
         "reuirements": "Requeriments del sistema",
-        "title": "Title",
         "tools": "Eines",
         "totalPlayed": "Temps jugat"
     },
@@ -122,6 +121,9 @@
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"
+        },
+        "placeholder": {
+            "title": "Add a title to your Game/App"
         }
     },
     "specs": {

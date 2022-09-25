@@ -74,7 +74,6 @@
         "neverPlayed": "从未玩过",
         "platform": "选择要安装的平台版本",
         "reuirements": "系统要求",
-        "title": "Title",
         "tools": "工具",
         "totalPlayed": "游玩时间"
     },
@@ -122,6 +121,9 @@
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"
+        },
+        "placeholder": {
+            "title": "Add a title to your Game/App"
         }
     },
     "specs": {

@@ -74,7 +74,6 @@
         "neverPlayed": "ніколі",
         "platform": "Выберыце версію платформы для ўстаноўкі",
         "reuirements": "Сістэмныя патрабаванні",
-        "title": "Title",
         "tools": "інструменты",
         "totalPlayed": "Згуляны час"
     },
@@ -122,6 +121,9 @@
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"
+        },
+        "placeholder": {
+            "title": "Add a title to your Game/App"
         }
     },
     "specs": {

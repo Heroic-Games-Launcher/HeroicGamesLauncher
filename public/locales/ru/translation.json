@@ -243,6 +243,9 @@
             "stable": "Стабильный",
             "version": "Версия Heroic"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Настройки сохраняются автоматически",
         "version": "Версия Wine"
     },

@@ -243,6 +243,9 @@
             "stable": "Egonkorra",
             "version": "Heroic bertsioa"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Ezarpenak automatikoki gordetzen dira",
         "version": "Ardoaren Bertsioa"
     },

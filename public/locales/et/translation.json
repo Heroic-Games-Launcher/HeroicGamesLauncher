@@ -243,6 +243,9 @@
             "stable": "Stabiilne",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Seaded salvestatakse automaatselt",
         "version": "Wine'i versioon"
     },

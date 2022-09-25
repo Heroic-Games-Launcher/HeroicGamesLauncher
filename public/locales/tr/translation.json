@@ -243,6 +243,9 @@
             "stable": "Stable",
             "version": "Heroic Sürümü"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Ayarlar otomatik kaydedilir",
         "version": "Wine Sürümü"
     },

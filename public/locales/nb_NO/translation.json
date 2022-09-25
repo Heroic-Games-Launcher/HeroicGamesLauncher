@@ -243,6 +243,9 @@
             "stable": "Stabil",
             "version": "Heroisk versjon"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Innstillinger lagres automatisk",
         "version": "Vinversjon"
     },

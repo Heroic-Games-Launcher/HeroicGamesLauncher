@@ -243,6 +243,9 @@
             "stable": "稳定版",
             "version": "Heroic 版本"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "设置会自动保存",
         "version": "Wine 版本"
     },

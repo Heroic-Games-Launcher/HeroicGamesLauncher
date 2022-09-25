@@ -243,6 +243,9 @@
             "stable": "Stable",
             "version": "Versi Heroic"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Pengaturan disimpan secara otomatis",
         "version": "Versi Wine"
     },

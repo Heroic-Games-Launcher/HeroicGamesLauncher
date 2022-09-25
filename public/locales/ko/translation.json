@@ -243,6 +243,9 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "설정은 자동으로 저장됩니다",
         "version": "Wine Version"
     },

@@ -243,6 +243,9 @@
             "stable": "Stabil",
             "version": "Qəhrəmanlıq versiyası"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Parametrlər avtomatik olaraq saxlanılır",
         "version": "Şərab versiyası"
     },

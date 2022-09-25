@@ -74,7 +74,6 @@
         "neverPlayed": "Никогда",
         "platform": "Выберите версию платформы для установки",
         "reuirements": "Системные требования",
-        "title": "Title",
         "tools": "Инструменты",
         "totalPlayed": "Проведено в игре"
     },
@@ -122,6 +121,9 @@
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"
+        },
+        "placeholder": {
+            "title": "Add a title to your Game/App"
         }
     },
     "specs": {

@@ -75,7 +75,6 @@
         "neverPlayed": "Niciodată",
         "platform": "Selectați versiunea platformei de instalat",
         "reuirements": "Cerințe de sistem",
-        "title": "Title",
         "tools": "Instrumente",
         "totalPlayed": "Timp Jucat"
     },
@@ -123,6 +122,9 @@
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"
+        },
+        "placeholder": {
+            "title": "Add a title to your Game/App"
         }
     },
     "specs": {

@@ -75,7 +75,6 @@
         "neverPlayed": "Heç vaxt",
         "platform": "Quraşdırmaq üçün Platforma Versiyasını seçin",
         "reuirements": "Sistem Tələbləri",
-        "title": "Title",
         "tools": "Alətlər",
         "totalPlayed": "Oynanan Vaxt"
     },
@@ -123,6 +122,9 @@
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"
+        },
+        "placeholder": {
+            "title": "Add a title to your Game/App"
         }
     },
     "specs": {

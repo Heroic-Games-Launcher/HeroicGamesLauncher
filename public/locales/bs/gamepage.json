@@ -75,7 +75,6 @@
         "neverPlayed": "Nikada",
         "platform": "Odaberi verziju platforme za instalirati",
         "reuirements": "Zahtjevi sistema",
-        "title": "Title",
         "tools": "Alati",
         "totalPlayed": "Vrijeme igranja"
     },
@@ -123,6 +122,9 @@
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"
+        },
+        "placeholder": {
+            "title": "Add a title to your Game/App"
         }
     },
     "specs": {
