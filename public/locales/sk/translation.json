@@ -465,7 +465,6 @@
         },
         "select_theme": "Select Theme",
         "showfps": "Zobraziť FPS (DX9, 10 a 11)",
-        "showUnrealMarket": "Show Unreal Marketplace (needs restart)",
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -550,9 +549,9 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Logout",
+        "logout_confirmation": "Naozaj sa chcete odhlásiť?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit",
-        "logout_confirmation": "Naozaj sa chcete odhlásiť?"
+        "quit": "Quit"
     },
     "webview": {
         "controls": {
