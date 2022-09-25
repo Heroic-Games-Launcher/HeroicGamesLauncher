@@ -17,6 +17,15 @@
             "message": "Vrei să încerci să repari acest joc? Acest lucru poate dura mult timp.",
             "title": "Verifică și Repară"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Continuați să instalați",
             "message": "Doriți să PĂSTRAȚI fișierele descărcate?",
@@ -39,11 +48,13 @@
         "add_to_favourites": "Adaugă la favorite",
         "cancel": "Pauză/Anulează",
         "continue": "Continuați descărcarea",
+        "finish": "Finish",
         "force_update": "Forțați actualizarea dacă este disponibilă",
         "hide_game": "Ascunde jocul",
         "import": "Importă Jocul",
         "install": "Instalează",
         "remove_from_favourites": "Eliminați din Favorite",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Afișează jocul",
         "uninstall": "Dezinstalează",
         "update": "Actualizează"
@@ -64,6 +75,7 @@
         "neverPlayed": "Niciodată",
         "platform": "Selectați versiunea platformei de instalat",
         "reuirements": "Cerințe de sistem",
+        "title": "Title",
         "tools": "Instrumente",
         "totalPlayed": "Timp Jucat"
     },
@@ -106,6 +118,12 @@
     "report_problem": "Raportați o problemă la rularea acestui joc",
     "sdl": {
         "title": "Selectați componentele de instalat"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Minim",

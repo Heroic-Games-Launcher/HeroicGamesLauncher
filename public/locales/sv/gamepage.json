@@ -17,6 +17,15 @@
             "message": "Vill du försöka reparera spelet? Det kan ta lång tid.",
             "title": "Verifiera och reparera"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Fortsätt installationen",
             "message": "Vill du behålla nedladdade filer?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Lägg till i Favoriter",
         "cancel": "Paus/Avbryt",
         "continue": "Fortsätt nedladdning",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
         "hide_game": "Dölj spel",
         "import": "Importera spel",
         "install": "Installera",
         "remove_from_favourites": "Ta bort från Favoriter",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Visa dolt spel igen",
         "uninstall": "Avinstallera",
         "update": "Uppdatera"
@@ -63,6 +74,7 @@
         "neverPlayed": "Aldrig",
         "platform": "Välj plattform för installation",
         "reuirements": "System Requirements",
+        "title": "Title",
         "tools": "Tools",
         "totalPlayed": "Speltid"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Rapportera problem med spelet",
     "sdl": {
         "title": "Ange komponenter att installera"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Minimum",

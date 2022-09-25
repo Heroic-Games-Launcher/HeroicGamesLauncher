@@ -17,6 +17,15 @@
             "message": "Bu oyunu təmir etməyə cəhd etmək istəyirsiniz? Bu uzun müddət çəkə bilər.",
             "title": "Doğrulayın və Təmir edin"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Quraşdırmağa davam edin",
             "message": "Endirilmiş faylları SAXLAMAQ istəyirsiniz?",
@@ -39,11 +48,13 @@
         "add_to_favourites": "Sevimlilərə əlavə edin",
         "cancel": "Pauza/Ləğv et",
         "continue": "Yükləməyə davam edin",
+        "finish": "Finish",
         "force_update": "Mövcuddursa Yeniləməni məcbur edin",
         "hide_game": "Oyunu Gizlət",
         "import": "İdxal Oyunu",
         "install": "Yüklemek",
         "remove_from_favourites": "Sevimlilərdən Sil",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Oyunu Gizlət",
         "uninstall": "Silin",
         "update": "Yeniləyin"
@@ -64,6 +75,7 @@
         "neverPlayed": "Heç vaxt",
         "platform": "Quraşdırmaq üçün Platforma Versiyasını seçin",
         "reuirements": "Sistem Tələbləri",
+        "title": "Title",
         "tools": "Alətlər",
         "totalPlayed": "Oynanan Vaxt"
     },
@@ -106,6 +118,12 @@
     "report_problem": "Bu oyunu idarə edən problemi bildirin",
     "sdl": {
         "title": "Quraşdırılacaq komponentləri seçin"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Minimum",

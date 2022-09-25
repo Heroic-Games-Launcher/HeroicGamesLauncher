@@ -17,6 +17,15 @@
             "message": "Bạn có muốn thử sửa game không? Quá trình này có thể tốn nhiều thời gian.",
             "title": "Kiểm tra và sửa chữa"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Tiếp tục cài",
             "message": "Bạn có muốn GIỮ lại những file đã tải không?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Thêm vào mục ưa thích",
         "cancel": "Tạm dừng/Huỷ",
         "continue": "Tiếp tục tải",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Cài đặt",
         "remove_from_favourites": "Xóa khỏi mục ưa thích",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Bỏ ẩn Game",
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật"
@@ -63,6 +74,7 @@
         "neverPlayed": "Không bao giờ",
         "platform": "Chọn phiên bản nền tảng để cài đặt",
         "reuirements": "Yêu cầu hệ thống",
+        "title": "Title",
         "tools": "Công cụ",
         "totalPlayed": "Thời gian chơi"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Báo cáo sự cố khi chạy game này",
     "sdl": {
         "title": "Chọn các thành phần cần cài"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Thu nhỏ",

@@ -17,6 +17,15 @@
             "message": "このゲームを修復したいですか？これには長い時間がかかることがあります。",
             "title": "確認と修復"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "インストールを続ける",
             "message": "ダウンロードしたファイルを保持しますか？",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "一時停止/キャンセル",
         "continue": "ダウンロードを続ける",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "インポート",
         "install": "インストール",
         "remove_from_favourites": "Remove From Favourites",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Unhide Game",
         "uninstall": "アンインストール",
         "update": "アップデート"
@@ -63,6 +74,7 @@
         "neverPlayed": "一度もない",
         "platform": "Select Platform Version to Install",
         "reuirements": "System Requirements",
+        "title": "Title",
         "tools": "Tools",
         "totalPlayed": "プレイ時間"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "インストールするコンポーネントを選択します"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "最小",

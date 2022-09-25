@@ -17,6 +17,15 @@
             "message": "Вы хочаце паспрабаваць направіць гэтую гульню? Гэта можа заняць шмат часу.",
             "title": "Рамантаванне й Праверка"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Працягвайце ўсталёўваць",
             "message": "Вы хочаце ЗАХАВАЦЬ спампаваныя файлы?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Дадаць у абранае",
         "cancel": "Паўза/Адмена",
         "continue": "Працягваць спампаванне",
+        "finish": "Finish",
         "force_update": "Прымусісць да абнаўлення, калі яно даступна",
         "hide_game": "Схаваць гульню",
         "import": "Імпарт гульні",
         "install": "Усталяваць",
         "remove_from_favourites": "Выдаліць з абранага",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Гульня Unhide",
         "uninstall": "Выдаліць",
         "update": "Абнаўленне"
@@ -63,6 +74,7 @@
         "neverPlayed": "ніколі",
         "platform": "Выберыце версію платформы для ўстаноўкі",
         "reuirements": "Сістэмныя патрабаванні",
+        "title": "Title",
         "tools": "інструменты",
         "totalPlayed": "Згуляны час"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Паведаміць аб праблеме запуску гэтай гульні",
     "sdl": {
         "title": "Выберыце кампаненты для ўстаноўкі"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Мінімум",

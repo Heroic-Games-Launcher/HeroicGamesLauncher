@@ -17,6 +17,15 @@
             "message": "Apakah Anda ingin mencoba untuk memperbaiki gim ini? Ini bisa memakan waktu lama.",
             "title": "Verifikasi dan Perbaiki"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Tetap Memasang",
             "message": "Apakah Anda ingin MENYIMPAN berkas yang diunduh?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Tambahkan Ke Favorit",
         "cancel": "Jeda/Batal",
         "continue": "Lanjutkan Unduhan",
+        "finish": "Finish",
         "force_update": "Paksa Pembaruan jika Tersedia",
         "hide_game": "Sembunyikan Gim",
         "import": "Impor Gim",
         "install": "Pasang",
         "remove_from_favourites": "Hapus Dari Favorit",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Tampilkan Gim yang Disembunyikan",
         "uninstall": "Copot",
         "update": "Perbarui"
@@ -63,6 +74,7 @@
         "neverPlayed": "Tidak pernah",
         "platform": "Pilih Versi Platform yang Akan Dipasang",
         "reuirements": "Persyaratan Sistem",
+        "title": "Title",
         "tools": "Peralatan",
         "totalPlayed": "Lama Dimainkan"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Laporkan masalah yang terjadi saat memainkan gim ini",
     "sdl": {
         "title": "Pilih komponen untuk dipasang"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Minimum",

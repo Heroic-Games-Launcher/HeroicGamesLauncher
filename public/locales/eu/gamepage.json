@@ -17,6 +17,15 @@
             "message": "Joko hau konpontzen saiatu nahi duzu? Denbora asko eraman dezake.",
             "title": "Egiaztatu eta konpondu"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Instalatzen jarraitu",
             "message": "Fitxategiak deskargatuta MANTENDU nahi dituzu?",
@@ -39,11 +48,13 @@
         "add_to_favourites": "Gehitu gogokoetara",
         "cancel": "Gelditu/Utzi",
         "continue": "Jarraitu deskarga",
+        "finish": "Finish",
         "force_update": "Eguneratu eguneraketarik badago",
         "hide_game": "Ezkutatu jokoa",
         "import": "Inportatu jokoa",
         "install": "Instalatu",
         "remove_from_favourites": "Kendu gogokoenetik",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Erakutsi jokoa",
         "uninstall": "Desinslalatu",
         "update": "Eguneratu"
@@ -64,6 +75,7 @@
         "neverPlayed": "Inoiz ez",
         "platform": "Instalatzeko plataformaren bertsioa hautatu",
         "reuirements": "Sistemaren betekizunak",
+        "title": "Title",
         "tools": "Tresnak",
         "totalPlayed": "Denbora jokatua"
     },
@@ -106,6 +118,12 @@
     "report_problem": "Joko hau gauzatzean arazo baten berri ematea",
     "sdl": {
         "title": "Instalatzeko osagaiak hautatzea"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Gutxienekoa",

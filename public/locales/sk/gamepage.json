@@ -17,6 +17,15 @@
             "message": "Chcete sa pokúsiť opraviť túto hru? Môže to trvať dlho.",
             "title": "Overiť a opraviť"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Pokračujte v inštalácii",
             "message": "Prajete si PONECHAŤ stiahnuté súbory?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Pridať do obľúbených",
         "cancel": "Pozastaviť/Zrušiť",
         "continue": "Pokračovať v sťahovaní",
+        "finish": "Finish",
         "force_update": "Vynútiť aktualizáciu, ak je k dispozícii",
         "hide_game": "Skryť hru",
         "import": "Importovať hru",
         "install": "Inštalácia",
         "remove_from_favourites": "Odstrániť z obľúbených",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Odkryť hru",
         "uninstall": "Odinštalovať",
         "update": "Aktualizovať"
@@ -63,6 +74,7 @@
         "neverPlayed": "Nikdy",
         "platform": "Vyberte Verzia platformy na inštaláciu",
         "reuirements": "Požiadavky na systém",
+        "title": "Title",
         "tools": "Nástroje",
         "totalPlayed": "Hraný čas"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Nahlásiť problém so spustením tejto hry",
     "sdl": {
         "title": "Vyberte komponenty na inštaláciu"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Minimum",

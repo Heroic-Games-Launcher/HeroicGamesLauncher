@@ -17,6 +17,15 @@
             "message": "Oyunu onarmayı denemek ister misiniz? Bu uzun sürebilir.",
             "title": "Doğrula ve Onar"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Kuruluma Devam Et",
             "message": "İndirilen dosyaları SAKLAMAK ister misiniz?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Favorilere Ekle",
         "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
+        "finish": "Finish",
         "force_update": "Varsa Güncellemeyi Zorunlu Kur",
         "hide_game": "Oyunu Gizle",
         "import": "Oyunu İçe Aktar",
         "install": "Kur",
         "remove_from_favourites": "Favorilerden Kaldır",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Oyunu Göster",
         "uninstall": "Kaldır",
         "update": "Güncelle"
@@ -63,6 +74,7 @@
         "neverPlayed": "Hiç Oynanmadı",
         "platform": "Kurulacak Platform Sürümünü Seç",
         "reuirements": "Sistem Gereksinimleri",
+        "title": "Title",
         "tools": "Araçlar",
         "totalPlayed": "Oynanan Zaman"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {
         "title": "Kurulacak bileşenleri seç"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Asgari",

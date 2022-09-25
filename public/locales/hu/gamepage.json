@@ -17,6 +17,15 @@
             "message": "Megszeretnéd próbálni megjavítani ezt a játékot? Ez eltarthat egy ideig.",
             "title": "Ellenőrzés és javítás"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Telepítés folytatása",
             "message": "Szeretnéd MEGTARTANI a letöltött fájlokat?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Kedvencekhez adás",
         "cancel": "Szüneteltetés/mégse",
         "continue": "Letöltés folytatása",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
         "hide_game": "Játék elrejtése",
         "import": "Játék importálása",
         "install": "Telepítés",
         "remove_from_favourites": "Eltávolítás a kedvencekből",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Játék felfedése",
         "uninstall": "Eltávolítás",
         "update": "Frissítés"
@@ -63,6 +74,7 @@
         "neverPlayed": "Soha",
         "platform": "Telepítendő platform változat kiválasztása",
         "reuirements": "Rendszerkövetelmények",
+        "title": "Title",
         "tools": "Ezközök",
         "totalPlayed": "Játszott idő"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {
         "title": "Válaszd ki a telepíteni kívánt elemeket"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Minimum",

@@ -17,6 +17,15 @@
             "message": "Do you want to try to repair this game? This can take a long time.",
             "title": "Verify and Repair"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Keep Installing",
             "message": "Do you wish to KEEP downloaded files?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "Pause/Cancel",
         "continue": "Continue Download",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Install",
         "remove_from_favourites": "Remove From Favourites",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Unhide Game",
         "uninstall": "Uninstall",
         "update": "Update"
@@ -63,6 +74,7 @@
         "neverPlayed": "Never",
         "platform": "Select Platform Version to Install",
         "reuirements": "System Requirements",
+        "title": "Title",
         "tools": "Tools",
         "totalPlayed": "Time Played"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Select components to Install"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Minimum",

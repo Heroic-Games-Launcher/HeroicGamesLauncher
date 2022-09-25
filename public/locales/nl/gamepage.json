@@ -17,6 +17,15 @@
             "message": "Wil je dit spel proberen te repareren? Dit kan lang duren.",
             "title": "Verifiëren en repareren"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Doorgaan met installeren",
             "message": "Wilt u de gedownloade bestanden bewaren?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "Pauzeren/Annuleren",
         "continue": "Doorgaan met Download",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "Importeren",
         "install": "Installeren",
         "remove_from_favourites": "Remove From Favourites",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Unhide Game",
         "uninstall": "Verwijderen",
         "update": "Update"
@@ -63,6 +74,7 @@
         "neverPlayed": "Nooit",
         "platform": "Select Platform Version to Install",
         "reuirements": "System Requirements",
+        "title": "Title",
         "tools": "Tools",
         "totalPlayed": "Tijd gespeeld"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Selecteer componenten om te installeren"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Minimum",

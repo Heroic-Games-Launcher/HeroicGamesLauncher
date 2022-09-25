@@ -17,6 +17,15 @@
             "message": "Reparer spillet, noe som kan ta lang tid?",
             "title": "Bekreft og reparer"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Fortsett å installere",
             "message": "Behold nedlastede filer?",
@@ -39,11 +48,13 @@
         "add_to_favourites": "Legg til i favoritter",
         "cancel": "Pause/avbryt",
         "continue": "Fortsett nedlasting",
+        "finish": "Finish",
         "force_update": "Tving oppdatering hvis tilgjengelig",
         "hide_game": "Skjul spillet",
         "import": "Importer spill",
         "install": "Installere",
         "remove_from_favourites": "Fjern fra favoritter",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Vis spill",
         "uninstall": "Avinstaller",
         "update": "Oppdater"
@@ -64,6 +75,7 @@
         "neverPlayed": "Aldri",
         "platform": "Velg plattformversjon som skal installeres",
         "reuirements": "Systemkrav",
+        "title": "Title",
         "tools": "Verktøy",
         "totalPlayed": "Spilletid"
     },
@@ -106,6 +118,12 @@
     "report_problem": "Rapporter et problem med å kjøre dette spillet",
     "sdl": {
         "title": "Velg komponenter som skal installeres"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Minimum",

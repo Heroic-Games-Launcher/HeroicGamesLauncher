@@ -17,6 +17,15 @@
             "message": "இந்த விளையாட்டை சரிசெய்ய விரும்புகிறீர்களா? இது நீண்ட நேரம் எடுக்கலாம்.",
             "title": "சரிபார்த்து சரிசெய்"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "நிறுவுவதை தொடரு",
             "message": "பதிவிறக்கம் செய்யப்பட்ட கோப்புகளை வைத்திருக்க விரும்புகிறீர்களா?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "இடைநிறுத்து/ரத்துசெய்",
         "continue": "பதிவிறக்கத்தை தொடரு",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "விளையாட்டை இறக்குமதி செய்",
         "install": "நிறுவு",
         "remove_from_favourites": "Remove From Favourites",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Unhide Game",
         "uninstall": "நிறுவல் நீக்கு",
         "update": "Update"
@@ -63,6 +74,7 @@
         "neverPlayed": "Never",
         "platform": "Select Platform Version to Install",
         "reuirements": "System Requirements",
+        "title": "Title",
         "tools": "Tools",
         "totalPlayed": "Time Played"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Select components to Install"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "குறைந்தபட்சம்",

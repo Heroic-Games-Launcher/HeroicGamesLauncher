@@ -17,6 +17,15 @@
             "message": "Kas soovite proovida seda mängu parandada? See võib võtta kaua aega.",
             "title": "Kontrolli ja paranda"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Jätka installimist",
             "message": "Kas soovite allalaaditud faile alles hoida?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Lisa lemmikute hulka",
         "cancel": "Peata/Tühista",
         "continue": "Jätka allalaadimist",
+        "finish": "Finish",
         "force_update": "Sunni uuendus, kui see on saadaval",
         "hide_game": "Peida mäng",
         "import": "Impordi mäng",
         "install": "Paigalda",
         "remove_from_favourites": "Eemalda lemmikutest",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Näita mäng",
         "uninstall": "Eemalda",
         "update": "Uuenda"
@@ -63,6 +74,7 @@
         "neverPlayed": "Mitte kunagi",
         "platform": "Valige paigaldatava platvormi versioon",
         "reuirements": "Süsteeminõuded",
+        "title": "Title",
         "tools": "Tööriistad",
         "totalPlayed": "Mängitud aeg"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Teatage selle mängu käivitamise probleemist",
     "sdl": {
         "title": "Valige komponendid, mida installida"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Miinimum",

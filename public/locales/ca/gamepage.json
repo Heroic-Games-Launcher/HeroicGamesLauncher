@@ -17,6 +17,15 @@
             "message": "Vols provar de reparar aquest joc? Això pot trigar molt de temps.",
             "title": "Verifica i repara"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Continua amb la instal·lació",
             "message": "Vols MANTENIR els fitxers baixats?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Afegeix a preferits",
         "cancel": "Pausa/Cancel·la",
         "continue": "Continua la baixada",
+        "finish": "Finish",
         "force_update": "Força l'actualització si n'hi ha alguna de disponible",
         "hide_game": "Amaga el joc",
         "import": "Importa el joc",
         "install": "Instal·la",
         "remove_from_favourites": "Treu dels preferits",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Torna a mostrar el joc",
         "uninstall": "Desinstal·la",
         "update": "Actualitza"
@@ -63,6 +74,7 @@
         "neverPlayed": "Mai",
         "platform": "Selecciona la versió de la plataforma per instal·lar",
         "reuirements": "Requeriments del sistema",
+        "title": "Title",
         "tools": "Eines",
         "totalPlayed": "Temps jugat"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Informa d'un problema quan s'executa el joc",
     "sdl": {
         "title": "Selecciona els components a instal·lar"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Mínim",

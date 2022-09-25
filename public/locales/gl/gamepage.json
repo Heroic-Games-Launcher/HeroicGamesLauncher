@@ -17,6 +17,15 @@
             "message": "Queres tentar reparar o xogo? Isto pode levar moito tempo.",
             "title": "Verificar e reparar"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Seguir instalando",
             "message": "Desexa MANTER os ficheiros descargados?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "Pausar/Cancelar",
         "continue": "Continuar descarga",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "Importar xogo",
         "install": "Instalar",
         "remove_from_favourites": "Remove From Favourites",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Unhide Game",
         "uninstall": "Desinstalar",
         "update": "Actualizar"
@@ -63,6 +74,7 @@
         "neverPlayed": "Nunca",
         "platform": "Select Platform Version to Install",
         "reuirements": "System Requirements",
+        "title": "Title",
         "tools": "Tools",
         "totalPlayed": "Tempo xogado"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Seleccione os compoñentes a instalar"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Mínimo",

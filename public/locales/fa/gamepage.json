@@ -17,6 +17,15 @@
             "message": "آیا میخواهید این بازی را تعمیر کنید؟ این کار میتواند زمان زیادی ببرد.",
             "title": "بررسی و تعمیر"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "ادامه به نصب",
             "message": "آیا مایل هستید فایلهای دانلود شده را نگه دارید؟",
@@ -38,11 +47,13 @@
         "add_to_favourites": "افزودن به مورد علاقه ها",
         "cancel": "توقف/انصراف",
         "continue": "ادامه بارگیری",
+        "finish": "Finish",
         "force_update": "اعمال اجباری به روز رسانی در صورت موجود بودن",
         "hide_game": "مخفی کردن بازی",
         "import": "وارد کردن بازی",
         "install": "نصب",
         "remove_from_favourites": "حذف کردن از مورد علاقه ها",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "نشان دادن بازی",
         "uninstall": "حذف",
         "update": "بهروزرسانی"
@@ -63,6 +74,7 @@
         "neverPlayed": "هرگز",
         "platform": "انتخاب نسخه پلتفرم برای نصب",
         "reuirements": "نیازهای سیستم",
+        "title": "Title",
         "tools": "ابزارها",
         "totalPlayed": "زمان بازی"
     },
@@ -105,6 +117,12 @@
     "report_problem": "گزارش مشکل اجرای این بازی",
     "sdl": {
         "title": "انتخاب محتواها برای نصب"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "حداقل",

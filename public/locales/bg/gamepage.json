@@ -17,6 +17,15 @@
             "message": "Искате ли да се направи опит за поправка на тази игра? Това може да отнеме много време.",
             "title": "Проверка и поправяне"
         },
+        "runexe": {
+            "title": ""
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Продължаване с инсталацията",
             "message": "Искате ли да ЗАПАЗИТЕ свалените файлове?",
@@ -38,11 +47,13 @@
         "add_to_favourites": "Добавяне към любимите",
         "cancel": "Пауза/Отказ",
         "continue": "Продължаване на свалянето",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
         "hide_game": "Hide Game",
         "import": "Внасяне на игра",
         "install": "Инсталиране",
         "remove_from_favourites": "Премахване от любимите",
+        "run-exe-first": "Run Installer First",
         "unhide_game": "Показване на играта",
         "uninstall": "Деинсталиране",
         "update": "Обновяване"
@@ -63,6 +74,7 @@
         "neverPlayed": "Никога",
         "platform": "Изберете версия за инсталиране",
         "reuirements": "Системни изисквания",
+        "title": "Title",
         "tools": "Инструменти",
         "totalPlayed": "Изиграно време"
     },
@@ -105,6 +117,12 @@
     "report_problem": "Докладване за проблем с пускането на тази игра",
     "sdl": {
         "title": "Изберете компоненти за инсталиране"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Select Executable",
+            "title": "Game/App Title"
+        }
     },
     "specs": {
         "minimum": "Минимални",
