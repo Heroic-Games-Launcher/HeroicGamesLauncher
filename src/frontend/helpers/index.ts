@@ -36,7 +36,7 @@ export const size = fileSize.partial({ base: 2 })
 
 let progress: string
 
-const sendKill = window.api.kill
+const sendKill = window.api.abort
 
 const isLoggedIn = window.api.isLoggedIn
 

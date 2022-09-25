@@ -505,6 +505,7 @@ interface RunnerProps {
 async function callRunner(
   commandParts: string[],
   runner: RunnerProps,
+  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const fullRunnerPath = join(runner.dir, runner.bin)
@@ -550,7 +551,8 @@ async function callRunner(
   return new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
-      env: { ...process.env, ...options?.env }
+      env: { ...process.env, ...options?.env },
+      signal: abortController.signal
     })
 
     const stdout: string[] = []
@@ -563,7 +565,7 @@ async function callRunner(
       }
 
       if (options?.onOutput) {
-        options.onOutput(data, child)
+        options.onOutput(data)
       }
 
       stdout.push(data.trim())
@@ -576,7 +578,7 @@ async function callRunner(
       }
 
       if (options?.onOutput) {
-        options.onOutput(data, child)
+        options.onOutput(data)
       }
 
       stderr.push(data.trim())
@@ -608,6 +610,19 @@ async function callRunner(
       return { stdout, stderr, fullCommand: safeCommand }
     })
     .catch((error) => {
+      if (abortController.signal.aborted) {
+        logInfo(['Abort command', `"${safeCommand}"`], {
+          prefix: runner.logPrefix
+        })
+
+        return {
+          stdout: '',
+          stderr: '',
+          fullCommand: safeCommand,
+          abort: true
+        }
+      }
+
       errorHandler({
         error: `${error}`,
         logPath: options?.logFile,

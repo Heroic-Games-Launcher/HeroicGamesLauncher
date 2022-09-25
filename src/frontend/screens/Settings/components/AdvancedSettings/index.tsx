@@ -246,7 +246,7 @@ export const AdvancedSettings = ({
   }
 
   async function cancelEosOverlayInstallOrUpdate() {
-    await window.api.cancelEosOverlayInstallOrUpdate()
+    await window.api.abort(eosOverlayAppName)
     await handleGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',

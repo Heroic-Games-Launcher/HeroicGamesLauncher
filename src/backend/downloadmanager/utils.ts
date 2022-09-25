@@ -57,6 +57,20 @@ async function installQueueElement(
     title,
     body: i18next.t('notify.install.startInstall', 'Installation Started')
   })
+
+  const errorMessage = (error: string) => {
+    logError(['Installing of', params.appName, 'failed with:', error], {
+      prefix: LogPrefix.DownloadManager
+    })
+
+    mainWindow.webContents.send('setGameStatus', {
+      appName,
+      runner,
+      status: 'done'
+    })
+    return error
+  }
+
   return game
     .install({
       path: path.replaceAll("'", ''),
@@ -66,16 +80,24 @@ async function installQueueElement(
       installLanguage
     })
     .then(async (res) => {
-      notify({
-        title,
-        body:
-          res.status === 'done'
-            ? i18next.t('notify.install.finished')
-            : i18next.t('notify.install.canceled')
-      })
-      logInfo(['finished installing of', params.appName], {
-        prefix: LogPrefix.DownloadManager
-      })
+      if (res.status === 'abort') {
+        logWarning(['Installing of', params.appName, 'aborted!'], {
+          prefix: LogPrefix.DownloadManager
+        })
+        notify({ title, body: i18next.t('notify.install.canceled') })
+      } else if (res.status === 'done') {
+        notify({
+          title,
+          body: i18next.t('notify.install.finished')
+        })
+
+        logInfo(['Finished installing of', params.appName], {
+          prefix: LogPrefix.DownloadManager
+        })
+      } else if (res.status === 'error') {
+        return errorMessage(res.error ?? '')
+      }
+
       mainWindow.webContents.send('setGameStatus', {
         appName,
         runner,
@@ -84,28 +106,7 @@ async function installQueueElement(
       return res
     })
     .catch((error) => {
-      if (error instanceof Error && error.name.includes('AbortError')) {
-        logWarning(['Installing of', params.appName, 'aborted!'], {
-          prefix: LogPrefix.DownloadManager
-        })
-        notify({ title, body: i18next.t('notify.install.canceled') })
-      } else {
-        logError(['Installing of', params.appName, 'failed with:', error], {
-          prefix: LogPrefix.DownloadManager
-        })
-      }
-
-      mainWindow.webContents.send('setGameStatus', {
-        appName,
-        runner,
-        status: 'done'
-      })
-      return error
-    })
-    .finally(() => {
-      mainWindow.webContents.executeJavaScript(
-        `localStorage.removeItem(${appName})`
-      )
+      return errorMessage(`${error}`)
     })
 }
 

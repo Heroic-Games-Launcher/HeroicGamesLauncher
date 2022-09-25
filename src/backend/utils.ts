@@ -1,3 +1,8 @@
+import {
+  createAbortController,
+  deleteAbortController,
+  callAllAbortControllers
+} from './utils/aborthandler/aborthandler'
 import { GOGGame } from './gog/games'
 import { LegendaryGame } from './legendary/games'
 import {
@@ -230,9 +235,15 @@ async function isEpicServiceOffline(
 }
 
 export const getLegendaryVersion = async () => {
-  const { stdout, error } = await runLegendaryCommand(['--version'])
+  const abortID = 'legendary-version'
+  const { stdout, error, abort } = await runLegendaryCommand(
+    ['--version'],
+    createAbortController(abortID)
+  )
 
-  if (error) {
+  deleteAbortController(abortID)
+
+  if (error || abort) {
     return 'invalid'
   }
 
@@ -244,7 +255,13 @@ export const getLegendaryVersion = async () => {
 }
 
 export const getGogdlVersion = async () => {
-  const { stdout, error } = await runGogdlCommand(['--version'])
+  const abortID = 'gogdl-version'
+  const { stdout, error } = await runGogdlCommand(
+    ['--version'],
+    createAbortController(abortID)
+  )
+
+  deleteAbortController(abortID)
 
   if (error) {
     return 'invalid'
@@ -293,15 +310,7 @@ async function handleExit(window: BrowserWindow) {
     }
 
     // Kill all child processes
-    // This is very hacky
-    const possibleChildren = ['legendary', 'gogdl']
-    possibleChildren.forEach((procName) => {
-      try {
-        killPattern(procName)
-      } catch (error) {
-        logInfo([`Unable to kill ${procName}, ignoring.`, error])
-      }
-    })
+    callAllAbortControllers()
   }
   app.exit()
 }
@@ -432,13 +441,17 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-function clearCache() {
+async function clearCache() {
   GOGapiInfoCache.clear()
   GOGlibraryStore.clear()
   installStore.clear()
   libraryStore.clear()
   gameInfoStore.clear()
-  runLegendaryCommand(['cleanup'])
+
+  const abortID = 'legendary-cleanup'
+  runLegendaryCommand(['cleanup'], createAbortController(abortID)).then(() =>
+    deleteAbortController(abortID)
+  )
 }
 
 function resetHeroic() {
@@ -633,20 +646,6 @@ function removeQuoteIfNecessary(stringToUnquote: string) {
   }
 
   return String(stringToUnquote)
-}
-
-function killPattern(pattern: string) {
-  logInfo(['Trying to kill', pattern], { prefix: LogPrefix.Backend })
-  let ret
-  if (isWindows) {
-    ret = spawnSync('Stop-Process', ['-name', pattern], {
-      shell: 'powershell.exe'
-    })
-  } else {
-    ret = spawnSync('pkill', ['-f', pattern])
-  }
-  logInfo(['Killed', pattern], { prefix: LogPrefix.Backend })
-  return ret
 }
 
 /**
@@ -845,7 +844,6 @@ export {
   constructAndUpdateRPC,
   quoteIfNecessary,
   removeQuoteIfNecessary,
-  killPattern,
   detectVCRedist,
   getGame,
   getMainWindow

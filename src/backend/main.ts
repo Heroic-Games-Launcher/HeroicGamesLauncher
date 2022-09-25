@@ -533,10 +533,6 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.handle('kill', async (event, appName, runner) => {
-  return getGame(appName, runner).stop()
-})
-
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
   const parent = getFirstExistingParentPath(folder)
   return new Promise((res) => {
@@ -1175,15 +1171,24 @@ ipcMain.handle(
       runner,
       status: 'installing'
     })
-    try {
-      await game.import(path)
-    } catch (error) {
+
+    const abortMessage = () => {
       notify({ title, body: i18next.t('notify.install.canceled') })
       mainWindow.webContents.send('setGameStatus', {
         appName,
         runner,
         status: 'done'
       })
+    }
+
+    try {
+      const { abort, error } = await game.import(path)
+      if (abort || error) {
+        abortMessage()
+        return { status: 'done' }
+      }
+    } catch (error) {
+      abortMessage()
       logError(error, { prefix: LogPrefix.Backend })
       return { status: 'error' }
     }
@@ -1509,6 +1514,7 @@ import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
+import './utils/ipc_handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

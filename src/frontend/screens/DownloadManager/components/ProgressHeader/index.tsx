@@ -30,10 +30,7 @@ export default function ProgressHeader(props: { appName: string }) {
         progress.downSpeed && progress.downSpeed > 0
           ? progress.downSpeed
           : avgSpeed.at(-1)?.download ?? 0,
-      disk:
-        progress.diskSpeed && progress.diskSpeed > 0
-          ? progress.diskSpeed
-          : avgSpeed.at(-1)?.disk ?? 0
+      disk: progress.diskSpeed ?? 0
     })
 
     setAvgDownloadSpeed([...avgSpeed])

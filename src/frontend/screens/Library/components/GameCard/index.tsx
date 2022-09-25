@@ -425,7 +425,7 @@ const GameCard = ({
       })
     }
     if (status === 'playing' || status === 'updating') {
-      return sendKill(appName, runner)
+      return sendKill(appName)
     }
     if (isInstalled) {
       return launch({ appName, t, runner, hasUpdate })

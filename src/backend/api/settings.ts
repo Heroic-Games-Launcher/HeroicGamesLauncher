@@ -9,8 +9,6 @@ export const getLatestEosOverlayVersion = async () =>
   ipcRenderer.invoke('getLatestEosOverlayVersion')
 export const removeEosOverlay = async () =>
   ipcRenderer.invoke('removeEosOverlay')
-export const cancelEosOverlayInstallOrUpdate = async () =>
-  ipcRenderer.invoke('cancelEosOverlayInstallOrUpdate')
 export const updateEosOverlayInfo = async () =>
   ipcRenderer.invoke('updateEosOverlayInfo')
 

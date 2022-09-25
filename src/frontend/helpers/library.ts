@@ -57,8 +57,7 @@ async function install({
       appName,
       [installPath, folder_name],
       t,
-      progress,
-      runner
+      progress
     )
   }
 
@@ -199,8 +198,7 @@ async function handleStopInstallation(
   appName: string,
   [path, folderName]: string[],
   t: TFunction<'gamepage'>,
-  progress: InstallProgress,
-  runner: Runner
+  progress: InstallProgress
 ) {
   const args = {
     buttons: [
@@ -217,9 +215,9 @@ async function handleStopInstallation(
 
   if (response === 1) {
     storage.setItem(appName, JSON.stringify({ ...progress, folder: path }))
-    return sendKill(appName, runner)
+    return sendKill(appName)
   } else if (response === 2) {
-    await sendKill(appName, runner)
+    await sendKill(appName)
     storage.removeItem(appName)
     return window.api.removeFolder([path, folderName])
   }

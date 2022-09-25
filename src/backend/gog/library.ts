@@ -21,6 +21,10 @@ import {
   installedGamesStore
 } from './electronStores'
 import { callRunner } from '../launcher'
+import {
+  createAbortController,
+  deleteAbortController
+} from '../utils/aborthandler/aborthandler'
 
 export class GOGLibrary {
   private static globalInstance: GOGLibrary
@@ -342,56 +346,76 @@ export class GOGLibrary {
       installPlatform
     ]
 
-    const res = await runGogdlCommand(commandParts, {
-      logMessagePrefix: 'Getting game metadata'
-    })
-    if (res.error) {
-      logError(['Failed to get game metadata for', `${appName}:`, res.error], {
+    const res = await runGogdlCommand(
+      commandParts,
+      createAbortController(appName),
+      {
+        logMessagePrefix: 'Getting game metadata'
+      }
+    )
+
+    deleteAbortController(appName)
+
+    if (res.abort) {
+      return
+    }
+
+    const errorMessage = (error: string) => {
+      logError(['Failed to get game metadata for', `${appName}:`, error], {
         prefix: LogPrefix.Gog
       })
     }
 
-    const gogInfo = JSON.parse(res.stdout)
-    const libraryArray = libraryStore.get('games', [{}]) as GameInfo[]
-    const gameObjectIndex = libraryArray.findIndex(
-      (value) => value.app_name === appName
-    )
+    if (res.error) {
+      errorMessage(res.error)
+    }
 
-    if (
-      !libraryArray[gameObjectIndex]?.gog_save_location &&
-      this.installedGames.get(appName) &&
-      this.installedGames.get(appName)?.platform !== 'linux'
-    ) {
-      gameData.gog_save_location = await this.getSaveSyncLocation(
-        appName,
-        this.installedGames.get(appName)!
+    try {
+      const gogInfo = JSON.parse(res.stdout)
+      const libraryArray = libraryStore.get('games', [{}]) as GameInfo[]
+      const gameObjectIndex = libraryArray.findIndex(
+        (value) => value.app_name === appName
       )
-    }
 
-    libraryArray[gameObjectIndex].folder_name = gogInfo?.folder_name
-    libraryArray[gameObjectIndex].gog_save_location =
-      gameData?.gog_save_location
-    gameData.folder_name = gogInfo?.folder_name
-    libraryStore.set('games', libraryArray)
-    this.library.set(appName, gameData)
-    const info: GogInstallInfo = {
-      game: {
-        app_name: appName,
-        title: gameData.title,
-        owned_dlc: gogInfo.dlcs,
-        version: gogInfo.versionName,
-        launch_options: [],
-        buildId: gogInfo.buildId
-      },
-      manifest: {
-        disk_size: Number(gogInfo.disk_size),
-        download_size: Number(gogInfo.download_size),
-        app_name: appName,
-        languages: gogInfo.languages,
-        versionEtag: gogInfo.versionEtag
+      if (
+        !libraryArray[gameObjectIndex]?.gog_save_location &&
+        this.installedGames.get(appName) &&
+        this.installedGames.get(appName)?.platform !== 'linux'
+      ) {
+        gameData.gog_save_location = await this.getSaveSyncLocation(
+          appName,
+          this.installedGames.get(appName)!
+        )
       }
+
+      libraryArray[gameObjectIndex].folder_name = gogInfo?.folder_name
+      libraryArray[gameObjectIndex].gog_save_location =
+        gameData?.gog_save_location
+      gameData.folder_name = gogInfo?.folder_name
+      libraryStore.set('games', libraryArray)
+      this.library.set(appName, gameData)
+      const info: GogInstallInfo = {
+        game: {
+          app_name: appName,
+          title: gameData.title,
+          owned_dlc: gogInfo.dlcs,
+          version: gogInfo.versionName,
+          launch_options: [],
+          buildId: gogInfo.buildId
+        },
+        manifest: {
+          disk_size: Number(gogInfo.disk_size),
+          download_size: Number(gogInfo.download_size),
+          app_name: appName,
+          languages: gogInfo.languages,
+          versionEtag: gogInfo.versionEtag
+        }
+      }
+      return info
+    } catch (error) {
+      errorMessage(`${error}`)
+      return
     }
-    return info
   }
 
   /**
@@ -836,12 +860,14 @@ export class GOGLibrary {
  */
 export async function runGogdlCommand(
   commandParts: string[],
+  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getGOGdlBin()
   return callRunner(
     commandParts,
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
+    abortController,
     options
   )
 }

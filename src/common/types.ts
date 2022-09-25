@@ -1,6 +1,5 @@
 import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform } from './types/legendary'
-import { ChildProcess } from 'child_process'
 import { VersionInfo } from 'heroic-wine-downloader'
 
 export type Runner = 'legendary' | 'gog'
@@ -104,6 +103,7 @@ export type ExecResult = {
   stdout: string
   fullCommand?: string
   error?: string
+  abort?: boolean
 }
 
 export interface ExtraInfo {
@@ -354,7 +354,7 @@ export interface CallRunnerOptions {
   logFile?: string
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
-  onOutput?: (output: string, child: ChildProcess) => void
+  onOutput?: (output: string) => void
 }
 
 export interface EnviromentVariable {
