@@ -159,6 +159,15 @@ export default function OtherSettings({
     </InfoBox>
   )
 
+  const steamPathInfo = (
+    <InfoBox text="infobox.help">
+      {t(
+        'help.steam_path.info',
+        'This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam.'
+      )}
+    </InfoBox>
+  )
+
   const languageInfo = (
     <InfoBox text="infobox.help">
       {t(
@@ -419,8 +428,10 @@ export default function OtherSettings({
                 setDefaultSteamPath(path ? `${path}` : defaultSteamPath)
               )
           }
+          afterInput={steamPathInfo}
         />
       )}
+
       {!isWin && (
         <EnvVariablesTable
           environmentVariables={enviromentOptions}

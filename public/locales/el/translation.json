@@ -223,6 +223,9 @@
         "preferSystemLibs": "Οι προσαρμοσμένες εκδόσεις Wine (Wine-GE, Wine-Lutris) αποστέλλονται με τις εξαρτήσεις της βιβλιοθήκης τους. Με την ενεργοποίηση αυτής της επιλογής, αυτές οι αποσταλμένες βιβλιοθήκες θα αγνοηθούν και το Wine θα φορτώσει τις βιβλιοθήκες του συστήματος. Προειδοποίηση! Ενδέχεται να προκύψουν προβλήματα εάν δεν ικανοποιηθούν οι εξαρτήσεις.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Το Heroic προσπαθεί να μαντέψει τον σωστό φάκελο αποθήκευσης και αυτό θα δουλέψει στην πλειοψηφία των περιπτώσεων. Αν ο φάκελος είναι λάθος, χρησιμοποιήστε το κουτί κατίσχυσης για να τον αλλάξετε.",
