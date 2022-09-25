@@ -312,6 +312,7 @@ async function handleExit(window: BrowserWindow) {
 export const getSystemInfo = async () => {
   const heroicVersion = getHeroicVersion()
   const legendaryVersion = await getLegendaryVersion()
+  const gogdlVersion = await getGogdlVersion()
 
   // get CPU and RAM info
   const { manufacturer, brand, speed, governor } = await si.cpu()
@@ -340,6 +341,7 @@ export const getSystemInfo = async () => {
 
   return `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
+GogDL Version: ${gogdlVersion}
 OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
 CPU: ${manufacturer} ${brand} @${speed} ${
     governor ? `GOVERNOR: ${governor}` : ''
