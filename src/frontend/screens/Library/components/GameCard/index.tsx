@@ -82,12 +82,12 @@ const GameCard = ({
     (game: GameStatus) => game.appName === appName
   )[0]
 
-  const hasDownloads = Boolean(
-    libraryStatus.filter(
-      (game: GameStatus) =>
-        game.status === 'installing' || game.status === 'updating'
-    ).length
-  )
+  // const hasDownloads = Boolean(
+  //   libraryStatus.filter(
+  //     (game: GameStatus) =>
+  //       game.status === 'installing' || game.status === 'updating'
+  //   ).length
+  // )
 
   const { status, folder } = gameStatus || {}
   const isInstalling = status === 'installing' || status === 'updating'
@@ -177,17 +177,17 @@ const GameCard = ({
       )
     }
     if (!isInstalled) {
-      if (hasDownloads) {
-        return (
-          <SvgButton
-            className="iconDisabled"
-            onClick={(e) => e.preventDefault()}
-            title={`${t('button.cancel')} (${title})`}
-          >
-            <DownIcon />
-          </SvgButton>
-        )
-      }
+      // if (hasDownloads) {
+      //   return (
+      //     <SvgButton
+      //       className="iconDisabled"
+      //       onClick={(e) => e.preventDefault()}
+      //       title={`${t('button.cancel')} (${title})`}
+      //     >
+      //       <DownIcon />
+      //     </SvgButton>
+      //   )
+      // }
       return (
         <SvgButton
           className="downIcon"
@@ -259,8 +259,8 @@ const GameCard = ({
     },
     {
       label: t('button.install'),
-      onclick: () => (!hasDownloads ? buttonClick() : () => null),
-      show: !isInstalled && !isInstalling && !hasDownloads
+      onclick: () => (!isInstalled ? buttonClick() : () => null),
+      show: !isInstalled //&& !hasDownloads && !isInstalling
     },
     {
       label: t('button.cancel'),
@@ -425,7 +425,7 @@ const GameCard = ({
       })
     }
     if (status === 'playing' || status === 'updating') {
-      return sendKill(appName)
+      return sendKill(appName, runner)
     }
     if (isInstalled) {
       return launch({ appName, t, runner, hasUpdate })

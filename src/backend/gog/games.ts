@@ -8,7 +8,13 @@ import { join } from 'path'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
-import { errorHandler, execAsync, getFileSize, getGOGdlBin } from '../utils'
+import {
+  errorHandler,
+  execAsync,
+  getFileSize,
+  getGOGdlBin,
+  killPattern
+} from '../utils'
 import {
   ExtraInfo,
   GameInfo,
@@ -832,6 +838,13 @@ class GOGGame extends Game {
     const mainWindow =
       BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
     mainWindow.webContents.send('refreshLibrary', 'gog')
+  }
+
+  // Could be removed if gogdl handles SIGKILL and SIGTERM for us
+  // which is send via AbortController
+  public async stop(): Promise<void> {
+    const pattern = isLinux ? this.appName : 'gogdl'
+    killPattern(pattern)
   }
 }
 

@@ -8,7 +8,7 @@ import {
 } from 'common/types'
 
 import { TFunction } from 'react-i18next'
-import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
+import { getGameInfo, getPlatform, getGameSettings, sendKill } from './index'
 import { configStore } from './electronStores'
 
 const storage: Storage = window.localStorage
@@ -57,7 +57,8 @@ async function install({
       appName,
       [installPath, folder_name],
       t,
-      progress
+      progress,
+      runner
     )
   }
 
@@ -198,7 +199,8 @@ async function handleStopInstallation(
   appName: string,
   [path, folderName]: string[],
   t: TFunction<'gamepage'>,
-  progress: InstallProgress
+  progress: InstallProgress,
+  runner: Runner
 ) {
   const args = {
     buttons: [
@@ -215,9 +217,9 @@ async function handleStopInstallation(
 
   if (response === 1) {
     storage.setItem(appName, JSON.stringify({ ...progress, folder: path }))
-    return sendKill(appName)
+    return sendKill(appName, runner)
   } else if (response === 2) {
-    await sendKill(appName)
+    await sendKill(appName, runner)
     storage.removeItem(appName)
     return window.api.removeFolder([path, folderName])
   }

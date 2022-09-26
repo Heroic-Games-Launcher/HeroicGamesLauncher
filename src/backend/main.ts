@@ -619,15 +619,21 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
     const { defaultInstallPath } = await GlobalConfig.get().getSettings()
     const path = defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${path}/${folderName}`
-    return setTimeout(() => {
-      rmSync(folderToDelete, { recursive: true })
-    }, 5000)
+    if (existsSync(folderToDelete)) {
+      return setTimeout(() => {
+        rmSync(folderToDelete, { recursive: true })
+      }, 5000)
+    }
+    return
   }
 
   const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
-  return setTimeout(() => {
-    rmSync(folderToDelete, { recursive: true })
-  }, 2000)
+  if (existsSync(folderToDelete)) {
+    return setTimeout(() => {
+      rmSync(folderToDelete, { recursive: true })
+    }, 2000)
+  }
+  return
 })
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
@@ -1207,6 +1213,11 @@ ipcMain.handle(
   }
 )
 
+ipcMain.handle('kill', async (event, appName, runner) => {
+  callAbortController(appName)
+  return getGame(appName, runner).stop()
+})
+
 ipcMain.handle('updateGame', async (e, appName, runner) => {
   if (!isOnline()) {
     logWarning(`App offline, skipping install for game '${appName}'.`, {
@@ -1515,6 +1526,7 @@ import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
+import { callAbortController } from './utils/aborthandler/aborthandler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

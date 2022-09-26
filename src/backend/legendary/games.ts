@@ -18,7 +18,7 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary, runLegendaryCommand } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, getLegendaryBin, isOnline } from '../utils'
+import { execAsync, getLegendaryBin, isOnline, killPattern } from '../utils'
 import {
   heroicGamesConfigPath,
   userHome,
@@ -806,6 +806,17 @@ class LegendaryGame extends Game {
         prefix: LogPrefix.Legendary
       })
     }
+  }
+
+  // Could be removed if legendary handles SIGKILL and SIGTERM for us
+  // which is send via AbortController
+  public async stop() {
+    // until the legendary bug gets fixed, kill legendary on mac
+    // not a perfect solution but it's the only choice for now
+
+    // @adityaruplaha: this is kinda arbitary and I don't understand it.
+    const pattern = process.platform === 'linux' ? this.appName : 'legendary'
+    killPattern(pattern)
   }
 }
 

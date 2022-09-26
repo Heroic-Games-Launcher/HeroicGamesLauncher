@@ -30,6 +30,7 @@ abstract class Game {
   abstract install(args: InstallArgs): Promise<{ status: string }>
   abstract addShortcuts(): Promise<void>
   abstract launch(launchArguments?: string): Promise<boolean>
+  abstract stop(): Promise<void>
   abstract moveInstall(newInstallPath: string): Promise<string>
   abstract repair(): Promise<ExecResult>
   abstract forceUninstall(): Promise<void>

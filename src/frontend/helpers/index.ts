@@ -36,7 +36,8 @@ export const size = fileSize.partial({ base: 2 })
 
 let progress: string
 
-const sendKill = window.api.abort
+const sendAbort = window.api.abort
+const sendKill = window.api.kill
 
 const isLoggedIn = window.api.isLoggedIn
 
@@ -284,6 +285,7 @@ export {
   openDiscordLink,
   progress,
   repair,
+  sendAbort,
   sendKill,
   sidInfoPage,
   syncSaves,

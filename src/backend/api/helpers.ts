@@ -18,6 +18,8 @@ export const getPlatform = async () => ipcRenderer.invoke('getPlatform')
 export const isLoggedIn = async () => ipcRenderer.invoke('isLoggedIn')
 export const writeConfig = async (data: [appName: string, x: unknown]) =>
   ipcRenderer.invoke('writeConfig', data)
+export const kill = async (appName: string, runner: Runner) =>
+  ipcRenderer.invoke('kill', appName, runner)
 export const abort = async (id: string) => ipcRenderer.send('abort', id)
 export const getUserInfo = async () => ipcRenderer.invoke('getUserInfo')
 export const syncSaves = async (

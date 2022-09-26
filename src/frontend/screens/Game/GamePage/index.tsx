@@ -562,7 +562,7 @@ export default function GamePage(): JSX.Element | null {
   function handlePlay() {
     return async () => {
       if (status === 'playing' || status === 'updating') {
-        return sendKill(appName)
+        return sendKill(appName, gameInfo.runner)
       }
 
       if (autoSyncSaves) {

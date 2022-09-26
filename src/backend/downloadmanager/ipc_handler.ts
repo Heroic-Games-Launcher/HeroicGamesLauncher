@@ -10,8 +10,8 @@ ipcMain.on('addToDMQueue', (e, element: DMQueueElement) => {
   addToQueue(element)
 })
 
-ipcMain.on('removeFromDMQueue', (e, element: DMQueueElement) => {
-  removeFromQueue(element)
+ipcMain.on('removeFromDMQueue', (e, appName: string) => {
+  removeFromQueue(appName)
 })
 
 ipcMain.handle('getDMQueueInformation', () => {

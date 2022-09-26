@@ -36,8 +36,7 @@ async function initQueue() {
 
   while (element) {
     await installQueueElement(window, element.params)
-    removeFromQueue(element)
-    window.webContents.send('changedDMQueueInformation', getQueueInformation())
+    removeFromQueue(element.params.appName)
     element = getFirstQueueElement()
   }
   queueState = 'idle'
@@ -68,12 +67,12 @@ function addToQueue(element: DMQueueElement) {
   }
 }
 
-function removeFromQueue(element: DMQueueElement) {
-  if (element && downloadManager.has('queue')) {
+function removeFromQueue(appName: string) {
+  if (appName && downloadManager.has('queue')) {
     let elements: DMQueueElement[] = []
     elements = downloadManager.get('queue') as DMQueueElement[]
     const index = elements.findIndex(
-      (queueElement) => queueElement?.params.appName === element.params.appName
+      (queueElement) => queueElement?.params.appName === appName
     )
     if (index !== -1) {
       elements.splice(index, 1)
@@ -81,9 +80,11 @@ function removeFromQueue(element: DMQueueElement) {
       downloadManager.set('queue', elements)
     }
 
-    logInfo([element.params.appName, 'removed from download manager.'], {
+    logInfo([appName, 'removed from download manager.'], {
       prefix: LogPrefix.DownloadManager
     })
+
+    getMainWindow().webContents.send('changedDMQueueInformation', elements)
   }
 }
 

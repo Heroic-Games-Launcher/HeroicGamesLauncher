@@ -309,6 +309,17 @@ async function handleExit(window: BrowserWindow) {
       return
     }
 
+    // This is very hacky and can be removed if gogdl
+    // and legendary handle SIGTERM and SIGKILL
+    const possibleChildren = ['legendary', 'gogdl']
+    possibleChildren.forEach((procName) => {
+      try {
+        killPattern(procName)
+      } catch (error) {
+        logInfo([`Unable to kill ${procName}, ignoring.`, error])
+      }
+    })
+
     // Kill all child processes
     callAllAbortControllers()
   }
@@ -821,6 +832,22 @@ function getMainWindow(): BrowserWindow {
   return BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows[0]
 }
 
+// can be removed if legendary and gogdl handle SIGTERM and SIGKILL
+// for us
+function killPattern(pattern: string) {
+  logInfo(['Trying to kill', pattern], { prefix: LogPrefix.Backend })
+  let ret
+  if (isWindows) {
+    ret = spawnSync('Stop-Process', ['-name', pattern], {
+      shell: 'powershell.exe'
+    })
+  } else {
+    ret = spawnSync('pkill', ['-f', pattern])
+  }
+  logInfo(['Killed', pattern], { prefix: LogPrefix.Backend })
+  return ret
+}
+
 export {
   errorHandler,
   execAsync,
@@ -846,5 +873,6 @@ export {
   removeQuoteIfNecessary,
   detectVCRedist,
   getGame,
-  getMainWindow
+  getMainWindow,
+  killPattern
 }

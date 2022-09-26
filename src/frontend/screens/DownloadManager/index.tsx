@@ -58,14 +58,8 @@ export default function DownloadManager(): JSX.Element | null {
                 <span>{t('download.manager.queue.actions', 'Action')}</span>
               </div>
               <DownloadManagerItem
-                appName={currentElement?.params.appName ?? ''}
-                path={currentElement?.params.path ?? ''}
-                installDlcs={currentElement?.params.installDlcs}
-                sdlList={currentElement?.params.sdlList ?? []}
-                platformToInstall={
-                  currentElement?.params.platformToInstall ?? 'Windows'
-                }
-                runner={currentElement?.params.runner ?? 'legendary'}
+                params={currentElement.params}
+                current={true}
               />
               {!!plannendElements.length && (
                 <>
@@ -75,7 +69,13 @@ export default function DownloadManager(): JSX.Element | null {
                     <span>{t('download.manager.queue.actions', 'Action')}</span>
                   </div>
                   {plannendElements.map((element, key) => {
-                    return <DownloadManagerItem key={key} {...element.params} />
+                    return (
+                      <DownloadManagerItem
+                        key={key}
+                        params={element.params}
+                        current={false}
+                      />
+                    )
                   })}
                 </>
               )}
