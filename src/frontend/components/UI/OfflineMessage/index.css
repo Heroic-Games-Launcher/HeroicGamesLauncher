@@ -1,7 +1,7 @@
 .offline-message {
-  background: wheat;
+  background: var(--accent-overlay);
   padding: 0.5rem;
-  color: black;
+  color: var(--text-tertiary);
   display: grid;
   position: relative;
 }
@@ -15,22 +15,22 @@
 .offline-message button {
   justify-self: flex-end;
   align-self: flex-end;
-  background: wheat;
-  border: 2px solid rgb(243, 200, 121);
+  background: var(--accent-overlay);
+  border: transparent;
 }
 
 .offline-message .retry-hint {
   display: none;
   position: absolute;
-  top: calc(100% - 5px);
-  right: 5px;
-  width: 200px;
+  top: 100%;
+  right: 0px;
+  width: 400px;
   z-index: 100;
-  background: wheat;
+  background: var(--accent-overlay);
   padding: 1rem;
-  border: 2px solid rgb(243, 200, 121);
+  border: transparent;
 }
 
-.offline-message .retry-hint.show {
+.offline-message .hint-hover:hover + .retry-hint {
   display: block;
 }

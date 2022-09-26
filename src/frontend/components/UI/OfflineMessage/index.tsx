@@ -1,5 +1,5 @@
 import ContextProvider from 'frontend/state/ContextProvider'
-import React, { MouseEvent, useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import './index.css'
@@ -7,7 +7,6 @@ import './index.css'
 const OfflineMessage = () => {
   const { t } = useTranslation()
   const { connectivity } = useContext(ContextProvider)
-  const [showHint, setShowHint] = useState(false)
 
   // render nothing if online
   if (connectivity.status === 'online') {
@@ -27,11 +26,6 @@ const OfflineMessage = () => {
     }
   }
 
-  const toggleHint = (ev: MouseEvent) => {
-    ev.preventDefault()
-    setShowHint(!showHint)
-  }
-
   const hintHtml = t('offline-message.hint', {
     defaultValue:
       'We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com',
@@ -41,9 +35,9 @@ const OfflineMessage = () => {
   return (
     <div className="offline-message">
       <span>{content}</span>
-      <button onClick={toggleHint}>?</button>
+      <button className="hint-hover">?</button>
       <span
-        className={`retry-hint ${showHint ? 'show' : ''}`}
+        className="retry-hint"
         dangerouslySetInnerHTML={{ __html: hintHtml }}
       ></span>
     </div>

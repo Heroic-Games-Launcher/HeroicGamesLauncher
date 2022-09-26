@@ -52,6 +52,9 @@ const retry = (seconds: number) => {
 
   if (seconds) {
     // if still counting down, repeat
+    if (retryTimer) {
+      clearTimeout(retryTimer)
+    }
     retryTimer = setTimeout(() => retry(seconds - 1), 1000)
   } else {
     // else, retry pings
