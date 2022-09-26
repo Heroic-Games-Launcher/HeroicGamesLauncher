@@ -1,11 +1,9 @@
-import { ipcRenderer } from '.'
-
 export const initOnlineMonitor = () => {
   window.addEventListener('online', () => {
-    ipcRenderer.send('connectivity-changed', 'check-online')
+    window.api.connectivityChanged('check-online')
   })
 
   window.addEventListener('offline', () => {
-    ipcRenderer.send('connectivity-changed', 'offline')
+    window.api.connectivityChanged('offline')
   })
 }

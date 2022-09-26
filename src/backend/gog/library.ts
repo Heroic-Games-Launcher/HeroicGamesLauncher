@@ -139,16 +139,16 @@ export class GOGLibrary {
       return
     }
     this.refreshInstalled()
+    for (const game of libraryStore.get('games', []) as GameInfo[]) {
+      const copyObject = { ...game }
+      if (this.installedGames.has(game.app_name)) {
+        copyObject.install = this.installedGames.get(game.app_name)!
+        copyObject.is_installed = true
+      }
+      this.library.set(game.app_name, copyObject)
+    }
 
     if (!isOnline()) {
-      for (const game of libraryStore.get('games', []) as GameInfo[]) {
-        const copyObject = { ...game }
-        if (this.installedGames.has(game.app_name)) {
-          copyObject.install = this.installedGames.get(game.app_name)!
-          copyObject.is_installed = true
-        }
-        this.library.set(game.app_name, copyObject)
-      }
       return
     }
 

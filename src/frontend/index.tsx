@@ -12,13 +12,12 @@ import GlobalState from './state/GlobalState'
 import { UpdateComponentBase } from './components/UI/UpdateComponent'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
-import { ipcRenderer } from './helpers'
 import { initOnlineMonitor } from './helpers/onlineMonitor'
 
 initOnlineMonitor()
 
 window.addEventListener('error', (ev: ErrorEvent) => {
-  ipcRenderer.send('frontendError', ev.error)
+  window.api.logError(ev.error)
 })
 
 const Backend = new HttpApi(null, {
@@ -32,7 +31,7 @@ initShortcuts()
 
 const storage: Storage = window.localStorage
 
-let languageCode = configStore.get('language')
+let languageCode: string | undefined = configStore.get('language') as string
 
 if (!languageCode) {
   languageCode = storage.getItem('language') || 'en'

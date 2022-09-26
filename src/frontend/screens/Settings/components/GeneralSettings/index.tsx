@@ -12,7 +12,6 @@ import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconFiel
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
-import { ipcRenderer } from 'frontend/helpers'
 interface Props {
   darkTrayIcon: boolean
   defaultInstallPath: string
@@ -75,23 +74,21 @@ export default function GeneralSettings({
 
   useEffect(() => {
     const getMoreInfo = async () => {
-      const cores = await ipcRenderer.invoke('getMaxCpus')
+      const cores = await window.api.getMaxCpus()
       setMaxCpus(cores)
     }
     getMoreInfo()
   }, [maxWorkers])
 
   useEffect(() => {
-    ipcRenderer
-      .invoke('showUpdateSetting')
-      .then((s) => setShowUpdateSettings(s))
+    window.api.showUpdateSetting().then((s) => setShowUpdateSettings(s))
   }, [])
 
   async function handleSync() {
     setIsSyncing(true)
     if (isLinked) {
-      return ipcRenderer.invoke('egsSync', 'unlink').then(async () => {
-        await ipcRenderer.invoke('openMessageBox', {
+      return window.api.egsSync('unlink').then(async () => {
+        await window.api.openMessageBox({
           message: t('message.unsync'),
           title: 'EGS Sync'
         })
@@ -102,10 +99,10 @@ export default function GeneralSettings({
       })
     }
 
-    return ipcRenderer.invoke('egsSync', egsPath).then(async (res: string) => {
+    return window.api.egsSync(egsPath).then(async (res: string) => {
       if (res === 'Error') {
         setIsSyncing(false)
-        ipcRenderer.invoke('showErrorBox', [
+        window.api.showErrorBox([
           t('box.error.title', 'Error'),
           t('box.sync.error')
         ])
@@ -113,7 +110,7 @@ export default function GeneralSettings({
         setEgsPath('')
         return
       }
-      await ipcRenderer.invoke('openMessageBox', {
+      await window.api.openMessageBox({
         message: t('message.sync'),
         title: 'EGS Sync'
       })
@@ -128,8 +125,8 @@ export default function GeneralSettings({
     if (isLinked) {
       return ''
     }
-    return ipcRenderer
-      .invoke('openDialog', {
+    return window.api
+      .openDialog({
         buttonLabel: t('box.choose'),
         properties: ['openDirectory'],
         title: t('box.choose-egs-prefix')
@@ -156,8 +153,8 @@ export default function GeneralSettings({
           />
         }
         onIconClick={async () =>
-          ipcRenderer
-            .invoke('openDialog', {
+          window.api
+            .openDialog({
               buttonLabel: t('box.choose'),
               properties: ['openDirectory'],
               title: t('box.default-install-path'),
@@ -289,7 +286,7 @@ export default function GeneralSettings({
         value={darkTrayIcon}
         handleChange={() => {
           toggleDarkTrayIcon()
-          return ipcRenderer.send('changeTrayColor')
+          return window.api.changeTrayColor()
         }}
         title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
       />

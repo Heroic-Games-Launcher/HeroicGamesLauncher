@@ -19,6 +19,11 @@ export default defineConfig({
     electron({
       main: {
         entry: 'src/backend/main.ts'
+      },
+      preload: {
+        input: {
+          preload: path.resolve(__dirname + '/src/backend/preload.ts')
+        }
       }
     }),
     svgr(),

@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+import { ipcMain, BrowserWindow } from 'electron'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
 import { WineVersionInfo } from 'common/types'
 import {
@@ -23,8 +23,12 @@ ipcMain.handle('installWineVersion', async (e, release: WineVersionInfo) => {
   const abortController = new AbortController()
   abortControllers.set(release.version, abortController)
 
+  const window = BrowserWindow.getAllWindows()[0]
   const onProgress = (state: State, progress?: ProgressInfo) => {
-    e.sender.send('progressOf' + release.version, { state, progress })
+    window.webContents.send('progressOfWineManager' + release.version, {
+      state,
+      progress
+    })
   }
   const result = await installWineVersion(
     release,

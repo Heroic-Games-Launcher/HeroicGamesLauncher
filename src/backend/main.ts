@@ -8,7 +8,9 @@ import {
   Runner,
   AppSettings,
   GameSettings,
-  InstallPlatform
+  InstallPlatform,
+  LaunchParams,
+  Tools
 } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import * as path from 'path'
@@ -21,7 +23,8 @@ import {
   ipcMain,
   powerSaveBlocker,
   protocol,
-  screen
+  screen,
+  clipboard
 } from 'electron'
 import './updater'
 import { autoUpdater } from 'electron-updater'
@@ -71,7 +74,8 @@ import {
   getGame,
   getFirstExistingParentPath,
   getLatestReleases,
-  notify
+  notify,
+  quoteIfNecessary
 } from './utils'
 import {
   configStore,
@@ -168,10 +172,13 @@ async function createWindow(): Promise<BrowserWindow> {
     minHeight: 345,
     minWidth: 600,
     show: false,
+
     webPreferences: {
       webviewTag: true,
-      contextIsolation: false,
-      nodeIntegration: true
+      contextIsolation: true,
+      nodeIntegration: true,
+      // sandbox: false,
+      preload: path.join(__dirname, 'preload.js')
     }
   })
 
@@ -493,10 +500,6 @@ ipcMain.on('frontendReady', () => {
   handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
 })
 
-ipcMain.on('frontendError', async (event, error) => {
-  logError(error, { prefix: LogPrefix.Frontend })
-})
-
 // Maybe this can help with white screens
 process.on('uncaughtException', async (err) => {
   logError(`${err.name}: ${err.message}`, { prefix: LogPrefix.Backend })
@@ -640,13 +643,6 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
 })
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-interface Tools {
-  exe: string
-  tool: string
-  appName: string
-  runner: Runner
-}
-
 ipcMain.handle(
   'callTool',
   async (event, { tool, exe, appName, runner }: Tools) => {
@@ -662,7 +658,10 @@ ipcMain.handle(
         game.runWineCommand('winecfg')
         break
       case 'runExe':
-        game.runWineCommand(exe)
+        if (exe) {
+          exe = quoteIfNecessary(exe)
+          game.runWineCommand(exe)
+        }
         break
     }
   }
@@ -903,22 +902,25 @@ if (existsSync(installed)) {
   })
 }
 
-ipcMain.handle('refreshLibrary', async (e, fullRefresh, library?: Runner) => {
-  switch (library) {
-    case 'legendary':
-      await LegendaryLibrary.get().getGames(fullRefresh)
-      break
-    case 'gog':
-      await GOGLibrary.get().sync()
-      break
-    default:
-      await Promise.allSettled([
-        LegendaryLibrary.get().getGames(fullRefresh),
-        GOGLibrary.get().sync()
-      ])
-      break
+ipcMain.handle(
+  'refreshLibrary',
+  async (e, fullRefresh?: boolean, library?: Runner) => {
+    switch (library) {
+      case 'legendary':
+        await LegendaryLibrary.get().getGames(fullRefresh)
+        break
+      case 'gog':
+        await GOGLibrary.get().sync()
+        break
+      default:
+        await Promise.allSettled([
+          LegendaryLibrary.get().getGames(fullRefresh),
+          GOGLibrary.get().sync()
+        ])
+        break
+    }
   }
-})
+)
 
 ipcMain.on('logError', (e, err) =>
   logError(err, { prefix: LogPrefix.Frontend })
@@ -930,12 +932,6 @@ ipcMain.on('logInfo', (e, info) =>
 type RecentGame = {
   appName: string
   title: string
-}
-
-type LaunchParams = {
-  appName: string
-  launchArguments: string
-  runner: Runner
 }
 
 let powerDisplayId: number | null
@@ -1316,7 +1312,10 @@ ipcMain.handle('updateGame', async (e, appName, runner) => {
 
   const game = getGame(appName, runner)
   const { title } = game.getGameInfo()
-  notify({ title, body: i18next.t('notify.update.started', 'Update Started') })
+  notify({
+    title,
+    body: i18next.t('notify.update.started', 'Update Started')
+  })
 
   return game
     .update()
@@ -1572,6 +1571,15 @@ ipcMain.handle('getRealPath', (event, path) => {
 
   return resolvedPath
 })
+
+ipcMain.handle('clipboardReadText', () => {
+  return clipboard.readText()
+})
+
+ipcMain.on('clipboardWriteText', (event, text) => {
+  return clipboard.writeText(text)
+})
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1587,3 +1595,25 @@ import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
+
+// import Store from 'electron-store'
+// interface StoreMap {
+//   [key: string]: Store
+// }
+// const stores: StoreMap = {}
+
+// ipcMain.on('storeNew', (event, storeName, options) => {
+//   stores[storeName] = new Store(options)
+// })
+
+// ipcMain.handle('storeHas', (event, storeName, key) => {
+//   return stores[storeName].has(key)
+// })
+
+// ipcMain.handle('storeGet', (event, storeName, key) => {
+//   return stores[storeName].get(key)
+// })
+
+// ipcMain.on('storeSet', (event, storeName, key, value) => {
+//   stores[storeName].set(key, value)
+// })
