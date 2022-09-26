@@ -49,7 +49,7 @@ export default function CurrentDownload({ appName, runner }: Props) {
 
   return (
     <>
-      <Link to={`gamepage/${runner}/${appName}`} className="currentDownload">
+      <Link to={`/download-manager`} className="currentDownload">
         {sidebarCollapsed && (
           <span className="statusIcon" title={`${getStatus()} - ${gameTitle}`}>
             <Badge

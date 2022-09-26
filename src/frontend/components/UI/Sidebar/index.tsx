@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -11,27 +11,40 @@ import CurrentDownload from './components/CurrentDownload'
 import SidebarLinks from './components/SidebarLinks'
 import './index.css'
 import HeroicVersion from './components/HeroicVersion'
-import { GameStatus } from 'common/types'
+import { DMQueueElement } from 'common/types'
 
 export default function Sidebar() {
   const { t } = useTranslation()
-  const { libraryStatus, sidebarCollapsed, setSideBarCollapsed } =
-    useContext(ContextProvider)
-  const downloading = libraryStatus.filter(
-    (g: GameStatus) => g.status === 'installing' || g.status === 'updating'
-  )
+  const { sidebarCollapsed, setSideBarCollapsed } = useContext(ContextProvider)
+  const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
+
+  useEffect(() => {
+    window.api.getDMQueueInformation().then((elements: DMQueueElement[]) => {
+      setCurrentDMElement(elements.at(0))
+    })
+
+    const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
+      (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => {
+        setCurrentDMElement(elements.at(0))
+      }
+    )
+
+    return () => {
+      removeHandleDMQueueInformation()
+    }
+  }, [])
 
   return (
     <aside className={classNames('Sidebar', { collapsed: sidebarCollapsed })}>
       <SidebarLinks />
       <div className="currentDownloads">
-        {downloading.map((g: GameStatus) => (
+        {currentDMElement && (
           <CurrentDownload
-            key={g.appName}
-            appName={g.appName}
-            runner={g.runner || 'legendary'}
+            key={currentDMElement.params.appName}
+            appName={currentDMElement.params.appName}
+            runner={currentDMElement.params.runner}
           />
-        ))}
+        )}
       </div>
       <HeroicVersion />
       <button

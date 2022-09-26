@@ -62,6 +62,8 @@ function addToQueue(element: DMQueueElement) {
     prefix: LogPrefix.DownloadManager
   })
 
+  getMainWindow().webContents.send('changedDMQueueInformation', elements)
+
   if (queueState === 'idle') {
     initQueue()
   }
