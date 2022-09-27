@@ -52,7 +52,7 @@ export default function DownloadManager(): JSX.Element | null {
               style={!currentElement ? { backgroundColor: 'transparent' } : {}}
               className="downloadList"
             >
-              <h3>Current</h3>
+              <h3 className="downloadManagerCurrentSectionTitle">Current</h3>
               <div className="gameListHeader">
                 <span>{t('download.manager.queue.element', 'Name')}</span>
                 <span>{t('download.manager.queue.actions', 'Action')}</span>
@@ -63,7 +63,7 @@ export default function DownloadManager(): JSX.Element | null {
               />
               {!!plannendElements.length && (
                 <>
-                  <h3>Queued</h3>
+                  <h3 className="downloadManagerQueuedSectionTitle">Queued</h3>
                   <div className="gameListHeader">
                     <span>{t('download.manager.queue.element', 'Name')}</span>
                     <span>{t('download.manager.queue.actions', 'Action')}</span>

@@ -9,6 +9,11 @@ interface Point {
   disk: number
 }
 
+const roundToNearestHundredth = function (val: number | undefined) {
+  if (!val) return 0
+  return Math.round(val * 100) / 100
+}
+
 export default function ProgressHeader(props: { appName: string }) {
   const [progress] = hasProgress(props.appName)
   const [avgSpeed, setAvgDownloadSpeed] = useState<Point[]>(
@@ -68,15 +73,15 @@ export default function ProgressHeader(props: { appName: string }) {
         </div>
         <div className="realtimeDownloadStatContainer">
           <h3 className="realtimeDownloadStat">
-            {avgSpeed.at(-1)?.download} MiB/s
+            {roundToNearestHundredth(avgSpeed.at(-1)?.download)} MiB/s
           </h3>
-          <div className="realtimeDownloadStatLabel">Down </div>
+          <div className="realtimeDownloadStatLabel downLabel">Down </div>
         </div>
         <div className="realtimeDownloadStatContainer">
           <h3 className="realtimeDownloadStat">
-            {avgSpeed.at(-1)?.disk} MiB/s
+            {roundToNearestHundredth(avgSpeed.at(-1)?.disk)} MiB/s
           </h3>
-          <div className="realtimeDownloadStatLabel">Disk </div>
+          <div className="realtimeDownloadStatLabel diskLabel">Disk </div>
         </div>
       </div>
       <div className="downloadProgress">

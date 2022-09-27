@@ -65,3 +65,11 @@
   /* overflow: hidden; */
   position: relative;
 }
+
+.downLabel {
+  color: var(--accent);
+}
+
+.diskLabel {
+  color: var(--primary);
+}
