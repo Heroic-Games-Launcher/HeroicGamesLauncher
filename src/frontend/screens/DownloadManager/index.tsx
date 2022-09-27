@@ -63,7 +63,7 @@ export default function DownloadManager(): JSX.Element | null {
               />
               {!!plannendElements.length && (
                 <>
-                  <h3>Plannend</h3>
+                  <h3>Queued</h3>
                   <div className="gameListHeader">
                     <span>{t('download.manager.queue.element', 'Name')}</span>
                     <span>{t('download.manager.queue.actions', 'Action')}</span>
