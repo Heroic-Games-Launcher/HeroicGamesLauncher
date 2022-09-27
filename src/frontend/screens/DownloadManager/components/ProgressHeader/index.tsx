@@ -2,16 +2,16 @@ import './index.css'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import React, { useEffect, useState } from 'react'
 import { AreaChart, Area, ResponsiveContainer } from 'recharts'
-import {
-  Box,
-  LinearProgress,
-  LinearProgressProps,
-  Typography
-} from '@mui/material'
+import { LinearProgress } from '@mui/material'
 
 interface Point {
   download: number
   disk: number
+}
+
+const roundToNearestHundredth = function (val: number | undefined) {
+  if (!val) return 0
+  return Math.round(val * 100) / 100
 }
 
 export default function ProgressHeader(props: { appName: string }) {
@@ -36,58 +36,74 @@ export default function ProgressHeader(props: { appName: string }) {
     setAvgDownloadSpeed([...avgSpeed])
   }, [progress])
 
-  function LinearProgressWithLabel(
-    props: LinearProgressProps & { value: number }
-  ) {
-    return (
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ width: '100%' }}>
-          <LinearProgress variant="determinate" {...props} />
-        </Box>
-        <Box>
-          <Typography
-            variant="body2"
-            color="var(--accent)"
-          >{`${props.value}%`}</Typography>
-        </Box>
-      </Box>
-    )
-  }
-
   return (
     <div className="progressHeader">
-      <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={avgSpeed} margin={{ top: 10, right: 40 }}>
-          <Area
-            isAnimationActive={false}
-            type="monotone"
-            dataKey="download"
-            strokeWidth="0px"
-            fill="var(--accent)"
-            fillOpacity={0.5}
-          />
-          <Area
-            isAnimationActive={false}
-            type="monotone"
-            dataKey="disk"
-            stroke="var(--primary)"
-            strokeWidth="2px"
-            fillOpacity={0}
-          />
-        </AreaChart>
-      </ResponsiveContainer>
-      <div className="progressChartValues">
-        <p className="downSpeed">Down: {avgSpeed.at(-1)?.download} MiB/s</p>
-        <p className="diskSpeed">Disk: {avgSpeed.at(-1)?.disk} MiB/s</p>
+      <div className="downloadRateStats">
+        <div className="downloadRateChart">
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              position: 'absolute',
+              top: 0,
+              left: 0
+            }}
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={avgSpeed} margin={{ top: 0, right: 0 }}>
+                <Area
+                  isAnimationActive={false}
+                  type="monotone"
+                  dataKey="download"
+                  strokeWidth="0px"
+                  fill="var(--accent)"
+                  fillOpacity={0.5}
+                />
+                <Area
+                  isAnimationActive={false}
+                  type="monotone"
+                  dataKey="disk"
+                  stroke="var(--primary)"
+                  strokeWidth="2px"
+                  fillOpacity={0}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+        <div className="realtimeDownloadStatContainer">
+          <h3 className="realtimeDownloadStat">
+            {roundToNearestHundredth(avgSpeed.at(-1)?.download)} MiB/s
+          </h3>
+          <div className="realtimeDownloadStatLabel downLabel">Down </div>
+        </div>
+        <div className="realtimeDownloadStatContainer">
+          <h3 className="realtimeDownloadStat">
+            {roundToNearestHundredth(avgSpeed.at(-1)?.disk)} MiB/s
+          </h3>
+          <div className="realtimeDownloadStatLabel diskLabel">Disk </div>
+        </div>
       </div>
-      <LinearProgressWithLabel
-        className="progressHeader linearProgress"
-        variant="determinate"
-        value={progress.percent ?? 0}
-      />
-      <div className="progressHeaderETA">{`ETA: ${
-        progress.eta ?? '00.00.00'
-      }`}</div>
+      <div className="downloadProgress">
+        <div className="downloadProgressStats">
+          <p className="downloadStat" color="var(--text-default)">{`${
+            progress.percent ?? 0
+          }%`}</p>
+          <p className="downloadStat">{`ETA: ${progress.eta ?? '00.00.00'}`}</p>
+        </div>
+        <div className="downloadBar">
+          <LinearProgress
+            variant="determinate"
+            className="linearProgress"
+            value={progress.percent ?? 0}
+            sx={{
+              height: '10px',
+              backgroundColor: 'var(--text-default)',
+              borderRadius: '20px'
+            }}
+          />
+        </div>
+      </div>
     </div>
   )
 }

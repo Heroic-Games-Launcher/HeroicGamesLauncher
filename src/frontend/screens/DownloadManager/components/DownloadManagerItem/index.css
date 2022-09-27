@@ -25,14 +25,14 @@
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-areas: 'name action';
-  margin: 0.5em 2em;
+  margin: 0em 2em;
   align-items: center;
   justify-items: baseline;
   position: relative;
   cursor: default;
   place-self: center;
-  border-bottom: 1px solid gray;
-  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--divider);
+  padding: 1rem 0;
 }
 
 .downloadManagerTitleList {

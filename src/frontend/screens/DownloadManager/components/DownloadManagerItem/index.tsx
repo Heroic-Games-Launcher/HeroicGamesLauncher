@@ -1,6 +1,6 @@
 import './index.css'
 
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { GameInfo, InstallParams } from 'common/types'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
@@ -10,11 +10,14 @@ import { handleStopInstallation } from 'frontend/helpers/library'
 import { getGameInfo } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 const DownloadManagerItem = (props: {
   params: InstallParams
   current: boolean
 }) => {
+  const { epic, gog } = useContext(ContextProvider)
+  const library = [...epic.library, ...gog.library]
   const { t } = useTranslation('gamepage')
   const [progress] = hasProgress(props.params.appName)
 
@@ -45,7 +48,10 @@ const DownloadManagerItem = (props: {
     return props.current ? (
       <StopIcon />
     ) : (
-      <RemoveCircleIcon style={{ color: 'var(--danger)' }} fontSize="large" />
+      <RemoveCircleIcon
+        style={{ color: 'var(--background-lighter)' }}
+        fontSize="large"
+      />
     )
   }
 
@@ -57,7 +63,9 @@ const DownloadManagerItem = (props: {
 
   return (
     <div className="downloadManagerListItem">
-      <span className="downloadManagerTitleList">{props.params.appName}</span>
+      <span className="downloadManagerTitleList">
+        {library.find((val) => val.app_name === props.params.appName)?.title}
+      </span>
       <span className="icons">
         {
           <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
