@@ -37,7 +37,6 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
-import { hasStatus } from 'frontend/hooks/hasStatus'
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
@@ -51,6 +50,9 @@ export default function GamePage(): JSX.Element | null {
 
   const { libraryStatus, handleGameStatus, epic, gog, gameUpdates, platform } =
     useContext(ContextProvider)
+
+  const { status } =
+    libraryStatus.find((game) => game.appName === appName) || {}
 
   const [progress, previousProgress] = hasProgress(appName)
   // @ts-expect-error TODO: Proper default value
@@ -69,7 +71,6 @@ export default function GamePage(): JSX.Element | null {
     error: boolean
     message: string | unknown
   }>({ error: false, message: '' })
-  const [status] = hasStatus(appName)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -81,6 +82,8 @@ export default function GamePage(): JSX.Element | null {
   const isQueued = status === 'queued'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
+
+  const storage: Storage = window.localStorage
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -574,6 +577,12 @@ export default function GamePage(): JSX.Element | null {
 
   async function handleInstall(is_installed: boolean) {
     if (isQueued) {
+      handleGameStatus({
+        appName,
+        runner: gameInfo.runner,
+        status: 'done'
+      })
+      storage.removeItem(appName)
       return window.api.removeFromDMQueue(appName)
     }
 

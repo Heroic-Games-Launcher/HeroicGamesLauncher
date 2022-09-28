@@ -110,6 +110,12 @@ async function install({
     storage.removeItem(appName)
   }
 
+  handleGameStatus({
+    appName,
+    runner,
+    status: 'queued'
+  })
+
   return window.api.install({
     appName,
     path,

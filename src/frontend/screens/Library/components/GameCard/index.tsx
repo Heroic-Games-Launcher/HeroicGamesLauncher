@@ -24,7 +24,6 @@ import { hasProgress } from 'frontend/hooks/hasProgress'
 import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import classNames from 'classnames'
-import { hasStatus } from 'frontend/hooks/hasStatus'
 
 interface Card {
   appName: string
@@ -59,7 +58,6 @@ const GameCard = ({
   installedPlatform
 }: Card) => {
   const [progress, previousProgress] = hasProgress(appName)
-  const [status] = hasStatus(appName)
 
   const { t } = useTranslation('gamepage')
 
@@ -80,7 +78,7 @@ const GameCard = ({
 
   const grid = forceCard || layout === 'grid'
 
-  const { folder } =
+  const { status, folder } =
     libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
   const isInstalling = status === 'installing' || status === 'updating'
   const isUpdating = status === 'updating'
@@ -94,6 +92,8 @@ const GameCard = ({
   const installingGrayscale = isInstalling
     ? `${125 - getProgress(progress)}%`
     : '100%'
+
+  const storage: Storage = window.localStorage
 
   const imageSrc = getImageFormatting()
 
@@ -420,6 +420,7 @@ const GameCard = ({
         runner,
         status: 'done'
       })
+      storage.removeItem(appName)
       return window.api.removeFromDMQueue(appName)
     }
 
