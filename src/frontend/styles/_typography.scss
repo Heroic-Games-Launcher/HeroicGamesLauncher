@@ -1,0 +1,128 @@
+// @mixin generateFonts($order, $fontName, $generic) {
+//   --font-#{$order}-light: #{$fontName} #{$generic} 300;
+//   --font-#{$order}-regular: #{$fontName} #{$generic} 400;
+//   --font-#{$order}-medium: #{$fontName} #{$generic} 500;
+//   --font-#{$order}-semibold: #{$fontName} #{$generic} 600;
+//   --font-#{$order}-bold: #{$fontName} #{$generic} 700;
+// }
+
+@mixin typeSystem {
+  --primary-font-family: 'Rubik', sans-serif;
+  --secondary-font-family: 'Cabin', sans-serif;
+  --light: 300;
+  --regular: 400;
+  --medium: 500;
+  --semibold: 600;
+  --bold: 700;
+  // @include generateFonts('primary', 'Rubik', sans-serif);
+  // @include generateFonts('secondary', 'Cabin', sans-serif);
+
+  /* set base values */
+  --text-base-size: 1em;
+  --text-scale-ratio: 1.2;
+
+  /* type scale */
+  --text-xs: calc(1em / (var(--text-scale-ratio) * var(--text-scale-ratio)));
+  --text-sm: calc(1em / var(--text-scale-ratio));
+  --text-md: calc(1em * var(--text-scale-ratio));
+  --text-lg: calc(1em * var(--text-scale-ratio) * var(--text-scale-ratio));
+  --text-xl: calc(
+    1em * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio)
+  );
+  --text-xxl: calc(
+    1em * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio)
+  );
+  --text-3xl: calc(
+    1em * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio)
+  );
+  --text-4xl: calc(
+    1em * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio)
+  );
+  --text-5xl: calc(
+    1em * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio)
+  );
+  --text-6xl: calc(
+    1em * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio)
+  );
+}
+
+body {
+  font-size: var(--text-base-size);
+  font-family: var(--primary-font-family), -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-style: normal;
+  font-weight: var(--regular);
+}
+
+code {
+  font-family: var(--primary-font-family), source-code-pro, Menlo, Monaco,
+    Consolas, 'Courier New', monospace;
+}
+
+h1,
+.text--6xl {
+  font-size: var(--text-6xl);
+}
+
+h2,
+.text--5xl {
+  font-size: var(--text-5xl);
+}
+
+h3,
+.text--4xl {
+  font-size: var(--text-4xl);
+}
+
+h4,
+.text--3xl {
+  font-size: var(--text-3xl);
+}
+
+.text--2xl {
+  font-size: var(--text-2xl);
+}
+
+h5,
+.text--xl {
+  font-size: var(--text-xl);
+}
+
+h6,
+.text--lg {
+  font-size: var(--text-lg);
+}
+
+.subtitle,
+.content,
+.uppercase,
+p,
+.text--md {
+  font-size: var(--text-md);
+}
+
+.content-s,
+.button,
+.text--sm {
+  font-size: var(--text-sm);
+}
+
+.subtitle-s,
+.caption,
+.status,
+.text--xs {
+  font-size: var(--text-xs);
+}

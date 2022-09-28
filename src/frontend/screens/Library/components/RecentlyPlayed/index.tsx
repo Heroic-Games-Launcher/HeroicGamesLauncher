@@ -46,7 +46,7 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
 
   return (
     <>
-      <h3 className="libraryHeader">{t('Recent', 'Played Recently')}</h3>
+      <h6 className="libraryHeader">{t('Recent', 'Played Recently')}</h6>
       <GamesList
         library={recentGames}
         isFirstLane

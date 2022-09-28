@@ -171,16 +171,6 @@ export class GlobalState extends PureComponent<Props> {
     }, 500)
   }
 
-  setContentFontFamily = (newFontFamily: string) => {
-    configStore.set('contentFontFamily', newFontFamily)
-    this.setState({ contentFontFamily: newFontFamily })
-  }
-
-  setActionsFontFamily = (newFontFamily: string) => {
-    configStore.set('actionsFontFamily', newFontFamily)
-    this.setState({ actionsFontFamily: newFontFamily })
-  }
-
   setAllTilesInColor = (value: boolean) => {
     configStore.set('allTilesInColor', value)
     this.setState({ allTilesInColor: value })
@@ -664,8 +654,6 @@ export class GlobalState extends PureComponent<Props> {
           handleLibraryTopSection: this.handleLibraryTopSection,
           setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
-          setContentFontFamily: this.setContentFontFamily,
-          setActionsFontFamily: this.setActionsFontFamily,
           setAllTilesInColor: this.setAllTilesInColor,
           setSideBarCollapsed: this.setSideBarCollapsed
         }}

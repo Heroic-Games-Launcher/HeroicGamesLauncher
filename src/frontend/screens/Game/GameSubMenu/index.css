@@ -25,7 +25,7 @@
 }
 
 .linkTitle {
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   font-style: normal;
   font-weight: 500;
   font-size: 16px;

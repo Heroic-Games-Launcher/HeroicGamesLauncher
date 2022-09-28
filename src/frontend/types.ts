@@ -46,10 +46,6 @@ export interface ContextType {
   setTheme: (themeName: string) => void
   zoomPercent: number
   setZoomPercent: (newZoomPercent: number) => void
-  contentFontFamily: string
-  setContentFontFamily: (newFontFamily: string) => void
-  actionsFontFamily: string
-  setActionsFontFamily: (newFontFamily: string) => void
   epic: {
     library: GameInfo[]
     username: string | null

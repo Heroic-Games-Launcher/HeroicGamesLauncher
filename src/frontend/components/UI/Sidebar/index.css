@@ -9,7 +9,7 @@
   grid-area: sidebar;
   height: 100%;
   padding: 0;
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   text-align: left;
   background: var(--navbar-background);
   overflow: auto;
@@ -26,7 +26,7 @@
   display: flex;
   width: 100%;
   height: fit-content;
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   flex-direction: column;
 }
 

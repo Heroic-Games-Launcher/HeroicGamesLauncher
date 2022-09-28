@@ -36,7 +36,7 @@
   bottom: 45px;
   left: 5px;
   color: var(--success);
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   font-style: italic;
   font-weight: normal;
   font-size: 10px;
@@ -88,7 +88,7 @@
   color: var(--text-secondary);
   background: var(--gradient-gamecard);
   transition: 200ms;
-  font-family: var(--content-font-family);
+  font-family: var(--primary-font-family);
   font-size: 1rem;
   font-weight: 700;
   line-height: 17px;

@@ -101,7 +101,7 @@
 }
 
 .gameInfo .summary {
-  font-family: var(--content-font-family);
+  font-family: var(--primary-font-family);
   font-style: normal;
   font-weight: normal;
   padding-bottom: 10px;

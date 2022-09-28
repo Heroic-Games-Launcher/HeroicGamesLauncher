@@ -31,16 +31,11 @@ html,
 }
 
 .App {
-  --content-font-family: 'Cabin', sans-serif;
-  --actions-font-family: 'Rubik', sans-serif;
   text-align: center;
-  color: var(--text-default);
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
   grid-template-areas: 'sidebar content' 'controller controller';
   grid-template-rows: 1fr min-content;
-  font-family: var(--content-font-family);
-  background: var(--body-background);
   --sidebar-width: 240px;
   --content-width: calc(100vw - var(--sidebar-width));
 }
@@ -87,7 +82,7 @@ html,
   background: var(--primary);
   color: #1a1b1c;
   text-transform: uppercase;
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -262,7 +257,7 @@ html,
 }
 
 .button.is-link {
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -309,7 +304,7 @@ svg.disabled {
   color: var(--text-default);
   font-size: 14px;
   line-height: 26px;
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   cursor: pointer;
   text-align: left;
 }
