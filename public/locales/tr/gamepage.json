@@ -118,6 +118,7 @@
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun kurulu değil",
         "processing": "Dosyalar işleniyor, lütfen bekleyin",
+        "queued": "Queued for installation",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
         "totalDownloaded": "Toplam İndirilen",
         "updating": "Oyun Güncelleniyor"

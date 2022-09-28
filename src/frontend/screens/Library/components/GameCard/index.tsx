@@ -24,6 +24,7 @@ import { hasProgress } from 'frontend/hooks/hasProgress'
 import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import classNames from 'classnames'
+import { hasStatus } from 'frontend/hooks/hasStatus'
 
 interface Card {
   appName: string
@@ -58,6 +59,7 @@ const GameCard = ({
   installedPlatform
 }: Card) => {
   const [progress, previousProgress] = hasProgress(appName)
+  const [status] = hasStatus(appName)
 
   const { t } = useTranslation('gamepage')
 
@@ -78,23 +80,14 @@ const GameCard = ({
 
   const grid = forceCard || layout === 'grid'
 
-  const gameStatus: GameStatus = libraryStatus.filter(
-    (game: GameStatus) => game.appName === appName
-  )[0]
-
-  // const hasDownloads = Boolean(
-  //   libraryStatus.filter(
-  //     (game: GameStatus) =>
-  //       game.status === 'installing' || game.status === 'updating'
-  //   ).length
-  // )
-
-  const { status, folder } = gameStatus || {}
+  const { folder } =
+    libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
   const isInstalling = status === 'installing' || status === 'updating'
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
+  const isQueued = status === 'queued'
   const haveStatus = isMoving || isReparing || isInstalling || isUpdating
 
   const { percent = '' } = progress
@@ -138,6 +131,9 @@ const GameCard = ({
     if (isInstalled) {
       return `${t('status.installed')} (${size})`
     }
+    if (isQueued) {
+      return `${t('status.queued', 'Queued')}`
+    }
 
     return t('status.notinstalled')
   }
@@ -154,7 +150,7 @@ const GameCard = ({
         </SvgButton>
       )
     }
-    if (isInstalling) {
+    if (isInstalling || isQueued) {
       return (
         <SvgButton
           className="cancelIcon"
@@ -177,17 +173,6 @@ const GameCard = ({
       )
     }
     if (!isInstalled) {
-      // if (hasDownloads) {
-      //   return (
-      //     <SvgButton
-      //       className="iconDisabled"
-      //       onClick={(e) => e.preventDefault()}
-      //       title={`${t('button.cancel')} (${title})`}
-      //     >
-      //       <DownIcon />
-      //     </SvgButton>
-      //   )
-      // }
       return (
         <SvgButton
           className="downIcon"
@@ -265,7 +250,7 @@ const GameCard = ({
     {
       label: t('button.cancel'),
       onclick: async () => handlePlay(runner),
-      show: isInstalling
+      show: isInstalling && isQueued
     },
     {
       label: t('button.hide_game', 'Hide Game'),
@@ -412,7 +397,7 @@ const GameCard = ({
   )
 
   async function handlePlay(runner: Runner) {
-    if (!isInstalled) {
+    if (!isInstalled && !isQueued) {
       return install({
         appName,
         handleGameStatus,
@@ -424,9 +409,20 @@ const GameCard = ({
         runner
       })
     }
-    if (status === 'playing' || status === 'updating') {
+
+    if (isPlaying || isUpdating) {
       return sendKill(appName, runner)
     }
+
+    if (isQueued) {
+      handleGameStatus({
+        appName,
+        runner,
+        status: 'done'
+      })
+      return window.api.removeFromDMQueue(appName)
+    }
+
     if (isInstalled) {
       return launch({ appName, t, runner, hasUpdate })
     }

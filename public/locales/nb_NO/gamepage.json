@@ -119,6 +119,7 @@
         "moving": "Flytting Installasjon, vennligst vent",
         "notinstalled": "Dette spillet er ikke installert",
         "processing": "Behandler filer, vennligst vent",
+        "queued": "Queued for installation",
         "reparing": "Reparerer spillet, vennligst vent",
         "totalDownloaded": "Totalt nedlastede",
         "updating": "Oppdaterer spillet"

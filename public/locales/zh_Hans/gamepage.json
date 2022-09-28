@@ -118,6 +118,7 @@
         "moving": "正在移动安装，请稍等",
         "notinstalled": "未安装此游戏",
         "processing": "处理文件中，请稍等",
+        "queued": "Queued for installation",
         "reparing": "正在修复游戏，请稍等",
         "totalDownloaded": "下载总计",
         "updating": "游戏更新中"

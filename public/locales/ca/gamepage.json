@@ -118,6 +118,7 @@
         "moving": "S'està movent la instal·lació. Espereu.",
         "notinstalled": "Aquest joc no està instal·lat",
         "processing": "S'està processant els fitxers. Espereu.",
+        "queued": "Queued for installation",
         "reparing": "S'està reparant el joc. Espereu.",
         "totalDownloaded": "Total baixat",
         "updating": "S'està actualitzant el joc"

@@ -119,6 +119,7 @@
         "moving": "Instalazio mugikorra, itxaron",
         "notinstalled": "Joko hau ez instalatuta",
         "processing": "Artxiboak prozesatzen, mesedez itxaron",
+        "queued": "Queued for installation",
         "reparing": "Jokoaren konponketa, mesedez",
         "totalDownloaded": "Deskargatutakoa, guztira",
         "updating": "Jokoa eguneratzea"

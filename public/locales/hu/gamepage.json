@@ -118,6 +118,7 @@
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
         "processing": "Fájlok feldolgozása, kérlek várj",
+        "queued": "Queued for installation",
         "reparing": "Játék javítása, kérlek várj",
         "totalDownloaded": "Teljesen letöltve",
         "updating": "Játék frissítése"

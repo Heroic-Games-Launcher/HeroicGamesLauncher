@@ -118,6 +118,7 @@
         "moving": "Đang chuyển, vui lòng đợi",
         "notinstalled": "Game chưa được cài",
         "processing": "Đang xử lý tệp, vui lòng đợi",
+        "queued": "Queued for installation",
         "reparing": "Đang sửa game, vui lòng đợi",
         "totalDownloaded": "Tổng số đã tải",
         "updating": "Đang cập nhật Game"

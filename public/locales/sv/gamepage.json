@@ -118,6 +118,7 @@
         "moving": "Flyttar installationen, vänligen vänta",
         "notinstalled": "Detta spelet är inte installerat",
         "processing": "Processing files, please wait",
+        "queued": "Queued for installation",
         "reparing": "Reparerar spelet, vänligen vänta",
         "totalDownloaded": "Nedladdning",
         "updating": "Updaterar spelet"

@@ -118,6 +118,7 @@
         "moving": "Перанос усталёўкі, пачакайце",
         "notinstalled": "Гэтая гульня не ўстаноўлена",
         "processing": "Апрацоўка файлаў, пачакайце",
+        "queued": "Queued for installation",
         "reparing": "Ідзе рамонт гульні, пачакайце",
         "totalDownloaded": "Усяго спампавана",
         "updating": "Абнаўленне гульні"

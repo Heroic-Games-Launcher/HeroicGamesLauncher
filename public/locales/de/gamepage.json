@@ -118,6 +118,7 @@
         "moving": "Installation wird verschoben, bitte warten",
         "notinstalled": "Dieses Spiel ist nicht installiert",
         "processing": "Dateien werden verarbeitet, bitte warten",
+        "queued": "Queued for installation",
         "reparing": "Spiel wird repariert, bitte warten",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "updating": "Spiel wird aktualisiert"

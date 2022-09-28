@@ -443,9 +443,7 @@ export class GlobalState extends PureComponent<Props> {
     runner
   }: GameStatus) => {
     const { libraryStatus, gameUpdates } = this.state
-    const currentApp = libraryStatus.filter(
-      (game) => game.appName === appName
-    )[0]
+    const currentApp = libraryStatus.find((game) => game.appName === appName)
 
     // add app to libraryStatus if it was not present
     if (!currentApp) {

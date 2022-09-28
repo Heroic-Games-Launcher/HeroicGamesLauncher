@@ -37,6 +37,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
+import { hasStatus } from 'frontend/hooks/hasStatus'
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
@@ -50,11 +51,7 @@ export default function GamePage(): JSX.Element | null {
 
   const { libraryStatus, handleGameStatus, epic, gog, gameUpdates, platform } =
     useContext(ContextProvider)
-  const gameStatus: GameStatus = libraryStatus.filter(
-    (game) => game.appName === appName
-  )[0]
 
-  const { status } = gameStatus || {}
   const [progress, previousProgress] = hasProgress(appName)
   // @ts-expect-error TODO: Proper default value
   const [gameInfo, setGameInfo] = useState<GameInfo>({})
@@ -72,6 +69,7 @@ export default function GamePage(): JSX.Element | null {
     error: boolean
     message: string | unknown
   }>({ error: false, message: '' })
+  const [status] = hasStatus(appName)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -80,13 +78,9 @@ export default function GamePage(): JSX.Element | null {
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
   const isUpdating = status === 'updating'
+  const isQueued = status === 'queued'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
-  // const hasDownloads = Boolean(
-  //   libraryStatus.filter(
-  //     (game) => game.status === 'installing' || game.status === 'updating'
-  //   ).length
-  // )
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -113,7 +107,6 @@ export default function GamePage(): JSX.Element | null {
             setGameInstallInfo(info)
           })
           .catch((error) => {
-            console.error(error)
             window.api.logError(`${error}`)
             setHasError({ error: true, message: `${error}` })
           })
@@ -130,7 +123,6 @@ export default function GamePage(): JSX.Element | null {
           }
         }
       } catch (error) {
-        console.error({ error })
         setHasError({ error: true, message: error })
       }
     }
@@ -341,7 +333,7 @@ export default function GamePage(): JSX.Element | null {
                       <p
                         style={{
                           color:
-                            is_installed || isInstalling
+                            is_installed || isInstalling || isQueued
                               ? 'var(--success)'
                               : 'var(--danger)',
                           fontStyle: 'italic'
@@ -396,13 +388,6 @@ export default function GamePage(): JSX.Element | null {
                       ) : (
                         <button
                           onClick={async () => handleInstall(is_installed)}
-                          // disabled={
-                          //   isPlaying ||
-                          //   isUpdating ||
-                          //   isReparing ||
-                          //   isMoving ||
-                          //   ( hasDownloads && !isInstalling)
-                          // }
                           className={`button ${getButtonClass(is_installed)}`}
                         >
                           {`${getButtonLabel(is_installed)}`}
@@ -510,6 +495,10 @@ export default function GamePage(): JSX.Element | null {
       return `${t('status.installing')} ${currentProgress}`
     }
 
+    if (isQueued) {
+      return `${t('status.queued', 'Queued for installation')}`
+    }
+
     if (hasUpdate) {
       return (
         <span onClick={async () => handleUpdate()} className="updateText">
@@ -529,7 +518,7 @@ export default function GamePage(): JSX.Element | null {
   }
 
   function getButtonClass(is_installed: boolean) {
-    if (isInstalling) {
+    if (isInstalling || isQueued) {
       return 'is-danger'
     }
 
@@ -543,7 +532,7 @@ export default function GamePage(): JSX.Element | null {
     if (is_installed) {
       return t('submenu.settings')
     }
-    if (isInstalling) {
+    if (isInstalling || isQueued) {
       return t('button.cancel')
     }
     return t('button.install')
@@ -561,13 +550,14 @@ export default function GamePage(): JSX.Element | null {
 
   function handlePlay() {
     return async () => {
-      if (status === 'playing' || status === 'updating') {
+      if (isPlaying || isUpdating) {
         return sendKill(appName, gameInfo.runner)
       }
 
       if (autoSyncSaves) {
         await doAutoSyncSaves()
       }
+
       await launch({
         appName,
         t,
@@ -583,6 +573,10 @@ export default function GamePage(): JSX.Element | null {
   }
 
   async function handleInstall(is_installed: boolean) {
+    if (isQueued) {
+      return window.api.removeFromDMQueue(appName)
+    }
+
     if (!is_installed && !isInstalling) {
       return handleModal()
     }

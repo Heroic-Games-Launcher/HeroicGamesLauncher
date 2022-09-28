@@ -351,7 +351,7 @@ class LegendaryGame extends Game {
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
-        'installing',
+        'updating',
         info.manifest.download_size,
         data
       )
@@ -453,7 +453,7 @@ class LegendaryGame extends Game {
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
-        'updating',
+        'installing',
         info.manifest.download_size,
         data
       )
