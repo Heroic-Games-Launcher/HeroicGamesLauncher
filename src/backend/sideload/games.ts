@@ -130,7 +130,9 @@ export async function stop(appName: string): Promise<void> {
   } = getAppInfo(appName)
 
   if (executable) {
-    killPattern(executable)
+    const split = executable.split('/')
+    const exe = split[split.length - 1]
+    killPattern(exe)
   }
 }
 

@@ -535,7 +535,7 @@ ipcMain.on('unlock', () => {
 })
 
 ipcMain.handle('kill', async (event, appName, runner) => {
-  return getGame(appName, runner).stop()
+  return runner === 'sideload' ? stop(appName) : getGame(appName, runner).stop()
 })
 
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
@@ -640,8 +640,12 @@ ipcMain.handle(
   'callTool',
   async (event, { tool, exe, appName, runner }: Tools) => {
     const game = getGame(appName, runner)
-    const { wineVersion, winePrefix } = await game.getSettings()
-    await verifyWinePrefix(game)
+    const isSideloaded = runner === 'sideload'
+    const gameSettings = isSideloaded
+      ? await getAppSettings(appName)
+      : await game.getSettings()
+    const { wineVersion, winePrefix } = gameSettings
+    await verifyWinePrefix(gameSettings)
 
     switch (tool) {
       case 'winetricks':
@@ -1551,10 +1555,15 @@ ipcMain.handle(
   'runWineCommandForGame',
   async (event, { appName, command, runner }) => {
     const game = getGame(appName, runner)
+    const isSideloaded = runner === 'sideload'
+    const gameSettings = isSideloaded
+      ? await getAppSettings(appName)
+      : await game.getSettings()
+
     if (isWindows) {
       return execAsync(command)
     }
-    const { updated } = await verifyWinePrefix(game)
+    const { updated } = await verifyWinePrefix(gameSettings)
 
     if (runner === 'gog' && updated) {
       await setup(game.appName)
@@ -1619,7 +1628,8 @@ import {
   getAppInfo,
   getAppSettings,
   launchApp,
-  removeApp
+  removeApp,
+  stop
 } from './sideload/games'
 
 // import Store from 'electron-store'
