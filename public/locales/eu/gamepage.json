@@ -55,6 +55,7 @@
         "install": "Instalatu",
         "remove_from_favourites": "Kendu gogokoenetik",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Erakutsi jokoa",
         "uninstall": "Desinslalatu",
         "update": "Eguneratu"
@@ -119,6 +120,9 @@
         "title": "Instalatzeko osagaiak hautatzea"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

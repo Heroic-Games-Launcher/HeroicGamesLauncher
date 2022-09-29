@@ -54,6 +54,7 @@
         "install": "Εγκατάσταση",
         "remove_from_favourites": "Κατάργηση από τα Αγαπημένα",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Φανέρωση Παιχνιδιού",
         "uninstall": "Απεγκατάσταση",
         "update": "Ενημέρωση"
@@ -118,6 +119,9 @@
         "title": "Διαλέξτε στοιχεία για εγκατάσταση"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

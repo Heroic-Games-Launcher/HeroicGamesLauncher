@@ -54,6 +54,7 @@
         "install": "Inštalácia",
         "remove_from_favourites": "Odstrániť z obľúbených",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Odkryť hru",
         "uninstall": "Odinštalovať",
         "update": "Aktualizovať"
@@ -118,6 +119,9 @@
         "title": "Vyberte komponenty na inštaláciu"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

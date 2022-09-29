@@ -54,6 +54,7 @@
         "install": "Kur",
         "remove_from_favourites": "Favorilerden Kaldır",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Oyunu Göster",
         "uninstall": "Kaldır",
         "update": "Güncelle"
@@ -118,6 +119,9 @@
         "title": "Kurulacak bileşenleri seç"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

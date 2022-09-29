@@ -54,6 +54,7 @@
         "install": "Installieren",
         "remove_from_favourites": "Aus Favoriten entfernen",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Spiel einblenden",
         "uninstall": "Deinstallieren",
         "update": "Update"
@@ -118,6 +119,9 @@
         "title": "Zu installierende Komponenten auswählen"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

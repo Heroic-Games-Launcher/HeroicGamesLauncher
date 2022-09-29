@@ -54,6 +54,7 @@
         "install": "Telepítés",
         "remove_from_favourites": "Eltávolítás a kedvencekből",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Játék felfedése",
         "uninstall": "Eltávolítás",
         "update": "Frissítés"
@@ -118,6 +119,9 @@
         "title": "Válaszd ki a telepíteni kívánt elemeket"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

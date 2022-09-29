@@ -55,6 +55,7 @@
         "install": "Yüklemek",
         "remove_from_favourites": "Sevimlilərdən Sil",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Oyunu Gizlət",
         "uninstall": "Silin",
         "update": "Yeniləyin"
@@ -119,6 +120,9 @@
         "title": "Quraşdırılacaq komponentləri seçin"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

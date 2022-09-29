@@ -54,6 +54,7 @@
         "install": "Встановити",
         "remove_from_favourites": "Видалити зі вподобань",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Показати гру",
         "uninstall": "Видалити",
         "update": "Оновити"
@@ -118,6 +119,9 @@
         "title": "Оберіть компоненти для встановлення"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

@@ -54,6 +54,7 @@
         "install": "Pasang",
         "remove_from_favourites": "Hapus Dari Favorit",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Tampilkan Gim yang Disembunyikan",
         "uninstall": "Copot",
         "update": "Perbarui"
@@ -118,6 +119,9 @@
         "title": "Pilih komponen untuk dipasang"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

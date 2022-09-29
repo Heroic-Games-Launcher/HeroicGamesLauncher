@@ -55,6 +55,7 @@
         "install": "Instaliraj",
         "remove_from_favourites": "Otkloni iz favorita",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Prikaži igru",
         "uninstall": "Deinstaliraj",
         "update": "Ažuriraj"
@@ -119,6 +120,9 @@
         "title": "Odaberite komponente za instalaciju"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

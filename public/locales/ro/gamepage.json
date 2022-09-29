@@ -55,6 +55,7 @@
         "install": "Instalează",
         "remove_from_favourites": "Eliminați din Favorite",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Afișează jocul",
         "uninstall": "Dezinstalează",
         "update": "Actualizează"
@@ -119,6 +120,9 @@
         "title": "Selectați componentele de instalat"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

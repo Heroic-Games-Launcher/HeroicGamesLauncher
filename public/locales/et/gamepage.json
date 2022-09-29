@@ -54,6 +54,7 @@
         "install": "Paigalda",
         "remove_from_favourites": "Eemalda lemmikutest",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Näita mäng",
         "uninstall": "Eemalda",
         "update": "Uuenda"
@@ -118,6 +119,9 @@
         "title": "Valige komponendid, mida installida"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

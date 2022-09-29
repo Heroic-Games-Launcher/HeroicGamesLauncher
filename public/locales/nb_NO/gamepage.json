@@ -55,6 +55,7 @@
         "install": "Installere",
         "remove_from_favourites": "Fjern fra favoritter",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Vis spill",
         "uninstall": "Avinstaller",
         "update": "Oppdater"
@@ -119,6 +120,9 @@
         "title": "Velg komponenter som skal installeres"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

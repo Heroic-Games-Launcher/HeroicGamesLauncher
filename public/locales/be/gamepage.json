@@ -54,6 +54,7 @@
         "install": "Усталяваць",
         "remove_from_favourites": "Выдаліць з абранага",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Гульня Unhide",
         "uninstall": "Выдаліць",
         "update": "Абнаўленне"
@@ -118,6 +119,9 @@
         "title": "Выберыце кампаненты для ўстаноўкі"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

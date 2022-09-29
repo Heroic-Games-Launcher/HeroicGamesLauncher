@@ -54,6 +54,7 @@
         "install": "Cài đặt",
         "remove_from_favourites": "Xóa khỏi mục ưa thích",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "Bỏ ẩn Game",
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật"
@@ -118,6 +119,9 @@
         "title": "Chọn các thành phần cần cài"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

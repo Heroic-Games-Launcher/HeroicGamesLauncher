@@ -54,6 +54,7 @@
         "install": "نصب",
         "remove_from_favourites": "حذف کردن از مورد علاقه ها",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "نشان دادن بازی",
         "uninstall": "حذف",
         "update": "بهروزرسانی"
@@ -118,6 +119,9 @@
         "title": "انتخاب محتواها برای نصب"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"

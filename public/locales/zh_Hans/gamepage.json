@@ -54,6 +54,7 @@
         "install": "安装",
         "remove_from_favourites": "从收藏夹移除",
         "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
         "unhide_game": "取消隐藏游戏",
         "uninstall": "卸载",
         "update": "更新"
@@ -118,6 +119,9 @@
         "title": "选择要安装的组件"
     },
     "sideload": {
+        "field": {
+            "title": "Title"
+        },
         "info": {
             "exe": "Select Executable",
             "title": "Game/App Title"
