@@ -5,7 +5,7 @@
 .numberOfgames {
   margin-left: 4px;
   font-size: var(--text-md);
-  font-weight: 400;
+  font-weight: var(--regular);
   background: var(--input-background);
   padding: var(--space-xs);
   margin-left: var(--space-sm);

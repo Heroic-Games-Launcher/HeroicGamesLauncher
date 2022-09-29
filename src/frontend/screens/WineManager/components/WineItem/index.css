@@ -57,7 +57,7 @@
 .wineManagerListItem > .progress {
   z-index: 5;
   grid-area: cover;
-  font-weight: 500;
+  font-weight: var(--medium);
   background: var(--background-gradient);
   padding: var(--space-3xs) var(--space-2xs);
   border-radius: 4px;

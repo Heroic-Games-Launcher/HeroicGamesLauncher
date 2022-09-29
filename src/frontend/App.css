@@ -71,7 +71,7 @@ html,
 }
 
 .danger {
-  font-weight: 700;
+  font-weight: var(--bold);
   color: var(--danger);
 }
 

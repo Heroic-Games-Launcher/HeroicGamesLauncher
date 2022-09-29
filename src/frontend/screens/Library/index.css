@@ -26,7 +26,7 @@
   margin: 0 var(--space-xl-fixed);
   border-bottom: 1px solid gray;
   color: var(--text-default);
-  font-weight: 700;
+  font-weight: var(--bold);
   padding-bottom: 0.5rem;
   font-size: var(--text-lg);
 }

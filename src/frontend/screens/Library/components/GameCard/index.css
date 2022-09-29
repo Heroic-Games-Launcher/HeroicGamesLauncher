@@ -20,7 +20,7 @@
   z-index: 5;
   top: 15px;
   left: 13px;
-  font-weight: 600;
+  font-weight: var(--semibold);
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.418) 2.4%,
@@ -91,7 +91,7 @@
   transition: 200ms;
   font-family: var(--primary-font-family);
   font-size: var(--text-md);
-  font-weight: 700;
+  font-weight: var(--bold);
   line-height: 17px;
   color: var(--text-default);
   cursor: pointer;
@@ -200,7 +200,7 @@
 
 .gameListItem .installed {
   color: var(--accent);
-  font-weight: 700;
+  font-weight: var(--bold);
 }
 
 .gameListItem .active {

@@ -13,12 +13,13 @@
   --blur-strong: 16px;
 }
 
-@media screen and (max-width: 800px) {
-  :root {
-    font-size: 16px;
-    --text-scale-ratio: 1.2;
-  }
-}
+// Example breakpoint
+// @media screen and (max-width: 800px) {
+//   :root {
+//     font-size: 16px;
+//     --text-scale-ratio: 1.2;
+//   }
+// }
 
 body {
   -webkit-font-smoothing: antialiased;

@@ -58,7 +58,7 @@
 }
 
 .Sidebar__item.active.SidebarLinks__subItem {
-  font-weight: 700;
+  font-weight: var(--bold);
   background-color: var(--navbar-active-background);
 }
 

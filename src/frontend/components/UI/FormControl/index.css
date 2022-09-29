@@ -71,7 +71,7 @@
   cursor: pointer;
   font-size: var(--text-sm);
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: var(--semibold);
   color: var(--text-default);
 }
 

@@ -213,7 +213,7 @@ a {
 }
 
 .infoBox.saves-warning {
-  font-weight: 600;
+  font-weight: var(--semibold);
   font-size: var(--text-lg);
 }
 

@@ -8,7 +8,7 @@
 .currentDownload > .gameTitle {
   font-size: var(--text-md);
   transition: 600ms;
-  font-weight: 700;
+  font-weight: var(--bold);
 }
 
 .currentDownload:hover > .gameTitle {

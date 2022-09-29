@@ -14,7 +14,7 @@
 }
 
 .gameConfigContainer .title {
-  font-weight: 500;
+  font-weight: var(--medium);
   font-size: var(--text-xl);
   line-height: 30px;
   color: var(--text-default);
@@ -80,7 +80,7 @@
 }
 
 .gameInfo .title {
-  font-weight: 700;
+  font-weight: var(--bold);
   margin-bottom: 0;
 }
 
@@ -166,7 +166,7 @@
 .gameTabs.toolsTab button[data-tab='tools'],
 .gameTabs.requirementsTab button[data-tab='requirements'] {
   color: var(--accent);
-  font-weight: 700;
+  font-weight: var(--bold);
 }
 
 .gamePageNavBar {
@@ -233,7 +233,7 @@
 }
 
 .itemTitle {
-  font-weight: 700;
+  font-weight: var(--bold);
   text-align: center;
 }
 
@@ -244,13 +244,13 @@
 }
 
 .dlcTitle {
-  font-weight: 700;
+  font-weight: var(--bold);
   margin-top: 16px;
 }
 
 .sdlTitle {
   cursor: pointer;
-  font-weight: 700;
+  font-weight: var(--bold);
 }
 
 .sdlTitle:hover {
