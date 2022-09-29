@@ -111,6 +111,7 @@ export default function GamesSubmenu({
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const { t } = useTranslation('gamepage')
+  const isSideloaded = runner === 'sideload'
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
@@ -328,31 +329,39 @@ export default function GamesSubmenu({
             >
               {t('button.uninstall')}
             </button>{' '}
-            <button
-              onClick={async () => handleUpdate()}
-              className="link button is-text is-link"
-              disabled={disableUpdate}
-            >
-              {t('button.force_update', 'Force Update if Available')}
-            </button>{' '}
-            <button
-              onClick={async () => handleMoveInstall()}
-              className="link button is-text is-link"
-            >
-              {t('submenu.move')}
-            </button>{' '}
-            <button
-              onClick={async () => handleChangeInstall()}
-              className="link button is-text is-link"
-            >
-              {t('submenu.change')}
-            </button>{' '}
-            <button
-              onClick={async () => handleRepair(appName)}
-              className="link button is-text is-link"
-            >
-              {t('submenu.verify')}
-            </button>{' '}
+            {!isSideloaded && (
+              <button
+                onClick={async () => handleUpdate()}
+                className="link button is-text is-link"
+                disabled={disableUpdate}
+              >
+                {t('button.force_update', 'Force Update if Available')}
+              </button>
+            )}{' '}
+            {!isSideloaded && (
+              <button
+                onClick={async () => handleMoveInstall()}
+                className="link button is-text is-link"
+              >
+                {t('submenu.move')}
+              </button>
+            )}{' '}
+            {!isSideloaded && (
+              <button
+                onClick={async () => handleChangeInstall()}
+                className="link button is-text is-link"
+              >
+                {t('submenu.change')}
+              </button>
+            )}{' '}
+            {!isSideloaded && (
+              <button
+                onClick={async () => handleRepair(appName)}
+                className="link button is-text is-link"
+              >
+                {t('submenu.verify')}
+              </button>
+            )}{' '}
             {isLinux &&
               runner === 'legendary' &&
               (eosOverlayRefresh ? (
@@ -369,13 +378,15 @@ export default function GamesSubmenu({
               ))}
           </>
         )}
-        <NavLink
-          className="link button is-text is-link"
-          to={`/store-page?store-url=${storeUrl}`}
-        >
-          {t('submenu.store')}
-        </NavLink>
-        {!isWin && (
+        {!isSideloaded && (
+          <NavLink
+            className="link button is-text is-link"
+            to={`/store-page?store-url=${storeUrl}`}
+          >
+            {t('submenu.store')}
+          </NavLink>
+        )}
+        {!isSideloaded && !isWin && (
           <button
             onClick={() => createNewWindow(protonDBurl)}
             className="link button is-text is-link"

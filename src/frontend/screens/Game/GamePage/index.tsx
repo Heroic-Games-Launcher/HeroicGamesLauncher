@@ -76,6 +76,7 @@ export default function GamePage(): JSX.Element | null {
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
   const isMac = platform === 'darwin'
+  const isSideloaded = runner === 'sideload'
 
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
@@ -91,8 +92,7 @@ export default function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateConfig = async () => {
       try {
-        const newInfo =
-          runner === 'sideload' ? emptyCard : await getGameInfo(appName, runner)
+        const newInfo = await getGameInfo(appName, runner)
         console.log({ newInfo })
         setGameInfo(newInfo)
         const { install, is_linux_native, is_mac_native } = newInfo
@@ -172,10 +172,12 @@ export default function GamePage(): JSX.Element | null {
       extra,
       developer,
       cloud_save_enabled,
-      canRunOffline
+      canRunOffline,
+      folder_name
     }: GameInfo = gameInfo
 
     hasUpdate = is_installed && gameUpdates?.includes(appName)
+    const appLocation = install_path || folder_name
 
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
@@ -285,7 +287,7 @@ export default function GamePage(): JSX.Element | null {
                           {t('cloud_save_unsupported', 'Unsupported')}
                         </div>
                       )}
-                      {!is_installed && (
+                      {!isSideloaded && !is_installed && (
                         <>
                           <div>
                             {t('game.downloadSize', 'Download Size')}:{' '}
@@ -298,7 +300,7 @@ export default function GamePage(): JSX.Element | null {
                           <br />
                         </>
                       )}
-                      {is_installed && (
+                      {!isSideloaded && is_installed && (
                         <>
                           <div>
                             {t('info.size')}: {install_size}
@@ -319,12 +321,12 @@ export default function GamePage(): JSX.Element | null {
                           <div
                             className="clickable"
                             onClick={() =>
-                              install_path !== undefined
-                                ? window.api.openFolder(install_path)
+                              appLocation !== undefined
+                                ? window.api.openFolder(appLocation)
                                 : {}
                             }
                           >
-                            {t('info.path')}: {install_path}
+                            {t('info.path')}: {appLocation}
                           </div>
                           <br />
                         </>

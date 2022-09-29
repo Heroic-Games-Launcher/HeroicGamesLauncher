@@ -481,6 +481,14 @@ export interface Tools {
   runner: Runner
 }
 
+export type WineCommandArgs = {
+  command: string
+  wait: boolean
+  forceRunInPrefixVerb?: boolean
+  gameSettings?: GameSettings
+  installFolderName?: string
+}
+
 export interface SideloadGame {
   runner: Runner
   app_name: string
