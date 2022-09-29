@@ -29,7 +29,6 @@ import LibraryHeader from './components/LibraryHeader'
 import { epicCategories, gogCategories } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import { SideloadCard, emptyCard } from './constants'
-import { sideloadLibrary } from 'frontend/helpers/electronStores'
 
 const InstallModal = lazy(
   async () => import('frontend/screens/Library/components/InstallModal')
@@ -46,6 +45,7 @@ export default function Library(): JSX.Element {
     category,
     epic,
     gog,
+    sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
     filterText,
@@ -190,13 +190,8 @@ export default function Library(): JSX.Element {
     } else {
       const isEpic = epic.username && epicCategories.includes(category)
       const isGog = gog.username && gogCategories.includes(category)
-      const sideloadedLibrary = sideloadLibrary.get(
-        'games',
-        []
-      ) as SideloadCard[]
       const epicLibrary = isEpic ? epic.library : []
       const gogLibrary = isGog ? gog.library : []
-      console.log({ sideloadedLibrary })
       library = [...sideloadedLibrary, ...epicLibrary, ...gogLibrary]
     }
 

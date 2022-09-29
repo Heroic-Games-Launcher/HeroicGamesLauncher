@@ -1,5 +1,6 @@
 import { VersionInfo } from 'heroic-wine-downloader'
 import { GameInfo, GameStatus, Runner } from 'common/types'
+import { SideloadCard } from './screens/Library/constants'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
 
@@ -67,6 +68,7 @@ export interface ContextType {
   setSideBarCollapsed: (value: boolean) => void
   sidebarCollapsed: boolean
   activeController: string
+  sideloadedLibrary: SideloadCard[]
 }
 
 export type LibraryTopSectionOptions =

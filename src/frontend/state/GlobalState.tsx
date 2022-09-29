@@ -32,6 +32,8 @@ import {
   libraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
+import { sideloadLibrary } from 'frontend/helpers/electronStores'
+import { SideloadCard } from 'frontend/screens/Library/constants'
 
 const storage: Storage = window.localStorage
 
@@ -78,6 +80,7 @@ interface StateProps {
   allTilesInColor: boolean
   sidebarCollapsed: boolean
   activeController: string
+  sideloadedLibrary: SideloadCard[]
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -146,7 +149,8 @@ export class GlobalState extends PureComponent<Props> {
     actionsFontFamily:
       (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
     allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
-    activeController: ''
+    activeController: '',
+    sideloadedLibrary: sideloadLibrary.get('games', []) as SideloadCard[]
   }
 
   setLanguage = (newLanguage: string) => {

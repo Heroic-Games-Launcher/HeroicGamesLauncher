@@ -36,7 +36,6 @@ import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
 
-import { emptyCard } from 'frontend/screens/Library/constants'
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 // This component is becoming really complex and it needs to be refactored in smaller ones
 

@@ -16,6 +16,7 @@ const initialContext: ContextType = {
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
+  sideloadedLibrary: [],
   wineVersions: [],
   error: false,
   filterText: '',
