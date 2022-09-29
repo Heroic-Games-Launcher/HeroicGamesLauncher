@@ -32,8 +32,8 @@
 
 .FormControl__select,
 .FormControl__input {
-  font-size: 16px;
-  line-height: 19px;
+  font-size: var(--text-md);
+  line-height: var(--space-md);
 }
 
 .FormControl__input::placeholder {
@@ -70,7 +70,7 @@
   box-sizing: border-box;
   padding: 0 10px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--text-sm);
   text-transform: uppercase;
   font-weight: 600;
   color: var(--text-default);
@@ -101,7 +101,7 @@
 }
 
 .FormControl__segmentedFaIcon {
-  font-size: 20px;
+  font-size: var(--text-lg);
   outline: none;
 }
 
@@ -111,7 +111,7 @@
 
 .FormControl__sideButton {
   cursor: pointer;
-  font-size: 20px;
+  font-size: var(--text-lg);
   position: absolute;
   right: 0;
   top: 50%;

@@ -16,7 +16,7 @@
 
 .tools {
   font: var(--font-secondary-regular);
-  font-size: 16px;
+  font-size: var(--text-md);
   line-height: 19px;
   text-decoration: underline;
   color: var(--text-hover);
@@ -46,7 +46,7 @@
 
 .drag > span {
   transition: 350ms;
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-style: italic;
   color: var(--text-secondary);
   text-decoration: none;

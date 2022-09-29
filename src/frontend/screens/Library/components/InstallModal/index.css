@@ -74,7 +74,7 @@
 }
 
 .diskSpaceInfo {
-  font-size: 14px;
+  font-size: var(--text-sm);
   align-self: flex-start;
   padding: 4px 0 4px 8px;
   color: var(--text-secondary);

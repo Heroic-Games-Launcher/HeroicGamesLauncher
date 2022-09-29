@@ -15,7 +15,7 @@
 
 .gameConfigContainer .title {
   font-weight: 500;
-  font-size: 25px;
+  font-size: var(--text-xl);
   line-height: 30px;
   color: var(--text-default);
   text-align: left;
@@ -106,7 +106,7 @@
   font-weight: normal;
   padding-bottom: 10px;
   margin-bottom: 14px;
-  font-size: 16px;
+  font-size: var(--text-md);
   max-width: 560px;
   text-overflow: ellipsis;
   color: var(--text-default);

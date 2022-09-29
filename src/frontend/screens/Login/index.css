@@ -45,7 +45,7 @@
   color: var(--text-default);
   background-color: var(--background-darker);
   border: none;
-  font-size: 24px;
+  font-size: var(--text-xl);
   padding: 15px;
   border-radius: 10px;
   cursor: pointer;

@@ -57,7 +57,7 @@
   white-space: nowrap;
   overflow: hidden;
   user-select: text;
-  font-size: 14px;
+  font-size: var(--text-sm);
 }
 
 .WebviewControls__urlInput {
@@ -65,7 +65,7 @@
   border: none;
   background: none;
   font-family: inherit;
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: inherit;
   text-align: center;
   user-select: text;

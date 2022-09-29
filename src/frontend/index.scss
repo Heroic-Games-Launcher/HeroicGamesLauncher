@@ -1,6 +1,7 @@
 @use './styles/typography';
 @use './styles/spacing';
 @use './styles/colors';
+@use './styles/buttons';
 :root {
   @include typography.typeSystem;
   @include spacing.spacingSystem;
@@ -10,6 +11,13 @@
   /* Effects */
   --blur-light: 4px;
   --blur-strong: 16px;
+}
+
+@media screen and (max-width: 800px) {
+  :root {
+    font-size: 16px;
+    --text-scale-ratio: 1.2;
+  }
 }
 
 body {

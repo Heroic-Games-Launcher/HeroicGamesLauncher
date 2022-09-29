@@ -109,7 +109,7 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
 
   return (
     <>
-      <h2>{t('setting.log.instructions_title', 'How to report a problem?')}</h2>
+      <h3>{t('setting.log.instructions_title', 'How to report a problem?')}</h3>
       <p className="report-problem-instructions">
         {t(
           'setting.log.instructions',

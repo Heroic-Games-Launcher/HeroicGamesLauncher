@@ -10,7 +10,7 @@
   background: var(--input-background);
   font-family: var(--primary-font-family), 'Noto Color Emoji';
   font-weight: normal;
-  font-size: 16px;
+  font-size: var(--text-md);
   line-height: 19px;
   color: var(--text-secondary);
   text-indent: 22px;
@@ -38,7 +38,7 @@
   align-items: center;
   z-index: 1;
   cursor: pointer;
-  font-size: 20px;
+  font-size: var(--text-lg);
   border: none;
   background: none;
   color: var(--text-default);

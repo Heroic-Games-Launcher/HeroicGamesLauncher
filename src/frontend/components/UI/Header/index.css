@@ -7,7 +7,7 @@
   grid-template-areas: 'filters search';
   grid-gap: 8px;
   align-items: start;
-  margin: 0 1rem 24px;
+  margin: 0 var(--space-md) var(--space-lg);
   padding: 15px 0;
   background: var(--gradient-body-background);
   color: var(--text-secondary);

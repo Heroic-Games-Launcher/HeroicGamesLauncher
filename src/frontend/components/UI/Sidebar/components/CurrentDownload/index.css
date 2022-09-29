@@ -1,12 +1,12 @@
 .currentDownload {
-  font-size: 13px;
+  font-size: var(--text-sm);
   padding: 16px 0;
   transition: 300ms;
   margin-top: 12px;
 }
 
 .currentDownload > .gameTitle {
-  font-size: 16px;
+  font-size: var(--text-md);
   transition: 600ms;
   font-weight: 700;
 }
@@ -21,7 +21,7 @@
   font-family: var(--secondary-font-family);
   font-style: italic;
   font-weight: normal;
-  font-size: 14px;
+  font-size: var(--text-sm);
   line-height: 12px;
 }
 

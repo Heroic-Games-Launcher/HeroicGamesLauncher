@@ -2,7 +2,7 @@
   cursor: default;
   width: 100%;
   padding: 12px 22px 12px 22px;
-  font-size: 16px;
+  font-size: var(--text-md);
   line-height: 19px;
   background-color: var(--input-background);
   border-radius: 10px;

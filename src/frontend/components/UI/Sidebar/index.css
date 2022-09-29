@@ -1,5 +1,5 @@
 .Sidebar {
-  --sidebar-horizontal-padding: 16px;
+  --sidebar-horizontal-padding: var(--space-md);
   --sidebar-vertical-padding: 24px;
   position: relative;
   z-index: 10;
@@ -16,8 +16,8 @@
 }
 
 .Sidebar.collapsed {
-  --sidebar-vertical-padding: 8px;
-  --sidebar-horizontal-padding: 22px;
+  --sidebar-vertical-padding: var(--space-xs);
+  --sidebar-horizontal-padding: var(--space-lg);
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -37,7 +37,7 @@
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 18px;
+  font-size: var(--text-md);
   color: var(--navbar-accent);
   transition: color 250ms;
   text-align: start;
@@ -75,19 +75,19 @@
 .currentDownloads {
   grid-area: utils;
   align-self: end;
-  margin: 0 4px var(--sidebar-vertical-padding)
+  margin: 0 var(--space-3xs) var(--sidebar-vertical-padding)
     var(--sidebar-horizontal-padding);
 }
 
 .divider {
   border: solid 1px var(--divider);
   opacity: 0.2;
-  margin: 4px 8px;
+  margin: var(--space-3xs) var(--space-xs);
 }
 
 .heroicVersion {
   grid-area: version;
-  margin: 0 4px var(--sidebar-vertical-padding)
+  margin: 0 var(--space-3xs) var(--sidebar-vertical-padding)
     var(--sidebar-horizontal-padding);
   font-size: 0.9rem;
 }
@@ -97,7 +97,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin: 0 4px 12px var(--sidebar-horizontal-padding);
+  margin: 0 var(--space-3xs) var(--space-sm) var(--sidebar-horizontal-padding);
   font-size: 0.9rem;
 }
 
@@ -134,12 +134,12 @@
 }
 
 .Sidebar.collapsed .heroicVersion {
-  margin: 10px;
-  font-size: 11px;
+  margin: var(--space-sm);
+  font-size: var(--text-xs);
 }
 
 .Sidebar.collapsed .divider {
-  margin: 4px 0;
+  margin: var(--space-3xs) 0;
 }
 
 .Sidebar.collapsed .Sidebar__item.active span,
@@ -163,7 +163,7 @@
   left: 62px;
   top: 66px;
   background-color: var(--navbar-background);
-  padding: 6px 0;
+  padding: var(--space-2xs) 0;
 }
 
 .Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu.settings,
@@ -178,10 +178,10 @@
 }
 
 .Sidebar.collapsed .Sidebar__item.SidebarLinks__subItem {
-  padding: 7px var(--sidebar-horizontal-padding);
+  padding: var(--space-xs) var(--sidebar-horizontal-padding);
 }
 .Sidebar.collapsed .Sidebar__item.active svg,
 .Sidebar.collapsed .Sidebar__item svg {
   transform: scale(1.2);
-  padding: 6px 0;
+  padding: var(--space-2xs) 0;
 }

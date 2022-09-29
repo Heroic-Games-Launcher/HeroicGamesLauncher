@@ -1,0 +1,175 @@
+.button {
+  --line-height: 17px;
+  cursor: pointer;
+  padding: var(--space-sm);
+  background: var(--primary);
+  color: #1a1b1c;
+  text-transform: uppercase;
+  font-family: var(--secondary-font-family);
+  font-style: normal;
+  font-weight: 500;
+  font-size: var(--text-md);
+  line-height: var(--line-height);
+  color: #161616;
+  border: none;
+  max-height: 40px;
+  text-align: center;
+  transition: 500ms;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+}
+
+.button.is-small {
+  min-width: 130px;
+}
+
+.button:hover {
+  background: #58545d;
+}
+
+.button.is-primary {
+  background: var(--primary);
+}
+
+.button.is-primary:hover {
+  background: var(--primary-hover);
+}
+
+.button.is-primary:disabled {
+  color: var(--text-secondary);
+  background: var(--background-secondary);
+  pointer-events: none;
+}
+
+.button.is-secondary {
+  background: var(--accent);
+  color: var(--text-tertiary);
+}
+
+.button:disabled.is-secondary,
+.button:disabled:hover.is-secondary {
+  background-color: var(--background-secondary);
+  color: var(--text-secondary);
+}
+
+.button.is-tertiary {
+  background: var(--body-background);
+  color: var(--text-default);
+}
+
+.button.is-tools:hover,
+.button.is-tools:focus-visible {
+  background-color: var(--stop-button);
+}
+.button.is-tools:hover .toolTitle,
+.button.is-tools:focus-visible .toolTitle {
+  transition: 500ms;
+  color: var(--text-hover);
+}
+
+.button.is-secondary:hover {
+  background: var(--accent-overlay);
+}
+
+.button.is-empty {
+  background: transparent;
+  text-decoration: underline;
+}
+
+.button.is-danger {
+  background: var(--input-background);
+  color: var(--danger-hover);
+}
+
+.button.is-danger:hover,
+.button.is-danger:focus-visible {
+  background: var(--danger);
+  color: var(--text-secondary);
+}
+
+.button.is-success {
+  background: var(--success);
+}
+
+.button.is-success:hover {
+  background: var(--success-hover);
+}
+
+.button.is-success:hover:disabled,
+.button.is-success:disabled {
+  background: var(--background);
+  color: var(--text-default);
+}
+
+.button.outline {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid;
+}
+
+.button.outline:hover:disabled,
+.button.outline:disabled {
+  background-color: var(--background-secondary);
+  color: var(--text-secondary);
+  border: none;
+}
+
+.button:hover.outline,
+.button.outline.active {
+  background: transparent;
+  color: var(--accent-overlay) !important;
+  border: 2px solid;
+}
+
+.button.settings {
+  background: var(--text-secondary);
+}
+
+.button.settings:hover {
+  background: #7c7c7c;
+}
+
+.button.settings:disabled:hover,
+.button.settings:disabled {
+  background: #7c7c7c;
+}
+
+.button.is-text {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-default);
+  box-shadow: none;
+  text-transform: none;
+  min-width: fit-content;
+  font-family: var(--content-font-family);
+  font-size: var(--text-sm);
+}
+
+.button.is-text:hover {
+  color: var(--text-hover);
+}
+
+.button.is-link {
+  font-family: var(--secondary-font-family);
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--text-md);
+  line-height: 17px;
+  color: var(--accent);
+  margin: var(--space-3xs) 0em;
+  cursor: pointer;
+  padding: var(--space-3xs);
+}
+
+.button.is-link:hover {
+  color: var(--text-hover);
+}
+
+.button.is-link[disabled] {
+  color: var(--icon-disabled);
+  cursor: wait;
+}

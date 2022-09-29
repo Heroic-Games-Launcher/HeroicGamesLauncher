@@ -16,7 +16,7 @@
 
 .runnerLogin {
   padding: 10px;
-  font-size: 25px;
+  font-size: var(--text-xl);
   border: none;
   transition: 0.2s;
 }
@@ -52,7 +52,7 @@
   color: var(--text-secondary);
   /* For longer nicknames */
   overflow: hidden;
-  font-size: 20px;
+  font-size: var(--text-lg);
   margin: 10px 0;
 }
 

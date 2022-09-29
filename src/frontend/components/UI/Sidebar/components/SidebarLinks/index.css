@@ -1,12 +1,12 @@
 .SidebarLinks {
   grid-area: links;
   padding-top: var(--sidebar-vertical-padding);
-  font-size: 18.5px;
+  font-size: var(--text-lg);
 }
 
 .Sidebar__item.SidebarLinks__subItem {
   padding: 4px var(--sidebar-horizontal-padding) 4px 50px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   line-height: 20px;
   white-space: break-spaces;
 }

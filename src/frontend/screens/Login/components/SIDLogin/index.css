@@ -38,7 +38,7 @@
   border: solid 1px var(--background);
   overflow: auto;
   max-height: 100vh;
-  font-size: 17px;
+  font-size: var(--text-md);
 }
 
 .loginInstructions > strong {
@@ -64,7 +64,7 @@
 
 .sid-modal > .sid-input {
   color: var(--text-default);
-  font-size: 17px;
+  font-size: var(--text-md);
   padding: 5px;
   background-color: var(--background);
   border: none;

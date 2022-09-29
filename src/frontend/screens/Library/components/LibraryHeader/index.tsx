@@ -63,7 +63,7 @@ export default function LibraryHeader({
   }
 
   return (
-    <h6 className="libraryHeader">
+    <h5 className="libraryHeader">
       <div className="libraryHeaderWrapper">
         <span className="libraryTitle">
           {showFavourites
@@ -79,6 +79,6 @@ export default function LibraryHeader({
           toggleSortinstalled={() => handleSortInstalled()}
         />
       </div>
-    </h6>
+    </h5>
   )
 }

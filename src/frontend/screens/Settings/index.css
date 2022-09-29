@@ -24,7 +24,7 @@
   cursor: default;
   margin-bottom: 14px;
   font: var(--font-secondary-regular);
-  font-size: 16px;
+  font-size: var(--text-md);
   line-height: 19px;
   color: var(--text-secondary);
 }
@@ -81,7 +81,7 @@
   align-items: center;
   justify-content: space-between;
   font: var(--font-secondary-regular-italic);
-  font-size: 14px;
+  font-size: var(--text-sm);
   line-height: 17px;
   /* identical to box height */
   color: #5a5e5f;
@@ -94,20 +94,20 @@
   align-items: center;
   justify-content: space-between;
   font: var(--font-secondary-regular-italic);
-  font-size: 14px;
+  font-size: var(--text-sm);
   line-height: 17px;
   /* identical to box height */
   color: #5a5e5f;
 }
 
 .save > .material-icons {
-  font-size: 28px;
+  font-size: var(--text-2xl);
   margin-inline-start: 6px;
 }
 
 .warning {
   color: yellow;
-  font-size: 13px;
+  font-size: var(--text-sm);
   width: 100%;
   max-width: 513px;
   white-space: break-spaces;
@@ -115,7 +115,7 @@
 }
 
 .smallLink {
-  font-size: 13px;
+  font-size: var(--text-sm);
   width: 100%;
   max-width: 513px;
   white-space: break-spaces;
@@ -193,7 +193,7 @@ a {
 
 .button-icontext-flex .button-icon-text {
   margin-block: auto;
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 
 .button-icon-flex {

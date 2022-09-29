@@ -25,7 +25,7 @@
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr;
   grid-template-areas: 'name date size action';
-  margin: 0.5em 2em;
+  margin: var(--space-xs) var(--space-lg);
   align-items: center;
   justify-items: baseline;
   position: relative;
@@ -98,7 +98,7 @@
 
 .react-contextmenu-item {
   color: var(--text-default);
-  font-size: 14px;
+  font-size: var(--text-sm);
   line-height: 26px;
   font-family: var(--secondary-font-family);
   cursor: pointer;
