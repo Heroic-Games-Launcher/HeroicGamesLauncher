@@ -61,7 +61,9 @@ const initialContext: ContextType = {
   setAllTilesInColor: () => null,
   sidebarCollapsed: false,
   setSideBarCollapsed: () => null,
-  activeController: ''
+  activeController: '',
+  setPrimaryFontFamily: () => null,
+  setSecondaryFontFamily: () => null
 }
 
 export default React.createContext(initialContext)

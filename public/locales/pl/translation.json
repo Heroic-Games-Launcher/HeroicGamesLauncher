@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Czcionka akcji (Domyślna: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Pokaż wszystkie tytuły gier w kolorze",
-        "content_font_family": "Czcionka zawartości (Domyślna: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Czcionki",
         "title": "Ułatwienia dostępu",
         "zoom": "Przybliż"

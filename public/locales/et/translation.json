@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Toimingute fondiperekond (vaikimisi: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Näita kõiki mänguplaate värviliselt",
-        "content_font_family": "Sisu fondiperekond (vaikimisi: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Fondid",
         "title": "Kättesaadavus",
         "zoom": "Zoom"

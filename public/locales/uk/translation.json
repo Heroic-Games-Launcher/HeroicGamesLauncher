@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Сімейство шрифтів для дій (Типово: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Показувати кольорові образці ігор",
-        "content_font_family": "Сімейство шрифтів для вмісту (Типово: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Шрифти",
         "title": "Спец. можливості",
         "zoom": "Маштабування"

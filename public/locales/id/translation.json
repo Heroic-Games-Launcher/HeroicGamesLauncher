@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Keluarga Fon Aksi (Bawaan: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Tampilkan semua kolom gim dalam warna",
-        "content_font_family": "Keluarga Fon Konten (Bawaan: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Fon",
         "title": "Aksesibilitas",
         "zoom": "Zoom"

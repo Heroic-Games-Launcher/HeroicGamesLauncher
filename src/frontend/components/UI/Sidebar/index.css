@@ -41,6 +41,7 @@
   color: var(--navbar-accent);
   transition: color 250ms;
   text-align: start;
+  font-family: var(--primary-font-family);
 }
 
 .Sidebar__item:focus-visible {

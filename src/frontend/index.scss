@@ -1,7 +1,7 @@
 @use './styles/typography';
 @use './styles/spacing';
 @use './styles/colors';
-html {
+:root {
   @include typography.typeSystem;
   @include spacing.spacingSystem;
   @include colors.colorSystem;

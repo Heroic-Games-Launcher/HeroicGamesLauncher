@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Standard: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Vis alle spillbrikker i farger",
-        "content_font_family": "Innholdsskriftfamilie (standard: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Skrifter",
         "title": "tilgjengelighet",
         "zoom": "Zoom"

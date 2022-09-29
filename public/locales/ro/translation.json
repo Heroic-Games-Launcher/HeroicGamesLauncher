@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Familie de fonturi Actions (implicit: „Rubik”)",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Afișați toate piesele de joc colorate",
-        "content_font_family": "Familia de fonturi pentru conținut (implicit: „Cabină”)",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Fonturi",
         "title": "Accesibilitate",
         "zoom": "Zoom"

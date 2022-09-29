@@ -7,8 +7,10 @@
 // }
 
 @mixin typeSystem {
-  --primary-font-family: 'Rubik', sans-serif;
-  --secondary-font-family: 'Cabin', sans-serif;
+  --default-primary-font-family: 'Rubik', sans-serif;
+  --default-secondary-font-family: 'Cabin', sans-serif;
+  --primary-font-family: var(--default-primary-font-family);
+  --secondary-font-family: var(--default-secondary-font-family);
   --light: 300;
   --regular: 400;
   --medium: 500;

@@ -63,6 +63,8 @@ export interface ContextType {
   setSideBarCollapsed: (value: boolean) => void
   sidebarCollapsed: boolean
   activeController: string
+  setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
+  setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
 }
 
 export type LibraryTopSectionOptions =

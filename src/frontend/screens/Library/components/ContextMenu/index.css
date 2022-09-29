@@ -6,7 +6,7 @@
   background: var(--navbar-background);
   color: var(--accent);
   border-radius: 10px;
-  font-family: 'Rubik';
+  font-family: var(--primary-font-family);
 }
 
 .contextMenu > .MuiPaper-root > .MuiMenu-list > .MuiMenuItem-root:hover {
