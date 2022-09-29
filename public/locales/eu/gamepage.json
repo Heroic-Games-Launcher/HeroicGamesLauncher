@@ -125,9 +125,11 @@
         },
         "info": {
             "exe": "Select Executable",
+            "image": "App Image",
             "title": "Game/App Title"
         },
         "placeholder": {
+            "image": "Paste an Image URL here",
             "title": "Add a title to your Game/App"
         }
     },
