@@ -195,7 +195,10 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     }
   }
 
-  const { updated: winePrefixUpdated } = await verifyWinePrefix(game)
+  const { updated: winePrefixUpdated } = await verifyWinePrefix(
+    gameSettings,
+    game
+  )
   if (winePrefixUpdated) {
     logInfo(['Created/Updated Wineprefix at', gameSettings.winePrefix], {
       prefix: LogPrefix.Backend
@@ -383,9 +386,11 @@ function setupWrappers(
  * @returns stderr & stdout of 'wineboot --init'
  */
 export async function verifyWinePrefix(
-  game: LegendaryGame | GOGGame
+  settings: GameSettings,
+  game?: LegendaryGame | GOGGame
 ): Promise<{ res: ExecResult; updated: boolean }> {
-  const { winePrefix, wineVersion } = await game.getSettings()
+  const gameSettings = game ? await game.getSettings() : settings
+  const { winePrefix, wineVersion } = gameSettings
 
   if (wineVersion.type === 'crossover') {
     return { res: { stdout: '', stderr: '' }, updated: false }
@@ -406,8 +411,11 @@ export async function verifyWinePrefix(
       : join(winePrefix, 'system.reg')
   const haveToWait = !existsSync(systemRegPath)
 
-  return game
-    .runWineCommand('wineboot --init', haveToWait)
+  const command = game
+    ? game.runWineCommand('wineboot', haveToWait)
+    : runWineCommand({ command: 'wineboot', wait: haveToWait, gameSettings })
+
+  return command
     .then((result) => {
       if (wineVersion.type === 'proton') {
         return { res: result, updated: true }
@@ -441,7 +449,15 @@ async function runWineCommand({
   const settings = gameSettings
     ? gameSettings
     : await GlobalConfig.get().getSettings()
-  const { wineVersion } = settings
+  const { wineVersion, winePrefix } = settings
+
+  if (!existsSync(winePrefix)) {
+    mkdirSync(winePrefix, { recursive: true })
+  }
+
+  if (['exe', 'msi', 'bat'].includes(command.split('.')[1])) {
+    command = quoteIfNecessary(command)
+  }
 
   const env_vars = {
     ...process.env,
