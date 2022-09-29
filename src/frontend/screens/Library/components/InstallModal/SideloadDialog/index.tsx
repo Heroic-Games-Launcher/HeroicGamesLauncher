@@ -2,7 +2,11 @@ import short from 'short-uuid'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InstallPlatform, WineInstallation } from 'common/types'
-import { TextInputField, TextInputWithIconField } from 'frontend/components/UI'
+import {
+  CachedImage,
+  TextInputField,
+  TextInputWithIconField
+} from 'frontend/components/UI'
 import {
   DialogContent,
   DialogFooter,
@@ -10,9 +14,11 @@ import {
 } from 'frontend/components/UI/Dialog'
 import { getAppSettings, getGameSettings, writeConfig } from 'frontend/helpers'
 import { Path } from 'frontend/types'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
+import fallbackImage from 'frontend/assets/fallback-image.jpg'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
@@ -38,8 +44,11 @@ export default function SideloadDialog({
     t('sideload.field.title', 'Title')
   )
   const [selectedExe, setSelectedExe] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
   const [app_name, setApp_name] = useState('')
   const [runningSetup, setRunningSetup] = useState(false)
+
+  const { refreshLibrary } = useContext(ContextProvider)
 
   useEffect(() => {
     setApp_name(short.generate().toString())
@@ -54,7 +63,7 @@ export default function SideloadDialog({
     setWine()
   }, [title])
 
-  function handleInstall(): void | PromiseLike<void> {
+  async function handleInstall(): Promise<void> {
     window.api.addNewApp({
       runner: 'sideload',
       app_name,
@@ -63,11 +72,16 @@ export default function SideloadDialog({
         executable: selectedExe,
         platform: platformToInstall
       },
-      art_cover: 'fallback',
+      art_cover: imageUrl,
       is_installed: true,
-      art_square: 'fallback'
+      art_square: imageUrl
     })
-    writeConfig([app_name, { winePrefix, wineVersion }])
+    await writeConfig([app_name, { winePrefix, wineVersion }])
+    await refreshLibrary({
+      runInBackground: true,
+      checkForUpdates: true,
+      fullRefresh: true
+    })
     return backdropClick()
   }
 
@@ -76,7 +90,10 @@ export default function SideloadDialog({
     const { path } = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
-      title: t('box.runexe.title')
+      title: t('box.runexe.title'),
+      filters: [
+        { name: 'windows executables', extensions: ['exe', 'bat', 'msi'] }
+      ]
     })
     if (path) {
       exeToRun = path
@@ -118,34 +135,52 @@ export default function SideloadDialog({
         ))}
       </DialogHeader>
       <DialogContent>
-        <TextInputField
-          label={t('sideload.info.title', 'Game/App Title')}
-          placeholder={t(
-            'sideload.placeholder.title',
-            'Add a title to your Game/App'
-          )}
-          onChange={(e) => setTitle(e.target.value)}
-          htmlId="sideload-title"
-          value={title}
-        />
-        <TextInputWithIconField
-          htmlId="sideload-exe"
-          label={t('sideload.info.exe', 'Select Executable')}
-          onChange={(e) => setSelectedExe(e.target.value)}
-          icon={<FontAwesomeIcon icon={faFolderOpen} />}
-          value={selectedExe}
-          placeholder={t('sideload.info.exe', 'Select Executable')}
-          onIconClick={async () =>
-            window.api
-              .openDialog({
-                buttonLabel: t('box.select.button', 'Select'),
-                properties: ['openFile'],
-                title: t('box.sideload.exe', 'Select Executable')
-              })
-              .then(({ path }: Path) => setSelectedExe(path ? path : ''))
-          }
-        />
-        {children}
+        <div className="sideloadGrid">
+          <CachedImage
+            className="appImage"
+            src={imageUrl ? imageUrl : fallbackImage}
+          />
+          <div>
+            <TextInputField
+              label={t('sideload.info.title', 'Game/App Title')}
+              placeholder={t(
+                'sideload.placeholder.title',
+                'Add a title to your Game/App'
+              )}
+              onChange={(e) => setTitle(e.target.value)}
+              htmlId="sideload-title"
+              value={title}
+            />
+            <TextInputField
+              label={t('sideload.info.image', 'App Image')}
+              placeholder={t(
+                'sideload.placeholder.image',
+                'Paste an Image URL here'
+              )}
+              onChange={(e) => setImageUrl(e.target.value)}
+              htmlId="sideload-image"
+              value={imageUrl}
+            />
+            <TextInputWithIconField
+              htmlId="sideload-exe"
+              label={t('sideload.info.exe', 'Select Executable')}
+              onChange={(e) => setSelectedExe(e.target.value)}
+              icon={<FontAwesomeIcon icon={faFolderOpen} />}
+              value={selectedExe}
+              placeholder={t('sideload.info.exe', 'Select Executable')}
+              onIconClick={async () =>
+                window.api
+                  .openDialog({
+                    buttonLabel: t('box.select.button', 'Select'),
+                    properties: ['openFile'],
+                    title: t('box.sideload.exe', 'Select Executable')
+                  })
+                  .then(({ path }: Path) => setSelectedExe(path ? path : ''))
+              }
+            />
+            {children}
+          </div>
+        </div>
       </DialogContent>
       <DialogFooter>
         <button

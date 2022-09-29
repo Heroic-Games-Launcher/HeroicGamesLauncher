@@ -79,3 +79,16 @@
   padding: 4px 0 4px 8px;
   color: var(--text-secondary);
 }
+
+.sideloadGrid {
+  display: grid;
+  justify-content: space-around;
+  grid-template-columns: 1fr 3fr;
+}
+
+.appImage {
+  width: 90%;
+  object-fit: cover;
+  aspect-ratio: 3 / 4;
+  display: block;
+}
