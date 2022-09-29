@@ -11,7 +11,8 @@ import {
   InstallPlatform,
   LaunchParams,
   Tools,
-  SideloadGame
+  SideloadGame,
+  WineCommandArgs
 } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import * as path from 'path'
@@ -118,7 +119,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
-import { verifyWinePrefix } from './launcher'
+import { runWineCommand, verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
 
 const { showMessageBox, showOpenDialog } = dialog
@@ -659,6 +660,10 @@ ipcMain.handle(
   }
 )
 
+ipcMain.handle('runWineCommand', async (e, args: WineCommandArgs) => {
+  return runWineCommand(args)
+})
+
 /// IPC handlers begin here.
 
 ipcMain.handle('checkGameUpdates', async () => {
@@ -728,6 +733,9 @@ ipcMain.on('createNewWindow', async (e, url) =>
 ipcMain.handle(
   'getGameInfo',
   async (event, appName: string, runner: Runner) => {
+    if (runner === 'sideload') {
+      return getAppInfo(appName)
+    }
     // Fastpath since we sometines have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
     if (runner === 'legendary' && !LegendaryLibrary.get().hasGame(appName)) {
       return null
@@ -748,7 +756,7 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('getGameSettings', async (event, game, runner) => {
+ipcMain.handle('getGameSettings', async (event, game, runner: Runner) => {
   try {
     return await getGame(game, runner).getSettings()
   } catch (error) {

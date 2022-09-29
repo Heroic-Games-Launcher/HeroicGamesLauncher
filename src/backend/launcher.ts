@@ -44,7 +44,8 @@ import {
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
-  RpcClient
+  RpcClient,
+  WineCommandArgs
 } from 'common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
@@ -430,14 +431,6 @@ function launchCleanup(rpcClient?: RpcClient) {
   }
 }
 
-type WineCommandArgs = {
-  gameSettings: GameSettings
-  command: string
-  wait: boolean
-  forceRunInPrefixVerb?: boolean
-  installFolderName: string
-}
-
 async function runWineCommand({
   gameSettings,
   command,
@@ -445,13 +438,23 @@ async function runWineCommand({
   forceRunInPrefixVerb,
   installFolderName
 }: WineCommandArgs) {
-  const { wineVersion } = gameSettings
+  const settings = gameSettings
+    ? gameSettings
+    : await GlobalConfig.get().getSettings()
+  const { wineVersion } = settings
 
   const env_vars = {
     ...process.env,
-    ...setupEnvVars(gameSettings),
-    ...setupWineEnvVars(gameSettings, installFolderName)
+    ...setupEnvVars(settings),
+    ...setupWineEnvVars(settings, installFolderName)
   }
+
+  console.log({
+    env: {
+      ...setupEnvVars(settings),
+      ...setupWineEnvVars(settings, installFolderName)
+    }
+  })
 
   let additional_command = ''
   if (wineVersion.type === 'proton') {

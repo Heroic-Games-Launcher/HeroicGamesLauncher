@@ -79,15 +79,13 @@ export async function addShortcuts(): Promise<void> {
 
 export async function launchApp(appName: string): Promise<boolean> {
   const {
-    install: { executable },
-    folder_name
+    install: { executable }
   } = getAppInfo(appName)
   if (executable) {
     const gameSettings = await getAppSettings(appName)
     await runWineCommand({
       command: executable,
       gameSettings,
-      installFolderName: folder_name,
       wait: false,
       forceRunInPrefixVerb: false
     })

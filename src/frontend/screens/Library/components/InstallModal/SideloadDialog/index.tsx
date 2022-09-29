@@ -8,7 +8,7 @@ import {
   DialogFooter,
   DialogHeader
 } from 'frontend/components/UI/Dialog'
-import { getAppSettings, writeConfig } from 'frontend/helpers'
+import { getAppSettings, getGameSettings, writeConfig } from 'frontend/helpers'
 import { Path } from 'frontend/types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -34,19 +34,25 @@ export default function SideloadDialog({
   children
 }: Props) {
   const { t } = useTranslation('gamepage')
-  const [title, setTitle] = useState<string | never>('')
+  const [title, setTitle] = useState<string | never>(
+    t('sideload.field.title', 'Title')
+  )
   const [selectedExe, setSelectedExe] = useState('')
   const [app_name, setApp_name] = useState('')
+  const [runningSetup, setRunningSetup] = useState(false)
 
   useEffect(() => {
     setApp_name(short.generate().toString())
+  }, [])
+
+  useEffect(() => {
     const setWine = async () => {
       const { defaultWinePrefix } = await getAppSettings()
       const sugestedWinePrefix = `${defaultWinePrefix}/${title}`
       setWinePrefix(sugestedWinePrefix)
     }
     setWine()
-  }, [])
+  }, [title])
 
   function handleInstall(): void | PromiseLike<void> {
     window.api.addNewApp({
@@ -75,13 +81,33 @@ export default function SideloadDialog({
     if (path) {
       exeToRun = path
       console.log(exeToRun)
+      try {
+        setRunningSetup(true)
+        await writeConfig([app_name, { winePrefix, wineVersion }])
+        const gameSettings = await getGameSettings(app_name, 'sideload')
+        console.log({ gameSettings, app_name })
+        await window.api.runWineCommand({
+          command: exeToRun,
+          wait: true,
+          forceRunInPrefixVerb: true,
+          gameSettings: {
+            ...gameSettings,
+            winePrefix,
+            wineVersion: wineVersion || gameSettings.wineVersion
+          }
+        })
+        setRunningSetup(false)
+      } catch (error) {
+        console.log('finished with error', error)
+        setRunningSetup(false)
+      }
     }
     return
   }
 
   return (
     <>
-      <DialogHeader onClose={backdropClick} showCloseButton={true}>
+      <DialogHeader onClose={backdropClick} showCloseButton={!runningSetup}>
         {title}
         {availablePlatforms.map((p) => (
           <FontAwesomeIcon
@@ -125,8 +151,11 @@ export default function SideloadDialog({
         <button
           onClick={async () => handleRunExe()}
           className={`button is-secondary`}
+          disabled={runningSetup}
         >
-          {t('button.run-exe-first', 'Run Installer First')}
+          {runningSetup
+            ? t('button.running-setup', 'Running Setup')
+            : t('button.run-exe-first', 'Run Installer First')}
         </button>
         <button
           onClick={async () => handleInstall()}

@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron'
-import { Runner, InstallPlatform } from '../../common/types'
+import { Runner, InstallPlatform, WineCommandArgs } from '../../common/types'
 
 export const notify = (notification: string[]) =>
   ipcRenderer.send('Notify', notification)
@@ -38,6 +38,8 @@ interface runWineCommand {
   runner: string
   command: string
 }
+export const runWineCommand = async (args: WineCommandArgs) =>
+  ipcRenderer.invoke('runWineCommand', args)
 export const runWineCommandForGame = async (command: runWineCommand) =>
   ipcRenderer.invoke('runWineCommandForGame', command)
 export const requestSettings = async (appName: string) =>
