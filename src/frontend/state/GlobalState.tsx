@@ -353,6 +353,8 @@ export class GlobalState extends PureComponent<Props> {
       }
     }
 
+    const updatedSideload = sideloadLibrary.get('games')
+
     this.setState({
       epic: {
         library: epicLibrary,
@@ -364,7 +366,8 @@ export class GlobalState extends PureComponent<Props> {
       },
       gameUpdates: updates,
       refreshing: false,
-      refreshingInTheBackground: true
+      refreshingInTheBackground: true,
+      sideloadedLibrary: updatedSideload
     })
 
     if (currentLibraryLength !== epicLibrary.length) {
