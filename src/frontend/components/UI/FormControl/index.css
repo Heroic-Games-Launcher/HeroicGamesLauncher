@@ -8,14 +8,13 @@
 .FormControl__input {
   width: 100%;
   appearance: none;
-  height: 40px;
-  background: var(--input-background);
+  background: transparent;
   font: var(--font-secondary-bold);
   color: var(--text-secondary);
-  padding: 0 22px;
+  padding: 0 var(--space-lg);
   border: none;
   outline: none;
-  box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+  /* box-shadow: 0 4px 4px rgb(0 0 0 / 25%); */
   transition: color 250ms;
 }
 
@@ -68,7 +67,7 @@
 
 .FormControl--segmented > button {
   box-sizing: border-box;
-  padding: 0 10px;
+  padding: 0 var(--space-sm);
   cursor: pointer;
   font-size: var(--text-sm);
   text-transform: uppercase;
@@ -88,7 +87,7 @@
 .FormControl--segmented > button:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  margin-left: 1px;
+  margin-left: var(--space-xs);
 }
 
 .FormControl--segmented > button:not(:last-child) {
@@ -117,7 +116,7 @@
   top: 50%;
   transform: translateY(-50%);
   height: 100%;
-  padding: 0 14px;
+  padding: 0 var(--space-sm);
   border: none;
   outline: none;
   background: none;
@@ -126,9 +125,7 @@
 }
 
 .FormControl__leftButton {
-  position: absolute;
-  top: 8px;
-  left: 8px;
+  padding: var(--space-2xs) var(--space-2xs) 0 var(--space-2xs);
 }
 
 .FormControl__sideButton:focus-visible {
@@ -138,10 +135,7 @@
 
 .FormControl__caret,
 .FormControl__clear {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translate(0, -50%);
+  padding-right: var(--space-md);
   transition: color 250ms;
 }
 

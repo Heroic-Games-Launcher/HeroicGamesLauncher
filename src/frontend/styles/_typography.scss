@@ -1,3 +1,18 @@
+/*
+with 1.2 scale ratio and 16px root font size
+name px rem
+xs	11.11	0.69
+sm	13.33	0.83
+md	16.00	1.00
+lg	19.20	1.20
+xl	23.04	1.44
+2xl	27.65	1.73
+3xl	33.18	2.07
+4xl	39.81	2.49
+5xl	47.78	2.99
+6xl	57.33	3.58
+*/
+
 @mixin typeSystem {
   --default-primary-font-family: 'Rubik', sans-serif;
   --default-secondary-font-family: 'Cabin', sans-serif;

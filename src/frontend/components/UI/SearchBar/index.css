@@ -2,6 +2,10 @@
   grid-area: search;
   width: 100%;
   position: relative;
+  display: inline-flex;
+  background: var(--input-background);
+  border-radius: 100000px;
+  padding: var(--space-3xs);
 }
 
 .autoComplete {
@@ -14,7 +18,7 @@
   list-style: none;
   margin: 0;
   display: none;
-  padding: 8px 16px;
+  padding: var(--space-xs) var(--space-md);
   text-align: left;
   overflow-x: hidden;
 }
@@ -28,6 +32,26 @@
   color: var(--background);
 }
 
-.SearchBar .FormControl__leftButton {
-  pointer-events: none;
+.searchButton {
+  padding: var(--space-2xs) var(--space-2xs) 0 var(--space-2xs);
+}
+
+.clearSearchButton {
+  padding-right: var(--space-md);
+  transition: color 250ms;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+}
+
+.searchBarInput {
+  width: 100%;
+  appearance: none;
+  background: transparent;
+  font: var(--font-secondary-bold);
+  color: var(--text-secondary);
+  padding: 0 var(--space-lg);
+  border: none;
+  outline: none;
+  transition: color 250ms;
 }

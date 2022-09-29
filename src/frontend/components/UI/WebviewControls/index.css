@@ -4,7 +4,7 @@
   box-sizing: border-box;
   width: inherit;
   height: 40px;
-  padding: 0 4px;
+  padding: 0 var(--space-3xs);
   border-bottom: 1px solid var(--accent);
   background: var(--background-darker);
   user-select: text;
@@ -22,8 +22,8 @@
 
 .WebviewControls__icon {
   border: none;
-  margin: 2px;
-  padding: 2px;
+  margin: var(--space-3xs);
+  padding: var(--space-3xs);
   background: none;
   color: inherit;
   transition: 250ms color;

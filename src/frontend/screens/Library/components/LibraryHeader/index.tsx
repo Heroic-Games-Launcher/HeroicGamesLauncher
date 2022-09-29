@@ -37,7 +37,7 @@ export default function LibraryHeader({
         : 0
 
     const total = list.length - dlcCount
-    return total > 0 ? `(${total})` : null
+    return total > 0 ? `${total}` : null
   }, [list, category])
 
   function handleSortDescending() {

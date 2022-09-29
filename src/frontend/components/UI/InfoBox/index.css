@@ -1,7 +1,7 @@
 .infoBox {
   cursor: default;
   width: 100%;
-  padding: 12px 22px 12px 22px;
+  padding: var(--space-sm) var(--space-lg);
   font-size: var(--text-md);
   line-height: 19px;
   background-color: var(--input-background);
@@ -10,7 +10,7 @@
 }
 
 .helpLink {
-  margin-block-start: 4px;
+  margin-block-start: var(--space-3xs);
   transition: 500ms;
   color: var(--accent);
   cursor: pointer;
@@ -27,7 +27,7 @@
 }
 
 .helpLink > svg {
-  margin-inline-end: 4px;
+  margin-inline-end: var(--space-3xs);
 }
 
 .infoBox > ul {

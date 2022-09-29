@@ -5,7 +5,8 @@
 }
 
 .Sidebar__item.SidebarLinks__subItem {
-  padding: 4px var(--sidebar-horizontal-padding) 4px 50px;
+  padding: var(--space-3xs) var(--sidebar-horizontal-padding) var(--space-3xs)
+    var(--space-xl);
   font-size: var(--text-sm);
   line-height: 20px;
   white-space: break-spaces;
@@ -21,6 +22,7 @@
 
 @media screen and (max-width: 730px) {
   .Sidebar__item.SidebarLinks__subItem {
-    padding: 4px var(--sidebar-horizontal-padding) 4px 20px;
+    padding: var(--space-3xs) var(--sidebar-horizontal-padding) var(--space-3xs)
+      var(--space-lg);
   }
 }

@@ -3,11 +3,12 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
   grid-gap: 1.5rem;
-  padding: 1rem 1rem 7rem;
+  padding: 0 var(--space-md-fixed);
+  margin: var(--space-md) 0;
 }
 
 .gameList.firstLane {
-  padding: 1rem 1rem 2rem;
+  padding: 0 var(--space-md-fixed) var(--space-md-fixed);
 }
 
 .gameListLayout {
@@ -22,12 +23,12 @@
   display: grid;
   grid-template-columns: 3fr 2fr 1fr 10%;
   justify-items: baseline;
-  margin: 0 2rem;
+  margin: 0 var(--space-xl-fixed);
   border-bottom: 1px solid gray;
   color: var(--text-default);
   font-weight: 700;
   padding-bottom: 0.5rem;
-  font-size: 1.1rem;
+  font-size: var(--text-lg);
 }
 
 .gameListHeader span:last-child {
@@ -36,14 +37,14 @@
 
 .libraryHeader {
   text-align: left;
-  padding: 0 1rem;
-  margin: 12px 0;
+  padding: 0 var(--space-md-fixed);
+  margin: var(--space-sm) 0;
 }
 
 .libraryHeaderWrapper {
   display: grid;
   align-items: center;
-  margin: -4px 0;
+  margin: calc(-1 * var(--space-3xs)) 0;
   grid-template-columns: clamp(230px, 8vw, 250px) min-content;
   justify-content: space-between;
   grid-template-areas: 'title action';
@@ -56,7 +57,7 @@
   position: fixed;
   bottom: 3%;
   right: 0;
-  margin: 1em 3em;
+  margin: var(--space-md) var(--space-xl);
   border: 1px var(--download-button) solid;
   background-color: var(--background);
   color: var(--download-button);
@@ -78,10 +79,4 @@
 .listing {
   overflow-y: auto;
   flex: 100% 1 1;
-}
-
-.numberOfgames {
-  margin-left: 4px;
-  font-size: 1rem;
-  font-weight: 400;
 }

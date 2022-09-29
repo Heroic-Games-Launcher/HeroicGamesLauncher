@@ -4,6 +4,7 @@
 }
 
 .selectFieldWrapper select {
+  border-radius: 100000px;
   grid-area: select;
   width: 100%;
   height: 40px;

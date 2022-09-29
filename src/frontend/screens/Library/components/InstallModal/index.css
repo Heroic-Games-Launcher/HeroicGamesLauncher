@@ -18,7 +18,7 @@
   display: inline-grid;
   grid-gap: 24px;
   grid-auto-flow: column;
-  margin: 8px 0;
+  margin: var(--space-xs) 0;
 }
 
 .InstallModal__size {
@@ -30,7 +30,7 @@
   grid-area: icon;
   align-self: center;
   height: 28px;
-  margin-right: 16px;
+  margin-right: var(--space-md);
   color: var(--text-secondary);
 }
 
@@ -46,36 +46,37 @@
 }
 
 .InstallModal__sectionHeader {
-  margin: 16px 0;
+  margin: var(--space-md) 0;
   color: var(--text-secondary);
 }
 
 .InstallModal__toggle {
   display: flex;
   align-items: center;
-  margin: 16px 0;
+  margin: var(--space-md) 0;
   cursor: pointer;
 }
 
 .InstallModal__toggle .switch {
-  margin: 0 8px 0 13px;
+  margin: 0 var(--space-xs) 0 var(--space-sm);
   transform: scale(1.5) translateX(33%);
 }
 
 .InstallModal__dlcs,
 .InstallModal__sdls {
-  margin: 0 16px;
+  margin: 0 var(--space-md);
 }
 
 .InstallModal__dlcsList {
   max-width: 300px;
-  margin: 16px calc(16px + 8px + 13px);
+  margin: var(--space-md)
+    calc(var(--space-md) + var(--space-xs) + var(--space-sm));
   color: var(--text-default);
 }
 
 .diskSpaceInfo {
   font-size: var(--text-sm);
   align-self: flex-start;
-  padding: 4px 0 4px 8px;
+  padding: var(--space-3xs) 0 var(--space-3xs) var(--space-xs);
   color: var(--text-secondary);
 }

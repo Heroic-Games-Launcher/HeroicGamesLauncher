@@ -32,7 +32,7 @@
   display: grid;
   border: var(--background) solid 1px;
   color: var(--text-default);
-  padding: 12px 20px;
+  padding: var(--space-sm) var(--space-md);
   grid-area: runexe;
   margin-top: 30px;
   text-decoration: none;

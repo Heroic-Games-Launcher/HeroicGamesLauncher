@@ -1,8 +1,8 @@
 .currentDownload {
   font-size: var(--text-sm);
-  padding: 16px 0;
+  padding: var(--space-md) 0;
   transition: 300ms;
-  margin-top: 12px;
+  margin-top: var(--space-sm);
 }
 
 .currentDownload > .gameTitle {
@@ -22,7 +22,7 @@
   font-style: italic;
   font-weight: normal;
   font-size: var(--text-sm);
-  line-height: 12px;
+  line-height: var(--text-sm);
 }
 
 .currentDownload .MuiLinearProgress-bar1Determinate {

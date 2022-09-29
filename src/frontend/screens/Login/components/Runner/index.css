@@ -1,6 +1,6 @@
 .runnerWrapper {
   background-color: var(--background-darker);
-  padding: 20px;
+  padding: var(--space-lg);
   border-radius: 15px;
   min-width: min(500px, 30%);
   display: flex;
@@ -15,7 +15,7 @@
 }
 
 .runnerLogin {
-  padding: 10px;
+  padding: var(--space-sm);
   font-size: var(--text-xl);
   border: none;
   transition: 0.2s;
@@ -43,7 +43,7 @@
 .runnerWrapper img,
 .runnerWrapper svg {
   width: 100px;
-  margin: 20px;
+  margin: var(--space-lg);
   fill: #fff;
   height: 100%;
 }
@@ -53,7 +53,7 @@
   /* For longer nicknames */
   overflow: hidden;
   font-size: var(--text-lg);
-  margin: 10px 0;
+  margin: var(--space-sm) 0;
 }
 
 .runnerWrapper.epic {

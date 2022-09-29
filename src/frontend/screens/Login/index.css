@@ -46,7 +46,7 @@
   background-color: var(--background-darker);
   border: none;
   font-size: var(--text-xl);
-  padding: 15px;
+  padding: var(--space-md);
   border-radius: 10px;
   cursor: pointer;
   transition: 0.2s;

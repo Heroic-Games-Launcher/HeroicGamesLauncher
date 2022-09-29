@@ -4,7 +4,7 @@
 }
 
 .submenu {
-  font-size: 25px;
+  font-size: var(--text-xl);
   width: -webkit-fill-available;
   height: fit-content;
   display: flex;
@@ -28,7 +28,7 @@
   font-family: var(--secondary-font-family);
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: var(--text-md);
   line-height: 19px;
   color: var(--text-hover);
 }

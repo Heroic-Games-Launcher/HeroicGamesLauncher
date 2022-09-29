@@ -25,8 +25,8 @@
   border-radius: 2px;
   grid-area: check;
   color: var(--background);
-  font-size: 1.5rem;
-  line-height: 1.2rem;
+  font-size: var(--text-xl);
+  line-height: var(--space-lg-fixed);
   font-weight: 900;
   font-family: Arial, Helvetica, sans-serif;
 }
