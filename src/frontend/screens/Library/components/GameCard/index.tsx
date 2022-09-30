@@ -6,20 +6,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
-import { FavouriteGame, GameStatus, HiddenGame, Runner } from 'common/types'
+import { FavouriteGame, HiddenGame, Runner } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg'
-import { getProgress, install, launch, sendKill } from 'frontend/helpers'
+import { install, launch, sendKill } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import fallbackImage from 'frontend/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
-import { hasProgress } from 'frontend/hooks/hasProgress'
+import { hasGameStatus } from 'frontend/hooks/hasGameStatus'
 
 import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
@@ -57,15 +57,13 @@ const GameCard = ({
   runner,
   installedPlatform
 }: Card) => {
-  const [progress, previousProgress] = hasProgress(appName)
+  const [gameStatus, previousGameStatus] = hasGameStatus(appName)
 
   const { t } = useTranslation('gamepage')
 
   const navigate = useNavigate()
   const {
-    libraryStatus,
     layout,
-    handleGameStatus,
     platform,
     hiddenGames,
     favouriteGames,
@@ -78,36 +76,24 @@ const GameCard = ({
 
   const grid = forceCard || layout === 'grid'
 
-  const gameStatus: GameStatus = libraryStatus.filter(
-    (game: GameStatus) => game.appName === appName
-  )[0]
-
-  const hasDownloads = Boolean(
-    libraryStatus.filter(
-      (game: GameStatus) =>
-        game.status === 'installing' || game.status === 'updating'
-    ).length
-  )
-
-  const { status, folder } = gameStatus || {}
-  const isInstalling = status === 'installing' || status === 'updating'
-  const isUpdating = status === 'updating'
-  const isReparing = status === 'repairing'
-  const isMoving = status === 'moving'
-  const isPlaying = status === 'playing'
+  const isInstalling =
+    gameStatus.status === 'installing' || status === 'updating'
+  const isUpdating = gameStatus.status === 'updating'
+  const isReparing = gameStatus.status === 'repairing'
+  const isMoving = gameStatus.status === 'moving'
+  const isPlaying = gameStatus.status === 'playing'
   const haveStatus = isMoving || isReparing || isInstalling || isUpdating
+  const hasDownloads = isInstalling || isUpdating
 
-  const { percent = '' } = progress
-  const installingGrayscale = isInstalling
-    ? `${125 - getProgress(progress)}%`
-    : '100%'
+  const percent = gameStatus.progress?.percent ?? 0
+  const installingGrayscale = isInstalling ? `${125 - percent}%` : '100%'
 
   const imageSrc = getImageFormatting()
 
   async function handleUpdate() {
-    await handleGameStatus({ appName, runner, status: 'updating' })
+    await window.api.setGameStatus({ appName, runner, status: 'updating' })
     await updateGame(appName, runner)
-    return handleGameStatus({ appName, runner, status: 'done' })
+    return window.api.deleteGameStatus(appName)
   }
 
   function getImageFormatting() {
@@ -251,7 +237,6 @@ const GameCard = ({
       onclick: async () =>
         uninstall({
           appName,
-          handleGameStatus,
           t,
           runner
         }),
@@ -415,11 +400,10 @@ const GameCard = ({
     if (!isInstalled) {
       return install({
         appName,
-        handleGameStatus,
-        installPath: folder || 'default',
+        installPath: gameStatus.folder || 'default',
         isInstalling,
-        previousProgress,
-        progress,
+        previousProgress: previousGameStatus.progress!,
+        progress: gameStatus.progress!,
         t,
         runner
       })

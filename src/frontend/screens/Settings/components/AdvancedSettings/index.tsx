@@ -14,13 +14,14 @@ import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 import React, { useContext, useEffect, useState } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { AppSettings, GameStatus } from 'common/types'
+import { AppSettings } from 'common/types'
 import { Path } from 'frontend/types'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { configStore } from 'frontend/helpers/electronStores'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { hasGameStatus } from 'frontend/hooks/hasGameStatus'
 
 interface Props {
   altLegendaryBin: string
@@ -55,9 +56,9 @@ export const AdvancedSettings = ({
   const [eosOverlayEnabledGlobally, setEosOverlayEnabledGlobally] =
     useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
+  const [eosStatus] = hasGameStatus(eosOverlayAppName)
 
-  const { libraryStatus, handleGameStatus, platform, refreshLibrary } =
-    useContext(ContextProvider)
+  const { platform, refreshLibrary } = useContext(ContextProvider)
   const { t } = useTranslation()
   const isWindows = platform === 'win32'
 
@@ -136,12 +137,8 @@ export const AdvancedSettings = ({
   }, [eosOverlayLatestVersion])
 
   useEffect(() => {
-    const { status } =
-      libraryStatus.filter(
-        (game: GameStatus) => game.appName === eosOverlayAppName
-      )[0] || {}
     setEosOverlayInstallingOrUpdating(
-      status === 'installing' || status === 'updating'
+      eosStatus.status === 'installing' || eosStatus.status === 'updating'
     )
   }, [eosOverlayInstallingOrUpdating])
 
@@ -202,18 +199,14 @@ export const AdvancedSettings = ({
   }
 
   async function installEosOverlay() {
-    await handleGameStatus({
+    await window.api.setGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',
       status: 'installing'
     })
     setEosOverlayInstallingOrUpdating(true)
     const installError = await window.api.installEosOverlay()
-    await handleGameStatus({
-      appName: eosOverlayAppName,
-      runner: 'legendary',
-      status: 'done'
-    })
+    await window.api.deleteGameStatus(eosOverlayAppName)
     setEosOverlayInstallingOrUpdating(false)
     setEosOverlayInstalled(!installError)
     // `eos-overlay install` enables the overlay by default on Windows
@@ -228,18 +221,14 @@ export const AdvancedSettings = ({
   }
 
   async function updateEosOverlay() {
-    await handleGameStatus({
+    await window.api.setGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',
       status: 'updating'
     })
     setEosOverlayInstallingOrUpdating(true)
     await window.api.installEosOverlay()
-    await handleGameStatus({
-      appName: eosOverlayAppName,
-      runner: 'legendary',
-      status: 'done'
-    })
+    await window.api.deleteGameStatus(eosOverlayAppName)
     setEosOverlayInstallingOrUpdating(false)
     const { version: newVersion } = await window.api.getEosOverlayStatus()
     setEosOverlayVersion(newVersion)
@@ -247,7 +236,7 @@ export const AdvancedSettings = ({
 
   async function cancelEosOverlayInstallOrUpdate() {
     await window.api.cancelEosOverlayInstallOrUpdate()
-    await handleGameStatus({
+    await window.api.setGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',
       status: 'canceled'
@@ -276,7 +265,7 @@ export const AdvancedSettings = ({
   async function clearHeroicCache() {
     const storage: Storage = window.localStorage
     storage.removeItem('updates')
-    return window.api.clearCache()
+    await window.api.clearCache()
     return refreshLibrary({ fullRefresh: true, runInBackground: true })
   }
 

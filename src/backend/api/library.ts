@@ -30,13 +30,6 @@ export const importGame = async (args: ImportGameArgs) =>
   ipcRenderer.invoke('importGame', args)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleSetGameStatus = (callback: any) => {
-  ipcRenderer.on('setGameStatus', callback)
-  return () => {
-    ipcRenderer.removeListener('setGameStatus', callback)
-  }
-}
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const handleLaunchGame = (callback: any) =>
   ipcRenderer.on('launchGame', callback)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

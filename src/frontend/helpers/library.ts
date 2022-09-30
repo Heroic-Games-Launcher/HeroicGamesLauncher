@@ -2,7 +2,6 @@ import {
   InstallPlatform,
   AppSettings,
   GameInfo,
-  GameStatus,
   InstallProgress,
   Runner
 } from 'common/types'
@@ -11,11 +10,8 @@ import { TFunction } from 'react-i18next'
 import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
 import { configStore } from './electronStores'
 
-const storage: Storage = window.localStorage
-
 type InstallArgs = {
   appName: string
-  handleGameStatus: (game: GameStatus) => Promise<void>
   installPath: string
   isInstalling: boolean
   previousProgress: InstallProgress | null
@@ -33,9 +29,7 @@ async function install({
   appName,
   installPath,
   t,
-  progress,
   isInstalling,
-  handleGameStatus,
   previousProgress,
   setInstallPath,
   sdlList = [],
@@ -57,13 +51,12 @@ async function install({
       appName,
       [installPath, folder_name],
       t,
-      progress,
       runner
     )
   }
 
   if (is_installed) {
-    return uninstall({ appName, handleGameStatus, t, runner })
+    return uninstall({ appName, t, runner })
   }
 
   if (installPath === 'import') {
@@ -98,14 +91,16 @@ async function install({
     setInstallPath && setInstallPath(installPath)
     // If the user changed the previous folder, the percentage should start from zero again.
     if (previousProgress && previousProgress.folder !== installPath) {
-      storage.removeItem(appName)
+      window.api.deleteGameStatus(appName)
     }
-    handleGameStatus({
+
+    window.api.setGameStatus({
       folder: installPath,
       appName,
       runner,
       status: 'installing'
     })
+
     return window.api
       .install({
         appName,
@@ -117,9 +112,8 @@ async function install({
         platformToInstall
       })
       .finally(() => {
-        if (progress.percent === 100) {
-          storage.removeItem(appName)
-        }
+        // maybe let this be handled in the backend
+        // window.api.deleteGameStatus(appName)
         return
       })
   }
@@ -132,7 +126,7 @@ async function install({
     path = defaultInstallPath
   }
   if (previousProgress && previousProgress.folder !== path) {
-    storage.removeItem(appName)
+    window.api.deleteGameStatus(appName)
   }
 
   return window.api
@@ -145,9 +139,8 @@ async function install({
       platformToInstall
     })
     .finally(() => {
-      if (progress.percent === 100) {
-        storage.removeItem(appName)
-      }
+      // maybe let this be handled in the backend
+      // window.api.deleteGameStatus(appName)
       return
     })
 }
@@ -156,17 +149,11 @@ const importGame = window.api.importGame
 
 type UninstallArgs = {
   appName: string
-  handleGameStatus: (game: GameStatus) => Promise<void>
   t: TFunction<'gamepage'>
   runner: Runner
 }
 
-async function uninstall({
-  appName,
-  handleGameStatus,
-  t,
-  runner
-}: UninstallArgs) {
+async function uninstall({ appName, t, runner }: UninstallArgs) {
   const args = {
     buttons: [t('box.yes'), t('box.no')],
     message: t('gamepage:box.uninstall.message'),
@@ -201,10 +188,9 @@ async function uninstall({
   })
 
   if (response === 0) {
-    await handleGameStatus({ appName, runner, status: 'uninstalling' })
+    await window.api.setGameStatus({ appName, runner, status: 'uninstalling' })
     await window.api.uninstall([appName, checkboxChecked, runner])
-    storage.removeItem(appName)
-    return handleGameStatus({ appName, runner, status: 'done' })
+    return window.api.deleteGameStatus(appName)
   }
   return
 }
@@ -213,7 +199,6 @@ async function handleStopInstallation(
   appName: string,
   [path, folderName]: string[],
   t: TFunction<'gamepage'>,
-  progress: InstallProgress,
   runner: Runner
 ) {
   const args = {
@@ -230,11 +215,10 @@ async function handleStopInstallation(
   const { response } = await window.api.openMessageBox(args)
 
   if (response === 1) {
-    storage.setItem(appName, JSON.stringify({ ...progress, folder: path }))
     return sendKill(appName, runner)
   } else if (response === 2) {
     await sendKill(appName, runner)
-    storage.removeItem(appName)
+    window.api.deleteGameStatus(appName)
     return window.api.removeFolder([path, folderName])
   }
 }

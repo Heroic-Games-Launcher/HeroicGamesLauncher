@@ -40,6 +40,7 @@ import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { t } from 'i18next'
 import { showErrorBoxModalAuto } from '../dialog/dialog'
+import { setGameStatusOfElement } from '../handler/gamestatus/gamestatushandler'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -300,7 +301,7 @@ class LegendaryGame extends Game {
       { prefix: LogPrefix.Legendary }
     )
 
-    this.window.webContents.send('setGameStatus', {
+    setGameStatusOfElement({
       appName: this.appName,
       runner: 'legendary',
       status: action,
@@ -317,7 +318,7 @@ class LegendaryGame extends Game {
    * Does NOT check for online connectivity.
    */
   public async update(): Promise<{ status: 'done' | 'error' }> {
-    this.window.webContents.send('setGameStatus', {
+    setGameStatusOfElement({
       appName: this.appName,
       runner: 'legendary',
       status: 'updating'
@@ -334,7 +335,7 @@ class LegendaryGame extends Game {
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
-        'installing',
+        'updating',
         info.manifest.download_size,
         data
       )
@@ -346,7 +347,7 @@ class LegendaryGame extends Game {
       logMessagePrefix: `Updating ${this.appName}`
     })
 
-    this.window.webContents.send('setGameStatus', {
+    setGameStatusOfElement({
       appName: this.appName,
       runner: 'legendary',
       status: 'done'
@@ -427,7 +428,7 @@ class LegendaryGame extends Game {
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
-        'updating',
+        'installing',
         info.manifest.download_size,
         data
       )

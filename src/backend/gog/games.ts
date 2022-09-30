@@ -50,6 +50,7 @@ import {
 } from 'common/types/gog'
 import { t } from 'i18next'
 import { showErrorBoxModalAuto } from '../dialog/dialog'
+import { deleteGameStatus, setGameStatus } from '../api/handler'
 
 class GOGGame extends Game {
   public appName: string
@@ -159,7 +160,7 @@ class GOGGame extends Game {
     const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
     const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
     if (bytesMatch && progressMatch) {
-      const eta = etaMatch ? etaMatch[1] : null
+      const eta = etaMatch ? etaMatch[1] : '00:00:00'
       const bytes = bytesMatch[1]
       let percent = parseFloat(progressMatch[1])
       if (percent < 0) percent = 0
@@ -172,7 +173,7 @@ class GOGGame extends Game {
         { prefix: LogPrefix.Gog }
       )
 
-      this.window.webContents.send('setGameStatus', {
+      setGameStatus({
         appName: this.appName,
         runner: 'gog',
         status: action,
@@ -675,11 +676,7 @@ class GOGGame extends Game {
     })
 
     // This always has to be done, so we do it before checking for res.error
-    this.window.webContents.send('setGameStatus', {
-      appName: this.appName,
-      runner: 'gog',
-      status: 'done'
-    })
+    deleteGameStatus(this.appName)
 
     if (res.error) {
       logError(['Failed to update', `${this.appName}:`, res.error], {

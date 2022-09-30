@@ -7,7 +7,6 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import {
   getGameInfo,
   getInstallInfo,
-  getProgress,
   launch,
   sendKill,
   size,
@@ -19,7 +18,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
-import { AppSettings, GameInfo, GameStatus } from 'common/types'
+import { AppSettings, GameInfo } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
 
@@ -34,7 +33,7 @@ import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { hasProgress } from 'frontend/hooks/hasProgress'
+import { hasGameStatus } from 'frontend/hooks/hasGameStatus'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
 
@@ -48,14 +47,9 @@ export default function GamePage(): JSX.Element | null {
   const [tabToShow, setTabToShow] = useState('infoTab')
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const { libraryStatus, handleGameStatus, epic, gog, gameUpdates, platform } =
-    useContext(ContextProvider)
-  const gameStatus: GameStatus = libraryStatus.filter(
-    (game) => game.appName === appName
-  )[0]
+  const { epic, gog, gameUpdates, platform } = useContext(ContextProvider)
 
-  const { status } = gameStatus || {}
-  const [progress, previousProgress] = hasProgress(appName)
+  const [gameStatus, previousGameStatus] = hasGameStatus(appName)
   // @ts-expect-error TODO: Proper default value
   const [gameInfo, setGameInfo] = useState<GameInfo>({})
   const [updateRequested, setUpdateRequested] = useState(false)
@@ -77,16 +71,12 @@ export default function GamePage(): JSX.Element | null {
   const isLinux = platform === 'linux'
   const isMac = platform === 'darwin'
 
-  const isInstalling = status === 'installing'
-  const isPlaying = status === 'playing'
-  const isUpdating = status === 'updating'
-  const isReparing = status === 'repairing'
-  const isMoving = status === 'moving'
-  const hasDownloads = Boolean(
-    libraryStatus.filter(
-      (game) => game.status === 'installing' || game.status === 'updating'
-    ).length
-  )
+  const isInstalling = gameStatus.status === 'installing'
+  const isPlaying = gameStatus.status === 'playing'
+  const isUpdating = gameStatus.status === 'updating'
+  const isReparing = gameStatus.status === 'repairing'
+  const isMoving = gameStatus.status === 'moving'
+  const hasDownloads = isInstalling || isUpdating
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -139,13 +129,13 @@ export default function GamePage(): JSX.Element | null {
 
   async function handleUpdate() {
     setUpdateRequested(true)
-    await handleGameStatus({
+    await window.api.setGameStatus({
       appName,
       runner: gameInfo.runner,
       status: 'updating'
     })
     await updateGame(appName, gameInfo.runner)
-    await handleGameStatus({ appName, runner: gameInfo.runner, status: 'done' })
+    await window.api.deleteGameStatus(appName)
     setUpdateRequested(false)
   }
 
@@ -335,7 +325,7 @@ export default function GamePage(): JSX.Element | null {
                           <progress
                             className="installProgress"
                             max={100}
-                            value={getProgress(progress)}
+                            value={gameStatus.progress?.percent ?? 0}
                           />
                         ))}
                       <p
@@ -474,7 +464,7 @@ export default function GamePage(): JSX.Element | null {
   }
 
   function getInstallLabel(is_installed: boolean): React.ReactNode {
-    const { eta, bytes, percent } = progress
+    const { eta, bytes, percent } = gameStatus.progress || {}
 
     if (isReparing) {
       return `${t('status.reparing')} ${percent ? `${percent}%` : '...'}`
@@ -485,7 +475,11 @@ export default function GamePage(): JSX.Element | null {
     }
 
     const currentProgress =
-      getProgress(progress) >= 99
+      gameStatus.progress &&
+      gameStatus.progress?.percent >= 99 &&
+      eta &&
+      bytes &&
+      percent
         ? ''
         : `${
             percent && bytes
@@ -587,21 +581,16 @@ export default function GamePage(): JSX.Element | null {
       return handleModal()
     }
 
-    const gameStatus: GameStatus = libraryStatus.filter(
-      (game: GameStatus) => game.appName === appName
-    )[0]
-    const { folder } = gameStatus
-    if (!folder) {
+    if (!gameStatus.folder) {
       return
     }
 
     return install({
       appName,
-      handleGameStatus,
-      installPath: folder,
+      installPath: gameStatus.folder,
       isInstalling,
-      previousProgress,
-      progress,
+      previousProgress: previousGameStatus.progress!,
+      progress: gameStatus.progress!,
       t,
       runner: gameInfo.runner
     })

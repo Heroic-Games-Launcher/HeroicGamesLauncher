@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings, GameStatus, Runner } from 'common/types'
+import { AppSettings, Runner } from 'common/types'
 
 import { SmallInfo } from 'frontend/components/UI'
 import { createNewWindow, getGameInfo, repair } from 'frontend/helpers'
@@ -12,6 +12,7 @@ import { uninstall } from 'frontend/helpers/library'
 import { NavLink } from 'react-router-dom'
 
 import { CircularProgress } from '@mui/material'
+import { hasGameStatus } from 'frontend/hooks/hasGameStatus'
 
 interface Props {
   appName: string
@@ -93,8 +94,7 @@ export default function GamesSubmenu({
   disableUpdate,
   steamImageUrl
 }: Props) {
-  const { handleGameStatus, refresh, platform, libraryStatus } =
-    useContext(ContextProvider)
+  const { refresh, platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
@@ -111,6 +111,7 @@ export default function GamesSubmenu({
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const { t } = useTranslation('gamepage')
+  const [gameStatus] = hasGameStatus(eosOverlayAppName)
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
@@ -130,9 +131,9 @@ export default function GamesSubmenu({
         defaultPath: defaultInstallPath
       })
       if (path) {
-        await handleGameStatus({ appName, runner, status: 'moving' })
+        await window.api.setGameStatus({ appName, runner, status: 'moving' })
         await window.api.moveInstall([appName, path, runner])
-        await handleGameStatus({ appName, runner, status: 'done' })
+        await window.api.deleteGameStatus(appName)
       }
     }
   }
@@ -169,9 +170,9 @@ export default function GamesSubmenu({
     })
 
     if (response === 0) {
-      await handleGameStatus({ appName, runner, status: 'repairing' })
+      await window.api.setGameStatus({ appName, runner, status: 'repairing' })
       await repair(appName, runner)
-      await handleGameStatus({ appName, runner, status: 'done' })
+      await window.api.deleteGameStatus(appName)
     }
   }
 
@@ -196,18 +197,14 @@ export default function GamesSubmenu({
       let { wasEnabled } = initialEnableResult
 
       if (installNow) {
-        await handleGameStatus({
+        await window.api.setGameStatus({
           appName: eosOverlayAppName,
           runner: 'legendary',
           status: 'installing'
         })
 
         await window.api.installEosOverlay()
-        await handleGameStatus({
-          appName: eosOverlayAppName,
-          runner: 'legendary',
-          status: 'done'
-        })
+        await window.api.deleteGameStatus(eosOverlayAppName)
 
         wasEnabled = (await window.api.enableEosOverlay(appName)).wasEnabled
       }
@@ -277,11 +274,7 @@ export default function GamesSubmenu({
       getGameDetails()
 
       // check if eos overlay is enabled
-      const { status } =
-        libraryStatus.filter(
-          (game: GameStatus) => game.appName === eosOverlayAppName
-        )[0] || {}
-      setEosOverlayRefresh(status === 'installing')
+      setEosOverlayRefresh(gameStatus.status === 'installing')
 
       window.api
         .isEosOverlayEnabled(appName)
@@ -321,9 +314,7 @@ export default function GamesSubmenu({
               </button>
             )}
             <button
-              onClick={async () =>
-                uninstall({ appName, t, handleGameStatus, runner })
-              }
+              onClick={async () => uninstall({ appName, t, runner })}
               className="link button is-text is-link"
             >
               {t('button.uninstall')}

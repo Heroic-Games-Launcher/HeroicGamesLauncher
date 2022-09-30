@@ -928,7 +928,6 @@ let powerDisplayId: number | null
 ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }: LaunchParams) => {
-    const window = BrowserWindow.getAllWindows()[0]
     const recentGames =
       (configStore.get('games.recent') as Array<RecentGame>) || []
     const game = getGame(appName, runner)
@@ -966,7 +965,7 @@ ipcMain.handle(
       configStore.set('games.recent', [{ appName: game.appName, title }])
     }
 
-    window.webContents.send('setGameStatus', {
+    setGameStatusOfElement({
       appName,
       runner,
       status: 'playing'
@@ -1030,11 +1029,7 @@ ipcMain.handle(
         }
         tsStore.set(`${game.appName}.totalPlayed`, Math.floor(totalPlaytime))
 
-        window.webContents.send('setGameStatus', {
-          appName,
-          runner,
-          status: 'done'
-        })
+        deleteGameStatus(appName)
 
         // Exit if we've been launched without UI
         if (isCLINoGui) {
@@ -1107,7 +1102,7 @@ ipcMain.handle('install', async (event, params) => {
     return { status: 'error' }
   }
 
-  mainWindow.webContents.send('setGameStatus', {
+  setGameStatusOfElement({
     appName,
     runner,
     status: 'installing',
@@ -1135,7 +1130,7 @@ ipcMain.handle('install', async (event, params) => {
             : i18next.t('notify.install.canceled')
       })
       logInfo('finished installing', { prefix: LogPrefix.Backend })
-      mainWindow.webContents.send('setGameStatus', {
+      setGameStatusOfElement({
         appName,
         runner,
         status: 'done'
@@ -1144,7 +1139,7 @@ ipcMain.handle('install', async (event, params) => {
     })
     .catch((res) => {
       notify({ title, body: i18next.t('notify.install.canceled') })
-      mainWindow.webContents.send('setGameStatus', {
+      setGameStatusOfElement({
         appName,
         runner,
         status: 'done'
@@ -1238,7 +1233,7 @@ ipcMain.handle(
     }
     const game = getGame(appName, runner)
     const { title } = game.getGameInfo()
-    mainWindow.webContents.send('setGameStatus', {
+    setGameStatusOfElement({
       appName,
       runner,
       status: 'installing'
@@ -1247,11 +1242,7 @@ ipcMain.handle(
       await game.import(path)
     } catch (error) {
       notify({ title, body: i18next.t('notify.install.canceled') })
-      mainWindow.webContents.send('setGameStatus', {
-        appName,
-        runner,
-        status: 'done'
-      })
+      deleteGameStatus(appName)
       logError(error, { prefix: LogPrefix.Backend })
       return { status: 'error' }
     }
@@ -1260,11 +1251,7 @@ ipcMain.handle(
       title,
       body: i18next.t('notify.install.imported', 'Game Imported')
     })
-    mainWindow.webContents.send('setGameStatus', {
-      appName,
-      runner,
-      status: 'done'
-    })
+    deleteGameStatus(appName)
     logInfo(`imported ${title}`, { prefix: LogPrefix.Backend })
     return { status: 'done' }
   }
@@ -1577,6 +1564,9 @@ import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './dialog/ipc_handler'
+import './handler/gamestatus/ipc_handler'
+import { setGameStatusOfElement } from './handler/gamestatus/gamestatushandler'
+import { deleteGameStatus } from './api/handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

@@ -788,6 +788,10 @@ type NotifyType = {
   body: string
 }
 
+function getMainWindow(): BrowserWindow {
+  return BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows[0]
+}
+
 export {
   errorHandler,
   execAsync,
@@ -813,5 +817,6 @@ export {
   removeQuoteIfNecessary,
   killPattern,
   detectVCRedist,
-  getGame
+  getGame,
+  getMainWindow
 }

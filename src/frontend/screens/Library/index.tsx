@@ -38,7 +38,6 @@ const storage = window.localStorage
 export default function Library(): JSX.Element {
   const {
     layout,
-    libraryStatus,
     refreshing,
     refreshingInTheBackground,
     category,
@@ -101,12 +100,28 @@ export default function Library(): JSX.Element {
   const [installing, setInstalling] = useState<string[]>([])
 
   useEffect(() => {
-    const newInstalling = libraryStatus
-      .filter((st: GameStatus) => st.status === 'installing')
-      .map((st: GameStatus) => st.appName)
+    const onGameStatusChange = (gameStatusList: GameStatus[]) => {
+      const newInstalling = gameStatusList
+        .filter((st: GameStatus) => st.status === 'installing')
+        .map((st: GameStatus) => st.appName)
+      setInstalling(newInstalling)
+    }
 
-    setInstalling(newInstalling)
-  }, [libraryStatus])
+    window.api.getAllGameStatus().then(onGameStatusChange)
+
+    const onChange = (
+      e: Electron.IpcRendererEvent,
+      gameStatusList: GameStatus[]
+    ) => {
+      onGameStatusChange(gameStatusList)
+    }
+
+    const removehandleAllGameStatusListener =
+      window.api.handleAllGameStatus(onChange)
+
+    //useEffect unmount
+    return removehandleAllGameStatusListener
+  }, [])
 
   useEffect(() => {
     // This code avoids getting stuck on a empty library after logout of the current selected store

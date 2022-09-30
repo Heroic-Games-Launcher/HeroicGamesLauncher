@@ -25,15 +25,15 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
     loadRecentGames()
   }, [epic.library, gog.library])
 
-  const onGameStatusUpdates = async (_e: Event, { status }: GameStatus) => {
-    if (status === 'playing') {
+  const onGameStatusUpdates = async (_e: Event, gameStatus: GameStatus) => {
+    if (gameStatus.status === 'playing') {
       loadRecentGames()
     }
   }
 
   useEffect(() => {
     const setGameStatusRemoveListener =
-      window.api.handleSetGameStatus(onGameStatusUpdates)
+      window.api.handleGameStatus(onGameStatusUpdates)
 
     return () => {
       setGameStatusRemoveListener()

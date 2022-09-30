@@ -1,5 +1,5 @@
 import { VersionInfo } from 'heroic-wine-downloader'
-import { GameInfo, GameStatus, Runner } from 'common/types'
+import { GameInfo, Runner } from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog'
 
@@ -15,11 +15,9 @@ export interface ContextType {
   setLanguage: (newLanguage: string) => void
   handleCategory: (value: Category) => void
   handlePlatformFilter: (value: string) => void
-  handleGameStatus: (game: GameStatus) => Promise<void>
   handleLayout: (value: string) => void
   handleSearch: (input: string) => void
   layout: string
-  libraryStatus: GameStatus[]
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
   platform: NodeJS.Platform | string

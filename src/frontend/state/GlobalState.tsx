@@ -435,62 +435,6 @@ export class GlobalState extends PureComponent<Props> {
   handleLayout = (layout: string) => this.setState({ layout })
   handleCategory = (category: Category) => this.setState({ category })
 
-  handleGameStatus = async ({
-    appName,
-    status,
-    folder,
-    progress,
-    runner
-  }: GameStatus) => {
-    const { libraryStatus, gameUpdates } = this.state
-    const currentApp = libraryStatus.filter(
-      (game) => game.appName === appName
-    )[0]
-
-    // add app to libraryStatus if it was not present
-    if (!currentApp) {
-      return this.setState({
-        libraryStatus: [
-          ...libraryStatus,
-          { appName, status, folder, progress, runner }
-        ]
-      })
-    }
-
-    // if the app's status didn't change, do nothing
-    if (currentApp.status === status) {
-      return
-    }
-
-    const newLibraryStatus = libraryStatus.filter(
-      (game) => game.appName !== appName
-    )
-
-    // if the app is done installing or errored
-    if (['error', 'done'].includes(status)) {
-      // if the app was updating, remove from the available game updates
-      if (currentApp.status === 'updating') {
-        const updatedGamesUpdates = gameUpdates.filter(
-          (game) => game !== appName
-        )
-        // This avoids calling legendary again before the previous process is killed when canceling
-        this.refreshLibrary({
-          checkForUpdates: true,
-          runInBackground: true,
-          library: runner
-        })
-
-        return this.setState({
-          gameUpdates: updatedGamesUpdates,
-          libraryStatus: newLibraryStatus
-        })
-      }
-
-      this.refreshLibrary({ runInBackground: true, library: runner })
-      this.setState({ libraryStatus: newLibraryStatus })
-    }
-  }
-
   async componentDidMount() {
     const { t } = this.props
     const { epic, gameUpdates = [], libraryStatus, category } = this.state
@@ -525,7 +469,6 @@ export class GlobalState extends PureComponent<Props> {
         if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
           return install({
             appName,
-            handleGameStatus: this.handleGameStatus,
             installPath,
             isInstalling: false,
             previousProgress: null,
@@ -541,11 +484,6 @@ export class GlobalState extends PureComponent<Props> {
         }
       }
     )
-
-    window.api.handleSetGameStatus(async (e: Event, args: GameStatus) => {
-      const { libraryStatus } = this.state
-      this.handleGameStatus({ ...libraryStatus, ...args })
-    })
 
     window.api.handleRefreshLibrary(async (e: Event, runner: Runner) => {
       this.refreshLibrary({
@@ -640,7 +578,6 @@ export class GlobalState extends PureComponent<Props> {
             logout: this.gogLogout
           },
           handleCategory: this.handleCategory,
-          handleGameStatus: this.handleGameStatus,
           handleLayout: this.handleLayout,
           handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,

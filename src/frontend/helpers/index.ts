@@ -1,7 +1,6 @@
 import {
   AppSettings,
   GameInfo,
-  InstallProgress,
   Runner,
   GameSettings,
   InstallPlatform
@@ -95,18 +94,6 @@ const getInstallInfo = async (
 }
 
 const createNewWindow = (url: string) => window.api.createNewWindow(url)
-
-function getProgress(progress: InstallProgress): number {
-  if (progress && progress.percent) {
-    const percent = progress.percent
-    // this should deal with a few edge cases
-    if (typeof percent === 'string') {
-      return Number(String(percent).replace('%', ''))
-    }
-    return percent
-  }
-  return 0
-}
 
 async function fixGogSaveFolder(
   folder: string,
@@ -271,7 +258,6 @@ export {
   getInstallInfo,
   getLegendaryConfig,
   getPlatform,
-  getProgress,
   getAppSettings,
   handleKofi,
   handleQuit,

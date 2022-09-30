@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import Box from '@mui/material/Box'
 import { getGameInfo } from 'frontend/helpers'
-import { hasProgress } from 'frontend/hooks/hasProgress'
+import { hasGameStatus } from 'frontend/hooks/hasGameStatus'
 import { Runner } from 'common/types'
 import './index.css'
 import { useTranslation } from 'react-i18next'
@@ -19,7 +19,7 @@ type Props = {
 }
 
 export default function CurrentDownload({ appName, runner }: Props) {
-  const [progress] = hasProgress(appName)
+  const [gameStatus] = hasGameStatus(appName)
   const [gameTitle, setGameTitle] = useState('')
   const { sidebarCollapsed } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -42,7 +42,7 @@ export default function CurrentDownload({ appName, runner }: Props) {
   }, [appName])
 
   function getStatus() {
-    return progress.percent > 98
+    return gameStatus.progress && gameStatus.progress.percent > 98
       ? t('status.processing', 'Processing files, please wait')
       : t('status.installing', 'Installing')
   }
@@ -53,7 +53,7 @@ export default function CurrentDownload({ appName, runner }: Props) {
         {sidebarCollapsed && (
           <span className="statusIcon" title={`${getStatus()} - ${gameTitle}`}>
             <Badge
-              badgeContent={`${Math.round(progress.percent ?? 0)}%`}
+              badgeContent={`${Math.round(gameStatus.progress?.percent ?? 0)}%`}
               color="primary"
             >
               <FontAwesomeIcon icon={faDownload} />
@@ -70,12 +70,12 @@ export default function CurrentDownload({ appName, runner }: Props) {
               <Box sx={{ width: '100%', mr: 1 }}>
                 <LinearProgress
                   variant="determinate"
-                  value={progress.percent || 0}
+                  value={gameStatus.progress?.percent || 0}
                 />
               </Box>
               <Box sx={{ minWidth: 35 }}>
                 <Typography variant="body2">{`${Math.round(
-                  progress.percent || 0
+                  gameStatus.progress?.percent || 0
                 )}%`}</Typography>
               </Box>
             </Box>

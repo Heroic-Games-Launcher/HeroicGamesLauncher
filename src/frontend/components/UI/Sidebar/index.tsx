@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -15,11 +15,33 @@ import { GameStatus } from 'common/types'
 
 export default function Sidebar() {
   const { t } = useTranslation()
-  const { libraryStatus, sidebarCollapsed, setSideBarCollapsed } =
-    useContext(ContextProvider)
-  const downloading = libraryStatus.filter(
-    (g: GameStatus) => g.status === 'installing' || g.status === 'updating'
-  )
+  const { sidebarCollapsed, setSideBarCollapsed } = useContext(ContextProvider)
+  const [downloading, setDownloading] = useState<GameStatus[]>([])
+
+  useEffect(() => {
+    const onGameStatusChange = (gameStatusList: GameStatus[]) => {
+      const newDownloading = gameStatusList.filter(
+        (st: GameStatus) =>
+          st.status === 'installing' || st.status === 'updating'
+      )
+      setDownloading(newDownloading)
+    }
+
+    window.api.getAllGameStatus().then(onGameStatusChange)
+
+    const onChange = (
+      e: Electron.IpcRendererEvent,
+      gameStatusList: GameStatus[]
+    ) => {
+      onGameStatusChange(gameStatusList)
+    }
+
+    const removehandleAllGameStatusListener =
+      window.api.handleAllGameStatus(onChange)
+
+    //useEffect unmount
+    return removehandleAllGameStatusListener
+  }, [])
 
   return (
     <aside className={classNames('Sidebar', { collapsed: sidebarCollapsed })}>
