@@ -4,7 +4,7 @@
 }
 
 .textInputFieldWrapper input[type='text'] {
-  border-radius: 100000px;
+  border-radius: var(--space-sm);
   grid-area: input;
   width: 100%;
   height: 40px;
