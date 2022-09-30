@@ -69,7 +69,6 @@ import {
   showItemInFolder,
   getLegendaryBin,
   getGOGdlBin,
-  showErrorBoxModal,
   getFileSize,
   detectVCRedist,
   getGame,
@@ -119,6 +118,7 @@ import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
+import { showErrorBoxModalAuto } from './dialog/dialog'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -494,20 +494,18 @@ ipcMain.on('frontendReady', () => {
 // Maybe this can help with white screens
 process.on('uncaughtException', async (err) => {
   logError(`${err.name}: ${err.message}`, { prefix: LogPrefix.Backend })
-  await showErrorBoxModal(
-    mainWindow,
-    i18next.t(
+  showErrorBoxModalAuto({
+    title: i18next.t(
       'box.error.uncaught-exception.title',
       'Uncaught Exception occured!'
     ),
-    i18next.t('box.error.uncaught-exception.message', {
+    error: i18next.t('box.error.uncaught-exception.message', {
       defaultValue:
-        'A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.',
+        'A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.',
       newLine: '\n',
       error: err
     })
-  )
-  app.exit(1)
+  })
 })
 
 let powerId: number | null
@@ -1076,14 +1074,6 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle(
-  'showErrorBox',
-  async (e, args: [title: string, message: string]) => {
-    const [title, content] = args
-    return showErrorBoxModal(mainWindow, title, content)
-  }
-)
-
 ipcMain.handle('install', async (event, params) => {
   const {
     appName,
@@ -1106,14 +1096,14 @@ ipcMain.handle('install', async (event, params) => {
 
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline && runner === 'legendary') {
-    showErrorBoxModal(
-      mainWindow,
-      i18next.t('box.warning.title', 'Warning'),
-      i18next.t(
+    showErrorBoxModalAuto({
+      event,
+      title: i18next.t('box.warning.title', 'Warning'),
+      error: i18next.t(
         'box.warning.epic.install',
         'Epic Servers are having major outage right now, the game cannot be installed!'
       )
-    )
+    })
     return { status: 'error' }
   }
 
@@ -1236,14 +1226,14 @@ ipcMain.handle(
     const { appName, path, runner } = args
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline && runner === 'legendary') {
-      showErrorBoxModal(
-        mainWindow,
-        i18next.t('box.warning.title', 'Warning'),
-        i18next.t(
+      showErrorBoxModalAuto({
+        event,
+        title: i18next.t('box.warning.title', 'Warning'),
+        error: i18next.t(
           'box.warning.epic.import',
           'Epic Servers are having major outage right now, the game cannot be imported!'
         )
-      )
+      })
       return { status: 'error' }
     }
     const game = getGame(appName, runner)
@@ -1280,7 +1270,7 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('updateGame', async (e, appName, runner) => {
+ipcMain.handle('updateGame', async (event, appName, runner) => {
   if (!isOnline()) {
     logWarning(`App offline, skipping install for game '${appName}'.`, {
       prefix: LogPrefix.Backend
@@ -1290,14 +1280,14 @@ ipcMain.handle('updateGame', async (e, appName, runner) => {
 
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline && runner === 'legendary') {
-    showErrorBoxModal(
-      mainWindow,
-      i18next.t('box.warning.title', 'Warning'),
-      i18next.t(
+    showErrorBoxModalAuto({
+      event,
+      title: i18next.t('box.warning.title', 'Warning'),
+      error: i18next.t(
         'box.warning.epic.update',
         'Epic Servers are having major outage right now, the game cannot be updated!'
       )
-    )
+    })
     return { status: 'error' }
   }
 
@@ -1586,6 +1576,7 @@ import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
+import './dialog/ipc_handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

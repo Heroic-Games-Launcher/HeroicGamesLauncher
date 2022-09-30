@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Greška",
             "uncaught-exception": {
-                "message": "Dogodio se neuhvaćeni izuzetak: {{newLine}}{{error}}{{newLine}}{{newLine}}Heroic će biti zatvoren! Prijavite izuzetak na našem Github spremištu.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Došlo je do neuhvaćenog izuzetka!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "van mreže"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Favoriti",
     "game": {
         "status": "Status",
