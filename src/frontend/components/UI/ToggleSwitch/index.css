@@ -22,7 +22,7 @@
   height: 20px;
   transition: 350ms;
   border: 3px solid var(--accent);
-  border-radius: 2px;
+  border-radius: var(--space-3xs);
   grid-area: check;
   color: var(--background);
   font-size: var(--text-xl);

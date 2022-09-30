@@ -47,7 +47,7 @@
   border: none;
   font-size: var(--text-xl);
   padding: var(--space-md);
-  border-radius: 10px;
+  border-radius: var(--space-2xs);
   cursor: pointer;
   transition: 0.2s;
   width: fit-content;

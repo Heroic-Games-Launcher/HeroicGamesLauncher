@@ -1,7 +1,7 @@
 .runnerWrapper {
   background-color: var(--background-darker);
   padding: var(--space-lg);
-  border-radius: 15px;
+  border-radius: var(--space-xs);
   min-width: min(500px, 30%);
   display: flex;
   flex-direction: column;

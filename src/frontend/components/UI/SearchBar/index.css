@@ -4,7 +4,7 @@
   position: relative;
   display: inline-flex;
   background: var(--input-background);
-  border-radius: 100000px;
+  border-radius: var(--space-3xs);
   padding: var(--space-3xs);
 }
 
