@@ -1,5 +1,11 @@
 import { VersionInfo } from 'heroic-wine-downloader'
-import { GameInfo, GameStatus, Runner } from 'common/types'
+import {
+  AppSettings,
+  GameInfo,
+  GameSettings,
+  GameStatus,
+  Runner
+} from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog'
 
@@ -190,4 +196,20 @@ declare global {
   interface WindowEventMap {
     'controller-changed': CustomEvent<{ controllerId: string }>
   }
+}
+
+export interface SettingsContextType {
+  getSetting: (key: string) => unknown
+  setSetting: (key: string, value: unknown) => void
+  config: AppSettings | GameSettings | null
+  isDefault: boolean
+  appName: string
+  runner: Runner
+}
+
+export interface LocationState {
+  fromGameCard: boolean
+  runner: Runner
+  isLinuxNative: boolean
+  isMacNative: boolean
 }

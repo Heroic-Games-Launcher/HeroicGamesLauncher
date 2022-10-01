@@ -9,6 +9,7 @@ export const openSupportPage = () => ipcRenderer.send('openSupportPage')
 export const quit = () => ipcRenderer.send('quit')
 export const showAboutWindow = () => ipcRenderer.send('showAboutWindow')
 export const openDiscordLink = () => ipcRenderer.send('openDiscordLink')
+export const openWinePrefixFAQ = () => ipcRenderer.send('openWinePrefixFAQ')
 export const createNewWindow = (url: string) =>
   ipcRenderer.send('createNewWindow', url)
 
