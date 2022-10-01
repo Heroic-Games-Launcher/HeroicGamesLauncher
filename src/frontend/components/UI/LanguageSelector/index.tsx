@@ -116,7 +116,7 @@ export default function LanguageSelector({
   }
 
   function handleWeblate() {
-    return window.api.openWeblate
+    return window.api.openWeblate()
   }
 
   const renderOption = (lang: string) => {

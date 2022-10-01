@@ -17,8 +17,8 @@ const Shortcuts = () => {
     'addDesktopShortcuts',
     false
   )
-  const [addGamesToStartMenu, setAddGamesToStartMenu] = useSetting<boolean>(
-    'addGamesToStartMenu',
+  const [addStartMenuShortcuts, setAddStartMenuShortcuts] = useSetting<boolean>(
+    'addStartMenuShortcuts',
     false
   )
 
@@ -39,8 +39,8 @@ const Shortcuts = () => {
       />
       <ToggleSwitch
         htmlId="shortcutsToMenu"
-        value={addGamesToStartMenu}
-        handleChange={() => setAddGamesToStartMenu(!addGamesToStartMenu)}
+        value={addStartMenuShortcuts}
+        handleChange={() => setAddStartMenuShortcuts(!addStartMenuShortcuts)}
         title={t(
           'setting.addgamestostartmenu',
           'Add games to start menu automatically'
