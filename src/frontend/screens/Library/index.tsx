@@ -182,8 +182,8 @@ export default function Library(): JSX.Element {
   const libraryToShow = useMemo(() => {
     let library: GameInfo[] = []
     if (showFavouritesLibrary) {
-      library = [...favourites].filter((g) =>
-        category === 'all' ? g : g.runner === category
+      library = [...favourites].filter((game) =>
+        category === 'all' ? game : game?.runner === category
       )
     } else {
       const isEpic = epic.username && epicCategories.includes(category)
@@ -205,7 +205,7 @@ export default function Library(): JSX.Element {
       const fuse = new Fuse(filteredLibrary, options)
 
       if (filterText) {
-        const fuzzySearch = fuse.search(filterText).map((g) => g.item)
+        const fuzzySearch = fuse.search(filterText).map((game) => game?.item)
         library = fuzzySearch
       } else {
         library = filteredLibrary
@@ -231,12 +231,12 @@ export default function Library(): JSX.Element {
       const gameB = b.title.toUpperCase().replace('THE ', '')
       return sortDescending ? (gameA > gameB ? -1 : 1) : gameA < gameB ? -1 : 1
     })
-    const installed = library.filter((g) => g.is_installed)
+    const installed = library.filter((game) => game?.is_installed)
     const notInstalled = library.filter(
-      (g) => !g.is_installed && !installing.includes(g.app_name)
+      (game) => !game?.is_installed && !installing.includes(game?.app_name)
     )
-    const installingGames = library.filter((g) =>
-      installing.includes(g.app_name)
+    const installingGames = library.filter((game) =>
+      installing.includes(game?.app_name)
     )
     library = sortInstalled
       ? [...installed, ...installingGames, ...notInstalled]
