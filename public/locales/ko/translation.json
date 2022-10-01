@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "오류",
             "uncaught-exception": {
-                "message": "잡히지 않는 예외가 발생했습니다:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic이 종료 됩니다! Github 레포지트리에 이 예외를 보고하세요.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "잡히지 않은 예외 발생!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "즐겨찾기",
     "game": {
         "status": "Status",

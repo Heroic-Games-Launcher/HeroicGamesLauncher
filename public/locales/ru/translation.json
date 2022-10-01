@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Ошибка",
             "uncaught-exception": {
-                "message": "Произошло необрабатываемое исключение:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic будет закрыт! Сообщите об исключении в нашем репозитории Github.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Произошло необрабатываемое исключение!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "офлайн"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Избранное",
     "game": {
         "status": "Состояние",

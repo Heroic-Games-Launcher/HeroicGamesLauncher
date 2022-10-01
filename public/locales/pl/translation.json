@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Error",
             "uncaught-exception": {
-                "message": "Wystąpił nieoczekiwany błąd:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic zostanie zamknięty. Możesz zgłosić to na naszym Github'ie.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Wystąpił nieoczekiwany błąd!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Ulubione",
     "game": {
         "status": "Status",

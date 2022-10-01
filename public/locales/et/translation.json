@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Viga",
             "uncaught-exception": {
-                "message": "Tekkis tabamata erand:{{newLine}}{{error}}{{newLine}}{{newLine}} Heroic suletakse! Teatage erandist meie Githubi repositooriumis.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Tekkis ootamatu erand!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Lemmikud",
     "game": {
         "status": "Status",

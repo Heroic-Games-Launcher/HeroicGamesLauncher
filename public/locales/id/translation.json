@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Galat",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Uncaught Exception occured!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "luring"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Favorit",
     "game": {
         "status": "Status",
