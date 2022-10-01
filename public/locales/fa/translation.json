@@ -224,6 +224,9 @@
         "preferSystemLibs": "نسخه های سفارشی Wine (Wine-GE, Wine-Lutris) همراه با وابستگی های کتابخانه خود عرضه می شوند. با فعال کردن این گزینه، این کتابخانه ها نادیده گرفته شده و Wine به جای آن کتابخانه های سیستم را اجرا خواهد کرد. هشدار! در صورت عدم وجود وابستگی ها امکان بروز مشکلات وجود دارد.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar با ایجاد امکان دسترسی CPU به کل بافر گرافیک سبب افزایش نرخ فریم می شود.فعال کردن ممکن است باعث بهبود عملکرد بازی های مبتنی بر Vulkan شود.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "کتابخانه های سفارشی توسط استیم برای کمک به اجرا بازی های لینوکس و ویندوز (Proton) ارائه می شود. فعال کردن ممکن است سبب افزایش سازگاری شود.",
         "sync": {
             "part1": "Heroic تلاش میکند تا پوشه صحیح ذخیره سازی را پیدا کند و در اکثر مواقع کار خواهد کرد. در صورتی که پوشه اشتباه بود، از بخش رونویسی برای تغییر آن استفاده کنید.",

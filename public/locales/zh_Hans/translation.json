@@ -224,6 +224,9 @@
         "preferSystemLibs": "自定义 Wine 版本(Wine- ge、Wine- lutris)随它们的库依赖项一起发布。启用此选项，这些附带的库将被忽略，Wine 将加载系统库。警告！如果不满足依赖关系，可能会出现问题。",
         "primerun": "在多 GPU 系统上使用独立显卡渲染游戏。仅适用于使用无头 GPU 进行渲染的游戏笔记本或台式机 (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA 的 Resizable Bar 通过让 CPU 访问整个图形缓冲区来提高帧率。启用可能会提高基于 Vulkan 的游戏的性能。",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Steam 提供的用于帮助运行 Linux 和 Windows（Proton）游戏的自定义库。启用可能会提高兼容性。",
         "sync": {
             "part1": "大多数情况下，Heroic 启动器会正确猜测的存档的位置。但如果位置是错误的，请使用覆盖框更改。",

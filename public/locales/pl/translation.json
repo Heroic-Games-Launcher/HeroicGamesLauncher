@@ -224,6 +224,9 @@
         "preferSystemLibs": "Customowe wersje Wine (Wine-GE, Wine-Lutris) są pobierane wraz z wymaganymi bibliotekami. Włączając tą opcję, te biblioteki zostaną zignorowane, a zamiast nich zostaną wykorzystane biblioteki systemowe Wine. Uwaga! Może powodować problemy z kompatybilnością zależności.",
         "primerun": "Używaj dedykowanej karty graficznej do renderowania na urządzeniach multi-GPU. Potrzebne tylko dla gamingowych laptopów, lub komputerów używających więcej niż jednej karty graficznej (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar pomaga podnieść ilość klatek pozwalając CPU na dostęp do całego bufora graficznego. Włączenie tej opcji może podnieść wydajność w grach opartych na Vulkan'ie.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Customowe biblioteki dostarczane przez Steam w celu ułatwienia uruchamiania gier Windows'owych na Linux'ie. Włączenie podniesie kompatybilność.",
         "sync": {
             "part1": "Heroic spróbuje odgadnąć właściwy folder zapisów gier. W większości przypadków działa to prawidłowo. Jeżeli jednak folder jest nieprawidłowy, użyj pola \"Nadpisz\" aby go zmienić.",

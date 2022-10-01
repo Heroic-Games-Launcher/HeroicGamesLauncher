@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TextInputWithIconField } from 'frontend/components/UI'
+import { InfoBox, TextInputWithIconField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../../SettingsContext'
 import { Path } from 'frontend/types'
@@ -18,6 +18,15 @@ const DefaultSteamPath = () => {
   if (!isDefault) {
     return <></>
   }
+
+  const steamPathInfo = (
+    <InfoBox text="infobox.help">
+      {t(
+        'help.steam_path.info',
+        'This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam.'
+      )}
+    </InfoBox>
+  )
 
   return (
     <TextInputWithIconField
@@ -41,6 +50,7 @@ const DefaultSteamPath = () => {
             setDefaultSteamPath(path ? `${path}` : defaultSteamPath)
           )
       }
+      afterInput={steamPathInfo}
     />
   )
 }
