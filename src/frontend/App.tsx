@@ -13,6 +13,7 @@ import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
 import classNames from 'classnames'
 import { ControllerHints, OfflineMessage } from './components/UI'
+import DialogHandler from './components/UI/DialogHandler'
 
 function App() {
   const { epic, gog, contentFontFamily, actionsFontFamily, sidebarCollapsed } =
@@ -34,6 +35,7 @@ function App() {
         <OfflineMessage />
         <Sidebar />
         <main className="content">
+          <DialogHandler />
           <Routes>
             <Route path="/" element={loggedIn ? <Library /> : <Login />} />
             <Route path="login" element={<Login />} />

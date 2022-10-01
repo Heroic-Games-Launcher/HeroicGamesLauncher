@@ -1,9 +1,9 @@
 import * as logger from '../logger'
 import { appendMessageToLogFile } from '../logfile'
-import { showErrorBoxModalAuto } from '../../utils'
+import { showErrorBoxModalAuto } from '../../dialog/dialog'
 
 jest.mock('../logfile')
-jest.mock('../../utils')
+jest.mock('../../dialog/dialog')
 
 const testData = [
   1234,
@@ -122,10 +122,10 @@ describe('logger/logger.ts', () => {
         showDialog: true
       })
 
-      expect(showErrorBoxModalAuto).toBeCalledWith(
-        'Backend',
-        expect.stringContaining(getStringPassedToLogFile(level, true))
-      )
+      expect(showErrorBoxModalAuto).toBeCalledWith({
+        title: 'Backend',
+        error: expect.stringContaining(getStringPassedToLogFile(level, true))
+      })
     })
   })
 

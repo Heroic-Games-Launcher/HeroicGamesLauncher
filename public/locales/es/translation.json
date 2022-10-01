@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Error",
             "uncaught-exception": {
-                "message": "Ocurrió un error:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic va a ser cerrado! Reporta el error en nuestro repositorio de Github.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "¡Ocurrió un error!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "Sin conexión"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Favoritos",
     "game": {
         "status": "Estado",
@@ -223,6 +224,9 @@
         "preferSystemLibs": "Versiones custom de Wine (Wine-GE, Wine-Lutris) incluyen sus propias librerías para sus dependencias. Al activar esta opción, esa librarías son ignoradas y Wine cargará las librarías del sistema en su lugar. Advertencia! Pueden ocurrir errores si las dependencias no se cumplen.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar ayuda a mejorar los cuadros por segundo haciendo que la CPU tenga acceso a la totalidad del buffer gráficor. Activarlo puede mejorar el rendimiento para juegos basados en Vulkan.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Librerías provistas por Steam para ayudar a ejecutar juegos de Linux y Windows (Proton). Activarlas puede mejorar la compatibilidad.",
         "sync": {
             "part1": "Heroic intenta adivinar la carpeta de guardado correcta y esto funcionará en la mayoría de los casos. En caso de que la carpeta sea incorrecta, use el cuadro de sobreescritura para cambiarla.",

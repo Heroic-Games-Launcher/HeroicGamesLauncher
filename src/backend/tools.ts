@@ -3,12 +3,13 @@ import * as axios from 'axios'
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
-import { execAsync, getWineFromProton, showErrorBoxModalAuto } from './utils'
+import { execAsync, getWineFromProton } from './utils'
 import { execOptions, heroicToolsPath, userHome } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
 import { dirname } from 'path'
 import { isOnline } from './online_monitor'
+import { showErrorBoxModalAuto } from './dialog/dialog'
 
 export const DXVK = {
   getLatest: async () => {
@@ -90,13 +91,13 @@ export const DXVK = {
           logWarning([`Error when downloading ${tool.name}`, error], {
             prefix: LogPrefix.DXVKInstaller
           })
-          showErrorBoxModalAuto(
-            i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
-            i18next.t(
+          showErrorBoxModalAuto({
+            title: i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
+            error: i18next.t(
               'box.error.dxvk.message',
               'Error installing DXVK/VKD3D! Check your connection!'
             )
-          )
+          })
         })
     })
   },
@@ -272,15 +273,16 @@ export const Winetricks = {
         logError(['Winetricks threw Error:', error], {
           prefix: LogPrefix.WineTricks
         })
-        showErrorBoxModalAuto(
-          i18next.t('box.error.winetricks.title', 'Winetricks error'),
-          i18next.t('box.error.winetricks.message', {
+        showErrorBoxModalAuto({
+          event,
+          title: i18next.t('box.error.winetricks.title', 'Winetricks error'),
+          error: i18next.t('box.error.winetricks.message', {
             defaultValue:
               'Winetricks returned the following error during execution:{{newLine}}{{error}}',
             newLine: '\n',
             error: `${error}`
           })
-        )
+        })
         clearInterval(sendProgress)
         resolve()
       })

@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Error",
             "uncaught-exception": {
-                "message": "S'ha produït una excepció no detectada:{{newLine}}{{error}}{{newLine}}{{newLine}}El Heroic es tancarà! Informeu de l'error al nostre dipòsit de Github.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "S'ha produït una excepció no detectada!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "fora de línia"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Preferits",
     "game": {
         "status": "Status",
@@ -223,6 +224,9 @@
         "preferSystemLibs": "Les versions personalitzades del Wine (Wine-GE, Wine-Lutris) s'envien amb les seves dependències de biblioteques. Quan s'activa aquesta opció, s'ignoraran les biblioteques enviades i Wine carregarà les biblioteques del sistema. Avís! Es poden produir problemes si no es compleixen les dependències.",
         "primerun": "Fes servir la targeta de gràfics dedicada per renderitzar el joc en sistemes de diverses GPU. Només cal en portàtils o ordinadors de sobretaula que tenen una GPU headless per renderitzar, com ara NVIDIA Optimus o AMD Crossfire.",
         "resizablebar": "La barra redimensionable de NVIDIA ajuda a augmentar els FPS fent que la CPU accedeixi a la memòria gràfica. Si s'habilita, el rendiment dels jocs basats en Vulkan pot millorar.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Biblioteques personalitzades que proporciona l'Steam per executar jocs en Linux i en Windows (Proton). Si s'activa, pot millorar la compatibilitat.",
         "sync": {
             "part1": "L'Heroic prova d'endevinar el directori on es desen les partides, i això funcionarà a la majoria de casos. En cas que el directori no sigui el correcte, utilitza la caixa per a canviar-lo.",
