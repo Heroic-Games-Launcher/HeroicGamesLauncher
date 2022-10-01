@@ -119,6 +119,10 @@ import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
 import { showErrorBoxModalAuto } from './dialog/dialog'
+import {
+  deleteGameStatusOfElement,
+  setGameStatusOfElement
+} from './handler/gamestatus/gamestatushandler'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -1029,7 +1033,7 @@ ipcMain.handle(
         }
         tsStore.set(`${game.appName}.totalPlayed`, Math.floor(totalPlaytime))
 
-        deleteGameStatus(appName)
+        deleteGameStatusOfElement(appName)
 
         // Exit if we've been launched without UI
         if (isCLINoGui) {
@@ -1129,12 +1133,18 @@ ipcMain.handle('install', async (event, params) => {
             ? i18next.t('notify.install.finished')
             : i18next.t('notify.install.canceled')
       })
+
+      if (res.status === 'error') {
+        setGameStatusOfElement({
+          appName,
+          runner,
+          status: 'done'
+        })
+        return res
+      }
+
       logInfo('finished installing', { prefix: LogPrefix.Backend })
-      setGameStatusOfElement({
-        appName,
-        runner,
-        status: 'done'
-      })
+      deleteGameStatusOfElement(appName)
       return res
     })
     .catch((res) => {
@@ -1242,7 +1252,7 @@ ipcMain.handle(
       await game.import(path)
     } catch (error) {
       notify({ title, body: i18next.t('notify.install.canceled') })
-      deleteGameStatus(appName)
+      deleteGameStatusOfElement(appName)
       logError(error, { prefix: LogPrefix.Backend })
       return { status: 'error' }
     }
@@ -1251,7 +1261,7 @@ ipcMain.handle(
       title,
       body: i18next.t('notify.install.imported', 'Game Imported')
     })
-    deleteGameStatus(appName)
+    deleteGameStatusOfElement(appName)
     logInfo(`imported ${title}`, { prefix: LogPrefix.Backend })
     return { status: 'done' }
   }
@@ -1565,8 +1575,6 @@ import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './dialog/ipc_handler'
 import './handler/gamestatus/ipc_handler'
-import { setGameStatusOfElement } from './handler/gamestatus/gamestatushandler'
-import { deleteGameStatus } from './api/handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

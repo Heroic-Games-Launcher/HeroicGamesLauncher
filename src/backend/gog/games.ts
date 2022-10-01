@@ -50,7 +50,10 @@ import {
 } from 'common/types/gog'
 import { t } from 'i18next'
 import { showErrorBoxModalAuto } from '../dialog/dialog'
-import { deleteGameStatus, setGameStatus } from '../api/handler'
+import {
+  deleteGameStatusOfElement,
+  setGameStatusOfElement
+} from '../handler/gamestatus/gamestatushandler'
 
 class GOGGame extends Game {
   public appName: string
@@ -173,7 +176,7 @@ class GOGGame extends Game {
         { prefix: LogPrefix.Gog }
       )
 
-      setGameStatus({
+      setGameStatusOfElement({
         appName: this.appName,
         runner: 'gog',
         status: action,
@@ -676,7 +679,7 @@ class GOGGame extends Game {
     })
 
     // This always has to be done, so we do it before checking for res.error
-    deleteGameStatus(this.appName)
+    deleteGameStatusOfElement(this.appName)
 
     if (res.error) {
       logError(['Failed to update', `${this.appName}:`, res.error], {

@@ -8,9 +8,14 @@ import { GamesList } from '../GamesList'
 interface Props {
   handleModal: (appName: string, runner: Runner) => void
   onlyInstalled: boolean
+  hasDownloads: boolean
 }
 
-export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
+export default function RecentlyPlayed({
+  handleModal,
+  onlyInstalled,
+  hasDownloads
+}: Props) {
   const { t } = useTranslation()
   const { epic, gog } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
@@ -52,6 +57,7 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
         isFirstLane
         handleGameCardClick={handleModal}
         onlyInstalled={onlyInstalled}
+        hasDownloads={hasDownloads}
       />
     </>
   )

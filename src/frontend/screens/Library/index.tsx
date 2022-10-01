@@ -290,6 +290,7 @@ export default function Library(): JSX.Element {
           <RecentlyPlayed
             handleModal={handleModal}
             onlyInstalled={libraryTopSection.endsWith('installed')}
+            hasDownloads={installing.length > 0}
           />
         )}
 
@@ -300,6 +301,7 @@ export default function Library(): JSX.Element {
               library={favourites}
               handleGameCardClick={handleModal}
               isFirstLane
+              hasDownloads={installing.length > 0}
             />
           </>
         )}
@@ -319,6 +321,7 @@ export default function Library(): JSX.Element {
             library={libraryToShow}
             layout={layout}
             handleGameCardClick={handleModal}
+            hasDownloads={installing.length > 0}
           />
         )}
       </div>

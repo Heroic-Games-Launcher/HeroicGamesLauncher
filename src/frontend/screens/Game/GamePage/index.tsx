@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
-import { AppSettings, GameInfo } from 'common/types'
+import { AppSettings, GameInfo, GameStatus } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
 
@@ -76,7 +76,32 @@ export default function GamePage(): JSX.Element | null {
   const isUpdating = gameStatus.status === 'updating'
   const isReparing = gameStatus.status === 'repairing'
   const isMoving = gameStatus.status === 'moving'
-  const hasDownloads = isInstalling || isUpdating
+  const [hasDownloads, setHasDownloads] = useState(isInstalling || isUpdating)
+
+  useEffect(() => {
+    const onGameStatusChange = (gameStatusList: GameStatus[]) => {
+      const isDownloading = gameStatusList.some(
+        (st: GameStatus) =>
+          st.status === 'installing' || st.status === 'updating'
+      )
+      setHasDownloads(isDownloading)
+    }
+
+    window.api.getAllGameStatus().then(onGameStatusChange)
+
+    const onChange = (
+      e: Electron.IpcRendererEvent,
+      gameStatusList: GameStatus[]
+    ) => {
+      onGameStatusChange(gameStatusList)
+    }
+
+    const removehandleAllGameStatusListener =
+      window.api.handleAllGameStatus(onChange)
+
+    //useEffect unmount
+    return removehandleAllGameStatusListener
+  }, [])
 
   useEffect(() => {
     const updateConfig = async () => {

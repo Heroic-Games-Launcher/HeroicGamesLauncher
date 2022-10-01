@@ -31,8 +31,12 @@ function setGameStatusOfElement(gameStatus: GameStatus) {
   }
 
   gameStatusHandlerStore.set('gameStatus', gameStatusHandlers)
-  getMainWindow().webContents.send('handleGameStatus', gameStatus)
-  getMainWindow().webContents.send('handleAllGameStatus', getAllGameStatus())
+
+  const mainWindow = getMainWindow()
+  if (mainWindow && mainWindow.webContents) {
+    getMainWindow().webContents.send('handleGameStatus', gameStatus)
+    getMainWindow().webContents.send('handleAllGameStatus', getAllGameStatus())
+  }
 }
 
 function deleteGameStatusOfElement(appName: string) {
@@ -45,13 +49,20 @@ function deleteGameStatusOfElement(appName: string) {
       (status) => status.appName === appName
     )
 
-    const gameStatus = gameStatusHandlers.splice(gameStatusHandlerIndex, 1)
-    gameStatusHandlerStore.set('gameStatus', gameStatusHandlers)
-    getMainWindow().webContents.send('handleGameStatus', {
-      ...gameStatus,
-      status: 'done'
-    })
-    getMainWindow().webContents.send('handleAllGameStatus', getAllGameStatus())
+    if (gameStatusHandlerIndex >= 0) {
+      const gameStatus = gameStatusHandlers.splice(gameStatusHandlerIndex, 1)
+      gameStatus[0].status = 'done'
+      gameStatusHandlerStore.set('gameStatus', gameStatusHandlers)
+
+      const mainWindow = getMainWindow()
+      if (mainWindow && mainWindow.webContents) {
+        getMainWindow().webContents.send('handleGameStatus', gameStatus)
+        getMainWindow().webContents.send(
+          'handleAllGameStatus',
+          getAllGameStatus()
+        )
+      }
+    }
   }
 }
 

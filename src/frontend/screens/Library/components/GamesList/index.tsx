@@ -11,6 +11,7 @@ interface Props {
   isFirstLane?: boolean
   handleGameCardClick: (app_name: string, runner: Runner) => void
   onlyInstalled?: boolean
+  hasDownloads: boolean
 }
 
 export const GamesList = ({
@@ -18,7 +19,8 @@ export const GamesList = ({
   layout = 'grid',
   handleGameCardClick,
   isFirstLane = false,
-  onlyInstalled = false
+  onlyInstalled = false,
+  hasDownloads
 }: Props): JSX.Element => {
   const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -79,6 +81,7 @@ export const GamesList = ({
                 buttonClick={() => handleGameCardClick(app_name, runner)}
                 forceCard={layout === 'grid'}
                 installedPlatform={platform}
+                hasDownloads={hasDownloads}
               />
             )
           }

@@ -23,7 +23,7 @@ export const hasGameStatus = (appName: string) => {
     }
   })
 
-  const [gameStatus, setGameStatus] = useState<GameStatus>(
+  const [currentGameStatus, setCurrentGameStatus] = useState<GameStatus>(
     previousGameStatus ?? defaultGameStatus
   )
 
@@ -50,12 +50,10 @@ export const hasGameStatus = (appName: string) => {
       gameStatus: GameStatus
     ) => {
       if (gameStatus && appName === gameStatus.appName) {
-        setGameStatus({
-          ...gameStatus,
-          ...calculatePercent(gameStatus)
-        })
+        setCurrentGameStatus(calculatePercent(gameStatus))
       }
     }
+
     const setGameStatusRemoveListener =
       window.api.handleGameStatus(onGameStatusUpdate)
 
@@ -64,5 +62,5 @@ export const hasGameStatus = (appName: string) => {
     }
   }, [])
 
-  return [gameStatus, previousGameStatus]
+  return [currentGameStatus, previousGameStatus]
 }

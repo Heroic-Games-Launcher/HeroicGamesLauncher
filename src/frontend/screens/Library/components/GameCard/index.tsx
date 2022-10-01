@@ -33,6 +33,7 @@ interface Card {
   hasUpdate: boolean
   hasCloudSave: boolean
   isInstalled: boolean
+  hasDownloads: boolean
   logo: string
   size: string
   title: string
@@ -55,7 +56,8 @@ const GameCard = ({
   buttonClick,
   forceCard,
   runner,
-  installedPlatform
+  installedPlatform,
+  hasDownloads
 }: Card) => {
   const [gameStatus, previousGameStatus] = hasGameStatus(appName)
 
@@ -77,17 +79,15 @@ const GameCard = ({
   const grid = forceCard || layout === 'grid'
 
   const isInstalling =
-    gameStatus.status === 'installing' || status === 'updating'
+    gameStatus.status === 'installing' || gameStatus.status === 'updating'
   const isUpdating = gameStatus.status === 'updating'
   const isReparing = gameStatus.status === 'repairing'
   const isMoving = gameStatus.status === 'moving'
   const isPlaying = gameStatus.status === 'playing'
   const haveStatus = isMoving || isReparing || isInstalling || isUpdating
-  const hasDownloads = isInstalling || isUpdating
 
   const percent = gameStatus.progress?.percent ?? 0
   const installingGrayscale = isInstalling ? `${125 - percent}%` : '100%'
-
   const imageSrc = getImageFormatting()
 
   async function handleUpdate() {
@@ -408,7 +408,7 @@ const GameCard = ({
         runner
       })
     }
-    if (status === 'playing' || status === 'updating') {
+    if (isPlaying || isUpdating) {
       return sendKill(appName, runner)
     }
     if (isInstalled) {

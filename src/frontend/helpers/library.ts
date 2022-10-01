@@ -87,62 +87,36 @@ async function install({
     return importGame({ appName, path, runner })
   }
 
-  if (installPath !== 'default') {
-    setInstallPath && setInstallPath(installPath)
-    // If the user changed the previous folder, the percentage should start from zero again.
-    if (previousProgress && previousProgress.folder !== installPath) {
-      window.api.deleteGameStatus(appName)
-    }
-
-    window.api.setGameStatus({
-      folder: installPath,
-      appName,
-      runner,
-      status: 'installing'
-    })
-
-    return window.api
-      .install({
-        appName,
-        path: `${installPath}`,
-        installDlcs,
-        sdlList,
-        installLanguage,
-        runner,
-        platformToInstall
-      })
-      .finally(() => {
-        // maybe let this be handled in the backend
-        // window.api.deleteGameStatus(appName)
-        return
-      })
-  }
-
-  // If the user changed the previous folder, the percentage should start from zero again.
   let path = installPath
-  if (installPath === 'default') {
+  if (path !== 'default') {
+    setInstallPath && setInstallPath(path)
+  } else {
     const { defaultInstallPath }: AppSettings =
       await window.api.requestSettings('default')
     path = defaultInstallPath
   }
+
+  // If the user changed the previous folder, the percentage should start from zero again.
   if (previousProgress && previousProgress.folder !== path) {
     window.api.deleteGameStatus(appName)
   }
 
-  return window.api
-    .install({
-      appName,
-      path: `${path}`,
-      installDlcs,
-      sdlList,
-      runner,
-      platformToInstall
-    })
-    .finally(() => {
-      // maybe let this be handled in the backend
-      // window.api.deleteGameStatus(appName)
-      return
-    })
+  window.api.setGameStatus({
+    folder: path,
+    appName,
+    runner,
+    status: 'installing'
+  })
+
+  return window.api.install({
+    appName,
+    path,
+    installDlcs,
+    sdlList,
+    installLanguage,
+    runner,
+    platformToInstall
+  })
 }
 
 const importGame = window.api.importGame
