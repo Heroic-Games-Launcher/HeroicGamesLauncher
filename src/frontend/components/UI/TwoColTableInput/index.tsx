@@ -210,24 +210,24 @@ export function TableInput({
               </SvgButton>
             </td>
           </tr>
-          {(keyError || valueError) && (
-            <tr className="error">
-              <td colSpan={3}>{keyError || valueError}</td>
-            </tr>
-          )}
-          {dirtyInputs && !keyError && !valueError && valueInputs.key && (
-            <tr className="dirty">
-              <td colSpan={3}>
-                <span>
-                  {t(
-                    'two_col_table.save_hint',
-                    'Changes in this table are not saved automatically. Click the + button'
-                  )}
-                </span>
-                <FontAwesomeIcon icon={faArrowUp} />
-              </td>
-            </tr>
-          )}
+          <tr className="error">
+            <td colSpan={3}>{keyError || valueError}</td>
+          </tr>
+          <tr className="dirty">
+            <td colSpan={3}>
+              {dirtyInputs && !keyError && !valueError && valueInputs.key && (
+                <>
+                  <span>
+                    {t(
+                      'two_col_table.save_hint',
+                      'Changes in this table are not saved automatically. Click the + button'
+                    )}
+                  </span>
+                  <FontAwesomeIcon icon={faArrowUp} />
+                </>
+              )}
+            </td>
+          </tr>
         </tfoot>
       </table>
       {valueInputs.value && warning}

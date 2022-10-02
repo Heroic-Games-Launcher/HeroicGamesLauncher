@@ -1,13 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import SettingsContext from '../../SettingsContext'
 
-interface Props {
-  appName: string
-}
-
-export default function FooterInfo({ appName }: Props) {
+export default function FooterInfo() {
   const { t } = useTranslation()
-  const isDefault = appName === 'default'
+  const { isDefault, appName } = useContext(SettingsContext)
 
   return (
     <div>
