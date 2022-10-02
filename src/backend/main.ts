@@ -492,6 +492,7 @@ ipcMain.on('Notify', (event, args) => {
 })
 
 ipcMain.on('frontendReady', () => {
+  initAllHandlers()
   handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
 })
 
@@ -1575,6 +1576,7 @@ import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './dialog/ipc_handler'
 import './handler/gamestatus/ipc_handler'
+import { initAllHandlers } from './handler/inithandler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

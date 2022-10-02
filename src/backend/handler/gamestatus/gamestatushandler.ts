@@ -1,5 +1,5 @@
+import { GameStatus } from './../../../common/types'
 import { getMainWindow } from '../../utils'
-import { GameStatus } from 'common/types'
 import Store from 'electron-store'
 
 const gameStatusHandlerStore = new Store({
@@ -7,7 +7,18 @@ const gameStatusHandlerStore = new Store({
   name: 'progress-handler'
 })
 
+function initGameStatusHandler() {
+  const gameStatusHandlers = getAllGameStatus()
+  gameStatusHandlers.forEach((gameStatus) => {
+    gameStatus.previousProgress = gameStatus.progress
+    gameStatus.status = 'done'
+  })
+
+  gameStatusHandlerStore.set('gameStatus', gameStatusHandlers)
+}
+
 function setGameStatusOfElement(gameStatus: GameStatus) {
+  let newGameStatus = gameStatus
   if (!gameStatusHandlerStore.has('gameStatus')) {
     gameStatusHandlerStore.set('gameStatus', [gameStatus])
     return
@@ -22,19 +33,20 @@ function setGameStatusOfElement(gameStatus: GameStatus) {
   )
 
   if (gameStatusHandlerIndex >= 0) {
-    gameStatusHandlers[gameStatusHandlerIndex] = {
+    newGameStatus = {
       ...gameStatusHandlers[gameStatusHandlerIndex],
       ...gameStatus
     }
+    gameStatusHandlers[gameStatusHandlerIndex] = newGameStatus
   } else {
-    gameStatusHandlers.push(gameStatus)
+    gameStatusHandlers.push(newGameStatus)
   }
 
   gameStatusHandlerStore.set('gameStatus', gameStatusHandlers)
 
   const mainWindow = getMainWindow()
   if (mainWindow && mainWindow.webContents) {
-    getMainWindow().webContents.send('handleGameStatus', gameStatus)
+    getMainWindow().webContents.send('handleGameStatus', newGameStatus)
     getMainWindow().webContents.send('handleAllGameStatus', getAllGameStatus())
   }
 }
@@ -50,8 +62,8 @@ function deleteGameStatusOfElement(appName: string) {
     )
 
     if (gameStatusHandlerIndex >= 0) {
-      const gameStatus = gameStatusHandlers.splice(gameStatusHandlerIndex, 1)
-      gameStatus[0].status = 'done'
+      const gameStatus = gameStatusHandlers.splice(gameStatusHandlerIndex, 1)[0]
+      gameStatus.status = 'done'
       gameStatusHandlerStore.set('gameStatus', gameStatusHandlers)
 
       const mainWindow = getMainWindow()
@@ -85,6 +97,7 @@ function getAllGameStatus(): GameStatus[] {
 }
 
 export {
+  initGameStatusHandler,
   setGameStatusOfElement,
   deleteGameStatusOfElement,
   getGameStatusOfElement,

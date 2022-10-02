@@ -2,8 +2,8 @@ import {
   InstallPlatform,
   AppSettings,
   GameInfo,
-  InstallProgress,
-  Runner
+  Runner,
+  GameStatus
 } from 'common/types'
 
 import { TFunction } from 'react-i18next'
@@ -14,8 +14,7 @@ type InstallArgs = {
   appName: string
   installPath: string
   isInstalling: boolean
-  previousProgress: InstallProgress | null
-  progress: InstallProgress
+  gameStatus: GameStatus
   setInstallPath?: (path: string) => void
   platformToInstall?: InstallPlatform
   t: TFunction<'gamepage'>
@@ -30,7 +29,7 @@ async function install({
   installPath,
   t,
   isInstalling,
-  previousProgress,
+  gameStatus,
   setInstallPath,
   sdlList = [],
   installDlcs = false,
@@ -97,7 +96,7 @@ async function install({
   }
 
   // If the user changed the previous folder, the percentage should start from zero again.
-  if (previousProgress && previousProgress.folder !== path) {
+  if (gameStatus.previousProgress && gameStatus.folder !== path) {
     window.api.deleteGameStatus(appName)
   }
 
@@ -189,7 +188,14 @@ async function handleStopInstallation(
   const { response } = await window.api.openMessageBox(args)
 
   if (response === 1) {
-    return sendKill(appName, runner)
+    await sendKill(appName, runner)
+    window.api.getGameStatus(appName).then((gameStatus: GameStatus) => {
+      if (gameStatus) {
+        gameStatus.previousProgress = gameStatus.progress
+        gameStatus.status = 'done'
+        window.api.setGameStatus(gameStatus)
+      }
+    })
   } else if (response === 2) {
     await sendKill(appName, runner)
     window.api.deleteGameStatus(appName)

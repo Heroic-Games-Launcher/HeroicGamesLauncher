@@ -59,7 +59,7 @@ const GameCard = ({
   installedPlatform,
   hasDownloads
 }: Card) => {
-  const [gameStatus, previousGameStatus] = hasGameStatus(appName)
+  const [gameStatus] = hasGameStatus(appName)
 
   const { t } = useTranslation('gamepage')
 
@@ -402,8 +402,7 @@ const GameCard = ({
         appName,
         installPath: gameStatus.folder || 'default',
         isInstalling,
-        previousProgress: previousGameStatus.progress!,
-        progress: gameStatus.progress!,
+        gameStatus,
         t,
         runner
       })

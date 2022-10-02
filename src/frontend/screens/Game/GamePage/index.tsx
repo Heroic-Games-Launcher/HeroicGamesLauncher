@@ -49,7 +49,7 @@ export default function GamePage(): JSX.Element | null {
 
   const { epic, gog, gameUpdates, platform } = useContext(ContextProvider)
 
-  const [gameStatus, previousGameStatus] = hasGameStatus(appName)
+  const [gameStatus] = hasGameStatus(appName)
   // @ts-expect-error TODO: Proper default value
   const [gameInfo, setGameInfo] = useState<GameInfo>({})
   const [updateRequested, setUpdateRequested] = useState(false)
@@ -614,8 +614,7 @@ export default function GamePage(): JSX.Element | null {
       appName,
       installPath: gameStatus.folder,
       isInstalling,
-      previousProgress: previousGameStatus.progress!,
-      progress: gameStatus.progress!,
+      gameStatus,
       t,
       runner: gameInfo.runner
     })

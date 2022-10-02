@@ -789,7 +789,7 @@ type NotifyType = {
 }
 
 function getMainWindow(): BrowserWindow {
-  return BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows[0]
+  return BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
 }
 
 export {

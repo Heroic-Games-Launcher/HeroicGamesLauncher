@@ -16,7 +16,6 @@ import { TFunction, withTranslation } from 'react-i18next'
 import {
   getLegendaryConfig,
   getPlatform,
-  install,
   launch,
   notify
 } from '../helpers'
@@ -456,34 +455,34 @@ export class GlobalState extends PureComponent<Props> {
       }
     )
 
-    // TODO: show the install modal instead of just installing like this since it has no options to choose
-    window.api.handleInstallGame(
-      async (
-        e: Event,
-        args: { appName: string; installPath: string; runner: Runner }
-      ) => {
-        const currentApp = libraryStatus.filter(
-          (game) => game.appName === appName
-        )[0]
-        const { appName, installPath, runner } = args
-        if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
-          return install({
-            appName,
-            installPath,
-            isInstalling: false,
-            previousProgress: null,
-            progress: {
-              bytes: '0.00MiB',
-              eta: '00:00:00',
-              percent: 0
-            },
-            t,
-            runner,
-            platformToInstall: 'Windows'
-          })
-        }
-      }
-    )
+    // Should be deprecated with the new download manager
+    // window.api.handleInstallGame(
+    //   async (
+    //     e: Event,
+    //     args: { appName: string; installPath: string; runner: Runner }
+    //   ) => {
+    //     const currentApp = libraryStatus.filter(
+    //       (game) => game.appName === appName
+    //     )[0]
+    //     const { appName, installPath, runner } = args
+    //     if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
+    //       return install({
+    //         appName,
+    //         installPath,
+    //         isInstalling: false,
+    //         previousProgress: null,
+    //         progress: {
+    //           bytes: '0.00MiB',
+    //           eta: '00:00:00',
+    //           percent: 0
+    //         },
+    //         t,
+    //         runner,
+    //         platformToInstall: 'Windows'
+    //       })
+    //     }
+    //   }
+    // )
 
     window.api.handleRefreshLibrary(async (e: Event, runner: Runner) => {
       this.refreshLibrary({
