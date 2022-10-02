@@ -13,12 +13,7 @@ import {
 } from 'common/types'
 import { Category, LibraryTopSectionOptions } from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
-import {
-  getLegendaryConfig,
-  getPlatform,
-  launch,
-  notify
-} from '../helpers'
+import { getLegendaryConfig, getPlatform, launch, notify } from '../helpers'
 import { i18n, t } from 'i18next'
 
 import ContextProvider from './ContextProvider'
