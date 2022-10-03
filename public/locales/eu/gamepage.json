@@ -43,6 +43,9 @@
         "hide_game": "Ezkutatu jokoa",
         "import": "Inportatu jokoa",
         "install": "Instalatu",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Kendu gogokoenetik",
         "unhide_game": "Erakutsi jokoa",
         "uninstall": "Desinslalatu",

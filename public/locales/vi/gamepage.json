@@ -42,6 +42,9 @@
         "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Cài đặt",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Xóa khỏi mục ưa thích",
         "unhide_game": "Bỏ ẩn Game",
         "uninstall": "Gỡ cài đặt",

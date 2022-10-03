@@ -42,6 +42,9 @@
         "hide_game": "Hide Game",
         "import": "കളി ഇറക്കുമതി ചെയ്യൂ",
         "install": "നടൂ",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "എടുത്തുനീക്കൂ",

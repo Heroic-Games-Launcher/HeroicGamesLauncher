@@ -42,6 +42,9 @@
         "hide_game": "Схаваць гульню",
         "import": "Імпарт гульні",
         "install": "Усталяваць",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Выдаліць з абранага",
         "unhide_game": "Гульня Unhide",
         "uninstall": "Выдаліць",

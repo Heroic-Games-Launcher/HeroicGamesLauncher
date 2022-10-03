@@ -42,6 +42,9 @@
         "hide_game": "Cacher le jeu",
         "import": "Importer le jeu",
         "install": "Installer",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Retirer des favoris",
         "unhide_game": "Afficher le jeu",
         "uninstall": "Désinstaller",

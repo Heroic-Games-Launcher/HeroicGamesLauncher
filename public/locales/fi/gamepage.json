@@ -42,6 +42,9 @@
         "hide_game": "Hide Game",
         "import": "Tuo peli",
         "install": "Asenna",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Poista",

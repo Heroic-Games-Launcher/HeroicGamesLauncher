@@ -43,6 +43,9 @@
         "hide_game": "Skjul spillet",
         "import": "Importer spill",
         "install": "Installere",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Fjern fra favoritter",
         "unhide_game": "Vis spill",
         "uninstall": "Avinstaller",

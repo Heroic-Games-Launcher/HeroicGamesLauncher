@@ -42,6 +42,9 @@
         "hide_game": "Amaga el joc",
         "import": "Importa el joc",
         "install": "Instal·la",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Treu dels preferits",
         "unhide_game": "Torna a mostrar el joc",
         "uninstall": "Desinstal·la",

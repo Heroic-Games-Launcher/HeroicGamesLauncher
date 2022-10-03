@@ -42,6 +42,9 @@
         "hide_game": "Dölj spel",
         "import": "Importera spel",
         "install": "Installera",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Ta bort från Favoriter",
         "unhide_game": "Visa dolt spel igen",
         "uninstall": "Avinstallera",

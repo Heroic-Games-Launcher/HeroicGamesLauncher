@@ -42,6 +42,9 @@
         "hide_game": "Sakrij igru",
         "import": "Uvezi igru",
         "install": "Instaliraj",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Makni iz omiljenih",
         "unhide_game": "Prikaži igru",
         "uninstall": "Deinstaliraj",

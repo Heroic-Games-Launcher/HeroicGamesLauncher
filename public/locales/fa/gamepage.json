@@ -42,6 +42,9 @@
         "hide_game": "مخفی کردن بازی",
         "import": "وارد کردن بازی",
         "install": "نصب",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "حذف کردن از مورد علاقه ها",
         "unhide_game": "نشان دادن بازی",
         "uninstall": "حذف",

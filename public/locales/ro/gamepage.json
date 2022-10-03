@@ -43,6 +43,9 @@
         "hide_game": "Ascunde jocul",
         "import": "Importă Jocul",
         "install": "Instalează",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Eliminați din Favorite",
         "unhide_game": "Afișează jocul",
         "uninstall": "Dezinstalează",

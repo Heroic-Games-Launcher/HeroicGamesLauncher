@@ -42,6 +42,9 @@
         "hide_game": "Skrýt hru",
         "import": "Importovat Hru",
         "install": "Instalovat",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Odebrat z oblíbených",
         "unhide_game": "Odkrýt hru",
         "uninstall": "Odinstalovat",
