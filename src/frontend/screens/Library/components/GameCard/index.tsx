@@ -20,6 +20,7 @@ import { uninstall, updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 
 import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
@@ -86,7 +87,8 @@ const GameCard = ({
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
   const isQueued = status === 'queued'
-  const haveStatus = isMoving || isReparing || isInstalling || isUpdating
+  const haveStatus =
+    isMoving || isReparing || isInstalling || isUpdating || isQueued
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -138,7 +140,23 @@ const GameCard = ({
     return t('status.notinstalled')
   }
 
+  const handleRemoveFromQueue = () => {
+    window.api.removeFromDMQueue(appName)
+    handleGameStatus({ appName, status: 'done' })
+  }
+
   const renderIcon = () => {
+    if (isQueued) {
+      return (
+        <SvgButton
+          title={t('label.queue.remove', 'Remove from Queue')}
+          className="queueIcon"
+          onClick={() => handleRemoveFromQueue()}
+        >
+          <RemoveCircleIcon />
+        </SvgButton>
+      )
+    }
     if (isPlaying) {
       return (
         <SvgButton

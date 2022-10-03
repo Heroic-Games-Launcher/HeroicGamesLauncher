@@ -496,7 +496,7 @@ export default function GamePage(): JSX.Element | null {
     }
 
     if (isQueued) {
-      return `${t('status.queued', 'Queued for installation')}`
+      return `${t('status.queued', 'Queued')}`
     }
 
     if (hasUpdate) {

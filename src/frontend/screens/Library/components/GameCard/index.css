@@ -278,6 +278,7 @@
 .playIcon,
 .downIcon,
 .iconDisabled,
+.queueIcon,
 .cancelIcon {
   grid-area: play;
 }
@@ -305,6 +306,11 @@
 .cancelIcon svg {
   fill: var(--danger);
   transition: 300ms;
+}
+
+.queueIcon svg {
+  fill: var(--background-lighter);
+  font-size: 40px;
 }
 
 .iconDisabled circle {
