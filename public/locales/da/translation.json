@@ -67,7 +67,8 @@
             "winetricks": {
                 "title": "Winetricks fejl",
                 "message": "Winetricks returnerede følgende fejl under udførelsen:{{newLine}}{{error}}"
-            }
+            },
+            "launchAborted": "Start afbrudt"
         },
         "info": {
             "update": {

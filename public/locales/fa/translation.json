@@ -58,10 +58,10 @@
                 "message": "",
                 "title": ""
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "راه اندازی متوقف شد",
             "title": "خطا",
             "uncaught-exception": {
-                "message": "یک خطای نامشخص رخ داد:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic بسته خواهد شد! خطا را در ریپوزیتوری گیت\u200cهاب ما گزارش دهید.",
+                "message": "یک خطای نامشخص رخ داد:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic بسته خواهد شد! خطا را در ریپوزیتوری گیت‌هاب ما گزارش دهید.",
                 "title": "خطای نامشخص رخ داد!"
             },
             "update": {
@@ -73,8 +73,8 @@
                 "title": "Wine یافت نشد"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks هنگام اجرا این خطا را برگرداند:{{newLine}}{{error}}",
+                "title": "خطای Winetricks"
             }
         },
         "info": {
@@ -221,7 +221,7 @@
             "part7": " تا لانچر در برخی بازیها رد شود، غیره."
         },
         "preferSystemLibs": "نسخه های سفارشی Wine (Wine-GE, Wine-Lutris) همراه با وابستگی های کتابخانه خود عرضه می شوند. با فعال کردن این گزینه، این کتابخانه ها نادیده گرفته شده و Wine به جای آن کتابخانه های سیستم را اجرا خواهد کرد. هشدار! در صورت عدم وجود وابستگی ها امکان بروز مشکلات وجود دارد.",
-        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+        "primerun": "استفاده از کارت گرافیک اختصاصی برای اجرای بازی در سیستم های چند گرافیکی. فقط در لپ تاپ ها یا دسکتاپ های گیمینگ که از گرافیک هدلس برای اجرا استفاده می کنند (NVIDIA Optimus, AMD Crossfire)",
         "resizablebar": "NVIDIA's Resizable Bar با ایجاد امکان دسترسی CPU به کل بافر گرافیک سبب افزایش نرخ فریم می شود.فعال کردن ممکن است باعث بهبود عملکرد بازی های مبتنی بر Vulkan شود.",
         "steamruntime": "کتابخانه های سفارشی توسط استیم برای کمک به اجرا بازی های لینوکس و ویندوز (Proton) ارائه می شود. فعال کردن ممکن است سبب افزایش سازگاری شود.",
         "sync": {
@@ -489,7 +489,7 @@
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "ران تایم EAC که بدون GameMode به درستی کار نمی کند،\u200c فعال شده است. آیا می خواهید ران تایم EAC و GameMode را غیرفعال کنید؟",
+                "message": "ران تایم EAC که بدون GameMode به درستی کار نمی کند،‌ فعال شده است. آیا می خواهید ران تایم EAC و GameMode را غیرفعال کنید؟",
                 "title": "ران تایم EAC فعال شد"
             }
         },
