@@ -42,6 +42,9 @@
         "hide_game": "Скрыть игру",
         "import": "Импортировать игру",
         "install": "Установить",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Удалить из избранного",
         "unhide_game": "Показать игру",
         "uninstall": "Удалить",
@@ -62,7 +65,7 @@
         "lastPlayed": "Последний запуск",
         "neverPlayed": "Никогда",
         "platform": "Выберите версию платформы для установки",
-        "reuirements": "Системные требования",
+        "requirements": "System Requirements",
         "tools": "Инструменты",
         "totalPlayed": "Проведено в игре"
     },

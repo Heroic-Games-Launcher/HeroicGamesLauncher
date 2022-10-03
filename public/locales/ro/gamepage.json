@@ -43,6 +43,9 @@
         "hide_game": "Ascunde jocul",
         "import": "Importă Jocul",
         "install": "Instalează",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Eliminați din Favorite",
         "unhide_game": "Afișează jocul",
         "uninstall": "Dezinstalează",
@@ -63,7 +66,7 @@
         "lastPlayed": "Ultima Dată Jucat",
         "neverPlayed": "Niciodată",
         "platform": "Selectați versiunea platformei de instalat",
-        "reuirements": "Cerințe de sistem",
+        "requirements": "System Requirements",
         "tools": "Instrumente",
         "totalPlayed": "Timp Jucat"
     },

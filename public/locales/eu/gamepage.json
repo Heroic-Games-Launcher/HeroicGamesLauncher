@@ -43,6 +43,9 @@
         "hide_game": "Ezkutatu jokoa",
         "import": "Inportatu jokoa",
         "install": "Instalatu",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Kendu gogokoenetik",
         "unhide_game": "Erakutsi jokoa",
         "uninstall": "Desinslalatu",
@@ -63,7 +66,7 @@
         "lastPlayed": "Azken jokaldia",
         "neverPlayed": "Inoiz ez",
         "platform": "Instalatzeko plataformaren bertsioa hautatu",
-        "reuirements": "Sistemaren betekizunak",
+        "requirements": "System Requirements",
         "tools": "Tresnak",
         "totalPlayed": "Denbora jokatua"
     },

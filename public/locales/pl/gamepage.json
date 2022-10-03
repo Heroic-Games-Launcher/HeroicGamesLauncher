@@ -42,6 +42,9 @@
         "hide_game": "Ukryj grę",
         "import": "Importuj grę",
         "install": "Instaluj",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Usuń z ulubionych",
         "unhide_game": "Odkryj Grę",
         "uninstall": "Odinstaluj",
@@ -62,7 +65,7 @@
         "lastPlayed": "Ostatnio uruchamiane",
         "neverPlayed": "Nigdy",
         "platform": "Wybierz wersję platformy do zainstalowania",
-        "reuirements": "Wymagania systemowe",
+        "requirements": "System Requirements",
         "tools": "Narzędzia",
         "totalPlayed": "Czas Gry"
     },

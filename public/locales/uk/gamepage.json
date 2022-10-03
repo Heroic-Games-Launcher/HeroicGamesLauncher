@@ -42,6 +42,9 @@
         "hide_game": "Приховати гру",
         "import": "Імпортувати гру",
         "install": "Встановити",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Видалити зі вподобань",
         "unhide_game": "Показати гру",
         "uninstall": "Видалити",
@@ -62,7 +65,7 @@
         "lastPlayed": "Востаннє зіграно",
         "neverPlayed": "Ніколи",
         "platform": "Оберіть версію платформи для встановлення",
-        "reuirements": "Системні вимоги",
+        "requirements": "System Requirements",
         "tools": "Інструменти",
         "totalPlayed": "Зіграно часу"
     },

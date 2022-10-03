@@ -42,6 +42,9 @@
         "hide_game": "Dölj spel",
         "import": "Importera spel",
         "install": "Installera",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Ta bort från Favoriter",
         "unhide_game": "Visa dolt spel igen",
         "uninstall": "Avinstallera",
@@ -62,7 +65,7 @@
         "lastPlayed": "Senast spelat",
         "neverPlayed": "Aldrig",
         "platform": "Välj plattform för installation",
-        "reuirements": "System Requirements",
+        "requirements": "System Requirements",
         "tools": "Tools",
         "totalPlayed": "Speltid"
     },

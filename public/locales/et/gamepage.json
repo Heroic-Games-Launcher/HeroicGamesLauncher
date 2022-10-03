@@ -42,6 +42,9 @@
         "hide_game": "Peida mäng",
         "import": "Impordi mäng",
         "install": "Paigalda",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Eemalda lemmikutest",
         "unhide_game": "Näita mäng",
         "uninstall": "Eemalda",
@@ -62,7 +65,7 @@
         "lastPlayed": "Viimati mängitud",
         "neverPlayed": "Mitte kunagi",
         "platform": "Valige paigaldatava platvormi versioon",
-        "reuirements": "Süsteeminõuded",
+        "requirements": "System Requirements",
         "tools": "Tööriistad",
         "totalPlayed": "Mängitud aeg"
     },

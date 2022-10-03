@@ -42,6 +42,9 @@
         "hide_game": "Amaga el joc",
         "import": "Importa el joc",
         "install": "Instal·la",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Treu dels preferits",
         "unhide_game": "Torna a mostrar el joc",
         "uninstall": "Desinstal·la",
@@ -62,7 +65,7 @@
         "lastPlayed": "Última partida",
         "neverPlayed": "Mai",
         "platform": "Selecciona la versió de la plataforma per instal·lar",
-        "reuirements": "Requeriments del sistema",
+        "requirements": "System Requirements",
         "tools": "Eines",
         "totalPlayed": "Temps jugat"
     },

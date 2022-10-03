@@ -42,6 +42,9 @@
         "hide_game": "Sembunyikan Gim",
         "import": "Impor Gim",
         "install": "Pasang",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Hapus Dari Favorit",
         "unhide_game": "Tampilkan Gim yang Disembunyikan",
         "uninstall": "Copot",
@@ -62,7 +65,7 @@
         "lastPlayed": "Terakhir Dimainkan",
         "neverPlayed": "Tidak pernah",
         "platform": "Pilih Versi Platform yang Akan Dipasang",
-        "reuirements": "Persyaratan Sistem",
+        "requirements": "System Requirements",
         "tools": "Peralatan",
         "totalPlayed": "Lama Dimainkan"
     },

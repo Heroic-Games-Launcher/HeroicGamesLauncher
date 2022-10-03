@@ -42,6 +42,9 @@
         "hide_game": "Oyunu Gizle",
         "import": "Oyunu İçe Aktar",
         "install": "Kur",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Favorilerden Kaldır",
         "unhide_game": "Oyunu Göster",
         "uninstall": "Kaldır",
@@ -62,7 +65,7 @@
         "lastPlayed": "Son Oynanan",
         "neverPlayed": "Hiç Oynanmadı",
         "platform": "Kurulacak Platform Sürümünü Seç",
-        "reuirements": "Sistem Gereksinimleri",
+        "requirements": "System Requirements",
         "tools": "Araçlar",
         "totalPlayed": "Oynanan Zaman"
     },

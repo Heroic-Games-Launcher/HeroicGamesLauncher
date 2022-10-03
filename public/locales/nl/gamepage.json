@@ -42,6 +42,9 @@
         "hide_game": "Hide Game",
         "import": "Importeren",
         "install": "Installeren",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Verwijderen",
@@ -62,7 +65,7 @@
         "lastPlayed": "Laatst gespeeld",
         "neverPlayed": "Nooit",
         "platform": "Select Platform Version to Install",
-        "reuirements": "System Requirements",
+        "requirements": "System Requirements",
         "tools": "Tools",
         "totalPlayed": "Tijd gespeeld"
     },

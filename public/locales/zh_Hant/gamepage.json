@@ -42,6 +42,9 @@
         "hide_game": "隱藏遊戲",
         "import": "導入",
         "install": "安裝",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "自我的最愛移除",
         "unhide_game": "取消隱藏遊戲",
         "uninstall": "解除安裝",
@@ -62,7 +65,7 @@
         "lastPlayed": "上次遊玩",
         "neverPlayed": "從未遊玩",
         "platform": "選擇要安裝的平台版本",
-        "reuirements": "系統需求",
+        "requirements": "System Requirements",
         "tools": "工具",
         "totalPlayed": "遊玩時間"
     },

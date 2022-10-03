@@ -42,6 +42,9 @@
         "hide_game": "Hide Game",
         "import": "Tuo peli",
         "install": "Asenna",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remove From Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Poista",
@@ -62,7 +65,7 @@
         "lastPlayed": "Viimeksi pelattu",
         "neverPlayed": "Ei koskaan",
         "platform": "Select Platform Version to Install",
-        "reuirements": "System Requirements",
+        "requirements": "System Requirements",
         "tools": "Tools",
         "totalPlayed": "Pelattu aika"
     },

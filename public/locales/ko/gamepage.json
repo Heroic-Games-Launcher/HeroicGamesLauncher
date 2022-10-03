@@ -42,6 +42,9 @@
         "hide_game": "게임 숨김",
         "import": "게임 들여오기",
         "install": "설치",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "즐겨찾기에서 제거",
         "unhide_game": "게임 숨기기 해제",
         "uninstall": "설치 제거",
@@ -62,7 +65,7 @@
         "lastPlayed": "마지막 플레이",
         "neverPlayed": "플레이 한 적 없음",
         "platform": "설치할 플랫폼 버전 선택",
-        "reuirements": "시스템 요구 사항",
+        "requirements": "System Requirements",
         "tools": "도구",
         "totalPlayed": "플레이 시간"
     },

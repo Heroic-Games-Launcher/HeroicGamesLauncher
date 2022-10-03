@@ -42,6 +42,9 @@
         "hide_game": "Játék elrejtése",
         "import": "Játék importálása",
         "install": "Telepítés",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Eltávolítás a kedvencekből",
         "unhide_game": "Játék felfedése",
         "uninstall": "Eltávolítás",
@@ -62,7 +65,7 @@
         "lastPlayed": "Legutóbb játszott",
         "neverPlayed": "Soha",
         "platform": "Telepítendő platform változat kiválasztása",
-        "reuirements": "Rendszerkövetelmények",
+        "requirements": "System Requirements",
         "tools": "Ezközök",
         "totalPlayed": "Játszott idő"
     },

@@ -42,6 +42,9 @@
         "hide_game": "Απόκρυψη Παιχνιδιού",
         "import": "Εισαγωγή Παιχνιδιού",
         "install": "Εγκατάσταση",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Κατάργηση από τα Αγαπημένα",
         "unhide_game": "Φανέρωση Παιχνιδιού",
         "uninstall": "Απεγκατάσταση",
@@ -62,7 +65,7 @@
         "lastPlayed": "Παίχτηκε Τελευταία φορά",
         "neverPlayed": "Ποτέ",
         "platform": "Επιλέξτε Έκδοση Πλατφόρμας για εγκατάσταση",
-        "reuirements": "Απαιτήσεις Συστήματος",
+        "requirements": "System Requirements",
         "tools": "Εργαλεία",
         "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού"
     },

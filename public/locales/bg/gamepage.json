@@ -42,6 +42,9 @@
         "hide_game": "Hide Game",
         "import": "Внасяне на игра",
         "install": "Инсталиране",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Премахване от любимите",
         "unhide_game": "Показване на играта",
         "uninstall": "Деинсталиране",
@@ -62,7 +65,7 @@
         "lastPlayed": "Последно пускане",
         "neverPlayed": "Никога",
         "platform": "Изберете версия за инсталиране",
-        "reuirements": "Системни изисквания",
+        "requirements": "System Requirements",
         "tools": "Инструменти",
         "totalPlayed": "Изиграно време"
     },
