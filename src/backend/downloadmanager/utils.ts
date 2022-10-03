@@ -1,14 +1,9 @@
 import { BrowserWindow } from 'electron'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import {
-  getGame,
-  isEpicServiceOffline,
-  isOnline,
-  notify,
-  showErrorBoxModal
-} from '../utils'
+import { getGame, isEpicServiceOffline, isOnline, notify } from '../utils'
 import { InstallParams } from 'common/types'
 import i18next from 'i18next'
+import { showErrorBoxModalAuto } from 'backend/dialog/dialog'
 
 async function installQueueElement(
   mainWindow: BrowserWindow,
@@ -35,14 +30,13 @@ async function installQueueElement(
 
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline && runner === 'legendary') {
-    showErrorBoxModal(
-      mainWindow,
-      i18next.t('box.warning.title', 'Warning'),
-      i18next.t(
+    showErrorBoxModalAuto({
+      title: i18next.t('box.warning.title', 'Warning'),
+      error: i18next.t(
         'box.warning.epic.install',
         'Epic Servers are having major outage right now, the game cannot be installed!'
       )
-    )
+    })
     return { status: 'error' }
   }
 

@@ -74,8 +74,7 @@ import {
   getFirstExistingParentPath,
   getLatestReleases,
   notify,
-  quoteIfNecessary,
-  showErrorBoxModal
+  quoteIfNecessary
 } from './utils'
 import {
   configStore,
@@ -1082,8 +1081,8 @@ ipcMain.handle(
 ipcMain.handle(
   'showErrorBox',
   async (e, args: [title: string, message: string]) => {
-    const [title, content] = args
-    return showErrorBoxModal(mainWindow, title, content)
+    const [title, error] = args
+    return showErrorBoxModalAuto({ title, error })
   }
 )
 
