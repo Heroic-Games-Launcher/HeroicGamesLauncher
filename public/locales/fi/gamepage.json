@@ -118,7 +118,7 @@
         "moving": "Siirretään asennusta, odota",
         "notinstalled": "Tätä peliä ei ole asennettu",
         "processing": "Processing files, please wait",
-        "queued": "Queued for installation",
+        "queued": "Queued",
         "reparing": "Korjataan peliä, odota",
         "totalDownloaded": "Ladattu yhteensä",
         "updating": "Päivitetään peliä"

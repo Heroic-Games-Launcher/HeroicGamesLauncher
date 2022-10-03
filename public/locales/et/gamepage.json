@@ -118,7 +118,7 @@
         "moving": "Paigalduse liiguatamine, palun oodake",
         "notinstalled": "See mäng ei ole paigaldatud",
         "processing": "Failide töötlemine, palun oodake",
-        "queued": "Queued for installation",
+        "queued": "Queued",
         "reparing": "Mängu parandamine, palun oodake",
         "totalDownloaded": "Allalaaditud kokku",
         "updating": "Mängu uuendamine"
