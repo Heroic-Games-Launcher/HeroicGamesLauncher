@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
-import { AppSettings, GameInfo, GameStatus } from 'common/types'
+import { AppSettings, GameInfo, GameStatus, Runner } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
 
@@ -41,7 +41,7 @@ import Anticheat from 'frontend/components/UI/Anticheat'
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
 export default function GamePage(): JSX.Element | null {
-  const { appName } = useParams() as { appName: string }
+  const { appName, runner } = useParams() as { appName: string; runner: Runner }
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
@@ -88,12 +88,9 @@ export default function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateConfig = async () => {
       try {
-        let newInfo = await getGameInfo(appName, 'legendary')
-        if (!newInfo) {
-          newInfo = await getGameInfo(appName, 'gog')
-        }
+        const newInfo = await getGameInfo(appName, runner)
         setGameInfo(newInfo)
-        const { install, is_linux_native, is_mac_native, runner } = newInfo
+        const { install, is_linux_native, is_mac_native } = newInfo
 
         const installPlatform =
           install.platform || (is_linux_native && isLinux)
@@ -130,7 +127,7 @@ export default function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName, epic, gog])
+  }, [isInstalling, isPlaying, appName, epic.library, gog.library])
 
   async function handleUpdate() {
     setUpdateRequested(true)

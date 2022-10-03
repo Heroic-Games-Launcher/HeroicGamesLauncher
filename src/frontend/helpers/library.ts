@@ -113,7 +113,8 @@ async function install({
   handleGameStatus({
     appName,
     runner,
-    status: 'queued'
+    status: 'queued',
+    folder: path
   })
 
   return window.api.install({
