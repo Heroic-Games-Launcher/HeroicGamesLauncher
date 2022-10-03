@@ -21,7 +21,7 @@ type Props = {
 export default function CurrentDownload({ appName, runner }: Props) {
   const [progress] = hasProgress(appName)
   const [gameTitle, setGameTitle] = useState('')
-  const { sidebarCollapsed } = useContext(ContextProvider)
+  const { sidebarCollapsed, libraryStatus } = useContext(ContextProvider)
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -45,6 +45,10 @@ export default function CurrentDownload({ appName, runner }: Props) {
     return progress.percent > 98
       ? t('status.processing', 'Processing files, please wait')
       : t('status.installing', 'Installing')
+  }
+
+  if (!libraryStatus.length) {
+    return null
   }
 
   return (

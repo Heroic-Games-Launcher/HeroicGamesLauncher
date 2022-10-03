@@ -383,11 +383,11 @@ export class GlobalState extends PureComponent<Props> {
     })
     window.api.logInfo('Refreshing Library')
     try {
-      window.api.refreshLibrary(fullRefresh, library)
+      await window.api.refreshLibrary(fullRefresh, library)
+      return this.refresh(library, checkForUpdates)
     } catch (error) {
       window.api.logError(`${error}`)
     }
-    this.refresh(library, checkForUpdates)
   }
 
   refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
