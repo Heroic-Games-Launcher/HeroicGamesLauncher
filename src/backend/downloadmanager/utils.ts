@@ -3,7 +3,7 @@ import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { getGame, isEpicServiceOffline, isOnline, notify } from '../utils'
 import { InstallParams } from 'common/types'
 import i18next from 'i18next'
-import { showErrorBoxModalAuto } from 'backend/dialog/dialog'
+import { showErrorBoxModalAuto } from '../dialog/dialog'
 
 async function installQueueElement(
   mainWindow: BrowserWindow,

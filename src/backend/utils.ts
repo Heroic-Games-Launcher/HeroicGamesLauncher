@@ -799,7 +799,7 @@ type NotifyType = {
 }
 
 function getMainWindow(): BrowserWindow {
-  return BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows[0]
+  return BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
 }
 
 // can be removed if legendary and gogdl handle SIGTERM and SIGKILL

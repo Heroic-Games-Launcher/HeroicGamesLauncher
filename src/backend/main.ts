@@ -1078,14 +1078,6 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle(
-  'showErrorBox',
-  async (e, args: [title: string, message: string]) => {
-    const [title, error] = args
-    return showErrorBoxModalAuto({ title, error })
-  }
-)
-
 ipcMain.handle('uninstall', async (event, args) => {
   const [appName, shouldRemovePrefix, runner] = args
   const game = getGame(appName, runner)
