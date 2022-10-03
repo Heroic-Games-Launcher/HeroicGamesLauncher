@@ -1,5 +1,5 @@
 import { ConnectivityStatus } from '../common/types'
-import { BrowserWindow, ipcMain, IpcMainEvent } from 'electron'
+import { BrowserWindow, ipcMain, IpcMainEvent, net } from 'electron'
 import { logInfo, LogPrefix } from './logger/logger'
 import axios from 'axios'
 
@@ -16,19 +16,14 @@ const setStatus = (newStatus: ConnectivityStatus) => {
 
   status = newStatus
 
-  // events
-  const mainWindow = BrowserWindow.getAllWindows()[0]
-  if (mainWindow) {
-    mainWindow.webContents.send('connectivity-changed', { status, retryIn })
-  }
-  ipcMain.emit(status)
-
   // start pinging if needed or cancel pings
   switch (status) {
     case 'check-online':
       pingSites()
       break
     default:
+      retryIn = 0
+      timeBetweenRetries = defaultTimeBetweenRetries
       if (abortController) {
         abortController.abort()
       }
@@ -36,6 +31,13 @@ const setStatus = (newStatus: ConnectivityStatus) => {
         clearTimeout(retryTimer)
       }
   }
+
+  // events
+  const mainWindow = BrowserWindow.getAllWindows()[0]
+  if (mainWindow) {
+    mainWindow.webContents.send('connectivity-changed', { status, retryIn })
+  }
+  ipcMain.emit(status)
 }
 
 const retry = (seconds: number) => {
@@ -101,8 +103,12 @@ export const initOnlineMonitor = () => {
     }
   )
 
-  // set initial status and ping external sites
-  setStatus('check-online')
+  if (net.isOnline()) {
+    // set initial status and ping external sites
+    setStatus('check-online')
+  } else {
+    setStatus('offline')
+  }
 
   // listen to the frontend asking for current status
   ipcMain.handle('get-connectivity-status', () => {
