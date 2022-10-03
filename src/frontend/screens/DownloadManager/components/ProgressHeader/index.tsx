@@ -1,85 +1,121 @@
 import './index.css'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import React, { useEffect, useState } from 'react'
-import { AreaChart, Area, ResponsiveContainer } from 'recharts'
+import React, { useEffect, useRef, useState } from 'react'
 import { LinearProgress } from '@mui/material'
-
-interface Point {
-  download: number
-  disk: number
-}
+import { Chart as ChartJS, registerables } from 'chart.js'
+import { Chart } from 'react-chartjs-2'
 
 const roundToNearestHundredth = function (val: number | undefined) {
-  if (!val) return 0
+  if (!val) {
+    return 0
+  }
   return Math.round(val * 100) / 100
 }
 
 export default function ProgressHeader(props: { appName: string }) {
   const [progress] = hasProgress(props.appName)
-  const [avgSpeed, setAvgDownloadSpeed] = useState<Point[]>(
-    Array<Point>(10).fill({ download: 0, disk: 0 })
+  const chartRef = useRef<ChartJS>(null)
+  const [avgDownloadSpeed, setAvgDownloadSpeed] = useState(
+    Array<number>(10).fill(0)
   )
+  const [avgDiskSpeed, setAvgDiskSpeed] = useState(Array<number>(10).fill(0))
 
   useEffect(() => {
-    if (avgSpeed.length > 9) {
-      avgSpeed.shift()
+    if (avgDownloadSpeed.length > 9) {
+      avgDownloadSpeed.shift()
     }
 
-    avgSpeed.push({
-      download:
-        progress.downSpeed && progress.downSpeed > 0
-          ? progress.downSpeed
-          : avgSpeed.at(-1)?.download ?? 0,
-      disk: progress.diskSpeed ?? 0
-    })
+    avgDownloadSpeed.push(
+      progress.downSpeed && progress.downSpeed > 0
+        ? progress.downSpeed
+        : avgDownloadSpeed.at(-1) ?? 0
+    )
 
-    setAvgDownloadSpeed([...avgSpeed])
+    setAvgDownloadSpeed([...avgDownloadSpeed])
+
+    if (avgDiskSpeed.length > 9) {
+      avgDiskSpeed.shift()
+    }
+
+    avgDiskSpeed.push(progress.diskSpeed ?? 0)
+
+    setAvgDiskSpeed([...avgDiskSpeed])
+    chartRef.current?.update()
   }, [progress])
+
+  ChartJS.register(...registerables)
+
+  function cssvar(name: string, opacity?: number) {
+    const convertedOpacity =
+      opacity && opacity >= 0 && opacity < 1 ? Math.round(255 * opacity) : 255
+    return (
+      getComputedStyle(document.documentElement).getPropertyValue(name) +
+      convertedOpacity.toString(16)
+    )
+  }
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      }
+    },
+    scales: {
+      yAxes: {
+        display: false
+      },
+      xAxes: {
+        display: false
+      }
+    },
+    elements: {
+      line: {
+        tension: 0.5 // smooth lines
+      }
+    }
+  }
+
+  const data = {
+    labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    datasets: [
+      {
+        fill: false,
+        data: avgDiskSpeed,
+        borderColor: cssvar('--primary'),
+        pointRadius: 0,
+        animation: {
+          duration: 0
+        }
+      },
+      {
+        fill: true,
+        data: avgDownloadSpeed,
+        backgroundColor: cssvar('--accent', 0.5),
+        pointRadius: 0,
+        borderWidth: 0,
+        animation: {
+          duration: 0
+        }
+      }
+    ]
+  }
 
   return (
     <div className="progressHeader">
       <div className="downloadRateStats">
         <div className="downloadRateChart">
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              position: 'absolute',
-              top: 0,
-              left: 0
-            }}
-          >
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={avgSpeed} margin={{ top: 0, right: 0 }}>
-                <Area
-                  isAnimationActive={false}
-                  type="monotone"
-                  dataKey="download"
-                  strokeWidth="0px"
-                  fill="var(--accent)"
-                  fillOpacity={0.5}
-                />
-                <Area
-                  isAnimationActive={false}
-                  type="monotone"
-                  dataKey="disk"
-                  stroke="var(--primary)"
-                  strokeWidth="2px"
-                  fillOpacity={0}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
+          <Chart type={'line'} data={data} options={options} ref={chartRef} />
         </div>
         <div className="realtimeDownloadStatContainer">
           <h3 className="realtimeDownloadStat">
-            {roundToNearestHundredth(avgSpeed.at(-1)?.download)} MiB/s
+            {roundToNearestHundredth(avgDownloadSpeed.at(-1))} MiB/s
           </h3>
           <div className="realtimeDownloadStatLabel downLabel">Down </div>
         </div>
         <div className="realtimeDownloadStatContainer">
           <h3 className="realtimeDownloadStat">
-            {roundToNearestHundredth(avgSpeed.at(-1)?.disk)} MiB/s
+            {roundToNearestHundredth(avgDiskSpeed.at(-1))} MiB/s
           </h3>
           <div className="realtimeDownloadStatLabel diskLabel">Disk </div>
         </div>
