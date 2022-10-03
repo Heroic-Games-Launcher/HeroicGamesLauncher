@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Famiglia di caratteri per le Azioni (predefinito: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Mostra tutte le tessere dei giochi a colori",
-        "content_font_family": "Famiglia di caratteri del contenuto (predefinita: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Caratteri",
         "title": "Accessibilità",
         "zoom": "Zoom"
@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Errore",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Uncaught Exception occured!"
             },
             "update": {
@@ -186,6 +186,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Preferiti",
     "game": {
         "status": "Status",
@@ -234,6 +235,9 @@
         "preferSystemLibs": "Le versioni personalizzate di Wine (Wine-GE, Wine-Lutris) vengono fornite con le loro dipendenze. Abilitando questa opzione, queste librerie saranno ignorate e Wine caricherà invece le librerie di sistema. Attenzione! Potrebbero verificarsi problemi se le dipendenze non sono soddisfatte.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA Resizable Bar aiuta ad aumentare il framerate facendo accedere la CPU all'intero buffer grafico. L'abilitazione può migliorare le prestazioni per i giochi basati su Vulkan.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Librerie personalizzate fornite da Steam per aiutare a eseguire giochi Linux e Windows (Proton). L'abilitazione potrebbe migliorare la compatibilità.",
         "sync": {
             "part1": "Heroic proverà ad indovinare la giusta cartella di salvataggio e funzionerà nella maggior parte dei casi. Se la cartella dovesse essere sbagliata, usa la casella di override per cambiarla.",

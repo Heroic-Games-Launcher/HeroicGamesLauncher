@@ -4,7 +4,7 @@
   box-sizing: border-box;
   width: inherit;
   height: 40px;
-  padding: 0 4px;
+  padding: 0 var(--space-3xs);
   border-bottom: 1px solid var(--accent);
   background: var(--background-darker);
   user-select: text;
@@ -22,8 +22,8 @@
 
 .WebviewControls__icon {
   border: none;
-  margin: 2px;
-  padding: 2px;
+  margin: var(--space-3xs);
+  padding: var(--space-3xs);
   background: none;
   color: inherit;
   transition: 250ms color;
@@ -57,7 +57,7 @@
   white-space: nowrap;
   overflow: hidden;
   user-select: text;
-  font-size: 14px;
+  font-size: var(--text-sm);
 }
 
 .WebviewControls__urlInput {
@@ -65,7 +65,7 @@
   border: none;
   background: none;
   font-family: inherit;
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: inherit;
   text-align: center;
   user-select: text;

@@ -3,7 +3,7 @@ import {
   deleteAbortController
 } from '../utils/aborthandler/aborthandler'
 import { GOGLibrary, runGogdlCommand } from './library'
-import { BrowserWindow, dialog } from 'electron'
+import { BrowserWindow } from 'electron'
 import { join } from 'path'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
@@ -53,6 +53,7 @@ import {
   GogInstallPlatform
 } from 'common/types/gog'
 import { t } from 'i18next'
+import { showErrorBoxModalAuto } from '../dialog/dialog'
 
 class GOGGame extends Game {
   public appName: string
@@ -379,10 +380,10 @@ class GOGGame extends Game {
         this.logFileLocation,
         `Launch aborted: ${launchPrepFailReason}`
       )
-      dialog.showErrorBox(
-        t('box.error.launchAborted', 'Launch aborted'),
-        launchPrepFailReason!
-      )
+      showErrorBoxModalAuto({
+        title: t('box.error.launchAborted', 'Launch aborted'),
+        error: launchPrepFailReason!
+      })
       return false
     }
 
@@ -406,10 +407,10 @@ class GOGGame extends Game {
           this.logFileLocation,
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
-        dialog.showErrorBox(
-          t('box.error.launchAborted', 'Launch aborted'),
-          wineLaunchPrepFailReason!
-        )
+        showErrorBoxModalAuto({
+          title: t('box.error.launchAborted', 'Launch aborted'),
+          error: wineLaunchPrepFailReason!
+        })
         return false
       }
 

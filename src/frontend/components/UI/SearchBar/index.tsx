@@ -8,8 +8,9 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import FormControl from '../FormControl'
 import './index.css'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function fixFilter(text: string) {
   const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')
@@ -67,31 +68,35 @@ export default function SearchBar() {
 
   return (
     <div className="SearchBar" data-testid="searchBar">
-      <FormControl onClear={onClear} leftButton={<Search />}>
-        <input
-          ref={input}
-          data-testid="searchInput"
-          placeholder={t('search')}
-          // this id is used for the virtualkeyboard, don't change it,
-          // if this must be changed, reflect the change in src/helpers/virtualKeyboard.ts#searchInput
-          // and in src/helpers/gamepad.ts#isSearchInput
-          id="search"
-          className="FormControl__input"
-        />
-        {filterText.length > 0 && (
-          <ul className="autoComplete">
-            {list.length > 0 &&
-              list.map((title, i) => (
-                <li
-                  onClick={(e) => handleClick(e.currentTarget.innerText)}
-                  key={i}
-                >
-                  {title}
-                </li>
-              ))}
-          </ul>
-        )}
-      </FormControl>
+      <span className="searchButton" tabIndex={-1}>
+        {<Search />}
+      </span>
+      <input
+        ref={input}
+        data-testid="searchInput"
+        placeholder={t('search')}
+        // this id is used for the virtualkeyboard, don't change it,
+        // if this must be changed, reflect the change in src/helpers/virtualKeyboard.ts#searchInput
+        // and in src/helpers/gamepad.ts#isSearchInput
+        id="search"
+        className="searchBarInput"
+      />
+      {filterText.length > 0 && (
+        <ul className="autoComplete">
+          {list.length > 0 &&
+            list.map((title, i) => (
+              <li
+                onClick={(e) => handleClick(e.currentTarget.innerText)}
+                key={i}
+              >
+                {title}
+              </li>
+            ))}
+        </ul>
+      )}
+      <button className="clearSearchButton" onClick={onClear} tabIndex={-1}>
+        <FontAwesomeIcon icon={faXmark} />
+      </button>
     </div>
   )
 }

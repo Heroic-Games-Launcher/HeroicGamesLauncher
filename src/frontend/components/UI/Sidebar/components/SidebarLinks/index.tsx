@@ -22,14 +22,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { Runner, GameInfo } from 'common/types'
 import './index.css'
 import QuitButton from '../QuitButton'
-
-interface LocationState {
-  fromGameCard: boolean
-  hasCloudSave: boolean
-  runner: Runner
-  isLinuxNative: boolean
-  isMacNative: boolean
-}
+import { LocationState } from 'frontend/types'
 
 type PathSplit = [
   a: undefined,
