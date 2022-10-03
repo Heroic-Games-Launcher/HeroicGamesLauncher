@@ -22,12 +22,12 @@
   height: 20px;
   transition: 350ms;
   border: 3px solid var(--accent);
-  border-radius: 2px;
+  border-radius: var(--space-3xs);
   grid-area: check;
   color: var(--background);
-  font-size: 1.5rem;
-  line-height: 1.2rem;
-  font-weight: 900;
+  font-size: var(--text-xl);
+  line-height: var(--space-lg-fixed);
+  font-weight: var(--extrabold);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -49,6 +49,6 @@
 }
 
 .hiddenCheckbox:checked + .toggleSwitchWrapper span {
-  font-weight: 700;
+  font-weight: var(--bold);
   color: var(--accent);
 }

@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "操作字族 (默认: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "对所有游戏磁贴着色",
-        "content_font_family": "内容字族 (默认: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "字体",
         "title": "辅助功能",
         "zoom": "缩放"

@@ -73,8 +73,8 @@ interface StateProps {
   favouriteGames: FavouriteGame[]
   theme: string
   zoomPercent: number
-  contentFontFamily: string
-  actionsFontFamily: string
+  primaryFontFamily: string
+  secondaryFontFamily: string
   allTilesInColor: boolean
   sidebarCollapsed: boolean
   activeController: string
@@ -141,10 +141,16 @@ export class GlobalState extends PureComponent<Props> {
     zoomPercent: parseInt(
       (configStore.get('zoomPercent', '100') as string) || '100'
     ),
-    contentFontFamily:
-      (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
-    actionsFontFamily:
-      (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
+    secondaryFontFamily:
+      (configStore.get('contentFontFamily') as string) ||
+      getComputedStyle(document.documentElement).getPropertyValue(
+        '--default-secondary-font-family'
+      ),
+    primaryFontFamily:
+      (configStore.get('actionsFontFamily') as string) ||
+      getComputedStyle(document.documentElement).getPropertyValue(
+        '--default-primary-font-family'
+      ),
     allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
     activeController: ''
   }
@@ -171,14 +177,20 @@ export class GlobalState extends PureComponent<Props> {
     }, 500)
   }
 
-  setContentFontFamily = (newFontFamily: string) => {
-    configStore.set('contentFontFamily', newFontFamily)
-    this.setState({ contentFontFamily: newFontFamily })
+  setPrimaryFontFamily = (newFontFamily: string, saveToFile = true) => {
+    if (saveToFile) configStore.set('actionsFontFamily', newFontFamily)
+    document.documentElement.style.setProperty(
+      '--primary-font-family',
+      newFontFamily
+    )
   }
 
-  setActionsFontFamily = (newFontFamily: string) => {
-    configStore.set('actionsFontFamily', newFontFamily)
-    this.setState({ actionsFontFamily: newFontFamily })
+  setSecondaryFontFamily = (newFontFamily: string, saveToFile = true) => {
+    if (saveToFile) configStore.set('contentFontFamily', newFontFamily)
+    document.documentElement.style.setProperty(
+      '--secondary-font-family',
+      newFontFamily
+    )
   }
 
   setAllTilesInColor = (value: boolean) => {
@@ -586,6 +598,9 @@ export class GlobalState extends PureComponent<Props> {
       }
     )
 
+    this.setPrimaryFontFamily(this.state.primaryFontFamily, false)
+    this.setSecondaryFontFamily(this.state.secondaryFontFamily, false)
+
     window.api.frontendReady()
   }
 
@@ -664,10 +679,10 @@ export class GlobalState extends PureComponent<Props> {
           handleLibraryTopSection: this.handleLibraryTopSection,
           setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
-          setContentFontFamily: this.setContentFontFamily,
-          setActionsFontFamily: this.setActionsFontFamily,
           setAllTilesInColor: this.setAllTilesInColor,
-          setSideBarCollapsed: this.setSideBarCollapsed
+          setSideBarCollapsed: this.setSideBarCollapsed,
+          setPrimaryFontFamily: this.setPrimaryFontFamily,
+          setSecondaryFontFamily: this.setSecondaryFontFamily
         }}
       >
         {this.props.children}

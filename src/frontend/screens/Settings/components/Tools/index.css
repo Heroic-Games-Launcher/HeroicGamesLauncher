@@ -16,7 +16,7 @@
 
 .tools {
   font: var(--font-secondary-regular);
-  font-size: 16px;
+  font-size: var(--text-md);
   line-height: 19px;
   text-decoration: underline;
   color: var(--text-hover);
@@ -32,7 +32,7 @@
   display: grid;
   border: var(--background) solid 1px;
   color: var(--text-default);
-  padding: 12px 20px;
+  padding: var(--space-sm) var(--space-md);
   grid-area: runexe;
   margin-top: 30px;
   text-decoration: none;
@@ -46,7 +46,7 @@
 
 .drag > span {
   transition: 350ms;
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-style: italic;
   color: var(--text-secondary);
   text-decoration: none;

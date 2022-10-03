@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "작업 글꼴 패밀리 (기본값: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "모든 게임 타일을 컬러로 표시",
-        "content_font_family": "콘텐츠 글꼴 패밀리 (기본값: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "글꼴",
         "title": "접근성",
         "zoom": "Zoom"

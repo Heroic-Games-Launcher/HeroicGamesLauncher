@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "خانواده فونت اعمال (پیش فرض: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "نمایش رنگی تمام کاشی های بازی",
-        "content_font_family": "خانواده فونت محتوا (پیش فرض: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "فونت ها",
         "title": "دسترسی ها",
         "zoom": "زوم"

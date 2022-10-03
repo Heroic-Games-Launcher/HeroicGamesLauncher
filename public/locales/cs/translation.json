@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Písmo pro Akce (Výchozí: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Zobrazit všechny dlaždice her barevně",
-        "content_font_family": "Písmo pro Obsah (Výchozí: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Písma",
         "title": "Přístupnost",
         "zoom": "Zoom"

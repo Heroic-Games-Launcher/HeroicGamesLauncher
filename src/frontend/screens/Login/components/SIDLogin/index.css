@@ -32,18 +32,18 @@
   width: 48vw;
   max-width: 560px;
   z-index: 7;
-  padding: 32px;
+  padding: var(--space-lg);
   height: fit-content;
   min-height: 225px;
   border: solid 1px var(--background);
   overflow: auto;
   max-height: 100vh;
-  font-size: 17px;
+  font-size: var(--text-md);
 }
 
 .loginInstructions > strong {
   color: var(--text-hover);
-  font-size: 1.5em;
+  font-size: var(--text-xl);
 }
 
 .loginInstructions .epicLink {
@@ -64,14 +64,14 @@
 
 .sid-modal > .sid-input {
   color: var(--text-default);
-  font-size: 17px;
-  padding: 5px;
+  font-size: var(--text-md);
+  padding: var(--space-2xs);
   background-color: var(--background);
   border: none;
   height: 50px;
   width: 250px;
-  border-radius: 10px;
-  margin: 10px;
+  border-radius: var(--space-sm);
+  margin: var(--space-sm);
 }
 
 .SIDLoginModal .message > .material-icons {

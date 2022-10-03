@@ -57,15 +57,13 @@ const initialContext: ContextType = {
   setTheme: () => null,
   zoomPercent: 100,
   setZoomPercent: () => null,
-  contentFontFamily: "'Cabin', sans-serif",
-  setContentFontFamily: () => null,
-  actionsFontFamily: "'Rubik', sans-serif",
-  setActionsFontFamily: () => null,
   allTilesInColor: false,
   setAllTilesInColor: () => null,
   sidebarCollapsed: false,
   setSideBarCollapsed: () => null,
-  activeController: ''
+  activeController: '',
+  setPrimaryFontFamily: () => null,
+  setSecondaryFontFamily: () => null
 }
 
 export default React.createContext(initialContext)

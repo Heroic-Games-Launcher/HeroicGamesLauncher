@@ -4,13 +4,14 @@
 }
 
 .textInputFieldWrapper input[type='text'] {
+  border-radius: var(--space-3xs);
   grid-area: input;
   width: 100%;
   height: 40px;
   background: var(--input-background);
-  font-family: var(--content-font-family), 'Noto Color Emoji';
+  font-family: var(--primary-font-family), 'Noto Color Emoji';
   font-weight: normal;
-  font-size: 16px;
+  font-size: var(--text-md);
   line-height: 19px;
   color: var(--text-secondary);
   text-indent: 22px;
@@ -38,11 +39,11 @@
   align-items: center;
   z-index: 1;
   cursor: pointer;
-  font-size: 20px;
+  font-size: var(--text-lg);
   border: none;
   background: none;
   color: var(--text-default);
-  padding: 1px 3px;
+  padding: var(--space-3xs) var(--space-2xs);
 }
 
 .textInputFieldWrapper .inputIcon ~ input {
@@ -52,7 +53,7 @@
 .textInputFieldWrapper.withRightButton {
   grid-template-areas: 'label label' 'input button';
   grid-template-columns: auto min-content;
-  grid-column-gap: 0.5rem;
+  grid-column-gap: var(--space-xs-fixed);
 }
 
 .textInputFieldWrapper.withRightButton .rightButton {

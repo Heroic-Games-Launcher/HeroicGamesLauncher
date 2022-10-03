@@ -232,13 +232,11 @@ export default function GamePage(): JSX.Element | null {
             >
               <ArrowCircleLeftIcon />
             </NavLink>
-            <div className="store-icon">
-              {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
-            </div>
+
             <div className={`gameTabs ${tabToShow}`}>
               {
                 <>
-                  <nav>
+                  <nav className="gamePageNavBar">
                     <button data-tab="info" onClick={onTabClick}>
                       {t('game.info', 'Info')}
                     </button>
@@ -246,8 +244,11 @@ export default function GamePage(): JSX.Element | null {
                       {t('game.tools', 'Tools')}
                     </button>
                     <button data-tab="requirements" onClick={onTabClick}>
-                      {t('game.reuirements', 'System Requirements')}
+                      {t('game.requirements', 'System Requirements')}
                     </button>
+                    <div className="gamePageStoreIcon">
+                      {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
+                    </div>
                   </nav>
 
                   <div className="gameInfo">

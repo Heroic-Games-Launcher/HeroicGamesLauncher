@@ -6,7 +6,7 @@
   width: 100%;
   border-radius: 1rem;
   grid-area: content;
-  padding: 2rem 48px;
+  padding: var(--space-xl-fixed) var(--space-2xl-fixed);
   position: relative;
   margin-bottom: 35px;
 }
@@ -14,7 +14,7 @@
 .Settings .Field,
 .Accessibility .Field,
 .InstallModal__dialog .Field {
-  margin: 16px 0px;
+  margin: var(--space-md) 0px;
   width: 100%;
 }
 
@@ -22,10 +22,10 @@
 .Accessibility .Field label,
 .InstallModal__dialog .Field label {
   cursor: default;
-  margin-bottom: 14px;
+  margin-bottom: var(--space-md);
   font: var(--font-secondary-regular);
-  font-size: 16px;
-  line-height: 19px;
+  font-size: var(--text-md);
+  line-height: var(--space-lg);
   color: var(--text-secondary);
 }
 
@@ -37,14 +37,13 @@
   place-self: center;
   place-items: flex-start;
   width: 100%;
-  padding-bottom: 8px;
+  padding-bottom: var(--space-xs);
 }
 
 .headerTitle {
   transition: 350ms;
   margin-top: 0px;
-  margin-left: 20px;
-  margin-bottom: 6px;
+  margin-bottom: var(--space-2xs);
 }
 
 .headerTitle > svg {
@@ -54,11 +53,6 @@
 .settingSubheader {
   text-align: left;
   margin-top: 0;
-  padding-left: 20px;
-}
-
-.settingSubheader::before {
-  content: '• ';
 }
 
 .settingsWrapper > .backButton {
@@ -68,58 +62,58 @@
 }
 
 .settingsTools {
-  margin-block: 16px;
+  margin-block: var(--space-md);
   justify-content: left;
   max-width: 512px;
 }
 
 .save {
   cursor: default;
-  margin: 1em 0 0 18px;
-  padding-block-end: 8px;
+  margin: var(--space-md) 0 0 var(--space-md);
+  padding-block-end: var(--space-xs);
   display: flex;
   align-items: center;
   justify-content: space-between;
   font: var(--font-secondary-regular-italic);
-  font-size: 14px;
-  line-height: 17px;
+  font-size: var(--text-sm);
+  line-height: var(--space-md);
   /* identical to box height */
   color: #5a5e5f;
 }
 
 .appName {
-  margin-inline-start: 18px;
-  padding-block: 8px;
+  margin-inline-start: var(--space-md);
+  padding-block: var(--space-xs);
   display: flex;
   align-items: center;
   justify-content: space-between;
   font: var(--font-secondary-regular-italic);
-  font-size: 14px;
-  line-height: 17px;
+  font-size: var(--text-sm);
+  line-height: var(--space-md);
   /* identical to box height */
   color: #5a5e5f;
 }
 
 .save > .material-icons {
-  font-size: 28px;
+  font-size: var(--text-2xl);
   margin-inline-start: 6px;
 }
 
 .warning {
   color: yellow;
-  font-size: 13px;
+  font-size: var(--text-sm);
   width: 100%;
   max-width: 513px;
   white-space: break-spaces;
-  padding-top: 4px;
+  padding-top: var(--space-3xs);
 }
 
 .smallLink {
-  font-size: 13px;
+  font-size: var(--text-sm);
   width: 100%;
   max-width: 513px;
   white-space: break-spaces;
-  padding-top: 4px;
+  padding-top: var(--space-3xs);
   cursor: pointer;
   transition: 300ms;
 }
@@ -193,7 +187,7 @@ a {
 
 .button-icontext-flex .button-icon-text {
   margin-block: auto;
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 
 .button-icon-flex {
@@ -219,8 +213,8 @@ a {
 }
 
 .infoBox.saves-warning {
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-weight: var(--semibold);
+  font-size: var(--text-lg);
 }
 
 .infoBox.saves-warning svg {
