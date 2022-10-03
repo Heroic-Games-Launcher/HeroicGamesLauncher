@@ -55,7 +55,8 @@ import { SDL_GAMES, SelectiveDownload } from './selective_dl'
 
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo } from 'common/types/gog'
-import { hasGameStatus } from 'frontend/hooks/hasGameStatus'
+import LibraryContext from 'frontend/state/LibraryContext'
+
 type Props = {
   appName: string
   backdropClick: () => void
@@ -96,7 +97,8 @@ export default function InstallModal({
   backdropClick,
   runner
 }: Props) {
-  const [gameStatus] = hasGameStatus(appName)
+  const { hasGameStatus } = useContext(LibraryContext)
+  const gameStatus = hasGameStatus(appName)
 
   const { i18n, t } = useTranslation('gamepage')
   const { t: tr } = useTranslation()

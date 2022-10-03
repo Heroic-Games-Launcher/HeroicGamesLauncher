@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
-import { AppSettings, GameInfo, GameStatus } from 'common/types'
+import { AppSettings, GameInfo } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
 
@@ -33,9 +33,9 @@ import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { hasGameStatus } from 'frontend/hooks/hasGameStatus'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
+import LibraryContext from 'frontend/state/LibraryContext'
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
@@ -49,7 +49,8 @@ export default function GamePage(): JSX.Element | null {
 
   const { epic, gog, gameUpdates, platform } = useContext(ContextProvider)
 
-  const [gameStatus] = hasGameStatus(appName)
+  const { hasGameStatus } = useContext(LibraryContext)
+  const gameStatus = hasGameStatus(appName)
   // @ts-expect-error TODO: Proper default value
   const [gameInfo, setGameInfo] = useState<GameInfo>({})
   const [updateRequested, setUpdateRequested] = useState(false)
@@ -76,32 +77,8 @@ export default function GamePage(): JSX.Element | null {
   const isUpdating = gameStatus.status === 'updating'
   const isReparing = gameStatus.status === 'repairing'
   const isMoving = gameStatus.status === 'moving'
-  const [hasDownloads, setHasDownloads] = useState(isInstalling || isUpdating)
-
-  useEffect(() => {
-    const onGameStatusChange = (gameStatusList: GameStatus[]) => {
-      const isDownloading = gameStatusList.some(
-        (st: GameStatus) =>
-          st.status === 'installing' || st.status === 'updating'
-      )
-      setHasDownloads(isDownloading)
-    }
-
-    window.api.getAllGameStatus().then(onGameStatusChange)
-
-    const onChange = (
-      e: Electron.IpcRendererEvent,
-      gameStatusList: GameStatus[]
-    ) => {
-      onGameStatusChange(gameStatusList)
-    }
-
-    const removehandleAllGameStatusListener =
-      window.api.handleAllGameStatus(onChange)
-
-    //useEffect unmount
-    return removehandleAllGameStatusListener
-  }, [])
+  const { hasDownloads } = useContext(LibraryContext)
+  const isDownloading = hasDownloads()
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -150,7 +127,7 @@ export default function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName, epic, gog])
+  }, [isInstalling, isPlaying, appName, epic.library, gog.library])
 
   async function handleUpdate() {
     setUpdateRequested(true)
@@ -416,7 +393,7 @@ export default function GamePage(): JSX.Element | null {
                             isUpdating ||
                             isReparing ||
                             isMoving ||
-                            (hasDownloads && !isInstalling)
+                            (isDownloading && !isInstalling)
                           }
                           className={`button ${getButtonClass(is_installed)}`}
                         >

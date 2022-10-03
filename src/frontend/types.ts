@@ -1,3 +1,4 @@
+import { GameStatus } from './../common/types'
 import { VersionInfo } from 'heroic-wine-downloader'
 import { AppSettings, GameInfo, GameSettings, Runner } from 'common/types'
 
@@ -204,4 +205,10 @@ export interface LocationState {
   runner: Runner
   isLinuxNative: boolean
   isMacNative: boolean
+}
+
+export interface LibraryContextType {
+  gameStatusList: GameStatus[]
+  hasGameStatus: (appName: string) => GameStatus
+  hasDownloads: () => boolean
 }

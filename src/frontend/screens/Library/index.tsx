@@ -28,6 +28,7 @@ import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import { epicCategories, gogCategories } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
+import LibraryContext from 'frontend/state/LibraryContext'
 
 const InstallModal = lazy(
   async () => import('frontend/screens/Library/components/InstallModal')
@@ -97,31 +98,10 @@ export default function Library(): JSX.Element {
   }
 
   // cache list of games being installed
-  const [installing, setInstalling] = useState<string[]>([])
-
-  useEffect(() => {
-    const onGameStatusChange = (gameStatusList: GameStatus[]) => {
-      const newInstalling = gameStatusList
-        .filter((st: GameStatus) => st.status === 'installing')
-        .map((st: GameStatus) => st.appName)
-      setInstalling(newInstalling)
-    }
-
-    window.api.getAllGameStatus().then(onGameStatusChange)
-
-    const onChange = (
-      e: Electron.IpcRendererEvent,
-      gameStatusList: GameStatus[]
-    ) => {
-      onGameStatusChange(gameStatusList)
-    }
-
-    const removehandleAllGameStatusListener =
-      window.api.handleAllGameStatus(onChange)
-
-    //useEffect unmount
-    return removehandleAllGameStatusListener
-  }, [])
+  const { gameStatusList } = useContext(LibraryContext)
+  const installing = gameStatusList
+    .filter((gameStatus: GameStatus) => gameStatus.status === 'installing')
+    .map((st: GameStatus) => st.appName)
 
   useEffect(() => {
     // This code avoids getting stuck on a empty library after logout of the current selected store

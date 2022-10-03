@@ -19,11 +19,11 @@ import fallbackImage from 'frontend/assets/fallback-image.jpg'
 import { uninstall, updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
-import { hasGameStatus } from 'frontend/hooks/hasGameStatus'
 
 import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import classNames from 'classnames'
+import LibraryContext from 'frontend/state/LibraryContext'
 
 interface Card {
   appName: string
@@ -59,7 +59,8 @@ const GameCard = ({
   installedPlatform,
   hasDownloads
 }: Card) => {
-  const [gameStatus] = hasGameStatus(appName)
+  const { hasGameStatus } = useContext(LibraryContext)
+  const gameStatus = hasGameStatus(appName)
 
   const { t } = useTranslation('gamepage')
 

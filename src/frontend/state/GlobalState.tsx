@@ -26,6 +26,7 @@ import {
   libraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
+import { LibraryState } from './LibraryState'
 
 const storage: Storage = window.localStorage
 
@@ -601,7 +602,7 @@ export class GlobalState extends PureComponent<Props> {
           setSideBarCollapsed: this.setSideBarCollapsed
         }}
       >
-        {this.props.children}
+        <LibraryState>{this.props.children}</LibraryState>
       </ContextProvider.Provider>
     )
   }

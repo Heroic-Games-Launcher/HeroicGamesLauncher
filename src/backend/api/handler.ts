@@ -21,12 +21,3 @@ export const handleGameStatus = (
     ipcRenderer.removeListener('handleGameStatus', onChange)
   }
 }
-
-export const handleAllGameStatus = (
-  onChange: (e: Electron.IpcRendererEvent, statusList: GameStatus[]) => void
-) => {
-  ipcRenderer.on('handleAllGameStatus', onChange)
-  return () => {
-    ipcRenderer.removeListener('handleAllGameStatus', onChange)
-  }
-}

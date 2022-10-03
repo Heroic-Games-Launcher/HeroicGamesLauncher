@@ -6,12 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import Box from '@mui/material/Box'
 import { getGameInfo } from 'frontend/helpers'
-import { hasGameStatus } from 'frontend/hooks/hasGameStatus'
 import { Runner } from 'common/types'
 import './index.css'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import Badge from '@mui/material/Badge'
+import LibraryContext from 'frontend/state/LibraryContext'
 
 type Props = {
   appName: string
@@ -19,7 +19,8 @@ type Props = {
 }
 
 export default function CurrentDownload({ appName, runner }: Props) {
-  const [gameStatus] = hasGameStatus(appName)
+  const { hasGameStatus } = useContext(LibraryContext)
+  const gameStatus = hasGameStatus(appName)
   const [gameTitle, setGameTitle] = useState('')
   const { sidebarCollapsed } = useContext(ContextProvider)
   const { t } = useTranslation()

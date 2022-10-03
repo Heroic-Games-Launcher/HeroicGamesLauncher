@@ -47,7 +47,6 @@ function setGameStatusOfElement(gameStatus: GameStatus) {
   const mainWindow = getMainWindow()
   if (mainWindow && mainWindow.webContents) {
     getMainWindow().webContents.send('handleGameStatus', newGameStatus)
-    getMainWindow().webContents.send('handleAllGameStatus', getAllGameStatus())
   }
 }
 
@@ -69,10 +68,6 @@ function deleteGameStatusOfElement(appName: string) {
       const mainWindow = getMainWindow()
       if (mainWindow && mainWindow.webContents) {
         getMainWindow().webContents.send('handleGameStatus', gameStatus)
-        getMainWindow().webContents.send(
-          'handleAllGameStatus',
-          getAllGameStatus()
-        )
       }
     }
   }

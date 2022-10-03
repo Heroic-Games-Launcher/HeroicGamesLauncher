@@ -17,7 +17,7 @@ import AltGOGdlBin from './AltGOGdlBin'
 import DownloadNoHTTPS from './DownloadNoHTTPS'
 import SettingsContext from '../../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { hasGameStatus } from 'frontend/hooks/hasGameStatus'
+import LibraryContext from 'frontend/state/LibraryContext'
 
 export default function AdvancedSettings() {
   const { config } = useContext(SettingsContext)
@@ -34,7 +34,8 @@ export default function AdvancedSettings() {
   const [eosOverlayEnabledGlobally, setEosOverlayEnabledGlobally] =
     useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
-  const [eosStatus] = hasGameStatus(eosOverlayAppName)
+  const { hasGameStatus } = useContext(LibraryContext)
+  const eosStatus = hasGameStatus(eosOverlayAppName)
 
   const { platform, refreshLibrary } = useContext(ContextProvider)
   const { t } = useTranslation()

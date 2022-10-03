@@ -12,7 +12,7 @@ import { uninstall } from 'frontend/helpers/library'
 import { NavLink } from 'react-router-dom'
 
 import { CircularProgress } from '@mui/material'
-import { hasGameStatus } from 'frontend/hooks/hasGameStatus'
+import LibraryContext from 'frontend/state/LibraryContext'
 
 interface Props {
   appName: string
@@ -111,7 +111,9 @@ export default function GamesSubmenu({
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const { t } = useTranslation('gamepage')
-  const [gameStatus] = hasGameStatus(eosOverlayAppName)
+
+  const { hasGameStatus } = useContext(LibraryContext)
+  const gameStatus = hasGameStatus(eosOverlayAppName)
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
