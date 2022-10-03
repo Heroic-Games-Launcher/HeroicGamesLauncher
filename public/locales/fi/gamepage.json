@@ -95,6 +95,9 @@
             "start": "Pelaa nyt",
             "stop": "Pelataan (pysäytä)"
         },
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "saves": {
             "syncing": "Synkronoidaan tallennuksia"
         }

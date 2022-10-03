@@ -95,6 +95,9 @@
             "start": "Igraj Sada",
             "stop": "Igra se (Prekini)"
         },
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "saves": {
             "syncing": "Sinkoniziranje podataka"
         }

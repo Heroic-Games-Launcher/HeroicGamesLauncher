@@ -95,6 +95,9 @@
             "start": "Nu spelen",
             "stop": "Aan het spelen (Stoppen)"
         },
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "saves": {
             "syncing": "Saves synchroniseren"
         }

@@ -95,6 +95,9 @@
             "start": "プレイ",
             "stop": "プレイしています（停止）"
         },
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "saves": {
             "syncing": "保存を同期しています"
         }

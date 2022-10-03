@@ -95,6 +95,9 @@
             "start": "Juga",
             "stop": "Atura"
         },
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "saves": {
             "syncing": "S'estan sincronitzant les partides"
         }

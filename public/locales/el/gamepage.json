@@ -95,6 +95,9 @@
             "start": "Παίξτε τώρα",
             "stop": "Σε παιχνίδι (Διακοπή)"
         },
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "saves": {
             "syncing": "Συγχρονισμός save"
         }

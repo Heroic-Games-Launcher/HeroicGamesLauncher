@@ -95,6 +95,9 @@
             "start": "Starta spelet",
             "stop": "Avsluta spel"
         },
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "saves": {
             "syncing": "Synkroniserar sparfiler"
         }

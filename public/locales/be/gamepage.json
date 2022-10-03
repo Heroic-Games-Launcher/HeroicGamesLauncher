@@ -95,6 +95,9 @@
             "start": "Гуляць зараз",
             "stop": "Прайграванне (Стоп)"
         },
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "saves": {
             "syncing": "Сінхранізацыя захаванняў"
         }

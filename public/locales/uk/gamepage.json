@@ -95,6 +95,9 @@
             "start": "Грати",
             "stop": "Запущено (зупинити)"
         },
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "saves": {
             "syncing": "Синхронізую збереження"
         }

@@ -95,6 +95,9 @@
             "start": "Jetzt spielen",
             "stop": "Läuft (Stoppen)"
         },
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "saves": {
             "syncing": "Spielstände werden synchronisiert"
         }

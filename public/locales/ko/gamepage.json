@@ -95,6 +95,9 @@
             "start": "지금 실행하기",
             "stop": "플레이 중지"
         },
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "saves": {
             "syncing": "세이브 동기화 중"
         }

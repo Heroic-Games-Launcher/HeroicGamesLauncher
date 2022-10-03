@@ -441,6 +441,9 @@ export default function GamePage(): JSX.Element | null {
   return <UpdateComponent />
 
   function getPlayBtnClass() {
+    if (isQueued) {
+      return 'is-secondary'
+    }
     if (isUpdating) {
       return 'is-danger'
     }
@@ -532,7 +535,10 @@ export default function GamePage(): JSX.Element | null {
     if (is_installed) {
       return t('submenu.settings')
     }
-    if (isInstalling || isQueued) {
+    if (isQueued) {
+      return t('button.queue.remove', 'Remove from Queue')
+    }
+    if (isInstalling) {
       return t('button.cancel')
     }
     return t('button.install')
