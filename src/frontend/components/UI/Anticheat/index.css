@@ -2,17 +2,17 @@
   display: flex;
   flex-direction: column;
   max-width: 100%;
-  padding: 1rem;
+  padding: var(--space-md);
   gap: 0.4rem;
-  margin: 1rem 0;
+  margin: var(--space-md) 0;
 }
 
 .anticheatInfo h4 {
-  margin: 0 0 1rem;
+  margin: 0 0 var(--space-md);
 }
 
 .anticheatInfo p {
-  margin: 0 0 1rem;
+  margin: 0 0 var(--space-md);
 }
 
 .anticheatInfo.Denied {

@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Οικογένεια γραμματοσειρών ενεργειών (Προεπιλογή: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Εμφάνιση όλων των πλακιδίων παιχνιδιού με χρώμα",
-        "content_font_family": "Οικογένεια γραμματοσειρών περιεχομένου (Προεπιλογή: \"Καμπίνα\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Γραμματοσειρές",
         "title": "Προσβασιμότητα",
         "zoom": "Zoom"

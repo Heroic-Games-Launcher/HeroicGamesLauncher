@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Famiglia di caratteri per le Azioni (predefinito: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Mostra tutte le tessere dei giochi a colori",
-        "content_font_family": "Famiglia di caratteri del contenuto (predefinita: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Caratteri",
         "title": "Accessibilità",
         "zoom": "Zoom"

@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Ekintzak letra-tipoen familia (lehenetsia: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Erakutsi joko-lauza guztiak koloreekin",
-        "content_font_family": "Edukiaren letra-tipo familia (lehenetsia: \"Kabina\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Letra-tipoak",
         "title": "Erabilerraztasuna",
         "zoom": "Zoom"

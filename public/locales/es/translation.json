@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Tipografía para acciones (Por Defecto: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Mostrar todos los juegos a color en la biblioteca",
-        "content_font_family": "Tipografía para contenido (Por Defecto: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Tipografías",
         "title": "Accesibilidad",
         "zoom": "Zoom"

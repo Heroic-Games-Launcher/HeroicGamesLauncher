@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Font za akcije(Default: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Pokaži sve igrice u boji",
-        "content_font_family": "Font za sadržaj (Default: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Fontovi",
         "title": "Prilagođeni pristup",
         "zoom": "Uvečaj"

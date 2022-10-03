@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Семейство на шрифта за действията (по подразбиране: „Rubik“)",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Показване на всички плочки с игри цветни",
-        "content_font_family": "Семейство на шрифта за съдържанието (по подразбиране: „Cabin“)",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Шрифтове",
         "title": "Достъпност",
         "zoom": "Увеличаване"
