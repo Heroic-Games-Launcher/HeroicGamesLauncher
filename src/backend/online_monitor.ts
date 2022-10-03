@@ -2,6 +2,7 @@ import { ConnectivityStatus } from '../common/types'
 import { BrowserWindow, ipcMain, IpcMainEvent, net } from 'electron'
 import { logInfo, LogPrefix } from './logger/logger'
 import axios from 'axios'
+import EventEmitter from 'node:events'
 
 let status: ConnectivityStatus
 let abortController: AbortController
@@ -9,6 +10,7 @@ let retryTimer: NodeJS.Timeout
 let retryIn = 0
 const defaultTimeBetweenRetries = 5
 let timeBetweenRetries = defaultTimeBetweenRetries
+export const connectivityEmitter = new EventEmitter()
 
 // handle setting the status, dispatch events for backend and frontend, and trigger pings
 const setStatus = (newStatus: ConnectivityStatus) => {
@@ -37,7 +39,7 @@ const setStatus = (newStatus: ConnectivityStatus) => {
   if (mainWindow) {
     mainWindow.webContents.send('connectivity-changed', { status, retryIn })
   }
-  ipcMain.emit(status)
+  connectivityEmitter.emit(status)
 }
 
 const retry = (seconds: number) => {
@@ -126,7 +128,7 @@ export const runOnceWhenOnline = (callback: () => unknown) => {
   if (isOnline()) {
     callback()
   } else {
-    ipcMain.once('online', () => callback())
+    connectivityEmitter.once('online', () => callback())
   }
 }
 
