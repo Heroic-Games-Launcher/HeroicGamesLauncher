@@ -1,24 +1,20 @@
 import './index.css'
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { getGameInfo } from 'frontend/helpers'
 
-import { Runner } from 'common/types'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
+import SettingsContext from '../../SettingsContext'
 
-interface Props {
-  appName: string
-  runner: Runner
-}
-
-export default function Tools({ appName, runner }: Props) {
+export default function Tools() {
   const { t } = useTranslation()
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
   const [progress, setProgress] = useState<string[]>([])
+  const { appName, runner } = useContext(SettingsContext)
 
   type Tool = 'winecfg' | 'winetricks' | string
   async function callTools(tool: Tool, exe?: string) {

@@ -83,6 +83,15 @@ export const clipboardReadText = async () =>
 export const clipboardWriteText = async (text: string) =>
   ipcRenderer.send('clipboardWriteText', text)
 
+export const handleShowErrorDialog = (
+  onError: (e: Electron.IpcRendererEvent, title: string, error: string) => void
+) => {
+  ipcRenderer.on('showErrorDialog', onError)
+  return () => {
+    ipcRenderer.removeListener('showErrorDialog', onError)
+  }
+}
+
 import Store from 'electron-store'
 // FUTURE WORK
 // here is how the store methods can be refactored

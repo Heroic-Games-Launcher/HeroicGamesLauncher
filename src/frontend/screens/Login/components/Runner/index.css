@@ -1,7 +1,7 @@
 .runnerWrapper {
   background-color: var(--background-darker);
-  padding: 20px;
-  border-radius: 15px;
+  padding: var(--space-lg);
+  border-radius: var(--space-xs);
   min-width: min(500px, 30%);
   display: flex;
   flex-direction: column;
@@ -15,8 +15,8 @@
 }
 
 .runnerLogin {
-  padding: 10px;
-  font-size: 25px;
+  padding: var(--space-xs);
+  font-size: var(--text-xl);
   border: none;
   transition: 0.2s;
 }
@@ -43,7 +43,7 @@
 .runnerWrapper img,
 .runnerWrapper svg {
   width: 100px;
-  margin: 20px;
+  margin: var(--space-lg);
   fill: #fff;
   height: 100%;
 }
@@ -51,17 +51,16 @@
 .userData {
   color: var(--text-secondary);
   /* For longer nicknames */
-  overflow: hidden;
-  font-size: 20px;
-  margin: 10px 0;
+  font-size: var(--text-lg);
+  margin: var(--space-sm) 0;
 }
 
 .runnerWrapper.epic {
-  margin-right: 32px;
+  margin-right: var(--space-xl-fixed);
 }
 .runnerWrapper.gog {
-  margin-left: 32px;
+  margin-left: var(--space-xl-fixed);
 }
 .runnerWrapper.gog svg {
-  margin-top: 14px;
+  margin-top: var(--space-md-fixed);
 }

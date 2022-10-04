@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 var(--space-md-fixed);
   align-self: center;
   flex-wrap: wrap;
 }
@@ -25,19 +25,19 @@
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr;
   grid-template-areas: 'name date size action';
-  margin: 0.5em 2em;
+  margin: var(--space-xs) var(--space-lg);
   align-items: center;
   justify-items: baseline;
   position: relative;
   cursor: default;
   place-self: center;
   border-bottom: 1px solid gray;
-  padding: 0.5rem 0;
+  padding: var(--space-xs-fixed) 0;
 }
 
 .wineManagerTitleList {
   grid-area: name;
-  font-size: 1em;
+  font-size: var(--text-md);
   font-weight: bold;
   text-transform: capitalize;
 }
@@ -57,16 +57,16 @@
 .wineManagerListItem > .progress {
   z-index: 5;
   grid-area: cover;
-  font-weight: 500;
+  font-weight: var(--medium);
   background: var(--background-gradient);
-  padding: 2px 5px;
+  padding: var(--space-3xs) var(--space-2xs);
   border-radius: 4px;
   color: var(--success);
   position: relative;
   bottom: -38px;
   left: -38px;
   color: var(--success);
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   font-style: italic;
   font-weight: normal;
   line-height: 12px;
@@ -79,28 +79,28 @@
 }
 
 .wineManagerListDate {
-  font-size: 1em;
+  font-size: var(--text-md);
   grid-area: date;
 }
 
 .wineManagerListSize {
-  font-size: 1em;
+  font-size: var(--text-md);
   grid-area: size;
   justify-self: center;
 }
 
 .react-contextmenu--visible {
   background-color: var(--background);
-  padding: 14px 22px;
+  padding: var(--space-md) var(--space-lg);
   border-radius: 6px;
   z-index: 99;
 }
 
 .react-contextmenu-item {
   color: var(--text-default);
-  font-size: 14px;
+  font-size: var(--text-sm);
   line-height: 26px;
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   cursor: pointer;
   text-align: left;
 }
