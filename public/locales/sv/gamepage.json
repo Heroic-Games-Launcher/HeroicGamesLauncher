@@ -108,6 +108,7 @@
     "launch": {
         "options": "Startalternativ..."
     },
+    "Open": "",
     "report_problem": "Rapportera problem med spelet",
     "sdl": {
         "title": "Ange komponenter att installera"

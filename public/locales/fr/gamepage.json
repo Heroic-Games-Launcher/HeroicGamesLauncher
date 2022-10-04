@@ -108,6 +108,7 @@
     "launch": {
         "options": "Paramètres de démarrage..."
     },
+    "Open": "",
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {
         "title": "Sélectionnez les composants à installer"

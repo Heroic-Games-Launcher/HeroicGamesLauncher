@@ -108,6 +108,7 @@
     "launch": {
         "options": "Käivitusvalikud..."
     },
+    "Open": "",
     "report_problem": "Teatage selle mängu käivitamise probleemist",
     "sdl": {
         "title": "Valige komponendid, mida installida"

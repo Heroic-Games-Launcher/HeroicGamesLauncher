@@ -109,6 +109,7 @@
     "launch": {
         "options": "Opcije za pokretanje..."
     },
+    "Open": "",
     "report_problem": "Prijavi problem za ovu video igru",
     "sdl": {
         "title": "Odaberite komponente za instalaciju"

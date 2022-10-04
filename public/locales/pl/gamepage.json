@@ -108,6 +108,7 @@
     "launch": {
         "options": "Opcje Uruchamiania..."
     },
+    "Open": "",
     "report_problem": "Zgłoś problem z uruchamianiem tej gry",
     "sdl": {
         "title": "Wybierz komponenty do instalacji"

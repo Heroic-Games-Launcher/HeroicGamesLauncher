@@ -109,6 +109,7 @@
     "launch": {
         "options": "Startalternativer..."
     },
+    "Open": "",
     "report_problem": "Rapporter et problem med å kjøre dette spillet",
     "sdl": {
         "title": "Velg komponenter som skal installeres"

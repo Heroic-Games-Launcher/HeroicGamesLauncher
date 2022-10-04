@@ -108,6 +108,7 @@
     "launch": {
         "options": "Indítási opciók..."
     },
+    "Open": "",
     "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {
         "title": "Válaszd ki a telepíteni kívánt elemeket"

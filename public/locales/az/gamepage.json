@@ -109,6 +109,7 @@
     "launch": {
         "options": "Başlama Seçimləri..."
     },
+    "Open": "",
     "report_problem": "Bu oyunu idarə edən problemi bildirin",
     "sdl": {
         "title": "Quraşdırılacaq komponentləri seçin"

@@ -176,7 +176,9 @@
             "link": "Download Manager",
             "queue": {
                 "actions": "Action",
-                "element": "Name"
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
             },
             "title": "Download Manager (Beta)"
         }
@@ -387,6 +389,13 @@
         "win": "விண்டோஸ்"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "சமீபத்தில் விளையாடியவை",
     "search": "விளையாட்டுகளைத் தேடு",
     "setting": {

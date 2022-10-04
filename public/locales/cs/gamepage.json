@@ -108,6 +108,7 @@
     "launch": {
         "options": "Možnosti spuštění..."
     },
+    "Open": "",
     "report_problem": "Nahlásit problém se spouštěním této hry",
     "sdl": {
         "title": "Vyberte součásti k instalaci"

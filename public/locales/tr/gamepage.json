@@ -108,6 +108,7 @@
     "launch": {
         "options": "Başlatma Seçenekleri..."
     },
+    "Open": "",
     "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {
         "title": "Kurulacak bileşenleri seç"

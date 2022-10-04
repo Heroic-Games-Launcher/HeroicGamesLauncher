@@ -108,6 +108,7 @@
     "launch": {
         "options": "啟動選項..."
     },
+    "Open": "",
     "report_problem": "回報執行此遊戲時出現的問題",
     "sdl": {
         "title": "選擇要安裝的元件"

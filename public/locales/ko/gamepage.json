@@ -108,6 +108,7 @@
     "launch": {
         "options": "시작 옵션..."
     },
+    "Open": "",
     "report_problem": "게임 실행 중에 생긴 문제를 제보하기",
     "sdl": {
         "title": "설치할 구성 요소를 선택합니다"

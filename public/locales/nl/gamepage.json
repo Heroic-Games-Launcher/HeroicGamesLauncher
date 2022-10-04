@@ -108,6 +108,7 @@
     "launch": {
         "options": "Opstartopties..."
     },
+    "Open": "",
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Selecteer componenten om te installeren"

@@ -108,6 +108,7 @@
     "launch": {
         "options": "Tuỳ chọn khởi chạy..."
     },
+    "Open": "",
     "report_problem": "Báo cáo sự cố khi chạy game này",
     "sdl": {
         "title": "Chọn các thành phần cần cài"

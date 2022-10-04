@@ -108,6 +108,7 @@
     "launch": {
         "options": "Opciones de Arranque..."
     },
+    "Open": "",
     "report_problem": "Reportar un problema ejecutando este juego",
     "sdl": {
         "title": "Elija componentes a instalar"

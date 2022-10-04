@@ -109,6 +109,7 @@
     "launch": {
         "options": "Opțiuni de Lansare..."
     },
+    "Open": "",
     "report_problem": "Raportați o problemă la rularea acestui joc",
     "sdl": {
         "title": "Selectați componentele de instalat"
