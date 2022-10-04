@@ -40,13 +40,17 @@ const DownloadManagerItem = ({ element, current, finished = false }: Props) => {
     )
   }
 
+  const goToGamePage = () => {
+    return navigate(`/gamepage/${runner}/${appName}`, {
+      state: { fromDM: true }
+    })
+  }
+
   // using one element for the different states so it doesn't
   // lose focus from the button when using a game controller
   const handleMainActionClick = () => {
     if (finished) {
-      return navigate(`/gamepage/${runner}/${appName}`, {
-        state: { fromGameCard: true }
-      })
+      return goToGamePage()
     }
 
     current ? stopInstallation() : window.api.removeFromDMQueue(appName)
@@ -64,20 +68,34 @@ const DownloadManagerItem = ({ element, current, finished = false }: Props) => {
     return current ? (
       <StopIcon />
     ) : (
-      <RemoveCircleIcon
-        style={{ color: 'var(--background-lighter)' }}
-        fontSize="large"
-      />
+      <RemoveCircleIcon style={{ color: 'var(--accent)' }} fontSize="large" />
     )
   }
 
   const mainIconTitle = () => {
-    return current ? 'Cancel installation' : 'Remove from download manager'
+    if (finished) {
+      return t('Open')
+    }
+    return current
+      ? t('button.cancel')
+      : t('queue.label.remove', 'Remove from download manager')
+  }
+
+  const getStatusColor = () => {
+    if (finished) {
+      return 'var(--success)'
+    }
+    return 'var(--text-default)'
   }
 
   return (
     <div className="downloadManagerListItem">
-      <span className="downloadManagerTitleList">
+      <span
+        role="button"
+        onClick={() => goToGamePage()}
+        className="downloadManagerTitleList"
+        style={{ color: getStatusColor() }}
+      >
         {library.find((val) => val.app_name === appName)?.title}
       </span>
       <span>{getStoreName(runner)}</span>

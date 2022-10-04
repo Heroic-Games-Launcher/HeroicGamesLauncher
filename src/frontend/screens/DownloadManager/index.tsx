@@ -6,6 +6,7 @@ import { DMQueueElement } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
 import ProgressHeader from './components/ProgressHeader'
 import DownloadManagerHeader from './DownloadManagerHeader'
+import { downloadManagerStore } from 'frontend/helpers/electronStores'
 
 const DownloadManagerItem = lazy(
   async () =>
@@ -58,6 +59,11 @@ export default function DownloadManager(): JSX.Element | null {
 
   const hasItems = currentElement || finishedElem?.length
 
+  const handleClearList = () => {
+    setFinishedElem([])
+    downloadManagerStore.set('finished', [])
+  }
+
   return (
     <>
       <h2>{t('download.manager.title', 'Download Manager (Beta)')}</h2>
@@ -99,9 +105,17 @@ export default function DownloadManager(): JSX.Element | null {
       {!!finishedElem?.length && (
         <div className="downloadManager">
           <div className="downloadList">
-            <h3 className="downloadManagerQueuedSectionTitle">
-              {t('queue.label.finished', 'Completed')}
-            </h3>
+            <span>
+              <h3 className="downloadManagerQueuedSectionTitle">
+                {t('queue.label.finished', 'Completed')}
+                <button
+                  className="button is-text"
+                  onClick={() => handleClearList()}
+                >
+                  ({t('queue.label.clear', 'Clear List')})
+                </button>
+              </h3>
+            </span>
             <DownloadManagerHeader />
             {finishedElem.map((el, key) => (
               <DownloadManagerItem

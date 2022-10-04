@@ -25,7 +25,7 @@
   display: grid;
   grid-template-columns: 3fr 2fr 1fr 10%;
   grid-template-areas: 'name store platform action';
-  margin: 0em 2em;
+  margin: 0 var(--space-xl-fixed);
   align-items: center;
   justify-items: baseline;
   position: relative;
@@ -40,6 +40,7 @@
   font-size: 1em;
   font-weight: bold;
   text-transform: capitalize;
+  cursor: pointer;
 }
 
 .downloadManagerListItem > a {
