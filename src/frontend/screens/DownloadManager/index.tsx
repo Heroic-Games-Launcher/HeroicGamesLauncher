@@ -66,9 +66,11 @@ export default function DownloadManager(): JSX.Element | null {
 
   return (
     <>
-      <h2>{t('download.manager.title', 'Download Manager (Beta)')}</h2>
+      <h4 style={{ paddingTop: 'var(--space-md)' }}>
+        {t('download.manager.title', 'Download Manager (Beta)')}
+      </h4>
       {!hasItems && (
-        <h3>{t('download.manager.empty', 'Nothing to download.')}</h3>
+        <h5>{t('download.manager.empty', 'Nothing to download.')}</h5>
       )}
       {currentElement && (
         <>
@@ -78,24 +80,28 @@ export default function DownloadManager(): JSX.Element | null {
               style={!currentElement ? { backgroundColor: 'transparent' } : {}}
               className="downloadList"
             >
-              <h3 className="downloadManagerCurrentSectionTitle">
+              <h5 className="downloadManagerCurrentSectionTitle">
                 {t('queue.label.downloading', 'Downloading')}
-              </h3>
-              <DownloadManagerHeader />
-              <DownloadManagerItem element={currentElement} current={true} />
+              </h5>
+              <div className="dmItemList">
+                <DownloadManagerHeader />
+                <DownloadManagerItem element={currentElement} current={true} />
+              </div>
               {!!plannendElements.length && (
                 <>
-                  <h3 className="downloadManagerQueuedSectionTitle">
+                  <h5 className="downloadManagerQueuedSectionTitle">
                     {t('queue.label.queued', 'Queued')}
-                  </h3>
-                  <DownloadManagerHeader />
-                  {plannendElements.map((el, key) => (
-                    <DownloadManagerItem
-                      key={key}
-                      element={el}
-                      current={false}
-                    />
-                  ))}
+                  </h5>
+                  <div className="dmItemList">
+                    <DownloadManagerHeader />
+                    {plannendElements.map((el, key) => (
+                      <DownloadManagerItem
+                        key={key}
+                        element={el}
+                        current={false}
+                      />
+                    ))}
+                  </div>
                 </>
               )}
             </div>
@@ -106,7 +112,7 @@ export default function DownloadManager(): JSX.Element | null {
         <div className="downloadManager">
           <div className="downloadList">
             <span>
-              <h3 className="downloadManagerQueuedSectionTitle">
+              <h5 className="downloadManagerQueuedSectionTitle">
                 {t('queue.label.finished', 'Completed')}
                 <button
                   className="button is-text"
@@ -114,17 +120,19 @@ export default function DownloadManager(): JSX.Element | null {
                 >
                   ({t('queue.label.clear', 'Clear List')})
                 </button>
-              </h3>
+              </h5>
             </span>
-            <DownloadManagerHeader />
-            {finishedElem.map((el, key) => (
-              <DownloadManagerItem
-                key={key}
-                element={el}
-                current={false}
-                finished
-              />
-            ))}
+            <div className="dmItemList">
+              <DownloadManagerHeader />
+              {finishedElem.map((el, key) => (
+                <DownloadManagerItem
+                  key={key}
+                  element={el}
+                  current={false}
+                  finished
+                />
+              ))}
+            </div>
           </div>
         </div>
       )}

@@ -38,3 +38,9 @@
   text-align: initial;
   padding-left: 30px;
 }
+
+.dmItemList {
+  border: solid 2px var(--text-default);
+  border-radius: 6px;
+  margin: var(--space-3xs) var(--space-lg);
+}

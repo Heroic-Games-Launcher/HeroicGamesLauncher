@@ -7,7 +7,10 @@
 }
 
 .progressHeader {
-  margin: 0.5em 2em;
+  border: solid 2px var(--text-default);
+  border-radius: 6px;
+  margin: var(--space-3xs) var(--space-lg) var(--space-xl);
+  padding: var(--space-md);
 }
 
 .linearProgress {
