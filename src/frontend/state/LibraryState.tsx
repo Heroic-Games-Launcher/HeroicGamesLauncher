@@ -1,5 +1,6 @@
 import { GameStatus } from 'common/types'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import ContextProvider from './ContextProvider'
 import { LibraryProvider } from './LibraryContext'
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 
 export function LibraryState({ children }: Props) {
   const [gameStatusList, setGameStatusList] = useState<GameStatus[]>([])
+  const { refreshLibrary } = useContext(ContextProvider)
 
   useEffect(() => {
     window.api
@@ -28,6 +30,15 @@ export function LibraryState({ children }: Props) {
       }
 
       setGameStatusList([...gameStatusList])
+
+      if (newGameStatus.status === 'done') {
+        refreshLibrary({
+          checkForUpdates: false,
+          fullRefresh: true,
+          runInBackground: true,
+          library: newGameStatus.runner || 'all'
+        })
+      }
     }
 
     const setGameStatusRemoveListener =
