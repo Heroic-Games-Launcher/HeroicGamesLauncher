@@ -85,7 +85,19 @@ const DownloadManagerItem = ({ element, current, finished = false }: Props) => {
     if (finished) {
       return 'var(--success)'
     }
-    return 'var(--text-default)'
+    return current ? 'var(--text-default)' : 'var(--accent)'
+  }
+
+  const currentApp = library.find((val) => val.app_name === appName)
+
+  if (!currentApp) {
+    return null
+  }
+
+  const { title, is_installed } = currentApp
+
+  if (finished && !is_installed) {
+    return null
   }
 
   return (
@@ -96,7 +108,7 @@ const DownloadManagerItem = ({ element, current, finished = false }: Props) => {
         className="downloadManagerTitleList"
         style={{ color: getStatusColor() }}
       >
-        {library.find((val) => val.app_name === appName)?.title}
+        {title}
       </span>
       <span>{getStoreName(runner)}</span>
       <span>{platformToInstall}</span>
