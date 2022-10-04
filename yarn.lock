@@ -2872,10 +2872,10 @@ electron-updater@^5.0.1:
     semver "^7.3.5"
     typed-emitter "^2.1.0"
 
-electron@^20.1.4:
-  version "20.1.4"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-20.1.4.tgz#d25b549f14376f99a0a239e27d67ef8515b4a5a0"
-  integrity sha512-7ov5kgSQi2JewV5SrVfjGasUvyScjuJrrDCW0rYxtP2SMe3JjoP4rsOOnh3ps2P/Nrdlbv+0ygiK0zp4ARCZ+A==
+electron@^21.0.1:
+  version "21.0.1"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-21.0.1.tgz#753669454a86a89fd70ba9614c79f789fb177c34"
+  integrity sha512-jLVSLakd0fO2GPnW4xXQrI93R464jeFb2ISngqRP3wpwH96XqeANkuAYLAr9TVhfQMCIWnuPROBZ+NU7nuk0WA==
   dependencies:
     "@electron/get" "^1.14.1"
     "@types/node" "^16.11.26"
