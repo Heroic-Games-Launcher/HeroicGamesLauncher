@@ -23,8 +23,8 @@
 
 .downloadManagerListItem {
   display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-template-areas: 'name action';
+  grid-template-columns: 3fr 2fr 1fr 10%;
+  grid-template-areas: 'name store platform action';
   margin: 0em 2em;
   align-items: center;
   justify-items: baseline;
@@ -101,4 +101,8 @@
 .react-contextmenu-item.disabled {
   color: var(--icon-disabled);
   cursor: initial;
+}
+
+.downloadManagerListItem span:nth-child(3) {
+  text-transform: capitalize;
 }

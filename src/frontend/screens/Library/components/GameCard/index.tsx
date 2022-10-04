@@ -12,7 +12,13 @@ import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg'
-import { getProgress, install, launch, sendKill } from 'frontend/helpers'
+import {
+  getProgress,
+  getStoreName,
+  install,
+  launch,
+  sendKill
+} from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import fallbackImage from 'frontend/assets/fallback-image.jpg'
@@ -305,17 +311,6 @@ const GameCard = ({
     grid ? 'gameCard' : 'gameListItem'
   }  ${instClass} ${hiddenClass}`
 
-  const getRunner = () => {
-    switch (runner) {
-      case 'legendary':
-        return 'Epic Games'
-      case 'gog':
-        return 'GOG'
-      default:
-        return 'Heroic'
-    }
-  }
-
   const showStoreLogos = () => {
     if (epic.username && gog.username) {
       return runner === 'legendary' ? (
@@ -369,7 +364,7 @@ const GameCard = ({
                 installed: isInstalled
               })}
             >
-              {getRunner()}
+              {getStoreName(runner)}
             </span>
           </Link>
           {

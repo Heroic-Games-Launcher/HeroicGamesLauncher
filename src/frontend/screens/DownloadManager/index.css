@@ -1,9 +1,5 @@
-.downloadList > .gameListHeader {
-  grid-template-columns: 3fr 1fr;
-}
-
-.downloadList > .gameListHeader span:nth-child(3) {
-  justify-self: center;
+.gameListHeader {
+  padding-top: 1.5em;
 }
 
 .downloadManager
@@ -33,8 +29,12 @@
 
 .downloadManagerCurrentSectionTitle {
   margin: 0px 0px 0px 0px;
+  text-align: initial;
+  padding-left: 30px;
 }
 
 .downloadManagerQueuedSectionTitle {
   margin: 30px 0px 0px 0px;
+  text-align: initial;
+  padding-left: 30px;
 }

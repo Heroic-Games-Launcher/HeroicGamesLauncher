@@ -1,7 +1,7 @@
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { getMainWindow } from '../utils'
 import Store from 'electron-store'
-import { DMQueueElement } from 'common/types'
+import { DMQueueElement, InstallParams } from 'common/types'
 import { installQueueElement } from './utils'
 
 const downloadManager = new Store({
@@ -37,6 +37,9 @@ async function initQueue() {
   while (element) {
     await installQueueElement(window, element.params)
     removeFromQueue(element.params.appName)
+    const finished =
+      (downloadManager.get('finished', []) as InstallParams[]) || []
+    downloadManager.set('finished', [...finished, element.params])
     element = getFirstQueueElement()
   }
   queueState = 'idle'
@@ -92,11 +95,13 @@ function removeFromQueue(appName: string) {
 
 function getQueueInformation() {
   let elements: DMQueueElement[] = []
+  let finished: InstallParams[] = []
   if (downloadManager.has('queue')) {
     elements = downloadManager.get('queue') as DMQueueElement[]
+    finished = downloadManager.get('finished') as InstallParams[]
   }
 
-  return elements
+  return { elements, finished }
 }
 
 export { initQueue, addToQueue, removeFromQueue, getQueueInformation }
