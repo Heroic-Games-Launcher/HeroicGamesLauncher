@@ -14,7 +14,7 @@ import {
   syncSaves,
   updateGame
 } from 'frontend/helpers'
-import { Link, NavLink, useParams } from 'react-router-dom'
+import { Link, NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
@@ -42,6 +42,7 @@ import Anticheat from 'frontend/components/UI/Anticheat'
 
 export default function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
+  const location = useLocation() as { state: { fromDM: boolean } }
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
@@ -82,6 +83,8 @@ export default function GamePage(): JSX.Element | null {
   const isQueued = status === 'queued'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
+
+  const backRoute = location?.state?.fromDM ? '/download-manager' : '/'
 
   const storage: Storage = window.localStorage
 
@@ -219,7 +222,7 @@ export default function GamePage(): JSX.Element | null {
             <GamePicture art_square={art_square} store={runner} />
             <NavLink
               className="backButton"
-              to="/"
+              to={backRoute}
               title={t2('webview.controls.back', 'Go Back')}
             >
               <ArrowCircleLeftIcon />
