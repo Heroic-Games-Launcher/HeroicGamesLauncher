@@ -353,7 +353,7 @@ export class GlobalState extends PureComponent<Props> {
       }
     }
 
-    const updatedSideload = sideloadLibrary.get('games')
+    const updatedSideload = sideloadLibrary.get('games', []) as SideloadCard[]
 
     this.setState({
       epic: {
