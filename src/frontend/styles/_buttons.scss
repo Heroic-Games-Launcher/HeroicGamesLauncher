@@ -1,22 +1,30 @@
+@mixin buttonDefaultStyle {
+  font-family: var(--secondary-font-family);
+  border-radius: var(--space-3xs);
+  color: #161616;
+}
+
+button {
+  @include buttonDefaultStyle();
+}
+
 .button {
+  @include buttonDefaultStyle();
   --line-height: 17px;
   cursor: pointer;
   padding: var(--space-sm);
   background: var(--primary);
   color: #1a1b1c;
   text-transform: uppercase;
-  font-family: var(--secondary-font-family);
   font-style: normal;
   font-weight: var(--medium);
   font-size: var(--text-md);
   line-height: var(--line-height);
-  color: #161616;
   border: none;
   max-height: 40px;
   text-align: center;
   transition: 500ms;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: var(--space-3xs);
 }
 
 .button:disabled {
