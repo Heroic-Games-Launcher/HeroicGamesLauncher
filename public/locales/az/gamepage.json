@@ -110,6 +110,11 @@
         "options": "Başlama Seçimləri..."
     },
     "Open": "",
+    "queue": {
+        "label": {
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Bu oyunu idarə edən problemi bildirin",
     "sdl": {
         "title": "Quraşdırılacaq komponentləri seçin"

@@ -109,6 +109,11 @@
         "options": "Opsi Peluncuran…"
     },
     "Open": "",
+    "queue": {
+        "label": {
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Laporkan masalah yang terjadi saat memainkan gim ini",
     "sdl": {
         "title": "Pilih komponen untuk dipasang"

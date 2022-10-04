@@ -109,6 +109,11 @@
         "options": "Opciones de Arranque..."
     },
     "Open": "",
+    "queue": {
+        "label": {
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Reportar un problema ejecutando este juego",
     "sdl": {
         "title": "Elija componentes a instalar"

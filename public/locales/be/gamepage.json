@@ -109,6 +109,11 @@
         "options": "Параметры запуску..."
     },
     "Open": "",
+    "queue": {
+        "label": {
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Паведаміць аб праблеме запуску гэтай гульні",
     "sdl": {
         "title": "Выберыце кампаненты для ўстаноўкі"

@@ -109,6 +109,11 @@
         "options": "启动选项..."
     },
     "Open": "",
+    "queue": {
+        "label": {
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "报告运行此游戏时出现的问题",
     "sdl": {
         "title": "选择要安装的组件"

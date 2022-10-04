@@ -109,6 +109,11 @@
         "options": "Indítási opciók..."
     },
     "Open": "",
+    "queue": {
+        "label": {
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {
         "title": "Válaszd ki a telepíteni kívánt elemeket"

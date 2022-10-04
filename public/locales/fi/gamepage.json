@@ -109,6 +109,11 @@
         "options": "Käynnistysasetukset..."
     },
     "Open": "",
+    "queue": {
+        "label": {
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Valitse asennettavat komponentit"

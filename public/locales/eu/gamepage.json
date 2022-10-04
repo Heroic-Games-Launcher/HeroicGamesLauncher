@@ -110,6 +110,11 @@
         "options": "Jaurtiketa-aukerak..."
     },
     "Open": "",
+    "queue": {
+        "label": {
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Joko hau gauzatzean arazo baten berri ematea",
     "sdl": {
         "title": "Instalatzeko osagaiak hautatzea"

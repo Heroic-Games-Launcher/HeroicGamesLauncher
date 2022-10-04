@@ -110,6 +110,11 @@
         "options": "Opțiuni de Lansare..."
     },
     "Open": "",
+    "queue": {
+        "label": {
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Raportați o problemă la rularea acestui joc",
     "sdl": {
         "title": "Selectați componentele de instalat"

@@ -109,6 +109,11 @@
         "options": "Başlatma Seçenekleri..."
     },
     "Open": "",
+    "queue": {
+        "label": {
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {
         "title": "Kurulacak bileşenleri seç"

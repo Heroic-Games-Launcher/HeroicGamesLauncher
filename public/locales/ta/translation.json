@@ -391,6 +391,7 @@
     "progress": "Progress",
     "queue": {
         "label": {
+            "clear": "Clear List",
             "downloading": "Downloading",
             "finished": "Completed",
             "queued": "Queued"

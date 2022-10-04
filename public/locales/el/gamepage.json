@@ -109,6 +109,11 @@
         "options": "Ρυθμίσεις εκκίνησης..."
     },
     "Open": "",
+    "queue": {
+        "label": {
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Αναφορά προβλήματος κατά την εκτέλεση του παιχνιδιού",
     "sdl": {
         "title": "Διαλέξτε στοιχεία για εγκατάσταση"
