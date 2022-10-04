@@ -64,9 +64,15 @@ async function initQueue() {
   queueState = element ? 'running' : 'idle'
 
   while (element) {
-    await installQueueElement(window, element.params)
+    // need to type cohert here since this method can return string as well
+    const { status } = (await installQueueElement(window, element.params)) as {
+      status: 'done' | 'error'
+    }
+
+    if (status === 'done') {
+      addToFinished(element)
+    }
     removeFromQueue(element.params.appName)
-    addToFinished(element)
     element = getFirstQueueElement()
   }
   queueState = 'idle'

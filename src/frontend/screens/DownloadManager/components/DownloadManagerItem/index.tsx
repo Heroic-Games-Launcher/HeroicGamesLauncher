@@ -94,11 +94,7 @@ const DownloadManagerItem = ({ element, current, finished = false }: Props) => {
     return null
   }
 
-  const { title, is_installed } = currentApp
-
-  if (finished && !is_installed) {
-    return null
-  }
+  const { title } = currentApp
 
   return (
     <div className="downloadManagerListItem">
