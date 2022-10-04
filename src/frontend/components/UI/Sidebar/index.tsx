@@ -20,12 +20,12 @@ export default function Sidebar() {
 
   useEffect(() => {
     window.api.getDMQueueInformation().then((elements: DMQueueElement[]) => {
-      setCurrentDMElement(elements.at(0))
+      setCurrentDMElement(elements[0])
     })
 
     const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
       (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => {
-        setCurrentDMElement(elements.at(0))
+        setCurrentDMElement(elements[0])
       }
     )
 

@@ -1,7 +1,7 @@
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { getMainWindow } from '../utils'
 import Store from 'electron-store'
-import { DMQueueElement, InstallParams } from 'common/types'
+import { DMQueueElement } from 'common/types'
 import { installQueueElement } from './utils'
 
 const downloadManager = new Store({
@@ -25,6 +25,35 @@ function getFirstQueueElement() {
   return null
 }
 
+function addToFinished(element: DMQueueElement) {
+  if (!element) {
+    logError('Can not add undefined element to finished!', {
+      prefix: LogPrefix.DownloadManager
+    })
+    return
+  }
+
+  let elements: DMQueueElement[] = []
+  if (downloadManager.has('finished')) {
+    elements = downloadManager.get('finished') as DMQueueElement[]
+  }
+
+  const elementIndex = elements.findIndex(
+    (el) => el.params.appName === element.params.appName
+  )
+
+  if (elementIndex >= 0) {
+    elements[elementIndex] = element
+  } else {
+    elements.push(element)
+  }
+
+  downloadManager.set('finished', elements)
+  logInfo([element.params.appName, 'added to download manager finished.'], {
+    prefix: LogPrefix.DownloadManager
+  })
+}
+
 /* 
 #### Public ####
 */
@@ -37,9 +66,7 @@ async function initQueue() {
   while (element) {
     await installQueueElement(window, element.params)
     removeFromQueue(element.params.appName)
-    const finished =
-      (downloadManager.get('finished', []) as InstallParams[]) || []
-    downloadManager.set('finished', [...finished, element.params])
+    addToFinished(element)
     element = getFirstQueueElement()
   }
   queueState = 'idle'
@@ -56,12 +83,20 @@ function addToQueue(element: DMQueueElement) {
   let elements: DMQueueElement[] = []
   if (downloadManager.has('queue')) {
     elements = downloadManager.get('queue') as DMQueueElement[]
-    downloadManager.delete('queue')
   }
 
-  elements.push(element)
+  const elementIndex = elements.findIndex(
+    (el) => el.params.appName === element.params.appName
+  )
+
+  if (elementIndex >= 0) {
+    elements[elementIndex] = element
+  } else {
+    elements.push(element)
+  }
+
   downloadManager.set('queue', elements)
-  logInfo([element.params.appName, 'added to download manager.'], {
+  logInfo([element.params.appName, 'added to download manager queue.'], {
     prefix: LogPrefix.DownloadManager
   })
 
@@ -93,15 +128,27 @@ function removeFromQueue(appName: string) {
   }
 }
 
+function clearFinished() {
+  if (downloadManager.has('finished')) {
+    downloadManager.delete('finished')
+  }
+}
+
 function getQueueInformation() {
   let elements: DMQueueElement[] = []
-  let finished: InstallParams[] = []
+  let finished: DMQueueElement[] = []
   if (downloadManager.has('queue')) {
     elements = downloadManager.get('queue') as DMQueueElement[]
-    finished = downloadManager.get('finished') as InstallParams[]
+    finished = downloadManager.get('finished') as DMQueueElement[]
   }
 
   return { elements, finished }
 }
 
-export { initQueue, addToQueue, removeFromQueue, getQueueInformation }
+export {
+  initQueue,
+  addToQueue,
+  removeFromQueue,
+  clearFinished,
+  getQueueInformation
+}

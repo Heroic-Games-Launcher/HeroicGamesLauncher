@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext } from 'react'
 
-import { GameInfo, InstallParams } from 'common/types'
+import { DMQueueElement, GameInfo } from 'common/types'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { SvgButton } from 'frontend/components/UI'
@@ -15,17 +15,17 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import { useNavigate } from 'react-router-dom'
 
 type Props = {
-  params: InstallParams
+  element: DMQueueElement
   current: boolean
   finished?: boolean
 }
 
-const DownloadManagerItem = ({ params, current, finished = false }: Props) => {
+const DownloadManagerItem = ({ element, current, finished = false }: Props) => {
   const { epic, gog } = useContext(ContextProvider)
   const library = [...epic.library, ...gog.library]
   const { t } = useTranslation('gamepage')
   const navigate = useNavigate()
-  const { appName, runner, path, platformToInstall } = params
+  const { appName, runner, path, platformToInstall } = element.params
   const [progress] = hasProgress(appName)
 
   const stopInstallation = async () => {
@@ -43,8 +43,6 @@ const DownloadManagerItem = ({ params, current, finished = false }: Props) => {
   // using one element for the different states so it doesn't
   // lose focus from the button when using a game controller
   const handleMainActionClick = () => {
-    const { runner, appName } = params
-
     if (finished) {
       return navigate(`/gamepage/${runner}/${appName}`, {
         state: { fromGameCard: true }

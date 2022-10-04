@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { lazy, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DMQueueElement, InstallParams } from 'common/types'
+import { DMQueueElement } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
 import ProgressHeader from './components/ProgressHeader'
 import DownloadManagerHeader from './DownloadManagerHeader'
@@ -14,7 +14,7 @@ const DownloadManagerItem = lazy(
 
 type DMQueue = {
   elements: DMQueueElement[]
-  finished: InstallParams[]
+  finished: DMQueueElement[]
 }
 
 export default function DownloadManager(): JSX.Element | null {
@@ -22,20 +22,22 @@ export default function DownloadManager(): JSX.Element | null {
   const [refreshing, setRefreshing] = useState(false)
   const [plannendElements, setPlannendElements] = useState<DMQueueElement[]>([])
   const [currentElement, setCurrentElement] = useState<DMQueueElement>()
-  const [finishedElem, setFinishedElem] = useState<InstallParams[]>()
+  const [finishedElem, setFinishedElem] = useState<DMQueueElement[]>()
 
   useEffect(() => {
     setRefreshing(true)
     window.api.getDMQueueInformation().then(({ elements }: DMQueue) => {
-      setCurrentElement(elements.at(0))
+      setCurrentElement(elements[0])
       setPlannendElements([...elements.slice(1)])
       setRefreshing(false)
     })
 
     const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
       (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => {
-        setCurrentElement(elements.at(0))
-        setPlannendElements([...elements.slice(1)])
+        if (elements) {
+          setCurrentElement(elements[0])
+          setPlannendElements([...elements.slice(1)])
+        }
       }
     )
 
@@ -74,20 +76,17 @@ export default function DownloadManager(): JSX.Element | null {
                 {t('queue.label.downloading', 'Downloading')}
               </h3>
               <DownloadManagerHeader />
-              <DownloadManagerItem
-                params={currentElement.params}
-                current={true}
-              />
+              <DownloadManagerItem element={currentElement} current={true} />
               {!!plannendElements.length && (
                 <>
                   <h3 className="downloadManagerQueuedSectionTitle">
                     {t('queue.label.queued', 'Queued')}
                   </h3>
                   <DownloadManagerHeader />
-                  {plannendElements.map((element, key) => (
+                  {plannendElements.map((el, key) => (
                     <DownloadManagerItem
                       key={key}
-                      params={element.params}
+                      element={el}
                       current={false}
                     />
                   ))}
@@ -107,7 +106,7 @@ export default function DownloadManager(): JSX.Element | null {
             {finishedElem.map((el, key) => (
               <DownloadManagerItem
                 key={key}
-                params={el}
+                element={el}
                 current={false}
                 finished
               />
