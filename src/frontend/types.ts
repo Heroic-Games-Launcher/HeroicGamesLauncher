@@ -4,7 +4,8 @@ import {
   GameInfo,
   GameSettings,
   GameStatus,
-  Runner
+  Runner,
+  ConnectivityStatus
 } from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog'
@@ -69,6 +70,7 @@ export interface ContextType {
   setSideBarCollapsed: (value: boolean) => void
   sidebarCollapsed: boolean
   activeController: string
+  connectivity: { status: ConnectivityStatus; retryIn: number }
   setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
   setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
 }

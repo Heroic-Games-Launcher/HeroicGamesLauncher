@@ -14,7 +14,7 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary, runLegendaryCommand } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, getLegendaryBin, isOnline, killPattern } from '../utils'
+import { execAsync, getLegendaryBin, killPattern } from '../utils'
 import {
   heroicGamesConfigPath,
   userHome,
@@ -39,6 +39,7 @@ import { gameInfoStore } from './electronStores'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { t } from 'i18next'
+import { isOnline } from '../online_monitor'
 import { showErrorBoxModalAuto } from '../dialog/dialog'
 
 class LegendaryGame extends Game {

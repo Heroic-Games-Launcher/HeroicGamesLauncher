@@ -3,11 +3,12 @@ import * as axios from 'axios'
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
-import { execAsync, getWineFromProton, isOnline } from './utils'
+import { execAsync, getWineFromProton } from './utils'
 import { execOptions, heroicToolsPath, userHome } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
 import { dirname } from 'path'
+import { isOnline } from './online_monitor'
 import { showErrorBoxModalAuto } from './dialog/dialog'
 
 export const DXVK = {

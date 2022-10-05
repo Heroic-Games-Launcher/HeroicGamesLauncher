@@ -62,6 +62,7 @@ const initialContext: ContextType = {
   sidebarCollapsed: false,
   setSideBarCollapsed: () => null,
   activeController: '',
+  connectivity: { status: 'online', retryIn: 0 },
   setPrimaryFontFamily: () => null,
   setSecondaryFontFamily: () => null
 }

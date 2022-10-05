@@ -328,6 +328,12 @@
             "started": "Actualización iniciada"
         }
     },
+    "offline-message": {
+        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "retrying": "Retrying"
+    },
     "options": {
         "advanced": {
             "key": "Variable Name",

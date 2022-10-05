@@ -8,7 +8,7 @@ import {
   Release
 } from 'common/types'
 import * as axios from 'axios'
-import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
+import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, spawnSync } from 'child_process'
 import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
@@ -94,37 +94,6 @@ function semverGt(target: string, base: string) {
   isGE ||= tmajor === bmajor && tminor > bminor
   isGE ||= tmajor === bmajor && tminor === bminor && tpatch > bpatch
   return isGE
-}
-
-function isOnline() {
-  let online = net.isOnline()
-  if (online) {
-    const hosts = ['google.com', 'store.epicgames.com', 'gog.com']
-    const errors = [] as string[]
-    online = hosts.some((host) => {
-      const args = [host] as string[]
-
-      if (isWindows) {
-        args.push('-n', '1')
-      } else {
-        args.push('-c', '1')
-      }
-
-      const { status, stderr } = spawnSync('ping', args)
-      if (stderr.length) {
-        errors.push(
-          [`Ping of ${host} failed with:`, stderr.toString()].join('\n')
-        )
-      }
-      return status === 0
-    })
-
-    if (!online && errors.length) {
-      logError(errors.join('\n'), { prefix: LogPrefix.Backend })
-    }
-  }
-
-  return online
 }
 
 export const getFileSize = fileSize.partial({ base: 2 })
@@ -792,7 +761,6 @@ export {
   errorHandler,
   execAsync,
   handleExit,
-  isOnline,
   isEpicServiceOffline,
   openUrlOrFile,
   semverGt,
