@@ -9,6 +9,8 @@ import { WineInstallation } from 'common/types'
 import { defaultWineVersion } from '../WineSettings'
 import classNames from 'classnames'
 import SettingsContext from '../../SettingsContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
 export default function WineExtensions() {
   const { t } = useTranslation()
@@ -24,8 +26,17 @@ export default function WineExtensions() {
         <h3 className="settingsSubheader">
           {t('settings.navbar.wineExt', 'Wine Extensions')}
         </h3>
+
+        <div className="infoBox saves-warning">
+          <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
+          {t(
+            'settings.wineExt.bottlesInformation',
+            'You can configure things like DXVK, VKD3D and more, in Bottles UI'
+          )}
+        </div>
+
         <button
-          className={classNames('button outline')}
+          className={classNames('button outline bottles-button')}
           onClick={async () =>
             window.api.callTool({ tool: 'bottles', appName, runner })
           }

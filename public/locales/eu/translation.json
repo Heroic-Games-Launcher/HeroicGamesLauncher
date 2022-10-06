@@ -393,6 +393,7 @@
         "autodxvk": "Instalatu/Eguneratu automatikoki DXVK aurrizkian",
         "autosync": "Sinkronizazio automatikoa gordetzen du",
         "autovkd3d": "Instalatu/Eguneratu automatikoki VKD3D aurrizkian",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "Hautatu exekutatzeko EXE alternatibo bat",
         "checkForUpdatesOnStartup": "Hasieran eguneraketak bilatu",
         "crossover-version": "Crossover bertsioa",
@@ -515,10 +516,14 @@
             "wineExt": "Ardoaren luzapenak"
         },
         "open-config-file": "Ireki Konfigurazio fitxategia",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Berrezarri Heroic",
         "saves": {
             "label": "Gorde kokapena:",
             "warning": "Hodeiko Gordeen eginbidea beta-n dago. Sinkronizatu aurretik gordetako babeskopiak egin behar dira (zerbait gaizki gertatzen bada)"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "Ezarpenak",

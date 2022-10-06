@@ -393,6 +393,7 @@
         "autodxvk": "Prefiksdə DXVK-nı Avtomatik Quraşdırın/Yeniləyin",
         "autosync": "Avtosinxronizasiya Saxlayır",
         "autovkd3d": "Prefiksdə VKD3D-ni Avtomatik Quraşdırın/Yeniləyin",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "Çalıştırmaq üçün alternativ EXE seçin",
         "checkForUpdatesOnStartup": "Başlanğıcda qəhrəmanlıq yenilənmələrini yoxlayın",
         "crossover-version": "Krossover versiyası",
@@ -515,10 +516,14 @@
             "wineExt": "Şərab uzantıları"
         },
         "open-config-file": "Konfiqurasiya faylını açın",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Qəhrəmanı sıfırlayın",
         "saves": {
             "label": "Məkanı Saxla:",
             "warning": "Bulud Saxlama funksiyası Beta-dadır, lütfən, sinxronizasiya etməzdən əvvəl yaddaşı ehtiyat nüsxəsini çıxarın (nəsə səhv olarsa)"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "Parametrlər",

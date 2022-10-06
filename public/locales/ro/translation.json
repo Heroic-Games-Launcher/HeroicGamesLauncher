@@ -393,6 +393,7 @@
         "autodxvk": "Instalare/Actualizare automată DXVK în Prefix",
         "autosync": "Salvări de sincronizare automată",
         "autovkd3d": "Instalare/Actualizare automată VKD3D pe Prefix",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "Selectați un EXE alternativ pentru a rula",
         "checkForUpdatesOnStartup": "Verificare pentru actualizări la pornire",
         "crossover-version": "Versiune crossover",
@@ -515,10 +516,14 @@
             "wineExt": "Extensii de vin"
         },
         "open-config-file": "Deschideți fișierul de configurare",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Resetează eroic",
         "saves": {
             "label": "Salveaza locatia:",
             "warning": "Funcția Cloud Saves este în versiune beta, vă rugăm să faceți backup înainte de sincronizare (în cazul în care ceva nu merge bine)"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "Setări",

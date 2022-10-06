@@ -393,6 +393,7 @@
         "autodxvk": "Automatska instalacija/ažuriranje DXVK na prefiksu",
         "autosync": "Automatska sinkronizacija spremanja",
         "autovkd3d": "Automatska instalacija/ažuriranje VKD3D na prefiksu",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "Odaberite alternativni EXE za pokretanje",
         "checkForUpdatesOnStartup": "Provjeri ima li Heroic Updates pri pokretanju",
         "crossover-version": "Crossover verzija",
@@ -515,10 +516,14 @@
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Otvorite konfig. fajl",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Resetujte Heroic",
         "saves": {
             "label": "Sačuvaj lokaciju:",
             "warning": "Funkcija čuvanja u oblaku je u beta verziji, napravite sigurnosnu kopiju vaših sačuvanih podataka prije sinhronizacije (u slučaju da nešto krene po zlu)"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "Postavke",

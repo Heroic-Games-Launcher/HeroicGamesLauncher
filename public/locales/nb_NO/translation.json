@@ -393,6 +393,7 @@
         "autodxvk": "Autoinstaller/oppdater DXVK på prefiks",
         "autosync": "Autosync lagrer",
         "autovkd3d": "Autoinstaller/oppdater VKD3D på prefiks",
+        "bottles-bottle": "Bottle",
         "change-target-exe": "Velg en alternativ EXE å kjøre",
         "checkForUpdatesOnStartup": "Se etter heroiske oppdateringer ved oppstart",
         "crossover-version": "Crossover-versjon",
@@ -515,10 +516,14 @@
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Åpne konfigurasjonsfil",
+        "openBottles": "OPEN BOTTLES",
         "reset-heroic": "Tilbakestill Heroic",
         "saves": {
             "label": "Lagre plassering:",
             "warning": "Cloud Saves-funksjonen er i beta, vennligst ta sikkerhetskopi av lagrene dine før synkronisering (i tilfelle noe går galt)"
+        },
+        "wineExt": {
+            "bottlesInformation": "You can configure things like DXVK, VKD3D and more, in Bottles UI"
         }
     },
     "Settings": "Innstillinger",
