@@ -26,7 +26,7 @@ export default function WineExtensions() {
         </h3>
         <button
           className={classNames('button outline')}
-          onClick={() =>
+          onClick={async () =>
             window.api.callTool({ tool: 'bottles', appName, runner })
           }
         >

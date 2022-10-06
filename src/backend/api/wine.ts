@@ -51,5 +51,5 @@ export const handleProgressOfWineManager = (
 }
 
 // Bottles
-export const getBottlesNames = (bottlesType: string) =>
+export const getBottlesNames = async (bottlesType: string) =>
   ipcRenderer.invoke('bottles.getBottlesNames', bottlesType)

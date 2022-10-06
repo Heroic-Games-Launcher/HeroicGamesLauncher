@@ -36,4 +36,4 @@ export const isAddedToSteam = async (appName: string, runner: Runner) =>
 export const isEosOverlayEnabled = async (appName?: string) =>
   ipcRenderer.invoke('isEosOverlayEnabled', appName)
 export const runGogSetupForGame = async (appName: string) =>
-  await ipcRenderer.invoke('runGOGSetupForGame', appName)
+  ipcRenderer.invoke('runGOGSetupForGame', appName)
