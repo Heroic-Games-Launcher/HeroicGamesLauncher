@@ -235,9 +235,6 @@ export default function GamePage(): JSX.Element | null {
             >
               <ArrowCircleLeftIcon />
             </NavLink>
-            <div className="store-icon">
-              <StoreLogos runner={runner} />
-            </div>
             <div className={`gameTabs ${tabToShow}`}>
               {
                 <>

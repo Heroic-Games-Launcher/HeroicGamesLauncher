@@ -6,11 +6,12 @@
   font-family: var(--secondary-font-family);
   border-radius: var(--space-3xs);
   color: var(--text-default);
-  background-color: var(--background-darker);
-  padding: 6px;
+  background-color: var(--background-lighter);
+  padding: 10px;
   border: none;
-  margin: 0 10px;
+  margin: 0 24px;
   cursor: pointer;
+  text-transform: uppercase;
 }
 
 .numberOfgames {
