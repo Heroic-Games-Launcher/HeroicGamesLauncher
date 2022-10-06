@@ -1,3 +1,14 @@
 .libraryTitle {
   grid-area: title;
 }
+
+.sideloadGameButton {
+  font-family: var(--secondary-font-family);
+  border-radius: var(--space-3xs);
+  color: var(--text-default);
+  background-color: var(--background-darker);
+  padding: 6px;
+  border: none;
+  margin: 0 10px;
+  cursor: pointer;
+}

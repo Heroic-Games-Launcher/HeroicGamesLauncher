@@ -15,6 +15,7 @@ type Props = {
   sortInstalled: boolean
   setSortInstalled: (value: boolean) => void
   setSortDescending: (value: boolean) => void
+  handleAddGameButtonClick: () => void
 }
 
 export default function LibraryHeader({
@@ -22,7 +23,8 @@ export default function LibraryHeader({
   sortInstalled,
   sortDescending,
   setSortDescending,
-  setSortInstalled
+  setSortInstalled,
+  handleAddGameButtonClick
 }: Props) {
   const { t } = useTranslation()
   const { category, showFavourites } = useContext(ContextProvider)
@@ -70,6 +72,12 @@ export default function LibraryHeader({
             ? t('favourites', 'Favourites')
             : `${getLibraryTitle(category, t)}`}
           <span className="numberOfgames">{numberOfGames}</span>
+          <button
+            className="sideloadGameButton"
+            onClick={handleAddGameButtonClick}
+          >
+            Add Game
+          </button>
         </span>
         <ActionIcons
           sortDescending={sortDescending}

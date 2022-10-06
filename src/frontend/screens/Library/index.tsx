@@ -244,7 +244,7 @@ export default function Library(): JSX.Element {
       ? [...installed, ...installingGames, ...notInstalled]
       : library
 
-    return [emptyCard, ...library]
+    return [...library]
   }, [
     category,
     epic,
@@ -296,6 +296,9 @@ export default function Library(): JSX.Element {
           setSortInstalled={setSortInstalled}
           sortDescending={sortDescending}
           sortInstalled={sortInstalled}
+          handleAddGameButtonClick={() =>
+            handleModal(emptyCard.app_name, emptyCard.runner)
+          }
         />
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
