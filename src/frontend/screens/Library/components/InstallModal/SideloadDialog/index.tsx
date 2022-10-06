@@ -12,7 +12,12 @@ import {
   DialogFooter,
   DialogHeader
 } from 'frontend/components/UI/Dialog'
-import { getAppSettings, getGameSettings, writeConfig } from 'frontend/helpers'
+import {
+  getAppSettings,
+  getGameInfo,
+  getGameSettings,
+  writeConfig
+} from 'frontend/helpers'
 import { Path } from 'frontend/types'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -28,6 +33,7 @@ type Props = {
   children: React.ReactNode
   platformToInstall: InstallPlatform
   backdropClick: () => void
+  appName?: string
 }
 
 export default function SideloadDialog({
@@ -37,7 +43,8 @@ export default function SideloadDialog({
   wineVersion,
   platformToInstall,
   setWinePrefix,
-  children
+  children,
+  appName
 }: Props) {
   const { t } = useTranslation('gamepage')
   const [title, setTitle] = useState<string | never>(
@@ -45,20 +52,48 @@ export default function SideloadDialog({
   )
   const [selectedExe, setSelectedExe] = useState('')
   const [imageUrl, setImageUrl] = useState('')
-  const [app_name, setApp_name] = useState('')
+  const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
+  const editMode = Boolean(appName)
 
   const { refreshLibrary } = useContext(ContextProvider)
 
   useEffect(() => {
-    setApp_name(short.generate().toString())
+    if (appName) {
+      getGameInfo(appName, 'sideload').then(
+        ({
+          art_cover,
+          art_square,
+          install: { executable, platform },
+          title
+        }) => {
+          if (executable && platform) {
+            setSelectedExe(executable)
+          }
+          setTitle(title)
+          setImageUrl(art_cover ? art_cover : art_square)
+        }
+      )
+    }
+    if (!appName) {
+      setApp_name(short.generate().toString())
+    }
   }, [])
 
   useEffect(() => {
     const setWine = async () => {
-      const { defaultWinePrefix } = await getAppSettings()
-      const sugestedWinePrefix = `${defaultWinePrefix}/${title}`
-      setWinePrefix(sugestedWinePrefix)
+      if (editMode && appName) {
+        const appSettings = await window.api.getGameSettings(
+          appName,
+          'sideload'
+        )
+        setWinePrefix(appSettings.winePrefix)
+        return
+      } else {
+        const { defaultWinePrefix } = await getAppSettings()
+        const sugestedWinePrefix = `${defaultWinePrefix}/${title}`
+        setWinePrefix(sugestedWinePrefix)
+      }
     }
     setWine()
   }, [title])
@@ -85,24 +120,38 @@ export default function SideloadDialog({
     return backdropClick()
   }
 
+  const fileFilters = {
+    Windows: [
+      { name: 'Executables', extensions: ['exe', 'msi'] },
+      { name: 'Scripts', extensions: ['bat'] },
+      { name: 'All', extensions: ['*'] }
+    ],
+    Linux: [
+      { name: 'AppImages', extensions: ['AppImage'] },
+      { name: 'Other Binaries', extensions: ['sh', 'py', 'bin'] },
+      { name: 'All', extensions: ['*'] }
+    ],
+    Mac: [
+      { name: 'Apps', extensions: ['App'] },
+      { name: 'Other Binaries', extensions: ['sh', 'py', 'bin'] },
+      { name: 'All', extensions: ['*'] }
+    ]
+  }
+
   const handleRunExe = async () => {
     let exeToRun = ''
     const { path } = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
       title: t('box.runexe.title'),
-      filters: [
-        { name: 'windows executables', extensions: ['exe', 'bat', 'msi'] }
-      ]
+      filters: fileFilters[platformToInstall]
     })
     if (path) {
       exeToRun = path
-      console.log(exeToRun)
       try {
         setRunningSetup(true)
         await writeConfig([app_name, { winePrefix, wineVersion }])
         const gameSettings = await getGameSettings(app_name, 'sideload')
-        console.log({ gameSettings, app_name })
         await window.api.runWineCommand({
           command: exeToRun,
           wait: true,
@@ -161,6 +210,7 @@ export default function SideloadDialog({
               htmlId="sideload-image"
               value={imageUrl}
             />
+            {children}
             <TextInputWithIconField
               htmlId="sideload-exe"
               label={t('sideload.info.exe', 'Select Executable')}
@@ -173,12 +223,12 @@ export default function SideloadDialog({
                   .openDialog({
                     buttonLabel: t('box.select.button', 'Select'),
                     properties: ['openFile'],
-                    title: t('box.sideload.exe', 'Select Executable')
+                    title: t('box.sideload.exe', 'Select Executable'),
+                    filters: fileFilters[platformToInstall]
                   })
                   .then(({ path }: Path) => setSelectedExe(path ? path : ''))
               }
             />
-            {children}
           </div>
         </div>
       </DialogContent>
