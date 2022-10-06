@@ -12,11 +12,15 @@ interface Props {
 
 export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
   const { t } = useTranslation()
-  const { epic, gog } = useContext(ContextProvider)
+  const { epic, gog, sideloadedLibrary } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
   const loadRecentGames = () => {
-    const newRecentGames = getRecentGames([...epic.library, ...gog.library])
+    const newRecentGames = getRecentGames([
+      ...epic.library,
+      ...gog.library,
+      ...sideloadedLibrary
+    ])
 
     setRecentGames(newRecentGames)
   }

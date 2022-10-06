@@ -176,6 +176,9 @@ export default function Library(): JSX.Element {
       gog.library.forEach((game: GameInfo) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
+      sideloadedLibrary.forEach((game: GameInfo) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
     }
     return tempArray
   }, [showFavourites, favouriteGames, epic, gog])
