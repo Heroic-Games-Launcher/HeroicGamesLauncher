@@ -1,4 +1,9 @@
-import { GameSettings, GameInfo, SideloadGame } from '../../common/types'
+import {
+  GameSettings,
+  GameInfo,
+  SideloadGame,
+  InstalledInfo
+} from '../../common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../game_config'
 import {
@@ -9,12 +14,12 @@ import {
   heroicGamesConfigPath
 } from '../constants'
 import { execAsync, killPattern, notify } from '../utils'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { SideLoadLibrary } from './library'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { dirname, join } from 'path'
-import { existsSync, rmSync } from 'graceful-fs'
+import { constants as FS_CONSTANTS, existsSync, rmSync } from 'graceful-fs'
 import i18next from 'i18next'
-import { runWineCommand } from '../launcher'
+import { runWineCommand, setupEnvVars } from '../launcher'
+import { access, chmod } from 'fs/promises'
 
 export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)
@@ -81,8 +86,35 @@ export async function launchApp(appName: string): Promise<boolean> {
   const {
     install: { executable }
   } = getAppInfo(appName)
+
   if (executable) {
     const gameSettings = await getAppSettings(appName)
+
+    if (isNative(appName)) {
+      const env = { ...process.env, ...setupEnvVars(gameSettings) }
+      const { launcherArgs } = gameSettings
+      logInfo(
+        `launching native sideloaded: ${executable} ${launcherArgs ?? ''}`,
+        { prefix: LogPrefix.Backend }
+      )
+      try {
+        await access(executable, FS_CONSTANTS.X_OK)
+      } catch (error) {
+        logWarning('File not executable, changing permissions temporarilly', {
+          prefix: LogPrefix.Backend
+        })
+        await chmod(executable, 0o775)
+      }
+      const { stderr, stdout } = await execAsync(`${executable}`, {
+        env
+      })
+      // TODO: check and revert to previous permissions
+      await chmod(executable, 0o664)
+
+      console.log({ stderr, stdout })
+      return true
+    }
+
     await runWineCommand({
       command: executable,
       gameSettings,
@@ -118,7 +150,15 @@ export async function moveInstall(
   })
   await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
     .then(() => {
-      SideLoadLibrary.get().changeGameInstallPath(appName, newInstallPath)
+      const installedArray =
+        (libraryStore.get('installed', []) as Array<InstalledInfo>) || []
+
+      const gameIndex = installedArray.findIndex(
+        (value) => value.appName === appName
+      )
+
+      installedArray[gameIndex].install_path = newInstallPath
+      libraryStore.set('installed', installedArray)
       logInfo(`Finished Moving ${title}`, { prefix: LogPrefix.Backend })
     })
     .catch((error) => logError(`${error}`, { prefix: LogPrefix.Backend }))
@@ -163,17 +203,23 @@ export async function removeApp({
 }
 
 export function isNative(appName: string): boolean {
-  const gameInfo = getAppInfo(appName)
-  if (isWindows) {
-    return true
-  }
+  const {
+    install: { platform }
+  } = getAppInfo(appName)
+  if (platform) {
+    if (isWindows) {
+      return true
+    }
 
-  if (isMac && gameInfo.install.platform === 'osx') {
-    return true
-  }
+    if (isMac && platform === 'Mac') {
+      return true
+    }
 
-  if (isLinux && gameInfo.install.platform === 'linux') {
-    return true
+    // small hack, but needs to fix the typings
+    const plat = platform.toLowerCase()
+    if (isLinux && plat === 'linux') {
+      return true
+    }
   }
 
   return false
