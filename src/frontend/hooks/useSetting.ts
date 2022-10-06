@@ -5,7 +5,7 @@ const useSetting = <T>(
   key: string,
   fallback: T
 ): [T, React.Dispatch<React.SetStateAction<T>>] => {
-  const { getSetting, setSetting } = useContext(SettingsContext)
+  const { getSetting, setSetting, config } = useContext(SettingsContext)
 
   let initialValue = getSetting(key) as T
   if (initialValue === undefined) {
@@ -13,6 +13,14 @@ const useSetting = <T>(
   }
   const [value, setValue] = useState<T>(initialValue)
   const [dirty, setDirty] = useState(false)
+
+  useEffect(() => {
+    const newValue = getSetting(key) as T
+
+    if (newValue && newValue !== value) {
+      setValue(newValue)
+    }
+  }, [config])
 
   useEffect(() => {
     if (dirty) {
