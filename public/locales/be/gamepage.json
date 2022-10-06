@@ -55,6 +55,9 @@
         "remove_from_favourites": "Выдаліць з абранага",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Гульня Unhide",
         "uninstall": "Выдаліць",
         "update": "Абнаўленне"

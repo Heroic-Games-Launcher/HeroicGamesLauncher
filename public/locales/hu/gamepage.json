@@ -55,6 +55,9 @@
         "remove_from_favourites": "Eltávolítás a kedvencekből",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Játék felfedése",
         "uninstall": "Eltávolítás",
         "update": "Frissítés"

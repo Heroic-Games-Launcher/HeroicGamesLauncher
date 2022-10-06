@@ -56,6 +56,9 @@
         "remove_from_favourites": "Sevimlilərdən Sil",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Oyunu Gizlət",
         "uninstall": "Silin",
         "update": "Yeniləyin"

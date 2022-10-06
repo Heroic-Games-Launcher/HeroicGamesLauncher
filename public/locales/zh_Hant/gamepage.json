@@ -55,6 +55,9 @@
         "remove_from_favourites": "自我的最愛移除",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "取消隱藏遊戲",
         "uninstall": "解除安裝",
         "update": "更新"

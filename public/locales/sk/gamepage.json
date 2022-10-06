@@ -55,6 +55,9 @@
         "remove_from_favourites": "Odstrániť z obľúbených",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Odkryť hru",
         "uninstall": "Odinštalovať",
         "update": "Aktualizovať"

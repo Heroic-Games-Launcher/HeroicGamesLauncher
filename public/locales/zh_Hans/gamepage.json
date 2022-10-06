@@ -55,6 +55,9 @@
         "remove_from_favourites": "从收藏夹移除",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "取消隐藏游戏",
         "uninstall": "卸载",
         "update": "更新"

@@ -56,6 +56,9 @@
         "remove_from_favourites": "Kendu gogokoenetik",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Erakutsi jokoa",
         "uninstall": "Desinslalatu",
         "update": "Eguneratu"

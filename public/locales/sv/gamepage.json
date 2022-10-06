@@ -55,6 +55,9 @@
         "remove_from_favourites": "Ta bort från Favoriter",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Visa dolt spel igen",
         "uninstall": "Avinstallera",
         "update": "Uppdatera"

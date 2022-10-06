@@ -55,6 +55,9 @@
         "remove_from_favourites": "Aus Favoriten entfernen",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Spiel einblenden",
         "uninstall": "Deinstallieren",
         "update": "Update"

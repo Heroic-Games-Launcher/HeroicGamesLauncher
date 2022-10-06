@@ -55,6 +55,9 @@
         "remove_from_favourites": "Remove From Favourites",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Unhide Game",
         "uninstall": "എടുത്തുനീക്കൂ",
         "update": "പുതുക്കൂ"

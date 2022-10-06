@@ -55,6 +55,9 @@
         "remove_from_favourites": "Xóa khỏi mục ưa thích",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Bỏ ẩn Game",
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật"
