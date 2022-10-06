@@ -13,6 +13,7 @@ import WineVersionSelector from './WineVersionSelector'
 import CustomWineProton from './CustomWineProton'
 import { WineInstallation } from 'common/types'
 import ContextProvider from 'frontend/state/ContextProvider'
+import BottleSelect from './BottleSelect'
 
 export const defaultWineVersion: WineInstallation = {
   bin: '/usr/bin/wine',
@@ -35,6 +36,8 @@ export default function WineSettings() {
       <WineVersionSelector />
 
       <CrossoverBottle />
+
+      <BottleSelect />
 
       <PreferSystemLibs />
 

@@ -236,7 +236,7 @@ export default function GamesSubmenu({
 
   async function handleGogSetup() {
     setGogSetupInProgress(true)
-    await ipcRenderer.invoke('runGOGSetupForGame', appName)
+    await window.api.runGogSetupForGame(appName)
     setGogSetupInProgress(false)
   }
 

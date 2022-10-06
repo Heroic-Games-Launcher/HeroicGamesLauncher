@@ -164,7 +164,10 @@ async function setup(
             ],
             { prefix: LogPrefix.Gog }
           )
-          logDebug(['Running command', String(command)], LogPrefix.Gog)
+
+          logDebug(['Running command', String(command)], {
+            prefix: LogPrefix.Gog
+          })
           await execAsync(command)
           break
         }

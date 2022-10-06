@@ -49,3 +49,7 @@ export const handleProgressOfWineManager = (
     ipcRenderer.removeListener('progressOfWineManager' + version, callback)
   }
 }
+
+// Bottles
+export const getBottlesNames = (bottlesType: string) =>
+  ipcRenderer.invoke('bottles.getBottlesNames', bottlesType)

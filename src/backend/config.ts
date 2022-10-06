@@ -208,9 +208,7 @@ abstract class GlobalConfig {
         bin: 'os'
       })
       return bottles
-    }
-
-    {
+    } else {
       // Check if bottles are installed through Flatpak
       const FlatpakVersion = await runBottlesCommand(
         ['--version'],

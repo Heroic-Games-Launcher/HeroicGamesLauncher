@@ -56,10 +56,9 @@ async function runBottlesCommand(
     bottlesType,
     noCli
   ) as string
-  logDebug(
-    ['Launching bottles command', exe, bottlesCommand.join(' ')],
-    LogPrefix.Backend
-  )
+  logDebug(['Launching bottles command', exe, bottlesCommand.join(' ')], {
+    prefix: LogPrefix.Backend
+  })
   const process = spawn(exe, bottlesCommand)
 
   let stdout = ''
@@ -101,7 +100,9 @@ async function openBottles(bottle: string, bottlesType: string) {
     true,
     false
   )
-  logDebug(['Opening Bottles', exe, args.join(' ')], LogPrefix.Backend)
+  logDebug(['Opening Bottles', exe, args.join(' ')], {
+    prefix: LogPrefix.Backend
+  })
   spawn(exe, args)
 }
 

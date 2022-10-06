@@ -45,7 +45,7 @@ export default function WineVersionSelector() {
       value={wineVersion.name}
       afterSelect={
         <>
-          {isLinux && (
+          {isLinux && wineVersion.type !== 'bottles' && (
             <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
               {wineVersion.bin}
             </InfoBox>
@@ -62,7 +62,9 @@ export default function WineVersionSelector() {
                   <li>~/.local/share/lutris/runners/wine</li>
                   <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
                   <li>/usr/share/steam</li>
-                  <li>Everywhere on the system (CrossOver Mac)</li>
+                  <li>
+                    Everywhere on the system (CrossOver Mac, Bottles Linux)
+                  </li>
                 </i>
               </ul>
               <span>{t('help.wine.part2')}</span>
