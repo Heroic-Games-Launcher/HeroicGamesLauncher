@@ -109,6 +109,10 @@ export async function launchApp(appName: string): Promise<boolean> {
       return true
     }
 
+    logInfo(`launching non-native sideloaded: ${executable}}`, {
+      prefix: LogPrefix.Backend
+    })
+
     await runWineCommand({
       command: executable,
       gameSettings,

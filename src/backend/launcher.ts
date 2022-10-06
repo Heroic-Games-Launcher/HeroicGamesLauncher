@@ -293,7 +293,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
   if (gameSettings.enableFSR) {
     ret.WINE_FULLSCREEN_FSR = '1'
-    ret.WINE_FULLSCREEN_FSR_STRENGTH = gameSettings.maxSharpness.toString()
+    ret.WINE_FULLSCREEN_FSR_STRENGTH = gameSettings?.maxSharpness?.toString()
   }
   if (gameSettings.enableEsync && wineVersion.type !== 'proton') {
     ret.WINEESYNC = '1'
@@ -326,7 +326,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
 
     // Only set WINEDEBUG if PROTON_LOG is set since Proton will also log if just WINEDEBUG is set
     if (
-      gameSettings.enviromentOptions.find((env) => env.key === 'PROTON_LOG')
+      gameSettings?.enviromentOptions?.find((env) => env.key === 'PROTON_LOG')
     ) {
       // Stop Proton from overriding WINEDEBUG; this prevents logs growing to a few GB for some games
       ret.WINEDEBUG = 'timestamp'
