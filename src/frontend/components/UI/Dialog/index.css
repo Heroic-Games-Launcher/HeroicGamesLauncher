@@ -38,7 +38,7 @@
 .Dialog__headerTitle {
   flex: 100% 1 1;
   padding: var(--dialog-margin-vertical) 16px 0 var(--dialog-margin-horizontal);
-  font-size: 24px;
+  font-size: var(--text-xl);
   margin: 0;
 }
 
@@ -48,9 +48,9 @@
 
 .Dialog__headerCloseButton {
   border: none;
-  margin: -8px;
-  padding: 8px;
-  border-radius: 10px;
+  margin: calc(-1 * var(--space-xs));
+  padding: var(--space-xs);
+  border-radius: var(--space-xs);
   background: none;
   color: var(--text-default);
   cursor: pointer;
@@ -71,7 +71,7 @@
 }
 
 .Dialog__headerCloseIcon {
-  font-size: 20px;
+  font-size: var(--text-lg);
 }
 
 .Dialog__content {

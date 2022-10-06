@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "操作字型家族 (預設: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "對所有遊戲瓷貼上色",
-        "content_font_family": "內容字型家族 (預設: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "字型",
         "title": "無障礙設定",
         "zoom": "Zoom"
@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "錯誤",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Uncaught Exception occured!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "最愛",
     "game": {
         "status": "Status",
@@ -223,6 +224,9 @@
         "preferSystemLibs": "自定義 Wine 版本(Wine- ge、Wine- lutris)隨它們的庫依賴項一起發布。啟用此選項，這些附帶的庫將被忽略，Wine 將加載系統庫。警告！如果不滿足依賴關系，可能會出現問題。",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA Resizable Bar 通過讓 CPU 訪問整個圖形緩衝區來提高幀率。啟用可能會提高基於 Vulkan 的遊戲的性能。",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Steam 提供的用於幫助執行 Linux 和 Windows（Proton）遊戲的自定義庫。啟用可能會提高相容性。",
         "sync": {
             "part1": "大多數情況下，Heroic啟動器會正確猜測的存檔的位置。但如果位置是錯誤的，請使用覆蓋框更改。",
@@ -326,6 +330,12 @@
             "finished": "更新完成",
             "started": "更新開始"
         }
+    },
+    "offline-message": {
+        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "retrying": "Retrying"
     },
     "options": {
         "advanced": {

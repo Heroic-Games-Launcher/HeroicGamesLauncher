@@ -1,7 +1,7 @@
 .UpdateComponent {
   width: 100%;
   height: 100%;
-  font-size: 24px;
+  font-size: var(--text-xl);
   color: var(--text-default);
 }
 
@@ -30,7 +30,7 @@
 }
 
 .UpdateComponent__icon {
-  font-size: 40px;
+  font-size: var(--text-4xl);
   animation: refreshing 1.5s infinite;
 }
 

@@ -22,20 +22,32 @@ export default function Accessibility() {
     isRTL,
     zoomPercent,
     setZoomPercent,
-    contentFontFamily,
-    setContentFontFamily,
-    actionsFontFamily,
-    setActionsFontFamily,
     allTilesInColor,
-    setAllTilesInColor
+    setAllTilesInColor,
+    setPrimaryFontFamily,
+    setSecondaryFontFamily
   } = useContext(ContextProvider)
 
-  const [fonts, setFonts] = useState<string[]>(['Cabin', 'Rubik'])
+  const [fonts, setFonts] = useState<string[]>([])
   const [refreshing, setRefreshing] = useState(false)
+  const [contentFont, setContentFont] = useState('')
+  const [actionFont, setActionFont] = useState('')
+
+  const defaultPrimaryFont = getComputedStyle(
+    document.documentElement
+  ).getPropertyValue('--default-primary-font-family')
+
+  const defaultSecondaryFont = getComputedStyle(
+    document.documentElement
+  ).getPropertyValue('--default-secondary-font-family')
 
   const getFonts = async (reload = false) => {
     const systemFonts = (await window.api.getFonts(reload)) as string[]
-    setFonts(["'Cabin', sans-serif", "'Rubik', sans-serif", ...systemFonts])
+    setFonts([
+      defaultSecondaryFont.trim(),
+      defaultPrimaryFont.trim(),
+      ...systemFonts
+    ])
   }
 
   const refreshFonts = () => {
@@ -49,6 +61,15 @@ export default function Accessibility() {
 
   useEffect(() => {
     getFonts()
+    const primaryFont = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue('--primary-font-family')
+    setActionFont(primaryFont.trim())
+
+    const secondaryFont = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue('--secondary-font-family')
+    setContentFont(secondaryFont.trim())
   }, [])
 
   const handleZoomLevel = (event: ChangeEvent<HTMLInputElement>) => {
@@ -56,11 +77,13 @@ export default function Accessibility() {
   }
 
   const handleContentFontFamily = (event: ChangeEvent<HTMLSelectElement>) => {
-    setContentFontFamily(event.target.value)
+    setSecondaryFontFamily(event.target.value)
+    setContentFont(event.target.value)
   }
 
   const handleActionsFontFamily = (event: ChangeEvent<HTMLSelectElement>) => {
-    setActionsFontFamily(event.target.value)
+    setPrimaryFontFamily(event.target.value)
+    setActionFont(event.target.value)
   }
 
   const options = useMemo(() => {
@@ -127,24 +150,32 @@ export default function Accessibility() {
 
         <SelectField
           htmlId="content-font-family"
-          value={contentFontFamily}
+          value={contentFont}
           onChange={handleContentFontFamily}
-          label={t(
-            'accessibility.content_font_family',
-            'Content Font Family (Default: "Cabin")'
-          )}
+          label={
+            t(
+              'accessibility.content_font_family_no_default',
+              'Content Font Family (Default: '
+            ) +
+            defaultSecondaryFont.split(',')[0].trim() +
+            ')'
+          }
         >
           {options}
         </SelectField>
 
         <SelectField
           htmlId="actions-font-family"
-          value={actionsFontFamily}
+          value={actionFont}
           onChange={handleActionsFontFamily}
-          label={t(
-            'accessibility.actions_font_family',
-            'Actions Font Family (Default: "Rubik")'
-          )}
+          label={
+            t(
+              'accessibility.actions_font_family_no_default',
+              'Actions Font Family (Default: '
+            ) +
+            defaultPrimaryFont.split(',')[0].trim() +
+            ')'
+          }
         >
           {options}
         </SelectField>

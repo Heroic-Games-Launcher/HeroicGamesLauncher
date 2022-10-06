@@ -241,7 +241,7 @@ export default function GamePage(): JSX.Element | null {
             <div className={`gameTabs ${tabToShow}`}>
               {
                 <>
-                  <nav>
+                  <nav className="gamePageNavBar">
                     <button data-tab="info" onClick={onTabClick}>
                       {t('game.info', 'Info')}
                     </button>
@@ -249,8 +249,11 @@ export default function GamePage(): JSX.Element | null {
                       {t('game.tools', 'Tools')}
                     </button>
                     <button data-tab="requirements" onClick={onTabClick}>
-                      {t('game.reuirements', 'System Requirements')}
+                      {t('game.requirements', 'System Requirements')}
                     </button>
+                    <div className="gamePageStoreIcon">
+                      <StoreLogos runner={runner} />
+                    </div>
                   </nav>
 
                   <div className="gameInfo">

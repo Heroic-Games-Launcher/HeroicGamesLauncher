@@ -1,0 +1,32 @@
+.errorDialog {
+  max-width: min(700px, 85vw);
+  width: 100%;
+}
+
+.errorDialog .Dialog__content {
+  width: 100%;
+}
+
+.errorDialog .Dialog__headerTitle {
+  color: red;
+}
+
+.errorDialog.error-box {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding-block: 4px;
+  padding-inline: 6px;
+  height: 25em;
+  width: calc(90vw - var(--sidebar-width));
+  overflow: auto;
+  user-select: text;
+}
+
+.errorDialog.error-box.collapsed {
+  width: calc(90vw - var(--sidebar-width));
+}
+
+.errorDialog.contentHeader {
+  margin-bottom: 10px;
+  color: red;
+}

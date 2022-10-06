@@ -1,7 +1,7 @@
 import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
-import { BrowserWindow, dialog } from 'electron'
+import { BrowserWindow } from 'electron'
 import {
   ExecResult,
   ExtraInfo,
@@ -14,7 +14,7 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary, runLegendaryCommand } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, getLegendaryBin, isOnline, killPattern } from '../utils'
+import { execAsync, getLegendaryBin, killPattern } from '../utils'
 import {
   heroicGamesConfigPath,
   userHome,
@@ -39,6 +39,8 @@ import { gameInfoStore } from './electronStores'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { t } from 'i18next'
+import { isOnline } from '../online_monitor'
+import { showErrorBoxModalAuto } from '../dialog/dialog'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -580,10 +582,10 @@ class LegendaryGame extends Game {
         this.logFileLocation,
         `Launch aborted: ${launchPrepFailReason}`
       )
-      dialog.showErrorBox(
-        t('box.error.launchAborted', 'Launch aborted'),
-        launchPrepFailReason!
-      )
+      showErrorBoxModalAuto({
+        title: t('box.error.launchAborted', 'Launch aborted'),
+        error: launchPrepFailReason!
+      })
       return false
     }
 
@@ -612,10 +614,10 @@ class LegendaryGame extends Game {
           this.logFileLocation,
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
-        dialog.showErrorBox(
-          t('box.error.launchAborted', 'Launch aborted'),
-          wineLaunchPrepFailReason!
-        )
+        showErrorBoxModalAuto({
+          title: t('box.error.launchAborted', 'Launch aborted'),
+          error: wineLaunchPrepFailReason!
+        })
         return false
       }
 

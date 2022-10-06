@@ -16,9 +16,9 @@ import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
+import SettingsContext from '../../SettingsContext'
 
 interface Props {
-  appName: string
   gogSaves: GOGCloudSavesLocation[]
   setGogSaves: (saves: GOGCloudSavesLocation[]) => void
   autoSyncSaves: boolean
@@ -27,7 +27,6 @@ interface Props {
 }
 
 export default function GOGSyncSaves({
-  appName,
   gogSaves,
   setGogSaves,
   autoSyncSaves,
@@ -44,6 +43,8 @@ export default function GOGSyncSaves({
 
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
+
+  const { appName } = useContext(SettingsContext)
 
   useEffect(() => {
     const getLocations = async () => {

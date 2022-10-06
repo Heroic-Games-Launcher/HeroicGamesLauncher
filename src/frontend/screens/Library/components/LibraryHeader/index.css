@@ -12,3 +12,13 @@
   margin: 0 10px;
   cursor: pointer;
 }
+
+.numberOfgames {
+  margin-left: 4px;
+  font-size: var(--text-md);
+  font-weight: var(--regular);
+  background: var(--input-background);
+  padding: var(--space-xs);
+  margin-left: var(--space-sm);
+  border-radius: 1000px;
+}

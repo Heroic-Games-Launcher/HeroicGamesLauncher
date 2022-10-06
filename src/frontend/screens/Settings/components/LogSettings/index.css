@@ -63,7 +63,7 @@
 }
 
 .icon {
-  font-size: 40px;
+  font-size: var(--text-4xl);
   animation: refreshing 1.5s infinite;
 }
 

@@ -22,14 +22,7 @@ import { Runner, GameInfo } from 'common/types'
 import './index.css'
 import QuitButton from '../QuitButton'
 import { emptyCard } from 'frontend/screens/Library/constants'
-
-interface LocationState {
-  fromGameCard: boolean
-  hasCloudSave: boolean
-  runner: Runner
-  isLinuxNative: boolean
-  isMacNative: boolean
-}
+import { LocationState } from 'frontend/types'
 
 type PathSplit = [
   a: undefined,

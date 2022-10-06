@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Familie de fonturi Actions (implicit: „Rubik”)",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Afișați toate piesele de joc colorate",
-        "content_font_family": "Familia de fonturi pentru conținut (implicit: „Cabină”)",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Fonturi",
         "title": "Accesibilitate",
         "zoom": "Zoom"
@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Eroare",
             "uncaught-exception": {
-                "message": "A apărut o excepție neprinsă:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic va fi închis! Raportați excepția în depozitul nostru Github.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "A avut loc o excepție neprinsă!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "deconectat"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Favorite",
     "game": {
         "status": "stare",
@@ -223,6 +224,9 @@
         "preferSystemLibs": "Versiunile personalizate de vin (Wine-GE, Wine-Lutris) sunt livrate cu dependențele lor de bibliotecă. Prin activarea acestei opțiuni, aceste biblioteci livrate vor fi ignorate și Wine va încărca biblioteci de sistem. Avertizare! Pot apărea probleme dacă dependențele nu sunt îndeplinite.",
         "primerun": "Utilizați placa grafică dedicată pentru a reda jocul pe sisteme multi-GPU. Este necesar doar pe laptop-uri sau desktop-uri de jocuri care utilizează un GPU fără cap pentru randare (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "Bara resizable de la NVIDIA ajută la creșterea ratei de cadre, făcând ca procesorul să acceseze întregul buffer grafic. Activarea poate îmbunătăți performanța pentru jocurile bazate pe Vulkan.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Biblioteci personalizate furnizate de Steam pentru a ajuta la rularea jocurilor Linux și Windows (Proton). Activarea ar putea îmbunătăți compatibilitatea.",
         "sync": {
             "part1": "Heroic încearcă să ghicească folderul de salvare corect și acest lucru va funcționa în majoritatea cazurilor. În cazul în care folderul este greșit, utilizați caseta de înlocuire pentru a-l schimba.",
@@ -326,6 +330,12 @@
             "finished": "Actualizare Finalizată",
             "started": "Actualizarea a început"
         }
+    },
+    "offline-message": {
+        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "retrying": "Retrying"
     },
     "options": {
         "advanced": {

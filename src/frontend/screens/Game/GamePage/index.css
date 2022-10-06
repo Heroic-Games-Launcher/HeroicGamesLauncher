@@ -14,8 +14,8 @@
 }
 
 .gameConfigContainer .title {
-  font-weight: 500;
-  font-size: 25px;
+  font-weight: var(--medium);
+  font-size: var(--text-xl);
   line-height: 30px;
   color: var(--text-default);
   text-align: left;
@@ -33,7 +33,7 @@
   right: 18px;
   top: 6px;
   z-index: 2;
-  padding: 5px;
+  padding: var(--space-3xs);
   place-content: center;
   fill: var(--text-default);
 }
@@ -42,12 +42,12 @@
   background-color: var(--body-background);
   width: 60px;
   height: 60px;
-  padding: 4px;
+  padding: var(--space-3xs);
   border-radius: 10px;
 }
 
 .store-icon > svg.gogIcon {
-  padding: 0px 4px 4px 4px;
+  padding: 0px var(--space-3xs) var(--space-3xs) var(--space-3xs);
 }
 
 .backButton {
@@ -71,7 +71,7 @@
 
 .gameInfo {
   text-align: initial;
-  font-size: 1rem;
+  font-size: var(--text-md);
   color: var(--text-default);
   display: flex;
   flex-direction: column;
@@ -80,7 +80,7 @@
 }
 
 .gameInfo .title {
-  font-weight: 700;
+  font-weight: var(--bold);
   margin-bottom: 0;
 }
 
@@ -96,17 +96,17 @@
 }
 
 .gameInfo .developer {
-  padding: 1rem 0 1rem 0;
+  padding: var(--space-md-fixed) 0 var(--space-md-fixed) 0;
   color: var(--text-default);
 }
 
 .gameInfo .summary {
-  font-family: var(--content-font-family);
+  font-family: var(--primary-font-family);
   font-style: normal;
   font-weight: normal;
-  padding-bottom: 10px;
-  margin-bottom: 14px;
-  font-size: 16px;
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
+  font-size: var(--text-md);
   max-width: 560px;
   text-overflow: ellipsis;
   color: var(--text-default);
@@ -122,7 +122,7 @@
 .gameRequirements {
   display: none;
   align-self: flex-start;
-  padding: 8vh 2.2em 1.2em 1.2em;
+  padding: var(--space-sm);
   min-height: 0px;
   overflow: auto;
   max-height: 100%;
@@ -145,7 +145,7 @@
 
 .gameTabs nav {
   text-align: left;
-  padding: 15px;
+  padding: var(--space-md);
 }
 
 .gameTabs nav button {
@@ -155,7 +155,7 @@
   background: none;
   color: var(--text-default);
   cursor: pointer;
-  font-size: 1em;
+  font-size: var(--text-md);
 }
 
 .gameTabs nav button:hover {
@@ -166,7 +166,25 @@
 .gameTabs.toolsTab button[data-tab='tools'],
 .gameTabs.requirementsTab button[data-tab='requirements'] {
   color: var(--accent);
-  font-weight: 700;
+  font-weight: var(--bold);
+}
+
+.gamePageNavBar {
+  display: flex;
+}
+
+.gamePageStoreIcon {
+  fill: var(--text-default);
+  flex-grow: 1;
+  text-align: right;
+  padding-right: var(--space-sm);
+}
+
+.gamePageStoreIcon > svg {
+  width: var(--text-5xl);
+  height: var(--text-5xl);
+  padding: var(--space-3xs);
+  border-radius: 10px;
 }
 
 .installProgress[value] {
@@ -215,7 +233,7 @@
 }
 
 .itemTitle {
-  font-weight: 700;
+  font-weight: var(--bold);
   text-align: center;
 }
 
@@ -226,13 +244,13 @@
 }
 
 .dlcTitle {
-  font-weight: 700;
+  font-weight: var(--bold);
   margin-top: 16px;
 }
 
 .sdlTitle {
   cursor: pointer;
-  font-weight: 700;
+  font-weight: var(--bold);
 }
 
 .sdlTitle:hover {
@@ -249,7 +267,7 @@
 }
 
 .PrivateSwitchBase-root-1 {
-  padding: 2px;
+  padding: var(--space-3xs);
 }
 
 .reportProblem {
