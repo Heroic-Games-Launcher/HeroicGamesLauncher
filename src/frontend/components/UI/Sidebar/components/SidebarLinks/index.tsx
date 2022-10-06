@@ -21,7 +21,6 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { Runner, GameInfo } from 'common/types'
 import './index.css'
 import QuitButton from '../QuitButton'
-import { emptyCard } from 'frontend/screens/Library/constants'
 import { LocationState } from 'frontend/types'
 
 type PathSplit = [
@@ -71,8 +70,7 @@ export default function SidebarLinks() {
         setGameInfo({ ...gameInfo, cloud_save_enabled: false })
         setSettingsPath('/settings/app/default/general')
       } else {
-        const info =
-          runner === 'sideload' ? emptyCard : await getGameInfo(appName, runner)
+        const info = await getGameInfo(appName, runner)
         setGameInfo(info)
         if (info?.is_installed) {
           setIsDefaultSetting(false)

@@ -44,21 +44,6 @@ export function addNewApp({
   art_cover = 'fallback',
   art_square = 'fallback'
 }: SideloadGame): void {
-  console.log({
-    appName: {
-      runner: 'sideload',
-      app_name,
-      title,
-      install: {
-        executable,
-        platform
-      },
-      folder_name: dirname(executable),
-      art_cover,
-      platform
-    }
-  })
-
   const game: SideloadGame = {
     runner: 'sideload',
     app_name,
@@ -74,7 +59,16 @@ export function addNewApp({
   }
 
   const current = libraryStore.get('games', []) as SideloadGame[]
-  current.push(game)
+
+  const gameIndex = current.findIndex((value) => value.app_name === app_name)
+
+  // edit app in case it exists
+  if (gameIndex !== -1) {
+    current[gameIndex] = { ...current[gameIndex], ...game }
+  } else {
+    current.push(game)
+  }
+
   return libraryStore.set('games', current)
 }
 
