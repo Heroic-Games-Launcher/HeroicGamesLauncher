@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 
 const useSetting = <T>(key: string, fallback: T): [T, (newVal: T) => void] => {
