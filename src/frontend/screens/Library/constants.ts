@@ -18,11 +18,10 @@ export function getLibraryTitle(
   }
 }
 
-export type SideloadCard = GameInfo & { onClick: () => void; isEmpty: boolean }
+export type SideloadCard = GameInfo & { isEmpty: boolean }
 export const emptyCard: SideloadCard = {
   title: 'Add Game',
   isEmpty: true,
-  onClick: () => console.log('sideload'),
   is_installed: false,
   is_linux_native: false,
   is_mac_native: false,
@@ -33,7 +32,7 @@ export const emptyCard: SideloadCard = {
   },
   runner: 'sideload',
   store_url: '',
-  app_name: 'sideload',
+  app_name: '',
   art_cover: '',
   art_square: 'fallback',
   cloud_save_enabled: false,

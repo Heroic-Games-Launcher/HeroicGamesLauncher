@@ -119,11 +119,13 @@ export default function InstallModal({
     if (!showPlatformSelection) {
       return null
     }
+    const disabledPlatformSelection = Boolean(runner === 'sideload' && appName)
     return (
       <SelectField
         label={`${t('game.platform', 'Select Platform Version to Install')}:`}
         htmlId="platformPick"
         value={platformToInstall}
+        disabled={disabledPlatformSelection}
         onChange={(e) =>
           setPlatformToInstall(e.target.value as InstallPlatform)
         }
@@ -173,6 +175,7 @@ export default function InstallModal({
             availablePlatforms={availablePlatforms}
             backdropClick={backdropClick}
             platformToInstall={platformToInstall}
+            appName={appName}
           >
             {platformSelection()}
             {hasWine ? (
