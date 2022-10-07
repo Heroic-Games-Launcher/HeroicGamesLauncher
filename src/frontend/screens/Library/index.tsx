@@ -36,6 +36,13 @@ const InstallModal = lazy(
 
 const storage = window.localStorage
 
+type ModalState = {
+  game: string
+  show: boolean
+  runner: Runner
+  gameInfo: GameInfo | null
+}
+
 export default function Library(): JSX.Element {
   const {
     layout,
@@ -57,10 +64,11 @@ export default function Library(): JSX.Element {
     showFavourites: showFavouritesLibrary
   } = useContext(ContextProvider)
 
-  const [showModal, setShowModal] = useState({
+  const [showModal, setShowModal] = useState<ModalState>({
     game: '',
     show: false,
-    runner: 'legendary' as Runner
+    runner: 'legendary' as Runner,
+    gameInfo: null
   })
   const [sortDescending, setSortDescending] = useState(
     JSON.parse(storage?.getItem('sortDescending') || 'false')
@@ -95,8 +103,12 @@ export default function Library(): JSX.Element {
     }
   }
 
-  function handleModal(appName: string, runner: Runner) {
-    setShowModal({ game: appName, show: true, runner })
+  function handleModal(
+    appName: string,
+    runner: Runner,
+    gameInfo: GameInfo | null
+  ) {
+    setShowModal({ game: appName, show: true, runner, gameInfo })
   }
 
   // cache list of games being installed
@@ -300,7 +312,7 @@ export default function Library(): JSX.Element {
           sortDescending={sortDescending}
           sortInstalled={sortInstalled}
           handleAddGameButtonClick={() =>
-            handleModal(emptyCard.app_name, emptyCard.runner)
+            handleModal(emptyCard.app_name, emptyCard.runner, null)
           }
         />
 
@@ -323,8 +335,14 @@ export default function Library(): JSX.Element {
         <InstallModal
           appName={showModal.game}
           runner={showModal.runner}
+          gameInfo={showModal.gameInfo}
           backdropClick={() =>
-            setShowModal({ game: '', show: false, runner: 'legendary' })
+            setShowModal({
+              game: '',
+              show: false,
+              runner: 'legendary',
+              gameInfo: null
+            })
           }
         />
       )}

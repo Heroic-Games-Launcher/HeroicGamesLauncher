@@ -4,7 +4,12 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import React, { useContext, useEffect, useState } from 'react'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { InstallPlatform, Runner, WineInstallation } from 'common/types'
+import {
+  GameInfo,
+  InstallPlatform,
+  Runner,
+  WineInstallation
+} from 'common/types'
 import { Dialog } from 'frontend/components/UI/Dialog'
 
 import './index.css'
@@ -19,6 +24,7 @@ type Props = {
   appName: string
   backdropClick: () => void
   runner: Runner
+  gameInfo?: GameInfo | null
 }
 
 export type AvailablePlatforms = {
@@ -31,7 +37,8 @@ export type AvailablePlatforms = {
 export default function InstallModal({
   appName,
   backdropClick,
-  runner
+  runner,
+  gameInfo = null
 }: Props) {
   const { platform } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
@@ -157,6 +164,7 @@ export default function InstallModal({
             availablePlatforms={availablePlatforms}
             backdropClick={backdropClick}
             platformToInstall={platformToInstall}
+            gameInfo={gameInfo}
           >
             {platformSelection()}
             {hasWine ? (

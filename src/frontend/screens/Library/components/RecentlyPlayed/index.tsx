@@ -6,7 +6,7 @@ import { GameInfo, GameStatus, Runner } from 'common/types'
 import { GamesList } from '../GamesList'
 
 interface Props {
-  handleModal: (appName: string, runner: Runner) => void
+  handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
   onlyInstalled: boolean
 }
 

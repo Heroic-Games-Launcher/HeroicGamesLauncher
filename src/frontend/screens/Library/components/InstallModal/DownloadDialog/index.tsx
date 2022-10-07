@@ -56,6 +56,7 @@ interface Props {
   winePrefix: string
   wineVersion: WineInstallation | undefined
   children: React.ReactNode
+  gameInfo: GameInfo | null
 }
 
 type DiskSpaceInfo = {
@@ -99,7 +100,8 @@ export default function DownloadDialog({
   setIsMacNative,
   winePrefix,
   wineVersion,
-  children
+  children,
+  gameInfo
 }: Props) {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
@@ -109,7 +111,6 @@ export default function DownloadDialog({
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
 
-  const [gameInfo, setGameInfo] = useState({} as GameInfo)
   const [gameInstallInfo, setGameInstallInfo] = useState<
     LegendaryInstallInfo | GogInstallInfo | null
   >(null)
@@ -226,10 +227,14 @@ export default function DownloadDialog({
 
   useEffect(() => {
     const getCacheInfo = async () => {
-      const gameData = await getGameInfo(appName, runner)
-      setIsLinuxNative(gameData.is_linux_native && isLinux)
-      setIsMacNative(gameData.is_mac_native && isMac)
-      setGameInfo(gameData)
+      if (gameInfo) {
+        setIsLinuxNative(gameInfo.is_linux_native && isLinux)
+        setIsMacNative(gameInfo.is_mac_native && isMac)
+      } else {
+        const gameData = await getGameInfo(appName, runner)
+        setIsLinuxNative(gameData.is_linux_native && isLinux)
+        setIsMacNative(gameData.is_mac_native && isMac)
+      }
     }
     getCacheInfo()
   }, [appName])
@@ -348,7 +353,7 @@ export default function DownloadDialog({
           />
         ))}
       </DialogHeader>
-      <Anticheat gameInfo={gameInfo} />
+      {gameInfo && <Anticheat gameInfo={gameInfo} />}
       <DialogContent>
         <div className="InstallModal__sizes">
           <div className="InstallModal__size">
