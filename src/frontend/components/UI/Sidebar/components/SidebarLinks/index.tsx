@@ -4,7 +4,10 @@ import {
   faSlidersH,
   faStore,
   faUser,
-  faUniversalAccess
+  faUniversalAccess,
+  faCoffee,
+  faUserAlt,
+  faWineGlass
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
@@ -12,25 +15,13 @@ import classNames from 'classnames'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
-import {
-  faCoffee,
-  faUserAlt,
-  faWineGlass
-} from '@fortawesome/free-solid-svg-icons'
-import { ipcRenderer, openDiscordLink, getGameInfo } from 'frontend/helpers'
+import { openDiscordLink, getGameInfo } from 'frontend/helpers'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Runner, GameInfo } from 'common/types'
 import './index.css'
 import QuitButton from '../QuitButton'
-
-interface LocationState {
-  fromGameCard: boolean
-  hasCloudSave: boolean
-  runner: Runner
-  isLinuxNative: boolean
-  isMacNative: boolean
-}
+import { LocationState } from 'frontend/types'
 
 type PathSplit = [
   a: undefined,
@@ -92,7 +83,7 @@ export default function SidebarLinks() {
   }, [location])
 
   useEffect(() => {
-    ipcRenderer.invoke('isFullscreen').then((res) => setIsFullscreen(res))
+    window.api.isFullscreen().then((res) => setIsFullscreen(res))
   }, [])
 
   useEffect(() => {
@@ -373,19 +364,13 @@ export default function SidebarLinks() {
         </div>
         <span>{t('userselector.discord', 'Discord')}</span>
       </button>
-      <button
-        className="Sidebar__item"
-        onClick={() => ipcRenderer.send('openPatreonPage')}
-      >
+      <button className="Sidebar__item" onClick={window.api.openPatreonPage}>
         <div className="Sidebar__itemIcon">
           <FontAwesomeIcon icon={faPatreon} title="Patreon" />
         </div>
         <span>Patreon</span>
       </button>
-      <button
-        className="Sidebar__item"
-        onClick={() => ipcRenderer.send('openKofiPage')}
-      >
+      <button className="Sidebar__item" onClick={window.api.openKofiPage}>
         <div className="Sidebar__itemIcon">
           <FontAwesomeIcon icon={faCoffee} title="Ko-fi" />
         </div>

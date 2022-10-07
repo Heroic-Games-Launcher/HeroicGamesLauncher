@@ -2,7 +2,8 @@ import axios from 'axios'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { GOGLoginData } from 'common/types'
 import { configStore, libraryStore } from '../gog/electronStores'
-import { errorHandler, isOnline } from '../utils'
+import { errorHandler } from '../utils'
+import { isOnline } from '../online_monitor'
 
 const gogAuthenticateUrl =
   'https://auth.gog.com/token?client_id=46899977096215655&client_secret=9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&code='
@@ -11,42 +12,46 @@ const gogRefreshTokenUrl =
 
 export class GOGUser {
   static async login(code: string) {
-    logInfo('Logging using GOG credentials', LogPrefix.Gog)
+    logInfo('Logging using GOG credentials', { prefix: LogPrefix.Gog })
 
     // Gets token from GOG basaed on authorization code
     const response = await axios
       .get(gogAuthenticateUrl + code)
       .catch((error) => {
         // Handle fetching error
-        logError(['Failed to get access_token', `${error}`], LogPrefix.Gog)
+        logError(['Failed to get access_token', error], {
+          prefix: LogPrefix.Gog
+        })
         return null
       })
     if (!response?.data) {
-      logError('Failed to get access_token', LogPrefix.Gog)
+      logError('Failed to get access_token', { prefix: LogPrefix.Gog })
       return { status: 'error' }
     }
 
     const data: GOGLoginData = response.data
     data.loginTime = Date.now()
     configStore.set('credentials', data)
-    logInfo('Login Successful', LogPrefix.Gog)
+    logInfo('Login Successful', { prefix: LogPrefix.Gog })
     const userDetails = await this.getUserDetails()
     return { status: 'done', data: userDetails }
   }
 
   public static async getUserDetails() {
     if (!isOnline()) {
-      logError('Unable to get user data, Heroic offline', LogPrefix.Gog)
+      logError('Unable to get user data, Heroic offline', {
+        prefix: LogPrefix.Gog
+      })
       return null
     }
-    logInfo('Getting data about the user', LogPrefix.Gog)
+    logInfo('Getting data about the user', { prefix: LogPrefix.Gog })
     if (!this.isLoggedIn()) {
-      logWarning('User is not logged in', LogPrefix.Gog)
+      logWarning('User is not logged in', { prefix: LogPrefix.Gog })
       return
     }
     const user = await this.getCredentials()
     if (!user) {
-      logError("No credentials, can't get user data", LogPrefix.Gog)
+      logError("No credentials, can't get user data", { prefix: LogPrefix.Gog })
       return
     }
     const response = await axios
@@ -57,7 +62,9 @@ export class GOGUser {
         }
       })
       .catch((error) => {
-        logError(['Error getting user Data', `${error}`], LogPrefix.Gog)
+        logError(['Error getting user Data', error], {
+          prefix: LogPrefix.Gog
+        })
       })
 
     if (!response) {
@@ -70,7 +77,7 @@ export class GOGUser {
     delete data.email
 
     configStore.set('userData', data)
-    logInfo('Saved user data to config', LogPrefix.Gog)
+    logInfo('Saved user data to config', { prefix: LogPrefix.Gog })
 
     return data
   }
@@ -95,15 +102,14 @@ export class GOGUser {
       'credentials',
       {}
     ) as GOGLoginData
-    logInfo('Refreshing access_token', LogPrefix.Gog)
+    logInfo('Refreshing access_token', { prefix: LogPrefix.Gog })
     if (user) {
       const response = await axios
         .get(`${gogRefreshTokenUrl}&refresh_token=${user.refresh_token}`)
         .catch(() => {
-          logError(
-            'Error with refreshing token, reauth required',
-            LogPrefix.Gog
-          )
+          logError('Error with refreshing token, reauth required', {
+            prefix: LogPrefix.Gog
+          })
         })
 
       if (!response) {
@@ -113,10 +119,10 @@ export class GOGUser {
       const data: GOGLoginData = response.data
       data.loginTime = Date.now()
       configStore.set('credentials', data)
-      logInfo('Token refreshed successfully', LogPrefix.Gog)
+      logInfo('Token refreshed successfully', { prefix: LogPrefix.Gog })
       return data
     } else {
-      logError('No credentials, auth required', LogPrefix.Gog)
+      logError('No credentials, auth required', { prefix: LogPrefix.Gog })
       errorHandler({
         error: 'No credentials',
         runner: 'GOG'
@@ -139,7 +145,7 @@ export class GOGUser {
   public static logout() {
     configStore.clear()
     libraryStore.clear()
-    logInfo('Logging user out', LogPrefix.Gog)
+    logInfo('Logging user out', { prefix: LogPrefix.Gog })
   }
 
   public static isLoggedIn() {

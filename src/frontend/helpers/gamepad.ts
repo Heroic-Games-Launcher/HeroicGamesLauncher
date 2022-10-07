@@ -1,4 +1,4 @@
-import { AppSettings, GamepadActionStatus } from '../../common/types'
+import { AppSettings, GamepadActionStatus } from 'common/types'
 import {
   checkGameCube,
   checkPS3,
@@ -8,7 +8,6 @@ import {
   checkN64Clone1,
   checkGenius1
 } from './gamepad_layouts'
-import { ipcRenderer } from '.'
 import { VirtualKeyboardController } from './virtualKeyboard'
 
 const KEY_REPEAT_DELAY = 500
@@ -23,8 +22,8 @@ let controllerIsDisabled = false
 let currentController = -1
 
 export const initGamepad = () => {
-  ipcRenderer
-    .invoke('requestSettings', 'default')
+  window.api
+    .requestSettings('default')
     .then(({ disableController }: AppSettings) => {
       controllerIsDisabled = disableController || false
     })
@@ -171,7 +170,8 @@ export const initGamepad = () => {
       } else {
         // we have to tell Electron to simulate key presses
         // so the spatial navigation works
-        ipcRenderer.invoke('gamepadAction', [action, metadata()])
+        const metadataReturn = metadata()
+        if (metadataReturn) window.api.gamepadAction([action, metadataReturn])
       }
     }
   }
@@ -322,7 +322,7 @@ export const initGamepad = () => {
           checkXbox(buttons, axes, index, checkAction)
         }
       } catch (error) {
-        console.log(`Gamepad error: ${error}`)
+        console.log('Gamepad error:', error)
       }
     })
 

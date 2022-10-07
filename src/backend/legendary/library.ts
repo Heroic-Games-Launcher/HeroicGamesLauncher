@@ -18,7 +18,6 @@ import {
   formatEpicStoreUrl,
   getLegendaryBin,
   isEpicServiceOffline,
-  isOnline,
   getFileSize
 } from '../utils'
 import {
@@ -36,6 +35,7 @@ import {
 import { installStore, libraryStore } from './electronStores'
 import { callRunner } from '../launcher'
 import { join } from 'path'
+import { isOnline } from '../online_monitor'
 
 /**
  * Legendary LegendaryLibrary.
@@ -90,20 +90,21 @@ export class LegendaryLibrary {
    * Refresh games in the user's library.
    */
   public async refresh(): Promise<ExecResult> {
-    logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
+    logInfo('Refreshing Epic Games...', { prefix: LogPrefix.Legendary })
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline) {
-      logWarning(
-        'Epic is Offline right now, cannot update game list!',
-        LogPrefix.Backend
-      )
+      logWarning('Epic is Offline right now, cannot update game list!', {
+        prefix: LogPrefix.Backend
+      })
       return { stderr: 'Epic offline, unable to update game list', stdout: '' }
     }
 
     const res = await runLegendaryCommand(['list'])
 
     if (res.error) {
-      logError(['Failed to refresh library:', res.error], LogPrefix.Legendary)
+      logError(['Failed to refresh library:', res.error], {
+        prefix: LogPrefix.Legendary
+      })
     }
     this.refreshInstalled()
     return res
@@ -122,12 +123,8 @@ export class LegendaryLibrary {
       } catch (error) {
         // disabling log here because its giving false positives on import command
         logError(
-          [
-            'Corrupted installed.json file, cannot load installed games',
-            `${error}`
-          ],
-          LogPrefix.Legendary,
-          false
+          ['Corrupted installed.json file, cannot load installed games', error],
+          { prefix: LogPrefix.Legendary }
         )
         this.installedGames = new Map()
       }
@@ -143,7 +140,7 @@ export class LegendaryLibrary {
    * @returns Array of objects.
    */
   public async getGames(fullRefresh = false): Promise<GameInfo[]> {
-    logInfo('Refreshing library...', LogPrefix.Legendary)
+    logInfo('Refreshing library...', { prefix: LogPrefix.Legendary })
     const isLoggedIn = LegendaryUser.isLoggedIn()
     if (!isLoggedIn) {
       return []
@@ -158,7 +155,7 @@ export class LegendaryLibrary {
     try {
       await this.loadAll()
     } catch (error) {
-      logError(`${error}`, LogPrefix.Legendary)
+      logError(error, { prefix: LogPrefix.Legendary })
     }
     const arr = Array.from(this.library.values())
 
@@ -166,10 +163,9 @@ export class LegendaryLibrary {
       libraryStore.delete('library')
     }
     libraryStore.set('library', arr)
-    logInfo(
-      ['Game list updated, got', `${arr.length}`, 'games & DLCs'],
-      LogPrefix.Legendary
-    )
+    logInfo(['Game list updated, got', `${arr.length}`, 'games & DLCs'], {
+      prefix: LogPrefix.Legendary
+    })
     return arr
   }
 
@@ -181,10 +177,9 @@ export class LegendaryLibrary {
    */
   public getGameInfo(appName: string): GameInfo | undefined {
     if (!this.hasGame(appName)) {
-      logWarning(
-        ['Requested game', appName, 'was not found in library'],
-        LogPrefix.Legendary
-      )
+      logWarning(['Requested game', appName, 'was not found in library'], {
+        prefix: LogPrefix.Legendary
+      })
       return
     }
     // We have the game, but info wasn't loaded yet
@@ -203,11 +198,13 @@ export class LegendaryLibrary {
   ): Promise<LegendaryInstallInfo> {
     const cache = installStore.get(appName) as LegendaryInstallInfo
     if (cache) {
-      logDebug('Using cached install info', LogPrefix.Legendary)
+      logDebug('Using cached install info', { prefix: LogPrefix.Legendary })
       return cache
     }
 
-    logInfo(`Getting more details with 'legendary info'`, LogPrefix.Legendary)
+    logInfo(`Getting more details with 'legendary info'`, {
+      prefix: LogPrefix.Legendary
+    })
     const res = await runLegendaryCommand([
       'info',
       appName,
@@ -217,16 +214,18 @@ export class LegendaryLibrary {
     ])
 
     if (res.error) {
-      logError(
-        ['Failed to get more details:', res.error],
-        LogPrefix.Legendary,
-        false
-      )
+      logError(['Failed to get more details:', res.error], {
+        prefix: LogPrefix.Legendary
+      })
     }
 
-    const info: LegendaryInstallInfo = JSON.parse(res.stdout)
-    installStore.set(appName, info)
-    return info
+    try {
+      const info: LegendaryInstallInfo = JSON.parse(res.stdout)
+      installStore.set(appName, info)
+      return info
+    } catch (error) {
+      throw Error(`Failed to parse install info for ${appName} with: ${error}`)
+    }
   }
 
   /**
@@ -242,10 +241,9 @@ export class LegendaryLibrary {
     }
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline) {
-      logWarning(
-        'Epic servers are offline, cannot check for game updates',
-        LogPrefix.Backend
-      )
+      logWarning('Epic servers are offline, cannot check for game updates', {
+        prefix: LogPrefix.Backend
+      })
       return []
     }
 
@@ -254,11 +252,9 @@ export class LegendaryLibrary {
     })
 
     if (res.error) {
-      logError(
-        ['Failed to check for game updates:', res.error],
-        LogPrefix.Legendary,
-        false
-      )
+      logError(['Failed to check for game updates:', res.error], {
+        prefix: LogPrefix.Legendary
+      })
       return []
     }
 
@@ -267,11 +263,13 @@ export class LegendaryLibrary {
     const installedJsonFile = join(legendaryConfigPath, 'installed.json')
     let installedJson: Record<string, InstalledJsonMetadata> = {}
     try {
-      installedJson = JSON.parse(readFileSync(installedJsonFile).toString())
+      installedJson = JSON.parse(
+        readFileSync(installedJsonFile, { encoding: 'utf-8' })
+      )
     } catch (error) {
       logWarning(
-        `Failed to read games from ${installedJsonFile} with:\n${error}`,
-        LogPrefix.Legendary
+        ['Failed to parse games from', installedJsonFile, 'with:', error],
+        { prefix: LogPrefix.Legendary }
       )
     }
 
@@ -289,11 +287,13 @@ export class LegendaryLibrary {
     const assetsJsonFile = join(legendaryConfigPath, 'assets.json')
     let assetsJson: Record<string, Record<string, string>[]> = {}
     try {
-      assetsJson = JSON.parse(readFileSync(assetsJsonFile).toString())
+      assetsJson = JSON.parse(
+        readFileSync(assetsJsonFile, { encoding: 'utf-8' })
+      )
     } catch (error) {
       logWarning(
-        `Failed to read games from ${assetsJsonFile} with:\n${error}`,
-        LogPrefix.Legendary
+        ['Failed to parse games from', assetsJsonFile, 'with:', error],
+        { prefix: LogPrefix.Legendary }
       )
     }
 
@@ -312,7 +312,7 @@ export class LegendaryLibrary {
                   appName,
                   'is installed but was not found on account'
                 ],
-                LogPrefix.Legendary
+                { prefix: LogPrefix.Legendary }
               )
               return
             }
@@ -326,7 +326,7 @@ export class LegendaryLibrary {
                   '!=',
                   latestVersion
                 ],
-                LogPrefix.Legendary
+                { prefix: LogPrefix.Legendary }
               )
               updateableGames.push(appName)
             }
@@ -341,7 +341,7 @@ export class LegendaryLibrary {
         'game' + (updateableGames.length !== 1 ? 's' : ''),
         'to update'
       ],
-      LogPrefix.Legendary
+      { prefix: LogPrefix.Legendary }
     )
     return updateableGames
   }
@@ -389,10 +389,9 @@ export class LegendaryLibrary {
       '--skip-move'
     ])
     if (error) {
-      logError(
-        ['Failed to set install path for', `${appName}:`, error],
-        LogPrefix.Legendary
-      )
+      logError(['Failed to set install path for', `${appName}:`, error], {
+        prefix: LogPrefix.Legendary
+      })
     }
   }
 
@@ -432,7 +431,7 @@ export class LegendaryLibrary {
       app_name = data.app_name
       metadata = data.metadata
     } catch (error) {
-      logError(['Failed to parse', fileName], LogPrefix.Legendary)
+      logError(['Failed to parse', fileName], { prefix: LogPrefix.Legendary })
       return false
     }
     const { namespace } = metadata

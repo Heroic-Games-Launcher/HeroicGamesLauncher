@@ -3,24 +3,20 @@ import * as axios from 'axios'
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
-import {
-  execAsync,
-  getWineFromProton,
-  isOnline,
-  showErrorBoxModalAuto
-} from './utils'
+import { execAsync, getWineFromProton } from './utils'
 import { execOptions, heroicToolsPath, userHome } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
 import { dirname } from 'path'
+import { isOnline } from './online_monitor'
+import { showErrorBoxModalAuto } from './dialog/dialog'
 
 export const DXVK = {
   getLatest: async () => {
     if (!isOnline()) {
-      logWarning(
-        'App offline, skipping possible DXVK update.',
-        LogPrefix.DXVKInstaller
-      )
+      logWarning('App offline, skipping possible DXVK update.', {
+        prefix: LogPrefix.DXVKInstaller
+      })
       return
     }
 
@@ -65,41 +61,44 @@ export const DXVK = {
       const echoCommand = `echo ${pkg} > ${heroicToolsPath}/${tool.name}/latest_${tool.name}`
       const cleanCommand = `rm ${latestVersion}`
 
-      logInfo([`Updating ${tool.name} to:`, pkg], LogPrefix.DXVKInstaller)
+      logInfo([`Updating ${tool.name} to:`, pkg], {
+        prefix: LogPrefix.DXVKInstaller
+      })
 
       return execAsync(downloadCommand)
         .then(async () => {
-          logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
-          logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
+          logInfo(`downloaded ${tool.name}`, {
+            prefix: LogPrefix.DXVKInstaller
+          })
+          logInfo(`extracting ${tool.name}`, {
+            prefix: LogPrefix.DXVKInstaller
+          })
           exec(echoCommand)
           await execAsync(extractCommand)
             .then(() =>
-              logInfo(
-                `extracting ${tool.name} updated!`,
-                LogPrefix.DXVKInstaller
-              )
+              logInfo(`extracting ${tool.name} updated!`, {
+                prefix: LogPrefix.DXVKInstaller
+              })
             )
             .catch((error) => {
-              logError(
-                `Extraction of ${tool.name} failed with: ${error}`,
-                LogPrefix.DXVKInstaller
-              )
+              logError([`Extraction of ${tool.name} failed with:`, error], {
+                prefix: LogPrefix.DXVKInstaller
+              })
             })
 
           exec(cleanCommand)
         })
         .catch((error) => {
-          logWarning(
-            [`Error when downloading ${tool.name}`, error],
-            LogPrefix.DXVKInstaller
-          )
-          showErrorBoxModalAuto(
-            i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
-            i18next.t(
+          logWarning([`Error when downloading ${tool.name}`, error], {
+            prefix: LogPrefix.DXVKInstaller
+          })
+          showErrorBoxModalAuto({
+            title: i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
+            error: i18next.t(
               'box.error.dxvk.message',
               'Error installing DXVK/VKD3D! Check your connection!'
             )
-          )
+          })
         })
     })
   },
@@ -114,10 +113,9 @@ export const DXVK = {
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
 
     if (!isValidPrefix) {
-      logWarning(
-        'DXVK cannot be installed on a Proton or a invalid prefix!',
-        LogPrefix.DXVKInstaller
-      )
+      logWarning('DXVK cannot be installed on a Proton or a invalid prefix!', {
+        prefix: LogPrefix.DXVKInstaller
+      })
       return
     }
 
@@ -125,7 +123,7 @@ export const DXVK = {
     const wineBin = dirname(winePath.replace("'", ''))
 
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
-      logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
+      logWarning('dxvk not found!', { prefix: LogPrefix.DXVKInstaller })
       await DXVK.getLatest()
     }
 
@@ -145,19 +143,22 @@ export const DXVK = {
     const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh install --symlink`
 
     if (action === 'restore') {
-      logInfo(`Removing ${tool} version information`, LogPrefix.DXVKInstaller)
+      logInfo(`Removing ${tool} version information`, {
+        prefix: LogPrefix.DXVKInstaller
+      })
       const updatedVersionfile = `rm -rf ${currentVersionCheck}`
       const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh uninstall --symlink`
       return execAsync(removeCommand, execOptions)
         .then(() => {
-          logInfo(`${tool} removed from ${winePrefix}`, LogPrefix.DXVKInstaller)
+          logInfo(`${tool} removed from ${winePrefix}`, {
+            prefix: LogPrefix.DXVKInstaller
+          })
           return exec(updatedVersionfile)
         })
         .catch((error) => {
-          logError(
-            ['error when removing DXVK, please try again', `${error}`],
-            LogPrefix.DXVKInstaller
-          )
+          logError(['error when removing DXVK, please try again', error], {
+            prefix: LogPrefix.DXVKInstaller
+          })
         })
     }
 
@@ -165,19 +166,23 @@ export const DXVK = {
       return
     }
 
-    logInfo([`installing ${tool} on...`, prefix], LogPrefix.DXVKInstaller)
+    logInfo([`installing ${tool} on...`, prefix], {
+      prefix: LogPrefix.DXVKInstaller
+    })
     await execAsync(installCommand, { shell: '/bin/bash' })
       .then(() => {
-        logInfo(`${tool} installed on ${winePrefix}`, LogPrefix.DXVKInstaller)
+        logInfo(`${tool} installed on ${winePrefix}`, {
+          prefix: LogPrefix.DXVKInstaller
+        })
         return writeFileSync(currentVersionCheck, globalVersion)
       })
       .catch((error) => {
         logError(
           [
             'error when installing DXVK, please try launching the game again',
-            `${error}`
+            error
           ],
-          LogPrefix.DXVKInstaller
+          { prefix: LogPrefix.DXVKInstaller }
         )
       })
   }
@@ -197,10 +202,12 @@ export const Winetricks = {
     return execAsync(downloadCommand)
       .then(() => {
         exec(`chmod +x ${path}`)
-        logInfo('Downloaded Winetricks', LogPrefix.WineTricks)
+        logInfo('Downloaded Winetricks', { prefix: LogPrefix.WineTricks })
       })
       .catch(() => {
-        logWarning('Error Downloading Winetricks', LogPrefix.WineTricks)
+        logWarning('Error Downloading Winetricks', {
+          prefix: LogPrefix.WineTricks
+        })
       })
   },
   run: async (
@@ -244,34 +251,37 @@ export const Winetricks = {
 
       logInfo(
         `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`,
-        LogPrefix.WineTricks
+        { prefix: LogPrefix.WineTricks }
       )
 
       const child = spawn(winetricks, ['-q'], { env: envs })
 
       child.stdout.setEncoding('utf8')
       child.stdout.on('data', (data: string) => {
-        logInfo(data, LogPrefix.WineTricks)
+        logInfo(data, { prefix: LogPrefix.WineTricks })
         appendMessage(data)
       })
 
       child.stderr.setEncoding('utf8')
       child.stderr.on('data', (data: string) => {
-        logError(data, LogPrefix.WineTricks)
+        logError(data, { prefix: LogPrefix.WineTricks })
         appendMessage(data)
       })
 
       child.on('error', (error) => {
-        logError(`Winetricks threw Error: ${error}`, LogPrefix.WineTricks)
-        showErrorBoxModalAuto(
-          i18next.t('box.error.winetricks.title', 'Winetricks error'),
-          i18next.t('box.error.winetricks.message', {
+        logError(['Winetricks threw Error:', error], {
+          prefix: LogPrefix.WineTricks
+        })
+        showErrorBoxModalAuto({
+          event,
+          title: i18next.t('box.error.winetricks.title', 'Winetricks error'),
+          error: i18next.t('box.error.winetricks.message', {
             defaultValue:
               'Winetricks returned the following error during execution:{{newLine}}{{error}}',
             newLine: '\n',
             error: `${error}`
           })
-        )
+        })
         clearInterval(sendProgress)
         resolve()
       })

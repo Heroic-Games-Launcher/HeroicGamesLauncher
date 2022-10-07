@@ -15,8 +15,6 @@ import {
   execAsync,
   getSteamRuntime,
   isEpicServiceOffline,
-  isOnline,
-  showErrorBoxModalAuto,
   searchForExecutableOnPath,
   quoteIfNecessary,
   errorHandler,
@@ -49,6 +47,8 @@ import {
 import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { Game } from './games'
+import { isOnline } from './online_monitor'
+import { showErrorBoxModalAuto } from './dialog/dialog'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -151,13 +151,13 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
   // Verify that a Wine binary is set
   // This happens when there aren't any Wine versions installed
   if (!gameSettings.wineVersion.bin) {
-    showErrorBoxModalAuto(
-      i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
-      i18next.t(
+    showErrorBoxModalAuto({
+      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
+      error: i18next.t(
         'box.error.wine-not-found.message',
         'No Wine Version Selected. Check Game Settings!'
       )
-    )
+    })
     return { success: false }
   }
 
@@ -165,7 +165,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
   if (gameSettings.wineVersion.type === 'proton') {
     logWarning(
       'You are using Proton, this can lead to some bugs. Please do not open issues with bugs related to games',
-      LogPrefix.Backend
+      { prefix: LogPrefix.Backend }
     )
   }
 
@@ -180,27 +180,26 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
       )
     )
     if (!bottleExists) {
-      showErrorBoxModalAuto(
-        i18next.t(
+      showErrorBoxModalAuto({
+        title: i18next.t(
           'box.error.cx-bottle-not-found.title',
           'CrossOver bottle not found'
         ),
-        i18next.t(
+        error: i18next.t(
           'box.error.cx-bottle-not-found.message',
           `The CrossOver bottle "{{bottle_name}}" does not exist, can't launch!`,
           { bottle_name: gameSettings.wineCrossoverBottle }
         )
-      )
+      })
       return { success: false }
     }
   }
 
   const { updated: winePrefixUpdated } = await verifyWinePrefix(game)
   if (winePrefixUpdated) {
-    logInfo(
-      ['Created/Updated Wineprefix at', gameSettings.winePrefix],
-      LogPrefix.Backend
-    )
+    logInfo(['Created/Updated Wineprefix at', gameSettings.winePrefix], {
+      prefix: LogPrefix.Backend
+    })
     await setup(game.appName)
   }
 
@@ -418,7 +417,9 @@ export async function verifyWinePrefix(
       return { res: result, updated: wasUpdated }
     })
     .catch((error) => {
-      logError(['Unable to create Wineprefix: ', `${error}`], LogPrefix.Backend)
+      logError(['Unable to create Wineprefix: ', error], {
+        prefix: LogPrefix.Backend
+      })
       throw error
     })
 }
@@ -426,7 +427,7 @@ export async function verifyWinePrefix(
 function launchCleanup(rpcClient?: RpcClient) {
   if (rpcClient) {
     rpcClient.disconnect()
-    logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
+    logInfo('Stopped Discord Rich Presence', { prefix: LogPrefix.Backend })
   }
 }
 async function runWineCommand(
@@ -462,10 +463,9 @@ async function runWineCommand(
       if (wineVersion.wineserver) {
         additional_command = `"${wineVersion.wineserver}" --wait`
       } else {
-        logWarning(
-          'Unable to wait on Wine command, no Wineserver!',
-          LogPrefix.Backend
-        )
+        logWarning('Unable to wait on Wine command, no Wineserver!', {
+          prefix: LogPrefix.Backend
+        })
       }
     }
   }
@@ -476,15 +476,21 @@ async function runWineCommand(
     finalCommand += ` && ${additional_command}`
   }
 
-  logDebug(['Running Wine command:', finalCommand], LogPrefix.Legendary)
+  logDebug(['Running Wine command:', finalCommand], {
+    prefix: LogPrefix.Legendary
+  })
   return execAsync(finalCommand, { env: env_vars })
     .then((response) => {
-      logDebug(['Ran Wine command:', finalCommand], LogPrefix.Legendary)
+      logDebug(['Ran Wine command:', finalCommand], {
+        prefix: LogPrefix.Legendary
+      })
       return response
     })
     .catch((error) => {
       // error might not always be a string
-      logError(['Error running Wine command:', `${error}`], LogPrefix.Backend)
+      logError(['Error running Wine command:', error], {
+        prefix: LogPrefix.Backend
+      })
       throw error
     })
 }
@@ -517,11 +523,13 @@ async function callRunner(
 
   logInfo(
     [(options?.logMessagePrefix ?? `Running command`) + ':', safeCommand],
-    runner.logPrefix
+    { prefix: runner.logPrefix }
   )
 
   if (options?.logFile) {
-    logDebug(`Logging to file "${options?.logFile}"`, runner.logPrefix)
+    logDebug(`Logging to file "${options?.logFile}"`, {
+      prefix: runner.logPrefix
+    })
   }
 
   if (options?.logFile && existsSync(options.logFile)) {
@@ -609,11 +617,10 @@ async function callRunner(
         !`${error}`.includes('signal') &&
         !`${error}`.includes('appears to be deleted')
 
-      logError(
-        ['Error running', 'command', `"${safeCommand}": ${error}`],
-        runner.logPrefix,
+      logError(['Error running', 'command', `"${safeCommand}":`, error], {
+        prefix: runner.logPrefix,
         showDialog
-      )
+      })
 
       return { stdout: '', stderr: `${error}`, fullCommand: safeCommand, error }
     })

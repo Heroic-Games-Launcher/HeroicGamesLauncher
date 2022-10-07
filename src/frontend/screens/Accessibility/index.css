@@ -22,11 +22,11 @@ input[type='range'] {
 .Accessibility span,
 .Accessibility select,
 .Accessibility option {
-  font-size: 1.5rem !important;
+  font-size: var(--text-xl) !important;
 }
 
 .Accessibility .zoomHint span {
-  font-size: 1rem;
+  font-size: var(--text-md);
 }
 
 .Accessibility .fonts-label {

@@ -1,5 +1,5 @@
-import { InstallPlatform } from 'common/types'
 import {
+  InstallPlatform,
   AppSettings,
   GameInfo,
   GameStatus,
@@ -11,7 +11,6 @@ import { TFunction } from 'react-i18next'
 import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
 import { configStore } from './electronStores'
 
-import { ipcRenderer } from 'frontend/helpers'
 const storage: Storage = window.localStorage
 
 type InstallArgs = {
@@ -56,10 +55,11 @@ async function install({
   if (isInstalling) {
     return handleStopInstallation(
       appName,
-      [installPath, folder_name],
+      runner,
+      installPath,
+      folder_name,
       t,
-      progress,
-      runner
+      progress
     )
   }
 
@@ -68,17 +68,25 @@ async function install({
   }
 
   if (installPath === 'import') {
-    const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke(
-      'requestSettings',
-      'default'
-    )
+    const { defaultInstallPath }: AppSettings =
+      await window.api.requestSettings('default')
     const args = {
       buttonLabel: t('gamepage:box.choose'),
-      properties: ['openDirectory'],
+      properties: ['openDirectory'] as Array<
+        | 'openFile'
+        | 'openDirectory'
+        | 'multiSelections'
+        | 'showHiddenFiles'
+        | 'createDirectory'
+        | 'promptToCreate'
+        | 'noResolveAliases'
+        | 'treatPackageAsDirectory'
+        | 'dontAddToRecent'
+      >,
       title: t('gamepage:box.importpath'),
       defaultPath: defaultInstallPath
     }
-    const { path, canceled } = await ipcRenderer.invoke('openDialog', args)
+    const { path, canceled } = await window.api.openDialog(args)
 
     if (canceled || !path) {
       return
@@ -99,8 +107,8 @@ async function install({
       runner,
       status: 'installing'
     })
-    return ipcRenderer
-      .invoke('install', {
+    return window.api
+      .install({
         appName,
         path: `${installPath}`,
         installDlcs,
@@ -120,23 +128,23 @@ async function install({
   // If the user changed the previous folder, the percentage should start from zero again.
   let path = installPath
   if (installPath === 'default') {
-    const { defaultInstallPath }: AppSettings = await ipcRenderer.invoke(
-      'requestSettings',
-      'default'
-    )
+    const { defaultInstallPath }: AppSettings =
+      await window.api.requestSettings('default')
     path = defaultInstallPath
   }
   if (previousProgress && previousProgress.folder !== path) {
     storage.removeItem(appName)
   }
 
-  return ipcRenderer
-    .invoke('install', {
+  return window.api
+    .install({
       appName,
       path: `${path}`,
       installDlcs,
       sdlList,
-      runner
+      runner,
+      platformToInstall,
+      installLanguage
     })
     .finally(() => {
       if (progress.percent === 100) {
@@ -146,11 +154,7 @@ async function install({
     })
 }
 
-const importGame = async (args: {
-  appName: string
-  path: string
-  runner: Runner
-}): Promise<void> => ipcRenderer.invoke('importGame', args)
+const importGame = window.api.importGame
 
 type UninstallArgs = {
   appName: string
@@ -193,14 +197,14 @@ async function uninstall({
     }
   }
 
-  const { response, checkboxChecked } = await ipcRenderer.invoke(
-    'openMessageBox',
-    { ...args, ...linuxArgs }
-  )
+  const { response, checkboxChecked } = await window.api.openMessageBox({
+    ...args,
+    ...linuxArgs
+  })
 
   if (response === 0) {
     await handleGameStatus({ appName, runner, status: 'uninstalling' })
-    await ipcRenderer.invoke('uninstall', [appName, checkboxChecked, runner])
+    await window.api.uninstall([appName, checkboxChecked, runner])
     storage.removeItem(appName)
     return handleGameStatus({ appName, runner, status: 'done' })
   }
@@ -209,10 +213,11 @@ async function uninstall({
 
 async function handleStopInstallation(
   appName: string,
-  [path, folderName]: string[],
+  runner: Runner,
+  path: string,
+  folderName: string,
   t: TFunction<'gamepage'>,
-  progress: InstallProgress,
-  runner: Runner
+  progress: InstallProgress
 ) {
   const args = {
     buttons: [
@@ -225,7 +230,7 @@ async function handleStopInstallation(
     cancelId: 0
   }
 
-  const { response } = await ipcRenderer.invoke('openMessageBox', args)
+  const { response } = await window.api.openMessageBox(args)
 
   if (response === 1) {
     storage.setItem(appName, JSON.stringify({ ...progress, folder: path }))
@@ -233,12 +238,12 @@ async function handleStopInstallation(
   } else if (response === 2) {
     await sendKill(appName, runner)
     storage.removeItem(appName)
-    return ipcRenderer.send('removeFolder', [path, folderName])
+    return window.api.removeFolder([path, folderName])
   }
 }
 
 const repair = async (appName: string, runner: Runner): Promise<void> =>
-  ipcRenderer.invoke('repair', appName, runner)
+  window.api.repair(appName, runner)
 
 type LaunchOptions = {
   appName: string
@@ -262,24 +267,23 @@ const launch = async ({
       title: t('gamepage:box.update.title')
     }
 
-    const { response } = await ipcRenderer.invoke('openMessageBox', args)
+    const { response } = await window.api.openMessageBox(args)
 
     if (response === 0) {
       return updateGame(appName, runner)
     }
 
-    return ipcRenderer.invoke('launch', {
+    return window.api.launch({
       appName,
       runner,
       launchArguments: '--skip-version-check'
     })
   }
-
-  return ipcRenderer.invoke('launch', { appName, launchArguments, runner })
+  if (launchArguments === undefined) launchArguments = ''
+  return window.api.launch({ appName, launchArguments, runner })
 }
 
-const updateGame = async (appName: string, runner: Runner): Promise<void> =>
-  ipcRenderer.invoke('updateGame', appName, runner)
+const updateGame = window.api.updateGame
 
 // Todo: Get Back to update all games
 // function updateAllGames(gameList: Array<string>) {

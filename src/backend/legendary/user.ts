@@ -19,10 +19,9 @@ export class LegendaryUser {
       const userInfo = await this.getUserInfo()
       return { status: 'done', data: userInfo }
     } catch (error) {
-      logError(
-        ['Failed to login with Legendary:', `${error}`],
-        LogPrefix.Legendary
-      )
+      logError(['Failed to login with Legendary:', error], {
+        prefix: LogPrefix.Legendary
+      })
 
       return { status: 'failed' }
     }
@@ -36,7 +35,9 @@ export class LegendaryUser {
     })
 
     if (res.error) {
-      logError(['Failed to logout:', res.error], LogPrefix.Legendary)
+      logError(['Failed to logout:', res.error], {
+        prefix: LogPrefix.Legendary
+      })
     }
 
     const ses = session.fromPartition('persist:epicstore')
@@ -68,10 +69,9 @@ export class LegendaryUser {
       configStore.set('userInfo', info)
       return info
     } catch (error) {
-      logError(
-        `User info file corrupted, check ${userInfo}`,
-        LogPrefix.Legendary
-      )
+      logError(`User info file corrupted, check ${userInfo}`, {
+        prefix: LogPrefix.Legendary
+      })
       return {}
     }
   }

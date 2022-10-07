@@ -16,8 +16,8 @@
 
 .tableFieldWrapper th {
   color: var(--accent);
-  font-size: 1.2rem;
-  padding: 0.5rem;
+  font-size: var(--text-lg);
+  padding: var(--space-xs-fixed);
   text-align: left;
 }
 
@@ -32,7 +32,7 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding: 0 0.5rem;
+  padding: 0 var(--space-xs-fixed) m;
 }
 
 .tableFieldWrapper td:last-child {
@@ -40,7 +40,7 @@
 }
 
 .tableFieldWrapper td span {
-  padding: 0.3rem 0;
+  padding: var(--space-2xs-fixed) 0;
   text-align: left;
   overflow: auto;
   white-space: nowrap;
@@ -99,7 +99,7 @@
 }
 
 .tableFieldWrapper tfoot tr.dirty td svg {
-  margin: 0 0.7rem;
+  margin: 0 var(--space-sm-fixed);
 }
 
 .tableFieldWrapper tfoot tr.error {

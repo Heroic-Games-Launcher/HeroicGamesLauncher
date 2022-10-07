@@ -13,7 +13,7 @@ import { join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getGOGdlBin, getFileSize, isOnline } from '../utils'
+import { getGOGdlBin, getFileSize } from '../utils'
 import { fallBackImage } from '../constants'
 import {
   apiInfoCache,
@@ -21,6 +21,7 @@ import {
   installedGamesStore
 } from './electronStores'
 import { callRunner } from '../launcher'
+import { isOnline } from '../online_monitor'
 
 export class GOGLibrary {
   private static globalInstance: GOGLibrary
@@ -59,8 +60,8 @@ export class GOGLibrary {
       )
       .catch((error) => {
         logError(
-          ['Failed to get remote config information for', appName, `${error}`],
-          LogPrefix.Gog
+          ['Failed to get remote config information for', appName, ':', error],
+          { prefix: LogPrefix.Gog }
         )
         return null
       })
@@ -107,7 +108,7 @@ export class GOGLibrary {
             `${features}`,
             `${e.message}`
           ],
-          LogPrefix.Gog
+          { prefix: LogPrefix.Gog }
         )
       })
 
@@ -118,7 +119,9 @@ export class GOGLibrary {
     gameArray.push(...games.data.products)
     const numberOfPages = games?.data.totalPages
     for (let page = 2; page <= numberOfPages; page++) {
-      logInfo(['Getting data for page', String(page)], LogPrefix.Gog)
+      logInfo(['Getting data for page', String(page)], {
+        prefix: LogPrefix.Gog
+      })
       const pageData = await axios.get(
         `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page=${page}&features=${features.join()}`,
         { headers }
@@ -136,16 +139,16 @@ export class GOGLibrary {
       return
     }
     this.refreshInstalled()
+    for (const game of libraryStore.get('games', []) as GameInfo[]) {
+      const copyObject = { ...game }
+      if (this.installedGames.has(game.app_name)) {
+        copyObject.install = this.installedGames.get(game.app_name)!
+        copyObject.is_installed = true
+      }
+      this.library.set(game.app_name, copyObject)
+    }
 
     if (!isOnline()) {
-      for (const game of libraryStore.get('games', []) as GameInfo[]) {
-        const copyObject = { ...game }
-        if (this.installedGames.has(game.app_name)) {
-          copyObject.install = this.installedGames.get(game.app_name)!
-          copyObject.is_installed = true
-        }
-        this.library.set(game.app_name, copyObject)
-      }
       return
     }
 
@@ -159,7 +162,7 @@ export class GOGLibrary {
       Authorization: 'Bearer ' + credentials.access_token,
       'User-Agent': 'GOGGalaxyClient/2.0.45.61 (GOG Galaxy)'
     }
-    logInfo('Getting GOG library', LogPrefix.Gog)
+    logInfo('Getting GOG library', { prefix: LogPrefix.Gog })
     let gameApiArray: Array<GOGGameInfo> = []
     const games = await axios
       .get(
@@ -167,24 +170,29 @@ export class GOGLibrary {
         { headers }
       )
       .catch((e: AxiosError) => {
-        logError(
-          ['There was an error getting games library data', e.message],
-          LogPrefix.Gog
-        )
+        logError(['There was an error getting games library data', e.message], {
+          prefix: LogPrefix.Gog
+        })
         return null
       })
 
     if (!games) {
-      logError('There was an error Loading games library', LogPrefix.Gog)
+      logError('There was an error Loading games library', {
+        prefix: LogPrefix.Gog
+      })
       return
     }
 
     if (games?.data?.products) {
       const numberOfPages = games?.data.totalPages
-      logInfo(['Number of library pages:', numberOfPages], LogPrefix.Gog)
+      logInfo(['Number of library pages:', numberOfPages], {
+        prefix: LogPrefix.Gog
+      })
       gameApiArray = [...games.data.products]
       for (let page = 2; page <= numberOfPages; page++) {
-        logInfo(['Getting data for page', String(page)], LogPrefix.Gog)
+        logInfo(['Getting data for page', String(page)], {
+          prefix: LogPrefix.Gog
+        })
         const pageData = await axios.get(
           `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page=${page}`,
           { headers }
@@ -257,7 +265,7 @@ export class GOGLibrary {
     libraryStore.set('totalGames', games.data.totalProducts)
     libraryStore.set('totalMovies', games.data.moviesCount)
     libraryStore.set('cloud_saves_enabled', true)
-    logInfo('Saved games data', LogPrefix.Gog)
+    logInfo('Saved games data', { prefix: LogPrefix.Gog })
   }
 
   public static get() {
@@ -339,17 +347,17 @@ export class GOGLibrary {
       logMessagePrefix: 'Getting game metadata'
     })
     if (res.error) {
-      logError(
-        ['Failed to get game metadata for', `${appName}:`, res.error],
-        LogPrefix.Gog
-      )
+      logError(['Failed to get game metadata for', `${appName}:`, res.error], {
+        prefix: LogPrefix.Gog
+      })
     }
 
     const gogInfo = JSON.parse(res.stdout)
-    const libraryArray = libraryStore.get('games', []) as GameInfo[]
+    const libraryArray = libraryStore.get('games', [{}]) as GameInfo[]
     const gameObjectIndex = libraryArray.findIndex(
       (value) => value.app_name === appName
     )
+
     if (
       !libraryArray[gameObjectIndex]!.gog_save_location &&
       this.installedGames.get(appName) &&
@@ -407,7 +415,7 @@ export class GOGLibrary {
     if (!cachedGameData) {
       logError(
         "Changing game install path failed: Game data couldn't be found",
-        LogPrefix.Gog
+        { prefix: LogPrefix.Gog }
       )
       return
     }
@@ -481,7 +489,9 @@ export class GOGLibrary {
         updateable.push(game.appName)
       }
     }
-    logInfo(`Found ${updateable.length} game(s) to update`, LogPrefix.Gog)
+    logInfo(`Found ${updateable.length} game(s) to update`, {
+      prefix: LogPrefix.Gog
+    })
     return updateable
   }
 
@@ -553,7 +563,7 @@ export class GOGLibrary {
     } else {
       logWarning(
         `Unable to get covers from gamesdb for ${info.title}. Trying to get it from api.gog.com`,
-        LogPrefix.Gog
+        { prefix: LogPrefix.Gog }
       )
       const apiData = await this.getGamesData(String(info.id))
       if (apiData?._links?.boxArtImage) {
@@ -561,7 +571,7 @@ export class GOGLibrary {
       } else {
         logWarning(
           "Couldn't get info from api.gog.com, Using fallback vertical image",
-          LogPrefix.Gog
+          { prefix: LogPrefix.Gog }
         )
         verticalCover = fallBackImage
       }
@@ -693,10 +703,9 @@ export class GOGLibrary {
         const jsonData = JSON.parse(fileData)
         return jsonData
       } catch (error) {
-        logError(
-          `Error reading ${fileData}, could not complete operation`,
-          LogPrefix.Gog
-        )
+        logError(`Error reading ${fileData}, could not complete operation`, {
+          prefix: LogPrefix.Gog
+        })
       }
     }
     return {}

@@ -64,7 +64,7 @@
         "language": "Sprog",
         "info": "Info",
         "platform": "Vælg platformsversion, der skal installeres",
-        "reuirements": "System Krav",
+        "requirements": "System Krav",
         "tools": "Værktøjer"
     },
     "gamecard": {

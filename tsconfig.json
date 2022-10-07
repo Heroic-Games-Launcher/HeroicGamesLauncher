@@ -1,5 +1,5 @@
 {
-  "exclude": ["vite.config.ts"],
+  "exclude": ["vite.config.ts", "**/__tests__/**", "**/__mocks__/**"],
   "compilerOptions": {
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

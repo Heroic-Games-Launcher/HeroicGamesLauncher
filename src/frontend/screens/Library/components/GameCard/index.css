@@ -8,6 +8,7 @@
   box-shadow: 0px 0px 12px 4px #00000055;
   display: flex;
   flex-direction: column;
+  border-radius: var(--space-3xs);
 }
 
 .gameCard:focus-within {
@@ -19,13 +20,13 @@
   z-index: 5;
   top: 15px;
   left: 13px;
-  font-weight: 600;
+  font-weight: var(--semibold);
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.418) 2.4%,
     rgba(20, 21, 21, 0.863) 30%
   );
-  padding: 2px 5px;
+  padding: var(--space-3xs) var(--space-2xs);
   border-radius: 4px;
   color: var(--success);
 }
@@ -36,15 +37,15 @@
   bottom: 45px;
   left: 5px;
   color: var(--success);
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   font-style: italic;
   font-weight: normal;
-  font-size: 10px;
-  line-height: 12px;
+  font-size: var(--text-xs);
+  line-height: var(--space-sm);
   width: fit-content;
   max-width: 96px;
   word-wrap: break-word;
-  padding: 2px;
+  padding: var(--space-3xs);
   background: var(--gradient-gamecard);
   border-radius: 4px;
 }
@@ -88,9 +89,9 @@
   color: var(--text-secondary);
   background: var(--gradient-gamecard);
   transition: 200ms;
-  font-family: var(--content-font-family);
-  font-size: 1rem;
-  font-weight: 700;
+  font-family: var(--primary-font-family);
+  font-size: var(--text-md);
+  font-weight: var(--bold);
   line-height: 17px;
   color: var(--text-default);
   cursor: pointer;
@@ -110,7 +111,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 'update settings play';
-  padding: 6px auto;
+  padding: var(--space-xs-fixed);
 }
 
 .gameCard > .icons > .svg-button {
@@ -123,7 +124,7 @@
   right: 5px;
   top: 4px;
   z-index: 2;
-  padding: 4px;
+  padding: var(--space-3xs);
   width: 35px;
   height: 35px;
   place-content: center;
@@ -153,8 +154,8 @@
   position: relative;
   cursor: default;
   place-self: center;
-  margin: 0 2rem 0.5rem;
-  padding: 0.5rem 0;
+  margin: 0 var(--space-xl-fixed) var(--space-xs-fixed);
+  padding: var(--space-xs-fixed) 0;
   border-bottom: 1px solid gray;
 }
 
@@ -186,20 +187,20 @@
 }
 
 .gameListItem .gameListInfo {
-  font-size: 1em;
+  font-size: var(--text-md);
   grid-area: infos;
 }
 
 .gameListItem .gameTitle {
   grid-area: name;
-  font-size: 1em;
-  padding-right: 1rem;
+  font-size: var(--text-md);
+  padding-right: var(--space-md-fixed);
   text-align: left;
 }
 
 .gameListItem .installed {
   color: var(--accent);
-  font-weight: 700;
+  font-weight: var(--bold);
 }
 
 .gameListItem .active {
@@ -216,7 +217,7 @@
 }
 
 .gameListItem > .icons {
-  padding: 0px 6px;
+  padding: 0px var(--space-2xs-fixed);
   grid-area: action;
   height: 100%;
   width: 100%;
@@ -263,7 +264,7 @@
   display: flex;
   justify-content: flex-end;
   z-index: 4;
-  padding: 6px;
+  padding: var(--space-md-fixed);
   transition: 300ms;
 }
 

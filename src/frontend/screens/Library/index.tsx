@@ -235,8 +235,8 @@ export default function Library(): JSX.Element {
     const notInstalled = library.filter(
       (g) => !g.is_installed && !installing.includes(g.app_name)
     )
-    const installingGames = library.filter((g) =>
-      installing.includes(g.app_name)
+    const installingGames = library.filter(
+      (g) => !g.is_installed && installing.includes(g.app_name)
     )
     library = sortInstalled
       ? [...installed, ...installingGames, ...notInstalled]
