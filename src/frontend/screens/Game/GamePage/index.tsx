@@ -471,7 +471,7 @@ export default function GamePage(): JSX.Element | null {
                   showCloseButton={true}
                   onClose={() => setShowRequirements(false)}
                 >
-                  <div>{t('game.reuirements', 'Requirements')}</div>
+                  <div>{t('game.requirements', 'Requirements')}</div>
                 </DialogHeader>
                 <DialogContent>
                   <GameRequirements gameInfo={gameInfo} />
