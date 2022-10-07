@@ -7,11 +7,7 @@ import {
   TextInputField,
   TextInputWithIconField
 } from 'frontend/components/UI'
-import {
-  DialogContent,
-  DialogFooter,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
 import {
   getAppSettings,
   getGameInfo,
@@ -171,25 +167,28 @@ export default function SideloadDialog({
     return
   }
 
+  const platformIcon = availablePlatforms.filter(
+    (p) => p.name === platformToInstall
+  )[0]?.icon
+
   return (
     <>
-      <DialogHeader onClose={backdropClick} showCloseButton={!runningSetup}>
-        {title}
-        {availablePlatforms.map((p) => (
-          <FontAwesomeIcon
-            className="InstallModal__platformIcon"
-            icon={p.icon}
-            key={p.value}
-          />
-        ))}
-      </DialogHeader>
       <DialogContent>
         <div className="sideloadGrid">
-          <CachedImage
-            className="appImage"
-            src={imageUrl ? imageUrl : fallbackImage}
-          />
-          <div>
+          <div className="imageIcons">
+            <CachedImage
+              className="appImage"
+              src={imageUrl ? imageUrl : fallbackImage}
+            />
+            <span className="titleIcon">
+              {title}
+              <FontAwesomeIcon
+                className="InstallModal__platformIcon"
+                icon={platformIcon}
+              />
+            </span>
+          </div>
+          <div className="sideloadForm">
             <TextInputField
               label={t('sideload.info.title', 'Game/App Title')}
               placeholder={t(

@@ -5,13 +5,19 @@
 .sideloadGameButton {
   font-family: var(--secondary-font-family);
   border-radius: var(--space-3xs);
-  color: var(--text-default);
-  background-color: var(--background-lighter);
+  color: var(--text-tertiary);
+  background-color: var(--primary);
   padding: 10px;
   border: none;
   margin: 0 24px;
   cursor: pointer;
   text-transform: uppercase;
+  transition: 300ms;
+}
+
+.sideloadGameButton:hover,
+.sideloadGameButton:focus-within {
+  background-color: var(--primary-hover);
 }
 
 .numberOfgames {
@@ -21,5 +27,5 @@
   background: var(--input-background);
   padding: var(--space-xs);
   margin-left: var(--space-sm);
-  border-radius: 1000px;
+  border-radius: var(--space-3xs);
 }
