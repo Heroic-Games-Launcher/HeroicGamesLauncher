@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Сімейство шрифтів для дій (Типово: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Показувати кольорові образці ігор",
-        "content_font_family": "Сімейство шрифтів для вмісту (Типово: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Шрифти",
         "title": "Спец. можливості",
         "zoom": "Маштабування"
@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Помилка",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Uncaught Exception occured!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "офлайн"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Уподобання",
     "game": {
         "status": "Стан",
@@ -223,6 +224,9 @@
         "preferSystemLibs": "Спеціальні версії Wine (Wine-GE, Wine-Lutris) постачаються разом із залежностями бібліотеки. Якщо ввімкнути цю опцію, ці бібліотеки ігноруватимуться, а Wine замість них завантажуватиме системні бібліотеки. УВАГА! Якщо залежності не виконано, можуть виникнути проблеми.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar допомагає підвищити частоту кадрів, дозволяючи процесору отримати доступ до всього графічного буфера. Увімкнення може покращити продуктивність ігор, основаних на Vulkan.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Спеціальні бібліотеки, надані Steam -ом, щоб допомогти з запуском ігор під Linux та Windows (Proton). Увімкнення може покращити сумісність.",
         "sync": {
             "part1": "Heroic намагається вгадати теку збережень і це працює в більшості випадків. Якщо тека неправильна, використайте поле заміни щоб змінити шлях.",
@@ -323,6 +327,12 @@
             "finished": "Оновлення завершено",
             "started": "Розпочалось оновлення"
         }
+    },
+    "offline-message": {
+        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "retrying": "Retrying"
     },
     "options": {
         "advanced": {

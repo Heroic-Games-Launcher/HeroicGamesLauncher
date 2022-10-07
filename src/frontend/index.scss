@@ -1,0 +1,66 @@
+@use './styles/typography';
+@use './styles/spacing';
+@use './styles/colors';
+@use './styles/buttons';
+:root {
+  @include typography.typeSystem;
+  @include spacing.spacingSystem;
+  @include colors.colorSystem;
+
+  overflow-y: overlay;
+  /* Effects */
+  --blur-light: 4px;
+  --blur-strong: 16px;
+}
+
+// Example breakpoint
+// @media screen and (max-width: 800px) {
+//   :root {
+//     font-size: 16px;
+//     --text-scale-ratio: 1.2;
+//   }
+// }
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+}
+
+/* Overlay Scrollbar*/
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: var(--current-background, var(--body-background));
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--text-secondary);
+  border-radius: 5px;
+  margin: 2px;
+  border: 2px solid var(--current-background, var(--body-background));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--link-highlight);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--accent);
+}
+
+.simple-keyboard {
+  position: absolute;
+  z-index: 10;
+  bottom: 100%;
+  left: 0px;
+  right: 0px;
+  background: var(--osk-background);
+}

@@ -10,12 +10,13 @@ import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GOGLibrary } from './library'
 import { GameInfo, InstalledInfo } from 'common/types'
-import { execAsync, isOnline, quoteIfNecessary } from '../utils'
+import { execAsync, quoteIfNecessary } from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { userHome, isWindows } from '../constants'
 import ini from 'ini'
 import { GlobalConfig } from '../config'
+import { isOnline } from '../online_monitor'
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
  * For Galaxy games only (Windows)

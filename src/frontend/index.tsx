@@ -5,13 +5,16 @@ import ReactDOM from 'react-dom'
 import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
 
-import './index.css'
+import './index.scss'
 import './themes.css'
 import App from './App'
 import GlobalState from './state/GlobalState'
 import { UpdateComponentBase } from './components/UI/UpdateComponent'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
+import { initOnlineMonitor } from './helpers/onlineMonitor'
+
+initOnlineMonitor()
 
 window.addEventListener('error', (ev: ErrorEvent) => {
   window.api.logError(ev.error)

@@ -18,6 +18,7 @@ interface RunnerProps {
 }
 
 export default function Runner(props: RunnerProps) {
+  const maxNameLength = 20
   const { t } = useTranslation()
   async function handleLogout() {
     await props.logoutAction()
@@ -29,7 +30,10 @@ export default function Runner(props: RunnerProps) {
       <div>{props.icon()}</div>
       {props.isLoggedIn && (
         <div className="userData">
-          <span>{props.user}</span>
+          <span>
+            {String(props.user).slice(0, maxNameLength) +
+              (String(props.user).length > maxNameLength ? '...' : '')}
+          </span>
         </div>
       )}
       <div>

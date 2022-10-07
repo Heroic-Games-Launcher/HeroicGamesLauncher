@@ -1,5 +1,10 @@
 import { ipcRenderer } from 'electron'
-import { Runner, InstallPlatform } from '../../common/types'
+import {
+  Runner,
+  InstallPlatform,
+  ConnectivityChangedCallback,
+  ConnectivityStatus
+} from '../../common/types'
 
 export const notify = (notification: string[]) =>
   ipcRenderer.send('Notify', notification)
@@ -9,6 +14,7 @@ export const openSupportPage = () => ipcRenderer.send('openSupportPage')
 export const quit = () => ipcRenderer.send('quit')
 export const showAboutWindow = () => ipcRenderer.send('showAboutWindow')
 export const openDiscordLink = () => ipcRenderer.send('openDiscordLink')
+export const openWinePrefixFAQ = () => ipcRenderer.send('openWinePrefixFAQ')
 export const createNewWindow = (url: string) =>
   ipcRenderer.send('createNewWindow', url)
 
@@ -42,3 +48,11 @@ export const runWineCommandForGame = async (command: runWineCommand) =>
   ipcRenderer.invoke('runWineCommandForGame', command)
 export const requestSettings = async (appName: string) =>
   ipcRenderer.invoke('requestSettings', appName)
+
+export const onConnectivityChanged = async (
+  callback: ConnectivityChangedCallback
+) => ipcRenderer.on('connectivity-changed', callback)
+export const getConnectivityStatus = async (): Promise<ConnectivityStatus> =>
+  ipcRenderer.invoke('get-connectivity-status', [])
+export const connectivityChanged = async (newStatus: ConnectivityStatus) =>
+  ipcRenderer.send('connectivity-changed', newStatus)

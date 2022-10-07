@@ -61,7 +61,7 @@
         "lastPlayed": "最後にプレイした",
         "neverPlayed": "一度もない",
         "platform": "Select Platform Version to Install",
-        "reuirements": "System Requirements",
+        "requirements": "System Requirements",
         "totalPlayed": "プレイ時間"
     },
     "gamecard": {

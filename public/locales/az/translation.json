@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Defolt: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Bütün oyun plitələrini rəngli göstərin",
-        "content_font_family": "Məzmun Şrift Ailəsi (Defolt: \"Kabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Şriftlər",
         "title": "Əlçatanlıq",
         "zoom": "Zoom"
@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Xəta",
             "uncaught-exception": {
-                "message": "Tutulmamış istisna baş verdi:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic bağlanacaq! Github anbarımızdakı istisnanı bildirin.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Tutulmamış İstisna baş verdi!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "oflayn"
     },
     "Epic Games": "Epik oyunlar",
+    "error": "Error",
     "favourites": "Sevimlilər",
     "game": {
         "status": "Vəziyyət",
@@ -223,6 +224,9 @@
         "preferSystemLibs": "Fərdi Şərab versiyaları (Wine-GE, Wine-Lutris) kitabxana asılılıqları ilə göndərilir. Bu seçimi aktiv etməklə, bu göndərilmiş kitabxanalar nəzərə alınmayacaq və Wine əvəzinə sistem kitabxanalarını yükləyəcək. Xəbərdarlıq! Asılılıqlar təmin edilmədikdə problemlər yarana bilər.",
         "primerun": "Multi-GPU sistemlərində oyunu göstərmək üçün xüsusi qrafik kartdan istifadə edin. Yalnız göstərmə üçün başsız GPU istifadə edən oyun noutbukları və ya stolüstü kompüterlərdə lazımdır (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA-nın Ölçüləndirilə bilən Çubuğu CPU-nun bütün qrafik buferinə daxil olmasını təmin edərək kadr sürətini artırmağa kömək edir. Aktivləşdirilməsi Vulkan əsaslı oyunlar üçün performansı yaxşılaşdıra bilər.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Linux və Windows (Proton) oyunlarını idarə etməyə kömək etmək üçün Steam tərəfindən təmin edilən xüsusi kitabxanalar. Aktivləşdirmə uyğunluğu yaxşılaşdıra bilər.",
         "sync": {
             "part1": "Heroic düzgün saxlama qovluğunu təxmin etməyə çalışır və bu, əksər hallarda işləyəcək. Qovluq səhv olarsa, onu dəyişdirmək üçün dəyişdirmə qutusundan istifadə edin.",
@@ -323,6 +327,12 @@
             "finished": "Yeniləmə Tamamlandı",
             "started": "Yeniləmə Başladı"
         }
+    },
+    "offline-message": {
+        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "retrying": "Retrying"
     },
     "options": {
         "advanced": {

@@ -61,7 +61,7 @@
         "lastPlayed": "Viimati mängitud",
         "neverPlayed": "Mitte kunagi",
         "platform": "Valige paigaldatava platvormi versioon",
-        "reuirements": "Süsteeminõuded",
+        "requirements": "Süsteeminõuded",
         "totalPlayed": "Mängitud aeg"
     },
     "gamecard": {

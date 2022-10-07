@@ -1,4 +1,4 @@
-import './index.css'
+import './index.scss'
 
 import React, { useContext, useEffect, useState } from 'react'
 
@@ -35,7 +35,7 @@ import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faTriangleExclamation,
-  faBars
+  faEllipsisV
 } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
@@ -258,7 +258,7 @@ export default function GamePage(): JSX.Element | null {
             </div>
             <div className="game-actions">
               <button className="toggle">
-                <FontAwesomeIcon icon={faBars} />
+                <FontAwesomeIcon icon={faEllipsisV} />
               </button>
 
               <GameSubMenu
@@ -294,7 +294,7 @@ export default function GamePage(): JSX.Element | null {
                       color: autoSyncSaves ? '#07C5EF' : ''
                     }}
                   >
-                    {t('info.syncsaves')}:{' '}
+                    <b>{t('info.syncsaves')}:</b>{' '}
                     {autoSyncSaves ? t('enabled') : t('disabled')}
                   </div>
                 )}
@@ -304,18 +304,18 @@ export default function GamePage(): JSX.Element | null {
                       color: '#F45460'
                     }}
                   >
-                    {t('info.syncsaves')}:{' '}
+                    <b>{t('info.syncsaves')}:</b>{' '}
                     {t('cloud_save_unsupported', 'Unsupported')}
                   </div>
                 )}
                 {!is_installed && (
                   <>
                     <div>
-                      {t('game.downloadSize', 'Download Size')}:{' '}
+                      <b>{t('game.downloadSize', 'Download Size')}:</b>{' '}
                       {downloadSize ?? '...'}
                     </div>
                     <div>
-                      {t('game.installSize', 'Install Size')}:{' '}
+                      <b>{t('game.installSize', 'Install Size')}:</b>{' '}
                       {installSize ?? '...'}
                     </div>
                     <br />
@@ -324,17 +324,19 @@ export default function GamePage(): JSX.Element | null {
                 {is_installed && (
                   <>
                     <div>
-                      {t('info.size')}: {install_size}
+                      <b>{t('info.size')}:</b> {install_size}
                     </div>
                     <div style={{ textTransform: 'capitalize' }}>
-                      {t('info.installedPlatform', 'Installed Platform')}:{' '}
+                      <b>
+                        {t('info.installedPlatform', 'Installed Platform')}:
+                      </b>{' '}
                       {installPlatform === 'osx' ? 'MacOS' : installPlatform}
                     </div>
                     <div>
-                      {t('info.version')}: {version}
+                      <b>{t('info.version')}:</b> {version}
                     </div>
                     <div>
-                      {t('info.canRunOffline', 'Online Required')}:{' '}
+                      <b>{t('info.canRunOffline', 'Online Required')}:</b>{' '}
                       {t(canRunOffline ? 'box.no' : 'box.yes')}
                     </div>
                     <div
@@ -345,16 +347,18 @@ export default function GamePage(): JSX.Element | null {
                           : {}
                       }
                     >
-                      {t('info.path')}: {install_path}
+                      <b>{t('info.path')}:</b> {install_path}
                     </div>
                     {isLinux && !isNative && (
                       <>
-                        <div>Wine: {wineVersion}</div>
+                        <div>
+                          <b>Wine:</b> {wineVersion}
+                        </div>
                         <div
                           className="clickable"
                           onClick={() => window.api.openFolder(winePrefix)}
                         >
-                          Prefix: {winePrefix}
+                          <b>Prefix:</b> {winePrefix}
                         </div>
                       </>
                     )}

@@ -61,7 +61,7 @@
         "lastPlayed": "Viimeksi pelattu",
         "neverPlayed": "Ei koskaan",
         "platform": "Select Platform Version to Install",
-        "reuirements": "System Requirements",
+        "requirements": "System Requirements",
         "totalPlayed": "Pelattu aika"
     },
     "gamecard": {

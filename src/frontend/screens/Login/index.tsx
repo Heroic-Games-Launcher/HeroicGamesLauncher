@@ -47,7 +47,12 @@ export default function NewLogin() {
       <div className="loginBackground"></div>
 
       <div className="loginContentWrapper">
-        {!loading && <LanguageSelector flagPossition={FlagPosition.PREPEND} />}
+        {!loading && (
+          <LanguageSelector
+            flagPossition={FlagPosition.PREPEND}
+            showWeblateLink={true}
+          />
+        )}
         <div className="runnerList">
           <Runner
             class="epic"
