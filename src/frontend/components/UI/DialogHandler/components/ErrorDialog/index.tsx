@@ -18,8 +18,12 @@ export function ErrorDialog(props: {
 
   return (
     <>
-      <Dialog onClose={props.onClose} className={classNames('errorDialog')}>
-        <DialogHeader onClose={props.onClose} showCloseButton={true}>
+      <Dialog
+        showCloseButton
+        onClose={props.onClose}
+        className={classNames('errorDialog')}
+      >
+        <DialogHeader onClose={props.onClose}>
           <div>{props.title}</div>
         </DialogHeader>
         <DialogContent>

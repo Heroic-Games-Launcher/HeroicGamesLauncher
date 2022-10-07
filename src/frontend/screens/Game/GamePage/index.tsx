@@ -92,7 +92,6 @@ export default function GamePage(): JSX.Element | null {
     const updateConfig = async () => {
       try {
         const newInfo = await getGameInfo(appName, runner)
-        console.log({ newInfo })
         setGameInfo(newInfo)
         const { install, is_linux_native, is_mac_native } = newInfo
 

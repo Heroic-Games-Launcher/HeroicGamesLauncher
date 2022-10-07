@@ -42,11 +42,11 @@
   margin: 0;
 }
 
-.Dialog__headerClose {
+.Dialog__Close {
   padding: var(--dialog-margin-vertical) var(--dialog-margin-horizontal) 0 0;
 }
 
-.Dialog__headerCloseButton {
+.Dialog__CloseButton {
   border: none;
   margin: calc(-1 * var(--space-xs));
   padding: var(--space-xs);
@@ -55,22 +55,25 @@
   color: var(--text-default);
   cursor: pointer;
   transition: 250ms color;
+  position: absolute;
+  right: var(--space-md);
+  top: var(--space-sm);
 }
 
-.Dialog__headerCloseButton:focus-visible {
+.Dialog__CloseButton:focus-visible {
   outline: none;
   box-shadow: var(--accent) 0 0 0 2px inset;
 }
 
-.Dialog__headerCloseButton:hover {
+.Dialog__CloseButton:hover {
   color: var(--text-hover);
 }
 
-.Dialog__headerCloseButton:active {
+.Dialog__CloseButton:active {
   color: var(--accent);
 }
 
-.Dialog__headerCloseIcon {
+.Dialog__CloseIcon {
   font-size: var(--text-lg);
 }
 

@@ -1,3 +1,5 @@
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, {
   ReactNode,
   SyntheticEvent,
@@ -9,12 +11,14 @@ import React, {
 export interface DialogProps {
   className?: string
   children: ReactNode
+  showCloseButton: boolean
   onClose: () => void
 }
 
 export const Dialog: React.FC<DialogProps> = ({
   children,
   className,
+  showCloseButton = false,
   onClose
 }) => {
   const dialogRef = useRef<HTMLDialogElement | null>(null)
@@ -53,6 +57,13 @@ export const Dialog: React.FC<DialogProps> = ({
         ref={dialogRef}
         onClick={onDialogClick}
       >
+        {showCloseButton && (
+          <div className="Dialog__Close">
+            <button className="Dialog__CloseButton" onClick={onClose}>
+              <FontAwesomeIcon className="Dialog__CloseIcon" icon={faXmark} />
+            </button>
+          </div>
+        )}
         {children}
       </dialog>
     </div>
