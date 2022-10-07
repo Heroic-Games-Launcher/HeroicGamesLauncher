@@ -379,7 +379,7 @@ class LegendaryGame extends Game {
    * @public
    */
   public async removeShortcuts() {
-    return removeShortcuts(this.appName, 'legendary')
+    return removeShortcuts(this.getGameInfo())
   }
 
   private getSdlList(sdlList: Array<string>) {
@@ -475,7 +475,7 @@ class LegendaryGame extends Game {
       })
     } else {
       LegendaryLibrary.get().installState(this.appName, false)
-      await removeShortcuts(this.appName, 'legendary')
+      await removeShortcuts(this.getGameInfo())
       const gameInfo = this.getGameInfo()
       const { defaultSteamPath } = await GlobalConfig.get().getSettings()
       const steamUserdataDir = join(

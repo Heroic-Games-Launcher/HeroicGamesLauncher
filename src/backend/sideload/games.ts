@@ -20,6 +20,7 @@ import { constants as FS_CONSTANTS, existsSync, rmSync } from 'graceful-fs'
 import i18next from 'i18next'
 import { runWineCommand, setupEnvVars } from '../launcher'
 import { access, chmod } from 'fs/promises'
+import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 
 export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)
@@ -72,8 +73,15 @@ export function addNewApp({
   return libraryStore.set('games', current)
 }
 
-export async function addShortcuts(): Promise<void> {
-  throw new Error('Method not implemented.')
+export async function addAppShortcuts(
+  appName: string,
+  fromMenu?: boolean
+): Promise<void> {
+  return addShortcuts(getAppInfo(appName), fromMenu)
+}
+
+export async function removeAppShortcuts(appName: string): Promise<void> {
+  return removeShortcuts(getAppInfo(appName))
 }
 
 export async function launchApp(appName: string): Promise<boolean> {

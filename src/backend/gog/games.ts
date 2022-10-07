@@ -299,7 +299,7 @@ class GOGGame extends Game {
   }
 
   public async removeShortcuts() {
-    return removeShortcuts(this.appName, 'gog')
+    return removeShortcuts(this.getGameInfo())
   }
 
   async launch(launchArguments?: string): Promise<boolean> {
@@ -626,7 +626,7 @@ class GOGGame extends Game {
     }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
-    await removeShortcuts(this.appName, 'gog')
+    await removeShortcuts(this.getGameInfo())
     syncStore.delete(this.appName)
     const gameInfo = await this.getGameInfo()
     const { defaultSteamPath } = await GlobalConfig.get().getSettings()
