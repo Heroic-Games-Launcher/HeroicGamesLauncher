@@ -353,7 +353,7 @@ export default function GamesSubmenu({
             onClick={async () => onShowRequirements()}
             className="link button is-text is-link"
           >
-            {t('game.reuirements', 'Requirements')}
+            {t('game.requirements', 'Requirements')}
           </button>
         )}
       </div>
