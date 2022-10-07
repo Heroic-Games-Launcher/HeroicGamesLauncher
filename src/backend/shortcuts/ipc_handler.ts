@@ -3,7 +3,7 @@ import { GlobalConfig } from '../config'
 import { ipcMain, dialog } from 'electron'
 import i18next from 'i18next'
 import { join } from 'path'
-import { Runner } from 'common/types'
+import { GameInfo, Runner } from 'common/types'
 import {
   addNonSteamGame,
   isAddedToSteam,
@@ -11,6 +11,7 @@ import {
 } from './nonesteamgame/nonesteamgame'
 import { getGame } from '../utils'
 import { shortcutFiles } from './shortcuts/shortcuts'
+import { addAppShortcuts, getAppInfo } from '../sideload/games'
 
 const getSteamUserdataDir = async () => {
   const { defaultSteamPath } = await GlobalConfig.get().getSettings()
@@ -20,8 +21,14 @@ const getSteamUserdataDir = async () => {
 ipcMain.on(
   'addShortcut',
   async (event, appName: string, runner: Runner, fromMenu: boolean) => {
-    const game = getGame(appName, runner)
-    await game.addShortcuts(fromMenu)
+    const isSideload = runner === 'sideload'
+
+    if (isSideload) {
+      addAppShortcuts(appName)
+    } else {
+      const game = getGame(appName, runner)
+      await game.addShortcuts(fromMenu)
+    }
 
     dialog.showMessageBox({
       buttons: [i18next.t('box.ok', 'Ok')],
@@ -63,8 +70,16 @@ ipcMain.handle(
     bkgDataUrl: string,
     bigPicDataUrl: string
   ) => {
-    const game = getGame(appName, runner)
-    const gameInfo = await game.getGameInfo()
+    let gameInfo: GameInfo
+
+    const isSideload = runner === 'sideload'
+    if (isSideload) {
+      gameInfo = getAppInfo(appName)
+    } else {
+      const game = getGame(appName, runner)
+      gameInfo = await game.getGameInfo()
+    }
+
     const steamUserdataDir = await getSteamUserdataDir()
 
     return addNonSteamGame({
@@ -79,8 +94,15 @@ ipcMain.handle(
 ipcMain.handle(
   'removeFromSteam',
   async (event, appName: string, runner: Runner) => {
-    const game = getGame(appName, runner)
-    const gameInfo = await game.getGameInfo()
+    let gameInfo: GameInfo
+
+    const isSideload = runner === 'sideload'
+    if (isSideload) {
+      gameInfo = getAppInfo(appName)
+    } else {
+      const game = getGame(appName, runner)
+      gameInfo = await game.getGameInfo()
+    }
     const steamUserdataDir = await getSteamUserdataDir()
 
     await removeNonSteamGame({ steamUserdataDir, gameInfo })
@@ -90,8 +112,15 @@ ipcMain.handle(
 ipcMain.handle(
   'isAddedToSteam',
   async (event, appName: string, runner: Runner) => {
-    const game = getGame(appName, runner)
-    const gameInfo = await game.getGameInfo()
+    let gameInfo: GameInfo
+
+    const isSideload = runner === 'sideload'
+    if (isSideload) {
+      gameInfo = getAppInfo(appName)
+    } else {
+      const game = getGame(appName, runner)
+      gameInfo = await game.getGameInfo()
+    }
     const steamUserdataDir = await getSteamUserdataDir()
 
     return isAddedToSteam({ steamUserdataDir, gameInfo })
