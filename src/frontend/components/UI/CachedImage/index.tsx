@@ -29,7 +29,7 @@ const CachedImage = (props: Props) => {
   let src = useFallback ? props.fallback : props.src
   src = useCache ? `imagecache://${src}` : src
 
-  return <img {...props} src={src} onError={onError} />
+  return <img loading="lazy" {...props} src={src} onError={onError} />
 }
 
 export default React.memo(CachedImage)
