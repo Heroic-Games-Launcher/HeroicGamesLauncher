@@ -141,7 +141,11 @@ export default function InstallModal({
 
   return (
     <div className="InstallModal">
-      <Dialog onClose={backdropClick} className={'InstallModal__dialog'}>
+      <Dialog
+        onClose={backdropClick}
+        showCloseButton
+        className={'InstallModal__dialog'}
+      >
         {!isSideload ? (
           <DownloadDialog
             setIsLinuxNative={setIsLinuxNative}

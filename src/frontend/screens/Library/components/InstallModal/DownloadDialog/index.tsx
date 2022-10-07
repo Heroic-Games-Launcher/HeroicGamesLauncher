@@ -20,8 +20,7 @@ import { LegendaryInstallInfo } from 'common/types/legendary'
 import {
   SelectField,
   TextInputWithIconField,
-  ToggleSwitch,
-  UpdateComponent
+  ToggleSwitch
 } from 'frontend/components/UI'
 import Anticheat from 'frontend/components/UI/Anticheat'
 import { DialogHeader, DialogFooter } from 'frontend/components/UI/Dialog'
@@ -133,7 +132,7 @@ export default function DownloadDialog({
   const [spaceLeft, setSpaceLeft] = useState<DiskSpaceInfo>({
     message: '',
     notEnoughDiskSpace: false,
-    validPath: false,
+    validPath: true,
     spaceLeftAfter: ''
   })
 
@@ -189,12 +188,13 @@ export default function DownloadDialog({
   }
 
   useEffect(() => {
-    const getInfo = async () => {
+    const getIinstallInfo = async () => {
       const gameInstallInfo = await getInstallInfo(
         appName,
         runner,
         platformToInstall
       )
+
       if (!gameInstallInfo) {
         window.api.showErrorBox([
           tr('box.error.generic.title', 'Error!'),
@@ -203,8 +203,7 @@ export default function DownloadDialog({
         backdropClick()
         return
       }
-      const gameData = await getGameInfo(appName, runner)
-      setGameInfo(gameData)
+
       setGameInstallInfo(gameInstallInfo)
       if (gameInstallInfo && 'languages' in gameInstallInfo.manifest) {
         setInstallLanguages(gameInstallInfo.manifest.languages)
@@ -212,8 +211,7 @@ export default function DownloadDialog({
           getInstallLanguage(gameInstallInfo.manifest.languages, i18n.languages)
         )
       }
-      setIsLinuxNative(gameData.is_linux_native && isLinux)
-      setIsMacNative(gameData.is_mac_native && isMac)
+
       if (platformToInstall === 'linux' && runner === 'gog') {
         const installer_languages =
           (await window.api.getGOGLinuxInstallersLangs(appName)) as string[]
@@ -223,8 +221,18 @@ export default function DownloadDialog({
         )
       }
     }
-    getInfo()
+    getIinstallInfo()
   }, [appName, i18n.languages, platformToInstall])
+
+  useEffect(() => {
+    const getCacheInfo = async () => {
+      const gameData = await getGameInfo(appName, runner)
+      setIsLinuxNative(gameData.is_linux_native && isLinux)
+      setIsMacNative(gameData.is_mac_native && isMac)
+      setGameInfo(gameData)
+    }
+    getCacheInfo()
+  }, [appName])
 
   useEffect(() => {
     window.api.requestSettings('default').then(async (config: AppSettings) => {
@@ -287,7 +295,7 @@ export default function DownloadDialog({
   }, [i18n.languages, platformToInstall])
 
   const { validPath, notEnoughDiskSpace, message, spaceLeftAfter } = spaceLeft
-  const title = gameInstallInfo?.game?.title
+  const title = gameInfo?.title
 
   async function handleInstall(path?: string) {
     backdropClick()
@@ -315,10 +323,23 @@ export default function DownloadDialog({
     })
   }
 
-  return title ? (
+  function getInstallLabel() {
+    if (installPath) {
+      if (notEnoughDiskSpace) {
+        return t('button.force-innstall', 'Force Install')
+      } else {
+        return previousProgress.folder === installPath
+          ? t('button.continue', 'Continue Download')
+          : t('button.install')
+      }
+    }
+    return t('button.install-error', 'No path selected')
+  }
+
+  return (
     <>
-      <DialogHeader onClose={backdropClick} showCloseButton={true}>
-        {title}
+      <DialogHeader onClose={backdropClick}>
+        {title ? title : '...'}
         {availablePlatforms.map((p) => (
           <FontAwesomeIcon
             className="InstallModal__platformIcon"
@@ -335,20 +356,32 @@ export default function DownloadDialog({
               className="InstallModal__sizeIcon"
               icon={faDownload}
             />
-            <div className="InstallModal__sizeLabel">
-              {t('game.downloadSize', 'Download Size')}:
-            </div>
-            <div className="InstallModal__sizeValue">{downloadSize()}</div>
+            {gameInstallInfo?.manifest.download_size ? (
+              <>
+                <div className="InstallModal__sizeLabel">
+                  {t('game.downloadSize', 'Download Size')}:
+                </div>
+                <div className="InstallModal__sizeValue">{downloadSize()}</div>
+              </>
+            ) : (
+              `${t('game.getting-download-size', 'Geting download size')}...`
+            )}
           </div>
           <div className="InstallModal__size">
             <FontAwesomeIcon
               className="InstallModal__sizeIcon"
               icon={faHardDrive}
             />
-            <div className="InstallModal__sizeLabel">
-              {t('game.installSize', 'Install Size')}:
-            </div>
-            <div className="InstallModal__sizeValue">{installSize}</div>
+            {gameInstallInfo?.manifest.disk_size ? (
+              <>
+                <div className="InstallModal__sizeLabel">
+                  {t('game.installSize', 'Install Size')}:
+                </div>
+                <div className="InstallModal__sizeValue">{installSize}</div>
+              </>
+            ) : (
+              `${t('game.getting-install-size', 'Geting install size')}...`
+            )}
           </div>
           {previousProgress.folder === installPath && (
             <div className="InstallModal__size">
@@ -401,47 +434,49 @@ export default function DownloadDialog({
               )
           }
           afterInput={
-            <span className="diskSpaceInfo">
-              {validPath && (
-                <>
-                  <span>
-                    {`${t('install.disk-space-left', 'Space Available')}: `}
+            gameInstallInfo?.manifest.download_size ? (
+              <span className="diskSpaceInfo">
+                {validPath && (
+                  <>
+                    <span>
+                      {`${t('install.disk-space-left', 'Space Available')}: `}
+                    </span>
+                    <span>
+                      <strong>{`${message}`}</strong>
+                    </span>
+                    {!notEnoughDiskSpace && (
+                      <>
+                        <span>
+                          {` - ${t(
+                            'install.space-after-install',
+                            'After Install'
+                          )}: `}
+                        </span>
+                        <span>
+                          <strong>{`${spaceLeftAfter}`}</strong>
+                        </span>
+                      </>
+                    )}
+                  </>
+                )}
+                {!validPath && (
+                  <span className="warning">
+                    {`${t(
+                      'install.path-not-writtable',
+                      'Warning: path might not be writable.'
+                    )}`}
                   </span>
-                  <span>
-                    <strong>{`${message}`}</strong>
+                )}
+                {validPath && notEnoughDiskSpace && (
+                  <span className="danger">
+                    {` (${t(
+                      'install.not-enough-disk-space',
+                      'Not enough disk space'
+                    )})`}
                   </span>
-                  {!notEnoughDiskSpace && (
-                    <>
-                      <span>
-                        {` - ${t(
-                          'install.space-after-install',
-                          'After Install'
-                        )}: `}
-                      </span>
-                      <span>
-                        <strong>{`${spaceLeftAfter}`}</strong>
-                      </span>
-                    </>
-                  )}
-                </>
-              )}
-              {!validPath && (
-                <span className="warning">
-                  {`${t(
-                    'install.path-not-writtable',
-                    'Warning: path might not be writable.'
-                  )}`}
-                </span>
-              )}
-              {validPath && notEnoughDiskSpace && (
-                <span className="danger">
-                  {` (${t(
-                    'install.not-enough-disk-space',
-                    'Not enough disk space'
-                  )})`}
-                </span>
-              )}
-            </span>
+                )}
+              </span>
+            ) : null
           }
         />
         {children}
@@ -496,15 +531,11 @@ export default function DownloadDialog({
         <button
           onClick={async () => handleInstall()}
           className={`button is-secondary`}
-          disabled={notEnoughDiskSpace || !installPath}
+          disabled={!installPath || !gameInstallInfo?.manifest.download_size}
         >
-          {previousProgress.folder === installPath
-            ? t('button.continue', 'Continue Download')
-            : t('button.install')}
+          {getInstallLabel()}
         </button>
       </DialogFooter>
     </>
-  ) : (
-    <UpdateComponent inline />
   )
 }
