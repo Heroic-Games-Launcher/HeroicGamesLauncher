@@ -31,10 +31,8 @@ export default function LibraryHeader({
     if (!list) {
       return null
     }
-    const dlcCount =
-      category === 'legendary'
-        ? list.filter((lib) => lib.install.is_dlc).length
-        : 0
+    // is_dlc is only applicable when the game is from legendary, but checking anyway doesn't cause errors and enable accurate counting in the 'ALL' game tab
+    const dlcCount = list.filter((lib) => lib.install.is_dlc).length
 
     const total = list.length - dlcCount
     return total > 0 ? `(${total})` : null
