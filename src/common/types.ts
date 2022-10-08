@@ -1,6 +1,7 @@
 import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform } from './types/legendary'
 import { VersionInfo } from 'heroic-wine-downloader'
+import { IpcRendererEvent } from 'electron'
 
 export type Runner = 'legendary' | 'gog'
 
@@ -475,6 +476,13 @@ export type ElWebview = {
 export type WebviewType = HTMLWebViewElement & ElWebview
 
 export type InstallPlatform = LegendaryInstallPlatform | GogInstallPlatform
+
+export type ConnectivityChangedCallback = (
+  event: IpcRendererEvent,
+  status: ConnectivityStatus
+) => void
+
+export type ConnectivityStatus = 'offline' | 'check-online' | 'online'
 
 export interface Tools {
   exe?: string

@@ -12,7 +12,7 @@ import Settings from './screens/Settings'
 import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
 import classNames from 'classnames'
-import { ControllerHints } from './components/UI'
+import { ControllerHints, OfflineMessage } from './components/UI'
 import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
 
@@ -24,6 +24,7 @@ function App() {
   return (
     <div className={classNames('App', { collapsed: sidebarCollapsed })}>
       <HashRouter>
+        <OfflineMessage />
         <Sidebar />
         <main className="content">
           <DialogHandler />

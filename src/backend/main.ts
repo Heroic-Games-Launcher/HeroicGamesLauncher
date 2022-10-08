@@ -61,7 +61,6 @@ import {
   getGogdlVersion,
   getSystemInfo,
   handleExit,
-  isOnline,
   openUrlOrFile,
   resetHeroic,
   showAboutWindow,
@@ -118,6 +117,11 @@ import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
+import {
+  initOnlineMonitor,
+  isOnline,
+  runOnceWhenOnline
+} from './online_monitor'
 import { showErrorBoxModalAuto } from './dialog/dialog'
 import { callAbortController } from './utils/aborthandler/aborthandler'
 
@@ -339,6 +343,8 @@ if (!gotTheLock) {
     handleProtocol(mainWindow, argv)
   })
   app.whenReady().then(async () => {
+    initOnlineMonitor()
+
     const systemInfo = await getSystemInfo()
 
     initImagesCache()
@@ -353,19 +359,22 @@ if (!gotTheLock) {
     logInfo(`\n\n${systemInfo}\n`, { prefix: LogPrefix.Backend })
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
-    const isLoggedIn = LegendaryUser.isLoggedIn()
 
-    if (!isLoggedIn) {
-      logInfo('User Not Found, removing it from Store', {
-        prefix: LogPrefix.Backend
-      })
-      configStore.delete('userinfo')
-    }
+    runOnceWhenOnline(async () => {
+      const isLoggedIn = LegendaryUser.isLoggedIn()
 
-    // Update user details
-    if (GOGUser.isLoggedIn()) {
-      GOGUser.getUserDetails()
-    }
+      if (!isLoggedIn) {
+        logInfo('User Not Found, removing it from Store', {
+          prefix: LogPrefix.Backend
+        })
+        configStore.delete('userinfo')
+      }
+
+      // Update user details
+      if (GOGUser.isLoggedIn()) {
+        GOGUser.getUserDetails()
+      }
+    })
 
     await i18next.use(Backend).init({
       backend: {

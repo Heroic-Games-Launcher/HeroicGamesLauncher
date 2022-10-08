@@ -21,6 +21,7 @@ export enum LogPrefix {
   Runtime = 'Runtime',
   Shortcuts = 'Shortcuts',
   WineTricks = 'Winetricks',
+  Connection = 'Connection',
   DownloadManager = 'DownloadManager'
 }
 

@@ -12,6 +12,9 @@ import GlobalState from './state/GlobalState'
 import { UpdateComponentBase } from './components/UI/UpdateComponent'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
+import { initOnlineMonitor } from './helpers/onlineMonitor'
+
+initOnlineMonitor()
 
 window.addEventListener('error', (ev: ErrorEvent) => {
   window.api.logError(ev.error)
