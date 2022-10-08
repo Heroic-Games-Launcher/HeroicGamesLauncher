@@ -1,9 +1,10 @@
 import { BrowserWindow } from 'electron'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getGame, isEpicServiceOffline, isOnline, notify } from '../utils'
+import { getGame, isEpicServiceOffline, notify } from '../utils'
 import { InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { showErrorBoxModalAuto } from '../dialog/dialog'
+import { isOnline } from '../online_monitor'
 
 async function installQueueElement(
   mainWindow: BrowserWindow,
