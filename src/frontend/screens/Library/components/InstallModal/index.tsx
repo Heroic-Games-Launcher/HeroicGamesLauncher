@@ -274,10 +274,6 @@ export default function InstallModal({
         })
       }
     })
-
-    return () => {
-      window.api.requestSettingsRemoveListeners()
-    }
   }, [appName, installPath, gameInstallInfo?.manifest?.disk_size])
 
   useEffect(() => {

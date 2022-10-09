@@ -74,9 +74,6 @@ export const callTool = async (toolArgs: Tools) =>
 export const getAnticheatInfo = async (namespace: string) =>
   ipcRenderer.invoke('getAnticheatInfo', namespace)
 
-export const requestSettingsRemoveListeners = () =>
-  ipcRenderer.removeAllListeners('requestSettings')
-
 export const clipboardReadText = async () =>
   ipcRenderer.invoke('clipboardReadText')
 
