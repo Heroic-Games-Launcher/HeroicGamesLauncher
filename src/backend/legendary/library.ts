@@ -172,10 +172,14 @@ export class LegendaryLibrary {
   /**
    * Get game info for a particular game.
    *
-   * @param appName
+   * @param appName The AppName of the game you want the info of
+   * @param forceReload Discards game info in `this.library` and always reads info from metadata files
    * @returns GameInfo
    */
-  public getGameInfo(appName: string): GameInfo | undefined {
+  public getGameInfo(
+    appName: string,
+    forceReload = false
+  ): GameInfo | undefined {
     if (!this.hasGame(appName)) {
       logWarning(['Requested game', appName, 'was not found in library'], {
         prefix: LogPrefix.Legendary
@@ -183,7 +187,7 @@ export class LegendaryLibrary {
       return
     }
     // We have the game, but info wasn't loaded yet
-    if (!this.library.has(appName)) {
+    if (!this.library.has(appName) || forceReload) {
       this.loadFile(appName + '.json')
     }
     return this.library.get(appName)

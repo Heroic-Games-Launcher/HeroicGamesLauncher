@@ -1475,9 +1475,9 @@ ipcMain.handle(
     }
     // If the save path was computed successfully, Legendary will have saved
     // this path in `installed.json` (so the GameInfo)
-    LegendaryLibrary.get().refreshInstalled()
     // `= ''` here just in case Legendary failed to write the file
-    const { save_path: new_save_path = '' } = game.getGameInfo()
+    const { save_path: new_save_path = '' } =
+      LegendaryLibrary.get().getGameInfo(appName, true)!
     logInfo(['Computed save path:', new_save_path], {
       prefix: LogPrefix.Legendary
     })
