@@ -115,7 +115,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
-import { verifyWinePrefix } from './launcher'
+import { setupWineEnvVars, verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
 import {
   initOnlineMonitor,
@@ -1444,6 +1444,8 @@ ipcMain.handle(
     await runLegendaryCommand(
       ['sync-saves', appName, '--skip-upload', '--skip-download'],
       {
+        logMessagePrefix: 'Getting default save path',
+        env: setupWineEnvVars(await game.getSettings()),
         onOutput: (output, child) => {
           if (output.includes('Is this correct?')) {
             gotSavePath = true
