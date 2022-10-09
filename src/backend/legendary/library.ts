@@ -486,8 +486,14 @@ export class LegendaryLibrary {
     const art_square_front = gameBoxStore ? gameBoxStore.url : undefined
 
     const info = this.installedGames.get(app_name)
-    const { executable, version, install_size, install_path, platform } =
-      info ?? {}
+    const {
+      executable,
+      version,
+      install_size,
+      install_path,
+      platform,
+      save_path
+    } = info ?? {}
 
     const is_dlc = Boolean(metadata.mainGameItem)
 
@@ -522,6 +528,7 @@ export class LegendaryLibrary {
         ? platform === 'Mac'
         : releaseInfo[0].platform.includes('Mac'),
       save_folder: saveFolder,
+      save_path,
       title,
       canRunOffline,
       is_linux_native: false,
