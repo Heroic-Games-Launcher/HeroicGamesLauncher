@@ -163,108 +163,12 @@ async function fixGogSaveFolder(
   return folder
 }
 
-async function fixLegendarySaveFolder(
-  appName: string,
-  folder: string,
-  prefix: string,
-  isProton: boolean
-) {
-  const { user, account_id: epicId } = await window.api.getUserInfo()
-  const username = isProton ? 'steamuser' : user
-
-  folder = folder.replace('{EpicID}', epicId)
-  folder = folder.replace('{EpicId}', epicId)
-
-  if (folder.includes('locallow')) {
-    return folder.replace(
-      '{appdata}/../locallow',
-      `%USERPROFILE%/AppData/LocalLow`
-    )
-  }
-
-  if (folder.includes('LocalLow')) {
-    return folder.replace(
-      '{AppData}/../LocalLow',
-      `%USERPROFILE%/AppData/LocalLow`
-    )
-  }
-
-  if (folder.includes('{UserSavedGames}')) {
-    return folder.replace('{UserSavedGames}', `%USERPROFILE%/Saved Games`)
-  }
-
-  if (folder.includes('{usersavedgames}')) {
-    return folder.replace('{usersavedgames}', `%USERPROFILE%/Saved Games`)
-  }
-
-  if (folder.includes('roaming')) {
-    return folder.replace(
-      '{appdata}/../roaming',
-      `%USERPROFILE%/Application Data`
-    )
-  }
-
-  if (folder.includes('{appdata}/../Roaming/')) {
-    return folder.replace(
-      '{appdata}/../Roaming',
-      `%USERPROFILE%/Application Data`
-    )
-  }
-
-  if (folder.includes('Roaming')) {
-    return folder.replace(
-      '{AppData}/../Roaming',
-      `%USERPROFILE%/Application Data`
-    )
-  }
-
-  if (folder.includes('{AppData}')) {
-    return folder.replace(
-      '{AppData}',
-      `%USERPROFILE%/Local Settings/Application Data`
-    )
-  }
-
-  if (folder.includes('{appdata}')) {
-    return folder.replace(
-      '{appdata}',
-      `%USERPROFILE%/Local Settings/Application Data`
-    )
-  }
-
-  if (folder.includes('{userdir}')) {
-    return folder.replace('{userdir}', `/users/${username}/Documents`)
-  }
-
-  if (folder.includes('{UserDir}')) {
-    const documentsResult = await window.api.runWineCommandForGame({
-      appName,
-      runner: 'legendary',
-      command:
-        'reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" /v Personal'
-    })
-    const documentsFolder = documentsResult.stdout
-      ?.trim()
-      .split('\n')[1]
-      ?.trim()
-      .split('    ')
-      .pop()
-    return folder.replace(
-      '{UserDir}',
-      documentsFolder ?? `%USERPROFILE%/Documents`
-    )
-  }
-
-  return folder
-}
-
 async function getAppSettings(): Promise<AppSettings> {
   return window.api.requestSettings('default')
 }
 
 export {
   createNewWindow,
-  fixLegendarySaveFolder,
   fixGogSaveFolder,
   getGameInfo,
   getGameSettings,

@@ -30,6 +30,10 @@ export const getUserInfo = async () => ipcRenderer.invoke('getUserInfo')
 export const syncSaves = async (
   args: [arg: string | undefined, path: string, appName: string, runner: string]
 ) => ipcRenderer.invoke('syncSaves', args)
+export const getDefaultSavePath = async (
+  appName: string,
+  runner: Runner
+): Promise<string> => ipcRenderer.invoke('getDefaultSavePath', appName, runner)
 export const getGameInfo = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('getGameInfo', appName, runner)
 export const getGameSettings = async (appName: string, runner: Runner) =>
