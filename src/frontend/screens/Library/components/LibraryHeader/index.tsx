@@ -31,7 +31,7 @@ export default function LibraryHeader({
 
   const numberOfGames = useMemo(() => {
     if (!list) {
-      return null
+      return 0
     }
     const dlcCount =
       category === 'legendary'
@@ -39,7 +39,7 @@ export default function LibraryHeader({
         : 0
 
     const total = list.length - dlcCount
-    return total > 0 ? `${total}` : null
+    return total > 0 ? `${total}` : 0
   }, [list, category])
 
   function handleSortDescending() {
@@ -59,6 +59,10 @@ export default function LibraryHeader({
 
     if (epicCategories.includes(category)) {
       return 'legendary'
+    }
+
+    if (category === 'sideload') {
+      return 'sideload'
     }
 
     return 'gog'

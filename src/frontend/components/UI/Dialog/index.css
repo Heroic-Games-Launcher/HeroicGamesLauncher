@@ -43,7 +43,7 @@
 }
 
 .Dialog__Close {
-  padding: var(--dialog-margin-vertical) var(--dialog-margin-horizontal) 0 0;
+  padding: 0 var(--dialog-margin-horizontal) 0 0;
 }
 
 .Dialog__CloseButton {
@@ -56,8 +56,8 @@
   cursor: pointer;
   transition: 250ms color;
   position: absolute;
-  right: var(--space-md);
-  top: var(--space-sm);
+  right: var(--space-lg);
+  top: var(--space-md);
 }
 
 .Dialog__CloseButton:focus-visible {

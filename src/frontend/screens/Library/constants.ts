@@ -14,7 +14,7 @@ export function getLibraryTitle(
     case 'gog':
       return t('GOG', 'GOG')
     default:
-      return t('Sideload', 'Sideloaded Games')
+      return t('Sideload', 'Other')
   }
 }
 

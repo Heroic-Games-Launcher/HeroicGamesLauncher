@@ -13,13 +13,13 @@ export default function Header() {
   return (
     <>
       <div className="Header">
+        <div className="Header__search">
+          <SearchBar />
+        </div>
         <span className="Header__filters">
           {showStoreFilter && <StoreFilter />}
           <PlatformFilter />
         </span>
-        <div className="Header__search">
-          <SearchBar />
-        </div>
       </div>
     </>
   )
