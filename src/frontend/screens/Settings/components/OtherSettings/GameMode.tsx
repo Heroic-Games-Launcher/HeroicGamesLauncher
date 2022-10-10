@@ -8,7 +8,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 const GameMode = () => {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
+  const { platform, showDialogModal } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const [useGameMode, setUseGameMode] = useSetting<boolean>(
     'useGameMode',
@@ -24,21 +24,24 @@ const GameMode = () => {
     if (useGameMode && eacRuntime) {
       const isFlatpak = await window.api.isFlatpak()
       if (isFlatpak) {
-        const { response } = await window.api.openMessageBox({
-          message: t(
-            'settings.gameMode.eacRuntimeEnabled.message',
-            "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?"
-          ),
+        showDialogModal({
+          showDialog: true,
           title: t(
             'settings.gameMode.eacRuntimeEnabled.title',
             'EAC runtime enabled'
           ),
-          buttons: [t('box.yes'), t('box.no')]
+          message: t(
+            'settings.gameMode.eacRuntimeEnabled.message',
+            "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?"
+          ),
+          buttons: [t('box.yes'), t('box.no')],
+          buttonsOnClick: [
+            () => {
+              setEacRuntime(!eacRuntime)
+            },
+            'CLOSE'
+          ]
         })
-        if (response === 1) {
-          return
-        }
-        setEacRuntime(!eacRuntime)
       }
     }
     setUseGameMode(!useGameMode)
@@ -48,7 +51,7 @@ const GameMode = () => {
     <div className="toggleRow">
       <ToggleSwitch
         htmlId="gamemode"
-        value={useGameMode}
+        value={false}
         handleChange={handleGameMode}
         title={t('setting.gamemode')}
       />

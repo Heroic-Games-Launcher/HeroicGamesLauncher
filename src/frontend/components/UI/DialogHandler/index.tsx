@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import ContextProvider from 'frontend/state/ContextProvider'
+import React, { useEffect, useState, useContext } from 'react'
+import MessageBoxModal from '../Dialog/MessageBoxModal'
 import { ErrorDialog } from './components/ErrorDialog'
 
 export default function DialogHandler() {
-  const [showErrorDialog, setShowErrorDialog] = useState(false)
+  const { dialogModalOptions, showDialogModal } = useContext(ContextProvider)
+
   const [errorTitle, setErrorTitle] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -14,7 +17,6 @@ export default function DialogHandler() {
     ) => {
       setErrorTitle(title)
       setErrorMessage(error)
-      setShowErrorDialog(true)
     }
 
     const removeHandleShowErrorDialogListener =
@@ -26,19 +28,39 @@ export default function DialogHandler() {
     }
   }, [])
 
-  function onCloseErrorDialog() {
-    setShowErrorDialog(false)
+  const buttonsOnClick: Array<() => void> = []
+  if (dialogModalOptions.buttonsOnClick) {
+    for (const val of dialogModalOptions.buttonsOnClick) {
+      if (val === 'CLOSE') {
+        buttonsOnClick.push(() => showDialogModal({ showDialog: false }))
+      } else {
+        buttonsOnClick.push(val)
+      }
+    }
   }
 
   return (
     <>
-      {showErrorDialog && (
-        <ErrorDialog
-          title={errorTitle}
-          error={errorMessage}
-          onClose={onCloseErrorDialog}
-        />
-      )}
+      {dialogModalOptions.showDialog &&
+        (dialogModalOptions.isError ? (
+          <ErrorDialog
+            title={errorTitle}
+            error={errorMessage}
+            onClose={() => showDialogModal({ showDialog: false })}
+          />
+        ) : (
+          <MessageBoxModal
+            title={dialogModalOptions.title ? dialogModalOptions.title : ''}
+            message={
+              dialogModalOptions.message ? dialogModalOptions.message : ''
+            }
+            buttons={
+              dialogModalOptions.buttons ? dialogModalOptions.buttons : []
+            }
+            buttonsOnClick={buttonsOnClick}
+            onClose={() => showDialogModal({ showDialog: false })}
+          />
+        ))}
     </>
   )
 }

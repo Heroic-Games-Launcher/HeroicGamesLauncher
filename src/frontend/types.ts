@@ -73,6 +73,17 @@ export interface ContextType {
   connectivity: { status: ConnectivityStatus; retryIn: number }
   setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
   setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
+  dialogModalOptions: DialogModalOptions
+  showDialogModal: (options: DialogModalOptions) => void
+}
+
+export type DialogModalOptions = {
+  showDialog: boolean
+  title?: string
+  message?: string
+  buttons?: Array<string>
+  buttonsOnClick?: Array<(() => void) | 'CLOSE'>
+  isError?: boolean
 }
 
 export type LibraryTopSectionOptions =

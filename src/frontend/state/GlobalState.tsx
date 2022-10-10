@@ -12,7 +12,11 @@ import {
   WineVersionInfo,
   UserInfo
 } from 'common/types'
-import { Category, LibraryTopSectionOptions } from 'frontend/types'
+import {
+  Category,
+  DialogModalOptions,
+  LibraryTopSectionOptions
+} from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   getLegendaryConfig,
@@ -80,6 +84,7 @@ interface StateProps {
   sidebarCollapsed: boolean
   activeController: string
   connectivity: { status: ConnectivityStatus; retryIn: number }
+  dialogModalOptions: DialogModalOptions
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -155,7 +160,8 @@ export class GlobalState extends PureComponent<Props> {
       ),
     allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
     activeController: '',
-    connectivity: { status: 'offline', retryIn: 0 }
+    connectivity: { status: 'offline', retryIn: 0 },
+    dialogModalOptions: { showDialog: false }
   }
 
   setLanguage = (newLanguage: string) => {
@@ -259,6 +265,12 @@ export class GlobalState extends PureComponent<Props> {
       favouriteGames: newFavouriteGames
     })
     configStore.set('games.favourites', newFavouriteGames)
+  }
+
+  handleShowDialogModal = (options: DialogModalOptions) => {
+    this.setState({
+      dialogModalOptions: options
+    })
   }
 
   handleLibraryTopSection = (value: LibraryTopSectionOptions) => {
@@ -695,7 +707,9 @@ export class GlobalState extends PureComponent<Props> {
           setAllTilesInColor: this.setAllTilesInColor,
           setSideBarCollapsed: this.setSideBarCollapsed,
           setPrimaryFontFamily: this.setPrimaryFontFamily,
-          setSecondaryFontFamily: this.setSecondaryFontFamily
+          setSecondaryFontFamily: this.setSecondaryFontFamily,
+          dialogModalOptions: this.state.dialogModalOptions,
+          showDialogModal: this.handleShowDialogModal
         }}
       >
         {this.props.children}
