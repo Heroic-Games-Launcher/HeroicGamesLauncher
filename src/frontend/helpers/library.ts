@@ -8,7 +8,7 @@ import {
 } from 'common/types'
 
 import { TFunction } from 'react-i18next'
-import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
+import { getGameInfo, sendKill } from './index'
 import { configStore } from './electronStores'
 
 const storage: Storage = window.localStorage
@@ -63,7 +63,7 @@ async function install({
   }
 
   if (is_installed) {
-    return uninstall({ appName, handleGameStatus, t, runner })
+    return
   }
 
   if (installPath === 'import') {
@@ -153,61 +153,6 @@ async function install({
 }
 
 const importGame = window.api.importGame
-
-type UninstallArgs = {
-  appName: string
-  handleGameStatus: (game: GameStatus) => Promise<void>
-  t: TFunction<'gamepage'>
-  runner: Runner
-}
-
-async function uninstall({
-  appName,
-  handleGameStatus,
-  t,
-  runner
-}: UninstallArgs) {
-  const args = {
-    buttons: [t('box.yes'), t('box.no')],
-    message: t('gamepage:box.uninstall.message'),
-    title: t('gamepage:box.uninstall.title'),
-    type: 'warning'
-  }
-  const platform = await getPlatform()
-  const {
-    install: { platform: installedplatform }
-  } = await getGameInfo(appName, runner)
-
-  let linuxArgs
-  // This assumes native games are installed should be changed in the future
-  // if we add option to install windows games even if native is available
-  if (platform === 'linux' && installedplatform?.toLowerCase() === 'windows') {
-    const wineprefix = (await getGameSettings(appName, runner)).winePrefix
-
-    linuxArgs = {
-      checkboxLabel: t('gamepage:box.uninstall.checkbox', {
-        defaultValue:
-          "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-        prefix: wineprefix,
-        newLine: '\n'
-      }),
-      checkboxChecked: false
-    }
-  }
-
-  const { response, checkboxChecked } = await window.api.openMessageBox({
-    ...args,
-    ...linuxArgs
-  })
-
-  if (response === 0) {
-    await handleGameStatus({ appName, runner, status: 'uninstalling' })
-    await window.api.uninstall([appName, checkboxChecked, runner])
-    storage.removeItem(appName)
-    return handleGameStatus({ appName, runner, status: 'done' })
-  }
-  return
-}
 
 async function handleStopInstallation(
   appName: string,
@@ -317,7 +262,6 @@ export {
   install,
   launch,
   repair,
-  uninstall,
-  // updateAllGames,
+  //updateAllGames,
   updateGame
 }

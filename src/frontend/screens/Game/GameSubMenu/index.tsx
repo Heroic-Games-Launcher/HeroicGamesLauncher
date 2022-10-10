@@ -8,10 +8,10 @@ import { SmallInfo } from 'frontend/components/UI'
 import { createNewWindow, getGameInfo, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { uninstall } from 'frontend/helpers/library'
 import { NavLink } from 'react-router-dom'
 
 import { CircularProgress } from '@mui/material'
+import UninstallModal from 'frontend/components/UI/UninstallModal'
 
 interface Props {
   appName: string
@@ -110,6 +110,7 @@ export default function GamesSubmenu({
   const [eosOverlayEnabled, setEosOverlayEnabled] = useState<boolean>(false)
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
+  const [showUninstallModal, setShowUninstallModal] = useState(false)
   const { t } = useTranslation('gamepage')
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
@@ -295,6 +296,13 @@ export default function GamesSubmenu({
 
   return (
     <div className="gameTools subMenuContainer">
+      {showUninstallModal && (
+        <UninstallModal
+          appName={appName}
+          runner={runner}
+          onClose={() => setShowUninstallModal(false)}
+        />
+      )}
       <div className={`submenu`}>
         {isInstalled && (
           <>
@@ -321,9 +329,9 @@ export default function GamesSubmenu({
               </button>
             )}
             <button
-              onClick={async () =>
-                uninstall({ appName, t, handleGameStatus, runner })
-              }
+              onClick={() => {
+                setShowUninstallModal(true)
+              }}
               className="link button is-text is-link"
             >
               {t('button.uninstall')}
