@@ -28,7 +28,6 @@ import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import { epicCategories, gogCategories } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
-import { SideloadCard, emptyCard } from './constants'
 
 const InstallModal = lazy(
   async () => import('frontend/screens/Library/components/InstallModal')
@@ -197,7 +196,7 @@ export default function Library(): JSX.Element {
 
   // select library
   const libraryToShow = useMemo(() => {
-    let library: Array<SideloadCard | GameInfo> = []
+    let library: Array<GameInfo> = []
     if (showFavouritesLibrary) {
       library = [...favourites].filter((g) =>
         category === 'all' ? g : g.runner === category
@@ -311,9 +310,7 @@ export default function Library(): JSX.Element {
           setSortInstalled={setSortInstalled}
           sortDescending={sortDescending}
           sortInstalled={sortInstalled}
-          handleAddGameButtonClick={() =>
-            handleModal(emptyCard.app_name, emptyCard.runner, null)
-          }
+          handleAddGameButtonClick={() => handleModal('', 'sideload', null)}
         />
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}

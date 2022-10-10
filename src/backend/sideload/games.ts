@@ -56,7 +56,8 @@ export function addNewApp({
     folder_name: dirname(executable),
     art_cover,
     is_installed: true,
-    art_square
+    art_square,
+    canRunOffline: true
   }
 
   const current = libraryStore.get('games', []) as SideloadGame[]

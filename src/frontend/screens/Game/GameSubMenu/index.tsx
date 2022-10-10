@@ -9,7 +9,7 @@ import { createNewWindow, getGameInfo, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { uninstall } from 'frontend/helpers/library'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { CircularProgress } from '@mui/material'
 import { InstallModal } from 'frontend/screens/Library/components'
@@ -99,6 +99,7 @@ export default function GamesSubmenu({
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+  const navigate = useNavigate()
 
   const [info, setInfo] = useState<otherInfo>({
     prefix: '',
@@ -162,6 +163,13 @@ export default function GamesSubmenu({
       return
     }
     return
+  }
+
+  async function handleUninstall() {
+    await uninstall({ appName, t, handleGameStatus, runner })
+    if (isSideloaded) {
+      return navigate('/')
+    }
   }
 
   async function handleRepair(appName: string) {
@@ -337,9 +345,7 @@ export default function GamesSubmenu({
                 </button>
               )}
               <button
-                onClick={async () =>
-                  uninstall({ appName, t, handleGameStatus, runner })
-                }
+                onClick={async () => handleUninstall()}
                 className="link button is-text is-link"
               >
                 {t('button.uninstall')}

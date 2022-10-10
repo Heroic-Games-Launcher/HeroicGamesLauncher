@@ -7,7 +7,6 @@ import {
   Runner,
   ConnectivityStatus
 } from 'common/types'
-import { SideloadCard } from './screens/Library/constants'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
 
@@ -74,7 +73,7 @@ export interface ContextType {
   connectivity: { status: ConnectivityStatus; retryIn: number }
   setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
   setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
-  sideloadedLibrary: SideloadCard[]
+  sideloadedLibrary: GameInfo[]
 }
 
 export type LibraryTopSectionOptions =

@@ -105,7 +105,8 @@ export default function SideloadDialog({
       },
       art_cover: imageUrl,
       is_installed: true,
-      art_square: imageUrl
+      art_square: imageUrl,
+      canRunOffline: true
     })
     await writeConfig([app_name, { winePrefix, wineVersion }])
     await refreshLibrary({

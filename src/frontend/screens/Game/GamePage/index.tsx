@@ -298,23 +298,35 @@ export default function GamePage(): JSX.Element | null {
                           <br />
                         </>
                       )}
-                      {!isSideloaded && is_installed && (
+                      {is_installed && (
                         <>
-                          <div>
-                            {t('info.size')}: {install_size}
-                          </div>
-                          <div style={{ textTransform: 'capitalize' }}>
-                            {t('info.installedPlatform', 'Installed Platform')}:{' '}
-                            {installPlatform === 'osx'
-                              ? 'MacOS'
-                              : installPlatform}
-                          </div>
-                          <div>
-                            {t('info.version')}: {version}
-                          </div>
+                          {!isSideloaded && (
+                            <>
+                              <div>
+                                {t('info.size')}: {install_size}
+                              </div>
+                              <div style={{ textTransform: 'capitalize' }}>
+                                {t(
+                                  'info.installedPlatform',
+                                  'Installed Platform'
+                                )}
+                                :{' '}
+                                {installPlatform === 'osx'
+                                  ? 'MacOS'
+                                  : installPlatform}
+                              </div>
+                              <div>
+                                {t('info.version')}: {version}
+                              </div>
+                            </>
+                          )}
                           <div>
                             {t('info.canRunOffline', 'Online Required')}:{' '}
-                            {t(canRunOffline ? 'box.no' : 'box.yes')}
+                            {t(
+                              isSideloaded || canRunOffline
+                                ? 'box.no'
+                                : 'box.yes'
+                            )}
                           </div>
                           <div
                             className="clickable"

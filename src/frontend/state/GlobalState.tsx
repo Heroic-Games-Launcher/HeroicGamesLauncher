@@ -34,7 +34,6 @@ import {
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
 import { sideloadLibrary } from 'frontend/helpers/electronStores'
-import { SideloadCard } from 'frontend/screens/Library/constants'
 
 const storage: Storage = window.localStorage
 
@@ -82,7 +81,7 @@ interface StateProps {
   sidebarCollapsed: boolean
   activeController: string
   connectivity: { status: ConnectivityStatus; retryIn: number }
-  sideloadedLibrary: SideloadCard[]
+  sideloadedLibrary: GameInfo[]
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -159,7 +158,7 @@ export class GlobalState extends PureComponent<Props> {
     allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
     activeController: '',
     connectivity: { status: 'offline', retryIn: 0 },
-    sideloadedLibrary: sideloadLibrary.get('games', []) as SideloadCard[]
+    sideloadedLibrary: sideloadLibrary.get('games', []) as GameInfo[]
   }
 
   setLanguage = (newLanguage: string) => {
@@ -368,7 +367,7 @@ export class GlobalState extends PureComponent<Props> {
       }
     }
 
-    const updatedSideload = sideloadLibrary.get('games', []) as SideloadCard[]
+    const updatedSideload = sideloadLibrary.get('games', []) as GameInfo[]
 
     this.setState({
       epic: {

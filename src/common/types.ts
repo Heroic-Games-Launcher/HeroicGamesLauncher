@@ -509,4 +509,5 @@ export interface SideloadGame {
     platform: InstallPlatform
   }
   folder_name?: string
+  canRunOffline: boolean
 }
