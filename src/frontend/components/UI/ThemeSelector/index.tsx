@@ -22,6 +22,7 @@ export const ThemeSelector = () => {
       <option value="marine-classic">Marine Classic</option>
       <option value="zombie">Zombie</option>
       <option value="zombie-classic">Zombie Classic</option>
+      <option value="high-contrast">High Contrast</option>
     </SelectField>
   )
 }
