@@ -1420,8 +1420,13 @@ ipcMain.handle('syncSaves', async (event, args) => {
 
 ipcMain.handle(
   'getDefaultSavePath',
-  async (event, appName: string, runner: Runner): Promise<string> =>
-    getDefaultSavePath(appName, runner)
+  async (
+    event,
+    appName: string,
+    runner: Runner,
+    alreadyDefinedGogSaves: GOGCloudSavesLocation[]
+  ): Promise<string | GOGCloudSavesLocation[]> =>
+    getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
 )
 
 // Simulate keyboard and mouse actions as if the real input device is used

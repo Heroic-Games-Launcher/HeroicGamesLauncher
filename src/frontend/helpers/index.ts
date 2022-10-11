@@ -108,68 +108,12 @@ function getProgress(progress: InstallProgress): number {
   return 0
 }
 
-async function fixGogSaveFolder(
-  folder: string,
-  installedPlatform: string,
-  appName: string
-) {
-  const isMac = installedPlatform === 'osx'
-  const isWindows = installedPlatform === 'windows'
-  const matches = folder.match(/<\?(\w+)\?>/)
-  if (!matches) {
-    return folder
-  }
-
-  switch (matches[1]) {
-    case 'SAVED_GAMES':
-      // This path is only on Windows
-      folder = folder.replace(matches[0], '%USERPROFILE%/Saved Games')
-      break
-    case 'APPLICATION_DATA_LOCAL':
-      folder = folder.replace(matches[0], '%LOCALAPPDATA%')
-      break
-    case 'APPLICATION_DATA_LOCAL_LOW':
-      folder = folder.replace(matches[0], '%USERPROFILE%/AppData/LocalLow')
-      break
-    case 'APPLICATION_DATA_ROAMING':
-      folder = folder.replace(matches[0], '%APPDATA%')
-      break
-    case 'DOCUMENTS':
-      if (isWindows) {
-        const documentsResult = await window.api.runWineCommandForGame({
-          appName,
-          runner: 'gog',
-          command:
-            'reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" /v Personal'
-        })
-        const documentsFolder = documentsResult.stdout
-          ?.trim()
-          .split('\n')[1]
-          ?.trim()
-          .split('    ')
-          .pop()
-
-        folder = folder.replace(
-          matches[0],
-          documentsFolder ?? '%USERPROFILE%/Documents'
-        )
-      } else if (isMac) {
-        folder = folder.replace(matches[0], '$HOME/Documents')
-      }
-      break
-    case 'APPLICATION_SUPPORT':
-      folder = folder.replace(matches[0], '$HOME/Library/Application Support')
-  }
-  return folder
-}
-
 async function getAppSettings(): Promise<AppSettings> {
   return window.api.requestSettings('default')
 }
 
 export {
   createNewWindow,
-  fixGogSaveFolder,
   getGameInfo,
   getGameSettings,
   getInstallInfo,

@@ -1,17 +1,30 @@
 import { Runner } from 'common/types'
+import { GOGCloudSavesLocation, SaveFolderVariable } from 'common/types/gog'
 import { setupWineEnvVars } from './launcher'
 import { runLegendaryCommand, LegendaryLibrary } from './legendary/library'
-import { logDebug, LogPrefix, logInfo, logError } from './logger/logger'
-import { getGame } from './utils'
+import { GOGLibrary } from './gog/library'
+import {
+  logDebug,
+  LogPrefix,
+  logInfo,
+  logError,
+  logWarning
+} from './logger/logger'
+import { getGame, getShellPath } from './utils'
+import { realpathSync } from 'graceful-fs'
+import { app } from 'electron'
+import { quote } from 'shlex'
 
-async function getDefaultSavePath(appName: string, runner: Runner) {
+async function getDefaultSavePath(
+  appName: string,
+  runner: Runner,
+  alreadyDefinedGogSaves: GOGCloudSavesLocation[]
+): Promise<string | GOGCloudSavesLocation[]> {
   switch (runner) {
     case 'legendary':
       return getDefaultLegendarySavePath(appName)
     case 'gog':
-      // TODO: Move save path computing for GOG into this function as well,
-      //       to comply with our "Make the frontend dumb" philosophy
-      throw new Error('getDefaultSavePath only supports Legendary')
+      return getDefaultGogSavePaths(appName, alreadyDefinedGogSaves)
   }
 }
 
@@ -78,6 +91,110 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
     prefix: LogPrefix.Legendary
   })
   return new_save_path
+}
+
+async function getDefaultGogSavePaths(
+  appName: string,
+  alreadyDefinedGogSaves: GOGCloudSavesLocation[]
+): Promise<GOGCloudSavesLocation[]> {
+  const game = getGame(appName, 'gog')
+  const {
+    gog_save_location,
+    install: { platform: installed_platform, install_path }
+  } = game.getGameInfo()
+  if (!gog_save_location || !install_path) {
+    return []
+  }
+
+  // If no save locations are defined, assume the default
+  if (!gog_save_location.length) {
+    const clientId = GOGLibrary.get().readInfoFile(appName)?.clientId
+    gog_save_location.push({
+      name: '__default',
+      location:
+        installed_platform === 'windows'
+          ? `%LocalAppData%/GOG.com/Galaxy/Applications/${clientId}/Storage/Shared/Files`
+          : `$HOME/Library/Application Support/GOG.com/Galaxy/Applications/${clientId}/Storage`
+    })
+  }
+
+  const gogVariableMap: Record<SaveFolderVariable, string> = {
+    INSTALL: install_path,
+    SAVED_GAMES: '%USERPROFILE%/Saved Games',
+    APPLICATION_DATA_LOCAL: '%LOCALAPPDATA%',
+    APPLICATION_DATA_LOCAL_LOW: '%APPDATA%\\..\\LocalLow',
+    APPLICATION_DATA_ROAMING: '%APPDATA',
+    APPLICATION_SUPPORT: '$HOME/Library/Application Support',
+    DOCUMENTS: game.isNative()
+      ? app.getPath('documents')
+      : '%USERPROFILE%\\Documents'
+  }
+  const resolvedLocations: GOGCloudSavesLocation[] = []
+  for (const location of gog_save_location) {
+    // If a location with the same name already has a path set,
+    // skip doing all this work
+    const potAlreadyDefinedLocation = alreadyDefinedGogSaves.find(
+      ({ name }) => name === location.name
+    )
+
+    if (potAlreadyDefinedLocation?.location.length) {
+      resolvedLocations.push(potAlreadyDefinedLocation)
+      continue
+    }
+
+    // Get all GOG-defined variables out of the path & resolve them
+    const matches = location.location.matchAll(/<\?(\w+)\?>/g)
+    let locationWithVariablesRemoved = location.location
+    for (const match of matches) {
+      const matchedText = match[0]
+      const variableName = match[1]
+      if (!gogVariableMap[variableName]) {
+        logWarning(
+          [
+            'Unknown save path variable:',
+            `${variableName},`,
+            'inserting variable itself into save path.',
+            'User will have to manually correct the path'
+          ],
+          {
+            prefix: LogPrefix.Gog
+          }
+        )
+      }
+      locationWithVariablesRemoved = locationWithVariablesRemoved.replace(
+        matchedText,
+        gogVariableMap[variableName] ?? variableName
+      )
+    }
+
+    // Path now contains no more GOG-defined variables, but might
+    // still contain Windows (%NAME%) or Unix ($NAME) ones
+    let absolutePath: string
+    if (!game.isNative()) {
+      const { stdout } = await game.runWineCommand(
+        `winepath -u ${quote(locationWithVariablesRemoved)}`
+      )
+      absolutePath = stdout.trim()
+      // Wine already resolves symlinks and ./.. for us,
+      // so no need to run `realpathSync` here
+    } else {
+      absolutePath = await getShellPath(locationWithVariablesRemoved)
+      try {
+        absolutePath = realpathSync(absolutePath)
+      } catch {
+        logWarning(['Failed to run `realpath` on', `"${absolutePath}"`], {
+          prefix: LogPrefix.Gog
+        })
+      }
+    }
+
+    resolvedLocations.push({
+      name: location.name,
+      location: absolutePath
+    })
+  }
+
+  return resolvedLocations
 }
 
 export { getDefaultSavePath }
