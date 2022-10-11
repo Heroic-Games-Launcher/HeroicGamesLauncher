@@ -38,13 +38,12 @@ import {
   rmSync,
   unlinkSync,
   watch,
-  realpathSync,
   writeFileSync
 } from 'graceful-fs'
 
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
-import { join, normalize } from 'path'
+import { join } from 'path'
 import checkDiskSpace from 'check-disk-space'
 import { DXVK, Winetricks } from './tools'
 import { GameConfig } from './game_config'
@@ -1558,20 +1557,6 @@ ipcMain.handle(
 )
 
 ipcMain.handle('getShellPath', async (event, path) => getShellPath(path))
-
-ipcMain.handle('getRealPath', (event, path) => {
-  let resolvedPath = normalize(path)
-  try {
-    resolvedPath = realpathSync(path)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    if (err?.path) {
-      resolvedPath = err.path // Reslove most accurate path (most likely followed symlinks)
-    }
-  }
-
-  return resolvedPath
-})
 
 ipcMain.handle('clipboardReadText', () => {
   return clipboard.readText()

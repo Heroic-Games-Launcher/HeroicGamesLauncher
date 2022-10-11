@@ -67,8 +67,6 @@ export const getGOGGameClientId = async (appName: string) =>
   ipcRenderer.invoke('getGOGGameClientId', appName)
 export const getShellPath = async (saveLocation: string) =>
   ipcRenderer.invoke('getShellPath', saveLocation)
-export const getRealPath = async (actualPath: string) =>
-  ipcRenderer.invoke('getRealPath', actualPath)
 export const callTool = async (toolArgs: Tools) =>
   ipcRenderer.invoke('callTool', toolArgs)
 export const getAnticheatInfo = async (namespace: string) =>
