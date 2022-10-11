@@ -269,7 +269,7 @@ const GameCard = ({
     {
       label: t('button.install'),
       onclick: () => (!isInstalled ? buttonClick() : () => null),
-      show: !isInstalled //&& !hasDownloads && !isInstalling
+      show: !isInstalled
     },
     {
       label: t('button.cancel'),

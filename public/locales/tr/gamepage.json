@@ -59,14 +59,12 @@
     "game": {
         "downloadSize": "İndirme Boyutu",
         "firstPlayed": "İlk Oynanan",
-        "info": "Info",
         "installSize": "Kurulum Boyutu",
         "language": "Dil",
         "lastPlayed": "Son Oynanan",
         "neverPlayed": "Hiç Oynanmadı",
         "platform": "Kurulacak Platform Sürümünü Seç",
         "requirements": "Sistem Gereksinimleri",
-        "tools": "Araçlar",
         "totalPlayed": "Oynanan Zaman"
     },
     "gamecard": {

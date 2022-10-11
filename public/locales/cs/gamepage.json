@@ -59,14 +59,12 @@
     "game": {
         "downloadSize": "Velikost ke stažení",
         "firstPlayed": "Poprvé hráno",
-        "info": "Info",
         "installSize": "Velikost instalace",
         "language": "Jazyk",
         "lastPlayed": "Naposledy hráno",
         "neverPlayed": "Nikdy",
         "platform": "Vyberte verzi platformy, kterou chcete nainstalovat",
         "requirements": "Systémové požadavky",
-        "tools": "Nástroje",
         "totalPlayed": "Odehraný čas"
     },
     "gamecard": {
