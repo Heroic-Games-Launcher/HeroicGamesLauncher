@@ -368,7 +368,7 @@
             "key": "Aldagaiaren izena",
             "placeHolderKey": "IZENA",
             "placeHolderValue": "Adib.: Path/To/ExtraFiles",
-            "title": "Aukera aurreratuak (inguruko aldagaiak):",
+            "title": "Inguruneko aldagaiak",
             "value": "Balioa"
         },
         "env_variables": {

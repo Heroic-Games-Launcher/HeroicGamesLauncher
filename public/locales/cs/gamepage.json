@@ -106,7 +106,7 @@
         "installedPlatform": "Nainstalovaná platforma",
         "path": "Cesta pro instalaci",
         "size": "Velikost",
-        "syncsaves": "Synchronizovat uložené soubory",
+        "syncsaves": "Synchronizace uložených souborů",
         "version": "Verze"
     },
     "install": {
