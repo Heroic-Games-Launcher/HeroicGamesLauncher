@@ -1,6 +1,12 @@
-import { GameStatus } from './../common/types'
 import { VersionInfo } from 'heroic-wine-downloader'
-import { AppSettings, GameInfo, GameSettings, Runner } from 'common/types'
+import {
+  AppSettings,
+  GameInfo,
+  GameSettings,
+  GameStatus,
+  Runner,
+  ConnectivityStatus
+} from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog'
 
@@ -45,10 +51,6 @@ export interface ContextType {
   setTheme: (themeName: string) => void
   zoomPercent: number
   setZoomPercent: (newZoomPercent: number) => void
-  contentFontFamily: string
-  setContentFontFamily: (newFontFamily: string) => void
-  actionsFontFamily: string
-  setActionsFontFamily: (newFontFamily: string) => void
   epic: {
     library: GameInfo[]
     username: string | null
@@ -66,6 +68,9 @@ export interface ContextType {
   setSideBarCollapsed: (value: boolean) => void
   sidebarCollapsed: boolean
   activeController: string
+  connectivity: { status: ConnectivityStatus; retryIn: number }
+  setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
+  setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
 }
 
 export type LibraryTopSectionOptions =

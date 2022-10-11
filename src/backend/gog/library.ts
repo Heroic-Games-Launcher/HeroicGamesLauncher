@@ -13,7 +13,7 @@ import { join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getGOGdlBin, getFileSize, isOnline } from '../utils'
+import { getGOGdlBin, getFileSize } from '../utils'
 import { fallBackImage } from '../constants'
 import {
   apiInfoCache,
@@ -21,6 +21,7 @@ import {
   installedGamesStore
 } from './electronStores'
 import { callRunner } from '../launcher'
+import { isOnline } from '../online_monitor'
 
 export class GOGLibrary {
   private static globalInstance: GOGLibrary

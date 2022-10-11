@@ -3,21 +3,26 @@ import * as axios from 'axios'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { readFileSync, writeFileSync } from 'graceful-fs'
 import { AntiCheatInfo } from 'common/types'
+import { runOnceWhenOnline } from '../online_monitor'
 
 async function downloadAntiCheatData() {
   if (!isLinux) return
 
-  try {
-    const { data } = await axios.default.get(
-      'https://raw.githubusercontent.com/Starz0r/AreWeAntiCheatYet/HEAD/games.json'
-    )
-    writeFileSync(heroicAnticheatDataPath, JSON.stringify(data, null, 2))
-    logInfo(`AreWeAntiCheatYet data downloaded`, { prefix: LogPrefix.Backend })
-  } catch (error) {
-    logWarning(['Failed download of AreWeAntiCheatYet data:', error], {
-      prefix: LogPrefix.Backend
-    })
-  }
+  runOnceWhenOnline(async () => {
+    try {
+      const { data } = await axios.default.get(
+        'https://raw.githubusercontent.com/Starz0r/AreWeAntiCheatYet/HEAD/games.json'
+      )
+      writeFileSync(heroicAnticheatDataPath, JSON.stringify(data, null, 2))
+      logInfo(`AreWeAntiCheatYet data downloaded`, {
+        prefix: LogPrefix.Backend
+      })
+    } catch (error) {
+      logWarning(`Failed download of AreWeAntiCheatYet data: ${error}`, {
+        prefix: LogPrefix.Backend
+      })
+    }
+  })
 }
 
 function gameAnticheatInfo(appNamespace: string): AntiCheatInfo | null {

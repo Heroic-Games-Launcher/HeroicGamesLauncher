@@ -15,7 +15,6 @@ import {
   execAsync,
   getSteamRuntime,
   isEpicServiceOffline,
-  isOnline,
   searchForExecutableOnPath,
   quoteIfNecessary,
   errorHandler,
@@ -48,6 +47,7 @@ import {
 import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { Game } from './games'
+import { isOnline } from './online_monitor'
 import { showErrorBoxModalAuto } from './dialog/dialog'
 
 async function prepareLaunch(
@@ -330,20 +330,37 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     }
   }
   if (!gameSettings.preferSystemLibs && wineVersion.type === 'wine') {
-    if (wineVersion.lib32 && wineVersion.lib) {
+    // https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1091-L1093
+    if (!process.env.ORIG_LD_LIBRARY_PATH) {
+      ret.ORIG_LD_LIBRARY_PATH = process.env.LD_LIBRARY_PATH ?? ''
+    }
+
+    const { lib32, lib } = wineVersion
+    if (lib32 && lib) {
       // append wine libs at the beginning
-      ret.LD_LIBRARY_PATH = [
-        wineVersion.lib32,
-        wineVersion.lib,
-        process.env.LD_LIBRARY_PATH
-      ]
+      ret.LD_LIBRARY_PATH = [lib, lib32, process.env.LD_LIBRARY_PATH]
         .filter(Boolean)
         .join(':')
+
+      // https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1099
+      // NOTE: Proton does not make sure that these folders exist first, I believe we should :^)
+      const gstp_path_lib64 = join(lib, 'gstreamer-1.0')
+      const gstp_path_lib32 = join(lib32, 'gstreamer-1.0')
+      if (existsSync(gstp_path_lib64) && existsSync(gstp_path_lib32)) {
+        ret.GST_PLUGIN_SYSTEM_PATH_1_0 = gstp_path_lib64 + ':' + gstp_path_lib32
+      }
+
+      // https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1097
+      const winedll_path_lib64 = join(lib, 'wine')
+      const winedll_path_lib32 = join(lib32, 'wine')
+      if (existsSync(winedll_path_lib64) && existsSync(winedll_path_lib32)) {
+        ret.WINEDLLPATH = winedll_path_lib64 + ':' + winedll_path_lib32
+      }
     } else {
       logError(
         [
           `Couldn't find all library folders of ${wineVersion.name}!`,
-          `Missing ${wineVersion.lib32} or ${wineVersion.lib}!`,
+          `Missing ${lib32} and/or ${lib}!`,
           `Falling back to system libraries!`
         ].join('\n')
       )

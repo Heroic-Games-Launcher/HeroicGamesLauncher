@@ -57,14 +57,12 @@
     "game": {
         "downloadSize": "Veličina Preuzimanja",
         "firstPlayed": "Prvi put odigrano",
-        "info": "Info",
         "installSize": "Veličina Instalacije",
         "language": "Jezik",
         "lastPlayed": "Zadnji put odigrano",
         "neverPlayed": "Nikada",
         "platform": "Odaberi verziju platforme za instalirati",
-        "reuirements": "Zahtjevi sistema",
-        "tools": "Alati",
+        "requirements": "Zahtjevi sistema",
         "totalPlayed": "Vrijeme igranja"
     },
     "gamecard": {

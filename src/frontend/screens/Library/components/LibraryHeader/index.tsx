@@ -37,7 +37,7 @@ export default function LibraryHeader({
         : 0
 
     const total = list.length - dlcCount
-    return total > 0 ? `(${total})` : null
+    return total > 0 ? `${total}` : null
   }, [list, category])
 
   function handleSortDescending() {
@@ -63,7 +63,7 @@ export default function LibraryHeader({
   }
 
   return (
-    <h3 className="libraryHeader">
+    <h5 className="libraryHeader">
       <div className="libraryHeaderWrapper">
         <span className="libraryTitle">
           {showFavourites
@@ -79,6 +79,6 @@ export default function LibraryHeader({
           toggleSortinstalled={() => handleSortInstalled()}
         />
       </div>
-    </h3>
+    </h5>
   )
 }

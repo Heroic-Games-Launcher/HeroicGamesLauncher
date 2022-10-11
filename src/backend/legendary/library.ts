@@ -18,7 +18,6 @@ import {
   formatEpicStoreUrl,
   getLegendaryBin,
   isEpicServiceOffline,
-  isOnline,
   getFileSize
 } from '../utils'
 import {
@@ -36,6 +35,7 @@ import {
 import { installStore, libraryStore } from './electronStores'
 import { callRunner } from '../launcher'
 import { join } from 'path'
+import { isOnline } from '../online_monitor'
 
 /**
  * Legendary LegendaryLibrary.
