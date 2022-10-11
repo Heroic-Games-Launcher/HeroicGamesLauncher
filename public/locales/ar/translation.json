@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "أرجع Winetricks الخطأ التالي أثناء التنفيذ: {{newLine}} {{error}}",
                 "title": "خطأ Winetricks"
-            }
+            },
+            "launchAborted": "إطلاق إحباط"
         },
         "no": "لا",
         "protocol": {

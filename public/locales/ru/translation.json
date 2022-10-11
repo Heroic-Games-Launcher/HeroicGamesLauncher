@@ -58,7 +58,7 @@
                 "message": "",
                 "title": ""
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Запуск прерван",
             "title": "Ошибка",
             "uncaught-exception": {
                 "message": "Произошло необрабатываемое исключение:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic будет закрыт! Сообщите об исключении в нашем репозитории Github.",
