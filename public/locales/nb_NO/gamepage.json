@@ -83,7 +83,6 @@
         "neverPlayed": "Aldri",
         "platform": "Velg plattformversjon som skal installeres",
         "requirements": "Systemkrav",
-        "tools": "Verktøy",
         "totalPlayed": "Spilletid"
     },
     "gamecard": {

@@ -4,8 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { AppSettings, GameStatus, Runner } from 'common/types'
 
-import { SmallInfo } from 'frontend/components/UI'
-import { createNewWindow, getGameInfo, repair } from 'frontend/helpers'
+import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { uninstall } from 'frontend/helpers/library'
@@ -23,11 +22,7 @@ interface Props {
   handleUpdate: () => void
   disableUpdate: boolean
   steamImageUrl: string
-}
-
-type otherInfo = {
-  prefix: string
-  wine: string
+  onShowRequirements?: () => void
 }
 
 // helper function to generate images for steam
@@ -92,7 +87,8 @@ export default function GamesSubmenu({
   runner,
   handleUpdate,
   disableUpdate,
-  steamImageUrl
+  steamImageUrl,
+  onShowRequirements
 }: Props) {
   const { handleGameStatus, refresh, platform, libraryStatus } =
     useContext(ContextProvider)
@@ -101,11 +97,6 @@ export default function GamesSubmenu({
   const isLinux = platform === 'linux'
   const navigate = useNavigate()
 
-  const [info, setInfo] = useState<otherInfo>({
-    prefix: '',
-    wine: ''
-  } as otherInfo)
-  const [isNative, setIsNative] = useState<boolean>(false)
   const [steamRefresh, setSteamRefresh] = useState<boolean>(false)
   const [addedToSteam, setAddedToSteam] = useState<boolean>(false)
   const [hasShortcuts, setHasShortcuts] = useState(false)
@@ -265,32 +256,6 @@ export default function GamesSubmenu({
 
     // only unix specific
     if (!isWin) {
-      // get information about wine (Prefix)
-      const getWineInfo = async () => {
-        try {
-          const { wineVersion, winePrefix }: AppSettings =
-            await window.api.requestSettings(appName)
-          let wine = wineVersion.name
-            .replace('Wine - ', '')
-            .replace('Proton - ', '')
-          if (wine.includes('Default')) {
-            wine = wine.split('-')[0]
-          }
-          setInfo({ prefix: winePrefix, wine })
-        } catch (error) {
-          window.api.logError(`${error}`)
-        }
-      }
-      getWineInfo()
-
-      // get information if game is a linux native game
-      const getGameDetails = async () => {
-        const gameInfo = await getGameInfo(appName, runner)
-        const isLinuxNative = gameInfo.install?.platform === 'linux' && isLinux
-        setIsNative(isLinuxNative)
-      }
-      getGameDetails()
-
       // check if eos overlay is enabled
       const { status } =
         libraryStatus.filter(
@@ -416,17 +381,15 @@ export default function GamesSubmenu({
             </button>
           )}
         </div>
-        {isInstalled && isLinux && !isNative && (
-          <div className="otherInfo">
-            <SmallInfo title="Wine:" subtitle={info.wine} />
-            <SmallInfo
-              title="Prefix:"
-              subtitle={info.prefix}
-              handleclick={() => window.api.openFolder(info.prefix)}
-            />
-          </div>
-        )}
       </div>
+      {onShowRequirements && (
+        <button
+          onClick={async () => onShowRequirements()}
+          className="link button is-text is-link"
+        >
+          {t('game.requirements', 'Requirements')}
+        </button>
+      )}
       {showModal && (
         <InstallModal
           appName={appName}

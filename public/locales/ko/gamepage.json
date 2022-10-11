@@ -82,7 +82,6 @@
         "neverPlayed": "플레이 한 적 없음",
         "platform": "설치할 플랫폼 버전 선택",
         "requirements": "시스템 요구 사항",
-        "tools": "도구",
         "totalPlayed": "플레이 시간"
     },
     "gamecard": {
