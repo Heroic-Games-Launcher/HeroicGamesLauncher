@@ -6,6 +6,16 @@ import { IpcRendererEvent } from 'electron'
 
 export type Runner = 'legendary' | 'gog'
 
+export enum DialogType {
+  MESSAGE,
+  ERROR
+}
+
+export interface ButtonOptions {
+  text: string
+  onClick?: () => void
+}
+
 // here is a way to type the callback function in ipcMain.on or ipcMain.handle
 // does not prevent callbacks with fewer parameters from being passed though
 // the microsoft team is very opposed to enabling the above constraint https://github.com/microsoft/TypeScript/issues/17868

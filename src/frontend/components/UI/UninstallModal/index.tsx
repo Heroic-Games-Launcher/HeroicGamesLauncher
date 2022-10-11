@@ -23,6 +23,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
   const [winePrefix, setWinePrefix] = useState('')
   const [checkboxChecked, setCheckboxChecked] = useState(false)
   const { t } = useTranslation('gamepage')
+  const [showUninstallModal, setShowUninstallModal] = useState(false)
 
   const checkIfWindowsOnLinux = async () => {
     const platform = await window.api.getPlatform()
@@ -42,6 +43,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
       setWinePrefix(wineprefixForGame)
       setIsWindowsOnLinux(true)
     }
+    setShowUninstallModal(true)
   }
 
   useEffect(() => {
@@ -50,6 +52,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
 
   const storage: Storage = window.localStorage
   const uninstallGame = async () => {
+    props.onClose()
     await handleGameStatus({
       appName: props.appName,
       runner: props.runner,
@@ -62,49 +65,52 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
       runner: props.runner,
       status: 'done'
     })
-    props.onClose()
   }
 
   return (
-    <Dialog onClose={props.onClose}>
-      <DialogHeader onClose={props.onClose} showCloseButton={true}>
-        {t('gamepage:box.uninstall.title')}
-      </DialogHeader>
-      <DialogContent>
-        <div className="uninstallModalMessage">
-          {t('gamepage:box.uninstall.message')}
-        </div>
-        {isWindowsOnLinux && (
-          <ToggleSwitch
-            htmlId="uninstallCheckbox"
-            value={checkboxChecked}
-            title={t('gamepage:box.uninstall.checkbox', {
-              defaultValue:
-                "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-              prefix: winePrefix,
-              newLine: '\n'
-            })}
-            handleChange={() => {
-              setCheckboxChecked(!checkboxChecked)
-            }}
-          />
-        )}
-      </DialogContent>
-      <DialogFooter>
-        <button
-          onClick={uninstallGame}
-          className={`button is-secondary outline`}
-        >
-          {t('box.yes')}
-        </button>
-        <button
-          onClick={props.onClose}
-          className={`button is-secondary outline`}
-        >
-          {t('box.no')}
-        </button>
-      </DialogFooter>
-    </Dialog>
+    <>
+      {showUninstallModal && (
+        <Dialog onClose={props.onClose}>
+          <DialogHeader onClose={props.onClose} showCloseButton={true}>
+            {t('gamepage:box.uninstall.title')}
+          </DialogHeader>
+          <DialogContent>
+            <div className="uninstallModalMessage">
+              {t('gamepage:box.uninstall.message')}
+            </div>
+            {isWindowsOnLinux && (
+              <ToggleSwitch
+                htmlId="uninstallCheckbox"
+                value={checkboxChecked}
+                title={t('gamepage:box.uninstall.checkbox', {
+                  defaultValue:
+                    "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+                  prefix: winePrefix,
+                  newLine: '\n'
+                })}
+                handleChange={() => {
+                  setCheckboxChecked(!checkboxChecked)
+                }}
+              />
+            )}
+          </DialogContent>
+          <DialogFooter>
+            <button
+              onClick={uninstallGame}
+              className={`button is-secondary outline`}
+            >
+              {t('box.yes')}
+            </button>
+            <button
+              onClick={props.onClose}
+              className={`button is-secondary outline`}
+            >
+              {t('box.no')}
+            </button>
+          </DialogFooter>
+        </Dialog>
+      )}
+    </>
   )
 }
 

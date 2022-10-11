@@ -5,7 +5,9 @@ import {
   GameSettings,
   GameStatus,
   Runner,
-  ConnectivityStatus
+  ConnectivityStatus,
+  DialogType,
+  ButtonOptions
 } from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog'
@@ -82,9 +84,8 @@ export type DialogModalOptions = {
   showDialog?: boolean
   title?: string
   message?: string
-  buttons?: Array<string>
-  buttonsOnClick?: Array<() => void>
-  isError?: boolean
+  buttons?: Array<ButtonOptions>
+  type?: DialogType
 }
 
 export type LibraryTopSectionOptions =

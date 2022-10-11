@@ -283,8 +283,10 @@ export class GlobalState extends PureComponent<Props> {
         'box.reset-heroic.question.message',
         "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
       ),
-      buttons: [t('box.yes'), t('box.no')],
-      buttonsOnClick: [window.api.resetHeroic]
+      buttons: [
+        { text: t('box.yes'), onClick: window.api.resetHeroic },
+        { text: t('box.no') }
+      ]
     })
   }).bind(this)
 

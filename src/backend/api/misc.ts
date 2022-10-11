@@ -1,6 +1,6 @@
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { ipcRenderer } from 'electron'
-import { Runner, Tools } from '../../common/types'
+import { Runner, Tools, DialogType, ButtonOptions } from '../../common/types'
 
 export const clearCache = () => ipcRenderer.send('clearCache')
 export const resetHeroic = () => ipcRenderer.send('resetHeroic')
@@ -88,8 +88,8 @@ export const handleShowDialog = (
     e: Electron.IpcRendererEvent,
     title: string,
     message: string,
-    isError: boolean,
-    buttons: Array<string>
+    type: DialogType,
+    buttons?: Array<ButtonOptions>
   ) => void
 ) => {
   ipcRenderer.on('showDialog', onMessage)

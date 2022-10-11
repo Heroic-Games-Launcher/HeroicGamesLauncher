@@ -10,7 +10,8 @@ import {
   GameSettings,
   InstallPlatform,
   LaunchParams,
-  Tools
+  Tools,
+  DialogType
 } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import * as path from 'path'
@@ -122,7 +123,7 @@ import {
   isOnline,
   runOnceWhenOnline
 } from './online_monitor'
-import { showErrorBoxModalAuto } from './dialog/dialog'
+import { showDialogBoxModalAuto } from './dialog/dialog'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -503,17 +504,18 @@ ipcMain.on('frontendReady', () => {
 // Maybe this can help with white screens
 process.on('uncaughtException', async (err) => {
   logError(`${err.name}: ${err.message}`, { prefix: LogPrefix.Backend })
-  showErrorBoxModalAuto({
+  showDialogBoxModalAuto({
     title: i18next.t(
       'box.error.uncaught-exception.title',
       'Uncaught Exception occured!'
     ),
-    error: i18next.t('box.error.uncaught-exception.message', {
+    message: i18next.t('box.error.uncaught-exception.message', {
       defaultValue:
         'A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.',
       newLine: '\n',
       error: err
-    })
+    }),
+    type: DialogType.ERROR
   })
 })
 
@@ -702,13 +704,17 @@ ipcMain.handle('getLatestReleases', async () => {
 
 ipcMain.on('clearCache', (event) => {
   clearCache()
-  event.sender.send(
-    'showDialog',
-    i18next.t('box.cache-cleared.title', 'Cache Cleared'),
-    i18next.t('box.cache-cleared.message', 'Heroic Cache Was Cleared!'),
-    false,
-    [i18next.t('box.ok', 'Ok')]
-  )
+
+  showDialogBoxModalAuto({
+    event,
+    title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
+    message: i18next.t(
+      'box.cache-cleared.message',
+      'Heroic Cache Was Cleared!'
+    ),
+    type: DialogType.MESSAGE,
+    buttons: [{ text: i18next.t('box.ok', 'Ok') }]
+  })
 })
 
 ipcMain.on('resetHeroic', async () => {
@@ -1079,13 +1085,14 @@ ipcMain.handle('install', async (event, params) => {
 
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline && runner === 'legendary') {
-    showErrorBoxModalAuto({
+    showDialogBoxModalAuto({
       event,
       title: i18next.t('box.warning.title', 'Warning'),
-      error: i18next.t(
+      message: i18next.t(
         'box.warning.epic.install',
         'Epic Servers are having major outage right now, the game cannot be installed!'
-      )
+      ),
+      type: DialogType.ERROR
     })
     return { status: 'error' }
   }
@@ -1209,13 +1216,14 @@ ipcMain.handle(
     const { appName, path, runner } = args
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline && runner === 'legendary') {
-      showErrorBoxModalAuto({
+      showDialogBoxModalAuto({
         event,
         title: i18next.t('box.warning.title', 'Warning'),
-        error: i18next.t(
+        message: i18next.t(
           'box.warning.epic.import',
           'Epic Servers are having major outage right now, the game cannot be imported!'
-        )
+        ),
+        type: DialogType.ERROR
       })
       return { status: 'error' }
     }
@@ -1263,13 +1271,14 @@ ipcMain.handle('updateGame', async (event, appName, runner) => {
 
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline && runner === 'legendary') {
-    showErrorBoxModalAuto({
+    showDialogBoxModalAuto({
       event,
       title: i18next.t('box.warning.title', 'Warning'),
-      error: i18next.t(
+      message: i18next.t(
         'box.warning.epic.update',
         'Epic Servers are having major outage right now, the game cannot be updated!'
-      )
+      ),
+      type: DialogType.ERROR
     })
     return { status: 'error' }
   }
