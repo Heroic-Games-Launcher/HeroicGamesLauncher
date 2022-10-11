@@ -277,7 +277,7 @@ export default function GamePage(): JSX.Element | null {
                       {is_installed && !showCloudSaveInfo && (
                         <div
                           style={{
-                            color: '#F45460'
+                            color: 'var(--danger)'
                           }}
                         >
                           {t('info.syncsaves')}:{' '}
