@@ -2,91 +2,85 @@ import { GameStatus } from './../../../common/types'
 import { getMainWindow } from '../../utils'
 import Store from 'electron-store'
 
-const gameStatusHandlerStore = new Store({
+const store = new Store({
   cwd: 'store',
   name: 'progress-handler'
 })
 
 function initGameStatusHandler() {
-  const gameStatusHandlers = getAllGameStatus()
-  gameStatusHandlers.forEach((gameStatus) => {
-    gameStatus.previousProgress = gameStatus.progress
-    gameStatus.status = 'done'
+  const handlers = getAllGameStatus()
+  handlers.forEach((status) => {
+    status.previousProgress = status.progress
+    status.status = 'done'
   })
 
-  gameStatusHandlerStore.set('gameStatus', gameStatusHandlers)
+  store.set('gameStatus', handlers)
 }
 
-function setGameStatusOfElement(gameStatus: GameStatus) {
-  let newGameStatus = gameStatus
-  if (!gameStatusHandlerStore.has('gameStatus')) {
-    gameStatusHandlerStore.set('gameStatus', [gameStatus])
+function setGameStatusOfElement(status: GameStatus) {
+  let newStatus = status
+  if (!store.has('gameStatus')) {
+    store.set('gameStatus', [status])
     return
   }
 
-  const gameStatusHandlers = gameStatusHandlerStore.get(
-    'gameStatus'
-  ) as GameStatus[]
+  const handlers = store.get('gameStatus') as GameStatus[]
 
-  const gameStatusHandlerIndex = gameStatusHandlers.findIndex(
-    (status) => status.appName === gameStatus.appName
+  const handlerIndex = handlers.findIndex(
+    (status) => newStatus.appName === status.appName
   )
 
-  if (gameStatusHandlerIndex >= 0) {
-    newGameStatus = {
-      ...gameStatusHandlers[gameStatusHandlerIndex],
-      ...gameStatus
+  if (handlerIndex >= 0) {
+    newStatus = {
+      ...handlers[handlerIndex],
+      ...status
     }
-    gameStatusHandlers[gameStatusHandlerIndex] = newGameStatus
+    handlers[handlerIndex] = newStatus
   } else {
-    gameStatusHandlers.push(newGameStatus)
+    handlers.push(newStatus)
   }
 
-  gameStatusHandlerStore.set('gameStatus', gameStatusHandlers)
+  store.set('gameStatus', handlers)
 
   const mainWindow = getMainWindow()
   if (mainWindow && mainWindow.webContents) {
-    getMainWindow().webContents.send('handleGameStatus', newGameStatus)
+    getMainWindow().webContents.send('handleGameStatus', newStatus)
   }
 }
 
 function deleteGameStatusOfElement(appName: string) {
-  if (gameStatusHandlerStore.has('gameStatus')) {
-    const gameStatusHandlers = gameStatusHandlerStore.get(
-      'gameStatus'
-    ) as GameStatus[]
+  if (store.has('gameStatus')) {
+    const handlers = store.get('gameStatus') as GameStatus[]
 
-    const gameStatusHandlerIndex = gameStatusHandlers.findIndex(
+    const handlerIndex = handlers.findIndex(
       (status) => status.appName === appName
     )
 
-    if (gameStatusHandlerIndex >= 0) {
-      const gameStatus = gameStatusHandlers.splice(gameStatusHandlerIndex, 1)[0]
-      gameStatus.status = 'done'
-      gameStatusHandlerStore.set('gameStatus', gameStatusHandlers)
+    if (handlerIndex >= 0) {
+      const status = handlers.splice(handlerIndex, 1)[0]
+      status.status = 'done'
+      store.set('gameStatus', handlers)
 
       const mainWindow = getMainWindow()
       if (mainWindow && mainWindow.webContents) {
-        getMainWindow().webContents.send('handleGameStatus', gameStatus)
+        getMainWindow().webContents.send('handleGameStatus', status)
       }
     }
   }
 }
 
 function getGameStatusOfElement(appName: string): GameStatus | undefined {
-  if (gameStatusHandlerStore.has('gameStatus')) {
-    const gameStatusHandlers = gameStatusHandlerStore.get(
-      'gameStatus'
-    ) as GameStatus[]
+  if (store.has('gameStatus')) {
+    const handlers = store.get('gameStatus') as GameStatus[]
 
-    return gameStatusHandlers.find((status) => status.appName === appName)
+    return handlers.find((status) => status.appName === appName)
   }
   return
 }
 
 function getAllGameStatus(): GameStatus[] {
-  if (gameStatusHandlerStore.has('gameStatus')) {
-    return gameStatusHandlerStore.get('gameStatus') as GameStatus[]
+  if (store.has('gameStatus')) {
+    return store.get('gameStatus') as GameStatus[]
   }
   return []
 }
