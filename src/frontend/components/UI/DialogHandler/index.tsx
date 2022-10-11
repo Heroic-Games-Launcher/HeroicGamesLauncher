@@ -29,13 +29,21 @@ export default function DialogHandler() {
   }, [])
 
   const buttonsOnClick: Array<() => void> = []
-  if (dialogModalOptions.buttonsOnClick) {
-    for (const val of dialogModalOptions.buttonsOnClick) {
-      if (val === 'CLOSE') {
-        buttonsOnClick.push(() => showDialogModal({ showDialog: false }))
-      } else {
-        buttonsOnClick.push(val)
+  if (dialogModalOptions.buttons) {
+    for (let i = 0; i < dialogModalOptions.buttons.length; ++i) {
+      if (!dialogModalOptions.buttonsOnClick) {
+        break
       }
+      /*eslint-disable @typescript-eslint/no-empty-function*/
+      const val =
+        i < dialogModalOptions.buttonsOnClick.length
+          ? dialogModalOptions.buttonsOnClick[i]
+          : () => {}
+      /*eslint-enable @typescript-eslint/no-empty-function*/
+      buttonsOnClick.push(() => {
+        val()
+        showDialogModal({ showDialog: false })
+      })
     }
   }
 

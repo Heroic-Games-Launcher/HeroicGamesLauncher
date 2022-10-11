@@ -73,7 +73,8 @@ const GameCard = ({
     favouriteGames,
     allTilesInColor,
     epic,
-    gog
+    gog,
+    showDialogModal
   } = useContext(ContextProvider)
 
   const isWin = platform === 'win32'
@@ -428,14 +429,15 @@ const GameCard = ({
         previousProgress,
         progress,
         t,
-        runner
+        runner,
+        showDialogModal
       })
     }
     if (status === 'playing' || status === 'updating') {
       return sendKill(appName, runner)
     }
     if (isInstalled) {
-      return launch({ appName, t, runner, hasUpdate })
+      return launch({ appName, t, runner, hasUpdate, showDialogModal })
     }
     return
   }

@@ -267,9 +267,12 @@ export class GlobalState extends PureComponent<Props> {
     configStore.set('games.favourites', newFavouriteGames)
   }
 
-  handleShowDialogModal = (options: DialogModalOptions) => {
+  handleShowDialogModal = ({
+    showDialog = true,
+    ...options
+  }: DialogModalOptions) => {
     this.setState({
-      dialogModalOptions: options
+      dialogModalOptions: { showDialog, ...options }
     })
   }
 
@@ -534,7 +537,13 @@ export class GlobalState extends PureComponent<Props> {
         if (!currentApp) {
           // Add finding a runner for games
           const hasUpdate = this.state.gameUpdates?.includes(appName)
-          return launch({ appName, t, runner, hasUpdate })
+          return launch({
+            appName,
+            t,
+            runner,
+            hasUpdate,
+            showDialogModal: this.handleShowDialogModal
+          })
         }
       }
     )
@@ -563,7 +572,8 @@ export class GlobalState extends PureComponent<Props> {
             },
             t,
             runner,
-            platformToInstall: 'Windows'
+            platformToInstall: 'Windows',
+            showDialogModal: this.handleShowDialogModal
           })
         }
       }

@@ -10,6 +10,7 @@ import {
 import { TFunction } from 'react-i18next'
 import { getGameInfo, sendKill } from './index'
 import { configStore } from './electronStores'
+import { DialogModalOptions } from 'frontend/types'
 
 const storage: Storage = window.localStorage
 
@@ -27,6 +28,7 @@ type InstallArgs = {
   sdlList?: Array<string>
   installLanguage?: string
   runner?: Runner
+  showDialogModal: (options: DialogModalOptions) => void
 }
 
 async function install({
@@ -42,7 +44,8 @@ async function install({
   installDlcs = false,
   installLanguage = 'en-US',
   runner = 'legendary',
-  platformToInstall = 'Windows'
+  platformToInstall = 'Windows',
+  showDialogModal
 }: InstallArgs) {
   if (!installPath) {
     return
@@ -58,7 +61,8 @@ async function install({
       [installPath, folder_name],
       t,
       progress,
-      runner
+      runner,
+      showDialogModal
     )
   }
 
@@ -159,29 +163,31 @@ async function handleStopInstallation(
   [path, folderName]: string[],
   t: TFunction<'gamepage'>,
   progress: InstallProgress,
-  runner: Runner
+  runner: Runner,
+  showDialogModal: (options: DialogModalOptions) => void
 ) {
-  const args = {
+  showDialogModal({
+    title: t('gamepage:box.stopInstall.title'),
+    message: t('gamepage:box.stopInstall.message'),
     buttons: [
       t('gamepage:box.stopInstall.keepInstalling'),
       t('box.yes'),
       t('box.no')
     ],
-    message: t('gamepage:box.stopInstall.message'),
-    title: t('gamepage:box.stopInstall.title'),
-    cancelId: 0
-  }
-
-  const { response } = await window.api.openMessageBox(args)
-
-  if (response === 1) {
-    storage.setItem(appName, JSON.stringify({ ...progress, folder: path }))
-    return sendKill(appName, runner)
-  } else if (response === 2) {
-    await sendKill(appName, runner)
-    storage.removeItem(appName)
-    return window.api.removeFolder([path, folderName])
-  }
+    buttonsOnClick: [
+      /*eslint-disable-next-line @typescript-eslint/no-empty-function*/
+      () => {},
+      () => {
+        storage.setItem(appName, JSON.stringify({ ...progress, folder: path }))
+        sendKill(appName, runner)
+      },
+      async () => {
+        await sendKill(appName, runner)
+        storage.removeItem(appName)
+        window.api.removeFolder([path, folderName])
+      }
+    ]
+  })
 }
 
 const repair = async (appName: string, runner: Runner): Promise<void> =>
@@ -193,6 +199,7 @@ type LaunchOptions = {
   launchArguments?: string
   runner: Runner
   hasUpdate: boolean
+  showDialogModal: (options: DialogModalOptions) => void
 }
 
 const launch = async ({
@@ -200,26 +207,34 @@ const launch = async ({
   t,
   launchArguments,
   runner,
-  hasUpdate
+  hasUpdate,
+  showDialogModal
 }: LaunchOptions): Promise<void> => {
   if (hasUpdate) {
-    const args = {
-      buttons: [t('gamepage:box.yes'), t('box.no')],
-      message: t('gamepage:box.update.message'),
-      title: t('gamepage:box.update.title')
-    }
-
-    const { response } = await window.api.openMessageBox(args)
-
-    if (response === 0) {
-      return updateGame(appName, runner)
-    }
-
-    return window.api.launch({
-      appName,
-      runner,
-      launchArguments: '--skip-version-check'
+    // promisifies the showDialogModal button click callbacks
+    const launchFinished = new Promise<void>((res) => {
+      showDialogModal({
+        message: t('gamepage:box.update.message'),
+        title: t('gamepage:box.update.title'),
+        buttons: [t('gamepage:box.yes'), t('box.no')],
+        buttonsOnClick: [
+          async () => {
+            await updateGame(appName, runner)
+            res()
+          },
+          async () => {
+            await window.api.launch({
+              appName,
+              runner,
+              launchArguments: '--skip-version-check'
+            })
+            res()
+          }
+        ]
+      })
     })
+
+    return launchFinished
   }
   if (launchArguments === undefined) launchArguments = ''
   return window.api.launch({ appName, launchArguments, runner })

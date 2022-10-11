@@ -20,8 +20,6 @@ export const showUpdateSetting = async () =>
   ipcRenderer.invoke('showUpdateSetting')
 export const egsSync = async (args: string) =>
   ipcRenderer.invoke('egsSync', args)
-export const showErrorBox = async (args: [title: string, message: string]) =>
-  ipcRenderer.invoke('showErrorBox', args)
 
 export const showLogFileInFolder = (args: {
   appName: string

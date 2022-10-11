@@ -124,7 +124,7 @@ import {
 } from './online_monitor'
 import { showErrorBoxModalAuto } from './dialog/dialog'
 
-const { showMessageBox, showOpenDialog } = dialog
+const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow
@@ -1068,20 +1068,6 @@ ipcMain.handle('openDialog', async (e, args) => {
 ipcMain.on('showItemInFolder', async (e, item) => {
   showItemInFolder(item)
 })
-
-const openMessageBox = async (args: Electron.MessageBoxOptions) => {
-  const { response, checkboxChecked } = await showMessageBox(mainWindow, {
-    ...args
-  })
-  return { response, checkboxChecked }
-}
-
-ipcMain.handle(
-  'openMessageBox',
-  async (_, args: Electron.MessageBoxOptions) => {
-    return openMessageBox(args)
-  }
-)
 
 ipcMain.handle('install', async (event, params) => {
   const {

@@ -93,8 +93,13 @@ export default function GamesSubmenu({
   disableUpdate,
   steamImageUrl
 }: Props) {
-  const { handleGameStatus, refresh, platform, libraryStatus } =
-    useContext(ContextProvider)
+  const {
+    handleGameStatus,
+    refresh,
+    platform,
+    libraryStatus,
+    showDialogModal
+  } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
@@ -115,65 +120,83 @@ export default function GamesSubmenu({
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
-  async function handleMoveInstall() {
-    const { response } = await window.api.openMessageBox({
-      buttons: [t('box.yes'), t('box.no')],
-      message: t('box.move.message'),
-      title: t('box.move.title')
+  async function onMoveInstallYesClick() {
+    const { defaultInstallPath }: AppSettings =
+      await window.api.requestSettings('default')
+    const { path } = await window.api.openDialog({
+      buttonLabel: t('box.choose'),
+      properties: ['openDirectory'],
+      title: t('box.move.path'),
+      defaultPath: defaultInstallPath
     })
-    if (response === 0) {
-      const { defaultInstallPath }: AppSettings =
-        await window.api.requestSettings('default')
-      const { path } = await window.api.openDialog({
-        buttonLabel: t('box.choose'),
-        properties: ['openDirectory'],
-        title: t('box.move.path'),
-        defaultPath: defaultInstallPath
-      })
-      if (path) {
-        await handleGameStatus({ appName, runner, status: 'moving' })
-        await window.api.moveInstall([appName, path, runner])
-        await handleGameStatus({ appName, runner, status: 'done' })
-      }
-    }
-  }
-
-  async function handleChangeInstall() {
-    const { response } = await window.api.openMessageBox({
-      buttons: [t('box.yes'), t('box.no')],
-      message: t('box.change.message'),
-      title: t('box.change.title')
-    })
-    if (response === 0) {
-      const { defaultInstallPath }: AppSettings =
-        await window.api.requestSettings('default')
-      const { path } = await window.api.openDialog({
-        buttonLabel: t('box.choose'),
-        properties: ['openDirectory'],
-        title: t('box.change.path'),
-        defaultPath: defaultInstallPath
-      })
-      if (path) {
-        await window.api.changeInstallPath([appName, path, runner])
-        await refresh(runner)
-      }
-      return
-    }
-    return
-  }
-
-  async function handleRepair(appName: string) {
-    const { response } = await window.api.openMessageBox({
-      buttons: [t('box.yes'), t('box.no')],
-      message: t('box.repair.message'),
-      title: t('box.repair.title')
-    })
-
-    if (response === 0) {
-      await handleGameStatus({ appName, runner, status: 'repairing' })
-      await repair(appName, runner)
+    if (path) {
+      await handleGameStatus({ appName, runner, status: 'moving' })
+      await window.api.moveInstall([appName, path, runner])
       await handleGameStatus({ appName, runner, status: 'done' })
     }
+  }
+
+  function handleMoveInstall() {
+    showDialogModal({
+      showDialog: true,
+      message: t('box.move.message'),
+      title: t('box.move.title'),
+      buttons: [t('box.yes'), t('box.no')],
+      buttonsOnClick: [
+        onMoveInstallYesClick,
+        /*eslint-disable-next-line @typescript-eslint/no-empty-function*/
+        () => {}
+      ]
+    })
+  }
+
+  async function onChangeInstallYesClick() {
+    const { defaultInstallPath }: AppSettings =
+      await window.api.requestSettings('default')
+    const { path } = await window.api.openDialog({
+      buttonLabel: t('box.choose'),
+      properties: ['openDirectory'],
+      title: t('box.change.path'),
+      defaultPath: defaultInstallPath
+    })
+    if (path) {
+      await window.api.changeInstallPath([appName, path, runner])
+      await refresh(runner)
+    }
+  }
+
+  function handleChangeInstall() {
+    showDialogModal({
+      showDialog: true,
+      message: t('box.change.message'),
+      title: t('box.change.title'),
+      buttons: [t('box.yes'), t('box.no')],
+      buttonsOnClick: [
+        onChangeInstallYesClick,
+        /*eslint-disable-next-line @typescript-eslint/no-empty-function*/
+        () => {}
+      ]
+    })
+  }
+
+  async function onRepairYesClick(appName: string) {
+    await handleGameStatus({ appName, runner, status: 'repairing' })
+    await repair(appName, runner)
+    await handleGameStatus({ appName, runner, status: 'done' })
+  }
+
+  function handleRepair(appName: string) {
+    showDialogModal({
+      showDialog: true,
+      message: t('box.repair.message'),
+      title: t('box.repair.title'),
+      buttons: [t('box.yes'), t('box.no')],
+      buttonsOnClick: [
+        async () => onRepairYesClick(appName),
+        /*eslint-disable-next-line @typescript-eslint/no-empty-function*/
+        () => {}
+      ]
+    })
   }
 
   function handleShortcuts() {

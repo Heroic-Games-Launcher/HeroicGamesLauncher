@@ -39,7 +39,8 @@ const GameMode = () => {
             () => {
               setEacRuntime(!eacRuntime)
             },
-            'CLOSE'
+            /*eslint-disable-next-line @typescript-eslint/no-empty-function*/
+            () => {}
           ]
         })
       }

@@ -78,11 +78,11 @@ export interface ContextType {
 }
 
 export type DialogModalOptions = {
-  showDialog: boolean
+  showDialog?: boolean
   title?: string
   message?: string
   buttons?: Array<string>
-  buttonsOnClick?: Array<(() => void) | 'CLOSE'>
+  buttonsOnClick?: Array<() => void>
   isError?: boolean
 }
 
