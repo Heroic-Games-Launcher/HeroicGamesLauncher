@@ -373,6 +373,7 @@
         "legendary-version": "Phiên bản Legendary ",
         "weblate": "Giúp dịch Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Sử dụng GOGDL binary tích hợp sẵn...",
         "alt-legendary-bin": "Sử dụng Legendary binary tích hợp sẵn...",

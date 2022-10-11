@@ -373,6 +373,7 @@
         "legendary-version": "Legendary 版本： ",
         "weblate": "帮助翻译 Heroic。"
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",

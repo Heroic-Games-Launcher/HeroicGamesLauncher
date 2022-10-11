@@ -373,6 +373,7 @@
         "legendary-version": "Legendary Version: ",
         "weblate": "Help Improve this translation."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
@@ -513,7 +514,7 @@
             "advanced": "Advanced",
             "general": "",
             "log": "Log",
-            "other": "",
+            "Other": "Other",
             "sync": "",
             "wineExt": "Wine Extensions"
         },

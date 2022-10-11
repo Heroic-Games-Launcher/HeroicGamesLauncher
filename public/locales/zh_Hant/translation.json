@@ -373,6 +373,7 @@
         "legendary-version": "Legendary 版本: ",
         "weblate": "請幫助翻譯Heroic啟動器。"
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "使用內置的 GOGDL 二進制文件...",
         "alt-legendary-bin": "使用內置的 Legendary 二進制文件...",

@@ -373,6 +373,7 @@
         "legendary-version": "Versión de Legendary: ",
         "weblate": "Axuda a traducir Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Usando o binario de Legendary embebeido...",
