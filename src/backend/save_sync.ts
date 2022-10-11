@@ -11,7 +11,7 @@ import {
   logWarning
 } from './logger/logger'
 import { getGame, getShellPath } from './utils'
-import { realpathSync } from 'graceful-fs'
+import { existsSync, realpathSync } from 'graceful-fs'
 import { app } from 'electron'
 import { quote } from 'shlex'
 
@@ -179,12 +179,14 @@ async function getDefaultGogSavePaths(
       // so no need to run `realpathSync` here
     } else {
       absolutePath = await getShellPath(locationWithVariablesRemoved)
-      try {
-        absolutePath = realpathSync(absolutePath)
-      } catch {
-        logWarning(['Failed to run `realpath` on', `"${absolutePath}"`], {
-          prefix: LogPrefix.Gog
-        })
+      if (existsSync(absolutePath)) {
+        try {
+          absolutePath = realpathSync(absolutePath)
+        } catch {
+          logWarning(['Failed to run `realpath` on', `"${absolutePath}"`], {
+            prefix: LogPrefix.Gog
+          })
+        }
       }
     }
 
