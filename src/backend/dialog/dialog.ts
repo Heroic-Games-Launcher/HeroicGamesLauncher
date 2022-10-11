@@ -1,6 +1,6 @@
 import { LogPrefix, logWarning } from '../logger/logger'
 import { BrowserWindow, dialog } from 'electron'
-import { DialogType, ButtonOptions } from 'common/types'
+import { DialogType, ButtonOptions } from '../../common/types'
 
 const { showErrorBox, showMessageBox } = dialog
 

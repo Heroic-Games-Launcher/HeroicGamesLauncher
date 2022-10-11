@@ -25,7 +25,10 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
     for (let i = 0; i < props.buttons.length; ++i) {
       allButtons.push(
         <button
-          onClick={props.buttons[i].onClick}
+          onClick={() => {
+            props.onClose()
+            props.buttons[i].onClick?.()
+          }}
           className={`button is-secondary outline`}
           key={'messageBoxModalButton_' + i.toString()}
         >

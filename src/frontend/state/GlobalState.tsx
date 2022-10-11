@@ -732,7 +732,6 @@ export class GlobalState extends PureComponent<Props> {
           setSideBarCollapsed: this.setSideBarCollapsed,
           setPrimaryFontFamily: this.setPrimaryFontFamily,
           setSecondaryFontFamily: this.setSecondaryFontFamily,
-          dialogModalOptions: this.state.dialogModalOptions,
           showDialogModal: this.handleShowDialogModal,
           showResetDialog: this.showResetDialog
         }}

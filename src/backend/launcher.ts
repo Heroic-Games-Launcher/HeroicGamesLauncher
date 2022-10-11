@@ -48,7 +48,7 @@ import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { Game } from './games'
 import { isOnline } from './online_monitor'
-import { showErrorBoxModalAuto } from './dialog/dialog'
+import { showDialogBoxModalAuto } from './dialog/dialog'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -151,7 +151,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
   // Verify that a Wine binary is set
   // This happens when there aren't any Wine versions installed
   if (!gameSettings.wineVersion.bin) {
-    showErrorBoxModalAuto({
+    showDialogBoxModalAuto({
       title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
       error: i18next.t(
         'box.error.wine-not-found.message',
@@ -180,7 +180,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
       )
     )
     if (!bottleExists) {
-      showErrorBoxModalAuto({
+      showDialogBoxModalAuto({
         title: i18next.t(
           'box.error.cx-bottle-not-found.title',
           'CrossOver bottle not found'

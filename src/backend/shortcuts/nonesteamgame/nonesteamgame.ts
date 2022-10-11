@@ -22,7 +22,7 @@ import { app } from 'electron'
 import { isFlatpak, isWindows, tsStore } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
-import { showErrorBoxModalAuto } from '../../dialog/dialog'
+import { showDialogBoxModalAuto } from '../../dialog/dialog'
 
 /**
  * Opens a error dialog in frontend with the error message
@@ -41,7 +41,7 @@ function showErrorInFrontend(props: { gameTitle: string; error: string }) {
     'Error Adding Game to Steam'
   )
 
-  showErrorBoxModalAuto({ title, error })
+  showDialogBoxModalAuto({ title, error })
 }
 
 /**

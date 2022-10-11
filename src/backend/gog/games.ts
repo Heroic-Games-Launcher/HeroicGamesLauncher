@@ -49,7 +49,7 @@ import {
   GogInstallPlatform
 } from 'common/types/gog'
 import { t } from 'i18next'
-import { showErrorBoxModalAuto } from '../dialog/dialog'
+import { showDialogBoxModalAuto } from '../dialog/dialog'
 
 class GOGGame extends Game {
   public appName: string
@@ -336,7 +336,7 @@ class GOGGame extends Game {
         this.logFileLocation,
         `Launch aborted: ${launchPrepFailReason}`
       )
-      showErrorBoxModalAuto({
+      showDialogBoxModalAuto({
         title: t('box.error.launchAborted', 'Launch aborted'),
         error: launchPrepFailReason!
       })
@@ -363,7 +363,7 @@ class GOGGame extends Game {
           this.logFileLocation,
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
-        showErrorBoxModalAuto({
+        showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
           error: wineLaunchPrepFailReason!
         })

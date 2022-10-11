@@ -28,7 +28,7 @@ export default function DialogHandler() {
 
   return (
     <>
-      {
+      {dialogModalOptions.showDialog && (
         <MessageBoxModal
           type={
             dialogModalOptions.type
@@ -40,7 +40,7 @@ export default function DialogHandler() {
           buttons={dialogModalOptions.buttons ? dialogModalOptions.buttons : []}
           onClose={() => showDialogModal({ showDialog: false })}
         />
-      }
+      )}
     </>
   )
 }

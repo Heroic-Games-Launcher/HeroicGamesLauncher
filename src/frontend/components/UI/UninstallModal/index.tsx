@@ -18,7 +18,7 @@ interface UninstallModalProps {
 }
 
 const UninstallModal: React.FC<UninstallModalProps> = function (props) {
-  const { handleGameStatus } = useContext(ContextProvider)
+  const { handleGameStatus, platform } = useContext(ContextProvider)
   const [isWindowsOnLinux, setIsWindowsOnLinux] = useState(false)
   const [winePrefix, setWinePrefix] = useState('')
   const [checkboxChecked, setCheckboxChecked] = useState(false)
@@ -26,22 +26,20 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
   const [showUninstallModal, setShowUninstallModal] = useState(false)
 
   const checkIfWindowsOnLinux = async () => {
-    const platform = await window.api.getPlatform()
-    const {
-      install: { platform: installedplatform }
-    } = await window.api.getGameInfo(props.appName, props.runner)
-
     // This assumes native games are installed should be changed in the future
     // if we add option to install windows games even if native is available
-    if (
-      platform === 'linux' &&
-      installedplatform?.toLowerCase() === 'windows'
-    ) {
-      const wineprefixForGame = (
-        await window.api.getGameSettings(props.appName, props.runner)
-      ).winePrefix
-      setWinePrefix(wineprefixForGame)
-      setIsWindowsOnLinux(true)
+    if (platform === 'linux') {
+      const {
+        install: { platform: installedplatform }
+      } = await window.api.getGameInfo(props.appName, props.runner)
+
+      if (installedplatform?.toLowerCase() === 'windows') {
+        const wineprefixForGame = (
+          await window.api.getGameSettings(props.appName, props.runner)
+        ).winePrefix
+        setWinePrefix(wineprefixForGame)
+        setIsWindowsOnLinux(true)
+      }
     }
     setShowUninstallModal(true)
   }
