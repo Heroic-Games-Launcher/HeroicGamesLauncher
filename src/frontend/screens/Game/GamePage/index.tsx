@@ -256,7 +256,7 @@ export default function GamePage(): JSX.Element | null {
               <ArrowCircleLeftIcon />
             </NavLink>
             <div className="store-icon">
-              {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
+              <StoreLogos runner={runner} />
             </div>
             <div className="game-actions">
               <button className="toggle">
@@ -310,7 +310,7 @@ export default function GamePage(): JSX.Element | null {
                     {t('cloud_save_unsupported', 'Unsupported')}
                   </div>
                 )}
-                {!is_installed && (
+                {!is_installed && !isSideloaded && (
                   <>
                     <div>
                       <b>{t('game.downloadSize', 'Download Size')}:</b>{' '}
@@ -325,18 +325,22 @@ export default function GamePage(): JSX.Element | null {
                 )}
                 {is_installed && (
                   <>
-                    <div>
-                      <b>{t('info.size')}:</b> {install_size}
-                    </div>
+                    {!isSideloaded && (
+                      <div>
+                        <b>{t('info.size')}:</b> {install_size}
+                      </div>
+                    )}
                     <div style={{ textTransform: 'capitalize' }}>
                       <b>
                         {t('info.installedPlatform', 'Installed Platform')}:
                       </b>{' '}
                       {installPlatform === 'osx' ? 'MacOS' : installPlatform}
                     </div>
-                    <div>
-                      <b>{t('info.version')}:</b> {version}
-                    </div>
+                    {!isSideloaded && (
+                      <div>
+                        <b>{t('info.version')}:</b> {version}
+                      </div>
+                    )}
                     <div>
                       <b>{t('info.canRunOffline', 'Online Required')}:</b>{' '}
                       {t(canRunOffline ? 'box.no' : 'box.yes')}
@@ -344,12 +348,12 @@ export default function GamePage(): JSX.Element | null {
                     <div
                       className="clickable"
                       onClick={() =>
-                        install_path !== undefined
-                          ? window.api.openFolder(install_path)
+                        appLocation !== undefined
+                          ? window.api.openFolder(appLocation)
                           : {}
                       }
                     >
-                      <b>{t('info.path')}:</b> {install_path}
+                      <b>{t('info.path')}:</b> {appLocation}
                     </div>
                     {isLinux && !isNative && (
                       <>
@@ -468,11 +472,11 @@ export default function GamePage(): JSX.Element | null {
             </div>
 
             {hasRequirements && showRequirements && (
-              <Dialog onClose={() => setShowRequirements(false)}>
-                <DialogHeader
-                  showCloseButton={true}
-                  onClose={() => setShowRequirements(false)}
-                >
+              <Dialog
+                showCloseButton
+                onClose={() => setShowRequirements(false)}
+              >
+                <DialogHeader onClose={() => setShowRequirements(false)}>
                   <div>{t('game.requirements', 'Requirements')}</div>
                 </DialogHeader>
                 <DialogContent>
