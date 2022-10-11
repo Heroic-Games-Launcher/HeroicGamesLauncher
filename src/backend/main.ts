@@ -74,7 +74,8 @@ import {
   getFirstExistingParentPath,
   getLatestReleases,
   notify,
-  quoteIfNecessary
+  quoteIfNecessary,
+  getShellPath
 } from './utils'
 import {
   configStore,
@@ -1551,9 +1552,7 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('getShellPath', async (event, path) => {
-  return normalize((await execAsync(`echo "${path}"`)).stdout.trim())
-})
+ipcMain.handle('getShellPath', async (event, path) => getShellPath(path))
 
 ipcMain.handle('getRealPath', (event, path) => {
   let resolvedPath = normalize(path)

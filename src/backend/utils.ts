@@ -757,6 +757,9 @@ type NotifyType = {
   body: string
 }
 
+const getShellPath = async (path: string): Promise<string> =>
+  normalize((await execAsync(`echo "${path}"`)).stdout.trim())
+
 export {
   errorHandler,
   execAsync,
@@ -781,5 +784,6 @@ export {
   removeQuoteIfNecessary,
   killPattern,
   detectVCRedist,
-  getGame
+  getGame,
+  getShellPath
 }
