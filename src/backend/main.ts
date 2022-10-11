@@ -700,31 +700,19 @@ ipcMain.handle('getLatestReleases', async () => {
   }
 })
 
-ipcMain.on('clearCache', () => {
+ipcMain.on('clearCache', (event) => {
   clearCache()
-  dialog.showMessageBox(mainWindow, {
-    title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
-    message: i18next.t(
-      'box.cache-cleared.message',
-      'Heroic Cache Was Cleared!'
-    ),
-    buttons: [i18next.t('box.ok', 'Ok')]
-  })
+  event.sender.send(
+    'showDialog',
+    i18next.t('box.cache-cleared.title', 'Cache Cleared'),
+    i18next.t('box.cache-cleared.message', 'Heroic Cache Was Cleared!'),
+    false,
+    [i18next.t('box.ok', 'Ok')]
+  )
 })
 
 ipcMain.on('resetHeroic', async () => {
-  const { response } = await dialog.showMessageBox(mainWindow, {
-    title: i18next.t('box.reset-heroic.question.title', 'Reset Heroic'),
-    message: i18next.t(
-      'box.reset-heroic.question.message',
-      "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
-    ),
-    buttons: [i18next.t('box.no'), i18next.t('box.yes')]
-  })
-
-  if (response === 1) {
-    resetHeroic()
-  }
+  resetHeroic()
 })
 
 ipcMain.on('createNewWindow', async (e, url) =>
@@ -1571,7 +1559,6 @@ import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
-import './dialog/ipc_handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

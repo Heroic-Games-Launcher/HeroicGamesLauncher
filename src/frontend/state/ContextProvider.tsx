@@ -66,7 +66,8 @@ const initialContext: ContextType = {
   setPrimaryFontFamily: () => null,
   setSecondaryFontFamily: () => null,
   dialogModalOptions: { showDialog: false },
-  showDialogModal: () => null
+  showDialogModal: () => null,
+  showResetDialog: () => null
 }
 
 export default React.createContext(initialContext)

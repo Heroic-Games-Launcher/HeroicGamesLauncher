@@ -9,7 +9,7 @@ function showErrorBoxModalAuto(props: {
   error: string
 }) {
   if (props.event) {
-    props.event.sender.send('showErrorDialog', props.title, props.error)
+    props.event.sender.send('showDialog', props.title, props.error, true)
   } else {
     let window: BrowserWindow | null
     try {
@@ -17,7 +17,7 @@ function showErrorBoxModalAuto(props: {
       if (!window) {
         window = BrowserWindow.getAllWindows()[0]
       }
-      window.webContents.send('showErrorDialog', props.title, props.error)
+      window.webContents.send('showDialog', props.title, props.error, true)
     } catch (error) {
       logWarning(['showErrorBoxModalAuto:', error], {
         prefix: LogPrefix.Backend

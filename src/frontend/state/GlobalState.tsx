@@ -276,6 +276,18 @@ export class GlobalState extends PureComponent<Props> {
     })
   }
 
+  showResetDialog = (() => {
+    this.handleShowDialogModal({
+      title: t('box.reset-heroic.question.title', 'Reset Heroic'),
+      message: t(
+        'box.reset-heroic.question.message',
+        "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
+      ),
+      buttons: [t('box.yes'), t('box.no')],
+      buttonsOnClick: [window.api.resetHeroic]
+    })
+  }).bind(this)
+
   handleLibraryTopSection = (value: LibraryTopSectionOptions) => {
     this.setState({ libraryTopSection: value })
   }
@@ -719,7 +731,8 @@ export class GlobalState extends PureComponent<Props> {
           setPrimaryFontFamily: this.setPrimaryFontFamily,
           setSecondaryFontFamily: this.setSecondaryFontFamily,
           dialogModalOptions: this.state.dialogModalOptions,
-          showDialogModal: this.handleShowDialogModal
+          showDialogModal: this.handleShowDialogModal,
+          showResetDialog: this.showResetDialog
         }}
       >
         {this.props.children}

@@ -83,12 +83,18 @@ export const clipboardReadText = async () =>
 export const clipboardWriteText = async (text: string) =>
   ipcRenderer.send('clipboardWriteText', text)
 
-export const handleShowErrorDialog = (
-  onError: (e: Electron.IpcRendererEvent, title: string, error: string) => void
+export const handleShowDialog = (
+  onMessage: (
+    e: Electron.IpcRendererEvent,
+    title: string,
+    message: string,
+    isError: boolean,
+    buttons: Array<string>
+  ) => void
 ) => {
-  ipcRenderer.on('showErrorDialog', onError)
+  ipcRenderer.on('showDialog', onMessage)
   return () => {
-    ipcRenderer.removeListener('showErrorDialog', onError)
+    ipcRenderer.removeListener('showDialog', onMessage)
   }
 }
 

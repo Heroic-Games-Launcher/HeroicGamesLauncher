@@ -75,6 +75,7 @@ export interface ContextType {
   setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
   dialogModalOptions: DialogModalOptions
   showDialogModal: (options: DialogModalOptions) => void
+  showResetDialog: () => void
 }
 
 export type DialogModalOptions = {

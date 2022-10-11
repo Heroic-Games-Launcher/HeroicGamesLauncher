@@ -1,45 +1,41 @@
 import ContextProvider from 'frontend/state/ContextProvider'
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import MessageBoxModal from '../Dialog/MessageBoxModal'
 import { ErrorDialog } from './components/ErrorDialog'
 
 export default function DialogHandler() {
   const { dialogModalOptions, showDialogModal } = useContext(ContextProvider)
 
-  const [errorTitle, setErrorTitle] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
-
   useEffect(() => {
-    const onError = (
+    const onMessage = (
       e: Electron.IpcRendererEvent,
       title: string,
-      error: string
+      message: string,
+      isError: boolean,
+      buttons: Array<string>
     ) => {
-      setErrorTitle(title)
-      setErrorMessage(error)
+      showDialogModal({ title, message, isError, buttons })
     }
 
-    const removeHandleShowErrorDialogListener =
-      window.api.handleShowErrorDialog(onError)
+    const removeHandleShowDialogListener =
+      window.api.handleShowDialog(onMessage)
 
     //useEffect unmount
     return () => {
-      removeHandleShowErrorDialogListener()
+      removeHandleShowDialogListener()
     }
   }, [])
 
   const buttonsOnClick: Array<() => void> = []
   if (dialogModalOptions.buttons) {
     for (let i = 0; i < dialogModalOptions.buttons.length; ++i) {
-      if (!dialogModalOptions.buttonsOnClick) {
-        break
-      }
-      /*eslint-disable @typescript-eslint/no-empty-function*/
+      /* eslint-disable @typescript-eslint/no-empty-function */
       const val =
+        dialogModalOptions.buttonsOnClick &&
         i < dialogModalOptions.buttonsOnClick.length
           ? dialogModalOptions.buttonsOnClick[i]
           : () => {}
-      /*eslint-enable @typescript-eslint/no-empty-function*/
+      /* eslint-enable @typescript-eslint/no-empty-function */
       buttonsOnClick.push(() => {
         val()
         showDialogModal({ showDialog: false })
@@ -52,8 +48,8 @@ export default function DialogHandler() {
       {dialogModalOptions.showDialog &&
         (dialogModalOptions.isError ? (
           <ErrorDialog
-            title={errorTitle}
-            error={errorMessage}
+            title={dialogModalOptions.title ? dialogModalOptions.title : ''}
+            error={dialogModalOptions.message ? dialogModalOptions.message : ''}
             onClose={() => showDialogModal({ showDialog: false })}
           />
         ) : (
