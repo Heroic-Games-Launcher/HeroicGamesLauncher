@@ -1,4 +1,4 @@
-import { WineInstallation } from 'common/types'
+import { DialogType, WineInstallation } from 'common/types'
 import * as axios from 'axios'
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
@@ -93,10 +93,11 @@ export const DXVK = {
           })
           showDialogBoxModalAuto({
             title: i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
-            error: i18next.t(
+            message: i18next.t(
               'box.error.dxvk.message',
               'Error installing DXVK/VKD3D! Check your connection!'
-            )
+            ),
+            type: DialogType.ERROR
           })
         })
     })
@@ -276,12 +277,13 @@ export const Winetricks = {
         showDialogBoxModalAuto({
           event,
           title: i18next.t('box.error.winetricks.title', 'Winetricks error'),
-          error: i18next.t('box.error.winetricks.message', {
+          message: i18next.t('box.error.winetricks.message', {
             defaultValue:
               'Winetricks returned the following error during execution:{{newLine}}{{error}}',
             newLine: '\n',
             error: `${error}`
-          })
+          }),
+          type: DialogType.ERROR
         })
         clearInterval(sendProgress)
         resolve()

@@ -141,11 +141,9 @@ export default function GamesSubmenu({
       showDialog: true,
       message: t('box.move.message'),
       title: t('box.move.title'),
-      buttons: [t('box.yes'), t('box.no')],
-      buttonsOnClick: [
-        onMoveInstallYesClick,
-        /*eslint-disable-next-line @typescript-eslint/no-empty-function*/
-        () => {}
+      buttons: [
+        { text: t('box.yes'), onClick: onMoveInstallYesClick },
+        { text: t('box.no') }
       ]
     })
   }
@@ -170,11 +168,9 @@ export default function GamesSubmenu({
       showDialog: true,
       message: t('box.change.message'),
       title: t('box.change.title'),
-      buttons: [t('box.yes'), t('box.no')],
-      buttonsOnClick: [
-        onChangeInstallYesClick,
-        /*eslint-disable-next-line @typescript-eslint/no-empty-function*/
-        () => {}
+      buttons: [
+        { text: t('box.yes'), onClick: onChangeInstallYesClick },
+        { text: t('box.no') }
       ]
     })
   }
@@ -190,11 +186,9 @@ export default function GamesSubmenu({
       showDialog: true,
       message: t('box.repair.message'),
       title: t('box.repair.title'),
-      buttons: [t('box.yes'), t('box.no')],
-      buttonsOnClick: [
-        async () => onRepairYesClick(appName),
-        /*eslint-disable-next-line @typescript-eslint/no-empty-function*/
-        () => {}
+      buttons: [
+        { text: t('box.yes'), onClick: async () => onRepairYesClick(appName) },
+        { text: t('box.no') }
       ]
     })
   }

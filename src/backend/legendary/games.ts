@@ -1,3 +1,4 @@
+import { DialogType } from './../../common/types'
 import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
@@ -584,7 +585,8 @@ class LegendaryGame extends Game {
       )
       showDialogBoxModalAuto({
         title: t('box.error.launchAborted', 'Launch aborted'),
-        error: launchPrepFailReason!
+        message: launchPrepFailReason!,
+        type: DialogType.ERROR
       })
       return false
     }
@@ -616,7 +618,8 @@ class LegendaryGame extends Game {
         )
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
-          error: wineLaunchPrepFailReason!
+          message: wineLaunchPrepFailReason!,
+          type: DialogType.ERROR
         })
         return false
       }

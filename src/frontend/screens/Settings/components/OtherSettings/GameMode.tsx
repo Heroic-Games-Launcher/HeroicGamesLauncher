@@ -34,13 +34,14 @@ const GameMode = () => {
             'settings.gameMode.eacRuntimeEnabled.message',
             "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?"
           ),
-          buttons: [t('box.yes'), t('box.no')],
-          buttonsOnClick: [
-            () => {
-              setEacRuntime(!eacRuntime)
+          buttons: [
+            {
+              text: t('box.yes'),
+              onClick: () => {
+                setEacRuntime(!eacRuntime)
+              }
             },
-            /*eslint-disable-next-line @typescript-eslint/no-empty-function*/
-            () => {}
+            { text: t('box.no') }
           ]
         })
       }

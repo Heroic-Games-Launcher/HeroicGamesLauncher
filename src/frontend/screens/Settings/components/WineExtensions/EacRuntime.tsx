@@ -31,11 +31,12 @@ const EacRuntime = () => {
               'settings.eacRuntime.gameModeRequired.title',
               'GameMode required'
             ),
-            buttons: [t('box.yes'), t('box.no')],
-            buttonsOnClick: [
-              () => setUseGameMode(!useGameMode),
-              /*eslint-disable-next-line @typescript-eslint/no-empty-function*/
-              () => {}
+            buttons: [
+              {
+                text: t('box.yes'),
+                onClick: () => setUseGameMode(!useGameMode)
+              },
+              { text: t('box.no') }
             ]
           })
         }

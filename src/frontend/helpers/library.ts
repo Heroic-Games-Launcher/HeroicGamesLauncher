@@ -170,21 +170,24 @@ async function handleStopInstallation(
     title: t('gamepage:box.stopInstall.title'),
     message: t('gamepage:box.stopInstall.message'),
     buttons: [
-      t('gamepage:box.stopInstall.keepInstalling'),
-      t('box.yes'),
-      t('box.no')
-    ],
-    buttonsOnClick: [
-      /*eslint-disable-next-line @typescript-eslint/no-empty-function*/
-      () => {},
-      () => {
-        storage.setItem(appName, JSON.stringify({ ...progress, folder: path }))
-        sendKill(appName, runner)
+      { text: t('gamepage:box.stopInstall.keepInstalling') },
+      {
+        text: t('box.yes'),
+        onClick: () => {
+          storage.setItem(
+            appName,
+            JSON.stringify({ ...progress, folder: path })
+          )
+          sendKill(appName, runner)
+        }
       },
-      async () => {
-        await sendKill(appName, runner)
-        storage.removeItem(appName)
-        window.api.removeFolder([path, folderName])
+      {
+        text: t('box.no'),
+        onClick: async () => {
+          await sendKill(appName, runner)
+          storage.removeItem(appName)
+          window.api.removeFolder([path, folderName])
+        }
       }
     ]
   })
@@ -216,19 +219,24 @@ const launch = async ({
       showDialogModal({
         message: t('gamepage:box.update.message'),
         title: t('gamepage:box.update.title'),
-        buttons: [t('gamepage:box.yes'), t('box.no')],
-        buttonsOnClick: [
-          async () => {
-            await updateGame(appName, runner)
-            res()
+        buttons: [
+          {
+            text: t('gamepage:box.yes'),
+            onClick: async () => {
+              await updateGame(appName, runner)
+              res()
+            }
           },
-          async () => {
-            await window.api.launch({
-              appName,
-              runner,
-              launchArguments: '--skip-version-check'
-            })
-            res()
+          {
+            text: t('box.no'),
+            onClick: async () => {
+              await window.api.launch({
+                appName,
+                runner,
+                launchArguments: '--skip-version-check'
+              })
+              res()
+            }
           }
         ]
       })

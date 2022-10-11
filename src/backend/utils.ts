@@ -5,7 +5,8 @@ import {
   WineInstallation,
   RpcClient,
   SteamRuntime,
-  Release
+  Release,
+  DialogType
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -314,10 +315,11 @@ async function errorHandler(
           logError(noSpaceMsg, { prefix: LogPrefix.Backend })
           return showDialogBoxModalAuto({
             title: i18next.t('box.error.diskspace.title', 'No Space'),
-            error: i18next.t(
+            message: i18next.t(
               'box.error.diskspace.message',
               'Not enough available disk space'
-            )
+            ),
+            type: DialogType.ERROR
           })
         }
       })
@@ -349,10 +351,11 @@ async function errorHandler(
       if (error.includes(message)) {
         return showDialogBoxModalAuto({
           title: plat,
-          error: i18next.t(
+          message: i18next.t(
             'box.error.credentials.message',
             'Your Crendentials have expired, Logout and Login Again!'
-          )
+          ),
+          type: DialogType.ERROR
         })
       }
     })

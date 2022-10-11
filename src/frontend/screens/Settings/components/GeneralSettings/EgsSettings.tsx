@@ -13,6 +13,7 @@ import {
   TextInputWithIconField,
   ToggleSwitch
 } from 'frontend/components/UI'
+import { DialogType } from 'common/types'
 
 const EgsSettings = () => {
   const { t } = useTranslation()
@@ -48,7 +49,7 @@ const EgsSettings = () => {
         setIsSyncing(false)
         showDialogModal({
           showDialog: true,
-          isError: true,
+          type: DialogType.ERROR,
           message: t('box.sync.error'),
           title: t('box.error.title', 'Error')
         })

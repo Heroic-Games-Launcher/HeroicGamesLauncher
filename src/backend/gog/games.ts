@@ -17,7 +17,8 @@ import {
   GameSettings,
   ExecResult,
   InstallArgs,
-  InstalledInfo
+  InstalledInfo,
+  DialogType
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {
@@ -338,7 +339,8 @@ class GOGGame extends Game {
       )
       showDialogBoxModalAuto({
         title: t('box.error.launchAborted', 'Launch aborted'),
-        error: launchPrepFailReason!
+        message: launchPrepFailReason!,
+        type: DialogType.ERROR
       })
       return false
     }
@@ -365,7 +367,8 @@ class GOGGame extends Game {
         )
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
-          error: wineLaunchPrepFailReason!
+          message: wineLaunchPrepFailReason!,
+          type: DialogType.ERROR
         })
         return false
       }

@@ -1,3 +1,4 @@
+import { DialogType } from 'common/types'
 import { dialog, shell, nativeImage } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import { t } from 'i18next'
@@ -51,10 +52,11 @@ autoUpdater.on('update-downloaded', async () => {
 autoUpdater.on('error', (error) => {
   showDialogBoxModalAuto({
     title: t('box.error.update.title', 'Update Error'),
-    error: t(
+    message: t(
       'box.error.update.message',
       'Something went wrong with the update, please check the logs or try again later!'
-    )
+    ),
+    type: DialogType.ERROR
   })
   logError(['failed to update', error], { prefix: LogPrefix.Backend })
 })
