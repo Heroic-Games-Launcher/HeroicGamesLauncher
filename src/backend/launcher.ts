@@ -472,7 +472,11 @@ async function runWineCommand({
     mkdirSync(winePrefix, { recursive: true })
   }
 
-  if (['exe', 'msi', 'bat'].includes(command.split('.')[1])) {
+  if (
+    ['exe', 'msi', 'bat'].includes(
+      command.split('.')[command.split('.').length - 1]
+    )
+  ) {
     command = quoteIfNecessary(command)
   }
 
@@ -481,13 +485,6 @@ async function runWineCommand({
     ...setupEnvVars(settings),
     ...setupWineEnvVars(settings, installFolderName)
   }
-
-  console.log({
-    env: {
-      ...setupEnvVars(settings),
-      ...setupWineEnvVars(settings, installFolderName)
-    }
-  })
 
   let additional_command = ''
   if (wineVersion.type === 'proton') {
@@ -521,6 +518,8 @@ async function runWineCommand({
   logDebug(['Running Wine command:', finalCommand], {
     prefix: LogPrefix.Backend
   })
+
+  console.log({ command, winePrefix })
 
   return execAsync(finalCommand, { env: env_vars })
     .then((response) => {

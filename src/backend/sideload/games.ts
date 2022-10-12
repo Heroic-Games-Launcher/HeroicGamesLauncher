@@ -13,7 +13,7 @@ import {
   execOptions,
   heroicGamesConfigPath
 } from '../constants'
-import { execAsync, killPattern, notify } from '../utils'
+import { execAsync, killPattern, notify, quoteIfNecessary } from '../utils'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { dirname, join } from 'path'
 import { constants as FS_CONSTANTS, existsSync, rmSync } from 'graceful-fs'
@@ -108,13 +108,12 @@ export async function launchApp(appName: string): Promise<boolean> {
         })
         await chmod(executable, 0o775)
       }
-      const { stderr, stdout } = await execAsync(`${executable}`, {
+      await execAsync(`${quoteIfNecessary(executable)} ${launcherArgs}`, {
         env
       })
       // TODO: check and revert to previous permissions
       await chmod(executable, 0o664)
 
-      console.log({ stderr, stdout })
       return true
     }
 
