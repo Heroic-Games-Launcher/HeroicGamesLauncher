@@ -7,7 +7,7 @@ import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { WineInstallation } from 'common/types'
-import { defaultWineVersion } from '../WineSettings'
+import { defaultWineVersion } from '../WineSettings/constants'
 import { LocationState } from 'frontend/types'
 
 const SteamRuntime = () => {

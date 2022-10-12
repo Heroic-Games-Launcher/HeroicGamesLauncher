@@ -6,7 +6,7 @@ import { configStore } from 'frontend/helpers/electronStores'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../../SettingsContext'
-import { defaultWineVersion } from '../WineSettings'
+import { defaultWineVersion } from '../WineSettings/constants'
 import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
 

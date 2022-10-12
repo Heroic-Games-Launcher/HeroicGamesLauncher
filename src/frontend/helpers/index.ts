@@ -9,7 +9,6 @@ import {
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo } from 'common/types/gog'
 
-import { install, launch, repair, updateGame } from './library'
 import fileSize from 'filesize'
 const readFile = window.api.readConfig
 
@@ -266,15 +265,11 @@ export {
   getProgress,
   getAppSettings,
   handleQuit,
-  install,
-  launch,
   loginPage,
   notify,
   openDiscordLink,
-  repair,
   sendKill,
   sidInfoPage,
   syncSaves,
-  updateGame,
   writeConfig
 }

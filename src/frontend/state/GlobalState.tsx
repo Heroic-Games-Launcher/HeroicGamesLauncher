@@ -17,8 +17,6 @@ import { TFunction, withTranslation } from 'react-i18next'
 import {
   getLegendaryConfig,
   getPlatform,
-  install,
-  launch,
   notify
 } from '../helpers'
 import { i18n, t } from 'i18next'
@@ -33,6 +31,7 @@ import {
   libraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
+import { install, launch } from 'frontend/helpers/library'
 
 const storage: Storage = window.localStorage
 

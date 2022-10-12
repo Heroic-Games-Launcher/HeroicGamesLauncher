@@ -8,11 +8,9 @@ import {
   getGameInfo,
   getInstallInfo,
   getProgress,
-  launch,
   sendKill,
   size,
-  syncSaves,
-  updateGame
+  syncSaves
 } from 'frontend/helpers'
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -29,7 +27,7 @@ import {
   TimeContainer
 } from './components'
 import { InstallModal } from 'frontend/screens/Library/components'
-import { install } from 'frontend/helpers/library'
+import { install, launch, updateGame } from 'frontend/helpers/library'
 import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

@@ -29,10 +29,10 @@ import {
   getGameInfo,
   getInstallInfo,
   getProgress,
-  install,
   size,
   writeConfig
 } from 'frontend/helpers'
+import {install} from 'frontend/helpers/library'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
   AppSettings,

@@ -4,10 +4,10 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { AppSettings, GameStatus, Runner } from 'common/types'
 
-import { createNewWindow, repair } from 'frontend/helpers'
+import { createNewWindow } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { uninstall } from 'frontend/helpers/library'
+import { repair, uninstall } from 'frontend/helpers/library'
 import { NavLink } from 'react-router-dom'
 
 import { CircularProgress } from '@mui/material'
