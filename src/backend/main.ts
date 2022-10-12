@@ -1002,6 +1002,7 @@ ipcMain.handle(
       game.logFileLocation,
       'System Info:\n' +
         `${systemInfo}\n` +
+        '\n' +
         `Game Settings: ${gameSettingsString}\n` +
         '\n' +
         `Game launched at: ${startPlayingDate}\n` +
