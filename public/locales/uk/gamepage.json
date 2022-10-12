@@ -56,14 +56,12 @@
     "game": {
         "downloadSize": "Розмір завантаження",
         "firstPlayed": "Вперше зіграно",
-        "info": "Info",
         "installSize": "Розмір встановлення",
         "language": "Мова",
         "lastPlayed": "Востаннє зіграно",
         "neverPlayed": "Ніколи",
         "platform": "Оберіть версію платформи для встановлення",
         "requirements": "Системні вимоги",
-        "tools": "Інструменти",
         "totalPlayed": "Зіграно часу"
     },
     "gamecard": {

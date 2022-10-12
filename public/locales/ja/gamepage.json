@@ -56,14 +56,12 @@
     "game": {
         "downloadSize": "ダウンロードサイズ",
         "firstPlayed": "最初にプレイした",
-        "info": "Info",
         "installSize": "インストールサイズ",
         "language": "Language",
         "lastPlayed": "最後にプレイした",
         "neverPlayed": "一度もない",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "tools": "Tools",
         "totalPlayed": "プレイ時間"
     },
     "gamecard": {
