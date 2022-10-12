@@ -6,10 +6,10 @@
   font-family: var(--secondary-font-family);
   border-radius: var(--space-3xs);
   color: var(--text-tertiary);
-  background-color: var(--primary);
-  padding: 10px;
+  background-color: var(--accent);
+  padding: var(--space-xs);
   border: none;
-  margin: 0 24px;
+  margin: 0 var(--space-lg);
   cursor: pointer;
   text-transform: uppercase;
   transition: 300ms;
@@ -17,7 +17,7 @@
 
 .sideloadGameButton:hover,
 .sideloadGameButton:focus-within {
-  background-color: var(--primary-hover);
+  background-color: var(--accent-overlay);
 }
 
 .numberOfgames {
