@@ -1,4 +1,4 @@
-import { AppSettings, GamepadActionStatus } from 'common/types'
+import { AppSettings, GamepadActionStatus } from '/src/common/types'
 import {
   checkGameCube,
   checkPS3,
@@ -192,7 +192,7 @@ export const initGamepad = () => {
     if (!el) return false
 
     // only change this if you change the id of the input element
-    // in frontend/components/UI/SearchBar/index.tsx
+    // in /src/frontend/components/UI/SearchBar/index.tsx
     return el.id === 'search'
   }
 

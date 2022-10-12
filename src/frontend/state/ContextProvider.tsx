@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ContextType } from 'frontend/types'
+import { ContextType } from '/src/frontend/types'
 
 const initialContext: ContextType = {
   category: 'legendary',

@@ -5,8 +5,8 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader
-} from 'frontend/components/UI/Dialog'
-import { ButtonOptions, DialogType } from 'common/types'
+} from '/src/frontend/components/UI/Dialog'
+import { ButtonOptions, DialogType } from '/src/common/types'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 

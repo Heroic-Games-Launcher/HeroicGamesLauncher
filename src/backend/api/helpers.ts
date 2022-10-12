@@ -4,7 +4,7 @@ import {
   InstallPlatform,
   ConnectivityChangedCallback,
   ConnectivityStatus
-} from '../../common/types'
+} from '/src/common/types'
 
 export const notify = (notification: string[]) =>
   ipcRenderer.send('Notify', notification)

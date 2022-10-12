@@ -5,12 +5,12 @@ import {
   GameStatus,
   InstallProgress,
   Runner
-} from 'common/types'
+} from '/src/common/types'
 
 import { TFunction } from 'react-i18next'
 import { getGameInfo, sendKill } from './index'
 import { configStore } from './electronStores'
-import { DialogModalOptions } from 'frontend/types'
+import { DialogModalOptions } from '/src/frontend/types'
 
 const storage: Storage = window.localStorage
 

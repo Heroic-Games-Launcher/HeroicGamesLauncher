@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import electron from 'vite-plugin-electron'
 import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
-import tsconfigPaths from 'vite-tsconfig-paths'
 import path from 'path'
 
 export default defineConfig({
@@ -11,6 +10,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      '/src/': path.resolve(__dirname, './src'),
       '~@fontsource': path.resolve(__dirname, 'node_modules/@fontsource')
     }
   },
@@ -26,7 +26,6 @@ export default defineConfig({
         }
       }
     }),
-    svgr(),
-    tsconfigPaths({ loose: true })
+    svgr()
   ]
 })

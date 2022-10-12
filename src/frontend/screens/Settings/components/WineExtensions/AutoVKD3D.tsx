@@ -1,11 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { ToggleSwitch } from '/src/frontend/components/UI'
+import useSetting from '/src/frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { WineInstallation } from 'common/types'
-import { configStore } from 'frontend/helpers/electronStores'
+import { WineInstallation } from '/src/common/types'
+import { configStore } from '/src/frontend/helpers/electronStores'
 import { defaultWineVersion } from '../WineSettings'
 
 const AutoVKD3D = () => {

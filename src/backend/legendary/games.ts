@@ -1,4 +1,3 @@
-import { DialogType } from './../../common/types'
 import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
@@ -8,8 +7,9 @@ import {
   ExtraInfo,
   GameInfo,
   InstallArgs,
-  InstallPlatform
-} from 'common/types'
+  InstallPlatform,
+  DialogType
+} from '/src/common/types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'

@@ -1,12 +1,12 @@
-import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
-import { LegendaryInstallInfo } from 'common/types/legendary'
+import { GOGCloudSavesLocation, GogInstallInfo } from '/src/common/types/gog'
+import { LegendaryInstallInfo } from '/src/common/types/legendary'
 import {
   ExecResult,
   ExtraInfo,
   GameInfo,
   GameSettings,
   InstallArgs
-} from 'common/types'
+} from '/src/common/types'
 
 import { BrowserWindow } from 'electron'
 import { join } from 'path'

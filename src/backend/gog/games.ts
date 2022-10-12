@@ -19,7 +19,7 @@ import {
   InstallArgs,
   InstalledInfo,
   DialogType
-} from 'common/types'
+} from '/src/common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {
   heroicGamesConfigPath,
@@ -48,7 +48,7 @@ import {
   GOGCloudSavesLocation,
   GogInstallInfo,
   GogInstallPlatform
-} from 'common/types/gog'
+} from '/src/common/types/gog'
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 

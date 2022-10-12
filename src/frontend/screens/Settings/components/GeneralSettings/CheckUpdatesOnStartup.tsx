@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { ToggleSwitch } from '/src/frontend/components/UI'
+import useSetting from '/src/frontend/hooks/useSetting'
 import { useTranslation } from 'react-i18next'
 
 const CheckUpdatesOnStartup = () => {

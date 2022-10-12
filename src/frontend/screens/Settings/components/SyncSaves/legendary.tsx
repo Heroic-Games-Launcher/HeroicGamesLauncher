@@ -9,15 +9,15 @@ import {
   SelectField,
   TextInputWithIconField,
   ToggleSwitch
-} from 'frontend/components/UI'
+} from '/src/frontend/components/UI'
 import {
   fixLegendarySaveFolder,
   getGameInfo,
   syncSaves
-} from 'frontend/helpers'
-import ContextProvider from 'frontend/state/ContextProvider'
-import { Path, SyncType } from 'frontend/types'
-import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
+} from '/src/frontend/helpers'
+import ContextProvider from '/src/frontend/state/ContextProvider'
+import { Path, SyncType } from '/src/frontend/types'
+import { ProgressDialog } from '/src/frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 
 interface Props {

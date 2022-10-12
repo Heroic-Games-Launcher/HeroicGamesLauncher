@@ -7,7 +7,7 @@ import {
   SteamRuntime,
   Release,
   DialogType
-} from 'common/types'
+} from '/src/common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, spawnSync } from 'child_process'
@@ -486,7 +486,7 @@ async function getSteamRuntime(
   const steamLibraries = await getSteamLibraries()
   const runtimeTypes: SteamRuntime[] = [
     {
-      path: 'steamapps/common/SteamLinuxRuntime_soldier/run',
+      path: 'steamapps//src/common/SteamLinuxRuntime_soldier/run',
       type: 'soldier',
       args: ['--']
     },

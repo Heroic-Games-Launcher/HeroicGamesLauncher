@@ -44,7 +44,7 @@ import {
   LaunchPreperationResult,
   RpcClient,
   DialogType
-} from 'common/types'
+} from '/src/common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { Game } from './games'

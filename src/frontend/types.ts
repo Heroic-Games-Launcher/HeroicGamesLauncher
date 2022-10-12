@@ -8,7 +8,7 @@ import {
   ConnectivityStatus,
   DialogType,
   ButtonOptions
-} from 'common/types'
+} from '/src/common/types'
 
 export type Category = 'all' | 'legendary' | 'gog'
 

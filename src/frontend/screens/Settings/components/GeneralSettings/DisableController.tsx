@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import useSetting from 'frontend/hooks/useSetting'
-import { toggleControllerIsDisabled } from 'frontend/helpers/gamepad'
-import { ToggleSwitch } from 'frontend/components/UI'
+import useSetting from '/src/frontend/hooks/useSetting'
+import { toggleControllerIsDisabled } from '/src/frontend/helpers/gamepad'
+import { ToggleSwitch } from '/src/frontend/components/UI'
 
 const DisableController = () => {
   const { t } = useTranslation()
