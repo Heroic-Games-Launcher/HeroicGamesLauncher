@@ -32,7 +32,7 @@ import {
   size,
   writeConfig
 } from 'frontend/helpers'
-import {install} from 'frontend/helpers/library'
+import { install } from 'frontend/helpers/library'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
   AppSettings,

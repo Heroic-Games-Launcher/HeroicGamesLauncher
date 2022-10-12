@@ -16,7 +16,12 @@ import { getProgress, sendKill } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import fallbackImage from 'frontend/assets/fallback-image.jpg'
-import { install, launch, uninstall, updateGame } from 'frontend/helpers/library'
+import {
+  install,
+  launch,
+  uninstall,
+  updateGame
+} from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../../../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
