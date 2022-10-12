@@ -6,6 +6,7 @@ import { IpcRendererEvent } from 'electron'
 
 export type Runner = 'legendary' | 'gog'
 
+// ********************************
 // here is a way to type the callback function in ipcMain.on or ipcMain.handle
 // does not prevent callbacks with fewer parameters from being passed though
 // the microsoft team is very opposed to enabling the above constraint https://github.com/microsoft/TypeScript/issues/17868
@@ -13,17 +14,19 @@ export type Runner = 'legendary' | 'gog'
 // ipcMain.handle('updateGame', typedCallback<WrapApiFunction<typeof updateGame>>() => {
 // this has the benefit of type checking for the arguments typed in the preload api
 // but may be overly complex for a small benefit
-export function typedCallback<T>(arg: T) {
-  return arg
-}
 
-export type WrapApiFunction<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TFunction extends (...args: any) => any
-> = (
-  e: Electron.IpcMainInvokeEvent,
-  ...args: [...Parameters<TFunction>]
-) => ReturnType<TFunction>
+// export function typedCallback<T>(arg: T) {
+//   return arg
+// }
+
+// export type WrapApiFunction<
+//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   TFunction extends (...args: any) => any
+// > = (
+//   e: Electron.IpcMainInvokeEvent,
+//   ...args: [...Parameters<TFunction>]
+// ) => ReturnType<TFunction>
+// ********************************
 
 export type LaunchParams = {
   appName: string

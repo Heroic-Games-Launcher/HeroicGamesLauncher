@@ -215,6 +215,5 @@ export {
   isCLINoGui,
   publicDir,
   GITHUB_API,
-  wineprefixFAQ,
-  getShell
+  wineprefixFAQ
 }

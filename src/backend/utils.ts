@@ -777,6 +777,5 @@ export {
   removeQuoteIfNecessary,
   killPattern,
   detectVCRedist,
-  getGame,
-  semverGt
+  getGame
 }
