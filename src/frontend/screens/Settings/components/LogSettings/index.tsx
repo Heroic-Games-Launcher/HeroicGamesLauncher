@@ -1,12 +1,11 @@
+import React, { useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { UpdateComponent } from 'frontend/components/UI'
+import SettingsContext from '../../SettingsContext'
 import './index.css'
-
-import { ipcRenderer } from 'frontend/helpers'
 
 interface LogBoxProps {
   logFileContent: string
@@ -59,21 +58,17 @@ const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
   )
 }
 
-interface LogSettingsProps {
-  isDefault: boolean
-  appName: string
-}
-
-export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
+export default function LogSettings() {
   const { t } = useTranslation()
   const [logFileContent, setLogFileContent] = useState<string>('')
   const [logFileExist, setLogFileExist] = useState<boolean>(false)
   const [defaultLast, setDefaultLast] = useState<boolean>(false)
   const [refreshing, setRefreshing] = useState<boolean>(true)
+  const { appName, isDefault } = useContext(SettingsContext)
 
   const getLogContent = () => {
-    ipcRenderer
-      .invoke('getLogContent', {
+    window.api
+      .getLogContent({
         appName: isDefault ? '' : appName,
         defaultLast
       })
@@ -103,7 +98,7 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
   }, [isDefault, defaultLast])
 
   function showLogFileInFolder() {
-    ipcRenderer.send('showLogFileInFolder', {
+    window.api.showLogFileInFolder({
       appName: isDefault ? '' : appName,
       defaultLast
     })
@@ -111,7 +106,7 @@ export default function LogSettings({ isDefault, appName }: LogSettingsProps) {
 
   return (
     <>
-      <h2>{t('setting.log.instructions_title', 'How to report a problem?')}</h2>
+      <h3>{t('setting.log.instructions_title', 'How to report a problem?')}</h3>
       <p className="report-problem-instructions">
         {t(
           'setting.log.instructions',

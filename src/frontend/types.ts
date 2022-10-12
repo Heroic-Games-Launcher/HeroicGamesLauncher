@@ -1,10 +1,13 @@
 import {
+  AppSettings,
   GameInfo,
+  GameSettings,
   GameStatus,
-  HiddenGame,
-  RefreshOptions,
   Runner,
-  WineVersionInfo
+  ConnectivityStatus,
+  WineVersionInfo,
+  HiddenGame,
+  RefreshOptions
 } from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog'
@@ -52,10 +55,6 @@ export interface ContextType {
   setTheme: (themeName: string) => void
   zoomPercent: number
   setZoomPercent: (newZoomPercent: number) => void
-  contentFontFamily: string
-  setContentFontFamily: (newFontFamily: string) => void
-  actionsFontFamily: string
-  setActionsFontFamily: (newFontFamily: string) => void
   epic: {
     library: GameInfo[]
     username: string | null
@@ -73,6 +72,9 @@ export interface ContextType {
   setSideBarCollapsed: (value: boolean) => void
   sidebarCollapsed: boolean
   activeController: string
+  connectivity: { status: ConnectivityStatus; retryIn: number }
+  setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
+  setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
 }
 
 export type LibraryTopSectionOptions =
@@ -91,4 +93,20 @@ declare global {
   interface WindowEventMap {
     'controller-changed': CustomEvent<{ controllerId: string }>
   }
+}
+
+export interface SettingsContextType {
+  getSetting: (key: string) => unknown
+  setSetting: (key: string, value: unknown) => void
+  config: AppSettings | GameSettings | null
+  isDefault: boolean
+  appName: string
+  runner: Runner
+}
+
+export interface LocationState {
+  fromGameCard: boolean
+  runner: Runner
+  isLinuxNative: boolean
+  isMacNative: boolean
 }

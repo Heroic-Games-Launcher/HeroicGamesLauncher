@@ -13,15 +13,14 @@ import {
 import {
   fixLegendarySaveFolder,
   getGameInfo,
-  ipcRenderer,
   syncSaves
 } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Path, SyncType } from 'frontend/types'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
+import SettingsContext from '../../SettingsContext'
 
 interface Props {
-  appName: string
   autoSyncSaves: boolean
   isProton?: boolean
   savesPath: string
@@ -34,7 +33,6 @@ interface Props {
 export default function LegendarySyncSaves({
   savesPath,
   setSavesPath,
-  appName,
   autoSyncSaves,
   setAutoSyncSaves,
   isProton,
@@ -49,6 +47,7 @@ export default function LegendarySyncSaves({
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
+  const { appName } = useContext(SettingsContext)
 
   useEffect(() => {
     const getSyncFolder = async () => {
@@ -77,8 +76,8 @@ export default function LegendarySyncSaves({
       const isNative = isWin || isMacNative
 
       if (!isNative) {
-        const { stdout } = await ipcRenderer
-          .invoke('runWineCommandForGame', {
+        const { stdout } = await window.api
+          .runWineCommandForGame({
             appName,
             runner: 'legendary',
             command: `cmd /c winepath "${folder}"`
@@ -89,12 +88,10 @@ export default function LegendarySyncSaves({
           })
         actualPath = stdout.trim()
       } else {
-        actualPath = await ipcRenderer.invoke('getShellPath', folder)
+        actualPath = await window.api.getShellPath(folder)
       }
 
-      actualPath = isWin
-        ? actualPath
-        : await ipcRenderer.invoke('getRealPath', actualPath)
+      actualPath = isWin ? actualPath : await window.api.getRealPath(actualPath)
 
       const path = savesPath ? savesPath : actualPath
       const fixedPath = isWin
@@ -168,8 +165,8 @@ export default function LegendarySyncSaves({
             onIconClick={
               !isLinked
                 ? async () =>
-                    ipcRenderer
-                      .invoke('openDialog', {
+                    window.api
+                      .openDialog({
                         buttonLabel: t('box.sync.button'),
                         properties: ['openDirectory'],
                         title: t('box.sync.title')

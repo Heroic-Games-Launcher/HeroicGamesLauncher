@@ -15,8 +15,6 @@ import {
   execAsync,
   getSteamRuntime,
   isEpicServiceOffline,
-  isOnline,
-  showErrorBoxModalAuto,
   searchForExecutableOnPath,
   quoteIfNecessary,
   errorHandler,
@@ -49,6 +47,8 @@ import {
 import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { Game } from './games'
+import { isOnline } from './online_monitor'
+import { showErrorBoxModalAuto } from './dialog/dialog'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -151,13 +151,13 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
   // Verify that a Wine binary is set
   // This happens when there aren't any Wine versions installed
   if (!gameSettings.wineVersion.bin) {
-    showErrorBoxModalAuto(
-      i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
-      i18next.t(
+    showErrorBoxModalAuto({
+      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
+      error: i18next.t(
         'box.error.wine-not-found.message',
         'No Wine Version Selected. Check Game Settings!'
       )
-    )
+    })
     return { success: false }
   }
 
@@ -180,17 +180,17 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
       )
     )
     if (!bottleExists) {
-      showErrorBoxModalAuto(
-        i18next.t(
+      showErrorBoxModalAuto({
+        title: i18next.t(
           'box.error.cx-bottle-not-found.title',
           'CrossOver bottle not found'
         ),
-        i18next.t(
+        error: i18next.t(
           'box.error.cx-bottle-not-found.message',
           `The CrossOver bottle "{{bottle_name}}" does not exist, can't launch!`,
           { bottle_name: gameSettings.wineCrossoverBottle }
         )
-      )
+      })
       return { success: false }
     }
   }
@@ -330,20 +330,37 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     }
   }
   if (!gameSettings.preferSystemLibs && wineVersion.type === 'wine') {
-    if (wineVersion.lib32 && wineVersion.lib) {
+    // https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1091-L1093
+    if (!process.env.ORIG_LD_LIBRARY_PATH) {
+      ret.ORIG_LD_LIBRARY_PATH = process.env.LD_LIBRARY_PATH ?? ''
+    }
+
+    const { lib32, lib } = wineVersion
+    if (lib32 && lib) {
       // append wine libs at the beginning
-      ret.LD_LIBRARY_PATH = [
-        wineVersion.lib32,
-        wineVersion.lib,
-        process.env.LD_LIBRARY_PATH
-      ]
+      ret.LD_LIBRARY_PATH = [lib, lib32, process.env.LD_LIBRARY_PATH]
         .filter(Boolean)
         .join(':')
+
+      // https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1099
+      // NOTE: Proton does not make sure that these folders exist first, I believe we should :^)
+      const gstp_path_lib64 = join(lib, 'gstreamer-1.0')
+      const gstp_path_lib32 = join(lib32, 'gstreamer-1.0')
+      if (existsSync(gstp_path_lib64) && existsSync(gstp_path_lib32)) {
+        ret.GST_PLUGIN_SYSTEM_PATH_1_0 = gstp_path_lib64 + ':' + gstp_path_lib32
+      }
+
+      // https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1097
+      const winedll_path_lib64 = join(lib, 'wine')
+      const winedll_path_lib32 = join(lib32, 'wine')
+      if (existsSync(winedll_path_lib64) && existsSync(winedll_path_lib32)) {
+        ret.WINEDLLPATH = winedll_path_lib64 + ':' + winedll_path_lib32
+      }
     } else {
       logError(
         [
           `Couldn't find all library folders of ${wineVersion.name}!`,
-          `Missing ${wineVersion.lib32} or ${wineVersion.lib}!`,
+          `Missing ${lib32} and/or ${lib}!`,
           `Falling back to system libraries!`
         ].join('\n')
       )

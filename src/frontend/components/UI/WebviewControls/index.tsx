@@ -11,9 +11,7 @@ import { WebviewType } from 'common/types'
 import SvgButton from '../SvgButton'
 import './index.css'
 
-import { ipcRenderer } from 'frontend/helpers'
-
-interface WebviewControlsProps {
+export interface WebviewControlsProps {
   webview: WebviewType | null
   initURL: string
   openInBrowser: boolean
@@ -126,7 +124,7 @@ export default function WebviewControls({
           className="WebviewControls__icon"
           title={t('webview.controls.openInBrowser')}
           disabled={!openInBrowser || !url}
-          onClick={() => ipcRenderer.send('openWebviewPage', url)}
+          onClick={() => window.api.openWebviewPage(url)}
         >
           <OpenInBrowser />
         </SvgButton>

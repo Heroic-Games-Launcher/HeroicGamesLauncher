@@ -8,7 +8,7 @@ import {
   Release
 } from 'common/types'
 import * as axios from 'axios'
-import { app, dialog, net, shell, Notification, BrowserWindow } from 'electron'
+import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, spawnSync } from 'child_process'
 import { existsSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
@@ -42,42 +42,11 @@ import {
 } from './gog/electronStores'
 import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
+import { showErrorBoxModalAuto } from './dialog/dialog'
 
 const execAsync = promisify(exec)
 
-const { showErrorBox, showMessageBox } = dialog
-
-export async function showErrorBoxModal(
-  window: BrowserWindow | undefined | null,
-  title: string,
-  message: string
-) {
-  if (window) {
-    await showMessageBox(window, {
-      type: 'error',
-      title,
-      message
-    })
-  } else {
-    await showErrorBox(title, message)
-  }
-}
-
-export function showErrorBoxModalAuto(title: string, message: string) {
-  let window: BrowserWindow | null
-  try {
-    window = BrowserWindow.getFocusedWindow()
-    if (!window) {
-      window = BrowserWindow.getAllWindows()[0]
-    }
-    showErrorBoxModal(window, title, message)
-  } catch (error) {
-    logWarning(['showErrorBoxModalAuto:', error], {
-      prefix: LogPrefix.Backend
-    })
-    showErrorBox(title, message)
-  }
-}
+const { showMessageBox } = dialog
 
 /**
  * Compares 2 SemVer strings following "major.minor.patch".
@@ -124,37 +93,6 @@ function semverGt(target: string, base: string) {
   isGE ||= tmajor === bmajor && tminor > bminor
   isGE ||= tmajor === bmajor && tminor === bminor && tpatch > bpatch
   return isGE
-}
-
-function isOnline() {
-  let online = net.isOnline()
-  if (online) {
-    const hosts = ['google.com', 'store.epicgames.com', 'gog.com']
-    const errors = [] as string[]
-    online = hosts.some((host) => {
-      const args = [host] as string[]
-
-      if (isWindows) {
-        args.push('-n', '1')
-      } else {
-        args.push('-c', '1')
-      }
-
-      const { status, stderr } = spawnSync('ping', args)
-      if (stderr.length) {
-        errors.push(
-          [`Ping of ${host} failed with:`, stderr.toString()].join('\n')
-        )
-      }
-      return status === 0
-    })
-
-    if (!online && errors.length) {
-      logError(errors.join('\n'), { prefix: LogPrefix.Backend })
-    }
-  }
-
-  return online
 }
 
 export const getFileSize = fileSize.partial({ base: 2 })
@@ -373,14 +311,13 @@ async function errorHandler(
       .then(async ({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
           logError(noSpaceMsg, { prefix: LogPrefix.Backend })
-          return showErrorBoxModal(
-            window,
-            i18next.t('box.error.diskspace.title', 'No Space'),
-            i18next.t(
+          return showErrorBoxModalAuto({
+            title: i18next.t('box.error.diskspace.title', 'No Space'),
+            error: i18next.t(
               'box.error.diskspace.message',
               'Not enough available disk space'
             )
-          )
+          })
         }
       })
       .catch(() =>
@@ -409,14 +346,13 @@ async function errorHandler(
 
     otherErrorMessages.forEach(async (message) => {
       if (error.includes(message)) {
-        return showErrorBoxModal(
-          window,
-          plat,
-          i18next.t(
+        return showErrorBoxModalAuto({
+          title: plat,
+          error: i18next.t(
             'box.error.credentials.message',
             'Your Crendentials have expired, Logout and Login Again!'
           )
-        )
+        })
       }
     })
   }
@@ -824,7 +760,6 @@ export {
   errorHandler,
   execAsync,
   handleExit,
-  isOnline,
   isEpicServiceOffline,
   openUrlOrFile,
   showAboutWindow,

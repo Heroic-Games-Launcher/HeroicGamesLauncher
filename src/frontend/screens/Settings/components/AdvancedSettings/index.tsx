@@ -1,5 +1,6 @@
+import React, { useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
-  Backspace,
   CleaningServicesOutlined,
   ContentCopyOutlined,
   DeleteOutline,
@@ -11,46 +12,16 @@ import {
   DeselectOutlined
 } from '@mui/icons-material'
 import classNames from 'classnames'
-import { IpcRenderer, Clipboard } from 'electron'
-import { useTranslation } from 'react-i18next'
-import React, { useContext, useEffect, useState } from 'react'
+import AltLegendaryBin from './AltLegendaryBin'
+import AltGOGdlBin from './AltGOGdlBin'
+import DownloadNoHTTPS from './DownloadNoHTTPS'
+import SettingsContext from '../../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { AppSettings, GameStatus } from 'common/types'
-import { Path } from 'frontend/types'
-import { ToggleSwitch } from 'frontend/components/UI'
-import { configStore } from 'frontend/helpers/electronStores'
-import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { GameStatus } from 'common/types'
 
-interface ElectronProps {
-  ipcRenderer: IpcRenderer
-  clipboard: Clipboard
-}
+export default function AdvancedSettings() {
+  const { config } = useContext(SettingsContext)
 
-const { ipcRenderer, clipboard } = window.require('electron') as ElectronProps
-
-interface Props {
-  altLegendaryBin: string
-  altGogdlBin: string
-  downloadNoHttps: boolean
-  setAltLegendaryBin: (value: string) => void
-  setAltGogdlBin: (value: string) => void
-  toggleDownloadNoHttps: () => void
-  settingsToSave: AppSettings
-}
-
-export default function AdvancedSettings({
-  altLegendaryBin,
-  altGogdlBin,
-  downloadNoHttps,
-  setAltLegendaryBin,
-  setAltGogdlBin,
-  toggleDownloadNoHttps,
-  settingsToSave
-}: Props) {
-  const [legendaryVersion, setLegendaryVersion] = useState('')
-  const [gogdlVersion, setGogdlVersion] = useState('')
   const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
 
   const [eosOverlayInstalled, setEosOverlayInstalled] = useState(false)
@@ -69,11 +40,6 @@ export default function AdvancedSettings({
   const { t } = useTranslation()
   const isWindows = platform === 'win32'
 
-  const settings = configStore.get('settings') as {
-    altLeg: string
-    altGogdl: string
-  }
-
   useEffect(() => {
     // set copied to clipboard status to true if it's not already set to true
     // used for changing text and color
@@ -87,50 +53,8 @@ export default function AdvancedSettings({
   }, [isCopiedToClipboard])
 
   useEffect(() => {
-    const getMoreInfo = async () => {
-      configStore.set('settings', {
-        ...settings,
-        altLeg: altLegendaryBin
-      })
-
-      const legendaryVer = await ipcRenderer.invoke('getLegendaryVersion')
-      if (legendaryVer === 'invalid') {
-        setLegendaryVersion('Invalid')
-        setTimeout(() => {
-          setAltLegendaryBin('')
-          return setLegendaryVersion('')
-        }, 3000)
-      }
-      return setLegendaryVersion(legendaryVer)
-    }
-    getMoreInfo()
-  }, [altLegendaryBin])
-
-  useEffect(() => {
-    const getGogdlVersion = async () => {
-      configStore.set('settings', {
-        ...settings,
-        altGogdl: altGogdlBin
-      })
-      const gogdlVersion = await ipcRenderer.invoke('getGogdlVersion')
-      if (gogdlVersion === 'invalid') {
-        setGogdlVersion('Invalid')
-        setTimeout(() => {
-          setAltGogdlBin('')
-          return setGogdlVersion('')
-        }, 3000)
-      }
-      return setGogdlVersion(gogdlVersion)
-    }
-
-    getGogdlVersion()
-  }, [altGogdlBin])
-
-  useEffect(() => {
     const getEosStatus = async () => {
-      const { isInstalled, version } = await ipcRenderer.invoke(
-        'getEosOverlayStatus'
-      )
+      const { isInstalled, version } = await window.api.getEosOverlayStatus()
       setEosOverlayInstalled(isInstalled)
       setEosOverlayVersion(version)
     }
@@ -139,7 +63,7 @@ export default function AdvancedSettings({
 
   useEffect(() => {
     const getLatestEosOverlayVersion = async () => {
-      const version = await ipcRenderer.invoke('getLatestEosOverlayVersion')
+      const version = await window.api.getLatestEosOverlayVersion()
       setEosOverlayLatestVersion(version)
     }
     getLatestEosOverlayVersion()
@@ -158,39 +82,11 @@ export default function AdvancedSettings({
   useEffect(() => {
     const enabledGlobally = async () => {
       if (isWindows) {
-        setEosOverlayEnabledGlobally(
-          await ipcRenderer.invoke('isEosOverlayEnabled')
-        )
+        setEosOverlayEnabledGlobally(await window.api.isEosOverlayEnabled())
       }
     }
     enabledGlobally()
   }, [eosOverlayEnabledGlobally])
-
-  async function handleLegendaryBinary() {
-    return ipcRenderer
-      .invoke('openDialog', {
-        buttonLabel: t('box.choose'),
-        properties: ['openFile'],
-        title: t(
-          'box.choose-legendary-binary',
-          'Select Legendary Binary (needs restart)'
-        )
-      })
-      .then(({ path }: Path) => setAltLegendaryBin(path ? path : ''))
-  }
-
-  async function handleGogdlBinary() {
-    return ipcRenderer
-      .invoke('openDialog', {
-        buttonLabel: t('box.choose'),
-        properties: ['openFile'],
-        title: t(
-          'box.choose-gogdl-binary',
-          'Select GOGDL Binary (needs restart)'
-        )
-      })
-      .then(({ path }: Path) => setAltGogdlBin(path ? path : ''))
-  }
 
   function getMainEosText() {
     if (eosOverlayInstalled && eosOverlayInstallingOrUpdating)
@@ -220,7 +116,7 @@ export default function AdvancedSettings({
       status: 'installing'
     })
     setEosOverlayInstallingOrUpdating(true)
-    const installError = await ipcRenderer.invoke('installEosOverlay')
+    const installError = await window.api.installEosOverlay()
     await handleGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',
@@ -235,7 +131,7 @@ export default function AdvancedSettings({
   }
 
   async function removeEosOverlay() {
-    const wasRemoved = await ipcRenderer.invoke('removeEosOverlay')
+    const wasRemoved = await window.api.removeEosOverlay()
     setEosOverlayInstalled(!wasRemoved)
   }
 
@@ -246,21 +142,19 @@ export default function AdvancedSettings({
       status: 'updating'
     })
     setEosOverlayInstallingOrUpdating(true)
-    await ipcRenderer.invoke('installEosOverlay')
+    await window.api.installEosOverlay()
     await handleGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',
       status: 'done'
     })
     setEosOverlayInstallingOrUpdating(false)
-    const { version: newVersion } = await ipcRenderer.invoke(
-      'getEosOverlayStatus'
-    )
+    const { version: newVersion } = await window.api.getEosOverlayStatus()
     setEosOverlayVersion(newVersion)
   }
 
   async function cancelEosOverlayInstallOrUpdate() {
-    await ipcRenderer.invoke('cancelEosOverlayInstallOrUpdate')
+    await window.api.cancelEosOverlayInstallOrUpdate()
     await handleGameStatus({
       appName: eosOverlayAppName,
       runner: 'legendary',
@@ -271,18 +165,18 @@ export default function AdvancedSettings({
 
   async function toggleEosOverlay() {
     if (eosOverlayEnabledGlobally) {
-      await ipcRenderer.invoke('disableEosOverlay', '')
+      await window.api.disableEosOverlay('')
       setEosOverlayEnabledGlobally(false)
     } else {
-      const { wasEnabled } = await ipcRenderer.invoke('enableEosOverlay', '')
+      const { wasEnabled } = await window.api.enableEosOverlay('')
       setEosOverlayEnabledGlobally(wasEnabled)
     }
   }
 
   async function checkForEosOverlayUpdates() {
     setEosOverlayCheckingForUpdates(true)
-    await ipcRenderer.invoke('updateEosOverlayInfo')
-    const newVersion = await ipcRenderer.invoke('getLatestEosOverlayVersion')
+    await window.api.updateEosOverlayInfo()
+    const newVersion = await window.api.getLatestEosOverlayVersion()
     setEosOverlayLatestVersion(newVersion)
     setEosOverlayCheckingForUpdates(false)
   }
@@ -290,7 +184,7 @@ export default function AdvancedSettings({
   async function clearHeroicCache() {
     const storage: Storage = window.localStorage
     storage.removeItem('updates')
-    ipcRenderer.send('clearCache')
+    return window.api.clearCache()
     return refreshLibrary({ fullRefresh: true, runInBackground: true })
   }
 
@@ -298,98 +192,14 @@ export default function AdvancedSettings({
     <div>
       <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
 
-      <TextInputWithIconField
-        htmlId="setting-alt-legendary"
-        label={t(
-          'setting.alt-legendary-bin',
-          'Choose an Alternative Legendary Binary  (needs restart)to use'
-        )}
-        placeholder={t(
-          'placeholder.alt-legendary-bin',
-          'Using built-in Legendary binary...'
-        )}
-        value={altLegendaryBin.replaceAll("'", '')}
-        onChange={(event) => setAltLegendaryBin(event.target.value)}
-        icon={
-          !altLegendaryBin.length ? (
-            <FontAwesomeIcon
-              icon={faFolderOpen}
-              data-testid="setLegendaryBinaryButton"
-              style={{
-                color: altLegendaryBin.length ? 'transparent' : 'currentColor'
-              }}
-            />
-          ) : (
-            <Backspace
-              data-testid="setLegendaryBinaryBackspace"
-              style={{ color: 'currentColor' }}
-            />
-          )
-        }
-        onIconClick={
-          !altLegendaryBin.length
-            ? async () => handleLegendaryBinary()
-            : () => setAltLegendaryBin('')
-        }
-        afterInput={
-          <span className="smallMessage">
-            {t('other.legendary-version', 'Legendary Version: ')}
-            {legendaryVersion}
-          </span>
-        }
-      />
+      <AltLegendaryBin />
 
-      <TextInputWithIconField
-        label={t(
-          'setting.alt-gogdl-bin',
-          'Choose an Alternative GOGDL Binary to use (needs restart)'
-        )}
-        htmlId="setting-alt-gogdl"
-        placeholder={t(
-          'placeholder.alt-gogdl-bin',
-          'Using built-in GOGDL binary...'
-        )}
-        value={altGogdlBin.replaceAll("'", '')}
-        onChange={(event) => setAltGogdlBin(event.target.value)}
-        icon={
-          !altGogdlBin.length ? (
-            <FontAwesomeIcon
-              icon={faFolderOpen}
-              data-testid="setGogdlBinaryButton"
-              style={{
-                color: altGogdlBin.length ? 'transparent' : 'currentColor'
-              }}
-            />
-          ) : (
-            <Backspace
-              data-testid="setGogdlBinaryBackspace"
-              style={{ color: '#currentColor' }}
-            />
-          )
-        }
-        onIconClick={
-          !altGogdlBin.length
-            ? async () => handleGogdlBinary()
-            : () => setAltGogdlBin('')
-        }
-        afterInput={
-          <span className="smallMessage">
-            {t('other.gogdl-version', 'GOGDL Version: ')}
-            {gogdlVersion}
-          </span>
-        }
-      />
+      <AltGOGdlBin />
 
-      <ToggleSwitch
-        htmlId="downloadNoHttps"
-        value={downloadNoHttps}
-        handleChange={toggleDownloadNoHttps}
-        title={t(
-          'setting.download-no-https',
-          'Download games without HTTPS (useful for CDNs e.g. LanCache)'
-        )}
-      />
+      <DownloadNoHTTPS />
+
       <hr />
+
       <div className="eosSettings">
         <h3>EOS Overlay</h3>
         <div>{getMainEosText()}</div>
@@ -510,7 +320,9 @@ export default function AdvancedSettings({
             isSuccess: isCopiedToClipboard
           })}
           onClick={() => {
-            clipboard.writeText(JSON.stringify({ ...settingsToSave }, null, 2))
+            window.api.clipboardWriteText(
+              JSON.stringify({ ...config }, null, 2)
+            )
             setCopiedToClipboard(true)
           }}
         >
@@ -544,7 +356,7 @@ export default function AdvancedSettings({
 
         <button
           className="button is-footer is-danger"
-          onClick={() => ipcRenderer.send('resetHeroic')}
+          onClick={() => window.api.resetHeroic()}
         >
           <div className="button-icontext-flex">
             <div className="button-icon-flex">

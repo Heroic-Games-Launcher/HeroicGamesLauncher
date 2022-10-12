@@ -1,14 +1,14 @@
 .currentDownload {
-  font-size: 13px;
-  padding: 16px 0;
+  font-size: var(--text-sm);
+  padding: var(--space-md) 0;
   transition: 300ms;
-  margin-top: 12px;
+  margin-top: var(--space-sm);
 }
 
 .currentDownload > .gameTitle {
-  font-size: 16px;
+  font-size: var(--text-md);
   transition: 600ms;
-  font-weight: 700;
+  font-weight: var(--bold);
 }
 
 .currentDownload:hover > .gameTitle {
@@ -18,11 +18,11 @@
 
 .downloadStatus {
   color: var(--success);
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   font-style: italic;
   font-weight: normal;
-  font-size: 14px;
-  line-height: 12px;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm);
 }
 
 .currentDownload .MuiLinearProgress-bar1Determinate {

@@ -56,14 +56,12 @@
     "game": {
         "downloadSize": "Mida de la baixada",
         "firstPlayed": "Primera partida",
-        "info": "Info",
         "installSize": "Mida d'instal·lació",
         "language": "Idioma",
         "lastPlayed": "Última partida",
         "neverPlayed": "Mai",
         "platform": "Selecciona la versió de la plataforma per instal·lar",
-        "reuirements": "Requeriments del sistema",
-        "tools": "Eines",
+        "requirements": "Requeriments del sistema",
         "totalPlayed": "Temps jugat"
     },
     "gamecard": {

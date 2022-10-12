@@ -7,8 +7,7 @@
   grid-template-areas: 'filters search';
   grid-gap: 8px;
   align-items: start;
-  margin: 0 1rem 24px;
-  padding: 15px 0;
+  padding: var(--space-md);
   background: var(--gradient-body-background);
   color: var(--text-secondary);
 }
@@ -25,6 +24,7 @@
 .Header__filters {
   grid-area: filters;
   display: flex;
+  align-self: center;
 }
 
 .Header__filters .FormControl {

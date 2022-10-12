@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { CircularProgress } from '@mui/material'
-import { fixGogSaveFolder, getGameInfo, ipcRenderer } from 'frontend/helpers'
+import { fixGogSaveFolder, getGameInfo } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
@@ -16,9 +16,9 @@ import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
+import SettingsContext from '../../SettingsContext'
 
 interface Props {
-  appName: string
   gogSaves: GOGCloudSavesLocation[]
   setGogSaves: (saves: GOGCloudSavesLocation[]) => void
   autoSyncSaves: boolean
@@ -27,7 +27,6 @@ interface Props {
 }
 
 export default function GOGSyncSaves({
-  appName,
   gogSaves,
   setGogSaves,
   autoSyncSaves,
@@ -45,13 +44,15 @@ export default function GOGSyncSaves({
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
+  const { appName } = useContext(SettingsContext)
+
   useEffect(() => {
     const getLocations = async () => {
       const {
         gog_save_location,
         install: { platform: installed_platform, install_path }
       } = await getGameInfo(appName, 'gog')
-      const clientId = await ipcRenderer.invoke('getGOGGameClientId', appName)
+      const clientId = await window.api.getGOGGameClientId(appName)
       if (!gog_save_location) {
         return
       }
@@ -86,15 +87,14 @@ export default function GOGSyncSaves({
         )
         let actualPath: string
         if (!isNative) {
-          const { stdout } = await ipcRenderer
-            .invoke('runWineCommandForGame', {
+          const { stdout } = await window.api
+            .runWineCommandForGame({
               appName,
               runner: 'gog',
               command: `cmd /c winepath "${saveLocation}"`
             })
             .catch((error) => {
-              ipcRenderer.invoke(
-                'logError',
+              window.api.logError(
                 `There was an error getting the save path ${error}`
               )
               setIsLoading(false)
@@ -102,12 +102,12 @@ export default function GOGSyncSaves({
             })
           actualPath = stdout.trim()
         } else {
-          actualPath = await ipcRenderer.invoke('getShellPath', saveLocation)
+          actualPath = await window.api.getShellPath(saveLocation)
         }
 
         actualPath = isWin
           ? actualPath
-          : await ipcRenderer.invoke('getRealPath', actualPath)
+          : await window.api.getRealPath(actualPath)
 
         if (locationIndex >= 0 && !locations[locationIndex]?.location.length) {
           locations[locationIndex].location = actualPath
@@ -125,8 +125,8 @@ export default function GOGSyncSaves({
   const handleSync = async () => {
     setIsSyncing(true)
 
-    await ipcRenderer
-      .invoke('syncGOGSaves', gogSaves, appName, syncType)
+    await window.api
+      .syncGOGSaves(gogSaves, appName, syncType)
       .then(async (res: { stderr: string }) => {
         setManuallyOutput(res.stderr.split('\n'))
         setManuallyOutputShow(true)
@@ -192,8 +192,8 @@ export default function GOGSyncSaves({
                 onIconClick={
                   !value.location.length
                     ? async () =>
-                        ipcRenderer
-                          .invoke('openDialog', {
+                        window.api
+                          .openDialog({
                             buttonLabel: t('box.sync.button'),
                             properties: ['openDirectory'],
                             title: t('box.sync.title')

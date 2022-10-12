@@ -18,21 +18,23 @@ import {
   generateShortAppId,
   removeImagesFromSteam
 } from './steamhelper'
-import { app, dialog } from 'electron'
+import { app } from 'electron'
 import { isFlatpak, isWindows, tsStore } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
+import { showErrorBoxModalAuto } from '../../dialog/dialog'
 
 /**
  * Opens a error dialog in frontend with the error message
  * @param props
  */
 function showErrorInFrontend(props: { gameTitle: string; error: string }) {
-  const body = i18next.t('box.error.add.steam.body', {
+  const error = i18next.t('box.error.add.steam.body', {
     defaultValue: 'Adding {{game}} to Steam failed with:{{newLine}} {{error}}',
     game: props.gameTitle,
     newLine: '\n',
-    error: props.error
+    error: props.error,
+    interpolation: { escapeValue: false }
   })
 
   const title = i18next.t(
@@ -40,7 +42,7 @@ function showErrorInFrontend(props: { gameTitle: string; error: string }) {
     'Error Adding Game to Steam'
   )
 
-  dialog.showErrorBox(title, body)
+  showErrorBoxModalAuto({ title, error })
 }
 
 /**

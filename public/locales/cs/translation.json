@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Písmo pro Akce (Výchozí: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Zobrazit všechny dlaždice her barevně",
-        "content_font_family": "Písmo pro Obsah (Výchozí: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Písma",
         "title": "Přístupnost",
         "zoom": "Zoom"
@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Error",
             "uncaught-exception": {
-                "message": "Došlo k nezachycené výjimce:{{newLine}}{{error}}{{newLine}}{{newLine}} Heroic bude ukončen! Nahlaste výjimku v našem repozitáři na Githubu.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Došlo k nezachycené výjimce!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Oblíbené",
     "game": {
         "status": "Status",
@@ -223,6 +224,9 @@
         "preferSystemLibs": "Vlastní verze Wine (Wine-GE, Wine-Lutris) jsou dodávány se závislostmi knihovnami. Povolením této možnosti budou tyto dodávané knihovny ignorovány a Wine místo nich načte systémové knihovny. Pozor! Při nedodržení závislostí může dojít k problémům.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA Resizable Bar pomáhá zvýšit snímkovou frekvenci tím, že umožňuje procesoru přístup k celé grafické vyrovnávací paměti. Povolení může zlepšit výkon her založených na Vulkanu.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Vlastní knihovny poskytované službou Steam, které pomáhají spouštět hry pro Linux a Windows (Proton). Jejich povolení může zlepšit kompatibilitu.",
         "sync": {
             "part1": "Heroic se pokusí uhodnout správnou složku pro ukládání, což bude ve většině případů fungovat. V případě, že je složka špatně, změňte ji pomocí pole přepsání.",
@@ -323,6 +327,12 @@
             "finished": "Aktualizace dokončena",
             "started": "Aktualizace zahájena"
         }
+    },
+    "offline-message": {
+        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "retrying": "Retrying"
     },
     "options": {
         "advanced": {

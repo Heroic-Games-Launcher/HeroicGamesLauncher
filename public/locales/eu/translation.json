@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Ekintzak letra-tipoen familia (lehenetsia: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Erakutsi joko-lauza guztiak koloreekin",
-        "content_font_family": "Edukiaren letra-tipo familia (lehenetsia: \"Kabina\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Letra-tipoak",
         "title": "Erabilerraztasuna",
         "zoom": "Zoom"
@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Errorea",
             "uncaught-exception": {
-                "message": "Harrapatu gabeko salbuespen bat gertatu da:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic itxi egingo da! Salatu salbuespena gure Github biltegian.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Harrapatu gabeko Salbuespena gertatu da!"
             },
             "update": {
@@ -175,6 +175,7 @@
         "offline-notification-title": "lineaz kanpo"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Gogokoenak",
     "game": {
         "status": "Egoera",
@@ -223,6 +224,9 @@
         "preferSystemLibs": "Wine bertsio pertsonalizatuak (Wine-GE, Wine-Lutris) beren liburutegiko mendekotasunekin bidaltzen dira. Aukera hau gaituz gero, bidaltzen diren liburutegi hauek ez ikusi egingo dira eta Wine-k sistemako liburutegiak kargatuko ditu ordez. Kontuz! Arazoak gerta daitezke mendekotasunak betetzen ez badira.",
         "primerun": "Erabili txartel grafiko dedikatua jokoa errendatzeko GPU anitzeko sistemetan. Errendatzeko bururik gabeko GPU bat erabiltzen duten joko-ordenagailu eramangarrietan edo mahaigainetan bakarrik behar da (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIAren Resizable Bar-ek fotograma-tasa areagotzen laguntzen du, CPUak buffer grafiko osoa atzitzen duelako. Gaitzeak Vulkan-en oinarritutako jokoen errendimendua hobetu dezake.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Steam-ek eskaintzen dituen liburutegi pertsonalizatuak Linux eta Windows (Proton) jokoak exekutatzen laguntzeko. Gaitzeak bateragarritasuna hobetu dezake.",
         "sync": {
             "part1": "Heroic ondo gordetzeko karpeta asmatzen saiatzen da, eta honek kasu gehienetan funtzionatuko du. Karpeta okerra bada, erabili baliogabetze-koadroa karpeta aldatzeko.",
@@ -323,6 +327,12 @@
             "finished": "Eguneraketa bukatu da",
             "started": "Eguneratzea hasi da"
         }
+    },
+    "offline-message": {
+        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "retrying": "Retrying"
     },
     "options": {
         "advanced": {

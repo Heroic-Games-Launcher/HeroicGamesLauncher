@@ -57,14 +57,12 @@
     "game": {
         "downloadSize": "Yükləmə ölçüsü",
         "firstPlayed": "İlk Oynadı",
-        "info": "Məlumat",
         "installSize": "Quraşdırma Ölçüsü",
         "language": "Dil",
         "lastPlayed": "Son Oynama",
         "neverPlayed": "Heç vaxt",
         "platform": "Quraşdırmaq üçün Platforma Versiyasını seçin",
-        "reuirements": "Sistem Tələbləri",
-        "tools": "Alətlər",
+        "requirements": "Sistem Tələbləri",
         "totalPlayed": "Oynanan Vaxt"
     },
     "gamecard": {
