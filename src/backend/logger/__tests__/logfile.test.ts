@@ -30,16 +30,13 @@ describe('logger/logfile.ts', () => {
 
     logfile.createNewLogFileAndClearOldOnces()
 
-    expect(spyOpenSync).toBeCalledWith(
-      expect.stringContaining('invalid\\heroic-'),
-      'w'
-    )
+    expect(spyOpenSync).toBeCalledWith('invalid/heroic-', 'w')
     expect(spyAppGetPath).toBeCalledWith('logs')
     expect(logError).toBeCalledWith(
       [
-        expect.stringContaining(`Open invalid\\heroic-`),
+        `Open invalid/heroic-`,
         expect.objectContaining(
-          Error("ENOENT: no such file or directory, open 'invalid\\heroic-")
+          Error("ENOENT: no such file or directory, open 'invalid/heroic-")
         )
       ],
       { prefix: 'Backend', skipLogToFile: true }
@@ -85,7 +82,7 @@ describe('logger/logfile.ts', () => {
     const data = logfile.createNewLogFileAndClearOldOnces()
 
     expect(logError).toBeCalledWith(
-      [expect.stringContaining('Removing old logs in'), Error('unlink failed')],
+      ['Removing old logs in', Error('unlink failed')],
       { prefix: 'Backend', skipLogToFile: true }
     )
     expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeTruthy()
