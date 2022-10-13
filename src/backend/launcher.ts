@@ -459,7 +459,8 @@ async function runWineCommand({
   wait,
   forceRunInPrefixVerb,
   installFolderName,
-  options
+  options,
+  startFolder
 }: WineCommandArgs): Promise<{ stderr: string; stdout: string }> {
   const settings = gameSettings
     ? gameSettings
@@ -473,7 +474,7 @@ async function runWineCommand({
   const env_vars = {
     ...process.env,
     ...setupEnvVars(settings),
-    ...setupWineEnvVars(settings, installFolderName)
+    ...setupWineEnvVars(settings)
   }
 
   let additional_command = ''
@@ -510,8 +511,6 @@ async function runWineCommand({
     prefix: LogPrefix.Backend
   })
 
-  console.log({ command, winePrefix })
-
   return new Promise((res) => {
     additional_command = additional_command ? `&& ${additional_command}` : ''
     const commandParts = [protonCommand, command, additional_command].filter(
@@ -527,9 +526,10 @@ async function runWineCommand({
       bin = wineBin
     }
 
-    console.log({ bin, commandParts })
+    console.log({ bin, commandParts, installFolderName })
     const child = spawn(bin, commandParts, {
-      env: env_vars
+      env: env_vars,
+      cwd: startFolder
     })
     const response = { stderr: '', stdout: '' }
 
@@ -570,10 +570,9 @@ async function runWineCommand({
       stderr.push(data.toString().trim())
     })
 
-    child.on('close', (code, signal) => {
+    child.on('close', () => {
       response.stdout = stdout.join('')
       response.stderr = stderr.join('')
-      console.log({ response, code, signal })
       res(response)
       return response
     })

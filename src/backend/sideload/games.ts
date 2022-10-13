@@ -102,7 +102,8 @@ export async function removeAppShortcuts(appName: string): Promise<void> {
 export async function launchApp(appName: string): Promise<boolean> {
   const gameInfo = getAppInfo(appName)
   const {
-    install: { executable }
+    install: { executable },
+    folder_name
   } = gameInfo
 
   if (executable) {
@@ -186,6 +187,7 @@ export async function launchApp(appName: string): Promise<boolean> {
       gameSettings,
       wait: false,
       forceRunInPrefixVerb: false,
+      startFolder: folder_name,
       options: {
         wrappers,
         logFile: appLogFileLocation(appName),
