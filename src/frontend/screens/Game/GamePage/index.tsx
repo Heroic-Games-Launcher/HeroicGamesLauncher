@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
-import { AppSettings, GameInfo, GameStatus } from 'common/types'
+import { GameInfo, GameStatus } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
 
@@ -101,10 +101,9 @@ export default function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateConfig = async () => {
       try {
-        let newInfo = await getGameInfo(appName, 'legendary')
-        if (!newInfo) {
-          newInfo = await getGameInfo(appName, 'gog')
-        }
+        const newInfo =
+          (await getGameInfo(appName, 'legendary')) ??
+          (await getGameInfo(appName, 'gog'))!
         setGameInfo(newInfo)
         const { install, is_linux_native, is_mac_native, runner } = newInfo
 
@@ -134,7 +133,7 @@ export default function GamePage(): JSX.Element | null {
             gogSaves,
             wineVersion,
             winePrefix
-          }: AppSettings = await window.api.requestSettings(appName)
+          } = await window.api.requestGameSettings(appName)
 
           let wine = wineVersion.name
             .replace('Wine - ', '')

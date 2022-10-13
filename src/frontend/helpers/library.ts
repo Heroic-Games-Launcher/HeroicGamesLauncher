@@ -48,10 +48,10 @@ async function install({
     return
   }
 
-  const { folder_name, is_installed }: GameInfo = await getGameInfo(
+  const { folder_name, is_installed }: GameInfo = (await getGameInfo(
     appName,
     runner
-  )
+  ))!
   if (isInstalling) {
     return handleStopInstallation(
       appName,
@@ -68,7 +68,7 @@ async function install({
 
   if (installPath === 'import') {
     const { defaultInstallPath }: AppSettings =
-      await window.api.requestSettings('default')
+      await window.api.requestAppSettings()
     const args = {
       buttonLabel: t('gamepage:box.choose'),
       properties: ['openDirectory'] as Array<
@@ -85,9 +85,9 @@ async function install({
       title: t('gamepage:box.importpath'),
       defaultPath: defaultInstallPath
     }
-    const { path, canceled } = await window.api.openDialog(args)
+    const path = await window.api.openDialog(args)
 
-    if (canceled || !path) {
+    if (!path) {
       return
     }
 
@@ -109,7 +109,7 @@ async function install({
     return window.api
       .install({
         appName,
-        path: `${installPath}`,
+        path: installPath,
         installDlcs,
         sdlList,
         installLanguage,
@@ -128,7 +128,7 @@ async function install({
   let path = installPath
   if (installPath === 'default') {
     const { defaultInstallPath }: AppSettings =
-      await window.api.requestSettings('default')
+      await window.api.requestAppSettings()
     path = defaultInstallPath
   }
   if (previousProgress && previousProgress.folder !== path) {
@@ -138,7 +138,7 @@ async function install({
   return window.api
     .install({
       appName,
-      path: `${path}`,
+      path: path,
       installDlcs,
       sdlList,
       runner,
@@ -176,22 +176,24 @@ async function uninstall({
   const platform = await getPlatform()
   const {
     install: { platform: installedplatform }
-  } = await getGameInfo(appName, runner)
+  } = (await getGameInfo(appName, runner))!
 
   let linuxArgs
   // This assumes native games are installed should be changed in the future
   // if we add option to install windows games even if native is available
   if (platform === 'linux' && installedplatform?.toLowerCase() === 'windows') {
-    const wineprefix = (await getGameSettings(appName, runner)).winePrefix
+    const wineprefix = (await getGameSettings(appName, runner))?.winePrefix
 
-    linuxArgs = {
-      checkboxLabel: t('gamepage:box.uninstall.checkbox', {
-        defaultValue:
-          "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-        prefix: wineprefix,
-        newLine: '\n'
-      }),
-      checkboxChecked: false
+    if (wineprefix) {
+      linuxArgs = {
+        checkboxLabel: t('gamepage:box.uninstall.checkbox', {
+          defaultValue:
+            "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+          prefix: wineprefix,
+          newLine: '\n'
+        }),
+        checkboxChecked: false
+      }
     }
   }
 
@@ -202,7 +204,7 @@ async function uninstall({
 
   if (response === 0) {
     await handleGameStatus({ appName, runner, status: 'uninstalling' })
-    await window.api.uninstall([appName, checkboxChecked, runner])
+    await window.api.uninstall(appName, runner, checkboxChecked)
     storage.removeItem(appName)
     return handleGameStatus({ appName, runner, status: 'done' })
   }
@@ -253,10 +255,10 @@ type LaunchOptions = {
 const launch = async ({
   appName,
   t,
-  launchArguments,
+  launchArguments = '',
   runner,
   hasUpdate
-}: LaunchOptions): Promise<void> => {
+}: LaunchOptions) => {
   if (hasUpdate) {
     const args = {
       buttons: [t('gamepage:box.yes'), t('box.no')],
@@ -276,7 +278,6 @@ const launch = async ({
       launchArguments: '--skip-version-check'
     })
   }
-  if (launchArguments === undefined) launchArguments = ''
   return window.api.launch({ appName, launchArguments, runner })
 }
 

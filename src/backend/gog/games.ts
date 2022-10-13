@@ -519,25 +519,22 @@ class GOGGame extends Game {
     arg: string,
     path: string,
     gogSaves?: GOGCloudSavesLocation[]
-  ): Promise<ExecResult> {
+  ): Promise<string> {
     if (!gogSaves) {
-      return {
-        stderr: 'Unable to sync saves, gogSaves is undefined',
-        stdout: ''
-      }
+      return 'Unable to sync saves, gogSaves is undefined'
     }
 
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
-      return { stderr: 'Unable to sync saves, no credentials', stdout: '' }
+      return 'Unable to sync saves, no credentials'
     }
 
     const gameInfo = GOGLibrary.get().getGameInfo(this.appName)
     if (!gameInfo || !gameInfo.install.platform) {
-      return { stderr: 'Unable to sync saves, game info not found', stdout: '' }
+      return 'Unable to sync saves, game info not found'
     }
 
-    const stderr: string[] = []
+    let fullOutput = ''
 
     for (const location of gogSaves) {
       const commandParts = [
@@ -557,7 +554,10 @@ class GOGGame extends Game {
 
       logInfo([`Syncing saves for ${this.appName}`], { prefix: LogPrefix.Gog })
 
-      const res = await runGogdlCommand(commandParts)
+      const res = await runGogdlCommand(commandParts, {
+        logMessagePrefix: `Syncing saves for ${this.appName}`,
+        onOutput: (output) => (fullOutput += output)
+      })
 
       if (res.error) {
         logError(
@@ -571,15 +571,9 @@ class GOGGame extends Game {
           res.stdout.trim()
         )
       }
-      if (res.stderr) {
-        stderr.push(res.stderr.toString())
-      }
     }
 
-    return {
-      stderr: stderr.join('\n'),
-      stdout: ''
-    }
+    return fullOutput
   }
   public async uninstall(): Promise<ExecResult> {
     const array: Array<InstalledInfo> =

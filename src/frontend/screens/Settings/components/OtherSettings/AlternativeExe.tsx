@@ -5,7 +5,6 @@ import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import Backspace from '@mui/icons-material/Backspace'
 import useSetting from 'frontend/hooks/useSetting'
 import { getGameInfo } from 'frontend/helpers'
-import { Path } from 'frontend/types'
 import { TextInputWithIconField } from 'frontend/components/UI'
 
 const AlternativeExe = () => {
@@ -20,16 +19,16 @@ const AlternativeExe = () => {
 
   const handleTargetExe = useCallback(async () => {
     if (!targetExe.length) {
-      const gameinfo = await getGameInfo(appName, runner)
+      const gameInfo = await getGameInfo(appName, runner)
 
       window.api
         .openDialog({
           buttonLabel: t('box.select.button', 'Select'),
           properties: ['openFile'],
           title: t('box.select.exe', 'Select EXE'),
-          defaultPath: gameinfo.install.install_path
+          defaultPath: gameInfo?.install.install_path
         })
-        .then(({ path }: Path) => setTargetExe(path || targetExe))
+        .then((path) => setTargetExe(path || targetExe))
     }
     setTargetExe('')
   }, [targetExe])

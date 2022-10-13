@@ -53,11 +53,11 @@ export default function Tools() {
   const handleRunExe = async () => {
     let exe = ''
     const gameinfo = await getGameInfo(appName, runner)
-    const { path } = await window.api.openDialog({
+    const path = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
       title: t('box.runexe.title'),
-      defaultPath: gameinfo.install.install_path
+      defaultPath: gameinfo?.install.install_path
     })
     if (path) {
       exe = path

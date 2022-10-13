@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { CircularProgress } from '@mui/material'
-import { fixGogSaveFolder, getGameInfo } from 'frontend/helpers'
+import { fixGogSaveFolder } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
-import { Path } from 'frontend/types'
 import {
   InfoBox,
   SelectField,
@@ -48,10 +47,14 @@ export default function GOGSyncSaves({
 
   useEffect(() => {
     const getLocations = async () => {
+      const gameInfo = await window.api.getGameInfo(appName, 'gog')
+      if (!gameInfo) {
+        return
+      }
       const {
         gog_save_location,
         install: { platform: installed_platform, install_path }
-      } = await getGameInfo(appName, 'gog')
+      } = gameInfo
       const clientId = await window.api.getGOGGameClientId(appName)
       if (!gog_save_location) {
         return
@@ -127,8 +130,8 @@ export default function GOGSyncSaves({
 
     await window.api
       .syncGOGSaves(gogSaves, appName, syncType)
-      .then(async (res: { stderr: string }) => {
-        setManuallyOutput(res.stderr.split('\n'))
+      .then(async (stderr) => {
+        setManuallyOutput(stderr.split('\n'))
         setManuallyOutputShow(true)
       })
 
@@ -198,9 +201,9 @@ export default function GOGSyncSaves({
                             properties: ['openDirectory'],
                             title: t('box.sync.title')
                           })
-                          .then(({ path }: Path) => {
+                          .then((path) => {
                             const saves = [...gogSaves]
-                            saves[index].location = path ?? ''
+                            saves[index].location = path || ''
                             setGogSaves(saves)
                           })
                     : () => {

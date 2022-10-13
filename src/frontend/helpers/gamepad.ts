@@ -22,11 +22,9 @@ let controllerIsDisabled = false
 let currentController = -1
 
 export const initGamepad = () => {
-  window.api
-    .requestSettings('default')
-    .then(({ disableController }: AppSettings) => {
-      controllerIsDisabled = disableController || false
-    })
+  window.api.requestAppSettings().then(({ disableController }: AppSettings) => {
+    controllerIsDisabled = disableController || false
+  })
 
   // store the current controllers
   let controllers: number[] = []

@@ -25,7 +25,6 @@ import {
   ToggleSwitch
 } from 'frontend/components/UI'
 import {
-  getAppSettings,
   getGameInfo,
   getInstallInfo,
   getProgress,
@@ -35,7 +34,6 @@ import {
 } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
-  AppSettings,
   GameInfo,
   GameStatus,
   InstallProgress,
@@ -43,7 +41,6 @@ import {
   Runner,
   WineInstallation
 } from 'common/types'
-import { Path } from 'frontend/types'
 import {
   Dialog,
   DialogContent,
@@ -221,9 +218,14 @@ export default function InstallModal({
 
     // Write Default game config with prefix on linux
     if (isLinux) {
-      const appSettings: AppSettings = await window.api.requestSettings(appName)
+      const gameSettings = await window.api.requestGameSettings(appName)
 
-      writeConfig([appName, { ...appSettings, winePrefix, wineVersion }])
+      if (wineVersion) {
+        writeConfig({
+          appName,
+          config: { ...gameSettings, winePrefix, wineVersion }
+        })
+      }
     }
 
     return install({
@@ -243,7 +245,7 @@ export default function InstallModal({
   }
 
   useEffect(() => {
-    window.api.requestSettings('default').then(async (config: AppSettings) => {
+    window.api.requestAppSettings().then(async (config) => {
       setDefaultPath(config.defaultInstallPath)
       if (installPath === 'default') {
         setInstallPath(config.defaultInstallPath)
@@ -274,10 +276,6 @@ export default function InstallModal({
         })
       }
     })
-
-    return () => {
-      window.api.requestSettingsRemoveListeners()
-    }
   }, [appName, installPath, gameInstallInfo?.manifest?.disk_size])
 
   useEffect(() => {
@@ -288,14 +286,22 @@ export default function InstallModal({
         platformToInstall
       )
       if (!gameInstallInfo) {
-        window.api.showErrorBox([
-          tr('box.error.generic.title', 'Error!'),
-          tr('box.error.generic.message', 'Something Went Wrong!')
-        ])
+        window.api.showErrorBox({
+          title: tr('box.error.generic.title', 'Error!'),
+          message: tr('box.error.generic.message', 'Something Went Wrong!')
+        })
         backdropClick()
         return
       }
       const gameData = await getGameInfo(appName, runner)
+      if (!gameData) {
+        window.api.showErrorBox({
+          title: tr('box.error.generic.title', 'Error!'),
+          message: tr('box.error.generic.message', 'Something Went Wrong!')
+        })
+        backdropClick()
+        return
+      }
       setGameInfo(gameData)
       setGameInstallInfo(gameInstallInfo)
       if ('languages' in gameInstallInfo.manifest) {
@@ -315,7 +321,8 @@ export default function InstallModal({
         )
       }
       const bottleName = gameData.folder_name
-      const { defaultWinePrefix, wineVersion } = await getAppSettings()
+      const { defaultWinePrefix, wineVersion } =
+        await window.api.requestAppSettings()
       const sugestedWinePrefix = `${defaultWinePrefix}/${bottleName}`
       setWinePrefix(sugestedWinePrefix)
       setWineVersion(wineVersion || undefined)
@@ -498,9 +505,7 @@ export default function InstallModal({
                       title: t('install.path'),
                       defaultPath: defaultPath
                     })
-                    .then(({ path }: Path) =>
-                      setInstallPath(path ? path : defaultPath)
-                    )
+                    .then((path) => setInstallPath(path ? path : defaultPath))
                 }
                 afterInput={
                   <span className="diskSpaceInfo">
@@ -566,9 +571,7 @@ export default function InstallModal({
                           properties: ['openDirectory'],
                           title: t('box.wineprefix', 'Select WinePrefix Folder')
                         })
-                        .then(({ path }: Path) =>
-                          setWinePrefix(path ? path : winePrefix)
-                        )
+                        .then((path) => setWinePrefix(path ? path : winePrefix))
                     }
                   />
 

@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
-import { Path } from 'frontend/types'
 import {
   InfoBox,
   TextInputWithIconField,
@@ -44,10 +43,10 @@ const EgsSettings = () => {
     return window.api.egsSync(egsPath).then(async (res: string) => {
       if (res === 'Error') {
         setIsSyncing(false)
-        window.api.showErrorBox([
-          t('box.error.title', 'Error'),
-          t('box.sync.error')
-        ])
+        window.api.showErrorBox({
+          title: t('box.error.title', 'Error'),
+          message: t('box.sync.error')
+        })
         setEgsLinkedPath('')
         setEgsPath('')
         return
@@ -73,7 +72,7 @@ const EgsSettings = () => {
         properties: ['openDirectory'],
         title: t('box.choose-egs-prefix')
       })
-      .then(({ path }: Path) => setEgsPath(path ? path : ''))
+      .then((path) => setEgsPath(path ? path : ''))
   }
 
   return (

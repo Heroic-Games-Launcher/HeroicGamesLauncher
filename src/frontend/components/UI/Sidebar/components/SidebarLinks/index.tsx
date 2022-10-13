@@ -70,13 +70,15 @@ export default function SidebarLinks() {
       setSettingsPath('/settings/app/default/general')
     } else {
       getGameInfo(appName, runner).then((info) => {
-        setGameInfo(info)
-        if (info?.is_installed) {
-          setIsDefaultSetting(false)
-          const wineOrOther = isWin
-            ? `/settings/${runner}/${appName}/other`
-            : `/settings/${runner}/${appName}/wine`
-          setSettingsPath(wineOrOther)
+        if (info) {
+          setGameInfo(info)
+          if (info?.is_installed) {
+            setIsDefaultSetting(false)
+            const wineOrOther = isWin
+              ? `/settings/${runner}/${appName}/other`
+              : `/settings/${runner}/${appName}/wine`
+            setSettingsPath(wineOrOther)
+          }
         }
       })
     }

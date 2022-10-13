@@ -533,7 +533,7 @@ class LegendaryGame extends Game {
    * Sync saves.
    * Does NOT check for online connectivity.
    */
-  public async syncSaves(arg: string, path: string) {
+  public async syncSaves(arg: string, path: string): Promise<string> {
     path = path.replaceAll("'", '').replaceAll('"', '')
     const fixedPath = isWindows ? path.slice(0, -1) : path
 
@@ -552,8 +552,10 @@ class LegendaryGame extends Game {
       '-y'
     ]
 
+    let fullOutput = ''
     const res = await runLegendaryCommand(commandParts, {
-      logMessagePrefix: `Syncing saves for ${this.appName}`
+      logMessagePrefix: `Syncing saves for ${this.appName}`,
+      onOutput: (output) => (fullOutput += output)
     })
 
     if (res.error) {
@@ -561,7 +563,7 @@ class LegendaryGame extends Game {
         prefix: LogPrefix.Legendary
       })
     }
-    return res
+    return fullOutput
   }
 
   public async launch(launchArguments: string): Promise<boolean> {

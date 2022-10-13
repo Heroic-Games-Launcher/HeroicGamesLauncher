@@ -34,12 +34,15 @@ ipcMain.on(
   }
 )
 
-ipcMain.handle('shortcutsExists', (event, appName: string, runner: Runner) => {
-  const title = getGame(appName, runner).getGameInfo().title
-  const [desktopFile, menuFile] = shortcutFiles(title)
+ipcMain.handle(
+  'shortcutsExists',
+  (event, appName: string, runner: Runner): boolean => {
+    const title = getGame(appName, runner).getGameInfo().title
+    const [desktopFile, menuFile] = shortcutFiles(title)
 
-  return existsSync(desktopFile ?? '') || existsSync(menuFile ?? '')
-})
+    return existsSync(desktopFile ?? '') || existsSync(menuFile ?? '')
+  }
+)
 
 ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
   const game = getGame(appName, runner)
@@ -62,9 +65,9 @@ ipcMain.handle(
     runner: Runner,
     bkgDataUrl: string,
     bigPicDataUrl: string
-  ) => {
+  ): Promise<boolean> => {
     const game = getGame(appName, runner)
-    const gameInfo = await game.getGameInfo()
+    const gameInfo = game.getGameInfo()
     const steamUserdataDir = await getSteamUserdataDir()
 
     return addNonSteamGame({
@@ -78,20 +81,20 @@ ipcMain.handle(
 
 ipcMain.handle(
   'removeFromSteam',
-  async (event, appName: string, runner: Runner) => {
+  async (event, appName: string, runner: Runner): Promise<void> => {
     const game = getGame(appName, runner)
-    const gameInfo = await game.getGameInfo()
+    const gameInfo = game.getGameInfo()
     const steamUserdataDir = await getSteamUserdataDir()
 
-    await removeNonSteamGame({ steamUserdataDir, gameInfo })
+    return removeNonSteamGame({ steamUserdataDir, gameInfo })
   }
 )
 
 ipcMain.handle(
   'isAddedToSteam',
-  async (event, appName: string, runner: Runner) => {
+  async (event, appName: string, runner: Runner): Promise<boolean> => {
     const game = getGame(appName, runner)
-    const gameInfo = await game.getGameInfo()
+    const gameInfo = game.getGameInfo()
     const steamUserdataDir = await getSteamUserdataDir()
 
     return isAddedToSteam({ steamUserdataDir, gameInfo })

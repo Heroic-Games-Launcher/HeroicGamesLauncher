@@ -66,7 +66,7 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
           return window.webContents.send('installGame', {
             appName: app_name,
             runner,
-            installPath: filePaths[0]
+            path: filePaths[0]
           })
         }
       }

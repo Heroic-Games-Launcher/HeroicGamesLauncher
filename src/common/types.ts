@@ -215,11 +215,9 @@ interface Reqs {
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
 export type UserInfo = {
-  account_id?: string
-  displayName?: string
-  epicId?: string
-  name?: string
-  user?: string
+  account_id: string
+  displayName: string
+  user: string
 }
 export interface WineInstallation {
   bin: string
@@ -233,7 +231,7 @@ export interface WineInstallation {
 
 export interface InstallArgs {
   path: string
-  installDlcs?: boolean
+  installDlcs: boolean
   sdlList: string[]
   platformToInstall: InstallPlatform
   installLanguage?: string
@@ -487,4 +485,42 @@ export interface Tools {
   tool: string
   appName: string
   runner: Runner
+}
+
+export interface SaveSyncArgs {
+  arg: string | undefined
+  path: string
+  appName: string
+  runner: Runner
+}
+
+export interface RunWineCommandArgs {
+  appName: string
+  runner: Runner
+  command: string
+}
+
+export interface ImportGameArgs {
+  appName: string
+  path: string
+  runner: Runner
+}
+
+export interface MoveGameArgs {
+  appName: string
+  path: string
+  runner: Runner
+}
+
+export interface DiskSpaceData {
+  free: number
+  diskSize: number
+  message: string
+  validPath: boolean
+}
+
+export interface ToolArgs {
+  winePrefix: string
+  winePath: string
+  action: 'backup' | 'restore'
 }

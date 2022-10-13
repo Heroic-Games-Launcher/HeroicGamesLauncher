@@ -10,13 +10,9 @@ import {
   TextInputWithIconField,
   ToggleSwitch
 } from 'frontend/components/UI'
-import {
-  fixLegendarySaveFolder,
-  getGameInfo,
-  syncSaves
-} from 'frontend/helpers'
+import { fixLegendarySaveFolder, syncSaves } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Path, SyncType } from 'frontend/types'
+import { SyncType } from 'frontend/types'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 
@@ -55,10 +51,14 @@ export default function LegendarySyncSaves({
         return
       } // Don't work on getting the save path if we won't change it
       setLoading(true)
+      const gameInfo = await window.api.getGameInfo(appName, 'legendary')
+      if (!gameInfo) {
+        return
+      }
       const {
         save_folder,
         install: { install_path, platform: installed_platform }
-      } = await getGameInfo(appName, 'legendary')
+      } = gameInfo
       setAutoSyncSaves(autoSyncSaves)
       const prefix = winePrefix ? winePrefix : ''
       let folder = await fixLegendarySaveFolder(
@@ -76,16 +76,20 @@ export default function LegendarySyncSaves({
       const isNative = isWin || isMacNative
 
       if (!isNative) {
-        const { stdout } = await window.api
-          .runWineCommandForGame({
-            appName,
-            runner: 'legendary',
-            command: `cmd /c winepath "${folder}"`
-          })
-          .catch((error) => {
-            console.error('There was an error getting the path', error)
-            setLoading(false)
-          })
+        let stdout: string
+        try {
+          stdout = (
+            await window.api.runWineCommandForGame({
+              appName,
+              runner: 'legendary',
+              command: `cmd /c winepath "${folder}"`
+            })
+          ).stdout
+        } catch (error) {
+          console.error('There was an error getting the path', error)
+          setLoading(false)
+          return
+        }
         actualPath = stdout.trim()
       } else {
         actualPath = await window.api.getShellPath(folder)
@@ -171,9 +175,7 @@ export default function LegendarySyncSaves({
                         properties: ['openDirectory'],
                         title: t('box.sync.title')
                       })
-                      .then(({ path }: Path) =>
-                        setSavesPath(path ? `${path}` : '')
-                      )
+                      .then((path) => setSavesPath(path || ''))
                 : () => setSavesPath('')
             }
           />

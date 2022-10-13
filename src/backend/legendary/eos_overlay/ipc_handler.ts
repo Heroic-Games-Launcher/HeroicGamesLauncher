@@ -17,12 +17,18 @@ ipcMain.handle('updateEosOverlayInfo', updateInfo)
 ipcMain.handle('installEosOverlay', install)
 ipcMain.handle('removeEosOverlay', remove)
 ipcMain.handle('cancelEosOverlayInstallOrUpdate', cancelInstallOrUpdate)
-ipcMain.handle('enableEosOverlay', async (e, appName) => {
-  return enable(appName)
-})
-ipcMain.handle('disableEosOverlay', async (e, appName) => {
-  return disable(appName)
-})
-ipcMain.handle('isEosOverlayEnabled', async (e, appName?) => {
-  return isEnabled(appName)
-})
+ipcMain.handle(
+  'enableEosOverlay',
+  async (
+    e,
+    appName: string
+  ): Promise<{ wasEnabled: boolean; installNow?: boolean }> => enable(appName)
+)
+ipcMain.handle(
+  'disableEosOverlay',
+  async (e, appName: string): Promise<void> => disable(appName)
+)
+ipcMain.handle(
+  'isEosOverlayEnabled',
+  async (e, appName?: string): Promise<boolean> => isEnabled(appName)
+)

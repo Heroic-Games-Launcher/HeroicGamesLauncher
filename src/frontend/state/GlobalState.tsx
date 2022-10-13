@@ -10,7 +10,8 @@ import {
   RefreshOptions,
   Runner,
   WineVersionInfo,
-  UserInfo
+  UserInfo,
+  InstallParams
 } from 'common/types'
 import { Category, LibraryTopSectionOptions } from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
@@ -65,7 +66,7 @@ interface StateProps {
   layout: string
   libraryStatus: GameStatus[]
   libraryTopSection: string
-  platform: string
+  platform: NodeJS.Platform | 'unknown'
   refreshing: boolean
   refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
@@ -127,7 +128,7 @@ export class GlobalState extends PureComponent<Props> {
     libraryStatus: [],
     libraryTopSection:
       storage.getItem('library_top_section') || 'recently_played',
-    platform: '',
+    platform: 'unknown',
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames:
@@ -282,7 +283,7 @@ export class GlobalState extends PureComponent<Props> {
       this.setState({
         epic: {
           library: [],
-          username: response.data.displayName
+          username: response.data?.displayName
         }
       })
 
@@ -315,7 +316,7 @@ export class GlobalState extends PureComponent<Props> {
       this.setState({
         gog: {
           library: [],
-          username: response.data.username
+          username: response.data?.username
         }
       })
 
@@ -326,13 +327,12 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   gogLogout = async () => {
-    await window.api.logoutGOG().finally(() => {
-      this.setState({
-        gog: {
-          library: [],
-          username: null
-        }
-      })
+    await window.api.logoutGOG()
+    this.setState({
+      gog: {
+        library: [],
+        username: null
+      }
     })
     console.log('Logging out from gog')
     window.location.reload()
@@ -433,13 +433,13 @@ export class GlobalState extends PureComponent<Props> {
         this.setState({ refreshing: false })
         window.api.logError('Sync with upstream releases failed')
 
-        notify([
-          'Wine-Manager',
-          t(
+        notify({
+          title: 'Wine-Manager',
+          body: t(
             'notify.refresh.error',
             "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
           )
-        ])
+        })
         return
       })
   }
@@ -515,7 +515,11 @@ export class GlobalState extends PureComponent<Props> {
     }
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(
-      async (e: Event, appName: string, runner: Runner) => {
+      async (
+        e: Event,
+        appName: string,
+        runner: Runner
+      ): Promise<{ status: 'done' | 'error' }> => {
         const currentApp = libraryStatus.filter(
           (game) => game.appName === appName
         )[0]
@@ -524,38 +528,34 @@ export class GlobalState extends PureComponent<Props> {
           const hasUpdate = this.state.gameUpdates?.includes(appName)
           return launch({ appName, t, runner, hasUpdate })
         }
+        return { status: 'error' }
       }
     )
 
     // TODO: show the install modal instead of just installing like this since it has no options to choose
-    window.api.handleInstallGame(
-      async (
-        e: Event,
-        args: { appName: string; installPath: string; runner: Runner }
-      ) => {
-        const currentApp = libraryStatus.filter(
-          (game) => game.appName === appName
-        )[0]
-        const { appName, installPath, runner } = args
-        if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
-          return install({
-            appName,
-            handleGameStatus: this.handleGameStatus,
-            installPath,
-            isInstalling: false,
-            previousProgress: null,
-            progress: {
-              bytes: '0.00MiB',
-              eta: '00:00:00',
-              percent: 0
-            },
-            t,
-            runner,
-            platformToInstall: 'Windows'
-          })
-        }
+    window.api.handleInstallGame(async (e: Event, args: InstallParams) => {
+      const currentApp = libraryStatus.filter(
+        (game) => game.appName === appName
+      )[0]
+      const { appName, path, runner } = args
+      if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
+        return install({
+          appName,
+          handleGameStatus: this.handleGameStatus,
+          installPath: path,
+          isInstalling: false,
+          previousProgress: null,
+          progress: {
+            bytes: '0.00MiB',
+            eta: '00:00:00',
+            percent: 0
+          },
+          t,
+          runner,
+          platformToInstall: 'Windows'
+        })
       }
-    )
+    })
 
     window.api.handleSetGameStatus(async (e: Event, args: GameStatus) => {
       const { libraryStatus } = this.state
