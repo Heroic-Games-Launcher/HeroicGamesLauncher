@@ -30,7 +30,10 @@ describe('logger/logfile.ts', () => {
 
     logfile.createNewLogFileAndClearOldOnces()
 
-    expect(spyOpenSync).toBeCalledWith('invalid/heroic-', 'w')
+    expect(spyOpenSync).toBeCalledWith(
+      expect.stringContaining('invalid/heroic-'),
+      'w'
+    )
     expect(spyAppGetPath).toBeCalledWith('logs')
     expect(logError).toBeCalledWith(
       [
@@ -82,7 +85,7 @@ describe('logger/logfile.ts', () => {
     const data = logfile.createNewLogFileAndClearOldOnces()
 
     expect(logError).toBeCalledWith(
-      ['Removing old logs in', Error('unlink failed')],
+      [expect.stringContaining('Removing old logs in'), Error('unlink failed')],
       { prefix: 'Backend', skipLogToFile: true }
     )
     expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeTruthy()
