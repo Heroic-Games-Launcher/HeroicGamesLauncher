@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SettingsContextType } from '/src/frontend/types'
+import { SettingsContextType } from '@/frontend/types'
 
 const initialContext: SettingsContextType = {
   getSetting: () => '',

@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
-import { ToggleSwitch } from '/src/frontend/components/UI'
-import ContextProvider from '/src/frontend/state/ContextProvider'
-import useSetting from '/src/frontend/hooks/useSetting'
+import { ToggleSwitch } from '@/frontend/components/UI'
+import ContextProvider from '@/frontend/state/ContextProvider'
+import useSetting from '@/frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { WineInstallation } from '/src/common/types'
+import { WineInstallation } from '@/common/types'
 import { defaultWineVersion } from '../WineSettings'
-import { LocationState } from '/src/frontend/types'
+import { LocationState } from '@/frontend/types'
 
 const SteamRuntime = () => {
   const { t } = useTranslation()

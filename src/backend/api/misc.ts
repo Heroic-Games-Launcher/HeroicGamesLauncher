@@ -1,6 +1,6 @@
-import { GOGCloudSavesLocation } from '/src/common/types/gog'
+import { GOGCloudSavesLocation } from '@/common/types/gog'
 import { ipcRenderer } from 'electron'
-import { Runner, Tools, DialogType, ButtonOptions } from '/src/common/types'
+import { Runner, Tools, DialogType, ButtonOptions } from '@/common/types'
 
 export const clearCache = () => ipcRenderer.send('clearCache')
 export const resetHeroic = () => ipcRenderer.send('resetHeroic')

@@ -10,11 +10,11 @@ import React, {
 } from 'react'
 
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
-import { Header, UpdateComponent } from '/src/frontend/components/UI'
+import { Header, UpdateComponent } from '@/frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import Fuse from 'fuse.js'
 
-import ContextProvider from '/src/frontend/state/ContextProvider'
+import ContextProvider from '@/frontend/state/ContextProvider'
 
 import { GamesList } from './components/GamesList'
 import {
@@ -23,14 +23,14 @@ import {
   GameStatus,
   HiddenGame,
   Runner
-} from '/src/common/types'
-import ErrorComponent from '/src/frontend/components/UI/ErrorComponent'
+} from '@/common/types'
+import ErrorComponent from '@/frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
-import { epicCategories, gogCategories } from '/src/frontend/helpers/library'
+import { epicCategories, gogCategories } from '@/frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 
 const InstallModal = lazy(
-  async () => import('/src/frontend/screens/Library/components/InstallModal')
+  async () => import('@/frontend/screens/Library/components/InstallModal')
 )
 
 const storage = window.localStorage

@@ -6,12 +6,12 @@ import {
   CallRunnerOptions,
   ExecResult,
   InstallPlatform
-} from '/src/common/types'
+} from '@/common/types'
 import {
   InstalledJsonMetadata,
   GameMetadata,
   LegendaryInstallInfo
-} from '/src/common/types/legendary'
+} from '@/common/types/legendary'
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
 import {

@@ -9,7 +9,7 @@ import {
   InstallArgs,
   InstallPlatform,
   DialogType
-} from '/src/common/types'
+} from '@/common/types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'

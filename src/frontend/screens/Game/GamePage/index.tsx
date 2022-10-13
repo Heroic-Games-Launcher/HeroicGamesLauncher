@@ -13,30 +13,30 @@ import {
   size,
   syncSaves,
   updateGame
-} from '/src/frontend/helpers'
+} from '@/frontend/helpers'
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from '/src/frontend/state/ContextProvider'
-import { UpdateComponent, SelectField } from '/src/frontend/components/UI'
+import ContextProvider from '@/frontend/state/ContextProvider'
+import { UpdateComponent, SelectField } from '@/frontend/components/UI'
 
-import { AppSettings, GameInfo, GameStatus } from '/src/common/types'
-import { LegendaryInstallInfo } from '/src/common/types/legendary'
-import { GogInstallInfo, GOGCloudSavesLocation } from '/src/common/types/gog'
+import { AppSettings, GameInfo, GameStatus } from '@/common/types'
+import { LegendaryInstallInfo } from '@/common/types/legendary'
+import { GogInstallInfo, GOGCloudSavesLocation } from '@/common/types/gog'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
 
 import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
-import { InstallModal } from '/src/frontend/screens/Library/components'
-import { install } from '/src/frontend/helpers/library'
-import { ReactComponent as EpicLogo } from '/src/frontend/assets/epic-logo.svg'
-import { ReactComponent as GOGLogo } from '/src/frontend/assets/gog-logo.svg'
+import { InstallModal } from '@/frontend/screens/Library/components'
+import { install } from '@/frontend/helpers/library'
+import { ReactComponent as EpicLogo } from '@/frontend/assets/epic-logo.svg'
+import { ReactComponent as GOGLogo } from '@/frontend/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { hasProgress } from '/src/frontend/hooks/hasProgress'
-import ErrorComponent from '/src/frontend/components/UI/ErrorComponent'
-import Anticheat from '/src/frontend/components/UI/Anticheat'
+import { hasProgress } from '@/frontend/hooks/hasProgress'
+import ErrorComponent from '@/frontend/components/UI/ErrorComponent'
+import Anticheat from '@/frontend/components/UI/Anticheat'
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 

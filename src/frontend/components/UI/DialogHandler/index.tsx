@@ -1,5 +1,5 @@
-import { ButtonOptions, DialogType } from '/src/common/types'
-import ContextProvider from '/src/frontend/state/ContextProvider'
+import { ButtonOptions, DialogType } from '@/common/types'
+import ContextProvider from '@/frontend/state/ContextProvider'
 import React, { useEffect, useContext } from 'react'
 import MessageBoxModal from './components/MessageBoxModal'
 

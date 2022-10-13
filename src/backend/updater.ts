@@ -1,4 +1,4 @@
-import { DialogType } from '/src/common/types'
+import { DialogType } from '@/common/types'
 import { dialog, shell, nativeImage } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import { t } from 'i18next'

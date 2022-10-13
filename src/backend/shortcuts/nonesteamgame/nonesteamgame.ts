@@ -7,7 +7,7 @@ import {
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'graceful-fs'
 import { readFileSync } from 'fs-extra'
 import { join } from 'path'
-import { DialogType, GameInfo } from '/src/common/types'
+import { DialogType, GameInfo } from '@/common/types'
 import { ShortcutsResult } from '../types'
 import { getIcon } from '../utils'
 import { notify } from '../../utils'

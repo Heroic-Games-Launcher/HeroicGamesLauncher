@@ -1,21 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { CircularProgress } from '@mui/material'
-import { fixGogSaveFolder, getGameInfo } from '/src/frontend/helpers'
-import ContextProvider from '/src/frontend/state/ContextProvider'
-import { SyncType } from '/src/common/types'
-import { GOGCloudSavesLocation } from '/src/common/types/gog'
-import { Path } from '/src/frontend/types'
+import { fixGogSaveFolder, getGameInfo } from '@/frontend/helpers'
+import ContextProvider from '@/frontend/state/ContextProvider'
+import { SyncType } from '@/common/types'
+import { GOGCloudSavesLocation } from '@/common/types/gog'
+import { Path } from '@/frontend/types'
 import {
   InfoBox,
   SelectField,
   TextInputWithIconField,
   ToggleSwitch
-} from '/src/frontend/components/UI'
+} from '@/frontend/components/UI'
 import { Backspace, CreateNewFolder } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
-import { ProgressDialog } from '/src/frontend/components/UI/ProgressDialog'
+import { ProgressDialog } from '@/frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 
 interface Props {

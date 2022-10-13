@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
-import { ToggleSwitch } from '/src/frontend/components/UI'
-import ContextProvider from '/src/frontend/state/ContextProvider'
-import useSetting from '/src/frontend/hooks/useSetting'
-import { LocationState } from '/src/frontend/types'
+import { ToggleSwitch } from '@/frontend/components/UI'
+import ContextProvider from '@/frontend/state/ContextProvider'
+import useSetting from '@/frontend/hooks/useSetting'
+import { LocationState } from '@/frontend/types'
 
 const ShowFPS = () => {
   const { t } = useTranslation()

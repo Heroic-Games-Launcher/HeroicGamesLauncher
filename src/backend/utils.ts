@@ -7,7 +7,7 @@ import {
   SteamRuntime,
   Release,
   DialogType
-} from '/src/common/types'
+} from '@/common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, spawnSync } from 'child_process'

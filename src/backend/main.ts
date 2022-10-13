@@ -12,8 +12,8 @@ import {
   LaunchParams,
   Tools,
   DialogType
-} from '/src/common/types'
-import { GOGCloudSavesLocation } from '/src/common/types/gog'
+} from '@/common/types'
+import { GOGCloudSavesLocation } from '@/common/types/gog'
 import * as path from 'path'
 import {
   BrowserWindow,

@@ -2,10 +2,10 @@ import React, { useContext, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router'
 
-import { UpdateComponent } from '/src/frontend/components/UI'
-import WebviewControls from '/src/frontend/components/UI/WebviewControls'
-import ContextProvider from '/src/frontend/state/ContextProvider'
-import { Runner, WebviewType } from '/src/common/types'
+import { UpdateComponent } from '@/frontend/components/UI'
+import WebviewControls from '@/frontend/components/UI/WebviewControls'
+import ContextProvider from '@/frontend/state/ContextProvider'
+import { Runner, WebviewType } from '@/common/types'
 import './index.css'
 
 type CODE = {

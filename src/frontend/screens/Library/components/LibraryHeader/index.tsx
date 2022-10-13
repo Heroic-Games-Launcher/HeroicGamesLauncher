@@ -1,9 +1,9 @@
 import React, { useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import ActionIcons from '/src/frontend/components/UI/ActionIcons'
-import { epicCategories } from '/src/frontend/helpers/library'
-import ContextProvider from '/src/frontend/state/ContextProvider'
-import { GameInfo } from '/src/common/types'
+import ActionIcons from '@/frontend/components/UI/ActionIcons'
+import { epicCategories } from '@/frontend/helpers/library'
+import ContextProvider from '@/frontend/state/ContextProvider'
+import { GameInfo } from '@/common/types'
 import { getLibraryTitle } from '../../constants'
 import './index.css'
 
