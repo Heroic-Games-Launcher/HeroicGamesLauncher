@@ -1,6 +1,7 @@
 .WebView {
   grid-area: content;
   width: var(--content-width);
+  position: relative;
 }
 
 .WebView.collapsed {
@@ -14,4 +15,22 @@
 
 .WebView__webview.collapsed {
   width: var(--content-width);
+}
+
+.WebView .login-warning {
+  position: absolute;
+  top: 40px;
+  background: black;
+  padding: 1.1rem;
+}
+
+.WebView .login-warning.epic {
+  right: 0px;
+  width: 300px;
+}
+
+.WebView .login-warning.gog {
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
 }

@@ -12,6 +12,9 @@ import { FlagPosition } from '../../components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
 import ContextProvider from '../../state/ContextProvider'
 
+export const epicLoginPath = '/loginweb/legendary'
+export const gogLoginPath = '/loginweb/gog'
+
 export default function NewLogin() {
   const { epic, gog } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -56,7 +59,7 @@ export default function NewLogin() {
         <div className="runnerList">
           <Runner
             class="epic"
-            loginUrl="/loginweb/legendary"
+            loginUrl={epicLoginPath}
             icon={() => <EpicLogo />}
             isLoggedIn={isEpicLoggedIn}
             user={epic.username}
@@ -68,7 +71,7 @@ export default function NewLogin() {
           <Runner
             class="gog"
             icon={() => <GOGLogo />}
-            loginUrl="/loginweb/gog"
+            loginUrl={gogLoginPath}
             isLoggedIn={isGogLoggedIn}
             user={gog.username}
             logoutAction={gog.logout}

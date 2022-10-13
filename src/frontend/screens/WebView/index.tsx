@@ -7,6 +7,8 @@ import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Runner, WebviewType } from 'common/types'
 import './index.css'
+import { NavLink } from 'react-router-dom'
+import { epicLoginPath, gogLoginPath } from '../Login'
 
 type CODE = {
   authorizationCode: string
@@ -133,6 +135,25 @@ export default function WebView() {
     return
   }, [webviewRef.current])
 
+  let loginWarning = null
+  if (startUrl.match(/epicgames\.com/) && !epic.username) {
+    loginWarning = (
+      <NavLink className="login-warning epic" to={epicLoginPath}>
+        <span>{t('log-in', 'Log in')}</span>
+      </NavLink>
+    )
+  } else if (
+    startUrl.match(/gog\.com/) &&
+    !startUrl.match(/auth\.gog\.com/) &&
+    !gog.username
+  ) {
+    loginWarning = (
+      <NavLink className="login-warning gog" to={gogLoginPath}>
+        <span>{t('log-in', 'Log in')}</span>
+      </NavLink>
+    )
+  }
+
   return (
     <div className="WebView">
       {webviewRef.current && (
@@ -143,6 +164,7 @@ export default function WebView() {
         />
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
+      {!loading.refresh && loginWarning}
       <webview
         ref={webviewRef}
         className="WebView__webview"
