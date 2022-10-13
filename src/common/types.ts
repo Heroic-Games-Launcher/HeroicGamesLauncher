@@ -6,10 +6,9 @@ import { IpcRendererEvent } from 'electron'
 
 export type Runner = 'legendary' | 'gog'
 
-export enum DialogType {
-  MESSAGE,
-  ERROR
-}
+// NOTE: Do not put enum's in this module or it will break imports
+
+export type DialogType = 'MESSAGE' | 'ERROR'
 
 export interface ButtonOptions {
   text: string

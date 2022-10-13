@@ -6,10 +6,9 @@ import {
   DialogFooter,
   DialogHeader
 } from '@/frontend/components/UI/Dialog'
-import { ButtonOptions, DialogType } from '@/common/types'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
-
+import { DialogType, ButtonOptions } from '@/common/types'
 interface MessageBoxModalProps {
   title: string
   message: string
@@ -41,7 +40,7 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
 
   const getContent = () => {
     switch (props.type) {
-      case DialogType.ERROR:
+      case 'ERROR':
         return (
           <>
             <div className="errorDialog contentHeader">
@@ -64,9 +63,7 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
   return (
     <Dialog
       onClose={props.onClose}
-      className={
-        props.type === DialogType.ERROR ? classNames('errorDialog') : ''
-      }
+      className={props.type === 'ERROR' ? classNames('errorDialog') : ''}
     >
       <DialogHeader onClose={props.onClose} showCloseButton={true}>
         {props.title}

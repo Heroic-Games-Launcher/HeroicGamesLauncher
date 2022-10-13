@@ -7,8 +7,7 @@ import {
   ExtraInfo,
   GameInfo,
   InstallArgs,
-  InstallPlatform,
-  DialogType
+  InstallPlatform
 } from '@/common/types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
@@ -586,7 +585,7 @@ class LegendaryGame extends Game {
       showDialogBoxModalAuto({
         title: t('box.error.launchAborted', 'Launch aborted'),
         message: launchPrepFailReason!,
-        type: DialogType.ERROR
+        type: 'ERROR'
       })
       return false
     }
@@ -619,7 +618,7 @@ class LegendaryGame extends Game {
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
           message: wineLaunchPrepFailReason!,
-          type: DialogType.ERROR
+          type: 'ERROR'
         })
         return false
       }

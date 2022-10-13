@@ -4,7 +4,6 @@
  *        Note that with console.log and console.warn everything will be saved too.
  *        error equals console.error
  */
-import { DialogType } from '@/common/types'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { appendMessageToLogFile, getLongestPrefix } from './logfile'
 
@@ -123,7 +122,7 @@ function logBase(
     showDialogBoxModalAuto({
       title: options?.prefix ?? LogPrefix.Backend,
       message: text,
-      type: DialogType.ERROR
+      type: 'ERROR'
     })
   }
 

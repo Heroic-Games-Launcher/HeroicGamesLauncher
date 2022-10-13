@@ -7,7 +7,7 @@ import {
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'graceful-fs'
 import { readFileSync } from 'fs-extra'
 import { join } from 'path'
-import { DialogType, GameInfo } from '@/common/types'
+import { GameInfo } from '@/common/types'
 import { ShortcutsResult } from '../types'
 import { getIcon } from '../utils'
 import { notify } from '../../utils'
@@ -41,7 +41,7 @@ function showErrorInFrontend(props: { gameTitle: string; error: string }) {
     'Error Adding Game to Steam'
   )
 
-  showDialogBoxModalAuto({ title, message: error, type: DialogType.ERROR })
+  showDialogBoxModalAuto({ title, message: error, type: 'ERROR' })
 }
 
 /**

@@ -5,8 +5,7 @@ import {
   WineInstallation,
   RpcClient,
   SteamRuntime,
-  Release,
-  DialogType
+  Release
 } from '@/common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -319,7 +318,7 @@ async function errorHandler(
               'box.error.diskspace.message',
               'Not enough available disk space'
             ),
-            type: DialogType.ERROR
+            type: 'ERROR'
           })
         }
       })
@@ -355,7 +354,7 @@ async function errorHandler(
             'box.error.credentials.message',
             'Your Crendentials have expired, Logout and Login Again!'
           ),
-          type: DialogType.ERROR
+          type: 'ERROR'
         })
       }
     })

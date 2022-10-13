@@ -42,8 +42,7 @@ import {
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
-  RpcClient,
-  DialogType
+  RpcClient
 } from '@/common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
@@ -158,7 +157,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
         'box.error.wine-not-found.message',
         'No Wine Version Selected. Check Game Settings!'
       ),
-      type: DialogType.ERROR
+      type: 'ERROR'
     })
     return { success: false }
   }
@@ -192,7 +191,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
           `The CrossOver bottle "{{bottle_name}}" does not exist, can't launch!`,
           { bottle_name: gameSettings.wineCrossoverBottle }
         ),
-        type: DialogType.ERROR
+        type: 'ERROR'
       })
       return { success: false }
     }

@@ -1,4 +1,3 @@
-import { DialogType } from '@/common/types'
 import { dialog, shell, nativeImage } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import { t } from 'i18next'
@@ -56,7 +55,7 @@ autoUpdater.on('error', (error) => {
       'box.error.update.message',
       'Something went wrong with the update, please check the logs or try again later!'
     ),
-    type: DialogType.ERROR
+    type: 'ERROR'
   })
   logError(['failed to update', error], { prefix: LogPrefix.Backend })
 })

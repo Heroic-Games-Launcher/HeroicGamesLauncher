@@ -10,8 +10,7 @@ import {
   GameSettings,
   InstallPlatform,
   LaunchParams,
-  Tools,
-  DialogType
+  Tools
 } from '@/common/types'
 import { GOGCloudSavesLocation } from '@/common/types/gog'
 import * as path from 'path'
@@ -515,7 +514,7 @@ process.on('uncaughtException', async (err) => {
       newLine: '\n',
       error: err
     }),
-    type: DialogType.ERROR
+    type: 'ERROR'
   })
 })
 
@@ -712,7 +711,7 @@ ipcMain.on('clearCache', (event) => {
       'box.cache-cleared.message',
       'Heroic Cache Was Cleared!'
     ),
-    type: DialogType.MESSAGE,
+    type: 'MESSAGE',
     buttons: [{ text: i18next.t('box.ok', 'Ok') }]
   })
 })
@@ -1092,7 +1091,7 @@ ipcMain.handle('install', async (event, params) => {
         'box.warning.epic.install',
         'Epic Servers are having major outage right now, the game cannot be installed!'
       ),
-      type: DialogType.ERROR
+      type: 'ERROR'
     })
     return { status: 'error' }
   }
@@ -1223,7 +1222,7 @@ ipcMain.handle(
           'box.warning.epic.import',
           'Epic Servers are having major outage right now, the game cannot be imported!'
         ),
-        type: DialogType.ERROR
+        type: 'ERROR'
       })
       return { status: 'error' }
     }
@@ -1278,7 +1277,7 @@ ipcMain.handle('updateGame', async (event, appName, runner) => {
         'box.warning.epic.update',
         'Epic Servers are having major outage right now, the game cannot be updated!'
       ),
-      type: DialogType.ERROR
+      type: 'ERROR'
     })
     return { status: 'error' }
   }

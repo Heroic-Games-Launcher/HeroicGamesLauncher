@@ -9,7 +9,6 @@ import {
   DialogType,
   ButtonOptions
 } from '@/common/types'
-
 export type Category = 'all' | 'legendary' | 'gog'
 
 export interface ContextType {

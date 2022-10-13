@@ -2,7 +2,6 @@ import { ButtonOptions, DialogType } from '@/common/types'
 import ContextProvider from '@/frontend/state/ContextProvider'
 import React, { useEffect, useContext } from 'react'
 import MessageBoxModal from './components/MessageBoxModal'
-
 export default function DialogHandler() {
   const { dialogModalOptions, showDialogModal } = useContext(ContextProvider)
 
@@ -30,11 +29,7 @@ export default function DialogHandler() {
     <>
       {dialogModalOptions.showDialog && (
         <MessageBoxModal
-          type={
-            dialogModalOptions.type
-              ? dialogModalOptions.type
-              : DialogType.MESSAGE
-          }
+          type={dialogModalOptions.type ? dialogModalOptions.type : 'MESSAGE'}
           title={dialogModalOptions.title ? dialogModalOptions.title : ''}
           message={dialogModalOptions.message ? dialogModalOptions.message : ''}
           buttons={dialogModalOptions.buttons ? dialogModalOptions.buttons : []}

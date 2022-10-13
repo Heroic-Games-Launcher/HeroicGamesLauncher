@@ -1,6 +1,6 @@
 import { LogPrefix, logWarning } from '../logger/logger'
 import { BrowserWindow, dialog } from 'electron'
-import { DialogType, ButtonOptions } from '@/common/types'
+import { ButtonOptions, DialogType } from '@/common/types'
 
 const { showErrorBox, showMessageBox } = dialog
 
@@ -38,7 +38,7 @@ function showDialogBoxModalAuto(props: {
         prefix: LogPrefix.Backend
       })
       switch (props.type) {
-        case DialogType.ERROR:
+        case 'ERROR':
           showErrorBox(props.title, props.message)
           break
         default:
