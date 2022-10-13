@@ -16,7 +16,7 @@ export default function SmallInfo({ handleclick, subtitle, title }: Props) {
   return (
     <div
       className={cx('smallInfo', { clickable: handleclick })}
-      onClick={handleOnClick}
+      onClick={handleclick ? handleOnClick : undefined}
     >
       <span className="smallTitle">{title}</span> <br />
       <span className="smallsubtitle">{subtitle}</span>
