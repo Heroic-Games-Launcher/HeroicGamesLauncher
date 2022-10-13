@@ -13,14 +13,28 @@ import {
   execOptions,
   heroicGamesConfigPath
 } from '../constants'
-import { execAsync, killPattern, notify, quoteIfNecessary } from '../utils'
+import { execAsync, killPattern, notify } from '../utils'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { dirname, join } from 'path'
-import { constants as FS_CONSTANTS, existsSync, rmSync } from 'graceful-fs'
+import {
+  appendFileSync,
+  constants as FS_CONSTANTS,
+  existsSync,
+  rmSync
+} from 'graceful-fs'
 import i18next from 'i18next'
-import { runWineCommand, setupEnvVars } from '../launcher'
+import {
+  callRunner,
+  launchCleanup,
+  prepareLaunch,
+  runWineCommand,
+  setupEnvVars,
+  setupWrappers
+} from '../launcher'
 import { access, chmod } from 'fs/promises'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
+import { showErrorBoxModalAuto } from '../dialog/dialog'
+import shlex from 'shlex'
 
 export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)
@@ -86,13 +100,44 @@ export async function removeAppShortcuts(appName: string): Promise<void> {
 }
 
 export async function launchApp(appName: string): Promise<boolean> {
+  const gameInfo = getAppInfo(appName)
   const {
     install: { executable }
-  } = getAppInfo(appName)
+  } = gameInfo
 
   if (executable) {
     const gameSettings = await getAppSettings(appName)
+    const {
+      success: launchPrepSuccess,
+      failureReason: launchPrepFailReason,
+      rpcClient,
+      mangoHudCommand,
+      gameModeBin,
+      steamRuntime
+    } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
 
+    const wrappers = setupWrappers(
+      gameSettings,
+      mangoHudCommand,
+      gameModeBin,
+      steamRuntime?.length
+        ? [...steamRuntime, `--filesystem=${gameInfo.install.install_path}`]
+        : undefined
+    )
+
+    if (!launchPrepSuccess) {
+      appendFileSync(
+        appLogFileLocation(appName),
+        `Launch aborted: ${launchPrepFailReason}`
+      )
+      showErrorBoxModalAuto({
+        title: i18next.t('box.error.launchAborted', 'Launch aborted'),
+        error: launchPrepFailReason!
+      })
+      return false
+    }
+
+    // Native
     if (isNative(appName)) {
       const env = { ...process.env, ...setupEnvVars(gameSettings) }
       const { launcherArgs } = gameSettings
@@ -100,6 +145,7 @@ export async function launchApp(appName: string): Promise<boolean> {
         `launching native sideloaded: ${executable} ${launcherArgs ?? ''}`,
         { prefix: LogPrefix.Backend }
       )
+
       try {
         await access(executable, FS_CONSTANTS.X_OK)
       } catch (error) {
@@ -108,13 +154,27 @@ export async function launchApp(appName: string): Promise<boolean> {
         })
         await chmod(executable, 0o775)
       }
-      await execAsync(`${quoteIfNecessary(executable)} ${launcherArgs}`, {
-        env
-      })
+
+      const commandParts = [...shlex.split(launcherArgs ?? '')]
+      await callRunner(
+        commandParts,
+        {
+          name: 'sideload',
+          logPrefix: LogPrefix.Backend,
+          bin: executable,
+          dir: dirname(executable)
+        },
+        {
+          env,
+          wrappers,
+          logFile: appLogFileLocation(appName),
+          logMessagePrefix: LogPrefix.Backend
+        }
+      )
+
+      launchCleanup(rpcClient)
       // TODO: check and revert to previous permissions
       await chmod(executable, 0o664)
-
-      return true
     }
 
     logInfo(`launching non-native sideloaded: ${executable}}`, {
@@ -127,6 +187,8 @@ export async function launchApp(appName: string): Promise<boolean> {
       wait: false,
       forceRunInPrefixVerb: false
     })
+    launchCleanup(rpcClient)
+
     return true
   }
   return false

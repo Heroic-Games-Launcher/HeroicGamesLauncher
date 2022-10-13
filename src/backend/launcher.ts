@@ -51,12 +51,10 @@ import { isOnline } from './online_monitor'
 import { showErrorBoxModalAuto } from './dialog/dialog'
 
 async function prepareLaunch(
-  game: LegendaryGame | GOGGame,
-  gameInfo: GameInfo
+  gameSettings: GameSettings,
+  gameInfo: GameInfo,
+  isNative: boolean
 ): Promise<LaunchPreperationResult> {
-  const gameSettings =
-    GameConfig.get(game.appName).config ||
-    (await GameConfig.get(game.appName).getSettings())
   const globalSettings = await GlobalConfig.get().getSettings()
 
   const offlineMode =
@@ -111,10 +109,10 @@ async function prepareLaunch(
   let steamRuntime: string[] = []
   const shouldUseRuntime =
     gameSettings.useSteamRuntime &&
-    (game.isNative() || gameSettings.wineVersion.type === 'proton')
+    (isNative || gameSettings.wineVersion.type === 'proton')
   if (shouldUseRuntime) {
     // for native games lets use scout for now
-    const runtimeType = game.isNative() ? 'scout' : 'soldier'
+    const runtimeType = isNative ? 'scout' : 'soldier'
     const { path, args } = await getSteamRuntime(runtimeType)
     if (!path) {
       return {
@@ -122,7 +120,7 @@ async function prepareLaunch(
         failureReason:
           'Steam Runtime is enabled, but no runtimes could be found\n' +
           `Make sure Steam ${
-            game.isNative() ? 'is' : 'and the "SteamLinuxRuntime - Soldier" are'
+            isNative ? 'is' : 'and the "SteamLinuxRuntime - Soldier" are'
           } installed`
       }
     }

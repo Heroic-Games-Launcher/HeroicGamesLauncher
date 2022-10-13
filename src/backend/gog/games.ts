@@ -330,7 +330,7 @@ class GOGGame extends Game {
       mangoHudCommand,
       gameModeBin,
       steamRuntime
-    } = await prepareLaunch(this, gameInfo)
+    } = await prepareLaunch(gameSettings, gameInfo, this.isNative())
     if (!launchPrepSuccess) {
       appendFileSync(
         this.logFileLocation,
