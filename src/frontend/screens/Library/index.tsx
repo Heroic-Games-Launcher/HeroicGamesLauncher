@@ -26,7 +26,11 @@ import {
 } from 'common/types'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
-import { epicCategories, gogCategories } from 'frontend/helpers/library'
+import {
+  epicCategories,
+  gogCategories,
+  sideloadedCategories
+} from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 
 const InstallModal = lazy(
@@ -206,7 +210,10 @@ export default function Library(): JSX.Element {
       const isGog = gog.username && gogCategories.includes(category)
       const epicLibrary = isEpic ? epic.library : []
       const gogLibrary = isGog ? gog.library : []
-      library = [...sideloadedLibrary, ...epicLibrary, ...gogLibrary]
+      const sideloadedApps = sideloadedCategories.includes(category)
+        ? sideloadedLibrary
+        : []
+      library = [...sideloadedApps, ...epicLibrary, ...gogLibrary]
     }
 
     // filter
