@@ -12,7 +12,6 @@ import { join } from 'path'
 import { flatPakHome, isLinux, isMac, runtimePath, userHome } from './constants'
 import {
   constructAndUpdateRPC,
-  execAsync,
   getSteamRuntime,
   isEpicServiceOffline,
   searchForExecutableOnPath,
@@ -459,8 +458,9 @@ async function runWineCommand({
   command,
   wait,
   forceRunInPrefixVerb,
-  installFolderName
-}: WineCommandArgs) {
+  installFolderName,
+  options
+}: WineCommandArgs): Promise<{ stderr: string; stdout: string }> {
   const settings = gameSettings
     ? gameSettings
     : await GlobalConfig.get().getSettings()
@@ -470,14 +470,6 @@ async function runWineCommand({
     mkdirSync(winePrefix, { recursive: true })
   }
 
-  if (
-    ['exe', 'msi', 'bat'].includes(
-      command.split('.')[command.split('.').length - 1]
-    )
-  ) {
-    command = quoteIfNecessary(command)
-  }
-
   const env_vars = {
     ...process.env,
     ...setupEnvVars(settings),
@@ -485,13 +477,14 @@ async function runWineCommand({
   }
 
   let additional_command = ''
+  let protonCommand = ''
   if (wineVersion.type === 'proton') {
     if (forceRunInPrefixVerb) {
-      command = 'runinprefix ' + command
+      protonCommand = 'runinprefix'
     } else if (wait) {
-      command = 'waitforexitandrun ' + command
+      protonCommand = 'waitforexitandrun'
     } else {
-      command = 'run ' + command
+      protonCommand = 'run'
     }
     // TODO: Use Steamruntime here in the future
   } else {
@@ -508,7 +501,7 @@ async function runWineCommand({
   }
 
   const wineBin = wineVersion.bin.replaceAll("'", '')
-  let finalCommand = `"${wineBin}" ${command}`
+  let finalCommand = `${command}`
   if (additional_command) {
     finalCommand += ` && ${additional_command}`
   }
@@ -519,20 +512,55 @@ async function runWineCommand({
 
   console.log({ command, winePrefix })
 
-  return execAsync(finalCommand, { env: env_vars })
-    .then((response) => {
-      logDebug(['Ran Wine command:', finalCommand], {
+  return new Promise((res) => {
+    additional_command = additional_command ? `&& ${additional_command}` : ''
+    const commandParts = [protonCommand, command, additional_command].filter(
+      Boolean
+    )
+
+    const wrappers = options?.wrappers || []
+    let bin = ''
+    if (wrappers.length) {
+      bin = wrappers.shift()!
+      commandParts.unshift(...wrappers, wineBin)
+    } else {
+      bin = wineBin
+    }
+
+    console.log({ bin, commandParts })
+    const child = spawn(bin, commandParts, {
+      env: env_vars
+    })
+    const response = { stderr: '', stdout: '' }
+
+    if (options?.logFile) {
+      logDebug(`Logging to file "${options?.logFile}"`, {
         prefix: LogPrefix.Backend
       })
+    }
+
+    if (options?.logFile && existsSync(options.logFile)) {
+      writeFileSync(options.logFile, '')
+    }
+
+    child.stdout.on('data', (data: Buffer) => {
+      console.log('stdout:', `${data}`)
+      response.stdout += `${data}`
+    })
+    child.stdout.on('data', (data: Buffer) => {
+      console.log('stdout:', `${data}`)
+      response.stderr += `${data}`
+    })
+    child.on('close', (code, signal) => {
+      console.log({ response, code, signal })
+      res(response)
       return response
     })
-    .catch((error) => {
-      // error might not always be a string
-      logError(['Error running Wine command:', error], {
-        prefix: LogPrefix.Backend
-      })
-      throw error
+
+    child.on('error', (error) => {
+      console.log(error)
     })
+  })
 }
 
 interface RunnerProps {

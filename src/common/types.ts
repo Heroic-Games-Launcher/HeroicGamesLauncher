@@ -495,6 +495,7 @@ export type WineCommandArgs = {
   forceRunInPrefixVerb?: boolean
   gameSettings?: GameSettings
   installFolderName?: string
+  options?: CallRunnerOptions
 }
 
 export interface SideloadGame {

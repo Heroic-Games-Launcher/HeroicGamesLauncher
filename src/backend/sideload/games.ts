@@ -136,10 +136,10 @@ export async function launchApp(appName: string): Promise<boolean> {
       })
       return false
     }
+    const env = { ...process.env, ...setupEnvVars(gameSettings) }
 
     // Native
     if (isNative(appName)) {
-      const env = { ...process.env, ...setupEnvVars(gameSettings) }
       const { launcherArgs } = gameSettings
       logInfo(
         `launching native sideloaded: ${executable} ${launcherArgs ?? ''}`,
@@ -185,8 +185,14 @@ export async function launchApp(appName: string): Promise<boolean> {
       command: executable,
       gameSettings,
       wait: false,
-      forceRunInPrefixVerb: false
+      forceRunInPrefixVerb: false,
+      options: {
+        wrappers,
+        logFile: appLogFileLocation(appName),
+        logMessagePrefix: LogPrefix.Backend
+      }
     })
+
     launchCleanup(rpcClient)
 
     return true
