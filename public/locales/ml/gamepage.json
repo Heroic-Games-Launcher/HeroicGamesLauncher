@@ -56,14 +56,12 @@
     "game": {
         "downloadSize": "ഇറക്കിയെടുപ്പിന്റെ വലുപ്പം",
         "firstPlayed": "ആദ്യം കളിച്ചത്",
-        "info": "Info",
         "installSize": "നടീലിന്റെ വലുപ്പം",
         "language": "ഭാഷ",
         "lastPlayed": "ഒടുക്കം കളിച്ചത്",
         "neverPlayed": "കളിച്ചിട്ടേയില്ല",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "tools": "Tools",
         "totalPlayed": "കളിച്ച നേരം"
     },
     "gamecard": {

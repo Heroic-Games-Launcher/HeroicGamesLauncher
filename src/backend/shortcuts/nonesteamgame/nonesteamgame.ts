@@ -33,7 +33,8 @@ function showErrorInFrontend(props: { gameTitle: string; error: string }) {
     defaultValue: 'Adding {{game}} to Steam failed with:{{newLine}} {{error}}',
     game: props.gameTitle,
     newLine: '\n',
-    error: props.error
+    error: props.error,
+    interpolation: { escapeValue: false }
   })
 
   const title = i18next.t(
