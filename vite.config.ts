@@ -9,16 +9,30 @@ export default defineConfig({
     outDir: 'build'
   },
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-      '~@fontsource': path.resolve(__dirname, 'node_modules/@fontsource')
-    }
+    alias: [
+      {
+        find: '~@fontsource',
+        replacement: path.resolve(__dirname, 'node_modules/@fontsource')
+      },
+      { find: '@@', replacement: path.resolve(__dirname, './src') }
+    ]
   },
   plugins: [
     react(),
     electron({
       main: {
-        entry: 'src/backend/main.ts'
+        entry: 'src/backend/main.ts',
+        vite: {
+          resolve: {
+            alias: [
+              {
+                find: '~@fontsource',
+                replacement: path.resolve(__dirname, 'node_modules/@fontsource')
+              },
+              { find: '@@', replacement: path.resolve(__dirname, './src') }
+            ]
+          }
+        }
       },
       preload: {
         input: {

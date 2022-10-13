@@ -2,16 +2,16 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings, GameStatus, Runner } from '@/common/types'
+import { AppSettings, GameStatus, Runner } from '@@/common/types'
 
-import { SmallInfo } from '@/frontend/components/UI'
-import { createNewWindow, getGameInfo, repair } from '@/frontend/helpers'
+import { SmallInfo } from '@@/frontend/components/UI'
+import { createNewWindow, getGameInfo, repair } from '@@/frontend/helpers'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from '@/frontend/state/ContextProvider'
+import ContextProvider from '@@/frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'
 
 import { CircularProgress } from '@mui/material'
-import UninstallModal from '@/frontend/components/UI/UninstallModal'
+import UninstallModal from '@@/frontend/components/UI/UninstallModal'
 
 interface Props {
   appName: string

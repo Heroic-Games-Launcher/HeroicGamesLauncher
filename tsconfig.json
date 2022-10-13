@@ -24,7 +24,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@@/*": ["./src/*"]
     },
     "types": ["vite-plugin-svgr/client", "@types/jest"],
     "typeRoots": ["./node-modules/@types", "src/common/typedefs"]
