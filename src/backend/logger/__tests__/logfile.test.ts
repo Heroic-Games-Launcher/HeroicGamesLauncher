@@ -37,7 +37,7 @@ describe('logger/logfile.ts', () => {
     expect(spyAppGetPath).toBeCalledWith('logs')
     expect(logError).toBeCalledWith(
       [
-        `Open invalid/heroic-`,
+        expect.stringContaining(`Open invalid/heroic-`),
         expect.objectContaining(
           Error("ENOENT: no such file or directory, open 'invalid/heroic-")
         )
