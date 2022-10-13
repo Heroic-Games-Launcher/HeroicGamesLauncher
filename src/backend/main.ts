@@ -75,8 +75,7 @@ import {
   getGame,
   getFirstExistingParentPath,
   getLatestReleases,
-  notify,
-  quoteIfNecessary
+  notify
 } from './utils'
 import {
   configStore,
@@ -659,12 +658,15 @@ ipcMain.handle(
         await Winetricks.run(wineVersion, winePrefix, event)
         break
       case 'winecfg':
-        game.runWineCommand('winecfg')
+        isSideloaded
+          ? runWineCommand({ gameSettings, command: 'winecfg', wait: false })
+          : game.runWineCommand('winecfg')
         break
       case 'runExe':
         if (exe) {
-          exe = quoteIfNecessary(exe)
-          game.runWineCommand(exe)
+          isSideloaded
+            ? runWineCommand({ gameSettings, command: exe, wait: false })
+            : game.runWineCommand(exe)
         }
         break
     }
