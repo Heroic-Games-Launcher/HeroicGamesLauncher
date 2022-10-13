@@ -543,15 +543,36 @@ async function runWineCommand({
       writeFileSync(options.logFile, '')
     }
 
+    const stdout: string[] = []
+    const stderr: string[] = []
+
     child.stdout.on('data', (data: Buffer) => {
-      console.log('stdout:', `${data}`)
-      response.stdout += `${data}`
+      if (options?.logFile) {
+        appendFileSync(options.logFile, data.toString())
+      }
+
+      if (options?.onOutput) {
+        options.onOutput(data.toString(), child)
+      }
+
+      stdout.push(data.toString().trim())
     })
-    child.stdout.on('data', (data: Buffer) => {
-      console.log('stdout:', `${data}`)
-      response.stderr += `${data}`
+
+    child.stderr.on('data', (data: Buffer) => {
+      if (options?.logFile) {
+        appendFileSync(options.logFile, data.toString())
+      }
+
+      if (options?.onOutput) {
+        options.onOutput(data.toString(), child)
+      }
+
+      stderr.push(data.toString().trim())
     })
+
     child.on('close', (code, signal) => {
+      response.stdout = stdout.join('')
+      response.stderr = stderr.join('')
       console.log({ response, code, signal })
       res(response)
       return response
@@ -629,20 +650,13 @@ async function callRunner(
         appendFileSync(options.logFile, data.toString())
       }
 
-      if (options?.onOutput) {
-        options.onOutput(data.toString(), child)
-      }
-
       stdout.push(data.toString().trim())
     })
 
     child.stderr.on('data', (data: Buffer) => {
+      console.log(`${data}`)
       if (options?.logFile) {
         appendFileSync(options.logFile, data.toString())
-      }
-
-      if (options?.onOutput) {
-        options.onOutput(data.toString(), child)
       }
 
       stderr.push(data.toString().trim())
