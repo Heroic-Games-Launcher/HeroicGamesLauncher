@@ -12,7 +12,7 @@ const testData = [
   'normalString',
   ['string1', 'string2'],
   { key1: 100, key2: 'value', key3: { subKey: ['hello', 'world'] } },
-  new Error('FAILED')
+  'Error: FAILED'
 ]
 
 type logLevel = 'WARNING' | 'ERROR' | 'INFO' | 'DEBUG'
@@ -124,7 +124,8 @@ describe('logger/logger.ts', () => {
 
       expect(showDialogBoxModalAuto).toBeCalledWith({
         title: 'Backend',
-        error: expect.stringContaining(getStringPassedToLogFile(level, true))
+        message: getStringPassedToLogFile(level, true),
+        type: 'ERROR'
       })
     })
   })
