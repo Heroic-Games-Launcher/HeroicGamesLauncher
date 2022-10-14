@@ -18,7 +18,7 @@
             "title": "Kontrolli ja paranda"
         },
         "runexe": {
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "select": {
             "button": "Select"
@@ -53,7 +53,7 @@
         "hide_game": "Peida mäng",
         "import": "Impordi mäng",
         "install": "Paigalda",
-        "install-error": "No path selected",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Eemalda lemmikutest",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",

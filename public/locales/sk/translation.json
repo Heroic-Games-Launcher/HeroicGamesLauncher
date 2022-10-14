@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -105,7 +105,7 @@
             }
         },
         "runexe": {
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "select": {
             "button": "Select",
@@ -119,7 +119,7 @@
         "sync": {
             "button": "",
             "error": "",
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "vcruntime": {
             "install": {
@@ -356,7 +356,7 @@
         },
         "gameargs": {
             "placeholder": "",
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -459,7 +459,7 @@
             "forceupload": "",
             "sync": "",
             "syncing": "",
-            "title": "",
+            "title": "Select EXE to Run",
             "upload": ""
         },
         "maxRecentGames": "Recent Games to Show",
@@ -472,7 +472,7 @@
         "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
             "message": "",
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "savefolder": {
             "placeholder": ""
@@ -530,7 +530,6 @@
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar"
     },
-    "Sideload": "Other",
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",

@@ -18,7 +18,7 @@
             "title": "Bekreft og reparer"
         },
         "runexe": {
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "select": {
             "button": "Select"
@@ -54,7 +54,7 @@
         "hide_game": "Skjul spillet",
         "import": "Importer spill",
         "install": "Installere",
-        "install-error": "No path selected",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Fjern fra favoritter",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",

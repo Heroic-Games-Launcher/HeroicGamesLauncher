@@ -18,7 +18,7 @@
             "title": "Рамантаванне й Праверка"
         },
         "runexe": {
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "select": {
             "button": "Select"
@@ -53,7 +53,7 @@
         "hide_game": "Схаваць гульню",
         "import": "Імпарт гульні",
         "install": "Усталяваць",
-        "install-error": "No path selected",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Выдаліць з абранага",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",

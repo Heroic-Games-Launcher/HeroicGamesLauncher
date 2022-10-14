@@ -18,7 +18,7 @@
             "title": "Auf Fehler überprüfen und Reparieren"
         },
         "runexe": {
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "select": {
             "button": "Select"
@@ -53,7 +53,7 @@
         "hide_game": "Spiel ausblenden",
         "import": "Spiel importieren",
         "install": "Installieren",
-        "install-error": "No path selected",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Aus Favoriten entfernen",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",

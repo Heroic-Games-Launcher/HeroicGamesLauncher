@@ -530,7 +530,6 @@
         "collapse": "Skjul sidefeltet",
         "uncollapse": "Slå opp sidefeltet"
     },
-    "Sideload": "Other",
     "status": {
         "installing": "Installerer",
         "logging": "Logger inn...",

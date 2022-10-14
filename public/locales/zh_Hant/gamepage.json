@@ -18,7 +18,7 @@
             "title": "驗證並修復遊戲檔案"
         },
         "runexe": {
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "select": {
             "button": "Select"
@@ -53,7 +53,7 @@
         "hide_game": "隱藏遊戲",
         "import": "導入",
         "install": "安裝",
-        "install-error": "No path selected",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "自我的最愛移除",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",

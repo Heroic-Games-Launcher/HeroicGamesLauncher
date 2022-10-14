@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Viga",
@@ -530,7 +530,6 @@
         "collapse": "Ahenda külgriba",
         "uncollapse": "Lahtista külgriba"
     },
-    "Sideload": "Other",
     "status": {
         "installing": "Paigaldamine",
         "logging": "Sisselogimine...",

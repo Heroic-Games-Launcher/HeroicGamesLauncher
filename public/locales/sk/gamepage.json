@@ -18,7 +18,7 @@
             "title": "Overiť a opraviť"
         },
         "runexe": {
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "select": {
             "button": "Select"
@@ -53,7 +53,7 @@
         "hide_game": "Skryť hru",
         "import": "Importovať hru",
         "install": "Inštalácia",
-        "install-error": "No path selected",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Odstrániť z obľúbených",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",

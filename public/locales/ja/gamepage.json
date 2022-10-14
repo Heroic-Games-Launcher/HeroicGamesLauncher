@@ -18,7 +18,7 @@
             "title": "確認と修復"
         },
         "runexe": {
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "select": {
             "button": "Select"
@@ -53,7 +53,7 @@
         "hide_game": "Hide Game",
         "import": "インポート",
         "install": "インストール",
-        "install-error": "No path selected",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Remove From Favourites",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",

@@ -18,7 +18,7 @@
             "title": "Provjeri i popravi"
         },
         "runexe": {
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "select": {
             "button": "Select"
@@ -54,7 +54,7 @@
         "hide_game": "Sakrij igru",
         "import": "Uvezi igru",
         "install": "Instaliraj",
-        "install-error": "No path selected",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Otkloni iz favorita",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",

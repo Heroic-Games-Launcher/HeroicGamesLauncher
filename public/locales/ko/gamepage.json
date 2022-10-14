@@ -18,7 +18,7 @@
             "title": "확인 및 복구"
         },
         "runexe": {
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "select": {
             "button": "Select"
@@ -53,7 +53,7 @@
         "hide_game": "게임 숨김",
         "import": "게임 들여오기",
         "install": "설치",
-        "install-error": "No path selected",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "즐겨찾기에서 제거",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",

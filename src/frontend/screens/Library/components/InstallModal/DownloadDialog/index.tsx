@@ -338,7 +338,7 @@ export default function DownloadDialog({
           : t('button.install')
       }
     }
-    return t('button.install-error', 'No path selected')
+    return t('button.no-path-selected', 'No path selected')
   }
 
   return (

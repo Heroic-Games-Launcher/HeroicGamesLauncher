@@ -279,7 +279,7 @@ export const getSystemInfo = async () => {
 
   return `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
-GogDL Version: ${gogdlVersion}
+GOGdl Version: ${gogdlVersion}
 OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
 CPU: ${manufacturer} ${brand} @${speed} ${
     governor ? `GOVERNOR: ${governor}` : ''

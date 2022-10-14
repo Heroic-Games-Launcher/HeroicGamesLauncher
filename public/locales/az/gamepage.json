@@ -18,7 +18,7 @@
             "title": "Doğrulayın və Təmir edin"
         },
         "runexe": {
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "select": {
             "button": "Select"
@@ -54,7 +54,7 @@
         "hide_game": "Oyunu Gizlət",
         "import": "İdxal Oyunu",
         "install": "Yüklemek",
-        "install-error": "No path selected",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Sevimlilərdən Sil",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
