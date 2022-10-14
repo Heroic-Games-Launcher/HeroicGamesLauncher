@@ -136,14 +136,18 @@ export default function GamePage(): JSX.Element | null {
             winePrefix
           }: AppSettings = await window.api.requestSettings(appName)
 
-          let wine = wineVersion.name
-            .replace('Wine - ', '')
-            .replace('Proton - ', '')
-          if (wine.includes('Default')) {
-            wine = wine.split('-')[0]
+          if (wineVersion) {
+            let wine = wineVersion.name
+              .replace('Wine - ', '')
+              .replace('Proton - ', '')
+            if (wine.includes('Default')) {
+              wine = wine.split('-')[0]
+            }
+            setWineVersion(wine)
           }
-          setWineVersion(wine)
-          setWinePrefix(winePrefix)
+          if (winePrefix) {
+            setWinePrefix(winePrefix)
+          }
 
           if (newInfo?.cloud_save_enabled) {
             setAutoSyncSaves(autoSyncSaves)
@@ -229,6 +233,11 @@ export default function GamePage(): JSX.Element | null {
     */
 
     if (hasError.error) {
+      if (
+        hasError.message !== undefined &&
+        typeof hasError.message === 'string'
+      )
+        window.api.logError(hasError.message)
       const message =
         typeof hasError.message === 'string'
           ? hasError.message
