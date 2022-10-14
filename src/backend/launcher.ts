@@ -474,7 +474,7 @@ async function runWineCommand({
   const env_vars = {
     ...process.env,
     ...setupEnvVars(settings),
-    ...setupWineEnvVars(settings)
+    ...setupWineEnvVars(settings, installFolderName)
   }
 
   let additional_command = ''
@@ -526,7 +526,6 @@ async function runWineCommand({
       bin = wineBin
     }
 
-    console.log({ bin, commandParts, installFolderName })
     const child = spawn(bin, commandParts, {
       env: env_vars,
       cwd: startFolder

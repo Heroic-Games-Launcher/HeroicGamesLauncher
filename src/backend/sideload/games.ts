@@ -176,6 +176,7 @@ export async function launchApp(appName: string): Promise<boolean> {
       launchCleanup(rpcClient)
       // TODO: check and revert to previous permissions
       await chmod(executable, 0o664)
+      return true
     }
 
     logInfo(`launching non-native sideloaded: ${executable}}`, {
