@@ -9,7 +9,7 @@ import {
 import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GOGLibrary } from './library'
-import { GameInfo, InstalledInfo } from 'common/types'
+import { BottlesType, GameInfo, InstalledInfo } from 'common/types'
 import { execAsync, quoteIfNecessary } from '../utils'
 import { GameConfig } from '../game_config'
 import {
@@ -21,9 +21,11 @@ import {
 } from '../logger/logger'
 import { userHome, isWindows } from '../constants'
 import ini from 'ini'
+import shlex from 'shlex'
 import { GlobalConfig } from '../config'
 import { isOnline } from '../online_monitor'
 import { prepareBottlesCommand } from '../bottles/utils'
+
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
  * For Galaxy games only (Windows)
@@ -135,25 +137,26 @@ async function setup(
             if (!valueName && !valueData) {
               break // Skip creating just registry path, bottles CLI needs some key to add
             }
-            command = prepareBottlesCommand(
-              [
-                'reg',
-                'add',
-                '-b',
-                gameSettings.bottlesBottle,
-                '-k',
-                registryPath,
-                '-v',
-                valueName,
-                '-d',
-                valueData,
-                '-t',
-                getRegDataType(valueType)
-              ],
-              gameSettings.wineVersion.bin,
-              false,
-              true
-            ) as string
+            command = shlex.join(
+              prepareBottlesCommand(
+                [
+                  'reg',
+                  'add',
+                  '-b',
+                  gameSettings.bottlesBottle,
+                  '-k',
+                  registryPath,
+                  '-v',
+                  valueName,
+                  '-d',
+                  valueData,
+                  '-t',
+                  getRegDataType(valueType)
+                ],
+                gameSettings.wineVersion.subtype!,
+                false
+              )
+            )
           }
           logInfo(
             [
@@ -212,20 +215,21 @@ async function setup(
           let command = `${commandPrefix} "${executablePath}" ${exeArguments}`
 
           if (gameSettings.wineVersion.type === 'bottles') {
-            command = prepareBottlesCommand(
-              [
-                'run',
-                '-b',
-                gameSettings.bottlesBottle,
-                '-e',
-                executablePath,
-                '-a',
-                exeArguments
-              ],
-              gameSettings.wineVersion.bin,
-              false,
-              true
-            ) as string
+            command = shlex.join(
+              prepareBottlesCommand(
+                [
+                  'run',
+                  '-b',
+                  gameSettings.bottlesBottle,
+                  '-e',
+                  executablePath,
+                  '-a',
+                  exeArguments
+                ],
+                gameSettings.wineVersion.bin as BottlesType,
+                false
+              )
+            )
           }
           // Requires testing
           if (isWindows) {

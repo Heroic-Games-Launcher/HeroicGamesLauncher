@@ -1,21 +1,20 @@
 import { spawn } from 'child_process'
 import { logDebug, LogPrefix } from '../logger/logger'
 import { isFlatpak } from '../constants'
-import shlex from 'shlex'
+import { BottlesType } from 'common/types'
 
 function prepareBottlesCommand(
   args: string[],
-  bottlesBin: string,
-  noCli?: boolean,
-  join?: boolean
-): string[] | string {
+  bottlesType: BottlesType,
+  noCli?: boolean
+): string[] {
   const command: string[] = []
 
   if (isFlatpak) {
     command.push(...['flatpak-spawn', '--host'])
   }
 
-  if (bottlesBin === 'flatpak') {
+  if (bottlesType === 'flatpak') {
     command.push(...['flatpak', 'run'])
     if (!noCli) {
       command.push('--command=bottles-cli')
@@ -26,19 +25,14 @@ function prepareBottlesCommand(
   }
 
   command.push(...args)
-  if (join) {
-    return shlex.join(command)
-  }
   return command
 }
 
-async function getBottlesNames(
-  bottlesBin: 'flatpak' | 'os'
-): Promise<string[]> {
+async function getBottlesNames(bottlesType: BottlesType): Promise<string[]> {
   // Prepare command
   const { stdout } = await runBottlesCommand(
     ['--json', 'list', 'bottles'],
-    bottlesBin
+    bottlesType
   )
 
   const jsonStart = stdout.indexOf('{')
@@ -48,14 +42,14 @@ async function getBottlesNames(
 
 async function runBottlesCommand(
   command: string[],
-  bottlesType: string,
+  bottlesType: BottlesType,
   noCli?: boolean
 ): Promise<{ stdout: string; stderr: string; error: boolean }> {
   const [exe, ...bottlesCommand] = prepareBottlesCommand(
     command,
     bottlesType,
     noCli
-  ) as string
+  )
   logDebug(['Launching bottles command', exe, bottlesCommand.join(' ')], {
     prefix: LogPrefix.Backend
   })
@@ -93,12 +87,11 @@ async function runBottlesCommand(
   })
 }
 
-async function openBottles(bottle: string, bottlesType: string) {
+async function openBottles(bottle: string, bottlesType: BottlesType) {
   const [exe, ...args] = prepareBottlesCommand(
     ['-b', bottle],
     bottlesType,
-    true,
-    false
+    true
   )
   logDebug(['Opening Bottles', exe, args.join(' ')], {
     prefix: LogPrefix.Backend

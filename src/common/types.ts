@@ -226,6 +226,7 @@ export interface WineInstallation {
   bin: string
   name: string
   type: 'wine' | 'proton' | 'crossover' | 'bottles'
+  subtype?: BottlesType
   lib?: string
   lib32?: string
   wineboot?: string
@@ -482,6 +483,8 @@ export type ConnectivityChangedCallback = (
 ) => void
 
 export type ConnectivityStatus = 'offline' | 'check-online' | 'online'
+
+export type BottlesType = 'flatpak' | 'os'
 
 export interface Tools {
   exe?: string

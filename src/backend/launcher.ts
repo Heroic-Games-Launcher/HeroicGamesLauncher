@@ -478,12 +478,13 @@ async function runWineCommand(
   const wineBin = wineVersion.bin.replaceAll("'", '')
   let finalCommand = `"${wineBin}" ${command}`
   if (wineVersion.type === 'bottles') {
-    finalCommand = prepareBottlesCommand(
-      ['shell', '-b', bottlesBottle, '-i', command],
-      wineVersion.bin,
-      false,
-      true // since this is true it will always be a string
-    ) as string
+    finalCommand = shlex.join(
+      prepareBottlesCommand(
+        ['shell', '-b', bottlesBottle, '-i', command],
+        wineVersion.subtype!,
+        false
+      )
+    )
   }
   if (additional_command) {
     finalCommand += ` && ${additional_command}`

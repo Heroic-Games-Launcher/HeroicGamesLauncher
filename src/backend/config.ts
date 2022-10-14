@@ -205,7 +205,8 @@ abstract class GlobalConfig {
       bottles.add({
         name: `Bottles - native`,
         type: 'bottles',
-        bin: 'os'
+        bin: 'os',
+        subtype: 'os'
       })
       return bottles
     } else {
@@ -218,7 +219,8 @@ abstract class GlobalConfig {
         bottles.add({
           name: `Bottles - flatpak`,
           type: 'bottles',
-          bin: 'flatpak'
+          bin: 'flatpak',
+          subtype: 'flatpak'
         })
         return bottles
       }

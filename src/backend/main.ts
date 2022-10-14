@@ -657,11 +657,11 @@ ipcMain.handle(
         if (wineVersion.type === 'bottles') {
           await runBottlesCommand(
             ['tools', 'winecfg', '-b', bottlesBottle],
-            wineVersion.bin
+            wineVersion.subtype!
           )
-          break
+        } else {
+          game.runWineCommand('winecfg')
         }
-        game.runWineCommand('winecfg')
         break
       case 'runExe':
         if (exe) {
@@ -671,7 +671,7 @@ ipcMain.handle(
         break
 
       case 'bottles':
-        openBottles(bottlesBottle, wineVersion.bin)
+        openBottles(bottlesBottle, wineVersion.subtype!)
         break
     }
   }

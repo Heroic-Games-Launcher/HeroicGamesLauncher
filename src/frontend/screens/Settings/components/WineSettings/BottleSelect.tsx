@@ -16,12 +16,14 @@ export default function BottleSelect() {
     'wineVersion',
     defaultWineVersion
   )
-  const [bottlesNames, setBottlesNames] = useState([])
+  const [bottlesNames, setBottlesNames] = useState<string[]>([])
 
   useEffect(() => {
     let cancelled = false
     const getBottlesNames = async () => {
-      const bottlesNames = await window.api.getBottlesNames(wineVersion.bin)
+      const bottlesNames = await window.api.getBottlesNames(
+        wineVersion.subtype!
+      )
       if (!cancelled) setBottlesNames(bottlesNames)
     }
 

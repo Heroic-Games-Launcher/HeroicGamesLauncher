@@ -387,10 +387,7 @@ class GOGGame extends Game {
       if (wineType === 'proton') {
         wineFlag.push(...['--no-wine', '--wrapper', `'${wineBin}' run`])
       } else if (wineType === 'bottles') {
-        commandEnv = {
-          ...commandEnv,
-          HGL_BOTTLE_NAME: gameSettings.bottlesBottle
-        }
+        commandEnv.HGL_BOTTLE_NAME = gameSettings.bottlesBottle
         wineFlag.push(...['--no-wine', '--wrapper', bottlesWineBin])
       } else {
         wineFlag.push(...['--wine', wineBin])
