@@ -143,6 +143,7 @@ export default function WebView() {
         />
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
+      {/* eslint-disable react/no-unknown-property */}
       <webview
         ref={webviewRef}
         className="WebView__webview"
