@@ -459,6 +459,7 @@ class LegendaryGame extends Game {
       }
       return { status: 'error' }
     }
+    this.addShortcuts()
     return { status: 'done' }
   }
 
