@@ -269,7 +269,6 @@ export default function GamePage(): JSX.Element | null {
                 runner={gameInfo.runner}
                 handleUpdate={handleUpdate}
                 disableUpdate={updateRequested || isUpdating}
-                steamImageUrl={gameInfo.art_cover}
                 onShowRequirements={
                   hasRequirements ? () => setShowRequirements(true) : undefined
                 }
