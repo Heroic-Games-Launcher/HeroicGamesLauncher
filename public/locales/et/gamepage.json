@@ -56,14 +56,12 @@
     "game": {
         "downloadSize": "Allalaadimise suurus",
         "firstPlayed": "Esimest korda mängitud",
-        "info": "Info",
         "installSize": "Paigaldamise suurus",
         "language": "Keel",
         "lastPlayed": "Viimati mängitud",
         "neverPlayed": "Mitte kunagi",
         "platform": "Valige paigaldatava platvormi versioon",
         "requirements": "Süsteeminõuded",
-        "tools": "Tööriistad",
         "totalPlayed": "Mängitud aeg"
     },
     "gamecard": {

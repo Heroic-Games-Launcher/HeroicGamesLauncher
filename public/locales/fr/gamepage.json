@@ -56,14 +56,12 @@
     "game": {
         "downloadSize": "Taille du téléchargement",
         "firstPlayed": "Joué pour la première fois",
-        "info": "Info",
         "installSize": "Taille de l'installation",
         "language": "Langue",
         "lastPlayed": "Joué la dernière fois",
         "neverPlayed": "Jamais",
         "platform": "Sélectionner la version de la plateforme pour installer",
         "requirements": "System Requirements",
-        "tools": "Tools",
         "totalPlayed": "Temps passé à jouer"
     },
     "gamecard": {

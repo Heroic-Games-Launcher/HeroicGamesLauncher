@@ -1,36 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 
-const useSetting = <T>(
-  key: string,
-  fallback: T
-): [T, React.Dispatch<React.SetStateAction<T>>] => {
-  const { getSetting, setSetting, config } = useContext(SettingsContext)
+const useSetting = <T>(key: string, fallback: T): [T, (newVal: T) => void] => {
+  const { getSetting, setSetting } = useContext(SettingsContext)
 
-  let initialValue = getSetting(key) as T
-  if (initialValue === undefined) {
-    initialValue = fallback
+  let currentValue = getSetting(key) as T
+  if (currentValue === undefined) {
+    currentValue = fallback
   }
-  const [value, setValue] = useState<T>(initialValue)
-  const [dirty, setDirty] = useState(false)
 
-  useEffect(() => {
-    const newValue = getSetting(key) as T
+  const setSettingF = (newValue: T) => {
+    setSetting(key, newValue)
+  }
 
-    if (newValue && newValue !== value) {
-      setValue(newValue)
-    }
-  }, [config])
-
-  useEffect(() => {
-    if (dirty) {
-      setSetting(key, value)
-    } else if (value !== initialValue) {
-      setDirty(true)
-    }
-  }, [value, dirty])
-
-  return [value, setValue]
+  return [currentValue, setSettingF]
 }
 
 export default useSetting

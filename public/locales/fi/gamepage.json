@@ -56,14 +56,12 @@
     "game": {
         "downloadSize": "Latauksen koko",
         "firstPlayed": "Ensimmäisen kerran pelattu",
-        "info": "Info",
         "installSize": "Asennuskoko",
         "language": "Kieli",
         "lastPlayed": "Viimeksi pelattu",
         "neverPlayed": "Ei koskaan",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "tools": "Tools",
         "totalPlayed": "Pelattu aika"
     },
     "gamecard": {

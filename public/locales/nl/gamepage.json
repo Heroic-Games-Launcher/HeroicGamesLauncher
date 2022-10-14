@@ -56,14 +56,12 @@
     "game": {
         "downloadSize": "Downloadgrootte",
         "firstPlayed": "Eerst gespeeld",
-        "info": "Info",
         "installSize": "Installatie grootte",
         "language": "Language",
         "lastPlayed": "Laatst gespeeld",
         "neverPlayed": "Nooit",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "tools": "Tools",
         "totalPlayed": "Tijd gespeeld"
     },
     "gamecard": {
