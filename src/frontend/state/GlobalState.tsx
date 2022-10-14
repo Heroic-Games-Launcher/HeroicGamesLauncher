@@ -557,7 +557,7 @@ export class GlobalState extends PureComponent<Props> {
             },
             t,
             runner,
-            platformToInstall: 'Windows'
+            platformToInstall: 'windows'
           })
         }
       }

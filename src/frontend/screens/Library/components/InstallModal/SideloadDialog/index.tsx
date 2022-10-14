@@ -118,12 +118,12 @@ export default function SideloadDialog({
   }
 
   const fileFilters = {
-    Windows: [
+    windows: [
       { name: 'Executables', extensions: ['exe', 'msi'] },
       { name: 'Scripts', extensions: ['bat'] },
       { name: 'All', extensions: ['*'] }
     ],
-    Linux: [
+    linux: [
       { name: 'AppImages', extensions: ['AppImage'] },
       { name: 'Other Binaries', extensions: ['sh', 'py', 'bin'] },
       { name: 'All', extensions: ['*'] }
