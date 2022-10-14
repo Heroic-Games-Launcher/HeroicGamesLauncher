@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "Автоматично добавяне на преки пътища на работния плот",
         "addgamestostartmenu": "Автоматично добавяне на игрите в менюто с приложения",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Избиране на алтернативен изпълним файл на GOGDL",
         "alt-legendary-bin": "Избиране на алтернативен изпълним файл на Legendary",
         "audiofix": "Поправка за звука (забавяне на Pulse Audio)",

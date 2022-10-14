@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choisir un binaire GOGDL alternatif à utiliser",
         "alt-legendary-bin": "Choisir un autre exécutable Legendary (redémarrage Heroic nécessaire)",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",

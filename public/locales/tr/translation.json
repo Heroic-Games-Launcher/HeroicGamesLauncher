@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Bir muadil GOGDL çalıştırılabilir dosyasını seçin",
         "alt-legendary-bin": "Bir muadil Legendary dosyası seçin",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",

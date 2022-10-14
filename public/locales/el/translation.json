@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "Αυτόματη προσθήκη συντομεύσεων επιφάνειας εργασίας",
         "addgamestostartmenu": "Αυτόματη προσθήκη παιχνιδιών στο Μενού εκκίνησης",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Επιλογή Εναλλακτικού δυαδικού GOGDL για χρήση",
         "alt-legendary-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Legendary",
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",

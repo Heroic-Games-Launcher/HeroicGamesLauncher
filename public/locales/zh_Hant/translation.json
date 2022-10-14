@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "自動添加桌面捷徑",
         "addgamestostartmenu": "自動添加捷徑到開始功能表",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "選擇要使用的備選 GOGDL 二進制文件",
         "alt-legendary-bin": "選擇備選的 Legendary 二進制文件",
         "audiofix": "音頻修覆（Pulse Audio延遲）",

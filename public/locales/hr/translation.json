@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Odaberi drugu verziju GOGDL programa za koristiti",
         "alt-legendary-bin": "Odaberi drugu verziju Legendary programa",
         "audiofix": "Popravak zvuka (Pulse audio latencija)",

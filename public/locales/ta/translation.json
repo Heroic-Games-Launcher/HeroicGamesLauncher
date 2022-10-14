@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "திரைமுகப்பு குறுக்குவழிகளை தானாக சேர்",
         "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "மாற்று GOGDL Binary ஐத் தேர்வு செய்",
         "alt-legendary-bin": "மாற்று Legendary Binary ஐத் தேர்வு செய்",
         "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",

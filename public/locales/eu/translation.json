@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "Gehitu mahaigaineko lasterbideak automatikoki",
         "addgamestostartmenu": "Gehitu jokoak menua automatikoki hasteko",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Aukeratu GOGDL Binario alternatibo bat erabiltzeko",
         "alt-legendary-bin": "Aukeratu kondairazko bitar alternatibo bat",
         "audiofix": "Audio konponketa (Pultso Audio latentzia)",

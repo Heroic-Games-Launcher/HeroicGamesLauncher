@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "Desktop shortcuts automatish toevoegen",
         "addgamestostartmenu": "Spellen automatish toevoegen aan start menu",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Kies een andere Legendary Binary om te gebruiken",
         "audiofix": "Geluid fix (Pulse Audio Latency)",

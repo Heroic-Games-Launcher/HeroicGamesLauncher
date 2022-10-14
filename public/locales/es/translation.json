@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
         "addgamestostartmenu": "Añadir juegos al menú de inicio automáticamente",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Elige un binario de GOGDL alternativo para usar",
         "alt-legendary-bin": "Elige un binario de Legendary alternativo",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",

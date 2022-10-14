@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Vyberte alternativní spustitelný soubor GOGDL, který chcete použít",
         "alt-legendary-bin": "Vyberte alternativní spustitelný soubor Legendary",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",

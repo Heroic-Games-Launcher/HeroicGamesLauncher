@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "Tự động thêm shortcut trên màn hình chính",
         "addgamestostartmenu": "Tự động thêm game vào menu Start",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Chọn GOGDL binary thay thế để sử dụng",
         "alt-legendary-bin": "Chọn Legendary binary thay thế để sử dụng",
         "audiofix": "Sửa âm thanh (Pulse Audio Latency)",

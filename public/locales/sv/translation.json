@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg till spel i startmenyn automatiskt",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Ange alternativ GOGDL version (omstart krävs)",
         "alt-legendary-bin": "Ange alternativ Legendary version",
         "audiofix": "Ljudfix (Pulse Audio latens)",

@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "デスクトップショートカットを自動的に追加する",
         "addgamestostartmenu": "ゲームをスタートメニューに自動的に追加する",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",

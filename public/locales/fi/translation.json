@@ -387,6 +387,7 @@
     "setting": {
         "adddesktopshortcuts": "Lisää työpöydän pikakuvakkeet automaattisesti",
         "addgamestostartmenu": "Lisää pelit aloitusvalikkoon automaattisesti",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Valitse vaihtoehtoinen GOGDL-binääri käytettäväksi (vaatii uudelleenkäynnistyksen)",
         "alt-legendary-bin": "Valitse vaihtoehtoinen Legendary-binääritiedosto (uudelleenkäynnistys vaaditaan)",
         "audiofix": "Äänikorjaus (Pulse Audion viive)",
