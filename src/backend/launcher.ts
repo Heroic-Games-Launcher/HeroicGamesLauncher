@@ -149,8 +149,6 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     GameConfig.get(game.appName).config ||
     (await GameConfig.get(game.appName).getSettings())
 
-  // Verify that a Wine binary is set
-  // This happens when there aren't any Wine versions installed
   if (!(await validWine(gameSettings.wineVersion))) {
     return { success: false }
   }
