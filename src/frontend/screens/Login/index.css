@@ -98,10 +98,6 @@
   margin-top: var(--space-xs);
 }
 
-.languageSelector > :not(select) {
-  margin-left: var(--space-3xs);
-}
-
 .title,
 .subtitle {
   margin: 0;
