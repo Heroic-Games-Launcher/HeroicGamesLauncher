@@ -26,40 +26,54 @@ export default function Runner(props: RunnerProps) {
     //window.localStorage.clear()
   }
   return (
-    <div className={`runnerWrapper ${props.class}`}>
-      <div>{props.icon()}</div>
-      {props.isLoggedIn && (
-        <div className="userData">
-          <span>
-            {String(props.user).slice(0, maxNameLength) +
-              (String(props.user).length > maxNameLength ? '...' : '')}
-          </span>
-        </div>
-      )}
-      <div>
-        {!props.isLoggedIn ? (
-          <Link to={props.loginUrl}>
-            <div className="runnerLogin">{t('button.login', 'Login')}</div>
-          </Link>
-        ) : (
-          <div
-            className="runnerLogin logged"
-            onClick={() => {
-              handleLogout()
-            }}
-          >
-            {t('userselector.logout', 'Logout')}
+    <>
+      <div className={`runnerWrapper ${props.class}`}>
+        <div className={`runnerIcon ${props.class}`}>{props.icon()}</div>
+        {props.isLoggedIn && (
+          <div className="userData">
+            <span>
+              {String(props.user).slice(0, maxNameLength) +
+                (String(props.user).length > maxNameLength ? '...' : '')}
+            </span>
           </div>
         )}
+        <div className="runnerButtons">
+          {!props.isLoggedIn ? (
+            <Link to={props.loginUrl}>
+              <div className="runnerLogin">{`${
+                props.class === 'epic'
+                  ? props.class + ' Games Login'
+                  : props.class + ' Login'
+              }`}</div>
+            </Link>
+          ) : (
+            <div
+              className="runnerLogin logged"
+              onClick={() => {
+                handleLogout()
+              }}
+            >
+              {t('userselector.logout', 'Logout')}
+            </div>
+          )}
+        </div>
       </div>
       {props.alternativeLoginAction && !props.isLoggedIn && (
-        <div
-          onClick={props.alternativeLoginAction}
-          className="runnerLogin alternative"
-        >
-          {t('login.externalLogin', 'External Login')}
+        <div className="runnerWrapper">
+          <div className="runnerIcon alternative">{props.icon()}</div>
+          <div className="runnerButtons">
+            <div
+              onClick={props.alternativeLoginAction}
+              className="runnerLogin alternative"
+            >
+              {`${props.class} Games ${t(
+                'login.externalLogin',
+                'External Login'
+              )}`}
+            </div>
+          </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
