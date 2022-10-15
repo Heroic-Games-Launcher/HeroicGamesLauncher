@@ -90,8 +90,16 @@
 }
 
 .loginPage .languageSelector label {
-  justify-self: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-xs);
+}
+
+.loginPage .smallLink {
+  text-align: left;
+  margin-top: var(--space-xs);
+}
+
+.languageSelector > :not(select) {
+  margin-left: var(--space-3xs);
 }
 
 .title,
@@ -136,6 +144,7 @@
   width: 75%;
   margin-top: 0;
   margin-bottom: var(--message-padding);
+  text-align: left;
 }
 
 .runnerGroup {
