@@ -42,7 +42,8 @@ import {
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
-  RpcClient
+  RpcClient,
+  WineInstallation
 } from 'common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
@@ -395,6 +396,45 @@ function setupWrappers(
 }
 
 /**
+ * Checks if the game's selected Wine version exists
+ * @param game The game to check the Wine version of
+ * @returns true if the wine version exists, false if it doesn't
+ */
+export async function validWine(
+  wineVersion: WineInstallation
+): Promise<boolean> {
+  const wineBin = wineVersion.bin
+
+  if (!wineBin) {
+    showErrorBoxModalAuto({
+      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
+      error: i18next.t(
+        'box.error.wine-not-found.message',
+        'No Wine Version Selected. Check Game Settings!'
+      )
+    })
+    return false
+  }
+
+  if (!existsSync(wineBin)) {
+    showErrorBoxModalAuto({
+      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
+      error: i18next.t('box.error.wine-not-found.invalid', {
+        defaultValue:
+          "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+        version: wineVersion.name,
+        path: wineBin,
+        newline: '\n',
+        interpolation: { escapeValue: false }
+      })
+    })
+    return false
+  }
+
+  return true
+}
+
+/**
  * Verifies that a Wineprefix exists by running 'wineboot --init'
  * @param game The game to verify the Wineprefix of
  * @returns stderr & stdout of 'wineboot --init'
@@ -403,6 +443,10 @@ export async function verifyWinePrefix(
   game: LegendaryGame | GOGGame
 ): Promise<{ res: ExecResult; updated: boolean }> {
   const { winePrefix, wineVersion } = await game.getSettings()
+
+  if (!(await validWine(wineVersion))) {
+    return { res: { stdout: '', stderr: '' }, updated: false }
+  }
 
   if (wineVersion.type === 'crossover') {
     return { res: { stdout: '', stderr: '' }, updated: false }
@@ -454,9 +498,15 @@ async function runWineCommand(
   forceRunInPrefixVerb = false
 ) {
   const gameSettings = await game.getSettings()
-  const { folder_name: installFolderName } = game.getGameInfo()
-
   const { wineVersion } = gameSettings
+
+  if (!(await validWine(wineVersion))) {
+    return { stdout: '', stderr: '' }
+  }
+
+  const wineBin = wineVersion.bin.replaceAll("'", '')
+
+  const { folder_name: installFolderName } = game.getGameInfo()
 
   const env_vars = {
     ...process.env,
@@ -487,7 +537,6 @@ async function runWineCommand(
     }
   }
 
-  const wineBin = wineVersion.bin.replaceAll("'", '')
   let finalCommand = `"${wineBin}" ${command}`
   if (additional_command) {
     finalCommand += ` && ${additional_command}`
