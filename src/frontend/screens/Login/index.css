@@ -89,12 +89,6 @@
   display: none;
 }
 
-/* .loginPage .languageSelector {
-  position: absolute;
-  width: 300px;
-  top: 10vh;
-} */
-
 .loginPage .languageSelector label {
   justify-self: center;
   margin-bottom: 0.5rem;
@@ -128,13 +122,14 @@
 .runnerHeaderText {
   text-align: start;
   margin-left: 60px;
+  align-self: center;
 }
 
 .runnerHeaderIcon {
   position: absolute;
   width: 60px;
   padding-right: 8px;
-  margin-top: -4px;
+  align-self: center;
 }
 
 .runnerMessage {

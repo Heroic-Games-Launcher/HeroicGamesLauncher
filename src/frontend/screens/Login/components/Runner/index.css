@@ -17,8 +17,8 @@
 }
 
 .runnerLogin {
-  padding: var(--space-xs);
-  font-size: var(--text-lg);
+  padding: var(--space-lg);
+  font-size: var(--text-md);
   border: none;
   transition: 0.2s;
   font-weight: 700;
