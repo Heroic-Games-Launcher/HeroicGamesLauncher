@@ -151,14 +151,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
 
   // Verify that a Wine binary is set
   // This happens when there aren't any Wine versions installed
-  if (!gameSettings.wineVersion.bin) {
-    showErrorBoxModalAuto({
-      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
-      error: i18next.t(
-        'box.error.wine-not-found.message',
-        'No Wine Version Selected. Check Game Settings!'
-      )
-    })
+  if (!(await validWine(gameSettings.wineVersion))) {
     return { success: false }
   }
 
