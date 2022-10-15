@@ -498,15 +498,12 @@ async function runWineCommand(
   forceRunInPrefixVerb = false
 ) {
   const gameSettings = await game.getSettings()
+  const { folder_name: installFolderName } = game.getGameInfo()
   const { wineVersion } = gameSettings
 
   if (!(await validWine(wineVersion))) {
     return { stdout: '', stderr: '' }
   }
-
-  const wineBin = wineVersion.bin.replaceAll("'", '')
-
-  const { folder_name: installFolderName } = game.getGameInfo()
 
   const env_vars = {
     ...process.env,
@@ -537,6 +534,7 @@ async function runWineCommand(
     }
   }
 
+  const wineBin = wineVersion.bin.replaceAll("'", '')
   let finalCommand = `"${wineBin}" ${command}`
   if (additional_command) {
     finalCommand += ` && ${additional_command}`
