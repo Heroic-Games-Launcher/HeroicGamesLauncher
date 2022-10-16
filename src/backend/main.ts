@@ -1104,14 +1104,11 @@ ipcMain.handle(
       status: 'done'
     })
 
-    // Show main window if we've minimized it before
-    if (minimizeOnLaunch) {
-      mainWindow.show()
-    }
-
     // Exit if we've been launched without UI
     if (isCLINoGui) {
       app.exit()
+    } else {
+      mainWindow.show()
     }
 
     return { status: launchResult ? 'done' : 'error' }
