@@ -1122,7 +1122,7 @@ ipcMain.handle(
     if (!canceled) {
       return filePaths[0]
     }
-    return canceled
+    return false
   }
 )
 
