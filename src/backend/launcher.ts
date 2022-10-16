@@ -388,7 +388,7 @@ function setupWrappers(
 
 /**
  * Checks if the game's selected Wine version exists
- * @param game The game to check the Wine version of
+ * @param wineVersion an object of type WineInstallation with binary path and name to check
  * @returns true if the wine version exists, false if it doesn't
  */
 export async function validWine(
