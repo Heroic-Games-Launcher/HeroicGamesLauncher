@@ -1122,7 +1122,7 @@ ipcMain.handle(
   'openDialog',
   async (e, args: Electron.OpenDialogOptions): Promise<string | false> => {
     const { filePaths, canceled } = await showOpenDialog(mainWindow, args)
-    if (canceled) {
+    if (!canceled) {
       return filePaths[0]
     }
     return canceled
