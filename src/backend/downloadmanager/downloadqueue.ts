@@ -26,13 +26,6 @@ function getFirstQueueElement() {
 }
 
 function addToFinished(element: DMQueueElement) {
-  if (!element) {
-    logError('Can not add undefined element to finished!', {
-      prefix: LogPrefix.DownloadManager
-    })
-    return
-  }
-
   let elements: DMQueueElement[] = []
   if (downloadManager.has('finished')) {
     elements = downloadManager.get('finished') as DMQueueElement[]

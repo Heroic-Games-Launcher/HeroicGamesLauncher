@@ -50,7 +50,7 @@ import {
 
 export default function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
-  const location = useLocation() as { state: { fromDM: boolean } }
+  const location = useLocation() as { state: { fromDM: boolean } | null }
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
@@ -94,7 +94,7 @@ export default function GamePage(): JSX.Element | null {
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
 
-  const backRoute = location?.state?.fromDM ? '/download-manager' : '/'
+  const backRoute = location.state?.fromDM ? '/download-manager' : '/'
 
   const storage: Storage = window.localStorage
 
