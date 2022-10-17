@@ -645,24 +645,21 @@ class LegendaryGame extends Game {
     }
 
     // Log any launch information configured in Legendary's config.ini
-    await runLegendaryCommand(['launch', this.appName, '--json'], {
-      onOutput: (output) => {
-        if (output.match(/game_parameters/)) {
-          appendFileSync(
-            this.logFileLocation,
-            "Legendary's base config from config.ini:\n"
-          )
-          const json = JSON.parse(output)
-          // remove egl auth info
-          delete json['egl_parameters']
+    const { stdout } = await runLegendaryCommand([
+      'launch',
+      this.appName,
+      '--json',
+      '--offline'
+    ])
+    appendFileSync(
+      this.logFileLocation,
+      "Legendary's config from config.ini (before Heroic's settings):\n"
+    )
+    const json = JSON.parse(stdout)
+    // remove egl auth info
+    delete json['egl_parameters']
 
-          appendFileSync(
-            this.logFileLocation,
-            JSON.stringify(json, null, 2) + '\n\n'
-          )
-        }
-      }
-    })
+    appendFileSync(this.logFileLocation, JSON.stringify(json, null, 2) + '\n\n')
 
     const commandParts = [
       'launch',
