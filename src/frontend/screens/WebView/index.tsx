@@ -12,6 +12,15 @@ type CODE = {
   authorizationCode: string
 }
 
+const urls: { [index: string]: string } = {
+  '/epicstore': `https://www.epicgames.com/store/$lang/`,
+  '/gogstore': `https://gog.com`,
+  '/wiki': 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki',
+  '/loginweb/legendary': 'https://legendary.gl/epiclogin',
+  '/loginweb/gog':
+    'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
+}
+
 export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
@@ -35,16 +44,8 @@ export default function WebView() {
   const trueAsStr = 'true' as unknown as boolean | undefined
   const { runner } = useParams() as { runner: Runner }
 
-  const urls: { [index: string]: string } = {
-    '/epicstore': `https://www.epicgames.com/store/${lang}/`,
-    '/gogstore': `https://gog.com`,
-    '/wiki':
-      'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki',
-    '/loginweb/legendary': 'https://legendary.gl/epiclogin',
-    '/loginweb/gog':
-      'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
-  }
   let startUrl = urls[pathname]
+  startUrl = startUrl?.replace('$lang', lang)
 
   if (pathname.match(/store-page/)) {
     const searchParams = new URLSearchParams(search)
