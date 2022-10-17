@@ -346,7 +346,9 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     initOnlineMonitor()
 
-    const systemInfo = await getSystemInfo()
+    getSystemInfo().then((systemInfo) =>
+      logInfo(`\n\n${systemInfo}\n`, { prefix: LogPrefix.Backend })
+    )
 
     initImagesCache()
 
@@ -357,7 +359,6 @@ if (!gotTheLock) {
     logInfo(['GOGDL location:', join(...Object.values(getGOGdlBin()))], {
       prefix: LogPrefix.Gog
     })
-    logInfo(`\n\n${systemInfo}\n`, { prefix: LogPrefix.Backend })
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
 
