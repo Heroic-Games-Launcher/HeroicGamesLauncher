@@ -643,6 +643,27 @@ class LegendaryGame extends Game {
           : ['--wine', wineBin])
       )
     }
+
+    // Log any launch information configured in Legendary's config.ini
+    await runLegendaryCommand(['launch', this.appName, '--json'], {
+      onOutput: (output) => {
+        if (output.match(/game_parameters/)) {
+          appendFileSync(
+            this.logFileLocation,
+            "Legendary's base config from config.ini:\n"
+          )
+          const json = JSON.parse(output)
+          // remove egl auth info
+          delete json['egl_parameters']
+
+          appendFileSync(
+            this.logFileLocation,
+            JSON.stringify(json, null, 2) + '\n\n'
+          )
+        }
+      }
+    })
+
     const commandParts = [
       'launch',
       this.appName,
