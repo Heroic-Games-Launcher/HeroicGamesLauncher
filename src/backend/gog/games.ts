@@ -196,8 +196,8 @@ class GOGGame extends Game {
       logInfo(
         [
           `Progress for ${this.appName}:`,
-          `${percent}%/${bytes}MiB/${eta}`.trim(),
-          `Down: ${downSpeed}MiB/s / Disk: ${diskSpeed}MiB/s`
+          `${percent}%/${bytes}MB/${eta}`.trim(),
+          `Down: ${downSpeed}MB/s / Disk: ${diskSpeed}MB/s`
         ],
         { prefix: LogPrefix.Gog }
       )
@@ -209,7 +209,7 @@ class GOGGame extends Game {
         progress: {
           eta,
           percent,
-          bytes: `${bytes}MiB`,
+          bytes: `${bytes}MB`,
           downSpeed,
           diskSpeed
         }

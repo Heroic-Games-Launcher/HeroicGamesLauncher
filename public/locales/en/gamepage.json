@@ -96,9 +96,6 @@
             "start": "Play Now",
             "stop": "Playing (Stop)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Syncing Saves"
         }

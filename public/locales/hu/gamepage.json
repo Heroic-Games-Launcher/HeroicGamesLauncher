@@ -96,9 +96,6 @@
             "start": "Indítás most",
             "stop": "Játékban (leállítás)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Mentések szinkronizálása"
         }

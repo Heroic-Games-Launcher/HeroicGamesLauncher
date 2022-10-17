@@ -73,13 +73,13 @@ export default function ProgressHeader(props: { appName: string }) {
         </div>
         <div className="realtimeDownloadStatContainer">
           <h3 className="realtimeDownloadStat">
-            {roundToNearestHundredth(avgSpeed.at(-1)?.download)} MiB/s
+            {roundToNearestHundredth(avgSpeed.at(-1)?.download)} MB/s
           </h3>
           <div className="realtimeDownloadStatLabel downLabel">Down </div>
         </div>
         <div className="realtimeDownloadStatContainer">
           <h3 className="realtimeDownloadStat">
-            {roundToNearestHundredth(avgSpeed.at(-1)?.disk)} MiB/s
+            {roundToNearestHundredth(avgSpeed.at(-1)?.disk)} MB/s
           </h3>
           <div className="realtimeDownloadStatLabel diskLabel">Disk </div>
         </div>

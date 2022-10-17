@@ -96,9 +96,6 @@
             "start": "Graj",
             "stop": "Gra uruchomiona (Zatrzymaj)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Synchronizowanie zapisów"
         }

@@ -96,9 +96,6 @@
             "start": "Hrát",
             "stop": "Hraji (Zastavit)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Synchronizuji uložené soubory"
         }

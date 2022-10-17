@@ -97,9 +97,6 @@
             "start": "İndi oyna",
             "stop": "Oynanır (Dayandır)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Sinxronizasiya Saxlamalar"
         }

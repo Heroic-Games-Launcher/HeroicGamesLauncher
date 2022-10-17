@@ -96,9 +96,6 @@
             "start": "Chơi ngay",
             "stop": "Đang chơi (Dừng)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Đang đồng bộ bản lưu"
         }

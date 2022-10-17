@@ -96,9 +96,6 @@
             "start": "Jogar",
             "stop": "Jogando (Parar)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Sincronizando"
         }

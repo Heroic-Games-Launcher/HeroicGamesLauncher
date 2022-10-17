@@ -1158,17 +1158,19 @@ ipcMain.handle(
   'importGame',
   async (event, args): Promise<{ status: 'done' | 'error' }> => {
     const { appName, path, runner } = args
-    const epicOffline = await isEpicServiceOffline()
-    if (epicOffline && runner === 'legendary') {
-      showErrorBoxModalAuto({
-        event,
-        title: i18next.t('box.warning.title', 'Warning'),
-        error: i18next.t(
-          'box.warning.epic.import',
-          'Epic Servers are having major outage right now, the game cannot be imported!'
-        )
-      })
-      return { status: 'error' }
+    if (runner === 'legendary') {
+      const epicOffline = await isEpicServiceOffline()
+      if (epicOffline) {
+        showErrorBoxModalAuto({
+          event,
+          title: i18next.t('box.warning.title', 'Warning'),
+          error: i18next.t(
+            'box.warning.epic.import',
+            'Epic Servers are having major outage right now, the game cannot be imported!'
+          )
+        })
+        return { status: 'error' }
+      }
     }
     const game = getGame(appName, runner)
     const { title } = game.getGameInfo()
@@ -1226,17 +1228,19 @@ ipcMain.handle('updateGame', async (event, appName, runner) => {
     return
   }
 
-  const epicOffline = await isEpicServiceOffline()
-  if (epicOffline && runner === 'legendary') {
-    showErrorBoxModalAuto({
-      event,
-      title: i18next.t('box.warning.title', 'Warning'),
-      error: i18next.t(
-        'box.warning.epic.update',
-        'Epic Servers are having major outage right now, the game cannot be updated!'
-      )
-    })
-    return { status: 'error' }
+  if (runner === 'legendary') {
+    const epicOffline = await isEpicServiceOffline()
+    if (epicOffline) {
+      showErrorBoxModalAuto({
+        event,
+        title: i18next.t('box.warning.title', 'Warning'),
+        error: i18next.t(
+          'box.warning.epic.update',
+          'Epic Servers are having major outage right now, the game cannot be updated!'
+        )
+      })
+      return { status: 'error' }
+    }
   }
 
   const game = getGame(appName, runner)
@@ -1334,10 +1338,12 @@ ipcMain.handle(
 
 ipcMain.handle('syncSaves', async (event, args) => {
   const [arg = '', path, appName, runner] = args
-  const epicOffline = await isEpicServiceOffline()
-  if (epicOffline) {
-    logWarning('Epic is Offline right now, cannot sync saves!')
-    return 'Epic is Offline right now, cannot sync saves!'
+  if (runner === 'legendary') {
+    const epicOffline = await isEpicServiceOffline()
+    if (epicOffline) {
+      logWarning('Epic is Offline right now, cannot sync saves!')
+      return 'Epic is Offline right now, cannot sync saves!'
+    }
   }
   if (!isOnline()) {
     logWarning(`App offline, skipping syncing saves for game '${appName}'.`, {

@@ -67,7 +67,7 @@ export default function DownloadManager(): JSX.Element | null {
   return (
     <>
       <h4 style={{ paddingTop: 'var(--space-md)' }}>
-        {t('download.manager.title', 'Download Manager (Beta)')}
+        {t('download.manager.title', 'Downloads')}
       </h4>
       {!hasItems && (
         <h5>{t('download.manager.empty', 'Nothing to download.')}</h5>

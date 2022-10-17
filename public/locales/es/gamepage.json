@@ -96,9 +96,6 @@
             "start": "Jugar",
             "stop": "Detener"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Sincronizando guardados"
         }

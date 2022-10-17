@@ -96,9 +96,6 @@
             "start": "开始游戏",
             "stop": "游戏中（停止）"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "存档同步中"
         }

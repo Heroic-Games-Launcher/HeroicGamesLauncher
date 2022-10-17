@@ -96,9 +96,6 @@
             "start": "Hrať teraz",
             "stop": "Prehráva sa (Stop)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Synchronizácia uloženia"
         }

@@ -96,9 +96,6 @@
             "start": "Начать игру",
             "stop": "Игра запущена (Остановить)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Синхронизация сохранений"
         }

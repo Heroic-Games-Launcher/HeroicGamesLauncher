@@ -96,9 +96,6 @@
             "start": "Mainkan sekarang",
             "stop": "Memainkan (Berhenti)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Menyinkronkan Penyimpanan"
         }

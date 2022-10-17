@@ -96,9 +96,6 @@
             "start": "Esegui ora",
             "stop": "In esecuzione (Stop)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Sincronizzando i salvataggi"
         }

@@ -97,9 +97,6 @@
             "start": "Leke nå",
             "stop": "Spiller (Stopp)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Synkroniserer lagrer"
         }

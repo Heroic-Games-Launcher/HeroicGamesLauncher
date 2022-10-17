@@ -96,9 +96,6 @@
             "start": "اجرا",
             "stop": "در حال اجرا (توقف)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "در حال همگام سازی ذخیره ها"
         }

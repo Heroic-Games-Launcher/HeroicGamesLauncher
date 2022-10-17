@@ -96,9 +96,6 @@
             "start": "Mängi",
             "stop": "Mängib (Peata)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Salvestuste sünkroonimine"
         }

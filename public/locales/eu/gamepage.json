@@ -97,9 +97,6 @@
             "start": "Jokatu orain",
             "stop": "Ugalketa (Detener)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Zaintza-zaindegien sinkronizazioa"
         }

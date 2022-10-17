@@ -155,7 +155,7 @@ const GameCard = ({
     if (isQueued) {
       return (
         <SvgButton
-          title={t('label.queue.remove', 'Remove from Queue')}
+          title={t('button.queue.remove', 'Remove from Queue')}
           className="queueIcon"
           onClick={() => handleRemoveFromQueue()}
         >

@@ -96,9 +96,6 @@
             "start": "Şimdi Oyna",
             "stop": "Oynanıyor (Durdur)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Kayıtlar Eşzamanlanıyor"
         }

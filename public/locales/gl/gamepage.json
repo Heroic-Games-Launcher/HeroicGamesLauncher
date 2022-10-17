@@ -96,9 +96,6 @@
             "start": "Xogar",
             "stop": "Deter"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Sincronización de gardados"
         }

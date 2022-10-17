@@ -97,9 +97,6 @@
             "start": "Joacă Acum",
             "stop": "în joc (Stop)"
         },
-        "queue": {
-            "remove": "Remove from Queue"
-        },
         "saves": {
             "syncing": "Sincronizează Salvările"
         }

@@ -29,16 +29,18 @@ async function installQueueElement(
     return { status: 'error' }
   }
 
-  const epicOffline = await isEpicServiceOffline()
-  if (epicOffline && runner === 'legendary') {
-    showErrorBoxModalAuto({
-      title: i18next.t('box.warning.title', 'Warning'),
-      error: i18next.t(
-        'box.warning.epic.install',
-        'Epic Servers are having major outage right now, the game cannot be installed!'
-      )
-    })
-    return { status: 'error' }
+  if (runner === 'legendary') {
+    const epicOffline = await isEpicServiceOffline()
+    if (epicOffline) {
+      showErrorBoxModalAuto({
+        title: i18next.t('box.warning.title', 'Warning'),
+        error: i18next.t(
+          'box.warning.epic.install',
+          'Epic Servers are having major outage right now, the game cannot be installed!'
+        )
+      })
+      return { status: 'error' }
+    }
   }
 
   mainWindow.webContents.send('setGameStatus', {
