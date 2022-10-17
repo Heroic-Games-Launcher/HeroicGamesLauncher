@@ -256,26 +256,30 @@ export default function GamePage(): JSX.Element | null {
             <div className="store-icon">
               {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
             </div>
-            <div className="game-actions">
-              <button className="toggle">
-                <FontAwesomeIcon icon={faEllipsisV} />
-              </button>
-
-              <GameSubMenu
-                appName={appName}
-                isInstalled={is_installed}
-                title={title}
-                storeUrl={gameInfo.store_url}
-                runner={gameInfo.runner}
-                handleUpdate={handleUpdate}
-                disableUpdate={updateRequested || isUpdating}
-                onShowRequirements={
-                  hasRequirements ? () => setShowRequirements(true) : undefined
-                }
-              />
-            </div>
             <div className="gameInfo">
-              <h1 className="title">{title}</h1>
+              <div className="titleWrapper">
+                <h1 className="title">{title}</h1>
+                <div className="game-actions">
+                  <button className="toggle">
+                    <FontAwesomeIcon icon={faEllipsisV} />
+                  </button>
+
+                  <GameSubMenu
+                    appName={appName}
+                    isInstalled={is_installed}
+                    title={title}
+                    storeUrl={gameInfo.store_url}
+                    runner={gameInfo.runner}
+                    handleUpdate={handleUpdate}
+                    disableUpdate={updateRequested || isUpdating}
+                    onShowRequirements={
+                      hasRequirements
+                        ? () => setShowRequirements(true)
+                        : undefined
+                    }
+                  />
+                </div>
+              </div>
               <div className="infoWrapper">
                 <div className="developer">{developer}</div>
                 <div className="summary">

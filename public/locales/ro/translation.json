@@ -69,6 +69,7 @@
                 "title": "Eroare de actualizare"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Nicio versiune Wine selectată. Verificați setările jocului!",
                 "title": "Wine nu a fost găsit"
             },

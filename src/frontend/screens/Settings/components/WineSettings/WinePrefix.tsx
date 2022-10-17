@@ -26,10 +26,6 @@ const WinePrefix = () => {
     `${home}/.wine`
   )
 
-  if (!isLinux || !isDefault) {
-    return <></>
-  }
-
   return (
     <>
       {isLinux && isDefault && (
