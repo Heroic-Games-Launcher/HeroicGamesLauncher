@@ -17,10 +17,9 @@ import { useNavigate } from 'react-router-dom'
 type Props = {
   element: DMQueueElement
   current: boolean
-  finished?: boolean
 }
 
-const DownloadManagerItem = ({ element, current, finished = false }: Props) => {
+const DownloadManagerItem = ({ element, current }: Props) => {
   const { epic, gog } = useContext(ContextProvider)
   const library = [...epic.library, ...gog.library]
   const { t } = useTranslation('gamepage')
@@ -49,7 +48,7 @@ const DownloadManagerItem = ({ element, current, finished = false }: Props) => {
   // using one element for the different states so it doesn't
   // lose focus from the button when using a game controller
   const handleMainActionClick = () => {
-    if (finished) {
+    if (element.status === 'done') {
       return goToGamePage()
     }
 
@@ -57,7 +56,8 @@ const DownloadManagerItem = ({ element, current, finished = false }: Props) => {
   }
 
   const mainActionIcon = () => {
-    if (finished) {
+    const { status } = element
+    if (status === 'done' || status === 'error') {
       return (
         <div className="iconsWrapper">
           <OpenInNewIcon titleAccess={t('Open')} />
@@ -73,18 +73,25 @@ const DownloadManagerItem = ({ element, current, finished = false }: Props) => {
   }
 
   const mainIconTitle = () => {
-    if (finished) {
+    const { status } = element
+    if (status === 'done' || status === 'error') {
       return t('Open')
     }
+
     return current
       ? t('button.cancel')
       : t('queue.label.remove', 'Remove from download manager')
   }
 
   const getStatusColor = () => {
-    if (finished) {
+    if (element.status === 'done') {
       return 'var(--success)'
     }
+
+    if (element.status === 'error') {
+      return 'var(--danger)'
+    }
+
     return current ? 'var(--text-default)' : 'var(--accent)'
   }
 

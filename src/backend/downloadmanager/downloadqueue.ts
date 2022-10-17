@@ -25,7 +25,7 @@ function getFirstQueueElement() {
   return null
 }
 
-function addToFinished(element: DMQueueElement) {
+function addToFinished(element: DMQueueElement, status: 'done' | 'error') {
   let elements: DMQueueElement[] = []
   if (downloadManager.has('finished')) {
     elements = downloadManager.get('finished') as DMQueueElement[]
@@ -38,7 +38,7 @@ function addToFinished(element: DMQueueElement) {
   if (elementIndex >= 0) {
     elements[elementIndex] = element
   } else {
-    elements.push(element)
+    elements.push({ ...element, status })
   }
 
   downloadManager.set('finished', elements)
@@ -62,9 +62,7 @@ async function initQueue() {
       status: 'done' | 'error'
     }
 
-    if (status === 'done') {
-      addToFinished(element)
-    }
+    addToFinished(element, status)
     removeFromQueue(element.params.appName)
     element = getFirstQueueElement()
   }

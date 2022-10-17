@@ -57,12 +57,19 @@ export default function DownloadManager(): JSX.Element | null {
     return <UpdateComponent />
   }
 
-  const hasItems = currentElement || finishedElem?.length
-
   const handleClearList = () => {
     setFinishedElem([])
     downloadManagerStore.set('finished', [])
   }
+
+  const doneElements =
+    (finishedElem?.length &&
+      finishedElem.filter((el) => el.status !== 'abort')) ||
+    []
+
+  const hasItems = currentElement || doneElements.length
+
+  console.log({ doneElements })
 
   return (
     <>
@@ -108,7 +115,7 @@ export default function DownloadManager(): JSX.Element | null {
           </div>
         </>
       )}
-      {!!finishedElem?.length && (
+      {!!doneElements?.length && (
         <div className="downloadManager">
           <div className="downloadList">
             <span>
@@ -124,13 +131,8 @@ export default function DownloadManager(): JSX.Element | null {
             </span>
             <div className="dmItemList">
               <DownloadManagerHeader />
-              {finishedElem.map((el, key) => (
-                <DownloadManagerItem
-                  key={key}
-                  element={el}
-                  current={false}
-                  finished
-                />
+              {doneElements.map((el, key) => (
+                <DownloadManagerItem key={key} element={el} current={false} />
               ))}
             </div>
           </div>

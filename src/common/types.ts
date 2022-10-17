@@ -493,4 +493,5 @@ export interface Tools {
 
 export interface DMQueueElement {
   params: InstallParams
+  status?: 'done' | 'error' | 'abort'
 }
