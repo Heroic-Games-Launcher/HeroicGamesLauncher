@@ -667,6 +667,39 @@ function getRunnerCallWithoutCredentials(
   ].join(' ')
 }
 
+/**
+ * Converts Unix paths to Windows ones or vice versa
+ * @param path The Windows/Unix path you have
+ * @param game Required for runWineCommand
+ * @param variant The path variant (Windows/Unix) that you'd like to get (passed to `winepath` as -u/-w)
+ * @returns The path returned by `winepath`
+ */
+async function getWinePath({
+  path,
+  game,
+  variant = 'unix'
+}: {
+  path: string
+  game: Game
+  variant?: 'win' | 'unix'
+}): Promise<string> {
+  const { wineVersion } = await game.getSettings()
+  if (wineVersion.type !== 'proton') {
+    const { stdout } = await runWineCommand(
+      game,
+      `winepath ${variant === 'unix' ? '-u' : '-w'} ${shlex.quote(path)}`,
+      false
+    )
+    return stdout.trim()
+  }
+
+  // Proton has a special verb for getting Unix paths, and another one for Windows ones
+  // https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1526-L1533
+  const verb = variant === 'unix' ? 'getnativepath' : 'getcompatpath'
+  const { stdout } = await runWineCommand(game, shlex.quote(path), false, verb)
+  return stdout.trim()
+}
+
 export {
   prepareLaunch,
   launchCleanup,
@@ -676,5 +709,6 @@ export {
   setupWrappers,
   runWineCommand,
   callRunner,
-  getRunnerCallWithoutCredentials
+  getRunnerCallWithoutCredentials,
+  getWinePath
 }

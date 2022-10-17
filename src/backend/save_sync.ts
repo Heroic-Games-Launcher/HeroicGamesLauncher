@@ -1,6 +1,6 @@
 import { Runner } from 'common/types'
 import { GOGCloudSavesLocation, SaveFolderVariable } from 'common/types/gog'
-import { setupWineEnvVars } from './launcher'
+import { getWinePath, setupWineEnvVars } from './launcher'
 import { runLegendaryCommand, LegendaryLibrary } from './legendary/library'
 import { GOGLibrary } from './gog/library'
 import {
@@ -13,7 +13,6 @@ import {
 import { getGame, getShellPath } from './utils'
 import { existsSync, realpathSync } from 'graceful-fs'
 import { app } from 'electron'
-import { quote } from 'shlex'
 
 async function getDefaultSavePath(
   appName: string,
@@ -167,14 +166,19 @@ async function getDefaultGogSavePaths(
       )
     }
 
+    logDebug([
+      'Got this path after GOG variable expansion:',
+      locationWithVariablesRemoved
+    ])
+
     // Path now contains no more GOG-defined variables, but might
     // still contain Windows (%NAME%) or Unix ($NAME) ones
     let absolutePath: string
     if (!game.isNative()) {
-      const { stdout } = await game.runWineCommand(
-        `winepath -u ${quote(locationWithVariablesRemoved)}`
-      )
-      absolutePath = stdout.trim()
+      absolutePath = await getWinePath({
+        path: locationWithVariablesRemoved,
+        game
+      })
       // Wine already resolves symlinks and ./.. for us,
       // so no need to run `realpathSync` here
     } else {
