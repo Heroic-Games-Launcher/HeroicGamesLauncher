@@ -6,12 +6,77 @@
   justify-content: stretch;
   position: relative;
 
-  .title {
-    font-weight: var(--medium);
-    font-size: var(--text-xl);
-    line-height: 30px;
-    color: var(--text-default);
-    text-align: left;
+  .titleWrapper {
+    display: flex;
+    .title {
+      font-weight: var(--medium);
+      font-size: var(--text-xl);
+      line-height: 30px;
+      color: var(--text-default);
+      text-align: left;
+      flex-basis: 100%;
+      align-self: center;
+    }
+
+    .game-actions {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+
+      .toggle {
+        align-self: flex-end;
+        background-color: transparent;
+        border: none;
+        color: var(--accent);
+        font-size: var(--text-2xl);
+        padding: var(--space-xs-fixed);
+        cursor: pointer;
+        position: relative;
+        transition: background-color 0.2s;
+        display: flex;
+      }
+
+      &:focus-within .toggle,
+      &:hover .toggle,
+      .toggle:hover {
+        color: var(--text-title);
+      }
+
+      .gameTools {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s, max-height 0.2s;
+        background: var(--navbar-background);
+        border-radius: 5px;
+        z-index: 2;
+        padding: 1rem;
+        max-height: 0px;
+        overflow: hidden;
+        right: 0;
+        top: 100%;
+      }
+
+      .gameTools .link {
+        width: 100%;
+        padding: 0 0 0.5rem;
+        text-align: left;
+        white-space: nowrap;
+        font-size: 1rem;
+
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+
+      &:focus-within .gameTools,
+      &:hover .gameTools {
+        opacity: 1;
+        pointer-events: all;
+        max-height: 100vh;
+        box-shadow: 4px 5px 5px -2px rgba(0, 0, 0, 0.2);
+      }
+    }
   }
 
   .store-icon {
@@ -248,66 +313,5 @@
 @keyframes animate-stripes {
   100% {
     background-position: -100px 0px;
-  }
-}
-
-.game-actions {
-  position: absolute;
-  right: 1rem;
-  top: var(--space-xs-fixed);
-  display: flex;
-  flex-direction: column;
-
-  .toggle {
-    align-self: flex-end;
-    background-color: transparent;
-    border: none;
-    color: var(--accent);
-    font-size: var(--text-2xl);
-    padding: var(--space-xs-fixed);
-    cursor: pointer;
-    position: relative;
-    transition: background-color 0.2s;
-  }
-
-  &:focus-within .toggle,
-  &:hover .toggle,
-  .toggle:hover {
-    color: var(--text-title);
-  }
-
-  .gameTools {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s, max-height 0.2s;
-    background: var(--navbar-background);
-    border-radius: 5px;
-    z-index: 2;
-    padding: 1rem;
-    max-height: 0px;
-    overflow: hidden;
-    right: 0;
-    top: 100%;
-  }
-
-  .gameTools .link {
-    width: 100%;
-    padding: 0 0 0.5rem;
-    text-align: left;
-    white-space: nowrap;
-    font-size: 1rem;
-
-    &:last-child {
-      padding-bottom: 0;
-    }
-  }
-
-  &:focus-within .gameTools,
-  &:hover .gameTools {
-    opacity: 1;
-    pointer-events: all;
-    max-height: 100vh;
-    box-shadow: 4px 5px 5px -2px rgba(0, 0, 0, 0.2);
   }
 }

@@ -61,9 +61,8 @@ export default function Tools() {
     })
     if (path) {
       exe = path
-      return callTools('runExe', exe)
+      callTools('runExe', exe)
     }
-    return
   }
 
   function dropHandler(ev: React.DragEvent<HTMLSpanElement>) {
@@ -120,12 +119,10 @@ export default function Tools() {
             <span className="toolTitle">Winetricks</span>
           </button>
           <a
-            data-testid="toolsDrag"
-            draggable
             onDrop={(ev) => dropHandler(ev)}
             onDragOver={(ev) => dragOverHandler(ev)}
             className="tools drag"
-            onClick={async () => handleRunExe()}
+            onClick={handleRunExe}
           >
             {t('setting.runexe.title')}
             <br />

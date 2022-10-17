@@ -10,6 +10,7 @@ import i18next from 'i18next'
 import { dirname } from 'path'
 import { isOnline } from './online_monitor'
 import { showErrorBoxModalAuto } from './dialog/dialog'
+import { validWine } from './launcher'
 
 export const DXVK = {
   getLatest: async () => {
@@ -215,6 +216,10 @@ export const Winetricks = {
     baseWinePrefix: string,
     event: Electron.IpcMainInvokeEvent
   ) => {
+    if (!(await validWine(wineVersion))) {
+      return
+    }
+
     return new Promise<void>((resolve) => {
       const winetricks = `${heroicToolsPath}/winetricks`
 
