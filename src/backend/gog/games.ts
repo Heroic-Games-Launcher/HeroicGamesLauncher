@@ -274,6 +274,7 @@ class GOGGame extends Game {
       })
       await setup(this.appName, installedData)
     }
+    this.addShortcuts()
     return { status: 'done' }
   }
 
