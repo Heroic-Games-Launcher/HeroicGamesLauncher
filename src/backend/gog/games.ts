@@ -17,7 +17,8 @@ import {
   GameSettings,
   ExecResult,
   InstallArgs,
-  InstalledInfo
+  InstalledInfo,
+  ProtonVerb
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {
@@ -747,7 +748,7 @@ class GOGGame extends Game {
   public async runWineCommand(
     command: string,
     wait = false,
-    forceRunInPrefixVerb = false
+    proton_verb: ProtonVerb = 'run'
   ): Promise<ExecResult> {
     if (this.isNative()) {
       logError('runWineCommand called on native game!', {
@@ -756,7 +757,7 @@ class GOGGame extends Game {
       return { stdout: '', stderr: '' }
     }
 
-    return runWineCommand(this, command, wait, forceRunInPrefixVerb)
+    return runWineCommand(this, command, wait, proton_verb)
   }
 
   async forceUninstall(): Promise<void> {

@@ -1552,7 +1552,8 @@ ipcMain.handle(
       await setup(game.appName)
     }
 
-    return game.runWineCommand(command, false, true)
+    // FIXME: Why are we using `runinprefix` here?
+    return game.runWineCommand(command, false, 'runinprefix')
   }
 )
 

@@ -42,7 +42,8 @@ import {
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
-  RpcClient
+  RpcClient,
+  ProtonVerb
 } from 'common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
@@ -434,7 +435,7 @@ async function runWineCommand(
   game: Game,
   command: string,
   wait: boolean,
-  forceRunInPrefixVerb = false
+  proton_verb: ProtonVerb = 'run'
 ) {
   const gameSettings = await game.getSettings()
   const { folder_name: installFolderName } = game.getGameInfo()
@@ -449,13 +450,7 @@ async function runWineCommand(
 
   let additional_command = ''
   if (wineVersion.type === 'proton') {
-    if (forceRunInPrefixVerb) {
-      command = 'runinprefix ' + command
-    } else if (wait) {
-      command = 'waitforexitandrun ' + command
-    } else {
-      command = 'run ' + command
-    }
+    command = `${proton_verb} ${command}`
     // TODO: Use Steamruntime here in the future
   } else {
     // Can't wait if we don't have a Wineserver

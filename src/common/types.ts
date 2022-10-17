@@ -491,3 +491,11 @@ export interface Tools {
   appName: string
   runner: Runner
 }
+
+export type ProtonVerb =
+  | 'run'
+  | 'waitforexitandrun'
+  | 'runinprefix'
+  | 'destroyprefix'
+  | 'getcompatpath'
+  | 'getnativepath'
