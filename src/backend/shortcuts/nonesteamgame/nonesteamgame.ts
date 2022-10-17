@@ -30,6 +30,22 @@ const getSteamUserdataDir = async () => {
   return join(defaultSteamPath.replaceAll("'", ''), 'userdata')
 }
 
+const generateImage = async (
+  src: string,
+  width: number,
+  height: number
+): Promise<string> => {
+  const window = BrowserWindow.getAllWindows()[0]
+
+  if (!window) {
+    return Promise.resolve('')
+  }
+
+  return window.webContents.executeJavaScript(
+    `window.imageData("${src}", ${width}, ${height})`
+  )
+}
+
 /**
  * Opens a error dialog in frontend with the error message
  * @param props
@@ -198,14 +214,8 @@ async function addNonSteamGame(props: {
   let bigPicDataUrl = props.bigPicDataUrl
 
   if (bkgDataUrl === undefined || bigPicDataUrl === undefined) {
-    const window = BrowserWindow.getAllWindows()[0]
-
-    bkgDataUrl = await window.webContents.executeJavaScript(
-      `window.imageData("${props.gameInfo.art_cover}", 1920, 620)`
-    )
-    bigPicDataUrl = await window.webContents.executeJavaScript(
-      `window.imageData("${props.gameInfo.art_cover}", 920, 430)`
-    )
+    bkgDataUrl = await generateImage(props.gameInfo.art_cover, 1920, 620)
+    bigPicDataUrl = await generateImage(props.gameInfo.art_cover, 920, 430)
   }
 
   const { folders, error } = checkSteamUserDataDir(steamUserdataDir)
@@ -284,8 +294,8 @@ async function addNonSteamGame(props: {
         otherGridAppID: generateShortAppId(newEntry.Exe, newEntry.AppName)
       },
       gameInfo: props.gameInfo,
-      bkgDataUrl: bkgDataUrl!,
-      bigPicDataUrl: bigPicDataUrl!
+      bkgDataUrl: bkgDataUrl,
+      bigPicDataUrl: bigPicDataUrl
     })
 
     const args = []
