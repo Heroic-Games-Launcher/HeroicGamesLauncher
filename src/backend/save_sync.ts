@@ -102,6 +102,12 @@ async function getDefaultGogSavePaths(
     install: { platform: installed_platform, install_path }
   } = game.getGameInfo()
   if (!gog_save_location || !install_path) {
+    logError([
+      'gog_save_location/install_path undefined. gog_save_location = ',
+      gog_save_location,
+      'install_path = ',
+      install_path
+    ])
     return []
   }
 
@@ -130,6 +136,12 @@ async function getDefaultGogSavePaths(
   }
   const resolvedLocations: GOGCloudSavesLocation[] = []
   for (const location of gog_save_location) {
+    logDebug([
+      'Working on location',
+      location.name,
+      'with path',
+      location.location
+    ])
     // If a location with the same name already has a path set,
     // skip doing all this work
     const potAlreadyDefinedLocation = alreadyDefinedGogSaves.find(
@@ -137,6 +149,10 @@ async function getDefaultGogSavePaths(
     )
 
     if (potAlreadyDefinedLocation?.location.length) {
+      logDebug([
+        'Location is already defined, pushing it onto resolvedLocations. Pre-defined path:',
+        potAlreadyDefinedLocation.location
+      ])
       resolvedLocations.push(potAlreadyDefinedLocation)
       continue
     }
@@ -193,6 +209,12 @@ async function getDefaultGogSavePaths(
         }
       }
     }
+
+    logDebug([
+      'Got this path after running winepath/getShellPath:',
+      `"${absolutePath}".`,
+      'Pushing that onto resolvedLocations'
+    ])
 
     resolvedLocations.push({
       name: location.name,
