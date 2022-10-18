@@ -1611,6 +1611,17 @@ ipcMain.handle(
 )
 ipcMain.handle('launchApp', async (e, appName: string) => launchApp(appName))
 
+ipcMain.handle(
+  'isNative',
+  (e, { appName, runner }: { appName: string; runner: Runner }) => {
+    if (runner === 'sideload') {
+      return isNativeApp(appName)
+    }
+    const game = getGame(appName, runner)
+    return game.isNative()
+  }
+)
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1631,6 +1642,7 @@ import {
   appLogFileLocation,
   getAppInfo,
   getAppSettings,
+  isNativeApp,
   launchApp,
   removeApp,
   stop

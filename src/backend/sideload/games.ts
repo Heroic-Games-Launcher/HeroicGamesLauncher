@@ -59,9 +59,6 @@ export function addNewApp({
   art_cover,
   art_square
 }: SideloadGame): void {
-  art_cover = art_cover ? art_cover : 'fallback'
-  art_square = art_square ? art_square : 'fallback'
-
   const game: SideloadGame = {
     runner: 'sideload',
     app_name,
@@ -118,7 +115,7 @@ export async function launchApp(appName: string): Promise<boolean> {
       mangoHudCommand,
       gameModeBin,
       steamRuntime
-    } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
+    } = await prepareLaunch(gameSettings, gameInfo, isNativeApp(appName))
 
     const wrappers = setupWrappers(
       gameSettings,
@@ -143,7 +140,7 @@ export async function launchApp(appName: string): Promise<boolean> {
     const env = { ...process.env, ...setupEnvVars(gameSettings) }
 
     // Native
-    if (isNative(appName)) {
+    if (isNativeApp(appName)) {
       const { launcherArgs } = gameSettings
       logInfo(
         `launching native sideloaded: ${executable} ${launcherArgs ?? ''}`,
@@ -282,7 +279,7 @@ export async function removeApp({
   return logInfo('finished uninstalling', { prefix: LogPrefix.Backend })
 }
 
-export function isNative(appName: string): boolean {
+export function isNativeApp(appName: string): boolean {
   const {
     install: { platform }
   } = getAppInfo(appName)
