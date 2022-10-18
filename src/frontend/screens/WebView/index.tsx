@@ -135,23 +135,27 @@ export default function WebView() {
     return
   }, [webviewRef.current])
 
-  let loginWarning = null
+  let warnLogin = null
   if (startUrl.match(/epicgames\.com/) && !epic.username) {
-    loginWarning = (
-      <NavLink className="login-warning epic" to={epicLoginPath}>
-        <span>{t('log-in', 'Log in')}</span>
-      </NavLink>
-    )
+    warnLogin = [
+      'epic',
+      t(
+        'not-logged-in.epic',
+        "You are not logged in with an Epic account. Don't use the Store to login."
+      )
+    ]
   } else if (
     startUrl.match(/gog\.com/) &&
     !startUrl.match(/auth\.gog\.com/) &&
     !gog.username
   ) {
-    loginWarning = (
-      <NavLink className="login-warning gog" to={gogLoginPath}>
-        <span>{t('log-in', 'Log in')}</span>
-      </NavLink>
-    )
+    warnLogin = [
+      'epic',
+      t(
+        'not-logged-in.epic',
+        "You are not logged in with a GOG account. Don't use the Store to login."
+      )
+    ]
   }
 
   return (
@@ -164,7 +168,6 @@ export default function WebView() {
         />
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
-      {!loading.refresh && loginWarning}
       <webview
         ref={webviewRef}
         className="WebView__webview"
@@ -172,6 +175,17 @@ export default function WebView() {
         src={startUrl}
         allowpopups={trueAsStr}
       />
+      {warnLogin && (
+        <div className="login-warning">
+          <div>
+            <h1>Not Logged In</h1>
+            <p>{warnLogin[1]}</p>
+            <NavLink to={warnLogin[0] === 'gog' ? gogLoginPath : epicLoginPath}>
+              <span>{t('log-in', 'Log in')}</span>
+            </NavLink>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

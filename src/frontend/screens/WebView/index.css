@@ -20,17 +20,18 @@
 .WebView .login-warning {
   position: absolute;
   top: 40px;
-  background: black;
-  padding: 1.1rem;
-}
-
-.WebView .login-warning.epic {
+  bottom: 0px;
+  left: 0px;
   right: 0px;
-  width: 300px;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem;
+  justify-content: center;
 }
 
-.WebView .login-warning.gog {
-  left: 50%;
-  transform: translateX(-50%);
-  width: 300px;
+.WebView .login-warning > div {
+  background: black;
+  align-self: center;
+  padding: var(--space-xl);
 }
