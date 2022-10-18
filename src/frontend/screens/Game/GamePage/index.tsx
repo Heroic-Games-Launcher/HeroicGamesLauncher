@@ -45,6 +45,7 @@ import {
 } from 'frontend/components/UI/Dialog'
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
+import { isWindows } from 'backend/constants'
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
 export default function GamePage(): JSX.Element | null {
@@ -136,7 +137,7 @@ export default function GamePage(): JSX.Element | null {
             winePrefix
           }: AppSettings = await window.api.requestSettings(appName)
 
-          if (wineVersion) {
+          if (!isWindows) {
             let wine = wineVersion.name
               .replace('Wine - ', '')
               .replace('Proton - ', '')
@@ -144,8 +145,6 @@ export default function GamePage(): JSX.Element | null {
               wine = wine.split('-')[0]
             }
             setWineVersion(wine)
-          }
-          if (winePrefix) {
             setWinePrefix(winePrefix)
           }
 

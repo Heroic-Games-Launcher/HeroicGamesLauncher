@@ -143,13 +143,13 @@ export default function WebView() {
         />
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
-      {/* eslint-disable react/no-unknown-property */}
       <webview
         ref={webviewRef}
         className="WebView__webview"
         partition="persist:epicstore"
         src={startUrl}
         allowpopups={trueAsStr}
+        useragent="Mozilla/5.0 (Windows NT 10.0; WOW64; rv:70.0) Gecko/20100101 Firefox/70.0"
       />
     </div>
   )
