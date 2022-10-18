@@ -47,19 +47,15 @@ export default function SidebarLinks() {
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
   const [isDefaultSetting, setIsDefaultSetting] = useState(true)
+  const [isNativeApp, setIsNativeApp] = useState(true)
   const [settingsPath, setSettingsPath] = useState(
     '/settings/app/default/general'
   )
   const [isFullscreen, setIsFullscreen] = useState(false)
 
-  const { isLinuxNative = false, isMacNative = false } = state || {}
-  const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
-  const isLinuxGame = isLinuxNative && platform === 'linux'
-  const isMacGame = isMacNative && isMac
   const isLinux = platform === 'linux'
-
-  const shouldRenderWineSettings = !isWin && !isMacGame && !isLinuxGame
+  const isLinuxGame = isLinux && gameInfo.install?.platform === 'linux'
 
   const loggedIn = epic.username || gog.username
 
@@ -74,7 +70,9 @@ export default function SidebarLinks() {
         setGameInfo(info)
         if (info?.is_installed) {
           setIsDefaultSetting(false)
-          const wineOrOther = isWin
+          const isNative = await window.api.isNative({ appName, runner })
+          setIsNativeApp(isNative)
+          const wineOrOther = isNative
             ? `/settings/${runner}/${appName}/other`
             : `/settings/${runner}/${appName}/wine`
           setSettingsPath(wineOrOther)
@@ -216,7 +214,7 @@ export default function SidebarLinks() {
                 <span>{t('settings.navbar.general')}</span>
               </NavLink>
             )}
-            {shouldRenderWineSettings && (
+            {!isNativeApp && (
               <>
                 <NavLink
                   role="link"
