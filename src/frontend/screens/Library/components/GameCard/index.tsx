@@ -15,7 +15,7 @@ import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg
 import { getProgress, install, launch, sendKill } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import fallbackImage from 'frontend/assets/fallback-image.jpg'
+import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import { uninstall, updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
@@ -303,7 +303,11 @@ const GameCard = ({
             }
           >
             <StoreLogos runner={runner} />
-            <CachedImage src={imageSrc} className={imgClasses} alt="cover" />
+            <CachedImage
+              src={imageSrc ? imageSrc : fallbackImage}
+              className={imgClasses}
+              alt="cover"
+            />
             {logo && (
               <CachedImage
                 alt="logo"

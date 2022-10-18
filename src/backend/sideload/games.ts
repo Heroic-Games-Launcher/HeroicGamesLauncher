@@ -56,9 +56,12 @@ export function addNewApp({
   app_name,
   title,
   install: { executable, platform },
-  art_cover = 'fallback',
-  art_square = 'fallback'
+  art_cover,
+  art_square
 }: SideloadGame): void {
+  art_cover = art_cover ? art_cover : 'fallback'
+  art_square = art_square ? art_square : 'fallback'
+
   const game: SideloadGame = {
     runner: 'sideload',
     app_name,
