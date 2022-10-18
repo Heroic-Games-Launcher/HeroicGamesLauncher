@@ -255,7 +255,7 @@ export default function GamesSubmenu({
     })
 
     // only unix specific
-    if (!isWin) {
+    if (!isWin && runner === 'legendary') {
       // check if eos overlay is enabled
       const { status } =
         libraryStatus.filter(

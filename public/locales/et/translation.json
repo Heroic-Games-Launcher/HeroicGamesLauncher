@@ -69,6 +69,7 @@
                 "title": "Viga uuendamisel"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Wine'i versiooni pole valitud. Kontrolli mängu seadeid!",
                 "title": "Wine'i ei leitud"
             },

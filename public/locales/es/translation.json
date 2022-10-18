@@ -69,6 +69,7 @@
                 "title": "Error al actualizar"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "No se ha seleccionado la versión de Wine. ¡Comprueba la configuración del juego!",
                 "title": "No se ha encontrado Wine"
             },

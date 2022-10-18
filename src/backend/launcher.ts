@@ -42,6 +42,7 @@ import {
   GameSettings,
   LaunchPreperationResult,
   RpcClient,
+  WineInstallation,
   WineCommandArgs
 } from 'common/types'
 import { spawn } from 'child_process'
@@ -145,16 +146,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     GameConfig.get(game.appName).config ||
     (await GameConfig.get(game.appName).getSettings())
 
-  // Verify that a Wine binary is set
-  // This happens when there aren't any Wine versions installed
-  if (!gameSettings.wineVersion.bin) {
-    showErrorBoxModalAuto({
-      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
-      error: i18next.t(
-        'box.error.wine-not-found.message',
-        'No Wine Version Selected. Check Game Settings!'
-      )
-    })
+  if (!(await validWine(gameSettings.wineVersion))) {
     return { success: false }
   }
 
@@ -395,6 +387,45 @@ function setupWrappers(
 }
 
 /**
+ * Checks if the game's selected Wine version exists
+ * @param wineVersion an object of type WineInstallation with binary path and name to check
+ * @returns true if the wine version exists, false if it doesn't
+ */
+export async function validWine(
+  wineVersion: WineInstallation
+): Promise<boolean> {
+  const wineBin = wineVersion.bin
+
+  if (!wineBin) {
+    showErrorBoxModalAuto({
+      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
+      error: i18next.t(
+        'box.error.wine-not-found.message',
+        'No Wine Version Selected. Check Game Settings!'
+      )
+    })
+    return false
+  }
+
+  if (!existsSync(wineBin)) {
+    showErrorBoxModalAuto({
+      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
+      error: i18next.t('box.error.wine-not-found.invalid', {
+        defaultValue:
+          "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+        version: wineVersion.name,
+        path: wineBin,
+        newline: '\n',
+        interpolation: { escapeValue: false }
+      })
+    })
+    return false
+  }
+
+  return true
+}
+
+/**
  * Verifies that a Wineprefix exists by running 'wineboot --init'
  * @param game The game to verify the Wineprefix of
  * @returns stderr & stdout of 'wineboot --init'
@@ -405,6 +436,10 @@ export async function verifyWinePrefix(
 ): Promise<{ res: ExecResult; updated: boolean }> {
   const gameSettings = game ? await game.getSettings() : settings
   const { winePrefix, wineVersion } = gameSettings
+
+  if (!(await validWine(wineVersion))) {
+    return { res: { stdout: '', stderr: '' }, updated: false }
+  }
 
   if (wineVersion.type === 'crossover') {
     return { res: { stdout: '', stderr: '' }, updated: false }
@@ -452,7 +487,6 @@ function launchCleanup(rpcClient?: RpcClient) {
     logInfo('Stopped Discord Rich Presence', { prefix: LogPrefix.Backend })
   }
 }
-
 async function runWineCommand({
   gameSettings,
   command,
@@ -469,6 +503,10 @@ async function runWineCommand({
 
   if (!existsSync(winePrefix)) {
     mkdirSync(winePrefix, { recursive: true })
+  }
+
+  if (!(await validWine(wineVersion))) {
+    return { stdout: '', stderr: '' }
   }
 
   const env_vars = {

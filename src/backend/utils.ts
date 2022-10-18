@@ -249,7 +249,13 @@ async function handleExit(window: BrowserWindow) {
   app.exit()
 }
 
+// This won't change while the app is running
+// Caching significantly increases performance when launching games
+let systemInfoCache = ''
 export const getSystemInfo = async () => {
+  if (systemInfoCache !== '') {
+    return systemInfoCache
+  }
   const heroicVersion = getHeroicVersion()
   const legendaryVersion = await getLegendaryVersion()
   const gogdlVersion = await getGogdlVersion()
@@ -279,7 +285,7 @@ export const getSystemInfo = async () => {
     ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
     : ''
 
-  return `Heroic Version: ${heroicVersion}
+  systemInfoCache = `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
 GOGdl Version: ${gogdlVersion}
 OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
@@ -289,6 +295,7 @@ CPU: ${manufacturer} ${brand} @${speed} ${
 RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
 GRAPHICS: ${graphicsCards}
 ${isLinux ? `PROTOCOL: ${xEnv}` : ''}`
+  return systemInfoCache
 }
 
 type ErrorHandlerMessage = {

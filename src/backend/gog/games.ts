@@ -274,6 +274,7 @@ class GOGGame extends Game {
       })
       await setup(this.appName, installedData)
     }
+    this.addShortcuts()
     return { status: 'done' }
   }
 
@@ -363,10 +364,12 @@ class GOGGame extends Game {
           this.logFileLocation,
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
-        showErrorBoxModalAuto({
-          title: t('box.error.launchAborted', 'Launch aborted'),
-          error: wineLaunchPrepFailReason!
-        })
+        if (wineLaunchPrepFailReason) {
+          showErrorBoxModalAuto({
+            title: t('box.error.launchAborted', 'Launch aborted'),
+            error: wineLaunchPrepFailReason
+          })
+        }
         return false
       }
 

@@ -69,6 +69,7 @@
                 "title": "Грешка при обновяването"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Няма избрана версия на Wine. Проверете настройките на играта!",
                 "title": "Wine не е намерен"
             },

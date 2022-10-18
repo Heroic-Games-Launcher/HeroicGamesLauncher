@@ -69,6 +69,7 @@
                 "title": "更新错误"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "未选择 Wine 版本。检查游戏设置！",
                 "title": "未找到 Wine"
             },
