@@ -1,7 +1,7 @@
 import short from 'short-uuid'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { InstallPlatform, WineInstallation } from 'common/types'
+import { GameInfo, InstallPlatform, WineInstallation } from 'common/types'
 import {
   CachedImage,
   TextInputField,
@@ -50,28 +50,30 @@ export default function SideloadDialog({
   const [imageUrl, setImageUrl] = useState('')
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
+  const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
   const editMode = Boolean(appName)
 
-  const { refreshLibrary } = useContext(ContextProvider)
+  const { refreshLibrary, platform } = useContext(ContextProvider)
 
   useEffect(() => {
     if (appName) {
-      getGameInfo(appName, 'sideload').then(
-        ({
+      getGameInfo(appName, 'sideload').then((info) => {
+        setGameInfo(info)
+        const {
           art_cover,
           art_square,
           install: { executable, platform },
           title
-        }) => {
-          if (executable && platform) {
-            setSelectedExe(executable)
-          }
-          setTitle(title)
-          setImageUrl(art_cover ? art_cover : art_square)
+        } = info
+
+        if (executable && platform) {
+          setSelectedExe(executable)
         }
-      )
-    }
-    if (!appName) {
+
+        setTitle(title)
+        setImageUrl(art_cover ? art_cover : art_square)
+      })
+    } else {
       setApp_name(short.generate().toString())
     }
   }, [])
@@ -101,14 +103,18 @@ export default function SideloadDialog({
       title,
       install: {
         executable: selectedExe,
-        platform: platformToInstall
+        platform: gameInfo.install?.platform ?? platformToInstall
       },
       art_cover: imageUrl,
       is_installed: true,
       art_square: imageUrl,
       canRunOffline: true
     })
-    await writeConfig([app_name, { winePrefix, wineVersion }])
+    const notWin = platform !== 'win32'
+    const otherPlatforms = ['linux', 'Mac']
+    const hasWine = notWin && otherPlatforms.includes(platformToInstall)
+    await writeConfig([app_name, hasWine && { winePrefix, wineVersion }])
+
     await refreshLibrary({
       runInBackground: true,
       checkForUpdates: true,
@@ -210,7 +216,7 @@ export default function SideloadDialog({
               htmlId="sideload-image"
               value={imageUrl}
             />
-            {children}
+            {!editMode && children}
             <TextInputWithIconField
               htmlId="sideload-exe"
               label={t('sideload.info.exe', 'Select Executable')}
