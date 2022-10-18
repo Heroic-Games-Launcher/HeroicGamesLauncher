@@ -65,7 +65,7 @@ export default function SidebarLinks() {
 
   useEffect(() => {
     const gameInfo = async () => {
-      if (!runner || runner === 'app') {
+      if (!runner || runner === 'app' || !appName) {
         setIsDefaultSetting(true)
         setGameInfo({ ...gameInfo, cloud_save_enabled: false })
         setSettingsPath('/settings/app/default/general')
