@@ -460,6 +460,7 @@ class LegendaryGame extends Game {
       }
       return { status: 'error' }
     }
+    this.addShortcuts()
     return { status: 'done' }
   }
 
@@ -478,12 +479,7 @@ class LegendaryGame extends Game {
       LegendaryLibrary.get().installState(this.appName, false)
       await removeShortcuts(this.appName, 'legendary')
       const gameInfo = this.getGameInfo()
-      const { defaultSteamPath } = await GlobalConfig.get().getSettings()
-      const steamUserdataDir = join(
-        defaultSteamPath.replaceAll("'", ''),
-        'userdata'
-      )
-      await removeNonSteamGame({ steamUserdataDir, gameInfo })
+      await removeNonSteamGame({ gameInfo })
     }
     return res
   }
@@ -615,10 +611,12 @@ class LegendaryGame extends Game {
           this.logFileLocation,
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
-        showErrorBoxModalAuto({
-          title: t('box.error.launchAborted', 'Launch aborted'),
-          error: wineLaunchPrepFailReason!
-        })
+        if (wineLaunchPrepFailReason) {
+          showErrorBoxModalAuto({
+            title: t('box.error.launchAborted', 'Launch aborted'),
+            error: wineLaunchPrepFailReason
+          })
+        }
         return false
       }
 
@@ -641,6 +639,24 @@ class LegendaryGame extends Game {
           : ['--wine', wineBin])
       )
     }
+
+    // Log any launch information configured in Legendary's config.ini
+    const { stdout } = await runLegendaryCommand([
+      'launch',
+      this.appName,
+      '--json',
+      '--offline'
+    ])
+    appendFileSync(
+      this.logFileLocation,
+      "Legendary's config from config.ini (before Heroic's settings):\n"
+    )
+    const json = JSON.parse(stdout)
+    // remove egl auth info
+    delete json['egl_parameters']
+
+    appendFileSync(this.logFileLocation, JSON.stringify(json, null, 2) + '\n\n')
+
     const commandParts = [
       'launch',
       this.appName,

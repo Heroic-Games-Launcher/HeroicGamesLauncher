@@ -278,6 +278,7 @@ class GOGGame extends Game {
       })
       await setup(this.appName, installedData)
     }
+    this.addShortcuts()
     return { status: 'done' }
   }
 
@@ -367,10 +368,12 @@ class GOGGame extends Game {
           this.logFileLocation,
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
-        showErrorBoxModalAuto({
-          title: t('box.error.launchAborted', 'Launch aborted'),
-          error: wineLaunchPrepFailReason!
-        })
+        if (wineLaunchPrepFailReason) {
+          showErrorBoxModalAuto({
+            title: t('box.error.launchAborted', 'Launch aborted'),
+            error: wineLaunchPrepFailReason
+          })
+        }
         return false
       }
 
@@ -633,12 +636,7 @@ class GOGGame extends Game {
     await removeShortcuts(this.appName, 'gog')
     syncStore.delete(this.appName)
     const gameInfo = await this.getGameInfo()
-    const { defaultSteamPath } = await GlobalConfig.get().getSettings()
-    const steamUserdataDir = join(
-      defaultSteamPath.replaceAll("'", ''),
-      'userdata'
-    )
-    await removeNonSteamGame({ steamUserdataDir, gameInfo })
+    await removeNonSteamGame({ gameInfo })
     return res
   }
 

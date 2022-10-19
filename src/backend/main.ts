@@ -239,15 +239,17 @@ async function createWindow(): Promise<BrowserWindow> {
   }
 
   if (!app.isPackaged) {
-    /* eslint-disable @typescript-eslint/ban-ts-comment */
-    //@ts-ignore
-    import('electron-devtools-installer').then((devtools) => {
-      const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
+    if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {
+      import('electron-devtools-installer').then((devtools) => {
+        const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
-      installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        logWarning(['An error occurred: ', err], { prefix: LogPrefix.Backend })
+        installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
+          logWarning(['An error occurred: ', err], {
+            prefix: LogPrefix.Backend
+          })
+        })
       })
-    })
+    }
     mainWindow.loadURL('http://localhost:5173')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
@@ -348,7 +350,9 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     initOnlineMonitor()
 
-    const systemInfo = await getSystemInfo()
+    getSystemInfo().then((systemInfo) =>
+      logInfo(`\n\n${systemInfo}\n`, { prefix: LogPrefix.Backend })
+    )
 
     initImagesCache()
 
@@ -359,7 +363,6 @@ if (!gotTheLock) {
     logInfo(['GOGDL location:', join(...Object.values(getGOGdlBin()))], {
       prefix: LogPrefix.Gog
     })
-    logInfo(`\n\n${systemInfo}\n`, { prefix: LogPrefix.Backend })
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
 
@@ -784,7 +787,7 @@ ipcMain.handle(
     }
 
     try {
-      // @ts-ignore This is actually fine as long as the frontend always passes the right InstallPlatform for the right runner
+      // @ts-expect-error This is actually fine as long as the frontend always passes the right InstallPlatform for the right runner
       const info = await getGame(game, runner).getInstallInfo(installPlatform)
       return info
     } catch (error) {

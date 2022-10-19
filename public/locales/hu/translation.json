@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Nincs kiválasztott Wine verzió. Ellenőrizd a játék beállításait!",
                 "title": "Wine nem található"
             },
@@ -387,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalhoz",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Alternatív GOGDL bináris kiválasztása",
         "alt-legendary-bin": "Alternatív Legendary bináris kiválasztása",
         "audiofix": "Hangzásjavítás (Pulse Audio késleltetés)",

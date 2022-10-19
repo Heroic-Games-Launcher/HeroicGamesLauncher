@@ -21,62 +21,7 @@ interface Props {
   runner: Runner
   handleUpdate: () => void
   disableUpdate: boolean
-  steamImageUrl: string
   onShowRequirements?: () => void
-}
-
-// helper function to generate images for steam
-// image is centered, sides are padded with blurred image
-// returns dataURL of the generated image
-const imageData = async (
-  src: string,
-  cw: number,
-  ch: number
-): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const canvas = document.createElement('CANVAS') as HTMLCanvasElement
-    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-    const img = document.createElement('IMG') as HTMLImageElement
-    img.crossOrigin = 'anonymous' // prevents cors errors when exporting
-
-    img.addEventListener(
-      'load',
-      function () {
-        // measure canvas and image
-        canvas.width = cw
-        canvas.height = ch
-        const imgWidth = img.width
-        const imgHeight = img.height
-
-        // calculate drawing of the background
-        const bkgW = cw
-        const bkgH = (imgHeight * cw) / imgWidth
-        const bkgX = 0
-        const bkgY = ch / 2 - bkgH / 2
-        ctx.filter = 'blur(10px)' // add blur and draw
-        ctx.drawImage(img, bkgX, bkgY, bkgW, bkgH)
-
-        // calculate drawing of the foreground
-        const drawH = ch
-        const drawW = (imgWidth * ch) / imgHeight
-        const drawY = 0
-        const drawX = cw / 2 - drawW / 2
-        ctx.filter = 'blur(0)' // remove blur and draw
-        ctx.drawImage(img, drawX, drawY, drawW, drawH)
-
-        // resolve with dataURL
-        resolve(canvas.toDataURL('image/jpeg', 0.9))
-      },
-      false
-    )
-
-    img.addEventListener('error', (error) => {
-      reject(error)
-    })
-
-    // set src to trigger the callback
-    img.src = src
-  })
 }
 
 export default function GamesSubmenu({
@@ -87,7 +32,6 @@ export default function GamesSubmenu({
   runner,
   handleUpdate,
   disableUpdate,
-  steamImageUrl,
   onShowRequirements
 }: Props) {
   const { refresh, platform } = useContext(ContextProvider)
@@ -213,11 +157,8 @@ export default function GamesSubmenu({
         .removeFromSteam(appName, runner)
         .then(() => setAddedToSteam(false))
     } else {
-      const bkgDataURL = await imageData(steamImageUrl, 1920, 620)
-      const bigPicDataURL = await imageData(steamImageUrl, 920, 430)
-
       await window.api
-        .addToSteam(appName, runner, bkgDataURL, bigPicDataURL)
+        .addToSteam(appName, runner)
         .then((added) => setAddedToSteam(added))
     }
     setSteamRefresh(false)
@@ -239,7 +180,7 @@ export default function GamesSubmenu({
     })
 
     // only unix specific
-    if (!isWin) {
+    if (!isWin && runner === 'legendary') {
       // check if eos overlay is enabled
       setEosOverlayRefresh(gameStatus.status === 'installing')
 

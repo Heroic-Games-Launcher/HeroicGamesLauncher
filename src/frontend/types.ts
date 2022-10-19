@@ -191,6 +191,13 @@ interface AntiCheatReference {
 }
 
 declare global {
+  interface Window {
+    imageData: (
+      src: string,
+      canvas_width: number,
+      canvas_height: number
+    ) => Promise<string>
+  }
   interface WindowEventMap {
     'controller-changed': CustomEvent<{ controllerId: string }>
   }

@@ -69,6 +69,7 @@
                 "title": "Грешка при обновяването"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Няма избрана версия на Wine. Проверете настройките на играта!",
                 "title": "Wine не е намерен"
             },
@@ -387,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "Автоматично добавяне на преки пътища на работния плот",
         "addgamestostartmenu": "Автоматично добавяне на игрите в менюто с приложения",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Избиране на алтернативен изпълним файл на GOGDL",
         "alt-legendary-bin": "Избиране на алтернативен изпълним файл на Legendary",
         "audiofix": "Поправка за звука (забавяне на Pulse Audio)",
