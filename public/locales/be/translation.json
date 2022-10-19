@@ -388,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)to use",
         "audiofix": "",

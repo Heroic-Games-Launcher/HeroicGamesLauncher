@@ -21,6 +21,10 @@ const Shortcuts = () => {
     'addStartMenuShortcuts',
     false
   )
+  const [addSteamShortcuts, setAddSteamShortcuts] = useSetting<boolean>(
+    'addSteamShortcuts',
+    false
+  )
 
   if (!isDefault || !supportsShortcuts) {
     return <></>
@@ -45,6 +49,12 @@ const Shortcuts = () => {
           'setting.addgamestostartmenu',
           'Add games to start menu automatically'
         )}
+      />
+      <ToggleSwitch
+        htmlId="shortcutsToSteam"
+        value={addSteamShortcuts}
+        handleChange={() => setAddSteamShortcuts(!addSteamShortcuts)}
+        title={t('setting.addgamestosteam', 'Add games to Steam automatically')}
       />
     </>
   )

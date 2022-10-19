@@ -388,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "데스크톱 바로 가기 자동 추가",
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "대신 사용할 GOGDL 바이너리 파일 선택",
         "alt-legendary-bin": "대신 사용할 Legendary 바이너리 파일 선택",
         "audiofix": "오디오 픽스 (Pulse Audio 지연)",

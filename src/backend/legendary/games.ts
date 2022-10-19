@@ -478,12 +478,7 @@ class LegendaryGame extends Game {
       LegendaryLibrary.get().installState(this.appName, false)
       await removeShortcuts(this.appName, 'legendary')
       const gameInfo = this.getGameInfo()
-      const { defaultSteamPath } = await GlobalConfig.get().getSettings()
-      const steamUserdataDir = join(
-        defaultSteamPath.replaceAll("'", ''),
-        'userdata'
-      )
-      await removeNonSteamGame({ steamUserdataDir, gameInfo })
+      await removeNonSteamGame({ gameInfo })
     }
     return res
   }

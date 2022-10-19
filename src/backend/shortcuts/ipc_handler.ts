@@ -1,8 +1,6 @@
 import { existsSync } from 'graceful-fs'
-import { GlobalConfig } from '../config'
 import { ipcMain, dialog } from 'electron'
 import i18next from 'i18next'
-import { join } from 'path'
 import { Runner } from 'common/types'
 import {
   addNonSteamGame,
@@ -11,11 +9,6 @@ import {
 } from './nonesteamgame/nonesteamgame'
 import { getGame } from '../utils'
 import { shortcutFiles } from './shortcuts/shortcuts'
-
-const getSteamUserdataDir = async () => {
-  const { defaultSteamPath } = await GlobalConfig.get().getSettings()
-  return join(defaultSteamPath.replaceAll("'", ''), 'userdata')
-}
 
 ipcMain.on(
   'addShortcut',
@@ -54,36 +47,20 @@ ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
   })
 })
 
-ipcMain.handle(
-  'addToSteam',
-  async (
-    event,
-    appName: string,
-    runner: Runner,
-    bkgDataUrl: string,
-    bigPicDataUrl: string
-  ) => {
-    const game = getGame(appName, runner)
-    const gameInfo = await game.getGameInfo()
-    const steamUserdataDir = await getSteamUserdataDir()
+ipcMain.handle('addToSteam', async (event, appName: string, runner: Runner) => {
+  const game = getGame(appName, runner)
+  const gameInfo = await game.getGameInfo()
 
-    return addNonSteamGame({
-      steamUserdataDir,
-      gameInfo,
-      bkgDataUrl,
-      bigPicDataUrl
-    })
-  }
-)
+  return addNonSteamGame({ gameInfo })
+})
 
 ipcMain.handle(
   'removeFromSteam',
   async (event, appName: string, runner: Runner) => {
     const game = getGame(appName, runner)
     const gameInfo = await game.getGameInfo()
-    const steamUserdataDir = await getSteamUserdataDir()
 
-    await removeNonSteamGame({ steamUserdataDir, gameInfo })
+    await removeNonSteamGame({ gameInfo })
   }
 )
 
@@ -92,8 +69,7 @@ ipcMain.handle(
   async (event, appName: string, runner: Runner) => {
     const game = getGame(appName, runner)
     const gameInfo = await game.getGameInfo()
-    const steamUserdataDir = await getSteamUserdataDir()
 
-    return isAddedToSteam({ steamUserdataDir, gameInfo })
+    return isAddedToSteam({ gameInfo })
   }
 )

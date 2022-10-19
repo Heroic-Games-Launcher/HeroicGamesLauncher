@@ -51,6 +51,7 @@ export interface AppSettings {
   enableUpdates: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
+  addSteamShortcuts: boolean
   altLegendaryBin: string
   altGogdlBin: string
   audioFix: boolean

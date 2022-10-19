@@ -632,12 +632,7 @@ class GOGGame extends Game {
     await removeShortcuts(this.appName, 'gog')
     syncStore.delete(this.appName)
     const gameInfo = await this.getGameInfo()
-    const { defaultSteamPath } = await GlobalConfig.get().getSettings()
-    const steamUserdataDir = join(
-      defaultSteamPath.replaceAll("'", ''),
-      'userdata'
-    )
-    await removeNonSteamGame({ steamUserdataDir, gameInfo })
+    await removeNonSteamGame({ gameInfo })
     return res
   }
 
