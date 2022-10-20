@@ -149,7 +149,6 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     GameConfig.get(game.appName).config ||
     (await GameConfig.get(game.appName).getSettings())
 
-
   if (!(await validWine(gameSettings.wineVersion))) {
     return { success: false }
   }
@@ -396,27 +395,29 @@ export async function validWine(
   const wineBin = wineVersion.bin
 
   if (!wineBin) {
-    showErrorBoxModalAuto({
+    showDialogBoxModalAuto({
       title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
-      error: i18next.t(
+      message: i18next.t(
         'box.error.wine-not-found.message',
         'No Wine Version Selected. Check Game Settings!'
-      )
+      ),
+      type: 'ERROR'
     })
     return false
   }
 
   if (!existsSync(wineBin)) {
-    showErrorBoxModalAuto({
+    showDialogBoxModalAuto({
       title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
-      error: i18next.t('box.error.wine-not-found.invalid', {
+      message: i18next.t('box.error.wine-not-found.invalid', {
         defaultValue:
           "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
         version: wineVersion.name,
         path: wineBin,
         newline: '\n',
         interpolation: { escapeValue: false }
-      })
+      }),
+      type: 'ERROR'
     })
     return false
   }
