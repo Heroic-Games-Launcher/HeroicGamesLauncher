@@ -7,7 +7,7 @@ import SettingsContext from '../../SettingsContext'
 const LauncherArgs = () => {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
-  const [launcherArgs, setLauncherArgs] = useSetting<string>('launcherArgs', '')
+  const [launcherArgs, setLauncherArgs] = useSetting('launcherArgs', '')
 
   const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
     setLauncherArgs(event.currentTarget.value)

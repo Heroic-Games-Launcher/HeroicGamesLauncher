@@ -5,11 +5,8 @@ import useSetting from 'frontend/hooks/useSetting'
 
 const TraySettings = () => {
   const { t } = useTranslation()
-  const [exitToTray, setExitToTray] = useSetting<boolean>('exitToTray', false)
-  const [startInTray, setStartInTray] = useSetting<boolean>(
-    'startInTray',
-    false
-  )
+  const [exitToTray, setExitToTray] = useSetting('exitToTray', false)
+  const [startInTray, setStartInTray] = useSetting('startInTray', false)
 
   return (
     <>

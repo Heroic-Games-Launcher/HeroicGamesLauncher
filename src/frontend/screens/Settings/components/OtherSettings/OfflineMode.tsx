@@ -24,10 +24,7 @@ const OfflineMode = () => {
     }
   }, [])
 
-  const [offlineMode, setOfflineMode] = useSetting<boolean>(
-    'offlineMode',
-    false
-  )
+  const [offlineMode, setOfflineMode] = useSetting('offlineMode', false)
 
   if (isDefault || !canRunOffline) {
     return <></>

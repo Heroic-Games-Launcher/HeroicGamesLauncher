@@ -5,21 +5,17 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '../WineSettings'
 import useSetting from 'frontend/hooks/useSetting'
 import { configStore } from 'frontend/helpers/electronStores'
-import { WineInstallation } from 'common/types'
 import { ToggleSwitch } from 'frontend/components/UI'
 
 const AutoDXVK = () => {
   const { t } = useTranslation()
-  const [autoInstallDxvk, setAutoInstallDxak] = useSetting<boolean>(
+  const [autoInstallDxvk, setAutoInstallDxak] = useSetting(
     'autoInstallDxvk',
     false
   )
   const home = configStore.get('userHome', '')
-  const [winePrefix] = useSetting<string>('winePrefix', `${home}/.wine`)
-  const [wineVersion] = useSetting<WineInstallation>(
-    'wineVersion',
-    defaultWineVersion
-  )
+  const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
+  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
   const isProton = wineVersion.type === 'proton'
 

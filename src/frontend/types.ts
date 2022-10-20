@@ -5,7 +5,8 @@ import {
   GameSettings,
   GameStatus,
   Runner,
-  ConnectivityStatus
+  ConnectivityStatus,
+  LibraryTopSectionOptions
 } from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog'
@@ -74,12 +75,6 @@ export interface ContextType {
   setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
   setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
 }
-
-export type LibraryTopSectionOptions =
-  | 'disabled'
-  | 'recently_played'
-  | 'recently_played_installed'
-  | 'favourites'
 
 export interface HiddenGame {
   appName: string

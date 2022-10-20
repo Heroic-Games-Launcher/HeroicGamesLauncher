@@ -8,11 +8,8 @@ import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 const EacRuntime = () => {
   const { t } = useTranslation()
   const [installing, setInstalling] = useState(false)
-  const [eacRuntime, setEacRuntime] = useSetting<boolean>('eacRuntime', false)
-  const [useGameMode, setUseGameMode] = useSetting<boolean>(
-    'useGameMode',
-    false
-  )
+  const [eacRuntime, setEacRuntime] = useSetting('eacRuntime', false)
+  const [useGameMode, setUseGameMode] = useSetting('useGameMode', false)
 
   const handleEacRuntime = async () => {
     if (!eacRuntime) {

@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const DefaultSteamPath = () => {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
-  const [defaultSteamPath, setDefaultSteamPath] = useSetting<string>(
+  const [defaultSteamPath, setDefaultSteamPath] = useSetting(
     'defaultSteamPath',
     ''
   )

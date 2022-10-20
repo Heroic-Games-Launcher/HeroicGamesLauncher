@@ -8,7 +8,7 @@ import { LocationState } from 'frontend/types'
 
 const ShowFPS = () => {
   const { t } = useTranslation()
-  const [showFps, setShowFps] = useSetting<boolean>('showFps', false)
+  const [showFps, setShowFps] = useSetting('showFps', false)
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const {

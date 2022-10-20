@@ -10,10 +10,7 @@ const EnableEsync = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [enableEsync, setEnableEsync] = useSetting<boolean>(
-    'enableEsync',
-    false
-  )
+  const [enableEsync, setEnableEsync] = useSetting('enableEsync', false)
 
   if (!isLinux) {
     return <></>

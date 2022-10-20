@@ -10,7 +10,7 @@ const PrimeRun = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [primeRun, setPrimeRun] = useSetting<boolean>('primeRun', false)
+  const [primeRun, setPrimeRun] = useSetting('nvidiaPrime', false)
 
   if (!isLinux) {
     return <></>

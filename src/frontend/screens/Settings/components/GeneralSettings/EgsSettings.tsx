@@ -18,12 +18,8 @@ const EgsSettings = () => {
   const { t } = useTranslation()
   const [isSyncing, setIsSyncing] = useState(false)
   const { platform, refreshLibrary } = useContext(ContextProvider)
-  const [egsLinkedPath, setEgsLinkedPath] = useSetting<string>(
-    'egsLinkedPath',
-    ''
-  )
-  const [egsPath, setEgsPath] = useSetting<string>('egsPath', egsLinkedPath)
-  const isLinked = Boolean(egsLinkedPath.length)
+  const [egsPath, setEgsPath] = useSetting('egsLinkedPath', '')
+  const isLinked = Boolean(egsPath.length)
   const isWindows = platform === 'win32'
 
   async function handleSync() {
@@ -34,7 +30,6 @@ const EgsSettings = () => {
           message: t('message.unsync'),
           title: 'EGS Sync'
         })
-        setEgsLinkedPath('')
         setEgsPath('')
         setIsSyncing(false)
         refreshLibrary({ fullRefresh: true, runInBackground: false })
@@ -48,7 +43,6 @@ const EgsSettings = () => {
           t('box.error.title', 'Error'),
           t('box.sync.error')
         ])
-        setEgsLinkedPath('')
         setEgsPath('')
         return
       }
@@ -58,7 +52,7 @@ const EgsSettings = () => {
       })
 
       setIsSyncing(false)
-      setEgsLinkedPath(isWindows ? 'windows' : egsPath)
+      setEgsPath(isWindows ? 'windows' : egsPath)
       refreshLibrary({ fullRefresh: true, runInBackground: false })
     })
   }
@@ -84,7 +78,7 @@ const EgsSettings = () => {
           extraClass="withRightButton"
           htmlId="set_epic_sync_path"
           placeholder={t('placeholder.egs-prefix')}
-          value={egsPath || egsLinkedPath}
+          value={egsPath}
           disabled={isLinked}
           onChange={(event) => setEgsPath(event.target.value)}
           icon={

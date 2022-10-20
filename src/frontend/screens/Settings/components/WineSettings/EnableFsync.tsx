@@ -10,10 +10,7 @@ const EnableFsync = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [enableFsync, setEnableFsync] = useSetting<boolean>(
-    'enableFsync',
-    false
-  )
+  const [enableFsync, setEnableFsync] = useSetting('enableFsync', false)
 
   if (!isLinux) {
     return <></>

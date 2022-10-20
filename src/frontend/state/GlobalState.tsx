@@ -10,9 +10,10 @@ import {
   RefreshOptions,
   Runner,
   WineVersionInfo,
-  UserInfo
+  UserInfo,
+  LibraryTopSectionOptions
 } from 'common/types'
-import { Category, LibraryTopSectionOptions } from 'frontend/types'
+import { Category } from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   getLegendaryConfig,
