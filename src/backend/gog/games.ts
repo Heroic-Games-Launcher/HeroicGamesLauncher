@@ -365,12 +365,12 @@ class GOGGame extends Game {
           this.logFileLocation,
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
-if (wineLaunchPrepFailReason) {
-        showDialogBoxModalAuto({
-          title: t('box.error.launchAborted', 'Launch aborted'),
-          message: wineLaunchPrepFailReason!,
-          type: 'ERROR'
-        })
+        if (wineLaunchPrepFailReason) {
+          showDialogBoxModalAuto({
+            title: t('box.error.launchAborted', 'Launch aborted'),
+            message: wineLaunchPrepFailReason!,
+            type: 'ERROR'
+          })
         }
         return false
       }
