@@ -11,7 +11,8 @@ import {
   InstallPlatform,
   LaunchParams,
   Tools,
-  WineCommandArgs
+  WineCommandArgs,
+  SideloadGame
 } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import * as path from 'path'
@@ -123,6 +124,16 @@ import {
   runOnceWhenOnline
 } from './online_monitor'
 import { showErrorBoxModalAuto } from './dialog/dialog'
+import {
+  addNewApp,
+  appLogFileLocation,
+  getAppInfo,
+  getAppSettings,
+  isNativeApp,
+  launchApp,
+  removeApp,
+  stop
+} from './sideload/games'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -1602,6 +1613,27 @@ ipcMain.on('clipboardWriteText', (event, text) => {
   return clipboard.writeText(text)
 })
 
+ipcMain.on('addNewApp', (e, args: SideloadGame) => addNewApp(args))
+
+ipcMain.handle(
+  'removeApp',
+  async (e, args: { appName: string; shouldRemovePrefix: boolean }) =>
+    removeApp(args)
+)
+
+ipcMain.handle('launchApp', async (e, appName: string) => launchApp(appName))
+
+ipcMain.handle(
+  'isNative',
+  (e, { appName, runner }: { appName: string; runner: Runner }) => {
+    if (runner === 'sideload') {
+      return isNativeApp(appName)
+    }
+    const game = getGame(appName, runner)
+    return game.isNative()
+  }
+)
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1617,13 +1649,6 @@ import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
-import {
-  appLogFileLocation,
-  getAppInfo,
-  getAppSettings,
-  launchApp,
-  stop
-} from './sideload/games'
 import './dialog/ipc_handler'
 
 // import Store from 'electron-store'

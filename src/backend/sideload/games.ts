@@ -2,8 +2,7 @@ import {
   GameSettings,
   GameInfo,
   SideloadGame,
-  InstalledInfo,
-  Runner
+  InstalledInfo
 } from '../../common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../game_config'
@@ -14,7 +13,7 @@ import {
   execOptions,
   heroicGamesConfigPath
 } from '../constants'
-import { execAsync, killPattern, notify, getGame } from '../utils'
+import { execAsync, killPattern, notify } from '../utils'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { dirname, join } from 'path'
 import {
@@ -36,28 +35,6 @@ import { access, chmod } from 'fs/promises'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import { showErrorBoxModalAuto } from '../dialog/dialog'
 import shlex from 'shlex'
-import { ipcMain } from 'electron'
-
-ipcMain.on('addNewApp', (e, args: SideloadGame) => addNewApp(args))
-
-ipcMain.handle(
-  'removeApp',
-  async (e, args: { appName: string; shouldRemovePrefix: boolean }) =>
-    removeApp(args)
-)
-
-ipcMain.handle('launchApp', async (e, appName: string) => launchApp(appName))
-
-ipcMain.handle(
-  'isNative',
-  (e, { appName, runner }: { appName: string; runner: Runner }) => {
-    if (runner === 'sideload') {
-      return isNativeApp(appName)
-    }
-    const game = getGame(appName, runner)
-    return game.isNative()
-  }
-)
 
 export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)
