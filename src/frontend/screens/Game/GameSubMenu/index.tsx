@@ -7,10 +7,10 @@ import { AppSettings, GameStatus, Runner } from 'common/types'
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { uninstall } from 'frontend/helpers/library'
 import { NavLink } from 'react-router-dom'
 
 import { CircularProgress } from '@mui/material'
+import UninstallModal from 'frontend/components/UI/UninstallModal'
 
 interface Props {
   appName: string
@@ -33,8 +33,13 @@ export default function GamesSubmenu({
   disableUpdate,
   onShowRequirements
 }: Props) {
-  const { handleGameStatus, refresh, platform, libraryStatus } =
-    useContext(ContextProvider)
+  const {
+    handleGameStatus,
+    refresh,
+    platform,
+    libraryStatus,
+    showDialogModal
+  } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
@@ -45,69 +50,82 @@ export default function GamesSubmenu({
   const [eosOverlayEnabled, setEosOverlayEnabled] = useState<boolean>(false)
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
+  const [showUninstallModal, setShowUninstallModal] = useState(false)
   const { t } = useTranslation('gamepage')
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
-  async function handleMoveInstall() {
-    const { response } = await window.api.openMessageBox({
-      buttons: [t('box.yes'), t('box.no')],
-      message: t('box.move.message'),
-      title: t('box.move.title')
+  async function onMoveInstallYesClick() {
+    const { defaultInstallPath }: AppSettings =
+      await window.api.requestSettings('default')
+    const { path } = await window.api.openDialog({
+      buttonLabel: t('box.choose'),
+      properties: ['openDirectory'],
+      title: t('box.move.path'),
+      defaultPath: defaultInstallPath
     })
-    if (response === 0) {
-      const { defaultInstallPath }: AppSettings =
-        await window.api.requestSettings('default')
-      const { path } = await window.api.openDialog({
-        buttonLabel: t('box.choose'),
-        properties: ['openDirectory'],
-        title: t('box.move.path'),
-        defaultPath: defaultInstallPath
-      })
-      if (path) {
-        await handleGameStatus({ appName, runner, status: 'moving' })
-        await window.api.moveInstall([appName, path, runner])
-        await handleGameStatus({ appName, runner, status: 'done' })
-      }
-    }
-  }
-
-  async function handleChangeInstall() {
-    const { response } = await window.api.openMessageBox({
-      buttons: [t('box.yes'), t('box.no')],
-      message: t('box.change.message'),
-      title: t('box.change.title')
-    })
-    if (response === 0) {
-      const { defaultInstallPath }: AppSettings =
-        await window.api.requestSettings('default')
-      const { path } = await window.api.openDialog({
-        buttonLabel: t('box.choose'),
-        properties: ['openDirectory'],
-        title: t('box.change.path'),
-        defaultPath: defaultInstallPath
-      })
-      if (path) {
-        await window.api.changeInstallPath([appName, path, runner])
-        await refresh(runner)
-      }
-      return
-    }
-    return
-  }
-
-  async function handleRepair(appName: string) {
-    const { response } = await window.api.openMessageBox({
-      buttons: [t('box.yes'), t('box.no')],
-      message: t('box.repair.message'),
-      title: t('box.repair.title')
-    })
-
-    if (response === 0) {
-      await handleGameStatus({ appName, runner, status: 'repairing' })
-      await repair(appName, runner)
+    if (path) {
+      await handleGameStatus({ appName, runner, status: 'moving' })
+      await window.api.moveInstall([appName, path, runner])
       await handleGameStatus({ appName, runner, status: 'done' })
     }
+  }
+
+  function handleMoveInstall() {
+    showDialogModal({
+      showDialog: true,
+      message: t('box.move.message'),
+      title: t('box.move.title'),
+      buttons: [
+        { text: t('box.yes'), onClick: onMoveInstallYesClick },
+        { text: t('box.no') }
+      ]
+    })
+  }
+
+  async function onChangeInstallYesClick() {
+    const { defaultInstallPath }: AppSettings =
+      await window.api.requestSettings('default')
+    const { path } = await window.api.openDialog({
+      buttonLabel: t('box.choose'),
+      properties: ['openDirectory'],
+      title: t('box.change.path'),
+      defaultPath: defaultInstallPath
+    })
+    if (path) {
+      await window.api.changeInstallPath([appName, path, runner])
+      await refresh(runner)
+    }
+  }
+
+  function handleChangeInstall() {
+    showDialogModal({
+      showDialog: true,
+      message: t('box.change.message'),
+      title: t('box.change.title'),
+      buttons: [
+        { text: t('box.yes'), onClick: onChangeInstallYesClick },
+        { text: t('box.no') }
+      ]
+    })
+  }
+
+  async function onRepairYesClick(appName: string) {
+    await handleGameStatus({ appName, runner, status: 'repairing' })
+    await repair(appName, runner)
+    await handleGameStatus({ appName, runner, status: 'done' })
+  }
+
+  function handleRepair(appName: string) {
+    showDialogModal({
+      showDialog: true,
+      message: t('box.repair.message'),
+      title: t('box.repair.title'),
+      buttons: [
+        { text: t('box.yes'), onClick: async () => onRepairYesClick(appName) },
+        { text: t('box.no') }
+      ]
+    })
   }
 
   function handleShortcuts() {
@@ -201,6 +219,13 @@ export default function GamesSubmenu({
 
   return (
     <div className="gameTools subMenuContainer">
+      {showUninstallModal && (
+        <UninstallModal
+          appName={appName}
+          runner={runner}
+          onClose={() => setShowUninstallModal(false)}
+        />
+      )}
       <div className={`submenu`}>
         {isInstalled && (
           <>
@@ -227,9 +252,9 @@ export default function GamesSubmenu({
               </button>
             )}
             <button
-              onClick={async () =>
-                uninstall({ appName, t, handleGameStatus, runner })
-              }
+              onClick={() => {
+                setShowUninstallModal(true)
+              }}
               className="link button is-text is-link"
             >
               {t('button.uninstall')}

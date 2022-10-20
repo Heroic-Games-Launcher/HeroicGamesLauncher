@@ -5,9 +5,10 @@ import {
   GameSettings,
   GameStatus,
   Runner,
-  ConnectivityStatus
+  ConnectivityStatus,
+  DialogType,
+  ButtonOptions
 } from 'common/types'
-
 export type Category = 'all' | 'legendary' | 'gog'
 
 export interface ContextType {
@@ -73,6 +74,17 @@ export interface ContextType {
   connectivity: { status: ConnectivityStatus; retryIn: number }
   setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
   setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
+  dialogModalOptions: DialogModalOptions
+  showDialogModal: (options: DialogModalOptions) => void
+  showResetDialog: () => void
+}
+
+export type DialogModalOptions = {
+  showDialog?: boolean
+  title?: string
+  message?: string
+  buttons?: Array<ButtonOptions>
+  type?: DialogType
 }
 
 export type LibraryTopSectionOptions =
