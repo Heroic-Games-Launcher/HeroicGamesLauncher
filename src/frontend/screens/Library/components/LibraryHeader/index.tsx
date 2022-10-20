@@ -62,8 +62,6 @@ export default function LibraryHeader({
     return 'gog'
   }
 
-  console.log('LIBRARY CATEGRORY = ', category)
-
   return (
     <h5 className="libraryHeader">
       <div className="libraryHeaderWrapper">
