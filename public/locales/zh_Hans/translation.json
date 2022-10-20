@@ -69,6 +69,7 @@
                 "title": "更新错误"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "未选择 Wine 版本。检查游戏设置！",
                 "title": "未找到 Wine"
             },
@@ -387,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "自动添加桌面快捷方式",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "选择要使用的备选 GOGDL 二进制文件",
         "alt-legendary-bin": "选择备选的 Legendary 二进制文件",
         "audiofix": "音频修复（Pulse Audio延迟）",

@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
                 "title": "Wine Bulunamadı"
             },
@@ -387,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Bir muadil GOGDL çalıştırılabilir dosyasını seçin",
         "alt-legendary-bin": "Bir muadil Legendary dosyası seçin",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",

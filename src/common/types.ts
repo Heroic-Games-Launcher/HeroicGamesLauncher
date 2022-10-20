@@ -60,6 +60,7 @@ export interface AppSettings {
   enableUpdates: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
+  addSteamShortcuts: boolean
   altLegendaryBin: string
   altGogdlBin: string
   audioFix: boolean
@@ -82,7 +83,6 @@ export interface AppSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
-  enableResizableBar: boolean
   language: string
   launcherArgs: string
   maxRecentGames: number
@@ -154,7 +154,6 @@ export interface GameSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
-  enableResizableBar: boolean
   maxSharpness: number
   language: string
   launcherArgs: string
