@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron'
-import { Runner } from '../../common/types'
+import { Runner } from 'common/types'
 
 export const removeShortcut = (appName: string, runner: Runner) =>
   ipcRenderer.send('removeShortcut', appName, runner)

@@ -1,22 +1,25 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 const EacRuntime = () => {
   const { t } = useTranslation()
   const [installing, setInstalling] = useState(false)
   const [eacRuntime, setEacRuntime] = useSetting('eacRuntime', false)
   const [useGameMode, setUseGameMode] = useSetting('useGameMode', false)
+  const { showDialogModal } = useContext(ContextProvider)
 
   const handleEacRuntime = async () => {
     if (!eacRuntime) {
       if (!useGameMode) {
         const isFlatpak = await window.api.isFlatpak()
         if (isFlatpak) {
-          const { response } = await window.api.openMessageBox({
+          showDialogModal({
+            showDialog: true,
             message: t(
               'settings.eacRuntime.gameModeRequired.message',
               'GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?'
@@ -25,12 +28,14 @@ const EacRuntime = () => {
               'settings.eacRuntime.gameModeRequired.title',
               'GameMode required'
             ),
-            buttons: [t('box.yes'), t('box.no')]
+            buttons: [
+              {
+                text: t('box.yes'),
+                onClick: () => setUseGameMode(!useGameMode)
+              },
+              { text: t('box.no') }
+            ]
           })
-          if (response === 1) {
-            return
-          }
-          setUseGameMode(!useGameMode)
         }
       }
       const isInstalled = await window.api.isRuntimeInstalled('eac_runtime')

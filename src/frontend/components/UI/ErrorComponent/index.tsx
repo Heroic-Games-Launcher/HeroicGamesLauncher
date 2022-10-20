@@ -9,7 +9,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 
 export default function ErrorComponent({ message }: { message: string }) {
   const { t } = useTranslation()
-  const { refreshLibrary } = useContext(ContextProvider)
+  const { refreshLibrary, showResetDialog } = useContext(ContextProvider)
 
   return (
     <div className="errorComponent">
@@ -52,7 +52,7 @@ export default function ErrorComponent({ message }: { message: string }) {
 
         <button
           className="button is-footer is-danger"
-          onClick={window.api.resetHeroic}
+          onClick={showResetDialog}
         >
           <div className="button-icontext-flex">
             <div className="button-icon-flex">

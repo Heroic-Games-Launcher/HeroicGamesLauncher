@@ -1,6 +1,6 @@
 const dialog = jest.requireActual('../dialog')
 
-dialog.showErrorBoxModalAuto = jest.fn()
+dialog.showDialogBoxModalAuto = jest.fn()
 
 module.exports = dialog
 export {}

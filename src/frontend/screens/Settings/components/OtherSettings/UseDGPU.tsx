@@ -8,7 +8,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 const UseDGPU = () => {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
+  const { platform, showDialogModal } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
   const [useDGPU, setUseDGPU] = useSetting('nvidiaPrime', false)
@@ -20,7 +20,7 @@ const UseDGPU = () => {
   async function toggleUseDGPU() {
     const numOfGpus = await window.api.getNumOfGpus()
     if (!useDGPU && numOfGpus === 1) {
-      window.api.openMessageBox({
+      showDialogModal({
         title: t('setting.primerun.confirmation.title', 'Only 1 GPU detected'),
         message: t(
           'setting.primerun.confirmation.message',
@@ -28,8 +28,8 @@ const UseDGPU = () => {
             'Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). ' +
             'On single-GPU systems, the GPU is automatically used & enabling this option can cause issues'
         ),
-        buttons: [t('box.ok', 'Ok')],
-        type: 'warning'
+        buttons: [{ text: t('box.ok', 'Ok') }],
+        type: 'MESSAGE'
       })
     }
     setUseDGPU(!useDGPU)

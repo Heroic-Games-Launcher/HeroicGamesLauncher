@@ -26,7 +26,7 @@ import {
   screen,
   clipboard
 } from 'electron'
-import './updater'
+import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {
@@ -122,10 +122,10 @@ import {
   isOnline,
   runOnceWhenOnline
 } from './online_monitor'
-import { showErrorBoxModalAuto } from './dialog/dialog'
+import { showDialogBoxModalAuto } from './dialog/dialog'
 import si from 'systeminformation'
 
-const { showMessageBox, showOpenDialog } = dialog
+const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow
@@ -507,17 +507,18 @@ ipcMain.on('frontendReady', () => {
 // Maybe this can help with white screens
 process.on('uncaughtException', async (err) => {
   logError(`${err.name}: ${err.message}`, { prefix: LogPrefix.Backend })
-  showErrorBoxModalAuto({
+  showDialogBoxModalAuto({
     title: i18next.t(
       'box.error.uncaught-exception.title',
       'Uncaught Exception occured!'
     ),
-    error: i18next.t('box.error.uncaught-exception.message', {
+    message: i18next.t('box.error.uncaught-exception.message', {
       defaultValue:
         'A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.',
       newLine: '\n',
       error: err
-    })
+    }),
+    type: 'ERROR'
   })
 })
 
@@ -709,31 +710,23 @@ ipcMain.handle('getLatestReleases', async () => {
   }
 })
 
-ipcMain.on('clearCache', () => {
+ipcMain.on('clearCache', (event) => {
   clearCache()
-  dialog.showMessageBox(mainWindow, {
+
+  showDialogBoxModalAuto({
+    event,
     title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
     message: i18next.t(
       'box.cache-cleared.message',
       'Heroic Cache Was Cleared!'
     ),
-    buttons: [i18next.t('box.ok', 'Ok')]
+    type: 'MESSAGE',
+    buttons: [{ text: i18next.t('box.ok', 'Ok') }]
   })
 })
 
 ipcMain.on('resetHeroic', async () => {
-  const { response } = await dialog.showMessageBox(mainWindow, {
-    title: i18next.t('box.reset-heroic.question.title', 'Reset Heroic'),
-    message: i18next.t(
-      'box.reset-heroic.question.message',
-      "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
-    ),
-    buttons: [i18next.t('box.no'), i18next.t('box.yes')]
-  })
-
-  if (response === 1) {
-    resetHeroic()
-  }
+  resetHeroic()
 })
 
 ipcMain.on('createNewWindow', async (e, url) =>
@@ -1078,20 +1071,6 @@ ipcMain.on('showItemInFolder', async (e, item) => {
   showItemInFolder(item)
 })
 
-const openMessageBox = async (args: Electron.MessageBoxOptions) => {
-  const { response, checkboxChecked } = await showMessageBox(mainWindow, {
-    ...args
-  })
-  return { response, checkboxChecked }
-}
-
-ipcMain.handle(
-  'openMessageBox',
-  async (_, args: Electron.MessageBoxOptions) => {
-    return openMessageBox(args)
-  }
-)
-
 ipcMain.handle('install', async (event, params) => {
   const {
     appName,
@@ -1114,13 +1093,14 @@ ipcMain.handle('install', async (event, params) => {
 
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline && runner === 'legendary') {
-    showErrorBoxModalAuto({
+    showDialogBoxModalAuto({
       event,
       title: i18next.t('box.warning.title', 'Warning'),
-      error: i18next.t(
+      message: i18next.t(
         'box.warning.epic.install',
         'Epic Servers are having major outage right now, the game cannot be installed!'
-      )
+      ),
+      type: 'ERROR'
     })
     return { status: 'error' }
   }
@@ -1244,13 +1224,14 @@ ipcMain.handle(
     const { appName, path, runner } = args
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline && runner === 'legendary') {
-      showErrorBoxModalAuto({
+      showDialogBoxModalAuto({
         event,
         title: i18next.t('box.warning.title', 'Warning'),
-        error: i18next.t(
+        message: i18next.t(
           'box.warning.epic.import',
           'Epic Servers are having major outage right now, the game cannot be imported!'
-        )
+        ),
+        type: 'ERROR'
       })
       return { status: 'error' }
     }
@@ -1298,13 +1279,14 @@ ipcMain.handle('updateGame', async (event, appName, runner) => {
 
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline && runner === 'legendary') {
-    showErrorBoxModalAuto({
+    showDialogBoxModalAuto({
       event,
       title: i18next.t('box.warning.title', 'Warning'),
-      error: i18next.t(
+      message: i18next.t(
         'box.warning.epic.update',
         'Epic Servers are having major outage right now, the game cannot be updated!'
-      )
+      ),
+      type: 'ERROR'
     })
     return { status: 'error' }
   }
@@ -1594,7 +1576,6 @@ import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
-import './dialog/ipc_handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

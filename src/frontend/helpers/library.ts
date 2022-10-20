@@ -8,8 +8,9 @@ import {
 } from 'common/types'
 
 import { TFunction } from 'react-i18next'
-import { getGameInfo, getPlatform, sendKill, getGameSettings } from './index'
+import { getGameInfo, sendKill } from './index'
 import { configStore } from './electronStores'
+import { DialogModalOptions } from 'frontend/types'
 
 const storage: Storage = window.localStorage
 
@@ -27,6 +28,7 @@ type InstallArgs = {
   sdlList?: Array<string>
   installLanguage?: string
   runner?: Runner
+  showDialogModal: (options: DialogModalOptions) => void
 }
 
 async function install({
@@ -42,7 +44,8 @@ async function install({
   installDlcs = false,
   installLanguage = 'en-US',
   runner = 'legendary',
-  platformToInstall = 'Windows'
+  platformToInstall = 'Windows',
+  showDialogModal
 }: InstallArgs) {
   if (!installPath) {
     return
@@ -58,12 +61,13 @@ async function install({
       [installPath, folder_name],
       t,
       progress,
-      runner
+      runner,
+      showDialogModal
     )
   }
 
   if (is_installed) {
-    return uninstall({ appName, handleGameStatus, t, runner })
+    return
   }
 
   if (installPath === 'import') {
@@ -154,89 +158,39 @@ async function install({
 
 const importGame = window.api.importGame
 
-type UninstallArgs = {
-  appName: string
-  handleGameStatus: (game: GameStatus) => Promise<void>
-  t: TFunction<'gamepage'>
-  runner: Runner
-}
-
-async function uninstall({
-  appName,
-  handleGameStatus,
-  t,
-  runner
-}: UninstallArgs) {
-  const args = {
-    buttons: [t('box.yes'), t('box.no')],
-    message: t('gamepage:box.uninstall.message'),
-    title: t('gamepage:box.uninstall.title'),
-    type: 'warning'
-  }
-  const platform = await getPlatform()
-  const {
-    install: { platform: installedplatform }
-  } = await getGameInfo(appName, runner)
-
-  let linuxArgs
-  // This assumes native games are installed should be changed in the future
-  // if we add option to install windows games even if native is available
-  if (platform === 'linux' && installedplatform?.toLowerCase() === 'windows') {
-    const wineprefix = (await getGameSettings(appName, runner)).winePrefix
-
-    linuxArgs = {
-      checkboxLabel: t('gamepage:box.uninstall.checkbox', {
-        defaultValue:
-          "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-        prefix: wineprefix,
-        newLine: '\n'
-      }),
-      checkboxChecked: false
-    }
-  }
-
-  const { response, checkboxChecked } = await window.api.openMessageBox({
-    ...args,
-    ...linuxArgs
-  })
-
-  if (response === 0) {
-    await handleGameStatus({ appName, runner, status: 'uninstalling' })
-    await window.api.uninstall([appName, checkboxChecked, runner])
-    storage.removeItem(appName)
-    return handleGameStatus({ appName, runner, status: 'done' })
-  }
-  return
-}
-
 async function handleStopInstallation(
   appName: string,
   [path, folderName]: string[],
   t: TFunction<'gamepage'>,
   progress: InstallProgress,
-  runner: Runner
+  runner: Runner,
+  showDialogModal: (options: DialogModalOptions) => void
 ) {
-  const args = {
-    buttons: [
-      t('gamepage:box.stopInstall.keepInstalling'),
-      t('box.yes'),
-      t('box.no')
-    ],
-    message: t('gamepage:box.stopInstall.message'),
+  showDialogModal({
     title: t('gamepage:box.stopInstall.title'),
-    cancelId: 0
-  }
-
-  const { response } = await window.api.openMessageBox(args)
-
-  if (response === 1) {
-    storage.setItem(appName, JSON.stringify({ ...progress, folder: path }))
-    return sendKill(appName, runner)
-  } else if (response === 2) {
-    await sendKill(appName, runner)
-    storage.removeItem(appName)
-    return window.api.removeFolder([path, folderName])
-  }
+    message: t('gamepage:box.stopInstall.message'),
+    buttons: [
+      { text: t('gamepage:box.stopInstall.keepInstalling') },
+      {
+        text: t('box.yes'),
+        onClick: () => {
+          storage.setItem(
+            appName,
+            JSON.stringify({ ...progress, folder: path })
+          )
+          sendKill(appName, runner)
+        }
+      },
+      {
+        text: t('box.no'),
+        onClick: async () => {
+          await sendKill(appName, runner)
+          storage.removeItem(appName)
+          window.api.removeFolder([path, folderName])
+        }
+      }
+    ]
+  })
 }
 
 const repair = async (appName: string, runner: Runner): Promise<void> =>
@@ -248,6 +202,7 @@ type LaunchOptions = {
   launchArguments?: string
   runner: Runner
   hasUpdate: boolean
+  showDialogModal: (options: DialogModalOptions) => void
 }
 
 const launch = async ({
@@ -255,26 +210,39 @@ const launch = async ({
   t,
   launchArguments,
   runner,
-  hasUpdate
+  hasUpdate,
+  showDialogModal
 }: LaunchOptions): Promise<void> => {
   if (hasUpdate) {
-    const args = {
-      buttons: [t('gamepage:box.yes'), t('box.no')],
-      message: t('gamepage:box.update.message'),
-      title: t('gamepage:box.update.title')
-    }
-
-    const { response } = await window.api.openMessageBox(args)
-
-    if (response === 0) {
-      return updateGame(appName, runner)
-    }
-
-    return window.api.launch({
-      appName,
-      runner,
-      launchArguments: '--skip-version-check'
+    // promisifies the showDialogModal button click callbacks
+    const launchFinished = new Promise<void>((res) => {
+      showDialogModal({
+        message: t('gamepage:box.update.message'),
+        title: t('gamepage:box.update.title'),
+        buttons: [
+          {
+            text: t('gamepage:box.yes'),
+            onClick: async () => {
+              await updateGame(appName, runner)
+              res()
+            }
+          },
+          {
+            text: t('box.no'),
+            onClick: async () => {
+              await window.api.launch({
+                appName,
+                runner,
+                launchArguments: '--skip-version-check'
+              })
+              res()
+            }
+          }
+        ]
+      })
     })
+
+    return launchFinished
   }
   if (launchArguments === undefined) launchArguments = ''
   return window.api.launch({ appName, launchArguments, runner })
@@ -317,7 +285,6 @@ export {
   install,
   launch,
   repair,
-  uninstall,
-  // updateAllGames,
+  //updateAllGames,
   updateGame
 }

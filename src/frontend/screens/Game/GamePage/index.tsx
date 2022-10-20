@@ -55,8 +55,15 @@ export default function GamePage(): JSX.Element | null {
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const { libraryStatus, handleGameStatus, epic, gog, gameUpdates, platform } =
-    useContext(ContextProvider)
+  const {
+    libraryStatus,
+    handleGameStatus,
+    epic,
+    gog,
+    gameUpdates,
+    platform,
+    showDialogModal
+  } = useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game) => game.appName === appName
   )[0]
@@ -608,7 +615,8 @@ export default function GamePage(): JSX.Element | null {
         t,
         launchArguments,
         runner: gameInfo.runner,
-        hasUpdate
+        hasUpdate,
+        showDialogModal
       })
 
       if (autoSyncSaves) {
@@ -638,7 +646,8 @@ export default function GamePage(): JSX.Element | null {
       previousProgress,
       progress,
       t,
-      runner: gameInfo.runner
+      runner: gameInfo.runner,
+      showDialogModal: showDialogModal
     })
   }
 }
