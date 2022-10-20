@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron'
-import { Runner, InstallParams, LaunchParams } from '../../common/types'
+import { Runner, InstallParams, LaunchParams } from 'common/types'
 
 export const removeFolder = (args: [path: string, folderName: string]) =>
   ipcRenderer.send('removeFolder', args)
@@ -9,8 +9,6 @@ export const openDialog = async (args: Electron.OpenDialogOptions) =>
 
 export const install = async (args: InstallParams) =>
   ipcRenderer.invoke('install', args)
-export const openMessageBox = async (args: Electron.MessageBoxOptions) =>
-  ipcRenderer.invoke('openMessageBox', args)
 export const uninstall = async (
   args: [appName: string, shouldRemovePrefix: boolean, runner: Runner]
 ) => ipcRenderer.invoke('uninstall', args)

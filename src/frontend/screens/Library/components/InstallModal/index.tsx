@@ -106,7 +106,7 @@ export default function InstallModal({
 
   const { i18n, t } = useTranslation('gamepage')
   const { t: tr } = useTranslation()
-  const { libraryStatus, handleGameStatus, platform } =
+  const { libraryStatus, handleGameStatus, platform, showDialogModal } =
     useContext(ContextProvider)
   const [gameInfo, setGameInfo] = useState({} as GameInfo)
   const [gameInstallInfo, setGameInstallInfo] = useState<
@@ -236,7 +236,8 @@ export default function InstallModal({
       installDlcs,
       installLanguage,
       runner,
-      platformToInstall
+      platformToInstall,
+      showDialogModal
     })
   }
 
@@ -286,10 +287,10 @@ export default function InstallModal({
         platformToInstall
       )
       if (!gameInstallInfo) {
-        window.api.showErrorBox([
-          tr('box.error.generic.title', 'Error!'),
-          tr('box.error.generic.message', 'Something Went Wrong!')
-        ])
+        showDialogModal({
+          title: tr('box.error.generic.title', 'Error!'),
+          message: tr('box.error.generic.message', 'Something Went Wrong!')
+        })
         backdropClick()
         return
       }

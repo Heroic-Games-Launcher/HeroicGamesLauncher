@@ -388,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "Створювати ярлики на робочому столі автоматично",
         "addgamestostartmenu": "Додавати ігри до головного меню автоматично",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Обрати інший двійковий файл GOGDL",
         "alt-legendary-bin": "Обрати інший двійковий файл Legendary",
         "audiofix": "Лагодження звуку (затримка Pulse Audio)",

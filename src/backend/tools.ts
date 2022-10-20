@@ -9,7 +9,7 @@ import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
 import { dirname } from 'path'
 import { isOnline } from './online_monitor'
-import { showErrorBoxModalAuto } from './dialog/dialog'
+import { showDialogBoxModalAuto } from './dialog/dialog'
 import { validWine } from './launcher'
 
 export const DXVK = {
@@ -93,12 +93,13 @@ export const DXVK = {
           logWarning([`Error when downloading ${tool.name}`, error], {
             prefix: LogPrefix.DXVKInstaller
           })
-          showErrorBoxModalAuto({
+          showDialogBoxModalAuto({
             title: i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
-            error: i18next.t(
+            message: i18next.t(
               'box.error.dxvk.message',
               'Error installing DXVK/VKD3D! Check your connection!'
-            )
+            ),
+            type: 'ERROR'
           })
         })
     })
@@ -277,15 +278,16 @@ export const Winetricks = {
         logError(['Winetricks threw Error:', error], {
           prefix: LogPrefix.WineTricks
         })
-        showErrorBoxModalAuto({
+        showDialogBoxModalAuto({
           event,
           title: i18next.t('box.error.winetricks.title', 'Winetricks error'),
-          error: i18next.t('box.error.winetricks.message', {
+          message: i18next.t('box.error.winetricks.message', {
             defaultValue:
               'Winetricks returned the following error during execution:{{newLine}}{{error}}',
             newLine: '\n',
             error: `${error}`
-          })
+          }),
+          type: 'ERROR'
         })
         clearInterval(sendProgress)
         resolve()

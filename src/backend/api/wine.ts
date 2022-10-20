@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron'
-import { RuntimeName, WineVersionInfo } from '../../common/types'
+import { RuntimeName, WineVersionInfo } from 'common/types'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
 
 export const toggleDXVK = (

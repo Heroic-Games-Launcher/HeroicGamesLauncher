@@ -1,42 +1,39 @@
-import React, { useEffect, useState } from 'react'
-import { ErrorDialog } from './components/ErrorDialog'
-
+import { ButtonOptions, DialogType } from 'common/types'
+import ContextProvider from 'frontend/state/ContextProvider'
+import React, { useEffect, useContext } from 'react'
+import MessageBoxModal from './components/MessageBoxModal'
 export default function DialogHandler() {
-  const [showErrorDialog, setShowErrorDialog] = useState(false)
-  const [errorTitle, setErrorTitle] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
+  const { dialogModalOptions, showDialogModal } = useContext(ContextProvider)
 
   useEffect(() => {
-    const onError = (
+    const onMessage = (
       e: Electron.IpcRendererEvent,
       title: string,
-      error: string
+      message: string,
+      type: DialogType,
+      buttons?: Array<ButtonOptions>
     ) => {
-      setErrorTitle(title)
-      setErrorMessage(error)
-      setShowErrorDialog(true)
+      showDialogModal({ title, message, type, buttons })
     }
 
-    const removeHandleShowErrorDialogListener =
-      window.api.handleShowErrorDialog(onError)
+    const removeHandleShowDialogListener =
+      window.api.handleShowDialog(onMessage)
 
     //useEffect unmount
     return () => {
-      removeHandleShowErrorDialogListener()
+      removeHandleShowDialogListener()
     }
   }, [])
 
-  function onCloseErrorDialog() {
-    setShowErrorDialog(false)
-  }
-
   return (
     <>
-      {showErrorDialog && (
-        <ErrorDialog
-          title={errorTitle}
-          error={errorMessage}
-          onClose={onCloseErrorDialog}
+      {dialogModalOptions.showDialog && (
+        <MessageBoxModal
+          type={dialogModalOptions.type ? dialogModalOptions.type : 'MESSAGE'}
+          title={dialogModalOptions.title ? dialogModalOptions.title : ''}
+          message={dialogModalOptions.message ? dialogModalOptions.message : ''}
+          buttons={dialogModalOptions.buttons ? dialogModalOptions.buttons : []}
+          onClose={() => showDialogModal({ showDialog: false })}
         />
       )}
     </>

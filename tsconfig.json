@@ -7,7 +7,7 @@
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
     "strict": true,
-    "baseUrl": "src/",
+    "baseUrl": "./src/",
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
