@@ -11,7 +11,6 @@ import {
   InstallPlatform,
   LaunchParams,
   Tools,
-  SideloadGame,
   WineCommandArgs
 } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
@@ -1603,25 +1602,6 @@ ipcMain.on('clipboardWriteText', (event, text) => {
   return clipboard.writeText(text)
 })
 
-ipcMain.on('addNewApp', (e, args: SideloadGame) => addNewApp(args))
-ipcMain.handle(
-  'removeApp',
-  async (e, args: { appName: string; shouldRemovePrefix: boolean }) =>
-    removeApp(args)
-)
-ipcMain.handle('launchApp', async (e, appName: string) => launchApp(appName))
-
-ipcMain.handle(
-  'isNative',
-  (e, { appName, runner }: { appName: string; runner: Runner }) => {
-    if (runner === 'sideload') {
-      return isNativeApp(appName)
-    }
-    const game = getGame(appName, runner)
-    return game.isNative()
-  }
-)
-
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1638,13 +1618,10 @@ import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import {
-  addNewApp,
   appLogFileLocation,
   getAppInfo,
   getAppSettings,
-  isNativeApp,
   launchApp,
-  removeApp,
   stop
 } from './sideload/games'
 import './dialog/ipc_handler'
