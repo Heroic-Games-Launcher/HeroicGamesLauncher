@@ -1,8 +1,6 @@
 import { existsSync } from 'graceful-fs'
-import { GlobalConfig } from '../config'
 import { ipcMain, dialog } from 'electron'
 import i18next from 'i18next'
-import { join } from 'path'
 import { Runner } from 'common/types'
 import {
   addNonSteamGame,
@@ -11,11 +9,6 @@ import {
 } from './nonesteamgame/nonesteamgame'
 import { getGame } from '../utils'
 import { shortcutFiles } from './shortcuts/shortcuts'
-
-const getSteamUserdataDir = async () => {
-  const { defaultSteamPath } = await GlobalConfig.get().getSettings()
-  return join(defaultSteamPath.replaceAll("'", ''), 'userdata')
-}
 
 ipcMain.on(
   'addShortcut',
@@ -59,23 +52,11 @@ ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
 
 ipcMain.handle(
   'addToSteam',
-  async (
-    event,
-    appName: string,
-    runner: Runner,
-    bkgDataUrl: string,
-    bigPicDataUrl: string
-  ): Promise<boolean> => {
+  async (event, appName: string, runner: Runner): Promise<boolean> => {
     const game = getGame(appName, runner)
-    const gameInfo = game.getGameInfo()
-    const steamUserdataDir = await getSteamUserdataDir()
+    const gameInfo = await game.getGameInfo()
 
-    return addNonSteamGame({
-      steamUserdataDir,
-      gameInfo,
-      bkgDataUrl,
-      bigPicDataUrl
-    })
+    return addNonSteamGame({ gameInfo })
   }
 )
 
@@ -83,10 +64,9 @@ ipcMain.handle(
   'removeFromSteam',
   async (event, appName: string, runner: Runner): Promise<void> => {
     const game = getGame(appName, runner)
-    const gameInfo = game.getGameInfo()
-    const steamUserdataDir = await getSteamUserdataDir()
+    const gameInfo = await game.getGameInfo()
 
-    return removeNonSteamGame({ steamUserdataDir, gameInfo })
+    await removeNonSteamGame({ gameInfo })
   }
 )
 
@@ -94,9 +74,8 @@ ipcMain.handle(
   'isAddedToSteam',
   async (event, appName: string, runner: Runner): Promise<boolean> => {
     const game = getGame(appName, runner)
-    const gameInfo = game.getGameInfo()
-    const steamUserdataDir = await getSteamUserdataDir()
+    const gameInfo = await game.getGameInfo()
 
-    return isAddedToSteam({ steamUserdataDir, gameInfo })
+    return isAddedToSteam({ gameInfo })
   }
 )

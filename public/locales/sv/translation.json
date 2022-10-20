@@ -69,6 +69,7 @@
                 "title": "Problem vid uppdatering"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Ingen Wine version vald. Kontrollera spelinställningar!",
                 "title": "Wine hittades ej"
             },
@@ -387,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
         "addgamestostartmenu": "Lägg till spel i startmenyn automatiskt",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Ange alternativ GOGDL version (omstart krävs)",
         "alt-legendary-bin": "Ange alternativ Legendary version",
         "audiofix": "Ljudfix (Pulse Audio latens)",

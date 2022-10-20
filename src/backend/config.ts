@@ -475,6 +475,7 @@ class GlobalConfigV0 extends GlobalConfig {
       enableUpdates: false,
       addDesktopShortcuts: false,
       addStartMenuShortcuts: false,
+      addSteamShortcuts: false,
       autoInstallDxvk: false,
       autoInstallVkd3d: false,
       preferSystemLibs: false,

@@ -64,7 +64,7 @@ export default function SidebarLinks() {
   const loggedIn = epic.username || gog.username
 
   useEffect(() => {
-    if (!runner || runner === 'app') {
+    if (!runner || runner === 'app' || !appName) {
       setIsDefaultSetting(true)
       setGameInfo({ ...gameInfo, cloud_save_enabled: false })
       setSettingsPath('/settings/app/default/general')

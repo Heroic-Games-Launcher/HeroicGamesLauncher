@@ -69,6 +69,7 @@
                 "title": "Помилка оновлення"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Не обрана версія Wine. Перевірте налаштування гри!",
                 "title": "Wine не знайдено"
             },
@@ -387,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "Створювати ярлики на робочому столі автоматично",
         "addgamestostartmenu": "Додавати ігри до головного меню автоматично",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Обрати інший двійковий файл GOGDL",
         "alt-legendary-bin": "Обрати інший двійковий файл Legendary",
         "audiofix": "Лагодження звуку (затримка Pulse Audio)",

@@ -16,7 +16,8 @@ import {
 const EgsSettings = () => {
   const { t } = useTranslation()
   const [isSyncing, setIsSyncing] = useState(false)
-  const { platform, refreshLibrary } = useContext(ContextProvider)
+  const { platform, refreshLibrary, showDialogModal } =
+    useContext(ContextProvider)
   const [egsLinkedPath, setEgsLinkedPath] = useSetting<string>(
     'egsLinkedPath',
     ''
@@ -29,7 +30,8 @@ const EgsSettings = () => {
     setIsSyncing(true)
     if (isLinked) {
       return window.api.egsSync('unlink').then(async () => {
-        await window.api.openMessageBox({
+        showDialogModal({
+          showDialog: true,
           message: t('message.unsync'),
           title: 'EGS Sync'
         })
@@ -43,15 +45,18 @@ const EgsSettings = () => {
     return window.api.egsSync(egsPath).then(async (res: string) => {
       if (res === 'Error') {
         setIsSyncing(false)
-        window.api.showErrorBox({
-          title: t('box.error.title', 'Error'),
-          message: t('box.sync.error')
+        showDialogModal({
+          showDialog: true,
+          type: 'ERROR',
+          message: t('box.sync.error'),
+          title: t('box.error.title', 'Error')
         })
         setEgsLinkedPath('')
         setEgsPath('')
         return
       }
-      await window.api.openMessageBox({
+      showDialogModal({
+        showDialog: true,
         message: t('message.sync'),
         title: 'EGS Sync'
       })

@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Keine Wine-Version ausgewählt. Überprüfe die Spieleinstellungen!",
                 "title": "Wine nicht gefunden"
             },
@@ -387,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
         "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Alternative GOGDL Binary zur Verwendung auswählen",
         "alt-legendary-bin": "Alternative Legendary Binärdatei auswählen",
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",

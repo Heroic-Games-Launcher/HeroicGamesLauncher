@@ -39,11 +39,8 @@ export const removeFromSteam = async (
 
 export const addToSteam = async (
   appName: string,
-  runner: Runner,
-  bkgDataURL: string,
-  bigPicDataURL: string
-): Promise<boolean> =>
-  ipcRenderer.invoke('addToSteam', appName, runner, bkgDataURL, bigPicDataURL)
+  runner: Runner
+): Promise<boolean> => ipcRenderer.invoke('addToSteam', appName, runner)
 
 export const shortcutsExists = async (
   appName: string,

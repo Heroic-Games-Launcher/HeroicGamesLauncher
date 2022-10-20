@@ -7,7 +7,9 @@ import {
   Runner,
   Tools,
   UserInfo,
-  WineInstallation
+  WineInstallation,
+  DialogType,
+  ButtonOptions
 } from 'common/types'
 
 export const clearCache = () => ipcRenderer.send('clearCache')
@@ -106,12 +108,18 @@ export const clipboardReadText = async (): Promise<string> =>
 export const clipboardWriteText = async (text: string) =>
   ipcRenderer.send('clipboardWriteText', text)
 
-export const handleShowErrorDialog = (
-  onError: (e: Electron.IpcRendererEvent, title: string, error: string) => void
+export const handleShowDialog = (
+  onMessage: (
+    e: Electron.IpcRendererEvent,
+    title: string,
+    message: string,
+    type: DialogType,
+    buttons?: Array<ButtonOptions>
+  ) => void
 ): (() => void) => {
-  ipcRenderer.on('showErrorDialog', onError)
+  ipcRenderer.on('showDialog', onMessage)
   return () => {
-    ipcRenderer.removeListener('showErrorDialog', onError)
+    ipcRenderer.removeListener('showDialog', onMessage)
   }
 }
 

@@ -42,13 +42,14 @@ import {
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
-  RpcClient
+  RpcClient,
+  WineInstallation
 } from 'common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { Game } from './games'
 import { isOnline } from './online_monitor'
-import { showErrorBoxModalAuto } from './dialog/dialog'
+import { showDialogBoxModalAuto } from './dialog/dialog'
 
 async function prepareLaunch(
   game: LegendaryGame | GOGGame,
@@ -148,16 +149,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     GameConfig.get(game.appName).config ||
     (await GameConfig.get(game.appName).getSettings())
 
-  // Verify that a Wine binary is set
-  // This happens when there aren't any Wine versions installed
-  if (!gameSettings.wineVersion.bin) {
-    showErrorBoxModalAuto({
-      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
-      error: i18next.t(
-        'box.error.wine-not-found.message',
-        'No Wine Version Selected. Check Game Settings!'
-      )
-    })
+  if (!(await validWine(gameSettings.wineVersion))) {
     return { success: false }
   }
 
@@ -180,16 +172,17 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
       )
     )
     if (!bottleExists) {
-      showErrorBoxModalAuto({
+      showDialogBoxModalAuto({
         title: i18next.t(
           'box.error.cx-bottle-not-found.title',
           'CrossOver bottle not found'
         ),
-        error: i18next.t(
+        message: i18next.t(
           'box.error.cx-bottle-not-found.message',
           `The CrossOver bottle "{{bottle_name}}" does not exist, can't launch!`,
           { bottle_name: gameSettings.wineCrossoverBottle }
-        )
+        ),
+        type: 'ERROR'
       })
       return { success: false }
     }
@@ -304,9 +297,6 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (!gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
   }
-  if (gameSettings.enableResizableBar) {
-    ret.VKD3D_CONFIG = 'upload_hvv'
-  }
   if (gameSettings.eacRuntime) {
     ret.PROTON_EAC_RUNTIME = join(runtimePath, 'eac_runtime')
   }
@@ -395,6 +385,47 @@ function setupWrappers(
 }
 
 /**
+ * Checks if the game's selected Wine version exists
+ * @param wineVersion an object of type WineInstallation with binary path and name to check
+ * @returns true if the wine version exists, false if it doesn't
+ */
+export async function validWine(
+  wineVersion: WineInstallation
+): Promise<boolean> {
+  const wineBin = wineVersion.bin
+
+  if (!wineBin) {
+    showDialogBoxModalAuto({
+      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
+      message: i18next.t(
+        'box.error.wine-not-found.message',
+        'No Wine Version Selected. Check Game Settings!'
+      ),
+      type: 'ERROR'
+    })
+    return false
+  }
+
+  if (!existsSync(wineBin)) {
+    showDialogBoxModalAuto({
+      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
+      message: i18next.t('box.error.wine-not-found.invalid', {
+        defaultValue:
+          "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+        version: wineVersion.name,
+        path: wineBin,
+        newline: '\n',
+        interpolation: { escapeValue: false }
+      }),
+      type: 'ERROR'
+    })
+    return false
+  }
+
+  return true
+}
+
+/**
  * Verifies that a Wineprefix exists by running 'wineboot --init'
  * @param game The game to verify the Wineprefix of
  * @returns stderr & stdout of 'wineboot --init'
@@ -403,6 +434,10 @@ export async function verifyWinePrefix(
   game: LegendaryGame | GOGGame
 ): Promise<{ res: ExecResult; updated: boolean }> {
   const { winePrefix, wineVersion } = await game.getSettings()
+
+  if (!(await validWine(wineVersion))) {
+    return { res: { stdout: '', stderr: '' }, updated: false }
+  }
 
   if (wineVersion.type === 'crossover') {
     return { res: { stdout: '', stderr: '' }, updated: false }
@@ -455,8 +490,11 @@ async function runWineCommand(
 ) {
   const gameSettings = await game.getSettings()
   const { folder_name: installFolderName } = game.getGameInfo()
-
   const { wineVersion } = gameSettings
+
+  if (!(await validWine(wineVersion))) {
+    return { stdout: '', stderr: '' }
+  }
 
   const env_vars = {
     ...process.env,

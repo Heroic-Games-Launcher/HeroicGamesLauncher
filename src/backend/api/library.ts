@@ -18,11 +18,6 @@ export const install = async (
   args: InstallParams
 ): Promise<{ status: 'error' | 'done' }> => ipcRenderer.invoke('install', args)
 
-export const openMessageBox = async (
-  args: Electron.MessageBoxOptions
-): Promise<Electron.MessageBoxReturnValue> =>
-  ipcRenderer.invoke('openMessageBox', args)
-
 export const uninstall = async (
   appName: string,
   runner: Runner,

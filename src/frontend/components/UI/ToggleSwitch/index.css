@@ -6,6 +6,7 @@
   justify-items: flex-start;
   text-align: start;
   cursor: pointer;
+  white-space: pre-line;
 }
 
 .hiddenCheckbox {
