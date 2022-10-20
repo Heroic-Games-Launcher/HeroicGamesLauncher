@@ -63,7 +63,7 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
   return (
     <Dialog
       onClose={props.onClose}
-      className={props.type === 'ERROR' ? classNames('errorDialog') : ''}
+      className={classNames({ errorDialog: props.type === 'ERROR' })}
     >
       <DialogHeader onClose={props.onClose} showCloseButton={true}>
         {props.title}
