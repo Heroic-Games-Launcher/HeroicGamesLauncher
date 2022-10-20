@@ -85,7 +85,10 @@ describe('logger/logfile.ts', () => {
     const data = logfile.createNewLogFileAndClearOldOnces()
 
     expect(logError).toBeCalledWith(
-      [expect.stringContaining('Removing old logs in'), Error('unlink failed')],
+      [
+        expect.stringContaining('Removing old logs in /tmp/'),
+        Error('unlink failed')
+      ],
       { prefix: 'Backend', skipLogToFile: true }
     )
     expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeTruthy()

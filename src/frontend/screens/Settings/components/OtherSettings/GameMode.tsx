@@ -53,7 +53,7 @@ const GameMode = () => {
     <div className="toggleRow">
       <ToggleSwitch
         htmlId="gamemode"
-        value={false}
+        value={useGameMode}
         handleChange={handleGameMode}
         title={t('setting.gamemode')}
       />
