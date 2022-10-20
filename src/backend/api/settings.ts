@@ -31,3 +31,6 @@ export const getLogContent = async (args: {
   appName: string
   defaultLast?: boolean
 }) => ipcRenderer.invoke('getLogContent', args)
+
+export const getNumOfGpus = async (): Promise<number> =>
+  ipcRenderer.invoke('getNumOfGpus')

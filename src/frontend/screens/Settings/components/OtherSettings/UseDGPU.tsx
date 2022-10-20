@@ -6,22 +6,41 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
-const PrimeRun = () => {
+const UseDGPU = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [primeRun, setPrimeRun] = useSetting('nvidiaPrime', false)
+
+  const [useDGPU, setUseDGPU] = useSetting('nvidiaPrime', false)
 
   if (!isLinux) {
     return <></>
   }
 
+  async function toggleUseDGPU() {
+    const numOfGpus = await window.api.getNumOfGpus()
+    if (!useDGPU && numOfGpus === 1) {
+      window.api.openMessageBox({
+        title: t('setting.primerun.confirmation.title', 'Only 1 GPU detected'),
+        message: t(
+          'setting.primerun.confirmation.message',
+          'Only one graphics card was detected in this system. ' +
+            'Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). ' +
+            'On single-GPU systems, the GPU is automatically used & enabling this option can cause issues'
+        ),
+        buttons: [t('box.ok', 'Ok')],
+        type: 'warning'
+      })
+    }
+    setUseDGPU(!useDGPU)
+  }
+
   return (
     <div className="toggleRow">
       <ToggleSwitch
-        htmlId="primerun"
-        value={primeRun}
-        handleChange={() => setPrimeRun(!primeRun)}
+        htmlId="usedgpu"
+        value={useDGPU}
+        handleChange={toggleUseDGPU}
         title={t('setting.primerun', 'Use Dedicated Graphics Card')}
       />
 
@@ -37,4 +56,4 @@ const PrimeRun = () => {
   )
 }
 
-export default PrimeRun
+export default UseDGPU

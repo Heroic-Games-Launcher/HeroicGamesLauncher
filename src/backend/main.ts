@@ -123,6 +123,7 @@ import {
   runOnceWhenOnline
 } from './online_monitor'
 import { showErrorBoxModalAuto } from './dialog/dialog'
+import si from 'systeminformation'
 
 const { showMessageBox, showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -693,6 +694,11 @@ ipcMain.handle('isFlatpak', () => isFlatpak)
 ipcMain.handle('getPlatform', () => process.platform)
 
 ipcMain.handle('showUpdateSetting', () => !isFlatpak)
+
+ipcMain.handle('getNumOfGpus', async (): Promise<number> => {
+  const { controllers } = await si.graphics()
+  return controllers.length
+})
 
 ipcMain.handle('getLatestReleases', async () => {
   const { checkForUpdatesOnStartup } = GlobalConfig.get().config
