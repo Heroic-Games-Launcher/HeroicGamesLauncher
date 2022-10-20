@@ -477,6 +477,7 @@ class GlobalConfigV0 extends GlobalConfig {
       addStartMenuShortcuts: false,
       autoInstallDxvk: true,
       autoInstallVkd3d: true,
+      addSteamShortcuts: false,
       preferSystemLibs: false,
       checkForUpdatesOnStartup: !isFlatpak,
       customWinePaths: isWindows ? null : [],

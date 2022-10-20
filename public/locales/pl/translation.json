@@ -392,6 +392,7 @@
     "setting": {
         "adddesktopshortcuts": "Dodawaj automatycznie skróty na pulpicie",
         "addgamestostartmenu": "Dodawaj automatycznie gry do menu start",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Wybierz alternatywny plik binarny GOGDL",
         "alt-legendary-bin": "Wybierz alternatywny plik binarny Legendary",
         "audiofix": "Łatka audio (Opóźnienie Pulse Audio)",

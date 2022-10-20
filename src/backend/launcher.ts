@@ -296,9 +296,6 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (!gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
   }
-  if (gameSettings.enableResizableBar) {
-    ret.VKD3D_CONFIG = 'upload_hvv'
-  }
   if (gameSettings.eacRuntime) {
     ret.PROTON_EAC_RUNTIME = join(runtimePath, 'eac_runtime')
   }

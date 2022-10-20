@@ -392,6 +392,7 @@
     "setting": {
         "adddesktopshortcuts": "കുറുക്കുവഴികള് മേശപ്പുറത്ത് താനേ ചേര്ക്കൂ",
         "addgamestostartmenu": "കളികള് തുടക്കപ്പട്ടികയില് താനേ ചേര്ക്കൂ",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "audiofix": "ശബ്ദം ശരിയാക്കൂ (പള്സ് ഓഡിയോ ലാറ്റന്സി)",

@@ -392,6 +392,7 @@
     "setting": {
         "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
         "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Alternative GOGDL Binary zur Verwendung auswählen",
         "alt-legendary-bin": "Alternative Legendary Binärdatei auswählen",
         "audiofix": "Audio-Fix (Pulse Audio Latenz)",

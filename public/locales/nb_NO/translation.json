@@ -392,6 +392,7 @@
     "setting": {
         "adddesktopshortcuts": "Legg til skrivebordssnarveier automatisk",
         "addgamestostartmenu": "Legg til spill på startmenyen automatisk",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Velg en alternativ GOGDL-binær du vil bruke",
         "alt-legendary-bin": "Velg en alternativ legendarisk binær",
         "audiofix": "Lydfiks (pulslydforsinkelse)",

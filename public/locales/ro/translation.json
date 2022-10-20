@@ -392,6 +392,7 @@
     "setting": {
         "adddesktopshortcuts": "Adăugați automat comenzi rapide pe desktop",
         "addgamestostartmenu": "Adăugați jocuri în meniul Start automat",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Alegeți un binar GOGDL alternativ pe care să îl utilizați",
         "alt-legendary-bin": "Alegeți un Legendary Binary alternativ pe care să îl utilizați",
         "audiofix": "Fixare Audio (Latență în PulseAudio)",

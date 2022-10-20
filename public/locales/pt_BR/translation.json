@@ -392,6 +392,7 @@
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos na área de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos dos jogos no menu iniciar automaticamente",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Escolha um binário do GOGDL alternativo para usar",
         "alt-legendary-bin": "Escolha um binário alternativo do Legendary",
         "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",

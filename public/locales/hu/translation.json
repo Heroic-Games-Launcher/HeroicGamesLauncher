@@ -392,6 +392,7 @@
     "setting": {
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalhoz",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start Menühöz",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Alternatív GOGDL bináris kiválasztása",
         "alt-legendary-bin": "Alternatív Legendary bináris kiválasztása",
         "audiofix": "Hangzásjavítás (Pulse Audio késleltetés)",

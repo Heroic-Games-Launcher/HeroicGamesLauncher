@@ -1,8 +1,6 @@
 import { existsSync } from 'graceful-fs'
-import { GlobalConfig } from '../config'
 import { ipcMain, dialog } from 'electron'
 import i18next from 'i18next'
-import { join } from 'path'
 import { Runner } from 'common/types'
 import {
   addNonSteamGame,
@@ -16,11 +14,6 @@ import {
   getAppInfo,
   removeAppShortcuts
 } from '../sideload/games'
-
-const getSteamUserdataDir = async () => {
-  const { defaultSteamPath } = await GlobalConfig.get().getSettings()
-  return join(defaultSteamPath.replaceAll("'", ''), 'userdata')
-}
 
 ipcMain.on(
   'addShortcut',
@@ -78,34 +71,18 @@ ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
   })
 })
 
-ipcMain.handle(
-  'addToSteam',
-  async (
-    event,
-    appName: string,
-    runner: Runner,
-    bkgDataUrl: string,
-    bigPicDataUrl: string
-  ) => {
-    const gameInfo = getInfo(appName, runner)
-    const steamUserdataDir = await getSteamUserdataDir()
+ipcMain.handle('addToSteam', async (event, appName: string, runner: Runner) => {
+  const gameInfo = getInfo(appName, runner)
 
-    return addNonSteamGame({
-      steamUserdataDir,
-      gameInfo,
-      bkgDataUrl,
-      bigPicDataUrl
-    })
-  }
-)
+  return addNonSteamGame({ gameInfo })
+})
 
 ipcMain.handle(
   'removeFromSteam',
   async (event, appName: string, runner: Runner) => {
     const gameInfo = getInfo(appName, runner)
-    const steamUserdataDir = await getSteamUserdataDir()
 
-    await removeNonSteamGame({ steamUserdataDir, gameInfo })
+    await removeNonSteamGame({ gameInfo })
   }
 )
 
@@ -113,8 +90,7 @@ ipcMain.handle(
   'isAddedToSteam',
   async (event, appName: string, runner: Runner) => {
     const gameInfo = getInfo(appName, runner)
-    const steamUserdataDir = await getSteamUserdataDir()
 
-    return isAddedToSteam({ steamUserdataDir, gameInfo })
+    return isAddedToSteam({ gameInfo })
   }
 )

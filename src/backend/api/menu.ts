@@ -22,13 +22,8 @@ export const installEosOverlay = async () =>
   ipcRenderer.invoke('installEosOverlay')
 export const removeFromSteam = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('removeFromSteam', appName, runner)
-export const addToSteam = async (
-  appName: string,
-  runner: Runner,
-  bkgDataURL: string,
-  bigPicDataURL: string
-) =>
-  ipcRenderer.invoke('addToSteam', appName, runner, bkgDataURL, bigPicDataURL)
+export const addToSteam = async (appName: string, runner: Runner) =>
+  ipcRenderer.invoke('addToSteam', appName, runner)
 export const shortcutsExists = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('shortcutsExists', appName, runner)
 export const isAddedToSteam = async (appName: string, runner: Runner) =>
