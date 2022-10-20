@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'graceful-fs'
 
-import { UserInfo } from '@@/common/types'
+import { UserInfo } from 'common/types'
 import { clearCache } from '../utils'
 import { userInfo, configStore } from '../constants'
 import { logError, LogPrefix } from '../logger/logger'

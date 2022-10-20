@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SelectField } from '@@/frontend/components/UI'
-import useSetting from '@@/frontend/hooks/useSetting'
+import { SelectField } from 'frontend/components/UI'
+import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../../SettingsContext'
 
 const MaxRecentGames = () => {

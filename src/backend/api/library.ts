@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron'
-import { Runner, InstallParams, LaunchParams } from '@@/common/types'
+import { Runner, InstallParams, LaunchParams } from 'common/types'
 
 export const removeFolder = (args: [path: string, folderName: string]) =>
   ipcRenderer.send('removeFolder', args)

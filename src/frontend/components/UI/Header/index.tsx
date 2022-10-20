@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import { SearchBar } from '@@/frontend/components/UI'
-import StoreFilter from '@@/frontend/components/UI/StoreFilter'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import { SearchBar } from 'frontend/components/UI'
+import StoreFilter from 'frontend/components/UI/StoreFilter'
+import ContextProvider from 'frontend/state/ContextProvider'
 import PlatformFilter from '../PlatformFilter'
 
 import './index.css'

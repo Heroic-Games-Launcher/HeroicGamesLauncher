@@ -23,7 +23,7 @@ import {
   SelectField,
   TextInputWithIconField,
   ToggleSwitch
-} from '@@/frontend/components/UI'
+} from 'frontend/components/UI'
 import {
   getAppSettings,
   getGameInfo,
@@ -32,8 +32,8 @@ import {
   install,
   size,
   writeConfig
-} from '@@/frontend/helpers'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+} from 'frontend/helpers'
+import ContextProvider from 'frontend/state/ContextProvider'
 import {
   AppSettings,
   GameInfo,
@@ -42,22 +42,22 @@ import {
   InstallPlatform,
   Runner,
   WineInstallation
-} from '@@/common/types'
-import { Path } from '@@/frontend/types'
+} from 'common/types'
+import { Path } from 'frontend/types'
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader
-} from '@@/frontend/components/UI/Dialog'
-import Anticheat from '@@/frontend/components/UI/Anticheat'
+} from 'frontend/components/UI/Dialog'
+import Anticheat from 'frontend/components/UI/Anticheat'
 
 import './index.css'
 
 import { SDL_GAMES, SelectiveDownload } from './selective_dl'
 
-import { LegendaryInstallInfo } from '@@/common/types/legendary'
-import { GogInstallInfo } from '@@/common/types/gog'
+import { LegendaryInstallInfo } from 'common/types/legendary'
+import { GogInstallInfo } from 'common/types/gog'
 type Props = {
   appName: string
   backdropClick: () => void

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ToggleSwitch } from '@@/frontend/components/UI'
-import ContextProvider from '@@/frontend/state/ContextProvider'
-import useSetting from '@@/frontend/hooks/useSetting'
+import { ToggleSwitch } from 'frontend/components/UI'
+import ContextProvider from 'frontend/state/ContextProvider'
+import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../../SettingsContext'
 
 const Shortcuts = () => {

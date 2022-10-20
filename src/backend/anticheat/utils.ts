@@ -2,7 +2,7 @@ import { heroicAnticheatDataPath, isLinux } from '../constants'
 import * as axios from 'axios'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { readFileSync, writeFileSync } from 'graceful-fs'
-import { AntiCheatInfo } from '@@/common/types'
+import { AntiCheatInfo } from 'common/types'
 import { runOnceWhenOnline } from '../online_monitor'
 
 async function downloadAntiCheatData() {

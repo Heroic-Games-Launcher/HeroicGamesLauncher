@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SelectField } from '@@/frontend/components/UI'
-import useSetting from '@@/frontend/hooks/useSetting'
-import ContextProvider from '@@/frontend/state/ContextProvider'
-import { LibraryTopSectionOptions } from '@@/frontend/types'
+import { SelectField } from 'frontend/components/UI'
+import useSetting from 'frontend/hooks/useSetting'
+import ContextProvider from 'frontend/state/ContextProvider'
+import { LibraryTopSectionOptions } from 'frontend/types'
 
 const LibraryTopSection = () => {
   const { t } = useTranslation()

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import cx from 'classnames'
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 
 export default function PlatformFilter() {

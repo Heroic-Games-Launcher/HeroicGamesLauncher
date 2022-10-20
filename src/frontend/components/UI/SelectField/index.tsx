@@ -1,6 +1,6 @@
 import React, { ChangeEvent, ReactNode, useContext } from 'react'
 import classnames from 'classnames'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 
 interface SelectFieldProps {

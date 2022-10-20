@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { configStore } from '@@/frontend/helpers/electronStores'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import { configStore } from 'frontend/helpers/electronStores'
+import ContextProvider from 'frontend/state/ContextProvider'
 import { SelectField } from '..'
 
 const storage: Storage = window.localStorage

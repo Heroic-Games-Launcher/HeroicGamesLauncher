@@ -5,10 +5,10 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader
-} from '@@/frontend/components/UI/Dialog'
+} from 'frontend/components/UI/Dialog'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
-import { DialogType, ButtonOptions } from '@@/common/types'
+import { DialogType, ButtonOptions } from 'common/types'
 interface MessageBoxModalProps {
   title: string
   message: string

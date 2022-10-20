@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ToggleSwitch } from '@@/frontend/components/UI'
-import useSetting from '@@/frontend/hooks/useSetting'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import { ToggleSwitch } from 'frontend/components/UI'
+import useSetting from 'frontend/hooks/useSetting'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 const AudioFix = () => {
   const { t } = useTranslation()

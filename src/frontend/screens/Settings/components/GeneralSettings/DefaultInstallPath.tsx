@@ -2,9 +2,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import useSetting from '@@/frontend/hooks/useSetting'
-import { Path } from '@@/frontend/types'
-import { TextInputWithIconField } from '@@/frontend/components/UI'
+import useSetting from 'frontend/hooks/useSetting'
+import { Path } from 'frontend/types'
+import { TextInputWithIconField } from 'frontend/components/UI'
 
 const DefaultInstallPath = () => {
   const { t } = useTranslation()

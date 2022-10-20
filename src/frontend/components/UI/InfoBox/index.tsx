@@ -1,6 +1,6 @@
 import './index.css'
 
-import { useToggle } from '@@/frontend/hooks'
+import { useToggle } from 'frontend/hooks'
 import { useTranslation } from 'react-i18next'
 import Info from '@mui/icons-material/Info'
 import React from 'react'

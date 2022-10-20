@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '../WineSettings'
-import useSetting from '@@/frontend/hooks/useSetting'
-import { configStore } from '@@/frontend/helpers/electronStores'
-import { WineInstallation } from '@@/common/types'
-import { ToggleSwitch } from '@@/frontend/components/UI'
+import useSetting from 'frontend/hooks/useSetting'
+import { configStore } from 'frontend/helpers/electronStores'
+import { WineInstallation } from 'common/types'
+import { ToggleSwitch } from 'frontend/components/UI'
 
 const AutoDXVK = () => {
   const { t } = useTranslation()

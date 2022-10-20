@@ -1,4 +1,4 @@
-import { AppSettings, GamepadActionStatus } from '@@/common/types'
+import { AppSettings, GamepadActionStatus } from 'common/types'
 import {
   checkGameCube,
   checkPS3,

@@ -1,6 +1,6 @@
 import React, { MouseEvent, useEffect, useState } from 'react'
-import { AntiCheatInfo, GameInfo } from '@@/common/types'
-import { createNewWindow } from '@@/frontend/helpers'
+import { AntiCheatInfo, GameInfo } from 'common/types'
+import { createNewWindow } from 'frontend/helpers'
 
 import './index.css'
 import { useTranslation } from 'react-i18next'

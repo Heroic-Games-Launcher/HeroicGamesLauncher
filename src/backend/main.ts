@@ -11,8 +11,8 @@ import {
   InstallPlatform,
   LaunchParams,
   Tools
-} from '@@/common/types'
-import { GOGCloudSavesLocation } from '@@/common/types/gog'
+} from 'common/types'
+import { GOGCloudSavesLocation } from 'common/types/gog'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -26,7 +26,7 @@ import {
   screen,
   clipboard
 } from 'electron'
-import '@@/backend/updater'
+import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {

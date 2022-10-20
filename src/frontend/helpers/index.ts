@@ -5,9 +5,9 @@ import {
   Runner,
   GameSettings,
   InstallPlatform
-} from '@@/common/types'
-import { LegendaryInstallInfo } from '@@/common/types/legendary'
-import { GogInstallInfo } from '@@/common/types/gog'
+} from 'common/types'
+import { LegendaryInstallInfo } from 'common/types/legendary'
+import { GogInstallInfo } from 'common/types/gog'
 
 import { install, launch, repair, updateGame } from './library'
 import fileSize from 'filesize'

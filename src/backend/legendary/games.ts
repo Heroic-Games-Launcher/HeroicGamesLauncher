@@ -8,7 +8,7 @@ import {
   GameInfo,
   InstallArgs,
   InstallPlatform
-} from '@@/common/types'
+} from 'common/types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'

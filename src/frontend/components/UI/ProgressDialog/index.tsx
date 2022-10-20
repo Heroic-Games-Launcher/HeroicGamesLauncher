@@ -5,7 +5,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader
-} from '@@/frontend/components/UI/Dialog'
+} from 'frontend/components/UI/Dialog'
 import { LinearProgress } from '@mui/material'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'

@@ -1,4 +1,4 @@
-import { RuntimeName } from '@@/common/types'
+import { RuntimeName } from 'common/types'
 import { ipcMain } from 'electron'
 import { download, isInstalled } from './runtimes'
 

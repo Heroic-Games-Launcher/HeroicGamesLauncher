@@ -1,4 +1,4 @@
-import { Category } from '@@/frontend/types'
+import { Category } from 'frontend/types'
 import { TFunction } from 'react-i18next'
 
 export function getLibraryTitle(

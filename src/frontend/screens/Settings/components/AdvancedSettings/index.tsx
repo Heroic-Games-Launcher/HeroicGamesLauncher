@@ -16,8 +16,8 @@ import AltLegendaryBin from './AltLegendaryBin'
 import AltGOGdlBin from './AltGOGdlBin'
 import DownloadNoHTTPS from './DownloadNoHTTPS'
 import SettingsContext from '../../SettingsContext'
-import ContextProvider from '@@/frontend/state/ContextProvider'
-import { GameStatus } from '@@/common/types'
+import ContextProvider from 'frontend/state/ContextProvider'
+import { GameStatus } from 'common/types'
 
 export default function AdvancedSettings() {
   const { config } = useContext(SettingsContext)

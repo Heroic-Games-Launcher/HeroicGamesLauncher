@@ -5,10 +5,10 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader
-} from '@@/frontend/components/UI/Dialog'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+} from 'frontend/components/UI/Dialog'
+import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
-import { Runner } from '@@/common/types'
+import { Runner } from 'common/types'
 import ToggleSwitch from '../ToggleSwitch'
 
 interface UninstallModalProps {

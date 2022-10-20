@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import ContextProvider from 'frontend/state/ContextProvider'
 import { SelectField } from '..'
 
 export const ThemeSelector = () => {

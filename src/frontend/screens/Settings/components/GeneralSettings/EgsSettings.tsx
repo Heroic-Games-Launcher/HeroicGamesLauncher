@@ -5,14 +5,14 @@ import { useTranslation } from 'react-i18next'
 import Backspace from '@mui/icons-material/Backspace'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
-import ContextProvider from '@@/frontend/state/ContextProvider'
-import useSetting from '@@/frontend/hooks/useSetting'
-import { Path } from '@@/frontend/types'
+import ContextProvider from 'frontend/state/ContextProvider'
+import useSetting from 'frontend/hooks/useSetting'
+import { Path } from 'frontend/types'
 import {
   InfoBox,
   TextInputWithIconField,
   ToggleSwitch
-} from '@@/frontend/components/UI'
+} from 'frontend/components/UI'
 
 const EgsSettings = () => {
   const { t } = useTranslation()

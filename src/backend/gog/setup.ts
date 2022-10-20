@@ -9,7 +9,7 @@ import {
 import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GOGLibrary } from './library'
-import { GameInfo, InstalledInfo } from '@@/common/types'
+import { GameInfo, InstalledInfo } from 'common/types'
 import { execAsync, quoteIfNecessary } from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'

@@ -1,8 +1,8 @@
 import classNames from 'classnames'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import FormControl from '@@/frontend/components/UI/FormControl'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import FormControl from 'frontend/components/UI/FormControl'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 export default function StoreFilter() {
   const { category, handleCategory } = useContext(ContextProvider)

@@ -8,7 +8,7 @@ import {
   ConnectivityStatus,
   DialogType,
   ButtonOptions
-} from '@@/common/types'
+} from 'common/types'
 export type Category = 'all' | 'legendary' | 'gog'
 
 export interface ContextType {

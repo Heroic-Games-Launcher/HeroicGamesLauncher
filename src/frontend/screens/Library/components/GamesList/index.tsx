@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { GameInfo, Runner } from '@@/common/types'
+import { GameInfo, Runner } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 
 interface Props {

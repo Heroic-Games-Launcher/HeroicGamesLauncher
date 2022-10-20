@@ -2,8 +2,8 @@ import * as React from 'react'
 
 import { useTranslation } from 'react-i18next'
 
-import { SmallInfo } from '@@/frontend/components/UI'
-import { timestampStore } from '@@/frontend/helpers/electronStores'
+import { SmallInfo } from 'frontend/components/UI'
+import { timestampStore } from 'frontend/helpers/electronStores'
 
 import './index.css'
 

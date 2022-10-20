@@ -1,4 +1,4 @@
-import { WineInstallation } from '@@/common/types'
+import { WineInstallation } from 'common/types'
 import * as axios from 'axios'
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { exec, spawn } from 'child_process'

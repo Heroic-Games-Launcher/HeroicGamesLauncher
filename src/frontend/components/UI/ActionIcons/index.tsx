@@ -12,10 +12,10 @@ import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-ico
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import ContextProvider from 'frontend/state/ContextProvider'
 import FormControl from '../FormControl'
 import './index.css'
-import { Runner } from '@@/common/types'
+import { Runner } from 'common/types'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import classNames from 'classnames'
 

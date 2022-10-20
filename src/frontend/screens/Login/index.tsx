@@ -4,8 +4,8 @@ import Runner from './components/Runner'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
-import { ReactComponent as EpicLogo } from '@@/frontend/assets/epic-logo.svg'
-import { ReactComponent as GOGLogo } from '@@/frontend/assets/gog-logo.svg'
+import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
+import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 
 import { LanguageSelector, UpdateComponent } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'

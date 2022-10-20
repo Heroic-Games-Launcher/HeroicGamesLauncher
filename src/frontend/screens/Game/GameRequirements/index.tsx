@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import { GameInfo } from '@@/common/types'
+import { GameInfo } from 'common/types'
 
 import './index.css'
 

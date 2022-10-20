@@ -4,7 +4,7 @@ import { join, resolve } from 'path'
 import Store from 'electron-store'
 import { parse } from '@node-steam/vdf'
 
-import { GameConfigVersion, GlobalConfigVersion } from '@@/common/types'
+import { GameConfigVersion, GlobalConfigVersion } from 'common/types'
 import { logDebug, LogPrefix } from './logger/logger'
 import { createNewLogFileAndClearOldOnces } from './logger/logfile'
 import { env } from 'process'

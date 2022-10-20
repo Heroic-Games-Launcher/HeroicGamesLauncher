@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { CleaningServicesOutlined, DeleteOutline } from '@mui/icons-material'
 import './index.css'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 export default function ErrorComponent({ message }: { message: string }) {
   const { t } = useTranslation()

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { WineInstallation } from '@@/common/types'
-import { TextInputField } from '@@/frontend/components/UI'
-import useSetting from '@@/frontend/hooks/useSetting'
+import { WineInstallation } from 'common/types'
+import { TextInputField } from 'frontend/components/UI'
+import useSetting from 'frontend/hooks/useSetting'
 import { defaultWineVersion } from '.'
 
 export default function CrossoverBottle() {

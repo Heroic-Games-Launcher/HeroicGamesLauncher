@@ -4,6 +4,13 @@ import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 import path from 'path'
 
+const srcAliases = ['backend', 'frontend', 'common'].map((srcFolder) => {
+  return {
+    find: srcFolder,
+    replacement: path.resolve(__dirname, `./src/${srcFolder}`)
+  }
+})
+
 export default defineConfig({
   build: {
     outDir: 'build'
@@ -14,7 +21,7 @@ export default defineConfig({
         find: '~@fontsource',
         replacement: path.resolve(__dirname, 'node_modules/@fontsource')
       },
-      { find: '@@', replacement: path.resolve(__dirname, './src') }
+      ...srcAliases
     ]
   },
   plugins: [
@@ -29,7 +36,7 @@ export default defineConfig({
                 find: '~@fontsource',
                 replacement: path.resolve(__dirname, 'node_modules/@fontsource')
               },
-              { find: '@@', replacement: path.resolve(__dirname, './src') }
+              ...srcAliases
             ]
           }
         }

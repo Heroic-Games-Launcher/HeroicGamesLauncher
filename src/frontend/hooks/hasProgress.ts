@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { GameStatus, InstallProgress } from '@@/common/types'
+import { GameStatus, InstallProgress } from 'common/types'
 
 const storage: Storage = window.localStorage
 

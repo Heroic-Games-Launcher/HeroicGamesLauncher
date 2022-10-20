@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox, TextInputWithIconField } from '@@/frontend/components/UI'
-import useSetting from '@@/frontend/hooks/useSetting'
+import { InfoBox, TextInputWithIconField } from 'frontend/components/UI'
+import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../../SettingsContext'
-import { Path } from '@@/frontend/types'
+import { Path } from 'frontend/types'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

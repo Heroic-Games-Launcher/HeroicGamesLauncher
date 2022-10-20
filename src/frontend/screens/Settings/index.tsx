@@ -19,10 +19,10 @@ import {
   SyncSaves,
   AdvancedSettings
 } from './components'
-import { AppSettings, GameSettings } from '@@/common/types'
-import { getGameInfo, writeConfig } from '@@/frontend/helpers'
-import { UpdateComponent } from '@@/frontend/components/UI'
-import { LocationState, SettingsContextType } from '@@/frontend/types'
+import { AppSettings, GameSettings } from 'common/types'
+import { getGameInfo, writeConfig } from 'frontend/helpers'
+import { UpdateComponent } from 'frontend/components/UI'
+import { LocationState, SettingsContextType } from 'frontend/types'
 
 function Settings() {
   const { t, i18n } = useTranslation()

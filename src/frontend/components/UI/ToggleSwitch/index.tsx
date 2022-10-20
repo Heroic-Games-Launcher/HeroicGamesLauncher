@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React, { ChangeEventHandler, useContext } from 'react'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 
 interface Props {

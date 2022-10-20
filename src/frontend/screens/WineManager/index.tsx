@@ -1,16 +1,16 @@
 import './index.css'
 
-import ContextProvider from '@@/frontend/state/ContextProvider'
-import { UpdateComponent } from '@@/frontend/components/UI'
+import ContextProvider from 'frontend/state/ContextProvider'
+import { UpdateComponent } from 'frontend/components/UI'
 
 import React, { lazy, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
 import { Type } from 'heroic-wine-downloader'
-import { StoreIpc } from '@@/frontend/helpers/electronStores'
+import { StoreIpc } from 'frontend/helpers/electronStores'
 
 const WineItem = lazy(
-  async () => import('@@/frontend/screens/WineManager/components/WineItem')
+  async () => import('frontend/screens/WineManager/components/WineItem')
 )
 
 const configStore = new StoreIpc('wineManagerConfigStore', {

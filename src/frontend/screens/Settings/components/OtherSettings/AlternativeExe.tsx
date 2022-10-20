@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next'
 import SettingsContext from '../../SettingsContext'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import Backspace from '@mui/icons-material/Backspace'
-import useSetting from '@@/frontend/hooks/useSetting'
-import { getGameInfo } from '@@/frontend/helpers'
-import { Path } from '@@/frontend/types'
-import { TextInputWithIconField } from '@@/frontend/components/UI'
+import useSetting from 'frontend/hooks/useSetting'
+import { getGameInfo } from 'frontend/helpers'
+import { Path } from 'frontend/types'
+import { TextInputWithIconField } from 'frontend/components/UI'
 
 const AlternativeExe = () => {
   const { t } = useTranslation()

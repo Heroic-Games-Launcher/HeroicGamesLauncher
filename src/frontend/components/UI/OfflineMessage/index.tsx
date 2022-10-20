@@ -1,4 +1,4 @@
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import ContextProvider from 'frontend/state/ContextProvider'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 

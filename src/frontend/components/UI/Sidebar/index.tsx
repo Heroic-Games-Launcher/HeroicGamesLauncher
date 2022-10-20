@@ -6,12 +6,12 @@ import {
   faSquareCaretLeft,
   faSquareCaretRight
 } from '@fortawesome/free-solid-svg-icons'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import ContextProvider from 'frontend/state/ContextProvider'
 import CurrentDownload from './components/CurrentDownload'
 import SidebarLinks from './components/SidebarLinks'
 import './index.css'
 import HeroicVersion from './components/HeroicVersion'
-import { GameStatus } from '@@/common/types'
+import { GameStatus } from 'common/types'
 
 export default function Sidebar() {
   const { t } = useTranslation()

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SelectField, ToggleSwitch } from '@@/frontend/components/UI'
-import useSetting from '@@/frontend/hooks/useSetting'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import { SelectField, ToggleSwitch } from 'frontend/components/UI'
+import useSetting from 'frontend/hooks/useSetting'
+import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 

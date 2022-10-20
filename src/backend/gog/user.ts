@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { GOGLoginData } from '@@/common/types'
+import { GOGLoginData } from 'common/types'
 import { configStore, libraryStore } from '../gog/electronStores'
 import { errorHandler } from '../utils'
 import { isOnline } from '../online_monitor'

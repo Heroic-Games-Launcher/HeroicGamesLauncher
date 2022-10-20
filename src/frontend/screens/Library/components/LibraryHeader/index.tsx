@@ -1,9 +1,9 @@
 import React, { useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import ActionIcons from '@@/frontend/components/UI/ActionIcons'
-import { epicCategories } from '@@/frontend/helpers/library'
-import ContextProvider from '@@/frontend/state/ContextProvider'
-import { GameInfo } from '@@/common/types'
+import ActionIcons from 'frontend/components/UI/ActionIcons'
+import { epicCategories } from 'frontend/helpers/library'
+import ContextProvider from 'frontend/state/ContextProvider'
+import { GameInfo } from 'common/types'
 import { getLibraryTitle } from '../../constants'
 import './index.css'
 
@@ -61,6 +61,8 @@ export default function LibraryHeader({
 
     return 'gog'
   }
+
+  console.log('LIBRARY CATEGRORY = ', category)
 
   return (
     <h5 className="libraryHeader">

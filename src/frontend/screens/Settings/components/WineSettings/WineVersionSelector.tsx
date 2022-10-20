@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox, SelectField } from '@@/frontend/components/UI'
-import ContextProvider from '@@/frontend/state/ContextProvider'
-import { WineInstallation } from '@@/common/types'
-import useSetting from '@@/frontend/hooks/useSetting'
+import { InfoBox, SelectField } from 'frontend/components/UI'
+import ContextProvider from 'frontend/state/ContextProvider'
+import { WineInstallation } from 'common/types'
+import useSetting from 'frontend/hooks/useSetting'
 import { defaultWineVersion } from '.'
 
 export default function WineVersionSelector() {

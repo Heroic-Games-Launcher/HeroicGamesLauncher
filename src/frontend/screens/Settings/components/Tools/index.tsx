@@ -4,9 +4,9 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import { getGameInfo } from '@@/frontend/helpers'
+import { getGameInfo } from 'frontend/helpers'
 
-import { ProgressDialog } from '@@/frontend/components/UI/ProgressDialog'
+import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 
 export default function Tools() {

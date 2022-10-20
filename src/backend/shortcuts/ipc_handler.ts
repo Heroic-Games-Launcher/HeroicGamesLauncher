@@ -3,7 +3,7 @@ import { GlobalConfig } from '../config'
 import { ipcMain, dialog } from 'electron'
 import i18next from 'i18next'
 import { join } from 'path'
-import { Runner } from '@@/common/types'
+import { Runner } from 'common/types'
 import {
   addNonSteamGame,
   isAddedToSteam,

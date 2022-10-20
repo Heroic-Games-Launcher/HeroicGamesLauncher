@@ -12,7 +12,7 @@ import {
   AppSettings,
   GlobalConfigVersion,
   WineInstallation
-} from '@@/common/types'
+} from 'common/types'
 import { LegendaryUser } from './legendary/user'
 import {
   currentGlobalConfigVersion,

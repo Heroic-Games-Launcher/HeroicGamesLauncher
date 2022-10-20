@@ -11,12 +11,12 @@ import {
   Runner,
   WineVersionInfo,
   UserInfo
-} from '@@/common/types'
+} from 'common/types'
 import {
   Category,
   DialogModalOptions,
   LibraryTopSectionOptions
-} from '@@/frontend/types'
+} from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   getLegendaryConfig,

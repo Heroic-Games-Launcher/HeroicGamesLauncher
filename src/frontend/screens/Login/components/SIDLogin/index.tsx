@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react'
 import Info from '@mui/icons-material/Info'
 import { useTranslation } from 'react-i18next'
-import { loginPage, sidInfoPage } from '@@/frontend/helpers'
+import { loginPage, sidInfoPage } from 'frontend/helpers'
 import './index.css'
 import { Autorenew } from '@mui/icons-material'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 interface Props {
   backdropClick: () => void

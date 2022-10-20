@@ -1,7 +1,7 @@
 import { crc32 } from 'crc'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { join } from 'path'
-import { GameInfo } from '@@/common/types'
+import { GameInfo } from 'common/types'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import {
   checkImageExistsAlready,

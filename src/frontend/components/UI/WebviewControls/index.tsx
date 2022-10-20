@@ -7,7 +7,7 @@ import {
 import cx from 'classnames'
 import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { WebviewType } from '@@/common/types'
+import { WebviewType } from 'common/types'
 import SvgButton from '../SvgButton'
 import './index.css'
 

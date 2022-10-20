@@ -7,8 +7,8 @@ import {
   GOGImportData,
   ExecResult,
   CallRunnerOptions
-} from '@@/common/types'
-import { GOGCloudSavesLocation, GogInstallInfo } from '@@/common/types/gog'
+} from 'common/types'
+import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
 import { join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 

@@ -43,7 +43,7 @@ import {
   GameSettings,
   LaunchPreperationResult,
   RpcClient
-} from '@@/common/types'
+} from 'common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { Game } from './games'

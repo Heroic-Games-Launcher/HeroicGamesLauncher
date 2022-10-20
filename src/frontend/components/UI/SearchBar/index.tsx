@@ -7,7 +7,7 @@ import React, {
   useRef
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from '@@/frontend/state/ContextProvider'
+import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

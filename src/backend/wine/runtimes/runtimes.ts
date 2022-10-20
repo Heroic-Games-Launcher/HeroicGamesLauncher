@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, unlinkSync } from 'graceful-fs'
 import { join } from 'path'
 import { runtimePath } from './../../constants'
 import { logError, logInfo, LogPrefix } from './../../logger/logger'
-import { Runtime, RuntimeName } from '@@/common/types'
+import { Runtime, RuntimeName } from 'common/types'
 import { downloadFile, extractTarFile, getAssetDataFromDownload } from './util'
 
 async function _get(): Promise<Runtime[]> {

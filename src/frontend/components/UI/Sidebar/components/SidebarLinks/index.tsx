@@ -15,13 +15,13 @@ import classNames from 'classnames'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
-import { openDiscordLink, getGameInfo } from '@@/frontend/helpers'
+import { openDiscordLink, getGameInfo } from 'frontend/helpers'
 
-import ContextProvider from '@@/frontend/state/ContextProvider'
-import { Runner, GameInfo } from '@@/common/types'
+import ContextProvider from 'frontend/state/ContextProvider'
+import { Runner, GameInfo } from 'common/types'
 import './index.css'
 import QuitButton from '../QuitButton'
-import { LocationState } from '@@/frontend/types'
+import { LocationState } from 'frontend/types'
 
 type PathSplit = [
   a: undefined,

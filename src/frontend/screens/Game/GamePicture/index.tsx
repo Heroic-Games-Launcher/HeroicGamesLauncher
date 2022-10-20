@@ -1,8 +1,8 @@
 import React from 'react'
-import { CachedImage } from '@@/frontend/components/UI'
+import { CachedImage } from 'frontend/components/UI'
 
 import './index.css'
-import fallbackImage from '@@/frontend/assets/fallback-image.jpg'
+import fallbackImage from 'frontend/assets/fallback-image.jpg'
 
 type Props = {
   art_square: string

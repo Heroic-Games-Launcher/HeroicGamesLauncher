@@ -1,6 +1,6 @@
 import { ipcMain, BrowserWindow } from 'electron'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
-import { WineVersionInfo } from '@@/common/types'
+import { WineVersionInfo } from 'common/types'
 import {
   installWineVersion,
   removeWineVersion,

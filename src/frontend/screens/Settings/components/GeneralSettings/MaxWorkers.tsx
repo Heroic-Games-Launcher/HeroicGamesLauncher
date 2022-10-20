@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SelectField } from '@@/frontend/components/UI'
-import useSetting from '@@/frontend/hooks/useSetting'
+import { SelectField } from 'frontend/components/UI'
+import useSetting from 'frontend/hooks/useSetting'
 
 const MaxWorkers = () => {
   const { t } = useTranslation()

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { ToggleSwitch } from '@@/frontend/components/UI'
-import useSetting from '@@/frontend/hooks/useSetting'
+import { ToggleSwitch } from 'frontend/components/UI'
+import useSetting from 'frontend/hooks/useSetting'
 
 const DownloadNoHTTPS = () => {
   const { t } = useTranslation()
