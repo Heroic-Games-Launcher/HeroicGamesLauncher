@@ -42,7 +42,7 @@ import {
 } from './gog/electronStores'
 import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
-import { showErrorBoxModalAuto } from './dialog/dialog'
+import { showDialogBoxModalAuto } from './dialog/dialog'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -319,12 +319,13 @@ async function errorHandler(
       .then(async ({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
           logError(noSpaceMsg, { prefix: LogPrefix.Backend })
-          return showErrorBoxModalAuto({
+          return showDialogBoxModalAuto({
             title: i18next.t('box.error.diskspace.title', 'No Space'),
-            error: i18next.t(
+            message: i18next.t(
               'box.error.diskspace.message',
               'Not enough available disk space'
-            )
+            ),
+            type: 'ERROR'
           })
         }
       })
@@ -354,12 +355,13 @@ async function errorHandler(
 
     otherErrorMessages.forEach(async (message) => {
       if (error.includes(message)) {
-        return showErrorBoxModalAuto({
+        return showDialogBoxModalAuto({
           title: plat,
-          error: i18next.t(
+          message: i18next.t(
             'box.error.credentials.message',
             'Your Crendentials have expired, Logout and Login Again!'
-          )
+          ),
+          type: 'ERROR'
         })
       }
     })

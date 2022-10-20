@@ -388,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "İş masası qısayollarını avtomatik əlavə edin",
         "addgamestostartmenu": "Menyuya avtomatik başlamaq üçün oyunlar əlavə edin",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "İstifadə etmək üçün Alternativ GOGDL Binary seçin",
         "alt-legendary-bin": "Alternativ Əfsanəvi Binary seçin",
         "audiofix": "Audio Düzəltmə (Pulse Audio Latency)",

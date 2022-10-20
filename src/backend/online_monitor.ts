@@ -1,4 +1,4 @@
-import { ConnectivityStatus } from '../common/types'
+import { ConnectivityStatus } from 'common/types'
 import { BrowserWindow, ipcMain, IpcMainEvent, net } from 'electron'
 import { logInfo, LogPrefix } from './logger/logger'
 import axios from 'axios'

@@ -41,7 +41,7 @@ import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { t } from 'i18next'
 import { isOnline } from '../online_monitor'
-import { showErrorBoxModalAuto } from '../dialog/dialog'
+import { showDialogBoxModalAuto } from '../dialog/dialog'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -479,12 +479,7 @@ class LegendaryGame extends Game {
       LegendaryLibrary.get().installState(this.appName, false)
       await removeShortcuts(this.appName, 'legendary')
       const gameInfo = this.getGameInfo()
-      const { defaultSteamPath } = await GlobalConfig.get().getSettings()
-      const steamUserdataDir = join(
-        defaultSteamPath.replaceAll("'", ''),
-        'userdata'
-      )
-      await removeNonSteamGame({ steamUserdataDir, gameInfo })
+      await removeNonSteamGame({ gameInfo })
     }
     return res
   }
@@ -584,9 +579,10 @@ class LegendaryGame extends Game {
         this.logFileLocation,
         `Launch aborted: ${launchPrepFailReason}`
       )
-      showErrorBoxModalAuto({
+      showDialogBoxModalAuto({
         title: t('box.error.launchAborted', 'Launch aborted'),
-        error: launchPrepFailReason!
+        message: launchPrepFailReason!,
+        type: 'ERROR'
       })
       return false
     }
@@ -617,9 +613,10 @@ class LegendaryGame extends Game {
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
         if (wineLaunchPrepFailReason) {
-          showErrorBoxModalAuto({
+          showDialogBoxModalAuto({
             title: t('box.error.launchAborted', 'Launch aborted'),
-            error: wineLaunchPrepFailReason
+            message: wineLaunchPrepFailReason!,
+            type: 'ERROR'
           })
         }
         return false
@@ -644,6 +641,24 @@ class LegendaryGame extends Game {
           : ['--wine', wineBin])
       )
     }
+
+    // Log any launch information configured in Legendary's config.ini
+    const { stdout } = await runLegendaryCommand([
+      'launch',
+      this.appName,
+      '--json',
+      '--offline'
+    ])
+    appendFileSync(
+      this.logFileLocation,
+      "Legendary's config from config.ini (before Heroic's settings):\n"
+    )
+    const json = JSON.parse(stdout)
+    // remove egl auth info
+    delete json['egl_parameters']
+
+    appendFileSync(this.logFileLocation, JSON.stringify(json, null, 2) + '\n\n')
+
     const commandParts = [
       'launch',
       this.appName,

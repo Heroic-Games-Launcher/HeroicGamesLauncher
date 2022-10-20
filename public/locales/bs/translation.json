@@ -388,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "Automatski dodajte prečice na radnoj površini",
         "addgamestostartmenu": "Automatski dodajte igre u početni meni",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Odaberite alternativnu GOGDL binarnu datoteku koju želite koristiti",
         "alt-legendary-bin": "Odaberite alternativnu Legendary binarnu datoteku",
         "audiofix": "Popravak zvuka (kašnjenje pulsnog zvuka)",
