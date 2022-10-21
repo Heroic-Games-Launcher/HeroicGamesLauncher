@@ -112,8 +112,16 @@ export default function SideloadDialog({
     })
     const notWin = platform !== 'win32'
     const otherPlatforms = ['linux', 'Mac']
-    const hasWine = notWin && otherPlatforms.includes(platformToInstall)
-    await writeConfig([app_name, hasWine && { winePrefix, wineVersion }])
+    const hasWine = notWin && !otherPlatforms.includes(platformToInstall)
+    const gameSettings = await getGameSettings(app_name, 'sideload')
+    await writeConfig([
+      app_name,
+      {
+        ...gameSettings,
+        winePrefix: hasWine ? winePrefix : '',
+        wineVersion: hasWine ? wineVersion : undefined
+      }
+    ])
 
     await refreshLibrary({
       runInBackground: true,
@@ -124,7 +132,7 @@ export default function SideloadDialog({
   }
 
   const fileFilters = {
-    windows: [
+    Windows: [
       { name: 'Executables', extensions: ['exe', 'msi'] },
       { name: 'Scripts', extensions: ['bat'] },
       { name: 'All', extensions: ['*'] }
@@ -153,8 +161,11 @@ export default function SideloadDialog({
       exeToRun = path
       try {
         setRunningSetup(true)
-        await writeConfig([app_name, { winePrefix, wineVersion }])
         const gameSettings = await getGameSettings(app_name, 'sideload')
+        await writeConfig([
+          app_name,
+          { ...gameSettings, winePrefix, wineVersion }
+        ])
         await window.api.runWineCommand({
           command: exeToRun,
           wait: true,

@@ -775,9 +775,12 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('getGameSettings', async (event, game, runner: Runner) => {
+ipcMain.handle('getGameSettings', async (event, appName, runner: Runner) => {
   try {
-    return await getGame(game, runner).getSettings()
+    if (runner === 'sideload') {
+      return await getAppSettings(appName)
+    }
+    return await getGame(appName, runner).getSettings()
   } catch (error) {
     logError(error, { prefix: LogPrefix.Backend })
     return null
