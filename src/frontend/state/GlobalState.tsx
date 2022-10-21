@@ -12,7 +12,11 @@ import {
   WineVersionInfo,
   UserInfo
 } from 'common/types'
-import { Category, LibraryTopSectionOptions } from 'frontend/types'
+import {
+  Category,
+  DialogModalOptions,
+  LibraryTopSectionOptions
+} from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   getLegendaryConfig,
@@ -81,6 +85,7 @@ interface StateProps {
   sidebarCollapsed: boolean
   activeController: string
   connectivity: { status: ConnectivityStatus; retryIn: number }
+  dialogModalOptions: DialogModalOptions
   sideloadedLibrary: GameInfo[]
 }
 
@@ -158,7 +163,8 @@ export class GlobalState extends PureComponent<Props> {
     allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
     activeController: '',
     connectivity: { status: 'offline', retryIn: 0 },
-    sideloadedLibrary: sideloadLibrary.get('games', []) as GameInfo[]
+    sideloadedLibrary: sideloadLibrary.get('games', []) as GameInfo[],
+    dialogModalOptions: { showDialog: false }
   }
 
   setLanguage = (newLanguage: string) => {
@@ -263,6 +269,29 @@ export class GlobalState extends PureComponent<Props> {
     })
     configStore.set('games.favourites', newFavouriteGames)
   }
+
+  handleShowDialogModal = ({
+    showDialog = true,
+    ...options
+  }: DialogModalOptions) => {
+    this.setState({
+      dialogModalOptions: { showDialog, ...options }
+    })
+  }
+
+  showResetDialog = (() => {
+    this.handleShowDialogModal({
+      title: t('box.reset-heroic.question.title', 'Reset Heroic'),
+      message: t(
+        'box.reset-heroic.question.message',
+        "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
+      ),
+      buttons: [
+        { text: t('box.yes'), onClick: window.api.resetHeroic },
+        { text: t('box.no') }
+      ]
+    })
+  }).bind(this)
 
   handleLibraryTopSection = (value: LibraryTopSectionOptions) => {
     this.setState({ libraryTopSection: value })
@@ -528,7 +557,13 @@ export class GlobalState extends PureComponent<Props> {
         if (!currentApp) {
           // Add finding a runner for games
           const hasUpdate = this.state.gameUpdates?.includes(appName)
-          return launch({ appName, t, runner, hasUpdate })
+          return launch({
+            appName,
+            t,
+            runner,
+            hasUpdate,
+            showDialogModal: this.handleShowDialogModal
+          })
         }
       }
     )
@@ -557,7 +592,8 @@ export class GlobalState extends PureComponent<Props> {
             },
             t,
             runner,
-            platformToInstall: 'Windows'
+            platformToInstall: 'Windows',
+            showDialogModal: this.handleShowDialogModal
           })
         }
       }
@@ -701,7 +737,9 @@ export class GlobalState extends PureComponent<Props> {
           setAllTilesInColor: this.setAllTilesInColor,
           setSideBarCollapsed: this.setSideBarCollapsed,
           setPrimaryFontFamily: this.setPrimaryFontFamily,
-          setSecondaryFontFamily: this.setSecondaryFontFamily
+          setSecondaryFontFamily: this.setSecondaryFontFamily,
+          showDialogModal: this.handleShowDialogModal,
+          showResetDialog: this.showResetDialog
         }}
       >
         {this.props.children}

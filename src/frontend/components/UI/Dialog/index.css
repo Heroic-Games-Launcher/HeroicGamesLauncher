@@ -13,8 +13,6 @@
   display: flex;
   flex-direction: column;
   padding: 0;
-  height: fit-content;
-  min-width: fit-content;
   overflow: auto;
   border: solid 1px var(--modal-border);
   border-radius: 10px;
@@ -23,6 +21,7 @@
   opacity: 0;
   transform: translateY(50px);
   transition: opacity 500ms, transform 500ms;
+  max-width: min(700px, 85vw);
 }
 
 .Dialog__element[open] {

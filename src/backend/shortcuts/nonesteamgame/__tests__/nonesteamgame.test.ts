@@ -3,7 +3,7 @@ import { GameInfo } from '../../../../common/types'
 import { join } from 'path'
 import { DirResult, dirSync } from 'tmp'
 import { addNonSteamGame, removeNonSteamGame } from '../nonesteamgame'
-import { showErrorBoxModalAuto } from '../../../dialog/dialog'
+import { showDialogBoxModalAuto } from '../../../dialog/dialog'
 
 jest.mock('../../../logger/logfile')
 jest.mock('../../../dialog/dialog')
@@ -192,7 +192,7 @@ describe('NonSteamGame', () => {
         'One of the game entries is missing the AppName parameter!'
       )
     )
-    expect(showErrorBoxModalAuto).toBeCalled()
+    expect(showDialogBoxModalAuto).toBeCalled()
   })
 
   test('Catch corrupt shortcuts.vdf because of missing Exe', async () => {
@@ -227,7 +227,7 @@ describe('NonSteamGame', () => {
         'One of the game entries is missing the Exe parameter!'
       )
     )
-    expect(showErrorBoxModalAuto).toBeCalled()
+    expect(showDialogBoxModalAuto).toBeCalled()
   })
 
   test('Catch corrupt shortcuts.vdf because of missing LaunchOptions', async () => {
@@ -262,7 +262,7 @@ describe('NonSteamGame', () => {
         'One of the game entries is missing the LaunchOptions parameter!'
       )
     )
-    expect(showErrorBoxModalAuto).toBeCalled()
+    expect(showDialogBoxModalAuto).toBeCalled()
   })
 
   test(
@@ -358,7 +358,7 @@ describe('NonSteamGame', () => {
           'One of the game entries is missing the AppName parameter!'
         )
       )
-      expect(showErrorBoxModalAuto).not.toBeCalled()
+      expect(showDialogBoxModalAuto).not.toBeCalled()
     }
   )
 
@@ -397,7 +397,7 @@ describe('NonSteamGame', () => {
         )
       )
       expect(console.error).not.toBeCalled()
-      expect(showErrorBoxModalAuto).not.toBeCalled()
+      expect(showDialogBoxModalAuto).not.toBeCalled()
     }
   })
 })
