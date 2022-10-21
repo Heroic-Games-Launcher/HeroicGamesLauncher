@@ -1,7 +1,7 @@
 .InstallModal__dialog {
-  width: 48vw;
+  width: min-content;
   height: fit-content;
-  max-width: 560px;
+  min-width: fit-content;
   max-height: 100vh;
 }
 

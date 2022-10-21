@@ -34,7 +34,7 @@ import {
 import { access, chmod } from 'fs/promises'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import shlex from 'shlex'
-import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
+import { showDialogBoxModalAuto } from '../dialog/dialog'
 
 export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)
