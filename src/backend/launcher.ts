@@ -690,13 +690,20 @@ async function callRunner(
         appendFileSync(options.logFile, data.toString())
       }
 
+      if (options?.onOutput) {
+        options.onOutput(data.toString(), child)
+      }
+
       stdout.push(data.toString().trim())
     })
 
     child.stderr.on('data', (data: Buffer) => {
-      console.log(`${data}`)
       if (options?.logFile) {
         appendFileSync(options.logFile, data.toString())
+      }
+
+      if (options?.onOutput) {
+        options.onOutput(data.toString(), child)
       }
 
       stderr.push(data.toString().trim())

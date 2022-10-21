@@ -6,6 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DialogContent } from '@mui/material'
+
 import classNames from 'classnames'
 import {
   AppSettings,
@@ -106,7 +107,7 @@ export default function DownloadDialog({
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
   ) as InstallProgress
-  const { libraryStatus, handleGameStatus, platform } =
+  const { libraryStatus, handleGameStatus, platform, showDialogModal } =
     useContext(ContextProvider)
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
@@ -197,10 +198,11 @@ export default function DownloadDialog({
       )
 
       if (!gameInstallInfo) {
-        window.api.showErrorBox([
-          tr('box.error.generic.title', 'Error!'),
-          tr('box.error.generic.message', 'Something Went Wrong!')
-        ])
+        showDialogModal({
+          type: 'ERROR',
+          title: tr('box.error.generic.title', 'Error!'),
+          message: tr('box.error.generic.message', 'Something Went Wrong!')
+        })
         backdropClick()
         return
       }
@@ -324,7 +326,8 @@ export default function DownloadDialog({
       installDlcs,
       installLanguage,
       runner,
-      platformToInstall
+      platformToInstall,
+      showDialogModal: () => backdropClick()
     })
   }
 
