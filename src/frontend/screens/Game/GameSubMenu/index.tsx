@@ -7,7 +7,7 @@ import { AppSettings, GameStatus, Runner } from 'common/types'
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import { InstallModal } from 'frontend/screens/Library/components'
 import { CircularProgress } from '@mui/material'
@@ -44,7 +44,6 @@ export default function GamesSubmenu({
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
-  const navigate = useNavigate()
 
   const [steamRefresh, setSteamRefresh] = useState<boolean>(false)
   const [addedToSteam, setAddedToSteam] = useState<boolean>(false)
@@ -269,7 +268,7 @@ export default function GamesSubmenu({
                 </button>
               )}
               <button
-                onClick={async () => handleUninstall()}
+                onClick={async () => setShowUninstallModal(true)}
                 className="link button is-text is-link"
               >
                 {t('button.uninstall')}

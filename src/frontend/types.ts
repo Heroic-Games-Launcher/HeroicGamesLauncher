@@ -78,6 +78,7 @@ export interface ContextType {
   dialogModalOptions: DialogModalOptions
   showDialogModal: (options: DialogModalOptions) => void
   showResetDialog: () => void
+  sideloadedLibrary: GameInfo[]
 }
 
 export type DialogModalOptions = {
@@ -86,7 +87,6 @@ export type DialogModalOptions = {
   message?: string
   buttons?: Array<ButtonOptions>
   type?: DialogType
-  sideloadedLibrary: GameInfo[]
 }
 
 export type LibraryTopSectionOptions =

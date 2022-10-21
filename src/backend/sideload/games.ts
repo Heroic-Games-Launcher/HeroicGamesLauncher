@@ -33,8 +33,8 @@ import {
 } from '../launcher'
 import { access, chmod } from 'fs/promises'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
-import { showErrorBoxModalAuto } from '../dialog/dialog'
 import shlex from 'shlex'
+import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 
 export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)
@@ -131,9 +131,10 @@ export async function launchApp(appName: string): Promise<boolean> {
         appLogFileLocation(appName),
         `Launch aborted: ${launchPrepFailReason}`
       )
-      showErrorBoxModalAuto({
+      showDialogBoxModalAuto({
         title: i18next.t('box.error.launchAborted', 'Launch aborted'),
-        error: launchPrepFailReason!
+        message: launchPrepFailReason!,
+        type: 'ERROR'
       })
       return false
     }
