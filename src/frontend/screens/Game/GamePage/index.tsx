@@ -109,7 +109,7 @@ export default function GamePage(): JSX.Element | null {
             ? 'linux'
             : is_mac_native && isMac
             ? 'Mac'
-            : 'windows'
+            : 'Windows'
 
         if (runner !== 'sideload') {
           getInstallInfo(appName, runner, installPlatform)

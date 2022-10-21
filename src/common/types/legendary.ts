@@ -1,7 +1,7 @@
 // Types specifically for Legendary/Epic
 
 // Possible platforms for `legendary list --platform`
-export type LegendaryInstallPlatform = 'windows' | 'Win32' | 'Mac'
+export type LegendaryInstallPlatform = 'Windows' | 'Win32' | 'Mac'
 
 // Metadata in `~/.config/legendary/installed.json`
 export interface InstalledJsonMetadata {

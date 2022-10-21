@@ -42,7 +42,7 @@ async function install({
   installDlcs = false,
   installLanguage = 'en-US',
   runner = 'legendary',
-  platformToInstall = 'windows'
+  platformToInstall = 'Windows'
 }: InstallArgs) {
   if (!installPath) {
     return

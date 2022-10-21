@@ -52,7 +52,7 @@ export default function InstallModal({
   const [isLinuxNative, setIsLinuxNative] = useState(false)
   const [isMacNative, setIsMacNative] = useState(false)
   const [defaultPlatform, setDefaultPlatform] =
-    useState<InstallPlatform>('windows')
+    useState<InstallPlatform>('Windows')
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
@@ -74,7 +74,7 @@ export default function InstallModal({
     {
       name: 'Windows',
       available: true,
-      value: 'windows',
+      value: 'Windows',
       icon: faWindows
     }
   ]
@@ -88,7 +88,7 @@ export default function InstallModal({
       ? 'linux'
       : isMacNative
       ? 'Mac'
-      : 'windows'
+      : 'Windows'
 
     setPlatformToInstall(selectedPlatform)
     setDefaultPlatform(selectedPlatform)
@@ -97,7 +97,7 @@ export default function InstallModal({
   const [platformToInstall, setPlatformToInstall] =
     useState<InstallPlatform>(defaultPlatform)
 
-  const hasWine = platformToInstall === 'windows' && isLinux
+  const hasWine = platformToInstall === 'Windows' && isLinux
 
   useEffect(() => {
     if (hasWine) {
