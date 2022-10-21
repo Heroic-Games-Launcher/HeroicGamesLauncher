@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "Les versions personalitzades del Wine (Wine-GE, Wine-Lutris) s'envien amb les seves dependències de biblioteques. Quan s'activa aquesta opció, s'ignoraran les biblioteques enviades i Wine carregarà les biblioteques del sistema. Avís! Es poden produir problemes si no es compleixen les dependències.",
         "primerun": "Fes servir la targeta de gràfics dedicada per renderitzar el joc en sistemes de diverses GPU. Només cal en portàtils o ordinadors de sobretaula que tenen una GPU headless per renderitzar, com ara NVIDIA Optimus o AMD Crossfire.",
-        "resizablebar": "La barra redimensionable de NVIDIA ajuda a augmentar els FPS fent que la CPU accedeixi a la memòria gràfica. Si s'habilita, el rendiment dels jocs basats en Vulkan pot millorar.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -471,7 +470,6 @@
         "prefered_language": "Idioma preferit (codi de l'idioma)",
         "preferSystemLibs": "Dóna preferència a les biblioteques del sistema",
         "primerun": "Usa la targeta gràfica dedicada",
-        "resizableBar": "Activa el BAR redimensionable (només amb NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Arrossega i solta els fitxers aquí",
             "title": "Executa l'EXE al prefix"

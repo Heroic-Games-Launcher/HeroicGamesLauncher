@@ -321,16 +321,16 @@ export default function GamesSubmenu({
               {t('submenu.protondb')}
             </button>
           )}
+          {onShowRequirements && (
+            <button
+              onClick={async () => onShowRequirements()}
+              className="link button is-text is-link"
+            >
+              {t('game.requirements', 'Requirements')}
+            </button>
+          )}
         </div>
       </div>
-      {onShowRequirements && (
-        <button
-          onClick={async () => onShowRequirements()}
-          className="link button is-text is-link"
-        >
-          {t('game.requirements', 'Requirements')}
-        </button>
-      )}
       {showModal && (
         <InstallModal
           appName={appName}
