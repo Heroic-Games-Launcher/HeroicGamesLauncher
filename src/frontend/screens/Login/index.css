@@ -40,13 +40,13 @@
   background-color: var(--background);
   padding: var(--wrapper-padding);
   border-radius: 10px;
-  margin-top: 20px;
+  margin-top: 25%;
   min-width: 300px;
 }
 
 .languageSelector {
   position: absolute;
-  top: -75px;
+  bottom: calc(100% + var(--login-padding));
   left: 0;
   width: 300px;
 }
@@ -152,8 +152,10 @@
 
 @media screen and (min-width: 850px) {
   .loginContentWrapper {
-    width: max-content;
-    padding: 20px;
+    width: max(500px, 75%);
+    height: auto;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   /* Enable when there have been more than 5 logins added */
@@ -164,6 +166,11 @@
     max-height: unset;
     padding-right: 0;
   } */
+
+  .runnerList {
+    margin-top: 0;
+    margin-left: 0;
+  }
 
   .runnerWrapper:nth-child(odd):last-child {
     grid-column: 1 / -1;
@@ -176,27 +183,6 @@
 
   .languageSelector {
     position: relative;
-    top: unset;
-    left: unset;
     width: 300px;
-  }
-}
-
-@media screen and (min-width: 1000px) {
-  .loginContentWrapper {
-    height: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .selectFieldWrapper {
-    display: initial !important;
-  }
-
-  .runnerList {
-    margin-top: 0;
-    margin-left: 0;
   }
 }
