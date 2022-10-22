@@ -26,11 +26,16 @@ const UseDGPU = () => {
           'setting.primerun.confirmation.message',
           'Only one graphics card was detected in this system. ' +
             'Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). ' +
-            'On single-GPU systems, the GPU is automatically used & enabling this option can cause issues'
+            'On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. ' +
+            'Do you really want to enable this option?'
         ),
-        buttons: [{ text: t('box.ok', 'Ok') }],
+        buttons: [
+          { text: t('box.yes'), onClick: () => setUseDGPU(true) },
+          { text: t('box.no') }
+        ],
         type: 'MESSAGE'
       })
+      return
     }
     setUseDGPU(!useDGPU)
   }
