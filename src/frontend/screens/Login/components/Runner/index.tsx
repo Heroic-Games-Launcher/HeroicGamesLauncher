@@ -20,6 +20,14 @@ interface RunnerProps {
 export default function Runner(props: RunnerProps) {
   const maxNameLength = 20
   const { t } = useTranslation()
+
+  let buttonText = ''
+  if (props.class === 'epic') {
+    buttonText = t('login.epic', 'Epic Games Login')
+  } else {
+    buttonText = t('login.gog', 'GOG Login')
+  }
+
   async function handleLogout() {
     await props.logoutAction()
     // FIXME: only delete local storage relate to one store, or only delete if logged out from both
@@ -39,12 +47,8 @@ export default function Runner(props: RunnerProps) {
         )}
         <div className="runnerButtons">
           {!props.isLoggedIn ? (
-            <Link to={props.loginUrl}>
-              <div className="runnerLogin">{`${
-                props.class === 'epic'
-                  ? props.class + ' Games Login'
-                  : props.class + ' Login'
-              }`}</div>
+            <Link to={props.loginUrl} className="runnerLogin">
+              {buttonText}
             </Link>
           ) : (
             <div
