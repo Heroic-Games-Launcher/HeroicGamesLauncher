@@ -74,7 +74,8 @@ import {
   getFirstExistingParentPath,
   getLatestReleases,
   notify,
-  quoteIfNecessary
+  quoteIfNecessary,
+  isSteamDeck
 } from './utils'
 import {
   configStore,
@@ -123,6 +124,7 @@ import {
   runOnceWhenOnline
 } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
+import { exec } from 'child_process'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -233,6 +235,20 @@ async function createWindow(): Promise<BrowserWindow> {
   if (isWindows) {
     detectVCRedist(mainWindow)
   }
+
+  // TEMPORARY, remove whenever Valve fixes this issue themselves
+  // https://github.com/ValveSoftware/SteamOS/issues/775
+  isSteamDeck()
+    .then((isDeck) => {
+      if (!isDeck) return
+      let command = 'systemctl restart --user xdg-desktop-portal'
+      if (isFlatpak) {
+        command = 'flatpak-spawn --host ' + command
+      }
+      logInfo('Restarting xdg-desktop-portal to fix URLs not opening on SD')
+      exec(command)
+    })
+    .catch(logError)
 
   if (!app.isPackaged) {
     if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {

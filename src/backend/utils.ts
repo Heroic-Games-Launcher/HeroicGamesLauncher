@@ -10,7 +10,7 @@ import {
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, spawnSync } from 'child_process'
-import { existsSync, rmSync, stat } from 'graceful-fs'
+import { existsSync, readFile, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import si from 'systeminformation'
@@ -25,7 +25,9 @@ import {
   isWindows,
   publicDir,
   GITHUB_API,
-  isSteamDeckGameMode
+  isSteamDeckGameMode,
+  isFlatpak,
+  isLinux
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
@@ -766,6 +768,25 @@ type NotifyType = {
   body: string
 }
 
+async function isSteamDeck(): Promise<boolean> {
+  return new Promise<boolean>((res, rej) => {
+    if (!isLinux) {
+      res(false)
+    }
+    const osReleasePath = isFlatpak ? '/run/host/os-release' : '/etc/os-release'
+    readFile(osReleasePath, 'utf-8', (err, data) => {
+      if (err) rej(err)
+      const isDeck = Boolean(
+        data.split('\n').find((line) => {
+          const [key, value] = line.split('=')
+          return key === 'VARIANT_ID' && value === 'steamdeck'
+        })
+      )
+      res(isDeck)
+    })
+  })
+}
+
 export {
   errorHandler,
   execAsync,
@@ -790,5 +811,6 @@ export {
   removeQuoteIfNecessary,
   killPattern,
   detectVCRedist,
-  getGame
+  getGame,
+  isSteamDeck
 }

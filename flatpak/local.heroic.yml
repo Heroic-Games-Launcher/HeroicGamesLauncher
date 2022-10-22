@@ -21,6 +21,7 @@ finish-args:
   - --allow=devel
   - --device=all
   - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.freedesktop.Flatpak
   - --persist=.wine
   - --filesystem=host
   - --env=LD_LIBRARY_PATH=/app/lib:/app/lib32
