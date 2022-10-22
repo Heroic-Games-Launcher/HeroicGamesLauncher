@@ -1,4 +1,10 @@
-import React, { useContext, useLayoutEffect, useRef, useState } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router'
 
@@ -7,8 +13,7 @@ import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Runner, WebviewType } from 'common/types'
 import './index.css'
-import { NavLink } from 'react-router-dom'
-import { epicLoginPath, gogLoginPath } from '../Login'
+import LoginWarning from '../Login/components/LoginWarning'
 
 type CODE = {
   authorizationCode: string
@@ -135,27 +140,24 @@ export default function WebView() {
     return
   }, [webviewRef.current])
 
-  let warnLogin = null
-  if (startUrl.match(/epicgames\.com/) && !epic.username) {
-    warnLogin = [
-      'epic',
-      t(
-        'not-logged-in.epic',
-        "You are not logged in with an Epic account. Don't use the Store to login."
-      )
-    ]
-  } else if (
-    startUrl.match(/gog\.com/) &&
-    !startUrl.match(/auth\.gog\.com/) &&
-    !gog.username
-  ) {
-    warnLogin = [
-      'epic',
-      t(
-        'not-logged-in.epic',
-        "You are not logged in with a GOG account. Don't use the Store to login."
-      )
-    ]
+  const [showLoginWarningFor, setShowLoginWarningFor] = useState<
+    null | 'epic' | 'gog'
+  >(null)
+
+  useEffect(() => {
+    if (startUrl.match(/epicgames\.com/) && !epic.username) {
+      setShowLoginWarningFor('epic')
+    } else if (
+      startUrl.match(/gog\.com/) &&
+      !startUrl.match(/auth\.gog\.com/) &&
+      !gog.username
+    ) {
+      setShowLoginWarningFor('gog')
+    }
+  }, [startUrl])
+
+  const onLoginWarningClosed = () => {
+    setShowLoginWarningFor(null)
   }
 
   return (
@@ -175,16 +177,11 @@ export default function WebView() {
         src={startUrl}
         allowpopups={trueAsStr}
       />
-      {warnLogin && (
-        <div className="login-warning">
-          <div>
-            <h1>Not Logged In</h1>
-            <p>{warnLogin[1]}</p>
-            <NavLink to={warnLogin[0] === 'gog' ? gogLoginPath : epicLoginPath}>
-              <span>{t('log-in', 'Log in')}</span>
-            </NavLink>
-          </div>
-        </div>
+      {showLoginWarningFor && (
+        <LoginWarning
+          warnLoginForStore={showLoginWarningFor}
+          onClose={onLoginWarningClosed}
+        />
       )}
     </div>
   )
