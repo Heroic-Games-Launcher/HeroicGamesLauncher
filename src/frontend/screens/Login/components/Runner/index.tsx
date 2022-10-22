@@ -66,9 +66,9 @@ export default function Runner(props: RunnerProps) {
               onClick={props.alternativeLoginAction}
               className="runnerLogin alternative"
             >
-              {`${props.class} Games ${t(
+              {`${props.class} ${t(
                 'login.externalLogin',
-                'External Login'
+                'Alternative Login Method'
               )}`}
             </div>
           </div>
