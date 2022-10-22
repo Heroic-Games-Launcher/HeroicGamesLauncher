@@ -18,24 +18,29 @@ const UseDGPU = () => {
   }
 
   async function toggleUseDGPU() {
-    const numOfGpus = await window.api.getNumOfGpus()
-    if (!useDGPU && numOfGpus === 1) {
-      showDialogModal({
-        title: t('setting.primerun.confirmation.title', 'Only 1 GPU detected'),
-        message: t(
-          'setting.primerun.confirmation.message',
-          'Only one graphics card was detected in this system. ' +
-            'Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). ' +
-            'On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. ' +
-            'Do you really want to enable this option?'
-        ),
-        buttons: [
-          { text: t('box.yes'), onClick: () => setUseDGPU(true) },
-          { text: t('box.no') }
-        ],
-        type: 'MESSAGE'
-      })
-      return
+    if (!useDGPU) {
+      const numOfGpus = await window.api.getNumOfGpus()
+      if (numOfGpus === 1) {
+        showDialogModal({
+          title: t(
+            'setting.primerun.confirmation.title',
+            'Only 1 GPU detected'
+          ),
+          message: t(
+            'setting.primerun.confirmation.message',
+            'Only one graphics card was detected in this system. ' +
+              'Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). ' +
+              'On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. ' +
+              'Do you really want to enable this option?'
+          ),
+          buttons: [
+            { text: t('box.yes'), onClick: () => setUseDGPU(true) },
+            { text: t('box.no') }
+          ],
+          type: 'MESSAGE'
+        })
+        return
+      }
     }
     setUseDGPU(!useDGPU)
   }
