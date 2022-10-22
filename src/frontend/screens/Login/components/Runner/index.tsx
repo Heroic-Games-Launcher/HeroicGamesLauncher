@@ -71,7 +71,7 @@ export default function Runner(props: RunnerProps) {
               className="runnerLogin alternative"
             >
               {`${props.class} ${t(
-                'login.externalLogin',
+                'login.alternative_method',
                 'Alternative Login Method'
               )}`}
             </div>
