@@ -63,9 +63,7 @@
   color: var(--background);
   background-color: var(--accent);
   border: none;
-  padding: 10px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding: 10px 40px;
   border-radius: 10px;
   font-size: var(--text-default);
   border-radius: var(--space-2xs);
@@ -73,9 +71,7 @@
   transition: 0.2s;
   width: fit-content;
   backdrop-filter: blur(var(--blur-light));
-  margin-left: auto;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin: 20px 0px 10px auto;
   text-transform: uppercase;
 }
 
@@ -154,8 +150,7 @@
   .loginContentWrapper {
     width: max(500px, 75%);
     height: auto;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto;
   }
 
   /* Enable when there have been more than 5 logins added */

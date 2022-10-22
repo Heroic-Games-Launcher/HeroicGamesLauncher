@@ -75,9 +75,8 @@
   color: var(--text-secondary);
   /* For longer nicknames */
   font-size: var(--text-lg);
-  margin: var(--space-sm) 0;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin: var(--space-sm) 0px;
+  padding: 0px 10px;
 }
 
 .runnerButtons,
