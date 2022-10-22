@@ -18,11 +18,33 @@ import {
   generateShortAppId,
   removeImagesFromSteam
 } from './steamhelper'
-import { app } from 'electron'
+import { app, BrowserWindow } from 'electron'
 import { isFlatpak, isWindows, tsStore } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
-import { showErrorBoxModalAuto } from '../../dialog/dialog'
+import { showDialogBoxModalAuto } from '../../dialog/dialog'
+import { GlobalConfig } from '../../../backend/config'
+
+const getSteamUserdataDir = async () => {
+  const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+  return join(defaultSteamPath.replaceAll("'", ''), 'userdata')
+}
+
+const generateImage = async (
+  src: string,
+  width: number,
+  height: number
+): Promise<string> => {
+  const window = BrowserWindow.getAllWindows()[0]
+
+  if (!window) {
+    return Promise.resolve('')
+  }
+
+  return window.webContents.executeJavaScript(
+    `window.imageData("${src}", ${width}, ${height})`
+  )
+}
 
 /**
  * Opens a error dialog in frontend with the error message
@@ -42,7 +64,7 @@ function showErrorInFrontend(props: { gameTitle: string; error: string }) {
     'Error Adding Game to Steam'
   )
 
-  showErrorBoxModalAuto({ title, error })
+  showDialogBoxModalAuto({ title, message: error, type: 'ERROR' })
 }
 
 /**
@@ -173,17 +195,30 @@ function checkIfAlreadyAdded(object: Partial<ShortcutObject>, title: string) {
 
 /**
  * Adds a non-steam game to steam via editing shortcuts.vdf
- * @param steamUserdataDir Path to steam userdata directory
  * @param gameInfo @see GameInfo of the game to add
+ * @param steamUserdataDir Path to steam userdata directory, optional
+ * @param bkgDataUrl data url string for the background image, optional
+ * @param bigPicDataUrl data url of the Big Picture image, optional
  * @returns boolean
  */
 async function addNonSteamGame(props: {
-  steamUserdataDir: string
   gameInfo: GameInfo
-  bkgDataUrl: string
-  bigPicDataUrl: string
+  steamUserdataDir?: string
+  bkgDataUrl?: string
+  bigPicDataUrl?: string
 }): Promise<boolean> {
-  const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
+  const steamUserdataDir =
+    props.steamUserdataDir || (await getSteamUserdataDir())
+
+  let bkgDataUrl = props.bkgDataUrl
+  let bigPicDataUrl = props.bigPicDataUrl
+
+  if (bkgDataUrl === undefined || bigPicDataUrl === undefined) {
+    bkgDataUrl = await generateImage(props.gameInfo.art_cover, 1920, 620)
+    bigPicDataUrl = await generateImage(props.gameInfo.art_cover, 920, 430)
+  }
+
+  const { folders, error } = checkSteamUserDataDir(steamUserdataDir)
 
   if (error) {
     logError(error, { prefix: LogPrefix.Shortcuts })
@@ -197,7 +232,7 @@ async function addNonSteamGame(props: {
   const errors = []
   let added = false
   for (const folder of folders) {
-    const configDir = join(props.steamUserdataDir, folder, 'config')
+    const configDir = join(steamUserdataDir, folder, 'config')
     const shortcutsFile = join(configDir, 'shortcuts.vdf')
 
     if (!existsSync(configDir)) {
@@ -259,8 +294,8 @@ async function addNonSteamGame(props: {
         otherGridAppID: generateShortAppId(newEntry.Exe, newEntry.AppName)
       },
       gameInfo: props.gameInfo,
-      bkgDataUrl: props.bkgDataUrl,
-      bigPicDataUrl: props.bigPicDataUrl
+      bkgDataUrl: bkgDataUrl,
+      bigPicDataUrl: bigPicDataUrl
     })
 
     const args = []
@@ -342,15 +377,18 @@ async function addNonSteamGame(props: {
 
 /**
  * Removes a non-steam game from steam via editing shortcuts.vdf
- * @param steamUserdataDir Path to steam userdata directory
  * @param gameInfo @see GameInfo of the game to remove
+ * @param steamUserdataDir Path to steam userdata directory, optional
  * @returns none
  */
 async function removeNonSteamGame(props: {
-  steamUserdataDir: string
   gameInfo: GameInfo
+  steamUserdataDir?: string
 }): Promise<void> {
-  const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
+  const steamUserdataDir =
+    props.steamUserdataDir || (await getSteamUserdataDir())
+
+  const { folders, error } = checkSteamUserDataDir(steamUserdataDir)
 
   // we don't show a error here.
   // If someone changes the steam path to a invalid one
@@ -363,7 +401,7 @@ async function removeNonSteamGame(props: {
   const errors = []
   let removed = false
   for (const folder of folders) {
-    const configDir = join(props.steamUserdataDir, folder, 'config')
+    const configDir = join(steamUserdataDir, folder, 'config')
     const shortcutsFile = join(configDir, 'shortcuts.vdf')
 
     if (!existsSync(configDir) || !existsSync(shortcutsFile)) {
@@ -451,15 +489,18 @@ async function removeNonSteamGame(props: {
 
 /**
  * Checks if a game was added to shortcuts.vdf
- * @param steamUserdataDir Path to steam userdata directory
  * @param gameInfo @see GameInfo of the game to check
+ * @param steamUserdataDir Path to steam userdata directory, optional
  * @returns boolean
  */
 async function isAddedToSteam(props: {
-  steamUserdataDir: string
   gameInfo: GameInfo
+  steamUserdataDir?: string
 }): Promise<boolean> {
-  const { folders, error } = checkSteamUserDataDir(props.steamUserdataDir)
+  const steamUserdataDir =
+    props.steamUserdataDir || (await getSteamUserdataDir())
+
+  const { folders, error } = checkSteamUserDataDir(steamUserdataDir)
 
   if (error) {
     return false
@@ -467,7 +508,7 @@ async function isAddedToSteam(props: {
 
   let added = false
   for (const folder of folders) {
-    const configDir = join(props.steamUserdataDir, folder, 'config')
+    const configDir = join(steamUserdataDir, folder, 'config')
     const shortcutsFile = join(configDir, 'shortcuts.vdf')
 
     if (!existsSync(configDir) || !existsSync(shortcutsFile)) {

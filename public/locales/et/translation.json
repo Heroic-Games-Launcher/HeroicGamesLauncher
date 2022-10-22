@@ -388,6 +388,7 @@
     "setting": {
         "adddesktopshortcuts": "Lisa töölaua otseteed automaatselt",
         "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Valige alternatiivne GOGDL binaarfail",
         "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail",
         "audiofix": "Heliparandus (Pulse Audio Latency)",
