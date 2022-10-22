@@ -184,7 +184,6 @@
 
 @media screen and (min-width: 1000px) {
   .loginContentWrapper {
-    flex-direction: row;
     height: auto;
     margin-top: auto;
     margin-bottom: auto;
