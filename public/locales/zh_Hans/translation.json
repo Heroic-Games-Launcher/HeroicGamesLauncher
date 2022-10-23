@@ -281,7 +281,10 @@
         "website": "正在加载网站"
     },
     "login": {
-        "externalLogin": "外部登录"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "同步完成",

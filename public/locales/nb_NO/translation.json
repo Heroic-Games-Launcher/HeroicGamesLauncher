@@ -281,7 +281,10 @@
         "website": "Laster inn nettsted"
     },
     "login": {
-        "externalLogin": "Ekstern pålogging"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synkronisering fullført",
