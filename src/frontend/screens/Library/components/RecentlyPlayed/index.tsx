@@ -14,13 +14,19 @@ function getRecentGames(libraries: GameInfo[], limit: number): GameInfo[] {
   const recentGames =
     (configStore.get('games.recent', []) as Array<RecentGame>) || []
 
-  const games = recentGames
-    .map((recent) =>
-      libraries.find((game: GameInfo) => game.app_name === recent.appName)
-    )
-    .filter((game) => game !== undefined) as GameInfo[]
+  const games: GameInfo[] = []
 
-  return games.slice(0, limit)
+  for (const recent of recentGames) {
+    const found = libraries.find(
+      (game: GameInfo) => game.app_name === recent.appName
+    )
+    if (found) {
+      games.push(found)
+      if (games.length === limit) break
+    }
+  }
+
+  return games
 }
 
 export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
