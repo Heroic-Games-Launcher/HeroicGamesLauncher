@@ -41,6 +41,7 @@ interface Card {
   runner: Runner
   installedPlatform: string | undefined
   forceCard?: boolean
+  isRecent: boolean
 }
 
 const GameCard = ({
@@ -56,7 +57,8 @@ const GameCard = ({
   buttonClick,
   forceCard,
   runner,
-  installedPlatform
+  installedPlatform,
+  isRecent = false
 }: Card) => {
   const [progress, previousProgress] = hasProgress(appName)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
@@ -287,6 +289,11 @@ const GameCard = ({
       label: t('button.remove_from_favourites', 'Remove From Favourites'),
       onclick: () => favouriteGames.remove(appName),
       show: isFavouriteGame
+    },
+    {
+      label: t('button.remove_from_recent', 'Remove From Recent'),
+      onclick: async () => window.api.removeRecentGame(appName),
+      show: isRecent
     }
   ]
 

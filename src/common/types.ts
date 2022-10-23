@@ -496,3 +496,8 @@ export interface Tools {
   appName: string
   runner: Runner
 }
+
+export type RecentGame = {
+  appName: string
+  title: string
+}

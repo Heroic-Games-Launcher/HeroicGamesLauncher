@@ -1,13 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { getRecentGames } from 'frontend/helpers/library'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { GameInfo, GameStatus, Runner } from 'common/types'
+import { AppSettings, GameInfo, RecentGame, Runner } from 'common/types'
 import { GamesList } from '../GamesList'
+import { configStore } from 'frontend/helpers/electronStores'
 
 interface Props {
   handleModal: (appName: string, runner: Runner) => void
   onlyInstalled: boolean
+}
+
+function getRecentGames(libraries: GameInfo[], limit: number): GameInfo[] {
+  const recentGames =
+    (configStore.get('games.recent', []) as Array<RecentGame>) || []
+
+  const games = recentGames
+    .map((recent) =>
+      libraries.find((game: GameInfo) => game.app_name === recent.appName)
+    )
+    .filter((game) => game !== undefined) as GameInfo[]
+
+  return games.slice(0, limit)
 }
 
 export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
@@ -15,30 +28,32 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
   const { epic, gog } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
-  const loadRecentGames = () => {
-    const newRecentGames = getRecentGames([...epic.library, ...gog.library])
+  const loadRecentGames = async () => {
+    const { maxRecentGames }: AppSettings = await window.api.requestSettings(
+      'default'
+    )
+    const newRecentGames = getRecentGames(
+      [...epic.library, ...gog.library],
+      maxRecentGames
+    )
 
     setRecentGames(newRecentGames)
   }
 
   useEffect(() => {
     loadRecentGames()
-  }, [epic.library, gog.library])
 
-  const onGameStatusUpdates = async (_e: Event, { status }: GameStatus) => {
-    if (status === 'playing') {
+    const onRecentGamesUpdated = () => {
       loadRecentGames()
     }
-  }
 
-  useEffect(() => {
-    const setGameStatusRemoveListener =
-      window.api.handleSetGameStatus(onGameStatusUpdates)
+    const recentGamesChangedRemoveListener =
+      window.api.handleRecentGamesChanged(onRecentGamesUpdated)
 
     return () => {
-      setGameStatusRemoveListener()
+      recentGamesChangedRemoveListener()
     }
-  })
+  }, [])
 
   if (!recentGames.length) {
     return null
@@ -52,6 +67,7 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
         isFirstLane
         handleGameCardClick={handleModal}
         onlyInstalled={onlyInstalled}
+        isRecent={true}
       />
     </>
   )
