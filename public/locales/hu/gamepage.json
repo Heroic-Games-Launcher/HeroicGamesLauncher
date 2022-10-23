@@ -43,6 +43,7 @@
         "import": "Játék importálása",
         "install": "Telepítés",
         "remove_from_favourites": "Eltávolítás a kedvencekből",
+        "remove_from_recent": "Remove From Recent",
         "unhide_game": "Játék felfedése",
         "uninstall": "Eltávolítás",
         "update": "Frissítés"

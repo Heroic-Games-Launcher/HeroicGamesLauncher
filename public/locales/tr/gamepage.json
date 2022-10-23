@@ -43,6 +43,7 @@
         "import": "Oyunu İçe Aktar",
         "install": "Kur",
         "remove_from_favourites": "Favorilerden Kaldır",
+        "remove_from_recent": "Remove From Recent",
         "unhide_game": "Oyunu Göster",
         "uninstall": "Kaldır",
         "update": "Güncelle"

@@ -43,6 +43,7 @@
         "import": "導入",
         "install": "安裝",
         "remove_from_favourites": "自我的最愛移除",
+        "remove_from_recent": "Remove From Recent",
         "unhide_game": "取消隱藏遊戲",
         "uninstall": "解除安裝",
         "update": "更新"

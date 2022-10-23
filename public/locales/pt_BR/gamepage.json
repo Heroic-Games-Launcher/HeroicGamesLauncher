@@ -43,6 +43,7 @@
         "import": "Importar Jogo",
         "install": "Instalar",
         "remove_from_favourites": "Remover dos favoritos",
+        "remove_from_recent": "Remove From Recent",
         "unhide_game": "Mostrar jogo",
         "uninstall": "Desinstalar",
         "update": "Update"

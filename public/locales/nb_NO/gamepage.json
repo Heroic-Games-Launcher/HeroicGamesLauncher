@@ -44,6 +44,7 @@
         "import": "Importer spill",
         "install": "Installere",
         "remove_from_favourites": "Fjern fra favoritter",
+        "remove_from_recent": "Remove From Recent",
         "unhide_game": "Vis spill",
         "uninstall": "Avinstaller",
         "update": "Oppdater"

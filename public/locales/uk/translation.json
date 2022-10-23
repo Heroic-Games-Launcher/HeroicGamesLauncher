@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "Спеціальні версії Wine (Wine-GE, Wine-Lutris) постачаються разом із залежностями бібліотеки. Якщо ввімкнути цю опцію, ці бібліотеки ігноруватимуться, а Wine замість них завантажуватиме системні бібліотеки. УВАГА! Якщо залежності не виконано, можуть виникнути проблеми.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar допомагає підвищити частоту кадрів, дозволяючи процесору отримати доступ до всього графічного буфера. Увімкнення може покращити продуктивність ігор, основаних на Vulkan.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -467,7 +466,6 @@
         "prefered_language": "Бажана мова (код мови)",
         "preferSystemLibs": "Надавати перевагу системним бібліотекам",
         "primerun": "Використовувати виділену відеокарту",
-        "resizableBar": "Ввімкнути Resizable BAR (тільки NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Перетягніть сюди файли",
             "title": "Запустити EXE на префіксі"

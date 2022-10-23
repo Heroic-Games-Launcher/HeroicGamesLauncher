@@ -44,6 +44,7 @@
         "import": "Uvezi igru",
         "install": "Instaliraj",
         "remove_from_favourites": "Otkloni iz favorita",
+        "remove_from_recent": "Remove From Recent",
         "unhide_game": "Prikaži igru",
         "uninstall": "Deinstaliraj",
         "update": "Ažuriraj"

@@ -43,6 +43,7 @@
         "import": "Importa el joc",
         "install": "Instal·la",
         "remove_from_favourites": "Treu dels preferits",
+        "remove_from_recent": "Remove From Recent",
         "unhide_game": "Torna a mostrar el joc",
         "uninstall": "Desinstal·la",
         "update": "Actualitza"

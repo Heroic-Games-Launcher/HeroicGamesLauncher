@@ -43,6 +43,7 @@
         "import": "Импортировать игру",
         "install": "Установить",
         "remove_from_favourites": "Удалить из избранного",
+        "remove_from_recent": "Remove From Recent",
         "unhide_game": "Показать игру",
         "uninstall": "Удалить",
         "update": "Обновить"

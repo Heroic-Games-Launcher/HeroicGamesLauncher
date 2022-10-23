@@ -43,6 +43,7 @@
         "import": "Tuo peli",
         "install": "Asenna",
         "remove_from_favourites": "Remove From Favourites",
+        "remove_from_recent": "Remove From Recent",
         "unhide_game": "Unhide Game",
         "uninstall": "Poista",
         "update": "Päivitä"

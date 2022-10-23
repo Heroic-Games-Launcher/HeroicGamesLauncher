@@ -43,6 +43,7 @@
         "import": "インポート",
         "install": "インストール",
         "remove_from_favourites": "Remove From Favourites",
+        "remove_from_recent": "Remove From Recent",
         "unhide_game": "Unhide Game",
         "uninstall": "アンインストール",
         "update": "アップデート"

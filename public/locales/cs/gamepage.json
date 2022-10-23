@@ -43,6 +43,7 @@
         "import": "Importovat Hru",
         "install": "Instalovat",
         "remove_from_favourites": "Odebrat z oblíbených",
+        "remove_from_recent": "Remove From Recent",
         "unhide_game": "Odkrýt hru",
         "uninstall": "Odinstalovat",
         "update": "Update"
