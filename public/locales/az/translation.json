@@ -465,7 +465,13 @@
         "offlinemode": "Oyunu Oflayn Çalışın",
         "prefered_language": "Üstünlük Verilən Dil (Dil Kodu)",
         "preferSystemLibs": "Sistem kitabxanalarına üstünlük verin",
-        "primerun": "Xüsusi Qrafik Kartdan istifadə edin",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Xüsusi Qrafik Kartdan istifadə edin"
+        },
         "runexe": {
             "message": "Faylları buraya sürükləyin və buraxın",
             "title": "Prefiksdə EXE-ni işə salın"

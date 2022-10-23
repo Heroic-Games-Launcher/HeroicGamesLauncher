@@ -465,7 +465,13 @@
         "offlinemode": "게임 오프라인으로 실행",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "외장 그래픽 카드 사용",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "외장 그래픽 카드 사용"
+        },
         "runexe": {
             "message": "여기에 파일을 끌어다 놓기",
             "title": "접두사에서 EXE 실행"

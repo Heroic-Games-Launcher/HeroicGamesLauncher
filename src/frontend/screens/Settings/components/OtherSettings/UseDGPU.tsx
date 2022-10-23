@@ -28,10 +28,7 @@ const UseDGPU = () => {
           ),
           message: t(
             'setting.primerun.confirmation.message',
-            'Only one graphics card was detected in this system. ' +
-              'Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). ' +
-              'On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. ' +
-              'Do you really want to enable this option?'
+            'Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?'
           ),
           buttons: [
             { text: t('box.yes'), onClick: () => setUseDGPU(true) },
@@ -51,7 +48,7 @@ const UseDGPU = () => {
         htmlId="usedgpu"
         value={useDGPU}
         handleChange={toggleUseDGPU}
-        title={t('setting.primerun', 'Use Dedicated Graphics Card')}
+        title={t('setting.primerun.description', 'Use Dedicated Graphics Card')}
       />
 
       <FontAwesomeIcon

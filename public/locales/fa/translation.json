@@ -465,7 +465,13 @@
         "offlinemode": "اجرای آفلاین بازی",
         "prefered_language": "زبان ترجیحی (کد زبان)",
         "preferSystemLibs": "ارجحیت کتابخانه های سیستم",
-        "primerun": "استفاده از کارت گرافیک اختصاص یافته",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "استفاده از کارت گرافیک اختصاص یافته"
+        },
         "runexe": {
             "message": "فایلها را اینجا درج کنید",
             "title": "اجرای EXE در محل"

@@ -465,7 +465,13 @@
         "offlinemode": "Oyunu Çevrim Dışı Çalıştır",
         "prefered_language": "Tercih Edilen Dil (Dil Kodu)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Özel Grafik Kartını Kullan",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Özel Grafik Kartını Kullan"
+        },
         "runexe": {
             "message": "Dosyaları buraya Sürükle ve Bırak",
             "title": "Exe Çalıştır"

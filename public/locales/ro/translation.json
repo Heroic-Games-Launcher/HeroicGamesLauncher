@@ -465,7 +465,13 @@
         "offlinemode": "Rulați jocul offline",
         "prefered_language": "Limba preferată (Codul de limbă)",
         "preferSystemLibs": "Preferați bibliotecile de sistem",
-        "primerun": "Activați Nvidia Prime Render",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Use Dedicated Graphics Card"
+        },
         "runexe": {
             "message": "Trageți și plasați fișiere aici",
             "title": "Rulați EXE pe Prefix"
