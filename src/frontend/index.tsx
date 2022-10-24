@@ -118,8 +118,10 @@ window.setTheme = async (themeClass: string) => {
     themeClass !== 'default' &&
     !Object.keys(defaultThemes).includes(themeClass)
   ) {
-    themeClass = themeClass.replace('.css', '')
     const cssContent = await window.api.getThemeCSS(themeClass)
+    themeClass = themeClass
+      .replace('.css', '') // remove extension
+      .replace(/[\s.]/, '_') // remove dots and empty spaces
     const style = document.createElement('style')
     style.classList.add('customTheme')
     style.innerHTML = cssContent

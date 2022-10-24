@@ -101,22 +101,11 @@ export const ThemeSelector = () => {
         onChange={(event) => setTheme(event.target.value)}
         value={theme}
       >
-        {themes.map((key) => {
-          if (defaultThemes[key]) {
-            return (
-              <option key={key} value={key}>
-                {defaultThemes[key]}
-              </option>
-            )
-          } else {
-            const k = key.replace(' ', '_')
-            return (
-              <option key={k} value={k}>
-                {k}
-              </option>
-            )
-          }
-        })}
+        {themes.map((key) => (
+          <option key={key} value={key}>
+            {defaultThemes[key] || key}
+          </option>
+        ))}
       </SelectField>
 
       <TextInputWithIconField

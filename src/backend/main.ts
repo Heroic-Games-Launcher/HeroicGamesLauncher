@@ -1576,7 +1576,7 @@ ipcMain.handle('getCustomThemes', async () => {
 ipcMain.handle('getThemeCSS', async (event, theme) => {
   const { customThemesPath } = await GlobalConfig.get().getSettings()
 
-  const cssPath = path.join(customThemesPath, `${theme}.css`)
+  const cssPath = path.join(customThemesPath, theme)
 
   if (!existsSync(cssPath)) {
     return ''
