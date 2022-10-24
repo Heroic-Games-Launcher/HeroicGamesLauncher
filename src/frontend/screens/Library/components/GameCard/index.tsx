@@ -61,6 +61,7 @@ const GameCard = ({
   const [showUninstallModal, setShowUninstallModal] = useState(false)
 
   const { t } = useTranslation('gamepage')
+  const { t: t2 } = useTranslation()
 
   const navigate = useNavigate()
   const {
@@ -136,7 +137,7 @@ const GameCard = ({
       return t('gamecard.repairing', 'Repairing')
     }
     if (isInstalled) {
-      return `${t('status.installed')} (${size})`
+      return `${t('status.installed')} ${runner === 'sideload' ? '' : size}`
     }
 
     return t('status.notinstalled')
@@ -288,7 +289,7 @@ const GameCard = ({
       case 'gog':
         return 'GOG'
       default:
-        return 'sideload'
+        return t2('Other')
     }
   }
 
