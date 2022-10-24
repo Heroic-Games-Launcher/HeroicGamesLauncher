@@ -107,6 +107,7 @@ export interface AppSettings {
   wineVersion: WineInstallation
   useSteamRuntime: boolean
   gogSaves?: GOGCloudSavesLocation[]
+  customThemesPath: string
 }
 
 export type ExecResult = {

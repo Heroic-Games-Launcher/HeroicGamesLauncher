@@ -205,6 +205,8 @@
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a aumentar a taxa de quadros aumentando as resoluções mais baixas no modo de tela cheia. A qualidade da imagem aumenta de 5 para 1 ao custo de um pequeno impacto no desempenho. A ativação pode melhorar o desempenho.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK é uma camada de tradução baseada em Vulkan para jogos DirectX 9, 10 e 11. A ativação pode melhorar a compatibilidade. Pode causar problemas especialmente para jogos DirectX mais antigos.",
         "esync": "O Esync visa reduzir a sobrecarga do wineserver em jogos com uso intensivo de CPU. A ativação pode melhorar o desempenho.",
         "fsync": "O Fsync visa reduzir a sobrecarga do wineserver em jogos com uso intensivo de CPU. A ativação pode melhorar o desempenho em kernels Linux suportados.",
@@ -224,7 +226,6 @@
         },
         "preferSystemLibs": "Versões personalizadas do Wine (Wine-GE, Wine-Lutris) são enviadas com suas dependências de biblioteca. Ao habilitar esta opção, essas bibliotecas enviadas serão ignoradas e o Wine carregará as bibliotecas do sistema. Aviso! Podem ocorrer problemas se as dependências não forem atendidas.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "A barra redimensionável da NVIDIA ajuda a aumentar a taxa de quadros fazendo com que a CPU acesse todo o buffer gráfico. A ativação pode melhorar o desempenho de jogos baseados em Vulkan.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -254,6 +255,7 @@
     "infobox": {
         "help": "Ajuda",
         "requirements": "Requisitos do Sistema",
+        "warning": "Warning",
         "wine-path": "Caminho do Wine",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -377,6 +379,7 @@
     "placeholder": {
         "alt-gogdl-bin": "Usando binário do GOGDL embutido...",
         "alt-legendary-bin": "Usando o binário embutido do Legendary...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefixo onde a EGS está instalada",
         "prefered_language": "Código de 2 caracteres (ou seja: \"en\" ou \"fr\")"
     },
@@ -401,6 +404,7 @@
         "change-target-exe": "Selecione um EXE alternativo para executar",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Versão do Crossover",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Locais com Wine/Proton customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",
         "default-install-path": "Local de instalação padrão",
@@ -470,7 +474,6 @@
         "prefered_language": "Idioma preferido (código do idioma)",
         "preferSystemLibs": "Prefer system libraries",
         "primerun": "Usar placa gráfica dedicada",
-        "resizableBar": "Habilitar Resizable BAR (somente NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Arraste e solte arquivos aqui",
             "title": "Executar EXE no prefixo"

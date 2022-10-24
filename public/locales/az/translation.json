@@ -205,6 +205,8 @@
     },
     "help": {
         "amdfsr": "AMD-nin FSR tam ekran rejimində daha aşağı təsvir ölçüsünü artırmaqla kadr sürətini artırmağa kömək edir. Şəkil keyfiyyəti cüzi performans zərbəsi hesabına 5-dən 1-ə yüksəlir. Aktivləşdirmək performansı yaxşılaşdıra bilər.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK DirectX 9, 10 və 11 oyunları üçün Vulkan əsaslı tərcümə qatıdır. Aktivləşdirmə uyğunluğu yaxşılaşdıra bilər. Xüsusilə köhnə DirectX oyunları üçün problemlər yarada bilər.",
         "esync": "Esync, intensiv CPU tələb edən oyunlarda şərab serverinin yükünü azaltmağı hədəfləyir. Aktivləşdirmək performansı yaxşılaşdıra bilər.",
         "fsync": "Fsync, intensiv CPU tələb edən oyunlarda şərab serverinin yükünü azaltmağı hədəfləyir. Aktivləşdirilməsi dəstəklənən Linux nüvələrində performansı yaxşılaşdıra bilər.",
@@ -224,7 +226,6 @@
         },
         "preferSystemLibs": "Fərdi Şərab versiyaları (Wine-GE, Wine-Lutris) kitabxana asılılıqları ilə göndərilir. Bu seçimi aktiv etməklə, bu göndərilmiş kitabxanalar nəzərə alınmayacaq və Wine əvəzinə sistem kitabxanalarını yükləyəcək. Xəbərdarlıq! Asılılıqlar təmin edilmədikdə problemlər yarana bilər.",
         "primerun": "Multi-GPU sistemlərində oyunu göstərmək üçün xüsusi qrafik kartdan istifadə edin. Yalnız göstərmə üçün başsız GPU istifadə edən oyun noutbukları və ya stolüstü kompüterlərdə lazımdır (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA-nın Ölçüləndirilə bilən Çubuğu CPU-nun bütün qrafik buferinə daxil olmasını təmin edərək kadr sürətini artırmağa kömək edir. Aktivləşdirilməsi Vulkan əsaslı oyunlar üçün performansı yaxşılaşdıra bilər.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -254,6 +255,7 @@
     "infobox": {
         "help": "Kömək edin",
         "requirements": "Sistem Tələbləri",
+        "warning": "Warning",
         "wine-path": "Şərab yolu",
         "wine-prefix": {
             "title": "Şərab prefiksi"
@@ -377,6 +379,7 @@
     "placeholder": {
         "alt-gogdl-bin": "Daxili GOGDL ikili proqramından istifadə...",
         "alt-legendary-bin": "Daxili əfsanəvi ikili proqramdan istifadə...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "EGS-nin quraşdırıldığı prefiks",
         "prefered_language": "2 simvollu kod (yəni: \"en\" və ya \"fr\")"
     },
@@ -401,6 +404,7 @@
         "change-target-exe": "Çalıştırmaq üçün alternativ EXE seçin",
         "checkForUpdatesOnStartup": "Başlanğıcda qəhrəmanlıq yenilənmələrini yoxlayın",
         "crossover-version": "Krossover versiyası",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Xüsusi Şərab/Proton Yolları",
         "darktray": "Qaranlıq Tabla İkonundan istifadə edin",
         "default-install-path": "Defolt Quraşdırma Yolu",
@@ -470,7 +474,6 @@
         "prefered_language": "Üstünlük Verilən Dil (Dil Kodu)",
         "preferSystemLibs": "Sistem kitabxanalarına üstünlük verin",
         "primerun": "Xüsusi Qrafik Kartdan istifadə edin",
-        "resizableBar": "Ölçü dəyişdirilə bilən BAR-ı aktivləşdirin (yalnız NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Faylları buraya sürükləyin və buraxın",
             "title": "Prefiksdə EXE-ni işə salın"

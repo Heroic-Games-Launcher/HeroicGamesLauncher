@@ -171,7 +171,7 @@ export class GlobalState extends PureComponent<Props> {
   setTheme = (newThemeName: string) => {
     configStore.set('theme', newThemeName)
     this.setState({ theme: newThemeName })
-    document.body.className = newThemeName
+    window.setTheme(newThemeName)
   }
 
   zoomTimer: NodeJS.Timeout | undefined = undefined

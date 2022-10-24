@@ -205,6 +205,8 @@
     },
     "help": {
         "amdfsr": "AMD-ov FSR pomaže u povećanju frekvencije kadrova povećavajući niže rezolucije u načinu rada preko cijelog ekrana. Kvalitet slike se povećava sa 5 na 1 po cenu blagog smanjenja performansi. Omogućavanje može poboljšati performanse.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK je translacijski sloj baziran na Vulkanu za DirectX 9, 10 i 11 igre. Omogućavanje može poboljšati kompatibilnost. Može uzrokovati probleme posebno za starije DirectX igre.",
         "esync": "Esync ima za cilj smanjenje troškova wineservera u igrama koje zahtijevaju CPU. Omogućavanje može poboljšati performanse.",
         "fsync": "Fsync ima za cilj smanjenje troškova wineservera u igrama koje zahtijevaju CPU. Omogućavanje može poboljšati performanse na podržanim Linux kernelima.",
@@ -224,7 +226,6 @@
         },
         "preferSystemLibs": "Prilagođene verzije Wine-a (Wine-GE, Wine-Lutris) se isporučuju sa njihovim zavisnostima biblioteke. Ako omogućite ovu opciju, ove isporučene biblioteke će biti zanemarene i Wine će umjesto njih učitati sistemske biblioteke. Upozorenje! Problemi se mogu pojaviti ako ovisnosti nisu ispunjene.",
         "primerun": "Koristite namjensku grafičku karticu za renderiranje igre na multi-GPU sistemima. Potrebno samo na laptop računarima ili desktop računarima koji koriste GPU bez glave za renderovanje (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA-ina traka za promjenu veličine pomaže u povećanju brzine kadrova tako što CPU pristupa cijelom grafičkom baferu. Omogućavanje može poboljšati performanse za igre zasnovane na Vulkanu.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -254,6 +255,7 @@
     "infobox": {
         "help": "Pomoć",
         "requirements": "Sistemske postavke",
+        "warning": "Warning",
         "wine-path": "Put",
         "wine-prefix": {
             "title": "Vinski prefiks"
@@ -377,6 +379,7 @@
     "placeholder": {
         "alt-gogdl-bin": "Korištenje ugrađenog GOGDL binarne datoteke",
         "alt-legendary-bin": "Korištenje ugrađene Legendary binarne datoteke...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefiks gdje je EGS instaliran",
         "prefered_language": "kod od 2 znaka (tj.: \"en\" ili \"fr\")"
     },
@@ -401,6 +404,7 @@
         "change-target-exe": "Odaberite alternativni EXE za pokretanje",
         "checkForUpdatesOnStartup": "Provjeri ima li Heroic Updates pri pokretanju",
         "crossover-version": "Crossover verzija",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Prilagođeni putevi za Wine/Proton",
         "darktray": "Koristite Dark Tray ikonu",
         "default-install-path": "Zadani instalacijski put",
@@ -470,7 +474,6 @@
         "prefered_language": "Željeni jezik (šifra jezika)",
         "preferSystemLibs": "Preferirajte sistemske biblioteke",
         "primerun": "Koristite namjensku grafičku karticu",
-        "resizableBar": "Omogući promjenjivi BAR (samo NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Povucite i ispustite datoteke ovdje",
             "title": "Pokrenite EXE na prefiksu"

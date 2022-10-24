@@ -205,6 +205,8 @@
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK 是一个基于 Vulkan 的转译层，用于 DirectX 9、10和11游戏。启用也许会提高兼容性。但可能会导致问题，特别是对老的 DirectX 游戏。",
         "esync": "Esync 的目标是在 CPU 消耗很大的游戏中减少 wineserver 的开销。启用可能会提高性能。",
         "fsync": "Fsync 的目标是在 CPU 开销很大的游戏中减少 wineserver 的开销。启用可能会提高受支持的 Linux 内核的性能。",
@@ -224,7 +226,6 @@
         },
         "preferSystemLibs": "自定义 Wine 版本(Wine- ge、Wine- lutris)随它们的库依赖项一起发布。启用此选项，这些附带的库将被忽略，Wine 将加载系统库。警告！如果不满足依赖关系，可能会出现问题。",
         "primerun": "在多 GPU 系统上使用独立显卡渲染游戏。仅适用于使用无头 GPU 进行渲染的游戏笔记本或台式机 (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA 的 Resizable Bar 通过让 CPU 访问整个图形缓冲区来提高帧率。启用可能会提高基于 Vulkan 的游戏的性能。",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -254,6 +255,7 @@
     "infobox": {
         "help": "帮助",
         "requirements": "系统要求",
+        "warning": "Warning",
         "wine-path": "Wine 路径",
         "wine-prefix": {
             "title": "Wine 前缀"
@@ -377,6 +379,7 @@
     "placeholder": {
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Epic 游戏商城安装位置",
         "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")"
     },
@@ -401,6 +404,7 @@
         "change-target-exe": "选择要运行的替代 EXE",
         "checkForUpdatesOnStartup": "启动时检查 Heroic 更新",
         "crossover-version": "Crossover 版本",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
@@ -470,7 +474,6 @@
         "prefered_language": "首选语言 (语言代码)",
         "preferSystemLibs": "首选系统库",
         "primerun": "使用独立显卡",
-        "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
         "runexe": {
             "message": "将文件拖放到此处",
             "title": "在前置上运行 EXE"

@@ -205,6 +205,8 @@
     },
     "help": {
         "amdfsr": "AMD's FSR با ارتقاء مقیاس وضوح پایینتر در حالت تمام صفحه به افزایش فریم ریت کمک می کند. کیفیت تصویر در ازای کاهش جزئی عملکرد از ۵ به ۱ افزایش می یابد. فعال کردن ممکن است باعث بهبود کارایی شود.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK لایه ترجمهcای بر پایه Vulkan برای بازی های DirectX 9، 10، 11 می باشد. فعال کردن ممکن است سبب افزایش سازگاری شود. ممکن است باعث ایجاد مشکلات خصوصا برای بازی های DirectX قدیمی شود.",
         "esync": "Esync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است باعث افزایش کارایی شود.",
         "fsync": "Fsync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است در لینوکس کرنل های پشتیبانی شده باعث افزایش کارایی شود.",
@@ -224,7 +226,6 @@
         },
         "preferSystemLibs": "نسخه های سفارشی Wine (Wine-GE, Wine-Lutris) همراه با وابستگی های کتابخانه خود عرضه می شوند. با فعال کردن این گزینه، این کتابخانه ها نادیده گرفته شده و Wine به جای آن کتابخانه های سیستم را اجرا خواهد کرد. هشدار! در صورت عدم وجود وابستگی ها امکان بروز مشکلات وجود دارد.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar با ایجاد امکان دسترسی CPU به کل بافر گرافیک سبب افزایش نرخ فریم می شود.فعال کردن ممکن است باعث بهبود عملکرد بازی های مبتنی بر Vulkan شود.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -254,6 +255,7 @@
     "infobox": {
         "help": "راهنما",
         "requirements": "نیازمندیهای سیستم",
+        "warning": "Warning",
         "wine-path": "مسیر Wine",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -377,6 +379,7 @@
     "placeholder": {
         "alt-gogdl-bin": "استفاده از باینری GOGDL داخلی...",
         "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "محل نصب شده EGS",
         "prefered_language": "کد دو حرفی (مانند \"en\" یا \"fr\")"
     },
@@ -401,6 +404,7 @@
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
         "checkForUpdatesOnStartup": "بررسی برای به روزرسانی های Heroic در آغاز به کار",
         "crossover-version": "نسخه Crossover",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیشفرض نصب",
@@ -470,7 +474,6 @@
         "prefered_language": "زبان ترجیحی (کد زبان)",
         "preferSystemLibs": "ارجحیت کتابخانه های سیستم",
         "primerun": "استفاده از کارت گرافیک اختصاص یافته",
-        "resizableBar": "فعالسازی Resizable BAR (فقط محصولات NVIDIA RTX 30xx)",
         "runexe": {
             "message": "فایلها را اینجا درج کنید",
             "title": "اجرای EXE در محل"
