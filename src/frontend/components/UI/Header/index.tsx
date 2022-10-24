@@ -1,15 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { SearchBar } from 'frontend/components/UI'
 import StoreFilter from 'frontend/components/UI/StoreFilter'
-import ContextProvider from 'frontend/state/ContextProvider'
 import PlatformFilter from '../PlatformFilter'
 
 import './index.css'
 
 export default function Header() {
-  const { epic, gog } = useContext(ContextProvider)
-  const showStoreFilter = epic.username && gog.username
-
   return (
     <>
       <div className="Header">
@@ -17,7 +13,7 @@ export default function Header() {
           <SearchBar />
         </div>
         <span className="Header__filters">
-          {showStoreFilter && <StoreFilter />}
+          <StoreFilter />
           <PlatformFilter />
         </span>
       </div>
