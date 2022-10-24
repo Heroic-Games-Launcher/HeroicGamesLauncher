@@ -260,7 +260,7 @@ export default function SideloadDialog({
         <button
           onClick={async () => handleRunExe()}
           className={`button is-secondary`}
-          disabled={runningSetup}
+          disabled={runningSetup || !title.length}
         >
           {runningSetup
             ? t('button.running-setup', 'Running Setup')
