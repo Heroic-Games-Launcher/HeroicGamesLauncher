@@ -122,7 +122,7 @@ export async function launchApp(appName: string): Promise<boolean> {
       mangoHudCommand,
       gameModeBin,
       steamRuntime?.length
-        ? [...steamRuntime, `--filesystem=${gameInfo.install.install_path}`]
+        ? [...steamRuntime, `--filesystem=${gameInfo.folder_name}`]
         : undefined
     )
 
@@ -157,7 +157,7 @@ export async function launchApp(appName: string): Promise<boolean> {
         await chmod(executable, 0o775)
       }
 
-      const commandParts = [...shlex.split(launcherArgs ?? '')]
+      const commandParts = shlex.split(launcherArgs ?? '')
       await callRunner(
         commandParts,
         {

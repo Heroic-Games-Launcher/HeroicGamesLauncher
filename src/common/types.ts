@@ -86,7 +86,7 @@ export interface AppSettings {
   language: string
   launcherArgs: string
   maxRecentGames: number
-  maxSharpness: number
+  maxSharpness?: number
   maxWorkers: number
   minimizeOnLaunch: boolean
   nvidiaPrime: boolean
@@ -154,7 +154,7 @@ export interface GameSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
-  maxSharpness: number
+  maxSharpness?: number
   language: string
   launcherArgs: string
   nvidiaPrime: boolean
