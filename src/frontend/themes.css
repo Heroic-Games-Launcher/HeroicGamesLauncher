@@ -38,13 +38,13 @@ body.high-contrast {
   --navbar-accent: #ffffffff;
   --background: #121212ff;
   --body-background: #202020ff;
-  --background-darker: var(--body-background);
+  --background-darker: var(--background);
   --current-background: var(--body-background);
   --navbar-background: #121212ff;
   --navbar-active-background: #202020ff;
   --gradient-body-background: var(--background);
   --input-background: #262937ff;
-  --modal-background: var(--body-background);
+  --modal-background: var(--background);
   --modal-border: #ffffffff;
   --download-button: #44475a;
   --download-button-overlay: #007bff;
@@ -54,7 +54,7 @@ body.high-contrast {
   --primary-hover: #ff36a8;
   --danger: #ff0000;
   --text-title: #00ddff;
-  --icons-background: #121212ff;
+  --icons-background: var(--background);
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: #ffffffff;
