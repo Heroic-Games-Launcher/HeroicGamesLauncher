@@ -546,7 +546,7 @@ export class GlobalState extends PureComponent<Props> {
     const { epic, gameUpdates = [], libraryStatus, category } = this.state
     const oldCategory: string = category
     if (oldCategory === 'epic') {
-      this.handleCategory('legendary')
+      this.handleCategory('all')
     }
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(

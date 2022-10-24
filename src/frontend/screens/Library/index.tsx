@@ -128,10 +128,10 @@ export default function Library(): JSX.Element {
   useEffect(() => {
     // This code avoids getting stuck on a empty library after logout of the current selected store
     if (epicCategories.includes(category) && !epic.username) {
-      handleCategory('gog')
+      handleCategory('all')
     }
     if (gogCategories.includes(category) && !gog.username) {
-      handleCategory('legendary')
+      handleCategory('all')
     }
   }, [epic.username, gog.username])
 

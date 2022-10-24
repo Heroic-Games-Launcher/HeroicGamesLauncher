@@ -10,7 +10,7 @@ import {
   faWineGlass
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -37,7 +37,6 @@ export default function SidebarLinks() {
     is_installed: false
   })
   const { t } = useTranslation()
-  const navigate = useNavigate()
   const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
   const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
@@ -94,21 +93,6 @@ export default function SidebarLinks() {
 
   return (
     <div className="SidebarLinks Sidebar__section">
-      {loggedIn && (
-        <NavLink
-          className={({ isActive }) =>
-            classNames('Sidebar__item', { active: isActive })
-          }
-          to={'/'}
-        >
-          <>
-            <div className="Sidebar__itemIcon">
-              <FontAwesomeIcon icon={faGamepad} title={t('Library')} />
-            </div>
-            <span>{t('Library')}</span>
-          </>
-        </NavLink>
-      )}
       {!loggedIn && (
         <NavLink
           className={({ isActive }) =>
@@ -127,6 +111,19 @@ export default function SidebarLinks() {
           </>
         </NavLink>
       )}
+      <NavLink
+        className={({ isActive }) =>
+          classNames('Sidebar__item', { active: isActive })
+        }
+        to={'/'}
+      >
+        <>
+          <div className="Sidebar__itemIcon">
+            <FontAwesomeIcon icon={faGamepad} title={t('Library')} />
+          </div>
+          <span>{t('Library')}</span>
+        </>
+      </NavLink>
       <div className="SidebarItemWithSubmenu">
         <NavLink
           className={({ isActive }) =>
@@ -311,15 +308,17 @@ export default function SidebarLinks() {
           </>
         </NavLink>
       )}
-      <button className="Sidebar__item" onClick={() => navigate('/login')}>
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon
-            icon={faUserAlt}
-            title={t('userselector.manageaccounts', 'Manage Accounts')}
-          />
-        </div>
-        <span>{t('userselector.manageaccounts', 'Manage Accounts')}</span>
-      </button>
+      {loggedIn && (
+        <NavLink className="Sidebar__item" to={'/login'}>
+          <div className="Sidebar__itemIcon">
+            <FontAwesomeIcon
+              icon={faUserAlt}
+              title={t('userselector.manageaccounts', 'Manage Accounts')}
+            />
+          </div>
+          <span>{t('userselector.manageaccounts', 'Manage Accounts')}</span>
+        </NavLink>
+      )}
       <NavLink
         data-testid="accessibility"
         className={({ isActive }) =>
