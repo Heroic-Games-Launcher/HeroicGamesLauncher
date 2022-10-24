@@ -37,7 +37,8 @@ export default function AdvancedSettings() {
   const { hasGameStatus } = useContext(LibraryContext)
   const eosStatus = hasGameStatus(eosOverlayAppName)
 
-  const { platform, refreshLibrary } = useContext(ContextProvider)
+  const { platform, refreshLibrary, showResetDialog } =
+    useContext(ContextProvider)
   const { t } = useTranslation()
   const isWindows = platform === 'win32'
 
@@ -345,7 +346,7 @@ export default function AdvancedSettings() {
 
         <button
           className="button is-footer is-danger"
-          onClick={() => window.api.resetHeroic()}
+          onClick={showResetDialog}
         >
           <div className="button-icontext-flex">
             <div className="button-icon-flex">

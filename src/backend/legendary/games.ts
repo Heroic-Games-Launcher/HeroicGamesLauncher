@@ -40,8 +40,8 @@ import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { t } from 'i18next'
 import { isOnline } from '../online_monitor'
-import { showErrorBoxModalAuto } from '../dialog/dialog'
 import { setGameStatusOfElement } from '../handler/gamestatus/gamestatushandler'
+import { showDialogBoxModalAuto } from '../dialog/dialog'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -579,9 +579,10 @@ class LegendaryGame extends Game {
         this.logFileLocation,
         `Launch aborted: ${launchPrepFailReason}`
       )
-      showErrorBoxModalAuto({
+      showDialogBoxModalAuto({
         title: t('box.error.launchAborted', 'Launch aborted'),
-        error: launchPrepFailReason!
+        message: launchPrepFailReason!,
+        type: 'ERROR'
       })
       return false
     }
@@ -612,9 +613,10 @@ class LegendaryGame extends Game {
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
         if (wineLaunchPrepFailReason) {
-          showErrorBoxModalAuto({
+          showDialogBoxModalAuto({
             title: t('box.error.launchAborted', 'Launch aborted'),
-            error: wineLaunchPrepFailReason
+            message: wineLaunchPrepFailReason!,
+            type: 'ERROR'
           })
         }
         return false

@@ -54,10 +54,11 @@ export default function GamePage(): JSX.Element | null {
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const { epic, gog, gameUpdates, platform } = useContext(ContextProvider)
   const { hasGameStatus, hasDownloads } = useContext(LibraryContext)
   const gameStatus = hasGameStatus(appName)
   const isDownloading = hasDownloads()
+  const { epic, gog, gameUpdates, platform, showDialogModal } =
+    useContext(ContextProvider)
 
   // @ts-expect-error TODO: Proper default value
   const [gameInfo, setGameInfo] = useState<GameInfo>({})
@@ -603,7 +604,8 @@ export default function GamePage(): JSX.Element | null {
         t,
         launchArguments,
         runner: gameInfo.runner,
-        hasUpdate
+        hasUpdate,
+        showDialogModal
       })
 
       if (autoSyncSaves) {
@@ -627,7 +629,8 @@ export default function GamePage(): JSX.Element | null {
       isInstalling,
       gameStatus,
       t,
-      runner: gameInfo.runner
+      runner: gameInfo.runner,
+      showDialogModal: showDialogModal
     })
   }
 }

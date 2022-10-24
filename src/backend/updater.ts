@@ -3,7 +3,7 @@ import { autoUpdater } from 'electron-updater'
 import { t } from 'i18next'
 
 import { icon } from './constants'
-import { showErrorBoxModalAuto } from './dialog/dialog'
+import { showDialogBoxModalAuto } from './dialog/dialog'
 import { logError, LogPrefix } from './logger/logger'
 
 autoUpdater.autoDownload = false
@@ -49,12 +49,13 @@ autoUpdater.on('update-downloaded', async () => {
 })
 
 autoUpdater.on('error', (error) => {
-  showErrorBoxModalAuto({
+  showDialogBoxModalAuto({
     title: t('box.error.update.title', 'Update Error'),
-    error: t(
+    message: t(
       'box.error.update.message',
       'Something went wrong with the update, please check the logs or try again later!'
-    )
+    ),
+    type: 'ERROR'
   })
   logError(['failed to update', error], { prefix: LogPrefix.Backend })
 })
