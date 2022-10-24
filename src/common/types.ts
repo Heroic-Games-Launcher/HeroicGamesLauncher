@@ -6,6 +6,15 @@ import { IpcRendererEvent } from 'electron'
 
 export type Runner = 'legendary' | 'gog'
 
+// NOTE: Do not put enum's in this module or it will break imports
+
+export type DialogType = 'MESSAGE' | 'ERROR'
+
+export interface ButtonOptions {
+  text: string
+  onClick?: () => void
+}
+
 // here is a way to type the callback function in ipcMain.on or ipcMain.handle
 // does not prevent callbacks with fewer parameters from being passed though
 // the microsoft team is very opposed to enabling the above constraint https://github.com/microsoft/TypeScript/issues/17868
@@ -51,6 +60,7 @@ export interface AppSettings {
   enableUpdates: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
+  addSteamShortcuts: boolean
   altLegendaryBin: string
   altGogdlBin: string
   audioFix: boolean
@@ -73,7 +83,6 @@ export interface AppSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
-  enableResizableBar: boolean
   language: string
   launcherArgs: string
   maxRecentGames: number
@@ -145,7 +154,6 @@ export interface GameSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
-  enableResizableBar: boolean
   maxSharpness: number
   language: string
   launcherArgs: string

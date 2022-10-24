@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "沒有選擇之 Wine 版本。檢查遊戲設定！",
                 "title": "未找到Wine"
             },
@@ -280,7 +281,10 @@
         "website": "載入網站"
     },
     "login": {
-        "externalLogin": "外部登入"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "同步完成",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "自動添加桌面捷徑",
         "addgamestostartmenu": "自動添加捷徑到開始功能表",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "選擇要使用的備選 GOGDL 二進制文件",
         "alt-legendary-bin": "選擇備選的 Legendary 二進制文件",
         "audiofix": "音頻修覆（Pulse Audio延遲）",

@@ -1,6 +1,6 @@
-import './index.css'
+import './index.scss'
 
-import React, { useContext, useEffect, useState, MouseEvent } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
@@ -33,10 +33,18 @@ import { install } from 'frontend/helpers/library'
 import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import {
+  faTriangleExclamation,
+  faEllipsisV
+} from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader
+} from 'frontend/components/UI/Dialog'
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
@@ -45,11 +53,17 @@ export default function GamePage(): JSX.Element | null {
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
-  const [tabToShow, setTabToShow] = useState('infoTab')
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const { libraryStatus, handleGameStatus, epic, gog, gameUpdates, platform } =
-    useContext(ContextProvider)
+  const {
+    libraryStatus,
+    handleGameStatus,
+    epic,
+    gog,
+    gameUpdates,
+    platform,
+    showDialogModal
+  } = useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game) => game.appName === appName
   )[0]
@@ -72,6 +86,9 @@ export default function GamePage(): JSX.Element | null {
     error: boolean
     message: string | unknown
   }>({ error: false, message: '' })
+  const [winePrefix, setWinePrefix] = useState('')
+  const [wineVersion, setWineVersion] = useState('')
+  const [showRequirements, setShowRequirements] = useState(false)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -117,17 +134,32 @@ export default function GamePage(): JSX.Element | null {
             window.api.logError(`${error}`)
             setHasError({ error: true, message: `${error}` })
           })
-        if (newInfo?.cloud_save_enabled) {
-          try {
-            const { autoSyncSaves, savesPath, gogSaves }: AppSettings =
-              await window.api.requestSettings(appName)
+        try {
+          const {
+            autoSyncSaves,
+            savesPath,
+            gogSaves,
+            wineVersion,
+            winePrefix
+          }: AppSettings = await window.api.requestSettings(appName)
+
+          let wine = wineVersion.name
+            .replace('Wine - ', '')
+            .replace('Proton - ', '')
+          if (wine.includes('Default')) {
+            wine = wine.split('-')[0]
+          }
+          setWineVersion(wine)
+          setWinePrefix(winePrefix)
+
+          if (newInfo?.cloud_save_enabled) {
             setAutoSyncSaves(autoSyncSaves)
             setGOGSaves(gogSaves ?? [])
             return setSavesPath(savesPath)
-          } catch (error) {
-            setHasError({ error: true, message: error })
-            window.api.logError(`${error}`)
           }
+        } catch (error) {
+          setHasError({ error: true, message: error })
+          window.api.logError(`${error}`)
         }
       } catch (error) {
         console.error({ error })
@@ -154,6 +186,7 @@ export default function GamePage(): JSX.Element | null {
   }
 
   let hasUpdate = false
+  let hasRequirements = false
 
   if (gameInfo && gameInfo.install) {
     const {
@@ -173,6 +206,7 @@ export default function GamePage(): JSX.Element | null {
       canRunOffline
     }: GameInfo = gameInfo
 
+    hasRequirements = extra?.reqs?.length > 0
     hasUpdate = is_installed && gameUpdates?.includes(appName)
 
     const downloadSize =
@@ -198,12 +232,6 @@ export default function GamePage(): JSX.Element | null {
     t('box.stopInstall.message')
     t('box.stopInstall.keepInstalling')
     */
-
-    const onTabClick = (event: MouseEvent) => {
-      const button = event.target as HTMLButtonElement
-      const tab = button.dataset.tab
-      setTabToShow(`${tab}Tab`)
-    }
 
     if (hasError.error) {
       const message =
@@ -232,206 +260,16 @@ export default function GamePage(): JSX.Element | null {
             >
               <ArrowCircleLeftIcon />
             </NavLink>
-
-            <div className={`gameTabs ${tabToShow}`}>
-              {
-                <>
-                  <nav className="gamePageNavBar">
-                    <button data-tab="info" onClick={onTabClick}>
-                      {t('game.info', 'Info')}
-                    </button>
-                    <button data-tab="tools" onClick={onTabClick}>
-                      {t('game.tools', 'Tools')}
-                    </button>
-                    <button data-tab="requirements" onClick={onTabClick}>
-                      {t('game.requirements', 'System Requirements')}
-                    </button>
-                    <div className="gamePageStoreIcon">
-                      {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
-                    </div>
-                  </nav>
-
-                  <div className="gameInfo">
-                    <h1 className="title">{title}</h1>
-                    <div className="infoWrapper">
-                      <div className="developer">{developer}</div>
-                      <div className="summary">
-                        {extra && extra.about
-                          ? extra.about.description
-                            ? extra.about.description
-                            : extra.about.longDescription
-                            ? extra.about.longDescription
-                            : ''
-                          : ''}
-                      </div>
-                      {is_installed && showCloudSaveInfo && (
-                        <div
-                          style={{
-                            color: autoSyncSaves ? '#07C5EF' : ''
-                          }}
-                        >
-                          {t('info.syncsaves')}:{' '}
-                          {autoSyncSaves ? t('enabled') : t('disabled')}
-                        </div>
-                      )}
-                      {is_installed && !showCloudSaveInfo && (
-                        <div
-                          style={{
-                            color: 'var(--danger)'
-                          }}
-                        >
-                          {t('info.syncsaves')}:{' '}
-                          {t('cloud_save_unsupported', 'Unsupported')}
-                        </div>
-                      )}
-                      {!is_installed && (
-                        <>
-                          <div>
-                            {t('game.downloadSize', 'Download Size')}:{' '}
-                            {downloadSize ?? '...'}
-                          </div>
-                          <div>
-                            {t('game.installSize', 'Install Size')}:{' '}
-                            {installSize ?? '...'}
-                          </div>
-                          <br />
-                        </>
-                      )}
-                      {is_installed && (
-                        <>
-                          <div>
-                            {t('info.size')}: {install_size}
-                          </div>
-                          <div style={{ textTransform: 'capitalize' }}>
-                            {t('info.installedPlatform', 'Installed Platform')}:{' '}
-                            {installPlatform === 'osx'
-                              ? 'MacOS'
-                              : installPlatform}
-                          </div>
-                          <div>
-                            {t('info.version')}: {version}
-                          </div>
-                          <div>
-                            {t('info.canRunOffline', 'Online Required')}:{' '}
-                            {t(canRunOffline ? 'box.no' : 'box.yes')}
-                          </div>
-                          <div
-                            className="clickable"
-                            onClick={() =>
-                              install_path !== undefined
-                                ? window.api.openFolder(install_path)
-                                : {}
-                            }
-                          >
-                            {t('info.path')}: {install_path}
-                          </div>
-                          <br />
-                        </>
-                      )}
-                    </div>
-                    <TimeContainer game={appName} />
-                    <div className="gameStatus">
-                      {isInstalling ||
-                        (isUpdating && (
-                          <progress
-                            className="installProgress"
-                            max={100}
-                            value={getProgress(progress)}
-                          />
-                        ))}
-                      <p
-                        style={{
-                          color:
-                            is_installed || isInstalling
-                              ? 'var(--success)'
-                              : 'var(--danger)',
-                          fontStyle: 'italic'
-                        }}
-                      >
-                        {getInstallLabel(is_installed)}
-                      </p>
-                    </div>
-                    {is_installed && Boolean(launchOptions.length) && (
-                      <SelectField
-                        htmlId="launch_options"
-                        onChange={(event) =>
-                          setLaunchArguments(event.target.value)
-                        }
-                        value={launchArguments}
-                        prompt={t('launch.options', 'Launch Options...')}
-                      >
-                        {launchOptions.map(({ name, parameters }) => (
-                          <option key={parameters} value={parameters}>
-                            {name}
-                          </option>
-                        ))}
-                      </SelectField>
-                    )}
-                    <Anticheat gameInfo={gameInfo} />
-                    <div className="buttonsWrapper">
-                      {is_installed && (
-                        <>
-                          <button
-                            disabled={isReparing || isMoving || isUpdating}
-                            onClick={handlePlay()}
-                            className={`button ${getPlayBtnClass()}`}
-                          >
-                            {getPlayLabel()}
-                          </button>
-                        </>
-                      )}
-                      {is_installed ? (
-                        <Link
-                          to={pathname}
-                          state={{
-                            fromGameCard: false,
-                            runner,
-                            isLinuxNative: isNative,
-                            isMacNative: isNative,
-                            hasCloudSave: cloud_save_enabled
-                          }}
-                          className={`button ${getButtonClass(is_installed)}`}
-                        >
-                          {`${getButtonLabel(is_installed)}`}
-                        </Link>
-                      ) : (
-                        <button
-                          onClick={async () => handleInstall(is_installed)}
-                          disabled={
-                            isPlaying ||
-                            isUpdating ||
-                            isReparing ||
-                            isMoving ||
-                            (hasDownloads && !isInstalling)
-                          }
-                          className={`button ${getButtonClass(is_installed)}`}
-                        >
-                          {`${getButtonLabel(is_installed)}`}
-                        </button>
-                      )}
-                    </div>
-                    {is_installed && (
-                      <NavLink
-                        to={`/settings/${runner}/${appName}/log`}
-                        state={{
-                          fromGameCard: false,
-                          runner,
-                          isLinuxNative: isNative,
-                          isMacNative: isNative,
-                          hasCloudSave: cloud_save_enabled
-                        }}
-                        className="clickable reportProblem"
-                      >
-                        <>
-                          {<FontAwesomeIcon icon={faTriangleExclamation} />}
-                          {t(
-                            'report_problem',
-                            'Report a problem running this game'
-                          )}
-                        </>
-                      </NavLink>
-                    )}
-                  </div>
+            <div className="store-icon">
+              {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
+            </div>
+            <div className="gameInfo">
+              <div className="titleWrapper">
+                <h1 className="title">{title}</h1>
+                <div className="game-actions">
+                  <button className="toggle">
+                    <FontAwesomeIcon icon={faEllipsisV} />
+                  </button>
 
                   <GameSubMenu
                     appName={appName}
@@ -441,12 +279,215 @@ export default function GamePage(): JSX.Element | null {
                     runner={gameInfo.runner}
                     handleUpdate={handleUpdate}
                     disableUpdate={updateRequested || isUpdating}
-                    steamImageUrl={gameInfo.art_cover}
+                    onShowRequirements={
+                      hasRequirements
+                        ? () => setShowRequirements(true)
+                        : undefined
+                    }
                   />
-                  <GameRequirements gameInfo={gameInfo} />
-                </>
-              }
+                </div>
+              </div>
+              <div className="infoWrapper">
+                <div className="developer">{developer}</div>
+                <div className="summary">
+                  {extra && extra.about
+                    ? extra.about.description
+                      ? extra.about.description
+                      : extra.about.longDescription
+                      ? extra.about.longDescription
+                      : ''
+                    : ''}
+                </div>
+                {is_installed && showCloudSaveInfo && (
+                  <div
+                    style={{
+                      color: autoSyncSaves ? '#07C5EF' : ''
+                    }}
+                  >
+                    <b>{t('info.syncsaves')}:</b>{' '}
+                    {autoSyncSaves ? t('enabled') : t('disabled')}
+                  </div>
+                )}
+                {is_installed && !showCloudSaveInfo && (
+                  <div
+                    style={{
+                      color: '#F45460'
+                    }}
+                  >
+                    <b>{t('info.syncsaves')}:</b>{' '}
+                    {t('cloud_save_unsupported', 'Unsupported')}
+                  </div>
+                )}
+                {!is_installed && (
+                  <>
+                    <div>
+                      <b>{t('game.downloadSize', 'Download Size')}:</b>{' '}
+                      {downloadSize ?? '...'}
+                    </div>
+                    <div>
+                      <b>{t('game.installSize', 'Install Size')}:</b>{' '}
+                      {installSize ?? '...'}
+                    </div>
+                    <br />
+                  </>
+                )}
+                {is_installed && (
+                  <>
+                    <div>
+                      <b>{t('info.size')}:</b> {install_size}
+                    </div>
+                    <div style={{ textTransform: 'capitalize' }}>
+                      <b>
+                        {t('info.installedPlatform', 'Installed Platform')}:
+                      </b>{' '}
+                      {installPlatform === 'osx' ? 'MacOS' : installPlatform}
+                    </div>
+                    <div>
+                      <b>{t('info.version')}:</b> {version}
+                    </div>
+                    <div>
+                      <b>{t('info.canRunOffline', 'Online Required')}:</b>{' '}
+                      {t(canRunOffline ? 'box.no' : 'box.yes')}
+                    </div>
+                    <div
+                      className="clickable"
+                      onClick={() =>
+                        install_path !== undefined
+                          ? window.api.openFolder(install_path)
+                          : {}
+                      }
+                    >
+                      <b>{t('info.path')}:</b> {install_path}
+                    </div>
+                    {isLinux && !isNative && (
+                      <>
+                        <div>
+                          <b>Wine:</b> {wineVersion}
+                        </div>
+                        <div
+                          className="clickable"
+                          onClick={() => window.api.openFolder(winePrefix)}
+                        >
+                          <b>Prefix:</b> {winePrefix}
+                        </div>
+                      </>
+                    )}
+                    <br />
+                  </>
+                )}
+              </div>
+              <TimeContainer game={appName} />
+              <div className="gameStatus">
+                {isInstalling ||
+                  (isUpdating && (
+                    <progress
+                      className="installProgress"
+                      max={100}
+                      value={getProgress(progress)}
+                    />
+                  ))}
+                <p
+                  style={{
+                    color:
+                      is_installed || isInstalling
+                        ? 'var(--success)'
+                        : 'var(--danger)',
+                    fontStyle: 'italic'
+                  }}
+                >
+                  {getInstallLabel(is_installed)}
+                </p>
+              </div>
+              {is_installed && Boolean(launchOptions.length) && (
+                <SelectField
+                  htmlId="launch_options"
+                  onChange={(event) => setLaunchArguments(event.target.value)}
+                  value={launchArguments}
+                  prompt={t('launch.options', 'Launch Options...')}
+                >
+                  {launchOptions.map(({ name, parameters }) => (
+                    <option key={parameters} value={parameters}>
+                      {name}
+                    </option>
+                  ))}
+                </SelectField>
+              )}
+              <Anticheat gameInfo={gameInfo} />
+              <div className="buttonsWrapper">
+                {is_installed && (
+                  <>
+                    <button
+                      disabled={isReparing || isMoving || isUpdating}
+                      onClick={handlePlay()}
+                      className={`button ${getPlayBtnClass()}`}
+                    >
+                      {getPlayLabel()}
+                    </button>
+                  </>
+                )}
+                {is_installed ? (
+                  <Link
+                    to={pathname}
+                    state={{
+                      fromGameCard: false,
+                      runner,
+                      isLinuxNative: isNative,
+                      isMacNative: isNative,
+                      hasCloudSave: cloud_save_enabled
+                    }}
+                    className={`button ${getButtonClass(is_installed)}`}
+                  >
+                    {`${getButtonLabel(is_installed)}`}
+                  </Link>
+                ) : (
+                  <button
+                    onClick={async () => handleInstall(is_installed)}
+                    disabled={
+                      isPlaying ||
+                      isUpdating ||
+                      isReparing ||
+                      isMoving ||
+                      (hasDownloads && !isInstalling)
+                    }
+                    className={`button ${getButtonClass(is_installed)}`}
+                  >
+                    {`${getButtonLabel(is_installed)}`}
+                  </button>
+                )}
+              </div>
+              {is_installed && (
+                <NavLink
+                  to={`/settings/${runner}/${appName}/log`}
+                  state={{
+                    fromGameCard: false,
+                    runner,
+                    isLinuxNative: isNative,
+                    isMacNative: isNative,
+                    hasCloudSave: cloud_save_enabled
+                  }}
+                  className="clickable reportProblem"
+                >
+                  <>
+                    {<FontAwesomeIcon icon={faTriangleExclamation} />}
+                    {t('report_problem', 'Report a problem running this game')}
+                  </>
+                </NavLink>
+              )}
             </div>
+
+            {hasRequirements && showRequirements && (
+              <Dialog onClose={() => setShowRequirements(false)}>
+                <DialogHeader
+                  showCloseButton={true}
+                  onClose={() => setShowRequirements(false)}
+                >
+                  <div>{t('game.requirements', 'Requirements')}</div>
+                </DialogHeader>
+                <DialogContent>
+                  <GameRequirements gameInfo={gameInfo} />
+                </DialogContent>
+              </Dialog>
+            )}
           </>
         ) : (
           <UpdateComponent />
@@ -574,7 +615,8 @@ export default function GamePage(): JSX.Element | null {
         t,
         launchArguments,
         runner: gameInfo.runner,
-        hasUpdate
+        hasUpdate,
+        showDialogModal
       })
 
       if (autoSyncSaves) {
@@ -604,7 +646,8 @@ export default function GamePage(): JSX.Element | null {
       previousProgress,
       progress,
       t,
-      runner: gameInfo.runner
+      runner: gameInfo.runner,
+      showDialogModal: showDialogModal
     })
   }
 }

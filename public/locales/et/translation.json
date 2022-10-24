@@ -69,6 +69,7 @@
                 "title": "Viga uuendamisel"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Wine'i versiooni pole valitud. Kontrolli mängu seadeid!",
                 "title": "Wine'i ei leitud"
             },
@@ -280,7 +281,10 @@
         "website": "Veebilehe laadimine"
     },
     "login": {
-        "externalLogin": "Väline sisselogimine"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sünkroonimine lõpetatud",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Lisa töölaua otseteed automaatselt",
         "addgamestostartmenu": "Mängude automaatne lisamine stardimenüüsse",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Valige alternatiivne GOGDL binaarfail",
         "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail",
         "audiofix": "Heliparandus (Pulse Audio Latency)",

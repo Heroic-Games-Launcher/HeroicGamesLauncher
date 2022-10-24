@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Tidak Ada Versi Wine yang Dipilih. Periksa Pengaturan Gim!",
                 "title": "Wine Tidak Ditemukan"
             },
@@ -280,7 +281,10 @@
         "website": "Memuat Situs Web"
     },
     "login": {
-        "externalLogin": "Log Masuk Eksternal"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sinkronisasi Selesai",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Tambahkan pintasan desktop secara otomatis",
         "addgamestostartmenu": "Tambahkan gim untuk memulai menu secara otomatis",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Pilih GOGDL Binary alternatif untuk digunakan",
         "alt-legendary-bin": "Pilih Legendary Binary Alternatif",
         "audiofix": "Perbaikan Audio (Latensi Pulsa Audio )",

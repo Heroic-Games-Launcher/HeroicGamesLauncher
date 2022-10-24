@@ -69,6 +69,7 @@
                 "title": "Ошибка обновления"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
                 "title": "Wine не найден"
             },
@@ -280,7 +281,10 @@
         "website": "Загрузка веб-сайта"
     },
     "login": {
-        "externalLogin": "Внешний вход"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Создать ярлыки на рабочем столе автоматически",
         "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Выбрать другой исполняемый файл GOGDL",
         "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",

@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine non trouvé"
             },
@@ -280,7 +281,10 @@
         "website": "Chargement du site internet"
     },
     "login": {
-        "externalLogin": "External Login"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synchronisation Complète",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choisir un binaire GOGDL alternatif à utiliser",
         "alt-legendary-bin": "Choisir un autre exécutable Legendary (redémarrage Heroic nécessaire)",
         "audiofix": "Corriger l'audio (Latence Pulse Audio)",

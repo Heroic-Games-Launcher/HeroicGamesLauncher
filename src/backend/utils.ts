@@ -42,7 +42,7 @@ import {
 } from './gog/electronStores'
 import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
-import { showErrorBoxModalAuto } from './dialog/dialog'
+import { showDialogBoxModalAuto } from './dialog/dialog'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -247,7 +247,13 @@ async function handleExit(window: BrowserWindow) {
   app.exit()
 }
 
+// This won't change while the app is running
+// Caching significantly increases performance when launching games
+let systemInfoCache = ''
 export const getSystemInfo = async () => {
+  if (systemInfoCache !== '') {
+    return systemInfoCache
+  }
   const heroicVersion = getHeroicVersion()
   const legendaryVersion = await getLegendaryVersion()
 
@@ -276,7 +282,7 @@ export const getSystemInfo = async () => {
     ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
     : ''
 
-  return `Heroic Version: ${heroicVersion}
+  systemInfoCache = `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
 OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
 CPU: ${manufacturer} ${brand} @${speed} ${
@@ -285,6 +291,7 @@ CPU: ${manufacturer} ${brand} @${speed} ${
 RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
 GRAPHICS: ${graphicsCards}
 ${isLinux ? `PROTOCOL: ${xEnv}` : ''}`
+  return systemInfoCache
 }
 
 type ErrorHandlerMessage = {
@@ -312,12 +319,13 @@ async function errorHandler(
       .then(async ({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
           logError(noSpaceMsg, { prefix: LogPrefix.Backend })
-          return showErrorBoxModalAuto({
+          return showDialogBoxModalAuto({
             title: i18next.t('box.error.diskspace.title', 'No Space'),
-            error: i18next.t(
+            message: i18next.t(
               'box.error.diskspace.message',
               'Not enough available disk space'
-            )
+            ),
+            type: 'ERROR'
           })
         }
       })
@@ -347,12 +355,13 @@ async function errorHandler(
 
     otherErrorMessages.forEach(async (message) => {
       if (error.includes(message)) {
-        return showErrorBoxModalAuto({
+        return showDialogBoxModalAuto({
           title: plat,
-          error: i18next.t(
+          message: i18next.t(
             'box.error.credentials.message',
             'Your Crendentials have expired, Logout and Login Again!'
-          )
+          ),
+          type: 'ERROR'
         })
       }
     })

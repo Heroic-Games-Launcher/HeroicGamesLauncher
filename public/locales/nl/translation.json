@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
             },
@@ -280,7 +281,10 @@
         "website": "Loading Website"
     },
     "login": {
-        "externalLogin": "External Login"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synchronisatie compleet",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Desktop shortcuts automatish toevoegen",
         "addgamestostartmenu": "Spellen automatish toevoegen aan start menu",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Kies een andere Legendary Binary om te gebruiken",
         "audiofix": "Geluid fix (Pulse Audio Latency)",

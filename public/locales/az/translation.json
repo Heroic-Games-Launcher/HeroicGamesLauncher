@@ -69,6 +69,7 @@
                 "title": "Yeniləmə xətası"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Şərab Versiyası Seçilməyib. Oyun Parametrlərini yoxlayın!",
                 "title": "Şərab tapılmadı"
             },
@@ -280,7 +281,10 @@
         "website": "Veb sayt yüklənir"
     },
     "login": {
-        "externalLogin": "Xarici Giriş"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sinxronizasiya tamamlandı",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "İş masası qısayollarını avtomatik əlavə edin",
         "addgamestostartmenu": "Menyuya avtomatik başlamaq üçün oyunlar əlavə edin",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "İstifadə etmək üçün Alternativ GOGDL Binary seçin",
         "alt-legendary-bin": "Alternativ Əfsanəvi Binary seçin",
         "audiofix": "Audio Düzəltmə (Pulse Audio Latency)",

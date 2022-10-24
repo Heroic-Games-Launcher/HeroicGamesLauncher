@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Není vybrána žádná verze Wine. Zkontrolujte nastavení hry!",
                 "title": "Wine nenalezen"
             },
@@ -280,7 +281,10 @@
         "website": "Načítání webu"
     },
     "login": {
-        "externalLogin": "Externí přihlášení"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Vyberte alternativní spustitelný soubor GOGDL, který chcete použít",
         "alt-legendary-bin": "Vyberte alternativní spustitelný soubor Legendary",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",

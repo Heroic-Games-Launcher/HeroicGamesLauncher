@@ -69,6 +69,7 @@
                 "title": "Eguneraketa errorea"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Ez da Wine bertsioa hautatu. Egiaztatu jokoaren konfigurazioa!",
                 "title": "Wine ez da aurkitu"
             },
@@ -280,7 +281,10 @@
         "website": "Webgunea kargatzen"
     },
     "login": {
-        "externalLogin": "Kanpoko saioa"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sinkronizazioa amaituta",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Gehitu mahaigaineko lasterbideak automatikoki",
         "addgamestostartmenu": "Gehitu jokoak menua automatikoki hasteko",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Aukeratu GOGDL Binario alternatibo bat erabiltzeko",
         "alt-legendary-bin": "Aukeratu kondairazko bitar alternatibo bat",
         "audiofix": "Audio konponketa (Pultso Audio latentzia)",

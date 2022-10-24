@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, CSSProperties, useMemo } from 'react'
+import React, { useContext, CSSProperties, useMemo, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
@@ -16,7 +16,7 @@ import { getProgress, install, launch, sendKill } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import fallbackImage from 'frontend/assets/fallback-image.jpg'
-import { uninstall, updateGame } from 'frontend/helpers/library'
+import { updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
@@ -24,6 +24,7 @@ import { hasProgress } from 'frontend/hooks/hasProgress'
 import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import classNames from 'classnames'
+import UninstallModal from 'frontend/components/UI/UninstallModal'
 
 interface Card {
   appName: string
@@ -58,6 +59,7 @@ const GameCard = ({
   installedPlatform
 }: Card) => {
   const [progress, previousProgress] = hasProgress(appName)
+  const [showUninstallModal, setShowUninstallModal] = useState(false)
 
   const { t } = useTranslation('gamepage')
 
@@ -71,7 +73,8 @@ const GameCard = ({
     favouriteGames,
     allTilesInColor,
     epic,
-    gog
+    gog,
+    showDialogModal
   } = useContext(ContextProvider)
 
   const isWin = platform === 'win32'
@@ -221,6 +224,10 @@ const GameCard = ({
     ? `/settings/${runner}/${appName}/other`
     : `/settings/${runner}/${appName}/wine`
 
+  const onUninstallClick = function () {
+    setShowUninstallModal(true)
+  }
+
   const items: Item[] = [
     {
       label: t('label.playing.start'),
@@ -248,13 +255,7 @@ const GameCard = ({
     },
     {
       label: t('button.uninstall'),
-      onclick: async () =>
-        uninstall({
-          appName,
-          handleGameStatus,
-          t,
-          runner
-        }),
+      onclick: onUninstallClick,
       show: isInstalled
     },
     {
@@ -326,6 +327,13 @@ const GameCard = ({
 
   return (
     <>
+      {showUninstallModal && (
+        <UninstallModal
+          appName={appName}
+          runner={runner}
+          onClose={() => setShowUninstallModal(false)}
+        />
+      )}
       <ContextMenu items={items}>
         <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
@@ -421,14 +429,15 @@ const GameCard = ({
         previousProgress,
         progress,
         t,
-        runner
+        runner,
+        showDialogModal
       })
     }
     if (status === 'playing' || status === 'updating') {
       return sendKill(appName, runner)
     }
     if (isInstalled) {
-      return launch({ appName, t, runner, hasUpdate })
+      return launch({ appName, t, runner, hasUpdate, showDialogModal })
     }
     return
   }

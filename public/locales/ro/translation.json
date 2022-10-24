@@ -69,6 +69,7 @@
                 "title": "Eroare de actualizare"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Nicio versiune Wine selectată. Verificați setările jocului!",
                 "title": "Wine nu a fost găsit"
             },
@@ -280,7 +281,10 @@
         "website": "Se încarcă site-ul web"
     },
     "login": {
-        "externalLogin": "Autentificare externă"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sincronizare Completă",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Adăugați automat comenzi rapide pe desktop",
         "addgamestostartmenu": "Adăugați jocuri în meniul Start automat",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Alegeți un binar GOGDL alternativ pe care să îl utilizați",
         "alt-legendary-bin": "Alegeți un Legendary Binary alternativ pe care să îl utilizați",
         "audiofix": "Fixare Audio (Latență în PulseAudio)",

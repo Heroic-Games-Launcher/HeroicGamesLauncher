@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Chưa chọn phiên bản Wine. Kiểm tra phần cài đặt!",
                 "title": "Không tìm thấy Wine"
             },
@@ -280,7 +281,10 @@
         "website": "Đang tải trang web"
     },
     "login": {
-        "externalLogin": "Đăng nhập bên ngoài"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Hoàn tất quá trình đồng bộ",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Tự động thêm shortcut trên màn hình chính",
         "addgamestostartmenu": "Tự động thêm game vào menu Start",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Chọn GOGDL binary thay thế để sử dụng",
         "alt-legendary-bin": "Chọn Legendary binary thay thế để sử dụng",
         "audiofix": "Sửa âm thanh (Pulse Audio Latency)",

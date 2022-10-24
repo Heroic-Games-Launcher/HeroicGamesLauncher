@@ -5,7 +5,6 @@ import React, { useContext } from 'react'
 import WinePrefix from './WinePrefix'
 import PreferSystemLibs from './PreferSystemLibs'
 import EnableFSR from './EnableFSR'
-import ResizableBar from './ResizableBar'
 import EnableEsync from './EnableEsync'
 import EnableFsync from './EnableFsync'
 import CrossoverBottle from './CrossoverBottle'
@@ -39,8 +38,6 @@ export default function WineSettings() {
       <PreferSystemLibs />
 
       <EnableFSR />
-
-      <ResizableBar />
 
       <EnableEsync />
 

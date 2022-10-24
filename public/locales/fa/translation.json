@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "نسخه ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
                 "title": "Wine یافت نشد"
             },
@@ -280,7 +281,10 @@
         "website": "درحال بارگیری وبسایت"
     },
     "login": {
-        "externalLogin": "ورود خارجی"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "همگامسازی کامل شد",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده",
         "alt-legendary-bin": "انتخاب باینری Legendary جایگزین",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",

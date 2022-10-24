@@ -1,8 +1,10 @@
 .loginPage {
+  --wrapper-padding: 30px;
+  --message-padding: 40px;
+  --login-padding: 14px;
   display: grid;
   width: 100%;
   height: 100%;
-  overflow-y: hidden;
 }
 
 .loginBackground {
@@ -16,61 +18,166 @@
 }
 
 .loginContentWrapper {
-  width: 100%;
+  width: 75%;
   height: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-direction: column;
   grid-column: 1;
   grid-row: 1;
   z-index: 1;
+  margin: 0 auto;
 }
 
 .runnerList {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   user-select: none;
-  width: 100%;
   flex-wrap: wrap;
+  background-color: var(--background);
+  padding: var(--wrapper-padding);
+  border-radius: 10px;
+  margin-top: 25%;
+  min-width: 300px;
+}
+
+.languageSelector {
+  position: absolute;
+  bottom: calc(100% + var(--login-padding));
+  left: 0;
+  width: 300px;
+}
+
+.runnerList,
+.languageSelector {
+  width: 100%;
 }
 
 .goToLibrary {
   position: relative;
   font-family: var(--font-primary-bold);
-  top: 10%;
-  color: var(--text-default);
-  background-color: var(--background-darker);
+  font-weight: 700;
+  color: var(--background);
+  background-color: var(--accent);
   border: none;
-  font-size: var(--text-xl);
-  padding: var(--space-md);
+  padding: 10px 40px;
+  border-radius: 10px;
+  font-size: var(--text-default);
   border-radius: var(--space-2xs);
   cursor: pointer;
   transition: 0.2s;
   width: fit-content;
   backdrop-filter: blur(var(--blur-light));
+  margin: 20px 0px 10px auto;
+  text-transform: uppercase;
 }
 
 .goToLibrary:hover {
-  color: var(--text-hover);
+  color: var(--text-default);
 }
 
 .goToLibrary.disabled {
   cursor: default;
-  color: var(--text-default);
+  color: var(--background);
   display: none;
 }
 
-.loginPage .languageSelector {
-  position: absolute;
-  width: 300px;
-  top: 10vh;
+.loginPage .languageSelector label {
+  margin-bottom: var(--space-xs);
 }
 
-.loginPage .languageSelector label {
-  justify-self: center;
-  margin-bottom: 0.5rem;
+.loginPage .smallLink {
+  text-align: left;
+  margin-top: var(--space-xs);
+}
+
+.title,
+.subtitle {
+  margin: 0;
+}
+
+.title {
+  font-family: var(--actions-font-family);
+  font-size: 18px;
+  margin: 0;
+  color: var(--accent);
+}
+
+.subtitle {
+  font-size: 12px;
+  font-family: var(--actions-font-family);
+  font-weight: 400;
+  color: var(--text-default);
+}
+
+.runnerHeader {
+  display: flex;
+  width: 100%;
+  padding-bottom: var(--message-padding);
+}
+
+.runnerHeaderText {
+  text-align: start;
+  margin-left: 60px;
+  align-self: center;
+}
+
+.runnerHeaderIcon {
+  position: absolute;
+  width: 60px;
+  padding-right: 8px;
+  align-self: center;
+}
+
+.runnerMessage {
+  width: 75%;
+  margin-top: 0;
+  margin-bottom: var(--message-padding);
+  text-align: left;
+}
+
+.runnerGroup {
+  width: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--login-padding);
+}
+
+@media screen and (min-width: 850px) {
+  .loginContentWrapper {
+    width: max(500px, 75%);
+    height: auto;
+    margin: auto;
+  }
+
+  /* Enable when there have been more than 5 logins added */
+  /* .runnerGroup {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    overflow-y: unset;
+    max-height: unset;
+    padding-right: 0;
+  } */
+
+  .runnerList {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .runnerWrapper:nth-child(odd):last-child {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .runnerHeaderText {
+    flex: 2;
+  }
+
+  .languageSelector {
+    position: relative;
+    width: 300px;
+  }
 }

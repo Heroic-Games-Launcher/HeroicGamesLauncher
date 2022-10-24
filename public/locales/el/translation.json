@@ -69,6 +69,7 @@
                 "title": "Σφάλμα ενημέρωσης"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Δεν επιλέχθηκε έκδοση Wine. Ελέγξτε τις ρυθμίσεις παιχνιδιού!",
                 "title": "Το Wine δεν βρέθηκε"
             },
@@ -280,7 +281,10 @@
         "website": "Φόρτωση Ιστοσελίδας"
     },
     "login": {
-        "externalLogin": "Εξωτερική Σύνδεση"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
@@ -387,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Αυτόματη προσθήκη συντομεύσεων επιφάνειας εργασίας",
         "addgamestostartmenu": "Αυτόματη προσθήκη παιχνιδιών στο Μενού εκκίνησης",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Επιλογή Εναλλακτικού δυαδικού GOGDL για χρήση",
         "alt-legendary-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Legendary",
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
