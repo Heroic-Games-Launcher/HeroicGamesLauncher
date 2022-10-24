@@ -248,7 +248,8 @@ export default function SideloadDialog({
                     buttonLabel: t('box.select.button', 'Select'),
                     properties: ['openFile'],
                     title: t('box.sideload.exe', 'Select Executable'),
-                    filters: fileFilters[platformToInstall]
+                    filters: fileFilters[platformToInstall],
+                    defaultPath: winePrefix
                   })
                   .then(({ path }: Path) => setSelectedExe(path ? path : ''))
               }
