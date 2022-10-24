@@ -12,6 +12,7 @@ import {
   getAppSettings,
   getGameInfo,
   getGameSettings,
+  removeSpecialcharacters,
   writeConfig
 } from 'frontend/helpers'
 import { Path } from 'frontend/types'
@@ -54,6 +55,11 @@ export default function SideloadDialog({
   const editMode = Boolean(appName)
 
   const { refreshLibrary, platform } = useContext(ContextProvider)
+
+  function handleTitle(value: string) {
+    value = removeSpecialcharacters(value)
+    setTitle(value)
+  }
 
   useEffect(() => {
     if (appName) {
@@ -213,9 +219,10 @@ export default function SideloadDialog({
                 'sideload.placeholder.title',
                 'Add a title to your Game/App'
               )}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => handleTitle(e.target.value)}
               htmlId="sideload-title"
               value={title}
+              maxLength={40}
             />
             <TextInputField
               label={t('sideload.info.image', 'App Image')}
