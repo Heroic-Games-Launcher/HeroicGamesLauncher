@@ -27,6 +27,9 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const navigate = useNavigate()
   const { appName, runner, path, platformToInstall } = element.params
   const [progress] = hasProgress(appName)
+  const { status } = element
+  const finished = status === 'done'
+  const canceled = status !== 'done' && !current
 
   const stopInstallation = async () => {
     const { folder_name }: GameInfo = await getGameInfo(appName, runner)
@@ -50,7 +53,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   // using one element for the different states so it doesn't
   // lose focus from the button when using a game controller
   const handleMainActionClick = () => {
-    if (element.status === 'done') {
+    if (finished) {
       return goToGamePage()
     }
 
@@ -58,8 +61,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   }
 
   const mainActionIcon = () => {
-    const { status } = element
-    if (status === 'done' || status === 'error') {
+    if (finished || canceled) {
       return (
         <div className="iconsWrapper">
           <OpenInNewIcon titleAccess={t('Open')} />
@@ -90,7 +92,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
       return 'var(--success)'
     }
 
-    if (element.status === 'error') {
+    if (canceled) {
       return 'var(--danger)'
     }
 
@@ -114,6 +116,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
         style={{ color: getStatusColor() }}
       >
         {title}
+        {canceled ? ` (${t('queue.label.canceled', 'Download Canceled')})` : ''}
       </span>
       <span>{getStoreName(runner, t2('Other'))}</span>
       <span>{platformToInstall}</span>

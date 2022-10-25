@@ -64,12 +64,20 @@ export default function DownloadManager(): JSX.Element | null {
 
   const doneElements =
     (finishedElem?.length &&
-      finishedElem.filter((el) => el.status !== 'abort')) ||
+      finishedElem
+        .filter((el) => el.status !== 'abort')
+        .sort((a, b) => {
+          if (!a.status || b.status) {
+            return 1
+          }
+          if (a.status === 'done' || b.status === 'done') {
+            return -1
+          }
+          return 1
+        })) ||
     []
 
   const hasItems = currentElement || doneElements.length
-
-  console.log({ doneElements })
 
   return (
     <>
