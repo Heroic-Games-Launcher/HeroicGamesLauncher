@@ -17,6 +17,15 @@
             "message": "Kas soovite proovida seda mängu parandada? See võib võtta kaua aega.",
             "title": "Kontrolli ja paranda"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Jätka installimist",
             "message": "Kas soovite allalaaditud faile alles hoida?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Lisa lemmikute hulka",
         "cancel": "Peata/Tühista",
         "continue": "Jätka allalaadimist",
+        "finish": "Finish",
         "force_update": "Sunni uuendus, kui see on saadaval",
+        "force-innstall": "Force Install",
         "hide_game": "Peida mäng",
         "import": "Impordi mäng",
         "install": "Paigalda",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Eemalda lemmikutest",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Näita mäng",
         "uninstall": "Eemalda",
         "update": "Uuenda"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "Allalaadimise suurus",
         "firstPlayed": "Esimest korda mängitud",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Paigaldamise suurus",
         "language": "Keel",
         "lastPlayed": "Viimati mängitud",
@@ -103,6 +122,20 @@
     "report_problem": "Teatage selle mängu käivitamise probleemist",
     "sdl": {
         "title": "Valige komponendid, mida installida"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Miinimum",

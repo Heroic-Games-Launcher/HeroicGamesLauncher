@@ -17,6 +17,15 @@
             "message": "이 게임의 복구를 시도하시겠습니까? 이 작업은 긴 시간이 소요될 수 있습니다.",
             "title": "확인 및 복구"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "계속 설치",
             "message": "다운로드한 파일을 유지하겠습니까?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "즐겨찾기에 추가",
         "cancel": "일시정지/취소",
         "continue": "계속 다운로드",
+        "finish": "Finish",
         "force_update": "사용 가능한 경우 강제 업데이트",
+        "force-innstall": "Force Install",
         "hide_game": "게임 숨김",
         "import": "게임 들여오기",
         "install": "설치",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "즐겨찾기에서 제거",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "게임 숨기기 해제",
         "uninstall": "설치 제거",
         "update": "업데이트"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "다운로드 크기",
         "firstPlayed": "처음 플레이",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "설치 크기",
         "language": "Language",
         "lastPlayed": "마지막 플레이",
@@ -103,6 +122,20 @@
     "report_problem": "게임 실행 중에 생긴 문제를 제보하기",
     "sdl": {
         "title": "설치할 구성 요소를 선택합니다"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "최소 사양",

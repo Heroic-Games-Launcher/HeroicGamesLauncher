@@ -17,6 +17,15 @@
             "message": "你想嘗試修復這個遊戲的檔案嗎？這可能需要很長的時間。",
             "title": "驗證並修復遊戲檔案"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "繼續安裝",
             "message": "要保留已下載的檔案嗎？",
@@ -38,11 +47,19 @@
         "add_to_favourites": "加入我的最愛",
         "cancel": "暫停/取消",
         "continue": "繼續下載",
+        "finish": "Finish",
         "force_update": "如果可用則強制更新",
+        "force-innstall": "Force Install",
         "hide_game": "隱藏遊戲",
         "import": "導入",
         "install": "安裝",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "自我的最愛移除",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "取消隱藏遊戲",
         "uninstall": "解除安裝",
         "update": "更新"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "下載大小",
         "firstPlayed": "首次遊玩",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "安裝大小",
         "language": "語言",
         "lastPlayed": "上次遊玩",
@@ -103,6 +122,20 @@
     "report_problem": "回報執行此遊戲時出現的問題",
     "sdl": {
         "title": "選擇要安裝的元件"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "最低配備",

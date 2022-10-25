@@ -259,6 +259,11 @@ async function fixLegendarySaveFolder(
   return folder
 }
 
+function removeSpecialcharacters(text: string): string {
+  const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+]', 'gi')
+  return text.replaceAll(regexp, '')
+}
+
 export {
   createNewWindow,
   fixLegendarySaveFolder,
@@ -280,6 +285,7 @@ export {
   openDiscordLink,
   progress,
   repair,
+  removeSpecialcharacters,
   sendKill,
   sidInfoPage,
   syncSaves,

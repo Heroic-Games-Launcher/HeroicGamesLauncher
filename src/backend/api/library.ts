@@ -3,6 +3,7 @@ import {
   Runner,
   InstallParams,
   LaunchParams,
+  SideloadGame,
   ImportGameArgs,
   GameStatus
 } from 'common/types'
@@ -22,8 +23,12 @@ export const uninstall = async (
   appName: string,
   runner: Runner,
   shouldRemovePrefix: boolean
-): Promise<void> =>
+): Promise<void> => {
+  if (runner === 'sideload') {
+    return ipcRenderer.invoke('removeApp', { appName, shouldRemovePrefix })
+  }
   ipcRenderer.invoke('uninstall', appName, runner, shouldRemovePrefix)
+}
 
 export const repair = async (appName: string, runner: Runner): Promise<void> =>
   ipcRenderer.invoke('repair', appName, runner)
@@ -67,3 +72,12 @@ export const handleInstallGame = (
 export const handleRefreshLibrary = (
   callback: (event: Electron.IpcRendererEvent, runner: Runner) => void
 ) => ipcRenderer.on('refreshLibrary', callback)
+
+export const addNewApp = (args: SideloadGame) =>
+  ipcRenderer.send('addNewApp', args)
+
+export const removeApp = (appName: string) =>
+  ipcRenderer.send('removeApp', appName)
+
+export const launchApp = async (appName: string) =>
+  ipcRenderer.invoke('launchApp', appName)

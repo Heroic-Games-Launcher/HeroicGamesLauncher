@@ -17,6 +17,15 @@
             "message": "Chcesz spróbować naprawić tą grę? To może zająć dużo czasu.",
             "title": "Sprawdź i napraw"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Kontynuuj instalację",
             "message": "Czy chcesz zachować pobrane pliki?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Dodaj do ulubionych",
         "cancel": "Wstrzymaj/Anuluj",
         "continue": "Kontynuuj pobieranie",
+        "finish": "Finish",
         "force_update": "Wymuś dostępne aktualizacje",
+        "force-innstall": "Force Install",
         "hide_game": "Ukryj grę",
         "import": "Importuj grę",
         "install": "Instaluj",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Usuń z ulubionych",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Odkryj Grę",
         "uninstall": "Odinstaluj",
         "update": "Aktualizuj"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "Rozmiar pobierania",
         "firstPlayed": "Pierwsze uruchomienie",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Rozmiar instalacji",
         "language": "Język",
         "lastPlayed": "Ostatnio uruchamiane",
@@ -103,6 +122,20 @@
     "report_problem": "Zgłoś problem z uruchamianiem tej gry",
     "sdl": {
         "title": "Wybierz komponenty do instalacji"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Minimum",

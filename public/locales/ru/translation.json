@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Ошибка",
@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "Пользовательские версии Wine (Wine-GE, Wine-Lutris) поставляются со своими библиотечными зависимостями. При включении этой опции эти поставляемые библиотеки будут игнорироваться, и Wine будет загружать системные библиотеки вместо них. Внимание! При несоблюдении зависимостей могут возникнуть проблемы.",
         "primerun": "Использовать выделенную видеокарту для рендеринга игры в системах с несколькими GPU. Необходимо только для игровых ноутбуков или настольных компьютеров, использующих для рендеринга headless GPU (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar помогает повысить частоту кадров, предоставляя ЦП доступ ко всему графическому буферу. Включение может повысить производительность в играх на базе Vulkan.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -247,6 +246,9 @@
             "newReleases": "Доступно обновление!",
             "stable": "Стабильный",
             "version": "Версия Heroic"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Настройки сохраняются автоматически",
         "version": "Версия Wine"
@@ -281,7 +283,10 @@
         "website": "Загрузка веб-сайта"
     },
     "login": {
-        "externalLogin": "Внешний вход"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -371,6 +376,7 @@
         "legendary-version": "Версия Legendary: ",
         "weblate": "Помогите перевести Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Используется встроенный GOGDL...",
         "alt-legendary-bin": "Используется встроенный Legendary...",
@@ -467,7 +473,6 @@
         "prefered_language": "Предпочтительный язык (код языка)",
         "preferSystemLibs": "Предпочитать системные библиотеки",
         "primerun": "Использовать выделенную видеокарту",
-        "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",
         "runexe": {
             "message": "Перетащите файлы сюда",
             "title": "Запустить EXE в префиксе"

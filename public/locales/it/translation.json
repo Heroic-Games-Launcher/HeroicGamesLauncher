@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Errore",
@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "Le versioni personalizzate di Wine (Wine-GE, Wine-Lutris) vengono fornite con le loro dipendenze. Abilitando questa opzione, queste librerie saranno ignorate e Wine caricherà invece le librerie di sistema. Attenzione! Potrebbero verificarsi problemi se le dipendenze non sono soddisfatte.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA Resizable Bar aiuta ad aumentare il framerate facendo accedere la CPU all'intero buffer grafico. L'abilitazione può migliorare le prestazioni per i giochi basati su Vulkan.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -247,6 +246,9 @@
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Le impostazioni sono salvate automaticamente",
         "version": "Versione di Wine"
@@ -281,7 +283,10 @@
         "website": "Caricamento sito web incorso"
     },
     "login": {
-        "externalLogin": "External Login"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sincronizzazione completata",
@@ -371,6 +376,7 @@
         "legendary-version": "Versione Legendary: ",
         "weblate": "Aiuta a tradurre Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "In uso i binari Legendary integrati...",
@@ -467,7 +473,6 @@
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
         "primerun": "Utilizzare la scheda grafica dedicata",
-        "resizableBar": "Abilita Resizable BAR (solo NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Trascina e rilascia i files qui",
             "title": "Avvia l'EXE nel prefix"

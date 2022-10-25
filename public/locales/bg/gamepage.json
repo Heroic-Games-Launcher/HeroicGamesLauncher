@@ -17,6 +17,15 @@
             "message": "Искате ли да се направи опит за поправка на тази игра? Това може да отнеме много време.",
             "title": "Проверка и поправяне"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Продължаване с инсталацията",
             "message": "Искате ли да ЗАПАЗИТЕ свалените файлове?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Добавяне към любимите",
         "cancel": "Пауза/Отказ",
         "continue": "Продължаване на свалянето",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
         "hide_game": "Hide Game",
         "import": "Внасяне на игра",
         "install": "Инсталиране",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Премахване от любимите",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Показване на играта",
         "uninstall": "Деинсталиране",
         "update": "Обновяване"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "Размер за сваляне",
         "firstPlayed": "Пусната за пръв път",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Размер на инсталацията",
         "language": "Език",
         "lastPlayed": "Последно пускане",
@@ -103,6 +122,20 @@
     "report_problem": "Докладване за проблем с пускането на тази игра",
     "sdl": {
         "title": "Изберете компоненти за инсталиране"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Минимални",

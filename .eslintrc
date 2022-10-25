@@ -33,6 +33,10 @@
     "@typescript-eslint/no-unused-vars": "error",
     "no-return-await": "off",
     "@typescript-eslint/return-await": "warn",
+    "react/no-unknown-property": [
+      "error",
+      { "ignore": ["partition", "allowpopups", "useragent"] }
+    ],
     "@typescript-eslint/promise-function-async": [
       "error",
       {

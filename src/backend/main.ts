@@ -13,6 +13,8 @@ import {
   InstallPlatform,
   LaunchParams,
   Tools,
+  WineCommandArgs,
+  SideloadGame,
   GameInfo,
   UserInfo,
   SaveSyncArgs,
@@ -84,8 +86,7 @@ import {
   getGame,
   getFirstExistingParentPath,
   getLatestReleases,
-  notify,
-  quoteIfNecessary
+  notify
 } from './utils'
 import {
   configStore,
@@ -125,7 +126,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
-import { verifyWinePrefix } from './launcher'
+import { runWineCommand, verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
 import {
   initOnlineMonitor,
@@ -133,6 +134,16 @@ import {
   runOnceWhenOnline
 } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
+import {
+  addNewApp,
+  appLogFileLocation,
+  getAppInfo,
+  getAppSettings,
+  isNativeApp,
+  launchApp,
+  removeApp,
+  stop
+} from './sideload/games'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -556,7 +567,7 @@ ipcMain.on('unlock', () => {
 ipcMain.handle(
   'kill',
   async (event, appName: string, runner: Runner): Promise<void> =>
-    getGame(appName, runner).stop()
+    runner === 'sideload' ? stop(appName) : getGame(appName, runner).stop()
 )
 
 ipcMain.handle(
@@ -664,25 +675,36 @@ ipcMain.handle(
   'callTool',
   async (event, { tool, exe, appName, runner }: Tools): Promise<void> => {
     const game = getGame(appName, runner)
-    const { wineVersion, winePrefix } = await game.getSettings()
-    await verifyWinePrefix(game)
+    const isSideloaded = runner === 'sideload'
+    const gameSettings = isSideloaded
+      ? await getAppSettings(appName)
+      : await game.getSettings()
+    const { wineVersion, winePrefix } = gameSettings
+    await verifyWinePrefix(gameSettings)
 
     switch (tool) {
       case 'winetricks':
         await Winetricks.run(wineVersion, winePrefix, event)
         break
       case 'winecfg':
-        game.runWineCommand('winecfg')
+        isSideloaded
+          ? runWineCommand({ gameSettings, command: 'winecfg', wait: false })
+          : game.runWineCommand('winecfg')
         break
       case 'runExe':
         if (exe) {
-          exe = quoteIfNecessary(exe)
-          game.runWineCommand(exe)
+          isSideloaded
+            ? runWineCommand({ gameSettings, command: exe, wait: false })
+            : game.runWineCommand(exe)
         }
         break
     }
   }
 )
+
+ipcMain.handle('runWineCommand', async (e, args: WineCommandArgs) => {
+  return runWineCommand(args)
+})
 
 /// IPC handlers begin here.
 
@@ -745,6 +767,9 @@ ipcMain.on('createNewWindow', async (e, url) =>
 ipcMain.handle(
   'getGameInfo',
   async (event, appName: string, runner: Runner): Promise<GameInfo | null> => {
+    if (runner === 'sideload') {
+      return getAppInfo(appName)
+    }
     // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
     if (runner === 'legendary' && !LegendaryLibrary.get().hasGame(appName)) {
       return null
@@ -772,6 +797,9 @@ ipcMain.handle(
     runner: Runner
   ): Promise<GameSettings | null> => {
     try {
+      if (runner === 'sideload') {
+        return await getAppSettings(appName)
+      }
       return await getGame(appName, runner).getSettings()
     } catch (error) {
       logError(error, { prefix: LogPrefix.Backend })
@@ -991,26 +1019,29 @@ ipcMain.handle(
     { appName, launchArguments, runner }: LaunchParams
   ): Promise<{ status: 'done' | 'error' }> => {
     const window = BrowserWindow.getAllWindows()[0]
+    const isSideloaded = runner === 'sideload'
     const recentGames =
       (configStore.get('games.recent') as Array<RecentGame>) || []
-    const game = getGame(appName, runner)
-    const { title } = game.getGameInfo()
+    const extGame = getGame(appName, runner)
+    const game = isSideloaded ? getAppInfo(appName) : extGame.getGameInfo()
+    const { title } = game
+
     const { minimizeOnLaunch, maxRecentGames: MAX_RECENT_GAMES = 5 } =
       await GlobalConfig.get().getSettings()
 
     const startPlayingDate = new Date()
 
-    if (!tsStore.has(game.appName)) {
-      tsStore.set(`${game.appName}.firstPlayed`, startPlayingDate)
+    if (!tsStore.has(game.app_name)) {
+      tsStore.set(`${game.app_name}.firstPlayed`, startPlayingDate)
     }
 
-    logInfo(`Launching ${title} (${game.appName})`, {
+    logInfo(`Launching ${title} (${game.app_name})`, {
       prefix: LogPrefix.Backend
     })
 
     if (recentGames.length) {
       let updatedRecentGames = recentGames.filter(
-        (a) => a.appName && a.appName !== game.appName
+        (a) => a.appName && a.appName !== game.app_name
       )
       if (updatedRecentGames.length > MAX_RECENT_GAMES) {
         const newArr = []
@@ -1022,10 +1053,10 @@ ipcMain.handle(
       if (updatedRecentGames.length === MAX_RECENT_GAMES) {
         updatedRecentGames.pop()
       }
-      updatedRecentGames.unshift({ appName: game.appName, title })
+      updatedRecentGames.unshift({ appName: game.app_name, title })
       configStore.set('games.recent', updatedRecentGames)
     } else {
-      configStore.set('games.recent', [{ appName: game.appName, title }])
+      configStore.set('games.recent', [{ appName: game.app_name, title }])
     }
 
     window.webContents.send('setGameStatus', {
@@ -1045,13 +1076,16 @@ ipcMain.handle(
     }
 
     const systemInfo = await getSystemInfo()
-    const gameSettingsString = JSON.stringify(
-      await game.getSettings(),
-      null,
-      '\t'
-    )
+    const gameSettings = isSideloaded
+      ? getAppSettings(appName)
+      : await extGame.getSettings()
+    const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
+    const logFileLocation = isSideloaded
+      ? appLogFileLocation(appName)
+      : extGame.logFileLocation
+
     writeFileSync(
-      game.logFileLocation,
+      logFileLocation,
       'System Info:\n' +
         `${systemInfo}\n` +
         '\n' +
@@ -1061,18 +1095,18 @@ ipcMain.handle(
         '\n'
     )
 
-    let launchResult = false
-    try {
-      launchResult = await game.launch(launchArguments)
-    } catch (error) {
-      logError(error, { prefix: LogPrefix.Backend })
-      if (error instanceof Error) {
-        appendFileSync(
-          game.logFileLocation,
-          `An exception occurred when launching the game:\n${error.stack}`
-        )
-      }
-    }
+    const command = isSideloaded
+      ? launchApp(appName)
+      : extGame.launch(launchArguments)
+
+    const launchResult = await command.catch((exception) => {
+      logError(exception, { prefix: LogPrefix.Backend })
+      appendFileSync(
+        logFileLocation,
+        `An exception occurred when launching the game:\n${exception.stack}`
+      )
+      return false
+    })
 
     // Stop display sleep blocker
     if (powerDisplayId !== null) {
@@ -1084,15 +1118,15 @@ ipcMain.handle(
 
     // Update playtime and last played date
     const finishedPlayingDate = new Date()
-    tsStore.set(`${game.appName}.lastPlayed`, finishedPlayingDate)
+    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate)
     // Playtime of this session in minutes
     const sessionPlaytime =
       (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
     let totalPlaytime = sessionPlaytime
-    if (tsStore.has(`${game.appName}.totalPlayed`)) {
-      totalPlaytime += tsStore.get(`${game.appName}.totalPlayed`) as number
+    if (tsStore.has(`${appName}.totalPlayed`)) {
+      totalPlaytime += tsStore.get(`${appName}.totalPlayed`) as number
     }
-    tsStore.set(`${game.appName}.totalPlayed`, Math.floor(totalPlaytime))
+    tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
     window.webContents.send('setGameStatus', {
       appName,
@@ -1417,6 +1451,9 @@ ipcMain.handle(
       case 'gog':
         instance = GOGLibrary.get()
         break
+      default:
+        logError(`Unsupported runner ${runner}`, { prefix: LogPrefix.Backend })
+        return
     }
     instance.changeGameInstallPath(appName, path)
     logInfo(`Finished moving ${appName} to ${path}.`, {
@@ -1614,10 +1651,15 @@ ipcMain.handle(
     { appName, command, runner }: RunWineCommandArgs
   ): Promise<ExecResult> => {
     const game = getGame(appName, runner)
+    const isSideloaded = runner === 'sideload'
+    const gameSettings = isSideloaded
+      ? await getAppSettings(appName)
+      : await game.getSettings()
+
     if (isWindows) {
       return execAsync(command)
     }
-    const { updated } = await verifyWinePrefix(game)
+    const { updated } = await verifyWinePrefix(gameSettings)
 
     if (runner === 'gog' && updated) {
       await setup(game.appName)
@@ -1648,6 +1690,27 @@ ipcMain.handle('getRealPath', (event, path): string => {
 ipcMain.handle('clipboardReadText', (): string => clipboard.readText())
 
 ipcMain.on('clipboardWriteText', (e, text: string) => clipboard.writeText(text))
+
+ipcMain.on('addNewApp', (e, args: SideloadGame) => addNewApp(args))
+
+ipcMain.handle(
+  'removeApp',
+  async (e, args: { appName: string; shouldRemovePrefix: boolean }) =>
+    removeApp(args)
+)
+
+ipcMain.handle('launchApp', async (e, appName: string) => launchApp(appName))
+
+ipcMain.handle(
+  'isNative',
+  (e, { appName, runner }: { appName: string; runner: Runner }) => {
+    if (runner === 'sideload') {
+      return isNativeApp(appName)
+    }
+    const game = getGame(appName, runner)
+    return game.isNative()
+  }
+)
 
 /*
   Other Keys that should go into translation files:

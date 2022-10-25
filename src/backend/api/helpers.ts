@@ -2,6 +2,7 @@ import { ipcRenderer } from 'electron'
 import {
   Runner,
   InstallPlatform,
+  WineCommandArgs,
   ConnectivityChangedCallback,
   ConnectivityStatus,
   GameInfo,
@@ -73,6 +74,9 @@ export const getInstallInfo = async (
 ): Promise<LegendaryInstallInfo | GogInstallInfo | null> =>
   ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
 
+export const runWineCommand = async (args: WineCommandArgs) =>
+  ipcRenderer.invoke('runWineCommand', args)
+
 export const runWineCommandForGame = async (
   command: RunWineCommandArgs
 ): Promise<ExecResult> => ipcRenderer.invoke('runWineCommandForGame', command)
@@ -96,3 +100,6 @@ export const getConnectivityStatus = async (): Promise<{
 export const connectivityChanged = async (
   newStatus: ConnectivityStatus
 ): Promise<void> => ipcRenderer.send('connectivity-changed', newStatus)
+
+export const isNative = async (args: { appName: string; runner: Runner }) =>
+  ipcRenderer.invoke('isNative', args) as Promise<boolean>

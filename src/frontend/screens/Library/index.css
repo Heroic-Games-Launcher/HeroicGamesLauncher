@@ -45,9 +45,9 @@
   display: grid;
   align-items: center;
   margin: calc(-1 * var(--space-3xs)) 0;
-  grid-template-columns: clamp(230px, 8vw, 250px) min-content;
-  justify-content: space-between;
+  grid-template-columns: max-content min-content;
   grid-template-areas: 'title action';
+  justify-content: space-between;
 }
 
 #backToTopBtn {

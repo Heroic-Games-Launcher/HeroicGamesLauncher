@@ -17,6 +17,15 @@
             "message": "Бажаєте спробувати відновити гру? Це може зайняти багато часу.",
             "title": "Перевірити і відновити"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Продовжити встановлення",
             "message": "Бажаєте ЗАЛИШИТИ завантажені файли?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Додати до вподобань",
         "cancel": "Призупинити/Скасувати",
         "continue": "Продовжити завантаження",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
         "hide_game": "Приховати гру",
         "import": "Імпортувати гру",
         "install": "Встановити",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Видалити зі вподобань",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Показати гру",
         "uninstall": "Видалити",
         "update": "Оновити"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "Розмір завантаження",
         "firstPlayed": "Вперше зіграно",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Розмір встановлення",
         "language": "Мова",
         "lastPlayed": "Востаннє зіграно",
@@ -103,6 +122,20 @@
     "report_problem": "Повідомити про проблему запуску цієї гри",
     "sdl": {
         "title": "Оберіть компоненти для встановлення"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Мінімальні",
