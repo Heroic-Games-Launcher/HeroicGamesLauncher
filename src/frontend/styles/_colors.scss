@@ -78,6 +78,7 @@
   --text-tertiary: #101111; /* This is not defined in figma */
   --text-quartenary: #5a5e5f; /* this is meant to be a background colour */
   --text-danger: #d22121;
+  --text-gametitle: var(--text-default);
 }
 
 body {

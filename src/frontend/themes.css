@@ -32,6 +32,34 @@ body.dracula-classic {
   --osk-button-border: var(--navbar-background);
 }
 
+body.nord-light {
+  --accent: #88c0d0;
+  --accent-overlay: #81a1c1;
+  --navbar-accent: #81a1c1;
+  --background: #d8dee9;
+  --body-background: var(--background);
+  --background-darker: var(--body-background);
+  --current-background: var(--body-background);
+  --navbar-background: #4c566a;
+  --navbar-active-background: #2e3440;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --input-background: #adb2ba;
+  --modal-background: var(--body-background);
+  --modal-border: var(--body-background);
+  --text-title: #2e3440;
+  --text-default: var(--text-title);
+  --text-secondary: #2e3440;
+  --icons-background: #2e3440;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: var(--navbar-background);
+}
+
 body.marine,
 body.marine-classic {
   --background: #042028;
