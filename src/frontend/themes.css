@@ -51,6 +51,12 @@ body.nord-light {
   --input-background: #adb2ba;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
+  --success: #a3be8c;
+  --success-hover: #8faf74;
+  --primary: #b48ead;
+  --primary-hover: #a17399;
+  --danger: #bf616a;
+  --text-log: #f7b32a;
   --text-title: #2e3440;
   --text-default: var(--text-title);
   --text-secondary: #868b95;
