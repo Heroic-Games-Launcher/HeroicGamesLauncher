@@ -126,6 +126,7 @@
     "Open": "",
     "queue": {
         "label": {
+            "canceled": "Download Canceled",
             "remove": "Remove from download manager"
         }
     },
