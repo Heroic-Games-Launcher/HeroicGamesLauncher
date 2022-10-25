@@ -497,3 +497,5 @@ export interface Tools {
   appName: string
   runner: Runner
 }
+
+export type GameStatusMap = { [key: string]: GameStatus }

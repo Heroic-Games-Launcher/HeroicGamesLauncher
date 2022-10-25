@@ -7,7 +7,8 @@ import {
   Runner,
   ConnectivityStatus,
   DialogType,
-  ButtonOptions
+  ButtonOptions,
+  GameStatusMap
 } from 'common/types'
 export type Category = 'all' | 'legendary' | 'gog'
 
@@ -232,7 +233,7 @@ export interface LocationState {
 }
 
 export interface LibraryContextType {
-  gameStatusList: Map<string, GameStatus>
+  gameStatusMap: GameStatusMap
   hasGameStatus: (appName: string) => GameStatus
   hasDownloads: () => boolean
 }

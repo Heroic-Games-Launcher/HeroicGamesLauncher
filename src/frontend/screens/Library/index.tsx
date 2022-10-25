@@ -17,13 +17,7 @@ import Fuse from 'fuse.js'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 import { GamesList } from './components/GamesList'
-import {
-  FavouriteGame,
-  GameInfo,
-  GameStatus,
-  HiddenGame,
-  Runner
-} from 'common/types'
+import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import { epicCategories, gogCategories } from 'frontend/helpers/library'
@@ -98,10 +92,10 @@ export default function Library(): JSX.Element {
   }
 
   // cache list of games being installed
-  const { gameStatusList } = useContext(LibraryContext)
-  const installing = [...gameStatusList.values()]
-    .filter((gameStatus: GameStatus) => gameStatus.status === 'installing')
-    .map((st: GameStatus) => st.appName)
+  const { gameStatusMap } = useContext(LibraryContext)
+  const installing = [...Object.values(gameStatusMap)]
+    .filter((gameStatus) => gameStatus.status === 'installing')
+    .map((st) => st.appName)
 
   useEffect(() => {
     // This code avoids getting stuck on a empty library after logout of the current selected store

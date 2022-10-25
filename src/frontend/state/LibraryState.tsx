@@ -1,4 +1,4 @@
-import { GameStatus } from 'common/types'
+import { GameStatus, GameStatusMap } from 'common/types'
 import React, { useContext, useEffect, useState } from 'react'
 import ContextProvider from './ContextProvider'
 import { LibraryProvider } from './LibraryContext'
@@ -8,22 +8,21 @@ interface Props {
 }
 
 export function LibraryState({ children }: Props) {
-  const [gameStatusList, setGameStatusList] = useState(
-    new Map<string, GameStatus>()
-  )
+  const [gameStatusMap, setGameStatusMap] = useState<GameStatusMap>({})
   const { refreshLibrary } = useContext(ContextProvider)
 
   useEffect(() => {
     window.api
       .getAllGameStatus()
-      .then((gameStatusList) => setGameStatusList(gameStatusList))
+      .then((gameStatusMap) => setGameStatusMap(gameStatusMap))
 
     const onGameStatusUpdate = async (
       _e: Electron.IpcRendererEvent,
       newGameStatus: GameStatus
     ) => {
-      gameStatusList.set(newGameStatus.appName, newGameStatus)
-      setGameStatusList(gameStatusList)
+      console.log({ newGameStatus })
+      gameStatusMap[newGameStatus.appName] = newGameStatus
+      setGameStatusMap(gameStatusMap)
 
       if (newGameStatus.status === 'done') {
         refreshLibrary({
@@ -45,7 +44,7 @@ export function LibraryState({ children }: Props) {
 
   function hasGameStatus(appName: string): GameStatus {
     return (
-      gameStatusList.get(appName) ?? {
+      gameStatusMap[appName] ?? {
         appName,
         status: 'done',
         folder: 'default',
@@ -67,14 +66,13 @@ export function LibraryState({ children }: Props) {
   }
 
   function hasDownloads(): boolean {
-    return [...gameStatusList.values()].some(
-      (gameStatus: GameStatus) =>
-        gameStatus.status === 'installing' || gameStatus.status === 'updating'
+    return [...Object.values(gameStatusMap)].some((gameStatus) =>
+      ['updating', 'installing'].includes(gameStatus.status)
     )
   }
 
   return (
-    <LibraryProvider value={{ gameStatusList, hasGameStatus, hasDownloads }}>
+    <LibraryProvider value={{ gameStatusMap, hasGameStatus, hasDownloads }}>
       {children}
     </LibraryProvider>
   )

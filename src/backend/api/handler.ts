@@ -1,4 +1,4 @@
-import { GameStatus } from 'common/types'
+import { GameStatus, GameStatusMap } from 'common/types'
 import { ipcRenderer } from 'electron'
 
 export const deleteGameStatus = (appName: string) =>
@@ -7,7 +7,7 @@ export const deleteGameStatus = (appName: string) =>
 export const getGameStatus = async (appName: string) =>
   ipcRenderer.invoke('getGameStatus', appName)
 
-export const getAllGameStatus = async () =>
+export const getAllGameStatus = async (): Promise<GameStatusMap> =>
   ipcRenderer.invoke('getAllGameStatus')
 
 export const setGameStatus = async (gameStatus: GameStatus) =>
