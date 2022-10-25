@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'
 
+import { InstallModal } from 'frontend/screens/Library/components'
 import { CircularProgress } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 
@@ -49,9 +50,11 @@ export default function GamesSubmenu({
   const [hasShortcuts, setHasShortcuts] = useState(false)
   const [eosOverlayEnabled, setEosOverlayEnabled] = useState<boolean>(false)
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
+  const [showModal, setShowModal] = useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const { t } = useTranslation('gamepage')
+  const isSideloaded = runner === 'sideload'
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
@@ -138,6 +141,10 @@ export default function GamesSubmenu({
     return setHasShortcuts(true)
   }
 
+  function handleEdit() {
+    setShowModal(true)
+  }
+
   async function handleEosOverlay() {
     setEosOverlayRefresh(true)
     if (eosOverlayEnabled) {
@@ -218,111 +225,136 @@ export default function GamesSubmenu({
   }
 
   return (
-    <div className="gameTools subMenuContainer">
-      {showUninstallModal && (
-        <UninstallModal
-          appName={appName}
-          runner={runner}
-          onClose={() => setShowUninstallModal(false)}
-        />
-      )}
-      <div className={`submenu`}>
-        {isInstalled && (
-          <>
-            {!isMac && (
-              <button
-                onClick={() => handleShortcuts()}
-                className="link button is-text is-link"
-              >
-                {hasShortcuts
-                  ? t('submenu.removeShortcut', 'Remove shortcuts')
-                  : t('submenu.addShortcut', 'Add shortcut')}
-              </button>
-            )}
-            {steamRefresh ? (
-              refreshCircle()
-            ) : (
-              <button
-                onClick={async () => handleAddToSteam()}
-                className="link button is-text is-link"
-              >
-                {addedToSteam
-                  ? t('submenu.removeFromSteam', 'Remove from Steam')
-                  : t('submenu.addToSteam', 'Add to Steam')}
-              </button>
-            )}
-            <button
-              onClick={() => {
-                setShowUninstallModal(true)
-              }}
-              className="link button is-text is-link"
-            >
-              {t('button.uninstall')}
-            </button>{' '}
-            <button
-              onClick={async () => handleUpdate()}
-              className="link button is-text is-link"
-              disabled={disableUpdate}
-            >
-              {t('button.force_update', 'Force Update if Available')}
-            </button>{' '}
-            <button
-              onClick={async () => handleMoveInstall()}
-              className="link button is-text is-link"
-            >
-              {t('submenu.move')}
-            </button>{' '}
-            <button
-              onClick={async () => handleChangeInstall()}
-              className="link button is-text is-link"
-            >
-              {t('submenu.change')}
-            </button>{' '}
-            <button
-              onClick={async () => handleRepair(appName)}
-              className="link button is-text is-link"
-            >
-              {t('submenu.verify')}
-            </button>{' '}
-            {isLinux &&
-              runner === 'legendary' &&
-              (eosOverlayRefresh ? (
+    <>
+      <div className="gameTools subMenuContainer">
+        {showUninstallModal && (
+          <UninstallModal
+            appName={appName}
+            runner={runner}
+            onClose={() => setShowUninstallModal(false)}
+          />
+        )}
+        <div className={`submenu`}>
+          {isInstalled && (
+            <>
+              {isSideloaded && (
+                <button
+                  onClick={async () => handleEdit()}
+                  className="link button is-text is-link"
+                >
+                  {t('button.sideload.edit', 'Edit App/Game')}
+                </button>
+              )}{' '}
+              {!isMac && (
+                <button
+                  onClick={() => handleShortcuts()}
+                  className="link button is-text is-link"
+                >
+                  {hasShortcuts
+                    ? t('submenu.removeShortcut', 'Remove shortcuts')
+                    : t('submenu.addShortcut', 'Add shortcut')}
+                </button>
+              )}
+              {steamRefresh ? (
                 refreshCircle()
               ) : (
                 <button
+                  onClick={async () => handleAddToSteam()}
                   className="link button is-text is-link"
-                  onClick={handleEosOverlay}
                 >
-                  {eosOverlayEnabled
-                    ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
-                    : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
+                  {addedToSteam
+                    ? t('submenu.removeFromSteam', 'Remove from Steam')
+                    : t('submenu.addToSteam', 'Add to Steam')}
                 </button>
-              ))}
-          </>
-        )}
-        <NavLink
-          className="link button is-text is-link"
-          to={`/store-page?store-url=${storeUrl}`}
-        >
-          {t('submenu.store')}
-        </NavLink>
-        {!isWin && (
-          <button
-            onClick={() => createNewWindow(protonDBurl)}
-            className="link button is-text is-link"
-          >
-            {t('submenu.protondb')}
-          </button>
-        )}
-        {onShowRequirements && (
-          <button
-            onClick={async () => onShowRequirements()}
-            className="link button is-text is-link"
-          >
-            {t('game.requirements', 'Requirements')}
-          </button>
-        )}
+              )}
+              <button
+                onClick={async () => setShowUninstallModal(true)}
+                className="link button is-text is-link"
+              >
+                {t('button.uninstall')}
+              </button>{' '}
+              {!isSideloaded && (
+                <button
+                  onClick={async () => handleUpdate()}
+                  className="link button is-text is-link"
+                  disabled={disableUpdate}
+                >
+                  {t('button.force_update', 'Force Update if Available')}
+                </button>
+              )}{' '}
+              {!isSideloaded && (
+                <button
+                  onClick={async () => handleMoveInstall()}
+                  className="link button is-text is-link"
+                >
+                  {t('submenu.move')}
+                </button>
+              )}{' '}
+              {!isSideloaded && (
+                <button
+                  onClick={async () => handleChangeInstall()}
+                  className="link button is-text is-link"
+                >
+                  {t('submenu.change')}
+                </button>
+              )}{' '}
+              {!isSideloaded && (
+                <button
+                  onClick={async () => handleRepair(appName)}
+                  className="link button is-text is-link"
+                >
+                  {t('submenu.verify')}
+                </button>
+              )}{' '}
+              {isLinux &&
+                runner === 'legendary' &&
+                (eosOverlayRefresh ? (
+                  refreshCircle()
+                ) : (
+                  <button
+                    className="link button is-text is-link"
+                    onClick={handleEosOverlay}
+                  >
+                    {eosOverlayEnabled
+                      ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
+                      : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
+                  </button>
+                ))}
+            </>
+          )}
+          {!isSideloaded && (
+            <NavLink
+              className="link button is-text is-link"
+              to={`/store-page?store-url=${storeUrl}`}
+            >
+              {t('submenu.store')}
+            </NavLink>
+          )}
+          {!isSideloaded && !isWin && (
+            <button
+              onClick={() => createNewWindow(protonDBurl)}
+              className="link button is-text is-link"
+            >
+              {t('submenu.protondb')}
+            </button>
+          )}
+          {onShowRequirements && (
+            <button
+              onClick={async () => onShowRequirements()}
+              className="link button is-text is-link"
+            >
+              {t('game.requirements', 'Requirements')}
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+      {showModal && (
+        <InstallModal
+          appName={appName}
+          runner={runner}
+          backdropClick={() => setShowModal(false)}
+        />
+      )}
+    </>
   )
 }

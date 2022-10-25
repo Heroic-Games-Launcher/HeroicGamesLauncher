@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "خطا",
@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "نسخه های سفارشی Wine (Wine-GE, Wine-Lutris) همراه با وابستگی های کتابخانه خود عرضه می شوند. با فعال کردن این گزینه، این کتابخانه ها نادیده گرفته شده و Wine به جای آن کتابخانه های سیستم را اجرا خواهد کرد. هشدار! در صورت عدم وجود وابستگی ها امکان بروز مشکلات وجود دارد.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar با ایجاد امکان دسترسی CPU به کل بافر گرافیک سبب افزایش نرخ فریم می شود.فعال کردن ممکن است باعث بهبود عملکرد بازی های مبتنی بر Vulkan شود.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -247,6 +246,9 @@
             "newReleases": "به روزرسانی موجود است!",
             "stable": "پایدار",
             "version": "Heroic Version"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "تنظیمات به صورت خودکار ذخیره شدند",
         "version": "نسخه Wine"
@@ -374,6 +376,7 @@
         "legendary-version": "نسخه Legendary: ",
         "weblate": "کمک به ترجمه Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "استفاده از باینری GOGDL داخلی...",
         "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
@@ -470,7 +473,6 @@
         "prefered_language": "زبان ترجیحی (کد زبان)",
         "preferSystemLibs": "ارجحیت کتابخانه های سیستم",
         "primerun": "استفاده از کارت گرافیک اختصاص یافته",
-        "resizableBar": "فعالسازی Resizable BAR (فقط محصولات NVIDIA RTX 30xx)",
         "runexe": {
             "message": "فایلها را اینجا درج کنید",
             "title": "اجرای EXE در محل"

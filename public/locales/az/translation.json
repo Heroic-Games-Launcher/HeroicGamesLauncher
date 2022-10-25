@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Xəta",
@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "Fərdi Şərab versiyaları (Wine-GE, Wine-Lutris) kitabxana asılılıqları ilə göndərilir. Bu seçimi aktiv etməklə, bu göndərilmiş kitabxanalar nəzərə alınmayacaq və Wine əvəzinə sistem kitabxanalarını yükləyəcək. Xəbərdarlıq! Asılılıqlar təmin edilmədikdə problemlər yarana bilər.",
         "primerun": "Multi-GPU sistemlərində oyunu göstərmək üçün xüsusi qrafik kartdan istifadə edin. Yalnız göstərmə üçün başsız GPU istifadə edən oyun noutbukları və ya stolüstü kompüterlərdə lazımdır (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA-nın Ölçüləndirilə bilən Çubuğu CPU-nun bütün qrafik buferinə daxil olmasını təmin edərək kadr sürətini artırmağa kömək edir. Aktivləşdirilməsi Vulkan əsaslı oyunlar üçün performansı yaxşılaşdıra bilər.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -247,6 +246,9 @@
             "newReleases": "Yeniləmə Mövcuddur!",
             "stable": "Stabil",
             "version": "Qəhrəmanlıq versiyası"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Parametrlər avtomatik olaraq saxlanılır",
         "version": "Şərab versiyası"
@@ -374,6 +376,7 @@
         "legendary-version": "Əfsanəvi Versiya: ",
         "weblate": "Heroic tərcüməsinə kömək edin."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Daxili GOGDL ikili proqramından istifadə...",
         "alt-legendary-bin": "Daxili əfsanəvi ikili proqramdan istifadə...",
@@ -470,7 +473,6 @@
         "prefered_language": "Üstünlük Verilən Dil (Dil Kodu)",
         "preferSystemLibs": "Sistem kitabxanalarına üstünlük verin",
         "primerun": "Xüsusi Qrafik Kartdan istifadə edin",
-        "resizableBar": "Ölçü dəyişdirilə bilən BAR-ı aktivləşdirin (yalnız NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Faylları buraya sürükləyin və buraxın",
             "title": "Prefiksdə EXE-ni işə salın"

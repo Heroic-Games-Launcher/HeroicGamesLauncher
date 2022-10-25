@@ -17,6 +17,15 @@
             "message": "Apakah Anda ingin mencoba untuk memperbaiki gim ini? Ini bisa memakan waktu lama.",
             "title": "Verifikasi dan Perbaiki"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Tetap Memasang",
             "message": "Apakah Anda ingin MENYIMPAN berkas yang diunduh?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Tambahkan Ke Favorit",
         "cancel": "Jeda/Batal",
         "continue": "Lanjutkan Unduhan",
+        "finish": "Finish",
         "force_update": "Paksa Pembaruan jika Tersedia",
+        "force-innstall": "Force Install",
         "hide_game": "Sembunyikan Gim",
         "import": "Impor Gim",
         "install": "Pasang",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Hapus Dari Favorit",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Tampilkan Gim yang Disembunyikan",
         "uninstall": "Copot",
         "update": "Perbarui"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "Ukuran Unduhan",
         "firstPlayed": "Pertama Kali Dimainkan",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Ukuran Pemasangan",
         "language": "Bahasa",
         "lastPlayed": "Terakhir Dimainkan",
@@ -103,6 +122,20 @@
     "report_problem": "Laporkan masalah yang terjadi saat memainkan gim ini",
     "sdl": {
         "title": "Pilih komponen untuk dipasang"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Minimum",

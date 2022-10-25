@@ -37,6 +37,7 @@ import {
   libraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
+import { sideloadLibrary } from 'frontend/helpers/electronStores'
 
 const storage: Storage = window.localStorage
 
@@ -85,6 +86,7 @@ interface StateProps {
   activeController: string
   connectivity: { status: ConnectivityStatus; retryIn: number }
   dialogModalOptions: DialogModalOptions
+  sideloadedLibrary: GameInfo[]
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -161,6 +163,7 @@ export class GlobalState extends PureComponent<Props> {
     allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
     activeController: '',
     connectivity: { status: 'offline', retryIn: 0 },
+    sideloadedLibrary: sideloadLibrary.get('games', []) as GameInfo[],
     dialogModalOptions: { showDialog: false }
   }
 
@@ -393,6 +396,8 @@ export class GlobalState extends PureComponent<Props> {
       }
     }
 
+    const updatedSideload = sideloadLibrary.get('games', []) as GameInfo[]
+
     this.setState({
       epic: {
         library: epicLibrary,
@@ -404,7 +409,8 @@ export class GlobalState extends PureComponent<Props> {
       },
       gameUpdates: updates,
       refreshing: false,
-      refreshingInTheBackground: true
+      refreshingInTheBackground: true,
+      sideloadedLibrary: updatedSideload
     })
 
     if (currentLibraryLength !== epicLibrary.length) {
@@ -540,7 +546,7 @@ export class GlobalState extends PureComponent<Props> {
     const { epic, gameUpdates = [], libraryStatus, category } = this.state
     const oldCategory: string = category
     if (oldCategory === 'epic') {
-      this.handleCategory('legendary')
+      this.handleCategory('all')
     }
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(

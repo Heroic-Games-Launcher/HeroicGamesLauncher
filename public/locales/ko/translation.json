@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "오류",
@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -247,6 +246,9 @@
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "설정은 자동으로 저장됩니다",
         "version": "Wine Version"
@@ -374,6 +376,7 @@
         "legendary-version": "Legendary 버전: ",
         "weblate": "Heroric 번역을 도와주세요."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "내장된 GOGDL 바이너리 파일 사용...",
         "alt-legendary-bin": "내장된 Legendary 바이너리 파일 사용...",
@@ -470,7 +473,6 @@
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
         "primerun": "외장 그래픽 카드 사용",
-        "resizableBar": "Resizable BAR 활성화 (NVIDIA RTX 30xx 전용)",
         "runexe": {
             "message": "여기에 파일을 끌어다 놓기",
             "title": "접두사에서 EXE 실행"

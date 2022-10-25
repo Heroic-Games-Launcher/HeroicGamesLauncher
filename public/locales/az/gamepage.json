@@ -17,6 +17,15 @@
             "message": "Bu oyunu təmir etməyə cəhd etmək istəyirsiniz? Bu uzun müddət çəkə bilər.",
             "title": "Doğrulayın və Təmir edin"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Quraşdırmağa davam edin",
             "message": "Endirilmiş faylları SAXLAMAQ istəyirsiniz?",
@@ -39,11 +48,19 @@
         "add_to_favourites": "Sevimlilərə əlavə edin",
         "cancel": "Pauza/Ləğv et",
         "continue": "Yükləməyə davam edin",
+        "finish": "Finish",
         "force_update": "Mövcuddursa Yeniləməni məcbur edin",
+        "force-innstall": "Force Install",
         "hide_game": "Oyunu Gizlət",
         "import": "İdxal Oyunu",
         "install": "Yüklemek",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Sevimlilərdən Sil",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Oyunu Gizlət",
         "uninstall": "Silin",
         "update": "Yeniləyin"
@@ -57,6 +74,8 @@
     "game": {
         "downloadSize": "Yükləmə ölçüsü",
         "firstPlayed": "İlk Oynadı",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Quraşdırma Ölçüsü",
         "language": "Dil",
         "lastPlayed": "Son Oynama",
@@ -104,6 +123,20 @@
     "report_problem": "Bu oyunu idarə edən problemi bildirin",
     "sdl": {
         "title": "Quraşdırılacaq komponentləri seçin"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Minimum",

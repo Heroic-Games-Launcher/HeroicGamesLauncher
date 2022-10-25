@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "കുഴപ്പം",
@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -247,6 +246,9 @@
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "ക്രമീകരണങ്ങള് താനെ സൂക്ഷിക്കപ്പെട്ടിരിക്കുന്നു",
         "version": "Wine Version"
@@ -374,6 +376,7 @@
         "legendary-version": "ലെജന്ററിയുടെ പതിപ്പ്: ",
         "weblate": "ഹീറോയിക്കിനെ മൊഴിമാറ്റുവാന് സഹായിക്കൂ."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "തനത് ലെജന്ററി ഈരക്കരേഖ ഉപയോഗിക്കുന്നു...",
@@ -470,7 +473,6 @@
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
         "primerun": "എന്വിഡിയ പ്രൈം റെന്റര് വയ്ക്കൂ",
-        "resizableBar": "വലുപ്പം മാറ്റാവുന്ന BAR വയ്ക്കൂ (എന്വിഡിയ RTX 30xxനു മാത്രം)",
         "runexe": {
             "message": "രേഖകള് ഇവിടെനിന്നും വലിച്ചെടുക്കുക/ഇടുക",
             "title": "ഉപസഗ്ഗ഻ത്തില് EXE ഓടിക്കുക"

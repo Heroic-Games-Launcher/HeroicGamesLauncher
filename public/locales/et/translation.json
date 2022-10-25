@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Viga",
@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "Kohandatud Wine versioonid (Wine-GE, Wine-Lutris) tarnitakse koos nende teegi sõltuvustega. Selle valiku lubamisel ignoreeritakse neid tarnitud teeke ja Wine laadib selle asemel süsteemiteeke. Hoiatus! Kui sõltuvusi ei täideta, võib tekkida probleeme.",
         "primerun": "Mitme GPU-süsteemides mängu renderdamiseks kasutage spetsiaalset graafikakaarti. Vajalik ainult mängusülearvutites või lauaarvutites, mis kasutavad renderdamiseks peata GPU-d (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA Resizable Bar aitab suurendada kaadrisagedust, sundides protsessorit kasutama kogu graafikapuhvrit. Selle lubamine võib parandada Vulkanil põhinevate mängude jõudlust.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -247,6 +246,9 @@
             "newReleases": "Uuendus saadaval!",
             "stable": "Stabiilne",
             "version": "Heroic Version"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Seaded salvestatakse automaatselt",
         "version": "Wine'i versioon"
@@ -374,6 +376,7 @@
         "legendary-version": "Legendary versioon: ",
         "weblate": "Aidake tõlkida Heroic'ut."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Kasutusel on sisse-ehitatud GOGDL binaarfaili...",
         "alt-legendary-bin": "Kasutusel on sisse-ehitatud Legendary binaarfail...",
@@ -470,7 +473,6 @@
         "prefered_language": "Eelistatud keel (keelekood)",
         "preferSystemLibs": "Eelista süsteemiteeke",
         "primerun": "Kasuta spetsiaalset graafikakaarti",
-        "resizableBar": "Luba muudetav BAR (ainult NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Lohistage failid siia",
             "title": "Käivita EXE prefiksil"

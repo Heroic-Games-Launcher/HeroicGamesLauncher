@@ -17,6 +17,15 @@
             "message": "Chcete se pokusit opravit tuto hru? Může to chvíli trvat.",
             "title": "Zkontrolovat a opravit"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Pokračovat v instalaci",
             "message": "Chcete ponechat stažené soubory?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Přidat do oblíbených",
         "cancel": "Zrušit",
         "continue": "Pokračovat ve stahování",
+        "finish": "Finish",
         "force_update": "Vynutit aktualizaci, pokud je dostupná",
+        "force-innstall": "Force Install",
         "hide_game": "Skrýt hru",
         "import": "Importovat Hru",
         "install": "Instalovat",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Odebrat z oblíbených",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Odkrýt hru",
         "uninstall": "Odinstalovat",
         "update": "Update"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "Velikost ke stažení",
         "firstPlayed": "Poprvé hráno",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Velikost instalace",
         "language": "Jazyk",
         "lastPlayed": "Naposledy hráno",
@@ -103,6 +122,20 @@
     "report_problem": "Nahlásit problém se spouštěním této hry",
     "sdl": {
         "title": "Vyberte součásti k instalaci"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Minimum",

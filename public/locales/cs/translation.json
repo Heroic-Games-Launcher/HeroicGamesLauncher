@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "Vlastní verze Wine (Wine-GE, Wine-Lutris) jsou dodávány se závislostmi knihovnami. Povolením této možnosti budou tyto dodávané knihovny ignorovány a Wine místo nich načte systémové knihovny. Pozor! Při nedodržení závislostí může dojít k problémům.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA Resizable Bar pomáhá zvýšit snímkovou frekvenci tím, že umožňuje procesoru přístup k celé grafické vyrovnávací paměti. Povolení může zlepšit výkon her založených na Vulkanu.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -247,6 +246,9 @@
             "newReleases": "K dispozici je nová aktualizace!",
             "stable": "Stabilní",
             "version": "Heroic Version"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Nastavení se ukládají automaticky",
         "version": "Verze Wine"
@@ -374,6 +376,7 @@
         "legendary-version": "Verze Legenary: ",
         "weblate": "Pomozte s překladem Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Pomocí vestavěného GOGDL...",
         "alt-legendary-bin": "Pomocí vestavěného Legendary...",
@@ -470,7 +473,6 @@
         "prefered_language": "Preferovaný jazyk (kód jazyka)",
         "preferSystemLibs": "Preferovat systémové knihovny",
         "primerun": "Použít dedikovanou grafickou kartu",
-        "resizableBar": "Používat Resizable BAR (pouze s NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Přetáhněte soubory sem",
             "title": "Spustit EXE na prefixu"

@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Грешка",
@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "Вариациите на Wine (Wine-GE, Wine-Lutris) вървят със своите собствени библиотечни зависимости. Ако включите тази настройка, те ще бъдат пренебрегнати и Wine ще ползва системните библиотеки. Внимание! Ако зависимостите не са изпълнени, може да има проблеми.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "Технологията „Resizable Bar“ на NVIDIA помага за увеличаване на броя кадри в секунда, като дава на централния процесор достъп до целия графичен буфер. Включването на това може да подобри производителността за игри използващи Vulkan.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -247,6 +246,9 @@
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Версия на Heroic"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Настройките се запазват автоматично",
         "version": "Версия на Wine"
@@ -374,6 +376,7 @@
         "legendary-version": "Версия на Legendary: ",
         "weblate": "Помогнете за превода на Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Използване на вградения изпълним файл на GOGDL…",
         "alt-legendary-bin": "Използване на вградения изпълним файл на Legendary…",
@@ -470,7 +473,6 @@
         "prefered_language": "Предпочитан език (код на езика)",
         "preferSystemLibs": "Да се предпочитат системните библиотеки",
         "primerun": "Използване на отделната видео-карта",
-        "resizableBar": "Включване на „Resizable BAR“ (Само за NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Хванете и пуснете файловете тук",
             "title": "Изпълняване на EXE в префикс"

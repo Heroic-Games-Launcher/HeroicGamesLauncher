@@ -300,7 +300,7 @@ class GOGGame extends Game {
   }
 
   public async removeShortcuts() {
-    return removeShortcuts(this.appName, 'gog')
+    return removeShortcuts(this.getGameInfo())
   }
 
   async launch(launchArguments?: string): Promise<boolean> {
@@ -331,7 +331,7 @@ class GOGGame extends Game {
       mangoHudCommand,
       gameModeBin,
       steamRuntime
-    } = await prepareLaunch(this, gameInfo)
+    } = await prepareLaunch(gameSettings, gameInfo, this.isNative())
     if (!launchPrepSuccess) {
       appendFileSync(
         this.logFileLocation,
@@ -631,7 +631,7 @@ class GOGGame extends Game {
     }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
-    await removeShortcuts(this.appName, 'gog')
+    await removeShortcuts(this.getGameInfo())
     syncStore.delete(this.appName)
     const gameInfo = await this.getGameInfo()
     await removeNonSteamGame({ gameInfo })
@@ -755,8 +755,16 @@ class GOGGame extends Game {
       })
       return { stdout: '', stderr: '' }
     }
+    const { folder_name } = this.getGameInfo()
+    const gameSettings = await this.getSettings()
 
-    return runWineCommand(this, command, wait, forceRunInPrefixVerb)
+    return runWineCommand({
+      gameSettings,
+      installFolderName: folder_name,
+      command,
+      wait,
+      forceRunInPrefixVerb
+    })
   }
 
   async forceUninstall(): Promise<void> {
