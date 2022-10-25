@@ -81,10 +81,9 @@
 }
 
 .Dialog__footer {
-  display: grid;
-  grid-gap: 16px;
-  grid-auto-flow: column;
-  margin: 0 0 0 auto;
+  display: flex;
+  gap: 16px;
+  justify-content: end;
   padding: 0 var(--dialog-margin-horizontal) var(--dialog-margin-vertical)
     var(--dialog-margin-horizontal);
 }
