@@ -263,17 +263,6 @@ async function getAppSettings(): Promise<AppSettings> {
   return window.api.requestSettings('default')
 }
 
-const getStoreName = (runner: Runner) => {
-  switch (runner) {
-    case 'legendary':
-      return 'Epic Games'
-    case 'gog':
-      return 'GOG'
-    default:
-      return 'Heroic'
-  }
-}
-
 export {
   createNewWindow,
   fixLegendarySaveFolder,
@@ -296,11 +285,10 @@ export {
   openDiscordLink,
   progress,
   repair,
-  sendAbort,
   sendKill,
   sidInfoPage,
   syncSaves,
   updateGame,
   writeConfig,
-  getStoreName
+  sendAbort
 }

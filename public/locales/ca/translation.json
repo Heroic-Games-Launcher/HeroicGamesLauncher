@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "No s'ha seleccionat cap versió del Wine. Comprova la configuració del joc.",
                 "title": "No s'ha trobat el Wine"
             },
@@ -236,7 +237,6 @@
         },
         "preferSystemLibs": "Les versions personalitzades del Wine (Wine-GE, Wine-Lutris) s'envien amb les seves dependències de biblioteques. Quan s'activa aquesta opció, s'ignoraran les biblioteques enviades i Wine carregarà les biblioteques del sistema. Avís! Es poden produir problemes si no es compleixen les dependències.",
         "primerun": "Fes servir la targeta de gràfics dedicada per renderitzar el joc en sistemes de diverses GPU. Només cal en portàtils o ordinadors de sobretaula que tenen una GPU headless per renderitzar, com ara NVIDIA Optimus o AMD Crossfire.",
-        "resizablebar": "La barra redimensionable de NVIDIA ajuda a augmentar els FPS fent que la CPU accedeixi a la memòria gràfica. Si s'habilita, el rendiment dels jocs basats en Vulkan pot millorar.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -259,6 +259,9 @@
             "newReleases": "Hi ha una actualització disponible!",
             "stable": "Estable",
             "version": "Heroic Version"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "La configuració es desa automàticament",
         "version": "Versió del Wine"
@@ -293,7 +296,10 @@
         "website": "S'està carregant el lloc web"
     },
     "login": {
-        "externalLogin": "Inici de sessió extern"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "S'ha completat la sincronització",
@@ -383,6 +389,7 @@
         "legendary-version": "Versió del Legendary: ",
         "weblate": "Ajuda a traduir l'Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "S'està usant un binari del GOGDL integrat.",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
@@ -408,6 +415,7 @@
     "setting": {
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Tria un fitxer binari alternatiu del GOGDL",
         "alt-legendary-bin": "Tria un binari alternatiu del Legendary",
         "audiofix": "Corregeix l'àudio (latència del Pulse Audio)",
@@ -486,7 +494,6 @@
         "prefered_language": "Idioma preferit (codi de l'idioma)",
         "preferSystemLibs": "Dóna preferència a les biblioteques del sistema",
         "primerun": "Usa la targeta gràfica dedicada",
-        "resizableBar": "Activa el BAR redimensionable (només amb NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Arrossega i solta els fitxers aquí",
             "title": "Executa l'EXE al prefix"

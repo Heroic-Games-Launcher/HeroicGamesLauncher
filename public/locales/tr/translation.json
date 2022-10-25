@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Hata",
@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Wine Sürümü Seçilmedi. Oyun Ayarlarını Denetleyin!",
                 "title": "Wine Bulunamadı"
             },
@@ -236,7 +237,6 @@
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -259,6 +259,9 @@
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Sürümü"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Ayarlar otomatik kaydedilir",
         "version": "Wine Sürümü"
@@ -293,7 +296,10 @@
         "website": "Web Sitesi Yükleniyor"
     },
     "login": {
-        "externalLogin": "Harici Oturum Açma"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Eşzamanlama Tamamlandı",
@@ -383,6 +389,7 @@
         "legendary-version": "Legendary Sürüm: ",
         "weblate": "Heroic'i çevirmeye yardımcı ol."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Yerleşik GOGDL çalıştırılabilir dosyasını kullanılıyor...",
         "alt-legendary-bin": "Yerleşik Legendary çalıştırılabilir dosyası kullanılıyor...",
@@ -408,6 +415,7 @@
     "setting": {
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Bir muadil GOGDL çalıştırılabilir dosyasını seçin",
         "alt-legendary-bin": "Bir muadil Legendary dosyası seçin",
         "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
@@ -486,7 +494,6 @@
         "prefered_language": "Tercih Edilen Dil (Dil Kodu)",
         "preferSystemLibs": "Prefer system libraries",
         "primerun": "Özel Grafik Kartını Kullan",
-        "resizableBar": "Resizable BAR'ı etkinleştir (yalnızca NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Dosyaları buraya Sürükle ve Bırak",
             "title": "Exe Çalıştır"

@@ -5,10 +5,12 @@ import {
   GameSettings,
   GameStatus,
   Runner,
-  ConnectivityStatus
+  ConnectivityStatus,
+  DialogType,
+  ButtonOptions
 } from 'common/types'
 
-export type Category = 'all' | 'legendary' | 'gog'
+export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
 
 export interface ContextType {
   category: Category
@@ -73,6 +75,18 @@ export interface ContextType {
   connectivity: { status: ConnectivityStatus; retryIn: number }
   setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
   setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
+  dialogModalOptions: DialogModalOptions
+  showDialogModal: (options: DialogModalOptions) => void
+  showResetDialog: () => void
+  sideloadedLibrary: GameInfo[]
+}
+
+export type DialogModalOptions = {
+  showDialog?: boolean
+  title?: string
+  message?: string
+  buttons?: Array<ButtonOptions>
+  type?: DialogType
 }
 
 export type LibraryTopSectionOptions =
@@ -193,6 +207,13 @@ interface AntiCheatReference {
 }
 
 declare global {
+  interface Window {
+    imageData: (
+      src: string,
+      canvas_width: number,
+      canvas_height: number
+    ) => Promise<string>
+  }
   interface WindowEventMap {
     'controller-changed': CustomEvent<{ controllerId: string }>
   }

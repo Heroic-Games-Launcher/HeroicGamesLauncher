@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "錯誤",
@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "沒有選擇之 Wine 版本。檢查遊戲設定！",
                 "title": "未找到Wine"
             },
@@ -236,7 +237,6 @@
         },
         "preferSystemLibs": "自定義 Wine 版本(Wine- ge、Wine- lutris)隨它們的庫依賴項一起發布。啟用此選項，這些附帶的庫將被忽略，Wine 將加載系統庫。警告！如果不滿足依賴關系，可能會出現問題。",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA Resizable Bar 通過讓 CPU 訪問整個圖形緩衝區來提高幀率。啟用可能會提高基於 Vulkan 的遊戲的性能。",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -259,6 +259,9 @@
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "設定會自動保存",
         "version": "Wine 版本"
@@ -293,7 +296,10 @@
         "website": "載入網站"
     },
     "login": {
-        "externalLogin": "外部登入"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "同步完成",
@@ -383,6 +389,7 @@
         "legendary-version": "Legendary 版本: ",
         "weblate": "請幫助翻譯Heroic啟動器。"
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "使用內置的 GOGDL 二進制文件...",
         "alt-legendary-bin": "使用內置的 Legendary 二進制文件...",
@@ -408,6 +415,7 @@
     "setting": {
         "adddesktopshortcuts": "自動添加桌面捷徑",
         "addgamestostartmenu": "自動添加捷徑到開始功能表",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "選擇要使用的備選 GOGDL 二進制文件",
         "alt-legendary-bin": "選擇備選的 Legendary 二進制文件",
         "audiofix": "音頻修覆（Pulse Audio延遲）",
@@ -486,7 +494,6 @@
         "prefered_language": "首選語言（語言代碼）",
         "preferSystemLibs": "偏好系統庫",
         "primerun": "使用獨立顯卡",
-        "resizableBar": "啟用 Resizable BAR (僅限 NVIDIA RTX 30xx)",
         "runexe": {
             "message": "將檔案拖放到此處",
             "title": "在PREFIX上執行exe檔案"

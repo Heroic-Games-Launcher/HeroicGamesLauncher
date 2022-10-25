@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Greška",
@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "No Wine Version Selected. Check Game Settings!",
                 "title": "Wine Not Found"
             },
@@ -236,7 +237,6 @@
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -259,6 +259,9 @@
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic verzija"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Postavke se automatski spremaju",
         "version": "Wine verzija"
@@ -293,7 +296,10 @@
         "website": "Učitavanje web-stranice"
     },
     "login": {
-        "externalLogin": "Vanjska prijava"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sinkroniziranje završeno",
@@ -383,6 +389,7 @@
         "legendary-version": "Legendary Version: ",
         "weblate": "Help Improve this translation."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
@@ -408,6 +415,7 @@
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Odaberi drugu verziju GOGDL programa za koristiti",
         "alt-legendary-bin": "Odaberi drugu verziju Legendary programa",
         "audiofix": "Popravak zvuka (Pulse audio latencija)",
@@ -486,7 +494,6 @@
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
         "primerun": "Use Dedicated Graphics Card",
-        "resizableBar": "Enable Resizable BAR (NVIDIA RTX only)",
         "runexe": {
             "message": "Povicute i pustite datoteke ovjde",
             "title": "Pokreni EXE na putu"

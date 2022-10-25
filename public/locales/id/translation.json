@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Galat",
@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Tidak Ada Versi Wine yang Dipilih. Periksa Pengaturan Gim!",
                 "title": "Wine Tidak Ditemukan"
             },
@@ -236,7 +237,6 @@
         },
         "preferSystemLibs": "Versi Wine khusus (Wine-GE, Wine-Lutris) dikirimkan dengan dependensi pustakanya. Dengan mengaktifkan opsi ini, pustaka yang dikirimkan tersebut akan diabaikan dan Wine akan memuat pustaka sistem sebagai gantinya. Peringatan! Masalah dapat terjadi jika dependensi tidak terpenuhi.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "Resizable Bar NVIDIA membantu meningkatkan framerate dengan membuat CPU mengakses seluruh penyangga grafis. Mengaktifkannya dapat meningkatkan kinerja untuk gim berbasis Vulkan.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -259,6 +259,9 @@
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Versi Heroic"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Pengaturan disimpan secara otomatis",
         "version": "Versi Wine"
@@ -293,7 +296,10 @@
         "website": "Memuat Situs Web"
     },
     "login": {
-        "externalLogin": "Log Masuk Eksternal"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sinkronisasi Selesai",
@@ -383,6 +389,7 @@
         "legendary-version": "Versi Legendary: ",
         "weblate": "Bantu kami untuk menerjemahkan Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Menggunakan GOGDL binary bawaan…",
         "alt-legendary-bin": "Menggunakan Legendary binary bawaan...",
@@ -408,6 +415,7 @@
     "setting": {
         "adddesktopshortcuts": "Tambahkan pintasan desktop secara otomatis",
         "addgamestostartmenu": "Tambahkan gim untuk memulai menu secara otomatis",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Pilih GOGDL Binary alternatif untuk digunakan",
         "alt-legendary-bin": "Pilih Legendary Binary Alternatif",
         "audiofix": "Perbaikan Audio (Latensi Pulsa Audio )",
@@ -486,7 +494,6 @@
         "prefered_language": "Bahasa Pilihan (Kode Bahasa)",
         "preferSystemLibs": "Lebih memilih pustaka sistem",
         "primerun": "Gunakan Kartu Grafis untuk Rendering",
-        "resizableBar": "Aktifkan Resizable BAR (hanya untuk NVIDIA RTX 30xx saja)",
         "runexe": {
             "message": "Seret dan Jatuhkan Berkas di sini",
             "title": "Jalankan EXE di Prefiks"

@@ -56,14 +56,13 @@ export default function Tools() {
     const { path } = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
-      title: t('box.runexe.title'),
+      title: t('box.runexe.title', 'Select EXE to Run'),
       defaultPath: gameinfo.install.install_path
     })
     if (path) {
       exe = path
-      return callTools('runExe', exe)
+      callTools('runExe', exe)
     }
-    return
   }
 
   function dropHandler(ev: React.DragEvent<HTMLSpanElement>) {
@@ -119,12 +118,10 @@ export default function Tools() {
             <span className="toolTitle">Winetricks</span>
           </button>
           <a
-            data-testid="toolsDrag"
-            draggable
             onDrop={(ev) => dropHandler(ev)}
             onDragOver={(ev) => dragOverHandler(ev)}
             className="tools drag"
-            onClick={async () => handleRunExe()}
+            onClick={handleRunExe}
           >
             {t('setting.runexe.title')}
             <br />

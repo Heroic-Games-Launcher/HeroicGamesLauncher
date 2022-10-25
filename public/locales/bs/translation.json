@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Greška",
@@ -69,6 +69,7 @@
                 "title": "Greška ažuriranja"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Nije odabrana Wine verzija. Provjerite postavke video igre!",
                 "title": "Wine nije pronađen"
             },
@@ -236,7 +237,6 @@
         },
         "preferSystemLibs": "Prilagođene verzije Wine-a (Wine-GE, Wine-Lutris) se isporučuju sa njihovim zavisnostima biblioteke. Ako omogućite ovu opciju, ove isporučene biblioteke će biti zanemarene i Wine će umjesto njih učitati sistemske biblioteke. Upozorenje! Problemi se mogu pojaviti ako ovisnosti nisu ispunjene.",
         "primerun": "Koristite namjensku grafičku karticu za renderiranje igre na multi-GPU sistemima. Potrebno samo na laptop računarima ili desktop računarima koji koriste GPU bez glave za renderovanje (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA-ina traka za promjenu veličine pomaže u povećanju brzine kadrova tako što CPU pristupa cijelom grafičkom baferu. Omogućavanje može poboljšati performanse za igre zasnovane na Vulkanu.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -259,6 +259,9 @@
             "newReleases": "Dostupno ažuriranje!",
             "stable": "Stabilan",
             "version": "Heroic verzija"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Postavke se automatski spremaju",
         "version": "Verzija Wine-a"
@@ -293,7 +296,10 @@
         "website": "Učitavanje webstranice"
     },
     "login": {
-        "externalLogin": "Vanjska prijava"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sinhranizovanje završeno",
@@ -383,6 +389,7 @@
         "legendary-version": "Legendary verzija: ",
         "weblate": "Pomozi u prijevodu Heroica."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Korištenje ugrađenog GOGDL binarne datoteke",
         "alt-legendary-bin": "Korištenje ugrađene Legendary binarne datoteke...",
@@ -408,6 +415,7 @@
     "setting": {
         "adddesktopshortcuts": "Automatski dodajte prečice na radnoj površini",
         "addgamestostartmenu": "Automatski dodajte igre u početni meni",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Odaberite alternativnu GOGDL binarnu datoteku koju želite koristiti",
         "alt-legendary-bin": "Odaberite alternativnu Legendary binarnu datoteku",
         "audiofix": "Popravak zvuka (kašnjenje pulsnog zvuka)",
@@ -486,7 +494,6 @@
         "prefered_language": "Željeni jezik (šifra jezika)",
         "preferSystemLibs": "Preferirajte sistemske biblioteke",
         "primerun": "Koristite namjensku grafičku karticu",
-        "resizableBar": "Omogući promjenjivi BAR (samo NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Povucite i ispustite datoteke ovdje",
             "title": "Pokrenite EXE na prefiksu"

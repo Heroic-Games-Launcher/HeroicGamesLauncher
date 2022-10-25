@@ -49,6 +49,11 @@ const timestampStore = new StoreIpc('timestampStore', {
   name: 'timestamp'
 })
 
+const sideloadLibrary = new StoreIpc('sideloadedStore', {
+  cwd: 'sideload_apps',
+  name: 'library'
+})
+
 const downloadManagerStore = new StoreIpc('download-manager', {
   cwd: 'store',
   name: 'download-manager'
@@ -61,6 +66,7 @@ export {
   gogConfigStore,
   libraryStore,
   timestampStore,
+  sideloadLibrary,
   wineDownloaderInfoStore,
   downloadManagerStore
 }

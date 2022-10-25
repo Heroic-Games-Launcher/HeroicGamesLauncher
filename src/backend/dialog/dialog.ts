@@ -1,15 +1,24 @@
 import { LogPrefix, logWarning } from '../logger/logger'
 import { BrowserWindow, dialog } from 'electron'
+import { ButtonOptions, DialogType } from 'common/types'
 
-const { showErrorBox } = dialog
+const { showErrorBox, showMessageBox } = dialog
 
-function showErrorBoxModalAuto(props: {
+function showDialogBoxModalAuto(props: {
   event?: Electron.IpcMainInvokeEvent
   title: string
-  error: string
+  message: string
+  type: DialogType
+  buttons?: Array<ButtonOptions>
 }) {
   if (props.event) {
-    props.event.sender.send('showErrorDialog', props.title, props.error)
+    props.event.sender.send(
+      'showDialog',
+      props.title,
+      props.message,
+      props.type,
+      props.buttons
+    )
   } else {
     let window: BrowserWindow | null
     try {
@@ -17,14 +26,30 @@ function showErrorBoxModalAuto(props: {
       if (!window) {
         window = BrowserWindow.getAllWindows()[0]
       }
-      window.webContents.send('showErrorDialog', props.title, props.error)
+      window.webContents.send(
+        'showDialog',
+        props.title,
+        props.message,
+        props.type,
+        props.buttons
+      )
     } catch (error) {
-      logWarning(['showErrorBoxModalAuto:', error], {
+      logWarning(['showDialogBoxModalAuto:', error], {
         prefix: LogPrefix.Backend
       })
-      showErrorBox(props.title, props.error)
+      switch (props.type) {
+        case 'ERROR':
+          showErrorBox(props.title, props.message)
+          break
+        default:
+          showMessageBox(BrowserWindow.getAllWindows()[0], {
+            title: props.title,
+            message: props.message
+          })
+          break
+      }
     }
   }
 }
 
-export { showErrorBoxModalAuto }
+export { showDialogBoxModalAuto }

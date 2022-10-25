@@ -9,7 +9,10 @@ import {
   GameSettings,
   InstallPlatform,
   LaunchParams,
-  Tools
+  Tools,
+  WineCommandArgs,
+  SideloadGame,
+  InstallParams
 } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import * as path from 'path'
@@ -25,7 +28,7 @@ import {
   screen,
   clipboard
 } from 'electron'
-import './updater'
+import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {
@@ -72,8 +75,7 @@ import {
   getGame,
   getFirstExistingParentPath,
   getLatestReleases,
-  notify,
-  quoteIfNecessary
+  notify
 } from './utils'
 import {
   configStore,
@@ -114,7 +116,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
-import { verifyWinePrefix } from './launcher'
+import { runWineCommand, verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -122,10 +124,19 @@ import {
   isOnline,
   runOnceWhenOnline
 } from './online_monitor'
-import { showErrorBoxModalAuto } from './dialog/dialog'
+import { showDialogBoxModalAuto } from './dialog/dialog'
+import {
+  addNewApp,
+  appLogFileLocation,
+  getAppInfo,
+  getAppSettings,
+  isNativeApp,
+  launchApp,
+  removeApp
+} from './sideload/games'
 import { callAbortController } from './utils/aborthandler/aborthandler'
 
-const { showMessageBox, showOpenDialog } = dialog
+const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow
@@ -236,15 +247,17 @@ async function createWindow(): Promise<BrowserWindow> {
   }
 
   if (!app.isPackaged) {
-    /* eslint-disable @typescript-eslint/ban-ts-comment */
-    //@ts-ignore
-    import('electron-devtools-installer').then((devtools) => {
-      const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
+    if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {
+      import('electron-devtools-installer').then((devtools) => {
+        const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
-      installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        logWarning(['An error occurred: ', err], { prefix: LogPrefix.Backend })
+        installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
+          logWarning(['An error occurred: ', err], {
+            prefix: LogPrefix.Backend
+          })
+        })
       })
-    })
+    }
     mainWindow.loadURL('http://localhost:5173')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
@@ -345,7 +358,9 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     initOnlineMonitor()
 
-    const systemInfo = await getSystemInfo()
+    getSystemInfo().then((systemInfo) =>
+      logInfo(`\n\n${systemInfo}\n`, { prefix: LogPrefix.Backend })
+    )
 
     initImagesCache()
 
@@ -356,7 +371,6 @@ if (!gotTheLock) {
     logInfo(['GOGDL location:', join(...Object.values(getGOGdlBin()))], {
       prefix: LogPrefix.Gog
     })
-    logInfo(`\n\n${systemInfo}\n`, { prefix: LogPrefix.Backend })
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
 
@@ -505,17 +519,18 @@ ipcMain.on('frontendReady', () => {
 // Maybe this can help with white screens
 process.on('uncaughtException', async (err) => {
   logError(`${err.name}: ${err.message}`, { prefix: LogPrefix.Backend })
-  showErrorBoxModalAuto({
+  showDialogBoxModalAuto({
     title: i18next.t(
       'box.error.uncaught-exception.title',
       'Uncaught Exception occured!'
     ),
-    error: i18next.t('box.error.uncaught-exception.message', {
+    message: i18next.t('box.error.uncaught-exception.message', {
       defaultValue:
         'A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.',
       newLine: '\n',
       error: err
-    })
+    }),
+    type: 'ERROR'
   })
 })
 
@@ -539,6 +554,10 @@ ipcMain.on('unlock', () => {
       return powerSaveBlocker.stop(powerId)
     }
   }
+})
+
+ipcMain.handle('kill', async (event, appName, runner) => {
+  return getGame(appName, runner).stop()
 })
 
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
@@ -649,25 +668,36 @@ ipcMain.handle(
   'callTool',
   async (event, { tool, exe, appName, runner }: Tools) => {
     const game = getGame(appName, runner)
-    const { wineVersion, winePrefix } = await game.getSettings()
-    await verifyWinePrefix(game)
+    const isSideloaded = runner === 'sideload'
+    const gameSettings = isSideloaded
+      ? await getAppSettings(appName)
+      : await game.getSettings()
+    const { wineVersion, winePrefix } = gameSettings
+    await verifyWinePrefix(gameSettings)
 
     switch (tool) {
       case 'winetricks':
         await Winetricks.run(wineVersion, winePrefix, event)
         break
       case 'winecfg':
-        game.runWineCommand('winecfg')
+        isSideloaded
+          ? runWineCommand({ gameSettings, command: 'winecfg', wait: false })
+          : game.runWineCommand('winecfg')
         break
       case 'runExe':
         if (exe) {
-          exe = quoteIfNecessary(exe)
-          game.runWineCommand(exe)
+          isSideloaded
+            ? runWineCommand({ gameSettings, command: exe, wait: false })
+            : game.runWineCommand(exe)
         }
         break
     }
   }
 )
+
+ipcMain.handle('runWineCommand', async (e, args: WineCommandArgs) => {
+  return runWineCommand(args)
+})
 
 /// IPC handlers begin here.
 
@@ -704,31 +734,23 @@ ipcMain.handle('getLatestReleases', async () => {
   }
 })
 
-ipcMain.on('clearCache', () => {
+ipcMain.on('clearCache', (event) => {
   clearCache()
-  dialog.showMessageBox(mainWindow, {
+
+  showDialogBoxModalAuto({
+    event,
     title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
     message: i18next.t(
       'box.cache-cleared.message',
       'Heroic Cache Was Cleared!'
     ),
-    buttons: [i18next.t('box.ok', 'Ok')]
+    type: 'MESSAGE',
+    buttons: [{ text: i18next.t('box.ok', 'Ok') }]
   })
 })
 
 ipcMain.on('resetHeroic', async () => {
-  const { response } = await dialog.showMessageBox(mainWindow, {
-    title: i18next.t('box.reset-heroic.question.title', 'Reset Heroic'),
-    message: i18next.t(
-      'box.reset-heroic.question.message',
-      "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
-    ),
-    buttons: [i18next.t('box.no'), i18next.t('box.yes')]
-  })
-
-  if (response === 1) {
-    resetHeroic()
-  }
+  resetHeroic()
 })
 
 ipcMain.on('createNewWindow', async (e, url) =>
@@ -738,6 +760,9 @@ ipcMain.on('createNewWindow', async (e, url) =>
 ipcMain.handle(
   'getGameInfo',
   async (event, appName: string, runner: Runner) => {
+    if (runner === 'sideload') {
+      return getAppInfo(appName)
+    }
     // Fastpath since we sometines have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
     if (runner === 'legendary' && !LegendaryLibrary.get().hasGame(appName)) {
       return null
@@ -758,9 +783,12 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('getGameSettings', async (event, game, runner) => {
+ipcMain.handle('getGameSettings', async (event, appName, runner: Runner) => {
   try {
-    return await getGame(game, runner).getSettings()
+    if (runner === 'sideload') {
+      return await getAppSettings(appName)
+    }
+    return await getGame(appName, runner).getSettings()
   } catch (error) {
     logError(error, { prefix: LogPrefix.Backend })
     return null
@@ -783,7 +811,7 @@ ipcMain.handle(
     }
 
     try {
-      // @ts-ignore This is actually fine as long as the frontend always passes the right InstallPlatform for the right runner
+      // @ts-expect-error This is actually fine as long as the frontend always passes the right InstallPlatform for the right runner
       const info = await getGame(game, runner).getInstallInfo(installPlatform)
       return info
     } catch (error) {
@@ -942,26 +970,29 @@ ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }: LaunchParams) => {
     const window = BrowserWindow.getAllWindows()[0]
+    const isSideloaded = runner === 'sideload'
     const recentGames =
       (configStore.get('games.recent') as Array<RecentGame>) || []
-    const game = getGame(appName, runner)
-    const { title } = game.getGameInfo()
+    const extGame = getGame(appName, runner)
+    const game = isSideloaded ? getAppInfo(appName) : extGame.getGameInfo()
+    const { title } = game
+
     const { minimizeOnLaunch, maxRecentGames: MAX_RECENT_GAMES = 5 } =
       await GlobalConfig.get().getSettings()
 
     const startPlayingDate = new Date()
 
-    if (!tsStore.has(game.appName)) {
-      tsStore.set(`${game.appName}.firstPlayed`, startPlayingDate)
+    if (!tsStore.has(game.app_name)) {
+      tsStore.set(`${game.app_name}.firstPlayed`, startPlayingDate)
     }
 
-    logInfo(`Launching ${title} (${game.appName})`, {
+    logInfo(`Launching ${title} (${game.app_name})`, {
       prefix: LogPrefix.Backend
     })
 
     if (recentGames.length) {
       let updatedRecentGames = recentGames.filter(
-        (a) => a.appName && a.appName !== game.appName
+        (a) => a.appName && a.appName !== game.app_name
       )
       if (updatedRecentGames.length > MAX_RECENT_GAMES) {
         const newArr = []
@@ -973,10 +1004,10 @@ ipcMain.handle(
       if (updatedRecentGames.length === MAX_RECENT_GAMES) {
         updatedRecentGames.pop()
       }
-      updatedRecentGames.unshift({ appName: game.appName, title })
+      updatedRecentGames.unshift({ appName: game.app_name, title })
       configStore.set('games.recent', updatedRecentGames)
     } else {
-      configStore.set('games.recent', [{ appName: game.appName, title }])
+      configStore.set('games.recent', [{ appName: game.app_name, title }])
     }
 
     window.webContents.send('setGameStatus', {
@@ -996,13 +1027,16 @@ ipcMain.handle(
     }
 
     const systemInfo = await getSystemInfo()
-    const gameSettingsString = JSON.stringify(
-      await game.getSettings(),
-      null,
-      '\t'
-    )
+    const gameSettings = isSideloaded
+      ? getAppSettings(appName)
+      : await extGame.getSettings()
+    const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
+    const logFileLocation = isSideloaded
+      ? appLogFileLocation(appName)
+      : extGame.logFileLocation
+
     writeFileSync(
-      game.logFileLocation,
+      logFileLocation,
       'System Info:\n' +
         `${systemInfo}\n` +
         '\n' +
@@ -1011,12 +1045,16 @@ ipcMain.handle(
         `Game launched at: ${startPlayingDate}\n` +
         '\n'
     )
-    return game
-      .launch(launchArguments)
+
+    const command = isSideloaded
+      ? launchApp(appName)
+      : extGame.launch(launchArguments)
+
+    return command
       .catch((exception) => {
         logError(exception, { prefix: LogPrefix.Backend })
         appendFileSync(
-          game.logFileLocation,
+          logFileLocation,
           `An exception occurred when launching the game:\n${exception.stack}`
         )
       })
@@ -1031,17 +1069,17 @@ ipcMain.handle(
 
         // Update playtime and last played date
         const finishedPlayingDate = new Date()
-        tsStore.set(`${game.appName}.lastPlayed`, finishedPlayingDate)
+        tsStore.set(`${game.app_name}.lastPlayed`, finishedPlayingDate)
         // Playtime of this session in minutes
         const sessionPlaytime =
           (finishedPlayingDate.getTime() - startPlayingDate.getTime()) /
           1000 /
           60
         let totalPlaytime = sessionPlaytime
-        if (tsStore.has(`${game.appName}.totalPlayed`)) {
-          totalPlaytime += tsStore.get(`${game.appName}.totalPlayed`) as number
+        if (tsStore.has(`${game.app_name}.totalPlayed`)) {
+          totalPlaytime += tsStore.get(`${game.app_name}.totalPlayed`) as number
         }
-        tsStore.set(`${game.appName}.totalPlayed`, Math.floor(totalPlaytime))
+        tsStore.set(`${game.app_name}.totalPlayed`, Math.floor(totalPlaytime))
 
         window.webContents.send('setGameStatus', {
           appName,
@@ -1073,19 +1111,85 @@ ipcMain.on('showItemInFolder', async (e, item) => {
   showItemInFolder(item)
 })
 
-const openMessageBox = async (args: Electron.MessageBoxOptions) => {
-  const { response, checkboxChecked } = await showMessageBox(mainWindow, {
-    ...args
-  })
-  return { response, checkboxChecked }
-}
+ipcMain.handle('install', async (event, params) => {
+  const {
+    appName,
+    path,
+    installDlcs,
+    sdlList = [],
+    runner,
+    installLanguage,
+    platformToInstall
+  } = params as InstallParams
+  const game = getGame(appName, runner)
+  const { title } = game.getGameInfo()
 
-ipcMain.handle(
-  'openMessageBox',
-  async (_, args: Electron.MessageBoxOptions) => {
-    return openMessageBox(args)
+  if (!isOnline()) {
+    logWarning(`App offline, skipping install for game '${title}'.`, {
+      prefix: LogPrefix.Backend
+    })
+    return { status: 'error' }
   }
-)
+
+  const epicOffline = await isEpicServiceOffline()
+  if (epicOffline && runner === 'legendary') {
+    showDialogBoxModalAuto({
+      event,
+      title: i18next.t('box.warning.title', 'Warning'),
+      message: i18next.t(
+        'box.warning.epic.install',
+        'Epic Servers are having major outage right now, the game cannot be installed!'
+      ),
+      type: 'ERROR'
+    })
+    return { status: 'error' }
+  }
+
+  mainWindow.webContents.send('setGameStatus', {
+    appName,
+    runner,
+    status: 'installing',
+    folder: path
+  })
+
+  notify({
+    title,
+    body: i18next.t('notify.install.startInstall', 'Installation Started')
+  })
+  return game
+    .install({
+      path: path.replaceAll("'", ''),
+      installDlcs,
+      sdlList,
+      platformToInstall,
+      installLanguage
+    })
+    .then(async (res) => {
+      notify({
+        title,
+        body:
+          res.status === 'done'
+            ? i18next.t('notify.install.finished')
+            : i18next.t('notify.install.canceled')
+      })
+      logInfo('finished installing', { prefix: LogPrefix.Backend })
+      mainWindow.webContents.send('setGameStatus', {
+        appName,
+        runner,
+        status: 'done'
+      })
+      return res
+    })
+    .catch((res) => {
+      notify({ title, body: i18next.t('notify.install.canceled') })
+      mainWindow.webContents.send('setGameStatus', {
+        appName,
+        runner,
+        status: 'done'
+      })
+      return res
+    })
+})
 
 ipcMain.handle('uninstall', async (event, args) => {
   const [appName, shouldRemovePrefix, runner] = args
@@ -1158,19 +1262,18 @@ ipcMain.handle(
   'importGame',
   async (event, args): Promise<{ status: 'done' | 'error' }> => {
     const { appName, path, runner } = args
-    if (runner === 'legendary') {
-      const epicOffline = await isEpicServiceOffline()
-      if (epicOffline) {
-        showErrorBoxModalAuto({
-          event,
-          title: i18next.t('box.warning.title', 'Warning'),
-          error: i18next.t(
-            'box.warning.epic.import',
-            'Epic Servers are having major outage right now, the game cannot be imported!'
-          )
-        })
-        return { status: 'error' }
-      }
+    const epicOffline = await isEpicServiceOffline()
+    if (epicOffline && runner === 'legendary') {
+      showDialogBoxModalAuto({
+        event,
+        title: i18next.t('box.warning.title', 'Warning'),
+        message: i18next.t(
+          'box.warning.epic.import',
+          'Epic Servers are having major outage right now, the game cannot be imported!'
+        ),
+        type: 'ERROR'
+      })
+      return { status: 'error' }
     }
     const game = getGame(appName, runner)
     const { title } = game.getGameInfo()
@@ -1228,19 +1331,18 @@ ipcMain.handle('updateGame', async (event, appName, runner) => {
     return
   }
 
-  if (runner === 'legendary') {
-    const epicOffline = await isEpicServiceOffline()
-    if (epicOffline) {
-      showErrorBoxModalAuto({
-        event,
-        title: i18next.t('box.warning.title', 'Warning'),
-        error: i18next.t(
-          'box.warning.epic.update',
-          'Epic Servers are having major outage right now, the game cannot be updated!'
-        )
-      })
-      return { status: 'error' }
-    }
+  const epicOffline = await isEpicServiceOffline()
+  if (epicOffline && runner === 'legendary') {
+    showDialogBoxModalAuto({
+      event,
+      title: i18next.t('box.warning.title', 'Warning'),
+      message: i18next.t(
+        'box.warning.epic.update',
+        'Epic Servers are having major outage right now, the game cannot be updated!'
+      ),
+      type: 'ERROR'
+    })
+    return { status: 'error' }
   }
 
   const game = getGame(appName, runner)
@@ -1476,10 +1578,15 @@ ipcMain.handle(
   'runWineCommandForGame',
   async (event, { appName, command, runner }) => {
     const game = getGame(appName, runner)
+    const isSideloaded = runner === 'sideload'
+    const gameSettings = isSideloaded
+      ? await getAppSettings(appName)
+      : await game.getSettings()
+
     if (isWindows) {
       return execAsync(command)
     }
-    const { updated } = await verifyWinePrefix(game)
+    const { updated } = await verifyWinePrefix(gameSettings)
 
     if (runner === 'gog' && updated) {
       await setup(game.appName)
@@ -1515,6 +1622,27 @@ ipcMain.on('clipboardWriteText', (event, text) => {
   return clipboard.writeText(text)
 })
 
+ipcMain.on('addNewApp', (e, args: SideloadGame) => addNewApp(args))
+
+ipcMain.handle(
+  'removeApp',
+  async (e, args: { appName: string; shouldRemovePrefix: boolean }) =>
+    removeApp(args)
+)
+
+ipcMain.handle('launchApp', async (e, appName: string) => launchApp(appName))
+
+ipcMain.handle(
+  'isNative',
+  (e, { appName, runner }: { appName: string; runner: Runner }) => {
+    if (runner === 'sideload') {
+      return isNativeApp(appName)
+    }
+    const game = getGame(appName, runner)
+    return game.isNative()
+  }
+)
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1532,7 +1660,6 @@ import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
-import './dialog/ipc_handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

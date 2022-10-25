@@ -13,8 +13,6 @@
   display: flex;
   flex-direction: column;
   padding: 0;
-  height: fit-content;
-  min-width: fit-content;
   overflow: auto;
   border: solid 1px var(--modal-border);
   border-radius: 10px;
@@ -23,6 +21,7 @@
   opacity: 0;
   transform: translateY(50px);
   transition: opacity 500ms, transform 500ms;
+  max-width: min(700px, 85vw);
 }
 
 .Dialog__element[open] {
@@ -39,14 +38,14 @@
   flex: 100% 1 1;
   padding: var(--dialog-margin-vertical) 16px 0 var(--dialog-margin-horizontal);
   font-size: var(--text-xl);
-  margin: 0;
+  margin: var(--space-lg) 0 0;
 }
 
-.Dialog__headerClose {
-  padding: var(--dialog-margin-vertical) var(--dialog-margin-horizontal) 0 0;
+.Dialog__Close {
+  padding: 0 var(--dialog-margin-horizontal) 0 0;
 }
 
-.Dialog__headerCloseButton {
+.Dialog__CloseButton {
   border: none;
   margin: calc(-1 * var(--space-xs));
   padding: var(--space-xs);
@@ -55,22 +54,25 @@
   color: var(--text-default);
   cursor: pointer;
   transition: 250ms color;
+  position: absolute;
+  right: var(--space-lg);
+  top: var(--space-md);
 }
 
-.Dialog__headerCloseButton:focus-visible {
+.Dialog__CloseButton:focus-visible {
   outline: none;
   box-shadow: var(--accent) 0 0 0 2px inset;
 }
 
-.Dialog__headerCloseButton:hover {
+.Dialog__CloseButton:hover {
   color: var(--text-hover);
 }
 
-.Dialog__headerCloseButton:active {
+.Dialog__CloseButton:active {
   color: var(--accent);
 }
 
-.Dialog__headerCloseIcon {
+.Dialog__CloseIcon {
   font-size: var(--text-lg);
 }
 

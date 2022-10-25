@@ -3,7 +3,16 @@ import { LegendaryInstallPlatform } from './types/legendary'
 import { VersionInfo } from 'heroic-wine-downloader'
 import { IpcRendererEvent } from 'electron'
 
-export type Runner = 'legendary' | 'gog'
+export type Runner = 'legendary' | 'gog' | 'sideload'
+
+// NOTE: Do not put enum's in this module or it will break imports
+
+export type DialogType = 'MESSAGE' | 'ERROR'
+
+export interface ButtonOptions {
+  text: string
+  onClick?: () => void
+}
 
 // here is a way to type the callback function in ipcMain.on or ipcMain.handle
 // does not prevent callbacks with fewer parameters from being passed though
@@ -50,6 +59,7 @@ export interface AppSettings {
   enableUpdates: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
+  addSteamShortcuts: boolean
   altLegendaryBin: string
   altGogdlBin: string
   audioFix: boolean
@@ -72,11 +82,10 @@ export interface AppSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
-  enableResizableBar: boolean
   language: string
   launcherArgs: string
   maxRecentGames: number
-  maxSharpness: number
+  maxSharpness?: number
   maxWorkers: number
   minimizeOnLaunch: boolean
   nvidiaPrime: boolean
@@ -145,8 +154,7 @@ export interface GameSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
-  enableResizableBar: boolean
-  maxSharpness: number
+  maxSharpness?: number
   language: string
   launcherArgs: string
   nvidiaPrime: boolean
@@ -494,4 +502,29 @@ export interface Tools {
 export interface DMQueueElement {
   params: InstallParams
   status?: 'done' | 'error' | 'abort'
+}
+
+export type WineCommandArgs = {
+  command: string
+  wait: boolean
+  forceRunInPrefixVerb?: boolean
+  gameSettings?: GameSettings
+  installFolderName?: string
+  options?: CallRunnerOptions
+  startFolder?: string
+}
+
+export interface SideloadGame {
+  runner: Runner
+  app_name: string
+  art_cover: string
+  art_square: string
+  is_installed: boolean
+  title: string
+  install: {
+    executable: string
+    platform: InstallPlatform
+  }
+  folder_name?: string
+  canRunOffline: boolean
 }

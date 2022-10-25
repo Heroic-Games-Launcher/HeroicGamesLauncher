@@ -17,6 +17,15 @@
             "message": "Megszeretnéd próbálni megjavítani ezt a játékot? Ez eltarthat egy ideig.",
             "title": "Ellenőrzés és javítás"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Telepítés folytatása",
             "message": "Szeretnéd MEGTARTANI a letöltött fájlokat?",
@@ -38,14 +47,22 @@
         "add_to_favourites": "Kedvencekhez adás",
         "cancel": "Szüneteltetés/mégse",
         "continue": "Letöltés folytatása",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
         "hide_game": "Játék elrejtése",
         "import": "Játék importálása",
         "install": "Telepítés",
+        "no-path-selected": "No path selected",
         "queue": {
             "remove": "Remove from Queue"
         },
         "remove_from_favourites": "Eltávolítás a kedvencekből",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Játék felfedése",
         "uninstall": "Eltávolítás",
         "update": "Frissítés"
@@ -59,6 +76,8 @@
     "game": {
         "downloadSize": "Letöltési méret",
         "firstPlayed": "Először játszott",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Telepítési méret",
         "language": "Nyelv",
         "lastPlayed": "Legutóbb játszott",
@@ -112,6 +131,20 @@
     "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {
         "title": "Válaszd ki a telepíteni kívánt elemeket"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Minimum",

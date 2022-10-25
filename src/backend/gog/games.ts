@@ -53,7 +53,7 @@ import {
   GogInstallPlatform
 } from 'common/types/gog'
 import { t } from 'i18next'
-import { showErrorBoxModalAuto } from '../dialog/dialog'
+import { showDialogBoxModalAuto } from '../dialog/dialog'
 
 class GOGGame extends Game {
   public appName: string
@@ -319,6 +319,7 @@ class GOGGame extends Game {
       })
       await setup(this.appName, installedData)
     }
+    this.addShortcuts()
     return { status: 'done' }
   }
 
@@ -344,7 +345,7 @@ class GOGGame extends Game {
   }
 
   public async removeShortcuts() {
-    return removeShortcuts(this.appName, 'gog')
+    return removeShortcuts(this.getGameInfo())
   }
 
   async launch(launchArguments?: string): Promise<boolean> {
@@ -375,15 +376,16 @@ class GOGGame extends Game {
       mangoHudCommand,
       gameModeBin,
       steamRuntime
-    } = await prepareLaunch(this, gameInfo)
+    } = await prepareLaunch(gameSettings, gameInfo, this.isNative())
     if (!launchPrepSuccess) {
       appendFileSync(
         this.logFileLocation,
         `Launch aborted: ${launchPrepFailReason}`
       )
-      showErrorBoxModalAuto({
+      showDialogBoxModalAuto({
         title: t('box.error.launchAborted', 'Launch aborted'),
-        error: launchPrepFailReason!
+        message: launchPrepFailReason!,
+        type: 'ERROR'
       })
       return false
     }
@@ -408,10 +410,13 @@ class GOGGame extends Game {
           this.logFileLocation,
           `Launch aborted: ${wineLaunchPrepFailReason}`
         )
-        showErrorBoxModalAuto({
-          title: t('box.error.launchAborted', 'Launch aborted'),
-          error: wineLaunchPrepFailReason!
-        })
+        if (wineLaunchPrepFailReason) {
+          showDialogBoxModalAuto({
+            title: t('box.error.launchAborted', 'Launch aborted'),
+            message: wineLaunchPrepFailReason!,
+            type: 'ERROR'
+          })
+        }
         return false
       }
 
@@ -687,15 +692,10 @@ class GOGGame extends Game {
     }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
-    await removeShortcuts(this.appName, 'gog')
+    await removeShortcuts(this.getGameInfo())
     syncStore.delete(this.appName)
     const gameInfo = await this.getGameInfo()
-    const { defaultSteamPath } = await GlobalConfig.get().getSettings()
-    const steamUserdataDir = join(
-      defaultSteamPath.replaceAll("'", ''),
-      'userdata'
-    )
-    await removeNonSteamGame({ steamUserdataDir, gameInfo })
+    await removeNonSteamGame({ gameInfo })
     return res
   }
 
@@ -826,8 +826,16 @@ class GOGGame extends Game {
       })
       return { stdout: '', stderr: '' }
     }
+    const { folder_name } = this.getGameInfo()
+    const gameSettings = await this.getSettings()
 
-    return runWineCommand(this, command, wait, forceRunInPrefixVerb)
+    return runWineCommand({
+      gameSettings,
+      installFolderName: folder_name,
+      command,
+      wait,
+      forceRunInPrefixVerb
+    })
   }
 
   async forceUninstall(): Promise<void> {

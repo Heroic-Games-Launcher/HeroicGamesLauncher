@@ -17,9 +17,7 @@ import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
 
 function App() {
-  const { epic, gog, sidebarCollapsed } = useContext(ContextProvider)
-
-  const loggedIn = epic.username || gog.username
+  const { sidebarCollapsed } = useContext(ContextProvider)
 
   return (
     <div className={classNames('App', { collapsed: sidebarCollapsed })}>
@@ -29,7 +27,7 @@ function App() {
         <main className="content">
           <DialogHandler />
           <Routes>
-            <Route path="/" element={loggedIn ? <Library /> : <Login />} />
+            <Route path="/" element={<Library />} />
             <Route path="login" element={<Login />} />
             <Route path="epicstore" element={<WebView />} />
             <Route path="gogstore" element={<WebView />} />

@@ -69,6 +69,7 @@
                 "title": "Eguneraketa errorea"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Ez da Wine bertsioa hautatu. Egiaztatu jokoaren konfigurazioa!",
                 "title": "Wine ez da aurkitu"
             },
@@ -236,7 +237,6 @@
         },
         "preferSystemLibs": "Wine bertsio pertsonalizatuak (Wine-GE, Wine-Lutris) beren liburutegiko mendekotasunekin bidaltzen dira. Aukera hau gaituz gero, bidaltzen diren liburutegi hauek ez ikusi egingo dira eta Wine-k sistemako liburutegiak kargatuko ditu ordez. Kontuz! Arazoak gerta daitezke mendekotasunak betetzen ez badira.",
         "primerun": "Erabili txartel grafiko dedikatua jokoa errendatzeko GPU anitzeko sistemetan. Errendatzeko bururik gabeko GPU bat erabiltzen duten joko-ordenagailu eramangarrietan edo mahaigainetan bakarrik behar da (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIAren Resizable Bar-ek fotograma-tasa areagotzen laguntzen du, CPUak buffer grafiko osoa atzitzen duelako. Gaitzeak Vulkan-en oinarritutako jokoen errendimendua hobetu dezake.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -259,6 +259,9 @@
             "newReleases": "Eguneraketa eskuragarri!",
             "stable": "Egonkorra",
             "version": "Heroic bertsioa"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Ezarpenak automatikoki gordetzen dira",
         "version": "Ardoaren Bertsioa"
@@ -293,7 +296,10 @@
         "website": "Webgunea kargatzen"
     },
     "login": {
-        "externalLogin": "Kanpoko saioa"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sinkronizazioa amaituta",
@@ -383,6 +389,7 @@
         "legendary-version": "Bertsio mitikoa: ",
         "weblate": "Lagundu Heroic itzultzen."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "GOGDL bitarra integratua erabiltzen...",
         "alt-legendary-bin": "Kondairazko bitar integratua erabiltzen...",
@@ -408,6 +415,7 @@
     "setting": {
         "adddesktopshortcuts": "Gehitu mahaigaineko lasterbideak automatikoki",
         "addgamestostartmenu": "Gehitu jokoak menua automatikoki hasteko",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Aukeratu GOGDL Binario alternatibo bat erabiltzeko",
         "alt-legendary-bin": "Aukeratu kondairazko bitar alternatibo bat",
         "audiofix": "Audio konponketa (Pultso Audio latentzia)",
@@ -486,7 +494,6 @@
         "prefered_language": "Lehenetsitako hizkuntza (Hizkuntza-kodea)",
         "preferSystemLibs": "Sistemaren liburutegiak hobetsi",
         "primerun": "Erabili txartel grafiko dedikatua",
-        "resizableBar": "Gaitu tamaina aldagarria BAR (NVIDIA RTX 30xx soilik)",
         "runexe": {
             "message": "Arrastatu eta Jaregin Fitxategiak hemen",
             "title": "Exekutatu EXE aurrizkian"

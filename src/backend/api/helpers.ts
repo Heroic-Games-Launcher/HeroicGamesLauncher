@@ -2,9 +2,10 @@ import { ipcRenderer } from 'electron'
 import {
   Runner,
   InstallPlatform,
+  WineCommandArgs,
   ConnectivityChangedCallback,
   ConnectivityStatus
-} from '../../common/types'
+} from 'common/types'
 
 export const notify = (notification: string[]) =>
   ipcRenderer.send('Notify', notification)
@@ -45,6 +46,8 @@ interface runWineCommand {
   runner: string
   command: string
 }
+export const runWineCommand = async (args: WineCommandArgs) =>
+  ipcRenderer.invoke('runWineCommand', args)
 export const runWineCommandForGame = async (command: runWineCommand) =>
   ipcRenderer.invoke('runWineCommandForGame', command)
 export const requestSettings = async (appName: string) =>
@@ -57,3 +60,6 @@ export const getConnectivityStatus = async (): Promise<ConnectivityStatus> =>
   ipcRenderer.invoke('get-connectivity-status', [])
 export const connectivityChanged = async (newStatus: ConnectivityStatus) =>
   ipcRenderer.send('connectivity-changed', newStatus)
+
+export const isNative = async (args: { appName: string; runner: Runner }) =>
+  ipcRenderer.invoke('isNative', args) as Promise<boolean>

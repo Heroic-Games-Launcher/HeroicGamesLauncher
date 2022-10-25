@@ -69,6 +69,7 @@
                 "title": "Eroare de actualizare"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Nicio versiune Wine selectată. Verificați setările jocului!",
                 "title": "Wine nu a fost găsit"
             },
@@ -236,7 +237,6 @@
         },
         "preferSystemLibs": "Versiunile personalizate de vin (Wine-GE, Wine-Lutris) sunt livrate cu dependențele lor de bibliotecă. Prin activarea acestei opțiuni, aceste biblioteci livrate vor fi ignorate și Wine va încărca biblioteci de sistem. Avertizare! Pot apărea probleme dacă dependențele nu sunt îndeplinite.",
         "primerun": "Utilizați placa grafică dedicată pentru a reda jocul pe sisteme multi-GPU. Este necesar doar pe laptop-uri sau desktop-uri de jocuri care utilizează un GPU fără cap pentru randare (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "Bara resizable de la NVIDIA ajută la creșterea ratei de cadre, făcând ca procesorul să acceseze întregul buffer grafic. Activarea poate îmbunătăți performanța pentru jocurile bazate pe Vulkan.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -259,6 +259,9 @@
             "newReleases": "Actualizare disponibila",
             "stable": "Grajd",
             "version": "Versiune eroică"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Setările sunt salvate automat",
         "version": "Versiune Wine"
@@ -293,7 +296,10 @@
         "website": "Se încarcă site-ul web"
     },
     "login": {
-        "externalLogin": "Autentificare externă"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sincronizare Completă",
@@ -383,6 +389,7 @@
         "legendary-version": "Versiune Legendary: ",
         "weblate": "Ajută la traducerea Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Se utilizează binarul GOGDL încorporat...",
         "alt-legendary-bin": "Folosind binarul Legendary încorporat...",
@@ -408,6 +415,7 @@
     "setting": {
         "adddesktopshortcuts": "Adăugați automat comenzi rapide pe desktop",
         "addgamestostartmenu": "Adăugați jocuri în meniul Start automat",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Alegeți un binar GOGDL alternativ pe care să îl utilizați",
         "alt-legendary-bin": "Alegeți un Legendary Binary alternativ pe care să îl utilizați",
         "audiofix": "Fixare Audio (Latență în PulseAudio)",
@@ -486,7 +494,6 @@
         "prefered_language": "Limba preferată (Codul de limbă)",
         "preferSystemLibs": "Preferați bibliotecile de sistem",
         "primerun": "Activați Nvidia Prime Render",
-        "resizableBar": "Activați BAR redimensionabil (numai pentru NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Trageți și plasați fișiere aici",
             "title": "Rulați EXE pe Prefix"

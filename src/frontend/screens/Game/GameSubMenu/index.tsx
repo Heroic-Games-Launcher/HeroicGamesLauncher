@@ -7,10 +7,11 @@ import { AppSettings, GameStatus, Runner } from 'common/types'
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { uninstall } from 'frontend/helpers/library'
 import { NavLink } from 'react-router-dom'
 
+import { InstallModal } from 'frontend/screens/Library/components'
 import { CircularProgress } from '@mui/material'
+import UninstallModal from 'frontend/components/UI/UninstallModal'
 
 interface Props {
   appName: string
@@ -20,62 +21,7 @@ interface Props {
   runner: Runner
   handleUpdate: () => void
   disableUpdate: boolean
-  steamImageUrl: string
   onShowRequirements?: () => void
-}
-
-// helper function to generate images for steam
-// image is centered, sides are padded with blurred image
-// returns dataURL of the generated image
-const imageData = async (
-  src: string,
-  cw: number,
-  ch: number
-): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const canvas = document.createElement('CANVAS') as HTMLCanvasElement
-    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-    const img = document.createElement('IMG') as HTMLImageElement
-    img.crossOrigin = 'anonymous' // prevents cors errors when exporting
-
-    img.addEventListener(
-      'load',
-      function () {
-        // measure canvas and image
-        canvas.width = cw
-        canvas.height = ch
-        const imgWidth = img.width
-        const imgHeight = img.height
-
-        // calculate drawing of the background
-        const bkgW = cw
-        const bkgH = (imgHeight * cw) / imgWidth
-        const bkgX = 0
-        const bkgY = ch / 2 - bkgH / 2
-        ctx.filter = 'blur(10px)' // add blur and draw
-        ctx.drawImage(img, bkgX, bkgY, bkgW, bkgH)
-
-        // calculate drawing of the foreground
-        const drawH = ch
-        const drawW = (imgWidth * ch) / imgHeight
-        const drawY = 0
-        const drawX = cw / 2 - drawW / 2
-        ctx.filter = 'blur(0)' // remove blur and draw
-        ctx.drawImage(img, drawX, drawY, drawW, drawH)
-
-        // resolve with dataURL
-        resolve(canvas.toDataURL('image/jpeg', 0.9))
-      },
-      false
-    )
-
-    img.addEventListener('error', (error) => {
-      reject(error)
-    })
-
-    // set src to trigger the callback
-    img.src = src
-  })
 }
 
 export default function GamesSubmenu({
@@ -86,11 +32,15 @@ export default function GamesSubmenu({
   runner,
   handleUpdate,
   disableUpdate,
-  steamImageUrl,
   onShowRequirements
 }: Props) {
-  const { handleGameStatus, refresh, platform, libraryStatus } =
-    useContext(ContextProvider)
+  const {
+    handleGameStatus,
+    refresh,
+    platform,
+    libraryStatus,
+    showDialogModal
+  } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
@@ -100,70 +50,85 @@ export default function GamesSubmenu({
   const [hasShortcuts, setHasShortcuts] = useState(false)
   const [eosOverlayEnabled, setEosOverlayEnabled] = useState<boolean>(false)
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
+  const [showModal, setShowModal] = useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
+  const [showUninstallModal, setShowUninstallModal] = useState(false)
   const { t } = useTranslation('gamepage')
+  const isSideloaded = runner === 'sideload'
 
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
-  async function handleMoveInstall() {
-    const { response } = await window.api.openMessageBox({
-      buttons: [t('box.yes'), t('box.no')],
-      message: t('box.move.message'),
-      title: t('box.move.title')
+  async function onMoveInstallYesClick() {
+    const { defaultInstallPath }: AppSettings =
+      await window.api.requestSettings('default')
+    const { path } = await window.api.openDialog({
+      buttonLabel: t('box.choose'),
+      properties: ['openDirectory'],
+      title: t('box.move.path'),
+      defaultPath: defaultInstallPath
     })
-    if (response === 0) {
-      const { defaultInstallPath }: AppSettings =
-        await window.api.requestSettings('default')
-      const { path } = await window.api.openDialog({
-        buttonLabel: t('box.choose'),
-        properties: ['openDirectory'],
-        title: t('box.move.path'),
-        defaultPath: defaultInstallPath
-      })
-      if (path) {
-        await handleGameStatus({ appName, runner, status: 'moving' })
-        await window.api.moveInstall([appName, path, runner])
-        await handleGameStatus({ appName, runner, status: 'done' })
-      }
-    }
-  }
-
-  async function handleChangeInstall() {
-    const { response } = await window.api.openMessageBox({
-      buttons: [t('box.yes'), t('box.no')],
-      message: t('box.change.message'),
-      title: t('box.change.title')
-    })
-    if (response === 0) {
-      const { defaultInstallPath }: AppSettings =
-        await window.api.requestSettings('default')
-      const { path } = await window.api.openDialog({
-        buttonLabel: t('box.choose'),
-        properties: ['openDirectory'],
-        title: t('box.change.path'),
-        defaultPath: defaultInstallPath
-      })
-      if (path) {
-        await window.api.changeInstallPath([appName, path, runner])
-        await refresh(runner)
-      }
-      return
-    }
-    return
-  }
-
-  async function handleRepair(appName: string) {
-    const { response } = await window.api.openMessageBox({
-      buttons: [t('box.yes'), t('box.no')],
-      message: t('box.repair.message'),
-      title: t('box.repair.title')
-    })
-
-    if (response === 0) {
-      await handleGameStatus({ appName, runner, status: 'repairing' })
-      await repair(appName, runner)
+    if (path) {
+      await handleGameStatus({ appName, runner, status: 'moving' })
+      await window.api.moveInstall([appName, path, runner])
       await handleGameStatus({ appName, runner, status: 'done' })
     }
+  }
+
+  function handleMoveInstall() {
+    showDialogModal({
+      showDialog: true,
+      message: t('box.move.message'),
+      title: t('box.move.title'),
+      buttons: [
+        { text: t('box.yes'), onClick: onMoveInstallYesClick },
+        { text: t('box.no') }
+      ]
+    })
+  }
+
+  async function onChangeInstallYesClick() {
+    const { defaultInstallPath }: AppSettings =
+      await window.api.requestSettings('default')
+    const { path } = await window.api.openDialog({
+      buttonLabel: t('box.choose'),
+      properties: ['openDirectory'],
+      title: t('box.change.path'),
+      defaultPath: defaultInstallPath
+    })
+    if (path) {
+      await window.api.changeInstallPath([appName, path, runner])
+      await refresh(runner)
+    }
+  }
+
+  function handleChangeInstall() {
+    showDialogModal({
+      showDialog: true,
+      message: t('box.change.message'),
+      title: t('box.change.title'),
+      buttons: [
+        { text: t('box.yes'), onClick: onChangeInstallYesClick },
+        { text: t('box.no') }
+      ]
+    })
+  }
+
+  async function onRepairYesClick(appName: string) {
+    await handleGameStatus({ appName, runner, status: 'repairing' })
+    await repair(appName, runner)
+    await handleGameStatus({ appName, runner, status: 'done' })
+  }
+
+  function handleRepair(appName: string) {
+    showDialogModal({
+      showDialog: true,
+      message: t('box.repair.message'),
+      title: t('box.repair.title'),
+      buttons: [
+        { text: t('box.yes'), onClick: async () => onRepairYesClick(appName) },
+        { text: t('box.no') }
+      ]
+    })
   }
 
   function handleShortcuts() {
@@ -174,6 +139,10 @@ export default function GamesSubmenu({
     window.api.addShortcut(appName, runner, true)
 
     return setHasShortcuts(true)
+  }
+
+  function handleEdit() {
+    setShowModal(true)
   }
 
   async function handleEosOverlay() {
@@ -214,11 +183,8 @@ export default function GamesSubmenu({
         .removeFromSteam(appName, runner)
         .then(() => setAddedToSteam(false))
     } else {
-      const bkgDataURL = await imageData(steamImageUrl, 1920, 620)
-      const bigPicDataURL = await imageData(steamImageUrl, 920, 430)
-
       await window.api
-        .addToSteam(appName, runner, bkgDataURL, bigPicDataURL)
+        .addToSteam(appName, runner)
         .then((added) => setAddedToSteam(added))
     }
     setSteamRefresh(false)
@@ -240,7 +206,7 @@ export default function GamesSubmenu({
     })
 
     // only unix specific
-    if (!isWin) {
+    if (!isWin && runner === 'legendary') {
       // check if eos overlay is enabled
       const { status } =
         libraryStatus.filter(
@@ -259,104 +225,136 @@ export default function GamesSubmenu({
   }
 
   return (
-    <div className="gameTools subMenuContainer">
-      <div className={`submenu`}>
-        {isInstalled && (
-          <>
-            {!isMac && (
-              <button
-                onClick={() => handleShortcuts()}
-                className="link button is-text is-link"
-              >
-                {hasShortcuts
-                  ? t('submenu.removeShortcut', 'Remove shortcuts')
-                  : t('submenu.addShortcut', 'Add shortcut')}
-              </button>
-            )}
-            {steamRefresh ? (
-              refreshCircle()
-            ) : (
-              <button
-                onClick={async () => handleAddToSteam()}
-                className="link button is-text is-link"
-              >
-                {addedToSteam
-                  ? t('submenu.removeFromSteam', 'Remove from Steam')
-                  : t('submenu.addToSteam', 'Add to Steam')}
-              </button>
-            )}
-            <button
-              onClick={async () =>
-                uninstall({ appName, t, handleGameStatus, runner })
-              }
-              className="link button is-text is-link"
-            >
-              {t('button.uninstall')}
-            </button>{' '}
-            <button
-              onClick={async () => handleUpdate()}
-              className="link button is-text is-link"
-              disabled={disableUpdate}
-            >
-              {t('button.force_update', 'Force Update if Available')}
-            </button>{' '}
-            <button
-              onClick={async () => handleMoveInstall()}
-              className="link button is-text is-link"
-            >
-              {t('submenu.move')}
-            </button>{' '}
-            <button
-              onClick={async () => handleChangeInstall()}
-              className="link button is-text is-link"
-            >
-              {t('submenu.change')}
-            </button>{' '}
-            <button
-              onClick={async () => handleRepair(appName)}
-              className="link button is-text is-link"
-            >
-              {t('submenu.verify')}
-            </button>{' '}
-            {isLinux &&
-              runner === 'legendary' &&
-              (eosOverlayRefresh ? (
+    <>
+      <div className="gameTools subMenuContainer">
+        {showUninstallModal && (
+          <UninstallModal
+            appName={appName}
+            runner={runner}
+            onClose={() => setShowUninstallModal(false)}
+          />
+        )}
+        <div className={`submenu`}>
+          {isInstalled && (
+            <>
+              {isSideloaded && (
+                <button
+                  onClick={async () => handleEdit()}
+                  className="link button is-text is-link"
+                >
+                  {t('button.sideload.edit', 'Edit App/Game')}
+                </button>
+              )}{' '}
+              {!isMac && (
+                <button
+                  onClick={() => handleShortcuts()}
+                  className="link button is-text is-link"
+                >
+                  {hasShortcuts
+                    ? t('submenu.removeShortcut', 'Remove shortcuts')
+                    : t('submenu.addShortcut', 'Add shortcut')}
+                </button>
+              )}
+              {steamRefresh ? (
                 refreshCircle()
               ) : (
                 <button
+                  onClick={async () => handleAddToSteam()}
                   className="link button is-text is-link"
-                  onClick={handleEosOverlay}
                 >
-                  {eosOverlayEnabled
-                    ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
-                    : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
+                  {addedToSteam
+                    ? t('submenu.removeFromSteam', 'Remove from Steam')
+                    : t('submenu.addToSteam', 'Add to Steam')}
                 </button>
-              ))}
-          </>
-        )}
-        <NavLink
-          className="link button is-text is-link"
-          to={`/store-page?store-url=${storeUrl}`}
-        >
-          {t('submenu.store')}
-        </NavLink>
-        {!isWin && (
-          <button
-            onClick={() => createNewWindow(protonDBurl)}
-            className="link button is-text is-link"
-          >
-            {t('submenu.protondb')}
-          </button>
-        )}
-        {onShowRequirements && (
-          <button
-            onClick={async () => onShowRequirements()}
-            className="link button is-text is-link"
-          >
-            {t('game.requirements', 'Requirements')}
-          </button>
-        )}
+              )}
+              <button
+                onClick={async () => setShowUninstallModal(true)}
+                className="link button is-text is-link"
+              >
+                {t('button.uninstall')}
+              </button>{' '}
+              {!isSideloaded && (
+                <button
+                  onClick={async () => handleUpdate()}
+                  className="link button is-text is-link"
+                  disabled={disableUpdate}
+                >
+                  {t('button.force_update', 'Force Update if Available')}
+                </button>
+              )}{' '}
+              {!isSideloaded && (
+                <button
+                  onClick={async () => handleMoveInstall()}
+                  className="link button is-text is-link"
+                >
+                  {t('submenu.move')}
+                </button>
+              )}{' '}
+              {!isSideloaded && (
+                <button
+                  onClick={async () => handleChangeInstall()}
+                  className="link button is-text is-link"
+                >
+                  {t('submenu.change')}
+                </button>
+              )}{' '}
+              {!isSideloaded && (
+                <button
+                  onClick={async () => handleRepair(appName)}
+                  className="link button is-text is-link"
+                >
+                  {t('submenu.verify')}
+                </button>
+              )}{' '}
+              {isLinux &&
+                runner === 'legendary' &&
+                (eosOverlayRefresh ? (
+                  refreshCircle()
+                ) : (
+                  <button
+                    className="link button is-text is-link"
+                    onClick={handleEosOverlay}
+                  >
+                    {eosOverlayEnabled
+                      ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
+                      : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
+                  </button>
+                ))}
+            </>
+          )}
+          {!isSideloaded && (
+            <NavLink
+              className="link button is-text is-link"
+              to={`/store-page?store-url=${storeUrl}`}
+            >
+              {t('submenu.store')}
+            </NavLink>
+          )}
+          {!isSideloaded && !isWin && (
+            <button
+              onClick={() => createNewWindow(protonDBurl)}
+              className="link button is-text is-link"
+            >
+              {t('submenu.protondb')}
+            </button>
+          )}
+          {onShowRequirements && (
+            <button
+              onClick={async () => onShowRequirements()}
+              className="link button is-text is-link"
+            >
+              {t('game.requirements', 'Requirements')}
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+      {showModal && (
+        <InstallModal
+          appName={appName}
+          runner={runner}
+          backdropClick={() => setShowModal(false)}
+        />
+      )}
+    </>
   )
 }

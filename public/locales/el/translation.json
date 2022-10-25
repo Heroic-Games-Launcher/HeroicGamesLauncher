@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Σφάλμα",
@@ -69,6 +69,7 @@
                 "title": "Σφάλμα ενημέρωσης"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Δεν επιλέχθηκε έκδοση Wine. Ελέγξτε τις ρυθμίσεις παιχνιδιού!",
                 "title": "Το Wine δεν βρέθηκε"
             },
@@ -236,7 +237,6 @@
         },
         "preferSystemLibs": "Οι προσαρμοσμένες εκδόσεις Wine (Wine-GE, Wine-Lutris) αποστέλλονται με τις εξαρτήσεις της βιβλιοθήκης τους. Με την ενεργοποίηση αυτής της επιλογής, αυτές οι αποσταλμένες βιβλιοθήκες θα αγνοηθούν και το Wine θα φορτώσει τις βιβλιοθήκες του συστήματος. Προειδοποίηση! Ενδέχεται να προκύψουν προβλήματα εάν δεν ικανοποιηθούν οι εξαρτήσεις.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -259,6 +259,9 @@
             "newReleases": "Ενημέρωση διαθέσιμη!",
             "stable": "Σταθερή",
             "version": "Έκδοση Heroic"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Οι ρυθμίσεις αποθηκεύονται αυτομάτως",
         "version": "Έκδοση Wine"
@@ -293,7 +296,10 @@
         "website": "Φόρτωση Ιστοσελίδας"
     },
     "login": {
-        "externalLogin": "Εξωτερική Σύνδεση"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
@@ -383,6 +389,7 @@
         "legendary-version": "Έκδοση Legendary: ",
         "weblate": "Βοηθήστε να μεταφραστεί το Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Χρήση ενσωματωμένου δυαδικού αρχείου GOGDL...",
         "alt-legendary-bin": "Χρήση ενσωματωμένου δυαδικού αρχείου Legendary...",
@@ -408,6 +415,7 @@
     "setting": {
         "adddesktopshortcuts": "Αυτόματη προσθήκη συντομεύσεων επιφάνειας εργασίας",
         "addgamestostartmenu": "Αυτόματη προσθήκη παιχνιδιών στο Μενού εκκίνησης",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Επιλογή Εναλλακτικού δυαδικού GOGDL για χρήση",
         "alt-legendary-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Legendary",
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
@@ -486,7 +494,6 @@
         "prefered_language": "Προτιμώμενη γλώσσα (Κωδικός γλώσσας)",
         "preferSystemLibs": "Προτίμηση βιβλιοθηκών συστήματος",
         "primerun": "Χρήση κύριας κάρτας γραφικών",
-        "resizableBar": "Ενεργοποίηση Μεταβλητού BAR (NVIDIA RTX 30xx μόνο)",
         "runexe": {
             "message": "Εναποθέστε αρχεία εδώ",
             "title": "Εκτέλεση EXE με Πρόθημα"

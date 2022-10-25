@@ -15,6 +15,7 @@ type Props = {
   sortInstalled: boolean
   setSortInstalled: (value: boolean) => void
   setSortDescending: (value: boolean) => void
+  handleAddGameButtonClick: () => void
 }
 
 export default function LibraryHeader({
@@ -22,14 +23,15 @@ export default function LibraryHeader({
   sortInstalled,
   sortDescending,
   setSortDescending,
-  setSortInstalled
+  setSortInstalled,
+  handleAddGameButtonClick
 }: Props) {
   const { t } = useTranslation()
   const { category, showFavourites } = useContext(ContextProvider)
 
   const numberOfGames = useMemo(() => {
     if (!list) {
-      return null
+      return 0
     }
     const dlcCount =
       category === 'legendary'
@@ -37,7 +39,7 @@ export default function LibraryHeader({
         : 0
 
     const total = list.length - dlcCount
-    return total > 0 ? `${total}` : null
+    return total > 0 ? `${total}` : 0
   }, [list, category])
 
   function handleSortDescending() {
@@ -59,6 +61,10 @@ export default function LibraryHeader({
       return 'legendary'
     }
 
+    if (category === 'sideload') {
+      return 'sideload'
+    }
+
     return 'gog'
   }
 
@@ -70,6 +76,12 @@ export default function LibraryHeader({
             ? t('favourites', 'Favourites')
             : `${getLibraryTitle(category, t)}`}
           <span className="numberOfgames">{numberOfGames}</span>
+          <button
+            className="sideloadGameButton"
+            onClick={handleAddGameButtonClick}
+          >
+            Add Game
+          </button>
         </span>
         <ActionIcons
           sortDescending={sortDescending}

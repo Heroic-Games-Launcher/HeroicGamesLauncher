@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "错误",
@@ -69,6 +69,7 @@
                 "title": "更新错误"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "未选择 Wine 版本。检查游戏设置！",
                 "title": "未找到 Wine"
             },
@@ -236,7 +237,6 @@
         },
         "preferSystemLibs": "自定义 Wine 版本(Wine- ge、Wine- lutris)随它们的库依赖项一起发布。启用此选项，这些附带的库将被忽略，Wine 将加载系统库。警告！如果不满足依赖关系，可能会出现问题。",
         "primerun": "在多 GPU 系统上使用独立显卡渲染游戏。仅适用于使用无头 GPU 进行渲染的游戏笔记本或台式机 (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA 的 Resizable Bar 通过让 CPU 访问整个图形缓冲区来提高帧率。启用可能会提高基于 Vulkan 的游戏的性能。",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -259,6 +259,9 @@
             "newReleases": "更新可用！",
             "stable": "稳定版",
             "version": "Heroic 版本"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "设置会自动保存",
         "version": "Wine 版本"
@@ -293,7 +296,10 @@
         "website": "正在加载网站"
     },
     "login": {
-        "externalLogin": "外部登录"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "同步完成",
@@ -383,6 +389,7 @@
         "legendary-version": "Legendary 版本： ",
         "weblate": "帮助翻译 Heroic。"
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",
@@ -408,6 +415,7 @@
     "setting": {
         "adddesktopshortcuts": "自动添加桌面快捷方式",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "选择要使用的备选 GOGDL 二进制文件",
         "alt-legendary-bin": "选择备选的 Legendary 二进制文件",
         "audiofix": "音频修复（Pulse Audio延迟）",
@@ -486,7 +494,6 @@
         "prefered_language": "首选语言 (语言代码)",
         "preferSystemLibs": "首选系统库",
         "primerun": "使用独立显卡",
-        "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
         "runexe": {
             "message": "将文件拖放到此处",
             "title": "在前置上运行 EXE"

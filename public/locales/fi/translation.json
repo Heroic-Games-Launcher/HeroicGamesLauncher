@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Virhe",
@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Winen versiota ei ole valittu. Tarkista peliasetukset!",
                 "title": "Wineä ei löytynyt"
             },
@@ -236,7 +237,6 @@
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -259,6 +259,9 @@
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Asetukset tallennetaan automaattisesti",
         "version": "Wine Version"
@@ -293,7 +296,10 @@
         "website": "Ladataan verkkosivustoa"
     },
     "login": {
-        "externalLogin": "Ulkoinen kirjautuminen"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synkronointi valmis",
@@ -383,6 +389,7 @@
         "legendary-version": "Legendaarinen versio: ",
         "weblate": "Auta kääntämään Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Käytetään sisäänrakennettua GOGDL-binääriä...",
         "alt-legendary-bin": "Käytetään sisäänrakennettua legendaarista binääriä...",
@@ -408,6 +415,7 @@
     "setting": {
         "adddesktopshortcuts": "Lisää työpöydän pikakuvakkeet automaattisesti",
         "addgamestostartmenu": "Lisää pelit aloitusvalikkoon automaattisesti",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Valitse vaihtoehtoinen GOGDL-binääri käytettäväksi (vaatii uudelleenkäynnistyksen)",
         "alt-legendary-bin": "Valitse vaihtoehtoinen Legendary-binääritiedosto (uudelleenkäynnistys vaaditaan)",
         "audiofix": "Äänikorjaus (Pulse Audion viive)",
@@ -486,7 +494,6 @@
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
         "primerun": "Ota käyttöön Nvidia Prime Render",
-        "resizableBar": "Ota käyttöön Resizable BAR (Vain NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Pudota tiedostoja tänne",
             "title": "Käynnistä EXE prefixissä"

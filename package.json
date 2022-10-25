@@ -159,6 +159,7 @@
     "react-router-dom": "^6.3.0",
     "recharts": "^2.1.14",
     "shlex": "^2.1.2",
+    "short-uuid": "^4.2.0",
     "simple-keyboard": "^3.4.136",
     "source-map-support": "^0.5.21",
     "steam-shortcut-editor": "^3.1.1",
@@ -166,7 +167,7 @@
     "tslib": "^2.4.0"
   },
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "codecheck": "tsc --noEmit",
     "test": "jest --noStackTrace",
     "test-watch": "jest --watch --maxWorkers=25%",
@@ -228,7 +229,6 @@
     "typescript": "^4.6.3",
     "vite": "^3.0.3",
     "vite-plugin-electron": "^0.8.3",
-    "vite-plugin-svgr": "^2.2.1",
-    "vite-tsconfig-paths": "^3.5.0"
+    "vite-plugin-svgr": "^2.2.1"
   }
 }

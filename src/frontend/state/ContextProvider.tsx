@@ -3,7 +3,7 @@ import React from 'react'
 import { ContextType } from 'frontend/types'
 
 const initialContext: ContextType = {
-  category: 'legendary',
+  category: 'all',
   epic: {
     library: [],
     username: null,
@@ -16,6 +16,7 @@ const initialContext: ContextType = {
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
+  sideloadedLibrary: [],
   wineVersions: [],
   error: false,
   filterText: '',
@@ -64,7 +65,10 @@ const initialContext: ContextType = {
   activeController: '',
   connectivity: { status: 'online', retryIn: 0 },
   setPrimaryFontFamily: () => null,
-  setSecondaryFontFamily: () => null
+  setSecondaryFontFamily: () => null,
+  dialogModalOptions: { showDialog: false },
+  showDialogModal: () => null,
+  showResetDialog: () => null
 }
 
 export default React.createContext(initialContext)

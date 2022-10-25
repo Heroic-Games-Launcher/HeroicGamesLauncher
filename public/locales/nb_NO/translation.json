@@ -69,6 +69,7 @@
                 "title": "Oppdateringsfeil"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Ingen Wine-versjon valgt. Sjekk spill-innstillingene.",
                 "title": "Fant ikke Wine"
             },
@@ -236,7 +237,6 @@
         },
         "preferSystemLibs": "Custom Wine-versjoner (Wine-GE, Wine-Lutris) sendes med deres bibliotekavhengigheter. Ved å aktivere dette alternativet vil disse sendte bibliotekene bli ignorert og Wine vil laste inn systembibliotekene i stedet. Advarsel! Problemer kan oppstå hvis avhengigheter ikke oppfylles.",
         "primerun": "Bruk dedikert grafikkort til å gjengi spill på multi-GPU-systemer. Bare nødvendig på bærbare eller stasjonære gaming-maskiner som bruker en hodeløs GPU for gjengivelse (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIAs Resizable Bar bidrar til å øke framerate ved å gi CPU-en tilgang til hele grafikkbufferen. Aktivering kan forbedre ytelsen for Vulkan-baserte spill.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -259,6 +259,9 @@
             "newReleases": "Ny versjon tilgjengelig",
             "stable": "Stabil",
             "version": "Heroisk versjon"
+        },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
         },
         "settings": "Innstillinger lagres automatisk",
         "version": "Vinversjon"
@@ -293,7 +296,10 @@
         "website": "Laster inn nettsted"
     },
     "login": {
-        "externalLogin": "Ekstern pålogging"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synkronisering fullført",
@@ -383,6 +389,7 @@
         "legendary-version": "Legendarisk versjon: ",
         "weblate": "Hjelp til å oversette Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Bruker innebygd GOGDL binær...",
         "alt-legendary-bin": "Bruker innebygd Legendary binær...",
@@ -408,6 +415,7 @@
     "setting": {
         "adddesktopshortcuts": "Legg til skrivebordssnarveier automatisk",
         "addgamestostartmenu": "Legg til spill på startmenyen automatisk",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Velg en alternativ GOGDL-binær du vil bruke",
         "alt-legendary-bin": "Velg en alternativ legendarisk binær",
         "audiofix": "Lydfiks (pulslydforsinkelse)",
@@ -486,7 +494,6 @@
         "prefered_language": "Foretrukket språk (språkkode)",
         "preferSystemLibs": "Foretrekker systembiblioteker",
         "primerun": "Bruk dedikert grafikkort",
-        "resizableBar": "Aktiver endringsbar BAR (kun NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Dra og slipp filer her",
             "title": "Kjør EXE på prefiks"
