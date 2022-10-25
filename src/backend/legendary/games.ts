@@ -706,12 +706,10 @@ class LegendaryGame extends Game {
     }
 
     // Log any launch information configured in Legendary's config.ini
-    const { stdout } = await runLegendaryCommand([
-      'launch',
-      this.appName,
-      '--json',
-      '--offline'
-    ])
+    const { stdout } = await runLegendaryCommand(
+      ['launch', this.appName, '--json', '--offline'],
+      createAbortController(this.appName)
+    )
     appendFileSync(
       this.logFileLocation,
       "Legendary's config from config.ini (before Heroic's settings):\n"

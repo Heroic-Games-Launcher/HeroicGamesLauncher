@@ -598,7 +598,7 @@ async function runWineCommand({
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString(), child)
+        options.onOutput(data.toString())
       }
 
       stdout.push(data.toString().trim())
@@ -610,7 +610,7 @@ async function runWineCommand({
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString(), child)
+        options.onOutput(data.toString())
       }
 
       stderr.push(data.toString().trim())

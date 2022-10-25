@@ -20,9 +20,10 @@ type Props = {
 }
 
 const DownloadManagerItem = ({ element, current }: Props) => {
-  const { epic, gog } = useContext(ContextProvider)
+  const { epic, gog, showDialogModal } = useContext(ContextProvider)
   const library = [...epic.library, ...gog.library]
   const { t } = useTranslation('gamepage')
+  const { t: t2 } = useTranslation()
   const navigate = useNavigate()
   const { appName, runner, path, platformToInstall } = element.params
   const [progress] = hasProgress(appName)
@@ -35,7 +36,8 @@ const DownloadManagerItem = ({ element, current }: Props) => {
       [path, folder_name],
       t,
       progress,
-      runner
+      runner,
+      showDialogModal
     )
   }
 
@@ -113,7 +115,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
       >
         {title}
       </span>
-      <span>{getStoreName(runner)}</span>
+      <span>{getStoreName(runner, t2('Other'))}</span>
       <span>{platformToInstall}</span>
       <span className="icons">
         {

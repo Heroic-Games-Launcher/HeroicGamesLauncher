@@ -263,6 +263,22 @@ async function getAppSettings(): Promise<AppSettings> {
   return window.api.requestSettings('default')
 }
 
+function removeSpecialcharacters(text: string): string {
+  const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+]', 'gi')
+  return text.replaceAll(regexp, '')
+}
+
+const getStoreName = (runner: Runner, other: string) => {
+  switch (runner) {
+    case 'legendary':
+      return 'Epic Games'
+    case 'gog':
+      return 'GOG'
+    default:
+      return other
+  }
+}
+
 export {
   createNewWindow,
   fixLegendarySaveFolder,
@@ -290,5 +306,7 @@ export {
   syncSaves,
   updateGame,
   writeConfig,
-  sendAbort
+  sendAbort,
+  removeSpecialcharacters,
+  getStoreName
 }

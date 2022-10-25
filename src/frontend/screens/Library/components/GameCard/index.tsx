@@ -12,7 +12,13 @@ import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg'
-import { getProgress, install, launch, sendKill } from 'frontend/helpers'
+import {
+  getProgress,
+  getStoreName,
+  install,
+  launch,
+  sendKill
+} from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
@@ -144,17 +150,6 @@ const GameCard = ({
   const handleRemoveFromQueue = () => {
     window.api.removeFromDMQueue(appName)
     handleGameStatus({ appName, status: 'done' })
-  }
-
-  const getStoreName = (runner: Runner) => {
-    switch (runner) {
-      case 'legendary':
-        return 'Epic Games'
-      case 'gog':
-        return 'GOG'
-      default:
-        return t2('Other')
-    }
   }
 
   const renderIcon = () => {
@@ -349,7 +344,7 @@ const GameCard = ({
                 installed: isInstalled
               })}
             >
-              {getStoreName(runner)}
+              {getStoreName(runner, t2('Other'))}
             </span>
           </Link>
           {

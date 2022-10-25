@@ -3,7 +3,7 @@ import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { getGame, isEpicServiceOffline, notify } from '../utils'
 import { InstallParams } from 'common/types'
 import i18next from 'i18next'
-import { showErrorBoxModalAuto } from '../dialog/dialog'
+import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
 
 async function installQueueElement(
@@ -32,12 +32,13 @@ async function installQueueElement(
   if (runner === 'legendary') {
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline) {
-      showErrorBoxModalAuto({
+      showDialogBoxModalAuto({
         title: i18next.t('box.warning.title', 'Warning'),
-        error: i18next.t(
+        message: i18next.t(
           'box.warning.epic.install',
           'Epic Servers are having major outage right now, the game cannot be installed!'
-        )
+        ),
+        type: 'ERROR'
       })
       return { status: 'error' }
     }
