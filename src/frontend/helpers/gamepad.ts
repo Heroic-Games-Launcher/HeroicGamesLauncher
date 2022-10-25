@@ -261,7 +261,7 @@ export const initGamepad = () => {
     if (!dialog) return false
 
     const closeButton = dialog.querySelector(
-      '.Dialog__headerCloseButton'
+      '.Dialog__CloseButton'
     ) as HTMLButtonElement
     if (!closeButton) return false
 

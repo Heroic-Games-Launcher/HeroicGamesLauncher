@@ -247,6 +247,9 @@
             "stable": "Egonkorra",
             "version": "Heroic bertsioa"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Ezarpenak automatikoki gordetzen dira",
         "version": "Ardoaren Bertsioa"
     },
@@ -280,7 +283,10 @@
         "website": "Webgunea kargatzen"
     },
     "login": {
-        "externalLogin": "Kanpoko saioa"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sinkronizazioa amaituta",
@@ -370,6 +376,7 @@
         "legendary-version": "Bertsio mitikoa: ",
         "weblate": "Lagundu Heroic itzultzen."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "GOGDL bitarra integratua erabiltzen...",
         "alt-legendary-bin": "Kondairazko bitar integratua erabiltzen...",

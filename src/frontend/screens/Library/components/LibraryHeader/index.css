@@ -2,6 +2,24 @@
   grid-area: title;
 }
 
+.sideloadGameButton {
+  font-family: var(--secondary-font-family);
+  border-radius: var(--space-3xs);
+  color: var(--text-tertiary);
+  background-color: var(--accent);
+  padding: var(--space-xs);
+  border: none;
+  margin: 0 var(--space-lg);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 300ms;
+}
+
+.sideloadGameButton:hover,
+.sideloadGameButton:focus-within {
+  background-color: var(--accent-overlay);
+}
+
 .numberOfgames {
   margin-left: 4px;
   font-size: var(--text-md);
@@ -9,5 +27,5 @@
   background: var(--input-background);
   padding: var(--space-xs);
   margin-left: var(--space-sm);
-  border-radius: 1000px;
+  border-radius: var(--space-3xs);
 }

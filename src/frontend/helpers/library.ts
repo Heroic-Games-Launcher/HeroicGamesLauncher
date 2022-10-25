@@ -278,6 +278,7 @@ function getRecentGames(libraries: GameInfo[]): GameInfo[] {
 
 export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
+export const sideloadedCategories = ['all', 'sideload']
 
 export {
   handleStopInstallation,

@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "错误",
@@ -247,6 +247,9 @@
             "stable": "稳定版",
             "version": "Heroic 版本"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "设置会自动保存",
         "version": "Wine 版本"
     },
@@ -280,7 +283,10 @@
         "website": "正在加载网站"
     },
     "login": {
-        "externalLogin": "外部登录"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "同步完成",
@@ -370,6 +376,7 @@
         "legendary-version": "Legendary 版本： ",
         "weblate": "帮助翻译 Heroic。"
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",

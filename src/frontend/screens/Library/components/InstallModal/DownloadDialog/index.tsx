@@ -1,0 +1,549 @@
+import {
+  faDownload,
+  faHardDrive,
+  faSpinner,
+  faFolderOpen
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { DialogContent } from '@mui/material'
+
+import classNames from 'classnames'
+import {
+  AppSettings,
+  GameInfo,
+  GameStatus,
+  InstallPlatform,
+  Runner,
+  WineInstallation
+} from 'common/types'
+import { GogInstallInfo } from 'common/types/gog'
+import { LegendaryInstallInfo } from 'common/types/legendary'
+import {
+  SelectField,
+  TextInputWithIconField,
+  ToggleSwitch
+} from 'frontend/components/UI'
+import Anticheat from 'frontend/components/UI/Anticheat'
+import { DialogHeader, DialogFooter } from 'frontend/components/UI/Dialog'
+import {
+  getProgress,
+  size,
+  getInstallInfo,
+  getGameInfo,
+  writeConfig,
+  install
+} from 'frontend/helpers'
+import ContextProvider from 'frontend/state/ContextProvider'
+import { InstallProgress, Path } from 'frontend/types'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
+import { useTranslation } from 'react-i18next'
+import { AvailablePlatforms } from '../index'
+import { SDL_GAMES, SelectiveDownload } from '../selective_dl'
+
+interface Props {
+  backdropClick: () => void
+  appName: string
+  runner: Runner
+  platformToInstall: InstallPlatform
+  availablePlatforms: AvailablePlatforms
+  setIsLinuxNative: React.Dispatch<React.SetStateAction<boolean>>
+  setIsMacNative: React.Dispatch<React.SetStateAction<boolean>>
+  winePrefix: string
+  wineVersion: WineInstallation | undefined
+  children: React.ReactNode
+  gameInfo: GameInfo | null
+}
+
+type DiskSpaceInfo = {
+  notEnoughDiskSpace: boolean
+  message: string | `ERROR`
+  validPath: boolean
+  spaceLeftAfter: string
+}
+
+const storage: Storage = window.localStorage
+
+function getInstallLanguage(
+  availableLanguages: string[],
+  preferredLanguages: readonly string[]
+) {
+  const foundPreffered = preferredLanguages.find((plang) =>
+    availableLanguages.some((alang) => alang.startsWith(plang))
+  )
+  if (foundPreffered) {
+    const foundAvailable = availableLanguages.find((alang) =>
+      alang.startsWith(foundPreffered)
+    )
+    if (foundAvailable) {
+      return foundAvailable
+    }
+  }
+  return availableLanguages[0]
+}
+
+function getUniqueKey(sdl: SelectiveDownload) {
+  return sdl.tags.join(',')
+}
+
+export default function DownloadDialog({
+  backdropClick,
+  appName,
+  runner,
+  platformToInstall,
+  availablePlatforms,
+  setIsLinuxNative,
+  setIsMacNative,
+  winePrefix,
+  wineVersion,
+  children,
+  gameInfo
+}: Props) {
+  const previousProgress = JSON.parse(
+    storage.getItem(appName) || '{}'
+  ) as InstallProgress
+  const { libraryStatus, handleGameStatus, platform, showDialogModal } =
+    useContext(ContextProvider)
+  const isMac = platform === 'darwin'
+  const isLinux = platform === 'linux'
+
+  const [gameInstallInfo, setGameInstallInfo] = useState<
+    LegendaryInstallInfo | GogInstallInfo | null
+  >(null)
+  const [installLanguages, setInstallLanguages] = useState(Array<string>())
+  const [installLanguage, setInstallLanguage] = useState('')
+  const [defaultPath, setDefaultPath] = useState('...')
+  const [installPath, setInstallPath] = useState(
+    previousProgress.folder || 'default'
+  )
+  const gameStatus: GameStatus = libraryStatus.filter(
+    (game: GameStatus) => game.appName === appName
+  )[0]
+
+  const [installDlcs, setInstallDlcs] = useState(false)
+  const [selectedSdls, setSelectedSdls] = useState<{ [key: string]: boolean }>(
+    {}
+  )
+  const installFolder = gameStatus?.folder || installPath
+
+  const [spaceLeft, setSpaceLeft] = useState<DiskSpaceInfo>({
+    message: '',
+    notEnoughDiskSpace: false,
+    validPath: true,
+    spaceLeftAfter: ''
+  })
+
+  const { i18n, t } = useTranslation('gamepage')
+  const { t: tr } = useTranslation()
+
+  const sdls: Array<SelectiveDownload> = SDL_GAMES[appName]
+  const sdlList = useMemo(() => {
+    const list = []
+    if (sdls) {
+      for (const sdl of sdls) {
+        if (sdl.mandatory || selectedSdls[getUniqueKey(sdl)]) {
+          if (Array.isArray(sdl.tags)) {
+            list.push(...sdl.tags)
+          }
+        }
+      }
+    }
+    return list
+  }, [selectedSdls, sdls])
+
+  const haveDLCs =
+    gameInstallInfo && gameInstallInfo?.game?.owned_dlc?.length > 0
+  const DLCList = gameInstallInfo?.game?.owned_dlc
+  const haveSDL = Array.isArray(sdls) && sdls.length !== 0
+
+  const handleSdl = useCallback(
+    (sdl: SelectiveDownload, value: boolean) => {
+      setSelectedSdls({
+        ...selectedSdls,
+        [getUniqueKey(sdl)]: value
+      })
+    },
+    [selectedSdls]
+  )
+
+  function handleDlcs() {
+    setInstallDlcs(!installDlcs)
+  }
+
+  const downloadSize = () => {
+    if (gameInstallInfo?.manifest?.download_size) {
+      if (previousProgress.folder === installPath) {
+        const progress = 100 - getProgress(previousProgress)
+        return size(
+          (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
+        )
+      }
+
+      return size(Number(gameInstallInfo?.manifest?.download_size))
+    }
+    return ''
+  }
+
+  useEffect(() => {
+    const getIinstallInfo = async () => {
+      const gameInstallInfo = await getInstallInfo(
+        appName,
+        runner,
+        platformToInstall
+      )
+
+      if (!gameInstallInfo) {
+        showDialogModal({
+          type: 'ERROR',
+          title: tr('box.error.generic.title', 'Error!'),
+          message: tr('box.error.generic.message', 'Something Went Wrong!')
+        })
+        backdropClick()
+        return
+      }
+
+      setGameInstallInfo(gameInstallInfo)
+      if (gameInstallInfo && 'languages' in gameInstallInfo.manifest) {
+        setInstallLanguages(gameInstallInfo.manifest.languages)
+        setInstallLanguage(
+          getInstallLanguage(gameInstallInfo.manifest.languages, i18n.languages)
+        )
+      }
+
+      if (platformToInstall === 'linux' && runner === 'gog') {
+        const installer_languages =
+          (await window.api.getGOGLinuxInstallersLangs(appName)) as string[]
+        setInstallLanguages(installer_languages)
+        setInstallLanguage(
+          getInstallLanguage(installer_languages, i18n.languages)
+        )
+      }
+    }
+    getIinstallInfo()
+  }, [appName, i18n.languages, platformToInstall])
+
+  useEffect(() => {
+    const getCacheInfo = async () => {
+      if (gameInfo) {
+        setIsLinuxNative(gameInfo.is_linux_native && isLinux)
+        setIsMacNative(gameInfo.is_mac_native && isMac)
+      } else {
+        const gameData = await getGameInfo(appName, runner)
+        setIsLinuxNative(gameData.is_linux_native && isLinux)
+        setIsMacNative(gameData.is_mac_native && isMac)
+      }
+    }
+    getCacheInfo()
+  }, [appName])
+
+  useEffect(() => {
+    window.api.requestSettings('default').then(async (config: AppSettings) => {
+      setDefaultPath(config.defaultInstallPath)
+      if (installPath === 'default') {
+        setInstallPath(config.defaultInstallPath)
+      }
+      const { message, free, validPath } = await window.api.checkDiskSpace(
+        installPath === 'default' ? config.defaultInstallPath : installPath
+      )
+      if (gameInstallInfo?.manifest?.disk_size) {
+        let notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
+        let spaceLeftAfter = size(
+          free - Number(gameInstallInfo.manifest.disk_size)
+        )
+        if (previousProgress.folder === installPath) {
+          const progress = 100 - getProgress(previousProgress)
+          notEnoughDiskSpace =
+            free < (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
+
+          spaceLeftAfter = size(
+            free - (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
+          )
+        }
+
+        setSpaceLeft({
+          message,
+          notEnoughDiskSpace,
+          validPath,
+          spaceLeftAfter
+        })
+      }
+    })
+
+    return () => {
+      window.api.requestSettingsRemoveListeners()
+    }
+  }, [appName, installPath, gameInstallInfo?.manifest?.disk_size])
+
+  const installSize =
+    gameInstallInfo?.manifest?.disk_size &&
+    size(Number(gameInstallInfo?.manifest?.disk_size))
+
+  const getLanguageName = useMemo(() => {
+    return (language: string) => {
+      try {
+        const locale = language.replace('_', '-')
+        const displayNames = new Intl.DisplayNames(
+          [locale, ...i18n.languages, 'en'],
+          {
+            type: 'language',
+            style: 'long'
+          }
+        )
+        return displayNames.of(locale)
+      } catch (e) {
+        return language
+      }
+    }
+  }, [i18n.languages, platformToInstall])
+
+  const { validPath, notEnoughDiskSpace, message, spaceLeftAfter } = spaceLeft
+  const title = gameInfo?.title
+
+  async function handleInstall(path?: string) {
+    backdropClick()
+
+    // Write Default game config with prefix on linux
+    if (isLinux) {
+      const appSettings: AppSettings = await window.api.requestSettings(appName)
+
+      writeConfig([appName, { ...appSettings, winePrefix, wineVersion }])
+    }
+
+    return install({
+      appName,
+      handleGameStatus,
+      installPath: path || installFolder,
+      isInstalling: false,
+      previousProgress,
+      progress: previousProgress,
+      t,
+      sdlList,
+      installDlcs,
+      installLanguage,
+      runner,
+      platformToInstall,
+      showDialogModal: () => backdropClick()
+    })
+  }
+
+  function getInstallLabel() {
+    if (installPath) {
+      if (notEnoughDiskSpace) {
+        return t('button.force-innstall', 'Force Install')
+      } else {
+        return previousProgress.folder === installPath
+          ? t('button.continue', 'Continue Download')
+          : t('button.install')
+      }
+    }
+    return t('button.no-path-selected', 'No path selected')
+  }
+
+  return (
+    <>
+      <DialogHeader onClose={backdropClick}>
+        {title ? title : '...'}
+        {availablePlatforms.map((p) => (
+          <FontAwesomeIcon
+            className="InstallModal__platformIcon"
+            icon={p.icon}
+            key={p.value}
+          />
+        ))}
+      </DialogHeader>
+      {gameInfo && <Anticheat gameInfo={gameInfo} />}
+      <DialogContent>
+        <div className="InstallModal__sizes">
+          <div className="InstallModal__size">
+            <FontAwesomeIcon
+              className="InstallModal__sizeIcon"
+              icon={faDownload}
+            />
+            {gameInstallInfo?.manifest.download_size ? (
+              <>
+                <div className="InstallModal__sizeLabel">
+                  {t('game.downloadSize', 'Download Size')}:
+                </div>
+                <div className="InstallModal__sizeValue">{downloadSize()}</div>
+              </>
+            ) : (
+              `${t('game.getting-download-size', 'Geting download size')}...`
+            )}
+          </div>
+          <div className="InstallModal__size">
+            <FontAwesomeIcon
+              className="InstallModal__sizeIcon"
+              icon={faHardDrive}
+            />
+            {gameInstallInfo?.manifest.disk_size ? (
+              <>
+                <div className="InstallModal__sizeLabel">
+                  {t('game.installSize', 'Install Size')}:
+                </div>
+                <div className="InstallModal__sizeValue">{installSize}</div>
+              </>
+            ) : (
+              `${t('game.getting-install-size', 'Geting install size')}...`
+            )}
+          </div>
+          {previousProgress.folder === installPath && (
+            <div className="InstallModal__size">
+              <FontAwesomeIcon
+                className="InstallModal__sizeIcon"
+                icon={faSpinner}
+              />
+              <div className="InstallModal__sizeLabel">
+                {t('status.totalDownloaded', 'Total Downloaded')}:
+              </div>
+              <div className="InstallModal__sizeValue">
+                {getProgress(previousProgress)}%
+              </div>
+            </div>
+          )}
+        </div>
+        {installLanguages && installLanguages?.length > 1 && (
+          <SelectField
+            label={`${t('game.language', 'Language')}:`}
+            htmlId="languagePick"
+            value={installLanguage}
+            onChange={(e) => setInstallLanguage(e.target.value)}
+          >
+            {installLanguages &&
+              installLanguages.map((value) => (
+                <option value={value} key={value}>
+                  {getLanguageName(value)}
+                </option>
+              ))}
+          </SelectField>
+        )}
+
+        <TextInputWithIconField
+          htmlId="setinstallpath"
+          label={t('install.path', 'Select Install Path')}
+          placeholder={defaultPath}
+          value={installPath.replaceAll("'", '')}
+          onChange={(event) => setInstallPath(event.target.value)}
+          icon={<FontAwesomeIcon icon={faFolderOpen} />}
+          onIconClick={async () =>
+            window.api
+              .openDialog({
+                buttonLabel: t('box.choose'),
+                properties: ['openDirectory'],
+                title: t('install.path'),
+                defaultPath: defaultPath
+              })
+              .then(({ path }: Path) =>
+                setInstallPath(path ? path : defaultPath)
+              )
+          }
+          afterInput={
+            gameInstallInfo?.manifest.download_size ? (
+              <span className="diskSpaceInfo">
+                {validPath && (
+                  <>
+                    <span>
+                      {`${t('install.disk-space-left', 'Space Available')}: `}
+                    </span>
+                    <span>
+                      <strong>{`${message}`}</strong>
+                    </span>
+                    {!notEnoughDiskSpace && (
+                      <>
+                        <span>
+                          {` - ${t(
+                            'install.space-after-install',
+                            'After Install'
+                          )}: `}
+                        </span>
+                        <span>
+                          <strong>{`${spaceLeftAfter}`}</strong>
+                        </span>
+                      </>
+                    )}
+                  </>
+                )}
+                {!validPath && (
+                  <span className="warning">
+                    {`${t(
+                      'install.path-not-writtable',
+                      'Warning: path might not be writable.'
+                    )}`}
+                  </span>
+                )}
+                {validPath && notEnoughDiskSpace && (
+                  <span className="danger">
+                    {` (${t(
+                      'install.not-enough-disk-space',
+                      'Not enough disk space'
+                    )})`}
+                  </span>
+                )}
+              </span>
+            ) : null
+          }
+        />
+        {children}
+        {(haveDLCs || haveSDL) && (
+          <div className="InstallModal__sectionHeader">
+            {t('sdl.title', 'Select components to Install')}:
+          </div>
+        )}
+        {haveSDL && (
+          <div className="InstallModal__sdls">
+            {sdls.map((sdl: SelectiveDownload, idx: number) => (
+              <label
+                key={sdl.name}
+                className="InstallModal__toggle toggleWrapper"
+              >
+                <ToggleSwitch
+                  htmlId={`sdls-${idx}`}
+                  title={sdl.name}
+                  value={!!sdl.mandatory || !!selectedSdls[getUniqueKey(sdl)]}
+                  disabled={sdl.mandatory}
+                  handleChange={(e) => handleSdl(sdl, e.target.checked)}
+                />
+                <span>{sdl.name}</span>
+              </label>
+            ))}
+          </div>
+        )}
+        {haveDLCs && (
+          <div className="InstallModal__dlcs">
+            <label className={classNames('InstallModal__toggle toggleWrapper')}>
+              <ToggleSwitch
+                htmlId="dlcs"
+                value={installDlcs}
+                handleChange={() => handleDlcs()}
+                title={t('dlc.installDlcs', 'Install all DLCs')}
+              />
+              <span>{t('dlc.installDlcs', 'Install all DLCs')}:</span>
+            </label>
+            <div className="InstallModal__dlcsList">
+              {DLCList?.map(({ title }) => title).join(', ')}
+            </div>
+          </div>
+        )}
+      </DialogContent>
+      <DialogFooter>
+        <button
+          onClick={async () => handleInstall('import')}
+          className={`button is-secondary outline`}
+        >
+          {t('button.import')}
+        </button>
+        <button
+          onClick={async () => handleInstall()}
+          className={`button is-secondary`}
+          disabled={!installPath || !gameInstallInfo?.manifest.download_size}
+        >
+          {getInstallLabel()}
+        </button>
+      </DialogFooter>
+    </>
+  )
+}

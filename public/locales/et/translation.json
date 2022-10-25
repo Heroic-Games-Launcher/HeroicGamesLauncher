@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Viga",
@@ -247,6 +247,9 @@
             "stable": "Stabiilne",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Seaded salvestatakse automaatselt",
         "version": "Wine'i versioon"
     },
@@ -280,7 +283,10 @@
         "website": "Veebilehe laadimine"
     },
     "login": {
-        "externalLogin": "Väline sisselogimine"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sünkroonimine lõpetatud",
@@ -370,6 +376,7 @@
         "legendary-version": "Legendary versioon: ",
         "weblate": "Aidake tõlkida Heroic'ut."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Kasutusel on sisse-ehitatud GOGDL binaarfaili...",
         "alt-legendary-bin": "Kasutusel on sisse-ehitatud Legendary binaarfail...",
