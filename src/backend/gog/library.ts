@@ -372,10 +372,24 @@ export class GOGLibrary {
     }
 
     const gogInfo = JSON.parse(res.stdout)
-    const libraryArray = libraryStore.get('games', [{}]) as GameInfo[]
-    const gameObjectIndex = libraryArray.findIndex(
+    let libraryArray = libraryStore.get('games', []) as GameInfo[]
+    let gameObjectIndex = libraryArray.findIndex(
       (value) => value.app_name === appName
     )
+
+    if (gameObjectIndex === -1) {
+      await this.sync()
+      libraryArray = libraryStore.get('games', []) as GameInfo[]
+      gameObjectIndex = libraryArray.findIndex(
+        (value) => value.app_name === appName
+      )
+      if (gameObjectIndex === -1) {
+        logWarning(['getInstallInfo:', appName, 'not found in libraryStore'], {
+          prefix: LogPrefix.Gog
+        })
+        return
+      }
+    }
 
     if (
       !libraryArray[gameObjectIndex]?.gog_save_location &&
