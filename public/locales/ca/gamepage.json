@@ -17,6 +17,15 @@
             "message": "Vols provar de reparar aquest joc? Això pot trigar molt de temps.",
             "title": "Verifica i repara"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Continua amb la instal·lació",
             "message": "Vols MANTENIR els fitxers baixats?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Afegeix a preferits",
         "cancel": "Pausa/Cancel·la",
         "continue": "Continua la baixada",
+        "finish": "Finish",
         "force_update": "Força l'actualització si n'hi ha alguna de disponible",
+        "force-innstall": "Force Install",
         "hide_game": "Amaga el joc",
         "import": "Importa el joc",
         "install": "Instal·la",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Treu dels preferits",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Torna a mostrar el joc",
         "uninstall": "Desinstal·la",
         "update": "Actualitza"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "Mida de la baixada",
         "firstPlayed": "Primera partida",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Mida d'instal·lació",
         "language": "Idioma",
         "lastPlayed": "Última partida",
@@ -103,6 +122,20 @@
     "report_problem": "Informa d'un problema quan s'executa el joc",
     "sdl": {
         "title": "Selecciona els components a instal·lar"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Mínim",

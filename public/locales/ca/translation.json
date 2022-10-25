@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -247,6 +247,9 @@
             "stable": "Estable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "La configuració es desa automàticament",
         "version": "Versió del Wine"
     },
@@ -373,6 +376,7 @@
         "legendary-version": "Versió del Legendary: ",
         "weblate": "Ajuda a traduir l'Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "S'està usant un binari del GOGDL integrat.",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",

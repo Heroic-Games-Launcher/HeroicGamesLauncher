@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
-import { AppSettings, GameInfo } from 'common/types'
+import { AppSettings, GameInfo, Runner } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
 
@@ -29,8 +29,6 @@ import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
 import { InstallModal } from 'frontend/screens/Library/components'
 import { install } from 'frontend/helpers/library'
-import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
-import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faTriangleExclamation,
@@ -45,10 +43,10 @@ import {
 } from 'frontend/components/UI/Dialog'
 import LibraryContext from 'frontend/state/LibraryContext'
 
-// This component is becoming really complex and it needs to be refactored in smaller ones
+import StoreLogos from 'frontend/components/UI/StoreLogos'
 
 export default function GamePage(): JSX.Element | null {
-  const { appName } = useParams() as { appName: string }
+  const { appName, runner } = useParams() as { appName: string; runner: Runner }
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
@@ -83,6 +81,7 @@ export default function GamePage(): JSX.Element | null {
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
   const isMac = platform === 'darwin'
+  const isSideloaded = runner === 'sideload'
 
   const isInstalling = gameStatus.status === 'installing'
   const isPlaying = gameStatus.status === 'playing'
@@ -93,12 +92,9 @@ export default function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateConfig = async () => {
       try {
-        let newInfo = await getGameInfo(appName, 'legendary')
-        if (!newInfo) {
-          newInfo = await getGameInfo(appName, 'gog')
-        }
+        const newInfo = await getGameInfo(appName, runner)
         setGameInfo(newInfo)
-        const { install, is_linux_native, is_mac_native, runner } = newInfo
+        const { install, is_linux_native, is_mac_native } = newInfo
 
         const installPlatform =
           install.platform || (is_linux_native && isLinux)
@@ -107,18 +103,21 @@ export default function GamePage(): JSX.Element | null {
             ? 'Mac'
             : 'Windows'
 
-        getInstallInfo(appName, runner, installPlatform)
-          .then((info) => {
-            if (!info) {
-              throw 'Cannot get game info'
-            }
-            setGameInstallInfo(info)
-          })
-          .catch((error) => {
-            console.error(error)
-            window.api.logError(`${error}`)
-            setHasError({ error: true, message: `${error}` })
-          })
+        if (runner !== 'sideload') {
+          getInstallInfo(appName, runner, installPlatform)
+            .then((info) => {
+              if (!info) {
+                throw 'Cannot get game info'
+              }
+              setGameInstallInfo(info)
+            })
+            .catch((error) => {
+              console.error(error)
+              window.api.logError(`${`${error}`}`)
+              setHasError({ error: true, message: `${error}` })
+            })
+        }
+
         try {
           const {
             autoSyncSaves,
@@ -128,14 +127,16 @@ export default function GamePage(): JSX.Element | null {
             winePrefix
           }: AppSettings = await window.api.requestSettings(appName)
 
-          let wine = wineVersion.name
-            .replace('Wine - ', '')
-            .replace('Proton - ', '')
-          if (wine.includes('Default')) {
-            wine = wine.split('-')[0]
+          if (!isWin) {
+            let wine = wineVersion.name
+              .replace('Wine - ', '')
+              .replace('Proton - ', '')
+            if (wine.includes('Default')) {
+              wine = wine.split('-')[0]
+            }
+            setWineVersion(wine)
+            setWinePrefix(winePrefix)
           }
-          setWineVersion(wine)
-          setWinePrefix(winePrefix)
 
           if (newInfo?.cloud_save_enabled) {
             setAutoSyncSaves(autoSyncSaves)
@@ -182,11 +183,13 @@ export default function GamePage(): JSX.Element | null {
       extra,
       developer,
       cloud_save_enabled,
-      canRunOffline
+      canRunOffline,
+      folder_name
     }: GameInfo = gameInfo
 
     hasRequirements = extra?.reqs?.length > 0
     hasUpdate = is_installed && gameUpdates?.includes(appName)
+    const appLocation = install_path || folder_name
 
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
@@ -213,6 +216,11 @@ export default function GamePage(): JSX.Element | null {
     */
 
     if (hasError.error) {
+      if (
+        hasError.message !== undefined &&
+        typeof hasError.message === 'string'
+      )
+        window.api.logError(hasError.message)
       const message =
         typeof hasError.message === 'string'
           ? hasError.message
@@ -240,7 +248,7 @@ export default function GamePage(): JSX.Element | null {
               <ArrowCircleLeftIcon />
             </NavLink>
             <div className="store-icon">
-              {runner === 'legendary' ? <EpicLogo /> : <GOGLogo />}
+              <StoreLogos runner={runner} />
             </div>
             <div className="gameInfo">
               <div className="titleWrapper">
@@ -297,7 +305,7 @@ export default function GamePage(): JSX.Element | null {
                     {t('cloud_save_unsupported', 'Unsupported')}
                   </div>
                 )}
-                {!is_installed && (
+                {!is_installed && !isSideloaded && (
                   <>
                     <div>
                       <b>{t('game.downloadSize', 'Download Size')}:</b>{' '}
@@ -312,18 +320,22 @@ export default function GamePage(): JSX.Element | null {
                 )}
                 {is_installed && (
                   <>
-                    <div>
-                      <b>{t('info.size')}:</b> {install_size}
-                    </div>
+                    {!isSideloaded && (
+                      <div>
+                        <b>{t('info.size')}:</b> {install_size}
+                      </div>
+                    )}
                     <div style={{ textTransform: 'capitalize' }}>
                       <b>
                         {t('info.installedPlatform', 'Installed Platform')}:
                       </b>{' '}
                       {installPlatform === 'osx' ? 'MacOS' : installPlatform}
                     </div>
-                    <div>
-                      <b>{t('info.version')}:</b> {version}
-                    </div>
+                    {!isSideloaded && (
+                      <div>
+                        <b>{t('info.version')}:</b> {version}
+                      </div>
+                    )}
                     <div>
                       <b>{t('info.canRunOffline', 'Online Required')}:</b>{' '}
                       {t(canRunOffline ? 'box.no' : 'box.yes')}
@@ -331,12 +343,12 @@ export default function GamePage(): JSX.Element | null {
                     <div
                       className="clickable"
                       onClick={() =>
-                        install_path !== undefined
-                          ? window.api.openFolder(install_path)
+                        appLocation !== undefined
+                          ? window.api.openFolder(appLocation)
                           : {}
                       }
                     >
-                      <b>{t('info.path')}:</b> {install_path}
+                      <b>{t('info.path')}:</b> {appLocation}
                     </div>
                     {isLinux && !isNative && (
                       <>
@@ -455,11 +467,11 @@ export default function GamePage(): JSX.Element | null {
             </div>
 
             {hasRequirements && showRequirements && (
-              <Dialog onClose={() => setShowRequirements(false)}>
-                <DialogHeader
-                  showCloseButton={true}
-                  onClose={() => setShowRequirements(false)}
-                >
+              <Dialog
+                showCloseButton
+                onClose={() => setShowRequirements(false)}
+              >
+                <DialogHeader onClose={() => setShowRequirements(false)}>
                   <div>{t('game.requirements', 'Requirements')}</div>
                 </DialogHeader>
                 <DialogContent>
@@ -621,7 +633,6 @@ export default function GamePage(): JSX.Element | null {
       appName,
       installPath: gameStatus.folder,
       isInstalling,
-      gameStatus,
       t,
       runner: gameInfo.runner,
       showDialogModal: showDialogModal

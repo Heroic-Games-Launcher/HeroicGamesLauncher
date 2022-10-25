@@ -17,7 +17,7 @@ export default function Anticheat({ gameInfo }: Props) {
   const [anticheatInfo, setAnticheatInfo] = useState<AntiCheatInfo | null>(null)
 
   useEffect(() => {
-    if (gameInfo?.title) {
+    if (gameInfo?.runner !== 'sideload' && gameInfo?.title) {
       window.api
         .getAnticheatInfo(gameInfo.namespace)
         .then((anticheatInfo: AntiCheatInfo | null) => {

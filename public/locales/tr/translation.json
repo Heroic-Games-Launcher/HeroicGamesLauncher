@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Hata",
@@ -247,6 +247,9 @@
             "stable": "Stable",
             "version": "Heroic Sürümü"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Ayarlar otomatik kaydedilir",
         "version": "Wine Sürümü"
     },
@@ -373,6 +376,7 @@
         "legendary-version": "Legendary Sürüm: ",
         "weblate": "Heroic'i çevirmeye yardımcı ol."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Yerleşik GOGDL çalıştırılabilir dosyasını kullanılıyor...",
         "alt-legendary-bin": "Yerleşik Legendary çalıştırılabilir dosyası kullanılıyor...",

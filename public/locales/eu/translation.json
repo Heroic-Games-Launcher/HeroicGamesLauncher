@@ -247,6 +247,9 @@
             "stable": "Egonkorra",
             "version": "Heroic bertsioa"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Ezarpenak automatikoki gordetzen dira",
         "version": "Ardoaren Bertsioa"
     },
@@ -373,6 +376,7 @@
         "legendary-version": "Bertsio mitikoa: ",
         "weblate": "Lagundu Heroic itzultzen."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "GOGDL bitarra integratua erabiltzen...",
         "alt-legendary-bin": "Kondairazko bitar integratua erabiltzen...",

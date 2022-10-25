@@ -20,7 +20,11 @@ import { GamesList } from './components/GamesList'
 import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
-import { epicCategories, gogCategories } from 'frontend/helpers/library'
+import {
+  epicCategories,
+  gogCategories,
+  sideloadedCategories
+} from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from 'frontend/state/LibraryContext'
 
@@ -30,6 +34,13 @@ const InstallModal = lazy(
 
 const storage = window.localStorage
 
+type ModalState = {
+  game: string
+  show: boolean
+  runner: Runner
+  gameInfo: GameInfo | null
+}
+
 export default function Library(): JSX.Element {
   const {
     layout,
@@ -38,6 +49,7 @@ export default function Library(): JSX.Element {
     category,
     epic,
     gog,
+    sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
     filterText,
@@ -49,10 +61,11 @@ export default function Library(): JSX.Element {
     showFavourites: showFavouritesLibrary
   } = useContext(ContextProvider)
 
-  const [showModal, setShowModal] = useState({
+  const [showModal, setShowModal] = useState<ModalState>({
     game: '',
     show: false,
-    runner: 'legendary' as Runner
+    runner: 'legendary' as Runner,
+    gameInfo: null
   })
   const [sortDescending, setSortDescending] = useState(
     JSON.parse(storage?.getItem('sortDescending') || 'false')
@@ -87,8 +100,12 @@ export default function Library(): JSX.Element {
     }
   }
 
-  function handleModal(appName: string, runner: Runner) {
-    setShowModal({ game: appName, show: true, runner })
+  function handleModal(
+    appName: string,
+    runner: Runner,
+    gameInfo: GameInfo | null
+  ) {
+    setShowModal({ game: appName, show: true, runner, gameInfo })
   }
 
   // cache list of games being installed
@@ -100,10 +117,10 @@ export default function Library(): JSX.Element {
   useEffect(() => {
     // This code avoids getting stuck on a empty library after logout of the current selected store
     if (epicCategories.includes(category) && !epic.username) {
-      handleCategory('gog')
+      handleCategory('all')
     }
     if (gogCategories.includes(category) && !gog.username) {
-      handleCategory('legendary')
+      handleCategory('all')
     }
   }, [epic.username, gog.username])
 
@@ -163,13 +180,16 @@ export default function Library(): JSX.Element {
       gog.library.forEach((game: GameInfo) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
+      sideloadedLibrary.forEach((game: GameInfo) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
     }
     return tempArray
   }, [showFavourites, favouriteGames, epic, gog])
 
   // select library
   const libraryToShow = useMemo(() => {
-    let library: GameInfo[] = []
+    let library: Array<GameInfo> = []
     if (showFavouritesLibrary) {
       library = [...favourites].filter((g) =>
         category === 'all' ? g : g.runner === category
@@ -179,7 +199,10 @@ export default function Library(): JSX.Element {
       const isGog = gog.username && gogCategories.includes(category)
       const epicLibrary = isEpic ? epic.library : []
       const gogLibrary = isGog ? gog.library : []
-      library = [...epicLibrary, ...gogLibrary]
+      const sideloadedApps = sideloadedCategories.includes(category)
+        ? sideloadedLibrary
+        : []
+      library = [...sideloadedApps, ...epicLibrary, ...gogLibrary]
     }
 
     // filter
@@ -231,7 +254,7 @@ export default function Library(): JSX.Element {
       ? [...installed, ...installingGames, ...notInstalled]
       : library
 
-    return library
+    return [...library]
   }, [
     category,
     epic,
@@ -257,7 +280,6 @@ export default function Library(): JSX.Element {
   return (
     <>
       <Header />
-
       <div className="listing">
         <span id="top" />
         {showRecentGames && (
@@ -275,7 +297,6 @@ export default function Library(): JSX.Element {
               library={favourites}
               handleGameCardClick={handleModal}
               isFirstLane
-              hasDownloads={installing.length > 0}
             />
           </>
         )}
@@ -286,6 +307,7 @@ export default function Library(): JSX.Element {
           setSortInstalled={setSortInstalled}
           sortDescending={sortDescending}
           sortInstalled={sortInstalled}
+          handleAddGameButtonClick={() => handleModal('', 'sideload', null)}
         />
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
@@ -295,7 +317,6 @@ export default function Library(): JSX.Element {
             library={libraryToShow}
             layout={layout}
             handleGameCardClick={handleModal}
-            hasDownloads={installing.length > 0}
           />
         )}
       </div>
@@ -308,8 +329,14 @@ export default function Library(): JSX.Element {
         <InstallModal
           appName={showModal.game}
           runner={showModal.runner}
+          gameInfo={showModal.gameInfo}
           backdropClick={() =>
-            setShowModal({ game: '', show: false, runner: 'legendary' })
+            setShowModal({
+              game: '',
+              show: false,
+              runner: 'legendary',
+              gameInfo: null
+            })
           }
         />
       )}

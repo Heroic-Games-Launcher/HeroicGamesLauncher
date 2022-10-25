@@ -6,22 +6,22 @@ import { GameInfo, GameStatus, Runner } from 'common/types'
 import { GamesList } from '../GamesList'
 
 interface Props {
-  handleModal: (appName: string, runner: Runner) => void
+  handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
   onlyInstalled: boolean
   hasDownloads: boolean
 }
 
-export default function RecentlyPlayed({
-  handleModal,
-  onlyInstalled,
-  hasDownloads
-}: Props) {
+export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
   const { t } = useTranslation()
-  const { epic, gog } = useContext(ContextProvider)
+  const { epic, gog, sideloadedLibrary } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
   const loadRecentGames = () => {
-    const newRecentGames = getRecentGames([...epic.library, ...gog.library])
+    const newRecentGames = getRecentGames([
+      ...epic.library,
+      ...gog.library,
+      ...sideloadedLibrary
+    ])
 
     setRecentGames(newRecentGames)
   }
@@ -57,7 +57,6 @@ export default function RecentlyPlayed({
         isFirstLane
         handleGameCardClick={handleModal}
         onlyInstalled={onlyInstalled}
-        hasDownloads={hasDownloads}
       />
     </>
   )

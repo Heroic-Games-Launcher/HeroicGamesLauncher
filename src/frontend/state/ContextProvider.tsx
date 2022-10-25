@@ -3,7 +3,7 @@ import React from 'react'
 import { ContextType } from 'frontend/types'
 
 const initialContext: ContextType = {
-  category: 'legendary',
+  category: 'all',
   epic: {
     library: [],
     username: null,
@@ -16,6 +16,7 @@ const initialContext: ContextType = {
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
+  sideloadedLibrary: [],
   wineVersions: [],
   error: false,
   filterText: '',

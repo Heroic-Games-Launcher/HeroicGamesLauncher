@@ -17,6 +17,15 @@
             "message": "Reparer spillet, noe som kan ta lang tid?",
             "title": "Bekreft og reparer"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Fortsett å installere",
             "message": "Behold nedlastede filer?",
@@ -39,11 +48,19 @@
         "add_to_favourites": "Legg til i favoritter",
         "cancel": "Pause/avbryt",
         "continue": "Fortsett nedlasting",
+        "finish": "Finish",
         "force_update": "Tving oppdatering hvis tilgjengelig",
+        "force-innstall": "Force Install",
         "hide_game": "Skjul spillet",
         "import": "Importer spill",
         "install": "Installere",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Fjern fra favoritter",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Vis spill",
         "uninstall": "Avinstaller",
         "update": "Oppdater"
@@ -57,6 +74,8 @@
     "game": {
         "downloadSize": "Last ned størrelse",
         "firstPlayed": "Først spilt",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Installasjonsstørrelse",
         "language": "Språk",
         "lastPlayed": "Sist spilt",
@@ -104,6 +123,20 @@
     "report_problem": "Rapporter et problem med å kjøre dette spillet",
     "sdl": {
         "title": "Velg komponenter som skal installeres"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Minimum",

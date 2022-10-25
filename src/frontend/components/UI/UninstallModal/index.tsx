@@ -10,6 +10,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { Runner } from 'common/types'
 import ToggleSwitch from '../ToggleSwitch'
+import { useNavigate } from 'react-router-dom'
 
 interface UninstallModalProps {
   appName: string
@@ -24,6 +25,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
   const [checkboxChecked, setCheckboxChecked] = useState(false)
   const { t } = useTranslation('gamepage')
   const [showUninstallModal, setShowUninstallModal] = useState(false)
+  const navigate = useNavigate()
 
   const checkIfWindowsOnLinux = async () => {
     // This assumes native games are installed should be changed in the future
@@ -52,14 +54,17 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
   const uninstallGame = async () => {
     props.onClose()
     await window.api.uninstall([props.appName, checkboxChecked, props.runner])
+    if (props.runner === 'sideload') {
+      navigate('/')
+    }
     storage.removeItem(props.appName)
   }
 
   return (
     <>
       {showUninstallModal && (
-        <Dialog onClose={props.onClose}>
-          <DialogHeader onClose={props.onClose} showCloseButton={true}>
+        <Dialog onClose={props.onClose} showCloseButton>
+          <DialogHeader onClose={props.onClose}>
             {t('gamepage:box.uninstall.title')}
           </DialogHeader>
           <DialogContent>

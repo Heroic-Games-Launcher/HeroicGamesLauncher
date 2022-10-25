@@ -12,5 +12,7 @@ export function getLibraryTitle(
       return t('Epic Games', 'Epic Games')
     case 'gog':
       return t('GOG', 'GOG')
+    default:
+      return t('Other', 'Other')
   }
 }

@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Lỗi",
@@ -247,6 +247,9 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Cài đặt được tự đông lưu",
         "version": "Phiên bản Wine"
     },
@@ -373,6 +376,7 @@
         "legendary-version": "Phiên bản Legendary ",
         "weblate": "Giúp dịch Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Sử dụng GOGDL binary tích hợp sẵn...",
         "alt-legendary-bin": "Sử dụng Legendary binary tích hợp sẵn...",

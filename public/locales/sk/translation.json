@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -106,7 +106,7 @@
             }
         },
         "runexe": {
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "select": {
             "button": "Select",
@@ -120,7 +120,7 @@
         "sync": {
             "button": "",
             "error": "",
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "vcruntime": {
             "install": {
@@ -247,6 +247,9 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "",
         "version": "Wine Version"
     },
@@ -356,7 +359,7 @@
         },
         "gameargs": {
             "placeholder": "",
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -373,6 +376,7 @@
         "legendary-version": "Legendary Version: ",
         "weblate": "Help Improve this translation."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
@@ -459,7 +463,7 @@
             "forceupload": "",
             "sync": "",
             "syncing": "",
-            "title": "",
+            "title": "Select EXE to Run",
             "upload": ""
         },
         "maxRecentGames": "Recent Games to Show",
@@ -471,7 +475,7 @@
         "primerun": "Use Dedicated Graphics Card",
         "runexe": {
             "message": "",
-            "title": ""
+            "title": "Select EXE to Run"
         },
         "savefolder": {
             "placeholder": ""

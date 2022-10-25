@@ -17,6 +17,15 @@
             "message": "Вы хочаце паспрабаваць направіць гэтую гульню? Гэта можа заняць шмат часу.",
             "title": "Рамантаванне й Праверка"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Працягвайце ўсталёўваць",
             "message": "Вы хочаце ЗАХАВАЦЬ спампаваныя файлы?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Дадаць у абранае",
         "cancel": "Паўза/Адмена",
         "continue": "Працягваць спампаванне",
+        "finish": "Finish",
         "force_update": "Прымусісць да абнаўлення, калі яно даступна",
+        "force-innstall": "Force Install",
         "hide_game": "Схаваць гульню",
         "import": "Імпарт гульні",
         "install": "Усталяваць",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Выдаліць з абранага",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Гульня Unhide",
         "uninstall": "Выдаліць",
         "update": "Абнаўленне"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "Памер спампоўкі",
         "firstPlayed": "Упершыню сыграна",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Памер усталявання",
         "language": "мова",
         "lastPlayed": "Апошняя гульня",
@@ -103,6 +122,20 @@
     "report_problem": "Паведаміць аб праблеме запуску гэтай гульні",
     "sdl": {
         "title": "Выберыце кампаненты для ўстаноўкі"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Мінімум",

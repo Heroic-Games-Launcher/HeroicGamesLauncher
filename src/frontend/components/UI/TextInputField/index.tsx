@@ -14,6 +14,7 @@ interface TextInputFieldProps {
   disabled?: boolean
   extraClass?: string
   warning?: ReactNode
+  maxLength?: number
 }
 
 const TextInputField = ({
@@ -26,7 +27,8 @@ const TextInputField = ({
   extraClass = '',
   inputIcon,
   afterInput,
-  warning
+  warning,
+  maxLength
 }: TextInputFieldProps) => {
   const { isRTL } = useContext(ContextProvider)
 
@@ -45,6 +47,7 @@ const TextInputField = ({
         onChange={onChange}
         disabled={disabled}
         placeholder={placeholder}
+        maxLength={maxLength}
       />
       {value && warning}
       {afterInput}
