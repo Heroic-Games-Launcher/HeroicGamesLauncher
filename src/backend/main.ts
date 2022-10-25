@@ -1569,7 +1569,6 @@ import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
-import './dialog/ipc_handler'
 import './handler/gamestatus/ipc_handler'
 
 // import Store from 'electron-store'
