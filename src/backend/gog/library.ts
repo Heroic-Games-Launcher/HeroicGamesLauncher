@@ -371,52 +371,61 @@ export class GOGLibrary {
       errorMessage(res.error)
     }
 
-    try {
-      const gogInfo = JSON.parse(res.stdout)
-      const libraryArray = libraryStore.get('games', [{}]) as GameInfo[]
-      const gameObjectIndex = libraryArray.findIndex(
+    const gogInfo = JSON.parse(res.stdout)
+    let libraryArray = libraryStore.get('games', []) as GameInfo[]
+    let gameObjectIndex = libraryArray.findIndex(
+      (value) => value.app_name === appName
+    )
+
+    if (gameObjectIndex === -1) {
+      await this.sync()
+      libraryArray = libraryStore.get('games', []) as GameInfo[]
+      gameObjectIndex = libraryArray.findIndex(
         (value) => value.app_name === appName
       )
-
-      if (
-        !libraryArray[gameObjectIndex]?.gog_save_location &&
-        this.installedGames.get(appName) &&
-        this.installedGames.get(appName)?.platform !== 'linux'
-      ) {
-        gameData.gog_save_location = await this.getSaveSyncLocation(
-          appName,
-          this.installedGames.get(appName)!
-        )
+      if (gameObjectIndex === -1) {
+        logWarning(['getInstallInfo:', appName, 'not found in libraryStore'], {
+          prefix: LogPrefix.Gog
+        })
+        return
       }
-
-      libraryArray[gameObjectIndex].folder_name = gogInfo?.folder_name
-      libraryArray[gameObjectIndex].gog_save_location =
-        gameData?.gog_save_location
-      gameData.folder_name = gogInfo?.folder_name
-      libraryStore.set('games', libraryArray)
-      this.library.set(appName, gameData)
-      const info: GogInstallInfo = {
-        game: {
-          app_name: appName,
-          title: gameData.title,
-          owned_dlc: gogInfo.dlcs,
-          version: gogInfo.versionName,
-          launch_options: [],
-          buildId: gogInfo.buildId
-        },
-        manifest: {
-          disk_size: Number(gogInfo.disk_size),
-          download_size: Number(gogInfo.download_size),
-          app_name: appName,
-          languages: gogInfo.languages,
-          versionEtag: gogInfo.versionEtag
-        }
-      }
-      return info
-    } catch (error) {
-      errorMessage(`${error}`)
-      return
     }
+
+    if (
+      !libraryArray[gameObjectIndex]?.gog_save_location &&
+      this.installedGames.get(appName) &&
+      this.installedGames.get(appName)?.platform !== 'linux'
+    ) {
+      gameData.gog_save_location = await this.getSaveSyncLocation(
+        appName,
+        this.installedGames.get(appName)!
+      )
+    }
+
+    libraryArray[gameObjectIndex].folder_name = gogInfo?.folder_name
+    libraryArray[gameObjectIndex].gog_save_location =
+      gameData?.gog_save_location
+    gameData.folder_name = gogInfo?.folder_name
+    libraryStore.set('games', libraryArray)
+    this.library.set(appName, gameData)
+    const info: GogInstallInfo = {
+      game: {
+        app_name: appName,
+        title: gameData.title,
+        owned_dlc: gogInfo.dlcs,
+        version: gogInfo.versionName,
+        launch_options: [],
+        buildId: gogInfo.buildId
+      },
+      manifest: {
+        disk_size: Number(gogInfo.disk_size),
+        download_size: Number(gogInfo.download_size),
+        app_name: appName,
+        languages: gogInfo.languages,
+        versionEtag: gogInfo.versionEtag
+      }
+    }
+    return info
   }
 
   /**

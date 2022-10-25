@@ -1064,42 +1064,42 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@svgr/babel-plugin-add-jsx-attribute@^6.5.0":
+"@svgr/babel-plugin-add-jsx-attribute@^6.3.1":
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-6.5.0.tgz#21788f7e982aacafc805ed30a14048a1406fbabc"
   integrity sha512-Cp1JR1IPrQNvPRbkfcPmax52iunBC+eQDyBce8feOIIbVH6ZpVhErYoJtPWRBj2rKi4Wi9HvCm1+L1UD6QlBmg==
 
-"@svgr/babel-plugin-remove-jsx-attribute@^6.5.0":
+"@svgr/babel-plugin-remove-jsx-attribute@^6.3.1":
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-remove-jsx-attribute/-/babel-plugin-remove-jsx-attribute-6.5.0.tgz#652bfd4ed0a0699843585cda96faeb09d6e1306e"
   integrity sha512-8zYdkym7qNyfXpWvu4yq46k41pyNM9SOstoWhKlm+IfdCE1DdnRKeMUPsWIEO/DEkaWxJ8T9esNdG3QwQ93jBA==
 
-"@svgr/babel-plugin-remove-jsx-empty-expression@^6.5.0":
+"@svgr/babel-plugin-remove-jsx-empty-expression@^6.3.1":
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-remove-jsx-empty-expression/-/babel-plugin-remove-jsx-empty-expression-6.5.0.tgz#4b78994ab7d39032c729903fc2dd5c0fa4565cb8"
   integrity sha512-NFdxMq3xA42Kb1UbzCVxplUc0iqSyM9X8kopImvFnB+uSDdzIHOdbs1op8ofAvVRtbg4oZiyRl3fTYeKcOe9Iw==
 
-"@svgr/babel-plugin-replace-jsx-attribute-value@^6.5.0":
+"@svgr/babel-plugin-replace-jsx-attribute-value@^6.3.1":
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-replace-jsx-attribute-value/-/babel-plugin-replace-jsx-attribute-value-6.5.0.tgz#ca57c0a62a9c22ff11cdb475dc9a2b35586335d1"
   integrity sha512-XWm64/rSPUCQ+MFyA9lhMO+w8bOZvkTvovRIU1lpIy63ysPaVAFtxjQiZj+S7QaLaLGUXkSkf8WZsaN+QPo/gA==
 
-"@svgr/babel-plugin-svg-dynamic-title@^6.5.0":
+"@svgr/babel-plugin-svg-dynamic-title@^6.3.1":
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-svg-dynamic-title/-/babel-plugin-svg-dynamic-title-6.5.0.tgz#57c0e0409757373d641f115d33cf2559b47bff77"
   integrity sha512-JIF2D2ltiWFGlTw2fJ9jJg1fNT9rWjOD2Cf0/xzeW6Z2LIRQTHcRHxpZq359+SRWtEPsCXEWV2Xmd+DMBj6dBw==
 
-"@svgr/babel-plugin-svg-em-dimensions@^6.5.0":
+"@svgr/babel-plugin-svg-em-dimensions@^6.3.1":
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-svg-em-dimensions/-/babel-plugin-svg-em-dimensions-6.5.0.tgz#dbca40a18c308f135b4b672ea8e410855e8e3352"
   integrity sha512-uuo0FfLP4Nu2zncOcoUFDzZdXWma2bxkTGk0etRThs4/PghvPIGaW8cPhCg6yJ8zpaauWcKV0wZtzKlJRCtVzg==
 
-"@svgr/babel-plugin-transform-react-native-svg@^6.5.0":
+"@svgr/babel-plugin-transform-react-native-svg@^6.3.1":
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-transform-react-native-svg/-/babel-plugin-transform-react-native-svg-6.5.0.tgz#a5453127365b925a7f766615ef6f5cfd01018f98"
   integrity sha512-VMRWyOmrV+DaEFPgP3hZMsFgs2g87ojs3txw0Rx8iz6Nf/E3UoHUwTqpkSCWd3Hsnc9gMOY9+wl6+/Ycleh1sw==
 
-"@svgr/babel-plugin-transform-svg-component@^6.5.0":
+"@svgr/babel-plugin-transform-svg-component@^6.3.1":
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-transform-svg-component/-/babel-plugin-transform-svg-component-6.5.0.tgz#ec116e9223a02c6dcd9f8cb2bdbf174a3c2ef2f5"
   integrity sha512-b67Ul3SelaqvGEEG/1B3VJ03KUtGFgRQjRLCCjdttMQLcYa9l/izQFEclNFx53pNqhijUMNKHPhGMY/CWGVKig==
