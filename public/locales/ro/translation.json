@@ -247,6 +247,9 @@
             "stable": "Grajd",
             "version": "Versiune eroică"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Setările sunt salvate automat",
         "version": "Versiune Wine"
     },
@@ -280,7 +283,10 @@
         "website": "Se încarcă site-ul web"
     },
     "login": {
-        "externalLogin": "Autentificare externă"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sincronizare Completă",
@@ -370,6 +376,7 @@
         "legendary-version": "Versiune Legendary: ",
         "weblate": "Ajută la traducerea Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Se utilizează binarul GOGDL încorporat...",
         "alt-legendary-bin": "Folosind binarul Legendary încorporat...",

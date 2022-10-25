@@ -17,6 +17,15 @@
             "message": "Θέλετε να δοκιμάσετε να επιδιορθώσετε αυτό το παιχνίδι; Αυτό μπορεί να πάρει πολύ ώρα.",
             "title": "Επαλήθευση και Επιδιόρθωση"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Συνέχιση εγκατάστασης",
             "message": "Θέλετε να ΔΙΑΤΗΡΗΣΕΤΕ τα ληφθέντα αρχεία;",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Προσθήκη στα Αγαπημένα",
         "cancel": "Παύση/Ακύρωση",
         "continue": "Συνέχιση λήψης",
+        "finish": "Finish",
         "force_update": "Επιβολή ενημέρωσης εαν είναι διαθέσιμη",
+        "force-innstall": "Force Install",
         "hide_game": "Απόκρυψη Παιχνιδιού",
         "import": "Εισαγωγή Παιχνιδιού",
         "install": "Εγκατάσταση",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Κατάργηση από τα Αγαπημένα",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Φανέρωση Παιχνιδιού",
         "uninstall": "Απεγκατάσταση",
         "update": "Ενημέρωση"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "Μέγεθος λήψης",
         "firstPlayed": "Παίχτηκε πρώτη φορά",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Μέγεθος Εγκατάστασης",
         "language": "Γλώσσα",
         "lastPlayed": "Παίχτηκε Τελευταία φορά",
@@ -103,6 +122,20 @@
     "report_problem": "Αναφορά προβλήματος κατά την εκτέλεση του παιχνιδιού",
     "sdl": {
         "title": "Διαλέξτε στοιχεία για εγκατάσταση"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Ελάχιστα",

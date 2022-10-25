@@ -17,6 +17,15 @@
             "message": "Bạn có muốn thử sửa game không? Quá trình này có thể tốn nhiều thời gian.",
             "title": "Kiểm tra và sửa chữa"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Tiếp tục cài",
             "message": "Bạn có muốn GIỮ lại những file đã tải không?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Thêm vào mục ưa thích",
         "cancel": "Tạm dừng/Huỷ",
         "continue": "Tiếp tục tải",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
         "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Cài đặt",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Xóa khỏi mục ưa thích",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Bỏ ẩn Game",
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "Kích thước tải",
         "firstPlayed": "Lần chơi đầu tiên",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Kích thước cài",
         "language": "Ngôn ngữ",
         "lastPlayed": "Lần chơi trước",
@@ -103,6 +122,20 @@
     "report_problem": "Báo cáo sự cố khi chạy game này",
     "sdl": {
         "title": "Chọn các thành phần cần cài"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Thu nhỏ",

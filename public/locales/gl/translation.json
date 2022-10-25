@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Erro",
@@ -247,6 +247,9 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Preferencias gardadas automaticamente",
         "version": "Wine Version"
     },
@@ -280,7 +283,10 @@
         "website": "Cargando sitio web"
     },
     "login": {
-        "externalLogin": "External Login"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sincronización completa",
@@ -370,6 +376,7 @@
         "legendary-version": "Versión de Legendary: ",
         "weblate": "Axuda a traducir Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Usando o binario de Legendary embebeido...",
@@ -470,7 +477,7 @@
                 "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
                 "title": "Only 1 GPU detected"
             },
-            "description": "Activar renderizado de Nvidia Prime"
+            "description": "Use Dedicated Graphics Card"
         },
         "runexe": {
             "message": "Arrastrar e soltar aqúi",

@@ -379,7 +379,7 @@ class LegendaryGame extends Game {
    * @public
    */
   public async removeShortcuts() {
-    return removeShortcuts(this.appName, 'legendary')
+    return removeShortcuts(this.getGameInfo())
   }
 
   private getSdlList(sdlList: Array<string>) {
@@ -476,7 +476,7 @@ class LegendaryGame extends Game {
       })
     } else {
       LegendaryLibrary.get().installState(this.appName, false)
-      await removeShortcuts(this.appName, 'legendary')
+      await removeShortcuts(this.getGameInfo())
       const gameInfo = this.getGameInfo()
       await removeNonSteamGame({ gameInfo })
     }
@@ -572,7 +572,7 @@ class LegendaryGame extends Game {
       gameModeBin,
       steamRuntime,
       offlineMode
-    } = await prepareLaunch(this, gameInfo)
+    } = await prepareLaunch(gameSettings, gameInfo, this.isNative())
     if (!launchPrepSuccess) {
       appendFileSync(
         this.logFileLocation,
@@ -722,7 +722,16 @@ class LegendaryGame extends Game {
       return { stdout: '', stderr: '' }
     }
 
-    return runWineCommand(this, command, wait, forceRunInPrefixVerb)
+    const { folder_name } = this.getGameInfo()
+    const gameSettings = await this.getSettings()
+
+    return runWineCommand({
+      gameSettings,
+      installFolderName: folder_name,
+      command,
+      wait,
+      forceRunInPrefixVerb
+    })
   }
 
   public async stop() {

@@ -1,2 +1,2 @@
 #!/bin/bash
-yarn codecheck && yarn lint && yarn prettier-fix && yarn i18n
+yarn codecheck && yarn lint && yarn prettier-fix && yarn test && yarn i18n

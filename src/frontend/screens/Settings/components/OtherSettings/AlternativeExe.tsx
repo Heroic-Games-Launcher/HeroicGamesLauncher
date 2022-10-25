@@ -14,7 +14,7 @@ const AlternativeExe = () => {
 
   const [targetExe, setTargetExe] = useSetting('targetExe', '')
 
-  if (isDefault) {
+  if (isDefault || runner === 'sideload') {
     return <></>
   }
 

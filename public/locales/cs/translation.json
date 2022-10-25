@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -247,6 +247,9 @@
             "stable": "Stabilní",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Nastavení se ukládají automaticky",
         "version": "Verze Wine"
     },
@@ -280,7 +283,10 @@
         "website": "Načítání webu"
     },
     "login": {
-        "externalLogin": "Externí přihlášení"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -370,6 +376,7 @@
         "legendary-version": "Verze Legenary: ",
         "weblate": "Pomozte s překladem Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Pomocí vestavěného GOGDL...",
         "alt-legendary-bin": "Pomocí vestavěného Legendary...",

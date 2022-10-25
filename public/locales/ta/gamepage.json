@@ -17,6 +17,15 @@
             "message": "இந்த விளையாட்டை சரிசெய்ய விரும்புகிறீர்களா? இது நீண்ட நேரம் எடுக்கலாம்.",
             "title": "சரிபார்த்து சரிசெய்"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "நிறுவுவதை தொடரு",
             "message": "பதிவிறக்கம் செய்யப்பட்ட கோப்புகளை வைத்திருக்க விரும்புகிறீர்களா?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "இடைநிறுத்து/ரத்துசெய்",
         "continue": "பதிவிறக்கத்தை தொடரு",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
         "hide_game": "Hide Game",
         "import": "விளையாட்டை இறக்குமதி செய்",
         "install": "நிறுவு",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Remove From Favourites",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Unhide Game",
         "uninstall": "நிறுவல் நீக்கு",
         "update": "Update"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Install Size",
         "language": "Language",
         "lastPlayed": "Last Played",
@@ -103,6 +122,20 @@
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Select components to Install"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "குறைந்தபட்சம்",

@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Problem",
@@ -247,6 +247,9 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Inställningar sparas automatiskt",
         "version": "Wine Version"
     },
@@ -280,7 +283,10 @@
         "website": "Laddar websida"
     },
     "login": {
-        "externalLogin": "Externt login"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synkronisering slutförd",
@@ -370,6 +376,7 @@
         "legendary-version": "Legendary version: ",
         "weblate": "Bidra till översättning av Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Använder inbyggd GOGDL version...",
         "alt-legendary-bin": "Använder inbyggd Legendary version...",

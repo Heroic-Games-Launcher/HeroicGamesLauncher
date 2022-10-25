@@ -17,6 +17,15 @@
             "message": "آیا میخواهید این بازی را تعمیر کنید؟ این کار میتواند زمان زیادی ببرد.",
             "title": "بررسی و تعمیر"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "ادامه به نصب",
             "message": "آیا مایل هستید فایلهای دانلود شده را نگه دارید؟",
@@ -38,11 +47,19 @@
         "add_to_favourites": "افزودن به مورد علاقه ها",
         "cancel": "توقف/انصراف",
         "continue": "ادامه بارگیری",
+        "finish": "Finish",
         "force_update": "اعمال اجباری به روز رسانی در صورت موجود بودن",
+        "force-innstall": "Force Install",
         "hide_game": "مخفی کردن بازی",
         "import": "وارد کردن بازی",
         "install": "نصب",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "حذف کردن از مورد علاقه ها",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "نشان دادن بازی",
         "uninstall": "حذف",
         "update": "بهروزرسانی"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "سایز دانلود",
         "firstPlayed": "اولین اجرا",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "سایز نصب",
         "language": "زبان",
         "lastPlayed": "آخرین اجرا",
@@ -103,6 +122,20 @@
     "report_problem": "گزارش مشکل اجرای این بازی",
     "sdl": {
         "title": "انتخاب محتواها برای نصب"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "حداقل",

@@ -2,8 +2,8 @@ import { app, shell } from 'electron'
 import { unlink, writeFile } from 'graceful-fs'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import { GlobalConfig } from '../../config'
-import { getGame, removeSpecialcharacters } from '../../utils'
-import { Runner, GameInfo } from 'common/types'
+import { removeSpecialcharacters } from '../../utils'
+import { GameInfo } from 'common/types'
 import { userHome } from '../../constants'
 import { GOGLibrary } from '../../gog/library'
 import { getIcon } from '../utils'
@@ -96,8 +96,7 @@ Categories=Game;
  * @async
  * @public
  */
-async function removeShortcuts(appName: string, runner: Runner) {
-  const gameInfo = getGame(appName, runner).getGameInfo()
+async function removeShortcuts(gameInfo: GameInfo) {
   const [desktopFile, menuFile] = shortcutFiles(gameInfo.title)
 
   if (desktopFile) {

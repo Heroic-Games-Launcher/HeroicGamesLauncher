@@ -17,6 +17,15 @@
             "message": "Joko hau konpontzen saiatu nahi duzu? Denbora asko eraman dezake.",
             "title": "Egiaztatu eta konpondu"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Instalatzen jarraitu",
             "message": "Fitxategiak deskargatuta MANTENDU nahi dituzu?",
@@ -39,11 +48,19 @@
         "add_to_favourites": "Gehitu gogokoetara",
         "cancel": "Gelditu/Utzi",
         "continue": "Jarraitu deskarga",
+        "finish": "Finish",
         "force_update": "Eguneratu eguneraketarik badago",
+        "force-innstall": "Force Install",
         "hide_game": "Ezkutatu jokoa",
         "import": "Inportatu jokoa",
         "install": "Instalatu",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Kendu gogokoenetik",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Erakutsi jokoa",
         "uninstall": "Desinslalatu",
         "update": "Eguneratu"
@@ -57,6 +74,8 @@
     "game": {
         "downloadSize": "Deskarga-tamaina",
         "firstPlayed": "Lehen aldiz jokatua",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Instalazioaren tamaina",
         "language": "Hizkuntza",
         "lastPlayed": "Azken jokaldia",
@@ -104,6 +123,20 @@
     "report_problem": "Joko hau gauzatzean arazo baten berri ematea",
     "sdl": {
         "title": "Instalatzeko osagaiak hautatzea"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Gutxienekoa",

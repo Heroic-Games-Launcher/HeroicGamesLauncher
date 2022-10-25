@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "பிழை",
@@ -247,6 +247,9 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "அமைப்புகள் தானாகவே சேமிக்கப்படும்",
         "version": "Wine Version"
     },
@@ -280,7 +283,10 @@
         "website": "Loading Website"
     },
     "login": {
-        "externalLogin": "External Login"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "ஒத்திசைவு நிறைப்படைந்தது",
@@ -370,6 +376,7 @@
         "legendary-version": "Legendary Version: ",
         "weblate": "ஹீரோயிக் ஐ மொழிபெயர்க்க உதவுங்கள்."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",

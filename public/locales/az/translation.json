@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Xəta",
@@ -247,6 +247,9 @@
             "stable": "Stabil",
             "version": "Qəhrəmanlıq versiyası"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Parametrlər avtomatik olaraq saxlanılır",
         "version": "Şərab versiyası"
     },
@@ -280,7 +283,10 @@
         "website": "Veb sayt yüklənir"
     },
     "login": {
-        "externalLogin": "Xarici Giriş"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sinxronizasiya tamamlandı",
@@ -370,6 +376,7 @@
         "legendary-version": "Əfsanəvi Versiya: ",
         "weblate": "Heroic tərcüməsinə kömək edin."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Daxili GOGDL ikili proqramından istifadə...",
         "alt-legendary-bin": "Daxili əfsanəvi ikili proqramdan istifadə...",

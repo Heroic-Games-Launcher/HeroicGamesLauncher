@@ -17,6 +17,15 @@
             "message": "Chcete sa pokúsiť opraviť túto hru? Môže to trvať dlho.",
             "title": "Overiť a opraviť"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Pokračujte v inštalácii",
             "message": "Prajete si PONECHAŤ stiahnuté súbory?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Pridať do obľúbených",
         "cancel": "Pozastaviť/Zrušiť",
         "continue": "Pokračovať v sťahovaní",
+        "finish": "Finish",
         "force_update": "Vynútiť aktualizáciu, ak je k dispozícii",
+        "force-innstall": "Force Install",
         "hide_game": "Skryť hru",
         "import": "Importovať hru",
         "install": "Inštalácia",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Odstrániť z obľúbených",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Odkryť hru",
         "uninstall": "Odinštalovať",
         "update": "Aktualizovať"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "Veľkosť na stiahnutie",
         "firstPlayed": "Prvýkrát hrané",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Veľkosť inštalácie",
         "language": "Jazyk",
         "lastPlayed": "Naposledy hrané",
@@ -103,6 +122,20 @@
     "report_problem": "Nahlásiť problém so spustením tejto hry",
     "sdl": {
         "title": "Vyberte komponenty na inštaláciu"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Minimum",

@@ -17,6 +17,15 @@
             "message": "Oyunu onarmayı denemek ister misiniz? Bu uzun sürebilir.",
             "title": "Doğrula ve Onar"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Kuruluma Devam Et",
             "message": "İndirilen dosyaları SAKLAMAK ister misiniz?",
@@ -38,11 +47,19 @@
         "add_to_favourites": "Favorilere Ekle",
         "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
+        "finish": "Finish",
         "force_update": "Varsa Güncellemeyi Zorunlu Kur",
+        "force-innstall": "Force Install",
         "hide_game": "Oyunu Gizle",
         "import": "Oyunu İçe Aktar",
         "install": "Kur",
+        "no-path-selected": "No path selected",
         "remove_from_favourites": "Favorilerden Kaldır",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Oyunu Göster",
         "uninstall": "Kaldır",
         "update": "Güncelle"
@@ -56,6 +73,8 @@
     "game": {
         "downloadSize": "İndirme Boyutu",
         "firstPlayed": "İlk Oynanan",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Kurulum Boyutu",
         "language": "Dil",
         "lastPlayed": "Son Oynanan",
@@ -103,6 +122,20 @@
     "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {
         "title": "Kurulacak bileşenleri seç"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Asgari",

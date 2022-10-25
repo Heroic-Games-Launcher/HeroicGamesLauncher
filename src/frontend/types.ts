@@ -10,7 +10,8 @@ import {
   ButtonOptions,
   LibraryTopSectionOptions
 } from 'common/types'
-export type Category = 'all' | 'legendary' | 'gog'
+
+export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
 
 export interface ContextType {
   category: Category
@@ -78,6 +79,7 @@ export interface ContextType {
   dialogModalOptions: DialogModalOptions
   showDialogModal: (options: DialogModalOptions) => void
   showResetDialog: () => void
+  sideloadedLibrary: GameInfo[]
 }
 
 export type DialogModalOptions = {

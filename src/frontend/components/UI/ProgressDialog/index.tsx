@@ -49,11 +49,12 @@ export function ProgressDialog(props: {
 
   return (
     <>
-      <Dialog onClose={props.onClose} className={classNames('progressDialog')}>
-        <DialogHeader
-          onClose={props.onClose}
-          showCloseButton={props.showCloseButton}
-        >
+      <Dialog
+        showCloseButton
+        onClose={props.onClose}
+        className={classNames('progressDialog')}
+      >
+        <DialogHeader onClose={props.onClose}>
           <div>{props.title}</div>
         </DialogHeader>
         <DialogContent>

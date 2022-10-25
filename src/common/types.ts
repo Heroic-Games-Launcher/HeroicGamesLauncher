@@ -4,7 +4,7 @@ import { ChildProcess } from 'child_process'
 import { VersionInfo } from 'heroic-wine-downloader'
 import { IpcRendererEvent } from 'electron'
 
-export type Runner = 'legendary' | 'gog'
+export type Runner = 'legendary' | 'gog' | 'sideload'
 
 // NOTE: Do not put enum's in this module or it will break imports
 
@@ -87,7 +87,7 @@ export interface AppSettings {
   launcherArgs: string
   libraryTopSection: LibraryTopSectionOptions
   maxRecentGames: number
-  maxSharpness: number
+  maxSharpness?: number
   maxWorkers: number
   minimizeOnLaunch: boolean
   nvidiaPrime: boolean
@@ -161,7 +161,7 @@ export interface GameSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
-  maxSharpness: number
+  maxSharpness?: number
   language: string
   launcherArgs: string
   nvidiaPrime: boolean
@@ -502,4 +502,29 @@ export interface Tools {
   tool: string
   appName: string
   runner: Runner
+}
+
+export type WineCommandArgs = {
+  command: string
+  wait: boolean
+  forceRunInPrefixVerb?: boolean
+  gameSettings?: GameSettings
+  installFolderName?: string
+  options?: CallRunnerOptions
+  startFolder?: string
+}
+
+export interface SideloadGame {
+  runner: Runner
+  app_name: string
+  art_cover: string
+  art_square: string
+  is_installed: boolean
+  title: string
+  install: {
+    executable: string
+    platform: InstallPlatform
+  }
+  folder_name?: string
+  canRunOffline: boolean
 }
