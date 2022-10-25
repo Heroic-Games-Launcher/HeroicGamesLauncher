@@ -18,7 +18,7 @@ function initGameStatusHandler() {
 }
 
 function setGameStatusOfElement(status: GameStatus) {
-  const handlers = (store.get('gameStatus') || {}) as GameStatusMap
+  const handlers = store.get('gameStatus', {}) as GameStatusMap
 
   handlers[status.appName] = status
   store.set('gameStatus', handlers)
@@ -30,40 +30,29 @@ function setGameStatusOfElement(status: GameStatus) {
 }
 
 function deleteGameStatusOfElement(appName: string) {
-  if (store.has('gameStatus')) {
-    const handlers = store.get('gameStatus') as GameStatusMap
+  const handlers = store.get('gameStatus', {}) as GameStatusMap
 
-    if (handlers[appName]) {
-      const status = handlers[appName]
-      status.status = 'done'
+  if (handlers[appName]) {
+    const status = handlers[appName]
+    status.status = 'done'
 
-      delete handlers[appName]
-      store.set('gameStatus', { ...handlers })
+    delete handlers[appName]
+    store.set('gameStatus', { ...handlers })
 
-      const mainWindow = getMainWindow()
-      if (mainWindow?.webContents) {
-        getMainWindow().webContents.send('handleGameStatus', status)
-      }
+    const mainWindow = getMainWindow()
+    if (mainWindow?.webContents) {
+      getMainWindow().webContents.send('handleGameStatus', status)
     }
   }
 }
 
 function getGameStatusOfElement(appName: string): GameStatus | undefined {
-  if (store.has('gameStatus')) {
-    const handlers = store.get('gameStatus') as GameStatusMap
-
-    return handlers[appName]
-  }
-  return
+  const handlers = store.get('gameStatus', {}) as GameStatusMap
+  return handlers[appName]
 }
 
 function getAllGameStatus(): GameStatusMap {
-  const emptyMap = {}
-  if (store.has('gameStatus')) {
-    const handlers = store.get('gameStatus') as GameStatusMap
-    return handlers ?? emptyMap
-  }
-  return emptyMap
+  return store.get('gameStatus', {}) as GameStatusMap
 }
 
 export {
