@@ -8,28 +8,22 @@ interface Props {
 }
 
 export function LibraryState({ children }: Props) {
-  const [gameStatusList, setGameStatusList] = useState<GameStatus[]>([])
+  const [gameStatusList, setGameStatusList] = useState(
+    new Map<string, GameStatus>()
+  )
   const { refreshLibrary } = useContext(ContextProvider)
 
   useEffect(() => {
     window.api
       .getAllGameStatus()
-      .then((gameStatusList) => setGameStatusList([...gameStatusList]))
+      .then((gameStatusList) => setGameStatusList(gameStatusList))
 
     const onGameStatusUpdate = async (
       _e: Electron.IpcRendererEvent,
       newGameStatus: GameStatus
     ) => {
-      const gameStatusIndex = gameStatusList.findIndex(
-        (gameStatus) => gameStatus.appName === newGameStatus.appName
-      )
-      if (gameStatusIndex >= 0) {
-        gameStatusList[gameStatusIndex] = newGameStatus
-      } else {
-        gameStatusList.push(newGameStatus)
-      }
-
-      setGameStatusList([...gameStatusList])
+      gameStatusList.set(newGameStatus.appName, newGameStatus)
+      setGameStatusList(gameStatusList)
 
       if (newGameStatus.status === 'done') {
         refreshLibrary({
@@ -51,7 +45,7 @@ export function LibraryState({ children }: Props) {
 
   function hasGameStatus(appName: string): GameStatus {
     return (
-      gameStatusList.find((gameStatus) => gameStatus.appName === appName) ?? {
+      gameStatusList.get(appName) ?? {
         appName,
         status: 'done',
         folder: 'default',
@@ -73,13 +67,11 @@ export function LibraryState({ children }: Props) {
   }
 
   function hasDownloads(): boolean {
-    return gameStatusList.some(
+    return [...gameStatusList.values()].some(
       (gameStatus: GameStatus) =>
         gameStatus.status === 'installing' || gameStatus.status === 'updating'
     )
   }
-
-  console.log(gameStatusList)
 
   return (
     <LibraryProvider value={{ gameStatusList, hasGameStatus, hasDownloads }}>

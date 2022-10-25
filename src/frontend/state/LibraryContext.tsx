@@ -1,8 +1,9 @@
+import { GameStatus } from 'common/types'
 import { LibraryContextType } from 'frontend/types'
 import React from 'react'
 
 const initialContext: LibraryContextType = {
-  gameStatusList: [],
+  gameStatusList: new Map<string, GameStatus>(),
   hasGameStatus: (appName) => {
     return {
       appName,

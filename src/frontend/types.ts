@@ -232,7 +232,7 @@ export interface LocationState {
 }
 
 export interface LibraryContextType {
-  gameStatusList: GameStatus[]
+  gameStatusList: Map<string, GameStatus>
   hasGameStatus: (appName: string) => GameStatus
   hasDownloads: () => boolean
 }

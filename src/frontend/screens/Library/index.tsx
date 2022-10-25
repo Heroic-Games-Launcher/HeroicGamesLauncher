@@ -99,7 +99,7 @@ export default function Library(): JSX.Element {
 
   // cache list of games being installed
   const { gameStatusList } = useContext(LibraryContext)
-  const installing = gameStatusList
+  const installing = [...gameStatusList.values()]
     .filter((gameStatus: GameStatus) => gameStatus.status === 'installing')
     .map((st: GameStatus) => st.appName)
 

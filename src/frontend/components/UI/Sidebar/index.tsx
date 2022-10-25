@@ -18,7 +18,7 @@ export default function Sidebar() {
   const { t } = useTranslation()
   const { sidebarCollapsed, setSideBarCollapsed } = useContext(ContextProvider)
   const { gameStatusList } = useContext(LibraryContext)
-  const downloading = gameStatusList.filter(
+  const downloading = [...gameStatusList.values()].filter(
     (gameStatus) =>
       gameStatus.status === 'installing' || gameStatus.status === 'updating'
   )

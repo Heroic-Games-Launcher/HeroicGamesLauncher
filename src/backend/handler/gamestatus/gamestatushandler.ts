@@ -18,47 +18,42 @@ function initGameStatusHandler() {
 }
 
 function setGameStatusOfElement(status: GameStatus) {
-  let newStatus = status
+  const emptyMap = () => {
+    const handlers = new Map<string, GameStatus>()
+    handlers.set(status.appName, status)
+    store.set('gameStatus', handlers)
+  }
+
   if (!store.has('gameStatus')) {
-    store.set('gameStatus', [status])
-    return
-  }
-
-  const handlers = store.get('gameStatus') as GameStatus[]
-
-  const handlerIndex = handlers.findIndex(
-    (status) => newStatus.appName === status.appName
-  )
-
-  if (handlerIndex >= 0) {
-    newStatus = {
-      ...handlers[handlerIndex],
-      ...status
-    }
-    handlers[handlerIndex] = newStatus
+    emptyMap()
   } else {
-    handlers.push(newStatus)
-  }
+    const handlers = store.get('gameStatus') as Map<string, GameStatus>
 
-  store.set('gameStatus', handlers)
+    if (!handlers?.values()) {
+      emptyMap()
+    } else {
+      handlers.set(status.appName, status)
+      store.set('gameStatus', handlers)
+    }
+  }
 
   const mainWindow = getMainWindow()
   if (mainWindow?.webContents) {
-    getMainWindow().webContents.send('handleGameStatus', newStatus)
+    getMainWindow().webContents.send('handleGameStatus', status)
   }
 }
 
 function deleteGameStatusOfElement(appName: string) {
   if (store.has('gameStatus')) {
-    const handlers = store.get('gameStatus') as GameStatus[]
+    const handlers = store.get('gameStatus') as Map<string, GameStatus>
 
-    const handlerIndex = handlers.findIndex(
-      (status) => status.appName === appName
-    )
+    if (handlers?.values()) {
+      const status = handlers.get(appName)
+      if (status) {
+        status.status = 'done'
+      }
 
-    if (handlerIndex >= 0) {
-      const status = handlers.splice(handlerIndex, 1)[0]
-      status.status = 'done'
+      handlers.delete(appName)
       store.set('gameStatus', handlers)
 
       const mainWindow = getMainWindow()
@@ -71,18 +66,20 @@ function deleteGameStatusOfElement(appName: string) {
 
 function getGameStatusOfElement(appName: string): GameStatus | undefined {
   if (store.has('gameStatus')) {
-    const handlers = store.get('gameStatus') as GameStatus[]
+    const handlers = store.get('gameStatus') as Map<string, GameStatus>
 
-    return handlers.find((status) => status.appName === appName)
+    return handlers.get(appName)
   }
   return
 }
 
-function getAllGameStatus(): GameStatus[] {
+function getAllGameStatus(): Map<string, GameStatus> {
+  const emptyMap = new Map<string, GameStatus>()
   if (store.has('gameStatus')) {
-    return store.get('gameStatus') as GameStatus[]
+    const handlers = store.get('gameStatus') as Map<string, GameStatus>
+    return handlers ?? emptyMap
   }
-  return []
+  return emptyMap
 }
 
 export {
