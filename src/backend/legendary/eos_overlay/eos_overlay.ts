@@ -10,10 +10,15 @@ import { runLegendaryCommand } from '../library'
 import { LegendaryGame } from '../games'
 import { getGame, killPattern } from '../../utils'
 import { verifyWinePrefix } from '../../launcher'
+import {
+  deleteGameStatusOfElement,
+  setGameStatusOfElement
+} from 'backend/handler/gamestatus/gamestatushandler'
 
 const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
 const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
 const defaultInstallPath = join(heroicToolsPath, 'eos_overlay')
+const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
 function getStatus(): {
   isInstalled: boolean
@@ -75,7 +80,14 @@ async function updateInfo() {
  * @returns The error encountered when installing, if any
  */
 async function install() {
-  const game = LegendaryGame.get('98bc04bc842e4906993fd6d6644ffb8d')
+  const game = LegendaryGame.get(eosOverlayAppName)
+
+  setGameStatusOfElement({
+    appName: eosOverlayAppName,
+    runner: 'legendary',
+    status: 'installing'
+  })
+
   let downloadSize = 0
   // Run download without -y to get the install size
   await runLegendaryCommand(
@@ -105,6 +117,8 @@ async function install() {
       }
     }
   )
+
+  deleteGameStatusOfElement(eosOverlayAppName)
   return error
 }
 
@@ -134,6 +148,11 @@ async function remove(): Promise<boolean> {
 
 function cancelInstallOrUpdate() {
   killPattern('eos-overlay install')
+  setGameStatusOfElement({
+    appName: eosOverlayAppName,
+    runner: 'legendary',
+    status: 'canceled'
+  })
 }
 
 async function enable(

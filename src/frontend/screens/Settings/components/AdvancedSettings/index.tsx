@@ -108,14 +108,8 @@ export default function AdvancedSettings() {
   }
 
   async function installEosOverlay() {
-    await window.api.setGameStatus({
-      appName: eosOverlayAppName,
-      runner: 'legendary',
-      status: 'installing'
-    })
     setEosOverlayInstallingOrUpdating(true)
     const installError = await window.api.installEosOverlay()
-    await window.api.deleteGameStatus(eosOverlayAppName)
     setEosOverlayInstallingOrUpdating(false)
     setEosOverlayInstalled(!installError)
     // `eos-overlay install` enables the overlay by default on Windows
@@ -130,14 +124,8 @@ export default function AdvancedSettings() {
   }
 
   async function updateEosOverlay() {
-    await window.api.setGameStatus({
-      appName: eosOverlayAppName,
-      runner: 'legendary',
-      status: 'updating'
-    })
     setEosOverlayInstallingOrUpdating(true)
     await window.api.installEosOverlay()
-    await window.api.deleteGameStatus(eosOverlayAppName)
     setEosOverlayInstallingOrUpdating(false)
     const { version: newVersion } = await window.api.getEosOverlayStatus()
     setEosOverlayVersion(newVersion)
@@ -145,11 +133,6 @@ export default function AdvancedSettings() {
 
   async function cancelEosOverlayInstallOrUpdate() {
     await window.api.cancelEosOverlayInstallOrUpdate()
-    await window.api.setGameStatus({
-      appName: eosOverlayAppName,
-      runner: 'legendary',
-      status: 'canceled'
-    })
     setEosOverlayInstallingOrUpdating(false)
   }
 

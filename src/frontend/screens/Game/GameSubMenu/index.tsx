@@ -64,9 +64,7 @@ export default function GamesSubmenu({
     })
 
     if (path) {
-      await window.api.setGameStatus({ appName, runner, status: 'moving' })
       await window.api.moveInstall([appName, path, runner])
-      await window.api.deleteGameStatus(appName)
     }
   }
 
@@ -110,9 +108,7 @@ export default function GamesSubmenu({
   }
 
   async function onRepairYesClick(appName: string) {
-    await window.api.setGameStatus({ appName, runner, status: 'repairing' })
     await repair(appName, runner)
-    await window.api.setGameStatus({ appName, runner, status: 'done' })
   }
 
   function handleRepair(appName: string) {
@@ -148,14 +144,7 @@ export default function GamesSubmenu({
       let { wasEnabled } = initialEnableResult
 
       if (installNow) {
-        await window.api.setGameStatus({
-          appName: eosOverlayAppName,
-          runner: 'legendary',
-          status: 'installing'
-        })
-
         await window.api.installEosOverlay()
-        await window.api.deleteGameStatus(eosOverlayAppName)
 
         wasEnabled = (await window.api.enableEosOverlay(appName)).wasEnabled
       }

@@ -95,9 +95,7 @@ const GameCard = ({
   const imageSrc = getImageFormatting()
 
   async function handleUpdate() {
-    await window.api.setGameStatus({ appName, runner, status: 'updating' })
     await updateGame(appName, runner)
-    return window.api.deleteGameStatus(appName)
   }
 
   function getImageFormatting() {

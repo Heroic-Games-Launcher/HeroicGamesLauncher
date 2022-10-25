@@ -51,6 +51,7 @@ import {
 import { t } from 'i18next'
 import {
   deleteGameStatusOfElement,
+  getGameStatusOfElement,
   setGameStatusOfElement
 } from '../handler/gamestatus/gamestatushandler'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
@@ -176,10 +177,9 @@ class GOGGame extends Game {
         { prefix: LogPrefix.Gog }
       )
 
+      const gameStatus = getGameStatusOfElement(this.appName)!
       setGameStatusOfElement({
-        appName: this.appName,
-        runner: 'gog',
-        status: action,
+        ...gameStatus,
         progress: {
           eta,
           percent,

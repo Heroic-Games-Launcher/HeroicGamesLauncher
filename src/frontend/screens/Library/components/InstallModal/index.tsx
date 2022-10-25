@@ -115,7 +115,7 @@ export default function InstallModal({
   )
   const [defaultPath, setDefaultPath] = useState('...')
   const [installPath, setInstallPath] = useState(
-    gameStatus.previousProgress?.folder || 'default'
+    gameStatus.progress?.folder || 'default'
   )
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
@@ -247,8 +247,8 @@ export default function InstallModal({
         let spaceLeftAfter = size(
           free - Number(gameInstallInfo.manifest.disk_size)
         )
-        if (gameStatus.previousProgress?.folder === installPath) {
-          const progress = 100 - gameStatus.previousProgress!.percent
+        if (gameStatus.progress && gameStatus.folder === installPath) {
+          const progress = 100 - gameStatus.progress!.percent
           notEnoughDiskSpace =
             free < (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
 
@@ -318,8 +318,8 @@ export default function InstallModal({
   const DLCList = gameInstallInfo?.game?.owned_dlc
   const downloadSize = () => {
     if (gameInstallInfo?.manifest?.download_size) {
-      if (gameStatus.previousProgress?.folder === installPath) {
-        const progress = 100 - gameStatus.previousProgress?.percent
+      if (gameStatus.progress && gameStatus.folder === installPath) {
+        const progress = 100 - gameStatus.progress.percent
         return size(
           (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
         )
@@ -424,7 +424,7 @@ export default function InstallModal({
                   </div>
                   <div className="InstallModal__sizeValue">{installSize}</div>
                 </div>
-                {gameStatus.previousProgress?.folder === installPath && (
+                {gameStatus.folder === installPath && (
                   <div className="InstallModal__size">
                     <FontAwesomeIcon
                       className="InstallModal__sizeIcon"
@@ -434,7 +434,7 @@ export default function InstallModal({
                       {t('status.totalDownloaded', 'Total Downloaded')}:
                     </div>
                     <div className="InstallModal__sizeValue">
-                      {gameStatus.previousProgress?.percent ?? 0}%
+                      {gameStatus.progress?.percent ?? 0}%
                     </div>
                   </div>
                 )}
@@ -641,7 +641,7 @@ export default function InstallModal({
                 className={`button is-secondary`}
                 disabled={notEnoughDiskSpace || !installPath}
               >
-                {gameStatus.previousProgress?.folder === installPath
+                {gameStatus.progress && gameStatus.folder === installPath
                   ? t('button.continue', 'Continue Download')
                   : t('button.install')}
               </button>

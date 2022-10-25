@@ -156,13 +156,7 @@ export default function GamePage(): JSX.Element | null {
 
   async function handleUpdate() {
     setUpdateRequested(true)
-    await window.api.setGameStatus({
-      appName,
-      runner: gameInfo.runner,
-      status: 'updating'
-    })
     await updateGame(appName, gameInfo.runner)
-    await window.api.deleteGameStatus(appName)
     setUpdateRequested(false)
   }
 

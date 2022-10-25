@@ -1,9 +1,6 @@
 import { ipcRenderer } from 'electron'
 import { Runner, InstallParams, LaunchParams } from 'common/types'
 
-export const removeFolder = (args: [path: string, folderName: string]) =>
-  ipcRenderer.send('removeFolder', args)
-
 export const openDialog = async (args: Electron.OpenDialogOptions) =>
   ipcRenderer.invoke('openDialog', args)
 
@@ -18,6 +15,11 @@ export const launch = async (args: LaunchParams) =>
   ipcRenderer.invoke('launch', args)
 export const updateGame = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('updateGame', appName, runner)
+export const cancelInstall = async (
+  appName: string,
+  runner: Runner,
+  keepFiles = false
+) => ipcRenderer.invoke('cancelInstall', appName, runner, keepFiles)
 
 interface ImportGameArgs {
   appName: string

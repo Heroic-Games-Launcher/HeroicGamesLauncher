@@ -40,7 +40,10 @@ import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { t } from 'i18next'
 import { isOnline } from '../online_monitor'
-import { setGameStatusOfElement } from '../handler/gamestatus/gamestatushandler'
+import {
+  getGameStatusOfElement,
+  setGameStatusOfElement
+} from '../handler/gamestatus/gamestatushandler'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 
 class LegendaryGame extends Game {
@@ -302,10 +305,9 @@ class LegendaryGame extends Game {
       { prefix: LogPrefix.Legendary }
     )
 
+    const gameStatus = getGameStatusOfElement(this.appName)!
     setGameStatusOfElement({
-      appName: this.appName,
-      runner: 'legendary',
-      status: action,
+      ...gameStatus,
       progress: {
         eta: eta,
         percent,
@@ -319,11 +321,6 @@ class LegendaryGame extends Game {
    * Does NOT check for online connectivity.
    */
   public async update(): Promise<{ status: 'done' | 'error' }> {
-    setGameStatusOfElement({
-      appName: this.appName,
-      runner: 'legendary',
-      status: 'updating'
-    })
     const { maxWorkers, downloadNoHttps } =
       await GlobalConfig.get().getSettings()
     const installPlatform = this.getGameInfo().install.platform!
@@ -346,12 +343,6 @@ class LegendaryGame extends Game {
       logFile: logPath,
       onOutput,
       logMessagePrefix: `Updating ${this.appName}`
-    })
-
-    setGameStatusOfElement({
-      appName: this.appName,
-      runner: 'legendary',
-      status: 'done'
     })
 
     if (res.error) {

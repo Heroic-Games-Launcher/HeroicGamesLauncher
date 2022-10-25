@@ -177,7 +177,6 @@ export interface GameSettings {
 export interface GameStatus {
   appName: string
   progress?: InstallProgress
-  previousProgress?: InstallProgress
   folder?: string
   runner?: Runner
   status:

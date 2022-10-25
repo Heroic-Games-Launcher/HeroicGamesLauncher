@@ -124,6 +124,7 @@ import {
 } from './online_monitor'
 import {
   deleteGameStatusOfElement,
+  getGameStatusOfElement,
   setGameStatusOfElement
 } from './handler/gamestatus/gamestatushandler'
 import { showDialogBoxModalAuto } from './dialog/dialog'
@@ -553,6 +554,42 @@ ipcMain.handle('kill', async (event, appName, runner) => {
   return getGame(appName, runner).stop()
 })
 
+const removeFolder = async (path: string, folderName: string) => {
+  if (path === 'default') {
+    const { defaultInstallPath } = await GlobalConfig.get().getSettings()
+    const path = defaultInstallPath.replaceAll("'", '')
+    const folderToDelete = `${path}/${folderName}`
+    return setTimeout(() => {
+      rmSync(folderToDelete, { recursive: true })
+    }, 5000)
+  }
+
+  const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
+  return setTimeout(() => {
+    rmSync(folderToDelete, { recursive: true })
+  }, 2000)
+}
+
+ipcMain.handle(
+  'cancelInstall',
+  async (event, appName, runner, keepFiles = true) => {
+    return getGame(appName, runner)
+      .stop()
+      .then(() => {
+        const game = getGame(appName, runner)
+        const { folder_name } = game.getGameInfo()
+        const gameStatus = getGameStatusOfElement(appName)
+        if (!keepFiles && gameStatus) {
+          deleteGameStatusOfElement(appName)
+          const { folder: installPath } = gameStatus
+          if (installPath) {
+            removeFolder(installPath, folder_name)
+          }
+        }
+      })
+  }
+)
+
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
   const parent = getFirstExistingParentPath(folder)
   return new Promise((res) => {
@@ -632,22 +669,6 @@ ipcMain.on('showConfigFileInFolder', async (event, appName) => {
     return openUrlOrFile(heroicConfigPath)
   }
   return openUrlOrFile(path.join(heroicGamesConfigPath, `${appName}.json`))
-})
-
-ipcMain.on('removeFolder', async (e, [path, folderName]) => {
-  if (path === 'default') {
-    const { defaultInstallPath } = await GlobalConfig.get().getSettings()
-    const path = defaultInstallPath.replaceAll("'", '')
-    const folderToDelete = `${path}/${folderName}`
-    return setTimeout(() => {
-      rmSync(folderToDelete, { recursive: true })
-    }, 5000)
-  }
-
-  const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
-  return setTimeout(() => {
-    rmSync(folderToDelete, { recursive: true })
-  }, 2000)
 })
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
@@ -1076,6 +1097,7 @@ ipcMain.handle('install', async (event, params) => {
     installLanguage,
     platformToInstall
   } = params as InstallParams
+
   const game = getGame(appName, runner)
   const { title } = game.getGameInfo()
 
@@ -1100,12 +1122,24 @@ ipcMain.handle('install', async (event, params) => {
     return { status: 'error' }
   }
 
-  setGameStatusOfElement({
-    appName,
-    runner,
-    status: 'installing',
-    folder: path
-  })
+  const gameStatus = getGameStatusOfElement(appName)
+  // If the user changed the previous folder, the percentage should start from zero again.
+  if (!gameStatus || (gameStatus?.progress && gameStatus?.folder !== path)) {
+    setGameStatusOfElement({
+      folder: path,
+      appName,
+      runner,
+      status: 'installing'
+    })
+  } else {
+    // keep the progress from previous install if any
+    setGameStatusOfElement({
+      ...gameStatus,
+      folder: path,
+      runner,
+      status: 'installing'
+    })
+  }
 
   notify({
     title,
@@ -1129,11 +1163,16 @@ ipcMain.handle('install', async (event, params) => {
       })
 
       if (res.status === 'error') {
-        setGameStatusOfElement({
-          appName,
-          runner,
-          status: 'done'
-        })
+        const gameStatus = getGameStatusOfElement(appName)
+        if (gameStatus) {
+          setGameStatusOfElement({ ...gameStatus, status: 'canceled' })
+        } else {
+          setGameStatusOfElement({
+            appName,
+            runner,
+            status: 'canceled'
+          })
+        }
         return res
       }
 
@@ -1146,7 +1185,7 @@ ipcMain.handle('install', async (event, params) => {
       setGameStatusOfElement({
         appName,
         runner,
-        status: 'done'
+        status: 'error'
       })
       return res
     })
@@ -1154,6 +1193,7 @@ ipcMain.handle('install', async (event, params) => {
 
 ipcMain.handle('uninstall', async (event, args) => {
   const [appName, shouldRemovePrefix, runner] = args
+  setGameStatusOfElement({ appName, runner, status: 'uninstalling' })
   const game = getGame(appName, runner)
 
   const { title } = game.getGameInfo()
@@ -1173,6 +1213,9 @@ ipcMain.handle('uninstall', async (event, args) => {
       logInfo('finished uninstalling', { prefix: LogPrefix.Backend })
     })
     .catch((error) => logError(error, { prefix: LogPrefix.Backend }))
+    .finally(() => {
+      setGameStatusOfElement({ appName, runner, status: 'done' })
+    })
 })
 
 ipcMain.handle('repair', async (event, appName, runner) => {
@@ -1183,6 +1226,7 @@ ipcMain.handle('repair', async (event, appName, runner) => {
     return
   }
   const game = getGame(appName, runner)
+  setGameStatusOfElement({ appName, runner, status: 'repairing' })
   const { title } = game.getGameInfo()
 
   return game
@@ -1198,10 +1242,14 @@ ipcMain.handle('repair', async (event, appName, runner) => {
       })
       logError(error, { prefix: LogPrefix.Backend })
     })
+    .finally(() => {
+      setGameStatusOfElement({ appName, runner, status: 'done' })
+    })
 })
 
 ipcMain.handle('moveInstall', async (event, [appName, path, runner]) => {
   const game = getGame(appName, runner)
+  setGameStatusOfElement({ appName, runner, status: 'moving' })
   const { title } = game.getGameInfo()
   try {
     notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
@@ -1217,6 +1265,7 @@ ipcMain.handle('moveInstall', async (event, [appName, path, runner]) => {
     })
     logError(error, { prefix: LogPrefix.Backend })
   }
+  deleteGameStatusOfElement(appName)
 })
 
 ipcMain.handle(
@@ -1284,6 +1333,8 @@ ipcMain.handle('updateGame', async (event, appName, runner) => {
     return { status: 'error' }
   }
 
+  setGameStatusOfElement({ appName, runner, status: 'updating' })
+
   const game = getGame(appName, runner)
   const { title } = game.getGameInfo()
   notify({
@@ -1307,6 +1358,9 @@ ipcMain.handle('updateGame', async (event, appName, runner) => {
       logError(err, { prefix: LogPrefix.Backend })
       notify({ title, body: i18next.t('notify.update.canceled') })
       return err
+    })
+    .finally(() => {
+      deleteGameStatusOfElement(appName)
     })
 })
 

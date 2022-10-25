@@ -51,18 +51,8 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
   const storage: Storage = window.localStorage
   const uninstallGame = async () => {
     props.onClose()
-    await window.api.setGameStatus({
-      appName: props.appName,
-      runner: props.runner,
-      status: 'uninstalling'
-    })
     await window.api.uninstall([props.appName, checkboxChecked, props.runner])
     storage.removeItem(props.appName)
-    window.api.setGameStatus({
-      appName: props.appName,
-      runner: props.runner,
-      status: 'done'
-    })
   }
 
   return (

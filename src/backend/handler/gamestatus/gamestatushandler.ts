@@ -11,7 +11,6 @@ function initGameStatusHandler() {
   const handlers = getAllGameStatus()
   for (const key in handlers) {
     const status = handlers[key]
-    status.previousProgress = status.progress
     status.status = 'done'
   }
 
@@ -19,24 +18,10 @@ function initGameStatusHandler() {
 }
 
 function setGameStatusOfElement(status: GameStatus) {
-  const emptyMap = () => {
-    const handlers = {}
-    handlers[status.appName] = status
-    store.set('gameStatus', handlers)
-  }
+  const handlers = (store.get('gameStatus') || {}) as GameStatusMap
 
-  if (!store.has('gameStatus')) {
-    emptyMap()
-  } else {
-    const handlers = store.get('gameStatus') as GameStatusMap
-
-    if (!Object.keys(handlers).length) {
-      emptyMap()
-    } else {
-      handlers[status.appName] = status
-      store.set('gameStatus', handlers)
-    }
-  }
+  handlers[status.appName] = status
+  store.set('gameStatus', handlers)
 
   const mainWindow = getMainWindow()
   if (mainWindow?.webContents) {
@@ -48,14 +33,12 @@ function deleteGameStatusOfElement(appName: string) {
   if (store.has('gameStatus')) {
     const handlers = store.get('gameStatus') as GameStatusMap
 
-    if (Object.keys(handlers)) {
+    if (handlers[appName]) {
       const status = handlers[appName]
-      if (status) {
-        status.status = 'done'
-      }
+      status.status = 'done'
 
       delete handlers[appName]
-      store.set('gameStatus', handlers)
+      store.set('gameStatus', { ...handlers })
 
       const mainWindow = getMainWindow()
       if (mainWindow?.webContents) {

@@ -14,12 +14,6 @@ const initialContext: LibraryContextType = {
         eta: '00:00:00',
         percent: 0,
         folder: 'default'
-      },
-      previousProgress: {
-        bytes: '0.00MiB',
-        eta: '00:00:00',
-        percent: 0,
-        folder: 'default'
       }
     }
   },

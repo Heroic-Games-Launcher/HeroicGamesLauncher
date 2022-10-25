@@ -20,9 +20,11 @@ export function LibraryState({ children }: Props) {
       _e: Electron.IpcRendererEvent,
       newGameStatus: GameStatus
     ) => {
-      console.log({ newGameStatus })
-      gameStatusMap[newGameStatus.appName] = newGameStatus
-      setGameStatusMap(gameStatusMap)
+      const newGameStatusMap = {
+        ...gameStatusMap,
+        [newGameStatus.appName]: newGameStatus
+      }
+      setGameStatusMap(newGameStatusMap)
 
       if (newGameStatus.status === 'done') {
         refreshLibrary({
@@ -50,12 +52,6 @@ export function LibraryState({ children }: Props) {
         folder: 'default',
         runner: 'legendary',
         progress: {
-          bytes: '0.00MiB',
-          eta: '00:00:00',
-          percent: 0,
-          folder: 'default'
-        },
-        previousProgress: {
           bytes: '0.00MiB',
           eta: '00:00:00',
           percent: 0,

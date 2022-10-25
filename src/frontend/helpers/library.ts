@@ -7,7 +7,7 @@ import {
 } from 'common/types'
 
 import { TFunction } from 'react-i18next'
-import { getGameInfo, sendKill } from './index'
+import { getGameInfo } from './index'
 import { configStore } from './electronStores'
 import { DialogModalOptions } from 'frontend/types'
 
@@ -31,7 +31,6 @@ async function install({
   installPath,
   t,
   isInstalling,
-  gameStatus,
   setInstallPath,
   sdlList = [],
   installDlcs = false,
@@ -44,19 +43,10 @@ async function install({
     return
   }
 
-  const { folder_name, is_installed }: GameInfo = await getGameInfo(
-    appName,
-    runner
-  )
+  const { is_installed }: GameInfo = await getGameInfo(appName, runner)
 
   if (isInstalling) {
-    return handleStopInstallation(
-      appName,
-      [installPath, folder_name],
-      t,
-      runner,
-      showDialogModal
-    )
+    return handleStopInstallation(appName, t, runner, showDialogModal)
   }
 
   if (is_installed) {
@@ -100,18 +90,6 @@ async function install({
     path = defaultInstallPath
   }
 
-  // If the user changed the previous folder, the percentage should start from zero again.
-  if (gameStatus.previousProgress && gameStatus.folder !== path) {
-    window.api.deleteGameStatus(appName)
-  }
-
-  window.api.setGameStatus({
-    folder: path,
-    appName,
-    runner,
-    status: 'installing'
-  })
-
   return window.api.install({
     appName,
     path,
@@ -127,7 +105,6 @@ const importGame = window.api.importGame
 
 async function handleStopInstallation(
   appName: string,
-  [path, folderName]: string[],
   t: TFunction<'gamepage'>,
   runner: Runner,
   showDialogModal: (options: DialogModalOptions) => void
@@ -140,22 +117,13 @@ async function handleStopInstallation(
       {
         text: t('box.yes'),
         onClick: async () => {
-          await sendKill(appName, runner)
-          window.api.getGameStatus(appName).then((gameStatus: GameStatus) => {
-            if (gameStatus) {
-              gameStatus.previousProgress = gameStatus.progress
-              gameStatus.status = 'done'
-              window.api.setGameStatus(gameStatus)
-            }
-          })
+          await window.api.cancelInstall(appName, runner, true)
         }
       },
       {
         text: t('box.no'),
         onClick: async () => {
-          await sendKill(appName, runner)
-          window.api.deleteGameStatus(appName)
-          return window.api.removeFolder([path, folderName])
+          await window.api.cancelInstall(appName, runner, false)
         }
       }
     ]
