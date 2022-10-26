@@ -566,10 +566,6 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.handle('kill', async (event, appName, runner) => {
-  return getGame(appName, runner).stop()
-})
-
 const removeFolder = async (path: string, folderName: string) => {
   if (path === 'default') {
     const { defaultInstallPath } = await GlobalConfig.get().getSettings()
