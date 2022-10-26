@@ -129,6 +129,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Joko hau gauzatzean arazo baten berri ematea",
     "sdl": {
         "title": "Instalatzeko osagaiak hautatzea"

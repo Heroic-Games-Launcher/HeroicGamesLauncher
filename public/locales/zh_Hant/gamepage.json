@@ -128,6 +128,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "回報執行此遊戲時出現的問題",
     "sdl": {
         "title": "選擇要安裝的元件"
