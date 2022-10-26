@@ -38,8 +38,8 @@ const LoginWarning = function ({
   }
 
   return (
-    <Dialog onClose={onClose} className="notLoggedIn">
-      <DialogHeader showCloseButton={true} onClose={onClose}>
+    <Dialog onClose={onClose} className="notLoggedIn" showCloseButton={true}>
+      <DialogHeader onClose={onClose}>
         {t('not_logged_in.title', 'You are NOT logged in')}
       </DialogHeader>
       <DialogContent>
