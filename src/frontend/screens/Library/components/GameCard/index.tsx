@@ -15,15 +15,14 @@ import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg
 import { getProgress, install, launch, sendKill } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import fallbackImage from 'frontend/assets/fallback-image.jpg'
+import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import { updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 
-import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
-import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import classNames from 'classnames'
+import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 
 interface Card {
@@ -64,6 +63,7 @@ const GameCard = ({
   const [showUninstallModal, setShowUninstallModal] = useState(false)
 
   const { t } = useTranslation('gamepage')
+  const { t: t2 } = useTranslation()
 
   const navigate = useNavigate()
   const {
@@ -74,8 +74,6 @@ const GameCard = ({
     hiddenGames,
     favouriteGames,
     allTilesInColor,
-    epic,
-    gog,
     showDialogModal
   } = useContext(ContextProvider)
 
@@ -141,7 +139,7 @@ const GameCard = ({
       return t('gamecard.repairing', 'Repairing')
     }
     if (isInstalled) {
-      return `${t('status.installed')} (${size})`
+      return `${t('status.installed')} ${runner === 'sideload' ? '' : size}`
     }
 
     return t('status.notinstalled')
@@ -232,25 +230,6 @@ const GameCard = ({
 
   const items: Item[] = [
     {
-      label: t('label.playing.start'),
-      onclick: async () => handlePlay(runner),
-      show: isInstalled
-    },
-    {
-      label: t('submenu.settings'),
-      onclick: () =>
-        navigate(pathname, {
-          state: {
-            fromGameCard: true,
-            runner,
-            hasCloudSave,
-            isLinuxNative,
-            isMacNative
-          }
-        }),
-      show: isInstalled
-    },
-    {
       label: t('button.update', 'Update'),
       onclick: async () => handleUpdate(),
       show: hasUpdate
@@ -317,23 +296,12 @@ const GameCard = ({
       case 'gog':
         return 'GOG'
       default:
-        return 'Heroic'
+        return t2('Other')
     }
-  }
-
-  const showStoreLogos = () => {
-    if (epic.username && gog.username) {
-      return runner === 'legendary' ? (
-        <EpicLogo className="store-icon" />
-      ) : (
-        <GOGLogo className="store-icon" />
-      )
-    }
-    return null
   }
 
   return (
-    <>
+    <div>
       {showUninstallModal && (
         <UninstallModal
           appName={appName}
@@ -350,8 +318,12 @@ const GameCard = ({
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
           >
-            {showStoreLogos()}
-            <CachedImage src={imageSrc} className={imgClasses} alt="cover" />
+            <StoreLogos runner={runner} />
+            <CachedImage
+              src={imageSrc ? imageSrc : fallbackImage}
+              className={imgClasses}
+              alt="cover"
+            />
             {logo && (
               <CachedImage
                 alt="logo"
@@ -423,7 +395,7 @@ const GameCard = ({
           }
         </div>
       </ContextMenu>
-    </>
+    </div>
   )
 
   async function handlePlay(runner: Runner) {

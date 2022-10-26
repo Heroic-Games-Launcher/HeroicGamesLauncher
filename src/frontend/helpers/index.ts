@@ -32,6 +32,8 @@ const openAboutWindow = window.api.showAboutWindow
 
 const openDiscordLink = window.api.openDiscordLink
 
+const openCustomThemesWiki = window.api.openCustomThemesWiki
+
 export const size = fileSize.partial({ base: 2 })
 
 let progress: string
@@ -262,6 +264,11 @@ async function getAppSettings(): Promise<AppSettings> {
   return window.api.requestSettings('default')
 }
 
+function removeSpecialcharacters(text: string): string {
+  const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+]', 'gi')
+  return text.replaceAll(regexp, '')
+}
+
 export {
   createNewWindow,
   fixLegendarySaveFolder,
@@ -282,8 +289,10 @@ export {
   notify,
   openAboutWindow,
   openDiscordLink,
+  openCustomThemesWiki,
   progress,
   repair,
+  removeSpecialcharacters,
   sendKill,
   sidInfoPage,
   syncSaves,

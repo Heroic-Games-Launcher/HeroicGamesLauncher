@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "خطا",
@@ -205,6 +205,8 @@
     },
     "help": {
         "amdfsr": "AMD's FSR با ارتقاء مقیاس وضوح پایینتر در حالت تمام صفحه به افزایش فریم ریت کمک می کند. کیفیت تصویر در ازای کاهش جزئی عملکرد از ۵ به ۱ افزایش می یابد. فعال کردن ممکن است باعث بهبود کارایی شود.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK لایه ترجمهcای بر پایه Vulkan برای بازی های DirectX 9، 10، 11 می باشد. فعال کردن ممکن است سبب افزایش سازگاری شود. ممکن است باعث ایجاد مشکلات خصوصا برای بازی های DirectX قدیمی شود.",
         "esync": "Esync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است باعث افزایش کارایی شود.",
         "fsync": "Fsync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است در لینوکس کرنل های پشتیبانی شده باعث افزایش کارایی شود.",
@@ -247,12 +249,16 @@
             "stable": "پایدار",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "تنظیمات به صورت خودکار ذخیره شدند",
         "version": "نسخه Wine"
     },
     "infobox": {
         "help": "راهنما",
         "requirements": "نیازمندیهای سیستم",
+        "warning": "Warning",
         "wine-path": "مسیر Wine",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -280,7 +286,10 @@
         "website": "درحال بارگیری وبسایت"
     },
     "login": {
-        "externalLogin": "ورود خارجی"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "همگامسازی کامل شد",
@@ -370,9 +379,11 @@
         "legendary-version": "نسخه Legendary: ",
         "weblate": "کمک به ترجمه Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "استفاده از باینری GOGDL داخلی...",
         "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "محل نصب شده EGS",
         "prefered_language": "کد دو حرفی (مانند \"en\" یا \"fr\")"
     },
@@ -397,6 +408,7 @@
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
         "checkForUpdatesOnStartup": "بررسی برای به روزرسانی های Heroic در آغاز به کار",
         "crossover-version": "نسخه Crossover",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیشفرض نصب",

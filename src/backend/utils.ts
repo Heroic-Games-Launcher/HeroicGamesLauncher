@@ -5,7 +5,8 @@ import {
   WineInstallation,
   RpcClient,
   SteamRuntime,
-  Release
+  Release,
+  GameInfo
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -43,6 +44,7 @@ import {
 import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { showDialogBoxModalAuto } from './dialog/dialog'
+import { getAppInfo } from './sideload/games'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -256,6 +258,7 @@ export const getSystemInfo = async () => {
   }
   const heroicVersion = getHeroicVersion()
   const legendaryVersion = await getLegendaryVersion()
+  const gogdlVersion = await getGogdlVersion()
 
   // get CPU and RAM info
   const { manufacturer, brand, speed, governor } = await si.cpu()
@@ -284,6 +287,7 @@ export const getSystemInfo = async () => {
 
   systemInfoCache = `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
+GOGdl Version: ${gogdlVersion}
 OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
 CPU: ${manufacturer} ${brand} @${speed} ${
     governor ? `GOVERNOR: ${governor}` : ''
@@ -700,7 +704,7 @@ function getGame(appName: string, runner: Runner) {
   switch (runner) {
     case 'legendary':
       return LegendaryGame.get(appName)
-    case 'gog':
+    default:
       return GOGGame.get(appName)
   }
 }
@@ -761,6 +765,14 @@ export const getLatestReleases = async (): Promise<Release[]> => {
   }
 }
 
+function getInfo(appName: string, runner: Runner): GameInfo {
+  if (runner === 'sideload') {
+    return getAppInfo(appName)
+  }
+  const game = getGame(appName, runner)
+  return game.getGameInfo()
+}
+
 type NotifyType = {
   title: string
   body: string
@@ -790,5 +802,6 @@ export {
   removeQuoteIfNecessary,
   killPattern,
   detectVCRedist,
-  getGame
+  getGame,
+  getInfo
 }

@@ -80,8 +80,13 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.subtitle {
   font-family: var(--primary-font-family);
+}
+
+.content-sm {
+  font-family: var(--secondary-font-family);
 }
 
 .text--6xl {
@@ -119,22 +124,44 @@ h5,
 
 .subtitle,
 .content,
-.uppercase,
 p,
 h6,
-.text--md {
+.text--md,
+button,
+.button-md {
   font-size: var(--text-md);
 }
 
-.content-s,
-.button,
+.content-sm,
+.button-sm,
 .text--sm {
   font-size: var(--text-sm);
 }
 
-.subtitle-s,
+.subtitle-sm,
 .caption,
 .status,
 .text--xs {
   font-size: var(--text-xs);
+}
+
+.subtitle,
+.content-sm,
+h5,
+h4 {
+  font-weight: var(--medium);
+}
+
+.subtitle-sm,
+.button-sm,
+.button-md,
+h3,
+h2,
+h1 {
+  font-weight: var(--bold);
+}
+
+.status,
+h6 {
+  font-weight: var(--semibold);
 }

@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Erreur",
@@ -205,6 +205,8 @@
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
@@ -247,12 +249,16 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Les options sont sauvegardées automatiquement",
         "version": "Wine Version"
     },
     "infobox": {
         "help": "Aide",
         "requirements": "Configuration Requise",
+        "warning": "Warning",
         "wine-path": "Wine Path",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -280,7 +286,10 @@
         "website": "Chargement du site internet"
     },
     "login": {
-        "externalLogin": "External Login"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synchronisation Complète",
@@ -370,9 +379,11 @@
         "legendary-version": "Version de Legendary : ",
         "weblate": "Aidez à traduire Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Utilisation du binaire Legendary intégré...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefix où EGS est installé",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
@@ -397,6 +408,7 @@
         "change-target-exe": "Choisir un EXE alternatif pour faire fonctionner",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
         "darktray": "Utiliser Dark Tray Icon",
         "default-install-path": "Chemin par défaut de l'installation",

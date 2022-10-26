@@ -1,9 +1,7 @@
-import { RecentGame } from 'common/types'
+import { GameInfo, RecentGame } from 'common/types'
 import { BrowserWindow, ipcMain } from 'electron'
 import { GlobalConfig } from './config'
 import { configStore } from './constants'
-import { GOGGame } from './gog/games'
-import { LegendaryGame } from './legendary/games'
 
 const getRecentGames = async (options?: { limited: boolean }) => {
   const games = configStore.get('games.recent', []) as Array<RecentGame>
@@ -16,15 +14,14 @@ const getRecentGames = async (options?: { limited: boolean }) => {
   }
 }
 
-const addRecentGame = async (game: LegendaryGame | GOGGame) => {
+const addRecentGame = async (game: GameInfo) => {
   const games = await getRecentGames()
-  const { title } = game.getGameInfo()
 
   // update list
   const updatedList = games.filter(
-    (a) => a.appName && a.appName !== game.appName
+    (a) => a.appName && a.appName !== game.app_name
   )
-  updatedList.unshift({ appName: game.appName, title })
+  updatedList.unshift({ appName: game.app_name, title: game.title })
 
   // store
   configStore.set('games.recent', updatedList)

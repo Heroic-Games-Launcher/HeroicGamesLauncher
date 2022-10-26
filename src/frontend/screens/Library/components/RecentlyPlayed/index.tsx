@@ -6,7 +6,7 @@ import { GamesList } from '../GamesList'
 import { configStore } from 'frontend/helpers/electronStores'
 
 interface Props {
-  handleModal: (appName: string, runner: Runner) => void
+  handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
   onlyInstalled: boolean
 }
 
@@ -31,7 +31,7 @@ function getRecentGames(libraries: GameInfo[], limit: number): GameInfo[] {
 
 export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
   const { t } = useTranslation()
-  const { epic, gog } = useContext(ContextProvider)
+  const { epic, gog, sideloadedLibrary } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
   const loadRecentGames = async () => {
@@ -39,7 +39,7 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
       'default'
     )
     const newRecentGames = getRecentGames(
-      [...epic.library, ...gog.library],
+      [...epic.library, ...gog.library, ...sideloadedLibrary],
       maxRecentGames
     )
 

@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -205,6 +205,8 @@
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'habilita, pot millorar el rendiment.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK és una capa de traducció basada en Vulkan per a jocs que emprin DirectX 9, 10 i 11. Si s'habilita, pot millorar la compatibilitat. Pot causar problemes, especialment per als jocs que emprin versions del DirectX més antigues.",
         "esync": "Esync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, el rendiment pot millorar.",
         "fsync": "Fsync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, el rendiment pot millorar en versions de Linux compatibles.",
@@ -247,12 +249,16 @@
             "stable": "Estable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "La configuració es desa automàticament",
         "version": "Versió del Wine"
     },
     "infobox": {
         "help": "Ajuda",
         "requirements": "Requisits del sistema",
+        "warning": "Warning",
         "wine-path": "Camí del Wine",
         "wine-prefix": {
             "title": "Prefix del Wine"
@@ -280,7 +286,10 @@
         "website": "S'està carregant el lloc web"
     },
     "login": {
-        "externalLogin": "Inici de sessió extern"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "S'ha completat la sincronització",
@@ -370,9 +379,11 @@
         "legendary-version": "Versió del Legendary: ",
         "weblate": "Ajuda a traduir l'Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "S'està usant un binari del GOGDL integrat.",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefix on l'EGS està instal·lat",
         "prefered_language": "Codi de dos caràcters, com ara «en», «fr» o «ca»"
     },
@@ -397,6 +408,7 @@
         "change-target-exe": "Selecciona un EXE alternatiu a executar",
         "checkForUpdatesOnStartup": "Comprova si hi ha actualitzacions del Heroic a l'inici",
         "crossover-version": "Versió híbrida (crossover)",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Rutes del Wine o Proton personalitzades",
         "darktray": "Utilitza la icona fosca a la safata",
         "default-install-path": "Ruta d'instal·lació predefinida",

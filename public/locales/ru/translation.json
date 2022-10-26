@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Ошибка",
@@ -205,6 +205,8 @@
     },
     "help": {
         "amdfsr": "AMD FSR помогает увеличить частоту кадров за счет увеличения масштаба разрешения в полноэкранном режиме. Качество изображения увеличивается с 5 до 1 за счет небольшого снижения производительности. Включение может повысить производительность.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK - это транслятор вызовов в Vulkan для игр DirectX 9, 10 и 11. Включение может улучшить совместимость. Может вызвать проблемы, особенно для старых игр DirectX.",
         "esync": "Esync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность.",
         "fsync": "Fsync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность на совместимых ядрах Linux.",
@@ -247,12 +249,16 @@
             "stable": "Стабильный",
             "version": "Версия Heroic"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Настройки сохраняются автоматически",
         "version": "Версия Wine"
     },
     "infobox": {
         "help": "Помощь",
         "requirements": "Системные требования",
+        "warning": "Warning",
         "wine-path": "Путь к Wine",
         "wine-prefix": {
             "title": "Префикс Wine"
@@ -280,7 +286,10 @@
         "website": "Загрузка веб-сайта"
     },
     "login": {
-        "externalLogin": "Внешний вход"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -370,9 +379,11 @@
         "legendary-version": "Версия Legendary: ",
         "weblate": "Помогите перевести Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Используется встроенный GOGDL...",
         "alt-legendary-bin": "Используется встроенный Legendary...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Префикс куда установлен EGS",
         "prefered_language": "2-значный код (например: \"en\" или \"fr\")"
     },
@@ -397,6 +408,7 @@
         "change-target-exe": "Выбрать другой EXE для запуска",
         "checkForUpdatesOnStartup": "Проверять обновления Heroic при запуске",
         "crossover-version": "Версия Crossover",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",

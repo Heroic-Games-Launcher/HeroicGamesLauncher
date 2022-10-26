@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -205,6 +205,8 @@
     },
     "help": {
         "amdfsr": "AMDs FSR hilft bei der Verbesserung der Framerate durch Hochskalierung niedrigerer Auflösungen im Vollbildmodus. Die Bildqualität wird von 5 auf 1 erhöht, allerdings auf Kosten einer leichten Leistungseinbuße. Das Aktivieren kann die Leistung verbessern.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK ist eine Vulkan-basierte Übersetzungsschicht für DirectX 9, 10 und 11 Spiele. Durch Aktivieren kann die Kompatibilität verbessert werden. Kann Probleme verursachen, insbesondere bei älteren DirectX-Spielen.",
         "esync": "Esync zielt darauf ab, den Wineserver-Overhead in CPU-intensiven Spielen zu reduzieren. Durch Aktivieren kann die Leistung verbessert werden.",
         "fsync": "Fsync zielt darauf ab, den Wineserver-Overhead in CPU-intensiven Spielen zu reduzieren. Durch Aktivieren kann die Leistung auf unterstützten Linux-Kerneln verbessert werden.",
@@ -247,12 +249,16 @@
             "stable": "Stabil",
             "version": "Heroic-Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Einstellungen werden automatisch gespeichert",
         "version": "Wine-Version"
     },
     "infobox": {
         "help": "Hilfe",
         "requirements": "Systemanforderungen",
+        "warning": "Warning",
         "wine-path": "Wine-Pfad",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -280,7 +286,10 @@
         "website": "Lade Webseite"
     },
     "login": {
-        "externalLogin": "Externe Anmeldung"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synchronisation abgeschlossen",
@@ -370,9 +379,11 @@
         "legendary-version": "Legendary-Version: ",
         "weblate": "Hilf bei der Übersetzung von Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Nutze eingebaute GOGDL Binärdatei...",
         "alt-legendary-bin": "Benutze eingebaute Legendary Binärdatei...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefix, in dem EGS installiert ist",
         "prefered_language": "2-Zeichen-Code (z. B.: \"en\" oder \"fr\")"
     },
@@ -397,6 +408,7 @@
         "change-target-exe": "Wähle eine alternative EXE zum Ausführen",
         "checkForUpdatesOnStartup": "Beim Start nach Updates für Heroic suchen",
         "crossover-version": "Crossover-Version",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Wähle die Wine oder Proton Binärdatei",
         "darktray": "Dunkles Taskleisten-Icon benutzen",
         "default-install-path": "Standard-Installationspfad",

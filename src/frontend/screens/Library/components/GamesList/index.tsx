@@ -9,7 +9,11 @@ interface Props {
   library: GameInfo[]
   layout?: string
   isFirstLane?: boolean
-  handleGameCardClick: (app_name: string, runner: Runner) => void
+  handleGameCardClick: (
+    app_name: string,
+    runner: Runner,
+    gameInfo: GameInfo
+  ) => void
   onlyInstalled?: boolean
   isRecent?: boolean
 }
@@ -43,8 +47,8 @@ export const GamesList = ({
         </div>
       )}
       {!!library.length &&
-        library.map(
-          ({
+        library.map((gameInfo) => {
+          const {
             title,
             art_square,
             art_cover,
@@ -54,38 +58,39 @@ export const GamesList = ({
             runner,
             cloud_save_enabled,
             install: { version, install_size, is_dlc, platform }
-          }: GameInfo) => {
-            if (is_dlc) {
-              return null
-            }
-            if (!is_installed && onlyInstalled) {
-              return null
-            }
-
-            const hasUpdate = is_installed && gameUpdates?.includes(app_name)
-            return (
-              <GameCard
-                key={app_name}
-                runner={runner}
-                cover={art_square}
-                coverList={art_cover}
-                // @ts-expect-error TODO: Verify `art_logo` is not undefined here
-                logo={art_logo}
-                hasCloudSave={cloud_save_enabled}
-                title={title}
-                appName={app_name}
-                isInstalled={is_installed}
-                version={`${version}`}
-                size={`${install_size}`}
-                hasUpdate={hasUpdate}
-                buttonClick={() => handleGameCardClick(app_name, runner)}
-                forceCard={layout === 'grid'}
-                installedPlatform={platform}
-                isRecent={isRecent}
-              />
-            )
+          } = gameInfo
+          if (is_dlc) {
+            return null
           }
-        )}
+          if (!is_installed && onlyInstalled) {
+            return null
+          }
+
+          const hasUpdate = is_installed && gameUpdates?.includes(app_name)
+          return (
+            <GameCard
+              key={app_name}
+              runner={runner}
+              cover={art_square}
+              coverList={art_cover}
+              // @ts-expect-error TODO: Verify `art_logo` is not undefined here
+              logo={art_logo}
+              hasCloudSave={cloud_save_enabled}
+              title={title}
+              appName={app_name}
+              isInstalled={is_installed}
+              version={`${version}`}
+              size={`${install_size}`}
+              hasUpdate={hasUpdate}
+              buttonClick={() =>
+                handleGameCardClick(app_name, runner, gameInfo)
+              }
+              forceCard={layout === 'grid'}
+              installedPlatform={platform}
+              isRecent={isRecent}
+            />
+          )
+        })}
     </div>
   )
 }
