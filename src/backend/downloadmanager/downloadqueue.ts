@@ -25,7 +25,10 @@ function getFirstQueueElement() {
   return null
 }
 
-function addToFinished(element: DMQueueElement, status: 'done' | 'error') {
+function addToFinished(
+  element: DMQueueElement,
+  status: 'done' | 'error' | 'abort'
+) {
   let elements: DMQueueElement[] = []
   if (downloadManager.has('finished')) {
     elements = downloadManager.get('finished') as DMQueueElement[]
@@ -34,9 +37,9 @@ function addToFinished(element: DMQueueElement, status: 'done' | 'error') {
   const elementIndex = elements.findIndex(
     (el) => el.params.appName === element.params.appName
   )
-
+  console.log([status])
   if (elementIndex >= 0) {
-    elements[elementIndex] = element
+    elements[elementIndex] = { ...element, status: status ?? 'abort' }
   } else {
     elements.push({ ...element, status })
   }
@@ -57,10 +60,7 @@ async function initQueue() {
   queueState = element ? 'running' : 'idle'
 
   while (element) {
-    // need to type cohert here since this method can return string as well
-    const { status } = (await installQueueElement(window, element.params)) as {
-      status: 'done' | 'error'
-    }
+    const { status } = await installQueueElement(window, element.params)
 
     addToFinished(element, status)
     removeFromQueue(element.params.appName)

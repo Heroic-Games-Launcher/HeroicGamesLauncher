@@ -9,7 +9,10 @@ import { isOnline } from '../online_monitor'
 async function installQueueElement(
   mainWindow: BrowserWindow,
   params: InstallParams
-) {
+): Promise<{
+  status: 'done' | 'error' | 'abort'
+  error?: string | undefined
+}> {
   const {
     appName,
     path,
@@ -69,43 +72,45 @@ async function installQueueElement(
     return error
   }
 
-  return game
-    .install({
+  try {
+    const { status, error } = await game.install({
       path: path.replaceAll("'", ''),
       installDlcs,
       sdlList,
       platformToInstall,
       installLanguage
     })
-    .then(async (res) => {
-      if (res.status === 'abort') {
-        logWarning(['Installing of', params.appName, 'aborted!'], {
-          prefix: LogPrefix.DownloadManager
-        })
-        notify({ title, body: i18next.t('notify.install.canceled') })
-      } else if (res.status === 'done') {
-        notify({
-          title,
-          body: i18next.t('notify.install.finished')
-        })
 
-        logInfo(['Finished installing of', params.appName], {
-          prefix: LogPrefix.DownloadManager
-        })
-      } else if (res.status === 'error') {
-        return errorMessage(res.error ?? '')
-      }
-
-      mainWindow.webContents.send('setGameStatus', {
-        appName,
-        runner,
-        status: 'done'
+    if (status === 'abort') {
+      logWarning(['Installing of', params.appName, 'aborted!'], {
+        prefix: LogPrefix.DownloadManager
       })
-      return res
+      notify({ title, body: i18next.t('notify.install.canceled') })
+    } else if (status === 'done') {
+      notify({
+        title,
+        body: i18next.t('notify.install.finished')
+      })
+
+      logInfo(['Finished installing of', params.appName], {
+        prefix: LogPrefix.DownloadManager
+      })
+    } else if (status === 'error') {
+      errorMessage(error ?? '')
+      return { status: 'error' }
+    }
+
+    mainWindow.webContents.send('setGameStatus', {
+      appName,
+      runner,
+      status: 'done'
     })
-    .catch((error) => {
-      return errorMessage(`${error}`)
-    })
+
+    return { status }
+  } catch (error) {
+    errorMessage(`${error}`)
+    return { status: 'error' }
+  }
 }
 
 export { installQueueElement }
