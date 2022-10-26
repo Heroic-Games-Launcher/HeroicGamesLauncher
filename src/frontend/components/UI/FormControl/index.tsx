@@ -36,6 +36,11 @@ const FormControl: React.FC<FormControlProps> = ({
         'FormControl--hasLeftButton': leftButton
       })}
     >
+      {leftButton && (
+        <span className="FormControl__leftButton" tabIndex={-1}>
+          {leftButton}
+        </span>
+      )}
       {children}
       {select && (
         <span className="FormControl__caret">
@@ -54,11 +59,6 @@ const FormControl: React.FC<FormControlProps> = ({
           tabIndex={-1}
         >
           {sideButton}
-        </span>
-      )}
-      {leftButton && (
-        <span className="FormControl__leftButton" tabIndex={-1}>
-          {leftButton}
         </span>
       )}
     </div>

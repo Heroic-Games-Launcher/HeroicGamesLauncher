@@ -1,9 +1,9 @@
 import * as logger from '../logger'
 import { appendMessageToLogFile } from '../logfile'
-import { showErrorBoxModalAuto } from '../../utils'
+import { showDialogBoxModalAuto } from '../../dialog/dialog'
 
 jest.mock('../logfile')
-jest.mock('../../utils')
+jest.mock('../../dialog/dialog')
 
 const testData = [
   1234,
@@ -12,7 +12,7 @@ const testData = [
   'normalString',
   ['string1', 'string2'],
   { key1: 100, key2: 'value', key3: { subKey: ['hello', 'world'] } },
-  new Error('FAILED')
+  'Error: FAILED'
 ]
 
 type logLevel = 'WARNING' | 'ERROR' | 'INFO' | 'DEBUG'
@@ -122,10 +122,11 @@ describe('logger/logger.ts', () => {
         showDialog: true
       })
 
-      expect(showErrorBoxModalAuto).toBeCalledWith(
-        'Backend',
-        expect.stringContaining(getStringPassedToLogFile(level, true))
-      )
+      expect(showDialogBoxModalAuto).toBeCalledWith({
+        title: 'Backend',
+        message: getStringPassedToLogFile(level, true),
+        type: 'ERROR'
+      })
     })
   })
 

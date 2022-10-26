@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "작업 글꼴 패밀리 (기본값: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "모든 게임 타일을 컬러로 표시",
-        "content_font_family": "콘텐츠 글꼴 패밀리 (기본값: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "글꼴",
         "title": "접근성",
         "zoom": "Zoom"
@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "오류",
             "uncaught-exception": {
-                "message": "잡히지 않는 예외가 발생했습니다:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic이 종료 됩니다! Github 레포지트리에 이 예외를 보고하세요.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "잡히지 않은 예외 발생!"
             },
             "update": {
@@ -69,6 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Wine 버전이 선택되지 않았습니다. 게임 설정을 확인하세요!",
                 "title": "Wine을 찾을 수 없음"
             },
@@ -175,6 +176,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "즐겨찾기",
     "game": {
         "status": "Status",
@@ -223,6 +225,9 @@
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic은 올바른 저장 폴더를 찾으려고 시도하며 대부분의 경우에 작동합니다. 폴더가 잘못된 경우 재정의 상자를 사용하여 변경하세요.",
@@ -276,7 +281,10 @@
         "website": "웹사이트 로드 중"
     },
     "login": {
-        "externalLogin": "외부 로그인"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "동기화 완료",
@@ -323,6 +331,12 @@
             "finished": "업데이트 완료",
             "started": "업데이트 시작됨"
         }
+    },
+    "offline-message": {
+        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "retrying": "Retrying"
     },
     "options": {
         "advanced": {
@@ -377,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "데스크톱 바로 가기 자동 추가",
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "대신 사용할 GOGDL 바이너리 파일 선택",
         "alt-legendary-bin": "대신 사용할 Legendary 바이너리 파일 선택",
         "audiofix": "오디오 픽스 (Pulse Audio 지연)",

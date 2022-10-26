@@ -56,14 +56,12 @@
     "game": {
         "downloadSize": "Letöltési méret",
         "firstPlayed": "Először játszott",
-        "info": "Info",
         "installSize": "Telepítési méret",
         "language": "Nyelv",
         "lastPlayed": "Legutóbb játszott",
         "neverPlayed": "Soha",
         "platform": "Telepítendő platform változat kiválasztása",
-        "reuirements": "Rendszerkövetelmények",
-        "tools": "Ezközök",
+        "requirements": "Rendszerkövetelmények",
         "totalPlayed": "Játszott idő"
     },
     "gamecard": {

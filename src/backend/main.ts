@@ -8,7 +8,9 @@ import {
   Runner,
   AppSettings,
   GameSettings,
-  InstallPlatform
+  InstallPlatform,
+  LaunchParams,
+  Tools
 } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import * as path from 'path'
@@ -21,9 +23,10 @@ import {
   ipcMain,
   powerSaveBlocker,
   protocol,
-  screen
+  screen,
+  clipboard
 } from 'electron'
-import './updater'
+import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {
@@ -59,20 +62,19 @@ import {
   getGogdlVersion,
   getSystemInfo,
   handleExit,
-  isOnline,
   openUrlOrFile,
   resetHeroic,
   showAboutWindow,
   showItemInFolder,
   getLegendaryBin,
   getGOGdlBin,
-  showErrorBoxModal,
   getFileSize,
   detectVCRedist,
   getGame,
   getFirstExistingParentPath,
   getLatestReleases,
-  notify
+  notify,
+  quoteIfNecessary
 } from './utils'
 import {
   configStore,
@@ -115,8 +117,14 @@ import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
+import {
+  initOnlineMonitor,
+  isOnline,
+  runOnceWhenOnline
+} from './online_monitor'
+import { showDialogBoxModalAuto } from './dialog/dialog'
 
-const { showMessageBox, showOpenDialog } = dialog
+const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow
@@ -164,10 +172,13 @@ async function createWindow(): Promise<BrowserWindow> {
     minHeight: 345,
     minWidth: 600,
     show: false,
+
     webPreferences: {
       webviewTag: true,
-      contextIsolation: false,
-      nodeIntegration: true
+      contextIsolation: true,
+      nodeIntegration: true,
+      // sandbox: false,
+      preload: path.join(__dirname, 'preload.js')
     }
   })
 
@@ -224,15 +235,17 @@ async function createWindow(): Promise<BrowserWindow> {
   }
 
   if (!app.isPackaged) {
-    /* eslint-disable @typescript-eslint/ban-ts-comment */
-    //@ts-ignore
-    import('electron-devtools-installer').then((devtools) => {
-      const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
+    if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {
+      import('electron-devtools-installer').then((devtools) => {
+        const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
 
-      installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-        logWarning(['An error occurred: ', err], { prefix: LogPrefix.Backend })
+        installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
+          logWarning(['An error occurred: ', err], {
+            prefix: LogPrefix.Backend
+          })
+        })
       })
-    })
+    }
     mainWindow.loadURL('http://localhost:5173')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
@@ -331,7 +344,11 @@ if (!gotTheLock) {
     handleProtocol(mainWindow, argv)
   })
   app.whenReady().then(async () => {
-    const systemInfo = await getSystemInfo()
+    initOnlineMonitor()
+
+    getSystemInfo().then((systemInfo) =>
+      logInfo(`\n\n${systemInfo}\n`, { prefix: LogPrefix.Backend })
+    )
 
     initImagesCache()
 
@@ -342,22 +359,24 @@ if (!gotTheLock) {
     logInfo(['GOGDL location:', join(...Object.values(getGOGdlBin()))], {
       prefix: LogPrefix.Gog
     })
-    logInfo(`\n\n${systemInfo}\n`, { prefix: LogPrefix.Backend })
     // We can't use .config since apparently its not loaded fast enough.
     const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
-    const isLoggedIn = LegendaryUser.isLoggedIn()
 
-    if (!isLoggedIn) {
-      logInfo('User Not Found, removing it from Store', {
-        prefix: LogPrefix.Backend
-      })
-      configStore.delete('userinfo')
-    }
+    runOnceWhenOnline(async () => {
+      const isLoggedIn = LegendaryUser.isLoggedIn()
 
-    // Update user details
-    if (GOGUser.isLoggedIn()) {
-      GOGUser.getUserDetails()
-    }
+      if (!isLoggedIn) {
+        logInfo('User Not Found, removing it from Store', {
+          prefix: LogPrefix.Backend
+        })
+        configStore.delete('userinfo')
+      }
+
+      // Update user details
+      if (GOGUser.isLoggedIn()) {
+        GOGUser.getUserDetails()
+      }
+    })
 
     await i18next.use(Backend).init({
       backend: {
@@ -484,27 +503,22 @@ ipcMain.on('frontendReady', () => {
   handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
 })
 
-ipcMain.on('frontendError', async (event, error) => {
-  logError(error, { prefix: LogPrefix.Frontend })
-})
-
 // Maybe this can help with white screens
 process.on('uncaughtException', async (err) => {
   logError(`${err.name}: ${err.message}`, { prefix: LogPrefix.Backend })
-  await showErrorBoxModal(
-    mainWindow,
-    i18next.t(
+  showDialogBoxModalAuto({
+    title: i18next.t(
       'box.error.uncaught-exception.title',
       'Uncaught Exception occured!'
     ),
-    i18next.t('box.error.uncaught-exception.message', {
+    message: i18next.t('box.error.uncaught-exception.message', {
       defaultValue:
-        'A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic will be closed! Report the exception on our Github repository.',
+        'A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.',
       newLine: '\n',
       error: err
-    })
-  )
-  app.exit(1)
+    }),
+    type: 'ERROR'
+  })
 })
 
 let powerId: number | null
@@ -631,13 +645,6 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
 })
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-interface Tools {
-  exe: string
-  tool: string
-  appName: string
-  runner: Runner
-}
-
 ipcMain.handle(
   'callTool',
   async (event, { tool, exe, appName, runner }: Tools) => {
@@ -653,7 +660,10 @@ ipcMain.handle(
         game.runWineCommand('winecfg')
         break
       case 'runExe':
-        game.runWineCommand(exe)
+        if (exe) {
+          exe = quoteIfNecessary(exe)
+          game.runWineCommand(exe)
+        }
         break
     }
   }
@@ -694,31 +704,23 @@ ipcMain.handle('getLatestReleases', async () => {
   }
 })
 
-ipcMain.on('clearCache', () => {
+ipcMain.on('clearCache', (event) => {
   clearCache()
-  dialog.showMessageBox(mainWindow, {
+
+  showDialogBoxModalAuto({
+    event,
     title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
     message: i18next.t(
       'box.cache-cleared.message',
       'Heroic Cache Was Cleared!'
     ),
-    buttons: [i18next.t('box.ok', 'Ok')]
+    type: 'MESSAGE',
+    buttons: [{ text: i18next.t('box.ok', 'Ok') }]
   })
 })
 
 ipcMain.on('resetHeroic', async () => {
-  const { response } = await dialog.showMessageBox(mainWindow, {
-    title: i18next.t('box.reset-heroic.question.title', 'Reset Heroic'),
-    message: i18next.t(
-      'box.reset-heroic.question.message',
-      "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
-    ),
-    buttons: [i18next.t('box.no'), i18next.t('box.yes')]
-  })
-
-  if (response === 1) {
-    resetHeroic()
-  }
+  resetHeroic()
 })
 
 ipcMain.on('createNewWindow', async (e, url) =>
@@ -773,7 +775,7 @@ ipcMain.handle(
     }
 
     try {
-      // @ts-ignore This is actually fine as long as the frontend always passes the right InstallPlatform for the right runner
+      // @ts-expect-error This is actually fine as long as the frontend always passes the right InstallPlatform for the right runner
       const info = await getGame(game, runner).getInstallInfo(installPlatform)
       return info
     } catch (error) {
@@ -894,22 +896,25 @@ if (existsSync(installed)) {
   })
 }
 
-ipcMain.handle('refreshLibrary', async (e, fullRefresh, library?: Runner) => {
-  switch (library) {
-    case 'legendary':
-      await LegendaryLibrary.get().getGames(fullRefresh)
-      break
-    case 'gog':
-      await GOGLibrary.get().sync()
-      break
-    default:
-      await Promise.allSettled([
-        LegendaryLibrary.get().getGames(fullRefresh),
-        GOGLibrary.get().sync()
-      ])
-      break
+ipcMain.handle(
+  'refreshLibrary',
+  async (e, fullRefresh?: boolean, library?: Runner) => {
+    switch (library) {
+      case 'legendary':
+        await LegendaryLibrary.get().getGames(fullRefresh)
+        break
+      case 'gog':
+        await GOGLibrary.get().sync()
+        break
+      default:
+        await Promise.allSettled([
+          LegendaryLibrary.get().getGames(fullRefresh),
+          GOGLibrary.get().sync()
+        ])
+        break
+    }
   }
-})
+)
 
 ipcMain.on('logError', (e, err) =>
   logError(err, { prefix: LogPrefix.Frontend })
@@ -921,12 +926,6 @@ ipcMain.on('logInfo', (e, info) =>
 type RecentGame = {
   appName: string
   title: string
-}
-
-type LaunchParams = {
-  appName: string
-  launchArguments: string
-  runner: Runner
 }
 
 let powerDisplayId: number | null
@@ -1066,28 +1065,6 @@ ipcMain.on('showItemInFolder', async (e, item) => {
   showItemInFolder(item)
 })
 
-const openMessageBox = async (args: Electron.MessageBoxOptions) => {
-  const { response, checkboxChecked } = await showMessageBox(mainWindow, {
-    ...args
-  })
-  return { response, checkboxChecked }
-}
-
-ipcMain.handle(
-  'openMessageBox',
-  async (_, args: Electron.MessageBoxOptions) => {
-    return openMessageBox(args)
-  }
-)
-
-ipcMain.handle(
-  'showErrorBox',
-  async (e, args: [title: string, message: string]) => {
-    const [title, content] = args
-    return showErrorBoxModal(mainWindow, title, content)
-  }
-)
-
 ipcMain.handle('install', async (event, params) => {
   const {
     appName,
@@ -1110,14 +1087,15 @@ ipcMain.handle('install', async (event, params) => {
 
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline && runner === 'legendary') {
-    showErrorBoxModal(
-      mainWindow,
-      i18next.t('box.warning.title', 'Warning'),
-      i18next.t(
+    showDialogBoxModalAuto({
+      event,
+      title: i18next.t('box.warning.title', 'Warning'),
+      message: i18next.t(
         'box.warning.epic.install',
         'Epic Servers are having major outage right now, the game cannot be installed!'
-      )
-    )
+      ),
+      type: 'ERROR'
+    })
     return { status: 'error' }
   }
 
@@ -1240,14 +1218,15 @@ ipcMain.handle(
     const { appName, path, runner } = args
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline && runner === 'legendary') {
-      showErrorBoxModal(
-        mainWindow,
-        i18next.t('box.warning.title', 'Warning'),
-        i18next.t(
+      showDialogBoxModalAuto({
+        event,
+        title: i18next.t('box.warning.title', 'Warning'),
+        message: i18next.t(
           'box.warning.epic.import',
           'Epic Servers are having major outage right now, the game cannot be imported!'
-        )
-      )
+        ),
+        type: 'ERROR'
+      })
       return { status: 'error' }
     }
     const game = getGame(appName, runner)
@@ -1284,7 +1263,7 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('updateGame', async (e, appName, runner) => {
+ipcMain.handle('updateGame', async (event, appName, runner) => {
   if (!isOnline()) {
     logWarning(`App offline, skipping install for game '${appName}'.`, {
       prefix: LogPrefix.Backend
@@ -1294,20 +1273,24 @@ ipcMain.handle('updateGame', async (e, appName, runner) => {
 
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline && runner === 'legendary') {
-    showErrorBoxModal(
-      mainWindow,
-      i18next.t('box.warning.title', 'Warning'),
-      i18next.t(
+    showDialogBoxModalAuto({
+      event,
+      title: i18next.t('box.warning.title', 'Warning'),
+      message: i18next.t(
         'box.warning.epic.update',
         'Epic Servers are having major outage right now, the game cannot be updated!'
-      )
-    )
+      ),
+      type: 'ERROR'
+    })
     return { status: 'error' }
   }
 
   const game = getGame(appName, runner)
   const { title } = game.getGameInfo()
-  notify({ title, body: i18next.t('notify.update.started', 'Update Started') })
+  notify({
+    title,
+    body: i18next.t('notify.update.started', 'Update Started')
+  })
 
   return game
     .update()
@@ -1563,6 +1546,15 @@ ipcMain.handle('getRealPath', (event, path) => {
 
   return resolvedPath
 })
+
+ipcMain.handle('clipboardReadText', () => {
+  return clipboard.readText()
+})
+
+ipcMain.on('clipboardWriteText', (event, text) => {
+  return clipboard.writeText(text)
+})
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1578,3 +1570,25 @@ import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
+
+// import Store from 'electron-store'
+// interface StoreMap {
+//   [key: string]: Store
+// }
+// const stores: StoreMap = {}
+
+// ipcMain.on('storeNew', (event, storeName, options) => {
+//   stores[storeName] = new Store(options)
+// })
+
+// ipcMain.handle('storeHas', (event, storeName, key) => {
+//   return stores[storeName].has(key)
+// })
+
+// ipcMain.handle('storeGet', (event, storeName, key) => {
+//   return stores[storeName].get(key)
+// })
+
+// ipcMain.on('storeSet', (event, storeName, key, value) => {
+//   stores[storeName].set(key, value)
+// })

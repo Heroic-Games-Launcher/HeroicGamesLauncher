@@ -5,17 +5,19 @@ import ReactDOM from 'react-dom'
 import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
 
-import './index.css'
+import './index.scss'
 import './themes.css'
 import App from './App'
 import GlobalState from './state/GlobalState'
 import { UpdateComponentBase } from './components/UI/UpdateComponent'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
-import { ipcRenderer } from './helpers'
+import { initOnlineMonitor } from './helpers/onlineMonitor'
+
+initOnlineMonitor()
 
 window.addEventListener('error', (ev: ErrorEvent) => {
-  ipcRenderer.send('frontendError', ev.error)
+  window.api.logError(ev.error)
 })
 
 const Backend = new HttpApi(null, {
@@ -29,7 +31,7 @@ initShortcuts()
 
 const storage: Storage = window.localStorage
 
-let languageCode = configStore.get('language')
+let languageCode: string | undefined = configStore.get('language') as string
 
 if (!languageCode) {
   languageCode = storage.getItem('language') || 'en'
@@ -109,3 +111,59 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 )
+
+// helper function to generate images for steam
+// image is centered, sides are padded with blurred image
+// returns dataURL of the generated image
+
+// This is added globally to be able to call it directly from the backend
+window.imageData = async (
+  src: string,
+  cw: number,
+  ch: number
+): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement('CANVAS') as HTMLCanvasElement
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+    const img = document.createElement('IMG') as HTMLImageElement
+    img.crossOrigin = 'anonymous' // prevents cors errors when exporting
+
+    img.addEventListener(
+      'load',
+      function () {
+        // measure canvas and image
+        canvas.width = cw
+        canvas.height = ch
+        const imgWidth = img.width
+        const imgHeight = img.height
+
+        // calculate drawing of the background
+        const bkgW = cw
+        const bkgH = (imgHeight * cw) / imgWidth
+        const bkgX = 0
+        const bkgY = ch / 2 - bkgH / 2
+        ctx.filter = 'blur(10px)' // add blur and draw
+        ctx.drawImage(img, bkgX, bkgY, bkgW, bkgH)
+
+        // calculate drawing of the foreground
+        const drawH = ch
+        const drawW = (imgWidth * ch) / imgHeight
+        const drawY = 0
+        const drawX = cw / 2 - drawW / 2
+        ctx.filter = 'blur(0)' // remove blur and draw
+        ctx.drawImage(img, drawX, drawY, drawW, drawH)
+
+        // resolve with dataURL
+        resolve(canvas.toDataURL('image/jpeg', 0.9))
+      },
+      false
+    )
+
+    img.addEventListener('error', (error) => {
+      reject(error)
+    })
+
+    // set src to trigger the callback
+    img.src = src
+  })
+}

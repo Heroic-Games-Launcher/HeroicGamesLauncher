@@ -7,11 +7,9 @@ import { CleaningServicesOutlined, DeleteOutline } from '@mui/icons-material'
 import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-import { ipcRenderer } from 'frontend/helpers'
-
 export default function ErrorComponent({ message }: { message: string }) {
   const { t } = useTranslation()
-  const { refreshLibrary } = useContext(ContextProvider)
+  const { refreshLibrary, showResetDialog } = useContext(ContextProvider)
 
   return (
     <div className="errorComponent">
@@ -40,7 +38,7 @@ export default function ErrorComponent({ message }: { message: string }) {
 
         <button
           className="button is-footer is-danger"
-          onClick={() => ipcRenderer.send('clearCache')}
+          onClick={window.api.clearCache}
         >
           <div className="button-icontext-flex">
             <div className="button-icon-flex">
@@ -54,7 +52,7 @@ export default function ErrorComponent({ message }: { message: string }) {
 
         <button
           className="button is-footer is-danger"
-          onClick={() => ipcRenderer.send('resetHeroic')}
+          onClick={showResetDialog}
         >
           <div className="button-icontext-flex">
             <div className="button-icon-flex">

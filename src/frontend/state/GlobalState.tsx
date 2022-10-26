@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import {
+  ConnectivityStatus,
   FavouriteGame,
   GameInfo,
   GameStatus,
@@ -8,17 +9,21 @@ import {
   InstalledInfo,
   RefreshOptions,
   Runner,
-  WineVersionInfo
+  WineVersionInfo,
+  UserInfo
 } from 'common/types'
-import { Category, LibraryTopSectionOptions } from 'frontend/types'
+import {
+  Category,
+  DialogModalOptions,
+  LibraryTopSectionOptions
+} from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   getLegendaryConfig,
   getPlatform,
   install,
   launch,
-  notify,
-  ipcRenderer
+  notify
 } from '../helpers'
 import { i18n, t } from 'i18next'
 
@@ -73,11 +78,13 @@ interface StateProps {
   favouriteGames: FavouriteGame[]
   theme: string
   zoomPercent: number
-  contentFontFamily: string
-  actionsFontFamily: string
+  primaryFontFamily: string
+  secondaryFontFamily: string
   allTilesInColor: boolean
   sidebarCollapsed: boolean
   activeController: string
+  connectivity: { status: ConnectivityStatus; retryIn: number }
+  dialogModalOptions: DialogModalOptions
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -105,11 +112,13 @@ export class GlobalState extends PureComponent<Props> {
       library: libraryStore.has('library')
         ? (libraryStore.get('library', []) as GameInfo[])
         : [],
-      username: configStore.get('userInfo', null)?.displayName || null
+      username:
+        (configStore.get('userInfo', null) as UserInfo)?.displayName || null
     },
     gog: {
       library: this.loadGOGLibrary(),
-      username: gogConfigStore.get('userData', null)?.username || null
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      username: (gogConfigStore.get('userData', null) as any)?.username || null
     },
     wineVersions: wineDownloaderInfoStore.has('wine-releases')
       ? (wineDownloaderInfoStore.get('wine-releases', []) as WineVersionInfo[])
@@ -139,12 +148,20 @@ export class GlobalState extends PureComponent<Props> {
     zoomPercent: parseInt(
       (configStore.get('zoomPercent', '100') as string) || '100'
     ),
-    contentFontFamily:
-      (configStore.get('contentFontFamily') as string) || "'Cabin', sans-serif",
-    actionsFontFamily:
-      (configStore.get('actionsFontFamily') as string) || "'Rubik', sans-serif",
+    secondaryFontFamily:
+      (configStore.get('contentFontFamily') as string) ||
+      getComputedStyle(document.documentElement).getPropertyValue(
+        '--default-secondary-font-family'
+      ),
+    primaryFontFamily:
+      (configStore.get('actionsFontFamily') as string) ||
+      getComputedStyle(document.documentElement).getPropertyValue(
+        '--default-primary-font-family'
+      ),
     allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
-    activeController: ''
+    activeController: '',
+    connectivity: { status: 'offline', retryIn: 0 },
+    dialogModalOptions: { showDialog: false }
   }
 
   setLanguage = (newLanguage: string) => {
@@ -165,18 +182,24 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ zoomPercent: newZoomPercent })
 
     this.zoomTimer = setTimeout(() => {
-      ipcRenderer.send('setZoomFactor', (newZoomPercent / 100).toString())
+      window.api.setZoomFactor((newZoomPercent / 100).toString())
     }, 500)
   }
 
-  setContentFontFamily = (newFontFamily: string) => {
-    configStore.set('contentFontFamily', newFontFamily)
-    this.setState({ contentFontFamily: newFontFamily })
+  setPrimaryFontFamily = (newFontFamily: string, saveToFile = true) => {
+    if (saveToFile) configStore.set('actionsFontFamily', newFontFamily)
+    document.documentElement.style.setProperty(
+      '--primary-font-family',
+      newFontFamily
+    )
   }
 
-  setActionsFontFamily = (newFontFamily: string) => {
-    configStore.set('actionsFontFamily', newFontFamily)
-    this.setState({ actionsFontFamily: newFontFamily })
+  setSecondaryFontFamily = (newFontFamily: string, saveToFile = true) => {
+    if (saveToFile) configStore.set('contentFontFamily', newFontFamily)
+    document.documentElement.style.setProperty(
+      '--secondary-font-family',
+      newFontFamily
+    )
   }
 
   setAllTilesInColor = (value: boolean) => {
@@ -244,6 +267,29 @@ export class GlobalState extends PureComponent<Props> {
     configStore.set('games.favourites', newFavouriteGames)
   }
 
+  handleShowDialogModal = ({
+    showDialog = true,
+    ...options
+  }: DialogModalOptions) => {
+    this.setState({
+      dialogModalOptions: { showDialog, ...options }
+    })
+  }
+
+  showResetDialog = (() => {
+    this.handleShowDialogModal({
+      title: t('box.reset-heroic.question.title', 'Reset Heroic'),
+      message: t(
+        'box.reset-heroic.question.message',
+        "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
+      ),
+      buttons: [
+        { text: t('box.yes'), onClick: window.api.resetHeroic },
+        { text: t('box.no') }
+      ]
+    })
+  }).bind(this)
+
   handleLibraryTopSection = (value: LibraryTopSectionOptions) => {
     this.setState({ libraryTopSection: value })
   }
@@ -259,7 +305,7 @@ export class GlobalState extends PureComponent<Props> {
 
   epicLogin = async (sid: string) => {
     console.log('logging epic')
-    const response = await ipcRenderer.invoke('login', sid)
+    const response = await window.api.login(sid)
 
     if (response.status === 'done') {
       this.setState({
@@ -277,7 +323,7 @@ export class GlobalState extends PureComponent<Props> {
 
   epicLogout = async () => {
     this.setState({ refreshing: true })
-    await ipcRenderer.invoke('logoutLegendary').finally(() => {
+    await window.api.logoutLegendary().finally(() => {
       this.setState({
         epic: {
           library: [],
@@ -292,7 +338,7 @@ export class GlobalState extends PureComponent<Props> {
 
   gogLogin = async (token: string) => {
     console.log('logging gog')
-    const response = await ipcRenderer.invoke('authGOG', token)
+    const response = await window.api.authGOG(token)
 
     if (response.status === 'done') {
       this.setState({
@@ -309,7 +355,7 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   gogLogout = async () => {
-    await ipcRenderer.invoke('logoutGOG').finally(() => {
+    await window.api.logoutGOG().finally(() => {
       this.setState({
         gog: {
           library: [],
@@ -333,10 +379,7 @@ export class GlobalState extends PureComponent<Props> {
 
     const gogLibrary: Array<GameInfo> = this.loadGOGLibrary()
     if (!epicLibrary.length || !this.state.epic.library.length) {
-      ipcRenderer.send(
-        'logInfo',
-        'No cache found, getting data from legendary...'
-      )
+      window.api.logInfo('No cache found, getting data from legendary...')
       const { library: legendaryLibrary } = await getLegendaryConfig()
       epicLibrary = legendaryLibrary
     }
@@ -344,9 +387,9 @@ export class GlobalState extends PureComponent<Props> {
     let updates = this.state.gameUpdates
     if (checkUpdates && library) {
       try {
-        updates = await ipcRenderer.invoke('checkGameUpdates')
+        updates = await window.api.checkGameUpdates()
       } catch (error) {
-        ipcRenderer.send('logError', error)
+        window.api.logError(`${error}`)
       }
     }
 
@@ -365,7 +408,7 @@ export class GlobalState extends PureComponent<Props> {
     })
 
     if (currentLibraryLength !== epicLibrary.length) {
-      ipcRenderer.send('logInfo', 'Force Update')
+      window.api.logInfo('Force Update')
       this.forceUpdate()
     }
   }
@@ -382,11 +425,11 @@ export class GlobalState extends PureComponent<Props> {
       refreshing: true,
       refreshingInTheBackground: runInBackground
     })
-    ipcRenderer.send('logInfo', 'Refreshing Library')
+    window.api.logInfo('Refreshing Library')
     try {
-      await ipcRenderer.invoke('refreshLibrary', fullRefresh, library)
+      window.api.refreshLibrary(fullRefresh, library)
     } catch (error) {
-      ipcRenderer.send('logError', error)
+      window.api.logError(`${error}`)
     }
     this.refresh(library, checkForUpdates)
   }
@@ -395,10 +438,10 @@ export class GlobalState extends PureComponent<Props> {
     if (this.state.platform !== 'linux') {
       return
     }
-    ipcRenderer.send('logInfo', 'Refreshing wine downloader releases')
+    window.api.logInfo('Refreshing wine downloader releases')
     this.setState({ refreshing: true })
-    await ipcRenderer
-      .invoke('refreshWineVersionInfo', fetch)
+    await window.api
+      .refreshWineVersionInfo(fetch)
       .then((releases) => {
         this.setState({
           wineVersions: releases,
@@ -409,17 +452,15 @@ export class GlobalState extends PureComponent<Props> {
       .catch(async () => {
         if (fetch) {
           // try to restore the saved information
-          await ipcRenderer
-            .invoke('refreshWineVersionInfo')
-            .then((releases) => {
-              this.setState({
-                wineVersions: releases
-              })
+          await window.api.refreshWineVersionInfo().then((releases) => {
+            this.setState({
+              wineVersions: releases
             })
+          })
         }
 
         this.setState({ refreshing: false })
-        ipcRenderer.send('logError', 'Sync with upstream releases failed')
+        window.api.logError('Sync with upstream releases failed')
 
         notify([
           'Wine-Manager',
@@ -502,8 +543,7 @@ export class GlobalState extends PureComponent<Props> {
       this.handleCategory('legendary')
     }
     // Deals launching from protocol. Also checks if the game is already running
-    ipcRenderer.on(
-      'launchGame',
+    window.api.handleLaunchGame(
       async (e: Event, appName: string, runner: Runner) => {
         const currentApp = libraryStatus.filter(
           (game) => game.appName === appName
@@ -511,14 +551,19 @@ export class GlobalState extends PureComponent<Props> {
         if (!currentApp) {
           // Add finding a runner for games
           const hasUpdate = this.state.gameUpdates?.includes(appName)
-          return launch({ appName, t, runner, hasUpdate })
+          return launch({
+            appName,
+            t,
+            runner,
+            hasUpdate,
+            showDialogModal: this.handleShowDialogModal
+          })
         }
       }
     )
 
     // TODO: show the install modal instead of just installing like this since it has no options to choose
-    ipcRenderer.on(
-      'installGame',
+    window.api.handleInstallGame(
       async (
         e: Event,
         args: { appName: string; installPath: string; runner: Runner }
@@ -541,18 +586,19 @@ export class GlobalState extends PureComponent<Props> {
             },
             t,
             runner,
-            platformToInstall: 'Windows'
+            platformToInstall: 'Windows',
+            showDialogModal: this.handleShowDialogModal
           })
         }
       }
     )
 
-    ipcRenderer.on('setGameStatus', async (e: Event, args: GameStatus) => {
+    window.api.handleSetGameStatus(async (e: Event, args: GameStatus) => {
       const { libraryStatus } = this.state
       this.handleGameStatus({ ...libraryStatus, ...args })
     })
 
-    ipcRenderer.on('refreshLibrary', async (e: Event, runner: Runner) => {
+    window.api.handleRefreshLibrary(async (e: Event, runner: Runner) => {
       this.refreshLibrary({
         checkForUpdates: false,
         fullRefresh: true,
@@ -566,7 +612,7 @@ export class GlobalState extends PureComponent<Props> {
     const platform = await getPlatform()
 
     if (legendaryUser) {
-      await ipcRenderer.invoke('getUserInfo')
+      await window.api.getUserInfo()
     }
 
     if (!gameUpdates.length) {
@@ -591,7 +637,20 @@ export class GlobalState extends PureComponent<Props> {
       }
     )
 
-    ipcRenderer.send('frontendReady')
+    // listen to custom connectivity-changed event to update state
+    window.api.onConnectivityChanged((_, connectivity) => {
+      this.setState({ connectivity })
+    })
+
+    // get the current status
+    window.api
+      .getConnectivityStatus()
+      .then((connectivity) => this.setState({ connectivity }))
+
+    this.setPrimaryFontFamily(this.state.primaryFontFamily, false)
+    this.setSecondaryFontFamily(this.state.secondaryFontFamily, false)
+
+    window.api.frontendReady()
   }
 
   componentDidUpdate() {
@@ -619,9 +678,9 @@ export class GlobalState extends PureComponent<Props> {
     ).length
 
     if (pendingOps) {
-      ipcRenderer.send('lock', 'download')
+      window.api.lock()
     } else {
-      ipcRenderer.send('unlock', 'download')
+      window.api.unlock()
     }
   }
 
@@ -669,10 +728,12 @@ export class GlobalState extends PureComponent<Props> {
           handleLibraryTopSection: this.handleLibraryTopSection,
           setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
-          setContentFontFamily: this.setContentFontFamily,
-          setActionsFontFamily: this.setActionsFontFamily,
           setAllTilesInColor: this.setAllTilesInColor,
-          setSideBarCollapsed: this.setSideBarCollapsed
+          setSideBarCollapsed: this.setSideBarCollapsed,
+          setPrimaryFontFamily: this.setPrimaryFontFamily,
+          setSecondaryFontFamily: this.setSecondaryFontFamily,
+          showDialogModal: this.handleShowDialogModal,
+          showResetDialog: this.showResetDialog
         }}
       >
         {this.props.children}

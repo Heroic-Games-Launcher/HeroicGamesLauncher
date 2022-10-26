@@ -31,8 +31,7 @@ import {
   getProgress,
   install,
   size,
-  writeConfig,
-  ipcRenderer
+  writeConfig
 } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
@@ -107,7 +106,7 @@ export default function InstallModal({
 
   const { i18n, t } = useTranslation('gamepage')
   const { t: tr } = useTranslation()
-  const { libraryStatus, handleGameStatus, platform } =
+  const { libraryStatus, handleGameStatus, platform, showDialogModal } =
     useContext(ContextProvider)
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
@@ -222,10 +221,7 @@ export default function InstallModal({
 
     // Write Default game config with prefix on linux
     if (isLinux) {
-      const appSettings: AppSettings = await ipcRenderer.invoke(
-        'requestSettings',
-        appName
-      )
+      const appSettings: AppSettings = await window.api.requestSettings(appName)
 
       writeConfig([appName, { ...appSettings, winePrefix, wineVersion }])
     }
@@ -242,50 +238,46 @@ export default function InstallModal({
       installDlcs,
       installLanguage,
       runner,
-      platformToInstall
+      platformToInstall,
+      showDialogModal
     })
   }
 
   useEffect(() => {
-    ipcRenderer
-      .invoke('requestSettings', 'default')
-      .then(async (config: AppSettings) => {
-        setDefaultPath(config.defaultInstallPath)
-        if (installPath === 'default') {
-          setInstallPath(config.defaultInstallPath)
-        }
-        const { message, free, validPath } = await ipcRenderer.invoke(
-          'checkDiskSpace',
-          installPath === 'default' ? config.defaultInstallPath : installPath
+    window.api.requestSettings('default').then(async (config: AppSettings) => {
+      setDefaultPath(config.defaultInstallPath)
+      if (installPath === 'default') {
+        setInstallPath(config.defaultInstallPath)
+      }
+      const { message, free, validPath } = await window.api.checkDiskSpace(
+        installPath === 'default' ? config.defaultInstallPath : installPath
+      )
+      if (gameInstallInfo?.manifest?.disk_size) {
+        let notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
+        let spaceLeftAfter = size(
+          free - Number(gameInstallInfo.manifest.disk_size)
         )
-        if (gameInstallInfo?.manifest?.disk_size) {
-          let notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
-          let spaceLeftAfter = size(
-            free - Number(gameInstallInfo.manifest.disk_size)
+        if (previousProgress.folder === installPath) {
+          const progress = 100 - getProgress(previousProgress)
+          notEnoughDiskSpace =
+            free < (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
+
+          spaceLeftAfter = size(
+            free - (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
           )
-          if (previousProgress.folder === installPath) {
-            const progress = 100 - getProgress(previousProgress)
-            notEnoughDiskSpace =
-              free <
-              (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
-
-            spaceLeftAfter = size(
-              free -
-                (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
-            )
-          }
-
-          setSpaceLeft({
-            message,
-            notEnoughDiskSpace,
-            validPath,
-            spaceLeftAfter
-          })
         }
-      })
+
+        setSpaceLeft({
+          message,
+          notEnoughDiskSpace,
+          validPath,
+          spaceLeftAfter
+        })
+      }
+    })
 
     return () => {
-      ipcRenderer.removeAllListeners('requestSettings')
+      window.api.requestSettingsRemoveListeners()
     }
   }, [appName, installPath, gameInstallInfo?.manifest?.disk_size])
 
@@ -297,10 +289,10 @@ export default function InstallModal({
         platformToInstall
       )
       if (!gameInstallInfo) {
-        ipcRenderer.invoke('showErrorBox', [
-          tr('box.error.generic.title', 'Error!'),
-          tr('box.error.generic.message', 'Something Went Wrong!')
-        ])
+        showDialogModal({
+          title: tr('box.error.generic.title', 'Error!'),
+          message: tr('box.error.generic.message', 'Something Went Wrong!')
+        })
         backdropClick()
         return
       }
@@ -316,10 +308,8 @@ export default function InstallModal({
       setIsLinuxNative(gameData.is_linux_native && isLinux)
       setIsMacNative(gameData.is_mac_native && isMac)
       if (platformToInstall === 'linux' && runner === 'gog') {
-        const installer_languages = (await ipcRenderer.invoke(
-          'getGOGLinuxInstallersLangs',
-          appName
-        )) as string[]
+        const installer_languages =
+          (await window.api.getGOGLinuxInstallersLangs(appName)) as string[]
         setInstallLanguages(installer_languages)
         setInstallLanguage(
           getInstallLanguage(installer_languages, i18n.languages)
@@ -378,9 +368,8 @@ export default function InstallModal({
   useEffect(() => {
     if (hasWine) {
       ;(async () => {
-        const newWineList: WineInstallation[] = await ipcRenderer.invoke(
-          'getAlternativeWine'
-        )
+        const newWineList: WineInstallation[] =
+          await window.api.getAlternativeWine()
         if (Array.isArray(newWineList)) {
           setWineVersionList(newWineList)
           if (wineVersion?.bin) {
@@ -503,8 +492,8 @@ export default function InstallModal({
                 onChange={(event) => setInstallPath(event.target.value)}
                 icon={<FontAwesomeIcon icon={faFolderOpen} />}
                 onIconClick={async () =>
-                  ipcRenderer
-                    .invoke('openDialog', {
+                  window.api
+                    .openDialog({
                       buttonLabel: t('box.choose'),
                       properties: ['openDirectory'],
                       title: t('install.path'),
@@ -572,8 +561,8 @@ export default function InstallModal({
                     onChange={(event) => setWinePrefix(event.target.value)}
                     icon={<FontAwesomeIcon icon={faFolderOpen} />}
                     onIconClick={async () =>
-                      ipcRenderer
-                        .invoke('openDialog', {
+                      window.api
+                        .openDialog({
                           buttonLabel: t('box.choose'),
                           properties: ['openDirectory'],
                           title: t('box.wineprefix', 'Select WinePrefix Folder')

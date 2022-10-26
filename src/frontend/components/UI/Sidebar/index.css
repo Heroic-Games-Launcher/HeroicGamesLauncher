@@ -1,6 +1,6 @@
 .Sidebar {
-  --sidebar-horizontal-padding: 16px;
-  --sidebar-vertical-padding: 24px;
+  --sidebar-horizontal-padding: var(--space-md);
+  --sidebar-vertical-padding: var(--space-lg);
   position: relative;
   z-index: 10;
   display: grid;
@@ -9,15 +9,15 @@
   grid-area: sidebar;
   height: 100%;
   padding: 0;
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   text-align: left;
   background: var(--navbar-background);
   overflow: auto;
 }
 
 .Sidebar.collapsed {
-  --sidebar-vertical-padding: 8px;
-  --sidebar-horizontal-padding: 22px;
+  --sidebar-vertical-padding: var(--space-xs);
+  --sidebar-horizontal-padding: var(--space-lg);
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -26,21 +26,31 @@
   display: flex;
   width: 100%;
   height: fit-content;
-  font-family: var(--actions-font-family);
+  font-family: var(--secondary-font-family);
   flex-direction: column;
 }
 
 .Sidebar__item {
   display: flex;
   width: 100%;
-  padding: 7px var(--sidebar-horizontal-padding);
+  padding: var(--space-xs) var(--sidebar-horizontal-padding);
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 18px;
+  font-size: var(--text-md);
   color: var(--navbar-accent);
   transition: color 250ms;
   text-align: start;
+  font-family: var(--primary-font-family);
+  border-radius: 0;
+}
+
+.App.collapsed .Sidebar__item {
+  padding: var(--space-xs) 0;
+}
+
+.App.collapsed .Sidebar__itemIcon {
+  margin: 0 auto;
 }
 
 .Sidebar__item:focus-visible {
@@ -57,7 +67,7 @@
 }
 
 .Sidebar__item.active.SidebarLinks__subItem {
-  font-weight: 700;
+  font-weight: var(--bold);
   background-color: var(--navbar-active-background);
 }
 
@@ -68,27 +78,27 @@
   display: inline-flex;
   justify-content: center;
   color: var(--accent);
-  flex-shrink: 0;
 }
 
 .currentDownloads {
   grid-area: utils;
   align-self: end;
-  margin: 0 4px var(--sidebar-vertical-padding)
+  margin: 0 var(--space-3xs) var(--sidebar-vertical-padding)
     var(--sidebar-horizontal-padding);
 }
 
 .divider {
-  border: solid 1px var(--divider);
-  opacity: 0.2;
-  margin: 4px 8px;
+  height: 1px;
+  opacity: 0.5;
+  margin: var(--space-3xs) var(--space-xs);
+  background-color: var(--divider);
 }
 
 .heroicVersion {
   grid-area: version;
-  margin: 0 4px var(--sidebar-vertical-padding)
+  margin: 0 var(--space-3xs) var(--sidebar-vertical-padding)
     var(--sidebar-horizontal-padding);
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
 }
 
 .heroicNewReleases {
@@ -96,8 +106,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin: 0 4px 12px var(--sidebar-horizontal-padding);
-  font-size: 0.9rem;
+  margin: 0 var(--space-3xs) var(--space-sm) var(--sidebar-horizontal-padding);
+  font-size: var(--text-sm);
 }
 
 .heroicNewReleases > a {
@@ -133,12 +143,12 @@
 }
 
 .Sidebar.collapsed .heroicVersion {
-  margin: 10px;
-  font-size: 11px;
+  margin: var(--space-sm);
+  font-size: var(--text-xs);
 }
 
 .Sidebar.collapsed .divider {
-  margin: 4px 0;
+  margin: var(--space-3xs) 0;
 }
 
 .Sidebar.collapsed .Sidebar__item.active span,
@@ -162,7 +172,7 @@
   left: 62px;
   top: 66px;
   background-color: var(--navbar-background);
-  padding: 6px 0;
+  padding: var(--space-2xs) 0;
 }
 
 .Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu.settings,
@@ -177,10 +187,10 @@
 }
 
 .Sidebar.collapsed .Sidebar__item.SidebarLinks__subItem {
-  padding: 7px var(--sidebar-horizontal-padding);
+  padding: var(--space-xs) var(--sidebar-horizontal-padding);
 }
 .Sidebar.collapsed .Sidebar__item.active svg,
 .Sidebar.collapsed .Sidebar__item svg {
   transform: scale(1.2);
-  padding: 6px 0;
+  padding: var(--space-2xs) 0;
 }

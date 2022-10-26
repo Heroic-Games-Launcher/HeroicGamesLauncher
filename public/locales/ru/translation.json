@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Семейство шрифтов для действий (По умолчанию: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Показать все плитки игр в цвете",
-        "content_font_family": "Семейство шрифтов для содержания (По умолчанию: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Шрифты",
         "title": "Доступность",
         "zoom": "Масштаб"
@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Ошибка",
             "uncaught-exception": {
-                "message": "Произошло необрабатываемое исключение:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic будет закрыт! Сообщите об исключении в нашем репозитории Github.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Произошло необрабатываемое исключение!"
             },
             "update": {
@@ -69,6 +69,7 @@
                 "title": "Ошибка обновления"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
                 "title": "Wine не найден"
             },
@@ -175,6 +176,7 @@
         "offline-notification-title": "офлайн"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Избранное",
     "game": {
         "status": "Состояние",
@@ -223,6 +225,9 @@
         "preferSystemLibs": "Пользовательские версии Wine (Wine-GE, Wine-Lutris) поставляются со своими библиотечными зависимостями. При включении этой опции эти поставляемые библиотеки будут игнорироваться, и Wine будет загружать системные библиотеки вместо них. Внимание! При несоблюдении зависимостей могут возникнуть проблемы.",
         "primerun": "Использовать выделенную видеокарту для рендеринга игры в системах с несколькими GPU. Необходимо только для игровых ноутбуков или настольных компьютеров, использующих для рендеринга headless GPU (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar помогает повысить частоту кадров, предоставляя ЦП доступ ко всему графическому буферу. Включение может повысить производительность в играх на базе Vulkan.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Пользовательские библиотеки, предоставляемые Steam для запуска игр для Linux и Windows (Proton). Включение может улучшить совместимость.",
         "sync": {
             "part1": "Heroic пытается угадать правильную папку для сохранения, и это сработает в большинстве случаев. В случае, если папка неправильная, используйте поле переопределения, чтобы изменить ее.",
@@ -276,7 +281,10 @@
         "website": "Загрузка веб-сайта"
     },
     "login": {
-        "externalLogin": "Внешний вход"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -323,6 +331,12 @@
             "finished": "Обновление завершено",
             "started": "Обновление началось"
         }
+    },
+    "offline-message": {
+        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "retrying": "Retrying"
     },
     "options": {
         "advanced": {
@@ -377,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Создать ярлыки на рабочем столе автоматически",
         "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Выбрать другой исполняемый файл GOGDL",
         "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",

@@ -246,6 +246,8 @@ To do that, open up the command palette (Ctrl + P), type in "task" and press Spa
 If you want to quickly test a change, or you're implementing features that require a lot of restarts, you can use Vite's development server to speed up the process:  
 Go to the "Run and Debug" tab of VSCode and start the "Launch Heroic (HMR & HR)" task (alternatively, if you're not using VSCode or just prefer the terminal, run `yarn dev`). Heroic will start up after a short while, and once you make any change to the code, it'll reload/restart.
 
+Note: If you do not need the React developer tools while testing changes, you can skip their install by setting the `HEROIC_NO_REACT_DEVTOOLS` environment variable before running `yarn dev` (for example with `HEROIC_NO_REACT_DEVTOOLS=1 yarn dev`).
+
 ### Development Using a Container
 
 <details>

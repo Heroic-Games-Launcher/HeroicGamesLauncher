@@ -4,7 +4,7 @@
  *        Note that with console.log and console.warn everything will be saved too.
  *        error equals console.error
  */
-import { showErrorBoxModalAuto } from '../utils'
+import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { appendMessageToLogFile, getLongestPrefix } from './logfile'
 
 export enum LogPrefix {
@@ -20,7 +20,8 @@ export enum LogPrefix {
   Backend = 'Backend',
   Runtime = 'Runtime',
   Shortcuts = 'Shortcuts',
-  WineTricks = 'Winetricks'
+  WineTricks = 'Winetricks',
+  Connection = 'Connection'
 }
 
 type LogInputType = unknown[] | unknown
@@ -118,7 +119,11 @@ function logBase(
   }
 
   if (options?.showDialog) {
-    showErrorBoxModalAuto(options?.prefix ?? LogPrefix.Backend, text)
+    showDialogBoxModalAuto({
+      title: options?.prefix ?? LogPrefix.Backend,
+      message: text,
+      type: 'ERROR'
+    })
   }
 
   if (!options?.skipLogToFile) {

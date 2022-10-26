@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Actions Font Family (Standard: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Vis alle spillbrikker i farger",
-        "content_font_family": "Innholdsskriftfamilie (standard: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Skrifter",
         "title": "tilgjengelighet",
         "zoom": "Zoom"
@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Feil",
             "uncaught-exception": {
-                "message": "Et uoppdaget unntak skjedde:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic vil bli stengt! Rapporter unntaket på Github-depotet vårt.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Ufanget unntak skjedde!"
             },
             "update": {
@@ -69,6 +69,7 @@
                 "title": "Oppdateringsfeil"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Ingen Wine-versjon valgt. Sjekk spill-innstillingene.",
                 "title": "Fant ikke Wine"
             },
@@ -175,6 +176,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Favoritter",
     "game": {
         "status": "Status",
@@ -223,6 +225,9 @@
         "preferSystemLibs": "Custom Wine-versjoner (Wine-GE, Wine-Lutris) sendes med deres bibliotekavhengigheter. Ved å aktivere dette alternativet vil disse sendte bibliotekene bli ignorert og Wine vil laste inn systembibliotekene i stedet. Advarsel! Problemer kan oppstå hvis avhengigheter ikke oppfylles.",
         "primerun": "Bruk dedikert grafikkort til å gjengi spill på multi-GPU-systemer. Bare nødvendig på bærbare eller stasjonære gaming-maskiner som bruker en hodeløs GPU for gjengivelse (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIAs Resizable Bar bidrar til å øke framerate ved å gi CPU-en tilgang til hele grafikkbufferen. Aktivering kan forbedre ytelsen for Vulkan-baserte spill.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Egendefinerte biblioteker levert av Steam for å hjelpe til med å kjøre Linux og Windows (Proton)-spill. Aktivering kan forbedre kompatibiliteten.",
         "sync": {
             "part1": "Heroic prøver å gjette riktig lagringsmappe, og dette vil fungere i de fleste tilfeller. I tilfelle mappen er feil, bruk overstyringsboksen for å endre den.",
@@ -276,7 +281,10 @@
         "website": "Laster inn nettsted"
     },
     "login": {
-        "externalLogin": "Ekstern pålogging"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synkronisering fullført",
@@ -323,6 +331,12 @@
             "finished": "Oppgradering fullført",
             "started": "Oppgradering startet"
         }
+    },
+    "offline-message": {
+        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "retrying": "Retrying"
     },
     "options": {
         "advanced": {
@@ -377,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Legg til skrivebordssnarveier automatisk",
         "addgamestostartmenu": "Legg til spill på startmenyen automatisk",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Velg en alternativ GOGDL-binær du vil bruke",
         "alt-legendary-bin": "Velg en alternativ legendarisk binær",
         "audiofix": "Lydfiks (pulslydforsinkelse)",

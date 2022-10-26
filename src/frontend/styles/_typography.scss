@@ -1,0 +1,167 @@
+/*
+with 1.2 scale ratio and 16px root font size
+name px rem
+xs	11.11	0.69
+sm	13.33	0.83
+md	16.00	1.00
+lg	19.20	1.20
+xl	23.04	1.44
+2xl	27.65	1.73
+3xl	33.18	2.07
+4xl	39.81	2.49
+5xl	47.78	2.99
+6xl	57.33	3.58
+*/
+
+@mixin typeSystem {
+  --default-primary-font-family: 'Rubik', sans-serif;
+  --default-secondary-font-family: 'Cabin', sans-serif;
+  --primary-font-family: var(--default-primary-font-family);
+  --secondary-font-family: var(--default-secondary-font-family);
+  --light: 300;
+  --regular: 400;
+  --medium: 500;
+  --semibold: 600;
+  --bold: 700;
+  --extrabold: 900;
+
+  /* set base values */
+  --text-scale-ratio: 1.2;
+  font-size: 16px;
+
+  /* type scale */
+  --text-xs: calc(1rem / (var(--text-scale-ratio) * var(--text-scale-ratio)));
+  --text-sm: calc(1rem / var(--text-scale-ratio));
+  --text-md: calc(1rem);
+  --text-lg: calc(1rem * var(--text-scale-ratio));
+  --text-xl: calc(1rem * var(--text-scale-ratio) * var(--text-scale-ratio));
+  --text-2xl: calc(
+    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio)
+  );
+  --text-3xl: calc(
+    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio)
+  );
+  --text-4xl: calc(
+    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio)
+  );
+  --text-5xl: calc(
+    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio)
+  );
+  --text-6xl: calc(
+    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio)
+  );
+}
+
+body {
+  font-size: 1rem;
+  font-family: var(--secondary-font-family), -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-style: normal;
+  font-weight: var(--regular);
+}
+
+code {
+  font-family: var(--secondary-font-family), source-code-pro, Menlo, Monaco,
+    Consolas, 'Courier New', monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.subtitle {
+  font-family: var(--primary-font-family);
+}
+
+.content-sm {
+  font-family: var(--secondary-font-family);
+}
+
+.text--6xl {
+  font-size: var(--text-6xl);
+}
+
+.text--5xl {
+  font-size: var(--text-5xl);
+}
+
+h1,
+.text--4xl {
+  font-size: var(--text-4xl);
+}
+
+h2,
+.text--3xl {
+  font-size: var(--text-3xl);
+}
+
+h3,
+.text--2xl {
+  font-size: var(--text-2xl);
+}
+
+h4,
+.text--xl {
+  font-size: var(--text-xl);
+}
+
+h5,
+.text--lg {
+  font-size: var(--text-lg);
+}
+
+.subtitle,
+.content,
+p,
+h6,
+.text--md,
+button,
+.button-md {
+  font-size: var(--text-md);
+}
+
+.content-sm,
+.button-sm,
+.text--sm {
+  font-size: var(--text-sm);
+}
+
+.subtitle-sm,
+.caption,
+.status,
+.text--xs {
+  font-size: var(--text-xs);
+}
+
+.subtitle,
+.content-sm,
+h5,
+h4 {
+  font-weight: var(--medium);
+}
+
+.subtitle-sm,
+.button-sm,
+.button-md,
+h3,
+h2,
+h1 {
+  font-weight: var(--bold);
+}
+
+.status,
+h6 {
+  font-weight: var(--semibold);
+}

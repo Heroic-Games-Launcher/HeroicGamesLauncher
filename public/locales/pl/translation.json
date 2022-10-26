@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Czcionka akcji (Domyślna: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Pokaż wszystkie tytuły gier w kolorze",
-        "content_font_family": "Czcionka zawartości (Domyślna: \"Cabin\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Czcionki",
         "title": "Ułatwienia dostępu",
         "zoom": "Przybliż"
@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Error",
             "uncaught-exception": {
-                "message": "Wystąpił nieoczekiwany błąd:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic zostanie zamknięty. Możesz zgłosić to na naszym Github'ie.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Wystąpił nieoczekiwany błąd!"
             },
             "update": {
@@ -69,6 +69,7 @@
                 "title": "Błąd aktualizacji"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Nie wybrano wersji Wine. Sprawdź ustawienia gry!",
                 "title": "Nie znaleziono Wine"
             },
@@ -175,6 +176,7 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Ulubione",
     "game": {
         "status": "Status",
@@ -223,6 +225,9 @@
         "preferSystemLibs": "Customowe wersje Wine (Wine-GE, Wine-Lutris) są pobierane wraz z wymaganymi bibliotekami. Włączając tą opcję, te biblioteki zostaną zignorowane, a zamiast nich zostaną wykorzystane biblioteki systemowe Wine. Uwaga! Może powodować problemy z kompatybilnością zależności.",
         "primerun": "Używaj dedykowanej karty graficznej do renderowania na urządzeniach multi-GPU. Potrzebne tylko dla gamingowych laptopów, lub komputerów używających więcej niż jednej karty graficznej (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar pomaga podnieść ilość klatek pozwalając CPU na dostęp do całego bufora graficznego. Włączenie tej opcji może podnieść wydajność w grach opartych na Vulkan'ie.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Customowe biblioteki dostarczane przez Steam w celu ułatwienia uruchamiania gier Windows'owych na Linux'ie. Włączenie podniesie kompatybilność.",
         "sync": {
             "part1": "Heroic spróbuje odgadnąć właściwy folder zapisów gier. W większości przypadków działa to prawidłowo. Jeżeli jednak folder jest nieprawidłowy, użyj pola \"Nadpisz\" aby go zmienić.",
@@ -276,7 +281,10 @@
         "website": "Ładowanie strony"
     },
     "login": {
-        "externalLogin": "Zewnętrzne logowanie"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synchronizacja zakończona",
@@ -323,6 +331,12 @@
             "finished": "Aktualizacja zakończona",
             "started": "Aktualizacja rozpoczęta"
         }
+    },
+    "offline-message": {
+        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "retrying": "Retrying"
     },
     "options": {
         "advanced": {
@@ -377,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Dodawaj automatycznie skróty na pulpicie",
         "addgamestostartmenu": "Dodawaj automatycznie gry do menu start",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Wybierz alternatywny plik binarny GOGDL",
         "alt-legendary-bin": "Wybierz alternatywny plik binarny Legendary",
         "audiofix": "Łatka audio (Opóźnienie Pulse Audio)",

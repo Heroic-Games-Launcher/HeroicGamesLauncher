@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox } from 'frontend/components/UI'
 import {
@@ -6,21 +6,25 @@ import {
   TableInput
 } from 'frontend/components/UI/TwoColTableInput'
 import { EnviromentVariable } from 'common/types'
+import ContextProvider from 'frontend/state/ContextProvider'
+import useSetting from 'frontend/hooks/useSetting'
 
-interface Props {
-  environmentVariables: EnviromentVariable[]
-  handleEnviromentVariables: (variables: EnviromentVariable[]) => void
-}
-
-const EnvVariablesTable = ({
-  environmentVariables,
-  handleEnviromentVariables
-}: Props) => {
+const EnvVariablesTable = () => {
   const { t } = useTranslation()
+  const { platform } = useContext(ContextProvider)
+  const isWindow = platform === 'win32'
+
+  const [environmentOptions, setEnvironmentOptions] = useSetting<
+    EnviromentVariable[]
+  >('environmentOptions', [])
+
+  if (isWindow) {
+    return <></>
+  }
 
   const getEnvironmentVariables = () => {
     const columns: ColumnProps[] = []
-    environmentVariables.forEach((env) =>
+    environmentOptions.forEach((env) =>
       columns.push({ key: env.key, value: env.value })
     )
     return columns
@@ -31,7 +35,7 @@ const EnvVariablesTable = ({
     cols.forEach((col) =>
       envs.push({ key: col.key.trim(), value: col.value.trim() })
     )
-    handleEnviromentVariables(envs)
+    setEnvironmentOptions(envs)
   }
 
   const envVariablesInfo = (

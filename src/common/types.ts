@@ -2,8 +2,43 @@ import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform } from './types/legendary'
 import { ChildProcess } from 'child_process'
 import { VersionInfo } from 'heroic-wine-downloader'
+import { IpcRendererEvent } from 'electron'
 
 export type Runner = 'legendary' | 'gog'
+
+// NOTE: Do not put enum's in this module or it will break imports
+
+export type DialogType = 'MESSAGE' | 'ERROR'
+
+export interface ButtonOptions {
+  text: string
+  onClick?: () => void
+}
+
+// here is a way to type the callback function in ipcMain.on or ipcMain.handle
+// does not prevent callbacks with fewer parameters from being passed though
+// the microsoft team is very opposed to enabling the above constraint https://github.com/microsoft/TypeScript/issues/17868
+// for ipcMain.handle('updateGame', async (e, appName, runner) => { for instance could be converted to:
+// ipcMain.handle('updateGame', typedCallback<WrapApiFunction<typeof updateGame>>() => {
+// this has the benefit of type checking for the arguments typed in the preload api
+// but may be overly complex for a small benefit
+export function typedCallback<T>(arg: T) {
+  return arg
+}
+
+export type WrapApiFunction<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TFunction extends (...args: any) => any
+> = (
+  e: Electron.IpcMainInvokeEvent,
+  ...args: [...Parameters<TFunction>]
+) => ReturnType<TFunction>
+
+export type LaunchParams = {
+  appName: string
+  launchArguments: string
+  runner: Runner
+}
 
 interface About {
   description: string
@@ -25,6 +60,7 @@ export interface AppSettings {
   enableUpdates: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
+  addSteamShortcuts: boolean
   altLegendaryBin: string
   altGogdlBin: string
   audioFix: boolean
@@ -47,7 +83,6 @@ export interface AppSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
-  enableResizableBar: boolean
   language: string
   launcherArgs: string
   maxRecentGames: number
@@ -119,7 +154,6 @@ export interface GameSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
-  enableResizableBar: boolean
   maxSharpness: number
   language: string
   launcherArgs: string
@@ -448,3 +482,17 @@ export type ElWebview = {
 export type WebviewType = HTMLWebViewElement & ElWebview
 
 export type InstallPlatform = LegendaryInstallPlatform | GogInstallPlatform
+
+export type ConnectivityChangedCallback = (
+  event: IpcRendererEvent,
+  status: ConnectivityStatus
+) => void
+
+export type ConnectivityStatus = 'offline' | 'check-online' | 'online'
+
+export interface Tools {
+  exe?: string
+  tool: string
+  appName: string
+  runner: Runner
+}

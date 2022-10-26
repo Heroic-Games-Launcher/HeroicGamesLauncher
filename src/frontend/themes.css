@@ -62,7 +62,7 @@ body.zombie-classic {
   --navbar-accent: var(--accent);
   --background: #1d1f1f;
   --body-background: #1d1f1f;
-  --background-darker: #1d1f1f;
+  --background-darker: #161717;
   --current-background: var(--body-background);
   --navbar-background: #323232;
   --navbar-active-background: #1d1f1f;
@@ -79,11 +79,6 @@ body.zombie-classic {
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: #434343;
-}
-
-body.zombie .downIcon > circle,
-body.zombie-classic .downIcon > circle {
-  fill: var(--text-secondary);
 }
 
 body.old-school {

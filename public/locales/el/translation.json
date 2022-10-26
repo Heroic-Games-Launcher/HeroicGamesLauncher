@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family": "Οικογένεια γραμματοσειρών ενεργειών (Προεπιλογή: \"Rubik\")",
+        "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Εμφάνιση όλων των πλακιδίων παιχνιδιού με χρώμα",
-        "content_font_family": "Οικογένεια γραμματοσειρών περιεχομένου (Προεπιλογή: \"Καμπίνα\")",
+        "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Γραμματοσειρές",
         "title": "Προσβασιμότητα",
         "zoom": "Zoom"
@@ -61,7 +61,7 @@
             "launchAborted": "Launch aborted",
             "title": "Σφάλμα",
             "uncaught-exception": {
-                "message": "Συνέβη μια μη διαχειρίσιμη εξαίρεση:{{newLine}}{{error}}{{newLine}}{{newLine}} Το Heroic θα κλείσει! Κάντε αναφορά στο Github repository μας.",
+                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Συνέβη μια μη διαχειρίσιμη εξαίρεση!"
             },
             "update": {
@@ -69,6 +69,7 @@
                 "title": "Σφάλμα ενημέρωσης"
             },
             "wine-not-found": {
+                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Δεν επιλέχθηκε έκδοση Wine. Ελέγξτε τις ρυθμίσεις παιχνιδιού!",
                 "title": "Το Wine δεν βρέθηκε"
             },
@@ -175,6 +176,7 @@
         "offline-notification-title": "Εκτός Σύνδεσης"
     },
     "Epic Games": "Epic Games",
+    "error": "Error",
     "favourites": "Αγαπημένα",
     "game": {
         "status": "Κατάσταση",
@@ -223,6 +225,9 @@
         "preferSystemLibs": "Οι προσαρμοσμένες εκδόσεις Wine (Wine-GE, Wine-Lutris) αποστέλλονται με τις εξαρτήσεις της βιβλιοθήκης τους. Με την ενεργοποίηση αυτής της επιλογής, αυτές οι αποσταλμένες βιβλιοθήκες θα αγνοηθούν και το Wine θα φορτώσει τις βιβλιοθήκες του συστήματος. Προειδοποίηση! Ενδέχεται να προκύψουν προβλήματα εάν δεν ικανοποιηθούν οι εξαρτήσεις.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
+        "steam_path": {
+            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+        },
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Το Heroic προσπαθεί να μαντέψει τον σωστό φάκελο αποθήκευσης και αυτό θα δουλέψει στην πλειοψηφία των περιπτώσεων. Αν ο φάκελος είναι λάθος, χρησιμοποιήστε το κουτί κατίσχυσης για να τον αλλάξετε.",
@@ -276,7 +281,10 @@
         "website": "Φόρτωση Ιστοσελίδας"
     },
     "login": {
-        "externalLogin": "Εξωτερική Σύνδεση"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
@@ -323,6 +331,12 @@
             "finished": "Η ενημέρωση ολοκληρώθηκε",
             "started": "Έναρξη Ενημέρωσης"
         }
+    },
+    "offline-message": {
+        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "retrying": "Retrying"
     },
     "options": {
         "advanced": {
@@ -377,6 +391,7 @@
     "setting": {
         "adddesktopshortcuts": "Αυτόματη προσθήκη συντομεύσεων επιφάνειας εργασίας",
         "addgamestostartmenu": "Αυτόματη προσθήκη παιχνιδιών στο Μενού εκκίνησης",
+        "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Επιλογή Εναλλακτικού δυαδικού GOGDL για χρήση",
         "alt-legendary-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Legendary",
         "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
