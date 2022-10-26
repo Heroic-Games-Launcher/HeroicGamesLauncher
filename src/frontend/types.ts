@@ -208,6 +208,7 @@ declare global {
       canvas_width: number,
       canvas_height: number
     ) => Promise<string>
+    setTheme: (themeClass: string) => void
   }
   interface WindowEventMap {
     'controller-changed': CustomEvent<{ controllerId: string }>

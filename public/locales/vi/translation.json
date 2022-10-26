@@ -171,6 +171,19 @@
         }
     },
     "docs": "Documentation",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Các dịch vụ trực tuyến có thể không hoạt động đầy đủ vì máy chủ của Epic Games đang ngoại tuyến!",
         "offline-notification-title": "offline"
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
@@ -256,6 +271,7 @@
     "infobox": {
         "help": "Hỗ trợ",
         "requirements": "Yêu cầu về hệ thống",
+        "warning": "Warning",
         "wine-path": "Wine Path",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -380,6 +396,7 @@
     "placeholder": {
         "alt-gogdl-bin": "Sử dụng GOGDL binary tích hợp sẵn...",
         "alt-legendary-bin": "Sử dụng Legendary binary tích hợp sẵn...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefix nơi EGS được cài đặt",
         "prefered_language": "mã ngôn ngữ (2 ký tự ví dụ: \"en\" or \"fr\")"
     },
@@ -389,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Chơi gần đây",
     "search": "Tìm kiếm game",
     "setting": {
@@ -404,6 +429,7 @@
         "change-target-exe": "Chọn một EXE thay thế để chạy",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Đường dẫn Wine/Proton tùy chọn",
         "darktray": "Sử dụng icon tối",
         "default-install-path": "Thư mục cài mặc định",
