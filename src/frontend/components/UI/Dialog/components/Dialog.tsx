@@ -44,7 +44,16 @@ export const Dialog: React.FC<DialogProps> = ({
   const onDialogClick = useCallback(
     (e: SyntheticEvent) => {
       if (e.target === dialogRef.current) {
-        onClose()
+        const ev = e.nativeEvent as MouseEvent
+        const tg = e.target as HTMLElement
+        if (
+          ev.offsetX < 0 ||
+          ev.offsetX > tg.offsetWidth ||
+          ev.offsetY < 0 ||
+          ev.offsetY > tg.offsetHeight
+        ) {
+          onClose()
+        }
       }
     },
     [onClose]

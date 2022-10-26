@@ -218,6 +218,8 @@
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
@@ -269,6 +271,7 @@
     "infobox": {
         "help": "സഹായിക്കൂ",
         "requirements": "ശുപാര്ശിക്കുന്ന സംവിധാനങ്ങള്",
+        "warning": "Warning",
         "wine-path": "Wine Path",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -393,6 +396,7 @@
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "തനത് ലെജന്ററി ഈരക്കരേഖ ഉപയോഗിക്കുന്നു...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "EGS സ്ഥാപിച്ചയിടം",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
@@ -425,6 +429,7 @@
         "change-target-exe": "ഓടിക്കുവാനായി പകരംവയ്ക്കാവുന്ന ഒരു EXE തിരഞ്ഞെടുക്കൂ",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "ഇഷ്ടാനുസൃതം ചേര്ത്ത വൈന്/പ്രോട്ടോണ് അറകള്",
         "darktray": "താലത്തില്(ട്രേയില്) ഇരുണ്ട ചിത്രം ഉപയോഗിക്കുക",
         "default-install-path": "തനത് സ്ഥാപനയിടം",

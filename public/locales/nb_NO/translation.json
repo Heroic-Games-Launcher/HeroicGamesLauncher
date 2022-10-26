@@ -218,6 +218,8 @@
     },
     "help": {
         "amdfsr": "AMDs FSR bidrar til å øke bildefrekvensen ved å oppskalere lavere oppløsninger i fullskjermmodus. Bildekvaliteten øker fra 5 til 1 på bekostning av et lite ytelsestreff. Aktivering kan forbedre ytelsen.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK er et Vulkan-basert translasjonslag for DirectX 9, 10 og 11-spill. Aktivering kan forbedre kompatibiliteten. Kan forårsake problemer spesielt for eldre DirectX-spill.",
         "esync": "Esync har som mål å redusere vinserveroverhead i CPU-intensive spill. Aktivering kan forbedre ytelsen.",
         "fsync": "Fsync har som mål å redusere vinserveroverhead i CPU-intensive spill. Aktivering kan forbedre ytelsen på støttede Linux-kjerner.",
@@ -269,6 +271,7 @@
     "infobox": {
         "help": "Hjelp",
         "requirements": "Systemkrav",
+        "warning": "Warning",
         "wine-path": "Vinstien",
         "wine-prefix": {
             "title": "Vinprefiks"
@@ -393,6 +396,7 @@
     "placeholder": {
         "alt-gogdl-bin": "Bruker innebygd GOGDL binær...",
         "alt-legendary-bin": "Bruker innebygd Legendary binær...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefiks der EGS er installert",
         "prefered_language": "2-tegnskode (dvs.: \"en\" eller \"fr\")"
     },
@@ -425,6 +429,7 @@
         "change-target-exe": "Velg en alternativ EXE å kjøre",
         "checkForUpdatesOnStartup": "Se etter heroiske oppdateringer ved oppstart",
         "crossover-version": "Crossover-versjon",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Egendefinerte vin-/protonbaner",
         "darktray": "Bruk mørkt skuff-ikon",
         "default-install-path": "Standard installasjonsbane",
