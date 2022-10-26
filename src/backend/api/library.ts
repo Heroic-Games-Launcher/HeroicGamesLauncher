@@ -17,7 +17,8 @@ export const openDialog = async (
 
 export const install = async (
   args: InstallParams
-): Promise<{ status: 'error' | 'done' }> => ipcRenderer.invoke('install', args)
+): Promise<{ status: 'error' | 'done' | 'abort' }> =>
+  ipcRenderer.invoke('install', args)
 
 export const uninstall = async (
   appName: string,

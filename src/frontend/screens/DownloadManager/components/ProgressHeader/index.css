@@ -1,0 +1,78 @@
+.downloadRateStats {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  cursor: default;
+  padding: 1rem 0;
+}
+
+.progressHeader {
+  border: solid 2px var(--text-default);
+  border-radius: 6px;
+  margin: var(--space-3xs) var(--space-lg) var(--space-xl);
+  padding: var(--space-md);
+}
+
+.linearProgress {
+  margin-top: 0.25em;
+  background-color: var(--text-default);
+}
+
+.linearProgress > .MuiLinearProgress-bar {
+  background-color: var(--accent);
+}
+
+.progressChartValues {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  justify-items: start;
+}
+
+.downloadProgressStats {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.downloadProgress {
+  padding: 1em 0em;
+}
+
+.downloadStat {
+  color: var(--text-default);
+  margin: 0;
+  padding: 0;
+}
+
+.realtimeDownloadStat {
+  white-space: nowrap;
+  margin: 0px;
+}
+
+.realtimeDownloadStatLabel {
+  margin: auto;
+  padding: auto;
+  text-align: left;
+  height: auto;
+}
+
+.realtimeDownloadStatContainer {
+  align-self: center;
+  margin: 1em;
+  box-sizing: border-box;
+}
+
+.downloadRateChart {
+  flex-grow: 1;
+  /* overflow: hidden; */
+  position: relative;
+}
+
+.downLabel {
+  color: var(--accent);
+}
+
+.diskLabel {
+  color: var(--primary);
+}

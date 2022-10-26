@@ -54,6 +54,9 @@
         "import": "Importar Jogo",
         "install": "Instalar",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remover dos favoritos",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
@@ -119,6 +122,19 @@
     "launch": {
         "options": "Opções de Inicialização..."
     },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Relatar um problema na execução deste jogo",
     "sdl": {
         "title": "Selecione os componentes para instalar"
@@ -149,6 +165,7 @@
         "moving": "Movendo Instalação,Por favor Aguarde",
         "notinstalled": "Este jogo não está instalado",
         "processing": "Processando arquivos, aguarde",
+        "queued": "Queued",
         "reparing": "Reparando Jogo, Por favor Aguarde",
         "totalDownloaded": "Total Baixado",
         "updating": "Atualizando Jogo"

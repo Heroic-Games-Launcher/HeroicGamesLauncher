@@ -3,7 +3,6 @@ import { LegendaryInstallInfo } from './../common/types/legendary'
 import { initImagesCache } from './images_cache'
 import { downloadAntiCheatData } from './anticheat/utils'
 import {
-  InstallParams,
   GamepadInputEventKey,
   GamepadInputEventWheel,
   GamepadInputEventMouse,
@@ -15,6 +14,7 @@ import {
   Tools,
   WineCommandArgs,
   SideloadGame,
+  InstallParams,
   GameInfo,
   UserInfo,
   SaveSyncArgs,
@@ -52,7 +52,9 @@ import {
   unlinkSync,
   watch,
   realpathSync,
-  writeFileSync
+  writeFileSync,
+  readdirSync,
+  readFileSync
 } from 'graceful-fs'
 
 import Backend from 'i18next-fs-backend'
@@ -114,7 +116,8 @@ import {
   isCLINoGui,
   isFlatpak,
   publicDir,
-  wineprefixFAQ
+  wineprefixFAQ,
+  customThemesWikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -128,6 +131,7 @@ import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { runWineCommand, verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
+import { initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
   isOnline,
@@ -144,6 +148,7 @@ import {
   removeApp,
   stop
 } from './sideload/games'
+import { callAbortController } from './utils/aborthandler/aborthandler'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -522,6 +527,7 @@ ipcMain.on('notify', (event, args: { title: string; body: string }) =>
 
 ipcMain.on('frontendReady', () => {
   handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
+  initQueue()
 })
 
 // Maybe this can help with white screens
@@ -566,8 +572,10 @@ ipcMain.on('unlock', () => {
 
 ipcMain.handle(
   'kill',
-  async (event, appName: string, runner: Runner): Promise<void> =>
+  async (event, appName: string, runner: Runner): Promise<void> => {
+    callAbortController(appName)
     runner === 'sideload' ? stop(appName) : getGame(appName, runner).stop()
+  }
 )
 
 ipcMain.handle(
@@ -647,6 +655,9 @@ ipcMain.on('openWinePrefixFAQ', async () => openUrlOrFile(wineprefixFAQ))
 ipcMain.on('openWebviewPage', async (event, url) => openUrlOrFile(url))
 ipcMain.on('openWikiLink', async () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', async () => openUrlOrFile(sidInfoUrl))
+ipcMain.on('openCustomThemesWiki', async () =>
+  openUrlOrFile(customThemesWikiLink)
+)
 ipcMain.on('showConfigFileInFolder', async (event, appName) => {
   if (appName === 'default') {
     return openUrlOrFile(heroicConfigPath)
@@ -659,15 +670,21 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
     const { defaultInstallPath } = await GlobalConfig.get().getSettings()
     const path = defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${path}/${folderName}`
-    return setTimeout(() => {
-      rmSync(folderToDelete, { recursive: true })
-    }, 5000)
+    if (existsSync(folderToDelete)) {
+      return setTimeout(() => {
+        rmSync(folderToDelete, { recursive: true })
+      }, 5000)
+    }
+    return
   }
 
   const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
-  return setTimeout(() => {
-    rmSync(folderToDelete, { recursive: true })
-  }, 2000)
+  if (existsSync(folderToDelete)) {
+    return setTimeout(() => {
+      rmSync(folderToDelete, { recursive: true })
+    }, 2000)
+  }
+  return
 })
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
@@ -1177,7 +1194,7 @@ ipcMain.handle(
       installLanguage,
       platformToInstall
     }: InstallParams
-  ): Promise<{ status: 'error' | 'done' }> => {
+  ): Promise<{ status: 'error' | 'done' | 'abort' }> => {
     const game = getGame(appName, runner)
     const { title } = game.getGameInfo()
 
@@ -1214,7 +1231,7 @@ ipcMain.handle(
       body: i18next.t('notify.install.startInstall', 'Installation Started')
     })
 
-    let res: { status: 'done' | 'error' }
+    let res
     try {
       res = await game.install({
         path: path.replaceAll("'", ''),
@@ -1366,15 +1383,24 @@ ipcMain.handle(
       runner,
       status: 'installing'
     })
-    try {
-      await game.import(path)
-    } catch (error) {
+
+    const abortMessage = () => {
       notify({ title, body: i18next.t('notify.install.canceled') })
       mainWindow.webContents.send('setGameStatus', {
         appName,
         runner,
         status: 'done'
       })
+    }
+
+    try {
+      const { abort, error } = await game.import(path)
+      if (abort || error) {
+        abortMessage()
+        return { status: 'done' }
+      }
+    } catch (error) {
+      abortMessage()
       logError(error, { prefix: LogPrefix.Backend })
       return { status: 'error' }
     }
@@ -1517,12 +1543,14 @@ ipcMain.handle(
     event,
     { arg = '', path, appName, runner }: SaveSyncArgs
   ): Promise<string> => {
-    const epicOffline = await isEpicServiceOffline()
-    if (epicOffline) {
-      logWarning('Epic is offline right now, cannot sync saves!', {
-        prefix: LogPrefix.Backend
-      })
-      return 'Epic is offline right now, cannot sync saves!'
+    if (runner === 'legendary') {
+      const epicOffline = await isEpicServiceOffline()
+      if (epicOffline) {
+        logWarning('Epic is offline right now, cannot sync saves!', {
+          prefix: LogPrefix.Backend
+        })
+        return 'Epic is offline right now, cannot sync saves!'
+      }
     }
     if (!isOnline()) {
       logWarning('App is offline, cannot sync saves!', {
@@ -1695,6 +1723,30 @@ ipcMain.handle('clipboardReadText', (): string => clipboard.readText())
 
 ipcMain.on('clipboardWriteText', (e, text: string) => clipboard.writeText(text))
 
+ipcMain.handle('getCustomThemes', async () => {
+  const { customThemesPath } = await GlobalConfig.get().getSettings()
+
+  if (!existsSync(customThemesPath)) {
+    return []
+  }
+
+  return readdirSync(customThemesPath).filter((fileName) =>
+    fileName.endsWith('.css')
+  )
+})
+
+ipcMain.handle('getThemeCSS', async (event, theme): Promise<string> => {
+  const { customThemesPath } = await GlobalConfig.get().getSettings()
+
+  const cssPath = path.join(customThemesPath, theme)
+
+  if (!existsSync(cssPath)) {
+    return ''
+  }
+
+  return readFileSync(cssPath, 'utf-8')
+})
+
 ipcMain.on('addNewApp', (e, args: SideloadGame) => addNewApp(args))
 
 ipcMain.handle(
@@ -1734,6 +1786,8 @@ import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
+import './downloadmanager/ipc_handler'
+import './utils/ipc_handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

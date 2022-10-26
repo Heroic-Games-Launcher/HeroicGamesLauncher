@@ -21,6 +21,10 @@ import {
   installedGamesStore
 } from './electronStores'
 import { callRunner } from '../launcher'
+import {
+  createAbortController,
+  deleteAbortController
+} from '../utils/aborthandler/aborthandler'
 import { isOnline } from '../online_monitor'
 
 export class GOGLibrary {
@@ -343,20 +347,57 @@ export class GOGLibrary {
       installPlatform
     ]
 
-    const res = await runGogdlCommand(commandParts, {
-      logMessagePrefix: 'Getting game metadata'
-    })
-    if (res.error) {
-      logError(['Failed to get game metadata for', `${appName}:`, res.error], {
+    const res = await runGogdlCommand(
+      commandParts,
+      createAbortController(appName),
+      {
+        logMessagePrefix: 'Getting game metadata'
+      }
+    )
+
+    deleteAbortController(appName)
+
+    if (res.abort) {
+      return
+    }
+
+    const errorMessage = (error: string) => {
+      logError(['Failed to get game metadata for', `${appName}:`, error], {
         prefix: LogPrefix.Gog
       })
     }
 
-    const gogInfo = JSON.parse(res.stdout)
-    const libraryArray = libraryStore.get('games', [{}]) as GameInfo[]
-    const gameObjectIndex = libraryArray.findIndex(
+    if (res.error) {
+      errorMessage(res.error)
+    }
+
+    let gogInfo
+    try {
+      gogInfo = JSON.parse(res.stdout)
+    } catch (error) {
+      logError(['Error when parsing JSON file on getInstallInfo', error], {
+        prefix: LogPrefix.Gog
+      })
+      return
+    }
+    let libraryArray = libraryStore.get('games', []) as GameInfo[]
+    let gameObjectIndex = libraryArray.findIndex(
       (value) => value.app_name === appName
     )
+
+    if (gameObjectIndex === -1) {
+      await this.sync()
+      libraryArray = libraryStore.get('games', []) as GameInfo[]
+      gameObjectIndex = libraryArray.findIndex(
+        (value) => value.app_name === appName
+      )
+      if (gameObjectIndex === -1) {
+        logWarning(['getInstallInfo:', appName, 'not found in libraryStore'], {
+          prefix: LogPrefix.Gog
+        })
+        return
+      }
+    }
 
     if (
       !libraryArray[gameObjectIndex]?.gog_save_location &&
@@ -369,10 +410,10 @@ export class GOGLibrary {
       )
     }
 
-    libraryArray[gameObjectIndex].folder_name = gogInfo?.folder_name
+    libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
     libraryArray[gameObjectIndex].gog_save_location =
       gameData?.gog_save_location
-    gameData.folder_name = gogInfo?.folder_name
+    gameData.folder_name = gogInfo.folder_name
     libraryStore.set('games', libraryArray)
     this.library.set(appName, gameData)
     const info: GogInstallInfo = {
@@ -382,7 +423,7 @@ export class GOGLibrary {
         owned_dlc: gogInfo.dlcs,
         version: gogInfo.versionName,
         launch_options: [],
-        buildId: gogInfo.buildId
+        buildId: gogInfo!.buildId
       },
       manifest: {
         disk_size: Number(gogInfo.disk_size),
@@ -837,12 +878,14 @@ export class GOGLibrary {
  */
 export async function runGogdlCommand(
   commandParts: string[],
+  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getGOGdlBin()
   return callRunner(
     commandParts,
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
+    abortController,
     options
   )
 }

@@ -175,7 +175,7 @@ export class GlobalState extends PureComponent<Props> {
   setTheme = (newThemeName: string) => {
     configStore.set('theme', newThemeName)
     this.setState({ theme: newThemeName })
-    document.body.className = newThemeName
+    window.setTheme(newThemeName)
   }
 
   zoomTimer: NodeJS.Timeout | undefined = undefined
@@ -433,11 +433,11 @@ export class GlobalState extends PureComponent<Props> {
     })
     window.api.logInfo('Refreshing Library')
     try {
-      window.api.refreshLibrary(fullRefresh, library)
+      await window.api.refreshLibrary(fullRefresh, library)
+      return await this.refresh(library, checkForUpdates)
     } catch (error) {
       window.api.logError(`${error}`)
     }
-    this.refresh(library, checkForUpdates)
   }
 
   refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
@@ -493,10 +493,7 @@ export class GlobalState extends PureComponent<Props> {
     runner
   }: GameStatus) => {
     const { libraryStatus, gameUpdates } = this.state
-    const currentApp = libraryStatus.filter(
-      (game) => game.appName === appName
-    )[0]
-
+    const currentApp = libraryStatus.find((game) => game.appName === appName)
     // add app to libraryStatus if it was not present
     if (!currentApp) {
       return this.setState({
@@ -512,13 +509,23 @@ export class GlobalState extends PureComponent<Props> {
       return
     }
 
-    const newLibraryStatus = libraryStatus.filter(
-      (game) => game.appName !== appName
-    )
+    let newLibraryStatus = libraryStatus
+
+    if (status === 'installing') {
+      currentApp.status = 'installing'
+      // remove the item from the library to avoid duplicates then add the new status
+      newLibraryStatus = libraryStatus.filter(
+        (game) => game.appName !== appName
+      )
+      newLibraryStatus.push(currentApp)
+    }
 
     // if the app is done installing or errored
     if (['error', 'done'].includes(status)) {
       // if the app was updating, remove from the available game updates
+      newLibraryStatus = libraryStatus.filter(
+        (game) => game.appName !== appName
+      )
       if (currentApp.status === 'updating') {
         const updatedGamesUpdates = gameUpdates.filter(
           (game) => game !== appName

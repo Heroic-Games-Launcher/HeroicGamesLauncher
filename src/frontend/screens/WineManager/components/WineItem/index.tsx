@@ -142,7 +142,7 @@ const WineItem = ({
     if (isInstalled) {
       remove()
     } else if (isDownloading || unZipping) {
-      window.api.abortWineInstallation(version)
+      window.api.abort(version)
     } else {
       install()
     }

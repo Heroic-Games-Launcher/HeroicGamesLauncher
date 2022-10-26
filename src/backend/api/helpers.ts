@@ -24,6 +24,8 @@ export const quit = () => ipcRenderer.send('quit')
 export const showAboutWindow = () => ipcRenderer.send('showAboutWindow')
 export const openDiscordLink = () => ipcRenderer.send('openDiscordLink')
 export const openWinePrefixFAQ = () => ipcRenderer.send('openWinePrefixFAQ')
+export const openCustomThemesWiki = () =>
+  ipcRenderer.send('openCustomThemesWiki')
 export const createNewWindow = (url: string) =>
   ipcRenderer.send('createNewWindow', url)
 
@@ -44,6 +46,8 @@ export const writeConfig = async (data: {
 
 export const kill = async (appName: string, runner: Runner): Promise<void> =>
   ipcRenderer.invoke('kill', appName, runner)
+
+export const abort = (id: string) => ipcRenderer.send('abort', id)
 
 export const getUserInfo = async (): Promise<UserInfo | undefined> =>
   ipcRenderer.invoke('getUserInfo')
@@ -107,3 +111,9 @@ export const isNative = async (args: {
   appName: string
   runner: Runner
 }): Promise<boolean> => ipcRenderer.invoke('isNative', args)
+
+export const getThemeCSS = async (theme: string): Promise<string> =>
+  ipcRenderer.invoke('getThemeCSS', theme)
+
+export const getCustomThemes = async (): Promise<string[]> =>
+  ipcRenderer.invoke('getCustomThemes')

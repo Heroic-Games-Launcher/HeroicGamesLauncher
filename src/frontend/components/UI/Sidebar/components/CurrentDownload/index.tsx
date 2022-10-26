@@ -21,7 +21,7 @@ type Props = {
 export default function CurrentDownload({ appName, runner }: Props) {
   const [progress] = hasProgress(appName)
   const [gameTitle, setGameTitle] = useState('')
-  const { sidebarCollapsed } = useContext(ContextProvider)
+  const { sidebarCollapsed, libraryStatus } = useContext(ContextProvider)
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -47,9 +47,13 @@ export default function CurrentDownload({ appName, runner }: Props) {
       : t('status.installing', 'Installing')
   }
 
+  if (!libraryStatus.length) {
+    return null
+  }
+
   return (
     <>
-      <Link to={`gamepage/${runner}/${appName}`} className="currentDownload">
+      <Link to={`/download-manager`} className="currentDownload">
         {sidebarCollapsed && (
           <span className="statusIcon" title={`${getStatus()} - ${gameTitle}`}>
             <Badge

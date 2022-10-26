@@ -16,8 +16,9 @@ export default function InfoBox({ children, text }: Props) {
 
   /*
     keys to parse
-      t('infobox.help')
+      t('infobox.help', 'Help')
       t('infobox.requirements')
+      t('infobox.warning', 'Warning')
     */
 
   return (

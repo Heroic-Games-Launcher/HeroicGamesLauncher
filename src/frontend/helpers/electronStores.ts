@@ -1,6 +1,3 @@
-// const Store = window.require('electron-store')
-// import Store from 'electron-store'
-
 export class StoreIpc {
   storeName: string
 
@@ -57,6 +54,11 @@ const sideloadLibrary = new StoreIpc('sideloadedStore', {
   name: 'library'
 })
 
+const downloadManagerStore = new StoreIpc('download-manager', {
+  cwd: 'store',
+  name: 'download-manager'
+})
+
 export {
   configStore,
   gogLibraryStore,
@@ -65,5 +67,6 @@ export {
   libraryStore,
   timestampStore,
   sideloadLibrary,
-  wineDownloaderInfoStore
+  wineDownloaderInfoStore,
+  downloadManagerStore
 }

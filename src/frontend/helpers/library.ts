@@ -100,60 +100,35 @@ async function install({
 
   if (installPath !== 'default') {
     setInstallPath && setInstallPath(installPath)
-    // If the user changed the previous folder, the percentage should start from zero again.
-    if (previousProgress && previousProgress.folder !== installPath) {
-      storage.removeItem(appName)
-    }
-    handleGameStatus({
-      folder: installPath,
-      appName,
-      runner,
-      status: 'installing'
-    })
-    return window.api
-      .install({
-        appName,
-        path: installPath,
-        installDlcs,
-        sdlList,
-        installLanguage,
-        runner,
-        platformToInstall
-      })
-      .finally(() => {
-        if (progress.percent === 100) {
-          storage.removeItem(appName)
-        }
-        return
-      })
   }
 
-  // If the user changed the previous folder, the percentage should start from zero again.
-  let path = installPath
   if (installPath === 'default') {
     const { defaultInstallPath }: AppSettings =
       await window.api.requestAppSettings()
-    path = defaultInstallPath
+    installPath = defaultInstallPath
   }
-  if (previousProgress && previousProgress.folder !== path) {
+
+  // If the user changed the previous folder, the percentage should start from zero again.
+  if (previousProgress && previousProgress.folder !== installPath) {
     storage.removeItem(appName)
   }
 
-  return window.api
-    .install({
-      appName,
-      path: path,
-      installDlcs,
-      sdlList,
-      runner,
-      platformToInstall
-    })
-    .finally(() => {
-      if (progress.percent === 100) {
-        storage.removeItem(appName)
-      }
-      return
-    })
+  handleGameStatus({
+    appName,
+    runner,
+    status: 'queued',
+    folder: installPath
+  })
+
+  return window.api.install({
+    appName,
+    path: installPath,
+    installDlcs,
+    sdlList,
+    installLanguage,
+    runner,
+    platformToInstall
+  })
 }
 
 const importGame = window.api.importGame
