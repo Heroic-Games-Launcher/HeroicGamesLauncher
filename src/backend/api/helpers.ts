@@ -74,7 +74,9 @@ export const getInstallInfo = async (
 ): Promise<LegendaryInstallInfo | GogInstallInfo | null> =>
   ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
 
-export const runWineCommand = async (args: WineCommandArgs) =>
+export const runWineCommand = async (
+  args: WineCommandArgs
+): Promise<{ stdout: string; stderr: string }> =>
   ipcRenderer.invoke('runWineCommand', args)
 
 export const runWineCommandForGame = async (
@@ -101,5 +103,7 @@ export const connectivityChanged = async (
   newStatus: ConnectivityStatus
 ): Promise<void> => ipcRenderer.send('connectivity-changed', newStatus)
 
-export const isNative = async (args: { appName: string; runner: Runner }) =>
-  ipcRenderer.invoke('isNative', args) as Promise<boolean>
+export const isNative = async (args: {
+  appName: string
+  runner: Runner
+}): Promise<boolean> => ipcRenderer.invoke('isNative', args)

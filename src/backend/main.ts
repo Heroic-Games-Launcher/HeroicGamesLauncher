@@ -702,9 +702,13 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('runWineCommand', async (e, args: WineCommandArgs) => {
-  return runWineCommand(args)
-})
+ipcMain.handle(
+  'runWineCommand',
+  async (
+    e,
+    args: WineCommandArgs
+  ): Promise<{ stdout: string; stderr: string }> => runWineCommand(args)
+)
 
 /// IPC handlers begin here.
 
@@ -1699,7 +1703,10 @@ ipcMain.handle(
     removeApp(args)
 )
 
-ipcMain.handle('launchApp', async (e, appName: string) => launchApp(appName))
+ipcMain.handle(
+  'launchApp',
+  async (e, appName: string): Promise<boolean> => launchApp(appName)
+)
 
 ipcMain.handle(
   'isNative',

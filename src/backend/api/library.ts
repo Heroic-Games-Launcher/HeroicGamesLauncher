@@ -27,7 +27,7 @@ export const uninstall = async (
   if (runner === 'sideload') {
     return ipcRenderer.invoke('removeApp', { appName, shouldRemovePrefix })
   }
-  ipcRenderer.invoke('uninstall', appName, runner, shouldRemovePrefix)
+  return ipcRenderer.invoke('uninstall', appName, runner, shouldRemovePrefix)
 }
 
 export const repair = async (appName: string, runner: Runner): Promise<void> =>
@@ -76,8 +76,5 @@ export const handleRefreshLibrary = (
 export const addNewApp = (args: SideloadGame) =>
   ipcRenderer.send('addNewApp', args)
 
-export const removeApp = (appName: string) =>
-  ipcRenderer.send('removeApp', appName)
-
-export const launchApp = async (appName: string) =>
+export const launchApp = async (appName: string): Promise<boolean> =>
   ipcRenderer.invoke('launchApp', appName)
