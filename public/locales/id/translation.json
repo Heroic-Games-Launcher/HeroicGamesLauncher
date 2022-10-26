@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Galat",
@@ -171,6 +171,19 @@
         }
     },
     "docs": "Documentation",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena server Epic Games sedang luring!",
         "offline-notification-title": "luring"
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "FSR AMD membantu untuk meningkatkan framerate dengan meningkatkan resolusi yang lebih rendah dalam Mode Layar Penuh. Kualitas gambar meningkat dari 5 menjadi 1 dengan mengorbankan sedikit kinerja. Mengaktifkannya dapat meningkatkan kinerja.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK adalah lapisan translasi berbasis Vulkan untuk gim yang memakai DirectX 9, 10, dan 11. Mengaktifkannya dapat meningkatkan kompatibilitas. Mungkin dapat menyebabkan masalah terutama untuk gim dengan versi DirectX yang lebih lama.",
         "esync": "Esync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU yang intensif. Mengaktifkannya dapat meningkatkan kinerja.",
         "fsync": "Fsync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU intensif. Mengaktifkannya dapat meningkatkan kinerja pada kernel Linux yang didukung.",
@@ -224,7 +239,6 @@
         },
         "preferSystemLibs": "Versi Wine khusus (Wine-GE, Wine-Lutris) dikirimkan dengan dependensi pustakanya. Dengan mengaktifkan opsi ini, pustaka yang dikirimkan tersebut akan diabaikan dan Wine akan memuat pustaka sistem sebagai gantinya. Peringatan! Masalah dapat terjadi jika dependensi tidak terpenuhi.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "Resizable Bar NVIDIA membantu meningkatkan framerate dengan membuat CPU mengakses seluruh penyangga grafis. Mengaktifkannya dapat meningkatkan kinerja untuk gim berbasis Vulkan.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -248,12 +262,16 @@
             "stable": "Stable",
             "version": "Versi Heroic"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Pengaturan disimpan secara otomatis",
         "version": "Versi Wine"
     },
     "infobox": {
         "help": "Bantuan",
         "requirements": "Persyaratan Sistem",
+        "warning": "Warning",
         "wine-path": "Lokasi Wine",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -374,9 +392,11 @@
         "legendary-version": "Versi Legendary: ",
         "weblate": "Bantu kami untuk menerjemahkan Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Menggunakan GOGDL binary bawaan…",
         "alt-legendary-bin": "Menggunakan Legendary binary bawaan...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefiks di mana EGS dipasang",
         "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")"
     },
@@ -386,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Dimainkan Baru-Baru Ini",
     "search": "Cari Gim",
     "setting": {
@@ -401,6 +429,7 @@
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Lokasi Wine/Proton Khusus",
         "darktray": "Gunakan Ikon Baki Gelap",
         "default-install-path": "Lokasi Pemasangan Bawaan",
@@ -470,7 +499,6 @@
         "prefered_language": "Bahasa Pilihan (Kode Bahasa)",
         "preferSystemLibs": "Lebih memilih pustaka sistem",
         "primerun": "Gunakan Kartu Grafis untuk Rendering",
-        "resizableBar": "Aktifkan Resizable BAR (hanya untuk NVIDIA RTX 30xx saja)",
         "runexe": {
             "message": "Seret dan Jatuhkan Berkas di sini",
             "title": "Jalankan EXE di Prefiks"

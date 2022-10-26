@@ -1,0 +1,46 @@
+.gameListHeader {
+  padding-top: 1.5em;
+}
+
+.downloadManager
+  > .MuiTabs-root
+  > .MuiTabs-scroller
+  > .MuiTabs-flexContainer
+  > .MuiTab-root {
+  color: var(--text-default);
+}
+
+.downloadManager
+  > .MuiTabs-root
+  > .MuiTabs-scroller
+  > .MuiTabs-flexContainer
+  > .Mui-selected {
+  color: var(--accent);
+}
+
+.downloadManager > .MuiTabs-root > .MuiTabs-scroller > .MuiTabs-indicator {
+  background-color: var(--accent);
+}
+
+.downloadManager {
+  padding: 0;
+  margin: 0;
+}
+
+.downloadManagerCurrentSectionTitle {
+  margin: 0px 0px 0px 0px;
+  text-align: initial;
+  padding-left: 30px;
+}
+
+.downloadManagerQueuedSectionTitle {
+  margin: 30px 0px 0px 0px;
+  text-align: initial;
+  padding-left: 30px;
+}
+
+.dmItemList {
+  border: solid 2px var(--text-default);
+  border-radius: 6px;
+  margin: var(--space-3xs) var(--space-lg);
+}

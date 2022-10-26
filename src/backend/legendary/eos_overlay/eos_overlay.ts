@@ -1,4 +1,8 @@
-import { ChildProcess } from 'child_process'
+import {
+  callAbortController,
+  createAbortController,
+  deleteAbortController
+} from '../../utils/aborthandler/aborthandler'
 import { dialog } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { t } from 'i18next'
@@ -8,12 +12,13 @@ import { heroicToolsPath, isLinux, legendaryConfigPath } from '../../constants'
 import { logError, LogPrefix, logWarning } from '../../logger/logger'
 import { runLegendaryCommand } from '../library'
 import { LegendaryGame } from '../games'
-import { getGame, killPattern } from '../../utils'
+import { getGame } from '../../utils'
 import { verifyWinePrefix } from '../../launcher'
 
 const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
 const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
 const defaultInstallPath = join(heroicToolsPath, 'eos_overlay')
+const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
 function getStatus(): {
   isInstalled: boolean
@@ -65,9 +70,16 @@ async function updateInfo() {
   if (!isInstalled()) {
     return
   }
-  await runLegendaryCommand(['status'], {
-    logMessagePrefix: 'Updating EOS Overlay information'
-  })
+
+  await runLegendaryCommand(
+    ['status'],
+    createAbortController(eosOverlayAppName),
+    {
+      logMessagePrefix: 'Updating EOS Overlay information'
+    }
+  )
+
+  deleteAbortController(eosOverlayAppName)
 }
 
 /**
@@ -75,29 +87,35 @@ async function updateInfo() {
  * @returns The error encountered when installing, if any
  */
 async function install() {
-  const game = LegendaryGame.get('98bc04bc842e4906993fd6d6644ffb8d')
+  const game = LegendaryGame.get(eosOverlayAppName)
   let downloadSize = 0
   // Run download without -y to get the install size
   await runLegendaryCommand(
     ['eos-overlay', 'install', '--path', defaultInstallPath],
+    createAbortController(eosOverlayAppName),
     {
       logMessagePrefix: 'Getting EOS Overlay install size',
-      onOutput: (output: string, child: ChildProcess) => {
+      onOutput: (output: string) => {
         const downloadMatch = output.match(/Download size: ([\d.]+) MiB/)
         if (downloadMatch) {
           downloadSize = parseFloat(downloadMatch[1])
           // Output is in MiB, we want it in bytes
           downloadSize = downloadSize * 1024 ** 2
-          child.kill('SIGINT')
+          callAbortController(eosOverlayAppName)
         }
       }
     }
   )
+
+  deleteAbortController(eosOverlayAppName)
+
   // The EOS Overlay doesn't support Ctrl-C-pausing, so it's fine to just do this
   game.currentDownloadSize = downloadSize
+
   // And now actually install it
   const { error } = await runLegendaryCommand(
     ['-y', 'eos-overlay', 'install', '--path', defaultInstallPath],
+    createAbortController(eosOverlayAppName),
     {
       logMessagePrefix: 'Installing EOS Overlay',
       onOutput: (output: string) => {
@@ -105,6 +123,9 @@ async function install() {
       }
     }
   )
+
+  deleteAbortController(eosOverlayAppName)
+
   return error
 }
 
@@ -128,12 +149,15 @@ async function remove(): Promise<boolean> {
   if (response === 1) {
     return false
   }
-  await runLegendaryCommand(['-y', 'eos-overlay', 'remove'])
-  return true
-}
 
-function cancelInstallOrUpdate() {
-  killPattern('eos-overlay install')
+  await runLegendaryCommand(
+    ['-y', 'eos-overlay', 'remove'],
+    createAbortController(eosOverlayAppName)
+  )
+
+  deleteAbortController(eosOverlayAppName)
+
+  return true
 }
 
 async function enable(
@@ -142,7 +166,8 @@ async function enable(
   let prefix = ''
   if (isLinux) {
     const game = getGame(appName, 'legendary')
-    await verifyWinePrefix(game)
+    const gameSettings = await game.getSettings()
+    await verifyWinePrefix(gameSettings, game)
     const { winePrefix, wineVersion } = await game.getSettings()
     prefix =
       wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
@@ -159,10 +184,15 @@ async function enable(
     // Installing the overlay requires some frontend work, so we can't just do it in the backend alone
     return { wasEnabled: false, installNow: response === 0 }
   }
+
   await runLegendaryCommand(
     ['eos-overlay', 'enable', ...(prefix ? ['--prefix', prefix] : [])],
+    createAbortController(eosOverlayAppName),
     { logMessagePrefix: 'Enabling EOS Overlay' }
   )
+
+  deleteAbortController(eosOverlayAppName)
+
   return { wasEnabled: true }
 }
 
@@ -177,8 +207,11 @@ async function disable(appName: string) {
 
   await runLegendaryCommand(
     ['eos-overlay', 'disable', ...(prefix ? ['--prefix', prefix] : [])],
+    createAbortController(eosOverlayAppName),
     { logMessagePrefix: 'Disabling EOS Overlay' }
   )
+
+  deleteAbortController(eosOverlayAppName)
 }
 
 function isInstalled() {
@@ -203,16 +236,19 @@ async function isEnabled(appName?: string) {
 
   await runLegendaryCommand(
     ['eos-overlay', 'info', ...(prefix ? ['--prefix', prefix] : [])],
+    createAbortController(eosOverlayAppName),
     {
-      onOutput: (data: string, child: ChildProcess) => {
+      onOutput: (data: string) => {
         if (data.includes('Overlay enabled')) {
           enabled = data.includes('Yes')
-          child.kill()
+          callAbortController(eosOverlayAppName)
         }
       },
       logMessagePrefix: 'Checking if EOS Overlay is enabled'
     }
   )
+
+  deleteAbortController(eosOverlayAppName)
   return enabled
 }
 
@@ -222,7 +258,6 @@ export {
   updateInfo,
   install,
   remove,
-  cancelInstallOrUpdate,
   enable,
   disable,
   isEnabled

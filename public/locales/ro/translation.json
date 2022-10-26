@@ -171,6 +171,19 @@
         }
     },
     "docs": "Documentație",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Este posibil ca serviciile online să nu funcționeze complet, deoarece serverele Epic Games sunt offline!",
         "offline-notification-title": "deconectat"
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "FSR de la AMD ajută la creșterea ratei de cadre prin creșterea rezoluțiilor mai mici în modul Ecran complet. Calitatea imaginii crește de la 5 la 1 cu prețul unei ușoare atingeri de performanță. Activarea poate îmbunătăți performanța.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK este un strat translațional bazat pe Vulkan pentru jocurile DirectX 9, 10 și 11. Activarea poate îmbunătăți compatibilitatea. Poate cauza probleme în special pentru jocurile DirectX mai vechi.",
         "esync": "Esync își propune să reducă supraîncărcarea serverului de vin în jocurile care necesită un proces intensiv. Activarea poate îmbunătăți performanța.",
         "fsync": "Fsync își propune să reducă supraîncărcarea serverului de vin în jocurile care necesită un proces intensiv. Activarea poate îmbunătăți performanța pe nucleele Linux acceptate.",
@@ -224,7 +239,6 @@
         },
         "preferSystemLibs": "Versiunile personalizate de vin (Wine-GE, Wine-Lutris) sunt livrate cu dependențele lor de bibliotecă. Prin activarea acestei opțiuni, aceste biblioteci livrate vor fi ignorate și Wine va încărca biblioteci de sistem. Avertizare! Pot apărea probleme dacă dependențele nu sunt îndeplinite.",
         "primerun": "Utilizați placa grafică dedicată pentru a reda jocul pe sisteme multi-GPU. Este necesar doar pe laptop-uri sau desktop-uri de jocuri care utilizează un GPU fără cap pentru randare (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "Bara resizable de la NVIDIA ajută la creșterea ratei de cadre, făcând ca procesorul să acceseze întregul buffer grafic. Activarea poate îmbunătăți performanța pentru jocurile bazate pe Vulkan.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -248,12 +262,16 @@
             "stable": "Grajd",
             "version": "Versiune eroică"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Setările sunt salvate automat",
         "version": "Versiune Wine"
     },
     "infobox": {
         "help": "Ajutor",
         "requirements": "Cerințe de sistem",
+        "warning": "Warning",
         "wine-path": "Calea Vinului",
         "wine-prefix": {
             "title": "Prefix de vin"
@@ -374,9 +392,11 @@
         "legendary-version": "Versiune Legendary: ",
         "weblate": "Ajută la traducerea Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Se utilizează binarul GOGDL încorporat...",
         "alt-legendary-bin": "Folosind binarul Legendary încorporat...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefixul unde este instalat EGS",
         "prefered_language": "Cod de 2 caractere (adică: „en” sau „fr”)"
     },
@@ -386,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Progres",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Jocuri Recente",
     "search": "Introdu numele jocului aici...",
     "setting": {
@@ -401,6 +429,7 @@
         "change-target-exe": "Selectați un EXE alternativ pentru a rula",
         "checkForUpdatesOnStartup": "Verificare pentru actualizări la pornire",
         "crossover-version": "Versiune crossover",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Căi personalizate pentru Wine/Proton",
         "darktray": "Utilizați Tray Icon întunecat",
         "default-install-path": "Calea de instalare implicită",
@@ -470,7 +499,6 @@
         "prefered_language": "Limba preferată (Codul de limbă)",
         "preferSystemLibs": "Preferați bibliotecile de sistem",
         "primerun": "Activați Nvidia Prime Render",
-        "resizableBar": "Activați BAR redimensionabil (numai pentru NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Trageți și plasați fișiere aici",
             "title": "Rulați EXE pe Prefix"

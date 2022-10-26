@@ -13,6 +13,7 @@ import { UpdateComponentBase } from './components/UI/UpdateComponent'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
 import { initOnlineMonitor } from './helpers/onlineMonitor'
+import { defaultThemes } from './components/UI/ThemeSelector'
 
 initOnlineMonitor()
 
@@ -96,9 +97,6 @@ i18next
     ]
   })
 
-const themeClass = (configStore.get('theme') as string) || 'default'
-document.body.className = themeClass
-
 ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
@@ -111,6 +109,30 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 )
+
+// helper function to set the theme class and load custom css if needed
+window.setTheme = async (themeClass: string) => {
+  document.querySelector('style.customTheme')?.remove()
+
+  if (
+    themeClass !== 'default' &&
+    !Object.keys(defaultThemes).includes(themeClass)
+  ) {
+    const cssContent = await window.api.getThemeCSS(themeClass)
+    themeClass = themeClass
+      .replace('.css', '') // remove extension
+      .replace(/[\s.]/, '_') // remove dots and empty spaces
+    const style = document.createElement('style')
+    style.classList.add('customTheme')
+    style.innerHTML = cssContent
+    document.body.insertAdjacentElement('afterbegin', style)
+  }
+
+  document.body.className = themeClass
+}
+
+const themeClass = (configStore.get('theme') as string) || 'default'
+window.setTheme(themeClass)
 
 // helper function to generate images for steam
 // image is centered, sides are padded with blurred image

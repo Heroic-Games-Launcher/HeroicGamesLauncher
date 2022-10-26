@@ -18,13 +18,14 @@ function fixFilter(text: string) {
 }
 
 export default function SearchBar() {
-  const { handleSearch, filterText, epic, gog } = useContext(ContextProvider)
+  const { handleSearch, filterText, epic, gog, sideloadedLibrary } =
+    useContext(ContextProvider)
   const { t } = useTranslation()
   const input = useRef<HTMLInputElement>(null)
 
   const list = useMemo(() => {
     const library = new Set(
-      [...epic.library, ...gog.library]
+      [...epic.library, ...gog.library, ...sideloadedLibrary]
         .filter(Boolean)
         .map((g) => g.title)
         .sort()

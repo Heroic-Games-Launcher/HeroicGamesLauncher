@@ -17,6 +17,15 @@
             "message": "Vuoi provare a riparare questo gioco? Potrebbe richiedere molto tempo.",
             "title": "Verifica e ripara"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Continua l'installazione",
             "message": "Desideri tenere i files scaricati?",
@@ -38,11 +47,22 @@
         "add_to_favourites": "Aggiungi Ai Preferiti",
         "cancel": "Pausa/Annulla",
         "continue": "Continua Download",
+        "finish": "Finish",
         "force_update": "Forza aggiornamento se disponibile",
+        "force-innstall": "Force Install",
         "hide_game": "Nascondi Gioco",
         "import": "Importa gioco",
         "install": "Installa",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Rimuovi Dai Preferiti",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Mostra gioco",
         "uninstall": "Disinstalla",
         "update": "Update"
@@ -56,6 +76,8 @@
     "game": {
         "downloadSize": "Dimensione del download",
         "firstPlayed": "Giocato per la prima volta",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Dimensione dell'installazione",
         "language": "Lingua",
         "lastPlayed": "Giocato recentemente",
@@ -100,9 +122,36 @@
     "launch": {
         "options": "Opzioni di avvio..."
     },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Segnala un problema nell'esecuzione di questo gioco",
     "sdl": {
         "title": "Seleziona i componenti da installare"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Minime",
@@ -116,6 +165,7 @@
         "moving": "Spostamento dell'installazione in corso, per favore attendi",
         "notinstalled": "Questo gioco non è installato",
         "processing": "File in elaborazione, attendere",
+        "queued": "Queued",
         "reparing": "Riparazione del gioco in corso, per favore attendi",
         "totalDownloaded": "Totale scaricato",
         "updating": "Aggiornamento in corso"
