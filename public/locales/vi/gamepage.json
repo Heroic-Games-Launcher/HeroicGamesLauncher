@@ -54,6 +54,9 @@
         "import": "Import Game",
         "install": "Cài đặt",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Xóa khỏi mục ưa thích",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
@@ -125,6 +128,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Báo cáo sự cố khi chạy game này",
     "sdl": {
         "title": "Chọn các thành phần cần cài"
@@ -155,6 +165,7 @@
         "moving": "Đang chuyển, vui lòng đợi",
         "notinstalled": "Game chưa được cài",
         "processing": "Đang xử lý tệp, vui lòng đợi",
+        "queued": "Queued",
         "reparing": "Đang sửa game, vui lòng đợi",
         "totalDownloaded": "Tổng số đã tải",
         "updating": "Đang cập nhật Game"

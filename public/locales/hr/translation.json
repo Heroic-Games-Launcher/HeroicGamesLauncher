@@ -171,6 +171,19 @@
         }
     },
     "docs": "Documentation",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Heroic vjerojatno neče raditi zato što EpicGames serveri su ugašeni!",
         "offline-notification-title": "offline"
@@ -393,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Played Recently",
     "search": "Traži igre",
     "setting": {

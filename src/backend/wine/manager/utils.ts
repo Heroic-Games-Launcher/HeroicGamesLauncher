@@ -129,8 +129,8 @@ async function installWineVersion(
       type: release.type
     }
   } catch (error) {
-    if (error instanceof Error && error.name.includes('AbortError')) {
-      logWarning(`${error.message}`, { prefix: LogPrefix.WineDownloader })
+    if (abortSignal.aborted) {
+      logWarning(error, { prefix: LogPrefix.WineDownloader })
       return 'abort'
     } else {
       logError(error, { prefix: LogPrefix.WineDownloader })

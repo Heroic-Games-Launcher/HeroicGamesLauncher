@@ -55,6 +55,9 @@
         "import": "İdxal Oyunu",
         "install": "Yüklemek",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Sevimlilərdən Sil",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
@@ -126,6 +129,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Bu oyunu idarə edən problemi bildirin",
     "sdl": {
         "title": "Quraşdırılacaq komponentləri seçin"
@@ -156,6 +166,7 @@
         "moving": "Quraşdırma köçürülür, zəhmət olmasa gözləyin",
         "notinstalled": "Bu oyun quraşdırılmayıb",
         "processing": "Fayllar emal olunur, gözləyin",
+        "queued": "Queued",
         "reparing": "Oyun Təmir edilir, zəhmət olmasa gözləyin",
         "totalDownloaded": "Toplam Endirilib",
         "updating": "Oyun Yenilənir"

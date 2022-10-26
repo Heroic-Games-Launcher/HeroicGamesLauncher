@@ -54,6 +54,9 @@
         "import": "導入",
         "install": "安裝",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "自我的最愛移除",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
@@ -125,6 +128,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "回報執行此遊戲時出現的問題",
     "sdl": {
         "title": "選擇要安裝的元件"
@@ -155,6 +165,7 @@
         "moving": "正在移動，請稍等",
         "notinstalled": "未安裝此遊戲",
         "processing": "檔案處理中，請等待",
+        "queued": "Queued",
         "reparing": "遊戲修復中，請稍等",
         "totalDownloaded": "總共已下載",
         "updating": "遊戲更新中"

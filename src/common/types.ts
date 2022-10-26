@@ -1,6 +1,5 @@
 import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform } from './types/legendary'
-import { ChildProcess } from 'child_process'
 import { VersionInfo } from 'heroic-wine-downloader'
 import { IpcRendererEvent } from 'electron'
 
@@ -115,6 +114,7 @@ export type ExecResult = {
   stdout: string
   fullCommand?: string
   error?: string
+  abort?: boolean
 }
 
 export interface ExtraInfo {
@@ -200,6 +200,8 @@ export interface InstallProgress {
   eta: string
   folder?: string
   percent: number
+  downSpeed?: number
+  diskSpeed?: number
 }
 export interface InstalledInfo {
   executable: string
@@ -362,7 +364,7 @@ export interface CallRunnerOptions {
   logFile?: string
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
-  onOutput?: (output: string, child: ChildProcess) => void
+  onOutput?: (output: string) => void
 }
 
 export interface EnviromentVariable {
@@ -496,6 +498,11 @@ export interface Tools {
   tool: string
   appName: string
   runner: Runner
+}
+
+export interface DMQueueElement {
+  params: InstallParams
+  status?: 'done' | 'error' | 'abort'
 }
 
 export type WineCommandArgs = {

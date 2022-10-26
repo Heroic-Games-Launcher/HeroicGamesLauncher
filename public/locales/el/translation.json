@@ -171,6 +171,19 @@
         }
     },
     "docs": "Documentation",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Οι διαδικτυακές υπηρεσίες πιθανό να μη λειτουργούν πλήρως καθώς οι διακομιστές Epic Games ειναι εκτός σύνδεσης!",
         "offline-notification-title": "Εκτός Σύνδεσης"
@@ -393,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Παίχτηκε Πρόσφατα",
     "search": "Αναζήτηση για Παιχνίδια",
     "setting": {

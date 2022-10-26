@@ -171,6 +171,19 @@
         }
     },
     "docs": "Documentation",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Verkkopalvelut eivät välttämättä toimi kokonaisuudessaan Epic Games:in palvelinten ollessa vailla verkkoyhteyttä!",
         "offline-notification-title": "offline"
@@ -393,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Viimeksi pelatut",
     "search": "Kirjoita tähän pelin nimi...",
     "setting": {

@@ -11,7 +11,7 @@ export const hasProgress = (appName: string) => {
   const [progress, setProgress] = useState(
     previousProgress ??
       ({
-        bytes: '0.00MiB',
+        bytes: '0.00MB',
         eta: '00:00:00',
         percent: 0
       } as InstallProgress)
@@ -48,7 +48,7 @@ export const hasProgress = (appName: string) => {
     return () => {
       setGameStatusRemoveListener()
     }
-  }, [])
+  }, [appName])
 
   return [progress, previousProgress]
 }

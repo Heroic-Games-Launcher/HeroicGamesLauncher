@@ -54,6 +54,9 @@
         "import": "Внасяне на игра",
         "install": "Инсталиране",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Премахване от любимите",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
@@ -125,6 +128,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Докладване за проблем с пускането на тази игра",
     "sdl": {
         "title": "Изберете компоненти за инсталиране"
@@ -155,6 +165,7 @@
         "moving": "Преместване на играта; моля, изчакайте",
         "notinstalled": "Играта не е инсталирана",
         "processing": "Файловете се обработват, изчакайте",
+        "queued": "Queued",
         "reparing": "Поправяне на играта; моля, изчакайте",
         "totalDownloaded": "Общо свалено",
         "updating": "Обновяване на играта"

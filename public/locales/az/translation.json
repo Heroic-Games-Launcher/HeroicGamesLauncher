@@ -171,6 +171,19 @@
         }
     },
     "docs": "Sənədlər",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Epic Games serverləri oflayn olduğu üçün onlayn xidmətlər tam işləməyə bilər!",
         "offline-notification-title": "oflayn"
@@ -393,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Tərəqqi",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Bu yaxınlarda oynanılıb",
     "search": "Oyunlar axtarın",
     "setting": {

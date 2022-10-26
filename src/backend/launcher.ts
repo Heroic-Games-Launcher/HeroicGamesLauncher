@@ -598,7 +598,7 @@ async function runWineCommand({
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString(), child)
+        options.onOutput(data.toString())
       }
 
       stdout.push(data.toString().trim())
@@ -610,7 +610,7 @@ async function runWineCommand({
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString(), child)
+        options.onOutput(data.toString())
       }
 
       stderr.push(data.toString().trim())
@@ -639,6 +639,7 @@ interface RunnerProps {
 async function callRunner(
   commandParts: string[],
   runner: RunnerProps,
+  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const fullRunnerPath = join(runner.dir, runner.bin)
@@ -684,34 +685,37 @@ async function callRunner(
   return new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
-      env: { ...process.env, ...options?.env }
+      env: { ...process.env, ...options?.env },
+      signal: abortController.signal
     })
 
     const stdout: string[] = []
     const stderr: string[] = []
 
-    child.stdout.on('data', (data: Buffer) => {
+    child.stdout.setEncoding('utf-8')
+    child.stdout.on('data', (data: string) => {
       if (options?.logFile) {
-        appendFileSync(options.logFile, data.toString())
+        appendFileSync(options.logFile, data)
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString(), child)
+        options.onOutput(data)
       }
 
-      stdout.push(data.toString().trim())
+      stdout.push(data.trim())
     })
 
-    child.stderr.on('data', (data: Buffer) => {
+    child.stderr.setEncoding('utf-8')
+    child.stderr.on('data', (data: string) => {
       if (options?.logFile) {
-        appendFileSync(options.logFile, data.toString())
+        appendFileSync(options.logFile, data)
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString(), child)
+        options.onOutput(data)
       }
 
-      stderr.push(data.toString().trim())
+      stderr.push(data.trim())
     })
 
     child.on('close', (code, signal) => {
@@ -740,6 +744,19 @@ async function callRunner(
       return { stdout, stderr, fullCommand: safeCommand }
     })
     .catch((error) => {
+      if (abortController.signal.aborted) {
+        logInfo(['Abort command', `"${safeCommand}"`], {
+          prefix: runner.logPrefix
+        })
+
+        return {
+          stdout: '',
+          stderr: '',
+          fullCommand: safeCommand,
+          abort: true
+        }
+      }
+
       errorHandler({
         error: `${error}`,
         logPath: options?.logFile,

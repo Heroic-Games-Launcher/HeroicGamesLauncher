@@ -55,6 +55,9 @@
         "import": "Importă Jocul",
         "install": "Instalează",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Eliminați din Favorite",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
@@ -126,6 +129,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Raportați o problemă la rularea acestui joc",
     "sdl": {
         "title": "Selectați componentele de instalat"
@@ -156,6 +166,7 @@
         "moving": "Se mută instalarea, așteptați",
         "notinstalled": "Acest joc nu este instalat",
         "processing": "Se procesează fișierele, așteptați",
+        "queued": "Queued",
         "reparing": "Reparare joc, vă rugăm așteptați",
         "totalDownloaded": "Descărcat total",
         "updating": "Joc in curs de actualizare"

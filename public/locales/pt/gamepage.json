@@ -54,6 +54,9 @@
         "import": "Importar Jogo",
         "install": "Instalar",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remove From Favourites",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
@@ -125,6 +128,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Selecione os componentes para instalar"
@@ -155,6 +165,7 @@
         "moving": "Movendo Jogo, por favor espere",
         "notinstalled": "Jogo não instalado",
         "processing": "Processing files, please wait",
+        "queued": "Queued",
         "reparing": "Reparando jogo, por favor espere",
         "totalDownloaded": "Total Baixado",
         "updating": "Atualizando jogo"

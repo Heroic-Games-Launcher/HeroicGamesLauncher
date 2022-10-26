@@ -54,6 +54,9 @@
         "import": "وارد کردن بازی",
         "install": "نصب",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "حذف کردن از مورد علاقه ها",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
@@ -125,6 +128,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "گزارش مشکل اجرای این بازی",
     "sdl": {
         "title": "انتخاب محتواها برای نصب"
@@ -155,6 +165,7 @@
         "moving": "در حال انتقال نصب، لطفا صبر کنید",
         "notinstalled": "این بازی نصب نشده است",
         "processing": "در حال پردازش فایلها، لطفا منتظر بمانید",
+        "queued": "Queued",
         "reparing": "در حال تعمیر بازی، لطفا صبر کنید",
         "totalDownloaded": "حجم کل دانلود شده",
         "updating": "در حال به روزرسانی بازی"

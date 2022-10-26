@@ -1,3 +1,7 @@
+import {
+  createAbortController,
+  deleteAbortController
+} from '../utils/aborthandler/aborthandler'
 import { existsSync, readFileSync, readdirSync } from 'graceful-fs'
 
 import {
@@ -99,7 +103,13 @@ export class LegendaryLibrary {
       return { stderr: 'Epic offline, unable to update game list', stdout: '' }
     }
 
-    const res = await runLegendaryCommand(['list'])
+    const abortID = 'legendary-refresh'
+    const res = await runLegendaryCommand(
+      ['list'],
+      createAbortController(abortID)
+    )
+
+    deleteAbortController(abortID)
 
     if (res.error) {
       logError(['Failed to refresh library:', res.error], {
@@ -205,13 +215,18 @@ export class LegendaryLibrary {
     logInfo(`Getting more details with 'legendary info'`, {
       prefix: LogPrefix.Legendary
     })
-    const res = await runLegendaryCommand([
-      'info',
-      appName,
-      ...(installPlatform ? ['--platform', installPlatform] : []),
-      '--json',
-      (await isEpicServiceOffline()) ? '--offline' : ''
-    ])
+    const res = await runLegendaryCommand(
+      [
+        'info',
+        appName,
+        ...(installPlatform ? ['--platform', installPlatform] : []),
+        '--json',
+        (await isEpicServiceOffline()) ? '--offline' : ''
+      ],
+      createAbortController(appName)
+    )
+
+    deleteAbortController(appName)
 
     if (res.error) {
       logError(['Failed to get more details:', res.error], {
@@ -247,9 +262,20 @@ export class LegendaryLibrary {
       return []
     }
 
-    const res = await runLegendaryCommand(['list'], {
-      logMessagePrefix: 'Checking for game updates'
-    })
+    const abortID = 'legendary-check-updates'
+    const res = await runLegendaryCommand(
+      ['list'],
+      createAbortController(abortID),
+      {
+        logMessagePrefix: 'Checking for game updates'
+      }
+    )
+
+    deleteAbortController(abortID)
+
+    if (res.abort) {
+      return []
+    }
 
     if (res.error) {
       logError(['Failed to check for game updates:', res.error], {
@@ -382,12 +408,13 @@ export class LegendaryLibrary {
     // @ts-expect-error Same as above
     this.installedGames.get(appName).install_path = newPath
 
-    const { error } = await runLegendaryCommand([
-      'move',
-      appName,
-      newPath,
-      '--skip-move'
-    ])
+    const { error } = await runLegendaryCommand(
+      ['move', appName, newPath, '--skip-move'],
+      createAbortController(appName)
+    )
+
+    deleteAbortController(appName)
+
     if (error) {
       logError(['Failed to set install path for', `${appName}:`, error], {
         prefix: LogPrefix.Legendary
@@ -561,12 +588,14 @@ export class LegendaryLibrary {
 
 export async function runLegendaryCommand(
   commandParts: string[],
+  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getLegendaryBin()
   return callRunner(
     commandParts,
     { name: 'legendary', logPrefix: LogPrefix.Legendary, bin, dir },
+    abortController,
     options
   )
 }
