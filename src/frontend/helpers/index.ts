@@ -32,6 +32,8 @@ const openAboutWindow = window.api.showAboutWindow
 
 const openDiscordLink = window.api.openDiscordLink
 
+const openCustomThemesWiki = window.api.openCustomThemesWiki
+
 export const size = fileSize.partial({ base: 2 })
 
 let progress: string
@@ -287,6 +289,7 @@ export {
   notify,
   openAboutWindow,
   openDiscordLink,
+  openCustomThemesWiki,
   progress,
   repair,
   removeSpecialcharacters,

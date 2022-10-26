@@ -205,6 +205,8 @@
     },
     "help": {
         "amdfsr": "Το FSR της AMD συμβάλλει στην ενίσχυση του ρυθμού καρέ αναβαθμίζοντας χαμηλότερες αναλύσεις σε λειτουργία πλήρους οθόνης. Η ποιότητα της εικόνας αυξάνεται από 5 σε 1 με το κόστος μιας μικρής μείωσης της απόδοσης. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "Το DXVK είναι ένα πρόγραμμα μετάφρασης που βασίζεται σε Vulkan για παιχνίδια DirectX 9, 10 και 11. Η ενεργοποίηση μπορεί να βελτιώσει τη συμβατότητα. Μπορεί να προκαλέσει προβλήματα ειδικά για παλαιότερα παιχνίδια DirectX.",
         "esync": "Το Esync στοχεύει να μειώσει το κόστος του wineserver σε παιχνίδια που χρησιμοποιούν εντατικά τη CPU. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση.",
         "fsync": "Το Fsync στοχεύει να μειώσει το κόστος του wineserver σε παιχνίδια που χρησιμοποιούν εντατικά τη CPU. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση σε υποστηριζόμενους πυρήνες Linux.",
@@ -256,6 +258,7 @@
     "infobox": {
         "help": "Βοήθεια",
         "requirements": "Απαιτήσεις Συστήματος",
+        "warning": "Warning",
         "wine-path": "Διαδρομή Wine",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -380,6 +383,7 @@
     "placeholder": {
         "alt-gogdl-bin": "Χρήση ενσωματωμένου δυαδικού αρχείου GOGDL...",
         "alt-legendary-bin": "Χρήση ενσωματωμένου δυαδικού αρχείου Legendary...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Πρόθημα διαδρομής εγκατάστασης EGS",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
@@ -404,6 +408,7 @@
         "change-target-exe": "Επιλέξτε ένα εναλλακτικό αρχείο EXE προς εκτέλεση",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου",
         "default-install-path": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",

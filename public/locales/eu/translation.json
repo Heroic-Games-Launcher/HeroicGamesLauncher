@@ -205,6 +205,8 @@
     },
     "help": {
         "amdfsr": "AMD-ren FSR-k fotograma-tasa areagotzen laguntzen du pantaila osoko moduan bereizmen baxuagoak igoz. Irudiaren kalitatea 5etik 1era igotzen da errendimendu txiki baten truke. Gaitzeak errendimendua hobetu dezake.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK DirectX 9, 10 eta 11 jokoetarako Vulkan-en oinarritutako translazio-geruza da. Gaitzeak bateragarritasuna hobetu dezake. Arazoak sor ditzake bereziki DirectX joko zaharretan.",
         "esync": "Esync-ek ardo-zerbitzariaren gainkostua murriztea du helburu PUZa duten jokoetan. Gaitzeak errendimendua hobe dezake.",
         "fsync": "Fsync-ek ardo-zerbitzariaren gainkostua murriztea du helburu PUZa duten jokoetan. Gaitzeak errendimendua hobetu dezake onartzen diren Linux nukleoetan.",
@@ -256,6 +258,7 @@
     "infobox": {
         "help": "Laguntza",
         "requirements": "Sistemaren eskakizunak",
+        "warning": "Warning",
         "wine-path": "Ardoaren Bidea",
         "wine-prefix": {
             "title": "Ardoaren aurrizkia"
@@ -380,6 +383,7 @@
     "placeholder": {
         "alt-gogdl-bin": "GOGDL bitarra integratua erabiltzen...",
         "alt-legendary-bin": "Kondairazko bitar integratua erabiltzen...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "EGS instalatuta dagoen aurrizkia",
         "prefered_language": "2 karaktere kodea (hau da: \"en\" edo \"fr\")"
     },
@@ -404,6 +408,7 @@
         "change-target-exe": "Hautatu exekutatzeko EXE alternatibo bat",
         "checkForUpdatesOnStartup": "Hasieran eguneraketak bilatu",
         "crossover-version": "Crossover bertsioa",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Ardo/Protoien bideak pertsonalizatuak",
         "darktray": "Erabili erretilu iluna ikonoa",
         "default-install-path": "Instalazio-bide lehenetsia",

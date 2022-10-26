@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactNode } from 'react'
+import React, { ChangeEvent, FocusEvent, ReactNode } from 'react'
 import TextInputField from '../TextInputField'
 import SvgButton from '../SvgButton'
 
@@ -13,6 +13,7 @@ interface TextInputWithIconFieldProps {
   placeholder?: string
   disabled?: boolean
   extraClass?: string
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void
 }
 
 const TextInputWithIconField = (props: TextInputWithIconFieldProps) => {

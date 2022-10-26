@@ -41,7 +41,9 @@ import {
   unlinkSync,
   watch,
   realpathSync,
-  writeFileSync
+  writeFileSync,
+  readdirSync,
+  readFileSync
 } from 'graceful-fs'
 
 import Backend from 'i18next-fs-backend'
@@ -104,7 +106,8 @@ import {
   isCLINoGui,
   isFlatpak,
   publicDir,
-  wineprefixFAQ
+  wineprefixFAQ,
+  customThemesWikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -632,6 +635,9 @@ ipcMain.on('openWinePrefixFAQ', async () => openUrlOrFile(wineprefixFAQ))
 ipcMain.on('openWebviewPage', async (event, url) => openUrlOrFile(url))
 ipcMain.on('openWikiLink', async () => openUrlOrFile(wikiLink))
 ipcMain.on('openSidInfoPage', async () => openUrlOrFile(sidInfoUrl))
+ipcMain.on('openCustomThemesWiki', async () =>
+  openUrlOrFile(customThemesWikiLink)
+)
 ipcMain.on('showConfigFileInFolder', async (event, appName) => {
   if (appName === 'default') {
     return openUrlOrFile(heroicConfigPath)
@@ -1596,6 +1602,30 @@ ipcMain.handle('clipboardReadText', () => {
 
 ipcMain.on('clipboardWriteText', (event, text) => {
   return clipboard.writeText(text)
+})
+
+ipcMain.handle('getCustomThemes', async () => {
+  const { customThemesPath } = await GlobalConfig.get().getSettings()
+
+  if (!existsSync(customThemesPath)) {
+    return []
+  }
+
+  return readdirSync(customThemesPath).filter((fileName) =>
+    fileName.endsWith('.css')
+  )
+})
+
+ipcMain.handle('getThemeCSS', async (event, theme) => {
+  const { customThemesPath } = await GlobalConfig.get().getSettings()
+
+  const cssPath = path.join(customThemesPath, theme)
+
+  if (!existsSync(cssPath)) {
+    return ''
+  }
+
+  return readFileSync(cssPath, 'utf-8')
 })
 
 ipcMain.on('addNewApp', (e, args: SideloadGame) => addNewApp(args))
