@@ -55,6 +55,9 @@
         "import": "Inportatu jokoa",
         "install": "Instalatu",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Kendu gogokoenetik",
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
@@ -127,6 +130,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Joko hau gauzatzean arazo baten berri ematea",
     "sdl": {
         "title": "Instalatzeko osagaiak hautatzea"
@@ -157,6 +167,7 @@
         "moving": "Instalazio mugikorra, itxaron",
         "notinstalled": "Joko hau ez instalatuta",
         "processing": "Artxiboak prozesatzen, mesedez itxaron",
+        "queued": "Queued",
         "reparing": "Jokoaren konponketa, mesedez",
         "totalDownloaded": "Deskargatutakoa, guztira",
         "updating": "Jokoa eguneratzea"

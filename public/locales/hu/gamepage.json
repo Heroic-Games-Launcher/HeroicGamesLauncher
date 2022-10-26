@@ -54,6 +54,9 @@
         "import": "Játék importálása",
         "install": "Telepítés",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Eltávolítás a kedvencekből",
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
@@ -126,6 +129,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {
         "title": "Válaszd ki a telepíteni kívánt elemeket"
@@ -156,6 +166,7 @@
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
         "processing": "Fájlok feldolgozása, kérlek várj",
+        "queued": "Queued",
         "reparing": "Játék javítása, kérlek várj",
         "totalDownloaded": "Teljesen letöltve",
         "updating": "Játék frissítése"

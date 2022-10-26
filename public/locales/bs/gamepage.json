@@ -55,6 +55,9 @@
         "import": "Uvezi igru",
         "install": "Instaliraj",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Otkloni iz favorita",
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
@@ -127,6 +130,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Prijavi problem za ovu video igru",
     "sdl": {
         "title": "Odaberite komponente za instalaciju"
@@ -157,6 +167,7 @@
         "moving": "Premještanje instalacije, molimo pričekajte",
         "notinstalled": "Ova video igra nije instalirana",
         "processing": "Obrada datoteka, pričekajte",
+        "queued": "Queued",
         "reparing": "Popravljanje video igre, molimo čekajte",
         "totalDownloaded": "Ukupno preuzeto",
         "updating": "Ažuriranje video igre"

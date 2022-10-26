@@ -38,6 +38,7 @@ export const size = fileSize.partial({ base: 2 })
 
 let progress: string
 
+const sendAbort = window.api.abort
 const sendKill = window.api.kill
 
 const isLoggedIn = window.api.isLoggedIn
@@ -269,6 +270,17 @@ function removeSpecialcharacters(text: string): string {
   return text.replaceAll(regexp, '')
 }
 
+const getStoreName = (runner: Runner, other: string) => {
+  switch (runner) {
+    case 'legendary':
+      return 'Epic Games'
+    case 'gog':
+      return 'GOG'
+    default:
+      return other
+  }
+}
+
 export {
   createNewWindow,
   fixLegendarySaveFolder,
@@ -292,10 +304,12 @@ export {
   openCustomThemesWiki,
   progress,
   repair,
-  removeSpecialcharacters,
   sendKill,
   sidInfoPage,
   syncSaves,
   updateGame,
-  writeConfig
+  writeConfig,
+  sendAbort,
+  removeSpecialcharacters,
+  getStoreName
 }

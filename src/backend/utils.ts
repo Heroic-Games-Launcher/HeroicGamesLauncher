@@ -1,3 +1,8 @@
+import {
+  createAbortController,
+  deleteAbortController,
+  callAllAbortControllers
+} from './utils/aborthandler/aborthandler'
 import { GOGGame } from './gog/games'
 import { LegendaryGame } from './legendary/games'
 import {
@@ -173,9 +178,15 @@ async function isEpicServiceOffline(
 }
 
 export const getLegendaryVersion = async () => {
-  const { stdout, error } = await runLegendaryCommand(['--version'])
+  const abortID = 'legendary-version'
+  const { stdout, error, abort } = await runLegendaryCommand(
+    ['--version'],
+    createAbortController(abortID)
+  )
 
-  if (error) {
+  deleteAbortController(abortID)
+
+  if (error || abort) {
     return 'invalid'
   }
 
@@ -187,7 +198,13 @@ export const getLegendaryVersion = async () => {
 }
 
 export const getGogdlVersion = async () => {
-  const { stdout, error } = await runGogdlCommand(['--version'])
+  const abortID = 'gogdl-version'
+  const { stdout, error } = await runGogdlCommand(
+    ['--version'],
+    createAbortController(abortID)
+  )
+
+  deleteAbortController(abortID)
 
   if (error) {
     return 'invalid'
@@ -235,8 +252,8 @@ async function handleExit(window: BrowserWindow) {
       return
     }
 
-    // Kill all child processes
-    // This is very hacky
+    // This is very hacky and can be removed if gogdl
+    // and legendary handle SIGTERM and SIGKILL
     const possibleChildren = ['legendary', 'gogdl']
     possibleChildren.forEach((procName) => {
       try {
@@ -245,6 +262,9 @@ async function handleExit(window: BrowserWindow) {
         logInfo([`Unable to kill ${procName}, ignoring.`, error])
       }
     })
+
+    // Kill all child processes
+    callAllAbortControllers()
   }
   app.exit()
 }
@@ -315,7 +335,7 @@ async function errorHandler(
   const otherErrorMessages = ['No saved credentials', 'No credentials']
 
   if (!window) {
-    window = BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows[0]
+    window = getMainWindow()
   }
 
   if (logPath) {
@@ -384,13 +404,17 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-function clearCache() {
+async function clearCache() {
   GOGapiInfoCache.clear()
   GOGlibraryStore.clear()
   installStore.clear()
   libraryStore.clear()
   gameInfoStore.clear()
-  runLegendaryCommand(['cleanup'])
+
+  const abortID = 'legendary-cleanup'
+  runLegendaryCommand(['cleanup'], createAbortController(abortID)).then(() =>
+    deleteAbortController(abortID)
+  )
 }
 
 function resetHeroic() {
@@ -587,20 +611,6 @@ function removeQuoteIfNecessary(stringToUnquote: string) {
   return String(stringToUnquote)
 }
 
-function killPattern(pattern: string) {
-  logInfo(['Trying to kill', pattern], { prefix: LogPrefix.Backend })
-  let ret
-  if (isWindows) {
-    ret = spawnSync('Stop-Process', ['-name', pattern], {
-      shell: 'powershell.exe'
-    })
-  } else {
-    ret = spawnSync('pkill', ['-f', pattern])
-  }
-  logInfo(['Killed', pattern], { prefix: LogPrefix.Backend })
-  return ret
-}
-
 /**
  * Detects MS Visual C++ Redistributable and prompts for its installation if it's not found
  * Many games require this while not actually specifying it, so it's good to have
@@ -778,6 +788,26 @@ type NotifyType = {
   body: string
 }
 
+function getMainWindow(): BrowserWindow {
+  return BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
+}
+
+// can be removed if legendary and gogdl handle SIGTERM and SIGKILL
+// for us
+function killPattern(pattern: string) {
+  logInfo(['Trying to kill', pattern], { prefix: LogPrefix.Backend })
+  let ret
+  if (isWindows) {
+    ret = spawnSync('Stop-Process', ['-name', pattern], {
+      shell: 'powershell.exe'
+    })
+  } else {
+    ret = spawnSync('pkill', ['-f', pattern])
+  }
+  logInfo(['Killed', pattern], { prefix: LogPrefix.Backend })
+  return ret
+}
+
 export {
   errorHandler,
   execAsync,
@@ -800,8 +830,9 @@ export {
   constructAndUpdateRPC,
   quoteIfNecessary,
   removeQuoteIfNecessary,
-  killPattern,
   detectVCRedist,
   getGame,
+  getMainWindow,
+  killPattern,
   getInfo
 }

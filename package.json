@@ -157,6 +157,7 @@
     "react-dom": "17",
     "react-i18next": "^11.16.7",
     "react-router-dom": "^6.3.0",
+    "recharts": "^2.1.14",
     "shlex": "^2.1.2",
     "short-uuid": "^4.2.0",
     "simple-keyboard": "^3.4.136",

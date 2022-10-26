@@ -54,6 +54,9 @@
         "import": "インポート",
         "install": "インストール",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remove From Favourites",
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
@@ -126,6 +129,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "インストールするコンポーネントを選択します"
@@ -156,6 +166,7 @@
         "moving": "インストールを移動しています、お待ちください",
         "notinstalled": "このゲームはインストールされていません",
         "processing": "Processing files, please wait",
+        "queued": "Queued",
         "reparing": "ゲームを修復しています、お待ちください",
         "totalDownloaded": "ダウンロードの総数",
         "updating": "ゲームを更新しています"

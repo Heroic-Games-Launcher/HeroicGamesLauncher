@@ -54,6 +54,9 @@
         "import": "விளையாட்டை இறக்குமதி செய்",
         "install": "நிறுவு",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remove From Favourites",
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
@@ -126,6 +129,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Select components to Install"
@@ -156,6 +166,7 @@
         "moving": "நிறுவல் நகர்த்தப்படுகிறது, தயவுசெய்து காத்திருக்கவும்",
         "notinstalled": "இந்த விளையாட்டு நிறுவப்படவில்லை",
         "processing": "Processing files, please wait",
+        "queued": "Queued",
         "reparing": "விளையாட்டு பழுதுபார்க்கப்படுகிறது, தயவுசெய்து காத்திருக்கவும்",
         "totalDownloaded": "மொத்த பதிவிறக்கம்",
         "updating": "விளையாட்டு புதுப்பிக்கப்படுகிறது"

@@ -54,6 +54,9 @@
         "import": "게임 들여오기",
         "install": "설치",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "즐겨찾기에서 제거",
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
@@ -126,6 +129,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "게임 실행 중에 생긴 문제를 제보하기",
     "sdl": {
         "title": "설치할 구성 요소를 선택합니다"
@@ -156,6 +166,7 @@
         "moving": "설치를 이동 중 입니다, 잠시만 기다려 주세요",
         "notinstalled": "이 게임은 설치 되지 않았습니다",
         "processing": "파일을 처리 중입니다 잠시만 기다려 주십시오",
+        "queued": "Queued",
         "reparing": "게임을 복구 중입니다, 잠시만 기다려 주세요",
         "totalDownloaded": "총 다운로드",
         "updating": "게임 업데이트 중"

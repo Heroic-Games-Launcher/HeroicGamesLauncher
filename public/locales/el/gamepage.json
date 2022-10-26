@@ -54,6 +54,9 @@
         "import": "Εισαγωγή Παιχνιδιού",
         "install": "Εγκατάσταση",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Κατάργηση από τα Αγαπημένα",
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
@@ -126,6 +129,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Αναφορά προβλήματος κατά την εκτέλεση του παιχνιδιού",
     "sdl": {
         "title": "Διαλέξτε στοιχεία για εγκατάσταση"
@@ -156,6 +166,7 @@
         "moving": "Μετακίνηση εγκατάστασης, παρακαλώ περιμένετε",
         "notinstalled": "Αυτό το παιχνίδι δεν είναι εγκατεστημένο",
         "processing": "Επεξεργασία αρχείων, παρακαλώ περιμένετε",
+        "queued": "Queued",
         "reparing": "Επιδιόρθωση παιχνιδιού, παρακαλώ περιμένετε",
         "totalDownloaded": "Σύνολο ληφθέντων",
         "updating": "Ενημέρωση παιχνιδιού"

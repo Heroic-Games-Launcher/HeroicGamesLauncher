@@ -54,6 +54,9 @@
         "import": "Importeren",
         "install": "Installeren",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remove From Favourites",
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
@@ -126,6 +129,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Selecteer componenten om te installeren"
@@ -156,6 +166,7 @@
         "moving": "Spel verplaatsen, geduld alstublieft",
         "notinstalled": "Dit spel is niet geïnstalleerd",
         "processing": "Processing files, please wait",
+        "queued": "Queued",
         "reparing": "Spel aan het repareren, even geduld",
         "totalDownloaded": "Totaal gedownload",
         "updating": "Spel aan het updaten"

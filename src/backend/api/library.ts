@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron'
-import { Runner, InstallParams, LaunchParams, SideloadGame } from 'common/types'
+import { Runner, LaunchParams, SideloadGame, InstallParams } from 'common/types'
 
 export const removeFolder = (args: [path: string, folderName: string]) =>
   ipcRenderer.send('removeFolder', args)

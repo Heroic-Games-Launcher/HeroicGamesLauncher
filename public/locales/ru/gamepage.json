@@ -54,6 +54,9 @@
         "import": "Импортировать игру",
         "install": "Установить",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Удалить из избранного",
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
@@ -126,6 +129,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Сообщить о проблеме с запуском этой игры",
     "sdl": {
         "title": "Выбрать компоненты для установки"
@@ -156,6 +166,7 @@
         "moving": "Перемещение установленных файлов. Пожалуйста, подождите",
         "notinstalled": "Игра не установлена",
         "processing": "Обработка файлов, подождите",
+        "queued": "Queued",
         "reparing": "Восстановление игры. Пожалуйста, подождите",
         "totalDownloaded": "Всего загружено",
         "updating": "Обновление игры"

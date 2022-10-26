@@ -54,6 +54,9 @@
         "import": "Impordi mäng",
         "install": "Paigalda",
         "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Eemalda lemmikutest",
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
@@ -126,6 +129,13 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Teatage selle mängu käivitamise probleemist",
     "sdl": {
         "title": "Valige komponendid, mida installida"
@@ -156,6 +166,7 @@
         "moving": "Paigalduse liiguatamine, palun oodake",
         "notinstalled": "See mäng ei ole paigaldatud",
         "processing": "Failide töötlemine, palun oodake",
+        "queued": "Queued",
         "reparing": "Mängu parandamine, palun oodake",
         "totalDownloaded": "Allalaaditud kokku",
         "updating": "Mängu uuendamine"
