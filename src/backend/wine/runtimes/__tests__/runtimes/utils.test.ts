@@ -11,6 +11,7 @@ import {
 // @ts-ignore: Don't know why ts complains about it.
 import { test_data } from './test_data/github-api-heroic-test-data.json'
 import { dirSync } from 'tmp'
+import { platform } from 'os'
 
 const testUrl =
   'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v2.3.9/Heroic-2.3.9.AppImage'
@@ -21,8 +22,9 @@ const testTarFileWithSubfolder = join(
 )
 
 afterEach(jest.restoreAllMocks)
+const skipIfNotOnLinux = platform() === 'linux' ? describe : describe.skip
 
-describe('getAssetDataFromDownload', () => {
+skipIfNotOnLinux('getAssetDataFromDownload', () => {
   it('Success', async () => {
     // https://stackoverflow.com/a/43047378
     jest.spyOn(axios, 'get').mockResolvedValue(test_data)
@@ -75,7 +77,7 @@ describe('getAssetDataFromDownload', () => {
   })
 })
 
-describe('downloadFile', () => {
+skipIfNotOnLinux('downloadFile', () => {
   it('Success', async () => {
     const expectedData = readFileSync(testTarFilePath)
 
@@ -150,7 +152,7 @@ describe('downloadFile', () => {
   })
 })
 
-describe('extractTarFile', () => {
+skipIfNotOnLinux('extractTarFile', () => {
   it('Success without strip', async () => {
     const tmpDir = dirSync({ unsafeCleanup: true })
     jest.spyOn(child_process, 'spawn')
