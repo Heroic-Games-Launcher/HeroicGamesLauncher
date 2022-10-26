@@ -255,6 +255,7 @@ export default function GamePage(): JSX.Element | null {
             appName={showModal.game}
             runner={runner}
             backdropClick={() => setShowModal({ game: '', show: false })}
+            gameInfo={gameInfo}
           />
         )}
         {title ? (
