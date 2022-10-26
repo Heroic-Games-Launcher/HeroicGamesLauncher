@@ -67,13 +67,15 @@ export default function DownloadManager(): JSX.Element | null {
       finishedElem
         .filter((el) => el.status !== 'abort')
         .sort((a, b) => {
-          if (!a.status || b.status) {
-            return 1
-          }
-          if (a.status === 'done' || b.status === 'done') {
+          // put failed at the end of the list
+          const status = a.status || b.status
+          if (!status) {
             return -1
           }
-          return 1
+          if (status === 'error') {
+            return 1
+          }
+          return -1
         })) ||
     []
 

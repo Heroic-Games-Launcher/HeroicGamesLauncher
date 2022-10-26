@@ -29,7 +29,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const [progress] = hasProgress(appName)
   const { status } = element
   const finished = status === 'done'
-  const canceled = status !== 'done' && !current
+  const canceled = status === 'error' && !current
 
   const stopInstallation = async () => {
     const { folder_name }: GameInfo = await getGameInfo(appName, runner)
