@@ -1,3 +1,7 @@
+import {
+  createAbortController,
+  deleteAbortController
+} from '../utils/aborthandler/aborthandler'
 import { GOGLibrary, runGogdlCommand } from './library'
 import { BrowserWindow } from 'electron'
 import { join } from 'path'
@@ -5,11 +9,11 @@ import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import {
-  killPattern,
   errorHandler,
   execAsync,
   getFileSize,
-  getGOGdlBin
+  getGOGdlBin,
+  killPattern
 } from '../utils'
 import {
   ExtraInfo,
@@ -136,9 +140,19 @@ class GOGGame extends Game {
   }
 
   public async import(path: string): Promise<ExecResult> {
-    const res = await runGogdlCommand(['import', path], {
-      logMessagePrefix: `Importing ${this.appName}`
-    })
+    const res = await runGogdlCommand(
+      ['import', path],
+      createAbortController(this.appName),
+      {
+        logMessagePrefix: `Importing ${this.appName}`
+      }
+    )
+
+    deleteAbortController(this.appName)
+
+    if (res.abort) {
+      return res
+    }
 
     if (res.error) {
       logError(['Failed to import', `${this.appName}:`, res.error], {
@@ -146,6 +160,7 @@ class GOGGame extends Game {
       })
       return res
     }
+
     try {
       await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
     } catch (error) {
@@ -153,6 +168,7 @@ class GOGGame extends Game {
         prefix: LogPrefix.Gog
       })
     }
+
     return res
   }
 
@@ -163,6 +179,19 @@ class GOGGame extends Game {
     const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
     const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
     const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
+
+    // parse log for download speed
+    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
+    const downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
+      ? Number(downSpeedMBytes?.at(1))
+      : 0
+
+    // parse disk write speed
+    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
+    const diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
+      ? Number(diskSpeedMBytes?.at(1))
+      : 0
+
     if (bytesMatch && progressMatch) {
       const eta = etaMatch ? etaMatch[1] : '00:00:00'
       const bytes = bytesMatch[1]
@@ -172,7 +201,8 @@ class GOGGame extends Game {
       logInfo(
         [
           `Progress for ${this.appName}:`,
-          `${percent}%/${bytes}MiB/${eta}`.trim()
+          `${percent}%/${bytes}MB/${eta}`.trim(),
+          `Down: ${downSpeed}MB/s / Disk: ${diskSpeed}MB/s`
         ],
         { prefix: LogPrefix.Gog }
       )
@@ -183,7 +213,9 @@ class GOGGame extends Game {
         progress: {
           eta,
           percent,
-          bytes: `${bytes}MiB`
+          bytes: `${bytes}MB`,
+          downSpeed,
+          diskSpeed
         }
       })
     }
@@ -194,7 +226,10 @@ class GOGGame extends Game {
     installDlcs,
     platformToInstall,
     installLanguage
-  }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
+  }: InstallArgs): Promise<{
+    status: 'done' | 'error' | 'abort'
+    error?: string
+  }> {
     const { maxWorkers } = await GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
@@ -230,17 +265,27 @@ class GOGGame extends Game {
       this.onInstallOrUpdateOutput('installing', data)
     }
 
-    const res = await runGogdlCommand(commandParts, {
-      logFile: logPath,
-      onOutput,
-      logMessagePrefix: `Installing ${this.appName}`
-    })
+    const res = await runGogdlCommand(
+      commandParts,
+      createAbortController(this.appName),
+      {
+        logFile: logPath,
+        onOutput,
+        logMessagePrefix: `Installing ${this.appName}`
+      }
+    )
+
+    deleteAbortController(this.appName)
+
+    if (res.abort) {
+      return { status: 'abort' }
+    }
 
     if (res.error) {
       logError(['Failed to install', `${this.appName}:`, res.error], {
         prefix: LogPrefix.Gog
       })
-      return { status: 'error' }
+      return { status: 'error', error: res.error }
     }
 
     // Installation succeded
@@ -430,14 +475,24 @@ class GOGGame extends Game {
       `Launch Command: ${fullCommand}\n\nGame Log:\n`
     )
 
-    const { error } = await runGogdlCommand(commandParts, {
-      env: commandEnv,
-      wrappers,
-      logMessagePrefix: `Launching ${gameInfo.title}`,
-      onOutput: (output: string) => {
-        appendFileSync(this.logFileLocation, output)
+    const { error, abort } = await runGogdlCommand(
+      commandParts,
+      createAbortController(this.appName),
+      {
+        env: commandEnv,
+        wrappers,
+        logMessagePrefix: `Launching ${gameInfo.title}`,
+        onOutput: (output: string) => {
+          appendFileSync(this.logFileLocation, output)
+        }
       }
-    })
+    )
+
+    deleteAbortController(this.appName)
+
+    if (abort) {
+      return true
+    }
 
     if (error) {
       logError(['Error launching game:', error], { prefix: LogPrefix.Gog })
@@ -505,10 +560,16 @@ class GOGGame extends Game {
       ...workers
     ]
 
-    const res = await runGogdlCommand(commandParts, {
-      logFile: logPath,
-      logMessagePrefix: `Repairing ${this.appName}`
-    })
+    const res = await runGogdlCommand(
+      commandParts,
+      createAbortController(this.appName),
+      {
+        logFile: logPath,
+        logMessagePrefix: `Repairing ${this.appName}`
+      }
+    )
+
+    deleteAbortController(this.appName)
 
     if (res.error) {
       logError(['Failed to repair', `${this.appName}:`, res.error], {
@@ -517,11 +578,6 @@ class GOGGame extends Game {
     }
 
     return res
-  }
-
-  public async stop(): Promise<void> {
-    const pattern = isLinux ? this.appName : 'gogdl'
-    killPattern(pattern)
   }
 
   async syncSaves(
@@ -566,7 +622,12 @@ class GOGGame extends Game {
 
       logInfo([`Syncing saves for ${this.appName}`], { prefix: LogPrefix.Gog })
 
-      const res = await runGogdlCommand(commandParts)
+      const res = await runGogdlCommand(
+        commandParts,
+        createAbortController(this.appName)
+      )
+
+      deleteAbortController(this.appName)
 
       if (res.error) {
         logError(
@@ -672,14 +733,24 @@ class GOGGame extends Game {
       this.onInstallOrUpdateOutput('updating', data)
     }
 
-    const res = await runGogdlCommand(commandParts, {
-      logFile: logPath,
-      onOutput,
-      logMessagePrefix: `Updating ${this.appName}`
-    })
+    const res = await runGogdlCommand(
+      commandParts,
+      createAbortController(this.appName),
+      {
+        logFile: logPath,
+        onOutput,
+        logMessagePrefix: `Updating ${this.appName}`
+      }
+    )
 
     // This always has to be done, so we do it before checking for res.error
     deleteGameStatusOfElement(this.appName)
+
+    deleteAbortController(this.appName)
+
+    if (res.abort) {
+      return { status: 'done' }
+    }
 
     if (res.error) {
       logError(['Failed to update', `${this.appName}:`, res.error], {
@@ -777,6 +848,13 @@ class GOGGame extends Game {
     const mainWindow =
       BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
     mainWindow.webContents.send('refreshLibrary', 'gog')
+  }
+
+  // Could be removed if gogdl handles SIGKILL and SIGTERM for us
+  // which is send via AbortController
+  public async stop(): Promise<void> {
+    const pattern = isLinux ? this.appName : 'gogdl'
+    killPattern(pattern)
   }
 }
 

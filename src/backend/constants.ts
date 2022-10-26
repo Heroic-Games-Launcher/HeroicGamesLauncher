@@ -82,6 +82,8 @@ const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
 const kofiPage = 'https://ko-fi.com/heroicgames'
 const patreonPage = 'https://www.patreon.com/heroicgameslauncher'
 const wineprefixFAQ = 'https://wiki.winehq.org/FAQ#Wineprefixes'
+const customThemesWikiLink =
+  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Custom-Themes'
 
 /**
  * Get shell for different os
@@ -223,5 +225,6 @@ export {
   isCLINoGui,
   publicDir,
   GITHUB_API,
-  wineprefixFAQ
+  wineprefixFAQ,
+  customThemesWikiLink
 }

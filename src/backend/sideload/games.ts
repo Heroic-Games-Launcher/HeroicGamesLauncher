@@ -35,6 +35,7 @@ import { access, chmod } from 'fs/promises'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import shlex from 'shlex'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
+import { createAbortController } from '../utils/aborthandler/aborthandler'
 
 export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)
@@ -166,6 +167,7 @@ export async function launchApp(appName: string): Promise<boolean> {
           bin: executable,
           dir: dirname(executable)
         },
+        createAbortController(appName),
         {
           env,
           wrappers,

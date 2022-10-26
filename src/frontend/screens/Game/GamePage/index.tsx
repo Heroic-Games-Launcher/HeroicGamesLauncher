@@ -13,7 +13,7 @@ import {
   syncSaves,
   updateGame
 } from 'frontend/helpers'
-import { Link, NavLink, useParams } from 'react-router-dom'
+import { Link, NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
@@ -47,14 +47,14 @@ import StoreLogos from 'frontend/components/UI/StoreLogos'
 
 export default function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
+  const location = useLocation() as { state: { fromDM: boolean } | null }
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const { hasGameStatus, hasDownloads } = useContext(LibraryContext)
+  const { hasGameStatus } = useContext(LibraryContext)
   const gameStatus = hasGameStatus(appName)
-  const isDownloading = hasDownloads()
   const { epic, gog, gameUpdates, platform, showDialogModal } =
     useContext(ContextProvider)
 
@@ -82,12 +82,14 @@ export default function GamePage(): JSX.Element | null {
   const isLinux = platform === 'linux'
   const isMac = platform === 'darwin'
   const isSideloaded = runner === 'sideload'
-
   const isInstalling = gameStatus.status === 'installing'
   const isPlaying = gameStatus.status === 'playing'
   const isUpdating = gameStatus.status === 'updating'
   const isReparing = gameStatus.status === 'repairing'
   const isMoving = gameStatus.status === 'moving'
+  const isQueued = gameStatus.status === 'queued'
+
+  const backRoute = location.state?.fromDM ? '/download-manager' : '/'
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -148,7 +150,6 @@ export default function GamePage(): JSX.Element | null {
           window.api.logError(`${error}`)
         }
       } catch (error) {
-        console.error({ error })
         setHasError({ error: true, message: error })
       }
     }
@@ -235,6 +236,7 @@ export default function GamePage(): JSX.Element | null {
             appName={showModal.game}
             runner={runner}
             backdropClick={() => setShowModal({ game: '', show: false })}
+            gameInfo={gameInfo}
           />
         )}
         {title ? (
@@ -242,7 +244,7 @@ export default function GamePage(): JSX.Element | null {
             <GamePicture art_square={art_square} store={runner} />
             <NavLink
               className="backButton"
-              to="/"
+              to={backRoute}
               title={t2('webview.controls.back', 'Go Back')}
             >
               <ArrowCircleLeftIcon />
@@ -433,13 +435,7 @@ export default function GamePage(): JSX.Element | null {
                 ) : (
                   <button
                     onClick={async () => handleInstall(is_installed)}
-                    disabled={
-                      isPlaying ||
-                      isUpdating ||
-                      isReparing ||
-                      isMoving ||
-                      (isDownloading && !isInstalling)
-                    }
+                    disabled={isPlaying || isUpdating || isReparing || isMoving}
                     className={`button ${getButtonClass(is_installed)}`}
                   >
                     {`${getButtonLabel(is_installed)}`}
@@ -489,6 +485,9 @@ export default function GamePage(): JSX.Element | null {
   return <UpdateComponent />
 
   function getPlayBtnClass() {
+    if (isQueued) {
+      return 'is-secondary'
+    }
     if (isUpdating) {
       return 'is-danger'
     }
@@ -547,6 +546,10 @@ export default function GamePage(): JSX.Element | null {
       return `${t('status.installing')} ${currentProgress}`
     }
 
+    if (isQueued) {
+      return `${t('status.queued', 'Queued')}`
+    }
+
     if (hasUpdate) {
       return (
         <span onClick={async () => handleUpdate()} className="updateText">
@@ -566,7 +569,7 @@ export default function GamePage(): JSX.Element | null {
   }
 
   function getButtonClass(is_installed: boolean) {
-    if (isInstalling) {
+    if (isInstalling || isQueued) {
       return 'is-danger'
     }
 
@@ -579,6 +582,9 @@ export default function GamePage(): JSX.Element | null {
   function getButtonLabel(is_installed: boolean) {
     if (is_installed) {
       return t('submenu.settings')
+    }
+    if (isQueued) {
+      return t('button.queue.remove', 'Remove from Queue')
     }
     if (isInstalling) {
       return t('button.cancel')
@@ -598,13 +604,14 @@ export default function GamePage(): JSX.Element | null {
 
   function handlePlay() {
     return async () => {
-      if (status === 'playing' || status === 'updating') {
+      if (isPlaying || isUpdating) {
         return sendKill(appName, gameInfo.runner)
       }
 
       if (autoSyncSaves) {
         await doAutoSyncSaves()
       }
+
       await launch({
         appName,
         t,
@@ -621,6 +628,10 @@ export default function GamePage(): JSX.Element | null {
   }
 
   async function handleInstall(is_installed: boolean) {
+    if (isQueued) {
+      return window.api.removeFromDMQueue(appName)
+    }
+
     if (!is_installed && !isInstalling) {
       return handleModal()
     }

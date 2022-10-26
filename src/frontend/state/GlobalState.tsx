@@ -169,7 +169,7 @@ export class GlobalState extends PureComponent<Props> {
   setTheme = (newThemeName: string) => {
     configStore.set('theme', newThemeName)
     this.setState({ theme: newThemeName })
-    document.body.className = newThemeName
+    window.setTheme(newThemeName)
   }
 
   zoomTimer: NodeJS.Timeout | undefined = undefined
@@ -429,10 +429,10 @@ export class GlobalState extends PureComponent<Props> {
     window.api.logInfo('Refreshing Library')
     try {
       await window.api.refreshLibrary(fullRefresh, library)
+      return await this.refresh(library, checkForUpdates)
     } catch (error) {
       window.api.logError(`${error}`)
     }
-    this.refresh(library, checkForUpdates)
   }
 
   refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {

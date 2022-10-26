@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron'
-import { Runner, InstallParams, LaunchParams, SideloadGame } from 'common/types'
+import { Runner, LaunchParams, SideloadGame, InstallParams } from 'common/types'
 
 export const openDialog = async (args: Electron.OpenDialogOptions) =>
   ipcRenderer.invoke('openDialog', args)

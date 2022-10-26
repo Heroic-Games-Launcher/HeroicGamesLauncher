@@ -12,7 +12,8 @@ import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg'
-import { install, launch, sendKill } from 'frontend/helpers'
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import { getStoreName, install, launch, sendKill } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
@@ -56,8 +57,7 @@ const GameCard = ({
   buttonClick,
   forceCard,
   runner,
-  installedPlatform,
-  hasDownloads
+  installedPlatform
 }: Card) => {
   const { hasGameStatus } = useContext(LibraryContext)
   const gameStatus = hasGameStatus(appName)
@@ -86,10 +86,13 @@ const GameCard = ({
   const isReparing = gameStatus.status === 'repairing'
   const isMoving = gameStatus.status === 'moving'
   const isPlaying = gameStatus.status === 'playing'
-  const haveStatus = isMoving || isReparing || isInstalling || isUpdating
+  const isQueued = gameStatus.status === 'queued'
+  const haveStatus =
+    isMoving || isReparing || isInstalling || isUpdating || isQueued
 
   const percent = gameStatus.progress?.percent ?? 0
   const installingGrayscale = isInstalling ? `${125 - percent}%` : '100%'
+
   const imageSrc = getImageFormatting()
 
   async function handleUpdate() {
@@ -124,11 +127,29 @@ const GameCard = ({
     if (isInstalled) {
       return `${t('status.installed')} ${runner === 'sideload' ? '' : size}`
     }
+    if (isQueued) {
+      return `${t('status.queued', 'Queued')}`
+    }
 
     return t('status.notinstalled')
   }
 
+  const handleRemoveFromQueue = () => {
+    window.api.removeFromDMQueue(appName)
+  }
+
   const renderIcon = () => {
+    if (isQueued) {
+      return (
+        <SvgButton
+          title={t('button.queue.remove', 'Remove from Queue')}
+          className="queueIcon"
+          onClick={() => handleRemoveFromQueue()}
+        >
+          <RemoveCircleIcon />
+        </SvgButton>
+      )
+    }
     if (isPlaying) {
       return (
         <SvgButton
@@ -140,7 +161,7 @@ const GameCard = ({
         </SvgButton>
       )
     }
-    if (isInstalling) {
+    if (isInstalling || isQueued) {
       return (
         <SvgButton
           className="cancelIcon"
@@ -163,17 +184,6 @@ const GameCard = ({
       )
     }
     if (!isInstalled) {
-      if (hasDownloads) {
-        return (
-          <SvgButton
-            className="iconDisabled"
-            onClick={(e) => e.preventDefault()}
-            title={`${t('button.cancel')} (${title})`}
-          >
-            <DownIcon />
-          </SvgButton>
-        )
-      }
       return (
         <SvgButton
           className="downIcon"
@@ -224,13 +234,13 @@ const GameCard = ({
     },
     {
       label: t('button.install'),
-      onclick: () => (!hasDownloads ? buttonClick() : () => null),
-      show: !isInstalled && !isInstalling && !hasDownloads
+      onclick: () => (!isInstalled ? buttonClick() : () => null),
+      show: !isInstalled
     },
     {
       label: t('button.cancel'),
       onclick: async () => handlePlay(runner),
-      show: isInstalling
+      show: isInstalling && isQueued
     },
     {
       label: t('button.hide_game', 'Hide Game'),
@@ -266,17 +276,6 @@ const GameCard = ({
   const wrapperClasses = `${
     grid ? 'gameCard' : 'gameListItem'
   }  ${instClass} ${hiddenClass}`
-
-  const getRunner = () => {
-    switch (runner) {
-      case 'legendary':
-        return 'Epic Games'
-      case 'gog':
-        return 'GOG'
-      default:
-        return t2('Other')
-    }
-  }
 
   return (
     <div>
@@ -331,7 +330,7 @@ const GameCard = ({
                 installed: isInstalled
               })}
             >
-              {getRunner()}
+              {getStoreName(runner, t2('Other'))}
             </span>
           </Link>
           {
@@ -377,7 +376,7 @@ const GameCard = ({
   )
 
   async function handlePlay(runner: Runner) {
-    if (!isInstalled) {
+    if (!isInstalled && !isQueued) {
       return install({
         appName,
         installPath: gameStatus.folder || 'default',
@@ -387,9 +386,15 @@ const GameCard = ({
         showDialogModal
       })
     }
+
     if (isPlaying || isUpdating) {
       return sendKill(appName, runner)
     }
+
+    if (isQueued) {
+      return window.api.removeFromDMQueue(appName)
+    }
+
     if (isInstalled) {
       return launch({ appName, t, runner, hasUpdate, showDialogModal })
     }

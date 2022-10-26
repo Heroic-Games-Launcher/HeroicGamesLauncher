@@ -82,7 +82,6 @@ async function install({
       await window.api.requestSettings('default')
     path = defaultInstallPath
   }
-
   return window.api.install({
     appName,
     path,

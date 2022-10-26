@@ -171,6 +171,19 @@
         }
     },
     "docs": "Dokumentacija",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Online usluge možda neće raditi u potpunosti jer su Epic Games serveri van mreže!",
         "offline-notification-title": "van mreže"
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "AMD-ov FSR pomaže u povećanju frekvencije kadrova povećavajući niže rezolucije u načinu rada preko cijelog ekrana. Kvalitet slike se povećava sa 5 na 1 po cenu blagog smanjenja performansi. Omogućavanje može poboljšati performanse.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK je translacijski sloj baziran na Vulkanu za DirectX 9, 10 i 11 igre. Omogućavanje može poboljšati kompatibilnost. Može uzrokovati probleme posebno za starije DirectX igre.",
         "esync": "Esync ima za cilj smanjenje troškova wineservera u igrama koje zahtijevaju CPU. Omogućavanje može poboljšati performanse.",
         "fsync": "Fsync ima za cilj smanjenje troškova wineservera u igrama koje zahtijevaju CPU. Omogućavanje može poboljšati performanse na podržanim Linux kernelima.",
@@ -256,6 +271,7 @@
     "infobox": {
         "help": "Pomoć",
         "requirements": "Sistemske postavke",
+        "warning": "Warning",
         "wine-path": "Put",
         "wine-prefix": {
             "title": "Vinski prefiks"
@@ -380,6 +396,7 @@
     "placeholder": {
         "alt-gogdl-bin": "Korištenje ugrađenog GOGDL binarne datoteke",
         "alt-legendary-bin": "Korištenje ugrađene Legendary binarne datoteke...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefiks gdje je EGS instaliran",
         "prefered_language": "kod od 2 znaka (tj.: \"en\" ili \"fr\")"
     },
@@ -389,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Napredak",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Igrano nedavno",
     "search": "Potražite igre",
     "setting": {
@@ -404,6 +429,7 @@
         "change-target-exe": "Odaberite alternativni EXE za pokretanje",
         "checkForUpdatesOnStartup": "Provjeri ima li Heroic Updates pri pokretanju",
         "crossover-version": "Crossover verzija",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Prilagođeni putevi za Wine/Proton",
         "darktray": "Koristite Dark Tray ikonu",
         "default-install-path": "Zadani instalacijski put",

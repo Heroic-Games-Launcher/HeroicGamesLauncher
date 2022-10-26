@@ -7,22 +7,12 @@ import {
   updateWineVersionInfos
 } from './utils'
 import { logError, LogPrefix } from '../../logger/logger'
-
-const abortControllers = new Map<string, AbortController>()
-
-ipcMain.on('abortWineInstallation', (e, version: string) => {
-  if (abortControllers.has(version)) {
-    const abortController = abortControllers.get(version)!
-    if (!abortController.signal.aborted) {
-      abortController.abort()
-    }
-  }
-})
+import {
+  createAbortController,
+  deleteAbortController
+} from '../../utils/aborthandler/aborthandler'
 
 ipcMain.handle('installWineVersion', async (e, release: WineVersionInfo) => {
-  const abortController = new AbortController()
-  abortControllers.set(release.version, abortController)
-
   const window = BrowserWindow.getAllWindows()[0]
   const onProgress = (state: State, progress?: ProgressInfo) => {
     window.webContents.send('progressOfWineManager' + release.version, {
@@ -33,9 +23,9 @@ ipcMain.handle('installWineVersion', async (e, release: WineVersionInfo) => {
   const result = await installWineVersion(
     release,
     onProgress,
-    abortController.signal
+    createAbortController(release.version).signal
   )
-  abortControllers.delete(release.version)
+  deleteAbortController(release.version)
   return result
 })
 
