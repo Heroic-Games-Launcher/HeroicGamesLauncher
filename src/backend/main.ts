@@ -558,10 +558,6 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.handle('kill', async (event, appName, runner) => {
-  return getGame(appName, runner).stop()
-})
-
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
   const parent = getFirstExistingParentPath(folder)
   return new Promise((res) => {
