@@ -17,6 +17,15 @@
             "message": "ഈ കളി നിങ്ങള് നന്നാക്കാന് നോക്കുകയാണോ? ഇതിനിത്തിരി നേരമെടുത്തേക്കാം.",
             "title": "ഉറപ്പുവരുത്തി നന്നാക്കൂ"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "നടീല് തുടര്ന്നുകൊള്ളൂ",
             "message": "ഇറക്കിയെടുത്ത രേഖകള് സുക്ഷിക്കണോ?",
@@ -38,11 +47,22 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "നിര്ത്തൂ/റദ്ദാക്കൂ",
         "continue": "ഇറക്കൽ തുടരൂ",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
         "hide_game": "Hide Game",
         "import": "കളി ഇറക്കുമതി ചെയ്യൂ",
         "install": "നടൂ",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remove From Favourites",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Unhide Game",
         "uninstall": "എടുത്തുനീക്കൂ",
         "update": "പുതുക്കൂ"
@@ -56,6 +76,8 @@
     "game": {
         "downloadSize": "ഇറക്കിയെടുപ്പിന്റെ വലുപ്പം",
         "firstPlayed": "ആദ്യം കളിച്ചത്",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "നടീലിന്റെ വലുപ്പം",
         "language": "ഭാഷ",
         "lastPlayed": "ഒടുക്കം കളിച്ചത്",
@@ -100,9 +122,36 @@
     "launch": {
         "options": "വിക്ഷേപണ ബദലുകൾ..."
     },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "നടുവാനുള്ള ഘടകങ്ങള് തിരഞ്ഞെടുക്കൂ"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "കുറഞ്ഞത്",
@@ -116,6 +165,7 @@
         "moving": "നടീലിടം മാറ്റുന്നു, ഇത്തിരി കാക്കൂ",
         "notinstalled": "ഈ കളി നട്ടിട്ടില്ല",
         "processing": "Processing files, please wait",
+        "queued": "Queued",
         "reparing": "കളി നന്നാക്കുന്നു, ഒന്നു കാക്കൂ",
         "totalDownloaded": "ആകെ ഇറക്കിയെടുത്തത്",
         "updating": "കളി പുതുക്കുന്നു"

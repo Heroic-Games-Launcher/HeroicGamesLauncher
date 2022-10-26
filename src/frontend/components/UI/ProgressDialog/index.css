@@ -34,15 +34,15 @@
 }
 
 .progressDialog.log-error {
-  color: #c18672;
+  color: var(--text-danger);
 }
 
 .progressDialog.log-warning {
-  color: #f5cf69;
+  color: var(--text-warning);
 }
 
 .progressDialog.log-info {
-  color: rgb(175, 172, 172);
+  color: var(--text-default);
 }
 
 .progressDialog.header {

@@ -14,64 +14,65 @@ export default function PlatformFilter() {
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+  const disabledIcon = isLinux && category === 'legendary'
+
   return (
     <div className="platformFilters">
-      {(isMac || (isLinux && category !== 'legendary')) && (
-        <FormControl segmented>
+      <FormControl segmented>
+        <button
+          onClick={() => handlePlatformFilter('all')}
+          className={cx('FormControl__button', {
+            active: filterPlatform === 'all'
+          })}
+          title={`${t('header.platform')}: ${t('All')}`}
+        >
+          {t('All')}
+        </button>
+        <button
+          onClick={() => handlePlatformFilter('win')}
+          className={cx('FormControl__button', {
+            active: filterPlatform === 'win'
+          })}
+          title={`${t('header.platform')}: ${t('platforms.win')}`}
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={faWindows}
+            tabIndex={-1}
+          />
+        </button>
+        {isMac && (
           <button
-            onClick={() => handlePlatformFilter('all')}
+            onClick={() => handlePlatformFilter('mac')}
             className={cx('FormControl__button', {
-              active: filterPlatform === 'all'
+              active: filterPlatform === 'mac'
             })}
-            title={`${t('header.platform')}: ${t('All')}`}
-          >
-            {t('All')}
-          </button>
-          <button
-            onClick={() => handlePlatformFilter('win')}
-            className={cx('FormControl__button', {
-              active: filterPlatform === 'win'
-            })}
-            title={`${t('header.platform')}: ${t('platforms.win')}`}
+            title={`${t('header.platform')}: ${t('platforms.mac')}`}
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
-              icon={faWindows}
+              icon={faApple}
               tabIndex={-1}
             />
           </button>
-          {isMac && (
-            <button
-              onClick={() => handlePlatformFilter('mac')}
-              className={cx('FormControl__button', {
-                active: filterPlatform === 'mac'
-              })}
-              title={`${t('header.platform')}: ${t('platforms.mac')}`}
-            >
-              <FontAwesomeIcon
-                className="FormControl__segmentedFaIcon"
-                icon={faApple}
-                tabIndex={-1}
-              />
-            </button>
-          )}
-          {isLinux && (
-            <button
-              onClick={() => handlePlatformFilter('linux')}
-              className={cx('FormControl__button', {
-                active: filterPlatform === 'linux'
-              })}
-              title={`${t('header.platform')}: ${t('platforms.linux')}`}
-            >
-              <FontAwesomeIcon
-                className="FormControl__segmentedFaIcon"
-                icon={faLinux}
-                tabIndex={-1}
-              />
-            </button>
-          )}
-        </FormControl>
-      )}
+        )}
+        {isLinux && (
+          <button
+            onClick={() => handlePlatformFilter('linux')}
+            className={cx('FormControl__button', {
+              active: filterPlatform === 'linux'
+            })}
+            title={`${t('header.platform')}: ${t('platforms.linux')}`}
+            disabled={disabledIcon}
+          >
+            <FontAwesomeIcon
+              className="FormControl__segmentedFaIcon"
+              icon={faLinux}
+              tabIndex={-1}
+            />
+          </button>
+        )}
+      </FormControl>
     </div>
   )
 }

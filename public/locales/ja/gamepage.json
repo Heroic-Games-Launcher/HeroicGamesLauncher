@@ -17,6 +17,15 @@
             "message": "このゲームを修復したいですか？これには長い時間がかかることがあります。",
             "title": "確認と修復"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "インストールを続ける",
             "message": "ダウンロードしたファイルを保持しますか？",
@@ -38,11 +47,22 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "一時停止/キャンセル",
         "continue": "ダウンロードを続ける",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
         "hide_game": "Hide Game",
         "import": "インポート",
         "install": "インストール",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remove From Favourites",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Unhide Game",
         "uninstall": "アンインストール",
         "update": "アップデート"
@@ -56,6 +76,8 @@
     "game": {
         "downloadSize": "ダウンロードサイズ",
         "firstPlayed": "最初にプレイした",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "インストールサイズ",
         "language": "Language",
         "lastPlayed": "最後にプレイした",
@@ -100,9 +122,36 @@
     "launch": {
         "options": "Launch Options..."
     },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "インストールするコンポーネントを選択します"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "最小",
@@ -116,6 +165,7 @@
         "moving": "インストールを移動しています、お待ちください",
         "notinstalled": "このゲームはインストールされていません",
         "processing": "Processing files, please wait",
+        "queued": "Queued",
         "reparing": "ゲームを修復しています、お待ちください",
         "totalDownloaded": "ダウンロードの総数",
         "updating": "ゲームを更新しています"

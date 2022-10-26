@@ -17,6 +17,15 @@
             "message": "Apakah Anda ingin mencoba untuk memperbaiki gim ini? Ini bisa memakan waktu lama.",
             "title": "Verifikasi dan Perbaiki"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Tetap Memasang",
             "message": "Apakah Anda ingin MENYIMPAN berkas yang diunduh?",
@@ -38,11 +47,22 @@
         "add_to_favourites": "Tambahkan Ke Favorit",
         "cancel": "Jeda/Batal",
         "continue": "Lanjutkan Unduhan",
+        "finish": "Finish",
         "force_update": "Paksa Pembaruan jika Tersedia",
+        "force-innstall": "Force Install",
         "hide_game": "Sembunyikan Gim",
         "import": "Impor Gim",
         "install": "Pasang",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Hapus Dari Favorit",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Tampilkan Gim yang Disembunyikan",
         "uninstall": "Copot",
         "update": "Perbarui"
@@ -56,6 +76,8 @@
     "game": {
         "downloadSize": "Ukuran Unduhan",
         "firstPlayed": "Pertama Kali Dimainkan",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Ukuran Pemasangan",
         "language": "Bahasa",
         "lastPlayed": "Terakhir Dimainkan",
@@ -100,9 +122,36 @@
     "launch": {
         "options": "Opsi Peluncuran…"
     },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Laporkan masalah yang terjadi saat memainkan gim ini",
     "sdl": {
         "title": "Pilih komponen untuk dipasang"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Minimum",
@@ -116,6 +165,7 @@
         "moving": "Memindahkan Pemasangan, harap tunggu",
         "notinstalled": "Gim ini tidak dipasang",
         "processing": "Memproses berkas, harap tunggu",
+        "queued": "Queued",
         "reparing": "Memperbaiki Gim, harap tunggu",
         "totalDownloaded": "Jumlah yang Diunduh",
         "updating": "Memperbarui Gim"

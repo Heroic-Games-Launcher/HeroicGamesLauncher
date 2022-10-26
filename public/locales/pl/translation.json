@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -171,6 +171,19 @@
         }
     },
     "docs": "Dokumentacja",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Usługi online mogą nie działać w pełni, ponieważ serwery Epic Games są offline!",
         "offline-notification-title": "offline"
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "AMD FSR pomaga podnieść ilość klatek na sekundę poprzez podniesienie niżej rozdzielczości do rozdzielczości monitora. Jakość obrazu można dostosować: od 5 do 1, z drobnym spadkiem wydajności. Włączenie może poprawić wydajność.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK to oparta o Vulkan'a warstwa tłumacząca dla gier opratych o DirectX 9, 10 i 11, włączenie DXVK podnosi ich kompatybilność, lecz może powodować problemy szczególnie w starszych grach.",
         "esync": "Zadaniem Esync'u jest zmniejszenie bottleneck'a spowodowanego przez Wine, w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność.",
         "fsync": "Zadaniem Esync'u jest zmniejszenie bottleneck'a spowodowanego przez Wine, w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność, lecz wymaga odpowiedniego wsparcia w kernelu.",
@@ -224,7 +239,6 @@
         },
         "preferSystemLibs": "Customowe wersje Wine (Wine-GE, Wine-Lutris) są pobierane wraz z wymaganymi bibliotekami. Włączając tą opcję, te biblioteki zostaną zignorowane, a zamiast nich zostaną wykorzystane biblioteki systemowe Wine. Uwaga! Może powodować problemy z kompatybilnością zależności.",
         "primerun": "Używaj dedykowanej karty graficznej do renderowania na urządzeniach multi-GPU. Potrzebne tylko dla gamingowych laptopów, lub komputerów używających więcej niż jednej karty graficznej (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar pomaga podnieść ilość klatek pozwalając CPU na dostęp do całego bufora graficznego. Włączenie tej opcji może podnieść wydajność w grach opartych na Vulkan'ie.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -248,12 +262,16 @@
             "stable": "Stabilna",
             "version": "Wersja Heroic"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Ustawienia są zapisywane automatycznie",
         "version": "Wersja Wine"
     },
     "infobox": {
         "help": "Pomoc",
         "requirements": "Wymagania Systemowe",
+        "warning": "Warning",
         "wine-path": "Ścieżka Wine",
         "wine-prefix": {
             "title": "Prefiks Wine"
@@ -374,9 +392,11 @@
         "legendary-version": "Wersja Legendary: ",
         "weblate": "Pomóż przetłumaczyć Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Używanie wbudowanego pliku binarnego GOGDL...",
         "alt-legendary-bin": "Używanie wbudowanego pliku binarnego Legendary...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefiks, w którym zainstalowany jest EGS",
         "prefered_language": "dwu-znakowy kod (np. : \"en\" lub \"pl\")"
     },
@@ -386,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Progres",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Ostatnio uruchamiane",
     "search": "Wyszukaj gry",
     "setting": {
@@ -401,6 +429,7 @@
         "change-target-exe": "Wybierz alternatywny plik EXE do uruchomienia",
         "checkForUpdatesOnStartup": "Sprawdzaj aktualizacje Heroic podczas uruchomienia",
         "crossover-version": "Wersja Crossover",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikon",
         "default-install-path": "Domyślna ścieżka instalacji",
@@ -470,7 +499,6 @@
         "prefered_language": "Preferowany język (Kod języka)",
         "preferSystemLibs": "Preferuj biblioteki systemowe",
         "primerun": "Używaj dedykowanej karty graficznej",
-        "resizableBar": "Włącz Resizable BAR (Tylko dla kart NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Przeciągnij i upuść pliki tutaj",
             "title": "Uruchom EXE w prefiksie"

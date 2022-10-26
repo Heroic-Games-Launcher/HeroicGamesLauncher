@@ -1,3 +1,7 @@
+import {
+  createAbortController,
+  deleteAbortController
+} from '../utils/aborthandler/aborthandler'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from 'common/types'
@@ -12,32 +16,57 @@ export class LegendaryUser {
   public static async login(authorizationCode: string) {
     const commandParts = ['auth', '--code', authorizationCode]
 
-    try {
-      await runLegendaryCommand(commandParts, {
-        logMessagePrefix: 'Logging in'
-      })
-      const userInfo = await this.getUserInfo()
-      return { status: 'done', data: userInfo }
-    } catch (error) {
+    const abortID = 'legendary-login'
+    const errorMessage = (error: string) => {
       logError(['Failed to login with Legendary:', error], {
         prefix: LogPrefix.Legendary
       })
 
       return { status: 'failed' }
     }
+
+    try {
+      const res = await runLegendaryCommand(
+        commandParts,
+        createAbortController(abortID),
+        {
+          logMessagePrefix: 'Logging in'
+        }
+      )
+
+      deleteAbortController(abortID)
+
+      if (res.error || res.abort) {
+        return errorMessage(res.error ?? 'abort by user')
+      }
+
+      const userInfo = await this.getUserInfo()
+      return { status: 'done', data: userInfo }
+    } catch (error) {
+      deleteAbortController(abortID)
+      return errorMessage(`${error}`)
+    }
   }
 
   public static async logout() {
     const commandParts = ['auth', '--delete']
 
-    const res = await runLegendaryCommand(commandParts, {
-      logMessagePrefix: 'Logging out'
-    })
+    const abortID = 'legendary-logout'
+    const res = await runLegendaryCommand(
+      commandParts,
+      createAbortController(abortID),
+      {
+        logMessagePrefix: 'Logging out'
+      }
+    )
 
-    if (res.error) {
-      logError(['Failed to logout:', res.error], {
+    deleteAbortController(abortID)
+
+    if (res.error || res.abort) {
+      logError(['Failed to logout:', res.error ?? 'abort by user'], {
         prefix: LogPrefix.Legendary
       })
+      return
     }
 
     const ses = session.fromPartition('persist:epicstore')
