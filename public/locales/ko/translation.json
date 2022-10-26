@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "오류",
@@ -249,6 +249,9 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "설정은 자동으로 저장됩니다",
         "version": "Wine Version"
     },
@@ -376,6 +379,7 @@
         "legendary-version": "Legendary 버전: ",
         "weblate": "Heroric 번역을 도와주세요."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "내장된 GOGDL 바이너리 파일 사용...",
         "alt-legendary-bin": "내장된 Legendary 바이너리 파일 사용...",

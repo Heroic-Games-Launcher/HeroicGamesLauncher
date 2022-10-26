@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Xəta",
@@ -249,6 +249,9 @@
             "stable": "Stabil",
             "version": "Qəhrəmanlıq versiyası"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Parametrlər avtomatik olaraq saxlanılır",
         "version": "Şərab versiyası"
     },
@@ -376,6 +379,7 @@
         "legendary-version": "Əfsanəvi Versiya: ",
         "weblate": "Heroic tərcüməsinə kömək edin."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Daxili GOGDL ikili proqramından istifadə...",
         "alt-legendary-bin": "Daxili əfsanəvi ikili proqramdan istifadə...",

@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -249,6 +249,9 @@
             "stable": "Estable",
             "version": "Versión de Heroic"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Los ajustes se guardan automáticamente",
         "version": "Versión de Wine"
     },
@@ -376,6 +379,7 @@
         "legendary-version": "Versión de Legendary: ",
         "weblate": "Ayuda a traducir Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Utilizando el binario incorporado de GOGDL...",
         "alt-legendary-bin": "Usando el binario incorporado de Legendary…",

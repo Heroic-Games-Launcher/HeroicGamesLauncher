@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -249,6 +249,9 @@
             "stable": "Stabilní",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Nastavení se ukládají automaticky",
         "version": "Verze Wine"
     },
@@ -376,6 +379,7 @@
         "legendary-version": "Verze Legenary: ",
         "weblate": "Pomozte s překladem Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Pomocí vestavěného GOGDL...",
         "alt-legendary-bin": "Pomocí vestavěného Legendary...",
