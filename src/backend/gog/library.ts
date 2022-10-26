@@ -371,7 +371,15 @@ export class GOGLibrary {
       errorMessage(res.error)
     }
 
-    const gogInfo = JSON.parse(res.stdout)
+    let gogInfo
+    try {
+      gogInfo = JSON.parse(res.stdout)
+    } catch (error) {
+      logError(['Error when parsing JSON file on getInstallInfo', error], {
+        prefix: LogPrefix.Gog
+      })
+      return
+    }
     let libraryArray = libraryStore.get('games', []) as GameInfo[]
     let gameObjectIndex = libraryArray.findIndex(
       (value) => value.app_name === appName
@@ -402,10 +410,10 @@ export class GOGLibrary {
       )
     }
 
-    libraryArray[gameObjectIndex].folder_name = gogInfo?.folder_name
+    libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
     libraryArray[gameObjectIndex].gog_save_location =
       gameData?.gog_save_location
-    gameData.folder_name = gogInfo?.folder_name
+    gameData.folder_name = gogInfo.folder_name
     libraryStore.set('games', libraryArray)
     this.library.set(appName, gameData)
     const info: GogInstallInfo = {
@@ -415,7 +423,7 @@ export class GOGLibrary {
         owned_dlc: gogInfo.dlcs,
         version: gogInfo.versionName,
         launch_options: [],
-        buildId: gogInfo.buildId
+        buildId: gogInfo!.buildId
       },
       manifest: {
         disk_size: Number(gogInfo.disk_size),
