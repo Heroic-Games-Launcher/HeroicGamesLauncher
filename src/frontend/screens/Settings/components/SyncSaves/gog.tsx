@@ -157,6 +157,10 @@ export default function GOGSyncSaves({
       </div>
       {isLoading ? (
         <div className="link button is-text is-link" style={{ width: '100%' }}>
+          {`${t(
+            'info.save-sync.searching',
+            'Trying to detect the correct save folder'
+          )}... `}
           <CircularProgress className="link button is-text is-link" />
         </div>
       ) : (

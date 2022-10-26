@@ -38,6 +38,15 @@ export default function StoreFilter() {
         >
           GOG
         </button>
+        <button
+          className={classNames('FormControl__button', {
+            active: category === 'sideload'
+          })}
+          title={`${t('header.store')}: ${t('Other')}`}
+          onClick={() => handleCategory('sideload')}
+        >
+          {t('Other')}
+        </button>
       </FormControl>
     </div>
   )

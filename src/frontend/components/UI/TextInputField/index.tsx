@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactNode, useContext } from 'react'
+import React, { ChangeEvent, FocusEvent, ReactNode, useContext } from 'react'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
@@ -14,6 +14,8 @@ interface TextInputFieldProps {
   disabled?: boolean
   extraClass?: string
   warning?: ReactNode
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void
+  maxLength?: number
 }
 
 const TextInputField = ({
@@ -26,7 +28,9 @@ const TextInputField = ({
   extraClass = '',
   inputIcon,
   afterInput,
-  warning
+  warning,
+  onBlur,
+  maxLength
 }: TextInputFieldProps) => {
   const { isRTL } = useContext(ContextProvider)
 
@@ -45,6 +49,8 @@ const TextInputField = ({
         onChange={onChange}
         disabled={disabled}
         placeholder={placeholder}
+        onBlur={onBlur}
+        maxLength={maxLength}
       />
       {value && warning}
       {afterInput}
