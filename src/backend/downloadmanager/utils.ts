@@ -80,11 +80,8 @@ async function installQueueElement(
       prefix: LogPrefix.DownloadManager
     })
 
-    mainWindow.webContents.send('setGameStatus', {
-      appName,
-      runner,
-      status: 'done'
-    })
+    const status = getGameStatusOfElement(appName) || { appName, runner }
+    setGameStatusOfElement({ ...status, status: 'error' })
     return error
   }
 

@@ -1,7 +1,6 @@
 import { GameStatus } from 'common/types'
 import { ipcMain } from 'electron'
 import {
-  deleteGameStatusOfElement,
   getAllGameStatus,
   getGameStatusOfElement,
   setGameStatusOfElement
@@ -9,10 +8,6 @@ import {
 
 ipcMain.handle('setGameStatus', (e, gameStatus: GameStatus) => {
   return setGameStatusOfElement(gameStatus)
-})
-
-ipcMain.on('deleteGameStatus', (e, appName: string) => {
-  deleteGameStatusOfElement(appName)
 })
 
 ipcMain.handle('getGameStatus', (e, appName: string) => {

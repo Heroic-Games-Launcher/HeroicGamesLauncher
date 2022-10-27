@@ -4,7 +4,7 @@ import Store from 'electron-store'
 import { DMQueueElement } from 'common/types'
 import { installQueueElement } from './utils'
 import {
-  deleteGameStatusOfElement,
+  getGameStatusOfElement,
   setGameStatusOfElement
 } from 'backend/handler/gamestatus/gamestatushandler'
 
@@ -72,7 +72,17 @@ async function initQueue() {
   while (element) {
     const { status } = await installQueueElement(window, element.params)
 
-    addToFinished(element, status)
+    if (status === 'done') {
+      addToFinished(element, status)
+    } else {
+      // TODO: differentiate between failed and canceled (both are reported as 'error'), add a failed list
+      const { appName, runner } = element.params
+      const gameStatus = getGameStatusOfElement(appName) || { appName, runner }
+      setGameStatusOfElement({
+        ...gameStatus,
+        status: 'canceled'
+      })
+    }
     removeFromQueue(element.params.appName)
     element = getFirstQueueElement()
   }
@@ -126,8 +136,6 @@ function removeFromQueue(appName: string) {
       downloadManager.delete('queue')
       downloadManager.set('queue', elements)
     }
-
-    deleteGameStatusOfElement(appName)
 
     logInfo([appName, 'removed from download manager.'], {
       prefix: LogPrefix.DownloadManager
