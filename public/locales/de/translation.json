@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "Benutzerdefinierte Wine-Versionen (Wine-GE, Wine-Lutris) werden mit ihren Bibliotheks-Abhängigkeiten ausgeliefert. Wenn du diese Option aktivierst, werden diese mitgelieferten Bibliotheken ignoriert und Wine lädt stattdessen die Systembibliotheken. Warnung! Es können Probleme auftreten, wenn die Abhängigkeiten nicht erfüllt sind.",
         "primerun": "Verwende dedizierte Grafikkarte zum Rendern von Spielen auf Multi-GPU-Systemen. Nur auf Gaming-Laptops oder -Desktops erforderlich, die eine Headless-GPU zum Rendern verwenden (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIAs Resizable Bar trägt zur Verbesserung der Framerate bei, indem die CPU auf den gesamten Grafikpuffer zugreift. Durch Aktivieren kann die Leistung für Vulkan-basierte Spiele verbessert werden.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -470,7 +469,6 @@
         "prefered_language": "Bevorzugte Sprache (Sprachcode)",
         "preferSystemLibs": "Systembibliotheken bevorzugen",
         "primerun": "Dedizierte Grafikkarte verwenden",
-        "resizableBar": "Resizable BAR aktivieren (nur NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
             "title": "EXE in Prefix starten"

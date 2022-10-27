@@ -224,7 +224,6 @@
         },
         "preferSystemLibs": "Custom Wine-versjoner (Wine-GE, Wine-Lutris) sendes med deres bibliotekavhengigheter. Ved å aktivere dette alternativet vil disse sendte bibliotekene bli ignorert og Wine vil laste inn systembibliotekene i stedet. Advarsel! Problemer kan oppstå hvis avhengigheter ikke oppfylles.",
         "primerun": "Bruk dedikert grafikkort til å gjengi spill på multi-GPU-systemer. Bare nødvendig på bærbare eller stasjonære gaming-maskiner som bruker en hodeløs GPU for gjengivelse (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIAs Resizable Bar bidrar til å øke framerate ved å gi CPU-en tilgang til hele grafikkbufferen. Aktivering kan forbedre ytelsen for Vulkan-baserte spill.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -470,7 +469,6 @@
         "prefered_language": "Foretrukket språk (språkkode)",
         "preferSystemLibs": "Foretrekker systembiblioteker",
         "primerun": "Bruk dedikert grafikkort",
-        "resizableBar": "Aktiver endringsbar BAR (kun NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Dra og slipp filer her",
             "title": "Kjør EXE på prefiks"

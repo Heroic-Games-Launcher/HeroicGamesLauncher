@@ -23,7 +23,7 @@ export const ThemeSelector = () => {
       <option value="zombie">Zombie</option>
       <option value="zombie-classic">Zombie Classic</option>
       <option value="nord-light">Nord Light</option>
-      <option value="nord-dark">Noard Dark</option>
+      <option value="nord-dark">Nord Dark</option>
     </SelectField>
   )
 }
