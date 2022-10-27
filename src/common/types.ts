@@ -500,6 +500,11 @@ export interface Tools {
   runner: Runner
 }
 
+export type RecentGame = {
+  appName: string
+  title: string
+}
+
 export interface DMQueueElement {
   params: InstallParams
   status?: 'done' | 'error' | 'abort'

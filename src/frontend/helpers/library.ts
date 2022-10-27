@@ -9,7 +9,6 @@ import {
 
 import { TFunction } from 'react-i18next'
 import { getGameInfo, sendKill } from './index'
-import { configStore } from './electronStores'
 import { DialogModalOptions } from 'frontend/types'
 
 const storage: Storage = window.localStorage
@@ -233,32 +232,12 @@ const updateGame = window.api.updateGame
 //   })
 // }
 
-type RecentGame = {
-  appName: string
-  title: string
-}
-
-function getRecentGames(libraries: GameInfo[]): GameInfo[] {
-  const recentGames =
-    (configStore.get('games.recent', []) as Array<RecentGame>) || []
-
-  return libraries.filter((game: GameInfo) =>
-    recentGames.some((recent) => {
-      if (!recent || !game) {
-        return false
-      }
-      return recent.appName === game.app_name
-    })
-  )
-}
-
 export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
 export const sideloadedCategories = ['all', 'sideload']
 
 export {
   handleStopInstallation,
-  getRecentGames,
   install,
   launch,
   repair,

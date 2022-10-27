@@ -51,6 +51,16 @@ export const handleInstallGame = (callback: any) =>
 export const handleRefreshLibrary = (callback: any) =>
   ipcRenderer.on('refreshLibrary', callback)
 
+export const removeRecentGame = async (appName: string) =>
+  ipcRenderer.invoke('removeRecent', appName)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const handleRecentGamesChanged = (callback: any) => {
+  ipcRenderer.on('recentGamesChanged', callback)
+  return () => {
+    ipcRenderer.removeListener('recentGamesChanged', callback)
+  }
+}
+
 export const addNewApp = (args: SideloadGame) =>
   ipcRenderer.send('addNewApp', args)
 

@@ -128,6 +128,7 @@ import {
   runOnceWhenOnline
 } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
+import { addRecentGame, getRecentGames } from './recent_games'
 import {
   addNewApp,
   appLogFileLocation,
@@ -281,10 +282,8 @@ async function createWindow(): Promise<BrowserWindow> {
 const gotTheLock = app.requestSingleInstanceLock()
 let openUrlArgument = ''
 
-const contextMenu = () => {
-  const recentGames: Array<RecentGame> =
-    (configStore.get('games.recent', []) as Array<RecentGame>) || []
-  const recentsMenu = recentGames.map((game) => {
+const contextMenu = async () => {
+  const recentsMenu = (await getRecentGames({ limited: true })).map((game) => {
     return {
       click: function () {
         handleProtocol(mainWindow, [`heroic://launch/${game.appName}`])
@@ -484,7 +483,7 @@ if (!gotTheLock) {
       mainWindow.show()
     })
 
-    appIcon.setContextMenu(contextMenu())
+    appIcon.setContextMenu(await contextMenu())
     appIcon.setToolTip('Heroic')
     ipcMain.on('changeLanguage', async (event, language: string) => {
       logInfo(['Changing Language to:', language], {
@@ -492,7 +491,7 @@ if (!gotTheLock) {
       })
       await i18next.changeLanguage(language)
       gameInfoStore.clear()
-      appIcon.setContextMenu(contextMenu())
+      appIcon.setContextMenu(await contextMenu())
     })
 
     ipcMain.addListener('changeTrayColor', () => {
@@ -501,7 +500,7 @@ if (!gotTheLock) {
         const { darkTrayIcon } = await GlobalConfig.get().getSettings()
         const trayIcon = darkTrayIcon ? iconDark : iconLight
         appIcon.setImage(trayIcon)
-        appIcon.setContextMenu(contextMenu())
+        appIcon.setContextMenu(await contextMenu())
       }, 500)
     })
 
@@ -962,11 +961,6 @@ ipcMain.on('logInfo', (e, info) =>
   logInfo(info, { prefix: LogPrefix.Frontend })
 )
 
-type RecentGame = {
-  appName: string
-  title: string
-}
-
 let powerDisplayId: number | null
 
 ipcMain.handle(
@@ -974,14 +968,11 @@ ipcMain.handle(
   async (event, { appName, launchArguments, runner }: LaunchParams) => {
     const window = BrowserWindow.getAllWindows()[0]
     const isSideloaded = runner === 'sideload'
-    const recentGames =
-      (configStore.get('games.recent') as Array<RecentGame>) || []
     const extGame = getGame(appName, runner)
     const game = isSideloaded ? getAppInfo(appName) : extGame.getGameInfo()
     const { title } = game
 
-    const { minimizeOnLaunch, maxRecentGames: MAX_RECENT_GAMES = 5 } =
-      await GlobalConfig.get().getSettings()
+    const { minimizeOnLaunch } = await GlobalConfig.get().getSettings()
 
     const startPlayingDate = new Date()
 
@@ -993,25 +984,7 @@ ipcMain.handle(
       prefix: LogPrefix.Backend
     })
 
-    if (recentGames.length) {
-      let updatedRecentGames = recentGames.filter(
-        (a) => a.appName && a.appName !== game.app_name
-      )
-      if (updatedRecentGames.length > MAX_RECENT_GAMES) {
-        const newArr = []
-        for (let i = 0; i <= MAX_RECENT_GAMES; i++) {
-          newArr.push(updatedRecentGames[i])
-        }
-        updatedRecentGames = newArr
-      }
-      if (updatedRecentGames.length === MAX_RECENT_GAMES) {
-        updatedRecentGames.pop()
-      }
-      updatedRecentGames.unshift({ appName: game.app_name, title })
-      configStore.set('games.recent', updatedRecentGames)
-    } else {
-      configStore.set('games.recent', [{ appName: game.app_name, title }])
-    }
+    addRecentGame(game)
 
     window.webContents.send('setGameStatus', {
       appName,
