@@ -135,7 +135,8 @@ import {
   getAppSettings,
   isNativeApp,
   launchApp,
-  removeApp
+  removeApp,
+  stop
 } from './sideload/games'
 import { callAbortController } from './utils/aborthandler/aborthandler'
 
@@ -557,10 +558,6 @@ ipcMain.on('unlock', () => {
       return powerSaveBlocker.stop(powerId)
     }
   }
-})
-
-ipcMain.handle('kill', async (event, appName, runner) => {
-  return getGame(appName, runner).stop()
 })
 
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
@@ -1326,7 +1323,7 @@ ipcMain.handle(
 
 ipcMain.handle('kill', async (event, appName, runner) => {
   callAbortController(appName)
-  return getGame(appName, runner).stop()
+  return runner === 'sideload' ? stop(appName) : getGame(appName, runner).stop()
 })
 
 ipcMain.handle('updateGame', async (event, appName, runner) => {

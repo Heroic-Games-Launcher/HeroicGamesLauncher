@@ -1,6 +1,7 @@
 import * as logger from '../logger'
 import { appendMessageToLogFile } from '../logfile'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
+import { platform } from 'os'
 
 jest.mock('../logfile')
 jest.mock('../../dialog/dialog')
@@ -39,7 +40,16 @@ function getStringPassedToLogFile(type: logLevel, skipMessagePrefix = false) {
   ].join('\n')
 }
 
+const shouldSkip = platform() === 'win32'
+const skipMessage = 'on windows so skipping test'
+const emptyTest = it('should do nothing', () => {})
+
 describe('logger/logger.ts', () => {
+  if (shouldSkip) {
+    console.log(skipMessage)
+    emptyTest
+    return
+  }
   afterEach(jest.restoreAllMocks)
 
   test('log invokes console', () => {
