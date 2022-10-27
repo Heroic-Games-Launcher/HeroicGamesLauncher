@@ -58,7 +58,7 @@ export default function GamePage(): JSX.Element | null {
   const gameStatus = hasGameStatus(appName)
   const { epic, gog, gameUpdates, platform, showDialogModal } =
     useContext(ContextProvider)
-  const progress = hasProgress(appName, gameStatus.progress)
+  const progress = hasProgress(appName, gameStatus)
 
   // @ts-expect-error TODO: Proper default value
   const [gameInfo, setGameInfo] = useState<GameInfo>({})

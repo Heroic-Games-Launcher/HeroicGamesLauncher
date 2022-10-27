@@ -141,7 +141,8 @@ import {
   getAppSettings,
   isNativeApp,
   launchApp,
-  removeApp
+  removeApp,
+  stop
 } from './sideload/games'
 import { callAbortController } from './utils/aborthandler/aborthandler'
 
@@ -1364,7 +1365,7 @@ ipcMain.handle(
 
 ipcMain.handle('kill', async (event, appName, runner) => {
   callAbortController(appName)
-  return getGame(appName, runner).stop()
+  return runner === 'sideload' ? stop(appName) : getGame(appName, runner).stop()
 })
 
 ipcMain.handle('updateGame', async (event, appName, runner) => {

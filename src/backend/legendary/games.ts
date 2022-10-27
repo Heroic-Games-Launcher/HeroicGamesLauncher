@@ -325,6 +325,7 @@ class LegendaryGame extends Game {
     const gameStatus = getGameStatusOfElement(this.appName)!
     setGameStatusOfElement({
       ...gameStatus,
+      status: 'installing',
       progress: {
         eta: eta,
         percent,

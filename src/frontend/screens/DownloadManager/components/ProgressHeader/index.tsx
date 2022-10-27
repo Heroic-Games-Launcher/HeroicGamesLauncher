@@ -18,7 +18,7 @@ const roundToNearestHundredth = function (val: number | undefined) {
 export default function ProgressHeader({ appName }: { appName: string }) {
   const { hasGameStatus } = useContext(LibraryContext)
   const gameStatus = hasGameStatus(appName)
-  const progress = hasProgress(appName, gameStatus.progress)
+  const progress = hasProgress(appName, gameStatus)
   const [avgSpeed, setAvgDownloadSpeed] = useState<Point[]>(
     Array<Point>(10).fill({ download: 0, disk: 0 })
   )

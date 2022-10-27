@@ -63,7 +63,7 @@ const GameCard = ({
   const { hasGameStatus } = useContext(LibraryContext)
   const gameStatus = hasGameStatus(appName)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
-  const progress = hasProgress(appName, gameStatus.progress)
+  const progress = hasProgress(appName, gameStatus)
 
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()

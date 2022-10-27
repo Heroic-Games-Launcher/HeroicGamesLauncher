@@ -3,7 +3,10 @@ import { getMainWindow } from '../utils'
 import Store from 'electron-store'
 import { DMQueueElement } from 'common/types'
 import { installQueueElement } from './utils'
-import { deleteGameStatusOfElement } from 'backend/handler/gamestatus/gamestatushandler'
+import {
+  deleteGameStatusOfElement,
+  setGameStatusOfElement
+} from 'backend/handler/gamestatus/gamestatushandler'
 
 const downloadManager = new Store({
   cwd: 'store',
@@ -38,7 +41,7 @@ function addToFinished(
   const elementIndex = elements.findIndex(
     (el) => el.params.appName === element.params.appName
   )
-  console.log([status])
+
   if (elementIndex >= 0) {
     elements[elementIndex] = { ...element, status: status ?? 'abort' }
   } else {
@@ -48,6 +51,12 @@ function addToFinished(
   downloadManager.set('finished', elements)
   logInfo([element.params.appName, 'added to download manager finished.'], {
     prefix: LogPrefix.DownloadManager
+  })
+
+  setGameStatusOfElement({
+    appName: element.params.appName,
+    status: 'done',
+    runner: element.params.runner
   })
 }
 

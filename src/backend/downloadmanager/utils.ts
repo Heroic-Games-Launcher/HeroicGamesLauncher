@@ -5,6 +5,10 @@ import { InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
+import {
+  getGameStatusOfElement,
+  setGameStatusOfElement
+} from 'backend/handler/gamestatus/gamestatushandler'
 
 async function installQueueElement(
   mainWindow: BrowserWindow,
@@ -47,12 +51,24 @@ async function installQueueElement(
     }
   }
 
-  mainWindow.webContents.send('setGameStatus', {
-    appName,
-    runner,
-    status: 'installing',
-    folder: path
-  })
+  const gameStatus = getGameStatusOfElement(appName)
+  // If the user changed the previous folder, the percentage should start from zero again.
+  if (!gameStatus || (gameStatus?.progress && gameStatus?.folder !== path)) {
+    setGameStatusOfElement({
+      folder: path,
+      appName,
+      runner,
+      status: 'installing'
+    })
+  } else {
+    // keep the progress from previous install if any
+    setGameStatusOfElement({
+      ...gameStatus,
+      folder: path,
+      runner,
+      status: 'installing'
+    })
+  }
 
   notify({
     title,

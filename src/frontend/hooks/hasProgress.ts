@@ -1,12 +1,9 @@
-import { InstallProgress } from 'common/types'
+import { GameStatus, InstallProgress } from 'common/types'
 import { useEffect, useState } from 'react'
 
-export const hasProgress = (
-  appName: string,
-  initialProgress: InstallProgress | undefined
-) => {
+export const hasProgress = (appName: string, gameStatus: GameStatus) => {
   const [progress, setProgress] = useState<InstallProgress | undefined>(
-    initialProgress
+    gameStatus.progress
   )
 
   useEffect(() => {
@@ -19,6 +16,12 @@ export const hasProgress = (
 
     return () => removeListener()
   }, [])
+
+  useEffect(() => {
+    if (gameStatus.status === 'done') {
+      setProgress(undefined)
+    }
+  }, [gameStatus])
 
   return progress
 }

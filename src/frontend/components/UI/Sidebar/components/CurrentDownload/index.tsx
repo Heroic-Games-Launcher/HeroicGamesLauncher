@@ -26,7 +26,7 @@ export default function CurrentDownload({ appName, runner }: Props) {
   const { sidebarCollapsed } = useContext(ContextProvider)
   const { t } = useTranslation()
 
-  const progress = hasProgress(appName, gameStatus.progress)
+  const progress = hasProgress(appName, gameStatus)
 
   useEffect(() => {
     const getGameTitle = async () => {
@@ -51,7 +51,7 @@ export default function CurrentDownload({ appName, runner }: Props) {
       : t('status.installing', 'Installing')
   }
 
-  if (!gameStatusMap.length) {
+  if (!Object.keys(gameStatusMap).length) {
     return null
   }
 
