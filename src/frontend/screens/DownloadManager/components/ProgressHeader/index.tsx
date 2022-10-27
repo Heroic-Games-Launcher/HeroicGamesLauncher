@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AreaChart, Area, ResponsiveContainer } from 'recharts'
 import { LinearProgress } from '@mui/material'
 import LibraryContext from 'frontend/state/LibraryContext'
+import { hasProgress } from 'frontend/hooks/hasProgress'
 
 interface Point {
   download: number
@@ -14,9 +15,10 @@ const roundToNearestHundredth = function (val: number | undefined) {
   return Math.round(val * 100) / 100
 }
 
-export default function ProgressHeader(props: { appName: string }) {
+export default function ProgressHeader({ appName }: { appName: string }) {
   const { hasGameStatus } = useContext(LibraryContext)
-  const gameStatus = hasGameStatus(props.appName)
+  const gameStatus = hasGameStatus(appName)
+  const progress = hasProgress(appName, gameStatus.progress)
   const [avgSpeed, setAvgDownloadSpeed] = useState<Point[]>(
     Array<Point>(10).fill({ download: 0, disk: 0 })
   )
@@ -28,14 +30,14 @@ export default function ProgressHeader(props: { appName: string }) {
 
     avgSpeed.push({
       download:
-        gameStatus?.progress?.downSpeed && gameStatus?.progress?.downSpeed > 0
-          ? gameStatus?.progress?.downSpeed
+        progress?.downSpeed && progress?.downSpeed > 0
+          ? progress?.downSpeed
           : avgSpeed.at(-1)?.download ?? 0,
-      disk: gameStatus?.progress?.diskSpeed ?? 0
+      disk: progress?.diskSpeed ?? 0
     })
 
     setAvgDownloadSpeed([...avgSpeed])
-  }, [gameStatus.progress])
+  }, [progress])
 
   return (
     <div className="progressHeader">
@@ -88,17 +90,17 @@ export default function ProgressHeader(props: { appName: string }) {
       <div className="downloadProgress">
         <div className="downloadProgressStats">
           <p className="downloadStat" color="var(--text-default)">{`${
-            gameStatus?.progress?.percent ?? 0
+            progress?.percent ?? 0
           }%`}</p>
           <p className="downloadStat">{`ETA: ${
-            gameStatus?.progress?.eta ?? '00.00.00'
+            progress?.eta ?? '00.00.00'
           }`}</p>
         </div>
         <div className="downloadBar">
           <LinearProgress
             variant="determinate"
             className="linearProgress"
-            value={gameStatus?.progress?.percent ?? 0}
+            value={progress?.percent ?? 0}
             sx={{
               height: '10px',
               backgroundColor: 'var(--text-default)',
