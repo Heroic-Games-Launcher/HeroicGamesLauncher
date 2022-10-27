@@ -140,6 +140,7 @@ import {
   stop
 } from './sideload/games'
 import { callAbortController } from './utils/aborthandler/aborthandler'
+import si from 'systeminformation'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -726,6 +727,11 @@ ipcMain.handle('isFlatpak', () => isFlatpak)
 ipcMain.handle('getPlatform', () => process.platform)
 
 ipcMain.handle('showUpdateSetting', () => !isFlatpak)
+
+ipcMain.handle('getNumOfGpus', async (): Promise<number> => {
+  const { controllers } = await si.graphics()
+  return controllers.length
+})
 
 ipcMain.handle('getLatestReleases', async () => {
   const { checkForUpdatesOnStartup } = GlobalConfig.get().config

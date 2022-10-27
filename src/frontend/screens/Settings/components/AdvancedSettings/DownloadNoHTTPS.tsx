@@ -5,7 +5,7 @@ import useSetting from 'frontend/hooks/useSetting'
 
 const DownloadNoHTTPS = () => {
   const { t } = useTranslation()
-  const [downloadNoHttps, setDownloadNoHttps] = useSetting<boolean>(
+  const [downloadNoHttps, setDownloadNoHttps] = useSetting(
     'downloadNoHttps',
     false
   )

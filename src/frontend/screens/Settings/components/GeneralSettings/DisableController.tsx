@@ -6,7 +6,7 @@ import { ToggleSwitch } from 'frontend/components/UI'
 
 const DisableController = () => {
   const { t } = useTranslation()
-  const [disableController, setDisableController] = useSetting<boolean>(
+  const [disableController, setDisableController] = useSetting(
     'disableController',
     false
   )

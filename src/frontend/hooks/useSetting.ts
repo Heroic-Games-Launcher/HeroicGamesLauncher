@@ -1,19 +1,20 @@
 import { useContext } from 'react'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
+import { AppSettings } from 'common/types'
 
-const useSetting = <T>(key: string, fallback: T): [T, (newVal: T) => void] => {
+const useSetting = <T extends keyof AppSettings>(
+  key: T,
+  fallback: NonNullable<AppSettings[T]>
+): [NonNullable<AppSettings[T]>, (newVal: AppSettings[T]) => void] => {
   const { getSetting, setSetting } = useContext(SettingsContext)
 
-  let currentValue = getSetting(key) as T
-  if (currentValue === undefined) {
-    currentValue = fallback
-  }
+  const currentValue = getSetting(key) as AppSettings[T]
 
-  const setSettingF = (newValue: T) => {
+  const setSettingF = (newValue: AppSettings[T]) => {
     setSetting(key, newValue)
   }
 
-  return [currentValue, setSettingF]
+  return [currentValue ?? fallback, setSettingF]
 }
 
 export default useSetting

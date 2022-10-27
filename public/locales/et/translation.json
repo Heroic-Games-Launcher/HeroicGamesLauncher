@@ -498,7 +498,13 @@
         "offlinemode": "Käivita mäng võrguühenduseta",
         "prefered_language": "Eelistatud keel (keelekood)",
         "preferSystemLibs": "Eelista süsteemiteeke",
-        "primerun": "Kasuta spetsiaalset graafikakaarti",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Kasuta spetsiaalset graafikakaarti"
+        },
         "runexe": {
             "message": "Lohistage failid siia",
             "title": "Käivita EXE prefiksil"

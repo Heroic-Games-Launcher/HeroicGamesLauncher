@@ -498,7 +498,13 @@
         "offlinemode": "Chạy game oflline",
         "prefered_language": "Ngôn ngữ ưa thích (Mã ngôn ngữ)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Bật Nvidia Prime Render",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Use Dedicated Graphics Card"
+        },
         "runexe": {
             "message": "Kéo thả file vào đây",
             "title": "Chạy EXE trên prefix"

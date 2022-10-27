@@ -12,7 +12,7 @@ const AlternativeExe = () => {
   const { t } = useTranslation()
   const { isDefault, appName, runner } = useContext(SettingsContext)
 
-  const [targetExe, setTargetExe] = useSetting<string>('targetExe', '')
+  const [targetExe, setTargetExe] = useSetting('targetExe', '')
 
   if (isDefault || runner === 'sideload') {
     return <></>

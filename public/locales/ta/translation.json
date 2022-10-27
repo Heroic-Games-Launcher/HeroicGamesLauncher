@@ -498,7 +498,13 @@
         "offlinemode": "இணையத்துடன் இணையாமல் விளையாட்டை துவக்கு",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Dedicated Graphics Card ஐ பயன்படுத்து",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Dedicated Graphics Card ஐ பயன்படுத்து"
+        },
         "runexe": {
             "message": "கோப்புகளை இங்கே இழுத்து விடுங்கள்",
             "title": "முன்னொட்டில் EXE ஐ இயக்கு"

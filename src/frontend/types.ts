@@ -7,7 +7,8 @@ import {
   Runner,
   ConnectivityStatus,
   DialogType,
-  ButtonOptions
+  ButtonOptions,
+  LibraryTopSectionOptions
 } from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
@@ -88,12 +89,6 @@ export type DialogModalOptions = {
   buttons?: Array<ButtonOptions>
   type?: DialogType
 }
-
-export type LibraryTopSectionOptions =
-  | 'disabled'
-  | 'recently_played'
-  | 'recently_played_installed'
-  | 'favourites'
 
 export interface HiddenGame {
   appName: string

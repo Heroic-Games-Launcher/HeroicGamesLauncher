@@ -10,13 +10,10 @@ import {
   RefreshOptions,
   Runner,
   WineVersionInfo,
-  UserInfo
-} from 'common/types'
-import {
-  Category,
-  DialogModalOptions,
+  UserInfo,
   LibraryTopSectionOptions
-} from 'frontend/types'
+} from 'common/types'
+import { Category, DialogModalOptions } from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   getLegendaryConfig,

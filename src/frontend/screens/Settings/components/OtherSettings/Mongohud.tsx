@@ -10,10 +10,7 @@ const Mongohud = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [showMangohud, setShowMangohud] = useSetting<boolean>(
-    'showMangohud',
-    false
-  )
+  const [showMangohud, setShowMangohud] = useSetting('showMangohud', false)
 
   if (!isLinux) {
     return <></>

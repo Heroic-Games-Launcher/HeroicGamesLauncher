@@ -5,8 +5,10 @@ import { useTranslation } from 'react-i18next'
 
 const CheckUpdatesOnStartup = () => {
   const { t } = useTranslation()
-  const [checkForUpdatesOnStartup, setCheckForUpdatesOnStartup] =
-    useSetting<boolean>('checkForUpdatesOnStartup', true)
+  const [checkForUpdatesOnStartup, setCheckForUpdatesOnStartup] = useSetting(
+    'checkForUpdatesOnStartup',
+    true
+  )
 
   const [show, setShow] = useState(checkForUpdatesOnStartup)
 
