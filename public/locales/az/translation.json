@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Xəta",
@@ -171,6 +171,19 @@
         }
     },
     "docs": "Sənədlər",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Epic Games serverləri oflayn olduğu üçün onlayn xidmətlər tam işləməyə bilər!",
         "offline-notification-title": "oflayn"
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "AMD-nin FSR tam ekran rejimində daha aşağı təsvir ölçüsünü artırmaqla kadr sürətini artırmağa kömək edir. Şəkil keyfiyyəti cüzi performans zərbəsi hesabına 5-dən 1-ə yüksəlir. Aktivləşdirmək performansı yaxşılaşdıra bilər.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK DirectX 9, 10 və 11 oyunları üçün Vulkan əsaslı tərcümə qatıdır. Aktivləşdirmə uyğunluğu yaxşılaşdıra bilər. Xüsusilə köhnə DirectX oyunları üçün problemlər yarada bilər.",
         "esync": "Esync, intensiv CPU tələb edən oyunlarda şərab serverinin yükünü azaltmağı hədəfləyir. Aktivləşdirmək performansı yaxşılaşdıra bilər.",
         "fsync": "Fsync, intensiv CPU tələb edən oyunlarda şərab serverinin yükünü azaltmağı hədəfləyir. Aktivləşdirilməsi dəstəklənən Linux nüvələrində performansı yaxşılaşdıra bilər.",
@@ -247,12 +262,16 @@
             "stable": "Stabil",
             "version": "Qəhrəmanlıq versiyası"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Parametrlər avtomatik olaraq saxlanılır",
         "version": "Şərab versiyası"
     },
     "infobox": {
         "help": "Kömək edin",
         "requirements": "Sistem Tələbləri",
+        "warning": "Warning",
         "wine-path": "Şərab yolu",
         "wine-prefix": {
             "title": "Şərab prefiksi"
@@ -373,9 +392,11 @@
         "legendary-version": "Əfsanəvi Versiya: ",
         "weblate": "Heroic tərcüməsinə kömək edin."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Daxili GOGDL ikili proqramından istifadə...",
         "alt-legendary-bin": "Daxili əfsanəvi ikili proqramdan istifadə...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "EGS-nin quraşdırıldığı prefiks",
         "prefered_language": "2 simvollu kod (yəni: \"en\" və ya \"fr\")"
     },
@@ -385,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Tərəqqi",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Bu yaxınlarda oynanılıb",
     "search": "Oyunlar axtarın",
     "setting": {
@@ -400,6 +429,7 @@
         "change-target-exe": "Çalıştırmaq üçün alternativ EXE seçin",
         "checkForUpdatesOnStartup": "Başlanğıcda qəhrəmanlıq yenilənmələrini yoxlayın",
         "crossover-version": "Krossover versiyası",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Xüsusi Şərab/Proton Yolları",
         "darktray": "Qaranlıq Tabla İkonundan istifadə edin",
         "default-install-path": "Defolt Quraşdırma Yolu",

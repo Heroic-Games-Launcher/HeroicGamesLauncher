@@ -1,10 +1,4 @@
-import {
-  InstallPlatform,
-  AppSettings,
-  GameInfo,
-  Runner,
-  GameStatus
-} from 'common/types'
+import { InstallPlatform, AppSettings, GameInfo, Runner } from 'common/types'
 
 import { TFunction } from 'react-i18next'
 import { getGameInfo } from './index'
@@ -15,7 +9,6 @@ type InstallArgs = {
   appName: string
   installPath: string
   isInstalling: boolean
-  gameStatus: GameStatus
   setInstallPath?: (path: string) => void
   platformToInstall?: InstallPlatform
   t: TFunction<'gamepage'>
@@ -89,7 +82,6 @@ async function install({
       await window.api.requestSettings('default')
     path = defaultInstallPath
   }
-
   return window.api.install({
     appName,
     path,
@@ -215,6 +207,7 @@ function getRecentGames(libraries: GameInfo[]): GameInfo[] {
 
 export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
+export const sideloadedCategories = ['all', 'sideload']
 
 export {
   handleStopInstallation,

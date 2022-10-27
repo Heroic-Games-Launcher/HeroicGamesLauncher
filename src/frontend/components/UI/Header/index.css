@@ -3,8 +3,8 @@
   top: 0;
   z-index: 7;
   display: grid;
-  grid-template-columns: minmax(min-content, 350px) 1fr;
-  grid-template-areas: 'filters search';
+  grid-template-columns: 1fr minmax(min-content, 350px);
+  grid-template-areas: 'search filters';
   grid-gap: 8px;
   align-items: start;
   padding: var(--space-md);

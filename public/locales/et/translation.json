@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Viga",
@@ -171,6 +171,19 @@
         }
     },
     "docs": "Documentation",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Võrguteenused ei pruugi täielikult töötada, kuna Epic Gamesi serverid on võrguühenduseta!",
         "offline-notification-title": "offline"
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "AMD FSR aitab suurendada kaadrisagedust, suurendades madalamaid resolutsioone täisekraani režiimis. Pildikvaliteet suureneb 5-st 1-le, mis toob aga kaasa kerge jõudluse vähenemise. Lubamine võib parandada jõudlust.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK on Vulkanil põhinev tõlkekiht DirectX 9, 10 ja 11 mängude jaoks. Lubamine võib parandada ühilduvust. Võib põhjustada probleeme, eriti vanemate DirectX-mängude puhul.",
         "esync": "Esynci eesmärk on vähendada wineserveri koormust CPU-mahukates mängudes. Lubamine võib parandada jõudlust.",
         "fsync": "Fsynci eesmärk on vähendada wineserveri koormust CPU-mahukates mängudes. Lubamine võib parandada jõudlust toetatud Linuxi kernelitel.",
@@ -247,12 +262,16 @@
             "stable": "Stabiilne",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Seaded salvestatakse automaatselt",
         "version": "Wine'i versioon"
     },
     "infobox": {
         "help": "Abi",
         "requirements": "Süsteeminõuded",
+        "warning": "Warning",
         "wine-path": "Wine'i tee",
         "wine-prefix": {
             "title": "Wine prefiks"
@@ -373,9 +392,11 @@
         "legendary-version": "Legendary versioon: ",
         "weblate": "Aidake tõlkida Heroic'ut."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Kasutusel on sisse-ehitatud GOGDL binaarfaili...",
         "alt-legendary-bin": "Kasutusel on sisse-ehitatud Legendary binaarfail...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefiks, kuhu EGS on paigaldatud",
         "prefered_language": "2-täheline kood (st: \"en\" või \"fr\")"
     },
@@ -385,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Hiljuti mängitud",
     "search": "Otsi mänge",
     "setting": {
@@ -400,6 +429,7 @@
         "change-target-exe": "Valige alternatiivne EXE käivitamiseks",
         "checkForUpdatesOnStartup": "Kontrolli Heroicu uuendusi käivitamisel",
         "crossover-version": "Crossoveri versioon",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Kohandatud Wine/Proton teed",
         "darktray": "Kasuta tumedat süsteemiriiuli ikooni",
         "default-install-path": "Vaikimisi paigaldustee",

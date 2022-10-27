@@ -32,6 +32,7 @@ import {
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
 import { LibraryState } from './LibraryState'
+import { sideloadLibrary } from 'frontend/helpers/electronStores'
 
 const storage: Storage = window.localStorage
 
@@ -80,6 +81,7 @@ interface StateProps {
   activeController: string
   connectivity: { status: ConnectivityStatus; retryIn: number }
   dialogModalOptions: DialogModalOptions
+  sideloadedLibrary: GameInfo[]
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -156,6 +158,7 @@ export class GlobalState extends PureComponent<Props> {
     allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
     activeController: '',
     connectivity: { status: 'offline', retryIn: 0 },
+    sideloadedLibrary: sideloadLibrary.get('games', []) as GameInfo[],
     dialogModalOptions: { showDialog: false }
   }
 
@@ -166,7 +169,7 @@ export class GlobalState extends PureComponent<Props> {
   setTheme = (newThemeName: string) => {
     configStore.set('theme', newThemeName)
     this.setState({ theme: newThemeName })
-    document.body.className = newThemeName
+    window.setTheme(newThemeName)
   }
 
   zoomTimer: NodeJS.Timeout | undefined = undefined
@@ -388,6 +391,8 @@ export class GlobalState extends PureComponent<Props> {
       }
     }
 
+    const updatedSideload = sideloadLibrary.get('games', []) as GameInfo[]
+
     this.setState({
       epic: {
         library: epicLibrary,
@@ -399,7 +404,8 @@ export class GlobalState extends PureComponent<Props> {
       },
       gameUpdates: updates,
       refreshing: false,
-      refreshingInTheBackground: true
+      refreshingInTheBackground: true,
+      sideloadedLibrary: updatedSideload
     })
 
     if (currentLibraryLength !== epicLibrary.length) {
@@ -423,10 +429,10 @@ export class GlobalState extends PureComponent<Props> {
     window.api.logInfo('Refreshing Library')
     try {
       await window.api.refreshLibrary(fullRefresh, library)
+      return await this.refresh(library, checkForUpdates)
     } catch (error) {
       window.api.logError(`${error}`)
     }
-    this.refresh(library, checkForUpdates)
   }
 
   refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
@@ -479,7 +485,7 @@ export class GlobalState extends PureComponent<Props> {
     const { epic, gameUpdates = [], libraryStatus, category } = this.state
     const oldCategory: string = category
     if (oldCategory === 'epic') {
-      this.handleCategory('legendary')
+      this.handleCategory('all')
     }
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(

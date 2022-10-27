@@ -12,18 +12,18 @@ import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg'
-import { install, launch, sendKill } from 'frontend/helpers'
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import { getStoreName, install, launch, sendKill } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import fallbackImage from 'frontend/assets/fallback-image.jpg'
+import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import { updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 
-import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
-import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import classNames from 'classnames'
 import LibraryContext from 'frontend/state/LibraryContext'
+import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 
@@ -58,8 +58,7 @@ const GameCard = ({
   buttonClick,
   forceCard,
   runner,
-  installedPlatform,
-  hasDownloads
+  installedPlatform
 }: Card) => {
   const { hasGameStatus } = useContext(LibraryContext)
   const gameStatus = hasGameStatus(appName)
@@ -67,6 +66,7 @@ const GameCard = ({
   const progress = hasProgress(appName, gameStatus.progress)
 
   const { t } = useTranslation('gamepage')
+  const { t: t2 } = useTranslation()
 
   const navigate = useNavigate()
   const {
@@ -75,8 +75,6 @@ const GameCard = ({
     hiddenGames,
     favouriteGames,
     allTilesInColor,
-    epic,
-    gog,
     showDialogModal
   } = useContext(ContextProvider)
 
@@ -90,11 +88,14 @@ const GameCard = ({
   const isReparing = gameStatus.status === 'repairing'
   const isMoving = gameStatus.status === 'moving'
   const isPlaying = gameStatus.status === 'playing'
-  const hasStatus = isMoving || isReparing || isInstalling || isUpdating
+  const isQueued = gameStatus.status === 'queued'
+  const hasStatus =
+    isMoving || isReparing || isInstalling || isUpdating || isQueued
 
   const installingGrayscale = isInstalling
     ? `${125 - (progress?.percent || 0)}%`
     : '100%'
+
   const imageSrc = getImageFormatting()
 
   async function handleUpdate() {
@@ -127,13 +128,31 @@ const GameCard = ({
       return t('gamecard.repairing', 'Repairing')
     }
     if (isInstalled) {
-      return `${t('status.installed')} (${size})`
+      return `${t('status.installed')} ${runner === 'sideload' ? '' : size}`
+    }
+    if (isQueued) {
+      return `${t('status.queued', 'Queued')}`
     }
 
     return t('status.notinstalled')
   }
 
+  const handleRemoveFromQueue = () => {
+    window.api.removeFromDMQueue(appName)
+  }
+
   const renderIcon = () => {
+    if (isQueued) {
+      return (
+        <SvgButton
+          title={t('button.queue.remove', 'Remove from Queue')}
+          className="queueIcon"
+          onClick={() => handleRemoveFromQueue()}
+        >
+          <RemoveCircleIcon />
+        </SvgButton>
+      )
+    }
     if (isPlaying) {
       return (
         <SvgButton
@@ -145,7 +164,7 @@ const GameCard = ({
         </SvgButton>
       )
     }
-    if (isInstalling) {
+    if (isInstalling || isQueued) {
       return (
         <SvgButton
           className="cancelIcon"
@@ -168,17 +187,6 @@ const GameCard = ({
       )
     }
     if (!isInstalled) {
-      if (hasDownloads) {
-        return (
-          <SvgButton
-            className="iconDisabled"
-            onClick={(e) => e.preventDefault()}
-            title={`${t('button.cancel')} (${title})`}
-          >
-            <DownIcon />
-          </SvgButton>
-        )
-      }
       return (
         <SvgButton
           className="downIcon"
@@ -218,25 +226,6 @@ const GameCard = ({
 
   const items: Item[] = [
     {
-      label: t('label.playing.start'),
-      onclick: async () => handlePlay(runner),
-      show: isInstalled
-    },
-    {
-      label: t('submenu.settings'),
-      onclick: () =>
-        navigate(pathname, {
-          state: {
-            fromGameCard: true,
-            runner,
-            hasCloudSave,
-            isLinuxNative,
-            isMacNative
-          }
-        }),
-      show: isInstalled
-    },
-    {
       label: t('button.update', 'Update'),
       onclick: async () => handleUpdate(),
       show: hasUpdate
@@ -248,13 +237,13 @@ const GameCard = ({
     },
     {
       label: t('button.install'),
-      onclick: () => (!hasDownloads ? buttonClick() : () => null),
-      show: !isInstalled && !isInstalling && !hasDownloads
+      onclick: () => (!isInstalled ? buttonClick() : () => null),
+      show: !isInstalled
     },
     {
       label: t('button.cancel'),
       onclick: async () => handlePlay(runner),
-      show: isInstalling
+      show: isInstalling && isQueued
     },
     {
       label: t('button.hide_game', 'Hide Game'),
@@ -291,30 +280,8 @@ const GameCard = ({
     grid ? 'gameCard' : 'gameListItem'
   }  ${instClass} ${hiddenClass}`
 
-  const getRunner = () => {
-    switch (runner) {
-      case 'legendary':
-        return 'Epic Games'
-      case 'gog':
-        return 'GOG'
-      default:
-        return 'Heroic'
-    }
-  }
-
-  const showStoreLogos = () => {
-    if (epic.username && gog.username) {
-      return runner === 'legendary' ? (
-        <EpicLogo className="store-icon" />
-      ) : (
-        <GOGLogo className="store-icon" />
-      )
-    }
-    return null
-  }
-
   return (
-    <>
+    <div>
       {showUninstallModal && (
         <UninstallModal
           appName={appName}
@@ -331,8 +298,12 @@ const GameCard = ({
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
           >
-            {showStoreLogos()}
-            <CachedImage src={imageSrc} className={imgClasses} alt="cover" />
+            <StoreLogos runner={runner} />
+            <CachedImage
+              src={imageSrc ? imageSrc : fallbackImage}
+              className={imgClasses}
+              alt="cover"
+            />
             {logo && (
               <CachedImage
                 alt="logo"
@@ -362,7 +333,7 @@ const GameCard = ({
                 installed: isInstalled
               })}
             >
-              {getRunner()}
+              {getStoreName(runner, t2('Other'))}
             </span>
           </Link>
           {
@@ -404,24 +375,29 @@ const GameCard = ({
           }
         </div>
       </ContextMenu>
-    </>
+    </div>
   )
 
   async function handlePlay(runner: Runner) {
-    if (!isInstalled) {
+    if (!isInstalled && !isQueued) {
       return install({
         appName,
         installPath: gameStatus.folder || 'default',
         isInstalling,
-        gameStatus,
         t,
         runner,
         showDialogModal
       })
     }
+
     if (isPlaying || isUpdating) {
       return sendKill(appName, runner)
     }
+
+    if (isQueued) {
+      return window.api.removeFromDMQueue(appName)
+    }
+
     if (isInstalled) {
       return launch({ appName, t, runner, hasUpdate, showDialogModal })
     }

@@ -1,10 +1,9 @@
 import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform } from './types/legendary'
-import { ChildProcess } from 'child_process'
 import { VersionInfo } from 'heroic-wine-downloader'
 import { IpcRendererEvent } from 'electron'
 
-export type Runner = 'legendary' | 'gog'
+export type Runner = 'legendary' | 'gog' | 'sideload'
 
 // NOTE: Do not put enum's in this module or it will break imports
 
@@ -86,7 +85,7 @@ export interface AppSettings {
   language: string
   launcherArgs: string
   maxRecentGames: number
-  maxSharpness: number
+  maxSharpness?: number
   maxWorkers: number
   minimizeOnLaunch: boolean
   nvidiaPrime: boolean
@@ -107,6 +106,7 @@ export interface AppSettings {
   wineVersion: WineInstallation
   useSteamRuntime: boolean
   gogSaves?: GOGCloudSavesLocation[]
+  customThemesPath: string
 }
 
 export type ExecResult = {
@@ -114,6 +114,7 @@ export type ExecResult = {
   stdout: string
   fullCommand?: string
   error?: string
+  abort?: boolean
 }
 
 export interface ExtraInfo {
@@ -154,7 +155,7 @@ export interface GameSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
-  maxSharpness: number
+  maxSharpness?: number
   language: string
   launcherArgs: string
   nvidiaPrime: boolean
@@ -199,6 +200,8 @@ export interface InstallProgress {
   eta: string
   folder?: string
   percent: number
+  downSpeed?: number
+  diskSpeed?: number
 }
 export interface InstalledInfo {
   executable: string
@@ -361,7 +364,7 @@ export interface CallRunnerOptions {
   logFile?: string
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
-  onOutput?: (output: string, child: ChildProcess) => void
+  onOutput?: (output: string) => void
 }
 
 export interface EnviromentVariable {
@@ -498,3 +501,32 @@ export interface Tools {
 }
 
 export type GameStatusMap = { [key: string]: GameStatus }
+export interface DMQueueElement {
+  params: InstallParams
+  status?: 'done' | 'error' | 'abort'
+}
+
+export type WineCommandArgs = {
+  command: string
+  wait: boolean
+  forceRunInPrefixVerb?: boolean
+  gameSettings?: GameSettings
+  installFolderName?: string
+  options?: CallRunnerOptions
+  startFolder?: string
+}
+
+export interface SideloadGame {
+  runner: Runner
+  app_name: string
+  art_cover: string
+  art_square: string
+  is_installed: boolean
+  title: string
+  install: {
+    executable: string
+    platform: InstallPlatform
+  }
+  folder_name?: string
+  canRunOffline: boolean
+}

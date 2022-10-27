@@ -5,7 +5,6 @@ import {
   updateInfo,
   install,
   remove,
-  cancelInstallOrUpdate,
   enable,
   disable,
   isEnabled
@@ -16,7 +15,6 @@ ipcMain.handle('getLatestEosOverlayVersion', getLatestVersion)
 ipcMain.handle('updateEosOverlayInfo', updateInfo)
 ipcMain.handle('installEosOverlay', install)
 ipcMain.handle('removeEosOverlay', remove)
-ipcMain.handle('cancelEosOverlayInstallOrUpdate', cancelInstallOrUpdate)
 ipcMain.handle('enableEosOverlay', async (e, appName) => {
   return enable(appName)
 })
