@@ -39,9 +39,17 @@ function getStringPassedToLogFile(type: logLevel, skipMessagePrefix = false) {
     '} Error: FAILED'
   ].join('\n')
 }
-const skipIfOnWin = platform() === 'win32' ? describe.skip : describe
 
-skipIfOnWin('logger/logger.ts', () => {
+const shouldSkip = platform() === 'win32'
+const skipMessage = 'on windows so skipping test'
+const emptyTest = it('should do nothing', () => {})
+
+describe('logger/logger.ts', () => {
+  if (shouldSkip) {
+    console.log(skipMessage)
+    emptyTest
+    return
+  }
   afterEach(jest.restoreAllMocks)
 
   test('log invokes console', () => {
