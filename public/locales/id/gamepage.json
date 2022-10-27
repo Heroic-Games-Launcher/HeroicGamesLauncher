@@ -23,7 +23,7 @@
             "title": "Hentikan Pemasangan"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Hapus prefix: {{prefix}}{{newLine}}Catatan: Tindakan ini tidak bisa dibatalkan dan akan menghapus berkas yang belum dicadangkan.",
             "message": "Apakah Anda ingin mencopot pemasangan gim ini?",
             "title": "Copot Pemasangan"
         },
@@ -47,7 +47,7 @@
         "uninstall": "Copot",
         "update": "Perbarui"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Tidak Didukung",
     "disabled": "Dinonaktifkan",
     "dlc": {
         "installDlcs": "Pasang semua DLC"
@@ -131,7 +131,7 @@
         "move": "Pindahkan gim",
         "protondb": "Periksa Kompatibilitas",
         "removeFromSteam": "Hapus dari Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeShortcut": "Hapus pintasan",
         "settings": "Pengaturan",
         "store": "Halaman Toko",
         "verify": "Verifikasi dan Perbaiki"
