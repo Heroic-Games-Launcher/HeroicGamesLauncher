@@ -15,16 +15,13 @@ const WinePrefix = () => {
   const { isDefault } = useContext(SettingsContext)
 
   const isLinux = platform === 'linux'
-  const [defaultWinePrefix, setDefaultWinePrefix] = useSetting<string>(
+  const [defaultWinePrefix, setDefaultWinePrefix] = useSetting(
     'defaultWinePrefix',
     ''
   )
 
   const home = configStore.get('userHome', '')
-  const [winePrefix, setWinePrefix] = useSetting<string>(
-    'winePrefix',
-    `${home}/.wine`
-  )
+  const [winePrefix, setWinePrefix] = useSetting('winePrefix', `${home}/.wine`)
 
   return (
     <>

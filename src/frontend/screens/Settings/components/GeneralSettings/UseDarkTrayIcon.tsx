@@ -5,10 +5,7 @@ import useSetting from 'frontend/hooks/useSetting'
 
 const UseDarkTrayIcon = () => {
   const { t } = useTranslation()
-  const [darkTrayIcon, setDarkTrayIcon] = useSetting<boolean>(
-    'darkTrayIcon',
-    false
-  )
+  const [darkTrayIcon, setDarkTrayIcon] = useSetting('darkTrayIcon', false)
 
   const toggleDarkTrayIcon = () => {
     setDarkTrayIcon(!darkTrayIcon)

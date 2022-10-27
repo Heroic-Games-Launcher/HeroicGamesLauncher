@@ -8,7 +8,7 @@ const AudioFix = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [audioFix, setAudioFix] = useSetting<boolean>('audioFix', false)
+  const [audioFix, setAudioFix] = useSetting('audioFix', false)
 
   if (!isLinux) {
     return <></>

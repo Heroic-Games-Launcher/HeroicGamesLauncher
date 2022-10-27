@@ -498,7 +498,13 @@
         "offlinemode": "離線運行遊戲",
         "prefered_language": "首選語言（語言代碼）",
         "preferSystemLibs": "偏好系統庫",
-        "primerun": "使用獨立顯卡",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "使用獨立顯卡"
+        },
         "runexe": {
             "message": "將檔案拖放到此處",
             "title": "在PREFIX上執行exe檔案"

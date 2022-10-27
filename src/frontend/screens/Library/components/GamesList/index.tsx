@@ -15,6 +15,7 @@ interface Props {
     gameInfo: GameInfo
   ) => void
   onlyInstalled?: boolean
+  isRecent?: boolean
 }
 
 export const GamesList = ({
@@ -22,7 +23,8 @@ export const GamesList = ({
   layout = 'grid',
   handleGameCardClick,
   isFirstLane = false,
-  onlyInstalled = false
+  onlyInstalled = false,
+  isRecent = false
 }: Props): JSX.Element => {
   const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -85,6 +87,7 @@ export const GamesList = ({
               }
               forceCard={layout === 'grid'}
               installedPlatform={platform}
+              isRecent={isRecent}
             />
           )
         })}

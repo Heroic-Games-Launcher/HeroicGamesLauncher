@@ -498,7 +498,13 @@
         "offlinemode": "Lancer le jeu hors ligne",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Utiliser une carte graphique dédiée",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Utiliser une carte graphique dédiée"
+        },
         "runexe": {
             "message": "Glissez et déposez les fichiers ici",
             "title": "Utiliser un EXE pour le Prefix"

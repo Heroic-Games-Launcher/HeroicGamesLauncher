@@ -11,7 +11,7 @@ import { TextInputWithIconField } from 'frontend/components/UI'
 const AltLegendaryBin = () => {
   const { t } = useTranslation()
   const [legendaryVersion, setLegendaryVersion] = useState('')
-  const [altLegendaryBin, setAltLegendaryBin] = useSetting<string>(
+  const [altLegendaryBin, setAltLegendaryBin] = useSetting(
     'altLegendaryBin',
     ''
   )

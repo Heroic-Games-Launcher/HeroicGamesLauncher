@@ -11,7 +11,7 @@ export default function WineVersionSelector() {
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
-  const [wineVersion, setWineVersion] = useSetting<WineInstallation>(
+  const [wineVersion, setWineVersion] = useSetting(
     'wineVersion',
     defaultWineVersion
   )

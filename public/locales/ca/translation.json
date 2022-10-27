@@ -498,7 +498,13 @@
         "offlinemode": "Executa el joc sense connexió",
         "prefered_language": "Idioma preferit (codi de l'idioma)",
         "preferSystemLibs": "Dóna preferència a les biblioteques del sistema",
-        "primerun": "Usa la targeta gràfica dedicada",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Usa la targeta gràfica dedicada"
+        },
         "runexe": {
             "message": "Arrossega i solta els fitxers aquí",
             "title": "Executa l'EXE al prefix"

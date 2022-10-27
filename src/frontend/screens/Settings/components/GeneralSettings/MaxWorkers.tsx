@@ -5,7 +5,7 @@ import useSetting from 'frontend/hooks/useSetting'
 
 const MaxWorkers = () => {
   const { t } = useTranslation()
-  const [maxWorkers, setMaxWorkers] = useSetting<number>('maxWorkers', 0)
+  const [maxWorkers, setMaxWorkers] = useSetting('maxWorkers', 0)
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
 
   useEffect(() => {

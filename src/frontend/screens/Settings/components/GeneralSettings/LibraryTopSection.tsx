@@ -3,13 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { LibraryTopSectionOptions } from 'frontend/types'
+import { LibraryTopSectionOptions } from 'common/types'
 
 const LibraryTopSection = () => {
   const { t } = useTranslation()
   const { handleLibraryTopSection } = useContext(ContextProvider)
-  const [libraryTopSection, setLibraryTopSection] =
-    useSetting<LibraryTopSectionOptions>('libraryTopSection', 'disabled')
+  const [libraryTopSection, setLibraryTopSection] = useSetting(
+    'libraryTopSection',
+    'disabled'
+  )
 
   const onSectionChange = (event: ChangeEvent) => {
     const newValue = (event.target as HTMLSelectElement)

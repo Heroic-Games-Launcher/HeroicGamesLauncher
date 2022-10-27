@@ -58,6 +58,7 @@
             "remove": "Remove from Queue"
         },
         "remove_from_favourites": "Odebrat z oblíbených",
+        "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
         "sideload": {

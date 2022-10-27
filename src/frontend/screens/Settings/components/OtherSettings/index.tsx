@@ -9,7 +9,7 @@ import Shortcuts from './Shortcuts'
 import OfflineMode from './OfflineMode'
 import SteamRuntime from './SteamRuntime'
 import Mongohud from './Mongohud'
-import PrimeRun from './PrimeRun'
+import UseDGPU from './UseDGPU'
 import GameMode from './GameMode'
 import ShowFPS from './ShowFPS'
 import EnvVariablesTable from './EnvVariablesTable'
@@ -33,7 +33,7 @@ export default function OtherSettings() {
 
       <GameMode />
 
-      <PrimeRun />
+      <UseDGPU />
 
       <AudioFix />
 
