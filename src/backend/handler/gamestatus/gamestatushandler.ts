@@ -28,7 +28,7 @@ function setGameStatusOfElement(status: GameStatus) {
   if (webContents) {
     if (
       status.status === 'installing' &&
-      oldStatus.progress !== status.progress
+      oldStatus?.progress !== status.progress
     ) {
       webContents.send(`handleProgressUpdate-${status.appName}`, status)
       webContents.send('handleProgressUpdate-all', status)
