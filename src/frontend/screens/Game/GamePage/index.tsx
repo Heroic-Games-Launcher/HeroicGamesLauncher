@@ -44,6 +44,7 @@ import {
   DialogHeader
 } from 'frontend/components/UI/Dialog'
 import LibraryContext from 'frontend/state/LibraryContext'
+import { hasProgress } from 'frontend/hooks/hasProgress'
 
 // This component is becoming really complex and it needs to be refactored in smaller ones
 
@@ -59,6 +60,7 @@ export default function GamePage(): JSX.Element | null {
   const isDownloading = hasDownloads()
   const { epic, gog, gameUpdates, platform, showDialogModal } =
     useContext(ContextProvider)
+  const progress = hasProgress(appName, gameStatus.progress)
 
   // @ts-expect-error TODO: Proper default value
   const [gameInfo, setGameInfo] = useState<GameInfo>({})
@@ -362,7 +364,7 @@ export default function GamePage(): JSX.Element | null {
                     <progress
                       className="installProgress"
                       max={100}
-                      value={gameStatus.progress?.percent ?? 0}
+                      value={progress?.percent ?? 0}
                     />
                   ))}
                 <p
@@ -495,7 +497,7 @@ export default function GamePage(): JSX.Element | null {
   }
 
   function getInstallLabel(is_installed: boolean): React.ReactNode {
-    const { eta, bytes, percent } = gameStatus.progress || {}
+    const { eta, bytes, percent } = progress || {}
 
     if (isReparing) {
       return `${t('status.reparing')} ${percent ? `${percent}%` : '...'}`
@@ -506,11 +508,7 @@ export default function GamePage(): JSX.Element | null {
     }
 
     const currentProgress =
-      gameStatus.progress &&
-      gameStatus.progress?.percent >= 99 &&
-      eta &&
-      bytes &&
-      percent
+      (progress?.percent || 0) >= 99 && eta && bytes && percent
         ? ''
         : `${
             percent && bytes

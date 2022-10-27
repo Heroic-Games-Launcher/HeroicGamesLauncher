@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import Badge from '@mui/material/Badge'
 import LibraryContext from 'frontend/state/LibraryContext'
+import { hasProgress } from 'frontend/hooks/hasProgress'
 
 type Props = {
   appName: string
@@ -24,6 +25,8 @@ export default function CurrentDownload({ appName, runner }: Props) {
   const [gameTitle, setGameTitle] = useState('')
   const { sidebarCollapsed } = useContext(ContextProvider)
   const { t } = useTranslation()
+
+  const progress = hasProgress(appName, gameStatus.progress)
 
   useEffect(() => {
     const getGameTitle = async () => {
@@ -43,7 +46,7 @@ export default function CurrentDownload({ appName, runner }: Props) {
   }, [appName])
 
   function getStatus() {
-    return gameStatus.progress && gameStatus.progress.percent > 98
+    return progress && progress.percent > 98
       ? t('status.processing', 'Processing files, please wait')
       : t('status.installing', 'Installing')
   }
@@ -54,7 +57,7 @@ export default function CurrentDownload({ appName, runner }: Props) {
         {sidebarCollapsed && (
           <span className="statusIcon" title={`${getStatus()} - ${gameTitle}`}>
             <Badge
-              badgeContent={`${Math.round(gameStatus.progress?.percent ?? 0)}%`}
+              badgeContent={`${Math.round(progress?.percent ?? 0)}%`}
               color="primary"
             >
               <FontAwesomeIcon icon={faDownload} />
@@ -71,12 +74,12 @@ export default function CurrentDownload({ appName, runner }: Props) {
               <Box sx={{ width: '100%', mr: 1 }}>
                 <LinearProgress
                   variant="determinate"
-                  value={gameStatus.progress?.percent || 0}
+                  value={progress?.percent || 0}
                 />
               </Box>
               <Box sx={{ minWidth: 35 }}>
                 <Typography variant="body2">{`${Math.round(
-                  gameStatus.progress?.percent || 0
+                  progress?.percent || 0
                 )}%`}</Typography>
               </Box>
             </Box>

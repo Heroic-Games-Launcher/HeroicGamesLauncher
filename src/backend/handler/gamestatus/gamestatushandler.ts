@@ -20,12 +20,21 @@ function initGameStatusHandler() {
 function setGameStatusOfElement(status: GameStatus) {
   const handlers = (store.get('gameStatus') || {}) as GameStatusMap
 
+  const oldStatus = handlers[status.appName]
   handlers[status.appName] = status
   store.set('gameStatus', handlers)
 
-  const mainWindow = getMainWindow()
-  if (mainWindow?.webContents) {
-    getMainWindow().webContents.send('handleGameStatus', status)
+  const webContents = getMainWindow()?.webContents
+  if (webContents) {
+    if (
+      status.status === 'installing' &&
+      oldStatus.progress !== status.progress
+    ) {
+      webContents.send(`handleProgressUpdate-${status.appName}`, status)
+      webContents.send('handleProgressUpdate-all', status)
+    } else {
+      webContents.send('handleGameStatus', status)
+    }
   }
 }
 
@@ -40,9 +49,9 @@ function deleteGameStatusOfElement(appName: string) {
       delete handlers[appName]
       store.set('gameStatus', { ...handlers })
 
-      const mainWindow = getMainWindow()
-      if (mainWindow?.webContents) {
-        getMainWindow().webContents.send('handleGameStatus', status)
+      const webContents = getMainWindow()?.webContents
+      if (webContents) {
+        webContents.send('handleGameStatus', status)
       }
     }
   }

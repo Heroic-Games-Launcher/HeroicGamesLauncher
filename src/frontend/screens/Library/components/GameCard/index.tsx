@@ -25,6 +25,7 @@ import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import classNames from 'classnames'
 import LibraryContext from 'frontend/state/LibraryContext'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
+import { hasProgress } from 'frontend/hooks/hasProgress'
 
 interface Card {
   appName: string
@@ -63,6 +64,7 @@ const GameCard = ({
   const { hasGameStatus } = useContext(LibraryContext)
   const gameStatus = hasGameStatus(appName)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
+  const progress = hasProgress(appName, gameStatus.progress)
 
   const { t } = useTranslation('gamepage')
 
@@ -88,10 +90,11 @@ const GameCard = ({
   const isReparing = gameStatus.status === 'repairing'
   const isMoving = gameStatus.status === 'moving'
   const isPlaying = gameStatus.status === 'playing'
-  const haveStatus = isMoving || isReparing || isInstalling || isUpdating
+  const hasStatus = isMoving || isReparing || isInstalling || isUpdating
 
-  const percent = gameStatus.progress?.percent ?? 0
-  const installingGrayscale = isInstalling ? `${125 - percent}%` : '100%'
+  const installingGrayscale = isInstalling
+    ? `${125 - (progress?.percent || 0)}%`
+    : '100%'
   const imageSrc = getImageFormatting()
 
   async function handleUpdate() {
@@ -112,10 +115,10 @@ const GameCard = ({
 
   function getStatus() {
     if (isUpdating) {
-      return t('status.updating') + ` ${percent}%`
+      return t('status.updating') + ` ${progress?.percent || 0}%`
     }
     if (isInstalling) {
-      return t('status.installing') + ` ${percent || 0}%`
+      return t('status.installing') + ` ${progress?.percent || 0}%`
     }
     if (isMoving) {
       return t('gamecard.moving', 'Moving')
@@ -321,7 +324,7 @@ const GameCard = ({
       )}
       <ContextMenu items={items}>
         <div className={wrapperClasses}>
-          {haveStatus && <span className="progress">{getStatus()}</span>}
+          {hasStatus && <span className="progress">{getStatus()}</span>}
           <Link
             to={`gamepage/${runner}/${appName}`}
             style={
@@ -339,7 +342,7 @@ const GameCard = ({
             )}
             <span
               className={classNames('gameListInfo', {
-                active: haveStatus,
+                active: hasStatus,
                 installed: isInstalled
               })}
             >
@@ -347,7 +350,7 @@ const GameCard = ({
             </span>
             <span
               className={classNames('gameTitle', {
-                active: haveStatus,
+                active: hasStatus,
                 installed: isInstalled
               })}
             >
@@ -355,7 +358,7 @@ const GameCard = ({
             </span>
             <span
               className={classNames('runner', {
-                active: haveStatus,
+                active: hasStatus,
                 installed: isInstalled
               })}
             >
