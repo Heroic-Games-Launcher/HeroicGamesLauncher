@@ -13,15 +13,15 @@ const Shortcuts = () => {
   const isLinux = platform === 'linux'
   const supportsShortcuts = isWin || isLinux
 
-  const [addDesktopShortcuts, setAddDesktopShortcuts] = useSetting<boolean>(
+  const [addDesktopShortcuts, setAddDesktopShortcuts] = useSetting(
     'addDesktopShortcuts',
     false
   )
-  const [addStartMenuShortcuts, setAddStartMenuShortcuts] = useSetting<boolean>(
+  const [addStartMenuShortcuts, setAddStartMenuShortcuts] = useSetting(
     'addStartMenuShortcuts',
     false
   )
-  const [addSteamShortcuts, setAddSteamShortcuts] = useSetting<boolean>(
+  const [addSteamShortcuts, setAddSteamShortcuts] = useSetting(
     'addSteamShortcuts',
     false
   )

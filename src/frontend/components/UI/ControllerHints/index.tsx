@@ -104,7 +104,7 @@ export default function ControllerHints() {
 
   useEffect(() => {
     // check if there's any page to go back
-    if (history.state.idx === 0) {
+    if (history?.state?.idx === 0) {
       setBackActionFallback('')
     } else {
       setBackActionFallback(t('controller.hints.back', 'Back'))

@@ -5,6 +5,7 @@ import { app } from 'electron'
 import { configStore } from '../../constants'
 import * as logfile from '../logfile'
 import { logError } from '../logger'
+import { platform } from 'os'
 
 jest.mock('electron')
 jest.mock('electron-store')
@@ -14,7 +15,16 @@ jest.unmock('../logfile')
 
 let tmpDir = {} as DirResult
 
+const shouldSkip = platform() === 'win32'
+const skipMessage = 'on windows so skipping test'
+const emptyTest = it('should do nothing', () => {})
+
 describe('logger/logfile.ts', () => {
+  if (shouldSkip) {
+    console.log(skipMessage)
+    emptyTest
+    return
+  }
   beforeEach(() => {
     tmpDir = dirSync({ unsafeCleanup: true })
   })

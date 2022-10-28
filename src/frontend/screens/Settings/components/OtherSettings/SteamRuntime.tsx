@@ -6,7 +6,6 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { WineInstallation } from 'common/types'
 import { defaultWineVersion } from '../WineSettings'
 import { LocationState } from 'frontend/types'
 
@@ -18,14 +17,11 @@ const SteamRuntime = () => {
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const isWin = platform === 'win32'
-  const [useSteamRuntime, setUseSteamRuntime] = useSetting<boolean>(
+  const [useSteamRuntime, setUseSteamRuntime] = useSetting(
     'useSteamRuntime',
     false
   )
-  const [wineVersion] = useSetting<WineInstallation>(
-    'wineVersion',
-    defaultWineVersion
-  )
+  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
   const isProton = !isWin && wineVersion?.type === 'proton'
 

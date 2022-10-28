@@ -8,10 +8,7 @@ const MaxRecentGames = () => {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
 
-  const [maxRecentGames, setMaxRecentGames] = useSetting<number>(
-    'maxRecentGames',
-    5
-  )
+  const [maxRecentGames, setMaxRecentGames] = useSetting('maxRecentGames', 5)
 
   if (!isDefault) {
     return <></>

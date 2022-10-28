@@ -17,6 +17,15 @@
             "message": "Queres tentar reparar o xogo? Isto pode levar moito tempo.",
             "title": "Verificar e reparar"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Seguir instalando",
             "message": "Desexa MANTER os ficheiros descargados?",
@@ -38,11 +47,23 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "Pausar/Cancelar",
         "continue": "Continuar descarga",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
         "hide_game": "Hide Game",
         "import": "Importar xogo",
         "install": "Instalar",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remove From Favourites",
+        "remove_from_recent": "Remove From Recent",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Unhide Game",
         "uninstall": "Desinstalar",
         "update": "Actualizar"
@@ -56,6 +77,8 @@
     "game": {
         "downloadSize": "Tamaño da descarga",
         "firstPlayed": "Xogado por primeira vez",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Tamaño da instalación",
         "language": "Idioma",
         "lastPlayed": "Xogado por última vez",
@@ -100,9 +123,36 @@
     "launch": {
         "options": "Opcións de arrinque..."
     },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Seleccione os compoñentes a instalar"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Mínimo",
@@ -116,6 +166,7 @@
         "moving": "Instalación en movemento, agarda",
         "notinstalled": "Este xogo non está instalado",
         "processing": "Processing files, please wait",
+        "queued": "Queued",
         "reparing": "Reparando xogo, agarda",
         "totalDownloaded": "Total descargado",
         "updating": "Actualización do xogo"

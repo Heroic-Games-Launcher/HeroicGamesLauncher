@@ -10,8 +10,8 @@ const EnableFSR = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [enableFSR, setEnableFSR] = useSetting<boolean>('enableFSR', false)
-  const [maxSharpness, setFsrSharpness] = useSetting<number>('maxSharpness', 5)
+  const [enableFSR, setEnableFSR] = useSetting('enableFSR', false)
+  const [maxSharpness, setFsrSharpness] = useSetting('maxSharpness', 5)
 
   if (!isLinux) {
     return <></>

@@ -17,6 +17,15 @@
             "message": "Вы хочаце паспрабаваць направіць гэтую гульню? Гэта можа заняць шмат часу.",
             "title": "Рамантаванне й Праверка"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Працягвайце ўсталёўваць",
             "message": "Вы хочаце ЗАХАВАЦЬ спампаваныя файлы?",
@@ -38,11 +47,23 @@
         "add_to_favourites": "Дадаць у абранае",
         "cancel": "Паўза/Адмена",
         "continue": "Працягваць спампаванне",
+        "finish": "Finish",
         "force_update": "Прымусісць да абнаўлення, калі яно даступна",
+        "force-innstall": "Force Install",
         "hide_game": "Схаваць гульню",
         "import": "Імпарт гульні",
         "install": "Усталяваць",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Выдаліць з абранага",
+        "remove_from_recent": "Remove From Recent",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Гульня Unhide",
         "uninstall": "Выдаліць",
         "update": "Абнаўленне"
@@ -56,6 +77,8 @@
     "game": {
         "downloadSize": "Памер спампоўкі",
         "firstPlayed": "Упершыню сыграна",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Памер усталявання",
         "language": "мова",
         "lastPlayed": "Апошняя гульня",
@@ -100,9 +123,36 @@
     "launch": {
         "options": "Параметры запуску..."
     },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Паведаміць аб праблеме запуску гэтай гульні",
     "sdl": {
         "title": "Выберыце кампаненты для ўстаноўкі"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Мінімум",
@@ -116,6 +166,7 @@
         "moving": "Перанос усталёўкі, пачакайце",
         "notinstalled": "Гэтая гульня не ўстаноўлена",
         "processing": "Апрацоўка файлаў, пачакайце",
+        "queued": "Queued",
         "reparing": "Ідзе рамонт гульні, пачакайце",
         "totalDownloaded": "Усяго спампавана",
         "updating": "Абнаўленне гульні"

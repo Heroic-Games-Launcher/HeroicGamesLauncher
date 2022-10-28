@@ -16,8 +16,6 @@ export const downloadRuntime = async (runtime_name: RuntimeName) =>
 
 export const showItemInFolder = (installDir: string) =>
   ipcRenderer.send('showItemInFolder', installDir)
-export const abortWineInstallation = (version: string) =>
-  ipcRenderer.send('abortWineInstallation', version)
 export const installWineVersion = async (release: WineVersionInfo) =>
   ipcRenderer.invoke('installWineVersion', release)
 export const removeWineVersion = async (release: WineVersionInfo) =>
