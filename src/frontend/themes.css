@@ -30,7 +30,7 @@ body.dracula-classic {
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
-  --action-icon: #35e461;
+  --action-icon: var(--text-default);
   --action-icon-hover: var(--text-hover);
   --action-icon-active: var(--accent);
 }
