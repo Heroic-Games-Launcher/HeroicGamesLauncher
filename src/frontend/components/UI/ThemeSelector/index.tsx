@@ -24,7 +24,7 @@ export const defaultThemes = {
   zombie: 'Zombie',
   'zombie-classic': 'Zombie Classic',
   'nord-light': 'Nord Light',
-  'nord-dark' : 'Nord Dark'
+  'nord-dark': 'Nord Dark'
 }
 
 export const ThemeSelector = () => {

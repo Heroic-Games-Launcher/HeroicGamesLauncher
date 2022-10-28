@@ -36,7 +36,7 @@ body.nord-light {
   --accent: #88c0d0;
   --accent-overlay: #81a1c1;
   --navbar-accent: #81a1c1;
-  --background: #d8dee9;
+  --background: #eceff4;
   --body-background: var(--background);
   --background-darker: var(--body-background);
   --current-background: var(--body-background);
@@ -48,7 +48,7 @@ body.nord-light {
     var(--body-background) 64px,
     var(--body-background) 100%
   );
-  --input-background: #adb2ba;
+  --input-background: #d8dee9;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
   --success: #a3be8c;
