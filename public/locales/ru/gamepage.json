@@ -169,6 +169,7 @@
         "queued": "Queued",
         "reparing": "Восстановление игры. Пожалуйста, подождите",
         "totalDownloaded": "Всего загружено",
+        "uninstalling": "Uninstalling",
         "updating": "Обновление игры"
     },
     "submenu": {
