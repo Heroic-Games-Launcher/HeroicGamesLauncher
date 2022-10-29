@@ -5,7 +5,7 @@ import useSetting from 'frontend/hooks/useSetting'
 
 const MinimizeOnGameLaunch = () => {
   const { t } = useTranslation()
-  const [minimizeOnLaunch, setMinimizeOnLaunch] = useSetting<boolean>(
+  const [minimizeOnLaunch, setMinimizeOnLaunch] = useSetting(
     'minimizeOnLaunch',
     false
   )

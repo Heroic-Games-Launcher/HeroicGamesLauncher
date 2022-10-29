@@ -30,6 +30,9 @@ body.dracula-classic {
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
+  --action-icon: var(--text-default);
+  --action-icon-hover: var(--text-hover);
+  --action-icon-active: var(--accent);
 }
 
 body.marine,
@@ -53,6 +56,9 @@ body.marine-classic {
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
+  --action-icon: var(--text-default);
+  --action-icon-hover: var(--text-hover);
+  --action-icon-active: var(--accent);
 }
 
 body.zombie,
@@ -62,7 +68,7 @@ body.zombie-classic {
   --navbar-accent: var(--accent);
   --background: #1d1f1f;
   --body-background: #1d1f1f;
-  --background-darker: #1d1f1f;
+  --background-darker: #161717;
   --current-background: var(--body-background);
   --navbar-background: #323232;
   --navbar-active-background: #1d1f1f;
@@ -79,11 +85,9 @@ body.zombie-classic {
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: #434343;
-}
-
-body.zombie .downIcon > circle,
-body.zombie-classic .downIcon > circle {
-  fill: var(--text-secondary);
+  --action-icon: var(--text-default);
+  --action-icon-hover: var(--text-hover);
+  --action-icon-active: var(--accent);
 }
 
 body.old-school {
@@ -109,6 +113,9 @@ body.old-school {
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: #434343;
+  --action-icon: var(--text-default);
+  --action-icon-hover: var(--text-hover);
+  --action-icon-active: var(--accent);
 }
 
 body.classic,

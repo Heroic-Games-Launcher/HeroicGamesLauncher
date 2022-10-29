@@ -1,12 +1,16 @@
 import { ipcMain } from 'electron'
-import { readFileSync } from 'graceful-fs'
+import { existsSync, readFileSync } from 'graceful-fs'
 import { showItemInFolder } from '../utils'
 import { getLogFile } from './logfile'
 
 ipcMain.handle('getLogContent', async (event, { appName, defaultLast }) => {
-  return readFileSync(getLogFile({ appName, defaultLast }), {
-    encoding: 'utf-8'
-  })
+  const logPath = getLogFile({ appName, defaultLast })
+  if (existsSync(logPath)) {
+    return readFileSync(getLogFile({ appName, defaultLast }), {
+      encoding: 'utf-8'
+    })
+  }
+  return ''
 })
 
 ipcMain.on('showLogFileInFolder', async (e, { appName, defaultLast }) => {

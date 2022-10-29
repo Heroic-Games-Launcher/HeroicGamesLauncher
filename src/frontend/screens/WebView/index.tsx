@@ -1,4 +1,10 @@
-import React, { useContext, useLayoutEffect, useRef, useState } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router'
 
@@ -7,6 +13,7 @@ import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Runner, WebviewType } from 'common/types'
 import './index.css'
+import LoginWarning from '../Login/components/LoginWarning'
 
 type CODE = {
   authorizationCode: string
@@ -97,7 +104,7 @@ export default function WebView() {
 
             setTimeout(() => {
               webview.findInPage('authorizationCode')
-            }, 500)
+            }, 50)
             webview.addEventListener('found-in-page', async () => {
               webview.focus()
               webview.selectAll()
@@ -118,7 +125,7 @@ export default function WebView() {
                   console.error(error)
                   window.api.logError(String(error))
                 }
-              }, 500)
+              }, 200)
             })
           })
         }
@@ -132,6 +139,26 @@ export default function WebView() {
     }
     return
   }, [webviewRef.current])
+
+  const [showLoginWarningFor, setShowLoginWarningFor] = useState<
+    null | 'epic' | 'gog'
+  >(null)
+
+  useEffect(() => {
+    if (startUrl.match(/epicgames\.com/) && !epic.username) {
+      setShowLoginWarningFor('epic')
+    } else if (
+      startUrl.match(/gog\.com/) &&
+      !startUrl.match(/auth\.gog\.com/) &&
+      !gog.username
+    ) {
+      setShowLoginWarningFor('gog')
+    }
+  }, [startUrl])
+
+  const onLoginWarningClosed = () => {
+    setShowLoginWarningFor(null)
+  }
 
   return (
     <div className="WebView">
@@ -149,7 +176,14 @@ export default function WebView() {
         partition="persist:epicstore"
         src={startUrl}
         allowpopups={trueAsStr}
+        useragent="Mozilla/5.0 (Windows NT 10.0; WOW64; rv:70.0) Gecko/20100101 Firefox/70.0"
       />
+      {showLoginWarningFor && (
+        <LoginWarning
+          warnLoginForStore={showLoginWarningFor}
+          onClose={onLoginWarningClosed}
+        />
+      )}
     </div>
   )
 }

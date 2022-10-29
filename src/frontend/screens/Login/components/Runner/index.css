@@ -1,13 +1,15 @@
 .runnerWrapper {
   background-color: var(--background-darker);
-  padding: var(--space-lg);
   border-radius: var(--space-xs);
   min-width: min(500px, 30%);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
-  height: 300px;
+  align-items: center;
+  width: 100%;
+  height: 60px;
   backdrop-filter: blur(var(--blur-light));
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .runnerWrapper > h1 {
@@ -15,20 +17,25 @@
 }
 
 .runnerLogin {
-  padding: var(--space-xs);
-  font-size: var(--text-xl);
+  padding: var(--space-lg);
+  font-size: var(--text-md);
   border: none;
   transition: 0.2s;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .runnerLogin.alternative {
-  margin-top: 20px;
   cursor: pointer;
-  color: var(--text-secondary);
+}
+
+.alternative > svg {
+  fill: var(--background-lighter) !important;
 }
 
 .runnerLogin:hover {
-  color: var(--text-hover);
+  color: var(--accent);
 }
 
 .logged {
@@ -40,27 +47,39 @@
   color: var(--danger-hover);
 }
 
+.runnerIcon {
+  height: 100%;
+  width: 60px;
+  background-color: var(--text-default);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.runnerIcon img,
+.runnerIcon svg {
+  width: 100%;
+  padding: 10px;
+}
+
+.runnerIcon.gog img {
+  margin-top: -1px;
+}
+
 .runnerWrapper img,
 .runnerWrapper svg {
-  width: 100px;
-  margin: var(--space-lg);
-  fill: #fff;
   height: 100%;
+  fill: var(--body-background);
 }
 
 .userData {
   color: var(--text-secondary);
   /* For longer nicknames */
   font-size: var(--text-lg);
-  margin: var(--space-sm) 0;
+  margin: var(--space-sm) 0px;
+  padding: 0px 10px;
 }
 
-.runnerWrapper.epic {
-  margin-right: var(--space-xl-fixed);
-}
-.runnerWrapper.gog {
-  margin-left: var(--space-xl-fixed);
-}
-.runnerWrapper.gog svg {
-  margin-top: var(--space-md-fixed);
+.runnerButtons,
+.userData {
+  flex: 1;
 }

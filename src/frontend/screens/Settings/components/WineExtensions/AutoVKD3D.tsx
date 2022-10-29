@@ -4,22 +4,18 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { WineInstallation } from 'common/types'
 import { configStore } from 'frontend/helpers/electronStores'
 import { defaultWineVersion } from '../WineSettings'
 
 const AutoVKD3D = () => {
   const { t } = useTranslation()
-  const [autoInstallVkd3d, setAutoInstallVkd3d] = useSetting<boolean>(
+  const [autoInstallVkd3d, setAutoInstallVkd3d] = useSetting(
     'autoInstallVkd3d',
     false
   )
   const home = configStore.get('userHome', '')
-  const [winePrefix] = useSetting<string>('winePrefix', `${home}/.wine`)
-  const [wineVersion] = useSetting<WineInstallation>(
-    'wineVersion',
-    defaultWineVersion
-  )
+  const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
+  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
   const isProton = wineVersion.type === 'proton'
 

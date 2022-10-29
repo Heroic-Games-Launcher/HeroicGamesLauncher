@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { WineInstallation } from 'common/types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '.'
@@ -12,15 +11,12 @@ const PreferSystemLibs = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [preferSystemLibs, setPreferSystemLibs] = useSetting<boolean>(
+  const [preferSystemLibs, setPreferSystemLibs] = useSetting(
     'preferSystemLibs',
     false
   )
 
-  const [wineVersion] = useSetting<WineInstallation>(
-    'wineVersion',
-    defaultWineVersion
-  )
+  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
   const isProton = wineVersion.type === 'proton'
 

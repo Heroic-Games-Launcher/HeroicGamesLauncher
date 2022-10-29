@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "操作菜单字族 （默认： ",
         "all_tiles_in_color": "对所有游戏磁贴着色",
-        "content_font_family_no_default": "Content Font Family (Default: ",
+        "content_font_family_no_default": "内容字族 （默认： ",
         "fonts": "字体",
         "title": "辅助功能",
         "zoom": "缩放"
@@ -56,12 +56,12 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "选择要运行的 EXE"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "启动已中断",
             "title": "错误",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
+                "message": "发生了未捕获的异常：{{newLine}}{{error}}{{newLine}}{{newLine}} 在我们的 Github 仓库报告该异常。",
                 "title": "发生了未捕获的异常！"
             },
             "update": {
@@ -69,7 +69,7 @@
                 "title": "更新错误"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "未找到所选的 wine 版本。请安装该版本或在游戏的设置中选择一个不同版本{{newline}}版本: {{version}}{{newline}}路径: {{path}}",
                 "message": "未选择 Wine 版本。检查游戏设置！",
                 "title": "未找到 Wine"
             },
@@ -106,7 +106,7 @@
             }
         },
         "runexe": {
-            "title": "选择要运行的 EXE 文件"
+            "title": "选择要运行的 EXE"
         },
         "select": {
             "button": "选择",
@@ -171,6 +171,19 @@
         }
     },
     "docs": "文档",
+    "download": {
+        "manager": {
+            "empty": "没有可下载的。",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "商店"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
         "offline-notification-title": "离线"
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
+        "custom_themes_path": "不要使用来自不受信任来源的 CSS 文件。有疑问时，请在我们的 Discord 频道请求审核。",
+        "custom_themes_wiki": "查看 Wiki 了解添加定制主题的更多详情。单击此处。",
         "dxvk": "DXVK 是一个基于 Vulkan 的转译层，用于 DirectX 9、10和11游戏。启用也许会提高兼容性。但可能会导致问题，特别是对老的 DirectX 游戏。",
         "esync": "Esync 的目标是在 CPU 消耗很大的游戏中减少 wineserver 的开销。启用可能会提高性能。",
         "fsync": "Fsync 的目标是在 CPU 开销很大的游戏中减少 wineserver 的开销。启用可能会提高受支持的 Linux 内核的性能。",
@@ -224,9 +239,8 @@
         },
         "preferSystemLibs": "自定义 Wine 版本(Wine- ge、Wine- lutris)随它们的库依赖项一起发布。启用此选项，这些附带的库将被忽略，Wine 将加载系统库。警告！如果不满足依赖关系，可能会出现问题。",
         "primerun": "在多 GPU 系统上使用独立显卡渲染游戏。仅适用于使用无头 GPU 进行渲染的游戏笔记本或台式机 (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA 的 Resizable Bar 通过让 CPU 访问整个图形缓冲区来提高帧率。启用可能会提高基于 Vulkan 的游戏的性能。",
         "steam_path": {
-            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+            "info": "此路径让 Heroic 确定 Steam 所用的 Proton 版本，用于添加非 Steam 游戏到 Steam。"
         },
         "steamruntime": "Steam 提供的用于帮助运行 Linux 和 Windows（Proton）游戏的自定义库。启用可能会提高兼容性。",
         "sync": {
@@ -248,12 +262,16 @@
             "stable": "稳定版",
             "version": "Heroic 版本"
         },
+        "save-sync": {
+            "searching": "尝试检查正确的保存文件夹"
+        },
         "settings": "设置会自动保存",
         "version": "Wine 版本"
     },
     "infobox": {
         "help": "帮助",
         "requirements": "系统要求",
+        "warning": "警告",
         "wine-path": "Wine 路径",
         "wine-prefix": {
             "title": "Wine 前缀"
@@ -281,7 +299,10 @@
         "website": "正在加载网站"
     },
     "login": {
-        "externalLogin": "外部登录"
+        "alternative_method": "备选登录方式",
+        "epic": "Epic Games 登录",
+        "gog": "GOG 登录",
+        "message": "平台登录。你可以同时登录超过一个平台。"
     },
     "message": {
         "sync": "同步完成",
@@ -330,10 +351,10 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "我们正检查到下列域名的连接：{{newline}}github.com、{{newline}}gog.com 和{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
-        "retrying": "Retrying"
+        "retry-in": "{{seconds}} 秒内重试…",
+        "retrying": "重试"
     },
     "options": {
         "advanced": {
@@ -371,9 +392,11 @@
         "legendary-version": "Legendary 版本： ",
         "weblate": "帮助翻译 Heroic。"
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",
+        "custom_themes_path": "选择查找自定义 CSS 文件的路径",
         "egs-prefix": "Epic 游戏商城安装位置",
         "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")"
     },
@@ -383,12 +406,20 @@
         "win": "Windows"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "clear": "清除列表",
+            "downloading": "下载中",
+            "finished": "已完成",
+            "queued": "已加入队列"
+        }
+    },
     "Recent": "最近玩过",
     "search": "搜索游戏",
     "setting": {
         "adddesktopshortcuts": "自动添加桌面快捷方式",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
-        "addgamestosteam": "Add games to Steam automatically",
+        "addgamestosteam": "自动添加游戏到 Steam",
         "alt-gogdl-bin": "选择要使用的备选 GOGDL 二进制文件",
         "alt-legendary-bin": "选择备选的 Legendary 二进制文件",
         "audiofix": "音频修复（Pulse Audio延迟）",
@@ -398,6 +429,7 @@
         "change-target-exe": "选择要运行的替代 EXE",
         "checkForUpdatesOnStartup": "启动时检查 Heroic 更新",
         "crossover-version": "Crossover 版本",
+        "custom_themes_path": "自定义主题路径",
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
@@ -466,8 +498,13 @@
         "offlinemode": "离线运行游戏",
         "prefered_language": "首选语言 (语言代码)",
         "preferSystemLibs": "首选系统库",
-        "primerun": "使用独立显卡",
-        "resizableBar": "启动 Resizable BAR (仅限 NVIDIA RTX 30xx)",
+        "primerun": {
+            "confirmation": {
+                "message": "此系统中已检测到一张显卡。请注意，这个选项是针对带无头 GPU 的多 GPU 系统（如笔记本电脑）。在单 GPU 系统中，自动使用唯一的 GPU，启用这个选项会导致问题。你真的要启用此选项吗?",
+                "title": "只检测到 1 个 GPU"
+            },
+            "description": "使用独立显卡"
+        },
         "runexe": {
             "message": "将文件拖放到此处",
             "title": "在前置上运行 EXE"

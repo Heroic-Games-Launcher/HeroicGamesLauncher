@@ -7,9 +7,12 @@ import {
   Runner,
   ConnectivityStatus,
   DialogType,
-  ButtonOptions
+  ButtonOptions,
+  LibraryTopSectionOptions,
+  DMQueueElement
 } from 'common/types'
-export type Category = 'all' | 'legendary' | 'gog'
+
+export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
 
 export interface ContextType {
   category: Category
@@ -77,6 +80,7 @@ export interface ContextType {
   dialogModalOptions: DialogModalOptions
   showDialogModal: (options: DialogModalOptions) => void
   showResetDialog: () => void
+  sideloadedLibrary: GameInfo[]
 }
 
 export type DialogModalOptions = {
@@ -86,12 +90,6 @@ export type DialogModalOptions = {
   buttons?: Array<ButtonOptions>
   type?: DialogType
 }
-
-export type LibraryTopSectionOptions =
-  | 'disabled'
-  | 'recently_played'
-  | 'recently_played_installed'
-  | 'favourites'
 
 export interface HiddenGame {
   appName: string
@@ -211,6 +209,7 @@ declare global {
       canvas_width: number,
       canvas_height: number
     ) => Promise<string>
+    setTheme: (themeClass: string) => void
   }
   interface WindowEventMap {
     'controller-changed': CustomEvent<{ controllerId: string }>
@@ -231,4 +230,9 @@ export interface LocationState {
   runner: Runner
   isLinuxNative: boolean
   isMacNative: boolean
+}
+
+export type DMQueue = {
+  elements: DMQueueElement[]
+  finished: DMQueueElement[]
 }

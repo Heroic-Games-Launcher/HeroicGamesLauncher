@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "Шрифт для действий (По умолчанию: ",
         "all_tiles_in_color": "Показать все плитки игр в цвете",
-        "content_font_family_no_default": "Content Font Family (Default: ",
+        "content_font_family_no_default": "Шрифт для содержимого (По умолчанию: ",
         "fonts": "Шрифты",
         "title": "Доступность",
         "zoom": "Масштаб"
@@ -56,12 +56,12 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Выбрать EXE для запуска"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Запуск прерван",
             "title": "Ошибка",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
+                "message": "Произошло необрабатываемое исключение: {{newLine}}{{error}}{{newLine}}{{newLine}} Сообщите об исключении в нашем репозитории Github.",
                 "title": "Произошло необрабатываемое исключение!"
             },
             "update": {
@@ -69,7 +69,7 @@
                 "title": "Ошибка обновления"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "Выбранная версия Wine не найдена. Установите ее или выберите другую версию в настройках игры{{newline}}Версия: {{version}}{{newline}}Путь: {{path}}",
                 "message": "Не выбрана версия Wine. Проверьте настройки игры!",
                 "title": "Wine не найден"
             },
@@ -171,6 +171,19 @@
         }
     },
     "docs": "Документация",
+    "download": {
+        "manager": {
+            "empty": "Нечего скачивать.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Магазин"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
         "offline-notification-title": "офлайн"
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "AMD FSR помогает увеличить частоту кадров за счет увеличения масштаба разрешения в полноэкранном режиме. Качество изображения увеличивается с 5 до 1 за счет небольшого снижения производительности. Включение может повысить производительность.",
+        "custom_themes_path": "Не используйте CSS-файлы из ненадежных источников. Если вы сомневаетесь, попросите проверить их на нашем канале Discord.",
+        "custom_themes_wiki": "Более подробную информацию о добавлении пользовательских тем можно найти в Вики. Нажмите здесь.",
         "dxvk": "DXVK - это транслятор вызовов в Vulkan для игр DirectX 9, 10 и 11. Включение может улучшить совместимость. Может вызвать проблемы, особенно для старых игр DirectX.",
         "esync": "Esync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность.",
         "fsync": "Fsync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность на совместимых ядрах Linux.",
@@ -224,9 +239,8 @@
         },
         "preferSystemLibs": "Пользовательские версии Wine (Wine-GE, Wine-Lutris) поставляются со своими библиотечными зависимостями. При включении этой опции эти поставляемые библиотеки будут игнорироваться, и Wine будет загружать системные библиотеки вместо них. Внимание! При несоблюдении зависимостей могут возникнуть проблемы.",
         "primerun": "Использовать выделенную видеокарту для рендеринга игры в системах с несколькими GPU. Необходимо только для игровых ноутбуков или настольных компьютеров, использующих для рендеринга headless GPU (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar помогает повысить частоту кадров, предоставляя ЦП доступ ко всему графическому буферу. Включение может повысить производительность в играх на базе Vulkan.",
         "steam_path": {
-            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+            "info": "Этот путь позволяет Heroic определить, какую версию Proton использует Steam для добавления не-Steam игр."
         },
         "steamruntime": "Пользовательские библиотеки, предоставляемые Steam для запуска игр для Linux и Windows (Proton). Включение может улучшить совместимость.",
         "sync": {
@@ -248,12 +262,16 @@
             "stable": "Стабильный",
             "version": "Версия Heroic"
         },
+        "save-sync": {
+            "searching": "Попытка определить правильную папку сохранения"
+        },
         "settings": "Настройки сохраняются автоматически",
         "version": "Версия Wine"
     },
     "infobox": {
         "help": "Помощь",
         "requirements": "Системные требования",
+        "warning": "Предупреждение",
         "wine-path": "Путь к Wine",
         "wine-prefix": {
             "title": "Префикс Wine"
@@ -281,7 +299,10 @@
         "website": "Загрузка веб-сайта"
     },
     "login": {
-        "externalLogin": "Внешний вход"
+        "alternative_method": "Альтернативный способ входа",
+        "epic": "Вход в Epic Games",
+        "gog": "Вход в GOG",
+        "message": "Войдите с помощью своей платформы. Вы можете войти одновременно в несколько платформ."
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -330,10 +351,10 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Мы проверяем подключение к: {{newline}}github.com, {{newline}}gog.com и {{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
-        "retrying": "Retrying"
+        "retry-in": "Повтор через ... {{seconds}} секунд",
+        "retrying": "Повтор"
     },
     "options": {
         "advanced": {
@@ -371,9 +392,11 @@
         "legendary-version": "Версия Legendary: ",
         "weblate": "Помогите перевести Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Используется встроенный GOGDL...",
         "alt-legendary-bin": "Используется встроенный Legendary...",
+        "custom_themes_path": "Выберите путь для поиска пользовательских файлов CSS",
         "egs-prefix": "Префикс куда установлен EGS",
         "prefered_language": "2-значный код (например: \"en\" или \"fr\")"
     },
@@ -383,12 +406,20 @@
         "win": "Windows"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "clear": "Очистить список",
+            "downloading": "Загрузка",
+            "finished": "Завершено",
+            "queued": "Очередь"
+        }
+    },
     "Recent": "Запускались недавно",
     "search": "Поиск игр",
     "setting": {
         "adddesktopshortcuts": "Создать ярлыки на рабочем столе автоматически",
         "addgamestostartmenu": "Добавить игры в меню приложений автоматически",
-        "addgamestosteam": "Add games to Steam automatically",
+        "addgamestosteam": "Добавить игры в Steam автоматически",
         "alt-gogdl-bin": "Выбрать другой исполняемый файл GOGDL",
         "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary",
         "audiofix": "Фикс аудио (Задержка Pulse Audio)",
@@ -398,6 +429,7 @@
         "change-target-exe": "Выбрать другой EXE для запуска",
         "checkForUpdatesOnStartup": "Проверять обновления Heroic при запуске",
         "crossover-version": "Версия Crossover",
+        "custom_themes_path": "Путь к пользовательским темам",
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",
         "default-install-path": "Стандартный путь установки",
@@ -466,8 +498,13 @@
         "offlinemode": "Запускать игру офлайн",
         "prefered_language": "Предпочтительный язык (код языка)",
         "preferSystemLibs": "Предпочитать системные библиотеки",
-        "primerun": "Использовать выделенную видеокарту",
-        "resizableBar": "Включить Resizable BAR (только NVIDIA RTX)",
+        "primerun": {
+            "confirmation": {
+                "message": "В этой системе обнаружена только одна видеокарта. Обратите внимание, что эта опция предназначена для multi-GPU систем с безголовыми GPU (например, ноутбуков). В системах с одним GPU графический процессор используется автоматически, и включение этой опции может вызвать проблемы. Вы действительно хотите включить эту опцию?",
+                "title": "Обнаружен только 1 графический процессор"
+            },
+            "description": "Использовать выделенную видеокарту"
+        },
         "runexe": {
             "message": "Перетащите файлы сюда",
             "title": "Запустить EXE в префиксе"

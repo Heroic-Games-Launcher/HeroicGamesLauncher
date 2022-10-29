@@ -17,6 +17,15 @@
             "message": "您想尝试修复这个游戏的文件吗？这可能需要很长的时间。",
             "title": "验证和修复"
         },
+        "runexe": {
+            "title": "选择要运行的 EXE"
+        },
+        "select": {
+            "button": "选择"
+        },
+        "sideload": {
+            "exe": "选择可执行文件"
+        },
         "stopInstall": {
             "keepInstalling": "保留安装",
             "message": "要保留已下载的文件吗？",
@@ -38,11 +47,23 @@
         "add_to_favourites": "添加到收藏",
         "cancel": "暂停/取消",
         "continue": "继续下载",
+        "finish": "完成",
         "force_update": "如可用则强制更新",
+        "force-innstall": "强制安装",
         "hide_game": "隐藏游戏",
         "import": "导入游戏",
         "install": "安装",
+        "no-path-selected": "未选择路径",
+        "queue": {
+            "remove": "从队列中删除"
+        },
         "remove_from_favourites": "从收藏夹移除",
+        "remove_from_recent": "从最近删除",
+        "run-exe-first": "先运行安装包",
+        "running-setup": "运行安装",
+        "sideload": {
+            "edit": "编辑应用/游戏"
+        },
         "unhide_game": "取消隐藏游戏",
         "uninstall": "卸载",
         "update": "更新"
@@ -56,6 +77,8 @@
     "game": {
         "downloadSize": "下载大小",
         "firstPlayed": "首次游玩",
+        "getting-download-size": "获取下载大小",
+        "getting-install-size": "获取安装大小",
         "installSize": "安装大小",
         "language": "语言",
         "lastPlayed": "上次玩",
@@ -100,9 +123,36 @@
     "launch": {
         "options": "启动选项..."
     },
+    "not_logged_in": {
+        "epic": "你在 Heroic 中未登录 Epic 账户。不要使用商店页面进行登录，请点击下面的按钮：",
+        "gog": "你在 Heroic 中未登录 GOG 账户。不要使用商店页面进行登录，请点击下面的按钮：",
+        "login": "Log in",
+        "title": "你未登录"
+    },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "取消了下载",
+            "remove": "从下载管理器中删除"
+        }
+    },
     "report_problem": "报告运行此游戏时出现的问题",
     "sdl": {
         "title": "选择要安装的组件"
+    },
+    "sideload": {
+        "field": {
+            "title": "标题"
+        },
+        "info": {
+            "exe": "选择可执行文件",
+            "image": "App 映像",
+            "title": "游戏/应用标题"
+        },
+        "placeholder": {
+            "image": "在此粘贴映像 URL",
+            "title": "添加标题到你的“游戏/应用”"
+        }
     },
     "specs": {
         "minimum": "最低配置",
@@ -116,8 +166,10 @@
         "moving": "正在移动安装，请稍等",
         "notinstalled": "未安装此游戏",
         "processing": "处理文件中，请稍等",
+        "queued": "已加入队列",
         "reparing": "正在修复游戏，请稍等",
         "totalDownloaded": "下载总计",
+        "uninstalling": "Uninstalling",
         "updating": "游戏更新中"
     },
     "submenu": {

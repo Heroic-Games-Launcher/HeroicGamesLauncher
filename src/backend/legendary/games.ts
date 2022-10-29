@@ -1,3 +1,7 @@
+import {
+  createAbortController,
+  deleteAbortController
+} from '../utils/aborthandler/aborthandler'
 import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
@@ -279,6 +283,18 @@ class LegendaryGame extends Game {
       return
     }
 
+    // parse log for download speed
+    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
+    const downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
+      ? Number(downSpeedMBytes?.at(1))
+      : 0
+
+    // parse disk write speed
+    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
+    const diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
+      ? Number(diskSpeedMBytes?.at(1))
+      : 0
+
     const eta = etaMatch[1]
     const bytes = bytesMatch[1]
 
@@ -297,7 +313,8 @@ class LegendaryGame extends Game {
     logInfo(
       [
         `Progress for ${this.appName}:`,
-        `${percent}%/${bytes}MiB/${eta}`.trim()
+        `${percent}%/${bytes}MiB/${eta}`.trim(),
+        `Down: ${downSpeed}MiB/s / Disk: ${diskSpeed}MiB/s`
       ],
       { prefix: LogPrefix.Legendary }
     )
@@ -309,7 +326,9 @@ class LegendaryGame extends Game {
       progress: {
         eta: eta,
         percent,
-        bytes: `${bytes}MiB`
+        bytes: `${bytes}MiB`,
+        downSpeed,
+        diskSpeed
       }
     })
   }
@@ -336,17 +355,23 @@ class LegendaryGame extends Game {
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
-        'installing',
+        'updating',
         info.manifest.download_size,
         data
       )
     }
 
-    const res = await runLegendaryCommand(commandParts, {
-      logFile: logPath,
-      onOutput,
-      logMessagePrefix: `Updating ${this.appName}`
-    })
+    const res = await runLegendaryCommand(
+      commandParts,
+      createAbortController(this.appName),
+      {
+        logFile: logPath,
+        onOutput,
+        logMessagePrefix: `Updating ${this.appName}`
+      }
+    )
+
+    deleteAbortController(this.appName)
 
     this.window.webContents.send('setGameStatus', {
       appName: this.appName,
@@ -380,7 +405,7 @@ class LegendaryGame extends Game {
    * @public
    */
   public async removeShortcuts() {
-    return removeShortcuts(this.appName, 'legendary')
+    return removeShortcuts(this.getGameInfo())
   }
 
   private getSdlList(sdlList: Array<string>) {
@@ -400,7 +425,10 @@ class LegendaryGame extends Game {
     installDlcs,
     sdlList,
     platformToInstall
-  }: InstallArgs): Promise<{ status: 'done' | 'error' }> {
+  }: InstallArgs): Promise<{
+    status: 'done' | 'error' | 'abort'
+    error?: string
+  }> {
     const { maxWorkers, downloadNoHttps } =
       await GlobalConfig.get().getSettings()
     const info = await this.getInstallInfo(platformToInstall)
@@ -429,27 +457,40 @@ class LegendaryGame extends Game {
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
-        'updating',
+        'installing',
         info.manifest.download_size,
         data
       )
     }
 
-    let res = await runLegendaryCommand(commandParts, {
-      logFile: logPath,
-      onOutput,
-      logMessagePrefix: `Installing ${this.appName}`
-    })
+    let res = await runLegendaryCommand(
+      commandParts,
+      createAbortController(this.appName),
+      {
+        logFile: logPath,
+        onOutput,
+        logMessagePrefix: `Installing ${this.appName}`
+      }
+    )
+
+    deleteAbortController(this.appName)
 
     // try to run the install again with higher memory limit
     if (res.stderr.includes('MemoryError:')) {
       res = await runLegendaryCommand(
         [...commandParts, '--max-shared-memory', '5000'],
+        createAbortController(this.appName),
         {
           logFile: logPath,
           onOutput
         }
       )
+
+      deleteAbortController(this.appName)
+    }
+
+    if (res.abort) {
+      return { status: 'abort' }
     }
 
     if (res.error) {
@@ -458,7 +499,7 @@ class LegendaryGame extends Game {
           prefix: LogPrefix.Legendary
         })
       }
-      return { status: 'error' }
+      return { status: 'error', error: res.error }
     }
     this.addShortcuts()
     return { status: 'done' }
@@ -467,17 +508,23 @@ class LegendaryGame extends Game {
   public async uninstall(): Promise<ExecResult> {
     const commandParts = ['uninstall', this.appName, '-y']
 
-    const res = await runLegendaryCommand(commandParts, {
-      logMessagePrefix: `Uninstalling ${this.appName}`
-    })
+    const res = await runLegendaryCommand(
+      commandParts,
+      createAbortController(this.appName),
+      {
+        logMessagePrefix: `Uninstalling ${this.appName}`
+      }
+    )
+
+    deleteAbortController(this.appName)
 
     if (res.error) {
       logError(['Failed to uninstall', `${this.appName}:`, res.error], {
         prefix: LogPrefix.Legendary
       })
-    } else {
+    } else if (!res.abort) {
       LegendaryLibrary.get().installState(this.appName, false)
-      await removeShortcuts(this.appName, 'legendary')
+      await removeShortcuts(this.getGameInfo())
       const gameInfo = this.getGameInfo()
       await removeNonSteamGame({ gameInfo })
     }
@@ -498,10 +545,16 @@ class LegendaryGame extends Game {
 
     const commandParts = ['repair', this.appName, ...workers, ...noHttps, '-y']
 
-    const res = await runLegendaryCommand(commandParts, {
-      logFile: logPath,
-      logMessagePrefix: `Repairing ${this.appName}`
-    })
+    const res = await runLegendaryCommand(
+      commandParts,
+      createAbortController(this.appName),
+      {
+        logFile: logPath,
+        logMessagePrefix: `Repairing ${this.appName}`
+      }
+    )
+
+    deleteAbortController(this.appName)
 
     if (res.error) {
       logError(['Failed to repair', `${this.appName}:`, res.error], {
@@ -516,7 +569,12 @@ class LegendaryGame extends Game {
 
     logInfo(`Importing ${this.appName}.`, { prefix: LogPrefix.Legendary })
 
-    const res = await runLegendaryCommand(commandParts)
+    const res = await runLegendaryCommand(
+      commandParts,
+      createAbortController(this.appName)
+    )
+
+    deleteAbortController(this.appName)
 
     if (res.error) {
       logError(['Failed to import', `${this.appName}:`, res.error], {
@@ -549,9 +607,15 @@ class LegendaryGame extends Game {
       '-y'
     ]
 
-    const res = await runLegendaryCommand(commandParts, {
-      logMessagePrefix: `Syncing saves for ${this.appName}`
-    })
+    const res = await runLegendaryCommand(
+      commandParts,
+      createAbortController(this.appName),
+      {
+        logMessagePrefix: `Syncing saves for ${this.appName}`
+      }
+    )
+
+    deleteAbortController(this.appName)
 
     if (res.error) {
       logError(['Failed to sync saves for', `${this.appName}:`, res.error], {
@@ -573,7 +637,7 @@ class LegendaryGame extends Game {
       gameModeBin,
       steamRuntime,
       offlineMode
-    } = await prepareLaunch(this, gameInfo)
+    } = await prepareLaunch(gameSettings, gameInfo, this.isNative())
     if (!launchPrepSuccess) {
       appendFileSync(
         this.logFileLocation,
@@ -643,12 +707,10 @@ class LegendaryGame extends Game {
     }
 
     // Log any launch information configured in Legendary's config.ini
-    const { stdout } = await runLegendaryCommand([
-      'launch',
-      this.appName,
-      '--json',
-      '--offline'
-    ])
+    const { stdout } = await runLegendaryCommand(
+      ['launch', this.appName, '--json', '--offline'],
+      createAbortController(this.appName)
+    )
     appendFileSync(
       this.logFileLocation,
       "Legendary's config from config.ini (before Heroic's settings):\n"
@@ -689,14 +751,20 @@ class LegendaryGame extends Game {
       `Launch Command: ${fullCommand}\n\nGame Log:\n`
     )
 
-    const { error } = await runLegendaryCommand(commandParts, {
-      env: commandEnv,
-      wrappers: wrappers,
-      logMessagePrefix: `Launching ${gameInfo.title}`,
-      onOutput: (output) => {
-        appendFileSync(this.logFileLocation, output)
+    const { error } = await runLegendaryCommand(
+      commandParts,
+      createAbortController(this.appName),
+      {
+        env: commandEnv,
+        wrappers: wrappers,
+        logMessagePrefix: `Launching ${gameInfo.title}`,
+        onOutput: (output) => {
+          appendFileSync(this.logFileLocation, output)
+        }
       }
-    })
+    )
+
+    deleteAbortController(this.appName)
 
     if (error) {
       const showDialog = !`${error}`.includes('appears to be deleted')
@@ -714,7 +782,7 @@ class LegendaryGame extends Game {
   public async runWineCommand(
     command: string,
     wait = false,
-    proton_verb: ProtonVerb = 'run'
+    protonVerb: ProtonVerb = 'run'
   ): Promise<ExecResult> {
     if (this.isNative()) {
       logError('runWineCommand called on native game!', {
@@ -723,16 +791,16 @@ class LegendaryGame extends Game {
       return { stdout: '', stderr: '' }
     }
 
-    return runWineCommand(this, command, wait, proton_verb)
-  }
+    const { folder_name } = this.getGameInfo()
+    const gameSettings = await this.getSettings()
 
-  public async stop() {
-    // until the legendary bug gets fixed, kill legendary on mac
-    // not a perfect solution but it's the only choice for now
-
-    // @adityaruplaha: this is kinda arbitary and I don't understand it.
-    const pattern = process.platform === 'linux' ? this.appName : 'legendary'
-    killPattern(pattern)
+    return runWineCommand({
+      gameSettings,
+      installFolderName: folder_name,
+      command,
+      wait,
+      protonVerb
+    })
   }
 
   public isNative(): boolean {
@@ -752,12 +820,13 @@ class LegendaryGame extends Game {
   public async forceUninstall() {
     // Modify Legendary installed.json file:
     try {
-      await runLegendaryCommand([
-        'uninstall',
-        this.appName,
-        '-y',
-        '--keep-files'
-      ])
+      await runLegendaryCommand(
+        ['uninstall', this.appName, '-y', '--keep-files'],
+        createAbortController(this.appName)
+      )
+
+      deleteAbortController(this.appName)
+
       const mainWindow =
         BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
       mainWindow.webContents.send('refreshLibrary', 'legendary')
@@ -766,6 +835,17 @@ class LegendaryGame extends Game {
         prefix: LogPrefix.Legendary
       })
     }
+  }
+
+  // Could be removed if legendary handles SIGKILL and SIGTERM for us
+  // which is send via AbortController
+  public async stop() {
+    // until the legendary bug gets fixed, kill legendary on mac
+    // not a perfect solution but it's the only choice for now
+
+    // @adityaruplaha: this is kinda arbitary and I don't understand it.
+    const pattern = process.platform === 'linux' ? this.appName : 'legendary'
+    killPattern(pattern)
   }
 }
 

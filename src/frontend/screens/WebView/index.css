@@ -1,6 +1,7 @@
 .WebView {
   grid-area: content;
   width: var(--content-width);
+  position: relative;
 }
 
 .WebView.collapsed {
@@ -14,4 +15,23 @@
 
 .WebView__webview.collapsed {
   width: var(--content-width);
+}
+
+.WebView .login-warning {
+  position: absolute;
+  top: 40px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem;
+  justify-content: center;
+}
+
+.WebView .login-warning > div {
+  background: black;
+  align-self: center;
+  padding: var(--space-xl);
 }

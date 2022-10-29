@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Errore",
@@ -170,16 +170,29 @@
             "update_game": "Update game"
         }
     },
-    "docs": "Documentation",
+    "docs": "Documentazione",
+    "download": {
+        "manager": {
+            "empty": "Nulla da scaricare.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Nome",
+                "platform": "Piattaforma",
+                "store": "Store"
+            },
+            "title": "Download"
+        }
+    },
     "epic": {
         "offline-notification-body": "I servizi online potrebbero non funzionare completamente poiché i server di Epic Games sono offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": "Errore",
     "favourites": "Preferiti",
     "game": {
-        "status": "Status",
+        "status": "Stato",
         "store": "Negozio",
         "title": "Titolo del gioco"
     },
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "FSR di AMD aiuta a incrementare il framerate grazie all'upscaling delle risoluzioni più basse in modalità schermo intero. La qualità dell'immagine aumenta da 5 a 1 al costo di un leggero calo delle prestazioni. L'attivazione può migliorare le prestazioni.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK è uno strato di traduzione basato su Vulkan per giochi DirectX 9, 10 e 11. L'attivazione può migliorare la compatibilità. Potrebbe causare problemi soprattutto per i vecchi giochi DirectX.",
         "esync": "Esync mira a ridurre il sovraccarico del wineserver nei giochi ad alta intensità di CPU. L'abilitazione può migliorare le prestazioni.",
         "fsync": "Fsync mira a ridurre l'overhead del wineserver nei giochi ad alta intensità di CPU. L'abilitazione può migliorare le prestazioni sui kernel Linux supportati.",
@@ -224,7 +239,6 @@
         },
         "preferSystemLibs": "Le versioni personalizzate di Wine (Wine-GE, Wine-Lutris) vengono fornite con le loro dipendenze. Abilitando questa opzione, queste librerie saranno ignorate e Wine caricherà invece le librerie di sistema. Attenzione! Potrebbero verificarsi problemi se le dipendenze non sono soddisfatte.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA Resizable Bar aiuta ad aumentare il framerate facendo accedere la CPU all'intero buffer grafico. L'abilitazione può migliorare le prestazioni per i giochi basati su Vulkan.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -248,12 +262,16 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Le impostazioni sono salvate automaticamente",
         "version": "Versione di Wine"
     },
     "infobox": {
         "help": "Aiuto",
         "requirements": "Requisiti di sistema",
+        "warning": "Warning",
         "wine-path": "Wine Path",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -278,10 +296,13 @@
     "Library": "Libreria",
     "loading": {
         "default": "Caricamento in corso",
-        "website": "Caricamento sito web incorso"
+        "website": "Caricamento sito web in corso"
     },
     "login": {
-        "externalLogin": "External Login"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sincronizzazione completata",
@@ -371,9 +392,11 @@
         "legendary-version": "Versione Legendary: ",
         "weblate": "Aiuta a tradurre Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "In uso i binari Legendary integrati...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefix dove è installato EGS",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
@@ -383,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Giocato di recente",
     "search": "Cerca giochi",
     "setting": {
@@ -398,6 +429,7 @@
         "change-target-exe": "Seleziona un eseguibile alternativo da avviare",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Percorsi di Wine/Proton personalizzati",
         "darktray": "Usa l'icona scura della barra delle applicazioni",
         "default-install-path": "Percorso d'installazione predefinito",
@@ -466,8 +498,13 @@
         "offlinemode": "Avvia il gioco in modalità offline",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Utilizzare la scheda grafica dedicata",
-        "resizableBar": "Abilita Resizable BAR (solo NVIDIA RTX 30xx)",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Utilizzare la scheda grafica dedicata"
+        },
         "runexe": {
             "message": "Trascina e rilascia i files qui",
             "title": "Avvia l'EXE nel prefix"

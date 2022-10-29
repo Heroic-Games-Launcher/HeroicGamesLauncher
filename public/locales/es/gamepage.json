@@ -17,13 +17,22 @@
             "message": "¿Quieres intentar reparar este juego? Esto puede llevar mucho tiempo.",
             "title": "Verificar y reparar"
         },
+        "runexe": {
+            "title": "Seleccionar EXE a ejecutar"
+        },
+        "select": {
+            "button": "Seleccionar"
+        },
+        "sideload": {
+            "exe": "Seleccionar ejecutable"
+        },
         "stopInstall": {
             "keepInstalling": "Seguir instalando",
             "message": "¿Deseas MANTENER los archivos descargados?",
             "title": "Detener la instalación"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Borrar prefijo: {{prefix}}{{newLine}}Nota: Esto no se puede deshacer y borrará archivos no resguardados.",
             "message": "¿Quieres desinstalar este juego?",
             "title": "Desinstalar"
         },
@@ -38,16 +47,28 @@
         "add_to_favourites": "Agregar a Favoritos",
         "cancel": "Pausar/Cancelar",
         "continue": "Seguir descargando",
+        "finish": "Finalizar",
         "force_update": "Comprobar si hay una actualización e instalarla",
+        "force-innstall": "Forzar instalación",
         "hide_game": "Ocultar Juego",
         "import": "Importar juego",
         "install": "Instalar",
+        "no-path-selected": "No se seleccionó ubicación",
+        "queue": {
+            "remove": "Quitar de la cola"
+        },
         "remove_from_favourites": "Remover de Favoritos",
+        "remove_from_recent": "Remover de Recientes",
+        "run-exe-first": "Ejecutar instalador primero",
+        "running-setup": "Ejecutando setup",
+        "sideload": {
+            "edit": "Editar Aplicación/Juego"
+        },
         "unhide_game": "Desocultar Juego",
         "uninstall": "Desinstalar",
         "update": "Actualizar"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "No soportado",
     "disabled": "Deshabilitado",
     "dlc": {
         "installDlcs": "Instalar todos los DLCs"
@@ -56,6 +77,8 @@
     "game": {
         "downloadSize": "Tamaño de Descarga",
         "firstPlayed": "Jugado por Primera Vez",
+        "getting-download-size": "Obteniendo tamaño de descarga",
+        "getting-install-size": "Obteniendo tamaño de instalación",
         "installSize": "Tamaño de Instalación",
         "language": "Lenguaje",
         "lastPlayed": "Jugado por Última Vez",
@@ -100,9 +123,36 @@
     "launch": {
         "options": "Opciones de Arranque..."
     },
+    "not_logged_in": {
+        "epic": "No ha iniciado sesión con una cuenta de Epic en Heroic. No use la página de la tienda, haga click en el siguiente botón:",
+        "gog": "No ha iniciado sesión con una cuenta de GOG en Heroic. No use la página de la tienda, haga click en el siguiente botón:",
+        "login": "Iniciar Sesión",
+        "title": "No ha iniciado sesión"
+    },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Descarga Cancelada",
+            "remove": "Remover de descargas"
+        }
+    },
     "report_problem": "Reportar un problema ejecutando este juego",
     "sdl": {
         "title": "Elija componentes a instalar"
+    },
+    "sideload": {
+        "field": {
+            "title": "Título"
+        },
+        "info": {
+            "exe": "Seleccionar ejecutable",
+            "image": "Imagen de la aplicación/juego",
+            "title": "Título de la aplicación/juego"
+        },
+        "placeholder": {
+            "image": "Ingrese una URL de una imagen aquí",
+            "title": "Agregue un título a su juego/aplicación"
+        }
     },
     "specs": {
         "minimum": "Mínimo",
@@ -116,8 +166,10 @@
         "moving": "Moviendo la instalación, por favor espere",
         "notinstalled": "Este juego no está instalado",
         "processing": "Procesando los archivos, por favor espere",
+        "queued": "Encolado",
         "reparing": "Reparando el juego, por favor espere",
         "totalDownloaded": "Total descargado",
+        "uninstalling": "Uninstalling",
         "updating": "Actualización de juego"
     },
     "submenu": {

@@ -17,6 +17,15 @@
             "message": "Do you want to try to repair this game? This can take a long time.",
             "title": "Verify and Repair"
         },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
         "stopInstall": {
             "keepInstalling": "Keep Installing",
             "message": "Do you wish to KEEP downloaded files?",
@@ -38,11 +47,23 @@
         "add_to_favourites": "Add To Favourites",
         "cancel": "Pause/Cancel",
         "continue": "Continue Download",
+        "finish": "Finish",
         "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
         "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Install",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
         "remove_from_favourites": "Remove From Favourites",
+        "remove_from_recent": "Remove From Recent",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
         "unhide_game": "Unhide Game",
         "uninstall": "Uninstall",
         "update": "Update"
@@ -56,6 +77,8 @@
     "game": {
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
         "installSize": "Install Size",
         "language": "Language",
         "lastPlayed": "Last Played",
@@ -100,9 +123,36 @@
     "launch": {
         "options": "Launch Options..."
     },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Download Canceled",
+            "remove": "Remove from download manager"
+        }
+    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Select components to Install"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
     },
     "specs": {
         "minimum": "Minimum",
@@ -116,8 +166,10 @@
         "moving": "Moving Installation, please wait",
         "notinstalled": "This game is not installed",
         "processing": "Processing files, please wait",
+        "queued": "Queued",
         "reparing": "Repairing Game, please wait",
         "totalDownloaded": "Total Downloaded",
+        "uninstalling": "Uninstalling",
         "updating": "Updating Game"
     },
     "submenu": {

@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -106,7 +106,7 @@
             }
         },
         "runexe": {
-            "title": "Vyberte soubor EXE pro spuštění"
+            "title": "Vyberte EXE ke spuštění"
         },
         "select": {
             "button": "Vybrat",
@@ -171,6 +171,19 @@
         }
     },
     "docs": "Documentation",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Online služby nemusí plně fungovat, protože servery Epic Games jsou offline!",
         "offline-notification-title": "offline"
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK je překladová vrstva založená na Vulkanu pro hry DirectX 9, 10 a 11. Povolení může zlepšit kompatibilitu. Může ale způsobit problémy zejména u starších her s rozhraním DirectX.",
         "esync": "Cílem Esync je snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může zlepšit výkon.",
         "fsync": "Cílem Fsync je snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může zlepšit výkon na podporovaných jádrech Linuxu.",
@@ -224,7 +239,6 @@
         },
         "preferSystemLibs": "Vlastní verze Wine (Wine-GE, Wine-Lutris) jsou dodávány se závislostmi knihovnami. Povolením této možnosti budou tyto dodávané knihovny ignorovány a Wine místo nich načte systémové knihovny. Pozor! Při nedodržení závislostí může dojít k problémům.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA Resizable Bar pomáhá zvýšit snímkovou frekvenci tím, že umožňuje procesoru přístup k celé grafické vyrovnávací paměti. Povolení může zlepšit výkon her založených na Vulkanu.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -248,12 +262,16 @@
             "stable": "Stabilní",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Nastavení se ukládají automaticky",
         "version": "Verze Wine"
     },
     "infobox": {
         "help": "Pomoc",
         "requirements": "Systémové požadavky",
+        "warning": "Warning",
         "wine-path": "Cesta Wine",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -281,7 +299,10 @@
         "website": "Načítání webu"
     },
     "login": {
-        "externalLogin": "Externí přihlášení"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -371,9 +392,11 @@
         "legendary-version": "Verze Legenary: ",
         "weblate": "Pomozte s překladem Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Pomocí vestavěného GOGDL...",
         "alt-legendary-bin": "Pomocí vestavěného Legendary...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefix kde je nainstalován EGS",
         "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")"
     },
@@ -383,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Recently Played",
     "search": "Vyhledat hry",
     "setting": {
@@ -398,6 +429,7 @@
         "change-target-exe": "Vyberte alternativní EXE ke spuštění",
         "checkForUpdatesOnStartup": "Kontrolovat aktualizace Heroic při spuštění",
         "crossover-version": "Verze Crossover",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Vlastní cesty pro Wine/Proton",
         "darktray": "Použít tmavou ikonu v systémové oblasti",
         "default-install-path": "Výchozí cesta pro instalaci",
@@ -466,8 +498,13 @@
         "offlinemode": "Spustit hru offline",
         "prefered_language": "Preferovaný jazyk (kód jazyka)",
         "preferSystemLibs": "Preferovat systémové knihovny",
-        "primerun": "Použít dedikovanou grafickou kartu",
-        "resizableBar": "Používat Resizable BAR (pouze s NVIDIA RTX 30xx)",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Použít dedikovanou grafickou kartu"
+        },
         "runexe": {
             "message": "Přetáhněte soubory sem",
             "title": "Spustit EXE na prefixu"

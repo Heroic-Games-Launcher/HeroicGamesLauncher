@@ -56,12 +56,12 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Selecione o EXE para executar"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Lançamento cancelado",
             "title": "Erro",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
+                "message": "Um erro inesperado ocorreu:{{newLine}}{{error}}{{newLine}}{{newLine}} Reporte o erro no nosso repositório do Github.",
                 "title": "Ocorreu uma exceção não capturada!"
             },
             "update": {
@@ -69,7 +69,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "A versão selecionada do WINE não foi encontrada. Instale-a ou selecione outra versão nas configurações do jogo{{newline}}Versão: {{version}}{{newline}}Local: {{path}}",
                 "message": "Nenhuma Versão do wine selecionada. Cheque as configurações do jogo!",
                 "title": "Wine Não Encontrado"
             },
@@ -101,7 +101,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Tem certeza que quer reconfigurar o Heroic? Isso removerá todas as configurações e cache,porém não vai remover seus jogos instalados nem suas credenciais da Epic. Versões portáteis (AppImage, WinPortable, ...) do Heroic precisam ser reabertas manualmente após isso.",
                 "title": "Redefinir Heroic"
             }
         },
@@ -171,6 +171,19 @@
         }
     },
     "docs": "Documentation",
+    "download": {
+        "manager": {
+            "empty": "Nada para baixar",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Loja"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Serviços online podem não funcionar totalmente, os servidores da Epic Games estão offline!",
         "offline-notification-title": "offline"
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a aumentar a taxa de quadros aumentando as resoluções mais baixas no modo de tela cheia. A qualidade da imagem aumenta de 5 para 1 ao custo de um pequeno impacto no desempenho. A ativação pode melhorar o desempenho.",
+        "custom_themes_path": "Não use arquivos CSS de fontes não confiáveis. Na dúvida, peça uma revisão no nosso canal do DIscord.",
+        "custom_themes_wiki": "Cheque a Wiki para mais detalhes sobre adicionar temas personalizados. Clique aqui.",
         "dxvk": "DXVK é uma camada de tradução baseada em Vulkan para jogos DirectX 9, 10 e 11. A ativação pode melhorar a compatibilidade. Pode causar problemas especialmente para jogos DirectX mais antigos.",
         "esync": "O Esync visa reduzir a sobrecarga do wineserver em jogos com uso intensivo de CPU. A ativação pode melhorar o desempenho.",
         "fsync": "O Fsync visa reduzir a sobrecarga do wineserver em jogos com uso intensivo de CPU. A ativação pode melhorar o desempenho em kernels Linux suportados.",
@@ -223,8 +238,7 @@
             "part7": " para evitar abrir o launcher em alguns jogos, etc."
         },
         "preferSystemLibs": "Versões personalizadas do Wine (Wine-GE, Wine-Lutris) são enviadas com suas dependências de biblioteca. Ao habilitar esta opção, essas bibliotecas enviadas serão ignoradas e o Wine carregará as bibliotecas do sistema. Aviso! Podem ocorrer problemas se as dependências não forem atendidas.",
-        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "A barra redimensionável da NVIDIA ajuda a aumentar a taxa de quadros fazendo com que a CPU acesse todo o buffer gráfico. A ativação pode melhorar o desempenho de jogos baseados em Vulkan.",
+        "primerun": "Usar placa de vídeo dedicada para renderizar o jogo em sistemas multi-GPU. Só necessário em notebooks gamers ou computadores com GPUs avulsas para renderização (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -248,12 +262,16 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "As configurações são salvas automaticamente",
         "version": "Versão do Wine"
     },
     "infobox": {
         "help": "Ajuda",
         "requirements": "Requisitos do Sistema",
+        "warning": "Warning",
         "wine-path": "Caminho do Wine",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -281,7 +299,10 @@
         "website": "Carregando site"
     },
     "login": {
-        "externalLogin": "Login externo"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Sincronização Completa",
@@ -371,9 +392,11 @@
         "legendary-version": "Versão do Legendary: ",
         "weblate": "Ajude a traduzir o Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Usando binário do GOGDL embutido...",
         "alt-legendary-bin": "Usando o binário embutido do Legendary...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefixo onde a EGS está instalada",
         "prefered_language": "Código de 2 caracteres (ou seja: \"en\" ou \"fr\")"
     },
@@ -383,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Jogados Recentemente",
     "search": "Buscar jogos",
     "setting": {
@@ -398,6 +429,7 @@
         "change-target-exe": "Selecione um EXE alternativo para executar",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Versão do Crossover",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Locais com Wine/Proton customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",
         "default-install-path": "Local de instalação padrão",
@@ -466,8 +498,13 @@
         "offlinemode": "Iniciar o jogo offline",
         "prefered_language": "Idioma preferido (código do idioma)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Usar placa gráfica dedicada",
-        "resizableBar": "Habilitar Resizable BAR (somente NVIDIA RTX 30xx)",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Usar placa gráfica dedicada"
+        },
         "runexe": {
             "message": "Arraste e solte arquivos aqui",
             "title": "Executar EXE no prefixo"

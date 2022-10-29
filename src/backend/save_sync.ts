@@ -13,6 +13,10 @@ import {
 import { getGame, getShellPath } from './utils'
 import { existsSync, realpathSync } from 'graceful-fs'
 import { app } from 'electron'
+import {
+  createAbortController,
+  deleteAbortController
+} from './utils/aborthandler/aborthandler'
 
 async function getDefaultSavePath(
   appName: string,
@@ -24,6 +28,8 @@ async function getDefaultSavePath(
       return getDefaultLegendarySavePath(appName)
     case 'gog':
       return getDefaultGogSavePaths(appName, alreadyDefinedGogSaves)
+    case 'sideload':
+      return ''
   }
 }
 
@@ -47,6 +53,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   let gotSavePath = false
   await runLegendaryCommand(
     ['sync-saves', appName, '--skip-upload', '--skip-download'],
+    createAbortController(appName + '-savePath'),
     {
       logMessagePrefix: 'Getting default save path',
       env: setupWineEnvVars(await game.getSettings()),
@@ -73,6 +80,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
       }
     }
   )
+  deleteAbortController(appName + '-savePath')
   if (!gotSavePath) {
     logError(['Unable to compute default save path for', appName], {
       prefix: LogPrefix.Legendary
@@ -97,6 +105,7 @@ async function getDefaultGogSavePaths(
   alreadyDefinedGogSaves: GOGCloudSavesLocation[]
 ): Promise<GOGCloudSavesLocation[]> {
   const game = getGame(appName, 'gog')
+  const gameSettings = await game.getSettings()
   const {
     gog_save_location,
     install: { platform: installed_platform, install_path }
@@ -193,7 +202,7 @@ async function getDefaultGogSavePaths(
     if (!game.isNative()) {
       absolutePath = await getWinePath({
         path: locationWithVariablesRemoved,
-        game
+        gameSettings
       })
       // Wine already resolves symlinks and ./.. for us,
       // so no need to run `realpathSync` here

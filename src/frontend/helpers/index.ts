@@ -32,10 +32,13 @@ const openAboutWindow = window.api.showAboutWindow
 
 const openDiscordLink = window.api.openDiscordLink
 
+const openCustomThemesWiki = window.api.openCustomThemesWiki
+
 export const size = fileSize.partial({ base: 2 })
 
 let progress: string
 
+const sendAbort = window.api.abort
 const sendKill = window.api.kill
 
 const isLoggedIn = window.api.isLoggedIn
@@ -112,6 +115,22 @@ async function getAppSettings(): Promise<AppSettings> {
   return window.api.requestSettings('default')
 }
 
+function removeSpecialcharacters(text: string): string {
+  const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+]', 'gi')
+  return text.replaceAll(regexp, '')
+}
+
+const getStoreName = (runner: Runner, other: string) => {
+  switch (runner) {
+    case 'legendary':
+      return 'Epic Games'
+    case 'gog':
+      return 'GOG'
+    default:
+      return other
+  }
+}
+
 export {
   createNewWindow,
   getGameInfo,
@@ -130,11 +149,15 @@ export {
   notify,
   openAboutWindow,
   openDiscordLink,
+  openCustomThemesWiki,
   progress,
   repair,
   sendKill,
   sidInfoPage,
   syncSaves,
   updateGame,
-  writeConfig
+  writeConfig,
+  sendAbort,
+  removeSpecialcharacters,
+  getStoreName
 }

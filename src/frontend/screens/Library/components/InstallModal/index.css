@@ -1,8 +1,8 @@
 .InstallModal__dialog {
-  width: 48vw;
+  width: 38vw;
   height: fit-content;
-  max-width: 560px;
-  max-height: 100vh;
+  min-width: fit-content;
+  max-height: 95vh;
 }
 
 .InstallModal__dialog--loading {
@@ -79,4 +79,37 @@
   align-self: flex-start;
   padding: var(--space-3xs) 0 var(--space-3xs) var(--space-xs);
   color: var(--text-secondary);
+}
+
+.sideloadForm {
+  padding-left: var(--space-xs);
+}
+
+.sideloadGrid {
+  display: grid;
+  justify-content: space-around;
+  grid-template-columns: 1fr 3fr;
+}
+
+.sideloadGrid .textInputFieldWrapper.Field .selectFieldWrapper.Field {
+  margin: 0 var(--space-xs);
+}
+
+.imageIcons {
+  margin: var(--space-lg) var(--space-lg) 0 0;
+  width: min-content;
+}
+
+.appImage {
+  margin-bottom: var(--space-md);
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  max-width: 210px;
+}
+
+.titleIcon {
+  word-break: break-word;
+  display: flex;
+  justify-content: space-between;
 }

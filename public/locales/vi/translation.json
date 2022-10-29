@@ -56,7 +56,7 @@
             },
             "generic": {
                 "message": "",
-                "title": ""
+                "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
             "title": "Lỗi",
@@ -171,6 +171,19 @@
         }
     },
     "docs": "Documentation",
+    "download": {
+        "manager": {
+            "empty": "Nothing to download.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Action",
+                "element": "Name",
+                "platform": "Platform",
+                "store": "Store"
+            },
+            "title": "Downloads"
+        }
+    },
     "epic": {
         "offline-notification-body": "Các dịch vụ trực tuyến có thể không hoạt động đầy đủ vì máy chủ của Epic Games đang ngoại tuyến!",
         "offline-notification-title": "offline"
@@ -205,6 +218,8 @@
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
@@ -224,7 +239,6 @@
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-        "resizablebar": "NVIDIA's Resizable Bar helps boost framerate by making the CPU access the entire graphics buffer. Enabling may improve performance for Vulkan-based games.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -248,12 +262,16 @@
             "stable": "Stable",
             "version": "Heroic Version"
         },
+        "save-sync": {
+            "searching": "Trying to detect the correct save folder"
+        },
         "settings": "Cài đặt được tự đông lưu",
         "version": "Phiên bản Wine"
     },
     "infobox": {
         "help": "Hỗ trợ",
         "requirements": "Yêu cầu về hệ thống",
+        "warning": "Warning",
         "wine-path": "Wine Path",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -281,7 +299,10 @@
         "website": "Đang tải trang web"
     },
     "login": {
-        "externalLogin": "Đăng nhập bên ngoài"
+        "alternative_method": "Alternative Login Method",
+        "epic": "Epic Games Login",
+        "gog": "GOG Login",
+        "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
         "sync": "Hoàn tất quá trình đồng bộ",
@@ -371,9 +392,11 @@
         "legendary-version": "Phiên bản Legendary ",
         "weblate": "Giúp dịch Heroic."
     },
+    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Sử dụng GOGDL binary tích hợp sẵn...",
         "alt-legendary-bin": "Sử dụng Legendary binary tích hợp sẵn...",
+        "custom_themes_path": "Select the path to look for custom CSS files",
         "egs-prefix": "Prefix nơi EGS được cài đặt",
         "prefered_language": "mã ngôn ngữ (2 ký tự ví dụ: \"en\" or \"fr\")"
     },
@@ -383,6 +406,14 @@
         "win": "Windows"
     },
     "progress": "Progress",
+    "queue": {
+        "label": {
+            "clear": "Clear List",
+            "downloading": "Downloading",
+            "finished": "Completed",
+            "queued": "Queued"
+        }
+    },
     "Recent": "Chơi gần đây",
     "search": "Tìm kiếm game",
     "setting": {
@@ -398,6 +429,7 @@
         "change-target-exe": "Chọn một EXE thay thế để chạy",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover Version",
+        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Đường dẫn Wine/Proton tùy chọn",
         "darktray": "Sử dụng icon tối",
         "default-install-path": "Thư mục cài mặc định",
@@ -466,8 +498,13 @@
         "offlinemode": "Chạy game oflline",
         "prefered_language": "Ngôn ngữ ưa thích (Mã ngôn ngữ)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Bật Nvidia Prime Render",
-        "resizableBar": "Bật tính năng thay đổi kích thước bar (chỉ dùng được với NVIDIA RTX 30xx)",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Use Dedicated Graphics Card"
+        },
         "runexe": {
             "message": "Kéo thả file vào đây",
             "title": "Chạy EXE trên prefix"

@@ -17,13 +17,22 @@
             "message": "Chcete se pokusit opravit tuto hru? Může to chvíli trvat.",
             "title": "Zkontrolovat a opravit"
         },
+        "runexe": {
+            "title": "Vyberte EXE ke spuštění"
+        },
+        "select": {
+            "button": "Vybrat"
+        },
+        "sideload": {
+            "exe": "Vybrat spustitelný soubor"
+        },
         "stopInstall": {
             "keepInstalling": "Pokračovat v instalaci",
             "message": "Chcete ponechat stažené soubory?",
             "title": "Zastavit instalaci"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Odebrat prefix: {{prefix}}{{newLine}}Upozornění: tato akce je nevratná a také odstraní nezálohované soubory uložení.",
             "message": "Chcete odinstalovat tuto hru?",
             "title": "Odinstalovat"
         },
@@ -38,16 +47,28 @@
         "add_to_favourites": "Přidat do oblíbených",
         "cancel": "Zrušit",
         "continue": "Pokračovat ve stahování",
+        "finish": "Dokončit",
         "force_update": "Vynutit aktualizaci, pokud je dostupná",
+        "force-innstall": "Vynutit instalaci",
         "hide_game": "Skrýt hru",
         "import": "Importovat Hru",
         "install": "Instalovat",
+        "no-path-selected": "Není vybrána žádná cesta",
+        "queue": {
+            "remove": "Odebrat z fronty"
+        },
         "remove_from_favourites": "Odebrat z oblíbených",
+        "remove_from_recent": "Odebrat z nedávných",
+        "run-exe-first": "Nejprve spustit instalátor",
+        "running-setup": "Spouštění nastavení",
+        "sideload": {
+            "edit": "Upravit aplikaci/hru"
+        },
         "unhide_game": "Odkrýt hru",
         "uninstall": "Odinstalovat",
         "update": "Update"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Nepodporováno",
     "disabled": "Zakázáno",
     "dlc": {
         "installDlcs": "Instalovat všechna DLC"
@@ -56,6 +77,8 @@
     "game": {
         "downloadSize": "Velikost ke stažení",
         "firstPlayed": "Poprvé hráno",
+        "getting-download-size": "Načítání velikosti stahování",
+        "getting-install-size": "Načítání velikosti instalace",
         "installSize": "Velikost instalace",
         "language": "Jazyk",
         "lastPlayed": "Naposledy hráno",
@@ -100,9 +123,36 @@
     "launch": {
         "options": "Možnosti spuštění..."
     },
+    "not_logged_in": {
+        "epic": "V Heroic nejste přihlášeni pomocí účtu Epic. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
+        "gog": "V Heroic nejste přihlášeni pomocí účtu GOG. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
+        "login": "Log in",
+        "title": "NEjste přihlášeni"
+    },
+    "Open": "",
+    "queue": {
+        "label": {
+            "canceled": "Stahování zrušeno",
+            "remove": "Odebrat ze správce stahování"
+        }
+    },
     "report_problem": "Nahlásit problém se spouštěním této hry",
     "sdl": {
         "title": "Vyberte součásti k instalaci"
+    },
+    "sideload": {
+        "field": {
+            "title": "Název"
+        },
+        "info": {
+            "exe": "Vyberte spustitelný soubor",
+            "image": "Obrázek aplikace",
+            "title": "Název hry/aplikace"
+        },
+        "placeholder": {
+            "image": "Sem vložte URL obrázku",
+            "title": "Přidejte název ke své hře/aplikaci"
+        }
     },
     "specs": {
         "minimum": "Minimum",
@@ -116,8 +166,10 @@
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
         "processing": "Zpracovávám soubory, čekejte prosím",
+        "queued": "Ve frontě",
         "reparing": "Opravuji hru, čekejte prosím",
         "totalDownloaded": "Celkově staženo",
+        "uninstalling": "Uninstalling",
         "updating": "Aktualizuji hru"
     },
     "submenu": {

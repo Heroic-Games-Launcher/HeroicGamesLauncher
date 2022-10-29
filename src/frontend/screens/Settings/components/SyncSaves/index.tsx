@@ -1,7 +1,5 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { WineInstallation } from 'common/types'
-import { GOGCloudSavesLocation } from 'common/types/gog'
 import { configStore } from 'frontend/helpers/electronStores'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -16,22 +14,14 @@ const SyncSaves = () => {
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
-  const [autoSyncSaves, setAutoSyncSaves] = useSetting<boolean>(
-    'autoSyncSaves',
-    false
-  )
-  const [savesPath, setSavesPath] = useSetting<string>('savesPath', '')
-  const [gogSavesLocations, setGogSavesLocations] = useSetting<
-    GOGCloudSavesLocation[]
-  >('gogSavesLocations', [])
+  const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)
+  const [savesPath, setSavesPath] = useSetting('savesPath', '')
+  const [gogSavesLocations, setGogSavesLocations] = useSetting('gogSaves', [])
 
   const home = configStore.get('userHome')
-  const [winePrefix] = useSetting<string>('winePrefix', `${home}/.wine`)
+  const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
 
-  const [wineVersion] = useSetting<WineInstallation>(
-    'wineVersion',
-    defaultWineVersion
-  )
+  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
   const syncCommands = [
     { name: t('setting.manualsync.download'), value: '--skip-upload' },

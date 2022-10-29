@@ -73,13 +73,13 @@ export default function LogSettings() {
         defaultLast
       })
       .then((content: string) => {
+        if (!content) {
+          setLogFileContent(t('setting.log.no-file', 'No log file found.'))
+          setLogFileExist(false)
+          return setRefreshing(false)
+        }
         setLogFileContent(content)
         setLogFileExist(true)
-        setRefreshing(false)
-      })
-      .catch(() => {
-        setLogFileContent(t('setting.log.no-file', 'No log file found.'))
-        setLogFileExist(false)
         setRefreshing(false)
       })
   }

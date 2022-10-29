@@ -42,6 +42,15 @@
   transition: color 250ms;
   text-align: start;
   font-family: var(--primary-font-family);
+  border-radius: 0;
+}
+
+.App.collapsed .Sidebar__item {
+  padding: var(--space-xs) 0;
+}
+
+.App.collapsed .Sidebar__itemIcon {
+  margin: 0 auto;
 }
 
 .Sidebar__item:focus-visible {
@@ -69,7 +78,6 @@
   display: inline-flex;
   justify-content: center;
   color: var(--accent);
-  flex-shrink: 0;
 }
 
 .currentDownloads {

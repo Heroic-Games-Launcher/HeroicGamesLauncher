@@ -10,11 +10,8 @@ const GameMode = () => {
   const { t } = useTranslation()
   const { platform, showDialogModal } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [useGameMode, setUseGameMode] = useSetting<boolean>(
-    'useGameMode',
-    false
-  )
-  const [eacRuntime, setEacRuntime] = useSetting<boolean>('eacRuntime', false)
+  const [useGameMode, setUseGameMode] = useSetting('useGameMode', false)
+  const [eacRuntime, setEacRuntime] = useSetting('eacRuntime', false)
 
   if (!isLinux) {
     return <></>

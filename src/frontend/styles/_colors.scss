@@ -40,7 +40,7 @@
   --danger-hover: #e43f3f;
   --icon-disabled: #625e69;
   --icons-background: #17131c;
-  --divider: #ffbb3384;
+  --divider: gray;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
@@ -78,6 +78,11 @@
   --text-tertiary: #101111; /* This is not defined in figma */
   --text-quartenary: #5a5e5f; /* this is meant to be a background colour */
   --text-danger: #d22121;
+
+  /*Action Icons*/
+  --action-icon: var(--text-default);
+  --action-icon-hover: var(--text-hover);
+  --action-icon-active: var(--accent);
 }
 
 body {
