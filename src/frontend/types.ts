@@ -8,7 +8,8 @@ import {
   ConnectivityStatus,
   DialogType,
   ButtonOptions,
-  LibraryTopSectionOptions
+  LibraryTopSectionOptions,
+  DMQueueElement
 } from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
@@ -229,4 +230,9 @@ export interface LocationState {
   runner: Runner
   isLinuxNative: boolean
   isMacNative: boolean
+}
+
+export type DMQueue = {
+  elements: DMQueueElement[]
+  finished: DMQueueElement[]
 }

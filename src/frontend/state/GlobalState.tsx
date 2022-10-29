@@ -295,7 +295,7 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   handleSuccessfulLogin = (runner: Runner) => {
-    this.handleCategory(runner)
+    this.handleCategory('all')
     this.refreshLibrary({
       fullRefresh: true,
       runInBackground: false,
