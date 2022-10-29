@@ -5,7 +5,7 @@ import { getLogFile } from './logfile'
 
 ipcMain.handle('getLogContent', async (event, { appName, defaultLast }) => {
   const logPath = getLogFile({ appName, defaultLast })
-  if(existsSync(logPath)) {
+  if (existsSync(logPath)) {
     return readFileSync(getLogFile({ appName, defaultLast }), {
       encoding: 'utf-8'
     })
