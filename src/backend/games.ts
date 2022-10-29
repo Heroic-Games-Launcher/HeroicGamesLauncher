@@ -5,7 +5,8 @@ import {
   ExtraInfo,
   GameInfo,
   GameSettings,
-  InstallArgs
+  InstallArgs,
+  ProtonVerb
 } from 'common/types'
 
 import { BrowserWindow } from 'electron'
@@ -43,7 +44,11 @@ abstract class Game {
   abstract uninstall(): Promise<ExecResult>
   abstract update(): Promise<{ status: 'done' | 'error' | 'abort' }>
   abstract isNative(): boolean
-  abstract runWineCommand(command: string, wait?: boolean): Promise<ExecResult>
+  abstract runWineCommand(
+    commandParts: string[],
+    wait?: boolean,
+    protonVerb?: ProtonVerb
+  ): Promise<ExecResult>
 }
 
 export { Game }

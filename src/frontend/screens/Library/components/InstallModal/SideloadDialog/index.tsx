@@ -189,9 +189,9 @@ export default function SideloadDialog({
           { ...gameSettings, winePrefix, wineVersion }
         ])
         await window.api.runWineCommand({
-          command: exeToRun,
+          commandParts: [exeToRun],
           wait: true,
-          forceRunInPrefixVerb: true,
+          protonVerb: 'runinprefix',
           gameSettings: {
             ...gameSettings,
             winePrefix,
