@@ -169,6 +169,7 @@
         "queued": "Queued",
         "reparing": "Spiel wird repariert, bitte warten",
         "totalDownloaded": "Insgesamt heruntergeladen",
+        "uninstalling": "Uninstalling",
         "updating": "Spiel wird aktualisiert"
     },
     "submenu": {
