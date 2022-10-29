@@ -18,7 +18,7 @@
             "title": "Verificar e Reparar"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Selecione o EXE para executar"
         },
         "select": {
             "button": "Select"
@@ -49,20 +49,20 @@
         "continue": "Continuar baixando",
         "finish": "Finish",
         "force_update": "Forçar atualização se disponível",
-        "force-innstall": "Force Install",
+        "force-innstall": "Forçar instalação",
         "hide_game": "Ocultar jogo",
         "import": "Importar Jogo",
         "install": "Instalar",
         "no-path-selected": "No path selected",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Remover da Fila"
         },
         "remove_from_favourites": "Remover dos favoritos",
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Editar App/Jogo"
         },
         "unhide_game": "Mostrar jogo",
         "uninstall": "Desinstalar",
@@ -77,8 +77,8 @@
     "game": {
         "downloadSize": "Tamanho do Download",
         "firstPlayed": "Jogado inicialmente em",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Obtendo tamanho do download",
+        "getting-install-size": "Obtendo tamanho da instalação",
         "installSize": "Tamanho Instalado",
         "language": "Idioma",
         "lastPlayed": "Jogado pela última vez em",
@@ -142,16 +142,16 @@
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Título"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Selecionar executável",
+            "image": "Imagem do Aplicativo",
+            "title": "Título do Jogo/App"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Adicione um título ao seu Jogo/App"
         }
     },
     "specs": {
@@ -159,7 +159,7 @@
         "recommended": "RECOMENDADO"
     },
     "status": {
-        "clickToUpdate": "CLIQUE PARA ATUALIZAR",
+        "clickToUpdate": "Clique para Atualizar",
         "hasUpdates": "Nova Versão Disponível!",
         "installed": "Instalado",
         "installing": "Instalando",
@@ -175,15 +175,15 @@
     "submenu": {
         "addShortcut": "Adicionar Atalho",
         "addToSteam": "Adicionar à Steam",
-        "change": "Modificar Local de Instalação",
-        "disableEosOverlay": "Desativar EOS Overlay",
-        "enableEosOverlay": "Ativar EOS Overlay",
+        "change": "Mudar Local de Instalação",
+        "disableEosOverlay": "Desativar sobreposição do EOS",
+        "enableEosOverlay": "Ativar sobreposição do EOS",
         "move": "Mover o Jogo",
         "protondb": "Verificar Compatibilidade",
         "removeFromSteam": "Remover da Steam",
         "removeShortcut": "Remover atalhos",
         "settings": "Configurações",
-        "store": "Loja Epic",
+        "store": "Página na Loja",
         "verify": "Verificar e Reparar"
     }
 }

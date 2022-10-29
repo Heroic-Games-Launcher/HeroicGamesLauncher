@@ -7,10 +7,10 @@
         "part2": "Öffne den",
         "part3": "Epic Store hier",
         "part4": ", melde dich mit deinem Account an und kopiere deine",
-        "part5": "authorization code Informations-Nummer",
-        "part6": "Füge deinen",
+        "part5": "SID-Informationsnummer",
+        "part6": "Füge deine",
         "part7": "authorization code-Nummer",
-        "part8": "in das untere Eingabefeld ein und klicke auf Anmelden."
+        "part8": "in das untere Eingabefeld ein und klicke auf „Anmelden“."
     },
     "status": {
         "error": "Fehler",
