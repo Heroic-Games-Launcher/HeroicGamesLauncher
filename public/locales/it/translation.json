@@ -170,18 +170,18 @@
             "update_game": "Update game"
         }
     },
-    "docs": "Documentation",
+    "docs": "Documentazione",
     "download": {
         "manager": {
-            "empty": "Nothing to download.",
+            "empty": "Nulla da scaricare.",
             "link": "Download Manager",
             "queue": {
                 "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
+                "element": "Nome",
+                "platform": "Piattaforma",
                 "store": "Store"
             },
-            "title": "Downloads"
+            "title": "Download"
         }
     },
     "epic": {
@@ -189,10 +189,10 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": "Errore",
     "favourites": "Preferiti",
     "game": {
-        "status": "Status",
+        "status": "Stato",
         "store": "Negozio",
         "title": "Titolo del gioco"
     },
@@ -296,7 +296,7 @@
     "Library": "Libreria",
     "loading": {
         "default": "Caricamento in corso",
-        "website": "Caricamento sito web incorso"
+        "website": "Caricamento sito web in corso"
     },
     "login": {
         "alternative_method": "Alternative Login Method",
