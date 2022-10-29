@@ -82,7 +82,7 @@ export default function Library(): JSX.Element {
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
-  //Rememember scroll position
+  //Remember scroll position
   useEffect(() => {
     let scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
     const listing = document.querySelector('.listing')
