@@ -216,6 +216,8 @@ interface AsyncIPCFunctions {
     status: ConnectivityStatus
     retryIn: number
   }
+  getNumOfGpus: () => Promise<number>
+  removeRecent: (appName: string) => Promise<void>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

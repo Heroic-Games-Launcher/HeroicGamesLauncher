@@ -8,7 +8,7 @@ import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 const BattlEyeRuntime = () => {
   const { t } = useTranslation()
   const [installing, setInstalling] = useState(false)
-  const [battlEyeRuntime, setBattlEyeRuntime] = useSetting<boolean>(
+  const [battlEyeRuntime, setBattlEyeRuntime] = useSetting(
     'battlEyeRuntime',
     false
   )

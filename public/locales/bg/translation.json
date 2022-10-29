@@ -498,7 +498,13 @@
         "offlinemode": "Пускане на играта в режим „извън линия“",
         "prefered_language": "Предпочитан език (код на езика)",
         "preferSystemLibs": "Да се предпочитат системните библиотеки",
-        "primerun": "Използване на отделната видео-карта",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Използване на отделната видео-карта"
+        },
         "runexe": {
             "message": "Хванете и пуснете файловете тук",
             "title": "Изпълняване на EXE в префикс"

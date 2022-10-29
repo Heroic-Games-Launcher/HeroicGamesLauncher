@@ -498,7 +498,13 @@
         "offlinemode": "Játék futtatása offline",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Dedikált grafikus kártya használata",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Dedikált grafikus kártya használata"
+        },
         "runexe": {
             "message": "Fogd és húzd ide a fájlokat",
             "title": "EXE fájl futtatása a prefixen"

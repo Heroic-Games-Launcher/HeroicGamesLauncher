@@ -58,6 +58,7 @@
             "remove": "Remove from Queue"
         },
         "remove_from_favourites": "Видалити зі вподобань",
+        "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
         "sideload": {
@@ -168,6 +169,7 @@
         "queued": "Queued",
         "reparing": "Відновлюю гру, будь ласка зачекайте",
         "totalDownloaded": "Всього завантажено",
+        "uninstalling": "Uninstalling",
         "updating": "Оновлюю гру"
     },
     "submenu": {

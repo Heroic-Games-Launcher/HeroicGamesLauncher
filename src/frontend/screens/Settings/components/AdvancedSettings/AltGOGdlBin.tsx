@@ -10,7 +10,7 @@ import { TextInputWithIconField } from 'frontend/components/UI'
 const AltGOGdlBin = () => {
   const { t } = useTranslation()
   const [gogdlVersion, setGogdlVersion] = useState('')
-  const [altGogdlBin, setAltGogdlBin] = useSetting<string>('altGogdlBin', '')
+  const [altGogdlBin, setAltGogdlBin] = useSetting('altGogdlBin', '')
 
   useEffect(() => {
     const getGogdlVersion = async () => {

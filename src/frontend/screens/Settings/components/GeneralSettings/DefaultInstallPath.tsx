@@ -7,7 +7,7 @@ import { TextInputWithIconField } from 'frontend/components/UI'
 
 const DefaultInstallPath = () => {
   const { t } = useTranslation()
-  const [defaultInstallPath, setDefaultInstallPath] = useSetting<string>(
+  const [defaultInstallPath, setDefaultInstallPath] = useSetting(
     'defaultInstallPath',
     ''
   )

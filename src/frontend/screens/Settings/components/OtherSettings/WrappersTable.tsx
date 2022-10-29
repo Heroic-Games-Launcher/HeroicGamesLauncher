@@ -14,10 +14,7 @@ const WrappersTable = () => {
   const { platform } = useContext(ContextProvider)
   const isWindow = platform === 'win32'
 
-  const [wrapperOptions, setWrapperOptions] = useSetting<WrapperVariable[]>(
-    'wrapperOptions',
-    []
-  )
+  const [wrapperOptions, setWrapperOptions] = useSetting('wrapperOptions', [])
 
   if (isWindow) {
     return <></>

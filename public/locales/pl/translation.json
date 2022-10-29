@@ -498,7 +498,13 @@
         "offlinemode": "Uruchom grę w trybie offline",
         "prefered_language": "Preferowany język (Kod języka)",
         "preferSystemLibs": "Preferuj biblioteki systemowe",
-        "primerun": "Używaj dedykowanej karty graficznej",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Używaj dedykowanej karty graficznej"
+        },
         "runexe": {
             "message": "Przeciągnij i upuść pliki tutaj",
             "title": "Uruchom EXE w prefiksie"

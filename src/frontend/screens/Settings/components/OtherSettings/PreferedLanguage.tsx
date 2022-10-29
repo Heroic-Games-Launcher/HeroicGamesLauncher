@@ -7,7 +7,7 @@ import SettingsContext from '../../SettingsContext'
 const PreferedLanguage = () => {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
-  const [languageCode, setLanguageCode] = useSetting<string>('languageCode', '')
+  const [languageCode, setLanguageCode] = useSetting('language', '')
 
   const handleLanguageCode = (event: ChangeEvent<HTMLInputElement>) =>
     setLanguageCode(event.currentTarget.value)

@@ -24,8 +24,9 @@ export const uninstall = async (
 ) => {
   if (runner === 'sideload') {
     return ipcRenderer.invoke('removeApp', { appName, shouldRemovePrefix })
+  } else {
+    return ipcRenderer.invoke('uninstall', appName, runner, shouldRemovePrefix)
   }
-  return ipcRenderer.invoke('uninstall', appName, runner, shouldRemovePrefix)
 }
 
 export const repair = async (appName: string, runner: Runner) =>
@@ -64,6 +65,16 @@ export const handleInstallGame = (
 export const handleRefreshLibrary = (
   callback: (event: Electron.IpcRendererEvent, runner: Runner) => void
 ) => ipcRenderer.on('refreshLibrary', callback)
+
+export const removeRecentGame = async (appName: string) =>
+  ipcRenderer.invoke('removeRecent', appName)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const handleRecentGamesChanged = (callback: any) => {
+  ipcRenderer.on('recentGamesChanged', callback)
+  return () => {
+    ipcRenderer.removeListener('recentGamesChanged', callback)
+  }
+}
 
 export const addNewApp = (args: SideloadGame) =>
   ipcRenderer.send('addNewApp', args)

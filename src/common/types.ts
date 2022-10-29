@@ -84,6 +84,7 @@ export interface AppSettings {
   enableFsync: boolean
   language: string
   launcherArgs: string
+  libraryTopSection: LibraryTopSectionOptions
   maxRecentGames: number
   maxSharpness?: number
   maxWorkers: number
@@ -108,6 +109,12 @@ export interface AppSettings {
   gogSaves?: GOGCloudSavesLocation[]
   customThemesPath: string
 }
+
+export type LibraryTopSectionOptions =
+  | 'disabled'
+  | 'recently_played'
+  | 'recently_played_installed'
+  | 'favourites'
 
 export type ExecResult = {
   stderr: string
@@ -496,6 +503,11 @@ export interface Tools {
   tool: string
   appName: string
   runner: Runner
+}
+
+export type RecentGame = {
+  appName: string
+  title: string
 }
 
 export interface DMQueueElement {

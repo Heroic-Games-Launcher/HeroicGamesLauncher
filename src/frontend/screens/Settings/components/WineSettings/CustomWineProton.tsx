@@ -14,7 +14,7 @@ export default function CustomWineProton() {
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
-  const [customWinePaths, setCustomWinePaths] = useSetting<string[]>(
+  const [customWinePaths, setCustomWinePaths] = useSetting(
     'customWinePaths',
     []
   )

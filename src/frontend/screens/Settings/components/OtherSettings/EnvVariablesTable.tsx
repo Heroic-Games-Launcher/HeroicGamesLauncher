@@ -14,9 +14,10 @@ const EnvVariablesTable = () => {
   const { platform } = useContext(ContextProvider)
   const isWindow = platform === 'win32'
 
-  const [environmentOptions, setEnvironmentOptions] = useSetting<
-    EnviromentVariable[]
-  >('environmentOptions', [])
+  const [environmentOptions, setEnvironmentOptions] = useSetting(
+    'enviromentOptions',
+    []
+  )
 
   if (isWindow) {
     return <></>

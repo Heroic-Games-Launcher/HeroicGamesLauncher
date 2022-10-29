@@ -47,6 +47,7 @@ interface Card {
   runner: Runner
   installedPlatform: string | undefined
   forceCard?: boolean
+  isRecent: boolean
 }
 
 const GameCard = ({
@@ -62,7 +63,8 @@ const GameCard = ({
   buttonClick,
   forceCard,
   runner,
-  installedPlatform
+  installedPlatform,
+  isRecent = false
 }: Card) => {
   const [progress, previousProgress] = hasProgress(appName)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
@@ -94,8 +96,14 @@ const GameCard = ({
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
   const isQueued = status === 'queued'
+  const isUninstalling = status === 'uninstalling'
   const haveStatus =
-    isMoving || isReparing || isInstalling || isUpdating || isQueued
+    isMoving ||
+    isReparing ||
+    isInstalling ||
+    isUpdating ||
+    isQueued ||
+    isUninstalling
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -125,6 +133,9 @@ const GameCard = ({
   }
 
   function getStatus() {
+    if (isUninstalling) {
+      return t('status.uninstalling', 'Uninstalling')
+    }
     if (isUpdating) {
       return t('status.updating') + ` ${percent}%`
     }
@@ -153,6 +164,13 @@ const GameCard = ({
   }
 
   const renderIcon = () => {
+    if (isUninstalling) {
+      return (
+        <button className="svg-button iconDisabled">
+          <svg />
+        </button>
+      )
+    }
     if (isQueued) {
       return (
         <SvgButton
@@ -275,6 +293,11 @@ const GameCard = ({
       label: t('button.remove_from_favourites', 'Remove From Favourites'),
       onclick: () => favouriteGames.remove(appName),
       show: isFavouriteGame
+    },
+    {
+      label: t('button.remove_from_recent', 'Remove From Recent'),
+      onclick: async () => window.api.removeRecentGame(appName),
+      show: isRecent
     }
   ]
 
@@ -359,7 +382,7 @@ const GameCard = ({
                     <FontAwesomeIcon size={'2x'} icon={faRepeat} />
                   </SvgButton>
                 )}
-                {isInstalled && (
+                {isInstalled && !isUninstalling && (
                   <>
                     <SvgButton
                       title={`${t('submenu.settings')} (${title})`}

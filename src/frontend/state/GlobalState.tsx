@@ -11,13 +11,10 @@ import {
   Runner,
   WineVersionInfo,
   UserInfo,
-  InstallParams
-} from 'common/types'
-import {
-  Category,
-  DialogModalOptions,
+  InstallParams,
   LibraryTopSectionOptions
-} from 'frontend/types'
+} from 'common/types'
+import { Category, DialogModalOptions } from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   getLegendaryConfig,
