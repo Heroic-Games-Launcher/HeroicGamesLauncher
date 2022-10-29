@@ -565,3 +565,5 @@ export interface ToolArgs {
   winePath: string
   action: 'backup' | 'restore'
 }
+
+export type StatusPromise = Promise<{ status: 'done' | 'error' }>

@@ -1,7 +1,6 @@
 import { existsSync } from 'graceful-fs'
 import { ipcMain, dialog } from 'electron'
 import i18next from 'i18next'
-import { Runner } from 'common/types'
 import {
   addNonSteamGame,
   isAddedToSteam,
@@ -15,47 +14,41 @@ import {
   removeAppShortcuts
 } from '../sideload/games'
 
-ipcMain.on(
-  'addShortcut',
-  async (event, appName: string, runner: Runner, fromMenu: boolean) => {
-    const isSideload = runner === 'sideload'
+ipcMain.on('addShortcut', async (event, appName, runner, fromMenu) => {
+  const isSideload = runner === 'sideload'
 
-    if (isSideload) {
-      addAppShortcuts(appName, fromMenu)
-    } else {
-      const game = getGame(appName, runner)
-      await game.addShortcuts(fromMenu)
-    }
-
-    dialog.showMessageBox({
-      buttons: [i18next.t('box.ok', 'Ok')],
-      message: i18next.t(
-        'box.shortcuts.message',
-        'Shortcuts were created on Desktop and Start Menu'
-      ),
-      title: i18next.t('box.shortcuts.title', 'Shortcuts')
-    })
+  if (isSideload) {
+    addAppShortcuts(appName, fromMenu)
+  } else {
+    const game = getGame(appName, runner)
+    await game.addShortcuts(fromMenu)
   }
-)
 
-ipcMain.handle(
-  'shortcutsExists',
-  (event, appName: string, runner: Runner): boolean => {
-    const isSideload = runner === 'sideload'
-    let title = ''
+  dialog.showMessageBox({
+    buttons: [i18next.t('box.ok', 'Ok')],
+    message: i18next.t(
+      'box.shortcuts.message',
+      'Shortcuts were created on Desktop and Start Menu'
+    ),
+    title: i18next.t('box.shortcuts.title', 'Shortcuts')
+  })
+})
 
-    if (isSideload) {
-      title = getAppInfo(appName).title
-    } else {
-      title = getGame(appName, runner).getGameInfo().title
-    }
-    const [desktopFile, menuFile] = shortcutFiles(title)
+ipcMain.handle('shortcutsExists', (event, appName, runner) => {
+  const isSideload = runner === 'sideload'
+  let title = ''
 
-    return existsSync(desktopFile ?? '') || existsSync(menuFile ?? '')
+  if (isSideload) {
+    title = getAppInfo(appName).title
+  } else {
+    title = getGame(appName, runner).getGameInfo().title
   }
-)
+  const [desktopFile, menuFile] = shortcutFiles(title)
 
-ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
+  return existsSync(desktopFile ?? '') || existsSync(menuFile ?? '')
+})
+
+ipcMain.on('removeShortcut', async (event, appName, runner) => {
   const isSideload = runner === 'sideload'
 
   if (isSideload) {
@@ -74,26 +67,17 @@ ipcMain.on('removeShortcut', async (event, appName: string, runner: Runner) => {
   })
 })
 
-ipcMain.handle(
-  'addToSteam',
-  async (event, appName: string, runner: Runner): Promise<boolean> => {
-    const gameInfo = getInfo(appName, runner)
-    return addNonSteamGame({ gameInfo })
-  }
-)
+ipcMain.handle('addToSteam', async (event, appName, runner) => {
+  const gameInfo = getInfo(appName, runner)
+  return addNonSteamGame({ gameInfo })
+})
 
-ipcMain.handle(
-  'removeFromSteam',
-  async (event, appName: string, runner: Runner): Promise<void> => {
-    const gameInfo = getInfo(appName, runner)
-    await removeNonSteamGame({ gameInfo })
-  }
-)
+ipcMain.handle('removeFromSteam', async (event, appName, runner) => {
+  const gameInfo = getInfo(appName, runner)
+  await removeNonSteamGame({ gameInfo })
+})
 
-ipcMain.handle(
-  'isAddedToSteam',
-  async (event, appName: string, runner: Runner): Promise<boolean> => {
-    const gameInfo = getInfo(appName, runner)
-    return isAddedToSteam({ gameInfo })
-  }
-)
+ipcMain.handle('isAddedToSteam', async (event, appName, runner) => {
+  const gameInfo = getInfo(appName, runner)
+  return isAddedToSteam({ gameInfo })
+})

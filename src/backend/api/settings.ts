@@ -1,27 +1,22 @@
 import { ipcRenderer } from 'electron'
 
-export const getLegendaryVersion = async (): Promise<string> =>
+export const getLegendaryVersion = async () =>
   ipcRenderer.invoke('getLegendaryVersion')
-export const getGogdlVersion = async (): Promise<string> =>
-  ipcRenderer.invoke('getGogdlVersion')
-export const getEosOverlayStatus = async (): Promise<{
-  isInstalled: boolean
-  version?: string | undefined
-  install_path?: string | undefined
-}> => ipcRenderer.invoke('getEosOverlayStatus')
-export const getLatestEosOverlayVersion = async (): Promise<string> =>
+export const getGogdlVersion = async () => ipcRenderer.invoke('getGogdlVersion')
+export const getEosOverlayStatus = async () =>
+  ipcRenderer.invoke('getEosOverlayStatus')
+export const getLatestEosOverlayVersion = async () =>
   ipcRenderer.invoke('getLatestEosOverlayVersion')
-export const removeEosOverlay = async (): Promise<boolean> =>
+export const removeEosOverlay = async () =>
   ipcRenderer.invoke('removeEosOverlay')
-export const updateEosOverlayInfo = async (): Promise<void> =>
+export const updateEosOverlayInfo = async () =>
   ipcRenderer.invoke('updateEosOverlayInfo')
 
 export const changeTrayColor = () => ipcRenderer.send('changeTrayColor')
-export const getMaxCpus = async (): Promise<number> =>
-  ipcRenderer.invoke('getMaxCpus')
-export const showUpdateSetting = async (): Promise<boolean> =>
+export const getMaxCpus = async () => ipcRenderer.invoke('getMaxCpus')
+export const showUpdateSetting = async () =>
   ipcRenderer.invoke('showUpdateSetting')
-export const egsSync = async (args: string): Promise<string> =>
+export const egsSync = async (args: string) =>
   ipcRenderer.invoke('egsSync', args)
 
 export const showLogFileInFolder = (args: {

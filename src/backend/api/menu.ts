@@ -10,12 +10,10 @@ export const addShortcut = (
   fromMenu: boolean
 ) => ipcRenderer.send('addShortcut', appName, runner, fromMenu)
 
-export const moveInstall = async (
-  args: MoveGameArgs
-): Promise<{ status: 'done' | 'error' }> =>
+export const moveInstall = async (args: MoveGameArgs) =>
   ipcRenderer.invoke('moveInstall', args)
 
-export const changeInstallPath = async (args: MoveGameArgs): Promise<void> =>
+export const changeInstallPath = async (args: MoveGameArgs) =>
   ipcRenderer.invoke('changeInstallPath', args)
 
 export const enableEosOverlay = async (
@@ -23,31 +21,23 @@ export const enableEosOverlay = async (
 ): Promise<{ wasEnabled: boolean; installNow?: boolean }> =>
   ipcRenderer.invoke('enableEosOverlay', appName)
 
-export const disableEosOverlay = async (appName: string): Promise<void> =>
+export const disableEosOverlay = async (appName: string) =>
   ipcRenderer.invoke('disableEosOverlay', appName)
 
-export const isEosOverlayEnabled = async (appName?: string): Promise<boolean> =>
+export const isEosOverlayEnabled = async (appName?: string) =>
   ipcRenderer.invoke('isEosOverlayEnabled', appName)
 
-export const installEosOverlay = async (): Promise<string | undefined> =>
+export const installEosOverlay = async () =>
   ipcRenderer.invoke('installEosOverlay')
 
-export const removeFromSteam = async (
-  appName: string,
-  runner: Runner
-): Promise<void> => ipcRenderer.invoke('removeFromSteam', appName, runner)
+export const removeFromSteam = async (appName: string, runner: Runner) =>
+  ipcRenderer.invoke('removeFromSteam', appName, runner)
 
-export const addToSteam = async (
-  appName: string,
-  runner: Runner
-): Promise<boolean> => ipcRenderer.invoke('addToSteam', appName, runner)
+export const addToSteam = async (appName: string, runner: Runner) =>
+  ipcRenderer.invoke('addToSteam', appName, runner)
 
-export const shortcutsExists = async (
-  appName: string,
-  runner: Runner
-): Promise<boolean> => ipcRenderer.invoke('shortcutsExists', appName, runner)
+export const shortcutsExists = async (appName: string, runner: Runner) =>
+  ipcRenderer.invoke('shortcutsExists', appName, runner)
 
-export const isAddedToSteam = async (
-  appName: string,
-  runner: Runner
-): Promise<boolean> => ipcRenderer.invoke('isAddedToSteam', appName, runner)
+export const isAddedToSteam = async (appName: string, runner: Runner) =>
+  ipcRenderer.invoke('isAddedToSteam', appName, runner)

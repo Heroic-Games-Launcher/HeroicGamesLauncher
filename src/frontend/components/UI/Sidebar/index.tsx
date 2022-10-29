@@ -19,7 +19,7 @@ export default function Sidebar() {
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
 
   useEffect(() => {
-    window.api.getDMQueueInformation().then((elements: DMQueueElement[]) => {
+    window.api.getDMQueueInformation().then(({ elements }) => {
       setCurrentDMElement(elements[0])
     })
 

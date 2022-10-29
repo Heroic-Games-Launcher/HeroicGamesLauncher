@@ -11,47 +11,38 @@ import {
 export const removeFolder = (args: [path: string, folderName: string]) =>
   ipcRenderer.send('removeFolder', args)
 
-export const openDialog = async (
-  args: Electron.OpenDialogOptions
-): Promise<string | false> => ipcRenderer.invoke('openDialog', args)
+export const openDialog = async (args: Electron.OpenDialogOptions) =>
+  ipcRenderer.invoke('openDialog', args)
 
-export const install = async (
-  args: InstallParams
-): Promise<{ status: 'error' | 'done' | 'abort' }> =>
+export const install = async (args: InstallParams) =>
   ipcRenderer.invoke('install', args)
 
 export const uninstall = async (
   appName: string,
   runner: Runner,
   shouldRemovePrefix: boolean
-): Promise<void> => {
+) => {
   if (runner === 'sideload') {
     return ipcRenderer.invoke('removeApp', { appName, shouldRemovePrefix })
   }
   return ipcRenderer.invoke('uninstall', appName, runner, shouldRemovePrefix)
 }
 
-export const repair = async (appName: string, runner: Runner): Promise<void> =>
+export const repair = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('repair', appName, runner)
 
-export const launch = async (
-  args: LaunchParams
-): Promise<{ status: 'done' | 'error' }> => ipcRenderer.invoke('launch', args)
+export const launch = async (args: LaunchParams) =>
+  ipcRenderer.invoke('launch', args)
 
-export const updateGame = async (
-  appName: string,
-  runner: Runner
-): Promise<{ status: 'done' | 'error' }> =>
+export const updateGame = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('updateGame', appName, runner)
 
-export const importGame = async (
-  args: ImportGameArgs
-): Promise<{ status: 'done' | 'error' }> =>
+export const importGame = async (args: ImportGameArgs) =>
   ipcRenderer.invoke('importGame', args)
 
 export const handleSetGameStatus = (
   callback: (event: Electron.IpcRendererEvent, status: GameStatus) => void
-) => {
+): (() => void) => {
   ipcRenderer.on('setGameStatus', callback)
   return () => {
     ipcRenderer.removeListener('setGameStatus', callback)

@@ -14,7 +14,10 @@ export class GOGUser {
   static async login(
     code: string
     // TODO: Write types for this
-  ): Promise<{ status: 'done' | 'error'; data?: unknown }> {
+  ): Promise<{
+    status: 'done' | 'error'
+    data?: { displayName: string; username: string }
+  }> {
     logInfo('Logging using GOG credentials', { prefix: LogPrefix.Gog })
 
     // Gets token from GOG basaed on authorization code

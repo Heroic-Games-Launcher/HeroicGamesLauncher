@@ -1,31 +1,14 @@
-import { GogInstallInfo } from './../common/types/gog'
-import { LegendaryInstallInfo } from './../common/types/legendary'
 import { initImagesCache } from './images_cache'
 import { downloadAntiCheatData } from './anticheat/utils'
 import {
   GamepadInputEventKey,
   GamepadInputEventWheel,
   GamepadInputEventMouse,
-  Runner,
   AppSettings,
   GameSettings,
-  InstallPlatform,
-  LaunchParams,
-  Tools,
-  WineCommandArgs,
-  SideloadGame,
-  InstallParams,
-  GameInfo,
-  UserInfo,
-  SaveSyncArgs,
-  RunWineCommandArgs,
-  ExecResult,
-  MoveGameArgs,
   DiskSpaceData,
-  WineInstallation,
-  ToolArgs
+  StatusPromise
 } from 'common/types'
-import { GOGCloudSavesLocation } from 'common/types/gog'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -496,7 +479,7 @@ if (!gotTheLock) {
 
     appIcon.setContextMenu(contextMenu())
     appIcon.setToolTip('Heroic')
-    ipcMain.on('changeLanguage', async (event, language: string) => {
+    ipcMain.on('changeLanguage', async (event, language) => {
       logInfo(['Changing Language to:', language], {
         prefix: LogPrefix.Backend
       })
@@ -521,9 +504,7 @@ if (!gotTheLock) {
   })
 }
 
-ipcMain.on('notify', (event, args: { title: string; body: string }) =>
-  notify(args)
-)
+ipcMain.on('notify', (event, args) => notify(args))
 
 ipcMain.on('frontendReady', () => {
   handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
@@ -570,56 +551,50 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.handle(
-  'kill',
-  async (event, appName: string, runner: Runner): Promise<void> => {
-    callAbortController(appName)
-    runner === 'sideload' ? stop(appName) : getGame(appName, runner).stop()
-  }
-)
+ipcMain.handle('kill', async (event, appName, runner) => {
+  callAbortController(appName)
+  runner === 'sideload' ? stop(appName) : getGame(appName, runner).stop()
+})
 
-ipcMain.handle(
-  'checkDiskSpace',
-  async (event, folder: string): Promise<DiskSpaceData> => {
-    const parent = getFirstExistingParentPath(folder)
-    return new Promise<DiskSpaceData>((res) => {
-      access(parent, constants.W_OK, async (writeError) => {
-        const { free, size: diskSize } = await checkDiskSpace(folder).catch(
-          (checkSpaceError) => {
-            logError(
-              [
-                'Failed to check disk space for',
-                `"${folder}":`,
-                checkSpaceError.stack ?? `${checkSpaceError}`
-              ],
-              { prefix: LogPrefix.Backend }
-            )
-            return { free: 0, size: 0 }
-          }
-        )
-        if (writeError) {
-          logWarning(
+ipcMain.handle('checkDiskSpace', async (event, folder) => {
+  const parent = getFirstExistingParentPath(folder)
+  return new Promise<DiskSpaceData>((res) => {
+    access(parent, constants.W_OK, async (writeError) => {
+      const { free, size: diskSize } = await checkDiskSpace(folder).catch(
+        (checkSpaceError) => {
+          logError(
             [
-              'Cannot write to',
+              'Failed to check disk space for',
               `"${folder}":`,
-              writeError.stack ?? `${writeError}`
+              checkSpaceError.stack ?? `${checkSpaceError}`
             ],
             { prefix: LogPrefix.Backend }
           )
+          return { free: 0, size: 0 }
         }
+      )
+      if (writeError) {
+        logWarning(
+          [
+            'Cannot write to',
+            `"${folder}":`,
+            writeError.stack ?? `${writeError}`
+          ],
+          { prefix: LogPrefix.Backend }
+        )
+      }
 
-        const ret = {
-          free,
-          diskSize,
-          message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
-          validPath: !writeError
-        }
-        logDebug(`${JSON.stringify(ret)}`, { prefix: LogPrefix.Backend })
-        res(ret)
-      })
+      const ret = {
+        free,
+        diskSize,
+        message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
+        validPath: !writeError
+      }
+      logDebug(`${JSON.stringify(ret)}`, { prefix: LogPrefix.Backend })
+      res(ret)
     })
-  }
-)
+  })
+})
 
 ipcMain.on('quit', async () => handleExit(mainWindow))
 
@@ -688,44 +663,35 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
 })
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.handle(
-  'callTool',
-  async (event, { tool, exe, appName, runner }: Tools): Promise<void> => {
-    const game = getGame(appName, runner)
-    const isSideloaded = runner === 'sideload'
-    const gameSettings = isSideloaded
-      ? await getAppSettings(appName)
-      : await game.getSettings()
-    const { wineVersion, winePrefix } = gameSettings
-    await verifyWinePrefix(gameSettings)
+ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
+  const game = getGame(appName, runner)
+  const isSideloaded = runner === 'sideload'
+  const gameSettings = isSideloaded
+    ? await getAppSettings(appName)
+    : await game.getSettings()
+  const { wineVersion, winePrefix } = gameSettings
+  await verifyWinePrefix(gameSettings)
 
-    switch (tool) {
-      case 'winetricks':
-        await Winetricks.run(wineVersion, winePrefix, event)
-        break
-      case 'winecfg':
+  switch (tool) {
+    case 'winetricks':
+      await Winetricks.run(wineVersion, winePrefix, event)
+      break
+    case 'winecfg':
+      isSideloaded
+        ? runWineCommand({ gameSettings, command: 'winecfg', wait: false })
+        : game.runWineCommand('winecfg')
+      break
+    case 'runExe':
+      if (exe) {
         isSideloaded
-          ? runWineCommand({ gameSettings, command: 'winecfg', wait: false })
-          : game.runWineCommand('winecfg')
-        break
-      case 'runExe':
-        if (exe) {
-          isSideloaded
-            ? runWineCommand({ gameSettings, command: exe, wait: false })
-            : game.runWineCommand(exe)
-        }
-        break
-    }
+          ? runWineCommand({ gameSettings, command: exe, wait: false })
+          : game.runWineCommand(exe)
+      }
+      break
   }
-)
+})
 
-ipcMain.handle(
-  'runWineCommand',
-  async (
-    e,
-    args: WineCommandArgs
-  ): Promise<{ stdout: string; stderr: string }> => runWineCommand(args)
-)
+ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
 
 /// IPC handlers begin here.
 
@@ -741,7 +707,7 @@ ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
 // Not ready to be used safely yet.
 ipcMain.handle('updateAll', async () => LegendaryLibrary.get().updateAllGames())
 
-ipcMain.handle('getMaxCpus', (): number => cpus().length)
+ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.handle('getHeroicVersion', app.getVersion)
 ipcMain.handle('getLegendaryVersion', getLegendaryVersion)
@@ -751,7 +717,7 @@ ipcMain.handle('isFlatpak', () => isFlatpak)
 
 ipcMain.handle('getPlatform', () => process.platform)
 
-ipcMain.handle('showUpdateSetting', (): boolean => !isFlatpak)
+ipcMain.handle('showUpdateSetting', () => !isFlatpak)
 
 ipcMain.handle('getLatestReleases', async () => {
   const { checkForUpdatesOnStartup } = GlobalConfig.get().config
@@ -777,78 +743,58 @@ ipcMain.on('clearCache', (event) => {
   })
 })
 
-ipcMain.on('resetHeroic', async () => {
-  resetHeroic()
+ipcMain.on('resetHeroic', () => resetHeroic())
+
+ipcMain.on('createNewWindow', (e, url) => {
+  new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 })
 
-ipcMain.on('createNewWindow', async (e, url) =>
-  new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
-)
+ipcMain.handle('getGameInfo', async (event, appName, runner) => {
+  if (runner === 'sideload') {
+    return getAppInfo(appName)
+  }
+  // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
+  if (runner === 'legendary' && !LegendaryLibrary.get().hasGame(appName)) {
+    return null
+  }
+  try {
+    const game = getGame(appName, runner)
+    const info = game.getGameInfo()
+    if (!info.app_name) {
+      return null
+    }
+    info.extra = await game.getExtraInfo()
+    return info
+  } catch (error) {
+    logError(error, { prefix: LogPrefix.Backend })
+    return null
+  }
+})
 
-ipcMain.handle(
-  'getGameInfo',
-  async (event, appName: string, runner: Runner): Promise<GameInfo | null> => {
+ipcMain.handle('getGameSettings', async (event, appName, runner) => {
+  try {
     if (runner === 'sideload') {
-      return getAppInfo(appName)
+      return await getAppSettings(appName)
     }
-    // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
-    if (runner === 'legendary' && !LegendaryLibrary.get().hasGame(appName)) {
-      return null
-    }
-    try {
-      const game = getGame(appName, runner)
-      const info = game.getGameInfo()
-      if (!info.app_name) {
-        return null
-      }
-      info.extra = await game.getExtraInfo()
-      return info
-    } catch (error) {
-      logError(error, { prefix: LogPrefix.Backend })
-      return null
-    }
+    return await getGame(appName, runner).getSettings()
+  } catch (error) {
+    logError(error, { prefix: LogPrefix.Backend })
+    return null
   }
-)
+})
 
-ipcMain.handle(
-  'getGameSettings',
-  async (
-    event,
-    appName: string,
-    runner: Runner
-  ): Promise<GameSettings | null> => {
-    try {
-      if (runner === 'sideload') {
-        return await getAppSettings(appName)
-      }
-      return await getGame(appName, runner).getSettings()
-    } catch (error) {
-      logError(error, { prefix: LogPrefix.Backend })
-      return null
-    }
-  }
-)
-
-ipcMain.handle(
-  'getGOGLinuxInstallersLangs',
-  async (event, appName: string): Promise<string[]> =>
-    GOGLibrary.getLinuxInstallersLanguages(appName)
+ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) =>
+  GOGLibrary.getLinuxInstallersLanguages(appName)
 )
 
 ipcMain.handle(
   'getGOGGameClientId',
-  (event, appName): string | undefined =>
-    GOGLibrary.get().readInfoFile(appName)?.clientId
+  (event, appName) => GOGLibrary.get().readInfoFile(appName)?.clientId
 )
 
 ipcMain.handle(
   'getInstallInfo',
-  async (
-    event,
-    appName: string,
-    runner: Runner,
-    installPlatform: InstallPlatform
-  ): Promise<LegendaryInstallInfo | GogInstallInfo | null> => {
+  async (event, appName, runner, installPlatform) => {
     try {
       const info = await getGame(appName, runner).getInstallInfo(
         // @ts-expect-error This is actually fine as long as the frontend always passes the right InstallPlatform for the right runner
@@ -864,132 +810,100 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle(
-  'getUserInfo',
-  async (): Promise<UserInfo | undefined> => LegendaryUser.getUserInfo()
-)
+ipcMain.handle('getUserInfo', LegendaryUser.getUserInfo)
 
 // Checks if the user have logged in with Legendary already
-ipcMain.handle(
-  'isLoggedIn',
-  async (): Promise<boolean> => LegendaryUser.isLoggedIn()
-)
+ipcMain.handle('isLoggedIn', LegendaryUser.isLoggedIn)
 
 ipcMain.handle('login', async (event, sid) => LegendaryUser.login(sid))
 ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))
-ipcMain.handle('logoutLegendary', async () => LegendaryUser.logout())
-ipcMain.on('logoutGOG', async () => GOGUser.logout())
+ipcMain.handle('logoutLegendary', LegendaryUser.logout)
+ipcMain.on('logoutGOG', GOGUser.logout)
 
-ipcMain.handle(
-  'getAlternativeWine',
-  async (): Promise<WineInstallation[]> =>
-    GlobalConfig.get().getAlternativeWine()
+ipcMain.handle('getAlternativeWine', async () =>
+  GlobalConfig.get().getAlternativeWine()
 )
 
-ipcMain.handle(
-  'readConfig',
-  async (
-    event,
-    config_class: 'library' | 'user'
-  ): Promise<GameInfo[] | string> => {
-    if (config_class === 'library') {
-      return LegendaryLibrary.get().getGames()
-    }
-    const userInfo = await LegendaryUser.getUserInfo()
-    return userInfo?.displayName ?? ''
+ipcMain.handle('readConfig', async (event, config_class) => {
+  if (config_class === 'library') {
+    return LegendaryLibrary.get().getGames()
   }
-)
+  const userInfo = await LegendaryUser.getUserInfo()
+  return userInfo?.displayName ?? ''
+})
 
-ipcMain.handle(
-  'requestSettings',
-  async (event, appName): Promise<AppSettings | GameSettings> => {
-    // To the changes how we handle env and wrappers
-    // otherOptions is deprectaed and needs to be mapped
-    // to new approach.
-    // Can be removed if otherOptions is removed aswell
-    const mapOtherSettings = (config: AppSettings | GameSettings) => {
-      if (config.otherOptions) {
-        if (config.enviromentOptions.length <= 0) {
-          config.otherOptions
-            .split(' ')
-            .filter((val) => val.indexOf('=') !== -1)
-            .forEach((envKeyAndVar) => {
-              const keyAndValueSplit = envKeyAndVar.split('=')
-              const key = keyAndValueSplit.shift()!
-              const value = keyAndValueSplit.join('=')
-              config.enviromentOptions.push({ key, value })
-            })
-        }
-
-        if (config.wrapperOptions.length <= 0) {
-          const args = [] as string[]
-          config.otherOptions
-            .split(' ')
-            .filter((val) => val.indexOf('=') === -1)
-            .forEach((val, index) => {
-              if (index === 0) {
-                config.wrapperOptions.push({ exe: val, args: '' })
-              } else {
-                args.push(val)
-              }
-            })
-
-          if (config.wrapperOptions.at(0)) {
-            config.wrapperOptions.at(0)!.args = shlex.join(args)
-          }
-        }
-
-        delete config.otherOptions
+ipcMain.handle('requestSettings', async (event, appName) => {
+  // To the changes how we handle env and wrappers
+  // otherOptions is deprectaed and needs to be mapped
+  // to new approach.
+  // Can be removed if otherOptions is removed aswell
+  const mapOtherSettings = (config: AppSettings | GameSettings) => {
+    if (config.otherOptions) {
+      if (config.enviromentOptions.length <= 0) {
+        config.otherOptions
+          .split(' ')
+          .filter((val) => val.indexOf('=') !== -1)
+          .forEach((envKeyAndVar) => {
+            const keyAndValueSplit = envKeyAndVar.split('=')
+            const key = keyAndValueSplit.shift()!
+            const value = keyAndValueSplit.join('=')
+            config.enviromentOptions.push({ key, value })
+          })
       }
-      return config
-    }
 
-    if (appName === 'default') {
-      return mapOtherSettings(GlobalConfig.get().config)
-    }
-    // We can't use .config since apparently its not loaded fast enough.
-    const config = await GameConfig.get(appName).getSettings()
-    return mapOtherSettings(config)
-  }
-)
+      if (config.wrapperOptions.length <= 0) {
+        const args: string[] = []
+        config.otherOptions
+          .split(' ')
+          .filter((val) => val.indexOf('=') === -1)
+          .forEach((val, index) => {
+            if (index === 0) {
+              config.wrapperOptions.push({ exe: val, args: '' })
+            } else {
+              args.push(val)
+            }
+          })
 
-ipcMain.on(
-  'toggleDXVK',
-  (event, { winePrefix, winePath, action }: ToolArgs) => {
-    DXVK.installRemove(winePrefix, winePath, 'dxvk', action)
-  }
-)
-
-ipcMain.on(
-  'toggleVKD3D',
-  (event, { winePrefix, winePath, action }: ToolArgs) => {
-    DXVK.installRemove(winePrefix, winePath, 'vkd3d', action)
-  }
-)
-
-ipcMain.handle(
-  'writeConfig',
-  (
-    event,
-    { appName, config }: { appName: string; config: AppSettings | GameSettings }
-  ): void => {
-    logInfo(
-      `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
-      {
-        prefix: LogPrefix.Backend
+        if (config.wrapperOptions.at(0)) {
+          config.wrapperOptions.at(0)!.args = shlex.join(args)
+        }
       }
-    )
-    // use 2 spaces for pretty print
-    logInfo(JSON.stringify(config, null, 2), { prefix: LogPrefix.Backend })
-    if (appName === 'default') {
-      GlobalConfig.get().config = config as AppSettings
-      GlobalConfig.get().flush()
-    } else {
-      GameConfig.get(appName).config = config as GameSettings
-      GameConfig.get(appName).flush()
+
+      delete config.otherOptions
     }
+    return config
   }
-)
+
+  if (appName === 'default') {
+    return mapOtherSettings(GlobalConfig.get().config)
+  }
+  // We can't use .config since apparently its not loaded fast enough.
+  const config = await GameConfig.get(appName).getSettings()
+  return mapOtherSettings(config)
+})
+
+ipcMain.on('toggleDXVK', (event, { winePrefix, winePath, action }) => {
+  DXVK.installRemove(winePrefix, winePath, 'dxvk', action)
+})
+
+ipcMain.on('toggleVKD3D', (event, { winePrefix, winePath, action }) => {
+  DXVK.installRemove(winePrefix, winePath, 'vkd3d', action)
+})
+
+ipcMain.handle('writeConfig', (event, { appName, config }) => {
+  logInfo(`Writing config for ${appName === 'default' ? 'Heroic' : appName}`, {
+    prefix: LogPrefix.Backend
+  })
+  // use 2 spaces for pretty print
+  logInfo(JSON.stringify(config, null, 2), { prefix: LogPrefix.Backend })
+  if (appName === 'default') {
+    GlobalConfig.get().config = config as AppSettings
+    GlobalConfig.get().flush()
+  } else {
+    GameConfig.get(appName).config = config as GameSettings
+    GameConfig.get(appName).flush()
+  }
+})
 
 // Watch the installed games file and trigger a refresh on the installed games if something changes
 if (existsSync(installed)) {
@@ -999,30 +913,28 @@ if (existsSync(installed)) {
   })
 }
 
-ipcMain.handle(
-  'refreshLibrary',
-  async (e, fullRefresh?: boolean, library?: Runner): Promise<void> => {
-    switch (library) {
-      case 'legendary':
-        await LegendaryLibrary.get().getGames(fullRefresh)
-        break
-      case 'gog':
-        await GOGLibrary.get().sync()
-        break
-      default:
-        await Promise.allSettled([
-          LegendaryLibrary.get().getGames(fullRefresh),
-          GOGLibrary.get().sync()
-        ])
-        break
-    }
+ipcMain.handle('refreshLibrary', async (e, fullRefresh?, library?) => {
+  switch (library) {
+    case 'legendary':
+      await LegendaryLibrary.get().getGames(fullRefresh)
+      break
+    case 'gog':
+      await GOGLibrary.get().sync()
+      break
+    default:
+      await Promise.allSettled([
+        LegendaryLibrary.get().getGames(fullRefresh),
+        GOGLibrary.get().sync()
+      ])
+      break
   }
-)
+})
 
-ipcMain.on('logError', (e, err: unknown) =>
+ipcMain.on('logError', (e, err) =>
   logError(err, { prefix: LogPrefix.Frontend })
 )
-ipcMain.on('logInfo', (e, info: unknown) =>
+
+ipcMain.on('logInfo', (e, info) =>
   logInfo(info, { prefix: LogPrefix.Frontend })
 )
 
@@ -1035,10 +947,7 @@ let powerDisplayId: number | null
 
 ipcMain.handle(
   'launch',
-  async (
-    event,
-    { appName, launchArguments, runner }: LaunchParams
-  ): Promise<{ status: 'done' | 'error' }> => {
+  async (event, { appName, launchArguments, runner }): StatusPromise => {
     const window = BrowserWindow.getAllWindows()[0]
     const isSideloaded = runner === 'sideload'
     const recentGames =
@@ -1166,20 +1075,15 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle(
-  'openDialog',
-  async (e, args: Electron.OpenDialogOptions): Promise<string | false> => {
-    const { filePaths, canceled } = await showOpenDialog(mainWindow, args)
-    if (!canceled) {
-      return filePaths[0]
-    }
-    return false
+ipcMain.handle('openDialog', async (e, args) => {
+  const { filePaths, canceled } = await showOpenDialog(mainWindow, args)
+  if (!canceled) {
+    return filePaths[0]
   }
-)
-
-ipcMain.on('showItemInFolder', async (e, item) => {
-  showItemInFolder(item)
+  return false
 })
+
+ipcMain.on('showItemInFolder', async (e, item) => showItemInFolder(item))
 
 ipcMain.handle(
   'install',
@@ -1193,7 +1097,7 @@ ipcMain.handle(
       runner,
       installLanguage,
       platformToInstall
-    }: InstallParams
+    }
   ): Promise<{ status: 'error' | 'done' | 'abort' }> => {
     const game = getGame(appName, runner)
     const { title } = game.getGameInfo()
@@ -1269,12 +1173,7 @@ ipcMain.handle(
 
 ipcMain.handle(
   'uninstall',
-  async (
-    event,
-    appName: string,
-    runner: Runner,
-    shouldRemovePrefix: boolean
-  ) => {
+  async (event, appName, runner, shouldRemovePrefix) => {
     const game = getGame(appName, runner)
 
     const { title } = game.getGameInfo()
@@ -1305,38 +1204,32 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle(
-  'repair',
-  async (event, appName: string, runner: Runner): Promise<void> => {
-    if (!isOnline()) {
-      logWarning(`App offline, skipping repair for game '${appName}'.`, {
-        prefix: LogPrefix.Backend
-      })
-      return
-    }
-    const game = getGame(appName, runner)
-    const { title } = game.getGameInfo()
-
-    try {
-      await game.repair()
-    } catch (error) {
-      notify({
-        title,
-        body: i18next.t('notify.error.reparing', 'Error Repairing')
-      })
-      logError(error, { prefix: LogPrefix.Backend })
-    }
-    notify({ title, body: i18next.t('notify.finished.reparing') })
-    logInfo('Finished repairing', { prefix: LogPrefix.Backend })
+ipcMain.handle('repair', async (event, appName, runner) => {
+  if (!isOnline()) {
+    logWarning(`App offline, skipping repair for game '${appName}'.`, {
+      prefix: LogPrefix.Backend
+    })
+    return
   }
-)
+  const game = getGame(appName, runner)
+  const { title } = game.getGameInfo()
+
+  try {
+    await game.repair()
+  } catch (error) {
+    notify({
+      title,
+      body: i18next.t('notify.error.reparing', 'Error Repairing')
+    })
+    logError(error, { prefix: LogPrefix.Backend })
+  }
+  notify({ title, body: i18next.t('notify.finished.reparing') })
+  logInfo('Finished repairing', { prefix: LogPrefix.Backend })
+})
 
 ipcMain.handle(
   'moveInstall',
-  async (
-    event,
-    { appName, path, runner }: MoveGameArgs
-  ): Promise<{ status: 'done' | 'error' }> => {
+  async (event, { appName, path, runner }): StatusPromise => {
     const game = getGame(appName, runner)
     const { title } = game.getGameInfo()
     notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
@@ -1361,8 +1254,7 @@ ipcMain.handle(
 
 ipcMain.handle(
   'importGame',
-  async (event, args): Promise<{ status: 'done' | 'error' }> => {
-    const { appName, path, runner } = args
+  async (event, { appName, path, runner }): StatusPromise => {
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline && runner === 'legendary') {
       showDialogBoxModalAuto({
@@ -1419,60 +1311,57 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle(
-  'updateGame',
-  async (event, appName, runner): Promise<{ status: 'done' | 'error' }> => {
-    if (!isOnline()) {
-      logWarning(`App offline, skipping install for game '${appName}'.`, {
-        prefix: LogPrefix.Backend
-      })
-      return { status: 'error' }
-    }
-
-    const epicOffline = await isEpicServiceOffline()
-    if (epicOffline && runner === 'legendary') {
-      showDialogBoxModalAuto({
-        event,
-        title: i18next.t('box.warning.title', 'Warning'),
-        message: i18next.t(
-          'box.warning.epic.update',
-          'Epic Servers are having major outage right now, the game cannot be updated!'
-        ),
-        type: 'ERROR'
-      })
-      return { status: 'error' }
-    }
-
-    const game = getGame(appName, runner)
-    const { title } = game.getGameInfo()
-    notify({
-      title,
-      body: i18next.t('notify.update.started', 'Update Started')
+ipcMain.handle('updateGame', async (event, appName, runner): StatusPromise => {
+  if (!isOnline()) {
+    logWarning(`App offline, skipping install for game '${appName}'.`, {
+      prefix: LogPrefix.Backend
     })
-
-    let status: 'done' | 'error' = 'error'
-    try {
-      status = (await game.update()).status
-    } catch (error) {
-      logError(error, { prefix: LogPrefix.Backend })
-      notify({ title, body: i18next.t('notify.update.canceled') })
-      return { status: 'error' }
-    }
-    notify({
-      title,
-      body:
-        status === 'done'
-          ? i18next.t('notify.update.finished')
-          : i18next.t('notify.update.canceled')
-    })
-    logInfo('finished updating', { prefix: LogPrefix.Backend })
-    return { status }
+    return { status: 'error' }
   }
-)
+
+  const epicOffline = await isEpicServiceOffline()
+  if (epicOffline && runner === 'legendary') {
+    showDialogBoxModalAuto({
+      event,
+      title: i18next.t('box.warning.title', 'Warning'),
+      message: i18next.t(
+        'box.warning.epic.update',
+        'Epic Servers are having major outage right now, the game cannot be updated!'
+      ),
+      type: 'ERROR'
+    })
+    return { status: 'error' }
+  }
+
+  const game = getGame(appName, runner)
+  const { title } = game.getGameInfo()
+  notify({
+    title,
+    body: i18next.t('notify.update.started', 'Update Started')
+  })
+
+  let status: 'done' | 'error' = 'error'
+  try {
+    status = (await game.update()).status
+  } catch (error) {
+    logError(error, { prefix: LogPrefix.Backend })
+    notify({ title, body: i18next.t('notify.update.canceled') })
+    return { status: 'error' }
+  }
+  notify({
+    title,
+    body:
+      status === 'done'
+        ? i18next.t('notify.update.finished')
+        : i18next.t('notify.update.canceled')
+  })
+  logInfo('finished updating', { prefix: LogPrefix.Backend })
+  return { status }
+})
 
 ipcMain.handle(
   'changeInstallPath',
-  async (event, { appName, path, runner }: MoveGameArgs): Promise<void> => {
+  async (event, { appName, path, runner }) => {
     let instance = null
     switch (runner) {
       case 'legendary':
@@ -1492,7 +1381,7 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('egsSync', async (event, args: string): Promise<string> => {
+ipcMain.handle('egsSync', async (event, args) => {
   if (isWindows) {
     const egl_manifestPath =
       'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
@@ -1527,22 +1416,13 @@ ipcMain.handle('egsSync', async (event, args: string): Promise<string> => {
   }
 })
 
-ipcMain.handle(
-  'syncGOGSaves',
-  async (
-    event,
-    gogSaves: GOGCloudSavesLocation[],
-    appName: string,
-    arg: string
-  ): Promise<string> => getGame(appName, 'gog').syncSaves(arg, '', gogSaves)
+ipcMain.handle('syncGOGSaves', async (event, gogSaves, appName, arg) =>
+  getGame(appName, 'gog').syncSaves(arg, '', gogSaves)
 )
 
 ipcMain.handle(
   'syncSaves',
-  async (
-    event,
-    { arg = '', path, appName, runner }: SaveSyncArgs
-  ): Promise<string> => {
+  async (event, { arg = '', path, appName, runner }) => {
     if (runner === 'legendary') {
       const epicOffline = await isEpicServiceOffline()
       if (epicOffline) {
@@ -1566,7 +1446,7 @@ ipcMain.handle(
 )
 
 // Simulate keyboard and mouse actions as if the real input device is used
-ipcMain.handle('gamepadAction', async (event, args): Promise<void> => {
+ipcMain.handle('gamepadAction', async (event, args) => {
   const [action, metadata] = args
   const window = BrowserWindow.getAllWindows()[0]
   const inputEvents: (
@@ -1666,7 +1546,7 @@ ipcMain.handle('gamepadAction', async (event, args): Promise<void> => {
   }
 })
 
-ipcMain.handle('getFonts', async (event, reload): Promise<string[]> => {
+ipcMain.handle('getFonts', async (event, reload) => {
   let cachedFonts = (fontsStore.get('fonts', []) as string[]) || []
   if (cachedFonts.length === 0 || reload) {
     cachedFonts = await getFonts()
@@ -1678,10 +1558,7 @@ ipcMain.handle('getFonts', async (event, reload): Promise<string[]> => {
 
 ipcMain.handle(
   'runWineCommandForGame',
-  async (
-    event,
-    { appName, command, runner }: RunWineCommandArgs
-  ): Promise<ExecResult> => {
+  async (event, { appName, command, runner }) => {
     const game = getGame(appName, runner)
     const isSideloaded = runner === 'sideload'
     const gameSettings = isSideloaded
@@ -1701,11 +1578,11 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('getShellPath', async (event, path): Promise<string> => {
-  return normalize((await execAsync(`echo "${path}"`)).stdout.trim())
-})
+ipcMain.handle('getShellPath', async (event, path) =>
+  normalize((await execAsync(`echo "${path}"`)).stdout.trim())
+)
 
-ipcMain.handle('getRealPath', (event, path): string => {
+ipcMain.handle('getRealPath', (event, path) => {
   let resolvedPath = normalize(path)
   try {
     resolvedPath = realpathSync(path)
@@ -1719,9 +1596,9 @@ ipcMain.handle('getRealPath', (event, path): string => {
   return resolvedPath
 })
 
-ipcMain.handle('clipboardReadText', (): string => clipboard.readText())
+ipcMain.handle('clipboardReadText', () => clipboard.readText())
 
-ipcMain.on('clipboardWriteText', (e, text: string) => clipboard.writeText(text))
+ipcMain.on('clipboardWriteText', (e, text) => clipboard.writeText(text))
 
 ipcMain.handle('getCustomThemes', async () => {
   const { customThemesPath } = await GlobalConfig.get().getSettings()
@@ -1735,7 +1612,7 @@ ipcMain.handle('getCustomThemes', async () => {
   )
 })
 
-ipcMain.handle('getThemeCSS', async (event, theme): Promise<string> => {
+ipcMain.handle('getThemeCSS', async (event, theme) => {
   const { customThemesPath } = await GlobalConfig.get().getSettings()
 
   const cssPath = path.join(customThemesPath, theme)
@@ -1747,29 +1624,19 @@ ipcMain.handle('getThemeCSS', async (event, theme): Promise<string> => {
   return readFileSync(cssPath, 'utf-8')
 })
 
-ipcMain.on('addNewApp', (e, args: SideloadGame) => addNewApp(args))
+ipcMain.on('addNewApp', (e, args) => addNewApp(args))
 
-ipcMain.handle(
-  'removeApp',
-  async (e, args: { appName: string; shouldRemovePrefix: boolean }) =>
-    removeApp(args)
-)
+ipcMain.handle('removeApp', async (e, args) => removeApp(args))
 
-ipcMain.handle(
-  'launchApp',
-  async (e, appName: string): Promise<boolean> => launchApp(appName)
-)
+ipcMain.handle('launchApp', async (e, appName) => launchApp(appName))
 
-ipcMain.handle(
-  'isNative',
-  (e, { appName, runner }: { appName: string; runner: Runner }) => {
-    if (runner === 'sideload') {
-      return isNativeApp(appName)
-    }
-    const game = getGame(appName, runner)
-    return game.isNative()
+ipcMain.handle('isNative', (e, { appName, runner }) => {
+  if (runner === 'sideload') {
+    return isNativeApp(appName)
   }
-)
+  const game = getGame(appName, runner)
+  return game.isNative()
+})
 
 /*
   Other Keys that should go into translation files:

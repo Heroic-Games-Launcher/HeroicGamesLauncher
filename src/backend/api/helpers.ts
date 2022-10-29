@@ -5,15 +5,10 @@ import {
   WineCommandArgs,
   ConnectivityChangedCallback,
   ConnectivityStatus,
-  GameInfo,
   AppSettings,
   GameSettings,
-  UserInfo,
-  RunWineCommandArgs,
-  ExecResult
+  RunWineCommandArgs
 } from 'common/types'
-import { LegendaryInstallInfo } from 'common/types/legendary'
-import { GogInstallInfo } from 'common/types/gog'
 
 export const notify = (args: { title: string; body: string }) =>
   ipcRenderer.send('notify', args)
@@ -29,40 +24,33 @@ export const openCustomThemesWiki = () =>
 export const createNewWindow = (url: string) =>
   ipcRenderer.send('createNewWindow', url)
 
-export const readConfig = async (
-  file: 'library' | 'user'
-): Promise<GameInfo[] | string> => ipcRenderer.invoke('readConfig', file)
+export const readConfig = async (file: 'library' | 'user') =>
+  ipcRenderer.invoke('readConfig', file)
 
-export const getPlatform = async (): Promise<NodeJS.Platform> =>
-  ipcRenderer.invoke('getPlatform')
+export const getPlatform = async () => ipcRenderer.invoke('getPlatform')
 
-export const isLoggedIn = async (): Promise<boolean> =>
-  ipcRenderer.invoke('isLoggedIn')
+export const isLoggedIn = async () => ipcRenderer.invoke('isLoggedIn')
 
 export const writeConfig = async (data: {
   appName: string
   config: AppSettings | GameSettings
-}): Promise<void> => ipcRenderer.invoke('writeConfig', data)
+}) => ipcRenderer.invoke('writeConfig', data)
 
-export const kill = async (appName: string, runner: Runner): Promise<void> =>
+export const kill = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('kill', appName, runner)
 
 export const abort = (id: string) => ipcRenderer.send('abort', id)
 
-export const getUserInfo = async (): Promise<UserInfo | undefined> =>
-  ipcRenderer.invoke('getUserInfo')
+export const getUserInfo = async () => ipcRenderer.invoke('getUserInfo')
 
 export const syncSaves = async (args: {
   arg: string | undefined
   path: string
   appName: string
   runner: Runner
-}): Promise<string> => ipcRenderer.invoke('syncSaves', args)
+}) => ipcRenderer.invoke('syncSaves', args)
 
-export const getGameInfo = async (
-  appName: string,
-  runner: Runner
-): Promise<GameInfo | null> =>
+export const getGameInfo = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('getGameInfo', appName, runner)
 
 export const getGameSettings = async (
@@ -74,46 +62,35 @@ export const getGameSettings = async (
 export const getInstallInfo = async (
   appName: string,
   runner: Runner,
-  installPlatform?: InstallPlatform
-): Promise<LegendaryInstallInfo | GogInstallInfo | null> =>
-  ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
+  installPlatform: InstallPlatform
+) => ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
 
-export const runWineCommand = async (
-  args: WineCommandArgs
-): Promise<{ stdout: string; stderr: string }> =>
+export const runWineCommand = async (args: WineCommandArgs) =>
   ipcRenderer.invoke('runWineCommand', args)
 
-export const runWineCommandForGame = async (
-  command: RunWineCommandArgs
-): Promise<ExecResult> => ipcRenderer.invoke('runWineCommandForGame', command)
+export const runWineCommandForGame = async (command: RunWineCommandArgs) =>
+  ipcRenderer.invoke('runWineCommandForGame', command)
 
-export const requestAppSettings = async (): Promise<AppSettings> =>
-  ipcRenderer.invoke('requestSettings', 'default')
+export const requestAppSettings = async () =>
+  ipcRenderer.invoke('requestSettings', 'default') as Promise<AppSettings>
 
-export const requestGameSettings = async (
-  appName: string
-): Promise<GameSettings> => ipcRenderer.invoke('requestSettings', appName)
+export const requestGameSettings = async (appName: string) =>
+  ipcRenderer.invoke('requestSettings', appName) as Promise<GameSettings>
 
 export const onConnectivityChanged = async (
   callback: ConnectivityChangedCallback
 ) => ipcRenderer.on('connectivity-changed', callback)
 
-export const getConnectivityStatus = async (): Promise<{
-  status: ConnectivityStatus
-  retryIn: number
-}> => ipcRenderer.invoke('get-connectivity-status')
+export const getConnectivityStatus = async () =>
+  ipcRenderer.invoke('get-connectivity-status')
 
-export const connectivityChanged = async (
-  newStatus: ConnectivityStatus
-): Promise<void> => ipcRenderer.send('connectivity-changed', newStatus)
+export const connectivityChanged = async (newStatus: ConnectivityStatus) =>
+  ipcRenderer.send('connectivity-changed', newStatus)
 
-export const isNative = async (args: {
-  appName: string
-  runner: Runner
-}): Promise<boolean> => ipcRenderer.invoke('isNative', args)
+export const isNative = async (args: { appName: string; runner: Runner }) =>
+  ipcRenderer.invoke('isNative', args)
 
-export const getThemeCSS = async (theme: string): Promise<string> =>
+export const getThemeCSS = async (theme: string) =>
   ipcRenderer.invoke('getThemeCSS', theme)
 
-export const getCustomThemes = async (): Promise<string[]> =>
-  ipcRenderer.invoke('getCustomThemes')
+export const getCustomThemes = async () => ipcRenderer.invoke('getCustomThemes')
