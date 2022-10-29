@@ -43,7 +43,10 @@ abstract class Game {
   abstract uninstall(): Promise<ExecResult>
   abstract update(): Promise<{ status: 'done' | 'error' | 'abort' }>
   abstract isNative(): boolean
-  abstract runWineCommand(command: string, wait?: boolean): Promise<ExecResult>
+  abstract runWineCommand(
+    commandParts: string[],
+    wait?: boolean
+  ): Promise<ExecResult>
 }
 
 export { Game }

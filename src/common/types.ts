@@ -522,7 +522,7 @@ export interface DMQueueElement {
 }
 
 export type WineCommandArgs = {
-  command: string
+  commandParts: string[]
   wait: boolean
   protonVerb?: ProtonVerb
   gameSettings?: GameSettings

@@ -685,14 +685,18 @@ ipcMain.handle(
         break
       case 'winecfg':
         isSideloaded
-          ? runWineCommand({ gameSettings, command: 'winecfg', wait: false })
-          : game.runWineCommand('winecfg')
+          ? runWineCommand({
+              gameSettings,
+              commandParts: ['winecfg'],
+              wait: false
+            })
+          : game.runWineCommand(['winecfg'])
         break
       case 'runExe':
         if (exe) {
           isSideloaded
-            ? runWineCommand({ gameSettings, command: exe, wait: false })
-            : game.runWineCommand(exe)
+            ? runWineCommand({ gameSettings, commandParts: [exe], wait: false })
+            : game.runWineCommand([exe])
         }
         break
     }

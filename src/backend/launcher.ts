@@ -466,8 +466,12 @@ export async function verifyWinePrefix(
   const haveToWait = !existsSync(systemRegPath)
 
   const command = game
-    ? game.runWineCommand('wineboot', haveToWait)
-    : runWineCommand({ command: 'wineboot', wait: haveToWait, gameSettings })
+    ? game.runWineCommand(['wineboot', '--init'], haveToWait)
+    : runWineCommand({
+        commandParts: ['wineboot', '--init'],
+        wait: haveToWait,
+        gameSettings
+      })
 
   return command
     .then((result) => {
@@ -494,7 +498,7 @@ function launchCleanup(rpcClient?: RpcClient) {
 }
 async function runWineCommand({
   gameSettings,
-  command,
+  commandParts,
   wait,
   protonVerb = 'run',
   installFolderName,
@@ -520,38 +524,18 @@ async function runWineCommand({
     ...setupWineEnvVars(settings, installFolderName)
   }
 
-  let additional_command = ''
   const isProton = wineVersion.type === 'proton'
-  const protonCommand = isProton ? protonVerb : ''
-  if (!isProton) {
-    // Can't wait if we don't have a Wineserver
-    if (wait) {
-      if (wineVersion.wineserver) {
-        additional_command = `"${wineVersion.wineserver}" --wait`
-      } else {
-        logWarning('Unable to wait on Wine command, no Wineserver!', {
-          prefix: LogPrefix.Backend
-        })
-      }
-    }
+  if (isProton) {
+    commandParts.unshift(protonVerb)
   }
 
   const wineBin = wineVersion.bin.replaceAll("'", '')
-  let finalCommand = `${command}`
-  if (additional_command) {
-    finalCommand += ` && ${additional_command}`
-  }
 
-  logDebug(['Running Wine command:', finalCommand], {
+  logDebug(['Running Wine command:', commandParts.join(' ')], {
     prefix: LogPrefix.Backend
   })
 
-  return new Promise((res) => {
-    additional_command = additional_command ? `&& ${additional_command}` : ''
-    const commandParts = [protonCommand, command, additional_command].filter(
-      Boolean
-    )
-
+  return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
     let bin = ''
     if (wrappers.length) {
@@ -565,7 +549,8 @@ async function runWineCommand({
       env: env_vars,
       cwd: startFolder
     })
-    const response = { stderr: '', stdout: '' }
+    child.stdout.setEncoding('utf-8')
+    child.stderr.setEncoding('utf-8')
 
     if (options?.logFile) {
       logDebug(`Logging to file "${options?.logFile}"`, {
@@ -584,35 +569,47 @@ async function runWineCommand({
     const stdout: string[] = []
     const stderr: string[] = []
 
-    child.stdout.on('data', (data: Buffer) => {
+    child.stdout.on('data', (data: string) => {
       if (options?.logFile) {
-        appendFileSync(options.logFile, data.toString())
+        appendFileSync(options.logFile, data)
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString(), child)
+        options.onOutput(data, child)
       }
 
-      stdout.push(data.toString().trim())
+      stdout.push(data.trim())
     })
 
-    child.stderr.on('data', (data: Buffer) => {
+    child.stderr.on('data', (data: string) => {
       if (options?.logFile) {
-        appendFileSync(options.logFile, data.toString())
+        appendFileSync(options.logFile, data)
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString(), child)
+        options.onOutput(data, child)
       }
 
-      stderr.push(data.toString().trim())
+      stderr.push(data.trim())
     })
 
-    child.on('close', () => {
-      response.stdout = stdout.join('')
-      response.stderr = stderr.join('')
+    child.on('close', async () => {
+      const response = { stderr: stderr.join(''), stdout: stdout.join('') }
+
+      if (wait && wineVersion.wineserver) {
+        await new Promise<void>((res_wait) => {
+          const wait_child = spawn(wineVersion.wineserver!, ['--wait'], {
+            env: env_vars,
+            cwd: startFolder
+          })
+
+          wait_child.on('close', () => {
+            res_wait()
+          })
+        })
+      }
+
       res(response)
-      return response
     })
 
     child.on('error', (error) => {
@@ -835,7 +832,7 @@ async function getWinePath({
   if (wineVersion.type !== 'proton') {
     const { stdout } = await runWineCommand({
       gameSettings,
-      command: `winepath ${variant === 'unix' ? '-u' : '-w'} ${path}`,
+      commandParts: ['winepath', variant === 'unix' ? '-u' : '-w', path],
       wait: false
     })
     return stdout.trim()
@@ -846,7 +843,7 @@ async function getWinePath({
   const verb = variant === 'unix' ? 'getnativepath' : 'getcompatpath'
   const { stdout } = await runWineCommand({
     gameSettings,
-    command: path,
+    commandParts: [path],
     wait: false,
     protonVerb: verb
   })

@@ -780,7 +780,7 @@ class LegendaryGame extends Game {
   }
 
   public async runWineCommand(
-    command: string,
+    commandParts: string[],
     wait = false,
     protonVerb: ProtonVerb = 'run'
   ): Promise<ExecResult> {
@@ -797,7 +797,7 @@ class LegendaryGame extends Game {
     return runWineCommand({
       gameSettings,
       installFolderName: folder_name,
-      command,
+      commandParts,
       wait,
       protonVerb
     })
