@@ -42,7 +42,8 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
 
-  const { epic, gog, platform, activeController } = useContext(ContextProvider)
+  const { epic, gog, platform, activeController, refreshLibrary } =
+    useContext(ContextProvider)
 
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
@@ -117,6 +118,9 @@ export default function SidebarLinks() {
           classNames('Sidebar__item', { active: isActive })
         }
         to={'/'}
+        onClick={async () =>
+          refreshLibrary({ runInBackground: false, fullRefresh: true })
+        }
       >
         <>
           <div className="Sidebar__itemIcon">
