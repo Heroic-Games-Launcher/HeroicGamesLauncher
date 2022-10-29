@@ -25,6 +25,7 @@
   grid-area: filters;
   display: flex;
   align-self: center;
+  justify-self: flex-end;
 }
 
 .Header__filters .FormControl {

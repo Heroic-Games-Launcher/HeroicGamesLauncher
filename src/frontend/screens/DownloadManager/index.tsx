@@ -7,16 +7,12 @@ import { UpdateComponent } from 'frontend/components/UI'
 import ProgressHeader from './components/ProgressHeader'
 import DownloadManagerHeader from './DownloadManagerHeader'
 import { downloadManagerStore } from 'frontend/helpers/electronStores'
+import { DMQueue } from 'frontend/types'
 
 const DownloadManagerItem = lazy(
   async () =>
     import('frontend/screens/DownloadManager/components/DownloadManagerItem')
 )
-
-type DMQueue = {
-  elements: DMQueueElement[]
-  finished: DMQueueElement[]
-}
 
 export default function DownloadManager(): JSX.Element | null {
   const { t } = useTranslation()
