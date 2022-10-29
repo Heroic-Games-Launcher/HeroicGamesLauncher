@@ -82,6 +82,24 @@ export default function Library(): JSX.Element {
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
+  //Rememember scroll position
+  useEffect(() => {
+    let scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
+    const listing = document.querySelector('.listing')
+
+    if (listing) {
+      if (scrollPosition > 0) {
+        listing.scrollTo(0, scrollPosition)
+      }
+      listing.addEventListener('scroll', () => {
+        scrollPosition = listing.scrollTop
+      })
+    }
+    return () => {
+      storage.setItem('scrollPosition', scrollPosition.toString())
+    }
+  }, [])
+
   // bind back to top button
   useEffect(() => {
     if (backToTopElement.current) {

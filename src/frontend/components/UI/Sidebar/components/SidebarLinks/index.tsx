@@ -117,6 +117,9 @@ export default function SidebarLinks() {
           classNames('Sidebar__item', { active: isActive })
         }
         to={'/'}
+        onClick={() => {
+          localStorage.setItem('scrollPosition', '0')
+        }}
       >
         <>
           <div className="Sidebar__itemIcon">
