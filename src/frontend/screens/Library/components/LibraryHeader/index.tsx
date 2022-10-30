@@ -80,7 +80,7 @@ export default function LibraryHeader({
             className="sideloadGameButton"
             onClick={handleAddGameButtonClick}
           >
-            Add Game
+            {t('add_game', 'Add Game')}
           </button>
         </span>
         <ActionIcons
