@@ -80,7 +80,7 @@ export default function LegendarySyncSaves({
           .runWineCommandForGame({
             appName,
             runner: 'legendary',
-            command: `cmd /c winepath "${folder}"`
+            commandParts: ['cmd', '/c', 'winepath', folder]
           })
           .catch((error) => {
             console.error('There was an error getting the path', error)

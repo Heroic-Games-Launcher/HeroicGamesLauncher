@@ -91,7 +91,7 @@ export default function GOGSyncSaves({
             .runWineCommandForGame({
               appName,
               runner: 'gog',
-              command: `cmd /c winepath "${saveLocation}"`
+              commandParts: ['cmd', '/c', 'winepath', saveLocation]
             })
             .catch((error) => {
               window.api.logError(
