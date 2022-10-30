@@ -598,9 +598,9 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Logout",
+        "logout_confirmation": "Вы ўпэўнены, што хочаце выйсці?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit",
-        "logout_confirmation": "Вы ўпэўнены, што хочаце выйсці?"
+        "quit": "Quit"
     },
     "webview": {
         "controls": {
