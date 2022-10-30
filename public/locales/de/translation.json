@@ -219,7 +219,7 @@
     },
     "help": {
         "amdfsr": "AMDs FSR hilft bei der Verbesserung der Framerate durch Hochskalierung niedrigerer Auflösungen im Vollbildmodus. Die Bildqualität wird von 5 auf 1 erhöht, allerdings auf Kosten einer leichten Leistungseinbuße. Das Aktivieren kann die Leistung verbessern.",
-        "custom_themes_path": "Verwende kein CSS aus unbekannten Quellen. Bei Zweifeln frag in unserem Discord-Channel nach einer Überprüfung.",
+        "custom_themes_path": "Verwende kein CSS aus unbekannten Quellen. Bei Zweifeln bitte in unserem Discord-Channel um eine Überprüfung.",
         "custom_themes_wiki": "Mehr Details zum Hinzufügen von benutzerdefinierten Designs findest du im Wiki. Klick hier.",
         "dxvk": "DXVK ist eine Vulkan-basierte Übersetzungsschicht für DirectX 9, 10 und 11 Spiele. Durch Aktivieren kann die Kompatibilität verbessert werden. Kann Probleme verursachen, insbesondere bei älteren DirectX-Spielen.",
         "esync": "Esync zielt darauf ab, den Wineserver-Overhead in CPU-intensiven Spielen zu reduzieren. Durch Aktivieren kann die Leistung verbessert werden.",
@@ -359,7 +359,7 @@
     },
     "options": {
         "advanced": {
-            "key": "Variable Name",
+            "key": "Variablenname",
             "placeHolderKey": "NAME",
             "placeHolderValue": "z. B.: Pfad/Zu/ExtraDateien",
             "title": "Umgebungsvariablen",
@@ -513,7 +513,7 @@
         "savefolder": {
             "placeholder": "Wähle den genauen Ordner der Spielstände"
         },
-        "select_theme": "Design auswählen",
+        "select_theme": "Design",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
         "start-in-tray": "Minimiert starten",
         "steamruntime": "Steam Runtime verwenden",
@@ -612,14 +612,14 @@
         }
     },
     "wine": {
-        "actions": "Action",
+        "actions": "Aktion",
         "manager": {
             "error": "Wine/Proton-Versionen konnten diesmal nicht abgerufen werden.",
             "link": "Wine-Manager",
             "title": "Wine-Manager",
             "unzipping": "Entpacke"
         },
-        "release": "Veröffentlichungsdatum",
+        "release": "Veröffentlicht",
         "size": "Größe"
     }
 }
