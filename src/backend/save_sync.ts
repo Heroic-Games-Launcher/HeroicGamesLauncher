@@ -14,6 +14,7 @@ import { getGame, getShellPath } from './utils'
 import { existsSync, realpathSync } from 'graceful-fs'
 import { app } from 'electron'
 import {
+  callAbortController,
   createAbortController,
   deleteAbortController
 } from './utils/aborthandler/aborthandler'
@@ -51,9 +52,10 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   // NOTE: The easiest way I've found to just compute the path is by running the sync
   //       and disabling both save up- and download
   let gotSavePath = false
+  const abortControllerName = appName + '-savePath'
   await runLegendaryCommand(
     ['sync-saves', appName, '--skip-upload', '--skip-download'],
-    createAbortController(appName + '-savePath'),
+    createAbortController(abortControllerName),
     {
       logMessagePrefix: 'Getting default save path',
       env: setupWineEnvVars(await game.getSettings()),
@@ -68,7 +70,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
             'Path contains unprocessed variables, please enter the correct path manually'
           )
         ) {
-          child.kill()
+          callAbortController(abortControllerName)
           logError(
             [
               'Legendary was unable to compute the default save path of',
@@ -80,7 +82,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
       }
     }
   )
-  deleteAbortController(appName + '-savePath')
+  deleteAbortController(abortControllerName)
   if (!gotSavePath) {
     logError(['Unable to compute default save path for', appName], {
       prefix: LogPrefix.Legendary
