@@ -86,18 +86,15 @@ export default function Library(): JSX.Element {
 
   //Remember scroll position
   useLayoutEffect(() => {
-    let scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
+    const scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
 
-    if (listing.current !== null) {
-      if (scrollPosition > 0) {
-        listing.current.scrollTo(0, scrollPosition)
-      }
-      listing.current.addEventListener('scroll', () => {
-        if (listing.current !== null) scrollPosition = listing.current.scrollTop
-      })
+    if (listing.current !== null && scrollPosition > 0) {
+      listing.current.scrollTo(0, scrollPosition)
     }
     return () => {
-      storage.setItem('scrollPosition', scrollPosition.toString())
+      if (listing.current !== null) {
+        storage?.setItem('scrollPosition', listing.current.scrollTop.toString())
+      }
     }
   }, [listing])
 
