@@ -80,6 +80,11 @@
   --text-danger: #d22121;
   --text-gametitle: var(--text-default);
   --text-log: #f5cf69;
+
+  /*Action Icons*/
+  --action-icon: var(--text-default);
+  --action-icon-hover: var(--text-hover);
+  --action-icon-active: var(--accent);
 }
 
 body {

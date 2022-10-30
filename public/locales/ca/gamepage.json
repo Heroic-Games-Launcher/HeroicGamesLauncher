@@ -169,6 +169,7 @@
         "queued": "Queued",
         "reparing": "S'està reparant el joc. Espereu.",
         "totalDownloaded": "Total baixat",
+        "uninstalling": "Uninstalling",
         "updating": "S'està actualitzant el joc"
     },
     "submenu": {

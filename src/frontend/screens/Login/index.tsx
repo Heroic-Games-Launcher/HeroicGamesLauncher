@@ -17,7 +17,7 @@ export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
 
 export default function NewLogin() {
-  const { epic, gog } = useContext(ContextProvider)
+  const { epic, gog, refreshLibrary } = useContext(ContextProvider)
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
@@ -38,6 +38,11 @@ export default function NewLogin() {
     setIsEpicLoggedIn(Boolean(epic.username))
     setIsGogLoggedIn(Boolean(gog.username))
   }, [epic.username, gog.username, t])
+
+  async function handleLibraryClick() {
+    await refreshLibrary({ fullRefresh: true, runInBackground: false })
+    navigate('/')
+  }
 
   return (
     <div className="loginPage">
@@ -96,12 +101,12 @@ export default function NewLogin() {
             />
           </div>
         </div>
-
-        {(epic.username || gog.username) && (
-          <button onClick={() => navigate('/')} className="goToLibrary">
-            {t('button.go_to_library', 'Go to Library')}
-          </button>
-        )}
+        <button
+          onClick={async () => handleLibraryClick()}
+          className="goToLibrary"
+        >
+          {t('button.go_to_library', 'Go to Library')}
+        </button>
       </div>
     </div>
   )

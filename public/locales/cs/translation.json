@@ -106,7 +106,7 @@
             }
         },
         "runexe": {
-            "title": "Vyberte soubor EXE pro spuštění"
+            "title": "Vyberte EXE ke spuštění"
         },
         "select": {
             "button": "Vybrat",

@@ -103,21 +103,18 @@
     "deb": {
       "packageCategory": "games",
       "depends": [
-        "gawk",
         "curl"
       ]
     },
     "pacman": {
       "packageCategory": "games",
       "depends": [
-        "gawk",
         "curl"
       ]
     },
     "rpm": {
       "packageCategory": "games",
       "depends": [
-        "gawk",
         "curl"
       ]
     }
@@ -178,7 +175,7 @@
     "dist:linux": "vite build && electron-builder --linux",
     "dist:mac": "vite build && electron-builder --mac",
     "dist:win": "vite build && electron-builder --win",
-    "lint": "eslint -c .eslintrc --ext .tsx,ts ./src",
+    "lint": "eslint --cache -c .eslintrc --ext .tsx,ts ./src",
     "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src",
     "dist-flatpak": "cd flatpak && flatpak-builder build local.heroic.yml --install --force-clean --user",
     "flatpak-test": "yarn dist:linux appimage && cd flatpak && flatpak-builder build local.heroic.yml --install --force-clean --user",

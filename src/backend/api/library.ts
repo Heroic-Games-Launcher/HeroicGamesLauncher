@@ -15,8 +15,9 @@ export const uninstall = async (
   const [appName, shouldRemovePrefix, runner] = args
   if (runner === 'sideload') {
     return ipcRenderer.invoke('removeApp', { appName, shouldRemovePrefix })
+  } else {
+    return ipcRenderer.invoke('uninstall', args)
   }
-  ipcRenderer.invoke('uninstall', args)
 }
 export const repair = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('repair', appName, runner)
