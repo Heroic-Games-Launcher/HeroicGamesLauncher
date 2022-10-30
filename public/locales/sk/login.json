@@ -4,13 +4,13 @@
     },
     "message": {
         "part1": "In order for you to be able to log in and install your games, we first need you to follow the steps below:",
-        "part2": "",
-        "part3": "",
-        "part4": "",
-        "part5": "",
-        "part6": "",
-        "part7": "",
-        "part8": ""
+        "part2": "Otvor",
+        "part3": "Epic Store tu",
+        "part4": ", prihláste sa do svojho účtu a skopírujte svoj",
+        "part5": "informačné číslo autorizačného kódu",
+        "part6": "Prilepte svoje",
+        "part7": "číslo autorizačného kódu",
+        "part8": "do vstupného poľa nižšie a kliknite na tlačidlo prihlásenia."
     },
     "status": {
         "error": "Error",

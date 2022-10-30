@@ -1,20 +1,21 @@
 {
     "accessibility": {
         "actions_font_family_no_default": "Actions Font Family (Default: ",
-        "all_tiles_in_color": "Show all game tiles in color",
+        "all_tiles_in_color": "Mostrar telhas do jogos em cor?",
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Fonts",
         "title": "Accessibility",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Tudo",
     "anticheat": {
         "anticheats": "Anticheats",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
+        "may_not_work": "Pode não funcionar devido a anticheat negado ou não supportado",
+        "reference": "Referência",
         "source": "Source",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "Este jogo inclui anticheat"
     },
     "box": {
         "cache-cleared": {
@@ -23,69 +24,69 @@
         },
         "choose": "Selecionar",
         "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Selecione o binário GOGDL ( Precisa reiniciar)",
         "choose-legendary-binary": "Selecionar binário do Legendary",
         "customWine": "Selecione o binário do Wine ou Proton",
         "default-install-path": "Selecione o Local de instalação padrão",
-        "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "default-steam-path": "Localização da Steam.",
+        "downloadNow": "Transferir",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "body": "Adicionar {{game}} a Steam Falhou com:{{newLine}} {{error}}",
+                    "title": "Erro de Adicionamento"
                 }
             },
             "credentials": {
                 "message": "Suas credenciais expiraram, por favor faça logout e login novamente."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "CrossOver \"{{bottle_name}}\" Não existe, não consegue iniciar!",
+                "title": "CrossOver não foi encontrado"
             },
             "diskspace": {
                 "message": "Sem espaço disponível no disco",
                 "title": "Sem Espaço"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "Erro na instalação DXVK/VK3D! \nVerifique a sua conexão!",
+                "title": "Erro DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Pasta de Jogos parece tar removido, Queres remover o jogo da lista de instalados?"
             },
             "generic": {
                 "message": "",
                 "title": "Select EXE to Run"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Iniciamento Abortado",
             "title": "Error",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Ocorreu uma exceção não capturada :{{newLine}}{{error}}{{newLine}}{{newLine}} Reporte a exceção no nosso Repositório Github.",
+                "title": "Ocorreu uma Exceção não capturada!"
             },
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "Qualquer coisa correu mal com a actualização, Por favor verifique os logs ou tente outra vez mais tarde!",
                 "title": "Update Error"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
+                "invalid": "A versão wine selecionada não existe. Instale a versão ou Selecione uma versão diferente nas configurações do jogo {{newline}} Versão: {{version}}{{newline}} Localização: {{path}}",
+                "message": "Não ah nenhum Wine Selecionado. Verifique configurações de jogo!",
+                "title": "Wine não existe"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "message": "Winetricks retornou o seguinte erro durante a execução :{{newLine}}{{error}}",
                 "title": "Winetricks error"
             }
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Abrir changelog",
+                "detail": "Queres transferir actualização em segundo plano?",
+                "message": "Há uma versão Nova Disponível!",
+                "message-finished": "Queres reniciar Heroic?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Actualização Terminado"
             }
         },
         "no": "NÃO",
@@ -101,7 +102,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Tens a certeza que queres fazer reset ao Heroic? Isto vai remover Settings e Caching mas nao vai desinstalar o jogos que tens instalado ou as credenciais da Epic. Versões Portáteis  (AppImage, WinPortable, ...) Heroic vai ser perciso de ser reiniciado Manualmente.",
                 "title": "Reset Heroic"
             }
         },
@@ -113,9 +114,9 @@
             "exe": "Selecionar .EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
-            "title": "Shortcuts"
+            "message": "Atalhos foram criados no Ambiente trabalho e Inicio Menu",
+            "message-remove": "Atalhos foram removidos no Ambiente trabalho e Inicio Menu",
+            "title": "Atalhos"
         },
         "sync": {
             "button": "Selecionar",
@@ -124,18 +125,18 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "Os links de Transferência de Visual C++ Runtimes foi aberto. Por favor instale ambas as versões de x86 e x64."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "The Microsoft Visual C++ Runtimes não estão instalados, é necessário para alguns jogos.",
+                "title": "VCRuntime não está instalado"
             }
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "Os servers da Epic estão com problemas, o jogo não consegue ser importado!",
+                "install": "Os servers da Epic estão com problemas, o jogo não consegue ser instalado!",
+                "update": "Os servers da Epic estão com problemas, o jogo não consegue ser Actualizado!"
             },
             "title": "Warning"
         },
@@ -151,29 +152,29 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
-            "back": "Back",
+            "activate": "Activar",
+            "back": "Atrás",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
+            "close_context_menu": "Fechar Contexto menu",
+            "close_dialog": "Fechar diálogo",
+            "close_keyboard": "Fechar teclado",
             "context_menu": "Context menu",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
+            "game_details": "Detalhes do Jogo",
+            "game_settings": "Configurações do jogo",
+            "install_game": "Instalar Jogo",
             "move_cursor": "Move cursor",
             "none": "None",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "play_game": "Play game",
+            "open_virtual_keyboard": "Abrir teclado virtual",
+            "play_game": "Jogar jogo",
             "scroll": "Scroll",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Actualizar Jogo"
         }
     },
     "docs": "Documentation",
     "download": {
         "manager": {
-            "empty": "Nothing to download.",
+            "empty": "Não tem nada para transferir",
             "link": "Download Manager",
             "queue": {
                 "actions": "Action",
@@ -190,13 +191,13 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
-    "favourites": "Favourites",
+    "favourites": "Favoritos",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Loja",
+        "title": "Titulo de jogo"
     },
-    "GameSettings": "Game Settings",
+    "GameSettings": "Configuração de Jogo",
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -420,8 +421,8 @@
         "adddesktopshortcuts": "Adicionar atalhos à area de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos ao menu automaticamente",
         "addgamestosteam": "Add games to Steam automatically",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-gogdl-bin": "Selecione binário alternativo GOGDL para usar (Percisa reiniciar)",
+        "alt-legendary-bin": "Selecione o binário alternativo Legendary (Percisa reiniciar)",
         "audiofix": "Consertar Audio do Jogo",
         "autodxvk": "Instalar/Atualizar DXVK automaticamente",
         "autosync": "Ativar Sincronização Automática",

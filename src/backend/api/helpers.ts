@@ -68,8 +68,8 @@ export const getInstallInfo = async (
 export const runWineCommand = async (args: WineCommandArgs) =>
   ipcRenderer.invoke('runWineCommand', args)
 
-export const runWineCommandForGame = async (command: RunWineCommandArgs) =>
-  ipcRenderer.invoke('runWineCommandForGame', command)
+export const runWineCommandForGame = async (args: RunWineCommandArgs) =>
+  ipcRenderer.invoke('runWineCommandForGame', args)
 
 export const requestAppSettings = async () =>
   ipcRenderer.invoke('requestSettings', 'default') as Promise<AppSettings>

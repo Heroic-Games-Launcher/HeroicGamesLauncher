@@ -5,7 +5,7 @@
             "path": "Wähle einen neuen Installationspfad",
             "title": "Spiele-Installationspfad ändern"
         },
-        "choose": "Auswählen",
+        "choose": "Wähle",
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
             "message": "Dies kann einige Zeit in Anspruch nehmen, möchtest du wirklich fortfahren?",
@@ -18,13 +18,13 @@
             "title": "Auf Fehler überprüfen und Reparieren"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Wähle auszuführende EXE"
         },
         "select": {
-            "button": "Select"
+            "button": "Wähle"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Wähle ausführbare Datei"
         },
         "stopInstall": {
             "keepInstalling": "Installation fortsetzen",
@@ -32,37 +32,37 @@
             "title": "Installation abbrechen"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Entferne Prefix: {{prefix}}{{newLine}}Hinweis: Dies kann nicht rückgängig gemacht werden und löscht auch ungesicherte Speicherdaten.",
             "message": "Möchtest du dieses Spiel deinstallieren?",
             "title": "Deinstallieren"
         },
         "update": {
-            "message": "Für dieses Spiel ist ein Update verfügbar, jetzt installieren?",
+            "message": "Für dieses Spiel ist ein Update verfügbar. Jetzt installieren?",
             "title": "Spiel benötigt eine neuere Version"
         },
-        "wineprefix": "Wine Prefix Ordner auswählen",
+        "wineprefix": "Wine-Prefix-Ordner auswählen",
         "yes": "JA"
     },
     "button": {
         "add_to_favourites": "Zu Favoriten hinzufügen",
         "cancel": "Pausieren/Abbrechen",
         "continue": "Download fortsetzen",
-        "finish": "Finish",
+        "finish": "Abschließen",
         "force_update": "Update erzwingen, falls verfügbar",
-        "force-innstall": "Force Install",
+        "force-innstall": "Installation erzwingen",
         "hide_game": "Spiel ausblenden",
         "import": "Spiel importieren",
         "install": "Installieren",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Kein Pfad ausgewählt",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Aus Warteschlange entfernen"
         },
         "remove_from_favourites": "Aus Favoriten entfernen",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Aus Zuletzt Gespielt entfernen",
+        "run-exe-first": "Zuerst Installationsprogramm ausführen",
+        "running-setup": "Setup ausführen",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "App/Spiel bearbeiten"
         },
         "unhide_game": "Spiel einblenden",
         "uninstall": "Deinstallieren",
@@ -77,13 +77,13 @@
     "game": {
         "downloadSize": "Downloadgröße",
         "firstPlayed": "Erstmals gespielt",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Ermittle Download-Größe",
+        "getting-install-size": "Ermittle installierte Größe",
         "installSize": "Installierte Größe",
         "language": "Sprache",
         "lastPlayed": "Zuletzt gespielt",
         "neverPlayed": "Nie",
-        "platform": "Zu installierende Plattformversion auswählen",
+        "platform": "Zu installierende Version auswählen",
         "requirements": "Systemanforderungen",
         "totalPlayed": "Spielzeit"
     },
@@ -124,16 +124,16 @@
         "options": "Startoptionen..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "Du bist mit keinem Epic-Account in Heroic angemeldet. Verwende nicht die Store-Seite zum anmelden, klicke stattdessen auf den folgenden Button:",
+        "gog": "Du bist mit keinem GOG-Account in Heroic angemeldet. Verwende nicht die Store-Seite zum anmelden, klicke stattdessen auf den folgenden Button:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "Du bist NICHT angemeldet"
     },
     "Open": "",
     "queue": {
         "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
+            "canceled": "Download abgebrochen",
+            "remove": "Aus Download-Manager entfernen"
         }
     },
     "report_problem": "Ein Problem bei der Ausführung dieses Spiels melden",
@@ -142,16 +142,16 @@
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Titel"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Wähle ausführbare Datei",
+            "image": "App-Bild",
+            "title": "Spiel/App-Titel"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Füge hier eine Bild-URL ein",
+            "title": "Gib deinem Spiel/deiner App einen Titel"
         }
     },
     "specs": {
@@ -166,10 +166,10 @@
         "moving": "Installation wird verschoben, bitte warten",
         "notinstalled": "Dieses Spiel ist nicht installiert",
         "processing": "Dateien werden verarbeitet, bitte warten",
-        "queued": "Queued",
+        "queued": "In Warteschlange",
         "reparing": "Spiel wird repariert, bitte warten",
         "totalDownloaded": "Insgesamt heruntergeladen",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Wird deinstalliert",
         "updating": "Spiel wird aktualisiert"
     },
     "submenu": {

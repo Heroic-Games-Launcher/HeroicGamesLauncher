@@ -82,7 +82,7 @@ export default function LegendarySyncSaves({
             await window.api.runWineCommandForGame({
               appName,
               runner: 'legendary',
-              command: `cmd /c winepath "${folder}"`
+              commandParts: ['cmd', '/c', 'winepath', folder]
             })
           ).stdout
         } catch (error) {

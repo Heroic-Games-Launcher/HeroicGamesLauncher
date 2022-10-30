@@ -103,21 +103,18 @@
     "deb": {
       "packageCategory": "games",
       "depends": [
-        "gawk",
         "curl"
       ]
     },
     "pacman": {
       "packageCategory": "games",
       "depends": [
-        "gawk",
         "curl"
       ]
     },
     "rpm": {
       "packageCategory": "games",
       "depends": [
-        "gawk",
         "curl"
       ]
     }

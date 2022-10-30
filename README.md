@@ -171,7 +171,7 @@ You can alternatively download the file ending in .rpm from the [latest release]
 
 #### Other Distributions (AppImage and TAR.XZ)
 
-Since these two distribution formats don't have a form of dependency management, make sure the `curl` and `gawk` commands are available. You might run into weird issues if they aren't.
+Since these two distribution formats don't have a form of dependency management, make sure the `curl` command is available. You might run into weird issues if it's not.
 
 ##### AppImage
 

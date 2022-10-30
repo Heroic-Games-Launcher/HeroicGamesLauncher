@@ -7,6 +7,7 @@
         "title": "Ułatwienia dostępu",
         "zoom": "Przybliż"
     },
+    "add_game": "Add Game",
     "All": "Wszystkie",
     "anticheat": {
         "anticheats": "Anticheaty",
@@ -56,12 +57,12 @@
             },
             "generic": {
                 "message": "",
-                "title": "Select EXE to Run"
+                "title": "Wybierz EXE do uruchomienia"
             },
-            "launchAborted": "Launch aborted",
-            "title": "Error",
+            "launchAborted": "Uruchamianie przerwane",
+            "title": "Bład",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
+                "message": "Wystąpił niezłapany wyjątek:{{newLine}}{{error}}{{newLine}}{{newLine}} Zgłoś wyjątek w naszym repozytorium Github.",
                 "title": "Wystąpił nieoczekiwany błąd!"
             },
             "update": {
@@ -69,7 +70,7 @@
                 "title": "Błąd aktualizacji"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "Nie znaleziono wybranej wersji wine. Zainstaluj lub wybierz inną wersję w ustawieniach gry{{newline}}Version: {{version}}{{newline}}Ścieżka: {{path}}",
                 "message": "Nie wybrano wersji Wine. Sprawdź ustawienia gry!",
                 "title": "Nie znaleziono Wine"
             },
@@ -106,7 +107,7 @@
             }
         },
         "runexe": {
-            "title": "Wybierz plik EXE do uruchomienia"
+            "title": "Wybierz EXE do uruchomienia"
         },
         "select": {
             "button": "Wybierz",

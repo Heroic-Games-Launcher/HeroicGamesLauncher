@@ -7,6 +7,7 @@
         "title": "Accessibility",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Alla",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -106,10 +107,10 @@
             }
         },
         "runexe": {
-            "title": "Ange EXE-fil att köra"
+            "title": "Välj EXE"
         },
         "select": {
-            "button": "Välj",
+            "button": "Ange val",
             "exe": "Ange EXE"
         },
         "shortcuts": {
@@ -566,9 +567,9 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Installerar",
         "logging": "Loggar in...",
-        "processing": "Processing files, please wait"
+        "processing": "Hanterar filer, vänligen vänta"
     },
     "store": "Epic Butik",
     "stores": "Butiker",

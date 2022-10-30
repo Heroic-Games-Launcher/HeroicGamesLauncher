@@ -24,7 +24,7 @@ export default function Sidebar() {
     })
 
     const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
-      (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => {
+      (e, elements) => {
         setCurrentDMElement(elements[0])
       }
     )

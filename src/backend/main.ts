@@ -673,14 +673,18 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
       break
     case 'winecfg':
       isSideloaded
-        ? runWineCommand({ gameSettings, command: 'winecfg', wait: false })
-        : game.runWineCommand('winecfg')
+        ? runWineCommand({
+            gameSettings,
+            commandParts: ['winecfg'],
+            wait: false
+          })
+        : game.runWineCommand(['winecfg'])
       break
     case 'runExe':
       if (exe) {
         isSideloaded
-          ? runWineCommand({ gameSettings, command: exe, wait: false })
-          : game.runWineCommand(exe)
+          ? runWineCommand({ gameSettings, commandParts: [exe], wait: false })
+          : game.runWineCommand([exe])
       }
       break
   }
@@ -1537,7 +1541,7 @@ ipcMain.handle('getFonts', async (event, reload) => {
 
 ipcMain.handle(
   'runWineCommandForGame',
-  async (event, { appName, command, runner }) => {
+  async (event, { appName, commandParts, runner }) => {
     const game = getGame(appName, runner)
     const isSideloaded = runner === 'sideload'
     const gameSettings = isSideloaded
@@ -1545,7 +1549,7 @@ ipcMain.handle(
       : await game.getSettings()
 
     if (isWindows) {
-      return execAsync(command)
+      return execAsync(commandParts.join(' '))
     }
     const { updated } = await verifyWinePrefix(gameSettings)
 
@@ -1553,7 +1557,7 @@ ipcMain.handle(
       await setup(game.appName)
     }
 
-    return game.runWineCommand(command, false, true)
+    return game.runWineCommand(commandParts, false, 'runinprefix')
   }
 )
 

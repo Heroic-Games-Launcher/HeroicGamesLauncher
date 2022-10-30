@@ -33,7 +33,16 @@
         "yes": "JA",
         "choose": "Vælg",
         "importpath": "Vælg spil mappe til import",
-        "wineprefix": "Vælg WinePrefix mappe"
+        "wineprefix": "Vælg WinePrefix mappe",
+        "select": {
+            "button": "Vælg"
+        },
+        "runexe": {
+            "title": "Vælg EXE til at køre"
+        },
+        "sideload": {
+            "exe": "Vælg Eksekverbar"
+        }
     },
     "button": {
         "cancel": "Pause/Afbryd",
@@ -46,7 +55,19 @@
         "unhide_game": "Vis spil",
         "add_to_favourites": "Tilføj til favorit",
         "remove_from_favourites": "Fjern fra favoritter",
-        "force_update": "Tving opdatering, hvis tilgængelig"
+        "force_update": "Tving opdatering, hvis tilgængelig",
+        "queue": {
+            "remove": "Fjern fra kø"
+        },
+        "remove_from_recent": "Fjern fra Seneste",
+        "finish": "Afslut",
+        "force-innstall": "Tving installation",
+        "no-path-selected": "Ingen sti valgt",
+        "run-exe-first": "Kør Installer først",
+        "running-setup": "Kører opsætning",
+        "sideload": {
+            "edit": "Rediger app/spil"
+        }
     },
     "disabled": "Slå Fra",
     "dlc": {
@@ -65,7 +86,9 @@
         "info": "Info",
         "platform": "Vælg platformsversion, der skal installeres",
         "requirements": "System Krav",
-        "tools": "Værktøjer"
+        "tools": "Værktøjer",
+        "getting-download-size": "Henter downloadstørrelse",
+        "getting-install-size": "Får installationsstørrelse"
     },
     "gamecard": {
         "moving": "Flytter",
@@ -117,7 +140,9 @@
         "reparing": "Reparerer Spillet, vent venligst",
         "totalDownloaded": "I alt downloaded",
         "updating": "Opdaterer Spil",
-        "processing": "Behandler filerne, vent venligst"
+        "processing": "Behandler filerne, vent venligst",
+        "queued": "I kø",
+        "uninstalling": "Afinstallerer"
     },
     "submenu": {
         "addShortcut": "Opret genvej",
@@ -138,5 +163,31 @@
         "error": "Ukendt fejl"
     },
     "report_problem": "Rapportér et problem med at køre dette spil",
-    "cloud_save_unsupported": "Ikke understøttet"
+    "cloud_save_unsupported": "Ikke understøttet",
+    "not_logged_in": {
+        "epic": "Du er ikke logget ind med en Epic-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:",
+        "gog": "Du er ikke logget ind med en GOG-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:",
+        "login": "Log ind",
+        "title": "Du er ikke logget ind"
+    },
+    "queue": {
+        "label": {
+            "canceled": "Download annulleret",
+            "remove": "Fjern fra download manager"
+        }
+    },
+    "sideload": {
+        "field": {
+            "title": "Titel"
+        },
+        "info": {
+            "exe": "Vælg Eksekverbar",
+            "image": "App billede",
+            "title": "Spil/App titel"
+        },
+        "placeholder": {
+            "image": "Indsæt en billed-URL her",
+            "title": "Tilføj en titel til dit spil/app"
+        }
+    }
 }

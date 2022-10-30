@@ -139,8 +139,13 @@ async function fixGogSaveFolder(
         const documentsResult = await window.api.runWineCommandForGame({
           appName,
           runner: 'gog',
-          command:
-            'reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" /v Personal'
+          commandParts: [
+            'reg',
+            'query',
+            'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders',
+            '/v',
+            'Personal'
+          ]
         })
         const documentsFolder = documentsResult.stdout
           ?.trim()
@@ -244,8 +249,13 @@ async function fixLegendarySaveFolder(
     const documentsResult = await window.api.runWineCommandForGame({
       appName,
       runner: 'legendary',
-      command:
-        'reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" /v Personal'
+      commandParts: [
+        'reg',
+        'query',
+        'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders',
+        '/v',
+        'Personal'
+      ]
     })
     const documentsFolder = documentsResult.stdout
       ?.trim()

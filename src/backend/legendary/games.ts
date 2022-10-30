@@ -11,7 +11,8 @@ import {
   ExtraInfo,
   GameInfo,
   InstallArgs,
-  InstallPlatform
+  InstallPlatform,
+  ProtonVerb
 } from 'common/types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
@@ -781,9 +782,9 @@ class LegendaryGame extends Game {
   }
 
   public async runWineCommand(
-    command: string,
+    commandParts: string[],
     wait = false,
-    forceRunInPrefixVerb = false
+    protonVerb?: ProtonVerb
   ): Promise<ExecResult> {
     if (this.isNative()) {
       logError('runWineCommand called on native game!', {
@@ -798,9 +799,9 @@ class LegendaryGame extends Game {
     return runWineCommand({
       gameSettings,
       installFolderName: folder_name,
-      command,
+      commandParts,
       wait,
-      forceRunInPrefixVerb
+      protonVerb
     })
   }
 

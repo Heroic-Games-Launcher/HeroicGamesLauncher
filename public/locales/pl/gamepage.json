@@ -18,13 +18,13 @@
             "title": "Sprawdź i napraw"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Wybierz EXE do uruchomienia"
         },
         "select": {
-            "button": "Select"
+            "button": "Wybierz"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Wybierz plik wykonywalny"
         },
         "stopInstall": {
             "keepInstalling": "Kontynuuj instalację",
@@ -47,22 +47,22 @@
         "add_to_favourites": "Dodaj do ulubionych",
         "cancel": "Wstrzymaj/Anuluj",
         "continue": "Kontynuuj pobieranie",
-        "finish": "Finish",
+        "finish": "Zakończ",
         "force_update": "Wymuś dostępne aktualizacje",
-        "force-innstall": "Force Install",
+        "force-innstall": "Wymuś instalację",
         "hide_game": "Ukryj grę",
         "import": "Importuj grę",
         "install": "Instaluj",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Nie wybrano ścieżki",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Usuń z kolejki"
         },
         "remove_from_favourites": "Usuń z ulubionych",
         "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
+        "run-exe-first": "Uruchom najpierw instalator",
         "running-setup": "Running Setup",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Edytuj Aplikację/Grę"
         },
         "unhide_game": "Odkryj Grę",
         "uninstall": "Odinstaluj",
