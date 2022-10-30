@@ -66,6 +66,9 @@ body.nord-light {
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
+  --action-icon: #748aa0;
+  --action-icon-hover: var(--accent);
+  --action-icon-active: var(--text-default);
 }
 
 body.nord-dark {
@@ -99,6 +102,9 @@ body.nord-dark {
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
+  --action-icon: var(--accent);
+  --action-icon-hover: var(--accent-overlay);
+  --action-icon-active: var(--text-default);
 }
 
 body.marine,
