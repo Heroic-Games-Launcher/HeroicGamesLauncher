@@ -1,12 +1,13 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "Rodina písem akcí (výchozí: ",
         "all_tiles_in_color": "Zobrazit všechny dlaždice her barevně",
-        "content_font_family_no_default": "Content Font Family (Default: ",
+        "content_font_family_no_default": "Rodina písem obsahu (výchozí: ",
         "fonts": "Písma",
         "title": "Přístupnost",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Vše",
     "anticheat": {
         "anticheats": "Anticheaty",
@@ -56,12 +57,12 @@
             },
             "generic": {
                 "message": "",
-                "title": "Select EXE to Run"
+                "title": "Vyberte EXE ke spuštění"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Spouštění přerušeno",
             "title": "Error",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
+                "message": "Vyskytla se neočekávaná chyba:{{newLine}}{{error}}{{newLine}}{{newLine}} Nahlaste ji prosím v našem GitHub repozitáři.",
                 "title": "Došlo k nezachycené výjimce!"
             },
             "update": {
@@ -69,13 +70,13 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "Zvolená verze Wine nebyla nalezena. Nainstalujte ji nebo vyberte jinou verzi v nastavení hry{{newline}}Verze: {{version}}{{newline}}Cesta: {{path}}",
                 "message": "Není vybrána žádná verze Wine. Zkontrolujte nastavení hry!",
                 "title": "Wine nenalezen"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetrick navrátily během provádění následující chybu:{{newLine}}{{error}}",
+                "title": "Chyba Winetricks"
             }
         },
         "info": {
@@ -173,13 +174,13 @@
     "docs": "Documentation",
     "download": {
         "manager": {
-            "empty": "Nothing to download.",
+            "empty": "Nic ke stažení.",
             "link": "Download Manager",
             "queue": {
                 "actions": "Action",
                 "element": "Name",
                 "platform": "Platform",
-                "store": "Store"
+                "store": "Obchod"
             },
             "title": "Downloads"
         }
@@ -218,8 +219,8 @@
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
-        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
-        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "custom_themes_path": "Nepoužívejte soubory CSS z nedůvěryhodných zdrojů. V případě pochybností požádejte o kontrolu v našem Discord kanálu.",
+        "custom_themes_wiki": "Zkontrolujte Wiki pro více podrobností o přidávání vlastních motivů. Klikněte sem.",
         "dxvk": "DXVK je překladová vrstva založená na Vulkanu pro hry DirectX 9, 10 a 11. Povolení může zlepšit kompatibilitu. Může ale způsobit problémy zejména u starších her s rozhraním DirectX.",
         "esync": "Cílem Esync je snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může zlepšit výkon.",
         "fsync": "Cílem Fsync je snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může zlepšit výkon na podporovaných jádrech Linuxu.",
@@ -238,9 +239,9 @@
             "part7": " pro přeskočení spouštěče u některých her, apod."
         },
         "preferSystemLibs": "Vlastní verze Wine (Wine-GE, Wine-Lutris) jsou dodávány se závislostmi knihovnami. Povolením této možnosti budou tyto dodávané knihovny ignorovány a Wine místo nich načte systémové knihovny. Pozor! Při nedodržení závislostí může dojít k problémům.",
-        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+        "primerun": "K vykreslování hry na systémech s více grafickými procesory používejte dedikovanou grafickou kartu. Potřebné pouze u herních notebooků nebo stolních počítačů, které pro vykreslování používají headless GPU (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+            "info": "Tato cesta umožní Heroic určit, jakou verzi Protonu používá služba Steam pro přidání her, které nejsou součástí služby Steam."
         },
         "steamruntime": "Vlastní knihovny poskytované službou Steam, které pomáhají spouštět hry pro Linux a Windows (Proton). Jejich povolení může zlepšit kompatibilitu.",
         "sync": {
@@ -263,7 +264,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Pokus o zjištění správné složky uložení"
         },
         "settings": "Nastavení se ukládají automaticky",
         "version": "Verze Wine"
@@ -271,13 +272,13 @@
     "infobox": {
         "help": "Pomoc",
         "requirements": "Systémové požadavky",
-        "warning": "Warning",
+        "warning": "Varování",
         "wine-path": "Cesta Wine",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "Prefix Wine"
         },
         "wine-repfix": {
-            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+            "message": "Wine používá funkci zvanou WINEPREFIX pro zapouzdření Windows aplikací. Tento prefix obsahuje konfigurační soubory Wine a reprodukci hierarchie souborů C: (hlavní disk na OS Windows). V této reprodukci disku C: jsou ukládány vaše soubory s uloženými hrami a se závislostmi nainstalovanými pomocí Winetricks."
         }
     },
     "install": {
@@ -299,10 +300,10 @@
         "website": "Načítání webu"
     },
     "login": {
-        "alternative_method": "Alternative Login Method",
-        "epic": "Epic Games Login",
-        "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "alternative_method": "Alternativní způsob přihlášení",
+        "epic": "Přihlášení s Epic Games",
+        "gog": "Přihlášení s GOG",
+        "message": "Přihlaste se pomocí své platformy. Můžete se přihlásit k více platformám najednou."
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -351,27 +352,27 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Kontrolujeme připojení s:{{newline}}github.com,{{newline}}gog.com a{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
-        "retrying": "Retrying"
+        "retry-in": "Opakování pokusu za ... {{seconds}} sekund",
+        "retrying": "Opakování pokusu"
     },
     "options": {
         "advanced": {
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "Např.: Cesta/K/ExtraSouborům",
-            "title": "Pokročilé možnosti (Proměnné prostředí):",
+            "title": "Proměnné prostředí",
             "value": "Hodnota"
         },
         "env_variables": {
             "error": {
-                "empty_key": "Variable names can't be empty",
-                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "empty_key": "Názvy proměnných nemohou být prázdné",
+                "equal_sign_in_key": "Názvy proměnných nesmí obsahovat znak „=“",
+                "space_in_key": "Názvy proměnných nesmí obsahovat mezery"
             },
-            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "example": "NEZAHRNUJTE znak „=“, např.: pro nastavení jako „MOJE_VLAJKA=123“ zadejte do pole NAME text MOJE_VLAJKA a do pole VALUE text 123.",
+            "info": "Nastavte proměnné prostředí k připojení k příkazu."
         },
         "gameargs": {
             "placeholder": "Sem vložte argumenty spouštěče",
@@ -396,7 +397,7 @@
     "placeholder": {
         "alt-gogdl-bin": "Pomocí vestavěného GOGDL...",
         "alt-legendary-bin": "Pomocí vestavěného Legendary...",
-        "custom_themes_path": "Select the path to look for custom CSS files",
+        "custom_themes_path": "Vyberte cestu k vyhledávání vlastních souborů CSS",
         "egs-prefix": "Prefix kde je nainstalován EGS",
         "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")"
     },
@@ -408,10 +409,10 @@
     "progress": "Progress",
     "queue": {
         "label": {
-            "clear": "Clear List",
-            "downloading": "Downloading",
-            "finished": "Completed",
-            "queued": "Queued"
+            "clear": "Vymazat seznam",
+            "downloading": "Stahování",
+            "finished": "Dokončeno",
+            "queued": "Ve frontě"
         }
     },
     "Recent": "Recently Played",
@@ -419,7 +420,7 @@
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
         "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
-        "addgamestosteam": "Add games to Steam automatically",
+        "addgamestosteam": "Automaticky přidávat hry do knihovny služby Steam",
         "alt-gogdl-bin": "Vyberte alternativní spustitelný soubor GOGDL, který chcete použít",
         "alt-legendary-bin": "Vyberte alternativní spustitelný soubor Legendary",
         "audiofix": "Oprava zvuku (Pulse Audio latence)",
@@ -429,7 +430,7 @@
         "change-target-exe": "Vyberte alternativní EXE ke spuštění",
         "checkForUpdatesOnStartup": "Kontrolovat aktualizace Heroic při spuštění",
         "crossover-version": "Verze Crossover",
-        "custom_themes_path": "Custom Themes Path",
+        "custom_themes_path": "Vlastní cesta k motivům",
         "customWineProton": "Vlastní cesty pro Wine/Proton",
         "darktray": "Použít tmavou ikonu v systémové oblasti",
         "default-install-path": "Výchozí cesta pro instalaci",
@@ -500,8 +501,8 @@
         "preferSystemLibs": "Preferovat systémové knihovny",
         "primerun": {
             "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
+                "message": "V tomto systému byla zjištěna pouze jedna grafická karta. Vezměte prosím na vědomí, že tato možnost je určena pro systémy s více grafickými kartami s headless GPU (např. notebooky). V systémech s jednou grafickou kartou je grafická karta použita automaticky a zapnutí této možnosti může způsobit problémy. Opravdu chcete tuto možnost povolit?",
+                "title": "Nalezeno pouze 1 GPU"
             },
             "description": "Použít dedikovanou grafickou kartu"
         },
@@ -592,7 +593,7 @@
         "show": "Zobrazit"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Změny v této tabulce se neukládají automaticky. Klikněte na tlačítko +"
     },
     "Update Available!": "",
     "userselector": {

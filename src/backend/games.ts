@@ -5,7 +5,8 @@ import {
   ExtraInfo,
   GameInfo,
   GameSettings,
-  InstallArgs
+  InstallArgs,
+  ProtonVerb
 } from 'common/types'
 
 import { BrowserWindow } from 'electron'
@@ -45,7 +46,8 @@ abstract class Game {
   abstract isNative(): boolean
   abstract runWineCommand(
     commandParts: string[],
-    wait?: boolean
+    wait?: boolean,
+    protonVerb?: ProtonVerb
   ): Promise<ExecResult>
 }
 

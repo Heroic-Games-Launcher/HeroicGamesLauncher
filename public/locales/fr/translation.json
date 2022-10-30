@@ -3,37 +3,38 @@
         "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family_no_default": "Content Font Family (Default: ",
-        "fonts": "Fonts",
+        "fonts": "Polices d'écriture",
         "title": "Accessibilité",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Tout",
     "anticheat": {
-        "anticheats": "Anticheats",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
+        "anticheats": "Anti-triche",
+        "may_not_work": "Cela pourrait ne pas fonctionner en raison de mesures anti-triche non-autorisées ou obsolètes.",
+        "reference": "Référence",
         "source": "Source",
-        "status": "Status",
-        "title": "This game includes anticheat software"
+        "status": "État",
+        "title": "Ce jeu inclut un logiciel anti-triche"
     },
     "box": {
         "cache-cleared": {
-            "message": "Le cache Heroic a été effacé !",
+            "message": "Le cache d'Heroic a été effacé.",
             "title": "Cache effacé"
         },
         "choose": "Sélectionner",
         "choose-egs-prefix": "Choisir où le préfixe EGS est installé",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Sélectionner le fichier binaire GOGDL (nécessite un redémarrage)",
         "choose-legendary-binary": "Sélectionnez le binaire Legendary",
         "customWine": "Sélectionner le binaire Wine ou Proton",
         "default-install-path": "Choisir le chemin par défaut",
-        "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "default-steam-path": "Chemin Steam.",
+        "downloadNow": "Télécharger maintenant",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "body": "Ajouter {{game}} à Steam a échoué avec :{{newLine}} {{error}}",
+                    "title": "Erreur d'ajout"
                 }
             },
             "credentials": {
@@ -45,36 +46,36 @@
             },
             "diskspace": {
                 "message": "Espace disque nécessaire insuffisant",
-                "title": "Pas de place"
+                "title": "Pas d'espace sur le disque"
             },
             "dxvk": {
                 "message": "Une erreur est survenue lors de l'installation de DXVK/VKD3D! Vérifiez votre connexion ou si vous avez bien zstd/libzstd d'installé!",
                 "title": "Erreur DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Le dossier du jeu semble avoir été supprimé. Voulez-vous supprimer ce jeu de la liste des jeux installés ?"
             },
             "generic": {
                 "message": "",
-                "title": "Select EXE to Run"
+                "title": "Selectionnez EXE pour lancer"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Lancement interrompu",
             "title": "Erreur",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Uncaught Exception occured!"
             },
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
-                "title": "Update Error"
+                "message": "Quelque chose s'est mal passé lors de la mise-à-jour, veuillez vérifier les fichiers journaux ou réessayez plus tard !",
+                "title": "Erreur de mise-à-jour"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
-                "message": "No Wine Version Selected. Check Game Settings!",
+                "invalid": "La version de Wine sélectionnée n'a pas été trouvée. Installez-le ou sélectionnez une version différente dans les paramètres du jeu{{newline}}Version: {{version}}{{newline}}Chemin: {{path}}",
+                "message": "Aucune version de Wine n'est sélectionnée. Vérifiez les paramètres de jeu !",
                 "title": "Wine non trouvé"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
+                "message": "Winetricks a renvoyé l'erreur suivante lors de son exécution :{{newLine}}{{error}}",
                 "title": "Winetricks error"
             }
         },
@@ -96,12 +97,12 @@
             }
         },
         "quit": {
-            "message": "D'autres opérations sont en cours, êtes-vous sûr(e)?",
+            "message": "D'autres opérations sont en cours, êtes-vous sûr(e) ?",
             "title": "Quitter"
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Êtes-vous certain(e) de vouloir réinitialiser Heroic ? Cette action va supprimer tous les paramètres et le cache mais ne supprimera pas vos jeux installés ou vos identifiants Epic. Les versions portables (AppImage, WinPortable...) d'Heroic devront ensuite être redémarrées manuellement.",
                 "title": "Reset Heroic"
             }
         },
@@ -114,7 +115,7 @@
         },
         "shortcuts": {
             "message": "Les raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove": "Les raccourcis ont été supprimés du Bureau et du menu Démarrer",
             "title": "Raccourcis"
         },
         "sync": {
@@ -128,22 +129,22 @@
             },
             "notfound": {
                 "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "title": "VCRuntime n'est pas installé"
             }
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "Les serveurs d'Epic sont actuellement indisponibles, le jeu ne peut pas être importé !",
+                "install": "Les serveurs d'Epic sont actuellement indisponibles, le jeu ne peut pas être installé !",
+                "update": "Les serveurs d'Epic sont actuellement indisponibles, le jeu ne peut pas être mis à jour !"
             },
-            "title": "Warning"
+            "title": "Attention"
         },
         "wineprefix": "Choisir le dossier de préfixe Wine",
         "yes": "OUI"
     },
     "button": {
-        "go_to_library": "Go to Library",
+        "go_to_library": "Aller vers la Bibliothèque",
         "login": "Connexion",
         "sync": "Synchroniser",
         "syncing": "Synchronisation en cours",
@@ -151,35 +152,35 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
-            "back": "Back",
+            "activate": "Activer",
+            "back": "Retour",
             "backspace": "Backspace",
             "close_context_menu": "Close context menu",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
+            "close_dialog": "Fermer la fenêtre",
+            "close_keyboard": "Faire disparaître le clavier",
             "context_menu": "Context menu",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
+            "game_details": "Caractéristiques du jeu",
+            "game_settings": "Paramètres du jeu",
+            "install_game": "Installer le jeu",
+            "move_cursor": "Déplacer le curseur",
             "none": "None",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "play_game": "Play game",
+            "open_virtual_keyboard": "Afficher le clavier virtuel",
+            "play_game": "Lancer le jeu",
             "scroll": "Scroll",
-            "space": "Space",
-            "update_game": "Update game"
+            "space": "Espace",
+            "update_game": "Mettre à jour le jeu"
         }
     },
     "docs": "Documentation",
     "download": {
         "manager": {
-            "empty": "Nothing to download.",
+            "empty": "Rien à télécharger.",
             "link": "Download Manager",
             "queue": {
                 "actions": "Action",
                 "element": "Name",
                 "platform": "Platform",
-                "store": "Store"
+                "store": "Boutique"
             },
             "title": "Downloads"
         }
@@ -190,30 +191,30 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
-    "favourites": "Favourites",
+    "favourites": "Favoris",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Boutique",
+        "title": "Titre du jeu"
     },
-    "GameSettings": "Game Settings",
+    "GameSettings": "Paramètres du jeu",
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Aucun jeu trouvé - Essayez de vous déconnecter et de vous reconnecter ou l'une des options ci-dessous"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Rafraîchir la Bibliothèque"
         }
     },
     "globalSettings": "Paramètres généraux",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "Boutique GOG",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "ignore_hidden": "Ignorer les jeux cachés",
         "platform": "Plateforme",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Show Hidden",
+        "show_all_games": "Afficher tous les jeux",
+        "show_favourites_only": "N'afficher que les favoris",
+        "show_hidden": "Afficher les jeux cachés",
         "store": "Filter Store"
     },
     "help": {
@@ -318,12 +319,12 @@
                 "steam": {
                     "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Added to Steam"
+                    "title": "Ajouté à Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "{{game}} n'a pas pu être retiré de tous les utilisateurs de Steam trouvés. Consultez les fichiers journaux pour plus d'informations. Steam doit être redémarré pour que les changements soient pris en compte.",
                     "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Removed from Steam"
                 }
@@ -437,28 +438,28 @@
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Activer Rich Presence dans Discord",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "download-no-https": "Télécharger les jeux sans utiliser HTTPS (utile pour CDNs e.g. LanCache)",
         "egs-sync": "Synchroniser avec l'installation d'Epic Games",
         "enableFSRHack": "Activer FSR Hack (la version de wine doit le prendre en charge)",
         "eosOverlay": {
-            "cancelInstall": "Cancel",
-            "checkForUpdates": "Check for updates",
-            "checkingForUpdates": "Checking for updates...",
-            "currentVersion": "Current Version: {{version}}",
-            "disable": "Disable",
-            "enable": "Enable",
-            "install": "Install",
-            "installed": "The EOS Overlay is installed",
-            "installing": "The EOS Overlay is being installed...",
-            "latestVersion": "Latest Version: {{version}}",
-            "notInstalled": "The EOS Overlay is not installed",
-            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
-            "notInstalledTitle": "Overlay not installed",
-            "remove": "Uninstall",
-            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
-            "removeConfirmTitle": "Confirm overlay removal",
-            "updateNow": "Update",
-            "updating": "Updating..."
+            "cancelInstall": "Annuler",
+            "checkForUpdates": "Vérifier l'existence de mises à jour",
+            "checkingForUpdates": "Vérification de l'existence de mise à jour....",
+            "currentVersion": "Version actuelle : {{version}}",
+            "disable": "Désactiver",
+            "enable": "Activer",
+            "install": "Installer",
+            "installed": "L'overlay EOS est installé",
+            "installing": "L'overlay EOS est en cours d'installation...",
+            "latestVersion": "Dernière version : {{version}}",
+            "notInstalled": "L'overlay EOS n'est pas installé",
+            "notInstalledMsg": "L'overlay EOS n'est pas installé. Voudriez-vous l'installer maintenant ?",
+            "notInstalledTitle": "Overlay non installé",
+            "remove": "Désinstaller",
+            "removeConfirm": "Êtes-vous certain(e) de vouloir désinstaller l'overlay EOS ?",
+            "removeConfirmTitle": "Veuillez confirmer la suppression de l'overlay",
+            "updateNow": "Mettre à jour",
+            "updating": "Mise à jour en cours..."
         },
         "esync": "Activer Esync",
         "exit-to-tray": "Quitter vers System Tray",
@@ -467,12 +468,12 @@
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
         "language": "Choix de la langue",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "disabled": "Désactivé",
+            "favourites": "Jeux préférés",
+            "recently_played": "Jeux lancés récemment",
+            "recently_played_installed": "Jeux lancés récemment (Seulement ceux qui sont installés)"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "Section en haut de la Bibliothèque",
         "log": {
             "copy-to-clipboard": "Copier le contenu du log au presse-papier",
             "current-log": "Log actuel",
@@ -492,7 +493,7 @@
             "title": "Synchronisation manuelle des sauvegardes",
             "upload": "Téléverser"
         },
-        "maxRecentGames": "Jeux joué récemment à afficher",
+        "maxRecentGames": "Nombre de jeux lancés récemment à afficher",
         "maxworkers": "Nombre Maximum de Workers pendant le téléchargement",
         "minimize-on-launch": "Minimiser Heroic après le lancement du jeu",
         "offlinemode": "Lancer le jeu hors ligne",
@@ -616,9 +617,9 @@
             "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
             "title": "Wine Manager",
-            "unzipping": "Unzipping"
+            "unzipping": "Décompression"
         },
-        "release": "Release Date",
-        "size": "Size"
+        "release": "Date de sortie",
+        "size": "Taille"
     }
 }

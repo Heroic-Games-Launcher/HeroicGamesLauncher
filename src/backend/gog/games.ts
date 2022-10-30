@@ -819,7 +819,7 @@ class GOGGame extends Game {
   public async runWineCommand(
     commandParts: string[],
     wait = false,
-    protonVerb: ProtonVerb = 'run'
+    protonVerb?: ProtonVerb
   ): Promise<ExecResult> {
     if (this.isNative()) {
       logError('runWineCommand called on native game!', {

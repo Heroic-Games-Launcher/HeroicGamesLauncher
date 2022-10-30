@@ -1574,7 +1574,14 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
 
 ipcMain.handle(
   'runWineCommandForGame',
-  async (event, { appName, command, runner }) => {
+  async (
+    event,
+    {
+      appName,
+      commandParts,
+      runner
+    }: { appName: string; runner: Runner; commandParts: string[] }
+  ) => {
     const game = getGame(appName, runner)
     const isSideloaded = runner === 'sideload'
     const gameSettings = isSideloaded
@@ -1582,7 +1589,7 @@ ipcMain.handle(
       : await game.getSettings()
 
     if (isWindows) {
-      return execAsync(command)
+      return execAsync(commandParts.join(' '))
     }
     const { updated } = await verifyWinePrefix(gameSettings)
 
@@ -1591,7 +1598,7 @@ ipcMain.handle(
     }
 
     // FIXME: Why are we using `runinprefix` here?
-    return game.runWineCommand(command, false, 'runinprefix')
+    return game.runWineCommand(commandParts, false, 'runinprefix')
   }
 )
 
