@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Ceci va changer l'emplacement d'installation de ce jeu, êtes-vous sûr(e) de vouloir continuer ?",
+            "message": "Cette action va changer l'emplacement d'installation de ce jeu, êtes-vous sûr(e) de vouloir continuer ?",
             "path": "Choisissez un nouveau chemin d'installation",
             "title": "Changer le chemin d'installation du jeu"
         },
@@ -33,7 +33,7 @@
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "Voulez-vous désinstaller ce jeu\u202f?",
+            "message": "Voulez-vous désinstaller ce jeu ?",
             "title": "Désinstaller"
         },
         "update": {
