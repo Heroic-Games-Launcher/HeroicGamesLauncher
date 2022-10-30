@@ -7,6 +7,7 @@
         "title": "Accessibility",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Усе",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -598,9 +599,9 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Logout",
+        "logout_confirmation": "Вы ўпэўнены, што хочаце выйсці?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit",
-        "logout_confirmation": "Вы ўпэўнены, што хочаце выйсці?"
+        "quit": "Quit"
     },
     "webview": {
         "controls": {
