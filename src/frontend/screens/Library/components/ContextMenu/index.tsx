@@ -26,7 +26,7 @@ export default function ContextMenu({ children, items }: Props) {
       contextMenu === null
         ? {
             mouseX: event.clientX - 2,
-            mouseY: event.clientY - 4
+            mouseY: event.clientY - 2
           }
         : null
     )
