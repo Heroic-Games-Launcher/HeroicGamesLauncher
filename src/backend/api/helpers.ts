@@ -43,15 +43,14 @@ export const getInstallInfo = async (
   runner: Runner,
   installPlatform?: InstallPlatform | string
 ) => ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
-interface runWineCommand {
-  appName: string
-  runner: string
-  command: string
-}
+
 export const runWineCommand = async (args: WineCommandArgs) =>
   ipcRenderer.invoke('runWineCommand', args)
-export const runWineCommandForGame = async (command: runWineCommand) =>
-  ipcRenderer.invoke('runWineCommandForGame', command)
+export const runWineCommandForGame = async (args: {
+  appName: string
+  runner: Runner
+  commandParts: string[]
+}) => ipcRenderer.invoke('runWineCommandForGame', args)
 export const requestSettings = async (appName: string) =>
   ipcRenderer.invoke('requestSettings', appName)
 

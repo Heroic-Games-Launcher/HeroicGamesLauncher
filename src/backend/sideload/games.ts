@@ -187,10 +187,9 @@ export async function launchApp(appName: string): Promise<boolean> {
     })
 
     await runWineCommand({
-      command: executable,
+      commandParts: [executable],
       gameSettings,
       wait: false,
-      forceRunInPrefixVerb: false,
       startFolder: folder_name,
       options: {
         wrappers,
