@@ -52,6 +52,7 @@ export default function ControllerHints() {
     } else if (target.closest('.MuiMenu-list')) {
       // focusing a context menu on a card
       main = t('controller.hints.select', 'Select')
+      back = t('controller.hints.back', 'Back')
       alt = t('controller.hints.close_options', 'Close Options')
     } else if (classes.contains('hg-button')) {
       // focusing a virtual keyboard element

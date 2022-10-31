@@ -138,6 +138,8 @@ export const initGamepad = () => {
             return
           } else if (insideInstallDialog()) {
             closeInstallDialog()
+          } else if (isContextMenu()) {
+            action = 'rightClick'
           }
           break
         case 'altAction':
@@ -195,6 +197,16 @@ export const initGamepad = () => {
     if (!parent) return false
 
     return parent.classList.contains('gameCard')
+  }
+
+  function isContextMenu() {
+    const el = currentElement()
+    if (!el) return false
+
+    const parent = el.parentElement
+    if (!parent) return false
+
+    return parent.classList.contains('MuiMenu-list')
   }
 
   function insideInstallDialog() {
