@@ -440,6 +440,7 @@ export default function GamePage(): JSX.Element | null {
                     disabled={
                       isReparing || isMoving || isUpdating || isUninstalling
                     }
+                    autoFocus={true}
                     onClick={handlePlay()}
                     className={`button ${getPlayBtnClass()}`}
                   >
@@ -470,6 +471,7 @@ export default function GamePage(): JSX.Element | null {
                       isMoving ||
                       isUninstalling
                     }
+                    autoFocus={true}
                     className={`button ${getButtonClass(is_installed)}`}
                   >
                     {`${getButtonLabel(is_installed)}`}
