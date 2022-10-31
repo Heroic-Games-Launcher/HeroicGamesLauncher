@@ -31,11 +31,14 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
   }
 
   if (command === 'launch') {
-    const game =
-      getGame(arg, 'legendary').getGameInfo() ||
-      getGame(arg, 'gog').getGameInfo()
+    let game = getGame(arg, 'legendary').getGameInfo()
 
-    if (!game) {
+    // getGameInfo returns {} so we need to check for underlying value
+    if (!game?.app_name) {
+      game = getGame(arg, 'gog').getGameInfo()
+    }
+
+    if (!game?.app_name) {
       return logError(`Could not receive game data for ${arg}!`, {
         prefix: LogPrefix.ProtocolHandler
       })
