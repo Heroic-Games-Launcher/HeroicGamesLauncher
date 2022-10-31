@@ -27,10 +27,11 @@ export default function ControllerHints() {
     let back = ''
 
     const card = target.closest('.gameCard')
+    const list = target.closest('.gameListItem')
     const installDialog = target.closest('.InstallModal__dialog')
 
     if (card) {
-      // focusing a card or an icon inside card
+      // focusing a card or an icon inside a card
       alt = t('controller.hints.context_menu', 'Context menu')
       if (classes.contains('updateIcon')) {
         main = t('controller.hints.update_game', 'Update game')
@@ -47,6 +48,22 @@ export default function ControllerHints() {
         alt2 = t('controller.hints.game_details', 'Game details')
         main = t('controller.hints.install_game', 'Install game')
       }
+    } else if (list) {
+      // focusing a list item or an icon inside a list item
+      alt = t('controller.hints.context_menu', 'Context menu')
+      if (classes.contains('updateIcon')) {
+        main = t('controller.hints.update_game', 'Update game')
+      } else if (classes.contains('settingsIcon')) {
+        main = t('controller.hints.game_settings', 'Game settings')
+      } else if (classes.contains('playIcon')) {
+        main = t('controller.hints.play_game', 'Play game')
+      } else if (classes.contains('downIcon')) {
+        main = t('controller.hints.install_game', 'Install game')
+      } else if (list.classList.contains('installed')) {
+        main = t('controller.hints.play_game', 'Play game')
+      } else {
+        main = t('controller.hints.game_details', 'Game details')
+      }
     } else if (target.id === 'search') {
       // focusing the search bar
       main = t(
@@ -54,7 +71,7 @@ export default function ControllerHints() {
         'Open virtual keyboard'
       )
     } else if (target.closest('.MuiMenu-list')) {
-      // focusing a context menu on a card
+      // focusing a context menu on a card or list item
       main = t('controller.hints.activate', 'Activate')
       alt = t('controller.hints.close_context_menu', 'Close context menu')
     } else if (classes.contains('hg-button')) {
