@@ -27,10 +27,11 @@ export default function ControllerHints() {
     let back = ''
 
     const card = target.closest('.gameCard')
+    const list = target.closest('.gameListItem')
     const installDialog = target.closest('.InstallModal__dialog')
 
-    if (card) {
-      // focusing a card or an icon inside card
+    if (card || list) {
+      // focusing a card/list item or an icon inside a card/list item
       alt = t('controller.hints.options', 'Options')
       if (classes.contains('updateIcon')) {
         main = t('controller.hints.update_game', 'Update game')
@@ -50,10 +51,10 @@ export default function ControllerHints() {
         'Open virtual keyboard'
       )
     } else if (target.closest('.MuiMenu-list')) {
-      // focusing a context menu on a card
+      // focusing a context menu on a card or list item
       main = t('controller.hints.select', 'Select')
       back = t('controller.hints.back', 'Back')
-      alt = t('controller.hints.close_options', 'Close Options')
+      alt = t('controller.hints.close_options', 'Close options')
     } else if (classes.contains('hg-button')) {
       // focusing a virtual keyboard element
       main = t('controller.hints.select', 'Select')
