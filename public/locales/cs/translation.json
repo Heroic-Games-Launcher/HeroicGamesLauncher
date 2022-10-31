@@ -152,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Aktivovat",
             "back": "Zpět",
             "backspace": "Backspace",
-            "close_context_menu": "Zavřít kontextovou nabídku",
             "close_dialog": "Zavřít dialogové okno",
             "close_keyboard": "Zavřít klávesnici",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "Podrobnosti o hře",
             "game_settings": "Nastavení hry",
             "install_game": "Instalovat hru",
             "move_cursor": "Přesunout kurzor",
-            "none": "None",
             "open_virtual_keyboard": "Otevřít virtuální klávesnici",
+            "options": "Options",
             "play_game": "Hrát hru",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Místo",
             "update_game": "Aktualizovat hru"
         }

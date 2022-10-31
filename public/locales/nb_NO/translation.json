@@ -152,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Aktiver",
             "back": "Tilbake",
             "backspace": "Tilbake",
-            "close_context_menu": "Lukk kontekstmenyen",
             "close_dialog": "Lukk dialog",
             "close_keyboard": "Lukk tastaturet",
-            "context_menu": "Kontekstmenyen",
+            "close_options": "Close Options",
             "game_details": "Spilldetaljer",
             "game_settings": "Spillinnstillinger",
             "install_game": "Installer spillet",
             "move_cursor": "Flytt markøren",
-            "none": "Ingen",
             "open_virtual_keyboard": "Åpne virtuelt tastatur",
+            "options": "Options",
             "play_game": "Spill",
             "scroll": "Rull",
+            "select": "Select",
             "space": "Rom",
             "update_game": "Oppdater spillet"
         }

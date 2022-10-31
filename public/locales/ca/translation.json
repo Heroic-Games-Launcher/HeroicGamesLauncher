@@ -152,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activa",
             "back": "Enrere",
             "backspace": "Backspace",
-            "close_context_menu": "Tanca el menú contextual",
             "close_dialog": "Tanca el diàleg",
             "close_keyboard": "Tanca el teclat virtual",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "Detalls del joc",
             "game_settings": "Configuració del joc",
             "install_game": "Instal·la el joc",
             "move_cursor": "Mou el cursor",
-            "none": "None",
             "open_virtual_keyboard": "Obre el teclat virtual",
+            "options": "Options",
             "play_game": "Juga al joc",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Espai",
             "update_game": "Actualitza el joc"
         }

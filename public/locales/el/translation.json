@@ -152,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Ενεργοποίηση",
             "back": "Πίσω",
             "backspace": "Backspace",
-            "close_context_menu": "Κλείστε το σχετικό μενού",
             "close_dialog": "Κλείσιμο παραθύρου διαλόγου",
             "close_keyboard": "Κλείσιμο πληκτρολογίου",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "Πληροφορίες παιχνιδιού",
             "game_settings": "Ρυθμίσεις παιχνιδιού",
             "install_game": "Εγκατάσταση παιχνιδιού",
             "move_cursor": "Μετακίνηση του δείκτη ποντικιού",
-            "none": "None",
             "open_virtual_keyboard": "Άνοιγκα ψηφιακού πληκτρολογίου",
+            "options": "Options",
             "play_game": "Παίξτε",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Space",
             "update_game": "Ενημέρωση παιχνιδιού"
         }

@@ -152,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Aktibatu",
             "back": "Itzuli",
             "backspace": "Atzera atzera",
-            "close_context_menu": "Itxi laster-menua",
             "close_dialog": "Itxi elkarrizketa-koadroa",
             "close_keyboard": "Itxi teklatua",
-            "context_menu": "Testuinguruko menua",
+            "close_options": "Close Options",
             "game_details": "Jokoaren xehetasunak",
             "game_settings": "Jokoaren ezarpenak",
             "install_game": "Instalatu jokoa",
             "move_cursor": "Mugitu kurtsorea",
-            "none": "Bat ere ez",
             "open_virtual_keyboard": "Ireki teklatu birtuala",
+            "options": "Options",
             "play_game": "Jolastu",
             "scroll": "Korritu",
+            "select": "Select",
             "space": "Espazioa",
             "update_game": "Eguneratu jokoa"
         }
