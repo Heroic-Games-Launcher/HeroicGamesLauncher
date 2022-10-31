@@ -114,13 +114,8 @@ export const initGamepad = () => {
             // some tags require a simulated click, some require a javascript click() call
             // if the current element requires a simulated click, change the action to `leftClick`
             action = 'leftClick'
-          } else if (playable()) {
-            // if the current element is a card of a game and it's installed, play it
-            playGame()
-            return
           } else if (isGameCard()) {
-            installGame()
-            return
+            action === 'mainAction'
           } else if (VirtualKeyboardController.isButtonFocused()) {
             // simulate a left click on a virtual keyboard button
             action = 'leftClick'
@@ -146,10 +141,7 @@ export const initGamepad = () => {
           }
           break
         case 'altAction':
-          if (isGameCard()) {
-            // when pressing Y on a game card, open the game details
-            action = 'mainAction'
-          } else if (VirtualKeyboardController.isActive()) {
+          if (VirtualKeyboardController.isActive()) {
             VirtualKeyboardController.space()
             return
           }
@@ -203,46 +195,6 @@ export const initGamepad = () => {
     if (!parent) return false
 
     return parent.classList.contains('gameCard')
-  }
-
-  function playable() {
-    const el = currentElement()
-    if (!el) return false
-
-    const parent = el.parentElement
-    if (!parent) return false
-
-    const classes = parent.classList
-    const isGameCard =
-      classes.contains('gameCard') || classes.contains('gameListItem')
-    const isInstalled = classes.contains('installed')
-    return isGameCard && isInstalled
-  }
-
-  function playGame() {
-    const el = currentElement()
-    if (!el) return false
-
-    const parent = el.parentElement
-    if (!parent) return false
-
-    const playButton = parent.querySelector('.playIcon') as HTMLButtonElement
-    if (playButton) playButton.click()
-
-    return true
-  }
-
-  function installGame() {
-    const el = currentElement()
-    if (!el) return false
-
-    const parent = el.parentElement
-    if (!parent) return false
-
-    const installButton = parent.querySelector('.downIcon') as HTMLButtonElement
-    if (installButton) installButton.click()
-
-    return true
   }
 
   function insideInstallDialog() {
