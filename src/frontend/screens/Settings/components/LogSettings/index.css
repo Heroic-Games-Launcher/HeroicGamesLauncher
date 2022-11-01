@@ -50,7 +50,7 @@
 }
 
 .log-warning {
-  color: #f5cf69;
+  color: var(--text-log);
 }
 
 .log-info {
@@ -59,7 +59,7 @@
 
 .long-log-hint {
   font-style: italic;
-  color: #f5cf69;
+  color: var(--text-log);
 }
 
 .icon {
