@@ -308,6 +308,8 @@ const GameCard = ({
     grid ? 'gameCard' : 'gameListItem'
   }  ${instClass} ${hiddenClass}`
 
+  const { activeController } = useContext(ContextProvider)
+
   return (
     <div>
       {showUninstallModal && (
@@ -364,7 +366,7 @@ const GameCard = ({
               {getStoreName(runner, t2('Other'))}
             </span>
           </Link>
-          {
+          {!activeController && (
             <>
               <span className="icons">
                 {hasUpdate && !isUpdating && (
@@ -400,7 +402,7 @@ const GameCard = ({
                 {renderIcon()}
               </span>
             </>
-          }
+          )}
         </div>
       </ContextMenu>
     </div>
