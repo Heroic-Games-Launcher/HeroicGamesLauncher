@@ -1,9 +1,8 @@
 import { BrowserWindow, dialog } from 'electron'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
-import { getGame } from './utils'
+import { getInfo } from './utils'
 import { Runner } from 'common/types'
-import { getAppInfo } from './sideload/games'
 
 export async function handleProtocol(window: BrowserWindow, args: string[]) {
   // Figure out which argv element is our protocol
@@ -36,15 +35,11 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
     const runners: Runner[] = ['legendary', 'gog', 'sideload']
 
     const game = runners
-      .map((runner) =>
-        runner === 'sideload'
-          ? getAppInfo(arg)
-          : getGame(arg, runner).getGameInfo()
-      )
+      .map((runner) => getInfo(arg, runner))
       .filter(({ app_name }) => app_name)
       .shift()
 
-    if (!game?.app_name) {
+    if (!game) {
       return logError(`Could not receive game data for ${arg}!`, {
         prefix: LogPrefix.ProtocolHandler
       })
