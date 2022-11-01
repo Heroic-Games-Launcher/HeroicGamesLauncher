@@ -828,34 +828,20 @@ async function getWinePath({
   gameSettings: GameSettings
   variant?: 'win' | 'unix'
 }): Promise<string> {
-  // `winepath` by itself doesn't expand environment variables, so we run `cmd` first to do that
-  // Note that we can't just run `wine cmd /c winepath ${path}`, since Proton's Winepath does not
-  // return anything (you have to use their special verb for it to work)
-  // TODO: Built a .reg file parser like the one in Legendary, to not run Wine itself
-  const { stdout: pathWithoutVariables } = await runWineCommand({
-    gameSettings,
-    wait: false,
-    commandParts: ['cmd', '/c', 'echo', path]
-  })
-  path = pathWithoutVariables
-  const { wineVersion } = gameSettings
-  if (wineVersion.type !== 'proton') {
-    const { stdout } = await runWineCommand({
-      gameSettings,
-      commandParts: ['winepath', variant === 'unix' ? '-u' : '-w', path],
-      wait: false
-    })
-    return stdout.trim()
-  }
-
-  // Proton has a special verb for getting Unix paths, and another one for Windows ones
-  // https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1526-L1533
-  const verb = variant === 'unix' ? 'getnativepath' : 'getcompatpath'
+  // TODO: Proton has a special verb for getting Unix paths, and another one for Windows ones. Use those instead
+  //       Note that this would involve running `proton runinprefix cmd /c echo path` first to expand env vars
+  //       https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1526-L1533
   const { stdout } = await runWineCommand({
     gameSettings,
-    commandParts: [path],
+    commandParts: [
+      'cmd',
+      '/c',
+      'winepath',
+      variant === 'unix' ? '-u' : '-w',
+      path
+    ],
     wait: false,
-    protonVerb: verb
+    protonVerb: 'runinprefix'
   })
   return stdout.trim()
 }
