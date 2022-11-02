@@ -114,7 +114,6 @@ interface AsyncIPCFunctions {
     runner: Runner
   ) => Promise<GameSettings | null>
   getGOGLinuxInstallersLangs: (appName: string) => Promise<string[]>
-  getGOGGameClientId: (appName: string) => string | undefined
   getInstallInfo: (
     appName: string,
     runner: Runner,

@@ -793,11 +793,6 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) =>
 )
 
 ipcMain.handle(
-  'getGOGGameClientId',
-  (event, appName) => GOGLibrary.get().readInfoFile(appName)?.clientId
-)
-
-ipcMain.handle(
   'getInstallInfo',
   async (event, appName, runner, installPlatform) => {
     try {

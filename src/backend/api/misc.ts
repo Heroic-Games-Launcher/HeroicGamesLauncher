@@ -63,8 +63,6 @@ export const getGOGLinuxInstallersLangs = async (appName: string) =>
   ipcRenderer.invoke('getGOGLinuxInstallersLangs', appName)
 export const getAlternativeWine = async () =>
   ipcRenderer.invoke('getAlternativeWine')
-export const getGOGGameClientId = async (appName: string) =>
-  ipcRenderer.invoke('getGOGGameClientId', appName)
 export const getShellPath = async (saveLocation: string) =>
   ipcRenderer.invoke('getShellPath', saveLocation)
 export const callTool = async (toolArgs: Tools) =>
