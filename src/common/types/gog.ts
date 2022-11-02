@@ -74,7 +74,7 @@ interface URLTask extends TaskBase {
   link: string
 }
 
-type TaskCategory = 'game' | 'tool' | 'document' | 'launcher'
+type TaskCategory = 'game' | 'tool' | 'document' | 'launcher' | 'other'
 
 export interface GOGGameDotIdFile {
   buildId: string
