@@ -1,13 +1,13 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "Família de fonts per a accions (per defecte: ",
         "all_tiles_in_color": "Mostra tots els títols dels jocs en color",
-        "content_font_family_no_default": "Content Font Family (Default: ",
+        "content_font_family_no_default": "Família de fonts per a continguts (per defecte: ",
         "fonts": "Fonts",
         "title": "Accessibilitat",
         "zoom": "Zoom"
     },
-    "add_game": "Add Game",
+    "add_game": "Afegeix el joc",
     "All": "Tot",
     "anticheat": {
         "anticheats": "Antitrampes",
@@ -57,12 +57,12 @@
             },
             "generic": {
                 "message": "",
-                "title": "Select EXE to Run"
+                "title": "Trieu un EXE per a executar"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "El llançament ha fallat",
             "title": "Error",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
+                "message": "S'ha produït una excepció imprevista:{{newLine}}{{error}}{{newLine}}{{newLine}} Informeu de l'excepció al nostre dipòsit de GitHub.",
                 "title": "S'ha produït una excepció no detectada!"
             },
             "update": {
@@ -70,7 +70,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "No s'ha trobat la versió del Wine triada. Instal·leu-la o trieu-ne una altra versió a la configuració del joc.{{newline}}Versió: {{version}}{{newline}}Camí: {{path}}",
                 "message": "No s'ha seleccionat cap versió del Wine. Comprova la configuració del joc.",
                 "title": "No s'ha trobat el Wine"
             },
@@ -107,10 +107,10 @@
             }
         },
         "runexe": {
-            "title": "Selecciona un EXE a iniciar"
+            "title": "Trieu un EXE per a executar"
         },
         "select": {
-            "button": "Selecciona",
+            "button": "Tria",
             "exe": "Selecciona l'EXE"
         },
         "shortcuts": {
@@ -174,13 +174,13 @@
     "docs": "Documentation",
     "download": {
         "manager": {
-            "empty": "Nothing to download.",
+            "empty": "No hi ha res per a descarregar.",
             "link": "Download Manager",
             "queue": {
                 "actions": "Action",
                 "element": "Name",
                 "platform": "Platform",
-                "store": "Store"
+                "store": "Botiga"
             },
             "title": "Downloads"
         }
@@ -219,8 +219,8 @@
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'habilita, pot millorar el rendiment.",
-        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
-        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "custom_themes_path": "No feu servir fitxers CSS de fonts poc fiables. Si teniu algun dubte, demaneu en el nostre canal de Discord que el revisin.",
+        "custom_themes_wiki": "Llegiu la Wiki per a més detalls sobre com afegir temes personalitzats. Feu clic aquí.",
         "dxvk": "DXVK és una capa de traducció basada en Vulkan per a jocs que emprin DirectX 9, 10 i 11. Si s'habilita, pot millorar la compatibilitat. Pot causar problemes, especialment per als jocs que emprin versions del DirectX més antigues.",
         "esync": "Esync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, el rendiment pot millorar.",
         "fsync": "Fsync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, el rendiment pot millorar en versions de Linux compatibles.",
@@ -239,9 +239,9 @@
             "part7": " per a ometre el llançador a alguns jocs, etc."
         },
         "preferSystemLibs": "Les versions personalitzades del Wine (Wine-GE, Wine-Lutris) s'envien amb les seves dependències de biblioteques. Quan s'activa aquesta opció, s'ignoraran les biblioteques enviades i Wine carregarà les biblioteques del sistema. Avís! Es poden produir problemes si no es compleixen les dependències.",
-        "primerun": "Fes servir la targeta de gràfics dedicada per renderitzar el joc en sistemes de diverses GPU. Només cal en portàtils o ordinadors de sobretaula que tenen una GPU headless per renderitzar, com ara NVIDIA Optimus o AMD Crossfire.",
+        "primerun": "Fes servir la targeta de gràfics dedicada per a renderitzar el joc en sistemes de diverses GPU. Només cal en portàtils o ordinadors de sobretaula que tenen una GPU headless per a renderitzar, com ara NVIDIA Optimus o AMD Crossfire.",
         "steam_path": {
-            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+            "info": "El camí permet que el Heroic determini quina versió de Proton fa servir l'Steam, per a afegir jocs que no són de Steam a l'Steam."
         },
         "steamruntime": "Biblioteques personalitzades que proporciona l'Steam per executar jocs en Linux i en Windows (Proton). Si s'activa, pot millorar la compatibilitat.",
         "sync": {
@@ -264,7 +264,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Es busca la carpeta de desades correcta"
         },
         "settings": "La configuració es desa automàticament",
         "version": "Versió del Wine"
@@ -272,7 +272,7 @@
     "infobox": {
         "help": "Ajuda",
         "requirements": "Requisits del sistema",
-        "warning": "Warning",
+        "warning": "Avís",
         "wine-path": "Camí del Wine",
         "wine-prefix": {
             "title": "Prefix del Wine"
@@ -300,10 +300,10 @@
         "website": "S'està carregant el lloc web"
     },
     "login": {
-        "alternative_method": "Alternative Login Method",
-        "epic": "Epic Games Login",
-        "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "alternative_method": "Mètode d'inici de sessió alternatiu",
+        "epic": "Inici de sessió a l'Epic Games",
+        "gog": "Inici de sessió al GOG",
+        "message": "Inicieu sessió a la vostra plataforma. Si feu servir més d'una plataforma, podeu iniciar sessió en cadascuna d'elles al mateix temps."
     },
     "message": {
         "sync": "S'ha completat la sincronització",
@@ -352,10 +352,10 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Es comprova la connectivitat a:{{newline}}github.com,{{newline}}gog.com i{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
-        "retrying": "Retrying"
+        "retry-in": "Es tornarà a intentar d'aquí {{seconds}} segons.",
+        "retrying": "Es torna a provar"
     },
     "options": {
         "advanced": {
@@ -397,7 +397,7 @@
     "placeholder": {
         "alt-gogdl-bin": "S'està usant un binari del GOGDL integrat.",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
-        "custom_themes_path": "Select the path to look for custom CSS files",
+        "custom_themes_path": "Trieu el camí per a buscar fitxers CSS personalitzats",
         "egs-prefix": "Prefix on l'EGS està instal·lat",
         "prefered_language": "Codi de dos caràcters, com ara «en», «fr» o «ca»"
     },
@@ -409,10 +409,10 @@
     "progress": "Progress",
     "queue": {
         "label": {
-            "clear": "Clear List",
-            "downloading": "Downloading",
-            "finished": "Completed",
-            "queued": "Queued"
+            "clear": "Esborra la llista",
+            "downloading": "Es descarrega",
+            "finished": "Completat",
+            "queued": "A la cua"
         }
     },
     "Recent": "Jugats fa poc",
@@ -420,7 +420,7 @@
     "setting": {
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
-        "addgamestosteam": "Add games to Steam automatically",
+        "addgamestosteam": "Afegeix els jocs a l'Steam de manera automàtica",
         "alt-gogdl-bin": "Tria un fitxer binari alternatiu del GOGDL",
         "alt-legendary-bin": "Tria un binari alternatiu del Legendary",
         "audiofix": "Corregeix l'àudio (latència del Pulse Audio)",
@@ -430,7 +430,7 @@
         "change-target-exe": "Selecciona un EXE alternatiu a executar",
         "checkForUpdatesOnStartup": "Comprova si hi ha actualitzacions del Heroic a l'inici",
         "crossover-version": "Versió híbrida (crossover)",
-        "custom_themes_path": "Custom Themes Path",
+        "custom_themes_path": "Camí dels temes personalitzats",
         "customWineProton": "Rutes del Wine o Proton personalitzades",
         "darktray": "Utilitza la icona fosca a la safata",
         "default-install-path": "Ruta d'instal·lació predefinida",
@@ -501,8 +501,8 @@
         "preferSystemLibs": "Dóna preferència a les biblioteques del sistema",
         "primerun": {
             "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
+                "message": "Només s'ha detectat una targeta gràfica al sistema. Tingueu en compte que aquesta opció està pensada per a sistemes de diverses GPU amb GPU headless (com ara els portàtils). En sistemes d'una sola GPU, ja es fa servir aquesta de manera automàtica i si s'activa aquesta opció es poden produir problemes. Esteu segur que voleu activar l'opció?",
+                "title": "Només s'ha detectat 1 GPU"
             },
             "description": "Usa la targeta gràfica dedicada"
         },
