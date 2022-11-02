@@ -117,9 +117,9 @@ export default function SidebarLinks() {
         className={({ isActive }) =>
           classNames('Sidebar__item', { active: isActive })
         }
-        to={'/'}
+        to={'/library'}
         onClick={async () =>
-          refreshLibrary({ runInBackground: false, fullRefresh: true })
+          refreshLibrary({ runInBackground: true, fullRefresh: true })
         }
       >
         <>
