@@ -537,12 +537,17 @@ async function runWineCommand({
 
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
+    const { launcherArgs = '' } = settings
     let bin = ''
     if (wrappers.length) {
       bin = wrappers.shift()!
       commandParts.unshift(...wrappers, wineBin)
     } else {
       bin = wineBin
+    }
+
+    if (launcherArgs) {
+      commandParts.push(launcherArgs)
     }
 
     const child = spawn(bin, commandParts, {
