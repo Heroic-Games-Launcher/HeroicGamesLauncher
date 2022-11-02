@@ -66,8 +66,8 @@ interface TaskBase {
 interface FileTask extends TaskBase {
   type: 'FileTask'
   path: string
-  workingDir: string
-  arguments: string
+  workingDir?: string
+  arguments?: string
 }
 interface URLTask extends TaskBase {
   type: 'URLTask'
