@@ -147,12 +147,6 @@ async function getDefaultGogSavePaths(
   }
   const resolvedLocations: GOGCloudSavesLocation[] = []
   for (const location of gog_save_location) {
-    logDebug([
-      'Working on location',
-      location.name,
-      'with path',
-      location.location
-    ])
     // If a location with the same name already has a path set,
     // skip doing all this work
     const potAlreadyDefinedLocation = alreadyDefinedGogSaves.find(
@@ -160,10 +154,6 @@ async function getDefaultGogSavePaths(
     )
 
     if (potAlreadyDefinedLocation?.location.length) {
-      logDebug([
-        'Location is already defined, pushing it onto resolvedLocations. Pre-defined path:',
-        potAlreadyDefinedLocation.location
-      ])
       resolvedLocations.push(potAlreadyDefinedLocation)
       continue
     }
@@ -193,11 +183,6 @@ async function getDefaultGogSavePaths(
       )
     }
 
-    logDebug([
-      'Got this path after GOG variable expansion:',
-      locationWithVariablesRemoved
-    ])
-
     // Path now contains no more GOG-defined variables, but might
     // still contain Windows (%NAME%) or Unix ($NAME) ones
     let absolutePath: string
@@ -220,12 +205,6 @@ async function getDefaultGogSavePaths(
         }
       }
     }
-
-    logDebug([
-      'Got this path after running winepath/getShellPath:',
-      `"${absolutePath}".`,
-      'Pushing that onto resolvedLocations'
-    ])
 
     resolvedLocations.push({
       name: location.name,

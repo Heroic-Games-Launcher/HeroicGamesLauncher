@@ -54,8 +54,6 @@ export default function GOGSyncSaves({
         gogSaves
       )) as GOGCloudSavesLocation[]
 
-      console.log('Got these save locations from the backend:', locations)
-
       setGogSaves(locations)
       setIsLoading(false)
       setIsSyncing(false)
