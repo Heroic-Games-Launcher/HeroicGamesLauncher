@@ -93,6 +93,16 @@ export default function SidebarLinks() {
     }
   }, [location])
 
+  async function handleRefresh() {
+    const shouldRefresh =
+      (epic.username && !epic.library.length) ||
+      (gog.username && !gog.library.length)
+    if (shouldRefresh) {
+      return refreshLibrary({ runInBackground: true, fullRefresh: true })
+    }
+    return
+  }
+
   return (
     <div className="SidebarLinks Sidebar__section">
       {!loggedIn && (
@@ -118,9 +128,7 @@ export default function SidebarLinks() {
           classNames('Sidebar__item', { active: isActive })
         }
         to={'/library'}
-        onClick={async () =>
-          refreshLibrary({ runInBackground: true, fullRefresh: true })
-        }
+        onClick={async () => handleRefresh()}
       >
         <>
           <div className="Sidebar__itemIcon">
