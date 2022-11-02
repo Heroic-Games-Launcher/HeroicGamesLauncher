@@ -5,9 +5,9 @@
         "content_font_family_no_default": "Schriftfamilie Inhalt (Standard: ",
         "fonts": "Schriftarten",
         "title": "Barrierefreiheit",
-        "zoom": "Zoom"
+        "zoom": "Vergrößerung"
     },
-    "add_game": "Add Game",
+    "add_game": "Spiel hinzufügen",
     "All": "Alle",
     "anticheat": {
         "anticheats": "Anticheat-Systeme",
@@ -110,7 +110,7 @@
             "title": "Wähle auszuführende EXE"
         },
         "select": {
-            "button": "Wähle",
+            "button": "Auswählen",
             "exe": "EXE auswählen"
         },
         "shortcuts": {
@@ -241,7 +241,7 @@
         "preferSystemLibs": "Benutzerdefinierte Wine-Versionen (Wine-GE, Wine-Lutris) werden mit ihren Bibliotheks-Abhängigkeiten ausgeliefert. Wenn du diese Option aktivierst, werden diese mitgelieferten Bibliotheken ignoriert und Wine lädt stattdessen die Systembibliotheken. Warnung! Es können Probleme auftreten, wenn die Abhängigkeiten nicht erfüllt sind.",
         "primerun": "Verwende dedizierte Grafikkarte zum Rendern von Spielen auf Multi-GPU-Systemen. Nur auf Gaming-Laptops oder -Desktops erforderlich, die eine Headless-GPU zum Rendern verwenden (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "Dieser Pfad lässt Heroic ermitteln, welche Proton-Version Steam verwendet, um nicht-Steam-Spiele zu Steam hinzuzufügen."
+            "info": "Dieser Pfad lässt Heroic ermitteln, welche Proton-Version Steam verwendet, um Nicht-Steam-Spiele zu Steam hinzuzufügen."
         },
         "steamruntime": "Benutzerdefinierte Bibliotheken, die von Steam bereitgestellt werden, um die Ausführung von Linux- und Windows-Spielen (Proton) zu unterstützen. Durch Aktivieren kann die Kompatibilität verbessert werden.",
         "sync": {
@@ -300,7 +300,7 @@
         "website": "Lade Website"
     },
     "login": {
-        "alternative_method": "Alternative Login-Methode",
+        "alternative_method": "Alternative Anmeldemethode",
         "epic": "Epic Games-Anmeldung",
         "gog": "GOG-Anmeldung",
         "message": "Melde dich bei deiner Plattform an. Du kannst auch bei mehreren gleichzeitig eingeloggt sein."
