@@ -53,6 +53,7 @@ export interface GOGGameDotInfoFile {
   playTasks: (FileTask | URLTask)[]
   supportTasks?: (FileTask | URLTask)[]
   osBitness?: ['64']
+  overlaySupported?: true
 }
 
 interface TaskBase {
