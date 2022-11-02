@@ -21,7 +21,7 @@
             "title": "Wähle auszuführende EXE"
         },
         "select": {
-            "button": "Wähle"
+            "button": "Auswählen"
         },
         "sideload": {
             "exe": "Wähle ausführbare Datei"
@@ -114,7 +114,7 @@
     "label": {
         "playing": {
             "start": "Jetzt spielen",
-            "stop": "Läuft (Stoppen)"
+            "stop": "Anhalten"
         },
         "saves": {
             "syncing": "Spielstände werden synchronisiert"
@@ -124,9 +124,9 @@
         "options": "Startoptionen..."
     },
     "not_logged_in": {
-        "epic": "Du bist mit keinem Epic-Account in Heroic angemeldet. Verwende nicht die Store-Seite zum anmelden, klicke stattdessen auf den folgenden Button:",
-        "gog": "Du bist mit keinem GOG-Account in Heroic angemeldet. Verwende nicht die Store-Seite zum anmelden, klicke stattdessen auf den folgenden Button:",
-        "login": "Log in",
+        "epic": "Du bist mit keinem Epic-Account in Heroic angemeldet. Verwende nicht die Store-Seite, um dich anzumelden, sondern klicke stattdessen auf die folgende Schaltfläche:",
+        "gog": "Du bist mit keinem GOG-Account in Heroic angemeldet. Verwende nicht die Store-Seite, um dich anzumelden, sondern klicke stattdessen auf die folgende Schaltfläche:",
+        "login": "Anmelden",
         "title": "Du bist NICHT angemeldet"
     },
     "Open": "",
@@ -145,7 +145,7 @@
             "title": "Titel"
         },
         "info": {
-            "exe": "Wähle ausführbare Datei",
+            "exe": "Ausführbare Datei auswählen",
             "image": "App-Bild",
             "title": "Spiel/App-Titel"
         },
