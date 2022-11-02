@@ -18,7 +18,7 @@ const OfflineMessage = () => {
   if (connectivity.status === 'check-online') {
     if (connectivity.retryIn) {
       content += t('offline-message.retry-in', {
-        defaultValue: 'Retrying in ... {{seconds}} seconds',
+        defaultValue: '. Retrying in {{seconds}} seconds.',
         seconds: connectivity.retryIn
       })
     } else {
