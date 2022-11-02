@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { CircularProgress } from '@mui/material'
-import { fixGogSaveFolder, getGameInfo } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
@@ -48,73 +47,13 @@ export default function GOGSyncSaves({
 
   useEffect(() => {
     const getLocations = async () => {
-      const {
-        gog_save_location,
-        install: { platform: installed_platform, install_path }
-      } = await getGameInfo(appName, 'gog')
-      const clientId = await window.api.getGOGGameClientId(appName)
-      if (!gog_save_location) {
-        return
-      }
       setIsLoading(true)
-      const locations = gogSaves
-      if (gog_save_location?.length === 0) {
-        gog_save_location.push({
-          name: '__default',
-          location:
-            installed_platform === 'windows'
-              ? `%LocalAppData%/GOG.com/Galaxy/Applications/${clientId}/Storage/Shared/Files`
-              : `$HOME/Library/Application Support/GOG.com/Galaxy/Applications/${clientId}/Storage`
-        })
-      }
+      const locations = (await window.api.getDefaultSavePath(
+        appName,
+        'gog',
+        gogSaves
+      )) as GOGCloudSavesLocation[]
 
-      const isMacNative = installed_platform === 'osx'
-      const isLinuxNative = installed_platform === 'linux'
-      const isNative = isWin || isMacNative || isLinuxNative
-
-      for (const loc of gog_save_location) {
-        const { name, location } = loc
-        const locationIndex = locations.findIndex(
-          (value) => value.name === name
-        )
-        if (locationIndex >= 0 && locations[locationIndex]?.location.length) {
-          continue // Skip fetching the path if it's already set
-        }
-        const saveLocation = await fixGogSaveFolder(
-          location.replace('<?INSTALL?>', String(install_path)),
-          String(installed_platform),
-          appName
-        )
-        let actualPath: string
-        if (!isNative) {
-          const { stdout } = await window.api
-            .runWineCommandForGame({
-              appName,
-              runner: 'gog',
-              commandParts: ['cmd', '/c', 'winepath', saveLocation]
-            })
-            .catch((error) => {
-              window.api.logError(
-                `There was an error getting the save path ${error}`
-              )
-              setIsLoading(false)
-              return { stdout: '' }
-            })
-          actualPath = stdout.trim()
-        } else {
-          actualPath = await window.api.getShellPath(saveLocation)
-        }
-
-        actualPath = isWin
-          ? actualPath
-          : await window.api.getRealPath(actualPath)
-
-        if (locationIndex >= 0 && !locations[locationIndex]?.location.length) {
-          locations[locationIndex].location = actualPath
-        } else if (locationIndex < 0) {
-          locations.push({ name, location: actualPath })
-        }
-      }
       setGogSaves(locations)
       setIsLoading(false)
       setIsSyncing(false)

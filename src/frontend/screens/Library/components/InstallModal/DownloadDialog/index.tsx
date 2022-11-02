@@ -273,10 +273,6 @@ export default function DownloadDialog({
         })
       }
     })
-
-    return () => {
-      window.api.requestSettingsRemoveListeners()
-    }
   }, [appName, installPath, gameInstallInfo?.manifest?.disk_size])
 
   const installSize =

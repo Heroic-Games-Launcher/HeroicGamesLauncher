@@ -808,6 +808,9 @@ function killPattern(pattern: string) {
   return ret
 }
 
+const getShellPath = async (path: string): Promise<string> =>
+  normalize((await execAsync(`echo "${path}"`)).stdout.trim())
+
 export {
   errorHandler,
   execAsync,
@@ -834,5 +837,6 @@ export {
   getGame,
   getMainWindow,
   killPattern,
-  getInfo
+  getInfo,
+  getShellPath
 }
