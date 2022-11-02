@@ -59,7 +59,7 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
     return () => {
       recentGamesChangedRemoveListener()
     }
-  }, [])
+  }, [epic.library, gog.library, sideloadedLibrary])
 
   if (!recentGames.length) {
     return null
