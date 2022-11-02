@@ -9,6 +9,7 @@ import {
   GameSettings,
   RunWineCommandArgs
 } from 'common/types'
+import { GOGCloudSavesLocation } from 'common/types/gog'
 
 export const notify = (args: { title: string; body: string }) =>
   ipcRenderer.send('notify', args)
@@ -50,6 +51,17 @@ export const syncSaves = async (args: {
   runner: Runner
 }) => ipcRenderer.invoke('syncSaves', args)
 
+export const getDefaultSavePath = async (
+  appName: string,
+  runner: Runner,
+  alreadyDefinedGogSaves: GOGCloudSavesLocation[] = []
+) =>
+  ipcRenderer.invoke(
+    'getDefaultSavePath',
+    appName,
+    runner,
+    alreadyDefinedGogSaves
+  )
 export const getGameInfo = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('getGameInfo', appName, runner)
 

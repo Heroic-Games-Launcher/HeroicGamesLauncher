@@ -126,7 +126,10 @@ export interface GameInfo {
   install: Partial<InstalledInfo>
   is_installed: boolean
   namespace: string
+  // NOTE: This is the save folder without any variables filled in...
   save_folder: string
+  // ...and this is the folder with them filled in
+  save_path?: string
   gog_save_location?: GOGCloudSavesLocation[]
   title: string
   canRunOffline: boolean

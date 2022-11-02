@@ -35,6 +35,78 @@ body.dracula-classic {
   --action-icon-active: var(--accent);
 }
 
+body.nord-light {
+  --accent: #88c0d0;
+  --accent-overlay: #81a1c1;
+  --navbar-accent: #81a1c1;
+  --background: #eceff4;
+  --body-background: var(--background);
+  --background-darker: var(--body-background);
+  --current-background: var(--body-background);
+  --navbar-background: #4c566a;
+  --navbar-active-background: #2e3440;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --input-background: #d8dee9;
+  --modal-background: var(--body-background);
+  --modal-border: var(--body-background);
+  --success: #a3be8c;
+  --success-hover: #8faf74;
+  --primary: #b48ead;
+  --primary-hover: #a17399;
+  --danger: #bf616a;
+  --text-log: #f7b32a;
+  --text-title: #2e3440;
+  --text-default: var(--text-title);
+  --text-secondary: #868b95;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: var(--navbar-background);
+  --action-icon: #748aa0;
+  --action-icon-hover: var(--accent);
+  --action-icon-active: var(--text-default);
+}
+
+body.nord-dark {
+  --accent: #88c0d0;
+  --accent-overlay: #bdeaf7;
+  --navbar-accent: #5d6a82;
+  --background: #191c22;
+  --body-background: var(--background);
+  --background-darker: var(--body-background);
+  --current-background: var(--body-background);
+  --navbar-background: #2e3440;
+  --navbar-active-background: #191c22;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --input-background: #2e3440;
+  --modal-background: var(--body-background);
+  --modal-border: var(--body-background);
+  --success: #94f1ab;
+  --success-hover: #75e08f;
+  --primary: #b48ead;
+  --primary-hover: #a17399;
+  --danger: #bf616a;
+  --text-log: #f7b32a;
+  --text-title: #e5e9f0;
+  --text-default: var(--text-title);
+  --text-secondary: #e5e9f0;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: var(--navbar-background);
+  --action-icon: #748aa0;
+  --action-icon-hover: var(--accent-overlay);
+  --action-icon-active: var(--text-default);
+}
+
 body.marine,
 body.marine-classic {
   --background: #042028;

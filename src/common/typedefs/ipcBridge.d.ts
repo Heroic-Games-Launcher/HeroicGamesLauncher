@@ -114,7 +114,7 @@ interface AsyncIPCFunctions {
     runner: Runner
   ) => Promise<GameSettings | null>
   getGOGLinuxInstallersLangs: (appName: string) => Promise<string[]>
-  getGOGGameClientId: (appName: string) => Promise<string | undefined>
+  getGOGGameClientId: (appName: string) => string | undefined
   getInstallInfo: (
     appName: string,
     runner: Runner,
@@ -171,7 +171,6 @@ interface AsyncIPCFunctions {
   getFonts: (reload: boolean) => Promise<string[]>
   runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>
-  getRealPath: (path: string) => string
   clipboardReadText: () => string
   getCustomThemes: () => Promise<string[]>
   getThemeCSS: (theme: string) => Promise<string>
@@ -218,6 +217,11 @@ interface AsyncIPCFunctions {
   }
   getNumOfGpus: () => Promise<number>
   removeRecent: (appName: string) => Promise<void>
+  getDefaultSavePath: (
+    appName: string,
+    runner: Runner,
+    alreadyDefinedGogSaves: GOGCloudSavesLocation[]
+  ) => Promise<string | GOGCloudSavesLocation[]>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

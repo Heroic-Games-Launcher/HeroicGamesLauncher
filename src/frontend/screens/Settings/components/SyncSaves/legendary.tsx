@@ -10,7 +10,7 @@ import {
   TextInputWithIconField,
   ToggleSwitch
 } from 'frontend/components/UI'
-import { fixLegendarySaveFolder, syncSaves } from 'frontend/helpers'
+import { syncSaves } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'frontend/types'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
@@ -46,65 +46,20 @@ export default function LegendarySyncSaves({
   const { appName } = useContext(SettingsContext)
 
   useEffect(() => {
-    const getSyncFolder = async () => {
+    const setDefaultSaveFolder = async () => {
+      // Only do this work if there's not already a save folder set
       if (savesPath.length) {
         return
-      } // Don't work on getting the save path if we won't change it
+      }
       setLoading(true)
-      const gameInfo = await window.api.getGameInfo(appName, 'legendary')
-      if (!gameInfo) {
-        return
-      }
-      const {
-        save_folder,
-        install: { install_path, platform: installed_platform }
-      } = gameInfo
-      setAutoSyncSaves(autoSyncSaves)
-      const prefix = winePrefix ? winePrefix : ''
-      let folder = await fixLegendarySaveFolder(
+      const newSavePath = (await window.api.getDefaultSavePath(
         appName,
-        save_folder,
-        prefix,
-        isProton || false
-      )
-      folder = folder
-        .replace('{InstallDir}', `${install_path}`)
-        .replace('<?INSTALL?>', `${install_path}`)
-
-      let actualPath
-      const isMacNative = installed_platform === 'Mac'
-      const isNative = isWin || isMacNative
-
-      if (!isNative) {
-        let stdout: string
-        try {
-          stdout = (
-            await window.api.runWineCommandForGame({
-              appName,
-              runner: 'legendary',
-              commandParts: ['cmd', '/c', 'winepath', folder]
-            })
-          ).stdout
-        } catch (error) {
-          console.error('There was an error getting the path', error)
-          setLoading(false)
-          return
-        }
-        actualPath = stdout.trim()
-      } else {
-        actualPath = await window.api.getShellPath(folder)
-      }
-
-      actualPath = isWin ? actualPath : await window.api.getRealPath(actualPath)
-
-      const path = savesPath ? savesPath : actualPath
-      const fixedPath = isWin
-        ? path.replaceAll('/', '\\')
-        : path.replaceAll(/\\/g, '/') // invert slashes and remove latest on windows
-      setSavesPath(fixedPath)
+        'legendary'
+      )) as string
+      setSavesPath(newSavePath)
       setLoading(false)
     }
-    getSyncFolder()
+    setDefaultSaveFolder()
   }, [winePrefix, isProton])
 
   const isLinked = Boolean(savesPath.length)
