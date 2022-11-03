@@ -16,7 +16,7 @@ import {
   SyncSaves,
   AdvancedSettings
 } from './sections'
-import { AppSettings, GameSettings, WineInstallation } from 'common/types'
+import { AppSettings, WineInstallation } from 'common/types'
 import { getGameInfo, writeConfig } from 'frontend/helpers'
 import { UpdateComponent } from 'frontend/components/UI'
 import { LocationState, SettingsContextType } from 'frontend/types'
@@ -34,9 +34,7 @@ function Settings() {
   } = useLocation() as { state: LocationState }
   const [title, setTitle] = useState('')
 
-  const [currentConfig, setCurrentConfig] = useState<
-    AppSettings | GameSettings | null
-  >(null)
+  const [currentConfig, setCurrentConfig] = useState<Partial<AppSettings>>({})
 
   const { appName = '', type = '' } = useParams()
   const isDefault = appName === 'default'
@@ -79,15 +77,9 @@ function Settings() {
 
   // create setting context functions
   const contextValues: SettingsContextType = {
-    getSetting: (key: string) => {
-      if (currentConfig) {
-        return currentConfig[key]
-      }
-    },
-    setSetting: (key: string, value: unknown) => {
-      if (currentConfig) {
-        setCurrentConfig({ ...currentConfig, [key]: value })
-      }
+    getSetting: (key, fallback) => currentConfig[key] ?? fallback,
+    setSetting: (key, value) => {
+      setCurrentConfig({ ...currentConfig, [key]: value })
       writeConfig([appName, { ...currentConfig, [key]: value }])
     },
     config: currentConfig,
