@@ -79,6 +79,17 @@ function Settings() {
   const contextValues: SettingsContextType = {
     getSetting: (key, fallback) => currentConfig[key] ?? fallback,
     setSetting: (key, value) => {
+      const currentValue = currentConfig[key]
+      if (currentValue) {
+        // NOTE: This is the best way I've found to compare `unknown` values
+        //       If you ever modify this, know that `value` might be an array
+        //       of anything, so even something like looping over the array
+        //       and comparing every member might still give false negatives
+        //       This might *also* give false results, but only in cases where
+        //       you're already passing the wrong type for `value`
+        const noChange = JSON.stringify(value) === JSON.stringify(currentValue)
+        if (noChange) return
+      }
       setCurrentConfig({ ...currentConfig, [key]: value })
       writeConfig([appName, { ...currentConfig, [key]: value }])
     },
