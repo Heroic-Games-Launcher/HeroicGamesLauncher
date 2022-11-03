@@ -55,7 +55,7 @@ export type Release = {
   id: number
 }
 
-export interface AppSettings {
+export interface AppSettings extends GameSettings {
   checkUpdatesInterval: number
   enableUpdates: boolean
   addDesktopShortcuts: boolean
@@ -63,12 +63,6 @@ export interface AppSettings {
   addSteamShortcuts: boolean
   altLegendaryBin: string
   altGogdlBin: string
-  audioFix: boolean
-  autoInstallDxvk: boolean
-  autoInstallVkd3d: boolean
-  preferSystemLibs: boolean
-  autoSyncSaves: boolean
-  battlEyeRuntime: boolean
   checkForUpdatesOnStartup: boolean
   customWinePaths: string[]
   darkTrayIcon: boolean
@@ -76,38 +70,16 @@ export interface AppSettings {
   defaultSteamPath: string
   disableController: boolean
   discordRPC: boolean
-  eacRuntime: boolean
   downloadNoHttps: boolean
   egsLinkedPath: string
   exitToTray: boolean
-  enableEsync: boolean
-  enableFSR: boolean
-  enableFsync: boolean
-  language: string
-  launcherArgs: string
   libraryTopSection: LibraryTopSectionOptions
   maxRecentGames: number
-  maxSharpness?: number
   maxWorkers: number
   minimizeOnLaunch: boolean
-  nvidiaPrime: boolean
-  offlineMode: boolean
-  otherOptions?: string //depricated
-  enviromentOptions: EnviromentVariable[]
-  wrapperOptions: WrapperVariable[]
-  savesPath: string
-  showFps: boolean
-  showMangohud: boolean
   startInTray: boolean
-  useGameMode: boolean
-  targetExe: string
   userInfo: UserInfo
-  wineCrossoverBottle: string
-  winePrefix: string
   defaultWinePrefix: string
-  wineVersion: WineInstallation
-  useSteamRuntime: boolean
-  gogSaves?: GOGCloudSavesLocation[]
   customThemesPath: string
 }
 
