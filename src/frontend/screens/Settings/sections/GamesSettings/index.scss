@@ -21,5 +21,6 @@
 
   section:not(:nth-of-type(0)) {
     padding-top: var(--space-xl);
+    min-width: 500px;
   }
 }

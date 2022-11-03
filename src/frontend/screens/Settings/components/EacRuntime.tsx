@@ -51,7 +51,7 @@ const EacRuntime = () => {
     setEacRuntime(!eacRuntime)
   }
   return (
-    <>
+    <div className="toggleRow">
       <ToggleSwitch
         htmlId="eacRuntime"
         value={eacRuntime}
@@ -64,7 +64,7 @@ const EacRuntime = () => {
           {t('settings.eacRuntime.installing', 'Installing EAC Runtime...')}
         </span>
       )}
-    </>
+    </div>
   )
 }
 
