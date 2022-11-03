@@ -185,10 +185,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     }
   }
 
-  const { updated: winePrefixUpdated } = await verifyWinePrefix(
-    gameSettings,
-    game
-  )
+  const { updated: winePrefixUpdated } = await verifyWinePrefix(gameSettings)
   if (winePrefixUpdated) {
     logInfo(['Created/Updated Wineprefix at', gameSettings.winePrefix], {
       prefix: LogPrefix.Backend
@@ -428,15 +425,13 @@ export async function validWine(
 
 /**
  * Verifies that a Wineprefix exists by running 'wineboot --init'
- * @param game The game to verify the Wineprefix of
+ * @param gameSettings The settings of the game to verify the Wineprefix of
  * @returns stderr & stdout of 'wineboot --init'
  */
 export async function verifyWinePrefix(
-  settings: GameSettings,
-  game?: LegendaryGame | GOGGame
+  settings: GameSettings
 ): Promise<{ res: ExecResult; updated: boolean }> {
-  const gameSettings = game ? await game.getSettings() : settings
-  const { winePrefix, wineVersion } = gameSettings
+  const { winePrefix, wineVersion } = settings
 
   if (!(await validWine(wineVersion))) {
     return { res: { stdout: '', stderr: '' }, updated: false }
@@ -465,13 +460,11 @@ export async function verifyWinePrefix(
       : join(winePrefix, 'system.reg')
   const haveToWait = !existsSync(systemRegPath)
 
-  const command = game
-    ? game.runWineCommand(['wineboot', '--init'], haveToWait)
-    : runWineCommand({
-        commandParts: ['wineboot', '--init'],
-        wait: haveToWait,
-        gameSettings
-      })
+  const command = runWineCommand({
+    commandParts: ['wineboot', '--init'],
+    wait: haveToWait,
+    gameSettings: settings
+  })
 
   return command
     .then((result) => {
