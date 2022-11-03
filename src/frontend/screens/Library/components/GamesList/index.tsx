@@ -42,6 +42,7 @@ export const GamesList = ({
         <div className="gameListHeader">
           <span>{t('game.title', 'Game Title')}</span>
           <span>{t('game.status', 'Status')}</span>
+          <span>{t('game.install-path', 'Install Path')}</span>
           <span>{t('game.store', 'Store')}</span>
           <span>{t('wine.actions', 'Action')}</span>
         </div>
@@ -57,13 +58,19 @@ export const GamesList = ({
             is_installed,
             runner,
             cloud_save_enabled,
-            install: { version, install_size, is_dlc, platform }
+            install: { version, install_size, is_dlc, platform, install_path },
+            folder_name
           } = gameInfo
           if (is_dlc) {
             return null
           }
           if (!is_installed && onlyInstalled) {
             return null
+          }
+
+          let installPath: string | undefined
+          if (is_installed) {
+            installPath = runner === 'sideload' ? folder_name : install_path
           }
 
           const hasUpdate = is_installed && gameUpdates?.includes(app_name)
@@ -73,8 +80,7 @@ export const GamesList = ({
               runner={runner}
               cover={art_square}
               coverList={art_cover}
-              // @ts-expect-error TODO: Verify `art_logo` is not undefined here
-              logo={art_logo}
+              logo={art_logo!}
               hasCloudSave={cloud_save_enabled}
               title={title}
               appName={app_name}
@@ -88,6 +94,7 @@ export const GamesList = ({
               forceCard={layout === 'grid'}
               installedPlatform={platform}
               isRecent={isRecent}
+              installPath={installPath}
             />
           )
         })}

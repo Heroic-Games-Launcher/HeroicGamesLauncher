@@ -166,11 +166,11 @@
 .gameListItem > a {
   grid-area: link;
   display: grid;
-  grid-template-columns: 3fr 2fr 1fr;
+  grid-template-columns: 3fr 1fr 2fr 1fr;
   position: relative;
   width: 100%;
   height: 100%;
-  grid-template-areas: 'name infos runner';
+  grid-template-areas: 'name infos path runner';
   overflow: hidden;
   align-items: center;
   justify-items: baseline;
@@ -189,6 +189,15 @@
 .gameListItem .gameListInfo {
   font-size: var(--text-md);
   grid-area: infos;
+}
+
+.gameListItem .gameInstallPath {
+  grid-area: path;
+  font-size: var(--text-md);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
 }
 
 .gameListItem .gameTitle {

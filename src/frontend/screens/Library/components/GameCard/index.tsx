@@ -46,8 +46,9 @@ interface Card {
   version: string
   runner: Runner
   installedPlatform: string | undefined
-  forceCard?: boolean
+  installPath: string | undefined
   isRecent: boolean
+  forceCard?: boolean
 }
 
 const GameCard = ({
@@ -64,7 +65,8 @@ const GameCard = ({
   forceCard,
   runner,
   installedPlatform,
-  isRecent = false
+  isRecent = false,
+  installPath
 }: Card) => {
   const [progress, previousProgress] = hasProgress(appName)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
@@ -340,6 +342,7 @@ const GameCard = ({
               />
             )}
             <span
+              title={getStatus()}
               className={classNames('gameListInfo', {
                 active: haveStatus,
                 installed: isInstalled
@@ -347,7 +350,19 @@ const GameCard = ({
             >
               {getStatus()}
             </span>
+            {!grid && (
+              <span
+                title={installPath}
+                className={classNames('gameInstallPath', {
+                  active: haveStatus,
+                  installed: isInstalled
+                })}
+              >
+                {isInstalled ? installPath : ''}
+              </span>
+            )}
             <span
+              title={title}
               className={classNames('gameTitle', {
                 active: haveStatus,
                 installed: isInstalled
@@ -356,6 +371,7 @@ const GameCard = ({
               <span>{title}</span>
             </span>
             <span
+              title={getStoreName(runner, t2('Other'))}
               className={classNames('runner', {
                 active: haveStatus,
                 installed: isInstalled
