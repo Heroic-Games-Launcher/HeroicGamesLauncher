@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "Избранное",
     "game": {
+        "install-path": "Install Path",
         "status": "Состояние",
         "store": "Магазин",
         "title": "Название игры"

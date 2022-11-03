@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "Favorite",
     "game": {
+        "install-path": "Install Path",
         "status": "stare",
         "store": "Magazin",
         "title": "Titlul jocului"

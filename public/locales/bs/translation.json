@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "Favoriti",
     "game": {
+        "install-path": "Install Path",
         "status": "Status",
         "store": "Trgovina",
         "title": "Ime video igre"

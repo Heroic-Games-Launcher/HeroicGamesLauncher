@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "Lemmikud",
     "game": {
+        "install-path": "Install Path",
         "status": "Status",
         "store": "Pood",
         "title": "Mängu pealkiri"

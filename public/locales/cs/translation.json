@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "Oblíbené",
     "game": {
+        "install-path": "Install Path",
         "status": "Status",
         "store": "Obchod",
         "title": "Název hry"

@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "Favorit",
     "game": {
+        "install-path": "Install Path",
         "status": "Status",
         "store": "Toko",
         "title": "Judul Gim"

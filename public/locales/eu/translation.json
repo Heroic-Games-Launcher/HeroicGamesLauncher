@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "Gogokoenak",
     "game": {
+        "install-path": "Install Path",
         "status": "Egoera",
         "store": "Denda",
         "title": "Jokoaren izenburua"

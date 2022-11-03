@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "Αγαπημένα",
     "game": {
+        "install-path": "Install Path",
         "status": "Κατάσταση",
         "store": "Κατάστημα",
         "title": "Τίτλος παιχνιδιού"

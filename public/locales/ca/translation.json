@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "Preferits",
     "game": {
+        "install-path": "Install Path",
         "status": "Status",
         "store": "Botiga",
         "title": "Títol del joc"

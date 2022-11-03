@@ -193,6 +193,7 @@
     "error": "Fehler",
     "favourites": "Favoriten",
     "game": {
+        "install-path": "Install Path",
         "status": "Status",
         "store": "Store",
         "title": "Spieltitel"

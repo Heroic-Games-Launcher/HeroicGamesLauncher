@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "Уподобання",
     "game": {
+        "install-path": "Install Path",
         "status": "Стан",
         "store": "Крамниця",
         "title": "Назва гри"

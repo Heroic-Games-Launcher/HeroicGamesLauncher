@@ -2,7 +2,7 @@
     "accessibility": {
         "actions_font_family_no_default": "Police d'écriture pour les actions (Par défaut : ",
         "all_tiles_in_color": "Afficher les vignettes de tous les jeux en couleur",
-        "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut : ",
+        "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut\u202f: ",
         "fonts": "Polices d'écriture",
         "title": "Accessibilité",
         "zoom": "Zoom"
@@ -70,7 +70,7 @@
                 "title": "Erreur de mise-à-jour"
             },
             "wine-not-found": {
-                "invalid": "La version de Wine sélectionnée n'a pas été trouvée. Installez-le ou sélectionnez une version différente dans les paramètres du jeu{{newline}}Version : {{version}}{{newline}}Chemin : {{path}}",
+                "invalid": "La version de Wine sélectionnée n'a pas été trouvée. Installez-le ou sélectionnez une version différente dans les paramètres du jeu{{newline}}Version\u202f: {{version}}{{newline}}Chemin\u202f: {{path}}",
                 "message": "Aucune version de Wine n'est sélectionnée. Vérifiez les paramètres de jeu !",
                 "title": "Wine non trouvé"
             },
@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "Favoris",
     "game": {
+        "install-path": "Install Path",
         "status": "Status",
         "store": "Boutique",
         "title": "Titre du jeu"
@@ -247,12 +248,12 @@
         "sync": {
             "part1": "Heroic essaie de trouver le bon dossier de sauvergarde, cela fonctionne dans la plus part des cas. Dans le cas où le dossier n'est pas le bon, utiisez la boîte écraser pour le changer.",
             "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
-            "part3": "Synchronisation manuelle : Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignorera la version locale ou celle du Cloud.",
+            "part3": "Synchronisation manuelle\u202f: Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignorera la version locale ou celle du Cloud.",
             "part4": "Les sauvegardes automatiques synchroniseront vos sauvegardes à chaque fois que vous lancerez un jeu et que vous l'arrêtez."
         },
         "vkd3d": "VKD3D est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 12. L'activer pourrait grandement améliorer la compatibilité. N'a aucun effet sur les jeux utilisant des versions de DirectX plus anciennes.",
         "wine": {
-            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
+            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers\u202f:",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         }
     },

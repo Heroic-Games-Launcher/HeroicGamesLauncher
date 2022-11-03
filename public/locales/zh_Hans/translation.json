@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "最爱",
     "game": {
+        "install-path": "Install Path",
         "status": "状态",
         "store": "商店",
         "title": "游戏标题"

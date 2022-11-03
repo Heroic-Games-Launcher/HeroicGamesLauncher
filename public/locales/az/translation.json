@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "Sevimlilər",
     "game": {
+        "install-path": "Install Path",
         "status": "Vəziyyət",
         "store": "Mağaza",
         "title": "Oyunun adı"

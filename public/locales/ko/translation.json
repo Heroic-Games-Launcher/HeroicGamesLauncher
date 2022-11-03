@@ -193,6 +193,7 @@
     "error": "Error",
     "favourites": "즐겨찾기",
     "game": {
+        "install-path": "Install Path",
         "status": "Status",
         "store": "스토어",
         "title": "게임 이름"
