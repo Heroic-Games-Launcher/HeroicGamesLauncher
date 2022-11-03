@@ -182,10 +182,14 @@ export class LegendaryLibrary {
   /**
    * Get game info for a particular game.
    *
-   * @param appName
+   * @param appName The AppName of the game you want the info of
+   * @param forceReload Discards game info in `this.library` and always reads info from metadata files
    * @returns GameInfo
    */
-  public getGameInfo(appName: string): GameInfo | undefined {
+  public getGameInfo(
+    appName: string,
+    forceReload = false
+  ): GameInfo | undefined {
     if (!this.hasGame(appName)) {
       logWarning(['Requested game', appName, 'was not found in library'], {
         prefix: LogPrefix.Legendary
@@ -193,7 +197,7 @@ export class LegendaryLibrary {
       return
     }
     // We have the game, but info wasn't loaded yet
-    if (!this.library.has(appName)) {
+    if (!this.library.has(appName) || forceReload) {
       this.loadFile(appName + '.json')
     }
     return this.library.get(appName)
@@ -513,8 +517,14 @@ export class LegendaryLibrary {
     const art_square_front = gameBoxStore ? gameBoxStore.url : undefined
 
     const info = this.installedGames.get(app_name)
-    const { executable, version, install_size, install_path, platform } =
-      info ?? {}
+    const {
+      executable,
+      version,
+      install_size,
+      install_path,
+      platform,
+      save_path
+    } = info ?? {}
 
     const is_dlc = Boolean(metadata.mainGameItem)
 
@@ -549,6 +559,7 @@ export class LegendaryLibrary {
         ? platform === 'Mac'
         : releaseInfo[0].platform.includes('Mac'),
       save_folder: saveFolder,
+      save_path,
       title,
       canRunOffline,
       is_linux_native: false,

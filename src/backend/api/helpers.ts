@@ -6,6 +6,7 @@ import {
   ConnectivityChangedCallback,
   ConnectivityStatus
 } from 'common/types'
+import { GOGCloudSavesLocation } from 'common/types/gog'
 
 export const notify = (notification: string[]) =>
   ipcRenderer.send('Notify', notification)
@@ -34,6 +35,17 @@ export const getUserInfo = async () => ipcRenderer.invoke('getUserInfo')
 export const syncSaves = async (
   args: [arg: string | undefined, path: string, appName: string, runner: string]
 ) => ipcRenderer.invoke('syncSaves', args)
+export const getDefaultSavePath = async (
+  appName: string,
+  runner: Runner,
+  alreadyDefinedGogSaves: GOGCloudSavesLocation[] = []
+): Promise<string | GOGCloudSavesLocation[]> =>
+  ipcRenderer.invoke(
+    'getDefaultSavePath',
+    appName,
+    runner,
+    alreadyDefinedGogSaves
+  )
 export const getGameInfo = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('getGameInfo', appName, runner)
 export const getGameSettings = async (appName: string, runner: Runner) =>

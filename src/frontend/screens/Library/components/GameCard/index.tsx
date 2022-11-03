@@ -247,7 +247,7 @@ const GameCard = ({
   const isNative = isWin || isMacNative || isLinuxNative
   const pathname = isNative
     ? `/settings/${runner}/${appName}/other`
-    : `/settings/${runner}/${appName}/wine`
+    : `/settings/${runner}/${appName}/games_settings`
 
   const onUninstallClick = function () {
     setShowUninstallModal(true)

@@ -529,6 +529,7 @@
         "clear-cache": "Garbitu Cache heroikoa",
         "copiedToClipboard": "Arbelean kopiatu da!",
         "copyToClipboard": "Kopiatu ezarpen guztiak arbelean",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode beharrezkoa da EAC exekuzio denbora Flatpak-en funtziona dezan. Orain gaitu nahi al duzu?",
@@ -548,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Aurreratua",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Orokorra",
             "log": "Erregistroa",
             "other": "Bestela",

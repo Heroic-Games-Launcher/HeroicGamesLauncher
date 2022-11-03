@@ -49,7 +49,7 @@ export default function WineManager(): JSX.Element | null {
       }
     }
 
-    return refreshWineVersionInfo(true)
+    refreshWineVersionInfo(true)
   }, [])
 
   if (refreshing) {

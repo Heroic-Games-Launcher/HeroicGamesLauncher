@@ -529,6 +529,7 @@
         "clear-cache": "Borrar la caché de Heroic",
         "copiedToClipboard": "¡Copiado en el portapapeles!",
         "copyToClipboard": "Copiar todas las configuraciones al portapapeles",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode es necesario para que el runtime de EAC funcione en Flatpak. Instalar ahora?",
@@ -548,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Avanzado",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "General",
             "log": "Registro",
             "other": "Otro",

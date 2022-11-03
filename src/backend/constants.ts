@@ -68,7 +68,7 @@ const epicLoginUrl = 'https://legendary.gl/epiclogin'
 const gogLoginUrl =
   'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 const sidInfoUrl =
-  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues/42'
+  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-To:-Epic-Alternative-Login'
 const heroicGithubURL =
   'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest'
 const GITHUB_API =
