@@ -28,7 +28,9 @@ export default defineConfig({
     react(),
     electron({
       entry: 'src/backend/main.ts',
+
       vite: {
+        build: { outDir: './build/electron' },
         resolve: {
           alias: [
             {
