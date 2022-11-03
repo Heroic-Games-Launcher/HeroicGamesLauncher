@@ -5,7 +5,7 @@ import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { configStore } from 'frontend/helpers/electronStores'
-import { defaultWineVersion } from '../WineSettings'
+import { defaultWineVersion } from '..'
 
 const AutoVKD3D = () => {
   const { t } = useTranslation()

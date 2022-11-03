@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import SettingsContext from '../../SettingsContext'
+import SettingsContext from '../SettingsContext'
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder'
 import Backspace from '@mui/icons-material/Backspace'
 import useSetting from 'frontend/hooks/useSetting'

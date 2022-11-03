@@ -4,7 +4,7 @@ import { InfoBox, SelectField } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { WineInstallation } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
-import { defaultWineVersion } from '.'
+import { defaultWineVersion } from '..'
 
 export default function WineVersionSelector() {
   const { t } = useTranslation()

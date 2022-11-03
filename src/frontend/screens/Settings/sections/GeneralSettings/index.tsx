@@ -1,15 +1,23 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import LanguageSelector from 'frontend/components/UI/LanguageSelector'
-import DefaultInstallPath from './DefaultInstallPath'
-import CheckUpdatesOnStartup from './CheckUpdatesOnStartup'
-import TraySettings from './TraySettings'
-import MinimizeOnGameLaunch from './MinimizeOnGameLaunch'
-import UseDarkTrayIcon from './UseDarkTrayIcon'
-import DisableController from './DisableController'
-import LibraryTopSection from './LibraryTopSection'
-import MaxWorkers from './MaxWorkers'
-import EgsSettings from './EgsSettings'
+import {
+  CheckUpdatesOnStartup,
+  CustomWineProton,
+  DefaultInstallPath,
+  DefaultSteamPath,
+  DisableController,
+  DiscordRPC,
+  EgsSettings,
+  LibraryTopSection,
+  MaxRecentGames,
+  MaxWorkers,
+  MinimizeOnGameLaunch,
+  Shortcuts,
+  TraySettings,
+  UseDarkTrayIcon,
+  WinePrefixesBasePath
+} from '../../components'
 
 export default function GeneralSettings() {
   const { t } = useTranslation()
@@ -22,6 +30,12 @@ export default function GeneralSettings() {
 
       <DefaultInstallPath />
 
+      <WinePrefixesBasePath />
+
+      <CustomWineProton />
+
+      <DefaultSteamPath />
+
       <EgsSettings />
 
       <CheckUpdatesOnStartup />
@@ -32,9 +46,15 @@ export default function GeneralSettings() {
 
       <UseDarkTrayIcon />
 
+      <Shortcuts />
+
+      <DiscordRPC />
+
       <DisableController />
 
       <LibraryTopSection />
+
+      <MaxRecentGames />
 
       <MaxWorkers />
     </>

@@ -12,12 +12,10 @@ import {
   DeselectOutlined
 } from '@mui/icons-material'
 import classNames from 'classnames'
-import AltLegendaryBin from './AltLegendaryBin'
-import AltGOGdlBin from './AltGOGdlBin'
-import DownloadNoHTTPS from './DownloadNoHTTPS'
 import SettingsContext from '../../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameStatus } from 'common/types'
+import { AltGOGdlBin, AltLegendaryBin, DownloadNoHTTPS } from '../../components'
 
 export default function AdvancedSettings() {
   const { config } = useContext(SettingsContext)

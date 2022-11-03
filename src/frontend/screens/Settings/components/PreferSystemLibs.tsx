@@ -5,7 +5,7 @@ import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { defaultWineVersion } from '.'
+import { defaultWineVersion } from '..'
 
 const PreferSystemLibs = () => {
   const { t } = useTranslation()

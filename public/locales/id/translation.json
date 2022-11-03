@@ -529,6 +529,7 @@
         "clear-cache": "Hapus Tembolok Heroic",
         "copiedToClipboard": "Disalin ke Papan Klip!",
         "copyToClipboard": "Salin Semua Pengaturan ke Papan Klip",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -548,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Tambahan",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Umum",
             "log": "Log",
             "other": "Lainnya",

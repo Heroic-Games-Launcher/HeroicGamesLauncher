@@ -2,7 +2,7 @@ import React, { ChangeEvent, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, TextInputField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
-import SettingsContext from '../../SettingsContext'
+import SettingsContext from '../SettingsContext'
 
 const PreferedLanguage = () => {
   const { t } = useTranslation()

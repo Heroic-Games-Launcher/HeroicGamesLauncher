@@ -1,0 +1,27 @@
+.toolsWrapper {
+  display: flex;
+  cursor: pointer;
+  justify-content: space-between;
+  width: 430px;
+
+  .button {
+    padding-block: var(--space-lg);
+  }
+
+  .drag {
+    font-family: var(--font-secondary-regular);
+    font-size: var(--text-md);
+    line-height: 19px;
+    text-decoration: underline;
+    transition: 350ms;
+    flex-direction: column;
+    text-decoration: none;
+    & > span {
+      transition: 350ms;
+      font-size: var(--text-xs);
+      font-style: italic;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+  }
+}

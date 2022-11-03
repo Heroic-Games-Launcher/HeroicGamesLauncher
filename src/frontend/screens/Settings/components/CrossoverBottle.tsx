@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { TextInputField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
-import { defaultWineVersion } from '.'
+import { defaultWineVersion } from '..'
 
 export default function CrossoverBottle() {
   const { t } = useTranslation()
