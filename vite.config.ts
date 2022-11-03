@@ -12,7 +12,7 @@ const srcAliases = ['backend', 'frontend', 'common'].map((srcFolder) => {
 })
 
 const electronViteConfig = {
-  build: { outDir: 'build/electron ' },
+  build: { outDir: 'build/electron' },
   resolve: {
     alias: [
       {
