@@ -1,20 +1,14 @@
-import React, { ChangeEvent, useContext } from 'react'
+import React, { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, TextInputField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
-import SettingsContext from '../SettingsContext'
 
 const PreferedLanguage = () => {
   const { t } = useTranslation()
-  const { isDefault } = useContext(SettingsContext)
   const [languageCode, setLanguageCode] = useSetting('language', '')
 
   const handleLanguageCode = (event: ChangeEvent<HTMLInputElement>) =>
     setLanguageCode(event.currentTarget.value)
-
-  if (isDefault) {
-    return <></>
-  }
 
   const languageInfo = (
     <InfoBox text="infobox.help">

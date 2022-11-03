@@ -166,8 +166,7 @@ export const initGamepad = () => {
       } else {
         // we have to tell Electron to simulate key presses
         // so the spatial navigation works
-        const metadataReturn = metadata()
-        if (metadataReturn) window.api.gamepadAction([action, metadataReturn])
+        window.api.gamepadAction([action, metadata()])
       }
     }
   }

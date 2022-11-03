@@ -39,6 +39,7 @@ export default function GamesSettings() {
   const { platform } = useContext(ContextProvider)
   const { isDefault } = useContext(SettingsContext)
   const isLinux = platform === 'linux'
+  const isWin = platform === 'win32'
 
   return (
     <>
@@ -52,31 +53,37 @@ export default function GamesSettings() {
         </p>
       )}
 
-      <section>
-        <h3 className="settingSubheader">{isLinux ? 'Wine' : 'Crossover'}</h3>
+      {!isWin && (
+        <>
+          <section>
+            <h3 className="settingSubheader">
+              {isLinux ? 'Wine' : 'Crossover'}
+            </h3>
 
-        <WinePrefix />
+            <WinePrefix />
 
-        <WineVersionSelector />
+            <WineVersionSelector />
 
-        <CrossoverBottle />
+            <CrossoverBottle />
 
-        <Tools />
-      </section>
+            <Tools />
+          </section>
 
-      <section>
-        <h3 className="settingSubheader">
-          {t('settings.navbar.wineExt', 'Wine Extensions')}
-        </h3>
+          <section>
+            <h3 className="settingSubheader">
+              {t('settings.navbar.wineExt', 'Wine Extensions')}
+            </h3>
 
-        <AutoDXVK />
+            <AutoDXVK />
 
-        <AutoVKD3D />
+            <AutoVKD3D />
 
-        <EacRuntime />
+            <EacRuntime />
 
-        <BattlEyeRuntime />
-      </section>
+            <BattlEyeRuntime />
+          </section>
+        </>
+      )}
 
       <section>
         <h3 className="settingSubheader">{t('settings.navbar.other')}</h3>

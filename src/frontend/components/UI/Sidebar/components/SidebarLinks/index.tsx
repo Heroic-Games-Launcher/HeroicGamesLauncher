@@ -71,12 +71,7 @@ export default function SidebarLinks() {
         setGameInfo(info)
         if (info?.is_installed) {
           setIsDefaultSetting(false)
-          const isNative = await window.api.isNative({ appName, runner })
-          // setIsNativeApp(isNative)
-          const wineOrOther = isNative
-            ? `/settings/${runner}/${appName}/other`
-            : `/settings/${runner}/${appName}/games_settings`
-          setSettingsPath(wineOrOther)
+          setSettingsPath(`/settings/${runner}/${appName}/games_settings`)
         }
       }
     }
