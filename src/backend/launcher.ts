@@ -437,10 +437,6 @@ export async function verifyWinePrefix(
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
-  if (!(await validWine(wineVersion))) {
-    return { res: { stdout: '', stderr: '' }, updated: false }
-  }
-
   if (wineVersion.type === 'crossover') {
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
