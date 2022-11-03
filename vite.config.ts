@@ -27,23 +27,16 @@ export default defineConfig({
   plugins: [
     react(),
     electron({
-      main: {
-        entry: 'src/backend/main.ts',
-        vite: {
-          resolve: {
-            alias: [
-              {
-                find: '~@fontsource',
-                replacement: path.resolve(__dirname, 'node_modules/@fontsource')
-              },
-              ...srcAliases
-            ]
-          }
-        }
-      },
-      preload: {
-        input: {
-          preload: path.resolve(__dirname + '/src/backend/preload.ts')
+      entry: 'src/backend/main.ts',
+      vite: {
+        resolve: {
+          alias: [
+            {
+              find: '~@fontsource',
+              replacement: path.resolve(__dirname, 'node_modules/@fontsource')
+            },
+            ...srcAliases
+          ]
         }
       }
     }),
