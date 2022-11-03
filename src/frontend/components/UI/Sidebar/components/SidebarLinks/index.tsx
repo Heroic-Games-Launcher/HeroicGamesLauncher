@@ -122,7 +122,6 @@ export default function SidebarLinks() {
           localStorage.setItem('scrollPosition', '0')
           refreshLibrary({ runInBackground: false, fullRefresh: true })
         }}
-
       >
         <>
           <div className="Sidebar__itemIcon">
