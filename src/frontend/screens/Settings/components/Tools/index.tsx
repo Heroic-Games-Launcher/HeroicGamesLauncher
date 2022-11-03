@@ -14,7 +14,11 @@ export default function Tools() {
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
   const [progress, setProgress] = useState<string[]>([])
-  const { appName, runner } = useContext(SettingsContext)
+  const { appName, runner, isDefault } = useContext(SettingsContext)
+
+  if (isDefault) {
+    return <></>
+  }
 
   type Tool = 'winecfg' | 'winetricks' | string
   async function callTools(tool: Tool, exe?: string) {

@@ -29,7 +29,7 @@ import {
   WrappersTable
 } from '../../components'
 import ContextProvider from 'frontend/state/ContextProvider'
-import Tools from '../Tools'
+import Tools from '../../components/Tools'
 import SettingsContext from '../../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
