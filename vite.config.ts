@@ -26,22 +26,38 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    electron({
-      entry: 'src/backend/main.ts',
-
-      vite: {
-        build: { outDir: './build/electron' },
-        resolve: {
-          alias: [
-            {
-              find: '~@fontsource',
-              replacement: path.resolve(__dirname, 'node_modules/@fontsource')
-            },
-            ...srcAliases
-          ]
+    electron([
+      {
+        entry: 'src/backend/main.ts',
+        vite: {
+          build: { outDir: 'build/electron' },
+          resolve: {
+            alias: [
+              {
+                find: '~@fontsource',
+                replacement: path.resolve(__dirname, 'node_modules/@fontsource')
+              },
+              ...srcAliases
+            ]
+          }
+        }
+      },
+      {
+        entry: 'src/backend/preload.ts',
+        vite: {
+          build: { outDir: 'build/electron' },
+          resolve: {
+            alias: [
+              {
+                find: '~@fontsource',
+                replacement: path.resolve(__dirname, 'node_modules/@fontsource')
+              },
+              ...srcAliases
+            ]
+          }
         }
       }
-    }),
+    ]),
     svgr()
   ]
 })
