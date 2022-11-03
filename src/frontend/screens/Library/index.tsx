@@ -6,7 +6,8 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  useState
+  useState,
+  useLayoutEffect
 } from 'react'
 
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
@@ -81,6 +82,21 @@ export default function Library(): JSX.Element {
   )
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
+  const listing = useRef<HTMLDivElement>(null)
+
+  //Remember scroll position
+  useLayoutEffect(() => {
+    const scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
+
+    if (listing.current !== null && scrollPosition > 0) {
+      listing.current.scrollTo(0, scrollPosition)
+    }
+    return () => {
+      if (listing.current !== null) {
+        storage?.setItem('scrollPosition', listing.current.scrollTop.toString())
+      }
+    }
+  }, [listing])
 
   // bind back to top button
   useEffect(() => {
@@ -291,7 +307,7 @@ export default function Library(): JSX.Element {
   return (
     <>
       <Header />
-      <div className="listing">
+      <div className="listing" ref={listing}>
         <span id="top" />
         {showRecentGames && (
           <RecentlyPlayed

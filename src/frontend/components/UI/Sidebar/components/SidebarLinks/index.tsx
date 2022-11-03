@@ -89,6 +89,8 @@ export default function SidebarLinks() {
   }, [location])
 
   async function handleRefresh() {
+    localStorage.setItem('scrollPosition', '0')
+
     const shouldRefresh =
       (epic.username && !epic.library.length) ||
       (gog.username && !gog.library.length)
