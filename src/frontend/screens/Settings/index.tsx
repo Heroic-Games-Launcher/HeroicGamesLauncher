@@ -8,21 +8,24 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 import ContextMenu from '../Library/components/ContextMenu'
 import SettingsContext from './SettingsContext'
-import LogSettings from './components/LogSettings'
-import FooterInfo from './components/FooterInfo'
+import LogSettings from './sections/LogSettings'
+import FooterInfo from './sections/FooterInfo'
 import {
-  WineExtensions,
-  WineSettings,
-  Tools,
   GeneralSettings,
-  OtherSettings,
+  GamesSettings,
   SyncSaves,
   AdvancedSettings
-} from './components'
-import { AppSettings, GameSettings } from 'common/types'
+} from './sections'
+import { AppSettings, GameSettings, WineInstallation } from 'common/types'
 import { getGameInfo, writeConfig } from 'frontend/helpers'
 import { UpdateComponent } from 'frontend/components/UI'
 import { LocationState, SettingsContextType } from 'frontend/types'
+
+export const defaultWineVersion: WineInstallation = {
+  bin: '/usr/bin/wine',
+  name: 'Wine Default',
+  type: 'wine'
+}
 
 function Settings() {
   const { t, i18n } = useTranslation()
@@ -38,10 +41,8 @@ function Settings() {
   const { appName = '', type = '' } = useParams()
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
-  const isWineSettings = type === 'wine'
-  const isWineExtensions = type === 'wineExt'
   const isSyncSettings = type === 'sync'
-  const isOtherSettings = type === 'other'
+  const isGamesSettings = type === 'games_settings'
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced' && isDefault
 
@@ -127,10 +128,7 @@ function Settings() {
             </h1>
 
             {isGeneralSettings && <GeneralSettings />}
-            {isWineSettings && <WineSettings />}
-            {isWineSettings && !isDefault && <Tools />}
-            {isWineExtensions && <WineExtensions />}
-            {isOtherSettings && <OtherSettings />}
+            {isGamesSettings && <GamesSettings />}
             {isSyncSettings && <SyncSaves />}
             {isAdvancedSetting && <AdvancedSettings />}
             {isLogSettings && <LogSettings />}
