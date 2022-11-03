@@ -677,10 +677,10 @@ ipcMain.handle(
       ? await getAppSettings(appName)
       : await game.getSettings()
     const { wineVersion, winePrefix } = gameSettings
-    await verifyWinePrefix(gameSettings)
 
     switch (tool) {
       case 'winetricks':
+        await verifyWinePrefix(gameSettings)
         await Winetricks.run(wineVersion, winePrefix, event)
         break
       case 'winecfg':

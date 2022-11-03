@@ -445,10 +445,6 @@ export async function verifyWinePrefix(
     mkdirSync(winePrefix, { recursive: true })
   }
 
-  if (wineVersion.type === 'proton' && existsSync(join(winePrefix, 'pfx'))) {
-    return { res: { stdout: '', stderr: '' }, updated: false }
-  }
-
   // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
   const systemRegPath =
     wineVersion.type === 'proton'
@@ -459,7 +455,8 @@ export async function verifyWinePrefix(
   const command = runWineCommand({
     commandParts: ['wineboot', '--init'],
     wait: haveToWait,
-    gameSettings: settings
+    gameSettings: settings,
+    skipPrefixCheckIKnowWhatImDoing: true
   })
 
   return command
@@ -492,15 +489,44 @@ async function runWineCommand({
   protonVerb = 'run',
   installFolderName,
   options,
-  startFolder
+  startFolder,
+  skipPrefixCheckIKnowWhatImDoing = false
 }: WineCommandArgs): Promise<{ stderr: string; stdout: string }> {
   const settings = gameSettings
     ? gameSettings
     : await GlobalConfig.get().getSettings()
   const { wineVersion, winePrefix } = settings
 
-  if (!existsSync(winePrefix)) {
-    mkdirSync(winePrefix, { recursive: true })
+  if (!skipPrefixCheckIKnowWhatImDoing) {
+    let requiredPrefixFiles = [
+      'dosdevices',
+      'drive_c',
+      'system.reg',
+      'user.reg',
+      'userdef.reg'
+    ]
+    if (wineVersion.type === 'proton') {
+      requiredPrefixFiles = [
+        'pfx.lock',
+        'tracked_files',
+        'version',
+        'config_info',
+        ...requiredPrefixFiles.map((path) => join('pfx', path))
+      ]
+    }
+    requiredPrefixFiles = requiredPrefixFiles.map((path) =>
+      join(winePrefix, path)
+    )
+    requiredPrefixFiles.push(winePrefix)
+
+    if (!requiredPrefixFiles.every((path) => existsSync(path))) {
+      logWarning(
+        'Required prefix files are missing, running `verifyWinePrefix` to create prefix',
+        { prefix: LogPrefix.Backend }
+      )
+      mkdirSync(winePrefix, { recursive: true })
+      await verifyWinePrefix(settings)
+    }
   }
 
   if (!(await validWine(wineVersion))) {

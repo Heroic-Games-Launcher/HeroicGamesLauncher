@@ -529,6 +529,7 @@ export type WineCommandArgs = {
   installFolderName?: string
   options?: CallRunnerOptions
   startFolder?: string
+  skipPrefixCheckIKnowWhatImDoing?: boolean
 }
 
 export interface SideloadGame {
