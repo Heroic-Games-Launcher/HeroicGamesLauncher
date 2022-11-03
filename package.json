@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "2.5.0-beta.1",
+  "version": "2.5.0-beta.2",
   "private": true,
   "main": "build/electron/main.js",
   "homepage": "./",
@@ -103,21 +103,18 @@
     "deb": {
       "packageCategory": "games",
       "depends": [
-        "gawk",
         "curl"
       ]
     },
     "pacman": {
       "packageCategory": "games",
       "depends": [
-        "gawk",
         "curl"
       ]
     },
     "rpm": {
       "packageCategory": "games",
       "depends": [
-        "gawk",
         "curl"
       ]
     }
@@ -153,8 +150,8 @@
     "i18next-http-backend": "^1.4.0",
     "ini": "^3.0.0",
     "plist": "^3.0.5",
-    "react": "17",
-    "react-dom": "17",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-i18next": "^11.16.7",
     "react-router-dom": "^6.3.0",
     "recharts": "^2.1.14",
@@ -178,7 +175,7 @@
     "dist:linux": "vite build && electron-builder --linux",
     "dist:mac": "vite build && electron-builder --mac",
     "dist:win": "vite build && electron-builder --win",
-    "lint": "eslint -c .eslintrc --ext .tsx,ts ./src",
+    "lint": "eslint --cache -c .eslintrc --ext .tsx,ts ./src",
     "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src",
     "dist-flatpak": "cd flatpak && flatpak-builder build local.heroic.yml --install --force-clean --user",
     "flatpak-test": "yarn dist:linux appimage && cd flatpak && flatpak-builder build local.heroic.yml --install --force-clean --user",
@@ -204,14 +201,14 @@
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.25",
     "@types/plist": "^3.0.2",
-    "@types/react": "^18.0.6",
-    "@types/react-dom": "^18.0.2",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
     "@types/react-router-dom": "^5.3.3",
     "@types/tmp": "^0.2.3",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
-    "@vitejs/plugin-react": "^2.0.0",
-    "electron": "^21.1.1",
+    "@vitejs/plugin-react": "^2.2.0",
+    "electron": "^21.2.1",
     "electron-builder": "^23.1.0",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.13.0",
@@ -226,9 +223,9 @@
     "sass": "^1.55.0",
     "tmp": "^0.2.1",
     "ts-jest": "^28.0.7",
-    "typescript": "^4.6.3",
-    "vite": "^3.0.3",
-    "vite-plugin-electron": "^0.8.3",
-    "vite-plugin-svgr": "^2.2.1"
+    "typescript": "^4.8.4",
+    "vite": "^3.2.2",
+    "vite-plugin-electron": "^0.10.2",
+    "vite-plugin-svgr": "^2.2.2"
   }
 }

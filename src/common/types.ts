@@ -2,6 +2,7 @@ import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform } from './types/legendary'
 import { VersionInfo } from 'heroic-wine-downloader'
 import { IpcRendererEvent } from 'electron'
+import { ChildProcess } from 'child_process'
 
 export type Runner = 'legendary' | 'gog' | 'sideload'
 
@@ -144,7 +145,10 @@ export interface GameInfo {
   install: Partial<InstalledInfo>
   is_installed: boolean
   namespace: string
+  // NOTE: This is the save folder without any variables filled in...
   save_folder: string
+  // ...and this is the folder with them filled in
+  save_path?: string
   gog_save_location?: GOGCloudSavesLocation[]
   title: string
   canRunOffline: boolean
@@ -371,7 +375,7 @@ export interface CallRunnerOptions {
   logFile?: string
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
-  onOutput?: (output: string) => void
+  onOutput?: (output: string, child: ChildProcess) => void
 }
 
 export interface EnviromentVariable {
@@ -518,9 +522,9 @@ export interface DMQueueElement {
 }
 
 export type WineCommandArgs = {
-  command: string
+  commandParts: string[]
   wait: boolean
-  forceRunInPrefixVerb?: boolean
+  protonVerb?: ProtonVerb
   gameSettings?: GameSettings
   installFolderName?: string
   options?: CallRunnerOptions
@@ -541,3 +545,11 @@ export interface SideloadGame {
   folder_name?: string
   canRunOffline: boolean
 }
+
+export type ProtonVerb =
+  | 'run'
+  | 'waitforexitandrun'
+  | 'runinprefix'
+  | 'destroyprefix'
+  | 'getcompatpath'
+  | 'getnativepath'

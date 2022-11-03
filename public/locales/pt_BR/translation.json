@@ -7,6 +7,7 @@
         "title": "Accessibilidade",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Todos",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -56,12 +57,12 @@
             },
             "generic": {
                 "message": "",
-                "title": "Select EXE to Run"
+                "title": "Selecione o EXE para executar"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Lançamento cancelado",
             "title": "Erro",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
+                "message": "Um erro inesperado ocorreu:{{newLine}}{{error}}{{newLine}}{{newLine}} Reporte o erro no nosso repositório do Github.",
                 "title": "Ocorreu uma exceção não capturada!"
             },
             "update": {
@@ -69,7 +70,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "A versão selecionada do WINE não foi encontrada. Instale-a ou selecione outra versão nas configurações do jogo{{newline}}Versão: {{version}}{{newline}}Local: {{path}}",
                 "message": "Nenhuma Versão do wine selecionada. Cheque as configurações do jogo!",
                 "title": "Wine Não Encontrado"
             },
@@ -101,7 +102,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Tem certeza que quer reconfigurar o Heroic? Isso removerá todas as configurações e cache,porém não vai remover seus jogos instalados nem suas credenciais da Epic. Versões portáteis (AppImage, WinPortable, ...) do Heroic precisam ser reabertas manualmente após isso.",
                 "title": "Redefinir Heroic"
             }
         },
@@ -173,13 +174,13 @@
     "docs": "Documentation",
     "download": {
         "manager": {
-            "empty": "Nothing to download.",
+            "empty": "Nada para baixar",
             "link": "Download Manager",
             "queue": {
                 "actions": "Action",
                 "element": "Name",
                 "platform": "Platform",
-                "store": "Store"
+                "store": "Loja"
             },
             "title": "Downloads"
         }
@@ -218,8 +219,8 @@
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a aumentar a taxa de quadros aumentando as resoluções mais baixas no modo de tela cheia. A qualidade da imagem aumenta de 5 para 1 ao custo de um pequeno impacto no desempenho. A ativação pode melhorar o desempenho.",
-        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
-        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "custom_themes_path": "Não use arquivos CSS de fontes não confiáveis. Na dúvida, peça uma revisão no nosso canal do DIscord.",
+        "custom_themes_wiki": "Cheque a Wiki para mais detalhes sobre adicionar temas personalizados. Clique aqui.",
         "dxvk": "DXVK é uma camada de tradução baseada em Vulkan para jogos DirectX 9, 10 e 11. A ativação pode melhorar a compatibilidade. Pode causar problemas especialmente para jogos DirectX mais antigos.",
         "esync": "O Esync visa reduzir a sobrecarga do wineserver em jogos com uso intensivo de CPU. A ativação pode melhorar o desempenho.",
         "fsync": "O Fsync visa reduzir a sobrecarga do wineserver em jogos com uso intensivo de CPU. A ativação pode melhorar o desempenho em kernels Linux suportados.",
@@ -238,7 +239,7 @@
             "part7": " para evitar abrir o launcher em alguns jogos, etc."
         },
         "preferSystemLibs": "Versões personalizadas do Wine (Wine-GE, Wine-Lutris) são enviadas com suas dependências de biblioteca. Ao habilitar esta opção, essas bibliotecas enviadas serão ignoradas e o Wine carregará as bibliotecas do sistema. Aviso! Podem ocorrer problemas se as dependências não forem atendidas.",
-        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+        "primerun": "Usar placa de vídeo dedicada para renderizar o jogo em sistemas multi-GPU. Só necessário em notebooks gamers ou computadores com GPUs avulsas para renderização (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -528,6 +529,7 @@
         "clear-cache": "Limpar cache do Heroic",
         "copiedToClipboard": "Copiado para a área de Transferência!",
         "copyToClipboard": "Copiar todas as configurações para a área de transferência",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "O GameMode é necessário para que o tempo de execução do EAC funcione no Flatpak. Deseja habilitá-lo agora?",
@@ -547,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Avançado",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Config. Gerais",
             "log": "Log",
             "other": "Outros",

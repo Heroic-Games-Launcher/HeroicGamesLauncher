@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Ceci va changer l'emplacement d'installation de ce jeu, êtes-vous sûr(e) de vouloir continuer ?",
+            "message": "Cette action va changer l'emplacement d'installation de ce jeu, êtes-vous sûr(e) de vouloir continuer ?",
             "path": "Choisissez un nouveau chemin d'installation",
             "title": "Changer le chemin d'installation du jeu"
         },
@@ -169,6 +169,7 @@
         "queued": "Queued",
         "reparing": "Réparation du jeu en cours, veuillez patienter",
         "totalDownloaded": "Total Téléchargé",
+        "uninstalling": "Uninstalling",
         "updating": "Mise à jour du jeu en cours"
     },
     "submenu": {

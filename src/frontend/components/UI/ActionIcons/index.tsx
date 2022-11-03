@@ -75,7 +75,7 @@ export default function ActionIcons({
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
-              icon={faBorderAll}
+              icon={faList}
             />
           </button>
         ) : (
@@ -86,7 +86,7 @@ export default function ActionIcons({
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
-              icon={faList}
+              icon={faBorderAll}
             />
           </button>
         )}

@@ -7,6 +7,7 @@
         "title": "접근성",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "모두",
     "anticheat": {
         "anticheats": "안티 치트",
@@ -528,6 +529,7 @@
         "clear-cache": "Heroic 캐시 삭제",
         "copiedToClipboard": "클립보드에 복사되었습니다!",
         "copyToClipboard": "모든 설정을 클립보드에 복사",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -547,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Advanced",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "일반",
             "log": "Log",
             "other": "기타",

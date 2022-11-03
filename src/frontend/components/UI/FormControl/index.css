@@ -72,16 +72,16 @@
   font-size: var(--text-sm);
   text-transform: uppercase;
   font-weight: var(--semibold);
-  color: var(--text-default);
+  color: var(--action-icon);
 }
 
 .FormControl--segmented > button:not(:disabled):hover {
-  color: var(--text-hover);
+  color: var(--action-icon-hover);
 }
 
 .FormControl--segmented > button:not(.non-important):active,
 .FormControl--segmented > button:not(.non-important).active {
-  color: var(--accent);
+  color: var(--action-icon-active);
 }
 
 .FormControl--segmented > button:not(:first-child) {

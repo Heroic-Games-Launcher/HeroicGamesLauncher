@@ -18,13 +18,13 @@
             "title": "验证和修复"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "选择要运行的 EXE"
         },
         "select": {
-            "button": "Select"
+            "button": "选择"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "选择可执行文件"
         },
         "stopInstall": {
             "keepInstalling": "保留安装",
@@ -47,22 +47,22 @@
         "add_to_favourites": "添加到收藏",
         "cancel": "暂停/取消",
         "continue": "继续下载",
-        "finish": "Finish",
+        "finish": "完成",
         "force_update": "如可用则强制更新",
-        "force-innstall": "Force Install",
+        "force-innstall": "强制安装",
         "hide_game": "隐藏游戏",
         "import": "导入游戏",
         "install": "安装",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "未选择路径",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "从队列中删除"
         },
         "remove_from_favourites": "从收藏夹移除",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "从最近删除",
+        "run-exe-first": "先运行安装包",
+        "running-setup": "运行安装",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "编辑应用/游戏"
         },
         "unhide_game": "取消隐藏游戏",
         "uninstall": "卸载",
@@ -77,8 +77,8 @@
     "game": {
         "downloadSize": "下载大小",
         "firstPlayed": "首次游玩",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "获取下载大小",
+        "getting-install-size": "获取安装大小",
         "installSize": "安装大小",
         "language": "语言",
         "lastPlayed": "上次玩",
@@ -124,16 +124,16 @@
         "options": "启动选项..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "你在 Heroic 中未登录 Epic 账户。不要使用商店页面进行登录，请点击下面的按钮：",
+        "gog": "你在 Heroic 中未登录 GOG 账户。不要使用商店页面进行登录，请点击下面的按钮：",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "你未登录"
     },
     "Open": "",
     "queue": {
         "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
+            "canceled": "取消了下载",
+            "remove": "从下载管理器中删除"
         }
     },
     "report_problem": "报告运行此游戏时出现的问题",
@@ -142,16 +142,16 @@
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "标题"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "选择可执行文件",
+            "image": "App 映像",
+            "title": "游戏/应用标题"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "在此粘贴映像 URL",
+            "title": "添加标题到你的“游戏/应用”"
         }
     },
     "specs": {
@@ -166,9 +166,10 @@
         "moving": "正在移动安装，请稍等",
         "notinstalled": "未安装此游戏",
         "processing": "处理文件中，请稍等",
-        "queued": "Queued",
+        "queued": "已加入队列",
         "reparing": "正在修复游戏，请稍等",
         "totalDownloaded": "下载总计",
+        "uninstalling": "卸载中",
         "updating": "游戏更新中"
     },
     "submenu": {

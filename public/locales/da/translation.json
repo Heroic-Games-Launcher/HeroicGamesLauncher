@@ -43,7 +43,8 @@
             },
             "wine-not-found": {
                 "message": "Ingen Wine Version valgt. Tjek spilindstillingerne!",
-                "title": "Wine Ikke Fundet"
+                "title": "Wine Ikke Fundet",
+                "invalid": "Den valgte vinversion blev ikke fundet. Installer det eller vælg en anden version i spillets indstillinger{{newline}}Version: {{version}}{{newline}}Sti: {{path}}"
             },
             "zstd": {
                 "message": "ZSTD ikke fundet, venligst installer det og genstart Heroic"
@@ -67,6 +68,10 @@
             "winetricks": {
                 "title": "Winetricks fejl",
                 "message": "Winetricks returnerede følgende fejl under udførelsen:{{newLine}}{{error}}"
+            },
+            "launchAborted": "Start afbrudt",
+            "generic": {
+                "title": "Vælg EXE til at køre"
             }
         },
         "info": {
@@ -139,7 +144,9 @@
         "all_tiles_in_color": "Vis alle spil fliser i farver",
         "title": "Tilgængelighed",
         "actions_font_family": "Actions Font Family (Standard: \"Rubik\")",
-        "content_font_family": "Indholdsskrifttypefamilie (standard: \"Cabin\")"
+        "content_font_family": "Indholdsskrifttypefamilie (standard: \"Cabin\")",
+        "actions_font_family_no_default": "Actions Font Family (Standard: ",
+        "content_font_family_no_default": "Indholdsskrifttypefamilie (standard: "
     },
     "info": {
         "version": "Wine Version",
@@ -149,7 +156,10 @@
             "newReleases": "Opdatering tilgængelig!",
             "stable": "Stabil"
         },
-        "settings": "Indstillinger gemmes automatisk"
+        "settings": "Indstillinger gemmes automatisk",
+        "save-sync": {
+            "searching": "Forsøger at finde den korrekte gemte mappe"
+        }
     },
     "install": {
         "path": "Vælg Installations Sti"
@@ -169,7 +179,8 @@
         },
         "wine-repfix": {
             "message": "Wine bruger det, der kaldes en WINEPREFIX til at indkapsle Windows-applikationer. Dette præfiks indeholder Wine-konfigurationsfilerne og en gengivelse af filhierarkiet af C: (hoveddisken på et Windows OS). I denne gengivelse af C:-drevet gemmes dine spillagringsfiler og afhængigheder installeret via winetricks."
-        }
+        },
+        "warning": "Advarsel"
     },
     "button": {
         "go_to_library": "Gå til biblioteket",
@@ -211,7 +222,12 @@
             "valid_codes": "Gyldige sprogkoder er spilafhængige."
         },
         "general": "Synkroniser med EGL, hvis du har en fungerende installation af Epic Games Launcher et andet sted og vil importere dine spil for at undgå at downloade dem igen.",
-        "primerun": "Brug dedikeret grafikkort til at gengive spil på multi-GPU-systemer. Kun nødvendig på bærbare gaming-computere eller stationære computere, der bruger en hovedløs GPU til gengivelse (NVIDIA Optimus, AMD CrossFire)"
+        "primerun": "Brug dedikeret grafikkort til at gengive spil på multi-GPU-systemer. Kun nødvendig på bærbare gaming-computere eller stationære computere, der bruger en hovedløs GPU til gengivelse (NVIDIA Optimus, AMD CrossFire)",
+        "custom_themes_path": "Brug ikke CSS-filer fra upålidelige kilder. Når du er i tvivl, så bed om en anmeldelse i vores Discord-kanal.",
+        "custom_themes_wiki": "Tjek Wiki for flere detaljer om tilføjelse af brugerdefinerede temaer. Klik her.",
+        "steam_path": {
+            "info": "Denne sti lader Heroic bestemme, hvilken version af Proton Steam bruger, til at tilføje ikke-Steam-spil til Steam."
+        }
     },
     "notify": {
         "uninstalled": "Afinstalleret",
@@ -335,7 +351,13 @@
         "exit-to-tray": "Afslut til systembakken",
         "FsrSharpnessStrenght": "FSR Skarphed Styrke",
         "preferSystemLibs": "Foretrækker systembiblioteker",
-        "primerun": "Brug dedikeret grafikkort",
+        "primerun": {
+            "confirmation": {
+                "message": "Kun ét grafikkort blev fundet i dette system. Bemærk venligst, at denne mulighed er beregnet til multi-GPU-systemer med hovedløse GPU'er (som bærbare computere). På enkelt-GPU-systemer bruges GPU'en automatisk, og aktivering af denne mulighed kan forårsage problemer. Vil du virkelig aktivere denne mulighed?",
+                "title": "Kun 1 GPU fundet"
+            },
+            "description": "Brug dedikeret grafikkort"
+        },
         "resizableBar": "Aktiver BAR, der kan ændres størrelse (kun NVIDIA RTX 30xx)",
         "wineversion": "Wine Version",
         "autosync": "Autosync gemmer",
@@ -354,7 +376,9 @@
         "minimize-on-launch": "Minimer heroisk efter spilstart",
         "offlinemode": "Kør spil offline",
         "prefered_language": "Foretrukken sprog (sprogkode)",
-        "checkForUpdatesOnStartup": "Søg efter heroiske opdateringer ved opstart"
+        "checkForUpdatesOnStartup": "Søg efter heroiske opdateringer ved opstart",
+        "addgamestosteam": "Tilføj spil til Steam automatisk",
+        "custom_themes_path": "Sti til brugerdefinerede temaer"
     },
     "wine": {
         "manager": {
@@ -558,13 +582,18 @@
     "globalSettings": "Globale indstillinger",
     "GOG": "GOG",
     "login": {
-        "externalLogin": "Eksternt login"
+        "externalLogin": "Eksternt login",
+        "alternative_method": "Alternativ login-metode",
+        "epic": "Epic Games Login",
+        "gog": "GOG login",
+        "message": "Log ind med din platform. Du kan logge ind på mere end én platform på samme tid."
     },
     "placeholder": {
         "prefered_language": "2-tegn kode (dvs.: \"en\" eller \"fr\")",
         "alt-gogdl-bin": "Brug af indbygget GOGDL binær...",
         "alt-legendary-bin": "Bruger indbygget Legendary binær...",
-        "egs-prefix": "Præfiks hvor EGS er installeret"
+        "egs-prefix": "Præfiks hvor EGS er installeret",
+        "custom_themes_path": "Vælg stien for at søge efter tilpassede CSS-filer"
     },
     "search": "Søg efter spil",
     "store": "Episk butik",
@@ -586,5 +615,35 @@
     "two_col_table": {
         "save_hint": "Ændringer i denne tabel gemmes ikke automatisk. Klik på knappen +"
     },
-    "progress": "Fremskridt"
+    "progress": "Fremskridt",
+    "download": {
+        "manager": {
+            "empty": "Intet at downloade.",
+            "link": "Download Manager",
+            "queue": {
+                "actions": "Handling",
+                "element": "Navn",
+                "platform": "Platform",
+                "store": "butik"
+            },
+            "title": "Downloads"
+        }
+    },
+    "error": "Fejl",
+    "offline-message": {
+        "hint": "Vi tjekker forbindelsen mod:{{newline}}github.com,{{newline}}gog.com og{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Prøver igen om ... {{seconds}} sekunder",
+        "retrying": "Prøver igen"
+    },
+    "Other": "Andet",
+    "queue": {
+        "label": {
+            "clear": "Ryd liste",
+            "downloading": "Downloader",
+            "finished": "Afsluttet",
+            "queued": "I kø"
+        }
+    },
+    "add_game": "Tilføj spil"
 }

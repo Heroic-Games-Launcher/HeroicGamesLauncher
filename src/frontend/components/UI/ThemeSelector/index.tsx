@@ -22,7 +22,9 @@ export const defaultThemes = {
   marine: 'Marine',
   'marine-classic': 'Marine Classic',
   zombie: 'Zombie',
-  'zombie-classic': 'Zombie Classic'
+  'zombie-classic': 'Zombie Classic',
+  'nord-light': 'Nord Light',
+  'nord-dark': 'Nord Dark'
 }
 
 export const ThemeSelector = () => {

@@ -14,7 +14,12 @@ export default function PlatformFilter() {
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+  const isWindows = platform === 'win32'
   const disabledIcon = isLinux && category === 'legendary'
+
+  if (isWindows) {
+    return null
+  }
 
   return (
     <div className="platformFilters">

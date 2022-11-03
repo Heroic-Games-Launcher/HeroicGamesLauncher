@@ -7,6 +7,7 @@
         "title": "Accessibilità",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Tutto",
     "anticheat": {
         "anticheats": "Anticheat",
@@ -170,18 +171,18 @@
             "update_game": "Update game"
         }
     },
-    "docs": "Documentation",
+    "docs": "Documentazione",
     "download": {
         "manager": {
-            "empty": "Nothing to download.",
+            "empty": "Nulla da scaricare.",
             "link": "Download Manager",
             "queue": {
                 "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
+                "element": "Nome",
+                "platform": "Piattaforma",
                 "store": "Store"
             },
-            "title": "Downloads"
+            "title": "Download"
         }
     },
     "epic": {
@@ -189,10 +190,10 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": "Errore",
     "favourites": "Preferiti",
     "game": {
-        "status": "Status",
+        "status": "Stato",
         "store": "Negozio",
         "title": "Titolo del gioco"
     },
@@ -296,7 +297,7 @@
     "Library": "Libreria",
     "loading": {
         "default": "Caricamento in corso",
-        "website": "Caricamento sito web incorso"
+        "website": "Caricamento sito web in corso"
     },
     "login": {
         "alternative_method": "Alternative Login Method",
@@ -528,6 +529,7 @@
         "clear-cache": "Pulisci cache Heroic",
         "copiedToClipboard": "Copiato negli appunti!",
         "copyToClipboard": "Copia tutte le impostazioni negli appunti",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -547,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Advanced",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Generale",
             "log": "Log",
             "other": "Altro",

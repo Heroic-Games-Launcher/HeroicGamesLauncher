@@ -7,6 +7,7 @@
         "title": "Əlçatanlıq",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Hamısı",
     "anticheat": {
         "anticheats": "Antifırıldaqçılar",
@@ -528,6 +529,7 @@
         "clear-cache": "Qəhrəmanlıq önbelleğini təmizləyin",
         "copiedToClipboard": "Buferə kopyalandı!",
         "copyToClipboard": "Bütün Parametrləri Panoya kopyalayın",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "EAC iş vaxtının Flatpak üzərində işləməsi üçün GameMode tələb olunur. Onu indi aktiv etmək istəyirsiniz?",
@@ -547,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Qabaqcıl",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "General",
             "log": "Giriş",
             "other": "Digər",

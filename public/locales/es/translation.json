@@ -1,12 +1,13 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "Tipografía de acciones (Por Defecto: ",
         "all_tiles_in_color": "Mostrar todos los juegos a color en la biblioteca",
-        "content_font_family_no_default": "Content Font Family (Default: ",
+        "content_font_family_no_default": "Tipografía de contenido (Por Defecto: ",
         "fonts": "Tipografías",
         "title": "Accesibilidad",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Todos",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -56,12 +57,12 @@
             },
             "generic": {
                 "message": "",
-                "title": "Select EXE to Run"
+                "title": "Seleccionar EXE a ejecutar"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Ejecución abortada",
             "title": "Error",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
+                "message": "Ocurrió un error:{{newLine}}{{error}}{{newLine}}{{newLine}} Reporte el error en nuestro repositorio de GitHub.",
                 "title": "¡Ocurrió un error!"
             },
             "update": {
@@ -69,13 +70,13 @@
                 "title": "Error al actualizar"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "La versión seleccionada de Wine no se encontró. Instale la versión o seleccione una diferente en los ajustes del juego{{newline}}Version: {{version}}{{newline}}Ubicación: {{path}}",
                 "message": "No se ha seleccionado la versión de Wine. ¡Comprueba la configuración del juego!",
                 "title": "No se ha encontrado Wine"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks respondió con el siguiente error durante la ejecución:{{newLine}}{{error}}",
+                "title": "Error de Winetricks"
             }
         },
         "info": {
@@ -101,12 +102,12 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "¿Está seguro que quiere restablecer Heroic? Esto removerá todas las configuraciones y caché pero no removerá los juegos installados ni las credenciales. Versiones portables (AppImage, WinPortable, ...) de Heroic tienen que ser iniciadas manualmente luego de ejecutar esta acción.",
+                "message": "¿Está seguro que quiere restablecer Heroic? Esto removerá todas las configuraciones y caché pero no removerá los juegos instalados ni las credenciales. Versiones portables (AppImage, WinPortable, ...) de Heroic tienen que ser iniciadas manualmente luego de ejecutar esta acción.",
                 "title": "Restablecer Heroic"
             }
         },
         "runexe": {
-            "title": "Seleccione EXE para ejecutar"
+            "title": "Seleccionar EXE a ejecutar"
         },
         "select": {
             "button": "Seleccionar",
@@ -173,15 +174,15 @@
     "docs": "Documentación",
     "download": {
         "manager": {
-            "empty": "Nothing to download.",
-            "link": "Download Manager",
+            "empty": "Nada para descargar.",
+            "link": "Administrador de Descargas",
             "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Store"
+                "actions": "Acción",
+                "element": "Nombre",
+                "platform": "Plataforma",
+                "store": "Tienda"
             },
-            "title": "Downloads"
+            "title": "Descargas"
         }
     },
     "epic": {
@@ -218,14 +219,14 @@
     },
     "help": {
         "amdfsr": "El FSR de AMD ayuda a aumentar la velocidad de los fotogramas mediante el escalado de las resoluciones más bajas en el modo de pantalla completa. La calidad de la imagen aumenta de 5 a 1 a costa de un ligero impacto en el rendimiento. Su activación puede mejorar el rendimiento.",
-        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
-        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "custom_themes_path": "No use archivos CSS de fuentes no confiables. Ante la duda, pida una revisión en nuestro servidor de Discord.",
+        "custom_themes_wiki": "Revise la Wiki para más detalles sobre agregar temas personalizados. Clic aquí.",
         "dxvk": "DXVK es una capa de traducción basada en Vulkan para juegos que usan DirectX 9, 10 y 11. Activarlo puede mejorar la compatibilidad. Puede causar errores especialmente en juegos antiguos que usen DirectX.",
         "esync": "Esync intenta reducir la sobrecarga de wineserver en juegos con intenso uso de CPU. Activarlo puede mejorar el rendimiento.",
         "fsync": "Fsync intenta reducir la sobrecarga de wineserver en juegos con uso intensivo de CPU. Activarlo puede mejorar el rendimiento en kernels de Linux que lo soporten.",
         "game_language": {
-            "fallback": "Dejar en blanco para usar el lenguage de Heroic.",
-            "in_game_config": "No todos los juegos soportan esta configuración, algunos tienen configuración del lenguage dentro del juego.",
+            "fallback": "Dejar en blanco para usar el lenguaje de Heroic.",
+            "in_game_config": "No todos los juegos soportan esta configuración, algunos tienen configuración del lenguaje dentro del juego.",
             "valid_codes": "Códigos de lenguaje válidos varian dependiendo del juego."
         },
         "gamemode": "Feral GameMode aplica cambios automáticos y temporales al sistema cuando se ejecuta un juego. Activarlo puede mejorar el rendimiento.",
@@ -240,7 +241,7 @@
         "preferSystemLibs": "Versiones custom de Wine (Wine-GE, Wine-Lutris) incluyen sus propias librerías para sus dependencias. Al activar esta opción, esa librarías son ignoradas y Wine cargará las librarías del sistema en su lugar. Advertencia! Pueden ocurrir errores si las dependencias no se cumplen.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+            "info": "Esto ayuda a Heroic a encontrar versiones de Proton instaladas en Steam y a identificar a los usuarios para agregar juegos a Steam."
         },
         "steamruntime": "Librerías provistas por Steam para ayudar a ejecutar juegos de Linux y Windows (Proton). Activarlas puede mejorar la compatibilidad.",
         "sync": {
@@ -263,7 +264,7 @@
             "version": "Versión de Heroic"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Tratando de detectar la ubicación para los guardados"
         },
         "settings": "Los ajustes se guardan automáticamente",
         "version": "Versión de Wine"
@@ -271,13 +272,13 @@
     "infobox": {
         "help": "Ayuda",
         "requirements": "Requisitos del sistema",
-        "warning": "Warning",
+        "warning": "Advertencia",
         "wine-path": "Ruta de Wine",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "Prefijo de Wine"
         },
         "wine-repfix": {
-            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+            "message": "Wine utiliza lo que se conoce como WINEPREFIX (prefijo de wine) para encapsular aplicaciones de Windows. Este prefijo contiene los archivos de configuración de Wine y una réplica de los directorios del disco C: (el disco principal en sistemas Windows). En esta réplica del disco C: se localizan los guardados del juego y las dependencias instaladas con Winetricks."
         }
     },
     "install": {
@@ -299,10 +300,10 @@
         "website": "Cargando el sitio web"
     },
     "login": {
-        "alternative_method": "Alternative Login Method",
-        "epic": "Epic Games Login",
-        "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "alternative_method": "Método Alternativo de Inicio de Sesión",
+        "epic": "Iniciar Sesión en Epic Games",
+        "gog": "Iniciar Sesión en GOG",
+        "message": "Inicie sesión en sus plataformas. Puede iniciar sesión en más de una a la vez."
     },
     "message": {
         "sync": "Sincronización completa",
@@ -351,33 +352,33 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
-        "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
-        "retrying": "Retrying"
+        "hint": "Estamos comprobando la conexión con:{{newline}}github.com,{{newline}}gog.com y{{newline}}store.epicgames.com",
+        "offline": "Sin conexión",
+        "retry-in": "Reintentando en ... {{seconds}} segundos",
+        "retrying": "Reintentando"
     },
     "options": {
         "advanced": {
             "key": "Nombre de la variable",
             "placeHolderKey": "NOMBRE",
             "placeHolderValue": "ej: Ruta/A/archivo",
-            "title": "Environment Variables",
+            "title": "Variables de Entorno",
             "value": "Valor"
         },
         "env_variables": {
             "error": {
-                "empty_key": "Variable names can't be empty",
-                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "empty_key": "El nombre de la variable no puede estar en blanco",
+                "equal_sign_in_key": "El nombre del a variable no puede contener el signo \"=\"",
+                "space_in_key": "El nombre de la variable no puede contener espacios"
             },
-            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "example": "NO incluya el signo \"=\", e.j: para configurar \"MI_VARIABLE=123\", use MI_VARIABLE en NOMBRE y 123 en VALOR.",
+            "info": "Configure variables de entorno para anteponer al comando."
         },
         "gameargs": {
             "placeholder": "Pon aquí los argumentos de lanzamiento",
             "title": "Argumentos del juego (para ejecutar después del comando):"
         },
-        "quote-args-with-spaces": "Advertencia: Utiliza comillas en argumentos con expacios! ej: \"ruta/con espacios/\"",
+        "quote-args-with-spaces": "Advertencia: Utiliza comillas en argumentos con espacios! e.j: \"ruta/con espacios/\"",
         "wrapper": {
             "args": "Argumentos",
             "arguments_example": "Ejemplo de argumentos: --arg; --extra-file=\"ruta/con espacios\"",
@@ -392,11 +393,11 @@
         "legendary-version": "Versión de Legendary: ",
         "weblate": "Ayuda a traducir Heroic."
     },
-    "Other": "Other",
+    "Other": "Otros",
     "placeholder": {
         "alt-gogdl-bin": "Utilizando el binario incorporado de GOGDL...",
         "alt-legendary-bin": "Usando el binario incorporado de Legendary…",
-        "custom_themes_path": "Select the path to look for custom CSS files",
+        "custom_themes_path": "Seleccione la ubicación de donde buscar los archivos CSS",
         "egs-prefix": "Prefijo donde está instalado EGS",
         "prefered_language": "Código de 2 caracteres (ej: \"en\" o \"fr\")"
     },
@@ -405,13 +406,13 @@
         "mac": "macOS",
         "win": "Windows"
     },
-    "progress": "Progress",
+    "progress": "Progreso",
     "queue": {
         "label": {
-            "clear": "Clear List",
-            "downloading": "Downloading",
-            "finished": "Completed",
-            "queued": "Queued"
+            "clear": "Limpiar lista",
+            "downloading": "Descargando",
+            "finished": "Completado",
+            "queued": "Encolado"
         }
     },
     "Recent": "Jugado recientemente",
@@ -419,7 +420,7 @@
     "setting": {
         "adddesktopshortcuts": "Añadir accesos directos al escritorio automáticamente",
         "addgamestostartmenu": "Añadir juegos al menú de inicio automáticamente",
-        "addgamestosteam": "Add games to Steam automatically",
+        "addgamestosteam": "Agregar juegos a Steam automáticamente",
         "alt-gogdl-bin": "Elige un binario de GOGDL alternativo para usar",
         "alt-legendary-bin": "Elige un binario de Legendary alternativo",
         "audiofix": "Corrección de audio (latencia de Pulseaudio)",
@@ -429,7 +430,7 @@
         "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
         "checkForUpdatesOnStartup": "Comprobar actualizaciones de Heroic al iniciar",
         "crossover-version": "Versión de Crossover",
-        "custom_themes_path": "Custom Themes Path",
+        "custom_themes_path": "Ubicación de temas personalizados",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilizar el icono oscuro en la bandeja",
         "default-install-path": "Ruta de instalación predeterminada",
@@ -496,12 +497,12 @@
         "maxworkers": "Número máximo de procesos al descargar",
         "minimize-on-launch": "Minimizar Heroic al ejecutar un juego",
         "offlinemode": "Ejecutar juego sin conexión",
-        "prefered_language": "Lenguaje preferido (Código de Lenguage)",
+        "prefered_language": "Lenguaje preferido (Código de Lenguaje)",
         "preferSystemLibs": "Preferir librerías del sistema",
         "primerun": {
             "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
+                "message": "Se detectó sólo una tarjeta gráfica en el sistema. Note que está opción está pensada para sistemas con múltiples GPU con tarjetas \"headless\" (como laptops para juegos). En sistemas de GPU única, la GPU usada automáticamente y activar esta opción puede generar problemas. Seguro que quiere activar esta opción?",
+                "title": "Sólo 1 GPU detectada"
             },
             "description": "Utilizar tarjeta de video dedicada"
         },
@@ -528,6 +529,7 @@
         "clear-cache": "Borrar la caché de Heroic",
         "copiedToClipboard": "¡Copiado en el portapapeles!",
         "copyToClipboard": "Copiar todas las configuraciones al portapapeles",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode es necesario para que el runtime de EAC funcione en Flatpak. Instalar ahora?",
@@ -547,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Avanzado",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "General",
             "log": "Registro",
             "other": "Otro",
@@ -592,7 +596,7 @@
         "show": "Mostrar"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Los cambios en esta tabla no se guardan automáticamente. Haz clic en el botón \"+\""
     },
     "Update Available!": "",
     "userselector": {

@@ -7,6 +7,7 @@
         "title": "Accessibility",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Alla",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -106,10 +107,10 @@
             }
         },
         "runexe": {
-            "title": "Ange EXE-fil att köra"
+            "title": "Välj EXE"
         },
         "select": {
-            "button": "Välj",
+            "button": "Ange val",
             "exe": "Ange EXE"
         },
         "shortcuts": {
@@ -528,6 +529,7 @@
         "clear-cache": "Rensa Heroic cache",
         "copiedToClipboard": "Kopierat till urklipp/klippbord!",
         "copyToClipboard": "Kopiera all inställningar till urklipp/klippbord",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -547,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Avancerat",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Allmänt",
             "log": "Logg",
             "other": "Övrigt",
@@ -566,9 +570,9 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Installerar",
         "logging": "Loggar in...",
-        "processing": "Processing files, please wait"
+        "processing": "Hanterar filer, vänligen vänta"
     },
     "store": "Epic Butik",
     "stores": "Butiker",

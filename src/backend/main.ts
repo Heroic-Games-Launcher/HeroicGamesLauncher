@@ -40,7 +40,6 @@ import {
   rmSync,
   unlinkSync,
   watch,
-  realpathSync,
   writeFileSync,
   readdirSync,
   readFileSync
@@ -48,7 +47,7 @@ import {
 
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
-import { join, normalize } from 'path'
+import { join } from 'path'
 import checkDiskSpace from 'check-disk-space'
 import { DXVK, Winetricks } from './tools'
 import { GameConfig } from './game_config'
@@ -77,7 +76,8 @@ import {
   getGame,
   getFirstExistingParentPath,
   getLatestReleases,
-  notify
+  notify,
+  getShellPath
 } from './utils'
 import {
   configStore,
@@ -140,6 +140,7 @@ import {
   stop
 } from './sideload/games'
 import { callAbortController } from './utils/aborthandler/aborthandler'
+import { getDefaultSavePath } from './save_sync'
 import si from 'systeminformation'
 
 const { showOpenDialog } = dialog
@@ -684,14 +685,18 @@ ipcMain.handle(
         break
       case 'winecfg':
         isSideloaded
-          ? runWineCommand({ gameSettings, command: 'winecfg', wait: false })
-          : game.runWineCommand('winecfg')
+          ? runWineCommand({
+              gameSettings,
+              commandParts: ['winecfg'],
+              wait: false
+            })
+          : game.runWineCommand(['winecfg'])
         break
       case 'runExe':
         if (exe) {
           isSideloaded
-            ? runWineCommand({ gameSettings, command: exe, wait: false })
-            : game.runWineCommand(exe)
+            ? runWineCommand({ gameSettings, commandParts: [exe], wait: false })
+            : game.runWineCommand([exe])
         }
         break
     }
@@ -1445,6 +1450,17 @@ ipcMain.handle('syncSaves', async (event, args) => {
   return `\n ${stdout} - ${stderr}`
 })
 
+ipcMain.handle(
+  'getDefaultSavePath',
+  async (
+    event,
+    appName: string,
+    runner: Runner,
+    alreadyDefinedGogSaves: GOGCloudSavesLocation[]
+  ): Promise<string | GOGCloudSavesLocation[]> =>
+    getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
+)
+
 // Simulate keyboard and mouse actions as if the real input device is used
 ipcMain.handle('gamepadAction', async (event, args) => {
   const [action, metadata] = args
@@ -1558,7 +1574,14 @@ ipcMain.handle('getFonts', async (event, reload = false) => {
 
 ipcMain.handle(
   'runWineCommandForGame',
-  async (event, { appName, command, runner }) => {
+  async (
+    event,
+    {
+      appName,
+      commandParts,
+      runner
+    }: { appName: string; runner: Runner; commandParts: string[] }
+  ) => {
     const game = getGame(appName, runner)
     const isSideloaded = runner === 'sideload'
     const gameSettings = isSideloaded
@@ -1566,7 +1589,7 @@ ipcMain.handle(
       : await game.getSettings()
 
     if (isWindows) {
-      return execAsync(command)
+      return execAsync(commandParts.join(' '))
     }
     const { updated } = await verifyWinePrefix(gameSettings)
 
@@ -1574,27 +1597,12 @@ ipcMain.handle(
       await setup(game.appName)
     }
 
-    return game.runWineCommand(command, false, true)
+    // FIXME: Why are we using `runinprefix` here?
+    return game.runWineCommand(commandParts, false, 'runinprefix')
   }
 )
 
-ipcMain.handle('getShellPath', async (event, path) => {
-  return normalize((await execAsync(`echo "${path}"`)).stdout.trim())
-})
-
-ipcMain.handle('getRealPath', (event, path) => {
-  let resolvedPath = normalize(path)
-  try {
-    resolvedPath = realpathSync(path)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    if (err?.path) {
-      resolvedPath = err.path // Reslove most accurate path (most likely followed symlinks)
-    }
-  }
-
-  return resolvedPath
-})
+ipcMain.handle('getShellPath', async (event, path) => getShellPath(path))
 
 ipcMain.handle('clipboardReadText', () => {
   return clipboard.readText()

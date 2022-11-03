@@ -12,6 +12,7 @@ import SidebarLinks from './components/SidebarLinks'
 import './index.css'
 import HeroicVersion from './components/HeroicVersion'
 import { DMQueueElement } from 'common/types'
+import { DMQueue } from 'frontend/types'
 
 export default function Sidebar() {
   const { t } = useTranslation()
@@ -19,7 +20,7 @@ export default function Sidebar() {
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
 
   useEffect(() => {
-    window.api.getDMQueueInformation().then((elements: DMQueueElement[]) => {
+    window.api.getDMQueueInformation().then(({ elements }: DMQueue) => {
       setCurrentDMElement(elements[0])
     })
 

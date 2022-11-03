@@ -1,0 +1,72 @@
+.log-buttongroup {
+  display: flex;
+  flex-direction: row;
+}
+
+.log-buttons.log-choosen,
+.log-buttons.log-choosen:hover {
+  color: var(--accent);
+  transition: all 350ms ease-out 0s;
+  transform: scale(1.2);
+}
+
+.log-buttons {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.log-buttons:hover {
+  color: var(--text-hover);
+}
+
+.setting.log-box {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding-block: 4px;
+  padding-inline: 6px;
+  height: 25em;
+  width: calc(90vw - var(--sidebar-width));
+  overflow: auto;
+  user-select: text;
+}
+
+.setting.log-box.collapsed {
+  width: calc(90vw - var(--sidebar-width));
+}
+
+.log-error,
+.log-warning,
+.log-info {
+  text-align: left;
+  margin-block: 0;
+  min-height: 1em;
+  height: max-content;
+  white-space: pre;
+  font-family: monospace;
+}
+
+.log-error {
+  color: #c18672;
+}
+
+.log-warning {
+  color: var(--text-log);
+}
+
+.log-info {
+  color: rgb(175, 172, 172);
+}
+
+.long-log-hint {
+  font-style: italic;
+  color: var(--text-log);
+}
+
+.icon {
+  font-size: var(--text-4xl);
+  animation: refreshing 1.5s infinite;
+}
+
+.report-problem-instructions {
+  text-align: left;
+}

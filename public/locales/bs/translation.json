@@ -7,6 +7,7 @@
         "title": "Pristupačnost",
         "zoom": "Povećanje"
     },
+    "add_game": "Add Game",
     "All": "Sve",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -528,6 +529,7 @@
         "clear-cache": "Obrišite Heroic predmemoriju",
         "copiedToClipboard": "Kopirano u međuspremnik!",
         "copyToClipboard": "Kopirajte sve postavke u međuspremnik",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode je neophodan da EAC runtime radi na Flatpaku. Želite li ga sada omogućiti?",
@@ -547,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Napredno",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Generalno",
             "log": "Prijavite se",
             "other": "Drugi",
