@@ -529,6 +529,7 @@
         "clear-cache": "Esborra la memòria cau de l'Heroic",
         "copiedToClipboard": "S'ha copiat al porta-retalls.",
         "copyToClipboard": "Copia tota la configuració al porta-retalls",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "Es necessita el GameMode per tal que el EAC funcioni en Flatpak. Voleu activar-lo?",
@@ -548,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Avançat",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "General",
             "log": "Registre",
             "other": "Altres",

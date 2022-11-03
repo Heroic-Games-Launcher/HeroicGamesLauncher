@@ -529,6 +529,7 @@
         "clear-cache": "清理 Heroic 缓存",
         "copiedToClipboard": "已复制到剪贴板！",
         "copyToClipboard": "复制所有设置到剪贴板",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "需要 GameMode 才能让 EAC runtime 在 Flatpak 上工作。你想马上启用它吗？",
@@ -548,6 +549,8 @@
         },
         "navbar": {
             "advanced": "高级",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "常规",
             "log": "日志",
             "other": "其它",

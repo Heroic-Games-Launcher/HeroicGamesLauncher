@@ -529,6 +529,7 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "அனைத்து செட்டிங்ஸையும் கிளிப் போர்டில் நகல் எடு",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -548,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Advanced",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "பொதுவானவை",
             "log": "Log",
             "other": "மற்றவை",

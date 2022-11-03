@@ -529,6 +529,7 @@
         "clear-cache": "Tøm heroisk cache",
         "copiedToClipboard": "Kopiert til utklippstavlen!",
         "copyToClipboard": "Kopier alle innstillinger til utklippstavlen",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode kreves for at EAC-kjøretiden skal fungere på Flatpak. Vil du aktivere det nå?",
@@ -548,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Avansert",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Generell",
             "log": "Logg",
             "other": "Annen",
