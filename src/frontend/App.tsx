@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 
 import './App.css'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Login from './screens/Login'
 import WebView from './screens/WebView'
 import { GamePage } from './screens/Game'
@@ -27,12 +27,13 @@ function App() {
         <main className="content">
           <DialogHandler />
           <Routes>
-            <Route path="/" element={<Library />} />
+            <Route path="/" element={<Navigate replace to="/library" />} />
+            <Route path="/library" element={<Library />} />
             <Route path="login" element={<Login />} />
             <Route path="epicstore" element={<WebView />} />
             <Route path="gogstore" element={<WebView />} />
             <Route path="wiki" element={<WebView />} />
-            <Route path="gamepage">
+            <Route path="/gamepage">
               <Route path=":runner">
                 <Route path=":appName" element={<GamePage />} />
               </Route>

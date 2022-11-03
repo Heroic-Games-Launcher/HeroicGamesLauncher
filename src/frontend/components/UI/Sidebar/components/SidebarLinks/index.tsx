@@ -71,12 +71,7 @@ export default function SidebarLinks() {
         setGameInfo(info)
         if (info?.is_installed) {
           setIsDefaultSetting(false)
-          const isNative = await window.api.isNative({ appName, runner })
-          // setIsNativeApp(isNative)
-          const wineOrOther = isNative
-            ? `/settings/${runner}/${appName}/other`
-            : `/settings/${runner}/${appName}/games_settings`
-          setSettingsPath(wineOrOther)
+          setSettingsPath(`/settings/${runner}/${appName}/games_settings`)
         }
       }
     }
@@ -92,6 +87,18 @@ export default function SidebarLinks() {
       return setIsDefaultSetting(true)
     }
   }, [location])
+
+  async function handleRefresh() {
+    localStorage.setItem('scrollPosition', '0')
+
+    const shouldRefresh =
+      (epic.username && !epic.library.length) ||
+      (gog.username && !gog.library.length)
+    if (shouldRefresh) {
+      return refreshLibrary({ runInBackground: true, fullRefresh: true })
+    }
+    return
+  }
 
   return (
     <div className="SidebarLinks Sidebar__section">
@@ -117,11 +124,8 @@ export default function SidebarLinks() {
         className={({ isActive }) =>
           classNames('Sidebar__item', { active: isActive })
         }
-        to={'/'}
-        onClick={() => {
-          localStorage.setItem('scrollPosition', '0')
-          refreshLibrary({ runInBackground: false, fullRefresh: true })
-        }}
+        to={'/library'}
+        onClick={async () => handleRefresh()}
       >
         <>
           <div className="Sidebar__itemIcon">

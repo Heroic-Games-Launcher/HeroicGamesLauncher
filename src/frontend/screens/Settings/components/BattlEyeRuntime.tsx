@@ -31,7 +31,7 @@ const BattlEyeRuntime = () => {
   }
 
   return (
-    <>
+    <div className="toggleRow">
       <ToggleSwitch
         htmlId="battlEyeRuntime"
         value={battlEyeRuntime}
@@ -47,7 +47,7 @@ const BattlEyeRuntime = () => {
           )}
         </span>
       )}
-    </>
+    </div>
   )
 }
 

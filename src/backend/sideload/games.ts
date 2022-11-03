@@ -107,8 +107,10 @@ export async function launchApp(appName: string): Promise<boolean> {
     folder_name
   } = gameInfo
 
+  const gameSettings = await getAppSettings(appName)
+  const { launcherArgs } = gameSettings
+
   if (executable) {
-    const gameSettings = await getAppSettings(appName)
     const {
       success: launchPrepSuccess,
       failureReason: launchPrepFailReason,
@@ -143,7 +145,6 @@ export async function launchApp(appName: string): Promise<boolean> {
 
     // Native
     if (isNativeApp(appName)) {
-      const { launcherArgs } = gameSettings
       logInfo(
         `launching native sideloaded: ${executable} ${launcherArgs ?? ''}`,
         { prefix: LogPrefix.Backend }
@@ -187,7 +188,7 @@ export async function launchApp(appName: string): Promise<boolean> {
     })
 
     await runWineCommand({
-      commandParts: [executable],
+      commandParts: [executable, launcherArgs ?? ''],
       gameSettings,
       wait: false,
       startFolder: folder_name,
