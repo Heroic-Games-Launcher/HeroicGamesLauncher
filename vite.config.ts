@@ -11,6 +11,19 @@ const srcAliases = ['backend', 'frontend', 'common'].map((srcFolder) => {
   }
 })
 
+const electronViteConfig = {
+  build: { outDir: 'build/electron ' },
+  resolve: {
+    alias: [
+      {
+        find: '~@fontsource',
+        replacement: path.resolve(__dirname, 'node_modules/@fontsource')
+      },
+      ...srcAliases
+    ]
+  }
+}
+
 export default defineConfig({
   build: {
     outDir: 'build'
@@ -29,33 +42,11 @@ export default defineConfig({
     electron([
       {
         entry: 'src/backend/main.ts',
-        vite: {
-          build: { outDir: 'build/electron' },
-          resolve: {
-            alias: [
-              {
-                find: '~@fontsource',
-                replacement: path.resolve(__dirname, 'node_modules/@fontsource')
-              },
-              ...srcAliases
-            ]
-          }
-        }
+        vite: electronViteConfig
       },
       {
         entry: 'src/backend/preload.ts',
-        vite: {
-          build: { outDir: 'build/electron' },
-          resolve: {
-            alias: [
-              {
-                find: '~@fontsource',
-                replacement: path.resolve(__dirname, 'node_modules/@fontsource')
-              },
-              ...srcAliases
-            ]
-          }
-        }
+        vite: electronViteConfig
       }
     ]),
     svgr()
