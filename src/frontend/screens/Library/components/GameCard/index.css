@@ -114,6 +114,10 @@
   padding: var(--space-xs-fixed);
 }
 
+.gameCard > .icons.gamepad {
+  display: none;
+}
+
 .gameCard > .icons > .svg-button {
   justify-self: center;
 }

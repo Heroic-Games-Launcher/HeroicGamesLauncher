@@ -41,8 +41,15 @@ export default function ControllerHints() {
         main = t('controller.hints.play_game', 'Play game')
       } else if (classes.contains('downIcon')) {
         main = t('controller.hints.install_game', 'Install game')
+      } else if (
+        card?.classList.contains('installed') ||
+        list?.classList.contains('installed')
+      ) {
+        main = t('controller.hints.game_details', 'Game details')
+        alt2 = t('controller.hints.play_game', 'Play game')
       } else {
         main = t('controller.hints.game_details', 'Game details')
+        alt2 = t('controller.hints.install_game', 'Install game')
       }
     } else if (target.id === 'search') {
       // focusing the search bar
