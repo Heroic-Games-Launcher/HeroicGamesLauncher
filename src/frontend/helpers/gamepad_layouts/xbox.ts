@@ -1,3 +1,4 @@
+import { ValidGamepadAction } from 'common/types'
 // Holds layouts for different XBox official an clone controllers
 
 // Vendor: 045e, Product: 02ea
@@ -6,7 +7,11 @@ export function checkXbox(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
   controllerIndex: number,
-  checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
 ) {
   const A = buttons[0],
     B = buttons[1],

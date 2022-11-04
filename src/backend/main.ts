@@ -1,13 +1,11 @@
 import { initImagesCache } from './images_cache'
 import { downloadAntiCheatData } from './anticheat/utils'
 import {
-  GamepadInputEventKey,
-  GamepadInputEventWheel,
-  GamepadInputEventMouse,
   AppSettings,
   GameSettings,
   DiskSpaceData,
-  StatusPromise
+  StatusPromise,
+  GamepadInputEvent
 } from 'common/types'
 import * as path from 'path'
 import {
@@ -1432,13 +1430,9 @@ ipcMain.handle(
 
 // Simulate keyboard and mouse actions as if the real input device is used
 ipcMain.handle('gamepadAction', async (event, args) => {
-  const [action, metadata] = args
+  const { action, metadata } = args
   const window = BrowserWindow.getAllWindows()[0]
-  const inputEvents: (
-    | GamepadInputEventKey
-    | GamepadInputEventWheel
-    | GamepadInputEventMouse
-  )[] = []
+  const inputEvents: GamepadInputEvent[] = []
 
   /*
    * How to extend:

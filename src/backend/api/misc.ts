@@ -1,6 +1,12 @@
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { ipcRenderer } from 'electron'
-import { Runner, Tools, DialogType, ButtonOptions } from 'common/types'
+import {
+  Runner,
+  Tools,
+  DialogType,
+  ButtonOptions,
+  GamepadActionArgs
+} from 'common/types'
 
 export const clearCache = () => ipcRenderer.send('clearCache')
 export const resetHeroic = () => ipcRenderer.send('resetHeroic')
@@ -40,9 +46,8 @@ export const refreshLibrary = async (
   library?: Runner | 'all'
 ) => ipcRenderer.invoke('refreshLibrary', fullRefresh, library)
 
-export const gamepadAction = async (
-  args: [action: string, metadata: unknown]
-) => ipcRenderer.invoke('gamepadAction', args)
+export const gamepadAction = async (args: GamepadActionArgs) =>
+  ipcRenderer.invoke('gamepadAction', args)
 
 export const logError = (error: string) => ipcRenderer.send('logError', error)
 export const logInfo = (info: string) => ipcRenderer.send('logInfo', info)

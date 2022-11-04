@@ -26,7 +26,8 @@ import {
   AntiCheatInfo,
   RuntimeName,
   DMQueueElement,
-  ConnectivityStatus
+  ConnectivityStatus,
+  GamepadActionArgs
 } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
@@ -163,10 +164,7 @@ interface AsyncIPCFunctions {
     arg: string
   ) => Promise<string>
   syncSaves: (args: SaveSyncArgs) => Promise<string>
-  gamepadAction: ([action, metadata]: [
-    string,
-    { elementTag: string; x: number; y: number }
-  ]) => Promise<void>
+  gamepadAction: (args: GamepadActionArgs) => Promise<void>
   getFonts: (reload: boolean) => Promise<string[]>
   runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>

@@ -308,19 +308,24 @@ export interface GOGImportData {
   installedWithDlcs: boolean
 }
 
-export interface GamepadInputEventKey {
+export type GamepadInputEvent =
+  | GamepadInputEventKey
+  | GamepadInputEventWheel
+  | GamepadInputEventMouse
+
+interface GamepadInputEventKey {
   type: 'keyDown' | 'keyUp' | 'char'
   keyCode: string
 }
 
-export interface GamepadInputEventWheel {
+interface GamepadInputEventWheel {
   type: 'mouseWheel'
   deltaY: number
   x: number
   y: number
 }
 
-export interface GamepadInputEventMouse {
+interface GamepadInputEventMouse {
   type: 'mouseDown' | 'mouseUp'
   x: number
   y: number
@@ -452,11 +457,48 @@ export interface WineVersionInfo extends VersionInfo {
   installDir: string
 }
 
-export interface GamepadActionStatus {
-  [key: string]: {
+export type GamepadActionStatus = Record<
+  ValidGamepadAction,
+  {
     triggeredAt: { [key: number]: number }
     repeatDelay: false | number
   }
+>
+
+export type ValidGamepadAction = GamepadActionArgs['action']
+
+export type GamepadActionArgs =
+  | GamepadActionArgsWithMetadata
+  | GamepadActionArgsWithoutMetadata
+
+interface GamepadActionArgsWithMetadata {
+  action: 'leftClick' | 'rightClick'
+  metadata: {
+    elementTag: string
+    x: number
+    y: number
+  }
+}
+
+interface GamepadActionArgsWithoutMetadata {
+  action:
+    | 'padUp'
+    | 'padDown'
+    | 'padLeft'
+    | 'padRight'
+    | 'leftStickUp'
+    | 'leftStickDown'
+    | 'leftStickLeft'
+    | 'leftStickRight'
+    | 'rightStickUp'
+    | 'rightStickDown'
+    | 'rightStickLeft'
+    | 'rightStickRight'
+    | 'mainAction'
+    | 'back'
+    | 'altAction'
+    | 'esc'
+  metadata?: undefined
 }
 
 export type ElWebview = {
