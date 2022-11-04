@@ -7,7 +7,7 @@
         "title": "Přístupnost",
         "zoom": "Zoom"
     },
-    "add_game": "Add Game",
+    "add_game": "Přidat hru",
     "All": "Vše",
     "anticheat": {
         "anticheats": "Anticheaty",
@@ -529,6 +529,7 @@
         "clear-cache": "Vymazat mezipaměť Heroic",
         "copiedToClipboard": "Zkopírováno do schránky!",
         "copyToClipboard": "Kopírovat všechna nastavení do schránky",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "Ke správné funkci EAC runtime na Flatpaku je vyžadován GameMode. Chcete jej nyní povolit?",
@@ -548,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Pokročilé",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Obecné",
             "log": "Protokol",
             "other": "Ostatní",

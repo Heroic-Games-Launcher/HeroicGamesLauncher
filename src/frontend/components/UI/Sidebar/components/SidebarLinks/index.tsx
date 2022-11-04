@@ -48,13 +48,13 @@ export default function SidebarLinks() {
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
   const [isDefaultSetting, setIsDefaultSetting] = useState(true)
-  const [isNativeApp, setIsNativeApp] = useState(true)
+  // const [isNativeApp, setIsNativeApp] = useState(true)
   const [settingsPath, setSettingsPath] = useState(
     '/settings/app/default/general'
   )
   const [isFullscreen, setIsFullscreen] = useState(false)
 
-  const isMac = platform === 'darwin'
+  // const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
   const isLinuxGame = isLinux && gameInfo.install?.platform === 'linux'
 
@@ -72,12 +72,7 @@ export default function SidebarLinks() {
           setGameInfo(info)
           if (info?.is_installed) {
             setIsDefaultSetting(false)
-            const isNative = await window.api.isNative({ appName, runner })
-            setIsNativeApp(isNative)
-            const wineOrOther = isNative
-              ? `/settings/${runner}/${appName}/other`
-              : `/settings/${runner}/${appName}/wine`
-            setSettingsPath(wineOrOther)
+            setSettingsPath(`/settings/${runner}/${appName}/games_settings`)
           }
         }
       }
@@ -94,6 +89,18 @@ export default function SidebarLinks() {
       return setIsDefaultSetting(true)
     }
   }, [location])
+
+  async function handleRefresh() {
+    localStorage.setItem('scrollPosition', '0')
+
+    const shouldRefresh =
+      (epic.username && !epic.library.length) ||
+      (gog.username && !gog.library.length)
+    if (shouldRefresh) {
+      return refreshLibrary({ runInBackground: true, fullRefresh: true })
+    }
+    return
+  }
 
   return (
     <div className="SidebarLinks Sidebar__section">
@@ -119,10 +126,8 @@ export default function SidebarLinks() {
         className={({ isActive }) =>
           classNames('Sidebar__item', { active: isActive })
         }
-        to={'/'}
-        onClick={async () =>
-          refreshLibrary({ runInBackground: false, fullRefresh: true })
-        }
+        to={'/library'}
+        onClick={async () => handleRefresh()}
       >
         <>
           <div className="Sidebar__itemIcon">
@@ -218,37 +223,28 @@ export default function SidebarLinks() {
                 <span>{t('settings.navbar.general')}</span>
               </NavLink>
             )}
-            {!isNativeApp && (
-              <>
-                <NavLink
-                  role="link"
-                  to={`/settings/${runner}/${appName}/wine`}
-                  state={{ ...state, runner: state?.runner }}
-                  className={classNames('Sidebar__item SidebarLinks__subItem', {
-                    ['active']: type === 'wine'
-                  })}
-                >
-                  <span>{isMac ? 'Crossover' : 'Wine'}</span>
-                </NavLink>
-                {isLinux && (
-                  <NavLink
-                    role="link"
-                    to={`/settings/${runner}/${appName}/wineExt`}
-                    state={{ ...state, runner: state?.runner }}
-                    className={classNames(
-                      'Sidebar__item SidebarLinks__subItem',
-                      {
-                        ['active']: type === 'wineExt'
-                      }
-                    )}
-                  >
-                    <span>
-                      {t('settings.navbar.wineExt', 'Wine Extensions')}
-                    </span>
-                  </NavLink>
-                )}
-              </>
-            )}
+            <NavLink
+              role="link"
+              to={`/settings/${runner}/${appName}/games_settings`}
+              state={{ ...state, runner: state?.runner }}
+              className={classNames('Sidebar__item SidebarLinks__subItem', {
+                ['active']: type === 'games_settings'
+              })}
+            >
+              {isDefaultSetting && (
+                <span>
+                  {t(
+                    'settings.navbar.games_settings_defaults',
+                    'Game Defaults'
+                  )}
+                </span>
+              )}
+              {!isDefaultSetting && (
+                <span>
+                  {t('settings.navbar.games_settings', 'Game Settings')}
+                </span>
+              )}
+            </NavLink>
             {gameInfo.cloud_save_enabled && !isLinuxGame && (
               <NavLink
                 role="link"
@@ -262,16 +258,6 @@ export default function SidebarLinks() {
                 <span>{t('settings.navbar.sync')}</span>
               </NavLink>
             )}
-            <NavLink
-              role="link"
-              to={`/settings/${runner}/${appName}/other`}
-              state={{ ...state, runner: state?.runner }}
-              className={classNames('Sidebar__item SidebarLinks__subItem', {
-                ['active']: type === 'other'
-              })}
-            >
-              <span>{t('settings.navbar.other')}</span>
-            </NavLink>
             {isDefaultSetting && (
               <NavLink
                 role="link"

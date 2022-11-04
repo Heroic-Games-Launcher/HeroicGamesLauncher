@@ -7,7 +7,7 @@
         "title": "Доступность",
         "zoom": "Масштаб"
     },
-    "add_game": "Add Game",
+    "add_game": "Добавить игру",
     "All": "Все",
     "anticheat": {
         "anticheats": "Античиты",
@@ -529,6 +529,7 @@
         "clear-cache": "Очистить кэш Heroic",
         "copiedToClipboard": "Скопировано в буфер обмена!",
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode необходим для того, чтобы среда выполнения EAC работала на Flatpak. Хотите включить его сейчас?",
@@ -548,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Продвинутые",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Основные",
             "log": "Журнал",
             "other": "Другие",

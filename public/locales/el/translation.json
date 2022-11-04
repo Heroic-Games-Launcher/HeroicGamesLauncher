@@ -529,6 +529,7 @@
         "clear-cache": "Εκκαθάριση κρυφής μνήμης Heroic",
         "copiedToClipboard": "Αντιγράφηκε στο πρόχειρο!",
         "copyToClipboard": "Αντιγραφή όλων των ρυθμίσεων στο Πρόχειρο",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -548,6 +549,8 @@
         },
         "navbar": {
             "advanced": "Προχωρημένες",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Γενικά",
             "log": "Αρχεία καταγραφής",
             "other": "Άλλα",

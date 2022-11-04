@@ -41,7 +41,7 @@ export const refreshLibrary = async (
 ) => ipcRenderer.invoke('refreshLibrary', fullRefresh, library)
 
 export const gamepadAction = async (
-  args: [action: string, metadata: { elementTag: string; x: number; y: number }]
+  args: [action: string, metadata: unknown]
 ) => ipcRenderer.invoke('gamepadAction', args)
 
 export const logError = (error: string) => ipcRenderer.send('logError', error)
