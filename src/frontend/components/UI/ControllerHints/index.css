@@ -1,5 +1,5 @@
 .controller-hints {
-  background: transparent;
+  background: var(--controller-hints-background);
   display: flex;
   box-shadow: 0 0 36px 10px rgb(0 0 0 / 70%);
   z-index: 1;

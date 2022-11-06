@@ -167,8 +167,8 @@ async function enable(
   if (isLinux) {
     const game = getGame(appName, 'legendary')
     const gameSettings = await game.getSettings()
-    await verifyWinePrefix(gameSettings, game)
-    const { winePrefix, wineVersion } = await game.getSettings()
+    await verifyWinePrefix(gameSettings)
+    const { winePrefix, wineVersion } = gameSettings
     prefix =
       wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
   }

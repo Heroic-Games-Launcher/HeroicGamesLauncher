@@ -668,6 +668,7 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
 
   switch (tool) {
     case 'winetricks':
+      await verifyWinePrefix(gameSettings)
       await Winetricks.run(wineVersion, winePrefix, event)
       break
     case 'winecfg':
