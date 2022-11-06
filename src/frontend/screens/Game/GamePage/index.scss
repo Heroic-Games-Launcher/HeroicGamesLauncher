@@ -8,6 +8,11 @@
 
   .titleWrapper {
     display: flex;
+    position: sticky;
+    top: 0px;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    background: var(--background-darker);
     .title {
       font-weight: var(--medium);
       font-size: var(--text-xl);
@@ -140,9 +145,11 @@
   color: var(--text-default);
   display: flex;
   flex-direction: column;
-  max-width: 650px;
+  flex: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
   user-select: text;
-  padding: 8vh 2.2em 1.2em 1.2em;
+  padding: 0 2.2em 4rem 1.2em;
 
   .title {
     font-weight: var(--bold);
