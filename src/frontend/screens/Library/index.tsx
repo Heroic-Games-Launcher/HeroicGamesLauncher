@@ -290,7 +290,8 @@ export default React.memo(function Library(): JSX.Element {
     filterPlatform,
     sortDescending,
     sortInstalled,
-    showHidden
+    showHidden,
+    showFavouritesLibrary
   ])
 
   if (!epic && !gog) {
