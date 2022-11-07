@@ -21,17 +21,18 @@ export default function ControllerHints() {
   const setHintsFor = (target: HTMLElement) => {
     const classes = target.classList
 
-    let main = t('controller.hints.activate', 'Activate')
+    let main = t('controller.hints.select', 'Select')
     let alt = ''
     let alt2 = ''
     let back = ''
 
     const card = target.closest('.gameCard')
+    const list = target.closest('.gameListItem')
     const installDialog = target.closest('.InstallModal__dialog')
 
-    if (card) {
-      // focusing a card or an icon inside card
-      alt = t('controller.hints.context_menu', 'Context menu')
+    if (card || list) {
+      // focusing a card/list item or an icon inside a card/list item
+      alt = t('controller.hints.options', 'Options')
       if (classes.contains('updateIcon')) {
         main = t('controller.hints.update_game', 'Update game')
       } else if (classes.contains('settingsIcon')) {
@@ -40,12 +41,15 @@ export default function ControllerHints() {
         main = t('controller.hints.play_game', 'Play game')
       } else if (classes.contains('downIcon')) {
         main = t('controller.hints.install_game', 'Install game')
-      } else if (card.classList.contains('installed')) {
-        alt2 = t('controller.hints.game_details', 'Game details')
-        main = t('controller.hints.play_game', 'Play game')
+      } else if (
+        card?.classList.contains('installed') ||
+        list?.classList.contains('installed')
+      ) {
+        main = t('controller.hints.game_details', 'Game details')
+        alt2 = t('controller.hints.play_game', 'Play game')
       } else {
-        alt2 = t('controller.hints.game_details', 'Game details')
-        main = t('controller.hints.install_game', 'Install game')
+        main = t('controller.hints.game_details', 'Game details')
+        alt2 = t('controller.hints.install_game', 'Install game')
       }
     } else if (target.id === 'search') {
       // focusing the search bar
@@ -54,12 +58,13 @@ export default function ControllerHints() {
         'Open virtual keyboard'
       )
     } else if (target.closest('.MuiMenu-list')) {
-      // focusing a context menu on a card
-      main = t('controller.hints.activate', 'Activate')
-      alt = t('controller.hints.close_context_menu', 'Close context menu')
+      // focusing a context menu on a card or list item
+      main = t('controller.hints.select', 'Select')
+      back = t('controller.hints.back', 'Back')
+      alt = t('controller.hints.close_options', 'Close options')
     } else if (classes.contains('hg-button')) {
       // focusing a virtual keyboard element
-      main = t('controller.hints.activate', 'Activate')
+      main = t('controller.hints.select', 'Select')
       back = t('controller.hints.close_keyboard', 'Close keyboard')
       alt = t('controller.hints.backspace', 'Backspace')
       alt2 = t('controller.hints.space', 'Space')
@@ -136,21 +141,19 @@ export default function ControllerHints() {
     <div className={`controller-hints ${layout}`}>
       <div className="hint">
         <i className="buttonImage main-action" />
-        {mainActionHint || t('controller.hints.none', 'None')}
+        {mainActionHint || '–'}
       </div>
       <div className="hint">
         <i className="buttonImage back" />
-        {backActionHint ||
-          backActionFallback ||
-          t('controller.hints.none', 'None')}
+        {backActionHint || backActionFallback || '–'}
       </div>
       <div className="hint">
         <i className="buttonImage alt-action" />
-        {altActionHint || t('controller.hints.none', 'None')}
+        {altActionHint || '–'}
       </div>
       <div className="hint">
         <i className="buttonImage alt-action2" />
-        {altActionHint2 || t('controller.hints.none', 'None')}
+        {altActionHint2 || '–'}
       </div>
       <div className="hint">
         <i className="buttonImage d-pad" />

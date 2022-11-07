@@ -152,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "활성화",
             "back": "뒤로",
             "backspace": "Backspace",
-            "close_context_menu": "우클릭 메뉴 닫기",
             "close_dialog": "대화상자 닫기",
             "close_keyboard": "키보드 닫기",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "게임 세부 정보",
             "game_settings": "게임 설정",
             "install_game": "게임 설치",
             "move_cursor": "커서 이동",
-            "none": "None",
             "open_virtual_keyboard": "가상 키보드 열기",
+            "options": "Options",
             "play_game": "게임 플레이",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "스페이스바",
             "update_game": "게임 업데이트"
         }

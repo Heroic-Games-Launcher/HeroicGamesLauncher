@@ -114,13 +114,8 @@ export const initGamepad = () => {
             // some tags require a simulated click, some require a javascript click() call
             // if the current element requires a simulated click, change the action to `leftClick`
             action = 'leftClick'
-          } else if (playable()) {
-            // if the current element is a card of a game and it's installed, play it
-            playGame()
-            return
           } else if (isGameCard()) {
-            installGame()
-            return
+            action === 'mainAction'
           } else if (VirtualKeyboardController.isButtonFocused()) {
             // simulate a left click on a virtual keyboard button
             action = 'leftClick'
@@ -143,12 +138,15 @@ export const initGamepad = () => {
             return
           } else if (insideInstallDialog()) {
             closeInstallDialog()
+          } else if (isContextMenu()) {
+            action = 'rightClick'
           }
           break
         case 'altAction':
           if (isGameCard()) {
-            // when pressing Y on a game card, open the game details
-            action = 'mainAction'
+            // launch game on pressing Y
+            if (playable()) playGame()
+            else installGame()
           } else if (VirtualKeyboardController.isActive()) {
             VirtualKeyboardController.space()
             return
@@ -203,6 +201,16 @@ export const initGamepad = () => {
     if (!parent) return false
 
     return parent.classList.contains('gameCard')
+  }
+
+  function isContextMenu() {
+    const el = currentElement()
+    if (!el) return false
+
+    const parent = el.parentElement
+    if (!parent) return false
+
+    return parent.classList.contains('MuiMenu-list')
   }
 
   function playable() {

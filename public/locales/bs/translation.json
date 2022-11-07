@@ -152,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Aktiviraj",
             "back": "Nazad",
             "backspace": "Backspace",
-            "close_context_menu": "Zatvorite kontekstni meni",
             "close_dialog": "Zatvori dijalog",
             "close_keyboard": "Zatvorite tastaturu",
-            "context_menu": "Kontekstni meni",
+            "close_options": "Close Options",
             "game_details": "Detalji igre",
             "game_settings": "Postavke igre",
             "install_game": "Instaliraj igru",
             "move_cursor": "Pomeri kursor",
-            "none": "Nema",
             "open_virtual_keyboard": "Otvorite virtuelnu tastaturu",
+            "options": "Options",
             "play_game": "Igrati igru",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Prostor",
             "update_game": "Ažurirajte igru"
         }

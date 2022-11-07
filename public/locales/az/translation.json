@@ -152,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Aktivləşdirin",
             "back": "Geri",
             "backspace": "Backspace",
-            "close_context_menu": "Kontekst menyusunu bağlayın",
             "close_dialog": "Dialoqu bağlayın",
             "close_keyboard": "Klaviaturanı bağlayın",
-            "context_menu": "Kontekst menyusu",
+            "close_options": "Close Options",
             "game_details": "Oyun təfərrüatları",
             "game_settings": "Oyun parametrləri",
             "install_game": "Oyun quraşdırın",
             "move_cursor": "Kursoru köçürün",
-            "none": "Heç biri",
             "open_virtual_keyboard": "Virtual klaviaturanı açın",
+            "options": "Options",
             "play_game": "Oyun oynamaq",
             "scroll": "Sürüşdürün",
+            "select": "Select",
             "space": "Kosmos",
             "update_game": "Oyunu yeniləyin"
         }
