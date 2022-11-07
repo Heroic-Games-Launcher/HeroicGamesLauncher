@@ -45,6 +45,7 @@ import React, {
 import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '../index'
 import { SDL_GAMES, SelectiveDownload } from '../selective_dl'
+import { configStore } from 'frontend/helpers/electronStores'
 
 interface Props {
   backdropClick: () => void
@@ -91,6 +92,8 @@ function getUniqueKey(sdl: SelectiveDownload) {
   return sdl.tags.join(',')
 }
 
+const { defaultInstallPath } = configStore.get('settings') as AppSettings
+
 export default function DownloadDialog({
   backdropClick,
   appName,
@@ -109,6 +112,7 @@ export default function DownloadDialog({
   ) as InstallProgress
   const { libraryStatus, handleGameStatus, platform, showDialogModal } =
     useContext(ContextProvider)
+
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
 
@@ -117,9 +121,8 @@ export default function DownloadDialog({
   >(null)
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
-  const [defaultPath, setDefaultPath] = useState('...')
   const [installPath, setInstallPath] = useState(
-    previousProgress.folder || 'default'
+    previousProgress.folder || defaultInstallPath
   )
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
@@ -242,13 +245,9 @@ export default function DownloadDialog({
   }, [appName])
 
   useEffect(() => {
-    window.api.requestSettings('default').then(async (config: AppSettings) => {
-      setDefaultPath(config.defaultInstallPath)
-      if (installPath === 'default') {
-        setInstallPath(config.defaultInstallPath)
-      }
+    const getSpace = async () => {
       const { message, free, validPath } = await window.api.checkDiskSpace(
-        installPath === 'default' ? config.defaultInstallPath : installPath
+        installPath
       )
       if (gameInstallInfo?.manifest?.disk_size) {
         let notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
@@ -272,8 +271,9 @@ export default function DownloadDialog({
           spaceLeftAfter
         })
       }
-    })
-  }, [appName, installPath, gameInstallInfo?.manifest?.disk_size])
+    }
+    getSpace()
+  }, [installPath, gameInstallInfo?.manifest?.disk_size])
 
   const installSize =
     gameInstallInfo?.manifest?.disk_size &&
@@ -421,7 +421,7 @@ export default function DownloadDialog({
         <TextInputWithIconField
           htmlId="setinstallpath"
           label={t('install.path', 'Select Install Path')}
-          placeholder={defaultPath}
+          placeholder={defaultInstallPath}
           value={installPath.replaceAll("'", '')}
           onChange={(event) => setInstallPath(event.target.value)}
           icon={<FontAwesomeIcon icon={faFolderOpen} />}
@@ -431,10 +431,10 @@ export default function DownloadDialog({
                 buttonLabel: t('box.choose'),
                 properties: ['openDirectory'],
                 title: t('install.path'),
-                defaultPath: defaultPath
+                defaultPath: defaultInstallPath
               })
               .then(({ path }: Path) =>
-                setInstallPath(path ? path : defaultPath)
+                setInstallPath(path ? path : defaultInstallPath)
               )
           }
           afterInput={
