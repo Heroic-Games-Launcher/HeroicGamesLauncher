@@ -274,7 +274,13 @@ const GameCard = ({
     {
       // install
       label: t('button.install'),
-      onclick: () => (!isInstalled ? buttonClick() : () => null),
+      onclick: () => {
+        // close context menu first
+        // TODO this should be done more elegant
+        setTimeout(() => {
+          buttonClick()
+        }, 1)
+      },
       show: !isInstalled
     },
     {
