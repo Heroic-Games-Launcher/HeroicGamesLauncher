@@ -1,0 +1,44 @@
+.tabsWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+
+  .FormControl__button {
+    width: fit-content;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--accent);
+    }
+  }
+
+  .wineList {
+    margin-top: 48px;
+
+    .gameListHeader {
+      grid-template-columns: 3fr 1fr 1fr 1fr;
+      span:nth-child(3) {
+        justify-self: center;
+      }
+    }
+  }
+
+  .MuiTabs-root {
+    .MuiTabs-scroller {
+      .MuiTabs-indicator {
+        background-color: var(--accent);
+      }
+
+      .MuiTabs-flexContainer {
+        .MuiTab-root {
+          color: var(--text-default);
+        }
+
+        .Mui-selected {
+          color: var(--accent);
+        }
+      }
+    }
+  }
+}
