@@ -274,7 +274,7 @@ const GameCard = ({
     {
       // install
       label: t('button.install'),
-      onclick: () => (!isInstalled ? buttonClick() : () => null),
+      onclick: () => buttonClick(),
       show: !isInstalled
     },
     {
@@ -484,4 +484,4 @@ const GameCard = ({
   }
 }
 
-export default GameCard
+export default React.memo(GameCard)

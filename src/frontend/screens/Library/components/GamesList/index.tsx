@@ -18,7 +18,7 @@ interface Props {
   isRecent?: boolean
 }
 
-export const GamesList = ({
+const GamesList = ({
   library = [],
   layout = 'grid',
   handleGameCardClick,
@@ -94,3 +94,5 @@ export const GamesList = ({
     </div>
   )
 }
+
+export default React.memo(GamesList)
