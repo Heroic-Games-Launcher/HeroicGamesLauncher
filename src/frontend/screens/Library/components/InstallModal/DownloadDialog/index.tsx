@@ -441,7 +441,7 @@ export default function DownloadDialog({
                 title: t('install.path'),
                 defaultPath: defaultPath
               })
-              .then((path) => setInstallPath(path ? path : defaultPath))
+              .then((path) => setInstallPath(path || defaultPath))
           }
           afterInput={
             gameInstallInfo?.manifest.download_size ? (

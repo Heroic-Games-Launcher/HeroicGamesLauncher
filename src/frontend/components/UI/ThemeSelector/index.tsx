@@ -86,7 +86,7 @@ export const ThemeSelector = () => {
         title: t('box.default-install-path')
       })
       .then((path) => {
-        updatePath(path ? path : '')
+        updatePath(path || '')
       })
   }
 

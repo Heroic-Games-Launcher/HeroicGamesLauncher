@@ -49,7 +49,7 @@ const AltLegendaryBin = () => {
           'Select Legendary Binary (needs restart)'
         )
       })
-      .then((path) => setAltLegendaryBin(path ? path : ''))
+      .then((path) => setAltLegendaryBin(path || ''))
   }
 
   return (

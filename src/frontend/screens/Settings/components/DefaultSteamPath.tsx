@@ -45,9 +45,7 @@ const DefaultSteamPath = () => {
             title: t('box.default-steam-path', 'Steam path.'),
             defaultPath: defaultSteamPath
           })
-          .then((path) =>
-            setDefaultSteamPath(path ? `${path}` : defaultSteamPath)
-          )
+          .then((path) => setDefaultSteamPath(path || defaultSteamPath))
       }
       afterInput={steamPathInfo}
     />

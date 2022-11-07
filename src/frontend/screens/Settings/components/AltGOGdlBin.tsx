@@ -46,7 +46,7 @@ const AltGOGdlBin = () => {
           'Select GOGDL Binary (needs restart)'
         )
       })
-      .then((path) => setAltGogdlBin(path ? path : ''))
+      .then((path) => setAltGogdlBin(path || ''))
   }
 
   return (

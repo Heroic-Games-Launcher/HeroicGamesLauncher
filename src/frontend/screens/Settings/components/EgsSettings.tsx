@@ -71,7 +71,7 @@ const EgsSettings = () => {
         properties: ['openDirectory'],
         title: t('box.choose-egs-prefix')
       })
-      .then((path) => setEgsPath(path ? path : ''))
+      .then((path) => setEgsPath(path || ''))
   }
 
   return (

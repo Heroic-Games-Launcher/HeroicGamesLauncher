@@ -279,7 +279,7 @@ export default function SideloadDialog({
                     filters: fileFilters[platformToInstall],
                     defaultPath: winePrefix
                   })
-                  .then((path) => setSelectedExe(path ? path : ''))
+                  .then((path) => setSelectedExe(path || ''))
               }
             />
           </div>

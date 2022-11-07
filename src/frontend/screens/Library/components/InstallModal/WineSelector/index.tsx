@@ -61,7 +61,7 @@ export default function WineSelector({
               properties: ['openDirectory'],
               title: t('box.wineprefix', 'Select WinePrefix Folder')
             })
-            .then((path) => setWinePrefix(path ? path : winePrefix))
+            .then((path) => setWinePrefix(path || winePrefix))
         }
       />
 

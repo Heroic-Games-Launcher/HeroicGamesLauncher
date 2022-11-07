@@ -20,9 +20,7 @@ const DefaultInstallPath = () => {
         title: t('box.default-install-path'),
         defaultPath: defaultInstallPath
       })
-      .then((path) =>
-        setDefaultInstallPath(path ? `${path}` : defaultInstallPath)
-      )
+      .then((path) => setDefaultInstallPath(path || defaultInstallPath))
   }
 
   return (
