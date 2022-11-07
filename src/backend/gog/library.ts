@@ -872,10 +872,10 @@ export class GOGLibrary {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (value: any) => value.os === 'linux'
       )
-      const possibleLanguages = []
+      const possibleLanguages: string[] = []
 
       for (const installer of linuxInstallers) {
-        possibleLanguages.push(installer.language)
+        possibleLanguages.push(installer.language as string)
       }
 
       return possibleLanguages

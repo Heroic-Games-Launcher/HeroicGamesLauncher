@@ -15,25 +15,6 @@ export interface ButtonOptions {
   onClick?: () => void
 }
 
-// here is a way to type the callback function in ipcMain.on or ipcMain.handle
-// does not prevent callbacks with fewer parameters from being passed though
-// the microsoft team is very opposed to enabling the above constraint https://github.com/microsoft/TypeScript/issues/17868
-// for ipcMain.handle('updateGame', async (e, appName, runner) => { for instance could be converted to:
-// ipcMain.handle('updateGame', typedCallback<WrapApiFunction<typeof updateGame>>() => {
-// this has the benefit of type checking for the arguments typed in the preload api
-// but may be overly complex for a small benefit
-export function typedCallback<T>(arg: T) {
-  return arg
-}
-
-export type WrapApiFunction<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TFunction extends (...args: any) => any
-> = (
-  e: Electron.IpcMainInvokeEvent,
-  ...args: [...Parameters<TFunction>]
-) => ReturnType<TFunction>
-
 export type LaunchParams = {
   appName: string
   launchArguments: string
@@ -237,11 +218,9 @@ interface Reqs {
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
 export type UserInfo = {
-  account_id?: string
-  displayName?: string
-  epicId?: string
-  name?: string
-  user?: string
+  account_id: string
+  displayName: string
+  user: string
 }
 export interface WineInstallation {
   bin: string
@@ -255,7 +234,7 @@ export interface WineInstallation {
 
 export interface InstallArgs {
   path: string
-  installDlcs?: boolean
+  installDlcs: boolean
   sdlList: string[]
   platformToInstall: InstallPlatform
   installLanguage?: string
@@ -329,19 +308,24 @@ export interface GOGImportData {
   installedWithDlcs: boolean
 }
 
-export interface GamepadInputEventKey {
+export type GamepadInputEvent =
+  | GamepadInputEventKey
+  | GamepadInputEventWheel
+  | GamepadInputEventMouse
+
+interface GamepadInputEventKey {
   type: 'keyDown' | 'keyUp' | 'char'
   keyCode: string
 }
 
-export interface GamepadInputEventWheel {
+interface GamepadInputEventWheel {
   type: 'mouseWheel'
   deltaY: number
   x: number
   y: number
 }
 
-export interface GamepadInputEventMouse {
+interface GamepadInputEventMouse {
   type: 'mouseDown' | 'mouseUp'
   x: number
   y: number
@@ -473,11 +457,48 @@ export interface WineVersionInfo extends VersionInfo {
   installDir: string
 }
 
-export interface GamepadActionStatus {
-  [key: string]: {
+export type GamepadActionStatus = Record<
+  ValidGamepadAction,
+  {
     triggeredAt: { [key: number]: number }
     repeatDelay: false | number
   }
+>
+
+export type ValidGamepadAction = GamepadActionArgs['action']
+
+export type GamepadActionArgs =
+  | GamepadActionArgsWithMetadata
+  | GamepadActionArgsWithoutMetadata
+
+interface GamepadActionArgsWithMetadata {
+  action: 'leftClick' | 'rightClick'
+  metadata: {
+    elementTag: string
+    x: number
+    y: number
+  }
+}
+
+interface GamepadActionArgsWithoutMetadata {
+  action:
+    | 'padUp'
+    | 'padDown'
+    | 'padLeft'
+    | 'padRight'
+    | 'leftStickUp'
+    | 'leftStickDown'
+    | 'leftStickLeft'
+    | 'leftStickRight'
+    | 'rightStickUp'
+    | 'rightStickDown'
+    | 'rightStickLeft'
+    | 'rightStickRight'
+    | 'mainAction'
+    | 'back'
+    | 'altAction'
+    | 'esc'
+  metadata?: undefined
 }
 
 export type ElWebview = {
@@ -554,3 +575,43 @@ export type ProtonVerb =
   | 'destroyprefix'
   | 'getcompatpath'
   | 'getnativepath'
+
+export interface SaveSyncArgs {
+  arg: string | undefined
+  path: string
+  appName: string
+  runner: Runner
+}
+
+export interface RunWineCommandArgs {
+  appName: string
+  runner: Runner
+  commandParts: string[]
+}
+
+export interface ImportGameArgs {
+  appName: string
+  path: string
+  runner: Runner
+}
+
+export interface MoveGameArgs {
+  appName: string
+  path: string
+  runner: Runner
+}
+
+export interface DiskSpaceData {
+  free: number
+  diskSize: number
+  message: string
+  validPath: boolean
+}
+
+export interface ToolArgs {
+  winePrefix: string
+  winePath: string
+  action: 'backup' | 'restore'
+}
+
+export type StatusPromise = Promise<{ status: 'done' | 'error' }>

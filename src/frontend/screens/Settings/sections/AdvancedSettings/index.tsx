@@ -59,7 +59,7 @@ export default function AdvancedSettings() {
     const getEosStatus = async () => {
       const { isInstalled, version } = await window.api.getEosOverlayStatus()
       setEosOverlayInstalled(isInstalled)
-      setEosOverlayVersion(version)
+      setEosOverlayVersion(version ?? '')
     }
     getEosStatus()
   }, [eosOverlayInstalled, eosOverlayVersion])
@@ -153,7 +153,7 @@ export default function AdvancedSettings() {
     })
     setEosOverlayInstallingOrUpdating(false)
     const { version: newVersion } = await window.api.getEosOverlayStatus()
-    setEosOverlayVersion(newVersion)
+    setEosOverlayVersion(newVersion ?? '')
   }
 
   async function cancelEosOverlayInstallOrUpdate() {

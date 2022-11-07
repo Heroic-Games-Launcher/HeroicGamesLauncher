@@ -1,5 +1,4 @@
 import {
-  AppSettings,
   GameInfo,
   InstallProgress,
   Runner,
@@ -15,8 +14,8 @@ const readFile = window.api.readConfig
 
 const writeConfig = window.api.writeConfig
 
-const notify = ([title, message]: [title: string, message: string]): void =>
-  window.api.notify([title, message])
+const notify = (args: { title: string; body: string }) =>
+  window.api.notify(args)
 
 const loginPage = window.api.openLoginPage
 
@@ -49,15 +48,12 @@ const syncSaves = async (
   runner: Runner,
   arg?: string
 ): Promise<string> => {
-  const { user } = await window.api.getUserInfo()
-  const path = savesPath.replace('~', `/home/${user}`)
-
-  const response: string = await window.api.syncSaves([
+  const response: string = await window.api.syncSaves({
     arg,
-    path,
+    path: savesPath,
     appName,
     runner
-  ])
+  })
   return response
 }
 
@@ -65,8 +61,9 @@ const getLegendaryConfig = async (): Promise<{
   library: GameInfo[]
   user: string
 }> => {
-  const user: string = await readFile('user')
-  const library: Array<GameInfo> = await readFile('library')
+  // TODO: I'd say we should refactor this to be two different IPC calls, makes type annotations easier
+  const library: GameInfo[] = (await readFile('library')) as GameInfo[]
+  const user: string = (await readFile('user')) as string
 
   if (!user) {
     return { library: [], user: '' }
@@ -78,14 +75,14 @@ const getLegendaryConfig = async (): Promise<{
 const getGameInfo = async (
   appName: string,
   runner: Runner
-): Promise<GameInfo> => {
+): Promise<GameInfo | null> => {
   return window.api.getGameInfo(appName, runner)
 }
 
 const getGameSettings = async (
   appName: string,
   runner: Runner
-): Promise<GameSettings> => {
+): Promise<GameSettings | null> => {
   return window.api.getGameSettings(appName, runner)
 }
 
@@ -109,10 +106,6 @@ function getProgress(progress: InstallProgress): number {
     return percent
   }
   return 0
-}
-
-async function getAppSettings(): Promise<AppSettings> {
-  return window.api.requestSettings('default')
 }
 
 function removeSpecialcharacters(text: string): string {
@@ -139,7 +132,6 @@ export {
   getLegendaryConfig,
   getPlatform,
   getProgress,
-  getAppSettings,
   handleKofi,
   handleQuit,
   install,

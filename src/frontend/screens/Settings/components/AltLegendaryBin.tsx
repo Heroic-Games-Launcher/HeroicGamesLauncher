@@ -5,7 +5,6 @@ import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { Backspace } from '@mui/icons-material'
 import useSetting from 'frontend/hooks/useSetting'
 import { configStore } from 'frontend/helpers/electronStores'
-import { Path } from 'frontend/types'
 import { TextInputWithIconField } from 'frontend/components/UI'
 
 const AltLegendaryBin = () => {
@@ -50,7 +49,7 @@ const AltLegendaryBin = () => {
           'Select Legendary Binary (needs restart)'
         )
       })
-      .then(({ path }: Path) => setAltLegendaryBin(path ? path : ''))
+      .then((path) => setAltLegendaryBin(path || ''))
   }
 
   return (

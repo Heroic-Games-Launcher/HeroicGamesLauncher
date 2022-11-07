@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { AppSettings, GameInfo, RecentGame, Runner } from 'common/types'
+import { GameInfo, RecentGame, Runner } from 'common/types'
 import { GamesList } from '../GamesList'
 import { configStore } from 'frontend/helpers/electronStores'
 
@@ -35,9 +35,7 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
   const loadRecentGames = async () => {
-    const { maxRecentGames }: AppSettings = await window.api.requestSettings(
-      'default'
-    )
+    const { maxRecentGames } = await window.api.requestAppSettings()
     const newRecentGames = getRecentGames(
       [...epic.library, ...gog.library, ...sideloadedLibrary],
       maxRecentGames

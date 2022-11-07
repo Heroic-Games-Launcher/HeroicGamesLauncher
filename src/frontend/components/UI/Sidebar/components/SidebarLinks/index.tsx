@@ -68,10 +68,12 @@ export default function SidebarLinks() {
         setSettingsPath('/settings/app/default/general')
       } else {
         const info = await getGameInfo(appName, runner)
-        setGameInfo(info)
-        if (info?.is_installed) {
-          setIsDefaultSetting(false)
-          setSettingsPath(`/settings/${runner}/${appName}/games_settings`)
+        if (info) {
+          setGameInfo(info)
+          if (info?.is_installed) {
+            setIsDefaultSetting(false)
+            setSettingsPath(`/settings/${runner}/${appName}/games_settings`)
+          }
         }
       }
     }

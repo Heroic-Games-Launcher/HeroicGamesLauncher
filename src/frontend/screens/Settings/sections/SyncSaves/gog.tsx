@@ -3,7 +3,6 @@ import { CircularProgress } from '@mui/material'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
-import { Path } from 'frontend/types'
 import {
   InfoBox,
   SelectField,
@@ -66,8 +65,8 @@ export default function GOGSyncSaves({
 
     await window.api
       .syncGOGSaves(gogSaves, appName, syncType)
-      .then(async (res: { stderr: string }) => {
-        setManuallyOutput(res.stderr.split('\n'))
+      .then(async (stderr) => {
+        setManuallyOutput(stderr.split('\n'))
         setManuallyOutputShow(true)
       })
 
@@ -141,9 +140,9 @@ export default function GOGSyncSaves({
                             properties: ['openDirectory'],
                             title: t('box.sync.title')
                           })
-                          .then(({ path }: Path) => {
+                          .then((path) => {
                             const saves = [...gogSaves]
-                            saves[index].location = path ?? ''
+                            saves[index].location = path || ''
                             setGogSaves(saves)
                           })
                     : () => {

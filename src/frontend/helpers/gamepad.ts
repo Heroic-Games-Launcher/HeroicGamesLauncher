@@ -1,4 +1,8 @@
-import { AppSettings, GamepadActionStatus } from 'common/types'
+import {
+  AppSettings,
+  GamepadActionStatus,
+  ValidGamepadAction
+} from 'common/types'
 import {
   checkGameCube,
   checkPS3,
@@ -22,11 +26,9 @@ let controllerIsDisabled = false
 let currentController = -1
 
 export const initGamepad = () => {
-  window.api
-    .requestSettings('default')
-    .then(({ disableController }: AppSettings) => {
-      controllerIsDisabled = disableController || false
-    })
+  window.api.requestAppSettings().then(({ disableController }: AppSettings) => {
+    controllerIsDisabled = disableController || false
+  })
 
   // store the current controllers
   let controllers: number[] = []
@@ -55,12 +57,14 @@ export const initGamepad = () => {
     mainAction: { triggeredAt: {}, repeatDelay: false },
     back: { triggeredAt: {}, repeatDelay: false },
     altAction: { triggeredAt: {}, repeatDelay: false },
-    rightClick: { triggeredAt: {}, repeatDelay: false }
+    rightClick: { triggeredAt: {}, repeatDelay: false },
+    leftClick: { triggeredAt: {}, repeatDelay: false },
+    esc: { triggeredAt: {}, repeatDelay: false }
   }
 
   // check if an action should be triggered
   function checkAction(
-    action: string,
+    action: ValidGamepadAction,
     pressed: boolean,
     controllerIndex: number
   ) {
@@ -164,19 +168,25 @@ export const initGamepad = () => {
       } else {
         // we have to tell Electron to simulate key presses
         // so the spatial navigation works
-        window.api.gamepadAction([action, metadata()])
+        if (action !== 'leftClick' && action !== 'rightClick') {
+          window.api.gamepadAction({ action })
+        } else {
+          const data = metadata()
+          if (data) {
+            window.api.gamepadAction({ action, metadata: data })
+          } else {
+            console.error(
+              'Got controller action that requires metadata, but we have no metadata'
+            )
+          }
+        }
       }
     }
   }
 
-  function currentElement() {
-    return document.querySelector(':focus') as HTMLElement
-  }
+  const currentElement = () => document.querySelector<HTMLElement>(':focus')
 
-  function shouldSimulateClick() {
-    return isSelect()
-  }
-
+  const shouldSimulateClick = isSelect
   function isSelect() {
     const el = currentElement()
     if (!el) return false
@@ -287,7 +297,7 @@ export const initGamepad = () => {
         y: Math.round(rect.y + rect.height / 2)
       }
     } else {
-      return null
+      return undefined
     }
   }
 

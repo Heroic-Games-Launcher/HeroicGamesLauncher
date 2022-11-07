@@ -6,7 +6,6 @@ import { Backspace } from '@mui/icons-material'
 import useSetting from 'frontend/hooks/useSetting'
 import { configStore } from 'frontend/helpers/electronStores'
 import { TextInputWithIconField } from 'frontend/components/UI'
-import { Path } from 'frontend/types'
 
 const AltGOGdlBin = () => {
   const { t } = useTranslation()
@@ -47,7 +46,7 @@ const AltGOGdlBin = () => {
           'Select GOGDL Binary (needs restart)'
         )
       })
-      .then(({ path }: Path) => setAltGogdlBin(path ? path : ''))
+      .then((path) => setAltGogdlBin(path || ''))
   }
 
   return (

@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
-import { Path } from 'frontend/types'
 import {
   InfoBox,
   TextInputWithIconField,
@@ -72,7 +71,7 @@ const EgsSettings = () => {
         properties: ['openDirectory'],
         title: t('box.choose-egs-prefix')
       })
-      .then(({ path }: Path) => setEgsPath(path ? path : ''))
+      .then((path) => setEgsPath(path || ''))
   }
 
   return (

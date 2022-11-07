@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext } from 'react'
 
-import { DMQueueElement, GameInfo } from 'common/types'
+import { DMQueueElement } from 'common/types'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { SvgButton } from 'frontend/components/UI'
@@ -32,7 +32,11 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const canceled = status === 'error' && !current
 
   const stopInstallation = async () => {
-    const { folder_name }: GameInfo = await getGameInfo(appName, runner)
+    const gameInfo = await getGameInfo(appName, runner)
+    if (!gameInfo) {
+      return
+    }
+    const folder_name = gameInfo.folder_name
 
     return handleStopInstallation(
       appName,

@@ -62,7 +62,7 @@ const WineItem = ({
   const unZipping = progress.state === 'unzipping'
 
   async function install() {
-    notify([`${version}`, t('notify.install.startInstall')])
+    notify({ title: `${version}`, body: t('notify.install.startInstall') })
     window.api
       .installWineVersion({
         version,
@@ -79,14 +79,14 @@ const WineItem = ({
       .then((response) => {
         switch (response) {
           case 'error':
-            notify([`${version}`, t('notify.install.error')])
+            notify({ title: `${version}`, body: t('notify.install.error') })
             break
           case 'abort':
-            notify([`${version}`, t('notify.install.canceled')])
+            notify({ title: `${version}`, body: t('notify.install.canceled') })
             break
           case 'success':
             refreshWineVersionInfo(false)
-            notify([`${version}`, t('notify.install.finished')])
+            notify({ title: `${version}`, body: t('notify.install.finished') })
             break
           default:
             break
@@ -111,7 +111,7 @@ const WineItem = ({
       .then((response) => {
         if (response) {
           refreshWineVersionInfo(false)
-          notify([`${version}`, t('notify.uninstalled')])
+          notify({ title: `${version}`, body: t('notify.uninstalled') })
         }
       })
   }
