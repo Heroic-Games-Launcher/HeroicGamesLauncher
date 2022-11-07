@@ -1,10 +1,16 @@
 // Holds layouts for different Playstation official an clone controllers
 
+import { ValidGamepadAction } from 'common/types'
+
 export function checkPS3(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
   controllerIndex: number,
-  checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
 ) {
   const X = buttons[0],
     Circle = buttons[1],
@@ -50,7 +56,11 @@ export function checkPS5(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
   controllerIndex: number,
-  checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
 ) {
   const X = buttons[0],
     Circle = buttons[1],
@@ -96,7 +106,11 @@ export function checkPS3Clone1(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
   controllerIndex: number,
-  checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
 ) {
   const Triangle = buttons[0],
     Circle = buttons[1],

@@ -152,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activati",
             "back": "Negru",
             "backspace": "Backspace",
-            "close_context_menu": "Închideți meniul contextual",
             "close_dialog": "Închide caseta de dialog",
             "close_keyboard": "Închideți tastatura",
-            "context_menu": "Meniul contextual",
+            "close_options": "Close Options",
             "game_details": "Detalii joc",
             "game_settings": "Setările jocului",
             "install_game": "Instalează jocul",
             "move_cursor": "Mutați cursorul",
-            "none": "Nici unul",
             "open_virtual_keyboard": "Deschideți tastatura virtuală",
+            "options": "Options",
             "play_game": "Joaca jocul",
             "scroll": "Sul",
+            "select": "Select",
             "space": "Spaţiu",
             "update_game": "Actualizați jocul"
         }

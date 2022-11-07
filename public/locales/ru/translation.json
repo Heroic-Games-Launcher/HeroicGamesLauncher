@@ -152,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Активировать",
             "back": "Назад",
             "backspace": "Backspace",
-            "close_context_menu": "Закрыть контекстное меню",
             "close_dialog": "Закрыть диалог",
             "close_keyboard": "Закрыть клавиатуру",
-            "context_menu": "Контекстное меню",
+            "close_options": "Close Options",
             "game_details": "Детали игры",
             "game_settings": "Настройки игры",
             "install_game": "Установить игру",
             "move_cursor": "Перемещение курсора",
-            "none": "None",
             "open_virtual_keyboard": "Открыть виртуальную клавиатуру",
+            "options": "Options",
             "play_game": "Играть",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Пробел",
             "update_game": "Обновить игру"
         }

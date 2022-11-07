@@ -13,7 +13,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { Backspace } from '@mui/icons-material'
 import { writeConfig } from 'frontend/helpers'
-import { Path } from 'frontend/types'
 
 export const defaultThemes = {
   classic: 'Classic',
@@ -48,14 +47,14 @@ export const ThemeSelector = () => {
 
     const newAppConfig = { ...appConfig, customThemesPath: path }
     setThemesPath(path)
-    await writeConfig(['default', newAppConfig])
+    await writeConfig({ appName: 'default', config: newAppConfig })
     setAppConfig(newAppConfig)
     loadThemes()
   }
 
   useEffect(() => {
     const getPath = async () => {
-      const config: AppSettings = await window.api.requestSettings('default')
+      const config = await window.api.requestAppSettings()
       setAppConfig(config)
       setThemesPath(config.customThemesPath || '')
       loadThemes()
@@ -86,8 +85,8 @@ export const ThemeSelector = () => {
         properties: ['openDirectory'],
         title: t('box.default-install-path')
       })
-      .then(({ path }: Path) => {
-        updatePath(path ? `${path}` : '')
+      .then((path) => {
+        updatePath(path || '')
       })
   }
 

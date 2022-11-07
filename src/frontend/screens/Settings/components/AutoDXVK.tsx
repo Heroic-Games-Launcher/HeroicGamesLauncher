@@ -25,7 +25,7 @@ const AutoDXVK = () => {
 
   const handleAutoInstallDxvk = () => {
     const action = autoInstallDxvk ? 'restore' : 'backup'
-    window.api.toggleDXVK([{ winePrefix, winePath: wineVersion.bin }, action])
+    window.api.toggleDXVK({ winePrefix, winePath: wineVersion.bin, action })
     return setAutoInstallDxak(!autoInstallDxvk)
   }
 

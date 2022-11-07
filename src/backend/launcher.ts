@@ -185,10 +185,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     }
   }
 
-  const { updated: winePrefixUpdated } = await verifyWinePrefix(
-    gameSettings,
-    game
-  )
+  const { updated: winePrefixUpdated } = await verifyWinePrefix(gameSettings)
   if (winePrefixUpdated) {
     logInfo(['Created/Updated Wineprefix at', gameSettings.winePrefix], {
       prefix: LogPrefix.Backend
@@ -428,19 +425,13 @@ export async function validWine(
 
 /**
  * Verifies that a Wineprefix exists by running 'wineboot --init'
- * @param game The game to verify the Wineprefix of
+ * @param gameSettings The settings of the game to verify the Wineprefix of
  * @returns stderr & stdout of 'wineboot --init'
  */
 export async function verifyWinePrefix(
-  settings: GameSettings,
-  game?: LegendaryGame | GOGGame
+  settings: GameSettings
 ): Promise<{ res: ExecResult; updated: boolean }> {
-  const gameSettings = game ? await game.getSettings() : settings
-  const { winePrefix, wineVersion } = gameSettings
-
-  if (!(await validWine(wineVersion))) {
-    return { res: { stdout: '', stderr: '' }, updated: false }
-  }
+  const { winePrefix, wineVersion } = settings
 
   if (!(await validWine(wineVersion))) {
     return { res: { stdout: '', stderr: '' }, updated: false }
@@ -454,10 +445,6 @@ export async function verifyWinePrefix(
     mkdirSync(winePrefix, { recursive: true })
   }
 
-  if (wineVersion.type === 'proton' && existsSync(join(winePrefix, 'pfx'))) {
-    return { res: { stdout: '', stderr: '' }, updated: false }
-  }
-
   // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
   const systemRegPath =
     wineVersion.type === 'proton'
@@ -465,13 +452,12 @@ export async function verifyWinePrefix(
       : join(winePrefix, 'system.reg')
   const haveToWait = !existsSync(systemRegPath)
 
-  const command = game
-    ? game.runWineCommand(['wineboot', '--init'], haveToWait)
-    : runWineCommand({
-        commandParts: ['wineboot', '--init'],
-        wait: haveToWait,
-        gameSettings
-      })
+  const command = runWineCommand({
+    commandParts: ['wineboot', '--init'],
+    wait: haveToWait,
+    gameSettings: settings,
+    skipPrefixCheckIKnowWhatImDoing: true
+  })
 
   return command
     .then((result) => {
@@ -503,15 +489,44 @@ async function runWineCommand({
   protonVerb = 'run',
   installFolderName,
   options,
-  startFolder
+  startFolder,
+  skipPrefixCheckIKnowWhatImDoing = false
 }: WineCommandArgs): Promise<{ stderr: string; stdout: string }> {
   const settings = gameSettings
     ? gameSettings
     : await GlobalConfig.get().getSettings()
   const { wineVersion, winePrefix } = settings
 
-  if (!existsSync(winePrefix)) {
-    mkdirSync(winePrefix, { recursive: true })
+  if (!skipPrefixCheckIKnowWhatImDoing) {
+    let requiredPrefixFiles = [
+      'dosdevices',
+      'drive_c',
+      'system.reg',
+      'user.reg',
+      'userdef.reg'
+    ]
+    if (wineVersion.type === 'proton') {
+      requiredPrefixFiles = [
+        'pfx.lock',
+        'tracked_files',
+        'version',
+        'config_info',
+        ...requiredPrefixFiles.map((path) => join('pfx', path))
+      ]
+    }
+    requiredPrefixFiles = requiredPrefixFiles.map((path) =>
+      join(winePrefix, path)
+    )
+    requiredPrefixFiles.push(winePrefix)
+
+    if (!requiredPrefixFiles.every((path) => existsSync(path))) {
+      logWarning(
+        'Required prefix files are missing, running `verifyWinePrefix` to create prefix',
+        { prefix: LogPrefix.Backend }
+      )
+      mkdirSync(winePrefix, { recursive: true })
+      await verifyWinePrefix(settings)
+    }
   }
 
   if (!(await validWine(wineVersion))) {

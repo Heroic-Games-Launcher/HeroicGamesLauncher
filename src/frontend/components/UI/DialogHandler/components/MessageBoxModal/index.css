@@ -17,13 +17,8 @@
   padding-block: 4px;
   padding-inline: 6px;
   height: 25em;
-  width: calc(90vw - var(--sidebar-width));
   overflow: auto;
   user-select: text;
-}
-
-.errorDialog.error-box.collapsed {
-  width: calc(90vw - var(--sidebar-width));
 }
 
 .errorDialog.contentHeader {

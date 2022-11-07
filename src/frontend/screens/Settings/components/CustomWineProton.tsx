@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField, SvgButton } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Path } from 'frontend/types'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
 import { Tooltip } from '@mui/material'
@@ -33,11 +32,9 @@ export default function CustomWineProton() {
         properties: ['openFile'],
         title: t('box.customWine', 'Select the Wine or Proton Binary')
       })
-      .then(({ path }: Path) => {
-        if (!customWinePaths.includes(path)) {
-          setCustomWinePaths(
-            path ? [...customWinePaths, path] : customWinePaths
-          )
+      .then((path) => {
+        if (path && !customWinePaths.includes(path)) {
+          setCustomWinePaths([...customWinePaths, path])
         }
       })
   }

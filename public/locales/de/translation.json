@@ -152,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Aktivieren",
             "back": "Zurück",
             "backspace": "Backspace",
-            "close_context_menu": "Kontextmenü schließen",
             "close_dialog": "Dialog schließen",
             "close_keyboard": "Tastatur schließen",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "Spieldetails",
             "game_settings": "Spiel-Einstellungen",
             "install_game": "Spiel installieren",
             "move_cursor": "Cursor bewegen",
-            "none": "Nichts",
             "open_virtual_keyboard": "Virtuelle Tastatur öffnen",
+            "options": "Options",
             "play_game": "Spiel starten",
             "scroll": "Scrollen",
+            "select": "Select",
             "space": "Leertaste",
             "update_game": "Spiel aktualisieren"
         }

@@ -47,13 +47,14 @@ function Settings() {
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
     const getSettings = async () => {
-      const config: AppSettings = await window.api.requestSettings(appName)
+      const config = isDefault
+        ? await window.api.requestAppSettings()
+        : await window.api.requestGameSettings(appName)
       setCurrentConfig(config)
 
       if (!isDefault) {
         const info = await getGameInfo(appName, runner)
-        const { title: gameTitle } = info
-        setTitle(gameTitle)
+        setTitle(info?.title ?? appName)
       } else {
         setTitle(t('globalSettings', 'Global Settings'))
       }
@@ -91,7 +92,7 @@ function Settings() {
         if (noChange) return
       }
       setCurrentConfig({ ...currentConfig, [key]: value })
-      writeConfig([appName, { ...currentConfig, [key]: value }])
+      writeConfig({ appName, config: { ...currentConfig, [key]: value } })
     },
     config: currentConfig,
     isDefault,

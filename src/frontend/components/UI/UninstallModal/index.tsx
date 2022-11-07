@@ -31,15 +31,23 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
     // This assumes native games are installed should be changed in the future
     // if we add option to install windows games even if native is available
     if (platform === 'linux') {
+      const gameInfo = await window.api.getGameInfo(props.appName, props.runner)
+      if (!gameInfo) {
+        return
+      }
       const {
         install: { platform: installedplatform }
-      } = await window.api.getGameInfo(props.appName, props.runner)
+      } = gameInfo
 
       if (installedplatform?.toLowerCase() === 'windows') {
-        const wineprefixForGame = (
-          await window.api.getGameSettings(props.appName, props.runner)
-        ).winePrefix
-        setWinePrefix(wineprefixForGame)
+        const gameSettings = await window.api.getGameSettings(
+          props.appName,
+          props.runner
+        )
+        if (!gameSettings) {
+          return
+        }
+        setWinePrefix(gameSettings.winePrefix)
         setIsWindowsOnLinux(true)
       }
     }
@@ -59,7 +67,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
       runner: props.runner,
       status: 'uninstalling'
     })
-    await window.api.uninstall([props.appName, checkboxChecked, props.runner])
+    await window.api.uninstall(props.appName, props.runner, checkboxChecked)
     if (props.runner === 'sideload') {
       navigate('/')
     }

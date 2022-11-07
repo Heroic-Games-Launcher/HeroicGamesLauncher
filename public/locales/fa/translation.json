@@ -152,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "فعال سازی",
             "back": "بازگشت",
             "backspace": "Backspace",
-            "close_context_menu": "بستن منو محتوا",
             "close_dialog": "بستن دیالوگ",
             "close_keyboard": "بستن صفحه کلید",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "مشخصات بازی",
             "game_settings": "تنظیمات بازی",
             "install_game": "نصب بازی",
             "move_cursor": "انتقال اشاره گر",
-            "none": "None",
             "open_virtual_keyboard": "باز کردن صفحه کلید مجازی",
+            "options": "Options",
             "play_game": "اجرای بازی",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "فضا",
             "update_game": "به روزرسانی بازی"
         }

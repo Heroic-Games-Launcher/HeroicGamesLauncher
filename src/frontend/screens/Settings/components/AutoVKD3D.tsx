@@ -25,7 +25,7 @@ const AutoVKD3D = () => {
 
   const handleAutoInstallVkd3d = () => {
     const action = autoInstallVkd3d ? 'restore' : 'backup'
-    window.api.toggleVKD3D([{ winePrefix, winePath: wineVersion.bin }, action])
+    window.api.toggleVKD3D({ winePrefix, winePath: wineVersion.bin, action })
     return setAutoInstallVkd3d(!autoInstallVkd3d)
   }
 
