@@ -196,6 +196,7 @@ export interface SettingsContextType {
   isDefault: boolean
   appName: string
   runner: Runner
+  gameInfo: GameInfo | null
 }
 
 export interface LocationState {

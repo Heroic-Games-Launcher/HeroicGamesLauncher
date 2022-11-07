@@ -16,7 +16,12 @@ import {
   SyncSaves,
   AdvancedSettings
 } from './sections'
-import { AppSettings, GameSettings, WineInstallation } from 'common/types'
+import {
+  AppSettings,
+  GameInfo,
+  GameSettings,
+  WineInstallation
+} from 'common/types'
 import { getGameInfo, writeConfig } from 'frontend/helpers'
 import { UpdateComponent } from 'frontend/components/UI'
 import { LocationState, SettingsContextType } from 'frontend/types'
@@ -38,6 +43,8 @@ function Settings() {
     AppSettings | GameSettings | null
   >(null)
 
+  const [gameInfo, setGameInfo] = useState<GameInfo | null>(null)
+
   const { appName = '', type = '' } = useParams()
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
@@ -56,6 +63,7 @@ function Settings() {
 
       if (!isDefault) {
         const info = await getGameInfo(appName, runner)
+        setGameInfo(info)
         setTitle(info?.title ?? appName)
       } else {
         setTitle(t('globalSettings', 'Global Settings'))
@@ -101,7 +109,8 @@ function Settings() {
     config: currentConfig,
     isDefault,
     appName,
-    runner
+    runner,
+    gameInfo
   }
 
   return (
