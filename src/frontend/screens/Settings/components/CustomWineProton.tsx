@@ -34,9 +34,7 @@ export default function CustomWineProton() {
       })
       .then((path) => {
         if (path && !customWinePaths.includes(path)) {
-          setCustomWinePaths(
-            path ? [...customWinePaths, path] : customWinePaths
-          )
+          setCustomWinePaths([...customWinePaths, path])
         }
       })
   }
