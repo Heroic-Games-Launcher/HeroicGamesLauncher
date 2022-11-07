@@ -377,7 +377,14 @@ if (!gotTheLock) {
       prefix: LogPrefix.Gog
     })
     // We can't use .config since apparently its not loaded fast enough.
-    const { language, darkTrayIcon } = await GlobalConfig.get().getSettings()
+    // TODO: Remove this after a couple of stable releases
+    // Affects only current users, not new installs
+    const settings = await GlobalConfig.get().getSettings()
+    const { language, darkTrayIcon } = settings
+    const currentConfigStore = configStore.get('settings', {}) as AppSettings
+    if (!currentConfigStore.defaultInstallPath) {
+      configStore.set('settings', settings)
+    }
 
     runOnceWhenOnline(async () => {
       const isLoggedIn = LegendaryUser.isLoggedIn()
@@ -931,6 +938,8 @@ ipcMain.handle('writeConfig', (event, [appName, config]) => {
   if (appName === 'default') {
     GlobalConfig.get().config = config
     GlobalConfig.get().flush()
+    const currentConfigStore = configStore.get('settings', {}) as AppSettings
+    configStore.set('settings', { ...currentConfigStore, ...config })
   } else {
     GameConfig.get(appName).config = config
     GameConfig.get(appName).flush()
