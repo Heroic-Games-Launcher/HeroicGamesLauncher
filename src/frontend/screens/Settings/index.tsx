@@ -81,7 +81,7 @@ function Settings() {
     getSetting: (key, fallback) => currentConfig[key] ?? fallback,
     setSetting: (key, value) => {
       const currentValue = currentConfig[key]
-      if (currentValue) {
+      if (currentValue !== undefined || currentValue !== null) {
         // NOTE: This is the best way I've found to compare `unknown` values
         //       If you ever modify this, know that `value` might be an array
         //       of anything, so even something like looping over the array
