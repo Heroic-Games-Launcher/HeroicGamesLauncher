@@ -40,11 +40,9 @@ export default function GamesSettings() {
   const { isDefault, gameInfo } = useContext(SettingsContext)
   const isLinux = platform === 'linux'
 
-  let shouldRenderWineSettings = false
+  let usesWine = isLinux
   if (gameInfo) {
-    shouldRenderWineSettings = isLinux && !gameInfo.is_linux_native
-  } else {
-    shouldRenderWineSettings = isLinux
+    usesWine = isLinux && !gameInfo.is_linux_native
   }
 
   return (
@@ -59,7 +57,7 @@ export default function GamesSettings() {
         </p>
       )}
 
-      {shouldRenderWineSettings && (
+      {usesWine && (
         <>
           <section>
             <h3 className="settingSubheader">
@@ -96,15 +94,15 @@ export default function GamesSettings() {
 
         <AlternativeExe />
 
-        <ShowFPS />
+        {usesWine && <ShowFPS />}
 
-        <PreferSystemLibs />
+        {usesWine && <PreferSystemLibs />}
 
-        <EnableFSR />
+        {usesWine && <EnableFSR />}
 
-        <EnableEsync />
+        {usesWine && <EnableEsync />}
 
-        <EnableFsync />
+        {usesWine && <EnableFsync />}
 
         <GameMode />
 
