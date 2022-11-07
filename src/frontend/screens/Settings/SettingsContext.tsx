@@ -8,7 +8,8 @@ const initialContext: SettingsContextType = {
   config: null,
   isDefault: true,
   appName: 'default',
-  runner: 'legendary'
+  runner: 'legendary',
+  gameInfo: null
 }
 
 export default React.createContext(initialContext)
