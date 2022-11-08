@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import FormControl from 'frontend/components/UI/FormControl'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-export default function StoreFilter() {
+export default React.memo(function StoreFilter() {
   const { category, handleCategory, gog, epic } = useContext(ContextProvider)
   const { t } = useTranslation()
 
@@ -57,4 +57,4 @@ export default function StoreFilter() {
       </FormControl>
     </div>
   )
-}
+})

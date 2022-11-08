@@ -46,7 +46,7 @@ import {
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 
-export default function GamePage(): JSX.Element | null {
+export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
   const location = useLocation() as { state: { fromDM: boolean } | null }
   const { t } = useTranslation('gamepage')
@@ -694,4 +694,4 @@ export default function GamePage(): JSX.Element | null {
       showDialogModal: showDialogModal
     })
   }
-}
+})

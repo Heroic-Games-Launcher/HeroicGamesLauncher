@@ -17,7 +17,7 @@ function fixFilter(text: string) {
   return text.replaceAll(regex, '')
 }
 
-export default function SearchBar() {
+export default React.memo(function SearchBar() {
   const { handleSearch, filterText, epic, gog, sideloadedLibrary } =
     useContext(ContextProvider)
   const { t } = useTranslation()
@@ -100,4 +100,4 @@ export default function SearchBar() {
       </button>
     </div>
   )
-}
+})
