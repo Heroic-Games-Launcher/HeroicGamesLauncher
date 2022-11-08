@@ -5,7 +5,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 import {
-  getGameInfo,
   getInstallInfo,
   getProgress,
   launch,
@@ -48,9 +47,13 @@ import StoreLogos from 'frontend/components/UI/StoreLogos'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
-  const location = useLocation() as { state: { fromDM: boolean } | null }
+  const location = useLocation() as {
+    state: { fromDM: boolean; gameInfo: GameInfo }
+  }
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
+
+  const { gameInfo } = location.state
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
@@ -68,8 +71,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     libraryStatus.find((game) => game.appName === appName) || {}
 
   const [progress, previousProgress] = hasProgress(appName)
-  // @ts-expect-error TODO: Proper default value
-  const [gameInfo, setGameInfo] = useState<GameInfo>({})
   const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
@@ -107,33 +108,30 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   useEffect(() => {
     const updateConfig = async () => {
-      try {
-        const newInfo = await getGameInfo(appName, runner)
-        setGameInfo(newInfo)
-        const { install, is_linux_native, is_mac_native } = newInfo
+      const { install, is_linux_native, is_mac_native } = gameInfo
+      const installPlatform =
+        install.platform || (is_linux_native && isLinux)
+          ? 'linux'
+          : is_mac_native && isMac
+          ? 'Mac'
+          : 'Windows'
 
-        const installPlatform =
-          install.platform || (is_linux_native && isLinux)
-            ? 'linux'
-            : is_mac_native && isMac
-            ? 'Mac'
-            : 'Windows'
+      if (runner !== 'sideload') {
+        getInstallInfo(appName, runner, installPlatform)
+          .then((info) => {
+            if (!info) {
+              throw 'Cannot get game info'
+            }
+            setGameInstallInfo(info)
+          })
+          .catch((error) => {
+            console.error(error)
+            window.api.logError(`${`${error}`}`)
+            setHasError({ error: true, message: `${error}` })
+          })
+      }
 
-        if (runner !== 'sideload') {
-          getInstallInfo(appName, runner, installPlatform)
-            .then((info) => {
-              if (!info) {
-                throw 'Cannot get game info'
-              }
-              setGameInstallInfo(info)
-            })
-            .catch((error) => {
-              console.error(error)
-              window.api.logError(`${`${error}`}`)
-              setHasError({ error: true, message: `${error}` })
-            })
-        }
-
+      if (gameInfo.is_installed) {
         try {
           const {
             autoSyncSaves,
@@ -154,7 +152,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
             setWinePrefix(winePrefix)
           }
 
-          if (newInfo?.cloud_save_enabled) {
+          if (gameInfo.cloud_save_enabled) {
             setAutoSyncSaves(autoSyncSaves)
             setGOGSaves(gogSaves ?? [])
             return setSavesPath(savesPath)
@@ -163,8 +161,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
           setHasError({ error: true, message: error })
           window.api.logError(`${error}`)
         }
-      } catch (error) {
-        setHasError({ error: true, message: error })
       }
     }
     updateConfig()
