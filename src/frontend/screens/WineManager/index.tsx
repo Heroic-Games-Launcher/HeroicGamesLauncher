@@ -25,7 +25,7 @@ interface WineManagerUISettings {
   showProtonGe: boolean
 }
 
-export default function WineManager(): JSX.Element | null {
+export default React.memo(function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
   const { wineVersions, refreshWineVersionInfo, refreshing } =
     useContext(ContextProvider)
@@ -122,4 +122,4 @@ export default function WineManager(): JSX.Element | null {
       )}
     </>
   )
-}
+})
