@@ -34,7 +34,7 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
       ) {
         title = 'EOS Overlay'
       } else {
-        title = (await getGameInfo(appName, runner)).title
+        title = (await getGameInfo(appName, runner))!.title
       }
       setGameTitle(title)
     }

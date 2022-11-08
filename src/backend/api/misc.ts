@@ -1,6 +1,12 @@
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { ipcRenderer } from 'electron'
-import { Runner, Tools, ButtonOptions, DialogType } from 'common/types'
+import {
+  Runner,
+  Tools,
+  DialogType,
+  ButtonOptions,
+  GamepadActionArgs
+} from 'common/types'
 
 export const clearCache = () => ipcRenderer.send('clearCache')
 export const resetHeroic = () => ipcRenderer.send('resetHeroic')
@@ -32,7 +38,7 @@ export const login = async (sid: string) => ipcRenderer.invoke('login', sid)
 export const logoutLegendary = async () => ipcRenderer.invoke('logoutLegendary')
 export const authGOG = async (token: string) =>
   ipcRenderer.invoke('authGOG', token)
-export const logoutGOG = async () => ipcRenderer.invoke('logoutGOG')
+export const logoutGOG = () => ipcRenderer.send('logoutGOG')
 export const checkGameUpdates = async () =>
   ipcRenderer.invoke('checkGameUpdates')
 export const refreshLibrary = async (
@@ -40,9 +46,8 @@ export const refreshLibrary = async (
   library?: Runner | 'all'
 ) => ipcRenderer.invoke('refreshLibrary', fullRefresh, library)
 
-export const gamepadAction = async (
-  args: [action: string, metadata: unknown]
-) => ipcRenderer.invoke('gamepadAction', args)
+export const gamepadAction = async (args: GamepadActionArgs) =>
+  ipcRenderer.invoke('gamepadAction', args)
 
 export const logError = (error: string) => ipcRenderer.send('logError', error)
 export const logInfo = (info: string) => ipcRenderer.send('logInfo', info)
@@ -63,8 +68,6 @@ export const getGOGLinuxInstallersLangs = async (appName: string) =>
   ipcRenderer.invoke('getGOGLinuxInstallersLangs', appName)
 export const getAlternativeWine = async () =>
   ipcRenderer.invoke('getAlternativeWine')
-export const getGOGGameClientId = async (appName: string) =>
-  ipcRenderer.invoke('getGOGGameClientId', appName)
 export const getShellPath = async (saveLocation: string) =>
   ipcRenderer.invoke('getShellPath', saveLocation)
 export const callTool = async (toolArgs: Tools) =>
@@ -86,7 +89,7 @@ export const handleShowDialog = (
     type: DialogType,
     buttons?: Array<ButtonOptions>
   ) => void
-) => {
+): (() => void) => {
   ipcRenderer.on('showDialog', onMessage)
   return () => {
     ipcRenderer.removeListener('showDialog', onMessage)

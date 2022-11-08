@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { AppSettings, GameStatus, Runner } from 'common/types'
+import { GameStatus, Runner } from 'common/types'
 
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
@@ -59,9 +59,8 @@ export default function GamesSubmenu({
   const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
   async function onMoveInstallYesClick() {
-    const { defaultInstallPath }: AppSettings =
-      await window.api.requestSettings('default')
-    const { path } = await window.api.openDialog({
+    const { defaultInstallPath } = await window.api.requestAppSettings()
+    const path = await window.api.openDialog({
       buttonLabel: t('box.choose'),
       properties: ['openDirectory'],
       title: t('box.move.path'),
@@ -69,7 +68,7 @@ export default function GamesSubmenu({
     })
     if (path) {
       await handleGameStatus({ appName, runner, status: 'moving' })
-      await window.api.moveInstall([appName, path, runner])
+      await window.api.moveInstall({ appName, path, runner })
       await handleGameStatus({ appName, runner, status: 'done' })
     }
   }
@@ -87,16 +86,15 @@ export default function GamesSubmenu({
   }
 
   async function onChangeInstallYesClick() {
-    const { defaultInstallPath }: AppSettings =
-      await window.api.requestSettings('default')
-    const { path } = await window.api.openDialog({
+    const { defaultInstallPath } = await window.api.requestAppSettings()
+    const path = await window.api.openDialog({
       buttonLabel: t('box.choose'),
       properties: ['openDirectory'],
       title: t('box.change.path'),
       defaultPath: defaultInstallPath
     })
     if (path) {
-      await window.api.changeInstallPath([appName, path, runner])
+      await window.api.changeInstallPath({ appName, path, runner })
       await refresh(runner)
     }
   }

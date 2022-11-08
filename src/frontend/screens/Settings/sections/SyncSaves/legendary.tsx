@@ -12,7 +12,7 @@ import {
 } from 'frontend/components/UI'
 import { syncSaves } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Path, SyncType } from 'frontend/types'
+import { SyncType } from 'frontend/types'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 
@@ -134,9 +134,7 @@ export default function LegendarySyncSaves({
                         properties: ['openDirectory'],
                         title: t('box.sync.title')
                       })
-                      .then(({ path }: Path) =>
-                        setSavesPath(path ? `${path}` : '')
-                      )
+                      .then((path) => setSavesPath(path || ''))
                 : () => setSavesPath('')
             }
           />

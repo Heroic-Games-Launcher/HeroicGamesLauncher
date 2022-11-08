@@ -15,12 +15,6 @@ ipcMain.handle('getLatestEosOverlayVersion', getLatestVersion)
 ipcMain.handle('updateEosOverlayInfo', updateInfo)
 ipcMain.handle('installEosOverlay', install)
 ipcMain.handle('removeEosOverlay', remove)
-ipcMain.handle('enableEosOverlay', async (e, appName) => {
-  return enable(appName)
-})
-ipcMain.handle('disableEosOverlay', async (e, appName) => {
-  return disable(appName)
-})
-ipcMain.handle('isEosOverlayEnabled', async (e, appName?) => {
-  return isEnabled(appName)
-})
+ipcMain.handle('enableEosOverlay', async (e, appName) => enable(appName))
+ipcMain.handle('disableEosOverlay', async (e, appName) => disable(appName))
+ipcMain.handle('isEosOverlayEnabled', async (e, appName?) => isEnabled(appName))

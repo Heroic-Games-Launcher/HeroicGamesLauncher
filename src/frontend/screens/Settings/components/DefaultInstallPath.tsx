@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSetting from 'frontend/hooks/useSetting'
-import { Path } from 'frontend/types'
 import { TextInputWithIconField } from 'frontend/components/UI'
 
 const DefaultInstallPath = () => {
@@ -21,9 +20,7 @@ const DefaultInstallPath = () => {
         title: t('box.default-install-path'),
         defaultPath: defaultInstallPath
       })
-      .then(({ path }: Path) =>
-        setDefaultInstallPath(path ? `${path}` : defaultInstallPath)
-      )
+      .then((path) => setDefaultInstallPath(path || defaultInstallPath))
   }
 
   return (

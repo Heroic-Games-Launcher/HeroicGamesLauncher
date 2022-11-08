@@ -1,4 +1,3 @@
-import { DMQueueElement } from 'common/types'
 import { ipcMain } from 'electron'
 import {
   addToQueue,
@@ -7,18 +6,14 @@ import {
   removeFromQueue
 } from './downloadqueue'
 
-ipcMain.on('addToDMQueue', (e, element: DMQueueElement) => {
+ipcMain.on('addToDMQueue', (e, element) => {
   addToQueue(element)
 })
 
-ipcMain.on('removeFromDMQueue', (e, appName: string) => {
+ipcMain.on('removeFromDMQueue', (e, appName) => {
   removeFromQueue(appName)
 })
 
-ipcMain.handle('getDMQueueInformation', () => {
-  return getQueueInformation()
-})
+ipcMain.handle('getDMQueueInformation', getQueueInformation)
 
-ipcMain.on('clearDMFinished', () => {
-  clearFinished()
-})
+ipcMain.on('clearDMFinished', clearFinished)

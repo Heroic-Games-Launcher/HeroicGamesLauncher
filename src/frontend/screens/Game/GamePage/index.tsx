@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
-import { AppSettings, GameInfo, GameStatus, Runner } from 'common/types'
+import { GameInfo, GameStatus, Runner } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
 
@@ -139,7 +139,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
             gogSaves,
             wineVersion,
             winePrefix
-          }: AppSettings = await window.api.requestSettings(appName)
+          } = await window.api.requestGameSettings(appName)
 
           if (!isWin) {
             let wine = wineVersion.name

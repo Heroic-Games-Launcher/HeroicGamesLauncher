@@ -50,10 +50,10 @@ async function install({
     return
   }
 
-  const { folder_name, is_installed }: GameInfo = await getGameInfo(
+  const { folder_name, is_installed }: GameInfo = (await getGameInfo(
     appName,
     runner
-  )
+  ))!
   if (isInstalling) {
     return handleStopInstallation(
       appName,
@@ -71,7 +71,7 @@ async function install({
 
   if (installPath === 'import') {
     const { defaultInstallPath }: AppSettings =
-      await window.api.requestSettings('default')
+      await window.api.requestAppSettings()
     const args = {
       buttonLabel: t('gamepage:box.choose'),
       properties: ['openDirectory'] as Array<
@@ -88,28 +88,27 @@ async function install({
       title: t('gamepage:box.importpath'),
       defaultPath: defaultInstallPath
     }
-    const { path, canceled } = await window.api.openDialog(args)
+    const path = await window.api.openDialog(args)
 
-    if (canceled || !path) {
+    if (!path) {
       return
     }
 
     return importGame({ appName, path, runner })
   }
 
-  let path = installPath
-  if (path !== 'default') {
-    setInstallPath && setInstallPath(path)
+  if (installPath !== 'default') {
+    setInstallPath && setInstallPath(installPath)
   }
 
-  if (path === 'default') {
+  if (installPath === 'default') {
     const { defaultInstallPath }: AppSettings =
-      await window.api.requestSettings('default')
-    path = defaultInstallPath
+      await window.api.requestAppSettings()
+    installPath = defaultInstallPath
   }
 
   // If the user changed the previous folder, the percentage should start from zero again.
-  if (previousProgress && previousProgress.folder !== path) {
+  if (previousProgress && previousProgress.folder !== installPath) {
     storage.removeItem(appName)
   }
 
@@ -117,12 +116,12 @@ async function install({
     appName,
     runner,
     status: 'queued',
-    folder: path
+    folder: installPath
   })
 
   return window.api.install({
     appName,
-    path,
+    path: installPath,
     installDlcs,
     sdlList,
     installLanguage,
@@ -183,14 +182,14 @@ type LaunchOptions = {
 const launch = async ({
   appName,
   t,
-  launchArguments,
+  launchArguments = '',
   runner,
   hasUpdate,
   showDialogModal
-}: LaunchOptions): Promise<void> => {
+}: LaunchOptions): Promise<{ status: 'done' | 'error' }> => {
   if (hasUpdate) {
     // promisifies the showDialogModal button click callbacks
-    const launchFinished = new Promise<void>((res) => {
+    const launchFinished = new Promise<{ status: 'done' | 'error' }>((res) => {
       showDialogModal({
         message: t('gamepage:box.update.message'),
         title: t('gamepage:box.update.title'),
@@ -198,19 +197,19 @@ const launch = async ({
           {
             text: t('gamepage:box.yes'),
             onClick: async () => {
-              await updateGame(appName, runner)
-              res()
+              res(updateGame(appName, runner))
             }
           },
           {
             text: t('box.no'),
             onClick: async () => {
-              await window.api.launch({
-                appName,
-                runner,
-                launchArguments: '--skip-version-check'
-              })
-              res()
+              res(
+                window.api.launch({
+                  appName,
+                  runner,
+                  launchArguments: '--skip-version-check'
+                })
+              )
             }
           }
         ]
@@ -219,7 +218,6 @@ const launch = async ({
 
     return launchFinished
   }
-  if (launchArguments === undefined) launchArguments = ''
   return window.api.launch({ appName, launchArguments, runner })
 }
 

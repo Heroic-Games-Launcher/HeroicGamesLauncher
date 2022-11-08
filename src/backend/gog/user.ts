@@ -11,7 +11,13 @@ const gogRefreshTokenUrl =
   'https://auth.gog.com/token?client_id=46899977096215655&client_secret=9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9&grant_type=refresh_token'
 
 export class GOGUser {
-  static async login(code: string) {
+  static async login(
+    code: string
+    // TODO: Write types for this
+  ): Promise<{
+    status: 'done' | 'error'
+    data?: { displayName: string; username: string }
+  }> {
     logInfo('Logging using GOG credentials', { prefix: LogPrefix.Gog })
 
     // Gets token from GOG basaed on authorization code

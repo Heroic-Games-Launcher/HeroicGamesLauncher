@@ -473,7 +473,7 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async getFactoryDefaults(): Promise<AppSettings> {
-    const { account_id } = await LegendaryUser.getUserInfo()
+    const account_id = (await LegendaryUser.getUserInfo())?.account_id
     const userName = user().username
     const defaultWine = isWindows ? {} : await this.getDefaultWine()
 

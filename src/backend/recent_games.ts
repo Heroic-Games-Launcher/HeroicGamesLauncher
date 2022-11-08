@@ -43,8 +43,8 @@ const removeRecentGame = async (appName: string) => {
   }
 }
 
-ipcMain.handle('removeRecent', async (_event, appName: string) => {
+ipcMain.handle('removeRecent', async (_event, appName) =>
   removeRecentGame(appName)
-})
+)
 
 export { getRecentGames, addRecentGame, removeRecentGame }

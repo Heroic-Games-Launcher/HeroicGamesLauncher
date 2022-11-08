@@ -5,7 +5,6 @@ import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import { TextInputWithIconField } from 'frontend/components/UI'
-import { Path } from 'frontend/types'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 
 const WinePrefixesBasePath = () => {
@@ -47,9 +46,7 @@ const WinePrefixesBasePath = () => {
             title: t('box.wineprefix'),
             defaultPath: defaultWinePrefix
           })
-          .then(({ path }: Path) =>
-            setDefaultWinePrefix(path ? `${path}` : defaultWinePrefix)
-          )
+          .then((path) => setDefaultWinePrefix(path || defaultWinePrefix))
       }
     />
   )

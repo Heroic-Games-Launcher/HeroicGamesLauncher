@@ -13,16 +13,20 @@ import { session } from 'electron'
 import { runLegendaryCommand } from './library'
 
 export class LegendaryUser {
-  public static async login(authorizationCode: string) {
+  public static async login(
+    authorizationCode: string
+  ): Promise<{ status: 'done' | 'failed'; data: UserInfo | undefined }> {
     const commandParts = ['auth', '--code', authorizationCode]
 
     const abortID = 'legendary-login'
-    const errorMessage = (error: string) => {
+    const errorMessage = (
+      error: string
+    ): { status: 'failed'; data: undefined } => {
       logError(['Failed to login with Legendary:', error], {
         prefix: LogPrefix.Legendary
       })
 
-      return { status: 'failed' }
+      return { status: 'failed', data: undefined }
     }
 
     try {
@@ -82,10 +86,10 @@ export class LegendaryUser {
     return existsSync(userInfo)
   }
 
-  public static async getUserInfo(): Promise<UserInfo> {
+  public static async getUserInfo(): Promise<UserInfo | undefined> {
     if (!LegendaryUser.isLoggedIn()) {
       configStore.delete('userInfo')
-      return {}
+      return
     }
     try {
       const userInfoContent = readFileSync(userInfo).toString()
@@ -101,7 +105,7 @@ export class LegendaryUser {
       logError(`User info file corrupted, check ${userInfo}`, {
         prefix: LogPrefix.Legendary
       })
-      return {}
+      return
     }
   }
 }

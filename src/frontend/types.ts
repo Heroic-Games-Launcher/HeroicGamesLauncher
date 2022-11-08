@@ -33,7 +33,7 @@ export interface ContextType {
   libraryStatus: GameStatus[]
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
-  platform: NodeJS.Platform | string
+  platform: NodeJS.Platform | 'unknown'
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshWineVersionInfo: (fetch: boolean) => void
@@ -105,10 +105,6 @@ export interface InstallProgress {
   percent: number
 }
 
-export interface Path {
-  path: string
-}
-
 export type RefreshOptions = {
   checkForUpdates?: boolean
   fullRefresh?: boolean
@@ -178,29 +174,6 @@ export type AntiCheat =
   | 'Warden'
   | 'XIGNCODE3'
   | 'Zakynthos'
-
-export interface AntiCheatInfo {
-  name: string
-  status: ''
-  anticheats: AntiCheat[]
-  notes: string[]
-  native: boolean
-  storeIds: {
-    epic?: {
-      namespace: string
-      slug: string
-    }
-    steam?: string
-  }
-  reference: string
-  updates: AntiCheatReference[]
-}
-
-interface AntiCheatReference {
-  name: string
-  date: string
-  reference: string
-}
 
 declare global {
   interface Window {
