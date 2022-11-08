@@ -83,21 +83,24 @@ export default function SearchBar() {
         className="searchBarInput"
       />
       {filterText.length > 0 && (
-        <ul className="autoComplete">
-          {list.length > 0 &&
-            list.map((title, i) => (
-              <li
-                onClick={(e) => handleClick(e.currentTarget.innerText)}
-                key={i}
-              >
-                {title}
-              </li>
-            ))}
-        </ul>
+        <>
+          <ul className="autoComplete">
+            {list.length > 0 &&
+              list.map((title, i) => (
+                <li
+                  onClick={(e) => handleClick(e.currentTarget.innerText)}
+                  key={i}
+                >
+                  {title}
+                </li>
+              ))}
+          </ul>
+
+          <button className="clearSearchButton" onClick={onClear} tabIndex={-1}>
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
+        </>
       )}
-      <button className="clearSearchButton" onClick={onClear} tabIndex={-1}>
-        <FontAwesomeIcon icon={faXmark} />
-      </button>
     </div>
   )
 }
