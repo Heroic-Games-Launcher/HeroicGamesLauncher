@@ -29,7 +29,10 @@ function getRecentGames(libraries: GameInfo[], limit: number): GameInfo[] {
   return games
 }
 
-export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
+export default React.memo(function RecentlyPlayed({
+  handleModal,
+  onlyInstalled
+}: Props) {
   const { t } = useTranslation()
   const { epic, gog, sideloadedLibrary } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
@@ -77,4 +80,4 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
       />
     </>
   )
-}
+})

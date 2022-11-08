@@ -230,6 +230,7 @@ export interface LocationState {
   runner: Runner
   isLinuxNative: boolean
   isMacNative: boolean
+  gameInfo: GameInfo
 }
 
 export type DMQueue = {

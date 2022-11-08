@@ -30,7 +30,7 @@ export const defaultWineVersion: WineInstallation = {
 function Settings() {
   const { t, i18n } = useTranslation()
   const {
-    state: { fromGameCard, runner }
+    state: { fromGameCard, runner, gameInfo }
   } = useLocation() as { state: LocationState }
   const [title, setTitle] = useState('')
 
@@ -73,7 +73,7 @@ function Settings() {
   if (!fromGameCard) {
     returnPath = `/gamepage/${runner}/${appName}`
     if (returnPath.includes('default')) {
-      returnPath = '/'
+      returnPath = '/library'
     }
   }
 
@@ -120,7 +120,12 @@ function Settings() {
       <SettingsContext.Provider value={contextValues}>
         <div className="Settings">
           <div role="list" className="settingsWrapper">
-            <NavLink to={returnPath} role="link" className="backButton">
+            <NavLink
+              to={returnPath}
+              role="link"
+              className="backButton"
+              state={{ gameInfo: gameInfo }}
+            >
               <ArrowCircleLeftIcon />
             </NavLink>
             <h1 className="headerTitle" data-testid="headerTitle">

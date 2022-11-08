@@ -102,7 +102,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isMoving = status === 'moving'
   const isUninstalling = status === 'uninstalling'
 
-  const backRoute = location.state?.fromDM ? '/download-manager' : '/'
+  const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
   const storage: Storage = window.localStorage
 
@@ -451,7 +451,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       runner,
                       isLinuxNative: isNative,
                       isMacNative: isNative,
-                      hasCloudSave: cloud_save_enabled
+                      hasCloudSave: cloud_save_enabled,
+                      gameInfo
                     }}
                     className={`button ${getButtonClass(is_installed)}`}
                   >
