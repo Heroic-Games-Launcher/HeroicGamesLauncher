@@ -353,7 +353,7 @@
     "offline-message": {
         "hint": "Es comprova la connectivitat a:{{newline}}github.com,{{newline}}gog.com i{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Es tornarà a intentar d'aquí {{seconds}} segons.",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Es torna a provar"
     },
     "options": {

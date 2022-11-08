@@ -353,7 +353,7 @@
     "offline-message": {
         "hint": "Wir testen die Verbindung mit:{{newline}}github.com,{{newline}}gog.com und{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Neuer Versuch in ... {{seconds}} Sekunden",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Versuche erneut"
     },
     "options": {
