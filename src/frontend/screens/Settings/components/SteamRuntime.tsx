@@ -1,19 +1,16 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router-dom'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '..'
-import { LocationState } from 'frontend/types'
+import SettingsContext from '../SettingsContext'
 
 const SteamRuntime = () => {
   const { t } = useTranslation()
-  const {
-    state: { isLinuxNative }
-  } = useLocation() as { state: LocationState }
+  const { isLinuxNative } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const isWin = platform === 'win32'

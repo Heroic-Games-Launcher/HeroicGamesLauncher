@@ -5,15 +5,17 @@ import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import SettingsContext from '../SettingsContext'
 
 const EnableFSR = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
+  const { isLinuxNative } = useContext(SettingsContext)
   const isLinux = platform === 'linux'
   const [enableFSR, setEnableFSR] = useSetting('enableFSR', false)
   const [maxSharpness, setFsrSharpness] = useSetting('maxSharpness', 5)
 
-  if (!isLinux) {
+  if (!isLinux || isLinuxNative) {
     return <></>
   }
 

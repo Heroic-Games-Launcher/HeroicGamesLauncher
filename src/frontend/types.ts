@@ -197,6 +197,8 @@ export interface SettingsContextType {
   appName: string
   runner: Runner
   gameInfo: GameInfo | null
+  isMacNative: boolean
+  isLinuxNative: boolean
 }
 
 export interface LocationState {

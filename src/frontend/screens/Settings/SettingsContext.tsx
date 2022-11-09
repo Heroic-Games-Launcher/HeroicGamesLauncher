@@ -9,7 +9,9 @@ const initialContext: SettingsContextType = {
   isDefault: true,
   appName: 'default',
   runner: 'legendary',
-  gameInfo: null
+  gameInfo: null,
+  isMacNative: false,
+  isLinuxNative: false
 }
 
 export default React.createContext(initialContext)

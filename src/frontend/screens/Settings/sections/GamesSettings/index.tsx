@@ -37,12 +37,17 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 export default function GamesSettings() {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isDefault, gameInfo } = useContext(SettingsContext)
+  const { isDefault, gameInfo, isMacNative, isLinuxNative } =
+    useContext(SettingsContext)
   const isLinux = platform === 'linux'
+  const isMac = platform === 'darwin'
+  const isWin = platform === 'win32'
 
-  let usesWine = isLinux
+  let showWine = !isWin
+
   if (gameInfo) {
-    usesWine = isLinux && !gameInfo.is_linux_native
+    // show wine/crossover for non-native linux/mac games
+    showWine = (isLinux && !isLinuxNative) || (isMac && !isMacNative)
   }
 
   return (
@@ -57,7 +62,7 @@ export default function GamesSettings() {
         </p>
       )}
 
-      {usesWine && (
+      {showWine && (
         <>
           <section>
             <h3 className="settingSubheader">
@@ -94,15 +99,15 @@ export default function GamesSettings() {
 
         <AlternativeExe />
 
-        {usesWine && <ShowFPS />}
+        <ShowFPS />
 
-        {usesWine && <PreferSystemLibs />}
+        <PreferSystemLibs />
 
-        {usesWine && <EnableFSR />}
+        <EnableFSR />
 
-        {usesWine && <EnableEsync />}
+        <EnableEsync />
 
-        {usesWine && <EnableFsync />}
+        <EnableFsync />
 
         <GameMode />
 
