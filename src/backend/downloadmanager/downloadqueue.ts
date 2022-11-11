@@ -1,10 +1,10 @@
+import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { getFileSize, getGame, getMainWindow } from '../utils'
-import Store from 'electron-store'
 import { DMQueueElement } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 
-const downloadManager = new Store({
+const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
   name: 'download-manager'
 })

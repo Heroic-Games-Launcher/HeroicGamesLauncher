@@ -3,7 +3,6 @@
  *        tool releases.
  */
 
-import Store from 'electron-store'
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { WineVersionInfo } from 'common/types'
@@ -17,11 +16,15 @@ import {
   VersionInfo
 } from 'heroic-wine-downloader'
 import { heroicToolsPath } from '../../constants'
+import { TypeCheckedStoreBackend } from 'backend/electron_store'
 
-const wineDownloaderInfoStore = new Store({
-  cwd: 'store',
-  name: 'wine-downloader-info'
-})
+const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
+  'wineDownloaderInfoStore',
+  {
+    cwd: 'store',
+    name: 'wine-downloader-info'
+  }
+)
 
 async function updateWineVersionInfos(
   fetch = false,

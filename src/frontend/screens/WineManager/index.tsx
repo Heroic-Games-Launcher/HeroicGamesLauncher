@@ -7,32 +7,20 @@ import React, { lazy, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
 import { Type } from 'heroic-wine-downloader'
-import {
-  StoreIpc,
-  wineDownloaderInfoStore
-} from 'frontend/helpers/electronStores'
+import { TypeCheckedStoreFrontend } from 'frontend/helpers/electronStores'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-import { WineVersionInfo } from 'common/types'
+import { WineManagerUISettings } from 'common/types'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
 )
 
-const configStore = new StoreIpc('wineManagerConfigStore', {
+const configStore = new TypeCheckedStoreFrontend('wineManagerConfigStore', {
   cwd: 'store'
 })
 
-const wineVersions = wineDownloaderInfoStore.get(
-  'wine-releases',
-  []
-) as WineVersionInfo[]
-
-interface WineManagerUISettings {
-  showWineGe: boolean
-  showWineLutris: boolean
-  showProtonGe: boolean
-}
+const wineVersions = configStore.get('wine-releases', [])
 
 export default React.memo(function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
@@ -48,14 +36,11 @@ export default React.memo(function WineManager(): JSX.Element | null {
     })
 
   useEffect(() => {
-    const hasSettings = configStore.has('wine-manager-settings')
-    if (hasSettings) {
-      const oldWineManagerSettings = configStore.get(
-        'wine-manager-settings'
-      ) as WineManagerUISettings
-      if (wineManagerSettings) {
-        setWineManagerSettings(oldWineManagerSettings)
-      }
+    const oldWineManagerSettings = configStore.get_nodefault(
+      'wine-manager-settings'
+    )
+    if (oldWineManagerSettings) {
+      setWineManagerSettings(oldWineManagerSettings)
     }
 
     refreshWineVersionInfo(false)
