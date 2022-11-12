@@ -124,7 +124,12 @@ async function prepareLaunch(
           } installed`
       }
     }
-    steamRuntime = [path, ...args]
+
+    steamRuntime = [
+      path,
+      isNative ? '' : `--filesystem=${gameInfo.install.install_path}`,
+      ...args
+    ]
   }
 
   return {

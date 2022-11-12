@@ -124,9 +124,7 @@ export async function launchApp(appName: string): Promise<boolean> {
       gameSettings,
       mangoHudCommand,
       gameModeBin,
-      steamRuntime?.length
-        ? [...steamRuntime, `--filesystem=${gameInfo.folder_name}`]
-        : undefined
+      steamRuntime?.length ? [...steamRuntime] : undefined
     )
 
     if (!launchPrepSuccess) {
