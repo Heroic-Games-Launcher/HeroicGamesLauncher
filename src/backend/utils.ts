@@ -515,14 +515,15 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
   }
 }
 async function getSteamRuntime(
-  requestedType: 'scout' | 'soldier'
+  requestedType: 'scout' | 'soldier',
+  args: string
 ): Promise<SteamRuntime> {
   const steamLibraries = await getSteamLibraries()
   const runtimeTypes: SteamRuntime[] = [
     {
       path: 'steamapps/common/SteamLinuxRuntime_soldier/run',
       type: 'soldier',
-      args: ['--']
+      args: [args, '--']
     },
     {
       path: 'ubuntu12_32/steam-runtime/run.sh',
