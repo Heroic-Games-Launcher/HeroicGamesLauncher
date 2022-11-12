@@ -156,7 +156,7 @@
             "backspace": "Backspace",
             "close_dialog": "关闭对话框",
             "close_keyboard": "关闭键盘",
-            "close_options": "Close Options",
+            "close_options": "关闭选项",
             "game_details": "游戏详情",
             "game_settings": "游戏设置",
             "install_game": "安装游戏",
@@ -165,7 +165,7 @@
             "options": "Options",
             "play_game": "玩游戏",
             "scroll": "滚动",
-            "select": "Select",
+            "select": "选择",
             "space": "空格",
             "update_game": "更新游戏"
         }
@@ -528,7 +528,7 @@
         "clear-cache": "清理 Heroic 缓存",
         "copiedToClipboard": "已复制到剪贴板！",
         "copyToClipboard": "复制所有设置到剪贴板",
-        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
+        "default_hint": "此部分的更改仅在安装游戏时作为默认值应用。如果你想改变一个已经安装的游戏的设置，使用游戏页面的设置按钮。",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "需要 GameMode 才能让 EAC runtime 在 Flatpak 上工作。你想马上启用它吗？",
@@ -548,8 +548,8 @@
         },
         "navbar": {
             "advanced": "高级",
-            "games_settings": "Game Settings",
-            "games_settings_defaults": "Game Defaults",
+            "games_settings": "游戏设置",
+            "games_settings_defaults": "游戏默认值",
             "general": "常规",
             "log": "日志",
             "other": "其它",
