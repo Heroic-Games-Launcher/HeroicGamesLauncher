@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 import {
+  getGameInfo,
   getInstallInfo,
   getProgress,
   launch,
@@ -53,7 +54,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
-  const { gameInfo } = location.state
+  const { gameInfo: locationGameInfo } = location.state
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
@@ -71,6 +72,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
     libraryStatus.find((game) => game.appName === appName) || {}
 
   const [progress, previousProgress] = hasProgress(appName)
+
+  const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
@@ -105,6 +108,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
   const storage: Storage = window.localStorage
+
+  useEffect(() => {
+    const updateGameInfo = async () => {
+      const newInfo = await getGameInfo(appName, runner)
+      if (newInfo) {
+        setGameInfo(newInfo)
+      }
+    }
+    updateGameInfo()
+  }, [status])
 
   useEffect(() => {
     const updateConfig = async () => {
