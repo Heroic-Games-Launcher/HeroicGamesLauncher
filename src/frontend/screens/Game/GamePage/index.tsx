@@ -117,62 +117,65 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateGameInfo()
-  }, [status])
+  }, [status, gog.library, epic.library])
 
   useEffect(() => {
     const updateConfig = async () => {
-      const { install, is_linux_native, is_mac_native, is_installed } = gameInfo
-      if (is_installed) {
-        const installPlatform =
-          install.platform || (is_linux_native && isLinux)
-            ? 'linux'
-            : is_mac_native && isMac
-            ? 'Mac'
-            : 'Windows'
+      if (gameInfo) {
+        const { install, is_linux_native, is_mac_native, is_installed } =
+          gameInfo
+        if (is_installed) {
+          const installPlatform =
+            install.platform || (is_linux_native && isLinux)
+              ? 'linux'
+              : is_mac_native && isMac
+              ? 'Mac'
+              : 'Windows'
 
-        if (runner !== 'sideload') {
-          getInstallInfo(appName, runner, installPlatform)
-            .then((info) => {
-              if (!info) {
-                throw 'Cannot get game info'
+          if (runner !== 'sideload') {
+            getInstallInfo(appName, runner, installPlatform)
+              .then((info) => {
+                if (!info) {
+                  throw 'Cannot get game info'
+                }
+                setGameInstallInfo(info)
+              })
+              .catch((error) => {
+                console.error(error)
+                window.api.logError(`${`${error}`}`)
+                setHasError({ error: true, message: `${error}` })
+              })
+          }
+
+          try {
+            const {
+              autoSyncSaves,
+              savesPath,
+              gogSaves,
+              wineVersion,
+              winePrefix
+            } = await window.api.requestGameSettings(appName)
+
+            if (!isWin) {
+              let wine = wineVersion.name
+                .replace('Wine - ', '')
+                .replace('Proton - ', '')
+              if (wine.includes('Default')) {
+                wine = wine.split('-')[0]
               }
-              setGameInstallInfo(info)
-            })
-            .catch((error) => {
-              console.error(error)
-              window.api.logError(`${`${error}`}`)
-              setHasError({ error: true, message: `${error}` })
-            })
-        }
-
-        try {
-          const {
-            autoSyncSaves,
-            savesPath,
-            gogSaves,
-            wineVersion,
-            winePrefix
-          } = await window.api.requestGameSettings(appName)
-
-          if (!isWin) {
-            let wine = wineVersion.name
-              .replace('Wine - ', '')
-              .replace('Proton - ', '')
-            if (wine.includes('Default')) {
-              wine = wine.split('-')[0]
+              setWineVersion(wine)
+              setWinePrefix(winePrefix)
             }
-            setWineVersion(wine)
-            setWinePrefix(winePrefix)
-          }
 
-          if (gameInfo.cloud_save_enabled) {
-            setAutoSyncSaves(autoSyncSaves)
-            setGOGSaves(gogSaves ?? [])
-            return setSavesPath(savesPath)
+            if (gameInfo.cloud_save_enabled) {
+              setAutoSyncSaves(autoSyncSaves)
+              setGOGSaves(gogSaves ?? [])
+              return setSavesPath(savesPath)
+            }
+          } catch (error) {
+            setHasError({ error: true, message: error })
+            window.api.logError(`${error}`)
           }
-        } catch (error) {
-          setHasError({ error: true, message: error })
-          window.api.logError(`${error}`)
         }
       }
     }
@@ -496,7 +499,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     runner,
                     isLinuxNative: isNative,
                     isMacNative: isNative,
-                    hasCloudSave: cloud_save_enabled
+                    hasCloudSave: cloud_save_enabled,
+                    gameInfo
                   }}
                   className="clickable reportProblem"
                 >
