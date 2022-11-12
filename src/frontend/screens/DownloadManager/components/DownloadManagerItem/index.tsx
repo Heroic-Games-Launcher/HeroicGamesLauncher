@@ -25,7 +25,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
   const navigate = useNavigate()
-  const { appName, runner, path, platformToInstall } = element.params
+  const { appName, runner, path, platformToInstall, gameInfo } = element.params
   const [progress] = hasProgress(appName)
   const { status } = element
   const finished = status === 'done'
@@ -50,7 +50,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
 
   const goToGamePage = () => {
     return navigate(`/gamepage/${runner}/${appName}`, {
-      state: { fromDM: true }
+      state: { fromDM: true, gameInfo: gameInfo }
     })
   }
 

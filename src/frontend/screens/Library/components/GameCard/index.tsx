@@ -450,14 +450,13 @@ const GameCard = ({
   async function handlePlay(runner: Runner) {
     if (!isInstalled && !isQueued) {
       return install({
-        appName,
+        gameInfo,
         handleGameStatus,
         installPath: folder || 'default',
         isInstalling,
         previousProgress,
         progress,
         t,
-        runner,
         showDialogModal
       })
     }

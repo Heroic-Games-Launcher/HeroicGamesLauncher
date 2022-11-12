@@ -58,7 +58,7 @@ interface Props {
   winePrefix: string
   wineVersion: WineInstallation | undefined
   children: React.ReactNode
-  gameInfo: GameInfo | null
+  gameInfo: GameInfo
 }
 
 type DiskSpaceInfo = {
@@ -191,7 +191,7 @@ export default function DownloadDialog({
     }
 
     return install({
-      appName,
+      gameInfo,
       handleGameStatus,
       installPath: path || installFolder,
       isInstalling: false,
@@ -201,7 +201,6 @@ export default function DownloadDialog({
       sdlList,
       installDlcs,
       installLanguage,
-      runner,
       platformToInstall,
       showDialogModal: () => backdropClick()
     })
@@ -401,6 +400,8 @@ export default function DownloadDialog({
     return t('button.no-path-selected', 'No path selected')
   }
 
+  const readyToInstall = installPath && gameInstallInfo?.manifest.download_size
+
   return (
     <>
       <DialogHeader onClose={backdropClick}>
@@ -418,10 +419,12 @@ export default function DownloadDialog({
         <div className="InstallModal__sizes">
           <div className="InstallModal__size">
             <FontAwesomeIcon
-              className="InstallModal__sizeIcon"
-              icon={faDownload}
+              className={classNames('InstallModal__sizeIcon', {
+                'fa-spin-pulse': !downloadSize()
+              })}
+              icon={downloadSize() ? faDownload : faSpinner}
             />
-            {gameInstallInfo?.manifest.download_size ? (
+            {downloadSize() ? (
               <>
                 <div className="InstallModal__sizeLabel">
                   {t('game.downloadSize', 'Download Size')}:
@@ -434,10 +437,12 @@ export default function DownloadDialog({
           </div>
           <div className="InstallModal__size">
             <FontAwesomeIcon
-              className="InstallModal__sizeIcon"
-              icon={faHardDrive}
+              className={classNames('InstallModal__sizeIcon', {
+                'fa-spin-pulse': !downloadSize()
+              })}
+              icon={downloadSize() ? faHardDrive : faSpinner}
             />
-            {gameInstallInfo?.manifest.disk_size ? (
+            {downloadSize() ? (
               <>
                 <div className="InstallModal__sizeLabel">
                   {t('game.installSize', 'Install Size')}:
@@ -594,9 +599,12 @@ export default function DownloadDialog({
         <button
           onClick={async () => handleInstall()}
           className={`button is-secondary`}
-          disabled={!installPath || !gameInstallInfo?.manifest.download_size}
+          disabled={!readyToInstall}
         >
-          {getInstallLabel()}
+          {!readyToInstall && (
+            <FontAwesomeIcon className="fa-spin-pulse" icon={faSpinner} />
+          )}
+          {readyToInstall && getInstallLabel()}
         </button>
       </DialogFooter>
     </>

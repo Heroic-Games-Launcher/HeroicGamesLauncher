@@ -108,30 +108,30 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   useEffect(() => {
     const updateConfig = async () => {
-      const { install, is_linux_native, is_mac_native } = gameInfo
-      const installPlatform =
-        install.platform || (is_linux_native && isLinux)
-          ? 'linux'
-          : is_mac_native && isMac
-          ? 'Mac'
-          : 'Windows'
+      const { install, is_linux_native, is_mac_native, is_installed } = gameInfo
+      if (is_installed) {
+        const installPlatform =
+          install.platform || (is_linux_native && isLinux)
+            ? 'linux'
+            : is_mac_native && isMac
+            ? 'Mac'
+            : 'Windows'
 
-      if (runner !== 'sideload') {
-        getInstallInfo(appName, runner, installPlatform)
-          .then((info) => {
-            if (!info) {
-              throw 'Cannot get game info'
-            }
-            setGameInstallInfo(info)
-          })
-          .catch((error) => {
-            console.error(error)
-            window.api.logError(`${`${error}`}`)
-            setHasError({ error: true, message: `${error}` })
-          })
-      }
+        if (runner !== 'sideload') {
+          getInstallInfo(appName, runner, installPlatform)
+            .then((info) => {
+              if (!info) {
+                throw 'Cannot get game info'
+              }
+              setGameInstallInfo(info)
+            })
+            .catch((error) => {
+              console.error(error)
+              window.api.logError(`${`${error}`}`)
+              setHasError({ error: true, message: `${error}` })
+            })
+        }
 
-      if (gameInfo.is_installed) {
         try {
           const {
             autoSyncSaves,
@@ -680,14 +680,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
     }
 
     return install({
-      appName,
+      gameInfo,
       handleGameStatus,
       installPath: folder,
       isInstalling,
       previousProgress,
       progress,
       t,
-      runner: gameInfo.runner,
       showDialogModal: showDialogModal
     })
   }
