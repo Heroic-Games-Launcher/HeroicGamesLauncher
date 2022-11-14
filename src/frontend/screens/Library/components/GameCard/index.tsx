@@ -259,19 +259,19 @@ const GameCard = ({
       // launch game
       label: t('label.playing.start'),
       onclick: async () => handlePlay(runner),
-      show: isInstalled && !isPlaying && !isUpdating
+      show: isInstalled && !isPlaying && !isUpdating && !isQueued
     },
     {
       // update
       label: t('button.update', 'Update'),
       onclick: async () => handleUpdate(),
-      show: hasUpdate && !isUpdating
+      show: hasUpdate && !isUpdating && !isQueued
     },
     {
       // install
       label: t('button.install'),
       onclick: () => buttonClick(),
-      show: !isInstalled
+      show: !isInstalled && !isQueued
     },
     {
       // cancel installation/update
@@ -344,6 +344,8 @@ const GameCard = ({
 
   const { activeController } = useContext(ContextProvider)
 
+  const showUpdateButton = hasUpdate && !isUpdating && !isQueued
+
   return (
     <div>
       {showUninstallModal && (
@@ -407,7 +409,7 @@ const GameCard = ({
                 gamepad: activeController
               })}
             >
-              {hasUpdate && !isUpdating && (
+              {showUpdateButton && (
                 <SvgButton
                   className="updateIcon"
                   title={`${t('button.update')} (${title})`}
@@ -449,7 +451,6 @@ const GameCard = ({
     if (!isInstalled && !isQueued) {
       return install({
         gameInfo,
-        handleGameStatus,
         installPath: folder || 'default',
         isInstalling,
         previousProgress,
