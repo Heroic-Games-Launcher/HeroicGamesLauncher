@@ -8,13 +8,13 @@ import {
 } from 'common/types'
 
 import { TFunction } from 'react-i18next'
-import { getGameInfo, sendKill } from './index'
+import { sendKill } from './index'
 import { DialogModalOptions } from 'frontend/types'
 
 const storage: Storage = window.localStorage
 
 type InstallArgs = {
-  appName: string
+  gameInfo: GameInfo
   handleGameStatus: (game: GameStatus) => Promise<void>
   installPath: string
   isInstalling: boolean
@@ -26,12 +26,11 @@ type InstallArgs = {
   installDlcs?: boolean
   sdlList?: Array<string>
   installLanguage?: string
-  runner?: Runner
   showDialogModal: (options: DialogModalOptions) => void
 }
 
 async function install({
-  appName,
+  gameInfo,
   installPath,
   t,
   progress,
@@ -42,7 +41,6 @@ async function install({
   sdlList = [],
   installDlcs = false,
   installLanguage = 'en-US',
-  runner = 'legendary',
   platformToInstall = 'Windows',
   showDialogModal
 }: InstallArgs) {
@@ -50,10 +48,12 @@ async function install({
     return
   }
 
-  const { folder_name, is_installed }: GameInfo = (await getGameInfo(
-    appName,
+  const {
+    folder_name,
+    is_installed,
+    app_name: appName,
     runner
-  ))!
+  }: GameInfo = gameInfo
   if (isInstalling) {
     return handleStopInstallation(
       appName,
@@ -126,7 +126,8 @@ async function install({
     sdlList,
     installLanguage,
     runner,
-    platformToInstall
+    platformToInstall,
+    gameInfo
   })
 }
 

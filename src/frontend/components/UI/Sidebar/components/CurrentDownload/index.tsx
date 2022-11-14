@@ -18,7 +18,7 @@ type Props = {
   runner: Runner
 }
 
-export default function CurrentDownload({ appName, runner }: Props) {
+export default React.memo(function CurrentDownload({ appName, runner }: Props) {
   const [progress] = hasProgress(appName)
   const [gameTitle, setGameTitle] = useState('')
   const { sidebarCollapsed, libraryStatus } = useContext(ContextProvider)
@@ -88,4 +88,4 @@ export default function CurrentDownload({ appName, runner }: Props) {
       </Link>
     </>
   )
-}
+})
