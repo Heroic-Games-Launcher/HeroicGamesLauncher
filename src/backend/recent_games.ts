@@ -1,10 +1,10 @@
-import { GameInfo, RecentGame } from 'common/types'
+import { GameInfo, SideloadGame } from 'common/types'
 import { BrowserWindow, ipcMain } from 'electron'
 import { GlobalConfig } from './config'
 import { configStore } from './constants'
 
 const getRecentGames = async (options?: { limited: boolean }) => {
-  const games = configStore.get('games.recent', []) as Array<RecentGame>
+  const games = configStore.get('games.recent', [])
   if (options?.limited) {
     const { maxRecentGames: MAX_RECENT_GAMES = 5 } =
       await GlobalConfig.get().getSettings()
@@ -14,7 +14,7 @@ const getRecentGames = async (options?: { limited: boolean }) => {
   }
 }
 
-const addRecentGame = async (game: GameInfo) => {
+const addRecentGame = async (game: GameInfo | SideloadGame) => {
   const games = await getRecentGames()
 
   // update list

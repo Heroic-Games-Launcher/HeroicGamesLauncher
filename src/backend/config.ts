@@ -522,8 +522,8 @@ class GlobalConfigV0 extends GlobalConfig {
 
     // TODO: Remove this after a couple of stable releases
     // Get settings only from config-store
-    const currentConfigStore = configStore.get('settings', {}) as AppSettings
-    if (!currentConfigStore.defaultInstallPath) {
+    const currentConfigStore = configStore.get_nodefault('settings')
+    if (!currentConfigStore?.defaultInstallPath) {
       configStore.set('settings', settings)
     }
 

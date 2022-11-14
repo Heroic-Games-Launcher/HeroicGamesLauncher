@@ -4,19 +4,19 @@ import 'simple-keyboard/build/css/index.css'
 let virtualKeyboard: Keyboard | null = null
 
 function currentElement() {
-  return document.querySelector(':focus') as HTMLElement
+  return document.querySelector<HTMLElement>(':focus')
 }
 
 function searchInput() {
   // only change this if you change the id of the input element
   // in frontend/components/UI/SearchBar/index.tsx
-  return document.querySelector('#search') as HTMLInputElement
+  return document.querySelector<HTMLInputElement>('#search')
 }
 
 function focusKeyboard() {
-  const firstButton = document.querySelector(
+  const firstButton = document.querySelector<HTMLElement>(
     '.hg-button[data-skbtn="h"]'
-  ) as HTMLElement
+  )
   firstButton?.focus()
 }
 

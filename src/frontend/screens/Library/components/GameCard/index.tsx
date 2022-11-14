@@ -17,7 +17,8 @@ import {
   GameInfo,
   GameStatus,
   HiddenGame,
-  Runner
+  Runner,
+  SideloadGame
 } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
@@ -50,7 +51,7 @@ interface Card {
   hasUpdate: boolean
   forceCard?: boolean
   isRecent: boolean
-  gameInfo: GameInfo
+  gameInfo: GameInfo | SideloadGame
 }
 
 const GameCard = ({
@@ -85,14 +86,14 @@ const GameCard = ({
   const {
     title,
     art_square: cover,
-    art_logo: logo,
+    art_logo: logo = undefined,
     app_name: appName,
     runner,
     is_installed: isInstalled,
-    cloud_save_enabled: hasCloudSave,
+    cloud_save_enabled: hasCloudSave = false,
     install: gameInstallInfo,
-    thirdPartyManagedApp
-  } = gameInfo
+    thirdPartyManagedApp = undefined
+  } = { ...gameInfo }
 
   // if the game supports cloud saves, check the config
   const [autoSyncSaves, setAutoSyncSaves] = useState(hasCloudSave)
@@ -107,8 +108,9 @@ const GameCard = ({
   }, [appName])
 
   const [progress, previousProgress] = hasProgress(appName)
-  const { install_size: size = '0', platform: installedPlatform } =
-    gameInstallInfo || {}
+  const { install_size: size = '0', platform: installedPlatform } = {
+    ...gameInstallInfo
+  }
 
   const { status, folder } =
     libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
@@ -167,7 +169,8 @@ const GameCard = ({
   const imageSrc = getImageFormatting()
 
   async function handleUpdate() {
-    return updateGame({ appName, runner, gameInfo })
+    if (gameInfo.runner !== 'sideload')
+      return updateGame({ appName, runner, gameInfo })
   }
 
   function getImageFormatting() {
@@ -347,7 +350,7 @@ const GameCard = ({
       // install
       label: t('button.install'),
       onclick: () => buttonClick(),
-      show: !isInstalled && (!isQueued || runner === 'sideload')
+      show: !isInstalled && !isQueued
     },
     {
       // cancel installation/update
@@ -527,7 +530,7 @@ const GameCard = ({
   )
 
   async function handlePlay(runner: Runner) {
-    if (!isInstalled && !isQueued) {
+    if (!isInstalled && !isQueued && gameInfo.runner !== 'sideload') {
       return install({
         gameInfo,
         installPath: folder || 'default',

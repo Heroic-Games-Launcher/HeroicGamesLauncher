@@ -8,7 +8,8 @@ import {
   DialogType,
   ButtonOptions,
   LibraryTopSectionOptions,
-  DMQueueElement
+  DMQueueElement,
+  SideloadGame
 } from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
@@ -57,13 +58,13 @@ export interface ContextType {
   setZoomPercent: (newZoomPercent: number) => void
   epic: {
     library: GameInfo[]
-    username: string | null
+    username?: string
     login: (sid: string) => Promise<string>
     logout: () => Promise<void>
   }
   gog: {
     library: GameInfo[]
-    username: string | null
+    username?: string
     login: (token: string) => Promise<string>
     logout: () => Promise<void>
   }
@@ -78,7 +79,7 @@ export interface ContextType {
   dialogModalOptions: DialogModalOptions
   showDialogModal: (options: DialogModalOptions) => void
   showResetDialog: () => void
-  sideloadedLibrary: GameInfo[]
+  sideloadedLibrary: SideloadGame[]
   hideChangelogsOnStartup: boolean
   setHideChangelogsOnStartup: (value: boolean) => void
   lastChangelogShown: string | null

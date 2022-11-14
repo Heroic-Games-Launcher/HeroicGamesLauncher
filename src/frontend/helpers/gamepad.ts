@@ -242,7 +242,7 @@ export const initGamepad = () => {
     const parent = el.parentElement
     if (!parent) return false
 
-    const playButton = parent.querySelector('.playIcon') as HTMLButtonElement
+    const playButton = parent.querySelector<HTMLButtonElement>('.playIcon')
     if (playButton) playButton.click()
 
     return true
@@ -255,7 +255,7 @@ export const initGamepad = () => {
     const parent = el.parentElement
     if (!parent) return false
 
-    const installButton = parent.querySelector('.downIcon') as HTMLButtonElement
+    const installButton = parent.querySelector<HTMLButtonElement>('.downIcon')
     if (installButton) installButton.click()
 
     return true
@@ -275,9 +275,9 @@ export const initGamepad = () => {
     const dialog = el.closest('.InstallModal__dialog')
     if (!dialog) return false
 
-    const closeButton = dialog.querySelector(
+    const closeButton = dialog.querySelector<HTMLButtonElement>(
       '.Dialog__CloseButton'
-    ) as HTMLButtonElement
+    )
     if (!closeButton) return false
 
     closeButton.click()

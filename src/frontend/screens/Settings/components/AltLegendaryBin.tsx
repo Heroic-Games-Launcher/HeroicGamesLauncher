@@ -17,14 +17,7 @@ const AltLegendaryBin = () => {
 
   useEffect(() => {
     const getMoreInfo = async () => {
-      const settings = configStore.get('settings') as {
-        altLeg: string
-        altGogdl: string
-      }
-      configStore.set('settings', {
-        ...settings,
-        altLeg: altLegendaryBin
-      })
+      configStore.set('settings.altLeg', altLegendaryBin)
 
       const legendaryVer = await window.api.getLegendaryVersion()
       if (legendaryVer === 'invalid') {

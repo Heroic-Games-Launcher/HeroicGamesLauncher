@@ -1,20 +1,9 @@
-import {
-  GameSettings,
-  GameInfo,
-  SideloadGame,
-  InstalledInfo
-} from '../../common/types'
+import { GameSettings, SideloadGame } from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../game_config'
-import {
-  isWindows,
-  isMac,
-  isLinux,
-  execOptions,
-  heroicGamesConfigPath
-} from '../constants'
-import { execAsync, killPattern, notify } from '../utils'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { isWindows, isMac, isLinux, heroicGamesConfigPath } from '../constants'
+import { killPattern, notify } from '../utils'
+import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { dirname, join } from 'path'
 import {
   appendFileSync,
@@ -42,9 +31,14 @@ export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)
 }
 
-export function getAppInfo(appName: string): GameInfo {
-  const store = libraryStore.get('games', []) as GameInfo[]
-  return store.filter((app) => app.app_name === appName)[0] || {}
+export function getAppInfo(appName: string): SideloadGame {
+  const store = libraryStore.get('games', [])
+  const info = store.find((app) => app.app_name === appName)
+  if (!info) {
+    // @ts-expect-error TODO: As with LegendaryGame and GOGGame, handle this properly
+    return {}
+  }
+  return info
 }
 
 export async function getAppSettings(appName: string): Promise<GameSettings> {
@@ -88,7 +82,7 @@ export function addNewApp({
     )
   }
 
-  const current = libraryStore.get('games', []) as SideloadGame[]
+  const current = libraryStore.get('games', [])
 
   const gameIndex = current.findIndex((value) => value.app_name === app_name)
 
@@ -237,44 +231,6 @@ export async function launchApp(appName: string): Promise<boolean> {
   return false
 }
 
-export async function moveInstall(
-  appName: string,
-  newInstallPath: string
-): Promise<string> {
-  const {
-    install: { install_path },
-    title
-  } = getAppInfo(appName)
-
-  if (!install_path) {
-    return ''
-  }
-
-  if (isWindows) {
-    newInstallPath += '\\' + install_path.split('\\').at(-1)
-  } else {
-    newInstallPath += '/' + install_path.split('/').at(-1)
-  }
-
-  logInfo(`Moving ${title} to ${newInstallPath}`, {
-    prefix: LogPrefix.Backend
-  })
-  await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
-    .then(() => {
-      const installedArray =
-        (libraryStore.get('installed', []) as Array<InstalledInfo>) || []
-
-      const gameIndex = installedArray.findIndex(
-        (value) => value.appName === appName
-      )
-
-      installedArray[gameIndex].install_path = newInstallPath
-      libraryStore.set('installed', installedArray)
-      logInfo(`Finished Moving ${title}`, { prefix: LogPrefix.Backend })
-    })
-    .catch((error) => logError(`${error}`, { prefix: LogPrefix.Backend }))
-  return newInstallPath
-}
 export async function stop(appName: string): Promise<void> {
   const {
     install: { executable }
@@ -295,7 +251,7 @@ export async function removeApp({
   appName,
   shouldRemovePrefix
 }: RemoveArgs): Promise<void> {
-  const old = libraryStore.get('games', []) as SideloadGame[]
+  const old = libraryStore.get('games', [])
   const current = old.filter((a: SideloadGame) => a.app_name !== appName)
   libraryStore.set('games', current)
 

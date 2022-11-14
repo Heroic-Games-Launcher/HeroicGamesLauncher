@@ -169,10 +169,6 @@ export class LegendaryLibrary {
       logError(error, { prefix: LogPrefix.Legendary })
     }
     const arr = Array.from(this.library.values())
-
-    if (libraryStore.has('library')) {
-      libraryStore.delete('library')
-    }
     libraryStore.set('library', arr)
     logInfo(['Game list updated, got', `${arr.length}`, 'games & DLCs'], {
       prefix: LogPrefix.Legendary
@@ -211,7 +207,7 @@ export class LegendaryLibrary {
     appName: string,
     installPlatform: InstallPlatform
   ): Promise<LegendaryInstallInfo> {
-    const cache = installStore.get(appName) as LegendaryInstallInfo
+    const cache = installStore.get_nodefault(appName)
     if (cache) {
       logDebug('Using cached install info', { prefix: LogPrefix.Legendary })
       return cache

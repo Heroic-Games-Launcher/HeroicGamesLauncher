@@ -13,7 +13,8 @@ import {
   GOGLoginData,
   ExtraInfo,
   SideloadGame,
-  WineManagerUISettings
+  WineManagerUISettings,
+  AppSettings
 } from 'common/types'
 import { GamesDBData, UserData } from 'common/types/gog'
 import { LegendaryInstallInfo } from 'common/types/legendary'
@@ -36,11 +37,13 @@ export interface StoreStructure {
     'general-logs': {
       currentLogFile: string
       lastLogFile: string
+      legendaryLogFile: string
+      gogdlLogFile: string
     }
     'window-props': Electron.Rectangle
-    settings: {
-      altLeg: string
-      altGogdl: string
+    settings: AppSettings & {
+      altLeg?: string
+      altGogdl?: string
     }
   }
   libraryStore: {

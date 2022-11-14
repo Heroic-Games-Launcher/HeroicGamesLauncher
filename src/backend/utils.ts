@@ -11,7 +11,8 @@ import {
   RpcClient,
   SteamRuntime,
   Release,
-  GameInfo
+  GameInfo,
+  SideloadGame
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -459,7 +460,7 @@ function splitPathAndName(fullPath: string): { dir: string; bin: string } {
 }
 
 function getLegendaryBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings', {}) as { altLeg: string }
+  const settings = configStore.get_nodefault('settings')
   if (settings?.altLeg) {
     return splitPathAndName(settings.altLeg)
   }
@@ -469,7 +470,7 @@ function getLegendaryBin(): { dir: string; bin: string } {
 }
 
 function getGOGdlBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings', {}) as { altGogdl: string }
+  const settings = configStore.get_nodefault('settings')
   if (settings?.altGogdl) {
     return splitPathAndName(settings.altGogdl)
   }
@@ -800,7 +801,7 @@ export const getCurrentChangelog = async (): Promise<Release | null> => {
   }
 }
 
-function getInfo(appName: string, runner: Runner): GameInfo {
+function getInfo(appName: string, runner: Runner): GameInfo | SideloadGame {
   if (runner === 'sideload') {
     return getAppInfo(appName)
   }

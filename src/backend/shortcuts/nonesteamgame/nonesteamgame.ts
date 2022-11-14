@@ -7,7 +7,7 @@ import {
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'graceful-fs'
 import { readFileSync } from 'fs-extra'
 import { join } from 'path'
-import { GameInfo } from 'common/types'
+import { GameInfo, SideloadGame } from 'common/types'
 import { ShortcutsResult } from '../types'
 import { getIcon } from '../utils'
 import { notify } from '../../utils'
@@ -159,7 +159,7 @@ function writeShortcutFile(
 function checkIfShortcutObjectIsValid(
   object: Partial<ShortcutObject>
 ): ShortcutsResult {
-  const checkResult = { success: false, errors: [] } as ShortcutsResult
+  const checkResult: ShortcutsResult = { success: false, errors: [] }
   if (!('shortcuts' in object)) {
     checkResult.errors.push('Could not find entry "shortcuts"!')
   } else if (!Array.isArray(object.shortcuts)) {
@@ -202,7 +202,7 @@ function checkIfAlreadyAdded(object: Partial<ShortcutObject>, title: string) {
  * @returns boolean
  */
 async function addNonSteamGame(props: {
-  gameInfo: GameInfo
+  gameInfo: GameInfo | SideloadGame
   steamUserdataDir?: string
   bkgDataUrl?: string
   bigPicDataUrl?: string
@@ -315,10 +315,11 @@ async function addNonSteamGame(props: {
     newEntry.Devkit = false
     newEntry.DevkitOverrideAppID = false
 
-    if (tsStore.has(`${props.gameInfo.app_name}.lastPlayed`)) {
-      newEntry.LastPlayTime = tsStore.get(
-        `${props.gameInfo.app_name}.lastPlayed`
-      ) as Date
+    const lastPlayed = tsStore.get_nodefault(
+      `${props.gameInfo.app_name}.lastPlayed`
+    )
+    if (lastPlayed) {
+      newEntry.LastPlayTime = new Date(lastPlayed)
     } else {
       newEntry.LastPlayTime = new Date()
     }
@@ -382,7 +383,7 @@ async function addNonSteamGame(props: {
  * @returns none
  */
 async function removeNonSteamGame(props: {
-  gameInfo: GameInfo
+  gameInfo: GameInfo | SideloadGame
   steamUserdataDir?: string
 }): Promise<void> {
   const steamUserdataDir =
@@ -494,7 +495,7 @@ async function removeNonSteamGame(props: {
  * @returns boolean
  */
 async function isAddedToSteam(props: {
-  gameInfo: GameInfo
+  gameInfo: GameInfo | SideloadGame
   steamUserdataDir?: string
 }): Promise<boolean> {
   const steamUserdataDir =

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
-import { GameInfo, Runner } from 'common/types'
+import { GameInfo, Runner, SideloadGame } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
-  library: GameInfo[]
+  library: (GameInfo | SideloadGame)[]
   layout?: string
   isFirstLane?: boolean
   handleGameCardClick: (
@@ -48,12 +48,13 @@ const GamesList = ({
       )}
       {!!library.length &&
         library.map((gameInfo) => {
-          const {
-            app_name,
-            is_installed,
-            runner,
-            install: { is_dlc }
-          } = gameInfo
+          const { app_name, is_installed, runner } = gameInfo
+
+          let is_dlc = false
+          if (gameInfo.runner !== 'sideload') {
+            is_dlc = gameInfo.install.is_dlc ?? false
+          }
+
           if (is_dlc) {
             return null
           }
@@ -66,9 +67,10 @@ const GamesList = ({
             <GameCard
               key={app_name}
               hasUpdate={hasUpdate}
-              buttonClick={() =>
-                handleGameCardClick(app_name, runner, gameInfo)
-              }
+              buttonClick={() => {
+                if (gameInfo.runner !== 'sideload')
+                  handleGameCardClick(app_name, runner, gameInfo)
+              }}
               forceCard={layout === 'grid'}
               isRecent={isRecent}
               gameInfo={gameInfo}

@@ -51,9 +51,7 @@ async function updateWineVersionInfos(
       })
 
     if (wineDownloaderInfoStore.has('wine-releases')) {
-      const old_releases = wineDownloaderInfoStore.get(
-        'wine-releases'
-      ) as WineVersionInfo[]
+      const old_releases = wineDownloaderInfoStore.get('wine-releases', [])
 
       old_releases.forEach((old) => {
         const index = releases.findIndex((release) => {
@@ -81,12 +79,7 @@ async function updateWineVersionInfos(
   } else {
     logInfo('Read local information ...', { prefix: LogPrefix.WineDownloader })
     if (wineDownloaderInfoStore.has('wine-releases')) {
-      releases.push(
-        ...(wineDownloaderInfoStore.get(
-          'wine-releases',
-          []
-        ) as WineVersionInfo[])
-      )
+      releases.push(...wineDownloaderInfoStore.get('wine-releases', []))
     }
   }
 
@@ -143,9 +136,7 @@ async function installWineVersion(
 
   // Update stored information
   if (wineDownloaderInfoStore.has('wine-releases')) {
-    const releases = wineDownloaderInfoStore.get(
-      'wine-releases'
-    ) as WineVersionInfo[]
+    const releases = wineDownloaderInfoStore.get('wine-releases', [])
 
     const index = releases.findIndex((storedRelease) => {
       return release?.version === storedRelease?.version
@@ -192,9 +183,7 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
 
   // update tool information
   if (wineDownloaderInfoStore.has('wine-releases')) {
-    const releases = wineDownloaderInfoStore.get(
-      'wine-releases'
-    ) as WineVersionInfo[]
+    const releases = wineDownloaderInfoStore.get('wine-releases', [])
 
     const index = releases.findIndex((storedRelease) => {
       return release.version === storedRelease.version

@@ -155,19 +155,7 @@ async function createWindow(): Promise<BrowserWindow> {
   }
 
   if (configStore.has('window-props')) {
-    const tmpWindowProps = configStore.get(
-      'window-props',
-      {}
-    ) as Electron.Rectangle
-    if (
-      tmpWindowProps &&
-      tmpWindowProps.width &&
-      tmpWindowProps.height &&
-      tmpWindowProps.y !== undefined &&
-      tmpWindowProps.x !== undefined
-    ) {
-      windowProps = tmpWindowProps
-    }
+    windowProps = configStore.get('window-props', windowProps)
   } else {
     // make sure initial screen size is not bigger than the available screen space
     const screenInfo = screen.getPrimaryDisplay()
@@ -375,8 +363,8 @@ if (!gotTheLock) {
     // Affects only current users, not new installs
     const settings = await GlobalConfig.get().getSettings()
     const { language, darkTrayIcon } = settings
-    const currentConfigStore = configStore.get('settings', {}) as AppSettings
-    if (!currentConfigStore.defaultInstallPath) {
+    const currentConfigStore = configStore.get_nodefault('settings')
+    if (!currentConfigStore?.defaultInstallPath) {
       configStore.set('settings', settings)
     }
 
@@ -387,7 +375,7 @@ if (!gotTheLock) {
         logInfo('User Not Found, removing it from Store', {
           prefix: LogPrefix.Backend
         })
-        configStore.delete('userinfo')
+        configStore.delete('userInfo')
       }
 
       // Update user details
@@ -474,8 +462,7 @@ if (!gotTheLock) {
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
-      const zoomFactor =
-        parseFloat(configStore.get('zoomPercent', '100') as string) / 100
+      const zoomFactor = configStore.get('zoomPercent', 100) / 100
 
       mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
     }, 200)
@@ -962,8 +949,10 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
   if (appName === 'default') {
     GlobalConfig.get().config = config as AppSettings
     GlobalConfig.get().flush()
-    const currentConfigStore = configStore.get('settings', {}) as AppSettings
-    configStore.set('settings', { ...currentConfigStore, ...config })
+    const currentConfigStore = configStore.get_nodefault('settings')
+    if (currentConfigStore) {
+      configStore.set('settings', { ...currentConfigStore, ...config })
+    }
   } else {
     GameConfig.get(appName).config = config as GameSettings
     GameConfig.get(appName).flush()
@@ -1026,7 +1015,10 @@ ipcMain.handle(
     const startPlayingDate = new Date()
 
     if (!tsStore.has(game.app_name)) {
-      tsStore.set(`${game.app_name}.firstPlayed`, startPlayingDate)
+      tsStore.set(
+        `${game.app_name}.firstPlayed`,
+        startPlayingDate.toISOString()
+      )
     }
 
     logInfo(`Launching ${title} (${game.app_name})`, {
@@ -1094,14 +1086,12 @@ ipcMain.handle(
 
     // Update playtime and last played date
     const finishedPlayingDate = new Date()
-    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate)
+    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate.toISOString())
     // Playtime of this session in minutes
     const sessionPlaytime =
       (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
-    let totalPlaytime = sessionPlaytime
-    if (tsStore.has(`${appName}.totalPlayed`)) {
-      totalPlaytime += tsStore.get(`${appName}.totalPlayed`) as number
-    }
+    const totalPlaytime =
+      sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
     window.webContents.send('setGameStatus', {
@@ -1520,7 +1510,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
 })
 
 ipcMain.handle('getFonts', async (event, reload) => {
-  let cachedFonts = (fontsStore.get('fonts', []) as string[]) || []
+  let cachedFonts = fontsStore.get('fonts', [])
   if (cachedFonts.length === 0 || reload) {
     cachedFonts = await getFonts()
     cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))
@@ -1614,25 +1604,3 @@ import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './howlongtobeat/ipc_handler'
-
-// import Store from 'electron-store'
-// interface StoreMap {
-//   [key: string]: Store
-// }
-// const stores: StoreMap = {}
-
-// ipcMain.on('storeNew', (event, storeName, options) => {
-//   stores[storeName] = new Store(options)
-// })
-
-// ipcMain.handle('storeHas', (event, storeName, key) => {
-//   return stores[storeName].has(key)
-// })
-
-// ipcMain.handle('storeGet', (event, storeName, key) => {
-//   return stores[storeName].get(key)
-// })
-
-// ipcMain.on('storeSet', (event, storeName, key, value) => {
-//   stores[storeName].set(key, value)
-// })

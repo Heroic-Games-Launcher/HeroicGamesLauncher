@@ -14,14 +14,7 @@ const AltGOGdlBin = () => {
 
   useEffect(() => {
     const getGogdlVersion = async () => {
-      const settings = configStore.get('settings') as {
-        altLeg: string
-        altGogdl: string
-      }
-      configStore.set('settings', {
-        ...settings,
-        altGogdl: altGogdlBin
-      })
+      configStore.set('settings.altGogdl', altGogdlBin)
       const gogdlVersion = await window.api.getGogdlVersion()
       if (gogdlVersion === 'invalid') {
         setGogdlVersion('Invalid')

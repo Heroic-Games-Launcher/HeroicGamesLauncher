@@ -139,8 +139,9 @@ class LegendaryGame extends Game {
    */
   public async getExtraInfo(): Promise<ExtraInfo> {
     const { namespace } = this.getGameInfo()
-    if (gameInfoStore.has(namespace)) {
-      return gameInfoStore.get(namespace) as ExtraInfo
+    const cachedExtraInfo = gameInfoStore.get_nodefault(namespace)
+    if (cachedExtraInfo) {
+      return cachedExtraInfo
     }
     if (!isOnline()) {
       return {
@@ -195,15 +196,15 @@ class LegendaryGame extends Game {
       logError('Error Getting Info from Epic API', {
         prefix: LogPrefix.Legendary
       })
-
-      gameInfoStore.set(namespace, { about: {}, reqs: [] })
-      return {
+      const placeholderExtraInfo: ExtraInfo = {
         about: {
           description: '',
           longDescription: ''
         },
         reqs: []
       }
+      gameInfoStore.set(namespace, placeholderExtraInfo)
+      return placeholderExtraInfo
     }
   }
 
@@ -692,7 +693,7 @@ class LegendaryGame extends Game {
       : []
 
     const languageCode =
-      gameSettings.language || (configStore.get('language', '') as string)
+      gameSettings.language || configStore.get('language', '')
     const languageFlag = languageCode ? ['--language', languageCode] : []
 
     let commandEnv = isWindows
