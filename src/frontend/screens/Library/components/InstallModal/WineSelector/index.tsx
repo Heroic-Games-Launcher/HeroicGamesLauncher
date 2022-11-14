@@ -32,7 +32,7 @@ export default function WineSelector({
 }: Props) {
   const { t } = useTranslation('gamepage')
 
-  const [useDefaultSettings, setUseDefaultSettings] = React.useState(true)
+  const [useDefaultSettings, setUseDefaultSettings] = React.useState(false)
   const [description, setDescription] = React.useState('')
 
   React.useEffect(() => {
