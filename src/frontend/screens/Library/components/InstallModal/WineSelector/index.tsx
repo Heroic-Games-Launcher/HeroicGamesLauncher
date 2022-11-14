@@ -9,6 +9,7 @@ import React from 'react'
 import { AppSettings, WineInstallation } from 'common/types'
 import { useTranslation } from 'react-i18next'
 import { configStore } from 'frontend/helpers/electronStores'
+import { removeSpecialcharacters } from 'frontend/helpers'
 
 type Props = {
   setWineVersion: React.Dispatch<
@@ -48,7 +49,9 @@ export default function WineSelector({
       setWinePrefix(defaultPrefix)
       setWineVersion(wineVersion)
     } else {
-      const sugestedWinePrefix = `${prefixFolder}/${title}`
+      const sugestedWinePrefix = `${prefixFolder}/${removeSpecialcharacters(
+        title
+      )}`
       setWinePrefix(sugestedWinePrefix)
       setWineVersion(wineVersion || undefined)
     }
