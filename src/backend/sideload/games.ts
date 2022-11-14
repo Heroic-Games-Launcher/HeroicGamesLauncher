@@ -253,7 +253,6 @@ export async function removeApp({
 }: RemoveArgs): Promise<void> {
   const old = libraryStore.get('games', [])
   const current = old.filter((a: SideloadGame) => a.app_name !== appName)
-  libraryStore.set('games', current)
 
   const { title } = getAppInfo(appName)
   const { winePrefix } = await getAppSettings(appName)
@@ -265,11 +264,12 @@ export async function removeApp({
       rmSync(winePrefix, { recursive: true })
     }
   }
+  libraryStore.set('games', current)
   notify({ title, body: i18next.t('notify.uninstalled') })
 
   removeAppShortcuts(appName)
 
-  return logInfo('finished uninstalling', { prefix: LogPrefix.Backend })
+  logInfo('finished uninstalling', { prefix: LogPrefix.Backend })
 }
 
 export function isNativeApp(appName: string): boolean {
