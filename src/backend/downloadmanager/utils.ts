@@ -148,7 +148,7 @@ async function updateQueueElement(
 
   notify({
     title,
-    body: i18next.t('notify.update.startUpdate', 'Update Started')
+    body: i18next.t('notify.update.started', 'Update Started')
   })
 
   try {
