@@ -74,7 +74,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [progress, previousProgress] = hasProgress(appName)
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
-  const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [gogSaves, setGOGSaves] = useState<GOGCloudSavesLocation[]>([])
@@ -182,16 +181,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
     updateConfig()
   }, [isInstalling, isPlaying, appName, epic.library, gog.library])
 
-  async function handleUpdate() {
-    setUpdateRequested(true)
-    await handleGameStatus({
-      appName,
-      runner: gameInfo.runner,
-      status: 'updating'
-    })
-    await updateGame(appName, gameInfo.runner)
-    await handleGameStatus({ appName, runner: gameInfo.runner, status: 'done' })
-    setUpdateRequested(false)
+  function handleUpdate() {
+    return updateGame({ appName, runner, gameInfo })
   }
 
   function handleModal() {
@@ -297,7 +288,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     storeUrl={gameInfo.store_url}
                     runner={gameInfo.runner}
                     handleUpdate={handleUpdate}
-                    disableUpdate={updateRequested || isUpdating}
+                    disableUpdate={isInstalling || isUpdating}
                     onShowRequirements={
                       hasRequirements
                         ? () => setShowRequirements(true)

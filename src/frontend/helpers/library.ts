@@ -8,7 +8,7 @@ import {
 } from 'common/types'
 
 import { TFunction } from 'react-i18next'
-import { sendKill } from './index'
+import { getGameInfo, sendKill } from './index'
 import { DialogModalOptions } from 'frontend/types'
 
 const storage: Storage = window.localStorage
@@ -198,7 +198,12 @@ const launch = async ({
           {
             text: t('gamepage:box.yes'),
             onClick: async () => {
-              res(updateGame(appName, runner))
+              const gameInfo = await getGameInfo(appName, runner)
+              if (gameInfo) {
+                updateGame({ appName, runner, gameInfo })
+                res({ status: 'done' })
+              }
+              res({ status: 'error' })
             }
           },
           {

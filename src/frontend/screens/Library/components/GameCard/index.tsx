@@ -110,9 +110,7 @@ const GameCard = ({
   const imageSrc = getImageFormatting()
 
   async function handleUpdate() {
-    await handleGameStatus({ appName, runner, status: 'updating' })
-    await updateGame(appName, runner)
-    return handleGameStatus({ appName, runner, status: 'done' })
+    return updateGame({ appName, runner, gameInfo })
   }
 
   function getImageFormatting() {
