@@ -559,10 +559,6 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.handle('kill', async (event, appName, runner) => {
-  return getGame(appName, runner).stop()
-})
-
 ipcMain.handle('checkDiskSpace', async (event, folder: string) => {
   const parent = getFirstExistingParentPath(folder)
   return new Promise((res) => {
@@ -1683,7 +1679,7 @@ ipcMain.handle(
  * INSERT OTHER IPC HANLDER HERE
  */
 import './logger/ipc_handler'
-import './wine/manager/ipc_handler'
+import './toolmanager/ipc_handler'
 import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
 import './legendary/eos_overlay/ipc_handler'

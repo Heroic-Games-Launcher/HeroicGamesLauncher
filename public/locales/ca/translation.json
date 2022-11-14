@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "La configuració es desa automàticament",
-        "version": "Versió del Wine"
+        "settings": "La configuració es desa automàticament"
     },
     "infobox": {
         "help": "Ajuda",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Tots els jocs"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Selecciona el directori predefinit dels prefixos per a configuracions noves",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "No s'ha pogut obtenir les versions de Wine/Proton.",
-            "link": "Gestor del Wine",
-            "title": "Gestor del Wine",
-            "unzipping": "S'està descomprimint"
-        },
-        "release": "Release Date",
-        "size": "Mida"
+            "link": "Gestor del Wine"
+        }
     }
 }

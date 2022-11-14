@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "ക്രമീകരണങ്ങള് താനെ സൂക്ഷിക്കപ്പെട്ടിരിക്കുന്നു",
-        "version": "Wine Version"
+        "settings": "ക്രമീകരണങ്ങള് താനെ സൂക്ഷിക്കപ്പെട്ടിരിക്കുന്നു"
     },
     "infobox": {
         "help": "സഹായിക്കൂ",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "മൊത്തം കളികള്"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Select the default prefix folder for new configs",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
-            "link": "Wine Manager",
-            "title": "Wine Manager",
-            "unzipping": "Unzipping"
-        },
-        "release": "Release Date",
-        "size": "Size"
+            "link": "Wine Manager"
+        }
     }
 }

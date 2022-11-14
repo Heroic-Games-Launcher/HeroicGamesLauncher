@@ -1,4 +1,3 @@
-import { VersionInfo } from 'heroic-wine-downloader'
 import {
   AppSettings,
   GameInfo,
@@ -9,12 +8,13 @@ import {
   DialogType,
   ButtonOptions
 } from 'common/types'
+import { ToolVersionInfo } from 'common/types/toolmanager'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
 
 export interface ContextType {
   category: Category
-  wineVersions: WineVersionInfo[]
+  toolVersions: ToolVersionInfo[]
   error: boolean
   filterText: string
   filterPlatform: string
@@ -34,7 +34,7 @@ export interface ContextType {
   platform: NodeJS.Platform | string
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
-  refreshWineVersionInfo: (fetch: boolean) => void
+  refreshToolVersionInfo: (fetch: boolean) => void
   refreshing: boolean
   refreshingInTheBackground: boolean
   hiddenGames: {
@@ -121,12 +121,6 @@ export type RefreshOptions = {
 }
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
-
-export interface WineVersionInfo extends VersionInfo {
-  isInstalled: boolean
-  hasUpdate: boolean
-  installDir: string
-}
 
 export type ElWebview = {
   canGoBack: () => boolean

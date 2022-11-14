@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Parametrlər avtomatik olaraq saxlanılır",
-        "version": "Şərab versiyası"
+        "settings": "Parametrlər avtomatik olaraq saxlanılır"
     },
     "infobox": {
         "help": "Kömək edin",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Bütün Oyunlar"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Yeni konfiqurasiyalar üçün standart prefiks qovluğunu seçin",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Fəaliyyət",
         "manager": {
-            "error": "Bu dəfə Şərab/Proton versiyalarını əldə etmək mümkün olmadı.",
-            "link": "Şərab meneceri",
-            "title": "Şərab meneceri",
-            "unzipping": "Açma"
-        },
-        "release": "Buraxılış tarixi",
-        "size": "Ölçü"
+            "link": "Şərab meneceri"
+        }
     }
 }

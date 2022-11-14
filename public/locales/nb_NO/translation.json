@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Innstillinger lagres automatisk",
-        "version": "Vinversjon"
+        "settings": "Innstillinger lagres automatisk"
     },
     "infobox": {
         "help": "Hjelp",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Alle spill"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Velg standard prefiksmappe for nye konfigurasjoner",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Handling",
         "manager": {
-            "error": "Kunne ikke hente Wine/Proton-versjoner denne gangen.",
-            "link": "Vinsjef",
-            "title": "Vinsjef",
-            "unzipping": "Pakning ut"
-        },
-        "release": "Utgivelsesdato",
-        "size": "Størrelse"
+            "link": "Vinsjef"
+        }
     }
 }

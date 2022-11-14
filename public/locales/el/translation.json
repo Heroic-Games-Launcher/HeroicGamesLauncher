@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Οι ρυθμίσεις αποθηκεύονται αυτομάτως",
-        "version": "Έκδοση Wine"
+        "settings": "Οι ρυθμίσεις αποθηκεύονται αυτομάτως"
     },
     "infobox": {
         "help": "Βοήθεια",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Όλα τα παιχνίδια"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Επιλέξτε τον βασικό φάκελο προθημάτων για νέες παραμετροποιήσεις",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Ενέργεια",
         "manager": {
-            "error": "Μη δυνατή πάρση Wine/Proton εκδόσεων αυτή τη φορά.",
-            "link": "Διαχειριστής Wine",
-            "title": "Διαχειριστής Wine",
-            "unzipping": "Αποσυμπίεση"
-        },
-        "release": "Ημερομηνία κυκλοφορίας",
-        "size": "Μέγεθος"
+            "link": "Διαχειριστής Wine"
+        }
     }
 }

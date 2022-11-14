@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Postavke se automatski spremaju",
-        "version": "Verzija Wine-a"
+        "settings": "Postavke se automatski spremaju"
     },
     "infobox": {
         "help": "Pomoć",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Sve igre"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Odaberite zadanu mapu prefiksa za nove konfiguracije",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Akcija",
         "manager": {
-            "error": "Ovaj put nije bilo moguće preuzeti Wine/Proton verzije.",
-            "link": "Wine menadžer",
-            "title": "Wine menadžer",
-            "unzipping": "Raspakivanje"
-        },
-        "release": "Datum izlaska",
-        "size": "Veličina"
+            "link": "Wine menadžer"
+        }
     }
 }

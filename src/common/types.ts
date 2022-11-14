@@ -1,6 +1,5 @@
 import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform } from './types/legendary'
-import { VersionInfo } from 'heroic-wine-downloader'
 import { IpcRendererEvent } from 'electron'
 
 export type Runner = 'legendary' | 'gog' | 'sideload'
@@ -454,12 +453,6 @@ export type RefreshOptions = {
   fullRefresh?: boolean
   library?: Runner | 'all'
   runInBackground?: boolean
-}
-
-export interface WineVersionInfo extends VersionInfo {
-  isInstalled: boolean
-  hasUpdate: boolean
-  installDir: string
 }
 
 export interface GamepadActionStatus {

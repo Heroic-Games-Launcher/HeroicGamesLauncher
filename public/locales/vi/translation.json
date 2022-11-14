@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Cài đặt được tự đông lưu",
-        "version": "Phiên bản Wine"
+        "settings": "Cài đặt được tự đông lưu"
     },
     "infobox": {
         "help": "Hỗ trợ",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Tất cả game"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Chọn thư mục prefix mặc định cho các cấu hình mới",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Không thể tìm nạp phiên bản Wine/Proton lần này.",
-            "link": "Quản lý Wine",
-            "title": "Quản lý Wine (thử nghiệm)",
-            "unzipping": "Đang giải nén"
-        },
-        "release": "Release Date",
-        "size": "Kích thước"
+            "link": "Quản lý Wine"
+        }
     }
 }

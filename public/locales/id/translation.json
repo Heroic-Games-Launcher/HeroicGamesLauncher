@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Pengaturan disimpan secara otomatis",
-        "version": "Versi Wine"
+        "settings": "Pengaturan disimpan secara otomatis"
     },
     "infobox": {
         "help": "Bantuan",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Semua Gim"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Pilih folder prefiks asali untuk konfigurasi yang baru",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Tidak dapat mengambil versi Wine/Proton saat ini.",
-            "link": "Manajer Wine",
-            "title": "Manajer Wine",
-            "unzipping": "Mengekstrak"
-        },
-        "release": "Release Date",
-        "size": "Ukuran"
+            "link": "Manajer Wine"
+        }
     }
 }

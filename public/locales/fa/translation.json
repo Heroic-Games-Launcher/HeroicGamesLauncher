@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "تنظیمات به صورت خودکار ذخیره شدند",
-        "version": "نسخه Wine"
+        "settings": "تنظیمات به صورت خودکار ذخیره شدند"
     },
     "infobox": {
         "help": "راهنما",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "همه بازیها"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "انتخاب پوشه مسیر پیشفرض برای تنظیمات جدید",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "نمیتوان در این زمان نسخههای Wine/Proton را به دست آورد.",
-            "link": "مدیریت Wine",
-            "title": "مدیریت کننده Wine",
-            "unzipping": "در حال خارج کردن از حالت فشرده"
-        },
-        "release": "Release Date",
-        "size": "اندازه"
+            "link": "مدیریت Wine"
+        }
     }
 }

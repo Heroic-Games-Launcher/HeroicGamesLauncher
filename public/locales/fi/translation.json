@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Asetukset tallennetaan automaattisesti",
-        "version": "Wine Version"
+        "settings": "Asetukset tallennetaan automaattisesti"
     },
     "infobox": {
         "help": "Apua",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Kaikki pelit"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Valitse uusien konfiguraatioiden oletusprefiksi-kansio",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Viini-/Proton-versioita ei voitu noutaa tällä kertaa.",
-            "link": "Wine Manageri",
-            "title": "Wine Manageri",
-            "unzipping": "Purkaminen"
-        },
-        "release": "Release Date",
-        "size": "Size"
+            "link": "Wine Manageri"
+        }
     }
 }

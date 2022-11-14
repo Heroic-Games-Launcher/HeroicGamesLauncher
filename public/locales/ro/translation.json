@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Setările sunt salvate automat",
-        "version": "Versiune Wine"
+        "settings": "Setările sunt salvate automat"
     },
     "infobox": {
         "help": "Ajutor",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Toate jocurile"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Selectați folderul de prefix implicit pentru noile configurații",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Acțiune",
         "manager": {
-            "error": "Nu s-au putut prelua versiunile Wine/Proton de data aceasta.",
-            "link": "Manager de vinuri",
-            "title": "Manager de vinuri",
-            "unzipping": "Dezarhivare"
-        },
-        "release": "Data de lansare",
-        "size": "Mărime"
+            "link": "Manager de vinuri"
+        }
     }
 }

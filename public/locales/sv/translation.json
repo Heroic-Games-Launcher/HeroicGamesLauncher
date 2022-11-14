@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Inställningar sparas automatiskt",
-        "version": "Wine Version"
+        "settings": "Inställningar sparas automatiskt"
     },
     "infobox": {
         "help": "Hjälp",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Alla spel"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Ange standard prefix-sökväg för nya konfigurationer",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Kunde inte hämta Wine/Proton versioner.",
-            "link": "Wine hanterare",
-            "title": "Wine hanterare",
-            "unzipping": "Packar upp"
-        },
-        "release": "Release Date",
-        "size": "Size"
+            "link": "Wine hanterare"
+        }
     }
 }

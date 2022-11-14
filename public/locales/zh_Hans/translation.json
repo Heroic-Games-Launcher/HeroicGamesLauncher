@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "设置会自动保存",
-        "version": "Wine 版本"
+        "settings": "设置会自动保存"
     },
     "infobox": {
         "help": "帮助",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "所有游戏"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "选择新配置的默认前置文件夹",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "动作",
         "manager": {
-            "error": "此次无法获取 Wine/Proton 版本。",
-            "link": "Wine 管理器",
-            "title": "Wine 管理器",
-            "unzipping": "解压缩"
-        },
-        "release": "发布日期",
-        "size": "大小"
+            "link": "Wine 管理器"
+        }
     }
 }

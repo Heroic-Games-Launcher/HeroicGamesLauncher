@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Nastavení se ukládají automaticky",
-        "version": "Verze Wine"
+        "settings": "Nastavení se ukládají automaticky"
     },
     "infobox": {
         "help": "Pomoc",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Všechny hry"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Výběr výchozí složky Prefixů pro nové konfigurace",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Nepodařilo se načíst verze Wine/Proton.",
-            "link": "Správce Wine",
-            "title": "Správce Wine",
-            "unzipping": "Rozbalování"
-        },
-        "release": "Release Date",
-        "size": "Velikost"
+            "link": "Správce Wine"
+        }
     }
 }

@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Einstellungen werden automatisch gespeichert",
-        "version": "Wine-Version"
+        "settings": "Einstellungen werden automatisch gespeichert"
     },
     "infobox": {
         "help": "Hilfe",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Alle Spiele"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Wähle den Standard Präfix-Ordner für neue Konfigurationen",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Wine/Proton-Versionen konnten diesmal nicht abgerufen werden.",
-            "link": "Wine-Manager",
-            "title": "Wine-Manager",
-            "unzipping": "Entpacke"
-        },
-        "release": "Veröffentlichungsdatum",
-        "size": "Größe"
+            "link": "Wine-Manager"
+        }
     }
 }

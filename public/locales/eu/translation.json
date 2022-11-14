@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Ezarpenak automatikoki gordetzen dira",
-        "version": "Ardoaren Bertsioa"
+        "settings": "Ezarpenak automatikoki gordetzen dira"
     },
     "infobox": {
         "help": "Laguntza",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Joko guztiak"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Hautatu aurrizkiaren karpeta lehenetsia konfigurazio berrietarako",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Ekintza",
         "manager": {
-            "error": "Ezin izan dira Wine/Proton bertsioak eskuratu oraingoan.",
-            "link": "Ardo kudeatzailea",
-            "title": "Ardo kudeatzailea",
-            "unzipping": "Deskonprimitzea"
-        },
-        "release": "Argitaratze data",
-        "size": "Tamaina"
+            "link": "Ardo kudeatzailea"
+        }
     }
 }

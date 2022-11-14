@@ -27,7 +27,7 @@ const libraryStore = new StoreIpc('libraryStore', {
   cwd: 'lib-cache',
   name: 'library'
 })
-const wineDownloaderInfoStore = new StoreIpc('wineDownloaderInfoStore', {
+const toolDownloaderInfoStore = new StoreIpc('wineDownloaderInfoStore', {
   cwd: 'store',
   name: 'wine-downloader-info'
 })
@@ -67,6 +67,6 @@ export {
   libraryStore,
   timestampStore,
   sideloadLibrary,
-  wineDownloaderInfoStore,
+  toolDownloaderInfoStore as wineDownloaderInfoStore,
   downloadManagerStore
 }

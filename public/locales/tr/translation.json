@@ -265,8 +265,7 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": "Ayarlar otomatik kaydedilir",
-        "version": "Wine Sürümü"
+        "settings": "Ayarlar otomatik kaydedilir"
     },
     "infobox": {
         "help": "Yardım",
@@ -569,6 +568,17 @@
     "title": {
         "allGames": "Tüm Oyunlar"
     },
+    "tool": {
+        "actions": "Action",
+        "manager": {
+            "error": "Could not fetch Tool versions this time.",
+            "title": "Tool Manager",
+            "unzipping": "Unzipping"
+        },
+        "release": "Release Date",
+        "size": "Size",
+        "version": "Version"
+    },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Yeni yapılandırmalar için öntanımlı prefix klasörünü seçin",
@@ -607,12 +617,7 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Wine/Proton sürümleri bu defa alınamadı.",
-            "link": "Wine Yöneticisi",
-            "title": "Wine Yöneticisi",
-            "unzipping": "Çıkartılıyor"
-        },
-        "release": "Release Date",
-        "size": "Boyut"
+            "link": "Wine Yöneticisi"
+        }
     }
 }
