@@ -435,7 +435,7 @@ class LegendaryGame extends Game {
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const noHttps = downloadNoHttps ? ['--no-https'] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
-    const installSdl = sdlList.length
+    const installSdl = sdlList?.length
       ? this.getSdlList(sdlList)
       : ['--skip-sdl']
 

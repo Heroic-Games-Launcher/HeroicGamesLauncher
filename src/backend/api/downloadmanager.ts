@@ -14,8 +14,14 @@ export const install = async (args: InstallParams) => {
 }
 
 export const updateGame = (args: UpdateParams) => {
+  const {
+    gameInfo: {
+      install: { platform, install_path }
+    }
+  } = args
+
   const dmQueueElement: DMQueueElement = {
-    params: { ...args, path: '' },
+    params: { ...args, path: install_path!, platformToInstall: platform! },
     type: 'update'
   }
 
