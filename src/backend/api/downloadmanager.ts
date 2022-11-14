@@ -1,10 +1,24 @@
 import { ipcRenderer } from 'electron'
-import { DMQueueElement, InstallParams } from './../../common/types'
+import {
+  DMQueueElement,
+  InstallParams,
+  UpdateParams
+} from './../../common/types'
 
 export const install = async (args: InstallParams) => {
   const dmQueueElement: DMQueueElement = {
-    params: args
+    params: args,
+    type: 'install'
   }
+  ipcRenderer.send('addToDMQueue', dmQueueElement)
+}
+
+export const updateGame = (args: UpdateParams) => {
+  const dmQueueElement: DMQueueElement = {
+    params: { ...args, path: '' },
+    type: 'update'
+  }
+
   ipcRenderer.send('addToDMQueue', dmQueueElement)
 }
 

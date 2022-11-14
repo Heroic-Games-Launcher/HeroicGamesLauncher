@@ -234,13 +234,19 @@ export interface WineInstallation {
 
 export interface InstallArgs {
   path: string
-  installDlcs: boolean
-  sdlList: string[]
-  platformToInstall: InstallPlatform
+  installDlcs?: boolean
+  sdlList?: string[]
+  platformToInstall?: InstallPlatform
   installLanguage?: string
 }
 
 export interface InstallParams extends InstallArgs {
+  appName: string
+  gameInfo: GameInfo
+  runner: Runner
+}
+
+export interface UpdateParams {
   appName: string
   gameInfo: GameInfo
   runner: Runner
@@ -538,7 +544,12 @@ export type RecentGame = {
   title: string
 }
 
+export interface UpdateParams {
+  gameInfo: GameInfo
+}
+
 export interface DMQueueElement {
+  type: 'update' | 'install'
   params: InstallParams
   status?: 'done' | 'error' | 'abort'
 }
