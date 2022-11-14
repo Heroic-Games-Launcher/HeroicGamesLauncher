@@ -1,4 +1,4 @@
-import './index.css'
+import './index.scss'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent } from 'frontend/components/UI'
@@ -64,7 +64,7 @@ export default function ToolManager(): JSX.Element | null {
       }
     }
 
-    return refreshToolVersionInfo(true)
+    refreshToolVersionInfo(true)
   }, [])
 
   if (refreshing) {
