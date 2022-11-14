@@ -5,14 +5,16 @@ import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import SettingsContext from '../SettingsContext'
 
 const EnableEsync = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
+  const { isLinuxNative } = useContext(SettingsContext)
   const isLinux = platform === 'linux'
   const [enableEsync, setEnableEsync] = useSetting('enableEsync', false)
 
-  if (!isLinux) {
+  if (!isLinux || isLinuxNative) {
     return <></>
   }
 
