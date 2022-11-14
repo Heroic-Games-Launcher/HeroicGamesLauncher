@@ -689,7 +689,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     return install({
       gameInfo,
-      handleGameStatus,
       installPath: folder,
       isInstalling,
       previousProgress,

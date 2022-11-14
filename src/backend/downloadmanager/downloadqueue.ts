@@ -78,6 +78,14 @@ function addToQueue(element: DMQueueElement) {
     return
   }
 
+  const mainWindow = getMainWindow()
+  mainWindow.webContents.send('setGameStatus', {
+    appName: element.params.appName,
+    runner: element.params.runner,
+    folder: element.params.path,
+    status: 'queued'
+  })
+
   let elements: DMQueueElement[] = []
   if (downloadManager.has('queue')) {
     elements = downloadManager.get('queue') as DMQueueElement[]

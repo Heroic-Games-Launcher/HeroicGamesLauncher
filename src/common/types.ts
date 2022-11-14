@@ -234,9 +234,9 @@ export interface WineInstallation {
 
 export interface InstallArgs {
   path: string
+  platformToInstall: InstallPlatform
   installDlcs?: boolean
   sdlList?: string[]
-  platformToInstall?: InstallPlatform
   installLanguage?: string
 }
 

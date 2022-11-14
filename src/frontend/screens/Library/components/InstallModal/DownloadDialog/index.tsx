@@ -110,7 +110,7 @@ export default function DownloadDialog({
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
   ) as InstallProgress
-  const { libraryStatus, handleGameStatus, platform, showDialogModal } =
+  const { libraryStatus, platform, showDialogModal } =
     useContext(ContextProvider)
 
   const isMac = platform === 'darwin'
@@ -192,7 +192,6 @@ export default function DownloadDialog({
 
     return install({
       gameInfo,
-      handleGameStatus,
       installPath: path || installFolder,
       isInstalling: false,
       previousProgress,

@@ -146,12 +146,6 @@ async function updateQueueElement(
     }
   }
 
-  mainWindow.webContents.send('setGameStatus', {
-    appName,
-    runner,
-    status: 'updating'
-  })
-
   notify({
     title,
     body: i18next.t('notify.update.startUpdate', 'Update Started')
@@ -175,12 +169,6 @@ async function updateQueueElement(
         prefix: LogPrefix.DownloadManager
       })
     }
-
-    mainWindow.webContents.send('setGameStatus', {
-      appName,
-      runner,
-      status: 'done'
-    })
     return { status: 'done' }
   } catch (error) {
     logError(['Updating of', params.appName, 'failed with:', error], {
