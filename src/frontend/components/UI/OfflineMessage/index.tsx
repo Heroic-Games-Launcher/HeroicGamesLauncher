@@ -17,12 +17,12 @@ const OfflineMessage = () => {
 
   if (connectivity.status === 'check-online') {
     if (connectivity.retryIn) {
-      content += t('offline-message.retry-in', {
-        defaultValue: 'Retrying in ... {{seconds}} seconds',
+      content = t('offline-message.offline-retry-in', {
+        defaultValue: 'Offline. Retrying in {{seconds}} seconds.',
         seconds: connectivity.retryIn
       })
     } else {
-      content = t('offline-message.retrying', 'Retrying')
+      content = t('offline-message.retrying', 'Retrying...')
     }
   }
 

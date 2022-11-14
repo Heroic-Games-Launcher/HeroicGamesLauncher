@@ -353,7 +353,7 @@
     "offline-message": {
         "hint": "Kontrolujeme připojení s:{{newline}}github.com,{{newline}}gog.com a{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Opakování pokusu za ... {{seconds}} sekund",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Opakování pokusu"
     },
     "options": {
