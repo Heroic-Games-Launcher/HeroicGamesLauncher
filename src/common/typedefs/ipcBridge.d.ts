@@ -22,13 +22,13 @@ import {
   SaveSyncArgs,
   RunWineCommandArgs,
   SideloadGame,
-  WineVersionInfo,
   AntiCheatInfo,
   RuntimeName,
   DMQueueElement,
   ConnectivityStatus,
   GamepadActionArgs
 } from 'common/types'
+import { ToolVersionInfo } from 'common/types/toolmanager'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
 
@@ -178,11 +178,11 @@ interface AsyncIPCFunctions {
   launchApp: (appName: string) => Promise<boolean>
   isNative: (args: { appName: string; runner: Runner }) => boolean
   getLogContent: (args: { appName: string; defaultLast?: boolean }) => string
-  installWineVersion: (
-    release: WineVersionInfo
+  installToolVersion: (
+    release: ToolVersionInfo
   ) => Promise<'error' | 'abort' | 'success'>
-  refreshWineVersionInfo: (fetch?: boolean) => Promise<WineVersionInfo[]>
-  removeWineVersion: (release: WineVersionInfo) => Promise<boolean>
+  refreshToolVersionInfo: (fetch?: boolean) => Promise<ToolVersionInfo[]>
+  removeToolVersion: (release: ToolVersionInfo) => Promise<boolean>
   shortcutsExists: (appName: string, runner: Runner) => boolean
   addToSteam: (appName: string, runner: Runner) => Promise<boolean>
   removeFromSteam: (appName: string, runner: Runner) => Promise<void>

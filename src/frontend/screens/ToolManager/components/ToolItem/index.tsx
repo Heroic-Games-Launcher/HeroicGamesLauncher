@@ -86,7 +86,7 @@ const ToolItem = ({
             break
           case 'success':
             refreshToolVersionInfo(false)
-            notify([`${version}`, t('notify.install.finished')])
+            notify({ title: `${version}`, body: t('notify.install.finished') })
             break
           default:
             break
@@ -111,7 +111,7 @@ const ToolItem = ({
       .then((response) => {
         if (response) {
           refreshToolVersionInfo(false)
-          notify([`${version}`, t('notify.uninstalled')])
+          notify({ title: `${version}`, body: t('notify.uninstalled') })
         }
       })
   }

@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron'
-import { RuntimeName } from 'common/types'
+import { RuntimeName, ToolArgs } from 'common/types'
 
 export const toggleDXVK = (args: ToolArgs) =>
   ipcRenderer.send('toggleDXVK', args)

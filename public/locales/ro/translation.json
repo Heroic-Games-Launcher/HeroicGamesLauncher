@@ -581,6 +581,7 @@
         "actions": "Action",
         "manager": {
             "error": "Could not fetch Tool versions this time.",
+            "link": "Tool Manager",
             "title": "Tool Manager",
             "unzipping": "Unzipping"
         },
@@ -624,9 +625,6 @@
         }
     },
     "wine": {
-        "actions": "Acțiune",
-        "manager": {
-            "link": "Manager de vinuri"
-        }
+        "actions": "Acțiune"
     }
 }

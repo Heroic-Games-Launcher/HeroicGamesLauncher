@@ -37,7 +37,7 @@ function Settings() {
   const { t, i18n } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const {
-    state: { fromGameCard, runner, gameInfo }
+    state: { fromGameCard, runner }
   } = useLocation() as { state: LocationState }
   const [title, setTitle] = useState('')
 
