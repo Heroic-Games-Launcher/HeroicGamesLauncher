@@ -43,7 +43,7 @@ function getStatus(): {
   return { isInstalled: true, version, install_path }
 }
 
-async function getLatestVersion() {
+async function getLatestVersion(): Promise<string> {
   if (!existsSync(currentVersionPath)) {
     // HACK: `overlay_version.json` isn't created when the overlay isn't installed
     if (!isInstalled()) {
@@ -58,7 +58,7 @@ async function getLatestVersion() {
       return ''
     }
   }
-  const { buildVersion } = JSON.parse(
+  const { buildVersion }: { buildVersion: string } = JSON.parse(
     readFileSync(currentVersionPath, 'utf-8')
   ).data
   return buildVersion
@@ -167,8 +167,8 @@ async function enable(
   if (isLinux) {
     const game = getGame(appName, 'legendary')
     const gameSettings = await game.getSettings()
-    await verifyWinePrefix(gameSettings, game)
-    const { winePrefix, wineVersion } = await game.getSettings()
+    await verifyWinePrefix(gameSettings)
+    const { winePrefix, wineVersion } = gameSettings
     prefix =
       wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
   }

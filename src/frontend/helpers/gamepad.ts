@@ -1,4 +1,8 @@
-import { AppSettings, GamepadActionStatus } from 'common/types'
+import {
+  AppSettings,
+  GamepadActionStatus,
+  ValidGamepadAction
+} from 'common/types'
 import {
   checkGameCube,
   checkPS3,
@@ -22,11 +26,9 @@ let controllerIsDisabled = false
 let currentController = -1
 
 export const initGamepad = () => {
-  window.api
-    .requestSettings('default')
-    .then(({ disableController }: AppSettings) => {
-      controllerIsDisabled = disableController || false
-    })
+  window.api.requestAppSettings().then(({ disableController }: AppSettings) => {
+    controllerIsDisabled = disableController || false
+  })
 
   // store the current controllers
   let controllers: number[] = []
@@ -55,12 +57,14 @@ export const initGamepad = () => {
     mainAction: { triggeredAt: {}, repeatDelay: false },
     back: { triggeredAt: {}, repeatDelay: false },
     altAction: { triggeredAt: {}, repeatDelay: false },
-    rightClick: { triggeredAt: {}, repeatDelay: false }
+    rightClick: { triggeredAt: {}, repeatDelay: false },
+    leftClick: { triggeredAt: {}, repeatDelay: false },
+    esc: { triggeredAt: {}, repeatDelay: false }
   }
 
   // check if an action should be triggered
   function checkAction(
-    action: string,
+    action: ValidGamepadAction,
     pressed: boolean,
     controllerIndex: number
   ) {
@@ -114,13 +118,8 @@ export const initGamepad = () => {
             // some tags require a simulated click, some require a javascript click() call
             // if the current element requires a simulated click, change the action to `leftClick`
             action = 'leftClick'
-          } else if (playable()) {
-            // if the current element is a card of a game and it's installed, play it
-            playGame()
-            return
           } else if (isGameCard()) {
-            installGame()
-            return
+            action === 'mainAction'
           } else if (VirtualKeyboardController.isButtonFocused()) {
             // simulate a left click on a virtual keyboard button
             action = 'leftClick'
@@ -143,12 +142,15 @@ export const initGamepad = () => {
             return
           } else if (insideInstallDialog()) {
             closeInstallDialog()
+          } else if (isContextMenu()) {
+            action = 'rightClick'
           }
           break
         case 'altAction':
           if (isGameCard()) {
-            // when pressing Y on a game card, open the game details
-            action = 'mainAction'
+            // launch game on pressing Y
+            if (playable()) playGame()
+            else installGame()
           } else if (VirtualKeyboardController.isActive()) {
             VirtualKeyboardController.space()
             return
@@ -166,20 +168,25 @@ export const initGamepad = () => {
       } else {
         // we have to tell Electron to simulate key presses
         // so the spatial navigation works
-        const metadataReturn = metadata()
-        if (metadataReturn) window.api.gamepadAction([action, metadataReturn])
+        if (action !== 'leftClick' && action !== 'rightClick') {
+          window.api.gamepadAction({ action })
+        } else {
+          const data = metadata()
+          if (data) {
+            window.api.gamepadAction({ action, metadata: data })
+          } else {
+            console.error(
+              'Got controller action that requires metadata, but we have no metadata'
+            )
+          }
+        }
       }
     }
   }
 
-  function currentElement() {
-    return document.querySelector(':focus') as HTMLElement
-  }
+  const currentElement = () => document.querySelector<HTMLElement>(':focus')
 
-  function shouldSimulateClick() {
-    return isSelect()
-  }
-
+  const shouldSimulateClick = isSelect
   function isSelect() {
     const el = currentElement()
     if (!el) return false
@@ -204,6 +211,16 @@ export const initGamepad = () => {
     if (!parent) return false
 
     return parent.classList.contains('gameCard')
+  }
+
+  function isContextMenu() {
+    const el = currentElement()
+    if (!el) return false
+
+    const parent = el.parentElement
+    if (!parent) return false
+
+    return parent.classList.contains('MuiMenu-list')
   }
 
   function playable() {
@@ -280,7 +297,7 @@ export const initGamepad = () => {
         y: Math.round(rect.y + rect.height / 2)
       }
     } else {
-      return null
+      return undefined
     }
   }
 

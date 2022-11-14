@@ -1,12 +1,18 @@
 // Holds layouts for different Genius controllers
 
+import { ValidGamepadAction } from 'common/types'
+
 // Vendor: 0583, Product: a009
 // Genius MaxFire G-12U Vibration (in default mode)
 export function checkGenius1(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
   controllerIndex: number,
-  checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
 ) {
   const one = buttons[0],
     two = buttons[1],

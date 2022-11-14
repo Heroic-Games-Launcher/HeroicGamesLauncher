@@ -18,13 +18,13 @@
             "title": "Verifica i repara"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Trieu un EXE per a executar"
         },
         "select": {
-            "button": "Select"
+            "button": "Tria"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Tria l'executable"
         },
         "stopInstall": {
             "keepInstalling": "Continua amb la instal·lació",
@@ -40,28 +40,29 @@
             "message": "Hi ha una actualització per a aquest joc, el vols actualitzar ara?",
             "title": "Cal actualitzar el joc"
         },
-        "wineprefix": "Selecciona el directori del WinePrefix",
+        "wineprefix": "Tria la carpeta del WinePrefix",
         "yes": "SÍ"
     },
     "button": {
         "add_to_favourites": "Afegeix a preferits",
         "cancel": "Pausa/Cancel·la",
         "continue": "Continua la baixada",
-        "finish": "Finish",
+        "finish": "Acaba",
         "force_update": "Força l'actualització si n'hi ha alguna de disponible",
-        "force-innstall": "Force Install",
+        "force-innstall": "Força la instal·lació",
         "hide_game": "Amaga el joc",
         "import": "Importa el joc",
         "install": "Instal·la",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "No s'ha triat cap camí",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Treu de la cua"
         },
         "remove_from_favourites": "Treu dels preferits",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Treu dels recents",
+        "run-exe-first": "Primer executa l'instal·lador",
+        "running-setup": "S'executa la configuració",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Edita l'App/Joc"
         },
         "unhide_game": "Torna a mostrar el joc",
         "uninstall": "Desinstal·la",
@@ -76,8 +77,8 @@
     "game": {
         "downloadSize": "Mida de la baixada",
         "firstPlayed": "Primera partida",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Es cerca la mida de la descàrrega",
+        "getting-install-size": "Es cerca la mida de la instal·lació",
         "installSize": "Mida d'instal·lació",
         "language": "Idioma",
         "lastPlayed": "Última partida",
@@ -123,16 +124,16 @@
         "options": "Opcions d'execució..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "No heu iniciat sessió amb un compte d'Epic al Heroic. No feu servir la pàgina de la botiga per a iniciar-la. Feu-ho després de prémer el botó següent:",
+        "gog": "No heu iniciat sessió amb un compte de GOG al Heroic. No feu servir la pàgina de la botiga per a iniciar-la. Feu-ho després de prémer el botó següent:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "No heu iniciat sessió."
     },
     "Open": "",
     "queue": {
         "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
+            "canceled": "Descàrrega cancel·lada",
+            "remove": "Treu del gestor de descàrregues"
         }
     },
     "report_problem": "Informa d'un problema quan s'executa el joc",
@@ -141,16 +142,16 @@
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Títol"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Tria l'executable",
+            "image": "Imatge de l'App",
+            "title": "Títol de l'App/Joc"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Enganxeu-hi una imatge URL",
+            "title": "Afegiu un títol al vostre Joc/App"
         }
     },
     "specs": {
@@ -165,9 +166,10 @@
         "moving": "S'està movent la instal·lació. Espereu.",
         "notinstalled": "Aquest joc no està instal·lat",
         "processing": "S'està processant els fitxers. Espereu.",
-        "queued": "Queued",
+        "queued": "A la cua",
         "reparing": "S'està reparant el joc. Espereu.",
         "totalDownloaded": "Total baixat",
+        "uninstalling": "Es desinstal·la",
         "updating": "S'està actualitzant el joc"
     },
     "submenu": {

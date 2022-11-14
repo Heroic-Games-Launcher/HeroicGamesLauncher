@@ -7,6 +7,7 @@
         "title": "tilgjengelighet",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Alle",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -151,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Aktiver",
             "back": "Tilbake",
             "backspace": "Tilbake",
-            "close_context_menu": "Lukk kontekstmenyen",
             "close_dialog": "Lukk dialog",
             "close_keyboard": "Lukk tastaturet",
-            "context_menu": "Kontekstmenyen",
+            "close_options": "Close Options",
             "game_details": "Spilldetaljer",
             "game_settings": "Spillinnstillinger",
             "install_game": "Installer spillet",
             "move_cursor": "Flytt markøren",
-            "none": "Ingen",
             "open_virtual_keyboard": "Åpne virtuelt tastatur",
+            "options": "Options",
             "play_game": "Spill",
             "scroll": "Rull",
+            "select": "Select",
             "space": "Rom",
             "update_game": "Oppdater spillet"
         }
@@ -352,7 +352,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -497,7 +497,13 @@
         "offlinemode": "Kjør spillet frakoblet",
         "prefered_language": "Foretrukket språk (språkkode)",
         "preferSystemLibs": "Foretrekker systembiblioteker",
-        "primerun": "Bruk dedikert grafikkort",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Bruk dedikert grafikkort"
+        },
         "runexe": {
             "message": "Dra og slipp filer her",
             "title": "Kjør EXE på prefiks"
@@ -521,6 +527,7 @@
         "clear-cache": "Tøm heroisk cache",
         "copiedToClipboard": "Kopiert til utklippstavlen!",
         "copyToClipboard": "Kopier alle innstillinger til utklippstavlen",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode kreves for at EAC-kjøretiden skal fungere på Flatpak. Vil du aktivere det nå?",
@@ -540,6 +547,8 @@
         },
         "navbar": {
             "advanced": "Avansert",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Generell",
             "log": "Logg",
             "other": "Annen",

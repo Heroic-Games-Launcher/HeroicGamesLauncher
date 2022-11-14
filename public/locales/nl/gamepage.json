@@ -9,7 +9,7 @@
         "importpath": "Selecteer een spel-map om te importeren",
         "move": {
             "message": "Dit kan lang duren, weet u het zeker?",
-            "path": "Selecteer de locatie waar u het naartoe wilt verplaatsen",
+            "path": "Selecteer de locatie waarnaar u het wilt verplaatsen",
             "title": "Spel installatie verplaatsen"
         },
         "no": "NEE",
@@ -37,7 +37,7 @@
             "title": "Verwijderen"
         },
         "update": {
-            "message": "Dit spel heeft een update, wilt u het nu updaten?",
+            "message": "Dit spel heeft een update, update nu toepassen?",
             "title": "Het spel heeft een update nodig"
         },
         "wineprefix": "Select WinePrefix Folder",
@@ -51,13 +51,14 @@
         "force_update": "Force Update if Available",
         "force-innstall": "Force Install",
         "hide_game": "Hide Game",
-        "import": "Importeren",
+        "import": "Spel importeren",
         "install": "Installeren",
         "no-path-selected": "No path selected",
         "queue": {
             "remove": "Remove from Queue"
         },
         "remove_from_favourites": "Remove From Favourites",
+        "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
         "sideload": {
@@ -168,6 +169,7 @@
         "queued": "Queued",
         "reparing": "Spel aan het repareren, even geduld",
         "totalDownloaded": "Totaal gedownload",
+        "uninstalling": "Uninstalling",
         "updating": "Spel aan het updaten"
     },
     "submenu": {

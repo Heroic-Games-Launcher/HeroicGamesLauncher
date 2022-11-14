@@ -7,6 +7,7 @@
         "title": "Kättesaadavus",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Kõik",
     "anticheat": {
         "anticheats": "Sohitegemisvastased tarkvarad",
@@ -151,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Aktiveeri",
             "back": "Tagasi",
             "backspace": "Backspace",
-            "close_context_menu": "Sulge kontekstimenüü",
             "close_dialog": "Sulge dialoog",
             "close_keyboard": "Sulge klaviatuur",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "Mängu üksikasjad",
             "game_settings": "Mängu seaded",
             "install_game": "Paigalda mäng",
             "move_cursor": "Liiguta kursorit",
-            "none": "None",
             "open_virtual_keyboard": "Ava virtuaalne klaviatuur",
+            "options": "Options",
             "play_game": "Mängi mängu",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Tühik",
             "update_game": "Uuenda mängu"
         }
@@ -352,7 +352,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -497,7 +497,13 @@
         "offlinemode": "Käivita mäng võrguühenduseta",
         "prefered_language": "Eelistatud keel (keelekood)",
         "preferSystemLibs": "Eelista süsteemiteeke",
-        "primerun": "Kasuta spetsiaalset graafikakaarti",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Kasuta spetsiaalset graafikakaarti"
+        },
         "runexe": {
             "message": "Lohistage failid siia",
             "title": "Käivita EXE prefiksil"
@@ -521,6 +527,7 @@
         "clear-cache": "Tühjenda Heroic'u vahemälu",
         "copiedToClipboard": "Kopeeritud lõikelauale!",
         "copyToClipboard": "Kopeeri kõik seaded lõikelauale",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode on vajalik selleks, et EAC runtime töötaks Flatpaki peal. Kas soovite selle nüüd sisse lülitada?",
@@ -540,6 +547,8 @@
         },
         "navbar": {
             "advanced": "Täpsem",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Üldine",
             "log": "Logi",
             "other": "Muu",

@@ -7,6 +7,7 @@
         "title": "Pristupačnost",
         "zoom": "Povećanje"
     },
+    "add_game": "Add Game",
     "All": "Sve",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -151,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Aktiviraj",
             "back": "Nazad",
             "backspace": "Backspace",
-            "close_context_menu": "Zatvorite kontekstni meni",
             "close_dialog": "Zatvori dijalog",
             "close_keyboard": "Zatvorite tastaturu",
-            "context_menu": "Kontekstni meni",
+            "close_options": "Close Options",
             "game_details": "Detalji igre",
             "game_settings": "Postavke igre",
             "install_game": "Instaliraj igru",
             "move_cursor": "Pomeri kursor",
-            "none": "Nema",
             "open_virtual_keyboard": "Otvorite virtuelnu tastaturu",
+            "options": "Options",
             "play_game": "Igrati igru",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Prostor",
             "update_game": "Ažurirajte igru"
         }
@@ -352,7 +352,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -497,7 +497,13 @@
         "offlinemode": "Pokreni igru izvan mreže",
         "prefered_language": "Željeni jezik (šifra jezika)",
         "preferSystemLibs": "Preferirajte sistemske biblioteke",
-        "primerun": "Koristite namjensku grafičku karticu",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Koristite namjensku grafičku karticu"
+        },
         "runexe": {
             "message": "Povucite i ispustite datoteke ovdje",
             "title": "Pokrenite EXE na prefiksu"
@@ -521,6 +527,7 @@
         "clear-cache": "Obrišite Heroic predmemoriju",
         "copiedToClipboard": "Kopirano u međuspremnik!",
         "copyToClipboard": "Kopirajte sve postavke u međuspremnik",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode je neophodan da EAC runtime radi na Flatpaku. Želite li ga sada omogućiti?",
@@ -540,6 +547,8 @@
         },
         "navbar": {
             "advanced": "Napredno",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Generalno",
             "log": "Prijavite se",
             "other": "Drugi",

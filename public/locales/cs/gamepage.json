@@ -18,13 +18,13 @@
             "title": "Zkontrolovat a opravit"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Vyberte EXE ke spuštění"
         },
         "select": {
-            "button": "Select"
+            "button": "Vybrat"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Vybrat spustitelný soubor"
         },
         "stopInstall": {
             "keepInstalling": "Pokračovat v instalaci",
@@ -32,7 +32,7 @@
             "title": "Zastavit instalaci"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Odebrat prefix: {{prefix}}{{newLine}}Upozornění: tato akce je nevratná a také odstraní nezálohované soubory uložení.",
             "message": "Chcete odinstalovat tuto hru?",
             "title": "Odinstalovat"
         },
@@ -47,27 +47,28 @@
         "add_to_favourites": "Přidat do oblíbených",
         "cancel": "Zrušit",
         "continue": "Pokračovat ve stahování",
-        "finish": "Finish",
+        "finish": "Dokončit",
         "force_update": "Vynutit aktualizaci, pokud je dostupná",
-        "force-innstall": "Force Install",
+        "force-innstall": "Vynutit instalaci",
         "hide_game": "Skrýt hru",
         "import": "Importovat Hru",
         "install": "Instalovat",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Není vybrána žádná cesta",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Odebrat z fronty"
         },
         "remove_from_favourites": "Odebrat z oblíbených",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Odebrat z nedávných",
+        "run-exe-first": "Nejprve spustit instalátor",
+        "running-setup": "Spouštění nastavení",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Upravit aplikaci/hru"
         },
         "unhide_game": "Odkrýt hru",
         "uninstall": "Odinstalovat",
         "update": "Update"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Nepodporováno",
     "disabled": "Zakázáno",
     "dlc": {
         "installDlcs": "Instalovat všechna DLC"
@@ -76,8 +77,8 @@
     "game": {
         "downloadSize": "Velikost ke stažení",
         "firstPlayed": "Poprvé hráno",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Načítání velikosti stahování",
+        "getting-install-size": "Načítání velikosti instalace",
         "installSize": "Velikost instalace",
         "language": "Jazyk",
         "lastPlayed": "Naposledy hráno",
@@ -123,16 +124,16 @@
         "options": "Možnosti spuštění..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "V Heroic nejste přihlášeni pomocí účtu Epic. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
+        "gog": "V Heroic nejste přihlášeni pomocí účtu GOG. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "NEjste přihlášeni"
     },
     "Open": "",
     "queue": {
         "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
+            "canceled": "Stahování zrušeno",
+            "remove": "Odebrat ze správce stahování"
         }
     },
     "report_problem": "Nahlásit problém se spouštěním této hry",
@@ -141,16 +142,16 @@
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Název"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Vyberte spustitelný soubor",
+            "image": "Obrázek aplikace",
+            "title": "Název hry/aplikace"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Sem vložte URL obrázku",
+            "title": "Přidejte název ke své hře/aplikaci"
         }
     },
     "specs": {
@@ -165,9 +166,10 @@
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
         "processing": "Zpracovávám soubory, čekejte prosím",
-        "queued": "Queued",
+        "queued": "Ve frontě",
         "reparing": "Opravuji hru, čekejte prosím",
         "totalDownloaded": "Celkově staženo",
+        "uninstalling": "Odinstalace",
         "updating": "Aktualizuji hru"
     },
     "submenu": {

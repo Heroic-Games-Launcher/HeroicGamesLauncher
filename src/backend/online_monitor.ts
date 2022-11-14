@@ -1,5 +1,5 @@
 import { ConnectivityStatus } from 'common/types'
-import { BrowserWindow, ipcMain, IpcMainEvent, net } from 'electron'
+import { BrowserWindow, ipcMain, net } from 'electron'
 import { logInfo, LogPrefix } from './logger/logger'
 import axios from 'axios'
 import EventEmitter from 'node:events'
@@ -100,7 +100,7 @@ export const initOnlineMonitor = () => {
   // listen to events from the frontend
   ipcMain.addListener(
     'connectivity-changed',
-    (_event: IpcMainEvent, newStatus: ConnectivityStatus) => {
+    (event, newStatus: ConnectivityStatus): void => {
       setStatus(newStatus)
     }
   )
@@ -113,9 +113,12 @@ export const initOnlineMonitor = () => {
   }
 
   // listen to the frontend asking for current status
-  ipcMain.handle('get-connectivity-status', () => {
-    return { status, retryIn }
-  })
+  ipcMain.handle(
+    'get-connectivity-status',
+    (): { status: ConnectivityStatus; retryIn: number } => {
+      return { status, retryIn }
+    }
+  )
 }
 
 export const makeNetworkRequest = (callback: () => unknown) => {

@@ -58,6 +58,7 @@
             "remove": "Remove from Queue"
         },
         "remove_from_favourites": "Remove From Favourites",
+        "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
         "sideload": {
@@ -168,6 +169,7 @@
         "queued": "Queued",
         "reparing": "കളി നന്നാക്കുന്നു, ഒന്നു കാക്കൂ",
         "totalDownloaded": "ആകെ ഇറക്കിയെടുത്തത്",
+        "uninstalling": "Uninstalling",
         "updating": "കളി പുതുക്കുന്നു"
     },
     "submenu": {

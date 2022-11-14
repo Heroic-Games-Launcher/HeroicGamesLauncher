@@ -58,6 +58,7 @@
             "remove": "Remove from Queue"
         },
         "remove_from_favourites": "حذف کردن از مورد علاقه ها",
+        "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
         "sideload": {
@@ -168,6 +169,7 @@
         "queued": "Queued",
         "reparing": "در حال تعمیر بازی، لطفا صبر کنید",
         "totalDownloaded": "حجم کل دانلود شده",
+        "uninstalling": "Uninstalling",
         "updating": "در حال به روزرسانی بازی"
     },
     "submenu": {

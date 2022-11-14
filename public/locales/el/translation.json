@@ -7,6 +7,7 @@
         "title": "Προσβασιμότητα",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Όλα",
     "anticheat": {
         "anticheats": "Προστασία από cheats",
@@ -151,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Ενεργοποίηση",
             "back": "Πίσω",
             "backspace": "Backspace",
-            "close_context_menu": "Κλείστε το σχετικό μενού",
             "close_dialog": "Κλείσιμο παραθύρου διαλόγου",
             "close_keyboard": "Κλείσιμο πληκτρολογίου",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "Πληροφορίες παιχνιδιού",
             "game_settings": "Ρυθμίσεις παιχνιδιού",
             "install_game": "Εγκατάσταση παιχνιδιού",
             "move_cursor": "Μετακίνηση του δείκτη ποντικιού",
-            "none": "None",
             "open_virtual_keyboard": "Άνοιγκα ψηφιακού πληκτρολογίου",
+            "options": "Options",
             "play_game": "Παίξτε",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Space",
             "update_game": "Ενημέρωση παιχνιδιού"
         }
@@ -352,7 +352,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -497,7 +497,13 @@
         "offlinemode": "Εκτέλεση Παιχνιδιού Εκτός Δικτύου",
         "prefered_language": "Προτιμώμενη γλώσσα (Κωδικός γλώσσας)",
         "preferSystemLibs": "Προτίμηση βιβλιοθηκών συστήματος",
-        "primerun": "Χρήση κύριας κάρτας γραφικών",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Χρήση κύριας κάρτας γραφικών"
+        },
         "runexe": {
             "message": "Εναποθέστε αρχεία εδώ",
             "title": "Εκτέλεση EXE με Πρόθημα"
@@ -521,6 +527,7 @@
         "clear-cache": "Εκκαθάριση κρυφής μνήμης Heroic",
         "copiedToClipboard": "Αντιγράφηκε στο πρόχειρο!",
         "copyToClipboard": "Αντιγραφή όλων των ρυθμίσεων στο Πρόχειρο",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -540,6 +547,8 @@
         },
         "navbar": {
             "advanced": "Προχωρημένες",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Γενικά",
             "log": "Αρχεία καταγραφής",
             "other": "Άλλα",

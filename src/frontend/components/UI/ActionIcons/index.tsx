@@ -27,7 +27,7 @@ interface Props {
   library: Runner | 'all'
 }
 
-export default function ActionIcons({
+export default React.memo(function ActionIcons({
   library,
   sortDescending,
   toggleSortDescending,
@@ -75,7 +75,7 @@ export default function ActionIcons({
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
-              icon={faBorderAll}
+              icon={faList}
             />
           </button>
         ) : (
@@ -86,7 +86,7 @@ export default function ActionIcons({
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
-              icon={faList}
+              icon={faBorderAll}
             />
           </button>
         )}
@@ -161,4 +161,4 @@ export default function ActionIcons({
       </FormControl>
     </div>
   )
-}
+})

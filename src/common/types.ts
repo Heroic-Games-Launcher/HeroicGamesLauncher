@@ -1,6 +1,7 @@
 import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform } from './types/legendary'
 import { IpcRendererEvent } from 'electron'
+import { ChildProcess } from 'child_process'
 
 export type Runner = 'legendary' | 'gog' | 'sideload'
 
@@ -12,25 +13,6 @@ export interface ButtonOptions {
   text: string
   onClick?: () => void
 }
-
-// here is a way to type the callback function in ipcMain.on or ipcMain.handle
-// does not prevent callbacks with fewer parameters from being passed though
-// the microsoft team is very opposed to enabling the above constraint https://github.com/microsoft/TypeScript/issues/17868
-// for ipcMain.handle('updateGame', async (e, appName, runner) => { for instance could be converted to:
-// ipcMain.handle('updateGame', typedCallback<WrapApiFunction<typeof updateGame>>() => {
-// this has the benefit of type checking for the arguments typed in the preload api
-// but may be overly complex for a small benefit
-export function typedCallback<T>(arg: T) {
-  return arg
-}
-
-export type WrapApiFunction<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TFunction extends (...args: any) => any
-> = (
-  e: Electron.IpcMainInvokeEvent,
-  ...args: [...Parameters<TFunction>]
-) => ReturnType<TFunction>
 
 export type LaunchParams = {
   appName: string
@@ -83,6 +65,7 @@ export interface AppSettings {
   enableFsync: boolean
   language: string
   launcherArgs: string
+  libraryTopSection: LibraryTopSectionOptions
   maxRecentGames: number
   maxSharpness?: number
   maxWorkers: number
@@ -107,6 +90,12 @@ export interface AppSettings {
   gogSaves?: GOGCloudSavesLocation[]
   customThemesPath: string
 }
+
+export type LibraryTopSectionOptions =
+  | 'disabled'
+  | 'recently_played'
+  | 'recently_played_installed'
+  | 'favourites'
 
 export type ExecResult = {
   stderr: string
@@ -136,7 +125,10 @@ export interface GameInfo {
   install: Partial<InstalledInfo>
   is_installed: boolean
   namespace: string
+  // NOTE: This is the save folder without any variables filled in...
   save_folder: string
+  // ...and this is the folder with them filled in
+  save_path?: string
   gog_save_location?: GOGCloudSavesLocation[]
   title: string
   canRunOffline: boolean
@@ -225,11 +217,9 @@ interface Reqs {
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
 export type UserInfo = {
-  account_id?: string
-  displayName?: string
-  epicId?: string
-  name?: string
-  user?: string
+  account_id: string
+  displayName: string
+  user: string
 }
 export interface WineInstallation {
   bin: string
@@ -243,7 +233,7 @@ export interface WineInstallation {
 
 export interface InstallArgs {
   path: string
-  installDlcs?: boolean
+  installDlcs: boolean
   sdlList: string[]
   platformToInstall: InstallPlatform
   installLanguage?: string
@@ -251,6 +241,7 @@ export interface InstallArgs {
 
 export interface InstallParams extends InstallArgs {
   appName: string
+  gameInfo: GameInfo
   runner: Runner
 }
 
@@ -317,19 +308,24 @@ export interface GOGImportData {
   installedWithDlcs: boolean
 }
 
-export interface GamepadInputEventKey {
+export type GamepadInputEvent =
+  | GamepadInputEventKey
+  | GamepadInputEventWheel
+  | GamepadInputEventMouse
+
+interface GamepadInputEventKey {
   type: 'keyDown' | 'keyUp' | 'char'
   keyCode: string
 }
 
-export interface GamepadInputEventWheel {
+interface GamepadInputEventWheel {
   type: 'mouseWheel'
   deltaY: number
   x: number
   y: number
 }
 
-export interface GamepadInputEventMouse {
+interface GamepadInputEventMouse {
   type: 'mouseDown' | 'mouseUp'
   x: number
   y: number
@@ -363,7 +359,7 @@ export interface CallRunnerOptions {
   logFile?: string
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
-  onOutput?: (output: string) => void
+  onOutput?: (output: string, child: ChildProcess) => void
 }
 
 export interface EnviromentVariable {
@@ -462,6 +458,42 @@ export interface GamepadActionStatus {
   }
 }
 
+export type ValidGamepadAction = GamepadActionArgs['action']
+
+export type GamepadActionArgs =
+  | GamepadActionArgsWithMetadata
+  | GamepadActionArgsWithoutMetadata
+
+interface GamepadActionArgsWithMetadata {
+  action: 'leftClick' | 'rightClick'
+  metadata: {
+    elementTag: string
+    x: number
+    y: number
+  }
+}
+
+interface GamepadActionArgsWithoutMetadata {
+  action:
+    | 'padUp'
+    | 'padDown'
+    | 'padLeft'
+    | 'padRight'
+    | 'leftStickUp'
+    | 'leftStickDown'
+    | 'leftStickLeft'
+    | 'leftStickRight'
+    | 'rightStickUp'
+    | 'rightStickDown'
+    | 'rightStickLeft'
+    | 'rightStickRight'
+    | 'mainAction'
+    | 'back'
+    | 'altAction'
+    | 'esc'
+  metadata?: undefined
+}
+
 export type ElWebview = {
   canGoBack: () => boolean
   canGoForward: () => boolean
@@ -493,19 +525,25 @@ export interface Tools {
   runner: Runner
 }
 
+export type RecentGame = {
+  appName: string
+  title: string
+}
+
 export interface DMQueueElement {
   params: InstallParams
   status?: 'done' | 'error' | 'abort'
 }
 
 export type WineCommandArgs = {
-  command: string
+  commandParts: string[]
   wait: boolean
-  forceRunInPrefixVerb?: boolean
+  protonVerb?: ProtonVerb
   gameSettings?: GameSettings
   installFolderName?: string
   options?: CallRunnerOptions
   startFolder?: string
+  skipPrefixCheckIKnowWhatImDoing?: boolean
 }
 
 export interface SideloadGame {
@@ -522,3 +560,51 @@ export interface SideloadGame {
   folder_name?: string
   canRunOffline: boolean
 }
+
+export type ProtonVerb =
+  | 'run'
+  | 'waitforexitandrun'
+  | 'runinprefix'
+  | 'destroyprefix'
+  | 'getcompatpath'
+  | 'getnativepath'
+
+export interface SaveSyncArgs {
+  arg: string | undefined
+  path: string
+  appName: string
+  runner: Runner
+}
+
+export interface RunWineCommandArgs {
+  appName: string
+  runner: Runner
+  commandParts: string[]
+}
+
+export interface ImportGameArgs {
+  appName: string
+  path: string
+  runner: Runner
+}
+
+export interface MoveGameArgs {
+  appName: string
+  path: string
+  runner: Runner
+}
+
+export interface DiskSpaceData {
+  free: number
+  diskSize: number
+  message: string
+  validPath: boolean
+}
+
+export interface ToolArgs {
+  winePrefix: string
+  winePath: string
+  action: 'backup' | 'restore'
+}
+
+export type StatusPromise = Promise<{ status: 'done' | 'error' }>

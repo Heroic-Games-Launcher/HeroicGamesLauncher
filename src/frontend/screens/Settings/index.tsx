@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -8,26 +8,36 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 import ContextMenu from '../Library/components/ContextMenu'
 import SettingsContext from './SettingsContext'
-import LogSettings from './components/LogSettings'
-import FooterInfo from './components/FooterInfo'
+import LogSettings from './sections/LogSettings'
+import FooterInfo from './sections/FooterInfo'
 import {
-  WineExtensions,
-  WineSettings,
-  Tools,
   GeneralSettings,
-  OtherSettings,
+  GamesSettings,
   SyncSaves,
   AdvancedSettings
-} from './components'
-import { AppSettings, GameSettings } from 'common/types'
+} from './sections'
+import {
+  AppSettings,
+  GameInfo,
+  GameSettings,
+  WineInstallation
+} from 'common/types'
 import { getGameInfo, writeConfig } from 'frontend/helpers'
 import { UpdateComponent } from 'frontend/components/UI'
 import { LocationState, SettingsContextType } from 'frontend/types'
+import ContextProvider from 'frontend/state/ContextProvider'
+
+export const defaultWineVersion: WineInstallation = {
+  bin: '/usr/bin/wine',
+  name: 'Wine Default',
+  type: 'wine'
+}
 
 function Settings() {
   const { t, i18n } = useTranslation()
+  const { platform } = useContext(ContextProvider)
   const {
-    state: { fromGameCard, runner }
+    state: { fromGameCard, runner, gameInfo }
   } = useLocation() as { state: LocationState }
   const [title, setTitle] = useState('')
 
@@ -35,26 +45,32 @@ function Settings() {
     AppSettings | GameSettings | null
   >(null)
 
+  const [gameInfo, setGameInfo] = useState<GameInfo | null>(null)
+
   const { appName = '', type = '' } = useParams()
   const isDefault = appName === 'default'
   const isGeneralSettings = type === 'general'
-  const isWineSettings = type === 'wine'
-  const isWineExtensions = type === 'wineExt'
   const isSyncSettings = type === 'sync'
-  const isOtherSettings = type === 'other'
+  const isGamesSettings = type === 'games_settings'
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced' && isDefault
+  const isLinux = platform === 'linux'
+  const isMac = platform === 'darwin'
+  const isMacNative = isMac && (gameInfo?.is_mac_native || false)
+  const isLinuxNative = isLinux && (gameInfo?.is_linux_native || false)
 
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
     const getSettings = async () => {
-      const config: AppSettings = await window.api.requestSettings(appName)
+      const config = isDefault
+        ? await window.api.requestAppSettings()
+        : await window.api.requestGameSettings(appName)
       setCurrentConfig(config)
 
       if (!isDefault) {
         const info = await getGameInfo(appName, runner)
-        const { title: gameTitle } = info
-        setTitle(gameTitle)
+        setGameInfo(info)
+        setTitle(info?.title ?? appName)
       } else {
         setTitle(t('globalSettings', 'Global Settings'))
       }
@@ -72,7 +88,7 @@ function Settings() {
   if (!fromGameCard) {
     returnPath = `/gamepage/${runner}/${appName}`
     if (returnPath.includes('default')) {
-      returnPath = '/'
+      returnPath = '/library'
     }
   }
 
@@ -87,12 +103,22 @@ function Settings() {
       if (currentConfig) {
         setCurrentConfig({ ...currentConfig, [key]: value })
       }
-      writeConfig([appName, { ...currentConfig, [key]: value }])
+      // TODO: Remove the `as AppSettings | GameSettings` here. Maybe make a new IPC call to just set a specific settings value
+      writeConfig({
+        appName,
+        config: {
+          ...(currentConfig as AppSettings | GameSettings),
+          [key]: value
+        }
+      })
     },
     config: currentConfig,
     isDefault,
     appName,
-    runner
+    runner,
+    gameInfo,
+    isLinuxNative,
+    isMacNative
   }
 
   return (
@@ -119,7 +145,12 @@ function Settings() {
       <SettingsContext.Provider value={contextValues}>
         <div className="Settings">
           <div role="list" className="settingsWrapper">
-            <NavLink to={returnPath} role="link" className="backButton">
+            <NavLink
+              to={returnPath}
+              role="link"
+              className="backButton"
+              state={{ gameInfo: gameInfo }}
+            >
               <ArrowCircleLeftIcon />
             </NavLink>
             <h1 className="headerTitle" data-testid="headerTitle">
@@ -127,10 +158,7 @@ function Settings() {
             </h1>
 
             {isGeneralSettings && <GeneralSettings />}
-            {isWineSettings && <WineSettings />}
-            {isWineSettings && !isDefault && <Tools />}
-            {isWineExtensions && <WineExtensions />}
-            {isOtherSettings && <OtherSettings />}
+            {isGamesSettings && <GamesSettings />}
             {isSyncSettings && <SyncSaves />}
             {isAdvancedSetting && <AdvancedSettings />}
             {isLogSettings && <LogSettings />}

@@ -14,7 +14,7 @@ interface Props {
   items: Item[]
 }
 
-export default function ContextMenu({ children, items }: Props) {
+function ContextMenu({ children, items }: Props) {
   const [contextMenu, setContextMenu] = React.useState<{
     mouseX: number
     mouseY: number
@@ -25,8 +25,8 @@ export default function ContextMenu({ children, items }: Props) {
     setContextMenu(
       contextMenu === null
         ? {
-            mouseX: event.clientX - 2,
-            mouseY: event.clientY - 4
+            mouseX: event.clientX,
+            mouseY: event.clientY - 2
           }
         : null
     )
@@ -52,7 +52,7 @@ export default function ContextMenu({ children, items }: Props) {
         anchorPosition={
           contextMenu !== null
             ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
-            : undefined
+            : { top: 0, left: 0 }
         }
       >
         {items.map(
@@ -67,3 +67,5 @@ export default function ContextMenu({ children, items }: Props) {
     </div>
   )
 }
+
+export default React.memo(ContextMenu)

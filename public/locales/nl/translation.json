@@ -7,6 +7,7 @@
         "title": "Accessibility",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Allemaal",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -18,14 +19,14 @@
     },
     "box": {
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Heroic cache is gewist!",
+            "title": "Cache gewist"
         },
         "choose": "Selecteer",
         "choose-egs-prefix": "Selecteer een prefix waar EGS is geïnstalleerd",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
-        "choose-legendary-binary": "Selecteer Legendary Binary",
-        "customWine": "Selecteer de Wine of Proton Binary",
+        "choose-legendary-binary": "Selecteer Legendary binary",
+        "customWine": "Selecteer de Wine of Proton binary",
         "default-install-path": "Selecteer een standaard map",
         "default-steam-path": "Steam path.",
         "downloadNow": "Download now",
@@ -48,7 +49,7 @@
                 "title": "Niet genoeg opslag"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
+                "message": "Error bij de installatie van DXVK/VKD3D! Controleer uw verbinding of als u zstd/libzstd1 heeft geïnstalleerd!",
                 "title": "DXVK/VKD3D error"
             },
             "folder-not-found": {
@@ -89,10 +90,10 @@
             }
         },
         "no": "NEE",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
-                "not_installed": "Is niet geïnstalleerd, wilt u het installeren?"
+                "not_installed": "Is niet geïnstalleerd. Installeren?"
             }
         },
         "quit": {
@@ -144,28 +145,27 @@
     },
     "button": {
         "go_to_library": "Go to Library",
-        "login": "Login",
+        "login": "Inloggen",
         "sync": "Synchroniseer",
         "syncing": "Synchroniseren",
         "unsync": "De-synchroniseren"
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
             "back": "Back",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
             "close_dialog": "Close dialog",
             "close_keyboard": "Close keyboard",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "Game details",
             "game_settings": "Game settings",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
-            "none": "None",
             "open_virtual_keyboard": "Open virtual keyboard",
+            "options": "Options",
             "play_game": "Play game",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Space",
             "update_game": "Update game"
         }
@@ -185,7 +185,7 @@
         }
     },
     "epic": {
-        "offline-notification-body": "Heroic will not work probably!",
+        "offline-notification-body": "Online services werken mogelijk niet, sinds Epic Games servers offline zijn!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
@@ -229,7 +229,7 @@
             "valid_codes": "Valid language codes are game-dependant."
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
-        "general": "Synchroniseer met EGS als u ergens anders een werkende installatie van de Epic Games Store heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
+        "general": "Synchroniseer met EGL als u ergens anders een werkende installatie van de Epic Games Launcher heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part4": "Gebruik de ",
@@ -352,7 +352,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -413,14 +413,14 @@
             "queued": "Queued"
         }
     },
-    "Recent": "Recente Spellen",
-    "search": "Voor je spel naam hier in...",
+    "Recent": "Recent Gespeeld",
+    "search": "Spelen zoeken",
     "setting": {
         "adddesktopshortcuts": "Desktop shortcuts automatish toevoegen",
         "addgamestostartmenu": "Spellen automatish toevoegen aan start menu",
         "addgamestosteam": "Add games to Steam automatically",
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Kies een andere Legendary Binary om te gebruiken",
+        "alt-gogdl-bin": "Kies een Alternatief GOGDL Binary om te gebruiken",
+        "alt-legendary-bin": "Kies een Alternatief Legendary Binary",
         "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",
@@ -497,7 +497,13 @@
         "offlinemode": "Spel offline draaien",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Aciveer Nvidia Prime Render",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Use Dedicated Graphics Card"
+        },
         "runexe": {
             "message": "Sleep de bestanden hier",
             "title": "Voer EXE uit op Prefix"
@@ -520,7 +526,8 @@
         },
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
-        "copyToClipboard": "Copy All Setting to Clipboard",
+        "copyToClipboard": "Kopieer alle instellingen naar het klembord",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -540,6 +547,8 @@
         },
         "navbar": {
             "advanced": "Advanced",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Algemeen",
             "log": "Log",
             "other": "Overig",
@@ -563,7 +572,7 @@
         "logging": "Logging In...",
         "processing": "Processing files, please wait"
     },
-    "store": "Winkel",
+    "store": "Epic Winkel",
     "stores": "Stores",
     "title": {
         "allGames": "All Games"
@@ -601,8 +610,8 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
-        "logout": "Log uit",
-        "logout_confirmation": "weet u zeker dat u wil uitloggen?",
+        "logout": "Uitloggen",
+        "logout_confirmation": "Weet u zeker dat u wilt uitloggen?",
         "manageaccounts": "Manage Accounts",
         "quit": "Sluiten"
     },

@@ -4,7 +4,7 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  transition-duration: 0.5s;
+  transition-duration: 0.1s;
   box-shadow: 0px 0px 12px 4px #00000055;
   display: flex;
   flex-direction: column;
@@ -93,7 +93,7 @@
   font-size: var(--text-md);
   font-weight: var(--bold);
   line-height: 17px;
-  color: var(--text-default);
+  color: var(--text-gametitle);
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
@@ -112,6 +112,10 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 'update settings play';
   padding: var(--space-xs-fixed);
+}
+
+.gameCard > .icons.gamepad {
+  display: none;
 }
 
 .gameCard > .icons > .svg-button {

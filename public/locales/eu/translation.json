@@ -7,6 +7,7 @@
         "title": "Erabilerraztasuna",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Dena",
     "anticheat": {
         "anticheats": "Antitranpak",
@@ -151,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Aktibatu",
             "back": "Itzuli",
             "backspace": "Atzera atzera",
-            "close_context_menu": "Itxi laster-menua",
             "close_dialog": "Itxi elkarrizketa-koadroa",
             "close_keyboard": "Itxi teklatua",
-            "context_menu": "Testuinguruko menua",
+            "close_options": "Close Options",
             "game_details": "Jokoaren xehetasunak",
             "game_settings": "Jokoaren ezarpenak",
             "install_game": "Instalatu jokoa",
             "move_cursor": "Mugitu kurtsorea",
-            "none": "Bat ere ez",
             "open_virtual_keyboard": "Ireki teklatu birtuala",
+            "options": "Options",
             "play_game": "Jolastu",
             "scroll": "Korritu",
+            "select": "Select",
             "space": "Espazioa",
             "update_game": "Eguneratu jokoa"
         }
@@ -352,7 +352,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -497,7 +497,13 @@
         "offlinemode": "Exekutatu jokoa lineaz kanpo",
         "prefered_language": "Lehenetsitako hizkuntza (Hizkuntza-kodea)",
         "preferSystemLibs": "Sistemaren liburutegiak hobetsi",
-        "primerun": "Erabili txartel grafiko dedikatua",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Erabili txartel grafiko dedikatua"
+        },
         "runexe": {
             "message": "Arrastatu eta Jaregin Fitxategiak hemen",
             "title": "Exekutatu EXE aurrizkian"
@@ -521,6 +527,7 @@
         "clear-cache": "Garbitu Cache heroikoa",
         "copiedToClipboard": "Arbelean kopiatu da!",
         "copyToClipboard": "Kopiatu ezarpen guztiak arbelean",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode beharrezkoa da EAC exekuzio denbora Flatpak-en funtziona dezan. Orain gaitu nahi al duzu?",
@@ -540,6 +547,8 @@
         },
         "navbar": {
             "advanced": "Aurreratua",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Orokorra",
             "log": "Erregistroa",
             "other": "Bestela",

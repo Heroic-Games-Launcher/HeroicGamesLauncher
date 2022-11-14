@@ -5,14 +5,15 @@
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Fon",
         "title": "Aksesibilitas",
-        "zoom": "Zoom"
+        "zoom": "Perbesar"
     },
+    "add_game": "Tambahkan Gim",
     "All": "Semua",
     "anticheat": {
         "anticheats": "Anticheat",
         "may_not_work": "Ini mungkin tidak berfungsi karena dukungan anticheat yang ditolak atau rusak.",
         "reference": "Referensi",
-        "source": "Source",
+        "source": "Sumber",
         "status": "Status",
         "title": "Gim ini mengandung perangkat lunak anticheat"
     },
@@ -28,7 +29,7 @@
         "customWine": "Pilih Wine atau Proton Binary",
         "default-install-path": "Pilih Lokasi Pemasangan Bawaan",
         "default-steam-path": "Lokasi Steam.",
-        "downloadNow": "Download now",
+        "downloadNow": "Unduh sekarang",
         "error": {
             "add": {
                 "steam": {
@@ -56,13 +57,13 @@
             },
             "generic": {
                 "message": "",
-                "title": "Select EXE to Run"
+                "title": "pilih file EXE untuk dijalankan"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Peluncuran dibatalkan",
             "title": "Galat",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Terjadi galat/kesalahan:{{newLine}}{{error}}{{newLine}}{{newLine}} Laporkan galat ke repositori kami di Github.",
+                "title": "Terjadi Galat / Kesalahan!"
             },
             "update": {
                 "message": "Terjadi kesalahan saat melakukan pembaruan, silakan cek log atau coba lagi nanti!",
@@ -151,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
             "back": "Back",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
             "close_dialog": "Close dialog",
             "close_keyboard": "Close keyboard",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "Game details",
             "game_settings": "Game settings",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
-            "none": "None",
             "open_virtual_keyboard": "Open virtual keyboard",
+            "options": "Options",
             "play_game": "Play game",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Space",
             "update_game": "Update game"
         }
@@ -352,7 +352,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -497,7 +497,13 @@
         "offlinemode": "Jalankan Game Secara Luring",
         "prefered_language": "Bahasa Pilihan (Kode Bahasa)",
         "preferSystemLibs": "Lebih memilih pustaka sistem",
-        "primerun": "Gunakan Kartu Grafis untuk Rendering",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Gunakan Kartu Grafis untuk Rendering"
+        },
         "runexe": {
             "message": "Seret dan Jatuhkan Berkas di sini",
             "title": "Jalankan EXE di Prefiks"
@@ -521,6 +527,7 @@
         "clear-cache": "Hapus Tembolok Heroic",
         "copiedToClipboard": "Disalin ke Papan Klip!",
         "copyToClipboard": "Salin Semua Pengaturan ke Papan Klip",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -540,6 +547,8 @@
         },
         "navbar": {
             "advanced": "Tambahan",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Umum",
             "log": "Log",
             "other": "Lainnya",

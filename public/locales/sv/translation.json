@@ -1,20 +1,21 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
-        "all_tiles_in_color": "Show all game tiles in color",
-        "content_font_family_no_default": "Content Font Family (Default: ",
-        "fonts": "Fonts",
-        "title": "Accessibility",
+        "actions_font_family_no_default": "Typsnitt för kommandon (Standard: ",
+        "all_tiles_in_color": "Visa alla spel rutor i färg",
+        "content_font_family_no_default": "Typsnitt för innehåll (Standard: ",
+        "fonts": "Typsnitt",
+        "title": "Handikappsanpassning",
         "zoom": "Zoom"
     },
+    "add_game": "Lägg till spel",
     "All": "Alla",
     "anticheat": {
-        "anticheats": "Anticheats",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
-        "source": "Source",
+        "anticheats": "Fuskbekämpning (Anticheat)",
+        "may_not_work": "Kanske inte fungerar p.g.a. bristfälligt stöd för fuskbekämpning (anticheat).",
+        "reference": "Referens",
+        "source": "Källa",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "Spelet innehåller fuskbekämpande mjukvara (anticheat)"
     },
     "box": {
         "cache-cleared": {
@@ -27,12 +28,12 @@
         "choose-legendary-binary": "Ange Legendary binärfil",
         "customWine": "Ange Wine/Proton version",
         "default-install-path": "Ange standard installationssökväg",
-        "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "default-steam-path": "Sökväg till Steam.",
+        "downloadNow": "Ladda ner nu",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "body": "Misslyckades lägga till {{game}} i Steam:{{newLine}} {{error}}",
                     "title": "Adding Error"
                 }
             },
@@ -40,8 +41,8 @@
                 "message": "Autentisering har utgått, logga ut och logga sedan in igen."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "CrossOver prefix \"{{bottle_name}}\" saknas, kan ej starta!",
+                "title": "CrossOver prefix saknas"
             },
             "diskspace": {
                 "message": "Otillräckligt ledigt hårdiskutrymme",
@@ -52,13 +53,13 @@
                 "title": "DXVK/VKD3D problem"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Spelets installationsmapp saknas, vill du ta bort det från Installerade spel-listan?"
             },
             "generic": {
                 "message": "",
                 "title": "Select EXE to Run"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Start avbröts",
             "title": "Problem",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -106,10 +107,10 @@
             }
         },
         "runexe": {
-            "title": "Ange EXE-fil att köra"
+            "title": "Välj EXE"
         },
         "select": {
-            "button": "Välj",
+            "button": "Ange val",
             "exe": "Ange EXE"
         },
         "shortcuts": {
@@ -151,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
             "back": "Back",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
             "close_dialog": "Close dialog",
             "close_keyboard": "Close keyboard",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "Game details",
             "game_settings": "Game settings",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
-            "none": "None",
             "open_virtual_keyboard": "Open virtual keyboard",
+            "options": "Options",
             "play_game": "Play game",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Space",
             "update_game": "Update game"
         }
@@ -352,7 +352,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -497,7 +497,13 @@
         "offlinemode": "Kör spelet offline",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Använd dedikerat grafikkort",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Använd dedikerat grafikkort"
+        },
         "runexe": {
             "message": "Drag och släpp filer här",
             "title": "Kör EXE-fil i prefix"
@@ -521,6 +527,7 @@
         "clear-cache": "Rensa Heroic cache",
         "copiedToClipboard": "Kopierat till urklipp/klippbord!",
         "copyToClipboard": "Kopiera all inställningar till urklipp/klippbord",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -540,6 +547,8 @@
         },
         "navbar": {
             "advanced": "Avancerat",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Allmänt",
             "log": "Logg",
             "other": "Övrigt",
@@ -559,9 +568,9 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Installerar",
         "logging": "Loggar in...",
-        "processing": "Processing files, please wait"
+        "processing": "Hanterar filer, vänligen vänta"
     },
     "store": "Epic Butik",
     "stores": "Butiker",

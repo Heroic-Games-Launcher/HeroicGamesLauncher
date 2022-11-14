@@ -4,9 +4,12 @@ import { useTranslation } from 'react-i18next'
 import FormControl from 'frontend/components/UI/FormControl'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-export default function StoreFilter() {
-  const { category, handleCategory } = useContext(ContextProvider)
+export default React.memo(function StoreFilter() {
+  const { category, handleCategory, gog, epic } = useContext(ContextProvider)
   const { t } = useTranslation()
+
+  const isGOGLoggedin = gog.username
+  const isEpicLoggedin = epic.username
 
   return (
     <div className="storeFilter">
@@ -20,24 +23,28 @@ export default function StoreFilter() {
         >
           {t('All').toUpperCase()}
         </button>
-        <button
-          className={classNames('FormControl__button', {
-            active: category === 'legendary'
-          })}
-          title={`${t('header.store')}: ${t('store')}`}
-          onClick={() => handleCategory('legendary')}
-        >
-          EPIC
-        </button>
-        <button
-          className={classNames('FormControl__button', {
-            active: category === 'gog'
-          })}
-          title={`${t('header.store')}: ${t('GOG')}`}
-          onClick={() => handleCategory('gog')}
-        >
-          GOG
-        </button>
+        {isEpicLoggedin && (
+          <button
+            className={classNames('FormControl__button', {
+              active: category === 'legendary'
+            })}
+            title={`${t('header.store')}: ${t('store')}`}
+            onClick={() => handleCategory('legendary')}
+          >
+            EPIC
+          </button>
+        )}
+        {isGOGLoggedin && (
+          <button
+            className={classNames('FormControl__button', {
+              active: category === 'gog'
+            })}
+            title={`${t('header.store')}: ${t('GOG')}`}
+            onClick={() => handleCategory('gog')}
+          >
+            GOG
+          </button>
+        )}
         <button
           className={classNames('FormControl__button', {
             active: category === 'sideload'
@@ -50,4 +57,4 @@ export default function StoreFilter() {
       </FormControl>
     </div>
   )
-}
+})

@@ -21,14 +21,14 @@
             "title": "Select EXE to Run"
         },
         "select": {
-            "button": "Select"
+            "button": "Seleziona"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Seleziona Eseguibile"
         },
         "stopInstall": {
             "keepInstalling": "Continua l'installazione",
-            "message": "Desideri tenere i files scaricati?",
+            "message": "Desideri TENERE i file scaricati?",
             "title": "Ferma l'installazione"
         },
         "uninstall": {
@@ -47,17 +47,18 @@
         "add_to_favourites": "Aggiungi Ai Preferiti",
         "cancel": "Pausa/Annulla",
         "continue": "Continua Download",
-        "finish": "Finish",
+        "finish": "Termina",
         "force_update": "Forza aggiornamento se disponibile",
-        "force-innstall": "Force Install",
+        "force-innstall": "Forza installazione",
         "hide_game": "Nascondi Gioco",
         "import": "Importa gioco",
         "install": "Installa",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Nessun percorso selezionato",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Rimuovi dalla coda"
         },
         "remove_from_favourites": "Rimuovi Dai Preferiti",
+        "remove_from_recent": "Rimuovi da Recenti",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
         "sideload": {
@@ -65,14 +66,14 @@
         },
         "unhide_game": "Mostra gioco",
         "uninstall": "Disinstalla",
-        "update": "Update"
+        "update": "Aggiorna"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Non supportato",
     "disabled": "Disattivato",
     "dlc": {
         "installDlcs": "Installa tutti i DLC"
     },
-    "enabled": "attivato",
+    "enabled": "Attivato",
     "game": {
         "downloadSize": "Dimensione del download",
         "firstPlayed": "Giocato per la prima volta",
@@ -131,7 +132,7 @@
     "Open": "",
     "queue": {
         "label": {
-            "canceled": "Download Canceled",
+            "canceled": "Download annullato",
             "remove": "Remove from download manager"
         }
     },
@@ -141,7 +142,7 @@
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Titolo"
         },
         "info": {
             "exe": "Select Executable",
@@ -158,16 +159,17 @@
         "recommended": "Raccomandate"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
+        "clickToUpdate": "Clicca per aggiornare",
         "hasUpdates": "Nuova versione disponibile!",
         "installed": "Installata",
         "installing": "Installazione in corso",
         "moving": "Spostamento dell'installazione in corso, per favore attendi",
         "notinstalled": "Questo gioco non è installato",
         "processing": "File in elaborazione, attendere",
-        "queued": "Queued",
+        "queued": "Messo in coda",
         "reparing": "Riparazione del gioco in corso, per favore attendi",
         "totalDownloaded": "Totale scaricato",
+        "uninstalling": "Uninstalling",
         "updating": "Aggiornamento in corso"
     },
     "submenu": {

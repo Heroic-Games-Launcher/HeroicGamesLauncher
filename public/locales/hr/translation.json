@@ -7,6 +7,7 @@
         "title": "Prilagođeni pristup",
         "zoom": "Uvečaj"
     },
+    "add_game": "Add Game",
     "All": "Sve",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -151,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
             "back": "Back",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
             "close_dialog": "Close dialog",
             "close_keyboard": "Close keyboard",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "Game details",
             "game_settings": "Game settings",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
-            "none": "None",
             "open_virtual_keyboard": "Open virtual keyboard",
+            "options": "Options",
             "play_game": "Play game",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Space",
             "update_game": "Update game"
         }
@@ -352,7 +352,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -497,7 +497,13 @@
         "offlinemode": "Pokreni igrice bez pristupa internetu",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Use Dedicated Graphics Card",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Use Dedicated Graphics Card"
+        },
         "runexe": {
             "message": "Povicute i pustite datoteke ovjde",
             "title": "Pokreni EXE na putu"
@@ -521,6 +527,7 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Settings to Clipboard",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -540,6 +547,8 @@
         },
         "navbar": {
             "advanced": "Advanced",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Općenito",
             "log": "Log",
             "other": "Ostalo",

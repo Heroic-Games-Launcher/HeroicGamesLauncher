@@ -124,7 +124,12 @@ async function prepareLaunch(
           } installed`
       }
     }
-    steamRuntime = [path, ...args]
+
+    steamRuntime = [
+      path,
+      isNative ? '' : `--filesystem=${gameInfo.install.install_path}`,
+      ...args
+    ]
   }
 
   return {
@@ -185,10 +190,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     }
   }
 
-  const { updated: winePrefixUpdated } = await verifyWinePrefix(
-    gameSettings,
-    game
-  )
+  const { updated: winePrefixUpdated } = await verifyWinePrefix(gameSettings)
   if (winePrefixUpdated) {
     logInfo(['Created/Updated Wineprefix at', gameSettings.winePrefix], {
       prefix: LogPrefix.Backend
@@ -428,19 +430,13 @@ export async function validWine(
 
 /**
  * Verifies that a Wineprefix exists by running 'wineboot --init'
- * @param game The game to verify the Wineprefix of
+ * @param gameSettings The settings of the game to verify the Wineprefix of
  * @returns stderr & stdout of 'wineboot --init'
  */
 export async function verifyWinePrefix(
-  settings: GameSettings,
-  game?: LegendaryGame | GOGGame
+  settings: GameSettings
 ): Promise<{ res: ExecResult; updated: boolean }> {
-  const gameSettings = game ? await game.getSettings() : settings
-  const { winePrefix, wineVersion } = gameSettings
-
-  if (!(await validWine(wineVersion))) {
-    return { res: { stdout: '', stderr: '' }, updated: false }
-  }
+  const { winePrefix, wineVersion } = settings
 
   if (!(await validWine(wineVersion))) {
     return { res: { stdout: '', stderr: '' }, updated: false }
@@ -454,10 +450,6 @@ export async function verifyWinePrefix(
     mkdirSync(winePrefix, { recursive: true })
   }
 
-  if (wineVersion.type === 'proton' && existsSync(join(winePrefix, 'pfx'))) {
-    return { res: { stdout: '', stderr: '' }, updated: false }
-  }
-
   // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
   const systemRegPath =
     wineVersion.type === 'proton'
@@ -465,9 +457,12 @@ export async function verifyWinePrefix(
       : join(winePrefix, 'system.reg')
   const haveToWait = !existsSync(systemRegPath)
 
-  const command = game
-    ? game.runWineCommand('wineboot', haveToWait)
-    : runWineCommand({ command: 'wineboot', wait: haveToWait, gameSettings })
+  const command = runWineCommand({
+    commandParts: ['wineboot', '--init'],
+    wait: haveToWait,
+    gameSettings: settings,
+    skipPrefixCheckIKnowWhatImDoing: true
+  })
 
   return command
     .then((result) => {
@@ -494,20 +489,49 @@ function launchCleanup(rpcClient?: RpcClient) {
 }
 async function runWineCommand({
   gameSettings,
-  command,
+  commandParts,
   wait,
-  forceRunInPrefixVerb,
+  protonVerb = 'run',
   installFolderName,
   options,
-  startFolder
+  startFolder,
+  skipPrefixCheckIKnowWhatImDoing = false
 }: WineCommandArgs): Promise<{ stderr: string; stdout: string }> {
   const settings = gameSettings
     ? gameSettings
     : await GlobalConfig.get().getSettings()
   const { wineVersion, winePrefix } = settings
 
-  if (!existsSync(winePrefix)) {
-    mkdirSync(winePrefix, { recursive: true })
+  if (!skipPrefixCheckIKnowWhatImDoing) {
+    let requiredPrefixFiles = [
+      'dosdevices',
+      'drive_c',
+      'system.reg',
+      'user.reg',
+      'userdef.reg'
+    ]
+    if (wineVersion.type === 'proton') {
+      requiredPrefixFiles = [
+        'pfx.lock',
+        'tracked_files',
+        'version',
+        'config_info',
+        ...requiredPrefixFiles.map((path) => join('pfx', path))
+      ]
+    }
+    requiredPrefixFiles = requiredPrefixFiles.map((path) =>
+      join(winePrefix, path)
+    )
+    requiredPrefixFiles.push(winePrefix)
+
+    if (!requiredPrefixFiles.every((path) => existsSync(path))) {
+      logWarning(
+        'Required prefix files are missing, running `verifyWinePrefix` to create prefix',
+        { prefix: LogPrefix.Backend }
+      )
+      mkdirSync(winePrefix, { recursive: true })
+      await verifyWinePrefix(settings)
+    }
   }
 
   if (!(await validWine(wineVersion))) {
@@ -520,46 +544,18 @@ async function runWineCommand({
     ...setupWineEnvVars(settings, installFolderName)
   }
 
-  let additional_command = ''
-  let protonCommand = ''
-  if (wineVersion.type === 'proton') {
-    if (forceRunInPrefixVerb) {
-      protonCommand = 'runinprefix'
-    } else if (wait) {
-      protonCommand = 'waitforexitandrun'
-    } else {
-      protonCommand = 'run'
-    }
-    // TODO: Use Steamruntime here in the future
-  } else {
-    // Can't wait if we don't have a Wineserver
-    if (wait) {
-      if (wineVersion.wineserver) {
-        additional_command = `"${wineVersion.wineserver}" --wait`
-      } else {
-        logWarning('Unable to wait on Wine command, no Wineserver!', {
-          prefix: LogPrefix.Backend
-        })
-      }
-    }
+  const isProton = wineVersion.type === 'proton'
+  if (isProton) {
+    commandParts.unshift(protonVerb)
   }
 
   const wineBin = wineVersion.bin.replaceAll("'", '')
-  let finalCommand = `${command}`
-  if (additional_command) {
-    finalCommand += ` && ${additional_command}`
-  }
 
-  logDebug(['Running Wine command:', finalCommand], {
+  logDebug(['Running Wine command:', commandParts.join(' ')], {
     prefix: LogPrefix.Backend
   })
 
-  return new Promise((res) => {
-    additional_command = additional_command ? `&& ${additional_command}` : ''
-    const commandParts = [protonCommand, command, additional_command].filter(
-      Boolean
-    )
-
+  return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
     let bin = ''
     if (wrappers.length) {
@@ -573,7 +569,8 @@ async function runWineCommand({
       env: env_vars,
       cwd: startFolder
     })
-    const response = { stderr: '', stdout: '' }
+    child.stdout.setEncoding('utf-8')
+    child.stderr.setEncoding('utf-8')
 
     if (options?.logFile) {
       logDebug(`Logging to file "${options?.logFile}"`, {
@@ -592,35 +589,47 @@ async function runWineCommand({
     const stdout: string[] = []
     const stderr: string[] = []
 
-    child.stdout.on('data', (data: Buffer) => {
+    child.stdout.on('data', (data: string) => {
       if (options?.logFile) {
-        appendFileSync(options.logFile, data.toString())
+        appendFileSync(options.logFile, data)
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString())
+        options.onOutput(data, child)
       }
 
-      stdout.push(data.toString().trim())
+      stdout.push(data.trim())
     })
 
-    child.stderr.on('data', (data: Buffer) => {
+    child.stderr.on('data', (data: string) => {
       if (options?.logFile) {
-        appendFileSync(options.logFile, data.toString())
+        appendFileSync(options.logFile, data)
       }
 
       if (options?.onOutput) {
-        options.onOutput(data.toString())
+        options.onOutput(data, child)
       }
 
-      stderr.push(data.toString().trim())
+      stderr.push(data.trim())
     })
 
-    child.on('close', () => {
-      response.stdout = stdout.join('')
-      response.stderr = stderr.join('')
+    child.on('close', async () => {
+      const response = { stderr: stderr.join(''), stdout: stdout.join('') }
+
+      if (wait && wineVersion.wineserver) {
+        await new Promise<void>((res_wait) => {
+          const wait_child = spawn(wineVersion.wineserver!, ['--wait'], {
+            env: env_vars,
+            cwd: startFolder
+          })
+
+          wait_child.on('close', () => {
+            res_wait()
+          })
+        })
+      }
+
       res(response)
-      return response
     })
 
     child.on('error', (error) => {
@@ -699,7 +708,7 @@ async function callRunner(
       }
 
       if (options?.onOutput) {
-        options.onOutput(data)
+        options.onOutput(data, child)
       }
 
       stdout.push(data.trim())
@@ -712,7 +721,7 @@ async function callRunner(
       }
 
       if (options?.onOutput) {
-        options.onOutput(data)
+        options.onOutput(data, child)
       }
 
       stderr.push(data.trim())
@@ -823,6 +832,40 @@ function getRunnerCallWithoutCredentials(
   ].join(' ')
 }
 
+/**
+ * Converts Unix paths to Windows ones or vice versa
+ * @param path The Windows/Unix path you have
+ * @param game Required for runWineCommand
+ * @param variant The path variant (Windows/Unix) that you'd like to get (passed to `winepath` as -u/-w)
+ * @returns The path returned by `winepath`
+ */
+async function getWinePath({
+  path,
+  gameSettings,
+  variant = 'unix'
+}: {
+  path: string
+  gameSettings: GameSettings
+  variant?: 'win' | 'unix'
+}): Promise<string> {
+  // TODO: Proton has a special verb for getting Unix paths, and another one for Windows ones. Use those instead
+  //       Note that this would involve running `proton runinprefix cmd /c echo path` first to expand env vars
+  //       https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1526-L1533
+  const { stdout } = await runWineCommand({
+    gameSettings,
+    commandParts: [
+      'cmd',
+      '/c',
+      'winepath',
+      variant === 'unix' ? '-u' : '-w',
+      path
+    ],
+    wait: false,
+    protonVerb: 'runinprefix'
+  })
+  return stdout.trim()
+}
+
 export {
   prepareLaunch,
   launchCleanup,
@@ -832,5 +875,6 @@ export {
   setupWrappers,
   runWineCommand,
   callRunner,
-  getRunnerCallWithoutCredentials
+  getRunnerCallWithoutCredentials,
+  getWinePath
 }

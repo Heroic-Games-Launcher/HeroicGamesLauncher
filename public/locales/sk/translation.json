@@ -7,7 +7,8 @@
         "title": "Accessibility",
         "zoom": "Zoom"
     },
-    "All": "",
+    "add_game": "Add Game",
+    "All": "Všetky",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
@@ -21,12 +22,12 @@
             "message": "Heroic Cache Was Cleared!",
             "title": "Cache Cleared"
         },
-        "choose": "",
-        "choose-egs-prefix": "",
+        "choose": "Vyberte si",
+        "choose-egs-prefix": "Vyberte Prefix, kde je nainštalovaný EGS",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary Binary (needs restart)",
         "customWine": "Select the Wine or Proton Binary",
-        "default-install-path": "",
+        "default-install-path": "Vyberte predvolenú cestu inštalácie",
         "default-steam-path": "Steam path.",
         "downloadNow": "Download now",
         "error": {
@@ -88,7 +89,7 @@
                 "title-finished": "Update Finished"
             }
         },
-        "no": "",
+        "no": "NIE",
         "ok": "Ok",
         "protocol": {
             "install": {
@@ -118,8 +119,8 @@
             "title": "Shortcuts Removed"
         },
         "sync": {
-            "button": "",
-            "error": "",
+            "button": "Vyberte si",
+            "error": "Neplatná cesta",
             "title": "Select EXE to Run"
         },
         "vcruntime": {
@@ -139,33 +140,32 @@
             },
             "title": "Warning"
         },
-        "wineprefix": "",
-        "yes": ""
+        "wineprefix": "Vyberte Priečinok predpony vína",
+        "yes": "ÁNO"
     },
     "button": {
         "go_to_library": "Go to Library",
         "login": "Login",
-        "sync": "",
-        "syncing": "",
-        "unsync": ""
+        "sync": "Synchronizovať",
+        "syncing": "Prebieha synchronizácia",
+        "unsync": "Zrušiť synchronizáciu"
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
             "back": "Back",
             "backspace": "Backspace",
-            "close_context_menu": "Close context menu",
             "close_dialog": "Close dialog",
             "close_keyboard": "Close keyboard",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "Game details",
             "game_settings": "Game settings",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
-            "none": "None",
             "open_virtual_keyboard": "Open virtual keyboard",
+            "options": "Options",
             "play_game": "Play game",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Space",
             "update_game": "Update game"
         }
@@ -210,7 +210,7 @@
     "gog-store": "GOG Store",
     "header": {
         "ignore_hidden": "Ignore Hidden",
-        "platform": "",
+        "platform": "Platform",
         "show_all_games": "Show all games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
@@ -229,13 +229,13 @@
             "valid_codes": "Valid language codes are game-dependant."
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
-        "general": "",
+        "general": "Synchronizujte s EGL, ak máte funkčnú inštaláciu Epic Games Launcher inde a chcete importovať svoje hry, aby ste sa vyhli ich opätovnému sťahovaniu.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
-            "part4": "",
-            "part5": "",
-            "part6": "",
-            "part7": ""
+            "part4": "Použi ",
+            "part5": "Argumenty hry",
+            "part6": " zavolať po príkaze na spustenie, napríklad: ",
+            "part7": " preskočenie spúšťača v niektorých hrách atď."
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
@@ -244,15 +244,15 @@
         },
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
-            "part1": "",
-            "part2": "",
-            "part3": "",
-            "part4": ""
+            "part1": "Heroic sa snaží uhádnuť správny priečinok na uloženie a to bude fungovať vo väčšine prípadov. Ak je priečinok nesprávny, zmeňte ho pomocou poľa prepísať.",
+            "part2": "V prípade, že zmeníte priečinok s predponou pre Wine alebo Proton, budete musieť znova skontrolovať cestu, pretože Proton používa inú predponu (/pfx) a používateľské meno (steamuser). Môžete teda jednoducho vymazať aktuálnu cestu, dostať sa zo stránky nastavení synchronizácie a vrátiť sa späť, aby Heroic uhádol priečinok ešte raz so správnou predponou.",
+            "part3": "Manuálna synchronizácia: Ak chcete stiahnuť uložené hry uložené v cloude, vyberte možnosť Stiahnuť. Nahrať na nahranie miestnych do cloudu. Vynútiť stiahnutie a Vynútiť odovzdanie bude ignorovať verziu, ktorá je lokálne alebo v cloude.",
+            "part4": "Automatická synchronizácia uloženia synchronizuje uložené položky pri každom spustení hry a po dokončení hry."
         },
         "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
         "wine": {
-            "part1": "",
-            "part2": ""
+            "part1": "Heroic hľadá verzie Wine, Proton a CrossOver v nasledujúcich priečinkoch:",
+            "part2": "Pre ostatné miesta použite symbolický odkaz na jeden z týchto priečinkov"
         }
     },
     "info": {
@@ -265,11 +265,11 @@
         "save-sync": {
             "searching": "Trying to detect the correct save folder"
         },
-        "settings": ""
+        "settings": "Nastavenia sa uložia automaticky"
     },
     "infobox": {
-        "help": "",
-        "requirements": "",
+        "help": "Pomoc",
+        "requirements": "Požiadavky na systém",
         "warning": "Warning",
         "wine-path": "Wine Path",
         "wine-prefix": {
@@ -292,9 +292,9 @@
             "list": "Toggle to a list layout"
         }
     },
-    "Library": "",
+    "Library": "Knižnica",
     "loading": {
-        "default": "",
+        "default": "Načítava",
         "website": "Loading Website"
     },
     "login": {
@@ -304,8 +304,8 @@
         "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
-        "sync": "",
-        "unsync": ""
+        "sync": "Synchronizácia dokončená",
+        "unsync": "Zrušenie synchronizácie dokončené"
     },
     "notify": {
         "error": {
@@ -327,32 +327,32 @@
                     "title": "Removed from Steam"
                 }
             },
-            "reparing": ""
+            "reparing": "Dokončená oprava"
         },
         "install": {
-            "canceled": "",
-            "error": "",
-            "finished": "",
+            "canceled": "Inštalácia bola zrušená",
+            "error": "Inštalácia zlyhala",
+            "finished": "Inštalácia je dokončená",
             "imported": "Game Imported",
             "startInstall": "Installation Started"
         },
-        "moved": "",
+        "moved": "Dokončené sťahovanie",
         "moving": "Moving Game",
         "new-heroic-version": "A new Heroic version was released!",
         "refresh": {
             "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
         },
-        "uninstalled": "",
+        "uninstalled": "Odinštalované",
         "update": {
-            "canceled": "",
-            "finished": "",
+            "canceled": "Aktualizované Zrušené",
+            "finished": "Update Finished",
             "started": "Update Started"
         }
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -373,7 +373,7 @@
             "info": "Set environment variables to append to the command."
         },
         "gameargs": {
-            "placeholder": "",
+            "placeholder": "Sem vložte argumenty spúšťača",
             "title": "Select EXE to Run"
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
@@ -396,13 +396,13 @@
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "egs-prefix": "",
+        "egs-prefix": "Predpona, kde je nainštalovaný EGS",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
-        "linux": "",
-        "mac": "",
-        "win": ""
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
     },
     "progress": "Progress",
     "queue": {
@@ -414,16 +414,16 @@
         }
     },
     "Recent": "Played Recently",
-    "search": "",
+    "search": "Vyhľadajte hry",
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)to use",
-        "audiofix": "",
+        "audiofix": "Oprava zvuku (latencia pulzného zvuku)",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
-        "autosync": "",
+        "autosync": "Automatická synchronizácia Uloží",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
@@ -431,13 +431,13 @@
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon (needs restart)",
-        "default-install-path": "",
+        "default-install-path": "Predvolená inštalačná cesta",
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
-        "egs-sync": "",
+        "egs-sync": "Synchronizácia s nainštalovanými epickými hrami",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
@@ -460,10 +460,10 @@
             "updating": "Updating..."
         },
         "esync": "Enable Esync",
-        "exit-to-tray": "",
+        "exit-to-tray": "Výstup do systémovej lišty",
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
-        "gamemode": "",
+        "gamemode": "Použite GameMode (je potrebné nainštalovať režim Feral Game)",
         "language": "Choose App Language",
         "library_top_option": {
             "disabled": "Disabled",
@@ -481,37 +481,43 @@
             "no-file": "No log file found.",
             "show-in-folder": "Show log file in folder"
         },
-        "mangohud": "",
+        "mangohud": "Povoliť Mangohud (musí byť nainštalovaný Mangohud)",
         "manualsync": {
-            "download": "",
-            "forcedownload": "",
-            "forceupload": "",
-            "sync": "",
-            "syncing": "",
+            "download": "Stiahnuť ▼",
+            "forcedownload": "Vynútiť stiahnutie",
+            "forceupload": "Vynútiť nahrávanie",
+            "sync": "Synchronizovať",
+            "syncing": "Prebieha synchronizácia",
             "title": "Select EXE to Run",
-            "upload": ""
+            "upload": "Nahrať"
         },
         "maxRecentGames": "Recent Games to Show",
-        "maxworkers": "",
+        "maxworkers": "Maximálny počet pracovníkov pri sťahovaní",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
-        "offlinemode": "",
+        "offlinemode": "Spustite hru offline",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Use Dedicated Graphics Card",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Use Dedicated Graphics Card"
+        },
         "runexe": {
-            "message": "",
+            "message": "Presuňte sem súbory",
             "title": "Select EXE to Run"
         },
         "savefolder": {
-            "placeholder": ""
+            "placeholder": "Vyberte presný priečinok na uloženie hier"
         },
         "select_theme": "Select Theme",
-        "showfps": "",
+        "showfps": "Zobraziť FPS (DX9, 10 a 11)",
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "",
-        "wineversion": ""
+        "wineprefix": "Priečinok WinePrefix",
+        "wineversion": "Wine Version"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -521,6 +527,7 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Settings to Clipboard",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -540,10 +547,12 @@
         },
         "navbar": {
             "advanced": "Advanced",
-            "general": "",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
+            "general": "generál",
             "log": "Log",
-            "other": "",
-            "sync": "",
+            "other": "Other",
+            "sync": "Save-Sync",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
@@ -553,7 +562,7 @@
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         }
     },
-    "Settings": "",
+    "Settings": "nastavenie",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar"
@@ -593,7 +602,7 @@
         "about": "About",
         "quit": "Quit",
         "reload": "Reload",
-        "show": ""
+        "show": "Šou"
     },
     "two_col_table": {
         "save_hint": "Changes in this table are not saved automatically. Click the + button"
@@ -602,15 +611,16 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Logout",
+        "logout_confirmation": "Naozaj sa chcete odhlásiť?",
         "manageaccounts": "Manage Accounts",
         "quit": "Quit"
     },
     "webview": {
         "controls": {
-            "back": "",
-            "forward": "",
-            "openInBrowser": "",
-            "reload": ""
+            "back": "Vráť sa",
+            "forward": "Choď dopredu",
+            "openInBrowser": "Otvoriť v prehliadači",
+            "reload": "Znovu načítať stránku"
         }
     },
     "wine": {

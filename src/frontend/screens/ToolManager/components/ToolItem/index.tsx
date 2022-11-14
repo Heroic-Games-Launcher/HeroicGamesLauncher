@@ -62,7 +62,7 @@ const ToolItem = ({
   const unZipping = progress.state === 'unzipping'
 
   async function install() {
-    notify([`${version}`, t('notify.install.startInstall')])
+    notify({ title: `${version}`, body: t('notify.install.startInstall') })
     window.api
       .installToolVersion({
         version,
@@ -79,10 +79,10 @@ const ToolItem = ({
       .then((response) => {
         switch (response) {
           case 'error':
-            notify([`${version}`, t('notify.install.error')])
+            notify({ title: `${version}`, body: t('notify.install.error') })
             break
           case 'abort':
-            notify([`${version}`, t('notify.install.canceled')])
+            notify({ title: `${version}`, body: t('notify.install.canceled') })
             break
           case 'success':
             refreshToolVersionInfo(false)

@@ -18,13 +18,13 @@
             "title": "Verificar e Reparar"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Selecione o EXE para executar"
         },
         "select": {
-            "button": "Select"
+            "button": "Selecionar"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Selecionar executável"
         },
         "stopInstall": {
             "keepInstalling": "Continuar a Instalação",
@@ -32,7 +32,7 @@
             "title": "Parar a Instalação"
         },
         "uninstall": {
-            "checkbox": "{{newLine}}Remover prefixo: {{prefix}}{{newLine}}Obs.: Isso não pode ser desfeito e também vai remover jogos salvos sem backup",
+            "checkbox": "{{newLine}}Remover prefixo: {{prefix}}{{newLine}}Obs.: Isso não pode ser desfeito e também vai remover jogos salvos sem backup.",
             "message": "Deseja desinstalar este jogo?",
             "title": "Desinstalar"
         },
@@ -47,21 +47,22 @@
         "add_to_favourites": "Adicionar aos favoritos",
         "cancel": "Pausar/Cancelar",
         "continue": "Continuar baixando",
-        "finish": "Finish",
+        "finish": "Terminar",
         "force_update": "Forçar atualização se disponível",
-        "force-innstall": "Force Install",
+        "force-innstall": "Forçar instalação",
         "hide_game": "Ocultar jogo",
         "import": "Importar Jogo",
         "install": "Instalar",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Nenhum caminho selecionado",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Remover da Fila"
         },
         "remove_from_favourites": "Remover dos favoritos",
-        "run-exe-first": "Run Installer First",
+        "remove_from_recent": "Remover dos recentes",
+        "run-exe-first": "Executar instalador Antes",
         "running-setup": "Running Setup",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Editar App/Jogo"
         },
         "unhide_game": "Mostrar jogo",
         "uninstall": "Desinstalar",
@@ -76,8 +77,8 @@
     "game": {
         "downloadSize": "Tamanho do Download",
         "firstPlayed": "Jogado inicialmente em",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Obtendo tamanho do download",
+        "getting-install-size": "Obtendo tamanho da instalação",
         "installSize": "Tamanho Instalado",
         "language": "Idioma",
         "lastPlayed": "Jogado pela última vez em",
@@ -103,11 +104,11 @@
     },
     "install": {
         "disk-space-left": "Espaço restante no dispositivo",
-        "not-enough-disk-space": "Sem espaço suficiente no disco",
+        "not-enough-disk-space": "Espaço em disco insuficiente",
         "path": "Selecione o local de instalação",
         "path-not-writtable": "Aviso: caminho pode não permitir escrita.",
         "space-after-install": "Pós-instalação",
-        "wineprefix": "Prefixo Wine",
+        "wineprefix": "Prefixo Wine (WinePrefix)",
         "wineversion": "Versão do Wine"
     },
     "label": {
@@ -123,10 +124,10 @@
         "options": "Opções de Inicialização..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
-        "login": "Log in",
-        "title": "You are NOT logged in"
+        "epic": "Você não está logado numa conta Epic no Heroic. Não use a página da loja para logar, ao invés disso, clique no botão a seguir:",
+        "gog": "Você não está logado numa conta GOG no Heroic. Não use a página da loja para logar, ao invés disso,clique no botão a seguir:",
+        "login": "Entrar",
+        "title": "Você NÃO está logado"
     },
     "Open": "",
     "queue": {
@@ -141,16 +142,16 @@
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Título"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Selecionar executável",
+            "image": "Imagem do Aplicativo",
+            "title": "Título do Jogo/App"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Cole um link de uma imagem aqui",
+            "title": "Adicione um título ao seu Jogo/App"
         }
     },
     "specs": {
@@ -158,30 +159,31 @@
         "recommended": "RECOMENDADO"
     },
     "status": {
-        "clickToUpdate": "CLIQUE PARA ATUALIZAR",
+        "clickToUpdate": "Clique para Atualizar",
         "hasUpdates": "Nova Versão Disponível!",
         "installed": "Instalado",
         "installing": "Instalando",
         "moving": "Movendo Instalação,Por favor Aguarde",
         "notinstalled": "Este jogo não está instalado",
         "processing": "Processando arquivos, aguarde",
-        "queued": "Queued",
+        "queued": "Na fila",
         "reparing": "Reparando Jogo, Por favor Aguarde",
         "totalDownloaded": "Total Baixado",
+        "uninstalling": "Uninstalling",
         "updating": "Atualizando Jogo"
     },
     "submenu": {
         "addShortcut": "Adicionar Atalho",
         "addToSteam": "Adicionar à Steam",
-        "change": "Modificar Local de Instalação",
-        "disableEosOverlay": "Desativar EOS Overlay",
-        "enableEosOverlay": "Ativar EOS Overlay",
+        "change": "Mudar Local de Instalação",
+        "disableEosOverlay": "Desativar sobreposição do EOS",
+        "enableEosOverlay": "Ativar sobreposição do EOS",
         "move": "Mover o Jogo",
         "protondb": "Verificar Compatibilidade",
         "removeFromSteam": "Remover da Steam",
         "removeShortcut": "Remover atalhos",
         "settings": "Configurações",
-        "store": "Loja Epic",
+        "store": "Página na Loja",
         "verify": "Verificar e Reparar"
     }
 }

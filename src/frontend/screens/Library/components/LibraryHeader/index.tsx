@@ -18,7 +18,7 @@ type Props = {
   handleAddGameButtonClick: () => void
 }
 
-export default function LibraryHeader({
+export default React.memo(function LibraryHeader({
   list,
   sortInstalled,
   sortDescending,
@@ -80,7 +80,7 @@ export default function LibraryHeader({
             className="sideloadGameButton"
             onClick={handleAddGameButtonClick}
           >
-            Add Game
+            {t('add_game', 'Add Game')}
           </button>
         </span>
         <ActionIcons
@@ -93,4 +93,4 @@ export default function LibraryHeader({
       </div>
     </h5>
   )
-}
+})

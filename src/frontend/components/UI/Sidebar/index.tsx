@@ -13,18 +13,18 @@ import './index.css'
 import HeroicVersion from './components/HeroicVersion'
 import { DMQueueElement } from 'common/types'
 
-export default function Sidebar() {
+export default React.memo(function Sidebar() {
   const { t } = useTranslation()
   const { sidebarCollapsed, setSideBarCollapsed } = useContext(ContextProvider)
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
 
   useEffect(() => {
-    window.api.getDMQueueInformation().then((elements: DMQueueElement[]) => {
+    window.api.getDMQueueInformation().then(({ elements }) => {
       setCurrentDMElement(elements[0])
     })
 
     const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
-      (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => {
+      (e, elements) => {
         setCurrentDMElement(elements[0])
       }
     )
@@ -62,4 +62,4 @@ export default function Sidebar() {
       </button>
     </aside>
   )
-}
+})

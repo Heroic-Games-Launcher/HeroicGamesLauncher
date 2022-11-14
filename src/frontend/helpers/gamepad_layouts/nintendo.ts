@@ -1,10 +1,16 @@
 // Holds layouts for different Nintendo official an clone controllers
 
+import { ValidGamepadAction } from 'common/types'
+
 export function checkGameCube(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
   controllerIndex: number,
-  checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
 ) {
   const A = buttons[0],
     X = buttons[1],
@@ -46,7 +52,11 @@ export function checkN64Clone1(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
   controllerIndex: number,
-  checkAction: (action: string, pressed: boolean, ctrlIdx: number) => void
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
 ) {
   const // CUp = buttons[0],
     // CRight = buttons[1],

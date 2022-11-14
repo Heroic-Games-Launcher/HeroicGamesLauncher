@@ -11,7 +11,8 @@ import {
   ExtraInfo,
   GameInfo,
   InstallArgs,
-  InstallPlatform
+  InstallPlatform,
+  ProtonVerb
 } from 'common/types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
@@ -587,7 +588,7 @@ class LegendaryGame extends Game {
    * Sync saves.
    * Does NOT check for online connectivity.
    */
-  public async syncSaves(arg: string, path: string) {
+  public async syncSaves(arg: string, path: string): Promise<string> {
     path = path.replaceAll("'", '').replaceAll('"', '')
     const fixedPath = isWindows ? path.slice(0, -1) : path
 
@@ -606,11 +607,13 @@ class LegendaryGame extends Game {
       '-y'
     ]
 
+    let fullOutput = ''
     const res = await runLegendaryCommand(
       commandParts,
       createAbortController(this.appName),
       {
-        logMessagePrefix: `Syncing saves for ${this.appName}`
+        logMessagePrefix: `Syncing saves for ${this.appName}`,
+        onOutput: (output) => (fullOutput += output)
       }
     )
 
@@ -621,7 +624,7 @@ class LegendaryGame extends Game {
         prefix: LogPrefix.Legendary
       })
     }
-    return res
+    return fullOutput
   }
 
   public async launch(launchArguments: string): Promise<boolean> {
@@ -710,15 +713,25 @@ class LegendaryGame extends Game {
       ['launch', this.appName, '--json', '--offline'],
       createAbortController(this.appName)
     )
+
     appendFileSync(
       this.logFileLocation,
       "Legendary's config from config.ini (before Heroic's settings):\n"
     )
-    const json = JSON.parse(stdout)
-    // remove egl auth info
-    delete json['egl_parameters']
 
-    appendFileSync(this.logFileLocation, JSON.stringify(json, null, 2) + '\n\n')
+    try {
+      const json = JSON.parse(stdout)
+      // remove egl auth info
+      delete json['egl_parameters']
+
+      appendFileSync(
+        this.logFileLocation,
+        JSON.stringify(json, null, 2) + '\n\n'
+      )
+    } catch (error) {
+      // in case legendary's command fails and the output is not json
+      appendFileSync(this.logFileLocation, error + '\n' + stdout + '\n\n')
+    }
 
     const commandParts = [
       'launch',
@@ -734,9 +747,7 @@ class LegendaryGame extends Game {
       gameSettings,
       mangoHudCommand,
       gameModeBin,
-      steamRuntime?.length
-        ? [...steamRuntime, `--filesystem=${gameInfo.install.install_path}`]
-        : undefined
+      steamRuntime?.length ? [...steamRuntime] : undefined
     )
 
     const fullCommand = getRunnerCallWithoutCredentials(
@@ -779,9 +790,9 @@ class LegendaryGame extends Game {
   }
 
   public async runWineCommand(
-    command: string,
+    commandParts: string[],
     wait = false,
-    forceRunInPrefixVerb = false
+    protonVerb?: ProtonVerb
   ): Promise<ExecResult> {
     if (this.isNative()) {
       logError('runWineCommand called on native game!', {
@@ -796,9 +807,9 @@ class LegendaryGame extends Game {
     return runWineCommand({
       gameSettings,
       installFolderName: folder_name,
-      command,
+      commandParts,
       wait,
-      forceRunInPrefixVerb
+      protonVerb
     })
   }
 

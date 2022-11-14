@@ -44,6 +44,7 @@
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
+  --controller-hints-background: transparent;
 
   --anticheat-denied: var(--danger);
   --anticheat-broken: #e8590c;
@@ -78,6 +79,13 @@
   --text-tertiary: #101111; /* This is not defined in figma */
   --text-quartenary: #5a5e5f; /* this is meant to be a background colour */
   --text-danger: #d22121;
+  --text-gametitle: var(--text-default);
+  --text-log: #f5cf69;
+
+  /*Action Icons*/
+  --action-icon: var(--text-default);
+  --action-icon-hover: var(--text-hover);
+  --action-icon-active: var(--accent);
 }
 
 body {

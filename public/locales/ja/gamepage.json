@@ -58,6 +58,7 @@
             "remove": "Remove from Queue"
         },
         "remove_from_favourites": "Remove From Favourites",
+        "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
         "sideload": {
@@ -168,6 +169,7 @@
         "queued": "Queued",
         "reparing": "ゲームを修復しています、お待ちください",
         "totalDownloaded": "ダウンロードの総数",
+        "uninstalling": "Uninstalling",
         "updating": "ゲームを更新しています"
     },
     "submenu": {

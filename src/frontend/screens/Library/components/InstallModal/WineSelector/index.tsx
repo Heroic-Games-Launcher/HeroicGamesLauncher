@@ -2,10 +2,9 @@ import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TextInputWithIconField, SelectField } from 'frontend/components/UI'
 import React from 'react'
-import { Path } from 'frontend/types'
 import { Runner, WineInstallation } from 'common/types'
 import { useTranslation } from 'react-i18next'
-import { getAppSettings, getGameInfo } from 'frontend/helpers'
+import { getGameInfo } from 'frontend/helpers'
 
 type Props = {
   setWineVersion: React.Dispatch<
@@ -36,8 +35,9 @@ export default function WineSelector({
         runner === 'sideload'
           ? { folder_name: 'sideload' }
           : await getGameInfo(appName, runner)
-      const bottleName = gameData.folder_name
-      const { defaultWinePrefix, wineVersion } = await getAppSettings()
+      const bottleName = gameData?.folder_name
+      const { defaultWinePrefix, wineVersion } =
+        await window.api.requestAppSettings()
       const sugestedWinePrefix = `${defaultWinePrefix}/${bottleName}`
       setWinePrefix(sugestedWinePrefix)
       setWineVersion(wineVersion || undefined)
@@ -61,7 +61,7 @@ export default function WineSelector({
               properties: ['openDirectory'],
               title: t('box.wineprefix', 'Select WinePrefix Folder')
             })
-            .then(({ path }: Path) => setWinePrefix(path ? path : winePrefix))
+            .then((path) => setWinePrefix(path || winePrefix))
         }
       />
 

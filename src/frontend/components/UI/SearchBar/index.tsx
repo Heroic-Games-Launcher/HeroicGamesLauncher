@@ -17,7 +17,7 @@ function fixFilter(text: string) {
   return text.replaceAll(regex, '')
 }
 
-export default function SearchBar() {
+export default React.memo(function SearchBar() {
   const { handleSearch, filterText, epic, gog, sideloadedLibrary } =
     useContext(ContextProvider)
   const { t } = useTranslation()
@@ -83,21 +83,24 @@ export default function SearchBar() {
         className="searchBarInput"
       />
       {filterText.length > 0 && (
-        <ul className="autoComplete">
-          {list.length > 0 &&
-            list.map((title, i) => (
-              <li
-                onClick={(e) => handleClick(e.currentTarget.innerText)}
-                key={i}
-              >
-                {title}
-              </li>
-            ))}
-        </ul>
+        <>
+          <ul className="autoComplete">
+            {list.length > 0 &&
+              list.map((title, i) => (
+                <li
+                  onClick={(e) => handleClick(e.currentTarget.innerText)}
+                  key={i}
+                >
+                  {title}
+                </li>
+              ))}
+          </ul>
+
+          <button className="clearSearchButton" onClick={onClear} tabIndex={-1}>
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
+        </>
       )}
-      <button className="clearSearchButton" onClick={onClear} tabIndex={-1}>
-        <FontAwesomeIcon icon={faXmark} />
-      </button>
     </div>
   )
-}
+})

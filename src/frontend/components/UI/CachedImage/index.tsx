@@ -30,4 +30,4 @@ const CachedImage = (props: Props) => {
   return <img {...props} src={src} onError={onError} />
 }
 
-export default CachedImage
+export default React.memo(CachedImage)

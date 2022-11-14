@@ -6,7 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
-import { FavouriteGame, GameStatus, HiddenGame, Runner } from 'common/types'
+import {
+  FavouriteGame,
+  GameInfo,
+  GameStatus,
+  HiddenGame,
+  Runner
+} from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
@@ -33,37 +39,31 @@ import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 
 interface Card {
-  appName: string
   buttonClick: () => void
-  cover: string
-  coverList: string
   hasUpdate: boolean
-  hasCloudSave: boolean
-  isInstalled: boolean
-  logo: string
-  size: string
-  title: string
-  version: string
-  runner: Runner
-  installedPlatform: string | undefined
   forceCard?: boolean
+  isRecent: boolean
+  gameInfo: GameInfo
 }
 
 const GameCard = ({
-  cover,
-  title,
-  appName,
-  isInstalled,
-  logo,
-  coverList,
-  size = '',
   hasUpdate,
-  hasCloudSave,
   buttonClick,
   forceCard,
-  runner,
-  installedPlatform
+  isRecent = false,
+  gameInfo
 }: Card) => {
+  const {
+    title,
+    art_square: cover,
+    art_logo: logo,
+    app_name: appName,
+    is_installed: isInstalled,
+    runner,
+    cloud_save_enabled: hasCloudSave,
+    install: { install_size: size, platform: installedPlatform }
+  } = gameInfo
+
   const [progress, previousProgress] = hasProgress(appName)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
 
@@ -75,14 +75,11 @@ const GameCard = ({
     libraryStatus,
     layout,
     handleGameStatus,
-    platform,
     hiddenGames,
     favouriteGames,
     allTilesInColor,
     showDialogModal
   } = useContext(ContextProvider)
-
-  const isWin = platform === 'win32'
 
   const grid = forceCard || layout === 'grid'
 
@@ -94,8 +91,14 @@ const GameCard = ({
   const isMoving = status === 'moving'
   const isPlaying = status === 'playing'
   const isQueued = status === 'queued'
+  const isUninstalling = status === 'uninstalling'
   const haveStatus =
-    isMoving || isReparing || isInstalling || isUpdating || isQueued
+    isMoving ||
+    isReparing ||
+    isInstalling ||
+    isUpdating ||
+    isQueued ||
+    isUninstalling
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -113,7 +116,7 @@ const GameCard = ({
   }
 
   function getImageFormatting() {
-    const imageBase = grid ? cover : coverList
+    const imageBase = cover
     if (imageBase === 'fallback') {
       return fallbackImage
     }
@@ -125,6 +128,9 @@ const GameCard = ({
   }
 
   function getStatus() {
+    if (isUninstalling) {
+      return t('status.uninstalling', 'Uninstalling')
+    }
     if (isUpdating) {
       return t('status.updating') + ` ${percent}%`
     }
@@ -153,6 +159,13 @@ const GameCard = ({
   }
 
   const renderIcon = () => {
+    if (isUninstalling) {
+      return (
+        <button className="svg-button iconDisabled">
+          <svg />
+        </button>
+      )
+    }
     if (isQueued) {
       return (
         <SvgButton
@@ -196,8 +209,7 @@ const GameCard = ({
           <PlayIcon />
         </SvgButton>
       )
-    }
-    if (!isInstalled) {
+    } else {
       return (
         <SvgButton
           className="downIcon"
@@ -226,10 +238,7 @@ const GameCard = ({
   const isMac = ['osx', 'Mac']
   const isMacNative = isMac.includes(installedPlatform ?? '')
   const isLinuxNative = installedPlatform === 'linux'
-  const isNative = isWin || isMacNative || isLinuxNative
-  const pathname = isNative
-    ? `/settings/${runner}/${appName}/other`
-    : `/settings/${runner}/${appName}/wine`
+  const pathname = `/settings/${runner}/${appName}/games_settings`
 
   const onUninstallClick = function () {
     setShowUninstallModal(true)
@@ -237,31 +246,49 @@ const GameCard = ({
 
   const items: Item[] = [
     {
+      // remove from install queue
+      label: t('button.queue.remove'),
+      onclick: () => handleRemoveFromQueue(),
+      show: isQueued && !isInstalling
+    },
+    {
+      // stop if running
+      label: t('label.playing.stop'),
+      onclick: async () => handlePlay(runner),
+      show: isPlaying
+    },
+    {
+      // launch game
+      label: t('label.playing.start'),
+      onclick: async () => handlePlay(runner),
+      show: isInstalled && !isPlaying && !isUpdating
+    },
+    {
+      // update
       label: t('button.update', 'Update'),
       onclick: async () => handleUpdate(),
-      show: hasUpdate
+      show: hasUpdate && !isUpdating
     },
     {
-      label: t('button.uninstall'),
-      onclick: onUninstallClick,
-      show: isInstalled
-    },
-    {
+      // install
       label: t('button.install'),
-      onclick: () => (!isInstalled ? buttonClick() : () => null),
+      onclick: () => buttonClick(),
       show: !isInstalled
     },
     {
+      // cancel installation/update
       label: t('button.cancel'),
       onclick: async () => handlePlay(runner),
-      show: isInstalling && isQueued
+      show: isInstalling || isUpdating
     },
     {
+      // hide
       label: t('button.hide_game', 'Hide Game'),
       onclick: () => hiddenGames.add(appName, title),
       show: !isHiddenGame
     },
     {
+      // unhide
       label: t('button.unhide_game', 'Unhide Game'),
       onclick: () => hiddenGames.remove(appName),
       show: isHiddenGame
@@ -275,6 +302,32 @@ const GameCard = ({
       label: t('button.remove_from_favourites', 'Remove From Favourites'),
       onclick: () => favouriteGames.remove(appName),
       show: isFavouriteGame
+    },
+    {
+      label: t('button.remove_from_recent', 'Remove From Recent'),
+      onclick: async () => window.api.removeRecentGame(appName),
+      show: isRecent
+    },
+    {
+      // settings
+      label: t('submenu.settings'),
+      onclick: () =>
+        navigate(pathname, {
+          state: {
+            fromGameCard: true,
+            runner,
+            hasCloudSave,
+            isLinuxNative,
+            isMacNative
+          }
+        }),
+      show: isInstalled && !isUninstalling
+    },
+    {
+      // uninstall
+      label: t('button.uninstall'),
+      onclick: onUninstallClick,
+      show: isInstalled && !isUpdating
     }
   ]
 
@@ -291,6 +344,8 @@ const GameCard = ({
     grid ? 'gameCard' : 'gameListItem'
   }  ${instClass} ${hiddenClass}`
 
+  const { activeController } = useContext(ContextProvider)
+
   return (
     <div>
       {showUninstallModal && (
@@ -304,7 +359,8 @@ const GameCard = ({
         <div className={wrapperClasses}>
           {haveStatus && <span className="progress">{getStatus()}</span>}
           <Link
-            to={`gamepage/${runner}/${appName}`}
+            to={`/gamepage/${runner}/${appName}`}
+            state={{ gameInfo }}
             style={
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
@@ -347,43 +403,45 @@ const GameCard = ({
               {getStoreName(runner, t2('Other'))}
             </span>
           </Link>
-          {
-            <>
-              <span className="icons">
-                {hasUpdate && !isUpdating && (
+          <>
+            <span
+              className={classNames('icons', {
+                gamepad: activeController
+              })}
+            >
+              {hasUpdate && !isUpdating && (
+                <SvgButton
+                  className="updateIcon"
+                  title={`${t('button.update')} (${title})`}
+                  onClick={async () => handleUpdate()}
+                >
+                  <FontAwesomeIcon size={'2x'} icon={faRepeat} />
+                </SvgButton>
+              )}
+              {isInstalled && !isUninstalling && (
+                <>
                   <SvgButton
-                    className="updateIcon"
-                    title={`${t('button.update')} (${title})`}
-                    onClick={async () => handleUpdate()}
+                    title={`${t('submenu.settings')} (${title})`}
+                    className="settingsIcon"
+                    onClick={() =>
+                      navigate(pathname, {
+                        state: {
+                          fromGameCard: true,
+                          runner,
+                          hasCloudSave,
+                          isLinuxNative,
+                          isMacNative
+                        }
+                      })
+                    }
                   >
-                    <FontAwesomeIcon size={'2x'} icon={faRepeat} />
+                    <SettingsIcon />
                   </SvgButton>
-                )}
-                {isInstalled && (
-                  <>
-                    <SvgButton
-                      title={`${t('submenu.settings')} (${title})`}
-                      className="settingsIcon"
-                      onClick={() =>
-                        navigate(pathname, {
-                          state: {
-                            fromGameCard: true,
-                            runner,
-                            hasCloudSave,
-                            isLinuxNative,
-                            isMacNative
-                          }
-                        })
-                      }
-                    >
-                      <SettingsIcon />
-                    </SvgButton>
-                  </>
-                )}
-                {renderIcon()}
-              </span>
-            </>
-          }
+                </>
+              )}
+              {renderIcon()}
+            </span>
+          </>
         </div>
       </ContextMenu>
     </div>
@@ -392,14 +450,13 @@ const GameCard = ({
   async function handlePlay(runner: Runner) {
     if (!isInstalled && !isQueued) {
       return install({
-        appName,
+        gameInfo,
         handleGameStatus,
         installPath: folder || 'default',
         isInstalling,
         previousProgress,
         progress,
         t,
-        runner,
         showDialogModal
       })
     }
@@ -425,4 +482,4 @@ const GameCard = ({
   }
 }
 
-export default GameCard
+export default React.memo(GameCard)

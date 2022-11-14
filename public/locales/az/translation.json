@@ -7,6 +7,7 @@
         "title": "Əlçatanlıq",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Hamısı",
     "anticheat": {
         "anticheats": "Antifırıldaqçılar",
@@ -151,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "Aktivləşdirin",
             "back": "Geri",
             "backspace": "Backspace",
-            "close_context_menu": "Kontekst menyusunu bağlayın",
             "close_dialog": "Dialoqu bağlayın",
             "close_keyboard": "Klaviaturanı bağlayın",
-            "context_menu": "Kontekst menyusu",
+            "close_options": "Close Options",
             "game_details": "Oyun təfərrüatları",
             "game_settings": "Oyun parametrləri",
             "install_game": "Oyun quraşdırın",
             "move_cursor": "Kursoru köçürün",
-            "none": "Heç biri",
             "open_virtual_keyboard": "Virtual klaviaturanı açın",
+            "options": "Options",
             "play_game": "Oyun oynamaq",
             "scroll": "Sürüşdürün",
+            "select": "Select",
             "space": "Kosmos",
             "update_game": "Oyunu yeniləyin"
         }
@@ -352,7 +352,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -497,7 +497,13 @@
         "offlinemode": "Oyunu Oflayn Çalışın",
         "prefered_language": "Üstünlük Verilən Dil (Dil Kodu)",
         "preferSystemLibs": "Sistem kitabxanalarına üstünlük verin",
-        "primerun": "Xüsusi Qrafik Kartdan istifadə edin",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Xüsusi Qrafik Kartdan istifadə edin"
+        },
         "runexe": {
             "message": "Faylları buraya sürükləyin və buraxın",
             "title": "Prefiksdə EXE-ni işə salın"
@@ -521,6 +527,7 @@
         "clear-cache": "Qəhrəmanlıq önbelleğini təmizləyin",
         "copiedToClipboard": "Buferə kopyalandı!",
         "copyToClipboard": "Bütün Parametrləri Panoya kopyalayın",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "EAC iş vaxtının Flatpak üzərində işləməsi üçün GameMode tələb olunur. Onu indi aktiv etmək istəyirsiniz?",
@@ -540,6 +547,8 @@
         },
         "navbar": {
             "advanced": "Qabaqcıl",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "General",
             "log": "Giriş",
             "other": "Digər",

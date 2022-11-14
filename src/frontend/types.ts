@@ -6,7 +6,9 @@ import {
   Runner,
   ConnectivityStatus,
   DialogType,
-  ButtonOptions
+  ButtonOptions,
+  LibraryTopSectionOptions,
+  DMQueueElement
 } from 'common/types'
 import { ToolVersionInfo } from 'common/types/toolmanager'
 
@@ -31,7 +33,7 @@ export interface ContextType {
   libraryStatus: GameStatus[]
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
-  platform: NodeJS.Platform | string
+  platform: NodeJS.Platform | 'unknown'
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshToolVersionInfo: (fetch: boolean) => void
@@ -89,12 +91,6 @@ export type DialogModalOptions = {
   type?: DialogType
 }
 
-export type LibraryTopSectionOptions =
-  | 'disabled'
-  | 'recently_played'
-  | 'recently_played_installed'
-  | 'favourites'
-
 export interface HiddenGame {
   appName: string
   title: string
@@ -107,10 +103,6 @@ export interface InstallProgress {
   eta: string
   folder?: string
   percent: number
-}
-
-export interface Path {
-  path: string
 }
 
 export type RefreshOptions = {
@@ -177,29 +169,6 @@ export type AntiCheat =
   | 'XIGNCODE3'
   | 'Zakynthos'
 
-export interface AntiCheatInfo {
-  name: string
-  status: ''
-  anticheats: AntiCheat[]
-  notes: string[]
-  native: boolean
-  storeIds: {
-    epic?: {
-      namespace: string
-      slug: string
-    }
-    steam?: string
-  }
-  reference: string
-  updates: AntiCheatReference[]
-}
-
-interface AntiCheatReference {
-  name: string
-  date: string
-  reference: string
-}
-
 declare global {
   interface Window {
     imageData: (
@@ -221,6 +190,9 @@ export interface SettingsContextType {
   isDefault: boolean
   appName: string
   runner: Runner
+  gameInfo: GameInfo | null
+  isMacNative: boolean
+  isLinuxNative: boolean
 }
 
 export interface LocationState {
@@ -228,4 +200,10 @@ export interface LocationState {
   runner: Runner
   isLinuxNative: boolean
   isMacNative: boolean
+  gameInfo: GameInfo
+}
+
+export type DMQueue = {
+  elements: DMQueueElement[]
+  finished: DMQueueElement[]
 }

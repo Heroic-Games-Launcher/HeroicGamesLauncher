@@ -7,6 +7,7 @@
         "title": "Accessibilità",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "Tutto",
     "anticheat": {
         "anticheats": "Anticheat",
@@ -151,37 +152,36 @@
     },
     "controller": {
         "hints": {
-            "activate": "Activate",
             "back": "Indietro",
             "backspace": "Backspace",
-            "close_context_menu": "Chiudi il menu contestuale",
             "close_dialog": "Close dialog",
             "close_keyboard": "Close keyboard",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "Dettagli del gioco",
             "game_settings": "Game settings",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
-            "none": "None",
             "open_virtual_keyboard": "Open virtual keyboard",
+            "options": "Options",
             "play_game": "Play game",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "Space",
             "update_game": "Update game"
         }
     },
-    "docs": "Documentation",
+    "docs": "Documentazione",
     "download": {
         "manager": {
-            "empty": "Nothing to download.",
+            "empty": "Nulla da scaricare.",
             "link": "Download Manager",
             "queue": {
                 "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
+                "element": "Nome",
+                "platform": "Piattaforma",
                 "store": "Store"
             },
-            "title": "Downloads"
+            "title": "Download"
         }
     },
     "epic": {
@@ -189,10 +189,10 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": "Errore",
     "favourites": "Preferiti",
     "game": {
-        "status": "Status",
+        "status": "Stato",
         "store": "Negozio",
         "title": "Titolo del gioco"
     },
@@ -295,7 +295,7 @@
     "Library": "Libreria",
     "loading": {
         "default": "Caricamento in corso",
-        "website": "Caricamento sito web incorso"
+        "website": "Caricamento sito web in corso"
     },
     "login": {
         "alternative_method": "Alternative Login Method",
@@ -352,7 +352,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -497,7 +497,13 @@
         "offlinemode": "Avvia il gioco in modalità offline",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "Utilizzare la scheda grafica dedicata",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "Utilizzare la scheda grafica dedicata"
+        },
         "runexe": {
             "message": "Trascina e rilascia i files qui",
             "title": "Avvia l'EXE nel prefix"
@@ -521,6 +527,7 @@
         "clear-cache": "Pulisci cache Heroic",
         "copiedToClipboard": "Copiato negli appunti!",
         "copyToClipboard": "Copia tutte le impostazioni negli appunti",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -540,6 +547,8 @@
         },
         "navbar": {
             "advanced": "Advanced",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "Generale",
             "log": "Log",
             "other": "Altro",

@@ -59,6 +59,7 @@
             "remove": "Remove from Queue"
         },
         "remove_from_favourites": "Otkloni iz favorita",
+        "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
         "sideload": {
@@ -169,6 +170,7 @@
         "queued": "Queued",
         "reparing": "Popravljanje video igre, molimo čekajte",
         "totalDownloaded": "Ukupno preuzeto",
+        "uninstalling": "Uninstalling",
         "updating": "Ažuriranje video igre"
     },
     "submenu": {

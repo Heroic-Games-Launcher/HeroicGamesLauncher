@@ -104,7 +104,7 @@ export default function WebView() {
 
             setTimeout(() => {
               webview.findInPage('authorizationCode')
-            }, 500)
+            }, 50)
             webview.addEventListener('found-in-page', async () => {
               webview.focus()
               webview.selectAll()
@@ -125,7 +125,7 @@ export default function WebView() {
                   console.error(error)
                   window.api.logError(String(error))
                 }
-              }, 500)
+              }, 200)
             })
           })
         }

@@ -7,6 +7,7 @@
         "title": "접근성",
         "zoom": "Zoom"
     },
+    "add_game": "Add Game",
     "All": "모두",
     "anticheat": {
         "anticheats": "안티 치트",
@@ -151,21 +152,20 @@
     },
     "controller": {
         "hints": {
-            "activate": "활성화",
             "back": "뒤로",
             "backspace": "Backspace",
-            "close_context_menu": "우클릭 메뉴 닫기",
             "close_dialog": "대화상자 닫기",
             "close_keyboard": "키보드 닫기",
-            "context_menu": "Context menu",
+            "close_options": "Close Options",
             "game_details": "게임 세부 정보",
             "game_settings": "게임 설정",
             "install_game": "게임 설치",
             "move_cursor": "커서 이동",
-            "none": "None",
             "open_virtual_keyboard": "가상 키보드 열기",
+            "options": "Options",
             "play_game": "게임 플레이",
             "scroll": "Scroll",
+            "select": "Select",
             "space": "스페이스바",
             "update_game": "게임 업데이트"
         }
@@ -352,7 +352,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {
@@ -497,7 +497,13 @@
         "offlinemode": "게임 오프라인으로 실행",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": "외장 그래픽 카드 사용",
+        "primerun": {
+            "confirmation": {
+                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "title": "Only 1 GPU detected"
+            },
+            "description": "외장 그래픽 카드 사용"
+        },
         "runexe": {
             "message": "여기에 파일을 끌어다 놓기",
             "title": "접두사에서 EXE 실행"
@@ -521,6 +527,7 @@
         "clear-cache": "Heroic 캐시 삭제",
         "copiedToClipboard": "클립보드에 복사되었습니다!",
         "copyToClipboard": "모든 설정을 클립보드에 복사",
+        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
@@ -540,6 +547,8 @@
         },
         "navbar": {
             "advanced": "Advanced",
+            "games_settings": "Game Settings",
+            "games_settings_defaults": "Game Defaults",
             "general": "일반",
             "log": "Log",
             "other": "기타",

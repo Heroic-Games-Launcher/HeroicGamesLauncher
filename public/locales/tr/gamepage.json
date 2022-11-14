@@ -58,6 +58,7 @@
             "remove": "Remove from Queue"
         },
         "remove_from_favourites": "Favorilerden Kaldır",
+        "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
         "sideload": {
@@ -168,6 +169,7 @@
         "queued": "Queued",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
         "totalDownloaded": "Toplam İndirilen",
+        "uninstalling": "Uninstalling",
         "updating": "Oyun Güncelleniyor"
     },
     "submenu": {

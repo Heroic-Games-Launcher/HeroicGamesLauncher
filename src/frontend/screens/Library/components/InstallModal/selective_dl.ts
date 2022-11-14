@@ -61,7 +61,7 @@ const FORTNITE_SDL: Array<SelectiveDownload> = [
   { tags: ['chunk9'], name: '(Language Pack) 中文（中国）' }
 ]
 
-export const SDL_GAMES = {
+export const SDL_GAMES: Record<string, SelectiveDownload[]> = {
   Fortnite: FORTNITE_SDL,
   Ginger: CYBERPUNK_SDL,
   Lavender: LAVENDER_SDL,

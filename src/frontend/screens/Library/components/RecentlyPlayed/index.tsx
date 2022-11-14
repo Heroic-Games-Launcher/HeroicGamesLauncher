@@ -1,48 +1,66 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { getRecentGames } from 'frontend/helpers/library'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { GameInfo, GameStatus, Runner } from 'common/types'
-import { GamesList } from '../GamesList'
+import { GameInfo, RecentGame, Runner } from 'common/types'
+import GamesList from '../GamesList'
+import { configStore } from 'frontend/helpers/electronStores'
 
 interface Props {
   handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
   onlyInstalled: boolean
 }
 
-export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
+function getRecentGames(libraries: GameInfo[], limit: number): GameInfo[] {
+  const recentGames =
+    (configStore.get('games.recent', []) as Array<RecentGame>) || []
+
+  const games: GameInfo[] = []
+
+  for (const recent of recentGames) {
+    const found = libraries.find(
+      (game: GameInfo) => game.app_name === recent.appName
+    )
+    if (found) {
+      games.push(found)
+      if (games.length === limit) break
+    }
+  }
+
+  return games
+}
+
+export default React.memo(function RecentlyPlayed({
+  handleModal,
+  onlyInstalled
+}: Props) {
   const { t } = useTranslation()
   const { epic, gog, sideloadedLibrary } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
-  const loadRecentGames = () => {
-    const newRecentGames = getRecentGames([
-      ...epic.library,
-      ...gog.library,
-      ...sideloadedLibrary
-    ])
+  const loadRecentGames = async () => {
+    const { maxRecentGames } = await window.api.requestAppSettings()
+    const newRecentGames = getRecentGames(
+      [...epic.library, ...gog.library, ...sideloadedLibrary],
+      maxRecentGames
+    )
 
     setRecentGames(newRecentGames)
   }
 
   useEffect(() => {
     loadRecentGames()
-  }, [epic.library, gog.library])
 
-  const onGameStatusUpdates = async (_e: Event, { status }: GameStatus) => {
-    if (status === 'playing') {
+    const onRecentGamesUpdated = () => {
       loadRecentGames()
     }
-  }
 
-  useEffect(() => {
-    const setGameStatusRemoveListener =
-      window.api.handleSetGameStatus(onGameStatusUpdates)
+    const recentGamesChangedRemoveListener =
+      window.api.handleRecentGamesChanged(onRecentGamesUpdated)
 
     return () => {
-      setGameStatusRemoveListener()
+      recentGamesChangedRemoveListener()
     }
-  })
+  }, [epic.library, gog.library, sideloadedLibrary])
 
   if (!recentGames.length) {
     return null
@@ -56,7 +74,8 @@ export default function RecentlyPlayed({ handleModal, onlyInstalled }: Props) {
         isFirstLane
         handleGameCardClick={handleModal}
         onlyInstalled={onlyInstalled}
+        isRecent={true}
       />
     </>
   )
-}
+})

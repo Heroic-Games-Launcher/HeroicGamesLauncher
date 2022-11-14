@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext } from 'react'
 
-import { DMQueueElement, GameInfo } from 'common/types'
+import { DMQueueElement } from 'common/types'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { SvgButton } from 'frontend/components/UI'
@@ -25,14 +25,18 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
   const navigate = useNavigate()
-  const { appName, runner, path, platformToInstall } = element.params
+  const { appName, runner, path, platformToInstall, gameInfo } = element.params
   const [progress] = hasProgress(appName)
   const { status } = element
   const finished = status === 'done'
   const canceled = status === 'error' && !current
 
   const stopInstallation = async () => {
-    const { folder_name }: GameInfo = await getGameInfo(appName, runner)
+    const gameInfo = await getGameInfo(appName, runner)
+    if (!gameInfo) {
+      return
+    }
+    const folder_name = gameInfo.folder_name
 
     return handleStopInstallation(
       appName,
@@ -46,7 +50,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
 
   const goToGamePage = () => {
     return navigate(`/gamepage/${runner}/${appName}`, {
-      state: { fromDM: true }
+      state: { fromDM: true, gameInfo: gameInfo }
     })
   }
 

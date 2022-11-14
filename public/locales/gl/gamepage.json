@@ -58,6 +58,7 @@
             "remove": "Remove from Queue"
         },
         "remove_from_favourites": "Remove From Favourites",
+        "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
         "sideload": {
@@ -168,6 +169,7 @@
         "queued": "Queued",
         "reparing": "Reparando xogo, agarda",
         "totalDownloaded": "Total descargado",
+        "uninstalling": "Uninstalling",
         "updating": "Actualización do xogo"
     },
     "submenu": {

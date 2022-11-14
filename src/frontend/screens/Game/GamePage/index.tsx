@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
-import { AppSettings, GameInfo, GameStatus, Runner } from 'common/types'
+import { GameInfo, GameStatus, Runner } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
 
@@ -46,11 +46,15 @@ import {
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 
-export default function GamePage(): JSX.Element | null {
+export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
-  const location = useLocation() as { state: { fromDM: boolean } | null }
+  const location = useLocation() as {
+    state: { fromDM: boolean; gameInfo: GameInfo }
+  }
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
+
+  const { gameInfo: locationGameInfo } = location.state
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
@@ -68,8 +72,8 @@ export default function GamePage(): JSX.Element | null {
     libraryStatus.find((game) => game.appName === appName) || {}
 
   const [progress, previousProgress] = hasProgress(appName)
-  // @ts-expect-error TODO: Proper default value
-  const [gameInfo, setGameInfo] = useState<GameInfo>({})
+
+  const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
@@ -99,71 +103,80 @@ export default function GamePage(): JSX.Element | null {
   const isQueued = status === 'queued'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
+  const isUninstalling = status === 'uninstalling'
 
-  const backRoute = location.state?.fromDM ? '/download-manager' : '/'
+  const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
   const storage: Storage = window.localStorage
 
   useEffect(() => {
-    const updateConfig = async () => {
-      try {
-        const newInfo = await getGameInfo(appName, runner)
+    const updateGameInfo = async () => {
+      const newInfo = await getGameInfo(appName, runner)
+      if (newInfo) {
         setGameInfo(newInfo)
-        const { install, is_linux_native, is_mac_native } = newInfo
+      }
+    }
+    updateGameInfo()
+  }, [status, gog.library, epic.library])
 
-        const installPlatform =
-          install.platform || (is_linux_native && isLinux)
-            ? 'linux'
-            : is_mac_native && isMac
-            ? 'Mac'
-            : 'Windows'
+  useEffect(() => {
+    const updateConfig = async () => {
+      if (gameInfo) {
+        const { install, is_linux_native, is_mac_native, is_installed } =
+          gameInfo
+        if (is_installed) {
+          const installPlatform =
+            install.platform || (is_linux_native && isLinux)
+              ? 'linux'
+              : is_mac_native && isMac
+              ? 'Mac'
+              : 'Windows'
 
-        if (runner !== 'sideload') {
-          getInstallInfo(appName, runner, installPlatform)
-            .then((info) => {
-              if (!info) {
-                throw 'Cannot get game info'
+          if (runner !== 'sideload') {
+            getInstallInfo(appName, runner, installPlatform)
+              .then((info) => {
+                if (!info) {
+                  throw 'Cannot get game info'
+                }
+                setGameInstallInfo(info)
+              })
+              .catch((error) => {
+                console.error(error)
+                window.api.logError(`${`${error}`}`)
+                setHasError({ error: true, message: `${error}` })
+              })
+          }
+
+          try {
+            const {
+              autoSyncSaves,
+              savesPath,
+              gogSaves,
+              wineVersion,
+              winePrefix
+            } = await window.api.requestGameSettings(appName)
+
+            if (!isWin) {
+              let wine = wineVersion.name
+                .replace('Wine - ', '')
+                .replace('Proton - ', '')
+              if (wine.includes('Default')) {
+                wine = wine.split('-')[0]
               }
-              setGameInstallInfo(info)
-            })
-            .catch((error) => {
-              console.error(error)
-              window.api.logError(`${`${error}`}`)
-              setHasError({ error: true, message: `${error}` })
-            })
-        }
-
-        try {
-          const {
-            autoSyncSaves,
-            savesPath,
-            gogSaves,
-            wineVersion,
-            winePrefix
-          }: AppSettings = await window.api.requestSettings(appName)
-
-          if (!isWin) {
-            let wine = wineVersion.name
-              .replace('Wine - ', '')
-              .replace('Proton - ', '')
-            if (wine.includes('Default')) {
-              wine = wine.split('-')[0]
+              setWineVersion(wine)
+              setWinePrefix(winePrefix)
             }
-            setWineVersion(wine)
-            setWinePrefix(winePrefix)
-          }
 
-          if (newInfo?.cloud_save_enabled) {
-            setAutoSyncSaves(autoSyncSaves)
-            setGOGSaves(gogSaves ?? [])
-            return setSavesPath(savesPath)
+            if (gameInfo.cloud_save_enabled) {
+              setAutoSyncSaves(autoSyncSaves)
+              setGOGSaves(gogSaves ?? [])
+              return setSavesPath(savesPath)
+            }
+          } catch (error) {
+            setHasError({ error: true, message: error })
+            window.api.logError(`${error}`)
           }
-        } catch (error) {
-          setHasError({ error: true, message: error })
-          window.api.logError(`${error}`)
         }
-      } catch (error) {
-        setHasError({ error: true, message: error })
       }
     }
     updateConfig()
@@ -223,9 +236,7 @@ export default function GamePage(): JSX.Element | null {
     const isMacNative = isMac.includes(installPlatform ?? '')
     const isLinuxNative = installPlatform === 'linux'
     const isNative = isWin || isMacNative || isLinuxNative
-    const pathname = isNative
-      ? `/settings/${runner}/${appName}/other`
-      : `/settings/${runner}/${appName}/wine`
+    const pathname = `/settings/${runner}/${appName}/games_settings`
 
     const showCloudSaveInfo = cloud_save_enabled && !isLinuxNative
     /*
@@ -390,6 +401,16 @@ export default function GamePage(): JSX.Element | null {
               </div>
               <TimeContainer game={appName} />
               <div className="gameStatus">
+                {isUninstalling && (
+                  <p
+                    style={{
+                      color: 'var(--danger)',
+                      fontStyle: 'italic'
+                    }}
+                  >
+                    {t('status.uninstalling', 'Uninstalling')}
+                  </p>
+                )}
                 {isInstalling ||
                   (isUpdating && (
                     <progress
@@ -427,15 +448,16 @@ export default function GamePage(): JSX.Element | null {
               <Anticheat gameInfo={gameInfo} />
               <div className="buttonsWrapper">
                 {is_installed && (
-                  <>
-                    <button
-                      disabled={isReparing || isMoving || isUpdating}
-                      onClick={handlePlay()}
-                      className={`button ${getPlayBtnClass()}`}
-                    >
-                      {getPlayLabel()}
-                    </button>
-                  </>
+                  <button
+                    disabled={
+                      isReparing || isMoving || isUpdating || isUninstalling
+                    }
+                    autoFocus={true}
+                    onClick={handlePlay()}
+                    className={`button ${getPlayBtnClass()}`}
+                  >
+                    {getPlayLabel()}
+                  </button>
                 )}
                 {is_installed ? (
                   <Link
@@ -445,7 +467,8 @@ export default function GamePage(): JSX.Element | null {
                       runner,
                       isLinuxNative: isNative,
                       isMacNative: isNative,
-                      hasCloudSave: cloud_save_enabled
+                      hasCloudSave: cloud_save_enabled,
+                      gameInfo
                     }}
                     className={`button ${getButtonClass(is_installed)}`}
                   >
@@ -454,7 +477,14 @@ export default function GamePage(): JSX.Element | null {
                 ) : (
                   <button
                     onClick={async () => handleInstall(is_installed)}
-                    disabled={isPlaying || isUpdating || isReparing || isMoving}
+                    disabled={
+                      isPlaying ||
+                      isUpdating ||
+                      isReparing ||
+                      isMoving ||
+                      isUninstalling
+                    }
+                    autoFocus={true}
                     className={`button ${getButtonClass(is_installed)}`}
                   >
                     {`${getButtonLabel(is_installed)}`}
@@ -469,7 +499,8 @@ export default function GamePage(): JSX.Element | null {
                     runner,
                     isLinuxNative: isNative,
                     isMacNative: isNative,
-                    hasCloudSave: cloud_save_enabled
+                    hasCloudSave: cloud_save_enabled,
+                    gameInfo
                   }}
                   className="clickable reportProblem"
                 >
@@ -666,15 +697,14 @@ export default function GamePage(): JSX.Element | null {
     }
 
     return install({
-      appName,
+      gameInfo,
       handleGameStatus,
       installPath: folder,
       isInstalling,
       previousProgress,
       progress,
       t,
-      runner: gameInfo.runner,
       showDialogModal: showDialogModal
     })
   }
-}
+})
