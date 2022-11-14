@@ -475,7 +475,9 @@
             "sync": "مزامنة المحفوظات",
             "log": "سجل",
             "advanced": "أعدادات متقدمة",
-            "wineExt": "ملحقات النبيذ"
+            "wineExt": "ملحقات النبيذ",
+            "games_settings": "إعدادات اللعبة",
+            "games_settings_defaults": "افتراضات اللعبة"
         },
         "copyToClipboard": "نسخ جميع الإعدادات إلى الحافظة",
         "log": {
@@ -503,7 +505,8 @@
         "battlEyeRuntime": {
             "installing": "جارٍ تثبيت BattlEye Runtime ...",
             "name": "لعبة BattlEye AntiCheat Runtime"
-        }
+        },
+        "default_hint": "التغييرات في هذا القسم تنطبق فقط كقيم افتراضية عند تثبيت الألعاب. إذا كنت تريد تغيير إعدادات لعبة مثبتة بالفعل ، فاستخدم زر الإعدادات في صفحة اللعبة."
     },
     "title": {
         "allUnreal": "Unreal - كل شيء",
@@ -633,7 +636,10 @@
             "install_game": "تثبيت اللعبة",
             "move_cursor": "حرك المؤشر",
             "none": "لا أحد",
-            "open_virtual_keyboard": "افتح لوحة المفاتيح الافتراضية"
+            "open_virtual_keyboard": "افتح لوحة المفاتيح الافتراضية",
+            "close_options": "إغلاق الخيارات",
+            "options": "خيارات",
+            "select": "اختر"
         }
     },
     "GameSettings": "إعدادات اللعبة",

@@ -156,7 +156,7 @@
             "backspace": "Backspace",
             "close_dialog": "Tanca el diàleg",
             "close_keyboard": "Tanca el teclat virtual",
-            "close_options": "Close Options",
+            "close_options": "Opcions de tancament",
             "game_details": "Detalls del joc",
             "game_settings": "Configuració del joc",
             "install_game": "Instal·la el joc",
@@ -165,7 +165,7 @@
             "options": "Options",
             "play_game": "Juga al joc",
             "scroll": "Scroll",
-            "select": "Select",
+            "select": "Tria",
             "space": "Espai",
             "update_game": "Actualitza el joc"
         }
@@ -528,7 +528,7 @@
         "clear-cache": "Esborra la memòria cau de l'Heroic",
         "copiedToClipboard": "S'ha copiat al porta-retalls.",
         "copyToClipboard": "Copia tota la configuració al porta-retalls",
-        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
+        "default_hint": "Els canvis en aquesta secció només s'apliquen als valors per defecte quan s'instal·li un joc. Si voleu canviar la configuració d'un joc que ja s'hagi instal·lat, feu servir el botó de configuració de la pàgina del joc.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "Es necessita el GameMode per tal que el EAC funcioni en Flatpak. Voleu activar-lo?",
@@ -548,8 +548,8 @@
         },
         "navbar": {
             "advanced": "Avançat",
-            "games_settings": "Game Settings",
-            "games_settings_defaults": "Game Defaults",
+            "games_settings": "Configuració del joc",
+            "games_settings_defaults": "Valors per defecte",
             "general": "General",
             "log": "Registre",
             "other": "Altres",

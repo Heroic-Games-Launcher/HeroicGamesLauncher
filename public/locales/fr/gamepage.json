@@ -76,12 +76,12 @@
     "enabled": "Activé",
     "game": {
         "downloadSize": "Taille du téléchargement",
-        "firstPlayed": "Joué pour la première fois",
+        "firstPlayed": "Lancé pour la première fois le",
         "getting-download-size": "Récupération de la taille du téléchargement",
         "getting-install-size": "Récupération de la taille de l'installation",
         "installSize": "Taille de l'installation",
         "language": "Langue",
-        "lastPlayed": "Joué en dernier",
+        "lastPlayed": "Dernière session le",
         "neverPlayed": "Jamais",
         "platform": "Sélectionner la version de la plateforme à installer",
         "requirements": "Configuration requise",
@@ -96,7 +96,7 @@
     },
     "info": {
         "canRunOffline": "Connexion à internet requise",
-        "installedPlatform": "Système d'exploitation",
+        "installedPlatform": "Système",
         "path": "Chemin d'installation",
         "size": "Taille",
         "syncsaves": "Synchroniser les sauvegardes",

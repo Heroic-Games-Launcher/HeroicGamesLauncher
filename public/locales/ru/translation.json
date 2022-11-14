@@ -53,7 +53,7 @@
                 "title": "Ошибка DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "Папка игры, похоже, удалена. Хотите удалить игру из списка установленных?"
+                "title": "Папка игры, похоже, удалена. Убрать игру из списка установленных?"
             },
             "generic": {
                 "message": "",
@@ -82,9 +82,9 @@
         "info": {
             "update": {
                 "changelog": "Открыть список изменений",
-                "detail": "Хотите загрузить обновление в фоновом режиме?",
+                "detail": "Загрузить обновление в фоновом режиме?",
                 "message": "Доступна новая версия!",
-                "message-finished": "Хотите перезапустить Heroic сейчас?",
+                "message-finished": "Перезапустить Heroic сейчас?",
                 "title": "Heroic Games Launcher",
                 "title-finished": "Обновление завершено"
             }
@@ -156,7 +156,7 @@
             "backspace": "Backspace",
             "close_dialog": "Закрыть диалог",
             "close_keyboard": "Закрыть клавиатуру",
-            "close_options": "Close Options",
+            "close_options": "Закрыть параметры",
             "game_details": "Детали игры",
             "game_settings": "Настройки игры",
             "install_game": "Установить игру",
@@ -165,7 +165,7 @@
             "options": "Options",
             "play_game": "Играть",
             "scroll": "Scroll",
-            "select": "Select",
+            "select": "Выбрать",
             "space": "Пробел",
             "update_game": "Обновить игру"
         }
@@ -174,14 +174,14 @@
     "download": {
         "manager": {
             "empty": "Нечего скачивать.",
-            "link": "Download Manager",
+            "link": "Менеджер загрузок",
             "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
+                "actions": "Действие",
+                "element": "Название",
+                "platform": "Платформа",
                 "store": "Магазин"
             },
-            "title": "Downloads"
+            "title": "Загрузки"
         }
     },
     "epic": {
@@ -189,7 +189,7 @@
         "offline-notification-title": "офлайн"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": "Ошибка",
     "favourites": "Избранное",
     "game": {
         "status": "Состояние",
@@ -392,7 +392,7 @@
         "legendary-version": "Версия Legendary: ",
         "weblate": "Помогите перевести Heroic."
     },
-    "Other": "Other",
+    "Other": "Другое",
     "placeholder": {
         "alt-gogdl-bin": "Используется встроенный GOGDL...",
         "alt-legendary-bin": "Используется встроенный Legendary...",
@@ -405,7 +405,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "progress": "Progress",
+    "progress": "Прогресс",
     "queue": {
         "label": {
             "clear": "Очистить список",
@@ -452,7 +452,7 @@
             "installing": "Оверлей EOS устанавливается...",
             "latestVersion": "Последняя версия: {{version}}",
             "notInstalled": "Оверлей EOS не установлен",
-            "notInstalledMsg": "Оверлей EOS не установлен. Хотите установить его сейчас?",
+            "notInstalledMsg": "Оверлей EOS не установлен. Установить его сейчас?",
             "notInstalledTitle": "Оверлей не установлен",
             "remove": "Удалить",
             "removeConfirm": "Вы уверены, что хотите удалить оверлей EOS?",
@@ -528,10 +528,10 @@
         "clear-cache": "Очистить кэш Heroic",
         "copiedToClipboard": "Скопировано в буфер обмена!",
         "copyToClipboard": "Скопировать все настройки в буфер обмена",
-        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
+        "default_hint": "Изменения в этом разделе применяются в качестве значений по умолчанию только при установке игр. Если вы хотите изменить настройки уже установленной игры, воспользуйтесь кнопкой Настройки на странице этой игры.",
         "eacRuntime": {
             "gameModeRequired": {
-                "message": "GameMode необходим для того, чтобы среда выполнения EAC работала на Flatpak. Хотите включить его сейчас?",
+                "message": "GameMode необходим для того, чтобы среда выполнения EAC работала на Flatpak. Включить его сейчас?",
                 "title": "Требуется GameMode"
             },
             "installing": "Установка среды выполнения EAC...",
@@ -539,7 +539,7 @@
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "Включена среда выполнения EAC, которая не будет работать правильно без GameMode. Хотите отключить среду выполнения EAC и GameMode?",
+                "message": "Включена среда выполнения EAC, которая не будет работать правильно без GameMode. Отключить среду выполнения EAC и GameMode?",
                 "title": "Среда выполнения EAC включена"
             }
         },
@@ -547,9 +547,9 @@
             "long-log-hint": "Журнал урезан, показаны последние 1000 строк!"
         },
         "navbar": {
-            "advanced": "Продвинутые",
-            "games_settings": "Game Settings",
-            "games_settings_defaults": "Game Defaults",
+            "advanced": "Расширенные",
+            "games_settings": "Настройки игры",
+            "games_settings_defaults": "Настройки игры по умолчанию",
             "general": "Основные",
             "log": "Журнал",
             "other": "Другие",
