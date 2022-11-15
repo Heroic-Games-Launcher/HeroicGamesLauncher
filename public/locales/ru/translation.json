@@ -178,7 +178,10 @@
             "queue": {
                 "actions": "Действие",
                 "element": "Название",
+                "end-time": "Finished at",
                 "platform": "Платформа",
+                "queue-time": "Added at",
+                "start-time": "Started at",
                 "store": "Магазин",
                 "type": "Type"
             },

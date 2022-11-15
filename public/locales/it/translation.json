@@ -178,7 +178,10 @@
             "queue": {
                 "actions": "Action",
                 "element": "Nome",
+                "end-time": "Finished at",
                 "platform": "Piattaforma",
+                "queue-time": "Added at",
+                "start-time": "Started at",
                 "store": "Store",
                 "type": "Type"
             },
