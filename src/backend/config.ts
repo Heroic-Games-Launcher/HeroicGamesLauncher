@@ -490,6 +490,7 @@ class GlobalConfigV0 extends GlobalConfig {
       checkForUpdatesOnStartup: !isFlatpak,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
+      libraryTopSection: 'disabled',
       defaultSteamPath: getSteamCompatFolder(),
       defaultWinePrefix: heroicDefaultWinePrefix,
       language: 'en',

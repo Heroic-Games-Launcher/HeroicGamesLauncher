@@ -33,7 +33,7 @@
         },
         "uninstall": {
             "checkbox": "Supprimer le préfixe : {{prefix}}{{newLine}}Note : cela ne peut pas être annulé et supprimera également les fichiers de sauvegarde non sauvegardés.",
-            "message": "Voulez-vous désinstaller ce jeu ?",
+            "message": "Voulez-vous désinstaller ce jeu?",
             "title": "Désinstaller"
         },
         "update": {
@@ -139,6 +139,9 @@
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {
         "title": "Sélectionnez les composants à installer"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {

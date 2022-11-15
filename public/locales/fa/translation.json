@@ -539,7 +539,7 @@
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "ران تایم EAC که بدون GameMode به درستی کار نمی کند،\u200c فعال شده است. آیا می خواهید ران تایم EAC و GameMode را غیرفعال کنید؟",
+                "message": "ران تایم EAC که بدون GameMode به درستی کار نمی کند، فعال شده است. آیا می خواهید ران تایم EAC و GameMode را غیرفعال کنید؟",
                 "title": "ران تایم EAC فعال شد"
             }
         },

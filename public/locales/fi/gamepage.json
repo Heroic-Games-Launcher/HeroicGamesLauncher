@@ -140,6 +140,9 @@
     "sdl": {
         "title": "Valitse asennettavat komponentit"
     },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
+    },
     "sideload": {
         "field": {
             "title": "Title"

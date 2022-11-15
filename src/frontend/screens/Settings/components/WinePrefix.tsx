@@ -6,15 +6,13 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import { configStore } from 'frontend/helpers/electronStores'
 import { InfoBox, TextInputWithIconField } from 'frontend/components/UI'
-import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 
 const WinePrefix = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isDefault } = useContext(SettingsContext)
   const isLinux = platform === 'linux'
 
-  if (isDefault || !isLinux) {
+  if (!isLinux) {
     return <></>
   }
 
