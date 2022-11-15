@@ -430,7 +430,8 @@ const GameCard = ({
                           runner,
                           hasCloudSave,
                           isLinuxNative,
-                          isMacNative
+                          isMacNative,
+                          gameInfo
                         }
                       })
                     }
