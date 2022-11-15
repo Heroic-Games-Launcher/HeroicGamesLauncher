@@ -6,6 +6,7 @@ export default function GameListHeader() {
   return (
     <div className="gameListHeader">
       <span>{t('download.manager.queue.element', 'Name')}</span>
+      <span>{t('download.manager.queue.type', 'Type')}</span>
       <span>{t('download.manager.queue.store', 'Store')}</span>
       <span>{t('download.manager.queue.platform', 'Platform')}</span>
       <span>{t('download.manager.queue.actions', 'Action')}</span>

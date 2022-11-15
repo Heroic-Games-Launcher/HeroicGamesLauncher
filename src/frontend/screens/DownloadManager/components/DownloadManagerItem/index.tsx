@@ -122,6 +122,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
         {title}
         {canceled ? ` (${t('queue.label.canceled', 'Download Canceled')})` : ''}
       </span>
+      <span style={{ textTransform: 'capitalize' }}>{element.type}</span>
       <span>{getStoreName(runner, t2('Other'))}</span>
       <span>{platformToInstall}</span>
       <span className="icons">
