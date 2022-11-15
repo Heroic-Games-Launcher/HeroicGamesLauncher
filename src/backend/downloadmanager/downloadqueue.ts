@@ -59,10 +59,17 @@ async function initQueue() {
   queueState = element ? 'running' : 'idle'
 
   while (element) {
+    const queuedElements = downloadManager.get('queue') as DMQueueElement[]
+    window.webContents.send('changedDMQueueInformation', queuedElements)
+    element.startTime = Date.now()
+    queuedElements[0] = element
+    downloadManager.set('queue', queuedElements)
+
     const { status } =
       element.type === 'install'
         ? await installQueueElement(window, element.params)
         : await updateQueueElement(window, element.params)
+    element.endTime = Date.now()
     addToFinished(element, status)
     removeFromQueue(element.params.appName)
     element = getFirstQueueElement()

@@ -551,6 +551,9 @@ export interface UpdateParams {
 export interface DMQueueElement {
   type: 'update' | 'install'
   params: InstallParams
+  addToQueueTime: number
+  startTime: number
+  endTime: number
   status?: 'done' | 'error' | 'abort'
 }
 

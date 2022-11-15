@@ -8,7 +8,10 @@ import {
 export const install = async (args: InstallParams) => {
   const dmQueueElement: DMQueueElement = {
     params: args,
-    type: 'install'
+    type: 'install',
+    addToQueueTime: Date.now(),
+    endTime: 0,
+    startTime: 0
   }
   ipcRenderer.send('addToDMQueue', dmQueueElement)
 }
@@ -22,7 +25,10 @@ export const updateGame = (args: UpdateParams) => {
 
   const dmQueueElement: DMQueueElement = {
     params: { ...args, path: install_path!, platformToInstall: platform! },
-    type: 'update'
+    type: 'update',
+    addToQueueTime: Date.now(),
+    endTime: 0,
+    startTime: 0
   }
 
   ipcRenderer.send('addToDMQueue', dmQueueElement)
