@@ -114,6 +114,8 @@ function addToQueue(element: DMQueueElement) {
 }
 
 function removeFromQueue(appName: string) {
+  const mainWindow = getMainWindow()
+
   if (appName && downloadManager.has('queue')) {
     let elements: DMQueueElement[] = []
     elements = downloadManager.get('queue') as DMQueueElement[]
@@ -125,6 +127,11 @@ function removeFromQueue(appName: string) {
       downloadManager.delete('queue')
       downloadManager.set('queue', elements)
     }
+
+    mainWindow.webContents.send('setGameStatus', {
+      appName,
+      status: 'done'
+    })
 
     logInfo([appName, 'removed from download manager.'], {
       prefix: LogPrefix.DownloadManager

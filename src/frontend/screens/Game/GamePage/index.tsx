@@ -459,23 +459,22 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     {t('submenu.settings')}
                   </Link>
                 )}
-                {!is_installed ||
-                  (isQueued && (
-                    <button
-                      onClick={async () => handleInstall(is_installed)}
-                      disabled={
-                        isPlaying ||
-                        isUpdating ||
-                        isReparing ||
-                        isMoving ||
-                        isUninstalling
-                      }
-                      autoFocus={true}
-                      className={`button ${getButtonClass(is_installed)}`}
-                    >
-                      {`${getButtonLabel(is_installed)}`}
-                    </button>
-                  ))}
+                {(!is_installed || isQueued) && (
+                  <button
+                    onClick={async () => handleInstall(is_installed)}
+                    disabled={
+                      isPlaying ||
+                      isUpdating ||
+                      isReparing ||
+                      isMoving ||
+                      isUninstalling
+                    }
+                    autoFocus={true}
+                    className={`button ${getButtonClass(is_installed)}`}
+                  >
+                    {`${getButtonLabel(is_installed)}`}
+                  </button>
+                )}
               </div>
               {is_installed && (
                 <NavLink
