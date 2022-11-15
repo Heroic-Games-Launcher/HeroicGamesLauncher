@@ -182,7 +182,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }, [isInstalling, isPlaying, appName, epic.library, gog.library])
 
   function handleUpdate() {
-    return updateGame({ appName, runner, gameInfo })
+    updateGame({ appName, runner, gameInfo })
   }
 
   function handleModal() {
@@ -450,7 +450,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     {getPlayLabel()}
                   </button>
                 )}
-                {is_installed ? (
+                {is_installed && !isQueued && (
                   <Link
                     to={pathname}
                     state={{
@@ -465,22 +465,24 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   >
                     {`${getButtonLabel(is_installed)}`}
                   </Link>
-                ) : (
-                  <button
-                    onClick={async () => handleInstall(is_installed)}
-                    disabled={
-                      isPlaying ||
-                      isUpdating ||
-                      isReparing ||
-                      isMoving ||
-                      isUninstalling
-                    }
-                    autoFocus={true}
-                    className={`button ${getButtonClass(is_installed)}`}
-                  >
-                    {`${getButtonLabel(is_installed)}`}
-                  </button>
                 )}
+                {!is_installed ||
+                  (isQueued && (
+                    <button
+                      onClick={async () => handleInstall(is_installed)}
+                      disabled={
+                        isPlaying ||
+                        isUpdating ||
+                        isReparing ||
+                        isMoving ||
+                        isUninstalling
+                      }
+                      autoFocus={true}
+                      className={`button ${getButtonClass(is_installed)}`}
+                    >
+                      {`${getButtonLabel(is_installed)}`}
+                    </button>
+                  ))}
               </div>
               {is_installed && (
                 <NavLink
@@ -617,11 +619,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }
 
   function getButtonLabel(is_installed: boolean) {
-    if (is_installed) {
-      return t('submenu.settings')
-    }
     if (isQueued) {
       return t('button.queue.remove', 'Remove from Queue')
+    }
+    if (is_installed) {
+      return t('submenu.settings')
     }
     if (isInstalling) {
       return t('button.cancel')

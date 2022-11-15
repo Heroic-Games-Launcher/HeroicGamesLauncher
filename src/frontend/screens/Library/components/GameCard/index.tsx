@@ -126,6 +126,9 @@ const GameCard = ({
   }
 
   function getStatus() {
+    if (isQueued) {
+      return `${t('status.queued', 'Queued')}`
+    }
     if (isUninstalling) {
       return t('status.uninstalling', 'Uninstalling')
     }
@@ -143,9 +146,6 @@ const GameCard = ({
     }
     if (isInstalled) {
       return `${t('status.installed')} ${runner === 'sideload' ? '' : size}`
-    }
-    if (isQueued) {
-      return `${t('status.queued', 'Queued')}`
     }
 
     return t('status.notinstalled')
