@@ -23,7 +23,7 @@
 
 .downloadManagerListItem {
   display: grid;
-  grid-template-columns: 3fr 2fr 1fr 1fr 10%;
+  grid-template-columns: 2fr 1fr 1fr 1fr 10%;
   grid-template-areas: 'name store platform action';
   margin: 0 var(--space-xl-fixed);
   align-items: center;
