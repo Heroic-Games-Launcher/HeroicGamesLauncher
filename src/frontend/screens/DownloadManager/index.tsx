@@ -97,7 +97,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                 {t('queue.label.downloading', 'Downloading')}
               </h5>
               <div className="dmItemList">
-                <DownloadManagerHeader />
+                <DownloadManagerHeader time="started" />
                 <DownloadManagerItem element={currentElement} current={true} />
               </div>
               {!!plannendElements.length && (
@@ -106,7 +106,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                     {t('queue.label.queued', 'Queued')}
                   </h5>
                   <div className="dmItemList">
-                    <DownloadManagerHeader />
+                    <DownloadManagerHeader time="queued" />
                     {plannendElements.map((el, key) => (
                       <DownloadManagerItem
                         key={key}
@@ -136,7 +136,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
               </h5>
             </span>
             <div className="dmItemList">
-              <DownloadManagerHeader />
+              <DownloadManagerHeader time="finished" />
               {doneElements.map((el, key) => (
                 <DownloadManagerItem key={key} element={el} current={false} />
               ))}

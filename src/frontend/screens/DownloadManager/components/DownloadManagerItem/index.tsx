@@ -19,13 +19,24 @@ type Props = {
   current: boolean
 }
 
+const options: Intl.DateTimeFormatOptions = {
+  hour: 'numeric',
+  minute: 'numeric'
+}
+
+function convertToTime(time: number) {
+  const date = new Date(time)
+  return new Intl.DateTimeFormat(undefined, options).format(date)
+}
+
 const DownloadManagerItem = ({ element, current }: Props) => {
   const { epic, gog, showDialogModal } = useContext(ContextProvider)
   const library = [...epic.library, ...gog.library]
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
   const navigate = useNavigate()
-  const { appName, runner, path, platformToInstall, gameInfo } = element.params
+  const { params, addToQueueTime, endTime, type, startTime } = element
+  const { appName, runner, path, platformToInstall, gameInfo } = params
   const [progress] = hasProgress(appName)
   const { status } = element
   const finished = status === 'done'
@@ -80,6 +91,16 @@ const DownloadManagerItem = ({ element, current }: Props) => {
     )
   }
 
+  const getTime = () => {
+    if (finished) {
+      return convertToTime(endTime)
+    }
+    if (current) {
+      return convertToTime(startTime)
+    }
+    return convertToTime(addToQueueTime)
+  }
+
   const mainIconTitle = () => {
     const { status } = element
     if (status === 'done' || status === 'error') {
@@ -122,7 +143,8 @@ const DownloadManagerItem = ({ element, current }: Props) => {
         {title}
         {canceled ? ` (${t('queue.label.canceled', 'Download Canceled')})` : ''}
       </span>
-      <span style={{ textTransform: 'capitalize' }}>{element.type}</span>
+      <span>{getTime()}</span>
+      <span style={{ textTransform: 'capitalize' }}>{type}</span>
       <span>{getStoreName(runner, t2('Other'))}</span>
       <span>{platformToInstall}</span>
       <span className="icons">

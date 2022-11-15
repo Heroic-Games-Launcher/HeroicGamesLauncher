@@ -1,6 +1,6 @@
 .gameListHeader {
   padding-top: 1.5em;
-  grid-template-columns: 2fr 1fr 1fr 1fr 10%;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 10%;
 }
 
 .downloadManager
