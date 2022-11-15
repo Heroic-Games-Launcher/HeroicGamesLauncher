@@ -179,7 +179,8 @@
                 "actions": "Action",
                 "element": "Name",
                 "platform": "Platform",
-                "store": "商店"
+                "store": "商店",
+                "type": "Type"
             },
             "title": "Downloads"
         }

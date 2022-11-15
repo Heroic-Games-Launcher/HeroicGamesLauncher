@@ -179,7 +179,8 @@
                 "actions": "Acción",
                 "element": "Nombre",
                 "platform": "Plataforma",
-                "store": "Tienda"
+                "store": "Tienda",
+                "type": "Type"
             },
             "title": "Descargas"
         }

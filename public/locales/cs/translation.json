@@ -179,7 +179,8 @@
                 "actions": "Action",
                 "element": "Name",
                 "platform": "Platform",
-                "store": "Obchod"
+                "store": "Obchod",
+                "type": "Type"
             },
             "title": "Downloads"
         }

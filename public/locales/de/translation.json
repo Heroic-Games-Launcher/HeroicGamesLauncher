@@ -179,7 +179,8 @@
                 "actions": "Aktion",
                 "element": "Name",
                 "platform": "Plattform",
-                "store": "Store"
+                "store": "Store",
+                "type": "Type"
             },
             "title": "Downloads"
         }

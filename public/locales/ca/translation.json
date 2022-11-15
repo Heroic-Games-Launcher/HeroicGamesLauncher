@@ -179,7 +179,8 @@
                 "actions": "Action",
                 "element": "Name",
                 "platform": "Platform",
-                "store": "Botiga"
+                "store": "Botiga",
+                "type": "Type"
             },
             "title": "Downloads"
         }
