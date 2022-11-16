@@ -4,10 +4,14 @@ import React, { useContext, useEffect } from 'react'
 
 import { DMQueueElement } from 'common/types'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import { handleStopInstallation } from 'frontend/helpers/library'
-import { getGameInfo, getInstallInfo, size } from 'frontend/helpers'
+import {
+  getGameInfo,
+  getInstallInfo,
+  getStoreName,
+  size
+} from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -36,6 +40,8 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const { epic, gog, showDialogModal } = useContext(ContextProvider)
   const library = [...epic.library, ...gog.library]
   const { t } = useTranslation('gamepage')
+  const { t: t2 } = useTranslation()
+
   const navigate = useNavigate()
 
   const { params, addToQueueTime, endTime, type, startTime } = element
@@ -53,7 +59,6 @@ const DownloadManagerItem = ({ element, current }: Props) => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { platformToInstall } = params
       const info = await getInstallInfo(appName, runner, platformToInstall)
       if (info) {
         setInstallInfo(info)
@@ -120,11 +125,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
       )
     }
 
-    return current ? (
-      <StopIcon />
-    ) : (
-      <RemoveCircleIcon style={{ color: 'var(--accent)' }} fontSize="large" />
-    )
+    return <StopIcon />
   }
 
   const getTime = () => {
@@ -190,7 +191,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
       </span>
       <span>{getTime()}</span>
       <span style={{ textTransform: 'capitalize' }}>{type}</span>
-      <span>{platformToInstall}</span>
+      <span>{getStoreName(runner, t2('Other'))}</span>
       <span className="icons">
         {
           <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
