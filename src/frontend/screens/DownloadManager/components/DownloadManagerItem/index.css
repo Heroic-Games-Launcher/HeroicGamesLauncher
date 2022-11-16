@@ -35,12 +35,23 @@
   padding: 1rem 0;
 }
 
+.downloadManagerListItem:hover {
+  background-color: var(--background-hover);
+}
+
 .downloadManagerTitleList {
   grid-area: name;
   font-size: 1em;
   font-weight: bold;
   text-transform: capitalize;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.downloadManagerTitleList > img {
+  width: var(--space-2xl-fixed);
+  margin-right: var(--space-md-fixed);
 }
 
 .downloadManagerListItem > a {
