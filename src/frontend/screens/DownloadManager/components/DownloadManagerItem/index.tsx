@@ -1,18 +1,20 @@
 import './index.css'
 
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import { DMQueueElement } from 'common/types'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
-import { SvgButton } from 'frontend/components/UI'
-import { handleStopInstallation } from 'frontend/helpers/library'
-import { getGameInfo, getStoreName } from 'frontend/helpers'
+import { CachedImage, SvgButton } from 'frontend/components/UI'
+import { handleStopInstallation, launch } from 'frontend/helpers/library'
+import { getGameInfo, getInstallInfo, size } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
-import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import { useNavigate } from 'react-router-dom'
+import { LegendaryInstallInfo } from 'common/types/legendary'
+import { GogInstallInfo } from 'common/types/gog'
+import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 
 type Props = {
   element: DMQueueElement
@@ -33,14 +35,31 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const { epic, gog, showDialogModal } = useContext(ContextProvider)
   const library = [...epic.library, ...gog.library]
   const { t } = useTranslation('gamepage')
-  const { t: t2 } = useTranslation()
   const navigate = useNavigate()
+
   const { params, addToQueueTime, endTime, type, startTime } = element
   const { appName, runner, path, platformToInstall, gameInfo } = params
+  const { art_cover, art_square } = gameInfo
+
+  const [installInfo, setInstallInfo] = React.useState<
+    Partial<LegendaryInstallInfo | GogInstallInfo>
+  >({})
+
   const [progress] = hasProgress(appName)
   const { status } = element
   const finished = status === 'done'
   const canceled = status === 'error' && !current
+
+  useEffect(() => {
+    const getInfo = async () => {
+      const { platformToInstall } = params
+      const info = await getInstallInfo(appName, runner, platformToInstall)
+      if (info) {
+        setInstallInfo(info)
+      }
+    }
+    getInfo()
+  }, [appName])
 
   const stopInstallation = async () => {
     const gameInfo = await getGameInfo(appName, runner)
@@ -69,18 +88,22 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   // lose focus from the button when using a game controller
   const handleMainActionClick = () => {
     if (finished) {
-      return goToGamePage()
+      return
     }
 
     current ? stopInstallation() : window.api.removeFromDMQueue(appName)
   }
 
   const mainActionIcon = () => {
-    if (finished || canceled) {
+    if (finished) {
       return (
-        <div className="iconsWrapper">
-          <OpenInNewIcon titleAccess={t('Open')} />
-        </div>
+        <SvgButton
+          className="playIcon"
+          onClick={async () => handlePlay()}
+          title={`${t('label.playing.start')} (${title})`}
+        >
+          <PlayIcon />
+        </SvgButton>
       )
     }
 
@@ -99,6 +122,10 @@ const DownloadManagerItem = ({ element, current }: Props) => {
       return convertToTime(startTime)
     }
     return convertToTime(addToQueueTime)
+  }
+
+  async function handlePlay() {
+    return launch({ appName, t, runner, hasUpdate: false, showDialogModal })
   }
 
   const mainIconTitle = () => {
@@ -131,6 +158,9 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   }
 
   const { title } = currentApp
+  const downloadSize =
+    installInfo?.manifest?.download_size &&
+    size(Number(installInfo?.manifest?.download_size))
 
   return (
     <div className="downloadManagerListItem">
@@ -140,12 +170,13 @@ const DownloadManagerItem = ({ element, current }: Props) => {
         className="downloadManagerTitleList"
         style={{ color: getStatusColor() }}
       >
+        <CachedImage src={art_cover ?? art_square} alt={title} />
         {title}
         {canceled ? ` (${t('queue.label.canceled', 'Download Canceled')})` : ''}
       </span>
       <span>{getTime()}</span>
       <span style={{ textTransform: 'capitalize' }}>{type}</span>
-      <span>{getStoreName(runner, t2('Other'))}</span>
+      <span title={path}>{downloadSize ?? ''}</span>
       <span>{platformToInstall}</span>
       <span className="icons">
         {
@@ -157,4 +188,5 @@ const DownloadManagerItem = ({ element, current }: Props) => {
     </div>
   )
 }
-export default DownloadManagerItem
+
+export default React.memo(DownloadManagerItem)
