@@ -24,7 +24,7 @@ export default function GameListHeader({ time }: Props) {
       <span>{t('download.manager.queue.element', 'Name')}</span>
       <span>{getTimeLabel()}</span>
       <span>{t('download.manager.queue.type', 'Type')}</span>
-      <span>{t('download.manager.queue.store', 'Store')}</span>
+      <span>{t('download.manager.queue.size', 'Size')}</span>
       <span>{t('download.manager.queue.platform', 'Platform')}</span>
       <span>{t('download.manager.queue.actions', 'Action')}</span>
     </div>
