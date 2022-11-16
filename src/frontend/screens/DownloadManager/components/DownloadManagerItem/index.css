@@ -25,7 +25,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 10%;
   grid-template-areas: 'name store platform action';
-  margin: 0 var(--space-xl-fixed);
+  margin: 0 var(--space-sm-fixed);
   align-items: center;
   justify-items: baseline;
   position: relative;

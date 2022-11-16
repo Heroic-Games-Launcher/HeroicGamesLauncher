@@ -32,7 +32,7 @@ const options: Intl.DateTimeFormatOptions = {
 }
 
 function convertToTime(time: number) {
-  const date = new Date(time)
+  const date = time ? new Date(time) : new Date()
   return new Intl.DateTimeFormat(undefined, options).format(date)
 }
 
@@ -93,8 +93,8 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   // using one element for the different states so it doesn't
   // lose focus from the button when using a game controller
   const handleMainActionClick = () => {
-    if (finished) {
-      return
+    if (finished || canceled) {
+      return goToGamePage()
     }
 
     current ? stopInstallation() : window.api.removeFromDMQueue(appName)
@@ -102,27 +102,11 @@ const DownloadManagerItem = ({ element, current }: Props) => {
 
   const mainActionIcon = () => {
     if (finished) {
-      return (
-        <SvgButton
-          className="playIcon"
-          onClick={() => goToGamePage()}
-          title={`${t('label.playing.start')} (${title})`}
-        >
-          <PlayIcon />
-        </SvgButton>
-      )
+      return <PlayIcon />
     }
 
     if (canceled) {
-      return (
-        <SvgButton
-          className="downIcon"
-          onClick={() => goToGamePage()}
-          title={`${t('button.install')} (${title})`}
-        >
-          <DownIcon />
-        </SvgButton>
-      )
+      return <DownIcon />
     }
 
     return <StopIcon />
