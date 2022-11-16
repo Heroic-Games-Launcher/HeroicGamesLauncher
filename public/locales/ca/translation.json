@@ -176,13 +176,9 @@
             "empty": "No hi ha res per a descarregar.",
             "link": "Download Manager",
             "queue": {
-                "actions": "Action",
-                "element": "Name",
                 "end-time": "Finished at",
-                "platform": "Platform",
                 "queue-time": "Added at",
                 "start-time": "Started at",
-                "store": "Botiga",
                 "type": "Type"
             },
             "title": "Downloads"

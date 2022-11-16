@@ -176,13 +176,9 @@
             "empty": "Nada para baixar",
             "link": "Download Manager",
             "queue": {
-                "actions": "Action",
-                "element": "Name",
                 "end-time": "Finished at",
-                "platform": "Platform",
                 "queue-time": "Added at",
                 "start-time": "Started at",
-                "store": "Loja",
                 "type": "Type"
             },
             "title": "Downloads"

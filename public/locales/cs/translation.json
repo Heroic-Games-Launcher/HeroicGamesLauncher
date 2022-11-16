@@ -176,13 +176,9 @@
             "empty": "Nic ke stažení.",
             "link": "Download Manager",
             "queue": {
-                "actions": "Action",
-                "element": "Name",
                 "end-time": "Finished at",
-                "platform": "Platform",
                 "queue-time": "Added at",
                 "start-time": "Started at",
-                "store": "Obchod",
                 "type": "Type"
             },
             "title": "Downloads"

@@ -176,13 +176,9 @@
             "empty": "Rien à télécharger.",
             "link": "Téléchargements",
             "queue": {
-                "actions": "Action",
-                "element": "Name",
                 "end-time": "Finished at",
-                "platform": "Platform",
                 "queue-time": "Added at",
                 "start-time": "Started at",
-                "store": "Boutique",
                 "type": "Type"
             },
             "title": "Téléchargements"

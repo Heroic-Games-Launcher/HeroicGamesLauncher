@@ -176,13 +176,9 @@
             "empty": "Nada para descargar.",
             "link": "Administrador de Descargas",
             "queue": {
-                "actions": "Acción",
-                "element": "Nombre",
                 "end-time": "Finished at",
-                "platform": "Plataforma",
                 "queue-time": "Added at",
                 "start-time": "Started at",
-                "store": "Tienda",
                 "type": "Type"
             },
             "title": "Descargas"

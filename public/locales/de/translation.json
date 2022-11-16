@@ -176,13 +176,9 @@
             "empty": "Nichts herunterzuladen.",
             "link": "Download-Manager",
             "queue": {
-                "actions": "Aktion",
-                "element": "Name",
                 "end-time": "Finished at",
-                "platform": "Plattform",
                 "queue-time": "Added at",
                 "start-time": "Started at",
-                "store": "Store",
                 "type": "Type"
             },
             "title": "Downloads"
