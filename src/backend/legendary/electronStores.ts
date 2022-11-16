@@ -1,4 +1,4 @@
-import { TypeCheckedStoreBackend } from 'backend/electron_store'
+import { TypeCheckedStoreBackend } from '../electron_store'
 
 const installStore = new TypeCheckedStoreBackend('legendaryInstallInfo', {
   cwd: 'lib-cache',
