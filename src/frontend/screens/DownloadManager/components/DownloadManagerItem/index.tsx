@@ -6,7 +6,7 @@ import { DMQueueElement } from 'common/types'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
-import { handleStopInstallation, launch } from 'frontend/helpers/library'
+import { handleStopInstallation } from 'frontend/helpers/library'
 import { getGameInfo, getInstallInfo, size } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo } from 'common/types/gog'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
+import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 
 type Props = {
   element: DMQueueElement
@@ -99,10 +100,22 @@ const DownloadManagerItem = ({ element, current }: Props) => {
       return (
         <SvgButton
           className="playIcon"
-          onClick={async () => handlePlay()}
+          onClick={() => goToGamePage()}
           title={`${t('label.playing.start')} (${title})`}
         >
           <PlayIcon />
+        </SvgButton>
+      )
+    }
+
+    if (canceled) {
+      return (
+        <SvgButton
+          className="downIcon"
+          onClick={() => goToGamePage()}
+          title={`${t('button.install')} (${title})`}
+        >
+          <DownIcon />
         </SvgButton>
       )
     }
@@ -122,10 +135,6 @@ const DownloadManagerItem = ({ element, current }: Props) => {
       return convertToTime(startTime)
     }
     return convertToTime(addToQueueTime)
-  }
-
-  async function handlePlay() {
-    return launch({ appName, t, runner, hasUpdate: false, showDialogModal })
   }
 
   const mainIconTitle = () => {
@@ -171,12 +180,16 @@ const DownloadManagerItem = ({ element, current }: Props) => {
         style={{ color: getStatusColor() }}
       >
         <CachedImage src={art_cover ?? art_square} alt={title} />
-        {title}
-        {canceled ? ` (${t('queue.label.canceled', 'Download Canceled')})` : ''}
+        <span className="titleSize">
+          {title}
+          <span title={path}>
+            {downloadSize ?? ''}
+            {canceled ? ` (${t('queue.label.canceled', 'Canceled')})` : ''}
+          </span>
+        </span>
       </span>
       <span>{getTime()}</span>
       <span style={{ textTransform: 'capitalize' }}>{type}</span>
-      <span title={path}>{downloadSize ?? ''}</span>
       <span>{platformToInstall}</span>
       <span className="icons">
         {
