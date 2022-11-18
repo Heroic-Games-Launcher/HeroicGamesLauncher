@@ -20,7 +20,7 @@ const PreferSystemLibs = () => {
 
   const isProton = wineVersion.type === 'proton'
 
-  if (!isLinux || isProton) {
+  if (!isLinux || isProton || wineVersion.bin.startsWith('/usr')) {
     return <></>
   }
 
