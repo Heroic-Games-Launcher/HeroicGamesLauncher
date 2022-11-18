@@ -76,7 +76,7 @@
     },
     "download": {
         "manager": {
-            "empty": "Nothing to download."
+            "empty": "Nothing to download next"
         }
     },
     "enabled": "Omogućeno",
@@ -138,7 +138,7 @@
     "Open": "",
     "queue": {
         "label": {
-            "canceled": "Download Canceled",
+            "canceled": "Download Stopped",
             "remove": "Remove from download manager"
         }
     },
