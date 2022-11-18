@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { DMQueueElement } from 'common/types'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
@@ -53,10 +53,30 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const library = [...epic.library, ...gog.library]
 
   const { params, addToQueueTime, endTime, type, startTime } = element
-  const { appName, runner, path, platformToInstall, gameInfo } = params
-  const { art_cover, art_square } = gameInfo
+  const {
+    appName,
+    runner,
+    path,
+    platformToInstall,
+    gameInfo: DmGameInfo
+  } = params
 
-  const [installInfo, setInstallInfo] = React.useState<
+  const [gameInfo, setGameInfo] = useState(DmGameInfo)
+
+  useEffect(() => {
+    const getNewInfo = async () => {
+      const newInfo = await getGameInfo(appName, runner)
+      console.log({ gameInfo, newInfo })
+      if (newInfo) {
+        setGameInfo(newInfo)
+      }
+    }
+    getNewInfo()
+  }, [])
+
+  const { art_cover, art_square } = gameInfo || {}
+
+  const [installInfo, setInstallInfo] = useState<
     Partial<LegendaryInstallInfo | GogInstallInfo>
   >({})
 
@@ -76,7 +96,6 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   }, [appName])
 
   const stopInstallation = async () => {
-    const gameInfo = await getGameInfo(appName, runner)
     if (!gameInfo) {
       return
     }
@@ -163,6 +182,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const downloadSize =
     installInfo?.manifest?.download_size &&
     size(Number(installInfo?.manifest?.download_size))
+  const cover = art_cover || art_square
 
   return (
     <div className="downloadManagerListItem">
@@ -172,7 +192,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
         className="downloadManagerTitleList"
         style={{ color: getStatusColor() }}
       >
-        <CachedImage src={art_cover ?? art_square} alt={title} />
+        {cover && <CachedImage src={cover} alt={title} />}
         <span className="titleSize">
           {title}
           <span title={path}>
