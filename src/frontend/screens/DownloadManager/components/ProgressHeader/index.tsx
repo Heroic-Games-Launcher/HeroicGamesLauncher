@@ -106,9 +106,10 @@ export default function ProgressHeader(props: {
               progress.percent ?? 0
             }%`}</p>
           </div>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
             <Box sx={{ width: '100%', mr: 1 }}>
               <LinearProgress
+                style={{ height: 10 }}
                 variant="determinate"
                 className="linearProgress"
                 value={progress.percent || 0}
