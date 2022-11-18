@@ -74,6 +74,11 @@
     "dlc": {
         "installDlcs": "Instaliraj sve DLC-ove"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "Omogućeno",
     "game": {
         "downloadSize": "Veličina Preuzimanja",

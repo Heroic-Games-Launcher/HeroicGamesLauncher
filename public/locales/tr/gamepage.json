@@ -73,6 +73,11 @@
     "dlc": {
         "installDlcs": "Tüm DLC'leri kur"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "Etkin",
     "game": {
         "downloadSize": "İndirme Boyutu",

@@ -170,10 +170,11 @@
             "update_game": "更新游戏"
         }
     },
+    "disk": "Disk",
     "docs": "文档",
+    "down": "Down",
     "download": {
         "manager": {
-            "empty": "没有可下载的。",
             "link": "Download Manager",
             "queue": {
                 "end-time": "Finished at",

@@ -170,10 +170,11 @@
             "update_game": "게임 업데이트"
         }
     },
+    "disk": "Disk",
     "docs": "Documentation",
+    "down": "Down",
     "download": {
         "manager": {
-            "empty": "Nothing to download.",
             "link": "Download Manager",
             "queue": {
                 "end-time": "Finished at",

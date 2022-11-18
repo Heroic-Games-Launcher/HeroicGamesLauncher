@@ -73,6 +73,11 @@
     "dlc": {
         "installDlcs": "Összes DLC telepítése"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "Engedélyezve",
     "game": {
         "downloadSize": "Letöltési méret",

@@ -73,6 +73,11 @@
     "dlc": {
         "installDlcs": "安裝所有DLC"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "已啟用",
     "game": {
         "downloadSize": "下載大小",

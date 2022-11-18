@@ -73,6 +73,11 @@
     "dlc": {
         "installDlcs": "Asenna kaikki ladattava sisältö"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "Käytössä",
     "game": {
         "downloadSize": "Latauksen koko",

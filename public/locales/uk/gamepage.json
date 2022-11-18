@@ -73,6 +73,11 @@
     "dlc": {
         "installDlcs": "Встановити всі DLC"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "Увімкнено",
     "game": {
         "downloadSize": "Розмір завантаження",

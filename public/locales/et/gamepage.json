@@ -73,6 +73,11 @@
     "dlc": {
         "installDlcs": "Paigalda kõik DLC'd"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "Lubatud",
     "game": {
         "downloadSize": "Allalaadimise suurus",

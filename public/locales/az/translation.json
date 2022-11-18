@@ -170,10 +170,11 @@
             "update_game": "Oyunu yeniləyin"
         }
     },
+    "disk": "Disk",
     "docs": "Sənədlər",
+    "down": "Down",
     "download": {
         "manager": {
-            "empty": "Nothing to download.",
             "link": "Download Manager",
             "queue": {
                 "end-time": "Finished at",

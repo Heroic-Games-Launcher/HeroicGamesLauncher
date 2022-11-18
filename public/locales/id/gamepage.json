@@ -73,6 +73,11 @@
     "dlc": {
         "installDlcs": "Pasang semua DLC"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "Diaktifkan",
     "game": {
         "downloadSize": "Ukuran Unduhan",

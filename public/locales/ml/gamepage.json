@@ -73,6 +73,11 @@
     "dlc": {
         "installDlcs": "എല്ലാ കൂട്ടുരേഖകളും നടൂ"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "പ്രവര്ത്തനക്ഷമം",
     "game": {
         "downloadSize": "ഇറക്കിയെടുപ്പിന്റെ വലുപ്പം",

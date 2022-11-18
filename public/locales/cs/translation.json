@@ -170,10 +170,11 @@
             "update_game": "Aktualizovat hru"
         }
     },
+    "disk": "Disk",
     "docs": "Documentation",
+    "down": "Down",
     "download": {
         "manager": {
-            "empty": "Nic ke stažení.",
             "link": "Download Manager",
             "queue": {
                 "end-time": "Finished at",

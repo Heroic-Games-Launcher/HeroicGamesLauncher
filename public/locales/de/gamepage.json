@@ -73,6 +73,11 @@
     "dlc": {
         "installDlcs": "Alle DLCs installieren"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "Aktiviert",
     "game": {
         "downloadSize": "Downloadgröße",

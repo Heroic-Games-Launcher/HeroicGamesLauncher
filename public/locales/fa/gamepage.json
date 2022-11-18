@@ -73,6 +73,11 @@
     "dlc": {
         "installDlcs": "نصب همه DLCها"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "فعال",
     "game": {
         "downloadSize": "سایز دانلود",

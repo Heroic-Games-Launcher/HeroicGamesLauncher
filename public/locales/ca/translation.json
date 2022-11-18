@@ -170,10 +170,11 @@
             "update_game": "Actualitza el joc"
         }
     },
+    "disk": "Disk",
     "docs": "Documentation",
+    "down": "Down",
     "download": {
         "manager": {
-            "empty": "No hi ha res per a descarregar.",
             "link": "Download Manager",
             "queue": {
                 "end-time": "Finished at",

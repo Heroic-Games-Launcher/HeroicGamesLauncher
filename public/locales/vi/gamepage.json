@@ -73,6 +73,11 @@
     "dlc": {
         "installDlcs": "Cài đặt tất cả bản mở rộng (DLC)"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "Bật",
     "game": {
         "downloadSize": "Kích thước tải",

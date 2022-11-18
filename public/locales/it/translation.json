@@ -170,10 +170,11 @@
             "update_game": "Update game"
         }
     },
+    "disk": "Disk",
     "docs": "Documentazione",
+    "down": "Down",
     "download": {
         "manager": {
-            "empty": "Nulla da scaricare.",
             "link": "Download Manager",
             "queue": {
                 "end-time": "Finished at",

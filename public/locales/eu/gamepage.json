@@ -74,6 +74,11 @@
     "dlc": {
         "installDlcs": "Instalatu DLC guztiak"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "Gaituta",
     "game": {
         "downloadSize": "Deskarga-tamaina",

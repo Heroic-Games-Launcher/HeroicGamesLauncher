@@ -170,10 +170,11 @@
             "update_game": "Обновить игру"
         }
     },
+    "disk": "Disk",
     "docs": "Документация",
+    "down": "Down",
     "download": {
         "manager": {
-            "empty": "Нечего скачивать.",
             "link": "Менеджер загрузок",
             "queue": {
                 "end-time": "Finished at",

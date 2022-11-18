@@ -73,6 +73,11 @@
     "dlc": {
         "installDlcs": "Instalovat všechna DLC"
     },
+    "download": {
+        "manager": {
+            "empty": "Nothing to download."
+        }
+    },
     "enabled": "Povoleno",
     "game": {
         "downloadSize": "Velikost ke stažení",
