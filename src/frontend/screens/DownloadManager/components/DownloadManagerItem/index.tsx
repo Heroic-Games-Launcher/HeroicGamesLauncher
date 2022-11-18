@@ -66,7 +66,6 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   useEffect(() => {
     const getNewInfo = async () => {
       const newInfo = await getGameInfo(appName, runner)
-      console.log({ gameInfo, newInfo })
       if (newInfo) {
         setGameInfo(newInfo)
       }
