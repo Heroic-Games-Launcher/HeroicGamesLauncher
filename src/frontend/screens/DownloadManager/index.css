@@ -1,5 +1,5 @@
 .gameListHeader {
-  padding-top: 1.5em;
+  padding: 1.5em;
   grid-template-columns: 2fr 1fr 1fr 1fr 10%;
   margin: 0 var(--space-sm-fixed);
 }

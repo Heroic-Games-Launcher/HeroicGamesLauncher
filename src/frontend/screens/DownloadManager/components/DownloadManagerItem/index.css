@@ -47,6 +47,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  text-align: left;
 }
 
 .titleSize {

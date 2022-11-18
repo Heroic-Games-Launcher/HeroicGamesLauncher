@@ -22,7 +22,7 @@ import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 
 type Props = {
-  element: DMQueueElement
+  element?: DMQueueElement
   current: boolean
 }
 
@@ -38,11 +38,19 @@ function convertToTime(time: number) {
 
 const DownloadManagerItem = ({ element, current }: Props) => {
   const { epic, gog, showDialogModal } = useContext(ContextProvider)
-  const library = [...epic.library, ...gog.library]
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
-
   const navigate = useNavigate()
+
+  if (!element) {
+    return (
+      <h5 style={{ paddingTop: 'var(--space-xs' }}>
+        {t('download.manager.empty', 'Nothing to download.')}
+      </h5>
+    )
+  }
+
+  const library = [...epic.library, ...gog.library]
 
   const { params, addToQueueTime, endTime, type, startTime } = element
   const { appName, runner, path, platformToInstall, gameInfo } = params
@@ -55,7 +63,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const [progress] = hasProgress(appName)
   const { status } = element
   const finished = status === 'done'
-  const canceled = status === 'error' && !current
+  const canceled = status === 'error' || (status === 'abort' && !current)
 
   useEffect(() => {
     const getInfo = async () => {
