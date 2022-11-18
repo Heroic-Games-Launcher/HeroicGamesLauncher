@@ -104,7 +104,7 @@ export default function ProgressHeader(props: {
           <div className="downloadProgressStats">
             <p className="downloadStat" color="var(--text-default)">{`${
               progress.percent ?? 0
-            }%`}</p>
+            }% [${progress.bytes ?? ''}] `}</p>
           </div>
           <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
             <Box sx={{ width: '100%', mr: 1 }}>
@@ -116,7 +116,7 @@ export default function ProgressHeader(props: {
               />
             </Box>
             <Box sx={{ minWidth: 35 }}>
-              <Typography variant="body2">
+              <Typography variant="subtitle1">
                 {progress.eta ?? '00.00.00'}
               </Typography>
             </Box>
