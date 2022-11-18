@@ -32,7 +32,7 @@
   cursor: default;
   place-self: center;
   border-bottom: 1px solid var(--divider);
-  padding: 1rem 0;
+  padding: var(--space-md) 0;
 }
 
 .downloadManagerListItem:hover {
