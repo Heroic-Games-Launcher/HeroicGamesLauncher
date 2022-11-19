@@ -95,6 +95,14 @@
     "generic": {
         "error": "Nepoznata greška"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-extras": "Extras",
+        "main-plus": "Main",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Internet veza potrebna",
         "installedPlatform": "Instalirane platforme",

@@ -94,6 +94,14 @@
     "generic": {
         "error": "Bilinmeyen hata"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-extras": "Extras",
+        "main-plus": "Main",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Çevrim İçi Gerekli",
         "installedPlatform": "Kurulu Platform",

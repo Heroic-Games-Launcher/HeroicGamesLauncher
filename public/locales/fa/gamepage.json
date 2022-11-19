@@ -94,6 +94,14 @@
     "generic": {
         "error": "خطای نامشخص"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-extras": "Extras",
+        "main-plus": "Main",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "نیازمندی به آنلاین بودن",
         "installedPlatform": "پلتفرم های نصب شده",

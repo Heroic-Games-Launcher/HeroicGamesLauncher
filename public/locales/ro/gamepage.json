@@ -95,6 +95,14 @@
     "generic": {
         "error": "Eroare Necunoscută"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-extras": "Extras",
+        "main-plus": "Main",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Online Necesar",
         "installedPlatform": "Platformă instalată",

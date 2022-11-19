@@ -94,6 +94,14 @@
     "generic": {
         "error": "Kesalahan tidak diketahui"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-extras": "Extras",
+        "main-plus": "Main",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Internet Dibutuhkan",
         "installedPlatform": "Platform yang Terpasang",
