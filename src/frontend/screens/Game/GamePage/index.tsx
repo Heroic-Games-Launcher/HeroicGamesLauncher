@@ -45,6 +45,7 @@ import {
 } from 'frontend/components/UI/Dialog'
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
+import HowLongToBeat from 'frontend/components/UI/HowLongToBeat'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -317,6 +318,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       : ''
                     : ''}
                 </div>
+                <HowLongToBeat title={title} />
+
                 {is_installed && showCloudSaveInfo && (
                   <div
                     style={{

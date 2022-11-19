@@ -139,3 +139,6 @@ export const storeGet = (
   key: string,
   defaultValue?: unknown
 ) => stores[storeName].get(key, defaultValue)
+
+export const getHowLongToBeat = async (title: string) =>
+  ipcRenderer.invoke('getHowLongToBeat', title)
