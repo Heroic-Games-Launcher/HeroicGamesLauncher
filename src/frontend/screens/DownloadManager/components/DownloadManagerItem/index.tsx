@@ -45,7 +45,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   if (!element) {
     return (
       <h5 style={{ paddingTop: 'var(--space-xs' }}>
-        {t('download.manager.empty', 'Nothing to download Next')}
+        {t('download.manager.empty', 'Nothing to download')}
       </h5>
     )
   }

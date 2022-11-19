@@ -75,7 +75,7 @@
     },
     "download": {
         "manager": {
-            "empty": "Nothing to download next"
+            "empty": "Nothing to download"
         }
     },
     "enabled": "Povoleno",
