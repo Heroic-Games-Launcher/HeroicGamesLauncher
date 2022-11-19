@@ -123,65 +123,63 @@ export default React.memo(function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateConfig = async () => {
       if (gameInfo) {
-        const { install, is_linux_native, is_mac_native, is_installed } =
-          gameInfo
-        if (is_installed) {
-          const installPlatform =
-            install.platform || (is_linux_native && isLinux)
-              ? 'linux'
-              : is_mac_native && isMac
-              ? 'Mac'
-              : 'Windows'
+        const { install, is_linux_native, is_mac_native } = gameInfo
 
-          if (runner !== 'sideload') {
-            getInstallInfo(appName, runner, installPlatform)
-              .then((info) => {
-                if (!info) {
-                  throw 'Cannot get game info'
-                }
-                setGameInstallInfo(info)
-              })
-              .catch((error) => {
-                console.error(error)
-                window.api.logError(`${`${error}`}`)
-                setHasError({ error: true, message: `${error}` })
-              })
-          }
+        const installPlatform =
+          install.platform || (is_linux_native && isLinux)
+            ? 'linux'
+            : is_mac_native && isMac
+            ? 'Mac'
+            : 'Windows'
 
-          try {
-            const {
-              autoSyncSaves,
-              savesPath,
-              gogSaves,
-              wineVersion,
-              winePrefix
-            } = await window.api.requestGameSettings(appName)
-
-            if (!isWin) {
-              let wine = wineVersion.name
-                .replace('Wine - ', '')
-                .replace('Proton - ', '')
-              if (wine.includes('Default')) {
-                wine = wine.split('-')[0]
+        if (runner !== 'sideload') {
+          getInstallInfo(appName, runner, installPlatform)
+            .then((info) => {
+              if (!info) {
+                throw 'Cannot get game info'
               }
-              setWineVersion(wine)
-              setWinePrefix(winePrefix)
-            }
+              setGameInstallInfo(info)
+            })
+            .catch((error) => {
+              console.error(error)
+              window.api.logError(`${`${error}`}`)
+              setHasError({ error: true, message: `${error}` })
+            })
+        }
 
-            if (gameInfo.cloud_save_enabled) {
-              setAutoSyncSaves(autoSyncSaves)
-              setGOGSaves(gogSaves ?? [])
-              return setSavesPath(savesPath)
+        try {
+          const {
+            autoSyncSaves,
+            savesPath,
+            gogSaves,
+            wineVersion,
+            winePrefix
+          } = await window.api.requestGameSettings(appName)
+
+          if (!isWin) {
+            let wine = wineVersion.name
+              .replace('Wine - ', '')
+              .replace('Proton - ', '')
+            if (wine.includes('Default')) {
+              wine = wine.split('-')[0]
             }
-          } catch (error) {
-            setHasError({ error: true, message: error })
-            window.api.logError(`${error}`)
+            setWineVersion(wine)
+            setWinePrefix(winePrefix)
           }
+
+          if (gameInfo.cloud_save_enabled) {
+            setAutoSyncSaves(autoSyncSaves)
+            setGOGSaves(gogSaves ?? [])
+            return setSavesPath(savesPath)
+          }
+        } catch (error) {
+          setHasError({ error: true, message: error })
+          window.api.logError(`${error}`)
         }
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName, epic.library, gog.library])
+  }, [status, epic.library, gog.library, gameInfo])
 
   async function handleUpdate() {
     setUpdateRequested(true)
