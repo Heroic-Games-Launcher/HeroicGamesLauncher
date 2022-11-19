@@ -26,8 +26,6 @@ export default function HowLongToBeat({ title }: Props) {
     return null
   }
 
-  console.log(howLongToBeatInfo)
-
   const { gameplayMain, gameplayMainExtra, gameplayCompletionist } =
     howLongToBeatInfo || {}
 
