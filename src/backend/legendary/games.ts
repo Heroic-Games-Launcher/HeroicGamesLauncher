@@ -515,12 +515,12 @@ class LegendaryGame extends Game {
         setAnticheatInfo(anticheatInfo)
       })
     if (anticheatInfo && isLinux) {
-        const gameSettings = await this.getSettings()
+      const gameSettings = await this.getSettings()
 
-        gameSettings.eacRuntime =
-          anticheatInfo.anticheats.includes('Easy Anti-Cheat')
-        gameSettings.battlEyeRuntime =
-          anticheatInfo.anticheats.includes('BattlEye')
+      gameSettings.eacRuntime =
+        anticheatInfo.anticheats.includes('Easy Anti-Cheat')
+      gameSettings.battlEyeRuntime =
+        anticheatInfo.anticheats.includes('BattlEye')
     }
 
     return { status: 'done' }
