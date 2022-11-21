@@ -141,7 +141,7 @@
         "title": "Vyberte součásti k instalaci"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Použít výchozí nastavení Wine"
     },
     "sideload": {
         "field": {
