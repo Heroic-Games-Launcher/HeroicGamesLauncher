@@ -7,7 +7,6 @@ import axios from 'axios'
 
 import { BrowserWindow } from 'electron'
 import {
-  AntiCheatInfo,
   ExecResult,
   ExtraInfo,
   GameInfo,
@@ -48,7 +47,7 @@ import shlex from 'shlex'
 import { t } from 'i18next'
 import { isOnline } from '../online_monitor'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
-import { useState } from 'react'
+import { gameAnticheatInfo } from 'backend/anticheat/utils'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -506,14 +505,8 @@ class LegendaryGame extends Game {
     }
     this.addShortcuts()
 
-    const [anticheatInfo, setAnticheatInfo] = useState<AntiCheatInfo | null>(
-      null
-    )
-    window.api
-      .getAnticheatInfo(this.getGameInfo().namespace)
-      .then((anticheatInfo: AntiCheatInfo | null) => {
-        setAnticheatInfo(anticheatInfo)
-      })
+    const anticheatInfo = gameAnticheatInfo(this.getGameInfo().namespace)
+
     if (anticheatInfo && isLinux) {
       const gameSettings = await this.getSettings()
 
