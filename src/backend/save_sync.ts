@@ -11,12 +11,19 @@ import {
   logWarning
 } from './logger/logger'
 import { getGame, getShellPath } from './utils'
-import { existsSync, realpathSync } from 'graceful-fs'
+import {
+  existsSync,
+  readFileSync,
+  realpathSync,
+  writeFileSync
+} from 'graceful-fs'
 import { app } from 'electron'
 import {
   createAbortController,
   deleteAbortController
 } from './utils/aborthandler/aborthandler'
+import { legendaryConfigPath } from './constants'
+import { join } from 'path'
 
 async function getDefaultSavePath(
   appName: string,
@@ -37,10 +44,26 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   const game = getGame(appName, 'legendary')
   const { save_path } = game.getGameInfo()
   if (save_path) {
-    logDebug(['Got default save path from GameInfo:', save_path], {
+    logDebug(['Legendary has a save path stored, discarding it:', save_path], {
       prefix: LogPrefix.Legendary
     })
-    return save_path
+    // FIXME: This isn't really that safe
+    try {
+      const installedJsonLoc = join(legendaryConfigPath, 'installed.json')
+      const installedJsonData = JSON.parse(
+        readFileSync(installedJsonLoc, 'utf-8')
+      )
+      installedJsonData[appName].save_path = null
+      writeFileSync(
+        installedJsonLoc,
+        JSON.stringify(installedJsonData, undefined, '  ')
+      )
+    } catch (e) {
+      logError(['Failed to discard save path:', e], {
+        prefix: LogPrefix.Legendary
+      })
+      return save_path
+    }
   }
 
   await verifyWinePrefix(await game.getSettings())
