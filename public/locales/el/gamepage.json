@@ -94,6 +94,13 @@
     "generic": {
         "error": "Άγνωστο Σφάλμα"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Απαιτείται Σύνδεση",
         "installedPlatform": "Εγκατεστημένη Πλατφόρμα",

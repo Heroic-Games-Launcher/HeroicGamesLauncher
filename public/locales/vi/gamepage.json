@@ -94,6 +94,13 @@
     "generic": {
         "error": "Lỗi chưa xác định"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Cần kết nối mạng",
         "installedPlatform": "Nền tảng đã cài đặt",

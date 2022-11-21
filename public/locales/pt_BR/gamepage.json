@@ -94,6 +94,13 @@
     "generic": {
         "error": "Erro desconhecido"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Requer Internet",
         "installedPlatform": "Plataforma instalada",

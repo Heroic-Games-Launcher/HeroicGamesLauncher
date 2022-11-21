@@ -94,6 +94,13 @@
     "generic": {
         "error": "Unknown error"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Online Required",
         "installedPlatform": "Installed Platform",
