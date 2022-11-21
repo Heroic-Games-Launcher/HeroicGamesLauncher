@@ -94,6 +94,13 @@
     "generic": {
         "error": "未知的錯誤"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "需要連線至網路",
         "installedPlatform": "已安裝平台",

@@ -94,6 +94,13 @@
     "generic": {
         "error": "알 수 없는 오류"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "네트워크 연결이 필요합니다",
         "installedPlatform": "설치된 플랫폼",

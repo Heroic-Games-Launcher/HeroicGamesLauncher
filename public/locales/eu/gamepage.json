@@ -95,6 +95,13 @@
     "generic": {
         "error": "Errore ezezaguna"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Linean egon behar da",
         "installedPlatform": "Instalatutako plataforma",

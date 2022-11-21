@@ -1631,6 +1631,7 @@ import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
+import './howlongtobeat/ipc_handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

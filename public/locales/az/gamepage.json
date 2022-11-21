@@ -95,6 +95,13 @@
     "generic": {
         "error": "Naməlum xəta"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Onlayn Tələb olunur",
         "installedPlatform": "Quraşdırılmış Platforma",

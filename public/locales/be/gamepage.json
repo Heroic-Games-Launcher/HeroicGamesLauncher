@@ -94,6 +94,13 @@
     "generic": {
         "error": "Невядомая памылка"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Патрабуецца Інтэрнэт",
         "installedPlatform": "Усталяваная платформа",
