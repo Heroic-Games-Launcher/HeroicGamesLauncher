@@ -144,6 +144,7 @@
         "yes": "YA"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Pergi ke Pustaka",
         "login": "Log Masuk",
         "sync": "Sinkronkan",

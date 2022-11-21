@@ -144,6 +144,7 @@
         "yes": "ശരി"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Go to Library",
         "login": "അകത്ത് കയറുക",
         "sync": "ഒന്നിപ്പിക്കൂ",

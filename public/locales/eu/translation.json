@@ -144,6 +144,7 @@
         "yes": "BAI"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Joan liburutegira",
         "login": "Hasi saioa",
         "sync": "Sinkronizatu",

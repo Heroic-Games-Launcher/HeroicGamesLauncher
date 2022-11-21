@@ -144,6 +144,7 @@
         "yes": "SÍ"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Vés a la biblioteca",
         "login": "Inicia la sessió",
         "sync": "Sincronitza",

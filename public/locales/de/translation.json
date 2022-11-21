@@ -144,6 +144,7 @@
         "yes": "JA"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Zur Bibliothek",
         "login": "Anmelden",
         "sync": "Synchronisieren",

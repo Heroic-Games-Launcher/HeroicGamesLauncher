@@ -144,6 +144,7 @@
         "yes": "DA"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Accesați Bibliotecă",
         "login": "Autentificare",
         "sync": "Sincronizează",

@@ -144,6 +144,7 @@
         "yes": "SIM"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Go to Library",
         "login": "Entrar",
         "sync": "Sincronizar",

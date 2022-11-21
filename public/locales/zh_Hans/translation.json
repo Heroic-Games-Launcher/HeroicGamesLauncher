@@ -144,6 +144,7 @@
         "yes": "是"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "前往仓库",
         "login": "登录",
         "sync": "同步",

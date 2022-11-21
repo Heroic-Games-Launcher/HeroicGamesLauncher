@@ -144,6 +144,7 @@
         "yes": "ДА"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Към библиотеката",
         "login": "Влизане",
         "sync": "Синхронизиране",

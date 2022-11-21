@@ -144,6 +144,7 @@
         "yes": "HƏ"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Kitabxanaya gedin",
         "login": "Daxil ol",
         "sync": "Sinxronizasiya",

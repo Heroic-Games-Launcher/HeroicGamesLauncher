@@ -144,6 +144,7 @@
         "yes": "ДА"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Перейти в библиотеку",
         "login": "Вход",
         "sync": "Синхронизировать",

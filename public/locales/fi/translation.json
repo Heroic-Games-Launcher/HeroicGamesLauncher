@@ -144,6 +144,7 @@
         "yes": "KYLLÄ"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Go to Library",
         "login": "Kirjaudu sisään",
         "sync": "Synkronoi",

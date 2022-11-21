@@ -144,6 +144,7 @@
         "yes": "ANO"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Přejít do knihovny",
         "login": "Přihlásit",
         "sync": "Synchronizovat",

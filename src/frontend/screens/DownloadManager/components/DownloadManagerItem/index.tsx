@@ -156,7 +156,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
     }
 
     return current
-      ? t('button.cancel')
+      ? t('button.cancel', 'Cancel')
       : t('queue.label.remove', 'Remove from Downloads')
   }
 
@@ -207,9 +207,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
         </span>
       </span>
       <span>{getTime()}</span>
-      <span style={{ textTransform: 'capitalize' }}>
-        {translatedTypes[type]}
-      </span>
+      <span>{translatedTypes[type]}</span>
       <span>{getStoreName(runner, t2('Other'))}</span>
       <span className="icons">
         {
