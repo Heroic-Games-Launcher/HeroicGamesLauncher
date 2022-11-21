@@ -33,7 +33,8 @@ const options: Intl.DateTimeFormatOptions = {
 
 function convertToTime(time: number) {
   const date = time ? new Date(time) : new Date()
-  return new Intl.DateTimeFormat(undefined, options).format(date)
+  const hour = new Intl.DateTimeFormat(undefined, options).format(date)
+  return { hour, fullDate: date.toLocaleString() }
 }
 
 const DownloadManagerItem = ({ element, current }: Props) => {
@@ -189,6 +190,8 @@ const DownloadManagerItem = ({ element, current }: Props) => {
     update: t2('download-manager.install-type.update', 'Update')
   }
 
+  const { hour, fullDate } = getTime()
+
   return (
     <div className="downloadManagerListItem">
       <span
@@ -206,7 +209,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
           </span>
         </span>
       </span>
-      <span>{getTime()}</span>
+      <span title={fullDate}>{hour}</span>
       <span>{translatedTypes[type]}</span>
       <span>{getStoreName(runner, t2('Other'))}</span>
       <span className="icons">
