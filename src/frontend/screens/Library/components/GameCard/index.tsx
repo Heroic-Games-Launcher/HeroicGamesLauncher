@@ -1,6 +1,12 @@
 import './index.css'
 
-import React, { useContext, CSSProperties, useMemo, useState } from 'react'
+import React, {
+  useContext,
+  CSSProperties,
+  useMemo,
+  useState,
+  useEffect
+} from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
@@ -58,17 +64,20 @@ const GameCard = ({
     art_square: cover,
     art_logo: logo,
     app_name: appName,
-    is_installed: isInstalled,
     runner,
+    is_installed,
     cloud_save_enabled: hasCloudSave,
     install: { install_size: size, platform: installedPlatform }
   } = gameInfo
 
   const [progress, previousProgress] = hasProgress(appName)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
+  const [gameAvailable, setGameAvailable] = useState(false)
 
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
+
+  const isInstalled = is_installed && gameAvailable
 
   const navigate = useNavigate()
   const {
@@ -80,6 +89,17 @@ const GameCard = ({
     allTilesInColor,
     showDialogModal
   } = useContext(ContextProvider)
+
+  useEffect(() => {
+    const checkGameAvailable = async () => {
+      const gameAvailable = await window.api.isGameAvailable({
+        appName,
+        runner
+      })
+      setGameAvailable(gameAvailable)
+    }
+    checkGameAvailable()
+  }, [appName])
 
   const grid = forceCard || layout === 'grid'
 

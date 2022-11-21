@@ -760,6 +760,19 @@ ipcMain.on('createNewWindow', (e, url) => {
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 })
 
+ipcMain.handle('isGameAvailable', async (e, args) => {
+  const { appName, runner } = args
+  const info = getGame(appName, runner).getGameInfo()
+  if (info && info.is_installed) {
+    if (info.install.install_path && existsSync(info.install.install_path!)) {
+      return true
+    } else {
+      return false
+    }
+  }
+  return false
+})
+
 ipcMain.handle('getGameInfo', async (event, appName, runner) => {
   if (runner === 'sideload') {
     return getAppInfo(appName)
@@ -771,8 +784,17 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
   try {
     const game = getGame(appName, runner)
     const info = game.getGameInfo()
+
     if (!info.app_name) {
       return null
+    }
+    //detects if the game folder is available
+    if (info && info.is_installed) {
+      if (info.install.install_path && existsSync(info.install.install_path!)) {
+        info.is_installed = true
+      } else {
+        info.is_installed = false
+      }
     }
     info.extra = await game.getExtraInfo()
     return info
