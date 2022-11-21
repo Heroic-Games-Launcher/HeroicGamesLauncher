@@ -170,20 +170,24 @@
             "update_game": "Обновить игру"
         }
     },
-    "disk": "Disk",
     "docs": "Документация",
-    "down": "Down",
-    "download": {
-        "manager": {
-            "link": "Менеджер загрузок",
-            "queue": {
-                "end-time": "Finished at",
-                "queue-time": "Added at",
-                "start-time": "Started at",
-                "type": "Type"
-            },
-            "title": "Загрузки"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
@@ -357,6 +361,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Повтор"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Имя переменной",
@@ -409,10 +414,13 @@
     "progress": "Прогресс",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Очистить список",
             "downloading": "Загрузка",
+            "empty": "Nothing to download",
             "finished": "Завершено",
-            "queued": "Очередь"
+            "queued": "Очередь",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "Запускались недавно",

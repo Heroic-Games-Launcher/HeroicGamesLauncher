@@ -73,11 +73,6 @@
     "dlc": {
         "installDlcs": "모든 DLC를 설치합니다"
     },
-    "download": {
-        "manager": {
-            "empty": "Nothing to download"
-        }
-    },
     "enabled": "활성화",
     "game": {
         "downloadSize": "다운로드 크기",
@@ -133,13 +128,6 @@
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
         "title": "You are NOT logged in"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Stopped",
-            "remove": "Remove from download manager"
-        }
     },
     "report_problem": "게임 실행 중에 생긴 문제를 제보하기",
     "sdl": {

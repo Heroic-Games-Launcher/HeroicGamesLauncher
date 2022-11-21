@@ -73,11 +73,6 @@
     "dlc": {
         "installDlcs": "Installer tous les DLCs"
     },
-    "download": {
-        "manager": {
-            "empty": "Nothing to download"
-        }
-    },
     "enabled": "Activé",
     "game": {
         "downloadSize": "Taille du téléchargement",
@@ -133,13 +128,6 @@
         "gog": "Vous n'êtes pas connecté à un compte GOG dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
         "login": "Connexion",
         "title": "Vous n'êtes PAS connecté"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Téléchargement Annulé",
-            "remove": "Supprimer du gestionnaire de téléchargement"
-        }
     },
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {

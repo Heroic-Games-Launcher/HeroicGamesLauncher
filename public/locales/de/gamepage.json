@@ -73,11 +73,6 @@
     "dlc": {
         "installDlcs": "Alle DLCs installieren"
     },
-    "download": {
-        "manager": {
-            "empty": "Nothing to download"
-        }
-    },
     "enabled": "Aktiviert",
     "game": {
         "downloadSize": "Downloadgröße",
@@ -133,13 +128,6 @@
         "gog": "Du bist mit keinem GOG-Account in Heroic angemeldet. Verwende nicht die Store-Seite, um dich anzumelden, sondern klicke stattdessen auf die folgende Schaltfläche:",
         "login": "Anmelden",
         "title": "Du bist NICHT angemeldet"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download abgebrochen",
-            "remove": "Aus Download-Manager entfernen"
-        }
     },
     "report_problem": "Ein Problem bei der Ausführung dieses Spiels melden",
     "sdl": {

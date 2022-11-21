@@ -73,11 +73,6 @@
     "dlc": {
         "installDlcs": "Instal·la tots els DLCs"
     },
-    "download": {
-        "manager": {
-            "empty": "Nothing to download"
-        }
-    },
     "enabled": "Activat",
     "game": {
         "downloadSize": "Mida de la baixada",
@@ -133,13 +128,6 @@
         "gog": "No heu iniciat sessió amb un compte de GOG al Heroic. No feu servir la pàgina de la botiga per a iniciar-la. Feu-ho després de prémer el botó següent:",
         "login": "Log in",
         "title": "No heu iniciat sessió."
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Descàrrega cancel·lada",
-            "remove": "Treu del gestor de descàrregues"
-        }
     },
     "report_problem": "Informa d'un problema quan s'executa el joc",
     "sdl": {

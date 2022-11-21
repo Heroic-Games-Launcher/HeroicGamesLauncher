@@ -73,11 +73,6 @@
     "dlc": {
         "installDlcs": "Instalar DLCs"
     },
-    "download": {
-        "manager": {
-            "empty": "Nothing to download"
-        }
-    },
     "enabled": "Habilitado",
     "game": {
         "downloadSize": "Tamanho do Download",
@@ -133,13 +128,6 @@
         "gog": "Você não está logado numa conta GOG no Heroic. Não use a página da loja para logar, ao invés disso,clique no botão a seguir:",
         "login": "Entrar",
         "title": "Você NÃO está logado"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Stopped",
-            "remove": "Remove from download manager"
-        }
     },
     "report_problem": "Relatar um problema na execução deste jogo",
     "sdl": {

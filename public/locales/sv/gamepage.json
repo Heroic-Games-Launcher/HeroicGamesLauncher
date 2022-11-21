@@ -73,11 +73,6 @@
     "dlc": {
         "installDlcs": "Installera alla DLC"
     },
-    "download": {
-        "manager": {
-            "empty": "Nothing to download"
-        }
-    },
     "enabled": "Aktiverad",
     "game": {
         "downloadSize": "Nedladdningsstorlek",
@@ -133,13 +128,6 @@
         "gog": "Du är ej inloggad med GOG-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
         "login": "Logga in",
         "title": "Du är ej inloggad!"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Nerladdning avbröts",
-            "remove": "Ta bort från nerladdningshanteraren"
-        }
     },
     "report_problem": "Rapportera problem med spelet",
     "sdl": {

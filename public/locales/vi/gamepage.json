@@ -73,11 +73,6 @@
     "dlc": {
         "installDlcs": "Cài đặt tất cả bản mở rộng (DLC)"
     },
-    "download": {
-        "manager": {
-            "empty": "Nothing to download"
-        }
-    },
     "enabled": "Bật",
     "game": {
         "downloadSize": "Kích thước tải",
@@ -133,13 +128,6 @@
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
         "title": "You are NOT logged in"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Stopped",
-            "remove": "Remove from download manager"
-        }
     },
     "report_problem": "Báo cáo sự cố khi chạy game này",
     "sdl": {

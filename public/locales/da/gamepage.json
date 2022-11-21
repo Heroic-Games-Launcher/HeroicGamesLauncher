@@ -173,7 +173,7 @@
     "queue": {
         "label": {
             "canceled": "Download annulleret",
-            "remove": "Fjern fra download manager"
+            "remove": "Fjern fra Downloads"
         }
     },
     "sideload": {

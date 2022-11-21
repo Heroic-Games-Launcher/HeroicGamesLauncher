@@ -170,20 +170,24 @@
             "update_game": "Atualizar jogo"
         }
     },
-    "disk": "Disk",
     "docs": "Documentation",
-    "down": "Down",
-    "download": {
-        "manager": {
-            "link": "Download Manager",
-            "queue": {
-                "end-time": "Finished at",
-                "queue-time": "Added at",
-                "start-time": "Started at",
-                "type": "Type"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Instalação",
+            "update": "Atualização"
+        },
+        "label": {
+            "disk": "Disco",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finalizou às",
+            "queue-time": "Adicionado às",
+            "start-time": "Iniciou às",
+            "type": "Tipo"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Serviços online podem não funcionar totalmente, os servidores da Epic Games estão offline!",
@@ -357,6 +361,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -409,10 +414,13 @@
     "progress": "Progress",
     "queue": {
         "label": {
-            "clear": "Clear List",
-            "downloading": "Downloading",
-            "finished": "Completed",
-            "queued": "Queued"
+            "canceled": "Canceledo",
+            "clear": "Limpar Lista",
+            "downloading": "Baixando",
+            "empty": "Nada na fila",
+            "finished": "Concluído",
+            "queued": "Na fila",
+            "remove": "Remover da fila"
         }
     },
     "Recent": "Jogados Recentemente",
@@ -615,14 +623,14 @@
         }
     },
     "wine": {
-        "actions": "Action",
+        "actions": "Ações",
         "manager": {
             "error": "Não foi possível encontrar as versões do Wine/Proton.",
             "link": "Versões do Wine",
             "title": "Versões do Wine",
             "unzipping": "Descompactando"
         },
-        "release": "Release Date",
+        "release": "Data de lançamento",
         "size": "Tamanho"
     }
 }

@@ -74,11 +74,6 @@
     "dlc": {
         "installDlcs": "Bütün DLC-ləri quraşdırın"
     },
-    "download": {
-        "manager": {
-            "empty": "Nothing to download"
-        }
-    },
     "enabled": "Aktivdir",
     "game": {
         "downloadSize": "Yükləmə ölçüsü",
@@ -134,13 +129,6 @@
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
         "title": "You are NOT logged in"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Stopped",
-            "remove": "Remove from download manager"
-        }
     },
     "report_problem": "Bu oyunu idarə edən problemi bildirin",
     "sdl": {

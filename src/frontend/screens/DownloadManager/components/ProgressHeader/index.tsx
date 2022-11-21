@@ -86,7 +86,7 @@ export default function ProgressHeader(props: {
               {roundToNearestHundredth(avgSpeed.at(-1)?.download)} MB/s
             </h5>
             <div className="realtimeDownloadStatLabel downLabel">
-              {t('down', 'Down')}{' '}
+              {t('download-manager.label.speed', 'Download')}{' '}
             </div>
           </div>
           <div className="realtimeDownloadStatContainer">
@@ -94,7 +94,7 @@ export default function ProgressHeader(props: {
               {roundToNearestHundredth(avgSpeed.at(-1)?.disk)} MB/s
             </h5>
             <div className="realtimeDownloadStatLabel diskLabel">
-              {t('disk', 'Disk')}{' '}
+              {t('download-manager.label.disk', 'Disk')}{' '}
             </div>
           </div>
         </div>

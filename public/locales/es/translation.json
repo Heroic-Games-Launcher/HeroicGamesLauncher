@@ -170,20 +170,24 @@
             "update_game": "Actualizar juego"
         }
     },
-    "disk": "Disk",
     "docs": "Documentación",
-    "down": "Down",
-    "download": {
-        "manager": {
-            "link": "Administrador de Descargas",
-            "queue": {
-                "end-time": "Finished at",
-                "queue-time": "Added at",
-                "start-time": "Started at",
-                "type": "Type"
-            },
-            "title": "Descargas"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "¡Puede que algunos servicios no funcionen correctamente si no estás conectado a los servidores de Epic Games!",
@@ -357,6 +361,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Reintentando"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Nombre de la variable",
@@ -409,10 +414,13 @@
     "progress": "Progreso",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Limpiar lista",
             "downloading": "Descargando",
+            "empty": "Nothing to download",
             "finished": "Completado",
-            "queued": "Encolado"
+            "queued": "Encolado",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "Jugado recientemente",

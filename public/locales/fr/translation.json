@@ -170,20 +170,24 @@
             "update_game": "Mettre à jour le jeu"
         }
     },
-    "disk": "Disk",
     "docs": "Documentation",
-    "down": "Down",
-    "download": {
-        "manager": {
-            "link": "Téléchargements",
-            "queue": {
-                "end-time": "Finished at",
-                "queue-time": "Added at",
-                "start-time": "Started at",
-                "type": "Type"
-            },
-            "title": "Téléchargements"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Les services en ligne peuvent ne pas entièrement fonctionner car les serveurs d'Epic Games sont hors ligne !",
@@ -357,6 +361,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Réessayer"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -409,10 +414,13 @@
     "progress": "Progression",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Effacer la liste",
             "downloading": "En cours de téléchargement",
+            "empty": "Nothing to download",
             "finished": "Achevé",
-            "queued": "En attente"
+            "queued": "En attente",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "Joués récemment",

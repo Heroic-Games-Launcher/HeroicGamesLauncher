@@ -73,6 +73,13 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
       })) ||
     []
 
+  /*
+    Other Keys:
+    t('queue.label.empty', 'Nothing to download')
+    t('download-manager.install-type.install', 'Install')
+    t('download-manager.install-type.update', 'Update')
+    */
+
   return (
     <>
       <h4
@@ -81,7 +88,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
           textAlign: 'left'
         }}
       >
-        {t('download.manager.title', 'Downloads')}
+        {t('download-manager.title', 'Downloads')}
       </h4>
       {
         <>

@@ -11,11 +11,11 @@ export default function GameListHeader({ time }: Props) {
   const getTimeLabel = () => {
     switch (time) {
       case 'started':
-        return t('download.manager.queue.start-time', 'Started at')
+        return t('download-manager.queue.start-time', 'Started at')
       case 'finished':
-        return t('download.manager.queue.end-time', 'Finished at')
+        return t('download-manager.queue.end-time', 'Finished at')
       case 'queued':
-        return t('download.manager.queue.queue-time', 'Added at')
+        return t('download-manager.queue.queue-time', 'Added at')
     }
   }
 
@@ -23,7 +23,7 @@ export default function GameListHeader({ time }: Props) {
     <div className="gameListHeader">
       <span>{t('game.title', 'Game Title')}</span>
       <span>{getTimeLabel()}</span>
-      <span>{t('download.manager.queue.type', 'Type')}</span>
+      <span>{t('download-manager.queue.type', 'Type')}</span>
       <span>{t('game.store', 'Store')}</span>
       <span>{t('wine.actions', 'Action')}</span>
     </div>

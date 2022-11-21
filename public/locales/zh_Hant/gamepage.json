@@ -73,11 +73,6 @@
     "dlc": {
         "installDlcs": "安裝所有DLC"
     },
-    "download": {
-        "manager": {
-            "empty": "Nothing to download"
-        }
-    },
     "enabled": "已啟用",
     "game": {
         "downloadSize": "下載大小",
@@ -133,13 +128,6 @@
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
         "title": "You are NOT logged in"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Stopped",
-            "remove": "Remove from download manager"
-        }
     },
     "report_problem": "回報執行此遊戲時出現的問題",
     "sdl": {

@@ -39,13 +39,14 @@ function convertToTime(time: number) {
 const DownloadManagerItem = ({ element, current }: Props) => {
   const { epic, gog, showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
-  const { t: t2 } = useTranslation()
+  const { t: t2 } = useTranslation('translation')
+
   const navigate = useNavigate()
 
   if (!element) {
     return (
       <h5 style={{ paddingTop: 'var(--space-xs' }}>
-        {t('download.manager.empty', 'Nothing to download')}
+        {t2('queue.label.empty', 'Nothing to download')}
       </h5>
     )
   }
@@ -156,7 +157,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
 
     return current
       ? t('button.cancel')
-      : t('queue.label.remove', 'Remove from download manager')
+      : t('queue.label.remove', 'Remove from Downloads')
   }
 
   const getStatusColor = () => {
@@ -183,6 +184,11 @@ const DownloadManagerItem = ({ element, current }: Props) => {
     size(Number(installInfo?.manifest?.download_size))
   const cover = art_cover || art_square
 
+  const translatedTypes = {
+    install: t2('download-manager.install-type.install', 'Install'),
+    update: t2('download-manager.install-type.update', 'Update')
+  }
+
   return (
     <div className="downloadManagerListItem">
       <span
@@ -201,7 +207,9 @@ const DownloadManagerItem = ({ element, current }: Props) => {
         </span>
       </span>
       <span>{getTime()}</span>
-      <span style={{ textTransform: 'capitalize' }}>{type}</span>
+      <span style={{ textTransform: 'capitalize' }}>
+        {translatedTypes[type]}
+      </span>
       <span>{getStoreName(runner, t2('Other'))}</span>
       <span className="icons">
         {
