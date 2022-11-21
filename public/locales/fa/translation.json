@@ -1,13 +1,13 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "خانواده فونت اعمال (پیش فرض: ",
         "all_tiles_in_color": "نمایش رنگی تمام کاشی های بازی",
-        "content_font_family_no_default": "Content Font Family (Default: ",
+        "content_font_family_no_default": "خانواده فونت محتوا (پیش فرض: ",
         "fonts": "فونت ها",
         "title": "دسترسی ها",
         "zoom": "زوم"
     },
-    "add_game": "Add Game",
+    "add_game": "افزودن بازی",
     "All": "همه",
     "anticheat": {
         "anticheats": "آنتی چیت ها",
@@ -57,12 +57,12 @@
             },
             "generic": {
                 "message": "",
-                "title": "Select EXE to Run"
+                "title": "انتخاب فایل EXE برای اجرا"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "اجرا کنار گذاشته شد",
             "title": "خطا",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
+                "message": "خطای نامشخص رخ داد:{{newLine}}{{error}}{{newLine}}{{newLine}} خطای را در ریپوزیتوری گیت هاب ما گزارش کنید.",
                 "title": "خطای نامشخص رخ داد!"
             },
             "update": {
@@ -70,13 +70,13 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "نسخه انتخاب شده Wine یافت نشد. نسخه انتخاب شده را نصب یا نسخه دیگری را در تنظیمات بازی انتخاب کنید{{newline}}نسخه: {{version}}{{newline}}مسیر: {{path}}",
                 "message": "نسخه ای از Wine انتخاب نشده است. تنظیمات بازی را چک کنید!",
                 "title": "Wine یافت نشد"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks در هنگام اجرا خطای زیر را برگرداند:{{newLine}}{{error}}",
+                "title": "خطای Winetricks"
             }
         },
         "info": {
@@ -107,7 +107,7 @@
             }
         },
         "runexe": {
-            "title": "انتخاب EXE برای اجرا"
+            "title": "فایل EXE را برای اجرا انتخاب کنید"
         },
         "select": {
             "button": "انتخاب",
@@ -156,7 +156,7 @@
             "backspace": "Backspace",
             "close_dialog": "بستن دیالوگ",
             "close_keyboard": "بستن صفحه کلید",
-            "close_options": "Close Options",
+            "close_options": "گزینه های بستن",
             "game_details": "مشخصات بازی",
             "game_settings": "تنظیمات بازی",
             "install_game": "نصب بازی",
@@ -165,7 +165,7 @@
             "options": "Options",
             "play_game": "اجرای بازی",
             "scroll": "Scroll",
-            "select": "Select",
+            "select": "انتخاب",
             "space": "فضا",
             "update_game": "به روزرسانی بازی"
         }
@@ -173,13 +173,13 @@
     "docs": "Documentation",
     "download": {
         "manager": {
-            "empty": "Nothing to download.",
+            "empty": "موردی برای دانلود وجود ندارد.",
             "link": "Download Manager",
             "queue": {
                 "actions": "Action",
                 "element": "Name",
                 "platform": "Platform",
-                "store": "Store"
+                "store": "فروشگاه"
             },
             "title": "Downloads"
         }
@@ -218,8 +218,8 @@
     },
     "help": {
         "amdfsr": "AMD's FSR با ارتقاء مقیاس وضوح پایینتر در حالت تمام صفحه به افزایش فریم ریت کمک می کند. کیفیت تصویر در ازای کاهش جزئی عملکرد از ۵ به ۱ افزایش می یابد. فعال کردن ممکن است باعث بهبود کارایی شود.",
-        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
-        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "custom_themes_path": "از فایل CSS منابع غیر قابل اطمینان استفاده نکنید. در صورت شک، در کانال دیسکورد ما درخواست بازبینی کنید.",
+        "custom_themes_wiki": "برای اطلاعات بیشتر در مورد افزودن تم شخصی به ویکی مراجعه کنید. اینجا کلیک کنید.",
         "dxvk": "DXVK لایه ترجمهcای بر پایه Vulkan برای بازی های DirectX 9، 10، 11 می باشد. فعال کردن ممکن است سبب افزایش سازگاری شود. ممکن است باعث ایجاد مشکلات خصوصا برای بازی های DirectX قدیمی شود.",
         "esync": "Esync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است باعث افزایش کارایی شود.",
         "fsync": "Fsync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است در لینوکس کرنل های پشتیبانی شده باعث افزایش کارایی شود.",
@@ -263,7 +263,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "در حال تلاش برای تشخیص پوشه ذخیره صحیح"
         },
         "settings": "تنظیمات به صورت خودکار ذخیره شدند",
         "version": "نسخه Wine"
@@ -271,7 +271,7 @@
     "infobox": {
         "help": "راهنما",
         "requirements": "نیازمندیهای سیستم",
-        "warning": "Warning",
+        "warning": "هشدار",
         "wine-path": "مسیر Wine",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -299,10 +299,10 @@
         "website": "درحال بارگیری وبسایت"
     },
     "login": {
-        "alternative_method": "Alternative Login Method",
-        "epic": "Epic Games Login",
-        "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "alternative_method": "راه حل ورود جایگزین",
+        "epic": "ورود Epic Games",
+        "gog": "ورود GOG",
+        "message": "در پلتفرم خود وارد شوید. می توانید همزمان در بیش از یک پلتفرم وارد شوید."
     },
     "message": {
         "sync": "همگامسازی کامل شد",
@@ -353,25 +353,25 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "offline-retry-in": "آفلاین. تلاش مجدد در {{seconds}} ثانیه",
+        "retrying": "در حال تلاش مجدد"
     },
     "options": {
         "advanced": {
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "مثال: Path/To/ExtraFiles",
-            "title": "گزینه های پیشرفته (متغیرهای محیطی):",
+            "title": "متغیرهای محیطی:",
             "value": "مقدار"
         },
         "env_variables": {
             "error": {
-                "empty_key": "Variable names can't be empty",
-                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "empty_key": "نام های متغیرها نمی توانند خالی باشند",
+                "equal_sign_in_key": "نام های متغیرها نمی توانند شامل علامت \"=\" باشند",
+                "space_in_key": "نام های متغیرها نمی توانند شامل فاصله باشند"
             },
             "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "info": "تنظیم متغیرهای محیطی برای افزودن به دستور."
         },
         "gameargs": {
             "placeholder": "آرگومانهای لانچر را اینجا بگذارید",
@@ -396,7 +396,7 @@
     "placeholder": {
         "alt-gogdl-bin": "استفاده از باینری GOGDL داخلی...",
         "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
-        "custom_themes_path": "Select the path to look for custom CSS files",
+        "custom_themes_path": "انتخاب مسیر برای گشتن فایل های CSS شخصی",
         "egs-prefix": "محل نصب شده EGS",
         "prefered_language": "کد دو حرفی (مانند \"en\" یا \"fr\")"
     },
@@ -408,10 +408,10 @@
     "progress": "Progress",
     "queue": {
         "label": {
-            "clear": "Clear List",
-            "downloading": "Downloading",
-            "finished": "Completed",
-            "queued": "Queued"
+            "clear": "پاک کردن لیست",
+            "downloading": "در حال دانلود",
+            "finished": "کامل شد",
+            "queued": "در صف"
         }
     },
     "Recent": "اخیرا بازی شده",
@@ -419,7 +419,7 @@
     "setting": {
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
-        "addgamestosteam": "Add games to Steam automatically",
+        "addgamestosteam": "افزودن خودکار بازی ها به استیم",
         "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده",
         "alt-legendary-bin": "انتخاب باینری Legendary جایگزین",
         "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
@@ -429,7 +429,7 @@
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
         "checkForUpdatesOnStartup": "بررسی برای به روزرسانی های Heroic در آغاز به کار",
         "crossover-version": "نسخه Crossover",
-        "custom_themes_path": "Custom Themes Path",
+        "custom_themes_path": "مسیر تم های شخصی",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیشفرض نصب",
@@ -501,7 +501,7 @@
         "primerun": {
             "confirmation": {
                 "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
+                "title": "فقط یک GPU شناسایی شد"
             },
             "description": "استفاده از کارت گرافیک اختصاص یافته"
         },
@@ -548,8 +548,8 @@
         },
         "navbar": {
             "advanced": "پیشرفته",
-            "games_settings": "Game Settings",
-            "games_settings_defaults": "Game Defaults",
+            "games_settings": "تنظیمات بازی",
+            "games_settings_defaults": "پیش فرض های بازی",
             "general": "عمومی",
             "log": "Log",
             "other": "بقیه",

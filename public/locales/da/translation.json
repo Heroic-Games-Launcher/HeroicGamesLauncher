@@ -640,7 +640,8 @@
         "hint": "Vi tjekker forbindelsen mod:{{newline}}github.com,{{newline}}gog.com og{{newline}}store.epicgames.com",
         "offline": "Offline",
         "retry-in": "Prøver igen om ... {{seconds}} sekunder",
-        "retrying": "Prøver igen"
+        "retrying": "Prøver igen",
+        "offline-retry-in": "Offline. Prøver igen om {{seconds}} sekunder."
     },
     "Other": "Andet",
     "queue": {

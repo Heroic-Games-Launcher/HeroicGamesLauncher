@@ -353,7 +353,7 @@
     "offline-message": {
         "hint": "我们正检查到下列域名的连接：{{newline}}github.com、{{newline}}gog.com 和{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
+        "offline-retry-in": "离线。在 {{seconds}} 秒内重试。",
         "retrying": "重试"
     },
     "options": {
