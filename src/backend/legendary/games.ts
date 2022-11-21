@@ -7,6 +7,7 @@ import axios from 'axios'
 
 import { BrowserWindow } from 'electron'
 import {
+  AntiCheatInfo,
   ExecResult,
   ExtraInfo,
   GameInfo,
@@ -26,7 +27,8 @@ import {
   isMac,
   isWindows,
   installed,
-  configStore
+  configStore,
+  isLinux
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import {
@@ -46,6 +48,7 @@ import shlex from 'shlex'
 import { t } from 'i18next'
 import { isOnline } from '../online_monitor'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
+import { useState } from 'react'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -502,6 +505,24 @@ class LegendaryGame extends Game {
       return { status: 'error', error: res.error }
     }
     this.addShortcuts()
+
+    const [anticheatInfo, setAnticheatInfo] = useState<AntiCheatInfo | null>(
+      null
+    )
+    window.api
+      .getAnticheatInfo(this.getGameInfo().namespace)
+      .then((anticheatInfo: AntiCheatInfo | null) => {
+        setAnticheatInfo(anticheatInfo)
+      })
+    if (anticheatInfo && isLinux) {
+        let gameSettings = await this.getSettings()
+
+        gameSettings.eacRuntime =
+          anticheatInfo.anticheats.includes('Easy Anti-Cheat')
+        gameSettings.battlEyeRuntime =
+          anticheatInfo.anticheats.includes('BattlEye')
+    }
+
     return { status: 'done' }
   }
 
