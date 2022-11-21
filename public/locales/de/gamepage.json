@@ -141,7 +141,7 @@
         "title": "Zu installierende Komponenten auswählen"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Verwende Standardeinstellungen für Wine"
     },
     "sideload": {
         "field": {
