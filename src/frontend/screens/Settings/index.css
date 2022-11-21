@@ -64,7 +64,6 @@
 .settingsTools {
   margin-block: var(--space-md);
   justify-content: left;
-  max-width: 512px;
 }
 
 .save {
