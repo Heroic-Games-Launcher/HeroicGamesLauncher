@@ -515,7 +515,7 @@ class LegendaryGame extends Game {
         setAnticheatInfo(anticheatInfo)
       })
     if (anticheatInfo && isLinux) {
-        let gameSettings = await this.getSettings()
+        const gameSettings = await this.getSettings()
 
         gameSettings.eacRuntime =
           anticheatInfo.anticheats.includes('Easy Anti-Cheat')
