@@ -189,5 +189,8 @@
             "image": "Indsæt en billed-URL her",
             "title": "Tilføj en titel til dit spil/app"
         }
+    },
+    "setting": {
+        "use-default-wine-settings": "Brug standard vinindstillinger"
     }
 }
