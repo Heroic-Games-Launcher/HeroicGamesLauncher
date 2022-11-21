@@ -764,7 +764,7 @@ ipcMain.handle('isGameAvailable', async (e, args) => {
   const { appName, runner } = args
   const info = getGame(appName, runner).getGameInfo()
   if (info && info.is_installed) {
-    if (existsSync(info.install.install_path!)) {
+    if (info.install.install_path && existsSync(info.install.install_path!)) {
       return true
     } else {
       return false
@@ -790,7 +790,7 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
     }
     //detects if the game folder is available
     if (info && info.is_installed) {
-      if (existsSync(info.install.install_path!)) {
+      if (info.install.install_path && existsSync(info.install.install_path!)) {
         info.is_installed = true
       } else {
         info.is_installed = false
