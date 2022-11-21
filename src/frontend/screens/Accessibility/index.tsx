@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import './index.css'
 
-export default function Accessibility() {
+export default React.memo(function Accessibility() {
   const { t } = useTranslation()
   const {
     isRTL,
@@ -199,4 +199,4 @@ export default function Accessibility() {
       </div>
     </div>
   )
-}
+})

@@ -156,7 +156,7 @@
             "backspace": "Backspace",
             "close_dialog": "Dialog schließen",
             "close_keyboard": "Tastatur schließen",
-            "close_options": "Close Options",
+            "close_options": "Optionen schließen",
             "game_details": "Spieldetails",
             "game_settings": "Spiel-Einstellungen",
             "install_game": "Spiel installieren",
@@ -165,7 +165,7 @@
             "options": "Options",
             "play_game": "Spiel starten",
             "scroll": "Scrollen",
-            "select": "Select",
+            "select": "Auswählen",
             "space": "Leertaste",
             "update_game": "Spiel aktualisieren"
         }
@@ -353,7 +353,7 @@
     "offline-message": {
         "hint": "Wir testen die Verbindung mit:{{newline}}github.com,{{newline}}gog.com und{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Neuer Versuch in ... {{seconds}} Sekunden",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Versuche erneut"
     },
     "options": {
@@ -528,7 +528,7 @@
         "clear-cache": "Heroic-Cache leeren",
         "copiedToClipboard": "In die Zwischenablage kopiert!",
         "copyToClipboard": "Alle Einstellungen in die Zwischenablage kopieren",
-        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
+        "default_hint": "Änderungen in diesem Bereich gelten nur für neu installierte Spiele. Die Einstellungen eines bereits installierten Spiels können über die „Einstellungen“-Schaltfläche der Spielseite angepasst werden.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode wird benötigt, damit die EAC-Runtime auf Flatpak funktioniert. Möchtest du es jetzt aktivieren?",
@@ -548,8 +548,8 @@
         },
         "navbar": {
             "advanced": "Erweitert",
-            "games_settings": "Game Settings",
-            "games_settings_defaults": "Game Defaults",
+            "games_settings": "Spieleinstellungen",
+            "games_settings_defaults": "Standardeinstellungen für Spiele",
             "general": "Allgemein",
             "log": "Log",
             "other": "Andere",

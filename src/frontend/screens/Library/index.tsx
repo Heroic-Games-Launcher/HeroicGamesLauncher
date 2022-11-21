@@ -17,7 +17,7 @@ import Fuse from 'fuse.js'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 
-import { GamesList } from './components/GamesList'
+import GamesList from './components/GamesList'
 import {
   FavouriteGame,
   GameInfo,
@@ -47,7 +47,7 @@ type ModalState = {
   gameInfo: GameInfo | null
 }
 
-export default function Library(): JSX.Element {
+export default React.memo(function Library(): JSX.Element {
   const {
     layout,
     libraryStatus,
@@ -284,13 +284,14 @@ export default function Library(): JSX.Element {
     return [...library]
   }, [
     category,
-    epic,
-    gog,
+    epic.library,
+    gog.library,
     filterText,
     filterPlatform,
     sortDescending,
     sortInstalled,
-    showHidden
+    showHidden,
+    showFavouritesLibrary
   ])
 
   if (!epic && !gog) {
@@ -336,7 +337,10 @@ export default function Library(): JSX.Element {
           handleAddGameButtonClick={() => handleModal('', 'sideload', null)}
         />
 
-        {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
+        {!!libraryToShow.length ||
+          (refreshing && !refreshingInTheBackground && (
+            <UpdateComponent inline />
+          ))}
 
         {(!refreshing || refreshingInTheBackground) && (
           <GamesList
@@ -368,4 +372,4 @@ export default function Library(): JSX.Element {
       )}
     </>
   )
-}
+})

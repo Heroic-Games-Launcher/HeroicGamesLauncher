@@ -456,9 +456,7 @@ class GOGGame extends Game {
       gameSettings,
       mangoHudCommand,
       gameModeBin,
-      steamRuntime?.length
-        ? [...steamRuntime, `--filesystem=${gameInfo.install.install_path}`]
-        : undefined
+      steamRuntime?.length ? [...steamRuntime] : undefined
     )
 
     const fullCommand = getRunnerCallWithoutCredentials(

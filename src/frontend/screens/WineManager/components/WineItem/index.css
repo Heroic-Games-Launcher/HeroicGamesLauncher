@@ -23,9 +23,9 @@
 
 .wineManagerListItem {
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr 1fr;
+  grid-template-columns: 3fr 2fr 1fr 10%;
   grid-template-areas: 'name date size action';
-  margin: var(--space-xs) var(--space-lg);
+  margin: 0 var(--space-xl-fixed);
   align-items: center;
   justify-items: baseline;
   position: relative;
@@ -86,7 +86,6 @@
 .wineManagerListSize {
   font-size: var(--text-md);
   grid-area: size;
-  justify-self: center;
 }
 
 .react-contextmenu--visible {

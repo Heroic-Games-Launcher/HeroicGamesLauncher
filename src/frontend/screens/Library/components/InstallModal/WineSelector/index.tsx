@@ -1,10 +1,15 @@
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { TextInputWithIconField, SelectField } from 'frontend/components/UI'
+import {
+  TextInputWithIconField,
+  SelectField,
+  ToggleSwitch
+} from 'frontend/components/UI'
 import React from 'react'
-import { Runner, WineInstallation } from 'common/types'
+import { AppSettings, WineInstallation } from 'common/types'
 import { useTranslation } from 'react-i18next'
-import { getGameInfo } from 'frontend/helpers'
+import { configStore } from 'frontend/helpers/electronStores'
+import { removeSpecialcharacters } from 'frontend/helpers'
 
 type Props = {
   setWineVersion: React.Dispatch<
@@ -14,8 +19,7 @@ type Props = {
   winePrefix: string
   wineVersionList: WineInstallation[]
   wineVersion: WineInstallation | undefined
-  appName: string
-  runner: Runner
+  title?: string
 }
 
 export default function WineSelector({
@@ -24,64 +28,88 @@ export default function WineSelector({
   winePrefix,
   wineVersionList,
   wineVersion,
-  appName,
-  runner
+  title = 'sideload'
 }: Props) {
   const { t } = useTranslation('gamepage')
 
+  const [useDefaultSettings, setUseDefaultSettings] = React.useState(false)
+  const [description, setDescription] = React.useState('')
+
   React.useEffect(() => {
-    const getInfo = async () => {
-      const gameData =
-        runner === 'sideload'
-          ? { folder_name: 'sideload' }
-          : await getGameInfo(appName, runner)
-      const bottleName = gameData?.folder_name
-      const { defaultWinePrefix, wineVersion } =
-        await window.api.requestAppSettings()
-      const sugestedWinePrefix = `${defaultWinePrefix}/${bottleName}`
+    const {
+      defaultWinePrefix: prefixFolder,
+      wineVersion,
+      winePrefix: defaultPrefix
+    } = configStore.get('settings') as AppSettings
+    setDescription(
+      `${defaultPrefix} / ${wineVersion.name.replace('Proton - ', '')}`
+    )
+
+    if (useDefaultSettings) {
+      setWinePrefix(defaultPrefix)
+      setWineVersion(wineVersion)
+    } else {
+      const sugestedWinePrefix = `${prefixFolder}/${removeSpecialcharacters(
+        title
+      )}`
       setWinePrefix(sugestedWinePrefix)
       setWineVersion(wineVersion || undefined)
     }
-    getInfo()
-  }, [])
+  }, [useDefaultSettings])
 
   return (
     <>
-      <TextInputWithIconField
-        label={t('install.wineprefix', 'WinePrefix')}
-        htmlId="setinstallpath"
-        placeholder={winePrefix}
-        value={winePrefix.replaceAll("'", '')}
-        onChange={(event) => setWinePrefix(event.target.value)}
-        icon={<FontAwesomeIcon icon={faFolderOpen} />}
-        onIconClick={async () =>
-          window.api
-            .openDialog({
-              buttonLabel: t('box.choose'),
-              properties: ['openDirectory'],
-              title: t('box.wineprefix', 'Select WinePrefix Folder')
-            })
-            .then((path) => setWinePrefix(path || winePrefix))
-        }
+      <ToggleSwitch
+        htmlId="use-wine-defaults"
+        title={t(
+          'setting.use-default-wine-settings',
+          'Use Default Wine Settings'
+        )}
+        value={useDefaultSettings}
+        handleChange={() => setUseDefaultSettings(!useDefaultSettings)}
+        description={description}
       />
+      {!useDefaultSettings && (
+        <>
+          <TextInputWithIconField
+            label={t('install.wineprefix', 'WinePrefix')}
+            htmlId="setinstallpath"
+            placeholder={winePrefix}
+            value={winePrefix.replaceAll("'", '')}
+            onChange={(event) => setWinePrefix(event.target.value)}
+            icon={<FontAwesomeIcon icon={faFolderOpen} />}
+            onIconClick={async () =>
+              window.api
+                .openDialog({
+                  buttonLabel: t('box.choose'),
+                  properties: ['openDirectory'],
+                  title: t('box.wineprefix', 'Select WinePrefix Folder')
+                })
+                .then((path) => setWinePrefix(path || winePrefix))
+            }
+          />
 
-      <SelectField
-        label={`${t('install.wineversion')}:`}
-        htmlId="wineVersion"
-        value={wineVersion?.bin || ''}
-        onChange={(e) =>
-          setWineVersion(
-            wineVersionList.find((version) => version.bin === e.target.value)
-          )
-        }
-      >
-        {wineVersionList &&
-          wineVersionList.map((version) => (
-            <option value={version.bin} key={version.bin}>
-              {version.name}
-            </option>
-          ))}
-      </SelectField>
+          <SelectField
+            label={`${t('install.wineversion')}:`}
+            htmlId="wineVersion"
+            value={wineVersion?.bin || ''}
+            onChange={(e) =>
+              setWineVersion(
+                wineVersionList.find(
+                  (version) => version.bin === e.target.value
+                )
+              )
+            }
+          >
+            {wineVersionList &&
+              wineVersionList.map((version) => (
+                <option value={version.bin} key={version.bin}>
+                  {version.name}
+                </option>
+              ))}
+          </SelectField>
+        </>
+      )}
     </>
   )
 }

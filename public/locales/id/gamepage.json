@@ -18,7 +18,7 @@
             "title": "Verifikasi dan Perbaiki"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Pilih EXE untuk Dijalankan"
         },
         "select": {
             "button": "Select"
@@ -139,6 +139,9 @@
     "report_problem": "Laporkan masalah yang terjadi saat memainkan gim ini",
     "sdl": {
         "title": "Pilih komponen untuk dipasang"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {

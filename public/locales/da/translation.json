@@ -434,12 +434,15 @@
             "general": "Generel",
             "log": "Log",
             "other": "Andet",
-            "sync": "Gem-synkronisering"
+            "sync": "Gem-synkronisering",
+            "games_settings": "Spilindstillinger",
+            "games_settings_defaults": "Spilstandarder"
         },
         "battlEyeRuntime": {
             "installing": "Installerer BattlEye Runtime...",
             "name": "BattlEye AntiCheat Runtime"
-        }
+        },
+        "default_hint": "Ændringer i dette afsnit gælder kun som standardværdier ved installation af spil. Hvis du vil ændre indstillingerne for et allerede installeret spil, skal du bruge knappen Indstillinger på spilsiden."
     },
     "title": {
         "allUnreal": "Uvirkeligt - Alt",
@@ -470,7 +473,10 @@
             "open_virtual_keyboard": "Åbn virtuelt tastatur",
             "play_game": "Spille spil",
             "scroll": "Rul",
-            "space": "Plads"
+            "space": "Plads",
+            "close_options": "Luk indstillinger",
+            "options": "Muligheder",
+            "select": "Vælg"
         }
     },
     "Epic Games": "Episke spil",

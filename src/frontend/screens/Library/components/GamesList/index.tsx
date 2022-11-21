@@ -18,7 +18,7 @@ interface Props {
   isRecent?: boolean
 }
 
-export const GamesList = ({
+const GamesList = ({
   library = [],
   layout = 'grid',
   handleGameCardClick,
@@ -49,15 +49,10 @@ export const GamesList = ({
       {!!library.length &&
         library.map((gameInfo) => {
           const {
-            title,
-            art_square,
-            art_cover,
-            art_logo,
             app_name,
             is_installed,
             runner,
-            cloud_save_enabled,
-            install: { version, install_size, is_dlc, platform }
+            install: { is_dlc }
           } = gameInfo
           if (is_dlc) {
             return null
@@ -70,27 +65,18 @@ export const GamesList = ({
           return (
             <GameCard
               key={app_name}
-              runner={runner}
-              cover={art_square}
-              coverList={art_cover}
-              // @ts-expect-error TODO: Verify `art_logo` is not undefined here
-              logo={art_logo}
-              hasCloudSave={cloud_save_enabled}
-              title={title}
-              appName={app_name}
-              isInstalled={is_installed}
-              version={`${version}`}
-              size={`${install_size}`}
               hasUpdate={hasUpdate}
               buttonClick={() =>
                 handleGameCardClick(app_name, runner, gameInfo)
               }
               forceCard={layout === 'grid'}
-              installedPlatform={platform}
               isRecent={isRecent}
+              gameInfo={gameInfo}
             />
           )
         })}
     </div>
   )
 }
+
+export default React.memo(GamesList)

@@ -40,7 +40,7 @@ export const DXVK = {
       } = await axios.default.get(tool.url)
 
       const { name, browser_download_url: downloadUrl } = assets[0]
-      const pkg = name.replace('.tar.gz', '').replace('.tar.zst', '')
+      const pkg = name.replace('.tar.gz', '').replace('.tar.xz', '')
 
       const latestVersion = `${heroicToolsPath}/${tool.name}/${name}`
       const pastVersionCheck = `${heroicToolsPath}/${tool.name}/latest_${tool.name}`
@@ -76,7 +76,7 @@ export const DXVK = {
           exec(echoCommand)
           await execAsync(extractCommand)
             .then(() =>
-              logInfo(`extracting ${tool.name} updated!`, {
+              logInfo(`${tool.name} updated!`, {
                 prefix: LogPrefix.DXVKInstaller
               })
             )

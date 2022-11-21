@@ -140,6 +140,9 @@
     "sdl": {
         "title": "Διαλέξτε στοιχεία για εγκατάσταση"
     },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
+    },
     "sideload": {
         "field": {
             "title": "Title"

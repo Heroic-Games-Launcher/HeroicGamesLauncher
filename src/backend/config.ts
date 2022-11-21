@@ -26,7 +26,8 @@ import {
   isMac,
   isWindows,
   getSteamLibraries,
-  getSteamCompatFolder
+  getSteamCompatFolder,
+  configStore
 } from './constants'
 import { execAsync } from './utils'
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -437,6 +438,13 @@ class GlobalConfigV0 extends GlobalConfig {
       winePrefix
     } as AppSettings
 
+    // TODO: Remove this after a couple of stable releases
+    // Get settings only from config-store
+    const currentConfigStore = configStore.get('settings', {}) as AppSettings
+    if (!currentConfigStore.defaultInstallPath) {
+      configStore.set('settings', settings)
+    }
+
     return settings
   }
 
@@ -482,6 +490,7 @@ class GlobalConfigV0 extends GlobalConfig {
       checkForUpdatesOnStartup: !isFlatpak,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
+      libraryTopSection: 'disabled',
       defaultSteamPath: getSteamCompatFolder(),
       defaultWinePrefix: heroicDefaultWinePrefix,
       language: 'en',

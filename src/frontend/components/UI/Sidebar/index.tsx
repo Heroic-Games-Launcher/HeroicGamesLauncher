@@ -13,7 +13,7 @@ import './index.css'
 import HeroicVersion from './components/HeroicVersion'
 import { DMQueueElement } from 'common/types'
 
-export default function Sidebar() {
+export default React.memo(function Sidebar() {
   const { t } = useTranslation()
   const { sidebarCollapsed, setSideBarCollapsed } = useContext(ContextProvider)
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
@@ -62,4 +62,4 @@ export default function Sidebar() {
       </button>
     </aside>
   )
-}
+})

@@ -156,7 +156,7 @@
             "backspace": "Backspace",
             "close_dialog": "Zavřít dialogové okno",
             "close_keyboard": "Zavřít klávesnici",
-            "close_options": "Close Options",
+            "close_options": "Zavřít možnosti",
             "game_details": "Podrobnosti o hře",
             "game_settings": "Nastavení hry",
             "install_game": "Instalovat hru",
@@ -165,7 +165,7 @@
             "options": "Options",
             "play_game": "Hrát hru",
             "scroll": "Scroll",
-            "select": "Select",
+            "select": "Vybrat",
             "space": "Místo",
             "update_game": "Aktualizovat hru"
         }
@@ -353,7 +353,7 @@
     "offline-message": {
         "hint": "Kontrolujeme připojení s:{{newline}}github.com,{{newline}}gog.com a{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Opakování pokusu za ... {{seconds}} sekund",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Opakování pokusu"
     },
     "options": {
@@ -528,7 +528,7 @@
         "clear-cache": "Vymazat mezipaměť Heroic",
         "copiedToClipboard": "Zkopírováno do schránky!",
         "copyToClipboard": "Kopírovat všechna nastavení do schránky",
-        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
+        "default_hint": "Změny v této části platí pouze jako výchozí hodnoty při instalaci her. Pokud chcete změnit nastavení již nainstalované hry, použijte tlačítko Nastavení na stránce hry.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "Ke správné funkci EAC runtime na Flatpaku je vyžadován GameMode. Chcete jej nyní povolit?",
@@ -548,8 +548,8 @@
         },
         "navbar": {
             "advanced": "Pokročilé",
-            "games_settings": "Game Settings",
-            "games_settings_defaults": "Game Defaults",
+            "games_settings": "Nastavení hry",
+            "games_settings_defaults": "Výchozí nastavení her",
             "general": "Obecné",
             "log": "Protokol",
             "other": "Ostatní",

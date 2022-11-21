@@ -5,15 +5,24 @@ import './index.css'
 
 interface Props {
   htmlId: string
-  disabled?: boolean
   handleChange: ChangeEventHandler<HTMLInputElement>
   value: boolean
   title: string
+  disabled?: boolean
   extraClass?: string
+  description?: string
 }
 
 export default function ToggleSwitch(props: Props) {
-  const { handleChange, value, disabled, title, htmlId, extraClass } = props
+  const {
+    handleChange,
+    value,
+    disabled,
+    title,
+    htmlId,
+    extraClass,
+    description = ''
+  } = props
   const { isRTL } = useContext(ContextProvider)
 
   return (
@@ -32,6 +41,7 @@ export default function ToggleSwitch(props: Props) {
           isRTL
         })}
         htmlFor={htmlId}
+        title={description}
       >
         {title}
       </label>

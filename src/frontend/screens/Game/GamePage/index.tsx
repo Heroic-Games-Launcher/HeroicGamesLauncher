@@ -46,11 +46,15 @@ import {
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 
-export default function GamePage(): JSX.Element | null {
+export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
-  const location = useLocation() as { state: { fromDM: boolean } | null }
+  const location = useLocation() as {
+    state: { fromDM: boolean; gameInfo: GameInfo }
+  }
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
+
+  const { gameInfo: locationGameInfo } = location.state
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
@@ -68,8 +72,8 @@ export default function GamePage(): JSX.Element | null {
     libraryStatus.find((game) => game.appName === appName) || {}
 
   const [progress, previousProgress] = hasProgress(appName)
-  // @ts-expect-error TODO: Proper default value
-  const [gameInfo, setGameInfo] = useState<GameInfo>({})
+
+  const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
@@ -101,73 +105,78 @@ export default function GamePage(): JSX.Element | null {
   const isMoving = status === 'moving'
   const isUninstalling = status === 'uninstalling'
 
-  const backRoute = location.state?.fromDM ? '/download-manager' : '/'
+  const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
   const storage: Storage = window.localStorage
 
   useEffect(() => {
-    const updateConfig = async () => {
-      try {
-        const newInfo = await getGameInfo(appName, runner)
-        if (!newInfo) {
-          return
-        }
+    const updateGameInfo = async () => {
+      const newInfo = await getGameInfo(appName, runner)
+      if (newInfo) {
         setGameInfo(newInfo)
-        const { install, is_linux_native, is_mac_native } = newInfo
+      }
+    }
+    updateGameInfo()
+  }, [status, gog.library, epic.library])
 
-        const installPlatform =
-          install.platform || (is_linux_native && isLinux)
-            ? 'linux'
-            : is_mac_native && isMac
-            ? 'Mac'
-            : 'Windows'
+  useEffect(() => {
+    const updateConfig = async () => {
+      if (gameInfo) {
+        const { install, is_linux_native, is_mac_native, is_installed } =
+          gameInfo
+        if (is_installed) {
+          const installPlatform =
+            install.platform || (is_linux_native && isLinux)
+              ? 'linux'
+              : is_mac_native && isMac
+              ? 'Mac'
+              : 'Windows'
 
-        if (runner !== 'sideload') {
-          getInstallInfo(appName, runner, installPlatform)
-            .then((info) => {
-              if (!info) {
-                throw 'Cannot get game info'
+          if (runner !== 'sideload') {
+            getInstallInfo(appName, runner, installPlatform)
+              .then((info) => {
+                if (!info) {
+                  throw 'Cannot get game info'
+                }
+                setGameInstallInfo(info)
+              })
+              .catch((error) => {
+                console.error(error)
+                window.api.logError(`${`${error}`}`)
+                setHasError({ error: true, message: `${error}` })
+              })
+          }
+
+          try {
+            const {
+              autoSyncSaves,
+              savesPath,
+              gogSaves,
+              wineVersion,
+              winePrefix
+            } = await window.api.requestGameSettings(appName)
+
+            if (!isWin) {
+              let wine = wineVersion.name
+                .replace('Wine - ', '')
+                .replace('Proton - ', '')
+              if (wine.includes('Default')) {
+                wine = wine.split('-')[0]
               }
-              setGameInstallInfo(info)
-            })
-            .catch((error) => {
-              console.error(error)
-              window.api.logError(`${`${error}`}`)
-              setHasError({ error: true, message: `${error}` })
-            })
-        }
-
-        try {
-          const {
-            autoSyncSaves,
-            savesPath,
-            gogSaves,
-            wineVersion,
-            winePrefix
-          } = await window.api.requestGameSettings(appName)
-
-          if (!isWin) {
-            let wine = wineVersion.name
-              .replace('Wine - ', '')
-              .replace('Proton - ', '')
-            if (wine.includes('Default')) {
-              wine = wine.split('-')[0]
+              setWineVersion(wine)
+              setWinePrefix(winePrefix)
             }
-            setWineVersion(wine)
-            setWinePrefix(winePrefix)
-          }
 
-          if (newInfo?.cloud_save_enabled) {
-            setAutoSyncSaves(autoSyncSaves)
-            setGOGSaves(gogSaves ?? [])
-            return setSavesPath(savesPath)
+            if (gameInfo.cloud_save_enabled) {
+              setAutoSyncSaves(autoSyncSaves)
+              setGOGSaves(gogSaves ?? [])
+              return setSavesPath(savesPath)
+            }
+          } catch (error) {
+            setHasError({ error: true, message: error })
+            window.api.logError(`${error}`)
           }
-        } catch (error) {
-          setHasError({ error: true, message: error })
-          window.api.logError(`${error}`)
         }
-      } catch (error) {
-        setHasError({ error: true, message: error })
       }
     }
     updateConfig()
@@ -458,7 +467,8 @@ export default function GamePage(): JSX.Element | null {
                       runner,
                       isLinuxNative: isNative,
                       isMacNative: isNative,
-                      hasCloudSave: cloud_save_enabled
+                      hasCloudSave: cloud_save_enabled,
+                      gameInfo
                     }}
                     className={`button ${getButtonClass(is_installed)}`}
                   >
@@ -489,7 +499,8 @@ export default function GamePage(): JSX.Element | null {
                     runner,
                     isLinuxNative: isNative,
                     isMacNative: isNative,
-                    hasCloudSave: cloud_save_enabled
+                    hasCloudSave: cloud_save_enabled,
+                    gameInfo
                   }}
                   className="clickable reportProblem"
                 >
@@ -686,15 +697,14 @@ export default function GamePage(): JSX.Element | null {
     }
 
     return install({
-      appName,
+      gameInfo,
       handleGameStatus,
       installPath: folder,
       isInstalling,
       previousProgress,
       progress,
       t,
-      runner: gameInfo.runner,
       showDialogModal: showDialogModal
     })
   }
-}
+})

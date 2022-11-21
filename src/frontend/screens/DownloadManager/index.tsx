@@ -14,7 +14,7 @@ const DownloadManagerItem = lazy(
     import('frontend/screens/DownloadManager/components/DownloadManagerItem')
 )
 
-export default function DownloadManager(): JSX.Element | null {
+export default React.memo(function DownloadManager(): JSX.Element | null {
   const { t } = useTranslation()
   const [refreshing, setRefreshing] = useState(false)
   const [plannendElements, setPlannendElements] = useState<DMQueueElement[]>([])
@@ -146,4 +146,4 @@ export default function DownloadManager(): JSX.Element | null {
       )}
     </>
   )
-}
+})

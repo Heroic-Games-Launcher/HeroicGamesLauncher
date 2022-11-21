@@ -27,7 +27,7 @@ interface Props {
   library: Runner | 'all'
 }
 
-export default function ActionIcons({
+export default React.memo(function ActionIcons({
   library,
   sortDescending,
   toggleSortDescending,
@@ -161,4 +161,4 @@ export default function ActionIcons({
       </FormControl>
     </div>
   )
-}
+})

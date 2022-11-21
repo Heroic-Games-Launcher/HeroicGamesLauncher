@@ -12,11 +12,13 @@ import {
   WineVersionInfo,
   UserInfo,
   InstallParams,
-  LibraryTopSectionOptions
+  LibraryTopSectionOptions,
+  AppSettings
 } from 'common/types'
 import { Category, DialogModalOptions } from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
+  getGameInfo,
   getLegendaryConfig,
   getPlatform,
   install,
@@ -38,6 +40,7 @@ import {
 import { sideloadLibrary } from 'frontend/helpers/electronStores'
 
 const storage: Storage = window.localStorage
+const globalSettings = configStore.get('settings', {}) as AppSettings
 
 const RTL_LANGUAGES = ['fa']
 
@@ -130,8 +133,7 @@ export class GlobalState extends PureComponent<Props> {
     language: this.props.i18n.language,
     layout: storage.getItem('layout') || 'grid',
     libraryStatus: [],
-    libraryTopSection:
-      storage.getItem('library_top_section') || 'recently_played',
+    libraryTopSection: globalSettings.libraryTopSection || 'disabled',
     platform: 'unknown',
     refreshing: false,
     refreshingInTheBackground: true,
@@ -584,8 +586,12 @@ export class GlobalState extends PureComponent<Props> {
       )[0]
       const { appName, path, runner } = args
       if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
+        const gameInfo = await getGameInfo(appName, runner)
+        if (!gameInfo) {
+          return
+        }
         return install({
-          appName,
+          gameInfo,
           handleGameStatus: this.handleGameStatus,
           installPath: path,
           isInstalling: false,
@@ -596,7 +602,6 @@ export class GlobalState extends PureComponent<Props> {
             percent: 0
           },
           t,
-          runner,
           platformToInstall: 'Windows',
           showDialogModal: this.handleShowDialogModal
         })
@@ -670,7 +675,6 @@ export class GlobalState extends PureComponent<Props> {
       layout,
       category,
       showHidden,
-      libraryTopSection,
       showFavourites,
       sidebarCollapsed
     } = this.state
@@ -681,7 +685,6 @@ export class GlobalState extends PureComponent<Props> {
     storage.setItem('show_hidden', JSON.stringify(showHidden))
     storage.setItem('show_favorites', JSON.stringify(showFavourites))
     storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
-    storage.setItem('library_top_section', libraryTopSection)
 
     const pendingOps = libraryStatus.filter(
       (game) => game.status !== 'playing' && game.status !== 'done'

@@ -34,7 +34,7 @@ export type AvailablePlatforms = {
   icon: IconDefinition
 }[]
 
-export default function InstallModal({
+export default React.memo(function InstallModal({
   appName,
   backdropClick,
   runner,
@@ -170,8 +170,7 @@ export default function InstallModal({
                 winePrefix={winePrefix}
                 wineVersion={wineVersion}
                 wineVersionList={wineVersionList}
-                appName={appName}
-                runner={runner}
+                title={gameInfo?.title}
                 setWinePrefix={setWinePrefix}
                 setWineVersion={setWineVersion}
               />
@@ -193,8 +192,6 @@ export default function InstallModal({
                 winePrefix={winePrefix}
                 wineVersion={wineVersion}
                 wineVersionList={wineVersionList}
-                appName={appName}
-                runner={runner}
                 setWinePrefix={setWinePrefix}
                 setWineVersion={setWineVersion}
               />
@@ -204,4 +201,4 @@ export default function InstallModal({
       </Dialog>
     </div>
   )
-}
+})

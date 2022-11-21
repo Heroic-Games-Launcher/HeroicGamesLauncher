@@ -1,5 +1,5 @@
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { getMainWindow } from '../utils'
+import { getInfo, getMainWindow } from '../utils'
 import Store from 'electron-store'
 import { DMQueueElement } from 'common/types'
 import { installQueueElement } from './utils'
@@ -37,7 +37,8 @@ function addToFinished(
   const elementIndex = elements.findIndex(
     (el) => el.params.appName === element.params.appName
   )
-  console.log([status])
+  const gameInfo = getInfo(element.params.appName, element.params.runner)
+  element.params.gameInfo = gameInfo
   if (elementIndex >= 0) {
     elements[elementIndex] = { ...element, status: status ?? 'abort' }
   } else {

@@ -140,6 +140,9 @@
     "sdl": {
         "title": "Selecteer componenten om te installeren"
     },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
+    },
     "sideload": {
         "field": {
             "title": "Title"

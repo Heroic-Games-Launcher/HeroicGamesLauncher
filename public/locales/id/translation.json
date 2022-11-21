@@ -5,15 +5,15 @@
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Fon",
         "title": "Aksesibilitas",
-        "zoom": "Zoom"
+        "zoom": "Perbesar"
     },
-    "add_game": "Add Game",
+    "add_game": "Tambahkan Gim",
     "All": "Semua",
     "anticheat": {
         "anticheats": "Anticheat",
         "may_not_work": "Ini mungkin tidak berfungsi karena dukungan anticheat yang ditolak atau rusak.",
         "reference": "Referensi",
-        "source": "Source",
+        "source": "Sumber",
         "status": "Status",
         "title": "Gim ini mengandung perangkat lunak anticheat"
     },
@@ -29,7 +29,7 @@
         "customWine": "Pilih Wine atau Proton Binary",
         "default-install-path": "Pilih Lokasi Pemasangan Bawaan",
         "default-steam-path": "Lokasi Steam.",
-        "downloadNow": "Download now",
+        "downloadNow": "Unduh sekarang",
         "error": {
             "add": {
                 "steam": {
@@ -57,13 +57,13 @@
             },
             "generic": {
                 "message": "",
-                "title": "Select EXE to Run"
+                "title": "pilih file EXE untuk dijalankan"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Peluncuran dibatalkan",
             "title": "Galat",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Terjadi galat/kesalahan:{{newLine}}{{error}}{{newLine}}{{newLine}} Laporkan galat ke repositori kami di Github.",
+                "title": "Terjadi Galat / Kesalahan!"
             },
             "update": {
                 "message": "Terjadi kesalahan saat melakukan pembaruan, silakan cek log atau coba lagi nanti!",
@@ -353,7 +353,7 @@
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "retry-in": "Retrying in ... {{seconds}} seconds",
+        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
     "options": {

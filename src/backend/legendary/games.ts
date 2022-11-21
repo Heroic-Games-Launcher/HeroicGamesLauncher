@@ -653,7 +653,7 @@ class LegendaryGame extends Game {
       return false
     }
 
-    const offlineFlag = offlineMode ? '--offline' : ''
+    const offlineFlag = offlineMode ? ['--offline'] : []
     const exeOverrideFlag = gameSettings.targetExe
       ? ['--override-exe', gameSettings.targetExe]
       : []
@@ -713,15 +713,25 @@ class LegendaryGame extends Game {
       ['launch', this.appName, '--json', '--offline'],
       createAbortController(this.appName)
     )
+
     appendFileSync(
       this.logFileLocation,
       "Legendary's config from config.ini (before Heroic's settings):\n"
     )
-    const json = JSON.parse(stdout)
-    // remove egl auth info
-    delete json['egl_parameters']
 
-    appendFileSync(this.logFileLocation, JSON.stringify(json, null, 2) + '\n\n')
+    try {
+      const json = JSON.parse(stdout)
+      // remove egl auth info
+      delete json['egl_parameters']
+
+      appendFileSync(
+        this.logFileLocation,
+        JSON.stringify(json, null, 2) + '\n\n'
+      )
+    } catch (error) {
+      // in case legendary's command fails and the output is not json
+      appendFileSync(this.logFileLocation, error + '\n' + stdout + '\n\n')
+    }
 
     const commandParts = [
       'launch',
@@ -737,9 +747,7 @@ class LegendaryGame extends Game {
       gameSettings,
       mangoHudCommand,
       gameModeBin,
-      steamRuntime?.length
-        ? [...steamRuntime, `--filesystem=${gameInfo.install.install_path}`]
-        : undefined
+      steamRuntime?.length ? [...steamRuntime] : undefined
     )
 
     const fullCommand = getRunnerCallWithoutCredentials(

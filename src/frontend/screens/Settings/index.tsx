@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -17,9 +17,10 @@ import {
   AdvancedSettings
 } from './sections'
 import { AppSettings, WineInstallation } from 'common/types'
-import { getGameInfo, writeConfig } from 'frontend/helpers'
+import { writeConfig } from 'frontend/helpers'
 import { UpdateComponent } from 'frontend/components/UI'
 import { LocationState, SettingsContextType } from 'frontend/types'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 export const defaultWineVersion: WineInstallation = {
   bin: '/usr/bin/wine',
@@ -29,8 +30,9 @@ export const defaultWineVersion: WineInstallation = {
 
 function Settings() {
   const { t, i18n } = useTranslation()
+  const { platform } = useContext(ContextProvider)
   const {
-    state: { fromGameCard, runner }
+    state: { fromGameCard, runner, gameInfo }
   } = useLocation() as { state: LocationState }
   const [title, setTitle] = useState('')
 
@@ -43,6 +45,10 @@ function Settings() {
   const isGamesSettings = type === 'games_settings'
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced' && isDefault
+  const isLinux = platform === 'linux'
+  const isMac = platform === 'darwin'
+  const isMacNative = isMac && (gameInfo?.is_mac_native || false)
+  const isLinuxNative = isLinux && (gameInfo?.is_linux_native || false)
 
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
@@ -53,8 +59,7 @@ function Settings() {
       setCurrentConfig(config)
 
       if (!isDefault) {
-        const info = await getGameInfo(appName, runner)
-        setTitle(info?.title ?? appName)
+        setTitle(gameInfo?.title ?? appName)
       } else {
         setTitle(t('globalSettings', 'Global Settings'))
       }
@@ -72,7 +77,7 @@ function Settings() {
   if (!fromGameCard) {
     returnPath = `/gamepage/${runner}/${appName}`
     if (returnPath.includes('default')) {
-      returnPath = '/'
+      returnPath = '/library'
     }
   }
 
@@ -97,7 +102,10 @@ function Settings() {
     config: currentConfig,
     isDefault,
     appName,
-    runner
+    runner,
+    gameInfo,
+    isLinuxNative,
+    isMacNative
   }
 
   return (
@@ -124,7 +132,12 @@ function Settings() {
       <SettingsContext.Provider value={contextValues}>
         <div className="Settings">
           <div role="list" className="settingsWrapper">
-            <NavLink to={returnPath} role="link" className="backButton">
+            <NavLink
+              to={returnPath}
+              role="link"
+              className="backButton"
+              state={{ gameInfo: gameInfo }}
+            >
               <ArrowCircleLeftIcon />
             </NavLink>
             <h1 className="headerTitle" data-testid="headerTitle">
