@@ -1,9 +1,7 @@
 import { HowLongToBeatEntry } from 'howlongtobeat'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import './index.scss'
-
-// react component with 3 square with how long to beat info
 
 type Props = {
   title: string
@@ -11,7 +9,7 @@ type Props = {
 
 export default function HowLongToBeat({ title }: Props) {
   const [howLongToBeatInfo, setHowLongToBeatInfo] =
-    React.useState<HowLongToBeatEntry | null>(null)
+    useState<HowLongToBeatEntry | null>(null)
   const { t } = useTranslation('gamepage')
 
   useEffect(() => {
@@ -27,7 +25,7 @@ export default function HowLongToBeat({ title }: Props) {
   }
 
   const { gameplayMain, gameplayMainExtra, gameplayCompletionist } =
-    howLongToBeatInfo || {}
+    howLongToBeatInfo
 
   return (
     <>
@@ -43,8 +41,7 @@ export default function HowLongToBeat({ title }: Props) {
         </div>
         <div className="howLongToBeat__square">
           <div className="howLongToBeat__square__title">
-            {t('how-long-to-beat.main-plus', 'Main')} +{' '}
-            {t('how-long-to-beat.main-extras', 'Extras')}
+            {t('how-long-to-beat.main-plus-extras', 'Main + Extras')}
           </div>
           <div className="howLongToBeat__square__value">
             {gameplayMainExtra || '?'} {t('hours', 'Hours')}
