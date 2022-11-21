@@ -41,7 +41,7 @@ export default React.memo(function NewLogin() {
 
   async function handleLibraryClick() {
     await refreshLibrary({ fullRefresh: true, runInBackground: false })
-    navigate('/')
+    navigate('/library')
   }
 
   return (

@@ -136,13 +136,6 @@
         "login": "Connexion",
         "title": "Vous n'êtes PAS connecté"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Téléchargement Annulé",
-            "remove": "Supprimer du gestionnaire de téléchargement"
-        }
-    },
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {
         "title": "Sélectionnez les composants à installer"

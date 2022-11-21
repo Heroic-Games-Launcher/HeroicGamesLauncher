@@ -2,20 +2,19 @@ import {
   InstallPlatform,
   AppSettings,
   GameInfo,
-  GameStatus,
   InstallProgress,
-  Runner
+  Runner,
+  UpdateParams
 } from 'common/types'
 
 import { TFunction } from 'react-i18next'
-import { sendKill } from './index'
+import { getGameInfo, sendKill } from './index'
 import { DialogModalOptions } from 'frontend/types'
 
 const storage: Storage = window.localStorage
 
 type InstallArgs = {
   gameInfo: GameInfo
-  handleGameStatus: (game: GameStatus) => Promise<void>
   installPath: string
   isInstalling: boolean
   previousProgress: InstallProgress | null
@@ -35,7 +34,6 @@ async function install({
   t,
   progress,
   isInstalling,
-  handleGameStatus,
   previousProgress,
   setInstallPath,
   sdlList = [],
@@ -111,13 +109,6 @@ async function install({
   if (previousProgress && previousProgress.folder !== installPath) {
     storage.removeItem(appName)
   }
-
-  handleGameStatus({
-    appName,
-    runner,
-    status: 'queued',
-    folder: installPath
-  })
 
   return window.api.install({
     appName,
@@ -198,7 +189,12 @@ const launch = async ({
           {
             text: t('gamepage:box.yes'),
             onClick: async () => {
-              res(updateGame(appName, runner))
+              const gameInfo = await getGameInfo(appName, runner)
+              if (gameInfo) {
+                updateGame({ appName, runner, gameInfo })
+                res({ status: 'done' })
+              }
+              res({ status: 'error' })
             }
           },
           {
@@ -222,14 +218,9 @@ const launch = async ({
   return window.api.launch({ appName, launchArguments, runner })
 }
 
-const updateGame = window.api.updateGame
-
-// Todo: Get Back to update all games
-// function updateAllGames(gameList: Array<string>) {
-//   gameList.forEach(async (appName) => {
-//     await updateGame(appName)
-//   })
-// }
+const updateGame = (args: UpdateParams) => {
+  return window.api.updateGame(args)
+}
 
 export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']

@@ -136,13 +136,6 @@
         "login": "Log in",
         "title": "NEjste přihlášeni"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Stahování zrušeno",
-            "remove": "Odebrat ze správce stahování"
-        }
-    },
     "report_problem": "Nahlásit problém se spouštěním této hry",
     "sdl": {
         "title": "Vyberte součásti k instalaci"

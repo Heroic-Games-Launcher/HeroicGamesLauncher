@@ -136,13 +136,6 @@
         "login": "Logga in",
         "title": "Du är ej inloggad!"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Nerladdning avbröts",
-            "remove": "Ta bort från nerladdningshanteraren"
-        }
-    },
     "report_problem": "Rapportera problem med spelet",
     "sdl": {
         "title": "Ange komponenter att installera"

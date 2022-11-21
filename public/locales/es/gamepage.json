@@ -136,13 +136,6 @@
         "login": "Iniciar Sesión",
         "title": "No ha iniciado sesión"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Descarga Cancelada",
-            "remove": "Remover de descargas"
-        }
-    },
     "report_problem": "Reportar un problema ejecutando este juego",
     "sdl": {
         "title": "Elija componentes a instalar"

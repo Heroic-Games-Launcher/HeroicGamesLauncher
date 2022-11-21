@@ -136,13 +136,6 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Prijavi problem za ovu igricu",
     "sdl": {
         "title": "Odaberite komponente za instalaciju"
