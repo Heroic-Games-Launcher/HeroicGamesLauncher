@@ -47,7 +47,7 @@ import shlex from 'shlex'
 import { t } from 'i18next'
 import { isOnline } from '../online_monitor'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
-import { gameAnticheatInfo } from 'backend/anticheat/utils'
+import { gameAnticheatInfo } from '../anticheat/utils'
 
 class LegendaryGame extends Game {
   public appName: string
