@@ -27,7 +27,8 @@ import {
   isWindows,
   installed,
   configStore,
-  isLinux
+  isLinux,
+  isFlatpak
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import {
@@ -512,6 +513,7 @@ class LegendaryGame extends Game {
 
       gameSettings.eacRuntime =
         anticheatInfo.anticheats.includes('Easy Anti-Cheat')
+      if (gameSettings.eacRuntime && isFlatpak) gameSettings.useGameMode = true
       gameSettings.battlEyeRuntime =
         anticheatInfo.anticheats.includes('BattlEye')
     }
