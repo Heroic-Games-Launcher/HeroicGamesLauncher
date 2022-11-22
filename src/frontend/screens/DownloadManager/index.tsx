@@ -3,12 +3,14 @@ import './index.css'
 import React, { lazy, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DMQueueElement } from 'common/types'
-import { UpdateComponent } from 'frontend/components/UI'
-import ProgressHeader from './components/ProgressHeader'
-import DownloadManagerHeader from './DownloadManagerHeader'
-import { downloadManagerStore } from 'frontend/helpers/electronStores'
-import { DMQueue } from 'frontend/types'
 
+import { DMQueue } from 'frontend/types'
+import { downloadManagerStore } from 'frontend/helpers/electronStores'
+
+const DownloadManagerHeader = lazy(
+  async () => import('./DownloadManagerHeader')
+)
+const ProgressHeader = lazy(async () => import('./components/ProgressHeader'))
 const DownloadManagerItem = lazy(
   async () =>
     import('frontend/screens/DownloadManager/components/DownloadManagerItem')
@@ -16,17 +18,14 @@ const DownloadManagerItem = lazy(
 
 export default React.memo(function DownloadManager(): JSX.Element | null {
   const { t } = useTranslation()
-  const [refreshing, setRefreshing] = useState(false)
   const [plannendElements, setPlannendElements] = useState<DMQueueElement[]>([])
   const [currentElement, setCurrentElement] = useState<DMQueueElement>()
   const [finishedElem, setFinishedElem] = useState<DMQueueElement[]>()
 
   useEffect(() => {
-    setRefreshing(true)
     window.api.getDMQueueInformation().then(({ elements }: DMQueue) => {
       setCurrentElement(elements[0])
       setPlannendElements([...elements.slice(1)])
-      setRefreshing(false)
     })
 
     const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
@@ -48,10 +47,6 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
       setFinishedElem(finished)
     })
   }, [plannendElements.length, currentElement?.params.appName])
-
-  if (refreshing) {
-    return <UpdateComponent />
-  }
 
   const handleClearList = () => {
     setFinishedElem([])

@@ -1,7 +1,7 @@
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, lazy } from 'react'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
@@ -14,11 +14,12 @@ import { Dialog } from 'frontend/components/UI/Dialog'
 
 import './index.css'
 
-import DownloadDialog from './DownloadDialog'
-import SideloadDialog from './SideloadDialog'
-import WineSelector from './WineSelector'
 import { SelectField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
+
+const DownloadDialog = lazy(async () => import('./DownloadDialog'))
+const SideloadDialog = lazy(async () => import('./SideloadDialog'))
+const WineSelector = lazy(async () => import('./WineSelector'))
 
 type Props = {
   appName: string

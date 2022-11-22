@@ -17,7 +17,6 @@ import Fuse from 'fuse.js'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 
-import GamesList from './components/GamesList'
 import {
   FavouriteGame,
   GameInfo,
@@ -25,15 +24,19 @@ import {
   HiddenGame,
   Runner
 } from 'common/types'
-import ErrorComponent from 'frontend/components/UI/ErrorComponent'
+
 import LibraryHeader from './components/LibraryHeader'
 import {
   epicCategories,
   gogCategories,
   sideloadedCategories
 } from 'frontend/helpers/library'
-import RecentlyPlayed from './components/RecentlyPlayed'
 
+const RecentlyPlayed = lazy(async () => import('./components/RecentlyPlayed'))
+const GamesList = lazy(async () => import('./components/GamesList'))
+const ErrorComponent = lazy(
+  async () => import('frontend/components/UI/ErrorComponent')
+)
 const InstallModal = lazy(
   async () => import('frontend/screens/Library/components/InstallModal')
 )
@@ -212,7 +215,7 @@ export default React.memo(function Library(): JSX.Element {
       })
     }
     return tempArray
-  }, [showFavourites, favouriteGames, epic, gog])
+  }, [showFavourites, favouriteGames, epic.library, gog.library])
 
   // select library
   const libraryToShow = useMemo(() => {
