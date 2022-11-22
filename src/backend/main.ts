@@ -937,9 +937,16 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
 
 // Watch the installed games file and trigger a refresh on the installed games if something changes
 if (existsSync(installed)) {
+  let watchTimeout: NodeJS.Timeout | undefined
   watch(installed, () => {
-    logInfo('Installed game list updated', { prefix: LogPrefix.Legendary })
-    LegendaryLibrary.get().refreshInstalled()
+    logInfo('installed.json updated, refreshing library', {
+      prefix: LogPrefix.Legendary
+    })
+    // `watch` might fire twice (while Legendary/we are still writing chunks of the file), which would in turn make LegendaryLibrary fail to
+    // decode the JSON data. So instead of immediately calling LegendaryLibrary.get().refreshInstalled(), call it only after no writes happen
+    // in a 500ms timespan
+    if (watchTimeout) clearTimeout(watchTimeout)
+    watchTimeout = setTimeout(LegendaryLibrary.get().refreshInstalled, 500)
   })
 }
 
