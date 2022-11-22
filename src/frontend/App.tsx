@@ -1,20 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, lazy } from 'react'
 
 import './App.css'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
-import Login from './screens/Login'
-import WebView from './screens/WebView'
-import { GamePage } from './screens/Game'
-import Library from './screens/Library'
-import WineManager from './screens/WineManager'
 import Sidebar from './components/UI/Sidebar'
-import Settings from './screens/Settings'
-import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
 import classNames from 'classnames'
 import { ControllerHints, OfflineMessage } from './components/UI'
-import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
+import Library from './screens/Library'
+
+const Settings = lazy(async () => import('./screens/Settings'))
+const Accessibility = lazy(async () => import('./screens/Accessibility'))
+const DownloadManager = lazy(async () => import('./screens/DownloadManager'))
+const WineManager = lazy(async () => import('./screens/WineManager'))
+const GamePage = lazy(async () => import('./screens/Game/GamePage'))
+const WebView = lazy(async () => import('./screens/WebView'))
+const Login = lazy(async () => import('./screens/Login'))
 
 function App() {
   const { sidebarCollapsed } = useContext(ContextProvider)
