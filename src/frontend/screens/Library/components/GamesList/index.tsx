@@ -4,16 +4,19 @@ import cx from 'classnames'
 import GameCard from '../GameCard'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
+import { ModalState } from '../..'
 
 interface Props {
   library: GameInfo[]
   layout?: string
   isFirstLane?: boolean
   handleGameCardClick: (
-    app_name: string,
+    appName: string,
     runner: Runner,
-    gameInfo: GameInfo
+    gameInfo: GameInfo | null,
+    callback: (value: React.SetStateAction<ModalState>) => void
   ) => void
+  setShowModal: React.Dispatch<React.SetStateAction<ModalState>>
   onlyInstalled?: boolean
   isRecent?: boolean
 }
@@ -24,7 +27,8 @@ const GamesList = ({
   handleGameCardClick,
   isFirstLane = false,
   onlyInstalled = false,
-  isRecent = false
+  isRecent = false,
+  setShowModal
 }: Props): JSX.Element => {
   const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -60,6 +64,9 @@ const GamesList = ({
           if (!is_installed && onlyInstalled) {
             return null
           }
+          if (!gameInfo || !handleGameCardClick) {
+            return null
+          }
 
           const hasUpdate = is_installed && gameUpdates?.includes(app_name)
           return (
@@ -67,7 +74,7 @@ const GamesList = ({
               key={app_name}
               hasUpdate={hasUpdate}
               buttonClick={() =>
-                handleGameCardClick(app_name, runner, gameInfo)
+                handleGameCardClick(app_name, runner, gameInfo, setShowModal)
               }
               forceCard={layout === 'grid'}
               isRecent={isRecent}

@@ -4,10 +4,17 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, RecentGame, Runner } from 'common/types'
 import GamesList from '../GamesList'
 import { configStore } from 'frontend/helpers/electronStores'
+import { ModalState } from '../..'
 
 interface Props {
-  handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
   onlyInstalled: boolean
+  setShowModal: React.Dispatch<React.SetStateAction<ModalState>>
+  handleModal: (
+    appName: string,
+    runner: Runner,
+    gameInfo: GameInfo | null,
+    callback: (value: React.SetStateAction<ModalState>) => void
+  ) => void
 }
 
 function getRecentGames(libraries: GameInfo[], limit: number): GameInfo[] {
@@ -31,7 +38,8 @@ function getRecentGames(libraries: GameInfo[], limit: number): GameInfo[] {
 
 export default React.memo(function RecentlyPlayed({
   handleModal,
-  onlyInstalled
+  onlyInstalled,
+  setShowModal
 }: Props) {
   const { t } = useTranslation()
   const { epic, gog, sideloadedLibrary } = useContext(ContextProvider)
@@ -75,6 +83,7 @@ export default React.memo(function RecentlyPlayed({
         handleGameCardClick={handleModal}
         onlyInstalled={onlyInstalled}
         isRecent={true}
+        setShowModal={setShowModal}
       />
     </>
   )

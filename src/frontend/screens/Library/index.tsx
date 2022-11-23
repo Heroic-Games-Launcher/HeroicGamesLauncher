@@ -31,9 +31,9 @@ import {
   gogCategories,
   sideloadedCategories
 } from 'frontend/helpers/library'
+import GamesList from './components/GamesList'
 
 const RecentlyPlayed = lazy(async () => import('./components/RecentlyPlayed'))
-const GamesList = lazy(async () => import('./components/GamesList'))
 const ErrorComponent = lazy(
   async () => import('frontend/components/UI/ErrorComponent')
 )
@@ -43,11 +43,20 @@ const InstallModal = lazy(
 
 const storage = window.localStorage
 
-type ModalState = {
+export type ModalState = {
   game: string
   show: boolean
   runner: Runner
   gameInfo: GameInfo | null
+}
+
+function handleModal(
+  appName: string,
+  runner: Runner,
+  gameInfo: GameInfo | null,
+  callback: (value: React.SetStateAction<ModalState>) => void
+) {
+  callback({ game: appName, show: true, runner, gameInfo })
 }
 
 export default React.memo(function Library(): JSX.Element {
@@ -123,14 +132,6 @@ export default React.memo(function Library(): JSX.Element {
     if (anchor) {
       anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
-  }
-
-  function handleModal(
-    appName: string,
-    runner: Runner,
-    gameInfo: GameInfo | null
-  ) {
-    setShowModal({ game: appName, show: true, runner, gameInfo })
   }
 
   // cache list of games being installed
@@ -317,6 +318,7 @@ export default React.memo(function Library(): JSX.Element {
           <RecentlyPlayed
             handleModal={handleModal}
             onlyInstalled={libraryTopSection.endsWith('installed')}
+            setShowModal={setShowModal}
           />
         )}
 
@@ -327,6 +329,7 @@ export default React.memo(function Library(): JSX.Element {
               library={favourites}
               handleGameCardClick={handleModal}
               isFirstLane
+              setShowModal={setShowModal}
             />
           </>
         )}
@@ -337,7 +340,9 @@ export default React.memo(function Library(): JSX.Element {
           setSortInstalled={setSortInstalled}
           sortDescending={sortDescending}
           sortInstalled={sortInstalled}
-          handleAddGameButtonClick={() => handleModal('', 'sideload', null)}
+          handleAddGameButtonClick={() =>
+            handleModal('', 'sideload', null, setShowModal)
+          }
         />
 
         {!!libraryToShow.length ||
@@ -350,6 +355,7 @@ export default React.memo(function Library(): JSX.Element {
             library={libraryToShow}
             layout={layout}
             handleGameCardClick={handleModal}
+            setShowModal={setShowModal}
           />
         )}
       </div>
