@@ -136,7 +136,7 @@ export class GlobalState extends PureComponent<Props> {
     libraryStatus: [],
     libraryTopSection: globalSettings.libraryTopSection || 'disabled',
     platform: (storage.getItem('platform') as NodeJS.Platform) || 'linux',
-    refreshing: true,
+    refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames:
       (configStore.get('games.hidden', []) as Array<HiddenGame>) || [],
