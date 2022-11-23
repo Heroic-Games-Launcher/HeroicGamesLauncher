@@ -129,13 +129,14 @@ export class GlobalState extends PureComponent<Props> {
     error: false,
     filterText: '',
     filterPlatform: 'all',
-    gameUpdates: [],
+    gameUpdates:
+      (JSON.parse(storage.getItem('updates') || '[]') as string[]) || [],
     language: this.props.i18n.language,
     layout: storage.getItem('layout') || 'grid',
     libraryStatus: [],
     libraryTopSection: globalSettings.libraryTopSection || 'disabled',
-    platform: 'unknown',
-    refreshing: false,
+    platform: (storage.getItem('platform') as NodeJS.Platform) || 'linux',
+    refreshing: true,
     refreshingInTheBackground: true,
     hiddenGames:
       (configStore.get('games.hidden', []) as Array<HiddenGame>) || [],
@@ -635,6 +636,7 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     this.setState({ platform })
+    storage.setItem('platform', platform)
 
     if (legendaryUser || gogUser) {
       this.refreshLibrary({
@@ -652,9 +654,9 @@ export class GlobalState extends PureComponent<Props> {
     )
 
     // listen to custom connectivity-changed event to update state
-    window.api.onConnectivityChanged((_, connectivity) => {
+    window.api.onConnectivityChanged((_, connectivity) =>
       this.setState({ connectivity })
-    })
+    )
 
     // get the current status
     window.api
