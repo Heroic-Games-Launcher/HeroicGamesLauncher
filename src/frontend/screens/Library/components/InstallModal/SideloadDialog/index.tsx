@@ -108,18 +108,23 @@ export default function SideloadDialog({
     setWine()
   }, [title])
 
-  function searchImage() {
+  async function searchImage() {
     setSearching(true)
-    fetch(`https://steamgrid.usebottles.com/api/search/${title}`)
-      .then(async (res) => res.json())
-      .then((steamGridImage: string) => {
+
+    try {
+      const res = await fetch(
+        `https://steamgrid.usebottles.com/api/search/${title}`
+      )
+      if (res.status === 200) {
+        const steamGridImage = (await res.json()) as string
         setImageUrl(steamGridImage)
         setSearching(false)
-      })
-      .catch((error) => {
-        window.api.logError(error)
-        setSearching(false)
-      })
+      }
+    } catch (error) {
+      console.error('Error when getting image from SteamGridDB')
+      setSearching(false)
+      window.api.logError(`${error}`)
+    }
   }
 
   async function handleInstall(): Promise<void> {
@@ -249,7 +254,7 @@ export default function SideloadDialog({
                 'Add a title to your Game/App'
               )}
               onChange={(e) => handleTitle(e.target.value)}
-              onBlur={() => searchImage()}
+              onBlur={async () => searchImage()}
               htmlId="sideload-title"
               value={title}
               maxLength={40}
