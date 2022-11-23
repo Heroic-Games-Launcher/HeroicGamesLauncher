@@ -26,7 +26,9 @@ import {
   isMac,
   isWindows,
   installed,
-  configStore
+  configStore,
+  isLinux,
+  isFlatpak
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import {
@@ -46,6 +48,7 @@ import shlex from 'shlex'
 import { t } from 'i18next'
 import { isOnline } from '../online_monitor'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
+import { gameAnticheatInfo } from '../anticheat/utils'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -502,6 +505,19 @@ class LegendaryGame extends Game {
       return { status: 'error', error: res.error }
     }
     this.addShortcuts()
+
+    const anticheatInfo = gameAnticheatInfo(this.getGameInfo().namespace)
+
+    if (anticheatInfo && isLinux) {
+      const gameSettings = await this.getSettings()
+
+      gameSettings.eacRuntime =
+        anticheatInfo.anticheats.includes('Easy Anti-Cheat')
+      if (gameSettings.eacRuntime && isFlatpak) gameSettings.useGameMode = true
+      gameSettings.battlEyeRuntime =
+        anticheatInfo.anticheats.includes('BattlEye')
+    }
+
     return { status: 'done' }
   }
 
