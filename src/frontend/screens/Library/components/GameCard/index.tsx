@@ -3,6 +3,7 @@ import './index.css'
 import React, {
   useContext,
   CSSProperties,
+  lazy,
   useMemo,
   useState,
   useEffect
@@ -42,7 +43,10 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 
 import classNames from 'classnames'
 import StoreLogos from 'frontend/components/UI/StoreLogos'
-import UninstallModal from 'frontend/components/UI/UninstallModal'
+
+const UninstallModal = lazy(
+  async () => import('frontend/components/UI/UninstallModal')
+)
 
 interface Card {
   buttonClick: () => void
@@ -53,9 +57,9 @@ interface Card {
 }
 
 const GameCard = ({
-  hasUpdate,
+  hasUpdate = false,
   buttonClick,
-  forceCard,
+  forceCard = false,
   isRecent = false,
   gameInfo
 }: Card) => {
@@ -104,7 +108,10 @@ const GameCard = ({
   const grid = forceCard || layout === 'grid'
 
   const { status, folder } =
-    libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
+    (libraryStatus.length &&
+      libraryStatus.find((game: GameStatus) => game.appName === appName)) ||
+    {}
+
   const isInstalling = status === 'installing' || status === 'updating'
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
@@ -365,6 +372,10 @@ const GameCard = ({
   const { activeController } = useContext(ContextProvider)
 
   const showUpdateButton = hasUpdate && !isUpdating && !isQueued
+
+  if (!gameInfo) {
+    return null
+  }
 
   return (
     <div>
