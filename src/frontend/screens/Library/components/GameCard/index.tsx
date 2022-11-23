@@ -496,7 +496,14 @@ const GameCard = ({
     }
 
     if (isInstalled) {
-      return launch({ appName, t, runner, hasUpdate, showDialogModal })
+      return launch({
+        appName,
+        t,
+        runner,
+        hasUpdate,
+        syncCloud: gameInfo?.cloud_save_enabled,
+        showDialogModal
+      })
     }
     return
   }
