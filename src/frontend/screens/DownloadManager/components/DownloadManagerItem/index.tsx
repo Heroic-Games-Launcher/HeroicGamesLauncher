@@ -1,38 +1,102 @@
 import './index.css'
 
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { DMQueueElement } from 'common/types'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
-import { SvgButton } from 'frontend/components/UI'
+import { CachedImage, SvgButton } from 'frontend/components/UI'
 import { handleStopInstallation } from 'frontend/helpers/library'
-import { getGameInfo, getStoreName } from 'frontend/helpers'
+import {
+  getGameInfo,
+  getInstallInfo,
+  getStoreName,
+  size
+} from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
-import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import { useNavigate } from 'react-router-dom'
+import { LegendaryInstallInfo } from 'common/types/legendary'
+import { GogInstallInfo } from 'common/types/gog'
+import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
+import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 
 type Props = {
-  element: DMQueueElement
+  element?: DMQueueElement
   current: boolean
+}
+
+const options: Intl.DateTimeFormatOptions = {
+  hour: 'numeric',
+  minute: 'numeric'
+}
+
+function convertToTime(time: number) {
+  const date = time ? new Date(time) : new Date()
+  const hour = new Intl.DateTimeFormat(undefined, options).format(date)
+  return { hour, fullDate: date.toLocaleString() }
 }
 
 const DownloadManagerItem = ({ element, current }: Props) => {
   const { epic, gog, showDialogModal } = useContext(ContextProvider)
-  const library = [...epic.library, ...gog.library]
   const { t } = useTranslation('gamepage')
-  const { t: t2 } = useTranslation()
+  const { t: t2 } = useTranslation('translation')
+
   const navigate = useNavigate()
-  const { appName, runner, path, platformToInstall, gameInfo } = element.params
+
+  if (!element) {
+    return (
+      <h5 style={{ paddingTop: 'var(--space-xs' }}>
+        {t2('queue.label.empty', 'Nothing to download')}
+      </h5>
+    )
+  }
+
+  const library = [...epic.library, ...gog.library]
+
+  const { params, addToQueueTime, endTime, type, startTime } = element
+  const {
+    appName,
+    runner,
+    path,
+    platformToInstall,
+    gameInfo: DmGameInfo
+  } = params
+
+  const [gameInfo, setGameInfo] = useState(DmGameInfo)
+
+  useEffect(() => {
+    const getNewInfo = async () => {
+      const newInfo = await getGameInfo(appName, runner)
+      if (newInfo) {
+        setGameInfo(newInfo)
+      }
+    }
+    getNewInfo()
+  }, [])
+
+  const { art_cover, art_square } = gameInfo || {}
+
+  const [installInfo, setInstallInfo] = useState<
+    Partial<LegendaryInstallInfo | GogInstallInfo>
+  >({})
+
   const [progress] = hasProgress(appName)
   const { status } = element
   const finished = status === 'done'
-  const canceled = status === 'error' && !current
+  const canceled = status === 'error' || (status === 'abort' && !current)
+
+  useEffect(() => {
+    const getInfo = async () => {
+      const info = await getInstallInfo(appName, runner, platformToInstall)
+      if (info) {
+        setInstallInfo(info)
+      }
+    }
+    getInfo()
+  }, [appName])
 
   const stopInstallation = async () => {
-    const gameInfo = await getGameInfo(appName, runner)
     if (!gameInfo) {
       return
     }
@@ -57,7 +121,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   // using one element for the different states so it doesn't
   // lose focus from the button when using a game controller
   const handleMainActionClick = () => {
-    if (finished) {
+    if (finished || canceled) {
       return goToGamePage()
     }
 
@@ -65,19 +129,25 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   }
 
   const mainActionIcon = () => {
-    if (finished || canceled) {
-      return (
-        <div className="iconsWrapper">
-          <OpenInNewIcon titleAccess={t('Open')} />
-        </div>
-      )
+    if (finished) {
+      return <PlayIcon />
     }
 
-    return current ? (
-      <StopIcon />
-    ) : (
-      <RemoveCircleIcon style={{ color: 'var(--accent)' }} fontSize="large" />
-    )
+    if (canceled) {
+      return <DownIcon />
+    }
+
+    return <StopIcon />
+  }
+
+  const getTime = () => {
+    if (finished) {
+      return convertToTime(endTime)
+    }
+    if (current) {
+      return convertToTime(startTime)
+    }
+    return convertToTime(addToQueueTime)
   }
 
   const mainIconTitle = () => {
@@ -87,8 +157,8 @@ const DownloadManagerItem = ({ element, current }: Props) => {
     }
 
     return current
-      ? t('button.cancel')
-      : t('queue.label.remove', 'Remove from download manager')
+      ? t('button.cancel', 'Cancel')
+      : t('queue.label.remove', 'Remove from Downloads')
   }
 
   const getStatusColor = () => {
@@ -110,6 +180,17 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   }
 
   const { title } = currentApp
+  const downloadSize =
+    installInfo?.manifest?.download_size &&
+    size(Number(installInfo?.manifest?.download_size))
+  const cover = art_cover || art_square
+
+  const translatedTypes = {
+    install: t2('download-manager.install-type.install', 'Install'),
+    update: t2('download-manager.install-type.update', 'Update')
+  }
+
+  const { hour, fullDate } = getTime()
 
   return (
     <div className="downloadManagerListItem">
@@ -119,11 +200,18 @@ const DownloadManagerItem = ({ element, current }: Props) => {
         className="downloadManagerTitleList"
         style={{ color: getStatusColor() }}
       >
-        {title}
-        {canceled ? ` (${t('queue.label.canceled', 'Download Canceled')})` : ''}
+        {cover && <CachedImage src={cover} alt={title} />}
+        <span className="titleSize">
+          {title}
+          <span title={path}>
+            {downloadSize ?? ''}
+            {canceled ? ` (${t('queue.label.canceled', 'Canceled')})` : ''}
+          </span>
+        </span>
       </span>
+      <span title={fullDate}>{hour}</span>
+      <span>{translatedTypes[type]}</span>
       <span>{getStoreName(runner, t2('Other'))}</span>
-      <span>{platformToInstall}</span>
       <span className="icons">
         {
           <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
@@ -134,4 +222,5 @@ const DownloadManagerItem = ({ element, current }: Props) => {
     </div>
   )
 }
-export default DownloadManagerItem
+
+export default React.memo(DownloadManagerItem)

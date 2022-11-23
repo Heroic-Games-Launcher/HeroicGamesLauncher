@@ -567,11 +567,13 @@ export class GlobalState extends PureComponent<Props> {
         if (!currentApp) {
           // Add finding a runner for games
           const hasUpdate = this.state.gameUpdates?.includes(appName)
+          const gameInfo = await getGameInfo(appName, runner)
           return launch({
             appName,
             t,
             runner,
             hasUpdate,
+            syncCloud: gameInfo?.cloud_save_enabled || false,
             showDialogModal: this.handleShowDialogModal
           })
         }
@@ -592,7 +594,6 @@ export class GlobalState extends PureComponent<Props> {
         }
         return install({
           gameInfo,
-          handleGameStatus: this.handleGameStatus,
           installPath: path,
           isInstalling: false,
           previousProgress: null,

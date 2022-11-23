@@ -94,6 +94,13 @@
     "generic": {
         "error": "Neznámá chyba"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Vyžaduje se být online",
         "installedPlatform": "Nainstalovaná platforma",
@@ -128,13 +135,6 @@
         "gog": "V Heroic nejste přihlášeni pomocí účtu GOG. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
         "login": "Log in",
         "title": "NEjste přihlášeni"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Stahování zrušeno",
-            "remove": "Odebrat ze správce stahování"
-        }
     },
     "report_problem": "Nahlásit problém se spouštěním této hry",
     "sdl": {

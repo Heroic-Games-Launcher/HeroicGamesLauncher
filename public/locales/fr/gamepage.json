@@ -94,6 +94,13 @@
     "generic": {
         "error": "Erreur inconnue"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Connexion à internet requise",
         "installedPlatform": "Système",
@@ -128,13 +135,6 @@
         "gog": "Vous n'êtes pas connecté à un compte GOG dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
         "login": "Connexion",
         "title": "Vous n'êtes PAS connecté"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Téléchargement Annulé",
-            "remove": "Supprimer du gestionnaire de téléchargement"
-        }
     },
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {

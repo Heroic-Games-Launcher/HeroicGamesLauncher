@@ -144,6 +144,7 @@
         "yes": "BAI"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Joan liburutegira",
         "login": "Hasi saioa",
         "sync": "Sinkronizatu",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Dokumentazioa",
-    "download": {
-        "manager": {
-            "empty": "Nothing to download.",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Store"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Baliteke lineako zerbitzuak guztiz ez funtzionatzea Epic Games zerbitzariak lineaz kanpo daudelako!",
@@ -356,6 +362,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Aldagaiaren izena",
@@ -408,10 +415,13 @@
     "progress": "Aurrerapena",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "Downloading",
+            "empty": "Nothing to download",
             "finished": "Completed",
-            "queued": "Queued"
+            "queued": "Queued",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "Duela gutxi jokatuta",

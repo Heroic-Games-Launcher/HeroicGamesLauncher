@@ -85,7 +85,7 @@ export class LegendaryLibrary {
       if (!filename.endsWith('.json')) {
         return
       }
-      const appName = filename.split('.').at(0)!
+      const appName = filename.split('.').slice(0, -1).join('.')
       this.allGames.add(appName)
     })
   }

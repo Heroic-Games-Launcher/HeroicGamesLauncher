@@ -110,7 +110,7 @@ export default function DownloadDialog({
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
   ) as InstallProgress
-  const { libraryStatus, handleGameStatus, platform, showDialogModal } =
+  const { libraryStatus, platform, showDialogModal } =
     useContext(ContextProvider)
 
   const isMac = platform === 'darwin'
@@ -192,7 +192,6 @@ export default function DownloadDialog({
 
     return install({
       gameInfo,
-      handleGameStatus,
       installPath: path || installFolder,
       isInstalling: false,
       previousProgress,
@@ -208,37 +207,41 @@ export default function DownloadDialog({
 
   useEffect(() => {
     const getIinstallInfo = async () => {
-      const gameInstallInfo = await getInstallInfo(
-        appName,
-        runner,
-        platformToInstall
-      )
+      try {
+        const gameInstallInfo = await getInstallInfo(
+          appName,
+          runner,
+          platformToInstall
+        )
+        setGameInstallInfo(gameInstallInfo)
 
-      if (!gameInstallInfo) {
+        if (gameInstallInfo && 'languages' in gameInstallInfo.manifest) {
+          setInstallLanguages(gameInstallInfo.manifest.languages)
+          setInstallLanguage(
+            getInstallLanguage(
+              gameInstallInfo.manifest.languages,
+              i18n.languages
+            )
+          )
+        }
+
+        if (platformToInstall === 'linux' && runner === 'gog') {
+          const installer_languages =
+            (await window.api.getGOGLinuxInstallersLangs(appName)) as string[]
+          setInstallLanguages(installer_languages)
+          setInstallLanguage(
+            getInstallLanguage(installer_languages, i18n.languages)
+          )
+        }
+      } catch (error) {
         showDialogModal({
           type: 'ERROR',
           title: tr('box.error.generic.title', 'Error!'),
-          message: tr('box.error.generic.message', 'Something Went Wrong!')
+          message: `tr('box.error.generic.message', 'Something Went Wrong!')
+          ${error}`
         })
         backdropClick()
         return
-      }
-
-      setGameInstallInfo(gameInstallInfo)
-      if (gameInstallInfo && 'languages' in gameInstallInfo.manifest) {
-        setInstallLanguages(gameInstallInfo.manifest.languages)
-        setInstallLanguage(
-          getInstallLanguage(gameInstallInfo.manifest.languages, i18n.languages)
-        )
-      }
-
-      if (platformToInstall === 'linux' && runner === 'gog') {
-        const installer_languages =
-          (await window.api.getGOGLinuxInstallersLangs(appName)) as string[]
-        setInstallLanguages(installer_languages)
-        setInstallLanguage(
-          getInstallLanguage(installer_languages, i18n.languages)
-        )
       }
     }
     getIinstallInfo()

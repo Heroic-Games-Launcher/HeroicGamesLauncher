@@ -94,6 +94,13 @@
     "generic": {
         "error": "Неизвестная ошибка"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Требуется онлайн",
         "installedPlatform": "Платформа",
@@ -128,13 +135,6 @@
         "gog": "Вы не вошли в Heroic с учетной записью GOG. Не используйте страницу магазина для входа, вместо этого нажмите следующую кнопку:",
         "login": "Войти",
         "title": "Вы НЕ авторизованы"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Загрузка отменена",
-            "remove": "Удалить из менеджера загрузок"
-        }
     },
     "report_problem": "Сообщить о проблеме с запуском этой игры",
     "sdl": {
