@@ -16,7 +16,7 @@ import {
   SyncSaves,
   AdvancedSettings
 } from './sections'
-import { AppSettings, GameSettings, WineInstallation } from 'common/types'
+import { AppSettings, WineInstallation } from 'common/types'
 import { writeConfig } from 'frontend/helpers'
 import { UpdateComponent } from 'frontend/components/UI'
 import { LocationState, SettingsContextType } from 'frontend/types'
@@ -36,9 +36,7 @@ function Settings() {
   } = useLocation() as { state: LocationState }
   const [title, setTitle] = useState('')
 
-  const [currentConfig, setCurrentConfig] = useState<
-    AppSettings | GameSettings | null
-  >(null)
+  const [currentConfig, setCurrentConfig] = useState<Partial<AppSettings>>({})
 
   const { appName = '', type = '' } = useParams()
   const isDefault = appName === 'default'
@@ -85,23 +83,21 @@ function Settings() {
 
   // create setting context functions
   const contextValues: SettingsContextType = {
-    getSetting: (key: string) => {
-      if (currentConfig) {
-        return currentConfig[key]
+    getSetting: (key, fallback) => currentConfig[key] ?? fallback,
+    setSetting: (key, value) => {
+      const currentValue = currentConfig[key]
+      if (currentValue !== undefined || currentValue !== null) {
+        // NOTE: This is the best way I've found to compare `unknown` values
+        //       If you ever modify this, know that `value` might be an array
+        //       of anything, so even something like looping over the array
+        //       and comparing every member might still give false negatives
+        //       This might *also* give false results, but only in cases where
+        //       you're already passing the wrong type for `value`
+        const noChange = JSON.stringify(value) === JSON.stringify(currentValue)
+        if (noChange) return
       }
-    },
-    setSetting: (key: string, value: unknown) => {
-      if (currentConfig) {
-        setCurrentConfig({ ...currentConfig, [key]: value })
-      }
-      // TODO: Remove the `as AppSettings | GameSettings` here. Maybe make a new IPC call to just set a specific settings value
-      writeConfig({
-        appName,
-        config: {
-          ...(currentConfig as AppSettings | GameSettings),
-          [key]: value
-        }
-      })
+      setCurrentConfig({ ...currentConfig, [key]: value })
+      writeConfig({ appName, config: { ...currentConfig, [key]: value } })
     },
     config: currentConfig,
     isDefault,

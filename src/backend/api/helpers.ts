@@ -34,7 +34,7 @@ export const isLoggedIn = async () => ipcRenderer.invoke('isLoggedIn')
 
 export const writeConfig = async (data: {
   appName: string
-  config: AppSettings | GameSettings
+  config: Partial<AppSettings>
 }) => ipcRenderer.invoke('writeConfig', data)
 
 export const kill = async (appName: string, runner: Runner) =>

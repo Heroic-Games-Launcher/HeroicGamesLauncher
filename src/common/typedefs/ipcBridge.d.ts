@@ -135,10 +135,7 @@ interface AsyncIPCFunctions {
   getAlternativeWine: () => Promise<WineInstallation[]>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
   requestSettings: (appName: string) => Promise<AppSettings | GameSettings>
-  writeConfig: (args: {
-    appName: string
-    config: AppSettings | GameSettings
-  }) => void
+  writeConfig: (args: { appName: string; config: Partial<AppSettings> }) => void
   refreshLibrary: (
     fullRefresh?: boolean,
     library?: Runner | 'all'

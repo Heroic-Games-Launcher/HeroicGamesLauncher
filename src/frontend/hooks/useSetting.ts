@@ -8,13 +8,13 @@ const useSetting = <T extends keyof AppSettings>(
 ): [NonNullable<AppSettings[T]>, (newVal: AppSettings[T]) => void] => {
   const { getSetting, setSetting } = useContext(SettingsContext)
 
-  const currentValue = getSetting(key) as AppSettings[T]
+  const currentValue = getSetting(key, fallback)
 
   const setSettingF = (newValue: AppSettings[T]) => {
     setSetting(key, newValue)
   }
 
-  return [currentValue ?? fallback, setSettingF]
+  return [currentValue, setSettingF]
 }
 
 export default useSetting
