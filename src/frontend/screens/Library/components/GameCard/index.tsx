@@ -273,7 +273,8 @@ const GameCard = ({
       // install
       label: t('button.install'),
       onclick: () => buttonClick(),
-      show: !isInstalled || (runner === 'sideload' && !isInstalled)
+      show:
+        (!isInstalled && !isQueued) || (runner === 'sideload' && !isInstalled)
     },
     {
       // cancel installation/update
