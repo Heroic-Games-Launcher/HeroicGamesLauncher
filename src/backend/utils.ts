@@ -15,7 +15,7 @@ import {
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
-import { exec, spawn, spawnSync } from 'child_process'
+import { exec, ExecException, spawn, spawnSync } from 'child_process'
 import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
@@ -353,9 +353,11 @@ async function errorHandler(
           })
         }
       })
-      .catch(() =>
-        logInfo('operation interrupted', { prefix: LogPrefix.Backend })
-      )
+      .catch((err: ExecException) => {
+        // Grep returns 1 when it didn't find any text, which is fine in this case
+        if (err.code !== 1)
+          logInfo('operation interrupted', { prefix: LogPrefix.Backend })
+      })
   }
   if (error) {
     if (error.includes(deletedFolderMsg) && appName) {
