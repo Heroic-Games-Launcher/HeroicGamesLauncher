@@ -48,7 +48,7 @@ export default function SideloadDialog({
     t('sideload.field.title', 'Title')
   )
   const [selectedExe, setSelectedExe] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
+  const [imageUrl, setImageUrl] = useState(fallbackImage)
   const [searching, setSearching] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
@@ -117,7 +117,9 @@ export default function SideloadDialog({
       )
       if (res.status === 200) {
         const steamGridImage = (await res.json()) as string
-        setImageUrl(steamGridImage)
+        if (steamGridImage && steamGridImage.startsWith('http')) {
+          setImageUrl(steamGridImage)
+        }
         setSearching(false)
       }
     } catch (error) {

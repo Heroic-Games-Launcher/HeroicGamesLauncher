@@ -8,9 +8,8 @@ interface CachedImageProps {
 type Props = React.ImgHTMLAttributes<HTMLImageElement> & CachedImageProps
 
 const CachedImage = (props: Props) => {
-  const srcLocation = props.src ?? props.fallback
   const [useCache, setUseCache] = useState(
-    srcLocation.startsWith('http') || false
+    props.src?.startsWith('http') || false
   )
   const [useFallback, setUseFallback] = useState(false)
 
