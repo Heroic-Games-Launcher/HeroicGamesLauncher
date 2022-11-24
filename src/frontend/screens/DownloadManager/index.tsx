@@ -47,7 +47,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
     window.api.getDMQueueInformation().then(({ finished }: DMQueue) => {
       setFinishedElem(finished)
     })
-  }, [plannendElements.length, currentElement?.params.appName])
+  }, [plannendElements.length, currentElement?.paramsGame?.appName, currentElement?.paramsTool?.version])
 
   if (refreshing) {
     return <UpdateComponent />
@@ -94,7 +94,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
         <>
           <ProgressHeader
             downloading={Boolean(currentElement)}
-            appName={currentElement?.params?.appName ?? ''}
+            appName={currentElement?.paramsGame?.appName ?? ''}
           />
           {currentElement && (
             <div className="downloadManager">

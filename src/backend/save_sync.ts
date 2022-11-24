@@ -36,6 +36,7 @@ async function getDefaultSavePath(
     case 'gog':
       return getDefaultGogSavePaths(appName, alreadyDefinedGogSaves)
     case 'sideload':
+    case 'tool':
       return ''
   }
 }

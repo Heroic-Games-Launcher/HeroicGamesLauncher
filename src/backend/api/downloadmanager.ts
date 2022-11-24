@@ -2,13 +2,27 @@ import { ipcRenderer } from 'electron'
 import {
   DMQueueElement,
   InstallParams,
-  UpdateParams
+  UpdateParams,
+  WineVersionInfo
 } from './../../common/types'
 
-export const install = async (args: InstallParams) => {
+export const installTool = async (args: WineVersionInfo) => {
   const dmQueueElement: DMQueueElement = {
-    params: args,
+    paramsTool: args,
     type: 'install',
+    typeElement: 'tool',
+    addToQueueTime: Date.now(),
+    endTime: 0,
+    startTime: 0
+  }
+  ipcRenderer.send('addToDMQueue', dmQueueElement)
+}
+
+export const installGame = async (args: InstallParams) => {
+  const dmQueueElement: DMQueueElement = {
+    paramsGame: args,
+    type: 'install',
+    typeElement: 'game',
     addToQueueTime: Date.now(),
     endTime: 0,
     startTime: 0
@@ -24,8 +38,9 @@ export const updateGame = (args: UpdateParams) => {
   } = args
 
   const dmQueueElement: DMQueueElement = {
-    params: { ...args, path: install_path!, platformToInstall: platform! },
+    paramsGame: { ...args, path: install_path!, platformToInstall: platform! },
     type: 'update',
+    typeElement: 'game',
     addToQueueTime: Date.now(),
     endTime: 0,
     startTime: 0

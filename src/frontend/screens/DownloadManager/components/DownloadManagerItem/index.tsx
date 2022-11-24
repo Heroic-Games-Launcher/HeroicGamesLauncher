@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { DMQueueElement } from 'common/types'
+import { DMQueueElement, GameInfo } from 'common/types'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import { handleStopInstallation } from 'frontend/helpers/library'
@@ -54,26 +54,35 @@ const DownloadManagerItem = ({ element, current }: Props) => {
 
   const library = [...epic.library, ...gog.library]
 
-  const { params, addToQueueTime, endTime, type, startTime } = element
-  const {
-    appName,
-    runner,
-    path,
-    platformToInstall,
-    gameInfo: DmGameInfo
-  } = params
+  const { paramsGame, paramsTool, typeElement, addToQueueTime, endTime, type, startTime } = element
 
-  const [gameInfo, setGameInfo] = useState(DmGameInfo)
+  const [gameInfo, setGameInfo] = useState<GameInfo>()
+  const appName = paramsGame?.appName || paramsTool?.version || 'Not Found'
+  const runner = paramsGame?.runner || 'tool'
+  const platformToInstall = paramsGame?.platformToInstall || 'linux'
+  const path = paramsGame?.path || paramsTool?.installDir || 'Not Found'
 
-  useEffect(() => {
-    const getNewInfo = async () => {
-      const newInfo = await getGameInfo(appName, runner)
-      if (newInfo) {
-        setGameInfo(newInfo)
+  if (typeElement === 'game') {
+    useEffect(() => {
+      const getNewInfo = async () => {
+        const newInfo = await getGameInfo(appName, runner)
+        if (newInfo) {
+          setGameInfo(newInfo)
+        }
       }
-    }
-    getNewInfo()
-  }, [])
+      getNewInfo()
+    }, [])
+
+    useEffect(() => {
+      const getInfo = async () => {
+        const info = await getInstallInfo(appName, runner, platformToInstall)
+        if (info) {
+          setInstallInfo(info)
+        }
+      }
+      getInfo()
+    }, [appName])
+  }
 
   const { art_cover, art_square } = gameInfo || {}
 
@@ -86,36 +95,36 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const finished = status === 'done'
   const canceled = status === 'error' || (status === 'abort' && !current)
 
-  useEffect(() => {
-    const getInfo = async () => {
-      const info = await getInstallInfo(appName, runner, platformToInstall)
-      if (info) {
-        setInstallInfo(info)
-      }
-    }
-    getInfo()
-  }, [appName])
-
   const stopInstallation = async () => {
-    if (!gameInfo) {
-      return
-    }
-    const folder_name = gameInfo.folder_name
+    if (typeElement === 'game') {
+      if (!gameInfo) {
+        return
+      }
+      const folder_name = gameInfo.folder_name
 
-    return handleStopInstallation(
-      appName,
-      [path, folder_name],
-      t,
-      progress,
-      runner,
-      showDialogModal
-    )
+      return handleStopInstallation(
+        appName,
+        [path, folder_name],
+        t,
+        progress,
+        runner,
+        showDialogModal
+      )
+    } else {
+      window.api.abort(appName)
+    }
   }
 
   const goToGamePage = () => {
-    return navigate(`/gamepage/${runner}/${appName}`, {
-      state: { fromDM: true, gameInfo: gameInfo }
-    })
+    if (typeElement === 'game') {
+      return navigate(`/gamepage/${runner}/${appName}`, {
+        state: { fromDM: true, gameInfo: gameInfo }
+      })
+    } else {
+      return navigate('/wine-manager'), {
+        state: {fromDM: true}
+      }
+    }
   }
 
   // using one element for the different states so it doesn't

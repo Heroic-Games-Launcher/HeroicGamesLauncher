@@ -1,3 +1,4 @@
+import { DMStatus } from './../../common/types'
 import { BrowserWindow } from 'electron'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { getGame, isEpicServiceOffline, notify } from '../utils'
@@ -10,7 +11,7 @@ async function installQueueElement(
   mainWindow: BrowserWindow,
   params: InstallParams
 ): Promise<{
-  status: 'done' | 'error' | 'abort'
+  status: DMStatus
   error?: string | undefined
 }> {
   const {

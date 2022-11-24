@@ -1,8 +1,9 @@
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { getInfo, getMainWindow } from '../utils'
 import Store from 'electron-store'
-import { DMQueueElement } from 'common/types'
+import { DMQueueElement, DMStatus } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
+import { prepareInstallWineVersion } from 'backend/wine/manager/utils'
 
 const downloadManager = new Store({
   cwd: 'store',
@@ -14,7 +15,6 @@ const downloadManager = new Store({
 */
 
 type DownloadManagerState = 'idle' | 'running'
-type DMStatus = 'done' | 'error' | 'abort'
 let queueState: DownloadManagerState = 'idle'
 
 function getFirstQueueElement() {
@@ -32,11 +32,20 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
     elements = downloadManager.get('finished') as DMQueueElement[]
   }
 
-  const elementIndex = elements.findIndex(
-    (el) => el.params.appName === element.params.appName
-  )
-  const gameInfo = getInfo(element.params.appName, element.params.runner)
-  element.params.gameInfo = gameInfo
+  const elementIndex = elements.findIndex((el) => {
+    element.typeElement === 'game'
+      ? el.paramsGame?.appName === element.paramsGame?.appName
+      : el.paramsTool?.version === element.paramsTool?.version
+  })
+
+  if (element.typeElement === 'game' && element.paramsGame) {
+    const gameInfo = getInfo(
+      element.paramsGame.appName,
+      element.paramsGame.runner
+    )
+    element.paramsGame.gameInfo = gameInfo
+  }
+
   if (elementIndex >= 0) {
     elements[elementIndex] = { ...element, status: status ?? 'abort' }
   } else {
@@ -44,9 +53,17 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
   }
 
   downloadManager.set('finished', elements)
-  logInfo([element.params.appName, 'added to download manager finished.'], {
-    prefix: LogPrefix.DownloadManager
-  })
+  logInfo(
+    [
+      element.typeElement === 'game'
+        ? element.paramsGame?.appName
+        : element.paramsTool?.version,
+      'added to download manager finished.'
+    ],
+    {
+      prefix: LogPrefix.DownloadManager
+    }
+  )
 }
 
 /* 
@@ -54,6 +71,16 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
 */
 
 async function initQueue() {
+  const cleanUpElement = (element: DMQueueElement, status: DMStatus) => {
+    element.endTime = Date.now()
+    addToFinished(element, status)
+    removeFromQueue(
+      (element.typeElement === 'game'
+        ? element.paramsGame?.appName
+        : element.paramsTool?.version) ?? ''
+    )
+  }
+
   const window = getMainWindow()
   let element = getFirstQueueElement()
   queueState = element ? 'running' : 'idle'
@@ -65,13 +92,16 @@ async function initQueue() {
     queuedElements[0] = element
     downloadManager.set('queue', queuedElements)
 
-    const { status } =
-      element.type === 'install'
-        ? await installQueueElement(window, element.params)
-        : await updateQueueElement(window, element.params)
-    element.endTime = Date.now()
-    addToFinished(element, status)
-    removeFromQueue(element.params.appName)
+    if (element.typeElement === 'game' && element.paramsGame) {
+      const { status } =
+        element.type === 'install'
+          ? await installQueueElement(window, element.paramsGame)
+          : await updateQueueElement(window, element.paramsGame)
+      cleanUpElement(element, status)
+    } else if (element.typeElement === 'tool' && element.paramsTool) {
+      const status = await prepareInstallWineVersion(window, element.paramsTool)
+      cleanUpElement(element, status)
+    }
     element = getFirstQueueElement()
   }
   queueState = 'idle'
@@ -87,9 +117,16 @@ function addToQueue(element: DMQueueElement) {
 
   const mainWindow = getMainWindow()
   mainWindow.webContents.send('setGameStatus', {
-    appName: element.params.appName,
-    runner: element.params.runner,
-    folder: element.params.path,
+    appName:
+      element.typeElement === 'game'
+        ? element.paramsGame?.appName
+        : element.paramsTool?.version,
+    runner:
+      element.typeElement === 'game' ? element.paramsGame?.runner : 'tool',
+    folder:
+      element.typeElement === 'game'
+        ? element.paramsGame?.path
+        : element.paramsTool?.installDir,
     status: 'queued'
   })
 
@@ -98,9 +135,11 @@ function addToQueue(element: DMQueueElement) {
     elements = downloadManager.get('queue') as DMQueueElement[]
   }
 
-  const elementIndex = elements.findIndex(
-    (el) => el.params.appName === element.params.appName
-  )
+  const elementIndex = elements.findIndex((el) => {
+    return element.typeElement === 'game'
+      ? el.paramsGame?.appName === element.paramsGame?.appName
+      : el.paramsTool?.version === element.paramsTool?.version
+  })
 
   if (elementIndex >= 0) {
     elements[elementIndex] = element
@@ -109,9 +148,17 @@ function addToQueue(element: DMQueueElement) {
   }
 
   downloadManager.set('queue', elements)
-  logInfo([element.params.appName, 'added to download manager queue.'], {
-    prefix: LogPrefix.DownloadManager
-  })
+  logInfo(
+    [
+      element.typeElement === 'game'
+        ? element.paramsGame?.appName
+        : element.paramsTool?.version,
+      'added to download manager queue.'
+    ],
+    {
+      prefix: LogPrefix.DownloadManager
+    }
+  )
 
   getMainWindow().webContents.send('changedDMQueueInformation', elements)
 
@@ -127,7 +174,9 @@ function removeFromQueue(appName: string) {
     let elements: DMQueueElement[] = []
     elements = downloadManager.get('queue') as DMQueueElement[]
     const index = elements.findIndex(
-      (queueElement) => queueElement?.params.appName === appName
+      (queueElement) =>
+        queueElement?.paramsGame?.appName === appName ||
+        queueElement?.paramsTool?.version === appName
     )
     if (index !== -1) {
       elements.splice(index, 1)
@@ -144,7 +193,7 @@ function removeFromQueue(appName: string) {
       prefix: LogPrefix.DownloadManager
     })
 
-    getMainWindow().webContents.send('changedDMQueueInformation', elements)
+    mainWindow.webContents.send('changedDMQueueInformation', elements)
   }
 }
 

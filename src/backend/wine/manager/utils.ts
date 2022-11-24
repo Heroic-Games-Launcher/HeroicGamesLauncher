@@ -6,7 +6,7 @@
 import Store from 'electron-store'
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
-import { WineVersionInfo } from 'common/types'
+import { DMStatus, WineVersionInfo } from 'common/types'
 
 import {
   getAvailableVersions,
@@ -17,6 +17,10 @@ import {
   VersionInfo
 } from 'heroic-wine-downloader'
 import { heroicToolsPath } from '../../constants'
+import {
+  createAbortController,
+  deleteAbortController
+} from 'backend/utils/aborthandler/aborthandler'
 
 const wineDownloaderInfoStore = new Store({
   cwd: 'store',
@@ -91,11 +95,41 @@ async function updateWineVersionInfos(
   return releases
 }
 
+async function prepareInstallWineVersion(
+  window: Electron.CrossProcessExports.BrowserWindow,
+  release: WineVersionInfo
+) {
+  const onProgress = (state: State, progress?: ProgressInfo) => {
+    window.webContents.send('progressOfWineManager' + release.version, {
+      state,
+      progress
+    })
+
+    window.webContents.send('setGameStatus', {
+      appName: release.version,
+      runner: 'tool',
+      status: state,
+      progress: {
+        eta: progress?.eta,
+        percent: progress?.percentage,
+        downSpeed: progress?.avgSpeed
+      }
+    })
+  }
+  const status = await installWineVersion(
+    release,
+    onProgress,
+    createAbortController(release.version).signal
+  )
+  deleteAbortController(release.version)
+  return status
+}
+
 async function installWineVersion(
   release: WineVersionInfo,
   onProgress: (state: State, progress?: ProgressInfo) => void,
   abortSignal: AbortSignal
-) {
+): Promise<DMStatus> {
   let updatedInfo: WineVersionInfo
 
   if (!existsSync(`${heroicToolsPath}/wine`)) {
@@ -170,7 +204,7 @@ async function installWineVersion(
   logInfo(`Finished installation of wine version ${release.version}`, {
     prefix: LogPrefix.WineDownloader
   })
-  return 'success'
+  return 'done'
 }
 
 async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
@@ -225,4 +259,4 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
   return true
 }
 
-export { updateWineVersionInfos, installWineVersion, removeWineVersion }
+export { updateWineVersionInfos, prepareInstallWineVersion, removeWineVersion }

@@ -17,10 +17,6 @@ export const downloadRuntime = async (
 
 export const showItemInFolder = (installDir: string) =>
   ipcRenderer.send('showItemInFolder', installDir)
-export const installWineVersion = async (
-  release: WineVersionInfo
-): Promise<'error' | 'abort' | 'success'> =>
-  ipcRenderer.invoke('installWineVersion', release)
 export const removeWineVersion = async (
   release: WineVersionInfo
 ): Promise<boolean> => ipcRenderer.invoke('removeWineVersion', release)

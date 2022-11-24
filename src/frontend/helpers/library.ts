@@ -110,7 +110,7 @@ async function install({
     storage.removeItem(appName)
   }
 
-  return window.api.install({
+  return window.api.installGame({
     appName,
     path: installPath,
     installDlcs,

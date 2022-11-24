@@ -40,9 +40,17 @@ export default React.memo(function Sidebar() {
       <div className="currentDownloads">
         {currentDMElement && (
           <CurrentDownload
-            key={currentDMElement.params.appName}
-            appName={currentDMElement.params.appName}
-            runner={currentDMElement.params.runner}
+            key={currentDMElement.typeElement === 'game'
+              ? currentDMElement.paramsGame?.appName
+              : currentDMElement.paramsTool?.version}
+            appName={(currentDMElement.typeElement === 'game'
+              ? currentDMElement.paramsGame?.appName
+              : currentDMElement.paramsTool?.version)
+              ?? 'invalid'}
+            runner={(currentDMElement.typeElement === 'game'
+              ? currentDMElement.paramsGame?.runner
+              : 'tool')
+              ?? 'gog'}
           />
         )}
       </div>

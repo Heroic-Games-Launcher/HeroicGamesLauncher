@@ -4,7 +4,7 @@ import { VersionInfo } from 'heroic-wine-downloader'
 import { IpcRendererEvent } from 'electron'
 import { ChildProcess } from 'child_process'
 
-export type Runner = 'legendary' | 'gog' | 'sideload'
+export type Runner = 'legendary' | 'gog' | 'sideload' | 'tool'
 
 // NOTE: Do not put enum's in this module or it will break imports
 
@@ -520,13 +520,17 @@ export interface UpdateParams {
   gameInfo: GameInfo
 }
 
+export type DMStatus = 'done' | 'error' | 'abort'
+
 export interface DMQueueElement {
   type: 'update' | 'install'
-  params: InstallParams
+  typeElement: 'game' | 'tool'
+  paramsGame?: InstallParams
+  paramsTool?: WineVersionInfo
   addToQueueTime: number
   startTime: number
   endTime: number
-  status?: 'done' | 'error' | 'abort'
+  status?: DMStatus
 }
 
 export type WineCommandArgs = {
