@@ -94,6 +94,13 @@
     "generic": {
         "error": "Okänt fel"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Kräver uppkoppling",
         "installedPlatform": "Installerad plattform",
@@ -128,13 +135,6 @@
         "gog": "Du är ej inloggad med GOG-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
         "login": "Logga in",
         "title": "Du är ej inloggad!"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Nerladdning avbröts",
-            "remove": "Ta bort från nerladdningshanteraren"
-        }
     },
     "report_problem": "Rapportera problem med spelet",
     "sdl": {

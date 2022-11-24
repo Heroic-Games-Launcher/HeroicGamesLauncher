@@ -94,6 +94,13 @@
     "generic": {
         "error": "未知错误"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "需要联网",
         "installedPlatform": "已安装平台",
@@ -128,13 +135,6 @@
         "gog": "你在 Heroic 中未登录 GOG 账户。不要使用商店页面进行登录，请点击下面的按钮：",
         "login": "Log in",
         "title": "你未登录"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "取消了下载",
-            "remove": "从下载管理器中删除"
-        }
     },
     "report_problem": "报告运行此游戏时出现的问题",
     "sdl": {

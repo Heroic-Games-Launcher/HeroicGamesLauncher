@@ -2,20 +2,19 @@ import {
   InstallPlatform,
   AppSettings,
   GameInfo,
-  GameStatus,
   InstallProgress,
-  Runner
+  Runner,
+  UpdateParams
 } from 'common/types'
 
 import { TFunction } from 'react-i18next'
-import { sendKill } from './index'
+import { getGameInfo, sendKill, syncSaves } from './index'
 import { DialogModalOptions } from 'frontend/types'
 
 const storage: Storage = window.localStorage
 
 type InstallArgs = {
   gameInfo: GameInfo
-  handleGameStatus: (game: GameStatus) => Promise<void>
   installPath: string
   isInstalling: boolean
   previousProgress: InstallProgress | null
@@ -35,7 +34,6 @@ async function install({
   t,
   progress,
   isInstalling,
-  handleGameStatus,
   previousProgress,
   setInstallPath,
   sdlList = [],
@@ -112,13 +110,6 @@ async function install({
     storage.removeItem(appName)
   }
 
-  handleGameStatus({
-    appName,
-    runner,
-    status: 'queued',
-    folder: installPath
-  })
-
   return window.api.install({
     appName,
     path: installPath,
@@ -171,12 +162,27 @@ async function handleStopInstallation(
 const repair = async (appName: string, runner: Runner): Promise<void> =>
   window.api.repair(appName, runner)
 
+const autoSyncSaves = async (
+  appName: string,
+  gameInfo: GameInfo | null
+): Promise<string> => {
+  const { savesPath, gogSaves } = await window.api.requestGameSettings(appName)
+
+  if (gameInfo?.runner === 'legendary') {
+    return syncSaves(savesPath, appName, gameInfo.runner)
+  } else if (gameInfo?.runner === 'gog' && gogSaves !== undefined) {
+    return window.api.syncGOGSaves(gogSaves, appName, '')
+  }
+  return 'Unable to sync saves.'
+}
+
 type LaunchOptions = {
   appName: string
   t: TFunction<'gamepage'>
   launchArguments?: string
   runner: Runner
   hasUpdate: boolean
+  syncCloud: boolean
   showDialogModal: (options: DialogModalOptions) => void
 }
 
@@ -186,6 +192,7 @@ const launch = async ({
   launchArguments = '',
   runner,
   hasUpdate,
+  syncCloud,
   showDialogModal
 }: LaunchOptions): Promise<{ status: 'done' | 'error' }> => {
   if (hasUpdate) {
@@ -198,7 +205,12 @@ const launch = async ({
           {
             text: t('gamepage:box.yes'),
             onClick: async () => {
-              res(updateGame(appName, runner))
+              const gameInfo = await getGameInfo(appName, runner)
+              if (gameInfo) {
+                updateGame({ appName, runner, gameInfo })
+                res({ status: 'done' })
+              }
+              res({ status: 'error' })
             }
           },
           {
@@ -219,17 +231,24 @@ const launch = async ({
 
     return launchFinished
   }
+
+  if (syncCloud) {
+    const gameInfo = await getGameInfo(appName, runner)
+
+    await autoSyncSaves(appName, gameInfo)
+
+    const status = await window.api.launch({ appName, launchArguments, runner })
+
+    await autoSyncSaves(appName, gameInfo)
+
+    return status
+  }
   return window.api.launch({ appName, launchArguments, runner })
 }
 
-const updateGame = window.api.updateGame
-
-// Todo: Get Back to update all games
-// function updateAllGames(gameList: Array<string>) {
-//   gameList.forEach(async (appName) => {
-//     await updateGame(appName)
-//   })
-// }
+const updateGame = (args: UpdateParams) => {
+  return window.api.updateGame(args)
+}
 
 export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']

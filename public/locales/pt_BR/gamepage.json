@@ -94,6 +94,13 @@
     "generic": {
         "error": "Erro desconhecido"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Requer Internet",
         "installedPlatform": "Plataforma instalada",
@@ -128,13 +135,6 @@
         "gog": "Você não está logado numa conta GOG no Heroic. Não use a página da loja para logar, ao invés disso,clique no botão a seguir:",
         "login": "Entrar",
         "title": "Você NÃO está logado"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
     },
     "report_problem": "Relatar um problema na execução deste jogo",
     "sdl": {

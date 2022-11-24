@@ -94,6 +94,13 @@
     "generic": {
         "error": "Unbekannter Fehler"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Online erforderlich",
         "installedPlatform": "Installierte Plattform",
@@ -128,13 +135,6 @@
         "gog": "Du bist mit keinem GOG-Account in Heroic angemeldet. Verwende nicht die Store-Seite, um dich anzumelden, sondern klicke stattdessen auf die folgende Schaltfläche:",
         "login": "Anmelden",
         "title": "Du bist NICHT angemeldet"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download abgebrochen",
-            "remove": "Aus Download-Manager entfernen"
-        }
     },
     "report_problem": "Ein Problem bei der Ausführung dieses Spiels melden",
     "sdl": {
