@@ -42,7 +42,8 @@
 }
 
 .dmItemList {
-  border: solid 2px var(--text-default);
+  border: solid 2px var(--input-background);
+  background-color: var(--input-background);
   border-radius: 6px;
   margin: var(--space-3xs) var(--space-lg);
 }
