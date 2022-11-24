@@ -31,7 +31,7 @@
   position: relative;
   cursor: default;
   place-self: center;
-  border-bottom: 1px solid var(--divider);
+  border-top: 1px solid var(--divider);
   padding: var(--space-md) 0;
 }
 
