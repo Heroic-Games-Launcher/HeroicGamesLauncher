@@ -42,8 +42,8 @@
 }
 
 .dmItemList {
-  border: solid 2px var(--navbar-background);
-  background-color: var(--navbar-background);
+  border: solid 2px var(--input-background);
+  background-color: var(--input-background);
   border-radius: 6px;
   margin: var(--space-3xs) var(--space-lg);
 }
