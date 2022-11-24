@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Instalacija otkazana",
-            "error": "Instalacija neuspješna",
             "finished": "Instalacija završena",
             "imported": "Video igra uvezena",
             "startInstall": "Instalacija započeta"

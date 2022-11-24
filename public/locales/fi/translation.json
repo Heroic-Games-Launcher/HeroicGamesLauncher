@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Asennus peruutettu",
-            "error": "Asennus epäonnistui",
             "finished": "Asennus valmis",
             "imported": "Peli tuotu",
             "startInstall": "Asennus aloitettu"

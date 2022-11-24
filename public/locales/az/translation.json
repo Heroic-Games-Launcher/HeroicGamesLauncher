@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Quraşdırma Ləğv edildi",
-            "error": "Quraşdırma uğursuz oldu",
             "finished": "Quraşdırma tamamlandı",
             "imported": "Oyun İdxal",
             "startInstall": "Quraşdırma Başladı"

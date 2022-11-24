@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Instalacije prekinuta",
-            "error": "Instalacija Neuspjela",
             "finished": "Instalacija gotova",
             "imported": "Game Imported",
             "startInstall": "Installation Started"

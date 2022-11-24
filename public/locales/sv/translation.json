@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Installationen avbröts",
-            "error": "Installation misslyckades",
             "finished": "Installation slutförd",
             "imported": "Spelimport slutförd",
             "startInstall": "Installation påbörjad"

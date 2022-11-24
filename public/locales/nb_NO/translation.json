@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Installasjon avbrutt",
-            "error": "Installasjon feilet",
             "finished": "Installasjon fullført",
             "imported": "Spill importert",
             "startInstall": "Installasjon startet"

@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Kurulum İptal Edildi",
-            "error": "Kurulum Başarısız Oldu",
             "finished": "Kurulum Tamamlandı",
             "imported": "Oyun İçe Aktarıldı",
             "startInstall": "Kurulum Başladı"

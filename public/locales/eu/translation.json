@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Instalatu bertan behera",
-            "error": "Instalazioak huts egin du",
             "finished": "Amaitu da instalatzea",
             "imported": "Jokoa inportatua",
             "startInstall": "Instalazioa hasi da"

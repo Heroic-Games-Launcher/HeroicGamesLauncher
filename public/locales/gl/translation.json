@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Instalación cancelada",
-            "error": "Erro na instalación",
             "finished": "Instalación rematada",
             "imported": "Xogo importado",
             "startInstall": "Instalación iniciada"

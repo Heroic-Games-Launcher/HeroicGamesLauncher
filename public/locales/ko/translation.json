@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "설치 취소됨",
-            "error": "설치 실패",
             "finished": "설치 완료됨",
             "imported": "게임을 가져왔습니다",
             "startInstall": "설치 시작됨"

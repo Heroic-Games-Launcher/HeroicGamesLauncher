@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "نصب لغو شد",
-            "error": "نصب با شکست مواجه شد",
             "finished": "نصب به پایان رسید",
             "imported": "بازی وارد شد",
             "startInstall": "نصب آغاز شد"

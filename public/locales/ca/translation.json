@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "S'ha cancel·lat la instal·lació",
-            "error": "La instal·lació ha fallat",
             "finished": "Ha finalitzat la instal·lació",
             "imported": "S'ha importat el joc",
             "startInstall": "S'ha iniciat la instal·lació"

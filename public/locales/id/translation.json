@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Pemasangan Dibatalkan",
-            "error": "Pemasangan Gagal",
             "finished": "Pemasangan Selesai",
             "imported": "Gim Diimpor",
             "startInstall": "Pemasangan Dimulai"

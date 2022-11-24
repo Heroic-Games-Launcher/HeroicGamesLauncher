@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Đã hủy quá trình cài đặt",
-            "error": "Cài đặt thất bại",
             "finished": "Cài đặt hoàn tất",
             "imported": "Game đã được import",
             "startInstall": "Quá trình cài đặt đã bắt đầu"

@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "நிறுவல் ரத்துசெய்யப்பட்டது",
-            "error": "நிறுவல் தோல்வி",
             "finished": "நிறுவல் முடிவடைந்தது",
             "imported": "Game Imported",
             "startInstall": "Installation Started"

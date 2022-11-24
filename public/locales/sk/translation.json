@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Inštalácia bola zrušená",
-            "error": "Inštalácia zlyhala",
             "finished": "Inštalácia je dokončená",
             "imported": "Game Imported",
             "startInstall": "Installation Started"

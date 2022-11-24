@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Paigaldamine tühistatud",
-            "error": "Paigaldamine ebaõnnestus",
             "finished": "Paigaldamine lõpetatud",
             "imported": "Mäng imporditud",
             "startInstall": "Paigaldamine algas"

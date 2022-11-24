@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Install Canceled",
-            "error": "Installation Failed",
             "finished": "Install Finished",
             "imported": "Game Imported",
             "startInstall": "Installation Started"

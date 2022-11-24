@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "已取消安装",
-            "error": "安装失败",
             "finished": "安装完成",
             "imported": "游戏已导入",
             "startInstall": "安装已开始"

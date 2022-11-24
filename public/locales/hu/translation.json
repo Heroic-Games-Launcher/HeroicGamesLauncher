@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Telepítés visszavonva",
-            "error": "A telepítés meghiúsult",
             "finished": "Telepítés befejezve",
             "imported": "Játék importálva",
             "startInstall": "Telepítés elindult"

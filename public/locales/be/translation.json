@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Усталяванне адменена",
-            "error": "Збой усталявання",
             "finished": "Усталяванне скончана",
             "imported": "Game Imported",
             "startInstall": "Installation Started"

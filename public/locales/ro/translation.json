@@ -338,7 +338,6 @@
         },
         "install": {
             "canceled": "Instalare Anulată",
-            "error": "Instalarea a eșuat",
             "finished": "Instalare Finalizată",
             "imported": "Joc importat",
             "startInstall": "Instalarea a început"
