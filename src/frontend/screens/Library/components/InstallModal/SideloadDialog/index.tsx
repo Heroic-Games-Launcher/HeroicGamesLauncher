@@ -1,3 +1,4 @@
+import './index.scss'
 import short from 'short-uuid'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,6 +20,7 @@ import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
+import classNames from 'classnames'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
@@ -46,7 +48,8 @@ export default function SideloadDialog({
     t('sideload.field.title', 'Title')
   )
   const [selectedExe, setSelectedExe] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
+  const [imageUrl, setImageUrl] = useState(fallbackImage)
+  const [searching, setSearching] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
   const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
@@ -105,21 +108,26 @@ export default function SideloadDialog({
     setWine()
   }, [title])
 
-  useEffect(() => {
-    setTimeout(async () => {
-      try {
-        const res = await fetch(
-          `https://steamgrid.usebottles.com/api/search/${title}`
-        )
-        if (res.status === 200) {
-          const steamGridImage = (await res.json()) as string
+  async function searchImage() {
+    setSearching(true)
+
+    try {
+      const res = await fetch(
+        `https://steamgrid.usebottles.com/api/search/${title}`
+      )
+      if (res.status === 200) {
+        const steamGridImage = (await res.json()) as string
+        if (steamGridImage && steamGridImage.startsWith('http')) {
           setImageUrl(steamGridImage)
         }
-      } catch (error) {
-        console.log('Error when getting image from SteamGridDB')
+        setSearching(false)
       }
-    }, 2000)
-  }, [title])
+    } catch (error) {
+      console.error('Error when getting image from SteamGridDB')
+      setSearching(false)
+      window.api.logError(`${error}`)
+    }
+  }
 
   async function handleInstall(): Promise<void> {
     window.api.addNewApp({
@@ -223,7 +231,7 @@ export default function SideloadDialog({
         <div className="sideloadGrid">
           <div className="imageIcons">
             <CachedImage
-              className="appImage"
+              className={classNames('appImage', { blackWhiteImage: searching })}
               src={imageUrl ? imageUrl : fallbackImage}
             />
             <span className="titleIcon">
@@ -242,6 +250,7 @@ export default function SideloadDialog({
                 'Add a title to your Game/App'
               )}
               onChange={(e) => handleTitle(e.target.value)}
+              onBlur={async () => searchImage()}
               htmlId="sideload-title"
               value={title}
               maxLength={40}
