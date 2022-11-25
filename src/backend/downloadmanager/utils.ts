@@ -113,4 +113,76 @@ async function installQueueElement(
   }
 }
 
-export { installQueueElement }
+async function updateQueueElement(
+  mainWindow: BrowserWindow,
+  params: InstallParams
+): Promise<{
+  status: 'done' | 'error'
+  error?: string | undefined
+}> {
+  const { appName, runner } = params
+  const game = getGame(appName, runner)
+  const { title } = game.getGameInfo()
+
+  if (!isOnline()) {
+    logWarning(`App offline, skipping update for game '${title}'.`, {
+      prefix: LogPrefix.Backend
+    })
+    return { status: 'error' }
+  }
+
+  if (runner === 'legendary') {
+    const epicOffline = await isEpicServiceOffline()
+    if (epicOffline) {
+      showDialogBoxModalAuto({
+        title: i18next.t('box.warning.title', 'Warning'),
+        message: i18next.t(
+          'box.warning.epic.update',
+          'Epic Servers are having major outage right now, the game cannot be updated!'
+        ),
+        type: 'ERROR'
+      })
+      return { status: 'error' }
+    }
+  }
+
+  notify({
+    title,
+    body: i18next.t('notify.update.started', 'Update Started')
+  })
+
+  try {
+    const { status } = await game.update()
+
+    if (status === 'error') {
+      logWarning(['Updating of', params.appName, 'aborted!'], {
+        prefix: LogPrefix.DownloadManager
+      })
+      notify({ title, body: i18next.t('notify.update.canceled') })
+    } else if (status === 'done') {
+      notify({
+        title,
+        body: i18next.t('notify.update.finished')
+      })
+
+      logInfo(['Finished updating of', params.appName], {
+        prefix: LogPrefix.DownloadManager
+      })
+    }
+    return { status: 'done' }
+  } catch (error) {
+    logError(['Updating of', params.appName, 'failed with:', error], {
+      prefix: LogPrefix.DownloadManager
+    })
+
+    mainWindow.webContents.send('setGameStatus', {
+      appName,
+      runner,
+      status: 'done'
+    })
+
+    return { status: 'error' }
+  }
+}
+
+export { installQueueElement, updateQueueElement }

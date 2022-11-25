@@ -136,13 +136,6 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Báo cáo sự cố khi chạy game này",
     "sdl": {
         "title": "Chọn các thành phần cần cài"

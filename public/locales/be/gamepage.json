@@ -136,13 +136,6 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Паведаміць аб праблеме запуску гэтай гульні",
     "sdl": {
         "title": "Выберыце кампаненты для ўстаноўкі"

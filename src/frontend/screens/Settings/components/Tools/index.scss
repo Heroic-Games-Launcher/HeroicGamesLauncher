@@ -6,6 +6,7 @@
 
   .button {
     padding-block: var(--space-lg);
+    margin: 0 var(--space-3xs);
   }
 
   .drag {
@@ -16,6 +17,8 @@
     transition: 350ms;
     flex-direction: column;
     text-decoration: none;
+    white-space: nowrap;
+
     & > span {
       transition: 350ms;
       font-size: var(--text-xs);

@@ -34,7 +34,7 @@ export const isLoggedIn = async () => ipcRenderer.invoke('isLoggedIn')
 
 export const writeConfig = async (data: {
   appName: string
-  config: AppSettings | GameSettings
+  config: Partial<AppSettings>
 }) => ipcRenderer.invoke('writeConfig', data)
 
 export const kill = async (appName: string, runner: Runner) =>
@@ -106,3 +106,8 @@ export const getThemeCSS = async (theme: string) =>
   ipcRenderer.invoke('getThemeCSS', theme)
 
 export const getCustomThemes = async () => ipcRenderer.invoke('getCustomThemes')
+
+export const isGameAvailable = async (args: {
+  appName: string
+  runner: Runner
+}) => ipcRenderer.invoke('isGameAvailable', args)

@@ -2,7 +2,8 @@ import './index.css'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import React, { useEffect, useState } from 'react'
 import { AreaChart, Area, ResponsiveContainer } from 'recharts'
-import { LinearProgress } from '@mui/material'
+import { Box, LinearProgress, Typography } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 interface Point {
   download: number
@@ -14,13 +15,21 @@ const roundToNearestHundredth = function (val: number | undefined) {
   return Math.round(val * 100) / 100
 }
 
-export default function ProgressHeader(props: { appName: string }) {
+export default function ProgressHeader(props: {
+  appName: string
+  downloading: boolean
+}) {
+  const { t } = useTranslation()
   const [progress] = hasProgress(props.appName)
   const [avgSpeed, setAvgDownloadSpeed] = useState<Point[]>(
     Array<Point>(10).fill({ download: 0, disk: 0 })
   )
 
   useEffect(() => {
+    if (!props.downloading) {
+      setAvgDownloadSpeed(Array<Point>(10).fill({ download: 0, disk: 0 }))
+      return
+    }
     if (avgSpeed.length > 9) {
       avgSpeed.shift()
     }
@@ -34,76 +43,86 @@ export default function ProgressHeader(props: { appName: string }) {
     })
 
     setAvgDownloadSpeed([...avgSpeed])
-  }, [progress])
+  }, [progress, props.downloading])
 
   return (
-    <div className="progressHeader">
-      <div className="downloadRateStats">
-        <div className="downloadRateChart">
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              position: 'absolute',
-              top: 0,
-              left: 0
-            }}
-          >
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={avgSpeed} margin={{ top: 0, right: 0 }}>
-                <Area
-                  isAnimationActive={false}
-                  type="monotone"
-                  dataKey="download"
-                  strokeWidth="0px"
-                  fill="var(--accent)"
-                  fillOpacity={0.5}
-                />
-                <Area
-                  isAnimationActive={false}
-                  type="monotone"
-                  dataKey="disk"
-                  stroke="var(--primary)"
-                  strokeWidth="2px"
-                  fillOpacity={0}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+    <>
+      <div className="progressHeader">
+        <div className="downloadRateStats">
+          <div className="downloadRateChart">
+            <div
+              style={{
+                width: '100%',
+                height: '100px',
+                position: 'absolute',
+                top: 0,
+                left: 0
+              }}
+            >
+              <ResponsiveContainer height={80}>
+                <AreaChart data={avgSpeed} margin={{ top: 0, right: 0 }}>
+                  <Area
+                    isAnimationActive={false}
+                    type="monotone"
+                    dataKey="download"
+                    strokeWidth="0px"
+                    fill="var(--accent)"
+                    fillOpacity={0.5}
+                  />
+                  <Area
+                    isAnimationActive={false}
+                    type="monotone"
+                    dataKey="disk"
+                    stroke="var(--primary)"
+                    strokeWidth="2px"
+                    fillOpacity={0}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+          <div className="realtimeDownloadStatContainer">
+            <h5 className="realtimeDownloadStat">
+              {roundToNearestHundredth(avgSpeed.at(-1)?.download)} MB/s
+            </h5>
+            <div className="realtimeDownloadStatLabel downLabel">
+              {t('download-manager.label.speed', 'Download')}{' '}
+            </div>
+          </div>
+          <div className="realtimeDownloadStatContainer">
+            <h5 className="realtimeDownloadStat">
+              {roundToNearestHundredth(avgSpeed.at(-1)?.disk)} MB/s
+            </h5>
+            <div className="realtimeDownloadStatLabel diskLabel">
+              {t('download-manager.label.disk', 'Disk')}{' '}
+            </div>
           </div>
         </div>
-        <div className="realtimeDownloadStatContainer">
-          <h3 className="realtimeDownloadStat">
-            {roundToNearestHundredth(avgSpeed.at(-1)?.download)} MB/s
-          </h3>
-          <div className="realtimeDownloadStatLabel downLabel">Down </div>
-        </div>
-        <div className="realtimeDownloadStatContainer">
-          <h3 className="realtimeDownloadStat">
-            {roundToNearestHundredth(avgSpeed.at(-1)?.disk)} MB/s
-          </h3>
-          <div className="realtimeDownloadStatLabel diskLabel">Disk </div>
-        </div>
       </div>
-      <div className="downloadProgress">
-        <div className="downloadProgressStats">
-          <p className="downloadStat" color="var(--text-default)">{`${
-            progress.percent ?? 0
-          }%`}</p>
-          <p className="downloadStat">{`ETA: ${progress.eta ?? '00.00.00'}`}</p>
-        </div>
+      {props.downloading && progress.eta && (
         <div className="downloadBar">
-          <LinearProgress
-            variant="determinate"
-            className="linearProgress"
-            value={progress.percent ?? 0}
-            sx={{
-              height: '10px',
-              backgroundColor: 'var(--text-default)',
-              borderRadius: '20px'
-            }}
-          />
+          <div className="downloadProgressStats">
+            <p className="downloadStat" color="var(--text-default)">{`${
+              progress.percent ?? 0
+            }% [${progress.bytes ?? ''}] `}</p>
+          </div>
+          <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+            <Box sx={{ width: '100%', mr: 1 }}>
+              <LinearProgress
+                style={{ height: 10 }}
+                variant="determinate"
+                className="linearProgress"
+                value={progress.percent || 0}
+              />
+            </Box>
+            <Box sx={{ minWidth: 35 }}>
+              <Typography variant="subtitle1">
+                {progress.eta ?? '00.00.00'}
+              </Typography>
+            </Box>
+          </Box>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   )
 }

@@ -137,13 +137,6 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Rapporter et problem med å kjøre dette spillet",
     "sdl": {
         "title": "Velg komponenter som skal installeres"

@@ -136,13 +136,6 @@
         "login": "Log in",
         "title": "No heu iniciat sessió."
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Descàrrega cancel·lada",
-            "remove": "Treu del gestor de descàrregues"
-        }
-    },
     "report_problem": "Informa d'un problema quan s'executa el joc",
     "sdl": {
         "title": "Selecciona els components a instal·lar"

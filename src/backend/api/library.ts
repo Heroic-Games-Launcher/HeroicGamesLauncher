@@ -14,9 +14,6 @@ export const removeFolder = (args: [path: string, folderName: string]) =>
 export const openDialog = async (args: Electron.OpenDialogOptions) =>
   ipcRenderer.invoke('openDialog', args)
 
-export const install = async (args: InstallParams) =>
-  ipcRenderer.invoke('install', args)
-
 export const uninstall = async (
   appName: string,
   runner: Runner,
@@ -34,9 +31,6 @@ export const repair = async (appName: string, runner: Runner) =>
 
 export const launch = async (args: LaunchParams) =>
   ipcRenderer.invoke('launch', args)
-
-export const updateGame = async (appName: string, runner: Runner) =>
-  ipcRenderer.invoke('updateGame', appName, runner)
 
 export const importGame = async (args: ImportGameArgs) =>
   ipcRenderer.invoke('importGame', args)

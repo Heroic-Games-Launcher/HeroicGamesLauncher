@@ -144,6 +144,7 @@
         "yes": "OUI"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Aller vers la Bibliothèque",
         "login": "Connexion",
         "sync": "Synchroniser",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Documentation",
-    "download": {
-        "manager": {
-            "empty": "Rien à télécharger.",
-            "link": "Téléchargements",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Système",
-                "store": "Boutique"
-            },
-            "title": "Téléchargements"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Les services en ligne peuvent ne pas entièrement fonctionner car les serveurs d'Epic Games sont hors ligne !",
@@ -356,6 +362,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Réessayer"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -408,10 +415,13 @@
     "progress": "Progression",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Effacer la liste",
             "downloading": "En cours de téléchargement",
+            "empty": "Nothing to download",
             "finished": "Achevé",
-            "queued": "En attente"
+            "queued": "En attente",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "Joués récemment",

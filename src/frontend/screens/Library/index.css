@@ -24,7 +24,6 @@
   grid-template-columns: 3fr 2fr 1fr 10%;
   justify-items: baseline;
   margin: 0 var(--space-xl-fixed);
-  border-bottom: 1px solid gray;
   color: var(--text-default);
   font-weight: var(--bold);
   padding-bottom: 0.5rem;

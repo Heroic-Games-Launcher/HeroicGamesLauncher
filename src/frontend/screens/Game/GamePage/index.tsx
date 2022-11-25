@@ -59,15 +59,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const {
-    libraryStatus,
-    handleGameStatus,
-    epic,
-    gog,
-    gameUpdates,
-    platform,
-    showDialogModal
-  } = useContext(ContextProvider)
+  const { libraryStatus, epic, gog, gameUpdates, platform, showDialogModal } =
+    useContext(ContextProvider)
 
   const { status } =
     libraryStatus.find((game) => game.appName === appName) || {}
@@ -75,7 +68,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [progress, previousProgress] = hasProgress(appName)
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
-  const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [gogSaves, setGOGSaves] = useState<GOGCloudSavesLocation[]>([])
@@ -181,16 +173,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
     updateConfig()
   }, [status, epic.library, gog.library, gameInfo])
 
-  async function handleUpdate() {
-    setUpdateRequested(true)
-    await handleGameStatus({
-      appName,
-      runner: gameInfo.runner,
-      status: 'updating'
-    })
-    await updateGame(appName, gameInfo.runner)
-    await handleGameStatus({ appName, runner: gameInfo.runner, status: 'done' })
-    setUpdateRequested(false)
+  function handleUpdate() {
+    updateGame({ appName, runner, gameInfo })
   }
 
   function handleModal() {
@@ -296,7 +280,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     storeUrl={gameInfo.store_url}
                     runner={gameInfo.runner}
                     handleUpdate={handleUpdate}
-                    disableUpdate={updateRequested || isUpdating}
+                    disableUpdate={isInstalling || isUpdating}
                     onShowRequirements={
                       hasRequirements
                         ? () => setShowRequirements(true)
@@ -448,7 +432,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               )}
               <Anticheat gameInfo={gameInfo} />
               <div className="buttonsWrapper">
-                {is_installed && (
+                {is_installed && !isQueued && (
                   <button
                     disabled={
                       isReparing || isMoving || isUpdating || isUninstalling
@@ -460,7 +444,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     {getPlayLabel()}
                   </button>
                 )}
-                {is_installed ? (
+                {is_installed && (
                   <Link
                     to={pathname}
                     state={{
@@ -471,11 +455,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       hasCloudSave: cloud_save_enabled,
                       gameInfo
                     }}
-                    className={`button ${getButtonClass(is_installed)}`}
+                    className={`button is-primary`}
                   >
-                    {`${getButtonLabel(is_installed)}`}
+                    {t('submenu.settings')}
                   </Link>
-                ) : (
+                )}
+                {(!is_installed || isQueued) && (
                   <button
                     onClick={async () => handleInstall(is_installed)}
                     disabled={
@@ -627,11 +612,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }
 
   function getButtonLabel(is_installed: boolean) {
-    if (is_installed) {
-      return t('submenu.settings')
-    }
     if (isQueued) {
       return t('button.queue.remove', 'Remove from Queue')
+    }
+    if (is_installed) {
+      return t('submenu.settings')
     }
     if (isInstalling) {
       return t('button.cancel')
@@ -665,6 +650,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         launchArguments,
         runner: gameInfo.runner,
         hasUpdate,
+        syncCloud: false, //manually sync before and after so we can update the buttons
         showDialogModal
       })
 
@@ -676,11 +662,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   async function handleInstall(is_installed: boolean) {
     if (isQueued) {
-      handleGameStatus({
-        appName,
-        runner: gameInfo.runner,
-        status: 'done'
-      })
       storage.removeItem(appName)
       return window.api.removeFromDMQueue(appName)
     }
@@ -699,7 +680,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     return install({
       gameInfo,
-      handleGameStatus,
       installPath: folder,
       isInstalling,
       previousProgress,

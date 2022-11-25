@@ -136,13 +136,6 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download annullato",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Segnala un problema nell'esecuzione di questo gioco",
     "sdl": {
         "title": "Seleziona i componenti da installare"

@@ -136,13 +136,6 @@
         "login": "Log in",
         "title": "Anda TIDAK masuk"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Unduhan Dibatalkan",
-            "remove": "Hapus dari manajer unduhan"
-        }
-    },
     "report_problem": "Laporkan masalah yang terjadi saat memainkan gim ini",
     "sdl": {
         "title": "Pilih komponen untuk dipasang"

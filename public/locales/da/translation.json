@@ -625,7 +625,7 @@
     "download": {
         "manager": {
             "empty": "Intet at downloade.",
-            "link": "Download Manager",
+            "link": "Downloads",
             "queue": {
                 "actions": "Handling",
                 "element": "Navn",

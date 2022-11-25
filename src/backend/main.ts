@@ -760,6 +760,19 @@ ipcMain.on('createNewWindow', (e, url) => {
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 })
 
+ipcMain.handle('isGameAvailable', async (e, args) => {
+  const { appName, runner } = args
+  const info = getGame(appName, runner).getGameInfo()
+  if (info && info.is_installed) {
+    if (info.install.install_path && existsSync(info.install.install_path!)) {
+      return true
+    } else {
+      return false
+    }
+  }
+  return false
+})
+
 ipcMain.handle('getGameInfo', async (event, appName, runner) => {
   if (runner === 'sideload') {
     return getAppInfo(appName)
@@ -771,8 +784,17 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
   try {
     const game = getGame(appName, runner)
     const info = game.getGameInfo()
+
     if (!info.app_name) {
       return null
+    }
+    //detects if the game folder is available
+    if (info && info.is_installed) {
+      if (info.install.install_path && existsSync(info.install.install_path!)) {
+        info.is_installed = true
+      } else {
+        info.is_installed = false
+      }
     }
     info.extra = await game.getExtraInfo()
     return info
@@ -915,9 +937,16 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
 
 // Watch the installed games file and trigger a refresh on the installed games if something changes
 if (existsSync(installed)) {
+  let watchTimeout: NodeJS.Timeout | undefined
   watch(installed, () => {
-    logInfo('Installed game list updated', { prefix: LogPrefix.Legendary })
-    LegendaryLibrary.get().refreshInstalled()
+    logInfo('installed.json updated, refreshing library', {
+      prefix: LogPrefix.Legendary
+    })
+    // `watch` might fire twice (while Legendary/we are still writing chunks of the file), which would in turn make LegendaryLibrary fail to
+    // decode the JSON data. So instead of immediately calling LegendaryLibrary.get().refreshInstalled(), call it only after no writes happen
+    // in a 500ms timespan
+    if (watchTimeout) clearTimeout(watchTimeout)
+    watchTimeout = setTimeout(LegendaryLibrary.get().refreshInstalled, 500)
   })
 }
 
@@ -1068,92 +1097,6 @@ ipcMain.handle('openDialog', async (e, args) => {
 })
 
 ipcMain.on('showItemInFolder', async (e, item) => showItemInFolder(item))
-
-ipcMain.handle(
-  'install',
-  async (
-    event,
-    {
-      appName,
-      path,
-      installDlcs,
-      sdlList,
-      runner,
-      installLanguage,
-      platformToInstall
-    }
-  ): Promise<{ status: 'error' | 'done' | 'abort' }> => {
-    const game = getGame(appName, runner)
-    const { title } = game.getGameInfo()
-
-    if (!isOnline()) {
-      logWarning(`App offline, skipping install for game '${title}'.`, {
-        prefix: LogPrefix.Backend
-      })
-      return { status: 'error' }
-    }
-
-    const epicOffline = await isEpicServiceOffline()
-    if (epicOffline && runner === 'legendary') {
-      showDialogBoxModalAuto({
-        event,
-        title: i18next.t('box.warning.title', 'Warning'),
-        message: i18next.t(
-          'box.warning.epic.install',
-          'Epic Servers are having major outage right now, the game cannot be installed!'
-        ),
-        type: 'ERROR'
-      })
-      return { status: 'error' }
-    }
-
-    mainWindow.webContents.send('setGameStatus', {
-      appName,
-      runner,
-      status: 'installing',
-      folder: path
-    })
-
-    notify({
-      title,
-      body: i18next.t('notify.install.startInstall', 'Installation Started')
-    })
-
-    let res
-    try {
-      res = await game.install({
-        path: path.replaceAll("'", ''),
-        installDlcs,
-        sdlList,
-        platformToInstall,
-        installLanguage
-      })
-    } catch (error) {
-      notify({ title, body: i18next.t('notify.install.canceled') })
-      mainWindow.webContents.send('setGameStatus', {
-        appName,
-        runner,
-        status: 'done'
-      })
-      return { status: 'error' }
-    }
-
-    notify({
-      title,
-      body:
-        res.status === 'done'
-          ? i18next.t('notify.install.finished')
-          : i18next.t('notify.install.canceled')
-    })
-    logInfo('Finished installing', { prefix: LogPrefix.Backend })
-    mainWindow.webContents.send('setGameStatus', {
-      appName,
-      runner,
-      status: 'done'
-    })
-    return res
-  }
-)
 
 ipcMain.handle(
   'uninstall',

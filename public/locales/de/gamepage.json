@@ -136,13 +136,6 @@
         "login": "Anmelden",
         "title": "Du bist NICHT angemeldet"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download abgebrochen",
-            "remove": "Aus Download-Manager entfernen"
-        }
-    },
     "report_problem": "Ein Problem bei der Ausführung dieses Spiels melden",
     "sdl": {
         "title": "Zu installierende Komponenten auswählen"

@@ -1,6 +1,6 @@
 import { Runner } from 'common/types'
 import { GOGCloudSavesLocation, SaveFolderVariable } from 'common/types/gog'
-import { getWinePath, setupWineEnvVars } from './launcher'
+import { getWinePath, setupWineEnvVars, verifyWinePrefix } from './launcher'
 import { runLegendaryCommand, LegendaryLibrary } from './legendary/library'
 import { GOGLibrary } from './gog/library'
 import {
@@ -11,13 +11,19 @@ import {
   logWarning
 } from './logger/logger'
 import { getGame, getShellPath } from './utils'
-import { existsSync, realpathSync } from 'graceful-fs'
+import {
+  existsSync,
+  readFileSync,
+  realpathSync,
+  writeFileSync
+} from 'graceful-fs'
 import { app } from 'electron'
 import {
-  callAbortController,
   createAbortController,
   deleteAbortController
 } from './utils/aborthandler/aborthandler'
+import { legendaryConfigPath } from './constants'
+import { join } from 'path'
 
 async function getDefaultSavePath(
   appName: string,
@@ -38,64 +44,61 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   const game = getGame(appName, 'legendary')
   const { save_path } = game.getGameInfo()
   if (save_path) {
-    logDebug(['Got default save path from GameInfo:', save_path], {
+    logDebug(['Legendary has a save path stored, discarding it:', save_path], {
       prefix: LogPrefix.Legendary
     })
-    return save_path
+    // FIXME: This isn't really that safe
+    try {
+      const installedJsonLoc = join(legendaryConfigPath, 'installed.json')
+      const installedJsonData = JSON.parse(
+        readFileSync(installedJsonLoc, 'utf-8')
+      )
+      installedJsonData[appName].save_path = null
+      writeFileSync(
+        installedJsonLoc,
+        JSON.stringify(installedJsonData, undefined, '  ')
+      )
+    } catch (e) {
+      logError(['Failed to discard save path:', e], {
+        prefix: LogPrefix.Legendary
+      })
+      return save_path
+    }
   }
+
+  await verifyWinePrefix(await game.getSettings())
+
   // If Legendary doesn't have a save folder set yet, run it & accept its generated path
-  // TODO: This whole interaction is a little weird, maybe ask Rodney if he's willing to
-  //       make this a little smoother to automate
   logInfo(['Computing default save path for', appName], {
     prefix: LogPrefix.Legendary
   })
-  // NOTE: The easiest way I've found to just compute the path is by running the sync
-  //       and disabling both save up- and download
-  let gotSavePath = false
   const abortControllerName = appName + '-savePath'
   await runLegendaryCommand(
-    ['sync-saves', appName, '--skip-upload', '--skip-download'],
+    [
+      'sync-saves',
+      appName,
+      '--skip-upload',
+      '--skip-download',
+      '--accept-path'
+    ],
     createAbortController(abortControllerName),
     {
       logMessagePrefix: 'Getting default save path',
-      env: setupWineEnvVars(await game.getSettings()),
-      onOutput: (output, child) => {
-        if (output.includes('Is this correct?')) {
-          gotSavePath = true
-          child.stdin?.cork()
-          child.stdin?.write('y\n')
-          child.stdin?.uncork()
-        } else if (
-          output.includes(
-            'Path contains unprocessed variables, please enter the correct path manually'
-          )
-        ) {
-          callAbortController(abortControllerName)
-          logError(
-            [
-              'Legendary was unable to compute the default save path of',
-              appName
-            ],
-            { prefix: LogPrefix.Legendary }
-          )
-        }
-      }
+      env: setupWineEnvVars(await game.getSettings())
     }
   )
   deleteAbortController(abortControllerName)
-  if (!gotSavePath) {
+
+  // If the save path was computed successfully, Legendary will have saved
+  // this path in `installed.json` (so the GameInfo)
+  const { save_path: new_save_path, save_folder } =
+    LegendaryLibrary.get().getGameInfo(appName, true)!
+  if (!new_save_path) {
     logError(['Unable to compute default save path for', appName], {
       prefix: LogPrefix.Legendary
     })
-    return ''
+    return save_folder
   }
-  // If the save path was computed successfully, Legendary will have saved
-  // this path in `installed.json` (so the GameInfo)
-  // `= ''` here just in case Legendary failed to write the file
-  const { save_path: new_save_path = '' } = LegendaryLibrary.get().getGameInfo(
-    appName,
-    true
-  )!
   logInfo(['Computed save path:', new_save_path], {
     prefix: LogPrefix.Legendary
   })

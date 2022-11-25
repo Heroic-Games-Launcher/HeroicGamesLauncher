@@ -2,7 +2,6 @@ import { VersionInfo } from 'heroic-wine-downloader'
 import {
   AppSettings,
   GameInfo,
-  GameSettings,
   GameStatus,
   Runner,
   ConnectivityStatus,
@@ -190,9 +189,15 @@ declare global {
 }
 
 export interface SettingsContextType {
-  getSetting: (key: string) => unknown
-  setSetting: (key: string, value: unknown) => void
-  config: AppSettings | GameSettings | null
+  getSetting: <T extends keyof AppSettings>(
+    key: T,
+    fallback: NonNullable<AppSettings[T]>
+  ) => NonNullable<AppSettings[T]>
+  setSetting: <T extends keyof AppSettings>(
+    key: T,
+    value: AppSettings[T]
+  ) => void
+  config: Partial<AppSettings>
   isDefault: boolean
   appName: string
   runner: Runner
