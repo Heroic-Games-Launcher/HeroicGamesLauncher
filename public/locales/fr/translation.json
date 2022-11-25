@@ -216,7 +216,7 @@
     "gog-store": "Boutique GOG",
     "header": {
         "ignore_hidden": "Ignorer les jeux cachés",
-        "platform": "Plateforme",
+        "platform": "Système",
         "show_all_games": "Afficher tous les jeux",
         "show_favourites_only": "N'afficher que les favoris",
         "show_hidden": "Afficher les jeux cachés",

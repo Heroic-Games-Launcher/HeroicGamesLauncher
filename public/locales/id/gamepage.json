@@ -21,10 +21,10 @@
             "title": "Pilih EXE untuk Dijalankan"
         },
         "select": {
-            "button": "Select"
+            "button": "Pilih"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Pilih Executable"
         },
         "stopInstall": {
             "keepInstalling": "Tetap Memasang",
@@ -32,7 +32,7 @@
             "title": "Hentikan Pemasangan"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Hapus prefiks: {{prefix}}{{newLine}}Catatan: Tindakan ini tidak dapat dibatalkan dan akan menghapus berkas yang belum dicadangkan.",
             "message": "Apakah Anda ingin mencopot pemasangan gim ini?",
             "title": "Copot Pemasangan"
         },
@@ -47,28 +47,28 @@
         "add_to_favourites": "Tambahkan Ke Favorit",
         "cancel": "Jeda/Batal",
         "continue": "Lanjutkan Unduhan",
-        "finish": "Finish",
+        "finish": "Selesai",
         "force_update": "Paksa Pembaruan jika Tersedia",
-        "force-innstall": "Force Install",
+        "force-innstall": "Instal Paksa",
         "hide_game": "Sembunyikan Gim",
         "import": "Impor Gim",
         "install": "Pasang",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Tidak ada lokasi yang dipilih",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Hapus dari Antrian"
         },
         "remove_from_favourites": "Hapus Dari Favorit",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Hapus dari Terbaru",
+        "run-exe-first": "Jalankan Penginstalan Terlebih Dahulu",
+        "running-setup": "Menjalankan Pengaturan",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Edit App/Gim"
         },
         "unhide_game": "Tampilkan Gim yang Disembunyikan",
         "uninstall": "Copot",
         "update": "Perbarui"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Tak Didukung",
     "disabled": "Dinonaktifkan",
     "dlc": {
         "installDlcs": "Pasang semua DLC"
@@ -77,8 +77,8 @@
     "game": {
         "downloadSize": "Ukuran Unduhan",
         "firstPlayed": "Pertama Kali Dimainkan",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Mendapatkan ukuran unduhan",
+        "getting-install-size": "Mendapatkan ukuran penginstalan",
         "installSize": "Ukuran Pemasangan",
         "language": "Bahasa",
         "lastPlayed": "Terakhir Dimainkan",
@@ -131,10 +131,10 @@
         "options": "Opsi Peluncuran…"
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "Anda tidak masuk dengan akun Epic di Heroic. Jangan gunakan halaman toko untuk masuk, klik tombol berikut sebagai gantinya:",
+        "gog": "Anda tidak masuk dengan akun GOG di Heroic. Jangan gunakan halaman toko untuk masuk, klik tombol berikut sebagai gantinya:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "Anda TIDAK masuk"
     },
     "report_problem": "Laporkan masalah yang terjadi saat memainkan gim ini",
     "sdl": {
@@ -145,16 +145,16 @@
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Judul"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Pilih Executable",
+            "image": "Gambar App",
+            "title": "Gim/Judul App"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Tempel URL Gambar di sini",
+            "title": "Tambahkan judul ke Gim/App Anda"
         }
     },
     "specs": {
@@ -169,10 +169,10 @@
         "moving": "Memindahkan Pemasangan, harap tunggu",
         "notinstalled": "Gim ini tidak dipasang",
         "processing": "Memproses berkas, harap tunggu",
-        "queued": "Queued",
+        "queued": "Dalam Antrian",
         "reparing": "Memperbaiki Gim, harap tunggu",
         "totalDownloaded": "Jumlah yang Diunduh",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Mencopot",
         "updating": "Memperbarui Gim"
     },
     "submenu": {
@@ -184,7 +184,7 @@
         "move": "Pindahkan gim",
         "protondb": "Periksa Kompatibilitas",
         "removeFromSteam": "Hapus dari Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeShortcut": "Hapus pintasan",
         "settings": "Pengaturan",
         "store": "Halaman Toko",
         "verify": "Verifikasi dan Perbaiki"

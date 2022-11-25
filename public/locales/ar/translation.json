@@ -669,7 +669,8 @@
         "hint": "نحن نتحقق من الاتصال مقابل: {{newline}} github.com و {{newline}} gog.com و {{newline}} store.epicgames.com",
         "offline": "غير متصل على الانترنت",
         "retry-in": "إعادة المحاولة في ... {{seconds}} ثانية",
-        "retrying": "إعادة المحاولة"
+        "retrying": "إعادة المحاولة",
+        "offline-retry-in": "غير متصل على الانترنت. إعادة المحاولة في {{seconds}} ثانية."
     },
     "Other": "آخر",
     "queue": {

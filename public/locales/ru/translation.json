@@ -192,7 +192,7 @@
     },
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
-        "offline-notification-title": "офлайн"
+        "offline-notification-title": "Не в сети"
     },
     "Epic Games": "Epic Games",
     "error": "Ошибка",
@@ -358,8 +358,8 @@
     },
     "offline-message": {
         "hint": "Мы проверяем подключение к: {{newline}}github.com, {{newline}}gog.com и {{newline}}store.epicgames.com",
-        "offline": "Offline",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
+        "offline": "Не в сети",
+        "offline-retry-in": "Не в сети. Повторная попытка через {{seconds}} секунд.",
         "retrying": "Повтор"
     },
     "Open": "",
@@ -505,7 +505,7 @@
         "maxRecentGames": "Показывать недавно запускавшихся игр",
         "maxworkers": "Максимальное количество потоков при скачивании",
         "minimize-on-launch": "Сворачивать Heroic в трей при запуске игры",
-        "offlinemode": "Запускать игру офлайн",
+        "offlinemode": "Запускать игру в офлайн-режиме",
         "prefered_language": "Предпочтительный язык (код языка)",
         "preferSystemLibs": "Предпочитать системные библиотеки",
         "primerun": {
