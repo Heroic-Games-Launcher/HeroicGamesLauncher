@@ -34,6 +34,7 @@ export type Release = {
   published_at: string
   prerelease: boolean
   id: number
+  body?: string
 }
 
 export interface AppSettings extends GameSettings {

@@ -18,6 +18,8 @@ export default function HeroicVersion() {
   const [heroicVersion, setHeroicVersion] = useState('')
   const [newReleases, setNewReleases] = useState<Release[]>()
   const [showChangelogModal, setShowChangelogModal] = useState(true)
+  const [showChangelogModalOnClick, setShowChangelogModalOnClick] =
+    useState(false)
 
   const {
     sidebarCollapsed,
@@ -48,17 +50,22 @@ export default function HeroicVersion() {
 
   return (
     <>
-      {showChangelogModal &&
+      {((showChangelogModal &&
         !hideChangelogsOnStartup &&
-        heroicVersion !== lastChangelogShown && (
-          <ChangelogModal
-            onClose={() => {
-              setShowChangelogModal(false)
-              setLastChangelogShown(heroicVersion)
-            }}
-          />
-        )}
-      <div className="heroicVersion">
+        heroicVersion !== lastChangelogShown) ||
+        showChangelogModalOnClick) && (
+        <ChangelogModal
+          onClose={() => {
+            setShowChangelogModal(false)
+            setShowChangelogModalOnClick(false)
+            setLastChangelogShown(heroicVersion)
+          }}
+        />
+      )}
+      <div
+        className="heroicVersion"
+        onClick={() => setShowChangelogModalOnClick((current) => !current)}
+      >
         {!sidebarCollapsed && (
           <span>
             <span>{t('info.heroic.version', 'Heroic Version')}: </span>
