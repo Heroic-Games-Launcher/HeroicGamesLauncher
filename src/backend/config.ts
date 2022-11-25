@@ -493,6 +493,7 @@ class GlobalConfigV0 extends GlobalConfig {
       libraryTopSection: 'disabled',
       defaultSteamPath: getSteamCompatFolder(),
       defaultWinePrefix: heroicDefaultWinePrefix,
+      hideChangelogsOnStartup: false,
       language: 'en',
       maxWorkers: 0,
       minimizeOnLaunch: false,

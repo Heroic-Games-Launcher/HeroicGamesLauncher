@@ -62,6 +62,7 @@ export interface AppSettings extends GameSettings {
   userInfo: UserInfo
   defaultWinePrefix: string
   customThemesPath: string
+  hideChangelogsOnStartup: boolean
 }
 
 export type LibraryTopSectionOptions =

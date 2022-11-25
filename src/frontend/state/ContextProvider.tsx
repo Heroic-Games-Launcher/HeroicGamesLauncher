@@ -68,7 +68,11 @@ const initialContext: ContextType = {
   setSecondaryFontFamily: () => null,
   dialogModalOptions: { showDialog: false },
   showDialogModal: () => null,
-  showResetDialog: () => null
+  showResetDialog: () => null,
+  hideChangelogsOnStartup: false,
+  setHideChangelogsOnStartup: () => null,
+  lastChangelogShown: null,
+  setLastChangelogShown: () => null
 }
 
 export default React.createContext(initialContext)
