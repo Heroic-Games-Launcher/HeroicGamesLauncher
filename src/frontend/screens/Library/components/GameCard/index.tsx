@@ -370,7 +370,8 @@ const GameCard = ({
 
   const { activeController } = useContext(ContextProvider)
 
-  const showUpdateButton = hasUpdate && !isUpdating && !isQueued
+  const showUpdateButton =
+    hasUpdate && !isUpdating && !isQueued && gameAvailable
 
   return (
     <div>
