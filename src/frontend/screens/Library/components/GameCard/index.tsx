@@ -358,7 +358,7 @@ const GameCard = ({
   const hiddenClass = isHiddenGame ? 'hidden' : ''
   const notAvailableClass = !gameAvailable ? 'notAvailable' : ''
   const imgClasses = `gameImg ${isInstalled ? 'installed' : ''} ${
-    allTilesInColor && 'allTilesInColor'
+    allTilesInColor ? 'allTilesInColor' : ''
   }`
   const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''} ${
     allTilesInColor && 'allTilesInColor'

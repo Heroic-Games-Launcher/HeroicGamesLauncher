@@ -54,6 +54,10 @@
   height: 20px;
 }
 
+.gameCard.notAvailable > .progress {
+  color: var(--text-log);
+}
+
 .gameCard > a {
   display: block;
   position: relative;
@@ -146,8 +150,8 @@
   opacity: 0.2;
 }
 
-.gameCard.notAvailable .gameImg,
-.gameCard.notAvailable .gameLogo {
+.gameCard.notAvailable .gameImg.installed,
+.gameCard.notAvailable .gameLog.installed {
   filter: sepia(100%);
   opacity: 0.7;
 }
