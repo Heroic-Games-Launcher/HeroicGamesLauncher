@@ -80,6 +80,10 @@ export interface ContextType {
   showDialogModal: (options: DialogModalOptions) => void
   showResetDialog: () => void
   sideloadedLibrary: GameInfo[]
+  hideChangelogsOnStartup: boolean
+  setHideChangelogsOnStartup: (value: boolean) => void
+  lastChangelogShown: string | null
+  setLastChangelogShown: (value: string) => void
 }
 
 export type DialogModalOptions = {

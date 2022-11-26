@@ -9,6 +9,7 @@ import {
   DisableController,
   DiscordRPC,
   EgsSettings,
+  HideChangelogOnStartup,
   LibraryTopSection,
   MaxRecentGames,
   MaxWorkers,
@@ -39,6 +40,8 @@ export default function GeneralSettings() {
       <EgsSettings />
 
       <CheckUpdatesOnStartup />
+
+      <HideChangelogOnStartup />
 
       <TraySettings />
 

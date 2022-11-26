@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { ChangelogModal } from '../../../ChangelogModal'
 
 type Release = {
   html_url: string
@@ -9,13 +10,23 @@ type Release = {
   published_at: string
   type: 'stable' | 'beta'
   id: number
+  body?: string
 }
 
 export default function HeroicVersion() {
   const { t } = useTranslation()
   const [heroicVersion, setHeroicVersion] = useState('')
   const [newReleases, setNewReleases] = useState<Release[]>()
-  const { sidebarCollapsed } = useContext(ContextProvider)
+  const [showChangelogModal, setShowChangelogModal] = useState(true)
+  const [showChangelogModalOnClick, setShowChangelogModalOnClick] =
+    useState(false)
+
+  const {
+    sidebarCollapsed,
+    hideChangelogsOnStartup,
+    lastChangelogShown,
+    setLastChangelogShown
+  } = useContext(ContextProvider)
 
   useEffect(() => {
     window.api.getHeroicVersion().then((version) => setHeroicVersion(version))
@@ -39,7 +50,22 @@ export default function HeroicVersion() {
 
   return (
     <>
-      <div className="heroicVersion">
+      {((showChangelogModal &&
+        !hideChangelogsOnStartup &&
+        heroicVersion !== lastChangelogShown) ||
+        showChangelogModalOnClick) && (
+        <ChangelogModal
+          onClose={() => {
+            setShowChangelogModal(false)
+            setShowChangelogModalOnClick(false)
+            setLastChangelogShown(heroicVersion)
+          }}
+        />
+      )}
+      <div
+        className="heroicVersion"
+        onClick={() => setShowChangelogModalOnClick((current) => !current)}
+      >
         {!sidebarCollapsed && (
           <span>
             <span>{t('info.heroic.version', 'Heroic Version')}: </span>

@@ -21,6 +21,8 @@ export const getHeroicVersion = async () =>
   ipcRenderer.invoke('getHeroicVersion')
 export const getLatestReleases = async () =>
   ipcRenderer.invoke('getLatestReleases')
+export const getCurrentChangelog = async () =>
+  ipcRenderer.invoke('getCurrentChangelog')
 
 export const openPatreonPage = () => ipcRenderer.send('openPatreonPage')
 export const openKofiPage = () => ipcRenderer.send('openKofiPage')

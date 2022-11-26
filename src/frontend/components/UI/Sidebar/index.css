@@ -99,6 +99,7 @@
   margin: 0 var(--space-3xs) var(--sidebar-vertical-padding)
     var(--sidebar-horizontal-padding);
   font-size: var(--text-sm);
+  cursor: pointer;
 }
 
 .heroicNewReleases {
