@@ -65,7 +65,7 @@ const GameCard = ({
     art_logo: logo,
     app_name: appName,
     runner,
-    is_installed,
+    is_installed: isInstalled,
     cloud_save_enabled: hasCloudSave,
     install: { install_size: size, platform: installedPlatform }
   } = gameInfo
@@ -76,8 +76,6 @@ const GameCard = ({
 
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
-
-  const isInstalled = is_installed && gameAvailable
 
   const navigate = useNavigate()
   const {
@@ -92,7 +90,7 @@ const GameCard = ({
 
   useEffect(() => {
     const checkGameAvailable = async () => {
-      if (is_installed) {
+      if (isInstalled) {
         const gameAvailable = await window.api.isGameAvailable({
           appName,
           runner
@@ -121,7 +119,8 @@ const GameCard = ({
     isInstalling ||
     isUpdating ||
     isQueued ||
-    isUninstalling
+    isUninstalling ||
+    (!gameAvailable && isInstalled)
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -149,6 +148,9 @@ const GameCard = ({
   }
 
   function getStatus() {
+    if (!gameAvailable) {
+      return t('status.gameNotAvailable', 'Game not available')
+    }
     if (isQueued) {
       return `${t('status.queued', 'Queued')}`
     }
@@ -223,7 +225,7 @@ const GameCard = ({
     if (isInstalled) {
       return (
         <SvgButton
-          className="playIcon"
+          className={gameAvailable ? 'playIcon' : 'cancelIcon'}
           onClick={async () => handlePlay(runner)}
           title={`${t('label.playing.start')} (${title})`}
         >
@@ -354,6 +356,7 @@ const GameCard = ({
 
   const instClass = isInstalled ? 'installed' : ''
   const hiddenClass = isHiddenGame ? 'hidden' : ''
+  const notAvailableClass = !gameAvailable ? 'notAvailable' : ''
   const imgClasses = `gameImg ${isInstalled ? 'installed' : ''} ${
     allTilesInColor && 'allTilesInColor'
   }`
@@ -363,7 +366,7 @@ const GameCard = ({
 
   const wrapperClasses = `${
     grid ? 'gameCard' : 'gameListItem'
-  }  ${instClass} ${hiddenClass}`
+  }  ${instClass} ${hiddenClass} ${notAvailableClass}`
 
   const { activeController } = useContext(ContextProvider)
 

@@ -790,14 +790,7 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
     if (!info.app_name) {
       return null
     }
-    //detects if the game folder is available
-    if (info && info.is_installed) {
-      if (info.install.install_path && existsSync(info.install.install_path!)) {
-        info.is_installed = true
-      } else {
-        info.is_installed = false
-      }
-    }
+
     info.extra = await game.getExtraInfo()
     return info
   } catch (error) {
