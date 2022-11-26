@@ -185,6 +185,11 @@ export async function launchApp(appName: string): Promise<boolean> {
       prefix: LogPrefix.Backend
     })
 
+    if (isMac) {
+      const globalSettings = await GameConfig.get('global').getSettings()
+      gameSettings.wineVersion = globalSettings.wineVersion
+    }
+
     await runWineCommand({
       commandParts: [executable, launcherArgs ?? ''],
       gameSettings,
