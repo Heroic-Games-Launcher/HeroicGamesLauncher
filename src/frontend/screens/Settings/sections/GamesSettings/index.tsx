@@ -78,19 +78,21 @@ export default function GamesSettings() {
             <Tools />
           </section>
 
-          <section>
-            <h3 className="settingSubheader">
-              {t('settings.navbar.wineExt', 'Wine Extensions')}
-            </h3>
+          {isLinux && (
+            <section>
+              <h3 className="settingSubheader">
+                {t('settings.navbar.wineExt', 'Wine Extensions')}
+              </h3>
 
-            <AutoDXVK />
+              <AutoDXVK />
 
-            <AutoVKD3D />
+              <AutoVKD3D />
 
-            <EacRuntime />
+              <EacRuntime />
 
-            <BattlEyeRuntime />
-          </section>
+              <BattlEyeRuntime />
+            </section>
+          )}
         </>
       )}
 
