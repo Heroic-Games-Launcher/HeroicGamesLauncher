@@ -84,6 +84,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [winePrefix, setWinePrefix] = useState('')
   const [wineVersion, setWineVersion] = useState('')
   const [showRequirements, setShowRequirements] = useState(false)
+  const [gameAvailable, setGameAvailable] = useState(false)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -97,10 +98,24 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
   const isUninstalling = status === 'uninstalling'
+  const notAvailable = !gameAvailable && gameInfo.is_installed
 
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
   const storage: Storage = window.localStorage
+
+  useEffect(() => {
+    const checkGameAvailable = async () => {
+      if (gameInfo.is_installed) {
+        const gameAvailable = await window.api.isGameAvailable({
+          appName,
+          runner
+        })
+        setGameAvailable(gameAvailable)
+      }
+    }
+    checkGameAvailable()
+  }, [appName])
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -413,7 +428,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     fontStyle: 'italic'
                   }}
                 >
-                  {getInstallLabel(is_installed)}
+                  {getInstallLabel(is_installed, notAvailable)}
                 </p>
               </div>
               {is_installed && Boolean(launchOptions.length) && (
@@ -521,6 +536,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
   return <UpdateComponent />
 
   function getPlayBtnClass() {
+    if (notAvailable) {
+      return 'is-tertiary'
+    }
     if (isQueued) {
       return 'is-secondary'
     }
@@ -541,8 +559,15 @@ export default React.memo(function GamePage(): JSX.Element | null {
     return isPlaying ? t('label.playing.stop') : t('label.playing.start')
   }
 
-  function getInstallLabel(is_installed: boolean): React.ReactNode {
+  function getInstallLabel(
+    is_installed: boolean,
+    notAvailable?: boolean
+  ): React.ReactNode {
     const { eta, bytes, percent } = progress
+
+    if (notAvailable) {
+      return t('status.gameNotAvailable', 'Game not available')
+    }
 
     if (isReparing) {
       return `${t('status.reparing')} ${percent ? `${percent}%` : '...'}`
@@ -608,6 +633,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     if (is_installed) {
       return 'is-primary'
     }
+
     return 'is-secondary'
   }
 

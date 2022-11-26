@@ -95,7 +95,6 @@ const GameCard = ({
           appName,
           runner
         })
-        console.log({ title, gameAvailable })
         setGameAvailable(gameAvailable)
       }
     }
@@ -113,6 +112,7 @@ const GameCard = ({
   const isPlaying = status === 'playing'
   const isQueued = status === 'queued'
   const isUninstalling = status === 'uninstalling'
+  const notAvailable = !gameAvailable && isInstalled
   const haveStatus =
     isMoving ||
     isReparing ||
@@ -120,7 +120,7 @@ const GameCard = ({
     isUpdating ||
     isQueued ||
     isUninstalling ||
-    (!gameAvailable && isInstalled)
+    notAvailable
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
