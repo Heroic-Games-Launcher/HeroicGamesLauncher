@@ -100,6 +100,16 @@ export async function removeAppShortcuts(appName: string): Promise<void> {
   return removeShortcuts(getAppInfo(appName))
 }
 
+export function isAppAvailable(appName: string): boolean {
+  const {
+    install: { executable }
+  } = getAppInfo(appName)
+  if (!executable) {
+    return false
+  }
+  return existsSync(executable)
+}
+
 export async function launchApp(appName: string): Promise<boolean> {
   const gameInfo = getAppInfo(appName)
   const {

@@ -92,11 +92,14 @@ const GameCard = ({
 
   useEffect(() => {
     const checkGameAvailable = async () => {
-      const gameAvailable = await window.api.isGameAvailable({
-        appName,
-        runner
-      })
-      setGameAvailable(gameAvailable)
+      if (is_installed) {
+        const gameAvailable = await window.api.isGameAvailable({
+          appName,
+          runner
+        })
+        console.log({ title, gameAvailable })
+        setGameAvailable(gameAvailable)
+      }
     }
     checkGameAvailable()
   }, [appName])

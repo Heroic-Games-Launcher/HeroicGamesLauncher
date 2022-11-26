@@ -125,6 +125,7 @@ import {
   appLogFileLocation,
   getAppInfo,
   getAppSettings,
+  isAppAvailable,
   isNativeApp,
   launchApp,
   removeApp,
@@ -206,10 +207,8 @@ async function createWindow(): Promise<BrowserWindow> {
   }
 
   setTimeout(() => {
-    if (process.platform === 'linux') {
-      DXVK.getLatest()
-      Winetricks.download()
-    }
+    DXVK.getLatest()
+    Winetricks.download()
   }, 2500)
 
   GlobalConfig.get()
@@ -762,6 +761,9 @@ ipcMain.on('createNewWindow', (e, url) => {
 
 ipcMain.handle('isGameAvailable', async (e, args) => {
   const { appName, runner } = args
+  if (runner === 'sideload') {
+    return isAppAvailable(appName)
+  }
   const info = getGame(appName, runner).getGameInfo()
   if (info && info.is_installed) {
     if (info.install.install_path && existsSync(info.install.install_path!)) {
