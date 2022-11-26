@@ -227,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK to oparta o Vulkan'a warstwa tłumacząca dla gier opratych o DirectX 9, 10 i 11, włączenie DXVK podnosi ich kompatybilność, lecz może powodować problemy szczególnie w starszych grach.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Zadaniem Esync'u jest zmniejszenie bottleneck'a spowodowanego przez Wine, w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność.",
         "fsync": "Zadaniem Esync'u jest zmniejszenie bottleneck'a spowodowanego przez Wine, w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność, lecz wymaga odpowiedniego wsparcia w kernelu.",
         "game_language": {
@@ -404,6 +405,7 @@
         "alt-gogdl-bin": "Używanie wbudowanego pliku binarnego GOGDL...",
         "alt-legendary-bin": "Używanie wbudowanego pliku binarnego Legendary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiks, w którym zainstalowany jest EGS",
         "prefered_language": "dwu-znakowy kod (np. : \"en\" lub \"pl\")"
     },
@@ -448,6 +450,7 @@
         "disable_controller": "Wyłącz nawigację kontrolerem",
         "discordRPC": "Włącz Discord Rich Presence",
         "download-no-https": "Pobieraj gry bez użycia szyfrowania HTTPS (przydatne przy CDN'ach np. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Synchronizuj z zainstalowanym Epic Games",
         "enableFSRHack": "Włącz FSR Hack (Wymagana odpowiednia wersja Wine)",
         "eosOverlay": {

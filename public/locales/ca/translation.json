@@ -227,6 +227,7 @@
         "custom_themes_path": "No feu servir fitxers CSS de fonts poc fiables. Si teniu algun dubte, demaneu en el nostre canal de Discord que el revisin.",
         "custom_themes_wiki": "Llegiu la Wiki per a més detalls sobre com afegir temes personalitzats. Feu clic aquí.",
         "dxvk": "DXVK és una capa de traducció basada en Vulkan per a jocs que emprin DirectX 9, 10 i 11. Si s'habilita, pot millorar la compatibilitat. Pot causar problemes, especialment per als jocs que emprin versions del DirectX més antigues.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, el rendiment pot millorar.",
         "fsync": "Fsync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, el rendiment pot millorar en versions de Linux compatibles.",
         "game_language": {
@@ -404,6 +405,7 @@
         "alt-gogdl-bin": "S'està usant un binari del GOGDL integrat.",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
         "custom_themes_path": "Trieu el camí per a buscar fitxers CSS personalitzats",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix on l'EGS està instal·lat",
         "prefered_language": "Codi de dos caràcters, com ara «en», «fr» o «ca»"
     },
@@ -448,6 +450,7 @@
         "disable_controller": "Desactiva la navegació del Heroic amb el controlador",
         "discordRPC": "Activa la Discord Rich Presence",
         "download-no-https": "Descarrega jocs sense HTTPS (útil per CDNs com ara LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sincronitza amb l'Epic Games instal·lat",
         "enableFSRHack": "Activa el FSR Hack (cal que la versió del Wine en sigui compatible)",
         "eosOverlay": {

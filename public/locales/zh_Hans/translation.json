@@ -227,6 +227,7 @@
         "custom_themes_path": "不要使用来自不受信任来源的 CSS 文件。有疑问时，请在我们的 Discord 频道请求审核。",
         "custom_themes_wiki": "查看 Wiki 了解添加定制主题的更多详情。单击此处。",
         "dxvk": "DXVK 是一个基于 Vulkan 的转译层，用于 DirectX 9、10和11游戏。启用也许会提高兼容性。但可能会导致问题，特别是对老的 DirectX 游戏。",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync 的目标是在 CPU 消耗很大的游戏中减少 wineserver 的开销。启用可能会提高性能。",
         "fsync": "Fsync 的目标是在 CPU 开销很大的游戏中减少 wineserver 的开销。启用可能会提高受支持的 Linux 内核的性能。",
         "game_language": {
@@ -404,6 +405,7 @@
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",
         "custom_themes_path": "选择查找自定义 CSS 文件的路径",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Epic 游戏商城安装位置",
         "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")"
     },
@@ -448,6 +450,7 @@
         "disable_controller": "使用控制器禁止 Heroic 导航",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "download-no-https": "不使用 HTTPS 下载游戏 (对 LanCache 等 CDN 有用)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "与已安装的 Epic 游戏同步",
         "enableFSRHack": "启用 FSR（需要支持的WINE版本）",
         "eosOverlay": {

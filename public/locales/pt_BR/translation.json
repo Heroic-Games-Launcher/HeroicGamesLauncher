@@ -227,6 +227,7 @@
         "custom_themes_path": "Não use arquivos CSS de fontes não confiáveis. Na dúvida, peça uma revisão no nosso canal do DIscord.",
         "custom_themes_wiki": "Cheque a Wiki para mais detalhes sobre adicionar temas personalizados. Clique aqui.",
         "dxvk": "DXVK é uma camada de tradução baseada em Vulkan para jogos DirectX 9, 10 e 11. A ativação pode melhorar a compatibilidade. Pode causar problemas especialmente para jogos DirectX mais antigos.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "O Esync visa reduzir a sobrecarga do wineserver em jogos com uso intensivo de CPU. A ativação pode melhorar o desempenho.",
         "fsync": "O Fsync visa reduzir a sobrecarga do wineserver em jogos com uso intensivo de CPU. A ativação pode melhorar o desempenho em kernels Linux suportados.",
         "game_language": {
@@ -404,6 +405,7 @@
         "alt-gogdl-bin": "Usando binário do GOGDL embutido...",
         "alt-legendary-bin": "Usando o binário embutido do Legendary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefixo onde a EGS está instalada",
         "prefered_language": "Código de 2 caracteres (ou seja: \"en\" ou \"fr\")"
     },
@@ -448,6 +450,7 @@
         "disable_controller": "Desabilitar navegação por controle no Heroic",
         "discordRPC": "Habilitar o Discord Rich Presence",
         "download-no-https": "Baixar jogos sem HTTPS (útil para CDNs, por exemplo, LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (a versão do Wine precisa suportar o recurso)",
         "eosOverlay": {

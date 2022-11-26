@@ -227,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -404,6 +405,7 @@
         "alt-gogdl-bin": "Använder inbyggd GOGDL version...",
         "alt-legendary-bin": "Använder inbyggd Legendary version...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix för befintlig EGS installation",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
@@ -448,6 +450,7 @@
         "disable_controller": "Deaktivera navigering via handkontroll",
         "discordRPC": "Aktivera Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine-versionen måste stödja det)",
         "eosOverlay": {
