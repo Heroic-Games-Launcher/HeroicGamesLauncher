@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "Натиснете за обновяване",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Има нова версия!",
         "installed": "Инсталирана",
         "installing": "Инсталиране",

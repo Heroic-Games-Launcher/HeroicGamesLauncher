@@ -164,6 +164,7 @@
     },
     "status": {
         "clickToUpdate": "Faceți clic pentru a actualiza",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Versiune nouă disponibilă!",
         "installed": "Instalat",
         "installing": "Se Instalează",

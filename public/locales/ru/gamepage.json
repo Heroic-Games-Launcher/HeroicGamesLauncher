@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "Нажмите, чтобы обновить",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Доступна новая версия!",
         "installed": "Установлено",
         "installing": "Установка",

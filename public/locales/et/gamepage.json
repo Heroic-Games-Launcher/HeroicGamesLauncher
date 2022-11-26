@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "Uuendamiseks klõpsake",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Uus versioon saadaval!",
         "installed": "Installitud",
         "installing": "Paigaldamine",

@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "Πατήστε για Ενημέρωση",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Νέα ενημέρωση διαθέσιμη!",
         "installed": "Εγκατεστημένο",
         "installing": "Εγκατάσταση",

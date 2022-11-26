@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "Click to Update",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Nová verze dostupná!",
         "installed": "Nainstalováno",
         "installing": "Instaluji",

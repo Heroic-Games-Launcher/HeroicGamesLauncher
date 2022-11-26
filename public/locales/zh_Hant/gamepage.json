@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "點擊更新",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "新版本可用！",
         "installed": "已安裝",
         "installing": "正在安裝",

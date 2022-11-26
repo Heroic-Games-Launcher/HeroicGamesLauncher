@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "برای به روزرسانی کلیک کنید",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "نسخه جدید موجود است!",
         "installed": "نصب شده",
         "installing": "در حال نصب",

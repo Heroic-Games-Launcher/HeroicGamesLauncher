@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "Güncellemek için tıklayın",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Yeni sürüm var!",
         "installed": "Kuruldu",
         "installing": "Kuruluyor",

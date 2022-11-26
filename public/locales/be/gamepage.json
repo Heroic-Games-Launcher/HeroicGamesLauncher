@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "Націсніце, каб абнавіць",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Даступная новая версія!",
         "installed": "Усталяваны",
         "installing": "Ўстаноўка",

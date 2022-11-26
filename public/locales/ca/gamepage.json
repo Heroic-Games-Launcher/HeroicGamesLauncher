@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "Fes clic per a actualitzar",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Hi ha una versió nova disponible!",
         "installed": "Instal·lat",
         "installing": "S'està instal·lant...",

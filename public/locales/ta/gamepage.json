@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "புதுப்பிக்க அழுத்து",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "புதிய பதிப்பு உள்ளது!",
         "installed": "நிறுவப்பட்டது",
         "installing": "நிறுவப்படுகிறது",

@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "Päivitä",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Uusi versio saatavilla!",
         "installed": "Asennettu",
         "installing": "Asennetaan",

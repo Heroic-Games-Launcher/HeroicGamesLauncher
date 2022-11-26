@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "പുതുക്കാന് അമര്ത്തൂ",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "പുതിയ പതിപ്പ് വന്നിട്ടുണ്ട്!",
         "installed": "നട്ടു",
         "installing": "നടുന്നു",

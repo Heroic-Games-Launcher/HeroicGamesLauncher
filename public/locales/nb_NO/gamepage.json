@@ -164,6 +164,7 @@
     },
     "status": {
         "clickToUpdate": "Klikk for å oppdatere",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Ny versjon tilgjengelig!",
         "installed": "Installert",
         "installing": "Installerer",

@@ -164,6 +164,7 @@
     },
     "status": {
         "clickToUpdate": "Klikni za ažuriranje",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Nova verzija dostupna!",
         "installed": "Instalirano",
         "installing": "Instalira se",

@@ -164,6 +164,7 @@
     },
     "status": {
         "clickToUpdate": "Yeniləmək üçün klikləyin",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Yeni Versiya mövcuddur!",
         "installed": "Quraşdırılıb",
         "installing": "Quraşdırılır",

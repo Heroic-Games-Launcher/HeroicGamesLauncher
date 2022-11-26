@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "업데이트하려면 클릭",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "새 버전이 있습니다!",
         "installed": "설치됨",
         "installing": "설치 중",

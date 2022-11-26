@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "Klik untuk Memperbarui",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Versi Baru Tersedia!",
         "installed": "Terpasang",
         "installing": "Memasang",

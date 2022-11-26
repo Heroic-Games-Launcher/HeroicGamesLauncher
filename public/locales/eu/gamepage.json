@@ -164,6 +164,7 @@
     },
     "status": {
         "clickToUpdate": "Egin klik eguneratu ahal izateko",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Bertsio berria!",
         "installed": "Instalatuta",
         "installing": "Instalatu",

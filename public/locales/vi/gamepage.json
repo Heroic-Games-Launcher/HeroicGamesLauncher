@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "Nhấn để cập nhật",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Có phiên bản mới!",
         "installed": "Đã cài",
         "installing": "Đang cài đặt",

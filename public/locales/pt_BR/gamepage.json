@@ -163,6 +163,7 @@
     },
     "status": {
         "clickToUpdate": "Clique para Atualizar",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Nova Versão Disponível!",
         "installed": "Instalado",
         "installing": "Instalando",
