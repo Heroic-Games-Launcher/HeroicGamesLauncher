@@ -283,7 +283,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (gameSettings.showFps) {
     ret.DXVK_HUD = 'fps'
   }
-  if(gameSettings.enableDXVKFpsLimit) {
+  if (gameSettings.enableDXVKFpsLimit) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
   }
   if (gameSettings.enableFSR) {
