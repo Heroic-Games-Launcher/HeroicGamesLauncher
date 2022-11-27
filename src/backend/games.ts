@@ -1,3 +1,4 @@
+import { InstallPlatform } from './../common/types'
 import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import {
@@ -27,7 +28,7 @@ abstract class Game {
   ): Promise<LegendaryInstallInfo | GogInstallInfo>
   abstract getSettings(): Promise<GameSettings>
   abstract hasUpdate(): Promise<boolean>
-  abstract import(path: string): Promise<ExecResult>
+  abstract import(path: string, platform: InstallPlatform): Promise<ExecResult>
   abstract install(args: InstallArgs): Promise<{ status: string }>
   abstract addShortcuts(): Promise<void>
   abstract launch(launchArguments?: string): Promise<boolean>

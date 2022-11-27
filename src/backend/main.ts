@@ -1181,7 +1181,7 @@ ipcMain.handle(
 
 ipcMain.handle(
   'importGame',
-  async (event, { appName, path, runner }): StatusPromise => {
+  async (event, { appName, path, runner, platform }): StatusPromise => {
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline && runner === 'legendary') {
       showDialogBoxModalAuto({
@@ -1213,7 +1213,7 @@ ipcMain.handle(
     }
 
     try {
-      const { abort, error } = await game.import(path)
+      const { abort, error } = await game.import(path, platform)
       if (abort || error) {
         abortMessage()
         return { status: 'done' }

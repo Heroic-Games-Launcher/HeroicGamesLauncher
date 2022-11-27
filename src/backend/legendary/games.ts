@@ -580,8 +580,18 @@ class LegendaryGame extends Game {
     return res
   }
 
-  public async import(path: string): Promise<ExecResult> {
-    const commandParts = ['import', this.appName, path]
+  public async import(
+    path: string,
+    platform: InstallPlatform
+  ): Promise<ExecResult> {
+    const commandParts = [
+      'import',
+      '--with-dlcs',
+      '--platform',
+      platform,
+      this.appName,
+      path
+    ]
 
     logInfo(`Importing ${this.appName}.`, { prefix: LogPrefix.Legendary })
 

@@ -92,7 +92,7 @@ async function install({
       return
     }
 
-    return importGame({ appName, path, runner })
+    return importGame({ appName, path, runner, platform: platformToInstall })
   }
 
   if (installPath !== 'default') {

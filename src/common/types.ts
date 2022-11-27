@@ -582,6 +582,7 @@ export interface ImportGameArgs {
   appName: string
   path: string
   runner: Runner
+  platform: InstallPlatform
 }
 
 export interface MoveGameArgs {
