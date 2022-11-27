@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Versi Heroic"
@@ -475,6 +476,7 @@
         "FsrSharpnessStrenght": "Kekuatan Ketajaman FSR",
         "fsync": "Aktifkan Fsync",
         "gamemode": "Gunakan GameMode (Feral Game Mode perlu dipasang)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Pilih Bahasa",
         "library_top_option": {
             "disabled": "Matikan",

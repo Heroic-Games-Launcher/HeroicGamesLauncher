@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -475,6 +476,7 @@
         "FsrSharpnessStrenght": "FSR 銳利度",
         "fsync": "啟用 Fsync",
         "gamemode": "使用GameMode（需要已安裝Feral Game Mode）",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "選擇 Heroic 語言",
         "library_top_option": {
             "disabled": "已關閉",

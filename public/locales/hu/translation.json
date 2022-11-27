@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -475,6 +476,7 @@
         "FsrSharpnessStrenght": "FSR élesség erőssége",
         "fsync": "Fsync engedélyezése",
         "gamemode": "GameMode használata (a Feral Game Mode-nak telepítve kell lennie)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Alkalmazás nyelvének kiválasztása",
         "library_top_option": {
             "disabled": "Disabled",

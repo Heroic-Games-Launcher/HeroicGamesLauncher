@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Eguneraketa eskuragarri!",
             "stable": "Egonkorra",
             "version": "Heroic bertsioa"
@@ -475,6 +476,7 @@
         "FsrSharpnessStrenght": "FSR zorroztasunaren indarra",
         "fsync": "Gaitu Fsync",
         "gamemode": "Erabili GameMode (Feral Game Mode instalatu behar da)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Aukeratu aplikazioaren hizkuntza",
         "library_top_option": {
             "disabled": "Desgaituta",

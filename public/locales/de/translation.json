@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update verfügbar!",
             "stable": "Stabil",
             "version": "Heroic-Version"
@@ -475,6 +476,7 @@
         "FsrSharpnessStrenght": "FSR Schärfestärke",
         "fsync": "Fsync aktivieren",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "App-Sprache auswählen",
         "library_top_option": {
             "disabled": "Deaktiviert",

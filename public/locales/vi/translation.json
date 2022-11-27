@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -475,6 +476,7 @@
         "FsrSharpnessStrenght": "Độ sắc nét FSR",
         "fsync": "Bật Fsync",
         "gamemode": "Sử dụng GameMode (Cần cài đặt Feral Game Mode)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Chọn ngôn ngữ của ứng dụng",
         "library_top_option": {
             "disabled": "Tắt",

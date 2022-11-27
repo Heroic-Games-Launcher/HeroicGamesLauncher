@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "K dispozici je nová aktualizace!",
             "stable": "Stabilní",
             "version": "Heroic Version"
@@ -475,6 +476,7 @@
         "FsrSharpnessStrenght": "Síla ostrosti FSR",
         "fsync": "Povolit Fsync",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Vybrat jazyk aplikace",
         "library_top_option": {
             "disabled": "Zakázáno",
