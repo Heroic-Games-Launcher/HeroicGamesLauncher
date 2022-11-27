@@ -8,6 +8,7 @@ export default class LibraryPageController {
   category = Box.create<Category>('all')
   platform = Box.create('all')
   mainLibrary = new LibraryListControler()
+  recentGames = new LibraryListControler()
   favouritesLibrary = new LibraryListControler()
   constructor() {
     makeAutoObservable(this)

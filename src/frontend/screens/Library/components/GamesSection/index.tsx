@@ -10,8 +10,8 @@ const GamesSection: React.FC<{
   pagination: Pagination<Game>
   listController: LibraryListControler
   title: string
-}> = ({ pagination, listController, title }) => {
-  // load first 10 results, if has more button to see all is visible
+  isRecent?: boolean
+}> = ({ isRecent, pagination, listController, title }) => {
   const { sort } = listController
 
   return (
@@ -35,6 +35,7 @@ const GamesSection: React.FC<{
         isFirstLane
         library={pagination.list}
         layout={listController.layout.get()}
+        isRecent={isRecent}
       />
     </>
   )

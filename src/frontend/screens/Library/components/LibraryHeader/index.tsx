@@ -21,7 +21,7 @@ type Props = {
   totalCount: number
   count: number
   setShowHidden: (val: boolean) => void
-  onSeeAllClick: () => void
+  onSeeAllClick?: () => void
 }
 
 export default React.memo(function LibraryHeader({

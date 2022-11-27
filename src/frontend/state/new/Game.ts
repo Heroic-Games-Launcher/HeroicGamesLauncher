@@ -1,6 +1,6 @@
-import { GameInfo } from 'common/types'
+import { GameInfo, GameStatus } from 'common/types'
 import { makeAutoObservable } from 'mobx'
-import { bridgeStore } from './../GlobalState'
+import { bridgeStore } from '../GlobalState'
 // import { GameDownloadQueue } from './GameDownloadQueue'
 
 export class Game {
@@ -10,12 +10,10 @@ export class Game {
     makeAutoObservable(this)
   }
 
+  status?: GameStatus['status']
+
   isHidden = false
   isFavourite = false
-  isPlaying = false
-  isUpdating = false
-  isRecent = false
-  isQueued = false
   hasUpdate = false
 
   install() {
@@ -30,12 +28,32 @@ export class Game {
     }
   }
 
+  get isRecent() {
+    return bridgeStore.recentAppNames.includes(this.data.app_name)
+  }
+
   get isInstalled() {
-    return false
+    return this.data.is_installed
   }
 
   get isInstalling() {
-    return false
+    return this.status === 'installing'
+  }
+
+  get isQueued() {
+    return this.status === 'queued'
+  }
+
+  get isUpdating() {
+    return this.status === 'updating'
+  }
+
+  get isPlaying() {
+    return this.status === 'playing'
+  }
+
+  changeStatus(status: GameStatus['status'] | undefined) {
+    this.status = status
   }
 
   hide() {
@@ -55,25 +73,25 @@ export class Game {
   }
 
   stop() {
-    this.isPlaying = false
+    this.changeStatus(undefined)
   }
 
   play() {
-    this.isPlaying = true
+    this.changeStatus('playing')
   }
 
   update() {
-    this.isUpdating = true
+    this.changeStatus('updating')
   }
 
   cancelProgress() {}
 
   asRecent() {
-    this.isRecent = true
+    // this.isRecent = true
   }
 
   asNotRecent() {
-    this.isRecent = false
+    // this.isRecent = false
   }
 
   get downloadProgress() {

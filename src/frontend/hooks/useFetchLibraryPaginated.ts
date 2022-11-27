@@ -5,10 +5,49 @@ import { Pagination } from './types'
 import { Category } from '../types'
 import { runInAction } from 'mobx'
 import { Game } from '../state/new/Game'
+import { GameInfo } from '../../common/types'
 
 function fixFilter(text: string) {
   const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')
   return text.replaceAll(regex, '')
+}
+
+const filterByPlatform = ({
+  category,
+  platform,
+  game,
+  currentPlatform
+}: {
+  category?: Category
+  platform: string
+  game: GameInfo
+  currentPlatform?: string
+}) => {
+  // Epic doesn't offer Linux games, so just default to showing all games there
+  if (category === 'legendary' && platform === 'linux') {
+    return true
+  }
+
+  const isMac = ['osx', 'Mac']
+
+  switch (platform) {
+    case 'win':
+      return game?.is_installed
+        ? game?.install?.platform?.toLowerCase() === 'windows'
+        : currentPlatform === 'darwin'
+        ? !game?.is_mac_native
+        : !game?.is_linux_native
+    case 'mac':
+      return game?.is_installed
+        ? isMac.includes(game?.install?.platform ?? '')
+        : game?.is_mac_native
+    case 'linux':
+      return game?.is_installed
+        ? game?.install?.platform === 'linux'
+        : game?.is_linux_native
+    default:
+      return true
+  }
 }
 
 export default function useFetchLibraryPaginated({
@@ -16,14 +55,18 @@ export default function useFetchLibraryPaginated({
   onlyFavourites,
   sortBox,
   categoryBox,
+  platformBox,
   showHiddenBox,
+  onlyRecent,
   rpp
 }: {
   termBox?: Box<string>
   sortBox?: Box<'descending' | 'installed'>
+  platformBox?: Box<string>
   categoryBox?: Box<Category>
   showHiddenBox?: Box<boolean>
   onlyFavourites?: boolean
+  onlyRecent?: boolean
   rpp: number
 }): Pagination<Game> {
   const globalStore = useGlobalStore()
@@ -32,7 +75,7 @@ export default function useFetchLibraryPaginated({
     return {
       page: 1,
       rpp,
-      refreshing: false,
+      refreshing: false as boolean,
       get sortDescending() {
         if (!sortBox) return false
         return sortBox.get() === 'descending'
@@ -50,10 +93,24 @@ export default function useFetchLibraryPaginated({
       get allResults() {
         const regex = new RegExp(fixFilter(this.term || ''), 'i')
         const filtered = globalStore.libraryGames.filter((i) => {
+          if (onlyRecent && !i.isRecent) {
+            return false
+          }
           if (onlyFavourites && !i.isFavourite) {
             return false
           }
           if (!showHiddenBox?.get() && i.isHidden) {
+            return false
+          }
+          if (
+            platformBox?.get() &&
+            !filterByPlatform({
+              platform: platformBox.get(),
+              game: i.data,
+              category: categoryBox?.get(),
+              currentPlatform: globalStore.platform
+            })
+          ) {
             return false
           }
           return regex.test(i.data.title)
@@ -71,14 +128,15 @@ export default function useFetchLibraryPaginated({
             ? -1
             : 1
         })
-        const installed = library.filter((g) => g.data.is_installed)
-        // const notInstalled = library.filter(
-        //   (g) => !g.is_installed && !installing.includes(g.app_name)
-        // )
+        const installed = filtered.filter((g) => g.isInstalled)
+        const notInstalled = filtered.filter(
+          (g) => !g.isInstalled
+          // && !installing.includes(g.app_name)
+        )
         // const installingGames = library.filter(
         //   (g) => !g.is_installed && installing.includes(g.app_name)
         // )
-        return this.sortInstalled ? filtered : library
+        return this.sortInstalled ? [...installed, ...notInstalled] : library
       },
       get hasMore() {
         return globalStore.libraryGames.length !== this.list.length
@@ -99,6 +157,6 @@ export default function useFetchLibraryPaginated({
           this.page++
         }
       }
-    } as Pagination<Game> & { [key: string]: any }
+    }
   })
 }

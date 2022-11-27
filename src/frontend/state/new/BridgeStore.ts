@@ -1,16 +1,22 @@
-import { GameStatus } from 'common/types'
+import { GameStatus, RecentGame } from 'common/types'
 import { InstallProgress } from 'frontend/types'
 import { makeAutoObservable } from 'mobx'
+import { configStore } from '../../helpers/electronStores'
 
+// bridge: reactive updates from electron
 export class BridgeStore {
   installProgressByAppName: { [key: string]: InstallProgress } = {}
+  recentAppNames: string[] = []
 
   constructor() {
     makeAutoObservable(this)
     window.api.handleSetGameStatus(this.onHandleSetGameStatus.bind(this))
+    window.api.handleRecentGamesChanged(async () =>
+      this.loadRecentGamesAppNames()
+    )
   }
 
-  onHandleSetGameStatus(
+  private onHandleSetGameStatus(
     _e: Electron.IpcRendererEvent,
     { appName, progress: currentProgress }: GameStatus
   ) {
@@ -32,5 +38,15 @@ export class BridgeStore {
       ...currentProgress,
       percent: calculatePercent(currentProgress!)
     } as InstallProgress
+  }
+
+  loadRecentGamesAppNames() {
+    this.recentAppNames = [
+      ...new Set(
+        ...(configStore.get('games.recent', []) as Array<RecentGame>).map(
+          (recent) => recent.appName
+        )
+      )
+    ]
   }
 }
