@@ -110,6 +110,7 @@ interface AsyncIPCFunctions {
   getPlatform: () => NodeJS.Platform
   showUpdateSetting: () => boolean
   getLatestReleases: () => Promise<Release[]>
+  getCurrentChangelog: () => Promise<Release | null>
   getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
   getGameSettings: (
     appName: string,

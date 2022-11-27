@@ -34,6 +34,7 @@ export type Release = {
   published_at: string
   prerelease: boolean
   id: number
+  body?: string
 }
 
 export interface AppSettings extends GameSettings {
@@ -62,6 +63,7 @@ export interface AppSettings extends GameSettings {
   userInfo: UserInfo
   defaultWinePrefix: string
   customThemesPath: string
+  hideChangelogsOnStartup: boolean
 }
 
 export type LibraryTopSectionOptions =

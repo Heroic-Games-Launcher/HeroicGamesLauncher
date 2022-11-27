@@ -69,7 +69,8 @@ import {
   getFirstExistingParentPath,
   getLatestReleases,
   notify,
-  getShellPath
+  getShellPath,
+  getCurrentChangelog
 } from './utils'
 import {
   configStore,
@@ -736,6 +737,10 @@ ipcMain.handle('getLatestReleases', async () => {
   } else {
     return []
   }
+})
+
+ipcMain.handle('getCurrentChangelog', async () => {
+  return getCurrentChangelog()
 })
 
 ipcMain.on('clearCache', (event) => {

@@ -777,6 +777,27 @@ export const getLatestReleases = async (): Promise<Release[]> => {
   }
 }
 
+export const getCurrentChangelog = async (): Promise<Release | null> => {
+  logInfo('Checking for current version changelog', {
+    prefix: LogPrefix.Backend
+  })
+
+  try {
+    const current = app.getVersion()
+
+    const { data: release } = await axios.default.get(
+      `${GITHUB_API}/tags/v${current}`
+    )
+
+    return release as Release
+  } catch (error) {
+    logError(['Error when checking for current Heroic changelog', error], {
+      prefix: LogPrefix.Backend
+    })
+    return null
+  }
+}
+
 function getInfo(appName: string, runner: Runner): GameInfo {
   if (runner === 'sideload') {
     return getAppInfo(appName)
