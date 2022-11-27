@@ -25,6 +25,7 @@ import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.s
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg'
 import {
+  getGameInfo,
   getProgress,
   getStoreName,
   install,
@@ -57,8 +58,27 @@ const GameCard = ({
   buttonClick,
   forceCard,
   isRecent = false,
-  gameInfo
+  gameInfo: gameInfoFromProps
 }: Card) => {
+  const [gameInfo, setGameInfo] = useState(gameInfoFromProps)
+  const [showUninstallModal, setShowUninstallModal] = useState(false)
+  const [gameAvailable, setGameAvailable] = useState(false)
+
+  const { t } = useTranslation('gamepage')
+  const { t: t2 } = useTranslation()
+
+  const navigate = useNavigate()
+
+  const {
+    libraryStatus,
+    layout,
+    handleGameStatus,
+    hiddenGames,
+    favouriteGames,
+    allTilesInColor,
+    showDialogModal
+  } = useContext(ContextProvider)
+
   const {
     title,
     art_square: cover,
@@ -71,22 +91,6 @@ const GameCard = ({
   } = gameInfo
 
   const [progress, previousProgress] = hasProgress(appName)
-  const [showUninstallModal, setShowUninstallModal] = useState(false)
-  const [gameAvailable, setGameAvailable] = useState(false)
-
-  const { t } = useTranslation('gamepage')
-  const { t: t2 } = useTranslation()
-
-  const navigate = useNavigate()
-  const {
-    libraryStatus,
-    layout,
-    handleGameStatus,
-    hiddenGames,
-    favouriteGames,
-    allTilesInColor,
-    showDialogModal
-  } = useContext(ContextProvider)
 
   const { status, folder } =
     libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
@@ -102,7 +106,17 @@ const GameCard = ({
       }
     }
     checkGameAvailable()
-  }, [appName, status])
+  }, [appName, status, gameInfo])
+
+  useEffect(() => {
+    const updateGameInfo = async () => {
+      const newInfo = await getGameInfo(appName, runner)
+      if (newInfo) {
+        setGameInfo(newInfo)
+      }
+    }
+    updateGameInfo()
+  }, [status])
 
   const grid = forceCard || layout === 'grid'
   const isInstalling = status === 'installing' || status === 'updating'
@@ -148,9 +162,6 @@ const GameCard = ({
   }
 
   function getStatus() {
-    if (!gameAvailable) {
-      return t('status.gameNotAvailable', 'Game not available')
-    }
     if (isQueued) {
       return `${t('status.queued', 'Queued')}`
     }
@@ -168,6 +179,9 @@ const GameCard = ({
     }
     if (isReparing) {
       return t('gamecard.repairing', 'Repairing')
+    }
+    if (!gameAvailable) {
+      return t('status.gameNotAvailable', 'Game not available')
     }
     if (isInstalled) {
       return `${t('status.installed')} ${runner === 'sideload' ? '' : size}`
