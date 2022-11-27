@@ -1,13 +1,12 @@
 import './index.css'
 
 import { observer } from 'mobx-react'
-import React, { CSSProperties, useContext, useEffect, useState } from 'react'
+import React, { CSSProperties, useContext, useState } from 'react'
 
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
-import { GameStatus } from 'common/types'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
@@ -37,9 +36,10 @@ interface Card {
   forceCard?: boolean
   isRecent: boolean
   game: Game
+  layout: string
 }
 
-const GameCard = ({ hasUpdate, forceCard, game }: Card) => {
+const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
   const {
     title,
     art_square: cover,
@@ -53,41 +53,25 @@ const GameCard = ({ hasUpdate, forceCard, game }: Card) => {
 
   const progress = game.downloadProgress
   const [showUninstallModal, setShowUninstallModal] = useState(false)
-  const [gameAvailable, setGameAvailable] = useState(false)
 
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
-  const isInstalled = is_installed && gameAvailable
+  const isInstalled = is_installed && game.isAvailable
 
   const navigate = useNavigate()
 
-  const { libraryStatus, layout, handleGameStatus, allTilesInColor } =
-    useContext(ContextProvider)
-
-  useEffect(() => {
-    const checkGameAvailable = async () => {
-      const gameAvailable = await window.api.isGameAvailable({
-        appName,
-        runner
-      })
-      setGameAvailable(gameAvailable)
-    }
-    checkGameAvailable()
-  }, [appName])
+  const { allTilesInColor } = useContext(ContextProvider)
 
   const grid = forceCard || layout === 'grid'
 
-  const { status } =
-    libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
-
   const isInstalling = game.isInstalling || game.isUpdating
-  const isUpdating = status === 'updating'
-  const isReparing = status === 'repairing'
-  const isMoving = status === 'moving'
+  const isUpdating = game.isUpdating
+  const isReparing = game.status === 'repairing'
+  const isMoving = game.status === 'moving'
   const isPlaying = game.isPlaying
   const isQueued = game.isQueued
-  const isUninstalling = status === 'uninstalling'
+  const isUninstalling = game.status === 'uninstalling'
   const haveStatus =
     isMoving ||
     isReparing ||
@@ -119,12 +103,7 @@ const GameCard = ({ hasUpdate, forceCard, game }: Card) => {
   }
 
   function getStatus() {
-    return `${t(`status.${status || 'notinstalled'}`)}`
-  }
-
-  const handleRemoveFromQueue = () => {
-    window.api.removeFromDMQueue(appName)
-    handleGameStatus({ appName, status: 'done' })
+    return `${t(`status.${game.status || 'notinstalled'}`)}`
   }
 
   const renderIcon = () => {
@@ -140,7 +119,7 @@ const GameCard = ({ hasUpdate, forceCard, game }: Card) => {
         <SvgButton
           title={t('button.queue.remove', 'Remove from Queue')}
           className="queueIcon"
-          onClick={() => handleRemoveFromQueue()}
+          onClick={() => globalStore.gameDownloadQueue.removeGame(game)}
         >
           <RemoveCircleIcon />
         </SvgButton>
@@ -189,7 +168,6 @@ const GameCard = ({ hasUpdate, forceCard, game }: Card) => {
         </SvgButton>
       )
     }
-    return null
   }
 
   const isHiddenGame = game.isHidden

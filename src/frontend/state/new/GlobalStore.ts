@@ -6,7 +6,6 @@ import { Game } from './Game'
 import { GameDownloadQueue } from './GameDownloadQueue'
 import { libraryStore } from 'frontend/helpers/electronStores'
 import LibraryPageController from './LibraryPageController'
-import { bridgeStore } from '../GlobalState'
 
 class LayoutPreferences {
   themeName = 'heroic'

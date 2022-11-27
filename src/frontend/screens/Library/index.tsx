@@ -7,8 +7,10 @@ import GamesSection from './components/GamesSection'
 import useFetchLibraryPaginated from '../../hooks/useFetchLibraryPaginated'
 import useGlobalStore from '../../hooks/useGlobalStore'
 import { getLibraryTitle } from './constants'
+import { InstallModal } from './components'
 
 const Library = () => {
+  const { requestInstallModal } = useGlobalStore()
   return (
     <>
       <Header />
@@ -18,6 +20,13 @@ const Library = () => {
         <FavouriteList />
         <MainLibrary />
       </div>
+
+      {requestInstallModal.opened && (
+        <InstallModal
+          runner={'legendary'}
+          backdropClick={() => requestInstallModal.cancelRequest()}
+        />
+      )}
     </>
   )
 }
@@ -40,6 +49,7 @@ const MainLibrary = () => {
       pagination={pagination}
       listController={mainLibrary}
       title={getLibraryTitle(libraryController.category.get(), t)}
+      expanded
     />
   )
 }

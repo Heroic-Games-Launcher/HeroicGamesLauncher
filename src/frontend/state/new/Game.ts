@@ -8,13 +8,21 @@ export class Game {
     public data: GameInfo // private downloadQueue: GameDownloadQueue
   ) {
     makeAutoObservable(this)
+    window.api
+      .isGameAvailable({
+        appName: this.data.app_name,
+        runner: this.data.runner
+      })
+      .then((available) => {
+        this.isAvailable = available
+      })
   }
 
   status?: GameStatus['status']
 
   isHidden = false
   isFavourite = false
-  hasUpdate = false
+  isAvailable = true
 
   install() {
     if (this.isInstalled || this.isInstalling) {
@@ -34,6 +42,13 @@ export class Game {
 
   get isInstalled() {
     return this.data.is_installed
+  }
+
+  get hasUpdate() {
+    return (
+      this.isInstalled &&
+      bridgeStore.updatesAppNames?.includes(this.data.app_name)
+    )
   }
 
   get isInstalling() {

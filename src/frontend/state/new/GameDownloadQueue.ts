@@ -59,6 +59,7 @@ export class GameDownloadQueue {
 
   removeGame(game: Game) {
     remove(this.queue, { game: { data: { app_name: game.data.app_name } } })
+    window.api.removeFromDMQueue(game.data.app_name)
   }
 
   getInQueueGame(name: string) {

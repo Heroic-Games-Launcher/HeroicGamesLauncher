@@ -7,6 +7,7 @@ import { configStore } from '../../helpers/electronStores'
 export class BridgeStore {
   installProgressByAppName: { [key: string]: InstallProgress } = {}
   recentAppNames: string[] = []
+  updatesAppNames: string[] = []
 
   constructor() {
     makeAutoObservable(this)
@@ -14,6 +15,7 @@ export class BridgeStore {
     window.api.handleRecentGamesChanged(async () =>
       this.loadRecentGamesAppNames()
     )
+    this.updatesAppNames = JSON.parse(localStorage.getItem('updates') || '[]')
   }
 
   private onHandleSetGameStatus(

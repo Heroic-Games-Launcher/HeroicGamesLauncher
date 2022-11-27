@@ -5,14 +5,22 @@ import { Pagination } from '../../../../hooks/types'
 import LibraryHeader from '../LibraryHeader'
 import LibraryListControler from '../../../../state/new/LibraryListController'
 import { Game } from '../../../../state/new/Game'
+import useInfiniteScroll from 'react-infinite-scroll-hook'
 
 const GamesSection: React.FC<{
   pagination: Pagination<Game>
   listController: LibraryListControler
   title: string
+  expanded?: boolean
   isRecent?: boolean
-}> = ({ isRecent, pagination, listController, title }) => {
+}> = ({ expanded, isRecent, pagination, listController, title }) => {
   const { sort } = listController
+
+  const [sentryRef] = useInfiniteScroll({
+    loading: false,
+    hasNextPage: pagination.hasMore,
+    onLoadMore: () => pagination.loadMore()
+  })
 
   return (
     <>
@@ -37,6 +45,12 @@ const GamesSection: React.FC<{
         layout={listController.layout.get()}
         isRecent={isRecent}
       />
+      {expanded && (
+        <div
+          style={{ height: 100, width: 100, backgroundColor: 'transparent' }}
+          ref={sentryRef}
+        />
+      )}
     </>
   )
 }

@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
-import { GameInfo, Runner } from 'common/types'
+import React from 'react'
+import { Runner } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { Game } from '../../../../state/new/Game'
 
@@ -23,7 +22,6 @@ const GamesList = ({
   onlyInstalled = false,
   isRecent = false
 }: Props): JSX.Element => {
-  const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
 
   const renderGame = (game: Game) => {
@@ -41,7 +39,8 @@ const GamesList = ({
       return null
     }
 
-    const hasUpdate = is_installed && gameUpdates?.includes(app_name)
+    const { hasUpdate } = game
+
     return (
       <GameCard
         key={app_name}
@@ -50,6 +49,7 @@ const GamesList = ({
         forceCard={layout === 'grid'}
         isRecent={isRecent}
         game={game}
+        layout={layout}
       />
     )
   }
