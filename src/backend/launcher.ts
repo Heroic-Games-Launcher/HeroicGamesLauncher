@@ -502,7 +502,7 @@ async function runWineCommand({
     : await GlobalConfig.get().getSettings()
   const { wineVersion, winePrefix } = settings
 
-  if (!skipPrefixCheckIKnowWhatImDoing) {
+  if (!skipPrefixCheckIKnowWhatImDoing && wineVersion.type !== 'crossover') {
     let requiredPrefixFiles = [
       'dosdevices',
       'drive_c',
