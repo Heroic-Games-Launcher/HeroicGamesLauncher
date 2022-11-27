@@ -1,9 +1,6 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  ToggleSwitch,
-  TextInputField
-} from 'frontend/components/UI'
+import { ToggleSwitch, TextInputField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,15 +10,15 @@ import SettingsContext from '../SettingsContext'
 const EnableDXVKFpsLimit = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isLinuxNative } = useContext(SettingsContext)
-  const isLinux = platform === 'linux'
+  const { isLinuxNative, isMacNative } = useContext(SettingsContext)
+  const isWin = platform === 'win32'
   const [enableDXVKFpsLimit, setDXVKFpsLimit] = useSetting(
     'enableDXVKFpsLimit',
     false
   )
   const [DXVKFpsCap, setDXVKFpsCap] = useSetting('DXVKFpsCap', '')
 
-  if (!isLinux || isLinuxNative) {
+  if (isWin || isLinuxNative || isMacNative) {
     return <></>
   }
 
