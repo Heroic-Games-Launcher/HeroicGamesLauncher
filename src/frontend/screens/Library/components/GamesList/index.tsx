@@ -4,16 +4,13 @@ import cx from 'classnames'
 import GameCard from '../GameCard'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
+import { Game } from '../../../../state/new/Game'
 
 interface Props {
-  library: GameInfo[]
+  library: Game[]
   layout?: string
   isFirstLane?: boolean
-  handleGameCardClick?: (
-    app_name: string,
-    runner: Runner,
-    gameInfo: GameInfo
-  ) => void
+  handleGameCardClick?: (app_name: string, runner: Runner, game: Game) => void
   onlyInstalled?: boolean
   isRecent?: boolean
 }
@@ -29,13 +26,13 @@ const GamesList = ({
   const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
 
-  const renderGameInfo = (gameInfo: GameInfo) => {
+  const renderGame = (game: Game) => {
     const {
       app_name,
       is_installed,
       runner,
       install: { is_dlc }
-    } = gameInfo
+    } = game.data
 
     if (is_dlc) {
       return null
@@ -49,10 +46,10 @@ const GamesList = ({
       <GameCard
         key={app_name}
         hasUpdate={hasUpdate}
-        buttonClick={() => handleGameCardClick?.(app_name, runner, gameInfo)}
+        buttonClick={() => handleGameCardClick?.(app_name, runner, game)}
         forceCard={layout === 'grid'}
         isRecent={isRecent}
-        gameInfo={gameInfo}
+        game={game}
       />
     )
   }
@@ -81,7 +78,7 @@ const GamesList = ({
         </div>
       )}
       {library.map((item) => {
-        return renderGameInfo(item)
+        return renderGame(item)
       })}
     </div>
   )

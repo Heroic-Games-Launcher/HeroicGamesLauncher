@@ -1,66 +1,57 @@
 import {
-  faBorderAll,
-  faList,
-  faSyncAlt,
   faArrowDownAZ,
   faArrowDownZA,
-  faHeart,
-  faHardDrive as hardDriveSolid
+  faBorderAll,
+  faHardDrive as hardDriveSolid,
+  faList,
+  faSyncAlt
 } from '@fortawesome/free-solid-svg-icons'
 import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useCallback, useContext } from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import FormControl from '../FormControl'
 import './index.css'
-import { Runner } from 'common/types'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import classNames from 'classnames'
+
+type Layout = 'grid' | 'list'
 
 interface Props {
   sortDescending: boolean
   sortInstalled: boolean
   toggleSortDescending: () => void
   toggleSortinstalled: () => void
-  library: Runner | 'all'
+  layout: Layout
+  setLayout: (val: Layout) => void
+  refresh: () => void
+  refreshing: boolean
+  showHidden: boolean
+  setShowHidden: (val: boolean) => void
 }
 
 export default React.memo(function ActionIcons({
-  library,
   sortDescending,
   toggleSortDescending,
   sortInstalled,
-  toggleSortinstalled
+  layout,
+  setLayout,
+  toggleSortinstalled,
+  refresh,
+  refreshing,
+  showHidden,
+  setShowHidden
 }: Props) {
   const { t } = useTranslation()
-  const {
-    refreshLibrary,
-    handleLayout,
-    layout,
-    showHidden,
-    setShowHidden,
-    showFavourites,
-    refreshing,
-    setShowFavourites
-  } = useContext(ContextProvider)
 
   const toggleShowHidden = useCallback(() => {
     setShowHidden(!showHidden)
   }, [showHidden])
 
-  const toggleShowFavourites = useCallback(() => {
-    setShowFavourites(!showFavourites)
-  }, [showFavourites])
-
   const showHiddenTitle = showHidden
     ? t('header.ignore_hidden', 'Ignore Hidden')
     : t('header.show_hidden', 'Show Hidden')
-
-  const showFavouritesTitle = showFavourites
-    ? t('header.show_all_games', 'Show all games')
-    : t('header.show_favourites_only', 'Show Favourites only')
 
   return (
     <div className="ActionIcons">
@@ -71,7 +62,7 @@ export default React.memo(function ActionIcons({
               active: layout === 'grid'
             })}
             title={t('library.toggleLayout.list', 'Toggle to a list layout')}
-            onClick={() => handleLayout('list')}
+            onClick={() => setLayout('list')}
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
@@ -82,7 +73,7 @@ export default React.memo(function ActionIcons({
           <button
             className={classNames('FormControl__button')}
             title={t('library.toggleLayout.grid', 'Toggle to a grid layout')}
-            onClick={() => handleLayout('grid')}
+            onClick={() => setLayout('grid')}
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
@@ -118,18 +109,18 @@ export default React.memo(function ActionIcons({
             icon={sortInstalled ? hardDriveSolid : hardDriveLight}
           />
         </button>
-        <button
-          className={classNames('FormControl__button', {
-            active: showFavourites
-          })}
-          title={showFavouritesTitle}
-          onClick={toggleShowFavourites}
-        >
-          <FontAwesomeIcon
-            className="FormControl__segmentedFaIcon"
-            icon={faHeart}
-          />
-        </button>
+        {/*<button*/}
+        {/*  className={classNames('FormControl__button', {*/}
+        {/*    active: showFavourites*/}
+        {/*  })}*/}
+        {/*  title={showFavouritesTitle}*/}
+        {/*  onClick={toggleShowFavourites}*/}
+        {/*>*/}
+        {/*  <FontAwesomeIcon*/}
+        {/*    className="FormControl__segmentedFaIcon"*/}
+        {/*    icon={faHeart}*/}
+        {/*  />*/}
+        {/*</button>*/}
         <button
           className={classNames('FormControl__button', { active: showHidden })}
           title={showHiddenTitle}
@@ -142,14 +133,7 @@ export default React.memo(function ActionIcons({
             active: refreshing
           })}
           title={t('generic.library.refresh', 'Refresh Library')}
-          onClick={async () =>
-            refreshLibrary({
-              checkForUpdates: true,
-              fullRefresh: true,
-              runInBackground: false,
-              library
-            })
-          }
+          onClick={() => refresh()}
         >
           <FontAwesomeIcon
             className={classNames('FormControl__segmentedFaIcon', {

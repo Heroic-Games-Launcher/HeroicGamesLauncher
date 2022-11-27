@@ -1,51 +1,46 @@
-import React, { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
+import React from 'react'
 import ActionIcons from 'frontend/components/UI/ActionIcons'
-import { epicCategories } from 'frontend/helpers/library'
-import { GameInfo } from 'common/types'
-import { getLibraryTitle } from '../../constants'
 import './index.css'
-import useGlobalStore from '../../../../hooks/useGlobalStore'
+import { useTranslation } from 'react-i18next'
 
 const storage = window.localStorage
 
+type Layout = 'grid' | 'list'
+
 type Props = {
-  list: GameInfo[]
   title: string
   sortDescending: boolean
   sortInstalled: boolean
   setSortInstalled: (value: boolean) => void
   setSortDescending: (value: boolean) => void
-  handleAddGameButtonClick: () => void
+  layout: Layout
+  setLayout: (val: Layout) => void
+  refresh: () => void
+  refreshing: boolean
+  showHidden: boolean
+  totalCount: number
+  count: number
+  setShowHidden: (val: boolean) => void
+  onSeeAllClick: () => void
 }
 
 export default React.memo(function LibraryHeader({
-  list,
+  totalCount,
+  count,
+  onSeeAllClick,
   title,
   sortInstalled,
   sortDescending,
   setSortDescending,
+  refresh,
+  refreshing,
   setSortInstalled,
-  handleAddGameButtonClick
+  layout,
+  setLayout,
+  showHidden,
+  setShowHidden
 }: Props) {
   const { t } = useTranslation()
-  const { libraryController } = useGlobalStore()
-  const category = libraryController.category.get()
-  const showFavourites = false
-
-  const numberOfGames = useMemo(() => {
-    if (!list) {
-      return 0
-    }
-    const dlcCount =
-      category === 'legendary'
-        ? list.filter((lib) => lib.install.is_dlc).length
-        : 0
-
-    const total = list.length - dlcCount
-    return total > 0 ? `${total}` : 0
-  }, [list, category])
-
   function handleSortDescending() {
     setSortDescending(!sortDescending)
     storage.setItem('sortDescending', JSON.stringify(!sortDescending))
@@ -56,41 +51,29 @@ export default React.memo(function LibraryHeader({
     storage.setItem('sortInstalled', JSON.stringify(!sortInstalled))
   }
 
-  function getLibrary() {
-    if (category === 'all') {
-      return category
-    }
-
-    if (epicCategories.includes(category)) {
-      return 'legendary'
-    }
-
-    if (category === 'sideload') {
-      return 'sideload'
-    }
-
-    return 'gog'
-  }
-
   return (
     <h5 className="libraryHeader">
       <div className="libraryHeaderWrapper">
         <span className="libraryTitle">
           {title}
-          <span className="numberOfgames">{numberOfGames}</span>
-          <button
-            className="sideloadGameButton"
-            onClick={handleAddGameButtonClick}
-          >
-            {t('add_game', 'Add Game')}
-          </button>
+          <span className="numberOfgames">{totalCount}</span>
+          {count < totalCount && (
+            <button className="sideloadGameButton" onClick={onSeeAllClick}>
+              {t('see_all', 'See all')}
+            </button>
+          )}
         </span>
         <ActionIcons
           sortDescending={sortDescending}
           toggleSortDescending={() => handleSortDescending()}
           sortInstalled={sortInstalled}
-          library={getLibrary()}
           toggleSortinstalled={() => handleSortInstalled()}
+          layout={layout}
+          setLayout={setLayout}
+          refresh={refresh}
+          refreshing={refreshing}
+          showHidden={showHidden}
+          setShowHidden={setShowHidden}
         />
       </div>
     </h5>

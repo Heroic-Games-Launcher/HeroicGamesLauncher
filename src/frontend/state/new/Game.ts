@@ -11,7 +11,7 @@ export class Game {
   }
 
   isHidden = false
-  isFavorite = false
+  isFavourite = false
   isPlaying = false
   isUpdating = false
   isRecent = false
@@ -47,11 +47,11 @@ export class Game {
   }
 
   favorite() {
-    this.isFavorite = true
+    this.isFavourite = true
   }
 
   unFavorite() {
-    this.isFavorite = false
+    this.isFavourite = false
   }
 
   stop() {

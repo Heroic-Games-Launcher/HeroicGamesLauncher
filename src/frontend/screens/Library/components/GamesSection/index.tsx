@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react'
 import GamesList from '../GamesList'
 import React from 'react'
-import { GameInfo } from '../../../../../common/types'
 import { Pagination } from '../../../../hooks/types'
 import LibraryHeader from '../LibraryHeader'
 import LibraryListControler from '../../../../state/new/LibraryListController'
+import { Game } from '../../../../state/new/Game'
 
 const GamesSection: React.FC<{
-  pagination: Pagination<GameInfo>
+  pagination: Pagination<Game>
   listController: LibraryListControler
   title: string
 }> = ({ pagination, listController, title }) => {
@@ -17,17 +17,25 @@ const GamesSection: React.FC<{
   return (
     <>
       <LibraryHeader
-        list={pagination.list}
+        totalCount={pagination.totalCount}
+        count={pagination.list.length}
         setSortDescending={() => sort.set('descending')}
         setSortInstalled={() => sort.set('installed')}
         sortDescending={sort.is('descending')}
         sortInstalled={sort.is('installed')}
-        handleAddGameButtonClick={() => {
-          // handleModal('', 'sideload', null)
-        }}
+        layout={listController.layout.get()}
+        setLayout={(val) => listController.layout.set(val)}
         title={title}
+        refresh={pagination.refresh}
+        refreshing={pagination.refreshing}
+        setShowHidden={(val) => listController.showHidden.set(val)}
+        showHidden={listController.showHidden.get()}
       />
-      <GamesList isFirstLane library={pagination.list} />
+      <GamesList
+        isFirstLane
+        library={pagination.list}
+        layout={listController.layout.get()}
+      />
     </>
   )
 }

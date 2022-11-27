@@ -55,6 +55,7 @@ export class GlobalStore {
   requestInstallModal = new RequestInstallModalController()
   i18n?: TFunction<'gamepage'>
   libraryController = new LibraryPageController()
+  private gameInstancesByAppName: { [key: string]: Game } = {}
 
   epicLibrary: GameInfo[] = []
 
@@ -73,9 +74,12 @@ export class GlobalStore {
 
   refresh() {
     this.epicLibrary = libraryStore.get('library', []) as GameInfo[]
+    for (const gameInfo of this.epicLibrary) {
+      this.gameInstancesByAppName[gameInfo.app_name] = new Game(gameInfo)
+    }
   }
 
   get libraryGames() {
-    return [...this.epicLibrary]
+    return Object.values(this.gameInstancesByAppName)
   }
 }

@@ -1,11 +1,10 @@
-import { observer, Observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { Header } from '../../components/UI'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import GamesSection from './components/GamesSection'
 import useFetchLibraryPaginated from '../../hooks/useFetchLibraryPaginated'
 import useGlobalStore from '../../hooks/useGlobalStore'
-import LibraryHeader from './components/LibraryHeader'
 import './index.css'
 import { getLibraryTitle } from './constants'
 
@@ -25,16 +24,19 @@ const Library = () => {
 const MainLibrary = () => {
   const { t } = useTranslation()
   const { libraryController } = useGlobalStore()
+  const { mainLibrary } = libraryController
   const pagination = useFetchLibraryPaginated({
-    isFavourite: true,
     termBox: libraryController.search,
-    rpp: 10
+    sortBox: mainLibrary.sort,
+    categoryBox: libraryController.category,
+    showHiddenBox: mainLibrary.showHidden,
+    rpp: 20
   })
 
   return (
     <GamesSection
       pagination={pagination}
-      listController={libraryController.mainLibrary}
+      listController={mainLibrary}
       title={getLibraryTitle(libraryController.category.get(), t)}
     />
   )
@@ -43,16 +45,20 @@ const MainLibrary = () => {
 const FavouriteList = () => {
   const { t } = useTranslation()
   const { libraryController } = useGlobalStore()
+  const { favouritesLibrary } = libraryController
   const pagination = useFetchLibraryPaginated({
-    isFavourite: true,
+    onlyFavourites: true,
+    categoryBox: libraryController.category,
     termBox: libraryController.search,
-    rpp: 10
+    sortBox: favouritesLibrary.sort,
+    showHiddenBox: favouritesLibrary.showHidden,
+    rpp: 20
   })
 
   return (
     <GamesSection
       pagination={pagination}
-      listController={libraryController.favouritesLibrary}
+      listController={favouritesLibrary}
       title={t('favourites', 'Favourites')}
     />
   )

@@ -7,7 +7,7 @@ import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
-import { GameInfo, GameStatus } from 'common/types'
+import { GameStatus } from 'common/types'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
@@ -17,7 +17,6 @@ import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import { getProgress, getStoreName } from 'frontend/helpers'
 import { updateGame } from 'frontend/helpers/library'
-import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
@@ -28,6 +27,7 @@ import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { globalStore } from 'frontend/state/GlobalState'
 import { useMenuContext } from './hooks/useMenuContext'
+import { Game } from '../../../../state/new/Game'
 
 const downloadQueue = globalStore.gameDownloadQueue
 
@@ -36,10 +36,10 @@ interface Card {
   hasUpdate: boolean
   forceCard?: boolean
   isRecent: boolean
-  gameInfo: GameInfo
+  game: Game
 }
 
-const GameCard = ({ hasUpdate, forceCard, gameInfo }: Card) => {
+const GameCard = ({ hasUpdate, forceCard, game }: Card) => {
   const {
     title,
     art_square: cover,
@@ -49,10 +49,7 @@ const GameCard = ({ hasUpdate, forceCard, gameInfo }: Card) => {
     is_installed,
     cloud_save_enabled: hasCloudSave,
     install: { platform: installedPlatform }
-  } = gameInfo
-
-  // aqui começa o refactor
-  const [game] = useState(() => globalStore.getGame(appName, gameInfo))
+  } = game.data
 
   const progress = game.downloadProgress
   const [showUninstallModal, setShowUninstallModal] = useState(false)
@@ -106,7 +103,7 @@ const GameCard = ({ hasUpdate, forceCard, gameInfo }: Card) => {
   const imageSrc = getImageFormatting()
 
   async function handleUpdate() {
-    return updateGame({ appName, runner, gameInfo })
+    return updateGame({ appName, runner, gameInfo: game.data })
   }
 
   function getImageFormatting() {
@@ -235,7 +232,7 @@ const GameCard = ({ hasUpdate, forceCard, gameInfo }: Card) => {
           {haveStatus && <span className="progress">{getStatus()}</span>}
           <Link
             to={`/gamepage/${runner}/${appName}`}
-            state={{ gameInfo }}
+            state={{ gameInfo: game.data }}
             style={
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
@@ -306,7 +303,7 @@ const GameCard = ({ hasUpdate, forceCard, gameInfo }: Card) => {
                           hasCloudSave,
                           isLinuxNative,
                           isMacNative,
-                          gameInfo
+                          gameInfo: game.data
                         }
                       })
                     }
