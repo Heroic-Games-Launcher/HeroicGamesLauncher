@@ -291,6 +291,7 @@ export default React.memo(function Library(): JSX.Element {
     sortDescending,
     sortInstalled,
     showHidden,
+    hiddenGames,
     showFavouritesLibrary
   ])
 
