@@ -4,12 +4,7 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import React, { useContext, useEffect, useState } from 'react'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import {
-  GameInfo,
-  InstallPlatform,
-  Runner,
-  WineInstallation
-} from 'common/types'
+import { InstallPlatform, Runner, WineInstallation } from 'common/types'
 import { Dialog } from 'frontend/components/UI/Dialog'
 
 import './index.css'
@@ -19,12 +14,12 @@ import SideloadDialog from './SideloadDialog'
 import WineSelector from './WineSelector'
 import { SelectField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
+import { globalStore } from 'frontend/state/GlobalState'
+import { observer } from 'mobx-react'
 
 type Props = {
-  appName: string
   backdropClick: () => void
   runner: Runner
-  gameInfo?: GameInfo | null
 }
 
 export type AvailablePlatforms = {
@@ -34,12 +29,14 @@ export type AvailablePlatforms = {
   icon: IconDefinition
 }[]
 
-export default React.memo(function InstallModal({
-  appName,
+export default observer(function InstallModal({
   backdropClick,
-  runner,
-  gameInfo = null
+  runner
 }: Props) {
+  const gameInfo = globalStore.requestInstallModal.options?.game.data
+
+  const { app_name: appName } = gameInfo || {}
+
   const { platform } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
 
@@ -155,7 +152,7 @@ export default React.memo(function InstallModal({
           <DownloadDialog
             setIsLinuxNative={setIsLinuxNative}
             setIsMacNative={setIsMacNative}
-            appName={appName}
+            appName={appName || ''}
             runner={runner}
             winePrefix={winePrefix}
             wineVersion={wineVersion}

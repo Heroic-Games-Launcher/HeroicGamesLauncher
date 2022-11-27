@@ -3,9 +3,13 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import FormControl from 'frontend/components/UI/FormControl'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { observer } from 'mobx-react'
 
-export default React.memo(function StoreFilter() {
-  const { category, handleCategory, gog, epic } = useContext(ContextProvider)
+const StoreFilter: React.FC<{
+  onChange: (val: string) => void
+  value?: string
+}> = ({ onChange, value }) => {
+  const { gog, epic } = useContext(ContextProvider)
   const { t } = useTranslation()
 
   const isGOGLoggedin = gog.username
@@ -14,47 +18,56 @@ export default React.memo(function StoreFilter() {
   return (
     <div className="storeFilter">
       <FormControl segmented small>
-        <button
-          onClick={() => handleCategory('all')}
-          className={classNames('FormControl__button', {
-            active: category === 'all'
-          })}
-          title={`${t('header.store', 'Filter Store')}: ${t('All')}`}
-        >
-          {t('All').toUpperCase()}
-        </button>
+        <ItemButton
+          active={value === 'all'}
+          onClick={() => onChange('all')}
+          label={t('All').toUpperCase()}
+        />
         {isEpicLoggedin && (
-          <button
-            className={classNames('FormControl__button', {
-              active: category === 'legendary'
-            })}
-            title={`${t('header.store')}: ${t('store')}`}
-            onClick={() => handleCategory('legendary')}
-          >
-            EPIC
-          </button>
+          <ItemButton
+            active={value === 'legendary'}
+            onClick={() => onChange('legendary')}
+            label={'EPIC'}
+          />
         )}
         {isGOGLoggedin && (
-          <button
-            className={classNames('FormControl__button', {
-              active: category === 'gog'
-            })}
-            title={`${t('header.store')}: ${t('GOG')}`}
-            onClick={() => handleCategory('gog')}
-          >
-            GOG
-          </button>
+          <ItemButton
+            active={value === 'gog'}
+            onClick={() => onChange('gog')}
+            label={'GOG'}
+          />
         )}
-        <button
-          className={classNames('FormControl__button', {
-            active: category === 'sideload'
-          })}
-          title={`${t('header.store')}: ${t('Other')}`}
-          onClick={() => handleCategory('sideload')}
-        >
-          {t('Other')}
-        </button>
+        <ItemButton
+          active={value === 'sideload'}
+          onClick={() => onChange('sideload')}
+          label={t('Other')}
+        />
       </FormControl>
     </div>
   )
-})
+}
+
+function ItemButton({
+  active,
+  onClick,
+  label
+}: {
+  active?: boolean
+  onClick?: () => void
+  label: string
+}) {
+  const { t } = useTranslation()
+  return (
+    <button
+      className={classNames('FormControl__button', {
+        active
+      })}
+      title={`${t('header.store')}: ${t('store')}`}
+      onClick={onClick}
+    >
+      {label}
+    </button>
+  )
+}
+
+export default observer(StoreFilter)

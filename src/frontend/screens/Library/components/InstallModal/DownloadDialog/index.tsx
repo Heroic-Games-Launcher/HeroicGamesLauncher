@@ -1,8 +1,8 @@
 import {
   faDownload,
+  faFolderOpen,
   faHardDrive,
-  faSpinner,
-  faFolderOpen
+  faSpinner
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DialogContent } from '@mui/material'
@@ -24,16 +24,17 @@ import {
   ToggleSwitch
 } from 'frontend/components/UI'
 import Anticheat from 'frontend/components/UI/Anticheat'
-import { DialogHeader, DialogFooter } from 'frontend/components/UI/Dialog'
+import { DialogFooter, DialogHeader } from 'frontend/components/UI/Dialog'
 import {
+  getGameInfo,
+  getInstallInfo,
   getProgress,
   size,
-  getInstallInfo,
-  getGameInfo,
-  writeConfig,
-  install
+  writeConfig
 } from 'frontend/helpers'
+import { configStore } from 'frontend/helpers/electronStores'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { globalStore } from 'frontend/state/GlobalState'
 import { InstallProgress } from 'frontend/types'
 import React, {
   useCallback,
@@ -45,7 +46,6 @@ import React, {
 import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '../index'
 import { SDL_GAMES, SelectiveDownload } from '../selective_dl'
-import { configStore } from 'frontend/helpers/electronStores'
 
 interface Props {
   backdropClick: () => void
@@ -144,6 +144,8 @@ export default function DownloadDialog({
   const { i18n, t } = useTranslation('gamepage')
   const { t: tr } = useTranslation()
 
+  globalStore.i18n = t
+
   const sdls: SelectiveDownload[] | undefined = SDL_GAMES[appName]
   const haveSDL = Array.isArray(sdls) && sdls.length !== 0
 
@@ -176,32 +178,14 @@ export default function DownloadDialog({
   }
 
   async function handleInstall(path?: string) {
-    backdropClick()
-
-    // Write Default game config with prefix on linux
-    if (isLinux) {
-      const gameSettings = await window.api.requestGameSettings(appName)
-
-      if (wineVersion) {
-        writeConfig({
-          appName,
-          config: { ...gameSettings, winePrefix, wineVersion }
-        })
-      }
-    }
-
-    return install({
-      gameInfo,
+    globalStore.requestInstallModal.send({
       installPath: path || installFolder,
-      isInstalling: false,
-      previousProgress,
-      progress: previousProgress,
-      t,
+      wine: wineVersion && {
+        winePrefix,
+        wineVersion
+      },
       sdlList,
-      installDlcs,
-      installLanguage,
-      platformToInstall,
-      showDialogModal: () => backdropClick()
+      installDlcs
     })
   }
 

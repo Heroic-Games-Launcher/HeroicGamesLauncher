@@ -38,11 +38,16 @@ import {
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
 import { sideloadLibrary } from 'frontend/helpers/electronStores'
+import { GlobalStore } from './new/GlobalStore'
+import { BridgeStore } from './new/BridgeStore'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get('settings', {}) as AppSettings
 
 const RTL_LANGUAGES = ['fa']
+
+export const bridgeStore = new BridgeStore()
+export const globalStore = new GlobalStore()
 
 type T = TFunction<'gamepage'> & TFunction<'translations'>
 

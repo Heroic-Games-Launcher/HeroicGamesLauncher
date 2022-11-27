@@ -4,13 +4,12 @@ import cx from 'classnames'
 import GameCard from '../GameCard'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
-import usePaginatedList from 'frontend/hooks/usePaginatedList'
 
 interface Props {
   library: GameInfo[]
   layout?: string
   isFirstLane?: boolean
-  handleGameCardClick: (
+  handleGameCardClick?: (
     app_name: string,
     runner: Runner,
     gameInfo: GameInfo
@@ -29,14 +28,6 @@ const GamesList = ({
 }: Props): JSX.Element => {
   const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
-
-  const { infiniteScrollSentryRef, paginatedList, hasMore } = usePaginatedList(
-    library,
-    {
-      rpp: 10,
-      infinite: true
-    }
-  )
 
   const renderGameInfo = (gameInfo: GameInfo) => {
     const {
@@ -58,7 +49,7 @@ const GamesList = ({
       <GameCard
         key={app_name}
         hasUpdate={hasUpdate}
-        buttonClick={() => handleGameCardClick(app_name, runner, gameInfo)}
+        buttonClick={() => handleGameCardClick?.(app_name, runner, gameInfo)}
         forceCard={layout === 'grid'}
         isRecent={isRecent}
         gameInfo={gameInfo}
@@ -89,15 +80,9 @@ const GamesList = ({
           <span>{t('wine.actions', 'Action')}</span>
         </div>
       )}
-      {paginatedList.map((item) => {
+      {library.map((item) => {
         return renderGameInfo(item)
       })}
-      {hasMore && (
-        <div
-          ref={infiniteScrollSentryRef}
-          style={{ width: 100, height: 40, backgroundColor: 'transparent' }}
-        />
-      )}
     </div>
   )
 }

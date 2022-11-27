@@ -52,6 +52,7 @@ async function install({
     app_name: appName,
     runner
   }: GameInfo = gameInfo
+
   if (isInstalling) {
     return handleStopInstallation(
       appName,

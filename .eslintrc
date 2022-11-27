@@ -18,15 +18,22 @@
     },
     "ecmaVersion": 12,
     "sourceType": "module",
-    "project": ["./tsconfig.json"]
+    "project": [
+      "./tsconfig.json"
+    ]
   },
-  "plugins": ["react", "@typescript-eslint", "import"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "import"
+  ],
   "settings": {
     "react": {
       "version": "detect"
     }
   },
   "rules": {
+    "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "error",
@@ -35,12 +42,20 @@
     "@typescript-eslint/return-await": "warn",
     "react/no-unknown-property": [
       "error",
-      { "ignore": ["partition", "allowpopups", "useragent"] }
+      {
+        "ignore": [
+          "partition",
+          "allowpopups",
+          "useragent"
+        ]
+      }
     ],
     "@typescript-eslint/promise-function-async": [
       "error",
       {
-        "allowedPromiseNames": ["Thenable"],
+        "allowedPromiseNames": [
+          "Thenable"
+        ],
         "checkArrowFunctions": true,
         "checkFunctionDeclarations": true,
         "checkFunctionExpressions": true,
@@ -48,12 +63,20 @@
       }
     ],
     "complexity": "off",
-    "eqeqeq": ["error", "always"],
+    "eqeqeq": [
+      "error",
+      "always"
+    ],
     "quotes": [
       "error",
       "single",
-      { "avoidEscape": true, "allowTemplateLiterals": true }
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
     ],
-    "import/no-duplicates": ["error"]
+    "import/no-duplicates": [
+      "error"
+    ]
   }
 }

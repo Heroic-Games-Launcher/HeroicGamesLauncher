@@ -6,11 +6,15 @@ import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
+import { observer } from 'mobx-react'
 
-export default function PlatformFilter() {
+const PlatformFilter: React.FC<{
+  value?: string
+  onChange: (val: string) => void
+  category?: string
+}> = ({ value, onChange, category }) => {
   const { t } = useTranslation()
-  const { category, filterPlatform, handlePlatformFilter, platform } =
-    useContext(ContextProvider)
+  const { platform } = useContext(ContextProvider)
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
@@ -25,18 +29,18 @@ export default function PlatformFilter() {
     <div className="platformFilters">
       <FormControl segmented>
         <button
-          onClick={() => handlePlatformFilter('all')}
+          onClick={() => onChange('all')}
           className={cx('FormControl__button', {
-            active: filterPlatform === 'all'
+            active: value === 'all'
           })}
           title={`${t('header.platform')}: ${t('All')}`}
         >
           {t('All')}
         </button>
         <button
-          onClick={() => handlePlatformFilter('win')}
+          onClick={() => onChange('win')}
           className={cx('FormControl__button', {
-            active: filterPlatform === 'win'
+            active: value === 'win'
           })}
           title={`${t('header.platform')}: ${t('platforms.win')}`}
         >
@@ -48,9 +52,9 @@ export default function PlatformFilter() {
         </button>
         {isMac && (
           <button
-            onClick={() => handlePlatformFilter('mac')}
+            onClick={() => onChange('mac')}
             className={cx('FormControl__button', {
-              active: filterPlatform === 'mac'
+              active: value === 'mac'
             })}
             title={`${t('header.platform')}: ${t('platforms.mac')}`}
           >
@@ -63,9 +67,9 @@ export default function PlatformFilter() {
         )}
         {isLinux && (
           <button
-            onClick={() => handlePlatformFilter('linux')}
+            onClick={() => onChange('linux')}
             className={cx('FormControl__button', {
-              active: filterPlatform === 'linux'
+              active: value === 'linux'
             })}
             title={`${t('header.platform')}: ${t('platforms.linux')}`}
             disabled={disabledIcon}
@@ -81,3 +85,5 @@ export default function PlatformFilter() {
     </div>
   )
 }
+
+export default observer(PlatformFilter)

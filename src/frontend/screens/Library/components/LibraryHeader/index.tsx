@@ -1,16 +1,17 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import ActionIcons from 'frontend/components/UI/ActionIcons'
 import { epicCategories } from 'frontend/helpers/library'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo } from 'common/types'
 import { getLibraryTitle } from '../../constants'
 import './index.css'
+import useGlobalStore from '../../../../hooks/useGlobalStore'
 
 const storage = window.localStorage
 
 type Props = {
   list: GameInfo[]
+  title: string
   sortDescending: boolean
   sortInstalled: boolean
   setSortInstalled: (value: boolean) => void
@@ -20,6 +21,7 @@ type Props = {
 
 export default React.memo(function LibraryHeader({
   list,
+  title,
   sortInstalled,
   sortDescending,
   setSortDescending,
@@ -27,7 +29,9 @@ export default React.memo(function LibraryHeader({
   handleAddGameButtonClick
 }: Props) {
   const { t } = useTranslation()
-  const { category, showFavourites } = useContext(ContextProvider)
+  const { libraryController } = useGlobalStore()
+  const category = libraryController.category.get()
+  const showFavourites = false
 
   const numberOfGames = useMemo(() => {
     if (!list) {
@@ -72,9 +76,7 @@ export default React.memo(function LibraryHeader({
     <h5 className="libraryHeader">
       <div className="libraryHeaderWrapper">
         <span className="libraryTitle">
-          {showFavourites
-            ? t('favourites', 'Favourites')
-            : `${getLibraryTitle(category, t)}`}
+          {title}
           <span className="numberOfgames">{numberOfGames}</span>
           <button
             className="sideloadGameButton"
