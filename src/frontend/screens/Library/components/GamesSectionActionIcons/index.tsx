@@ -9,60 +9,49 @@ import {
 import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
-import FormControl from '../FormControl'
+import FormControl from '../../../../components/UI/FormControl'
 import './index.css'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import classNames from 'classnames'
+import { observer } from 'mobx-react'
+import { Box } from '../../../../state/new/utils'
+import { SortGame } from '../../../../state/new/common'
 
 type Layout = 'grid' | 'list'
 
 interface Props {
-  sortDescending: boolean
-  sortInstalled: boolean
-  toggleSortDescending: () => void
-  toggleSortinstalled: () => void
-  layout: Layout
-  setLayout: (val: Layout) => void
+  sortBox: Box<SortGame>
+  showHiddenBox: Box<boolean>
+  layoutBox: Box<Layout>
   refresh: () => void
   refreshing: boolean
-  showHidden: boolean
-  setShowHidden: (val: boolean) => void
 }
 
-export default React.memo(function ActionIcons({
-  sortDescending,
-  toggleSortDescending,
-  sortInstalled,
-  layout,
-  setLayout,
-  toggleSortinstalled,
+const ActionIcons = ({
+  sortBox,
+  layoutBox,
   refresh,
   refreshing,
-  showHidden,
-  setShowHidden
-}: Props) {
+  showHiddenBox
+}: Props) => {
   const { t } = useTranslation()
 
-  const toggleShowHidden = useCallback(() => {
-    setShowHidden(!showHidden)
-  }, [showHidden])
-
-  const showHiddenTitle = showHidden
+  const showHiddenTitle = showHiddenBox.get()
     ? t('header.ignore_hidden', 'Ignore Hidden')
     : t('header.show_hidden', 'Show Hidden')
 
   return (
     <div className="ActionIcons">
       <FormControl segmented small>
-        {layout === 'grid' ? (
+        {layoutBox.get() === 'grid' ? (
           <button
             className={classNames('FormControl__button', {
-              active: layout === 'grid'
+              active: layoutBox.get() === 'grid'
             })}
             title={t('library.toggleLayout.list', 'Toggle to a list layout')}
-            onClick={() => setLayout('list')}
+            onClick={() => layoutBox.set('list')}
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
@@ -73,7 +62,7 @@ export default React.memo(function ActionIcons({
           <button
             className={classNames('FormControl__button')}
             title={t('library.toggleLayout.grid', 'Toggle to a grid layout')}
-            onClick={() => setLayout('grid')}
+            onClick={() => layoutBox.set('grid')}
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
@@ -83,30 +72,32 @@ export default React.memo(function ActionIcons({
         )}
         <button
           className={classNames('FormControl__button', {
-            active: !sortDescending
+            active: sortBox.is('ascending', 'descending')
           })}
           title={
-            sortDescending
+            sortBox.is('descending')
               ? t('library.sortDescending', 'Sort Descending')
               : t('library.sortAscending', 'Sort Ascending')
           }
-          onClick={() => toggleSortDescending()}
+          onClick={() => sortBox.setIf('descending', 'ascending', 'descending')}
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
-            icon={sortDescending ? faArrowDownZA : faArrowDownAZ}
+            icon={sortBox.is('descending') ? faArrowDownZA : faArrowDownAZ}
           />
         </button>
         <button
           className={classNames('FormControl__button', {
-            active: sortInstalled
+            active: sortBox.is('installed', 'not-installed')
           })}
           title={t('library.sortByStatus', 'Sort by Status')}
-          onClick={() => toggleSortinstalled()}
+          onClick={() =>
+            sortBox.setIf('installed', 'not-installed', 'installed')
+          }
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
-            icon={sortInstalled ? hardDriveSolid : hardDriveLight}
+            icon={sortBox.is('installed') ? hardDriveSolid : hardDriveLight}
           />
         </button>
         {/*<button*/}
@@ -122,11 +113,13 @@ export default React.memo(function ActionIcons({
         {/*  />*/}
         {/*</button>*/}
         <button
-          className={classNames('FormControl__button', { active: showHidden })}
+          className={classNames('FormControl__button', {
+            active: showHiddenBox.get()
+          })}
           title={showHiddenTitle}
-          onClick={toggleShowHidden}
+          onClick={() => showHiddenBox.setIf(true, false, true)}
         >
-          {showHidden ? <Visibility /> : <VisibilityOff />}
+          {showHiddenBox.get() ? <Visibility /> : <VisibilityOff />}
         </button>
         <button
           className={classNames('FormControl__button', {
@@ -145,4 +138,6 @@ export default React.memo(function ActionIcons({
       </FormControl>
     </div>
   )
-})
+}
+
+export default observer(ActionIcons)

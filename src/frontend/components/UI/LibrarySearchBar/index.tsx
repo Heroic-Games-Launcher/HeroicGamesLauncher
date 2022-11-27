@@ -2,11 +2,8 @@ import { Search } from '@mui/icons-material'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import './index.css'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { observer } from 'mobx-react'
 import useDisclosure from '../../../hooks/useDisclosure'
-import useFetchLibrarySearchBar from '../../../hooks/useFetchLibrarySearchBar'
 
 const LibrarySearchBar: React.FC<{
   search: string
@@ -16,11 +13,11 @@ const LibrarySearchBar: React.FC<{
 
   const { t } = useTranslation()
 
-  const { list } = useFetchLibrarySearchBar({ term: search })
-
-  const handleClick = (title: string) => {
-    handleSearch(title)
-  }
+  // const { list } = useFetchLibrarySearchBar({ term: search })
+  //
+  // const handleClick = (title: string) => {
+  //   handleSearch(title)
+  // }
 
   useEffect(() => {
     if (!search) {
@@ -44,28 +41,28 @@ const LibrarySearchBar: React.FC<{
         id="search"
         className="searchBarInput"
       />
-      {list.length > 0 && listPopup.opened && (
-        <>
-          <ul className="auto-complete-container">
-            {list.length > 0 &&
-              list.map((title, i) => (
-                <li
-                  onClick={(e) => {
-                    handleClick(e.currentTarget.innerText)
-                    listPopup.close()
-                  }}
-                  key={i}
-                >
-                  {title}
-                </li>
-              ))}
-          </ul>
+      {/*{list.length > 0 && listPopup.opened && (*/}
+      {/*  <>*/}
+      {/*    <ul className="auto-complete-container">*/}
+      {/*      {list.length > 0 &&*/}
+      {/*        list.map((title, i) => (*/}
+      {/*          <li*/}
+      {/*            onClick={(e) => {*/}
+      {/*              handleClick(e.currentTarget.innerText)*/}
+      {/*              listPopup.close()*/}
+      {/*            }}*/}
+      {/*            key={i}*/}
+      {/*          >*/}
+      {/*            {title}*/}
+      {/*          </li>*/}
+      {/*        ))}*/}
+      {/*    </ul>*/}
 
-          <button className="clearSearchButton" tabIndex={-1}>
-            <FontAwesomeIcon icon={faXmark} />
-          </button>
-        </>
-      )}
+      {/*    <button className="clearSearchButton" tabIndex={-1}>*/}
+      {/*      <FontAwesomeIcon icon={faXmark} />*/}
+      {/*    </button>*/}
+      {/*  </>*/}
+      {/*)}*/}
     </div>
   )
 }

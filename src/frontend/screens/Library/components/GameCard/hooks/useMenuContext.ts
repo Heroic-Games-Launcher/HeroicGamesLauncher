@@ -6,19 +6,19 @@ export function useMenuContext(game: Game, downloadQueue: GameDownloadQueue) {
   return [
     {
       // remove from install queue
-      label: t('button.queue.remove'),
+      label: t('button.queue.remove', 'Remove from download queue'),
       onclick: () => downloadQueue.removeGame(game),
       show: game.isQueued && !game.isInstalling
     },
     {
       // stop if running
-      label: t('label.playing.stop'),
+      label: t('label.playing.stop', 'Stop'),
       onclick: () => game.stop(),
       show: game.isPlaying
     },
     {
       // launch game
-      label: t('label.playing.start'),
+      label: t('label.playing.start', 'Start'),
       onclick: () => game.play(),
       show:
         game.isInstalled &&
@@ -34,14 +34,14 @@ export function useMenuContext(game: Game, downloadQueue: GameDownloadQueue) {
     },
     {
       // install
-      label: t('button.install'),
+      label: t('button.install', 'Install'),
       onclick: () => game.install(),
       show: !game.isInstalled && !game.isQueued
       // || runner === 'sideload'
     },
     {
       // cancel installation/update
-      label: t('button.cancel'),
+      label: t('button.cancel', 'Cancel'),
       onclick: async () => game.cancelProgress(),
       show: game.isInstalling || game.isUpdating
     },

@@ -11,3 +11,9 @@ export type GameInstallationSettings = {
   sdlList?: Array<string>
   game: Game
 }
+
+export type SortGame =
+  | 'ascending'
+  | 'descending'
+  | 'installed'
+  | 'not-installed'

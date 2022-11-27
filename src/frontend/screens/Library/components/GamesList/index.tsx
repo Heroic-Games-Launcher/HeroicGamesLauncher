@@ -56,13 +56,6 @@ const GamesList = ({
 
   return (
     <div
-      style={
-        !library.length
-          ? {
-              backgroundColor: 'transparent'
-            }
-          : {}
-      }
       className={cx({
         gameList: layout === 'grid',
         gameListLayout: layout === 'list',
@@ -77,9 +70,7 @@ const GamesList = ({
           <span>{t('wine.actions', 'Action')}</span>
         </div>
       )}
-      {library.map((item) => {
-        return renderGame(item)
-      })}
+      {library.map(renderGame)}
     </div>
   )
 }

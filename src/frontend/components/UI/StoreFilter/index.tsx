@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next'
 import FormControl from 'frontend/components/UI/FormControl'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { observer } from 'mobx-react'
+import { Category } from '../../../types'
 
 const StoreFilter: React.FC<{
-  onChange: (val: string) => void
-  value?: string
+  onChange: (val: Category) => void
+  value?: Category
 }> = ({ onChange, value }) => {
   const { gog, epic } = useContext(ContextProvider)
   const { t } = useTranslation()

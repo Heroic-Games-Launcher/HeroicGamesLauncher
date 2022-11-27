@@ -6,6 +6,7 @@ import { Category } from '../types'
 import { runInAction } from 'mobx'
 import { Game } from '../state/new/Game'
 import { GameInfo } from '../../common/types'
+import { SortGame } from '../state/new/common'
 
 function fixFilter(text: string) {
   const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')
@@ -61,7 +62,7 @@ export default function useFetchLibraryPaginated({
   rpp
 }: {
   termBox?: Box<string>
-  sortBox?: Box<'descending' | 'installed'>
+  sortBox?: Box<SortGame>
   platformBox?: Box<string>
   categoryBox?: Box<Category>
   showHiddenBox?: Box<boolean>

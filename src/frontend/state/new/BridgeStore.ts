@@ -3,7 +3,7 @@ import { InstallProgress } from 'frontend/types'
 import { makeAutoObservable } from 'mobx'
 import { configStore } from '../../helpers/electronStores'
 
-// bridge: reactive updates from electron
+// bridge: reactive updates from electron/local storage
 export class BridgeStore {
   installProgressByAppName: { [key: string]: InstallProgress } = {}
   recentAppNames: string[] = []
@@ -15,6 +15,7 @@ export class BridgeStore {
     window.api.handleRecentGamesChanged(async () =>
       this.loadRecentGamesAppNames()
     )
+    this.loadRecentGamesAppNames()
     this.updatesAppNames = JSON.parse(localStorage.getItem('updates') || '[]')
   }
 

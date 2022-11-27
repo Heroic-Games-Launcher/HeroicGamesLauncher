@@ -1,7 +1,7 @@
 import './index.css'
 
 import { observer } from 'mobx-react'
-import React, { CSSProperties, useContext, useState } from 'react'
+import React, { CSSProperties, useContext } from 'react'
 
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -27,6 +27,7 @@ import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { globalStore } from 'frontend/state/GlobalState'
 import { useMenuContext } from './hooks/useMenuContext'
 import { Game } from '../../../../state/new/Game'
+import useDisclosure from '../../../../hooks/useDisclosure'
 
 const downloadQueue = globalStore.gameDownloadQueue
 
@@ -52,7 +53,7 @@ const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
   } = game.data
 
   const progress = game.downloadProgress
-  const [showUninstallModal, setShowUninstallModal] = useState(false)
+  const uninstallModal = useDisclosure()
 
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
@@ -198,11 +199,11 @@ const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
 
   return (
     <div>
-      {showUninstallModal && (
+      {uninstallModal.opened && (
         <UninstallModal
           appName={appName}
           runner={runner}
-          onClose={() => setShowUninstallModal(false)}
+          onClose={() => uninstallModal.close()}
         />
       )}
       <ContextMenu items={items}>

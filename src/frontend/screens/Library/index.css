@@ -76,6 +76,6 @@
 }
 
 .listing {
-  overflow-y: auto;
+  overflow-y: scroll;
   flex: 100% 1 1;
 }
