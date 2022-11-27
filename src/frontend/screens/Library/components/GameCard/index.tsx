@@ -9,7 +9,7 @@ import React, {
 } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRepeat } from '@fortawesome/free-solid-svg-icons'
+import { faRepeat, faBan } from '@fortawesome/free-solid-svg-icons'
 
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 import {
@@ -87,7 +87,8 @@ const GameCard = ({
     runner,
     is_installed: isInstalled,
     cloud_save_enabled: hasCloudSave,
-    install: { install_size: size, platform: installedPlatform }
+    install: { install_size: size, platform: installedPlatform },
+    thirdPartyManagedApp
   } = gameInfo
 
   const [progress, previousProgress] = hasProgress(appName)
@@ -127,6 +128,7 @@ const GameCard = ({
   const isQueued = status === 'queued'
   const isUninstalling = status === 'uninstalling'
   const notAvailable = !gameAvailable && isInstalled
+  const notSupportedGame = thirdPartyManagedApp === 'Origin'
   const haveStatus =
     isMoving ||
     isReparing ||
@@ -134,7 +136,8 @@ const GameCard = ({
     isUpdating ||
     isQueued ||
     isUninstalling ||
-    notAvailable
+    notAvailable ||
+    notSupportedGame
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -162,6 +165,9 @@ const GameCard = ({
   }
 
   function getStatus() {
+    if (notSupportedGame) {
+      return t('status.notSupportedGame', 'Not Supported')
+    }
     if (isQueued) {
       return `${t('status.queued', 'Queued')}`
     }
@@ -196,6 +202,18 @@ const GameCard = ({
   }
 
   const renderIcon = () => {
+    if (notSupportedGame) {
+      return (
+        <FontAwesomeIcon
+          title={t(
+            'label.game.third-party-game',
+            'Third-Party Game NOT Supported'
+          )}
+          className="downIcon"
+          icon={faBan}
+        />
+      )
+    }
     if (isUninstalling) {
       return (
         <button className="svg-button iconDisabled">

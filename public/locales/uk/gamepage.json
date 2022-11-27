@@ -119,6 +119,9 @@
         "wineversion": "Версія Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Грати",
             "stop": "Запущено (зупинити)"
@@ -169,9 +172,12 @@
         "installing": "Встановлення",
         "moving": "Переміщую встановлення, будь ласка зачекайте",
         "notinstalled": "Гра не встановлена",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Обробка файлів, будь ласка, зачекайте",
         "queued": "Queued",
         "reparing": "Відновлюю гру, будь ласка зачекайте",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Всього завантажено",
         "uninstalling": "Uninstalling",
         "updating": "Оновлюю гру"

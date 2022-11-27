@@ -119,6 +119,9 @@
         "wineversion": "Wine-version"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Starta spelet",
             "stop": "Avsluta spel"
@@ -169,9 +172,12 @@
         "installing": "Installerar",
         "moving": "Flyttar installationen, vänligen vänta",
         "notinstalled": "Detta spelet är inte installerat",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Hanterar filer, vänligen vänta",
         "queued": "Väntar i kö",
         "reparing": "Reparerar spelet, vänligen vänta",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Nedladdning",
         "uninstalling": "Uninstalling",
         "updating": "Updaterar spelet"

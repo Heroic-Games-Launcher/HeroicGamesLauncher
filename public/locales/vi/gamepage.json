@@ -119,6 +119,9 @@
         "wineversion": "Phiên bản Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Chơi ngay",
             "stop": "Đang chơi (Dừng)"
@@ -169,9 +172,12 @@
         "installing": "Đang cài đặt",
         "moving": "Đang chuyển, vui lòng đợi",
         "notinstalled": "Game chưa được cài",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Đang xử lý tệp, vui lòng đợi",
         "queued": "Queued",
         "reparing": "Đang sửa game, vui lòng đợi",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Tổng số đã tải",
         "uninstalling": "Uninstalling",
         "updating": "Đang cập nhật Game"

@@ -119,6 +119,9 @@
         "wineversion": "Wine verzija"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Igraj Sada",
             "stop": "Igra se (Prekini)"
@@ -169,9 +172,12 @@
         "installing": "Instaliranje u tijeku",
         "moving": "Premještanje instalacije, molim pričekajte",
         "notinstalled": "Ova igra nije instalirana",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Obrada datoteka, pričekaj",
         "queued": "Queued",
         "reparing": "Popravljanje igrice, molimo pričekajte",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Sveukupno preuzeto",
         "uninstalling": "Uninstalling",
         "updating": "Ažuriranje igrice"

@@ -119,6 +119,9 @@
         "wineversion": "Wine Version"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "കളിക്കാം",
             "stop": "നടക്കുന്നു(നിര്ത്തൂ)"
@@ -169,9 +172,12 @@
         "installing": "നടുന്നു",
         "moving": "നടീലിടം മാറ്റുന്നു, ഇത്തിരി കാക്കൂ",
         "notinstalled": "ഈ കളി നട്ടിട്ടില്ല",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "കളി നന്നാക്കുന്നു, ഒന്നു കാക്കൂ",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "ആകെ ഇറക്കിയെടുത്തത്",
         "uninstalling": "Uninstalling",
         "updating": "കളി പുതുക്കുന്നു"

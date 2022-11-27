@@ -119,6 +119,9 @@
         "wineversion": "Wine 版本"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "开始游戏",
             "stop": "游戏中（停止）"
@@ -169,9 +172,12 @@
         "installing": "安装中",
         "moving": "正在移动安装，请稍等",
         "notinstalled": "未安装此游戏",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "处理文件中，请稍等",
         "queued": "已加入队列",
         "reparing": "正在修复游戏，请稍等",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "下载总计",
         "uninstalling": "卸载中",
         "updating": "游戏更新中"

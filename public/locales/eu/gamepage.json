@@ -120,6 +120,9 @@
         "wineversion": "Ardoaren bertsioa"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Jokatu orain",
             "stop": "Ugalketa (Detener)"
@@ -170,9 +173,12 @@
         "installing": "Instalatu",
         "moving": "Instalazio mugikorra, itxaron",
         "notinstalled": "Joko hau ez instalatuta",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Artxiboak prozesatzen, mesedez itxaron",
         "queued": "Queued",
         "reparing": "Jokoaren konponketa, mesedez",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Deskargatutakoa, guztira",
         "uninstalling": "Uninstalling",
         "updating": "Jokoa eguneratzea"

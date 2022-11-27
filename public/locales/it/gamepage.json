@@ -119,6 +119,9 @@
         "wineversion": "Versione Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Esegui ora",
             "stop": "In esecuzione (Stop)"
@@ -169,9 +172,12 @@
         "installing": "Installazione in corso",
         "moving": "Spostamento dell'installazione in corso, per favore attendi",
         "notinstalled": "Questo gioco non è installato",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "File in elaborazione, attendere",
         "queued": "Messo in coda",
         "reparing": "Riparazione del gioco in corso, per favore attendi",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Totale scaricato",
         "uninstalling": "Uninstalling",
         "updating": "Aggiornamento in corso"

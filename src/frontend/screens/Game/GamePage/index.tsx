@@ -99,6 +99,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isMoving = status === 'moving'
   const isUninstalling = status === 'uninstalling'
   const notAvailable = !gameAvailable && gameInfo.is_installed
+  const notSupportedGame = gameInfo.thirdPartyManagedApp === 'Origin'
 
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
@@ -483,7 +484,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       isUpdating ||
                       isReparing ||
                       isMoving ||
-                      isUninstalling
+                      isUninstalling ||
+                      notSupportedGame
                     }
                     autoFocus={true}
                     className={`button ${getButtonClass(is_installed)}`}
@@ -565,6 +567,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
   ): React.ReactNode {
     const { eta, bytes, percent } = progress
 
+    if (notSupportedGame) {
+      return t(
+        'status.this-game-uses-third-party',
+        'This game uses third party launcher and it is not supported yet'
+      )
+    }
+
     if (notAvailable) {
       return t('status.gameNotAvailable', 'Game not available')
     }
@@ -638,6 +647,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }
 
   function getButtonLabel(is_installed: boolean) {
+    if (notSupportedGame) {
+      return t('status.notSupported', 'Not supported')
+    }
     if (isQueued) {
       return t('button.queue.remove', 'Remove from Queue')
     }

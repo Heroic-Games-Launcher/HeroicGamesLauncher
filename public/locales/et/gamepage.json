@@ -119,6 +119,9 @@
         "wineversion": "Wine'i versioon"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Mängi",
             "stop": "Mängib (Peata)"
@@ -169,9 +172,12 @@
         "installing": "Paigaldamine",
         "moving": "Paigalduse liiguatamine, palun oodake",
         "notinstalled": "See mäng ei ole paigaldatud",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Failide töötlemine, palun oodake",
         "queued": "Queued",
         "reparing": "Mängu parandamine, palun oodake",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Allalaaditud kokku",
         "uninstalling": "Uninstalling",
         "updating": "Mängu uuendamine"

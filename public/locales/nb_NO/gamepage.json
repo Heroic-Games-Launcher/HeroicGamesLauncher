@@ -120,6 +120,9 @@
         "wineversion": "Vinversjon"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Leke nå",
             "stop": "Spiller (Stopp)"
@@ -170,9 +173,12 @@
         "installing": "Installerer",
         "moving": "Flytting Installasjon, vennligst vent",
         "notinstalled": "Dette spillet er ikke installert",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Behandler filer, vennligst vent",
         "queued": "Queued",
         "reparing": "Reparerer spillet, vennligst vent",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Totalt nedlastede",
         "uninstalling": "Uninstalling",
         "updating": "Oppdaterer spillet"

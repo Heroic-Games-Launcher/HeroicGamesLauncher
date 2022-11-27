@@ -119,6 +119,9 @@
         "wineversion": "Verze Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Hrát",
             "stop": "Hraji (Zastavit)"
@@ -169,9 +172,12 @@
         "installing": "Instaluji",
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Zpracovávám soubory, čekejte prosím",
         "queued": "Ve frontě",
         "reparing": "Opravuji hru, čekejte prosím",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Celkově staženo",
         "uninstalling": "Odinstalace",
         "updating": "Aktualizuji hru"
