@@ -88,6 +88,9 @@ const GameCard = ({
     showDialogModal
   } = useContext(ContextProvider)
 
+  const { status, folder } =
+    libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
+
   useEffect(() => {
     const checkGameAvailable = async () => {
       if (isInstalled) {
@@ -99,12 +102,9 @@ const GameCard = ({
       }
     }
     checkGameAvailable()
-  }, [appName])
+  }, [appName, status])
 
   const grid = forceCard || layout === 'grid'
-
-  const { status, folder } =
-    libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
   const isInstalling = status === 'installing' || status === 'updating'
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'

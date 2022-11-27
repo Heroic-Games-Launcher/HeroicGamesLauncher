@@ -115,7 +115,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     checkGameAvailable()
-  }, [appName])
+  }, [appName, status])
 
   useEffect(() => {
     const updateGameInfo = async () => {
