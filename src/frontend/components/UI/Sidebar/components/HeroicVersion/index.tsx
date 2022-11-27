@@ -13,7 +13,7 @@ type Release = {
   body?: string
 }
 
-export default function HeroicVersion() {
+export default React.memo(function HeroicVersion() {
   const { t } = useTranslation()
   const [heroicVersion, setHeroicVersion] = useState('')
   const [newReleases, setNewReleases] = useState<Release[]>()
@@ -64,6 +64,10 @@ export default function HeroicVersion() {
       )}
       <div
         className="heroicVersion"
+        title={t(
+          'info.heroic.click-to-see-changelog',
+          'Click to see changelog'
+        )}
         onClick={() => setShowChangelogModalOnClick((current) => !current)}
       >
         {!sidebarCollapsed && (
@@ -96,4 +100,4 @@ export default function HeroicVersion() {
       )}
     </>
   )
-}
+})
