@@ -62,7 +62,9 @@ const GameCard = ({
 }: Card) => {
   const [gameInfo, setGameInfo] = useState(gameInfoFromProps)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
-  const [gameAvailable, setGameAvailable] = useState(false)
+  const [gameAvailable, setGameAvailable] = useState(
+    gameInfoFromProps.is_installed
+  )
 
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
