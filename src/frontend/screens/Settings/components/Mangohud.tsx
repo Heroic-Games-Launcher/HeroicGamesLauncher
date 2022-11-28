@@ -6,7 +6,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
-const Mongohud = () => {
+const Mangohud = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
@@ -37,4 +37,4 @@ const Mongohud = () => {
   )
 }
 
-export default Mongohud
+export default Mangohud
