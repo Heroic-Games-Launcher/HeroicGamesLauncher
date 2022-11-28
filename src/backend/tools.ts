@@ -209,9 +209,9 @@ export const Winetricks = {
     }
 
     try {
-      logInfo('Downloaded Winetricks', { prefix: LogPrefix.WineTricks })
-      const res = Axios.get(url, { timeout: 1000 })
-      const file = (await res).data
+      logInfo('Downloading Winetricks', { prefix: LogPrefix.WineTricks })
+      const res = await Axios.get(url, { timeout: 1000 })
+      const file = res.data
       writeFileSync(path, file)
       return exec(`chmod +x ${path}`)
     } catch (error) {
