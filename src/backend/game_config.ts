@@ -201,7 +201,6 @@ class GameConfigV0 extends GameConfig {
     // The settings defined work as overrides.
 
     const {
-      audioFix,
       autoInstallDxvk,
       autoInstallVkd3d,
       preferSystemLibs,
@@ -229,7 +228,6 @@ class GameConfigV0 extends GameConfig {
     // initialize generic defaults
     // TODO: I know more values can be moved that are not used in windows
     const defaultSettings = {
-      audioFix,
       autoInstallDxvk,
       autoInstallVkd3d,
       preferSystemLibs,

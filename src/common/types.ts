@@ -112,7 +112,6 @@ export interface GameInfo {
   is_linux_native: boolean
 }
 export interface GameSettings {
-  audioFix: boolean
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
   preferSystemLibs: boolean

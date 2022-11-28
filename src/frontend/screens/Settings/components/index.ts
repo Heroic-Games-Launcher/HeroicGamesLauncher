@@ -1,7 +1,6 @@
 export { default as AlternativeExe } from './AlternativeExe'
 export { default as AltGOGdlBin } from './AltGOGdlBin'
 export { default as AltLegendaryBin } from './AltLegendaryBin'
-export { default as AudioFix } from './AudioFix'
 export { default as AutoDXVK } from './AutoDXVK'
 export { default as AutoVKD3D } from './AutoVKD3D'
 export { default as BattlEyeRuntime } from './BattlEyeRuntime'

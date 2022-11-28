@@ -433,7 +433,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Selecciona un binario de GOGDL alternativo a usar",
         "alt-legendary-bin": "Seleccione o binario de Legendary alternativo",
-        "audiofix": "Correción de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar/actualizar DXVK no prefixo",
         "autosync": "Autosincronizar partidas gardadas",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
