@@ -218,8 +218,8 @@ export default React.memo(function Library(): JSX.Element {
   const libraryToShow = useMemo(() => {
     let library: Array<GameInfo> = []
     if (showFavouritesLibrary) {
-      library = [...favourites].filter((game) =>
-        category === 'all' ? game : game?.runner === category
+      library = [...favourites].filter((g) =>
+        category === 'all' ? g : g.runner === category
       )
     } else {
       const isEpic = epic.username && epicCategories.includes(category)
@@ -244,7 +244,7 @@ export default React.memo(function Library(): JSX.Element {
       const fuse = new Fuse(filteredLibrary, options)
 
       if (filterText) {
-        const fuzzySearch = fuse.search(filterText).map((game) => game?.item)
+        const fuzzySearch = fuse.search(filterText).map((g) => g.item)
         library = fuzzySearch
       } else {
         library = filteredLibrary
@@ -270,9 +270,9 @@ export default React.memo(function Library(): JSX.Element {
       const gameB = b.title.toUpperCase().replace('THE ', '')
       return sortDescending ? (gameA > gameB ? -1 : 1) : gameA < gameB ? -1 : 1
     })
-    const installed = library.filter((game) => game?.is_installed)
+    const installed = library.filter((g) => g.is_installed)
     const notInstalled = library.filter(
-      (game) => !game?.is_installed && !installing.includes(game?.app_name)
+      (g) => !g.is_installed && !installing.includes(g.app_name)
     )
     const installingGames = library.filter(
       (g) => !g.is_installed && installing.includes(g.app_name)
