@@ -59,6 +59,24 @@ export const loadGOGLibrary = (): Array<GameInfo> => {
   return games
 }
 
+export const loadGOGLibrary = (): Array<GameInfo> => {
+  const games = gogLibraryStore.has('games')
+    ? (gogLibraryStore.get('games', []) as GameInfo[])
+    : []
+  const installedGames =
+    (gogInstalledGamesStore.get('installed', []) as Array<InstalledInfo>) || []
+  for (const igame in games) {
+    for (const installedGame of installedGames) {
+      if (installedGame.appName === games[igame].app_name) {
+        games[igame].install = installedGame
+        games[igame].is_installed = true
+      }
+    }
+  }
+
+  return games
+}
+
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get('settings', {}) as AppSettings
 
