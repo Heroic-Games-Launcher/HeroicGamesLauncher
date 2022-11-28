@@ -1,7 +1,9 @@
 import { ValidGamepadAction } from 'common/types'
 // Holds layouts for different XBox official an clone controllers
 
-export function checkStandard(
+// Vendor: 045e, Product: 02ea
+// Microsoft Controller (STANDARD GAMEPAD Vendor: 045e Product: 02ea)
+export function checkXbox(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
   controllerIndex: number,
@@ -11,10 +13,10 @@ export function checkStandard(
     ctrlIdx: number
   ) => void
 ) {
-  const mainButton = buttons[0], // Xbox: A, PS: Cross
-    backButton = buttons[1], // Xbox: B, PS: Circle
-    contextMenuButton = buttons[2], // Xbox: X, PS: Square
-    altButton = buttons[3], // Xbox: Y, PS: Triangle
+  const A = buttons[0],
+    B = buttons[1],
+    X = buttons[2],
+    Y = buttons[3],
     // LB = buttons[4],
     // RB = buttons[5],
     // LT = buttons[6], // has .value
@@ -35,9 +37,9 @@ export function checkStandard(
 
   // use the `?` operator here since this layout is used as fallback
   // and mapping can be incorrect
-  checkAction('mainAction', mainButton?.pressed, controllerIndex)
-  checkAction('back', backButton?.pressed, controllerIndex)
-  checkAction('altAction', altButton?.pressed, controllerIndex)
+  checkAction('mainAction', A?.pressed, controllerIndex)
+  checkAction('back', B?.pressed, controllerIndex)
+  checkAction('altAction', Y?.pressed, controllerIndex)
   checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
   checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
   checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
@@ -50,5 +52,5 @@ export function checkStandard(
   checkAction('padDown', down?.pressed, controllerIndex)
   checkAction('padLeft', left?.pressed, controllerIndex)
   checkAction('padRight', right?.pressed, controllerIndex)
-  checkAction('rightClick', contextMenuButton?.pressed, controllerIndex)
+  checkAction('rightClick', X?.pressed, controllerIndex)
 }
