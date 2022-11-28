@@ -2,20 +2,17 @@ import './index.css'
 import { observer } from 'mobx-react'
 import GamesList from '../GamesList'
 import React from 'react'
-import { Pagination } from '../../../../hooks/types'
 import LibraryListControler from '../../../../state/new/LibraryListController'
-import { Game } from '../../../../state/new/Game'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 import ActionIcons from '../GamesSectionActionIcons'
 
 const GamesSection: React.FC<{
-  pagination: Pagination<Game>
   listController: LibraryListControler
   title: string
   expanded?: boolean
   isRecent?: boolean
-}> = ({ expanded, isRecent, pagination, listController, title }) => {
-  const { sort } = listController
+}> = ({ expanded, isRecent, listController, title }) => {
+  const { sort, pagination } = listController
 
   const [sentryRef] = useInfiniteScroll({
     loading: false,

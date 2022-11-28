@@ -46,6 +46,7 @@ import {
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import HowLongToBeat from 'frontend/components/UI/HowLongToBeat'
+import useGlobalStore from '../../../hooks/useGlobalStore'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -55,7 +56,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
-  const { gameInfo: locationGameInfo } = location.state
+  const globalStore = useGlobalStore()
+
+  const locationGameInfo = globalStore.getGame(appName)?.data
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
@@ -246,10 +249,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
       <div className="gameConfigContainer">
         {showModal.show && (
           <InstallModal
-            appName={showModal.game}
             runner={runner}
             backdropClick={() => setShowModal({ game: '', show: false })}
-            gameInfo={gameInfo}
           />
         )}
         {title ? (

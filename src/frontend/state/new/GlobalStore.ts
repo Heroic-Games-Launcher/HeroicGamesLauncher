@@ -54,7 +54,7 @@ export class GlobalStore {
   layoutPreferences = new LayoutPreferences()
   requestInstallModal = new RequestInstallModalController()
   i18n?: TFunction<'gamepage'>
-  libraryController = new LibraryPageController()
+  libraryController = new LibraryPageController(this)
   private gameInstancesByAppName: { [key: string]: Game } = {}
 
   epicLibrary: GameInfo[] = []
@@ -64,8 +64,8 @@ export class GlobalStore {
     this.refresh()
   }
 
-  getGame(name: string, info: GameInfo): Game {
-    return this.gameDownloadQueue.getInQueueGame(name) || new Game(info)
+  getGame(name: string): Game {
+    return this.gameInstancesByAppName[name]
   }
 
   get isLinux() {

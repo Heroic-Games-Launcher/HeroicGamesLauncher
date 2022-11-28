@@ -211,7 +211,6 @@ const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
           {haveStatus && <span className="progress">{getStatus()}</span>}
           <Link
             to={`/gamepage/${runner}/${appName}`}
-            state={{ gameInfo: game.data }}
             style={
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
