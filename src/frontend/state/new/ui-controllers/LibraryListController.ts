@@ -1,10 +1,10 @@
-import { Box } from './utils'
+import { Box } from '../common/utils'
 import { makeAutoObservable } from 'mobx'
-import { SortGame } from './common'
+import { SortGame } from '../common/common'
 import LibraryPagination, {
   LibraryPaginationOptions
-} from './LibraryPagination'
-import { GlobalStore } from './GlobalStore'
+} from '../fetch-data/LibraryPagination'
+import { GlobalStore } from '../global/GlobalStore'
 
 export default class LibraryListControler {
   readonly sort = Box.create<SortGame>('installed')

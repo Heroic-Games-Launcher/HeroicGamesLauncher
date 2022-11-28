@@ -5,14 +5,8 @@ import React, { CSSProperties, useContext } from 'react'
 
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
-import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
-import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
-import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg'
-import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import { getProgress, getStoreName } from 'frontend/helpers'
 import { updateGame } from 'frontend/helpers/library'
@@ -26,8 +20,9 @@ import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { globalStore } from 'frontend/state/GlobalState'
 import { useMenuContext } from './hooks/useMenuContext'
-import { Game } from '../../../../state/new/Game'
+import { Game } from '../../../../state/new/model/Game'
 import useDisclosure from '../../../../hooks/useDisclosure'
+import ActionButton from './ActionButton'
 
 const downloadQueue = globalStore.gameDownloadQueue
 
@@ -47,7 +42,6 @@ const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
     art_logo: logo,
     app_name: appName,
     runner,
-    is_installed,
     cloud_save_enabled: hasCloudSave,
     install: { platform: installedPlatform }
   } = game.data
@@ -58,7 +52,7 @@ const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
-  const isInstalled = is_installed && game.isAvailable
+  const isInstalled = game.isInstalled && game.isAvailable
 
   const navigate = useNavigate()
 
@@ -66,13 +60,12 @@ const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
 
   const grid = forceCard || layout === 'grid'
 
+  const { isUninstalling, isQueued, isUpdating } = game
+
   const isInstalling = game.isInstalling || game.isUpdating
-  const isUpdating = game.isUpdating
   const isReparing = game.status === 'repairing'
   const isMoving = game.status === 'moving'
-  const isPlaying = game.isPlaying
-  const isQueued = game.isQueued
-  const isUninstalling = game.status === 'uninstalling'
+
   const haveStatus =
     isMoving ||
     isReparing ||
@@ -107,70 +100,6 @@ const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
 
   function getStatus() {
     return `${t(`status.${game.status || 'notinstalled'}`)}`
-  }
-
-  const renderIcon = () => {
-    if (isUninstalling) {
-      return (
-        <button className="svg-button iconDisabled">
-          <svg />
-        </button>
-      )
-    }
-    if (isQueued) {
-      return (
-        <SvgButton
-          title={t('button.queue.remove', 'Remove from Queue')}
-          className="queueIcon"
-          onClick={() => globalStore.gameDownloadQueue.removeGame(game)}
-        >
-          <RemoveCircleIcon />
-        </SvgButton>
-      )
-    }
-    if (isPlaying) {
-      return (
-        <SvgButton
-          className="cancelIcon"
-          onClick={() => game.stop()}
-          title={`${t('label.playing.stop')} (${title})`}
-        >
-          <StopIconAlt />
-        </SvgButton>
-      )
-    }
-    if (isInstalling || isQueued) {
-      return (
-        <SvgButton
-          className="cancelIcon"
-          onClick={async () => downloadQueue.removeGame(game)}
-          title={`${t('button.cancel')} (${title})`}
-        >
-          <StopIcon />
-        </SvgButton>
-      )
-    }
-    if (isInstalled) {
-      return (
-        <SvgButton
-          className="playIcon"
-          onClick={async () => game.play()}
-          title={`${t('label.playing.start')} (${title})`}
-        >
-          <PlayIcon />
-        </SvgButton>
-      )
-    } else {
-      return (
-        <SvgButton
-          className="downIcon"
-          onClick={async () => downloadQueue.addGame(game)}
-          title={`${t('button.install')} (${title})`}
-        >
-          <DownIcon />
-        </SvgButton>
-      )
-    }
   }
 
   const isHiddenGame = game.isHidden
@@ -218,7 +147,9 @@ const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
           <Link
             to={`/gamepage/${runner}/${appName}`}
             style={
-              { '--installing-effect': installingGrayscale } as CSSProperties
+              {
+                '--installing-effect': installingGrayscale
+              } as CSSProperties
             }
           >
             <StoreLogos runner={runner} />
@@ -275,28 +206,26 @@ const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
                 </SvgButton>
               )}
               {isInstalled && !isUninstalling && (
-                <>
-                  <SvgButton
-                    title={`${t('submenu.settings')} (${title})`}
-                    className="settingsIcon"
-                    onClick={() =>
-                      navigate(pathname, {
-                        state: {
-                          fromGameCard: true,
-                          runner,
-                          hasCloudSave,
-                          isLinuxNative,
-                          isMacNative,
-                          gameInfo: game.data
-                        }
-                      })
-                    }
-                  >
-                    <SettingsIcon />
-                  </SvgButton>
-                </>
+                <SvgButton
+                  title={`${t('submenu.settings')} (${title})`}
+                  className="settingsIcon"
+                  onClick={() =>
+                    navigate(pathname, {
+                      state: {
+                        fromGameCard: true,
+                        runner,
+                        hasCloudSave,
+                        isLinuxNative,
+                        isMacNative,
+                        gameInfo: game.data
+                      }
+                    })
+                  }
+                >
+                  <SettingsIcon />
+                </SvgButton>
               )}
-              {renderIcon()}
+              <ActionButton game={game} title={title} />
             </span>
           </>
         </div>

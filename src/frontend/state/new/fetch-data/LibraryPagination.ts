@@ -1,9 +1,9 @@
-import { Category } from '../../types'
-import { GameInfo } from '../../../common/types'
-import { Box } from './utils'
+import { Category } from '../../../types'
+import { GameInfo } from '../../../../common/types'
+import { Box } from '../common/utils'
 import { runInAction } from 'mobx'
-import { SortGame } from './common'
-import { GlobalStore } from './GlobalStore'
+import { SortGame } from '../common/common'
+import { GlobalStore } from '../global/GlobalStore'
 
 function fixFilter(text: string) {
   const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')

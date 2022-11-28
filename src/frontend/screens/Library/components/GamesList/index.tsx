@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Runner } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
 import { useTranslation } from 'react-i18next'
-import { Game } from '../../../../state/new/Game'
+import { Game } from '../../../../state/new/model/Game'
+import { AnimatePresence, motion } from 'framer-motion'
+import { observer } from 'mobx-react'
+import useComputedValue from '../../../../hooks/useComputedValue'
+import useGlobalStore from '../../../../hooks/useGlobalStore'
 
 interface Props {
   library: Game[]
@@ -12,47 +16,12 @@ interface Props {
   handleGameCardClick?: (app_name: string, runner: Runner, game: Game) => void
   onlyInstalled?: boolean
   isRecent?: boolean
+  listName: string
 }
 
-const GamesList = ({
-  library = [],
-  layout = 'grid',
-  handleGameCardClick,
-  isFirstLane = false,
-  onlyInstalled = false,
-  isRecent = false
-}: Props): JSX.Element => {
+const GamesList = (props: Props): JSX.Element => {
   const { t } = useTranslation()
-
-  const renderGame = (game: Game) => {
-    const {
-      app_name,
-      is_installed,
-      runner,
-      install: { is_dlc }
-    } = game.data
-
-    if (is_dlc) {
-      return null
-    }
-    if (!is_installed && onlyInstalled) {
-      return null
-    }
-
-    const { hasUpdate } = game
-
-    return (
-      <GameCard
-        key={app_name}
-        hasUpdate={hasUpdate}
-        buttonClick={() => handleGameCardClick?.(app_name, runner, game)}
-        forceCard={layout === 'grid'}
-        isRecent={isRecent}
-        game={game}
-        layout={layout}
-      />
-    )
-  }
+  const { library = [], layout = 'grid', isFirstLane = false } = props
 
   return (
     <div
@@ -70,9 +39,88 @@ const GamesList = ({
           <span>{t('wine.actions', 'Action')}</span>
         </div>
       )}
-      {library.map(renderGame)}
+      {library.map((item) => (
+        <GameItem key={item.appName} game={item} {...props} />
+      ))}
     </div>
   )
 }
+
+function getPercValue(val: number, perc: number) {
+  return (val * perc) / 100
+}
+
+const GameItem = observer(
+  ({
+    game,
+    handleGameCardClick,
+    onlyInstalled,
+    layout = 'grid',
+    listName,
+    isRecent = false
+  }: {
+    game: Game
+  } & Props) => {
+    const { libraryController } = useGlobalStore()
+    const wrapperRef = useRef<HTMLDivElement>(null)
+    const cardVisible = useComputedValue(
+      () => {
+        const scrollPosition = libraryController.listScrollPosition.get()
+        if (!scrollPosition) {
+          return false
+        }
+        const bodyHeight = document.body?.clientHeight || 0
+        const { offsetTop = 0 } = wrapperRef.current || {}
+        const diff = offsetTop - scrollPosition.top
+        const percVal = getPercValue(bodyHeight, 20)
+        const compareVal = bodyHeight + percVal
+        return diff > -percVal && diff < compareVal
+      },
+      { debounceTime: 300 }
+    )
+
+    const {
+      app_name,
+      is_installed,
+      runner,
+      install: { is_dlc }
+    } = game.data
+
+    if (is_dlc) {
+      return null
+    }
+    if (!is_installed && onlyInstalled) {
+      return null
+    }
+
+    const { hasUpdate } = game
+
+    return (
+      <div style={{ minHeight: 200, minWidth: 10 }} ref={wrapperRef}>
+        <AnimatePresence>
+          {cardVisible && (
+            <motion.div
+              layoutId={app_name + '-' + listName}
+              animate={{ scale: 1 }}
+              initial={{ scale: 0 }}
+            >
+              <GameCard
+                key={app_name}
+                hasUpdate={hasUpdate}
+                buttonClick={() =>
+                  handleGameCardClick?.(app_name, runner, game)
+                }
+                forceCard={layout === 'grid'}
+                isRecent={isRecent}
+                game={game}
+                layout={layout}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    )
+  }
+)
 
 export default React.memo(GamesList)

@@ -29,8 +29,7 @@ import {
   getGameInfo,
   getInstallInfo,
   getProgress,
-  size,
-  writeConfig
+  size
 } from 'frontend/helpers'
 import { configStore } from 'frontend/helpers/electronStores'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -46,6 +45,7 @@ import React, {
 import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '../index'
 import { SDL_GAMES, SelectiveDownload } from '../selective_dl'
+import RequestInstallModalController from '../../../state/new/ui-controllers/RequestInstallModalController'
 
 interface Props {
   backdropClick: () => void
@@ -59,6 +59,7 @@ interface Props {
   wineVersion: WineInstallation | undefined
   children: React.ReactNode
   gameInfo: GameInfo
+  controller: RequestInstallModalController
 }
 
 type DiskSpaceInfo = {
@@ -105,6 +106,7 @@ export default function DownloadDialog({
   winePrefix,
   wineVersion,
   children,
+  controller,
   gameInfo
 }: Props) {
   const previousProgress = JSON.parse(
@@ -144,8 +146,6 @@ export default function DownloadDialog({
   const { i18n, t } = useTranslation('gamepage')
   const { t: tr } = useTranslation()
 
-  globalStore.i18n = t
-
   const sdls: SelectiveDownload[] | undefined = SDL_GAMES[appName]
   const haveSDL = Array.isArray(sdls) && sdls.length !== 0
 
@@ -178,7 +178,7 @@ export default function DownloadDialog({
   }
 
   async function handleInstall(path?: string) {
-    globalStore.requestInstallModal.send({
+    controller.send({
       installPath: path || installFolder,
       wine: wineVersion && {
         winePrefix,

@@ -15,9 +15,13 @@ import classNames from 'classnames'
 import { ControllerHints, OfflineMessage } from './components/UI'
 import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
+import { InstallModal } from './screens/Library/components'
+import { Observer } from 'mobx-react'
+import useGlobalStore from './hooks/useGlobalStore'
 
 function App() {
   const { sidebarCollapsed } = useContext(ContextProvider)
+  const globalStore = useGlobalStore()
 
   return (
     <div className={classNames('App', { collapsed: sidebarCollapsed })}>
@@ -59,6 +63,19 @@ function App() {
           <div className="simple-keyboard"></div>
         </div>
       </HashRouter>
+      <Observer>
+        {() => {
+          if (!globalStore.requestInstallModal.opened) {
+            return <></>
+          }
+          return (
+            <InstallModal
+              runner={'legendary'}
+              controller={globalStore.requestInstallModal}
+            />
+          )
+        }}
+      </Observer>
     </div>
   )
 }

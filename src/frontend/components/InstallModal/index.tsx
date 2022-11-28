@@ -15,10 +15,11 @@ import WineSelector from './WineSelector'
 import { SelectField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
-import useGlobalStore from '../../../../hooks/useGlobalStore'
+import RequestInstallModalController from '../../state/new/ui-controllers/RequestInstallModalController'
 
 type Props = {
   runner: Runner
+  controller: RequestInstallModalController
 }
 
 export type AvailablePlatforms = {
@@ -28,9 +29,8 @@ export type AvailablePlatforms = {
   icon: IconDefinition
 }[]
 
-export default observer(function InstallModal({ runner }: Props) {
-  const { requestInstallModal } = useGlobalStore()
-  const gameInfo = requestInstallModal.options?.game.data
+const InstallModal = ({ runner, controller }: Props) => {
+  const gameInfo = controller.options?.game.data
 
   const { app_name: appName } = gameInfo || {}
 
@@ -138,7 +138,7 @@ export default observer(function InstallModal({ runner }: Props) {
 
   const showDownloadDialog = !isSideload && gameInfo
 
-  const backdropClick = () => requestInstallModal.cancelRequest()
+  const backdropClick = () => controller.cancelRequest()
 
   return (
     <div className="InstallModal">
@@ -149,6 +149,7 @@ export default observer(function InstallModal({ runner }: Props) {
       >
         {showDownloadDialog ? (
           <DownloadDialog
+            controller={controller}
             setIsLinuxNative={setIsLinuxNative}
             setIsMacNative={setIsMacNative}
             appName={appName || ''}
@@ -197,4 +198,6 @@ export default observer(function InstallModal({ runner }: Props) {
       </Dialog>
     </div>
   )
-})
+}
+
+export default observer(InstallModal)

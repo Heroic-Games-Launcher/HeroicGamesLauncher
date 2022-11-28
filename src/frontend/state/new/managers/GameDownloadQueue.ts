@@ -1,10 +1,10 @@
 import { writeConfig } from 'frontend/helpers'
 import { find, merge, remove } from 'lodash'
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
-import { GameInstallSettings } from './common'
-import { Game } from './Game'
-import { GlobalStore } from './GlobalStore'
-import { InstallPlatform } from '../../../common/types'
+import { GameInstallSettings } from '../common/common'
+import { Game } from '../model/Game'
+import { GlobalStore } from '../global/GlobalStore'
+import { InstallPlatform } from '../../../../common/types'
 
 export class GameDownloadQueue {
   queue: GameInstallSettings[] = []

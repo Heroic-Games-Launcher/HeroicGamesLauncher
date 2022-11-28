@@ -1,15 +1,14 @@
-import { TFunction } from 'react-i18next'
 import { GameIdentifier, GameInfo } from 'common/types'
 import { autorun, makeAutoObservable } from 'mobx'
-import { Game } from './Game'
-import { GameDownloadQueue } from './GameDownloadQueue'
+import { Game } from '../model/Game'
+import { GameDownloadQueue } from '../managers/GameDownloadQueue'
 import { configStore, libraryStore } from 'frontend/helpers/electronStores'
-import LibraryPageController from './LibraryPageController'
+import LibraryPageController from '../ui-controllers/LibraryPageController'
 import { find } from 'lodash'
 import i18next from 'i18next'
-import RequestInstallModalController from './RequestInstallModalController'
-import LayoutPreferences from './LayoutPreferences'
-import { loadGOGLibrary } from '../GlobalState'
+import RequestInstallModalController from '../ui-controllers/RequestInstallModalController'
+import LayoutPreferences from '../settings/LayoutPreferences'
+import { loadGOGLibrary } from '../../GlobalState'
 
 export class GlobalStore {
   language = i18next.language
@@ -17,7 +16,6 @@ export class GlobalStore {
   gameDownloadQueue = new GameDownloadQueue(this)
   layoutPreferences = new LayoutPreferences()
   requestInstallModal = new RequestInstallModalController()
-  i18n?: TFunction<'gamepage'>
   libraryController = new LibraryPageController(this)
   private gameInstancesByAppName: { [key: string]: Game } = {}
   private favouriteStoredGames: GameIdentifier[] = []

@@ -1,5 +1,5 @@
-import { Game } from 'frontend/state/new/Game'
-import { GameDownloadQueue } from 'frontend/state/new/GameDownloadQueue'
+import { Game } from 'frontend/state/new/model/Game'
+import { GameDownloadQueue } from 'frontend/state/new/managers/GameDownloadQueue'
 import { t } from 'i18next'
 
 export function useMenuContext({

@@ -1,5 +1,5 @@
 import { WineInstallation } from 'common/types'
-import { Game } from './Game'
+import { Game } from '../model/Game'
 
 export type GameInstallSettings = {
   installPath: string

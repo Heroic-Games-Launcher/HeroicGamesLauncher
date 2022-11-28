@@ -16,8 +16,8 @@ import './index.css'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import classNames from 'classnames'
 import { observer } from 'mobx-react'
-import { Box } from '../../../../state/new/utils'
-import { SortGame } from '../../../../state/new/common'
+import { Box } from '../../../../state/new/common/utils'
+import { SortGame } from '../../../../state/new/common/common'
 
 type Layout = 'grid' | 'list'
 

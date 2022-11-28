@@ -1,6 +1,6 @@
 import LibraryPagination, {
   LibraryPaginationOptions
-} from '../state/new/LibraryPagination'
+} from '../state/new/fetch-data/LibraryPagination'
 import { useMemo } from 'react'
 import useGlobalStore from './useGlobalStore'
 

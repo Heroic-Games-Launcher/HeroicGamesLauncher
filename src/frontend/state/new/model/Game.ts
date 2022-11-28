@@ -1,7 +1,7 @@
 import { GameInfo } from 'common/types'
 import { makeAutoObservable } from 'mobx'
-import { bridgeStore } from '../GlobalState'
-import { launch, sendKill, syncSaves } from '../../helpers'
+import { bridgeStore } from '../../GlobalState'
+import { launch, sendKill, syncSaves } from '../../../helpers'
 // import { GameDownloadQueue } from './GameDownloadQueue'
 import { t } from 'i18next'
 
@@ -12,8 +12,8 @@ export class Game {
     makeAutoObservable(this)
     window.api
       .isGameAvailable({
-        appName: this.data.app_name,
-        runner: this.data.runner
+        appName: data.app_name,
+        runner: data.runner
       })
       .then((available) => {
         this.isAvailable = available
@@ -51,6 +51,10 @@ export class Game {
 
   get isInstalling() {
     return this.status === 'installing'
+  }
+
+  get isUninstalling() {
+    return this.status === 'uninstalling'
   }
 
   get isQueued() {
@@ -133,7 +137,9 @@ export class Game {
     // this.changeStatus('updating')
   }
 
-  cancelProgress() {}
+  cancelProgress() {
+    return
+  }
 
   asRecent() {
     // this.isRecent = true

@@ -1,2 +1,1 @@
-export { default as GameCard } from './GameCard'
-export { default as InstallModal } from './InstallModal'
+export { default as InstallModal } from '../../../components/InstallModal'

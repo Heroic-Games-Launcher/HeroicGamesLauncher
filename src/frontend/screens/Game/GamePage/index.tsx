@@ -28,7 +28,6 @@ import TimeContainer from '../TimeContainer'
 
 import GameRequirements from '../GameRequirements'
 import { GameSubMenu } from '..'
-import { InstallModal } from 'frontend/screens/Library/components'
 import { install } from 'frontend/helpers/library'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -59,8 +58,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const globalStore = useGlobalStore()
 
   const locationGameInfo = globalStore.getGame(appName)?.data
-
-  const [showModal, setShowModal] = useState({ game: '', show: false })
 
   const { libraryStatus, epic, gog, gameUpdates, platform, showDialogModal } =
     useContext(ContextProvider)
@@ -181,7 +178,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }
 
   function handleModal() {
-    setShowModal({ game: appName, show: true })
+    globalStore.gameDownloadQueue.addGame(globalStore.getGame(appName))
   }
 
   let hasUpdate = false
@@ -247,7 +244,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     return (
       <div className="gameConfigContainer">
-        {showModal.show && <InstallModal runner={runner} />}
         {title ? (
           <>
             <GamePicture art_square={art_square} store={runner} />

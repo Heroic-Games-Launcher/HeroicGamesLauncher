@@ -38,8 +38,8 @@ import {
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
 import { sideloadLibrary } from 'frontend/helpers/electronStores'
-import { GlobalStore } from './new/GlobalStore'
-import { BridgeStore } from './new/BridgeStore'
+import { GlobalStore } from './new/global/GlobalStore'
+import { BridgeStore } from './new/global/BridgeStore'
 
 export const loadGOGLibrary = (): Array<GameInfo> => {
   const games = gogLibraryStore.has('games')

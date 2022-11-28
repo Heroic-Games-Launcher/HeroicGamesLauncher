@@ -1,9 +1,9 @@
 import { autorun, makeAutoObservable, toJS } from 'mobx'
-import { Box } from './utils'
-import { Category } from '../../types'
+import { Box } from '../common/utils'
+import { Category } from '../../../types'
 import LibraryListControler from './LibraryListController'
-import { LibraryPaginationOptions } from './LibraryPagination'
-import { GlobalStore } from './GlobalStore'
+import { LibraryPaginationOptions } from '../fetch-data/LibraryPagination'
+import { GlobalStore } from '../global/GlobalStore'
 import { merge, pick } from 'lodash'
 
 const STORAGE_KEY = 'data.library-page'

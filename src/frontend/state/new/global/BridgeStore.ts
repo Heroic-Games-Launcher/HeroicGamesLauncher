@@ -1,7 +1,7 @@
 import { GameStatus, RecentGame } from 'common/types'
 import { InstallProgress } from 'frontend/types'
 import { makeAutoObservable } from 'mobx'
-import { configStore } from '../../helpers/electronStores'
+import { configStore } from '../../../helpers/electronStores'
 
 // bridge: reactive updates from electron/local storage
 export class BridgeStore {
@@ -54,12 +54,8 @@ export class BridgeStore {
   }
 
   loadRecentGamesAppNames() {
-    this.recentAppNames = [
-      ...new Set(
-        ...(configStore.get('games.recent', []) as Array<RecentGame>).map(
-          (recent) => recent.appName
-        )
-      )
-    ]
+    this.recentAppNames = (
+      configStore.get('games.recent', []) as Array<RecentGame>
+    ).map((recent) => recent.appName)
   }
 }

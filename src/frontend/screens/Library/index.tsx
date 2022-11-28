@@ -6,10 +6,9 @@ import { useTranslation } from 'react-i18next'
 import GamesSection from './components/GamesSection'
 import useGlobalStore from '../../hooks/useGlobalStore'
 import { getLibraryTitle } from './constants'
-import { InstallModal } from './components'
 
 const Library = () => {
-  const { requestInstallModal, libraryController } = useGlobalStore()
+  const { libraryController } = useGlobalStore()
   const listingRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -38,8 +37,6 @@ const Library = () => {
         <FavouriteList />
         <MainLibrary />
       </div>
-
-      {requestInstallModal.opened && <InstallModal runner={'legendary'} />}
     </>
   )
 }

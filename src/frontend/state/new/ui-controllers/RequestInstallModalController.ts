@@ -1,5 +1,5 @@
-import { Game } from './Game'
-import { GameInstallSettings } from './common'
+import { Game } from '../model/Game'
+import { GameInstallSettings } from '../common/common'
 import { makeAutoObservable } from 'mobx'
 
 type RequestInstallOptions = {

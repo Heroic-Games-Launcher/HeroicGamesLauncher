@@ -17,7 +17,7 @@ import {
 } from 'frontend/helpers'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AvailablePlatforms } from '..'
+import { AvailablePlatforms } from '../index'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
 import classNames from 'classnames'
