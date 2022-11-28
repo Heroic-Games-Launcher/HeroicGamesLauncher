@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "Forza della nitidezza dell'FSR",
         "fsync": "Abilita Fsync",
         "gamemode": "Usa GameMode (Feral Game Mode necessita di essere installato)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Seleziona il linguaggio dell'app",
         "library_top_option": {
             "disabled": "Disabilitato",

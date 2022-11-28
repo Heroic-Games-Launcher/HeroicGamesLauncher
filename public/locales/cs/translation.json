@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "Síla ostrosti FSR",
         "fsync": "Povolit Fsync",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Vybrat jazyk aplikace",
         "library_top_option": {
             "disabled": "Zakázáno",

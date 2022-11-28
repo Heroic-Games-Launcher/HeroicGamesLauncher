@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "Intensidade do filtro de nitidez do FSR",
         "fsync": "Enable Fsync",
         "gamemode": "Usar modo Jogo (Necessita gamemode instalado)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Selecionar idioma",
         "library_top_option": {
             "disabled": "Disabled",

@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "قدرت تیزی FSR",
         "fsync": "فعالسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "انتخاب زبان نرمافزار",
         "library_top_option": {
             "disabled": "غیر فعال",
