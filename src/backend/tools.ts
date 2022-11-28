@@ -1,5 +1,5 @@
 import { WineInstallation } from 'common/types'
-import Axios from 'axios'
+import axios from 'axios'
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
@@ -40,7 +40,7 @@ export const DXVK = {
     tools.forEach(async (tool) => {
       const {
         data: { assets }
-      } = await Axios.get(tool.url)
+      } = await axios.get(tool.url)
 
       const { name, browser_download_url: downloadUrl } = assets[0]
       const pkg = name.replace('.tar.gz', '').replace('.tar.xz', '')
@@ -210,7 +210,7 @@ export const Winetricks = {
 
     try {
       logInfo('Downloading Winetricks', { prefix: LogPrefix.WineTricks })
-      const res = await Axios.get(url, { timeout: 1000 })
+      const res = await axios.get(url, { timeout: 1000 })
       const file = res.data
       writeFileSync(path, file)
       return exec(`chmod +x ${path}`)
