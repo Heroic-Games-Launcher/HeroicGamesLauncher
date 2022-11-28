@@ -78,7 +78,7 @@
     "enabled": "مفعّل",
     "info": {
         "size": "حجم",
-        "version": "نسخة",
+        "version": "الإصدار",
         "syncsaves": "مزامنة المحفوظات",
         "canRunOffline": "الاتصال بشبكة الإنترنت مطلوب",
         "path": "مسار التثبيت",
@@ -99,9 +99,9 @@
         "change": "تغيير مسار التثبيت",
         "removeShortcut": "إزالة الاختصارات",
         "addToSteam": "أضف إلى Steam",
-        "disableEosOverlay": "تعطيل طبقة EOS",
+        "disableEosOverlay": "تعطيل تراكب EOS",
         "enableEosOverlay": "تفعيل تراكب EOS",
-        "removeFromSteam": "أخرجه من Steam"
+        "removeFromSteam": "أخرجه من البخار"
     },
     "install": {
         "another": "ثبّت في مسار آخر",

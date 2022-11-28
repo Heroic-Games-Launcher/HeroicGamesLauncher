@@ -1,4 +1,4 @@
-// Holds layouts for different Nintendo official and clone controllers
+// Holds layouts for different Nintendo official an clone controllers
 
 import { ValidGamepadAction } from 'common/types'
 
