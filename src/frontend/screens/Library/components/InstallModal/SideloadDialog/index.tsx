@@ -55,7 +55,7 @@ export default function SideloadDialog({
   const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
   const editMode = Boolean(appName)
 
-  const { refreshLibrary } = useContext(ContextProvider)
+  const { refreshLibrary, platform } = useContext(ContextProvider)
 
   function handleTitle(value: string) {
     value = removeSpecialcharacters(value)
@@ -222,8 +222,13 @@ export default function SideloadDialog({
   }
 
   const platformIcon = availablePlatforms.filter(
-    (p) => p.name === platformToInstall
+    (p) => p.value === platformToInstall
   )[0]?.icon
+
+  const shouldShowRunExe =
+    platform !== 'win32' &&
+    platformToInstall !== 'Mac' &&
+    platformToInstall !== 'linux'
 
   return (
     <>
@@ -289,15 +294,17 @@ export default function SideloadDialog({
         </div>
       </DialogContent>
       <DialogFooter>
-        <button
-          onClick={async () => handleRunExe()}
-          className={`button is-secondary`}
-          disabled={runningSetup || !title.length}
-        >
-          {runningSetup
-            ? t('button.running-setup', 'Running Setup')
-            : t('button.run-exe-first', 'Run Installer First')}
-        </button>
+        {shouldShowRunExe && (
+          <button
+            onClick={async () => handleRunExe()}
+            className={`button is-secondary`}
+            disabled={runningSetup || !title.length}
+          >
+            {runningSetup
+              ? t('button.running-setup', 'Running Setup')
+              : t('button.run-exe-first', 'Run Installer First')}
+          </button>
+        )}
         <button
           onClick={async () => handleInstall()}
           className={`button is-primary`}
