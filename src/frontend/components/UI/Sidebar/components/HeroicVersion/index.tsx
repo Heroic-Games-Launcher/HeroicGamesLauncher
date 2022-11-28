@@ -55,6 +55,7 @@ export default React.memo(function HeroicVersion() {
         heroicVersion !== lastChangelogShown) ||
         showChangelogModalOnClick) && (
         <ChangelogModal
+          dimissVersionCheck
           onClose={() => {
             setShowChangelogModal(false)
             setShowChangelogModalOnClick(false)

@@ -791,7 +791,7 @@ export const getCurrentChangelog = async (): Promise<Release | null> => {
 
     return release as Release
   } catch (error) {
-    logError(['Error when checking for current Heroic changelog', error], {
+    logError(['Error when checking for current Heroic changelog'], {
       prefix: LogPrefix.Backend
     })
     return null

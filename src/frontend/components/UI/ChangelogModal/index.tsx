@@ -2,20 +2,28 @@ import React, { useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogHeader } from '../Dialog'
 import ReactMarkdown from 'react-markdown'
 import classNames from 'classnames'
-import { Release } from '../../../../common/types'
+import { Release } from 'common/types'
 
 type Props = {
   onClose: () => void
+  dimissVersionCheck?: boolean
 }
 
-export function ChangelogModal({ onClose }: Props) {
+const storage = window.localStorage
+const lastChangelog = storage.getItem('last_changelog')?.replaceAll('"', '')
+
+export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
   const [currentChangelog, setCurrentChangelog] = useState<Release | null>(null)
 
   useEffect(() => {
     if (!currentChangelog) {
-      window.api
-        .getCurrentChangelog()
-        .then((release) => setCurrentChangelog(release))
+      window.api.getHeroicVersion().then((version) => {
+        if (dimissVersionCheck || version !== lastChangelog) {
+          window.api
+            .getCurrentChangelog()
+            .then((release) => setCurrentChangelog(release))
+        }
+      })
     }
   }, [])
 
