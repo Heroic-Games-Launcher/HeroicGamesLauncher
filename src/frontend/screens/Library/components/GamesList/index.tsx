@@ -96,13 +96,16 @@ const GameItem = observer(
     const { hasUpdate } = game
 
     return (
-      <div style={{ minHeight: 200, minWidth: 10 }} ref={wrapperRef}>
+      <div
+        style={{ minHeight: layout === 'grid' ? 200 : 30, minWidth: 10 }}
+        ref={wrapperRef}
+      >
         <AnimatePresence>
           {cardVisible && (
             <motion.div
-              layoutId={app_name + '-' + listName}
+              layoutId={app_name + '-' + listName + '-' + layout}
               animate={{ scale: 1 }}
-              initial={{ scale: 0 }}
+              initial={{ scale: layout === 'grid' ? 0.5 : 1 }}
             >
               <GameCard
                 key={app_name}
