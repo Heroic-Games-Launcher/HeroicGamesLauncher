@@ -10,7 +10,10 @@ export default function useComputedValue<T>(
 
   useReaction({
     observer: fn,
-    fn: useMemo(() => (debounceTime ? debounce(setState, 300) : setState), []),
+    fn: useMemo(
+      () => (debounceTime ? debounce(setState, debounceTime) : setState),
+      []
+    ),
     options: {
       fireImmediately: true
     }

@@ -39,8 +39,8 @@ const GamesList = (props: Props): JSX.Element => {
           <span>{t('wine.actions', 'Action')}</span>
         </div>
       )}
-      {library.map((item) => (
-        <GameItem key={item.appName} game={item} {...props} />
+      {library.map((item, index) => (
+        <GameItem key={item.appName} game={item} index={index} {...props} />
       ))}
     </div>
   )
@@ -53,6 +53,7 @@ function getPercValue(val: number, perc: number) {
 const GameItem = observer(
   ({
     game,
+    index,
     handleGameCardClick,
     onlyInstalled,
     layout = 'grid',
@@ -60,6 +61,7 @@ const GameItem = observer(
     isRecent = false
   }: {
     game: Game
+    index: number
   } & Props) => {
     const { libraryController } = useGlobalStore()
     const wrapperRef = useRef<HTMLDivElement>(null)
@@ -72,7 +74,7 @@ const GameItem = observer(
         const bodyHeight = document.body?.clientHeight || 0
         const { offsetTop = 0 } = wrapperRef.current || {}
         const diff = offsetTop - scrollPosition.top
-        const percVal = getPercValue(bodyHeight, 20)
+        const percVal = getPercValue(bodyHeight, 40)
         const compareVal = bodyHeight + percVal
         return diff > -percVal && diff < compareVal
       },
@@ -104,8 +106,9 @@ const GameItem = observer(
           {cardVisible && (
             <motion.div
               layoutId={app_name + '-' + listName + '-' + layout}
-              animate={{ scale: 1 }}
-              initial={{ scale: layout === 'grid' ? 0.5 : 1 }}
+              animate={{ scale: 1, opacity: 1 }}
+              initial={{ scale: layout === 'grid' ? 0.7 : 1, opacity: 0 }}
+              transition={{ type: 'tween', delay: index * 0.03 }}
             >
               <GameCard
                 key={app_name}
