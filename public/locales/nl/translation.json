@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "FSR Sharpness Sterkte",
         "fsync": "Fsync inschakelen",
         "gamemode": "Gebruik GameMode (Feral Game Mode moet geïnstalleerd zijn)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Selecteer een App taal",
         "library_top_option": {
             "disabled": "Disabled",

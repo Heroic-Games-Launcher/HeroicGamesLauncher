@@ -59,7 +59,7 @@
                 "message": "",
                 "title": "Select EXE to Run"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "راه اندازی متوقف شد",
             "title": "خطا",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -75,8 +75,8 @@
                 "title": "Wine یافت نشد"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks هنگام اجرا این خطا را برگرداند:{{newLine}}{{error}}",
+                "title": "خطای Winetricks"
             }
         },
         "info": {
@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "قدرت تیزی FSR",
         "fsync": "فعالسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "انتخاب زبان نرمافزار",
         "library_top_option": {
             "disabled": "غیر فعال",

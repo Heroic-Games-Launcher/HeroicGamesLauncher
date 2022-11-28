@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Použite GameMode (je potrebné nainštalovať režim Feral Game)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Choose App Language",
         "library_top_option": {
             "disabled": "Disabled",
