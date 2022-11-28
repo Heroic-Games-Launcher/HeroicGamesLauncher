@@ -5,7 +5,7 @@ import { configStore } from '../../helpers/electronStores'
 
 // bridge: reactive updates from electron/local storage
 export class BridgeStore {
-  installProgressByAppName: { [key: string]: InstallProgress } = {}
+  gameStatusByAppName: { [key: string]: GameStatus } = {}
   recentAppNames: string[] = []
   updatesAppNames: string[] = []
 
@@ -21,14 +21,15 @@ export class BridgeStore {
 
   private onHandleSetGameStatus(
     _e: Electron.IpcRendererEvent,
-    { appName, progress: currentProgress }: GameStatus
+    gameStatus: GameStatus
   ) {
-    const previousProgress = this.installProgressByAppName[appName]
+    const { appName, progress: currentProgress, status } = gameStatus
     const calculatePercent = (currentProgress: InstallProgress) => {
+      const previousProgress = this.gameStatusByAppName[appName]?.progress
       // current/100 * (100-heroic_stored) + heroic_stored
-      if (previousProgress.percent) {
+      if (previousProgress?.percent) {
         const currentPercent = currentProgress.percent
-        const storedPercent = previousProgress.percent
+        const storedPercent = previousProgress?.percent || 0
         const newPercent: number = Math.round(
           (currentPercent / 100) * (100 - storedPercent) + storedPercent
         )
@@ -37,10 +38,19 @@ export class BridgeStore {
       return currentProgress.percent
     }
 
-    this.installProgressByAppName[appName] = {
-      ...currentProgress,
-      percent: calculatePercent(currentProgress!)
-    } as InstallProgress
+    console.log('Game status changed', gameStatus)
+
+    this.gameStatusByAppName[appName] = {
+      status: status,
+      appName
+    }
+
+    if (currentProgress) {
+      this.gameStatusByAppName[appName].progress = {
+        ...currentProgress,
+        percent: calculatePercent(currentProgress!)
+      } as InstallProgress
+    }
   }
 
   loadRecentGamesAppNames() {

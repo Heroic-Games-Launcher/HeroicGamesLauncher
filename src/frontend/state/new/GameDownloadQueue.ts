@@ -51,7 +51,6 @@ export class GameDownloadQueue {
       })
 
       runInAction(() => {
-        game.changeStatus('queued')
         this.queue.push(requestInstall)
       })
     }

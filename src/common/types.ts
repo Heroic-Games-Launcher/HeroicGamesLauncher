@@ -418,12 +418,14 @@ export interface Runtime {
 
 export type RuntimeName = 'eac_runtime' | 'battleye_runtime'
 
-export interface HiddenGame {
+export interface GameIdentifier {
   appName: string
   title: string
 }
 
-export type FavouriteGame = HiddenGame
+export type HiddenGame = GameIdentifier
+
+export type FavouriteGame = GameIdentifier
 
 export type RefreshOptions = {
   checkForUpdates?: boolean

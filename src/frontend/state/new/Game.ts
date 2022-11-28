@@ -1,7 +1,9 @@
-import { GameInfo, GameStatus } from 'common/types'
+import { GameInfo } from 'common/types'
 import { makeAutoObservable } from 'mobx'
 import { bridgeStore } from '../GlobalState'
+import { launch, sendKill, syncSaves } from '../../helpers'
 // import { GameDownloadQueue } from './GameDownloadQueue'
+import { t } from 'i18next'
 
 export class Game {
   constructor(
@@ -18,8 +20,6 @@ export class Game {
       })
   }
 
-  status?: GameStatus['status']
-
   isHidden = false
   isFavourite = false
   isAvailable = true
@@ -28,6 +28,10 @@ export class Game {
     if (this.isInstalled || this.isInstalling) {
       return
     }
+  }
+
+  get status() {
+    return bridgeStore.gameStatusByAppName[this.appName]?.status
   }
 
   uninstall() {
@@ -67,10 +71,6 @@ export class Game {
     return this.status === 'playing'
   }
 
-  changeStatus(status: GameStatus['status'] | undefined) {
-    this.status = status
-  }
-
   hide() {
     this.isHidden = true
   }
@@ -88,15 +88,57 @@ export class Game {
   }
 
   stop() {
-    this.changeStatus(undefined)
+    if (!this.isPlaying) {
+      return
+    }
+    sendKill(this.appName, this.data.runner)
   }
 
-  play() {
-    this.changeStatus('playing')
+  get appName() {
+    return this.data.app_name
+  }
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  async play(launchArguments) {
+    if (this.isPlaying || this.isUpdating) {
+      return
+    }
+
+    const { autoSyncSaves, savesPath, gogSaves } =
+      await window.api.requestGameSettings(this.appName)
+
+    const doAutoSyncSaves = async () => {
+      if (this.data.runner === 'legendary') {
+        await syncSaves(savesPath, this.appName, this.data.runner)
+      } else if (this.data.runner === 'gog' && gogSaves) {
+        await window.api.syncGOGSaves(gogSaves, this.appName, '')
+      }
+    }
+
+    if (autoSyncSaves) {
+      await doAutoSyncSaves()
+    }
+
+    await launch({
+      appName: this.appName,
+      t,
+      launchArguments,
+      runner: this.data.runner,
+      hasUpdate: this.hasUpdate,
+      syncCloud: false, //manually sync before and after so we can update the buttons
+      showDialogModal: () => {
+        return
+      }
+    })
+
+    if (autoSyncSaves) {
+      await doAutoSyncSaves()
+    }
   }
 
   update() {
-    this.changeStatus('updating')
+    // this.changeStatus('updating')
   }
 
   cancelProgress() {}
@@ -110,6 +152,6 @@ export class Game {
   }
 
   get downloadProgress() {
-    return bridgeStore.installProgressByAppName[this.data.app_name]
+    return bridgeStore.gameStatusByAppName[this.data.app_name]
   }
 }

@@ -5,7 +5,7 @@ import {
   FavouriteGame,
   GameInfo,
   GameStatus,
-  HiddenGame,
+  GameIdentifier,
   InstalledInfo,
   RefreshOptions,
   Runner,
@@ -79,7 +79,7 @@ interface StateProps {
   platform: NodeJS.Platform | 'unknown'
   refreshing: boolean
   refreshingInTheBackground: boolean
-  hiddenGames: HiddenGame[]
+  hiddenGames: GameIdentifier[]
   showHidden: boolean
   showFavourites: boolean
   favouriteGames: FavouriteGame[]
@@ -145,7 +145,7 @@ export class GlobalState extends PureComponent<Props> {
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames:
-      (configStore.get('games.hidden', []) as Array<HiddenGame>) || [],
+      (configStore.get('games.hidden', []) as Array<GameIdentifier>) || [],
     showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
     showFavourites: JSON.parse(storage.getItem('show_favorites') || 'false'),
     sidebarCollapsed: JSON.parse(

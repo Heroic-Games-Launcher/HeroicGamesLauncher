@@ -17,11 +17,11 @@ import {
 import { Link, NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { UpdateComponent, SelectField } from 'frontend/components/UI'
+import { SelectField, UpdateComponent } from 'frontend/components/UI'
 
 import { GameInfo, GameStatus, Runner } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
-import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
+import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -32,8 +32,8 @@ import { InstallModal } from 'frontend/screens/Library/components'
 import { install } from 'frontend/helpers/library'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faTriangleExclamation,
-  faEllipsisV
+  faEllipsisV,
+  faTriangleExclamation
 } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
@@ -247,12 +247,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     return (
       <div className="gameConfigContainer">
-        {showModal.show && (
-          <InstallModal
-            runner={runner}
-            backdropClick={() => setShowModal({ game: '', show: false })}
-          />
-        )}
+        {showModal.show && <InstallModal runner={runner} />}
         {title ? (
           <>
             <GamePicture art_square={art_square} store={runner} />

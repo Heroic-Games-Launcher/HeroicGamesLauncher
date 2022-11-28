@@ -14,11 +14,10 @@ import SideloadDialog from './SideloadDialog'
 import WineSelector from './WineSelector'
 import { SelectField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
-import { globalStore } from 'frontend/state/GlobalState'
 import { observer } from 'mobx-react'
+import useGlobalStore from '../../../../hooks/useGlobalStore'
 
 type Props = {
-  backdropClick: () => void
   runner: Runner
 }
 
@@ -29,11 +28,9 @@ export type AvailablePlatforms = {
   icon: IconDefinition
 }[]
 
-export default observer(function InstallModal({
-  backdropClick,
-  runner
-}: Props) {
-  const gameInfo = globalStore.requestInstallModal.options?.game.data
+export default observer(function InstallModal({ runner }: Props) {
+  const { requestInstallModal } = useGlobalStore()
+  const gameInfo = requestInstallModal.options?.game.data
 
   const { app_name: appName } = gameInfo || {}
 
@@ -140,6 +137,8 @@ export default observer(function InstallModal({
   }
 
   const showDownloadDialog = !isSideload && gameInfo
+
+  const backdropClick = () => requestInstallModal.cancelRequest()
 
   return (
     <div className="InstallModal">

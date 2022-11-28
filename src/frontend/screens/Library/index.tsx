@@ -39,17 +39,12 @@ const Library = () => {
         <MainLibrary />
       </div>
 
-      {requestInstallModal.opened && (
-        <InstallModal
-          runner={'legendary'}
-          backdropClick={() => requestInstallModal.cancelRequest()}
-        />
-      )}
+      {requestInstallModal.opened && <InstallModal runner={'legendary'} />}
     </>
   )
 }
 
-const MainLibrary = () => {
+const _MainLibrary = () => {
   const { t } = useTranslation()
   const { libraryController } = useGlobalStore()
   const { mainLibrary } = libraryController
@@ -63,7 +58,9 @@ const MainLibrary = () => {
   )
 }
 
-const RecentGames = () => {
+const MainLibrary = React.memo(_MainLibrary)
+
+const _RecentGames = () => {
   const { t } = useTranslation()
   const { libraryController } = useGlobalStore()
   const { recentGames } = libraryController
@@ -77,7 +74,9 @@ const RecentGames = () => {
   )
 }
 
-const FavouriteList = () => {
+const RecentGames = React.memo(_RecentGames)
+
+const _FavouriteList = () => {
   const { t } = useTranslation()
   const { libraryController } = useGlobalStore()
   const { favouritesLibrary } = libraryController
@@ -89,5 +88,7 @@ const FavouriteList = () => {
     />
   )
 }
+
+const FavouriteList = React.memo(_FavouriteList)
 
 export default observer(Library)
