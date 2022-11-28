@@ -162,7 +162,8 @@
         "unsync": "ألغ المزامنة",
         "syncing": "يزامن",
         "continue": "تابع",
-        "go_to_library": "إذهب إلي المكتبة"
+        "go_to_library": "إذهب إلي المكتبة",
+        "cancel": "إلغاء"
     },
     "status": {
         "loading": "يتم تحميل قائمة الألعاب ، يرجى الانتظار",
@@ -678,7 +679,10 @@
             "clear": "لائحة خالية",
             "downloading": "جارى التحميل",
             "finished": "مكتمل",
-            "queued": "في قائمة الانتظار"
+            "queued": "في قائمة الانتظار",
+            "canceled": "ألغيت",
+            "empty": "لا شيء للتنزيل",
+            "remove": "إزالة من التنزيلات"
         }
     },
     "download": {
@@ -695,5 +699,23 @@
         }
     },
     "error": "خطأ",
-    "add_game": "إضافة اللعبة"
+    "add_game": "إضافة اللعبة",
+    "download-manager": {
+        "queue": {
+            "type": "يكتب",
+            "end-time": "انتهى في",
+            "queue-time": "تمت الإضافة في",
+            "start-time": "بدأت في"
+        },
+        "install-type": {
+            "install": "ثبت",
+            "update": "حدّث"
+        },
+        "label": {
+            "disk": "القرص",
+            "speed": "تحميل"
+        },
+        "link": "التحميلات",
+        "title": "التحميلات"
+    }
 }
