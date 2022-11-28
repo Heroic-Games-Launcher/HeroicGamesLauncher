@@ -202,5 +202,12 @@
     },
     "setting": {
         "use-default-wine-settings": "استخدم إعدادات النبيذ الافتراضية"
-    }
+    },
+    "hours": "ساعات",
+    "how-long-to-beat": {
+        "completionist": "المكمل",
+        "main-plus-extras": "رئيسي + إضافات",
+        "main-story": "القصة الرئيسية"
+    },
+    "howLongToBeat": "كم من الوقت للفوز"
 }
