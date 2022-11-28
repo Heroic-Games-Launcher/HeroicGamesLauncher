@@ -645,7 +645,8 @@ export class GOGLibrary {
       title: info.title,
       canRunOffline: true,
       is_mac_native: info.worksOn.Mac,
-      is_linux_native: info.worksOn.Linux
+      is_linux_native: info.worksOn.Linux,
+      thirdPartyManagedApp: undefined
     }
 
     return object

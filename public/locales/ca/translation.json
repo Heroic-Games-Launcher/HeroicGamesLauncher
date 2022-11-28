@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Hi ha una actualització disponible!",
             "stable": "Estable",
             "version": "Heroic Version"
@@ -432,7 +433,6 @@
         "addgamestosteam": "Afegeix els jocs a l'Steam de manera automàtica",
         "alt-gogdl-bin": "Tria un fitxer binari alternatiu del GOGDL",
         "alt-legendary-bin": "Tria un binari alternatiu del Legendary",
-        "audiofix": "Corregeix l'àudio (latència del Pulse Audio)",
         "autodxvk": "Instal·la/Actualitza el DXVK al prefix automàticament",
         "autosync": "Sincronitza automàticament les partides desades",
         "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",

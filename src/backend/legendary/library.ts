@@ -105,7 +105,7 @@ export class LegendaryLibrary {
 
     const abortID = 'legendary-refresh'
     const res = await runLegendaryCommand(
-      ['list'],
+      ['list', '--third-party'],
       createAbortController(abortID)
     )
 
@@ -268,7 +268,7 @@ export class LegendaryLibrary {
 
     const abortID = 'legendary-check-updates'
     const res = await runLegendaryCommand(
-      ['list'],
+      ['list', '--third-party'],
       createAbortController(abortID),
       {
         logMessagePrefix: 'Checking for game updates'
@@ -486,6 +486,8 @@ export class LegendaryLibrary {
     const CloudSaveFolder = customAttributes?.CloudSaveFolder
     const FolderName = customAttributes?.FolderName
     const canRunOffline = customAttributes?.CanRunOffline?.value === 'true'
+    const thirdPartyManagedApp =
+      customAttributes?.ThirdPartyManagedApp?.value || undefined
 
     if (dlcItemList) {
       dlcItemList.forEach((v: { releaseInfo: { appId: string }[] }) => {
@@ -562,6 +564,7 @@ export class LegendaryLibrary {
       save_path,
       title,
       canRunOffline,
+      thirdPartyManagedApp,
       is_linux_native: false,
       runner: 'legendary',
       store_url: formatEpicStoreUrl(title)

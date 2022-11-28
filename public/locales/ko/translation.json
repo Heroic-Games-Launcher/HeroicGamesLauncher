@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -432,7 +433,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "대신 사용할 GOGDL 바이너리 파일 선택",
         "alt-legendary-bin": "대신 사용할 Legendary 바이너리 파일 선택",
-        "audiofix": "오디오 픽스 (Pulse Audio 지연)",
         "autodxvk": "접두사에서 DXVK 자동 설치/업데이트",
         "autosync": "세이브 자동 동기화",
         "autovkd3d": "접두사에서 VKD3D 자동 설치/업데이트",

@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Доступно обновление!",
             "stable": "Стабильный",
             "version": "Версия Heroic"
@@ -432,7 +433,6 @@
         "addgamestosteam": "Добавить игры в Steam автоматически",
         "alt-gogdl-bin": "Выбрать другой исполняемый файл GOGDL",
         "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary",
-        "audiofix": "Фикс аудио (Задержка Pulse Audio)",
         "autodxvk": "Автоматически устанавливать/обновлять DXVK в префиксе",
         "autosync": "Автосинхронизация сохранений",
         "autovkd3d": "Автоматически устанавливать/обновлять VKD3D в префиксе",

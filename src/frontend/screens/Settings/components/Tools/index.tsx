@@ -8,6 +8,7 @@ import { getGameInfo } from 'frontend/helpers'
 
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 export default function Tools() {
   const { t } = useTranslation()
@@ -15,8 +16,9 @@ export default function Tools() {
   const [winetricksRunning, setWinetricksRunning] = useState(false)
   const [progress, setProgress] = useState<string[]>([])
   const { appName, runner, isDefault } = useContext(SettingsContext)
+  const { platform } = useContext(ContextProvider)
 
-  if (isDefault) {
+  if (isDefault || platform !== 'linux') {
     return <></>
   }
 

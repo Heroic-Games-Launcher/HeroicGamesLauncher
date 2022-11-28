@@ -6363,6 +6363,18 @@ react-i18next@^11.16.7:
     "@babel/runtime" "^7.14.5"
     html-parse-stringify "^3.0.1"
 
+react-infinite-scroll-hook@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/react-infinite-scroll-hook/-/react-infinite-scroll-hook-4.0.4.tgz#616e66ba1de6421f74cd37d652e5b8c26c886373"
+  integrity sha512-fCjG9xwCfnV9GcAHVz9rXGnLqO55fcYsbeshSxgEH2biF8fVFHmfzZrfX4iTzoOWO1Rrz5hxrK4bBcqL5fAy9Q==
+  dependencies:
+    react-intersection-observer-hook "^2.0.6"
+
+react-intersection-observer-hook@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/react-intersection-observer-hook/-/react-intersection-observer-hook-2.0.6.tgz#f7c416002c2ec8e763841849c666e650f010c034"
+  integrity sha512-NTx+4Qat1tS9Bn4CXa6YgmbxLGcxFttV94Us7ZUEZ4mIZD3XaCpnm6U/FU35c6cJOMIfc7UfSzpju69ckfmb+Q==
+
 react-is@^16.10.2, react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"

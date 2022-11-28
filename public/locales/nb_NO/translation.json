@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Ny versjon tilgjengelig",
             "stable": "Stabil",
             "version": "Heroisk versjon"
@@ -432,7 +433,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Velg en alternativ GOGDL-binær du vil bruke",
         "alt-legendary-bin": "Velg en alternativ legendarisk binær",
-        "audiofix": "Lydfiks (pulslydforsinkelse)",
         "autodxvk": "Autoinstaller/oppdater DXVK på prefiks",
         "autosync": "Autosync lagrer",
         "autovkd3d": "Autoinstaller/oppdater VKD3D på prefiks",

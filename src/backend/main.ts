@@ -126,6 +126,7 @@ import {
   appLogFileLocation,
   getAppInfo,
   getAppSettings,
+  isAppAvailable,
   isNativeApp,
   launchApp,
   removeApp,
@@ -207,10 +208,8 @@ async function createWindow(): Promise<BrowserWindow> {
   }
 
   setTimeout(() => {
-    if (process.platform === 'linux') {
-      DXVK.getLatest()
-      Winetricks.download()
-    }
+    DXVK.getLatest()
+    Winetricks.download()
   }, 2500)
 
   GlobalConfig.get()
@@ -767,6 +766,9 @@ ipcMain.on('createNewWindow', (e, url) => {
 
 ipcMain.handle('isGameAvailable', async (e, args) => {
   const { appName, runner } = args
+  if (runner === 'sideload') {
+    return isAppAvailable(appName)
+  }
   const info = getGame(appName, runner).getGameInfo()
   if (info && info.is_installed) {
     if (info.install.install_path && existsSync(info.install.install_path!)) {
@@ -793,14 +795,7 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
     if (!info.app_name) {
       return null
     }
-    //detects if the game folder is available
-    if (info && info.is_installed) {
-      if (info.install.install_path && existsSync(info.install.install_path!)) {
-        info.is_installed = true
-      } else {
-        info.is_installed = false
-      }
-    }
+
     info.extra = await game.getExtraInfo()
     return info
   } catch (error) {
@@ -1186,7 +1181,7 @@ ipcMain.handle(
 
 ipcMain.handle(
   'importGame',
-  async (event, { appName, path, runner }): StatusPromise => {
+  async (event, { appName, path, runner, platform }): StatusPromise => {
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline && runner === 'legendary') {
       showDialogBoxModalAuto({
@@ -1218,7 +1213,7 @@ ipcMain.handle(
     }
 
     try {
-      const { abort, error } = await game.import(path)
+      const { abort, error } = await game.import(path, platform)
       if (abort || error) {
         abortMessage()
         return { status: 'done' }

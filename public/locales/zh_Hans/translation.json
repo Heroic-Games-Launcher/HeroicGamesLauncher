@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "更新可用！",
             "stable": "稳定版",
             "version": "Heroic 版本"
@@ -432,7 +433,6 @@
         "addgamestosteam": "自动添加游戏到 Steam",
         "alt-gogdl-bin": "选择要使用的备选 GOGDL 二进制文件",
         "alt-legendary-bin": "选择备选的 Legendary 二进制文件",
-        "audiofix": "音频修复（Pulse Audio延迟）",
         "autodxvk": "在前置自动安装并更新 DXVK",
         "autosync": "自动同步存档",
         "autovkd3d": "自动在前置中安装/更新 VKD3D",

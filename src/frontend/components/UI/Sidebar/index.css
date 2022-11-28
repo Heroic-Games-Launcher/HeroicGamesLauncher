@@ -100,6 +100,11 @@
     var(--sidebar-horizontal-padding);
   font-size: var(--text-sm);
   cursor: pointer;
+  transition: 300ms;
+}
+
+.heroicVersion:hover {
+  color: var(--accent);
 }
 
 .heroicNewReleases {

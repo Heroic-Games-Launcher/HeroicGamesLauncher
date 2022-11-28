@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Mise à jour disponible !",
             "stable": "Stable",
             "version": "Version d'Heroic"
@@ -432,7 +433,6 @@
         "addgamestosteam": "Ajouter automatiquement les jeux dans Steam",
         "alt-gogdl-bin": "Choisir un binaire GOGDL alternatif à utiliser",
         "alt-legendary-bin": "Choisir un autre exécutable Legendary (redémarrage d'Heroic nécessaire)",
-        "audiofix": "Corriger l'audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Synchroniser automatiquement les sauvegardes",
         "autovkd3d": "Installer et mettre à jour automatiquement VKD3D dans le préfixe",

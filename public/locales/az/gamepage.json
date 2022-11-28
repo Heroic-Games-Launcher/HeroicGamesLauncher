@@ -120,6 +120,9 @@
         "wineversion": "Şərab versiyası"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "İndi oyna",
             "stop": "Oynanır (Dayandır)"
@@ -164,14 +167,18 @@
     },
     "status": {
         "clickToUpdate": "Yeniləmək üçün klikləyin",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Yeni Versiya mövcuddur!",
         "installed": "Quraşdırılıb",
         "installing": "Quraşdırılır",
         "moving": "Quraşdırma köçürülür, zəhmət olmasa gözləyin",
         "notinstalled": "Bu oyun quraşdırılmayıb",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Fayllar emal olunur, gözləyin",
         "queued": "Queued",
         "reparing": "Oyun Təmir edilir, zəhmət olmasa gözləyin",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Toplam Endirilib",
         "uninstalling": "Uninstalling",
         "updating": "Oyun Yenilənir"

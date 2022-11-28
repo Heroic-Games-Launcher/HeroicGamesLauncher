@@ -107,11 +107,11 @@ export interface GameInfo {
   gog_save_location?: GOGCloudSavesLocation[]
   title: string
   canRunOffline: boolean
+  thirdPartyManagedApp: string | undefined
   is_mac_native: boolean
   is_linux_native: boolean
 }
 export interface GameSettings {
-  audioFix: boolean
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
   preferSystemLibs: boolean
@@ -582,6 +582,7 @@ export interface ImportGameArgs {
   appName: string
   path: string
   runner: Runner
+  platform: InstallPlatform
 }
 
 export interface MoveGameArgs {
