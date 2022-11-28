@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "FSRシャープネス強度",
         "fsync": "Fsyncを有効にする",
         "gamemode": "GameModeを使用する（Feral Game Modeをインストールする必要があります）",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "アプリの言語を選択",
         "library_top_option": {
             "disabled": "Disabled",

@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "Forța de claritate FSR",
         "fsync": "Activați Fsync",
         "gamemode": "Utilizați GameMode (Feral GameMode trebuie instalat)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Alegeți Limba aplicației",
         "library_top_option": {
             "disabled": "Dezactivat",

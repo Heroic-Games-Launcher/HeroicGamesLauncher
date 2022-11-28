@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "Сила на остротата на FSR",
         "fsync": "Включване на Fsync",
         "gamemode": "Използване на „GameMode“ („Feral Game Mode“ трябва да е инсталирано)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Изберете езика на приложението",
         "library_top_option": {
             "disabled": "Изключено",

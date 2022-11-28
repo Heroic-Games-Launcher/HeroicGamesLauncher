@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "Посилення різкості FSR",
         "fsync": "Ввімкнути Fsync",
         "gamemode": "Використовувати GameMode (Feral Game Mode має бути встановлений)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Оберіть мову застосунка",
         "library_top_option": {
             "disabled": "Вимкнено",

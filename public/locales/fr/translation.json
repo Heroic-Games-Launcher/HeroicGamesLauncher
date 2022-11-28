@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "Niveau de netteté pour FSR (FSR Sharpness Strength)",
         "fsync": "Activer Fsync",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Choix de la langue",
         "library_top_option": {
             "disabled": "Désactivé",

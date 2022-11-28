@@ -33,7 +33,7 @@
         "error": {
             "add": {
                 "steam": {
-                    "body": "Erro ao adicionar {{game}} à Steam:{{newLine}} {{error}}",
+                    "body": "Erro ao adicionar {{game}} ao Steam:{{newLine}} {{error}}",
                     "title": "Erro ao adicionar"
                 }
             },
@@ -264,8 +264,8 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "newReleases": "Update Available!",
-            "stable": "Stable",
+            "newReleases": "Atualização disponível!",
+            "stable": "Estável",
             "version": "Heroic Version"
         },
         "save-sync": {
@@ -280,7 +280,7 @@
         "warning": "Warning",
         "wine-path": "Caminho do Wine",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "Prefixo Wine"
         },
         "wine-repfix": {
             "message": "O Wine usa o que é chamado de prefixo Wine para encapsular aplicativos do Windows. Este prefixo contém os arquivos de configuração do Wine e uma reprodução da hierarquia de arquivos de C: (o disco principal em um sistema operacional Windows). Nesta reprodução da unidade C:, são armazenados os arquivos salvos do jogo e as dependências instaladas via winetricks."
@@ -322,15 +322,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "{{game}} não pôde ser adicionado a todos os usuários do Steam encontrados. Consulte os registros para obter mais informações. É necessário reiniciar o Steam para que as alterações tenham efeito.",
+                    "success": "{{game}} foi adicionado com sucesso ao Steam. É necessário reiniciar o Steam para que as alterações tenham efeito.",
                     "title": "Adicionado ao Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "{{game}} não pôde ser removido de todos os usuários do Steam encontrados. Consulte os registros para obter mais informações. É necessário reiniciar o Steam para que as alterações tenham efeito.",
+                    "success": "{{game}} foi removido com sucesso do Steam. É necessário reiniciar o Steam para que as alterações tenham efeito.",
                     "title": "Removido do Steam"
                 }
             },
@@ -345,7 +345,7 @@
         },
         "moved": "Movido com sucesso",
         "moving": "Movendo jogo",
-        "new-heroic-version": "A new Heroic version was released!",
+        "new-heroic-version": "Uma nova versão do Heroic foi lançada!",
         "refresh": {
             "error": "Não foi possível buscar lançamentos do upstream, talvez por causa das restrições da API do Github! Tente mais tarde."
         },
@@ -365,20 +365,20 @@
     "Open": "",
     "options": {
         "advanced": {
-            "key": "Variable Name",
-            "placeHolderKey": "NAME",
-            "placeHolderValue": "Por exemplo: Caminho/Para/ExtraFiles",
-            "title": "Environment Variables",
+            "key": "Nome da variável",
+            "placeHolderKey": "NOME",
+            "placeHolderValue": "Por exemplo: Caminho/Para/ArquivosExtra",
+            "title": "Variáveis de ambiente",
             "value": "Valor"
         },
         "env_variables": {
             "error": {
-                "empty_key": "Variable names can't be empty",
-                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "empty_key": "Os nomes das variáveis não podem estar vazios",
+                "equal_sign_in_key": "Nomes de variáveis não podem conter o sinal \"=\"",
+                "space_in_key": "Nomes de variáveis não podem conter espaços"
             },
-            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "example": "NÃO inclua o sinal \"=\", por exemplo: para uma configuração como \"MY_FLAG=123\", defina MY_FLAG em NOME e 123 em VALOR.",
+            "info": "Defina as variáveis de ambiente para anexar ao comando."
         },
         "gameargs": {
             "placeholder": "Adicione os argumentos de inicialização aqui",
@@ -437,7 +437,7 @@
         "autosync": "Sincronizar saves automaticamente",
         "autovkd3d": "Instalar/Atualizar VKD3D automaticamente no prefixo",
         "change-target-exe": "Selecione um EXE alternativo para executar",
-        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
+        "checkForUpdatesOnStartup": "Verificar se há atualizações do Heroic ao iniciar",
         "crossover-version": "Versão do Crossover",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Locais com Wine/Proton customizados",
@@ -475,6 +475,7 @@
         "FsrSharpnessStrenght": "FSR Força de nitidez",
         "fsync": "Habilitar Fsync",
         "gamemode": "Usar o GameMode (precisa do gamemode instalado)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Selecione o idioma do app",
         "library_top_option": {
             "disabled": "Desabilitada",
@@ -569,7 +570,7 @@
         "open-config-file": "Abrir arquivo de configuração",
         "reset-heroic": "Redefinir Heroic",
         "saves": {
-            "label": "Save Location:",
+            "label": "Salvar localização:",
             "warning": "O recurso Cloud Saves está em Beta, faça backup de seus saves antes de sincronizar (caso algo dê errado)"
         }
     },
@@ -605,7 +606,7 @@
         "show": "Mostrar"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Alterações nesta tabela não são salvas automaticamente. Clique no botão +"
     },
     "Update Available!": "",
     "userselector": {
