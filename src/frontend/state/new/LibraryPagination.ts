@@ -129,13 +129,14 @@ export default class LibraryPagination {
     })
     const installed = filtered.filter((g) => g.isInstalled)
     const notInstalled = filtered.filter(
-      (g) => !g.isInstalled
-      // && !installing.includes(g.app_name)
+      (g) => !g.isInstalled && !g.isInstalling
     )
-    // const installingGames = library.filter(
-    //   (g) => !g.is_installed && installing.includes(g.app_name)
-    // )
-    return this.sortInstalled ? [...installed, ...notInstalled] : library
+    const installingGames = library.filter(
+      (g) => !g.isInstalled && g.isInstalling
+    )
+    return this.sortInstalled
+      ? [...installingGames, ...installed, ...notInstalled]
+      : library
   }
 
   get hasMore() {
@@ -161,19 +162,3 @@ export default class LibraryPagination {
     }
   }
 }
-
-// export function createLibraryPagination({
-//   termBox,
-//   onlyFavourites,
-//   sortBox,
-//   categoryBox,
-//   platformBox,
-//   showHiddenBox,
-//   onlyRecent,
-//   globalStore,
-//   rpp
-// }: LibraryPaginationOptions): Pagination<Game> {
-//   return makeAutoObservable({
-//
-//   })
-// }

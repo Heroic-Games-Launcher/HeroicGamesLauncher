@@ -1,7 +1,7 @@
 import { WineInstallation } from 'common/types'
 import { Game } from './Game'
 
-export type GameInstallationSettings = {
+export type GameInstallSettings = {
   installPath: string
   wine?: {
     winePrefix: string

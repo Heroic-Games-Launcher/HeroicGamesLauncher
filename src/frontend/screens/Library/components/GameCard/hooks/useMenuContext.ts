@@ -2,7 +2,15 @@ import { Game } from 'frontend/state/new/Game'
 import { GameDownloadQueue } from 'frontend/state/new/GameDownloadQueue'
 import { t } from 'i18next'
 
-export function useMenuContext(game: Game, downloadQueue: GameDownloadQueue) {
+export function useMenuContext({
+  handleUninstall,
+  game,
+  downloadQueue
+}: {
+  handleUninstall: () => void
+  game: Game
+  downloadQueue: GameDownloadQueue
+}) {
   return [
     {
       // remove from install queue
@@ -19,7 +27,7 @@ export function useMenuContext(game: Game, downloadQueue: GameDownloadQueue) {
     {
       // launch game
       label: t('label.playing.start', 'Start'),
-      onclick: () => game.play(),
+      onclick: async () => game.play(),
       show:
         game.isInstalled &&
         !game.isPlaying &&
@@ -35,7 +43,7 @@ export function useMenuContext(game: Game, downloadQueue: GameDownloadQueue) {
     {
       // install
       label: t('button.install', 'Install'),
-      onclick: () => game.install(),
+      onclick: async () => downloadQueue.addGame(game),
       show: !game.isInstalled && !game.isQueued
       // || runner === 'sideload'
     },
@@ -89,8 +97,8 @@ export function useMenuContext(game: Game, downloadQueue: GameDownloadQueue) {
     // },
     {
       // uninstall
-      label: t('button.uninstall'),
-      onclick: () => game.uninstall(),
+      label: t('button.uninstall', 'Uninstall'),
+      onclick: () => handleUninstall(),
       show: game.isInstalled && !game.isUpdating
     }
   ]

@@ -1,13 +1,13 @@
-import { InstallPlatform } from 'common/types'
 import { writeConfig } from 'frontend/helpers'
-import { find, remove } from 'lodash'
+import { find, merge, remove } from 'lodash'
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
-import { GameInstallationSettings } from './common'
+import { GameInstallSettings } from './common'
 import { Game } from './Game'
 import { GlobalStore } from './GlobalStore'
+import { InstallPlatform } from '../../../common/types'
 
 export class GameDownloadQueue {
-  queue: GameInstallationSettings[] = []
+  queue: GameInstallSettings[] = []
 
   constructor(private globalStore: GlobalStore) {
     makeAutoObservable(this)
@@ -15,36 +15,34 @@ export class GameDownloadQueue {
 
   async addGame(game: Game) {
     if (!game.isInstalled && !game.isQueued) {
-      const requestInstall = await new Promise<GameInstallationSettings>(
-        (resolve) => {
-          this.globalStore.requestInstallModal.show({
-            game,
-            onSend(data) {
-              resolve(data)
-            }
-          })
-        }
-      )
+      const settings =
+        await this.globalStore.requestInstallModal.requestInstallSettings(game)
 
       // Write Default game config with prefix on linux
       if (this.globalStore.isLinux) {
-        const gameSettings = await window.api.requestGameSettings(
+        const globalSettings = await window.api.requestGameSettings(
           game.data.app_name
         )
 
-        if (requestInstall.wine) {
-          writeConfig({
-            appName: game.data.app_name,
-            config: { ...gameSettings, ...requestInstall.wine }
+        writeConfig({
+          appName: game.data.app_name,
+          config: merge({
+            ...globalSettings,
+            ...settings.wine,
+            wineVersion: {
+              bin:
+                settings.wine?.wineVersion?.bin ||
+                globalSettings.wineVersion?.bin
+            }
           })
-        }
+        })
       }
 
       window.api.install({
         appName: game.data.app_name,
-        path: toJS(requestInstall.installPath),
-        installDlcs: toJS(requestInstall.installDlcs),
-        sdlList: toJS(requestInstall.sdlList),
+        path: toJS(settings.installPath),
+        installDlcs: toJS(settings.installDlcs),
+        sdlList: toJS(settings.sdlList),
         installLanguage: this.globalStore.language,
         runner: game.data.runner,
         platformToInstall: this.globalStore.platform as InstallPlatform,
@@ -52,7 +50,7 @@ export class GameDownloadQueue {
       })
 
       runInAction(() => {
-        this.queue.push(requestInstall)
+        this.queue.push(settings)
       })
     }
   }

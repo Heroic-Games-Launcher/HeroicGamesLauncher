@@ -1,55 +1,18 @@
 import { TFunction } from 'react-i18next'
 import { GameIdentifier, GameInfo } from 'common/types'
 import { autorun, makeAutoObservable } from 'mobx'
-import { GameInstallationSettings } from './common'
 import { Game } from './Game'
 import { GameDownloadQueue } from './GameDownloadQueue'
 import { configStore, libraryStore } from 'frontend/helpers/electronStores'
 import LibraryPageController from './LibraryPageController'
 import { find } from 'lodash'
-
-class LayoutPreferences {
-  themeName = 'heroic'
-  zoomPercent = 100
-  primaryFontFamily = ''
-  secondaryFontFamily = ''
-}
-
-type RequestInstallOptions = {
-  game: Game
-  defaultValues?: Partial<GameInstallationSettings>
-  onSend: (data: GameInstallationSettings) => void
-}
-
-class RequestInstallModalController {
-  options?: RequestInstallOptions
-  opened = false
-
-  constructor() {
-    makeAutoObservable(this)
-  }
-
-  show(options: RequestInstallOptions) {
-    this.options = options
-    this.opened = true
-  }
-
-  send(request: Omit<GameInstallationSettings, 'game'>) {
-    if (this.options) {
-      this.options.onSend({ ...request, game: this.options.game })
-      this.options = undefined
-      this.opened = false
-    }
-  }
-
-  cancelRequest() {
-    this.options = undefined
-    this.opened = false
-  }
-}
+import i18next from 'i18next'
+import RequestInstallModalController from './RequestInstallModalController'
+import LayoutPreferences from './LayoutPreferences'
+import { loadGOGLibrary } from '../GlobalState'
 
 export class GlobalStore {
-  language = 'en'
+  language = i18next.language
   platform = 'linux'
   gameDownloadQueue = new GameDownloadQueue(this)
   layoutPreferences = new LayoutPreferences()
@@ -61,6 +24,7 @@ export class GlobalStore {
   private hiddenStoredGames: GameIdentifier[] = []
 
   epicLibrary: GameInfo[] = []
+  gogLibrary: GameInfo[] = []
 
   constructor() {
     makeAutoObservable(this)
@@ -103,7 +67,9 @@ export class GlobalStore {
     ) as GameIdentifier[]
 
     this.epicLibrary = libraryStore.get('library', []) as GameInfo[]
-    for (const gameInfo of this.epicLibrary) {
+    this.gogLibrary = loadGOGLibrary()
+
+    for (const gameInfo of this.library) {
       const game = new Game(gameInfo)
       game.isFavourite = !!find(this.favouriteStoredGames, {
         appName: game.appName
@@ -115,6 +81,12 @@ export class GlobalStore {
     }
   }
 
+  // library with GameInfo
+  get library() {
+    return [...this.epicLibrary, ...this.gogLibrary]
+  }
+
+  // library with Game instances
   get libraryGames() {
     return Object.values(this.gameInstancesByAppName)
   }
