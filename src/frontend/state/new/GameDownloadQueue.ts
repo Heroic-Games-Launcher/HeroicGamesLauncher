@@ -1,7 +1,7 @@
 import { InstallPlatform } from 'common/types'
 import { writeConfig } from 'frontend/helpers'
 import { find, remove } from 'lodash'
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { GameInstallationSettings } from './common'
 import { Game } from './Game'
 import { GlobalStore } from './GlobalStore'
@@ -25,6 +25,7 @@ export class GameDownloadQueue {
           })
         }
       )
+
       // Write Default game config with prefix on linux
       if (this.globalStore.isLinux) {
         const gameSettings = await window.api.requestGameSettings(
@@ -41,13 +42,13 @@ export class GameDownloadQueue {
 
       window.api.install({
         appName: game.data.app_name,
-        path: requestInstall.installPath,
-        installDlcs: requestInstall.installDlcs,
-        sdlList: requestInstall.sdlList,
+        path: toJS(requestInstall.installPath),
+        installDlcs: toJS(requestInstall.installDlcs),
+        sdlList: toJS(requestInstall.sdlList),
         installLanguage: this.globalStore.language,
         runner: game.data.runner,
         platformToInstall: this.globalStore.platform as InstallPlatform,
-        gameInfo: game.data
+        gameInfo: toJS(game.data)
       })
 
       runInAction(() => {
