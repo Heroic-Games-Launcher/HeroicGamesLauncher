@@ -5,7 +5,6 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   AlternativeExe,
-  AudioFix,
   AutoDXVK,
   AutoVKD3D,
   BattlEyeRuntime,
@@ -17,7 +16,7 @@ import {
   EnvVariablesTable,
   GameMode,
   LauncherArgs,
-  Mongohud,
+  Mangohud,
   OfflineMode,
   PreferedLanguage,
   PreferSystemLibs,
@@ -40,15 +39,14 @@ export default function GamesSettings() {
   const { isDefault, gameInfo, isMacNative, isLinuxNative } =
     useContext(SettingsContext)
   const isLinux = platform === 'linux'
-  const isMac = platform === 'darwin'
   const isWin = platform === 'win32'
 
-  let showWine = !isWin
-
-  if (gameInfo) {
-    // show wine/crossover for non-native linux/mac games
-    showWine = (isLinux && !isLinuxNative) || (isMac && !isMacNative)
-  }
+  const nativeGame =
+    isWin ||
+    isMacNative ||
+    isLinuxNative ||
+    gameInfo?.install.platform === 'linux' ||
+    gameInfo?.install.platform === 'Mac'
 
   return (
     <>
@@ -62,7 +60,7 @@ export default function GamesSettings() {
         </p>
       )}
 
-      {showWine && (
+      {!nativeGame && (
         <>
           <section>
             <h3 className="settingSubheader">
@@ -101,23 +99,25 @@ export default function GamesSettings() {
 
         <AlternativeExe />
 
-        <ShowFPS />
+        {!nativeGame && <ShowFPS />}
 
-        <PreferSystemLibs />
+        {isLinux && !nativeGame && (
+          <>
+            <PreferSystemLibs />
 
-        <EnableFSR />
+            <EnableFSR />
 
-        <EnableEsync />
+            <EnableEsync />
 
-        <EnableFsync />
+            <EnableFsync />
 
-        <GameMode />
+            <GameMode />
+          </>
+        )}
 
         <UseDGPU />
 
-        <AudioFix />
-
-        <Mongohud />
+        {isLinux && <Mangohud />}
 
         <SteamRuntime />
 
