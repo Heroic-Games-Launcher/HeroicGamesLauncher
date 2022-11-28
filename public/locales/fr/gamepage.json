@@ -33,7 +33,7 @@
         },
         "uninstall": {
             "checkbox": "Supprimer le préfixe : {{prefix}}{{newLine}}Note : cela ne peut pas être annulé et supprimera également les fichiers de sauvegarde non sauvegardés.",
-            "message": "Voulez-vous désinstaller ce jeu?",
+            "message": "Voulez-vous désinstaller ce jeu ?",
             "title": "Désinstaller"
         },
         "update": {
@@ -94,11 +94,11 @@
     "generic": {
         "error": "Erreur inconnue"
     },
-    "hours": "Hours",
+    "hours": "Heures",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Complétionniste",
+        "main-plus-extras": "Trame principale + Extras",
+        "main-story": "Histoire principale"
     },
     "howLongToBeat": "How Long To Beat",
     "info": {
@@ -141,7 +141,7 @@
         "title": "Sélectionnez les composants à installer"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Utiliser les paramètres de Wine par défaut"
     },
     "sideload": {
         "field": {

@@ -94,13 +94,13 @@
     "generic": {
         "error": "Error desconegut"
     },
-    "hours": "Hours",
+    "hours": "Hores",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Completista",
+        "main-plus-extras": "Principal + Extres",
+        "main-story": "Història principal"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Quant temps costa completar",
     "info": {
         "canRunOffline": "Cal connexió a internet",
         "installedPlatform": "Plataforma instal·lada",
