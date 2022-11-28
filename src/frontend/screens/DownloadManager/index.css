@@ -1,4 +1,4 @@
-.gameListHeader {
+.dmItemList > .gameListHeader {
   padding: var(--space-md) 0;
   grid-template-columns: 2fr 1fr 1fr 1fr 10%;
   margin: 0 var(--space-sm-fixed);
