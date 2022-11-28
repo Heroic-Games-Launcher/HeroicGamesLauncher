@@ -140,7 +140,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
             ? 'Mac'
             : 'Windows'
 
-        if (runner !== 'sideload') {
+        if (runner !== 'sideload' && !notSupportedGame) {
           getInstallInfo(appName, runner, installPlatform)
             .then((info) => {
               if (!info) {
@@ -338,7 +338,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     {t('cloud_save_unsupported', 'Unsupported')}
                   </div>
                 )}
-                {!is_installed && !isSideloaded && (
+                {!is_installed && !isSideloaded && !notSupportedGame && (
                   <>
                     <div>
                       <b>{t('game.downloadSize', 'Download Size')}:</b>{' '}
