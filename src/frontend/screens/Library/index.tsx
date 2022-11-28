@@ -338,10 +338,7 @@ export default React.memo(function Library(): JSX.Element {
           handleAddGameButtonClick={() => handleModal('', 'sideload', null)}
         />
 
-        {!!libraryToShow.length ||
-          (refreshing && !refreshingInTheBackground && (
-            <UpdateComponent inline />
-          ))}
+        {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
 
         {(!refreshing || refreshingInTheBackground) && (
           <GamesList
