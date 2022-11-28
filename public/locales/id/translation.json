@@ -75,8 +75,8 @@
                 "title": "Wine Tidak Ditemukan"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks menemukan kesalahan saat melakukan eksekusi:{{newLine}}{{error}}",
+                "title": "Galat Winetricks"
             }
         },
         "info": {
@@ -102,7 +102,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Anda yakin ingin menyetel ulang Heroic? Ini akan menghapus semua Pengaturan dan Tembolok tetapi tidak akan menghapus gim yang Terinstal atau kredensial Epic Anda. Versi portable (AppImage, WinPortable, ...) dari Heroic perlu dijalankan ulang secara manual setelah melakukan proses ini.",
                 "title": "Reset Heroic"
             }
         },
@@ -115,7 +115,7 @@
         },
         "shortcuts": {
             "message": "Pintasan dibuat di Desktop dan Start Menu",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove": "Pintasan telah dihapus dari Desktop dan Start Menu",
             "title": "Pintasan"
         },
         "sync": {
@@ -125,11 +125,11 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "Tautan unduhan dari Visual C++ Runtimes sudah dibuka. Silahkan pasang kedua versi dari X86 dan X64."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "Microsoft Visual C++ Runtimes belum terpasang, yang dibutuhkan dari beberapa gim yang akan dimainkan",
+                "title": "VCRuntime belum terpasang"
             }
         },
         "warning": {
@@ -265,8 +265,8 @@
         "heroic": {
             "beta": "Beta",
             "click-to-see-changelog": "Click to see changelog",
-            "newReleases": "Update Available!",
-            "stable": "Stable",
+            "newReleases": "Pembaruan Tersedia!",
+            "stable": "Stabil",
             "version": "Versi Heroic"
         },
         "save-sync": {
@@ -281,10 +281,10 @@
         "warning": "Warning",
         "wine-path": "Lokasi Wine",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "Prefiks Wine"
         },
         "wine-repfix": {
-            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+            "message": "Wine membutuhkan WINEPREFIX untuk menjalankan aplikasi Windows. Prefiks ini mengandung berkas konfigurasi Wine dan reproduksi dari struktur berkas yang ada dalam partisi C: (penyimpanan utama dalam OS Windows). Berkas yang disimpan dari hasil reproduksi ini adalah, penyimpanan save gim dan perangkat lunak lainnya yang terpasang melalui winetricks."
         }
     },
     "install": {
@@ -296,8 +296,8 @@
         "sortByStatus": "Urutkan Berdasarkan Status",
         "sortDescending": "Urutkan Turun",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "Rubah tata letak menjadi kisi",
+            "list": "Rubah tata letak menjadi daftar"
         }
     },
     "Library": "Pustaka",
@@ -323,15 +323,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "{{game}} tidak dapat ditambahkan dari pengguna Steam yang ditemukan. Lihat log untuk lebih banyak info. Steam perlu dijalankan ulang untuk melihat perubahan ini.",
+                    "success": "{{game}} berhasil ditambahkan ke Steam. Perlu memuat ulang Steam untuk menerapkan perubahan.",
                     "title": "Ditambahkan ke Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "{{game}} tidak dapat dihapus dari pengguna Steam yang ditemukan. Lihat log untuk lebih banyak info. Steam perlu dijalankan ulang untuk melihat perubahan ini.",
+                    "success": "{{game}} berhasil dihapus dari Steam. Perlu memuat ulang Steam untuk menerapkan perubahan.",
                     "title": "Dihapus dari Steam"
                 }
             },
@@ -346,7 +346,7 @@
         },
         "moved": "Selesai Memindahkan",
         "moving": "Memindahkan Gim",
-        "new-heroic-version": "A new Heroic version was released!",
+        "new-heroic-version": "Versi Heroic yang baru telah dirilis!",
         "refresh": {
             "error": "Tidak dapat mengambil rilis dari sumber, ini mungkin karena pembatasan API Github! Coba lagi nanti."
         },
@@ -369,17 +369,17 @@
             "key": "Nama Variabel",
             "placeHolderKey": "NAMA",
             "placeHolderValue": "Misalnya: Lokasi/Ke/BerkasEkstra",
-            "title": "Environment Variables",
+            "title": "Variabel Lingkungan",
             "value": "Nilai"
         },
         "env_variables": {
             "error": {
-                "empty_key": "Variable names can't be empty",
-                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "empty_key": "Nama variabel tidak bisa dikosongkan",
+                "equal_sign_in_key": "Nama variabel tidak dapat mengandung tanda \"=\"",
+                "space_in_key": "Nama variabel tidak dapat mengandung karakter spasi"
             },
-            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "example": "Mohon JANGAN menambahkan tanda \"=\" , contoh: untuk pengaturan seperti \"MY_FLAG=123\", tolong set MY_FLAG di NAME dan 123 di VALUE.",
+            "info": "Set lingkungan variabel untuk menambahkan ke dalam pertintah command."
         },
         "gameargs": {
             "placeholder": "Letakkan Argumen Peluncur di sini",
@@ -481,7 +481,7 @@
             "disabled": "Matikan",
             "favourites": "Gim Favorit",
             "recently_played": "Gim yang Baru Dimainkan",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "recently_played_installed": "Gim yang Baru Dimainkan (Hanya yang terpasang)"
         },
         "library_top_section": "Bagian Atas Pustaka",
         "log": {
@@ -533,7 +533,7 @@
     },
     "settings": {
         "battlEyeRuntime": {
-            "installing": "Installing BattlEye Runtime...",
+            "installing": "Memasang BattlEye Runtime...",
             "name": "BattlEye AntiCheat Runtime"
         },
         "clear-cache": "Hapus Tembolok Heroic",
@@ -542,16 +542,16 @@
         "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
-                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
-                "title": "GameMode required"
+                "message": "GameMode dibutuhkan untuk menjalankan EAC runtime di Flatpak. Apakah anda ingin menghidupkannya sekarang?",
+                "title": "GameMode dibutuhkan"
             },
-            "installing": "Installing EAC Runtime...",
+            "installing": "Memasang EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
-                "title": "EAC runtime enabled"
+                "message": "EAC runtime dihidupkan, yang akan menyebabkan tidak berjalan normal tanpa menggunakan GameMode. Apakah anda ingin mematikan EAC Runtime dan GameMode?",
+                "title": "EAC runtime dihidupkan"
             }
         },
         "log": {
@@ -565,12 +565,12 @@
             "log": "Log",
             "other": "Lainnya",
             "sync": "Sinkronisasi Penyimpanan",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Ekstensi Wine"
         },
         "open-config-file": "Buka Berkas Pengaturan",
         "reset-heroic": "Reset Heroic",
         "saves": {
-            "label": "Save Location:",
+            "label": "Lokasi Penyimpanan:",
             "warning": "Fitur Cloud Saves masih dalam versi Beta, harap buat rekam cadang penyimpanan Anda sebelum menyinkronkan (jaga-jaga bila terjadi kesalahan)"
         }
     },
@@ -606,7 +606,7 @@
         "show": "Tampilkan"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Perubahan di tabel ini tidak disimpan secara otomatis. Klik tombol +"
     },
     "Update Available!": "",
     "userselector": {

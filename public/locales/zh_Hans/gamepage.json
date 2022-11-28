@@ -94,13 +94,13 @@
     "generic": {
         "error": "未知错误"
     },
-    "hours": "Hours",
+    "hours": "小时",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "完成主义者",
+        "main-plus-extras": "主要+附加",
+        "main-story": "主线故事"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "多长时间击败",
     "info": {
         "canRunOffline": "需要联网",
         "installedPlatform": "已安装平台",

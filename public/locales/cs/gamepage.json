@@ -94,19 +94,19 @@
     "generic": {
         "error": "Neznámá chyba"
     },
-    "hours": "Hours",
+    "hours": "Hodiny",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Kompletionista",
+        "main-plus-extras": "Hlavní + extra",
+        "main-story": "Hlavní příběh"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Počet času na dokončení",
     "info": {
         "canRunOffline": "Vyžaduje se být online",
         "installedPlatform": "Nainstalovaná platforma",
         "path": "Cesta pro instalaci",
         "size": "Velikost",
-        "syncsaves": "Synchronizovat uložené soubory",
+        "syncsaves": "Synchronizace uložených souborů",
         "version": "Verze"
     },
     "install": {

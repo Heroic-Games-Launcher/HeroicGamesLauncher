@@ -5,7 +5,7 @@
         "content_font_family_no_default": "Rodina písem obsahu (výchozí: ",
         "fonts": "Písma",
         "title": "Přístupnost",
-        "zoom": "Zoom"
+        "zoom": "Přiblížení"
     },
     "add_game": "Přidat hru",
     "All": "Vše",
@@ -67,7 +67,7 @@
             },
             "update": {
                 "message": "Při aktualizaci se něco pokazilo, zkontrolujte protokoly nebo to zkuste znovu později!",
-                "title": "Update Error"
+                "title": "Chyba aktualizace"
             },
             "wine-not-found": {
                 "invalid": "Zvolená verze Wine nebyla nalezena. Nainstalujte ji nebo vyberte jinou verzi v nastavení hry{{newline}}Verze: {{version}}{{newline}}Cesta: {{path}}",
@@ -103,7 +103,7 @@
         "reset-heroic": {
             "question": {
                 "message": "Jste si jistí, že chcete resetovat Heroic? Tím se odstraní všechna nastavení a mezipaměť, ale neodstraní se nainstalované hry ani přihlašovací údaje Epic. Přenosné verze (AppImage, WinPortable, ...) je poté nutné restartovat ručně.",
-                "title": "Reset Heroic"
+                "title": "Resetovat Heroic"
             }
         },
         "runexe": {
@@ -144,9 +144,9 @@
         "yes": "ANO"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "Zrušit",
         "go_to_library": "Přejít do knihovny",
-        "login": "Přihlásit",
+        "login": "Přihlásit se",
         "sync": "Synchronizovat",
         "syncing": "Synchronizuji",
         "unsync": "Desynchroniozovat"
@@ -183,9 +183,9 @@
         },
         "link": "Downloads",
         "queue": {
-            "end-time": "Finished at",
-            "queue-time": "Added at",
-            "start-time": "Started at",
+            "end-time": "Dokončeno",
+            "queue-time": "Přidáno",
+            "start-time": "Spuštěno",
             "type": "Type"
         },
         "title": "Downloads"
@@ -205,7 +205,7 @@
     "GameSettings": "Nastavení hry",
     "generic": {
         "error": {
-            "component": "Nebyly nalezeny žádné hry - Zkuste se znovu odhlásit a přihlásit nebo jednu z níže uvedených možností"
+            "component": "Nebyly nalezeny žádné hry - zkuste se odhlásit a znovu přihlásit nebo jednu z níže uvedených možností"
         },
         "library": {
             "refresh": "Obnovit knihovnu"
@@ -267,7 +267,7 @@
             "click-to-see-changelog": "Click to see changelog",
             "newReleases": "K dispozici je nová aktualizace!",
             "stable": "Stabilní",
-            "version": "Heroic Version"
+            "version": "Verze Heroic"
         },
         "save-sync": {
             "searching": "Pokus o zjištění správné složky uložení"
@@ -296,8 +296,8 @@
         "sortByStatus": "Seřadit podle stavu",
         "sortDescending": "Seřadit sestupně",
         "toggleLayout": {
-            "grid": "Přepnutí na rozvržení mřížky",
-            "list": "Přepnutí na rozvržení seznamu"
+            "grid": "Přepnout na rozvržení mřížky",
+            "list": "Přepnout na rozvržení seznamu"
         }
     },
     "Library": "Knihovna",
@@ -383,7 +383,7 @@
         },
         "gameargs": {
             "placeholder": "Sem vložte argumenty spouštěče",
-            "title": "Herní argumenty (Pro spuštění po příkazu):"
+            "title": "Herní argumenty (ke spuštění po příkazu):"
         },
         "quote-args-with-spaces": "Upozornění: Nezapomeňte uvozovat argumenty s mezerami! Např.: \"cesta/s mezerami/\"",
         "wrapper": {
@@ -416,13 +416,13 @@
     "progress": "Progress",
     "queue": {
         "label": {
-            "canceled": "Canceled",
+            "canceled": "Zrušeno",
             "clear": "Vymazat seznam",
             "downloading": "Stahování",
-            "empty": "Nothing to download",
+            "empty": "Nic ke stažení",
             "finished": "Dokončeno",
             "queued": "Ve frontě",
-            "remove": "Remove from Downloads"
+            "remove": "Odebrat ze stažených"
         }
     },
     "Recent": "Recently Played",
@@ -448,7 +448,7 @@
         "disable_controller": "Zakázat navigaci v Heroic pomocí ovladače",
         "discordRPC": "Povolit Discord Rich Presence",
         "download-no-https": "Stahovat hry bez HTTPS (užitečné pro CDN, např. LanCache)",
-        "egs-sync": "Synchronizovat s instalovaným Epic Games Store",
+        "egs-sync": "Synchronizovat s nainstalovanými Epic Games",
         "enableFSRHack": "Povolte FSR Hack (verze Wine jej musí podporovat)",
         "eosOverlay": {
             "cancelInstall": "Zrušit",
@@ -457,17 +457,17 @@
             "currentVersion": "Aktuální verze: {{version}}",
             "disable": "Zakázat",
             "enable": "Povolit",
-            "install": "Install",
-            "installed": "Je nainstalován EOS Overlay",
-            "installing": "EOS Overlay se instaluje...",
+            "install": "Instalovat",
+            "installed": "Překrytí EOS je nainstalováno",
+            "installing": "Překrytí EOS se instaluje...",
             "latestVersion": "Nejnovější verze: {{version}}",
-            "notInstalled": "EOS Overlay není nainstalován",
-            "notInstalledMsg": "EOS Overlay není nainstalován. Chcete jej nainstalovat nyní?",
-            "notInstalledTitle": "Overlay není naistalován",
+            "notInstalled": "Překrytí EOS není nainstalováno",
+            "notInstalledMsg": "Překrytí EOS není nainstalováno. Chcete jej nyní nainstalovat?",
+            "notInstalledTitle": "Překrytí není nainstalováno",
             "remove": "Odinstalovat",
-            "removeConfirm": "Opravdu chcete odinstalovat EOS Overlay?",
-            "removeConfirmTitle": "Potvrdit odstranění Overlay",
-            "updateNow": "Update",
+            "removeConfirm": "Opravdu chcete odinstalovat překrytí EOS?",
+            "removeConfirmTitle": "Potvrdit odebrání překrytí",
+            "updateNow": "Aktualizovat",
             "updating": "Aktualizuji..."
         },
         "esync": "Povolit Esync",
@@ -505,7 +505,7 @@
         },
         "maxRecentGames": "Max. nedávno hraných her k zobrazení",
         "maxworkers": "Maximální počet vláken při stahování",
-        "minimize-on-launch": "Minimalizujte Heroic po spuštění hry",
+        "minimize-on-launch": "Minimalizovat Heroic po spuštění hry",
         "offlinemode": "Spustit hru offline",
         "prefered_language": "Preferovaný jazyk (kód jazyka)",
         "preferSystemLibs": "Preferovat systémové knihovny",
@@ -568,7 +568,7 @@
             "wineExt": "Wine rozšíření"
         },
         "open-config-file": "Otevřít soubor konfigurace",
-        "reset-heroic": "Reset Heroic",
+        "reset-heroic": "Resetovat Heroic",
         "saves": {
             "label": "Umístění pro ukládání:",
             "warning": "Funkce Cloud Saves je v Beta verzi, před synchronizací si prosím uložená data zálohujte (pro případ, že by se něco pokazilo)"

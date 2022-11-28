@@ -192,5 +192,12 @@
     },
     "setting": {
         "use-default-wine-settings": "Brug standard vinindstillinger"
-    }
+    },
+    "hours": "Timer",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Hoved + Ekstra",
+        "main-story": "Hovedhistorie"
+    },
+    "howLongToBeat": "Hvor længe skal man slå"
 }
