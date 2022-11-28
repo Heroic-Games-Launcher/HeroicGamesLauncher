@@ -32,7 +32,7 @@
             "title": "Instalazioa gelditu"
         },
         "uninstall": {
-            "checkbox": "Aurrizkia ere ezabatzea gustatuko litzaizuke? Ezin da desegin.",
+            "checkbox": "Kendu aurrizkia: {{prefix}}{{newLine}}Oharra: Hau ezin da desegin eta babeskopiarik ez duten gordetze fitxategiak kenduko ditu ere.",
             "checkbox_prefix": "Aurrizkia",
             "message": "Joko hau desinstatu nahi duzu?",
             "title": "Desinslalatu"

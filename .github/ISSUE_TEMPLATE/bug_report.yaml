@@ -18,7 +18,7 @@ body:
     attributes:
       label: Add logs
       description: 'Open up the "Settings" tab -> "Log" tab -> "Copy log content to clipboard" and paste it into here'
-      render:
+      render: text
     validations:
       required: true
   - type: textarea

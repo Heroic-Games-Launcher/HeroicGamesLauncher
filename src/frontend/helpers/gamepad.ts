@@ -5,10 +5,8 @@ import {
 } from 'common/types'
 import {
   checkGameCube,
-  checkPS3,
-  checkPS5,
   checkPS3Clone1,
-  checkXbox,
+  checkStandard,
   checkN64Clone1,
   checkGenius1
 } from './gamepad_layouts'
@@ -314,14 +312,8 @@ export const initGamepad = () => {
       const buttons = controller.buttons
       const axes = controller.axes
       try {
-        if (controller.id.match(/xbox|microsoft|02ea/i)) {
-          checkXbox(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/gamecube|0337/i)) {
+        if (controller.id.match(/gamecube|0337/i)) {
           checkGameCube(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/0ce6/i)) {
-          checkPS5(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/PS3|PLAYSTATION|0268/i)) {
-          checkPS3(buttons, axes, index, checkAction)
         } else if (controller.id.match(/2563.*0523/i)) {
           checkPS3Clone1(buttons, axes, index, checkAction)
         } else if (controller.id.match(/0079.*0006/i)) {
@@ -329,10 +321,10 @@ export const initGamepad = () => {
         } else if (controller.id.match(/0583.*a009/i)) {
           checkGenius1(buttons, axes, index, checkAction)
         } else {
-          // if not specific, fallback to the xbox layout, seems
+          // if not specific, fallback to the standard layout, seems
           // to be the most common for now and if not exact it seems
           // to cover at least the left stick and the main 2 buttons
-          checkXbox(buttons, axes, index, checkAction)
+          checkStandard(buttons, axes, index, checkAction)
         }
       } catch (error) {
         console.log('Gamepad error:', error)
