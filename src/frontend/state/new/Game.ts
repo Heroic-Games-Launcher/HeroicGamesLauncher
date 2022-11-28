@@ -24,12 +24,6 @@ export class Game {
   isFavourite = false
   isAvailable = true
 
-  install() {
-    if (this.isInstalled || this.isInstalling) {
-      return
-    }
-  }
-
   get status() {
     return bridgeStore.gameStatusByAppName[this.appName]?.status
   }
@@ -98,9 +92,7 @@ export class Game {
     return this.data.app_name
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  async play(launchArguments) {
+  async play(launchArguments?: never) {
     if (this.isPlaying || this.isUpdating) {
       return
     }
@@ -151,7 +143,7 @@ export class Game {
     // this.isRecent = false
   }
 
-  get downloadProgress() {
+  get gameStatus() {
     return bridgeStore.gameStatusByAppName[this.data.app_name]
   }
 }

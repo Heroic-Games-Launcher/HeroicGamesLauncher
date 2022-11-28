@@ -1,19 +1,19 @@
 import React, { PureComponent } from 'react'
 
 import {
+  AppSettings,
   ConnectivityStatus,
   FavouriteGame,
+  GameIdentifier,
   GameInfo,
   GameStatus,
-  GameIdentifier,
   InstalledInfo,
-  RefreshOptions,
-  Runner,
-  WineVersionInfo,
-  UserInfo,
   InstallParams,
   LibraryTopSectionOptions,
-  AppSettings
+  RefreshOptions,
+  Runner,
+  UserInfo,
+  WineVersionInfo
 } from 'common/types'
 import { Category, DialogModalOptions } from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
@@ -40,6 +40,24 @@ import {
 import { sideloadLibrary } from 'frontend/helpers/electronStores'
 import { GlobalStore } from './new/GlobalStore'
 import { BridgeStore } from './new/BridgeStore'
+
+export const loadGOGLibrary = (): Array<GameInfo> => {
+  const games = gogLibraryStore.has('games')
+    ? (gogLibraryStore.get('games', []) as GameInfo[])
+    : []
+  const installedGames =
+    (gogInstalledGamesStore.get('installed', []) as Array<InstalledInfo>) || []
+  for (const igame in games) {
+    for (const installedGame of installedGames) {
+      if (installedGame.appName === games[igame].app_name) {
+        games[igame].install = installedGame
+        games[igame].is_installed = true
+      }
+    }
+  }
+
+  return games
+}
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get('settings', {}) as AppSettings
@@ -98,24 +116,6 @@ interface StateProps {
 }
 
 export class GlobalState extends PureComponent<Props> {
-  loadGOGLibrary = (): Array<GameInfo> => {
-    const games = gogLibraryStore.has('games')
-      ? (gogLibraryStore.get('games', []) as GameInfo[])
-      : []
-    const installedGames =
-      (gogInstalledGamesStore.get('installed', []) as Array<InstalledInfo>) ||
-      []
-    for (const igame in games) {
-      for (const installedGame of installedGames) {
-        if (installedGame.appName === games[igame].app_name) {
-          games[igame].install = installedGame
-          games[igame].is_installed = true
-        }
-      }
-    }
-
-    return games
-  }
   state: StateProps = {
     category: (storage.getItem('category') as Category) || 'legendary',
     epic: {
@@ -126,7 +126,7 @@ export class GlobalState extends PureComponent<Props> {
         (configStore.get('userInfo', null) as UserInfo)?.displayName || null
     },
     gog: {
-      library: this.loadGOGLibrary(),
+      library: loadGOGLibrary(),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       username: (gogConfigStore.get('userData', null) as any)?.username || null
     },
@@ -396,7 +396,7 @@ export class GlobalState extends PureComponent<Props> {
     let epicLibrary: Array<GameInfo> =
       (libraryStore.get('library', []) as Array<GameInfo>) || []
 
-    const gogLibrary: Array<GameInfo> = this.loadGOGLibrary()
+    const gogLibrary: Array<GameInfo> = loadGOGLibrary()
     if (!epicLibrary.length || !this.state.epic.library.length) {
       window.api.logInfo('No cache found, getting data from legendary...')
       const { library: legendaryLibrary } = await getLegendaryConfig()

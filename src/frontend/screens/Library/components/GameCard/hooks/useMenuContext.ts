@@ -19,7 +19,7 @@ export function useMenuContext(game: Game, downloadQueue: GameDownloadQueue) {
     {
       // launch game
       label: t('label.playing.start', 'Start'),
-      onclick: () => game.play(),
+      onclick: async () => game.play(),
       show:
         game.isInstalled &&
         !game.isPlaying &&
@@ -35,7 +35,7 @@ export function useMenuContext(game: Game, downloadQueue: GameDownloadQueue) {
     {
       // install
       label: t('button.install', 'Install'),
-      onclick: () => game.install(),
+      onclick: async () => downloadQueue.addGame(game),
       show: !game.isInstalled && !game.isQueued
       // || runner === 'sideload'
     },
@@ -89,7 +89,7 @@ export function useMenuContext(game: Game, downloadQueue: GameDownloadQueue) {
     // },
     {
       // uninstall
-      label: t('button.uninstall'),
+      label: t('button.uninstall', 'Uninstall'),
       onclick: () => game.uninstall(),
       show: game.isInstalled && !game.isUpdating
     }

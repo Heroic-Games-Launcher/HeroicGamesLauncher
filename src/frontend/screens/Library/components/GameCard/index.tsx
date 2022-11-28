@@ -52,7 +52,7 @@ const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
     install: { platform: installedPlatform }
   } = game.data
 
-  const progress = game.downloadProgress
+  const progress = game.gameStatus?.progress
   const uninstallModal = useDisclosure()
 
   const { t } = useTranslation('gamepage')
@@ -82,7 +82,9 @@ const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
     isUninstalling
 
   const installingGrayscale = isInstalling
-    ? `${125 - getProgress(progress)}%`
+    ? progress
+      ? `${125 - getProgress(progress)}%`
+      : '0%'
     : '100%'
 
   const imageSrc = getImageFormatting()
