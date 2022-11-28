@@ -144,7 +144,7 @@
         "yes": "是"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "取消",
         "go_to_library": "前往仓库",
         "login": "登录",
         "sync": "同步",
@@ -178,14 +178,14 @@
             "update": "Update"
         },
         "label": {
-            "disk": "Disk",
+            "disk": "磁盘",
             "speed": "Download"
         },
         "link": "Downloads",
         "queue": {
-            "end-time": "Finished at",
-            "queue-time": "Added at",
-            "start-time": "Started at",
+            "end-time": "完成于",
+            "queue-time": "添加于",
+            "start-time": "启动于",
             "type": "Type"
         },
         "title": "Downloads"
@@ -415,13 +415,13 @@
     "progress": "Progress",
     "queue": {
         "label": {
-            "canceled": "Canceled",
+            "canceled": "已取消",
             "clear": "清除列表",
             "downloading": "下载中",
-            "empty": "Nothing to download",
+            "empty": "没有可下载的",
             "finished": "已完成",
             "queued": "已加入队列",
-            "remove": "Remove from Downloads"
+            "remove": "从下载中删除"
         }
     },
     "Recent": "最近玩过",
