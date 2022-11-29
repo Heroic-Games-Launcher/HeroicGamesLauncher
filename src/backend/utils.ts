@@ -31,7 +31,8 @@ import {
   isWindows,
   publicDir,
   GITHUB_API,
-  isSteamDeckGameMode
+  isSteamDeckGameMode,
+  isMac
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
@@ -285,15 +286,17 @@ export const getSystemInfo = async () => {
   const { total, available } = await si.mem()
 
   // get OS information
-  const { distro, kernel, arch, platform } = await si.osInfo()
+  const { distro, kernel, arch, platform, release, codename } =
+    await si.osInfo()
+  console.log({ release, codename })
 
   // get GPU information
   const { controllers } = await si.graphics()
   const graphicsCards = String(
     controllers.map(
       ({ name, model, vram, driverVersion }, i) =>
-        `GPU${i}: ${name ? name : model} VRAM: ${vram}MB DRIVER: ${
-          driverVersion ?? ''
+        `GPU${i}: ${name ? name : model} ${vram ? `VRAM: ${vram}MB` : ''} ${
+          driverVersion ? `DRIVER: ${driverVersion}` : ''
         } \n`
     )
   )
@@ -308,7 +311,7 @@ export const getSystemInfo = async () => {
   systemInfoCache = `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
 GOGdl Version: ${gogdlVersion}
-OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
+OS: ${isMac ? `${codename} ${release}` : distro} KERNEL: ${kernel} ARCH: ${arch}
 CPU: ${manufacturer} ${brand} @${speed} ${
     governor ? `GOVERNOR: ${governor}` : ''
   }
