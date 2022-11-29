@@ -279,7 +279,8 @@
             "version": "إصدار Heroic",
             "beta": "بيتا",
             "newReleases": "يتوفر تحديث!",
-            "stable": "مستقر"
+            "stable": "مستقر",
+            "click-to-see-changelog": "انقر لرؤية التغيير"
         },
         "version": "إصدار Wine",
         "save-sync": {
@@ -460,7 +461,8 @@
         "default-steam-path": "مسار Steam الافتراضي",
         "preferSystemLibs": "تفضل مكتبات النظام",
         "addgamestosteam": "أضف ألعابًا إلى Steam تلقائيًا",
-        "custom_themes_path": "مسار السمات المخصصة"
+        "custom_themes_path": "مسار السمات المخصصة",
+        "hideChangelogsOnStartup": "لا تظهر سجلات التغيير عند بدء التشغيل"
     },
     "Recent": "لعبت مؤخرا",
     "Return": "عودة",
