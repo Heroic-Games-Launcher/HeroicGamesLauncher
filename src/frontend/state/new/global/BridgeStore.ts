@@ -7,7 +7,7 @@ import { configStore } from '../../../helpers/electronStores'
 export class BridgeStore {
   gameStatusByAppName: { [key: string]: GameStatus } = {}
   recentAppNames: string[] = []
-  updatesAppNames: string[] = []
+  updatedAppNames: string[] = []
 
   constructor() {
     makeAutoObservable(this)
@@ -16,7 +16,7 @@ export class BridgeStore {
       this.loadRecentGamesAppNames()
     )
     this.loadRecentGamesAppNames()
-    this.updatesAppNames = JSON.parse(localStorage.getItem('updates') || '[]')
+    // this.updatedAppNames = JSON.parse(localStorage.getItem('updates') || '[]')
   }
 
   private onHandleSetGameStatus(
@@ -57,5 +57,13 @@ export class BridgeStore {
     this.recentAppNames = (
       configStore.get('games.recent', []) as Array<RecentGame>
     ).map((recent) => recent.appName)
+  }
+
+  async loadUpdatedGamesAppNames() {
+    try {
+      this.updatedAppNames = await window.api.checkGameUpdates()
+    } catch (error) {
+      window.api.logError(`${error}`)
+    }
   }
 }

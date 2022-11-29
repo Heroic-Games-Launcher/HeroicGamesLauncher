@@ -40,9 +40,11 @@ const GamesList = (props: Props): JSX.Element => {
           <span>{t('wine.actions', 'Action')}</span>
         </div>
       )}
-      {library.map((item, index) => (
-        <GameItem key={item.appName} game={item} index={index} {...props} />
-      ))}
+      <AnimatePresence>
+        {library.map((item, index) => (
+          <GameItem key={item.appName} game={item} index={index} {...props} />
+        ))}
+      </AnimatePresence>
     </div>
   )
 }
@@ -75,9 +77,8 @@ const GameItem = observer(
         const bodyHeight = document.body?.clientHeight || 0
         const { offsetTop = 0 } = wrapperRef.current || {}
         const diff = offsetTop - scrollPosition.top
-        const percVal = getPercValue(bodyHeight, 40)
-        const compareVal = bodyHeight + percVal
-        return diff > -percVal && diff < compareVal
+        const percOfScreen = getPercValue(bodyHeight, 30)
+        return diff > -percOfScreen && diff < bodyHeight + percOfScreen
       },
       { debounceTime: 300 }
     )
@@ -98,6 +99,8 @@ const GameItem = observer(
 
     const { hasUpdate } = game
 
+    const layoutId = app_name + '-' + listName + '-' + layout
+
     return (
       <div
         style={{
@@ -106,31 +109,30 @@ const GameItem = observer(
         }}
         ref={wrapperRef}
       >
-        <AnimatePresence>
-          {cardVisible && (
-            <motion.div
-              layoutId={app_name + '-' + listName + '-' + layout}
-              animate={{ scale: 1, opacity: 1 }}
-              initial={{
-                scale: layout === 'grid' ? 0.7 : 1,
-                opacity: 0
-              }}
-              transition={{ type: 'tween', delay: index * 0.03 }}
-            >
-              <GameCard
-                key={app_name}
-                hasUpdate={hasUpdate}
-                buttonClick={() =>
-                  handleGameCardClick?.(app_name, runner, game)
-                }
-                forceCard={layout === 'grid'}
-                isRecent={isRecent}
-                game={game}
-                layout={layout}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {cardVisible && (
+          <motion.div
+            layoutId={layoutId}
+            animate={{ scale: 1, opacity: 1 }}
+            initial={{
+              scale: layout === 'grid' ? 0.7 : 1,
+              opacity: 0
+            }}
+            exit={{
+              opacity: 0
+            }}
+            transition={{ type: 'tween', delay: index * 0.03 }}
+          >
+            <GameCard
+              key={app_name}
+              hasUpdate={hasUpdate}
+              buttonClick={() => handleGameCardClick?.(app_name, runner, game)}
+              forceCard={layout === 'grid'}
+              isRecent={isRecent}
+              game={game}
+              layout={layout}
+            />
+          </motion.div>
+        )}
       </div>
     )
   }

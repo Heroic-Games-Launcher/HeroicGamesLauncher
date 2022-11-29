@@ -152,6 +152,7 @@
     "i18next-http-backend": "^1.4.0",
     "ini": "^3.0.0",
     "lodash": "^4.17.21",
+    "lottie-react": "^2.3.1",
     "mobx": "^6.7.0",
     "mobx-react": "^7.6.0",
     "plist": "^3.0.5",

@@ -45,7 +45,7 @@ export class Game {
   get hasUpdate() {
     return (
       this.isInstalled &&
-      bridgeStore.updatesAppNames?.includes(this.data.app_name)
+      bridgeStore.updatedAppNames?.includes(this.data.app_name)
     )
   }
 

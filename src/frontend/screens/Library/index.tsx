@@ -6,9 +6,12 @@ import { useTranslation } from 'react-i18next'
 import GamesSection from './components/GamesSection'
 import useGlobalStore from '../../hooks/useGlobalStore'
 import { getLibraryTitle } from './constants'
+import Lottie from 'lottie-react'
+import lottieRefreshing from 'frontend/assets/loading-controler.json'
 
 const Library = () => {
-  const { libraryController } = useGlobalStore()
+  const globalStore = useGlobalStore()
+  const { libraryController } = globalStore
   const listingRef = useRef<HTMLDivElement>(null)
 
   const { listNameVisible } = libraryController
@@ -20,6 +23,8 @@ const Library = () => {
       listingRef.current.scrollTo(libraryController.listScrollPosition.get())
     }
   }, [listingRef])
+
+  const { t } = useTranslation()
 
   return (
     <>
@@ -37,9 +42,30 @@ const Library = () => {
         }}
       >
         <span id="top" />
-        {tab === 'recent' && <RecentGames />}
-        {tab === 'favourite' && <FavouriteList />}
-        {tab === 'all' && <MainLibrary />}
+        {globalStore.refreshingLibrary ? (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              height: '100%',
+              flex: 1
+            }}
+          >
+            <Lottie
+              animationData={lottieRefreshing}
+              style={{ height: 400, width: 400 }}
+            />
+            {/*<span>{t('loading.default', 'Loading')}</span>*/}
+          </div>
+        ) : (
+          <>
+            {tab === 'recent' && <RecentGames />}
+            {tab === 'favourite' && <FavouriteList />}
+            {tab === 'all' && <MainLibrary />}
+          </>
+        )}
       </div>
     </>
   )

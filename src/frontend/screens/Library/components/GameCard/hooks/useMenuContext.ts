@@ -1,6 +1,6 @@
 import { Game } from 'frontend/state/new/model/Game'
 import { GameDownloadQueue } from 'frontend/state/new/managers/GameDownloadQueue'
-import { t } from 'i18next'
+import { useTranslation } from 'react-i18next'
 
 export function useMenuContext({
   handleUninstall,
@@ -11,6 +11,7 @@ export function useMenuContext({
   game: Game
   downloadQueue: GameDownloadQueue
 }) {
+  const { t } = useTranslation('gamepage')
   return [
     {
       // remove from install queue

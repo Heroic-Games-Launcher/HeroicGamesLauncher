@@ -9,7 +9,8 @@ import { useTranslation } from 'react-i18next'
 import ActionIcons from '../GamesSectionActionIcons'
 
 const Header: React.FC = () => {
-  const { libraryController } = useGlobalStore()
+  const globalStore = useGlobalStore()
+  const { libraryController } = globalStore
   const { t } = useTranslation()
   const { listNameVisible, recentGames, favouritesLibrary, mainLibrary } =
     libraryController
@@ -88,8 +89,8 @@ const Header: React.FC = () => {
         <ActionIcons
           sortBox={listControler.sort}
           layoutBox={listControler.layout}
-          refresh={listControler.pagination.refresh}
-          refreshing={listControler.pagination.refreshing}
+          refresh={async () => globalStore.refresh({ checkForUpdates: true })}
+          refreshing={globalStore.refreshingLibrary}
           showHiddenBox={listControler.showHidden}
         />
       </div>

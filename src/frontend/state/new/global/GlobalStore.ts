@@ -2,13 +2,17 @@ import { GameIdentifier, GameInfo } from 'common/types'
 import { autorun, makeAutoObservable } from 'mobx'
 import { Game } from '../model/Game'
 import { GameDownloadQueue } from '../managers/GameDownloadQueue'
-import { configStore, libraryStore } from 'frontend/helpers/electronStores'
+import {
+  configStore,
+  libraryStore,
+  sideloadLibrary
+} from 'frontend/helpers/electronStores'
 import LibraryPageController from '../ui-controllers/LibraryPageController'
 import { find } from 'lodash'
 import i18next from 'i18next'
 import RequestInstallModalController from '../ui-controllers/RequestInstallModalController'
 import LayoutPreferences from '../settings/LayoutPreferences'
-import { loadGOGLibrary } from '../../GlobalState'
+import { bridgeStore, loadGOGLibrary } from '../../GlobalState'
 
 export class GlobalStore {
   language = i18next.language
@@ -20,9 +24,11 @@ export class GlobalStore {
   private gameInstancesByAppName: { [key: string]: Game } = {}
   private favouriteStoredGames: GameIdentifier[] = []
   private hiddenStoredGames: GameIdentifier[] = []
+  refreshingLibrary = false
 
   epicLibrary: GameInfo[] = []
   gogLibrary: GameInfo[] = []
+  sideLoadLibrary: GameInfo[] = []
 
   constructor() {
     makeAutoObservable(this)
@@ -54,7 +60,11 @@ export class GlobalStore {
     return this.platform === 'linux'
   }
 
-  refresh() {
+  async refresh({
+    checkForUpdates = false
+  }: { checkForUpdates?: boolean } = {}) {
+    console.log('refreshing')
+    this.refreshingLibrary = true
     this.favouriteStoredGames = configStore.get(
       'games.favourites',
       []
@@ -66,6 +76,11 @@ export class GlobalStore {
 
     this.epicLibrary = libraryStore.get('library', []) as GameInfo[]
     this.gogLibrary = loadGOGLibrary()
+    this.sideLoadLibrary = sideloadLibrary.get('games', []) as GameInfo[]
+    if (checkForUpdates) {
+      await bridgeStore.loadUpdatedGamesAppNames()
+    }
+    await bridgeStore.loadRecentGamesAppNames()
 
     for (const gameInfo of this.library) {
       const game = new Game(gameInfo)
@@ -77,11 +92,12 @@ export class GlobalStore {
       })
       this.gameInstancesByAppName[gameInfo.app_name] = game
     }
+    this.refreshingLibrary = false
   }
 
   // library with GameInfo
   get library() {
-    return [...this.epicLibrary, ...this.gogLibrary]
+    return [...this.epicLibrary, ...this.gogLibrary, ...this.sideLoadLibrary]
   }
 
   // library with Game instances
