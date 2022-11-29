@@ -188,7 +188,7 @@ const GameCard = ({
     if (isReparing) {
       return t('gamecard.repairing', 'Repairing')
     }
-    if (!gameAvailable) {
+    if (isInstalled && !gameAvailable) {
       return t('status.gameNotAvailable', 'Game not available')
     }
     if (isInstalled) {
