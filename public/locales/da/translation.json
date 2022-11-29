@@ -154,7 +154,8 @@
             "version": "Heroisk version",
             "beta": "Beta",
             "newReleases": "Opdatering tilgængelig!",
-            "stable": "Stabil"
+            "stable": "Stabil",
+            "click-to-see-changelog": "Klik for at se ændringslog"
         },
         "settings": "Indstillinger gemmes automatisk",
         "save-sync": {
@@ -379,7 +380,8 @@
         "prefered_language": "Foretrukken sprog (sprogkode)",
         "checkForUpdatesOnStartup": "Søg efter heroiske opdateringer ved opstart",
         "addgamestosteam": "Tilføj spil til Steam automatisk",
-        "custom_themes_path": "Sti til brugerdefinerede temaer"
+        "custom_themes_path": "Sti til brugerdefinerede temaer",
+        "hideChangelogsOnStartup": "Vis ikke ændringslogs ved opstart"
     },
     "wine": {
         "manager": {
