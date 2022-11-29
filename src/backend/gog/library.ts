@@ -687,6 +687,9 @@ export class GOGLibrary {
       return []
     }
     const apiData = await this.getGamesData(appName)
+    if (!apiData) {
+      return []
+    }
     const operatingSystems = apiData._embedded.supportedOperatingSystems
     let requirements = operatingSystems.find(
       (value: { operatingSystem: { name: string } }) =>
