@@ -18,7 +18,8 @@ import {
   powerSaveBlocker,
   protocol,
   screen,
-  clipboard
+  clipboard,
+  nativeImage
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -476,7 +477,25 @@ if (!gotTheLock) {
       mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
     }, 200)
 
-    const trayIcon = darkTrayIcon ? iconDark : iconLight
+    const iconSizesByPlatform = {
+      darwin: {
+        width: 20,
+        height: 20
+      },
+      linux: {
+        width: 32,
+        height: 32
+      },
+      win32: {
+        width: 32,
+        height: 32
+      }
+    }
+
+    const trayIcon = nativeImage
+      .createFromPath(darkTrayIcon ? iconDark : iconLight)
+      .resize(iconSizesByPlatform[process.platform])
+
     const appIcon = new Tray(trayIcon)
 
     appIcon.on('double-click', () => {
@@ -498,7 +517,9 @@ if (!gotTheLock) {
       logInfo('Changing Tray icon Color...', { prefix: LogPrefix.Backend })
       setTimeout(async () => {
         const { darkTrayIcon } = await GlobalConfig.get().getSettings()
-        const trayIcon = darkTrayIcon ? iconDark : iconLight
+        const trayIcon = nativeImage
+          .createFromPath(darkTrayIcon ? iconDark : iconLight)
+          .resize(iconSizesByPlatform[process.platform])
         appIcon.setImage(trayIcon)
         appIcon.setContextMenu(await contextMenu())
       }, 500)
