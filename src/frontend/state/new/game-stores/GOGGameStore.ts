@@ -7,7 +7,7 @@ export default class GOGGameStore extends GameStore {
     makeAutoObservable(this)
   }
 
-  async auth() {
+  async auth(sid: string) {
     // TODO: impl
   }
 

@@ -11,6 +11,10 @@ const Library = () => {
   const { libraryController } = useGlobalStore()
   const listingRef = useRef<HTMLDivElement>(null)
 
+  const { listNameVisible } = libraryController
+
+  const tab = listNameVisible.get()
+
   useEffect(() => {
     if (listingRef.current) {
       listingRef.current.scrollTo(libraryController.listScrollPosition.get())
@@ -33,9 +37,9 @@ const Library = () => {
         }}
       >
         <span id="top" />
-        <RecentGames />
-        <FavouriteList />
-        <MainLibrary />
+        {tab === 'recent' && <RecentGames />}
+        {tab === 'favourite' && <FavouriteList />}
+        {tab === 'all' && <MainLibrary />}
       </div>
     </>
   )
@@ -50,7 +54,6 @@ const _MainLibrary = () => {
     <GamesSection
       listController={mainLibrary}
       title={getLibraryTitle(libraryController.category.get(), t)}
-      expanded
     />
   )
 }

@@ -1,7 +1,7 @@
 import { Category } from '../../../types'
 import { GameInfo } from '../../../../common/types'
 import { Box } from '../common/utils'
-import { runInAction } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 import { SortGame } from '../common/common'
 import { GlobalStore } from '../global/GlobalStore'
 
@@ -65,7 +65,9 @@ export default class LibraryPagination {
 
   refreshing = false
 
-  constructor(private options: LibraryPaginationOptions) {}
+  constructor(private options: LibraryPaginationOptions) {
+    makeAutoObservable(this)
+  }
 
   private get globalStore() {
     return this.options.globalStore
@@ -92,6 +94,13 @@ export default class LibraryPagination {
   get allResults() {
     const regex = new RegExp(fixFilter(this.term || ''), 'i')
     const filtered = this.options.globalStore.libraryGames.filter((i) => {
+      if (
+        this.options.categoryBox &&
+        !this.options.categoryBox.is('all') &&
+        !this.options.categoryBox.is(i.data.runner)
+      ) {
+        return false
+      }
       if (this.options.onlyRecent && !i.isRecent) {
         return false
       }

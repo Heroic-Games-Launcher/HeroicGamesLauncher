@@ -9,9 +9,9 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'
 
-import { InstallModal } from 'frontend/screens/Library/components'
 import { CircularProgress } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
+import useGlobalStore from '../../../hooks/useGlobalStore'
 
 interface Props {
   appName: string
@@ -41,6 +41,9 @@ export default function GamesSubmenu({
     libraryStatus,
     showDialogModal
   } = useContext(ContextProvider)
+
+  const globalStore = useGlobalStore()
+
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
@@ -50,7 +53,6 @@ export default function GamesSubmenu({
   const [hasShortcuts, setHasShortcuts] = useState(false)
   const [eosOverlayEnabled, setEosOverlayEnabled] = useState<boolean>(false)
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
-  const [showModal, setShowModal] = useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const { t } = useTranslation('gamepage')
@@ -140,7 +142,7 @@ export default function GamesSubmenu({
   }
 
   function handleEdit() {
-    setShowModal(true)
+    globalStore.gameDownloadQueue.addGame(globalStore.getGame(appName))
   }
 
   async function handleEosOverlay() {
@@ -346,13 +348,6 @@ export default function GamesSubmenu({
           )}
         </div>
       </div>
-      {showModal && (
-        <InstallModal
-          appName={appName}
-          runner={runner}
-          backdropClick={() => setShowModal(false)}
-        />
-      )}
     </>
   )
 }

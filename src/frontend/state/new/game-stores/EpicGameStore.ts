@@ -7,14 +7,14 @@ export default class EpicGameStore extends GameStore {
     makeAutoObservable(this)
   }
 
-  async auth() {
+  async auth(sid: string) {
     // TODO: impl
-    // const response = await window.api.login(sid)
-    //
-    // if (response.status === 'done') {
-    //   // this.handleSuccessfulLogin('legendary')
-    // }
-    //
+    const response = await window.api.login(sid)
+
+    if (response.status === 'done') {
+      // this.handleSuccessfulLogin('legendary')
+    }
+
     // return response.status
   }
 

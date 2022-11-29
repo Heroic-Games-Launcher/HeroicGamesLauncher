@@ -1,4 +1,4 @@
 export default abstract class GameStore {
-  abstract auth(): Promise<void>
+  abstract auth(authCode: string): Promise<void>
   abstract get name(): string
 }

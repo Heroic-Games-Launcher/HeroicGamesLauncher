@@ -10,6 +10,9 @@ const STORAGE_KEY = 'data.library-page'
 
 export default class LibraryPageController {
   readonly search = Box.create('')
+  readonly listNameVisible = Box.create<'recent' | 'favourite' | 'all'>(
+    'recent'
+  )
   readonly category = Box.create<Category>('all')
   readonly platform = Box.create('all')
   readonly listScrollPosition = Box.create({ left: 0, top: 0 })

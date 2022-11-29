@@ -1,10 +1,10 @@
 import React from 'react'
 import { SvgButton } from '../../../../components/UI'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import DownloadOutlined from '@mui/icons-material/DownloadOutlined'
 import { ReactComponent as StopIconAlt } from '../../../../assets/stop-icon-alt.svg'
 import { ReactComponent as StopIcon } from '../../../../assets/stop-icon.svg'
 import { ReactComponent as PlayIcon } from '../../../../assets/play-icon.svg'
-import { ReactComponent as DownIcon } from '../../../../assets/down-icon.svg'
 import { Game } from '../../../../state/new/model/Game'
 import { useTranslation } from 'react-i18next'
 import useGlobalStore from '../../../../hooks/useGlobalStore'
@@ -72,15 +72,10 @@ const ActionButton: React.FC<{ game: Game; title: string }> = ({
       </SvgButton>
     )
   }
-
   return (
-    <SvgButton
-      className="downIcon"
-      onClick={async () => gameDownloadQueue.addGame(game)}
-      title={`${t('button.install')} (${title})`}
-    >
-      <DownIcon />
-    </SvgButton>
+    <div onClick={async () => gameDownloadQueue.addGame(game)}>
+      <DownloadOutlined />
+    </div>
   )
 }
 

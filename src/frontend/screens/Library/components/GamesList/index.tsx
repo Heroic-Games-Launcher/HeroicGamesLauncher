@@ -16,7 +16,7 @@ interface Props {
   handleGameCardClick?: (app_name: string, runner: Runner, game: Game) => void
   onlyInstalled?: boolean
   isRecent?: boolean
-  listName: string
+  listName?: string
 }
 
 const GamesList = (props: Props): JSX.Element => {
@@ -30,6 +30,7 @@ const GamesList = (props: Props): JSX.Element => {
         gameListLayout: layout === 'list',
         firstLane: isFirstLane
       })}
+      key={props.listName + '-' + layout}
     >
       {layout === 'list' && (
         <div className="gameListHeader">
@@ -99,7 +100,10 @@ const GameItem = observer(
 
     return (
       <div
-        style={{ minHeight: layout === 'grid' ? 200 : 30, minWidth: 10 }}
+        style={{
+          minHeight: layout === 'grid' ? 200 : 30,
+          minWidth: 10
+        }}
         ref={wrapperRef}
       >
         <AnimatePresence>
@@ -107,7 +111,10 @@ const GameItem = observer(
             <motion.div
               layoutId={app_name + '-' + listName + '-' + layout}
               animate={{ scale: 1, opacity: 1 }}
-              initial={{ scale: layout === 'grid' ? 0.7 : 1, opacity: 0 }}
+              initial={{
+                scale: layout === 'grid' ? 0.7 : 1,
+                opacity: 0
+              }}
               transition={{ type: 'tween', delay: index * 0.03 }}
             >
               <GameCard

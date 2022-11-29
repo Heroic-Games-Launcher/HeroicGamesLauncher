@@ -191,42 +191,50 @@ const GameCard = ({ hasUpdate, forceCard, game, layout }: Card) => {
             </span>
           </Link>
           <>
-            <span
+            <div
               className={classNames('icons', {
                 gamepad: activeController
               })}
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between'
+              }}
             >
-              {showUpdateButton && (
-                <SvgButton
-                  className="updateIcon"
-                  title={`${t('button.update')} (${title})`}
-                  onClick={async () => handleUpdate()}
-                >
-                  <FontAwesomeIcon size={'2x'} icon={faRepeat} />
-                </SvgButton>
-              )}
-              {isInstalled && !isUninstalling && (
-                <SvgButton
-                  title={`${t('submenu.settings')} (${title})`}
-                  className="settingsIcon"
-                  onClick={() =>
-                    navigate(pathname, {
-                      state: {
-                        fromGameCard: true,
-                        runner,
-                        hasCloudSave,
-                        isLinuxNative,
-                        isMacNative,
-                        gameInfo: game.data
-                      }
-                    })
-                  }
-                >
-                  <SettingsIcon />
-                </SvgButton>
-              )}
-              <ActionButton game={game} title={title} />
-            </span>
+              <div />
+              <div>
+                {showUpdateButton && (
+                  <SvgButton
+                    className="updateIcon"
+                    title={`${t('button.update')} (${title})`}
+                    onClick={async () => handleUpdate()}
+                  >
+                    <FontAwesomeIcon size={'2x'} icon={faRepeat} />
+                  </SvgButton>
+                )}
+                {isInstalled && !isUninstalling && (
+                  <SvgButton
+                    title={`${t('submenu.settings')} (${title})`}
+                    className="settingsIcon"
+                    onClick={() =>
+                      navigate(pathname, {
+                        state: {
+                          fromGameCard: true,
+                          runner,
+                          hasCloudSave,
+                          isLinuxNative,
+                          isMacNative,
+                          gameInfo: game.data
+                        }
+                      })
+                    }
+                  >
+                    <SettingsIcon />
+                  </SvgButton>
+                )}
+                <ActionButton game={game} title={title} />
+              </div>
+            </div>
           </>
         </div>
       </ContextMenu>
