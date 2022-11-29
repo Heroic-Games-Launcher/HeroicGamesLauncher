@@ -85,6 +85,12 @@ const Header: React.FC = () => {
           onSelect={() => listNameVisible.set('all')}
           total={mainLibrary.pagination.totalCount}
         />
+        <button
+          className="sideloadGameButton"
+          onClick={() => globalStore.requestNewSideLoadGame()}
+        >
+          {t('add_game', 'Add Game')}
+        </button>
         <div style={{ flex: 1 }} />
         <ActionIcons
           sortBox={listControler.sort}

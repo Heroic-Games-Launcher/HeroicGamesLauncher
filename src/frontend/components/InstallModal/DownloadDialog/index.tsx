@@ -33,7 +33,6 @@ import {
 } from 'frontend/helpers'
 import { configStore } from 'frontend/helpers/electronStores'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { globalStore } from 'frontend/state/GlobalState'
 import { InstallProgress } from 'frontend/types'
 import React, {
   useCallback,

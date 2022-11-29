@@ -77,7 +77,7 @@ const GameItem = observer(
         const bodyHeight = document.body?.clientHeight || 0
         const { offsetTop = 0 } = wrapperRef.current || {}
         const diff = offsetTop - scrollPosition.top
-        const percOfScreen = getPercValue(bodyHeight, 30)
+        const percOfScreen = getPercValue(bodyHeight, 20)
         return diff > -percOfScreen && diff < bodyHeight + percOfScreen
       },
       { debounceTime: 300 }

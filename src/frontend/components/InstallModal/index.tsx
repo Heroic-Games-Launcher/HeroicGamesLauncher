@@ -29,8 +29,9 @@ export type AvailablePlatforms = {
   icon: IconDefinition
 }[]
 
-const InstallModal = ({ runner, controller }: Props) => {
-  const gameInfo = controller.options?.game.data
+const InstallModal = ({ controller }: Props) => {
+  const { runner = 'sideload', game } = controller.options || {}
+  const gameInfo = game?.data
 
   const { app_name: appName } = gameInfo || {}
 

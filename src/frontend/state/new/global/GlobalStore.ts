@@ -52,6 +52,10 @@ export class GlobalStore {
     syncStoredGameInfoById('games.hidden', 'hiddenGames')
   }
 
+  requestNewSideLoadGame() {
+    this.requestInstallModal.show({ runner: 'sideload' })
+  }
+
   getGame(name: string): Game {
     return this.gameInstancesByAppName[name]
   }

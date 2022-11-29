@@ -1,21 +1,20 @@
 import { makeAutoObservable } from 'mobx'
-import { LiteralUnion } from 'prettier'
 
 export class Box<T> {
-  constructor(private val: T) {
+  constructor(private _val: T) {
     makeAutoObservable(this)
   }
 
   set(val: T) {
-    this.val = val
+    this._val = val
   }
 
   get() {
-    return this.val
+    return this._val
   }
 
   is(...vals: T[]) {
-    return !!vals.find((val) => this.val === val)
+    return !!vals.find((val) => this._val === val)
   }
 
   // switch<O>(when: { [key: string]: O } & { default: O }) {
@@ -28,10 +27,14 @@ export class Box<T> {
   // }
 
   setIf(is: T, val: T, otherwise?: T) {
-    this.set(this.is(is) ? val : otherwise || this.val)
+    this.set(this.is(is) ? val : otherwise || this._val)
   }
 
   static create<T>(val: T) {
     return new Box(val)
+  }
+
+  get val() {
+    return this._val
   }
 }

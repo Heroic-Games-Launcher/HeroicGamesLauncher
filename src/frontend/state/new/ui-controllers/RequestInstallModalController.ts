@@ -1,11 +1,13 @@
 import { Game } from '../model/Game'
 import { GameInstallSettings } from '../common/common'
 import { makeAutoObservable } from 'mobx'
+import { Runner } from '../../../../common/types'
 
 type RequestInstallOptions = {
-  game: Game
+  game?: Game
+  runner: Runner
   defaultValues?: Partial<GameInstallSettings>
-  onSend: (data: GameInstallSettings) => void
+  onSend?: (data: GameInstallSettings) => void
 }
 
 export default class RequestInstallModalController {
@@ -25,14 +27,17 @@ export default class RequestInstallModalController {
     })
   }
 
-  show(options: RequestInstallOptions) {
-    this.options = options
+  show(options: Partial<RequestInstallOptions>) {
+    if (options.game) {
+      options.runner = options.game.data.runner
+    }
+    this.options = options as RequestInstallOptions
     this.opened = true
   }
 
   send(request: Omit<GameInstallSettings, 'game'>) {
-    if (this.options) {
-      this.options.onSend({ ...request, game: this.options.game })
+    if (this.options?.onSend) {
+      this.options.onSend({ ...request, game: this.options.game! })
       this.options = undefined
       this.opened = false
     }
