@@ -94,13 +94,13 @@
     "generic": {
         "error": "Unbekannter Fehler"
     },
-    "hours": "Hours",
+    "hours": "Stunden",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Vollendungswillig",
+        "main-plus-extras": "Haupt + Extras",
+        "main-story": "Hauptgeschichte"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Wie lange dauert es",
     "info": {
         "canRunOffline": "Online erforderlich",
         "installedPlatform": "Installierte Plattform",
@@ -120,7 +120,7 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Drittanbieterspiel NICHT unterstützt"
         },
         "playing": {
             "start": "Jetzt spielen",
@@ -166,18 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Klicken zum Aktualisieren",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Spiel nicht verfügbar",
         "hasUpdates": "Neue Version verfügbar!",
         "installed": "Installiert",
         "installing": "Wird installiert",
         "moving": "Installation wird verschoben, bitte warten",
         "notinstalled": "Dieses Spiel ist nicht installiert",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Nicht unterstützt",
+        "notSupportedGame": "Nicht unterstützt",
         "processing": "Dateien werden verarbeitet, bitte warten",
         "queued": "In Warteschlange",
         "reparing": "Spiel wird repariert, bitte warten",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Dieses Spiel verwendet einen Drittanbieter-Launcher und wird noch nicht unterstützt",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "uninstalling": "Wird deinstalliert",
         "updating": "Spiel wird aktualisiert"

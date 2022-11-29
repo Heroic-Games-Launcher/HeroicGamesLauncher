@@ -264,7 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "click-to-see-changelog": "Click to see changelog",
+            "click-to-see-changelog": "单击查看变更日志",
             "newReleases": "更新可用！",
             "stable": "稳定版",
             "version": "Heroic 版本"
@@ -475,7 +475,7 @@
         "FsrSharpnessStrenght": "FSR 锐化强度",
         "fsync": "启用 Fsync",
         "gamemode": "使用 GameMode（需要已安装 Feral Game Mode）",
-        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "hideChangelogsOnStartup": "启动程序时不显示变更日志",
         "language": "选择应用语言",
         "library_top_option": {
             "disabled": "已禁用",

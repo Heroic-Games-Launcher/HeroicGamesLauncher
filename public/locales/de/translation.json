@@ -144,7 +144,7 @@
         "yes": "JA"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "Abbrechen",
         "go_to_library": "Zur Bibliothek",
         "login": "Anmelden",
         "sync": "Synchronisieren",
@@ -178,14 +178,14 @@
             "update": "Update"
         },
         "label": {
-            "disk": "Disk",
+            "disk": "Festplatte",
             "speed": "Download"
         },
         "link": "Downloads",
         "queue": {
-            "end-time": "Finished at",
-            "queue-time": "Added at",
-            "start-time": "Started at",
+            "end-time": "Beendet am",
+            "queue-time": "Hinzugefügt am",
+            "start-time": "Gestartet am",
             "type": "Type"
         },
         "title": "Downloads"
@@ -264,7 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "click-to-see-changelog": "Click to see changelog",
+            "click-to-see-changelog": "Klicke, um das Änderungsprotokoll anzusehen",
             "newReleases": "Update verfügbar!",
             "stable": "Stabil",
             "version": "Heroic-Version"
@@ -416,13 +416,13 @@
     "progress": "Fortschritt",
     "queue": {
         "label": {
-            "canceled": "Canceled",
+            "canceled": "Abgebrochen",
             "clear": "Liste leeren",
             "downloading": "Lade herunter",
-            "empty": "Nothing to download",
+            "empty": "Nichts zum Herunterladen",
             "finished": "Abgeschlossen",
             "queued": "In Warteschlange",
-            "remove": "Remove from Downloads"
+            "remove": "Aus Downloads entfernen"
         }
     },
     "Recent": "Zuletzt gespielte Spiele",
@@ -475,7 +475,7 @@
         "FsrSharpnessStrenght": "FSR Schärfestärke",
         "fsync": "Fsync aktivieren",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
-        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "hideChangelogsOnStartup": "Änderungsprotokolle beim Start nicht anzeigen",
         "language": "App-Sprache auswählen",
         "library_top_option": {
             "disabled": "Deaktiviert",
