@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Ενημέρωση διαθέσιμη!",
             "stable": "Σταθερή",
             "version": "Έκδοση Heroic"
@@ -432,7 +433,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Επιλογή Εναλλακτικού δυαδικού GOGDL για χρήση",
         "alt-legendary-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Legendary",
-        "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
         "autodxvk": "Αυτόματη Εγκατάσταση/Ενημέρωση DXVK με Πρόθημα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
         "autovkd3d": "Αυτόματη Εγκατάσταση/Ενημέρωση VKD3D με Πρόθημα",

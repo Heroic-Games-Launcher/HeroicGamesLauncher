@@ -119,6 +119,9 @@
         "wineversion": "Έκδοση Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Παίξτε τώρα",
             "stop": "Σε παιχνίδι (Διακοπή)"
@@ -163,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Πατήστε για Ενημέρωση",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Νέα ενημέρωση διαθέσιμη!",
         "installed": "Εγκατεστημένο",
         "installing": "Εγκατάσταση",
         "moving": "Μετακίνηση εγκατάστασης, παρακαλώ περιμένετε",
         "notinstalled": "Αυτό το παιχνίδι δεν είναι εγκατεστημένο",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Επεξεργασία αρχείων, παρακαλώ περιμένετε",
         "queued": "Queued",
         "reparing": "Επιδιόρθωση παιχνιδιού, παρακαλώ περιμένετε",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Σύνολο ληφθέντων",
         "uninstalling": "Uninstalling",
         "updating": "Ενημέρωση παιχνιδιού"

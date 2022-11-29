@@ -119,6 +119,9 @@
         "wineversion": "Wine Version"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Jogar",
             "stop": "Jogando (Parar)"
@@ -163,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Click to Update",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Nova versão disponível!",
         "installed": "Jogo Instalado",
         "installing": "Instalando",
         "moving": "Movendo Jogo, por favor espere",
         "notinstalled": "Jogo não instalado",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "Reparando jogo, por favor espere",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total Baixado",
         "uninstalling": "Uninstalling",
         "updating": "Atualizando jogo"

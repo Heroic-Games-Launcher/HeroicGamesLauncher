@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "به روزرسانی موجود است!",
             "stable": "پایدار",
             "version": "Heroic Version"
@@ -432,7 +433,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده",
         "alt-legendary-bin": "انتخاب باینری Legendary جایگزین",
-        "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
         "autosync": "همگامسازی خودکار ذخیرهها",
         "autovkd3d": "نصب/بهروزرسانی خودکار VKD3D در مسیر",

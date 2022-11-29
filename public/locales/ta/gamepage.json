@@ -119,6 +119,9 @@
         "wineversion": "ஒயின் பதிப்பு"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "இப்போது விளையாடு",
             "stop": "விளையாடப்படுகிறது (நிறுத்து)"
@@ -163,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "புதுப்பிக்க அழுத்து",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "புதிய பதிப்பு உள்ளது!",
         "installed": "நிறுவப்பட்டது",
         "installing": "நிறுவப்படுகிறது",
         "moving": "நிறுவல் நகர்த்தப்படுகிறது, தயவுசெய்து காத்திருக்கவும்",
         "notinstalled": "இந்த விளையாட்டு நிறுவப்படவில்லை",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "விளையாட்டு பழுதுபார்க்கப்படுகிறது, தயவுசெய்து காத்திருக்கவும்",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "மொத்த பதிவிறக்கம்",
         "uninstalling": "Uninstalling",
         "updating": "விளையாட்டு புதுப்பிக்கப்படுகிறது"

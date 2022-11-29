@@ -25,7 +25,7 @@
 }
 
 .linearProgress > .MuiLinearProgress-bar {
-  background-color: var(--accent);
+  background-color: var(--success);
 }
 
 .progressChartValues {

@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -432,7 +433,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Chọn GOGDL binary thay thế để sử dụng",
         "alt-legendary-bin": "Chọn Legendary binary thay thế để sử dụng",
-        "audiofix": "Sửa âm thanh (Pulse Audio Latency)",
         "autodxvk": "Tự động cài đặt/cập nhật DXVK trên prefix",
         "autosync": "Tự động đồng bộ bản sao lưu",
         "autovkd3d": "Tự động cài đặt/cập nhật DXVK trên prefix",

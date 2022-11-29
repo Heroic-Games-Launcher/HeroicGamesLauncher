@@ -241,7 +241,9 @@ class GOGGame extends Game {
     }
 
     const installPlatform =
-      platformToInstall.toLowerCase() as GogInstallPlatform
+      platformToInstall === 'Mac'
+        ? 'osx'
+        : (platformToInstall.toLowerCase() as GogInstallPlatform)
 
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
 

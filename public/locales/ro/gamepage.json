@@ -120,6 +120,9 @@
         "wineversion": "Versiune Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Joacă Acum",
             "stop": "în joc (Stop)"
@@ -164,14 +167,18 @@
     },
     "status": {
         "clickToUpdate": "Faceți clic pentru a actualiza",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Versiune nouă disponibilă!",
         "installed": "Instalat",
         "installing": "Se Instalează",
         "moving": "Se mută instalarea, așteptați",
         "notinstalled": "Acest joc nu este instalat",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Se procesează fișierele, așteptați",
         "queued": "Queued",
         "reparing": "Reparare joc, vă rugăm așteptați",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Descărcat total",
         "uninstalling": "Uninstalling",
         "updating": "Joc in curs de actualizare"

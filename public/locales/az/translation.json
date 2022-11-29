@@ -264,6 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Yeniləmə Mövcuddur!",
             "stable": "Stabil",
             "version": "Qəhrəmanlıq versiyası"
@@ -432,7 +433,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "İstifadə etmək üçün Alternativ GOGDL Binary seçin",
         "alt-legendary-bin": "Alternativ Əfsanəvi Binary seçin",
-        "audiofix": "Audio Düzəltmə (Pulse Audio Latency)",
         "autodxvk": "Prefiksdə DXVK-nı Avtomatik Quraşdırın/Yeniləyin",
         "autosync": "Avtosinxronizasiya Saxlayır",
         "autovkd3d": "Prefiksdə VKD3D-ni Avtomatik Quraşdırın/Yeniləyin",

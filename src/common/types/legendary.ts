@@ -94,6 +94,7 @@ type CustomAttributeType =
   | 'com.epicgames.portal.product.websiteUrl'
   | 'extraLaunchOption_001_Args'
   | 'extraLaunchOption_001_Name'
+  | 'ThirdPartyManagedApp'
 
 interface CustomAttributeValue {
   type: 'STRING'

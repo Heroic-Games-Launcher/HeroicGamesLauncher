@@ -162,7 +162,8 @@
         "unsync": "ألغ المزامنة",
         "syncing": "يزامن",
         "continue": "تابع",
-        "go_to_library": "إذهب إلي المكتبة"
+        "go_to_library": "إذهب إلي المكتبة",
+        "cancel": "إلغاء"
     },
     "status": {
         "loading": "يتم تحميل قائمة الألعاب ، يرجى الانتظار",
@@ -278,7 +279,8 @@
             "version": "إصدار Heroic",
             "beta": "بيتا",
             "newReleases": "يتوفر تحديث!",
-            "stable": "مستقر"
+            "stable": "مستقر",
+            "click-to-see-changelog": "انقر لرؤية التغيير"
         },
         "version": "إصدار Wine",
         "save-sync": {
@@ -459,7 +461,8 @@
         "default-steam-path": "مسار Steam الافتراضي",
         "preferSystemLibs": "تفضل مكتبات النظام",
         "addgamestosteam": "أضف ألعابًا إلى Steam تلقائيًا",
-        "custom_themes_path": "مسار السمات المخصصة"
+        "custom_themes_path": "مسار السمات المخصصة",
+        "hideChangelogsOnStartup": "لا تظهر سجلات التغيير عند بدء التشغيل"
     },
     "Recent": "لعبت مؤخرا",
     "Return": "عودة",
@@ -678,7 +681,10 @@
             "clear": "لائحة خالية",
             "downloading": "جارى التحميل",
             "finished": "مكتمل",
-            "queued": "في قائمة الانتظار"
+            "queued": "في قائمة الانتظار",
+            "canceled": "ألغيت",
+            "empty": "لا شيء للتنزيل",
+            "remove": "إزالة من التنزيلات"
         }
     },
     "download": {
@@ -695,5 +701,23 @@
         }
     },
     "error": "خطأ",
-    "add_game": "إضافة اللعبة"
+    "add_game": "إضافة اللعبة",
+    "download-manager": {
+        "queue": {
+            "type": "يكتب",
+            "end-time": "انتهى في",
+            "queue-time": "تمت الإضافة في",
+            "start-time": "بدأت في"
+        },
+        "install-type": {
+            "install": "ثبت",
+            "update": "حدّث"
+        },
+        "label": {
+            "disk": "القرص",
+            "speed": "تحميل"
+        },
+        "link": "التحميلات",
+        "title": "التحميلات"
+    }
 }

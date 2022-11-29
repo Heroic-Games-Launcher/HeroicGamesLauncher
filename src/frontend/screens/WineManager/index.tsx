@@ -49,8 +49,8 @@ export default React.memo(function WineManager(): JSX.Element | null {
         setWineManagerSettings(oldWineManagerSettings)
       }
     }
-
-    refreshWineVersionInfo(false)
+    const shouldFetch = Boolean(wineVersions.length > 0)
+    refreshWineVersionInfo(shouldFetch)
   }, [])
 
   const handleChangeTab = (e: React.SyntheticEvent, repo: Type) => {
@@ -62,33 +62,33 @@ export default React.memo(function WineManager(): JSX.Element | null {
       <h4 style={{ paddingTop: 'var(--space-md)' }}>
         {t('wine.manager.title', 'Wine Manager (Beta)')}
       </h4>
-      {wineVersions?.length ? (
-        <div className="wineManager">
-          <span className="tabsWrapper">
-            <Tabs
-              className="tabs"
-              value={repository}
-              onChange={handleChangeTab}
-              centered={true}
-            >
-              {wineManagerSettings.showWineGe && (
-                <Tab className="tab" value={winege} label={winege} />
-              )}
-              {wineManagerSettings.showProtonGe && (
-                <Tab value={protonge} label={protonge} />
-              )}
-            </Tabs>
-            <button
-              className={'FormControl__button'}
-              title={t('generic.library.refresh', 'Refresh Library')}
-              onClick={async () => refreshWineVersionInfo(true)}
-            >
-              <FontAwesomeIcon
-                className={'FormControl__segmentedFaIcon'}
-                icon={faSyncAlt}
-              />
-            </button>
-          </span>
+      <div className="wineManager">
+        <span className="tabsWrapper">
+          <Tabs
+            className="tabs"
+            value={repository}
+            onChange={handleChangeTab}
+            centered={true}
+          >
+            {wineManagerSettings.showWineGe && (
+              <Tab className="tab" value={winege} label={winege} />
+            )}
+            {wineManagerSettings.showProtonGe && (
+              <Tab value={protonge} label={protonge} />
+            )}
+          </Tabs>
+          <button
+            className={'FormControl__button'}
+            title={t('generic.library.refresh', 'Refresh Library')}
+            onClick={async () => refreshWineVersionInfo(true)}
+          >
+            <FontAwesomeIcon
+              className={'FormControl__segmentedFaIcon'}
+              icon={faSyncAlt}
+            />
+          </button>
+        </span>
+        {wineVersions.length ? (
           <div
             style={
               !wineVersions.length ? { backgroundColor: 'transparent' } : {}
@@ -111,15 +111,15 @@ export default React.memo(function WineManager(): JSX.Element | null {
                 return
               })}
           </div>
-        </div>
-      ) : (
-        <h3>
-          {t(
-            'wine.manager.error',
-            'Could not fetch Wine/Proton versions this time.'
-          )}
-        </h3>
-      )}
+        ) : (
+          <h5 className="wineList">
+            {t(
+              'wine.manager.error',
+              'Could not fetch Wine/Proton versions this time.'
+            )}
+          </h5>
+        )}
+      </div>
     </>
   )
 })

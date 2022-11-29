@@ -119,6 +119,9 @@
         "wineversion": "Вінная версія"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Гуляць зараз",
             "stop": "Прайграванне (Стоп)"
@@ -163,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Націсніце, каб абнавіць",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Даступная новая версія!",
         "installed": "Усталяваны",
         "installing": "Ўстаноўка",
         "moving": "Перанос усталёўкі, пачакайце",
         "notinstalled": "Гэтая гульня не ўстаноўлена",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Апрацоўка файлаў, пачакайце",
         "queued": "Queued",
         "reparing": "Ідзе рамонт гульні, пачакайце",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Усяго спампавана",
         "uninstalling": "Uninstalling",
         "updating": "Абнаўленне гульні"

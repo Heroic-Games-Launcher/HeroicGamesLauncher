@@ -123,6 +123,9 @@
         },
         "saves": {
             "syncing": "المحفوظات قيد المزامنة"
+        },
+        "game": {
+            "third-party-game": "لعبة الطرف الثالث غير مدعومة"
         }
     },
     "launch": {
@@ -144,7 +147,11 @@
         "totalDownloaded": "إجمالي التنزيلات",
         "processing": "معالجة الملفات, الرجاء الانتظار",
         "queued": "في قائمة الانتظار",
-        "uninstalling": "إلغاء التثبيت"
+        "uninstalling": "إلغاء التثبيت",
+        "gameNotAvailable": "اللعبة غير متوفرة",
+        "notSupported": "غير مدعوم",
+        "notSupportedGame": "غير مدعوم",
+        "this-game-uses-third-party": "تستخدم هذه اللعبة قاذفة طرف ثالث وهي غير مدعومة حتى الآن"
     },
     "gamecard": {
         "moving": "قيد النقل",
@@ -202,5 +209,12 @@
     },
     "setting": {
         "use-default-wine-settings": "استخدم إعدادات النبيذ الافتراضية"
-    }
+    },
+    "hours": "ساعات",
+    "how-long-to-beat": {
+        "completionist": "المكمل",
+        "main-plus-extras": "رئيسي + إضافات",
+        "main-story": "القصة الرئيسية"
+    },
+    "howLongToBeat": "كم من الوقت للفوز"
 }

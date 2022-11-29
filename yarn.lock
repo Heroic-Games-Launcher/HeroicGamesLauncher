@@ -7171,10 +7171,10 @@ symlink-or-copy@^1.1.8, symlink-or-copy@^1.2.0, symlink-or-copy@^1.3.1:
   resolved "https://registry.yarnpkg.com/symlink-or-copy/-/symlink-or-copy-1.3.1.tgz#9506dd64d8e98fa21dcbf4018d1eab23e77f71fe"
   integrity sha512-0K91MEXFpBUaywiwSSkmKjnGcasG/rVBXFLJz5DrgGabpYD6N+3yZrfD6uUIfpuTu65DZLHi7N8CizHc07BPZA==
 
-systeminformation@^5.12.3:
-  version "5.12.6"
-  resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-5.12.6.tgz#b75d7aaf9f5da32439fc633d2be9eb741691d200"
-  integrity sha512-FkCvT5BOuH1OE3+8lFM25oXIYJ0CM8kq4Wgvz2jyBTrsOIgha/6gdJXgbF4rv+g0j/5wJqQLDKan7kc/p7uIvw==
+systeminformation@^5.15.0:
+  version "5.15.0"
+  resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-5.15.0.tgz#c76bff9165a47b8c9aa9fcd256aa3b99533090fe"
+  integrity sha512-E/Tzrtjch9KSnA1kY6urRm/yAB7rwdXnYOIDDssCU8O90qqyD8k0zbNlk1dRJ4BoTv89VDnoiaUteuV+xxa3pQ==
 
 tar@^6.1.11:
   version "6.1.11"

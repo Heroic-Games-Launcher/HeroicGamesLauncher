@@ -119,6 +119,9 @@
         "wineversion": "Wine verzió"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Indítás most",
             "stop": "Játékban (leállítás)"
@@ -163,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Kattints a frissítéshez",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Új verzió elérhető!",
         "installed": "Telepítve",
         "installing": "Telepítés",
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Fájlok feldolgozása, kérlek várj",
         "queued": "Queued",
         "reparing": "Játék javítása, kérlek várj",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Teljesen letöltve",
         "uninstalling": "Uninstalling",
         "updating": "Játék frissítése"

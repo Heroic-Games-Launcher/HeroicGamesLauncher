@@ -161,21 +161,22 @@ export default React.memo(function Library(): JSX.Element {
       return library
     }
 
-    const isMac = ['osx', 'Mac']
+    const macArray = ['osx', 'Mac']
+    const isMac = platform === 'darwin'
 
     switch (filter) {
       case 'win':
         return library.filter((game) => {
           return game?.is_installed
             ? game?.install?.platform?.toLowerCase() === 'windows'
-            : process?.platform === 'darwin'
+            : isMac
             ? !game?.is_mac_native
             : !game?.is_linux_native
         })
       case 'mac':
         return library.filter((game) => {
           return game?.is_installed
-            ? isMac.includes(game?.install?.platform ?? '')
+            ? macArray.includes(game?.install?.platform ?? '')
             : game?.is_mac_native
         })
       case 'linux':
@@ -291,6 +292,7 @@ export default React.memo(function Library(): JSX.Element {
     sortDescending,
     sortInstalled,
     showHidden,
+    hiddenGames,
     showFavouritesLibrary
   ])
 
@@ -337,10 +339,7 @@ export default React.memo(function Library(): JSX.Element {
           handleAddGameButtonClick={() => handleModal('', 'sideload', null)}
         />
 
-        {!!libraryToShow.length ||
-          (refreshing && !refreshingInTheBackground && (
-            <UpdateComponent inline />
-          ))}
+        {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
 
         {(!refreshing || refreshingInTheBackground) && (
           <GamesList

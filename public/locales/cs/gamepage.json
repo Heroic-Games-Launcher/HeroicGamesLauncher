@@ -94,13 +94,13 @@
     "generic": {
         "error": "Neznámá chyba"
     },
-    "hours": "Hours",
+    "hours": "Hodiny",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Kompletionista",
+        "main-plus-extras": "Hlavní + extra",
+        "main-story": "Hlavní příběh"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Počet času na dokončení",
     "info": {
         "canRunOffline": "Vyžaduje se být online",
         "installedPlatform": "Nainstalovaná platforma",
@@ -119,6 +119,9 @@
         "wineversion": "Verze Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Hra třetí strany NENÍ podporována"
+        },
         "playing": {
             "start": "Hrát",
             "stop": "Hraji (Zastavit)"
@@ -163,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Click to Update",
+        "gameNotAvailable": "Hra není k dispozici",
         "hasUpdates": "Nová verze dostupná!",
         "installed": "Nainstalováno",
         "installing": "Instaluji",
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
+        "notSupported": "Není podporována",
+        "notSupportedGame": "Není podporována",
         "processing": "Zpracovávám soubory, čekejte prosím",
         "queued": "Ve frontě",
         "reparing": "Opravuji hru, čekejte prosím",
+        "this-game-uses-third-party": "Tato hra používá launcher třetí strany a zatím není podporována",
         "totalDownloaded": "Celkově staženo",
         "uninstalling": "Odinstalace",
         "updating": "Aktualizuji hru"
