@@ -288,7 +288,6 @@ export const getSystemInfo = async () => {
   // get OS information
   const { distro, kernel, arch, platform, release, codename } =
     await si.osInfo()
-  console.log({ release, codename })
 
   // get GPU information
   const { controllers } = await si.graphics()
