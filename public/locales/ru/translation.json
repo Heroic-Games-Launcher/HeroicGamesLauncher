@@ -264,7 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "click-to-see-changelog": "Click to see changelog",
+            "click-to-see-changelog": "Нажмите, чтобы посмотреть список изменений",
             "newReleases": "Доступно обновление!",
             "stable": "Стабильный",
             "version": "Версия Heroic"
@@ -475,7 +475,7 @@
         "FsrSharpnessStrenght": "Усиление резкости FSR",
         "fsync": "Включить Fsync",
         "gamemode": "Использовать GameMode (Нужен Feral GameMode)",
-        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "hideChangelogsOnStartup": "Не показывать список изменений при запуске",
         "language": "Выберите язык приложения",
         "library_top_option": {
             "disabled": "Отключить",
