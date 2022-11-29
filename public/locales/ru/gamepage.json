@@ -120,7 +120,7 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Сторонняя игра НЕ поддерживается"
         },
         "playing": {
             "start": "Начать игру",
@@ -166,18 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Нажмите, чтобы обновить",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Игра недоступна",
         "hasUpdates": "Доступна новая версия!",
         "installed": "Установлено",
         "installing": "Установка",
         "moving": "Перемещение установленных файлов. Пожалуйста, подождите",
         "notinstalled": "Игра не установлена",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Не поддерживается",
+        "notSupportedGame": "Не поддерживается",
         "processing": "Обработка файлов, подождите",
         "queued": "Очередь",
         "reparing": "Восстановление игры. Пожалуйста, подождите",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Эта игра использует сторонний лаунчер и пока не поддерживается",
         "totalDownloaded": "Всего загружено",
         "uninstalling": "Удаление",
         "updating": "Обновление игры"

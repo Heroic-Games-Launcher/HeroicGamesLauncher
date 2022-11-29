@@ -120,7 +120,7 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Hra třetí strany NENÍ podporována"
         },
         "playing": {
             "start": "Hrát",
@@ -166,18 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Click to Update",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Hra není k dispozici",
         "hasUpdates": "Nová verze dostupná!",
         "installed": "Nainstalováno",
         "installing": "Instaluji",
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Není podporována",
+        "notSupportedGame": "Není podporována",
         "processing": "Zpracovávám soubory, čekejte prosím",
         "queued": "Ve frontě",
         "reparing": "Opravuji hru, čekejte prosím",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Tato hra používá launcher třetí strany a zatím není podporována",
         "totalDownloaded": "Celkově staženo",
         "uninstalling": "Odinstalace",
         "updating": "Aktualizuji hru"

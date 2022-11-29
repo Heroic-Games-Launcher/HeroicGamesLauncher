@@ -118,6 +118,9 @@
         },
         "saves": {
             "syncing": "Synkroniserer Saves"
+        },
+        "game": {
+            "third-party-game": "Tredjepartsspil understøttes IKKE"
         }
     },
     "launch": {
@@ -142,7 +145,11 @@
         "updating": "Opdaterer Spil",
         "processing": "Behandler filerne, vent venligst",
         "queued": "I kø",
-        "uninstalling": "Afinstallerer"
+        "uninstalling": "Afinstallerer",
+        "gameNotAvailable": "Spil ikke tilgængeligt",
+        "notSupported": "Ikke understøttet",
+        "notSupportedGame": "Ikke understøttet",
+        "this-game-uses-third-party": "Dette spil bruger tredjeparts launcher, og det er ikke understøttet endnu"
     },
     "submenu": {
         "addShortcut": "Opret genvej",
