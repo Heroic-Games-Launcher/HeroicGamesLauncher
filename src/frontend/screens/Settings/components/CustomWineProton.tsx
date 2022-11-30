@@ -12,7 +12,7 @@ export default function CustomWineProton() {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
-  const isLinux = platform === 'linux'
+  const isWin = platform === 'win32'
 
   const [customWinePaths, setCustomWinePaths] = useSetting(
     'customWinePaths',
@@ -45,7 +45,7 @@ export default function CustomWineProton() {
     return setSelectedPath(customWinePaths.length ? customWinePaths[0] : '')
   }
 
-  if (!isDefault || !isLinux) {
+  if (!isDefault || isWin) {
     return <></>
   }
 
