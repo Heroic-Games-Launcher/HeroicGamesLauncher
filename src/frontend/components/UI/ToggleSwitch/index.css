@@ -53,3 +53,20 @@
   font-weight: var(--bold);
   color: var(--accent);
 }
+
+/* fade in and out animation */
+.toggleSwitchWrapper.fading {
+  animation: fading infinite 1.5s;
+}
+
+@keyframes fading {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}

@@ -28,13 +28,16 @@ const AutoDXVK = () => {
   const handleAutoInstallDxvk = async () => {
     const action = autoInstallDxvk ? 'restore' : 'backup'
     setInstallingDxvk(true)
-    await window.api.toggleDXVK({
+    const res = await window.api.toggleDXVK({
       winePrefix,
       winePath: wineVersion.bin,
       action
     })
+
     setInstallingDxvk(false)
-    return setAutoInstallDxak(!autoInstallDxvk)
+    if (res) {
+      setAutoInstallDxak(!autoInstallDxvk)
+    }
   }
 
   return (
@@ -43,7 +46,12 @@ const AutoDXVK = () => {
         htmlId="autodxvk"
         value={autoInstallDxvk}
         handleChange={handleAutoInstallDxvk}
-        title={t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
+        title={
+          installingDxvk
+            ? t('please-wait', 'Please wait...')
+            : t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')
+        }
+        fading={installingDxvk}
         disabled={installingDxvk}
       />
 

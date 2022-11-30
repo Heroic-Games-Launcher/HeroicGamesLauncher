@@ -11,6 +11,7 @@ interface Props {
   disabled?: boolean
   extraClass?: string
   description?: string
+  fading?: boolean
 }
 
 export default function ToggleSwitch(props: Props) {
@@ -21,12 +22,13 @@ export default function ToggleSwitch(props: Props) {
     title,
     htmlId,
     extraClass,
-    description = ''
+    description = '',
+    fading
   } = props
   const { isRTL } = useContext(ContextProvider)
 
   return (
-    <>
+    <span className={classNames()}>
       <input
         id={htmlId}
         disabled={disabled}
@@ -38,13 +40,14 @@ export default function ToggleSwitch(props: Props) {
       />
       <label
         className={classNames(`toggleSwitchWrapper Field ${extraClass}`, {
-          isRTL
+          isRTL,
+          fading
         })}
         htmlFor={htmlId}
         title={description}
       >
         {title}
       </label>
-    </>
+    </span>
   )
 }
