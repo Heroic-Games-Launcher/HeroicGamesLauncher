@@ -90,7 +90,6 @@ export default function GamesSettings() {
                 <BattlEyeRuntime />
               </>
             )}
-            ß
           </section>
         </>
       )}

@@ -16,6 +16,7 @@ const AutoDXVK = () => {
   const home = configStore.get('userHome', '')
   const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [installingDxvk, setInstallingDxvk] = React.useState(false)
 
   const dontRender =
     wineVersion.type === 'proton' || wineVersion.type === 'crossover'
@@ -24,9 +25,15 @@ const AutoDXVK = () => {
     return <></>
   }
 
-  const handleAutoInstallDxvk = () => {
+  const handleAutoInstallDxvk = async () => {
     const action = autoInstallDxvk ? 'restore' : 'backup'
-    window.api.toggleDXVK({ winePrefix, winePath: wineVersion.bin, action })
+    setInstallingDxvk(true)
+    await window.api.toggleDXVK({
+      winePrefix,
+      winePath: wineVersion.bin,
+      action
+    })
+    setInstallingDxvk(false)
     return setAutoInstallDxak(!autoInstallDxvk)
   }
 
@@ -37,6 +44,7 @@ const AutoDXVK = () => {
         value={autoInstallDxvk}
         handleChange={handleAutoInstallDxvk}
         title={t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
+        disabled={installingDxvk}
       />
 
       <FontAwesomeIcon
