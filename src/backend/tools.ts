@@ -3,12 +3,13 @@ import axios from 'axios'
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
-import { execAsync, getWineFromProton } from './utils'
+import { execAsync, getWineFromProton, quoteIfNecessary } from './utils'
 import {
   execOptions,
   heroicToolsPath,
   isLinux,
   isMac,
+  isWindows,
   userHome
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -20,7 +21,7 @@ import { validWine } from './launcher'
 
 export const DXVK = {
   getLatest: async () => {
-    if (!isLinux) {
+    if (isWindows) {
       return
     }
     if (!isOnline()) {
@@ -76,10 +77,10 @@ export const DXVK = {
         return
       }
 
-      const downloadCommand = `curl -L ${downloadUrl} -o ${latestVersion} --create-dirs`
-      const extractCommand = `${tool.extractCommand} ${latestVersion} -C ${heroicToolsPath}/${tool.name}`
-      const echoCommand = `echo ${pkg} > ${heroicToolsPath}/${tool.name}/latest_${tool.name}`
-      const cleanCommand = `rm ${latestVersion}`
+      const downloadCommand = `curl -L ${downloadUrl} -o '${latestVersion}' --create-dirs`
+      const extractCommand = `${tool.extractCommand} '${latestVersion}' -C '${heroicToolsPath}/${tool.name}'`
+      const echoCommand = `echo ${pkg} > '${heroicToolsPath}/${tool.name}/latest_${tool.name}'`
+      const cleanCommand = `rm '${latestVersion}'`
 
       logInfo([`Updating ${tool.name} to:`, pkg], {
         prefix: LogPrefix.DXVKInstaller
@@ -129,15 +130,16 @@ export const DXVK = {
     winePath: string,
     tool: 'dxvk' | 'vkd3d' | 'dxvk-macOS',
     action: 'backup' | 'restore'
-  ) => {
+  ): Promise<boolean> => {
     const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
+    const scriptName = isMac && tool === 'dxvk' ? 'setup_dxvk.sh' : 'setup*.sh'
 
     if (!isValidPrefix) {
       logWarning('DXVK cannot be installed on a Proton or a invalid prefix!', {
         prefix: LogPrefix.DXVKInstaller
       })
-      return
+      return false
     }
 
     tool = isMac ? 'dxvk-macOS' : tool
@@ -165,41 +167,49 @@ export const DXVK = {
         .split('\n')[0]
     }
 
-    const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh install --symlink`
+    const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${quoteIfNecessary(
+      `${toolPath}/${scriptName}`
+    )} install --symlink`
 
     if (action === 'restore') {
       logInfo(`Removing ${tool} version information`, {
         prefix: LogPrefix.DXVKInstaller
       })
       const updatedVersionfile = `rm -rf ${currentVersionCheck}`
-      const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh uninstall --symlink`
+      const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${quoteIfNecessary(
+        `${toolPath}/${scriptName}`
+      )} uninstall --symlink`
       return execAsync(removeCommand, execOptions)
         .then(() => {
           logInfo(`${tool} removed from ${winePrefix}`, {
             prefix: LogPrefix.DXVKInstaller
           })
-          return exec(updatedVersionfile)
+          exec(updatedVersionfile)
+          return true
         })
         .catch((error) => {
           logError(['error when removing DXVK, please try again', error], {
             prefix: LogPrefix.DXVKInstaller
           })
+          return false
         })
     }
 
     if (currentVersion === globalVersion) {
-      return
+      return true
     }
 
     logInfo([`installing ${tool} on...`, prefix], {
       prefix: LogPrefix.DXVKInstaller
     })
+
     await execAsync(installCommand, { shell: '/bin/bash' })
       .then(() => {
         logInfo(`${tool} installed on ${winePrefix}`, {
           prefix: LogPrefix.DXVKInstaller
         })
-        return writeFileSync(currentVersionCheck, globalVersion)
+        writeFileSync(currentVersionCheck, globalVersion)
+        return true
       })
       .catch((error) => {
         logError(
@@ -209,7 +219,9 @@ export const DXVK = {
           ],
           { prefix: LogPrefix.DXVKInstaller }
         )
+        return false
       })
+    return true
   }
 }
 
