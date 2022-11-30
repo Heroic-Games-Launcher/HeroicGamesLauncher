@@ -223,4 +223,4 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   )
 }
 
-export default React.memo(DownloadManagerItem)
+export default DownloadManagerItem
