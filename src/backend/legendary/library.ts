@@ -237,14 +237,9 @@ export class LegendaryLibrary {
         prefix: LogPrefix.Legendary
       })
     }
-
-    try {
-      const info: LegendaryInstallInfo = JSON.parse(res.stdout)
-      installStore.set(appName, info)
-      return info
-    } catch (error) {
-      throw Error(`Failed to parse install info for ${appName} with: ${error}`)
-    }
+    const info: LegendaryInstallInfo = JSON.parse(res.stdout)
+    installStore.set(appName, info)
+    return info
   }
 
   /**
