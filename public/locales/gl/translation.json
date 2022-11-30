@@ -413,6 +413,7 @@
         "mac": "macOS",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {

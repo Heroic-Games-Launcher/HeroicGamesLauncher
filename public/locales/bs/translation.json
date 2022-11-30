@@ -413,6 +413,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Napredak",
     "queue": {
         "label": {
