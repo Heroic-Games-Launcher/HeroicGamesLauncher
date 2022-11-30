@@ -102,13 +102,11 @@ export async function removeAppShortcuts(appName: string): Promise<void> {
 }
 
 export function isAppAvailable(appName: string): boolean {
-  const {
-    install: { executable }
-  } = getAppInfo(appName)
-  if (!executable) {
-    return false
+  const { install } = getAppInfo(appName)
+  if (install && install.executable) {
+    return existsSync(install.executable)
   }
-  return existsSync(executable)
+  return false
 }
 
 export async function launchApp(appName: string): Promise<boolean> {

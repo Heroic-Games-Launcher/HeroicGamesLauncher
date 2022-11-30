@@ -89,11 +89,13 @@ const GameCard = ({
     runner,
     is_installed: isInstalled,
     cloud_save_enabled: hasCloudSave,
-    install: { install_size: size, platform: installedPlatform },
+    install: gameInstallInfo,
     thirdPartyManagedApp
   } = gameInfo
 
   const [progress, previousProgress] = hasProgress(appName)
+  const { install_size: size = '0', platform: installedPlatform } =
+    gameInstallInfo || {}
 
   const { status, folder } =
     libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
