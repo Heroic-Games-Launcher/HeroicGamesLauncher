@@ -4,7 +4,13 @@ import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
 import { execAsync, getWineFromProton } from './utils'
-import { execOptions, heroicToolsPath, isLinux, userHome } from './constants'
+import {
+  execOptions,
+  heroicToolsPath,
+  isLinux,
+  isMac,
+  userHome
+} from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
 import { dirname } from 'path'
@@ -34,10 +40,21 @@ export const DXVK = {
         name: 'dxvk',
         url: 'https://api.github.com/repos/doitsujin/dxvk/releases/latest',
         extractCommand: 'tar -xf'
+      },
+      {
+        name: 'dxvk-macOS',
+        url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
+        extractCommand: 'tar -xf'
       }
     ]
 
     tools.forEach(async (tool) => {
+      if (isMac) {
+        if (tool.name !== 'dxvk-macOS') {
+          return
+        }
+      }
+
       const {
         data: { assets }
       } = await axios.get(tool.url)
@@ -110,7 +127,7 @@ export const DXVK = {
   installRemove: async (
     prefix: string,
     winePath: string,
-    tool: 'dxvk' | 'vkd3d',
+    tool: 'dxvk' | 'vkd3d' | 'dxvk-macOS',
     action: 'backup' | 'restore'
   ) => {
     const winePrefix = prefix.replace('~', userHome)
@@ -122,6 +139,8 @@ export const DXVK = {
       })
       return
     }
+
+    tool = isMac ? 'dxvk-macOS' : tool
 
     // remove the last part of the path since we need the folder only
     const wineBin = dirname(winePath.replace("'", ''))

@@ -17,9 +17,10 @@ const AutoDXVK = () => {
   const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
-  const isProton = wineVersion.type === 'proton'
+  const dontRender =
+    wineVersion.type === 'proton' || wineVersion.type === 'crossover'
 
-  if (isProton) {
+  if (dontRender) {
     return <></>
   }
 
