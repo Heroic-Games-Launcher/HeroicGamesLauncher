@@ -86,6 +86,7 @@ export function addNewApp({
     current.push(game)
   }
 
+  addAppShortcuts(app_name)
   return libraryStore.set('games', current)
 }
 

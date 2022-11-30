@@ -17,10 +17,6 @@ import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
  * @public
  */
 async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
-  if (process.platform === 'darwin') {
-    return
-  }
-
   const launchWithProtocol = `heroic://launch/${gameInfo.app_name}`
   const [desktopFile, menuFile] = shortcutFiles(gameInfo.title)
   if (!desktopFile || !menuFile) {
@@ -31,6 +27,11 @@ async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
 
   if (addSteamShortcuts) {
     addNonSteamGame({ gameInfo })
+  }
+
+  // Steam shortcuts works fine on macOS so lets skip only desktop and menu shortcuts
+  if (process.platform === 'darwin') {
+    return
   }
 
   switch (process.platform) {
