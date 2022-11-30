@@ -57,6 +57,8 @@ export default function WineSelector({
     }
   }, [useDefaultSettings])
 
+  const showPrefix = wineVersion?.type !== 'crossover'
+
   return (
     <>
       <ToggleSwitch
@@ -71,23 +73,25 @@ export default function WineSelector({
       />
       {!useDefaultSettings && (
         <>
-          <TextInputWithIconField
-            label={t('install.wineprefix', 'WinePrefix')}
-            htmlId="setinstallpath"
-            placeholder={winePrefix}
-            value={winePrefix.replaceAll("'", '')}
-            onChange={(event) => setWinePrefix(event.target.value)}
-            icon={<FontAwesomeIcon icon={faFolderOpen} />}
-            onIconClick={async () =>
-              window.api
-                .openDialog({
-                  buttonLabel: t('box.choose'),
-                  properties: ['openDirectory'],
-                  title: t('box.wineprefix', 'Select WinePrefix Folder')
-                })
-                .then((path) => setWinePrefix(path || winePrefix))
-            }
-          />
+          {showPrefix && (
+            <TextInputWithIconField
+              label={t('install.wineprefix', 'WinePrefix')}
+              htmlId="setinstallpath"
+              placeholder={winePrefix}
+              value={winePrefix.replaceAll("'", '')}
+              onChange={(event) => setWinePrefix(event.target.value)}
+              icon={<FontAwesomeIcon icon={faFolderOpen} />}
+              onIconClick={async () =>
+                window.api
+                  .openDialog({
+                    buttonLabel: t('box.choose'),
+                    properties: ['openDirectory'],
+                    title: t('box.wineprefix', 'Select WinePrefix Folder')
+                  })
+                  .then((path) => setWinePrefix(path || winePrefix))
+              }
+            />
+          )}
 
           <SelectField
             label={`${t('install.wineversion')}:`}

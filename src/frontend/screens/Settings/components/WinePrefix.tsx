@@ -17,13 +17,13 @@ const WinePrefix = () => {
 
   const isWin = platform === 'win32'
 
-  if (isWin || wineVersion.type === 'crossover') {
-    return <></>
-  }
-
   const home = configStore.get('userHome', '')
   const [winePrefix, setWinePrefix] = useSetting('winePrefix', `${home}/.wine`)
   const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
+
+  if (isWin || wineVersion.type === 'crossover') {
+    return <></>
+  }
 
   return (
     <TextInputWithIconField
