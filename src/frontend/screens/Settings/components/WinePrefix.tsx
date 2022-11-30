@@ -6,13 +6,18 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import { configStore } from 'frontend/helpers/electronStores'
 import { InfoBox, TextInputWithIconField } from 'frontend/components/UI'
+import SettingsContext from '../SettingsContext'
+import { defaultWineVersion } from '..'
 
 const WinePrefix = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const isLinux = platform === 'linux'
+  const { getSetting } = useContext(SettingsContext)
+  const wineVersion = getSetting('wineVersion', defaultWineVersion)
 
-  if (!isLinux) {
+  const isWin = platform === 'win32'
+
+  if (isWin || wineVersion.type === 'crossover') {
     return <></>
   }
 
