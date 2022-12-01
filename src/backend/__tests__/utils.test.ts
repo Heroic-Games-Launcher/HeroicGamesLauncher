@@ -4,7 +4,7 @@ jest.mock('../logger/logger', () => {
   const original = jest.requireActual('../logger/logger')
   return {
     ...original,
-    createNewLogFileAndClearOldOnces: jest.fn().mockReturnValue('')
+    createNewLogFileAndClearOldOnes: jest.fn().mockReturnValue('')
   }
 })
 

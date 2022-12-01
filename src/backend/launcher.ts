@@ -737,6 +737,13 @@ async function callRunner(
         rej('Process terminated with signal ' + signal)
       }
 
+      if (options?.runnerStdoutLog) {
+        const f = options.runnerStdoutLog
+        appendFileSync(f, `[${new Date().toLocaleString()}] ${safeCommand}\n`)
+        appendFileSync(f, stdout.join('\n') + '\n\n')
+        appendFileSync(f, stderr.join('\n') + '\n\n')
+      }
+
       res({
         stdout: stdout.join('\n'),
         stderr: stderr.join('\n')
