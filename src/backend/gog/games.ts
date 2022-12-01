@@ -33,7 +33,7 @@ import {
   isLinux
 } from '../constants'
 import { installedGamesStore, syncStore } from '../gog/electronStores'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { GOGUser } from './user'
 import {
   getRunnerCallWithoutCredentials,
@@ -112,11 +112,12 @@ class GOGGame extends Game {
       installPlatform
     )
     if (!info) {
-      logError(
+      logWarning(
         [
           'Could not get install info for',
           `${this.appName},`,
-          'returning empty object. Something is probably gonna go wrong soon'
+          `using ${installPlatform} as platform,`,
+          'trying again with as Windows.'
         ],
         { prefix: LogPrefix.Gog }
       )

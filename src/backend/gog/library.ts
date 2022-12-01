@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
+import parseJson from 'parse-json'
 import { GOGUser } from './user'
 import {
   GOGGameInfo,
@@ -361,7 +362,7 @@ export class GOGLibrary {
 
     deleteAbortController(appName)
 
-    if (res.abort) {
+    if (!res.stdout || res.abort) {
       return
     }
 
@@ -375,15 +376,7 @@ export class GOGLibrary {
       errorMessage(res.error)
     }
 
-    let gogInfo
-    try {
-      gogInfo = JSON.parse(res.stdout)
-    } catch (error) {
-      logError(['Error when parsing JSON file on getInstallInfo', error], {
-        prefix: LogPrefix.Gog
-      })
-      return
-    }
+    const gogInfo = parseJson(res.stdout)
 
     // some games don't support `en-US`
     if (!gogInfo.languages.includes(lang)) {
