@@ -115,7 +115,7 @@ class GOGGame extends Game {
       logWarning(
         [
           'Could not get install info for',
-          `${this.appName},`,
+          `${this.appName}`,
           `using ${installPlatform} as platform,`,
           'trying again with as Windows.'
         ],

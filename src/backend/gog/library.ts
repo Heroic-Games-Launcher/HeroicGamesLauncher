@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import parseJson from 'parse-json'
 import { GOGUser } from './user'
 import {
   GOGGameInfo,
@@ -376,7 +375,7 @@ export class GOGLibrary {
       errorMessage(res.error)
     }
 
-    const gogInfo = parseJson(res.stdout)
+    const gogInfo = JSON.parse(res.stdout)
 
     // some games don't support `en-US`
     if (!gogInfo.languages.includes(lang)) {

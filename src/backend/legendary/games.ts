@@ -1,4 +1,3 @@
-import parseJson from 'parse-json'
 import {
   createAbortController,
   deleteAbortController
@@ -746,7 +745,7 @@ class LegendaryGame extends Game {
       "Legendary's config from config.ini (before Heroic's settings):\n"
     )
 
-    const json = parseJson(stdout)
+    const json = JSON.parse(stdout)
     // remove egl auth info
     delete json['egl_parameters']
 
