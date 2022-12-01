@@ -316,7 +316,8 @@ export class GOGLibrary {
    */
   public async getInstallInfo(
     appName: string,
-    installPlatform = 'windows'
+    installPlatform = 'windows',
+    lang = 'en-US'
   ): Promise<GogInstallInfo | undefined> {
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
@@ -345,7 +346,7 @@ export class GOGLibrary {
       appName,
       '--token',
       `"${credentials.access_token}"`,
-      '--lang=en-US',
+      `--lang=${lang}`,
       '--os',
       installPlatform
     ]
@@ -383,6 +384,23 @@ export class GOGLibrary {
       })
       return
     }
+
+    // some games don't support `en-US`
+    if (!gogInfo.languages.includes(lang)) {
+      // if the game supports `en-us`, use it, else use the first valid language
+      const newLang = gogInfo.languages.includes('en-us')
+        ? 'en-us'
+        : gogInfo.languages[0]
+
+      // call itself with the new language and return
+      const infoWithLang = await this.getInstallInfo(
+        appName,
+        installPlatform,
+        newLang
+      )
+      return infoWithLang
+    }
+
     let libraryArray = libraryStore.get('games', []) as GameInfo[]
     let gameObjectIndex = libraryArray.findIndex(
       (value) => value.app_name === appName
