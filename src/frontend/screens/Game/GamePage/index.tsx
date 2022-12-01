@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
 
-import { GameInfo, GameStatus, Runner } from 'common/types'
+import { GameInfo, GameStatus, Runner, WineInstallation } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
 
@@ -82,7 +82,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     message: string | unknown
   }>({ error: false, message: '' })
   const [winePrefix, setWinePrefix] = useState('')
-  const [wineVersion, setWineVersion] = useState('')
+  const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [showRequirements, setShowRequirements] = useState(false)
   const [gameAvailable, setGameAvailable] = useState(false)
 
@@ -161,7 +161,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
             savesPath,
             gogSaves,
             wineVersion,
-            winePrefix
+            winePrefix,
+            wineCrossoverBottle
           } = await window.api.requestGameSettings(appName)
 
           if (!isWin) {
@@ -171,8 +172,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
             if (wine.includes('Default')) {
               wine = wine.split('-')[0]
             }
-            setWineVersion(wine)
-            setWinePrefix(winePrefix)
+            setWineVersion({ ...wineVersion, name: wine })
+            setWinePrefix(
+              wineVersion.type === 'crossover'
+                ? wineCrossoverBottle
+                : winePrefix
+            )
           }
 
           if (gameInfo.cloud_save_enabled) {
@@ -383,17 +388,25 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     >
                       <b>{t('info.path')}:</b> {appLocation}
                     </div>
-                    {isLinux && !isNative && (
+                    {!isWin && !isNative && (
                       <>
-                        <div>
-                          <b>Wine:</b> {wineVersion}
-                        </div>
-                        <div
-                          className="clickable"
-                          onClick={() => window.api.openFolder(winePrefix)}
-                        >
-                          <b>Prefix:</b> {winePrefix}
-                        </div>
+                        <b>Wine:</b> {wineVersion?.name}
+                        {wineVersion && wineVersion?.type === 'crossover' ? (
+                          <div>
+                            <b>
+                              {t2('setting.winecrossoverbottle', 'Bottle')}:
+                            </b>{' '}
+                            {winePrefix}
+                          </div>
+                        ) : (
+                          <div
+                            className="clickable"
+                            onClick={() => window.api.openFolder(winePrefix)}
+                          >
+                            <b>{t2('setting.wineprefix', 'WinePrefix')}:</b>{' '}
+                            {winePrefix}
+                          </div>
+                        )}
                       </>
                     )}
                     <br />
