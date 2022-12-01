@@ -101,17 +101,20 @@ export default function GamesSettings() {
 
         {!nativeGame && <ShowFPS />}
 
-        {isLinux && !nativeGame && (
+        {!isWin && !nativeGame && (
           <>
             <PreferSystemLibs />
+            {isLinux && (
+              <>
+                <EnableFSR />
 
-            <EnableFSR />
+                <EnableEsync />
 
-            <EnableEsync />
+                <EnableFsync />
 
-            <EnableFsync />
-
-            <GameMode />
+                <GameMode />
+              </>
+            )}
           </>
         )}
 
