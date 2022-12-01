@@ -167,7 +167,7 @@ export const DXVK = {
         .split('\n')[0]
     }
 
-    const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${quoteIfNecessary(
+    const installCommand = `PATH='${wineBin}':$PATH WINEPREFIX='${winePrefix}' bash ${quoteIfNecessary(
       `${toolPath}/${scriptName}`
     )} install --symlink`
 
@@ -176,7 +176,7 @@ export const DXVK = {
         prefix: LogPrefix.DXVKInstaller
       })
       const updatedVersionfile = `rm -rf ${currentVersionCheck}`
-      const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${quoteIfNecessary(
+      const removeCommand = `PATH='${wineBin}':$PATH WINEPREFIX='${winePrefix}' bash ${quoteIfNecessary(
         `${toolPath}/${scriptName}`
       )} uninstall --symlink`
       return execAsync(removeCommand, execOptions)
