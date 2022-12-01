@@ -1,4 +1,3 @@
-import { install } from 'frontend/helpers/library'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { GOGUser } from './user'
 import {
