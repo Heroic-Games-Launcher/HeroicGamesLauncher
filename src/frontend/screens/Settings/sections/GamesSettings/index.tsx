@@ -43,10 +43,8 @@ export default function GamesSettings() {
 
   const nativeGame =
     isWin ||
-    isMacNative ||
-    isLinuxNative ||
-    gameInfo?.install.platform === 'linux' ||
-    gameInfo?.install.platform === 'Mac'
+    (isMacNative && gameInfo?.install.platform === 'Mac') ||
+    (isLinuxNative && gameInfo?.install.platform === 'linux')
 
   return (
     <>
