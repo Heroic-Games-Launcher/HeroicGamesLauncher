@@ -23,7 +23,7 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog } = useContext(ContextProvider)
+  const { epic, gog, connectivity } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -133,8 +133,18 @@ export default function WebView() {
 
       webview.addEventListener('dom-ready', loadstop)
 
+      // if the page title changed it's because the store loaded so there's
+      // connectivity, we can update the status without waiting for the checks
+      const updateConnectivity = () => {
+        if (connectivity.status !== 'online') {
+          window.api.setConnectivityOnline()
+        }
+      }
+      webview.addEventListener('page-title-updated', updateConnectivity)
+
       return () => {
         webview.removeEventListener('dom-ready', loadstop)
+        webview.removeEventListener('page-title-updated', updateConnectivity)
       }
     }
     return

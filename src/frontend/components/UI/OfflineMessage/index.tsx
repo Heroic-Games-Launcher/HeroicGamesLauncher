@@ -2,7 +2,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import './index.css'
+import './index.scss'
 
 const OfflineMessage = () => {
   const { t } = useTranslation()
@@ -32,9 +32,18 @@ const OfflineMessage = () => {
     newline: '<br />'
   })
 
+  const onIgnore = () => {
+    window.api.setConnectivityOnline()
+  }
+
   return (
     <div className="offline-message">
-      <span>{content}</span>
+      <span>
+        {content}
+        <button className="ignore" onClick={onIgnore}>
+          ({t('offline-message.ignore', 'Ignore')})
+        </button>
+      </span>
       <button className="hint-hover">?</button>
       <span
         className="retry-hint"
