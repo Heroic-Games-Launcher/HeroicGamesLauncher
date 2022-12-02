@@ -68,7 +68,7 @@ const retry = (seconds: number) => {
 
 const ping = async (url: string, signal: AbortSignal) => {
   return axios.head(url, {
-    timeout: 2000,
+    timeout: 10000,
     signal,
     headers: { 'Cache-Control': 'no-cache' }
   })
@@ -98,7 +98,7 @@ const pingSites = () => {
 
 export const initOnlineMonitor = () => {
   // listen to events from the frontend
-  ipcMain.addListener(
+  ipcMain.on(
     'connectivity-changed',
     (event, newStatus: ConnectivityStatus): void => {
       setStatus(newStatus)
@@ -119,6 +119,10 @@ export const initOnlineMonitor = () => {
       return { status, retryIn }
     }
   )
+
+  ipcMain.on('set-connectivity-online', () => {
+    setStatus('online')
+  })
 }
 
 export const makeNetworkRequest = (callback: () => unknown) => {

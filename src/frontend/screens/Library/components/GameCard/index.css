@@ -329,7 +329,8 @@
   font-size: 40px;
 }
 
-.iconDisabled circle {
+.iconDisabled circle,
+.svg-button[disabled] circle {
   fill: var(--icon-disabled);
 }
 

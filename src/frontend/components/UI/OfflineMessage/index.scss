@@ -1,0 +1,41 @@
+.offline-message {
+  background: var(--accent-overlay);
+  padding: 0.5rem;
+  color: var(--text-tertiary);
+  display: grid;
+  position: relative;
+
+  span,
+  button {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  button {
+    background: var(--accent-overlay);
+    border: transparent;
+    &.hint-hover {
+      justify-self: flex-end;
+      align-self: flex-end;
+    }
+    &.ignore {
+      text-decoration: underline;
+    }
+  }
+
+  .retry-hint {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0px;
+    width: 400px;
+    z-index: 100;
+    background: var(--accent-overlay);
+    padding: 1rem;
+    border: transparent;
+  }
+
+  .hint-hover:hover + .retry-hint {
+    display: block;
+  }
+}

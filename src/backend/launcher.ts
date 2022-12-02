@@ -674,6 +674,13 @@ async function callRunner(
     })
   }
 
+  if (options?.verboseLogFile) {
+    appendFileSync(
+      options.verboseLogFile,
+      `[${new Date().toLocaleString()}] ${safeCommand}\n`
+    )
+  }
+
   if (options?.logFile && existsSync(options.logFile)) {
     writeFileSync(options.logFile, '')
   }
@@ -705,6 +712,10 @@ async function callRunner(
         appendFileSync(options.logFile, data)
       }
 
+      if (options?.verboseLogFile) {
+        appendFileSync(options.verboseLogFile, data)
+      }
+
       if (options?.onOutput) {
         options.onOutput(data, child)
       }
@@ -716,6 +727,10 @@ async function callRunner(
     child.stderr.on('data', (data: string) => {
       if (options?.logFile) {
         appendFileSync(options.logFile, data)
+      }
+
+      if (options?.verboseLogFile) {
+        appendFileSync(options.verboseLogFile, data)
       }
 
       if (options?.onOutput) {

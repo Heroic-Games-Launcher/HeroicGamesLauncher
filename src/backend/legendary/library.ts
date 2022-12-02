@@ -27,6 +27,7 @@ import {
 import {
   fallBackImage,
   legendaryConfigPath,
+  legendaryLogFile,
   legendaryMetadata
 } from '../constants'
 import {
@@ -605,6 +606,9 @@ export async function runLegendaryCommand(
     commandParts,
     { name: 'legendary', logPrefix: LogPrefix.Legendary, bin, dir },
     abortController,
-    options
+    {
+      ...options,
+      verboseLogFile: legendaryLogFile
+    }
   )
 }

@@ -359,6 +359,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
