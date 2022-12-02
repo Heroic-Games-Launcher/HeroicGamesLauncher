@@ -102,8 +102,8 @@ export default function GamesSettings() {
 
         {!nativeGame && <ShowFPS />}
 
-        <EnableDXVKFpsLimit />
-        
+        {!nativeGame && <EnableDXVKFpsLimit />}
+
         {isLinux && !nativeGame && (
           <>
             <PreferSystemLibs />
