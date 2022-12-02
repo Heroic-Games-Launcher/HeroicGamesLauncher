@@ -19,33 +19,47 @@ import { logError, LogPrefix } from './logger'
 interface createLogFileReturn {
   currentLogFile: string
   lastLogFile: string
+  legendaryLogFile: string
+  gogdlLogFile: string
 }
 
 let longestPrefix = 0
 export const getLongestPrefix = (): number => longestPrefix
+
+const createLogFile = (filePath: string) => {
+  try {
+    openSync(filePath, 'w')
+  } catch (error) {
+    logError([`Open ${filePath} failed with`, error], {
+      prefix: LogPrefix.Backend,
+      skipLogToFile: true
+    })
+  }
+}
 
 /**
  * Creates a new log file in heroic config path under folder Logs.
  * It also removes old logs every new month.
  * @returns path to current log file
  */
-export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
+export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
   const date = new Date()
   const logDir = app.getPath('logs')
   const fmtDate = date.toISOString().replaceAll(':', '_')
   const newLogFile = join(logDir, `heroic-${fmtDate}.log`)
-  try {
-    openSync(newLogFile, 'w')
-  } catch (error) {
-    logError([`Open ${newLogFile} failed with`, error], {
-      prefix: LogPrefix.Backend,
-      skipLogToFile: true
-    })
-  }
+  const newLegendaryLogFile = join(logDir, `legendary-${fmtDate}.log`)
+  const newGogdlLogFile = join(logDir, `gogdl-${fmtDate}.log`)
+
+  createLogFile(newLogFile)
+  createLogFile(newLegendaryLogFile)
+  createLogFile(newGogdlLogFile)
 
   // Clean out logs that are more than a month old
   if (existsSync(logDir)) {
     try {
+      const oneMonthAgo = new Date()
+      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
+
       const logs = readdirSync(logDir, {
         withFileTypes: true
       })
@@ -53,16 +67,13 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
         .map((dirent) => dirent.name)
 
       logs.forEach((log) => {
-        if (log.includes('heroic-')) {
+        if (log.match(/(heroic|legendary|gogdl)-/)) {
           const dateString = log
-            .replace('heroic-', '')
+            .replace(/(heroic|legendary|gogdl)-/, '')
             .replace('.log', '')
             .replaceAll('_', ':')
           const logDate = new Date(dateString)
-          if (
-            logDate.getFullYear() < date.getFullYear() ||
-            logDate.getMonth() < date.getMonth()
-          ) {
+          if (logDate <= oneMonthAgo) {
             unlinkSync(`${logDir}/${log}`)
           }
         }
@@ -77,7 +88,9 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
 
   let logs: createLogFileReturn = {
     currentLogFile: '',
-    lastLogFile: ''
+    lastLogFile: '',
+    legendaryLogFile: '',
+    gogdlLogFile: ''
   }
   if (configStore.has('general-logs')) {
     logs = configStore.get('general-logs') as createLogFileReturn
@@ -85,6 +98,8 @@ export function createNewLogFileAndClearOldOnces(): createLogFileReturn {
 
   logs.lastLogFile = logs.currentLogFile
   logs.currentLogFile = newLogFile
+  logs.legendaryLogFile = newLegendaryLogFile
+  logs.gogdlLogFile = newGogdlLogFile
 
   configStore.set('general-logs', logs)
 

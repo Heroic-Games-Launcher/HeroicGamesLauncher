@@ -359,6 +359,7 @@
     },
     "offline-message": {
         "hint": "Nous vérifions la connexion avec :{{newline}}github.com,{{newline}}gog.com et{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Déconnecté",
         "offline-retry-in": "Déconnecté. Nouvel essai dans {{seconds}} secondes.",
         "retrying": "Réessayer"

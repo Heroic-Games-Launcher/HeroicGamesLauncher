@@ -359,6 +359,7 @@
     },
     "offline-message": {
         "hint": "Мы проверяем подключение к: {{newline}}github.com, {{newline}}gog.com и {{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Не в сети",
         "offline-retry-in": "Не в сети. Повторная попытка через {{seconds}} секунд.",
         "retrying": "Повтор"

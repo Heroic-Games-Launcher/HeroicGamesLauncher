@@ -87,6 +87,7 @@ interface SyncIPCFunctions {
   clearDMFinished: () => void
   abort: (id: string) => void
   'connectivity-changed': (newStatus: ConnectivityStatus) => void
+  'set-connectivity-online': () => void
   changeTrayColor: () => void
 }
 
