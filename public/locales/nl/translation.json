@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -434,7 +435,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Kies een Alternatief GOGDL Binary om te gebruiken",
         "alt-legendary-bin": "Kies een Alternatief Legendary Binary",
-        "audiofix": "Geluid fix (Pulse Audio Latency)",
         "autodxvk": "Automatisch installeren/updated van DXVK op Prefix",
         "autosync": "Automatisch Synchroniseren van saves",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "FSR Sharpness Sterkte",
         "fsync": "Fsync inschakelen",
         "gamemode": "Gebruik GameMode (Feral Game Mode moet geïnstalleerd zijn)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Selecteer een App taal",
         "library_top_option": {
             "disabled": "Disabled",

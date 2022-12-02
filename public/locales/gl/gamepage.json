@@ -119,6 +119,9 @@
         "wineversion": "Versión de Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Xogar",
             "stop": "Deter"
@@ -163,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Premer para actualizar",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Nova versión dispoñíbel!",
         "installed": "Instalado",
         "installing": "Instalando",
         "moving": "Instalación en movemento, agarda",
         "notinstalled": "Este xogo non está instalado",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "Reparando xogo, agarda",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total descargado",
         "uninstalling": "Uninstalling",
         "updating": "Actualización do xogo"

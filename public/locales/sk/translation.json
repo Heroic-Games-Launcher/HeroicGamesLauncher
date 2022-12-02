@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -434,7 +435,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)to use",
-        "audiofix": "Oprava zvuku (latencia pulzného zvuku)",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "Automatická synchronizácia Uloží",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Použite GameMode (je potrebné nainštalovať režim Feral Game)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Choose App Language",
         "library_top_option": {
             "disabled": "Disabled",

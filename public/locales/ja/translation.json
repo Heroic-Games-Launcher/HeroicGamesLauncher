@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -434,7 +435,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
-        "audiofix": "オーディオ修正（Pulseaudioレイテンシー）",
         "autodxvk": "プレフィックスでのDXVKの自動インストール/更新",
         "autosync": "保存を自動的に同期する",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "FSRシャープネス強度",
         "fsync": "Fsyncを有効にする",
         "gamemode": "GameModeを使用する（Feral Game Modeをインストールする必要があります）",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "アプリの言語を選択",
         "library_top_option": {
             "disabled": "Disabled",

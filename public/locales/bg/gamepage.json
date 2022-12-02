@@ -119,6 +119,9 @@
         "wineversion": "Версия на Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Пускане сега",
             "stop": "В игра (Спиране)"
@@ -163,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Натиснете за обновяване",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Има нова версия!",
         "installed": "Инсталирана",
         "installing": "Инсталиране",
         "moving": "Преместване на играта; моля, изчакайте",
         "notinstalled": "Играта не е инсталирана",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Файловете се обработват, изчакайте",
         "queued": "Queued",
         "reparing": "Поправяне на играта; моля, изчакайте",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Общо свалено",
         "uninstalling": "Uninstalling",
         "updating": "Обновяване на играта"

@@ -59,7 +59,7 @@
                 "message": "",
                 "title": "Select EXE to Run"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "راه اندازی متوقف شد",
             "title": "خطا",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -75,8 +75,8 @@
                 "title": "Wine یافت نشد"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks هنگام اجرا این خطا را برگرداند:{{newLine}}{{error}}",
+                "title": "خطای Winetricks"
             }
         },
         "info": {
@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "به روزرسانی موجود است!",
             "stable": "پایدار",
             "version": "Heroic Version"
@@ -434,7 +435,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده",
         "alt-legendary-bin": "انتخاب باینری Legendary جایگزین",
-        "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
         "autosync": "همگامسازی خودکار ذخیرهها",
         "autovkd3d": "نصب/بهروزرسانی خودکار VKD3D در مسیر",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "قدرت تیزی FSR",
         "fsync": "فعالسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "انتخاب زبان نرمافزار",
         "library_top_option": {
             "disabled": "غیر فعال",

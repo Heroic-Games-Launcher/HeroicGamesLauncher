@@ -144,7 +144,7 @@
         "yes": "ДА"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "Отмена",
         "go_to_library": "Перейти в библиотеку",
         "login": "Вход",
         "sync": "Синхронизировать",
@@ -178,17 +178,17 @@
             "update": "Update"
         },
         "label": {
-            "disk": "Disk",
-            "speed": "Download"
+            "disk": "Диск",
+            "speed": "Загрузка"
         },
-        "link": "Downloads",
+        "link": "Загрузки",
         "queue": {
-            "end-time": "Finished at",
-            "queue-time": "Added at",
-            "start-time": "Started at",
-            "type": "Type"
+            "end-time": "Завершено в",
+            "queue-time": "Добавлено в",
+            "start-time": "Начало в",
+            "type": "Тип"
         },
-        "title": "Downloads"
+        "title": "Загрузки"
     },
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Нажмите, чтобы посмотреть список изменений",
             "newReleases": "Доступно обновление!",
             "stable": "Стабильный",
             "version": "Версия Heroic"
@@ -417,13 +418,13 @@
     "progress": "Прогресс",
     "queue": {
         "label": {
-            "canceled": "Canceled",
+            "canceled": "Отменено",
             "clear": "Очистить список",
             "downloading": "Загрузка",
-            "empty": "Nothing to download",
+            "empty": "Нечего скачивать",
             "finished": "Завершено",
             "queued": "Очередь",
-            "remove": "Remove from Downloads"
+            "remove": "Удалить из загрузок"
         }
     },
     "Recent": "Запускались недавно",
@@ -434,7 +435,6 @@
         "addgamestosteam": "Добавить игры в Steam автоматически",
         "alt-gogdl-bin": "Выбрать другой исполняемый файл GOGDL",
         "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary",
-        "audiofix": "Фикс аудио (Задержка Pulse Audio)",
         "autodxvk": "Автоматически устанавливать/обновлять DXVK в префиксе",
         "autosync": "Автосинхронизация сохранений",
         "autovkd3d": "Автоматически устанавливать/обновлять VKD3D в префиксе",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "Усиление резкости FSR",
         "fsync": "Включить Fsync",
         "gamemode": "Использовать GameMode (Нужен Feral GameMode)",
+        "hideChangelogsOnStartup": "Не показывать список изменений при запуске",
         "language": "Выберите язык приложения",
         "library_top_option": {
             "disabled": "Отключить",

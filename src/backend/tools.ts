@@ -1,10 +1,10 @@
 import { WineInstallation } from 'common/types'
-import * as axios from 'axios'
+import axios from 'axios'
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
 import { execAsync, getWineFromProton } from './utils'
-import { execOptions, heroicToolsPath, userHome } from './constants'
+import { execOptions, heroicToolsPath, isLinux, userHome } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
 import { dirname } from 'path'
@@ -14,6 +14,9 @@ import { validWine } from './launcher'
 
 export const DXVK = {
   getLatest: async () => {
+    if (!isLinux) {
+      return
+    }
     if (!isOnline()) {
       logWarning('App offline, skipping possible DXVK update.', {
         prefix: LogPrefix.DXVKInstaller
@@ -37,7 +40,7 @@ export const DXVK = {
     tools.forEach(async (tool) => {
       const {
         data: { assets }
-      } = await axios.default.get(tool.url)
+      } = await axios.get(tool.url)
 
       const { name, browser_download_url: downloadUrl } = assets[0]
       const pkg = name.replace('.tar.gz', '').replace('.tar.xz', '')
@@ -193,25 +196,29 @@ export const DXVK = {
 
 export const Winetricks = {
   download: async () => {
+    if (!isLinux) {
+      return
+    }
+
     const url =
       'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks'
     const path = `${heroicToolsPath}/winetricks`
-    const downloadCommand = `curl -L ${url} -o ${path} --create-dirs`
 
     if (!isOnline()) {
       return
     }
 
-    return execAsync(downloadCommand)
-      .then(() => {
-        exec(`chmod +x ${path}`)
-        logInfo('Downloaded Winetricks', { prefix: LogPrefix.WineTricks })
+    try {
+      logInfo('Downloading Winetricks', { prefix: LogPrefix.WineTricks })
+      const res = await axios.get(url, { timeout: 1000 })
+      const file = res.data
+      writeFileSync(path, file)
+      return exec(`chmod +x ${path}`)
+    } catch (error) {
+      return logWarning(['Error Downloading Winetricks', error], {
+        prefix: LogPrefix.WineTricks
       })
-      .catch(() => {
-        logWarning('Error Downloading Winetricks', {
-          prefix: LogPrefix.WineTricks
-        })
-      })
+    }
   },
   run: async (
     wineVersion: WineInstallation,

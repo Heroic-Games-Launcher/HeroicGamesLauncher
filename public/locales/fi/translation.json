@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -434,7 +435,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Valitse vaihtoehtoinen GOGDL-binääri käytettäväksi (vaatii uudelleenkäynnistyksen)",
         "alt-legendary-bin": "Valitse vaihtoehtoinen Legendary-binääritiedosto (uudelleenkäynnistys vaaditaan)",
-        "audiofix": "Äänikorjaus (Pulse Audion viive)",
         "autodxvk": "Asenna automaattisesti/Päivitä DXVK Prefiksissä",
         "autosync": "Automaattisesti synkronoi tallennukset",
         "autovkd3d": "VKD3D:n automaattinen asennus/päivitys prefixille",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "FSR terävyyden voimakkuus",
         "fsync": "Ota Fsync käyttöön",
         "gamemode": "Käytä GameModea (Feral Game Mode tulee olla asennettu)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Valitse applikaation kieli",
         "library_top_option": {
             "disabled": "Disabled",

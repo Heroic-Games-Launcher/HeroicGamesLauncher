@@ -62,12 +62,12 @@ Heroic is built with Web Technologies:
 - Search for the game on ProtonDB for compatibility information [Linux]
 - Sync installed games with an existing Epic Games Store installation
 - Sync saves with the cloud
-- Theming Support
+- Custom Theming Support
+- Download queue
+- Add Games and Applications outside GOG and Epic Games
 
 ## Planned features
 
-- Download queue
-- Add Games outside GOG and Epic Games
 - Support Other Store (Amazon Gaming, IndieGala, etc)
 - Play GOG games online
 
@@ -296,7 +296,12 @@ And you should be good to go, code and build away!
 
 ## Sponsors
 
+Thanks [Weblate](https://weblate.org/en/) for hosting our translations
+
 ![weblate](https://s.weblate.org/cdn/Logo-Darktext-borders.png)
+
+Thanks [Signpath](https://about.signpath.io) for providing free signing of Windows binaries
+
 ![signpath](https://user-images.githubusercontent.com/26871415/182468471-6ef4aac6-a4e2-4ae8-93ef-d638cd01627d.png)
 
 ## Screenshots

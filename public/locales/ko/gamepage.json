@@ -119,6 +119,9 @@
         "wineversion": "Wine 버전"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "지금 실행하기",
             "stop": "플레이 중지"
@@ -163,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "업데이트하려면 클릭",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "새 버전이 있습니다!",
         "installed": "설치됨",
         "installing": "설치 중",
         "moving": "설치를 이동 중 입니다, 잠시만 기다려 주세요",
         "notinstalled": "이 게임은 설치 되지 않았습니다",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "파일을 처리 중입니다 잠시만 기다려 주십시오",
         "queued": "Queued",
         "reparing": "게임을 복구 중입니다, 잠시만 기다려 주세요",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "총 다운로드",
         "uninstalling": "Uninstalling",
         "updating": "게임 업데이트 중"

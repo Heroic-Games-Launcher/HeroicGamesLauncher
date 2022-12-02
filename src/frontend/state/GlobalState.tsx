@@ -88,6 +88,8 @@ interface StateProps {
   connectivity: { status: ConnectivityStatus; retryIn: number }
   dialogModalOptions: DialogModalOptions
   sideloadedLibrary: GameInfo[]
+  hideChangelogsOnStartup: boolean
+  lastChangelogShown: string | null
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -164,7 +166,9 @@ export class GlobalState extends PureComponent<Props> {
     activeController: '',
     connectivity: { status: 'offline', retryIn: 0 },
     sideloadedLibrary: sideloadLibrary.get('games', []) as GameInfo[],
-    dialogModalOptions: { showDialog: false }
+    dialogModalOptions: { showDialog: false },
+    hideChangelogsOnStartup: globalSettings.hideChangelogsOnStartup,
+    lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null')
   }
 
   setLanguage = (newLanguage: string) => {
@@ -220,6 +224,14 @@ export class GlobalState extends PureComponent<Props> {
 
   setSideBarCollapsed = (value: boolean) => {
     this.setState({ sidebarCollapsed: value })
+  }
+
+  setHideChangelogsOnStartup = (value: boolean) => {
+    this.setState({ hideChangelogsOnStartup: value })
+  }
+
+  setLastChangelogShown = (value: string) => {
+    this.setState({ lastChangelogShown: value })
   }
 
   hideGame = (appNameToHide: string, appTitle: string) => {
@@ -611,7 +623,7 @@ export class GlobalState extends PureComponent<Props> {
 
     window.api.handleSetGameStatus(async (e: Event, args: GameStatus) => {
       const { libraryStatus } = this.state
-      this.handleGameStatus({ ...libraryStatus, ...args })
+      return this.handleGameStatus({ ...libraryStatus, ...args })
     })
 
     window.api.handleRefreshLibrary(async (e: Event, runner: Runner) => {
@@ -677,7 +689,9 @@ export class GlobalState extends PureComponent<Props> {
       category,
       showHidden,
       showFavourites,
-      sidebarCollapsed
+      sidebarCollapsed,
+      hideChangelogsOnStartup,
+      lastChangelogShown
     } = this.state
 
     storage.setItem('category', category)
@@ -686,6 +700,8 @@ export class GlobalState extends PureComponent<Props> {
     storage.setItem('show_hidden', JSON.stringify(showHidden))
     storage.setItem('show_favorites', JSON.stringify(showFavourites))
     storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
+    storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
+    storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
 
     const pendingOps = libraryStatus.filter(
       (game) => game.status !== 'playing' && game.status !== 'done'
@@ -747,7 +763,11 @@ export class GlobalState extends PureComponent<Props> {
           setPrimaryFontFamily: this.setPrimaryFontFamily,
           setSecondaryFontFamily: this.setSecondaryFontFamily,
           showDialogModal: this.handleShowDialogModal,
-          showResetDialog: this.showResetDialog
+          showResetDialog: this.showResetDialog,
+          hideChangelogsOnStartup: this.state.hideChangelogsOnStartup,
+          setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
+          lastChangelogShown: this.state.lastChangelogShown,
+          setLastChangelogShown: this.setLastChangelogShown
         }}
       >
         {this.props.children}

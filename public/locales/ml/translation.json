@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -434,7 +435,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
-        "audiofix": "ശബ്ദം ശരിയാക്കൂ (പള്സ് ഓഡിയോ ലാറ്റന്സി)",
         "autodxvk": "ഉപസഗ്ഗ഻ത്തില്(പ്രഫിക്സില്) DXVK തന്നത്താന് സ്ഥാപിക്കൂ/പുതുക്കൂ",
         "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "എഫ്എസ്ആര് ഷാര്പ്പ്നെസ്സ് സ്ട്രെങ്ത്",
         "fsync": "Fsync വയ്ക്കൂ",
         "gamemode": "ഗെയിംമോഡ് ഉപയോഗിക്കൂ (ഫെറലിന്റെ ഗെയിംമോഡ് ഇന്സ്റ്റാള് ചെയ്തിരിക്കണം)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "ആപ്പിന്റെ ഭാഷ",
         "library_top_option": {
             "disabled": "Disabled",

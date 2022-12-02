@@ -2,7 +2,7 @@
     "accessibility": {
         "actions_font_family_no_default": "Police d'écriture pour les actions (Par défaut : ",
         "all_tiles_in_color": "Afficher les vignettes de tous les jeux en couleur",
-        "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut: ",
+        "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut : ",
         "fonts": "Polices d'écriture",
         "title": "Accessibilité",
         "zoom": "Zoom"
@@ -70,7 +70,7 @@
                 "title": "Erreur de mise-à-jour"
             },
             "wine-not-found": {
-                "invalid": "La version de Wine sélectionnée n'a pas été trouvée. Installez-le ou sélectionnez une version différente dans les paramètres du jeu{{newline}}Version: {{version}}{{newline}}Chemin: {{path}}",
+                "invalid": "La version de Wine sélectionnée n'a pas été trouvée. Installez-le ou sélectionnez une version différente dans les paramètres du jeu{{newline}}Version : {{version}}{{newline}}Chemin : {{path}}",
                 "message": "Aucune version de Wine n'est sélectionnée. Vérifiez les paramètres de jeu !",
                 "title": "Wine non trouvé"
             },
@@ -144,7 +144,7 @@
         "yes": "OUI"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "Annuler",
         "go_to_library": "Aller vers la Bibliothèque",
         "login": "Connexion",
         "sync": "Synchroniser",
@@ -157,7 +157,7 @@
             "backspace": "Backspace",
             "close_dialog": "Fermer la fenêtre",
             "close_keyboard": "Faire disparaître le clavier",
-            "close_options": "Fermer « Paramètres »",
+            "close_options": "Fermer « Options »",
             "game_details": "Caractéristiques du jeu",
             "game_settings": "Paramètres",
             "install_game": "Installer le jeu",
@@ -178,14 +178,14 @@
             "update": "Update"
         },
         "label": {
-            "disk": "Disk",
+            "disk": "Disque",
             "speed": "Download"
         },
         "link": "Downloads",
         "queue": {
-            "end-time": "Finished at",
-            "queue-time": "Added at",
-            "start-time": "Started at",
+            "end-time": "Fini à",
+            "queue-time": "Ajouté à",
+            "start-time": "Commencé à",
             "type": "Type"
         },
         "title": "Downloads"
@@ -223,7 +223,7 @@
         "store": "Filtrer le magasin"
     },
     "help": {
-        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "amdfsr": "Le FSR d'AMD aide à améliorer le taux de rafraîchissement en agrandissant les résolutions basses en mode plein écran. La qualité d'image augmente de 5 à 1 au prix d'une légère baisse de performance. L'activer peut améliorer les performances.",
         "custom_themes_path": "N'utilisez pas de fichiers CSS venant de sources inconnues. En cas de doute, demandez un avis sur notre canal Discord.",
         "custom_themes_wiki": "Visitez le Wiki pour plus d'informations concernant les thèmes personnalisés. Cliquez ici.",
         "dxvk": "DXVK est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 9, 10 et 11. L'activer pourrait améliorer la compatibilité. Peut causer des problèmes, en particulier pour des jeux utilisant des versions de DirectX plus anciennes.",
@@ -235,7 +235,7 @@
             "in_game_config": "Tous les jeux ne permettent pas cette configuration, certains ont une option intégrée pour sélectionner la langue.",
             "valid_codes": "Les codes de langue valides dépendent du jeu."
         },
-        "gamemode": "Le procédé Feral GameMode applique des modifications automatiques et temporaires au système pendant l'exécution des jeux. L'activer pourrait améliorer les performances.",
+        "gamemode": "Le procédé « Feral GameMode » applique des modifications automatiques et temporaires au système pendant l'exécution des jeux. L'activer pourrait améliorer les performances.",
         "general": "Synchroniser avec le lanceur EG si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux afin d'éviter de les télécharger à nouveau.",
         "mangohud": "MangoHUD est un overlay permettant d'afficher diverses informations en jeu, telles que les températures du système, le nombre d'images par seconde et l'utilisation des ressources CPU ou GPU.",
         "other": {
@@ -251,20 +251,21 @@
         },
         "steamruntime": "Bibliothèques additionnelles fournies par Steam pour aider à exécuter des jeux Linux et Windows (avec Proton). Pourrait améliorer la compatibilité.",
         "sync": {
-            "part1": "Heroic essaie de trouver le bon dossier de sauvergarde, cela fonctionne dans la plus part des cas. Dans le cas où le dossier n'est pas le bon, utiisez la boîte écraser pour le changer.",
+            "part1": "Heroic essaie de déterminer quel est le bon dossier de sauvegarde et cela fonctionne dans la plus part des cas. Si le dossier choisi n'est pas le bon, utilisez le champ ci-dessus pour le changer.",
             "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
-            "part3": "Synchronisation manuelle: Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignoreront la version locale ou celle du Cloud.",
-            "part4": "Les sauvegardes automatiques synchroniseront vos sauvegardes à chaque fois que vous lancerez un jeu et que vous l'arrêtez."
+            "part3": "Synchronisation manuelle : Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignoreront la version locale ou celle du Cloud.",
+            "part4": "« Synchroniser automatiquement » active la synchronisation de vos sauvegardes à chaque fois que vous lancez un jeu et que vous l'arrêtez."
         },
         "vkd3d": "VKD3D est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 12. L'activer pourrait grandement améliorer la compatibilité. N'a aucun effet sur les jeux utilisant des versions de DirectX plus anciennes.",
         "wine": {
-            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers:",
+            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         }
     },
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Mise à jour disponible !",
             "stable": "Stable",
             "version": "Version d'Heroic"
@@ -348,7 +349,7 @@
         "moving": "Jeu en cours de déplacement",
         "new-heroic-version": "Une nouvelle version d'Heroic est disponible !",
         "refresh": {
-            "error": "Heroic n'a pas pu récupérer les dernières versions, possiblement à cause de limitations dues à l'API de Github ! Veuillez réessayer plus tard."
+            "error": "Heroic n'a pas pu récupérer les dernières versions, peut-être à cause de limitations dues à l'API de Github ! Veuillez réessayer plus tard."
         },
         "uninstalled": "Désinstallé",
         "update": {
@@ -360,7 +361,7 @@
     "offline-message": {
         "hint": "Nous vérifions la connexion avec :{{newline}}github.com,{{newline}}gog.com et{{newline}}store.epicgames.com",
         "offline": "Déconnecté",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
+        "offline-retry-in": "Déconnecté. Nouvel essai dans {{seconds}} secondes.",
         "retrying": "Réessayer"
     },
     "Open": "",
@@ -383,12 +384,12 @@
         },
         "gameargs": {
             "placeholder": "Insérez ici les arguments de lancement",
-            "title": "Arguments de jeu (à lancer après la commande) :"
+            "title": "Arguments de jeu (à exécuter après la commande) :"
         },
         "quote-args-with-spaces": "Attention : Assurez-vous de citer les args avec des espaces ! E.g. : \"chemin/avec espaces/\"",
         "wrapper": {
             "args": "Arguments",
-            "arguments_example": "Exemples d'arguments : --arg; --extra-file=\"file-path/ with/spaces\"",
+            "arguments_example": "Exemples d'arguments : --arg ; --extra-file=\"file-path/ with/spaces\"",
             "exe": "Wrapper",
             "placeHolderKey": "Nouveau Wrapper",
             "placeHolderValue": "Arguments du Wrapper",
@@ -407,7 +408,7 @@
         "custom_themes_path": "Sélectionner le chemin où rechercher des fichiers CSS personnalisés",
         "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix où EGS est installé",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char code (exemple : \"en\" ou \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -417,13 +418,13 @@
     "progress": "Progression",
     "queue": {
         "label": {
-            "canceled": "Canceled",
+            "canceled": "Annulé",
             "clear": "Effacer la liste",
             "downloading": "En cours de téléchargement",
-            "empty": "Nothing to download",
-            "finished": "Achevé",
+            "empty": "Rien à télécharger",
+            "finished": "Achevés",
             "queued": "En attente",
-            "remove": "Remove from Downloads"
+            "remove": "Retirer de la liste des Téléchargements"
         }
     },
     "Recent": "Joués récemment",
@@ -434,7 +435,6 @@
         "addgamestosteam": "Ajouter automatiquement les jeux dans Steam",
         "alt-gogdl-bin": "Choisir un binaire GOGDL alternatif à utiliser",
         "alt-legendary-bin": "Choisir un autre exécutable Legendary (redémarrage d'Heroic nécessaire)",
-        "audiofix": "Corriger l'audio (Latence Pulse Audio)",
         "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
         "autosync": "Synchroniser automatiquement les sauvegardes",
         "autovkd3d": "Installer et mettre à jour automatiquement VKD3D dans le préfixe",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "Niveau de netteté pour FSR (FSR Sharpness Strength)",
         "fsync": "Activer Fsync",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Choix de la langue",
         "library_top_option": {
             "disabled": "Désactivé",
@@ -513,7 +514,7 @@
         "preferSystemLibs": "Opter de préférence pour les bibliothèques système",
         "primerun": {
             "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "message": "Une seule carte graphique a été détectée dans ce système. Veuillez noter que cette option est prévue pour les systèmes multi-GPU avec des GPUs « headless » (comme les ordinateurs portables). Avec un système comprenant un seul GPU, celui-ci est utilisé automatiquement et activer cette option peut causer des problèmes. Voulez-vous vraiment activer cette option ?",
                 "title": "Seulement 1 processeur graphique (GPU) a été détecté"
             },
             "description": "Utiliser une carte graphique dédiée"
@@ -544,7 +545,7 @@
         "default_hint": "Les changements faits dans cette section ne s'appliquent que comme valeurs par défaut lors de l'installation des jeux. Si vous voulez changer les paramètres d'un jeu déjà installé, utilisez le bouton « Options » sur la page dudit jeu.",
         "eacRuntime": {
             "gameModeRequired": {
-                "message": "Le GameMode est requis pour que le processus EAC fonctionne avec Flatpak. Voulez-vous l'activer maintenant ?",
+                "message": "« GameMode » est requis pour que le processus EAC fonctionne avec Flatpak. Voulez-vous l'activer maintenant ?",
                 "title": "GameMode requis"
             },
             "installing": "Installation de EAC Runtime...",
@@ -552,12 +553,12 @@
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "Le processus EAC est activé, lequel ne fonctionnera pas correctement sans GameMode. Voulez-vous désactiver le processus EAC et GameMode ?",
+                "message": "Le processus EAC est activé, lequel ne fonctionnera pas correctement sans « GameMode ». Voulez-vous désactiver le processus EAC et le « GameMode » ?",
                 "title": "Processus EAC activé"
             }
         },
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "Log tronqué, les 1000 dernières lignes sont affichées !"
         },
         "navbar": {
             "advanced": "Avancé",
@@ -594,7 +595,7 @@
     "toolbox": {
         "settings": {
             "default-wineprefix": "Sélectionner le dossier de préfixe par défaut pour les nouvelles configurations",
-            "wineprefix": "Sélectionner un Dossier pour les nouveaux préfixes Wine"
+            "wineprefix": "Sélectionner un dossier pour les nouveaux préfixes Wine"
         }
     },
     "tooltip": {
@@ -608,13 +609,13 @@
         "show": "Montrer"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Les changements faits dans cette liste ne sont pas enregistrés automatiquement. Cliquez sur le bouton « + »"
     },
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
         "logout": "Déconnexion",
-        "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter?",
+        "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter ?",
         "manageaccounts": "Comptes",
         "quit": "Quitter"
     },
@@ -630,7 +631,7 @@
         "actions": "Action",
         "manager": {
             "error": "Les versions de Wine/Proton n'ont pas pu être trouvées.",
-            "link": "Gestion de  Wine",
+            "link": "Gestion de Wine",
             "title": "Gestion de Wine",
             "unzipping": "Décompression"
         },

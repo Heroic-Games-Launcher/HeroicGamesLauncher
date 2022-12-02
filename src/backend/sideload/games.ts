@@ -100,6 +100,16 @@ export async function removeAppShortcuts(appName: string): Promise<void> {
   return removeShortcuts(getAppInfo(appName))
 }
 
+export function isAppAvailable(appName: string): boolean {
+  const {
+    install: { executable }
+  } = getAppInfo(appName)
+  if (!executable) {
+    return false
+  }
+  return existsSync(executable)
+}
+
 export async function launchApp(appName: string): Promise<boolean> {
   const gameInfo = getAppInfo(appName)
   const {
@@ -184,6 +194,11 @@ export async function launchApp(appName: string): Promise<boolean> {
     logInfo(`launching non-native sideloaded: ${executable}}`, {
       prefix: LogPrefix.Backend
     })
+
+    if (isMac) {
+      const globalSettings = await GameConfig.get('global').getSettings()
+      gameSettings.wineVersion = globalSettings.wineVersion
+    }
 
     await runWineCommand({
       commandParts: [executable, launcherArgs ?? ''],

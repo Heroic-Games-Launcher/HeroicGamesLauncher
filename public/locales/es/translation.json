@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "¡Actualización disponible!",
             "stable": "Estable",
             "version": "Versión de Heroic"
@@ -434,7 +435,6 @@
         "addgamestosteam": "Agregar juegos a Steam automáticamente",
         "alt-gogdl-bin": "Elige un binario de GOGDL alternativo para usar",
         "alt-legendary-bin": "Elige un binario de Legendary alternativo",
-        "audiofix": "Corrección de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar/actualizar DXVK en el Prefix",
         "autosync": "Autosincronizar guardados",
         "autovkd3d": "Instalación/actualización automática de VKD3D en el prefijo",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "FSR Fuerza de Nitidez",
         "fsync": "Habilitar Fsync",
         "gamemode": "Usar GameMode (Feral Game Mode debe estar instalado)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Elija el idioma de la aplicación",
         "library_top_option": {
             "disabled": "Desactivada",

@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   border-radius: var(--space-3xs);
+  animation: fade-in 0.2s ease-in;
 }
 
 .gameCard:focus-within {
@@ -52,6 +53,10 @@
 .gameCard > .progress svg {
   color: var(--success);
   height: 20px;
+}
+
+.gameCard.notAvailable > .progress {
+  color: var(--text-log);
 }
 
 .gameCard > a {
@@ -144,6 +149,12 @@
 .gameCard.hidden .gameImg,
 .gameCard.hidden .gameLogo {
   opacity: 0.2;
+}
+
+.gameCard.notAvailable .gameImg.installed,
+.gameCard.notAvailable .gameLog.installed {
+  filter: sepia(100%);
+  opacity: 0.7;
 }
 
 .gameCard .runner {
@@ -350,4 +361,13 @@
 .settingsIcon:hover {
   fill: var(--accent);
   transition: 300ms;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

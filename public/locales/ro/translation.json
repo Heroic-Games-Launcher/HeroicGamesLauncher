@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Actualizare disponibila",
             "stable": "Grajd",
             "version": "Versiune eroică"
@@ -434,7 +435,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Alegeți un binar GOGDL alternativ pe care să îl utilizați",
         "alt-legendary-bin": "Alegeți un Legendary Binary alternativ pe care să îl utilizați",
-        "audiofix": "Fixare Audio (Latență în PulseAudio)",
         "autodxvk": "Instalare/Actualizare automată DXVK în Prefix",
         "autosync": "Salvări de sincronizare automată",
         "autovkd3d": "Instalare/Actualizare automată VKD3D pe Prefix",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "Forța de claritate FSR",
         "fsync": "Activați Fsync",
         "gamemode": "Utilizați GameMode (Feral GameMode trebuie instalat)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Alegeți Limba aplicației",
         "library_top_option": {
             "disabled": "Dezactivat",

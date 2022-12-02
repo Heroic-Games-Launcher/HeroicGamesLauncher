@@ -119,6 +119,9 @@
         "wineversion": "Wine sürümü"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Şimdi Oyna",
             "stop": "Oynanıyor (Durdur)"
@@ -163,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Güncellemek için tıklayın",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Yeni sürüm var!",
         "installed": "Kuruldu",
         "installing": "Kuruluyor",
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun kurulu değil",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Dosyalar işleniyor, lütfen bekleyin",
         "queued": "Queued",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Toplam İndirilen",
         "uninstalling": "Uninstalling",
         "updating": "Oyun Güncelleniyor"

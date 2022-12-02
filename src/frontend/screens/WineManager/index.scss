@@ -13,17 +13,6 @@
     }
   }
 
-  .wineList {
-    margin-top: 48px;
-
-    .gameListHeader {
-      grid-template-columns: 3fr 1fr 1fr 1fr;
-      span:nth-child(3) {
-        justify-self: center;
-      }
-    }
-  }
-
   .MuiTabs-root {
     .MuiTabs-scroller {
       .MuiTabs-indicator {
@@ -39,6 +28,18 @@
           color: var(--accent);
         }
       }
+    }
+  }
+}
+
+.wineList {
+  margin-top: 48px;
+
+  .gameListHeader {
+    grid-template-columns: 3fr 2fr 1fr 10%;
+    margin: 0 var(--space-xl-fixed);
+    span:last-child {
+      justify-self: center;
     }
   }
 }

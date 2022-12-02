@@ -119,6 +119,9 @@
         "wineversion": "Versi Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Mainkan sekarang",
             "stop": "Memainkan (Berhenti)"
@@ -163,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Klik untuk Memperbarui",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Versi Baru Tersedia!",
         "installed": "Terpasang",
         "installing": "Memasang",
         "moving": "Memindahkan Pemasangan, harap tunggu",
         "notinstalled": "Gim ini tidak dipasang",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Memproses berkas, harap tunggu",
         "queued": "Dalam Antrian",
         "reparing": "Memperbaiki Gim, harap tunggu",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Jumlah yang Diunduh",
         "uninstalling": "Mencopot",
         "updating": "Memperbarui Gim"

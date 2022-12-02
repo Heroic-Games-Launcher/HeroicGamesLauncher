@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -434,7 +435,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "மாற்று GOGDL Binary ஐத் தேர்வு செய்",
         "alt-legendary-bin": "மாற்று Legendary Binary ஐத் தேர்வு செய்",
-        "audiofix": "கேட்பொலி பிழைத்திருத்தம் (Pulse Audio Latency)",
         "autodxvk": "முன்னொட்டில் DXVK ஐ தானாக நிறுவு/புதுப்பி",
         "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "GameMode ஐ பயன்படுது (Feral விளையாட்டு பயன்முறையை நிறுவப்பட்டிருக்க வேண்டும்)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "பயன்பாட்டின் மொழியை தேர்வுசெய்",
         "library_top_option": {
             "disabled": "Disabled",

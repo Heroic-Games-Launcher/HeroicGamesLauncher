@@ -119,6 +119,9 @@
         "wineversion": "Wine Version"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Pelaa nyt",
             "stop": "Pelataan (pysäytä)"
@@ -163,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Päivitä",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Uusi versio saatavilla!",
         "installed": "Asennettu",
         "installing": "Asennetaan",
         "moving": "Siirretään asennusta, odota",
         "notinstalled": "Tätä peliä ei ole asennettu",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "Korjataan peliä, odota",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Ladattu yhteensä",
         "uninstalling": "Uninstalling",
         "updating": "Päivitetään peliä"

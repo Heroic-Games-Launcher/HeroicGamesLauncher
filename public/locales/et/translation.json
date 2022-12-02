@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Uuendus saadaval!",
             "stable": "Stabiilne",
             "version": "Heroic Version"
@@ -434,7 +435,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Valige alternatiivne GOGDL binaarfail",
         "alt-legendary-bin": "Valige alternatiivne Legendary binaarfail",
-        "audiofix": "Heliparandus (Pulse Audio Latency)",
         "autodxvk": "DXVK automaatne paigaldamine/uuendamine prefiksile",
         "autosync": "Automaatne salvestiste sünkroonimine",
         "autovkd3d": "VKD3D automaatne paigaldamine/uuendamine prefiksile",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "FSR teravuse tugevus",
         "fsync": "Luba Fsync",
         "gamemode": "Kasuta GameMode'i (Feral Game Mode peab olema paigaldatud)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Valige rakenduse keel",
         "library_top_option": {
             "disabled": "Keelatud",

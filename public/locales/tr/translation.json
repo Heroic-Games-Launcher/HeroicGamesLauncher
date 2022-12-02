@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Sürümü"
@@ -434,7 +435,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Bir muadil GOGDL çalıştırılabilir dosyasını seçin",
         "alt-legendary-bin": "Bir muadil Legendary dosyası seçin",
-        "audiofix": "Ses Çözümü (Pulse Audio Gecikmesi)",
         "autodxvk": "DXVK'yı otomatik kur/güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
         "autovkd3d": "Prefix'te VKD3D'yi Otomatik Kur/Güncelle",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "FSR Keskinlik Gücü",
         "fsync": "Fsync'i Etkinleştir",
         "gamemode": "Oyun Modu Kullan (Feral Game Mode yüklü olmalıdır)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Uygulama Dilini Seç",
         "library_top_option": {
             "disabled": "Devre dışı",

@@ -24,8 +24,8 @@
         },
         "choose": "Välj",
         "choose-egs-prefix": "Ange prefix med befintlig EGS installation",
-        "choose-gogdl-binary": "Ange GOGDL binärfil (omstart krävs)",
-        "choose-legendary-binary": "Ange Legendary binärfil",
+        "choose-gogdl-binary": "Ange GOGDL programfil (omstart krävs)",
+        "choose-legendary-binary": "Ange Legendary programfil",
         "customWine": "Ange Wine/Proton version",
         "default-install-path": "Ange standard installationssökväg",
         "default-steam-path": "Sökväg till Steam.",
@@ -34,7 +34,7 @@
             "add": {
                 "steam": {
                     "body": "Misslyckades lägga till {{game}} i Steam:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "title": "Misslyckades lägga till spel"
                 }
             },
             "credentials": {
@@ -57,26 +57,26 @@
             },
             "generic": {
                 "message": "",
-                "title": "Select EXE to Run"
+                "title": "Ange programfil"
             },
             "launchAborted": "Start avbröts",
             "title": "Problem",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Okänt fel:{{newLine}}{{error}}{{newLine}}{{newLine}} Vänligen rapportera felet på vår Github.",
+                "title": "Okänt fel!"
             },
             "update": {
                 "message": "Uppdateringen misslyckades, kontrollera loggfilen eller försök igen senare.",
                 "title": "Problem vid uppdatering"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "Angiven Wine version hittades ej. Installera denna version eller välj något annat i spelets inställningar{{newline}}Version: {{version}}{{newline}}Sökväg: {{path}}",
                 "message": "Ingen Wine version vald. Kontrollera spelinställningar!",
                 "title": "Wine hittades ej"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks misslyckades, felmeddelande:{{newLine}}{{error}}",
+                "title": "Winetricks problem"
             }
         },
         "info": {
@@ -102,20 +102,20 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Är du säker att du vill grundåterställa Heroic? Detta raderar alla inställningar och cachefiler men raderar inte installerade spel eller Epic inloggningsuppgifter. Portabla versioner (AppImage, WinPortable, ...) av Heroic måste startas om manuellt efteråt.",
                 "title": "Grundåterställ Heroic"
             }
         },
         "runexe": {
-            "title": "Välj EXE"
+            "title": "Välj körbart program"
         },
         "select": {
             "button": "Ange val",
-            "exe": "Ange EXE"
+            "exe": "Ange programfil"
         },
         "shortcuts": {
             "message": "Genvägar skapades på Skrivbordet och Startmenyn",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove": "Genvägar togs bort från skrivbordet och startmenyn",
             "title": "Genvägar"
         },
         "sync": {
@@ -265,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -273,7 +274,7 @@
             "searching": "Trying to detect the correct save folder"
         },
         "settings": "Inställningar sparas automatiskt",
-        "version": "Wine Version"
+        "version": "Wine version"
     },
     "infobox": {
         "help": "Hjälp",
@@ -434,7 +435,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Ange alternativ GOGDL version (omstart krävs)",
         "alt-legendary-bin": "Ange alternativ Legendary version",
-        "audiofix": "Ljudfix (Pulse Audio latens)",
         "autodxvk": "Installera/uppdatera DXVK i prefix automatiskt",
         "autosync": "Synkronisera sparfiler automatiskt",
         "autovkd3d": "Installera/uppdatera VKD3D i prefix automatiskt",
@@ -478,6 +478,7 @@
         "FsrSharpnessStrenght": "FSR skärpningsnivå",
         "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Välj språk",
         "library_top_option": {
             "disabled": "Deaktiverad",
@@ -529,7 +530,7 @@
         "showfps": "Visa FPS (DX9, 10 och 11)",
         "start-in-tray": "Starta minimerad",
         "steamruntime": "Använd Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "CrossOver prefix",
         "wineprefix": "Wine-prefix mapp",
         "wineversion": "Wine version"
     },
