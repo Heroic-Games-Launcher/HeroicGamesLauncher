@@ -65,6 +65,7 @@ const GameCard = ({
   const [gameAvailable, setGameAvailable] = useState(
     gameInfoFromProps.is_installed
   )
+  const [isLaunching, setIsLaunching] = useState(false)
 
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
@@ -93,6 +94,18 @@ const GameCard = ({
     thirdPartyManagedApp
   } = gameInfo
 
+  // if the game supports cloud saves, check the config
+  const [autoSyncSaves, setAutoSyncSaves] = useState(hasCloudSave)
+  useEffect(() => {
+    const checkGameConfig = async () => {
+      const settings = await window.api.requestGameSettings(appName)
+      setAutoSyncSaves(settings.autoSyncSaves)
+    }
+    if (hasCloudSave) {
+      checkGameConfig()
+    }
+  }, [appName])
+
   const [progress, previousProgress] = hasProgress(appName)
 
   const { status, folder } =
@@ -112,6 +125,7 @@ const GameCard = ({
   }, [appName, status, gameInfo])
 
   useEffect(() => {
+    setIsLaunching(false)
     const updateGameInfo = async () => {
       const newInfo = await getGameInfo(appName, runner)
       if (newInfo) {
@@ -262,6 +276,7 @@ const GameCard = ({
           className={gameAvailable ? 'playIcon' : 'cancelIcon'}
           onClick={async () => handlePlay(runner)}
           title={`${t('label.playing.start')} (${title})`}
+          disabled={isLaunching}
         >
           <PlayIcon />
         </SvgButton>
@@ -537,12 +552,13 @@ const GameCard = ({
     }
 
     if (isInstalled) {
+      setIsLaunching(true)
       return launch({
         appName,
         t,
         runner,
         hasUpdate,
-        syncCloud: gameInfo?.cloud_save_enabled,
+        syncCloud: autoSyncSaves,
         showDialogModal
       })
     }
