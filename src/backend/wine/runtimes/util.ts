@@ -73,6 +73,13 @@ async function downloadFile(url: string, filePath: string) {
   })
 }
 
+/**
+ * Extracts a .tar file
+ * @param filePath The path to the file to extract
+ * @param contentType Content type of the archive (used to know which flags to pass to `tar`)
+ * @param options
+ * @returns The path to the extracted folder
+ */
 async function extractTarFile(
   filePath: string,
   contentType: string,
@@ -82,32 +89,37 @@ async function extractTarFile(
     throw new Error('Specified file does not exist: ' + filePath)
   }
 
-  let extractedPath = options?.extractedPath ?? ''
-  if (!extractedPath) {
-    const splitPath = filePath.split('.tar')
-    splitPath.pop()
-    extractedPath = splitPath.join('.tar')
-  }
+  const extractedPath =
+    options?.extractedPath ?? filePath.split('.tar').slice(0, -1).join('.tar')
   mkdirSync(extractedPath, { recursive: true })
-  let tarflags = ''
+  let tarflags: string[] = []
   switch (contentType) {
     case 'application/x-xz':
-      tarflags = '-Jxf'
+      tarflags = ['-x', '-J']
+      break
+    case 'application/gzip':
+      tarflags = ['-x', '-z']
+      break
+    case 'application/zstd':
+      tarflags = ['-x', '--zstd']
       break
     default:
       throw new Error('Unrecognized content_type: ' + contentType)
   }
 
   const strip = options?.strip
-  return new Promise((res, rej) => {
+  return new Promise<string>((res, rej) => {
     const child = spawn('tar', [
+      '-f',
+      filePath,
       '--directory',
       extractedPath,
       ...(strip ? ['--strip-components', `${strip}`] : []),
-      tarflags,
-      filePath
+      ...tarflags
     ])
-    child.on('close', res)
+    child.on('close', () => {
+      res(extractedPath)
+    })
     child.on('error', rej)
   })
 }
