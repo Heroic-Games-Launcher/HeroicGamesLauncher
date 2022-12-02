@@ -613,7 +613,7 @@ export async function runLegendaryCommand(
     abortController,
     {
       ...options,
-      runnerStdoutLog: legendaryLogFile
+      verboseLogFile: legendaryLogFile
     }
   )
 }

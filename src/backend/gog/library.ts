@@ -950,7 +950,7 @@ export async function runGogdlCommand(
     abortController,
     {
       ...options,
-      runnerStdoutLog: gogdlLogFile
+      verboseLogFile: gogdlLogFile
     }
   )
 }

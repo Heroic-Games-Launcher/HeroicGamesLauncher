@@ -674,6 +674,13 @@ async function callRunner(
     })
   }
 
+  if (options?.verboseLogFile) {
+    appendFileSync(
+      options.verboseLogFile,
+      `[${new Date().toLocaleString()}] ${safeCommand}\n`
+    )
+  }
+
   if (options?.logFile && existsSync(options.logFile)) {
     writeFileSync(options.logFile, '')
   }
@@ -705,6 +712,10 @@ async function callRunner(
         appendFileSync(options.logFile, data)
       }
 
+      if (options?.verboseLogFile) {
+        appendFileSync(options.verboseLogFile, data)
+      }
+
       if (options?.onOutput) {
         options.onOutput(data, child)
       }
@@ -716,6 +727,10 @@ async function callRunner(
     child.stderr.on('data', (data: string) => {
       if (options?.logFile) {
         appendFileSync(options.logFile, data)
+      }
+
+      if (options?.verboseLogFile) {
+        appendFileSync(options.verboseLogFile, data)
       }
 
       if (options?.onOutput) {
@@ -735,13 +750,6 @@ async function callRunner(
 
       if (signal && !child.killed) {
         rej('Process terminated with signal ' + signal)
-      }
-
-      if (options?.runnerStdoutLog) {
-        const f = options.runnerStdoutLog
-        appendFileSync(f, `[${new Date().toLocaleString()}] ${safeCommand}\n`)
-        appendFileSync(f, stdout.join('\n') + '\n\n')
-        appendFileSync(f, stderr.join('\n') + '\n\n')
       }
 
       res({
