@@ -56,6 +56,7 @@ i18next
       useSuspense: true
     },
     supportedLngs: [
+      'ar',
       'az',
       'be',
       'bg',
