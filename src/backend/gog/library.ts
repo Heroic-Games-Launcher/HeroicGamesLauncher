@@ -20,7 +20,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { getGOGdlBin, getFileSize } from '../utils'
-import { fallBackImage } from '../constants'
+import { fallBackImage, gogdlLogFile } from '../constants'
 import {
   apiInfoCache,
   libraryStore,
@@ -948,6 +948,9 @@ export async function runGogdlCommand(
     commandParts,
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
     abortController,
-    options
+    {
+      ...options,
+      verboseLogFile: gogdlLogFile
+    }
   )
 }
