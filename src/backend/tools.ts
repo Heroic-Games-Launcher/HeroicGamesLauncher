@@ -1,9 +1,15 @@
 import { WineInstallation } from 'common/types'
 import axios from 'axios'
-import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
+import {
+  copyFileSync,
+  existsSync,
+  readFileSync,
+  renameSync,
+  writeFileSync
+} from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
-import { execAsync, getWineFromProton, quoteIfNecessary } from './utils'
+import { execAsync, getWineFromProton } from './utils'
 import {
   execOptions,
   heroicToolsPath,
@@ -133,7 +139,6 @@ export const DXVK = {
   ): Promise<boolean> => {
     const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
-    const scriptName = isMac && tool === 'dxvk' ? 'setup_dxvk.sh' : 'setup*.sh'
 
     if (!isValidPrefix) {
       logWarning('DXVK cannot be installed on a Proton or a invalid prefix!', {
@@ -145,7 +150,7 @@ export const DXVK = {
     tool = isMac ? 'dxvk-macOS' : tool
 
     // remove the last part of the path since we need the folder only
-    const wineBin = dirname(winePath.replace("'", ''))
+    const wineBin = winePath.replace("'", '')
 
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
       logWarning('dxvk not found!', { prefix: LogPrefix.DXVKInstaller })
@@ -157,7 +162,12 @@ export const DXVK = {
     )
       .toString()
       .split('\n')[0]
-    const toolPath = `${heroicToolsPath}/${tool}/${globalVersion}`
+
+    const dxvkDlls = ['dxgi', 'd3d11', 'd3d10', 'd3d10_1', 'd3d10core']
+    const vkd3dDlls = ['d3d12']
+    const dlls = tool.startsWith('dxvk') ? dxvkDlls : vkd3dDlls
+    const toolPathx86 = `${heroicToolsPath}/${tool}/${globalVersion}/x86`
+    const toolPathx64 = `${heroicToolsPath}/${tool}/${globalVersion}/x64`
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
 
@@ -167,60 +177,150 @@ export const DXVK = {
         .split('\n')[0]
     }
 
-    const installCommand = `PATH='${wineBin}':$PATH WINEPREFIX='${winePrefix}' bash ${quoteIfNecessary(
-      `${toolPath}/${scriptName}`
-    )} install --symlink`
-
     if (action === 'restore') {
       logInfo(`Removing ${tool} version information`, {
         prefix: LogPrefix.DXVKInstaller
       })
       const updatedVersionfile = `rm -rf ${currentVersionCheck}`
-      const removeCommand = `PATH='${wineBin}':$PATH WINEPREFIX='${winePrefix}' bash ${quoteIfNecessary(
-        `${toolPath}/${scriptName}`
-      )} uninstall --symlink`
-      return execAsync(removeCommand, execOptions)
-        .then(() => {
-          logInfo(`${tool} removed from ${winePrefix}`, {
-            prefix: LogPrefix.DXVKInstaller
-          })
-          exec(updatedVersionfile)
-          return true
-        })
-        .catch((error) => {
-          logError(['error when removing DXVK, please try again', error], {
-            prefix: LogPrefix.DXVKInstaller
-          })
-          return false
-        })
-    }
+      exec(updatedVersionfile)
 
-    if (currentVersion === globalVersion) {
+      logInfo(`Removing ${tool} files`, {
+        prefix: LogPrefix.DXVKInstaller
+      })
+
+      // remove the dlls from the prefix
+      await new Promise((resolve) => {
+        dlls.forEach((dll) => {
+          const dllPath = `${winePrefix}/drive_c/windows/system32/${dll}.dll`
+          if (existsSync(dllPath)) {
+            const removeDll = `rm ${dllPath}`
+            exec(removeDll)
+          }
+
+          const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}.dll`
+          if (existsSync(dllPath64)) {
+            const removeDll = `rm ${dllPath64}`
+            exec(removeDll)
+          }
+        })
+        resolve(true)
+      })
+
+      // restore the backup dlls
+      await new Promise((resolve) => {
+        dlls.forEach((dll) => {
+          const dllPath = `${winePrefix}/drive_c/windows/system32/${dll}.dll.bak`
+          if (existsSync(dllPath)) {
+            console.log('restoring', dllPath)
+            const restoreDll = `mv ${dllPath} ${winePrefix}/drive_c/windows/system32/${dll}.dll`
+            exec(restoreDll)
+          }
+
+          const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}.dll.bak`
+          if (existsSync(dllPath64)) {
+            if (isMac) {
+              return
+            }
+            const restoreDll = `mv ${dllPath64} ${winePrefix}/drive_c/windows/syswow64/${dll}.dll`
+            exec(restoreDll)
+          }
+        })
+        resolve(true)
+      })
+
+      // unregister the dlls on the wine prefix
+      await new Promise((resolve) => {
+        dlls.forEach((dll) => {
+          const unregisterDll = `WINEPREFIX=${winePrefix} '${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
+          console.log(`unregistering ${dll}`)
+          exec(unregisterDll)
+        })
+        resolve(true)
+      })
+
       return true
     }
 
     logInfo([`installing ${tool} on...`, prefix], {
       prefix: LogPrefix.DXVKInstaller
     })
+    // backup current dlls on the prefix
+    if (currentVersion === globalVersion) {
+      logInfo(`${tool} already installed!`, {
+        prefix: LogPrefix.DXVKInstaller
+      })
+      return true
+    }
 
-    await execAsync(installCommand, { shell: '/bin/bash' })
-      .then(() => {
-        logInfo(`${tool} installed on ${winePrefix}`, {
-          prefix: LogPrefix.DXVKInstaller
-        })
-        writeFileSync(currentVersionCheck, globalVersion)
-        return true
+    logInfo(`Backing up current ${tool} dlls`, {
+      prefix: LogPrefix.DXVKInstaller
+    })
+
+    await new Promise((resolve) => {
+      dlls.forEach(async (dll) => {
+        if (existsSync(`${winePrefix}/drive_c/windows/system32/${dll}.dll`)) {
+          renameSync(
+            `${winePrefix}/drive_c/windows/system32/${dll}.dll`,
+            `${winePrefix}/drive_c/windows/system32/${dll}.dll.bak`
+          )
+        }
+        if (existsSync(`${winePrefix}/drive_c/windows/syswow64/${dll}.dll`)) {
+          // macOs supports 64 bits only
+          if (isMac) {
+            return
+          }
+          renameSync(
+            `${winePrefix}/drive_c/windows/syswow64/${dll}.dll`,
+            `${winePrefix}/drive_c/windows/syswow64/${dll}.dll.bak`
+          )
+        }
       })
-      .catch((error) => {
-        logError(
-          [
-            'error when installing DXVK, please try launching the game again',
-            error
-          ],
-          { prefix: LogPrefix.DXVKInstaller }
+      resolve(true)
+    })
+
+    // copy the new dlls to the prefix
+    await new Promise((resolve) => {
+      dlls.forEach(async (dll) => {
+        if (existsSync(`${toolPathx86}/${dll}.dll`)) {
+          if (isMac) {
+            return
+          }
+          copyFileSync(
+            `${toolPathx86}/${dll}.dll`,
+            `${winePrefix}/drive_c/windows/syswow64/${dll}.dll`
+          )
+        }
+        if (existsSync(`${toolPathx64}/${dll}.dll`)) {
+          copyFileSync(
+            `${toolPathx64}/${dll}.dll`,
+            `${winePrefix}/drive_c/windows/system32/${dll}.dll`
+          )
+        }
+      })
+      resolve(true)
+    })
+
+    // register dlls on the wine prefix
+    await new Promise((resolve) => {
+      dlls.forEach(async (dll) => {
+        await execAsync(
+          `WINEPREFIX=${winePrefix} '${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d native,builtin /f `,
+          execOptions
         )
-        return false
+          .then(() => {
+            logInfo(`${dll} registered!`, {
+              prefix: LogPrefix.DXVKInstaller
+            })
+          })
+          .catch((error) => {
+            logError([`Error when registering ${dll}`, error], {
+              prefix: LogPrefix.DXVKInstaller
+            })
+          })
       })
+      exec(`echo ${globalVersion} > ${currentVersionCheck}`)
+      resolve(true)
+    })
     return true
   }
 }
