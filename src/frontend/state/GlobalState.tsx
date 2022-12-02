@@ -42,7 +42,7 @@ import { sideloadLibrary } from 'frontend/helpers/electronStores'
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get('settings', {}) as AppSettings
 
-const RTL_LANGUAGES = ['fa']
+const RTL_LANGUAGES = ['fa', 'ar']
 
 type T = TFunction<'gamepage'> & TFunction<'translations'>
 
