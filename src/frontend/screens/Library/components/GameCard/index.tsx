@@ -97,11 +97,12 @@ const GameCard = ({
   // if the game supports cloud saves, check the config
   const [autoSyncSaves, setAutoSyncSaves] = useState(hasCloudSave)
   useEffect(() => {
+    const checkGameConfig = async () => {
+      const settings = await window.api.requestGameSettings(appName)
+      setAutoSyncSaves(settings.autoSyncSaves)
+    }
     if (hasCloudSave) {
-      ;(async () => {
-        const settings = await window.api.requestGameSettings(appName)
-        setAutoSyncSaves(settings.autoSyncSaves)
-      })()
+      checkGameConfig()
     }
   }, [appName])
 
