@@ -42,7 +42,7 @@ import { sideloadLibrary } from 'frontend/helpers/electronStores'
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get('settings', {}) as AppSettings
 
-const RTL_LANGUAGES = ['fa']
+const RTL_LANGUAGES = ['fa', 'ar']
 
 type T = TFunction<'gamepage'> & TFunction<'translations'>
 
@@ -578,13 +578,12 @@ export class GlobalState extends PureComponent<Props> {
         )[0]
         if (!currentApp) {
           // Add finding a runner for games
-          const hasUpdate = this.state.gameUpdates?.includes(appName)
           const gameInfo = await getGameInfo(appName, runner)
           return launch({
             appName,
             t,
             runner,
-            hasUpdate,
+            hasUpdate: false,
             syncCloud: gameInfo?.cloud_save_enabled || false,
             showDialogModal: this.handleShowDialogModal
           })
