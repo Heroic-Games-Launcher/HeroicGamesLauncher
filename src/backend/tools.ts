@@ -5,7 +5,9 @@ import {
   existsSync,
   readFileSync,
   renameSync,
-  writeFileSync
+  writeFile,
+  writeFileSync,
+  rmSync
 } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
@@ -181,8 +183,9 @@ export const DXVK = {
       logInfo(`Removing ${tool} version information`, {
         prefix: LogPrefix.DXVKInstaller
       })
-      const updatedVersionfile = `rm -rf ${currentVersionCheck}`
-      exec(updatedVersionfile)
+      if (existsSync(currentVersionCheck)) {
+        rmSync(currentVersionCheck)
+      }
 
       logInfo(`Removing ${tool} files`, {
         prefix: LogPrefix.DXVKInstaller
@@ -231,7 +234,7 @@ export const DXVK = {
       // unregister the dlls on the wine prefix
       await new Promise((resolve) => {
         dlls.forEach((dll) => {
-          const unregisterDll = `WINEPREFIX=${winePrefix} '${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
+          const unregisterDll = `WINEPREFIX='${winePrefix}' '${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
           console.log(`unregistering ${dll}`)
           exec(unregisterDll)
         })
@@ -304,7 +307,7 @@ export const DXVK = {
     await new Promise((resolve) => {
       dlls.forEach(async (dll) => {
         await execAsync(
-          `WINEPREFIX=${winePrefix} '${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d native,builtin /f `,
+          `WINEPREFIX='${winePrefix}' '${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d native,builtin /f `,
           execOptions
         )
           .then(() => {
@@ -319,6 +322,13 @@ export const DXVK = {
           })
       })
       exec(`echo ${globalVersion} > ${currentVersionCheck}`)
+      writeFile(currentVersionCheck, globalVersion, (err) => {
+        if (err) {
+          logError([`Error when writing ${tool} version`, err], {
+            prefix: LogPrefix.DXVKInstaller
+          })
+        }
+      })
       resolve(true)
     })
     return true
