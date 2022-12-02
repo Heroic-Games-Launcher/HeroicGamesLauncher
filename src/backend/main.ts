@@ -404,6 +404,7 @@ if (!gotTheLock) {
       fallbackLng: 'en',
       lng: language,
       supportedLngs: [
+        'ar',
         'az',
         'be',
         'bg',
