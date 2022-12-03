@@ -229,6 +229,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK er et Vulkan-basert translasjonslag for DirectX 9, 10 og 11-spill. Aktivering kan forbedre kompatibiliteten. Kan forårsake problemer spesielt for eldre DirectX-spill.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync har som mål å redusere vinserveroverhead i CPU-intensive spill. Aktivering kan forbedre ytelsen.",
         "fsync": "Fsync har som mål å redusere vinserveroverhead i CPU-intensive spill. Aktivering kan forbedre ytelsen på støttede Linux-kjerner.",
         "game_language": {
@@ -408,6 +409,7 @@
         "alt-gogdl-bin": "Bruker innebygd GOGDL binær...",
         "alt-legendary-bin": "Bruker innebygd Legendary binær...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiks der EGS er installert",
         "prefered_language": "2-tegnskode (dvs.: \"en\" eller \"fr\")"
     },
@@ -452,6 +454,7 @@
         "disable_controller": "Deaktiver heroisk navigasjon ved hjelp av kontrolleren",
         "discordRPC": "Aktiver Discord Rich Presence",
         "download-no-https": "Last ned spill uten HTTPS (nyttig for CDN-er, f.eks. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Synkroniser med installerte episke spill",
         "enableFSRHack": "Aktiver FSR Hack (Wine-versjonen må støtte det)",
         "eosOverlay": {

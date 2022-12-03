@@ -229,6 +229,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK este un strat translațional bazat pe Vulkan pentru jocurile DirectX 9, 10 și 11. Activarea poate îmbunătăți compatibilitatea. Poate cauza probleme în special pentru jocurile DirectX mai vechi.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync își propune să reducă supraîncărcarea serverului de vin în jocurile care necesită un proces intensiv. Activarea poate îmbunătăți performanța.",
         "fsync": "Fsync își propune să reducă supraîncărcarea serverului de vin în jocurile care necesită un proces intensiv. Activarea poate îmbunătăți performanța pe nucleele Linux acceptate.",
         "game_language": {
@@ -408,6 +409,7 @@
         "alt-gogdl-bin": "Se utilizează binarul GOGDL încorporat...",
         "alt-legendary-bin": "Folosind binarul Legendary încorporat...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefixul unde este instalat EGS",
         "prefered_language": "Cod de 2 caractere (adică: „en” sau „fr”)"
     },
@@ -452,6 +454,7 @@
         "disable_controller": "Dezactivați navigarea eroică folosind controlerul",
         "discordRPC": "Activați Discord Rich Presence",
         "download-no-https": "Descărcați jocuri fără HTTPS (util pentru CDN-uri, de exemplu, LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sincronizare cu Epic Games instalat",
         "enableFSRHack": "Activați FSR Hack (versiunea Wine trebuie să o accepte)",
         "eosOverlay": {

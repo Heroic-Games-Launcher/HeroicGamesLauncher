@@ -231,6 +231,7 @@
         "dxvk": "DXVK és una capa de traducció basada en Vulkan per a jocs que emprin DirectX 9, 10 i 11. Si s'activa, podria millorar la compatibilitat. Pot causar problemes, especialment per als jocs que facin servir versions del DirectX més antigues.",
         "esync": "Esync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, podria millorar el rendiment.",
         "fsync": "Fsync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, podria millorar el rendiment en versions de Linux compatibles.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "game_language": {
             "fallback": "Deixa-ho en blanc per a usar la llengua de l'Heroic.",
             "in_game_config": "No tots els jocs són compatibles amb aquesta configuració. En alguns s'ha de configurar la llengua quan s'executa el programa.",
@@ -407,7 +408,8 @@
     "placeholder": {
         "alt-gogdl-bin": "S'està utilitzant el binari integrat del GOGDL...",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
-        "custom_themes_path": "Tria el camí per a buscar fitxers CSS personalitzats",
+        "custom_themes_path": "Trieu el camí per a buscar fitxers CSS personalitzats",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix on l'EGS està instal·lat",
         "prefered_language": "Codi de dos caràcters, com ara «en», «fr» o «ca»"
     },
@@ -451,7 +453,8 @@
         "defaultWinePrefix": "Directori de prefixos Wine nous",
         "disable_controller": "Desactiva la navegació de l'Heroic amb el controlador",
         "discordRPC": "Activa la Discord Rich Presence",
-        "download-no-https": "Baixa jocs sense HTTPS (útil per CDNs com ara LanCache)",
+        "download-no-https": "Descarrega jocs sense HTTPS (útil per CDNs com ara LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sincronitza amb l'Epic Games instal·lat",
         "enableFSRHack": "Activa el FSR Hack (cal que la versió del Wine en sigui compatible)",
         "eosOverlay": {
