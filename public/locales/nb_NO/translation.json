@@ -522,7 +522,9 @@
             "title": "Kjør EXE på prefiks"
         },
         "savefolder": {
-            "placeholder": "Velg den nøyaktige mappen for lagring av spill"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Velg den nøyaktige mappen for lagring av spill",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Velg Tema",
         "showfps": "Vis FPS (DX9, 10 og 11)",

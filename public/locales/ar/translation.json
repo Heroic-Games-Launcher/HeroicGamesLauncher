@@ -522,7 +522,9 @@
             "title": "قم بتشغيل الملف التنفيذي في السابقة"
         },
         "savefolder": {
-            "placeholder": "حدد مجلد ملفات تخزين الألعاب بالضبط"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "حدد مجلد ملفات تخزين الألعاب بالضبط",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "اختر سِمة",
         "showfps": "عرض معدل الإطارات (دايركت.إكس 9 و 10 و 11)",

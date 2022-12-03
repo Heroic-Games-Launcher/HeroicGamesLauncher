@@ -522,7 +522,9 @@
             "title": "Pokrenite EXE na prefiksu"
         },
         "savefolder": {
-            "placeholder": "Odaberite tačnu mapu za spremanje video igara"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Odaberite tačnu mapu za spremanje video igara",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Izaberite temu",
         "showfps": "Pokaži FPS (DX9, 10 i 11)",

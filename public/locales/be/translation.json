@@ -522,7 +522,9 @@
             "title": "Select EXE to Run"
         },
         "savefolder": {
-            "placeholder": "Выберыце дакладную тэчку захавання гульняў"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Выберыце дакладную тэчку захавання гульняў",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "Паказаць FPS (DX9, 10 і 11)",

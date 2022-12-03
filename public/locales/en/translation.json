@@ -522,7 +522,9 @@
             "title": "Run EXE on Prefix"
         },
         "savefolder": {
-            "placeholder": "Select the exact save games folder"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Select the exact save games folder",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "Show FPS (DX9, 10 and 11)",

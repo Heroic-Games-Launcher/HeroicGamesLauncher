@@ -522,7 +522,9 @@
             "title": "Voer EXE uit op Prefix"
         },
         "savefolder": {
-            "placeholder": "Selecteer de exacte opslagmap"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Selecteer de exacte opslagmap",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "Toon FPS (DX9, DX10 en DX11)",

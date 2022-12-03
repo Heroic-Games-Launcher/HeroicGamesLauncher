@@ -522,7 +522,9 @@
             "title": "Käynnistä EXE prefixissä"
         },
         "savefolder": {
-            "placeholder": "Valitse täsmällinen pelitallennuksien kansio"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",

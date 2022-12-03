@@ -522,7 +522,9 @@
             "title": "Εκτέλεση EXE με Πρόθημα"
         },
         "savefolder": {
-            "placeholder": "Διαλέξτε τον ακριβή φάκελο αποθήκευσης παιχνιδιών"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Διαλέξτε τον ακριβή φάκελο αποθήκευσης παιχνιδιών",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Επιλογή θέματος",
         "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",

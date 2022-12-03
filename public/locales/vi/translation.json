@@ -522,7 +522,9 @@
             "title": "Chạy EXE trên prefix"
         },
         "savefolder": {
-            "placeholder": "Chọn chính xác thư mục lưu game"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Chọn chính xác thư mục lưu game",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "chọn Theme",
         "showfps": "Hiển thị FPS (DX9, 10 và 11)",

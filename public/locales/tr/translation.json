@@ -522,7 +522,9 @@
             "title": "Exe Çalıştır"
         },
         "savefolder": {
-            "placeholder": "Tam oyun kaydetme klasörünü seçin"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Tam oyun kaydetme klasörünü seçin",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Tema Seç",
         "showfps": "FPS'i Göster (DX9, 10 and 11)",

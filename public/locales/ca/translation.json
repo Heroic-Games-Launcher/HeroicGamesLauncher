@@ -522,7 +522,9 @@
             "title": "Executa l'EXE al prefix"
         },
         "savefolder": {
-            "placeholder": "Selecciona el directori exacte on es desen els jocs"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Selecciona el directori exacte on es desen els jocs",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Selecciona un tema",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",

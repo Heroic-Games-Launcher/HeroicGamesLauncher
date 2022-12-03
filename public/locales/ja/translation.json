@@ -522,7 +522,9 @@
             "title": "プレフィックスでEXEを実行する"
         },
         "savefolder": {
-            "placeholder": "正確なゲーム保存フォルダを選択してください"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "正確なゲーム保存フォルダを選択してください",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "FPSを表示（DX9、10、11）",

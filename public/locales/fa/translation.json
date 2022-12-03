@@ -522,7 +522,9 @@
             "title": "اجرای EXE در محل"
         },
         "savefolder": {
-            "placeholder": "انتخاب پوشه دقیق ذخیرههای بازیها"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "انتخاب پوشه دقیق ذخیرههای بازیها",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "انتخاب تم",
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",

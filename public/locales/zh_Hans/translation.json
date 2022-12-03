@@ -522,7 +522,9 @@
             "title": "在前置上运行 EXE"
         },
         "savefolder": {
-            "placeholder": "选择存档的保存位置"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "选择存档的保存位置",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",

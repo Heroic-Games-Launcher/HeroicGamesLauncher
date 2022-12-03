@@ -522,7 +522,9 @@
             "title": "Spustit EXE na prefixu"
         },
         "savefolder": {
-            "placeholder": "Vyberte přesnou složku s uloženými soubory"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Vyberte přesnou složku s uloženými soubory",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Vybrat motiv",
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",

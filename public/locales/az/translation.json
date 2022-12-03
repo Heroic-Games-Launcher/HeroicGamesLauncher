@@ -522,7 +522,9 @@
             "title": "Prefiksdə EXE-ni işə salın"
         },
         "savefolder": {
-            "placeholder": "Oyunların dəqiq saxlanması qovluğunu seçin"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Oyunların dəqiq saxlanması qovluğunu seçin",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Mövzu seçin",
         "showfps": "FPS göstərin (DX9, 10 və 11)",

@@ -522,7 +522,9 @@
             "title": "Изпълняване на EXE в префикс"
         },
         "savefolder": {
-            "placeholder": "Изберете точната папка за запазени файлове"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Изберете точната папка за запазени файлове",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Изберете тема",
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",

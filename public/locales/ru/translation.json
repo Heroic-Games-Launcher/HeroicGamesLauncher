@@ -522,7 +522,9 @@
             "title": "Запустить EXE в префиксе"
         },
         "savefolder": {
-            "placeholder": "Выберите точную папку для сохранений игр"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Выберите точную папку для сохранений игр",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",

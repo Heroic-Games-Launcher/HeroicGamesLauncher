@@ -522,7 +522,9 @@
             "title": "EXE fájl futtatása a prefixen"
         },
         "savefolder": {
-            "placeholder": "Pontos játékmentési mappa kiválasztása"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Pontos játékmentési mappa kiválasztása",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",

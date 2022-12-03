@@ -522,7 +522,9 @@
             "title": "Uruchom EXE w prefiksie"
         },
         "savefolder": {
-            "placeholder": "Wybierz folder zapisu gier"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Wybierz folder zapisu gier",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Wybierz Motyw",
         "showfps": "Pokaż FPS (DX9, DX10, DX11)",

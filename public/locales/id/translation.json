@@ -522,7 +522,9 @@
             "title": "Jalankan EXE di Prefiks"
         },
         "savefolder": {
-            "placeholder": "Pilih folder gim tersimpan yang tepat"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Pilih folder gim tersimpan yang tepat",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Pilih Tema",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
