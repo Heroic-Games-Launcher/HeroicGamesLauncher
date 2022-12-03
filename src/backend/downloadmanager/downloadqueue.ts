@@ -77,6 +77,24 @@ async function initQueue() {
   queueState = 'idle'
 }
 
+async function stopQueue() {
+  const window = getMainWindow()
+  let element = getFirstQueueElement()
+  queueState = element ? 'idle' : 'running'
+
+  while (element) {
+    const queuedElements = downloadManager.get('queue') as DMQueueElement[]
+    window.webContents.send('changedDMQueueInformation', queuedElements)
+    element.startTime = Date.now()
+    queuedElements[0] = element
+    downloadManager.set('queue', queuedElements)
+
+    element.endTime = Date.now()
+    pauseQueue(element.params.appName)
+    element = getFirstQueueElement()
+  }
+}
+
 function addToQueue(element: DMQueueElement) {
   if (!element) {
     logError('Can not add undefined element to queue!', {
@@ -124,12 +142,15 @@ function pauseQueue(appName: string) {
   if (appName && downloadManager.has('queue')) {
     let elements: DMQueueElement[] = []
     elements = downloadManager.get('queue') as DMQueueElement[]
-
     logInfo([appName, 'paused in download manager.'], {
       prefix: LogPrefix.DownloadManager
     })
 
     getMainWindow().webContents.send('changedDMQueueInformation', elements)
+
+    if (queueState === 'running') {
+      stopQueue()
+    }
   }
 }
 
@@ -180,6 +201,7 @@ function getQueueInformation() {
 
 export {
   initQueue,
+  stopQueue,
   addToQueue,
   pauseQueue,
   removeFromQueue,
