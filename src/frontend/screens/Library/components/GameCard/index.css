@@ -93,7 +93,7 @@
   bottom: 0px;
   padding: 0.6rem 0.3rem;
   color: var(--text-secondary);
-  background: #17131cd2;
+  background: var(--gamecard-title-color);
   transition: 200ms;
   font-family: var(--primary-font-family);
   font-size: var(--text-md);
