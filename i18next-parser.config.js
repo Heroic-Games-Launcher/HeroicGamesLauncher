@@ -54,6 +54,7 @@ module.exports = {
   // Control the line ending. See options at https://github.com/ryanve/eol
 
   locales: [
+    'ar',
     'az',
     'be',
     'bg',

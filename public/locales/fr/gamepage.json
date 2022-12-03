@@ -33,7 +33,7 @@
         },
         "uninstall": {
             "checkbox": "Supprimer le préfixe : {{prefix}}{{newLine}}Note : cela ne peut pas être annulé et supprimera également les fichiers de sauvegarde non sauvegardés.",
-            "message": "Voulez-vous désinstaller ce jeu\u202f?",
+            "message": "Voulez-vous désinstaller ce jeu?",
             "title": "Désinstaller"
         },
         "update": {
