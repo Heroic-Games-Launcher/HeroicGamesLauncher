@@ -1,5 +1,5 @@
 .runnerWrapper {
-  background-color: var(--background-darker);
+  background-color: var(--input-background);
   border-radius: var(--space-xs);
   min-width: min(500px, 30%);
   display: flex;
