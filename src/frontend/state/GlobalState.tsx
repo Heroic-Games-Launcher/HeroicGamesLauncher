@@ -577,14 +577,12 @@ export class GlobalState extends PureComponent<Props> {
           (game) => game.appName === appName
         )[0]
         if (!currentApp) {
-          // Add finding a runner for games
-          const gameInfo = await getGameInfo(appName, runner)
           return launch({
             appName,
             t,
             runner,
             hasUpdate: false,
-            syncCloud: gameInfo?.cloud_save_enabled || false,
+            syncCloud: true,
             showDialogModal: this.handleShowDialogModal
           })
         }
