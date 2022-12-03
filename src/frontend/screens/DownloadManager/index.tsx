@@ -17,7 +17,7 @@ const DownloadManagerItem = lazy(
 export default React.memo(function DownloadManager(): JSX.Element | null {
   const { t } = useTranslation()
   const [refreshing, setRefreshing] = useState(false)
-  const [plannendElements, setPlannendElements] = useState<DMQueueElement[]>([])
+  const [plannedElements, setPlannedElements] = useState<DMQueueElement[]>([])
   const [currentElement, setCurrentElement] = useState<DMQueueElement>()
   const [finishedElem, setFinishedElem] = useState<DMQueueElement[]>()
 
@@ -25,7 +25,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
     setRefreshing(true)
     window.api.getDMQueueInformation().then(({ elements }: DMQueue) => {
       setCurrentElement(elements[0])
-      setPlannendElements([...elements.slice(1)])
+      setPlannedElements([...elements.slice(1)])
       setRefreshing(false)
     })
 
@@ -33,7 +33,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
       (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => {
         if (elements) {
           setCurrentElement(elements[0])
-          setPlannendElements([...elements.slice(1)])
+          setPlannedElements([...elements.slice(1)])
         }
       }
     )
@@ -47,7 +47,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
     window.api.getDMQueueInformation().then(({ finished }: DMQueue) => {
       setFinishedElem(finished)
     })
-  }, [plannendElements.length, currentElement?.params.appName])
+  }, [plannedElements.length, currentElement?.params.appName])
 
   if (refreshing) {
     return <UpdateComponent />
@@ -122,8 +122,8 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
           </h5>
           <div className="dmItemList">
             <DownloadManagerHeader time="queued" />
-            {plannendElements.length > 0 ? (
-              plannendElements.map((el, key) => (
+            {plannedElements.length > 0 ? (
+              plannedElements.map((el, key) => (
                 <DownloadManagerItem key={key} element={el} current={false} />
               ))
             ) : (
@@ -134,6 +134,23 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
       }
       {!!doneElements?.length && (
         <div className="downloadManager">
+          <div>
+            <span>
+              <h5 className="downloadManagerPausedSectionTitle">
+                {t('queue.label.paused', 'Paused')}
+              </h5>
+            </span>
+            <div className="dmItemList">
+              <DownloadManagerHeader time="paused" />
+              {plannedElements.length > 0 ? (
+                plannedElements.map((el, key) => (
+                  <DownloadManagerItem key={key} element={el} current={false} />
+                ))
+              ) : (
+                <DownloadManagerItem current={false} />
+              )}
+            </div>
+          </div>
           <div className="downloadList">
             <span>
               <h5 className="downloadManagerQueuedSectionTitle">

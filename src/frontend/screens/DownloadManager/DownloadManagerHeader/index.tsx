@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 type Props = {
-  time: 'started' | 'finished' | 'queued'
+  time: 'started' | 'finished' | 'queued' | 'paused'
 }
 
 export default function GameListHeader({ time }: Props) {
@@ -16,6 +16,8 @@ export default function GameListHeader({ time }: Props) {
         return t('download-manager.queue.end-time', 'Finished at')
       case 'queued':
         return t('download-manager.queue.queue-time', 'Added at')
+      case 'paused':
+        return t('download-manager.queue.pause-time', 'Paused At')
     }
   }
 

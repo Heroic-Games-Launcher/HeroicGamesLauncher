@@ -41,6 +41,12 @@
   padding-left: 30px;
 }
 
+.downloadManagerPausedSectionTitle {
+  margin: 30px 0px 0px 0px;
+  text-align: initial;
+  padding-left: 30px;
+}
+
 .dmItemList {
   border: solid 2px var(--input-background);
   background-color: var(--input-background);
