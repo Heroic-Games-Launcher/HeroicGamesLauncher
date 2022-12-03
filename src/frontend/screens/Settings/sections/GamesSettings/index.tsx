@@ -25,7 +25,8 @@ import {
   UseDGPU,
   WinePrefix,
   WineVersionSelector,
-  WrappersTable
+  WrappersTable,
+  EnableDXVKFpsLimit
 } from '../../components'
 import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
@@ -100,6 +101,8 @@ export default function GamesSettings() {
         <AlternativeExe />
 
         {!nativeGame && <ShowFPS />}
+
+        {!nativeGame && <EnableDXVKFpsLimit />}
 
         {isLinux && !nativeGame && (
           <>

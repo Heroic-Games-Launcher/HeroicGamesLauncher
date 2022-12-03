@@ -227,6 +227,7 @@
         "custom_themes_path": "N'utilisez pas de fichiers CSS venant de sources inconnues. En cas de doute, demandez un avis sur notre canal Discord.",
         "custom_themes_wiki": "Visitez le Wiki pour plus d'informations concernant les thèmes personnalisés. Cliquez ici.",
         "dxvk": "DXVK est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 9, 10 et 11. L'activer pourrait améliorer la compatibilité. Peut causer des problèmes, en particulier pour des jeux utilisant des versions de DirectX plus anciennes.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "« Esync » a pour but de diminuer l'utilisation des ressources par « wineserver » dans les jeux sollicitant fortement le CPU. L'activer pourrait améliorer les performances.",
         "fsync": "Esync a pour but de diminuer l'utilisation des ressources par wineserver dans les jeux sollicitant fortement le CPU. L'activer pourrait améliorer les performances avec les noyaux Linux supportés.",
         "game_language": {
@@ -405,6 +406,7 @@
         "alt-gogdl-bin": "Utilisation du binaire GOGDL intégré...",
         "alt-legendary-bin": "Utilisation du binaire Legendary intégré...",
         "custom_themes_path": "Sélectionner le chemin où rechercher des fichiers CSS personnalisés",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix où EGS est installé",
         "prefered_language": "2-char code (exemple : \"en\" ou \"fr\")"
     },
@@ -448,6 +450,7 @@
         "disable_controller": "Désactiver la navigation à la manette dans Heroic",
         "discordRPC": "Activer Rich Presence dans Discord",
         "download-no-https": "Télécharger les jeux sans utiliser HTTPS (utile pour CDNs e.g. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Synchroniser avec l'installation d'Epic Games",
         "enableFSRHack": "Activer FSR Hack (la version de wine doit le prendre en charge)",
         "eosOverlay": {

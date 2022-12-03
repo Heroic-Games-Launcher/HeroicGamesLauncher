@@ -131,6 +131,8 @@ export interface GameSettings {
   wrapperOptions: WrapperVariable[]
   savesPath: string
   showFps: boolean
+  enableDXVKFpsLimit: boolean
+  DXVKFpsCap: string //Entered as string but used as number
   showMangohud: boolean
   targetExe: string
   useGameMode: boolean

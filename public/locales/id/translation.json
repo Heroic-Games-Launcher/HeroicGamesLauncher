@@ -227,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK adalah lapisan translasi berbasis Vulkan untuk gim yang memakai DirectX 9, 10, dan 11. Mengaktifkannya dapat meningkatkan kompatibilitas. Mungkin dapat menyebabkan masalah terutama untuk gim dengan versi DirectX yang lebih lama.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU yang intensif. Mengaktifkannya dapat meningkatkan kinerja.",
         "fsync": "Fsync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU intensif. Mengaktifkannya dapat meningkatkan kinerja pada kernel Linux yang didukung.",
         "game_language": {
@@ -405,6 +406,7 @@
         "alt-gogdl-bin": "Menggunakan GOGDL binary bawaan…",
         "alt-legendary-bin": "Menggunakan Legendary binary bawaan...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiks di mana EGS dipasang",
         "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")"
     },
@@ -448,6 +450,7 @@
         "disable_controller": "Nonaktifkan navigasi Heroic menggunakan pengontrol",
         "discordRPC": "Aktifkan Discord Rich Presence",
         "download-no-https": "Unduh gim tanpa HTTPS (berguna untuk CDN misalnya LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sinkronkan dengan Epic Games yang Terpasang",
         "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
         "eosOverlay": {

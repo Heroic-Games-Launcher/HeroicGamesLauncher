@@ -227,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK لایه ترجمهcای بر پایه Vulkan برای بازی های DirectX 9، 10، 11 می باشد. فعال کردن ممکن است سبب افزایش سازگاری شود. ممکن است باعث ایجاد مشکلات خصوصا برای بازی های DirectX قدیمی شود.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است باعث افزایش کارایی شود.",
         "fsync": "Fsync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است در لینوکس کرنل های پشتیبانی شده باعث افزایش کارایی شود.",
         "game_language": {
@@ -405,6 +406,7 @@
         "alt-gogdl-bin": "استفاده از باینری GOGDL داخلی...",
         "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "محل نصب شده EGS",
         "prefered_language": "کد دو حرفی (مانند \"en\" یا \"fr\")"
     },
@@ -448,6 +450,7 @@
         "disable_controller": "غیر فعال کردن کنترل Heroic با استفاده از دسته",
         "discordRPC": "فعالسازی Discord Rich Presence",
         "download-no-https": "دانلود بازی ها بدون HTTPS (مفید برای CDNs مانند LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "همگامسازی با بازیهای اپیک نصب شده",
         "enableFSRHack": "فعالسازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
         "eosOverlay": {
