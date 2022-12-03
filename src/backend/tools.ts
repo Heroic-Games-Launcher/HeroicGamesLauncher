@@ -7,7 +7,8 @@ import {
   renameSync,
   writeFile,
   writeFileSync,
-  rmSync
+  rmSync,
+  readdirSync
 } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
@@ -43,25 +44,26 @@ export const DXVK = {
       {
         name: 'vkd3d',
         url: 'https://api.github.com/repos/bottlesdevs/vkd3d-proton/releases/latest',
-        extractCommand: 'tar -xf'
+        extractCommand: 'tar -xf',
+        os: 'linux'
       },
       {
         name: 'dxvk',
         url: 'https://api.github.com/repos/doitsujin/dxvk/releases/latest',
-        extractCommand: 'tar -xf'
+        extractCommand: 'tar -xf',
+        os: 'linux'
       },
       {
         name: 'dxvk-macOS',
         url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
-        extractCommand: 'tar -xf'
+        extractCommand: 'tar -xf',
+        os: 'darwin'
       }
     ]
 
     tools.forEach(async (tool) => {
-      if (isMac) {
-        if (tool.name !== 'dxvk-macOS') {
-          return
-        }
+      if (tool.os !== process.platform) {
+        return
       }
 
       const {
@@ -142,7 +144,7 @@ export const DXVK = {
     const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
 
-    if (!isValidPrefix) {
+    if (action === 'backup' && !isValidPrefix) {
       logWarning('DXVK cannot be installed on a Proton or a invalid prefix!', {
         prefix: LogPrefix.DXVKInstaller
       })
@@ -165,10 +167,10 @@ export const DXVK = {
       .toString()
       .split('\n')[0]
 
-    const dxvkDlls = ['dxgi', 'd3d11', 'd3d10', 'd3d10_1', 'd3d10core']
-    const vkd3dDlls = ['d3d12']
-    const dlls = tool.startsWith('dxvk') ? dxvkDlls : vkd3dDlls
-    const toolPathx86 = `${heroicToolsPath}/${tool}/${globalVersion}/x86`
+    const dlls = readdirSync(`${heroicToolsPath}/${tool}/${globalVersion}/x64`)
+    const toolPathx32 = `${heroicToolsPath}/${tool}/${globalVersion}/${
+      tool === 'vkd3d' ? 'x86' : 'x32'
+    }`
     const toolPathx64 = `${heroicToolsPath}/${tool}/${globalVersion}/x64`
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
@@ -194,14 +196,14 @@ export const DXVK = {
       // remove the dlls from the prefix
       await new Promise((resolve) => {
         dlls.forEach((dll) => {
-          const dllPath = `${winePrefix}/drive_c/windows/system32/${dll}.dll`
-          if (existsSync(dllPath)) {
+          const dllPath = `${winePrefix}/drive_c/windows/system32/${dll}`
+          if (existsSync(`${dllPath}.bak`)) {
             const removeDll = `rm ${dllPath}`
             exec(removeDll)
           }
 
-          const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}.dll`
-          if (existsSync(dllPath64)) {
+          const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}`
+          if (existsSync(`${dllPath}.bak`)) {
             const removeDll = `rm ${dllPath64}`
             exec(removeDll)
           }
@@ -212,20 +214,20 @@ export const DXVK = {
       // restore the backup dlls
       await new Promise((resolve) => {
         dlls.forEach((dll) => {
-          const dllPath = `${winePrefix}/drive_c/windows/system32/${dll}.dll.bak`
+          const dllPath = `${winePrefix}/drive_c/windows/system32/${dll}.bak`
+          const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}.bak`
+          logInfo(`Restoring ${dll}`, { prefix: LogPrefix.DXVKInstaller })
           if (existsSync(dllPath)) {
-            console.log('restoring', dllPath)
-            const restoreDll = `mv ${dllPath} ${winePrefix}/drive_c/windows/system32/${dll}.dll`
-            exec(restoreDll)
+            renameSync(dllPath, `${winePrefix}/drive_c/windows/system32/${dll}`)
           }
 
-          const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}.dll.bak`
-          if (existsSync(dllPath64)) {
-            if (isMac) {
-              return
+          if (!isMac) {
+            if (existsSync(dllPath64)) {
+              renameSync(
+                dllPath64,
+                `${winePrefix}/drive_c/windows/syswow64/${dll}`
+              )
             }
-            const restoreDll = `mv ${dllPath64} ${winePrefix}/drive_c/windows/syswow64/${dll}.dll`
-            exec(restoreDll)
           }
         })
         resolve(true)
@@ -235,7 +237,7 @@ export const DXVK = {
       await new Promise((resolve) => {
         dlls.forEach((dll) => {
           const unregisterDll = `WINEPREFIX='${winePrefix}' '${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
-          console.log(`unregistering ${dll}`)
+          logInfo(`Unregistering ${dll}`, { prefix: LogPrefix.DXVKInstaller })
           exec(unregisterDll)
         })
         resolve(true)
@@ -261,20 +263,16 @@ export const DXVK = {
 
     await new Promise((resolve) => {
       dlls.forEach(async (dll) => {
-        if (existsSync(`${winePrefix}/drive_c/windows/system32/${dll}.dll`)) {
+        renameSync(
+          `${winePrefix}/drive_c/windows/system32/${dll}`,
+          `${winePrefix}/drive_c/windows/system32/${dll}.bak`
+        )
+
+        // macOs supports 64 bits only
+        if (!isMac) {
           renameSync(
-            `${winePrefix}/drive_c/windows/system32/${dll}.dll`,
-            `${winePrefix}/drive_c/windows/system32/${dll}.dll.bak`
-          )
-        }
-        if (existsSync(`${winePrefix}/drive_c/windows/syswow64/${dll}.dll`)) {
-          // macOs supports 64 bits only
-          if (isMac) {
-            return
-          }
-          renameSync(
-            `${winePrefix}/drive_c/windows/syswow64/${dll}.dll`,
-            `${winePrefix}/drive_c/windows/syswow64/${dll}.dll.bak`
+            `${winePrefix}/drive_c/windows/syswow64/${dll}`,
+            `${winePrefix}/drive_c/windows/syswow64/${dll}.bak`
           )
         }
       })
@@ -284,21 +282,17 @@ export const DXVK = {
     // copy the new dlls to the prefix
     await new Promise((resolve) => {
       dlls.forEach(async (dll) => {
-        if (existsSync(`${toolPathx86}/${dll}.dll`)) {
-          if (isMac) {
-            return
-          }
+        if (!isMac) {
           copyFileSync(
-            `${toolPathx86}/${dll}.dll`,
-            `${winePrefix}/drive_c/windows/syswow64/${dll}.dll`
+            `${toolPathx32}/${dll}`,
+            `${winePrefix}/drive_c/windows/syswow64/${dll}`
           )
         }
-        if (existsSync(`${toolPathx64}/${dll}.dll`)) {
-          copyFileSync(
-            `${toolPathx64}/${dll}.dll`,
-            `${winePrefix}/drive_c/windows/system32/${dll}.dll`
-          )
-        }
+
+        copyFileSync(
+          `${toolPathx64}/${dll}`,
+          `${winePrefix}/drive_c/windows/system32/${dll}`
+        )
       })
       resolve(true)
     })
