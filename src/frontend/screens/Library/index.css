@@ -49,6 +49,10 @@
   justify-content: space-between;
 }
 
+#backToTopArrow {
+  font-size: 3.2vh;
+}
+
 #backToTopBtn {
   border-radius: 100%;
   width: 5vh;
