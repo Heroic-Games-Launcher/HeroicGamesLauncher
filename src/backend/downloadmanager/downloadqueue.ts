@@ -120,6 +120,19 @@ function addToQueue(element: DMQueueElement) {
   }
 }
 
+function pauseInQueue(appName: string) {
+  if (appName && downloadManager.has('queue')) {
+    let elements: DMQueueElement[] = []
+    elements = downloadManager.get('queue') as DMQueueElement[]
+
+    logInfo([appName, 'paused in download manager.'], {
+      prefix: LogPrefix.DownloadManager
+    })
+
+    getMainWindow().webContents.send('changedDMQueueInformation', elements)
+  }
+}
+
 function removeFromQueue(appName: string) {
   const mainWindow = getMainWindow()
 
@@ -168,6 +181,7 @@ function getQueueInformation() {
 export {
   initQueue,
   addToQueue,
+  pauseInQueue,
   removeFromQueue,
   clearFinished,
   getQueueInformation
