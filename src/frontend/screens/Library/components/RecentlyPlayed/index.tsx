@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, RecentGame, Runner } from 'common/types'
 import GamesList from '../GamesList'
 import { configStore } from 'frontend/helpers/electronStores'
+import useLibrary from 'frontend/hooks/useLibrary'
 
 interface Props {
   handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
@@ -34,15 +34,12 @@ export default React.memo(function RecentlyPlayed({
   onlyInstalled
 }: Props) {
   const { t } = useTranslation()
-  const { epic, gog, sideloadedLibrary } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
+  const gamesLibrary = useLibrary({ category: 'all' })
 
   const loadRecentGames = async () => {
     const { maxRecentGames } = await window.api.requestAppSettings()
-    const newRecentGames = getRecentGames(
-      [...epic.library, ...gog.library, ...sideloadedLibrary],
-      maxRecentGames
-    )
+    const newRecentGames = getRecentGames(gamesLibrary, maxRecentGames)
 
     setRecentGames(newRecentGames)
   }
@@ -60,7 +57,7 @@ export default React.memo(function RecentlyPlayed({
     return () => {
       recentGamesChangedRemoveListener()
     }
-  }, [epic.library, gog.library, sideloadedLibrary])
+  }, [gamesLibrary])
 
   if (!recentGames.length) {
     return null

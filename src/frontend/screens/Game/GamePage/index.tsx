@@ -46,6 +46,7 @@ import {
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import HowLongToBeat from 'frontend/components/UI/HowLongToBeat'
+import useLibrary from 'frontend/hooks/useLibrary'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -59,8 +60,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const { libraryStatus, epic, gog, gameUpdates, platform, showDialogModal } =
+  const { libraryStatus, gameUpdates, platform, showDialogModal } =
     useContext(ContextProvider)
+
+  const gamesLibrary = useLibrary({ category: runner })
 
   const { status } =
     libraryStatus.find((game) => game.appName === appName) || {}
@@ -126,7 +129,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateGameInfo()
-  }, [status, gog.library, epic.library])
+  }, [status, gamesLibrary])
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -187,7 +190,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [status, epic.library, gog.library, gameInfo])
+  }, [status, gamesLibrary, gameInfo])
 
   function handleUpdate() {
     updateGame({ appName, runner, gameInfo })

@@ -57,13 +57,11 @@ export interface ContextType {
   zoomPercent: number
   setZoomPercent: (newZoomPercent: number) => void
   epic: {
-    library: GameInfo[]
     username: string | null
     login: (sid: string) => Promise<string>
     logout: () => Promise<void>
   }
   gog: {
-    library: GameInfo[]
     username: string | null
     login: (token: string) => Promise<string>
     logout: () => Promise<void>
@@ -79,7 +77,6 @@ export interface ContextType {
   dialogModalOptions: DialogModalOptions
   showDialogModal: (options: DialogModalOptions) => void
   showResetDialog: () => void
-  sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   setHideChangelogsOnStartup: (value: boolean) => void
   lastChangelogShown: string | null

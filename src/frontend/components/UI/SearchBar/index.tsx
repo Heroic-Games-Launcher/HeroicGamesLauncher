@@ -11,6 +11,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useLibrary from 'frontend/hooks/useLibrary'
 
 function fixFilter(text: string) {
   const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')
@@ -18,14 +19,14 @@ function fixFilter(text: string) {
 }
 
 export default React.memo(function SearchBar() {
-  const { handleSearch, filterText, epic, gog, sideloadedLibrary } =
-    useContext(ContextProvider)
+  const { handleSearch, filterText } = useContext(ContextProvider)
+  const gamesLibrary = useLibrary({ category: 'all' })
   const { t } = useTranslation()
   const input = useRef<HTMLInputElement>(null)
 
   const list = useMemo(() => {
     const library = new Set(
-      [...epic.library, ...gog.library, ...sideloadedLibrary]
+      [...gamesLibrary]
         .filter(Boolean)
         .map((g) => g.title)
         .sort()
@@ -33,7 +34,7 @@ export default React.memo(function SearchBar() {
     return [...library].filter((i) =>
       new RegExp(fixFilter(filterText), 'i').test(i)
     )
-  }, [epic.library, gog.library, filterText])
+  }, [gamesLibrary, filterText])
 
   // we have to use an event listener instead of the react
   // onChange callback so it works with the virtual keyboard

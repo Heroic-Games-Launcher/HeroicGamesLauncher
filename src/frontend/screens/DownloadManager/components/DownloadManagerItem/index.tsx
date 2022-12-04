@@ -20,6 +20,7 @@ import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo } from 'common/types/gog'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
+import useLibrary from 'frontend/hooks/useLibrary'
 
 type Props = {
   element?: DMQueueElement
@@ -38,9 +39,11 @@ function convertToTime(time: number) {
 }
 
 const DownloadManagerItem = ({ element, current }: Props) => {
-  const { epic, gog, showDialogModal } = useContext(ContextProvider)
+  const { showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
+
+  const gamesLibrary = useLibrary({ category: 'all' })
 
   const navigate = useNavigate()
 
@@ -51,8 +54,6 @@ const DownloadManagerItem = ({ element, current }: Props) => {
       </h5>
     )
   }
-
-  const library = [...epic.library, ...gog.library]
 
   const { params, addToQueueTime, endTime, type, startTime } = element
   const {
@@ -173,7 +174,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
     return current ? 'var(--text-default)' : 'var(--accent)'
   }
 
-  const currentApp = library.find((val) => val.app_name === appName)
+  const currentApp = gamesLibrary.find((val) => val.app_name === appName)
 
   if (!currentApp) {
     return null

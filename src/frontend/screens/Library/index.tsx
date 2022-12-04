@@ -27,12 +27,9 @@ import {
 } from 'common/types'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
-import {
-  epicCategories,
-  gogCategories,
-  sideloadedCategories
-} from 'frontend/helpers/library'
+import { epicCategories, gogCategories } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
+import useLibrary from 'frontend/hooks/useLibrary'
 
 const InstallModal = lazy(
   async () => import('frontend/screens/Library/components/InstallModal')
@@ -56,7 +53,6 @@ export default React.memo(function Library(): JSX.Element {
     category,
     epic,
     gog,
-    sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
     filterText,
@@ -67,6 +63,8 @@ export default React.memo(function Library(): JSX.Element {
     handleCategory,
     showFavourites: showFavouritesLibrary
   } = useContext(ContextProvider)
+
+  const gamesLibrary = useLibrary({ category })
 
   const [showModal, setShowModal] = useState<ModalState>({
     game: '',
@@ -202,13 +200,7 @@ export default React.memo(function Library(): JSX.Element {
       const favouriteAppNames = favouriteGames.list.map(
         (favourite: FavouriteGame) => favourite.appName
       )
-      epic.library.forEach((game: GameInfo) => {
-        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
-      })
-      gog.library.forEach((game: GameInfo) => {
-        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
-      })
-      sideloadedLibrary.forEach((game: GameInfo) => {
+      gamesLibrary.forEach((game: GameInfo) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
     }
@@ -223,14 +215,7 @@ export default React.memo(function Library(): JSX.Element {
         category === 'all' ? game : game?.runner === category
       )
     } else {
-      const isEpic = epic.username && epicCategories.includes(category)
-      const isGog = gog.username && gogCategories.includes(category)
-      const epicLibrary = isEpic ? epic.library : []
-      const gogLibrary = isGog ? gog.library : []
-      const sideloadedApps = sideloadedCategories.includes(category)
-        ? sideloadedLibrary
-        : []
-      library = [...sideloadedApps, ...epicLibrary, ...gogLibrary]
+      library = [...gamesLibrary]
     }
 
     // filter
@@ -285,8 +270,7 @@ export default React.memo(function Library(): JSX.Element {
     return [...library]
   }, [
     category,
-    epic.library,
-    gog.library,
+    gamesLibrary,
     filterText,
     filterPlatform,
     sortDescending,

@@ -23,6 +23,7 @@ import { Runner, GameInfo } from 'common/types'
 import './index.css'
 import QuitButton from '../QuitButton'
 import { LocationState } from 'frontend/types'
+import useLibrary from 'frontend/hooks/useLibrary'
 
 type PathSplit = [
   a: undefined,
@@ -41,6 +42,7 @@ export default function SidebarLinks() {
   const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
   const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
+  const gamesLibrary = useLibrary({ category: 'all' })
 
   const { epic, gog, platform, activeController, refreshLibrary } =
     useContext(ContextProvider)
@@ -94,8 +96,8 @@ export default function SidebarLinks() {
     localStorage.setItem('scrollPosition', '0')
 
     const shouldRefresh =
-      (epic.username && !epic.library.length) ||
-      (gog.username && !gog.library.length)
+      (epic.username && !gamesLibrary.length) ||
+      (gog.username && !gamesLibrary.length)
     if (shouldRefresh) {
       return refreshLibrary({ runInBackground: true, fullRefresh: true })
     }

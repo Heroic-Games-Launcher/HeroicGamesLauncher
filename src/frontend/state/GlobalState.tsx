@@ -3,10 +3,8 @@ import React, { PureComponent } from 'react'
 import {
   ConnectivityStatus,
   FavouriteGame,
-  GameInfo,
   GameStatus,
   HiddenGame,
-  InstalledInfo,
   RefreshOptions,
   Runner,
   WineVersionInfo,
@@ -17,14 +15,7 @@ import {
 } from 'common/types'
 import { Category, DialogModalOptions } from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
-import {
-  getGameInfo,
-  getLegendaryConfig,
-  getPlatform,
-  install,
-  launch,
-  notify
-} from '../helpers'
+import { getGameInfo, getPlatform, install, launch, notify } from '../helpers'
 import { i18n, t } from 'i18next'
 
 import ContextProvider from './ContextProvider'
@@ -32,12 +23,8 @@ import ContextProvider from './ContextProvider'
 import {
   configStore,
   gogConfigStore,
-  gogInstalledGamesStore,
-  gogLibraryStore,
-  libraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
-import { sideloadLibrary } from 'frontend/helpers/electronStores'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get('settings', {}) as AppSettings
@@ -55,11 +42,9 @@ interface Props {
 interface StateProps {
   category: Category
   epic: {
-    library: GameInfo[]
     username: string | null
   }
   gog: {
-    library: GameInfo[]
     username: string | null
   }
   wineVersions: WineVersionInfo[]
@@ -87,41 +72,18 @@ interface StateProps {
   activeController: string
   connectivity: { status: ConnectivityStatus; retryIn: number }
   dialogModalOptions: DialogModalOptions
-  sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
 }
 
 export class GlobalState extends PureComponent<Props> {
-  loadGOGLibrary = (): Array<GameInfo> => {
-    const games = gogLibraryStore.has('games')
-      ? (gogLibraryStore.get('games', []) as GameInfo[])
-      : []
-    const installedGames =
-      (gogInstalledGamesStore.get('installed', []) as Array<InstalledInfo>) ||
-      []
-    for (const igame in games) {
-      for (const installedGame of installedGames) {
-        if (installedGame.appName === games[igame].app_name) {
-          games[igame].install = installedGame
-          games[igame].is_installed = true
-        }
-      }
-    }
-
-    return games
-  }
   state: StateProps = {
     category: (storage.getItem('category') as Category) || 'legendary',
     epic: {
-      library: libraryStore.has('library')
-        ? (libraryStore.get('library', []) as GameInfo[])
-        : [],
       username:
         (configStore.get('userInfo', null) as UserInfo)?.displayName || null
     },
     gog: {
-      library: this.loadGOGLibrary(),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       username: (gogConfigStore.get('userData', null) as any)?.username || null
     },
@@ -165,7 +127,6 @@ export class GlobalState extends PureComponent<Props> {
     allTilesInColor: (configStore.get('allTilesInColor') as boolean) || false,
     activeController: '',
     connectivity: { status: 'offline', retryIn: 0 },
-    sideloadedLibrary: sideloadLibrary.get('games', []) as GameInfo[],
     dialogModalOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings.hideChangelogsOnStartup,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null')
@@ -387,17 +348,6 @@ export class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
-    const currentLibraryLength = this.state.epic.library?.length
-    let epicLibrary: Array<GameInfo> =
-      (libraryStore.get('library', []) as Array<GameInfo>) || []
-
-    const gogLibrary: Array<GameInfo> = this.loadGOGLibrary()
-    if (!epicLibrary.length || !this.state.epic.library.length) {
-      window.api.logInfo('No cache found, getting data from legendary...')
-      const { library: legendaryLibrary } = await getLegendaryConfig()
-      epicLibrary = legendaryLibrary
-    }
-
     let updates = this.state.gameUpdates
     if (checkUpdates && library) {
       try {
@@ -407,27 +357,17 @@ export class GlobalState extends PureComponent<Props> {
       }
     }
 
-    const updatedSideload = sideloadLibrary.get('games', []) as GameInfo[]
-
     this.setState({
       epic: {
-        library: epicLibrary,
         username: this.state.epic.username
       },
       gog: {
-        library: gogLibrary,
         username: this.state.gog.username
       },
       gameUpdates: updates,
       refreshing: false,
-      refreshingInTheBackground: true,
-      sideloadedLibrary: updatedSideload
+      refreshingInTheBackground: true
     })
-
-    if (currentLibraryLength !== epicLibrary.length) {
-      window.api.logInfo('Force Update')
-      this.forceUpdate()
-    }
   }
 
   refreshLibrary = async ({
@@ -561,7 +501,7 @@ export class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { t } = this.props
-    const { epic, gameUpdates = [], libraryStatus, category } = this.state
+    const { gameUpdates = [], libraryStatus, category } = this.state
     const oldCategory: string = category
     if (oldCategory === 'epic') {
       this.handleCategory('all')
@@ -654,7 +594,7 @@ export class GlobalState extends PureComponent<Props> {
       this.refreshLibrary({
         checkForUpdates: true,
         fullRefresh: true,
-        runInBackground: Boolean(epic.library.length)
+        runInBackground: false
       })
     }
 
@@ -722,13 +662,11 @@ export class GlobalState extends PureComponent<Props> {
         value={{
           ...this.state,
           epic: {
-            library: this.state.epic.library,
             username: this.state.epic.username,
             login: this.epicLogin,
             logout: this.epicLogout
           },
           gog: {
-            library: this.state.gog.library,
             username: this.state.gog.username,
             login: this.gogLogin,
             logout: this.gogLogout
