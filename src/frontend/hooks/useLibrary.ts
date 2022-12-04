@@ -23,7 +23,10 @@ const useLibrary = ({ category }: Props): Array<GameInfo> => {
 
   const getLibrary = (): Array<GameInfo> => {
     const games = gogLibraryStore.get('games', []) as GameInfo[]
-    const installedGames = gogInstalledGamesStore.get('installed', []) as Array<InstalledInfo>
+    const installedGames = gogInstalledGamesStore.get(
+      'installed',
+      []
+    ) as Array<InstalledInfo>
     for (const igame in games) {
       for (const installedGame of installedGames) {
         if (installedGame.appName === games[igame].app_name) {
