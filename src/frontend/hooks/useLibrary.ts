@@ -22,9 +22,7 @@ const useLibrary = ({ category }: Props): Array<GameInfo> => {
   >([])
 
   const getLibrary = (): Array<GameInfo> => {
-    const games = gogLibraryStore.has('games')
-      ? (gogLibraryStore.get('games', []) as GameInfo[])
-      : []
+    const games = gogLibraryStore.get('games', []) as GameInfo[]
     const installedGames =
       (gogInstalledGamesStore.get('installed', []) as Array<InstalledInfo>) ||
       []
