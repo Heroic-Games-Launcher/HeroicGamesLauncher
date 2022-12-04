@@ -86,31 +86,41 @@ export interface ExtraInfo {
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
-export interface GameInfo {
+
+export type GameInfo = {
   runner: Runner
   store_url: string
   app_name: string
   art_cover: string
   art_logo?: string
   art_square: string
-  cloud_save_enabled: boolean
   developer: string
   extra: ExtraInfo
   folder_name: string
   install: Partial<InstalledInfo>
   is_installed: boolean
   namespace: string
-  // NOTE: This is the save folder without any variables filled in...
-  save_folder: string
-  // ...and this is the folder with them filled in
-  save_path?: string
   gog_save_location?: GOGCloudSavesLocation[]
   title: string
   canRunOffline: boolean
   thirdPartyManagedApp: string | undefined
   is_mac_native: boolean
   is_linux_native: boolean
-}
+} & (
+  | {
+      cloud_save_enabled: false
+      save_folder?: undefined
+      save_path?: undefined
+    }
+  | {
+      cloud_save_enabled: true
+      // NOTE: This is the save folder without any variables filled in...
+      save_folder: string
+      // ...and this is the folder with them filled in
+      save_path?: string
+    }
+)
+
 export interface GameSettings {
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean

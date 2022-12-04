@@ -98,7 +98,9 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
     logError(['Unable to compute default save path for', appName], {
       prefix: LogPrefix.Legendary
     })
-    return save_folder
+    // NOTE: save_folder can only be undefined if the game doesn't support save sync. If that would be the case, we wouldn't
+    //       be here, so this `?? ''` is only here to make TS happy
+    return save_folder ?? ''
   }
   logInfo(['Computed save path:', new_save_path], {
     prefix: LogPrefix.Legendary
