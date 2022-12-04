@@ -459,23 +459,13 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ refreshing: true })
     await window.api
       .refreshWineVersionInfo(fetch)
-      .then((releases) => {
+      .then(() => {
         this.setState({
-          wineVersions: releases,
           refreshing: false
         })
         return
       })
       .catch(async () => {
-        if (fetch) {
-          // try to restore the saved information
-          await window.api.refreshWineVersionInfo().then((releases) => {
-            this.setState({
-              wineVersions: releases
-            })
-          })
-        }
-
         this.setState({ refreshing: false })
         window.api.logError('Sync with upstream releases failed')
 

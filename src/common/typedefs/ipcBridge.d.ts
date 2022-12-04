@@ -181,7 +181,7 @@ interface AsyncIPCFunctions {
   installWineVersion: (
     release: WineVersionInfo
   ) => Promise<'error' | 'abort' | 'success'>
-  refreshWineVersionInfo: (fetch?: boolean) => Promise<WineVersionInfo[]>
+  refreshWineVersionInfo: (fetch?: boolean) => Promise<void>
   removeWineVersion: (release: WineVersionInfo) => Promise<boolean>
   shortcutsExists: (appName: string, runner: Runner) => boolean
   addToSteam: (appName: string, runner: Runner) => Promise<boolean>
