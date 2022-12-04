@@ -531,6 +531,15 @@ export class GlobalState extends PureComponent<Props> {
       newLibraryStatus.push(currentApp)
     }
 
+    if (status === 'updating') {
+      currentApp.status = 'updating'
+      // remove the item from the library to avoid duplicates then add the new status
+      newLibraryStatus = libraryStatus.filter(
+        (game) => game.appName !== appName
+      )
+      newLibraryStatus.push(currentApp)
+    }
+
     // if the app is done installing or errored
     if (['error', 'done'].includes(status)) {
       // if the app was updating, remove from the available game updates
