@@ -522,7 +522,9 @@
             "title": "Exekutatu EXE aurrizkian"
         },
         "savefolder": {
-            "placeholder": "Hautatu partidak gordetzeko karpeta zehatza"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Hautatu partidak gordetzeko karpeta zehatza",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Hautatu Gaia",
         "showfps": "Erakutsi FPS (DX9, 10 eta 11)",
@@ -628,8 +630,8 @@
     "wine": {
         "actions": "Ekintza",
         "manager": {
-            "error": "Ezin izan dira Wine/Proton bertsioak eskuratu oraingoan.",
             "link": "Ardo kudeatzailea",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Ardo kudeatzailea",
             "unzipping": "Deskonprimitzea"
         },

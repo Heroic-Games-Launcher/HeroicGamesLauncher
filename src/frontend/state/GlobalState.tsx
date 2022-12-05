@@ -459,23 +459,13 @@ export class GlobalState extends PureComponent<Props> {
     this.setState({ refreshing: true })
     await window.api
       .refreshWineVersionInfo(fetch)
-      .then((releases) => {
+      .then(() => {
         this.setState({
-          wineVersions: releases,
           refreshing: false
         })
         return
       })
       .catch(async () => {
-        if (fetch) {
-          // try to restore the saved information
-          await window.api.refreshWineVersionInfo().then((releases) => {
-            this.setState({
-              wineVersions: releases
-            })
-          })
-        }
-
         this.setState({ refreshing: false })
         window.api.logError('Sync with upstream releases failed')
 
@@ -531,6 +521,15 @@ export class GlobalState extends PureComponent<Props> {
       newLibraryStatus.push(currentApp)
     }
 
+    if (status === 'updating') {
+      currentApp.status = 'updating'
+      // remove the item from the library to avoid duplicates then add the new status
+      newLibraryStatus = libraryStatus.filter(
+        (game) => game.appName !== appName
+      )
+      newLibraryStatus.push(currentApp)
+    }
+
     // if the app is done installing or errored
     if (['error', 'done'].includes(status)) {
       // if the app was updating, remove from the available game updates
@@ -577,15 +576,12 @@ export class GlobalState extends PureComponent<Props> {
           (game) => game.appName === appName
         )[0]
         if (!currentApp) {
-          // Add finding a runner for games
-          const hasUpdate = this.state.gameUpdates?.includes(appName)
-          const gameInfo = await getGameInfo(appName, runner)
           return launch({
             appName,
             t,
             runner,
-            hasUpdate,
-            syncCloud: gameInfo?.cloud_save_enabled || false,
+            hasUpdate: false,
+            syncCloud: true,
             showDialogModal: this.handleShowDialogModal
           })
         }

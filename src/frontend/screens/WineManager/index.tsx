@@ -7,9 +7,13 @@ import React, { lazy, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
 import { Type } from 'heroic-wine-downloader'
-import { StoreIpc } from 'frontend/helpers/electronStores'
+import {
+  StoreIpc,
+  wineDownloaderInfoStore
+} from 'frontend/helpers/electronStores'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
+import { WineVersionInfo } from 'common/types'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
@@ -19,6 +23,11 @@ const configStore = new StoreIpc('wineManagerConfigStore', {
   cwd: 'store'
 })
 
+const wineVersions = wineDownloaderInfoStore.get(
+  'wine-releases',
+  []
+) as WineVersionInfo[]
+
 interface WineManagerUISettings {
   showWineGe: boolean
   showWineLutris: boolean
@@ -27,8 +36,7 @@ interface WineManagerUISettings {
 
 export default React.memo(function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
-  const { wineVersions, refreshWineVersionInfo, refreshing } =
-    useContext(ContextProvider)
+  const { refreshWineVersionInfo, refreshing } = useContext(ContextProvider)
   const winege: Type = 'Wine-GE'
   const protonge: Type = 'Proton-GE'
   const [repository, setRepository] = useState<Type>(winege)
@@ -49,8 +57,8 @@ export default React.memo(function WineManager(): JSX.Element | null {
         setWineManagerSettings(oldWineManagerSettings)
       }
     }
-    const shouldFetch = Boolean(wineVersions.length > 0)
-    refreshWineVersionInfo(shouldFetch)
+
+    refreshWineVersionInfo(false)
   }, [])
 
   const handleChangeTab = (e: React.SyntheticEvent, repo: Type) => {
@@ -114,8 +122,8 @@ export default React.memo(function WineManager(): JSX.Element | null {
         ) : (
           <h5 className="wineList">
             {t(
-              'wine.manager.error',
-              'Could not fetch Wine/Proton versions this time.'
+              'wine.manager.not-found',
+              'No Wine versions found. Please click the refresh icon to try again.'
             )}
           </h5>
         )}

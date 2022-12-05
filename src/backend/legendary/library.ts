@@ -238,7 +238,6 @@ export class LegendaryLibrary {
         prefix: LogPrefix.Legendary
       })
     }
-
     try {
       const info: LegendaryInstallInfo = JSON.parse(res.stdout)
       installStore.set(appName, info)

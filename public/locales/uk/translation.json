@@ -522,7 +522,9 @@
             "title": "Запустити EXE на префіксі"
         },
         "savefolder": {
-            "placeholder": "Вкажіть точну теку збережень для гри"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Вкажіть точну теку збережень для гри",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Оберіть тему",
         "showfps": "Показувати кількість кадрів (DX9, 10 та 11)",
@@ -628,8 +630,8 @@
     "wine": {
         "actions": "Дія",
         "manager": {
-            "error": "Цього разу не вдалось отримати версії Wine/Proton.",
             "link": "Керування Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Керування Wine",
             "unzipping": "Розпакування"
         },

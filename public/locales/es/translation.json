@@ -522,7 +522,9 @@
             "title": "Ejecutar EXE en Prefijo"
         },
         "savefolder": {
-            "placeholder": "Seleccione la carpeta exacta para guardar juegos"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Seleccione la carpeta exacta para guardar juegos",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Seleccionar Tema",
         "showfps": "Mostrar FPS (Cuadros Por Segundo) (DX9, 10 y 11)",
@@ -628,8 +630,8 @@
     "wine": {
         "actions": "Acción",
         "manager": {
-            "error": "Esta vez no se han podido recuperar las versiones de Wine/Proton.",
             "link": "Gestor de Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Gestor de Wine",
             "unzipping": "Descomprimiendo"
         },

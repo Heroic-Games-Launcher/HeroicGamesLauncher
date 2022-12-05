@@ -522,7 +522,9 @@
             "title": "Rulați EXE pe Prefix"
         },
         "savefolder": {
-            "placeholder": "Selectați folderul exact de salvare a jocurilor"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Selectați folderul exact de salvare a jocurilor",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Selectează tema",
         "showfps": "Afișați FPS (DX9, 10 și 11)",
@@ -628,8 +630,8 @@
     "wine": {
         "actions": "Acțiune",
         "manager": {
-            "error": "Nu s-au putut prelua versiunile Wine/Proton de data aceasta.",
             "link": "Manager de vinuri",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Manager de vinuri",
             "unzipping": "Dezarhivare"
         },
