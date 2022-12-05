@@ -648,9 +648,7 @@ export class GOGLibrary {
       app_name: String(info.id),
       art_cover: horizontalCover,
       art_square: verticalCover,
-      cloud_save_enabled: cloudSavesEnabledGames.includes(
-        String(info.id)
-      ) as never,
+      cloud_save_enabled: cloudSavesEnabledGames.includes(String(info.id)),
       extra: {
         about: { description: description, longDescription: '' },
         reqs: []

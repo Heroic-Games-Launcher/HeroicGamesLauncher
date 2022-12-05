@@ -507,12 +507,10 @@ export class LegendaryLibrary {
       save_path
     } = info ?? {}
 
-    let saveFolder
-    if (platform === 'Mac') {
-      saveFolder = customAttributes.CloudSaveFolder_MAC?.value
-    } else {
-      saveFolder = customAttributes.CloudSaveFolder?.value
-    }
+    const saveFolder =
+      (platform === 'Mac'
+        ? customAttributes.CloudSaveFolder_MAC?.value
+        : customAttributes.CloudSaveFolder?.value) ?? ''
     const installFolder = FolderName ? FolderName.value : app_name
 
     const gameBox = keyImages.find(({ type }) => type === 'DieselGameBox')
@@ -541,8 +539,7 @@ export class LegendaryLibrary {
       art_cover: art_cover || art_square || fallBackImage,
       art_logo,
       art_square: art_square || art_square_front || art_cover || fallBackImage,
-      // TODO: Figure out how to make TS happy here
-      cloud_save_enabled: (typeof saveFolder !== 'undefined') as never,
+      cloud_save_enabled: Boolean(saveFolder),
       developer,
       extra: {
         about: {
@@ -565,8 +562,7 @@ export class LegendaryLibrary {
       is_mac_native: info
         ? platform === 'Mac'
         : releaseInfo[0].platform.includes('Mac'),
-      // TODO: Same as above
-      save_folder: saveFolder as never,
+      save_folder: saveFolder,
       save_path,
       title,
       canRunOffline,
