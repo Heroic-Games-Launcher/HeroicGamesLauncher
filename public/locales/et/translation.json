@@ -523,7 +523,9 @@
             "title": "Käivita EXE prefiksil"
         },
         "savefolder": {
-            "placeholder": "Valige täpne mängude salvestiste kaust"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Valige täpne mängude salvestiste kaust",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Valige teema",
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
@@ -629,8 +631,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Ei saanud Wine/Proton versioone kätte.",
             "link": "Wine'i haldur",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine'i haldur",
             "unzipping": "Lahtipakkimine"
         },

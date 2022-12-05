@@ -523,7 +523,9 @@
             "title": "Avvia l'EXE nel prefix"
         },
         "savefolder": {
-            "placeholder": "Seleziona l'esatta cartella dei salvataggi dei giochi"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Seleziona l'esatta cartella dei salvataggi dei giochi",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Seleziona Tema",
         "showfps": "Mostra FPS (DX9, 10 e 11)",
@@ -629,8 +631,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
         },

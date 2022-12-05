@@ -24,9 +24,7 @@ export const installWineVersion = async (
 export const removeWineVersion = async (
   release: WineVersionInfo
 ): Promise<boolean> => ipcRenderer.invoke('removeWineVersion', release)
-export const refreshWineVersionInfo = async (
-  fetch?: boolean
-): Promise<WineVersionInfo[]> =>
+export const refreshWineVersionInfo = async (fetch?: boolean): Promise<void> =>
   ipcRenderer.invoke('refreshWineVersionInfo', fetch)
 
 export const handleProgressOfWinetricks = (

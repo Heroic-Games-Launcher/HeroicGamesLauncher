@@ -6,18 +6,11 @@ import { DMQueueElement } from 'common/types'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import { handleStopInstallation } from 'frontend/helpers/library'
-import {
-  getGameInfo,
-  getInstallInfo,
-  getStoreName,
-  size
-} from 'frontend/helpers'
+import { getGameInfo, getStoreName } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useNavigate } from 'react-router-dom'
-import { LegendaryInstallInfo } from 'common/types/legendary'
-import { GogInstallInfo } from 'common/types/gog'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 
@@ -55,13 +48,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const library = [...epic.library, ...gog.library]
 
   const { params, addToQueueTime, endTime, type, startTime } = element
-  const {
-    appName,
-    runner,
-    path,
-    platformToInstall,
-    gameInfo: DmGameInfo
-  } = params
+  const { appName, runner, path, gameInfo: DmGameInfo, size } = params
 
   const [gameInfo, setGameInfo] = useState(DmGameInfo)
 
@@ -77,24 +64,10 @@ const DownloadManagerItem = ({ element, current }: Props) => {
 
   const { art_cover, art_square } = gameInfo || {}
 
-  const [installInfo, setInstallInfo] = useState<
-    Partial<LegendaryInstallInfo | GogInstallInfo>
-  >({})
-
   const [progress] = hasProgress(appName)
   const { status } = element
   const finished = status === 'done'
   const canceled = status === 'error' || (status === 'abort' && !current)
-
-  useEffect(() => {
-    const getInfo = async () => {
-      const info = await getInstallInfo(appName, runner, platformToInstall)
-      if (info) {
-        setInstallInfo(info)
-      }
-    }
-    getInfo()
-  }, [appName])
 
   const stopInstallation = async () => {
     if (!gameInfo) {
@@ -180,9 +153,6 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   }
 
   const { title } = currentApp
-  const downloadSize =
-    installInfo?.manifest?.download_size &&
-    size(Number(installInfo?.manifest?.download_size))
   const cover = art_cover || art_square
 
   const translatedTypes = {
@@ -204,7 +174,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
         <span className="titleSize">
           {title}
           <span title={path}>
-            {downloadSize ?? ''}
+            {size ?? ''}
             {canceled ? ` (${t('queue.label.canceled', 'Canceled')})` : ''}
           </span>
         </span>
@@ -223,4 +193,4 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   )
 }
 
-export default React.memo(DownloadManagerItem)
+export default DownloadManagerItem

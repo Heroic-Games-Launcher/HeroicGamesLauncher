@@ -523,7 +523,9 @@
             "title": "Executa l'EXE al prefix"
         },
         "savefolder": {
-            "placeholder": "Selecciona el directori exacte on es desen els jocs"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Selecciona el directori exacte on es desen els jocs",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Selecciona un tema",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
@@ -629,8 +631,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "No s'ha pogut obtenir les versions de Wine/Proton.",
             "link": "Gestor del Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Gestor del Wine",
             "unzipping": "S'està descomprimint"
         },

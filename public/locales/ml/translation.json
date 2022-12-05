@@ -523,7 +523,9 @@
             "title": "ഉപസഗ്ഗ഻ത്തില് EXE ഓടിക്കുക"
         },
         "savefolder": {
-            "placeholder": "കളി സൂക്ഷിക്കാനുള്ള കൃത്യമായ സ്ഥലം നല്കൂ"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "കളി സൂക്ഷിക്കാനുള്ള കൃത്യമായ സ്ഥലം നല്കൂ",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
@@ -629,8 +631,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
         },

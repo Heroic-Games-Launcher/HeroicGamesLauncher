@@ -523,7 +523,9 @@
             "title": "Chạy EXE trên prefix"
         },
         "savefolder": {
-            "placeholder": "Chọn chính xác thư mục lưu game"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Chọn chính xác thư mục lưu game",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "chọn Theme",
         "showfps": "Hiển thị FPS (DX9, 10 và 11)",
@@ -629,8 +631,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Không thể tìm nạp phiên bản Wine/Proton lần này.",
             "link": "Quản lý Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Quản lý Wine (thử nghiệm)",
             "unzipping": "Đang giải nén"
         },

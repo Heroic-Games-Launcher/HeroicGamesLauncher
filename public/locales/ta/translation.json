@@ -523,7 +523,9 @@
             "title": "முன்னொட்டில் EXE ஐ இயக்கு"
         },
         "savefolder": {
-            "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
@@ -629,8 +631,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
         },

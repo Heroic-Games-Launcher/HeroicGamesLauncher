@@ -187,7 +187,7 @@ export default function AdvancedSettings() {
   async function clearHeroicCache() {
     const storage: Storage = window.localStorage
     storage.removeItem('updates')
-    return window.api.clearCache()
+    window.api.clearCache(true)
     return refreshLibrary({ fullRefresh: true, runInBackground: true })
   }
 

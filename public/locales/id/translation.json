@@ -523,7 +523,9 @@
             "title": "Jalankan EXE di Prefiks"
         },
         "savefolder": {
-            "placeholder": "Pilih folder gim tersimpan yang tepat"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Pilih folder gim tersimpan yang tepat",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Pilih Tema",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
@@ -629,8 +631,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Tidak dapat mengambil versi Wine/Proton saat ini.",
             "link": "Manajer Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Manajer Wine",
             "unzipping": "Mengekstrak"
         },

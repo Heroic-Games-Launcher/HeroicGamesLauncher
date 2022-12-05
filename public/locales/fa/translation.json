@@ -523,7 +523,9 @@
             "title": "اجرای EXE در محل"
         },
         "savefolder": {
-            "placeholder": "انتخاب پوشه دقیق ذخیرههای بازیها"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "انتخاب پوشه دقیق ذخیرههای بازیها",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "انتخاب تم",
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
@@ -629,8 +631,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "نمیتوان در این زمان نسخههای Wine/Proton را به دست آورد.",
             "link": "مدیریت Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "مدیریت کننده Wine",
             "unzipping": "در حال خارج کردن از حالت فشرده"
         },
