@@ -770,19 +770,21 @@ ipcMain.handle('getCurrentChangelog', async () => {
   return getCurrentChangelog()
 })
 
-ipcMain.on('clearCache', (event) => {
+ipcMain.on('clearCache', (event, showDialog?: boolean) => {
   clearCache()
 
-  showDialogBoxModalAuto({
-    event,
-    title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
-    message: i18next.t(
-      'box.cache-cleared.message',
-      'Heroic Cache Was Cleared!'
-    ),
-    type: 'MESSAGE',
-    buttons: [{ text: i18next.t('box.ok', 'Ok') }]
-  })
+  if (showDialog) {
+    showDialogBoxModalAuto({
+      event,
+      title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
+      message: i18next.t(
+        'box.cache-cleared.message',
+        'Heroic Cache Was Cleared!'
+      ),
+      type: 'MESSAGE',
+      buttons: [{ text: i18next.t('box.ok', 'Ok') }]
+    })
+  }
 })
 
 ipcMain.on('resetHeroic', () => resetHeroic())

@@ -66,7 +66,7 @@ interface SyncIPCFunctions {
   openCustomThemesWiki: () => void
   showConfigFileInFolder: (appName: string) => void
   removeFolder: ([path, folderName]: [string, string]) => void
-  clearCache: () => void
+  clearCache: (showDialog?: boolean) => void
   resetHeroic: () => void
   createNewWindow: (url: string) => void
   logoutGOG: () => void
