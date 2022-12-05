@@ -146,6 +146,12 @@ async function updateQueueElement(
     }
   }
 
+  mainWindow.webContents.send('setGameStatus', {
+    appName,
+    runner,
+    status: 'updating'
+  })
+
   notify({
     title,
     body: i18next.t('notify.update.started', 'Update Started')

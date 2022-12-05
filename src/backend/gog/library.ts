@@ -497,7 +497,7 @@ export class GOGLibrary {
       appName: data.appName,
       install_path: path,
       executable: '',
-      install_size: getFileSize(gameInfo.manifest.disk_size),
+      install_size: getFileSize(gameInfo.manifest?.disk_size),
       is_dlc: false,
       version: data.versionName,
       platform: data.platform,
