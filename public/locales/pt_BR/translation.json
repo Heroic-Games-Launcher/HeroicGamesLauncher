@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Ações",
         "manager": {
-            "error": "Não foi possível encontrar as versões do Wine/Proton.",
             "link": "Versões do Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Versões do Wine",
             "unzipping": "Descompactando"
         },

@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Không thể tìm nạp phiên bản Wine/Proton lần này.",
             "link": "Quản lý Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Quản lý Wine (thử nghiệm)",
             "unzipping": "Đang giải nén"
         },

@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "No s'ha pogut obtenir les versions de Wine/Proton.",
             "link": "Gestor del Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Gestor del Wine",
             "unzipping": "S'està descomprimint"
         },

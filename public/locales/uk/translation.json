@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Дія",
         "manager": {
-            "error": "Цього разу не вдалось отримати версії Wine/Proton.",
             "link": "Керування Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Керування Wine",
             "unzipping": "Розпакування"
         },

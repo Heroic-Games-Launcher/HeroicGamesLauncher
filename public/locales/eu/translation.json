@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Ekintza",
         "manager": {
-            "error": "Ezin izan dira Wine/Proton bertsioak eskuratu oraingoan.",
             "link": "Ardo kudeatzailea",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Ardo kudeatzailea",
             "unzipping": "Deskonprimitzea"
         },

@@ -630,8 +630,8 @@
     "wine": {
         "actions": "动作",
         "manager": {
-            "error": "此次无法获取 Wine/Proton 版本。",
             "link": "Wine 管理器",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine 管理器",
             "unzipping": "解压缩"
         },

@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Akcija",
         "manager": {
-            "error": "Ovaj put nije bilo moguće preuzeti Wine/Proton verzije.",
             "link": "Wine menadžer",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine menadžer",
             "unzipping": "Raspakivanje"
         },

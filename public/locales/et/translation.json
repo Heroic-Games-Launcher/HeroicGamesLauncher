@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Ei saanud Wine/Proton versioone kätte.",
             "link": "Wine'i haldur",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine'i haldur",
             "unzipping": "Lahtipakkimine"
         },

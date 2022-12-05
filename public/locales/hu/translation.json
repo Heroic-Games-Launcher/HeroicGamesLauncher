@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Nem sikerült most letölteni a Wine/Proton verziókat.",
             "link": "Wine kezelő",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine kezelő",
             "unzipping": "Kicsomagolás"
         },

@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Wine/Proton sürümleri bu defa alınamadı.",
             "link": "Wine Yöneticisi",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Yöneticisi",
             "unzipping": "Çıkartılıyor"
         },

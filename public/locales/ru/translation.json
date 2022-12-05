@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Действие",
         "manager": {
-            "error": "Не удалось получить версии Wine/Proton.",
             "link": "Менеджер Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Менеджер Wine",
             "unzipping": "Распаковка"
         },

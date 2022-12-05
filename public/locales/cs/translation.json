@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Nepodařilo se načíst verze Wine/Proton.",
             "link": "Správce Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Správce Wine",
             "unzipping": "Rozbalování"
         },

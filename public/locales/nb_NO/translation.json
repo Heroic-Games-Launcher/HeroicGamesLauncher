@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Handling",
         "manager": {
-            "error": "Kunne ikke hente Wine/Proton-versjoner denne gangen.",
             "link": "Vinsjef",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Vinsjef",
             "unzipping": "Pakning ut"
         },

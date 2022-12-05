@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Viini-/Proton-versioita ei voitu noutaa tällä kertaa.",
             "link": "Wine Manageri",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Manageri",
             "unzipping": "Purkaminen"
         },

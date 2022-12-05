@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Akcja",
         "manager": {
-            "error": "W tym momencie nie można pobrać wersji Wine/Proton.",
             "link": "Menedżer Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Menedżer Wine",
             "unzipping": "Dekompresowanie"
         },

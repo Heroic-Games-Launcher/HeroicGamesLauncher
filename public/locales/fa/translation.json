@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "نمیتوان در این زمان نسخههای Wine/Proton را به دست آورد.",
             "link": "مدیریت Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "مدیریت کننده Wine",
             "unzipping": "در حال خارج کردن از حالت فشرده"
         },

@@ -630,8 +630,8 @@
     "wine": {
         "actions": "Acțiune",
         "manager": {
-            "error": "Nu s-au putut prelua versiunile Wine/Proton de data aceasta.",
             "link": "Manager de vinuri",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Manager de vinuri",
             "unzipping": "Dezarhivare"
         },
