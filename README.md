@@ -205,7 +205,7 @@ Otherwise, download the file ending in .dmg from the [latest release](https://gi
 
 This part will walk you through setting up a development environment so you can build Heroic binaries yourself or make changes to the code.
 
-1. Make sure Git, NodeJS, and Yarn are installed
+1. Make sure Git, NodeJS, Vite (via npm), and Yarn are installed
 2. Clone the repo and enter the cloned folder, for example with these commands:
 
    ```bash
