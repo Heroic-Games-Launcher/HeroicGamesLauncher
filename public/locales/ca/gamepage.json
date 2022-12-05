@@ -120,7 +120,7 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "No s'admeten jocs de tercers"
         },
         "playing": {
             "start": "Juga",
@@ -166,18 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Fes clic per a actualitzar",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Joc no disponible",
         "hasUpdates": "Hi ha una versió nova disponible!",
         "installed": "Instal·lat",
         "installing": "S'està instal·lant...",
         "moving": "S'està movent la instal·lació. Espereu.",
         "notinstalled": "Aquest joc no està instal·lat",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "No suportat",
+        "notSupportedGame": "No suportat",
         "processing": "S'està processant els fitxers. Espereu.",
         "queued": "A la cua",
         "reparing": "S'està reparant el joc. Espereu.",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Aquest joc fa servir un llançador de tercers i encara no està suportat",
         "totalDownloaded": "Total baixat",
         "uninstalling": "Es desinstal·la",
         "updating": "S'està actualitzant el joc"
