@@ -118,7 +118,7 @@ class GOGGame extends Game {
           'Failed to get Install Info for',
           `${this.appName}`,
           `using ${installPlatform} as platform,`,
-          'trying again...'
+          'returning empty object'
         ],
         { prefix: LogPrefix.Gog }
       )

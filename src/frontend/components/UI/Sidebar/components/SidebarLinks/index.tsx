@@ -60,6 +60,8 @@ export default function SidebarLinks() {
 
   const loggedIn = epic.username || gog.username
 
+  const { cloud_save_enabled } = gameInfo
+
   useEffect(() => {
     const gameInfo = async () => {
       if (!runner || runner === 'app' || !appName) {
@@ -188,7 +190,7 @@ export default function SidebarLinks() {
           state={{
             fromGameCard: false,
             runner: runner,
-            hasCloudSave: gameInfo?.cloud_save_enabled,
+            hasCloudSave: cloud_save_enabled,
             gameInfo: gameInfo
           }}
         >
@@ -246,7 +248,7 @@ export default function SidebarLinks() {
                 </span>
               )}
             </NavLink>
-            {gameInfo.cloud_save_enabled && !isLinuxGame && (
+            {cloud_save_enabled && !isLinuxGame && (
               <NavLink
                 role="link"
                 data-testid="linkSync"

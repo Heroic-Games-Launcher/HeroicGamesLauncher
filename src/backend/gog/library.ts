@@ -375,10 +375,18 @@ export class GOGLibrary {
       errorMessage(res.error)
     }
 
-    const gogInfo = JSON.parse(res.stdout)
+    let gogInfo
+    try {
+      gogInfo = JSON.parse(res.stdout)
+    } catch (error) {
+      logError(['Error when parsing JSON file on getInstallInfo', error], {
+        prefix: LogPrefix.Gog
+      })
+      return
+    }
 
     // some games don't support `en-US`
-    if (!gogInfo.languages.includes(lang)) {
+    if (!gogInfo.languages && gogInfo.languages.includes(lang)) {
       // if the game supports `en-us`, use it, else use the first valid language
       const newLang = gogInfo.languages.includes('en-us')
         ? 'en-us'
