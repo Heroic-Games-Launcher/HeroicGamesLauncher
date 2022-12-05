@@ -309,6 +309,9 @@ export async function removeApp({
     }
   }
   notify({ title, body: i18next.t('notify.uninstalled') })
+
+  removeAppShortcuts(appName)
+
   return logInfo('finished uninstalling', { prefix: LogPrefix.Backend })
 }
 
