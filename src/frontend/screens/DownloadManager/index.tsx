@@ -10,7 +10,7 @@ import { downloadManagerStore } from 'frontend/helpers/electronStores'
 import { DMQueue } from 'frontend/types'
 import DownloadManagerItem from './components/DownloadManagerItem'
 
-export default function DownloadManager(): JSX.Element | null {
+export default React.memo(function DownloadManager(): JSX.Element | null {
   const { t } = useTranslation()
   const [refreshing, setRefreshing] = useState(false)
   const [plannendElements, setPlannendElements] = useState<DMQueueElement[]>([])
@@ -88,12 +88,10 @@ export default function DownloadManager(): JSX.Element | null {
       </h4>
       {
         <>
-          {currentElement?.params.appName && (
-            <ProgressHeader
-              downloading={Boolean(currentElement)}
-              appName={currentElement?.params?.appName}
-            />
-          )}
+          <ProgressHeader
+            downloading={Boolean(currentElement)}
+            appName={currentElement?.params?.appName ?? ''}
+          />
           {currentElement && (
             <div className="downloadManager">
               <div
@@ -155,4 +153,4 @@ export default function DownloadManager(): JSX.Element | null {
       )}
     </>
   )
-}
+})
