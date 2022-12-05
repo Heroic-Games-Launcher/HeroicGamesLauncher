@@ -22,7 +22,8 @@ import {
   ExecResult,
   InstallArgs,
   InstalledInfo,
-  ProtonVerb
+  ProtonVerb,
+  InstallPlatform
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {
@@ -105,7 +106,7 @@ class GOGGame extends Game {
     return info
   }
   async getInstallInfo(
-    installPlatform: GogInstallPlatform = 'windows'
+    installPlatform: InstallPlatform = 'windows'
   ): Promise<GogInstallInfo> {
     const info = await GOGLibrary.get().getInstallInfo(
       this.appName,

@@ -852,7 +852,6 @@ ipcMain.handle(
   async (event, appName, runner, installPlatform) => {
     try {
       const info = await getGame(appName, runner).getInstallInfo(
-        // @ts-expect-error This is actually fine as long as the frontend always passes the right InstallPlatform for the right runner
         installPlatform
       )
       return info
