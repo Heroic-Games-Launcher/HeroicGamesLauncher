@@ -14,7 +14,7 @@ type Release = {
 }
 
 const storage = window.localStorage
-const lastVersion = storage.getItem('last_changelog')?.replaceAll('"', '')
+const lastVersion = storage.getItem('last_version')?.replaceAll('"', '')
 
 export default React.memo(function HeroicVersion() {
   const { t } = useTranslation()
@@ -34,9 +34,10 @@ export default React.memo(function HeroicVersion() {
   useEffect(() => {
     window.api.getHeroicVersion().then((version) => {
       if (version !== lastVersion) {
-        window.api.logInfo('Updated to a new version, clearning up the cache.')
+        window.api.logInfo('Updated to a new version, cleaaning up the cache.')
         window.api.clearCache(false)
       }
+      storage.setItem('last_version', JSON.stringify(version))
       setHeroicVersion(version)
     })
   }, [])
