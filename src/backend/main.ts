@@ -535,9 +535,13 @@ if (!gotTheLock) {
 
 ipcMain.on('notify', (event, args) => notify(args))
 
-ipcMain.on('frontendReady', () => {
+ipcMain.once('frontendReady', () => {
+  logInfo('Frontend Ready', { prefix: LogPrefix.Backend })
   handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
-  initQueue()
+  setTimeout(() => {
+    logInfo('Starting the Download Queue', { prefix: LogPrefix.Backend })
+    initQueue()
+  }, 5000)
 })
 
 // Maybe this can help with white screens
