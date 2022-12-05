@@ -522,7 +522,9 @@
             "title": "접두사에서 EXE 실행"
         },
         "savefolder": {
-            "placeholder": "올바른 게임 저장 폴더 선택"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "올바른 게임 저장 폴더 선택",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS 표시 (DX9, 10 및 11)",
@@ -628,8 +630,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "현재 Wine/Proton 버전을 가져올 수 없습니다.",
             "link": "Wine 관리자",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine 관리자",
             "unzipping": "압축 풀기"
         },

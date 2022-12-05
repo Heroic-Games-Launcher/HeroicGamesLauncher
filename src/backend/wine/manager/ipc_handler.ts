@@ -30,11 +30,11 @@ ipcMain.handle('installWineVersion', async (e, release) => {
 
 ipcMain.handle('refreshWineVersionInfo', async (e, fetch?) => {
   try {
-    const releases = await updateWineVersionInfos(fetch)
-    return releases
+    await updateWineVersionInfos(fetch)
+    return
   } catch (error) {
     logError(error, { prefix: LogPrefix.WineDownloader })
-    return []
+    return
   }
 })
 

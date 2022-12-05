@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { lazy, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DMQueueElement } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
@@ -8,11 +8,7 @@ import ProgressHeader from './components/ProgressHeader'
 import DownloadManagerHeader from './DownloadManagerHeader'
 import { downloadManagerStore } from 'frontend/helpers/electronStores'
 import { DMQueue } from 'frontend/types'
-
-const DownloadManagerItem = lazy(
-  async () =>
-    import('frontend/screens/DownloadManager/components/DownloadManagerItem')
-)
+import DownloadManagerItem from './components/DownloadManagerItem'
 
 export default React.memo(function DownloadManager(): JSX.Element | null {
   const { t } = useTranslation()

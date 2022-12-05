@@ -218,6 +218,7 @@ export interface InstallParams extends InstallArgs {
   appName: string
   gameInfo: GameInfo
   runner: Runner
+  size?: string
 }
 
 export interface UpdateParams {

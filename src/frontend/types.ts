@@ -15,7 +15,6 @@ export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
 
 export interface ContextType {
   category: Category
-  wineVersions: WineVersionInfo[]
   error: boolean
   filterText: string
   filterPlatform: string

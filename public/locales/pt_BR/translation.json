@@ -522,7 +522,9 @@
             "title": "Executar EXE no prefixo"
         },
         "savefolder": {
-            "placeholder": "Selecione a pasta exata com os saves"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Selecione a pasta exata com os saves",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Selecione um tema",
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
@@ -628,8 +630,8 @@
     "wine": {
         "actions": "Ações",
         "manager": {
-            "error": "Não foi possível encontrar as versões do Wine/Proton.",
             "link": "Versões do Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Versões do Wine",
             "unzipping": "Descompactando"
         },

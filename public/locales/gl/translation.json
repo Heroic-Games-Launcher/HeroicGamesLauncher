@@ -522,7 +522,9 @@
             "title": "Executar EXE en Prefix"
         },
         "savefolder": {
-            "placeholder": "Seleccionar o cartafol exacto para gardar xogos"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Seleccionar o cartafol exacto para gardar xogos",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
@@ -628,8 +630,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
         },

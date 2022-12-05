@@ -115,7 +115,7 @@ html,
 }
 
 .smallMessage {
-  font-size: var(--text-xs);
+  font-size: var(--text-md);
   width: 100%;
   max-width: 513px;
   white-space: break-spaces;

@@ -522,7 +522,9 @@
             "title": "Pokrenite EXE na prefiksu"
         },
         "savefolder": {
-            "placeholder": "Odaberite tačnu mapu za spremanje video igara"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Odaberite tačnu mapu za spremanje video igara",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Izaberite temu",
         "showfps": "Pokaži FPS (DX9, 10 i 11)",
@@ -628,8 +630,8 @@
     "wine": {
         "actions": "Akcija",
         "manager": {
-            "error": "Ovaj put nije bilo moguće preuzeti Wine/Proton verzije.",
             "link": "Wine menadžer",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine menadžer",
             "unzipping": "Raspakivanje"
         },

@@ -71,7 +71,8 @@ import {
   getLatestReleases,
   notify,
   getShellPath,
-  getCurrentChangelog
+  getCurrentChangelog,
+  wait
 } from './utils'
 import {
   configStore,
@@ -404,6 +405,7 @@ if (!gotTheLock) {
       fallbackLng: 'en',
       lng: language,
       supportedLngs: [
+        'ar',
         'az',
         'be',
         'bg',
@@ -533,9 +535,13 @@ if (!gotTheLock) {
 
 ipcMain.on('notify', (event, args) => notify(args))
 
-ipcMain.on('frontendReady', () => {
+ipcMain.once('frontendReady', () => {
+  logInfo('Frontend Ready', { prefix: LogPrefix.Backend })
   handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
-  initQueue()
+  setTimeout(() => {
+    logInfo('Starting the Download Queue', { prefix: LogPrefix.Backend })
+    initQueue()
+  }, 5000)
 })
 
 // Maybe this can help with white screens
@@ -764,19 +770,21 @@ ipcMain.handle('getCurrentChangelog', async () => {
   return getCurrentChangelog()
 })
 
-ipcMain.on('clearCache', (event) => {
+ipcMain.on('clearCache', (event, showDialog?: boolean) => {
   clearCache()
 
-  showDialogBoxModalAuto({
-    event,
-    title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
-    message: i18next.t(
-      'box.cache-cleared.message',
-      'Heroic Cache Was Cleared!'
-    ),
-    type: 'MESSAGE',
-    buttons: [{ text: i18next.t('box.ok', 'Ok') }]
-  })
+  if (showDialog) {
+    showDialogBoxModalAuto({
+      event,
+      title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
+      message: i18next.t(
+        'box.cache-cleared.message',
+        'Heroic Cache Was Cleared!'
+      ),
+      type: 'MESSAGE',
+      buttons: [{ text: i18next.t('box.ok', 'Ok') }]
+    })
+  }
 })
 
 ipcMain.on('resetHeroic', () => resetHeroic())
@@ -846,7 +854,6 @@ ipcMain.handle(
   async (event, appName, runner, installPlatform) => {
     try {
       const info = await getGame(appName, runner).getInstallInfo(
-        // @ts-expect-error This is actually fine as long as the frontend always passes the right InstallPlatform for the right runner
         installPlatform
       )
       return info
@@ -1400,8 +1407,14 @@ ipcMain.handle(
 
 ipcMain.handle(
   'getDefaultSavePath',
-  async (event, appName, runner, alreadyDefinedGogSaves) =>
-    getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
+  async (event, appName, runner, alreadyDefinedGogSaves) => {
+    return Promise.race([
+      getDefaultSavePath(appName, runner, alreadyDefinedGogSaves),
+      wait(15000).then(() => {
+        return runner === 'gog' ? [] : ''
+      })
+    ])
+  }
 )
 
 // Simulate keyboard and mouse actions as if the real input device is used

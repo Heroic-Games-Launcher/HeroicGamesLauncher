@@ -22,7 +22,8 @@ import {
   ExecResult,
   InstallArgs,
   InstalledInfo,
-  ProtonVerb
+  ProtonVerb,
+  InstallPlatform
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {
@@ -33,7 +34,7 @@ import {
   isLinux
 } from '../constants'
 import { installedGamesStore, syncStore } from '../gog/electronStores'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { GOGUser } from './user'
 import {
   getRunnerCallWithoutCredentials,
@@ -105,18 +106,19 @@ class GOGGame extends Game {
     return info
   }
   async getInstallInfo(
-    installPlatform: GogInstallPlatform = 'windows'
+    installPlatform: InstallPlatform = 'windows'
   ): Promise<GogInstallInfo> {
     const info = await GOGLibrary.get().getInstallInfo(
       this.appName,
       installPlatform
     )
     if (!info) {
-      logError(
+      logWarning(
         [
-          'Could not get install info for',
-          `${this.appName},`,
-          'returning empty object. Something is probably gonna go wrong soon'
+          'Failed to get Install Info for',
+          `${this.appName}`,
+          `using ${installPlatform} as platform,`,
+          'returning empty object'
         ],
         { prefix: LogPrefix.Gog }
       )
