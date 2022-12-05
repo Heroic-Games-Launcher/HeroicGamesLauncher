@@ -21,7 +21,7 @@ const useLibrary = ({ category }: Props): Array<GameInfo> => {
     Array<GameInfo>
   >([])
 
-  const getLibrary = (): Array<GameInfo> => {
+  const getGogLibrary = (): Array<GameInfo> => {
     const games = gogLibraryStore.get('games', []) as GameInfo[]
     const installedGames = gogInstalledGamesStore.get(
       'installed',
@@ -40,7 +40,7 @@ const useLibrary = ({ category }: Props): Array<GameInfo> => {
   }
 
   React.useEffect(() => {
-    setGogLibrary(getLibrary())
+    setGogLibrary(getGogLibrary())
     setEpicLibrary(libraryStore.get('library', []) as GameInfo[])
     setSideloadedLibrary(sideloadLibrary.get('games', []) as GameInfo[])
   }, [])
@@ -58,9 +58,6 @@ const useLibrary = ({ category }: Props): Array<GameInfo> => {
         break
       case 'sideload':
         setLibrary(sideloadedLibrary)
-        break
-      default:
-        setLibrary([])
         break
     }
   }, [gogLibrary, epicLibrary, sideloadedLibrary, category])
