@@ -103,13 +103,13 @@ const root = createRoot(container!) // createRoot(container!) if you use TypeScr
 
 root.render(
   <React.StrictMode>
-    <I18nextProvider i18n={i18next}>
-      <Suspense fallback={<UpdateComponentBase message="Loading" />}>
-        <GlobalState>
+    <GlobalState>
+      <I18nextProvider i18n={i18next}>
+        <Suspense fallback={<UpdateComponentBase message="Loading" />}>
           <App />
-        </GlobalState>
-      </Suspense>
-    </I18nextProvider>
+        </Suspense>
+      </I18nextProvider>
+    </GlobalState>
   </React.StrictMode>
 )
 
