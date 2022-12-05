@@ -38,7 +38,7 @@ export default function ErrorComponent({ message }: { message: string }) {
 
         <button
           className="button is-footer is-danger"
-          onClick={window.api.clearCache}
+          onClick={() => window.api.clearCache(true)}
         >
           <div className="button-icontext-flex">
             <div className="button-icon-flex">

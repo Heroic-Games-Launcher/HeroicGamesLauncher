@@ -359,7 +359,7 @@ class LegendaryGame extends Game {
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
         'updating',
-        info.manifest.download_size,
+        info.manifest?.download_size,
         data
       )
     }
@@ -461,7 +461,7 @@ class LegendaryGame extends Game {
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
         'installing',
-        info.manifest.download_size,
+        info.manifest?.download_size,
         data
       )
     }
@@ -615,6 +615,12 @@ class LegendaryGame extends Game {
    * Does NOT check for online connectivity.
    */
   public async syncSaves(arg: string, path: string): Promise<string> {
+    if (!path) {
+      logError('No path provided for SavesSync, check your settings!', {
+        prefix: LogPrefix.Legendary
+      })
+      return 'No path provided.'
+    }
     path = path.replaceAll("'", '').replaceAll('"', '')
     const fixedPath = isWindows ? path.slice(0, -1) : path
 

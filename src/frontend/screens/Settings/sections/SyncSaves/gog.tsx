@@ -151,6 +151,19 @@ export default function GOGSyncSaves({
                         setGogSaves(saves)
                       }
                 }
+                afterInput={
+                  <span className="smallMessage">
+                    {gogSaves.length > 1
+                      ? t(
+                          'setting.savefolder.warning',
+                          'Please check twice if the path is correct'
+                        )
+                      : t(
+                          'setting.savefolder.not-found',
+                          'Save folder not found, please select it manually'
+                        )}
+                  </span>
+                }
               />
             </div>
           ))}

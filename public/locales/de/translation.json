@@ -522,7 +522,9 @@
             "title": "EXE in Prefix starten"
         },
         "savefolder": {
-            "placeholder": "Wähle den genauen Ordner der Spielstände"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Wähle den genauen Ordner der Spielstände",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Design",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
@@ -628,8 +630,8 @@
     "wine": {
         "actions": "Aktion",
         "manager": {
-            "error": "Wine/Proton-Versionen konnten diesmal nicht abgerufen werden.",
             "link": "Wine-Manager",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine-Manager",
             "unzipping": "Entpacke"
         },

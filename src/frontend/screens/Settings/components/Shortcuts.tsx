@@ -26,30 +26,36 @@ const Shortcuts = () => {
     false
   )
 
-  if (!isDefault || !supportsShortcuts) {
+  if (!isDefault) {
     return <></>
   }
 
   return (
     <>
-      <ToggleSwitch
-        htmlId="shortcutsToDesktop"
-        value={addDesktopShortcuts}
-        handleChange={() => setAddDesktopShortcuts(!addDesktopShortcuts)}
-        title={t(
-          'setting.adddesktopshortcuts',
-          'Add desktop shortcuts automatically'
-        )}
-      />
-      <ToggleSwitch
-        htmlId="shortcutsToMenu"
-        value={addStartMenuShortcuts}
-        handleChange={() => setAddStartMenuShortcuts(!addStartMenuShortcuts)}
-        title={t(
-          'setting.addgamestostartmenu',
-          'Add games to start menu automatically'
-        )}
-      />
+      {supportsShortcuts && (
+        <>
+          <ToggleSwitch
+            htmlId="shortcutsToDesktop"
+            value={addDesktopShortcuts}
+            handleChange={() => setAddDesktopShortcuts(!addDesktopShortcuts)}
+            title={t(
+              'setting.adddesktopshortcuts',
+              'Add desktop shortcuts automatically'
+            )}
+          />
+          <ToggleSwitch
+            htmlId="shortcutsToMenu"
+            value={addStartMenuShortcuts}
+            handleChange={() =>
+              setAddStartMenuShortcuts(!addStartMenuShortcuts)
+            }
+            title={t(
+              'setting.addgamestostartmenu',
+              'Add games to start menu automatically'
+            )}
+          />
+        </>
+      )}
       <ToggleSwitch
         htmlId="shortcutsToSteam"
         value={addSteamShortcuts}
