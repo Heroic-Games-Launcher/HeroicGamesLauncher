@@ -155,8 +155,8 @@ button {
   font-family: var(--content-font-family);
   font-size: var(--text-sm);
   padding: var(--space-xs);
-  margin-left: 1%;
-  margin-bottom: 1%;
+  margin-left: var(--space-sm);
+  margin-bottom: var(--space-sm);
 }
 
 .button.is-text:hover {
