@@ -18,10 +18,7 @@ const AutoDXVK = () => {
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [installingDxvk, setInstallingDxvk] = React.useState(false)
 
-  const dontRender =
-    wineVersion.type === 'proton' || wineVersion.type === 'crossover'
-
-  if (dontRender) {
+  if (wineVersion.type !== 'wine') {
     return <></>
   }
 

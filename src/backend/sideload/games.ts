@@ -177,6 +177,7 @@ export async function launchApp(appName: string): Promise<boolean> {
         logWarning('File not executable, changing permissions temporarilly', {
           prefix: LogPrefix.Backend
         })
+        // On Mac, it gives an error when changing the permissions of the file inside the app bundle. But we need it for other executables like scripts.
         if (!isMac && !executable.includes('app')) {
           await chmod(executable, 0o775)
         }

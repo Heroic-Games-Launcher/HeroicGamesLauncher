@@ -391,7 +391,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     {!isWin && !isNative && (
                       <>
                         <b>Wine:</b> {wineVersion?.name}
-                        {wineVersion && wineVersion?.type === 'crossover' ? (
+                        {wineVersion && wineVersion.type === 'crossover' ? (
                           <div>
                             <b>
                               {t2('setting.winecrossoverbottle', 'Bottle')}:

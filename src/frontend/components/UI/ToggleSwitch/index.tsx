@@ -28,7 +28,7 @@ export default function ToggleSwitch(props: Props) {
   const { isRTL } = useContext(ContextProvider)
 
   return (
-    <span className={classNames()}>
+    <>
       <input
         id={htmlId}
         disabled={disabled}
@@ -48,6 +48,6 @@ export default function ToggleSwitch(props: Props) {
       >
         {title}
       </label>
-    </span>
+    </>
   )
 }

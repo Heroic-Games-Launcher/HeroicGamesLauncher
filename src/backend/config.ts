@@ -159,26 +159,27 @@ abstract class GlobalConfig {
     if (!isMac) {
       return wineSet
     }
-    const { stdout } = await execAsync(`ls ${userHome}/Applications`)
-    const apps = stdout.split('\n')
+    const apps = readdirSync(`${userHome}/Applications`)
     for (const app of apps) {
       if (app.includes('Wine') && app.includes('.app')) {
         const wineBin = `${userHome}/Applications/${app}/Contents/Resources/wine/bin/wine64`
-        try {
-          const { stdout: out } = await execAsync(`'${wineBin}' --version`)
-          const version = out.split('\n')[0]
-          wineSet.add({
-            ...this.getWineExecs(wineBin),
-            lib: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
-            lib32: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
-            name: `Wine - ${version}`,
-            type: 'wine',
-            bin: wineBin
-          })
-        } catch (error) {
-          logError(`Error getting wine version for ${wineBin}`, {
-            prefix: LogPrefix.GlobalConfig
-          })
+        if (existsSync(wineBin)) {
+          try {
+            const { stdout: out } = await execAsync(`'${wineBin}' --version`)
+            const version = out.split('\n')[0]
+            wineSet.add({
+              ...this.getWineExecs(wineBin),
+              lib: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
+              lib32: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
+              name: `Wine - ${version}`,
+              type: 'wine',
+              bin: wineBin
+            })
+          } catch (error) {
+            logError(`Error getting wine version for ${wineBin}`, {
+              prefix: LogPrefix.GlobalConfig
+            })
+          }
         }
       }
     }
@@ -190,8 +191,7 @@ abstract class GlobalConfig {
     if (!isMac) {
       return wineSet
     }
-    const { stdout } = await execAsync(`ls ${userHome}/Applications/Wineskin`)
-    const apps = stdout.split('\n')
+    const apps = readdirSync(`${userHome}/Applications/Wineskin`)
     for (const app of apps) {
       if (app.includes('.app')) {
         const wineBin = `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/bin/wine64`

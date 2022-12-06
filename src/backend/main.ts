@@ -105,6 +105,7 @@ import {
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
+  logChangedSetting,
   logDebug,
   logError,
   logInfo,
@@ -947,8 +948,17 @@ ipcMain.on('toggleVKD3D', (event, { winePrefix, winePath, action }) => {
 })
 
 ipcMain.handle('writeConfig', (event, { appName, config }) => {
-  // use 2 spaces for pretty print
-  logInfo(JSON.stringify(config, null, 2), { prefix: LogPrefix.Backend })
+  logInfo(`Writing config for ${appName === 'default' ? 'Heroic' : appName}`, {
+    prefix: LogPrefix.Backend
+  })
+  const oldConfig =
+    appName === 'default'
+      ? GlobalConfig.get().config
+      : GameConfig.get(appName).config
+
+  // log only the changed setting
+  logChangedSetting(config, oldConfig)
+
   if (appName === 'default') {
     GlobalConfig.get().config = config as AppSettings
     GlobalConfig.get().flush()
