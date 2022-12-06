@@ -306,7 +306,7 @@ export const DXVK = {
     await new Promise((resolve) => {
       dlls.forEach(async (dll) => {
         await execAsync(
-          `WINEPREFIX='${winePrefix}' '${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d native,builtin /f `,
+          `WINEPREFIX='${winePrefix}' '${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d native /f `,
           execOptions
         )
           .then(() => {
