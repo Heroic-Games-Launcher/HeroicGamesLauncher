@@ -219,12 +219,7 @@ export const DXVK = {
           const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}.bak`
           logInfo(`Restoring ${dll}`, { prefix: LogPrefix.DXVKInstaller })
           if (existsSync(dllPath)) {
-            if (existsSync(dllPath)) {
-              renameSync(
-                dllPath,
-                `${winePrefix}/drive_c/windows/system32/${dll}`
-              )
-            }
+            renameSync(dllPath, `${winePrefix}/drive_c/windows/system32/${dll}`)
           }
           if (!isMac) {
             if (existsSync(dllPath64)) {
