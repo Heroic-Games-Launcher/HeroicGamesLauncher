@@ -147,19 +147,20 @@ button {
 }
 
 .button.is-text {
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  color: var(--text-default);
+  background: var(--accent);
+  color: var(--background);
   box-shadow: none;
   text-transform: none;
   min-width: fit-content;
   font-family: var(--content-font-family);
   font-size: var(--text-sm);
+  padding: var(--space-xs);
+  margin-left: 1%;
+  margin-bottom: 1%;
 }
 
 .button.is-text:hover {
-  color: var(--text-hover);
+  background: var(--accent-overlay);
 }
 
 .button.is-link {
