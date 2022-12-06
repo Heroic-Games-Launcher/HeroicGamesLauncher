@@ -102,13 +102,14 @@ export default function GamesSettings() {
         {!isWin && !nativeGame && (
           <>
             <PreferSystemLibs />
+
+            <EnableEsync />
+
             {isLinux && (
               <>
-                <EnableFSR />
-
-                <EnableEsync />
-
                 <EnableFsync />
+
+                <EnableFSR />
 
                 <GameMode />
               </>
