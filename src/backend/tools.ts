@@ -144,11 +144,12 @@ export const DXVK = {
     const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
 
-    if (action === 'backup' && !isValidPrefix) {
+    if (!isValidPrefix) {
       logWarning('DXVK cannot be installed on a Proton or a invalid prefix!', {
         prefix: LogPrefix.DXVKInstaller
       })
-      return false
+      // will return true anyway because otherwise the toggle will be stuck and the prefix might just not be crated yet.
+      return true
     }
 
     tool = isMac ? 'dxvk-macOS' : tool
@@ -218,9 +219,13 @@ export const DXVK = {
           const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}.bak`
           logInfo(`Restoring ${dll}`, { prefix: LogPrefix.DXVKInstaller })
           if (existsSync(dllPath)) {
-            renameSync(dllPath, `${winePrefix}/drive_c/windows/system32/${dll}`)
+            if (existsSync(dllPath)) {
+              renameSync(
+                dllPath,
+                `${winePrefix}/drive_c/windows/system32/${dll}`
+              )
+            }
           }
-
           if (!isMac) {
             if (existsSync(dllPath64)) {
               renameSync(
@@ -235,14 +240,13 @@ export const DXVK = {
 
       // unregister the dlls on the wine prefix
       await new Promise((resolve) => {
-        dlls.forEach((dll) => {
+        dlls.forEach(async (dll) => {
           const unregisterDll = `WINEPREFIX='${winePrefix}' '${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
           logInfo(`Unregistering ${dll}`, { prefix: LogPrefix.DXVKInstaller })
-          exec(unregisterDll)
+          await execAsync(unregisterDll)
         })
         resolve(true)
       })
-
       return true
     }
 
@@ -263,17 +267,23 @@ export const DXVK = {
 
     await new Promise((resolve) => {
       dlls.forEach(async (dll) => {
-        renameSync(
-          `${winePrefix}/drive_c/windows/system32/${dll}`,
-          `${winePrefix}/drive_c/windows/system32/${dll}.bak`
-        )
+        const dllPath = `${winePrefix}/drive_c/windows/system32/${dll}`
+        if (existsSync(dllPath)) {
+          renameSync(
+            `${winePrefix}/drive_c/windows/system32/${dll}`,
+            `${winePrefix}/drive_c/windows/system32/${dll}.bak`
+          )
+        }
 
         // macOs supports 64 bits only
         if (!isMac) {
-          renameSync(
-            `${winePrefix}/drive_c/windows/syswow64/${dll}`,
-            `${winePrefix}/drive_c/windows/syswow64/${dll}.bak`
-          )
+          const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}`
+          if (existsSync(dllPath64)) {
+            renameSync(
+              `${winePrefix}/drive_c/windows/syswow64/${dll}`,
+              `${winePrefix}/drive_c/windows/syswow64/${dll}.bak`
+            )
+          }
         }
       })
       resolve(true)
@@ -281,7 +291,7 @@ export const DXVK = {
 
     // copy the new dlls to the prefix
     await new Promise((resolve) => {
-      dlls.forEach(async (dll) => {
+      dlls.forEach((dll) => {
         if (!isMac) {
           copyFileSync(
             `${toolPathx32}/${dll}`,
