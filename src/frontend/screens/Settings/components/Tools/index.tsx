@@ -17,7 +17,6 @@ export default function Tools() {
   const [progress, setProgress] = useState<string[]>([])
   const { appName, runner, isDefault } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
-  const isLinux = platform === 'linux'
   const isWindows = platform === 'win32'
 
   if (isDefault || isWindows) {
@@ -116,17 +115,15 @@ export default function Tools() {
           >
             <span className="toolTitle">Winecfg</span>
           </button>
-          {isLinux && (
-            <button
-              data-testid="wineTricks"
-              className={classNames('button outline', {
-                active: winetricksRunning
-              })}
-              onClick={async () => callTools('winetricks')}
-            >
-              <span className="toolTitle">Winetricks</span>
-            </button>
-          )}
+          <button
+            data-testid="wineTricks"
+            className={classNames('button outline', {
+              active: winetricksRunning
+            })}
+            onClick={async () => callTools('winetricks')}
+          >
+            <span className="toolTitle">Winetricks</span>
+          </button>
           <a
             onDrop={(ev) => dropHandler(ev)}
             onDragOver={(ev) => dragOverHandler(ev)}
