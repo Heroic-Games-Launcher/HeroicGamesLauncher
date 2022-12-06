@@ -436,11 +436,11 @@ export const Winetricks = {
       })
 
       logInfo(
-        `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`,
+        `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} --force -q`,
         { prefix: LogPrefix.WineTricks }
       )
 
-      const child = spawn(winetricks, ['-q'], { env: envs })
+      const child = spawn(winetricks, ['--force', '-q'], { env: envs })
 
       child.stdout.setEncoding('utf8')
       child.stdout.on('data', (data: string) => {
