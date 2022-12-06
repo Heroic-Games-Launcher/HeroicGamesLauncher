@@ -178,7 +178,7 @@ export async function launchApp(appName: string): Promise<boolean> {
           prefix: LogPrefix.Backend
         })
         // On Mac, it gives an error when changing the permissions of the file inside the app bundle. But we need it for other executables like scripts.
-        if (!isMac && !executable.includes('app')) {
+        if (isLinux || (isMac && !executable.endsWith('.app'))) {
           await chmod(executable, 0o775)
         }
       }
@@ -203,7 +203,7 @@ export async function launchApp(appName: string): Promise<boolean> {
 
       launchCleanup(rpcClient)
       // TODO: check and revert to previous permissions
-      if (!isMac && !executable.includes('app')) {
+      if (isLinux || (isMac && !executable.endsWith('.app'))) {
         await chmod(executable, 0o775)
       }
       return true
