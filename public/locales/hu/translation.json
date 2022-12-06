@@ -217,17 +217,17 @@
     "header": {
         "ignore_hidden": "Ignore Hidden",
         "platform": "Platform",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Show Hidden",
-        "store": "Filter Store"
+        "show_all_games": "Összes játék mutatása",
+        "show_favourites_only": "Csak kedvencek mutatása",
+        "show_hidden": "Elrejtettek mutatása",
+        "store": "Áruház szűrése"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
-        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
-        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
-        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
-        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "custom_themes_path": "Ne használj CSS fájlt nem megbízható forrásokból. Kétség esetén, kérj egy felülvizsgálatot a Discord csatornánkban.",
+        "custom_themes_wiki": "Nézze meg a Wikit az egyéni témák hozzáadásával kapcsolatos további részletekért. Kattints ide.",
+        "dxvk": "A DXVK egy Vulkanon alapuló fordítási szoftverréteg a DirectX 9, 10 és 11 játékoknak. A bekapcsolása növelheti a kompatibilitást. Okozhat problémákat főleg a régebbi DirectX játékokkal.",
+        "esync": "Az Esync célja, hogy csökkentse a wineserver súlyát a CPU igényes játékokkal. A bekapcsolása növelheti a teljesítményt.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
             "fallback": "Leave blank to use Heroic's language.",

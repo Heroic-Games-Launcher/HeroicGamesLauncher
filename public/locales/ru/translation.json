@@ -174,8 +174,8 @@
     "docs": "Документация",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "Установка",
+            "update": "Обновление"
         },
         "label": {
             "disk": "Диск",
