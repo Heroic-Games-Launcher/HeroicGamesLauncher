@@ -398,6 +398,33 @@ export const Winetricks = {
         }
       }, 1000)
 
+      // check if winetricks dependencies are installed
+      const dependencies = [
+        '7z',
+        'cabextract',
+        'zenity',
+        'unzip',
+        'curl',
+        'wine'
+      ]
+      dependencies.forEach(async (dependency) => {
+        try {
+          await execAsync(`which ${dependency}`, execOptions)
+        } catch (error) {
+          appendMessage(
+            `${dependency} not installed! Winetricks might fail to install some packages or even open`
+          )
+          logWarning(
+            [
+              `${dependency} not installed! Winetricks might fail to install some packages or even open`
+            ],
+            {
+              prefix: LogPrefix.WineTricks
+            }
+          )
+        }
+      })
+
       logInfo(
         `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`,
         { prefix: LogPrefix.WineTricks }
