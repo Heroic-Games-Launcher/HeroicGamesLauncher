@@ -115,6 +115,7 @@ export default function DownloadDialog({
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+  const isWin = platform === 'win32'
 
   const [gameInstallInfo, setGameInstallInfo] = useState<
     LegendaryInstallInfo | GogInstallInfo | null
@@ -179,7 +180,7 @@ export default function DownloadDialog({
     backdropClick()
 
     // Write Default game config with prefix on linux
-    if (isLinux) {
+    if (!isWin) {
       const gameSettings = await window.api.requestGameSettings(appName)
 
       if (wineVersion) {

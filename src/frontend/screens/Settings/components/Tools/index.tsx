@@ -17,8 +17,9 @@ export default function Tools() {
   const [progress, setProgress] = useState<string[]>([])
   const { appName, runner, isDefault } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
+  const isWindows = platform === 'win32'
 
-  if (isDefault || platform !== 'linux') {
+  if (isDefault || isWindows) {
     return <></>
   }
 

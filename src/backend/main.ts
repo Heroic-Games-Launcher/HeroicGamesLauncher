@@ -105,6 +105,7 @@ import {
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
+  logChangedSetting,
   logDebug,
   logError,
   logInfo,
@@ -938,9 +939,9 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   return mapOtherSettings(config)
 })
 
-ipcMain.on('toggleDXVK', (event, { winePrefix, winePath, action }) => {
+ipcMain.handle('toggleDXVK', async (event, { winePrefix, winePath, action }) =>
   DXVK.installRemove(winePrefix, winePath, 'dxvk', action)
-})
+)
 
 ipcMain.on('toggleVKD3D', (event, { winePrefix, winePath, action }) => {
   DXVK.installRemove(winePrefix, winePath, 'vkd3d', action)
@@ -950,8 +951,14 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
   logInfo(`Writing config for ${appName === 'default' ? 'Heroic' : appName}`, {
     prefix: LogPrefix.Backend
   })
-  // use 2 spaces for pretty print
-  logInfo(JSON.stringify(config, null, 2), { prefix: LogPrefix.Backend })
+  const oldConfig =
+    appName === 'default'
+      ? GlobalConfig.get().config
+      : GameConfig.get(appName).config
+
+  // log only the changed setting
+  logChangedSetting(config, oldConfig)
+
   if (appName === 'default') {
     GlobalConfig.get().config = config as AppSettings
     GlobalConfig.get().flush()

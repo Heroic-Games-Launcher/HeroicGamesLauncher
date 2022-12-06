@@ -414,6 +414,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Прогресс",
     "queue": {
         "label": {

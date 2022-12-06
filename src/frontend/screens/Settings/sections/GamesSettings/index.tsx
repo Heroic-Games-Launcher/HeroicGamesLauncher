@@ -62,7 +62,7 @@ export default function GamesSettings() {
         <>
           <section>
             <h3 className="settingSubheader">
-              {isLinux ? 'Wine' : 'Crossover'}
+              {isLinux ? 'Wine' : 'Wine/Crossover'}
             </h3>
 
             <WinePrefix />
@@ -74,21 +74,21 @@ export default function GamesSettings() {
             <Tools />
           </section>
 
-          {isLinux && (
-            <section>
-              <h3 className="settingSubheader">
-                {t('settings.navbar.wineExt', 'Wine Extensions')}
-              </h3>
+          <section>
+            <h3 className="settingSubheader">
+              {t('settings.navbar.wineExt', 'Wine Extensions')}
+            </h3>
+            <AutoDXVK />
+            {isLinux && (
+              <>
+                <AutoVKD3D />
 
-              <AutoDXVK />
+                <EacRuntime />
 
-              <AutoVKD3D />
-
-              <EacRuntime />
-
-              <BattlEyeRuntime />
-            </section>
-          )}
+                <BattlEyeRuntime />
+              </>
+            )}
+          </section>
         </>
       )}
 
@@ -99,17 +99,21 @@ export default function GamesSettings() {
 
         {!nativeGame && <ShowFPS />}
 
-        {isLinux && !nativeGame && (
+        {!isWin && !nativeGame && (
           <>
             <PreferSystemLibs />
 
-            <EnableFSR />
-
             <EnableEsync />
 
-            <EnableFsync />
+            {isLinux && (
+              <>
+                <EnableFsync />
 
-            <GameMode />
+                <EnableFSR />
+
+                <GameMode />
+              </>
+            )}
           </>
         )}
 

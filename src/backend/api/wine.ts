@@ -2,8 +2,8 @@ import { ipcRenderer } from 'electron'
 import { RuntimeName, ToolArgs, WineVersionInfo } from 'common/types'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
 
-export const toggleDXVK = (args: ToolArgs) =>
-  ipcRenderer.send('toggleDXVK', args)
+export const toggleDXVK = async (args: ToolArgs) =>
+  ipcRenderer.invoke('toggleDXVK', args)
 export const toggleVKD3D = (args: ToolArgs) =>
   ipcRenderer.send('toggleVKD3D', args)
 export const isFlatpak = async (): Promise<boolean> =>

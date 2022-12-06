@@ -751,11 +751,19 @@ class LegendaryGame extends Game {
       "Legendary's config from config.ini (before Heroic's settings):\n"
     )
 
-    const json = JSON.parse(stdout)
-    // remove egl auth info
-    delete json['egl_parameters']
+    try {
+      const json = JSON.parse(stdout)
+      // remove egl auth info
+      delete json['egl_parameters']
 
-    appendFileSync(this.logFileLocation, JSON.stringify(json, null, 2) + '\n\n')
+      appendFileSync(
+        this.logFileLocation,
+        JSON.stringify(json, null, 2) + '\n\n'
+      )
+    } catch (error) {
+      // in case legendary's command fails and the output is not json
+      appendFileSync(this.logFileLocation, error + '\n' + stdout + '\n\n')
+    }
 
     const commandParts = [
       'launch',
