@@ -20,6 +20,7 @@
 .loginContentWrapper {
   width: 75%;
   height: 100%;
+  max-width: fit-content;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -152,6 +153,7 @@
     width: max(500px, 75%);
     height: auto;
     margin: auto;
+    max-width: fit-content;
   }
 
   /* Enable when there have been more than 5 logins added */

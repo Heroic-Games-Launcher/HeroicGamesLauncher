@@ -7,7 +7,7 @@
         "title": "Erabilerraztasuna",
         "zoom": "Zoom"
     },
-    "add_game": "Add Game",
+    "add_game": "Gehitu jokoa",
     "All": "Dena",
     "anticheat": {
         "anticheats": "Antitranpak",
@@ -59,10 +59,10 @@
                 "message": "Errore ezezagun bat gertatu da",
                 "title": "Errore ezezaguna"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Exekuzioa abortatu egin da",
             "title": "Errorea",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
+                "message": "Errore bat gertatu da: {{newLine}} {{error}} {{newLine}} {{newLine}} Eman errorea gure GitHub biltegian.",
                 "title": "Harrapatu gabeko Salbuespena gertatu da!"
             },
             "update": {
@@ -70,7 +70,7 @@
                 "title": "Eguneraketa errorea"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "Wine bertsio hautatua ez da aurkitu. Instalatu edo hautatu beste bat {{newline}} Bertsioa: {{version}} {{newline}} Kokapena: {{path}}",
                 "message": "Ez da Wine bertsioa hautatu. Egiaztatu jokoaren konfigurazioa!",
                 "title": "Wine ez da aurkitu"
             },
@@ -144,7 +144,7 @@
         "yes": "BAI"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "Ezeztatu",
         "go_to_library": "Joan liburutegira",
         "login": "Hasi saioa",
         "sync": "Sinkronizatu",
@@ -157,7 +157,7 @@
             "backspace": "Atzera atzera",
             "close_dialog": "Itxi elkarrizketa-koadroa",
             "close_keyboard": "Itxi teklatua",
-            "close_options": "Close Options",
+            "close_options": "Itxi ezarpenak",
             "game_details": "Jokoaren xehetasunak",
             "game_settings": "Jokoaren ezarpenak",
             "install_game": "Instalatu jokoa",
@@ -166,7 +166,7 @@
             "options": "Options",
             "play_game": "Jolastu",
             "scroll": "Korritu",
-            "select": "Select",
+            "select": "Hautatu",
             "space": "Espazioa",
             "update_game": "Eguneratu jokoa"
         }
@@ -178,7 +178,7 @@
             "update": "Update"
         },
         "label": {
-            "disk": "Disk",
+            "disk": "Diskoa",
             "speed": "Download"
         },
         "link": "Downloads",
@@ -224,7 +224,7 @@
     },
     "help": {
         "amdfsr": "AMD-ren FSR-k fotograma-tasa areagotzen laguntzen du pantaila osoko moduan bereizmen baxuagoak igoz. Irudiaren kalitatea 5etik 1era igotzen da errendimendu txiki baten truke. Gaitzeak errendimendua hobetu dezake.",
-        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
+        "custom_themes_path": "Ez erabili iturri ez-fidagarrien CSS fitxategiak. Zalantza izanez gero, eskatu azterketa bat gure Discord zerbitzarian.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK DirectX 9, 10 eta 11 jokoetarako Vulkan-en oinarritutako translazio-geruza da. Gaitzeak bateragarritasuna hobetu dezake. Arazoak sor ditzake bereziki DirectX joko zaharretan.",
         "esync": "Esync-ek ardo-zerbitzariaren gainkostua murriztea du helburu PUZa duten jokoetan. Gaitzeak errendimendua hobe dezake.",
@@ -264,7 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "click-to-see-changelog": "Click to see changelog",
+            "click-to-see-changelog": "Egin klik aldaketen erregistroa ikusteko",
             "newReleases": "Eguneraketa eskuragarri!",
             "stable": "Egonkorra",
             "version": "Heroic bertsioa"
@@ -278,7 +278,7 @@
     "infobox": {
         "help": "Laguntza",
         "requirements": "Sistemaren eskakizunak",
-        "warning": "Warning",
+        "warning": "Oharra",
         "wine-path": "Ardoaren Bidea",
         "wine-prefix": {
             "title": "Ardoaren aurrizkia"
@@ -307,9 +307,9 @@
     },
     "login": {
         "alternative_method": "Alternative Login Method",
-        "epic": "Epic Games Login",
-        "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "epic": "Hasi Epic Games saioa",
+        "gog": "Hasi GOG saioa",
+        "message": "Hasi saioa zure plataformetan. Saioa behin baino gehiagotan batera has dezakezu."
     },
     "message": {
         "sync": "Sinkronizazioa amaituta",
@@ -414,6 +414,7 @@
         "mac": "Mac",
         "win": "Leihoak"
     },
+    "please-wait": "Please wait...",
     "progress": "Aurrerapena",
     "queue": {
         "label": {
@@ -522,7 +523,9 @@
             "title": "Exekutatu EXE aurrizkian"
         },
         "savefolder": {
-            "placeholder": "Hautatu partidak gordetzeko karpeta zehatza"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Hautatu partidak gordetzeko karpeta zehatza",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Hautatu Gaia",
         "showfps": "Erakutsi FPS (DX9, 10 eta 11)",
@@ -628,8 +631,8 @@
     "wine": {
         "actions": "Ekintza",
         "manager": {
-            "error": "Ezin izan dira Wine/Proton bertsioak eskuratu oraingoan.",
             "link": "Ardo kudeatzailea",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Ardo kudeatzailea",
             "unzipping": "Deskonprimitzea"
         },

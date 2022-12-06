@@ -174,8 +174,8 @@
     "docs": "Документация",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "Установка",
+            "update": "Обновление"
         },
         "label": {
             "disk": "Диск",
@@ -414,6 +414,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Прогресс",
     "queue": {
         "label": {
@@ -522,7 +523,9 @@
             "title": "Запустить EXE в префиксе"
         },
         "savefolder": {
-            "placeholder": "Выберите точную папку для сохранений игр"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Выберите точную папку для сохранений игр",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",
@@ -628,8 +631,8 @@
     "wine": {
         "actions": "Действие",
         "manager": {
-            "error": "Не удалось получить версии Wine/Proton.",
             "link": "Менеджер Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Менеджер Wine",
             "unzipping": "Распаковка"
         },

@@ -102,7 +102,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "هل أنت متأكد أنك تريد إعادة ضبط هِرُوِك؟ سيؤدي هذا إلى إزالة جميع الإعدادات وذاكرة التخزين المؤقتة ولكنه لن يزيل الألعاب المثبتة أو بيانات اعتماد أََبِك الخاصة بك.",
+                "message": "هل أنت متأكد من أنك تريد إعادة ضبط هِرُوِك؟ سيؤدي هذا إلى إزالة جميع الإعدادات وذاكرة التخزين المؤقتة ولكنه لن يزيل الألعاب المثبتة أو بيانات اعتماد أََبِك الخاصة بك.",
                 "title": "إعادة ضبط هِرُوِك"
             }
         },
@@ -300,7 +300,7 @@
             "list": "بدّل لتمكين تخطيط القوائم"
         }
     },
-    "Library": "مكتبة",
+    "Library": "المكتبة",
     "loading": {
         "default": "قيد التحميل",
         "website": "قيد تحميل الموقع"
@@ -359,9 +359,9 @@
     },
     "offline-message": {
         "hint": "نحن نتحقق من الاتصال مقابل: {{newline}} github.com و {{newline}} gog.com و {{newline}} store.epicgames.com",
-        "ignore": "Ignore",
-        "offline": "غير متصل بالانترنت",
-        "offline-retry-in": "غير متصل بالانترنت. قيد إعادة المحاولة خلال {{seconds}} ثانية.",
+        "ignore": "تجاهل",
+        "offline": "غير متصل",
+        "offline-retry-in": "غير متصل. قيد إعادة المحاولة خلال {{seconds}} ثانية.",
         "retrying": "قيد إعادة المحاولة"
     },
     "Open": "",
@@ -414,6 +414,7 @@
         "mac": "ماك",
         "win": "ويندوز"
     },
+    "please-wait": "Please wait...",
     "progress": "التقدم",
     "queue": {
         "label": {
@@ -430,7 +431,7 @@
     "search": "ابحث عن ألعاب",
     "setting": {
         "adddesktopshortcuts": "أضف اختصارات سطح المكتب تلقائيًا",
-        "addgamestostartmenu": "أضف\u202e الألعاب لقائمة ابدأ تلقائيًا",
+        "addgamestostartmenu": "أضف‮ الألعاب لقائمة ابدأ تلقائيًا",
         "addgamestosteam": "أضف الألعاب لستيم تلقائيًا",
         "alt-gogdl-bin": "اختر بديلًا للملف الثنائي لجي.أو.جي.دي.إل",
         "alt-legendary-bin": "اختر بديلًا للملف الثنائي للِجَندَرِي",
@@ -465,7 +466,7 @@
             "notInstalled": "لم تُثبت واجهة إي.أو.إس",
             "notInstalledMsg": "لم تُثبت واجهة إي.أو.إس. هل تريد تثبيتها الآن؟",
             "notInstalledTitle": "لم تُثبت الواجهة",
-            "remove": "الغاء التثبيت",
+            "remove": "ألغِ التثبيت",
             "removeConfirm": "هل أنت متأكد من أنك تريد إلغاء تثبيت واجهة إي.أو.إس؟",
             "removeConfirmTitle": "تأكيد إزالة الواجهة",
             "updateNow": "حدّث",
@@ -522,7 +523,9 @@
             "title": "قم بتشغيل الملف التنفيذي في السابقة"
         },
         "savefolder": {
-            "placeholder": "حدد مجلد ملفات تخزين الألعاب بالضبط"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "حدد مجلد ملفات تخزين الألعاب بالضبط",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "اختر سِمة",
         "showfps": "عرض معدل الإطارات (دايركت.إكس 9 و 10 و 11)",
@@ -530,7 +533,7 @@
         "steamruntime": "استخدم بيئة تشغيل ستيم",
         "winecrossoverbottle": "قارورة كروس.أوفر",
         "wineprefix": "مجلد سابقة واين",
-        "wineversion": "نسخة واين"
+        "wineversion": "إصدار واين"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -559,7 +562,7 @@
             "long-log-hint": "اُقتطع السجل، يُعرض آخر 1000 سطر!"
         },
         "navbar": {
-            "advanced": "إعدادات متقدمة",
+            "advanced": "الإعدادات المتقدمة",
             "games_settings": "إعدادات اللعبة",
             "games_settings_defaults": "الإعدادات الافتراضية للألعاب",
             "general": "عام",
@@ -628,12 +631,12 @@
     "wine": {
         "actions": "الإجراء",
         "manager": {
-            "error": "تعذر جلب إصدارات واين/بروتون هذه المرة.",
             "link": "مدير واين",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "مدير واين",
             "unzipping": "جارٍ فك الضغط"
         },
-        "release": "تاريخ الاصدار",
+        "release": "تاريخ الإصدار",
         "size": "الحجم"
     }
 }

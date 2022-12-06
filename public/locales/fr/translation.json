@@ -414,6 +414,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progression",
     "queue": {
         "label": {
@@ -522,7 +523,9 @@
             "title": "Utiliser un .exe sur le préfixe"
         },
         "savefolder": {
-            "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Sélectionner le thème",
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
@@ -628,8 +631,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Les versions de Wine/Proton n'ont pas pu être trouvées.",
             "link": "Gestion de Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Gestion de Wine",
             "unzipping": "Décompression"
         },

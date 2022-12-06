@@ -7,7 +7,7 @@
         "title": "Accesibilidad",
         "zoom": "Zoom"
     },
-    "add_game": "Add Game",
+    "add_game": "Añadir juego",
     "All": "Todos",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -144,7 +144,7 @@
         "yes": "SÍ"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "Cancelar",
         "go_to_library": "Ir a la biblioteca",
         "login": "Iniciar sesión",
         "sync": "Sincronizar",
@@ -157,7 +157,7 @@
             "backspace": "Borrar",
             "close_dialog": "Cerrar diálogo",
             "close_keyboard": "Ocultar teclado",
-            "close_options": "Close Options",
+            "close_options": "Cerrar opciones",
             "game_details": "Detalles del juego",
             "game_settings": "Configuración del juego",
             "install_game": "Instalar juego",
@@ -166,7 +166,7 @@
             "options": "Options",
             "play_game": "Ejecutar juego",
             "scroll": "Scroll",
-            "select": "Select",
+            "select": "Seleccionar",
             "space": "Espacio",
             "update_game": "Actualizar juego"
         }
@@ -178,17 +178,17 @@
             "update": "Update"
         },
         "label": {
-            "disk": "Disk",
+            "disk": "Disco",
             "speed": "Download"
         },
-        "link": "Downloads",
+        "link": "Descargas",
         "queue": {
-            "end-time": "Finished at",
-            "queue-time": "Added at",
-            "start-time": "Started at",
+            "end-time": "Terminado en",
+            "queue-time": "Añadido en",
+            "start-time": "Iniciado en",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Descargas"
     },
     "epic": {
         "offline-notification-body": "¡Puede que algunos servicios no funcionen correctamente si no estás conectado a los servidores de Epic Games!",
@@ -244,7 +244,7 @@
             "part7": " para omitir el lanzador en algunos juegos, etc."
         },
         "preferSystemLibs": "Versiones custom de Wine (Wine-GE, Wine-Lutris) incluyen sus propias librerías para sus dependencias. Al activar esta opción, esa librarías son ignoradas y Wine cargará las librarías del sistema en su lugar. Advertencia! Pueden ocurrir errores si las dependencias no se cumplen.",
-        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+        "primerun": "Utiliza una tarjeta gráfica dedicada para renderizar el juego en sistemas multi-GPU. Sólo es necesario en los portátiles para juegos o en los ordenadores de sobremesa que utilizan una GPU sin cabeza para el renderizado (NVIDIA Optimus, AMD CrossFire).",
         "steam_path": {
             "info": "Esto ayuda a Heroic a encontrar versiones de Proton instaladas en Steam y a identificar a los usuarios para agregar juegos a Steam."
         },
@@ -264,7 +264,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "click-to-see-changelog": "Click to see changelog",
+            "click-to-see-changelog": "Haz clic para ver el registro de cambios",
             "newReleases": "¡Actualización disponible!",
             "stable": "Estable",
             "version": "Versión de Heroic"
@@ -323,15 +323,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} no se pudo agregar a todos los usuarios de Steam encontrados. Revisar los registros para más información. Es necesario reiniciar Steam para que los cambios tengan efecto.",
+                    "corrupt": "{{game}} no se pudo agregar a todos los usuarios de Steam encontrados. Revisa los registros para más información. Es necesario reiniciar Steam para que los cambios tengan efecto.",
                     "success": "{{game}} se agregó correctamente a Steam. Es necesario reiniciar Steam para que los cambios tengan efecto.",
                     "title": "Agregado a Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} no se pudo remover de todos los usuarios de Steam encontrados. Revisar los registros para más información. Es necesario reiniciar Steam para que los cambios tengan efecto.",
-                    "success": "{{game}} se removió correctamente de Steam. Es necesario reiniciar Steam para que los cambios tengan efecto.",
+                    "corrupt": "{{game}} no se pudo eliminar de todos los usuarios de Steam encontrados. Revisa los registros para más información. Es necesario reiniciar Steam para que los cambios tengan efecto.",
+                    "success": "{{game}} se eliminó correctamente de Steam. Es necesario reiniciar Steam para que los cambios tengan efecto.",
                     "title": "Removido de Steam"
                 }
             },
@@ -361,7 +361,7 @@
         "hint": "Estamos comprobando la conexión con:{{newline}}github.com,{{newline}}gog.com y{{newline}}store.epicgames.com",
         "ignore": "Ignore",
         "offline": "Sin conexión",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
+        "offline-retry-in": "Sin conexión. Reintento en {{segundos}} segundos.",
         "retrying": "Reintentando"
     },
     "Open": "",
@@ -390,7 +390,7 @@
         "wrapper": {
             "args": "Argumentos",
             "arguments_example": "Ejemplo de argumentos: --arg; --extra-file=\"ruta/con espacios\"",
-            "exe": "Wrapper",
+            "exe": "Envoltorio",
             "placeHolderKey": "Nuevo Wrapper",
             "placeHolderValue": "Argumentos del Wrapper",
             "title": "Comando Wrapper:"
@@ -414,16 +414,17 @@
         "mac": "macOS",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progreso",
     "queue": {
         "label": {
-            "canceled": "Canceled",
+            "canceled": "Cancelado",
             "clear": "Limpiar lista",
             "downloading": "Descargando",
-            "empty": "Nothing to download",
+            "empty": "No hay nada que descargar",
             "finished": "Completado",
-            "queued": "Encolado",
-            "remove": "Remove from Downloads"
+            "queued": "En cola",
+            "remove": "Eliminar de las descargas"
         }
     },
     "Recent": "Jugado recientemente",
@@ -476,7 +477,7 @@
         "FsrSharpnessStrenght": "FSR Fuerza de Nitidez",
         "fsync": "Habilitar Fsync",
         "gamemode": "Usar GameMode (Feral Game Mode debe estar instalado)",
-        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "hideChangelogsOnStartup": "No mostrar los registros de cambios en el inicio",
         "language": "Elija el idioma de la aplicación",
         "library_top_option": {
             "disabled": "Desactivada",
@@ -522,7 +523,9 @@
             "title": "Ejecutar EXE en Prefijo"
         },
         "savefolder": {
-            "placeholder": "Seleccione la carpeta exacta para guardar juegos"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Seleccione la carpeta exacta para guardar juegos",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Seleccionar Tema",
         "showfps": "Mostrar FPS (Cuadros Por Segundo) (DX9, 10 y 11)",
@@ -540,7 +543,7 @@
         "clear-cache": "Borrar la caché de Heroic",
         "copiedToClipboard": "¡Copiado en el portapapeles!",
         "copyToClipboard": "Copiar todas las configuraciones al portapapeles",
-        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
+        "default_hint": "Los cambios en esta sección sólo se aplican como valores por defecto al instalar los juegos. Si quieres cambiar la configuración de un juego ya instalado, utiliza el botón de Configuración en la página del juego.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode es necesario para que el runtime de EAC funcione en Flatpak. Instalar ahora?",
@@ -560,8 +563,8 @@
         },
         "navbar": {
             "advanced": "Avanzado",
-            "games_settings": "Game Settings",
-            "games_settings_defaults": "Game Defaults",
+            "games_settings": "Configuración del juego",
+            "games_settings_defaults": "Valores predeterminados del juego",
             "general": "General",
             "log": "Registro",
             "other": "Otro",
@@ -607,7 +610,7 @@
         "show": "Mostrar"
     },
     "two_col_table": {
-        "save_hint": "Los cambios en esta tabla no se guardan automáticamente. Haz clic en el botón \"+\""
+        "save_hint": "Los cambios en esta tabla no se guardan automáticamente. Haz clic en el botón «+»"
     },
     "Update Available!": "",
     "userselector": {
@@ -628,8 +631,8 @@
     "wine": {
         "actions": "Acción",
         "manager": {
-            "error": "Esta vez no se han podido recuperar las versiones de Wine/Proton.",
             "link": "Gestor de Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Gestor de Wine",
             "unzipping": "Descomprimiendo"
         },

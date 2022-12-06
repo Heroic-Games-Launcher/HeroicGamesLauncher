@@ -361,7 +361,7 @@ export class GOGLibrary {
 
     deleteAbortController(appName)
 
-    if (res.abort) {
+    if (!res.stdout || res.abort) {
       return
     }
 
@@ -386,7 +386,7 @@ export class GOGLibrary {
     }
 
     // some games don't support `en-US`
-    if (!gogInfo.languages.includes(lang)) {
+    if (!gogInfo.languages && gogInfo.languages.includes(lang)) {
       // if the game supports `en-us`, use it, else use the first valid language
       const newLang = gogInfo.languages.includes('en-us')
         ? 'en-us'
@@ -505,7 +505,7 @@ export class GOGLibrary {
       appName: data.appName,
       install_path: path,
       executable: '',
-      install_size: getFileSize(gameInfo.manifest.disk_size),
+      install_size: getFileSize(gameInfo.manifest?.disk_size),
       is_dlc: false,
       version: data.versionName,
       platform: data.platform,

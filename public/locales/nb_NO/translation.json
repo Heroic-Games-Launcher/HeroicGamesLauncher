@@ -414,6 +414,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Framgang",
     "queue": {
         "label": {
@@ -522,7 +523,9 @@
             "title": "Kjør EXE på prefiks"
         },
         "savefolder": {
-            "placeholder": "Velg den nøyaktige mappen for lagring av spill"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Velg den nøyaktige mappen for lagring av spill",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Velg Tema",
         "showfps": "Vis FPS (DX9, 10 og 11)",
@@ -628,8 +631,8 @@
     "wine": {
         "actions": "Handling",
         "manager": {
-            "error": "Kunne ikke hente Wine/Proton-versjoner denne gangen.",
             "link": "Vinsjef",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Vinsjef",
             "unzipping": "Pakning ut"
         },

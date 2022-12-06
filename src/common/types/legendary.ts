@@ -49,9 +49,11 @@ interface GameMetadataInner {
   // TODO: So far every age gating has been {}
   ageGatings: Record<string, unknown>
   applicationId: string
-  categories: Record<'path', string>[]
+  categories: { path: string }[]
   creationDate: string
-  customAttributes: Record<CustomAttributeType, CustomAttributeValue>
+  customAttributes: {
+    [key in CustomAttributeType]: CustomAttributeValue | undefined
+  }
   description: string
   developer: string
   developerId: string
@@ -82,6 +84,7 @@ type CustomAttributeType =
   | 'CanSkipKoreanIdVerification'
   | 'CloudIncludeList'
   | 'CloudSaveFolder'
+  | 'CloudSaveFolder_MAC'
   | 'FolderName'
   | 'HasGateKeeper'
   | 'LaunchSocialOnFirstInstall'

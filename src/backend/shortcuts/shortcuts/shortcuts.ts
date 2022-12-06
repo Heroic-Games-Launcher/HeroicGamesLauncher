@@ -4,7 +4,7 @@ import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import { GlobalConfig } from '../../config'
 import { removeSpecialcharacters } from '../../utils'
 import { GameInfo } from 'common/types'
-import { userHome } from '../../constants'
+import { isMac, userHome } from '../../constants'
 import { GOGLibrary } from '../../gog/library'
 import { getIcon } from '../utils'
 import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
@@ -17,7 +17,15 @@ import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
  * @public
  */
 async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
-  if (process.platform === 'darwin') {
+  const { addDesktopShortcuts, addStartMenuShortcuts, addSteamShortcuts } =
+    await GlobalConfig.get().getSettings()
+
+  if (addSteamShortcuts) {
+    addNonSteamGame({ gameInfo })
+  }
+
+  // Steam shortcuts works fine on macOS so lets skip only desktop and menu shortcuts
+  if (isMac) {
     return
   }
 
@@ -25,12 +33,6 @@ async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
   const [desktopFile, menuFile] = shortcutFiles(gameInfo.title)
   if (!desktopFile || !menuFile) {
     return
-  }
-  const { addDesktopShortcuts, addStartMenuShortcuts, addSteamShortcuts } =
-    await GlobalConfig.get().getSettings()
-
-  if (addSteamShortcuts) {
-    addNonSteamGame({ gameInfo })
   }
 
   switch (process.platform) {

@@ -414,6 +414,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -522,7 +523,9 @@
             "title": "Run EXE on Prefix"
         },
         "savefolder": {
-            "placeholder": "Select the exact save games folder"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Select the exact save games folder",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "Show FPS (DX9, 10 and 11)",
@@ -628,8 +631,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
         },

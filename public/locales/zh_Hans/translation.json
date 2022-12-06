@@ -414,6 +414,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -522,7 +523,9 @@
             "title": "在前置上运行 EXE"
         },
         "savefolder": {
-            "placeholder": "选择存档的保存位置"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "选择存档的保存位置",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",
@@ -628,8 +631,8 @@
     "wine": {
         "actions": "动作",
         "manager": {
-            "error": "此次无法获取 Wine/Proton 版本。",
             "link": "Wine 管理器",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine 管理器",
             "unzipping": "解压缩"
         },

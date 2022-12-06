@@ -414,6 +414,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -522,7 +523,9 @@
             "title": "Käynnistä EXE prefixissä"
         },
         "savefolder": {
-            "placeholder": "Valitse täsmällinen pelitallennuksien kansio"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",
@@ -628,8 +631,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Viini-/Proton-versioita ei voitu noutaa tällä kertaa.",
             "link": "Wine Manageri",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Manageri",
             "unzipping": "Purkaminen"
         },

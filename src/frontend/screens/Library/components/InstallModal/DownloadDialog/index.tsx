@@ -115,6 +115,7 @@ export default function DownloadDialog({
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
+  const isWin = platform === 'win32'
 
   const [gameInstallInfo, setGameInstallInfo] = useState<
     LegendaryInstallInfo | GogInstallInfo | null
@@ -179,7 +180,7 @@ export default function DownloadDialog({
     backdropClick()
 
     // Write Default game config with prefix on linux
-    if (isLinux) {
+    if (!isWin) {
       const gameSettings = await window.api.requestGameSettings(appName)
 
       if (wineVersion) {
@@ -215,7 +216,11 @@ export default function DownloadDialog({
         )
         setGameInstallInfo(gameInstallInfo)
 
-        if (gameInstallInfo && 'languages' in gameInstallInfo.manifest) {
+        if (
+          gameInstallInfo &&
+          gameInstallInfo.manifest &&
+          'languages' in gameInstallInfo.manifest
+        ) {
           setInstallLanguages(gameInstallInfo.manifest.languages)
           setInstallLanguage(
             getInstallLanguage(
@@ -237,7 +242,7 @@ export default function DownloadDialog({
         showDialogModal({
           type: 'ERROR',
           title: tr('box.error.generic.title', 'Error!'),
-          message: `tr('box.error.generic.message', 'Something Went Wrong!')
+          message: `${tr('box.error.generic.message', 'Something Went Wrong!')}
           ${error}`
         })
         backdropClick()
@@ -364,7 +369,7 @@ export default function DownloadDialog({
     return t('button.no-path-selected', 'No path selected')
   }
 
-  const readyToInstall = installPath && gameInstallInfo?.manifest.download_size
+  const readyToInstall = installPath && gameInstallInfo?.manifest?.download_size
 
   return (
     <>
@@ -466,7 +471,7 @@ export default function DownloadDialog({
               .then((path) => setInstallPath(path || defaultInstallPath))
           }
           afterInput={
-            gameInstallInfo?.manifest.download_size ? (
+            gameInstallInfo?.manifest?.download_size ? (
               <span className="diskSpaceInfo">
                 {validPath && (
                   <>
