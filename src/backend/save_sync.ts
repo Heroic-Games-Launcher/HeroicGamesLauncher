@@ -66,9 +66,10 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
     }
   }
 
-  await verifyWinePrefix(await game.getSettings())
+  if (!game.isNative()) {
+    await verifyWinePrefix(await game.getSettings())
+  }
 
-  // If Legendary doesn't have a save folder set yet, run it & accept its generated path
   logInfo(['Computing default save path for', appName], {
     prefix: LogPrefix.Legendary
   })
@@ -84,7 +85,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
     createAbortController(abortControllerName),
     {
       logMessagePrefix: 'Getting default save path',
-      env: setupWineEnvVars(await game.getSettings())
+      env: game.isNative() ? {} : setupWineEnvVars(await game.getSettings())
     }
   )
   deleteAbortController(abortControllerName)

@@ -483,7 +483,6 @@ export class LegendaryLibrary {
     } = metadata
 
     const dlcs: string[] = []
-    const CloudSaveFolder = customAttributes?.CloudSaveFolder
     const FolderName = customAttributes?.FolderName
     const canRunOffline = customAttributes?.CanRunOffline?.value === 'true'
     const thirdPartyManagedApp =
@@ -497,8 +496,20 @@ export class LegendaryLibrary {
       })
     }
 
-    const cloud_save_enabled = Boolean(CloudSaveFolder?.value)
-    const saveFolder = cloud_save_enabled ? CloudSaveFolder.value : ''
+    const info = this.installedGames.get(app_name)
+    const {
+      executable,
+      version,
+      install_size,
+      install_path,
+      platform,
+      save_path
+    } = info ?? {}
+
+    const saveFolder =
+      (platform === 'Mac'
+        ? customAttributes.CloudSaveFolder_MAC?.value
+        : customAttributes.CloudSaveFolder?.value) ?? ''
     const installFolder = FolderName ? FolderName.value : app_name
 
     const gameBox = keyImages.find(({ type }) => type === 'DieselGameBox')
@@ -518,16 +529,6 @@ export class LegendaryLibrary {
     const art_square = gameBoxTall ? gameBoxTall.url : undefined
     const art_square_front = gameBoxStore ? gameBoxStore.url : undefined
 
-    const info = this.installedGames.get(app_name)
-    const {
-      executable,
-      version,
-      install_size,
-      install_path,
-      platform,
-      save_path
-    } = info ?? {}
-
     const is_dlc = Boolean(metadata.mainGameItem)
 
     const convertedSize = install_size ? getFileSize(Number(install_size)) : '0'
@@ -537,7 +538,7 @@ export class LegendaryLibrary {
       art_cover: art_cover || art_square || fallBackImage,
       art_logo,
       art_square: art_square || art_square_front || art_cover || fallBackImage,
-      cloud_save_enabled,
+      cloud_save_enabled: Boolean(saveFolder),
       developer,
       extra: {
         about: {
