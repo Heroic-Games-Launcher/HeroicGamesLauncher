@@ -77,8 +77,8 @@
     "game": {
         "downloadSize": "Latauksen koko",
         "firstPlayed": "Ensimmäisen kerran pelattu",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Getting download size",
+        "getting-install-size": "Getting install size",
         "installSize": "Asennuskoko",
         "language": "Kieli",
         "lastPlayed": "Viimeksi pelattu",
