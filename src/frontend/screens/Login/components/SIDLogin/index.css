@@ -66,12 +66,12 @@
   color: var(--text-default);
   font-size: var(--text-md);
   padding: var(--space-2xs);
-  background-color: var(--background);
+  background-color: var(--input-background);
   border: none;
   height: 50px;
   width: 250px;
-  border-radius: var(--space-sm);
-  margin: var(--space-sm);
+  border-radius: var(--space-xs);
+  margin-bottom: var(--space-md);
 }
 
 .SIDLoginModal .message > .material-icons {
