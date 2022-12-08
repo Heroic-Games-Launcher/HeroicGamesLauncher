@@ -178,19 +178,15 @@ async function generateMacOsApp(gameInfo: GameInfo) {
     mkdirSync(appShortcut, { recursive: true })
   }
 
-  // convert the icon to icns
   if (!existsSync(resourcesFolder)) {
     mkdirSync(resourcesFolder, { recursive: true })
   }
 
-  const wasIconConverted = await convertPngToICNS(
-    app_name,
-    gameInfo,
-    resourcesFolder
-  )
+  // convert the icon to icns
+  const isIconIcns = await convertPngToICNS(app_name, gameInfo, resourcesFolder)
 
   // if the icon was converted, we can continue
-  if (wasIconConverted) {
+  if (isIconIcns) {
     const plist = `<?xml version="1.0" encoding="UTF-8"?>
 	<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 	<plist version="1.0">
