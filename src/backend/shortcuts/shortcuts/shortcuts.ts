@@ -1,4 +1,4 @@
-import { app, shell } from 'electron'
+import { app, nativeImage, shell } from 'electron'
 import {
   chmodSync,
   existsSync,
@@ -10,7 +10,6 @@ import {
   writeFile,
   writeFileSync
 } from 'graceful-fs'
-import sharp from 'sharp'
 import { IconIcns } from '@shockpkg/icon-encoder'
 import { join } from 'path'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
@@ -248,7 +247,13 @@ async function convertPngToICNS(
     const iconPath = await getIcon(app_name, gameInfo)
     const iconBuffer = readFileSync(iconPath)
     const pngTemp = `${dest}/shortcut.png`
-    await sharp(iconBuffer).resize(512, 512).toFormat('png').toFile(pngTemp)
+    const temp = nativeImage
+      .createFromBuffer(iconBuffer)
+      .resize({ width: 512 })
+      .crop({ x: 0, y: 0, width: 512, height: 512 })
+      .toPNG()
+
+    writeFileSync(pngTemp, temp)
 
     const shortcut = `${dest}/shortcut.icns`
     const icns = new IconIcns()
