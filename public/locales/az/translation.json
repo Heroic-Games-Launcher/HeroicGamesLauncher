@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Qısayollar Masaüstü və Başlat menyusunda yaradılmışdır",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Qısayollar Masaüstü və Başlat Menyusundan silindi",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Qısa yollar"
         },
         "sync": {

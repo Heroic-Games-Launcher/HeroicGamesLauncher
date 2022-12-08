@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Snarveier ble opprettet på skrivebordet og startmenyen",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Snarveier ble fjernet fra skrivebordet og startmenyen",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Snarveier"
         },
         "sync": {

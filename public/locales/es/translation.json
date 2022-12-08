@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Se han creado accesos directos en el Escritorio y en el Menú Inicio",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Se removieron las accesos del Escritorio y del Menú",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Accesos directos"
         },
         "sync": {

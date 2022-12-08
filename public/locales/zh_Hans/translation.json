@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "桌面与开始菜单快捷方式已创建",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "从桌面和启动菜单移除了快捷方式",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "快捷方式"
         },
         "sync": {

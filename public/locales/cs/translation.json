@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Zástupci byli vytvořeni na ploše a v nabídce Start",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Zástupci byli odebráni z plochy a nabídky Start",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Zástupci"
         },
         "sync": {

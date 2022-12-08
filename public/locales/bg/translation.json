@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Бяха създадени преки пътища на работния плот и в менюто с приложения",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Преки пътища"
         },
         "sync": {

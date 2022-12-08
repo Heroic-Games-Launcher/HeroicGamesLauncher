@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Les raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Les raccourcis ont été supprimés du Bureau et du menu Démarrer",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Raccourcis"
         },
         "sync": {

@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Pintasan dibuat di Desktop dan Start Menu",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Pintasan telah dihapus dari Desktop dan Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Pintasan"
         },
         "sync": {

@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Prečice su kreirane na radnoj površini i Start meniju",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Prečice su uklonjene sa radne površine i Start menija",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Prečice"
         },
         "sync": {

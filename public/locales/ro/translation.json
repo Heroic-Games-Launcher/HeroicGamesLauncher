@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Scurtăturile au fost create pe Desktop și pe meniul Start",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Comenzile rapide au fost eliminate din Desktop și din meniul Start",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Scurtături"
         },
         "sync": {

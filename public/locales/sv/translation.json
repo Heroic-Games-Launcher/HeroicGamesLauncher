@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Genvägar skapades på Skrivbordet och Startmenyn",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Genvägar togs bort från skrivbordet och startmenyn",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Genvägar"
         },
         "sync": {
