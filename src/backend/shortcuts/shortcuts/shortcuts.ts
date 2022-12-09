@@ -100,10 +100,6 @@ Categories=Game;
       await generateMacOsApp(gameInfo)
       break
     }
-    default:
-      logError("Shortcuts haven't been implemented in the current platform.", {
-        prefix: LogPrefix.Backend
-      })
   }
 }
 
@@ -154,10 +150,6 @@ function shortcutFiles(gameTitle: string) {
       menuFile = join(userHome, 'Applications', `${gameTitle}.app`)
       desktopFile = join(userHome, 'Applications', `${gameTitle}.app`)
       break
-    default:
-      logError("Shortcuts haven't been implemented in the current platform.", {
-        prefix: LogPrefix.Backend
-      })
   }
 
   return [desktopFile, menuFile]
