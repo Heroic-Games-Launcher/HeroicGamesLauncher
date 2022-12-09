@@ -1,13 +1,13 @@
 import { WineInstallation } from 'common/types'
 import axios from 'axios'
 import {
-  copyFileSync,
   existsSync,
   readFileSync,
   writeFile,
   writeFileSync,
-  rmSync,
-  readdirSync
+  readdirSync,
+  copyFile,
+  rm
 } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
@@ -186,7 +186,13 @@ export const DXVK = {
         prefix: LogPrefix.DXVKInstaller
       })
       if (existsSync(currentVersionCheck)) {
-        rmSync(currentVersionCheck)
+        rm(currentVersionCheck, { force: true }, (err) => {
+          if (err) {
+            logError([`Error removing ${tool} version information`, err], {
+              prefix: LogPrefix.DXVKInstaller
+            })
+          }
+        })
       }
 
       logInfo(`Removing ${tool} files`, {
@@ -221,7 +227,13 @@ export const DXVK = {
         dll = dll.replace('.dll', '')
         const unregisterDll = `WINEPREFIX='${winePrefix}' '${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
         logInfo(`Unregistering ${dll}`, { prefix: LogPrefix.DXVKInstaller })
-        await execAsync(unregisterDll)
+        exec(unregisterDll, (error) => {
+          if (error) {
+            logError([`Error when unregistering ${dll}`, error], {
+              prefix: LogPrefix.DXVKInstaller
+            })
+          }
+        })
       })
       return true
     }
@@ -240,15 +252,29 @@ export const DXVK = {
     // copy the new dlls to the prefix
     dlls.forEach((dll) => {
       if (!isMac) {
-        copyFileSync(
+        copyFile(
           `${toolPathx32}/${dll}`,
-          `${winePrefix}/drive_c/windows/syswow64/${dll}`
+          `${winePrefix}/drive_c/windows/syswow64/${dll}`,
+          (err) => {
+            if (err) {
+              logError([`Error when copying ${dll}`, err], {
+                prefix: LogPrefix.DXVKInstaller
+              })
+            }
+          }
         )
       }
 
-      copyFileSync(
+      copyFile(
         `${toolPathx64}/${dll}`,
-        `${winePrefix}/drive_c/windows/system32/${dll}`
+        `${winePrefix}/drive_c/windows/system32/${dll}`,
+        (err) => {
+          if (err) {
+            logError([`Error when copying ${dll}`, err], {
+              prefix: LogPrefix.DXVKInstaller
+            })
+          }
+        }
       )
     })
 
@@ -257,22 +283,21 @@ export const DXVK = {
     dlls.forEach(async (dll) => {
       // remove the .dll extension otherwise will fail
       dll = dll.replace('.dll', '')
-      await execAsync(
+      exec(
         `WINEPREFIX='${winePrefix}' '${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d ${overrideType} /f `,
-        execOptions
+        execOptions,
+        (err) => {
+          if (err) {
+            logError([`Error when registering ${dll}`, err], {
+              prefix: LogPrefix.DXVKInstaller
+            })
+          }
+        }
       )
-        .then(() => {
-          logInfo(`${dll} registered!`, {
-            prefix: LogPrefix.DXVKInstaller
-          })
-        })
-        .catch((error) => {
-          logError([`Error when registering ${dll}`, error], {
-            prefix: LogPrefix.DXVKInstaller
-          })
-        })
     })
+
     exec(`echo ${globalVersion} > ${currentVersionCheck}`)
+
     writeFile(currentVersionCheck, globalVersion, (err) => {
       if (err) {
         logError([`Error when writing ${tool} version`, err], {
@@ -345,7 +370,8 @@ export const Winetricks = {
         WINEPREFIX: winePrefix,
         WINESERVER: wineServer,
         WINE: wineBin,
-        WINE64: wineBin
+        WINE64: wineBin,
+        PATH: `/opt/homebrew/bin:${process.env.PATH}`
       }
 
       const envs = isMac ? macEnvs : linuxEnvs
@@ -372,7 +398,7 @@ export const Winetricks = {
       const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
       dependencies.forEach(async (dependency) => {
         try {
-          await execAsync(`which ${dependency}`, execOptions)
+          await execAsync(`which ${dependency}`, { ...execOptions, env: envs })
         } catch (error) {
           appendMessage(
             `${dependency} not installed! Winetricks might fail to install some packages or even open`
