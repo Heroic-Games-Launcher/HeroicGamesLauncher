@@ -414,7 +414,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "Bitte warten...",
     "progress": "Fortschritt",
     "queue": {
         "label": {
@@ -523,9 +523,9 @@
             "title": "EXE in Prefix starten"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Speicherungsordner nicht gefunden, bitte wählen sie es manuell aus",
             "placeholder": "Wähle den genauen Ordner der Spielstände",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Überprüfen sie zweimal ob der path richtig angegeben ist"
         },
         "select_theme": "Design",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
@@ -632,7 +632,7 @@
         "actions": "Aktion",
         "manager": {
             "link": "Wine-Manager",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "not-found": "Keine Wine Versionen gefunden. Drücken sie die Aktualisierungstaste und versuchen sie es erneut.",
             "title": "Wine-Manager",
             "unzipping": "Entpacke"
         },
