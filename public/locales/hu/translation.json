@@ -232,16 +232,16 @@
         "game_language": {
             "fallback": "Leave blank to use Heroic's language.",
             "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "valid_codes": "A működő Nyelvkódok függhetnek a játékoktól."
         },
-        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
-        "general": "Abban az esetben szinkronizálj EGL-lel , ha van egy működő, Epic Games Launcher telepítésed máshol, és importálni szeretnéd a játékaid, hogy elkerüld az újbóli letöltésüket.",
+        "gamemode": "A Vad Játék-Mód automatikusan és ideiglenesen optimalizál a rendszerhez. Ennek az engedélyezése javíthatja a teljesítményt.",
+        "general": "Amennyiben van egy működő Epic Games Launcher telepítésed máshol, szinkronizálhatsz az EGL-el a játékaid importálásához, hogy elkerüld az újbóli letöltésüket.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
-            "part4": "A ",
+            "part4": "Használd a ",
             "part5": "Játékargumentumok",
-            "part6": " azt használd, amit meg akarsz hívni a játék indítási parancs után, példaképpen: ",
-            "part7": " hogy kihagyd a launchert néhány játékban, stb."
+            "part6": " az indítási parancs után hívható meg, például: ",
+            "part7": " Néhány játék esetén a Launcher kihágyásához, stb."
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
@@ -637,6 +637,6 @@
             "unzipping": "Kicsomagolás"
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Méret"
     }
 }
