@@ -348,7 +348,7 @@
         "moving": "S'està movent el joc...",
         "new-heroic-version": "Hi ha una nova versió de l'Heroic!",
         "refresh": {
-            "error": "No s'ha pogut aconseguir el llistat de versions, potser per les restriccions de l'API del GitHub. Proveu-ho més tard."
+            "error": "No s'ha pogut aconseguir el llistat de versions, potser per les restriccions de l'API del GitHub. Prova-ho més tard."
         },
         "uninstalled": "Desinstal·lat",
         "update": {
@@ -358,38 +358,38 @@
         }
     },
     "offline-message": {
-        "hint": "Es comprova la connectivitat a:{{newline}}github.com,{{newline}}gog.com i{{newline}}store.epicgames.com",
-        "ignore": "Ignore",
-        "offline": "Offline",
+        "hint": "Estem comprovant la connectivitat a:{{newline}}github.com,{{newline}}gog.com i{{newline}}store.epicgames.com",
+        "ignore": "Ignora",
+        "offline": "Sense connexió",
         "offline-retry-in": "Sense connexió. Es tornarà a intentar d'aquí {{seconds}} segons.",
         "retrying": "Es torna a provar"
     },
     "Open": "",
     "options": {
         "advanced": {
-            "key": "Variable Name",
-            "placeHolderKey": "NAME",
-            "placeHolderValue": "Per exemple: Camí/A/FitxersAddicionals",
+            "key": "Nom de la variable",
+            "placeHolderKey": "NOM",
+            "placeHolderValue": "p.ex.: Camí/A/FitxersAddicionals",
             "title": "Variables d'entorn",
             "value": "Valor"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Els noms de les variables no es poden deixar buits",
-                "equal_sign_in_key": "Els noms de les variables no poden fer servir el signe «=».",
-                "space_in_key": "Els noms de les variables no poden contenir espais."
+                "equal_sign_in_key": "Els noms de les variables no poden fer servir el signe «=»",
+                "space_in_key": "Els noms de les variables no poden contenir espais"
             },
-            "example": "No afegiu el signe «=». Per exemple, per una opció com ara \"MY_FLAG=123\", poseu MY_FLAG a NAME i 123 a VALUE.",
-            "info": "Establiu les variables d'entorn que cal afegir a l'ordre."
+            "example": "No afegiu el signe «=». Per exemple, per una opció com ara \"MY_FLAG=123\", poseu MY_FLAG a NOM i 123 a VALOR.",
+            "info": "Estableix les variables d'entorn que cal afegir a l'ordre."
         },
         "gameargs": {
             "placeholder": "Introdueix aquí els arguments del llançador",
             "title": "Arguments del joc (s'executaran després de l'ordre):"
         },
-        "quote-args-with-spaces": "Avís: poseu els paràmetres que continguin espais entre cometes! Per exemple: \"camí/amb espais/\"",
+        "quote-args-with-spaces": "Avís: posa els paràmetres que continguin espais entre cometes! Per exemple: \"camí/amb espais/\"",
         "wrapper": {
             "args": "Paràmetres",
-            "arguments_example": "Exemple de paràmetres: --arg; --extra-file=\"camí-del-fitxer/ amb/espais\"",
+            "arguments_example": "Exemple de paràmetres: --arg; --extra-file=\"camí-del-fitxer/amb espais\"",
             "exe": "Embolcall",
             "placeHolderKey": "Embolcall nou",
             "placeHolderValue": "Paràmetres de l'embolcall",
@@ -403,9 +403,9 @@
     },
     "Other": "Altres",
     "placeholder": {
-        "alt-gogdl-bin": "S'està usant un binari del GOGDL integrat.",
+        "alt-gogdl-bin": "S'està utilitzant el binari integrat del GOGDL...",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
-        "custom_themes_path": "Trieu el camí per a buscar fitxers CSS personalitzats",
+        "custom_themes_path": "Tria el camí per a buscar fitxers CSS personalitzats",
         "egs-prefix": "Prefix on l'EGS està instal·lat",
         "prefered_language": "Codi de dos caràcters, com ara «en», «fr» o «ca»"
     },
@@ -414,7 +414,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "please-wait": "Espereu...",
+    "please-wait": "Espera...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -432,8 +432,8 @@
     "setting": {
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
-        "addgamestosteam": "Afegeix els jocs a l'Steam de manera automàtica",
-        "alt-gogdl-bin": "Tria un fitxer binari alternatiu del GOGDL",
+        "addgamestosteam": "Afegeix els jocs a l'Steam automàticament",
+        "alt-gogdl-bin": "Tria un binari alternatiu del GOGDL",
         "alt-legendary-bin": "Tria un binari alternatiu del Legendary",
         "autodxvk": "Instal·la/Actualitza el DXVK al prefix automàticament",
         "autosync": "Sincronitza automàticament les partides desades",
