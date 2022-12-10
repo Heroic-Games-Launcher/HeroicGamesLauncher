@@ -1,12 +1,11 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { WineVersionInfo } from 'common/types'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { SvgButton } from 'frontend/components/UI'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
 
@@ -27,7 +26,6 @@ const WineItem = ({
   type
 }: WineVersionInfo) => {
   const { t } = useTranslation()
-  const { refreshWineVersionInfo } = useContext(ContextProvider)
   const [progress, setProgress] = useState<{
     state: State
     progress: ProgressInfo
@@ -85,7 +83,6 @@ const WineItem = ({
             notify({ title: `${version}`, body: t('notify.install.canceled') })
             break
           case 'success':
-            refreshWineVersionInfo(false)
             notify({ title: `${version}`, body: t('notify.install.finished') })
             break
           default:
@@ -110,7 +107,6 @@ const WineItem = ({
       })
       .then((response) => {
         if (response) {
-          refreshWineVersionInfo(false)
           notify({ title: `${version}`, body: t('notify.uninstalled') })
         }
       })
