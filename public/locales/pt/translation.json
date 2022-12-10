@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Atalhos foram criados no Ambiente trabalho e Inicio Menu",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Atalhos foram removidos no Ambiente trabalho e Inicio Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Atalhos"
         },
         "sync": {

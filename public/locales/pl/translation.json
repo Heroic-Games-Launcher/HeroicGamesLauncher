@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Skróty zostały stworzone na Pulpicie i w Menu Start",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Usunięto skróty z pulpitu i menu Start",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Skróty"
         },
         "sync": {

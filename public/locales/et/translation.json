@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Töölauale ja Start Menüüsse on loodud otseteed",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Otseteed eemaldati töölaualt ja startmenüüst",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Otseteed"
         },
         "sync": {

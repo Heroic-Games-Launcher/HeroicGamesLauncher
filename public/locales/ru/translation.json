@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Ярлыки созданы на рабочем столе и в меню «Пуск»",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Ярлыки были удалены с рабочего стола и меню «Пуск»",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Ярлыки"
         },
         "sync": {

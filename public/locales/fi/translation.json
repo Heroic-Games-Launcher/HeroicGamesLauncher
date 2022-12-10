@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Pikakuvakkeet luotiin työpöydälle ja Käynnistä-valikkoon",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Pikanäppäimet"
         },
         "sync": {

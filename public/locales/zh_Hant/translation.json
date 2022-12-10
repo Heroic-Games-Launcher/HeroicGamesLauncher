@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "已建立捷徑在桌面和開始功能表內",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "將捷徑從桌面和開始功能表移除",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "捷徑"
         },
         "sync": {

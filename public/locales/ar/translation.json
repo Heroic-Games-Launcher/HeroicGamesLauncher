@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "أُنشئت الاختصارات على سطح المكتب وقائمة ابدأ",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "أُزيلت الاختصارات من سطح المكتب وقائمة ابدأ",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "الاختصارات"
         },
         "sync": {
@@ -431,7 +433,7 @@
     "search": "ابحث عن ألعاب",
     "setting": {
         "adddesktopshortcuts": "أضف اختصارات سطح المكتب تلقائيًا",
-        "addgamestostartmenu": "أضف‮ الألعاب لقائمة ابدأ تلقائيًا",
+        "addgamestostartmenu": "أضف الألعاب لقائمة ابدأ تلقائيًا",
         "addgamestosteam": "أضف الألعاب لستيم تلقائيًا",
         "alt-gogdl-bin": "اختر بديلًا للملف الثنائي لجي.أو.جي.دي.إل",
         "alt-legendary-bin": "اختر بديلًا للملف الثنائي للِجَندَرِي",

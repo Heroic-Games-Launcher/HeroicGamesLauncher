@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "바탕 화면 및 시작 메뉴에 바로 가기가 생성되었습니다",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "데스크톱 및 시작 메뉴에서 바로 가기가 제거되었습니다",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "바로가기"
         },
         "sync": {

@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Sono stati creati i collegamenti sul Desktop e nel menu Start",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Le scorciatoie sono state rimosse dal Desktop e dal menu Start",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Collegamenti"
         },
         "sync": {

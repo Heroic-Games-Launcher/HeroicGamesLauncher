@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "കുറുക്കുവഴികള് പണിമേശയിലേക്കും തുടക്കപ്പട്ടികയിലേക്കും ചേര്ത്തിട്ടുണ്ട്",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "കുറുക്കുവഴികള്"
         },
         "sync": {

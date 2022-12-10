@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "میانبرها در دسکتاپ و منوی استارت ایجاد شدند",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "میانبرها از میزکار و منوی استارت حذف شدند",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "میانبرها"
         },
         "sync": {

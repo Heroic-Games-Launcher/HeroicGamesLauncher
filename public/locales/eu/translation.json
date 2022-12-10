@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Lasterbideak sortu dira Mahaigainean eta Hasierako Menuan",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Lasterbideak mahaigainetik eta Hasi menutik kendu dira",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Lasterbideak"
         },
         "sync": {
