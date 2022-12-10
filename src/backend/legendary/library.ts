@@ -479,8 +479,20 @@ export class LegendaryLibrary {
       developer,
       dlcItemList,
       releaseInfo,
-      customAttributes
+      customAttributes,
+      categories
     } = metadata
+
+    // skip mods from the library
+    if (categories.some(({ path }) => path === 'mods')) {
+      return false
+    }
+
+    if (!customAttributes) {
+      logWarning(['Incomplete metadata for', fileName, app_name], {
+        prefix: LogPrefix.Legendary
+      })
+    }
 
     const dlcs: string[] = []
     const FolderName = customAttributes?.FolderName
