@@ -482,6 +482,13 @@ export class LegendaryLibrary {
       customAttributes
     } = metadata
 
+    if (!customAttributes) {
+      logWarning(['Possibly incomplete metadata for', fileName], {
+        prefix: LogPrefix.Legendary
+      })
+      return false
+    }
+
     const dlcs: string[] = []
     const FolderName = customAttributes?.FolderName
     const canRunOffline = customAttributes?.CanRunOffline?.value === 'true'
