@@ -508,8 +508,8 @@ export class LegendaryLibrary {
 
     const saveFolder =
       (platform === 'Mac'
-        ? customAttributes.CloudSaveFolder_MAC?.value
-        : customAttributes.CloudSaveFolder?.value) ?? ''
+        ? customAttributes?.CloudSaveFolder_MAC?.value
+        : customAttributes?.CloudSaveFolder?.value) ?? ''
     const installFolder = FolderName ? FolderName.value : app_name
 
     const gameBox = keyImages.find(({ type }) => type === 'DieselGameBox')
