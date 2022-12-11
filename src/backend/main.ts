@@ -1015,8 +1015,6 @@ let powerDisplayId: number | null
 ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }): StatusPromise => {
-    launchArguments = isCLINoGui ? '--skip-version-check' : launchArguments
-
     const window = BrowserWindow.getAllWindows()[0]
     const isSideloaded = runner === 'sideload'
     const extGame = getGame(appName, runner)

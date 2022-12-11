@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Shortcuts"
         },
         "sync": {
@@ -615,6 +617,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "டிஸ்கார்ட் (Discord)",
+        "logging_out": "Logging out",
         "logout": "வெளியேறு",
         "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
         "manageaccounts": "Manage Accounts",
