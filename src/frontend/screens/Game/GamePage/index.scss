@@ -3,18 +3,20 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   height: 100vh;
-  justify-content: stretch;
   position: relative;
+  justify-content: stretch;
+  padding: var(--space-sm) 0;
 
   .titleWrapper {
     display: flex;
     position: sticky;
     top: 0px;
-    padding-top: 2rem;
     margin-top: 2rem;
     background: var(--background-darker);
+    justify-content: space-between;
+
     .title {
-      font-weight: var(--medium);
+      font-weight: var(--bold);
       font-size: var(--text-xl);
       line-height: 30px;
       color: var(--text-default);
@@ -26,7 +28,23 @@
     .game-actions {
       position: relative;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      align-items: center;
+
+      .settings {
+        padding: var(--space-xs-fixed);
+        position: relative;
+        top: 3px;
+
+        svg {
+          width: var(--space-lg);
+          height: var(--space-lg);
+
+          path {
+            fill: var(--text-default);
+          }
+        }
+      }
 
       .toggle {
         align-self: flex-end;
@@ -39,12 +57,11 @@
         position: relative;
         transition: background-color 0.2s;
         display: flex;
-      }
 
-      &:focus-within .toggle,
-      &:hover .toggle,
-      .toggle:hover {
-        color: var(--text-title);
+        &:focus-within,
+        &:hover {
+          color: var(--text-title);
+        }
       }
 
       .gameTools {
@@ -178,8 +195,8 @@
     font-weight: normal;
     padding-bottom: var(--space-sm);
     margin-bottom: var(--space-md);
+    padding-right: var(--space-xl);
     font-size: var(--text-md);
-    max-width: 560px;
     text-overflow: ellipsis;
     color: var(--text-default);
     overflow: hidden;
@@ -203,6 +220,12 @@
 
     & svg {
       margin-right: 0.4em;
+    }
+  }
+  .buttonsWrapper {
+    button {
+      width: 30vw;
+      max-width: 450px;
     }
   }
 }

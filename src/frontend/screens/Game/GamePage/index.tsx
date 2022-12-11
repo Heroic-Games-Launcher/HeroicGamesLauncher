@@ -33,7 +33,8 @@ import { install } from 'frontend/helpers/library'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faTriangleExclamation,
-  faEllipsisV
+  faEllipsisV,
+  faCog
 } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
@@ -46,6 +47,7 @@ import {
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import HowLongToBeat from 'frontend/components/UI/HowLongToBeat'
+import { PLATFORMS_INFO } from 'frontend/helpers/constants'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -263,6 +265,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return <ErrorComponent message={message} />
     }
 
+    const installedPlatform =
+      installPlatform === 'osx' ? 'MacOS' : installPlatform
+
     return (
       <div className="gameConfigContainer">
         {showModal.show && (
@@ -288,9 +293,45 @@ export default React.memo(function GamePage(): JSX.Element | null {
             </div>
             <div className="gameInfo">
               <div className="titleWrapper">
-                <h1 className="title">{title}</h1>
+                <span className="titleSubtitle">
+                  <h1 className="title">{title}</h1>
+                  {is_installed && (
+                    <FontAwesomeIcon
+                      title={`${t(
+                        'info.installedPlatform',
+                        'Installed Platform'
+                      )}: ${installedPlatform?.toLocaleUpperCase()}`}
+                      icon={
+                        PLATFORMS_INFO[installedPlatform!.toLowerCase()].icon
+                      }
+                    />
+                  )}{' '}
+                  {is_installed && !isSideloaded && (
+                    <span title={t('info.version')}>({version})</span>
+                  )}
+                </span>
                 <div className="game-actions">
-                  <button className="toggle">
+                  {is_installed && (
+                    <Link
+                      className="settings"
+                      to={pathname}
+                      title={t('submenu.settings', 'Settings')}
+                      state={{
+                        fromGameCard: false,
+                        runner,
+                        isLinuxNative: isNative,
+                        isMacNative: isNative,
+                        hasCloudSave: cloud_save_enabled,
+                        gameInfo
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faCog} />
+                    </Link>
+                  )}
+                  <button
+                    title={t('submenu.more-actions', 'More Actions')}
+                    className="toggle"
+                  >
                     <FontAwesomeIcon icon={faEllipsisV} />
                   </button>
 
@@ -361,17 +402,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     {!isSideloaded && (
                       <div>
                         <b>{t('info.size')}:</b> {install_size}
-                      </div>
-                    )}
-                    <div style={{ textTransform: 'capitalize' }}>
-                      <b>
-                        {t('info.installedPlatform', 'Installed Platform')}:
-                      </b>{' '}
-                      {installPlatform === 'osx' ? 'MacOS' : installPlatform}
-                    </div>
-                    {!isSideloaded && (
-                      <div>
-                        <b>{t('info.version')}:</b> {version}
                       </div>
                     )}
                     <div>
@@ -473,23 +503,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     {getPlayLabel()}
                   </button>
                 )}
-                {is_installed && (
-                  <Link
-                    to={pathname}
-                    state={{
-                      fromGameCard: false,
-                      runner,
-                      isLinuxNative: isNative,
-                      isMacNative: isNative,
-                      hasCloudSave: cloud_save_enabled,
-                      gameInfo
-                    }}
-                    className={`button is-primary`}
-                  >
-                    {t('submenu.settings')}
-                  </Link>
-                )}
-                {(!is_installed || isQueued) && (
+                {!is_installed && (
                   <button
                     onClick={async () => handleInstall(is_installed)}
                     disabled={
