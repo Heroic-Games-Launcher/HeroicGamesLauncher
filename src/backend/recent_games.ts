@@ -1,3 +1,4 @@
+import { backendEvents } from './main'
 import { GameInfo, RecentGame } from 'common/types'
 import { BrowserWindow, ipcMain } from 'electron'
 import { GlobalConfig } from './config'
@@ -29,6 +30,7 @@ const addRecentGame = async (game: GameInfo) => {
   // emit
   const window = BrowserWindow.getAllWindows()[0]
   window.webContents.send('recentGamesChanged', updatedList)
+  backendEvents.emit('recentGamesChanged')
 }
 
 const removeRecentGame = async (appName: string) => {
@@ -40,6 +42,7 @@ const removeRecentGame = async (appName: string) => {
 
     const window = BrowserWindow.getAllWindows()[0]
     window.webContents.send('recentGamesChanged', updatedList)
+    backendEvents.emit('recentGamesChanged')
   }
 }
 
