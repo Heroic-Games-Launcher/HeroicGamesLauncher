@@ -1,3 +1,7 @@
+.timeContainer {
+  margin: var(--space-md) 0;
+}
+
 .info {
   display: flex;
   justify-content: space-between;

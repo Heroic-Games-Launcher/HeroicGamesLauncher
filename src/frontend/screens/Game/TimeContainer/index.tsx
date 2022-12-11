@@ -23,10 +23,12 @@ function TimeContainer({ game }: Props) {
 
   if (!hasPlayed) {
     return (
-      <SmallInfo
-        title={`${t('game.lastPlayed', 'Last Played')}:`}
-        subtitle={`${t('game.neverPlayed', 'Never')}`}
-      />
+      <span className="timeContainer">
+        <SmallInfo
+          title={`${t('game.lastPlayed', 'Last Played')}:`}
+          subtitle={`${t('game.neverPlayed', 'Never')}`}
+        />
+      </span>
     )
   }
 
